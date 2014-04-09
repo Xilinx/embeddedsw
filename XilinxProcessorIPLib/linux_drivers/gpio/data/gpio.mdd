@@ -1,0 +1,13 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver gpio
+
+  OPTION supported_peripherals = (axi_gpio);
+  OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = gpio;
+  DTGPARAM name = gpio-controller; 
+  DTGPARAM name = compatible, default = "xlnx,xps-gpio-1.00.a", type = stringlist;
+  DTGPARAM name = "#gpio-cells", default = 2, type = int;
+  DTGPARAM name = dts.device_type, default = gpio, type = string;
+END driver

@@ -1,0 +1,11 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver canps
+
+  OPTION supported_peripherals = (ps7_can);
+  OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = canps;
+  DTGPARAM name = compatible, type = stringlist, default = "xlnx,ps7-can";
+  
+END driver

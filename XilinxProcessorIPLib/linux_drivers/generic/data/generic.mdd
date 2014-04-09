@@ -1,0 +1,8 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver generic
+
+  OPTION NAME = generic;
+  OPTION supported_os_types = (DTS);
+
+END driver

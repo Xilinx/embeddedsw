@@ -1,0 +1,19 @@
+#
+# The Device-Tree BSP generator
+#
+OPTION psf_version = 2.1;
+
+BEGIN OS device_tree
+OPTION DRC = device_tree_drc;
+OPTION OS_TYPE = DTS
+OPTION SUPPORTED_PERIPHERALS = (microblaze ps7_cortexa9);
+OPTION DESC = "Generate flat device tree";
+OPTION COMPILE_BSP = FALSE;
+
+PARAMETER name = bootargs, desc = "Booting arguments", type = string, default = "";
+
+PARAMETER name = console_device, desc = "Instance name of IP core for boot console (e.g. RS232_Uart_1, not xps_uart16550)", type = peripheral_instance, range=(axi_uart16550, axi_uartlite, ps7_uart), default = none;
+
+PARAMETER name = periph_type_overrides, desc = "List of peripheral type overrides", type = string, default = "";
+PARAMETER name = main_memory, desc ="Name of Main Memory used with PetaLinux", type = peripheral_instance, range=(ps7_ddr, mpmc, mig_7series, axi_emc), default = none;
+END OS

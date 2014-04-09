@@ -1,0 +1,19 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver uartns
+
+  OPTION supported_peripherals = (axi_uart16550);
+   OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+
+  OPTION NAME = uartns; 
+  DTGPARAM name = compatible, type = stringlist, default = "xlnx,xps-uart16550-2.00.a ns16550a"; 
+  DTGPARAM name = current-speed, type = int, default = 115200; 
+  DTGPARAM name = device_type, type = string, default = serial; 
+  DTGPARAM name = dts.alias, type = string, default = serial;
+  DTGPARAM name = reg-offset, type = hexint, default = 0x1000; 
+  DTGPARAM name = reg-shift, type = int, default = 2; 
+  DTGPARAM name = clock-frequency, type = int, default = 100000000;
+
+
+END driver

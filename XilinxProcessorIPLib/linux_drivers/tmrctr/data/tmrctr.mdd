@@ -1,0 +1,12 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver tmrctr
+
+  OPTION supported_peripherals = (axi_timer);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = tmrctr;
+  OPTION supported_os_types = (DTS);
+
+  DTGPARAM name = clock-frequency, type = int, default = 100000000;
+
+END driver

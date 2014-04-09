@@ -1,0 +1,43 @@
+;/*******************************************************************/
+;/*                                                                 */
+;/* (c) Copyright 2012-2014 Xilinx, Inc. All rights reserved	    */
+;/*                                                                 */
+;/* Description : FSBL ARMCC Linker Script                          */
+;/*                                                                 */
+;/*******************************************************************/
+
+
+LOAD_OCM_1 0x00000000 0x00030000
+{
+    VECTORS +0
+    {
+    	* (.vectors, +FIRST)
+     	* (InRoot$$Sections)
+    }
+    
+    RO_CODE +0
+    {
+        * (+RO)    
+    }
+    RW_DATA +0
+    {
+        * (+RW)
+    }
+    
+    RSA_AC +0 ALIGN 0x40 EMPTY 0x1000 {}
+    
+    ZI_DATA +0
+    {
+        * (+ZI)
+    }
+	
+	ARM_LIB_HEAP  +0 ALIGN 0x10 EMPTY 0x2000 {}	
+}
+
+LOAD_OCM_2 0xFFFF0000 0x0000FE00
+{
+    ARM_LIB_STACK +0 ALIGN 0x10 EMPTY 0x4000 {}
+    IRQ_STACK     +0 ALIGN 0x10 EMPTY 0x6000 {}
+    SPV_STACK     +0 ALIGN 0x10 EMPTY 2048 {}
+    ABORT_STACK   +0 ALIGN 0x10 EMPTY 1024 {}
+}

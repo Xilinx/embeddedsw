@@ -1,0 +1,9 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver devcfg
+
+  OPTION supported_peripherals = (ps7_dev_cfg);
+  OPTION supported_os_types = (DTS)
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = devcfg;
+END driver

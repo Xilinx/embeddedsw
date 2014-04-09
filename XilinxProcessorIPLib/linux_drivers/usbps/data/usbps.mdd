@@ -1,0 +1,13 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver usbps
+
+  OPTION supported_peripherals = (ps7_usb);
+  OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = usbps;
+  DTGPARAM name = dr_mode, default = host , type = string ;
+  DTGPARAM name = phy_type, default = ulpi, type = string;
+  DTGPARAM name = usb-reset , type = reference;
+  
+END driver

@@ -1,0 +1,12 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver mig_7series
+
+  OPTION supported_peripherals = (mig_7series);
+  OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = mig_7series;
+
+  DTGPARAM name = device_type, default = memory, type = string;
+
+END driver

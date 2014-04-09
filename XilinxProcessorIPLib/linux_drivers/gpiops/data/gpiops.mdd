@@ -1,0 +1,15 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver gpiops
+
+  OPTION supported_peripherals = (ps7_gpio);
+  OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = gpiops;
+  DTGPARAM name = emio-gpio-width, type = int;
+  DTGPARAM name = gpio-controller;
+  DTGPARAM name = gpio-mask-high, type = hexint;
+  DTGPARAM name = gpio-mask-low, type = hexint;
+  DTGPARAM name = "#gpio-cells", default = 2, type = int
+  
+END driver

@@ -1,0 +1,16 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver pl310ps
+
+  OPTION supported_peripherals = (ps7_pl310);
+  OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = pl310ps;
+
+  DTGPARAM name = compatible, type = stringlist, default = "arm,pl310-cache";
+  DTGPARAM name = cache-level, type = int, default = 2;
+  DTGPARAM name = "arm,data-latency", type = intlist, default = <3 2 2>
+  DTGPARAM name = "arm,tag-latency", type = intlist, default = <2 2 2>
+  DTGPARAM name = cache-unified;
+
+END driver

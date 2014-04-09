@@ -1,0 +1,10 @@
+OPTION psf_version = 2.1;
+
+BEGIN driver slcrps
+
+  OPTION supported_peripherals = (ps7_slcr);
+  OPTION supported_os_types = (DTS);
+  OPTION driver_state = ACTIVE;
+  OPTION NAME = slcrps;
+  DTGPARAM name = compatible, type = stringlist, default = "xlnx,zynq-slcr";
+END driver
