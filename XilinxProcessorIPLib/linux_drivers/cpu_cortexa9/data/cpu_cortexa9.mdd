@@ -9,9 +9,6 @@ OPTION NAME = cpu_cortexa9;
 
 DTGPARAM name = d-cache-line-size , type = hexint , default = "0x20"
 DTGPARAM name = d-cache-size , type = hexint , default = "0x8000"
-DTGPARAM name = i-cache-line-size , type = hexint , default = "0x20"
-DTGPARAM name = i-cache-size , type = hexint , default = "0x8000"
-DTGPARAM name = device_type, default = cpu , type = string;
 
 DTGPARAM name = compatible, default = "arm,cortex-a9" , type = stringlist;
 
