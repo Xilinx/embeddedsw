@@ -7,7 +7,7 @@ BEGIN driver axiethernet
   OPTION NAME = axiethernet;
   OPTION supported_os_types = (DTS);
 
-  DTGPARAM name = dts.alias , type = reference, default = ethernet;
+  DTGPARAM name = dtg.alias , type = reference, default = ethernet;
   DTGPARAM name = axistream-connected , type = reference;
   DTGPARAM name = axistream-control-connected, type = reference;
   DTGPARAM name = clock-frequency, type = int, default = 100000000;

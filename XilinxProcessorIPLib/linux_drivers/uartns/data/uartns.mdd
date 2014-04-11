@@ -10,7 +10,7 @@ BEGIN driver uartns
   DTGPARAM name = compatible, type = stringlist, default = "xlnx,xps-uart16550-2.00.a ns16550a"; 
   DTGPARAM name = current-speed, type = int, default = 115200; 
   DTGPARAM name = device_type, type = string, default = serial; 
-  DTGPARAM name = dts.alias, type = string, default = serial;
+  DTGPARAM name = dtg.alias, type = string, default = serial;
   DTGPARAM name = reg-offset, type = hexint, default = 0x1000; 
   DTGPARAM name = reg-shift, type = int, default = 2; 
   DTGPARAM name = clock-frequency, type = int, default = 100000000;

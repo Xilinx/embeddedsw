@@ -10,6 +10,6 @@ BEGIN driver uartps
   DTGPARAM name = compatible, type = stringlist, default = "xlnx,xuartps"
   DTGPARAM name = current-speed , type = int, default = 115200;
   DTGPARAM name = device_type , type = string, default = serial;
-  DTGPARAM name = dts.alias, type = string, default = serial;
+  DTGPARAM name = dtg.alias, type = string, default = serial;
   DTGPARAM name = port-number, type = int, default = 0;
 END driver

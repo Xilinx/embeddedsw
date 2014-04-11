@@ -9,7 +9,7 @@ BEGIN driver emacps
   DTGPARAM name = "#address-cells", default = 1, type = int;
   DTGPARAM name = "#size-cells", default = 0, type = int ;
   DTGPARAM name = local-mac-address, default = "00 0a 35 00 00 00", type = bytelist
-  DTGPARAM name = dts.alias, type = string, default = ethernet;
+  DTGPARAM name = dtg.alias, type = string, default = ethernet;
   DTGPARAM name = phy-mode, default = gmii
   DTGPARAM name = "xlnx,ptp-enet-clock"
 END driver

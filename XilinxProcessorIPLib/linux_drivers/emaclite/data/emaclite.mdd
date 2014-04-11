@@ -9,7 +9,7 @@ BEGIN driver emaclite
 
   DTGPARAM name = compatible, type = stringlist, default = "xlnx,xps-ethernetlite-1.00.a";
   DTGPARAM name = device_type, type = string, default = network;
-  DTGPARAM name = dts.alias, type = string, default = ethernet;
+  DTGPARAM name = dtg.alias, type = string, default = ethernet;
   DTGPARAM name = local-mac-address, default = "00 0a 35 00 00 00", type = bytelist;
   DTGPARAM name = phy-handle, type = reference;
 

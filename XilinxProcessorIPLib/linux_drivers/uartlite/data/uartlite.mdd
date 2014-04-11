@@ -7,7 +7,7 @@ BEGIN driver uartlite
   OPTION supported_os_types = (DTS);
   OPTION NAME = uartlite; 
 
-  DTGPARAM name = dts.alias, type = string, default = serial;
+  DTGPARAM name = dtg.alias, type = string, default = serial;
   DTGPARAM name = port-number, type = int, default = 0;
   DTGPARAM name = current-speed, type = int, default = 115200;
   DTGPARAM name = compatible, type = stringlist,  default = "xlnx,xps-uartlite-1.00.a";

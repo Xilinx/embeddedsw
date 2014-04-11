@@ -9,5 +9,5 @@ BEGIN driver gpio
   DTGPARAM name = gpio-controller; 
   DTGPARAM name = compatible, default = "xlnx,xps-gpio-1.00.a", type = stringlist;
   DTGPARAM name = "#gpio-cells", default = 2, type = int;
-  DTGPARAM name = dts.device_type, default = gpio, type = string;
+  DTGPARAM name = dtg.device_type, default = gpio, type = string;
 END driver
