@@ -98,7 +98,10 @@
 *                       					function
 * 7.00a kc  10/18/13    Integrated SD/MMC driver
 * 8.00a kc  02/20/14	Fix for CR#775631 - FSBL: FsblGetGlobalTimer() 
-*						is not proper
+*											is not proper
+* 9.00a kc  04/16/14	Fix for CR#724166 - SetPpk() will fail on secure
+*		 									fallback unless FSBL* and FSBL
+*		 									are identical in length
 * </pre>
 *
 * @note
@@ -137,6 +140,10 @@
 
 #ifdef STDOUT_BASEADDRESS
 #include "xuartps_hw.h"
+#endif
+
+#ifdef RSA_SUPPORT
+#include "rsa.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -653,6 +660,14 @@ void FsblFallback(void)
 			 * Clean the Fabric
 			 */
 			FabricInit();
+
+#ifdef RSA_SUPPORT
+
+			/*
+			 * Making sure PPK is set for efuse error cases
+			 */
+			SetPpk();
+#endif
 
 			/*
 			 * Search for next valid image

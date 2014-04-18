@@ -201,6 +201,16 @@
 * 			02/20/14	775631 - FSBL: FsblGetGlobalTimer() is not proper
 *						Resolution: Function argument is updated from value
 *						to pointer to reflect updated value
+* 9.00a kc  04/16/14	773866 - SetPpk() will fail on secure fallback
+*						unless FSBL* and FSBL are identical in length
+*						Resolution: PPK is set only once now.
+*						785778 - FSBL takes 8 seconds to
+* 						authenticate (RSA) a bitstream on zc706
+* 						Resolution: Data Caches are enabled only for
+* 						authentication.
+* 						791245 - Use of xilrsa in fsbl
+* 						Resolution: Rsa library is removed from fsbl source
+* 						and xilrsa is used from BSP
 * </pre>
 *
 * </pre>
@@ -286,7 +296,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2014
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 

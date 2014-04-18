@@ -76,6 +76,8 @@
 * 						for encrypted images
 *						Fix for CR#761895 FSBL should authenticate image
 *						only if partition owner was not set to u-boot
+* 9.00a kc  04/16/14    Fix for CR#785778  FSBL takes 8 seconds to 
+* 						authenticate (RSA) a bitstream on zc706
 *
 * </pre>
 *
@@ -99,6 +101,7 @@
 
 #ifdef RSA_SUPPORT
 #include "rsa.h"
+#include "xil_cache.h"
 #endif
 /************************** Constant Definitions *****************************/
 
@@ -489,6 +492,7 @@ u32 LoadBootImage(void)
 			 */
 			if (SignedPartitionFlag == 1 ) {
 #ifdef RSA_SUPPORT
+				Xil_DCacheEnable();
 				Status = AuthenticatePartition((u8*)PartitionStartAddr,
 						(PartitionTotalSize << WORD_LENGTH_SHIFT));
 				if (Status != XST_SUCCESS) {
@@ -497,6 +501,8 @@ u32 LoadBootImage(void)
 					FsblFallback();
 				}
 				fsbl_printf(DEBUG_INFO,"Authentication Done\r\n");
+				Xil_DCacheFlush();
+                Xil_DCacheDisable();
 #else
 				/*
 				 * In case user not enabled RSA authentication feature

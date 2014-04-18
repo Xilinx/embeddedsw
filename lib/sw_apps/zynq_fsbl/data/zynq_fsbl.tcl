@@ -34,6 +34,14 @@ proc swapp_is_supported_sw {} {
     } elseif { [llength $librarylist] > 1} {
         error "Multiple xilffs libraries present in the Board Support Package."
     }
+	# make sure xilrsa is available
+    set librarylist [get_libs -filter "NAME==xilrsa"];
+
+	if { [llength $librarylist] == 0 } {
+        error "This application requires xilrsa library in the Board Support Package.";
+    } elseif { [llength $librarylist] > 1} {
+        error "Multiple xilrsa libraries present in the Board Support Package."
+    }
 }
 
 proc swapp_is_supported_hw {} {

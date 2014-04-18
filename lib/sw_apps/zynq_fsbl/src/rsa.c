@@ -59,6 +59,10 @@
 *                                        the Partition images
 *                    Fix for CR#722979 - Provide customer-friendly
 *                                        changelogs in FSBL
+* 9.00a kc  04/16/14 Fix for CR#724166 - SetPpk() will fail on secure
+*					 					 fallback unless FSBL* and FSBL are
+*					 					 identical in length
+*					 Fix for CR#791245 - Use of xilrsa in FSBL
 * </pre>
 *
 * @note
@@ -68,6 +72,7 @@
 /***************************** Include Files *********************************/
 #include "fsbl.h"
 #include "rsa.h"
+#include "xilrsa.h"
 
 #ifdef	XPAR_XWDTPS_0_BASEADDR
 #include "xwdtps.h"
@@ -93,7 +98,7 @@ extern XWdtPs Watchdog;	/* Instance of WatchDog Timer	*/
 static u8 *PpkModular;
 static u8 *PpkModularEx;
 static u32	PpkExp;
-
+static u32 PpkAlreadySet=0;
 
 extern u32 FsblLength;
 
@@ -132,43 +137,55 @@ void SetPpk(void )
 {
 	u32 PadSize;
 	u8 *PpkPtr;
-
+	
 	/*
-	 * Set PpkPtr to PPK in OCM
+	 * Set PPK only if is not already set
 	 */
-
-	/*
-	 * Skip FSBL Length
-	 */
-	PpkPtr = (u8 *)(FsblLength);
-	/*
-	 * Skip to 64 byte Boundary
-	 */
-	PadSize = ((u32)PpkPtr % 64);
-	if(PadSize != 0)
+	if(PpkAlreadySet == 0)
 	{
-		PpkPtr += (64 - PadSize);
+	
+		/*
+		 * Set PpkPtr to PPK in OCM
+		 */
+	 
+		/*
+		 * Skip FSBL Length
+		 */
+		PpkPtr = (u8 *)(FsblLength);
+		/*
+		 * Skip to 64 byte Boundary
+		 */
+		PadSize = ((u32)PpkPtr % 64);
+		if(PadSize != 0)
+		{
+			PpkPtr += (64 - PadSize);
+		}
+
+		/*
+		 * Increment the pointer by authentication Header size
+		 */
+		PpkPtr += RSA_HEADER_SIZE;
+
+		/*
+		 * Increment the pointer by Magic word size
+		 */
+		PpkPtr += RSA_MAGIC_WORD_SIZE;
+
+		/*
+		 * Set pointer to PPK
+		 */
+		PpkModular = (u8 *)PpkPtr;
+		PpkPtr += RSA_PPK_MODULAR_SIZE;
+		PpkModularEx = (u8 *)PpkPtr;
+		PpkPtr += RSA_PPK_MODULAR_EXT_SIZE;
+		PpkExp = *((u32 *)PpkPtr);
+	
+		/*
+		 * Setting variable to avoid resetting PPK pointers
+		 */
+		PpkAlreadySet=1;
 	}
-
-	/*
-	 * Increment the pointer by authentication Header size
-	 */
-	PpkPtr += RSA_HEADER_SIZE;
-
-	/*
-	 * Increment the pointer by Magic word size
-	 */
-	PpkPtr += RSA_MAGIC_WORD_SIZE;
-
-	/*
-	 * Set pointer to PPK
-	 */
-	PpkModular = (u8 *)PpkPtr;
-	PpkPtr += RSA_PPK_MODULAR_SIZE;
-	PpkModularEx = (u8 *)PpkPtr;
-	PpkPtr += RSA_PPK_MODULAR_EXT_SIZE;
-	PpkExp = *((u32 *)PpkPtr);
-
+	
 	return;
 }
 
