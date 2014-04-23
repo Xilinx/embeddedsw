@@ -1,7 +1,7 @@
 #
 # The Device-Tree BSP generator
 #
-OPTION psf_version = 2.1;
+OPTION psf_version = 3.0;
 
 BEGIN OS device_tree
 OPTION DRC = device_tree_drc;

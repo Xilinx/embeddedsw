@@ -1,4 +1,4 @@
-OPTION psf_version = 2.1;
+OPTION psf_version = 3.0;
 
 BEGIN driver scugic
 
