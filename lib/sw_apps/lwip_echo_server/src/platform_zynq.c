@@ -88,6 +88,12 @@ static int ResetRxCntr = 0;
 extern struct netif *echo_netif;
 #endif
 
+#if LWIP_DHCP==1
+volatile int dhcp_timoutcntr = 24;
+void dhcp_fine_tmr();
+void dhcp_coarse_tmr();
+#endif
+
 void
 timer_callback(XScuTimer * TimerInstance)
 {
@@ -95,6 +101,9 @@ timer_callback(XScuTimer * TimerInstance)
 	 * by lwIP. It is not important that the timing is absoluetly accurate.
 	 */
 	static int odd = 1;
+#if LWIP_DHCP==1
+    static int dhcp_timer = 0;
+#endif
 
 	odd = !odd;
 #ifndef USE_SOFTETH_ON_ZYNQ
@@ -102,7 +111,18 @@ timer_callback(XScuTimer * TimerInstance)
 #endif
 	tcp_fasttmr();
 	if (odd) {
+#if LWIP_DHCP==1
+		dhcp_timer++;
+		dhcp_timoutcntr--;
+#endif
 		tcp_slowtmr();
+#if LWIP_DHCP==1
+		dhcp_fine_tmr();
+		if (dhcp_timer >= 120) {
+			dhcp_coarse_tmr();
+			dhcp_timer = 0;
+		}
+#endif
 	}
 
 	/* For providing an SW alternative for the SI #692601. Under heavy

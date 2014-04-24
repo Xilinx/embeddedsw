@@ -11,4 +11,6 @@ END
 BEGIN LIBRARY
  PARAMETER LIBRARY_NAME = lwip140
  PARAMETER API_MODE = RAW_API
+ PARAMETER dhcp_does_arp_check = true
+ PARAMETER lwip_dhcp = true
 END
