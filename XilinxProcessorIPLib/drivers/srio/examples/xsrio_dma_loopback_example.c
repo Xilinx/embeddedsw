@@ -231,12 +231,8 @@ int XSrioDmaLoopbackExample(XSrio *InstancePtr, u16 DeviceId)
 	/* SRIO Configuration */
 	/* Set the Local Configuration Space Base Address */
 	XSrio_SetLCSBA(InstancePtr, 0xFFF);
-        /* Set the Water Mark Level to transfer priority 0 packet */
-	XSrio_SetWaterMark0(InstancePtr, 0x5);
-        /* Set the Water Mark Level to transfer priority 1 packet */
-	XSrio_SetWaterMark1(InstancePtr, 0x4);
-        /* Set the Water Mark Level to transfer priority 2 packet */
-	XSrio_SetWaterMark2(InstancePtr, 0x3);
+        /* Set the Water Mark Level to transfer priority 0,1,2 packet */
+	XSrio_SetWaterMark(InstancePtr, 0x5, 0x4, 0x3);
         /* Set the Port Response timeout value */
 	XSrio_SetPortRespTimeOutValue(InstancePtr, 0x010203);
 	

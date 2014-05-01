@@ -158,7 +158,7 @@ extern "C" {
 #define XSRIO_PORT_UNINITIALIZED  1  /**< Port is uninitialized */
 #define XSRIO_PORT_HAS_ERRORS	  2  /**< Port has errors */
 
-/* Processing Element(SRIO Gen2 Core Direction Flags */
+/* Processing Element(SRIO Gen2 Core) Direction Flags */
 #define XSRIO_DIR_TX		1 /**< Transmit Direction Flag */ 
 #define XSRIO_DIR_RX		2 /**< Receive Direction Flag */
 
@@ -170,9 +170,6 @@ extern "C" {
 typedef struct XSrio_Config {
 	u16 DeviceId;		/**< Device Id */
 	u32 BaseAddress;	/**< Base Address */
-	u8  IsPEMemory;         /**< Core is configured as Memory */
-	u8  IsPEProcessor;      /**< Core is configured as Processor */
-	u8  IsPEBridge;         /**< Core is Configured as Bridge */
 } XSrio_Config;
 
 /**
@@ -228,7 +225,7 @@ typedef struct XSrio {
 /****************************************************************************/
 /**
 *
-* XSrio_ReadAsmVendorID retruns the Assembly Vendor Id of the core.
+* XSrio_ReadAsmVendorID returns the Assembly Vendor Id of the core.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
 *               worked on.
@@ -241,7 +238,7 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_ReadAsmVendorID(InstancePtr)	\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_ASM_ID_CAR_OFFSET) & XSRIO_ASM_ID_ASMVID_CAR_MASK)
+		XSRIO_ASM_ID_CAR_OFFSET) & XSRIO_ASM_ID_CAR_ASMVID_MASK)
 		
 /****************************************************************************/
 /**
@@ -259,8 +256,8 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_ReadAsmID(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_ASM_ID_CAR_OFFSET) & XSRIO_ASM_ID_ASMID_CAR_MASK) >> \
-		XSRIO_ASM_ID_ASMID_CAR_SHIFT)
+		XSRIO_ASM_ID_CAR_OFFSET) & XSRIO_ASM_ID_CAR_ASMID_MASK) >> \
+		XSRIO_ASM_ID_CAR_ASMID_SHIFT)
 
 /****************************************************************************/
 /**
@@ -279,7 +276,7 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_GetExFeaturesPointer(InstancePtr)	\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_ASM_INFO_CAR_OFFSET) & XSRIO_ASM_INFO_EFP_CAR_MASK)
+		XSRIO_ASM_INFO_CAR_OFFSET) & XSRIO_ASM_INFO_CAR_EFP_MASK)
 
 /****************************************************************************/
 /**
@@ -297,8 +294,8 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_ReadAsmRevision(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_ASM_INFO_CAR_OFFSET) & XSRIO_ASM_INFO_ASR_CAR_MASK) >> \
-		XSRIO_ASM_INFO_ASR_CAR_SHIFT)
+		XSRIO_ASM_INFO_CAR_OFFSET) & XSRIO_ASM_INFO_CAR_ASMREV_MASK) >> \
+		XSRIO_ASM_INFO_CAR_ASMREV_SHIFT)
 
 /****************************************************************************/
 /**
@@ -319,7 +316,7 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_IsLargeSystem(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_PEF_CAR_OFFSET) & XSRIO_PEF_CTS_CAR_MASK) ?  \
+		XSRIO_PEF_CAR_OFFSET) & XSRIO_PEF_CAR_CTS_MASK) ?  \
 			TRUE : FALSE)
 
 /****************************************************************************/
@@ -341,7 +338,7 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_IsCRFSupported(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_PEF_CAR_OFFSET) & XSRIO_PEF_CRF_CAR_MASK) ?  \
+		XSRIO_PEF_CAR_OFFSET) & XSRIO_PEF_CAR_CRF_MASK) ?  \
 			TRUE : FALSE)
 
 /****************************************************************************/
@@ -404,7 +401,7 @@ typedef struct XSrio {
 /****************************************************************************/
 /**
 *
-* XSrio_SetLCSBA it sets the Local Configuration Space Base Address of 
+* XSrio_SetLCSBA Configures the Local Configuration Space Base Address of 
 * the SRIO Gen2 core.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -442,7 +439,7 @@ typedef struct XSrio {
 #define XSrio_GetLargeBaseDeviceID(InstancePtr)		\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_BASE_DID_CSR_OFFSET) & \
-	     XSRIO_BASE_DID_LBDID_CSR_MASK)
+	     XSRIO_BASE_DID_CSR_LBDID_MASK)
 
 /****************************************************************************/
 /**
@@ -464,8 +461,8 @@ typedef struct XSrio {
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_BASE_DID_CSR_OFFSET, 	     		\
 	     ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-	      XSRIO_BASE_DID_CSR_OFFSET) & XSRIO_BASI_DID_BDID_CSR_MASK)  | \
-	      (DeviceId & XSRIO_BASE_DID_LBDID_CSR_MASK))))
+	      XSRIO_BASE_DID_CSR_OFFSET) & XSRIO_BASE_DID_CSR_BDID_MASK)  | \
+	      (DeviceId & XSRIO_BASE_DID_CSR_LBDID_MASK))))
 
 /****************************************************************************/
 /**
@@ -485,7 +482,7 @@ typedef struct XSrio {
 #define XSrio_GetBaseDeviceID(InstancePtr)	\
 	 ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_BASE_DID_CSR_OFFSET) & \
-	     XSRIO_BASI_DID_BDID_CSR_MASK) >> XSRIO_BASI_DID_BDID_CSR_SHIFT)
+	     XSRIO_BASE_DID_CSR_BDID_MASK) >> XSRIO_BASE_DID_CSR_BDID_SHIFT)
 
 /****************************************************************************/
 /**
@@ -507,9 +504,9 @@ typedef struct XSrio {
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	   XSRIO_BASE_DID_CSR_OFFSET,  \
 	   ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_BASE_DID_CSR_OFFSET) & XSRIO_BASE_DID_LBDID_CSR_MASK) \
-	     |((DeviceId << XSRIO_BASI_DID_BDID_CSR_SHIFT) \
-	     & XSRIO_BASI_DID_BDID_CSR_MASK))))
+	     XSRIO_BASE_DID_CSR_OFFSET) & XSRIO_BASE_DID_CSR_LBDID_MASK) \
+	     |((DeviceId << XSRIO_BASE_DID_CSR_BDID_SHIFT) \
+	     & XSRIO_BASE_DID_CSR_BDID_MASK))))
 		
 /****************************************************************************/
 /**
@@ -528,7 +525,7 @@ typedef struct XSrio {
 #define XSrio_GetHostBaseDevID_LockCSR(InstancePtr)	\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_HOST_DID_LOCK_CSR_OFFSET) & \
-	     XSRIO_HOST_DID_LOCK_HBDID_CSR_MASK)
+	     XSRIO_HOST_DID_LOCK_CSR_HBDID_MASK)
 	     
 /****************************************************************************/
 /**
@@ -550,7 +547,7 @@ typedef struct XSrio {
 #define XSrio_SetHostBaseDevID_LockCSR(InstancePtr, DeviceId)	\
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_HOST_DID_LOCK_CSR_OFFSET, 	     \
-	          (DeviceId & XSRIO_HOST_DID_LOCK_HBDID_CSR_MASK)))
+	          (DeviceId & XSRIO_HOST_DID_LOCK_CSR_HBDID_MASK)))
 
 /****************************************************************************/
 /**
@@ -647,9 +644,9 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_GetPortLinkTimeOutValue(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_PORT_TOUT_CSR_OFFSET) & \
-	     	XSRIO_PORT_TOUT_TOUTVAL_CSR_MASK) >>   \
-			XSRIO_PORT_TOUT_TOUTVAL_CSR_SHIFT)
+	     XSRIO_PORT_LINK_TOUT_CSR_OFFSET   ) & \
+	     	XSRIO_PORT_LINK_TOUT_CSR_TOUTVAL_MASK) >>   \
+			XSRIO_PORT_LINK_TOUT_CSR_TOUTVAL_SHIFT)
 
 /****************************************************************************/
 /**
@@ -670,9 +667,9 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_SetPortLinkTimeOutValue(InstancePtr, Value)	\
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_PORT_TOUT_CSR_OFFSET, 	     \
-	     (Value << XSRIO_PORT_TOUT_TOUTVAL_CSR_SHIFT) &  \
-	        XSRIO_PORT_TOUT_TOUTVAL_CSR_MASK))
+	     XSRIO_PORT_LINK_TOUT_CSR_OFFSET   , 	     \
+	     (Value << XSRIO_PORT_LINK_TOUT_CSR_TOUTVAL_SHIFT) &  \
+	        XSRIO_PORT_LINK_TOUT_CSR_TOUTVAL_MASK))
 	     
 /****************************************************************************/
 /**
@@ -691,9 +688,9 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_GetPortRespTimeOutValue(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_RSP_TOUT_CSR_OFFSET) & \
-	     	XSRIO_RSP_TOUT_TOUTVAL_CSR_MASK) >>  \
-			XSRIO_RSP_TOUT_TOUTVAL_CSR_SHIFT)
+	     XSRIO_PORT_RESP_TOUT_CSR_OFFSET) & \
+	     	XSRIO_PORT_RESP_TOUT_CSR_TOUTVAL_MASK) >>  \
+			XSRIO_PORT_RESP_TOUT_CSR_TOUTVAL_SHIFT)
 
 /****************************************************************************/
 /**
@@ -714,9 +711,9 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_SetPortRespTimeOutValue(InstancePtr, Value)	\
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_RSP_TOUT_CSR_OFFSET, 	     \
-	     (Value << XSRIO_RSP_TOUT_TOUTVAL_CSR_SHIFT) &  \
-	        XSRIO_RSP_TOUT_TOUTVAL_CSR_MASK))	     
+	     XSRIO_PORT_RESP_TOUT_CSR_OFFSET, 	     \
+	     (Value << XSRIO_PORT_RESP_TOUT_CSR_TOUTVAL_SHIFT) &  \
+	        XSRIO_PORT_RESP_TOUT_CSR_TOUTVAL_MASK))	     
 
 /****************************************************************************/
 /**
@@ -737,13 +734,13 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_IsPEDiscovered(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_GEN_CTL_CSR_OFFSET) & \
-		XSRIO_GEN_CTL_DISCOVERED_CSR_MASK) ?  TRUE : FALSE)
+		XSRIO_PORT_GEN_CTL_CSR_OFFSET) & \
+		XSRIO_PORT_GEN_CTL_CSR_DISCOVERED_MASK) ?  TRUE : FALSE)
 			
 /****************************************************************************/
 /**
 *
-* XSrio_Discovered configures the device as Discovered so that it is 
+* XSrio_SetDiscovered configures the device as Discovered so that it is 
 * responsible for system exploration.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -752,15 +749,15 @@ typedef struct XSrio {
 * @return	None.
 *
 * @note         C-style signature:
-*               void XSrio_Discovered(XSrio *InstancePtr)
+*               void XSrio_SetDiscovered(XSrio *InstancePtr)
 *
 *****************************************************************************/
-#define XSrio_Discovered(InstancePtr)	\
+#define XSrio_SetDiscovered(InstancePtr)	\
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	      XSRIO_GEN_CTL_CSR_OFFSET, 	     \
+	      XSRIO_PORT_GEN_CTL_CSR_OFFSET, 	     \
 	     (XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_GEN_CTL_CSR_OFFSET) 	\
-	        | XSRIO_GEN_CTL_DISCOVERED_CSR_MASK)))
+		XSRIO_PORT_GEN_CTL_CSR_OFFSET) 	\
+	        | XSRIO_PORT_GEN_CTL_CSR_DISCOVERED_MASK)))
 
 /****************************************************************************/
 /**
@@ -781,13 +778,13 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_IsMasterEnabled(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_GEN_CTL_CSR_OFFSET) \
-		& XSRIO_GEN_CTL_MENABLE_CSR_MASK) ?  TRUE : FALSE)
+		XSRIO_PORT_GEN_CTL_CSR_OFFSET) \
+		& XSRIO_PORT_GEN_CTL_CSR_MENABLE_MASK) ?  TRUE : FALSE)
 			
 /****************************************************************************/
 /**
 *
-* XSrio_MasterEnabled configures the device so that it is allowed to issue 
+* XSrio_SetMasterEnabled configures the device so that it is allowed to issue 
 * requests into the system.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -796,15 +793,15 @@ typedef struct XSrio {
 * @return	None.
 *
 * @note         C-style signature:
-*               void XSrio_MasterEnabled(XSrio *InstancePtr)
+*               void XSrio_SetMasterEnabled(XSrio *InstancePtr)
 *
 *****************************************************************************/
-#define XSrio_MasterEnabled(InstancePtr)	\
+#define XSrio_SetMasterEnabled(InstancePtr)	\
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	      XSRIO_GEN_CTL_CSR_OFFSET, 	     \
+	      XSRIO_PORT_GEN_CTL_CSR_OFFSET, 	     \
 	     (XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_GEN_CTL_CSR_OFFSET) 	\
-	        | XSRIO_GEN_CTL_MENABLE_CSR_MASK)))
+		XSRIO_PORT_GEN_CTL_CSR_OFFSET) 	\
+	        | XSRIO_PORT_GEN_CTL_CSR_MENABLE_MASK)))
 
 /****************************************************************************/
 /**
@@ -825,13 +822,13 @@ typedef struct XSrio {
 *****************************************************************************/
 #define XSrio_IsHost(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_GEN_CTL_CSR_OFFSET) \
-		& XSRIO_GEN_CTL_HOST_CSR_MASK) ?  TRUE : FALSE)
+		XSRIO_PORT_GEN_CTL_CSR_OFFSET) \
+		& XSRIO_PORT_GEN_CTL_CSR_HOST_MASK) ?  TRUE : FALSE)
 			
 /****************************************************************************/
 /**
 *
-* XSrio_HostEnabled configures the device to be responsible for system 
+* XSrio_SetHostEnabled configures the device to be responsible for system 
 * exploration.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -840,15 +837,15 @@ typedef struct XSrio {
 * @return	None.
 *
 * @note         C-style signature:
-*               void XSrio_HostEnabled(XSrio *InstancePtr)
+*               void XSrio_SetHostEnabled(XSrio *InstancePtr)
 *
 *****************************************************************************/
-#define XSrio_HostEnabled(InstancePtr)	\
+#define XSrio_SetHostEnabled(InstancePtr)	\
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	      XSRIO_GEN_CTL_CSR_OFFSET, 	     \
+	      XSRIO_PORT_GEN_CTL_CSR_OFFSET, 	     \
 	      (XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_GEN_CTL_CSR_OFFSET) 	\
-	        | XSRIO_GEN_CTL_HOST_CSR_MASK)))
+		XSRIO_PORT_GEN_CTL_CSR_OFFSET) 	\
+	        | XSRIO_PORT_GEN_CTL_CSR_HOST_MASK)))
 
 /****************************************************************************/
 /**
@@ -869,7 +866,7 @@ typedef struct XSrio {
 #define XSrio_GetCommand(InstancePtr)	\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_MNT_REQ_CSR_OFFSET) & \
-	     XSRIO_PORT_N_MNT_REQ_CMD_CSR_MASK)
+	     XSRIO_PORT_N_MNT_REQ_CSR_CMD_MASK)
 
 /****************************************************************************/
 /**
@@ -891,7 +888,7 @@ typedef struct XSrio {
 #define XSrio_SendCommand(InstancePtr, Value)	\
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_MNT_REQ_CSR_OFFSET, 	     \
-	     Value & XSRIO_PORT_N_MNT_REQ_CMD_CSR_MASK))
+	     Value & XSRIO_PORT_N_MNT_REQ_CSR_CMD_MASK))
 
 /****************************************************************************/
 /**
@@ -916,7 +913,7 @@ typedef struct XSrio {
 #define XSrio_IsResponseValid(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_MNT_RES_CSR_OFFSET) & \
-	     XSRIO_PORT_N_MNT_RES_RVALID_CSR_MASK) ? TRUE : FALSE)
+	     XSRIO_PORT_N_MNT_RES_CSR_RVALID_MASK) ? TRUE : FALSE)
 
 /****************************************************************************/
 /**
@@ -937,7 +934,7 @@ typedef struct XSrio {
 #define XSrio_GetOutboundAckID(InstancePtr)	\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_ACKID_CSR_OFFSET) & \
-	     XSRIO_PORT_N_ACKID_OBACKID_CSR_MASK)
+	     XSRIO_PORT_N_ACKID_CSR_OBACKID_MASK)
 
 /****************************************************************************/
 /**
@@ -961,8 +958,8 @@ typedef struct XSrio {
 	     XSRIO_PORT_N_ACKID_CSR_OFFSET,  \
 	     ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 		XSRIO_PORT_N_ACKID_CSR_OFFSET) &	\
-		XSRIO_PORT_N_ACKID_RESET_OBACKID_CSR_MASK) \
-	        | (Value & XSRIO_PORT_N_ACKID_OBACKID_CSR_MASK))))
+		XSRIO_PORT_N_ACKID_CSR_RESET_OBACKID_MASK) \
+	        | (Value & XSRIO_PORT_N_ACKID_CSR_OBACKID_MASK))))
 
 /****************************************************************************/
 /**
@@ -983,8 +980,8 @@ typedef struct XSrio {
 #define XSrio_GetInboundAckID(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	  XSRIO_PORT_N_ACKID_CSR_OFFSET) & \
-	  	XSRIO_PORT_N_ACKID_IBACKID_CSR_MASK) >>  \
-			XSRIO_PORT_N_ACKID_IBACKID_CSR_SHIFT)
+	  	XSRIO_PORT_N_ACKID_CSR_IBACKID_MASK) >>  \
+			XSRIO_PORT_N_ACKID_CSR_IBACKID_SHIFT)
 
 /****************************************************************************/
 /**
@@ -1011,9 +1008,9 @@ typedef struct XSrio {
 	      XSRIO_PORT_N_ACKID_CSR_OFFSET, 	     \
 	     ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 		XSRIO_PORT_N_ACKID_CSR_OFFSET) &  \
-		XSRIO_PORT_N_ACKID_RESET_IBACKID_CSR_MASK)	\
-	        | ((Value << XSRIO_PORT_N_ACKID_IBACKID_CSR_SHIFT) &    \
-		     XSRIO_PORT_N_ACKID_IBACKID_CSR_MASK))))
+		XSRIO_PORT_N_ACKID_CSR_RESET_IBACKID_MASK)	\
+	        | ((Value << XSRIO_PORT_N_ACKID_CSR_IBACKID_SHIFT) &    \
+		     XSRIO_PORT_N_ACKID_CSR_IBACKID_MASK))))
 
 /****************************************************************************/
 /**
@@ -1035,7 +1032,7 @@ typedef struct XSrio {
 	      XSRIO_PORT_N_ACKID_CSR_OFFSET, 	     \
 	      (XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 		XSRIO_PORT_N_ACKID_CSR_OFFSET) 	\
-	        | XSRIO_PORT_N_ACKID_CLSACKID_CSR_MASK)))
+	        | XSRIO_PORT_N_ACKID_CSR_CLSACKID_MASK)))
  
 /****************************************************************************/
 /**
@@ -1057,7 +1054,7 @@ typedef struct XSrio {
 #define XSrio_IsEnumerationBoundary(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_CTL_CSR_OFFSET) & \
-	     XSRIO_PORT_N_CTL_ENUMB_CSR_MASK) ? TRUE : FALSE)
+	     XSRIO_PORT_N_CTL_CSR_ENUMB_MASK) ? TRUE : FALSE)
 	     
 /****************************************************************************/
 /**
@@ -1079,12 +1076,12 @@ typedef struct XSrio {
 	      XSRIO_PORT_N_CTL_CSR_OFFSET, 	\
 	      (XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	       XSRIO_PORT_N_CTL_CSR_OFFSET) \
-	        | XSRIO_PORT_N_CTL_ENUMB_CSR_MASK)))
+	        | XSRIO_PORT_N_CTL_CSR_ENUMB_MASK)))
 
 /****************************************************************************/
 /**
 *
-* XSrio_GetPortwidthOverride it gives the port width override value of the 
+* XSrio_GetPortwidthOverride returns the port width override value of the 
 * SRIO Gen2 core.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -1099,13 +1096,13 @@ typedef struct XSrio {
 #define XSrio_GetPortwidthOverride(InstancePtr)	\
 	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_CTL_CSR_OFFSET) & \
-	     XSRIO_PORT_N_CTL_PWO_CSR_MASK) >> XSRIO_PORT_N_CTL_PWO_CSR_SHIFT)
+	     XSRIO_PORT_N_CTL_CSR_PWO_MASK) >> XSRIO_PORT_N_CTL_CSR_PWO_SHIFT)
 	     
 /****************************************************************************/
 /**
 *
-* XSrio_SetPortwidthOverride it sets the port width override value of the SRIO
-* Gen2 core.
+* XSrio_SetPortwidthOverride configures the port width override value of the
+* SRIO Gen2 core.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
 *               worked on.
@@ -1122,14 +1119,14 @@ typedef struct XSrio {
 	      XSRIO_PORT_N_CTL_CSR_OFFSET, 	\
 	      	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 			XSRIO_PORT_N_CTL_CSR_OFFSET) &	\
-				XSRIO_PORT_N_CTL_RESET_PWO_CSR_MASK) | \
-	        		((Value << XSRIO_PORT_N_CTL_PWO_CSR_SHIFT)  \
-					& XSRIO_PORT_N_CTL_PWO_CSR_MASK))))
+				XSRIO_PORT_N_CTL_CSR_RESET_PWO_MASK) | \
+	        		((Value << XSRIO_PORT_N_CTL_CSR_PWO_SHIFT)  \
+					& XSRIO_PORT_N_CTL_CSR_PWO_MASK))))
 	
 /****************************************************************************/
 /**
 *
-* XSrio_GetSerialLaneExtFeaturesPointer it gives the exteneded features pointer 
+* XSrio_GetSerialLaneExtFeaturesPointer returns the extended features pointer 
 * For the serial lane which will point to the next extended features block 
 * If one exists.
 *
@@ -1150,7 +1147,7 @@ typedef struct XSrio {
 /****************************************************************************/
 /**
 *
-* XSrio_ClrDecodingErrors it will clears the 8B/10B decoding errors and return 
+* XSrio_ClrDecodingErrors clears the 8B/10B decoding errors and return 
 * Result.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -1169,138 +1166,7 @@ typedef struct XSrio {
 	     XSRIO_EFB_LPSL_OFFSET + XSRIO_SLS0_CSR_OFFSET(Lanenum)) & \
 	     XSRIO_SLS0_CSR_DECODING_ERRORS_MASK)   \
 		>> XSRIO_SLS0_CSR_DECODING_ERRORS_SHIFT)
-	     
-/****************************************************************************/
-/**
-*
-* XSrio_GetWaterMark0 it gives the water mark0 buffer space value which will be
-* Use by the link partner to send a priority 0 packet.
-*
-* @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
-*               worked on.
-*
-* @return	Water Mark buffer space value.
-*
-* @note         C-style signature:
-*               u8 XSrio_GetWaterMark0(XSrio *InstancePtr)
-*
-*****************************************************************************/
-#define XSrio_GetWaterMark0(InstancePtr)	\
-	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_IMP_WCSR_OFFSET) & \
-	     XSRIO_IMP_WCSR_WM0_MASK)
-	     
-/****************************************************************************/
-/**
-*
-* XSrio_SetWaterMark0 sets water mark0 buffer space value which will be used
-* By the link partner to send a priority 0 packet.
-* 
-* @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
-*               worked on.
-* @param	Value to set for a priority 0 packet.
-*
-* @return	None.
-*
-* @note         C-style signature:
-*               void XSrio_SetWaterMark0(XSrio *InstancePtr, u8 Value)
-*
-*****************************************************************************/
-#define XSrio_SetWaterMark0(InstancePtr, Value)	\
-	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	    XSRIO_IMP_WCSR_OFFSET, 	\
-	      ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		 XSRIO_IMP_WCSR_OFFSET) & XSRIO_IMP_WCSR_RESET_WM0_MASK) | \
-			(Value & XSRIO_IMP_WCSR_WM0_MASK))))
-	
-/****************************************************************************/
-/**
-*
-* XSrio_GetWaterMark1 returns the water mark1 buffer space value which will be
-* Use by the link partner to send a priority 1 packet.
-*
-* @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
-*               worked on.
-*
-* @return	Water Mark buffer space value.
-*
-* @note         C-style signature:
-*               u8 XSrio_GetWaterMark1(XSrio *InstancePtr)
-*
-*****************************************************************************/
-#define XSrio_GetWaterMark1(InstancePtr)	\
-	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_IMP_WCSR_OFFSET ) & \
-	     XSRIO_IMP_WCSR_WM1_MASK) >> XSRIO_IMP_WCSR_WM1_SHIFT)
-	     
-/****************************************************************************/
-/**
-*
-* XSrio_SetWaterMark1 sets the water mark1 buffer space value which will be
-* Use by the link partner to send a priority 1 packet.
-*
-* @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
-*               worked on.
-* @param	Value to set for a priority 1 packet.
-*
-* @return	None.
-*
-* @note         C-style signature:
-*               void XSrio_SetWaterMark1(XSrio *InstancePtr, u8 Value)
-*
-*****************************************************************************/
-#define XSrio_SetWaterMark1(InstancePtr, Value)	\
-	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	      XSRIO_IMP_WCSR_OFFSET, 	\
-	      	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		     XSRIO_IMP_WCSR_OFFSET) & XSRIO_IMP_WCSR_RESET_WM1_MASK) |\
-	        		((Value << XSRIO_IMP_WCSR_WM1_SHIFT)	\
-					& XSRIO_IMP_WCSR_WM1_MASK))))
-					
-/****************************************************************************/
-/**
-*
-* XSrio_GetWaterMark2 returns the water mark2 buffer space value which will be
-* Use by the link partner to send a priority 2 packet.
-*
-* @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
-*               worked on.
-*
-* @return	Water Mark buffer space value..
-*
-* @note         C-style signature:
-*               u8 XSrio_GetWaterMark2(XSrio *InstancePtr)
-*
-*****************************************************************************/
-#define XSrio_GetWaterMark2(InstancePtr)	\
-	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-	     XSRIO_IMP_WCSR_OFFSET ) & \
-	     XSRIO_IMP_WCSR_WM2_MASK) >> XSRIO_IMP_WCSR_WM2_SHIFT)
-	     
-/****************************************************************************/
-/**
-*
-* XSrio_SetWaterMark2 sets the water mark2 buffer space value which will be
-* Use by the link partner to send a priority 2 packet.
-*
-* @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
-*               worked on.
-* @param	Value to set for a priority 2 packet.
-*
-* @return	None.
-*
-* @note         C-style signature:
-*               void XSrio_SetWaterMark2(XSrio *InstancePtr, u8 Value)
-*
-*****************************************************************************/
-#define XSrio_SetWaterMark2(InstancePtr, Value)	\
-	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
-	      XSRIO_IMP_WCSR_OFFSET, 	\
-	      	((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		    XSRIO_IMP_WCSR_OFFSET) & XSRIO_IMP_WCSR_RESET_WM2_MASK) | \
-	        		((Value << XSRIO_IMP_WCSR_WM2_SHIFT)	\
-					& XSRIO_IMP_WCSR_WM2_MASK))))
-					
+	     					
 /****************************************************************************/
 /**
 *
@@ -1410,7 +1276,7 @@ typedef struct XSrio {
 /****************************************************************************/
 /**
 *
-* XSrio_RequestDestinationID gets the destination id value which will be 
+* XSrio_GetDestinationID gets the destination id value which will be 
 * used for outgoing maintenance requests.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -1419,7 +1285,7 @@ typedef struct XSrio {
 * @return	Destination ID value of the outgoing maintenance request.
 *
 * @note         C-style signature:
-*               u8 XSrio_RequestDestinationID(XSrio *InstancePtr)
+*               u8 XSrio_GetDestinationID(XSrio *InstancePtr)
 *
 *****************************************************************************/
 #define XSrio_GetDestinationID(InstancePtr)	\
@@ -1447,13 +1313,13 @@ typedef struct XSrio {
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	   XSRIO_IMP_MRIR_OFFSET, 	\
 	     ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_IMP_MRIR_OFFSET) & XSRIO_IMP_MRIR_RST_REQ_DESTID_MASK) | \
+		XSRIO_IMP_MRIR_OFFSET) & ~XSRIO_IMP_MRIR_REQ_DESTID_MASK) | \
 	        		(Value & XSRIO_IMP_MRIR_REQ_DESTID_MASK))))
 
 /****************************************************************************/
 /**
 *
-* XSrio_GetCRF checks whethere the CRF is enabled in the core or not which will 
+* XSrio_GetCRF checks whether the CRF is enabled in the core or not which will 
 * be used for outgoing maintenance requests.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
@@ -1462,7 +1328,7 @@ typedef struct XSrio {
 * @return	CRF Value used for outgoing maintenance requests.
 *
 * @note         C-style signature:
-*               u8 XSrio_RequestCRF(XSrio *InstancePtr)
+*               u8 XSrio_GetCRF(XSrio *InstancePtr)
 *
 *****************************************************************************/
 #define XSrio_GetCRF(InstancePtr)	\
@@ -1495,7 +1361,7 @@ typedef struct XSrio {
 /****************************************************************************/
 /**
 *
-* XSrio_RequestPriority priority used for outgoing maintenance requests.
+* XSrio_GetPriority priority used for outgoing maintenance requests.
 *
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
 *               worked on.
@@ -1503,7 +1369,7 @@ typedef struct XSrio {
 * @return	Priority value.
 *
 * @note         C-style signature:
-*               u8 XSrio_RequestPriority(XSrio *InstancePtr)
+*               u8 XSrio_GetPriority(XSrio *InstancePtr)
 *
 *****************************************************************************/
 #define XSrio_GetPriority(InstancePtr)	\
@@ -1532,7 +1398,7 @@ typedef struct XSrio {
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	    XSRIO_IMP_MRIR_OFFSET, 	\
 	     ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		 XSRIO_IMP_MRIR_OFFSET) & XSRIO_IMP_MRIR_RST_REQ_PRIO_MASK) | \
+		 XSRIO_IMP_MRIR_OFFSET) & ~XSRIO_IMP_MRIR_REQ_PRIO_MASK) | \
 	       	     ((Value << XSRIO_IMP_MRIR_REQ_PRIO_SHIFT)&  \
 			  XSRIO_IMP_MRIR_REQ_PRIO_MASK))))
 
@@ -1578,7 +1444,7 @@ typedef struct XSrio {
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	    XSRIO_IMP_MRIR_OFFSET, 	\
 	      ((XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		  XSRIO_IMP_MRIR_OFFSET) & XSRIO_IMP_MRIR_REQ_RST_TID_MASK) | \
+		  XSRIO_IMP_MRIR_OFFSET) & ~XSRIO_IMP_MRIR_REQ_TID_MASK) | \
 	             ((Value << XSRIO_IMP_MRIR_REQ_TID_SHIFT)&  \
 			   XSRIO_IMP_MRIR_REQ_TID_MASK))))
 			   
@@ -1601,8 +1467,8 @@ typedef struct XSrio {
 	(XSrio_WriteReg((InstancePtr)->Config.BaseAddress,	\
 	      XSRIO_PORT_N_ERR_STS_CSR_OFFSET, 	\
 	      (XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XSRIO_PORT_N_ERR_STS_CSR_OFFSET) \
-	        | (Mask & XSRIO_PORT_N_ERR_STS_ERR_ALL_CSR_MASK))))
+		  XSRIO_PORT_N_ERR_STS_CSR_OFFSET) | \
+	         (Mask & XSRIO_PORT_N_ERR_STS_CSR_ERR_ALL_MASK))))
 
 /****************************************************************************/
 /**
@@ -1622,7 +1488,7 @@ typedef struct XSrio {
 #define XSrio_GetPortErrorStatus(InstancePtr)	\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_ERR_STS_CSR_OFFSET) & \
-	     XSRIO_PORT_N_ERR_STS_ERR_ALL_CSR_MASK) 
+	     XSRIO_PORT_N_ERR_STS_CSR_ERR_ALL_MASK) 
 				
 /****************************************************************************/
 /**
@@ -1644,7 +1510,7 @@ typedef struct XSrio {
 	      XSRIO_PORT_N_CTL_CSR_OFFSET, 	\
 	      (XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 		XSRIO_PORT_N_CTL_CSR_OFFSET) \
-	        | (Mask & XSRIO_PORT_N_CTRL_CSR_STATUS_ALL_MASK))))
+	        | (Mask & XSRIO_PORT_N_CTL_CSR_STATUS_ALL_MASK))))
 
 /****************************************************************************/
 /**
@@ -1664,7 +1530,7 @@ typedef struct XSrio {
 #define XSrio_GetPortControlStatus(InstancePtr)	\
 	(XSrio_ReadReg((InstancePtr)->Config.BaseAddress,	\
 	     XSRIO_PORT_N_CTL_CSR_OFFSET) & \
-	     XSRIO_PORT_N_CTRL_CSR_STATUS_ALL_MASK) 
+	     XSRIO_PORT_N_CTL_CSR_STATUS_ALL_MASK) 
 	     
 /*************************** Function Prototypes ******************************/
 /**
@@ -1676,6 +1542,10 @@ XSrio_Config *XSrio_LookupConfig(u32 DeviceId);
 int XSrio_GetPortStatus(XSrio *InstancePtr);
 int XSrio_GetPEType(XSrio *InstancePtr);
 int XSrio_IsOperationSupported(XSrio * InstancePtr, u8 Operation, u8 Direction);
+void XSrio_SetWaterMark(XSrio *InstancePtr, u8 WaterMark0, u8 WaterMark1,
+					u8 WaterMark2);
+void XSrio_GetWaterMark(XSrio *InstancePtr, u8 *WaterMark0, u8 *WaterMark1,
+					u8 *WaterMark2);
 			
 #ifdef __cplusplus
 }

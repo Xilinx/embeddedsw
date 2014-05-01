@@ -75,7 +75,7 @@ extern "C" {
  */
  
 /** 
- *  Capability Address Register Space 0x00-0x3C Resisters
+ *  Capability Address Register Space 0x00-0x3C Registers
  */
 #define XSRIO_DEV_ID_CAR_OFFSET     0x00    /**< Device Identity CAR */
 #define XSRIO_DEV_INFO_CAR_OFFSET   0x04    /**< Device Information CAR */
@@ -109,41 +109,43 @@ extern "C" {
 /**
  *  Extended Feature Register Space 0x0100-0xFFFC Registers
  */
-#define XSRIO_EFB_HEADER_OFFSET         0x100   /**< Extended features LP Serial
-						* Register Block Header 
-						*/
-#define XSRIO_PORT_TOUT_CSR_OFFSET      0x120   /**< Port Link Timeout CSR */
-#define XSRIO_RSP_TOUT_CSR_OFFSET       0x124   /**< Port Response Timeout CSR */
-#define XSRIO_GEN_CTL_CSR_OFFSET        0x13c   /**< General Control CSR */
-#define XSRIO_PORT_N_MNT_REQ_CSR_OFFSET 0x140   /**< Port n Link Maintenance 
-						* Request CSR 
-						*/
-#define XSRIO_PORT_N_MNT_RES_CSR_OFFSET 0X144   /**< Port n Maintenance 
-						* Response CSR 
-						*/
-#define XSRIO_PORT_N_ACKID_CSR_OFFSET   0x148   /**< Port n Local Ack ID CSR */
-#define XSRIO_PORT_N_ERR_STS_CSR_OFFSET 0x158   /**< Port n Error and 
-						* Status CSR 
-						*/
-#define XSRIO_PORT_N_CTL_CSR_OFFSET     0x15c   /**< Port n Control CSR */
-#define XSRIO_EFB_LPSL_OFFSET		0x0400 /**< LP-Serial Lane Extended 
-						* Features offset 
-						*/
-#define XSRIO_SL_HEADER_OFFSET          0x00   /**< Serial Lane Block Header */
-#define XSRIO_SLS0_CSR_OFFSET(x)	(0x10 + x*0x20)   
-                                         	/**< Serial Lane N 
-						 * Status 0 CSR 
-						 */   
-#define XSRIO_SLS1_CSR_OFFSET(x)	(0x14 + x*0x20) 
-						/**< Serial Lane N 
-						 * Status 1 CSR 
-						 */
+#define XSRIO_EFB_HEADER_OFFSET           0x100   /**< Extended features LP
+						   * Serial Register Block Header 
+						   */
+#define XSRIO_PORT_LINK_TOUT_CSR_OFFSET   0x120   /**< Port Link Timeout CSR */
+#define XSRIO_PORT_RESP_TOUT_CSR_OFFSET   0x124   /**< Port Response Timeout
+						   * CSR
+						   */
+#define XSRIO_PORT_GEN_CTL_CSR_OFFSET     0x13c   /**< General Control CSR */
+#define XSRIO_PORT_N_MNT_REQ_CSR_OFFSET   0x140   /**< Port n Link Maintenance 
+						   * Request CSR 
+						   */
+#define XSRIO_PORT_N_MNT_RES_CSR_OFFSET   0x144   /**< Port n Maintenance 
+						   * Response CSR 
+						   */
+#define XSRIO_PORT_N_ACKID_CSR_OFFSET     0x148   /**< Port n Local Ack ID CSR */
+#define XSRIO_PORT_N_ERR_STS_CSR_OFFSET   0x158   /**< Port n Error and 
+						   * Status CSR 
+						   */
+#define XSRIO_PORT_N_CTL_CSR_OFFSET       0x15c   /**< Port n Control CSR */
+#define XSRIO_EFB_LPSL_OFFSET		  0x0400  /**< LP-Serial Lane Extended 
+						   * Features offset 
+						   */
+#define XSRIO_SL_HEADER_OFFSET            0x00    /**< Serial Lane Block Header */
+#define XSRIO_SLS0_CSR_OFFSET(n)	  (0x10 + n*0x20)   
+                                         	  /**< Serial Lane N 
+						   * Status 0 CSR 
+						   */   
+#define XSRIO_SLS1_CSR_OFFSET(n)	  (0x14 + n*0x20) 
+						  /**< Serial Lane N 
+						   * Status 1 CSR 
+						   */
 /**
  * Implementation Defined Space 0x010000 - 0xFFFFFC Registers
  */
 #define XSRIO_IMP_WCSR_OFFSET           0x10000  /**< Water Mark CSR */
 #define XSRIO_IMP_BCSR_OFFSET		0x10004  /**< Buffer Control CSR */
-#define XSRIO_IMP_MRIR_OFFSET 		0x10100  /**< Maintenace Request
+#define XSRIO_IMP_MRIR_OFFSET 		0x10100  /**< Maintenance Request
 						  * Information Register 
 						  */
 
@@ -159,14 +161,14 @@ extern "C" {
 #define XSRIO_DEV_ID_DEVID_CAR_SHIFT 16	     /**< Device ID shift */
 /*@}*/
 
-/** @name Device Inforamtion CAR bit definitions.
+/** @name Device Information CAR bit definitions.
  *  These bits are associated with the XSRIO_DEV_INFO_CAR_OFFSET register.
  * @{
  */
-#define XSRIO_DEV_INFO_PATCH_CAR_MASK     0x0000000F  /**< Patch Mask */
-#define XSRIO_DEV_INFO_MINREV_CAR_MASK    0x000000F0  /**< Minor Revision Mask */
-#define XSRIO_DEV_INFO_MAJREV_CAR_MASK    0x00000F00  /**< Major Revision Mask */
-#define XSRIO_DEV_INFO_DREV_CAR_MASK      0x000F0000  /**< Device Revision 
+#define XSRIO_DEV_INFO_CAR_PATCH_MASK     0x0000000F  /**< Patch Mask */
+#define XSRIO_DEV_INFO_CAR_MINREV_MASK    0x000000F0  /**< Minor Revision Mask */
+#define XSRIO_DEV_INFO_CAR_MAJREV_MASK    0x00000F00  /**< Major Revision Mask */
+#define XSRIO_DEV_INFO_CAR_DEVREV_MASK    0x000F0000  /**< Device Revision 
 						       * Lable Mask
 						       */
 /*@}*/
@@ -175,41 +177,43 @@ extern "C" {
  *  These bits are associated with the XSRIO_ASM_ID_CAR_OFFSET register.
  * @{
  */
-#define XSRIO_ASM_ID_ASMID_CAR_MASK  0xFFFF0000 /**< Assembly ID Mask */
-#define XSRIO_ASM_ID_ASMVID_CAR_MASK 0x0000FFFF /**< Assembly Vendor ID Mask */
+#define XSRIO_ASM_ID_CAR_ASMID_MASK  0xFFFF0000 /**< Assembly ID Mask */
+#define XSRIO_ASM_ID_CAR_ASMVID_MASK 0x0000FFFF /**< Assembly Vendor ID Mask */
 
-#define XSRIO_ASM_ID_ASMID_CAR_SHIFT  16        /**< Assembly ID Shift */
+#define XSRIO_ASM_ID_CAR_ASMID_SHIFT  16        /**< Assembly ID Shift */
 /*@}*/
 
 /** @name Assembly Device Information CAR  bit definitions.
  *  These bits are associated with the XSRIO_ASM_INFO_CAR_OFFSET register.
  * @{
  */
-#define XSRIO_ASM_INFO_ASR_CAR_MASK  0xFFFF0000  /**< Assembly Revision  Mask  */
-#define XSRIO_ASM_INFO_EFP_CAR_MASK  0x0000FFFF  /**< Extended Features
-					          * Pointer Mask
-					          */
+#define XSRIO_ASM_INFO_CAR_ASMREV_MASK  0xFFFF0000  /**< Assembly Revision 
+						     * Mask
+						     */
+#define XSRIO_ASM_INFO_CAR_EFP_MASK     0x0000FFFF  /**< Extended Features
+					             * Pointer Mask
+					             */
 
-#define XSRIO_ASM_INFO_ASR_CAR_SHIFT 16  	 /**< Assembly Revision Shift */
+#define XSRIO_ASM_INFO_CAR_ASMREV_SHIFT 16  	 /**< Assembly Revision Shift */
 /*@}*/
 
 /** @name Processing Element Features CAR  bit definitions.
  *  These bits are associated with the XSRIO_PEF_CAR_OFFSET register.
  * @{
  */
-#define XSRIO_PEF_EAS_CAR_MASK       0x00000007 /**< Extended Addressing
+#define XSRIO_PEF_CAR_EAS_MASK        0x00000007 /**< Extended Addressing
 					         * Support Mask 
 					         */
-#define XSRIO_PEF_EF_CAR_MASK        0x00000008 /**< Extended Features Mask */
-#define XSRIO_PEF_CTS_CAR_MASK       0x00000010 /**< Common Transport Large
+#define XSRIO_PEF_CAR_EF_MASK        0x00000008 /**< Extended Features Mask */
+#define XSRIO_PEF_CAR_CTS_MASK       0x00000010 /**< Common Transport Large
 					         * System support Mask
 					         */
-#define XSRIO_PEF_CRF_CAR_MASK       0x00000020 /**< CRF Support Mask */
-#define XSRIO_PEF_MPORT_CAR_MASK     0x08000000 /**< Multi Port Mask */
-#define XSRIO_PEF_SWITCH_CAR_MASK    0x10000000 /**< Switch Mask */
-#define XSRIO_PEF_PROCESSOR_CAR_MASK 0x20000000 /**< Processor Mask */
-#define XSRIO_PEF_MEMORY_CAR_MASK    0x40000000 /**< Memory Mask */
-#define XSRIO_PEF_BRIDGE_CAR_MASK    0x80000000 /**< Bridge Mask */
+#define XSRIO_PEF_CAR_CRF_MASK       0x00000020 /**< CRF Support Mask */
+#define XSRIO_PEF_CAR_MPORT_MASK     0x08000000 /**< Multi Port Mask */
+#define XSRIO_PEF_CAR_SWITCH_MASK    0x10000000 /**< Switch Mask */
+#define XSRIO_PEF_CAR_PROCESSOR_MASK 0x20000000 /**< Processor Mask */
+#define XSRIO_PEF_CAR_MEMORY_MASK    0x40000000 /**< Memory Mask */
+#define XSRIO_PEF_CAR_BRIDGE_MASK    0x80000000 /**< Bridge Mask */
 /*@}*/
 
 /** @name Source Operations CAR  bit definitions.
@@ -217,49 +221,49 @@ extern "C" {
  *  register and XSRIO_DST_OPS_CAR register.
  * @{
  */
-#define XSRIO_SRCDST_OPS_PORT_WRITE_CAR_MASK      0x00000004 /**< Port write 
+#define XSRIO_SRCDST_OPS_CAR_PORT_WRITE_MASK      0x00000004 /**< Port write 
 						              * operation Mask
 						              */
-#define XSRIO_SRCDST_OPS_ATOMIC_SWP_CAR_MASK      0x00000008 /**< Atomic Swap 
+#define XSRIO_SRCDST_OPS_CAR_ATOMIC_SWP_MASK      0x00000008 /**< Atomic Swap 
 							      * Mask 
 							      */
-#define XSRIO_SRCDST_OPS_ATOMIC_CLR_CAR_MASK      0x00000010 /**< Atomic Clear
+#define XSRIO_SRCDST_OPS_CAR_ATOMIC_CLR_MASK      0x00000010 /**< Atomic Clear
 							      * Mask
 							      */
-#define XSRIO_SRCDST_OPS_ATOMIC_SET_CAR_MASK      0x00000020 /**< Atomic Set
+#define XSRIO_SRCDST_OPS_CAR_ATOMIC_SET_MASK      0x00000020 /**< Atomic Set
 							      * Mask
 							      */
-#define XSRIO_SRCDST_OPS_ATOMIC_DCR_CAR_MASK      0x00000040 /**< Atomic 
+#define XSRIO_SRCDST_OPS_CAR_ATOMIC_DECR_MASK      0x00000040 /**< Atomic 
 						              * Decrement Mask
 						              */
-#define XSRIO_SRCDST_OPS_ATOMIC_INCR_CAR_MASK     0x00000080 /**< Atomic
+#define XSRIO_SRCDST_OPS_CAR_ATOMIC_INCR_MASK     0x00000080 /**< Atomic
 						              * Increment Mask
 						              */
-#define XSRIO_SRCDST_OPS_ATOMIC_TSWP_CAR_MASK     0x00000100 /**< Atomic test
+#define XSRIO_SRCDST_OPS_CAR_ATOMIC_TSWP_MASK     0x00000100 /**< Atomic test
 						              * and swap Mask 
 						              */
-#define XSRIO_SRCDST_OPS_ATIOMIC_CSWP_CAR_MASK    0x00000200 /**< Atomic compare
+#define XSRIO_SRCDST_OPS_CAR_ATOMIC_CSWP_MASK    0x00000200 /**< Atomic compare
 						              * and Swap Mask
 						              */
-#define XSRIO_SRCDST_OPS_DOORBELL_CAR_MASK        0x00000400 /**< Doorbell Mask */
-#define XSRIO_SRCDST_OPS_DATA_MSG_CAR_MASK        0x00000800 /**< Data Message
+#define XSRIO_SRCDST_OPS_CAR_DOORBELL_MASK        0x00000400 /**< Doorbell Mask */
+#define XSRIO_SRCDST_OPS_CAR_DATA_MSG_MASK        0x00000800 /**< Data Message
 							      * Mask
 							      */
-#define XSRIO_SRCDST_OPS_WRITE_RESPONSE_CAR_MASK  0x00001000 /**< Write with
+#define XSRIO_SRCDST_OPS_CAR_WRITE_RESPONSE_MASK  0x00001000 /**< Write with
 						              * Response Mask
 						              */
-#define XSRIO_SRCDST_OPS_SWRITE_CAR_MASK	  0x00002000 /**< Streaming
+#define XSRIO_SRCDST_OPS_CAR_SWRITE_MASK	  0x00002000 /**< Streaming
 						              * Write Mask 
 						              */
-#define XSRIO_SRCDST_OPS_WRITE_CAR_MASK 	  0x00004000 /**< Write Mask */
-#define XSRIO_SRCDST_OPS_READ_CAR_MASK	          0x00008000 /**< Read Mask */
+#define XSRIO_SRCDST_OPS_CAR_WRITE_MASK 	  0x00004000 /**< Write Mask */
+#define XSRIO_SRCDST_OPS_CAR_READ_MASK	          0x00008000 /**< Read Mask */
 /*@}*/
 
 /** @name PE Logical layer Control CSR bit definitions.
  *  These bits are associated with the XSRIO_PELL_CTRL_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_PELL_CTRL_EAC_CSR_MASK   0x00000007 /**< Extended Addressing
+#define XSRIO_PELL_CTRL_CSR_EAC_MASK   0x00000007 /**< Extended Addressing
 					           * Control Mask 
 					           */
 /*@}*/
@@ -276,20 +280,20 @@ extern "C" {
  *  These bits are associated with the XSRIO_BASE_DID_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_BASE_DID_LBDID_CSR_MASK	0x0000FFFF /**< Large Base Device ID
+#define XSRIO_BASE_DID_CSR_LBDID_MASK	0x0000FFFF /**< Large Base Device ID
 						    * Mask(16-bit device ID)
 						    */
-#define XSRIO_BASI_DID_BDID_CSR_MASK	0x00FF0000 /**< Base Device ID
+#define XSRIO_BASE_DID_CSR_BDID_MASK	0x00FF0000 /**< Base Device ID
 						    * Mask(8-bit device ID)
 						    */
-#define XSRIO_BASI_DID_BDID_CSR_SHIFT	16 	   /**< Base Device ID Shift */
+#define XSRIO_BASE_DID_CSR_BDID_SHIFT	16 	   /**< Base Device ID Shift */
 /*@}*/
 
 /** @name Host Base Device ID CSR bit definitions.
  *  These bits are associated with the XSRIO_HOST_DID_LOCK_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_HOST_DID_LOCK_HBDID_CSR_MASK  0x0000FFFF /**< Host Base
+#define XSRIO_HOST_DID_LOCK_CSR_HBDID_MASK  0x0000FFFF /**< Host Base
 						        * Device ID Mask
 						        */
 /*@}*/
@@ -310,30 +314,36 @@ extern "C" {
 /*@}*/
 
 /** @name Port Link timeout value CSR bit definitions.
- *  These bits are associated with the XSRIO_PORT_TOUT_CSR_OFFSET register.
+ *  These bits are associated with the XSRIO_PORT_LINK_TOUT_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_PORT_TOUT_TOUTVAL_CSR_MASK  0xFFFFFF00 /**< Timeout Value Mask */
-#define XSRIO_PORT_TOUT_TOUTVAL_CSR_SHIFT 8	     /**< Timeout Value Shift */
+#define XSRIO_PORT_LINK_TOUT_CSR_TOUTVAL_MASK  0xFFFFFF00 /**< Timeout Value 
+							   * Mask
+							   */
+#define XSRIO_PORT_LINK_TOUT_CSR_TOUTVAL_SHIFT 8	  /**< Timeout Value
+							   * Shift
+							   */
 /*@}*/
  
 /** @name Port response timeout  value CSR bit definitions.
- *  These bits are associated with the XSRIO_RSP_TOUT_CSR_OFFSET register.
+ *  These bits are associated with the XSRIO_PORT_RESP_TOUT_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_RSP_TOUT_TOUTVAL_CSR_MASK  0xFFFFFF00 /**< Response Timeout
-					             * Value Mask
-						     */
-#define XSRIO_RSP_TOUT_TOUTVAL_CSR_SHIFT 8	  /**< Response Timeout Shift */
+#define XSRIO_PORT_RESP_TOUT_CSR_TOUTVAL_MASK  0xFFFFFF00 /**< Response Timeout
+					                   * Value Mask
+						           */
+#define XSRIO_PORT_RESP_TOUT_CSR_TOUTVAL_SHIFT 8	  /**< Response Timeout
+							   * Shift
+							   */
 /*@}*/
  
 /** @name Port General Control CSR bit definitions.
- *  These bits are associated with the XSRIO_GEN_CTL_CSR_OFFSET register.
+ *  These bits are associated with the XSRIO_PORT_GEN_CTL_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_GEN_CTL_DISCOVERED_CSR_MASK  0x20000000 /**< Discovered Mask */
-#define XSRIO_GEN_CTL_MENABLE_CSR_MASK     0x40000000 /**< Master Enable Mask */
-#define XSRIO_GEN_CTL_HOST_CSR_MASK	   0x80000000 /**< Host Mask */
+#define XSRIO_PORT_GEN_CTL_CSR_DISCOVERED_MASK  0x20000000 /**< Discovered Mask */
+#define XSRIO_PORT_GEN_CTL_CSR_MENABLE_MASK     0x40000000 /**< Master Enable Mask */
+#define XSRIO_PORT_GEN_CTL_CSR_HOST_MASK	0x80000000 /**< Host Mask */
 
 /*@}*/
 
@@ -341,18 +351,18 @@ extern "C" {
  *  These bits are associated with the XSRIO_PORT_N_MNT_REQ_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_PORT_N_MNT_REQ_CMD_CSR_MASK  0x00000007 /**< Command Mask */
+#define XSRIO_PORT_N_MNT_REQ_CSR_CMD_MASK  0x00000007 /**< Command Mask */
 /*@}*/
 
 /** @name Port n maintenance response CSR bit definitions.
  *  These bits are associated with the XSRIO_PORT_N_MNT_RES_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_PORT_N_MNT_RES_LS_CSR_MASK     0x0000001F /**< link status Mask */
-#define XSRIO_PORT_N_MNT_RES_ACKS_CSR_MASK   0x000007E0 /**< Ack ID status
+#define XSRIO_PORT_N_MNT_RES_CSR_LS_MASK     0x0000001F /**< link status Mask */
+#define XSRIO_PORT_N_MNT_RES_CSR_ACKS_MASK   0x000007E0 /**< Ack ID status
 							 * Mask
 							 */
-#define XSRIO_PORT_N_MNT_RES_RVALID_CSR_MASK 0x80000000 /**< Response Valid
+#define XSRIO_PORT_N_MNT_RES_CSR_RVALID_MASK 0x80000000 /**< Response Valid
 							 * Mask
 							 */
 /*@}*/
@@ -361,26 +371,26 @@ extern "C" {
  *  These bits are associated with the XSRIO_PORT_N_ACKID_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_PORT_N_ACKID_OBACKID_CSR_MASK       0x0000003F /**< Out bound
+#define XSRIO_PORT_N_ACKID_CSR_OBACKID_MASK       0x0000003F /**< Out bound
 					                      * ACK ID Mask
 						              */
-#define XSRIO_PORT_N_ACKID_OSACKID_CSR_MASK       0x00003F00 /**< Out Standing
+#define XSRIO_PORT_N_ACKID_CSR_OSACKID_MASK       0x00003F00 /**< Out Standing
 						              * ACK ID Mask
 						              */
-#define XSRIO_PORT_N_ACKID_IBACKID_CSR_MASK       0x3F000000 /**< In bound 
+#define XSRIO_PORT_N_ACKID_CSR_IBACKID_MASK       0x3F000000 /**< In bound 
 							      * ACK ID Mask
 							      */
-#define XSRIO_PORT_N_ACKID_CLSACKID_CSR_MASK      0x80000000 /**< Clear
+#define XSRIO_PORT_N_ACKID_CSR_CLSACKID_MASK      0x80000000 /**< Clear
 							      * Outstanding
 						              * ACK ID Mask
 						              */
-#define XSRIO_PORT_N_ACKID_RESET_OBACKID_CSR_MASK 0xFFFFFFC0 /**< Out bound ACK
+#define XSRIO_PORT_N_ACKID_CSR_RESET_OBACKID_MASK 0xFFFFFFC0 /**< Out bound ACK
 							      * ID Reset Mask 
 							      */
-#define XSRIO_PORT_N_ACKID_RESET_IBACKID_CSR_MASK 0xC0FFFFFF /**< In bound ACK
+#define XSRIO_PORT_N_ACKID_CSR_RESET_IBACKID_MASK 0xC0FFFFFF /**< In bound ACK
 							      * ID Reset Mask
 							      */
-#define XSRIO_PORT_N_ACKID_IBACKID_CSR_SHIFT      24         /**< In bound 
+#define XSRIO_PORT_N_ACKID_CSR_IBACKID_SHIFT      24         /**< In bound 
 					   		      * ACK ID shift
 						              */
 /*@}*/
@@ -389,99 +399,99 @@ extern "C" {
  *  These bits are associated with the XSRIO_PORT_N_ERR_STS_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_PORT_N_ERR_STS_PUINT_CSR_MASK    0x00000001 /**< Port
+#define XSRIO_PORT_N_ERR_STS_CSR_PUINT_MASK    0x00000001 /**< Port
 						           * un-initialized Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_POK_CSR_MASK      0x00000002 /**< Port Ok Mask */
-#define XSRIO_PORT_N_ERR_STS_PERR_CSR_MASK     0x00000004 /**< Port Error Mask */
-#define XSRIO_PORT_N_ERR_STS_IERRS_CSR_MASK    0x00000100 /**< Input Error
+#define XSRIO_PORT_N_ERR_STS_CSR_POK_MASK      0x00000002 /**< Port Ok Mask */
+#define XSRIO_PORT_N_ERR_STS_CSR_PERR_MASK     0x00000004 /**< Port Error Mask */
+#define XSRIO_PORT_N_ERR_STS_CSR_IERRS_MASK    0x00000100 /**< Input Error
 						           * stopped Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_IERRE_CSR_MASK    0x00000200 /**< Input Error
+#define XSRIO_PORT_N_ERR_STS_CSR_IERRE_MASK    0x00000200 /**< Input Error
 						           * encountered Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_IRTS_CSR_MASK     0x00000400 /**< Input Retry
+#define XSRIO_PORT_N_ERR_STS_CSR_IRTS_MASK     0x00000400 /**< Input Retry
 						           * Stopped Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_OERRS_CSR_MASK    0x00010000 /**< Output error
+#define XSRIO_PORT_N_ERR_STS_CSR_OERRS_MASK    0x00010000 /**< Output error
 						           * Stopped Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_OERRE_CSR_MASK    0x00020000 /**< Output error
+#define XSRIO_PORT_N_ERR_STS_CSR_OERRE_MASK    0x00020000 /**< Output error
 						           * encountered Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_ORTS_CSR_MASK     0x00040000 /**< Output Retry
+#define XSRIO_PORT_N_ERR_STS_CSR_ORTS_MASK     0x00040000 /**< Output Retry
 						           * Stopped Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_OR_CSR_MASK       0x00080000 /**< Output
+#define XSRIO_PORT_N_ERR_STS_CSR_OR_MASK       0x00080000 /**< Output
 						           * Retried Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_ORE_CSR_MASK      0x00100000 /**< Output Retry
+#define XSRIO_PORT_N_ERR_STS_CSR_ORE_MASK      0x00100000 /**< Output Retry
 						           * Encountered Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_FLOWCNTL_CSR_MASK 0x08000000 /**< Flow Control
+#define XSRIO_PORT_N_ERR_STS_CSR_FLOWCNTL_MASK 0x08000000 /**< Flow Control
 						           * Mode Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_IDL_SEQ_CSR_MASK  0x20000000 /**< Idle sequence
+#define XSRIO_PORT_N_ERR_STS_CSR_IDL_SEQ_MASK  0x20000000 /**< Idle sequence
 							   * Mask
 							   */
-#define XSRIO_PORT_N_ERR_STS_IDL_SEQE_CSR_MASK 0x40000000 /**< Idle sequence 2
+#define XSRIO_PORT_N_ERR_STS_CSR_IDL_SEQE_MASK 0x40000000 /**< Idle sequence 2
 						           * Enable Mask 
 						           */
-#define XSRIO_PORT_N_ERR_STS_IDL_SEQS_CSR_MASK 0x80000000 /**< Idle sequence 2
+#define XSRIO_PORT_N_ERR_STS_CSR_IDL_SEQS_MASK 0x80000000 /**< Idle sequence 2
 						           * support Mask
 						           */
-#define XSRIO_PORT_N_ERR_STS_ERR_ALL_CSR_MASK  0x001FFF07 /**< Port Errors Mask */
+#define XSRIO_PORT_N_ERR_STS_CSR_ERR_ALL_MASK  0x001FFF07 /**< Port Errors Mask */
 /*@}*/
 
 /** @name Port n Control CSR bit definitions.
  *  These bits are associated with the XSRIO_PORT_N_CTL_CSR_OFFSET register.
  * @{
  */
-#define XSRIO_PORT_N_CTL_PTYPE_CSR_MASK       0x00000001 /**< Port Type Mask */
-#define XSRIO_PORT_N_CTL_EPWDS_CSR_MASK       0x00003000 /**< Extended Port
+#define XSRIO_PORT_N_CTL_CSR_PTYPE_MASK       0x00000001 /**< Port Type Mask */
+#define XSRIO_PORT_N_CTL_CSR_EPWDS_MASK       0x00003000 /**< Extended Port
 					                  * Width Support Mask
 						          */
-#define XSRIO_PORT_N_CTL_EPWOR_CSR_MASK       0x0000C000 /**< Extended Port
+#define XSRIO_PORT_N_CTL_CSR_EPWOR_MASK       0x0000C000 /**< Extended Port
 						          * Width Override Mask
 						          */
-#define XSRIO_PORT_N_CTL_ENUMB_CSR_MASK       0x00020000 /**< Enumeration
+#define XSRIO_PORT_N_CTL_CSR_ENUMB_MASK       0x00020000 /**< Enumeration
 						          * Boundary Mask
 						          */
-#define XSRIO_PORT_N_CTL_MCENT_CSR_MASK       0x00080000 /**< Multi-cast Event
+#define XSRIO_PORT_N_CTL_CSR_MCENT_MASK       0x00080000 /**< Multi-cast Event
 						          * Participant Mask
 						          */
-#define XSRIO_PORT_N_CTL_ERRD_CSR_MASK 	      0x00100000 /**< Error Checking
+#define XSRIO_PORT_N_CTL_CSR_ERRD_MASK 	      0x00100000 /**< Error Checking
 						          * Disable Mask
 						          */
-#define XSRIO_PORT_N_CTL_IPE_CSR_MASK	      0x00200000 /**< Input port
+#define XSRIO_PORT_N_CTL_CSR_IPE_MASK	      0x00200000 /**< Input port
 						          * enable Mask
 						          */
-#define XSRIO_PORT_N_CTL_OPE_CSR_MASK	      0x00400000 /**< Output port
+#define XSRIO_PORT_N_CTL_CSR_OPE_MASK	      0x00400000 /**< Output port
 						          * enable Mask
 						          */
-#define XSRIO_PORT_N_CTL_PD_CSR_MASK	      0x00800000 /**< Output port
+#define XSRIO_PORT_N_CTL_CSR_PD_MASK	      0x00800000 /**< Output port
 						          * disable Mask
 						          */
-#define XSRIO_PORT_N_CTL_PWO_CSR_MASK	      0x07000000 /**< Port width
+#define XSRIO_PORT_N_CTL_CSR_PWO_MASK	      0x07000000 /**< Port width
 						          * Override Mask
 						          */
-#define XSRIO_PORT_N_CTL_RESET_PWO_CSR_MASK   0xF8FFFFFF /**< Port wdith 
+#define XSRIO_PORT_N_CTL_CSR_RESET_PWO_MASK   0xF8FFFFFF /**< Port width 
 						          * Override Reset Mask
 						          */
-#define XSRIO_PORT_N_CTL_IPW_CSR_MASK         0x38000000 /**< Initialized
+#define XSRIO_PORT_N_CTL_CSR_IPW_MASK         0x38000000 /**< Initialized
 						          * Port width Mask
 						          */
-#define XSRIO_PORT_N_CTL_PW_CSR_MASK	      0xc0000000 /**< Port width Mask */
-#define XSRIO_PORT_N_CTRL_CSR_STATUS_ALL_MASK 0x00F00000 /**< Port Status All 
+#define XSRIO_PORT_N_CTL_CSR_PW_MASK	      0xc0000000 /**< Port width Mask */
+#define XSRIO_PORT_N_CTL_CSR_STATUS_ALL_MASK 0x00F00000 /**< Port Status All 
 						 	  * Mask
 							  */
 
-#define XSRIO_PORT_N_CTL_PWO_CSR_SHIFT	  24         /**< Port width
+#define XSRIO_PORT_N_CTL_CSR_PWO_SHIFT	  24         /**< Port width
 						      * Override Shift
 						      */
-#define XSRIO_PORT_N_CTL_PW_CSR_SHIFT	 30         /**< Port width
-						     * Shift
-						     */
+#define XSRIO_PORT_N_CTL_CSR_PW_SHIFT	 30          /**< Port width
+						      * Shift
+						      */
 /*@}*/
 
 /** @name LP -Serial Lane Register Block Header bit definitions.
@@ -582,10 +592,6 @@ extern "C" {
 #define XSRIO_IMP_WCSR_WM2_MASK        0x003F0000 /**< Water Mark 2 Mask */
 #define XSRIO_IMP_WCSR_WM1_MASK        0x00003F00 /**< Water Mark 1 Mask */
 #define XSRIO_IMP_WCSR_WM0_MASK        0x0000003F /**< Water Mark 0 Mask */
-#define XSRIO_IMP_WCSR_RESET_WM0_MASK  0xFFFFFFC0 /**< Water Mark 0 ResetMask */
-#define XSRIO_IMP_WCSR_RESET_WM1_MASK  0xFFFFC0FF /**< Water Mark 1 ResetMask */
-#define XSRIO_IMP_WCSR_RESET_WM2_MASK  0xFFC0FFFF /**< Water Mark 2 ResetMask */
-
 #define XSRIO_IMP_WCSR_WM1_SHIFT       8 	  /**< Water Mark 1 Shift */
 #define XSRIO_IMP_WCSR_WM2_SHIFT       16	  /**< Water Mark 2 Shift */
 /*@}*/
@@ -623,9 +629,6 @@ extern "C" {
 #define XSRIO_IMP_MRIR_REQ_DESTID_MASK  0x0000FFFF /**< Request Destination
 					            * ID Mask
 						    */
-#define XSRIO_IMP_MRIR_RST_REQ_DESTID_MASK 0xFFFF0000
-#define XSRIO_IMP_MRIR_RST_REQ_PRIO_MASK   0xFFF9FFFF
-#define XSRIO_IMP_MRIR_REQ_RST_TID_MASK    0x00FFFFFF
 #define XSRIO_IMP_MRIR_REQ_PRIO_SHIFT	   17 
 #define XSRIO_IMP_MRIR_REQ_CRF_SHIFT	   16  
 #define XSRIO_IMP_MRIR_REQ_TID_SHIFT	   24 
