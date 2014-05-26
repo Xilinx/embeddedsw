@@ -1,42 +1,47 @@
-/////////////////////////////////////////////////////////////////////////-*-C-*- 
-//
-// Copyright (c) 2002-2004 Xilinx, Inc.  All rights reserved.
-//
-// Xilinx, Inc.
-//
-// XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A 
-// COURTESY TO YOU.  BY PROVIDING THIS DESIGN, CODE, OR INFORMATION AS
-// ONE POSSIBLE   IMPLEMENTATION OF THIS FEATURE, APPLICATION OR 
-// STANDARD, XILINX IS MAKING NO REPRESENTATION THAT THIS IMPLEMENTATION
-// IS FREE FROM ANY CLAIMS OF INFRINGEMENT, AND YOU ARE RESPONSIBLE 
-// FOR OBTAINING ANY RIGHTS YOU MAY REQUIRE FOR YOUR IMPLEMENTATION.  
-// XILINX EXPRESSLY DISCLAIMS ANY WARRANTY WHATSOEVER WITH RESPECT TO 
-// THE ADEQUACY OF THE IMPLEMENTATION, INCLUDING BUT NOT LIMITED TO 
-// ANY WARRANTIES OR REPRESENTATIONS THAT THIS IMPLEMENTATION IS FREE 
-// FROM CLAIMS OF INFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY 
-// AND FITNESS FOR A PARTICULAR PURPOSE.
-// 
-// File   : mfs_filesys_util.c
-//
-// Description : 
-// Additional utilities for Memory File System
-//
-// $Id: mfs_filesys_util.c,v 1.7.8.8 2007/12/17 17:28:08 velusamy Exp $
-//
-////////////////////////////////////////////////////////////////////////////////
+/******************************************************************************
+*
+* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
 
 #include <stdio.h>
 #include "xilmfs.h"
 
 /* some redefinitions for host based testing */
 #ifdef TESTING_XILMFS
-#define putnum(x) printf("%d ", (x)) 
+#define putnum(x) printf("%d ", (x))
 #define print(x) printf("%s", (x))
 #define inbyte() fgetc(stdin)
 #endif
 
 /**
- * list contents of current directory 
+ * list contents of current directory
  * @return 1 on success and 0 on failure
  */
 int mfs_ls() {
@@ -46,7 +51,7 @@ int mfs_ls() {
 /**
  * recursive directory listing
  * list the contents of current directory
- * if any of the entries in the current directory is itself a directory, 
+ * if any of the entries in the current directory is itself a directory,
  * immediately enter that directory and call mfs_ls_r() once again
  * @param recurse
  * If parameter recurse is non zero continue recursing
@@ -64,11 +69,11 @@ int mfs_ls_r(int recurse) {
   char *entry_name;
   while (mfs_dir_read(fd, &entry_name, &entry_size, &entry_type) != 0) {
     if (entry_type == MFS_BLOCK_TYPE_DIR) {
-      
+
       if (!(entry_name[0] == '.' && entry_name[1] == '\0') &&
           !(entry_name[0] == '.' && entry_name[1] == '.' && entry_name[2] == '\0')) {
 	print("Directory ");
-	print(entry_name); 
+	print(entry_name);
 	print(" ");
 	putnum(entry_size);
 	print("\r\n");
@@ -130,7 +135,7 @@ int mfs_cat(char *filename) {
 }
 
 /* FIXME declare inbyte locally to avoid g++ compilation issues
- * this should come from a header file if inbyte is ever included in a header 
+ * this should come from a header file if inbyte is ever included in a header
  */
 #if !defined(TESTING_XILMFS)
 char inbyte(void);
