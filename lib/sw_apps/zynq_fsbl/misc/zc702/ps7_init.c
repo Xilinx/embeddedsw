@@ -3846,6 +3846,10 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xff7f
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
@@ -3914,6 +3918,10 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xf7ff
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000F7FFU
@@ -3982,6 +3990,10 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xdfff
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000DFFFU
@@ -4116,6 +4128,38 @@ unsigned long ps7_post_config_3_0[] = {
     // .. 
     EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
     // .. FINISH: LOCK IT BACK
+    // FINISH: top
+    //
+    EMIT_EXIT(),
+
+    //
+};
+
+unsigned long ps7_debug_3_0[] = {
+    // START: top
+    // .. START: CROSS TRIGGER CONFIGURATIONS
+    // .. .. START: UNLOCKING CTI REGISTERS
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8898FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8898FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8899FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8899FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8809FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8809FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. FINISH: UNLOCKING CTI REGISTERS
+    // .. .. START: ENABLING CTI MODULES AND CHANNELS
+    // .. .. FINISH: ENABLING CTI MODULES AND CHANNELS
+    // .. .. START: MAPPING CPU0, CPU1 AND FTM EVENTS TO CTM CHANNELS
+    // .. .. FINISH: MAPPING CPU0, CPU1 AND FTM EVENTS TO CTM CHANNELS
+    // .. FINISH: CROSS TRIGGER CONFIGURATIONS
     // FINISH: top
     //
     EMIT_EXIT(),
@@ -8093,6 +8137,10 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xff7f
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
@@ -8161,6 +8209,10 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xf7ff
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000F7FFU
@@ -8229,6 +8281,10 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xdfff
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000DFFFU
@@ -8357,6 +8413,38 @@ unsigned long ps7_post_config_2_0[] = {
     // .. 
     EMIT_MASKWRITE(0XF8000004, 0x0000FFFFU ,0x0000767BU),
     // .. FINISH: LOCK IT BACK
+    // FINISH: top
+    //
+    EMIT_EXIT(),
+
+    //
+};
+
+unsigned long ps7_debug_2_0[] = {
+    // START: top
+    // .. START: CROSS TRIGGER CONFIGURATIONS
+    // .. .. START: UNLOCKING CTI REGISTERS
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8898FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8898FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8899FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8899FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8809FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8809FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. FINISH: UNLOCKING CTI REGISTERS
+    // .. .. START: ENABLING CTI MODULES AND CHANNELS
+    // .. .. FINISH: ENABLING CTI MODULES AND CHANNELS
+    // .. .. START: MAPPING CPU0, CPU1 AND FTM EVENTS TO CTM CHANNELS
+    // .. .. FINISH: MAPPING CPU0, CPU1 AND FTM EVENTS TO CTM CHANNELS
+    // .. FINISH: CROSS TRIGGER CONFIGURATIONS
     // FINISH: top
     //
     EMIT_EXIT(),
@@ -12267,6 +12355,10 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xff7f
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000FF7FU
@@ -12335,6 +12427,10 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xf7ff
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000F7FFU
@@ -12403,6 +12499,10 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // .. .. .. FINISH: MASK_DATA_1_LSW LOW BANK [47:32]
     // .. .. .. START: MASK_DATA_1_MSW LOW BANK [53:48]
     // .. .. .. FINISH: MASK_DATA_1_MSW LOW BANK [53:48]
+    // .. .. .. START: ADD 1 MS DELAY
+    // .. .. .. 
+    EMIT_MASKDELAY(0XF8F00200, 1),
+    // .. .. .. FINISH: ADD 1 MS DELAY
     // .. .. .. START: MASK_DATA_0_LSW HIGH BANK [15:0]
     // .. .. .. MASK_0_LSW = 0xdfff
     // .. .. .. ==> 0XE000A000[31:16] = 0x0000DFFFU
@@ -12538,6 +12638,38 @@ unsigned long ps7_post_config_1_0[] = {
     //
 };
 
+unsigned long ps7_debug_1_0[] = {
+    // START: top
+    // .. START: CROSS TRIGGER CONFIGURATIONS
+    // .. .. START: UNLOCKING CTI REGISTERS
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8898FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8898FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8899FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8899FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. KEY = 0XC5ACCE55
+    // .. .. ==> 0XF8809FB0[31:0] = 0xC5ACCE55U
+    // .. ..     ==> MASK : 0xFFFFFFFFU    VAL : 0xC5ACCE55U
+    // .. .. 
+    EMIT_MASKWRITE(0XF8809FB0, 0xFFFFFFFFU ,0xC5ACCE55U),
+    // .. .. FINISH: UNLOCKING CTI REGISTERS
+    // .. .. START: ENABLING CTI MODULES AND CHANNELS
+    // .. .. FINISH: ENABLING CTI MODULES AND CHANNELS
+    // .. .. START: MAPPING CPU0, CPU1 AND FTM EVENTS TO CTM CHANNELS
+    // .. .. FINISH: MAPPING CPU0, CPU1 AND FTM EVENTS TO CTM CHANNELS
+    // .. FINISH: CROSS TRIGGER CONFIGURATIONS
+    // FINISH: top
+    //
+    EMIT_EXIT(),
+
+    //
+};
+
 
 #include "xil_io.h"
 #define PS7_MASK_POLL_TIME 100000000
@@ -12576,7 +12708,7 @@ void mask_write (unsigned long add , unsigned long  mask, unsigned long val ) {
 
 
 int mask_poll(unsigned long add , unsigned long mask ) {
-        unsigned long *addr = (unsigned long*) add;
+        volatile unsigned long *addr = (volatile unsigned long*) add;
         int i = 0;
         while (!(*addr & mask)) {
           if (i == PS7_MASK_POLL_TIME) {
@@ -12658,6 +12790,14 @@ ps7_config(unsigned long * ps7_config_init)
                 i++;
             }
             break;
+        case OPCODE_MASKDELAY:
+            addr = (unsigned long*) args[0];
+            mask = args[1];
+            int delay = get_number_of_cycles_for_delay(mask);
+            perf_reset_and_start_timer(); 
+            while ((*addr < delay)) {
+            }
+            break;
         default:
             finish = PS7_INIT_CORRUPT;
             break;
@@ -12692,10 +12832,30 @@ ps7_post_config()
 }
 
 int
+ps7_debug() 
+{
+  // Get the PS_VERSION on run time
+  unsigned long si_ver = ps7GetSiliconVersion ();
+  int ret = -1;
+  if (si_ver == PCW_SILICON_VERSION_1) {
+      ret = ps7_config (ps7_debug_1_0);   
+      if (ret != PS7_INIT_SUCCESS) return ret;
+  } else if (si_ver == PCW_SILICON_VERSION_2) {
+      ret = ps7_config (ps7_debug_2_0);   
+      if (ret != PS7_INIT_SUCCESS) return ret;
+  } else {
+      ret = ps7_config (ps7_debug_3_0);
+      if (ret != PS7_INIT_SUCCESS) return ret;
+  }
+  return PS7_INIT_SUCCESS;
+}
+
+int
 ps7_init() 
 {
   // Get the PS_VERSION on run time
   unsigned long si_ver = ps7GetSiliconVersion ();
+  int ret;
   //int pcw_ver = 0;
 
   if (si_ver == PCW_SILICON_VERSION_1) {
@@ -12724,7 +12884,7 @@ ps7_init()
   }
 
   // MIO init
-  int ret = ps7_config (ps7_mio_init_data);  
+  ret = ps7_config (ps7_mio_init_data);  
   if (ret != PS7_INIT_SUCCESS) return ret;
 
   // PLL init
@@ -12747,4 +12907,49 @@ ps7_init()
   //xil_printf ("\n PCW Silicon Version : %d.0", pcw_ver);
   return PS7_INIT_SUCCESS;
 }
+
+
+
+
+/* For delay calculation using global timer */
+
+/* start timer */
+ void perf_start_clock(void)
+{
+	*(volatile unsigned int*)SCU_GLOBAL_TIMER_CONTROL = ((1 << 0) | // Timer Enable
+						      (1 << 3) | // Auto-increment
+						      (0 << 8) // Pre-scale
+	); 
+}
+
+/* stop timer and reset timer count regs */
+ void perf_reset_clock(void)
+{
+	perf_disable_clock();
+	*(volatile unsigned int*)SCU_GLOBAL_TIMER_COUNT_L32 = 0;
+	*(volatile unsigned int*)SCU_GLOBAL_TIMER_COUNT_U32 = 0;
+}
+
+/* Compute mask for given delay in miliseconds*/
+int get_number_of_cycles_for_delay(unsigned int delay) 
+{
+  // GTC is always clocked at 1/2 of the CPU frequency (CPU_3x2x)
+  return (APU_FREQ*delay/(2*1000));
+   
+}
+
+/* stop timer */
+ void perf_disable_clock(void)
+{
+	*(volatile unsigned int*)SCU_GLOBAL_TIMER_CONTROL = 0;
+}
+
+void perf_reset_and_start_timer() 
+{
+  	    perf_reset_clock();
+	    perf_start_clock();
+}
+
+
+
 

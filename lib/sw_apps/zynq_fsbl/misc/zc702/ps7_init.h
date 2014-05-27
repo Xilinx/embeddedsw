@@ -73,6 +73,7 @@ extern unsigned long  * ps7_peripherals_init_data;
 #define OPCODE_WRITE      2U
 #define OPCODE_MASKWRITE  3U
 #define OPCODE_MASKPOLL   4U
+#define OPCODE_MASKDELAY  5U
 #define NEW_PS7_ERR_CODE 1
 
 /* Encode number of arguments in last nibble */
@@ -81,8 +82,7 @@ extern unsigned long  * ps7_peripherals_init_data;
 #define EMIT_WRITE(addr,val)          ( (OPCODE_WRITE     << 4 ) | 2 ) , addr, val
 #define EMIT_MASKWRITE(addr,mask,val) ( (OPCODE_MASKWRITE << 4 ) | 3 ) , addr, mask, val
 #define EMIT_MASKPOLL(addr,mask)      ( (OPCODE_MASKPOLL  << 4 ) | 2 ) , addr, mask
-
-
+#define EMIT_MASKDELAY(addr,mask)      ( (OPCODE_MASKDELAY << 4 ) | 2 ) , addr, mask
 
 /* Returns codes  of PS7_Init */
 #define PS7_INIT_SUCCESS   (0)    // 0 is success in good old C
@@ -103,22 +103,22 @@ extern unsigned long  * ps7_peripherals_init_data;
 
 /* Freq of all peripherals */
 
-#define APU_FREQ  666666666
-#define DDR_FREQ  533333333
-#define DCI_FREQ  10159000
+#define APU_FREQ  666666687
+#define DDR_FREQ  533333374
+#define DCI_FREQ  10158731
 #define QSPI_FREQ  200000000
-#define SMC_FREQ  100000000
+#define SMC_FREQ  10000000
 #define ENET0_FREQ  25000000
-#define ENET1_FREQ  125000000
+#define ENET1_FREQ  10000000
 #define USB0_FREQ  60000000
 #define USB1_FREQ  60000000
 #define SDIO_FREQ  50000000
 #define UART_FREQ  50000000
-#define SPI_FREQ  166666666
+#define SPI_FREQ  10000000
 #define I2C_FREQ  111111115
-#define WDT_FREQ  133333333
+#define WDT_FREQ  111111115
 #define TTC_FREQ  50000000
-#define CAN_FREQ  23809500
+#define CAN_FREQ  23809523
 #define PCAP_FREQ  200000000
 #define TPIU_FREQ  200000000
 #define FPGA0_FREQ  50000000
@@ -127,11 +127,24 @@ extern unsigned long  * ps7_peripherals_init_data;
 #define FPGA3_FREQ  50000000
 
 
+/* For delay calculation using global registers*/
+#define SCU_GLOBAL_TIMER_COUNT_L32	0xF8F00200
+#define SCU_GLOBAL_TIMER_COUNT_U32	0xF8F00204
+#define SCU_GLOBAL_TIMER_CONTROL	0xF8F00208
+#define SCU_GLOBAL_TIMER_AUTO_INC	0xF8F00218
+
 int ps7_config( unsigned long*);
 int ps7_init();
 int ps7_post_config();
+int ps7_debug();
 char* getPS7MessageInfo(unsigned key);
 
+void perf_start_clock(void);
+void perf_disable_clock(void);
+void perf_reset_clock(void);
+void perf_reset_and_start_timer(); 
+int get_number_of_cycles_for_delay(unsigned int delay); 
 #ifdef __cplusplus
 }
 #endif
+
