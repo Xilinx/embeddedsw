@@ -60,7 +60,7 @@ DEPS	:= depends
 all: $(EXEC)
 
 $(EXEC): $(DEPS) $(LIBS) $(OBJS) $(INCLUDES)
-	cp $(BSP_DIR)/$(BOARD)/ps7_init* .
+	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
 	$(LINKER) -o $@ $(OBJS) $(CC_FLAGS) $(LDFLAGS) $(LSCRIPT)
 	rm -rf $(OBJS) 
 

@@ -189,6 +189,18 @@
 #define XPAR_PS7_OCMC_0_S_AXI_HIGHADDR 0xF800CFFF
 
 
+/* Definitions for peripheral PS7_PL310_0 */
+#define XPAR_PS7_PL310_0_S_AXI_BASEADDR 0xF8F02000
+#define XPAR_PS7_PL310_0_S_AXI_HIGHADDR 0xF8F02FFF
+
+
+/* Definitions for peripheral PS7_PMU_0 */
+#define XPAR_PS7_PMU_0_S_AXI_BASEADDR 0xF8891000
+#define XPAR_PS7_PMU_0_S_AXI_HIGHADDR 0xF8891FFF
+#define XPAR_PS7_PMU_0_PMU1_S_AXI_BASEADDR 0xF8893000
+#define XPAR_PS7_PMU_0_PMU1_S_AXI_HIGHADDR 0xF8893FFF
+
+
 /* Definitions for peripheral PS7_QSPI_LINEAR_0 */
 #define XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR 0xFC000000
 #define XPAR_PS7_QSPI_LINEAR_0_S_AXI_HIGHADDR 0xFCFFFFFF
@@ -279,6 +291,8 @@
 
 /******************************************************************/
 
+
+/***Definitions for Core_nIRQ/nFIQ interrupts ****/
 /* Definitions for driver SCUGIC */
 #define XPAR_XSCUGIC_NUM_INSTANCES 1
 

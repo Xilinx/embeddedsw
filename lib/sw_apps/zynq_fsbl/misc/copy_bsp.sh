@@ -72,6 +72,8 @@ done < $DRIVERS_LIST
 # copy the libraries required
 cp -r $SERVICES_DIR/xilffs/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilrsa/ $BSP_DIR/libsrc/
+cp -r $SERVICES_DIR/xilrsa/src/include/* $BSP_DIR/include/
 
 #copy the xparameters.h
 cp $BOARD_DIR/xparameters.h $BSP_DIR/include/

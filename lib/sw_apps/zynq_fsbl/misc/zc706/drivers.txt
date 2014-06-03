@@ -14,3 +14,4 @@ uartps
 usbps
 xadcps
 xilffs
+xilrsa
