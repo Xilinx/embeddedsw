@@ -64,7 +64,7 @@ proc gen_src_files {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
-  set isintr [is_ip_interrupting_current_processor $mhsinst]
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
   if {$swproj == 1} {
             if {$isintr == 1} {
 		set inc_file_lines {examples/xcanps_polled_example.c examples/xcanps_intr_example.c data/canps_header.h}
@@ -102,14 +102,14 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
 
     set ipname [get_property NAME $mhsinst] 
-    set deviceid [xget_name $mhsinst "DEVICE_ID"]
+    set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set stdout [get_property CONFIG.STDOUT [get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
        set hasStdout 1
     }
-    set isintr [is_ip_interrupting_current_processor $mhsinst]
+    set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
        
     set testfunc_call ""

@@ -51,7 +51,7 @@ proc generate {drv_handle} {
     # Create a definition in a header file
     set filename  "./src/xhwicap_family.h"
     set filehandle [ open $filename a ]
-    xprint_generated_header $filehandle "Device family" 
+    ::hsm::utils::write_c_header $filehandle "Device family" 
     if {[string compare $family "kintex7"] == 0} {
     	puts $filehandle "#define XHI_FPGA_FAMILY 7\n"   	
     } elseif {[string compare $family "virtex7"] == 0} {

@@ -56,11 +56,11 @@ proc xdefine_cortexa9_params {drvhandle} {
     set sw_proc_handle [get_sw_processor]
     set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
 
-    set periphs [xget_sw_iplist_for_driver $drvhandle]
+    set periphs [::hsm::utils::get_common_driver_ips $drvhandle]
     set lprocs [get_cells -filter "IP_NAME==ps7_cortexa9"]
     set lprocs [lsort $lprocs]
 
-    set config_inc [xopen_include_file "xparameters.h"]
+    set config_inc [::hsm::utils::open_include_file "xparameters.h"]
     puts $config_inc "/* Definition for CPU ID */"
 
     foreach periph $periphs {
@@ -86,7 +86,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
     
  # Open include file
-   set file_handle [xopen_include_file $file_name]
+   set file_handle [::hsm::utils::open_include_file $file_name]
 
    set mem_ranges [get_mem_ranges -of_objects $hw_proc_handle] 
    foreach mem_range $mem_ranges {
@@ -111,7 +111,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
            
 
            if {$bparam_value != ""} {
-               set value [xformat_addr_string $bparam_value $bparam_name]
+               set value [::hsm::utils::format_addr_string $bparam_value $bparam_name]
                    set param [string toupper $bparam_name]
                    if {[string match C_* $param]} {
                        set name [format "%s%s" $name [string range $param 2 end]]
@@ -125,7 +125,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
 	   set name [string toupper [get_property NAME $mem_range]]
            set name [format "XPAR_%s_" $name]
            if {$hparam_value != ""} {
-               set value [xformat_addr_string $hparam_value $hparam_name]
+               set value [::hsm::utils::format_addr_string $hparam_value $hparam_name]
                 set param [string toupper $hparam_name]
                    if {[string match C_* $param]} {
                        set name [format "%s%s" $name [string range $param 2 end]]

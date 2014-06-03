@@ -56,7 +56,7 @@ proc generate {drv_handle} {
 }
 
 proc generate_gmii2rgmii_params {drv_handle file_name} {
-	set file_handle [xopen_include_file $file_name]
+	set file_handle [::hsm::utils::open_include_file $file_name]
 	set proc_handle [get_sw_processor]
 	set hwproc_handle [get_cells $proc_handle]
 	set mhs_handle [get_cells]
@@ -103,7 +103,7 @@ proc is_gmii2rgmii_conv_present {slave} {
 		}
 	}
 	if { $ipconv != 0 }  {
-		set port_value [xget_hw_port_value $ipconv "gmii_txd"]
+		set port_value [::hsm::utils::get_net_name $ipconv "gmii_txd"]
 		if { $port_value != 0 } {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {
@@ -147,7 +147,7 @@ proc scan_int_parameter_value {ip_handle name} {
 }
 
 proc generate_sgmii_params {drv_handle file_name} {
-	set file_handle [xopen_include_file $file_name]
+	set file_handle [::hsm::utils::open_include_file $file_name]
 	set proc_handle [get_sw_processor]
 	set hwproc_handle [get_cells [get_property HW_INSTANCE $proc_handle]]
 	set mhs_handle [get_cells]
@@ -184,7 +184,7 @@ proc is_gige_pcs_pma_ip_present {slave} {
 		set convipname [get_property NAME  $ip]
 		set periph [get_property NAME $ip]
 		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
-			set sgmii_param [xget_param_value $ip c_is_sgmii]
+			set sgmii_param [::hsm::utils::get_param_value $ip c_is_sgmii]
 			if {$sgmii_param == true} {
 				set ipconv $ip
 			} 
@@ -192,7 +192,7 @@ proc is_gige_pcs_pma_ip_present {slave} {
 		}
 	}
 	if { $ipconv != 0 }  {
-		set port_value [xget_hw_port_value $ipconv "gmii_txd"]
+		set port_value [::hsm::utils::get_net_name $ipconv "gmii_txd"]
 		if { $port_value != 0 } {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {

@@ -61,7 +61,7 @@ proc add_field_to_periph_config_struct { deviceid fieldval } {
 }
 proc display_avb_warning_if_applicable { periph } {
         set avb_param_val ""
-        set avb_param_val [xget_param_value $periph C_AVB]
+        set avb_param_val [::hsm::utils::get_param_value $periph C_AVB]
         if { $avb_param_val == 1 } { 
         puts "*******************************************************************************\r\n"
         puts "WARNING: Audio Video Bridging (AVB) functionality is ENABLED in the AXI Ethernet core."
@@ -87,10 +87,10 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
     global periph_ninstances
 
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
 
     # ----------------------------------------------
     # PART 1 - AXI Ethernet related parameters
@@ -103,7 +103,7 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
     	init_periph_config_struct $periph_ninstances
     	incr periph_ninstances 1
     }
-    puts $file_handle "\#define [xget_dname $drv_string NUM_INSTANCES] $periph_ninstances"
+    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
 
 
     # Now print all useful parameters for all peripherals
@@ -181,7 +181,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
         foreach p2p_busif $p2p_busifs_i {
 
             set busif_name [string toupper [get_property NAME  $p2p_busif]]
-            set conn_busif_handle [xget_connected_intf $periph $busif_name] 
+            set conn_busif_handle [::hsm::utils::get_connected_intf $periph $busif_name] 
 	    if { [string compare -nocase $conn_busif_handle ""] == 0} {
                 continue
             } else {
@@ -215,10 +215,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
                     add_field_to_periph_config_struct $device_id $canonical_name
 		    # FIFO Interrupts Handling
 			set int_pin [get_pins -of_objects [get_cells $tartget_per_name] INTERRUPT]
-			set intc_periph_type [get_connected_interrupt_controller $tartget_per_name $int_pin]
+			set intc_periph_type [::hsm::utils::get_connected_intr_cntrl $tartget_per_name $int_pin]
 			set intc_name [get_property IP_NAME $intc_periph_type]
 		       if { $intc_name != [format "ps7_scugic"] } {
-				set int_id [xget_port_interrupt_id [get_cells $tartget_per_name] $int_pin]
+				set int_id [::hsm::utils::get_port_intr_id [get_cells $tartget_per_name] $int_pin]
 				set canonical_name [format "XPAR_%s_CONNECTED_FIFO_INTR" $canonical_tag]
 				puts $file_handle [format "#define $canonical_name %d" $int_id]
 				add_field_to_periph_config_struct $device_id $canonical_name
@@ -281,15 +281,15 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
 
     # Handle BASEADDR specially
     set canonical_name  [format "%s_BASEADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name [xget_param_value $periph C_BASEADDR]"
+    puts $file_handle "\#define $canonical_name [::hsm::utils::get_param_value $periph C_BASEADDR]"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     # Handle HIGHADDR specially
     set canonical_name  [format "%s_HIGHADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name [xget_param_value $periph C_HIGHADDR]"
+    puts $file_handle "\#define $canonical_name [::hsm::utils::get_param_value $periph C_HIGHADDR]"
 
     set canonical_name  [format "%s_TEMAC_TYPE" $canonical_tag]
-    set value [xget_param_value $periph C_TYPE]
+    set value [::hsm::utils::get_param_value $periph C_TYPE]
     if {[llength $value] == 0} {
         set value 0
     }
@@ -297,7 +297,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
     
     set canonical_name  [format "%s_TXCSUM" $canonical_tag]
-    set value [xget_param_value $periph C_TXCSUM]
+    set value [::hsm::utils::get_param_value $periph C_TXCSUM]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -305,7 +305,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXCSUM" $canonical_tag]
-    set value [xget_param_value $periph C_RXCSUM]
+    set value [::hsm::utils::get_param_value $periph C_RXCSUM]
     if {[llength $value] == 0} {
         set value 0
     }
@@ -313,7 +313,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_PHY_TYPE" $canonical_tag]
-    set value [xget_param_value $periph C_PHY_TYPE]
+    set value [::hsm::utils::get_param_value $periph C_PHY_TYPE]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -321,7 +321,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_TRAN" $canonical_tag]
-    set value [xget_param_value $periph C_TXVLAN_TRAN]
+    set value [::hsm::utils::get_param_value $periph C_TXVLAN_TRAN]
     if {[llength $value] == 0} {
        	set value 0
     }
@@ -329,7 +329,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_TRAN" $canonical_tag]
-    set value [xget_param_value $periph C_RXVLAN_TRAN]
+    set value [::hsm::utils::get_param_value $periph C_RXVLAN_TRAN]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -337,7 +337,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_TAG" $canonical_tag]
-    set value [xget_param_value $periph C_TXVLAN_TAG]
+    set value [::hsm::utils::get_param_value $periph C_TXVLAN_TAG]
     if {[llength $value] == 0} {
         set value 0
     }
@@ -345,7 +345,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_TAG" $canonical_tag]
-    set value [xget_param_value $periph C_RXVLAN_TAG]
+    set value [::hsm::utils::get_param_value $periph C_RXVLAN_TAG]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -353,7 +353,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_STRP" $canonical_tag]
-    set value [xget_param_value $periph C_TXVLAN_STRP]
+    set value [::hsm::utils::get_param_value $periph C_TXVLAN_STRP]
     if {[llength $value] == 0} {
         set value 0
     }
@@ -361,7 +361,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_STRP" $canonical_tag]
-    set value [xget_param_value $periph C_RXVLAN_STRP]
+    set value [::hsm::utils::get_param_value $periph C_RXVLAN_STRP]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -369,7 +369,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_MCAST_EXTEND" $canonical_tag]
-    set value [xget_param_value $periph C_MCAST_EXTEND]
+    set value [::hsm::utils::get_param_value $periph C_MCAST_EXTEND]
     if {[llength $value] == 0} {
 	set value 0
     }
@@ -377,7 +377,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_STATS" $canonical_tag]
-    set value [xget_param_value $periph C_STATS]
+    set value [::hsm::utils::get_param_value $periph C_STATS]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -385,22 +385,22 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_AVB" $canonical_tag]
-    set value [xget_param_value $periph C_AVB]
+    set value [::hsm::utils::get_param_value $periph C_AVB]
     if {[llength $value] == 0} {
         set value 0
     }
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
     set canonical_name  [format "%s_ENABLE_SGMII_OVER_LVDS" $canonical_tag]
-    set value [xget_param_value $periph C_ENABLE_LVDS]
+    set value [::hsm::utils::get_param_value $periph C_ENABLE_LVDS]
     if {[llength $value] == 0} {
        set value 0
     }
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
     set canonical_name  [format "%s_PHYADDR" $canonical_tag]
-    set phyaddr [xget_param_value $periph C_PHYADDR]
-    set value [xconvert_binary_to_decimal $phyaddr] 
+    set phyaddr [::hsm::utils::get_param_value $periph C_PHYADDR]
+    set value [::hsm::utils::convert_binary_to_decimal $phyaddr] 
     if {[llength $value] == 0} {
         set value 0
     }
@@ -417,7 +417,7 @@ proc xdefine_axiethernet_config_file {file_name drv_string} {
     set filename [file join "src" $file_name]
     file delete $filename
     set config_file [open $filename w]
-    xprint_generated_header $config_file "Driver configuration"
+    ::hsm::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "\#include \"xparameters.h\""
     puts $config_file "\#include \"[string tolower $drv_string].h\""
     puts $config_file "\n/*"
@@ -475,7 +475,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
         if { $intc_port != "" } {
             set found_intc ""
             foreach intr_sink $intc_port {
-		set pname_type [get_connected_interrupt_controller $target_periph $intr_sink]
+		set pname_type [::hsm::utils::get_connected_intr_cntrl $target_periph $intr_sink]
                 if {$pname_type != "chipscope_ila"} {
                 	set special [get_property IP_TYPE $pname_type]
                 	if {[string compare -nocase $special "INTERRUPT_CNTLR"] == 0} {
@@ -506,11 +506,11 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
         # matches the original interrupt signal we were tracking.
         # If it does, put out the XPAR
         if { $intc_periph_type != [format "ps7_scugic"] } {
-		set rx_int_id [xget_port_interrupt_id $target_periph $dmarx_signal]
+		set rx_int_id [::hsm::utils::get_port_intr_id $target_periph $dmarx_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_DMARX_INTR" $canonical_tag]
                 puts $file_handle [format "#define $canonical_name %d" $rx_int_id]
 		add_field_to_periph_config_struct $deviceid $canonical_name
-		set tx_int_id [xget_port_interrupt_id $target_periph $dmatx_signal]
+		set tx_int_id [::hsm::utils::get_port_intr_id $target_periph $dmatx_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_DMATX_INTR" $canonical_tag]
                 puts $file_handle [format "#define $canonical_name %d" $tx_int_id]
 		add_field_to_periph_config_struct $deviceid $canonical_name
@@ -568,7 +568,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     set addentry 0
     set interrupt_signal_name [get_property NAME $interrupt_port] 
     #set interrupt_signal [xget_hw_value $interrupt_port] 
-    set intc_prt [xget_sink_pins [get_pins -of_objects [get_cells $periph] INTERRUPT]]
+    set intc_prt [::hsm::utils::get_sink_pins [get_pins -of_objects [get_cells $periph] INTERRUPT]]
 
     # Make sure the interrupt signal was connected in this design. We assume
     # at least one is. (could be a bug if user just wants polled mode)
@@ -611,7 +611,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
 
     if { $intc_periph_type != [format "ps7_scugic"] } {
 	 set ethernet_int_signal_name [get_pins -of_objects $periph INTERRUPT]
-	 set int_id [xget_port_interrupt_id $periph $ethernet_int_signal_name]
+	 set int_id [::hsm::utils::get_port_intr_id $periph $ethernet_int_signal_name]
 	 puts $file_handle "\#define $canonical_name $int_id"
          add_field_to_periph_config_struct $device_id $canonical_name
 	 set addentry 1

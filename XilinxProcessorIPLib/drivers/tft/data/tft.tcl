@@ -61,10 +61,10 @@ proc generate {drv_handle} {
 #
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver  $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips  $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -98,23 +98,23 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
             set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 	    foreach arg $args {
 	            if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
-                    set lvalue [xget_dname $canonical_name "C_BASEADDR"]
+                    set lvalue [::hsm::utils::get_driver_param_name $canonical_name "C_BASEADDR"]
                     
                 } elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
-                    set lvalue [xget_dname $canonical_name "C_HIGHADDR"]
+                    set lvalue [::hsm::utils::get_driver_param_name $canonical_name "C_HIGHADDR"]
                 } else {
-                    set lvalue [xget_dname $canonical_name $arg]
+                    set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
                 }
 
     # The commented out rvalue is the name of the instance-specific constant
-    #           set rvalue [xget_name $periph $arg]
+    #           set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
 
                 # The rvalue set below is the actual value of the parameter
                 set rvalue [get_property CONFIG.$arg $periph]
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
-                set rvalue [xformat_addr_string $rvalue $arg]
+                set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
     
                 puts $file_handle "#define $lvalue $rvalue"
 

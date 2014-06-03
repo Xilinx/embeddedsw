@@ -104,7 +104,7 @@ proc generate {os_handle} {
                     file delete -force "./src/profile"
                     set enable_sw_profile "false"
             }
-            set file_handle [xopen_include_file "xparameters.h"]
+            set file_handle [::hsm::utils::open_include_file "xparameters.h"]
             puts $file_handle "#include \"xparameters_ps.h\""
             puts $file_handle ""
             close $file_handle
@@ -141,15 +141,15 @@ proc generate {os_handle} {
     file delete -force $commonsrcdir
 
     # Handle stdin and stdout
-    handle_stdin $os_handle
-    handle_stdout $os_handle
+    ::hsm::utils::handle_stdin $os_handle
+    ::hsm::utils::handle_stdout $os_handle
     
     #Handle Profile configuration
     if { $enable_sw_profile == "true" } {
         handle_profile $os_handle $proctype	
     }
     
-    set file_handle [xopen_include_file "xparameters.h"]
+    set file_handle [::hsm::utils::open_include_file "xparameters.h"]
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
 
@@ -167,7 +167,7 @@ proc generate {os_handle} {
     set bspcfg_fn [file join "src" "bspconfig.h"] 
     file delete $bspcfg_fn
     set bspcfg_fh [open $bspcfg_fn w]
-    xprint_generated_header $bspcfg_fh "Configurations for Standalone BSP"
+    ::hsm::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
         
@@ -208,7 +208,7 @@ proc xhandle_mb_interrupts {} {
     # Handle the interrupt pin
     set sw_proc_handle [get_sw_processor] 
     set periph [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
-    set source_ports [xget_interrupt_sources $periph]
+    set source_ports [::hsm::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
         error "ERROR: Too many interrupting ports on the MicroBlaze. Should only find 1" "" "hsm_error"
         return
@@ -228,9 +228,9 @@ proc xhandle_mb_interrupts {} {
                                 set source_interrupt_handler [lindex [get_property PARAM.int_handler $intr_array] $i]
                                 set source_handler_arg [lindex [get_property PARAM.int_handler_arg $intr_array] $i]
                                 if { [string compare -nocase $source_handler_arg DEVICE_ID] == 0 } {
-                                    set source_handler_arg [xget_name $source_periph "DEVICE_ID"]
+                                    set source_handler_arg [::hsm::utils::get_ip_param_name $source_periph "DEVICE_ID"]
                                 } else {
-                                    set source_handler_arg [xget_name $source_periph "C_BASEADDR"]
+                                    set source_handler_arg [::hsm::utils::get_ip_param_name $source_periph "C_BASEADDR"]
                                 }
                             }
                         }
@@ -254,7 +254,7 @@ proc xcreate_mb_intr_config_file {handler arg} {
     file delete $filename
     set config_file [open $filename w]
 
-    xprint_generated_header $config_file "Interrupt Handler Table for MicroBlaze Processor"
+    ::hsm::utils::write_c_header $config_file "Interrupt Handler Table for MicroBlaze Processor"
     
     puts $config_file "#include \"microblaze_interrupts_i.h\""
     puts $config_file "#include \"xparameters.h\""
@@ -280,7 +280,7 @@ proc xcreate_mb_exc_config_file {os_handle} {
     set hfilename [file join "src" "microblaze_exceptions_g.h"] 
     file delete $hfilename
     set hconfig_file [open $hfilename w]
-    xprint_generated_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
+    ::hsm::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
     set sw_proc_handle [get_sw_processor]
     set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
     set procvlnv [get_property VLNV $hw_proc_handle]
@@ -538,7 +538,7 @@ proc handle_profile { os_handle proctype } {
     file delete -force $filename
     set config_file [open $filename w]
 
-    xprint_generated_header $config_file "Profiling Configuration parameters. These parameters
+    ::hsm::utils::write_c_header $config_file "Profiling Configuration parameters. These parameters
 * can be overwritten thru run configuration in SDK"
     puts $config_file "#ifndef _PROFILE_CONFIG_H"
     puts $config_file "#define _PROFILE_CONFIG_H\n"
@@ -625,7 +625,7 @@ proc execpipe {COMMAND} {
 proc handle_profile_opbtimer { config_file timer_inst } {
     set timer_handle [get_cells  $timer_inst]
     set timer_baseaddr [get_property CONFIG.C_BASEADDR $timer_handle]
-    puts $config_file "#define PROFILE_TIMER_BASEADDR [xformat_addr_string $timer_baseaddr "C_BASEADDR"]"
+    puts $config_file "#define PROFILE_TIMER_BASEADDR [::hsm::utils::format_addr_string $timer_baseaddr "C_BASEADDR"]"
 
     # Figure out how Timer is connected.
      set timer_intr [get_pins -of_objects [get_cells $timer_handle] Interrupt]
@@ -634,13 +634,13 @@ proc handle_profile_opbtimer { config_file timer_inst } {
     } 
     #set mhs_handle [xget_handle $timer_handle "parent"]
     # CR 302300 - There can be multiple "sink" for the interrupt. So need to iterate through the list
-    set intr_port_list [xget_sink_pins [get_pins -of_objects [get_cells $timer_intr] INTERRUPT]]
+    set intr_port_list [::hsm::utils::get_sink_pins [get_pins -of_objects [get_cells $timer_intr] INTERRUPT]]
     set timer_connection 0
     foreach intr_port $intr_port_list {
 	set intc_handle [get_cells -of_object $intr_port]
 	# Check if the Sink is a Global Port. If so, Skip the Port Connection
 	
-	if {  [is_external_pin $intr_port] } {
+	if {  [::hsm::utils::is_external_pin $intr_port] } {
 	    continue 
 	}
 	set iptype [get_property CONFIG.EDK_IPTYPE $intc_handle]
@@ -663,7 +663,7 @@ proc handle_profile_opbtimer { config_file timer_inst } {
 	    # }
 
 	    #set signals [split [xget_value $intr_port "VALUE"] "&"]
-            set signals [xget_source_pins $intr_port]
+            set signals [::hsm::utils::get_source_pins $intr_port]
 	    set i 1
 	    foreach signal $signals {
 		set signal [string trim $signal]

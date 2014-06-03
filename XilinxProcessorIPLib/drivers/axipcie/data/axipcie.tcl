@@ -142,10 +142,10 @@ proc generate {drv_handle} {
 
 proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -153,7 +153,7 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
     # Check if it is a driver parameter
@@ -164,7 +164,7 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [xget_dname $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
+            puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
         }
     }
     set args $newargs
@@ -179,7 +179,7 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
                 set value $device_id
                 incr device_id
             } else {
-                set value [xget_param_value $periph $arg]
+                set value [::hsm::utils::get_param_value $periph $arg]
             }
             if {[llength $value] == 0} {
                 set value 0
@@ -188,20 +188,20 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
 	    # For Vivado, C_BASEADDR is renamed to BASEADDR
 	    if { $value == 0 && $arg == "C_BASEADDR" } {
 		set arg "BASEADDR"
-                set value [xget_param_value $periph $arg]
+                set value [::hsm::utils::get_param_value $periph $arg]
 	    }	
 
 	    # For Vivado, C_HIGHADDR is renamed to HIGHADDR
 	    if { $value == 0 && $arg == "C_HIGHADDR" } {
 		set arg "HIGHADDR"
-                set value [xget_param_value $periph $arg]
+                set value [::hsm::utils::get_param_value $periph $arg]
 	    }	
 
-            set value [xformat_addr_string $value $arg]
+            set value [::hsm::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
-                puts $file_handle "#define [xget_name $periph $arg] \"$value\""
+                puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
-                puts $file_handle "#define [xget_name $periph $arg] $value"
+                puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] $value"
             }
         }
         puts $file_handle ""
@@ -212,10 +212,10 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
 
 proc xdefine_pcie_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -250,12 +250,12 @@ proc xdefine_pcie_canonical_xpars {drv_handle file_name drv_string args} {
             set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 
             foreach arg $args {
-                set lvalue [xget_dname $canonical_name $arg]
+                set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
 
                 # The commented out rvalue is the name of the instance-specific constant
-                # set rvalue [xget_name $periph $arg]
+                # set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
-                set rvalue [xget_param_value $periph $arg]
+                set rvalue [::hsm::utils::get_param_value $periph $arg]
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
@@ -263,16 +263,16 @@ proc xdefine_pcie_canonical_xpars {drv_handle file_name drv_string args} {
 		# For Vivado, C_BASEADDR is renamed to BASEADDR
 	    	if { $rvalue == 0 && $arg == "C_BASEADDR" } {
 		    set arg "BASEADDR"
-                    set rvalue [xget_param_value $periph $arg]
+                    set rvalue [::hsm::utils::get_param_value $periph $arg]
 	        }	
 
 	        # For Vivado, C_HIGHADDR is renamed to HIGHADDR
 	        if { $rvalue == 0 && $arg == "C_HIGHADDR" } {
 		    set arg "HIGHADDR"
-                    set rvalue [xget_param_value $periph $arg]
+                    set rvalue [::hsm::utils::get_param_value $periph $arg]
 	        }	
 
-                set rvalue [xformat_addr_string $rvalue $arg]
+                set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
 
                 puts $file_handle "#define $lvalue $rvalue"
 

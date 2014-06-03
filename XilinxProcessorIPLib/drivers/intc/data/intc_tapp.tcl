@@ -108,7 +108,7 @@ if {$cascade == 1} {
  } 
 
   set ipname [get_property NAME  $mhsinst] 
-  set deviceid [xget_name $mhsinst "DEVICE_ID"]
+  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [get_property CONFIG.STDOUT [get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -129,7 +129,7 @@ if {$cascade == 1} {
 
    }"
   
-      set ifintr [is_ip_interrupting_current_processor $mhsinst]
+      set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
       if {$ifintr != 0} {
           append testfunc_call " 
 	
@@ -160,7 +160,7 @@ if {$cascade == 1} {
       }
    }"
 
-      set ifintr [is_ip_interrupting_current_processor $mhsinst]
+      set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
       if {$ifintr != 0} {
 
           append testfunc_call " 
@@ -186,13 +186,13 @@ if {$cascade == 1} {
 
 
 proc check_cascade {mhsinst} {
-	set periphs [xget_sw_iplist_for_driver $mhsinst]
+	set periphs [::hsm::utils::get_common_driver_ips $mhsinst]
     foreach periph $periphs {
 		set i 0
-		set source_pins [xget_interrupt_sources $periph]
+		set source_pins [::hsm::utils::get_interrupt_sources $periph]
         foreach source_pin $source_pins {
             set source_pin_name($i) [get_property NAME $source_pin]
-            if { [is_external_pin $source_pin] } {
+            if { [::hsm::utils::is_external_pin $source_pin] } {
                 continue
             }
             set source_periph [get_cells -of_objects $source_pin ]

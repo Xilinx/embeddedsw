@@ -247,7 +247,7 @@ proc lwip_sw_drc {libhandle emacs_list} {
 }
 
 proc get_emac_periphs {processor} {
-	set periphs_list [xget_hw_proc_slave_periphs  $processor]
+	set periphs_list [::hsm::utils::get_proc_slave_periphs  $processor]
 	set emac_periphs_list {}
 
 	foreach periph $periphs_list {
@@ -675,7 +675,7 @@ proc update_temac_topology {emac processor topologyvar} {
 
 	# find intc to which the interrupt line is connected
 	set emac_intr_port [get_pins -of_objects [get_cells $emac] TemacIntc0_Irpt]
-	set intr_ports [xget_sink_pins [get_pins -of_objects [get_cells $emac] TemacIntc0_Irpt]]
+	set intr_ports [::hsm::utils::get_sink_pins [get_pins -of_objects [get_cells $emac] TemacIntc0_Irpt]]
 	
 	set l [llength $intr_ports]
 
@@ -690,7 +690,7 @@ proc update_temac_topology {emac processor topologyvar} {
 	set intc_handle [get_cells -of_objects $intr_port]
 
 	# can we address this intc from the processor?
-	set proc_connected_periphs [xget_hw_proc_slave_periphs $processor]
+	set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 	if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
 		set intc_name [get_property NAME $intc_handle]
 		set proc_name [get_property NAME $processor]	
@@ -699,7 +699,7 @@ proc update_temac_topology {emac processor topologyvar} {
 	}
 
 	set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
-	set topology(intc_baseaddr) [xformat_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
+	set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 	set topology(scugic_baseaddr) "0x0"
 	set topology(scugic_emac_intr) "0x0"
 }
@@ -728,7 +728,7 @@ proc update_temac1_topology {emac processor topologyvar} {
 	set intc_handle [get_cells -of_objects  $intr_port]
 
 	# can we address this intc from the processor?
-	set proc_connected_periphs [xget_hw_proc_slave_periphs $processor]
+	set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 	if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
 		set intc_name [get_property NAME $intc_handle]
 		set proc_name [get_property NAME $processor]	
@@ -737,7 +737,7 @@ proc update_temac1_topology {emac processor topologyvar} {
 	}
 
 	set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
-	set topology(intc_baseaddr) [xformat_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
+	set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 	set topology(scugic_baseaddr) "0x0"
 	set topology(scugic_emac_intr) "0x0"
 }
@@ -768,7 +768,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	# find intc to which the interrupt line is connected
 	set emac_intr_port [get_pins -of_objects [get_cells $emac] IP2INTC_Irpt]
 	set mhs_handle [get_cells $emac]
-	set intr_ports [xget_sink_pins [get_pins -of_objects [get_cells $emac] IP2INTC_Irpt]]
+	set intr_ports [::hsm::utils::get_sink_pins [get_pins -of_objects [get_cells $emac] IP2INTC_Irpt]]
 
 	if { [llength $intr_ports] != 1 } {
 		set emac_name [get_property NAME $emac]
@@ -781,7 +781,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	set intc_handle [get_cells -of_objects $intr_port]
 
 	# can we address this intc from the processor?
-	set proc_connected_periphs [xget_hw_proc_slave_periphs $processor]
+	set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 	if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
 		set intc_name [get_property NAME $intc_handle]
 		set proc_name [get_property NAME $processor]	
@@ -815,7 +815,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 
 	# find intc to which the interrupt line is connected
 	set emac_intr_port [get_pins -of_objects [get_cells $emac] INTERRUPT]
-	set intr_ports [xget_sink_pins [get_pins -of_objects [get_cells $emac] INTERRUPT]]
+	set intr_ports [::hsm::utils::get_sink_pins [get_pins -of_objects [get_cells $emac] INTERRUPT]]
 	set intr_cnt 0
 	foreach intr_sink $intr_ports {
 		set phandle [get_cells -of_objects $intr_sink]
@@ -826,7 +826,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 			set intc_periph_type [get_property NAME $intc_handle]
                 	set intc_name [get_property NAME $intc_handle]
                 	# can we address this intc from the processor?
-			set proc_connected_periphs [xget_hw_proc_slave_periphs $processor]
+			set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 			if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
 				set proc_name [get_property NAME $processor]	
 				error "ERROR: $intc_name to which axi_ethernet interrupt is connected is not addressable \
@@ -845,7 +845,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 
 	if { $intc_periph_type != [format "ps7_scugic"] } {
 		set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
-		set topology(intc_baseaddr) [xformat_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
+		set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 		set topology(scugic_baseaddr) "0x0"
 		set topology(scugic_emac_intr) "0x0"
 	} else {
@@ -986,7 +986,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 		} elseif {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer"} {
 			set have_axi_ethernet 1
 			# Find the AXI FIFO or AXI DMA that this emac is connected to.
-			set connected_bus_name [xget_connected_intf $emac AXI_STR_RXD]
+			set connected_bus_name [::hsm::utils::get_connected_intf $emac AXI_STR_RXD]
 			set parent_handle [get_cells -of_objects $connected_bus_name]
 			set parent_name [get_property IP_NAME $parent_handle]
 			if {$parent_name == "axi_fifo_mm_s"} {
@@ -1103,7 +1103,7 @@ proc generate_adapterconfig_include {libhandle} {
 			set have_temac 1
 		} elseif {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer"} {
 			# Find the AXI FIFO or AXI DMA that this emac is connected to.
-			set connected_bus_name [xget_connected_intf $emac AXI_STR_RXD]
+			set connected_bus_name [::hsm::utils::get_connected_intf $emac AXI_STR_RXD]
 			set parent_handle [get_cells -of_objects $connected_bus_name]
 			set parent_name [get_property IP_NAME $parent_handle]
 			if {$parent_name == "axi_fifo_mm_s"} {

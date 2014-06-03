@@ -121,7 +121,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     return $testfunc_call
   }
 
-  set deviceid [xget_name $mhsinst "DEVICE_ID"]
+  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [get_property CONFIG.STDOUT [get_os]]
   if { $stdout == "" || $stdout == "none" } {
      set hasStdout 0
@@ -129,7 +129,7 @@ proc gen_testfunc_call {swproj mhsinst} {
      set hasStdout 1
   }
   
-  set isintr [is_ip_interrupting_current_processor $mhsinst]
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
   set intcvar intc
   
 

@@ -53,10 +53,10 @@ proc generate {drv_handle} {
 
 proc xdefine_include_file_zynq {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle] 
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle] 
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -64,7 +64,7 @@ proc xdefine_include_file_zynq {drv_handle file_name drv_string args} {
     if {$posn > -1} {
 	puts $file_handle "/* Definitions for driver [string toupper [get_property NAME  $drv_handle]] */"
 	# Define NUM_INSTANCES
-	puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
+	puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
 	set args [lreplace $args $posn $posn]
     }
     # Check if it is a driver parameter
@@ -75,7 +75,7 @@ proc xdefine_include_file_zynq {drv_handle file_name drv_string args} {
 	if {[llength $value] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [xget_dname $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
+	    puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
 	}
     }
     set args $newargs
@@ -90,13 +90,13 @@ proc xdefine_include_file_zynq {drv_handle file_name drv_string args} {
 		set value $device_id
 		incr device_id
 	    } else {
-		set value [xget_param_value $periph $arg]
+		set value [::hsm::utils::get_param_value $periph $arg]
 	    }
 	    if {[llength $value] == 0} {
 		set value 0
 	    }
-	    set value [xformat_addr_string $value $arg]
-	    set arg_name [xget_name $periph $arg]
+	    set value [::hsm::utils::format_addr_string $value $arg]
+	    set arg_name [::hsm::utils::get_ip_param_name $periph $arg]
 	    regsub "S_AXI_" $arg_name "" arg_name
 	    if {[string compare -nocase "HW_VER" $arg] == 0} {
                 puts $file_handle "#define $arg_name \"$value\""
@@ -114,7 +114,7 @@ proc xdefine_devcfg_config_file {drv_handle file_name drv_string args} {
     set filename [file join "src" $file_name] 
     file delete $filename
     set config_file [open $filename w]
-    xprint_generated_header $config_file "Driver configuration"    
+    ::hsm::utils::write_c_header $config_file "Driver configuration"    
     puts $config_file "#include \"xparameters.h\""
     puts $config_file "#include \"xdevcfg.h\""
     puts $config_file "\n/*"
@@ -122,7 +122,7 @@ proc xdefine_devcfg_config_file {drv_handle file_name drv_string args} {
     puts $config_file "*/\n"
     puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
     puts $config_file "\{"
-    set periphs [xget_sw_iplist_for_driver $drv_handle]     
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]     
     set start_comma ""
     foreach periph $periphs {
 	puts $config_file [format "%s\t\{" $start_comma]
@@ -136,9 +136,9 @@ proc xdefine_devcfg_config_file {drv_handle file_name drv_string args} {
                 # peripheral), we will (for some obscure and ancient reason)
                 # look in peripherals connected via point to point links
 		if { [string compare -nocase $local_value ""] == 0} { 
-                    set p2p_name [xget_p2p_name $periph $arg]
+                    set p2p_name [::hsm::utils::get_p2p_name $periph $arg]
                     if { [string compare -nocase $p2p_name ""] == 0} {
-                        set arg_name [xget_name $periph $arg]
+                        set arg_name [::hsm::utils::get_ip_param_name $periph $arg]
 	                regsub "S_AXI_" $arg_name "" arg_name
                         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
                     } else {
@@ -146,12 +146,12 @@ proc xdefine_devcfg_config_file {drv_handle file_name drv_string args} {
                         puts -nonewline $config_file [format "%s\t\t%s" $comma $p2p_name]
                     }
                 } else {
-                    set arg_name [xget_name $periph $arg]
+                    set arg_name [::hsm::utils::get_ip_param_name $periph $arg]
 	            regsub "S_AXI_" $arg_name "" arg_name
                     puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
                 }
 	    } else {
-	        set arg_name [xget_dname $drv_string $arg]
+	        set arg_name [::hsm::utils::get_driver_param_name $drv_string $arg]
 	        regsub "S_AXI_" $arg_name "" arg_name
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 	    }
@@ -175,10 +175,10 @@ proc xdefine_devcfg_config_file {drv_handle file_name drv_string args} {
 #-----------------------------------------------------------------------------
 proc xdefine_canonical_xpars_zynq {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver  $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips  $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -213,17 +213,17 @@ proc xdefine_canonical_xpars_zynq {drv_handle file_name drv_string args} {
             set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 
             foreach arg $args {
-                set lvalue [xget_dname $canonical_name $arg]
+                set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
                 regsub "S_AXI_" $lvalue "" lvalue
 
                 # The commented out rvalue is the name of the instance-specific constant
-                # set rvalue [xget_name $periph $arg]
+                # set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
-                set rvalue [xget_param_value $periph $arg]
+                set rvalue [::hsm::utils::get_param_value $periph $arg]
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
-                set rvalue [xformat_addr_string $rvalue $arg]
+                set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
     
                 puts $file_handle "#define $lvalue $rvalue"
 

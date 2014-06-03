@@ -71,7 +71,7 @@ proc gen_include_files {swproj mhsinst} {
     set isStdout [string match $stdout $mhsinst]
     set ipname [get_property IP_NAME $mhsinst]
     if {${isStdout} == 0} {
-	set ifuartliteintr [is_ip_interrupting_current_processor $mhsinst]
+	set ifuartliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifuartliteintr == 1} {
 		if {$ipname == "mdm"} {
 			set inc_file_lines {uartlite_header.h}
@@ -98,7 +98,7 @@ proc gen_src_files {swproj mhsinst} {
 	 set stdout [get_property CONFIG.STDOUT [get_os]]
 	set isStdout [string match $stdout $mhsinst]
 	if {${isStdout} == 0} {
-	    set ifuartliteintr [is_ip_interrupting_current_processor $mhsinst]
+	    set ifuartliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
 	    if {$ifuartliteintr == 1} {
 		if {$ipname == "mdm"} {
 			set inc_file_lines {examples/xuartlite_selftest_example.c data/uartlite_header.h}    
@@ -131,7 +131,7 @@ proc gen_init_code {swproj mhsinst} {
 	if {${isStdout} == 0} {
 	    
 	    set ipname [get_property NAME $mhsinst]
-	    set ifuartliteintr [is_ip_interrupting_current_processor $mhsinst]
+	    set ifuartliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
 	    set mdm_name [get_property IP_NAME $mhsinst]
 	    if {$ifuartliteintr == 1} {
 		if {$mdm_name == "mdm"} {
@@ -151,7 +151,7 @@ proc gen_init_code {swproj mhsinst} {
 proc gen_testfunc_call {swproj mhsinst} {
 
   set ipname [get_property NAME $mhsinst]
-  set ifuartliteintr [is_ip_interrupting_current_processor $mhsinst]  
+  set ifuartliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]  
   set testfunc_call ""
 
   if {$swproj == 0} {
@@ -172,7 +172,7 @@ proc gen_testfunc_call {swproj mhsinst} {
      return $testfunc_call
   }
   
-  set deviceid [xget_name $mhsinst "DEVICE_ID"]
+  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [get_property CONFIG.STDOUT [get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -181,7 +181,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   }
    if {$ifuartliteintr == 1} {
         set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
-	set intcname [get_connected_interrupt_controller $ipname $intr_pin_name]
+	set intcname [::hsm::utils::get_connected_intr_cntrl $ipname $intr_pin_name]
 	set intcvar intc
 	set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
 	set mdm_name [get_property IP_NAME $mhsinst]

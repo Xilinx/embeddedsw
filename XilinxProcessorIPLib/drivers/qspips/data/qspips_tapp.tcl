@@ -92,7 +92,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
 
     set ipname [get_property NAME $mhsinst] 
-    set deviceid [xget_name $mhsinst "DEVICE_ID"]
+    set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set stdout [get_property CONFIG.STDOUT [get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0

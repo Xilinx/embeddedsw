@@ -39,5 +39,5 @@
 
 proc generate {drv_handle} {
     
-    xdefine_addr_params $drv_handle "xparameters.h" 
+    ::hsm::utils::define_addr_params $drv_handle "xparameters.h" 
 }

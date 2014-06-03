@@ -85,7 +85,7 @@ proc gen_include_files {swproj mhsinst} {
     set stdout [get_property CONFIG.STDOUT [get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
-	set ifuartns550intr [is_ip_interrupting_current_processor $mhsinst]
+	set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifuartns550intr == 1} {
             set inc_file_lines {xuartns550_l.h uartns550_header.h xuartns550.h uartns550_intr_header.h}
         } else {
@@ -107,7 +107,7 @@ proc gen_src_files {swproj mhsinst} {
     set stdout [get_property CONFIG.STDOUT [get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
-        set ifuartns550intr [is_ip_interrupting_current_processor $mhsinst]
+        set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifuartns550intr == 1} {
             set inc_file_lines {examples/xuartns550_selftest_example.c examples/xuartns550_intr_example.c data/uartns550_header.h data/uartns550_intr_header.h}
         } else {
@@ -130,7 +130,7 @@ proc gen_init_code {swproj mhsinst} {
     if {${isStdout} == 0} {
        if {$swproj == 1} {
 	    set ipname [get_property NAME  $mhsinst]
-	    set ifuartns550intr [is_ip_interrupting_current_processor $mhsinst]
+	    set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
 	    if {$ifuartns550intr == 1} {
 		set decl "   static XUartNs550 ${ipname}_UartNs550;"
 		set inc_file_lines $decl
@@ -142,8 +142,8 @@ proc gen_init_code {swproj mhsinst} {
        return ""
     }
 
-  set clockhz [xget_dname "XUartNs550" "CLOCK_HZ"]
-  set baseaddr [xget_name $mhsinst "BASEADDR"]
+  set clockhz [::hsm::utils::get_driver_param_name "XUartNs550" "CLOCK_HZ"]
+  set baseaddr [::hsm::utils::get_ip_param_name $mhsinst "BASEADDR"]
   set ipname [get_property NAME  $mhsinst]
 
   append testfunc_call "
@@ -157,7 +157,7 @@ proc gen_init_code {swproj mhsinst} {
 proc gen_testfunc_call {swproj mhsinst} {
 
   set ipname [get_property NAME  $mhsinst]
-  set ifuartns550intr [is_ip_interrupting_current_processor $mhsinst]  
+  set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]  
   set testfunc_call ""
 
   if {$swproj == 0} {
@@ -176,7 +176,7 @@ proc gen_testfunc_call {swproj mhsinst} {
      return $testfunc_call
   }
 
-  set deviceid [xget_name $mhsinst "DEVICE_ID"]
+  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [get_property CONFIG.STDOUT [get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -185,7 +185,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   }
   if {$ifuartns550intr == 1} {
       set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
-      set intcname [get_connected_interrupt_controller $ipname  $intr_pin_name]
+      set intcname [::hsm::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
       set intcvar intc
       set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
   }

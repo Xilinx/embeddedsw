@@ -68,7 +68,7 @@ proc isf_drc {libhandle} {
 }
 
 proc get_spi_periphs {processor} {
-	set periphs_list [xget_hw_proc_slave_periphs $processor]
+	set periphs_list [::hsm::utils::get_proc_slave_periphs $processor]
 	set spi_periphs_list {}
 
 	global spi_periphs_name_list
@@ -129,7 +129,7 @@ proc execs_generate {libhandle} {
 proc xgen_opts_file {libhandle} {
 
 	# Open xparameters.h file
-	set file_handle [xopen_include_file "xparameters.h"]
+	set file_handle [::hsm::utils::open_include_file "xparameters.h"]
 
 	# -----------------------------
 	# Generate Flash options

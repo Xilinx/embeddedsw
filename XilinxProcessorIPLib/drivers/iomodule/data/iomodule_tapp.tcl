@@ -53,7 +53,7 @@ proc gen_include_files {swproj mhsinst} {
     }
 
     if {$swproj == 1} {
-        set ifintr [is_ip_interrupting_current_processor $mhsinst]
+        set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifintr == 1} {
             set inc_file_lines {xiomodule.h iomodule_header.h \
                                 xil_exception.h iomodule_intr_header.h}
@@ -70,7 +70,7 @@ proc gen_src_files {swproj mhsinst} {
     }
 
     if {$swproj == 1} {
-        set ifintr [is_ip_interrupting_current_processor  $mhsinst]
+        set ifintr [::hsm::utils::is_ip_interrupting_current_proc  $mhsinst]
         if {$ifintr == 1} {
             set inc_file_lines {examples/xiomodule_selftest_example.c \
                                 examples/xiomodule_intr_example.c \
@@ -91,7 +91,7 @@ proc gen_testfunc_def {swproj mhsinst} {
 proc gen_init_code {swproj mhsinst} {
     if {$swproj == 1} {
         set ipname [get_property NAME  $mhsinst]
-        set ifintr [is_ip_interrupting_current_processor $mhsinst]
+        set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifintr == 1} {
             set decl "   static XIOModule ${ipname}_IOModule;"
             set inc_file_lines $decl
@@ -107,7 +107,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
 
     set ipname [get_property NAME $mhsinst] 
-    set deviceid [xget_name $mhsinst "DEVICE_ID"]
+    set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set stdout [get_property CONFIG.STDOUT [get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -115,7 +115,7 @@ proc gen_testfunc_call {swproj mhsinst} {
        set hasStdout 1
     }
     set iomodulevar "${ipname}_IOModule"
-    set ifintr [is_ip_interrupting_current_processor $mhsinst]
+    set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
     set extintr [get_property CONFIG.C_INTC_USE_EXT_INTR $mhsinst]
     set testfunc_call ""
 
