@@ -60,7 +60,7 @@ proc generate {drv_handle} {
 # and sort them in the following order: *BASE* *HIGH* *CTRL*BASE* *CTRL*HIGH*
 #
 proc find_addr_params {periph} {
-    set addr_params [xfind_addr_params $periph]
+    set addr_params [::hsm::utils::find_addr_params $periph]
 
     set sorted_addr_params {}
     foreach addr_param $addr_params {
@@ -105,17 +105,17 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     ]
 
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle] 
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle] 
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
 
@@ -127,7 +127,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [xget_dname $drv_string $arg] [xget_value $drv_handle "PARAMETER" $arg]"
+            puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [xget_value $drv_handle "PARAMETER" $arg]"
         }
     }
     set args $newargs
@@ -157,7 +157,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                     }
                 }
                 if {$match == 0} {
-                    set value [xget_param_value $periph $arg]
+                    set value [::hsm::utils::get_param_value $periph $arg]
                 }
             } elseif { $periph_type == "lmb_bram_if_cntlr" && [string compare -nocase "C_S_AXI_DATA_WIDTH" $arg] == 0 } {
                 # DATA_WIDTH = 32 for lmb_bram_if_cntlr
@@ -169,8 +169,8 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 set value 0
             }
 
-            set value [xformat_addr_string $value $arg]
-            set arg_name [xget_dname $periph $arg]
+            set value [::hsm::utils::format_addr_string $value $arg]
+            set arg_name [::hsm::utils::get_driver_param_name $periph $arg]
             if { [string compare -nocase "C_S_AXI_DATA_WIDTH" $arg] == 0 } {
                 regsub "S_AXI_" $arg_name "" arg_name
             }
@@ -181,8 +181,8 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             }
         }
         if {$have_ecc == 0} {
-            puts $file_handle "#define [xget_dname $periph "C_S_AXI_CTRL_BASEADDR" ] 0xFFFFFFFF "
-            puts $file_handle "#define [xget_dname $periph "C_S_AXI_CTRL_HIGHADDR" ] 0xFFFFFFFF "
+            puts $file_handle "#define [::hsm::utils::get_driver_param_name $periph "C_S_AXI_CTRL_BASEADDR" ] 0xFFFFFFFF "
+            puts $file_handle "#define [::hsm::utils::get_driver_param_name $periph "C_S_AXI_CTRL_HIGHADDR" ] 0xFFFFFFFF "
         }
         puts $file_handle ""
     }		
@@ -197,7 +197,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
     set filename [file join "src" $file_name] 
     file delete $filename
     set config_file [open $filename w]
-    xprint_generated_header $config_file "Driver configuration"    
+    ::hsm::utils::write_c_header $config_file "Driver configuration"    
     puts $config_file "#include \"xparameters.h\""
     puts $config_file "#include \"[string tolower $drv_string].h\""
     puts $config_file "\n/*"
@@ -205,7 +205,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
     puts $config_file "*/\n"
     puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
     puts $config_file "\{"
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
     set start_comma ""
     foreach periph $periphs {
         set have_ecc [get_property CONFIG.C_ECC $periph]
@@ -216,13 +216,13 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         set arguments [concat $args $addr_params]
         foreach arg $arguments {
             set local_value [get_property CONFIG.$arg $periph]
-            set arg_name [xget_dname $periph $arg]
+            set arg_name [::hsm::utils::get_driver_param_name $periph $arg]
             # If a parameter isn't found locally (in the current
             # peripheral), we will (for some obscure and ancient reason)
             # look in peripherals connected via point to point links
             if { [string compare -nocase $local_value ""] == 0} { 
                 set p2p_name ""
-                set p2p_name [xget_p2p_name $periph $arg]
+                set p2p_name [::hsm::utils::get_p2p_name $periph $arg]
                 if { [string compare -nocase $p2p_name ""] == 0} {
                     if { [string compare -nocase "C_S_AXI_DATA_WIDTH" $arg] == 0 } {
                         regsub "S_AXI_" $arg_name "" arg_name
@@ -251,9 +251,9 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
             set comma ",\n"
         }
         if {$have_ecc == 0} {
-            set arg_name [xget_dname $periph "C_S_AXI_CTRL_BASEADDR"]
+            set arg_name [::hsm::utils::get_driver_param_name $periph "C_S_AXI_CTRL_BASEADDR"]
             puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
-            set arg_name [xget_dname $periph "C_S_AXI_CTRL_HIGHADDR"]
+            set arg_name [::hsm::utils::get_driver_param_name $periph "C_S_AXI_CTRL_HIGHADDR"]
             puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
         }
         puts -nonewline $config_file "\n\t\}"
@@ -283,10 +283,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     ]
 
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -311,7 +311,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        #set have_ecc [xget_param_value $periph "C_ECC"]
+        #set have_ecc [::hsm::utils::get_param_value $periph "C_ECC"]
         set have_ecc [get_property CONFIG.C_ECC $periph]
         set periph_type [get_property IP_NAME $periph]
 
@@ -330,7 +330,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
             set arguments [concat $args $addr_params]
             foreach arg $arguments {
                 set match 0
-                set lvalue [xget_dname $canonical_name $arg]
+                set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
                 regsub "S_AXI_" $lvalue "" lvalue
 
                 if { $periph_type == "axi_bram_ctrl" && $have_ecc == 1 } {
@@ -346,12 +346,12 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                     # DATA_WIDTH = 32 for lmb_bram_if_cntlr
                     set rvalue 32
                 } elseif {$match == 0} {
-                    set rvalue [xget_param_value $periph $arg]
+                    set rvalue [::hsm::utils::get_param_value $periph $arg]
                 }
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
-                set rvalue [xformat_addr_string $rvalue $arg]
+                set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
 
                 puts $file_handle "#define $lvalue $rvalue"
             }

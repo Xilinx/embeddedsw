@@ -92,7 +92,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     	return $testfunc_call
     }
 
-    set numproc [xget_procs]
+    set numproc [::hsm::utils::get_procs]
     set numproc [llength $numproc]
       
     if {$numproc == 1} {

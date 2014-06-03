@@ -121,7 +121,7 @@ proc generate {drv_handle} {
 
     # 7. INTC: Set XPAR_IOMODULE_INTC_MAX_INTR_SIZE
     set max_intr_size 0
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [hsm::utils::get_common_driver_ips $drv_handle]
     foreach periph $periphs {
       set periph_num_intr_internal [get_num_intr_internal $periph]
       set periph_num_intr_inputs [get_num_intr_inputs $periph]
@@ -132,16 +132,16 @@ proc generate {drv_handle} {
     }
 
     # 7. INTC: Define XPAR_SINGLE_BASEADDR, XPAR_SINGLE_HIGHADDR, and XPAR_SINGLE_DEVICE_ID
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [hsm::utils::get_common_driver_ips $drv_handle]
     set count [llength $periphs]
     if {$count == 1} {
-      xdefine_with_names $drv_handle [xget_sw_iplist_for_driver $drv_handle] "xparameters.h" \
+      hsm::utils::define_with_names $drv_handle [hsm::utils::get_common_driver_ips $drv_handle] "xparameters.h" \
          "XPAR_IOMODULE_SINGLE_BASEADDR" "C_BASEADDR" \
          "XPAR_IOMODULE_SINGLE_HIGHADDR" "C_HIGHADDR" \
          "XPAR_IOMODULE_INTC_SINGLE_DEVICE_ID" "DEVICE_ID"
     }
 
-    set config_inc [xopen_include_file "xparameters.h"]
+    set config_inc [hsm::utils::open_include_file "xparameters.h"]
     puts $config_inc "#define XPAR_IOMODULE_INTC_MAX_INTR_SIZE $max_intr_size"
     # 7. INTC: Generate config table, vector tables
     iomodule_define_config_file $drv_handle $periphs $config_inc
@@ -169,7 +169,7 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
     set filename [file join "src" $file_name]
     file delete $filename
     set config_file [open $filename w]
-    xprint_generated_header $config_file "Driver configuration"
+    hsm::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "#include \"xparameters.h\""
     puts $config_file "#include \"[string tolower $drv_string].h\""
     puts $config_file "\n"
@@ -191,64 +191,64 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
             # Check if this is a driver parameter or a peripheral parameter
             set value [get_property CONFIG.$arg $drv_handle]
             if {[llength $value] == 0} {
-                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [xget_name $periph $arg]]
+                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsm::utils::get_ip_param_name $periph $arg]]
             } else {
-                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [xget_dname $drv_string $arg]]
+                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [hsm::utils::get_driver_param_name $drv_string $arg]]
             }
             set comma ",\n"
         }
 
         # add AckBeforeService as an arg to the config table - Ack Before for edge interrupts
-        puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma "(([xget_name $periph C_INTC_LEVEL_EDGE] << 16) | 0x7FF)"]
+        puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma "(([::hsm::utils::get_ip_param_name $periph C_INTC_LEVEL_EDGE] << 16) | 0x7FF)"]
 
         # add the OPTIONS as an arg to the config table - default OPTIONS value is XIN_SVC_SGL_ISR_OPTION
         puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma $isr_options]
 
         # add the FREQ as an arg to the config table
-        puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [xget_name $periph "C_FREQ"] ]
+        puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsm::utils::get_ip_param_name $periph "C_FREQ"] ]
 
         # add the BAUDRATE as an arg to the config table
-        puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [xget_name $periph "C_UART_BAUDRATE"] ]
+        puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsm::utils::get_ip_param_name $periph "C_UART_BAUDRATE"] ]
 
         # add the PIT use as an arg to the config table
         puts $tmp_config_file [format "%s\t\t\{" $comma ]
         for {set i 1} {$i <= 4} {incr i} {
-            puts $tmp_config_file [format "\t\t\t%s," [xget_name $periph "C_USE_PIT${i}"] ]
+            puts $tmp_config_file [format "\t\t\t%s," [::hsm::utils::get_ip_param_name $periph "C_USE_PIT${i}"] ]
         }
         puts -nonewline $tmp_config_file "\t\t\}"
 
         # add the PIT sizes as an arg to the config table
         puts $tmp_config_file [format "%s\t\t\{" $comma ]
         for {set i 1} {$i <= 4} {incr i} {
-            puts $tmp_config_file [format "\t\t\t%s," [xget_name $periph "C_PIT${i}_SIZE"] ]
+            puts $tmp_config_file [format "\t\t\t%s," [::hsm::utils::get_ip_param_name $periph "C_PIT${i}_SIZE"] ]
         }
         puts -nonewline $tmp_config_file "\t\t\}"
 
  	# add the PIT sizes as an arg to the config table
         puts $tmp_config_file [format "%s\t\t\{" $comma ]
         for {set i 1} {$i <= 4} {incr i} {
-            puts $tmp_config_file [format "\t\t\t%s," [xget_name $periph "C_PIT${i}_EXPIRED_MASK"] ]
+            puts $tmp_config_file [format "\t\t\t%s," [::hsm::utils::get_ip_param_name $periph "C_PIT${i}_EXPIRED_MASK"] ]
         }
         puts -nonewline $tmp_config_file "\t\t\}"
 
         # add the PIT prescalers as an arg to the config table
         puts $tmp_config_file [format "%s\t\t\{" $comma ]
         for {set i 1} {$i <= 4} {incr i} {
-            puts $tmp_config_file [format "\t\t\t%s," [xget_name $periph "C_PIT${i}_PRESCALER"] ]
+            puts $tmp_config_file [format "\t\t\t%s," [::hsm::utils::get_ip_param_name $periph "C_PIT${i}_PRESCALER"] ]
         }
         puts -nonewline $tmp_config_file "\t\t\}"
 
         # add if PIT has readable counter as an arg to the config table
         puts $tmp_config_file [format "%s\t\t\{" $comma ]
         for {set i 1} {$i <= 4} {incr i} {
-            puts $tmp_config_file [format "\t\t\t%s," [xget_name $periph "C_PIT${i}_READABLE"] ]
+            puts $tmp_config_file [format "\t\t\t%s," [::hsm::utils::get_ip_param_name $periph "C_PIT${i}_READABLE"] ]
         }
         puts -nonewline $tmp_config_file "\t\t\}"
 
         # add the GPO initialization values as an arg to the config table
         puts $tmp_config_file [format "%s\t\t\{" $comma ]
         for {set i 1} {$i <= 4} {incr i} {
-            puts $tmp_config_file [format "\t\t\t%s," [xget_name $periph "C_GPO${i}_INIT"] ]
+            puts $tmp_config_file [format "\t\t\t%s," [::hsm::utils::get_ip_param_name $periph "C_GPO${i}_INIT"] ]
         }
         puts -nonewline $tmp_config_file "\t\t\}"
 
@@ -292,7 +292,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
     set periph_name [get_property NAME $periph]
 
     # Get ports that are driving the interrupt
-    set source_ports [xget_interrupt_sources $periph]
+    set source_ports [hsm::utils::get_interrupt_sources $periph]
     set num_intr_inputs [get_num_intr_inputs $periph]
     set num_intr_internal [get_num_intr_internal $periph]
 
@@ -306,7 +306,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
         set source_periph [get_cells -of_objects $source_pin ]
         if { [llength $source_periph ] == 0} {
             #external interrupt port case
-            set width [xget_port_width $source_pin]
+            set width [hsm::utils::get_port_width $source_pin]
             for { set j 0 } { $j < $width } { incr j } {
                 set source_port_name($i) "[get_property NAME $source_pin]_$j"
                 set source_name($i) "system"
@@ -339,7 +339,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
                         iomodule_add_handler $source_interrupt_handler($i)
                         set source_handler_arg($i) [get_property CONFIG.int_handler_arg $int_array_elem]
                         if {[string compare -nocase $source_handler_arg($i) DEVICE_ID] == 0 } {
-                            set source_handler_arg($i) [xget_name $source_periph "DEVICE_ID"]
+                            set source_handler_arg($i) [::hsm::utils::get_ip_param_name $source_periph "DEVICE_ID"]
                         }
                         break
                     }
@@ -410,12 +410,12 @@ proc iomodule_add_handler {handler} {
 # using the driver name, in an include file.
 ##########################################################################
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
-    set args [get_exact_arg_list $args]
+    set args [hsm::utils::get_exact_arg_list $args]
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [hsm::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [hsm::utils::get_common_driver_ips $drv_handle]
 
     # Print canonical parameters for each peripheral
     set device_id 0
@@ -438,22 +438,22 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 	    	set size [string index $arg [expr $charindex - 1]]
 	    	set sizearg [format "C_PIT%d_SIZE" $size]
 	    	set lvalue [format "C_PIT%d_EXPIRED_MASK" $size]
-	    	set lvalue [xget_dname $canonical_name $lvalue]
+	    	set lvalue [hsm::utils::get_driver_param_name $canonical_name $lvalue]
 	    	set rvalue [get_property CONFIG.$sizearg $periph]
 	    	set rvalue [expr pow(2, $rvalue) - 1]
 	    	set rvalue [format "%.0f" $rvalue]
 	    	set rvalue [format "0x%08X" $rvalue]
 	    } else {
-	    	set lvalue [xget_dname $canonical_name $arg]
+	    	set lvalue [hsm::utils::get_driver_param_name $canonical_name $arg]
  # The commented out rvalue is the name of the instance-specific constant
- #              set rvalue [xget_name $periph $arg]
+ #              set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
 	    	# The rvalue set below is the actual value of the parameter
             	set rvalue [get_property CONFIG.$arg  $periph]
             }          
             if {[llength $rvalue] == 0} {
                 set rvalue 0
             }
-            set rvalue [xformat_addr_string $rvalue $arg]
+            set rvalue [hsm::utils::format_addr_string $rvalue $arg]
             puts $file_handle "#define $lvalue $rvalue"
         }
         incr device_id
@@ -478,7 +478,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
 
     # Next define interrupt IDs for each connected peripheral
 
-    set periphs [xget_sw_iplist_for_driver $drvhandle]
+    set periphs [hsm::utils::get_common_driver_ips $drvhandle]
     set device_id 0
     set periph_name [string toupper "iomodule"]
 
@@ -488,7 +488,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
         set edk_periph_name [get_property NAME $periph]
 
         # Get ports that are driving the interrupt
-        set source_ports [xget_interrupt_sources $periph]
+        set source_ports [hsm::utils::get_interrupt_sources $periph]
 
 	set i 0
 	lappend source_list
@@ -496,7 +496,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
         set source_periph($i) [get_cells -of_objects $source_pin ]
         if { [llength $source_periph($i) ] == 0} {
             #external interrupt port case
-            set width [xget_port_width $source_pin]
+            set width [hsm::utils::get_port_width $source_pin]
             for { set j 0 } { $j < $width } { incr j } {
                 set source_port_name($i) "[get_property NAME $source_pin]_$j"
                 set source_name($i) "system"
@@ -614,7 +614,7 @@ proc lcount {list match_entry} {
 ##########################################################################
 proc xfind_instance {drvhandle instname} {
 
-    set instlist [xget_sw_iplist_for_driver $drvhandle]
+    set instlist [hsm::utils::get_common_driver_ips $drvhandle]
     set i 0
     foreach inst $instlist {
         set name [get_property NAME $inst]
@@ -693,12 +693,12 @@ proc get_num_intr_internal {periph} {
 # xdefine_include_file in "$XILINX_EDK/data/datastructure/xillib_sw.tcl".
 ##########################################################################
 proc xdefine_include_file_hex {drv_handle file_name drv_string args} {
-     set args [get_exact_arg_list $args]
+     set args [hsm::utils::get_exact_arg_list $args]
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [hsm::utils::open_include_file $file_name]
   
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [hsm::utils::get_common_driver_ips $drv_handle]
 
     # Print all parameters for all peripherals as hexadecimal strings
     set device_id 0
@@ -720,7 +720,7 @@ proc xdefine_include_file_hex {drv_handle file_name drv_string args} {
                 set value [format "0x%08x" $value_int]
             }
 
-            puts $file_handle "#define [xget_name $periph $arg] $value"
+            puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] $value"
         }
         puts $file_handle ""
     }           
@@ -732,13 +732,13 @@ proc xdefine_include_file_hex {drv_handle file_name drv_string args} {
 # Define parameters in xparameters.h and generate PIT_EXPIRED_MASK parameter
 ##############################################################################
 proc xdefine_include_file {drv_handle file_name drv_string args} {
-    set args [get_exact_arg_list $args]
+    set args [hsm::utils::get_exact_arg_list $args]
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [hsm::utils::open_include_file $file_name]
     set flag 0
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle] 
+    set periphs [hsm::utils::get_common_driver_ips $drv_handle] 
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -746,7 +746,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
 
@@ -757,7 +757,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [xget_dname $drv_string $arg] [get_property $arg $drv_handle]"
+            puts $file_handle "#define [hsm::utils::get_driver_param_name $drv_string $arg] [get_property $arg $drv_handle]"
         }
     }
     set args $newargs
@@ -790,12 +790,12 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[llength $value] == 0} {
                 set value 0
             }
-            set value [xformat_addr_string $value $arg]
+            set value [hsm::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
-                puts $file_handle "#define [xget_name $periph $arg] \"$value\""
+                puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
                 if {$flag == 0} {
-                	puts $file_handle "#define [xget_name $periph $arg] $value"
+                	puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] $value"
                 } else {
                 	puts $file_handle "#define $lvalue $rvalue"
                 	set flag 0

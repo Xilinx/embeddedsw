@@ -127,12 +127,12 @@ proc xdefine_mbox_config_if {periph hfile_handle cfile_handle bus_if if_num dev_
 proc xdefine_mbox_config_files {drv_handle hfile_name cfile_name drv_string} {
 
     # Open include file
-    set hfile_handle [xopen_include_file $hfile_name]
+    set hfile_handle [::hsm::utils::open_include_file $hfile_name]
     set cfile_name [file join "src" $cfile_name] 
     file delete $cfile_name
     set cfile_handle [open $cfile_name w]
 
-    xprint_generated_header $cfile_handle "Driver configuration"    
+    ::hsm::utils::write_c_header $cfile_handle "Driver configuration"    
     puts $cfile_handle "#include \"xparameters.h\""
     puts $cfile_handle "#include \"[string tolower $drv_string].h\""
     puts $cfile_handle "\n/*"
@@ -142,7 +142,7 @@ proc xdefine_mbox_config_files {drv_handle hfile_name cfile_name drv_string} {
     puts $cfile_handle "\{"
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
 
     # Print all parameters for all peripherals
     set device_id 0
@@ -199,7 +199,7 @@ proc check_if_connected {periph if_num bus_if} {
 
 # Generate canonical definitions for device ID
 proc gen_canonical_device_id {file_handle canonical_name periph_name if_num} {
-    set lvalue [xget_dname $canonical_name "DEVICE_ID"]
+    set lvalue [::hsm::utils::get_driver_param_name $canonical_name "DEVICE_ID"]
     set rvalue "XPAR_${periph_name}_IF_${if_num}_DEVICE_ID"
     puts $file_handle "#define $lvalue $rvalue"
 }
@@ -212,14 +212,14 @@ proc gen_canonical_param_def {file_handle canonical_name periph param_prefix par
 	} else {
 	    set actual_arg "${param_prefix}_${arg}"
 	}
-	set lvalue [xget_dname $canonical_name $arg]
+	set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
 
 	# The rvalue set below is the actual value of the parameter
-	set rvalue [xget_param_value $periph $actual_arg]
+	set rvalue [::hsm::utils::get_param_value $periph $actual_arg]
 	if {[llength $rvalue] == 0} {
 	    set rvalue 0
 	}
-	set rvalue [xformat_addr_string $rvalue $actual_arg]
+	set rvalue [::hsm::utils::format_addr_string $rvalue $actual_arg]
 
 	puts $file_handle "#define $lvalue $rvalue"
     }
@@ -228,9 +228,9 @@ proc gen_canonical_param_def {file_handle canonical_name periph param_prefix par
 proc gen_canonical_fsl_param_def {file_handle canonical_name periph if_num} {
 	set periph_name [string toupper [get_property NAME $periph]]
 
-	puts $file_handle [format "#define [xget_dname $canonical_name "USE_FSL"] XPAR_%s_IF_%d_USE_FSL" $periph_name $if_num]
-	puts $file_handle [format "#define [xget_dname $canonical_name "SEND_FSL"] XPAR_%s_IF_%d_SEND_FSL" $periph_name $if_num]
-	puts $file_handle [format "#define [xget_dname $canonical_name "RECV_FSL"] XPAR_%s_IF_%d_RECV_FSL" $periph_name $if_num]
+	puts $file_handle [format "#define [::hsm::utils::get_driver_param_name $canonical_name "USE_FSL"] XPAR_%s_IF_%d_USE_FSL" $periph_name $if_num]
+	puts $file_handle [format "#define [::hsm::utils::get_driver_param_name $canonical_name "SEND_FSL"] XPAR_%s_IF_%d_SEND_FSL" $periph_name $if_num]
+	puts $file_handle [format "#define [::hsm::utils::get_driver_param_name $canonical_name "RECV_FSL"] XPAR_%s_IF_%d_RECV_FSL" $periph_name $if_num]
 }
 
 # Generate canonical definitions for an interface
@@ -271,10 +271,10 @@ proc gen_canonical_if_def {file_handle periph if_num bus_if drv_string dev_id co
 #
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [xopen_include_file $file_name]
+    set file_handle [::hsm::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle]
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
 
     # Print canonical parameters for each peripheral
     set device_id 0
@@ -300,7 +300,7 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 		
 	set periph_name [string toupper [get_property NAME $periph]]
 	
-	set initiator_handle [xget_connected_intf $periph S${if_num}_AXIS]
+	set initiator_handle [::hsm::utils::get_connected_intf $periph S${if_num}_AXIS]
 	if { [llength $initiator_handle] != 1 } {
 		incr not_connected
 	} else {
@@ -317,7 +317,7 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 		}
 	}
 			
-	set target_handle [xget_connected_intf $periph M${if_num}_AXIS]
+	set target_handle [::hsm::utils::get_connected_intf $periph M${if_num}_AXIS]
 	if { [llength $target_handle] != 1 } {
 		incr not_connected
 	} else {
