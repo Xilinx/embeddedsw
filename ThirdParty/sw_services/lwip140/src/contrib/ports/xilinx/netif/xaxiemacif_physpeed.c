@@ -147,6 +147,85 @@ static int detect_phy(XAxiEthernet *xaxiemacp)
 	return 0;
 }
 
+unsigned get_phy_speed_88E1116R_model(XAxiEthernet *xaxiemacp, u32 phy_addr)
+{
+	u16 phy_val;
+	u16 control;
+	u16 status;
+	u16 partner_capabilities;
+
+	xil_printf("Start PHY autonegotiation \r\n");
+
+	XAxiEthernet_PhyWrite(xaxiemacp,phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 2);
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_MAC, &control);
+	control |= IEEE_RGMII_TXRX_CLOCK_DELAYED_MASK;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_MAC, control);
+
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &control);
+	control |= IEEE_ASYMMETRIC_PAUSE_MASK;
+	control |= IEEE_PAUSE_MASK;
+	control |= ADVERTISE_100;
+	control |= ADVERTISE_10;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, control);
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+				&control);
+	control |= ADVERTISE_1000;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+				control);
+
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_COPPER_SPECIFIC_CONTROL_REG,
+				&control);
+	control |= (7 << 12);	/* max number of gigabit atphy_valts */
+	control |= (1 << 11);	/* enable downshift */
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_COPPER_SPECIFIC_CONTROL_REG,
+				control);
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+	control |= IEEE_CTRL_AUTONEGOTIATE_ENABLE;
+	control |= IEEE_STAT_AUTONEGOTIATE_RESTART;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, control);
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+	control |= IEEE_CTRL_RESET_MASK;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, control);
+	while (1) {
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+		if (control & IEEE_CTRL_RESET_MASK)
+			continue;
+		else
+			break;
+	}
+
+	xil_printf("Waiting for PHY to complete autonegotiation.\r\n");
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+	while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
+		AxiEthernetUtilPhyDelay(1);
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_COPPER_SPECIFIC_STATUS_REG_2,
+							&phy_val);
+		if (phy_val & IEEE_AUTONEG_ERROR_MASK) {
+			xil_printf("Auto negotiation error \r\n");
+		}
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET,
+					&status);
+	}
+
+	xil_printf("autonegotiation complete \r\n");
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_SPECIFIC_STATUS_REG,
+				&partner_capabilities);
+	if ( ((partner_capabilities >> 14) & 3) == 2)/* 1000Mbps */
+		return 1000;
+	else if ( ((partner_capabilities >> 14) & 3) == 1)/* 100Mbps */
+		return 100;
+	else					/* 10Mbps */
+		return 10;
+}
+
 unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 {
 	u32 phy_addr = detect_phy(xaxiemacp);
@@ -164,6 +243,12 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, 2, &phy_identifier);
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, 3, &phy_model);
 	phy_model = phy_model & PHY_MODEL_NUM_MASK;
+
+	if ((phy_identifier == MARVEL_PHY_IDENTIFIER) &&
+			(phy_model == MARVEL_PHY_88E1116R_MODEL)) {
+
+		return get_phy_speed_88E1116R_model(xaxiemacp, phy_addr);
+	}
 
 	if ((phy_identifier == MARVEL_PHY_IDENTIFIER) &&
 			(phy_model == MARVEL_PHY_88E1111_MODEL)) {
@@ -190,171 +275,93 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 				xil_printf("%s: Phy Reset failed\n\r", __FUNCTION__);
 				return 0;
 			}
-		} 
+		}
+	} 
 
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
 				IEEE_1000_ADVERTISE_REG_OFFSET,
 				ADVERTISE_1000);
 
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
 				IEEE_AUTONEGO_ADVERTISE_REG,
 				ADVERTISE_100_AND_10);
 
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
-					IEEE_CONTROL_REG_OFFSET,
-					&control);
-		control |= (IEEE_CTRL_AUTONEGOTIATE_ENABLE |
-					IEEE_STAT_AUTONEGOTIATE_RESTART);
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+				IEEE_CONTROL_REG_OFFSET,
+				&control);
+	control |= (IEEE_CTRL_AUTONEGOTIATE_ENABLE |
+				IEEE_STAT_AUTONEGOTIATE_RESTART);
 
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
 				IEEE_CONTROL_REG_OFFSET,
 				control);
 
-		/* Read PHY control and status registers is successful. */
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
-					IEEE_CONTROL_REG_OFFSET,
-					&control);
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+	/* Read PHY control and status registers is successful. */
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+				IEEE_CONTROL_REG_OFFSET,
+				&control);
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+				IEEE_STATUS_REG_OFFSET,
+				&status);
+
+	if ((control & IEEE_CTRL_AUTONEGOTIATE_ENABLE) && (status &
+				IEEE_STAT_AUTONEGOTIATE_CAPABLE)) {
+
+		while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
+			XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
 					IEEE_STATUS_REG_OFFSET,
 					&status);
+		}
 
-		if ((control & IEEE_CTRL_AUTONEGOTIATE_ENABLE) && (status &
-					IEEE_STAT_AUTONEGOTIATE_CAPABLE)) {
-
-			while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
-				XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
-						IEEE_STATUS_REG_OFFSET,
-						&status);
-			}
-
-			XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
 					IEEE_PARTNER_ABILITIES_1_REG_OFFSET,
 					&partner_capabilities);
 
-			if (status & IEEE_STAT_1GBPS_EXTENSIONS) {
-				XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+		if (status & IEEE_STAT_1GBPS_EXTENSIONS) {
+			XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
 					IEEE_PARTNER_ABILITIES_3_REG_OFFSET,
 					&partner_capabilities_1000);
-				if (partner_capabilities_1000 &
-						IEEE_AN3_ABILITY_MASK_1GBPS)
-					return 1000;
-			}
+			if (partner_capabilities_1000 &
+					IEEE_AN3_ABILITY_MASK_1GBPS)
+				return 1000;
+		}
 
-			if (partner_capabilities & IEEE_AN1_ABILITY_MASK_100MBPS)
-				return 100;
-			if (partner_capabilities & IEEE_AN1_ABILITY_MASK_10MBPS)
-				return 10;
-
-			xil_printf("%s: unknown PHY link speed, setting TEMAC speed to be 10 Mbps\r\n",
-				__FUNCTION__);
+		if (partner_capabilities & IEEE_AN1_ABILITY_MASK_100MBPS)
+			return 100;
+		if (partner_capabilities & IEEE_AN1_ABILITY_MASK_10MBPS)
 			return 10;
 
+		xil_printf("%s: unknown PHY link speed, setting TEMAC speed to be 10 Mbps\r\n",
+				__FUNCTION__);
+		return 10;
+
+
+	} else {
+
+		/* Update TEMAC speed accordingly */
+		if (status & IEEE_STAT_1GBPS_EXTENSIONS) {
+
+			/* Get commanded link speed */
+			phylinkspeed = control &
+				IEEE_CTRL_1GBPS_LINKSPEED_MASK;
+
+			switch (phylinkspeed) {
+				case (IEEE_CTRL_LINKSPEED_1000M):
+					return 1000;
+				case (IEEE_CTRL_LINKSPEED_100M):
+					return 100;
+				case (IEEE_CTRL_LINKSPEED_10M):
+					return 10;
+				default:
+					xil_printf("%s: unknown PHY link speed (%d), setting TEMAC speed to be 10 Mbps\r\n",
+						__FUNCTION__, phylinkspeed);
+					return 10;
+			}
 
 		} else {
-
-			/* Update TEMAC speed accordingly */
-			if (status & IEEE_STAT_1GBPS_EXTENSIONS) {
-
-				/* Get commanded link speed */
-				phylinkspeed = control &
-					IEEE_CTRL_1GBPS_LINKSPEED_MASK;
-
-				switch (phylinkspeed) {
-					case (IEEE_CTRL_LINKSPEED_1000M):
-						return 1000;
-					case (IEEE_CTRL_LINKSPEED_100M):
-						return 100;
-					case (IEEE_CTRL_LINKSPEED_10M):
-						return 10;
-					default:
-						xil_printf("%s: unknown PHY link speed (%d), setting TEMAC speed to be 10 Mbps\r\n",
-							__FUNCTION__, phylinkspeed);
-						return 10;
-				}
-
-			} else {
-
-				return (control & IEEE_CTRL_LINKSPEED_MASK) ? 100 : 10;
-
-			}
-
-		}
-	}  else if ((phy_identifier == MARVEL_PHY_IDENTIFIER) &&
-			(phy_model == MARVEL_PHY_88E1116R_MODEL)) {
-		xil_printf("Start PHY autonegotiation \r\n");
-
-		XAxiEthernet_PhyWrite(xaxiemacp,phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 2);
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_MAC, &control);
-		control |= IEEE_RGMII_TXRX_CLOCK_DELAYED_MASK;
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_MAC, control);
-
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
-
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &control);
-		control |= IEEE_ASYMMETRIC_PAUSE_MASK;
-		control |= IEEE_PAUSE_MASK;
-		control |= ADVERTISE_100;
-		control |= ADVERTISE_10;
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, control);
-
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-							&control);
-		control |= ADVERTISE_1000;
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-							control);
-
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_COPPER_SPECIFIC_CONTROL_REG,
-							&control);
-		control |= (7 << 12);	/* max number of gigabit atphy_valts */
-		control |= (1 << 11);	/* enable downshift */
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_COPPER_SPECIFIC_CONTROL_REG,
-							control);
-
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
-		control |= IEEE_CTRL_AUTONEGOTIATE_ENABLE;
-		control |= IEEE_STAT_AUTONEGOTIATE_RESTART;
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, control);
-
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
-		control |= IEEE_CTRL_RESET_MASK;
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, control);
-
-		while (1) {
-			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
-			if (control & IEEE_CTRL_RESET_MASK)
-				continue;
-			else
-				break;
+			return (control & IEEE_CTRL_LINKSPEED_MASK) ? 100 : 10;
 		}
 
-		xil_printf("Waiting for PHY to complete autonegotiation.\r\n");
-
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-		while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
-			AxiEthernetUtilPhyDelay(1);
-			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_COPPER_SPECIFIC_STATUS_REG_2,
-							&phy_val);
-			if (phy_val & IEEE_AUTONEG_ERROR_MASK) {
-				xil_printf("Auto negotiation error \r\n");
-			}
-			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET,
-							&status);
-		}
-
-		xil_printf("autonegotiation complete \r\n");
-
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_SPECIFIC_STATUS_REG,
-						&partner_capabilities);
-		if ( ((partner_capabilities >> 14) & 3) == 2)/* 1000Mbps */
-			return 1000;
-		else if ( ((partner_capabilities >> 14) & 3) == 1)/* 100Mbps */
-			return 100;
-		else					/* 10Mbps */
-			return 10;
-	} else {
-		xil_printf("%s: unknown PHY link speed\r\n", __FUNCTION__);
-		return 0; 
 	}
 }
 
