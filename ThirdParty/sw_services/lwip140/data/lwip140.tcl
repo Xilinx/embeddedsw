@@ -446,6 +446,11 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define MEMP_NUM_TCP_PCB $memp_n_tcp_pcb"
 	puts $lwipopts_fd "\#define MEMP_NUM_TCP_PCB_LISTEN $memp_n_tcp_pcb_listen"
 	puts $lwipopts_fd "\#define MEMP_NUM_TCP_SEG $memp_n_tcp_seg"
+	puts $lwipopts_fd "\#define MEMP_NUM_SYS_TIMEOUT $memp_n_sys_timeout"
+	puts $lwipopts_fd "\#define MEMP_NUM_NETBUF $memp_num_netbuf"
+	puts $lwipopts_fd "\#define MEMP_NUM_NETCONN $memp_num_netconn"
+	puts $lwipopts_fd "\#define MEMP_NUM_TCPIP_MSG_API $memp_num_api_msg"
+	puts $lwipopts_fd "\#define MEMP_NUM_TCPIP_MSG_INPKT $memp_num_tcpip_msg"
 
 	# workaround for lwip mem_malloc bug
 	# puts $lwipopts_fd "\#define MEM_LIBC_MALLOC 1"

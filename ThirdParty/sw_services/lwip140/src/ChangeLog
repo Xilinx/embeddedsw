@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2014-13-06
+	* Fix for CR 801076 - Few configurable options of
+	library are not propagated during compilation.
 2014-06-06
 	* Fix for CR 800240 - Removed the limitation of
 	supporting only Marvel PHY in AXI Ethernet adapter.
