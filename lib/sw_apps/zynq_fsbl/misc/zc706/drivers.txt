@@ -8,10 +8,7 @@ scugic
 scutimer
 scuwdt
 sdps
-standalone
 ttcps
 uartps
 usbps
 xadcps
-xilffs
-xilrsa

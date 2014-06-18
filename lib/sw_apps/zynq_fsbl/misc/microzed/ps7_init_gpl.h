@@ -1,32 +1,19 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights 
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
-* copies of the Software, and to permit persons to whom the Software is 
-* furnished to do so, subject to the following conditions:
+* Copyright (C) 2012 - 2014  Xilinx Inc.
 *
-* The above copyright notice and this permission notice shall be included in 
-* all copies or substantial portions of the Software.
+*    This program is free software; you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation; either version 2 of the License, or
+*    (at your option) any later version.
 *
-* Use of the Software is limited solely to applications: 
-* (a) running on a Xilinx device, or 
-* (b) that interact with a Xilinx device through a bus or interconnect.  
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in 
-* this Software without prior written authorization from Xilinx.
+*    You should have received a copy of the GNU General Public License 
+*    along   with this program. If not, see <http://www.gnu.org/licenses/>.
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -98,7 +85,7 @@ extern unsigned long  * ps7_peripherals_init_data;
 #define DCI_FREQ  10158731
 #define QSPI_FREQ  200000000
 #define SMC_FREQ  10000000
-#define ENET0_FREQ  25000000
+#define ENET0_FREQ  125000000
 #define ENET1_FREQ  10000000
 #define USB0_FREQ  60000000
 #define USB1_FREQ  60000000
@@ -108,12 +95,12 @@ extern unsigned long  * ps7_peripherals_init_data;
 #define I2C_FREQ  111111115
 #define WDT_FREQ  111111115
 #define TTC_FREQ  50000000
-#define CAN_FREQ  23809523
+#define CAN_FREQ  10000000
 #define PCAP_FREQ  200000000
 #define TPIU_FREQ  200000000
-#define FPGA0_FREQ  50000000
-#define FPGA1_FREQ  50000000
-#define FPGA2_FREQ  50000000
+#define FPGA0_FREQ  100000000
+#define FPGA1_FREQ  100000000
+#define FPGA2_FREQ  33333336
 #define FPGA3_FREQ  50000000
 
 
