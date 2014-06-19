@@ -93,6 +93,8 @@
 *                    Added RX threshold reset(1) after transfer in polled and
 *                    interrupt transfers. Made changes to make sure threshold
 *                    change is done only when no transfer is in progress.
+* 3.1   hk  06/19/14 When writng configuration register, set/reset
+*                    required bits leaving reserved bits untouched. CR# 796813.
 *
 * </pre>
 *
@@ -257,6 +259,8 @@ int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config *ConfigPtr,
 ******************************************************************************/
 void XQspiPs_Reset(XQspiPs *InstancePtr)
 {
+	u32 ConfigReg;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -266,11 +270,13 @@ void XQspiPs_Reset(XQspiPs *InstancePtr)
 	XQspiPs_Abort(InstancePtr);
 
 	/*
-	 * Reset any values that are not reset by the hardware reset such that
-	 * the software state matches the hardware device
+	 * Write default value to configuration register.
+	 * Do not modify reserved bits.
 	 */
+	ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
+			 XQSPIPS_CR_OFFSET);
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPS_CR_OFFSET,
-			  XQSPIPS_CR_RESET_STATE);
+			  ConfigReg | XQSPIPS_CR_RESET_STATE);
 }
 
 /*****************************************************************************/

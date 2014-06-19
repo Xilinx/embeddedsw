@@ -42,6 +42,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 2.03a hk  09/17/13 First release
+* 3.1   hk  06/19/14 When writng configuration register, set/reset
+*                    required bits leaving reserved bits untouched. CR# 796813.
 *
 * </pre>
 *
@@ -137,9 +139,9 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 	/*
 	 * Write default value to configuration register
 	 */
+	ConfigReg = XQspiPs_ReadReg(BaseAddress, XQSPIPS_CR_OFFSET);
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_CR_OFFSET,
-				XQSPIPS_CR_RESET_STATE);
-
+				ConfigReg | XQSPIPS_CR_RESET_STATE);
 
 	/*
 	 * De-select linear mode

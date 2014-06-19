@@ -55,6 +55,9 @@
 * 2.03a hk  08/22/13 Added prototypes of API's for QSPI reset and
 *                    linear mode initialization for boot. Added related
 *                    constant definitions.
+* 3.1   hk  06/19/14 Changed definition of XQSPIPS_CR_RESET_STATE to set/reset
+*                    required bits leaving reserved bits untouched. CR# 796813.
+*
 *
 * </pre>
 *
@@ -131,11 +134,22 @@ extern "C" {
 
 #define XQSPIPS_CR_HOLD_B_MASK    0x00080000 /**< HOLD_B Pin Drive Enable */
 
+#define XQSPIPS_CR_REF_CLK_MASK   0x00000100 /**< Ref clk bit - should be 0 */
+
 /* Deselect the Slave select line and set the transfer size to 32 at reset */
-#define XQSPIPS_CR_RESET_STATE    (XQSPIPS_CR_IFMODE_MASK | \
+#define XQSPIPS_CR_RESET_STATE    ((XQSPIPS_CR_IFMODE_MASK | \
 				   XQSPIPS_CR_SSCTRL_MASK | \
 				   XQSPIPS_CR_DATA_SZ_MASK | \
-				   XQSPIPS_CR_MSTREN_MASK)
+				   XQSPIPS_CR_MSTREN_MASK | \
+				   XQSPIPS_CR_SSFORCE_MASK | \
+				   XQSPIPS_CR_HOLD_B_MASK) & \
+				   (~(XQSPIPS_CR_CPOL_MASK | \
+				   XQSPIPS_CR_CPHA_MASK | \
+				   XQSPIPS_CR_PRESC_MASK | \
+				   XQSPIPS_CR_MANSTRTEN_MASK | \
+				   XQSPIPS_CR_MANSTRT_MASK | \
+				   XQSPIPS_CR_ENDIAN_MASK | \
+				   XQSPIPS_CR_REF_CLK_MASK)))
 /* @} */
 
 

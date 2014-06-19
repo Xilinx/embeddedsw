@@ -44,6 +44,8 @@
 * ----- --- -------- -----------------------------------------------
 * 1.00  sdm 11/25/10 First release
 * 2.01a sg  02/03/13 Delay Register test is added with DelayNss parameter.
+* 3.1   hk  06/19/14 Remove checks for CR and ISR register values as they are
+*                    reset in the previous step.
 *
 * </pre>
 *
@@ -98,21 +100,6 @@ int XQspiPs_SelfTest(XQspiPs *InstancePtr)
 	 * Reset the QSPI device to leave it in a known good state
 	 */
 	XQspiPs_Reset(InstancePtr);
-
-	/*
-	 * All the QSPI registers should be in their default state right now.
-	 */
-	Register = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				    XQSPIPS_CR_OFFSET);
-	if (Register != XQSPIPS_CR_RESET_STATE) {
-		return XST_REGISTER_ERROR;
-	}
-
-	Register = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				    XQSPIPS_SR_OFFSET);
-	if (Register != XQSPIPS_ISR_RESET_STATE) {
-		return XST_REGISTER_ERROR;
-	}
 
 	DelayTestNss = 0x5A;
 	DelayTestBtwn = 0xA5;
