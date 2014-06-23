@@ -43,6 +43,8 @@
 * Ver   Who    Date	 Changes
 * ----- ------ -------- ----------------------------------------------
 * 1.00	drg/jz 01/13/10 First Release
+* 2.2   hk     06/23/14 SW reset of RX and TX should be done when changing
+*                       baud rate. CR# 804281.
 * </pre>
 *
 *****************************************************************************/
@@ -623,6 +625,12 @@ int XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 			   XUARTPS_BAUDGEN_OFFSET, Best_BRGR);
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XUARTPS_BAUDDIV_OFFSET, Best_BAUDDIV);
+
+	/*
+	 * RX and TX SW reset
+	 */
+	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_CR_OFFSET,
+				XUARTPS_CR_TXRST | XUARTPS_CR_RXRST);
 
 	/*
 	 * Enable device

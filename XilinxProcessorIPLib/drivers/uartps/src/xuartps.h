@@ -150,6 +150,8 @@
 *			constant definitions.
 * 2.0   hk      03/07/14 Version number revised.
 * 2.1   hk     04/16/14 Change XUARTPS_MAX_RATE to 921600. CR# 780625.
+* 2.2   hk     06/23/14 SW reset of RX and TX should be done when changing
+*                       baud rate. CR# 804281.
 *
 * </pre>
 *
