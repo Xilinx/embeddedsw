@@ -1,0 +1,174 @@
+Change Log for Xilkernel
+=================================
+2011-08-22
+	version v5_01a
+	* init.h, ksched.h, ksemaphore.h, mem.h, process.h, timer.h, xtrace.h,
+	xmk.h, libprocess.c, libtimer.c, microblaze/debugmon.c, microblaze/mpu.c,
+	microblaze/timer_intr_handler.c, ppc/debugmon.c, ppc/ppc_hw.c, sched.c,
+	ppc/timer_intr_handler.c, bufmalloc.c, intr.c, mem.c, process.c, timer.c:
+	Removed compilation issues that are found when compiled with
+	GCC "-Wstrict-prototype" option. Some of the typical changes made are:
+	"void soft_tmr_init();" is changed to "void soft_tmr_init(void);".
+
+	The main.c at src/sys directory is renamed to xilkernel_main.c to avoid
+	conflicts during debugging.
+
+	include/arch/microblaze/arch.h: Two more regs are added to the process
+	context. These new regs will be used only when stack protection is
+	enabled in microblaze. Otherwise they will be dummies.
+
+	include/sys/decls.h: Externs for _ftext, _etext, _fdata, _edata,
+	_frodata, _erodata, _stack_end, _stack, _fstack_guard_top,
+	_estack_guard_top, _fstack_guard_bottom, and _estack_guard_bottom
+	are added.
+
+	microblaze/entry.S: Code added for saving and restoring the SHR and SLR
+	registers when microblaze stack protection is enabled in the hardware.
+
+	microblaze/hw_exception_handler.S: Code added for the new stack protection
+	exception. It is identical to what is present for standalone BSP.
+
+	microblaze/mpu.c : Vector table is added to the TLB entries, The externs
+	for _ftext, _etext, _fdata, _edata,_frodata, _erodata, _stack_end,
+	_stack, _fstack_guard_top, _estack_guard_top, _fstack_guard_bottom,
+	and _estack_guard_bottom are removed.
+
+	microblaze/mb-hw.c: In function "setup_initial_context", code added to
+	store the stack limits. In function init_idle_task, code added to store
+	the stack limits and initialize the SHR and SLR regs. Also MACROs for
+	writing to/reading from SHR/SLR regs are added. Changes done in function
+	"microblaze_report_exception" to remove warnings. Lines of code added to
+	zero out "esr", "ear" and "pc" after they are used. Changes done at
+	many places in the file to remove warnings found with GCC
+	"-Wstrict-prototype" option. In function "microblaze_report_exception",
+	the existing "DPRINTF"s are replaced with xil_printfs.
+
+	sys/pthread.c: Code added to pass the stacksize while calling
+	"setup_initial_context". The stacksize passed is used for microblaze and in
+	general can be handy for future enhancements.
+
+	sys/elf.c: Extra "stacksize" argument added for the "setup_initial_context"
+	call.
+
+	ppc/ppc-hw.c: Extra "stacksize" argument added for the "setup_initial_context"
+	call. It is zeroed out to remove compilation warnings.
+
+	ppc/timer_intr_handler.c: In function "timer_int_handler" the passed argument
+	is zeroed out to remove compilation warning.
+
+	xilkernel_v2_1_0.tcl: Changes done so that function prototypes generated for
+	static thread entry functions do not lead to warnings during compilation
+	(with GCC "-Wstrict-prototype" option).
+
+
+
+2010-09-14
+	* src/src/arch/microblaze/hw_exception_handler.S: Added in xparameters.h
+	so that exception enable information is available.
+
+2010-04-20
+	* src/src/sys/timer.c: Make timer calculations avoid overflow.
+
+2010-02-08
+	* src/src/arch/microblaze/mb-hw.c, src/src/arch/ppc/ppc-hw.c,
+	src/src/sys/main.c, src/include/sys/arch.h: Adapted to work with
+	new HAL API from standalone_v3.
+
+2010-02-08
+	* data/xilkernel_v2_1_0.tcl: Add DRC for pthread stack size.
+
+2010-01-27
+	* src/include/sys/init.h, src/src/sys/main.c: Protos for
+	xilkernel_init and xilkernel_start.
+
+2009-12-17
+	* data/xilkernel_v2_1_0.mld, data/xilkernel_v2_1_0.tcl: New
+	standalone version. Change dependency to standalone_v3_00_a. Do
+	the necessary management of standalone_v3 sources.
+
+2008-11-17
+
+	* src/src/sys/main.c, src/include/sys/init.h: Add new API
+	xmk_add_static_thread(). This function can be used prior to
+	xilkernel_init() to add startup threads via application code.
+
+2008-11-06
+
+	* data/xilkernel.tcl: Modify TCL iteration of I/O ranges to
+	 accomodate changes in the the hardware TCL interface.
+
+2008-10-28
+
+	* src/include/sys/bufmalloc.h src/include/sys/init.h
+	src/include/sys/kpthread.h src/include/sys/ksched.h
+	src/include/sys/ksemaphore.h src/include/sys/mem.h
+	src/include/sys/process.h src/Makefile_ppc.sh
+	src/src/arch/microblaze/mb-hw.c src/src/arch/ppc/ppc-hw.c
+	src/src/ipc/msg.c src/src/ipc/semaphore.c src/src/ipc/shm.c
+	src/src/sys/bufmalloc.c src/src/sys/main.c src/src/sys/process.c
+	src/src/sys/pthread.c src/src/sys/sched.c src/src/sys/timer.c :
+	Fix warnings exposed by -Wall.
+
+2008-02-20
+
+	* src/src/sys/alloc.c: Make kernel stack size equal to the greater
+	of 1024 bytes or pthread_stack_size. New stack start pointer
+	variable used to switch stacks in kernel entry routines.
+	* src/include/arch/<processor>/arch.h: Remove KERNEL_IRQ_STACKSZ
+	* src/src/arch/<processor>/entry<sub_type>.S: Load new stack
+	pointer from kernel_irq_stack_ptr rather than offset from label
+	kernel_irq_stack.
+
+2007-10-22
+
+	* data/xilkernel_v2_1_0.mld: Change depends tag to standalone_v2_00_a.
+
+2007-10-15
+
+	* Makefile_mb.sh: Fix regression with compiler used in kernel Make. Always
+	use *-gcc
+
+	* timer.h: Add prototype for xget_clock_ticks
+
+2007-09-26
+
+	* ktypes.h: Add new field 'remain' for storing process timeout information
+
+	* process.c: When unblocking a process waiting on a timeout, store the
+	remaining timeout amount in the process data structure.
+
+	* semaphore.c: Add sys/timer.h to includes
+
+	* timer.c: Cleanup prototypes. Add new function to compute ticks_to_ms.
+	Store timeout remaining in process data structure. Update to remove_tmr
+	on 2007-09-11 was not sufficient. Since the previous scheme required an
+	interrupt to deallocate removed timers. It could cause an application to
+	run out of timers, before the next interrupt. Created new scheme, where
+	active_tmr lists are updated promptly upon a timer being deactivated.
+
+	* xtrace.c/.h: New xtrace API for internal use. Minimally intrusive way
+	to instrument kernel and log events of interest. Log gets printed out
+	later through debugger. Not available through MSS.
+
+2007-09-19
+
+	* timer_intr_handler.c/<arch>-hw.c: Fix for bug where threads could starve
+	because of the way we always used to refresh PIT timer. Now, when a thread
+	receives only a partial tick, the timer is not refreshed and instead the
+	thread receives one more full time quantum. cr=448047
+
+2007-09-11
+
+	* timer.c: Fix bug with timer handling of closely scheduled add/remove
+	of timers. The changes make sure that no ghost timers are left in the
+	timer lists and there are no aliasing effects. cr=448047
+
+2014-04-15
+
+	* modified driver tcl to remove _interrupt_handler.o from libgloss.a
+	instead of libxil.a
+
+2014-04-29
+
+	* modified driver tcl to use libxil.a if libgloss.a does not exist
+	

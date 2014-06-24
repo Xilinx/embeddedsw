@@ -1,0 +1,263 @@
+###############################################################################
+#
+# Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# Use of the Software is limited solely to applications:
+# (a) running on a Xilinx device, or
+# (b) that interact with a Xilinx device through a bus or interconnect.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# Except as contained in this notice, the name of the Xilinx shall not be used
+# in advertising or otherwise to promote the sale, use or other dealings in
+# this Software without prior written authorization from Xilinx.
+#
+###############################################################################
+#
+# MODIFICATION HISTORY:
+# Ver      Who    Date     Changes
+# -------- ------ -------- ------------------------------------
+# 3.0      adk    12/10/13 Updated as per the New Tcl API's
+##############################################################################
+## @BEGIN_CHANGELOG EDK_L
+##    Deprecated the CLOCK_HZ parameter in mdd and updated the Tcl to obtain the
+##    bus frequency during libgen.
+##
+## @END_CHANGELOG
+##
+## @BEGIN_CHANGELOG EDK_LS3
+##    Updated to obtain external clock frequency from either the port "xin" or
+##    the new parameter C_EXTERNAL_XIN_CLK_HZ (if frequecy can't be read from xin)
+##    when C_HAS_EXTERNAL_XIN is set to 1
+##
+## @END_CHANGELOG
+
+
+proc generate {drv_handle} {
+    xdefine_include_file $drv_handle "xparameters.h" "XUartNs550" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
+    xdefine_config_file $drv_handle "xuartns550_g.c" "XUartNs550"  "DEVICE_ID" "C_BASEADDR" "CLOCK_FREQ_HZ"
+
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "UartNs550" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
+}
+
+
+#
+# Given a list of arguments, define them all in an include file.
+# Handles mpd and mld parameters, as well as the special parameters NUM_INSTANCES,
+# DEVICE_ID
+#
+proc xdefine_include_file {drv_handle file_name drv_string args} {
+    # Open include file
+    set file_handle [xopen_include_file $file_name]
+
+    # Get all peripherals connected to this driver
+    set periphs [xget_sw_iplist_for_driver $drv_handle] 
+
+    # Handle special cases
+    set arg "NUM_INSTANCES"
+    set posn [lsearch -exact $args $arg]
+    if {$posn > -1} {
+        puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+        # Define NUM_INSTANCES
+        puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
+        set args [lreplace $args $posn $posn]
+    }
+
+    # define XPAR_XUARTNS550_CLOCK_HZ as bus freq of the
+    # 1st instance of the core, for backward compatability
+    set arg "CLOCK_HZ"
+    set periph [lindex $periphs 0]
+    set freq [xget_freq $periph]
+    if {[llength $freq] == 0} {
+        set freq [get_property CONFIG.C_S_AXI_ACLK_FREQ_HZ $periph]
+        if {[llength $freq] == 0} {
+            set freq "100000000"
+        }
+    }
+    puts $file_handle "#define [format "%s" [xget_dname $drv_string $arg]] $freq"
+
+    # Print all parameters for all peripherals
+    set device_id 0
+    foreach periph $periphs {
+        set periph_name [string toupper [get_property NAME $periph]]
+        set freq [xget_freq $periph]
+
+        puts $file_handle ""
+        puts $file_handle "/* Definitions for peripheral $periph_name */"
+        foreach arg $args {
+
+            if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+                set value $device_id
+                incr device_id
+            } elseif {[string compare -nocase "CLOCK_FREQ_HZ" $arg] == 0} {
+                if {[llength $freq] == 0} {
+                    set freq [get_property CONFIG.C_S_AXI_ACLK_FREQ_HZ $periph]
+                    if {[llength $freq] == 0} {
+                        set freq "100000000"
+                        puts "WARNING: Clock frequency information is not available in the design, \
+                              for peripheral $periph_name. Assuming a default frequency of 100MHz. \
+                              If this is incorrect, the peripheral $periph_name will be non-functional. \
+                              See AR 33102 for a solution to work around this problem\n"
+                    }
+                }
+                set value $freq
+            } else {
+                set value [get_property CONFIG.$arg $periph]
+            }
+            if {[llength $value] == 0} {
+                set value 0
+            }
+            set value [xformat_addr_string $value $arg]
+            puts $file_handle "#define [xget_name $periph $arg] $value"
+        }
+        puts $file_handle ""
+    }
+    puts $file_handle "\n/******************************************************************/\n"
+    close $file_handle
+}
+
+
+#
+# Create configuration C file as required by Xilinx driver
+#
+proc xdefine_config_file {drv_handle file_name drv_string args} {
+    set filename [file join "src" $file_name] 
+    file delete $filename
+    set config_file [open $filename w]
+    xprint_generated_header $config_file "Driver configuration"    
+    puts $config_file "#include \"xparameters.h\""
+    puts $config_file "#include \"[string tolower $drv_string].h\""
+    puts $config_file "\n/*"
+    puts $config_file " * The configuration table for devices"
+    puts $config_file " */\n"
+    puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+    puts $config_file "\{"
+    set periphs [xget_sw_iplist_for_driver $drv_handle]     
+    set start_comma ""
+    set device_id 0
+    foreach periph $periphs {
+        puts $config_file [format "%s\t\{" $start_comma]
+        set comma ""
+        set canonical_name [format "%s_%s" "UartNs550" $device_id]
+
+        foreach arg $args {
+            puts -nonewline $config_file [format "%s\t\t%s" $comma [xget_dname $canonical_name $arg]]
+            set comma ",\n"
+        }
+        puts -nonewline $config_file "\n\t\}"
+        set start_comma ",\n"
+        incr device_id
+    }
+    puts $config_file "\n\};"
+
+    puts $config_file "\n";
+
+    close $config_file
+}
+
+
+#
+# Given a list of arguments, define each as a canonical constant name, using
+# the driver name, in an include file.
+#
+proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
+    # Open include file
+    set file_handle [xopen_include_file $file_name]
+
+    # Get all the peripherals connected to this driver
+    set periphs [xget_sw_iplist_for_driver $drv_handle]
+
+    # Get the names of all the peripherals connected to this driver
+    foreach periph $periphs {
+        set peripheral_name [string toupper [get_property NAME $periph]]
+        lappend peripherals $peripheral_name
+    }
+
+    # Get possible canonical names for all the peripherals connected to this driver
+    set device_id 0
+    foreach periph $periphs {
+        set canonical_name [string toupper [format "%s_%s" $drv_string $device_id]]
+        lappend canonicals $canonical_name
+        
+        # Create a list of IDs of the peripherals whose hardware instance name
+        # doesn't match the canonical name. These IDs can be used later to
+        # generate canonical definitions
+        if { [lsearch $peripherals $canonical_name] < 0 } {
+            lappend indices $device_id
+        }
+        incr device_id
+    }
+
+    set i 0
+    foreach periph $periphs {
+        set periph_name [string toupper [get_property NAME $periph]]
+
+        # Generate canonical definitions only for the peripherals whose
+        # canonical name is not the same as hardware instance name
+        if { [lsearch $canonicals $periph_name] < 0 } {
+            puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
+            set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
+
+            foreach arg $args {
+                set lvalue [xget_dname $canonical_name $arg]
+
+                #handle CLOCK_FREQ_HZ as a special case
+                if {[string compare -nocase "CLOCK_FREQ_HZ" $arg] == 0} {
+                    set rvalue [xget_name $periph $arg]
+                } else {
+                    set rvalue [get_property CONFIG.$arg $periph]
+                    if {[llength $rvalue] == 0} {
+                        set rvalue 0
+                    }
+                    set rvalue [xformat_addr_string $rvalue $arg]
+                }
+
+                puts $file_handle "#define $lvalue $rvalue"
+            }
+
+            puts $file_handle ""
+            incr i
+        }
+    }
+
+    puts $file_handle "\n/******************************************************************/\n"
+    close $file_handle
+}
+
+
+# Returns the frequency of the UartNs550 peripheral
+proc xget_freq {periph} {
+        set freq ""
+
+        # Check if the device uses external XIN
+        set use_xin_clk [get_property CONFIG.C_HAS_EXTERNAL_XIN $periph]
+        if { $use_xin_clk == "1" } {
+            set port_name "xin"
+        }
+
+      	set freq [xget_ip_clk_pin_freq  $periph "S_AXI_ACLK"]
+	
+        # If the clock frequency can not be obtained from "xin" port,
+        # read the value of the parameter C_EXTERNAL_XIN_CLK_HZ to get
+        # the frequency
+        if { [llength $freq] == 0 && $use_xin_clk == "1" } {
+            set freq [get_property CONFIG.C_EXTERNAL_XIN_CLK_HZ $periph]
+        }
+        return $freq
+}

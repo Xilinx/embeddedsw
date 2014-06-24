@@ -1,0 +1,68 @@
+include Makefile.config
+
+LWIP_DIR = lwip-1.4.0
+
+CORE_SRCS = $(LWIP_DIR)/src/core/init.c \
+	    $(LWIP_DIR)/src/core/mem.c \
+	    $(LWIP_DIR)/src/core/memp.c \
+	    $(LWIP_DIR)/src/core/netif.c \
+	    $(LWIP_DIR)/src/core/pbuf.c \
+	    $(LWIP_DIR)/src/core/raw.c \
+	    $(LWIP_DIR)/src/core/stats.c \
+	    $(LWIP_DIR)/src/core/def.c \
+	    $(LWIP_DIR)/src/core/timers.c \
+	    $(LWIP_DIR)/src/core/sys.c
+
+CORE_IPV4_SRCS = $(LWIP_DIR)/src/core/ipv4/ip_addr.c \
+		 $(LWIP_DIR)/src/core/ipv4/icmp.c \
+		 $(LWIP_DIR)/src/core/ipv4/igmp.c \
+		 $(LWIP_DIR)/src/core/ipv4/inet.c \
+		 $(LWIP_DIR)/src/core/ipv4/inet_chksum.c \
+		 $(LWIP_DIR)/src/core/ipv4/ip.c \
+		 $(LWIP_DIR)/src/core/ipv4/ip_frag.c
+
+CORE_IPV6_SRCS = $(LWIP_DIR)/src/core/ipv6/inet6.c  \
+		 $(LWIP_DIR)/src/core/ipv6/ip6_addr.c \
+		 $(LWIP_DIR)/src/core/ipv6/icmp6.c \
+		 $(LWIP_DIR)/src/core/ipv6/ip6.c
+
+CORE_TCP_SRCS  = $(LWIP_DIR)/src/core/tcp.c \
+	         $(LWIP_DIR)/src/core/tcp_in.c \
+	         $(LWIP_DIR)/src/core/tcp_out.c 
+
+CORE_DHCP_SRCS = $(LWIP_DIR)/src/core/dhcp.c
+
+CORE_UDP_SRCS  = $(LWIP_DIR)/src/core/udp.c
+
+CORE_SNMP_SRCS = $(LWIP_DIR)/src/core/snmp/asn1_dec.c \
+		 $(LWIP_DIR)/src/core/snmp/asn1_enc.c \
+		 $(LWIP_DIR)/src/core/snmp/mib2.c \
+		 $(LWIP_DIR)/src/core/snmp/mib_structs.c \
+		 $(LWIP_DIR)/src/core/snmp/msg_in.c \
+		 $(LWIP_DIR)/src/core/snmp/msg_out.c
+
+CORE_ARP_SRCS  = $(LWIP_DIR)/src/netif/etharp.c
+
+API_SOCK_SRCS = $(LWIP_DIR)/src/api/api_lib.c \
+		 $(LWIP_DIR)/src/api/api_msg.c \
+		 $(LWIP_DIR)/src/api/err.c \
+		 $(LWIP_DIR)/src/api/netbuf.c \
+		 $(LWIP_DIR)/src/api/sockets.c \
+		 $(LWIP_DIR)/src/api/tcpip.c
+
+# create LWIP_SRCS based on configured options
+
+LWIP_SRCS = $(CORE_SRCS)
+
+# we always include ARP, IPv4, TCP and UDP sources
+LWIP_SRCS += $(CORE_ARP_SRCS)
+LWIP_SRCS += $(CORE_IPV4_SRCS)
+LWIP_SRCS += $(CORE_TCP_SRCS)
+LWIP_SRCS += $(CORE_UDP_SRCS)
+LWIP_SRCS += $(CORE_DHCP_SRCS)
+
+ifeq ($(CONFIG_SOCKETS), y)
+LWIP_SRCS += $(API_SOCK_SRCS)
+endif	
+
+LWIP_OBJS = $(LWIP_SRCS:%.c=%.o)

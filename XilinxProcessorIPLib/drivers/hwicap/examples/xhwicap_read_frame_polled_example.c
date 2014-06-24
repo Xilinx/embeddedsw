@@ -1,0 +1,235 @@
+/******************************************************************************
+*
+* Copyright (C) 2003 - 2014 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xhwicap_read_frame_polled_example.c
+*
+* The is example shows how to use the XHwIcap_DeviceReadFrame() to read a
+* frame of data. This example simply reads one frame from the device using
+* the polled mode.
+*
+* This example assumes that there is a UART Device or STDIO Device in the
+* hardware system.
+*
+* @note
+*
+* This example should run on any Virtex4 or Virtex5 or Virtex6 or
+* Spartan6 or Kintex 7 device.
+*
+* <pre>
+*
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.00a bjb  11/21/03 First release
+* 1.00a sv   07/18/05 Minor changes to comply to Doxygen and coding guidelines
+* 1.01a sv   04/10/07 Changes to support V4
+* 2.00a sv   10/04/07 Changes to support FIFO mode
+* 4.00a hvm  11/20/09 Updated to support V6
+* 5.00a hvm  2/20/10  Updated to support S6.
+* 6.00a hvm  08/05/11 Added support for K7 family
+* </pre>
+*
+******************************************************************************/
+
+/***************************** Include Files *********************************/
+
+#include <xparameters.h>
+#include <xil_types.h>
+#include <xil_assert.h>
+#include <xhwicap.h>
+#include <stdio.h>
+
+/************************** Constant Definitions *****************************/
+
+/*
+ * The following constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here such that a user can easily
+ * change all the needed parameters in one place.
+ */
+#define HWICAP_DEVICEID		XPAR_HWICAP_0_DEVICE_ID
+
+#define HWICAP_EXAMPLE_BLOCK		0
+
+/*
+ * These are the parameters for reading a frame of data in
+ * the slice SLICE_X0Y0
+ */
+#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5 ) ||\
+	(XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
+#define HWICAP_EXAMPLE_TOP		0
+#define HWICAP_EXAMPLE_HCLK		5
+#define HWICAP_EXAMPLE_MAJOR		5
+#define HWICAP_EXAMPLE_MINOR		10
+
+#elif (XHI_FAMILY == XHI_DEV_FAMILY_S6)
+
+#define HWICAP_EXAMPLE_ROW		5
+#define HWICAP_EXAMPLE_MAJOR		2
+#define HWICAP_EXAMPLE_MINOR		20
+
+#endif
+
+#define printf  xil_printf	/* A smaller footprint printf */
+
+
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
+
+int HwIcapReadFramePolledExample(u16 DeviceId);
+
+/************************** Variable Definitions *****************************/
+
+static XHwIcap HwIcap;
+
+/*****************************************************************************/
+/**
+*
+* Main function to call the HwIcap Frame example.
+*
+* @param	None
+*
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
+*
+* @note		None
+*
+******************************************************************************/
+int main(void)
+{
+	int Status;
+
+	/*
+	 * Run the HwIcap example, specify the Device ID generated in
+	 * xparameters.h
+	 */
+	Status = HwIcapReadFramePolledExample(HWICAP_DEVICEID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function reads a frame from the device as an example using polled mode.
+*
+* @param	DeviceId is the XPAR_<HWICAP_INSTANCE>_DEVICE_ID value from
+*		xparameters.h
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
+*
+* @note		None
+*
+****************************************************************************/
+int HwIcapReadFramePolledExample(u16 DeviceId)
+{
+	int Status;
+	u32 Index;
+	XHwIcap_Config *CfgPtr;
+#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
+	u16  FrameData[XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME];
+#else
+	u32  FrameData[XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME];
+#endif
+	/*
+	 * Initialize the HwIcap instance.
+	 */
+	CfgPtr = XHwIcap_LookupConfig(DeviceId);
+	if (CfgPtr == NULL) {
+		return XST_FAILURE;
+	}
+
+	Status = XHwIcap_CfgInitialize(&HwIcap, CfgPtr, CfgPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Perform a self-test to ensure that the hardware was built correctly.
+	 */
+	Status = XHwIcap_SelfTest(&HwIcap);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5 ) ||\
+	(XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
+	/*
+	 * Read the Frame
+	 */
+	Status = XHwIcap_DeviceReadFrame(&HwIcap,
+					 HWICAP_EXAMPLE_TOP,
+					 HWICAP_EXAMPLE_BLOCK,
+					 HWICAP_EXAMPLE_HCLK,
+					 HWICAP_EXAMPLE_MAJOR,
+					 HWICAP_EXAMPLE_MINOR,
+					 (u32 *) &FrameData[0]);
+
+#elif (XHI_FAMILY == XHI_DEV_FAMILY_S6)
+	Status = XHwIcap_DeviceReadFrame(&HwIcap,
+					 HWICAP_EXAMPLE_BLOCK,
+					 HWICAP_EXAMPLE_ROW,
+					 HWICAP_EXAMPLE_MAJOR,
+					 HWICAP_EXAMPLE_MINOR,
+					 (u16 *) &FrameData[0]);
+
+#endif
+
+	if (Status != XST_SUCCESS) {
+		printf("Failed to Read Frame: %d \r\n", Status);
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Print Frame contents
+	 */
+	for (Index = XHI_NUM_FRAME_WORDS;
+		Index < (XHI_NUM_FRAME_WORDS << 1) ; Index++) {
+
+		printf("Frame Word %d -> \t %x \r\n",
+			(Index - XHI_NUM_FRAME_WORDS) , FrameData[Index]);
+	}
+
+	printf("\r\nHwIcapReadFramePolledExample Passed Successfully.\r\n\r\n");
+	return  XST_SUCCESS;
+}
+

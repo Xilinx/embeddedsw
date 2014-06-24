@@ -1,0 +1,353 @@
+/******************************************************************************
+*
+* Copyright (C) 2003 - 2014 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
+/*****************************************************************************/
+/**
+* @file xhwicap_read_config_reg.c
+*
+* This file contains a design example using the HwIcap driver and hardware
+* device.
+*
+* This example prints out the values of all the configuration registers in the
+* FPGA.
+*
+* This example assumes that there is a UART Device or STDIO Device in the
+* hardware system.
+*
+* @note
+*
+* This example can been run on any Virtex4 or Virtex5 or Virtex6 or a
+* Spartan6 or a 7 series device or a Zynq device.
+*
+* In a Zynq device the ICAP needs to be selected using the
+* XDcfg_SelectIcapInterface API of the DevCfg driver (clear the PCAP_PR bit of
+* Control register in the Device Config Interface)  before it can be
+* accessed using the HwIcap.
+*
+* <pre>
+*
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------------
+* 1.00a bjb  11/21/03 First release
+* 1.00a sv   07/18/05 Minor changes to comply to Doxygen and coding guidelines
+* 1.01a sv   04/10/07 Changes to support V4
+* 4.00a hvm  11/30/09 Added support for V6 and updated with HAL phase 1
+*		      modifications
+* 5.00a hvm  04/28/10 Added support for S6 support.
+* 6.00a hvm  08/05/11 Added support for K7 family
+* 8.01a bss  05/14/12 Replaced the define XHI_C0R_1 with XHI_COR_1 for CR718042
+* </pre>
+*
+******************************************************************************/
+
+/***************************** Include Files *********************************/
+
+#include <xparameters.h>
+#include <xil_types.h>
+#include <xil_assert.h>
+#include <xhwicap.h>
+#include <stdio.h>
+
+
+/************************** Constant Definitions *****************************/
+
+/*
+ * The following constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here such that a user can easily
+ * change all the needed parameters in one place.
+ */
+#define HWICAP_DEVICEID         XPAR_HWICAP_0_DEVICE_ID
+
+
+#define printf   xil_printf          /* A smaller footprint printf */
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
+
+int HwIcapReadConfigRegExample(u16 DeviceId);
+
+/************************** Variable Definitions *****************************/
+
+static XHwIcap HwIcap;
+
+/*****************************************************************************/
+/**
+*
+* Main function to call the HWICAP example.
+*
+* @param	None
+*
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
+*
+* @note		None
+*
+******************************************************************************/
+int main(void)
+{
+	int Status;
+
+	/*
+	 * Run the HwIcap example, specify the Device Id generated in
+	 * xparameters.h.
+	 */
+	Status = HwIcapReadConfigRegExample(HWICAP_DEVICEID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function reads the configuration  registers inside the FPGA.
+*
+* @param	DeviceId is the XPAR_<HWICAP_INSTANCE>_DEVICE_ID value from
+*		xparameters.h.
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note		None.
+*
+******************************************************************************/
+int HwIcapReadConfigRegExample(u16 DeviceId)
+{
+	int Status;
+	XHwIcap_Config *CfgPtr;
+	u32 ConfigRegData;
+
+	/*
+	 * Initialize the HwIcap instance.
+	 */
+	CfgPtr = XHwIcap_LookupConfig(DeviceId);
+	if (CfgPtr == NULL) {
+		return XST_FAILURE;
+	}
+
+	Status = XHwIcap_CfgInitialize(&HwIcap, CfgPtr, CfgPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+
+	/*
+	 * Run the Self test.
+	 */
+	Status = XHwIcap_SelfTest(&HwIcap);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	printf("Value of the Configuration Registers. \r\n\r\n");
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CRC, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" CRC -> \t %x \t\r\n", ConfigRegData);
+	}
+
+#if (XHI_FAMILY != XHI_DEV_FAMILY_S6)
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FAR, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" FAR -> \t %x \t\r\n", ConfigRegData);
+	}
+#else
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FAR_MIN, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" FAR_MIN -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FAR_MAJ, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" FAR_MAJ -> \t %x \t\r\n", ConfigRegData);
+	}
+#endif
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FDRI, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" FDRI -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FDRO, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" FDRO -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CMD, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" CMD -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CTL, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" CTL -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_MASK, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" MASK -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_STAT, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" STAT -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_LOUT, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" LOUT -> \t %x \t\r\n", ConfigRegData);
+	}
+
+#if (XHI_FAMILY != XHI_DEV_FAMILY_S6)
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" COR -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_MFWR, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" MFWR -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CBC, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" CBC -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_AXSS, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" AXSS -> \t %x \t\r\n", ConfigRegData);
+	}
+
+#else
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR1, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" COR1 -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR2, &ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" COR2 -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_PWRDN_REG,
+		(u32 *)&ConfigRegData) == XST_SUCCESS) {
+		printf(" PWRDN_REG -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FLR, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" FLR -> \t %x \t\r\n", ConfigRegData);
+	}
+
+#endif
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_IDCODE, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" IDCODE -> \t %x \t\r\n", ConfigRegData);
+	}
+
+
+#if ((XHI_FAMILY == XHI_DEV_FAMILY_V5) || (XHI_FAMILY == XHI_DEV_FAMILY_V6) \
+	|| (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR_1, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" COR_1 -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CSOB, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" CSOB -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_WBSTAR, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" WBSTAR -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_TIMER, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" TIMER -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_BOOTSTS, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" BOOTSTS -> \t %x \t\r\n", ConfigRegData);
+	}
+
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CTL_1, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" CTL_1 -> \t %x \t\r\n", ConfigRegData);
+	}
+
+#endif
+#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CWDT, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" CWDT -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_HC_OPT_REG,
+		(u32 *)&ConfigRegData) == XST_SUCCESS) {
+		printf(" HC_OPT_REG -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_MODE_REG,
+		(u32 *)&ConfigRegData) == XST_SUCCESS) {
+		printf(" MODE_REG -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_SEU_OPT, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" SEU_OPT -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_EXP_SIGN,
+		(u32 *)&ConfigRegData) == XST_SUCCESS) {
+		printf(" EXP_SIGN -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_RDBK_SIGN,
+		(u32 *)&ConfigRegData) == XST_SUCCESS) {
+		printf(" RDBK_SIGN -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_BOOTSTS, (u32 *)&ConfigRegData) ==
+		XST_SUCCESS) {
+		printf(" BOOTSTS -> \t %x \t\r\n", ConfigRegData);
+	}
+	if (XHwIcap_GetConfigReg(&HwIcap, XHI_EYE_MASK,
+		(u32 *)&ConfigRegData) == XST_SUCCESS) {
+		printf(" EYE_MASK -> \t %x \t\r\n", ConfigRegData);
+	}
+
+#endif
+
+	printf("\r\n HwIcapReadConfigRegExample Passed Successfully.\r\n\r\n");
+
+	return XST_SUCCESS;
+}
+

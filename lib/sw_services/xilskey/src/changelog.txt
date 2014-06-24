@@ -1,0 +1,25 @@
+/*****************************************************************************
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- ---------------------------------------------------
+ *
+ * 1.02a hk   10/28/13  PS eFuse:
+ *			Added API to read status register:
+ *			u32 XilSKey_EfusePs_ReadStatus(
+ *				XilSKey_EPs *InstancePtr, u32 *StatusBits)
+ *                      RSA key read back is stored in RsaKeyReadback in
+ *                      Instance structure instead of RsaKeyHashValue -
+ *			Change in API:
+ *			u32 XilSKey_EfusePs_Read(XilSKey_EPs *PsInstancePtr)
+ *			PL eFUSE:
+ *			Added API's to read status bits and key :
+ * 			u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
+ *			u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
+ * 2.00  hk   23/01/14  Corrected PL voltage checks to VCCINT and VCCAUX.
+ *                        CR#768077
+ *                      Changed PS efuse error codes for voltage out of range
+ * 2.00  hk   02/12/14  Changed makefile to remove '-p' option with mkdir.
+ *                      CR#773090
+ *
+ ********************************************************************************/
