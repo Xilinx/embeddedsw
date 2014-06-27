@@ -400,7 +400,7 @@ proc generate_lwip_opts {libhandle} {
 	set thread_prio [get_property CONFIG.socket_mode_thread_prio $libhandle]
 	if {$api_mode == "SOCKET_API"} {
 		set sw_proc_handle [get_sw_processor]
-		set os_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+		set os_handle [get_os]
 		set os_name [get_property NAME $os_handle]
 		if { [string compare -nocase "xilkernel" $os_name] == 0} {
 			puts $lwipopts_fd "\#define OS_IS_XILKERNEL"
