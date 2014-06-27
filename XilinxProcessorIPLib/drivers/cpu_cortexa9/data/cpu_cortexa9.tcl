@@ -36,6 +36,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00a sdm  05/16/10 Updated to support AXI version of the core
 # 2.0   adk  10/12/13 Updated as per the New Tcl API's
+# 2.1	pkp  06/27/14 Updated the tcl to create empty libxil for IAR support in BSP
 #
 ##############################################################################
 #uses "xillib.tcl"
@@ -55,7 +56,19 @@ proc xdefine_cortexa9_params {drvhandle} {
 
     set sw_proc_handle [get_sw_processor]
     set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
-
+    set procdrv [get_sw_processor]
+    set archiver [get_property CONFIG.archiver $procdrv]
+    if {[string first "iarchive" $archiver] < 0 } {
+    } else {
+    	 set libxil_a [file join .. .. lib libxil.a]
+	 if { ![file exists $libxil_a] } {
+	 # create empty libxil.a
+	 	set fd [open "test.a" a+]
+	    	close $fd
+	    	exec $archiver --create --output $libxil_a test.a
+	    	file delete -force test.a
+    	}   
+    }
     set periphs [::hsm::utils::get_common_driver_ips $drvhandle]
     set lprocs [get_cells -filter "IP_NAME==ps7_cortexa9"]
     set lprocs [lsort $lprocs]
