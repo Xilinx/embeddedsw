@@ -171,6 +171,8 @@
  * 4.1 asa   05/09/14  Fix for CR#798230. Made changes in cortexa9/xil_cache.c and
  *		       common/xil_testcache.c
  *	               Fix for CR#764881.
+ * 4.1 srt   06/27/14  Remove '#undef DEBUG' from src/common/xdebug.h, which allows to
+ *                     output the DEBUG logs when -DDEBUG flag is enabled in BSP.
  * 4.2 pkp   06/27/14  Added support for IAR compiler in src/cortexa9/iccarm. 
  *		       Also added explanatory notes in cortexa9/xil_cache.c for CR#785243.
  *****************************************************************************************/

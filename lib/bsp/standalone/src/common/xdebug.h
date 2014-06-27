@@ -1,8 +1,6 @@
 #ifndef XDEBUG
 #define XDEBUG
   
-#undef DEBUG
-
 #if defined(DEBUG) && !defined(NDEBUG)
 
 #ifndef XDEBUG_WARNING
