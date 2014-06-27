@@ -43,40 +43,43 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a  ecm 01/29/10 First release
 * 1.00a  ecm 06/24/10 Moved the L1 and L2 specific function prototypes
-*		      to xil_cache_mach.h to give access to sophisticated users
+*		      		  to xil_cache_mach.h to give access to sophisticated users
 * 3.02a  sdm 04/07/11 Updated Flush/InvalidateRange APIs to flush/invalidate
-*		      L1 and L2 caches in a single loop and used dsb, L2 sync
-*		      at the end of the loop.
+*		      		  L1 and L2 caches in a single loop and used dsb, L2 sync
+*		      		  at the end of the loop.
 * 3.04a  sdm 01/02/12 Remove redundant dsb/dmb instructions in cache maintenance
-*		      APIs.
+*		      		  APIs.
 * 3.07a  asa 07/16/12 Corrected the L1 and L2 cache invalidation order.
 * 3.07a  sgd 09/18/12 Corrected the L2 cache enable and disable sequence.
 * 3.10a  srt 04/18/13 Implemented ARM Erratas. Please refer to file
-*		      'xil_errata.h' for errata description
+*		      		  'xil_errata.h' for errata description
 * 3.10a  asa 05/13/13 Modified cache disable APIs. The L2 cache disable
-*			  operation was being done with L1 Data cache disabled. This is
-*			  fixed so that L2 cache disable operation happens independent of
-*			  L1 cache disable operation. This fixes CR #706464.
-*			  Changes are done to do a L2 cache sync (poll reg7_?cache_?sync).
-*			  This is done to fix the CR #700542.
+*			  		  operation was being done with L1 Data cache disabled. This is
+*			  		  fixed so that L2 cache disable operation happens independent of
+*			  		  L1 cache disable operation. This fixes CR #706464.
+*			  		  Changes are done to do a L2 cache sync (poll reg7_?cache_?sync).
+*			  		  This is done to fix the CR #700542.
 * 3.11a  asa 09/23/13 Modified the Xil_DCacheFlushRange and
-*			 Xil_DCacheInvalidateRange to fix potential issues. Fixed other
-*			 relevant cache APIs to disable and enable back the interrupts.
-*			 This fixes CR #663885.
+*			 		  Xil_DCacheInvalidateRange to fix potential issues. Fixed other
+*			 		  relevant cache APIs to disable and enable back the interrupts.
+*			 		  This fixes CR #663885.
 * 3.11a  asa 09/28/13 Made changes for L2 cache sync operation. It is found
-*			 out that for L2 cache flush/clean/invalidation by cache lines
-*			 does not need a cache sync as these are atomic nature. Similarly
-*			 figured out that for complete L2 cache flush/invalidation by way
-*			 we need to wait for some more time in a loop till the status
-*			 shows that the cache operation is completed.
+*			 		  out that for L2 cache flush/clean/invalidation by cache lines
+*			 		  does not need a cache sync as these are atomic nature. Similarly
+*			 		  figured out that for complete L2 cache flush/invalidation by way
+*			 		  we need to wait for some more time in a loop till the status
+*			 		  shows that the cache operation is completed.
 * 4.00	 pkp 24/01/14 Modified Xil_DCacheInvalidateRange to fix the bug. Few
-*			 cache lines were missed to invalidate when unaligned address
-*			 invalidation was accommodated. That fixes CR #766768.
-*			 Also in Xil_L1DCacheInvalidate, while invalidating all L1D cache
-*			 stack memory which contains return address was invalidated. So
-*			 stack memory was flushed first and then L1D cache is invalidated.
-*			 This is done to fix CR #763829
+*			 		  cache lines were missed to invalidate when unaligned address
+*			 		  invalidation was accommodated. That fixes CR #766768.
+*			 		  Also in Xil_L1DCacheInvalidate, while invalidating all L1D cache
+*			 		  stack memory which contains return address was invalidated. So
+*			 		  stack memory was flushed first and then L1D cache is invalidated.
+*			 		  This is done to fix CR #763829
 * 4.01   asa 05/09/14 Made changes in cortexa9/xil_cache.c to fix CR# 798230.
+* 4.02	 pkp 06/27/14 Added notes to Xil_L1DCacheInvalidateRange function for
+*					  explanation of CR#785243
+*
 * </pre>
 *
 ******************************************************************************/
@@ -246,6 +249,51 @@ void Xil_DCacheInvalidateLine(unsigned int adr)
 * is modified (dirty), the modified contents are lost and are NOT
 * written to system memory before the line is invalidated.
 *
+* In this function, if start address or end address is not aligned to cache-line,
+* particular cache-line containing unaligned start or end address is flush first
+* and then invalidated the others as invalidating the same unaligned cache line
+* may result into loss of data. This issue raises few possibilities.
+*
+*
+* If the address to be invalidated is not cache-line aligned, the
+* following choices are available:
+* 1) Invalidate the cache line when required and do not bother much for the
+* side effects. Though it sounds good, it can result in hard-to-debug issues.
+* The problem is, if some other variable are allocated in the
+* same cache line and had been recently updated (in cache), the invalidation
+* would result in loss of data.
+*
+* 2) Flush the cache line first. This will ensure that if any other variable
+* present in the same cache line and updated recently are flushed out to memory.
+* Then it can safely be invalidated. Again it sounds good, but this can result
+* in issues. For example, when the invalidation happens
+* in a typical ISR (after a DMA transfer has updated the memory), then flushing
+* the cache line means, loosing data that were updated recently before the ISR
+* got invoked.
+*
+* Linux prefers the second one. To have uniform implementation (across standalone
+* and Linux), the second option is implemented.
+* This being the case, follwoing needs to be taken care of:
+* 1) Whenever possible, the addresses must be cache line aligned. Please nore that,
+* not just start address, even the end address must be cache line aligned. If that
+* is taken care of, this will always work.
+* 2) Avoid situations where invalidation has to be done after the data is updated by
+* peripheral/DMA directly into the memory. It is not tough to achieve (may be a bit
+* risky). The common use case to do invalidation is when a DMA happens. Generally
+* for such use cases, buffers can be allocated first and then start the DMA. The
+* practice that needs to be followed here is, immediately after buffer allocation
+* and before starting the DMA, do the invalidation. With this approach, invalidation
+* need not to be done after the DMA transfer is over.
+*
+* This is going to always work if done carefully.
+* However, the concern is, there is no guarantee that invalidate has not needed to be
+* done after DMA is complete. For example, because of some reasons if the first cache
+* line or last cache line (assuming the buffer in question comprises of multiple cache
+* lines) are brought into cache (between the time it is invalidated and DMA completes)
+* because of some speculative prefetching or reading data for a variable present
+* in the same cache line, then we will have to invalidate the cache after DMA is complete.
+*
+*
 * @param	Start address of range to be invalidated.
 * @param	Length of range to be invalidated in bytes.
 *
@@ -305,6 +353,9 @@ void Xil_DCacheInvalidateRange(unsigned int adr, unsigned len)
 			/* Invalidate L1 Data cache line */
 			__asm__ __volatile__("mcr " \
 			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (tempadr));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
+			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (tempadr));
 #else
 			{ volatile register unsigned int Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);
@@ -412,6 +463,9 @@ void Xil_DCacheFlushRange(unsigned int adr, unsigned len)
 #ifdef __GNUC__
 			/* Flush L1 Data cache line */
 			__asm__ __volatile__("mcr " \
+			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
 			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
 #else
 			{ volatile register unsigned int Reg
@@ -581,6 +635,9 @@ void Xil_ICacheInvalidateRange(unsigned int adr, unsigned len)
 			/* Invalidate L1 I-cache line */
 			__asm__ __volatile__("mcr " \
 			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
+			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
 #else
 			{ volatile register unsigned int Reg
 				__asm(XREG_CP15_INVAL_IC_LINE_MVA_POU);
@@ -614,6 +671,8 @@ void Xil_L1DCacheEnable(void)
 	/* enable caches only if they are disabled */
 #ifdef __GNUC__
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
 	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
@@ -652,6 +711,8 @@ void Xil_L1DCacheDisable(void)
 #ifdef __GNUC__
 	/* disable the Data cache */
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
 	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
@@ -703,6 +764,8 @@ void Xil_L1DCacheInvalidate(void)
 
 #ifdef __GNUC__
 	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_CACHE_SIZE_ID, CsidReg);
 #else
 	{ volatile register unsigned int Reg __asm(XREG_CP15_CACHE_SIZE_ID);
 	  CsidReg = Reg; }
@@ -732,6 +795,9 @@ void Xil_L1DCacheInvalidate(void)
 #ifdef __GNUC__
 			/* Invalidate by Set/Way */
 			__asm__ __volatile__("mcr " \
+			XREG_CP15_INVAL_DC_LINE_SW :: "r" (C7Reg));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
 			XREG_CP15_INVAL_DC_LINE_SW :: "r" (C7Reg));
 #else
 			//mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg);
@@ -813,6 +879,9 @@ void Xil_L1DCacheInvalidateRange(unsigned int adr, unsigned len)
 #ifdef __GNUC__
 			__asm__ __volatile__("mcr " \
 			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
+			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (adr));
 #else
 			{ volatile register unsigned int Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);
@@ -854,6 +923,8 @@ void Xil_L1DCacheFlush(void)
 
 #ifdef __GNUC__
 	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_CACHE_SIZE_ID, CsidReg);
 #else
 	{ volatile register unsigned int Reg __asm(XREG_CP15_CACHE_SIZE_ID);
 	  CsidReg = Reg; }
@@ -885,6 +956,9 @@ void Xil_L1DCacheFlush(void)
 			/* Flush by Set/Way */
 #ifdef __GNUC__
 			__asm__ __volatile__("mcr " \
+			XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (C7Reg));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
 			XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (C7Reg));
 #else
 			{ volatile register unsigned int Reg
@@ -964,6 +1038,9 @@ void Xil_L1DCacheFlushRange(unsigned int adr, unsigned len)
 #ifdef __GNUC__
 			__asm__ __volatile__("mcr " \
 			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
+			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
 #else
 			{ volatile register unsigned int Reg
 				__asm(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC);
@@ -1020,6 +1097,8 @@ void Xil_L1ICacheEnable(void)
 	/* enable caches only if they are disabled */
 #ifdef __GNUC__
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
 	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
@@ -1060,6 +1139,8 @@ void Xil_L1ICacheDisable(void)
 	/* disable the instruction cache */
 #ifdef __GNUC__
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
 	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
@@ -1150,6 +1231,9 @@ void Xil_L1ICacheInvalidateRange(unsigned int adr, unsigned len)
 		while (adr < end) {
 #ifdef __GNUC__
 			__asm__ __volatile__("mcr " \
+			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
+#elif defined (__ICCARM__)
+			__asm volatile ("mcr " \
 			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
 #else
 			{ volatile register unsigned int Reg

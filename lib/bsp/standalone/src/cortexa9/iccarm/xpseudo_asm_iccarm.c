@@ -32,25 +32,38 @@
 /*****************************************************************************/
 /**
 *
-* @file xpseudo_asm.h
+* @file xpseudo_asm_iccarm.c
 *
-* This header file contains macros for using inline assembler code.
+* This file contains functions for ARM register handling.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 1.00a ecm  10/18/09 First release
-* 3.04a sdm  01/02/12 Remove redundant dsb in mcr instruction.
+* 3.12a asa  11/2/13 First Release
 * </pre>
 *
 ******************************************************************************/
-#include "xreg_cortexa9.h"
-#ifdef __GNUC__
- #include "xpseudo_asm_gcc.h"
-#elif defined (__ICCARM__)
- #include "xpseudo_asm_iccarm.h"
-#else
- #include "xpseudo_asm_rvct.h"
-#endif
+
+/***************************** Include Files ********************************/
+
+#include "xpseudo_asm_iccarm.h"
+
+/************************** Constant Definitions ****************************/
+
+/**************************** Type Definitions ******************************/
+
+/***************** Macros (Inline Functions) Definitions ********************/
+
+/************************** Variable Definitions ****************************/
+
+/************************** Function Prototypes *****************************/
+
+/* embedded assembler instructions */
+int mfcpsr (void)
+{
+	int rval;
+	asm("mrs %0, cpsr" : "=r"(rval));
+	return rval;
+}

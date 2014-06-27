@@ -29,28 +29,46 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/*****************************************************************************/
-/**
-*
-* @file xpseudo_asm.h
-*
-* This header file contains macros for using inline assembler code.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------
-* 1.00a ecm  10/18/09 First release
-* 3.04a sdm  01/02/12 Remove redundant dsb in mcr instruction.
-* </pre>
-*
-******************************************************************************/
-#include "xreg_cortexa9.h"
-#ifdef __GNUC__
- #include "xpseudo_asm_gcc.h"
-#elif defined (__ICCARM__)
- #include "xpseudo_asm_iccarm.h"
-#else
- #include "xpseudo_asm_rvct.h"
+
+/*
+ * This module contains the function `__low_level_init', a function
+ * that is called before the `main' function of the program.  Normally
+ * low-level initializations - such as setting the prefered interrupt
+ * level or setting the watchdog - can be performed here.
+ *
+ * Note that this function is called before the data segments are
+ * initialized, this means that this function cannot rely on the
+ * values of global or static variables.
+ *
+ * When this function returns zero, the startup code will inhibit the
+ * initialization of the data segments. The result is faster startup,
+ * the drawback is that neither global nor static data will be
+ * initialized.
+ */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+int __low_level_init(void);
+
+int __low_level_init(void)
+{
+  /*==================================*/
+  /*  Initialize hardware.            */
+  /*==================================*/
+
+  /*==================================*/
+  /* Choose if segment initialization */
+  /* should be done or not.           */
+  /* Return: 0 to omit seg_init       */
+  /*         1 to run seg_init        */
+  /*==================================*/
+  return 1;
+}
+
+
+#ifdef __cplusplus
+}
 #endif

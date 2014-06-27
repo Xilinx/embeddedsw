@@ -29,28 +29,26 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/*****************************************************************************/
-/**
-*
-* @file xpseudo_asm.h
-*
-* This header file contains macros for using inline assembler code.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------
-* 1.00a ecm  10/18/09 First release
-* 3.04a sdm  01/02/12 Remove redundant dsb in mcr instruction.
-* </pre>
-*
-******************************************************************************/
-#include "xreg_cortexa9.h"
-#ifdef __GNUC__
- #include "xpseudo_asm_gcc.h"
-#elif defined (__ICCARM__)
- #include "xpseudo_asm_iccarm.h"
-#else
- #include "xpseudo_asm_rvct.h"
-#endif
+/*
+ *
+ *
+ * The "__read" function reads a number of bytes, at most "size" into
+ * the memory area pointed to by "buffer".  It returns the number of
+ * bytes read, 0 at the end of the file, or _LLIO_ERROR if failure
+ * occurs.
+ *
+ * The template implementation below should return a
+ * character value, or -1 on failure.
+ *
+ */
+
+#include <yfuns.h>
+
+
+size_t __read(int handle, unsigned char * buffer, size_t size)
+{
+
+return size;
+}
+
+

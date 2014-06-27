@@ -29,28 +29,28 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/*****************************************************************************/
-/**
-*
-* @file xpseudo_asm.h
-*
-* This header file contains macros for using inline assembler code.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------
-* 1.00a ecm  10/18/09 First release
-* 3.04a sdm  01/02/12 Remove redundant dsb in mcr instruction.
-* </pre>
-*
-******************************************************************************/
-#include "xreg_cortexa9.h"
-#ifdef __GNUC__
- #include "xpseudo_asm_gcc.h"
-#elif defined (__ICCARM__)
- #include "xpseudo_asm_iccarm.h"
-#else
- #include "xpseudo_asm_rvct.h"
-#endif
+
+/*
+ * This is the default implementation of the "clock" function of the
+ * standard library.  It can be replaced with a system-specific
+ * implementation.
+ *
+ * The "clock" function should return the processor time used by the
+ * program from some implementation-defined start time.  The value
+ * should be such that if divided by the macro CLOCKS_PER_SEC the
+ * result should yield the time in seconds.
+ *
+ * The value "(clock_t)-1" means that the processor time is not
+ * available.
+ *
+ */
+
+#include <time.h>
+
+
+clock_t (clock)(void)
+{
+  return ((clock_t) -1);
+}
+
+

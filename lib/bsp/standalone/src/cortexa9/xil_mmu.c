@@ -132,6 +132,8 @@ void Xil_EnableMMU(void)
 
 #ifdef __GNUC__
 	Reg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, Reg);
 #else
 	{ volatile register unsigned int Cp15Reg __asm(XREG_CP15_SYS_CONTROL);
 	  Reg = Cp15Reg; }
@@ -164,6 +166,8 @@ void Xil_DisableMMU(void)
 
 #ifdef __GNUC__
 	Reg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, Reg);
 #else
 	{ volatile register unsigned int Cp15Reg __asm(XREG_CP15_SYS_CONTROL);
 	  Reg = Cp15Reg; }

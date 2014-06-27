@@ -132,7 +132,7 @@ extern "C" {
 
 
 /* CP15 defines */
-#if defined (__GNUC__)
+#if defined (__GNUC__) || defined (__ICCARM__)
 /* C0 Register defines */
 #define XREG_CP15_MAIN_ID			"p15, 0, %0,  c0,  c0, 0"
 #define XREG_CP15_CACHE_TYPE			"p15, 0, %0,  c0,  c0, 1"
@@ -226,7 +226,7 @@ extern "C" {
 #define XREG_CP15_CONTROL_A_BIT			0x00000002
 #define XREG_CP15_CONTROL_M_BIT			0x00000001
 
-#if defined (__GNUC__)
+#if defined (__GNUC__) || defined (__ICCARM__)
 /* C2 Register Defines */
 #define XREG_CP15_TTBR0				"p15, 0, %0,  c2,  c0, 0"
 #define XREG_CP15_TTBR1				"p15, 0, %0,  c2,  c0, 1"

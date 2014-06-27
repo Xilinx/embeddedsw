@@ -215,6 +215,8 @@ void Xpm_ResetEventCounters(void)
 
 #ifdef __GNUC__
 	Reg = mfcp(XREG_CP15_PERF_MONITOR_CTRL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
 #else
 	{ register unsigned int C15Reg __asm(XREG_CP15_PERF_MONITOR_CTRL);
 	  Reg = C15Reg; }
@@ -283,6 +285,8 @@ void Xpm_GetEventCounters(u32 *PmCtrValue)
 		mtcp(XREG_CP15_EVENT_CNTR_SEL, Counter);
 #ifdef __GNUC__
 		PmCtrValue[Counter] = mfcp(XREG_CP15_PERF_MONITOR_COUNT);
+#elif defined (__ICCARM__)
+		mfcp(XREG_CP15_PERF_MONITOR_COUNT, PmCtrValue[Counter]);
 #else
 		{ register unsigned int Cp15Reg __asm(XREG_CP15_PERF_MONITOR_COUNT);
 		  PmCtrValue[Counter] = Cp15Reg; }

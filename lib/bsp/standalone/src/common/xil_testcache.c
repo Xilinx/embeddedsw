@@ -58,7 +58,13 @@ extern void xil_printf(const char *ctrl1, ...);
 
 #define DATA_LENGTH 128
 
+#ifdef __GNUC__
 static u32 Data[DATA_LENGTH] __attribute__ ((aligned(32)));
+#elif defined (__ICCARM__)
+static u32 Data[DATA_LENGTH];
+#else
+static u32 Data[DATA_LENGTH] __attribute__ ((aligned(32)));
+#endif
 
 /**
 * Perform DCache range related API test such as Xil_DCacheFlushRange and

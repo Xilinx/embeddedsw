@@ -1,4 +1,3 @@
-;* $Id: asm_vectors.s,v 1.1.4.1 2011/10/24 09:35:17 sadanan Exp $
 ;******************************************************************************
 ;
 ; Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
@@ -41,11 +40,10 @@
 ;
 ; Ver	Who     Date	  Changes
 ; ----- ------- -------- ---------------------------------------------------
-; 1.00a ecm/sdm 10/20/09 Initial version
-; 3.11a asa	9/17/13	 Added support for neon.
-; 4.00  pkp	01/22/14 Modified return addresses for interrupt 
+; 1.00a 		 Initial version
+; 4.2 	pkp 	06/27/14 Modified return addresses for interrupt 
 ;			 handlers 
-;</pre>
+; </pre>
 ;
 ; @note
 ;
@@ -53,23 +51,40 @@
 ;
 ;****************************************************************************
 
-	EXPORT _vector_table
-	EXPORT IRQHandler
+        MODULE  ?asm_vectors
+  
+        ;; Forward declaration of sections.
+        SECTION IRQ_STACK:DATA:NOROOT(3)
+        SECTION FIQ_STACK:DATA:NOROOT(3)
+        SECTION SVC_STACK:DATA:NOROOT(3)
+        SECTION ABT_STACK:DATA:NOROOT(3)
+        SECTION UND_STACK:DATA:NOROOT(3)
+        SECTION CSTACK:DATA:NOROOT(3)
+  
+#include "xparameters.h"
+;#include "xtime_l.h"
 
-	IMPORT _boot
+#define UART_BAUDRATE	115200
+
 	IMPORT _prestart
+	IMPORT __iar_program_start
+
+
+
+        SECTION .intvec:CODE:NOROOT(2)
+    
+        PUBLIC _vector_table
+  
 	IMPORT IRQInterrupt
 	IMPORT FIQInterrupt
 	IMPORT SWInterrupt
 	IMPORT DataAbortInterrupt
 	IMPORT PrefetchAbortInterrupt
 
-	AREA |.vectors|, CODE
-	REQUIRE8     {TRUE}
-	PRESERVE8    {TRUE}
-	ENTRY ; define this as an entry point
 _vector_table
-	B	_boot
+        ARM 
+        
+	B	__iar_program_start
 	B	Undefined
 	B	SVCHandler
 	B	PrefetchAbortHandler
@@ -79,42 +94,24 @@ _vector_table
 	B	FIQHandler
 
 
+      SECTION .text:CODE:NOROOT(2)
+      REQUIRE _vector_table
+
+        ARM
 IRQHandler					; IRQ vector handler 
 	
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
-	vpush {d0-d7}
-	vpush {d16-d31}
-	vmrs r1, FPSCR
-	push {r1}
-	vmrs r1, FPEXC
-	push {r1}
 	bl	IRQInterrupt			; IRQ vector
-	pop 	{r1}
-	vmsr    FPEXC, r1
-	pop 	{r1}
-	vmsr    FPSCR, r1
-	vpop    {d16-d31}
-	vpop    {d0-d7}
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
 	subs	pc, lr, #4			; adjust return 
 
 
 FIQHandler					; FIQ vector handler 
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	vpush {d0-d7}
-	vpush {d16-d31}
-	vmrs r1, FPSCR
-	push {r1}
-	vmrs r1, FPEXC
-	push {r1}
+
 FIQLoop
 	bl	FIQInterrupt			; FIQ vector 
-	pop 	{r1}
-	vmsr    FPEXC, r1
-	pop 	{r1}
-	vmsr    FPSCR, r1
-	vpop    {d16-d31}
-	vpop    {d0-d7}
+
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
 	subs	pc, lr, #4			; adjust return 
 
@@ -150,6 +147,5 @@ PrefetchAbortHandler				; Prefetch Abort handler
 	bl	PrefetchAbortInterrupt		; PrefetchAbortInterrupt: call C function here 
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
 	subs	pc, lr, #4			; adjust return 
-
 
 	END

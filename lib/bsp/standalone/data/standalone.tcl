@@ -89,6 +89,8 @@ proc generate {os_handle} {
             set compiler [get_property CONFIG.compiler $procdrv]
             if {[string compare -nocase $compiler "armcc"] == 0} {
                 set ccdir "./src/cortexa9/armcc"
+	    } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+		set ccdir "./src/cortexa9/iccarm"
             } else {
                 set ccdir "./src/cortexa9/gcc"
             }
@@ -100,7 +102,12 @@ proc generate {os_handle} {
             }
                 file delete -force "./src/armcc"
                 file delete -force "./src/gcc"
+			file delete -force "./src/iccarm"
             if {[string compare -nocase $compiler "armcc"] == 0} {
+                file delete -force "./src/profile"
+                set enable_sw_profile "false"
+	    }
+		if {[string compare -nocase $compiler "iccarm"] == 0} {
                     file delete -force "./src/profile"
                     set enable_sw_profile "false"
             }
@@ -120,6 +127,8 @@ proc generate {os_handle} {
         puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
     } elseif { $proctype == "ps7_cortexa9" } {
         if {[string compare -nocase $compiler "armcc"] == 0} {
+            puts $makeconfig "LIBSOURCES = *.c *.s"
+        } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
             puts $makeconfig "LIBSOURCES = *.c *.s"
 		} else {
             puts $makeconfig "LIBSOURCES = *.c *.s *.S"
