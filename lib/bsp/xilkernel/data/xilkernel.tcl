@@ -98,17 +98,17 @@ proc kernel_drc {os_handle} {
     if { $config_bufmalloc == "true" } {
         set memtable_handle [get_arrays mem_table -of_objects $os_handle]
         #set memtable_elements [xget_handle $memtable_handle "ELEMENTS" "*"]
-	set memtable_elements [get_arrays -of_objects $oshandle $memtable_handle]
-        foreach ele $memtable_elements {
-            set bsiz  [get_property CONFIG.mem_bsize $ele]
-            set nblks  [get_property CONFIG.mem_bsize $ele]
-            if { $bsiz < 4 } {
-                error "ERROR: mem_table mem_bsize specification of $bsiz is incorrect. Block size should be >= 4." "" "mdt_error"
-            }
-            if { $nblks <= 0 } {
-                error "ERROR: mem_table mem_nblks specification of $nblks is incorrect. Block count should be positive." "" "mdt_error"
-            }
-        }
+	set memtable_elements [llength [get_property PARAM.mem_nblks $memtable_handle]]
+	   foreach ele $memtable_elements {
+		set bsiz  [get_property PARAM.mem_bsize $memtable_handle]
+                set nblks  [get_property PARAM.mem_nblks $memtable_handle]
+                if { $bsiz < 4 } {
+                    error "ERROR: mem_table mem_bsize specification of $bsiz is incorrect. Block size should be >= 4." "" "mdt_error"
+                }
+                if { $nblks <= 0 } {
+                    error "ERROR: mem_table mem_nblks specification of $nblks is incorrect. Block count should be positive." "" "mdt_error"
+               }
+          }
     }
 
     set config_msgq [get_property CONFIG.config_msgq $os_handle]
@@ -350,9 +350,11 @@ proc generate {os_handle} {
 	xadd_define $config_file $os_handle "max_pthreads"
 	xadd_define $config_file $os_handle "pthread_stack_size"
 	
-	set static_pthread_table_handle [get_arrays -of_objects $os_handle "static_pthread_table"]	
+	set static_pthread_table_handle [get_arrays static_pthread_table -of_objects $os_handle]
 	if { $static_pthread_table_handle != "" } {
-	    set n_init_self_pthreads [get_property SIZE $static_pthread_table_handle]
+	    #set n_init_self_pthreads [llength  $static_pthread_table_handle]
+	    set n_init_self_pthreads [llength [get_arrays $static_pthread_table_handle -of_objects $os_handle]]
+	    #set n_init_self_pthreads [get_property CONFIG.static_pthread_table $os_handle]
 	     if {$n_init_self_pthreads != "" } { 
 		xput_define $config_file "config_static_pthread_support" "true"
 		xput_define $config_file "n_init_self_pthreads" $n_init_self_pthreads
@@ -489,7 +491,7 @@ proc generate {os_handle} {
 	if { $shm_handle == "" } {
 	    error "ERROR: SHM configuration needs shm_table specification." "" "mdt_error"
 	}
-	set n_shm [llength [xget_handle $shm_handle "ELEMENTS" "*"]]
+	set n_shm [llength [get_arrays $shm_handle -of_objects $os_handle]]
 	xput_define $config_file "n_shm" $n_shm
 	set shm_msize [get_field_sum $os_handle "shm_table"  "shm_size"]
 	xput_define $config_file "shm_msize" $shm_msize
@@ -549,11 +551,14 @@ proc generate {os_handle} {
 
             #set addrlist [xget_hw_bus_slave_addrpairs $dbus_handle]
 	    set addrlists [get_mem_ranges -of_objects [get_cells $sw_proc_handle]]
-	    foreach addrlist $addrlists { 
-		 set mc_base [get_property BASE_VALUE [get_cells $addrlist]]
-		 set mc_high [get_property HIGH_VALUE [get_cells $addrlist]]
+	    set addrlist [list]
+	    foreach addrist $addrlists {
+		set mem [xget_ip_mem_ranges $addrist]
+		set mc_base [get_property BASE_VALUE  $mem]
+		set mc_high [get_property HIGH_VALUE $mem]
+		lappend addrlist $mc_base $mc_high
 	   }
-	    set addrlist [concat $mc_base $mc_high]
+	   
             if { $dcachelink_handle != "" } {
                 #set xcl_addrlist [xget_hw_bus_slave_addrpairs $dcachelink_handle]
 		set xcl_addrlist [get_mem_ranges -of_objects [get_cells $sw_proc_handle]]
@@ -648,47 +653,56 @@ proc xput_define { config_file parameter param_value } {
 
 # args field of the array
 proc xadd_extern_fname {initfile oshandle arrayname arg} { 
-
-    #set arrhandle [get_arrays -of_objects $oshandle $arrayname]
-    set elements [get_arrays -of_objects $oshandle $arrayname]
-    #set elements [xget_handle $arrhandle "ELEMENTS" "*"]
-    set count 0
-    set max_count [llength $elements]
-
-    foreach ele $elements {
-	incr count
-	set arg_value [get_property CONFIG.$arg $ele]
-	puts $initfile "extern void $arg_value\(void\)\;"
+    set arrahandle [get_arrays $arrayname -of_objects $oshandle]
+    set elements [llength [get_property PARAM.$arg $arrahandle]]
+    foreach  ele $elements {
+	set thread_names [get_property PARAM.$arg $arrahandle]
+	foreach thread_name $thread_names {
+		puts $initfile "extern void $thread_name\(void\)\;"
+	}
     }
-    puts $initfile ""
+    puts $initfile ""	
 }
 
 # args is variable no - fields of the array
 proc xadd_struct {initfile oshandle structtype structname arrayname args} { 
 
-    #set arrhandle [get_arrays -of_objects $oshandle $arrayname]
-    set elements [get_arrays -of_objects $oshandle $arrayname]
+    #set arrhandle [get_arrays $arrayname -of_objects $oshandle]
+    set arrhandle [get_arrays $arrayname -of_objects $oshandle]
+    foreach arg $args {
+	set max_count [llength [get_property PARAM.$arg $arrhandle]]
+    }
+   
     #set elements [xget_handle $arrhandle "ELEMENTS" "*"]
     set count 0
-    set max_count [llength $elements]
+    #set max_count [llength $elements]
+    set num_list ""
+    set name_list ""
+    set index 0
     puts $initfile "struct $structtype $structname\[$max_count\] = \{"
-
-    foreach ele $elements {
-	incr count
-	puts -nonewline $initfile "\t\{"
-	foreach field $args {
-	    set field_value [get_property CONFIG.$field $ele]
-	    # puts "$arrayname ( $count )->$field is $field_value"
-	    puts -nonewline $initfile "$field_value"
-	    if { $field != [lindex $args end] } {
-		puts -nonewline $initfile ","
-	    }
-	}
-	if {$count < $max_count} {
-	    puts $initfile "\},"
+    foreach arg $args {
+	set field_values [get_property PARAM.$arg $arrhandle]
+	set field_value [list]
+	if {$index == 0} {
+		set name_list $field_values
 	} else {
-	    puts $initfile "\}"
+		set num_list $field_values
 	}
+	incr index
+    }
+    for {set i 0} {$i < [llength $name_list]} {incr i} {
+		incr count
+		puts -nonewline $initfile "\t\{"
+		puts -nonewline $initfile "[lindex $name_list $i]"
+		if {$num_list != ""} {
+			puts -nonewline $initfile ","
+			puts -nonewline $initfile "[lindex $num_list $i]"
+		}
+		if {$count < $max_count} {
+			puts $initfile "\},"
+		} else {
+			puts $initfile "\}"
+		}
     }
     puts $initfile "\}\;"
 }
@@ -718,12 +732,21 @@ proc get_field_product_sum {oshandle arrayname field1 field2} {
     #set elements [xget_handle $arrhandle "ELEMENTS" "*"]
     set count 0
     set max_count [llength $elements]
+    set field1_list ""
+    set field2_list ""
   
     foreach ele $elements {
-	    set field_value [get_property CONFIG.$field $ele]
-	set field1_value [get_property CONFIG.$field1 $ele]
-	set field2_value [get_property CONFIG.$field2 $ele]
-	set incr_value [expr $field1_value*$field2_value]
+	    #set field_value [get_property PARAM.$field $ele]
+	set field1_value [get_property PARAM.$field1 $ele]
+	set field1_list $field1_value
+	set field2_value [get_property PARAM.$field2 $ele]
+	set field2_list $field2_value
+    }
+    
+     for {set i 0} {$i < [llength $field1_value]} {incr i} {	
+	set field1_valuee [lindex $field1_list $i]
+	set field2_valuee [lindex $field2_list $i]
+	set incr_value [expr $field1_valuee*$field2_valuee]
 	set count [expr $count+$incr_value]
     }
     return $count

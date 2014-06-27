@@ -171,4 +171,7 @@ Change Log for Xilkernel
 2014-04-29
 
 	* modified driver tcl to use libxil.a if libgloss.a does not exist
+
+2014-06-27
+	* Fixed the CR:802962 and the CR:803104 changes are made in the tcl file
 	
