@@ -90,7 +90,7 @@
 
 /**************************** Type Definitions ******************************/
 
-#if COMPILER == iccarm
+#ifdef __ICCARM__
 #define INLINE inline
 #else
 #define INLINE __inline
