@@ -797,17 +797,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
 
 	# find interrupt pin number
-	set num_intr_inputs [get_property CONFIG.C_NUM_INTR_INPUTS $intc_handle]
-	set signals [split [get_property VALUE $intr_port] "&"]
-	set i 1
-	foreach signal $signals {
-		set signal [string trim $signal]
-		if {[string compare -nocase $signal $emac_intr_port] == 0} {
-			set topology(emac_intr_id) [expr ($num_intr_inputs - $i)]
-			break
-		}
-		incr i
-	}
+	set topology(emac_intr_id) [xget_port_interrupt_id $emac $emac_intr_port]
 	set topology(scugic_baseaddr) "0x0"
 	set topology(scugic_emac_intr) "0x0"
 	}
