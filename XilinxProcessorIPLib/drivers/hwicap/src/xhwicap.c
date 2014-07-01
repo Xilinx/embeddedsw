@@ -72,6 +72,8 @@
 * 8.01a bss  04/18/13  Updated to fix compiler warnings. CR#704814
 * 9.0   bss  02/20/14  Updated to support Kintex8, kintexu and virtex72000T
 *	 		family devices.
+* 10.0  bss  6/24/14  Removed support for families older than 7 series
+*		      Removed IDCODE lookup logic in XHwIcap_CfgInitialize.
 * </pre>
 *
 *****************************************************************************/
@@ -84,402 +86,6 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
-
-/*
- * This is a list of arrays that contain information about columns interspersed
- * into the CLB columns.  These are DSP, IOB, DCM, and clock tiles.  When these
- * are crossed, the frame address must be incremeneted by an additional count
- * from the CLB column index.  The center tile is skipped twice because it
- * contains both a DCM and a GCLK tile that must be skipped.
- * CXT SKIP column definitions are removed for the V6 devices as the existig
- * V6 Lx definitions are valid for CXT devices also.
- */
-u16 XHI_EMPTY_SKIP_COLS[] = {0xFFFF};
-
-u16 XHI_XC4VLX15_SKIP_COLS[] = {8, 12, 12, 0xFFFF};
-u16 XHI_XC4VLX25_SKIP_COLS[] = {8, 14, 14, 0xFFFF};
-u16 XHI_XC4VLX40_SKIP_COLS[] = {8, 18, 18, 0xFFFF};
-u16 XHI_XC4VLX60_SKIP_COLS[] = {12, 26, 26, 0xFFFF};
-u16 XHI_XC4VLX80_SKIP_COLS[] = {12, 28, 28, 0xFFFF};
-u16 XHI_XC4VLX100_SKIP_COLS[] = {12, 32, 32, 0xFFFF};
-u16 XHI_XC4VLX160_SKIP_COLS[] = {12, 44, 44, 0xFFFF};
-u16 XHI_XC4VLX200_SKIP_COLS[] = {12, 58, 58, 0xFFFF};
-u16 XHI_XC4VSX25_SKIP_COLS[] = {6, 14, 20, 20, 26, 34, 0xFFFF};
-u16 XHI_XC4VSX35_SKIP_COLS[] = {6, 14, 20, 20, 26, 34, 0xFFFF};
-u16 XHI_XC4VSX55_SKIP_COLS[] = {6, 10, 14, 18, 24, 24, 30, 34, 38,
-                                  42, 0xFFFF};
-u16 XHI_XC4VFX12_SKIP_COLS[] = {12, 12, 16, 0xFFFF};
-u16 XHI_XC4VFX20_SKIP_COLS[] = {6, 18, 18, 22, 30, 0xFFFF};
-u16 XHI_XC4VFX40_SKIP_COLS[] = {6, 26, 26, 38, 46, 0xFFFF};
-u16 XHI_XC4VFX60_SKIP_COLS[] = {6, 18, 26, 26, 34, 46, 0xFFFF};
-u16 XHI_XC4VFX100_SKIP_COLS[] = {6, 22, 34, 34, 46, 62, 0xFFFF};
-u16 XHI_XC4VFX140_SKIP_COLS[] = {6, 22, 42, 42, 62, 78, 0xFFFF};
-
-
-u16 XHI_XC5VLX30_SKIP_COLS[] = {4, 6, 14, 14, 22, 26, 0xFFFF};
-u16 XHI_XC5VLX50_SKIP_COLS[] = {4, 6, 14, 14, 22, 26, 0xFFFF};
-u16 XHI_XC5VLX85_SKIP_COLS[] = {4, 14, 16, 24, 24, 36, 46, 50, 0xFFFF};
-u16 XHI_XC5VLX110_SKIP_COLS[] = {4, 14, 16, 24, 24, 36, 46, 50, 0xFFFF};
-u16 XHI_XC5VLX220_SKIP_COLS[] = {4, 26, 28, 30, 32, 52, 52, 72, 78, 100,
-				104, 0xFFFF};
-u16 XHI_XC5VLX330_SKIP_COLS[] = {4, 26, 28, 30, 32, 52, 52, 72, 78, 100,
-				104, 0xFFFF};
-u16 XHI_XC5VLX30T_SKIP_COLS[] = {4, 6, 14, 14, 22, 26, 0xFFFF};
-u16 XHI_XC5VLX50T_SKIP_COLS[] = {4, 6, 14, 14, 22, 26, 0xFFFF};
-u16 XHI_XC5VLX85T_SKIP_COLS[] = {4, 14, 16, 24, 24, 36, 46, 50, 0xFFFF};
-u16 XHI_XC5VLX110T_SKIP_COLS[] = {4, 14, 16, 24, 24, 36, 46, 50, 0xFFFF};
-u16 XHI_XC5VLX220T_SKIP_COLS[] = {4, 26, 28, 30, 32, 52, 52, 72, 78, 100,
-				104, 0xFFFF};
-u16 XHI_XC5VLX330T_SKIP_COLS[] = {4, 26, 28, 30, 32, 52, 52, 72, 78, 100,
-				104, 0xFFFF};
-u16 XHI_XC5VSX35T_SKIP_COLS[] = {4, 6, 8, 10, 12, 14, 16, 18, 18, 20, 22,
-				24, 26, 30, 0xFFFF};
-u16 XHI_XC5VSX50T_SKIP_COLS[] = {4, 6, 8, 10, 12, 14, 16, 18, 18, 20, 22,
-				24, 26, 30, 0xFFFF};
-u16 XHI_XC5VSX95T_SKIP_COLS[] = {4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24,
-				24, 26, 28, 30, 32, 34, 36, 38, 42, 0xFFFF};
-u16 XHI_XC5VFX30T_SKIP_COLS[] = {4, 10, 16, 20, 20, 24, 26, 28, 30, 34, 0xFFFF};
-u16 XHI_XC5VFX70T_SKIP_COLS[] = {4, 10, 16, 20, 20, 24, 26, 28, 30, 34, 0xFFFF};
-u16 XHI_XC5VFX100T_SKIP_COLS[] = {4, 10, 16, 22, 24, 26, 28, 32, 32, 36,
-				38, 40, 42, 48, 52, 0xFFFF};
-u16 XHI_XC5VFX130T_SKIP_COLS[] = {4, 10, 16, 22, 24, 26, 28, 32, 32, 36,
-				38, 40, 42, 48, 52, 0xFFFF};
-u16 XHI_XC5VFX200T_SKIP_COLS[] = {4, 10, 16, 22, 28, 30, 32, 34, 38, 38, 42, 44,
-				46, 48, 54, 60, 64, 0xFFFF};
-
-/* V6 devices Skip column information */
-u16 XHI_XC6VHX250T_SKIP_COLS[] = {5, 10, 13, 18, 27, 30, 35, 38, 43, 54, 59,
-				64, 67, 72, 75, 84, 89, 92, 97, 105, 106,
-				0xFFFF};
-
-u16 XHI_XC6VHX255T_SKIP_COLS[] = {5, 10, 13, 18, 27, 30, 35, 38, 43, 54, 59,
-				64, 67, 72, 75, 84, 89, 92, 97, 105, 106,
-				0xFFFF};
-
-u16 XHI_XC6VHX380T_SKIP_COLS[] = {5, 10, 13, 18, 27, 30, 35, 38, 43, 54, 59,
-				64, 67, 72, 75, 84, 89, 92, 97, 105, 106,
-				0xFFFF};
-
-u16 XHI_XC6VHX565T_SKIP_COLS[] = {5, 10, 13, 22, 39, 48, 51, 56, 59, 64, 75,
-				80, 85, 88, 93, 96, 105, 122, 131, 134,
-				139, 147, 148, 0xFFFF};
-
-u16 XHI_XC6VLX75T_SKIP_COLS[] = {5, 8, 13, 16, 19, 22, 25, 36, 41, 44, 47,
-				50, 53, 58, 61, 69, 70, 0xFFFF};
-
-u16 XHI_XC6VLX130T_SKIP_COLS[] = {5, 8, 13, 16, 19, 22, 25, 36, 41, 44, 47,
-				50, 53, 58, 61, 69, 70, 0xFFFF};
-
-u16 XHI_XC6VLX195T_SKIP_COLS[] = {5, 8, 13, 16, 25, 28, 33, 36, 41, 52, 57,
-				62, 65, 70, 73, 82, 85, 90, 93, 101, 102,
-				0xFFFF};
-
-u16 XHI_XC6VLX240T_SKIP_COLS[] = {5, 8, 13, 16, 25, 28, 33, 36, 41, 52, 57,
-				62, 65, 70, 73, 82, 85, 90, 93, 101, 102,
-				0xFFFF};
-
-u16 XHI_XC6VLX365T_SKIP_COLS[] = {5, 8, 21, 24, 33, 50, 53, 58, 69, 74, 79,
-				82, 99, 108, 111, 124, 127, 132, 140, 141,
-				0xFFFF};
-
-u16 XHI_XC6VLX550T_SKIP_COLS[] = {5, 8, 21, 24, 33, 50, 53, 58, 69, 74, 79,
-				82, 99, 108, 111, 124, 127, 132, 140, 141,
-				0xFFFF};
-
-u16 XHI_XC6VLX760_SKIP_COLS[] = {5, 8, 33, 36, 45, 70, 77, 80, 85, 96, 101,
-				106, 109, 116, 141, 150, 153, 178, 181, 186,
-				0xFFFF};
-
-u16 XHI_XC6VSX315T_SKIP_COLS[] = {5, 8, 13, 16, 21, 24, 29, 32, 37, 40, 45,
-				48, 51, 54, 59, 70, 75, 80, 83, 86, 89, 94,
-				97, 102,105, 110, 113, 118, 121, 126, 129,
-				137, 138, 0xFFFF};
-
-u16 XHI_XC6VSX475T_SKIP_COLS[] = {5, 8, 13, 16, 21, 24, 29, 32, 37, 40, 45,
-				48, 51, 54, 59, 70, 75, 80, 83, 86, 89, 94,
-				97, 102,105, 110, 113, 118, 121, 126, 129,
-				137, 138, 0xFFFF};
-
-
-u16 XHI_XC6SLX4_SKIP_COLS[] = {3, 6, 9, 0xFFFF};
-
-u16 XHI_XC6SLX9_SKIP_COLS[] = {3, 6, 9, 14, 0xFFFF};
-
-u16 XHI_XC6SLX16_SKIP_COLS[] = {3, 6, 12, 19, 22, 0xFFFF};
-
-u16 XHI_XC6SLX25_SKIP_COLS[] = {3, 6, 12, 19, 28, 31, 0xFFFF};
-
-u16 XHI_XC6SLX45_SKIP_COLS[] = {3, 6, 12, 19, 26, 32, 35, 0xFFFF};
-
-u16 XHI_XC6SLX45T_SKIP_COLS[] = {3, 6, 12, 19, 26, 32, 35, 0xFFFF};
-
-u16 XHI_XC6SLX75_SKIP_COLS[] = {3, 8, 14, 21, 27, 33, 36, 39, 0xFFFF};
-
-u16 XHI_XC6SLX100_SKIP_COLS[] = {3, 6, 11, 15, 21, 28, 35, 41, 46, 51, 54,
-				 0xFFFF};
-
-u16 XHI_XC6SLX150_SKIP_COLS[] = {3, 6, 17, 21, 27, 40, 51, 57, 61, 70, 73,
-				 0xFFFF};
-
-/* Device details look up table  */
-
-const DeviceDetails DeviceDetaillkup[] = {
-
-	/* Virtex4 devices */
-
-	{ XHI_XC4VLX15, 24, 64, 3, 1, 3, 0, 4, XHI_XC4VLX15_SKIP_COLS },
-
-	{ XHI_XC4VLX25, 28, 96, 3, 1, 3, 0, 6, XHI_XC4VLX25_SKIP_COLS },
-
-	{ XHI_XC4VLX40,	36, 128, 3, 1, 3, 0, 8, XHI_XC4VLX40_SKIP_COLS },
-
-	{ XHI_XC4VLX60, 52, 128, 5, 1, 3, 0, 8, XHI_XC4VLX60_SKIP_COLS },
-
-	{ XHI_XC4VLX80, 56, 160, 5, 1, 3, 0, 10, XHI_XC4VLX80_SKIP_COLS },
-
-	{ XHI_XC4VLX100,64, 192, 5, 1, 3, 0, 12, XHI_XC4VLX100_SKIP_COLS },
-
-	{ XHI_XC4VLX160, 88, 192, 6, 1, 3, 0, 12, XHI_XC4VLX160_SKIP_COLS },
-
-	{ XHI_XC4VLX200, 116, 192, 7, 1, 3, 0, 12, XHI_XC4VLX200_SKIP_COLS },
-
-	{ XHI_XC4VSX25,  40, 64, 8, 4, 3, 0, 4, XHI_XC4VSX25_SKIP_COLS },
-
-	{ XHI_XC4VSX35,  40, 96, 8, 4, 3, 0, 6, XHI_XC4VSX35_SKIP_COLS },
-
-	{ XHI_XC4VSX55, 48, 128, 10, 8, 3, 0, 8, XHI_XC4VSX55_SKIP_COLS },
-
-	{ XHI_XC4VFX12, 24, 64, 3, 1, 3, 0, 4, XHI_XC4VFX12_SKIP_COLS },
-
-	{ XHI_XC4VFX20, 36, 64, 5, 1, 3, 2, 4, XHI_XC4VFX20_SKIP_COLS },
-
-	{ XHI_XC4VFX40, 52, 96, 7, 1, 3, 2, 6, XHI_XC4VFX40_SKIP_COLS },
-
-	{ XHI_XC4VFX60, 52, 128, 8, 2, 3, 2, 8, XHI_XC4VFX60_SKIP_COLS },
-
-	{ XHI_XC4VFX100, 68, 160, 10, 2, 3, 2, 10, XHI_XC4VFX100_SKIP_COLS },
-
-	{ XHI_XC4VFX140, 84, 192, 12, 2, 3, 2, 12, XHI_XC4VFX140_SKIP_COLS },
-
-	/* Virtex5 devices.  Array index is 17 for the first V5 device*/
-
-	{ XHI_XC5VLX30, 30, 80, 2, 1, 2, 0, 4, XHI_XC5VLX30_SKIP_COLS },
-
-	{ XHI_XC5VLX50, 30, 120, 2, 1, 2, 0, 6, XHI_XC5VLX50_SKIP_COLS },
-
-	{ XHI_XC5VLX85, 54, 120, 4, 1, 2, 0, 6, XHI_XC5VLX85_SKIP_COLS },
-
-	{ XHI_XC5VLX110, 54, 160, 4, 1, 2, 0, 8, XHI_XC5VLX110_SKIP_COLS },
-
-	{ XHI_XC5VLX220, 108, 160, 6, 2, 2, 0, 8, XHI_XC5VLX220_SKIP_COLS },
-
-	{ XHI_XC5VLX330, 108, 240, 6, 2, 2, 0, 12, XHI_XC5VLX330_SKIP_COLS },
-
-	{ XHI_XC5VLX30T, 30, 80, 3, 1, 2, 1, 4, XHI_XC5VLX30T_SKIP_COLS },
-
-	{ XHI_XC5VLX50T, 30, 120, 3, 1, 2, 1, 6, XHI_XC5VLX50T_SKIP_COLS },
-
-	{ XHI_XC5VLX85T, 54, 120, 5, 1, 2, 1, 6, XHI_XC5VLX85T_SKIP_COLS },
-
-	{ XHI_XC5VLX110T, 54, 160, 5, 1, 2, 1, 8, XHI_XC5VLX110T_SKIP_COLS },
-
-	{ XHI_XC5VLX220T, 108, 160, 7, 2, 2, 1, 8, XHI_XC5VLX220T_SKIP_COLS },
-
-	{ XHI_XC5VLX330T, 108, 240, 7, 2, 2, 1, 12, XHI_XC5VLX330T_SKIP_COLS },
-
-	{ XHI_XC5VSX35T, 34, 80, 6, 6, 2, 1, 4, XHI_XC5VSX35T_SKIP_COLS },
-
-	{ XHI_XC5VSX50T, 34, 120, 6, 6, 2, 1, 6, XHI_XC5VSX50T_SKIP_COLS },
-
-	{ XHI_XC5VSX95T, 46, 160, 7, 10, 2, 1, 8, XHI_XC5VSX95T_SKIP_COLS },
-
-	{ XHI_XC5VFX30T, 38, 80, 5, 2, 2, 1, 4, XHI_XC5VFX30T_SKIP_COLS },
-
-	{ XHI_XC5VFX70T, 38, 160, 5, 2, 2, 1, 8, XHI_XC5VFX70T_SKIP_COLS },
-
-	{ XHI_XC5VFX100T, 56, 160, 8, 4, 2, 1, 8, XHI_XC5VFX100T_SKIP_COLS },
-
-	{ XHI_XC5VFX130T, 56, 200, 8, 4, 3, 1, 10, XHI_XC5VFX130T_SKIP_COLS },
-
-	{ XHI_XC5VFX200T, 68, 240, 10, 4, 3, 1, 12, XHI_XC5VFX200T_SKIP_COLS },
-
-	/* Virtex6 devices. Array index is 37 for the first V6 device */
-
-	{ XHI_XC6VHX250T, 85, 240, 11, 6, 2, 2, 6, XHI_XC6VHX250T_SKIP_COLS },
-
-	{ XHI_XC6VHX255T, 85, 240, 11, 6, 2, 2, 6, XHI_XC6VHX255T_SKIP_COLS },
-
-	{ XHI_XC6VHX380T, 85, 360, 11, 6, 2, 2, 9, XHI_XC6VHX380T_SKIP_COLS },
-
-	{ XHI_XC6VHX565T, 125, 360, 13, 6, 2, 2, 9, XHI_XC6VHX565T_SKIP_COLS },
-
-	{ XHI_XC6VLX75T, 53, 120, 7, 5, 3, 1, 3, XHI_XC6VLX75T_SKIP_COLS },
-
-	{ XHI_XC6VLX130T, 53, 200, 7, 6, 3, 1, 3, XHI_XC6VLX130T_SKIP_COLS },
-
-	{ XHI_XC6VLX195T, 81, 200, 9, 8, 3, 1, 5, XHI_XC6VLX195T_SKIP_COLS },
-
-	{ XHI_XC6VLX240T, 81, 240, 9, 8, 3, 1, 6, XHI_XC6VLX240T_SKIP_COLS },
-
-	{ XHI_XC6VLX365T, 121, 240, 9, 6, 4, 1, 6, XHI_XC6VLX365T_SKIP_COLS },
-
-	{ XHI_XC6VLX550T, 121, 360, 9, 6, 4, 1, 9, XHI_XC6VLX550T_SKIP_COLS },
-
-	{ XHI_XC6VLX760, 121, 360, 10, 6, 4, 0, 9, XHI_XC6VLX760_SKIP_COLS },
-
-	{ XHI_XC6VSX315T, 105, 240, 15, 14, 3, 1, 6, XHI_XC6VSX315T_SKIP_COLS},
-
-	{ XHI_XC6VSX475T, 105, 360, 15, 14, 3, 1, 9, XHI_XC6VSX475T_SKIP_COLS},
-
-	{ XHI_XC6VCX75T, 53, 120, 7, 5, 3, 1, 3, XHI_XC6VLX75T_SKIP_COLS },
-
-	{ XHI_XC6VCX130T, 53, 200, 7, 6, 3, 1, 3, XHI_XC6VLX130T_SKIP_COLS },
-
-	{ XHI_XC6VCX195T, 81, 200, 9, 8, 3, 1, 5, XHI_XC6VLX195T_SKIP_COLS },
-
-	{ XHI_XC6VCX240T, 81, 240, 9, 8, 3, 1, 6, XHI_XC6VLX240T_SKIP_COLS },
-
-	/* Spartan6 devices. Array index is 54 for the first S6 device */
-
-	{ XHI_XC6SLX4, 5, 64, 1, 1, 0, 1, 0, XHI_XC6SLX4_SKIP_COLS },
-
-	{ XHI_XC6SLX9, 12, 64, 2, 1, 0, 1, 0, XHI_XC6SLX9_SKIP_COLS },
-
-	{ XHI_XC6SLX16, 19, 64, 2, 2, 0, 1, 0, XHI_XC6SLX16_SKIP_COLS },
-
-	{ XHI_XC6SLX25, 27, 80, 3, 2, 0, 1, 0, XHI_XC6SLX25_SKIP_COLS },
-
-	{ XHI_XC6SLX25T, 27, 80, 3, 2, 0, 1, 0, XHI_XC6SLX25_SKIP_COLS },
-
-	{ XHI_XC6SLX45, 30, 128, 4, 2, 0, 1, 0, XHI_XC6SLX45_SKIP_COLS },
-
-	{ XHI_XC6SLX45T, 30, 128, 4, 2, 0, 1, 0, XHI_XC6SLX45_SKIP_COLS },
-
-	{ XHI_XC6SLX75, 34, 192, 4, 3, 0, 1, 0, XHI_XC6SLX75_SKIP_COLS },
-
-	{ XHI_XC6SLX75T, 34, 192, 4, 3, 0, 1, 0, XHI_XC6SLX75_SKIP_COLS },
-
-	{ XHI_XC6SLX100, 45, 192, 6, 4, 0, 1, 0, XHI_XC6SLX100_SKIP_COLS },
-
-	{ XHI_XC6SLX100T, 45, 192, 6, 4, 0, 1, 0, XHI_XC6SLX100_SKIP_COLS },
-
-	{ XHI_XC6SLX150, 64, 192, 6, 4, 0, 1, 0, XHI_XC6SLX150_SKIP_COLS },
-
-	{ XHI_XC6SLX150T, 64, 192, 6, 4, 0, 1, 0, XHI_XC6SLX150_SKIP_COLS },
-
-	/*
-	 * Kintex7 devices. Array index is 67 for the first K7 device
-	 * The details of the rows, cloumns etc. are not filled  as
-	 * the related support is not added in the driver. The data
-	 * will be populated whenever the support for writing into a CLB
-	 * is implemented.
-	 */
-	{ XHI_XC7K30T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K70T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K160T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K325T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K410T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K235T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K125T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K290T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K355T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K420T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	{ XHI_XC7K480T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-
-	/*
-	 * Virtex7 devices. Array index is 78 for the first V7 device
-	 * The details of the rows, cloumns etc. are not filled  as
-	 * the related support is not added in the driver. The data
-	 * will be populated whenever the support for writing into a CLB
-	 * is implemented.
-	 */
-
-	 { XHI_XC7VX80T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX82T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX330T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX415T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7V450T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX485T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX550T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7V585T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX690T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX980T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX2000T_SLR0, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX2000T_SLR1, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX2000T_SLR2, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7VX2000T_SLR3, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	/*
-	 * Artix7 devices. Array index is 88 for the first V7 device
-	 * The details of the rows, cloumns etc. are not filled  as
-	 * the related support is not added in the driver. The data
-	 * will be populated whenever the support for writing into a CLB
-	 * is implemented.
-	 */
-
-	 { XHI_XC7A15, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7A30T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7A50T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7A100T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7A200T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 { XHI_XC7A350T, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	 /*
-	  * Zynq devices. Array index is 94 for the first V7 device
-	  * The details of the rows, cloumns etc. are not filled  as
-	  * the related support is not added in the driver. The data
-	  * will be populated whenever the support for writing into a CLB
-	  * is implemented.
-	  */
-
-	  { XHI_XC7Z010, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	  { XHI_XC7Z020, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	  { XHI_XC7Z030, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-   	  { XHI_XC7Z045, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	/*
-	 * Kintex8 devices. Array index is 98 for the first K8 device
-	 * The details of the rows, cloumns etc. are not filled  as
-	 * the related support is not added in the driver. The data
-	 * will be populated whenever the support for writing into a CLB
-	 * is implemented.
-	 */
-
-   	 { XHI_XCKU040T, 0, 0, 0, 0, 0, 0, 0, 0 }
-};
-
 
 /**************************** Type Definitions ******************************/
 
@@ -582,89 +188,20 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 
 	DeviceIdCode = DeviceIdCode & XHI_DEVICE_ID_CODE_MASK;
 
-#if (XHI_FAMILY != XHI_DEV_FAMILY_S6)
+	if ((DeviceIdCode == XHI_DEVICE_ID_CODE_MASK) ||
+			(DeviceIdCode == 0x0)) {
+		return XST_FAILURE;
+	}
+
+
 	Status = XHwIcap_CommandDesync(InstancePtr);
 	InstancePtr->IsReady = 0;
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-#endif
-
-#if XHI_FAMILY == XHI_DEV_FAMILY_V4 /* Virtex4 */
-
-	DeviceIdIndex = 0;
-	NumDevices = XHI_V4_NUM_DEVICES;
-
-#elif XHI_FAMILY == XHI_DEV_FAMILY_V5 /* Virtex5 */
-
-	DeviceIdIndex = XHI_V4_NUM_DEVICES;
-	NumDevices = XHI_V5_NUM_DEVICES;
-
-#elif XHI_FAMILY == XHI_DEV_FAMILY_V6 /* Virtex6 */
-
-	DeviceIdIndex = XHI_V4_NUM_DEVICES +  XHI_V5_NUM_DEVICES;
-	NumDevices = XHI_V6_NUM_DEVICES;
-
-#elif XHI_FAMILY == XHI_DEV_FAMILY_S6 /* Spartan6 */
-
-	DeviceIdIndex = XHI_V4_NUM_DEVICES +  XHI_V5_NUM_DEVICES +
-			XHI_V6_NUM_DEVICES;
-	NumDevices = XHI_S6_NUM_DEVICES;
-
-#elif XHI_FAMILY == XHI_DEV_FAMILY_7SERIES /* 7Series */
-
-	DeviceIdIndex = XHI_V4_NUM_DEVICES +  XHI_V5_NUM_DEVICES +
-			XHI_V6_NUM_DEVICES +  XHI_S6_NUM_DEVICES;
-	NumDevices = XHI_K7_NUM_DEVICES + XHI_V7_NUM_DEVICES +
-			XHI_A7_NUM_DEVICES + XHI_ZYNQ_NUM_DEVICES +
-			XHI_K8_NUM_DEVICES;
-#endif
-	/*
-	 * Find the device index
-	 */
-	for (IndexCount = 0; IndexCount < NumDevices; IndexCount++) {
-
-		if (DeviceIdCode == DeviceDetaillkup[DeviceIdIndex +
-					IndexCount]. DeviceIdCode) {
-			DeviceIdIndex += IndexCount;
-			DeviceFound = TRUE;
-			break;
-		}
-	}
-
-	if (DeviceFound != TRUE) {
-
-		return XST_FAILURE;
-
-	}
-	InstancePtr->DeviceIdCode = DeviceDetaillkup[DeviceIdIndex].
-					DeviceIdCode;
-
-	InstancePtr->Rows = DeviceDetaillkup[DeviceIdIndex].Rows;
-	InstancePtr->Cols = DeviceDetaillkup[DeviceIdIndex].Cols;
-	InstancePtr->BramCols = DeviceDetaillkup[DeviceIdIndex].BramCols;
-
-	InstancePtr->DSPCols = DeviceDetaillkup[DeviceIdIndex].DSPCols;
-	InstancePtr->IOCols = DeviceDetaillkup[DeviceIdIndex].IOCols;
-	InstancePtr->MGTCols = DeviceDetaillkup[DeviceIdIndex].MGTCols;
-
-	InstancePtr->HClkRows = DeviceDetaillkup[DeviceIdIndex].HClkRows;
-	InstancePtr->SkipCols = DeviceDetaillkup[DeviceIdIndex].SkipCols;
 
 	InstancePtr->BytesPerFrame = XHI_NUM_FRAME_BYTES;
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	/*
-	 * In Spartan6 devices the word is defined as 16 bit
-	 */
-	InstancePtr->WordsPerFrame = (InstancePtr->BytesPerFrame/2);
-#else
 	InstancePtr->WordsPerFrame = (InstancePtr->BytesPerFrame/4);
-#endif
-	InstancePtr->ClbBlockFrames = (4 +22*2 + 4*2 + 22*InstancePtr->Cols);
-	InstancePtr->BramBlockFrames = (64*InstancePtr->BramCols);
-	InstancePtr->BramIntBlockFrames = (22*InstancePtr->BramCols);
-
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/*
@@ -711,14 +248,8 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 *		of data to the ICAP device.
 *
 *****************************************************************************/
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u16 *FrameBuffer, u32 NumWords)
-#else
 int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
-#endif
 {
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)
 	u32 Index; /* Array Index */
 #if XPAR_HWICAP_0_ICAP_DWIDTH == 8
 	u8 Fifo[NumWords*4];
@@ -728,8 +259,6 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	u32 Fifo[4]; /** Icap Width of 32 does not use Fifo but declared
 			 to overcome compilation error. Size of 4 is used
 			 to overcome compiler warnings */
-#endif
-
 #endif
 
 #if (XPAR_HWICAP_0_MODE == 0)
@@ -767,9 +296,6 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	 */
 	XHwIcap_IntrGlobalDisable(InstancePtr);
 
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)
-
 	/* 16 bit */
 	if(InstancePtr->HwIcapConfig.IcapWidth == 16)
 	{
@@ -802,26 +328,20 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 		InstancePtr->SendBufferPtr = &Fifo[0];
 
 	}
-
-#endif
-
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_S6) || (XPAR_HWICAP_0_ICAP_DWIDTH == 32)\
-|| (XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5))
-
-	/*
-	 * Set up the buffer pointer and the words to be transferred.
-	 */
-	InstancePtr->SendBufferPtr = FrameBuffer;
-	InstancePtr->RequestedWords = NumWords;
-	InstancePtr->RemainingWords = NumWords;
-
-#endif
+	else
+	{
+		/*
+		 * Set up the buffer pointer and the words to be transferred.
+		 */
+		InstancePtr->SendBufferPtr = FrameBuffer;
+		InstancePtr->RequestedWords = NumWords;
+		InstancePtr->RemainingWords = NumWords;
+	}
 
 	/*
 	 * Fill the FIFO with as many words as it will take (or as many as we
 	 * have to send.
 	 */
-
 
 #if (XPAR_HWICAP_0_MODE == 1)
 	 /* If Lite Mode then write one by one word in WriteFIFO register */
@@ -866,7 +386,6 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 
 	while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
 				XHI_CR_OFFSET)) & XHI_CR_WRITE_MASK);
-
 	/*
 	 * Check if there is more data to be written to the ICAP
 	 */
@@ -926,11 +445,9 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 				InstancePtr->IsTransferInProgress = FALSE;
 				InstancePtr->RequestedWords = 0x0;
 			}
-
 		}
 
 	else {
-
 		/*
 		 * Clear the flag to indicate the write has been done
 		 */
@@ -940,7 +457,6 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	}
 
 #endif
-
 	return XST_SUCCESS;
 }
 
@@ -967,27 +483,14 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 * @note		This is a blocking function.
 *
 *****************************************************************************/
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u16 *FrameBuffer, u32 NumWords)
-#else
 int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
-#endif
 {
-
 	u32 Retries = 0;
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	u16 *Data = FrameBuffer;
-#elif (XHI_FAMILY == XHI_DEV_FAMILY_V6) ||\
-(XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)
 	u32 Index = 0; /* Array Index */
 #if XPAR_HWICAP_0_ICAP_DWIDTH == 8
 	u8 Data[NumWords*4];
 #elif XPAR_HWICAP_0_ICAP_DWIDTH == 16
 	u16 Data[NumWords*2];
-#else
-	u32 *Data = FrameBuffer;
-#endif
-
 #else
 	u32 *Data = FrameBuffer;
 #endif
@@ -1021,8 +524,6 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	 */
 	InstancePtr->IsTransferInProgress = TRUE;
 
-#if (XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)
-
 	/* 8 bit */
 	if(InstancePtr->HwIcapConfig.IcapWidth == 8)
 	{
@@ -1040,20 +541,10 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 
 	/* 32 bit */
 	else {
-
 		InstancePtr->RequestedWords = NumWords;
 		InstancePtr->RemainingWords = NumWords;
 		XHwIcap_SetSizeReg(InstancePtr, NumWords);
 	}
-
-
-#else
-
-	InstancePtr->RequestedWords = NumWords;
-	InstancePtr->RemainingWords = NumWords;
-	XHwIcap_SetSizeReg(InstancePtr, NumWords);
-
-#endif
 
 	XHwIcap_StartReadBack(InstancePtr);
 
@@ -1061,14 +552,13 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	 * Read the data from the Read FIFO into the buffer provided by
 	 * the user.
 	 */
+
 	/* As long as there is still data to read... */
 	while (InstancePtr->RemainingWords > 0) {
 		/* Wait until we have some data in the fifo. */
-
-			while(RdFifoOccupancy == 0) {
+		while(RdFifoOccupancy == 0) {
 			RdFifoOccupancy =
 			XHwIcap_GetRdFifoOccupancy(InstancePtr);
-
 			Retries++;
 			if (Retries > XHI_MAX_RETRIES) {
 				break;
@@ -1077,39 +567,29 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 
 		/* Read the data from the Read FIFO. */
 
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_S6) || (XPAR_HWICAP_0_ICAP_DWIDTH == 32)\
-|| (XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5))
-		while((RdFifoOccupancy != 0) &&
-				(InstancePtr->RemainingWords > 0)) {
-			*Data++ = XHwIcap_FifoRead(InstancePtr);
-			InstancePtr->RemainingWords--;
-			RdFifoOccupancy--;
-		}
-
-#elif (XHI_FAMILY == XHI_DEV_FAMILY_V6) ||\
-(XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)
-	/* 8/16 bit */
-	if((InstancePtr->HwIcapConfig.IcapWidth == 8) ||
+		/* 8/16 bit */
+		if((InstancePtr->HwIcapConfig.IcapWidth == 8) ||
 				(InstancePtr->HwIcapConfig.IcapWidth == 16)) {
-
-		while((RdFifoOccupancy != 0) &&
-			(InstancePtr->RemainingWords > 0)) {
-			Data[Index] = XHwIcap_FifoRead(InstancePtr);
-			InstancePtr->RemainingWords--;
-			RdFifoOccupancy--;
-			Index++;
+			while((RdFifoOccupancy != 0) &&
+					(InstancePtr->RemainingWords > 0)) {
+				Data[Index] = XHwIcap_FifoRead(InstancePtr);
+				InstancePtr->RemainingWords--;
+				RdFifoOccupancy--;
+				Index++;
+			}
+		}
+		else {
+			while((RdFifoOccupancy != 0) &&
+					(InstancePtr->RemainingWords > 0)) {
+				*Data++ = XHwIcap_FifoRead(InstancePtr);
+				InstancePtr->RemainingWords--;
+				RdFifoOccupancy--;
+			}
 		}
 	}
-
-#endif
-
-}
-
-while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-					XHI_CR_OFFSET)) &
-					XHI_CR_READ_MASK);
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)
+	while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
+			XHI_CR_OFFSET)) &
+			XHI_CR_READ_MASK);
 
 	/* 8 bit */
 	if(InstancePtr->HwIcapConfig.IcapWidth == 8)
@@ -1121,9 +601,7 @@ while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
 			*FrameBuffer = *FrameBuffer | Data[Index + 3];
 			FrameBuffer++;
 		}
-
 	}
-
 	/* 16 bit */
 	else if(InstancePtr->HwIcapConfig.IcapWidth == 16)
 	{
@@ -1133,7 +611,6 @@ while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
 			FrameBuffer++;
 		}
 	}
-#endif
 
 	/*
 	 * If the requested number of words have not been read from
@@ -1142,7 +619,6 @@ while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
 	if (InstancePtr->RemainingWords != 0){
 		return XST_FAILURE;
 	}
-
 
 	InstancePtr->IsTransferInProgress = FALSE;
 	InstancePtr->RequestedWords = 0x0;

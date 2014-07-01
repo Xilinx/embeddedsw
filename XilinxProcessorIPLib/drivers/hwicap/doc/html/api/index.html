@@ -2,7 +2,7 @@
 <head>
    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
 <title>
-   hwicap v9_0
+   xhwicap
 </title>
 <link href="$DriverApiDocsCssPath" rel="stylesheet" type="text/css">
 </head>
@@ -16,7 +16,7 @@
     <li><a href="annotated.html"><span>Classes</span></a></li>
     <li><a href="files.html"><span>Files</span></a></li>
   </ul></div>
-<h1>hwicap v9_0</h1>
+<h1>xhwicap</h1>
 <p>
 The Xilinx <a class="el" href="struct_x_hw_icap.html">XHwIcap</a> driver supports the Xilinx Hardware Internal Configuration Access Port (HWICAP) device.<p>
 The HWICAP device is used for reconfiguration of select FPGA resources as well as loading partial bitstreams from the system memory through the Internal Configuration Access Port (ICAP).<p>
@@ -76,5 +76,13 @@ There are a few items to be aware of when using this driver: 1) Only Virtex4, Vi
  9.0   adk  19/12/13 Updated as per the New Tcl API's
  9.0   bss  02/20/14 Modified <a class="el" href="xhwicap_8c.html">xhwicap.c</a>, <a class="el" href="xhwicap__l_8h.html">xhwicap_l.h</a>, <a class="el" href="xhwicap__i_8h.html">xhwicap_i.h</a> and tcl
 		      to support Kintex8, kintexu and virtex72000T family
-		      devices.</pre><p>
+		      devices.
+ 10.0  bss  6/24/14  Removed support for families older than 7 series.
+		      Modified driver tcl not to generate family.h.
+		      Removed IDCODE lookup logic in XHwIcap_CfgInitialize
+		      in <a class="el" href="xhwicap_8c.html">xhwicap.c</a>.
+		      Removed IDCODE macros from <a class="el" href="xhwicap__i_8h.html">xhwicap_i.h</a>.
+		      Removed xhwicap_ff.h and xhwicap_lut.h examples.
+		      Removed xhwicap_clb_ff.h, xhwicap_clb_lut.h and
+		      xhwicap_clb_srinv.h files from driver.</pre><p>
 <pre> </pre> Copyright @ 1995-2014 Xilinx, Inc. All rights reserved. 

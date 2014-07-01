@@ -56,6 +56,7 @@
 * 2.00a sv   09/29/07 First release
 * 4.00a hvm  12/1/09  Updated with HAL phase 1 changes
 * 5.00a hvm  2/25/10  Updated with S6 support
+* 10.0  bss  6/24/14  Removed support for families older than 7 series
 *
 *</pre>
 ******************************************************************************/
@@ -214,7 +215,6 @@ int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 * Perform a self-test to ensure that the hardware was built correctly.
 	 */
@@ -235,7 +235,6 @@ int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 * Setup the handler for the HwIcap that will be called from the
 	 * interrupt context when an HwIcap status occurs, specify a pointer
@@ -245,33 +244,19 @@ int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
 	XHwIcap_SetInterruptHandler(HwIcapInstancePtr, HwIcapInstancePtr,
 			 (XHwIcap_StatusHandler)HwIcapIntrHandler);
 
-
-
 	/*
 	 * Initialize the write buffer with pattern to write.
 	 */
 	for (Count = 0; Count < TEST_WRITE_BUFFER_SIZE;) {
 
 		WriteBuffer[Count++] = XHI_DUMMY_PACKET;
-	#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-		WriteBuffer[Count++] = XHI_SYNC_PACKET1;
-		WriteBuffer[Count++] = XHI_SYNC_PACKET2;
-	#else
 		WriteBuffer[Count++] = XHI_SYNC_PACKET;
-	#endif
 		WriteBuffer[Count++] = XHwIcap_Type1Read(XHI_IDCODE) | 1;
 		WriteBuffer[Count++] = XHI_NOOP_PACKET;
 		WriteBuffer[Count++] = XHI_NOOP_PACKET;
-
 		WriteBuffer[Count++] = XHI_DUMMY_PACKET;
-	#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-		WriteBuffer[Count++] = XHI_SYNC_PACKET1;
-		WriteBuffer[Count++] = XHI_SYNC_PACKET2;
-		WriteBuffer[Count++] = XHwIcap_Type1Read(XHI_COR1) | 1;
-	#else
 		WriteBuffer[Count++] = XHI_SYNC_PACKET;
 		WriteBuffer[Count++] = XHwIcap_Type1Read(XHI_COR) | 1;
-	#endif
 		WriteBuffer[Count++] = XHI_NOOP_PACKET;
 		WriteBuffer[Count++] = XHI_NOOP_PACKET;
 	}
@@ -285,16 +270,9 @@ int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
 	 * Write the the data to the device.
 	 */
 	TransferInProgress = TRUE;
-	#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	Status = XHwIcap_DeviceWrite(HwIcapInstancePtr,
-					(u16 *) &WriteBuffer[0],
-					TEST_WRITE_BUFFER_SIZE);
-	#else
 	Status = XHwIcap_DeviceWrite(HwIcapInstancePtr,
 					(u32 *) &WriteBuffer[0],
 					TEST_WRITE_BUFFER_SIZE);
-
-	#endif
 	if (Status != XST_SUCCESS)  {
 		return XST_FAILURE;
 	}
@@ -344,7 +322,6 @@ void HwIcapIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 		Error++;
 	}
 }
-
 
 /****************************************************************************/
 /**
@@ -423,7 +400,6 @@ static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				(Xil_ExceptionHandler) XIntc_InterruptHandler,
 				IntcInstancePtr);
-
 	/*
 	 * Enable non-critical exceptions.
 	 */

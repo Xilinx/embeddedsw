@@ -75,6 +75,7 @@
 *			is added for all devices. This check was earlier done
 *			only for S6 devices
 * 6.00a hvm  08/05/11 Added support for K7 family
+* 10.0  bss  6/24/14  Removed support for families older than 7 series
 *
 * </pre>
 *
@@ -102,18 +103,11 @@
 /*
  * Number of words to Read for getting Id code.
  */
-#if XHI_FAMILY == XHI_DEV_FAMILY_S6
-#define HWICAP_IDCODE_SIZE		    2
-#else
 #define HWICAP_IDCODE_SIZE		    1
-#endif
 
 /*
  * Bitstream that reads back ID Code Register
  */
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) ||(XHI_FAMILY == XHI_DEV_FAMILY_V5) \
-|| (XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
-
 #define HWICAP_EXAMPLE_BITSTREAM_LENGTH     6
 
 static u32 ReadId[HWICAP_EXAMPLE_BITSTREAM_LENGTH] =
@@ -125,25 +119,6 @@ static u32 ReadId[HWICAP_EXAMPLE_BITSTREAM_LENGTH] =
 	XHI_DEVICE_ID_READ, /* Read Product ID Code Register */
 	XHI_NOOP_PACKET, /* Type 1 NO OP */
 };
-#elif XHI_FAMILY == XHI_DEV_FAMILY_S6/* Spartan 6*/
-
-#define HWICAP_EXAMPLE_BITSTREAM_LENGTH     7
-
-static u32 ReadId[HWICAP_EXAMPLE_BITSTREAM_LENGTH] =
-{
-	XHI_DUMMY_PACKET, /* Dummy Word */
-	XHI_SYNC_PACKET1, /* Sync Word*/
-	XHI_SYNC_PACKET2, /* Sync Word*/
-	XHI_NOOP_PACKET, /* Type 1 NO OP */
-	XHI_NOOP_PACKET, /* Type 1 NO OP */
-	XHI_DEVICE_ID_READ, /* Read Product ID Code Register */
-	XHI_NOOP_PACKET, /* Type 1 NO OP */
- };
-#else
-
-#error Unsupported Family of FPGAs
-
-#endif
 
 #define printf  xil_printf           /* A smaller footprint printf */
 
@@ -286,12 +261,6 @@ u32 HwIcapLowLevelExample(u32 BaseAddress, u32 *IdCode)
 	 * Return the IDCODE value
 	 */
 	*IdCode =  XHwIcap_ReadReg(BaseAddress, XHI_RF_OFFSET);
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-
-	*IdCode =  (*IdCode << 16 | (XHwIcap_ReadReg(BaseAddress,
-					XHI_RF_OFFSET)));
-#endif
 
 	return XST_SUCCESS;
 }

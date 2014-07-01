@@ -34,42 +34,15 @@
 # -------- ------ -------- ------------------------------------
 # 9.0     adk    12/10/13 Updated as per the New Tcl API's
 # 9.0     bss    02/20/14 Added kintex 8 and kintexu families
+# 10.0	  bss 	 06/24/14 Modified not to generate family.h so that
+#		  	  all families are allowed.
 ##############################################################################
 #--------------------------------
 # Tcl procedure generate 
 #--------------------------------
 
 proc generate {drv_handle} {
-
-    # This returns the C_FAMILY parameter from the processor.
-    # MicroBlaze has C_FAMILY defined, but PowerPC does not.
-    set sw_proc_handle [get_sw_processor]
-    set prochandle [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
-    set proctype [string tolower [get_property SPECIAL $prochandle]]
-    set family [string tolower [get_property CONFIG.C_FAMILY $prochandle]]
-     
-    # Create a definition in a header file
-    set filename  "./src/xhwicap_family.h"
-    set filehandle [ open $filename a ]
-    ::hsm::utils::write_c_header $filehandle "Device family" 
-    if {[string compare $family "kintex7"] == 0} {
-    	puts $filehandle "#define XHI_FPGA_FAMILY 7\n"   	
-    } elseif {[string compare $family "virtex7"] == 0} {
-	    puts $filehandle "#define XHI_FPGA_FAMILY 8\n"
-    } elseif {[string compare $family "artix7"] == 0} {
-	    puts $filehandle "#define XHI_FPGA_FAMILY 9\n"
-    } elseif {[string compare $family "zynq"] == 0} {
-	    puts $filehandle "#define XHI_FPGA_FAMILY 10\n"
-    } elseif {[string compare $family "kintex8"] == 0} {
-    	    puts $filehandle "#define XHI_FPGA_FAMILY 11\n"
-    } elseif {[string compare $family "kintexu"] == 0} {
-    	    puts $filehandle "#define XHI_FPGA_FAMILY 11\n"
-    } else {
-            puts $filehandle "#define XHI_FPGA_FAMILY 1\n"
-    }
-    close $filehandle
-
-
+    
     # Generate #defines in xparameters.h
     xdefine_include_file $drv_handle "xparameters.h" "XHwIcap" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_ICAP_DWIDTH" "C_MODE"
        

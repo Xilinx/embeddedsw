@@ -53,6 +53,7 @@
 *		      CRC bytes in the XHwIcap_DeviceWriteFrame function for S6
 *		      (CR560534)
 * 6.00a hvm  08/01/11   Added support for K7
+* 10.0  bss  6/24/14  Removed support for families older than 7 series
 *
 *
 * </pre>
@@ -79,8 +80,7 @@
 
 
 /************************** Function Prototypes *****************************/
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5 ) ||\
-(XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
+
 /****************************************************************************/
 /**
 *
@@ -140,17 +140,10 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 
-
-
 	/*
 	 * Bypass CRC
 	 */
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5))
-	Packet = XHwIcap_Type1Write(XHI_COR) | 1;
-	Data = 0x10042FDD;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = Data;
-#endif
+
 	/*
 	 * ID register
 	 */
@@ -159,17 +152,12 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	WriteBuffer[Index++] = Packet;
 	WriteBuffer[Index++] = Data;
 
-
 	/*
 	 * Setup FAR
 	 */
 	Packet = XHwIcap_Type1Write(XHI_FAR) | 1;
-#if XHI_FAMILY == XHI_DEV_FAMILY_V4 /* Virtex 4 */
-	Data = XHwIcap_SetupFarV4(Top, Block, HClkRow,  MajorFrame, MinorFrame);
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V5) || (XHI_FAMILY == XHI_DEV_FAMILY_V6) || \
-	(XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
+
 	Data = XHwIcap_SetupFarV5(Top, Block, HClkRow,  MajorFrame, MinorFrame);
-#endif
 
 	WriteBuffer[Index++] = Packet;
 	WriteBuffer[Index++] = Data;
@@ -206,7 +194,6 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 		WriteBuffer[Index++] = Packet;
 	}
 
-
 	/*
 	 * Write the Header data into the FIFO and intiate the transfer of
 	 * data present in the FIFO to the ICAP device
@@ -219,15 +206,9 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	/*
 	 * Write the modified frame data.
 	 */
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5))
-	Status = XHwIcap_DeviceWrite(InstancePtr,
-				(u32 *) &FrameData[InstancePtr->WordsPerFrame + 1],
-				InstancePtr->WordsPerFrame);
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)) /* Virtex 6 */
 	Status = XHwIcap_DeviceWrite(InstancePtr,
 				(u32 *) &FrameData[InstancePtr->WordsPerFrame],
 				InstancePtr->WordsPerFrame);
-#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -236,59 +217,36 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	 * Write out the pad frame. The pad frame was read from the device
 	 * before the data frame.
 	 */
-
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5))
-	Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *) &FrameData[1],
-				    InstancePtr->WordsPerFrame);
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)) /* Virtex6 */
 	Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *) &FrameData[0],
 				    InstancePtr->WordsPerFrame);
-#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/* Add CRC */
 	Index = 0;
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5))
-	Packet = XHwIcap_Type1Write(XHI_CRC) | 1;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = XHI_DISABLED_AUTO_CRC;
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)) /* Virtex6 */
 	Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
 	Data = XHI_CMD_RCRC;
 	WriteBuffer[Index++] = Packet;
 	WriteBuffer[Index++] = Data;
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-#endif
 
 	/* Park the FAR */
 	Packet = XHwIcap_Type1Write(XHI_FAR) | 1;
-
-#if XHI_FAMILY == XHI_DEV_FAMILY_V4 /* Virtex4 */
-	Data = XHwIcap_SetupFarV4(0, 0, 3, 33, 0);
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V5) || (XHI_FAMILY == XHI_DEV_FAMILY_V6) || \
-	(XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
 	Data = XHwIcap_SetupFarV5(0, 0, 3, 33, 0);
-#endif
 
 	WriteBuffer[Index++] = Packet;
 	WriteBuffer[Index++] =  Data;
 
 	/* Add CRC */
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5))
-	Packet = XHwIcap_Type1Write(XHI_CRC) | 1;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = XHI_DISABLED_AUTO_CRC;
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)) /* Virtex6 */
 	Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
 	Data = XHI_CMD_RCRC;
 	WriteBuffer[Index++] = Packet;
 	WriteBuffer[Index++] = Data;
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-#endif
+
 
 	/*
 	 * Intiate the transfer of data present in the FIFO to
@@ -310,200 +268,4 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	return XST_SUCCESS;
 };
 
-#elif (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-/****************************************************************************/
-/**
-*
-* Writes one frame from the specified buffer and puts it in the device
-* (ICAP).
-*
-* @param	InstancePtr is a pointer to the XHwIcap instance.
-* @param	Top - top (0) or bottom (1) half of device
-* @param	Block - Block Address (XHI_FAR_CLB_BLOCK,
-* 		XHI_FAR_BRAM_BLOCK, XHI_FAR_BRAM_INT_BLOCK)
-* @param	HClkRow - selects the HClk Row
-* @param	MajorFrame - selects the column
-* @param	MinorFrame - selects frame inside column
-* @param	FrameData is a pointer to the frame that is to be written
-*		to the device.
-*
-* @return	XST_SUCCESS else XST_FAILURE.
-*
-* @note		This is a blocking function.
-*		This function is used in conjunction with the function
-*		XHwIcap_DeviceReadFrame. This function is used to write back
-*		the frame of data read using the XHwIcap_DeviceReadFrame.
-*
-*****************************************************************************/
-int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Block, long Row,
-				long MajorFrame, long MinorFrame,
-				u16 *FrameData)
-{
-	u16 Packet;
-	u16 TotalWords;
-	int Status;
-	u16 WriteBuffer[READ_FRAME_SIZE];
-	u16 Data;
-	u16 Index =0;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(FrameData != NULL);
-
-	/*
-	 * DUMMY and SYNC
-	 */
-	WriteBuffer[Index++] = XHI_DUMMY_PACKET;
-	WriteBuffer[Index++] = XHI_SYNC_PACKET1;
-	WriteBuffer[Index++] = XHI_SYNC_PACKET2;
-	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-
-	/*
-	 * Reset CRC
-	 */
-	Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
-	Data = XHI_CMD_RCRC;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = Data;
-	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-
-
-	/*
-	 * Write the FLR
-	 */
-	Packet = XHwIcap_Type1Write(XHI_FLR) | 1;
-	WriteBuffer[Index++] =  Packet ;
-	WriteBuffer[Index++] =  0x430;
-
-	/*
-	 * ID register
-	 */
-	Packet = XHwIcap_Type1Write(XHI_IDCODE) | 2;
-	WriteBuffer[Index++] = Packet;
-
-	/*
-	 * It is written wrongly in the document that only lower 16 bits are
-	 * needed.The document will be updated. We need the complete 32 bit.
-	 */
-	Data = (u16)(InstancePtr->DeviceIdCode >> 16);
-	WriteBuffer[Index++] = Data;
-	Data = (u16)InstancePtr->DeviceIdCode;
-	WriteBuffer[Index++] = Data;
-
-	/*
-	 * Bypass CRC
-	 */
-	Packet = XHwIcap_Type1Write(XHI_COR1) | 1;
-	Data = XHI_COR1_DEFAULT;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = Data;
-
-
-	Packet = XHwIcap_Type1Write(XHI_COR2) | 1;
-	Data = XHI_COR2_DEFAULT;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = Data;
-
-	/*
-	 * Write the FAR MAJ and MIN address values
-	 */
-	Packet = XHwIcap_Type1Write(XHI_FAR_MAJ) | 1;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = (Block << XHI_BLOCK_SHIFT) |
-				(Row << XHI_ROW_SHIFT) | MajorFrame;
-	Packet = XHwIcap_Type1Write(XHI_FAR_MIN) | 1;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = MinorFrame;
-
-	/*
-	 * Setup CMD register - write configuration
-	 */
-	Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
-	Data = XHI_CMD_WCFG;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = Data;
-
-	/*
-	 * Setup Packet header.
-	 */
-	TotalWords = InstancePtr->WordsPerFrame << 1;
-	/*
-	 * Create Type 2 Packet.
-	 */
-	Packet = XHwIcap_Type2Write(XHI_FDRI);
-
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = 0;
-	WriteBuffer[Index++] = TotalWords;
-
-	/*
-	 * Write the Header data into the FIFO and intiate the transfer of
-	 * data present in the FIFO to the ICAP device
-	 */
-	Status = XHwIcap_DeviceWrite(InstancePtr, (u16 *)&WriteBuffer[0],
-					Index);
-	if (Status != XST_SUCCESS)  {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Write the modified frame data.
-	 */
-	Status = XHwIcap_DeviceWrite(InstancePtr,
-				(u16 *) &FrameData[InstancePtr->WordsPerFrame],
-				InstancePtr->WordsPerFrame);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Write out the pad frame. The pad frame was read from the device
-	 * before the data frame.
-	 */
-	Status = XHwIcap_DeviceWrite(InstancePtr, (u16 *) &FrameData[0],
-				    InstancePtr->WordsPerFrame);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-
-	/* Disable CRC */
-	Index = 0;
-	WriteBuffer[Index++] = XHI_DISABLED_AUTO_CRC_ONE;
-	WriteBuffer[Index++] = XHI_DISABLED_AUTO_CRC_TWO;
-
-	/*
-	 * Setup CMD register - write configuration
-	 */
-	Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
-	Data = XHI_CMD_LFRM;
-	WriteBuffer[Index++] = Packet;
-	WriteBuffer[Index++] = Data;
-	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-	WriteBuffer[Index++] = XHI_NOOP_PACKET;
-
-	/*
-	 * Intiate the transfer of data present in the FIFO to
-	 * the ICAP device
-	 */
-	Status = XHwIcap_DeviceWrite(InstancePtr, &WriteBuffer[0], Index);
-	if (Status != XST_SUCCESS)  {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Send DESYNC command
-	 */
-	Status = XHwIcap_CommandDesync(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-
-}
-#endif
 

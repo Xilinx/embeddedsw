@@ -50,6 +50,8 @@ In a Zynq device the ICAP needs to be selected using the XDcfg_SelectIcapInterfa
  8.01a bss  04/18/13  Updated to fix compiler warnings. CR#704814
  9.0   bss  02/20/14  Updated to support Kintex8, kintexu and virtex72000T
 	 		family devices.
+ 10.0  bss  6/24/14  Removed support for families older than 7 series
+		      Removed IDCODE lookup logic in XHwIcap_CfgInitialize.
  </pre> 
 <p>
 <code>#include &lt;xil_types.h&gt;</code><br>
