@@ -153,6 +153,14 @@
 * 9.0   bss  02/20/14 Modified xhwicap.c, xhwicap_l.h, xhwicap_i.h and tcl
 *		      to support Kintex8, kintexu and virtex72000T family
 *		      devices.
+* 10.0  bss  6/24/14  Removed support for families older than 7 series.
+*		      Modified driver tcl not to generate family.h.
+*		      Removed IDCODE lookup logic in XHwIcap_CfgInitialize
+*		      in xhwicap.c.
+*		      Removed IDCODE macros from xhwicap_i.h.
+*		      Removed xhwicap_ff.h and xhwicap_lut.h examples.
+*		      Removed xhwicap_clb_ff.h, xhwicap_clb_lut.h and
+*		      xhwicap_clb_srinv.h files from driver.
 *
 * </pre>
 *
@@ -212,20 +220,6 @@ typedef struct {
 
 } XHwIcap_Config;
 
-typedef struct  {
-
-	u32 DeviceIdCode;	     /**< IDCODE of targeted device */
-	u32 Cols;		     /**< Number of CLB cols */
-	u32 Rows;		     /**< Number of CLB rows */
-	u32 BramCols;		     /**< Number of BRAM cols */
-	u8  DSPCols;		     /**< Number of DSP cols for V4/V5/V6 */
-	u8  IOCols;		     /**< Number of IO cols for V4/V5/V6 */
-	u8  MGTCols;		     /**< Number of MGT cols for V4/V5/V6 */
-	u8  HClkRows;		     /**< Number of HClk cols for V4/V5/V6 */
-	u16 *SkipCols;		     /**< Columns to skip for CLB Col */
-
-} DeviceDetails;
-
  /**
   * The XHwIcap driver instance data. The user is required to allocate a
   * variable of this type for every HwIcap device in the system. A pointer
@@ -236,41 +230,15 @@ typedef struct {
 	u32 IsReady;		     /**< Device is initialized and ready */
 	int IsPolled;		     /**< Device is in polled mode */
 	u32 DeviceIdCode;	     /**< IDCODE of targeted device */
-	u32 Rows;		     	/**< Number of CLB rows */
-	u32 Cols;		     		/**< Number of CLB cols */
-	u32 BramCols;		     /**< Number of BRAM cols */
 	u32 BytesPerFrame;	     /**< Number of Bytes per minor Frame */
 	u32 WordsPerFrame;	     /**< Number of Words per minor Frame */
-	u32 ClbBlockFrames; 	     /**< Number of CLB type minor Frames */
-	u32 BramBlockFrames;	     /**< Number of Bram type minor Frames */
-	u32 BramIntBlockFrames;	     /**< Number of BramInt type minor
-						Frames */
-	u8  HClkRows;		     /**< Number of HClk cols for V4/V5 */
-	u8  DSPCols;		     /**< Number of DSP cols for V4/V5 */
-	u8  IOCols;		     	/**< Number of IO cols for V4/V5 */
-	u8  MGTCols;		     /**< Number of MGT cols for V4/V5 */
-	u16 *SkipCols;		     /**< Columns to skip for CLB Col
-				      			**  calculations */
 
-#if XHI_FAMILY == XHI_DEV_FAMILY_S6 /* If Spartan6 device */
-	u16 *SendBufferPtr;	     /**< Buffer to write to the ICAP device */
-
-
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V6) ||\
-(XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
-				      /**< If V6 or 7Series declare buffer
-					  ** pointer depending on ICAP width */
 #if XPAR_HWICAP_0_ICAP_DWIDTH == 8
 	u8 *SendBufferPtr;
 #elif XPAR_HWICAP_0_ICAP_DWIDTH == 16
 	u16 *SendBufferPtr;
 #else
 	u32 *SendBufferPtr;
-#endif
-
-#else
-	u32 *SendBufferPtr;
-
 #endif
 	u32 RequestedWords;	     /**< Number of Words to transfer  */
 	u32 RemainingWords; 	     /**< Number of Words left to transfer  */
@@ -633,117 +601,6 @@ XHwIcap_WriteReg((InstancePtr)->HwIcapConfig.BaseAddress, 	\
 #define XHwIcap_GetRdFifoOccupancy(InstancePtr)		\
  XHwIcap_ReadReg((InstancePtr)->HwIcapConfig.BaseAddress, XHI_RFO_OFFSET)
 
-#if XHI_FAMILY == XHI_DEV_FAMILY_V4 /* If Virtex4 device */
-
-/****************************************************************************/
-/**
-*
-* Converts a CLB SliceX coordinate to a column coordinate used by the
-* XHwIcap_GetClbBits and XHwIcap_SetClbBits functions.
-*
-* @param	SliceX - the SliceX coordinate to be converted
-*
-* @return	Column
-*
-* @note		C-style Signature:
-*		u32 XHwIcap_SliceX2Col(u32 SliceX);
-*
-*****************************************************************************/
-#define XHwIcap_SliceX2Col(SliceX) \
-	( (SliceX >> 1) + 1)
-
-/****************************************************************************/
-/**
-*
-* Converts a CLB SliceY coordinate to a row coordinate used by the
-* XHwIcap_GetClbBits and XHwIcap_SetClbBits functions.
-*
-* @param	InstancePtr is a pointer to the XHwIcap instance.
-* @param	SliceY - the SliceY coordinate to be converted
-* @return	Row
-*
-* @note		C-style Signature:
-*		u32 XHwIcap_SliceY2Row(XHwIcap *InstancePtr, u32 SliceY);
-*
-*****************************************************************************/
-#define XHwIcap_SliceY2Row(InstancePtr, SliceY) \
-	( (InstancePtr)->Rows - (SliceY >> 1) )
-
-/****************************************************************************/
-/**
-*
-* Figures out which slice in a CLB is targeted by a given
-* (SliceX,SliceY) pair.  This slice value is used for indexing in
-* resource arrays.
-*
-* @param	SliceX - the SliceX coordinate to be converted
-* @param	SliceY - the SliceY coordinate to be converted
-*
-* @return	Slice index
-*
-* @note		C-style Signature:
-*		u32 XHwIcap_SliceXY2Slice(u32 SliceX, u32 SliceY);
-*
-*****************************************************************************/
-#define XHwIcap_SliceXY2Slice(SliceX,SliceY) \
-	( ((SliceX % 2) << 1) + (SliceY % 2) )
-
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V5) || (XHI_FAMILY == XHI_DEV_FAMILY_V6)\
-|| (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
-/****************************************************************************/
-/**
-*
-* Converts a CLB SliceX coordinate to a column coordinate used by the
-* XHwIcap_GetClbBits and XHwIcap_SetClbBits functions.
-*
-* @param	SliceX - the SliceX coordinate to be converted
-*
-* @return	Column
-*
-* @note		C-style Signature:
-*		u32 XHwIcap_SliceX2Col(u32 SliceX);
-*
-*****************************************************************************/
-#define XHwIcap_SliceX2Col(SliceX) \
-	( ((SliceX) >> 1) + 1)
-
-/****************************************************************************/
-/**
-*
-* Converts a CLB SliceY coordinate to a row coordinate used by the
-* XHwIcap_GetClbBits and XHwIcap_SetClbBits functions.
-*
-* @param	InstancePtr is a pointer to the XHwIcap instance.
-* @param	SliceY - the SliceY coordinate to be converted
-* @return	Row
-*
-* @note		C-style Signature:
-*		u32 XHwIcap_SliceY2Row(XHwIcap *InstancePtr, u32 SliceY);
-*
-*****************************************************************************/
-#define XHwIcap_SliceY2Row(InstancePtr, SliceY) \
-	((InstancePtr)->Rows - (SliceY))
-
-/****************************************************************************/
-/**
-*
-* Figures out which slice in a CLB is targeted by a given
-* (SliceX,SliceY) pair.  This slice value is used for indexing in
-* resource arrays.
-*
-* @param	SliceX - the SliceX coordinate to be converted
-* @param	SliceY - the SliceY coordinate to be converted
-*
-* @return	Slice index
-*
-* @note		C-style Signature:
-*		u32 XHwIcap_SliceXY2Slice(u32 SliceX, u32 SliceY);
-*
-*****************************************************************************/
-#define XHwIcap_SliceXY2Slice(SliceX,SliceY) \
-	((SliceX) % 2)
-
-#endif
 /************************** Function Prototypes *****************************/
 
 /*
@@ -751,14 +608,8 @@ XHwIcap_WriteReg((InstancePtr)->HwIcapConfig.BaseAddress, 	\
  */
 int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 				u32 EffectiveAddr);
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u16 *FrameBuffer, u32 NumWords);
-int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u16 *FrameBuffer, u32 NumWords);
-#else
 int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords);
 int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords);
-#endif
 void XHwIcap_Reset(XHwIcap *InstancePtr);
 void XHwIcap_FlushFifo(XHwIcap *InstancePtr);
 void XHwIcap_Abort(XHwIcap *InstancePtr);
@@ -790,7 +641,6 @@ void XHwIcap_SetInterruptHandler(XHwIcap * InstancePtr, void *CallBackRef,
 /*
  * Functions in the xhwicap_device_read_frame.c
  */
-#if (XHI_FAMILY != XHI_DEV_FAMILY_S6)
 int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top,
 				long Block, long HClkRow,
 				long MajorFrame, long MinorFrame,
@@ -803,30 +653,6 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top,
 				long Block, long HClkRow,
 				long MajorFrame, long MinorFrame,
 				u32 *FrameData);
-
-#else
-int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Block, long Row,
-				long MajorFrame, long MinorFrame,
-				u16 *FrameBuffer);
-/*
- * Functions in the xhwicap_device_write_frame.c
- */
-int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Block, long Row,
-				long MajorFrame, long MinorFrame,
-				u16 *FrameData);
-
-#endif
-
-#if XHI_FAMILY == XHI_DEV_FAMILY_V4 /* If Virtex4 device */
-#define XHwIcap_SetClbBits XHwIcap_SetClbBitsV4
-#define XHwIcap_GetClbBits XHwIcap_GetClbBitsV4
-
-#elif ((XHI_FAMILY == XHI_DEV_FAMILY_V5) || (XHI_FAMILY == XHI_DEV_FAMILY_V6))
-		/* If Virtex5 or Virtex6 device */
-#define XHwIcap_SetClbBits XHwIcap_SetClbBitsV5
-#define XHwIcap_GetClbBits XHwIcap_GetClbBitsV5
-#endif
-
 
 /****************************************************************************/
 /**

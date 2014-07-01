@@ -66,6 +66,7 @@
 *			configuration CR 637538
 *
 * 8.00a bss  06/20/12 Deleted ReadId API as per CR 656162
+* 10.0  bss  6/24/14  Removed support for families older than 7 series
 * </pre>
 *
 *****************************************************************************/
@@ -80,11 +81,8 @@
 
 #define DESYNC_COMMAND_SIZE	7 /* Number of words in the Desync command */
 #define CAPTURE_COMMAND_SIZE	7 /* Number of words in the Capture command */
-#if XHI_FAMILY == XHI_DEV_FAMILY_S6
-#define READ_CFG_REG_COMMAND_SIZE 8 /* Num of words in Read Config command */
-#else
 #define READ_CFG_REG_COMMAND_SIZE 7 /* Num of words in Read Config command */
-#endif
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -108,11 +106,7 @@
 int XHwIcap_CommandDesync(XHwIcap *InstancePtr)
 {
 	int Status;
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	u16 FrameBuffer[DESYNC_COMMAND_SIZE];
-#else
 	u32 FrameBuffer[DESYNC_COMMAND_SIZE];
-#endif
 	u32 Index =0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -139,7 +133,6 @@ int XHwIcap_CommandDesync(XHwIcap *InstancePtr)
 	return XST_SUCCESS;
 }
 
-#if (XHI_FAMILY != XHI_DEV_FAMILY_S6)
 /****************************************************************************/
 /**
 *
@@ -169,10 +162,7 @@ int XHwIcap_CommandCapture(XHwIcap *InstancePtr)
 	 */
 	FrameBuffer[Index++] = XHI_DUMMY_PACKET;
 	FrameBuffer[Index++] = XHI_SYNC_PACKET;
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V5) || (XHI_FAMILY == XHI_DEV_FAMILY_V6) \
-	|| (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES ))
 	FrameBuffer[Index++] = XHI_NOOP_PACKET;
-#endif
 	FrameBuffer[Index++] = (XHwIcap_Type1Write(XHI_CMD) | 1);
 	FrameBuffer[Index++] = XHI_CMD_GCAPTURE;
 	FrameBuffer[Index++] =  XHI_DUMMY_PACKET;
@@ -189,7 +179,7 @@ int XHwIcap_CommandCapture(XHwIcap *InstancePtr)
 
 	return XST_SUCCESS;
 }
-#endif
+
 /****************************************************************************/
 /**
  *
@@ -212,13 +202,7 @@ u32 XHwIcap_GetConfigReg(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)
 {
 	int Status;
 	int EosRetries =0; /* Counter for checking EOS to become high */
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	u16 FrameBuffer[READ_CFG_REG_COMMAND_SIZE];
-	u32 Retries =0;
-#else
 	u32 FrameBuffer[READ_CFG_REG_COMMAND_SIZE];
-#endif
 	u32 Index =0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -228,26 +212,10 @@ u32 XHwIcap_GetConfigReg(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)
 	 * Create the data to be written to the ICAP.
 	 */
 	FrameBuffer[Index++] = XHI_DUMMY_PACKET;
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	FrameBuffer[Index++] = XHI_SYNC_PACKET1;
-	FrameBuffer[Index++] = XHI_SYNC_PACKET2;
-#else
 	FrameBuffer[Index++] = XHI_SYNC_PACKET;
-#endif
 	FrameBuffer[Index++] = XHI_NOOP_PACKET;
 	FrameBuffer[Index++] = XHI_NOOP_PACKET;
-
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	if (ConfigReg == XHI_IDCODE) {
-		FrameBuffer[Index++] = XHwIcap_Type1Read(ConfigReg) | 0x2;
-	}else {
-		FrameBuffer[Index++] = XHwIcap_Type1Read(ConfigReg) | 0x1;
-	}
-#else
 	FrameBuffer[Index++] = XHwIcap_Type1Read(ConfigReg) | 0x1;
-#endif
-
 	FrameBuffer[Index++] = XHI_NOOP_PACKET;
 	FrameBuffer[Index++] = XHI_NOOP_PACKET;
 
@@ -282,9 +250,6 @@ u32 XHwIcap_GetConfigReg(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)
 	while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
 			XHI_CR_OFFSET)) & XHI_CR_WRITE_MASK);
 
-#if (XHI_FAMILY == XHI_DEV_FAMILY_V6) ||\
-(XHI_FAMILY == XHI_DEV_FAMILY_7SERIES)
-
 	/*
 	 * Read the Config Register using DeviceRead since
 	 * DeviceRead reads depending on ICAP Width for V6
@@ -292,37 +257,6 @@ u32 XHwIcap_GetConfigReg(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)
   	 */
 	XHwIcap_DeviceRead(InstancePtr, RegData, 1);
 
-#else
-
-	XHwIcap_SetSizeReg(InstancePtr, 1);
-
-	if (ConfigReg == XHI_IDCODE) {
-		XHwIcap_SetSizeReg(InstancePtr, 2);
-	}
-
-	XHwIcap_StartReadBack(InstancePtr);
-	while (XHwIcap_IsDeviceBusy(InstancePtr) != FALSE) {
-		Retries++;
-		if (Retries > XHI_MAX_RETRIES) {
-			return XST_FAILURE;
-		}
-	}
-	while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-						XHI_CR_OFFSET)) &
-						XHI_CR_READ_MASK);
-
-	/*
-	 * Return the Register value
-	 */
-	*RegData = XHwIcap_FifoRead(InstancePtr);
-
-	if (ConfigReg == XHI_IDCODE) {
-
-		*RegData = ((*RegData << 16) |
-						(XHwIcap_FifoRead(InstancePtr)));
-	}
-
-#endif
 	return XST_SUCCESS;
 }
 

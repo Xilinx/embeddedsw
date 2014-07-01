@@ -59,6 +59,7 @@
 * 4.00a hvm  11/20/09 Updated to support V6
 * 5.00a hvm  2/20/10  Updated to support S6.
 * 6.00a hvm  08/05/11 Added support for K7 family
+* 10.0  bss  6/24/14  Removed support for families older than 7 series
 * </pre>
 *
 ******************************************************************************/
@@ -86,20 +87,10 @@
  * These are the parameters for reading a frame of data in
  * the slice SLICE_X0Y0
  */
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5 ) ||\
-	(XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
 #define HWICAP_EXAMPLE_TOP		0
 #define HWICAP_EXAMPLE_HCLK		5
 #define HWICAP_EXAMPLE_MAJOR		5
 #define HWICAP_EXAMPLE_MINOR		10
-
-#elif (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-
-#define HWICAP_EXAMPLE_ROW		5
-#define HWICAP_EXAMPLE_MAJOR		2
-#define HWICAP_EXAMPLE_MINOR		20
-
-#endif
 
 #define printf  xil_printf	/* A smaller footprint printf */
 
@@ -165,11 +156,8 @@ int HwIcapReadFramePolledExample(u16 DeviceId)
 	int Status;
 	u32 Index;
 	XHwIcap_Config *CfgPtr;
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	u16  FrameData[XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME];
-#else
 	u32  FrameData[XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME];
-#endif
+
 	/*
 	 * Initialize the HwIcap instance.
 	 */
@@ -191,8 +179,6 @@ int HwIcapReadFramePolledExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V4) || (XHI_FAMILY == XHI_DEV_FAMILY_V5 ) ||\
-	(XHI_FAMILY == XHI_DEV_FAMILY_V6) || (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
 	/*
 	 * Read the Frame
 	 */
@@ -203,17 +189,6 @@ int HwIcapReadFramePolledExample(u16 DeviceId)
 					 HWICAP_EXAMPLE_MAJOR,
 					 HWICAP_EXAMPLE_MINOR,
 					 (u32 *) &FrameData[0]);
-
-#elif (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	Status = XHwIcap_DeviceReadFrame(&HwIcap,
-					 HWICAP_EXAMPLE_BLOCK,
-					 HWICAP_EXAMPLE_ROW,
-					 HWICAP_EXAMPLE_MAJOR,
-					 HWICAP_EXAMPLE_MINOR,
-					 (u16 *) &FrameData[0]);
-
-#endif
-
 	if (Status != XST_SUCCESS) {
 		printf("Failed to Read Frame: %d \r\n", Status);
 		return XST_FAILURE;

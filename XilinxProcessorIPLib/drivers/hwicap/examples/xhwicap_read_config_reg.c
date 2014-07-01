@@ -66,6 +66,7 @@
 * 5.00a hvm  04/28/10 Added support for S6 support.
 * 6.00a hvm  08/05/11 Added support for K7 family
 * 8.01a bss  05/14/12 Replaced the define XHI_C0R_1 with XHI_COR_1 for CR718042
+* 10.0  bss  6/24/14  Removed support for families older than 7 series
 * </pre>
 *
 ******************************************************************************/
@@ -77,7 +78,6 @@
 #include <xil_assert.h>
 #include <xhwicap.h>
 #include <stdio.h>
-
 
 /************************** Constant Definitions *****************************/
 
@@ -180,22 +180,11 @@ int HwIcapReadConfigRegExample(u16 DeviceId)
 		printf(" CRC -> \t %x \t\r\n", ConfigRegData);
 	}
 
-#if (XHI_FAMILY != XHI_DEV_FAMILY_S6)
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FAR, (u32 *)&ConfigRegData) ==
 		XST_SUCCESS) {
 		printf(" FAR -> \t %x \t\r\n", ConfigRegData);
 	}
-#else
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FAR_MIN, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" FAR_MIN -> \t %x \t\r\n", ConfigRegData);
-	}
 
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FAR_MAJ, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" FAR_MAJ -> \t %x \t\r\n", ConfigRegData);
-	}
-#endif
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FDRI, (u32 *)&ConfigRegData) ==
 		XST_SUCCESS) {
 		printf(" FDRI -> \t %x \t\r\n", ConfigRegData);
@@ -231,7 +220,6 @@ int HwIcapReadConfigRegExample(u16 DeviceId)
 		printf(" LOUT -> \t %x \t\r\n", ConfigRegData);
 	}
 
-#if (XHI_FAMILY != XHI_DEV_FAMILY_S6)
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR, (u32 *)&ConfigRegData) ==
 		XST_SUCCESS) {
 		printf(" COR -> \t %x \t\r\n", ConfigRegData);
@@ -245,41 +233,17 @@ int HwIcapReadConfigRegExample(u16 DeviceId)
 		XST_SUCCESS) {
 		printf(" CBC -> \t %x \t\r\n", ConfigRegData);
 	}
+
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_AXSS, (u32 *)&ConfigRegData) ==
 		XST_SUCCESS) {
 		printf(" AXSS -> \t %x \t\r\n", ConfigRegData);
 	}
-
-#else
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR1, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" COR1 -> \t %x \t\r\n", ConfigRegData);
-	}
-
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR2, &ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" COR2 -> \t %x \t\r\n", ConfigRegData);
-	}
-
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_PWRDN_REG,
-		(u32 *)&ConfigRegData) == XST_SUCCESS) {
-		printf(" PWRDN_REG -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FLR, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" FLR -> \t %x \t\r\n", ConfigRegData);
-	}
-
-#endif
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_IDCODE, (u32 *)&ConfigRegData) ==
 		XST_SUCCESS) {
 		printf(" IDCODE -> \t %x \t\r\n", ConfigRegData);
 	}
 
-
-#if ((XHI_FAMILY == XHI_DEV_FAMILY_V5) || (XHI_FAMILY == XHI_DEV_FAMILY_V6) \
-	|| (XHI_FAMILY == XHI_DEV_FAMILY_7SERIES))
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR_1, (u32 *)&ConfigRegData) ==
 		XST_SUCCESS) {
 		printf(" COR_1 -> \t %x \t\r\n", ConfigRegData);
@@ -308,43 +272,6 @@ int HwIcapReadConfigRegExample(u16 DeviceId)
 		XST_SUCCESS) {
 		printf(" CTL_1 -> \t %x \t\r\n", ConfigRegData);
 	}
-
-#endif
-#if (XHI_FAMILY == XHI_DEV_FAMILY_S6)
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CWDT, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" CWDT -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_HC_OPT_REG,
-		(u32 *)&ConfigRegData) == XST_SUCCESS) {
-		printf(" HC_OPT_REG -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_MODE_REG,
-		(u32 *)&ConfigRegData) == XST_SUCCESS) {
-		printf(" MODE_REG -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_SEU_OPT, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" SEU_OPT -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_EXP_SIGN,
-		(u32 *)&ConfigRegData) == XST_SUCCESS) {
-		printf(" EXP_SIGN -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_RDBK_SIGN,
-		(u32 *)&ConfigRegData) == XST_SUCCESS) {
-		printf(" RDBK_SIGN -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_BOOTSTS, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
-		printf(" BOOTSTS -> \t %x \t\r\n", ConfigRegData);
-	}
-	if (XHwIcap_GetConfigReg(&HwIcap, XHI_EYE_MASK,
-		(u32 *)&ConfigRegData) == XST_SUCCESS) {
-		printf(" EYE_MASK -> \t %x \t\r\n", ConfigRegData);
-	}
-
-#endif
 
 	printf("\r\n HwIcapReadConfigRegExample Passed Successfully.\r\n\r\n");
 
