@@ -53,6 +53,7 @@
 #define XIL_TYPES_H	/* by using protection macros */
 
 #include <stdint.h>
+#include <stddef.h>
 
 /************************** Constant Definitions *****************************/
 
@@ -129,6 +130,9 @@ typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
 typedef int64_t s64;
+typedef intptr_t INTPTR;
+typedef uintptr_t UINTPTR;
+typedef ptrdiff_t PTRDIFF; 
 #else
 #include <linux/types.h>
 #endif
