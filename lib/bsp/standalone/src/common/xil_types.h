@@ -44,6 +44,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hbm  07/14/09 First release
 * 3.03a sdm  05/30/11 Added Xuint64 typedef and XUINT64_MSW/XUINT64_LSW macros
+* 4.2   srt  07/03/14 Use standard definitions from stdint.h
 * </pre>
 *
 ******************************************************************************/
@@ -51,6 +52,7 @@
 #ifndef XIL_TYPES_H	/* prevent circular inclusions */
 #define XIL_TYPES_H	/* by using protection macros */
 
+#include <stdint.h>
 
 /************************** Constant Definitions *****************************/
 
@@ -78,9 +80,9 @@
 /**
  * guarded against xbasic_types.h.
  */
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned long u32;
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
 
 #define __XUINT64__
 typedef struct
@@ -121,12 +123,12 @@ typedef struct
 /**
  * xbasic_types.h does not typedef s* or u64
  */
-typedef unsigned long long u64;
+typedef uint64_t u64;
 
-typedef char s8;
-typedef short s16;
-typedef long s32;
-typedef long long s64;
+typedef int8_t s8;
+typedef int16_t s16;
+typedef int32_t s32;
+typedef int64_t s64;
 #else
 #include <linux/types.h>
 #endif
