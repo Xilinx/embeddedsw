@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Project Version="1" Minor="0">
+	<BUILD_NUMBER Name="921552"/>
+	<FULL_BUILD Name="SW Build 921552 on Mon May 26 14:24:56 MDT 2014"/>
+	<MODE Name="Post-Bitstream"/>
+	<SYSTEMINFO BOARD="" ARCH="zynq" PACKAGE="clg484" DEVICE="7z020" SPEED="-1"/>
+	<HIERARCHY Name="zpe_without_controller_i"/>
+	<File Type="HW_HANDOFF" Name="zpe_without_controller.hwh" ModTime="1402420880"/>
+	<File Type="PS_FSBL_INIT" Name="ps7_init.c" ModTime="1402420880"/>
+	<File Type="PS_FSBL_INIT" Name="ps7_init.h" ModTime="1402420880"/>
+	<File Type="PS_XMD_INIT" Name="ps7_init.tcl" ModTime="1402420880"/>
+	<File Type="PS_INIT_HELP" Name="ps7_init.html" ModTime="1402420880"/>
+	<File Type="BIT" Name="zpe_without_controller_wrapper.bit" ModTime="1402432675"/>
+</Project>
+
