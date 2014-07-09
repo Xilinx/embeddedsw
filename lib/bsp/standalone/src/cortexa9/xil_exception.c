@@ -114,9 +114,13 @@ DieLoop: goto DieLoop;
 
 /****************************************************************************/
 /**
-*
-* Initialize exception handling for the Processor. The exception vector table
-* is setup with the stub Handler for all exceptions.
+* The function is a common API used to initialize exception handlers across all
+* processors supported. For ARM CortexA9, the exception handlers are being 
+* initialized statically and hence this function does not do anything.
+* However, it is still present to avoid any compilation issues in case an 
+* application uses this API and also to take care of backward compatibility 
+* issues (in earlier versions of BSPs, this API was being used to initialize 
+* exception handlers).
 *
 * @param	None.
 *
