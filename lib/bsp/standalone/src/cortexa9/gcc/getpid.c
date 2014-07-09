@@ -35,16 +35,16 @@
  */
 #ifdef __cplusplus
 extern "C" {
-	int _getpid();
+	__attribute__((weak)) int _getpid();
 }
 #endif
 
-int getpid()
+__attribute__((weak)) int getpid()
 {
   return 1;
 }
 
-int _getpid()
+__attribute__((weak)) int _getpid()
 {
   return 1;
 }

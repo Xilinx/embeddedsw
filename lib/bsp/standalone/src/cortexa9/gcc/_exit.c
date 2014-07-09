@@ -34,7 +34,7 @@
 
 /* _exit - Simple implementation. Does not return.
 */
-void _exit (int status)
+__attribute__((weak)) void _exit (int status)
 {
   (void)status;
   while (1);

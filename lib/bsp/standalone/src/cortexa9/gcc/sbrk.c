@@ -33,7 +33,7 @@
 #include <errno.h>
 #ifdef __cplusplus
 extern "C" {
-	char *sbrk (int nbytes);
+	__attribute__((weak)) char *sbrk (int nbytes);
 }
 #endif
 
@@ -44,7 +44,7 @@ extern char HeapLimit[];
 
 static char *heap_ptr;
 
-char *sbrk (int nbytes)
+__attribute__((weak)) char *sbrk (int nbytes)
 {
   char *base;
 

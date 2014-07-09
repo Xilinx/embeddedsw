@@ -34,7 +34,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-	int _open(const char *buf, int flags, int mode);
+	__attribute__((weak)) int _open(const char *buf, int flags, int mode);
 }
 #endif
 
@@ -42,7 +42,7 @@ extern "C" {
  * _open -- open a file descriptor. We don't have a filesystem, so
  *         we return an error.
  */
-int _open(const char *buf, int flags, int mode)
+__attribute__((weak)) int _open(const char *buf, int flags, int mode)
 {
   (void)buf;
   (void)flags;

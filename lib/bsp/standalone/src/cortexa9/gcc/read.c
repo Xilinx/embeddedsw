@@ -38,7 +38,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-	int _read (int fd, char* buf, int nbytes);
+	__attribute__((weak)) int _read (int fd, char* buf, int nbytes);
 }
 #endif
 
@@ -46,7 +46,7 @@ extern "C" {
  * read  -- read bytes from the serial port. Ignore fd, since
  *          we only have stdin.
  */
-int
+__attribute__((weak)) int
 read (int fd, char* buf, int nbytes)
 {
 #ifdef STDIN_BASEADDRESS
@@ -71,7 +71,7 @@ read (int fd, char* buf, int nbytes)
 #endif
 }
 
-int
+__attribute__((weak)) int
 _read (int fd, char* buf, int nbytes)
 {
 #ifdef STDIN_BASEADDRESS

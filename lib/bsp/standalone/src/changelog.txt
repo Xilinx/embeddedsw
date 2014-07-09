@@ -182,5 +182,6 @@
  *		       cortexa9/xil_exception.c to fix CR#802862.
  * 4.2 pkp   06/30/14  MakeFile for cortexa9/armcc has been changed to fixes the 
  *		       issue of improper linking of translation_table.s 
- *		       
+ * 4.2 pkp   07/04/14  added weak attribute for the function in BSP which are also present
+ *		       in tool chain to avoid conflicts into some special cases
  *****************************************************************************************/

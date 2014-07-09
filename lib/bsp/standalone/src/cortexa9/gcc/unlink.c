@@ -34,14 +34,14 @@
 
 #ifdef __cplusplus
 extern "C" {
-	int unlink(char *path);
+	__attribute__((weak)) int unlink(char *path);
 }
 #endif
 /*
  * unlink -- since we have no file system,
  *           we just return an error.
  */
-int unlink(char *path)
+__attribute__((weak)) int unlink(char *path)
 {
   (void)path;
   errno = EIO;

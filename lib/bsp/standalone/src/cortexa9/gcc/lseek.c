@@ -35,13 +35,13 @@
 
 #ifdef __cplusplus
 extern "C" {
-	off_t _lseek(int fd, off_t offset, int whence);
+	__attribute__((weak)) off_t _lseek(int fd, off_t offset, int whence);
 }
 #endif
 /*
  * lseek --  Since a serial port is non-seekable, we return an error.
  */
-off_t lseek(int fd, off_t offset, int whence)
+__attribute__((weak)) off_t lseek(int fd, off_t offset, int whence)
 {
   (void)fd;
   (void)offset;
@@ -50,7 +50,7 @@ off_t lseek(int fd, off_t offset, int whence)
   return ((off_t)-1);
 }
 
-off_t _lseek(int fd, off_t offset, int whence)
+__attribute__((weak)) off_t _lseek(int fd, off_t offset, int whence)
 {
   (void)fd;
   (void)offset;

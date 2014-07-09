@@ -1,6 +1,6 @@
 #include "xparameters.h"
 
-int $Sub$$_sys_write(unsigned int fh, const unsigned char *buf, unsigned int len, int mode)
+__weak int _sys_write(unsigned int fh, const unsigned char *buf, unsigned int len, int mode)
 {
 #ifdef STDOUT_BASEADDRESS
   unsigned int volatile *uart_base = (unsigned int *)STDOUT_BASEADDRESS;

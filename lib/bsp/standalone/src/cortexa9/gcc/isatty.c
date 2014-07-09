@@ -33,7 +33,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-	int _isatty(int fd);
+	__attribute__((weak)) int _isatty(int fd);
 }
 #endif
 
@@ -42,13 +42,13 @@ extern "C" {
  *           returns 0 if not. Since we're hooked up to a
  *           serial port, we'll say yes _AND return a 1.
  */
-int isatty(int fd)
+__attribute__((weak)) int isatty(int fd)
 {
   (void)fd;
   return (1);
 }
 
-int _isatty(int fd)
+__attribute__((weak)) int _isatty(int fd)
 {
   (void)fd;
   return (1);

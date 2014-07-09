@@ -34,7 +34,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-	int _kill(int pid, int sig);
+	__attribute__((weak)) int _kill(int pid, int sig);
 }
 #endif
 
@@ -42,14 +42,14 @@ extern "C" {
  * kill -- go out via exit...
  */
 
-int kill(int pid, int sig)
+__attribute__((weak)) int kill(int pid, int sig)
 {
   if(pid == 1)
     _exit(sig);
   return 0;
 }
 
-int _kill(int pid, int sig)
+__attribute__((weak)) int _kill(int pid, int sig)
 {
   if(pid == 1)
     _exit(sig);

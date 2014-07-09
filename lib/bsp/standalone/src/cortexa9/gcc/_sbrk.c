@@ -37,11 +37,11 @@ extern int _heap_end;
 
 #ifdef __cplusplus
 extern "C" {
-	caddr_t _sbrk ( int incr );
+	__attribute__((weak)) caddr_t _sbrk ( int incr );
 }
 #endif
 
-caddr_t _sbrk ( int incr )
+__attribute__((weak)) caddr_t _sbrk ( int incr )
 {
   static unsigned char *heap = NULL;
   unsigned char *prev_heap;

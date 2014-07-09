@@ -31,7 +31,7 @@
 ******************************************************************************/
 #ifdef __cplusplus
 extern "C" {
-	int _close(int fd);
+	__attribute__((weak)) int _close(int fd);
 }
 #endif
 
@@ -39,7 +39,7 @@ extern "C" {
  * close -- We don't need to do anything, but pretend we did.
  */
 
-int _close(int fd)
+__attribute__((weak)) int _close(int fd)
 {
   (void)fd;
   return (0);

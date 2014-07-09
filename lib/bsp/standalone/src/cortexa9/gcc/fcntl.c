@@ -36,7 +36,7 @@
  * fcntl -- Manipulate a file descriptor.
  *          We don't have a filesystem, so we do nothing.
  */
-int fcntl (int fd, int cmd, long arg)
+__attribute__((weak)) int fcntl (int fd, int cmd, long arg)
 {
   (void)fd;
   (void)cmd;

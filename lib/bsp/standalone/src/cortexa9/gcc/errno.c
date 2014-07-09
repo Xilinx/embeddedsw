@@ -39,11 +39,11 @@
 
 #ifdef __cplusplus
 extern "C" {
-	int * __errno ();
+	__attribute__((weak)) int * __errno ();
 }
 #endif
 
-int *
+__attribute__((weak)) int *
 __errno ()
 {
   return &_REENT->_errno;

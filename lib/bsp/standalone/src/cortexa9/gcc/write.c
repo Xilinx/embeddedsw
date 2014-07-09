@@ -38,7 +38,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-	int _write (int fd, char* buf, int nbytes);
+	__attribute__((weak)) int _write (int fd, char* buf, int nbytes);
 }
 #endif
 
@@ -47,7 +47,7 @@ extern "C" {
  *          stdout and stderr are the same. Since we have no filesystem,
  *          open will only return an error.
  */
-int
+__attribute__((weak)) int
 write (int fd, char* buf, int nbytes)
 
 {
@@ -70,7 +70,7 @@ write (int fd, char* buf, int nbytes)
 #endif
 }
 
-int
+__attribute__((weak)) int
 _write (int fd, char* buf, int nbytes)
 {
 #ifdef STDOUT_BASEADDRESS
