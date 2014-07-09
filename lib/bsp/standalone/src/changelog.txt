@@ -180,5 +180,7 @@
  *		       abort and prefetch abort using handlers called
  *		       DataAbortHandler and PrefetchAbortHandler respectively in 
  *		       cortexa9/xil_exception.c to fix CR#802862.
+ * 4.2 pkp   06/30/14  MakeFile for cortexa9/armcc has been changed to fixes the 
+ *		       issue of improper linking of translation_table.s 
  *		       
  *****************************************************************************************/

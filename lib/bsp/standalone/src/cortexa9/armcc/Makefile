@@ -54,12 +54,12 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 INCLUDEFILES=*.h
 
 COBJS	=	$(addsuffix .o, $(basename $(wildcard *.c)))
-AOBJS	=	asm_vectors.o
-AOBJS	+=	translation_table.o
-OBJS    = $(COBJS) $(AOBJS) boot_post.o
+AOBJS1	=	asm_vectors.o
+AOBJS2	=	translation_table.o
+OBJS    = $(COBJS) $(AOBJS1) $(AOBJS2) boot_post.o
 
-ASOURCES = asm_vectors.s
-ASOURCES += translation_table.s
+ASOURCES1 = asm_vectors.s
+ASOURCES2 = translation_table.s
 
 # Replace boot.o with boot_post.o
 OBJECTS = $(OBJS)
@@ -73,7 +73,10 @@ endif
 	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o boot_post.o boot_post.s
 	rm -f boot.S 
 
-$(AOBJS): $(ASOURCES)
+$(AOBJS1): $(ASOURCES1)
+	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o $@ $<
+	
+$(AOBJS2): $(ASOURCES2)
 	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o $@ $<
 
 %.o: %.c
