@@ -49,6 +49,7 @@
 ;		         register settings.
 ; 3.07a sgd 	07/05/12 Updated with reset and start Global Timer
 ; 3.07a sgd 	10/19/12 SMC NOR and SRAM initialization with build option
+; 4.2   pkp	06/19/14 Enabled asynchronous abort exception
 ; </pre>
 ;
 ; @note
@@ -342,6 +343,10 @@ mmu_loop:
 	orr	r0, r0, #(0x1 << 2)		; enable Dside prefetch 
 	orr	r0, r0, #(0x1 << 1)		; enable L2 prefetch 
 	mcr	p15, 0, r0, c1, c0, 1		; write Auxiliary Control Register 
+	
+	mrs	r0, cpsr			/* get the current PSR */
+	bic	r0, r0, #0x100			/* enable asynchronous abort exception */
+	msr	cpsr_xsf, r0
 
 #ifdef PEEP
 	; Initialize STDOUT to 115200bps

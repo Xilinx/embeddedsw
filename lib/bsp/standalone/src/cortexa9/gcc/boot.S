@@ -54,6 +54,7 @@
 *               value of 0x00020202. Fix for CR 697094 (SI#687034).
 * 3.10a srt     04/18/13 Implemented ARM Erratas. Please refer to file
 *			 'xil_errata.h' for errata description
+* 4.2   pkp	06/19/14 Enabled asynchronous abort exception
 * </pre>
 *
 * @note
@@ -373,6 +374,11 @@ mmu_loop:
 	orr	r0, r0, #(0x1 << 1)		/* enable L2 Prefetch hint */
 	mcr	p15,0,r0,c1,c0,1		/* write Auxiliary Control Register */
 
+	mrs	r0, cpsr			/* get the current PSR */
+	bic	r0, r0, #0x100			/* enable asynchronous abort exception */
+	msr	cpsr_xsf, r0
+	
+	
 	b	_start				/* jump to C startup code */
 	and	r0, r0, r0			/* no op */
 	

@@ -43,8 +43,13 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 1.00a ecm/sdm  11/04/09 First release
-* 3.05a sdm	 02/02/12 Updated to resiter a null handler only if a handler
-*			  is not already registered
+* 3.05a sdm		 02/02/12 Updated to resiter a null handler only if a handler
+*			  		      is not already registered
+* 4.2   pkp		 06/19/14 Added default exception handlers for data abort and
+*						  prefetch abort using handlers called
+*						  DataAbortHandler and PrefetchAbortHandler respectively
+*						  Both handlers are registers in vector table entries
+*						  using XExc_VectorTable
 * </pre>
 *
 *****************************************************************************/
@@ -55,7 +60,7 @@
 #include "xil_assert.h"
 #include "xil_exception.h"
 #include "xpseudo_asm.h"
-
+#include "xdebug.h"
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/
@@ -68,12 +73,21 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Function Prototypes *****************************/
-
+static void Xil_ExceptionNullHandler(void *Data);
 /************************** Variable Definitions *****************************/
 /*
  * Exception vector table to store handlers for each exception vector.
  */
-XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1];
+XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
+{
+	{Xil_ExceptionNullHandler, NULL},
+	{Xil_ExceptionNullHandler, NULL},
+	{Xil_ExceptionNullHandler, NULL},
+	{Xil_PrefetchAbortHandler, NULL},
+	{Xil_DataAbortHandler, NULL},
+	{Xil_ExceptionNullHandler, NULL},
+	{Xil_ExceptionNullHandler, NULL},
+};
 
 /*****************************************************************************/
 
@@ -113,20 +127,7 @@ DieLoop: goto DieLoop;
 *****************************************************************************/
 void Xil_ExceptionInit(void)
 {
-	unsigned long index;
-
-	/*
-	 * Initialize the vector table. Register the stub Handler for each
-	 * exception.
-	 */
-	for(index = XIL_EXCEPTION_ID_FIRST; index < XIL_EXCEPTION_ID_LAST + 1;
-	    index++) {
-		if (XExc_VectorTable[index].Handler == NULL) {
-			Xil_ExceptionRegisterHandler(index,
-						     Xil_ExceptionNullHandler,
-						     NULL);
-		}
-	}
+	return;
 }
 
 /*****************************************************************************/
@@ -177,4 +178,56 @@ void Xil_ExceptionRemoveHandler(u32 exception_id)
 	Xil_ExceptionRegisterHandler(exception_id,
 				       Xil_ExceptionNullHandler,
 				       NULL);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* Default Data abort handler which prints data fault status register through
+* which information about data fault can be acquired
+*
+* @param	None
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+
+void Xil_DataAbortHandler(void *CallBackRef){
+	u32 FaultStatus;
+	#ifdef __GNUC__
+		FaultStatus = mfcp(XREG_CP15_DATA_FAULT_STATUS);
+	#else
+		{ volatile register unsigned int Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
+	  FaultStatus = Reg; }
+	#endif
+	xdbg_printf(XDBG_DEBUG_ERROR, "Data abort with Data Fault Status Register  %x\n",FaultStatus);
+	while(1);
+}
+
+/*****************************************************************************/
+/**
+*
+* Default Prefetch abort handler which prints prefetch fault status register through
+* which information about instruction prefetch fault can be acquired
+*
+* @param	None
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void Xil_PrefetchAbortHandler(void *CallBackRef){
+	u32 FaultStatus;
+	#ifdef __GNUC__
+		FaultStatus = mfcp(XREG_CP15_INST_FAULT_STATUS);
+	#else
+		{ volatile register unsigned int Reg __asm(XREG_CP15_INST_FAULT_STATUS);
+	  FaultStatus = Reg; }
+	#endif
+	xdbg_printf(XDBG_DEBUG_ERROR, "Prefetch abort with Instruction Fault Status Register  %x\n",FaultStatus);
+	while(1);
 }

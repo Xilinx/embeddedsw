@@ -175,4 +175,10 @@
  *                     output the DEBUG logs when -DDEBUG flag is enabled in BSP.
  * 4.2 pkp   06/27/14  Added support for IAR compiler in src/cortexa9/iccarm. 
  *		       Also added explanatory notes in cortexa9/xil_cache.c for CR#785243.
+ * 4.2 pkp   06/19/14  Asynchronous abort has been enabled into cortexa9/gcc/boot.s and
+ *		       cortexa9/armcc/boot.s. Added default exception handlers for data 
+ *		       abort and prefetch abort using handlers called
+ *		       DataAbortHandler and PrefetchAbortHandler respectively in 
+ *		       cortexa9/xil_exception.c to fix CR#802862.
+ *		       
  *****************************************************************************************/
