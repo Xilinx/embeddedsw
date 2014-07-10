@@ -74,6 +74,8 @@
 *	 		family devices.
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
 *		      Removed IDCODE lookup logic in XHwIcap_CfgInitialize.
+* 10.0  bss  7/10/14  Fix compilation failure for designs other than 32 bit
+*		      data width of HWICAP.
 * </pre>
 *
 *****************************************************************************/
@@ -296,24 +298,23 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	 */
 	XHwIcap_IntrGlobalDisable(InstancePtr);
 
+#if (XPAR_HWICAP_0_ICAP_DWIDTH == 8) || (XPAR_HWICAP_0_ICAP_DWIDTH == 16)
 	/* 16 bit */
 	if(InstancePtr->HwIcapConfig.IcapWidth == 16)
 	{
-
 		for(Index = 0;Index < (NumWords*2);Index = Index + 2)
 		{
 			Fifo[Index + 1] = *FrameBuffer;
 			Fifo[Index]	= *FrameBuffer >> 16;
 			FrameBuffer++;
 		}
-
 		InstancePtr->RequestedWords = NumWords * 2;
 		InstancePtr->RemainingWords = NumWords * 2;
 		InstancePtr->SendBufferPtr = &Fifo[0];
 	}
 
 	/* 8 bit */
-	else if(InstancePtr->HwIcapConfig.IcapWidth == 8)
+	else
 	{
 		for(Index = 0;Index < (NumWords*4);Index = Index + 4)
 		{
@@ -326,18 +327,15 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 		InstancePtr->RequestedWords = NumWords * 4;
 		InstancePtr->RemainingWords = NumWords * 4;
 		InstancePtr->SendBufferPtr = &Fifo[0];
-
 	}
-	else
-	{
-		/*
-		 * Set up the buffer pointer and the words to be transferred.
-		 */
-		InstancePtr->SendBufferPtr = FrameBuffer;
-		InstancePtr->RequestedWords = NumWords;
-		InstancePtr->RemainingWords = NumWords;
-	}
-
+#else
+	/*
+	 * Set up the buffer pointer and the words to be transferred.
+	 */
+	InstancePtr->SendBufferPtr = FrameBuffer;
+	InstancePtr->RequestedWords = NumWords;
+	InstancePtr->RemainingWords = NumWords;
+#endif
 	/*
 	 * Fill the FIFO with as many words as it will take (or as many as we
 	 * have to send.
@@ -377,7 +375,6 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 		WrFifoVacancy--;
 		InstancePtr->SendBufferPtr++;
 	}
-
 
 	/*
 	 * Start the transfer of the data from the FIFO to the ICAP device.
@@ -566,26 +563,22 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 		}
 
 		/* Read the data from the Read FIFO. */
-
-		/* 8/16 bit */
-		if((InstancePtr->HwIcapConfig.IcapWidth == 8) ||
-				(InstancePtr->HwIcapConfig.IcapWidth == 16)) {
-			while((RdFifoOccupancy != 0) &&
-					(InstancePtr->RemainingWords > 0)) {
-				Data[Index] = XHwIcap_FifoRead(InstancePtr);
-				InstancePtr->RemainingWords--;
-				RdFifoOccupancy--;
-				Index++;
-			}
+#if (XPAR_HWICAP_0_ICAP_DWIDTH == 8) || (XPAR_HWICAP_0_ICAP_DWIDTH == 16)
+		while((RdFifoOccupancy != 0) &&
+				(InstancePtr->RemainingWords > 0)) {
+			Data[Index] = XHwIcap_FifoRead(InstancePtr);
+			InstancePtr->RemainingWords--;
+			RdFifoOccupancy--;
+			Index++;
 		}
-		else {
-			while((RdFifoOccupancy != 0) &&
-					(InstancePtr->RemainingWords > 0)) {
-				*Data++ = XHwIcap_FifoRead(InstancePtr);
-				InstancePtr->RemainingWords--;
-				RdFifoOccupancy--;
-			}
+#else
+		while((RdFifoOccupancy != 0) &&
+				(InstancePtr->RemainingWords > 0)) {
+			*Data++ = XHwIcap_FifoRead(InstancePtr);
+			InstancePtr->RemainingWords--;
+			RdFifoOccupancy--;
 		}
+#endif
 	}
 	while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
 			XHI_CR_OFFSET)) &
@@ -759,4 +752,3 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 
 	Xil_AssertVoidAlways();
 }
-
