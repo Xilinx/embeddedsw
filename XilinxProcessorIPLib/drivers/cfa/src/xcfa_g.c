@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2001 - 2014 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2014 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,28 +30,39 @@
 *
 ******************************************************************************/
 
-/**
-*
-* @file cfa.c
-*
-* This is the body of the Xilinx Color Filter Array Interpolation Core
-* (CFA) core driver. Most of the driver functionality is implemented as
-* macros in the cfa.h header file.
-*
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 5.00a se   12/01/11  Updated for CFA v5.0
-* 4.00a rc   09/11/11  Updated for CFA v4.0
-* 3.00a gz   10/22/10  Updated for CFA V3.0
-*
-******************************************************************************/
+#include "xparameters.h"
+#include "xcfa.h"
 
-/***************************** Include Files *********************************/
+/*
+* The configuration table for devices
+*/
 
-#include "cfa.h"
-#include "xenv.h"
-
+XCfa_Config XCfa_ConfigTable[] =
+{
+	{
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_DEVICE_ID,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_BASEADDR,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_S_AXIS_VIDEO_DATA_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_M_AXIS_VIDEO_DATA_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_S_AXIS_VIDEO_TDATA_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_M_AXIS_VIDEO_TDATA_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_S_AXIS_VIDEO_FORMAT,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_M_AXIS_VIDEO_FORMAT,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_S_AXIS_VIDEO_TUSER_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_M_AXIS_VIDEO_TUSER_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_S_AXI_ADDR_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_S_AXI_DATA_WIDTH,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_S_AXI_CLK_FREQ_HZ,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_BAYER_PHASE,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_ACTIVE_ROWS,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_ACTIVE_COLS,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_MAX_COLS,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_HAS_INTC_IF,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_HAS_AXI4_LITE,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_HAS_DEBUG,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_HOR_FILT,
+		XPAR_FMC_SENSOR_INPUT_V_CFA_1_FRINGE_TOL
+	}
+};
 
 
