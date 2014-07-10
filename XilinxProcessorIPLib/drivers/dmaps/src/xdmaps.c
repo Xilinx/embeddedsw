@@ -1350,8 +1350,6 @@ int XDmaPs_GenDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
 
 	if (ChanCtrl->SrcBurstSize * ChanCtrl->SrcBurstLen
 	    != ChanCtrl->DstBurstSize * ChanCtrl->DstBurstLen) {
-		xil_printf("source burst_size * burst_len does not match "
-			   "that of destination\r\n");
 		return XST_FAILURE;
 	}
 
@@ -1360,19 +1358,15 @@ int XDmaPs_GenDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
 	 * unaligned fixed address is not supported
 	 */
 	if (!ChanCtrl->SrcInc && Cmd->BD.SrcAddr % ChanCtrl->SrcBurstSize) {
-		xil_printf("source address is fixed but is unaligned\r\n");
 		return XST_FAILURE;
 	}
 
 	if (!ChanCtrl->DstInc && Cmd->BD.DstAddr % ChanCtrl->DstBurstSize) {
-		xil_printf("destination address is fixed but is "
-			   "unaligned\r\n");
 		return XST_FAILURE;
 	}
 
 	Buf = XDmaPs_BufPool_Allocate(ChanData->ProgBufPool);
 	if (Buf == NULL) {
-		xil_printf("failed to allocate program buffer\r\n");
 		return XST_FAILURE;
 	}
 
