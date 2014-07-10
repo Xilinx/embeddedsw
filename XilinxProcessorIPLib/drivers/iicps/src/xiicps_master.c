@@ -500,25 +500,30 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 {
 	u32 BaseAddr;
+	u32 ConfigReg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
+	/* Clear transfer size register */
+	XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET, 0x0);
+
 	/*
 	 * Enable slave monitor mode in control register.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-	XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
-				XIICPS_CR_MS_MASK |
-				XIICPS_CR_NEA_MASK |
-				XIICPS_CR_SLVMON_MASK );
+	ConfigReg = XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET);
+	ConfigReg |= XIICPS_CR_MS_MASK | XIICPS_CR_NEA_MASK |
+			XIICPS_CR_CLR_FIFO_MASK | XIICPS_CR_SLVMON_MASK);
+	ConfigReg &= ~XIICPS_CR_RD_WR_MASK;
+
+	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, ConfigReg);
 
 	/*
 	 * Set up interrupt flag for slave monitor interrupt.
+	 * Dont enable NACK.
 	 */
-	XIicPs_EnableInterrupts(BaseAddr, XIICPS_IXR_NACK_MASK |
-				XIICPS_IXR_SLV_RDY_MASK);
+	XIicPs_EnableInterrupts(BaseAddr, XIICPS_IXR_SLV_RDY_MASK);
 
 	/*
 	 * Initialize the slave monitor register.
