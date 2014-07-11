@@ -1,9 +1,9 @@
-###############################################################################
+##############################################################################
 #
 # Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
+# of this software and associated documentation files (the "Software"),to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
@@ -27,16 +27,12 @@
 # Except as contained in this notice, the name of the Xilinx shall not be used
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
-#
 ###############################################################################
-#
-# MODIFICATION HISTORY:
-# Ver      Who    Date     Changes
-# -------- ------ -------- ------------------------------------
-# 6.0      adk    12/10/13 Updated as per the New Tcl API's
-##################################################################
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "RGB2YCRCB" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_S_AXIS_VIDEO_DATA_WIDTH" "C_S_AXIS_VIDEO_FORMAT" "C_S_AXIS_VIDEO_TDATA_WIDTH" "C_M_AXIS_VIDEO_DATA_WIDTH" "C_M_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_TDATA_WIDTH" "C_HAS_AXI4_LITE" "C_HAS_DEBUG" "C_HAS_INTC_IF" "C_MAX_COLS" "C_ACTIVE_COLS" "C_ACTIVE_ROWS" "C_HAS_CLIP" "C_HAS_CLAMP" "C_ACOEF" "C_BCOEF" "C_CCOEF" "C_DCOEF" "C_YOFFSET" "C_CBOFFSET" "C_CROFFSET" "C_YMAX" "C_YMIN" "C_CBMAX" "C_CBMIN" "C_CRMAX" "C_CRMIN"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "RGB2YCRCB" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_DATA_WIDTH" "C_S_AXIS_VIDEO_FORMAT" "C_S_AXIS_VIDEO_TDATA_WIDTH" "C_M_AXIS_VIDEO_DATA_WIDTH" "C_M_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_TDATA_WIDTH" "C_HAS_AXI4_LITE" "C_HAS_DEBUG" "C_HAS_INTC_IF" "C_MAX_COLS" "C_ACTIVE_COLS" "C_ACTIVE_ROWS" "C_HAS_CLIP" "C_HAS_CLAMP" "C_ACOEF" "C_BCOEF" "C_CCOEF" "C_DCOEF" "C_YOFFSET" "C_CBOFFSET" "C_CROFFSET" "C_YMAX" "C_YMIN" "C_CBMAX" "C_CBMIN" "C_CRMAX" "C_CRMIN"
+    xdefine_include_file $drv_handle "xparameters.h" "RGB2YCRCB" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_HAS_DEBUG" "C_HAS_INTC_IF" "C_MAX_COLS" "C_ACTIVE_COLS" "C_ACTIVE_ROWS" "C_HAS_CLIP" "C_HAS_CLAMP" "C_ACOEF" "C_BCOEF" "C_CCOEF" "C_DCOEF" "C_YOFFSET" "C_CBOFFSET" "C_CROFFSET" "C_YMAX" "C_YMIN" "C_CBMAX" "C_CBMIN" "C_CRMAX" "C_CRMIN" "C_S_AXI_CLK_FREQ_HZ" "C_STANDARD_SEL" "C_OUTPUT_RANGE"
+
+    xdefine_config_file $drv_handle "xrgb2ycrcb_g.c" "XRgb2YCrCb" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_HAS_DEBUG" "C_HAS_INTC_IF" "C_MAX_COLS" "C_ACTIVE_COLS" "C_ACTIVE_ROWS" "C_HAS_CLIP" "C_HAS_CLAMP" "C_ACOEF" "C_BCOEF" "C_CCOEF" "C_DCOEF" "C_YOFFSET" "C_CBOFFSET" "C_CROFFSET" "C_YMAX" "C_YMIN" "C_CBMAX" "C_CBMIN" "C_CRMAX" "C_CRMIN" "C_S_AXI_CLK_FREQ_HZ" "C_STANDARD_SEL" "C_OUTPUT_RANGE"
+
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "RGB2YCRCB" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_HAS_DEBUG" "C_HAS_INTC_IF" "C_MAX_COLS" "C_ACTIVE_COLS" "C_ACTIVE_ROWS" "C_HAS_CLIP" "C_HAS_CLAMP" "C_ACOEF" "C_BCOEF" "C_CCOEF" "C_DCOEF" "C_YOFFSET" "C_CBOFFSET" "C_CROFFSET" "C_YMAX" "C_YMIN" "C_CBMAX" "C_CBMIN" "C_CRMAX" "C_CRMIN" "C_S_AXI_CLK_FREQ_HZ" "C_STANDARD_SEL" "C_OUTPUT_RANGE"
 }
