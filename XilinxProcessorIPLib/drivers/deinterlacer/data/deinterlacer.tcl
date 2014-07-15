@@ -1,9 +1,9 @@
-###############################################################################
+##############################################################################
 #
 # Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
+# of this software and associated documentation files (the "Software"),to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
@@ -27,20 +27,13 @@
 # Except as contained in this notice, the name of the Xilinx shall not be used
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
-#
 ###############################################################################
-#
-# Modification History
-# Ver      Who    Date     Changes
-# -------- ------ -------- ----------------------------------------------------
-# 3.0     adk    10/12/13 Updated as per the New Tcl API's
-#################################################################################
+
+#uses "xillib.tcl"
 
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XDEINT" "NUM_INSTANCES" "DEVICE_ID" "C_DIAG" "C_MOTION" "C_DEPTH" "C_STREAMS" "C_TRIPLE_PORT" "C_MAX_XSIZE" "C_BASEADDR" "C_HIGHADDR"
+    xdefine_include_file $drv_handle "xparameters.h" "XDEINT" "NUM_INSTANCES" "DEVICE_ID" "C_DIAG" "C_MOTION" "C_DEPTH" "C_STREAMS" "C_TRIPLE_PORT" "C_MAX_XSIZE" "C_BASEADDR" "C_HIGHADDR" "XDeint" "DEVICE_ID" "C_BASEADDR"
     xdefine_config_file $drv_handle "xdeint_g.c" "XDeint" "DEVICE_ID" "C_BASEADDR"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Deinterlacer" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "Deinterlacer" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "XDeint" "DEVICE_ID" "C_BASEADDR"
 }
-
-
