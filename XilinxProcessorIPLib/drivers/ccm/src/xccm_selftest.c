@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2014 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,36 +29,80 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
-* @file ccm.c
+* @file xccm_selftest.c
 *
-* This is main code of Xilinx Color Correction Matrix (CCM)
-* device driver. Please see ccm.h for more details of the driver.
+* This file contains the self-test functions for the CCM core.
 *
+* <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 2.00a jo   05/1/10  Updated for CCM V2.0
-* 3.00a ren  09/11/11 Updated for CCM v3.0 
-* 4.00a jj   12/18/12 Converted from xio.h to xil_io.h,translating   
-*		      basic types,MB cache functions, exceptions 
-*		      and assertions to xil_io format 
+* Ver   Who     Date     Changes
+* ----- ------- -------- ----------------------------------------------
+* 6.0   adk     03/06/14 First Release.
+*                        Implemented XCcm_SelfTest function.
+*
+* </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "ccm.h"
-#include "xenv.h"
+#include "xccm.h"
+#include "xstatus.h"
+
+/************************** Constant Definitions *****************************/
 
 
+/***************** Macros (Inline Functions) Definitions *********************/
+
+
+/**************************** Type Definitions *******************************/
+
+
+/************************** Function Prototypes ******************************/
+
+
+/************************** Variable Definitions *****************************/
+
+
+/************************** Function Definitions *****************************/
 
 /*****************************************************************************/
-// Note: All functions are currently implemented as high-performance macros
-// within ccm.h
-/*****************************************************************************/
+/**
+*
+* This function reads Version register of CCM core and compares with zero
+* as part of self test.
+*
+* @param	InstancePtr is a pointer to XCcm instance.
+*
+* @return
+*		- XST_SUCCESS if the test is successful.
+*		- XST_FAILURE if the test is failed.
+*
+* @note		None.
+*
+******************************************************************************/
+int XCcm_SelfTest(XCcm *InstancePtr)
+{
+	u32 Version;
+	int Status;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	Version = XCcm_ReadReg(InstancePtr->Config.BaseAddress,
+				(XCCM_VERSION_OFFSET));
+
+	/* Compare version with zero */
+	if (Version != (u32)0x0) {
+		Status = (XST_SUCCESS);
+	}
+	else {
+		Status = (XST_FAILURE);
+	}
+
+	return Status;
+}
