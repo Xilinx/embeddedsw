@@ -202,6 +202,10 @@
 * 						791245 - Use of xilrsa in fsbl
 * 						Resolution: Rsa library is removed from fsbl source
 * 						and xilrsa is used from BSP
+* 10.00a kc 07/15/14	Fix for CR#804595 Zynq FSBL - Issues with
+* 						fallback image offset handling using MD5
+* 						Resolution: Updated the checksum offset to add with
+* 						image base address
 * </pre>
 *
 * </pre>

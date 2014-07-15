@@ -69,6 +69,8 @@
 *						only if partition owner was not set to u-boot
 * 9.00a kc  04/16/14    Fix for CR#785778  FSBL takes 8 seconds to 
 * 						authenticate (RSA) a bitstream on zc706
+* 10.00a kc 07/15/14	Fix for CR#804595 Zynq FSBL - Issues with
+* 						fallback image offset handling using MD5
 *
 * </pre>
 *
@@ -468,6 +470,7 @@ u32 LoadBootImage(void)
 				 */
 				Status = ValidateParition(PartitionStartAddr,
 						(PartitionTotalSize << WORD_LENGTH_SHIFT),
+						ImageStartAddress  +
 						(PartitionChecksumOffset << WORD_LENGTH_SHIFT));
 				if (Status != XST_SUCCESS) {
 					fsbl_printf(DEBUG_GENERAL,"PARTITION_CHECKSUM_FAIL\r\n");
