@@ -1,0 +1,7 @@
+xemaclite_selftest_example.c=xemaclite_example.h,xemaclite_example_util.c
+xemaclite_polled_example.c=xemaclite_example.h,xemaclite_example_util.c
+xemaclite_intr_example.c=xemaclite_example.h,xemaclite_example_util.c
+xemaclite_phy_loopback_example.c=xemaclite_example.h,xemaclite_example_util.c
+xemaclite_ping_req_example.c=xemaclite_example.h,xemaclite_example_util.c
+xemaclite_ping_reply_example.c=xemaclite_example.h,xemaclite_example_util.c
+xemaclite_internal_loopback_example=xemaclite_example.h,xemaclite_example_util.c
