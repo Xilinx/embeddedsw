@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,44 +29,32 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/*****************************************************************************/
-/**
-*
-* @file xvtc_g.c
-*
-* This file contains a template for configuration table of Xilinx MVI
-* VTC devices. For a real hardware system, Xilinx Platform Studio (XPS)
-* will automatically generate a real configuration table to match the
-* configuration of the VTC devices.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver	Who	Date		Changes
-* -----	----	--------	-----------------------------------------------
-* 1.00a	xd	08/05/08	First release
-* 1.01a	xd	07/23/10	Added GIER; Added more h/w generic info into
-*				xparameters.h; Feed callbacks with pending
-*				interrupt info. Added Doxygen & Version support
-* </pre>
-*
-******************************************************************************/
-
-
-/***************************** Include Files *********************************/
-
 
 #include "xparameters.h"
 #include "xvtc.h"
 
-/**
- * The configuration table for VTC devices
- */
+/*
+* The configuration table for devices
+*/
 
 XVtc_Config XVtc_ConfigTable[] =
 {
 	{
-		XPAR_VTC_0_DEVICE_ID,
-		XPAR_VTC_0_BASEADDR
+		XPAR_FMC_HDMI_INPUT_V_TC_1_DEVICE_ID,
+		XPAR_FMC_HDMI_INPUT_V_TC_1_BASEADDR
+	},
+	{
+		XPAR_FMC_HDMI_OUTPUT_V_TC_1_DEVICE_ID,
+		XPAR_FMC_HDMI_OUTPUT_V_TC_1_BASEADDR
+	},
+	{
+		XPAR_FMC_SENSOR_INPUT_V_TC_1_DEVICE_ID,
+		XPAR_FMC_SENSOR_INPUT_V_TC_1_BASEADDR
+	},
+	{
+		XPAR_HDMI_OUTPUT_V_TC_1_DEVICE_ID,
+		XPAR_HDMI_OUTPUT_V_TC_1_BASEADDR
 	}
 };
+
+

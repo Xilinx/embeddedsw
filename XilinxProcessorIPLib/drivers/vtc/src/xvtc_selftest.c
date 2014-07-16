@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,25 +32,19 @@
 /*****************************************************************************/
 /**
 *
-* @file xvtc_sinit.c
+* @file xvtc_selftest.c
 *
-* This file contains static initialization methods for Xilinx VTC core.
+* This file contains the self test function for the VTC core.
+* The self test function reads the Version register.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00a xd     08/05/08 First release.
-* 1.01a xd     07/23/10 Added GIER; Added more h/w generic info into
-*                       xparameters.h. Feed callbacks with pending
-*                       interrupt info. Added Doxygen & Version support.
-* 3.00a cjm    08/01/12 Converted from xio.h to xil_io.h, translating
-*                       basic types, MB cache functions, exceptions and
-*                       assertions to xil_io format.
-*                       Replaced the following:
-*                       "Xuint16" -> "u16".
-* 6.1   adk    03/03/14 Version change as per SDK 2014.2.
+* 6.1   adk    03/03/14 First Release.
+*                       Implemented following function:
+*                       XVtc_SelfTest.
 * </pre>
 *
 ******************************************************************************/
@@ -58,7 +52,6 @@
 /***************************** Include Files *********************************/
 
 #include "xvtc.h"
-#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -80,38 +73,36 @@
 /*****************************************************************************/
 /**
 *
-* This function returns a reference to an XVtc_Config structure based on the
-* core id, <i>DeviceId</i>. The return value will refer to an entry in
-* the device configuration table defined in the xvtc_g.c file.
+* This function reads version register of the VTC core and compares with zero
+* as part of self test.
 *
-* @param	DeviceId is the unique core ID of the VTC core for the lookup
-*		operation.
+* @param	InstancePtr is a pointer to the XVtc instance.
 *
-* @return	XVtc_LookupConfig returns a reference to a config record in
-*		the configuration table (in xvtc_g.c) corresponding to
-*		<i>DeviceId</i>, or NULL if no match is found.
+* @return	- XST_SUCCESS if the Version register read test was successful.
+*		- XST_FAILURE if the Version register read test failed.
 *
 * @note		None.
 *
 ******************************************************************************/
-XVtc_Config *XVtc_LookupConfig(u16 DeviceId)
+int XVtc_SelfTest(XVtc *InstancePtr)
 {
-	extern XVtc_Config XVtc_ConfigTable[XPAR_XVTC_NUM_INSTANCES];
-	XVtc_Config *CfgPtr = NULL;
-	u32 Index;
+	u32 Version;
+	int Status;
 
-	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XVTC_NUM_INSTANCES);
-								Index++) {
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-		/* Assigning address of config table if both device ids
-		 * are matched
-		 */
-		if (XVtc_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XVtc_ConfigTable[Index];
-			break;
-		}
+	/* Read VTC core version register. */
+	Version = XVtc_ReadReg((InstancePtr)->Config.BaseAddress,
+					(XVTC_VER_OFFSET));
+
+	/* Compare version with zero */
+	if(Version != (u32)0x0) {
+		Status = (u32)(XST_SUCCESS);
+	}
+	else {
+		Status = (u32)(XST_FAILURE);
 	}
 
-	return (XVtc_Config *)CfgPtr;
+	return Status;
 }

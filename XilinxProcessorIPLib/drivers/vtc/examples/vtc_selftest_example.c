@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,86 +32,126 @@
 /*****************************************************************************/
 /**
 *
-* @file xvtc_sinit.c
+* @file vtc_selftest_example.c
 *
-* This file contains static initialization methods for Xilinx VTC core.
+* This file contains an example using the VTC driver to do self test
+* on the core.
+*
+* @note		None.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
-* ----- ------ -------- --------------------------------------------------
-* 1.00a xd     08/05/08 First release.
-* 1.01a xd     07/23/10 Added GIER; Added more h/w generic info into
-*                       xparameters.h. Feed callbacks with pending
-*                       interrupt info. Added Doxygen & Version support.
-* 3.00a cjm    08/01/12 Converted from xio.h to xil_io.h, translating
-*                       basic types, MB cache functions, exceptions and
-*                       assertions to xil_io format.
-*                       Replaced the following:
-*                       "Xuint16" -> "u16".
-* 6.1   adk    03/03/14 Version change as per SDK 2014.2.
+* ----- ------ -------- ------------------------------------------------------
+* 6.1   adk    03/03/14 First Release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xvtc.h"
 #include "xparameters.h"
+#include "xvtc.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
+
+/** The following constants map to the XPAR parameters created in the
+* xparameters.h file. They are defined here such that a user can easily
+* change all the needed parameters in one place.
+*/
+#define XVTC_DEVICE_ID			XPAR_VTC_0_DEVICE_ID
+
+/**************************** Type Definitions *******************************/
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
-/**************************** Type Definitions *******************************/
-
-
 /************************** Function Prototypes ******************************/
 
+int XVtcSelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
+XVtc	VtcInst;		/**< Instance of the VTC core. */
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
 *
-* This function returns a reference to an XVtc_Config structure based on the
-* core id, <i>DeviceId</i>. The return value will refer to an entry in
-* the device configuration table defined in the xvtc_g.c file.
+* Main/Entry function for self test example.
 *
-* @param	DeviceId is the unique core ID of the VTC core for the lookup
-*		operation.
-*
-* @return	XVtc_LookupConfig returns a reference to a config record in
-*		the configuration table (in xvtc_g.c) corresponding to
-*		<i>DeviceId</i>, or NULL if no match is found.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
 ******************************************************************************/
-XVtc_Config *XVtc_LookupConfig(u16 DeviceId)
+int main(void)
 {
-	extern XVtc_Config XVtc_ConfigTable[XPAR_XVTC_NUM_INSTANCES];
-	XVtc_Config *CfgPtr = NULL;
-	u32 Index;
+	int Status;
 
-	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XVTC_NUM_INSTANCES);
-								Index++) {
+	/* Run selftest example */
+	Status = XVtcSelfTestExample((XVTC_DEVICE_ID));
 
-		/* Assigning address of config table if both device ids
-		 * are matched
-		 */
-		if (XVtc_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XVtc_ConfigTable[Index];
-			break;
-		}
+	/* Checking status */
+	if (Status != (XST_SUCCESS)) {
+		xil_printf("VTC Selftest Example Failed.\r\n");
+		return (XST_FAILURE);
 	}
 
-	return (XVtc_Config *)CfgPtr;
+	xil_printf("Successfully ran VTC driver Selftest Example.\r\n");
+
+	return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function does a minimal test on the VTC driver.
+*
+* @param	DeviceId is an ID of VTC core or device.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
+*
+* @note		None.
+*
+******************************************************************************/
+int XVtcSelfTestExample(u16 DeviceId)
+{
+	int Status;
+	XVtc_Config *Config;
+
+	/* Initialize the VTC driver so that it's ready to use look up
+	 * configuration in the config table, then initialize it.
+	 */
+	Config = XVtc_LookupConfig(DeviceId);
+
+	/* Checking Config variable */
+	if (NULL == Config) {
+		return (XST_FAILURE);
+	}
+
+	Status = XVtc_CfgInitialize(&VtcInst, Config, Config->BaseAddress);
+
+	/* Checking status */
+	if (Status != (XST_SUCCESS)) {
+		return (XST_FAILURE);
+	}
+
+	/* Perform a self-test  */
+	Status = XVtc_SelfTest(&VtcInst);
+
+	/* Checking status */
+	if (Status != (XST_SUCCESS)) {
+		return (XST_FAILURE);
+	}
+
+	return (XST_SUCCESS);
 }
