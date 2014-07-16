@@ -1018,6 +1018,8 @@ int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
  */
 int XUsbPs_Reset(XUsbPs *InstancePtr);
 
+void XUsbPs_DeviceReset(XUsbPs *InstancePtr);
+
 /**
  * DEVICE mode specific functions.
  */
