@@ -33,7 +33,7 @@
 /**
 *
 * @file xccm.h
-* @mainpage ccm
+* 
 * This header file contains identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
 * Xilinx Color Correction Matrix (CCM) core instance.
