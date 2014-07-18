@@ -34,24 +34,46 @@
 *
 * @file xosd_intr.c
 *
-* This code contains interrupt related functions of Xilinx MVI Video
-* On-Screen-Display device driver. Please see xosd.h for more details of
+* This code contains interrupt related functions of Xilinx Video
+* On-Screen-Display core. Please see xosd.h for more details of
 * the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver	Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00a xd   08/18/08 First release
-* 2.00a cjm  12/18/12 Converted from xio.h to xil_io.h, translating
-*                     basic types, MB cache functions, exceptions and
-*                     assertions to xil_io format. 
+* Ver   Who    Date     Changes
+* ----- ------ -------- -------------------------------------------------------
+* 1.00a xd     08/18/08 First release.
+* 2.00a cjm    12/18/12 Converted from xio.h to xil_io.h, translating basic
+*                       types, MB cache functions, exceptions and assertions
+*                       to xil_io format.
+* 4.0   adk    02/18/14 Renamed the following functions:
+*                       XOSD_IntrHandler - > XOsd_IntrHandler.
+*                       XOSD_SetCallBack -> XOsd_SetCallBack.
+*                       Removed the following handlers:
+*                       XOSD_HANDLER_VBISTART, XOSD_HANDLER_VBIEND.
+*                       Added new handler XOSD_HANDLER_PROCSTART.
 * </pre>
 *
 ******************************************************************************/
 
+/***************************** Include Files *********************************/
+
 #include "xosd.h"
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+
+/**************************** Type Definitions *******************************/
+
+
+/************************** Function Prototypes ******************************/
+
+
+/************************** Variable Definitions *****************************/
+
+
+/************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
@@ -64,57 +86,53 @@
 *
 * The application is responsible for connecting this function to the interrupt
 * system. Application beyond this driver is also responsible for providing
-* callbacks to	handle interrupts and installing the callbacks using
-* XOSD_SetCallBack() during initialization phase. An example delivered with
-* this driver demonstrates how this could be done.
+* callbacks to handle interrupts and installing the callbacks using
+* XOsd_SetCallBack() during initialization phase.
 *
-* @param   InstancePtr is a pointer to the XOSD instance that just interrupted.
-* @return  None.
-* @note	   None.
+* @param	InstancePtr is a pointer to the XOsd instance that just
+*		interrupted.
+*
+* @return	None.
+*
+* @note		None.
 *
 ******************************************************************************/
-void XOSD_IntrHandler(void *InstancePtr)
+void XOsd_IntrHandler(void *InstancePtr)
 {
 	u32 PendingIntr;
 	u32 ErrorStatus;
-	XOSD *XOSDPtr;
+	XOsd *XOsdPtr = NULL;
 
-	XOSDPtr = (XOSD *)InstancePtr;
+	XOsdPtr = (XOsd *)((void *)InstancePtr);
 
-	/* Validate parameters */
-	Xil_AssertVoid(XOSDPtr != NULL);
-	Xil_AssertVoid(XOSDPtr->IsReady == XIL_COMPONENT_IS_READY);
+	/* Validate arguments. */
+	Xil_AssertVoid(XOsdPtr != NULL);
+	Xil_AssertVoid(XOsdPtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-	/* Get pending interrupts */
-	PendingIntr = XOSD_IntrGetPending(XOSDPtr);
+	/* Get pending interrupts. */
+	PendingIntr = (u32)(XOsd_IntrGetPending(XOsdPtr));
 
-	/* Clear pending interrupts */
-	XOSD_IntrClear(XOSDPtr, PendingIntr);
-
-	/* Error interrupt is occurring or spurious interrupt */
-	if ((0 == (PendingIntr & XOSD_IXR_ALLINTR_MASK)) ||
-		(PendingIntr & XOSD_IXR_ALLIERR_MASK)) {
-
-		ErrorStatus = PendingIntr & XOSD_IXR_ALLIERR_MASK;
-		XOSDPtr->ErrCallBack(XOSDPtr->ErrRef, ErrorStatus);
-
-		/* The Error CallBack should reset the device and so
-		 * there is no need to handle other interrupts
-		 */
-		return;
+	/* Error interrupt is occurring or spurious interrupt. */
+	if (((PendingIntr) & (XOSD_IXR_ERR_MASK)) ==
+				((XOSD_IXR_ERR_MASK))) {
+		ErrorStatus = (PendingIntr) & (XOSD_IXR_ERR_MASK);
+		XOsdPtr->ErrCallBack(XOsdPtr->ErrRef, ErrorStatus);
 	}
 
-	/* A VBI Start has happened */
-	if ((PendingIntr & XOSD_IXR_VBIS_MASK))
-		XOSDPtr->VbiStartCallBack(XOSDPtr->VbiStartRef);
+	/* A Processing start interrupt has occurred. */
+	if (((PendingIntr) & (XOSD_IXR_PROC_STARTED_MASK)) ==
+				(XOSD_IXR_PROC_STARTED_MASK)) {
+		XOsdPtr->ProcStartCallBack(XOsdPtr->ProcStartRef);
+	}
 
-	/* A VBI End has happened */
-	if ((PendingIntr & XOSD_IXR_VBIE_MASK))
-		XOSDPtr->VbiEndCallBack(XOSDPtr->VbiEndRef);
+	/* A frame done interrupt has occurred. */
+	if (((PendingIntr) & (XOSD_IXR_EOF_MASK)) ==
+				(XOSD_IXR_EOF_MASK)) {
+		XOsdPtr->FrameDoneCallBack(XOsdPtr->FrameDoneRef);
+	}
 
-	/* A Frame Done interrupt has happened */
-	if ((PendingIntr & XOSD_IXR_FD_MASK))
-		XOSDPtr->FrameDoneCallBack(XOSDPtr->FrameDoneRef);
+	/* Clear pending interrupts. */
+	XOsd_IntrClear(XOsdPtr, PendingIntr);
 
 }
 
@@ -125,69 +143,68 @@ void XOSD_IntrHandler(void *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType		   Callback Function Type
-* -----------------------  ---------------------------
-* XOSD_HANDLER_VBISTART	   XOSD_CallBack
-* XOSD_HANDLER_VBIEND	   XOSD_CallBack
-* XOSD_HANDLER_FRAMEDONE   XOSD_CallBack
-* XOSD_HANDLER_ERROR	   XOSD_ErrCallBack
-*
-* HandlerType		   Invoked by this driver when:
-* -----------------------  --------------------------------------------------
-* XOSD_HANDLER_VBISTART	   A Vertical Blank Interval Start Interrupt happens
-* XOSD_HANDLER_VBIEND	   A Vertical Blank Interval End Interrupt happens
-* XOSD_HANDLER_FRAMEDONE   A Frame Done Interrupt happens
-* XOSD_HANDLER_ERROR	   An error condition happens
+* HandlerType              Callback Function Type
+* -----------------------  -------------------------------
+* XOSD_HANDLER_PROCSTART   StubCallBack
+* XOSD_HANDLER_FRAMEDONE   StubCallBack
+* XOSD_HANDLER_ERROR       StubErrCallBack
 *
 * </pre>
 *
-* @param	InstancePtr is a pointer to the XOSD instance to be worked on.
+* @param	InstancePtr is a pointer to the XOsd instance to be worked on.
 * @param	HandlerType specifies which callback is to be attached.
-* @param	CallbackFunc is the address of the callback function.
-* @param	CallbackRef is a user data item that will be passed to the
+* @param	CallBackFunc is the address of the callback function.
+* @param	CallBackRef is a user data item that will be passed to the
 *		callback function when it is invoked.
 *
-* @return
-*  - XST_SUCCESS when handler is installed.
-*  - XST_INVALID_PARAM when HandlerType is invalid.
+* @return	- XST_SUCCESS when handler is installed.
+*		- XST_INVALID_PARAM when HandlerType is invalid.
 *
-* @note
-* Invoking this function for a handler that already has been installed replaces
-* it with the new handler.
+* @note		Invoking this function for a handler that already has been
+*		installed replaces it with the new handler.
 *
 ******************************************************************************/
-int XOSD_SetCallBack(XOSD *InstancePtr, u32 HandlerType,
-			 void *CallBackFunc, void *CallBackRef)
+int XOsd_SetCallBack(XOsd *InstancePtr, u32 HandlerType,
+			void *CallBackFunc, void *CallBackRef)
 {
+	int Status;
+
+	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady ==
+				(u32)(XIL_COMPONENT_IS_READY));
 	Xil_AssertNonvoid(CallBackFunc != NULL);
 	Xil_AssertNonvoid(CallBackRef != NULL);
+	Xil_AssertNonvoid((HandlerType >= (u32)(XOSD_HANDLER_PROCSTART)) &&
+				(HandlerType <= (u32)(XOSD_HANDLER_ERROR)));
 
+	/* Setting the HandlerType. */
 	switch (HandlerType) {
-	case XOSD_HANDLER_VBISTART:
-		InstancePtr->VbiStartCallBack = (XOSD_CallBack)CallBackFunc;
-		InstancePtr->VbiStartRef = CallBackRef;
-		break;
+		case XOSD_HANDLER_PROCSTART:
+			InstancePtr->ProcStartCallBack =
+				(XOsd_CallBack)((void *)CallBackFunc);
+			InstancePtr->ProcStartRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XOSD_HANDLER_VBIEND:
-		InstancePtr->VbiEndCallBack = (XOSD_CallBack)CallBackFunc;
-		InstancePtr->VbiEndRef = CallBackRef;
-		break;
+		case XOSD_HANDLER_FRAMEDONE:
+			InstancePtr->FrameDoneCallBack =
+				(XOsd_CallBack)((void *)CallBackFunc);
+			InstancePtr->FrameDoneRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XOSD_HANDLER_FRAMEDONE:
-		InstancePtr->FrameDoneCallBack = (XOSD_CallBack)CallBackFunc;
-		InstancePtr->FrameDoneRef = CallBackRef;
-		break;
+		case XOSD_HANDLER_ERROR:
+			InstancePtr->ErrCallBack =
+				(XOsd_ErrorCallBack)((void *)CallBackFunc);
+			InstancePtr->ErrRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XOSD_HANDLER_ERROR:
-		InstancePtr->ErrCallBack = (XOSD_ErrorCallBack)CallBackFunc;
-		InstancePtr->ErrRef = CallBackRef;
-		break;
-
-	default:
-		return XST_INVALID_PARAM;
-
+		default:
+			Status = (XST_INVALID_PARAM);
+			break;
 	}
-	return XST_SUCCESS;
+
+	return Status;
 }
