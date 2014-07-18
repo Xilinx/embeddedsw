@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,22 +32,18 @@
 /*****************************************************************************/
 /**
 *
-* @file xosd_sinit.c
+* @file xosd_selftest.c
 *
-* This file contains the static initialization method for Xilinx Video
-* On-Screen-Display (OSD) core.
+* This file contains the self-test function for the OSD core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
-* ----- ------ -------- ------------------------------------------------------
-* 1.00a xd     08/18/08 First release
-* 2.00a cjm    12/18/12 Converted from xio.h to xil_io.h, translating
-*                       basic types, MB cache functions, exceptions and
-*                       assertions to xil_io format.
-* 4.0   adk    02/18/14 Renamed the following functions:
-*                       XOSD_LookupConfig - > XOsd_LookupConfig
+* ----- ------ -------- --------------------------------------------------
+* 4.0   adk    02/18/14 First Release.
+*                       Implemented the following functions:
+*                       XOsd_SelfTest.
 * </pre>
 *
 ******************************************************************************/
@@ -55,7 +51,6 @@
 /***************************** Include Files *********************************/
 
 #include "xosd.h"
-#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -77,33 +72,36 @@
 /*****************************************************************************/
 /**
 *
-* This function gets a reference to an XOsd_Config structure based on the
-* unique device id, <i>DeviceId</i>. The return value will refer to an entry
-* in the core configuration table defined in the xosd_g.c file.
+* This function reads Version register of OSD core and compares with zero
+* as part of self test.
 *
-* @param	DeviceId is the unique core ID of the OSD core for the lookup
-*		operation.
+* @param	InstancePtr is a pointer to the XOsd instance.
 *
-* @return	XOsd_Config is a reference to a config record in the
-*		configuration table (in xosd_g.c) corresponding to
-*		<i>DeviceId</i> or NULL if no match is found.
+* @return	- XST_SUCCESS if the Version register read test was successful.
+*		- XST_FAILURE if the Version register read test failed.
 *
 * @note		None.
 *
 ******************************************************************************/
-XOsd_Config *XOsd_LookupConfig(u16 DeviceId)
+int XOsd_SelfTest(XOsd *InstancePtr)
 {
-	extern XOsd_Config XOsd_ConfigTable[XPAR_XOSD_NUM_INSTANCES];
-	XOsd_Config *CfgPtr = NULL;
-	u32 Index;
+	u32 Version;
+	int Status;
 
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XOSD_NUM_INSTANCES);
-								Index++) {
-		if (XOsd_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XOsd_ConfigTable[Index];
-			break;
-		}
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Read OSD core Version register. */
+	Version = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
+					(XOSD_VER_OFFSET));
+
+	/* Compare Version with zero. */
+	if (Version != (u32)0x0) {
+		Status = (XST_SUCCESS);
+	}
+	else {
+		Status = (XST_FAILURE);
 	}
 
-	return (XOsd_Config *)CfgPtr;
+	return Status;
 }

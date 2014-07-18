@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,78 +32,119 @@
 /*****************************************************************************/
 /**
 *
-* @file xosd_sinit.c
+* @file osd_selftest_example.c
 *
-* This file contains the static initialization method for Xilinx Video
-* On-Screen-Display (OSD) core.
+* This file contains an example using the OSD driver to do self test
+* on the core.
 *
-* <pre>
+* @note		None.
+*
 * MODIFICATION HISTORY:
-*
+* <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- ------------------------------------------------------
-* 1.00a xd     08/18/08 First release
-* 2.00a cjm    12/18/12 Converted from xio.h to xil_io.h, translating
-*                       basic types, MB cache functions, exceptions and
-*                       assertions to xil_io format.
-* 4.0   adk    02/18/14 Renamed the following functions:
-*                       XOSD_LookupConfig - > XOsd_LookupConfig
+* 4.0   adk    02/18/14 First Release
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xosd.h"
 #include "xparameters.h"
+#include "xosd.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
+
+/**
+* The following constants map to the XPAR parameters created in the
+* xparameters.h file. They are defined here such that a user can easily
+* change all the needed parameters in one place.
+*/
+#define XOSD_DEVICE_ID			XPAR_OSD_0_DEVICE_ID
+
+/**************************** Type Definitions *******************************/
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
-/**************************** Type Definitions *******************************/
-
-
 /************************** Function Prototypes ******************************/
 
+int XOsdSelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-
-/************************** Function Definitions *****************************/
+XOsd OsdInst;		/**< Instance of the OSD Device */
 
 /*****************************************************************************/
 /**
 *
-* This function gets a reference to an XOsd_Config structure based on the
-* unique device id, <i>DeviceId</i>. The return value will refer to an entry
-* in the core configuration table defined in the xosd_g.c file.
+* Main/Entry function for self test example.
 *
-* @param	DeviceId is the unique core ID of the OSD core for the lookup
-*		operation.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
-* @return	XOsd_Config is a reference to a config record in the
-*		configuration table (in xosd_g.c) corresponding to
-*		<i>DeviceId</i> or NULL if no match is found.
+* @note		None
+*
+******************************************************************************/
+int main(void)
+{
+	int Status;
+
+	/*  Run selftest example */
+	Status = XOsdSelfTestExample(XOSD_DEVICE_ID);
+
+	if (Status != XST_SUCCESS) {
+		xil_printf("OSD driver Selftest Example Failed\r\n");
+		return XST_FAILURE;
+	}
+
+	xil_printf("Successfully ran OSD driver Selftest Example\r\n");
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function does a minimal test on the OSD driver.
+*
+* @param	DeviceId is an ID of OSD core or device.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
 ******************************************************************************/
-XOsd_Config *XOsd_LookupConfig(u16 DeviceId)
+int XOsdSelfTestExample(u16 DeviceId)
 {
-	extern XOsd_Config XOsd_ConfigTable[XPAR_XOSD_NUM_INSTANCES];
-	XOsd_Config *CfgPtr = NULL;
-	u32 Index;
+	int Status;
+	XOsd_Config *Config;
 
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XOSD_NUM_INSTANCES);
-								Index++) {
-		if (XOsd_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XOsd_ConfigTable[Index];
-			break;
-		}
+	/* Initialize the OSD driver so that it's ready to use look up the
+	 * configuration in the config table, then initialize it.
+	 */
+	Config = XOsd_LookupConfig(DeviceId);
+
+	if (NULL == Config) {
+		return XST_FAILURE;
 	}
 
-	return (XOsd_Config *)CfgPtr;
+	Status = XOsd_CfgInitialize(&OsdInst, Config, Config->BaseAddress);
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/*  Perform a self-test to check hardware build. */
+	Status = XOsd_SelfTest(&OsdInst);
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
 }
