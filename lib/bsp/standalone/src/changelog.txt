@@ -186,5 +186,7 @@
  *		       in tool chain to avoid conflicts into some special cases
  * 4.2 pkp   07/21/14  Corrected reset value of event counter in function 
  *		       Xpm_ResetEventCounters in src/cortexa9/xpm_counter.c to fix CR#796275
- *
+ * 4.2 pkp   07/21/14  Included xil_types.h file in xil_mmu.h which had contained a function 
+ * 		       containing type def u32 defined in xil_types.g to resolve issue of 
+ *		       CR#805869
  *****************************************************************************************/

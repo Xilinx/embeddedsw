@@ -41,6 +41,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 1.00a sdm  01/12/12 Initial version
+* 4.2	pkp	 07/21/14 Included xil_types.h file which contains definition for
+*					  u32 which resolves issue of CR#805869
 * </pre>
 *
 * @note
@@ -57,6 +59,8 @@ extern "C" {
 #endif /* __cplusplus */
 
 /***************************** Include Files *********************************/
+
+#include "xil_types.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
