@@ -89,8 +89,7 @@ typedef struct {
         u16 CmdCode;
         u8 NumBytes;
         u32 Address;
-        u8 *ReadData;
-        u8 *WriteData;
+        u8 *Data;
 } XDptx_AuxTransaction;
 
 /**************************** Function Prototypes *****************************/
@@ -113,10 +112,13 @@ static u32 XDptx_SetTrainingPattern(XDptx *InstancePtr, u32 Pattern);
 static u32 XDptx_GetTrainingDelay(XDptx *InstancePtr,
                                         XDptx_TrainingState TrainingState);
 /* AUX transaction functions. */
+static u32 XDptx_AuxCommon(XDptx *InstancePtr, u32 CmdType, u32 Address,
+                                                        u32 NumBytes, u8 *Data);
 static u32 XDptx_AuxRequest(XDptx *InstancePtr, XDptx_AuxTransaction *Request);
 static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
                                                 XDptx_AuxTransaction *Request);
 static u32 XDptx_AuxWaitReply(XDptx *InstancePtr);
+static u32 XDptx_AuxWaitReady(XDptx *InstancePtr);
 /* Miscellaneous functions. */
 static u32 XDptx_SetClkSpeed(XDptx *InstancePtr, u32 Speed);
 static u32 XDptx_WaitPhyReady(XDptx *InstancePtr);
@@ -544,10 +546,8 @@ void XDptx_SetHasRedriverInPath(XDptx *InstancePtr, u8 Set)
 *******************************************************************************/
 u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
 {
-        XDptx_AuxTransaction Request;
         u32 Status;
-        u32 Index;
-        u8 *DataToRead = (u8 *)Data;
+        XDptx_AuxTransaction Request;
 
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
@@ -564,22 +564,11 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
                 return XST_NO_DATA;
         }
 
-        /* Setup command. */
-        Request.CmdCode = XDPTX_AUX_CMD_READ;
-        Request.Address = Address;
-        Request.NumBytes = NumBytes;
+        /* Send AUX read transaction. */
+        Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_READ, Address,
+                                                        NumBytes, (u8 *)Data);
 
-        Status = XDptx_AuxRequest(InstancePtr, &Request);
-        if (Status != XST_SUCCESS) {
-                return Status;
-        }
-
-        for (Index = 0; Index < NumBytes; Index++) {
-                DataToRead[Index] = XDptx_ReadReg(
-                        InstancePtr->TxConfig.BaseAddr, XDPTX_AUX_REPLY_DATA);
-        }
-
-        return XST_SUCCESS;
+        return Status;
 }
 
 /******************************************************************************/
@@ -621,98 +610,11 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
                 return XST_NO_DATA;
         }
 
-        /* Setup command. */
-        Request.CmdCode = XDPTX_AUX_CMD_WRITE;
-        Request.Address = Address;
-        Request.NumBytes = NumBytes;
-        Request.WriteData = (u8 *)Data;
+        /* Send AUX write transaction. */
+        Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_WRITE, Address,
+                                                        NumBytes, (u8 *)Data);
 
-        Status = XDptx_AuxRequest(InstancePtr, &Request);
-        if (Status != XST_SUCCESS) {
-                return Status;
-        }
-
-        return XST_SUCCESS;
-}
-
-/******************************************************************************/
-/**
- * This function performs an I2C write over the AUX channel.
- *
- * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       IicAddress is the address on the I2C bus of the target device.
- * @param       RegStartAddress is the sub-address of the targeted I2C device
- *              that the write will start at.
- * @param       NumBytes is the number of bytes to write.
- * @param       DataBuffer is a pointer to a buffer which will be used as the
- *              data source for the write.
- *
- * @return
- *              - XST_SUCCESS if the I2C write has successfully completed with
- *                no errors.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
- *              - XST_FAILURE otherwise.
- *
-*******************************************************************************/
-u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
-                                                u8 NumBytes, u8 *DataBuffer)
-{
-        u32 Status;
-        XDptx_AuxTransaction Request;
-        u32 BytesLeftToWrite;
-
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertNonvoid(IicAddress <= 0xFFFFF);
-        Xil_AssertNonvoid(RegStartAddress <= 256);
-        Xil_AssertNonvoid(NumBytes <= 256);
-        Xil_AssertNonvoid(DataBuffer != NULL);
-
-        if (!XDptx_IsConnected(InstancePtr)) {
-                return XST_DEVICE_NOT_FOUND;
-        }
-
-        BytesLeftToWrite = NumBytes;
-        Request.Address = IicAddress;
-
-        /* Setup the I2C-over-AUX write transaction with the address. */
-        Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
-        Request.NumBytes = 1;
-        Request.WriteData = &RegStartAddress;
-
-        Status = XDptx_AuxRequest(InstancePtr, &Request);
-        if (Status != XST_SUCCESS) {
-                return Status;
-        }
-
-        while (BytesLeftToWrite > 0) {
-                if (BytesLeftToWrite > 16) {
-                        Request.NumBytes = 16;
-                }
-                else {
-                        Request.NumBytes = BytesLeftToWrite;
-                }
-                Request.WriteData = &DataBuffer[NumBytes - BytesLeftToWrite];
-                BytesLeftToWrite -= Request.NumBytes;
-
-                if (BytesLeftToWrite == 0) {
-                        /* This is the last write request. */
-                        Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE;
-                }
-                else {
-                        /* Middle of a transaction write request. */
-                        Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
-                }
-
-                Status = XDptx_AuxRequest(InstancePtr, &Request);
-                if (Status != XST_SUCCESS) {
-                        return Status;
-                }
-        }
-
-        return XST_SUCCESS;
+        return Status;
 }
 
 /******************************************************************************/
@@ -724,8 +626,8 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
  * @param       RegStartAddress is the subaddress of the targeted I2C device
  *              that the read will start from.
  * @param       NumBytes is the number of bytes to read.
- * @param       DataBuffer is a pointer to a buffer that will be filled with
- *              the I2C read data.
+ * @param       Data is a pointer to a buffer that will be filled with the I2C
+ *              read data.
  *
  * @return
  *              - XST_SUCCESS if the I2C read has successfully completed with no
@@ -736,75 +638,99 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
  *
 *******************************************************************************/
 u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
-                                                u8 NumBytes, u8 *DataBuffer)
+                                                        u8 NumBytes, void *Data)
 {
         u32 Status;
         XDptx_AuxTransaction Request;
-        u32 BytesLeftToRead;
-        u32 BytesToRead;
-        u32 Index = 0;
+        u8 AuxData[2];
 
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertNonvoid(IicAddress <= 0xFFFFF);
-        Xil_AssertNonvoid(RegStartAddress <= 128);
-        Xil_AssertNonvoid(NumBytes <= 128);
-        Xil_AssertNonvoid(DataBuffer != NULL);
+        Xil_AssertNonvoid(RegStartAddress <= 256);
+        Xil_AssertNonvoid(NumBytes <= 256);
+        Xil_AssertNonvoid(Data != NULL);
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
         }
 
-        BytesLeftToRead = NumBytes;
-        Request.Address = IicAddress;
-
         /* Setup the I2C-over-AUX read transaction with the address. */
+        Request.Address = IicAddress;
         Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
-        Request.NumBytes = 1;
-        Request.WriteData = &RegStartAddress;
-
+        Request.NumBytes = 2;
+        AuxData[0] = RegStartAddress;
+        AuxData[1] = 0;
+        Request.Data = AuxData;
         Status = XDptx_AuxRequest(InstancePtr, &Request);
         if (Status != XST_SUCCESS) {
                 return Status;
         }
 
-        while (BytesLeftToRead > 0) {
-                if (BytesLeftToRead > 16) {
-                        Request.NumBytes = 16;
-                }
-                else {
-                        Request.NumBytes = BytesLeftToRead;
-                }
-                BytesLeftToRead -= Request.NumBytes;
+        /* Send I2C-over-AUX read transaction. */
+        Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_READ,
+                                        IicAddress, NumBytes, (u8 *)Data);
 
-                if (BytesLeftToRead == 0) {
-                        /* This is the last read request. */
-                        Request.CmdCode = XDPTX_AUX_CMD_I2C_READ;
-                }
-                else {
-                        /* Middle of a transaction read request. */
-                        Request.CmdCode = XDPTX_AUX_CMD_I2C_READ_MOT;
-                }
+        return Status;
+}
 
-                Status = XDptx_AuxRequest(InstancePtr, &Request);
-                if (Status != XST_SUCCESS) {
-                        return Status;
-                }
+/******************************************************************************/
+/**
+ * This function performs an I2C write over the AUX channel.
+ *
+ * @param       InstancePtr is a pointer to the XDptx instance.
+ * @param       IicAddress is the address on the I2C bus of the target device.
+ * @param       RegStartAddress is the sub-address of the targeted I2C device
+ *              that the write will start at.
+ * @param       NumBytes is the number of bytes to write.
+ * @param       Data is a pointer to a buffer which will be used as the data
+ *              source for the write.
+ *
+ * @return
+ *              - XST_SUCCESS if the I2C write has successfully completed with
+ *                no errors.
+ *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
+ *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
+ *              - XST_FAILURE otherwise.
+ *
+*******************************************************************************/
+u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
+                                                        u8 NumBytes, void *Data)
+{
+        u32 Status;
+        XDptx_AuxTransaction Request;
+        u8 AuxData[2];
 
-                BytesToRead = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
-                                                        XDPTX_REPLY_DATA_COUNT);
-                while (BytesToRead > 0) {
-                        DataBuffer[Index] = XDptx_ReadReg(
-                                                InstancePtr->TxConfig.BaseAddr,
-                                                XDPTX_AUX_REPLY_DATA);
-                        Index++;
+        /* Verify arguments. */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertNonvoid(IicAddress <= 0xFFFFF);
+        Xil_AssertNonvoid(RegStartAddress <= 256);
+        Xil_AssertNonvoid(NumBytes <= 256);
+        Xil_AssertNonvoid(Data != NULL);
 
-                        BytesToRead--;
-                }
+        if (!XDptx_IsConnected(InstancePtr)) {
+                return XST_DEVICE_NOT_FOUND;
         }
 
-        return XST_SUCCESS;
+        /* Setup the I2C-over-AUX write transaction with the address. */
+        Request.Address = IicAddress;
+        Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
+        Request.NumBytes = 2;
+        AuxData[0] = RegStartAddress;
+        AuxData[1] = 0;
+        Request.Data = AuxData;
+        Status = XDptx_AuxRequest(InstancePtr, &Request);
+        if (Status != XST_SUCCESS) {
+                return Status;
+        }
+
+        /* Send I2C-over-AUX read transaction. */
+        Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_READ,
+                                        IicAddress, NumBytes, (u8 *)Data);
+
+        return Status;
 }
 
 /******************************************************************************/
@@ -1696,7 +1622,6 @@ static XDptx_TrainingState XDptx_TrainingStateAdjustLaneCount(
 static u32 XDptx_GetLaneStatusAdjReqs(XDptx *InstancePtr)
 {
         u32 Status;
-        u8 AuxData[6];
 
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2142,6 +2067,59 @@ static u32 XDptx_GetTrainingDelay(XDptx *InstancePtr,
         return 20000;
 }
 
+static u32 XDptx_AuxCommon(XDptx *InstancePtr, u32 CmdType, u32 Address,
+                                                        u32 NumBytes, u8 *Data)
+{
+        u32 Status;
+        XDptx_AuxTransaction Request;
+        u32 BytesLeft;
+
+        /* Set the start address for AUX transactions. For I2C transactions,
+         * this is the address of the I2C bus. */
+        Request.Address = Address;
+
+        BytesLeft = NumBytes;
+        while (BytesLeft > 0) {
+                Request.CmdCode = CmdType;
+
+                if ((CmdType == XDPTX_AUX_CMD_READ) ||
+                                        (CmdType == XDPTX_AUX_CMD_WRITE)) {
+                        /* Increment address for normal AUX transactions. */
+                        Request.Address = Address + (NumBytes - BytesLeft);
+                }
+
+                /* Increment the pointer to the supplied data buffer. */
+                Request.Data = &Data[NumBytes - BytesLeft];
+
+                if (BytesLeft > 16) {
+                        Request.NumBytes = 16;
+                }
+                else {
+                        Request.NumBytes = BytesLeft;
+                }
+                BytesLeft -= Request.NumBytes;
+
+                if ((CmdType == XDPTX_AUX_CMD_I2C_READ) && (BytesLeft > 0)) {
+                        /* Middle of a transaction I2C read request. Override
+                         * the command code that was set to CmdType. */
+                        Request.CmdCode = XDPTX_AUX_CMD_I2C_READ_MOT;
+                }
+                else if ((CmdType == XDPTX_AUX_CMD_I2C_WRITE) &&
+                                                        (BytesLeft > 0)) {
+                        /* Middle of a transaction I2C write request. Override
+                         * the command code that was set to CmdType. */
+                        Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
+                }
+
+                Status = XDptx_AuxRequest(InstancePtr, &Request);
+                if (Status != XST_SUCCESS) {
+                        return Status;
+                }
+        }
+
+        return XST_SUCCESS;
+}
+
 /******************************************************************************/
 /**
  * This function submits the supplied AUX request to the sink device over the
@@ -2176,42 +2154,33 @@ static u32 XDptx_AuxRequest(XDptx *InstancePtr, XDptx_AuxTransaction *Request)
 
         while ((DeferCount < XDPTX_AUX_MAX_DEFER_COUNT) &&
                                 (TimeoutCount < XDPTX_AUX_MAX_TIMEOUT_COUNT)) {
-                /* Submit the request. */
-                Status = XDptx_AuxRequestSend(InstancePtr, Request);
+                Status = XDptx_AuxWaitReady(InstancePtr);
                 if (Status != XST_SUCCESS) {
-                        /* A timeout occurred while waiting for the transmitter
-                         * to be ready. */
-                        return XST_ERROR_COUNT_MAX;
+                        /* The receiver isn't ready yet. */
+                        TimeoutCount++;
+                        continue;
                 }
 
-                /* Check for a reply for the submitted request. */
-                Status = XDptx_AuxWaitReply(InstancePtr);
-                if (Status != XST_SUCCESS) {
-                        /* Waiting for a reply timed out. Try resending the
-                         * request (at the top of the while loop). */
-                        XDptx_WaitUs(InstancePtr, 100);
+                /* Send the request. */
+                Status = XDptx_AuxRequestSend(InstancePtr, Request);
+                switch (Status) {
+                case XST_SEND_ERROR:
+                        /* The request was deferred. */
+                        DeferCount++;
+                        break;
+                case XST_ERROR_COUNT_MAX:
+                        /* Waiting for a reply timed out. */
                         TimeoutCount++;
+                        break;
+                case XST_FAILURE:
+                        /* The request was NACK'ed. */
+                        return XST_FAILURE;
+                default:
+                        /* The request was ACK'ed. */
+                        return XST_SUCCESS;
                 }
-                else {
-                        Status = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
-                                                        XDPTX_AUX_REPLY_CODE);
-                        switch (Status) {
-                        case XDPTX_AUX_REPLY_CODE_DEFER:
-                        case XDPTX_AUX_REPLY_CODE_I2C_DEFER:
-                                /* The request was deferred, try resending the
-                                 * request (at the top of the while loop). */
-                                XDptx_WaitUs(InstancePtr, 100);
-                                DeferCount++;
-                                break;
-                        case XDPTX_AUX_REPLY_CODE_NACK:
-                        case XDPTX_AUX_REPLY_CODE_I2C_NACK:
-                                /* The request was not acknowledged. */
-                                return XST_FAILURE;
-                        default:
-                                /* The request was acknowledged. */
-                                return XST_SUCCESS;
-                        }
-                }
+
+                XDptx_WaitUs(InstancePtr, 100);
         }
 
         /* The request was not successfully received by the sink device. */
@@ -2231,20 +2200,141 @@ static u32 XDptx_AuxRequest(XDptx *InstancePtr, XDptx_AuxTransaction *Request)
  *
  * @return
  *              - XST_SUCCESS if the request was acknowledged.
- *              - XST_ERROR_COUNT_MAX otherwise.
+ *              - XST_ERROR_COUNT_MAX if waiting for a reply timed out.
+ *              - XST_SEND_ERROR if the request was deferred.
+ *              - XST_FAILURE otherwise, if the request was NACK'ed.
  *
 *******************************************************************************/
 static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
                                                 XDptx_AuxTransaction *Request)
 {
         u32 Status;
-        u32 Index;
+        u8 Index;
+
+        /* Set the address for the request. */
+        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_AUX_ADDRESS,
+                                                        Request->Address);
+
+        switch (Request->CmdCode) {
+        case XDPTX_AUX_CMD_WRITE:
+        case XDPTX_AUX_CMD_I2C_WRITE:
+        case XDPTX_AUX_CMD_I2C_WRITE_MOT:
+                /* Feed write data into the transmitter FIFO. */
+                for (Index = 0; Index < Request->NumBytes; Index++) {
+                        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+                                                XDPTX_AUX_WRITE_FIFO,
+                                                Request->Data[Index]);
+                }
+        default:
+                /* Not a write command. */
+                break;
+        }
+
+        /* Submit the command and the data size. */
+        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_AUX_CMD,
+                                ((Request->CmdCode << XDPTX_AUX_CMD_SHIFT) |
+                                ((Request->NumBytes - 1) &
+                                XDPTX_AUX_CMD_NBYTES_TRANSFER_MASK)));
+
+        /* Check for a receiver reply to the submitted request. */
+        Status = XDptx_AuxWaitReply(InstancePtr);
+        if (Status != XST_SUCCESS) {
+                /* Waiting for a reply timed out. */
+                return XST_ERROR_COUNT_MAX;
+        }
+
+        /* Analyze the reply. */
+        Status = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+                                                        XDPTX_AUX_REPLY_CODE);
+        switch (Status) {
+        case XDPTX_AUX_REPLY_CODE_DEFER:
+        case XDPTX_AUX_REPLY_CODE_I2C_DEFER:
+                /* The request was deferred. */
+                return XST_SEND_ERROR;
+        case XDPTX_AUX_REPLY_CODE_NACK:
+        case XDPTX_AUX_REPLY_CODE_I2C_NACK:
+                /* The request was not acknowledged. */
+                return XST_FAILURE;
+        default:
+                /* The request was acknowledged. */
+                break;
+        }
+
+        switch (Request->CmdCode) {
+        case XDPTX_AUX_CMD_READ:
+        case XDPTX_AUX_CMD_I2C_READ:
+        case XDPTX_AUX_CMD_I2C_READ_MOT:
+                /* Obtain the read data from the reply FIFO. */
+                for (Index = 0; Index < Request->NumBytes; Index++) {
+                        Request->Data[Index] = XDptx_ReadReg(
+                                                InstancePtr->TxConfig.BaseAddr,
+                                                XDPTX_AUX_REPLY_DATA);
+                }
+        default:
+                /* Not a read command. */
+                break;
+        }
+
+        return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function waits for a reply indicating that the most recent AUX request
+ * has been received by the sink device.
+ *
+ * @param       InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *              - XST_SUCCESS if a reply from the sink device was received.
+ *              - XST_ERROR_COUNT_MAX otherwise, if a timeout has occurred.
+ *
+*******************************************************************************/
+static u32 XDptx_AuxWaitReply(XDptx *InstancePtr)
+{
         u32 Timeout = 100;
+        u32 Status;
 
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertNonvoid(Request != NULL);
+
+        while (0 < Timeout) {
+                Status = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+                                                XDPTX_INTERRUPT_STATUS);
+
+                /* Check for a timeout. */
+                if (Status & XDPTX_INTERRUPT_STATUS_REPLY_TIMEOUT_MASK) {
+                        return XST_ERROR_COUNT_MAX;
+                }
+
+                /* Check for a reply. */
+                if (Status & XDPTX_INTERRUPT_STATUS_REPLY_RECEIVED_MASK) {
+                        return XST_SUCCESS;
+                }
+
+                Timeout--;
+                XDptx_WaitUs(InstancePtr, 20);
+        }
+
+        return XST_ERROR_COUNT_MAX;
+}
+
+/******************************************************************************/
+/**
+ * This function waits until another request is no longer in progress.
+ *
+ * @param       InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *              - XST_SUCCESS if the the receiver is no longer busy.
+ *              - XST_ERROR_COUNT_MAX otherwise, if a timeout has occurred.
+ *
+*******************************************************************************/
+static u32 XDptx_AuxWaitReady(XDptx *InstancePtr)
+{
+        u32 Status;
+        u32 Timeout = 100;
 
         /* Wait until the transmitter is ready. */
         do {
@@ -2259,74 +2349,7 @@ static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
         }
         while (Status & XDPTX_REPLY_STATUS_REPLY_IN_PROGRESS_MASK);
 
-        /* Set the address for the request. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_AUX_ADDRESS,
-                                                        Request->Address);
-
-        switch (Request->CmdCode) {
-        case XDPTX_AUX_CMD_WRITE:
-        case XDPTX_AUX_CMD_I2C_WRITE:
-        case XDPTX_AUX_CMD_I2C_WRITE_MOT:
-                /* Feed write data into the transmitter FIFO. */
-                for (Index = 0; Index < Request->NumBytes; Index++) {
-                        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
-                                                XDPTX_AUX_WRITE_FIFO,
-                                                Request->WriteData[Index]);
-                }
-        default:
-                break;
-        }
-
-        /* Submit the command and the data size. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_AUX_CMD,
-                                ((Request->CmdCode << XDPTX_AUX_CMD_SHIFT) |
-                                ((Request->NumBytes - 1) &
-                                        XDPTX_AUX_CMD_NBYTES_TRANSFER_MASK)));
-
         return XST_SUCCESS;
-}
-
-/******************************************************************************/
-/**
- * This function waits for a reply indicating that the most recent AUX request
- * has been received by the sink device.
- *
- * @param       InstancePtr is a pointer to the XDptx instance.
- *
- * @return
- *              - XST_SUCCESS if a reply from the sink device was received.
- *              - XST_ERROR_COUNT_MAX if a timeout has occurred.
- *              - XST_FAILURE otherwise.
- *
-*******************************************************************************/
-static u32 XDptx_AuxWaitReply(XDptx *InstancePtr)
-{
-        u32 Timeout = 100;
-        u32 StateVal;
-
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        while (0 < Timeout) {
-                StateVal = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
-                                                XDPTX_INTERRUPT_SIG_STATE);
-
-                /* Check for a reply. */
-                if (StateVal & XDPTX_REPLY_STATUS_REQUEST_IN_PROGRESS_MASK) {
-                        return XST_SUCCESS;
-                }
-
-                /* Check for a timeout. */
-                if (StateVal & XDPTX_REPLY_STATUS_REPLY_ERROR_MASK) {
-                        return XST_ERROR_COUNT_MAX;
-                }
-
-                Timeout--;
-                XDptx_WaitUs(InstancePtr, 20);
-        }
-
-        return XST_FAILURE;
 }
 
 /******************************************************************************/

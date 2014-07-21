@@ -230,9 +230,10 @@ typedef struct {
  * This typedef contains configuration information about the sink.
  */
 typedef struct {
-        u8 DpcdRxCapsField[256];        /**< The raw capabilities field
+        u8 DpcdRxCapsField[XDPTX_DPCD_RECEIVER_CAP_FIELD_SIZE];
+                                        /**< The raw capabilities field
                                                 of the sink's DPCD. */
-        u8 Edid[128];                   /**< The sink's raw EDID. */
+        u8 Edid[XDPTX_EDID_SIZE];       /**< The sink's raw EDID. */
         u8 LaneStatusAdjReqs[6];        /**< This is a raw read of the receiver
                                                 DPCD's status registers. The
                                                 first 4 bytes correspond to the
@@ -412,10 +413,10 @@ void XDptx_SetHasRedriverInPath(XDptx *InstancePtr, u8 Set);
 /* xdptx.c: AUX transaction functions. */
 u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data);
 u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data);
-u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
-                                                u8 NumBytes, u8 *DataBuffer);
 u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
-                                                u8 NumBytes, u8 *DataBuffer);
+                                                u8 NumBytes, void *Data);
+u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
+                                                u8 NumBytes, void *Data);
 
 /* xdptx.c: Functions for controlling the link configuration. */
 u32 XDptx_SetDownspread(XDptx *InstancePtr, u8 Enable);
