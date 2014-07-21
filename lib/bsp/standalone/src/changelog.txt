@@ -184,4 +184,7 @@
  *		       issue of improper linking of translation_table.s 
  * 4.2 pkp   07/04/14  added weak attribute for the function in BSP which are also present
  *		       in tool chain to avoid conflicts into some special cases
+ * 4.2 pkp   07/21/14  Corrected reset value of event counter in function 
+ *		       Xpm_ResetEventCounters in src/cortexa9/xpm_counter.c to fix CR#796275
+ *
  *****************************************************************************************/

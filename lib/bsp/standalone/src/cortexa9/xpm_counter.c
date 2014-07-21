@@ -44,6 +44,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sdm  07/11/11 First release
+* 4.2	pkp	 07/21/14 Corrected reset value of event counter in function
+*					  Xpm_ResetEventCounters to fix CR#796275
 * </pre>
 *
 ******************************************************************************/
@@ -221,7 +223,7 @@ void Xpm_ResetEventCounters(void)
 	{ register unsigned int C15Reg __asm(XREG_CP15_PERF_MONITOR_CTRL);
 	  Reg = C15Reg; }
 #endif
-	Reg |= (1 << 2); /* reset event counters */
+	Reg |= (1 << 1); /* reset event counters */
 	mtcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
 }
 
