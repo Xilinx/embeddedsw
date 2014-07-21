@@ -355,7 +355,7 @@ void Xil_DCacheInvalidateRange(unsigned int adr, unsigned len)
 			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (tempadr));
 #elif defined (__ICCARM__)
 			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (tempadr));
+			XREG_CP15_INVAL_DC_LINE_MVA_POU :: "r" (tempadr));
 #else
 			{ volatile register unsigned int Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);

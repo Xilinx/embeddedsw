@@ -115,11 +115,11 @@ DieLoop: goto DieLoop;
 /****************************************************************************/
 /**
 * The function is a common API used to initialize exception handlers across all
-* processors supported. For ARM CortexA9, the exception handlers are being 
+* processors supported. For ARM CortexA9, the exception handlers are being
 * initialized statically and hence this function does not do anything.
-* However, it is still present to avoid any compilation issues in case an 
-* application uses this API and also to take care of backward compatibility 
-* issues (in earlier versions of BSPs, this API was being used to initialize 
+* However, it is still present to avoid any compilation issues in case an
+* application uses this API and also to take care of backward compatibility
+* issues (in earlier versions of BSPs, this API was being used to initialize
 * exception handlers).
 *
 * @param	None.
@@ -203,6 +203,8 @@ void Xil_DataAbortHandler(void *CallBackRef){
 	u32 FaultStatus;
 	#ifdef __GNUC__
 		FaultStatus = mfcp(XREG_CP15_DATA_FAULT_STATUS);
+	#elif defined (__ICCARM__)
+
 	#else
 		{ volatile register unsigned int Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
 	  FaultStatus = Reg; }
@@ -228,6 +230,8 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 	u32 FaultStatus;
 	#ifdef __GNUC__
 		FaultStatus = mfcp(XREG_CP15_INST_FAULT_STATUS);
+	#elif defined (__ICCARM__)
+
 	#else
 		{ volatile register unsigned int Reg __asm(XREG_CP15_INST_FAULT_STATUS);
 	  FaultStatus = Reg; }
