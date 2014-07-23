@@ -38,6 +38,8 @@
  * These functions set up the DisplayPort TX core's main stream attributes that
  * determine how a video stream will be displayed.
  *
+ * @note        None.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -64,7 +66,7 @@ static void XDptx_SetMsaValues(XDptx *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function calculates the following main stream attributes:
+ * This function calculates the following Main Stream Attributes (MSA):
  *      - Transfer unit size
  *      - User pixel width
  *      - NVid
@@ -93,6 +95,8 @@ static void XDptx_SetMsaValues(XDptx *InstancePtr,
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
+ * @return      None.
+ *
  * @note        The MsaConfig structure is modified with the new, calculated
  *              values. The main stream attributes that were used to derive the
  *              calculated values are untouched in the MsaConfig structure.
@@ -107,16 +111,35 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr)
 
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid((LinkConfig->LinkRate == XDPTX_LINK_BW_SET_162GBPS) ||
+                        (LinkConfig->LinkRate == XDPTX_LINK_BW_SET_270GBPS) ||
+                        (LinkConfig->LinkRate == XDPTX_LINK_BW_SET_540GBPS));
+        Xil_AssertVoid((LinkConfig->LaneCount == XDPTX_LANE_COUNT_SET_1) ||
+                        (LinkConfig->LaneCount == XDPTX_LANE_COUNT_SET_2) ||
+                        (LinkConfig->LaneCount == XDPTX_LANE_COUNT_SET_4));
+        Xil_AssertVoid((LinkConfig->SynchronousClockMode == 0) ||
+                                        (LinkConfig->SynchronousClockMode == 1));
+        Xil_AssertVoid((LinkConfig->DynamicRange == 0) ||
+                                        (LinkConfig->DynamicRange == 1));
+        Xil_AssertVoid((LinkConfig->YCbCrColorimetry == 0) ||
+                                        (LinkConfig->YCbCrColorimetry == 1));
+        Xil_AssertVoid((MsaConfig->BitsPerColor == 6) ||
+                                        (MsaConfig->BitsPerColor == 8) ||
+                                        (MsaConfig->BitsPerColor == 10) ||
+                                        (MsaConfig->BitsPerColor == 12) ||
+                                        (MsaConfig->BitsPerColor == 16));
 
-        /* For SST. */
+        /* Fixed transfer unit size. */
         MsaConfig->TransferUnitSize = 64;
 
         /* Set the user pixel width to handle clocks that exceed the
          * capabilities of the DisplayPort TX core. */
-        if ((MsaConfig->MVid > 150000) && (LinkConfig->LaneCount == 4)) {
+        if ((MsaConfig->MVid > 300000) &&
+                        (LinkConfig->LaneCount == XDPTX_LANE_COUNT_SET_4)) {
                 MsaConfig->UserPixelWidth = 4;
         }
-        else if ((MsaConfig->MVid > 80000) && (LinkConfig->LaneCount == 2)) {
+        else if ((MsaConfig->MVid > 75000) &&
+                        (LinkConfig->LaneCount != XDPTX_LANE_COUNT_SET_1)) {
                 MsaConfig->UserPixelWidth = 2;
         }
         else {
@@ -124,11 +147,7 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr)
         }
 
         /* Compute the rest of the MSA values. */
-        MsaConfig->NVid = (LinkConfig->LinkRate == XDPTX_LINK_BW_SET_540GBPS) ?
-                                540000 :
-                        (LinkConfig->LinkRate == XDPTX_LINK_BW_SET_270GBPS) ?
-                                270000 :
-                        162000;
+        MsaConfig->NVid = 27 * 1000 * LinkConfig->LinkRate;
         MsaConfig->HStart = MsaConfig->HSyncPulseWidth + MsaConfig->HBackPorch;
         MsaConfig->VStart = MsaConfig->VSyncPulseWidth + MsaConfig->VBackPorch;
         MsaConfig->HClkTotal = (MsaConfig->HSyncPulseWidth +
@@ -137,32 +156,51 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr)
         MsaConfig->VClkTotal = (MsaConfig->VSyncPulseWidth +
                                 MsaConfig->VBackPorch + MsaConfig->VFrontPorch +
                                 MsaConfig->VResolution);
-        MsaConfig->Misc0 = (MsaConfig->BitsPerColor == 6) ? 0x00 :
-                                (MsaConfig->BitsPerColor == 8) ? 0x01 :
-                                (MsaConfig->BitsPerColor == 10) ? 0x02 :
-                                (MsaConfig->BitsPerColor == 12) ? 0x03 :
-                                (MsaConfig->BitsPerColor == 16) ? 0x04 :
-                                0x00;
-        MsaConfig->Misc0 = MsaConfig->Misc0 <<
-                                        XDPTX_MAIN_STREAMX_MISC0_BDC_SHIFT;
-        MsaConfig->Misc0 = MsaConfig->Misc0 | (LinkConfig->ComponentFormat <<
-                        XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT) |
-                        (LinkConfig->DynamicRange <<
-                        XDPTX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT) |
+
+        /* Miscellaneous attributes. */
+        if (MsaConfig->BitsPerColor == 6) {
+                MsaConfig->Misc0 = XDPTX_MAIN_STREAMX_MISC0_BDC_6BPC;
+        }
+        else if (MsaConfig->BitsPerColor == 8) {
+                MsaConfig->Misc0 = XDPTX_MAIN_STREAMX_MISC0_BDC_8BPC;
+        }
+        else if (MsaConfig->BitsPerColor == 10) {
+                MsaConfig->Misc0 = XDPTX_MAIN_STREAMX_MISC0_BDC_10BPC;
+        }
+        else if (MsaConfig->BitsPerColor == 12) {
+                MsaConfig->Misc0 = XDPTX_MAIN_STREAMX_MISC0_BDC_12BPC;
+        }
+        else if (MsaConfig->BitsPerColor == 16) {
+                MsaConfig->Misc0 = XDPTX_MAIN_STREAMX_MISC0_BDC_16BPC;
+        }
+        MsaConfig->Misc0 = (MsaConfig->Misc0 <<
+                        XDPTX_MAIN_STREAMX_MISC0_BDC_SHIFT) |
                         (LinkConfig->YCbCrColorimetry <<
                         XDPTX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT) |
-                        (LinkConfig->SynchronousClockMode &
-                        XDPTX_MAIN_STREAMX_MISC0_SYNC_CLK_MASK);
+                        (LinkConfig->DynamicRange <<
+                        XDPTX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT) |
+                        (LinkConfig->ComponentFormat <<
+                        XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT) |
+                        (LinkConfig->SynchronousClockMode);
         MsaConfig->Misc1 = 0;
+
         MsaConfig->DataPerLane = (MsaConfig->HResolution *
                 MsaConfig->BitsPerColor * 3 / 16) - LinkConfig->LaneCount;
 
-        /* If RGB | YCbCr444, * 3 ; If YCbCr422, * 2 ; If YOnly, * 1. */
-        BitsPerPixel = (LinkConfig->ComponentFormat == 1) ?
-                        MsaConfig->BitsPerColor * 2 :
-                        MsaConfig->BitsPerColor * 3;
-        VideoBw = (MsaConfig->MVid * BitsPerPixel) / 8;
+        /* Determine the number of bits per pixel for the specified color
+         * component format. */
+        if (LinkConfig->ComponentFormat ==
+                        XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+                /* YCbCr422 color component format. */
+                BitsPerPixel = MsaConfig->BitsPerColor * 2;
+        }
+        else {
+                /* RGB or YCbCr 4:4:4 color component format. */
+                BitsPerPixel = MsaConfig->BitsPerColor * 3;
+        }
 
+        /* Calculate the transfer unit size. */
+        VideoBw = (MsaConfig->MVid * BitsPerPixel) / 8;
         MsaConfig->AvgBytesPerTU = (VideoBw * MsaConfig->TransferUnitSize) /
                         (LinkConfig->LaneCount * (MsaConfig->NVid / 1000));
 
@@ -184,39 +222,32 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function sets the main stream attribute values in the configuration
- * structure to match one of the standard display mode timings from the
- * XDptx_DmtModes[] table. THe XDptx_VideoMode enumeration in xdptx.h lists
- * the available video modes.
+ * This function sets the Main Stream Attribute (MSA) values in the
+ * configuration structure to match one of the standard display mode timings
+ * from the XDptx_DmtModes[] standard Display Monitor Timing (DMT) table. The
+ * XDptx_VideoMode enumeration in xdptx.h lists the available video modes.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       VideoMode is one of the enumerated standard video modes that is
- *              used to determine the main stream attributes to be used.
+ *              used to determine the MSA values to be used.
  *
- * @return
- *              - XST_INVALID_PARAM if the supplied video mode isn't in the DMT
- *                table.
- *              - XST_SUCCESS otherwise.
+ * @return      None.
  *
  * @note        The InstancePtr->MsaConfig structure is modified to reflect the
- *              main stream attribute values associated to the specified video
- *              mode.
+ *              MSA values associated to the specified video mode.
  *
 *******************************************************************************/
-u32 XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr,
+void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr,
                                                 XDptx_VideoMode VideoMode)
 {
         XDptx_MainStreamAttributes *MsaConfig = &InstancePtr->MsaConfig;
 
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(MsaConfig != NULL);
+        Xil_AssertVoid(VideoMode <= XDPTX_VM_LAST);
 
-        if (VideoMode > XDPTX_VM_LAST) {
-                return XST_INVALID_PARAM;
-        }
-
-        /* Configure the main stream attribute values from the display monitor
-         * timing (DMT) table. */
+        /* Configure the MSA values from the display monitor DMT table. */
         MsaConfig->MVid = XDptx_DmtModes[VideoMode].PixelClkKhz;
         MsaConfig->HSyncPolarity = XDptx_DmtModes[VideoMode].HSyncPolarity;
         MsaConfig->VSyncPolarity = XDptx_DmtModes[VideoMode].VSyncPolarity;
@@ -231,18 +262,18 @@ u32 XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr,
 
         /* Calculate the rest of the MSA values. */
         XDptx_CfgMsaRecalculate(InstancePtr);
-
-        return XST_SUCCESS;
 }
 
 /******************************************************************************/
 /**
  * This function sets the main stream attribute values in the configuration
- * structure to match the preferred timing of the sink monitor. This preferred
- * timing information is stored in the sink's extended display identification
- * data (EDID).
+ * structure to match the preferred timing of the sink monitor. This Preferred
+ * Timing Mode (PTM) information is stored in the sink's Extended Display
+ * Identification Data (EDID).
  *
  * @param       InstancePtr is a pointer to the XDptx instance
+ *
+ * @return      None.
  *
  * @note        The InstancePtr->MsaConfig structure is modified to reflect the
  *              main stream attribute values associated to the preferred timing
@@ -256,9 +287,11 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr)
 
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(MsaConfig != NULL);
+        Xil_AssertVoid(Ptm != NULL);
 
-        /* Configure the MSA values with the preferred timing mode (PTM) as
-         * specified by the preferred detailed timing descriptor of the
+        /* Configure the MSA values with the PTM information as
+         * specified by the preferred Detailed Timing Descriptor (DTD) of the
          * monitor's EDID.
          * Note, the PTM is only required for EDID versions 1.3 a newer. Earlier
          * versions may not contain this information. */
@@ -351,6 +384,8 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr)
  * @param       Recalculate is a boolean enable that determines whether or not
  *              the main stream attributes should be recalculated.
  *
+ * @return      None.
+ *
  * @note        The InstancePtr-> MsaConfig structure is modified with the new
  *              values.
  *
@@ -362,6 +397,7 @@ void XDptx_CfgMsaUseCustom(XDptx *InstancePtr,
 
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(MsaConfig != NULL);
         Xil_AssertVoid(MsaConfigCustom != NULL);
 
         /* Copy the MSA values from the user configuration structure. */
@@ -406,38 +442,25 @@ void XDptx_CfgMsaUseCustom(XDptx *InstancePtr,
  * @param       InstancePtr is a pointer to the XDptx instance
  * @param       BitsPerColor is the new number of bits per color to use.
  *
+ * @return      None.
+ *
  * @note        The InstancePtr->MsaConfig structure is modified to reflect the
  *              new main stream attributes associated with a new bits per color
  *              value.
  *
- * @return
- *              - XST_INVALID_PARAM if the supplied bits per color value is not
- *                either 6, 8, 10, 12, or 16.
- *              - XST_SUCCESS otherwise.
- *
 *******************************************************************************/
-u32 XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 BitsPerColor)
+void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 BitsPerColor)
 {
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
-
-        switch (BitsPerColor) {
-        case 6:
-        case 8:
-        case 10:
-        case 12:
-        case 16:
-                break;
-        default:
-                return XST_INVALID_PARAM;
-        }
+        Xil_AssertVoid((BitsPerColor == 6) || (BitsPerColor == 8) ||
+                                (BitsPerColor == 10) || (BitsPerColor == 12) ||
+                                (BitsPerColor == 16));
 
         InstancePtr->MsaConfig.BitsPerColor = BitsPerColor;
 
         /* Calculate the rest of the MSA values. */
         XDptx_CfgMsaRecalculate(InstancePtr);
-
-        return XST_SUCCESS;
 }
 
 /******************************************************************************/
@@ -448,11 +471,17 @@ u32 XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 BitsPerColor)
  *
  * @param       InstancePtr is a pointer to the XDptx instance
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_SetVideoMode(XDptx *InstancePtr)
 {
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid(&InstancePtr->MsaConfig != NULL);
 
         XDptx_ClearMsaValues(InstancePtr);
         XDptx_SetMsaValues(InstancePtr, &InstancePtr->MsaConfig);
@@ -465,33 +494,34 @@ void XDptx_SetVideoMode(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 static void XDptx_ClearMsaValues(XDptx *InstancePtr)
 {
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
+        XDptx_Config *Config = &InstancePtr->Config;
 
-        XDptx_Config *TxConfig = &InstancePtr->TxConfig;
-
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HTOTAL, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VTOTAL, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_POLARITY, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HSWIDTH, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VSWIDTH, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HRES, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VRES, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HSTART, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VSTART, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_MISC0, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_MISC1, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_TU_SIZE, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_USER_PIXEL_WIDTH, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_USER_DATA_COUNT_PER_LANE, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_M_VID, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_N_VID, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MIN_BYTES_PER_TU, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_FRAC_BYTES_PER_TU, 0);
-	XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_INIT_WAIT, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HTOTAL, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VTOTAL, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_POLARITY, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HSWIDTH, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VSWIDTH, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HRES, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VRES, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HSTART, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VSTART, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_MISC0, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_MISC1, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_TU_SIZE, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_USER_PIXEL_WIDTH, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_USER_DATA_COUNT_PER_LANE, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_M_VID, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_N_VID, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_MIN_BYTES_PER_TU, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_FRAC_BYTES_PER_TU, 0);
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_INIT_WAIT, 0);
 }
 
 /******************************************************************************/
@@ -504,58 +534,58 @@ static void XDptx_ClearMsaValues(XDptx *InstancePtr)
  * @param       MsaConfig is a pointer to the main stream attributes
  *              configuration structure.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 static void XDptx_SetMsaValues(XDptx *InstancePtr,
                                         XDptx_MainStreamAttributes *MsaConfig)
 {
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(MsaConfig != NULL);
-
-        XDptx_Config *TxConfig = &InstancePtr->TxConfig;
+        XDptx_Config *Config = &InstancePtr->Config;
 
         /* Set the main stream attributes to the associated DisplayPort TX core
          * registers. */
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HTOTAL,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HTOTAL,
                 MsaConfig->HClkTotal);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VTOTAL,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VTOTAL,
                 MsaConfig->VClkTotal);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_POLARITY,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_POLARITY,
                 MsaConfig->HSyncPolarity | (MsaConfig->VSyncPolarity <<
                 XDPTX_MAIN_STREAMX_POLARITY_VSYNC_POL_SHIFT));
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HSWIDTH,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HSWIDTH,
                 MsaConfig->HSyncPulseWidth);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VSWIDTH,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VSWIDTH,
                 MsaConfig->VSyncPulseWidth);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HRES,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HRES,
                 MsaConfig->HResolution);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VRES,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VRES,
                 MsaConfig->VResolution);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_HSTART,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HSTART,
                 MsaConfig->HStart);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_VSTART,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VSTART,
                 MsaConfig->VStart);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_MISC0,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_MISC0,
                 MsaConfig->Misc0);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MAIN_STREAM_MISC1,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_MISC1,
                 MsaConfig->Misc1);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_M_VID,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_M_VID,
                 MsaConfig->MVid);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_N_VID,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_N_VID,
                 MsaConfig->NVid);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_USER_PIXEL_WIDTH,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_USER_PIXEL_WIDTH,
                 MsaConfig->UserPixelWidth);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_USER_DATA_COUNT_PER_LANE,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_USER_DATA_COUNT_PER_LANE,
                 MsaConfig->DataPerLane);
 
         /* Set the transfer unit values to the associated DisplayPort TX core
          * registers. */
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_TU_SIZE,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_TU_SIZE,
                 MsaConfig->TransferUnitSize);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_MIN_BYTES_PER_TU,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_MIN_BYTES_PER_TU,
                 MsaConfig->AvgBytesPerTU / 1000);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_FRAC_BYTES_PER_TU,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_FRAC_BYTES_PER_TU,
                 MsaConfig->AvgBytesPerTU % 1000);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_INIT_WAIT,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_INIT_WAIT,
                 MsaConfig->InitWait);
 }

@@ -36,6 +36,8 @@
  *
  * Contains display monitor timing (DMT) modes for various standard resolutions.
  *
+ * @note        None.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *

@@ -34,9 +34,11 @@
  *
  * @file xdptx.c
  *
- * Contains a minimal wset of functions for the XDptx driver that allow access
- * to all the DisplayPort transmitter's functionality. See xdptx.h for a
- * detailed description of the driver.
+ * Contains a minimal set of functions for the XDptx driver that allow access
+ * to all of the DisplayPort TX core's functionality. See xdptx.h for a detailed
+ * description of the driver.
+ *
+ * @note        None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -61,9 +63,15 @@
 
 /**************************** Constant Definitions ****************************/
 
+/**
+ * The maximum voltage swing and pre-emphasis level is 3.
+ */
 #define XDPTX_MAXIMUM_VS_LEVEL 3
 #define XDPTX_MAXIMUM_PE_LEVEL 3
 
+/**
+ * Error out if an AUX transactions exceeds these defer or timeout values.
+ */
 #define XDPTX_AUX_MAX_DEFER_COUNT 50
 #define XDPTX_AUX_MAX_TIMEOUT_COUNT 50
 
@@ -131,56 +139,56 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr);
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_SUCCESS if the DisplayPort TX core was successfully
+ * @return      - XST_SUCCESS if the DisplayPort TX core was successfully
  *                initialized.
- *              - XST_INVALID_PARAM if the supplied link rate does not
- *                correspond to either 1.62, 2.70, or 5.40 Gbps.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_InitializeTx(XDptx *InstancePtr)
 {
         u32 Status;
         u32 RegVal;
-        XDptx_Config *TxConfig = &InstancePtr->TxConfig;
+        XDptx_Config *Config = &InstancePtr->Config;
 
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
+        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
         /* Place the PHY (and GTTXRESET) into reset. */
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_PHY_CONFIG,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CONFIG,
                                         XDPTX_PHY_CONFIG_GT_ALL_RESET_MASK);
 
-        /* Disable the transmitter. */
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_ENABLE, 0);
+        /* Disable the DisplayPort TX core. */
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_ENABLE, 0);
 
         /* Set the clock divider. */
-        RegVal = (XDptx_ReadReg(TxConfig->BaseAddr, XDPTX_AUX_CLK_DIVIDER) &
+        RegVal = (XDptx_ReadReg(Config->BaseAddr, XDPTX_AUX_CLK_DIVIDER) &
                                         ~XDPTX_AUX_CLK_DIVIDER_VAL_MASK) |
-                                        (TxConfig->SAxiClkHz / 1000000);
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_AUX_CLK_DIVIDER, RegVal);
+                                        (Config->SAxiClkHz / 1000000);
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_AUX_CLK_DIVIDER, RegVal);
 
-        /* Set the transmitter's clock speed. */
-        switch (TxConfig->MaxLinkRate) {
+        /* Set the DisplayPort TX core's clock speed. */
+        switch (Config->MaxLinkRate) {
         case XDPTX_LINK_BW_SET_540GBPS:
-                XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_PHY_CLOCK_SELECT,
+                XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CLOCK_SELECT,
                                                 XDPTX_PHY_CLOCK_SELECT_540GBPS);
                 break;
         case XDPTX_LINK_BW_SET_270GBPS:
-                XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_PHY_CLOCK_SELECT,
+                XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CLOCK_SELECT,
                                                 XDPTX_PHY_CLOCK_SELECT_270GBPS);
                 break;
         case XDPTX_LINK_BW_SET_162GBPS:
-                XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_PHY_CLOCK_SELECT,
+                XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CLOCK_SELECT,
                                                 XDPTX_PHY_CLOCK_SELECT_162GBPS);
                 break;
         default:
-                return XST_INVALID_PARAM;
+                break;
         }
 
         /* Bring the PHY (and GTTXRESET) out of reset. */
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_PHY_CONFIG,
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CONFIG,
                                         XDPTX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
 
         /* Wait for the PHY to be ready. */
@@ -189,11 +197,11 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
                 return XST_FAILURE;
         }
 
-        /* Enable the transmitter. */
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_ENABLE, 1);
+        /* Enable the DisplayPort TX core. */
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_ENABLE, 1);
 
-        /* Unmask hot-plug-detect (HPD) interrupts. */
-        XDptx_WriteReg(TxConfig->BaseAddr, XDPTX_INTERRUPT_MASK,
+        /* Unmask Hot-Plug-Detect (HPD) interrupts. */
+        XDptx_WriteReg(Config->BaseAddr, XDPTX_INTERRUPT_MASK,
                                 ~XDPTX_INTERRUPT_MASK_HPD_PULSE_DETECTED_MASK &
                                 ~XDPTX_INTERRUPT_MASK_HPD_EVENT_MASK &
                                 ~XDPTX_INTERRUPT_MASK_HPD_IRQ_MASK);
@@ -204,7 +212,7 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
 /******************************************************************************/
 /**
  * This function retrieves the configuration for this DisplayPort TX instance
- * and fills in the InstancePtr->TxConfig structure.
+ * and fills in the InstancePtr->Config structure.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       ConfigPtr is a pointer to the configuration structure that will
@@ -212,6 +220,8 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
  * @param       EffectiveAddr is the device base address in the virtual memory
  *              space. If the address translation is not used, then the physical
  *              address is passed.
+ *
+ * @return      None.
  *
  * @note        Unexpected errors may occur if the address mapping is changed
  *              after this function is invoked.
@@ -227,40 +237,46 @@ void XDptx_CfgInitialize(XDptx *InstancePtr, XDptx_Config *ConfigPtr,
 
         InstancePtr->IsReady = 0;
 
-        InstancePtr->TxConfig.DeviceId = ConfigPtr->DeviceId;
-        InstancePtr->TxConfig.BaseAddr = EffectiveAddr;
-        InstancePtr->TxConfig.SAxiClkHz = ConfigPtr->SAxiClkHz;
+        InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+        InstancePtr->Config.BaseAddr = EffectiveAddr;
+        InstancePtr->Config.SAxiClkHz = ConfigPtr->SAxiClkHz;
 
-        InstancePtr->TxConfig.MaxLinkRate = ConfigPtr->MaxLinkRate;
-        InstancePtr->TxConfig.MaxLaneCount = ConfigPtr->MaxLaneCount;
+        InstancePtr->Config.MaxLinkRate = ConfigPtr->MaxLinkRate;
+        InstancePtr->Config.MaxLaneCount = ConfigPtr->MaxLaneCount;
 
         InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
 /******************************************************************************/
 /**
- * This function retrieves sink device capabilities from the receiver's DPCD.
+ * This function retrieves the RX device's capabilities from the RX device's
+ * DisplayPort Configuration Data (DPCD).
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      
- *              - XST_SUCCESS if the DPCD was read successfully.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
+ * @return      - XST_SUCCESS if the DisplayPort Configuration Data was read
+ *                successfully.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
  *
+ * @note        None.
+ *
 *******************************************************************************/
-u32 XDptx_GetSinkCapabilities(XDptx *InstancePtr)
+u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
 {
         u32 Status;
         u8 *Dpcd = InstancePtr->RxConfig.DpcdRxCapsField;
         XDptx_LinkConfig *LinkConfig = &InstancePtr->LinkConfig;
-        XDptx_Config *TxConfig = &InstancePtr->TxConfig;
+        XDptx_Config *Config = &InstancePtr->Config;
         u8 RxMaxLinkRate;
         u8 RxMaxLaneCount;
 
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertNonvoid(Dpcd != NULL);
+        Xil_AssertNonvoid(LinkConfig != NULL);
+        Xil_AssertNonvoid(Config != NULL);
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
@@ -275,10 +291,10 @@ u32 XDptx_GetSinkCapabilities(XDptx *InstancePtr)
         RxMaxLinkRate = Dpcd[XDPTX_DPCD_MAX_LINK_RATE];
         RxMaxLaneCount = Dpcd[XDPTX_DPCD_MAX_LANE_COUNT] &
                                         XDPTX_DPCD_MAX_LANE_COUNT_MASK;
-        LinkConfig->MaxLinkRate = (RxMaxLinkRate > TxConfig->MaxLinkRate) ?
-                        TxConfig->MaxLinkRate : RxMaxLinkRate;
-        LinkConfig->MaxLaneCount = (RxMaxLaneCount > TxConfig->MaxLaneCount) ?
-                                        TxConfig->MaxLaneCount : RxMaxLaneCount;
+        LinkConfig->MaxLinkRate = (RxMaxLinkRate > Config->MaxLinkRate) ?
+                        Config->MaxLinkRate : RxMaxLinkRate;
+        LinkConfig->MaxLaneCount = (RxMaxLaneCount > Config->MaxLaneCount) ?
+                                        Config->MaxLaneCount : RxMaxLaneCount;
 
         LinkConfig->SupportEnhancedFramingMode =
                                         Dpcd[XDPTX_DPCD_MAX_LANE_COUNT] &
@@ -292,14 +308,28 @@ u32 XDptx_GetSinkCapabilities(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function retrieves the receiver's EDID.
+ * This function retrieves the RX device's Extended Display Identification Data
+ * (EDID).
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return      - XST_SUCCESS if the I2C transactions to read the EDID were
+ *                successful.
+ *              - XST_ERROR_COUNT_MAX if the EDID read request timed out.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_GetEdid(XDptx *InstancePtr)
 {
         u32 Status;
+
+        /* Verify arguments. */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertNonvoid(InstancePtr->RxConfig.Edid != NULL);
 
         Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, 0, XDPTX_EDID_SIZE,
                                                 InstancePtr->RxConfig.Edid);
@@ -313,16 +343,15 @@ u32 XDptx_GetEdid(XDptx *InstancePtr)
 /******************************************************************************/
 /**
  * This function determines the common capabilities between the DisplayPort TX
- * core and the receiver.
+ * core and the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      
- *              - XST_SUCCESS if main link settings were successfully set.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_INVALID_PARAM if the specified link configuration
- *                specifies a link rate or lane count that isn't valid.
+ * @return      - XST_SUCCESS if main link settings were successfully set.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr)
@@ -333,37 +362,23 @@ u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        /* The link rate and lane count will be checked in XDptx_SetLinkRate and
+         * XDptx_SetLaneCount. */
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
         }
 
         /* Configure the main link to the maximum common link rate between the
-         * transmitter and the sink device. */
+         * DisplayPort TX core and the RX device. */
         Status = XDptx_SetLinkRate(InstancePtr, LinkConfig->MaxLinkRate);
         if (Status != XST_SUCCESS) {
                 return Status;
         }
 
         /* Configure the main link to the maximum common lane count between the
-         * transmitter and the sink device. */
+         * DisplayPort TX core and the RX device. */
         Status = XDptx_SetLaneCount(InstancePtr, LinkConfig->MaxLaneCount);
-        if (Status != XST_SUCCESS) {
-                return Status;
-        }
-
-        /* Configure enhanced frame mode for the main link if both the
-         * transmitter and sink device. */
-        Status = XDptx_SetEnhancedFrameMode(InstancePtr,
-                                        LinkConfig->SupportEnhancedFramingMode);
-        if (Status != XST_SUCCESS) {
-                return Status;
-        }
-
-        /* Configure downspreading for the main link if both the transmitter
-         * and sink device. */
-        Status = XDptx_SetDownspread(InstancePtr,
-                                        LinkConfig->SupportDownspreadControl);
         if (Status != XST_SUCCESS) {
                 return Status;
         }
@@ -373,18 +388,17 @@ u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function determines the common capabilities between the DisplayPort TX
- * core and the receiver.
+ * This function checks if the link needs training and runs the training
+ * sequence if training is required.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      
- *              - XST_SUCCESS was either already trained, or has been
+ * @return      - XST_SUCCESS was either already trained, or has been
  *                trained successfully.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_INVALID_PARAM if the current link rate or lane count
- *                isn't valid.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_EstablishLink(XDptx *InstancePtr)
@@ -394,17 +408,15 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        switch (InstancePtr->LinkConfig.LinkRate) {
-        case XDPTX_LINK_BW_SET_540GBPS:
-        case XDPTX_LINK_BW_SET_270GBPS:
-        case XDPTX_LINK_BW_SET_162GBPS:
-                /* Link rate is valid. */
-                break;
-        default:
-                return XST_INVALID_PARAM;
-        }
-        /* Lane count gets verified while checking the link status. */
+        Xil_AssertNonvoid((InstancePtr->LinkConfig.LinkRate ==
+                                                XDPTX_LINK_BW_SET_162GBPS) ||
+                        (InstancePtr->LinkConfig.LinkRate ==
+                                                XDPTX_LINK_BW_SET_270GBPS) ||
+                        (InstancePtr->LinkConfig.LinkRate ==
+                                                XDPTX_LINK_BW_SET_540GBPS));
+        /* The lane count will be checked in XDptx_CheckLinkStatus. */
+        Xil_AssertNonvoid(InstancePtr->RxConfig.LaneStatusAdjReqs != NULL);
+        Xil_AssertNonvoid(InstancePtr->RxConfig.DpcdRxCapsField != NULL);
 
         Status = XDptx_CheckLinkStatus(InstancePtr,
                                         InstancePtr->LinkConfig.LaneCount);
@@ -429,20 +441,20 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function checks if the reciever's DPCD indicates the reciever has
- * achieved and maintained clock recovery, channel equalization, symbol lock,
- * and interlane alignment for all lanes currently in use.
+ * This function checks if the reciever's DisplayPort Configuration Data (DPCD)
+ * indicates the reciever has achieved and maintained clock recovery, channel
+ * equalization, symbol lock, and interlane alignment for all lanes currently in
+ * use.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to check.
  *
- * @return
- *              - XST_SUCCESS if the receiver has maintained clock recovery,
+ * @return      - XST_SUCCESS if the RX device has maintained clock recovery,
  *                channel equalization, symbol lock, and interlane alignment.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_INVALID_PARAM if the number of lanes to check does not
-                  match 1, 2, or 4 lanes.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_CheckLinkStatus(XDptx *InstancePtr, u8 LaneCount)
@@ -454,10 +466,9 @@ u32 XDptx_CheckLinkStatus(XDptx *InstancePtr, u8 LaneCount)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        if ((LaneCount != 1) && (LaneCount != 2) && (LaneCount != 4)) {
-                return XST_INVALID_PARAM;
-        }
+        Xil_AssertNonvoid((LaneCount == XDPTX_LANE_COUNT_SET_1) ||
+                                        (LaneCount == XDPTX_LANE_COUNT_SET_2) ||
+                                        (LaneCount == XDPTX_LANE_COUNT_SET_4));
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
@@ -494,12 +505,16 @@ u32 XDptx_CheckLinkStatus(XDptx *InstancePtr, u8 LaneCount)
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       Enable controls the downshift feature in the training process.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_EnableTrainAdaptive(XDptx *InstancePtr, u8 Enable)
 {
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid((Enable == 1) || (Enable == 0));
 
         InstancePtr->TrainAdaptive = Enable;
 }
@@ -515,12 +530,16 @@ void XDptx_EnableTrainAdaptive(XDptx *InstancePtr, u8 Enable)
  * @param       Set establishes that a redriver exists in the DisplayPort output
  *              path.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_SetHasRedriverInPath(XDptx *InstancePtr, u8 Set)
 {
         /* Verify arguments. */
         Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid((Set == 1) || (Set == 0));
 
         InstancePtr->HasRedriverInPath = Set;
 }
@@ -530,18 +549,18 @@ void XDptx_SetHasRedriverInPath(XDptx *InstancePtr, u8 Set)
  * This function issues a read request over the AUX channel.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       Address is the starting address to read from the receiver.
- * @param       NumBytes is the number of bytes to read from the receiver.
+ * @param       Address is the starting address to read from the RX device.
+ * @param       NumBytes is the number of bytes to read from the RX device.
  * @param       Data is a pointer to the data buffer that will be filled with
  *              read data.
  *
- * @return
- *              - XST_SUCCESS if the AUX read request was successfully
+ * @return      - XST_SUCCESS if the AUX read request was successfully
  *                acknowledged.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_NO_DATA if no data was provided.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
@@ -560,10 +579,6 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
                 return XST_DEVICE_NOT_FOUND;
         }
 
-        if (Data == NULL) {
-                return XST_NO_DATA;
-        }
-
         /* Send AUX read transaction. */
         Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_READ, Address,
                                                         NumBytes, (u8 *)Data);
@@ -576,18 +591,18 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  * This function issues a write request over the AUX channel.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       Address is the starting address to write to the receiver.
- * @param       NumBytes is the number of bytes to write to the receiver.
+ * @param       Address is the starting address to write to the RX device.
+ * @param       NumBytes is the number of bytes to write to the RX device.
  * @param       Data is a pointer to the data buffer that contains the data
- *              to be written to the receiver.
+ *              to be written to the RX device.
  *
- * @return
- *              - XST_SUCCESS if AUX write request was successfully
+ * @return      - XST_SUCCESS if AUX write request was successfully
  *                acknowledged.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_NO_DATA if no data was provided.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
@@ -604,10 +619,6 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
-        }
-
-        if (Data == NULL) {
-                return XST_NO_DATA;
         }
 
         /* Send AUX write transaction. */
@@ -629,12 +640,13 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  * @param       Data is a pointer to a buffer that will be filled with the I2C
  *              read data.
  *
- * @return
- *              - XST_SUCCESS if the I2C read has successfully completed with no
+ * @return      - XST_SUCCESS if the I2C read has successfully completed with no
  *                errors.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
@@ -687,12 +699,13 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
  * @param       Data is a pointer to a buffer which will be used as the data
  *              source for the write.
  *
- * @return
- *              - XST_SUCCESS if the I2C write has successfully completed with
+ * @return      - XST_SUCCESS if the I2C write has successfully completed with
  *                no errors.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
@@ -736,16 +749,18 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 /******************************************************************************/
 /**
  * This function enables or disables 0.5% spreading of the clock for both the
- * DisplayPort and the sink device.
+ * DisplayPort and the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       Enable will enable or disable down-spread control.
+ * @param       Enable will downspread the main link signal if set to 1 and
+ *              disable downspreading if set to 0.
  *
- * @return
- *              - XST_SUCCESS if setting the downspread control enable was
+ * @return      - XST_SUCCESS if setting the downspread control enable was
  *                successful.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_SetDownspread(XDptx *InstancePtr, u8 Enable)
@@ -756,18 +771,19 @@ u32 XDptx_SetDownspread(XDptx *InstancePtr, u8 Enable)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertNonvoid((Enable == 1) || (Enable == 0));
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
         }
 
-        InstancePtr->LinkConfig.DownspreadControl = (Enable) ? 1 : 0;
+        InstancePtr->LinkConfig.DownspreadControl = Enable;
 
-        /* Write downspread enable to the transmitter. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_DOWNSPREAD_CTRL,
+        /* Write downspread enable to the DisplayPort TX core. */
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_DOWNSPREAD_CTRL,
                                 InstancePtr->LinkConfig.DownspreadControl);
 
-        /* Preserve the current receiver settings. */
+        /* Preserve the current RX device settings. */
         Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_DOWNSPREAD_CTRL, 1,
                                                                 &RegVal);
         if (Status != XST_SUCCESS) {
@@ -780,7 +796,7 @@ u32 XDptx_SetDownspread(XDptx *InstancePtr, u8 Enable)
                 RegVal &= ~XDPTX_DPCD_SPREAD_AMP_MASK;
         }
 
-        /* Write downspread enable to the sink device. */
+        /* Write downspread enable to the RX device. */
         Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_DOWNSPREAD_CTRL, 1,
                                                                 &RegVal);
         if (Status != XST_SUCCESS) {
@@ -793,16 +809,18 @@ u32 XDptx_SetDownspread(XDptx *InstancePtr, u8 Enable)
 /******************************************************************************/
 /**
  * This function enables or disables the enhanced framing symbol sequence for
- * both the DisplayPort TX core and the sink device.
+ * both the DisplayPort TX core and the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       Enable will enable or disable enhanced frame mode.
+ * @param       Enable will enable enhanced frame mode if set to 1 and disable
+ *              it if set to 0.
  *
- * @return
- *              - XST_SUCCESS if setting the enhanced frame mode enable was
+ * @return      - XST_SUCCESS if setting the enhanced frame mode enable was
  *                successful.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
+ *              - XST_DEVICE_NOT_FOUND if no RX is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_SetEnhancedFrameMode(XDptx *InstancePtr, u8 Enable)
@@ -813,18 +831,19 @@ u32 XDptx_SetEnhancedFrameMode(XDptx *InstancePtr, u8 Enable)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertNonvoid((Enable == 1) || (Enable == 0));
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
         }
 
-        InstancePtr->LinkConfig.EnhancedFramingMode = (Enable) ? 1 : 0;
+        InstancePtr->LinkConfig.EnhancedFramingMode = Enable;
 
-        /* Write enhanced frame mode enable to the transmitter. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_ENHANCED_FRAME_EN,
+        /* Write enhanced frame mode enable to the DisplayPort TX core. */
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_ENHANCED_FRAME_EN,
                                 InstancePtr->LinkConfig.EnhancedFramingMode);
 
-        /* Preserve the current receiver settings. */
+        /* Preserve the current RX device settings. */
         Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_LANE_COUNT_SET, 1,
                                                                 &RegVal);
         if (Status != XST_SUCCESS) {
@@ -837,7 +856,7 @@ u32 XDptx_SetEnhancedFrameMode(XDptx *InstancePtr, u8 Enable)
                 RegVal &= ~XDPTX_DPCD_ENHANCED_FRAME_EN_MASK;
         }
 
-        /* Write enhanced frame mode enable to the sink device. */
+        /* Write enhanced frame mode enable to the RX device. */
         Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_LANE_COUNT_SET, 1,
                                                                 &RegVal);
         if (Status != XST_SUCCESS) {
@@ -850,17 +869,16 @@ u32 XDptx_SetEnhancedFrameMode(XDptx *InstancePtr, u8 Enable)
 /******************************************************************************/
 /**
  * This function sets the number of lanes to be used by the main link for both
- * the DisplayPort TX core and the sink device.
+ * the DisplayPort TX core and the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to be used over the main link.
  *
- * @return
- *              - XST_SUCCESS if setting the new lane count was successful.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_INVALID_PARAM if the supplied lane count is not either 1,
- *                2, or 4 lanes.
+ * @return      - XST_SUCCESS if setting the new lane count was successful.
+ *              - XST_DEVICE_NOT_FOUND if no RX is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_SetLaneCount(XDptx *InstancePtr, u8 LaneCount)
@@ -871,10 +889,9 @@ u32 XDptx_SetLaneCount(XDptx *InstancePtr, u8 LaneCount)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        if ((LaneCount != 1) && (LaneCount != 2) && (LaneCount != 4)) {
-                return XST_INVALID_PARAM;
-        }
+        Xil_AssertNonvoid((LaneCount == XDPTX_LANE_COUNT_SET_1) ||
+                                        (LaneCount == XDPTX_LANE_COUNT_SET_2) ||
+                                        (LaneCount == XDPTX_LANE_COUNT_SET_4));
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
@@ -882,11 +899,11 @@ u32 XDptx_SetLaneCount(XDptx *InstancePtr, u8 LaneCount)
 
         InstancePtr->LinkConfig.LaneCount = LaneCount;
 
-        /* Write the new lane count to the transmitter. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_LANE_COUNT_SET,
+        /* Write the new lane count to the DisplayPort TX core. */
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_LANE_COUNT_SET,
                                         InstancePtr->LinkConfig.LaneCount);
 
-        /* Preserve the current receiver settings. */
+        /* Preserve the current RX device settings. */
         Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_LANE_COUNT_SET, 1,
                                                                 &RegVal);
         if (Status != XST_SUCCESS) {
@@ -895,7 +912,7 @@ u32 XDptx_SetLaneCount(XDptx *InstancePtr, u8 LaneCount)
         RegVal &= ~XDPTX_DPCD_LANE_COUNT_SET_MASK;
         RegVal |= InstancePtr->LinkConfig.LaneCount;
 
-        /* Write the new lane count to the sink device. */
+        /* Write the new lane count to the RX device. */
         Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_LANE_COUNT_SET, 1,
                                                                 &RegVal);
         if (Status != XST_SUCCESS) {
@@ -908,7 +925,7 @@ u32 XDptx_SetLaneCount(XDptx *InstancePtr, u8 LaneCount)
 /******************************************************************************/
 /**
  * This function sets the data rate to be used by the main link for both the
- * DisplayPort TX core and the sink device.
+ * DisplayPort TX core and the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LinkRate is the link rate to be used over the main link based on
@@ -917,12 +934,11 @@ u32 XDptx_SetLaneCount(XDptx *InstancePtr, u8 LaneCount)
  *              - XDPTX_LINK_BW_SET_270GBPS = 0x0A (for a 2.70 Gbps data rate)
  *              - XDPTX_LINK_BW_SET_540GBPS = 0x14 (for a 5.40 Gbps data rate)
  *
- * @return
- *              - XST_SUCCESS if setting the new link rate was successful.
- *              - XST_DEVICE_NOT_FOUND if no receiver is connected.
- *              - XST_INVALID_PARAM if the supplied link rate does not
- *                correspond to either 1.62, 2.70, or 5.40 Gbps.
+ * @return      - XST_SUCCESS if setting the new link rate was successful.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_SetLinkRate(XDptx *InstancePtr, u8 LinkRate)
@@ -932,12 +948,15 @@ u32 XDptx_SetLinkRate(XDptx *InstancePtr, u8 LinkRate)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertNonvoid((LinkRate == XDPTX_LINK_BW_SET_162GBPS) ||
+                                (LinkRate == XDPTX_LINK_BW_SET_270GBPS) ||
+                                (LinkRate == XDPTX_LINK_BW_SET_540GBPS));
 
         if (!XDptx_IsConnected(InstancePtr)) {
                 return XST_DEVICE_NOT_FOUND;
         }
 
-        /* Write a corresponding clock frequency to the transmitter. */
+        /* Write a corresponding clock frequency to the DisplayPort TX core. */
         switch (LinkRate) {
         case XDPTX_LINK_BW_SET_162GBPS:
                 Status = XDptx_SetClkSpeed(InstancePtr,
@@ -952,7 +971,7 @@ u32 XDptx_SetLinkRate(XDptx *InstancePtr, u8 LinkRate)
                                                 XDPTX_PHY_CLOCK_SELECT_540GBPS);
                 break;
         default:
-                return XST_INVALID_PARAM;
+                break;
         }
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
@@ -960,11 +979,11 @@ u32 XDptx_SetLinkRate(XDptx *InstancePtr, u8 LinkRate)
 
         InstancePtr->LinkConfig.LinkRate = LinkRate;
 
-        /* Write new link rate to transmitter. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_LINK_BW_SET,
+        /* Write new link rate to the DisplayPort TX core. */
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_LINK_BW_SET,
                                         InstancePtr->LinkConfig.LinkRate);
 
-        /* Write new link rate to sink device. */
+        /* Write new link rate to the RX device. */
         Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_LINK_BW_SET, 1,
                                         &InstancePtr->LinkConfig.LinkRate);
         if (Status != XST_SUCCESS) {
@@ -977,14 +996,15 @@ u32 XDptx_SetLinkRate(XDptx *InstancePtr, u8 LinkRate)
 /******************************************************************************/
 /**
  * This function enables or disables scrambling of symbols for both the
- * DisplayPort and the sink device.
+ * DisplayPort and the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       Enable will enable or disable scrambling.
  *
- * @return
- *              - XST_SUCCESS if setting the scrambling enable was successful.
+ * @return      - XST_SUCCESS if setting the scrambling enable was successful.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_SetScrambler(XDptx *InstancePtr, u8 Enable)
@@ -995,14 +1015,15 @@ u32 XDptx_SetScrambler(XDptx *InstancePtr, u8 Enable)
         /* Verify arguments. */
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertNonvoid((Enable == 1) || (Enable == 0));
 
-        InstancePtr->LinkConfig.ScramblerEn = (Enable) ? 1 : 0;
+        InstancePtr->LinkConfig.ScramblerEn = Enable;
 
-        /* Write scrambler disable to the transmitter. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_SCRAMBLING_DISABLE,
+        /* Write scrambler disable to the DisplayPort TX core. */
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SCRAMBLING_DISABLE,
                                                                 Enable ? 0 : 1);
 
-        /* Preserve the current receiver settings. */
+        /* Preserve the current RX device settings. */
         Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_TP_SET, 1, &RegVal);
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
@@ -1014,7 +1035,7 @@ u32 XDptx_SetScrambler(XDptx *InstancePtr, u8 Enable)
                 RegVal |= XDPTX_DPCD_TP_SET_SCRAMB_DIS_MASK;
         }
 
-        /* Write scrambler disable to the sink device. */
+        /* Write scrambler disable to the RX device. */
         Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_TP_SET, 1, &RegVal);
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
@@ -1029,6 +1050,10 @@ u32 XDptx_SetScrambler(XDptx *InstancePtr, u8 Enable)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_EnableMainLink(XDptx *InstancePtr)
 {
@@ -1037,11 +1062,11 @@ void XDptx_EnableMainLink(XDptx *InstancePtr)
         Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
         /* Reset the scrambler. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                                                 XDPTX_FORCE_SCRAMBLER_RESET, 1);
 
         /* Enable the main stream. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                                                 XDPTX_ENABLE_MAIN_STREAM, 1);
 }
 
@@ -1051,6 +1076,10 @@ void XDptx_EnableMainLink(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_DisableMainLink(XDptx *InstancePtr)
 {
@@ -1059,11 +1088,11 @@ void XDptx_DisableMainLink(XDptx *InstancePtr)
         Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
         /* Reset the scrambler. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                                                 XDPTX_FORCE_SCRAMBLER_RESET, 1);
 
         /* Disable the main stream. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                                                 XDPTX_ENABLE_MAIN_STREAM, 0);
 }
 
@@ -1072,7 +1101,11 @@ void XDptx_DisableMainLink(XDptx *InstancePtr)
  * This function does a PHY reset.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
- & @param       Reset is the type of reset to assert.
+ * @param       Reset is the type of reset to assert.
+ *
+ * @return      None.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset)
@@ -1081,14 +1114,14 @@ void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset)
         Xil_AssertVoid(InstancePtr != NULL);
         Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_ENABLE, 0);
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_ENABLE, 0);
 
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_PHY_CONFIG, Reset);
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_PHY_CONFIG,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_PHY_CONFIG, Reset);
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_PHY_CONFIG,
                                         XDPTX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
         XDptx_WaitPhyReady(InstancePtr);
 
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_ENABLE, 1);
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_ENABLE, 1);
 }
 
 /******************************************************************************/
@@ -1101,6 +1134,10 @@ void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset)
  * @param       CallbackRef is the user data item (microseconds to delay) that
  *              will be passed to the custom sleep/delay function when it is
  *              invoked.
+ *
+ * @return      None.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
@@ -1128,6 +1165,10 @@ void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       MicroSeconds is the number of microseconds to delay/sleep for.
+ *
+ * @return      None.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds)
@@ -1159,7 +1200,7 @@ void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds)
  * machine, with each state returning the next state. First, the clock recovery
  * sequence will be run; if successful, the channel equalization sequence will
  * run. If either the clock recovery or channel equalization sequence failed,
- * the data rate or the number of lanes used will be reduced and training will
+ * the link rate or the number of lanes used will be reduced and training will
  * be re-attempted. If training fails at the minimal data rate, 1.62 Gbps with
  * a single lane, training will no longer re-attempt and fail.
  *
@@ -1169,15 +1210,13 @@ void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds)
  *              - XST_SUCCESS if the training process succeeded.
  *              - XST_FAILURE otherwise.
  *
+ * @note        None.
+ *
 *******************************************************************************/
 static u32 XDptx_RunTraining(XDptx *InstancePtr)
 {
         u32 Status;
         XDptx_TrainingState TrainingState = XDPTX_TS_CLOCK_RECOVERY;
-
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
         /* Disable scrambler. */
         Status = XDptx_SetScrambler(InstancePtr, 0);
@@ -1203,14 +1242,15 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
                         TrainingState = XDptx_TrainingStateAdjustLaneCount(
                                                                 InstancePtr);
                         break;
-                case XDPTX_TS_FAILURE:
-                        return XST_FAILURE;
                 default:
                         break;
                 }
 
                 if (TrainingState == XDPTX_TS_SUCCESS) {
                         break;
+                }
+                else if (TrainingState == XDPTX_TS_FAILURE) {
+                        return XST_FAILURE;
                 }
 
                 if ((InstancePtr->TrainAdaptive == 0) &&
@@ -1253,25 +1293,28 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
  *         disabled.
  *      2) The clock recovery loop. If clock recovery is unsuccessful after
  *         MaxIterations loop iterations, return.
- *      2a) Wait for at least the period of time specified in the receiver's
- *          DPCD register, TRAINING_AUX_RD_INTERVAL.
+ *      2a) Wait for at least the period of time specified in the RX device's
+ *          DisplayPort Configuration Data (DPCD) register,
+ *          TRAINING_AUX_RD_INTERVAL.
  *      2b) Check if all lanes have achieved clock recovery lock. If so, return.
  *      2c) Check if the same voltage swing level has been used 5 consecutive
  *          times or if the maximum level has been reached. If so, return.
  *      2d) Adjust the voltage swing, pre-emphasis, and post-cursor levels as
- *          requested by the receiver.
+ *          requested by the RX device.
  *      2e) Loop back to 2a.
  * For a more detailed description of the clock recovery sequence, see section
  * 3.5.1.2.1 of the DisplayPort 1.2a specification document.
  * 
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XDPTX_TS_CHANNEL_EQUALIZATION if the clock recovery sequence
+ * @return      - XDPTX_TS_CHANNEL_EQUALIZATION if the clock recovery sequence
  *                completed successfully.
- *              - XDPTX_TS_FAILURE if writing the drive settings to the receiver
- *                was unsuccesful.
- *              - XDPTX_TS_ADJUST_LINK_RATE if CR is unsuccessful.
+ *              - XDPTX_TS_FAILURE if writing the drive settings to the RX
+ *                device was unsuccesful.
+ *              - XDPTX_TS_ADJUST_LINK_RATE if the clock recovery sequence
+ *                did not complete successfully.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
@@ -1282,11 +1325,8 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
         u8 SameVsLevelCount = 0;
         XDptx_LinkConfig *LinkConfig = &InstancePtr->LinkConfig;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        /* Obtain the required delay for CR as specified in the sink's DPCD. */
+        /* Obtain the required delay for clock recovery as specified by the
+         * RX device. */
         DelayUs = XDptx_GetTrainingDelay(InstancePtr, XDPTX_TS_CLOCK_RECOVERY);
 
         /* Start CRLock. */
@@ -1344,7 +1384,7 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
                         break;
                 }
 
-                /* Adjust the drive settings as requested by the sink device. */
+                /* Adjust the drive settings as requested by the RX device. */
                 Status = XDptx_AdjVswingPreemp(InstancePtr);
                 if (Status != XST_SUCCESS) {
                         /* The AUX write failed. */
@@ -1365,14 +1405,15 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
  *         scrambling disabled.
  *      2) The channel equalization loop. If channel equalization is
  *         unsuccessful after MaxIterations loop iterations, return.
- *      2a) Wait for at least the period of time specified in the receiver's
- *          DPCD register, TRAINING_AUX_RD_INTERVAL.
+ *      2a) Wait for at least the period of time specified in the RX device's
+ *          DisplayPort Configuration Data (DPCD) register,
+ *          TRAINING_AUX_RD_INTERVAL.
  *      2b) Check if all lanes have achieved channel equalization, symbol lock,
  *          and interlane alignment. If so, return.
  *      2c) Check if the same voltage swing level has been used 5 consecutive
  *          times or if the maximum level has been reached. If so, return.
  *      2d) Adjust the voltage swing, pre-emphasis, and post-cursor levels as
- *          requested by the receiver.
+ *          requested by the RX device.
  *      2e) Loop back to 2a.
  * For a more detailed description of the channel equalization sequence, see
  * section 3.5.1.2.2 of the DisplayPort 1.2a specification document.
@@ -1382,12 +1423,14 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
  *              clock recovery sequence before down-shifting to a reduced data
  *              rate or a reduced number of lanes.
  *
- * @return
- *              - XDPTX_TS_SUCCESS if training succeeded.
- *              - XDPTX_TS_FAILURE if writing the drive settings to the receiver
- *                was unsuccesful.
+ * @return      - XDPTX_TS_SUCCESS if training succeeded.
+ *              - XDPTX_TS_FAILURE if writing the drive settings to the RX
+ *                device was unsuccesful.
  *              - XDPTX_TS_ADJUST_LINK_RATE if, after MaxIterations loop
- *                iterations, clock recovery is unsuccessful.
+ *                iterations, the channel equalization sequence did not complete
+ *                successfully.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
@@ -1400,17 +1443,14 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
         u8 SameVsLevelCount = 0;
         XDptx_LinkConfig *LinkConfig = &InstancePtr->LinkConfig;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        /* Obtain the required delay for CE as specified in the sink's DPCD. */
+        /* Obtain the required delay for channel equalization as specified by
+         * the RX device. */
         DelayUs = XDptx_GetTrainingDelay(InstancePtr,
                                                 XDPTX_TS_CHANNEL_EQUALIZATION);
 
         /* Start channel equalization. */
 
-        /* Write the current drive settings to the sink device. */
+        /* Write the current drive settings to the RX device. */
         Status = XDptx_SetVswingPreemp(InstancePtr);
         if (Status != XST_SUCCESS) {
                 return XDPTX_TS_FAILURE;
@@ -1475,7 +1515,7 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
                         break;
                 }
 
-                /* Adjust the drive settings as requested by the sink device. */
+                /* Adjust the drive settings as requested by the RX device. */
                 Status = XDptx_AdjVswingPreemp(InstancePtr);
                 if (Status != XST_SUCCESS) {
                         /* The AUX write failed. */
@@ -1505,39 +1545,40 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
  *                in use. Re-attempt training at a reduced lane count.
  *              - XDPTX_TS_CLOCK_RECOVERY otherwise. Re-attempt training.
  *
+ * @note        None.
+ *
 *******************************************************************************/
 static XDptx_TrainingState XDptx_TrainingStateAdjustLinkRate(XDptx *InstancePtr)
 {
         u32 Status;
-
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
         switch (InstancePtr->LinkConfig.LinkRate) {
         case XDPTX_LINK_BW_SET_540GBPS:
                 Status = XDptx_SetLinkRate(InstancePtr,
                                                 XDPTX_LINK_BW_SET_270GBPS);
                 if (Status != XST_SUCCESS) {
-                        return XDPTX_TS_FAILURE;
+                        Status = XDPTX_TS_FAILURE;
+                        break;
                 }
-
-                return XDPTX_TS_CLOCK_RECOVERY;
+                Status = XDPTX_TS_CLOCK_RECOVERY;
+                break;
         case XDPTX_LINK_BW_SET_270GBPS:
                 Status = XDptx_SetLinkRate(InstancePtr,
                                                 XDPTX_LINK_BW_SET_162GBPS);
                 if (Status != XST_SUCCESS) {
-                        return XDPTX_TS_FAILURE;
+                        Status = XDPTX_TS_FAILURE;
+                        break;
                 }
-
-                return XDPTX_TS_CLOCK_RECOVERY;
+                Status = XDPTX_TS_CLOCK_RECOVERY;
+                break;
         default:
                 /* Already at the lowest link rate. Try reducing the lane
                  * count next. */
+                Status = XDPTX_TS_ADJUST_LANE_COUNT;
                 break;
         }
 
-        return XDPTX_TS_ADJUST_LANE_COUNT;
+        return Status;
 }
 
 /******************************************************************************/
@@ -1558,6 +1599,8 @@ static XDptx_TrainingState XDptx_TrainingStateAdjustLinkRate(XDptx *InstancePtr)
  *              - XDPTX_TS_FAILURE if only one lane is already in use.
  *              - XDPTX_TS_CLOCK_RECOVERY otherwise. Re-attempt training.
  *
+ * @note        None.
+ *
 *******************************************************************************/
 static XDptx_TrainingState XDptx_TrainingStateAdjustLaneCount(
                                                         XDptx *InstancePtr)
@@ -1565,67 +1608,67 @@ static XDptx_TrainingState XDptx_TrainingStateAdjustLaneCount(
         u32 Status;
         XDptx_LinkConfig *LinkConfig = &InstancePtr->LinkConfig;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
         switch (LinkConfig->LaneCount) {
-        case 4:
-                Status = XDptx_SetLaneCount(InstancePtr, 2);
+        case XDPTX_LANE_COUNT_SET_4:
+                Status = XDptx_SetLaneCount(InstancePtr,
+                                                        XDPTX_LANE_COUNT_SET_2);
                 if (Status != XST_SUCCESS) {
-                        return XDPTX_TS_FAILURE;
+                        Status = XDPTX_TS_FAILURE;
+                        break;
                 }
 
                 Status = XDptx_SetLinkRate(InstancePtr,
                                                 LinkConfig->MaxLinkRate);
                 if (Status != XST_SUCCESS) {
-                        return XDPTX_TS_FAILURE;
+                        Status = XDPTX_TS_FAILURE;
+                        break;
                 }
-
-                return XDPTX_TS_CLOCK_RECOVERY;
-        case 2:
-                Status = XDptx_SetLaneCount(InstancePtr, 1);
+                Status = XDPTX_TS_CLOCK_RECOVERY;
+                break;
+        case XDPTX_LANE_COUNT_SET_2:
+                Status = XDptx_SetLaneCount(InstancePtr,
+                                                        XDPTX_LANE_COUNT_SET_1);
                 if (Status != XST_SUCCESS) {
-                        return XDPTX_TS_FAILURE;
+                        Status = XDPTX_TS_FAILURE;
+                        break;
                 }
 
                 Status = XDptx_SetLinkRate(InstancePtr,
                                                 LinkConfig->MaxLinkRate);
                 if (Status != XST_SUCCESS) {
-                        return XDPTX_TS_FAILURE;
+                        Status = XDPTX_TS_FAILURE;
+                        break;
                 }
-
-                return XDPTX_TS_CLOCK_RECOVERY;
+                Status = XDPTX_TS_CLOCK_RECOVERY;
+                break;
         default:
                 /* Already at the lowest lane count. Training has failed at the
                  * lowest lane count and link rate. */
+                Status = XDPTX_TS_FAILURE;
                 break;
         }
 
-        return XDPTX_TS_FAILURE;
+        return Status;
 }
 
 /******************************************************************************/
 /**
- * This function will do a burst AUX read from the receiver over the AUX
+ * This function will do a burst AUX read from the RX device over the AUX
  * channel. The contents of the status registers will be stored for later use by
  * XDptx_CheckClockRecovery, XDptx_CheckChannelEqualization, and
  * XDptx_AdjVswingPreemp.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_SUCCESS if the AUX read was successful.
+ * @return      - XST_SUCCESS if the AUX read was successful.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_GetLaneStatusAdjReqs(XDptx *InstancePtr)
 {
         u32 Status;
-
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
         /* Read and store 4 bytes of lane status and 2 bytes of adjustment
          * requests. */
@@ -1640,18 +1683,19 @@ static u32 XDptx_GetLaneStatusAdjReqs(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function checks if the receiver's DPCD indicates that the clock recovery
- * sequence during link training was successful - the receiver's link clock and
- * data recovery unit has realized and maintained the frequency lock for all
- * lanes currently in use.
+ * This function checks if the RX device's DisplayPort Configuration Data (DPCD)
+ * indicates that the clock recovery sequence during link training was
+ * successful - the RX device's link clock and data recovery unit has realized
+ * and maintained the frequency lock for all lanes currently in use.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to check.
  *
- * @return
- *              - XST_SUCCESS if the receiver's clock recovery PLL has achieved
- *                frequency lock for all lanes in use.
+ * @return      - XST_SUCCESS if the RX device's clock recovery PLL has
+ *                achieved frequency lock for all lanes in use.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_CheckClockRecovery(XDptx *InstancePtr, u8 LaneCount)
@@ -1661,14 +1705,9 @@ static u32 XDptx_CheckClockRecovery(XDptx *InstancePtr, u8 LaneCount)
 
         u8 *LaneStatus = InstancePtr->RxConfig.LaneStatusAdjReqs;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertNonvoid(LaneStatus != NULL);
-
         /* Check that all LANEx_CR_DONE bits are set. */
         switch (LaneCount) {
-        case 4:
+        case XDPTX_LANE_COUNT_SET_4:
                 if (!(LaneStatus[1] &
                                 XDPTX_DPCD_STATUS_LANE_3_CR_DONE_MASK)) {
                         return XST_FAILURE;
@@ -1678,13 +1717,13 @@ static u32 XDptx_CheckClockRecovery(XDptx *InstancePtr, u8 LaneCount)
                         return XST_FAILURE;
                 }
                 /* Drop through and check lane 1. */
-        case 2:
+        case XDPTX_LANE_COUNT_SET_2:
                 if (!(LaneStatus[0] &
                                 XDPTX_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
                         return XST_FAILURE;
                 }
                 /* Drop through and check lane 0. */
-        case 1:
+        case XDPTX_LANE_COUNT_SET_1:
                 if (!(LaneStatus[0] &
                                 XDPTX_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
                         return XST_FAILURE;
@@ -1699,18 +1738,20 @@ static u32 XDptx_CheckClockRecovery(XDptx *InstancePtr, u8 LaneCount)
 
 /******************************************************************************/
 /**
- * This function checks if the receiver's DPCD indicates that the channel
- * equalization sequence during link training was successful - the receiver has
- * achieved channel equalization, symbol lock, and interlane alignment for all
- * lanes currently in use.
+ * This function checks if the RX device's DisplayPort Configuration Data (DPCD)
+ * indicates that the channel equalization sequence during link training was
+ * successful - the RX device has achieved channel equalization, symbol lock,
+ * and interlane alignment for all lanes currently in use.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to check.
  *
- * @return
- *              - XST_SUCCESS if the receiver has achieved channel equalization
- *                symbol lock, and interlane alignment for all lanes in use.
+ * @return      - XST_SUCCESS if the RX device has achieved channel
+ *                equalization symbol lock, and interlane alignment for all
+ *                lanes in use.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
@@ -1719,14 +1760,9 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
         u8 AuxData[6];
         u8 *LaneStatus = InstancePtr->RxConfig.LaneStatusAdjReqs;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertNonvoid(LaneStatus != NULL);
-
         /* Check that all LANEx_CHANNEL_EQ_DONE bits are set. */
         switch (LaneCount) {
-        case 4:
+        case XDPTX_LANE_COUNT_SET_4:
                 if (!(LaneStatus[1] &
                                 XDPTX_DPCD_STATUS_LANE_3_CE_DONE_MASK)) {
                         return XST_FAILURE;
@@ -1736,13 +1772,13 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
                         return XST_FAILURE;
                 }
                 /* Drop through and check lane 1. */
-        case 2:
+        case XDPTX_LANE_COUNT_SET_2:
                 if (!(LaneStatus[0] &
                                 XDPTX_DPCD_STATUS_LANE_1_CE_DONE_MASK)) {
                         return XST_FAILURE;
                 }
                 /* Drop through and check lane 0. */
-        case 1:
+        case XDPTX_LANE_COUNT_SET_1:
                 if (!(LaneStatus[0] &
                                 XDPTX_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
                         return XST_FAILURE;
@@ -1754,7 +1790,7 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
 
         /* Check that all LANEx_SYMBOL_LOCKED bits are set. */
         switch (LaneCount) {
-        case 4:
+        case XDPTX_LANE_COUNT_SET_4:
                 if (!(LaneStatus[1] &
                                 XDPTX_DPCD_STATUS_LANE_3_SL_DONE_MASK)) {
                         return XST_FAILURE;
@@ -1764,13 +1800,13 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
                         return XST_FAILURE;
                 }
                 /* Drop through and check lane 1. */
-        case 2:
+        case XDPTX_LANE_COUNT_SET_2:
                 if (!(LaneStatus[0] &
                                 XDPTX_DPCD_STATUS_LANE_1_SL_DONE_MASK)) {
                         return XST_FAILURE;
                 }
                 /* Drop through and check lane 0. */
-        case 1:
+        case XDPTX_LANE_COUNT_SET_1:
                 if (!(LaneStatus[0] &
                                 XDPTX_DPCD_STATUS_LANE_0_SL_DONE_MASK)) {
                         return XST_FAILURE;
@@ -1796,9 +1832,10 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_SUCCESS if writing the settings was successful.
+ * @return      - XST_SUCCESS if writing the settings was successful.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
@@ -1816,15 +1853,11 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
         u32 PeLevels[4] = {XDPTX_PE_LEVEL_0, XDPTX_PE_LEVEL_1,
                                         XDPTX_PE_LEVEL_2, XDPTX_PE_LEVEL_3};
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
         if (InstancePtr->HasRedriverInPath == 0) {
                 PeLevel = PeLevels[PeLevelRx];
                 VsLevel = VsLevels[VsLevelRx];
 
-                /* Need to compensate due to lack of redriver. */
+                /* Need to compensate due to no redriver in the path. */
                 if (PeLevelRx != 0) {
                         VsLevel += XDPTX_VS_LEVEL_OFFSET;
                 }
@@ -1833,13 +1866,15 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
                 /* No need to compensate since redriver does that. Can evenly
                  * disperse the voltage swing and pre-emphasis levels. */
 
-                /* Map 16 possible voltage swing levels in TX to 4 in RX. */
+                /* Map 16 possible voltage swing levels in the DisplayPort TX
+                 * core to 4 possible in the RX device. */
                 VsLevel = VsLevelRx * 4 + 2;
-                /* Map 32 possible pre-emphasis levels in TX to 4 in RX. */
+                /* Map 32 possible pre-emphasis levels in the DisplayPort TX
+                 * core to 4 possible in the RX device. */
                 PeLevel = PeLevelRx * 8 + 4;
         }
 
-        /* Set up the data buffer for writing to the sink device. */
+        /* Set up the data buffer for writing to the RX device. */
         Data = (PeLevelRx << XDPTX_DPCD_TRAINING_LANEX_SET_PE_SHIFT) |
                                                                 VsLevelRx;
         /* The maximum voltage swing has been reached. */
@@ -1854,20 +1889,20 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
 
         for (Index = 0; Index < InstancePtr->LinkConfig.LaneCount; Index++) {
                 /* Disable pre-cursor levels. */
-                XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+                XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                         XDPTX_PHY_PRECURSOR_LANE_0 + 4 * Index, 0);
 
                 /* Write new voltage swing levels to the TX registers. */
-                XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+                XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                         XDPTX_PHY_VOLTAGE_DIFF_LANE_0 + 4 * Index, VsLevel);
 
                 /* Write new pre-emphasis levels to the TX registers. */
-                XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+                XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                         XDPTX_PHY_POSTCURSOR_LANE_0 + 4 * Index, PeLevel);
         }
 
         /* Write the voltage swing and pre-emphasis levels for each lane to the
-         * sink device. */
+         * RX device. */
         Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_TRAINING_LANE0_SET,
                                 InstancePtr->LinkConfig.LaneCount, AuxData);
         if (Status != XST_SUCCESS) {
@@ -1879,15 +1914,15 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function obtains adjustment requests for voltage swing and pre-emphasis
- * levels from the receiver and sets these new settings.
+ * This function sets new voltage swing and pre-emphasis levels using the
+ * adjustment requests obtained from the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_SUCCESS if the adjustment request from the receiver and
- *                the new settings were written successfully.
+ * @return      - XST_SUCCESS if the new levels were written successfully.
  *              - XST_FAILURE otherwise (an AUX transaction failed).
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
@@ -1897,11 +1932,6 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
         u8 VsLevelAdjReq[4];
         u8 PeLevelAdjReq[4];
         u8 *AdjReqs = &InstancePtr->RxConfig.LaneStatusAdjReqs[4];
-
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(AdjReqs != NULL);
 
         /* Analyze the adjustment requests for changes in voltage swing and
          * pre-emphasis levels. */
@@ -1950,7 +1980,8 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
                                         4 - InstancePtr->LinkConfig.VsLevel;
         }
 
-        /* Make the adjustments to both the transmitter and the sink device. */
+        /* Make the adjustments to both the DisplayPort TX core and the RX
+         * device. */
         Status = XDptx_SetVswingPreemp(InstancePtr);
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
@@ -1962,7 +1993,7 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
 /******************************************************************************/
 /**
  * This function sets the training pattern to be used during link training for
- * both the DisplayPort TX core and the sink device.
+ * both the DisplayPort TX core and the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       Pattern selects the pattern to be used. One of the following:
@@ -1971,10 +2002,10 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
  *              - XDPTX_TRAINING_PATTERN_SET_TP2
  *              - XDPTX_TRAINING_PATTERN_SET_TP3
  *
- * @return
- *              - XST_SUCCESS if setting the pattern was successful.
- *              - XST_INVALID_PARAM if the supplied pattern select isn't valid.
+ * @return      - XST_SUCCESS if setting the pattern was successful.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_SetTrainingPattern(XDptx *InstancePtr, u32 Pattern)
@@ -1982,25 +2013,11 @@ static u32 XDptx_SetTrainingPattern(XDptx *InstancePtr, u32 Pattern)
         u32 Status;
         u8 RegVal;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        switch (Pattern) {
-        case XDPTX_TRAINING_PATTERN_SET_OFF:
-        case XDPTX_TRAINING_PATTERN_SET_TP1:
-        case XDPTX_TRAINING_PATTERN_SET_TP2:
-        case XDPTX_TRAINING_PATTERN_SET_TP3:
-                break;
-        default:
-                return XST_INVALID_PARAM;
-        }
-
-        /* Write to the transmitter. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+        /* Write to the DisplayPort TX core. */
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                                         XDPTX_TRAINING_PATTERN_SET, Pattern);
 
-        /* Preserve the current receiver settings. */
+        /* Preserve the current RX device settings. */
         Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_TP_SET, 1, &RegVal);
                         RegVal &= ~XDPTX_DPCD_TP_SEL_MASK;
                         RegVal |= (Pattern & XDPTX_DPCD_TP_SEL_MASK);
@@ -2008,7 +2025,7 @@ static u32 XDptx_SetTrainingPattern(XDptx *InstancePtr, u32 Pattern)
                 return XST_FAILURE;
         }
 
-        /* Write to the sink device. */
+        /* Write to the RX device. */
         Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_TP_SET, 1,
                                                                 &RegVal);
         if (Status != XST_SUCCESS) {
@@ -2020,53 +2037,82 @@ static u32 XDptx_SetTrainingPattern(XDptx *InstancePtr, u32 Pattern)
 
 /******************************************************************************/
 /**
- * This function determines what the receiver's required training delay is for
+ * This function determines what the RX device's required training delay is for
  * link training.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       TrainingState is the current training state; either clock
  *              recovery or channel equalization.
  *
- * @return      The training delay specified in the receiver's DPCD register,
+ * @return      The training delay specified in the RX device's DisplayPort
+ *              Configuration Data (DPCD) register,
  *              XDPTX_DPCD_TRAIN_AUX_RD_INTERVAL.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_GetTrainingDelay(XDptx *InstancePtr,
                                         XDptx_TrainingState TrainingState)
 {
         u8 *Dpcd = InstancePtr->RxConfig.DpcdRxCapsField;
-
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(Dpcd != NULL);
+        u16 Delay;
 
         switch (Dpcd[XDPTX_DPCD_TRAIN_AUX_RD_INTERVAL]) {
         case XDPTX_DPCD_TRAIN_AUX_RD_INT_100_400US:
                 if (TrainingState == XDPTX_TS_CLOCK_RECOVERY) {
                         /* Delay for the clock recovery phase. */
-                        return 100;
+                        Delay = 100;
                 }
                 else {
                         /* Delay for the channel equalization phase. */
-                        return 400;
+                        Delay = 400;
                 }
+                break;
         case XDPTX_DPCD_TRAIN_AUX_RD_INT_4MS:
-                return 4000;
+                Delay = 4000;
+                break;
         case XDPTX_DPCD_TRAIN_AUX_RD_INT_8MS:
-                return 8000;
+                Delay = 8000;
+                break;
         case XDPTX_DPCD_TRAIN_AUX_RD_INT_12MS:
-                return 12000;
+                Delay = 12000;
+                break;
         case XDPTX_DPCD_TRAIN_AUX_RD_INT_16MS:
-                return 16000;
+                Delay = 16000;
+                break;
         default:
+                /* Default to 20 ms. */
+                Delay = 20000;
                 break;
         }
 
-        /* A DPCD register value corresponding with an unknown delay should
-         * default to 20 ms. */
-        return 20000;
+        return Delay;
 }
 
+/******************************************************************************/
+/**
+ * This function contains the common sequence of submitting an AUX command for
+ * AUX read, AUX write, I2C-over-AUX read, and I2C-over-AUX write transactions.
+ *
+ * @param       InstancePtr is a pointer to the XDptx instance.
+ * @param       CmdType is the type of AUX command (one of: XDPTX_AUX_CMD_READ,
+ *              XDPTX_AUX_CMD_WRITE, XDPTX_AUX_CMD_I2C_READ, or
+ *              XDPTX_AUX_CMD_I2C_WRITE.
+ * @param       Address is the starting address that the AUX transaction will
+ *              read/write from/to the RX device.
+ * @param       NumBytes is the number of bytes to read/write from/to the RX
+ *              device.
+ * @param       Data is a pointer to the data buffer that contains the data
+ *              to be read/written from/to the RX device.
+ *
+ * @return      - XST_SUCCESS if the AUX transaction request was acknowledged.
+ *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
+ *              - XST_FAILURE otherwise (if the DisplayPort TX core sees a NACK
+ *                reply code or if the AUX transaction failed).
+ *
+ * @note        None.
+ *
+*******************************************************************************/
 static u32 XDptx_AuxCommon(XDptx *InstancePtr, u32 CmdType, u32 Address,
                                                         u32 NumBytes, u8 *Data)
 {
@@ -2122,9 +2168,9 @@ static u32 XDptx_AuxCommon(XDptx *InstancePtr, u32 CmdType, u32 Address,
 
 /******************************************************************************/
 /**
- * This function submits the supplied AUX request to the sink device over the
- * AUX channel. If waiting for a reply times out, or if the DisplayPort TX core
- * indicates that the request was deferred, the request is sent again(up to a
+ * This function submits the supplied AUX request to the RX device over the AUX
+ * channel. If waiting for a reply times out, or if the DisplayPort TX core
+ * indicates that the request was deferred, the request is sent again (up to a
  * maximum specified by XDPTX_AUX_MAX_DEFER_COUNT|XDPTX_AUX_MAX_TIMEOUT_COUNT).
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
@@ -2133,12 +2179,13 @@ static u32 XDptx_AuxCommon(XDptx *InstancePtr, u32 CmdType, u32 Address,
  *              AUX command, as well as a write buffer used for write commands,
  *              and a read buffer for read commands.
  *
- * @return
- *              - XST_SUCCESS if the request was acknowledged.
+ * @return      - XST_SUCCESS if the request was acknowledged.
  *              - XST_ERROR_COUNT_MAX if resending the request exceeded the
  *                maximum for deferral and timeout.
- *              - XST_FAILURE otherwise (if the transmitter sees a NACK
+ *              - XST_FAILURE otherwise (if the DisplayPort TX core sees a NACK
  *                reply code or if the AUX transaction failed).
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_AuxRequest(XDptx *InstancePtr, XDptx_AuxTransaction *Request)
@@ -2147,62 +2194,55 @@ static u32 XDptx_AuxRequest(XDptx *InstancePtr, XDptx_AuxTransaction *Request)
         u32 DeferCount = 0;
         u32 TimeoutCount = 0;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertNonvoid(Request != NULL);
-
         while ((DeferCount < XDPTX_AUX_MAX_DEFER_COUNT) &&
                                 (TimeoutCount < XDPTX_AUX_MAX_TIMEOUT_COUNT)) {
                 Status = XDptx_AuxWaitReady(InstancePtr);
                 if (Status != XST_SUCCESS) {
-                        /* The receiver isn't ready yet. */
+                        /* The RX device isn't ready yet. */
                         TimeoutCount++;
                         continue;
                 }
 
                 /* Send the request. */
                 Status = XDptx_AuxRequestSend(InstancePtr, Request);
-                switch (Status) {
-                case XST_SEND_ERROR:
+                if (Status == XST_SEND_ERROR) {
                         /* The request was deferred. */
                         DeferCount++;
-                        break;
-                case XST_ERROR_COUNT_MAX:
+                }
+                else if (Status == XST_ERROR_COUNT_MAX) {
                         /* Waiting for a reply timed out. */
                         TimeoutCount++;
-                        break;
-                case XST_FAILURE:
-                        /* The request was NACK'ed. */
-                        return XST_FAILURE;
-                default:
-                        /* The request was ACK'ed. */
-                        return XST_SUCCESS;
+                }
+                else {
+                        /* XST_FAILURE indicates that the request was NACK'ed,
+                         * XST_SUCCESS indicates that the request was ACK'ed. */
+                        return Status;
                 }
 
                 XDptx_WaitUs(InstancePtr, 100);
         }
 
-        /* The request was not successfully received by the sink device. */
+        /* The request was not successfully received by the RX device. */
         return XST_ERROR_COUNT_MAX;
 }
 
 /******************************************************************************/
 /**
- * This function submits the supplied AUX request to the sink device over the
- * AUX channel by writing the command, the destination sink address, (the write
- * buffer for write commands), and the data size to the DisplayPort TX core.
+ * This function submits the supplied AUX request to the RX device over the AUX
+ * channel by writing the command, the destination address, (the write buffer
+ * for write commands), and the data size to the DisplayPort TX core.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       Request is a pointer to an initialized XDptx_AuxTransaction
  *              structure containing the required information for issuing an AUX
  *              command. 
  *
- * @return
- *              - XST_SUCCESS if the request was acknowledged.
+ * @return      - XST_SUCCESS if the request was acknowledged.
  *              - XST_ERROR_COUNT_MAX if waiting for a reply timed out.
  *              - XST_SEND_ERROR if the request was deferred.
  *              - XST_FAILURE otherwise, if the request was NACK'ed.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
@@ -2212,31 +2252,27 @@ static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
         u8 Index;
 
         /* Set the address for the request. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_AUX_ADDRESS,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_AUX_ADDRESS,
                                                         Request->Address);
 
-        switch (Request->CmdCode) {
-        case XDPTX_AUX_CMD_WRITE:
-        case XDPTX_AUX_CMD_I2C_WRITE:
-        case XDPTX_AUX_CMD_I2C_WRITE_MOT:
-                /* Feed write data into the transmitter FIFO. */
+        if ((Request->CmdCode == XDPTX_AUX_CMD_WRITE) ||
+                        (Request->CmdCode == XDPTX_AUX_CMD_I2C_WRITE) ||
+                        (Request->CmdCode == XDPTX_AUX_CMD_I2C_WRITE_MOT)) {
+                /* Feed write data into the DisplayPort TX core's write FIFO. */
                 for (Index = 0; Index < Request->NumBytes; Index++) {
-                        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+                        XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                                                 XDPTX_AUX_WRITE_FIFO,
                                                 Request->Data[Index]);
                 }
-        default:
-                /* Not a write command. */
-                break;
         }
 
         /* Submit the command and the data size. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_AUX_CMD,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_AUX_CMD,
                                 ((Request->CmdCode << XDPTX_AUX_CMD_SHIFT) |
                                 ((Request->NumBytes - 1) &
                                 XDPTX_AUX_CMD_NBYTES_TRANSFER_MASK)));
 
-        /* Check for a receiver reply to the submitted request. */
+        /* Check for a reply from the RX device to the submitted request. */
         Status = XDptx_AuxWaitReply(InstancePtr);
         if (Status != XST_SUCCESS) {
                 /* Waiting for a reply timed out. */
@@ -2244,35 +2280,30 @@ static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
         }
 
         /* Analyze the reply. */
-        Status = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+        Status = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
                                                         XDPTX_AUX_REPLY_CODE);
-        switch (Status) {
-        case XDPTX_AUX_REPLY_CODE_DEFER:
-        case XDPTX_AUX_REPLY_CODE_I2C_DEFER:
+        if ((Status == XDPTX_AUX_REPLY_CODE_DEFER) ||
+                                (Status == XDPTX_AUX_REPLY_CODE_I2C_DEFER)) {
                 /* The request was deferred. */
                 return XST_SEND_ERROR;
-        case XDPTX_AUX_REPLY_CODE_NACK:
-        case XDPTX_AUX_REPLY_CODE_I2C_NACK:
+        }
+        else if ((Status == XDPTX_AUX_REPLY_CODE_NACK) ||
+                                (Status == XDPTX_AUX_REPLY_CODE_I2C_NACK)) {
                 /* The request was not acknowledged. */
                 return XST_FAILURE;
-        default:
-                /* The request was acknowledged. */
-                break;
         }
 
-        switch (Request->CmdCode) {
-        case XDPTX_AUX_CMD_READ:
-        case XDPTX_AUX_CMD_I2C_READ:
-        case XDPTX_AUX_CMD_I2C_READ_MOT:
+        /* The request was acknowledged. */
+
+        if ((Request->CmdCode == XDPTX_AUX_CMD_READ) ||
+                        (Request->CmdCode == XDPTX_AUX_CMD_I2C_READ) ||
+                        (Request->CmdCode == XDPTX_AUX_CMD_I2C_READ_MOT)) {
                 /* Obtain the read data from the reply FIFO. */
                 for (Index = 0; Index < Request->NumBytes; Index++) {
                         Request->Data[Index] = XDptx_ReadReg(
-                                                InstancePtr->TxConfig.BaseAddr,
+                                                InstancePtr->Config.BaseAddr,
                                                 XDPTX_AUX_REPLY_DATA);
                 }
-        default:
-                /* Not a read command. */
-                break;
         }
 
         return XST_SUCCESS;
@@ -2281,13 +2312,14 @@ static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
 /******************************************************************************/
 /**
  * This function waits for a reply indicating that the most recent AUX request
- * has been received by the sink device.
+ * has been received by the RX device.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_SUCCESS if a reply from the sink device was received.
+ * @return      - XST_SUCCESS if a reply was sent from the RX device.
  *              - XST_ERROR_COUNT_MAX otherwise, if a timeout has occurred.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_AuxWaitReply(XDptx *InstancePtr)
@@ -2295,12 +2327,8 @@ static u32 XDptx_AuxWaitReply(XDptx *InstancePtr)
         u32 Timeout = 100;
         u32 Status;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
         while (0 < Timeout) {
-                Status = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+                Status = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
                                                 XDPTX_INTERRUPT_STATUS);
 
                 /* Check for a timeout. */
@@ -2326,9 +2354,10 @@ static u32 XDptx_AuxWaitReply(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_SUCCESS if the the receiver is no longer busy.
+ * @return      - XST_SUCCESS if the the RX device is no longer busy.
  *              - XST_ERROR_COUNT_MAX otherwise, if a timeout has occurred.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_AuxWaitReady(XDptx *InstancePtr)
@@ -2336,9 +2365,9 @@ static u32 XDptx_AuxWaitReady(XDptx *InstancePtr)
         u32 Status;
         u32 Timeout = 100;
 
-        /* Wait until the transmitter is ready. */
+        /* Wait until the DisplayPort TX core is ready. */
         do {
-                Status = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+                Status = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
                                         XDPTX_INTERRUPT_SIG_STATE);
 
                 /* Protect against an infinite loop. */
@@ -2364,12 +2393,11 @@ static u32 XDptx_AuxWaitReady(XDptx *InstancePtr)
  *              - XDPTX_PHY_CLOCK_SELECT_270GBPS = 0x03
  *              - XDPTX_PHY_CLOCK_SELECT_540GBPS = 0x05
  *
- * @return
- *              - XST_SUCCESS if the reset for each lane is done after the clock
+ * @return      - XST_SUCCESS if the reset for each lane is done after the clock
  *                frequency has been set.
- *              - XST_INVALID_PARAM if the clock frequency doesn't correspond to
- *                an associated 1.62, 2.70, or 5.40 Gbps link rate.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_SetClkSpeed(XDptx *InstancePtr, u32 Speed)
@@ -2377,27 +2405,17 @@ static u32 XDptx_SetClkSpeed(XDptx *InstancePtr, u32 Speed)
         u32 Status;
         u32 RegVal;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-        if (Speed != XDPTX_PHY_CLOCK_SELECT_162GBPS &&
-                                Speed != XDPTX_PHY_CLOCK_SELECT_270GBPS &&
-                                Speed != XDPTX_PHY_CLOCK_SELECT_540GBPS) {
-                return XST_INVALID_PARAM;
-        }
-
-        /* Disable the transmitter first. */
-        RegVal = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr, XDPTX_ENABLE);
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_ENABLE, 0);
+        /* Disable the DisplayPort TX core first. */
+        RegVal = XDptx_ReadReg(InstancePtr->Config.BaseAddr, XDPTX_ENABLE);
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_ENABLE, 0);
 
         /* Change speed of the feedback clock. */
-        XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr,
+        XDptx_WriteReg(InstancePtr->Config.BaseAddr,
                                                 XDPTX_PHY_CLOCK_SELECT, Speed);
 
-        /* Re-enable the transmitter if it was previously. */
+        /* Re-enable the DisplayPort TX core if it was previously enabled. */
         if (RegVal != 0) {
-                XDptx_WriteReg(InstancePtr->TxConfig.BaseAddr, XDPTX_ENABLE, 1);
+                XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_ENABLE, 1);
         }
 
         /* Wait until the PHY is ready. */
@@ -2415,9 +2433,10 @@ static u32 XDptx_SetClkSpeed(XDptx *InstancePtr, u32 Speed)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_ERROR_COUNT_MAX if the PHY failed to be ready.
+ * @return      - XST_ERROR_COUNT_MAX if the PHY failed to be ready.
  *              - XST_SUCCESS otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 static u32 XDptx_WaitPhyReady(XDptx *InstancePtr)
@@ -2425,13 +2444,9 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr)
         u32 Timeout = 100;
         u32 PhyStatus;
 
-        /* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
         /* Wait until the PHY is ready. */
         do {
-                PhyStatus = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+                PhyStatus = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
                                         XDPTX_PHY_STATUS) &
                                         XDPTX_PHY_STATUS_ALL_LANES_READY_MASK;
 

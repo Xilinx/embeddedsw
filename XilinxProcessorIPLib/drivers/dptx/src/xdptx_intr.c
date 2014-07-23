@@ -36,6 +36,8 @@
  *
  * This file contains functions related to XDptx interrupt handling.
  *
+ * @note        None.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -62,6 +64,10 @@
  * @param       CallbackRef is the user data item that will be passed to the
  *              callback function when it is invoked.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
                         XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)
@@ -85,6 +91,10 @@ void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
  * @param       CallbackRef is the user data item that will be passed to the
  *              callback function when it is invoked.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
                         XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)
@@ -107,6 +117,10 @@ void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
  * 
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
+ * @return      None.
+ *
+ * @note        None.
+ *
 *******************************************************************************/
 void XDptx_HpdInterruptHandler(XDptx *InstancePtr)
 {
@@ -120,9 +134,9 @@ void XDptx_HpdInterruptHandler(XDptx *InstancePtr)
 
         /* Determine what kind of interrupt occurred.
          * Note: XDPTX_INTERRUPT_STATUS is an RC (read-clear) register. */
-        IntrStatus = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+        IntrStatus = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
                                                         XDPTX_INTERRUPT_STATUS);
-        IntrStatus &= ~XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+        IntrStatus &= ~XDptx_ReadReg(InstancePtr->Config.BaseAddr,
                                                         XDPTX_INTERRUPT_MASK);
 
         HpdEventDetected = IntrStatus & XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK;
@@ -136,7 +150,7 @@ void XDptx_HpdInterruptHandler(XDptx *InstancePtr)
         if (HpdPulseDetected) {
 		/* The source device must debounce the incoming HPD signal by
 		 * sampling the value at an interval greater than 250 ms. */
-                HpdDuration = XDptx_ReadReg(InstancePtr->TxConfig.BaseAddr,
+                HpdDuration = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
                                                         XDPTX_HPD_DURATION);
                 if (HpdDuration >= 250) {
                         InstancePtr->HpdPulseHandler(

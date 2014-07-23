@@ -60,7 +60,7 @@
 
 /******************************************************************************/
 /**
- * Address mapping for the DPTX core.
+ * Address mapping for the DisplayPort TX core.
  *
 *******************************************************************************/
 /** @name DPTX core registers: Link configuration field.
@@ -86,9 +86,9 @@
   * @{
   */
 #define XDPTX_ENABLE                    0x0080  /**< Enable the basic operations
-                                                        of the transmitter or
-                                                        output stuffing symbols
-                                                        if disabled. */
+                                                        of the DisplayPort TX
+                                                        core or output stuffing
+                                                        symbols if disabled. */
 #define XDPTX_ENABLE_MAIN_STREAM        0x0084  /**< Enable transmission of main
                                                         link video info. */
 #define XDPTX_ENABLE_SEC_STREAM         0x0088  /**< Enable the transmission of
@@ -143,6 +143,8 @@
 /** @name DPTX core registers: Main stream attributes for SST / MST STREAM1.
   * @{
   */
+#define XDPTX_STREAM1_MSA_START         0x0180  /**< Start of the MSA registers
+                                                        for stream 1. */
 #define XDPTX_MAIN_STREAM_HTOTAL        0x0180  /**< Total number of clocks in
                                                         the horizontal framing
                                                         period. */
@@ -279,223 +281,45 @@
                                                         CEA 861-C info frame. */
 #define XDPTX_TX_AUDIO_MAUD             0x0328  /**< M value of audio stream
                                                         as computed by the
-                                                        transmitter when audio
-                                                        clock and link clock are
-                                                        synchronous. */
+                                                        DisplayPort TX core when
+                                                        audio and link clocks
+                                                        are synchronous. */
 #define XDPTX_TX_AUDIO_NAUD             0x032C  /**< N value of audio stream
                                                         as computed by the
-                                                        transmitter when audio
-                                                        clock and link clock are
-                                                        synchronous. */
+                                                        DisplayPort TX core when
+                                                        audio and link clocks
+                                                        are synchronous. */
 #define XDPTX_TX_AUDIO_EXT_DATA         0x0330  /**< Word formatted as per
                                                         extension packet. */
 /* @} */
 
-/** @name DPTX core registers: Main stream attributes for MST STREAM2.
+/** @name DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
   */
-#define XDPTX_MAIN_STREAM2_HTOTAL       0x0500  /**< Total number of clocks in
-                                                        the horizontal framing
-                                                        period. */
-#define XDPTX_MAIN_STREAM2_VTOTAL       0x0504  /**< Total number of lines in
-                                                        the video frame. */
-#define XDPTX_MAIN_STREAM2_POLARITY     0x0508  /**< Polarity for the video sync
-                                                        signals. */
-#define XDPTX_MAIN_STREAM2_HSWIDTH      0x050C  /**< Width of the horizontal
-                                                        sync pulse. */
-#define XDPTX_MAIN_STREAM2_VSWIDTH      0x0510  /**< Width of the vertical sync
-                                                        pulse. */
-#define XDPTX_MAIN_STREAM2_HRES         0x0514  /**< Number of active pixels per
-                                                        line (the horizontal
-                                                        resolution). */
-#define XDPTX_MAIN_STREAM2_VRES         0x0518  /**< Number of active lines (the
-                                                        vertical resolution). */
-#define XDPTX_MAIN_STREAM2_HSTART       0x051C  /**< Number of clocks between
-                                                        the leading edge of the
-                                                        horizontal sync and the
-                                                        start of active data. */
-#define XDPTX_MAIN_STREAM2_VSTART       0x0520  /**< Number of lines between the
-                                                        leading edge of the
-                                                        vertical sync and the
-                                                        first line of active
-                                                        data. */
-#define XDPTX_MAIN_STREAM2_MISC0        0x0524  /**< Miscellaneous stream
-                                                        attributes. */
-#define XDPTX_MAIN_STREAM2_MISC1        0x0528  /**< Miscellaneous stream
-                                                        attributes. */
-#define XDPTX_M_VID_STREAM2             0x052C  /**< M value for the video
-                                                        stream as computed by
-                                                        the source core in
-                                                        asynchronous clock mode.
-                                                        Must be written in
-                                                        synchronous mode. */
-#define XDPTX_TU_SIZE_STREAM2           0x0530  /**< Size of a transfer unit in
-                                                        the framing logic. */
-#define XDPTX_N_VID_STREAM2             0x0534  /**< N value for the video
-                                                        stream as computed by
-                                                        the source core in
-                                                        asynchronous clock mode.
-                                                        Must be written in
-                                                        synchronous mode. */
-#define XDPTX_USER_PIXEL_WIDTH_STREAM2  0x0538  /**< Selects the width of the
-                                                        user data input port. */
-#define XDPTX_USER_DATA_COUNT_PER_LANE_STREAM2 \
-                                        0x053C  /**< Used to translate the
-                                                        number of pixels per
-                                                        line to the native
-                                                        internal 16-bit
-                                                        datapath. */
-#define XDPTX_MAIN_STREAM2_INTERLACED   0x0540  /**< Video is interlaced. */
-#define XDPTX_MIN_BYTES_PER_TU_STREAM2  0x0544  /**< The minimum number of bytes
-                                                        per transfer unit. */
-#define XDPTX_FRAC_BYTES_PER_TU_STREAM2 0x0548  /**< The fractional component
-                                                        when calculated the
-                                                        XDPTX_MIN_BYTES_PER_TU
-                                                        register value. */
-#define XDPTX_INIT_WAIT_STREAM2         0x054C  /**< Number of initial wait
-                                                        cycles at the start of a
-                                                        new line by the framing
-                                                        logic, allowing enough
-                                                        data to be buffered in
-                                                        the input FIFO. */
-/* @} */
-
-/** @name DPTX core registers: Main stream attributes for MST STREAM3.
-  * @{
-  */
-#define XDPTX_MAIN_STREAM3_HTOTAL       0x0550  /**< Total number of clocks in
-                                                        the horizontal framing
-                                                        period. */
-#define XDPTX_MAIN_STREAM3_VTOTAL       0x0554  /**< Total number of lines in
-                                                        the video frame. */
-#define XDPTX_MAIN_STREAM3_POLARITY     0x0558  /**< Polarity for the video sync
-                                                        signals. */
-#define XDPTX_MAIN_STREAM3_HSWIDTH      0x055C  /**< Width of the horizontal
-                                                        sync pulse. */
-#define XDPTX_MAIN_STREAM3_VSWIDTH      0x0560  /**< Width of the vertical sync
-                                                        pulse. */
-#define XDPTX_MAIN_STREAM3_HRES         0x0564  /**< Number of active pixels per
-                                                        line (the horizontal
-                                                        resolution). */
-#define XDPTX_MAIN_STREAM3_VRES         0x0568  /**< Number of active lines (the
-                                                        vertical resolution). */
-#define XDPTX_MAIN_STREAM3_HSTART       0x056C  /**< Number of clocks between
-                                                        the leading edge of the
-                                                        horizontal sync and the
-                                                        start of active data. */
-#define XDPTX_MAIN_STREAM3_VSTART       0x0570  /**< Number of lines between the
-                                                        leading edge of the
-                                                        vertical sync and the
-                                                        first line of active
-                                                        data. */
-#define XDPTX_MAIN_STREAM3_MISC0        0x0574  /**< Miscellaneous stream
-                                                        attributes. */
-#define XDPTX_MAIN_STREAM3_MISC1        0x0578  /**< Miscellaneous stream
-                                                        attributes. */
-#define XDPTX_M_VID_STREAM3             0x057C  /**< M value for the video
-                                                        stream as computed by
-                                                        the source core in
-                                                        asynchronous clock mode.
-                                                        Must be written in
-                                                        synchronous mode. */
-#define XDPTX_TU_SIZE_STREAM3           0x0580  /**< Size of a transfer unit in
-                                                        the framing logic. */
-#define XDPTX_N_VID_STREAM3             0x0584  /**< N value for the video
-                                                        stream as computed by
-                                                        the source core in
-                                                        asynchronous clock mode.
-                                                        Must be written in
-                                                        synchronous mode. */
-#define XDPTX_USER_PIXEL_WIDTH_STREAM3  0x0588  /**< Selects the width of the
-                                                        user data input port. */
-#define XDPTX_USER_DATA_COUNT_PER_LANE_STREAM3 \
-                                        0x058C  /**< Used to translate the
-                                                        number of pixels per
-                                                        line to the native
-                                                        internal 16-bit
-                                                        datapath. */
-#define XDPTX_MAIN_STREAM3_INTERLACED   0x0590  /**< Video is interlaced. */
-#define XDPTX_MIN_BYTES_PER_TU_STREAM3  0x0594  /**< The minimum number of bytes
-                                                        per transfer unit. */
-#define XDPTX_FRAC_BYTES_PER_TU_STREAM3 0x0598  /**< The fractional component
-                                                        when calculated the
-                                                        XDPTX_MIN_BYTES_PER_TU
-                                                        register value. */
-#define XDPTX_INIT_WAIT_STREAM3         0x059C  /**< Number of initial wait
-                                                        cycles at the start of a
-                                                        new line by the framing
-                                                        logic, allowing enough
-                                                        data to be buffered in
-                                                        the input FIFO. */
-/* @} */
-
-/** @name DPTX core registers: Main stream attributes for MST STREAM4.
-  * @{
-  */
-#define XDPTX_MAIN_STREAM4_HTOTAL       0x05A0  /**< Total number of clocks in
-                                                        the horizontal framing
-                                                        period. */
-#define XDPTX_MAIN_STREAM4_VTOTAL       0x05A4  /**< Total number of lines in
-                                                        the video frame. */
-#define XDPTX_MAIN_STREAM4_POLARITY     0x05A8  /**< Polarity for the video sync
-                                                        signals. */
-#define XDPTX_MAIN_STREAM4_HSWIDTH      0x05AC  /**< Width of the horizontal
-                                                        sync pulse. */
-#define XDPTX_MAIN_STREAM4_VSWIDTH      0x05B0  /**< Width of the vertical sync
-                                                        pulse. */
-#define XDPTX_MAIN_STREAM4_HRES         0x05B4  /**< Number of active pixels per
-                                                        line (the horizontal
-                                                        resolution). */
-#define XDPTX_MAIN_STREAM4_VRES         0x05B8  /**< Number of active lines (the
-                                                        vertical resolution). */
-#define XDPTX_MAIN_STREAM4_HSTART       0x05BC  /**< Number of clocks between
-                                                        the leading edge of the
-                                                        horizontal sync and the
-                                                        start of active data. */
-#define XDPTX_MAIN_STREAM4_VSTART       0x05C0  /**< Number of lines between the
-                                                        leading edge of the
-                                                        vertical sync and the
-                                                        first line of active
-                                                        data. */
-#define XDPTX_MAIN_STREAM4_MISC0        0x05C4  /**< Miscellaneous stream
-                                                        attributes. */
-#define XDPTX_MAIN_STREAM4_MISC1        0x05C8  /**< Miscellaneous stream
-                                                        attributes. */
-#define XDPTX_M_VID_STREAM4             0x05CC  /**< M value for the video
-                                                        stream as computed by
-                                                        the source core in
-                                                        asynchronous clock mode.
-                                                        Must be written in
-                                                        synchronous mode. */
-#define XDPTX_TU_SIZE_STREAM4           0x05D0  /**< Size of a transfer unit in
-                                                        the framing logic. */
-#define XDPTX_N_VID_STREAM4             0x05D4  /**< N value for the video
-                                                        stream as computed by
-                                                        the source core in
-                                                        asynchronous clock mode.
-                                                        Must be written in
-                                                        synchronous mode. */
-#define XDPTX_USER_PIXEL_WIDTH_STREAM4  0x05D8  /**< Selects the width of the
-                                                        user data input port. */
-#define XDPTX_USER_DATA_COUNT_PER_LANE_STREAM4 \
-                                        0x05DC  /**< Used to translate the
-                                                        number of pixels per
-                                                        line to the native
-                                                        internal 16-bit
-                                                        datapath. */
-#define XDPTX_MAIN_STREAM4_INTERLACED   0x05E0  /**< Video is interlaced. */
-#define XDPTX_MIN_BYTES_PER_TU_STREAM4  0x05E4  /**< The minimum number of bytes
-                                                        per transfer unit. */
-#define XDPTX_FRAC_BYTES_PER_TU_STREAM4 0x05E8  /**< The fractional component
-                                                        when calculated the
-                                                        XDPTX_MIN_BYTES_PER_TU
-                                                        register value. */
-#define XDPTX_INIT_WAIT_STREAM4         0x05EC  /**< Number of initial wait
-                                                        cycles at the start of a
-                                                        new line by the framing
-                                                        logic, allowing enough
-                                                        data to be buffered in
-                                                        the input FIFO. */
+#define XDPTX_STREAM2_MSA_START         0x0500  /**< Start of the MSA registers
+                                                        for stream 2. */
+#define XDPTX_STREAM2_MSA_START_OFFSET  (XDPTX_STREAM2_MSA_START - \
+                XDPTX_STREAM1_MSA_START)        /**< The MSA registers for
+                                                        stream 2 are at an
+                                                        offset from the
+                                                        corresponding registers
+                                                        of stream 1. */
+#define XDPTX_STREAM3_MSA_START         0x0550  /**< Start of the MSA registers
+                                                        for stream 3. */
+#define XDPTX_STREAM3_MSA_START_OFFSET  (XDPTX_STREAM3_MSA_START - \
+                XDPTX_STREAM1_MSA_START)        /**< The MSA registers for
+                                                        stream 2 are at an
+                                                        offset from the
+                                                        corresponding registers
+                                                        of stream 1. */
+#define XDPTX_STREAM4_MSA_START         0x05A0  /**< Start of the MSA registers
+                                                        for stream 4. */
+#define XDPTX_STREAM4_MSA_START_OFFSET  (XDPTX_STREAM4_MSA_START - \
+                XDPTX_STREAM1_MSA_START)        /**< The MSA registers for
+                                                        stream 2 are at an
+                                                        offset from the
+                                                        corresponding registers
+                                                        of stream 1. */
 /* @} */
 
 #define XDPTX_VC_PAYLOAD_BUFFER_ADDR    0x0800  /**< Virtual channel payload
@@ -510,6 +334,10 @@
 #define XDPTX_LINK_BW_SET_162GBPS       0x06    /**< 1.62 Gbps link rate. */
 #define XDPTX_LINK_BW_SET_270GBPS       0x0A    /**< 2.70 Gbps link rate. */
 #define XDPTX_LINK_BW_SET_540GBPS       0x14    /**< 5.40 Gbps link rate. */
+/* 0x001: LANE_COUNT_SET */
+#define XDPTX_LANE_COUNT_SET_1          0x01    /**< Lane count of 1. */
+#define XDPTX_LANE_COUNT_SET_2          0x02    /**< Lane count of 2. */
+#define XDPTX_LANE_COUNT_SET_4          0x04    /**< Lane count of 4. */
 /* 0x00C: TRAINING_PATTERN_SET */
 #define XDPTX_TRAINING_PATTERN_SET_OFF  0x0     /**< Training off. */
 #define XDPTX_TRAINING_PATTERN_SET_TP1  0x1     /**< Training pattern 1 used for
@@ -722,7 +550,7 @@
                                 4               /**< Shift bits for the internal
                                                         AUX reply state machine
                                                         status. */
-/* 0x188, 0x508, 0x558, 0x5A8: MAIN_STREAM[0-4]_POLARITY */
+/* 0x188, 0x508, 0x558, 0x5A8: MAIN_STREAM[1-4]_POLARITY */
 #define XDPTX_MAIN_STREAMX_POLARITY_HSYNC_POL_MASK \
                                 0x00000001      /**< Polarity of the horizontal
                                                         sync pulse. */
@@ -733,7 +561,7 @@
                                 1               /**< Shift bits for polarity of
                                                         the vertical sync
                                                         pulse. */
-/* 0x1A4, 0x524, 0x578, 0x5C8: MAIN_STREAM[0-4]_MISC0 */
+/* 0x1A4, 0x524, 0x574, 0x5C4: MAIN_STREAM[1-4]_MISC0 */
 #define XDPTX_MAIN_STREAMX_MISC0_SYNC_CLK_MASK \
                                 0x00000001      /**< Synchronous clock. */
 #define XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK \
@@ -741,6 +569,15 @@
 #define XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT \
                                 1               /**< Shift bits for component
                                                         format. */
+#define XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB \
+                                0x0             /**< Stream's component format
+                                                        is RGB. */
+#define XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 \
+                                0x1             /**< Stream's component format
+                                                        is YcbCr 4:2:2. */
+#define XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
+                                0x2             /**< Stream's component format
+                                                        is YcbCr 4:4:4. */
 #define XDPTX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK \
                                 0x00000008      /**< Dynamic range. */
 #define XDPTX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT \
@@ -756,7 +593,17 @@
                                                         component (BDC). */
 #define XDPTX_MAIN_STREAMX_MISC0_BDC_SHIFT \
                                 5               /**< Shift bits for BDC.*/
-/* 0x1A8, 0x528, 0x5C8: MAIN_STREAM[0-4]_MISC1 */
+#define XDPTX_MAIN_STREAMX_MISC0_BDC_6BPC \
+                                0x0             /**< 6 bits per component.*/
+#define XDPTX_MAIN_STREAMX_MISC0_BDC_8BPC \
+                                0x1             /**< 8 bits per component.*/
+#define XDPTX_MAIN_STREAMX_MISC0_BDC_10BPC \
+                                0x2             /**< 10 bits per component.*/
+#define XDPTX_MAIN_STREAMX_MISC0_BDC_12BPC \
+                                0x3             /**< 12 bits per component.*/
+#define XDPTX_MAIN_STREAMX_MISC0_BDC_16BPC \
+                                0x4             /**< 16 bits per component.*/
+/* 0x1A8, 0x528, 0x578, 0x5C8: MAIN_STREAM[1-4]_MISC1 */
 #define XDPTX_MAIN_STREAMX_MISC1_INTERLACED_VTOTAL_GIVEN_MASK \
                                 0x00000001      /**< Interlaced vertical total
                                                         even. */
@@ -877,11 +724,12 @@
 
 /******************************************************************************/
 /**
- * Address mapping for the DPCD of the downstream device.
+ * Address mapping for the DisplayPort Configuration Data (DPCD) of the
+ * downstream device.
  *
 *******************************************************************************/
-/** @name DPCD: Receiver capability field.
-  *
+/** @name DisplayPort Configuration Data: Receiver capability field.
+  * @{
   */
 #define XDPTX_DPCD_REV                                  0x00000
 #define XDPTX_DPCD_MAX_LINK_RATE                        0x00001
@@ -930,8 +778,8 @@
 #define XDPTX_DPCD_DOWNSP_3_DET_CAP                     0x0008C
 /* @} */
 
-/** @name DPCD: Link configuration field.
-  *
+/** @name DisplayPort Configuration Data: Link configuration field.
+  * @{
   */
 #define XDPTX_DPCD_LINK_BW_SET                          0x00100
 #define XDPTX_DPCD_LANE_COUNT_SET                       0x00101
@@ -973,8 +821,8 @@
 #define XDPTX_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT     0x001C2
 /* @} */
 
-/** @name DPCD: Link/sink status field.
-  *
+/** @name DisplayPort Configuration Data: Link/sink status field.
+  * @{
   */
 #define XDPTX_DPCD_SINK_COUNT                           0x00200
 #define XDPTX_DPCD_DEVICE_SERVICE_IRQ                   0x00201
@@ -996,7 +844,7 @@
 #define XDPTX_DPCD_SYMBOL_ERROR_COUNT_LANE_3            0x00216
 /* @} */
 
-/** @name DPCD: Automated testing sub-field.
+/** @name DisplayPort Configuration Data: Automated testing sub-field.
   * @{
   */
 #define XDPTX_DPCD_FAUX_FORWARD_CH_STATUS               0x00280
@@ -1007,13 +855,13 @@
                         (XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS + SlotNum)
 /* @} */
 
-/** @name DPCD: Sink control field.
+/** @name DisplayPort Configuration Data: Sink control field.
   * @{
   */
 #define XDPTX_DPCD_SET_POWER_DP_PWR_VOLTAGE             0x00600
 /* @} */
 
-/** @name DPCD: Sideband MSG buffers.
+/** @name DisplayPort Configuration Data: Sideband message buffers.
   * @{
   */
 #define XDPTX_DPCD_DOWN_REQ                             0x01000
@@ -1022,7 +870,7 @@
 #define XDPTX_DPCD_UP_REQ                               0x01600
 /* @} */
 
-/** @name DPCD: Event status indicator field.
+/** @name DisplayPort Configuration Data: Event status indicator field.
   * @{
   */
 #define XDPTX_DPCD_SINK_COUNT_ESI                       0x02002
@@ -1035,7 +883,7 @@
 #define XDPTX_DPCD_SINK_STATUS_ESI                      0x0200F
 /* @} */
 
-/** @name DPCD: Field addresses and sizes.
+/** @name DisplayPort Configuration Data: Field addresses and sizes.
   * @{
   */
 #define XDPTX_DPCD_RECEIVER_CAP_FIELD_START             XDPTX_DPCD_REV
@@ -1048,8 +896,9 @@
 
 /******************************************************************************/
 
-/** @name DPCD: Receiver capability field masks, shifts, and register values.
-  *
+/** @name DisplayPort Configuration Data: Receiver capability field masks,
+  *       shifts, and register values.
+  * @{
   */
 /* 0x00000: DPCD_REV */
 #define XDPTX_DPCD_REV_MNR_MASK                                 0x0F
@@ -1061,6 +910,9 @@
 #define XDPTX_DPCD_MAX_LINK_RATE_540GBPS                        0x14
 /* 0x00002: MAX_LANE_COUNT */
 #define XDPTX_DPCD_MAX_LANE_COUNT_MASK                          0x1F
+#define XDPTX_DPCD_MAX_LANE_COUNT_1                             0x01
+#define XDPTX_DPCD_MAX_LANE_COUNT_2                             0x02
+#define XDPTX_DPCD_MAX_LANE_COUNT_4                             0x04
 #define XDPTX_DPCD_TPS3_SUPPORT_MASK                            0x40
 #define XDPTX_DPCD_ENHANCED_FRAME_SUPPORT_MASK                  0x80
 /* 0x00003: MAX_DOWNSPREAD */
@@ -1132,8 +984,9 @@
 #define XDPTX_DPCD_DOWNSP_X_DCAP_DVI_HCD_MASK                   0x04
 /* @} */
 
-/** @name DPCD: Link configuration field masks, shifts, and register values.
-  *
+/** @name DisplayPort Configuration Data: Link configuration field masks,
+  *       shifts, and register values.
+  * @{
   */
 /* 0x00100: XDPTX_DPCD_LINK_BW_SET */
 #define XDPTX_DPCD_LINK_BW_SET_162GBPS                          0x06
@@ -1141,6 +994,9 @@
 #define XDPTX_DPCD_LINK_BW_SET_540GBPS                          0x14
 /* 0x00101: LANE_COUNT_SET */
 #define XDPTX_DPCD_LANE_COUNT_SET_MASK                          0x1F
+#define XDPTX_DPCD_LANE_COUNT_SET_1                             0x01
+#define XDPTX_DPCD_LANE_COUNT_SET_2                             0x02
+#define XDPTX_DPCD_LANE_COUNT_SET_4                             0x04
 #define XDPTX_DPCD_ENHANCED_FRAME_EN_MASK                       0x80
 /* 0x00102: TP_SET */
 #define XDPTX_DPCD_TP_SEL_MASK                                  0x03
@@ -1184,8 +1040,9 @@
 #define XDPTX_DPCD_UP_IS_SRC_MASK                               0x03
 /* @} */
 
-/** @name DPCD: Link/sink status field masks, shifts, and register values.
-  *
+/** @name DisplayPort Configuration Data: Link/sink status field masks, shifts,
+  *       and register values.
+  * @{
   */
 /* 0x00202: STATUS_LANE_0_1 */
 #define XDPTX_DPCD_STATUS_LANE_0_CR_DONE_MASK                   0x01
@@ -1234,10 +1091,11 @@
 
 /******************************************************************************/
 /**
- * Address mapping for the EDID of the downstream device.
+ * Address mapping for the Extended Display Identification Data (EDID) of the
+ * downstream device.
  *
 *******************************************************************************/
-/** @name EDID: Field addresses and sizes.
+/** @name Extended Display Identification Data: Field addresses and sizes.
   * @{
   */
 #define XDPTX_EDID_ADDR                                 0x50
@@ -1246,7 +1104,8 @@
 #define XDPTX_EDID_PTM                                  XDPTX_EDID_DTD_DD(0)
 /* @} */
 
-/** @name EDID: Register offsets for the DTD (detailed timing descriptor).
+/** @name Extended Display Identification Data: Register offsets for the
+  *       Detailed Timing Descriptor (DTD).
   * @{
   */
 #define XDPTX_EDID_DTD_PIXEL_CLK_KHZ_LSB                0x00
@@ -1268,7 +1127,8 @@
 #define XDPTX_EDID_DTD_VBORDER                          0x10
 #define XDPTX_EDID_DTD_SIGNAL                           0x11
 
-/** @name EDID: Masks, shifts, and register values.
+/** @name Extended Display Identification Data: Masks, shifts, and register
+  *       values.
   * @{
   */
 #define XDPTX_EDID_DTD_XRES_XBLANK_U4_XBLANK_MASK       0x0F
@@ -1325,6 +1185,8 @@
  * @param       BaseAddress is the base address of the device.
  * @param       RegOffset is the register offset to write to.
  * @param       Data is the 32-bit data to write to the specified register.
+ *
+ * @return      None.
  *
  * @note        C-style signature:
  *              void XDptx_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)

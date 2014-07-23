@@ -56,13 +56,9 @@
 #include "xparameters.h"
 #include "xstatus.h"
 
-/**************************** Constant Definitions ****************************/
-
-#define DPTX_DEVICE_ID XPAR_DISPLAYPORT_0_DEVICE_ID
-
 /**************************** Function Prototypes *****************************/
 
-static u32 Dptx_SelfTestExample(u16 DeviceId);
+u32 Dptx_SelfTestExample(u16 DeviceId);
 
 /**************************** Function Definitions ****************************/
 
@@ -79,7 +75,7 @@ int main(void)
         return Status;
 }
 
-static u32 Dptx_SelfTestExample(u16 DeviceId)
+u32 Dptx_SelfTestExample(u16 DeviceId)
 {
         u32 Status;
 
@@ -88,16 +84,8 @@ static u32 Dptx_SelfTestExample(u16 DeviceId)
                 return XST_FAILURE;
         }
 
-#if defined(TRAIN_ADAPTIVE)
-        XDptx_EnableTrainAdaptive(&DptxInstance, 1);
-#else
-        XDptx_EnableTrainAdaptive(&DptxInstance, 0);
-#endif
-#if defined(TRAIN_HAS_REDRIVER)
-        XDptx_SetHasRedriverInPath(&DptxInstance, 1);
-#else
-        XDptx_SetHasRedriverInPath(&DptxInstance, 0);
-#endif
+        XDptx_EnableTrainAdaptive(&DptxInstance, TRAIN_ADAPTIVE);
+        XDptx_SetHasRedriverInPath(&DptxInstance, TRAIN_HAS_REDRIVER);
 
         /* Run the self test. */
         Status = XDptx_SelfTest(&DptxInstance);

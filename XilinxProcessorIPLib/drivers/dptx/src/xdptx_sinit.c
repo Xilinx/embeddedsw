@@ -36,6 +36,8 @@
  *
  * This file contains static initialization methods for the XDptx driver.
  *
+ * @note        None.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -71,6 +73,8 @@ extern XDptx_Config XDptx_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
  *
  * @return      A pointer to the configuration table entry corresponding to the
  *              given device ID, or NULL if no match is found.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 XDptx_Config *XDptx_LookupConfig(u16 DeviceId)

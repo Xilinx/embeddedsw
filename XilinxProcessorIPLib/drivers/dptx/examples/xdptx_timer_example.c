@@ -40,13 +40,14 @@
  * the user may override the default MicroBlaze sleep with a function that will
  * use the hardware timer.
  *
+ * @note        This example requires an AXI timer in the system.
  * @note        For this example to display output, the user will need to
  *              implement initialization of the system (Dptx_PlatformInit) and,
  *              after training is complete, implement configuration of the video
  *              stream source in order to provide the DisplayPort core with
- *              input (Dptx_ConfigureVidgen - called in xdptx_example_common.c).
- *              See XAPP1178 for reference.
- * @note        The functions Dptx_PlatformInit and Dptx_ConfigureVidgen are
+ *              input (Dptx_ConfigureStreamSrc - called in
+ *              xdptx_example_common.c). See XAPP1178 for reference.
+ * @note        The functions Dptx_PlatformInit and Dptx_ConfigureStreamSrc are
  *              declared extern in xdptx_example_common.h and are left up to the
  *              user to implement.
  *
@@ -64,25 +65,71 @@
 
 #include "xdptx.h"
 #include "xdptx_example_common.h"
+#include "xil_printf.h"
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xtmrctr.h"
 
-/**************************** Constant Definitions ****************************/
-
-#define DPTX_DEVICE_ID XPAR_DISPLAYPORT_0_DEVICE_ID
-
 /**************************** Function Prototypes *****************************/
 
+u32 Dptx_TimerExample(XDptx *InstancePtr, u16 DeviceId,
+                XTmrCtr *TimerCounterPtr, XDptx_TimerHandler UserSleepFunc);
 static void Dptx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 
 /*************************** Variable Declarations ****************************/
 
-XTmrCtr TimerCounterInst;
+XTmrCtr TimerCounterInst;       /* The timer counter instance. */
 
 /**************************** Function Definitions ****************************/
 
+/******************************************************************************/
+/**
+ * This function is the main function of the XDptx timer example.
+ *
+ * @param       None.
+ *
+ * @return      - XST_SUCCESS if the timer example finished successfully.
+ *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
 int main(void)
+{
+        int Status;
+
+        /* Run the XDptx timer example. */
+        Status = Dptx_TimerExample(&DptxInstance, DPTX_DEVICE_ID,
+                                &TimerCounterInst, &Dptx_CustomWaitUs);
+        if (Status != XST_SUCCESS) {
+                return XST_FAILURE;
+        }
+
+        return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * The main entry point for the timer example using the XDptx driver. This
+ * function will set up the system and the custom sleep handler. If this is
+ * successful, link training will commence and a video stream will start being
+ * sent over the main link.
+ *
+ * @param       InstancePtr is a pointer to the XDptx instance.
+ * @param       DeviceId is the unique device ID of the DisplayPort TX core
+ *              instance.
+ * @param       TimerCounterPtr is a pointer to the timer instance.
+ * @param       UserSleepFunc is a pointer to the custom handler for sleep.
+ *
+ * @return      - XST_SUCCESS if the system was set up correctly and link
+ *                training was successful.
+ *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+u32 Dptx_TimerExample(XDptx *InstancePtr, u16 DeviceId,
+                XTmrCtr *TimerCounterPtr, XDptx_TimerHandler UserSleepFunc)
 {
         u32 Status;
 
@@ -91,35 +138,50 @@ int main(void)
         Dptx_PlatformInit();
         /*******************/
 
-        /* Set a custom timer handler for improved delay accuracy.
-         * Note: This only has an affect for MicroBlaze systems. */
-        XDptx_SetUserTimerHandler(&DptxInstance, &Dptx_CustomWaitUs,
-                                                        &TimerCounterInst);
+        /* Set a custom timer handler for improved delay accuracy on MicroBlaze
+         * systems since the driver does not assume/have a dependency on the
+         * system having a timer in the FPGA.
+         * Note: This only has an affect for MicroBlaze systems since the Zynq
+         * ARM SoC contains a timer, which is used when the driver calls the
+         * delay function. */
+        XDptx_SetUserTimerHandler(InstancePtr, UserSleepFunc, TimerCounterPtr);
 
-        Status = Dptx_SetupExample(&DptxInstance, DPTX_DEVICE_ID);
+        Status = Dptx_SetupExample(InstancePtr, DeviceId);
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
         }
 
-#if defined(TRAIN_ADAPTIVE)
-        XDptx_EnableTrainAdaptive(&DptxInstance, 1);
-#else
-        XDptx_EnableTrainAdaptive(&DptxInstance, 0);
-#endif
-#if defined(TRAIN_HAS_REDRIVER)
-        XDptx_SetHasRedriverInPath(&DptxInstance, 1);
-#else
-        XDptx_SetHasRedriverInPath(&DptxInstance, 0);
-#endif
+        XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
+        XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
 
-        /* A receiver must be connected at this point. */
-        Dptx_Run(&DptxInstance, USE_LANE_COUNT, USE_LINK_RATE);
+        /* A sink monitor must be connected at this point. See the polling or
+         * interrupt examples for how to wait for a connection event. */
+        Status = Dptx_Run(InstancePtr);
+        if (Status != XST_SUCCESS) {
+                return XST_FAILURE;
+        }
 
-        /* Do not return in order to keep the program running. */
-        while (1);
         return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function is used to override the driver's default sleep functionality.
+ * For MicroBlaze systems, the XDptx_WaitUs driver function's default behavior
+ * is to use the MB_Sleep function from microblaze_sleep.h, which is implemented
+ * in software and only has millisecond accuracy. For this reason, using a
+ * hardware timer is preferrable. For ARM/Zynq SoC systems, the SoC's timer is
+ * used - XDptx_WaitUs will ignore this custom timer handler.
+ *
+ * @param       InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return      None.
+ *
+ * @note        Use the XDptx_SetUserTimerHandler driver function to set this
+ *              function as the handler for when the XDptx_WaitUs driver
+ *              function is called.
+ *
+*******************************************************************************/
 static void Dptx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
         XDptx *XDptx_InstancePtr = (XDptx *)InstancePtr;
@@ -132,7 +194,7 @@ static void Dptx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
                 TimerVal = XTmrCtr_GetValue(XDptx_InstancePtr->UserTimerPtr, 0);
         }
         while (TimerVal < (MicroSeconds *
-                        (XDptx_InstancePtr->TxConfig.SAxiClkHz / 1000000)));
+                        (XDptx_InstancePtr->Config.SAxiClkHz / 1000000)));
 
         XTmrCtr_Stop(XDptx_InstancePtr->UserTimerPtr, 0);
 }

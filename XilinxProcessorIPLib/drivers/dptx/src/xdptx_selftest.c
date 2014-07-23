@@ -36,6 +36,8 @@
  *
  * This file contains a diagnostic self-test function for the XDptx driver.
  *
+ * @note        None.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -57,15 +59,16 @@
 /**
  * This function runs a self-test on the XDptx driver/device. The test attempts
  * to intialize the DisplayPort TX core, train the main link at the highest
- * common capabilities between the core and the sink, and checks the status
+ * common capabilities between the core and the RX device, and checks the status
  * of the link after training.
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return
- *              - XST_SUCCESS if the self-test passed. The main link has been
+ * @return      - XST_SUCCESS if the self-test passed. The main link has been
  *                trained and established successfully.
  *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
  *
 *******************************************************************************/
 u32 XDptx_SelfTest(XDptx *InstancePtr)
@@ -77,8 +80,9 @@ u32 XDptx_SelfTest(XDptx *InstancePtr)
         Xil_AssertNonvoid(InstancePtr != NULL);
         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        /* Obtain the capabilities of the sink by reading the DPCD. */
-        Status = XDptx_GetSinkCapabilities(InstancePtr);
+        /* Obtain the capabilities of the RX device by reading the DisplayPort
+         * Configuration Data (DPCD). */
+        Status = XDptx_GetRxCapabilities(InstancePtr);
         if (Status != XST_SUCCESS) {
                 return XST_FAILURE;
         }
@@ -90,7 +94,7 @@ u32 XDptx_SelfTest(XDptx *InstancePtr)
         }
 
         /* Attempt to establish a link at the maximum common capabilities
-         * between the DisplayPort TX core and the sink. */
+         * between the DisplayPort TX core and the RX device. */
         XDptx_EstablishLink(InstancePtr);
 
         /* Return whether or not the link has been successfully trained. */
