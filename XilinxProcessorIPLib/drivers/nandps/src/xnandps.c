@@ -1119,15 +1119,18 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 		CmdPhaseData = Column;
 		PageShift = InstancePtr->Geometry.ColAddrCycles * 8;
 		CmdPhaseData |= Page << PageShift;
-						/* Send lower bytes of page
-						   address in first address 
-						   cycle */
-		XNandPs_WriteReg(CmdPhaseAddr, CmdPhaseData);
-		/*
-		 * Send the upper bytes of the page address in second address
-		 * address cycle
-		 */
-		CmdPhaseData = Page >> (32 - PageShift);
+		if (Command->AddrCycles > 4) {
+			/*
+			 * Send lower bytes of page address in first address
+			 * cycle
+			 */
+			XNandPs_WriteReg(CmdPhaseAddr, CmdPhaseData);
+			/*
+			 * Send the upper bytes of the page address in second
+			 * address cycle
+			 */
+			CmdPhaseData = Page >> (32 - PageShift);
+		}
 	} else if (Page != XNANDPS_PAGE_NOT_VALID) {
 		CmdPhaseData = Page;
 	} else {
