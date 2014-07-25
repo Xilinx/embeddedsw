@@ -59,7 +59,7 @@
 * xparameters.h file. They are defined here such that a user can easily
 * change all the needed parameters in one place.
 */
-#define XYCC_DEVICE_ID		XPAR_XYCC_0_DEVICE_ID
+#define XYCC_DEVICE_ID		XPAR_YCRCB2RGB_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 

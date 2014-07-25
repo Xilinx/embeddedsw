@@ -92,11 +92,11 @@ XYCrCb2Rgb_Config *XYCrCb2Rgb_LookupConfig(u16 DeviceId)
 {
 	u32 Index;
 	extern XYCrCb2Rgb_Config
-			XYCrCb2Rgb_ConfigTable[XPAR_XYCC_NUM_INSTANCES];
+			XYCrCb2Rgb_ConfigTable[XPAR_YCRCB2RGB_NUM_INSTANCES];
 	XYCrCb2Rgb_Config *CfgPtr = NULL;
 
 	/* Get the reference pointer to XYCrCb2Rgb_Config structure */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XYCC_NUM_INSTANCES);
+	for (Index = (u32)0x0; Index < (u32)(XPAR_YCRCB2RGB_NUM_INSTANCES);
 								Index++) {
 
 		/* Compare device Id with configTable's device Id */
