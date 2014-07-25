@@ -93,6 +93,7 @@
 * 9.00a kc  04/16/14	Fix for CR#724166 - SetPpk() will fail on secure
 *		 									fallback unless FSBL* and FSBL
 *		 									are identical in length
+* 10.00a kc 07/24/14    Fix for CR#809336 - Minor code cleanup
 * </pre>
 *
 * @note
@@ -1111,12 +1112,7 @@ void FsblMeasurePerfTime (XTime tCur, XTime tEnd)
 	 */
 	tPerfSeconds = tDiff/COUNTS_PER_SECOND;
 
-	/*
-	 * Convert tPerf into Seconds
-	 */
-	tPerfSeconds = tDiff/COUNTS_PER_SECOND;
-
-#if defined(FSBL_DEBUG) || defined(FSBL_DEBUG_INFO)
+#if defined(STDOUT_BASEADDRESS)
 	printf("%f seconds \r\n",tPerfSeconds);
 #endif
 
