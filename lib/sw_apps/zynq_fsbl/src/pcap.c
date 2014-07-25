@@ -71,6 +71,7 @@
 *											and PCAP_PR bits are not modified
 * 8.00a kc  2/20/14		Fix for CR#775631 - FSBL: FsblGetGlobalTimer() 
 *						is not proper
+* 10.00a kc 07/24/14    Fix for CR#809336 - Minor code cleanup
 * </pre>
 *
 * @note
@@ -436,7 +437,7 @@ void FabricInit(void)
 	 * Check for AES source key
 	 */
 	PcapCtrlRegVal = XDcfg_GetControlRegister(DcfgInstPtr);
-	if (PcapCtrlRegVal & PCAP_CTRL_PCFG_AES_FUSE_EFUSE_MASK) {
+	if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
 		/*
 		 * 5msec delay
 		 */
@@ -452,7 +453,7 @@ void FabricInit(void)
 	/*
 	 * Check for AES source key
 	 */
-	if (PcapCtrlRegVal & PCAP_CTRL_PCFG_AES_FUSE_EFUSE_MASK) {
+	if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
 		/*
 		 * 5msec delay
 		 */
