@@ -21,7 +21,96 @@
     <li><a href="files.html"><span>File&nbsp;List</span></a></li>
     <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
   </ul></div>
-<h1>xycrcb2rgb.h File Reference</h1>
+<h1>xycrcb2rgb.h File Reference</h1><hr><a name="_details"></a><h2>Detailed Description</h2>
+This header file contains identifiers and register-level driver functions (or macros), range macros, structure typedefs that can be used to access the Xilinx YCRCB2RGB core.<p>
+The YCrCb to RGB Color-Space Convertor core is a simplified 3x3 matrix multiplier converts three input color samples to three output samples in a single clock cycle. The core supports four common format conversions as well as a custom mode that allows for a user-defined transform. The core is capable of a maximum resolution of 7680 columns by 7680 rows with 8, 10, 12, or 16 bits per pixel.<p>
+<b>Initialization &amp; Configuration</b><p>
+The device driver enables higher layer software (e.g., an application) to communicate to the YCRCB2RGB core.<p>
+<a class="el" href="xycrcb2rgb_8c.html#c5025d0ba54b65adaa027af5fb417af6">XYCrCb2Rgb_CfgInitialize()</a> API is used to initialize the YCRCB2RGB core. The user needs to first call the <a class="el" href="xycrcb2rgb_8h.html#efc2983c39179e4c195f7aac035ec77a">XYCrCb2Rgb_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="xycrcb2rgb_8c.html#c5025d0ba54b65adaa027af5fb417af6">XYCrCb2Rgb_CfgInitialize()</a> API.<p>
+<b> Interrupts </b><p>
+The driver provides an interrupt handler XYCrCb2Rgb_IntrHandler for handling the interrupt from the YCRCB2RGB core. The users of this driver have to register this handler with the interrupt system and provide the callback functions by using XYCrCb2Rgb_SetCallBack API.<p>
+<b> Virtual Memory </b><p>
+This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.<p>
+<b> Threads </b><p>
+This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.<p>
+<b> Asserts </b><p>
+Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.<p>
+<b> Building the driver </b><p>
+The <a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.<p>
+<pre>
+ MODIFICATION HISTORY:</pre><p>
+<pre> Ver   Who    Date     Changes
+ ----- ------ -------- -------------------------------------------------------
+ 5.00a tb     02/28/12 Updated for YCRCB2RGB V5.00.a
+ 5.01a bao    12/28/12 Converted from xio.h to xil_io.h, translating basic
+                       types, MB cache functions, exceptions and assertions
+                       to xil_io format.
+ 6.0   adk    19/12/13 Updated as per the New Tcl API's
+ 7.0   adk    01/31/14 Changed the file name from "ycrcb2rgb.h" to
+                       "xycrcb2rgb.h".</pre><p>
+<pre>                       Moved register offsets and bit definitions from
+                       ycrcb2rgb.h file to <a class="el" href="xycrcb2rgb__hw_8h.html">xycrcb2rgb_hw.h</a> file.</pre><p>
+<pre>                       Removed YCC_TIMING_STATUS register offset because this
+                       register is not present in latest product guide.</pre><p>
+<pre>                       Removed following function macros:
+                       YCC_Enable, YCC_Disable, YCC_RegUpdateEnable,
+                       YCC_RegUpdateDisable, YCC_Reset, YCC_ClearReset,
+                       YCC_AutoSyncReset, ycc_max..</pre><p>
+<pre>                       Removed following functions:
+                       YCC_select_standard, YCC_coefficient_translation,
+                       YCC_set_coefficients, YCC_get_coefficients.</pre><p>
+<pre>                       Added following handler types as enum:
+                       XYCC_HANDLER_PROCSTART, XYCC_HANDLER_FRAMEDONE,
+                       XYCC_HANDLER_ERROR.</pre><p>
+<pre>                       Added following standard types as enum:
+                       XYCC_STANDARD_ITU_601_SD, XYCC_STANDARD_ITU_709_NTSC,
+                       XYCC_STANDARD_ITU_709_PAL, XYCC_STANDARD_YUV,
+                       XYCC_STANDARD_CUSTOM.</pre><p>
+<pre>                       Added following output ranges as enum:
+                       XYCC_TV_16_TO_240, XYCC_STUDIO_16_TO_235,
+                       XYCC_GRAPHICS_0_TO_255.</pre><p>
+<pre>                       Added range macros for ActiveSize, RGBMAX, RGBMIN,
+                       ROFFSET, GOFFSET, BOFFSET registers.</pre><p>
+<pre>                       Added following function macros:
+                       XYCrCb2Rgb_IntrEnable, XYCrCb2Rgb_IntrDisable,
+                       XYCrCb2Rgb_StatusGetPending, XYCrCb2Rgb_IntrGetPending,
+                       XYCrCb2Rgb_IntrClear, XYCrCb2Rgb_Reset,
+                       XYCrCb2Rgb_Enable, XYCrCb2Rgb_Disable,
+                       XYCrCb2Rgb_Start, XYCrCb2Rgb_Stop,
+                       XYCrCb2Rgb_RegUpdateEnable,
+                       XYCrCb2Rgb_RegUpdateDisable,
+                       XYCrCb2Rgb_SyncReset, XYCrCb2Rgb_Max</pre><p>
+<pre>                       Added core, configuration and coefficient structure.
+                       Renamed ycc_coef_inputs -&gt; <a class="el" href="struct_x_y_cr_cb2_rgb___coef___inputs.html">XYCrCb2Rgb_Coef_Inputs</a> and
+                       ycc_coef_outputs - &gt; <a class="el" href="struct_x_y_cr_cb2_rgb___coef___outputs.html">XYCrCb2Rgb_Coef_Outputs</a>.</pre><p>
+<pre>                       Added callback functions typedef.</pre><p>
+<pre>                       Implemented XYCrCb2Rgb_LookupConfig in
+                       <a class="el" href="xycrcb2rgb__sinit_8c.html">xycrcb2rgb_sinit.c</a>
+                       Implemented XYCrCb2Rgb_SelfTest in
+                       <a class="el" href="xycrcb2rgb__selftest_8c.html">xycrcb2rgb_selftest.c</a>
+                       Implemented XYCrCb2Rgb_IntrHandler,
+                       XYCrCb2Rgb_SetCallBack in <a class="el" href="xycrcb2rgb__intr_8c.html">xycrcb2rgb_intr.c</a>.</pre><p>
+<pre>                       Implemented following functions in <a class="el" href="xycrcb2rgb_8c.html">xycrcb2rgb.c</a>:
+                       XYCrCb2Rgb_CfgInitialize, XYCrCb2Rgb_EnableDbgByPass,
+                       XYCrCb2Rgb_IsDbgByPassEnabled,
+                       XYCrCb2Rgb_DisableDbgBypass,
+                       XYCrCb2Rgb_EnableDbgTestPattern,
+                       XYCrCb2Rgb_IsDbgTestPatternEnabled,
+                       XYCrCb2Rgb_DisableDbgTestPattern,
+                       XYCrCb2Rgb_GetVersion, XYCrCb2Rgb_GetDbgFrameCount,
+                       XYCrCb2Rgb_GetDbgLineCount,
+                       XYCrCb2Rgb_GetDbgPixelCount, XYCrCb2Rgb_Setup,
+                       XYCrCb2Rgb_SetActiveSize, XYCrCb2Rgb_GetActiveSize,
+                       XYCrCb2Rgb_SetRGBMax, XYCrCb2Rgb_GetRGBMax,
+                       XYCrCb2Rgb_SetRGBMin, XYCrCb2Rgb_GetRGBMin,
+                       XYCrCb2Rgb_SetROffset, XYCrCb2Rgb_GetROffset,
+                       XYCrCb2Rgb_SetGOffset, XYCrCb2Rgb_GetGOffset,
+                       XYCrCb2Rgb_SetBOffset, XYCrCb2Rgb_GetBOffset,
+                       XYCrCb2Rgb_SetCoefs, XYCrCb2Rgb_GetCoefs,
+                       XYCrCb2Rgb_Select_Standard,
+                       XYCrCb2Rgb_Coefficient_Translation,
+                       XYCrCb2Rgb_Select_OutputRange.
+*</pre> 
 <p>
 <code>#include &quot;<a class="el" href="xycrcb2rgb__hw_8h.html">xycrcb2rgb_hw.h</a>&quot;</code><br>
 <code>#include &quot;xil_assert.h&quot;</code><br>
