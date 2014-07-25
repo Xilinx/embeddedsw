@@ -355,7 +355,7 @@ int main(void)
 	/*
 	 * Check for AES source key
 	 */
-	if (PcapCtrlRegVal & PCAP_CTRL_PCFG_AES_FUSE_EFUSE_MASK) {
+	if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
 		/*
 		 * For E-Fuse AES encryption Watch dog Timer disabled and
 		 * User not allowed to do system reset
@@ -641,7 +641,7 @@ void FsblFallback(void)
 	/*
 	 * Check for AES source key
 	 */
-	if (PcapCtrlRegVal & PCAP_CTRL_PCFG_AES_FUSE_EFUSE_MASK) {
+	if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
 		/*
 		 * Next valid image search can happen only
 		 * when system initialization done
