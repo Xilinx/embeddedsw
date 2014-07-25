@@ -589,9 +589,9 @@ typedef struct {
 	u32 BCoef;			/**< B Coefficient */
 	u32 CCoef;			/**< C Coefficient */
 	u32 DCoef;			/**< D Coefficient */
-	u16 ROffset;			/**< R Offset */
-	u16 GOffset;			/**< G Offset */
-	u16 BOffset;			/**< B Offset */
+	u32 ROffset;			/**< R Offset */
+	u32 GOffset;			/**< G Offset */
+	u32 BOffset;			/**< B Offset */
 	u16 HasClip;			/**< Clipping support */
 	u16 HasClamp;			/**< Clamping support  */
 	u16 RgbMax;			/**< RGB Max value */
