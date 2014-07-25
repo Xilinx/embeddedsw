@@ -71,6 +71,8 @@
 * 						authenticate (RSA) a bitstream on zc706
 * 10.00a kc 07/15/14	Fix for CR#804595 Zynq FSBL - Issues with
 * 						fallback image offset handling using MD5
+* 						Fix for PR#782309 Fallback support for AES
+* 						encryption with E-Fuse - Enhancement
 *
 * </pre>
 *
@@ -490,6 +492,8 @@ u32 LoadBootImage(void)
 				Status = AuthenticatePartition((u8*)PartitionStartAddr,
 						(PartitionTotalSize << WORD_LENGTH_SHIFT));
 				if (Status != XST_SUCCESS) {
+					Xil_DCacheFlush();
+		        	Xil_DCacheDisable();
 					fsbl_printf(DEBUG_GENERAL,"AUTHENTICATION_FAIL\r\n");
 					OutputStatus(AUTHENTICATION_FAIL);
 					FsblFallback();
