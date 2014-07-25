@@ -209,6 +209,8 @@
 * 						782309 Fallback support for AES
 * 						encryption with E-Fuse - Enhancement
 * 						Resolution: Same as 773866
+* 						809336 Minor code cleanup
+* 						Resolution Minor code changes
 * </pre>
 *
 * </pre>
