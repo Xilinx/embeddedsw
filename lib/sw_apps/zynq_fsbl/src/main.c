@@ -159,9 +159,6 @@ extern char* getPS7MessageInfo(unsigned key);
 #ifdef PS7_POST_CONFIG
 extern int ps7_post_config();
 #endif
-#ifdef PEEP_CODE
-extern void init_ddr(void);
-#endif
 
 static void Update_MultiBootRegister(void);
 /* Exception handlers */
@@ -230,12 +227,6 @@ int main(void)
 	u32 HandoffAddress = 0;
 	u32 Status = XST_SUCCESS;
 
-#ifdef PEEP_CODE
-	/*
-	 * PEEP DDR initialization
-	 */
-	init_ddr();
-#else
 	/*
 	 * PCW initialization for MIO,PLL,CLK and DDR
 	 */
@@ -250,7 +241,6 @@ int main(void)
 		 */
 		FsblHookFallback();
 	}
-#endif
 
 	/*
 	 * Unlock SLCR for SLCR register write
