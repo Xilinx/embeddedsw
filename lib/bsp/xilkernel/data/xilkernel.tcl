@@ -353,7 +353,7 @@ proc generate {os_handle} {
 	set static_pthread_table_handle [get_arrays static_pthread_table -of_objects $os_handle]
 	if { $static_pthread_table_handle != "" } {
 	    #set n_init_self_pthreads [llength  $static_pthread_table_handle]
-	    set n_init_self_pthreads [llength [get_arrays $static_pthread_table_handle -of_objects $os_handle]]
+	    set n_init_self_pthreads [llength [get_property PARAM.pthread_prio [get_arrays $static_pthread_table_handle -of_objects $os_handle]]]
 	    #set n_init_self_pthreads [get_property CONFIG.static_pthread_table $os_handle]
 	     if {$n_init_self_pthreads != "" } { 
 		xput_define $config_file "config_static_pthread_support" "true"
