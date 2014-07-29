@@ -136,6 +136,14 @@
  * function and, for the HPD pulse handler, the XDptx_SetHpdPulseHandler
  * function.
  *
+ * <b>Audio</b>
+ *
+ * The driver does not handle audio. For an example as to how to configure and
+ * transmit audio, dptx/examples/xdptx_audio_example.c illustrates the
+ * required sequence. The user will need to configure the audio source connected
+ * to the Displayport TX instance and set up the audio info frame as per user
+ * requirements.
+ *
  * <b>Asserts</b>
  *
  * Asserts are used within all Xilinx drivers to enforce constraints on argument
@@ -144,7 +152,11 @@
  * it is recommended that application developers leave asserts on during
  * development.
  *
- * The driver currently supports single-stream transport (SST) functionality.
+ * <b>Limitations</b>
+ *
+ * - The driver currently supports single-stream transport (SST) functionality.
+ * - The driver does not handle audio. See the audio example in the driver
+ *   examples directory for the required sequence for enabling audio.
  *
  * @note        For a 5.4Gbps link rate, a high performance 7 series FPGA is
  *              required with a speed grade of -2 or -3.

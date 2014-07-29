@@ -62,11 +62,7 @@
 
 /******************************* Include Files ********************************/
 
-#include "xdptx.h"
 #include "xdptx_example_common.h"
-#include "xil_printf.h"
-#include "xparameters.h"
-#include "xstatus.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
 #include "xintc.h"

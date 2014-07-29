@@ -1,13 +1,25 @@
-There are 4 examples included in this directory:
-1) xdptx_intr_example.c : This interrupt example shows how to set up the
+There are 5 examples included in this directory:
+1) xdptx_audio_example.c : This audio example, apart from training the main link
+   and outputting video, illustrates the sequence required for setting up audio
+   in the DisplayPort TX. This example requires that an audio source, such as a
+   S/PDIF instance be present and connected to the DisplayPort TX in the
+   hardware system, and for the audio enable configuration parameter to be set
+   for the instantiated DisplayPort TX. For audio to output, the user will need
+   to implement the following functions:
+   a) Dptx_ConfigureAudioSrc : This function needs to configure the audio source
+      to output to the DisplayPort TX.
+   b) Dptx_AudioSendInfoFrame : This function needs to set up and write an audio
+      info frame as per user requirements.
+
+2) xdptx_intr_example.c : This interrupt example shows how to set up the
    interrupt system and specify the interrupt handlers for when a DisplayPort
    interrupt event occurs. An interrupt controller with a connection to the
    DisplayPort interrupt signal needs to exist in the hardware system.
 
-2) xdptx_poll_example.c : This interrupt example shows how to poll the
+3) xdptx_poll_example.c : This interrupt example shows how to poll the
    DisplayPort TX instance's registers for DisplayPort interrupt events.
 
-3) xdptx_timer_example.c : This timer example shows how to override the default
+4) xdptx_timer_example.c : This timer example shows how to override the default
    sleep/delay functionality for MicroBlaze. A timer needs to exist in the
    hardware system and will be used for sleep/delay functionality inside of a
    callback function. The default behavior in MicroBlaze for sleep/delay is to
@@ -15,7 +27,7 @@ There are 4 examples included in this directory:
    For ARM/Zynq SoC systems, the supplied callback function will be ignored -
    the usleep function will be called since the SoC has a timer built-in.
 
-4) xdptx_selftest_example.c : This self test example will perform a sanity check
+5) xdptx_selftest_example.c : This self test example will perform a sanity check
    on the state of the DisplayPort TX instance. It may be called prior to usage
    of the core or after a reset to ensure that (a subset of) the registers hold
    the default values.

@@ -62,7 +62,10 @@
 /******************************* Include Files ********************************/
 
 #include "xdptx.h"
+#include "xil_printf.h"
 #include "xil_types.h"
+#include "xparameters.h"
+#include "xstatus.h"
 
 /**************************** Constant Definitions ****************************/
 
