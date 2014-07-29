@@ -1365,12 +1365,6 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
                         return XDPTX_TS_CHANNEL_EQUALIZATION;
                 }
 
-                /* Check if training has tried, and failed, with the maximum
-                 * voltage swing. */
-                if (LinkConfig->VsLevel == XDPTX_MAXIMUM_VS_LEVEL) {
-                        break;
-                }
-
                 /* Check if the same voltage swing for each lane has been used 5
                  * consecutive times. */
                 if (PrevVsLevel == LinkConfig->VsLevel) {
@@ -1494,12 +1488,6 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
                                         InstancePtr->LinkConfig.LaneCount);
                 if (Status == XST_SUCCESS) {
                         return XDPTX_TS_SUCCESS;
-                }
-
-                /* Check if training has tried, and failed, with the maximum
-                 * voltage swing. */
-                if (LinkConfig->VsLevel == XDPTX_MAXIMUM_VS_LEVEL) {
-                        break;
                 }
 
                 /* Check if the same voltage swing for each lane has been used 5
