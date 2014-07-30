@@ -107,8 +107,15 @@ void DmaDoneHandler(unsigned int Channel, XDmaPs_Cmd *DmaCmd,
 
 
 /************************** Variable Definitions *****************************/
+#ifdef __ICCARM__
+#pragma data_alignment=32
+static int Src[DMA_LENGTH];
+static int Dst[DMA_LENGTH];
+#pragma data_alignment=4
+#else
 static int Src[DMA_LENGTH] __attribute__ ((aligned (32)));
 static int Dst[DMA_LENGTH] __attribute__ ((aligned (32)));
+#endif
 
 XDmaPs DmaInstance;
 #ifndef TESTAPP_GEN
