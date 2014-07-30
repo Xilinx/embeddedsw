@@ -38,13 +38,13 @@
  * the DisplayPort TX core by training the main link at the maximum common
  * capabilities between the TX and RX and checking the lane status.
  *
- * @note        The DisplayPort TX core does not work alone - video/audio
- *              sources need to be set up in the system correctly, as well as
- *              setting up the output path (for example, configuring the
- *              hardware system with the DisplayPort TX core output to an FMC
- *              card with DisplayPort output capabilities. Some platform
- *              initialization will need to happen prior to calling XDptx driver
- *              functions. See XAPP1178 as a reference.
+ * @note	The DisplayPort TX core does not work alone - video/audio
+ *		sources need to be set up in the system correctly, as well as
+ *		setting up the output path (for example, configuring the
+ *		hardware system with the DisplayPort TX core output to an FMC
+ *		card with DisplayPort output capabilities. Some platform
+ *		initialization will need to happen prior to calling XDptx driver
+ *		functions. See XAPP1178 as a reference.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -70,7 +70,7 @@
 /**************************** Constant Definitions ****************************/
 
 /* The unique device ID of the DisplayPort TX core instance to be used with the
- * examples.*/
+ * examples. */
 #define DPTX_DEVICE_ID XPAR_DISPLAYPORT_0_DEVICE_ID
 
 /* If set to 1, the link training process will continue training despite failing

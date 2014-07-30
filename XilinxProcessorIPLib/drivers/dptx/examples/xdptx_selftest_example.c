@@ -38,7 +38,7 @@
  * the DisplayPort TX core that will compare many of the DisplayPort TX core's
  * registers against their default reset values.
  *
- * @note        None.
+ * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -62,32 +62,32 @@ u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId);
 
 int main(void)
 {
-        u32 Status;
+	u32 Status;
 
-        Status = Dptx_SelfTestExample(&DptxInstance, DPTX_DEVICE_ID);
-        if (Status != XST_SUCCESS) {
-                xil_printf("XDptx_SelfTest failed, check register values.\n");
-                return XST_FAILURE;
-        }
-        xil_printf("XDptx_SelfTest passed.\n");
-        return Status;
+	Status = Dptx_SelfTestExample(&DptxInstance, DPTX_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf("XDptx_SelfTest failed, check register values.\n");
+		return XST_FAILURE;
+	}
+	xil_printf("XDptx_SelfTest passed.\n");
+	return Status;
 }
 
 u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId)
 {
-        u32 Status;
-        XDptx_Config *ConfigPtr;
+	u32 Status;
+	XDptx_Config *ConfigPtr;
 
-        /* Obtain the device configuration for the DisplayPort TX core. */
-        ConfigPtr = XDptx_LookupConfig(DeviceId);
-        if (!ConfigPtr) {
-                return XST_FAILURE;
-        }
-        /* Copy the device configuration into the InstancePtr's Config
-         * structure. */
-        XDptx_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddr);
+	/* Obtain the device configuration for the DisplayPort TX core. */
+	ConfigPtr = XDptx_LookupConfig(DeviceId);
+	if (!ConfigPtr) {
+		return XST_FAILURE;
+	}
+	/* Copy the device configuration into the InstancePtr's Config
+	 * structure. */
+	XDptx_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddr);
 
-        /* Run the self test. */
-        Status = XDptx_SelfTest(InstancePtr);
-        return Status;
+	/* Run the self test. */
+	Status = XDptx_SelfTest(InstancePtr);
+	return Status;
 }

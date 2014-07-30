@@ -40,16 +40,16 @@
  * the user may override the default MicroBlaze sleep with a function that will
  * use the hardware timer.
  *
- * @note        This example requires an AXI timer in the system.
- * @note        For this example to display output, the user will need to
- *              implement initialization of the system (Dptx_PlatformInit) and,
- *              after training is complete, implement configuration of the video
- *              stream source in order to provide the DisplayPort core with
- *              input (Dptx_ConfigureStreamSrc - called in
- *              xdptx_example_common.c). See XAPP1178 for reference.
- * @note        The functions Dptx_PlatformInit and Dptx_ConfigureStreamSrc are
- *              declared extern in xdptx_example_common.h and are left up to the
- *              user to implement.
+ * @note	This example requires an AXI timer in the system.
+ * @note	For this example to display output, the user will need to
+ *		implement initialization of the system (Dptx_PlatformInit) and,
+ *		after training is complete, implement configuration of the video
+ *		stream source in order to provide the DisplayPort core with
+ *		input (Dptx_ConfigureStreamSrc - called in
+ *		xdptx_example_common.c). See XAPP1178 for reference.
+ * @note	The functions Dptx_PlatformInit and Dptx_ConfigureStreamSrc are
+ *		declared extern in xdptx_example_common.h and are left up to the
+ *		user to implement.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -69,12 +69,12 @@
 /**************************** Function Prototypes *****************************/
 
 u32 Dptx_TimerExample(XDptx *InstancePtr, u16 DeviceId,
-                XTmrCtr *TimerCounterPtr, XDptx_TimerHandler UserSleepFunc);
+		XTmrCtr *TimerCounterPtr, XDptx_TimerHandler UserSleepFunc);
 static void Dptx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 
 /*************************** Variable Declarations ****************************/
 
-XTmrCtr TimerCounterInst;       /* The timer counter instance. */
+XTmrCtr TimerCounterInst; /* The timer counter instance. */
 
 /**************************** Function Definitions ****************************/
 
@@ -82,27 +82,27 @@ XTmrCtr TimerCounterInst;       /* The timer counter instance. */
 /**
  * This function is the main function of the XDptx timer example.
  *
- * @param       None.
+ * @param	None.
  *
  * @return
- *              - XST_SUCCESS if the timer example finished successfully.
- *              - XST_FAILURE otherwise.
+ *		- XST_SUCCESS if the timer example finished successfully.
+ *		- XST_FAILURE otherwise.
  *
- * @note        None.
+ * @note	None.
  *
 *******************************************************************************/
 int main(void)
 {
-        int Status;
+	u32 Status;
 
-        /* Run the XDptx timer example. */
-        Status = Dptx_TimerExample(&DptxInstance, DPTX_DEVICE_ID,
-                                &TimerCounterInst, &Dptx_CustomWaitUs);
-        if (Status != XST_SUCCESS) {
-                return XST_FAILURE;
-        }
+	/* Run the XDptx timer example. */
+	Status = Dptx_TimerExample(&DptxInstance, DPTX_DEVICE_ID,
+					&TimerCounterInst, &Dptx_CustomWaitUs);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-        return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
@@ -112,54 +112,54 @@ int main(void)
  * successful, link training will commence and a video stream will start being
  * sent over the main link.
  *
- * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       DeviceId is the unique device ID of the DisplayPort TX core
- *              instance.
- * @param       TimerCounterPtr is a pointer to the timer instance.
- * @param       UserSleepFunc is a pointer to the custom handler for sleep.
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	DeviceId is the unique device ID of the DisplayPort TX core
+ *		instance.
+ * @param	TimerCounterPtr is a pointer to the timer instance.
+ * @param	UserSleepFunc is a pointer to the custom handler for sleep.
  *
  * @return
- *              - XST_SUCCESS if the system was set up correctly and link
- *                training was successful.
- *              - XST_FAILURE otherwise.
+ *		- XST_SUCCESS if the system was set up correctly and link
+ *		  training was successful.
+ *		- XST_FAILURE otherwise.
  *
- * @note        None.
+ * @note	None.
  *
 *******************************************************************************/
 u32 Dptx_TimerExample(XDptx *InstancePtr, u16 DeviceId,
-                XTmrCtr *TimerCounterPtr, XDptx_TimerHandler UserSleepFunc)
+		XTmrCtr *TimerCounterPtr, XDptx_TimerHandler UserSleepFunc)
 {
-        u32 Status;
+	u32 Status;
 
-        /* Do platform initialization here. This is hardware system specific -
-         * it is up to the user to implement this function. */
-        Dptx_PlatformInit();
-        /*******************/
+	/* Do platform initialization here. This is hardware system specific -
+	 * it is up to the user to implement this function. */
+	Dptx_PlatformInit();
+	/*******************/
 
-        /* Set a custom timer handler for improved delay accuracy on MicroBlaze
-         * systems since the driver does not assume/have a dependency on the
-         * system having a timer in the FPGA.
-         * Note: This only has an affect for MicroBlaze systems since the Zynq
-         * ARM SoC contains a timer, which is used when the driver calls the
-         * delay function. */
-        XDptx_SetUserTimerHandler(InstancePtr, UserSleepFunc, TimerCounterPtr);
+	/* Set a custom timer handler for improved delay accuracy on MicroBlaze
+	 * systems since the driver does not assume/have a dependency on the
+	 * system having a timer in the FPGA.
+	 * Note: This only has an affect for MicroBlaze systems since the Zynq
+	 * ARM SoC contains a timer, which is used when the driver calls the
+	 * delay function. */
+	XDptx_SetUserTimerHandler(InstancePtr, UserSleepFunc, TimerCounterPtr);
 
-        Status = Dptx_SetupExample(InstancePtr, DeviceId);
-        if (Status != XST_SUCCESS) {
-                return XST_FAILURE;
-        }
+	Status = Dptx_SetupExample(InstancePtr, DeviceId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-        XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
-        XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
+	XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
+	XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
 
-        /* A sink monitor must be connected at this point. See the polling or
-         * interrupt examples for how to wait for a connection event. */
-        Status = Dptx_Run(InstancePtr);
-        if (Status != XST_SUCCESS) {
-                return XST_FAILURE;
-        }
+	/* A sink monitor must be connected at this point. See the polling or
+	 * interrupt examples for how to wait for a connection event. */
+	Status = Dptx_Run(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-        return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
@@ -171,28 +171,28 @@ u32 Dptx_TimerExample(XDptx *InstancePtr, u16 DeviceId,
  * hardware timer is preferrable. For ARM/Zynq SoC systems, the SoC's timer is
  * used - XDptx_WaitUs will ignore this custom timer handler.
  *
- * @param       InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDptx instance.
  *
- * @return      None.
+ * @return	None.
  *
- * @note        Use the XDptx_SetUserTimerHandler driver function to set this
- *              function as the handler for when the XDptx_WaitUs driver
- *              function is called.
+ * @note	Use the XDptx_SetUserTimerHandler driver function to set this
+ *		function as the handler for when the XDptx_WaitUs driver
+ *		function is called.
  *
 *******************************************************************************/
 static void Dptx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
-        XDptx *XDptx_InstancePtr = (XDptx *)InstancePtr;
-        u32 TimerVal;
+	XDptx *XDptx_InstancePtr = (XDptx *)InstancePtr;
+	u32 TimerVal;
 
-        XTmrCtr_Start(XDptx_InstancePtr->UserTimerPtr, 0);
+	XTmrCtr_Start(XDptx_InstancePtr->UserTimerPtr, 0);
 
-        /* Wait specified number of useconds. */
-        do {
-                TimerVal = XTmrCtr_GetValue(XDptx_InstancePtr->UserTimerPtr, 0);
-        }
-        while (TimerVal < (MicroSeconds *
-                        (XDptx_InstancePtr->Config.SAxiClkHz / 1000000)));
+	/* Wait specified number of useconds. */
+	do {
+		TimerVal = XTmrCtr_GetValue(XDptx_InstancePtr->UserTimerPtr, 0);
+	}
+	while (TimerVal < (MicroSeconds *
+			(XDptx_InstancePtr->Config.SAxiClkHz / 1000000)));
 
-        XTmrCtr_Stop(XDptx_InstancePtr->UserTimerPtr, 0);
+	XTmrCtr_Stop(XDptx_InstancePtr->UserTimerPtr, 0);
 }

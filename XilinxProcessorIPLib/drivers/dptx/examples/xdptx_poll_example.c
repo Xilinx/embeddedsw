@@ -38,15 +38,15 @@
  * polling detects a Hot-Plug-Detect event (HPD - DisplayPort cable is plugged/
  * unplugged or the monitor is turned on/off), the main link will be trained.
  *
- * @note        For this example to display output, the user will need to
- *              implement initialization of the system (Dptx_PlatformInit) and,
- *              after training is complete, implement configuration of the video
- *              stream source in order to provide the DisplayPort core with
- *              input (Dptx_ConfigureStreamSrc - called in
- *              xdptx_example_common.c). See XAPP1178 for reference.
- * @note        The functions Dptx_PlatformInit and Dptx_ConfigureStreamSrc are
- *              declared extern in xdptx_example_common.h and are left up to the
- *              user to implement.
+ * @note	For this example to display output, the user will need to
+ *		implement initialization of the system (Dptx_PlatformInit) and,
+ *		after training is complete, implement configuration of the video
+ *		stream source in order to provide the DisplayPort core with
+ *		input (Dptx_ConfigureStreamSrc - called in
+ *		xdptx_example_common.c). See XAPP1178 for reference.
+ * @note	The functions Dptx_PlatformInit and Dptx_ConfigureStreamSrc are
+ *		declared extern in xdptx_example_common.h and are left up to the
+ *		user to implement.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -73,23 +73,23 @@ static void Dptx_HpdPoll(XDptx *InstancePtr);
 /**
  * This function is the main function of the XDptx polling example.
  *
- * @param       None.
+ * @param	None.
  *
  * @return
- *              - XST_FAILURE if the polling example was unsuccessful - system
- *                setup failed.
+ *		- XST_FAILURE if the polling example was unsuccessful - system
+ *		  setup failed.
  *
- * @note        Unless setup failed, main will never return since
- *              Dptx_PollExample is blocking (it is continuously polling for
- *              Hot-Plug-Detect (HPD) events.
+ * @note	Unless setup failed, main will never return since
+ *		Dptx_PollExample is blocking (it is continuously polling for
+ *		Hot-Plug-Detect (HPD) events.
  *
 *******************************************************************************/
 int main(void)
 {
-        /* Run the XDptx polling example. */
-        Dptx_PollExample(&DptxInstance, DPTX_DEVICE_ID);
+	/* Run the XDptx polling example. */
+	Dptx_PollExample(&DptxInstance, DPTX_DEVICE_ID);
 
-        return XST_FAILURE;
+	return XST_FAILURE;
 }
 
 /******************************************************************************/
@@ -100,42 +100,42 @@ int main(void)
  * a connection event or a pulse is detected, link training will commence (if
  * needed) and a video stream will start being sent over the main link.
  *
- * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       DeviceId is the unique device ID of the DisplayPort TX core
- *              instance.
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	DeviceId is the unique device ID of the DisplayPort TX core
+ *		instance.
  *
  * @return
- *              - XST_FAILURE if the system setup failed.
- *              - XST_SUCCESS should never return since this function, if setup
- *                was successful, is blocking.
+ *		- XST_FAILURE if the system setup failed.
+ *		- XST_SUCCESS should never return since this function, if setup
+ *		  was successful, is blocking.
  *
- * @note        If system setup was successful, this function is blocking in
- *              order to illustrate polling taking place for HPD events.
+ * @note	If system setup was successful, this function is blocking in
+ *		order to illustrate polling taking place for HPD events.
  *
 *******************************************************************************/
 u32 Dptx_PollExample(XDptx *InstancePtr, u16 DeviceId)
 {
-        u32 Status;
+	u32 Status;
 
-        /* Do platform initialization here. This is hardware system specific -
-         * it is up to the user to implement this function. */
-        Dptx_PlatformInit();
-        /******************/
+	/* Do platform initialization here. This is hardware system specific -
+	 * it is up to the user to implement this function. */
+	Dptx_PlatformInit();
+	/******************/
 
-        Status = Dptx_SetupExample(InstancePtr, DeviceId);
-        if (Status != XST_SUCCESS) {
-                return XST_FAILURE;
-        }
+	Status = Dptx_SetupExample(InstancePtr, DeviceId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-        XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
-        XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
+	XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
+	XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
 
-        /* Continuously poll for HPD events. */
-        while (1) {
-                Dptx_HpdPoll(InstancePtr);
-        }
+	/* Continuously poll for HPD events. */
+	while (1) {
+		Dptx_HpdPoll(InstancePtr);
+	}
 
-        return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
@@ -145,56 +145,56 @@ u32 Dptx_PollExample(XDptx *InstancePtr, u16 DeviceId)
  * connection or pulse event is detected, link training will begin (if required)
  * and a video stream will be initiated.
  *
- * @param       InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDptx instance.
  *
- * @return      None.
+ * @return	None.
  *
- * @note        None.
+ * @note	None.
  *
 *******************************************************************************/
 static void Dptx_HpdPoll(XDptx *InstancePtr)
 {
-        u32 InterruptSignalState;
-        u32 InterruptStatus;
-        u32 HpdState;
-        u32 HpdEvent;
-        u32 HpdPulseDetected;
-        u32 HpdDuration;
+	u32 InterruptSignalState;
+	u32 InterruptStatus;
+	u32 HpdState;
+	u32 HpdEvent;
+	u32 HpdPulseDetected;
+	u32 HpdDuration;
 
-        /* Read interrupt registers. */
-        InterruptSignalState = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
-                                                XDPTX_INTERRUPT_SIG_STATE);
-        InterruptStatus = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
-                                                XDPTX_INTERRUPT_STATUS);
+	/* Read interrupt registers. */
+	InterruptSignalState = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+						XDPTX_INTERRUPT_SIG_STATE);
+	InterruptStatus = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPTX_INTERRUPT_STATUS);
 
-        /* Check for HPD events. */
-        HpdState = InterruptSignalState &
-                                XDPTX_INTERRUPT_SIG_STATE_HPD_STATE_MASK;
-        HpdEvent = InterruptStatus & XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK;
-        HpdPulseDetected = InterruptStatus &
-                                XDPTX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
-        if (HpdPulseDetected) {
-                HpdDuration = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
-                                                        XDPTX_HPD_DURATION);
-        }
+	/* Check for HPD events. */
+	HpdState = InterruptSignalState &
+				XDPTX_INTERRUPT_SIG_STATE_HPD_STATE_MASK;
+	HpdEvent = InterruptStatus & XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK;
+	HpdPulseDetected = InterruptStatus &
+				XDPTX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
+	if (HpdPulseDetected) {
+		HpdDuration = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPTX_HPD_DURATION);
+	}
 
-        /* HPD event handling. */
-        if (HpdState && HpdEvent) {
-                xil_printf("+===> HPD connection event detected.\n");
+	/* HPD event handling. */
+	if (HpdState && HpdEvent) {
+		xil_printf("+===> HPD connection event detected.\n");
 
-                /* Initiate link training. */
-                Dptx_Run(InstancePtr);
-        }
-        else if (HpdState && HpdPulseDetected && (HpdDuration >= 250)) {
-                xil_printf("===> HPD pulse detected.\n");
+		/* Initiate link training. */
+		Dptx_Run(InstancePtr);
+	}
+	else if (HpdState && HpdPulseDetected && (HpdDuration >= 250)) {
+		xil_printf("===> HPD pulse detected.\n");
 
-                /* Re-train if needed. */
-                Dptx_Run(InstancePtr);
-        }
-        else if (!HpdState && HpdEvent) {
-                xil_printf("+===> HPD disconnection event detected.\n\n");
+		/* Re-train if needed. */
+		Dptx_Run(InstancePtr);
+	}
+	else if (!HpdState && HpdEvent) {
+		xil_printf("+===> HPD disconnection event detected.\n\n");
 
-                /* Disable main link. */
-                XDptx_DisableMainLink(InstancePtr);
-        }
+		/* Disable main link. */
+		XDptx_DisableMainLink(InstancePtr);
+	}
 }

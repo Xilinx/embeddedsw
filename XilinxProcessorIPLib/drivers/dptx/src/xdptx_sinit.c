@@ -36,7 +36,7 @@
  *
  * This file contains static initialization methods for the XDptx driver.
  *
- * @note        None.
+ * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -69,25 +69,25 @@ extern XDptx_Config XDptx_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
  * ID. The table XDptx_ConfigTable[] contains the configuration information for
  * each device in the system.
  *
- * @param       DeviceId is the unique device ID of the device being looked up.
+ * @param	DeviceId is the unique device ID of the device being looked up.
  *
- * @return      A pointer to the configuration table entry corresponding to the
- *              given device ID, or NULL if no match is found.
+ * @return	A pointer to the configuration table entry corresponding to the
+ *		given device ID, or NULL if no match is found.
  *
- * @note        None.
+ * @note	None.
  *
 *******************************************************************************/
 XDptx_Config *XDptx_LookupConfig(u16 DeviceId)
 {
-        XDptx_Config *CfgPtr;
-        u32 Index;
+	XDptx_Config *CfgPtr;
+	u32 Index;
 
-        for (Index = 0; Index < XPAR_XDPTX_NUM_INSTANCES; Index++) {
-                if (XDptx_ConfigTable[Index].DeviceId == DeviceId) {
-                        CfgPtr = &XDptx_ConfigTable[Index];
-                        break;
-                }
-        }
+	for (Index = 0; Index < XPAR_XDPTX_NUM_INSTANCES; Index++) {
+		if (XDptx_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XDptx_ConfigTable[Index];
+			break;
+		}
+	}
 
-        return CfgPtr;
+	return CfgPtr;
 }

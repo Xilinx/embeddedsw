@@ -36,7 +36,7 @@
  *
  * This file contains functions related to XDptx interrupt handling.
  *
- * @note        None.
+ * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -59,26 +59,26 @@
  * This function installs a callback function for when a hot-plug-detect event
  * interrupt occurs.
  * 
- * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
- *              callback function when it is invoked.
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
  *
- * @return      None.
+ * @return	None.
  *
- * @note        None.
+ * @note	None.
  *
 *******************************************************************************/
 void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
-                        XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)
+			XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)
 {
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(CallbackFunc != NULL);
-        Xil_AssertVoid(CallbackRef != NULL);
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
 
-        InstancePtr->HpdEventHandler = CallbackFunc;
-        InstancePtr->HpdEventCallbackRef = CallbackRef;
+	InstancePtr->HpdEventHandler = CallbackFunc;
+	InstancePtr->HpdEventCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -86,26 +86,26 @@ void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
  * This function installs a callback function for when a hot-plug-detect pulse
  * interrupt occurs.
  * 
- * @param       InstancePtr is a pointer to the XDptx instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
- *              callback function when it is invoked.
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
  *
- * @return      None.
+ * @return	None.
  *
- * @note        None.
+ * @note	None.
  *
 *******************************************************************************/
 void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
-                        XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)
+			XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)
 {
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(CallbackFunc != NULL);
-        Xil_AssertVoid(CallbackRef != NULL);
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
 
-        InstancePtr->HpdPulseHandler = CallbackFunc;
-        InstancePtr->HpdPulseCallbackRef = CallbackRef;
+	InstancePtr->HpdPulseHandler = CallbackFunc;
+	InstancePtr->HpdPulseCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -115,46 +115,46 @@ void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
  * When an interrupt happens, it first detects what kind of interrupt happened,
  * then decides which callback function to invoke.
  * 
- * @param       InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDptx instance.
  *
- * @return      None.
+ * @return	None.
  *
- * @note        None.
+ * @note	None.
  *
 *******************************************************************************/
 void XDptx_HpdInterruptHandler(XDptx *InstancePtr)
 {
-        u32 IntrStatus;
-        u8 HpdEventDetected;
-        u8 HpdPulseDetected;
-        u32 HpdDuration;
+	u32 IntrStatus;
+	u8 HpdEventDetected;
+	u8 HpdPulseDetected;
+	u32 HpdDuration;
 
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
 
-        /* Determine what kind of interrupt occurred.
-         * Note: XDPTX_INTERRUPT_STATUS is an RC (read-clear) register. */
-        IntrStatus = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
-                                                        XDPTX_INTERRUPT_STATUS);
-        IntrStatus &= ~XDptx_ReadReg(InstancePtr->Config.BaseAddr,
-                                                        XDPTX_INTERRUPT_MASK);
+	/* Determine what kind of interrupt occurred.
+	 * Note: XDPTX_INTERRUPT_STATUS is an RC (read-clear) register. */
+	IntrStatus = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPTX_INTERRUPT_STATUS);
+	IntrStatus &= ~XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPTX_INTERRUPT_MASK);
 
-        HpdEventDetected = IntrStatus & XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK;
-        HpdPulseDetected = IntrStatus &
+	HpdEventDetected = IntrStatus & XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK;
+	HpdPulseDetected = IntrStatus &
 				XDPTX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
 
-        if (HpdEventDetected) {
-                InstancePtr->HpdEventHandler(InstancePtr->HpdEventCallbackRef);
-        }
+	if (HpdEventDetected) {
+		InstancePtr->HpdEventHandler(InstancePtr->HpdEventCallbackRef);
+	}
 
-        if (HpdPulseDetected) {
+	if (HpdPulseDetected) {
 		/* The source device must debounce the incoming HPD signal by
 		 * sampling the value at an interval greater than 250 ms. */
-                HpdDuration = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
-                                                        XDPTX_HPD_DURATION);
-                if (HpdDuration >= 250) {
-                        InstancePtr->HpdPulseHandler(
-                                        InstancePtr->HpdPulseCallbackRef);
-                }
-        }
+		HpdDuration = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPTX_HPD_DURATION);
+		if (HpdDuration >= 250) {
+			InstancePtr->HpdPulseHandler(
+			InstancePtr->HpdPulseCallbackRef);
+		}
+	}
 }
