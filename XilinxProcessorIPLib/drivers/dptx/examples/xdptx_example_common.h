@@ -57,6 +57,7 @@
 *******************************************************************************/
 
 #ifndef XDPTX_EXAMPLE_COMMON_H_
+/* Prevent circular inclusions by using protection macros. */
 #define XDPTX_EXAMPLE_COMMON_H_
 
 /******************************* Include Files ********************************/

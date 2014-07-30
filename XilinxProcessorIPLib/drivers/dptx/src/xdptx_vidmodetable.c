@@ -57,7 +57,21 @@
 
 /**
  * This table contains the main stream attributes for various standard
- * resolutions.
+ * resolutions. Each entry is of the format:
+ * 1) XDPTX_VM_<HRES>x<VRES>_<REFRESH (HZ)>_P(_RB = Reduced Blanking)
+ * 2) Display Monitor Timing (DMT) ID
+ * 3) Horizontal resolution (pixels)
+ * 4) Vertical resolution (lines)
+ * 5) Pixel clock (KHz)
+ * 6) Scan (0=non-interlaced|1=interlaced)
+ * 7) Horizontal sync polarity (0=positive|1=negative)
+ * 8) Vertical sync polarity (0=positive|1=negative)
+ * 9) Horizontal front porch (pixels)
+ * 10) Horizontal sync time (pixels)
+ * 11) Horizontal back porch (pixels)
+ * 12) Vertical front porch (lines)
+ * 13) Vertical sync time (lines)
+ * 14) Vertical back porch (lines)
  */
 XDptx_DmtMode XDptx_DmtModes[] =
 {

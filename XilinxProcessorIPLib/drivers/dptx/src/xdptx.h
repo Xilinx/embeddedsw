@@ -35,7 +35,8 @@
  * @file xdptx.h
  *
  * The Xilinx DisplayPort transmitter (DPTX) driver. This driver supports the
- * Xilinx DisplayPort soft IP core in source (TX) mode.
+ * Xilinx DisplayPort soft IP core in source (TX) mode. This driver follows the
+ * DisplayPort 1.2a specification.
  *
  * The Xilinx DisplayPort soft IP supports the following features:
  *	- 1, 2, or 4 lanes.
@@ -171,8 +172,9 @@
  *
 *******************************************************************************/
 
-#ifndef XDPTX_H_ /* Prevent circular inclusions */
-#define XDPTX_H_ /* by using protection macros. */
+#ifndef XDPTX_H_
+/* Prevent circular inclusions by using protection macros. */
+#define XDPTX_H_
 
 /******************************* Include Files ********************************/
 
@@ -306,13 +308,16 @@ typedef enum {
  */
 typedef struct {
 	XDptx_VideoMode	VideoMode;	/**< Enumerated key. */
-	u8 DmtId;			/**< Standard DMT ID number. */
+	u8 DmtId;			/**< Standard Display Monitor Timing
+						(DMT) ID number. */
 	u16 HResolution;		/**< Horizontal resolution. */
 	u16 VResolution;		/**< Vertical resolution. */
 	u32 PixelClkKhz;		/**< Pixel frequency (in KHz). */
 	u8 Scan;			/**< Interlaced/non-interlaced. */
-	u8 HSyncPolarity;		/**< Horizontal polarity. */
-	u8 VSyncPolarity;		/**< Vertical polarity. */
+	u8 HSyncPolarity;		/**< Horizontal synchronization
+						polarity. */
+	u8 VSyncPolarity;		/**< Vertical synchronization
+						polarity. */
 	u32 HFrontPorch;		/**< Horizontal front porch. */
 	u32 HSyncPulseWidth;		/**< Horizontal synchronization pulse
 						width. */
@@ -416,31 +421,55 @@ typedef struct {
  * video will be displayed.
  */
 typedef struct {
-	u32 HClkTotal;
-	u32 VClkTotal;
-	u32 HSyncPulseWidth;
-	u32 VSyncPulseWidth;
-	u32 HResolution;
-	u32 VResolution;
-	u32 HSyncPolarity;
-	u32 VSyncPolarity;
-	u32 HStart;
-	u32 VStart;
-	u32 VBackPorch;
-	u32 VFrontPorch;
-	u32 HBackPorch;
-	u32 HFrontPorch;
-	u32 Misc0;
-	u32 Misc1;
-	u32 MVid;
-	u32 NVid;
-	u32 TransferUnitSize;
-	u32 UserPixelWidth;
-	u32 DataPerLane;
-	u32 AvgBytesPerTU;
-	u32 InitWait;
-	u32 Interlaced;
-	u32 BitsPerColor;
+	u32 HClkTotal;			/**< Horizontal total time (in
+						pixels). */
+	u32 VClkTotal;			/**< Vertical total time (in pixels). */
+	u32 HSyncPulseWidth;		/**< Horizontal synchronization time (in
+						pixels). */
+	u32 VSyncPulseWidth;		/**< Vertical synchronization time (in
+						lines */
+	u32 HResolution;		/**< Horizontal resolution (in
+						pixels). */
+	u32 VResolution;		/**< Vertical resolution (in lines). */
+	u32 HSyncPolarity;		/**< Horizontal synchronization polarity
+						(0=positive/1=negative). */
+	u32 VSyncPolarity;		/**< Vertical synchronization polarity
+						(0=positive/1=negative). */
+	u32 HStart;			/**< Horizontal blank start (in
+						pixels). */
+	u32 VStart;			/**< Vertical blank start (in lines). */
+	u32 VBackPorch;			/**< Vertical back porch (in lines). */
+	u32 VFrontPorch;		/**< Vertical front porch (in lines). */
+	u32 HBackPorch;			/**< Horizontal back porch (in
+						pixels). */
+	u32 HFrontPorch;		/**< Horizontal front porch (in
+						pixels). */
+	u32 Misc0;			/**< Miscellaneous stream attributes 0
+						as specified by the DisplayPort
+						1.2 specification. */
+	u32 Misc1;			/**< Miscellaneous stream attributes 1
+						as specified by the DisplayPort
+						1.2 specification. */
+	u32 MVid;			/**< M value for the video stream. This
+						value is equal to the pixel
+						clock in KHz. */
+	u32 NVid;			/**< N value for the video stream. */
+	u32 TransferUnitSize;		/**< Size of the transfer unit in the
+						framing logic. */
+	u32 UserPixelWidth;		/**< The width of the user data input
+						port. */
+	u32 DataPerLane;		/**< Used to translate the number of
+						pixels per line to the native
+						internal 16-bit datapath. */
+	u32 AvgBytesPerTU;		/**< Average number of bytes per
+						transfer unit, scaled up by a
+						factor of 1000. */
+	u32 InitWait;			/**< Number of initial wait cycles at
+						the start of a new line by
+						the framing logic. */
+	u32 Interlaced;			/**< Input stream is interlaced. */
+	u32 BitsPerColor;		/**< Number of bits per color
+						component. */
 } XDptx_MainStreamAttributes;
 
 /******************************************************************************/

@@ -63,16 +63,14 @@
 
 /**************************** Constant Definitions ****************************/
 
-/**
- * The maximum voltage swing and pre-emphasis level is 3.
- */
+/* The maximum voltage swing level is 3. */
 #define XDPTX_MAXIMUM_VS_LEVEL 3
+/* The maximum pre-emphasis level is 3. */
 #define XDPTX_MAXIMUM_PE_LEVEL 3
 
-/**
- * Error out if an AUX transactions exceeds these defer or timeout values.
- */
+/* Error out if an AUX request yields a defer reply more than 50 times. */
 #define XDPTX_AUX_MAX_DEFER_COUNT 50
+/* Error out if an AUX request times out more than 50 times awaiting a reply. */
 #define XDPTX_AUX_MAX_TIMEOUT_COUNT 50
 
 /****************************** Type Definitions ******************************/
@@ -94,10 +92,17 @@ typedef enum {
  * This typedef describes an AUX transaction.
  */
 typedef struct {
-	u16 CmdCode;
-	u8 NumBytes;
-	u32 Address;
-	u8 *Data;
+	u16 CmdCode;		/**< The AUX command code that specifies what
+					type of AUX transaction is taking
+					place. */
+	u8 NumBytes;		/**< The number of bytes that the AUX
+					transaction will perform work on. */
+	u32 Address;		/**< The AUX or I2C start address that the AUX
+					transaction will perform work on. */
+	u8 *Data;		/**< The data buffer that will store the data
+					read from AUX read transactions or the
+					data to write for AUX write
+					transactions. */
 } XDptx_AuxTransaction;
 
 /**************************** Function Prototypes *****************************/

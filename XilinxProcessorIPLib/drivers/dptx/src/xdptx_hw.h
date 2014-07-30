@@ -50,8 +50,9 @@
  *
 *******************************************************************************/
 
-#ifndef XDPTX_HW_H_ /* Prevent circular inclusions */
-#define XDPTX_HW_H_ /* by using protection macros. */
+#ifndef XDPTX_HW_H_
+/* Prevent circular inclusions by using protection macros. */
+#define XDPTX_HW_H_
 
 /***************************** Include Files **********************************/
 
