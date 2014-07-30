@@ -13,16 +13,17 @@
 <div class="tabs">
   <ul>
     <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-    <li><a href="annotated.html"><span>Data&nbsp;Structures</span></a></li>
+    <li><a href="annotated.html"><span>Classes</span></a></li>
     <li id="current"><a href="files.html"><span>Files</span></a></li>
   </ul></div>
 <div class="tabs">
   <ul>
     <li><a href="files.html"><span>File&nbsp;List</span></a></li>
-    <li><a href="globals.html"><span>Globals</span></a></li>
+    <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
   </ul></div>
 <h1>xdptx_intr.c File Reference</h1><hr><a name="_details"></a><h2>Detailed Description</h2>
 This file contains functions related to <a class="el" href="struct_x_dptx.html">XDptx</a> interrupt handling.<p>
+<dl compact><dt><b>Note:</b></dt><dd>None.</dd></dl>
 <pre>
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
@@ -30,13 +31,13 @@ This file contains functions related to <a class="el" href="struct_x_dptx.html">
  1.00a als  05/17/14 Initial release.
  </pre> 
 <p>
-<code>#include &quot;xdptx.h&quot;</code><br>
+<code>#include &quot;<a class="el" href="xdptx_8h.html">xdptx.h</a>&quot;</code><br>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#0fc77fba78c3de3cdd141273b9348d45">XDptx_SetHpdEventHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#0fc77fba78c3de3cdd141273b9348d45">XDptx_SetHpdEventHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#a1dd03865a96f1323a8e3445dd4b15a6">XDptx_SetHpdPulseHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#a1dd03865a96f1323a8e3445dd4b15a6">XDptx_SetHpdPulseHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#42ad278e82e98ad5440ced0791eb1232">XDptx_HpdInterruptHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
@@ -63,9 +64,11 @@ This function is the interrupt handler for the <a class="el" href="struct_x_dptx
 When an interrupt happens, it first detects what kind of interrupt happened, then decides which callback function to invoke.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -82,7 +85,7 @@ When an interrupt happens, it first detects what kind of interrupt happened, the
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">XDptx_HpdEventHandler&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -106,9 +109,11 @@ This function installs a callback function for when a hot-plug-detect event inte
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>CallbackFunc</em>&nbsp;</td><td>is the address to the callback function. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item that will be passed to the callback function when it is invoked. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item that will be passed to the callback function when it is invoked.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -125,7 +130,7 @@ This function installs a callback function for when a hot-plug-detect event inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">XDptx_HpdPulseHandler&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -149,9 +154,11 @@ This function installs a callback function for when a hot-plug-detect pulse inte
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>CallbackFunc</em>&nbsp;</td><td>is the address to the callback function. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item that will be passed to the callback function when it is invoked. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item that will be passed to the callback function when it is invoked.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>

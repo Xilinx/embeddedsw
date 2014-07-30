@@ -13,29 +13,29 @@
 <div class="tabs">
   <ul>
     <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-    <li id="current"><a href="annotated.html"><span>Data&nbsp;Structures</span></a></li>
+    <li id="current"><a href="annotated.html"><span>Classes</span></a></li>
     <li><a href="files.html"><span>Files</span></a></li>
   </ul></div>
 <div class="tabs">
   <ul>
-    <li><a href="annotated.html"><span>Data&nbsp;Structures</span></a></li>
-    <li><a href="functions.html"><span>Data&nbsp;Fields</span></a></li>
+    <li><a href="annotated.html"><span>Class&nbsp;List</span></a></li>
+    <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
   </ul></div>
 <h1>XDptx Struct Reference</h1><!-- doxytag: class="XDptx" --><code>#include &lt;xdptx.h&gt;</code>
 <p>
-<hr><a name="_details"></a><h2>Detailed Description</h2>
+<a href="struct_x_dptx-members.html">List of all members.</a><hr><a name="_details"></a><h2>Detailed Description</h2>
 The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The user is required to allocate a variable of this type for every <a class="el" href="struct_x_dptx.html">XDptx</a> device in the system. A pointer to a variable of this type is then passed to the driver API functions. 
 <p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Data Fields</h2></td></tr>
+<tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#fd956a307a852de5554532ee69c05189">IsReady</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#cec7536fbd35b65e8ef4bba747753408">TrainAdaptive</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#b730a9890ab4e02b36bdf615bd5882f1">HasRedriverInPath</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#276d2ab25040fac62fbffaafe4ae023b">TxConfig</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#af511bfd6dc96881ff13802a8cc10722">Config</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___sink_config.html">XDptx_SinkConfig</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#939b973272c6b24c902ea836517440b2">RxConfig</a></td></tr>
 
@@ -43,20 +43,35 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#b3e96d1c28a2813865576ff5cbf9f8c2">MsaConfig</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">XDptx_TimerHandler&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#67a7c4a7e698ddb155ceaccbf196e82d">UserTimerWaitUs</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#67a7c4a7e698ddb155ceaccbf196e82d">UserTimerWaitUs</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#fbdd98ca9563d3f2fc595ea2d6f6053b">UserTimerPtr</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">XDptx_HpdEventHandler&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#4bd8c670700d25dac8b2afa8fbce70d4">HpdEventHandler</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#4bd8c670700d25dac8b2afa8fbce70d4">HpdEventHandler</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#c27591bcf8d7e13e7b3fdbeb1f968c63">HpdEventCallbackRef</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">XDptx_HpdPulseHandler&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#519eb0dcb081b7253765ab9593d43b35">HpdPulseHandler</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#519eb0dcb081b7253765ab9593d43b35">HpdPulseHandler</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#2828e9b3c75f6941d4771aadc156a644">HpdPulseCallbackRef</a></td></tr>
 
 </table>
-<hr><h2>Field Documentation</h2>
+<hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="af511bfd6dc96881ff13802a8cc10722"></a><!-- doxytag: member="XDptx::Config" ref="af511bfd6dc96881ff13802a8cc10722" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> <a class="el" href="struct_x_dptx.html#af511bfd6dc96881ff13802a8cc10722">XDptx::Config</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Configuration structure for the DisplayPort TX core. 
+</div>
+</div><p>
 <a class="anchor" name="b730a9890ab4e02b36bdf615bd5882f1"></a><!-- doxytag: member="XDptx::HasRedriverInPath" ref="b730a9890ab4e02b36bdf615bd5882f1" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -92,14 +107,14 @@ A pointer to the user data passed to the HPD event callback function.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XDptx_HpdEventHandler <a class="el" href="struct_x_dptx.html#4bd8c670700d25dac8b2afa8fbce70d4">XDptx::HpdEventHandler</a>          </td>
+          <td class="memname"><a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a> <a class="el" href="struct_x_dptx.html#4bd8c670700d25dac8b2afa8fbce70d4">XDptx::HpdEventHandler</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Callback function for hot- plug-detect event interrupts. 
+Callback function for Hot- Plug-Detect (HPD) event interrupts. 
 </div>
 </div><p>
 <a class="anchor" name="2828e9b3c75f6941d4771aadc156a644"></a><!-- doxytag: member="XDptx::HpdPulseCallbackRef" ref="2828e9b3c75f6941d4771aadc156a644" args="" -->
@@ -122,14 +137,14 @@ A pointer to the user data passed to the HPD pulse callback function.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XDptx_HpdPulseHandler <a class="el" href="struct_x_dptx.html#519eb0dcb081b7253765ab9593d43b35">XDptx::HpdPulseHandler</a>          </td>
+          <td class="memname"><a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a> <a class="el" href="struct_x_dptx.html#519eb0dcb081b7253765ab9593d43b35">XDptx::HpdPulseHandler</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Callback function for hot- plug-detect pulse interrupts. 
+Callback function for Hot- Plug-Detect (HPD) pulse interrupts. 
 </div>
 </div><p>
 <a class="anchor" name="fd956a307a852de5554532ee69c05189"></a><!-- doxytag: member="XDptx::IsReady" ref="fd956a307a852de5554532ee69c05189" args="" -->
@@ -189,7 +204,7 @@ Configuration structure for the main stream attributes.
 <div class="memdoc">
 
 <p>
-Configuration structure for the sink. 
+Configuration structure for the RX device. 
 </div>
 </div><p>
 <a class="anchor" name="cec7536fbd35b65e8ef4bba747753408"></a><!-- doxytag: member="XDptx::TrainAdaptive" ref="cec7536fbd35b65e8ef4bba747753408" args="" -->
@@ -205,21 +220,6 @@ Configuration structure for the sink.
 
 <p>
 Downshift lane count and link rate if necessary during training. 
-</div>
-</div><p>
-<a class="anchor" name="276d2ab25040fac62fbffaafe4ae023b"></a><!-- doxytag: member="XDptx::TxConfig" ref="276d2ab25040fac62fbffaafe4ae023b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> <a class="el" href="struct_x_dptx.html#276d2ab25040fac62fbffaafe4ae023b">XDptx::TxConfig</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Configuration structure for the core. 
 </div>
 </div><p>
 <a class="anchor" name="fbdd98ca9563d3f2fc595ea2d6f6053b"></a><!-- doxytag: member="XDptx::UserTimerPtr" ref="fbdd98ca9563d3f2fc595ea2d6f6053b" args="" -->
@@ -242,7 +242,7 @@ Pointer to a timer instance used by the custom user delay/sleep function.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XDptx_TimerHandler <a class="el" href="struct_x_dptx.html#67a7c4a7e698ddb155ceaccbf196e82d">XDptx::UserTimerWaitUs</a>          </td>
+          <td class="memname"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a> <a class="el" href="struct_x_dptx.html#67a7c4a7e698ddb155ceaccbf196e82d">XDptx::UserTimerWaitUs</a>          </td>
         </tr>
       </table>
 </div>
@@ -253,5 +253,5 @@ Custom user function for delay/sleep.
 </div>
 </div><p>
 <hr>The documentation for this struct was generated from the following file:<ul>
-<li>xdptx.h</ul>
+<li><a class="el" href="xdptx_8h.html">xdptx.h</a></ul>
 Copyright @ 1995-2014 Xilinx, Inc. All rights reserved. 

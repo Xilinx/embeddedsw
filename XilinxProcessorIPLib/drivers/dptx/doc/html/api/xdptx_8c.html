@@ -13,16 +13,17 @@
 <div class="tabs">
   <ul>
     <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-    <li><a href="annotated.html"><span>Data&nbsp;Structures</span></a></li>
+    <li><a href="annotated.html"><span>Classes</span></a></li>
     <li id="current"><a href="files.html"><span>Files</span></a></li>
   </ul></div>
 <div class="tabs">
   <ul>
     <li><a href="files.html"><span>File&nbsp;List</span></a></li>
-    <li><a href="globals.html"><span>Globals</span></a></li>
+    <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
   </ul></div>
 <h1>xdptx.c File Reference</h1><hr><a name="_details"></a><h2>Detailed Description</h2>
-Contains a minimal wset of functions for the <a class="el" href="struct_x_dptx.html">XDptx</a> driver that allow access to all the DisplayPort transmitter's functionality. See xdptx.h for a detailed description of the driver.<p>
+Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.html">XDptx</a> driver that allow access to all of the DisplayPort TX core's functionality. See <a class="el" href="xdptx_8h.html">xdptx.h</a> for a detailed description of the driver.<p>
+<dl compact><dt><b>Note:</b></dt><dd>None.</dd></dl>
 <pre>
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
@@ -30,23 +31,41 @@ Contains a minimal wset of functions for the <a class="el" href="struct_x_dptx.h
  1.00a als  05/17/14 Initial release.
  </pre> 
 <p>
-<code>#include &quot;xdptx.h&quot;</code><br>
+<code>#include &quot;<a class="el" href="xdptx_8h.html">xdptx.h</a>&quot;</code><br>
 <code>#include &quot;xstatus.h&quot;</code><br>
 <code>#include &quot;xenv.h&quot;</code><br>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Data Structures</h2></td></tr>
+<tr><td colspan="2"><br><h2>Classes</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___aux_transaction.html">XDptx_AuxTransaction</a></td></tr>
 
+<tr><td colspan="2"><br><h2>Defines</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#75ec77e0967dc9325f9cc8dfb38c6079">XDPTX_MAXIMUM_VS_LEVEL</a>&nbsp;&nbsp;&nbsp;3</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#e55be64e0c7523c211582a564f32c3d7">XDPTX_MAXIMUM_PE_LEVEL</a>&nbsp;&nbsp;&nbsp;3</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#bbdc0c5e7cbbf8c2b4c5a22ccab7a5b5">XDPTX_AUX_MAX_DEFER_COUNT</a>&nbsp;&nbsp;&nbsp;50</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#262c9ca1b03f1dcd681e8e275f2160df">XDPTX_AUX_MAX_TIMEOUT_COUNT</a>&nbsp;&nbsp;&nbsp;50</td></tr>
+
 <tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d">XDptx_TrainingState</a> </td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d">XDptx_TrainingState</a> { <br>
+&nbsp;&nbsp;<a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d3fa23640bdcae70ef187d6089348d8e8">XDPTX_TS_CLOCK_RECOVERY</a>, 
+<a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d96d34a7fd928d925b358e6d7b59cb0df">XDPTX_TS_CHANNEL_EQUALIZATION</a>, 
+<a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d4198688f48bd20d33dce3680875e53f8">XDPTX_TS_ADJUST_LINK_RATE</a>, 
+<a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d41bb2be83287318f9eb13760646c308f">XDPTX_TS_ADJUST_LANE_COUNT</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d0edc0fe0cf9128ee743135db9d08dd58">XDPTX_TS_FAILURE</a>, 
+<a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06da2e2cacee10802a16a5601ee7aefa0e5">XDPTX_TS_SUCCESS</a>
+<br>
+ }</td></tr>
 
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#b2fbc41e2f0ac4471e4edbf71d877af3">XDptx_InitializeTx</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#9de0242347480cc38571113e5edd73ba">XDptx_CfgInitialize</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#99e54ae4561026afaf223d798463dd44">XDptx_GetSinkCapabilities</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#567d49c31f86ae5c704ac42730fa2e00">XDptx_GetRxCapabilities</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#db337d62a4acae90149ed159d3526af9">XDptx_GetEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
@@ -64,9 +83,9 @@ Contains a minimal wset of functions for the <a class="el" href="struct_x_dptx.h
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#690a6ee9d1b4df0624967cb00892347b">XDptx_AuxWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 NumBytes, void *Data)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#d41a1582dbf74240ce665fee5eb8c018">XDptx_IicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, u8 *DataBuffer)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#fa48be4f79ab6db64c359ce99b2684f2">XDptx_IicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#e3897207d5f04cb56a680092d13914ad">XDptx_IicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, u8 *DataBuffer)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#4bf3b5bebfa79de9e3fdc1a982559e2c">XDptx_IicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#2a9f86dab2f5de738680e7b4320469b2">XDptx_SetDownspread</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
@@ -84,11 +103,72 @@ Contains a minimal wset of functions for the <a class="el" href="struct_x_dptx.h
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#a71e17a951f445b9c7bcfcc3104cdf4c">XDptx_ResetPhy</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Reset)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#0cfe4355d8e2fa3e46be78c1800bb9d5">XDptx_SetUserTimerHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, XDptx_TimerHandler CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#0cfe4355d8e2fa3e46be78c1800bb9d5">XDptx_SetUserTimerHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#f60126291b4c1d2ac2d054707c804dce">XDptx_WaitUs</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 MicroSeconds)</td></tr>
 
 </table>
+<hr><h2>Define Documentation</h2>
+<a class="anchor" name="bbdc0c5e7cbbf8c2b4c5a22ccab7a5b5"></a><!-- doxytag: member="xdptx.c::XDPTX_AUX_MAX_DEFER_COUNT" ref="bbdc0c5e7cbbf8c2b4c5a22ccab7a5b5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_AUX_MAX_DEFER_COUNT&nbsp;&nbsp;&nbsp;50          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="262c9ca1b03f1dcd681e8e275f2160df"></a><!-- doxytag: member="xdptx.c::XDPTX_AUX_MAX_TIMEOUT_COUNT" ref="262c9ca1b03f1dcd681e8e275f2160df" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_AUX_MAX_TIMEOUT_COUNT&nbsp;&nbsp;&nbsp;50          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="e55be64e0c7523c211582a564f32c3d7"></a><!-- doxytag: member="xdptx.c::XDPTX_MAXIMUM_PE_LEVEL" ref="e55be64e0c7523c211582a564f32c3d7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_MAXIMUM_PE_LEVEL&nbsp;&nbsp;&nbsp;3          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="75ec77e0967dc9325f9cc8dfb38c6079"></a><!-- doxytag: member="xdptx.c::XDPTX_MAXIMUM_VS_LEVEL" ref="75ec77e0967dc9325f9cc8dfb38c6079" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_MAXIMUM_VS_LEVEL&nbsp;&nbsp;&nbsp;3          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
 <hr><h2>Enumeration Type Documentation</h2>
 <a class="anchor" name="cd850705884d914c6c8468f61336f06d"></a><!-- doxytag: member="xdptx.c::XDptx_TrainingState" ref="cd850705884d914c6c8468f61336f06d" args="" -->
 <div class="memitem">
@@ -102,7 +182,23 @@ Contains a minimal wset of functions for the <a class="el" href="struct_x_dptx.h
 <div class="memdoc">
 
 <p>
-This typedef enumerates the list of training states used in the state machine during the link training process. 
+This typedef enumerates the list of training states used in the state machine during the link training process. <dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="cd850705884d914c6c8468f61336f06d3fa23640bdcae70ef187d6089348d8e8"></a><!-- doxytag: member="XDPTX_TS_CLOCK_RECOVERY" ref="cd850705884d914c6c8468f61336f06d3fa23640bdcae70ef187d6089348d8e8" args="" -->XDPTX_TS_CLOCK_RECOVERY</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="cd850705884d914c6c8468f61336f06d96d34a7fd928d925b358e6d7b59cb0df"></a><!-- doxytag: member="XDPTX_TS_CHANNEL_EQUALIZATION" ref="cd850705884d914c6c8468f61336f06d96d34a7fd928d925b358e6d7b59cb0df" args="" -->XDPTX_TS_CHANNEL_EQUALIZATION</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="cd850705884d914c6c8468f61336f06d4198688f48bd20d33dce3680875e53f8"></a><!-- doxytag: member="XDPTX_TS_ADJUST_LINK_RATE" ref="cd850705884d914c6c8468f61336f06d4198688f48bd20d33dce3680875e53f8" args="" -->XDPTX_TS_ADJUST_LINK_RATE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="cd850705884d914c6c8468f61336f06d41bb2be83287318f9eb13760646c308f"></a><!-- doxytag: member="XDPTX_TS_ADJUST_LANE_COUNT" ref="cd850705884d914c6c8468f61336f06d41bb2be83287318f9eb13760646c308f" args="" -->XDPTX_TS_ADJUST_LANE_COUNT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="cd850705884d914c6c8468f61336f06d0edc0fe0cf9128ee743135db9d08dd58"></a><!-- doxytag: member="XDPTX_TS_FAILURE" ref="cd850705884d914c6c8468f61336f06d0edc0fe0cf9128ee743135db9d08dd58" args="" -->XDPTX_TS_FAILURE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="cd850705884d914c6c8468f61336f06da2e2cacee10802a16a5601ee7aefa0e5"></a><!-- doxytag: member="XDPTX_TS_SUCCESS" ref="cd850705884d914c6c8468f61336f06da2e2cacee10802a16a5601ee7aefa0e5" args="" -->XDPTX_TS_SUCCESS</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+
 </div>
 </div><p>
 <hr><h2>Function Documentation</h2>
@@ -148,14 +244,15 @@ This function issues a read request over the AUX channel.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Address</em>&nbsp;</td><td>is the starting address to read from the receiver. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to read from the receiver. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Address</em>&nbsp;</td><td>is the starting address to read from the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to read from the RX device. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer that will be filled with read data.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if the AUX read request was successfully acknowledged.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_NO_DATA if no data was provided.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if the AUX read request was successfully acknowledged.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -201,14 +298,15 @@ This function issues a write request over the AUX channel.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Address</em>&nbsp;</td><td>is the starting address to write to the receiver. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to write to the receiver. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer that contains the data to be written to the receiver.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Address</em>&nbsp;</td><td>is the starting address to write to the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to write to the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer that contains the data to be written to the RX device.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if AUX write request was successfully acknowledged.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_NO_DATA if no data was provided.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if AUX write request was successfully acknowledged.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -244,7 +342,7 @@ This function issues a write request over the AUX channel.<p>
 <div class="memdoc">
 
 <p>
-This function retrieves the configuration for this DisplayPort TX instance and fills in the InstancePtr-&gt;TxConfig structure.<p>
+This function retrieves the configuration for this DisplayPort TX instance and fills in the InstancePtr-&gt;Config structure.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -252,6 +350,7 @@ This function retrieves the configuration for this DisplayPort TX instance and f
     <tr><td valign="top"></td><td valign="top"><em>EffectiveAddr</em>&nbsp;</td><td>is the device base address in the virtual memory space. If the address translation is not used, then the physical address is passed.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>Unexpected errors may occur if the address mapping is changed after this function is invoked. </dd></dl>
 
 </div>
@@ -273,15 +372,16 @@ This function retrieves the configuration for this DisplayPort TX instance and f
 <div class="memdoc">
 
 <p>
-This function determines the common capabilities between the DisplayPort TX core and the receiver.<p>
+This function determines the common capabilities between the DisplayPort TX core and the RX device.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if main link settings were successfully set.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_INVALID_PARAM if the specified link configuration specifies a link rate or lane count that isn't valid.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if main link settings were successfully set.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -311,7 +411,7 @@ This function determines the common capabilities between the DisplayPort TX core
 <div class="memdoc">
 
 <p>
-This function checks if the reciever's DPCD indicates the reciever has achieved and maintained clock recovery, channel equalization, symbol lock, and interlane alignment for all lanes currently in use.<p>
+This function checks if the reciever's DisplayPort Configuration Data (DPCD) indicates the reciever has achieved and maintained clock recovery, channel equalization, symbol lock, and interlane alignment for all lanes currently in use.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -319,8 +419,9 @@ This function checks if the reciever's DPCD indicates the reciever has achieved 
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if the receiver has maintained clock recovery, channel equalization, symbol lock, and interlane alignment.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_INVALID_PARAM if the number of lanes to check does not match 1, 2, or 4 lanes.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if the RX device has maintained clock recovery, channel equalization, symbol lock, and interlane alignment.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -344,9 +445,11 @@ This function checks if the reciever's DPCD indicates the reciever has achieved 
 This function disables the main link.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -370,9 +473,11 @@ This function disables the main link.<p>
 This function enables the main link.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -406,9 +511,11 @@ This function enables or disables downshifting during the training process.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Enable</em>&nbsp;</td><td>controls the downshift feature in the training process. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Enable</em>&nbsp;</td><td>controls the downshift feature in the training process.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -429,15 +536,16 @@ This function enables or disables downshifting during the training process.<p>
 <div class="memdoc">
 
 <p>
-This function determines the common capabilities between the DisplayPort TX core and the receiver.<p>
+This function checks if the link needs training and runs the training sequence if training is required.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS was either already trained, or has been trained successfully.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_INVALID_PARAM if the current link rate or lane count isn't valid.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS was either already trained, or has been trained successfully.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -458,21 +566,25 @@ This function determines the common capabilities between the DisplayPort TX core
 <div class="memdoc">
 
 <p>
-This function retrieves the receiver's EDID.<p>
+This function retrieves the RX device's Extended Display Identification Data (EDID).<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the I2C transactions to read the EDID were successful.</li><li>XST_ERROR_COUNT_MAX if the EDID read request timed out.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="99e54ae4561026afaf223d798463dd44"></a><!-- doxytag: member="xdptx.c::XDptx_GetSinkCapabilities" ref="99e54ae4561026afaf223d798463dd44" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="567d49c31f86ae5c704ac42730fa2e00"></a><!-- doxytag: member="xdptx.c::XDptx_GetRxCapabilities" ref="567d49c31f86ae5c704ac42730fa2e00" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XDptx_GetSinkCapabilities           </td>
+          <td class="memname">u32 XDptx_GetRxCapabilities           </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
           <td class="paramname"> <em>InstancePtr</em>          </td>
@@ -484,19 +596,20 @@ This function retrieves the receiver's EDID.<p>
 <div class="memdoc">
 
 <p>
-This function retrieves sink device capabilities from the receiver's DPCD.<p>
+This function retrieves the RX device's capabilities from the RX device's DisplayPort Configuration Data (DPCD).<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if the DPCD was read successfully.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if the DisplayPort Configuration Data was read successfully.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="e3897207d5f04cb56a680092d13914ad"></a><!-- doxytag: member="xdptx.c::XDptx_IicRead" ref="e3897207d5f04cb56a680092d13914ad" args="(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, u8 *DataBuffer)" -->
+<a class="anchor" name="fa48be4f79ab6db64c359ce99b2684f2"></a><!-- doxytag: member="xdptx.c::XDptx_IicRead" ref="fa48be4f79ab6db64c359ce99b2684f2" args="(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -527,8 +640,8 @@ This function retrieves sink device capabilities from the receiver's DPCD.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u8 *&nbsp;</td>
-          <td class="paramname"> <em>DataBuffer</em></td><td>&nbsp;</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>Data</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -547,16 +660,17 @@ This function performs an I2C read over the AUX channel.<p>
     <tr><td valign="top"></td><td valign="top"><em>IicAddress</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>RegStartAddress</em>&nbsp;</td><td>is the subaddress of the targeted I2C device that the read will start from. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to read. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>DataBuffer</em>&nbsp;</td><td>is a pointer to a buffer that will be filled with the I2C read data.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to a buffer that will be filled with the I2C read data.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if the I2C read has successfully completed with no errors.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if the I2C read has successfully completed with no errors.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="d41a1582dbf74240ce665fee5eb8c018"></a><!-- doxytag: member="xdptx.c::XDptx_IicWrite" ref="d41a1582dbf74240ce665fee5eb8c018" args="(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, u8 *DataBuffer)" -->
+<a class="anchor" name="4bf3b5bebfa79de9e3fdc1a982559e2c"></a><!-- doxytag: member="xdptx.c::XDptx_IicWrite" ref="4bf3b5bebfa79de9e3fdc1a982559e2c" args="(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -587,8 +701,8 @@ This function performs an I2C read over the AUX channel.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u8 *&nbsp;</td>
-          <td class="paramname"> <em>DataBuffer</em></td><td>&nbsp;</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>Data</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -607,12 +721,13 @@ This function performs an I2C write over the AUX channel.<p>
     <tr><td valign="top"></td><td valign="top"><em>IicAddress</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>RegStartAddress</em>&nbsp;</td><td>is the sub-address of the targeted I2C device that the write will start at. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to write. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>DataBuffer</em>&nbsp;</td><td>is a pointer to a buffer which will be used as the data source for the write.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to a buffer which will be used as the data source for the write.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if the I2C write has successfully completed with no errors.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if the I2C write has successfully completed with no errors.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -640,8 +755,9 @@ This function prepares the DisplayPort TX core for use.<p>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if the DisplayPort TX core was successfully initialized.</li><li>XST_INVALID_PARAM if the supplied link rate does not correspond to either 1.62, 2.70, or 5.40 Gbps.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if the DisplayPort TX core was successfully initialized.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -674,10 +790,12 @@ This function prepares the DisplayPort TX core for use.<p>
 This function does a PHY reset.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. &amp;</td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Reset</em>&nbsp;</td><td>is the type of reset to assert. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Reset</em>&nbsp;</td><td>is the type of reset to assert.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -707,16 +825,17 @@ This function does a PHY reset.<p>
 <div class="memdoc">
 
 <p>
-This function enables or disables 0.5% spreading of the clock for both the DisplayPort and the sink device.<p>
+This function enables or disables 0.5% spreading of the clock for both the DisplayPort and the RX device.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Enable</em>&nbsp;</td><td>will enable or disable down-spread control.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Enable</em>&nbsp;</td><td>will downspread the main link signal if set to 1 and disable downspreading if set to 0.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if setting the downspread control enable was successful.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if setting the downspread control enable was successful.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -746,16 +865,17 @@ This function enables or disables 0.5% spreading of the clock for both the Displ
 <div class="memdoc">
 
 <p>
-This function enables or disables the enhanced framing symbol sequence for both the DisplayPort TX core and the sink device.<p>
+This function enables or disables the enhanced framing symbol sequence for both the DisplayPort TX core and the RX device.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Enable</em>&nbsp;</td><td>will enable or disable enhanced frame mode.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Enable</em>&nbsp;</td><td>will enable enhanced frame mode if set to 1 and disable it if set to 0.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if setting the enhanced frame mode enable was successful.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if setting the enhanced frame mode enable was successful.</li><li>XST_DEVICE_NOT_FOUND if no RX is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -789,9 +909,11 @@ This function sets a software switch that signifies whether or not a redriver ex
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Set</em>&nbsp;</td><td>establishes that a redriver exists in the DisplayPort output path. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Set</em>&nbsp;</td><td>establishes that a redriver exists in the DisplayPort output path.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -821,7 +943,7 @@ This function sets a software switch that signifies whether or not a redriver ex
 <div class="memdoc">
 
 <p>
-This function sets the number of lanes to be used by the main link for both the DisplayPort TX core and the sink device.<p>
+This function sets the number of lanes to be used by the main link for both the DisplayPort TX core and the RX device.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -829,8 +951,9 @@ This function sets the number of lanes to be used by the main link for both the 
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if setting the new lane count was successful.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_INVALID_PARAM if the supplied lane count is not either 1, 2, or 4 lanes.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if setting the new lane count was successful.</li><li>XST_DEVICE_NOT_FOUND if no RX is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -860,7 +983,7 @@ This function sets the number of lanes to be used by the main link for both the 
 <div class="memdoc">
 
 <p>
-This function sets the data rate to be used by the main link for both the DisplayPort TX core and the sink device.<p>
+This function sets the data rate to be used by the main link for both the DisplayPort TX core and the RX device.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -870,8 +993,9 @@ This function sets the data rate to be used by the main link for both the Displa
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if setting the new link rate was successful.</li><li>XST_DEVICE_NOT_FOUND if no receiver is connected.</li><li>XST_INVALID_PARAM if the supplied link rate does not correspond to either 1.62, 2.70, or 5.40 Gbps.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if setting the new link rate was successful.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -901,7 +1025,7 @@ This function sets the data rate to be used by the main link for both the Displa
 <div class="memdoc">
 
 <p>
-This function enables or disables scrambling of symbols for both the DisplayPort and the sink device.<p>
+This function enables or disables scrambling of symbols for both the DisplayPort and the RX device.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -909,8 +1033,9 @@ This function enables or disables scrambling of symbols for both the DisplayPort
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if setting the scrambling enable was successful.</li><li>XST_FAILURE otherwise. </li></ul>
+<li>XST_SUCCESS if setting the scrambling enable was successful.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -927,7 +1052,7 @@ This function enables or disables scrambling of symbols for both the DisplayPort
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">XDptx_TimerHandler&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -951,9 +1076,11 @@ This function installs a custom delay/sleep function to be used by the XDdptx dr
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>CallbackFunc</em>&nbsp;</td><td>is the address to the callback function. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item (microseconds to delay) that will be passed to the custom sleep/delay function when it is invoked. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item (microseconds to delay) that will be passed to the custom sleep/delay function when it is invoked.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -987,9 +1114,11 @@ This function is the delay/sleep function for the <a class="el" href="struct_x_d
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>MicroSeconds</em>&nbsp;</td><td>is the number of microseconds to delay/sleep for. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>MicroSeconds</em>&nbsp;</td><td>is the number of microseconds to delay/sleep for.</td></tr>
   </table>
 </dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
