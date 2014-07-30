@@ -91,7 +91,7 @@
 /**************************** Type Definitions ******************************/
 
 #ifdef __ICCARM__
-#define INLINE inline
+#define INLINE
 #else
 #define INLINE __inline
 #endif
