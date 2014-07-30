@@ -75,7 +75,8 @@ static void Dptx_HpdPoll(XDptx *InstancePtr);
  *
  * @param       None.
  *
- * @return      - XST_FAILURE if the polling example was unsuccessful - system
+ * @return
+ *              - XST_FAILURE if the polling example was unsuccessful - system
  *                setup failed.
  *
  * @note        Unless setup failed, main will never return since
@@ -103,7 +104,8 @@ int main(void)
  * @param       DeviceId is the unique device ID of the DisplayPort TX core
  *              instance.
  *
- * @return      - XST_FAILURE if the system setup failed.
+ * @return
+ *              - XST_FAILURE if the system setup failed.
  *              - XST_SUCCESS should never return since this function, if setup
  *                was successful, is blocking.
  *

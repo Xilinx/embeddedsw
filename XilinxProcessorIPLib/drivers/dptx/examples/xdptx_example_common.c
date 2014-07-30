@@ -77,7 +77,8 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr);
  * @param       LaneCount is the number of lanes to use over the main link.
  * @param       LinkRate is the link rate to use over the main link.
  *
- * @return      - XST_SUCCESS if main link was successfully established. 
+ * @return
+ *              - XST_SUCCESS if main link was successfully established. 
  *              - XST_FAILURE otherwise.
  *
  * @note        None.
@@ -110,7 +111,8 @@ u32 Dptx_Run(XDptx *InstancePtr)
  * @param       DeviceId is the unique device ID of the DisplayPort TX core
  *              instance.
  *
- * @return      - XST_SUCCESS if the device configuration was found and obtained
+ * @return
+ *              - XST_SUCCESS if the device configuration was found and obtained
  *                and if the main link was successfully established. 
  *              - XST_FAILURE otherwise.
  *
@@ -146,7 +148,8 @@ u32 Dptx_SetupExample(XDptx *InstancePtr, u16 DeviceId)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS the if main link was successfully established. 
+ * @return
+ *              - XST_SUCCESS the if main link was successfully established. 
  *              - XST_FAILURE otherwise.
  *
  * @note        None.

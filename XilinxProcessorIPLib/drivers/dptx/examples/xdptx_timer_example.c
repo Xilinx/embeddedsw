@@ -84,7 +84,8 @@ XTmrCtr TimerCounterInst;       /* The timer counter instance. */
  *
  * @param       None.
  *
- * @return      - XST_SUCCESS if the timer example finished successfully.
+ * @return
+ *              - XST_SUCCESS if the timer example finished successfully.
  *              - XST_FAILURE otherwise.
  *
  * @note        None.
@@ -117,7 +118,8 @@ int main(void)
  * @param       TimerCounterPtr is a pointer to the timer instance.
  * @param       UserSleepFunc is a pointer to the custom handler for sleep.
  *
- * @return      - XST_SUCCESS if the system was set up correctly and link
+ * @return
+ *              - XST_SUCCESS if the system was set up correctly and link
  *                training was successful.
  *              - XST_FAILURE otherwise.
  *

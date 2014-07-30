@@ -139,7 +139,8 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr);
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if the DisplayPort TX core was successfully
+ * @return
+ *              - XST_SUCCESS if the DisplayPort TX core was successfully
  *                initialized.
  *              - XST_FAILURE otherwise.
  *
@@ -254,7 +255,8 @@ void XDptx_CfgInitialize(XDptx *InstancePtr, XDptx_Config *ConfigPtr,
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if the DisplayPort Configuration Data was read
+ * @return
+ *              - XST_SUCCESS if the DisplayPort Configuration Data was read
  *                successfully.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
@@ -313,7 +315,8 @@ u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if the I2C transactions to read the EDID were
+ * @return
+ *              - XST_SUCCESS if the I2C transactions to read the EDID were
  *                successful.
  *              - XST_ERROR_COUNT_MAX if the EDID read request timed out.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
@@ -347,7 +350,8 @@ u32 XDptx_GetEdid(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if main link settings were successfully set.
+ * @return
+ *              - XST_SUCCESS if main link settings were successfully set.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
  *
@@ -393,7 +397,8 @@ u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS was either already trained, or has been
+ * @return
+ *              - XST_SUCCESS was either already trained, or has been
  *                trained successfully.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
@@ -449,7 +454,8 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to check.
  *
- * @return      - XST_SUCCESS if the RX device has maintained clock recovery,
+ * @return
+ *              - XST_SUCCESS if the RX device has maintained clock recovery,
  *                channel equalization, symbol lock, and interlane alignment.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
@@ -554,7 +560,8 @@ void XDptx_SetHasRedriverInPath(XDptx *InstancePtr, u8 Set)
  * @param       Data is a pointer to the data buffer that will be filled with
  *              read data.
  *
- * @return      - XST_SUCCESS if the AUX read request was successfully
+ * @return
+ *              - XST_SUCCESS if the AUX read request was successfully
  *                acknowledged.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
@@ -596,7 +603,8 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  * @param       Data is a pointer to the data buffer that contains the data
  *              to be written to the RX device.
  *
- * @return      - XST_SUCCESS if AUX write request was successfully
+ * @return
+ *              - XST_SUCCESS if AUX write request was successfully
  *                acknowledged.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
@@ -640,7 +648,8 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  * @param       Data is a pointer to a buffer that will be filled with the I2C
  *              read data.
  *
- * @return      - XST_SUCCESS if the I2C read has successfully completed with no
+ * @return
+ *              - XST_SUCCESS if the I2C read has successfully completed with no
  *                errors.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
@@ -699,7 +708,8 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
  * @param       Data is a pointer to a buffer which will be used as the data
  *              source for the write.
  *
- * @return      - XST_SUCCESS if the I2C write has successfully completed with
+ * @return
+ *              - XST_SUCCESS if the I2C write has successfully completed with
  *                no errors.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
@@ -755,7 +765,8 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
  * @param       Enable will downspread the main link signal if set to 1 and
  *              disable downspreading if set to 0.
  *
- * @return      - XST_SUCCESS if setting the downspread control enable was
+ * @return
+ *              - XST_SUCCESS if setting the downspread control enable was
  *                successful.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
@@ -815,7 +826,8 @@ u32 XDptx_SetDownspread(XDptx *InstancePtr, u8 Enable)
  * @param       Enable will enable enhanced frame mode if set to 1 and disable
  *              it if set to 0.
  *
- * @return      - XST_SUCCESS if setting the enhanced frame mode enable was
+ * @return
+ *              - XST_SUCCESS if setting the enhanced frame mode enable was
  *                successful.
  *              - XST_DEVICE_NOT_FOUND if no RX is connected.
  *              - XST_FAILURE otherwise.
@@ -874,7 +886,8 @@ u32 XDptx_SetEnhancedFrameMode(XDptx *InstancePtr, u8 Enable)
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to be used over the main link.
  *
- * @return      - XST_SUCCESS if setting the new lane count was successful.
+ * @return
+ *              - XST_SUCCESS if setting the new lane count was successful.
  *              - XST_DEVICE_NOT_FOUND if no RX is connected.
  *              - XST_FAILURE otherwise.
  *
@@ -934,7 +947,8 @@ u32 XDptx_SetLaneCount(XDptx *InstancePtr, u8 LaneCount)
  *              - XDPTX_LINK_BW_SET_270GBPS = 0x0A (for a 2.70 Gbps data rate)
  *              - XDPTX_LINK_BW_SET_540GBPS = 0x14 (for a 5.40 Gbps data rate)
  *
- * @return      - XST_SUCCESS if setting the new link rate was successful.
+ * @return
+ *              - XST_SUCCESS if setting the new link rate was successful.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *              - XST_FAILURE otherwise.
  *
@@ -1001,7 +1015,8 @@ u32 XDptx_SetLinkRate(XDptx *InstancePtr, u8 LinkRate)
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       Enable will enable or disable scrambling.
  *
- * @return      - XST_SUCCESS if setting the scrambling enable was successful.
+ * @return
+ *              - XST_SUCCESS if setting the scrambling enable was successful.
  *              - XST_FAILURE otherwise.
  *
  * @note        None.
@@ -1206,7 +1221,7 @@ void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      The next training state:
+ * @return
  *              - XST_SUCCESS if the training process succeeded.
  *              - XST_FAILURE otherwise.
  *
@@ -1307,7 +1322,8 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
  * 
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XDPTX_TS_CHANNEL_EQUALIZATION if the clock recovery sequence
+ * @return      The next training state:
+ *              - XDPTX_TS_CHANNEL_EQUALIZATION if the clock recovery sequence
  *                completed successfully.
  *              - XDPTX_TS_FAILURE if writing the drive settings to the RX
  *                device was unsuccesful.
@@ -1417,7 +1433,8 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
  *              clock recovery sequence before down-shifting to a reduced data
  *              rate or a reduced number of lanes.
  *
- * @return      - XDPTX_TS_SUCCESS if training succeeded.
+ * @return      The next training state:
+ *              - XDPTX_TS_SUCCESS if training succeeded.
  *              - XDPTX_TS_FAILURE if writing the drive settings to the RX
  *                device was unsuccesful.
  *              - XDPTX_TS_ADJUST_LINK_RATE if, after MaxIterations loop
@@ -1648,7 +1665,8 @@ static XDptx_TrainingState XDptx_TrainingStateAdjustLaneCount(
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if the AUX read was successful.
+ * @return
+ *              - XST_SUCCESS if the AUX read was successful.
  *              - XST_FAILURE otherwise.
  *
  * @note        None.
@@ -1679,7 +1697,8 @@ static u32 XDptx_GetLaneStatusAdjReqs(XDptx *InstancePtr)
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to check.
  *
- * @return      - XST_SUCCESS if the RX device's clock recovery PLL has
+ * @return
+ *              - XST_SUCCESS if the RX device's clock recovery PLL has
  *                achieved frequency lock for all lanes in use.
  *              - XST_FAILURE otherwise.
  *
@@ -1734,7 +1753,8 @@ static u32 XDptx_CheckClockRecovery(XDptx *InstancePtr, u8 LaneCount)
  * @param       InstancePtr is a pointer to the XDptx instance.
  * @param       LaneCount is the number of lanes to check.
  *
- * @return      - XST_SUCCESS if the RX device has achieved channel
+ * @return
+ *              - XST_SUCCESS if the RX device has achieved channel
  *                equalization symbol lock, and interlane alignment for all
  *                lanes in use.
  *              - XST_FAILURE otherwise.
@@ -1820,7 +1840,8 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if writing the settings was successful.
+ * @return
+ *              - XST_SUCCESS if writing the settings was successful.
  *              - XST_FAILURE otherwise.
  *
  * @note        None.
@@ -1907,7 +1928,8 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if the new levels were written successfully.
+ * @return
+ *              - XST_SUCCESS if the new levels were written successfully.
  *              - XST_FAILURE otherwise (an AUX transaction failed).
  *
  * @note        None.
@@ -1990,7 +2012,8 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
  *              - XDPTX_TRAINING_PATTERN_SET_TP2
  *              - XDPTX_TRAINING_PATTERN_SET_TP3
  *
- * @return      - XST_SUCCESS if setting the pattern was successful.
+ * @return
+ *              - XST_SUCCESS if setting the pattern was successful.
  *              - XST_FAILURE otherwise.
  *
  * @note        None.
@@ -2093,7 +2116,8 @@ static u32 XDptx_GetTrainingDelay(XDptx *InstancePtr,
  * @param       Data is a pointer to the data buffer that contains the data
  *              to be read/written from/to the RX device.
  *
- * @return      - XST_SUCCESS if the AUX transaction request was acknowledged.
+ * @return
+ *              - XST_SUCCESS if the AUX transaction request was acknowledged.
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
  *              - XST_FAILURE otherwise (if the DisplayPort TX core sees a NACK
  *                reply code or if the AUX transaction failed).
@@ -2167,7 +2191,8 @@ static u32 XDptx_AuxCommon(XDptx *InstancePtr, u32 CmdType, u32 Address,
  *              AUX command, as well as a write buffer used for write commands,
  *              and a read buffer for read commands.
  *
- * @return      - XST_SUCCESS if the request was acknowledged.
+ * @return
+ *              - XST_SUCCESS if the request was acknowledged.
  *              - XST_ERROR_COUNT_MAX if resending the request exceeded the
  *                maximum for deferral and timeout.
  *              - XST_FAILURE otherwise (if the DisplayPort TX core sees a NACK
@@ -2225,7 +2250,8 @@ static u32 XDptx_AuxRequest(XDptx *InstancePtr, XDptx_AuxTransaction *Request)
  *              structure containing the required information for issuing an AUX
  *              command. 
  *
- * @return      - XST_SUCCESS if the request was acknowledged.
+ * @return
+ *              - XST_SUCCESS if the request was acknowledged.
  *              - XST_ERROR_COUNT_MAX if waiting for a reply timed out.
  *              - XST_SEND_ERROR if the request was deferred.
  *              - XST_FAILURE otherwise, if the request was NACK'ed.
@@ -2304,7 +2330,8 @@ static u32 XDptx_AuxRequestSend(XDptx *InstancePtr,
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if a reply was sent from the RX device.
+ * @return
+ *              - XST_SUCCESS if a reply was sent from the RX device.
  *              - XST_ERROR_COUNT_MAX otherwise, if a timeout has occurred.
  *
  * @note        None.
@@ -2342,7 +2369,8 @@ static u32 XDptx_AuxWaitReply(XDptx *InstancePtr)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_SUCCESS if the the RX device is no longer busy.
+ * @return
+ *              - XST_SUCCESS if the the RX device is no longer busy.
  *              - XST_ERROR_COUNT_MAX otherwise, if a timeout has occurred.
  *
  * @note        None.
@@ -2381,7 +2409,8 @@ static u32 XDptx_AuxWaitReady(XDptx *InstancePtr)
  *              - XDPTX_PHY_CLOCK_SELECT_270GBPS = 0x03
  *              - XDPTX_PHY_CLOCK_SELECT_540GBPS = 0x05
  *
- * @return      - XST_SUCCESS if the reset for each lane is done after the clock
+ * @return
+ *              - XST_SUCCESS if the reset for each lane is done after the clock
  *                frequency has been set.
  *              - XST_FAILURE otherwise.
  *
@@ -2421,7 +2450,8 @@ static u32 XDptx_SetClkSpeed(XDptx *InstancePtr, u32 Speed)
  *
  * @param       InstancePtr is a pointer to the XDptx instance.
  *
- * @return      - XST_ERROR_COUNT_MAX if the PHY failed to be ready.
+ * @return
+ *              - XST_ERROR_COUNT_MAX if the PHY failed to be ready.
  *              - XST_SUCCESS otherwise.
  *
  * @note        None.

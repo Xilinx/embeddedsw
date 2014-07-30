@@ -35,8 +35,10 @@
  * @file xdptx_selftest_example.c
  *
  * Contains a design example using the XDptx driver. It performs a self test on
- * the DisplayPort TX core by training the main link at the maximum common
- * capabilities between the TX and RX and checking the lane status.
+ * the DisplayPort TX core that will compare many of the DisplayPort TX core's
+ * registers against their default reset values.
+ *
+ * @note        None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -54,7 +56,7 @@
 
 /**************************** Function Prototypes *****************************/
 
-u32 Dptx_SelfTestExample(u16 DeviceId);
+u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId);
 
 /**************************** Function Definitions ****************************/
 
@@ -62,28 +64,30 @@ int main(void)
 {
         u32 Status;
 
-        Status = Dptx_SelfTestExample(DPTX_DEVICE_ID);
+        Status = Dptx_SelfTestExample(&DptxInstance, DPTX_DEVICE_ID);
         if (Status != XST_SUCCESS) {
-                xil_printf("XDptx_SelfTest failed.\n");
+                xil_printf("XDptx_SelfTest failed, check register values.\n");
                 return XST_FAILURE;
         }
         xil_printf("XDptx_SelfTest passed.\n");
         return Status;
 }
 
-u32 Dptx_SelfTestExample(u16 DeviceId)
+u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId)
 {
         u32 Status;
+        XDptx_Config *ConfigPtr;
 
-        Status = Dptx_SetupExample(&DptxInstance, DeviceId);
-        if (Status != XST_SUCCESS) {
+        /* Obtain the device configuration for the DisplayPort TX core. */
+        ConfigPtr = XDptx_LookupConfig(DeviceId);
+        if (!ConfigPtr) {
                 return XST_FAILURE;
         }
-
-        XDptx_EnableTrainAdaptive(&DptxInstance, TRAIN_ADAPTIVE);
-        XDptx_SetHasRedriverInPath(&DptxInstance, TRAIN_HAS_REDRIVER);
+        /* Copy the device configuration into the InstancePtr's Config
+         * structure. */
+        XDptx_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddr);
 
         /* Run the self test. */
-        Status = XDptx_SelfTest(&DptxInstance);
+        Status = XDptx_SelfTest(InstancePtr);
         return Status;
 }

@@ -30,7 +30,7 @@ There are 5 examples included in this directory:
 5) xdptx_selftest_example.c : This self test example will perform a sanity check
    on the state of the DisplayPort TX instance. It may be called prior to usage
    of the core or after a reset to ensure that (a subset of) the registers hold
-   the default values.
+   their default values.
 
 Each of these examples are meant to be used in conjunction with
 xdptx_example_common.[ch] which holds common functionality for all examples.

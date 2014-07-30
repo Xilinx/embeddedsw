@@ -89,7 +89,8 @@ static void Dptx_AudioSendInfoFrame(XDptx *InstancePtr);
  *
  * @param       None.
  *
- * @return      - XST_SUCCESS if the audio example finished successfully.
+ * @return
+ *              - XST_SUCCESS if the audio example finished successfully.
  *              - XST_FAILURE otherwise.
  *
  * @note        None.
@@ -118,7 +119,8 @@ int main(void)
  * @param       DeviceId is the unique device ID of the DisplayPort TX core
  *              instance.
  *
- * @return      - XST_SUCCESS if the system was set up correctly and link
+ * @return
+ *              - XST_SUCCESS if the system was set up correctly and link
  *                training was successful.
  *              - XST_FAILURE otherwise.
  *

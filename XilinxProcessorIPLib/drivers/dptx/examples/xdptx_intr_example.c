@@ -122,7 +122,8 @@ INTC IntcInstance;      /* The interrupt controller instance. */
  *
  * @param       None.
  *
- * @return      - XST_FAILURE if the interrupt example was unsuccessful - system
+ * @return
+ *              - XST_FAILURE if the interrupt example was unsuccessful - system
  *                setup failed.
  *
  * @note        Unless setup failed, main will never return since
@@ -158,7 +159,8 @@ int main(void)
  * @param       HpdPulseHandler is a pointer to the handler called when an HPD
  *              pulse occurs.
  *
- * @return      - XST_FAILURE if the system setup failed.
+ * @return
+ *              - XST_FAILURE if the system setup failed.
  *              - XST_SUCCESS should never return since this function, if setup
  *                was successful, is blocking.
  *
@@ -218,7 +220,8 @@ u32 Dptx_IntrExample(XDptx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
  * @param       HpdPulseHandler is a pointer to the handler called when an HPD
  *              pulse occurs.
  *
- * @return      - XST_SUCCESS if the interrupt system was successfully set up.
+ * @return
+ *              - XST_SUCCESS if the interrupt system was successfully set up.
  *              - XST_FAILURE otherwise.
  *
  * @note        An interrupt controller must be present in the system, connected
