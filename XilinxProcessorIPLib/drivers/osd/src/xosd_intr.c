@@ -113,9 +113,9 @@ void XOsd_IntrHandler(void *InstancePtr)
 	PendingIntr = (u32)(XOsd_IntrGetPending(XOsdPtr));
 
 	/* Error interrupt is occurring or spurious interrupt. */
-	if (((PendingIntr) & (XOSD_IXR_ERR_MASK)) ==
-				((XOSD_IXR_ERR_MASK))) {
-		ErrorStatus = (PendingIntr) & (XOSD_IXR_ERR_MASK);
+	if (((PendingIntr) & (XOSD_IXR_ALLERR_MASK)) ==
+				((XOSD_IXR_ALLERR_MASK))) {
+		ErrorStatus = (PendingIntr) & (XOSD_IXR_ALLERR_MASK);
 		XOsdPtr->ErrCallBack(XOsdPtr->ErrRef, ErrorStatus);
 	}
 
