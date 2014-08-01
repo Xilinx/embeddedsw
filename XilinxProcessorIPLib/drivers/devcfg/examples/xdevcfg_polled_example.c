@@ -91,7 +91,7 @@
  * indicating that this is the last DMA transfer (and the only one).
  */
 #define BIT_STREAM_LOCATION	0x00400001	/* Bitstream location */
-#define BIT_STREAM_SIZE_WORDS	0xB0C50		/* Size in Words (32 bit)*/
+#define BIT_STREAM_SIZE_WORDS	0xF6EC0		/* Size in Words (32 bit)*/
 
 /*
  * SLCR registers
@@ -143,9 +143,11 @@ int main(void)
 	 */
 	Status = XDcfgPolledExample(&DcfgInstance, DCFG_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Dcfg Polled Example Test Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Dcfg Polled Example Test\r\n");
 	return XST_SUCCESS;
 }
 
