@@ -3,6 +3,8 @@ embeddedsw.git - repo for standalone software
 All software is version less and divided into three directories
 	- lib
 		contains bsp, zynq fsbl and software services like xilisf
+	- license.txt
+		contains information about the various licenses and copyrights
 	- XilinxProcessorIPLib
 		contains all drivers
 	- ThirdParty
