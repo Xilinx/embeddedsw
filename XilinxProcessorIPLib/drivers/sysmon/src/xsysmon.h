@@ -139,10 +139,12 @@
 *
 * <b> Limitations of the driver </b>
 *
-* System Monitor/ADC device can be accessed through the JTAG port and the PLB
+* System Monitor/ADC device can be accessed through the JTAG port and the AXI
 * interface. The driver implementation does not support the simultaneous access
 * of the device by both these interfaces. The user has to care of this situation
 * in the user application code.
+*
+*
 *
 * <br><br>
 *
@@ -178,7 +180,26 @@
 *			xsysmon_polled_printf_example.c to set Sequencer Mode
 *			as Safe mode instead of Single channel mode before
 *			configuring Sequencer registers.
-* 6.0   adk  19/12/13 Updated as per the New Tcl API's
+* 6.0   adk  19/12/13   Updated as per the New Tcl API's
+* 7.0   bss  7/25/14    To support Ultrascale:
+*			Added XSM_CH_VUSR0 - XSMXSM_CH_VUSR3,XSM_MAX_VUSR0 -
+*			XSM_MIN_VUSR3,XSM_ATR_VUSR0_UPPER -
+*			XSM_ATR_VUSR3_LOWER macros.
+*			Added XSM_IP_OFFSET macro(since register
+*			offsets are different for Ultrascale comapared to
+*			earlier familes),Offsets,Masks for VUSER0 to
+*			VUSER3 channels, Configuration Register 3 and
+*			Sequence Registers 8 and 9 in xsysmon_hw.h.
+*			Modified XSysMon_GetAdcData,
+*			XSysMon_GetMinMaxMeasurement,
+*			XSysMon_SetSingleChParams, XSysMon_SetAlarmEnables,
+*			XSysMon_GetAlarmEnables,XSysMon_SetSeqChEnables,
+*			XSysMon_GetSeqChEnables,XSysMon_SetSeqAvgEnables,
+*			XSysMon_GetSeqAvgEnables,XSysMon_SetAlarmThreshold
+*			and XSysMon_GetAlarmThreshold in xsysmon.c.
+*			Modified driver tcl to generate XPAR_SYSMON_0_IP_TYPE
+*			parameter.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -219,6 +240,11 @@ extern "C" {
 #define XSM_CH_VCCPDRO		0x0F /**< On-chip PS VCCPDRO Channel, Zynq */
 #define XSM_CH_AUX_MIN		16   /**< Channel number for 1st Aux Channel */
 #define XSM_CH_AUX_MAX		31   /**< Channel number for Last Aux channel */
+#define XSM_CH_VUSR0            32  /**< VUSER0 Supply - UltraScale */
+#define XSM_CH_VUSR1            33  /**< VUSER1 Supply - UltraScale */
+#define XSM_CH_VUSR2            34  /**< VUSER2 Supply - UltraScale */
+#define XSM_CH_VUSR3            35  /**< VUSER3 Supply - UltraScale */
+
 
 /*@}*/
 
@@ -246,12 +272,20 @@ extern "C" {
 #define XSM_MIN_VCCINT		5  /**< Minimum VCCINT Data */
 #define XSM_MIN_VCCAUX		6  /**< Minimum VCCAUX Data */
 #define XSM_MIN_VCCBRAM		7  /**< Minimum VCCBRAM Data, 7 Series/Zynq */
-#define XSM_MAX_VCCPINT		8  /**< Maximum VCCPINT Register , Zynq */
-#define XSM_MAX_VCCPAUX		9  /**< Maximum VCCPAUX Register , Zynq */
-#define XSM_MAX_VCCPDRO		0xA /**< Maximum VCCPDRO Register , Zynq */
-#define XSM_MIN_VCCPINT		0xC /**< Minimum VCCPINT Register , Zynq */
-#define XSM_MIN_VCCPAUX		0xD /**< Minimum VCCPAUX Register , Zynq */
-#define XSM_MIN_VCCPDRO		0xE /**< Minimum VCCPDRO Register , Zynq */
+#define XSM_MAX_VCCPINT		8  /**< Maximum VCCPINT Data, Zynq */
+#define XSM_MAX_VCCPAUX		9  /**< Maximum VCCPAUX Data, Zynq */
+#define XSM_MAX_VCCPDRO		0xA /**< Maximum VCCPDRO Data, Zynq */
+#define XSM_MIN_VCCPINT		0xC /**< Minimum VCCPINT Data, Zynq */
+#define XSM_MIN_VCCPAUX		0xD /**< Minimum VCCPAUX Data, Zynq */
+#define XSM_MIN_VCCPDRO		0xE /**< Minimum VCCPDRO Data, Zynq */
+#define XSM_MAX_VUSR0		0x80 /**< Maximum VUSR0 Data, Ultrascale */
+#define XSM_MAX_VUSR1		0x81 /**< Maximum VUSR1 Data, Ultrascale */
+#define XSM_MAX_VUSR2		0x82 /**< Maximum VUSR2 Data, Ultrascale */
+#define XSM_MAX_VUSR3		0x83 /**< Maximum VUSR3 Data, Ultrascale */
+#define XSM_MIN_VUSR0		0x88 /**< Minimum VUSR0 Data, Ultrascale */
+#define XSM_MIN_VUSR1		0x89 /**< Minimum VUSR1 Data, Ultrascale */
+#define XSM_MIN_VUSR2		0x8A /**< Minimum VUSR2 Data, Ultrascale */
+#define XSM_MIN_VUSR3		0x8B /**< Minimum VUSR3 Data, Ultrascale */
 
 
 /*@}*/
@@ -262,21 +296,29 @@ extern "C" {
  * @{
  */
 #define XSM_ATR_TEMP_UPPER	 0   /**< High user Temperature */
-#define XSM_ATR_VCCINT_UPPER	 1   /**< VCCINT high voltage limit register */
-#define XSM_ATR_VCCAUX_UPPER	 2   /**< VCCAUX high voltage limit register */
+#define XSM_ATR_VCCINT_UPPER	 1   /**< VCCINT high voltage limit */
+#define XSM_ATR_VCCAUX_UPPER	 2   /**< VCCAUX high voltage limit */
 #define XSM_ATR_OT_UPPER	 3   /**< Lower Over Temperature limit */
 #define XSM_ATR_TEMP_LOWER	 4   /**< Low user Temperature */
-#define XSM_ATR_VCCINT_LOWER	 5   /**< VCCINT low voltage limit register */
-#define XSM_ATR_VCCAUX_LOWER	 6   /**< VCCAUX low voltage limit register */
+#define XSM_ATR_VCCINT_LOWER	 5   /**< VCCINT low voltage limit */
+#define XSM_ATR_VCCAUX_LOWER	 6   /**< VCCAUX low voltage limit */
 #define XSM_ATR_OT_LOWER	 7   /**< Lower Over Temperature limit */
-#define XSM_ATR_VBRAM_UPPER	 8   /**< VBRAM high voltage limit register */
-#define XSM_ATR_VCCPINT_UPPER 	 9   /**< VCCPINT Upper Alarm Reg, Zynq */
-#define XSM_ATR_VCCPAUX_UPPER 	 0xA /**< VCCPAUX Upper Alarm Reg, Zynq */
-#define XSM_ATR_VCCPDRO_UPPER 	 0xB /**< VCCPDRO Upper Alarm Reg, Zynq */
+#define XSM_ATR_VBRAM_UPPER	 8   /**< VBRAM high voltage limit */
+#define XSM_ATR_VCCPINT_UPPER 	 9   /**< VCCPINT Upper Alarm, Zynq */
+#define XSM_ATR_VCCPAUX_UPPER 	 0xA /**< VCCPAUX Upper Alarm, Zynq */
+#define XSM_ATR_VCCPDRO_UPPER 	 0xB /**< VCCPDRO Upper Alarm, Zynq */
 #define XSM_ATR_VBRAM_LOWER	 0xC /**< VRBAM Lower Alarm, 7 Series and Zynq*/
-#define XSM_ATR_VCCPINT_LOWER 	 0xD /**< VCCPINT Lower Alarm Reg , Zynq */
-#define XSM_ATR_VCCPAUX_LOWER 	 0xE /**< VCCPAUX Lower Alarm Reg , Zynq */
-#define XSM_ATR_VCCPDRO_LOWER 	 0xF /**< VCCPDRO Lower Alarm Reg , Zynq */
+#define XSM_ATR_VCCPINT_LOWER 	 0xD /**< VCCPINT Lower Alarm, Zynq */
+#define XSM_ATR_VCCPAUX_LOWER 	 0xE /**< VCCPAUX Lower Alarm, Zynq */
+#define XSM_ATR_VCCPDRO_LOWER 	 0xF /**< VCCPDRO Lower Alarm, Zynq */
+#define XSM_ATR_VUSR0_UPPER	 0x10 /**< VUSER0 Upper Alarm, Ultrascale */
+#define XSM_ATR_VUSR1_UPPER	 0x11 /**< VUSER1 Upper Alarm, Ultrascale */
+#define XSM_ATR_VUSR2_UPPER	 0x12 /**< VUSER2 Upper Alarm, Ultrascale */
+#define XSM_ATR_VUSR3_UPPER	 0x13 /**< VUSER3 Upper Alarm, Ultrascale */
+#define XSM_ATR_VUSR0_LOWER	 0x18 /**< VUSER0 Lower Alarm, Ultrascale */
+#define XSM_ATR_VUSR1_LOWER	 0x19 /**< VUSER1 Lower Alarm, Ultrascale */
+#define XSM_ATR_VUSR2_LOWER	 0x1A /**< VUSER2 Lower Alarm, Ultrascale */
+#define XSM_ATR_VUSR3_LOWER	 0x1B /**< VUSER3 Lower Alarm, Ultrascale */
 
 /*@}*/
 
@@ -324,6 +366,8 @@ typedef struct {
 	u16  DeviceId;		/**< Unique ID of device */
 	u32  BaseAddress;	/**< Device base address */
 	int  IncludeInterrupt; 	/**< Supports Interrupt driven mode */
+	u8   IpType;		/**< 1 - System Management */
+				/**< 0 - XADC/System Monoitor */
 } XSysMon_Config;
 
 
@@ -506,8 +550,8 @@ int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
 			      int IncreaseAcqCycles, int IsEventMode,
 			      int IsDifferentialMode);
 
-void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u16 AlmEnableMask);
-u16 XSysMon_GetAlarmEnables(XSysMon *InstancePtr);
+void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask);
+u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr);
 
 void XSysMon_SetCalibEnables(XSysMon *InstancePtr, u16 Calibration);
 u16 XSysMon_GetCalibEnables(XSysMon *InstancePtr);
@@ -521,11 +565,11 @@ void XSysMon_SetExtenalMux(XSysMon *InstancePtr, u8 Channel);
 void XSysMon_SetAdcClkDivisor(XSysMon *InstancePtr, u8 Divisor);
 u8 XSysMon_GetAdcClkDivisor(XSysMon *InstancePtr);
 
-int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u32 ChEnableMask);
-u32 XSysMon_GetSeqChEnables(XSysMon *InstancePtr);
+int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u64 ChEnableMask);
+u64 XSysMon_GetSeqChEnables(XSysMon *InstancePtr);
 
-int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u32 AvgEnableChMask);
-u32 XSysMon_GetSeqAvgEnables(XSysMon *InstancePtr);
+int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u64 AvgEnableChMask);
+u64 XSysMon_GetSeqAvgEnables(XSysMon *InstancePtr);
 
 int XSysMon_SetSeqInputMode(XSysMon *InstancePtr, u32 InputModeChMask);
 u32 XSysMon_GetSeqInputMode(XSysMon *InstancePtr);

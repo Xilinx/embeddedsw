@@ -28,13 +28,155 @@
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
 #
+# MODIFICATION HISTORY:
+# Ver      Who    Date     Changes
+# -------- ------ -------- --------------------------------------------------
+# 7.0      bss    7/25/14  Added support for Ultrascale.  
 ##############################################################################
 
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
   xdefine_include_file $drv_handle "xparameters.h" "XSysMon" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_INTR"
-  xdefine_config_file  $drv_handle "xsysmon_g.c" "XSysMon" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_INTR"
+  xdefine_config_file  $drv_handle "xsysmon_g.c" "XSysMon" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_INTR" "IP_TYPE"
 
   xdefine_canonical_xpars $drv_handle "xparameters.h" "SysMon" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_INTR"
 }
+
+proc xdefine_include_file {drv_handle file_name drv_string args} {
+    set args [::hsm::utils::get_exact_arg_list $args]
+    # Open include file
+    set file_handle [::hsm::utils::open_include_file $file_name]
+
+    # Get all peripherals connected to this driver
+    set periphs [::hsm::utils::get_common_driver_ips $drv_handle] 
+
+    # Handle special cases
+    set arg "NUM_INSTANCES"
+    set posn [lsearch -exact $args $arg]
+    if {$posn > -1} {
+        puts $file_handle "/* Definitions for driver [string toupper [get_property name $drv_handle]] */"
+        # Define NUM_INSTANCES
+        puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        set args [lreplace $args $posn $posn]
+    }
+
+    # Check if it is a driver parameter
+    lappend newargs 
+    foreach arg $args {
+        set value [get_property CONFIG.$arg $drv_handle]
+        if {[llength $value] == 0} {
+            lappend newargs $arg
+        } else {
+            puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [get_property $arg $drv_handle]"
+        }
+    }
+    set args $newargs
+
+    # Print all parameters for all peripherals
+    set device_id 0
+    foreach periph $periphs {
+        puts $file_handle ""
+        puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+        
+        set ipname [string tolower [get_property IP_NAME $periph]]
+        if {[string compare -nocase "system_management_wiz" $ipname] == 0} {
+        	puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph "IP_TYPE"] 1"	
+        } else {
+        	puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph "IP_TYPE"] 0"
+        }
+        
+        foreach arg $args {
+            if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+                set value $device_id
+                incr device_id
+            } else {
+                set value [get_property CONFIG.$arg $periph]
+            }
+            if {[llength $value] == 0} {
+                set value 0
+            }
+            set value [::hsm::utils::format_addr_string $value $arg]
+            if {[string compare -nocase "HW_VER" $arg] == 0} {
+                puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] \"$value\""
+            } else {
+                puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] $value"
+            }
+        }
+        puts $file_handle ""
+    }		
+    puts $file_handle "\n/******************************************************************/\n"
+    close $file_handle
+}
+
+proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
+    set args [::hsm::utils::get_exact_arg_list $args]
+   # Open include file
+   set file_handle [::hsm::utils::open_include_file $file_name]
+
+   # Get all the peripherals connected to this driver
+   set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+
+   # Get the names of all the peripherals connected to this driver
+   foreach periph $periphs {
+       set peripheral_name [string toupper [get_property NAME $periph]]
+       lappend peripherals $peripheral_name
+   }
+
+   # Get possible canonical names for all the peripherals connected to this
+   # driver
+   set device_id 0
+   foreach periph $periphs {
+       set canonical_name [string toupper [format "%s_%s" $drv_string $device_id]]
+       lappend canonicals $canonical_name
+       
+       # Create a list of IDs of the peripherals whose hardware instance name
+       # doesn't match the canonical name. These IDs can be used later to
+       # generate canonical definitions
+       if { [lsearch $peripherals $canonical_name] < 0 } {
+           lappend indices $device_id
+       }
+       incr device_id
+   }
+
+   set i 0
+   foreach periph $periphs {
+       set periph_name [string toupper [get_property NAME $periph]]
+
+       # Generate canonical definitions only for the peripherals whose
+       # canonical name is not the same as hardware instance name
+       if { [lsearch $canonicals $periph_name] < 0 } {
+           puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
+           set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
+
+   	   set ipname [string tolower [get_property IP_NAME $periph]]
+	   if {[string compare -nocase "system_management_wiz" $ipname] == 0} {
+	   	puts $file_handle "#define [::hsm::utils::get_driver_param_name $canonical_name "IP_TYPE"] 1"	
+	   } else {
+	   	puts $file_handle "#define [::hsm::utils::get_driver_param_name $canonical_name "IP_TYPE"] 0"
+           }
+
+           foreach arg $args {
+               set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
+
+               # The commented out rvalue is the name of the instance-specific constant
+               # set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
+               # The rvalue set below is the actual value of the parameter
+               set rvalue [::hsm::utils::get_param_value $periph $arg]
+               if {[llength $rvalue] == 0} {
+                   set rvalue 0
+               }
+               set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
+   
+               puts $file_handle "#define $lvalue $rvalue"
+
+           }
+           puts $file_handle ""
+           incr i
+       }
+   }
+
+   puts $file_handle "\n/******************************************************************/\n"
+   close $file_handle
+}
+

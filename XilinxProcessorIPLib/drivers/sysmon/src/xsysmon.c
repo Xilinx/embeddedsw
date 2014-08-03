@@ -63,6 +63,13 @@
 *			XSysMon_SetSeqAvgEnables, XSysMon_SetSeqInputMode
 *			and XSysMon_SetSeqAcqTime APIs to check for Safe Mode
 *			instead of Single Channel mode. CR #703729
+* 7.0	bss    7/25/14  Modified XSysMon_GetAdcData,
+*			XSysMon_GetMinMaxMeasurement,
+*			XSysMon_SetSingleChParams, XSysMon_SetAlarmEnables,
+*			XSysMon_GetAlarmEnables,XSysMon_SetSeqChEnables,
+*			XSysMon_GetSeqChEnables,XSysMon_SetSeqAvgEnables,
+*			XSysMon_GetSeqAvgEnables,XSysMon_SetAlarmThreshold
+*			and XSysMon_GetAlarmThreshold to support Ultrascale
 * </pre>
 *
 *****************************************************************************/
@@ -322,8 +329,8 @@ void XSysMon_ResetAdc(XSysMon *InstancePtr)
 *		the file xsysmon.h.
 *		The valid channels are 0 to 5 and 16 to 31 for all the device
 *		families. Channel 6 is valid for 7 Series and Zynq.
-*		Channel 13, 14, 15 are valid for Zynq.
-*	.
+*		Channel 13, 14, 15 are valid for Zynq. 32 to 35 are valid for
+*		Ultrascale.
 *
 * @return	A 16-bit value representing the ADC converted data for the
 *		specified channel. The System Monitor/ADC device guarantees
@@ -345,14 +352,23 @@ u16 XSysMon_GetAdcData(XSysMon *InstancePtr, u8 Channel)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((Channel <= XSM_CH_VBRAM) ||
 			  ((Channel >= XSM_CH_VCCPINT) &&
-			  (Channel <= XSM_CH_AUX_MAX)));
+			  (Channel <= XSM_CH_AUX_MAX)) ||
+			  ((Channel >= XSM_CH_VUSR0) &&
+			  (Channel <= XSM_CH_VUSR3)));
 
 	/*
 	 * Read the selected ADC converted data for the specified channel
 	 * and return the value.
 	 */
-	AdcData = (u16) (XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
-			 XSM_TEMP_OFFSET + (Channel << 2)));
+	if (Channel <= XSM_CH_AUX_MAX) {
+		AdcData = (u16) (XSysMon_ReadReg(InstancePtr->
+				Config.BaseAddress, XSM_TEMP_OFFSET +
+				(Channel << 2)));
+	} else {
+		AdcData = (u16) (XSysMon_ReadReg(InstancePtr->
+				Config.BaseAddress, XSM_VUSR0_OFFSET +
+				((Channel - XSM_CH_VUSR0) << 2)));
+	}
 
 	return AdcData;
 }
@@ -401,12 +417,12 @@ u16 XSysMon_GetCalibCoefficient(XSysMon *InstancePtr, u8 CoeffType)
 *
 * This function reads the Minimum/Maximum measurement for one of the
 * following parameters :
-*		- Minimum Temperature (XSM_MIN_TEMP)
-*		- Minimum VCCINT (XSM_MIN_VCCINT)
-*		- Minimum VCCAUX (XSM_MIN_VCCAUX)
-*		- Maximum Temperature (XSM_MAX_TEMP)
-*		- Maximum VCCINT (XSM_MAX_VCCINT)
-*		- Maximum VCCAUX (XSM_MAX_VCCAUX)
+*		- Minimum Temperature (XSM_MIN_TEMP) - All families
+*		- Minimum VCCINT (XSM_MIN_VCCINT) - All families
+*		- Minimum VCCAUX (XSM_MIN_VCCAUX) - All families
+*		- Maximum Temperature (XSM_MAX_TEMP) - All families
+*		- Maximum VCCINT (XSM_MAX_VCCINT) - All families
+*		- Maximum VCCAUX (XSM_MAX_VCCAUX) - All families
 *		- Maximum VCCBRAM (XSM_MAX_VCCBRAM) - 7 series and Zynq only
 *		- Minimum VCCBRAM (XSM_MIN_VCCBRAM) - 7 series and Zynq only
 * 		- Maximum VCCPINT (XSM_MAX_VCCPINT) - Zynq only
@@ -415,6 +431,14 @@ u16 XSysMon_GetCalibCoefficient(XSysMon *InstancePtr, u8 CoeffType)
 * 		- Minimum VCCPINT (XSM_MIN_VCCPINT) - Zynq only
 * 		- Minimum VCCPAUX (XSM_MIN_VCCPAUX) - Zynq only
 * 		- Minimum VCCPDRO (XSM_MIN_VCCPDRO) - Zynq only
+*		- Maximum VUSER0 (XSM_MAX_VUSR0) - Ultrascale
+*		- Maximum VUSER1 (XSM_MAX_VUSR1) - Ultrascale
+*		- Maximum VUSER2 (XSM_MAX_VUSR2) - Ultrascale
+*		- Maximum VUSER3 (XSM_MAX_VUSR3) - Ultrascale
+*		- Minimum VUSER0 (XSM_MIN_VUSR0) - Ultrascale
+*		- Minimum VUSER1 (XSM_MIN_VUSR1) - Ultrascale
+*		- Minimum VUSER2 (XSM_MIN_VUSR2) - Ultrascale
+*		- Minimum VUSER3 (XSM_MIN_VUSR3) - Ultrascale
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 * @param	MeasurementType specifies the parameter for which the
@@ -428,8 +452,6 @@ u16 XSysMon_GetCalibCoefficient(XSysMon *InstancePtr, u8 CoeffType)
 *		the ADC converted data and data is the 10 MSB bits of  16 bit
 *		data read from the device.
 *
-* @note		BRAM VCC is available only in 7 Series and Zynq XADC.
-*
 *****************************************************************************/
 u16 XSysMon_GetMinMaxMeasurement(XSysMon *InstancePtr, u8 MeasurementType)
 {
@@ -441,7 +463,11 @@ u16 XSysMon_GetMinMaxMeasurement(XSysMon *InstancePtr, u8 MeasurementType)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((MeasurementType <= XSM_MAX_VCCPDRO) ||
 			((MeasurementType >= XSM_MIN_VCCPINT) &&
-			(MeasurementType <= XSM_MIN_VCCPDRO)))
+			(MeasurementType <= XSM_MIN_VCCPDRO)) ||
+			((MeasurementType >= XSM_MAX_VUSR0) &&
+			(MeasurementType <= XSM_MAX_VUSR3)) ||
+			((MeasurementType >= XSM_MIN_VUSR0) &&
+			(MeasurementType <= XSM_MIN_VUSR3)))
 
 
 	/*
@@ -540,9 +566,10 @@ u8 XSysMon_GetAvg(XSysMon *InstancePtr)
 * the single channel mode.
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Channel is the channel number for which averaging is to be set.
-*		The valid channels are 0 to 5, 8, and 16 to 31. Channel 6 is
-*		valid for 7 series and Zynq XADC.
+* @param	Channel is the channel number for conversion. The valid
+*		channels are 0 to 5, 8, and 16 to 31. Channel 6 is
+*		valid for 7 series and Zynq XADC. Channel 32 to 35 are valid
+*		for Ultrascale.
 * @param	IncreaseAcqCycles is a boolean parameter which specifies whether
 *		the Acquisition time for the external channels has to be
 *		increased to 10 ADCCLK cycles (specify TRUE) or remain at the
@@ -584,7 +611,9 @@ int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
 	Xil_AssertNonvoid((Channel <= XSM_CH_VREFN) ||
 			  (Channel == XSM_CH_CALIBRATION) ||
 			  ((Channel >= XSM_CH_AUX_MIN) &&
-			  (Channel <= XSM_CH_AUX_MAX)));
+			  (Channel <= XSM_CH_AUX_MAX)) ||
+			  ((Channel >= XSM_CH_VUSR0) &&
+			  (Channel <= XSM_CH_VUSR3)));
 	Xil_AssertNonvoid((IncreaseAcqCycles == TRUE) ||
 			  (IncreaseAcqCycles == FALSE));
 	Xil_AssertNonvoid((IsEventMode == TRUE) || (IsEventMode == FALSE));
@@ -652,23 +681,28 @@ int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
 /**
 *
 * This function enables the alarm outputs for the specified alarms in the
-* Configuration Register 1 :
+* Configuration Registers 1 and 3:
 *
-*		- OT for Over Temperature (XSM_CFR1_OT_MASK)
-*		- ALM0 for On board Temperature (XSM_CFR1_ALM_TEMP_MASK)
-*		- ALM1 for VCCINT (XSM_CFR1_ALM_VCCINT_MASK)
-*		- ALM2 for VCCAUX (XSM_CFR1_ALM_VCCAUX_MASK)
-* 		- ALM3 for VBRAM (XSM_CFR1_ALM_VBRAM_MASK)for 7 Series and Zynq
-* 		- ALM4 for VCCPINT (XSM_CFR1_ALM_VCCPINT_MASK) for Zynq
-*		- ALM5 for VCCPAUX (XSM_CFR1_ALM_VCCPAUX_MASK) for Zynq
-* 		- ALM6 for VCCPDRO (XSM_CFR1_ALM_VCCPDRO_MASK) for Zynq
+*		- OT for Over Temperature (XSM_CFR_OT_MASK)
+*		- ALM0 for On board Temperature (XSM_CFR_ALM_TEMP_MASK)
+*		- ALM1 for VCCINT (XSM_CFR_ALM_VCCINT_MASK)
+*		- ALM2 for VCCAUX (XSM_CFR_ALM_VCCAUX_MASK)
+* 		- ALM3 for VBRAM (XSM_CFR_ALM_VBRAM_MASK)for 7 Series and Zynq
+* 		- ALM4 for VCCPINT (XSM_CFR_ALM_VCCPINT_MASK) for Zynq
+*		- ALM5 for VCCPAUX (XSM_CFR_ALM_VCCPAUX_MASK) for Zynq
+* 		- ALM6 for VCCPDRO (XSM_CFR_ALM_VCCPDRO_MASK) for Zynq
+* 		- ALM8 for VUSER0 (XSM_CFR_ALM_VUSR0_MASK) for Ultrascale
+* 		- ALM9 for VUSER1 (XSM_CFR_ALM_VUSR1_MASK) for Ultrascale
+* 		- ALM10 for VUSER2 (XSM_CFR_ALM_VUSR2_MASK) for Ultrascale
+* 		- ALM11 for VUSER3 (XSM_CFR_ALM_VUSR3_MASK) for Ultrascale
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 * @param	AlmEnableMask is the bit-mask of the alarm outputs to be enabled
 *		in the Configuration Register 1.
 *		Bit positions of 1 will be enabled. Bit positions of 0 will be
-*		disabled. This mask is formed by OR'ing XSM_CFR1_ALM_*_MASK and
-*		XSM_CFR1_OT_MASK masks defined in xsysmon_hw.h.
+*		disabled. This mask is formed by OR'ing XSM_CFR_ALM_*_MASK,
+*		XSM_CFR_ALM_*_MASK and XSM_CFR_OT_MASK masks defined in
+*		xsysmon_hw.h.
 *
 * @return	None.
 *
@@ -679,7 +713,7 @@ int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
 *		before writing to the Configuration Register 1.
 *
 *****************************************************************************/
-void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u16 AlmEnableMask)
+void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
 {
 	u32 RegValue;
 
@@ -688,7 +722,7 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u16 AlmEnableMask)
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(AlmEnableMask <= XSM_CFR1_ALM_ALL_MASK);
+	Xil_AssertVoid(AlmEnableMask <= XSM_CFR_ALM_ALL_MASK);
 
 	RegValue = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
 				   XSM_CFR1_OFFSET);
@@ -701,6 +735,14 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u16 AlmEnableMask)
 	 */
 	XSysMon_WriteReg(InstancePtr->Config.BaseAddress, XSM_CFR1_OFFSET,
 			 RegValue);
+
+	RegValue = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
+					   XSM_CFR3_OFFSET);
+	RegValue &= (u32)~XSM_CFR3_ALM_ALL_MASK;
+	RegValue |= (~(AlmEnableMask >> 16) & XSM_CFR3_ALM_ALL_MASK);
+
+	XSysMon_WriteReg(InstancePtr->Config.BaseAddress, XSM_CFR3_OFFSET,
+			 RegValue);
 }
 
 /****************************************************************************/
@@ -712,9 +754,10 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u16 AlmEnableMask)
 * @param	InstancePtr is a pointer to the XSysMon instance.
 *
 * @return	This is the bit-mask of the enabled alarm outputs in the
-*		Configuration Register 1. Use the masks XSM_CFR1_ALM*_* and
-*		XSM_CFR1_OT_MASK defined in xsysmon_hw.h to interpret the
-*		returned value.
+*		Configuration Register 1. Use the masks XSM_CFR_ALM_*,
+*		XSM_CFR_ALM*_* and XSM_CFR_OT_MASK defined in
+*		xsysmon_hw.h to interpret the returned value.
+*
 *		Bit positions of 1 indicate that the alarm output is enabled.
 *		Bit positions of 0 indicate that the alarm output is disabled.
 *
@@ -727,9 +770,10 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u16 AlmEnableMask)
 *		Register 1.
 *
 *****************************************************************************/
-u16 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
+u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 {
-	u32 RegValue;
+	u32 RegValue1;
+	u32 RegValue2;
 
 	/*
 	 * Assert the arguments.
@@ -741,9 +785,15 @@ u16 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 	 * Read the status of alarm output enables from the Configuration
 	 * Register 1.
 	 */
-	RegValue = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
+	RegValue1 = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
 			XSM_CFR1_OFFSET) & XSM_CFR1_ALM_ALL_MASK;
-	return (u16) (~RegValue & XSM_CFR1_ALM_ALL_MASK);
+	RegValue1 = (~RegValue1 & XSM_CFR1_ALM_ALL_MASK);
+
+	RegValue2 = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
+				XSM_CFR3_OFFSET) & XSM_CFR3_ALM_ALL_MASK;
+	RegValue2 = (~RegValue2 & XSM_CFR3_ALM_ALL_MASK);
+
+	return ((RegValue2 << 16) | RegValue1);
 }
 
 /****************************************************************************/
@@ -1096,7 +1146,7 @@ u8 XSysMon_GetAdcClkDivisor(XSysMon *InstancePtr)
 *		Use XSM_SEQ_CH_* defined in xsysmon_hw.h to specify the Channel
 *		numbers. Bit masks of 1 will be enabled and bit mask of 0 will
 *		be disabled.
-*		The ChEnableMask is a 32 bit mask that is written to the two
+*		The ChEnableMask is a 64 bit mask that is written to the three
 *		16 bit ADC Channel Selection Sequencer Registers.
 *
 * @return
@@ -1107,7 +1157,7 @@ u8 XSysMon_GetAdcClkDivisor(XSysMon *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u32 ChEnableMask)
+int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u64 ChEnableMask)
 {
 	/*
 	 * Assert the arguments.
@@ -1137,6 +1187,11 @@ int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u32 ChEnableMask)
 			 (ChEnableMask >> XSM_SEQ_CH_AUX_SHIFT) &
 			 XSM_SEQ01_CH_VALID_MASK);
 
+	XSysMon_WriteReg(InstancePtr->Config.BaseAddress,
+			XSM_SEQ08_OFFSET,
+			(ChEnableMask >> XSM_SEQ_CH_VUSR_SHIFT) &
+			 XSM_SEQ08_CH_VALID_MASK);
+
 	return XST_SUCCESS;
 }
 
@@ -1158,9 +1213,11 @@ int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u32 ChEnableMask)
 * @note		None.
 *
 *****************************************************************************/
-u32 XSysMon_GetSeqChEnables(XSysMon *InstancePtr)
+u64 XSysMon_GetSeqChEnables(XSysMon *InstancePtr)
 {
 	u32 RegValEnable;
+	u32 RegValEnable1;
+	u64 RetVal = 0x0;
 
 	/*
 	 * Assert the arguments.
@@ -1178,7 +1235,14 @@ u32 XSysMon_GetSeqChEnables(XSysMon *InstancePtr)
 			 XSM_SEQ01_OFFSET) & XSM_SEQ01_CH_VALID_MASK) <<
 			 XSM_SEQ_CH_AUX_SHIFT;
 
-	return RegValEnable;
+	RegValEnable1 = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
+				XSM_SEQ08_OFFSET) & XSM_SEQ08_CH_VALID_MASK;
+
+	RetVal = RegValEnable1;
+	RetVal = (RetVal << XSM_SEQ_CH_VUSR_SHIFT);
+	RetVal = RetVal | RegValEnable;
+
+	return RetVal;
 }
 
 /****************************************************************************/
@@ -1193,8 +1257,8 @@ u32 XSysMon_GetSeqChEnables(XSysMon *InstancePtr)
 *		averaging is to be enabled. Use XSM_SEQ_CH__* defined in
 *		xsysmon_hw.h to specify the Channel numbers. Averaging will be
 *		enabled for bit masks of 1 and disabled for bit mask of 0.
-*		The AvgEnableChMask is a 32 bit mask that is written to the two
-*		16 bit ADC Channel Averaging Enable Sequencer Registers.
+*		The AvgEnableChMask is a 64 bit mask that is written to the
+*		three 16 bit ADC Channel Averaging Enable Sequencer Registers.
 *
 * @return
 *		- XST_SUCCESS if the given values were written successfully to
@@ -1204,7 +1268,7 @@ u32 XSysMon_GetSeqChEnables(XSysMon *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u32 AvgEnableChMask)
+int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u64 AvgEnableChMask)
 {
 	/*
 	 * Assert the arguments.
@@ -1233,6 +1297,11 @@ int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u32 AvgEnableChMask)
 			 (AvgEnableChMask >> XSM_SEQ_CH_AUX_SHIFT) &
 			 XSM_SEQ03_CH_VALID_MASK);
 
+	XSysMon_WriteReg(InstancePtr->Config.BaseAddress,
+			XSM_SEQ09_OFFSET,
+			(AvgEnableChMask >> XSM_SEQ_CH_VUSR_SHIFT) &
+			 XSM_SEQ09_CH_VALID_MASK);
+
 	return XST_SUCCESS;
 }
 
@@ -1253,9 +1322,11 @@ int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u32 AvgEnableChMask)
 * @note		None.
 *
 *****************************************************************************/
-u32 XSysMon_GetSeqAvgEnables(XSysMon *InstancePtr)
+u64 XSysMon_GetSeqAvgEnables(XSysMon *InstancePtr)
 {
 	u32 RegValAvg;
+	u32 RegValAvg1;
+	u64 RetVal = 0x0;
 
 	/*
 	 * Assert the arguments.
@@ -1273,7 +1344,14 @@ u32 XSysMon_GetSeqAvgEnables(XSysMon *InstancePtr)
 			XSM_SEQ03_OFFSET) & XSM_SEQ03_CH_VALID_MASK) <<
 			XSM_SEQ_CH_AUX_SHIFT;
 
-	return RegValAvg;
+	RegValAvg1 = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
+				XSM_SEQ09_OFFSET) & XSM_SEQ09_CH_VALID_MASK;
+
+	RetVal = RegValAvg1;
+	RetVal = (RetVal << XSM_SEQ_CH_VUSR_SHIFT);
+	RetVal = RetVal | RegValAvg;
+
+	return RetVal;
 }
 
 /****************************************************************************/
@@ -1484,10 +1562,12 @@ u32 XSysMon_GetSeqAcqTime(XSysMon *InstancePtr)
 *
 * @return	None.
 *
-* @note		Over Temperature upper threshold is programmable only in V6 and
-*		7 Series/Zynq  XADC.
+* @note		Over Temperature upper threshold is programmable only in V6,
+*		7 Series/Zynq  XADC and UltraScale.
 *		BRAM high and low voltage threshold registers are available only
-*		in 7 Series XADC.
+*		in 7 Series XADC and UltraScale.
+*		VUSER0 to VUSER3 threshold registers are available only in
+*		UltraScale.
 *		All the remaining Alarm Threshold registers specified by the
 *		constants XSM_ATR_*, are available in all the families of the
 *		Sysmon.
@@ -1500,8 +1580,9 @@ void XSysMon_SetAlarmThreshold(XSysMon *InstancePtr, u8 AlarmThrReg, u16 Value)
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((AlarmThrReg <= XSM_ATR_VBRAM_UPPER) ||
-		       (AlarmThrReg == XSM_ATR_VBRAM_LOWER));
+	Xil_AssertVoid((AlarmThrReg <= XSM_ATR_VUSR3_UPPER) ||
+			((AlarmThrReg >= XSM_ATR_VUSR0_LOWER) &&
+			(AlarmThrReg <= XSM_ATR_VUSR3_LOWER)));
 
 	/*
 	 * Write the value into the specified Alarm Threshold Register.
@@ -1542,8 +1623,9 @@ u16 XSysMon_GetAlarmThreshold(XSysMon *InstancePtr, u8 AlarmThrReg)
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((AlarmThrReg <= XSM_ATR_VBRAM_UPPER) ||
-		       (AlarmThrReg == XSM_ATR_VBRAM_LOWER));
+	Xil_AssertNonvoid((AlarmThrReg <= XSM_ATR_VUSR3_UPPER) ||
+			 ((AlarmThrReg >= XSM_ATR_VUSR0_LOWER) &&
+			 (AlarmThrReg <= XSM_ATR_VUSR3_LOWER)));
 
 	/*
 	 * Read the specified Alarm Threshold Register and return

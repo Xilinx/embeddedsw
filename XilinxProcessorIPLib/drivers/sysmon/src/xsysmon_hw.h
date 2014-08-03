@@ -58,6 +58,11 @@
 * 5.02a bss    11/23/12 Added macros XSM_CONVST_TEMPUPDT_MASK,
 *			XSM_CONVST_WAITCYCLES_MASK and
 *			XSM_CONVST_WAITCYCLES_SHIFT (CR #679872)
+* 7.0	bss    7/25/14	To support Ultrascale:
+*			Added XSM_IP_OFFSET macro.
+*			Added Offsets and Masks for VUSER0 to VUSER3 channels.
+*			Added Configuration Register 3 and Sequence Registers
+*			8 and 9.
 *
 * </pre>
 *
@@ -75,8 +80,20 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_io.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
+
+#define SYSTEM_MANAGEMENT	1	/* Ultrascale */
+#define XADC			0	/* 7 Series, Zynq */
+
+
+#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+#define XSM_IP_OFFSET	0x200
+#else
+#define XSM_IP_OFFSET	0x00
+#endif
+
 
 /**@name Register offsets
  *
@@ -104,99 +121,216 @@ extern "C" {
 /*
  * System Monitor/ADC Internal Channel Registers
  */
-#define XSM_TEMP_OFFSET		 0x200 /**< On-chip Temperature Reg */
-#define XSM_VCCINT_OFFSET	 0x204 /**< On-chip VCCINT Data Reg */
-#define XSM_VCCAUX_OFFSET	 0x208 /**< On-chip VCCAUX Data Reg */
-#define XSM_VPVN_OFFSET		 0x20C /**< ADC out of VP/VN	   */
-#define XSM_VREFP_OFFSET	 0x210 /**< On-chip VREFP Data Reg */
-#define XSM_VREFN_OFFSET	 0x214 /**< On-chip VREFN Data Reg */
-#define XSM_VBRAM_OFFSET	 0x218 /**< On-chip VBRAM Data, 7 series/Zynq */
-#define XSM_SUPPLY_CALIB_OFFSET	 0x220 /**< Supply Offset Data Reg */
-#define XSM_ADC_CALIB_OFFSET	 0x224 /**< ADC Offset Data Reg */
-#define XSM_GAINERR_CALIB_OFFSET 0x228 /**< Gain Error Data Reg  */
-#define XSM_VCCPINT_OFFSET	 0x22C /**< PS VCCPINT Data Reg - Zynq */
-#define XSM_VCCPAUX_OFFSET	 0x230 /**< PS VCCPAUX Data Reg - Zynq */
-#define XSM_VCCPDRO_OFFSET	 0x234 /**< PS VCCPDRO Data Reg - Zynq */
+#define XSM_TEMP_OFFSET		 (XSM_IP_OFFSET + 0x200)
+					/**< On-chip Temperature Reg */
+#define XSM_VCCINT_OFFSET	 (XSM_IP_OFFSET + 0x204)
+					/**< On-chip VCCINT Data Reg */
+#define XSM_VCCAUX_OFFSET	 (XSM_IP_OFFSET + 0x208)
+					/**< On-chip VCCAUX Data Reg */
+#define XSM_VPVN_OFFSET		 (XSM_IP_OFFSET + 0x20C)
+					/**< ADC out of VP/VN	   */
+#define XSM_VREFP_OFFSET	 (XSM_IP_OFFSET + 0x210)
+					/**< On-chip VREFP Data Reg */
+#define XSM_VREFN_OFFSET	 (XSM_IP_OFFSET + 0x214)
+					/**< On-chip VREFN Data Reg */
+#define XSM_VBRAM_OFFSET	 (XSM_IP_OFFSET + 0x218)
+					/**< On-chip VBRAM Data,7-series/Zynq */
+#define XSM_SUPPLY_CALIB_OFFSET	 (XSM_IP_OFFSET + 0x220)
+					/**< Supply Offset Data Reg */
+#define XSM_ADC_CALIB_OFFSET	 (XSM_IP_OFFSET + 0x224)
+					/**< ADC Offset Data Reg */
+#define XSM_GAINERR_CALIB_OFFSET (XSM_IP_OFFSET + 0x228)
+					/**< Gain Error Data Reg  */
+#define XSM_VCCPINT_OFFSET	 (XSM_IP_OFFSET + 0x22C)
+					/**< PS VCCPINT Data Reg - Zynq */
+#define XSM_VCCPAUX_OFFSET	 (XSM_IP_OFFSET + 0x230)
+					/**< PS VCCPAUX Data Reg - Zynq */
+#define XSM_VCCPDRO_OFFSET	 (XSM_IP_OFFSET + 0x234)
+					/**< PS VCCPDRO Data Reg - Zynq */
+#define XSM_VUSR0_OFFSET	 (XSM_IP_OFFSET + 0x400)
+					/**< VUSER0 Supply - Ultrascale */
+#define XSM_VUSR1_OFFSET	 (XSM_IP_OFFSET + 0x404)
+					/**< VUSER0 Supply - Ultrascale */
+#define XSM_VUSR2_OFFSET	 (XSM_IP_OFFSET + 0x408)
+					/**< VUSER0 Supply - Ultrascale */
+#define XSM_VUSR3_OFFSET	 (XSM_IP_OFFSET + 0x40C)
+					/**< VUSER0 Supply - Ultrascale */
+
 /*
  * System Monitor/ADC External Channel Registers
  */
-#define XSM_AUX00_OFFSET	0x240 /**< ADC out of VAUXP0/VAUXN0 */
-#define XSM_AUX01_OFFSET	0x244 /**< ADC out of VAUXP1/VAUXN1 */
-#define XSM_AUX02_OFFSET	0x248 /**< ADC out of VAUXP2/VAUXN2 */
-#define XSM_AUX03_OFFSET	0x24C /**< ADC out of VAUXP3/VAUXN3 */
-#define XSM_AUX04_OFFSET	0x250 /**< ADC out of VAUXP4/VAUXN4 */
-#define XSM_AUX05_OFFSET	0x254 /**< ADC out of VAUXP5/VAUXN5 */
-#define XSM_AUX06_OFFSET	0x258 /**< ADC out of VAUXP6/VAUXN6 */
-#define XSM_AUX07_OFFSET	0x25C /**< ADC out of VAUXP7/VAUXN7 */
-#define XSM_AUX08_OFFSET	0x260 /**< ADC out of VAUXP8/VAUXN8 */
-#define XSM_AUX09_OFFSET	0x264 /**< ADC out of VAUXP9/VAUXN9 */
-#define XSM_AUX10_OFFSET	0x268 /**< ADC out of VAUXP10/VAUXN10 */
-#define XSM_AUX11_OFFSET	0x26C /**< ADC out of VAUXP11/VAUXN11 */
-#define XSM_AUX12_OFFSET	0x270 /**< ADC out of VAUXP12/VAUXN12 */
-#define XSM_AUX13_OFFSET	0x274 /**< ADC out of VAUXP13/VAUXN13 */
-#define XSM_AUX14_OFFSET	0x278 /**< ADC out of VAUXP14/VAUXN14 */
-#define XSM_AUX15_OFFSET	0x27C /**< ADC out of VAUXP15/VAUXN15 */
+#define XSM_AUX00_OFFSET	(XSM_IP_OFFSET + 0x240)
+					/**< ADC out of VAUXP0/VAUXN0 */
+#define XSM_AUX01_OFFSET	(XSM_IP_OFFSET + 0x244)
+					/**< ADC out of VAUXP1/VAUXN1 */
+#define XSM_AUX02_OFFSET	(XSM_IP_OFFSET + 0x248)
+					/**< ADC out of VAUXP2/VAUXN2 */
+#define XSM_AUX03_OFFSET	(XSM_IP_OFFSET + 0x24C)
+					/**< ADC out of VAUXP3/VAUXN3 */
+#define XSM_AUX04_OFFSET	(XSM_IP_OFFSET + 0x250)
+					/**< ADC out of VAUXP4/VAUXN4 */
+#define XSM_AUX05_OFFSET	(XSM_IP_OFFSET + 0x254)
+					/**< ADC out of VAUXP5/VAUXN5 */
+#define XSM_AUX06_OFFSET	(XSM_IP_OFFSET + 0x258)
+					/**< ADC out of VAUXP6/VAUXN6 */
+#define XSM_AUX07_OFFSET	(XSM_IP_OFFSET + 0x25C)
+					/**< ADC out of VAUXP7/VAUXN7 */
+#define XSM_AUX08_OFFSET	(XSM_IP_OFFSET + 0x260)
+					/**< ADC out of VAUXP8/VAUXN8 */
+#define XSM_AUX09_OFFSET	(XSM_IP_OFFSET + 0x264)
+					/**< ADC out of VAUXP9/VAUXN9 */
+#define XSM_AUX10_OFFSET	(XSM_IP_OFFSET + 0x268)
+					/**< ADC out of VAUXP10/VAUXN10 */
+#define XSM_AUX11_OFFSET	(XSM_IP_OFFSET + 0x26C)
+					/**< ADC out of VAUXP11/VAUXN11 */
+#define XSM_AUX12_OFFSET	(XSM_IP_OFFSET + 0x270)
+					/**< ADC out of VAUXP12/VAUXN12 */
+#define XSM_AUX13_OFFSET	(XSM_IP_OFFSET + 0x274)
+					/**< ADC out of VAUXP13/VAUXN13 */
+#define XSM_AUX14_OFFSET	(XSM_IP_OFFSET + 0x278)
+					/**< ADC out of VAUXP14/VAUXN14 */
+#define XSM_AUX15_OFFSET	(XSM_IP_OFFSET + 0x27C)
+					/**< ADC out of VAUXP15/VAUXN15 */
 
 /*
  * System Monitor/ADC Registers for Maximum/Minimum data captured for the
  * on chip Temperature/VCCINT/VCCAUX data.
  */
-#define XSM_MAX_TEMP_OFFSET	0x280 /**< Maximum Temperature Reg */
-#define XSM_MAX_VCCINT_OFFSET	0x284 /**< Maximum VCCINT Register */
-#define XSM_MAX_VCCAUX_OFFSET	0x288 /**< Maximum VCCAUX Register */
-#define XSM_MAX_VBRAM_OFFSET	0x28C /**< Maximum VBRAM Reg, 7 Series/Zynq */
-#define XSM_MIN_TEMP_OFFSET	0x290 /**< Minimum Temperature Reg */
-#define XSM_MIN_VCCINT_OFFSET	0x294 /**< Minimum VCCINT Register */
-#define XSM_MIN_VCCAUX_OFFSET	0x298 /**< Minimum VCCAUX Register */
-#define XSM_MIN_VBRAM_OFFSET	0x29C /**< Maximum VBRAM Reg, 7 Series/Zynq */
-#define XSM_MAX_VCCPINT_OFFSET	0x2A0 /**< Max VCCPINT Register, Zynq */
-#define XSM_MAX_VCCPAUX_OFFSET	0x2A4 /**< Max VCCPAUX Register, Zynq */
-#define XSM_MAX_VCCPDRO_OFFSET	0x2A8 /**< Max VCCPDRO Register, Zynq */
-#define XSM_MIN_VCCPINT_OFFSET	0x2AC /**< Min VCCPINT Register, Zynq */
-#define XSM_MIN_VCCPAUX_OFFSET	0x2B0 /**< Min VCCPAUX Register, Zynq */
-#define XSM_MIN_VCCPDRO_OFFSET	0x2B4 /**< Min VCCPDRO Register, Zynq */
+#define XSM_MAX_TEMP_OFFSET	(XSM_IP_OFFSET + 0x280)
+					/**< Maximum Temperature Reg */
+#define XSM_MAX_VCCINT_OFFSET	(XSM_IP_OFFSET + 0x284)
+					/**< Maximum VCCINT Register */
+#define XSM_MAX_VCCAUX_OFFSET	(XSM_IP_OFFSET + 0x288)
+					/**< Maximum VCCAUX Register */
+#define XSM_MAX_VBRAM_OFFSET	(XSM_IP_OFFSET + 0x28C)
+					/**< Maximum VBRAM Reg, 7 Series/Zynq */
+#define XSM_MIN_TEMP_OFFSET	(XSM_IP_OFFSET + 0x290)
+					/**< Minimum Temperature Reg */
+#define XSM_MIN_VCCINT_OFFSET	(XSM_IP_OFFSET + 0x294)
+					/**< Minimum VCCINT Register */
+#define XSM_MIN_VCCAUX_OFFSET	(XSM_IP_OFFSET + 0x298)
+					/**< Minimum VCCAUX Register */
+#define XSM_MIN_VBRAM_OFFSET	(XSM_IP_OFFSET + 0x29C)
+					/**< Maximum VBRAM Reg, 7 Series/Zynq */
+#define XSM_MAX_VCCPINT_OFFSET	(XSM_IP_OFFSET + 0x2A0)
+					/**< Max VCCPINT Register, Zynq */
+#define XSM_MAX_VCCPAUX_OFFSET	(XSM_IP_OFFSET + 0x2A4)
+					/**< Max VCCPAUX Register, Zynq */
+#define XSM_MAX_VCCPDRO_OFFSET	(XSM_IP_OFFSET + 0x2A8)
+					/**< Max VCCPDRO Register, Zynq */
+#define XSM_MIN_VCCPINT_OFFSET	(XSM_IP_OFFSET + 0x2AC)
+					/**< Min VCCPINT Register, Zynq */
+#define XSM_MIN_VCCPAUX_OFFSET	(XSM_IP_OFFSET + 0x2B0)
+					/**< Min VCCPAUX Register, Zynq */
+#define XSM_MIN_VCCPDRO_OFFSET	(XSM_IP_OFFSET + 0x2B4)
+					/**< Min VCCPDRO Register, Zynq */
+#define XSM_MAX_VUSR0_OFFSET	(XSM_IP_OFFSET + 0x480)
+					/**< Maximum VUSER0 Supply Reg */
+#define XSM_MAX_VUSR1_OFFSET	(XSM_IP_OFFSET + 0x484)
+					/**< Maximum VUSER1 Supply Reg */
+#define XSM_MAX_VUSR2_OFFSET	(XSM_IP_OFFSET + 0x488)
+					/**< Maximum VUSER2 Supply Reg */
+#define XSM_MAX_VUSR3_OFFSET	(XSM_IP_OFFSET + 0x48C)
+					/**< Maximum VUSER3 Supply Reg */
+#define XSM_MIN_VUSR0_OFFSET	(XSM_IP_OFFSET + 0x4A0)
+					/**< Minimum VUSER0 Supply Reg */
+#define XSM_MIN_VUSR1_OFFSET	(XSM_IP_OFFSET + 0x4A4)
+					/**< Minimum VUSER1 Supply Reg */
+#define XSM_MIN_VUSR2_OFFSET	(XSM_IP_OFFSET + 0x4A8)
+					/**< Minimum VUSER2 Supply Reg */
+#define XSM_MIN_VUSR3_OFFSET	(XSM_IP_OFFSET + 0x4AC)
+					/**< Minimum VUSER3 Supply Reg */
 
-#define XSM_FLAG_REG_OFFSET	0x2FC /**< General Status */
+
+#define XSM_FLAG_REG_OFFSET	(XSM_IP_OFFSET + 0x2FC) /**< General Status */
 
 /*
  * System Monitor/ADC Configuration Registers
  */
-#define XSM_CFR0_OFFSET		0x300 /**< Configuration Register 0 */
-#define XSM_CFR1_OFFSET		0x304 /**< Configuration Register 1 */
-#define XSM_CFR2_OFFSET		0x308 /**< Configuration Register 2 */
+#define XSM_CFR0_OFFSET		(XSM_IP_OFFSET + 0x300)
+					/**< Configuration Register 0 */
+#define XSM_CFR1_OFFSET		(XSM_IP_OFFSET + 0x304)
+					/**< Configuration Register 1 */
+#define XSM_CFR2_OFFSET		(XSM_IP_OFFSET + 0x308)
+					/**< Configuration Register 2 */
+#define XSM_CFR3_OFFSET		(XSM_IP_OFFSET + 0x30C)
+					/**< Configuration Register 2 */
 
 /*
  * System Monitor/ADC Sequence Registers
  */
-#define XSM_SEQ00_OFFSET	0x320 /**< Seq Reg 00 Adc Channel Selection */
-#define XSM_SEQ01_OFFSET	0x324 /**< Seq Reg 01 Adc Channel Selection */
-#define XSM_SEQ02_OFFSET	0x328 /**< Seq Reg 02 Adc Average Enable */
-#define XSM_SEQ03_OFFSET	0x32C /**< Seq Reg 03 Adc Average Enable */
-#define XSM_SEQ04_OFFSET	0x330 /**< Seq Reg 04 Adc Input Mode Select */
-#define XSM_SEQ05_OFFSET	0x334 /**< Seq Reg 05 Adc Input Mode Select */
-#define XSM_SEQ06_OFFSET	0x338 /**< Seq Reg 06 Adc Acquisition Select */
-#define XSM_SEQ07_OFFSET	0x33C /**< Seq Reg 07 Adc Acquisition Select */
+#define XSM_SEQ00_OFFSET	(XSM_IP_OFFSET + 0x320)
+				      /**< Seq Reg 00 Adc Channel Selection */
+#define XSM_SEQ01_OFFSET	(XSM_IP_OFFSET + 0x324)
+				      /**< Seq Reg 01 Adc Channel Selection */
+#define XSM_SEQ02_OFFSET	(XSM_IP_OFFSET + 0x328)
+				      /**< Seq Reg 02 Adc Average Enable */
+#define XSM_SEQ03_OFFSET	(XSM_IP_OFFSET + 0x32C)
+				      /**< Seq Reg 03 Adc Average Enable */
+#define XSM_SEQ04_OFFSET	(XSM_IP_OFFSET + 0x330)
+				      /**< Seq Reg 04 Adc Input Mode Select */
+#define XSM_SEQ05_OFFSET	(XSM_IP_OFFSET + 0x334)
+				      /**< Seq Reg 05 Adc Input Mode Select */
+#define XSM_SEQ06_OFFSET	(XSM_IP_OFFSET + 0x338)
+				      /**< Seq Reg 06 Adc Acquisition Select */
+#define XSM_SEQ07_OFFSET	(XSM_IP_OFFSET + 0x33C)
+				      /**< Seq Reg 07 Adc Acquisition Select */
+#define XSM_SEQ08_OFFSET	(XSM_IP_OFFSET + 0x318)
+				      /**< Seq Reg 08 Adc Channel Selection */
+#define XSM_SEQ09_OFFSET	(XSM_IP_OFFSET + 0x31C)
+				      /**< Seq Reg 09 Adc Average Enable */
 
 /*
  * System Monitor/ADC Alarm Threshold/Limit Registers (ATR)
  */
-#define XSM_ATR_TEMP_UPPER_OFFSET	0x340 /**< Temp Upper Alarm Register */
-#define XSM_ATR_VCCINT_UPPER_OFFSET	0x344 /**< VCCINT Upper Alarm Reg */
-#define XSM_ATR_VCCAUX_UPPER_OFFSET	0x348 /**< VCCAUX Upper Alarm Reg */
-#define XSM_ATR_OT_UPPER_OFFSET		0x34C /**< Over Temp Upper Alarm Reg */
-#define XSM_ATR_TEMP_LOWER_OFFSET	0x350 /**< Temp Lower Alarm Register */
-#define XSM_ATR_VCCINT_LOWER_OFFSET	0x354 /**< VCCINT Lower Alarm Reg */
-#define XSM_ATR_VCCAUX_LOWER_OFFSET	0x358 /**< VCCAUX Lower Alarm Reg */
-#define XSM_ATR_OT_LOWER_OFFSET		0x35C /**< Over Temp Lower Alarm Reg */
-#define XSM_ATR_VBRAM_UPPER_OFFSET	0x360 /**< VBBAM Upper Alarm,7 Series */
-#define XSM_ATR_VCCPINT_UPPER_OFFSET	0x364 /**< VCCPINT Upper Alarm, Zynq */
-#define XSM_ATR_VCCPAUX_UPPER_OFFSET	0x368 /**< VCCPAUX Upper Alarm, Zynq */
-#define XSM_ATR_VCCPDRO_UPPER_OFFSET	0x36C /**< VCCPDRO Upper Alarm, Zynq */
-#define XSM_ATR_VBRAM_LOWER_OFFSET	0x370 /**< VRBAM Lower Alarm, 7 Series*/
-#define XSM_ATR_VCCPINT_LOWER_OFFSET	0x374 /**< VCCPINT Lower Alarm, Zynq */
-#define XSM_ATR_VCCPAUX_LOWER_OFFSET	0x378 /**< VCCPAUX Lower Alarm, Zynq */
-#define XSM_ATR_VCCPDRO_LOWER_OFFSET	0x37C /**< VCCPDRO Lower Alarm, Zynq */
-
+#define XSM_ATR_TEMP_UPPER_OFFSET	(XSM_IP_OFFSET + 0x340)
+					/**< Temp Upper Alarm Register */
+#define XSM_ATR_VCCINT_UPPER_OFFSET	(XSM_IP_OFFSET + 0x344)
+					/**< VCCINT Upper Alarm Reg */
+#define XSM_ATR_VCCAUX_UPPER_OFFSET	(XSM_IP_OFFSET + 0x348)
+					/**< VCCAUX Upper Alarm Reg */
+#define XSM_ATR_OT_UPPER_OFFSET		(XSM_IP_OFFSET + 0x34C)
+					/**< Over Temp Upper Alarm Reg */
+#define XSM_ATR_TEMP_LOWER_OFFSET	(XSM_IP_OFFSET + 0x350)
+					/**< Temp Lower Alarm Register */
+#define XSM_ATR_VCCINT_LOWER_OFFSET	(XSM_IP_OFFSET + 0x354)
+					/**< VCCINT Lower Alarm Reg */
+#define XSM_ATR_VCCAUX_LOWER_OFFSET	(XSM_IP_OFFSET + 0x358)
+					/**< VCCAUX Lower Alarm Reg */
+#define XSM_ATR_OT_LOWER_OFFSET		(XSM_IP_OFFSET + 0x35C)
+					/**< Over Temp Lower Alarm Reg */
+#define XSM_ATR_VBRAM_UPPER_OFFSET	(XSM_IP_OFFSET + 0x360)
+					/**< VBBAM Upper Alarm,7 Series */
+#define XSM_ATR_VCCPINT_UPPER_OFFSET	(XSM_IP_OFFSET + 0x364)
+					/**< VCCPINT Upper Alarm, Zynq */
+#define XSM_ATR_VCCPAUX_UPPER_OFFSET	(XSM_IP_OFFSET + 0x368)
+					/**< VCCPAUX Upper Alarm, Zynq */
+#define XSM_ATR_VCCPDRO_UPPER_OFFSET	(XSM_IP_OFFSET + 0x36C)
+					/**< VCCPDRO Upper Alarm, Zynq */
+#define XSM_ATR_VBRAM_LOWER_OFFSET	(XSM_IP_OFFSET + 0x370)
+					/**< VRBAM Lower Alarm, 7 Series*/
+#define XSM_ATR_VCCPINT_LOWER_OFFSET	(XSM_IP_OFFSET + 0x374)
+					/**< VCCPINT Lower Alarm, Zynq */
+#define XSM_ATR_VCCPAUX_LOWER_OFFSET	(XSM_IP_OFFSET + 0x378)
+					/**< VCCPAUX Lower Alarm, Zynq */
+#define XSM_ATR_VCCPDRO_LOWER_OFFSET	(XSM_IP_OFFSET + 0x37C)
+					/**< VCCPDRO Lower Alarm, Zynq */
+#define XSM_ATR_VUSR0_UPPER_OFFSET	(XSM_IP_OFFSET + 0x380)
+					/**< VUSER0 Upper Alarm Reg */
+#define XSM_ATR_VUSR1_UPPER_OFFSET	(XSM_IP_OFFSET + 0x384)
+					/**< VUSER1 Upper Alarm Reg */
+#define XSM_ATR_VUSR2_UPPER_OFFSET	(XSM_IP_OFFSET + 0x388)
+					/**< VUSER2 Upper Alarm Reg */
+#define XSM_ATR_VUSR3_UPPER_OFFSET	(XSM_IP_OFFSET + 0x38C)
+					/**< VUSER3 Upper Alarm Reg */
+#define XSM_ATR_VUSR0_LOWER_OFFSET	(XSM_IP_OFFSET + 0x3A0)
+					/**< VUSER0 Lower Alarm Reg */
+#define XSM_ATR_VUSR1_LOWER_OFFSET	(XSM_IP_OFFSET + 0x3A4)
+					/**< VUSER1 Lower Alarm Reg */
+#define XSM_ATR_VUSR2_LOWER_OFFSET	(XSM_IP_OFFSET + 0x3A8)
+					/**< VUSER2 Lower Alarm Reg */
+#define XSM_ATR_VUSR3_LOWER_OFFSET	(XSM_IP_OFFSET + 0x3AC)
+					/**< VUSER3 Lower Alarm Reg */
 
 /*@}*/
 
@@ -226,8 +360,12 @@ extern "C" {
  * @name System Monitor/ADC Alarm Output Register (AOR) mask(s)
  * @{
  */
-#define XSM_AOR_ALARM_ALL_MASK	0x000001FF /**< Mask for all Alarms */
-#define XSM_AOR_ALL_MASK	0x00000100 /**< ALM7 - All Alarms  */
+#define XSM_AOR_ALARM_ALL_MASK	0x00001FFF /**< Mask for all Alarms */
+#define XSM_AOR_VUSR3_MASK	0x00001000 /**< ALM11 - VUSER3 Alarm Mask */
+#define XSM_AOR_VUSR2_MASK	0x00000800 /**< ALM10 - VUSER2 Alarm Mask */
+#define XSM_AOR_VUSR1_MASK	0x00000400 /**< ALM9 -  VUSER1 Alarm Mask */
+#define XSM_AOR_VUSR0_MASK	0x00000200 /**< ALM8 -  VUSER0 Alarm Mask */
+#define XSM_AOR_ALL_MASK	0x00000100 /**< ALM7 - All Alarms 0 to 6 */
 #define XSM_AOR_VCCPDRO_MASK	0x00000080 /**< ALM6 - VCCPDRO  Mask, Zynq */
 #define XSM_AOR_VCCPAUX_MASK	0x00000040 /**< ALM5 - VCCPAUX  Mask, Zynq */
 #define XSM_AOR_VCCPINT_MASK	0x00000020 /**< ALM4 - VCCPINT Mask, Zynq */
@@ -299,7 +437,12 @@ extern "C" {
 #define XSM_IPIXR_VCCINT_MASK	      0x00000004 /**< Alarm 1 - VCCINT */
 #define XSM_IPIXR_TEMP_MASK	      0x00000002 /**< Alarm 0 - Temp ACTIVE */
 #define XSM_IPIXR_OT_MASK	      0x00000001 /**< Over Temperature ACTIVE */
-#define XSM_IPIXR_ALL_MASK	      0x000003FF /**< Mask of all interrupts */
+#define XSM_IPIXR_VUSR0_MASK	      0x00004000 /**< Alarm 8  VUSER0 */
+#define XSM_IPIXR_VUSR1_MASK	      0x00008000 /**< Alarm 9  VUSER1 */
+#define XSM_IPIXR_VUSR2_MASK	      0x00010000 /**< Alarm 10 VUSER2 */
+#define XSM_IPIXR_VUSR3_MASK	      0x00020000 /**< Alarm 11 VUSER3 */
+#define XSM_IPIXR_ALL_MASK	      0x0003C7FF /**< Mask of all interrupts */
+
 
 /*@}*/
 
@@ -322,13 +465,13 @@ extern "C" {
 #define XSM_CFR0_AVG16_MASK	0x1000  /**< Average 16 samples */
 #define XSM_CFR0_AVG64_MASK	0x2000  /**< Average 64 samples */
 #define XSM_CFR0_AVG256_MASK	0x3000  /**< Average 256 samples */
-#define XSM_CFR0_AVG_SHIFT	12	/**< Shift for the Averaging bits  */
+#define XSM_CFR0_AVG_SHIFT	12	/**< Shift for the Averaging bits */
 #define XSM_CFR0_MUX_MASK	0x0800  /**< External Mux Mask Enable
 					  *  - 7 Series and Zynq  */
 #define XSM_CFR0_DU_MASK	0x0400  /**< Bipolar/Unipolar mode */
 #define XSM_CFR0_EC_MASK	0x0200  /**< Event driven/Continuous mode */
 #define XSM_CFR0_ACQ_MASK	0x0100  /**< Add acquisition by 6 ADCCLK  */
-#define XSM_CFR0_CHANNEL_MASK	0x001F  /**< Channel number bit Mask */
+#define XSM_CFR0_CHANNEL_MASK	0x003F  /**< Channel number bit Mask */
 
 /*@}*/
 
@@ -386,6 +529,40 @@ extern "C" {
 /*@}*/
 
 /**
+ * @name Configuration Register 3 (CFR3) mask(s)
+ * @{
+ */
+
+#define XSM_CFR3_ALM_ALL_MASK		  0x000F /**< Mask for all alarms */
+#define XSM_CFR3_ALM_VUSR3_MASK		  0x0008 /**< VUSER 0 Supply */
+#define XSM_CFR3_ALM_VUSR2_MASK		  0x0004 /**< VUSER 1 Supply */
+#define XSM_CFR3_ALM_VUSR1_MASK		  0x0002 /**< VUSER 2 Supply */
+#define XSM_CFR3_ALM_VUSR0_MASK		  0x0001 /**< VUSER 3 Supply */
+
+/* Mask for all Alarms in CFR1 and CFR3 */
+#define XSM_CFR_ALM_ALL_MASK		  0xF0F0F
+
+/*@}*/
+
+/**
+ * @name Alarm masks for channels in Configuration registers 1 and 3
+ * @{
+ */
+#define XSM_CFR_ALM_VUSR3_MASK		0x00080000 /**< VUSER 0 Supply */
+#define XSM_CFR_ALM_VUSR2_MASK		0x00040000 /**< VUSER 1 Supply */
+#define XSM_CFR_ALM_VUSR1_MASK		0x00020000 /**< VUSER 2 Supply */
+#define XSM_CFR_ALM_VUSR0_MASK		0x00010000 /**< VUSER 3 Supply */
+#define XSM_CFR_ALM_VCCPDRO_MASK	0x0800 /**< Alarm 6 - VCCPDRO, Zynq */
+#define XSM_CFR_ALM_VCCPAUX_MASK	0x0400 /**< Alarm 5 - VCCPAUX, Zynq */
+#define XSM_CFR_ALM_VCCPINT_MASK	0x0200 /**< Alarm 4 - VCCPINT, Zynq */
+#define XSM_CFR_ALM_VBRAM_MASK	 	0x0100 /**< Alarm 3 - VBRAM Enable
+						*  7 Series and Zynq */
+#define XSM_CFR_ALM_VCCAUX_MASK	0x0008 /**< Alarm 2 - VCCAUX Enable */
+#define XSM_CFR_ALM_VCCINT_MASK	0x0004 /**< Alarm 1 - VCCINT Enable */
+#define XSM_CFR_ALM_TEMP_MASK		0x0002 /**< Alarm 0 - Temperature */
+#define XSM_CFR_OT_MASK		0x0001 /**< Over Temperature Enable */
+
+/**
  * @name Sequence Register (SEQ) Bit Definitions
  * @{
  */
@@ -416,6 +593,10 @@ extern "C" {
 #define XSM_SEQ_CH_AUX13	0x20000000 /**< 14th Aux Channel */
 #define XSM_SEQ_CH_AUX14	0x40000000 /**< 15th Aux Channel */
 #define XSM_SEQ_CH_AUX15	0x80000000 /**< 16th Aux Channel */
+#define XSM_SEQ_CH_VUSR0	0x100000000 /**<  VUSER0 Channel */
+#define XSM_SEQ_CH_VUSR1	0x200000000 /**<  VUSER1 Channel */
+#define XSM_SEQ_CH_VUSR2	0x400000000 /**<  VUSER2 Channel */
+#define XSM_SEQ_CH_VUSR3	0x800000000 /**<  VUSER3 Channel */
 
 #define XSM_SEQ00_CH_VALID_MASK	0x7FE1 /**< Mask for the valid channels */
 #define XSM_SEQ01_CH_VALID_MASK	0xFFFF /**< Mask for the valid channels */
@@ -429,7 +610,12 @@ extern "C" {
 #define XSM_SEQ06_CH_VALID_MASK	0x0800 /**< Mask for the valid channels */
 #define XSM_SEQ07_CH_VALID_MASK	0xFFFF /**< Mask for the valid channels */
 
+#define XSM_SEQ08_CH_VALID_MASK 0x000F /**< Mask for the valid channels */
+#define XSM_SEQ09_CH_VALID_MASK 0x000F /**< Mask for the valid channels */
+
 #define XSM_SEQ_CH_AUX_SHIFT	16 /**< Shift for the Aux Channel */
+
+#define XSM_SEQ_CH_VUSR_SHIFT	32 /**< Shift for the Aux Channel */
 
 /*@}*/
 
