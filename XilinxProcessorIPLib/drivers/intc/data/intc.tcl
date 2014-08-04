@@ -66,6 +66,8 @@
 ##		    if number of interrupt ports not equal to total numer of 
 ##		    interrupts returning immediatly.And in the xredefine_intc
 ##		    if there is not interrupt source returining immediately.
+##     4/8/14   bss Modified xredefine_intc to handle external interrupt pins 
+##		    correctly (CR#799609).
 ##
 ##
 ##    
@@ -248,8 +250,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
    
     if {$num_intr_inputs != $total_intr_ports} {
         puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the same as length of ::hsm::utils::get_interrupt_sources [llength $source_pins] hsm_error"
-	return  
-        
+	return          
     }
 
     set i 0
@@ -433,14 +434,19 @@ proc xredefine_intc {drvhandle config_inc} {
         foreach source_pin $source_pins {
             set source_pin_name($i) [get_property NAME $source_pin]
             if {[::hsm::utils::is_external_pin $source_pin]} {
-                set source_name($i) "system"
+                set width [::hsm::utils::get_port_width $source_pin]
+                for { set j 0 } { $j < $width } { incr j } {
+                  set source_name($i) "system"
+                  lappend source_list $source_name($i)
+                  incr i  
+                }
             } else {
                 set source_periph [get_cells -of_objects $source_pin]
                 set source_name($i) [get_property NAME $source_periph]
+                lappend source_list $source_name($i)
+                incr i
             }
 
-            lappend source_list $source_name($i)
-            incr i
         }
 
         set num_intr_inputs [get_property CONFIG.C_NUM_INTR_INPUTS $periph]

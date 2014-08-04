@@ -198,6 +198,8 @@
 * 		           driver tcl.
 * 3.1     adk    8/4/14    Fixed the CR:783248 Changes are made in
 *			   the test-app tcl
+* 3.2     bss    4/8/14    Fixed driver tcl to handle external interrupt pins
+*			   correctly (CR#799609).
 *
 * </pre>
 *
