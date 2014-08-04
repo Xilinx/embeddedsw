@@ -221,7 +221,7 @@ enum {
 * These constants specify different types of standards used to represent
 * standard color encoding.
 */
-enum Standards {
+enum XRgb_Standards {
 	XRGB_STANDARD_ITU_601_SD = 0,	 /**< Standard ITU 601 SD. */
 	XRGB_STANDARD_ITU_709_NTSC,	 /**< Standard ITU 709 NTSC. */
 	XRGB_STANDARD_ITU_709_PAL,	 /**< Standard ITU 709 PAL. */
@@ -238,7 +238,7 @@ enum Standards {
 * These constants specify different ranges used for studio equipment,
 * television and computer graphics respectively.
 */
-enum OutputRanges {
+enum XRgb_OutputRanges {
 	XRGB_TV_16_TO_240 = 0,  /**< 16 to 240, for Television. */
 	XRGB_STUDIO_16_TO_235, /**< 16 to 235, for Studio Equipment. */
 	XRGB_GRAPHICS_0_TO_255	  /**< 0 to 255, for Computer Graphics. */
@@ -808,8 +808,8 @@ void XRgb2YCrCb_GetCoefs(XRgb2YCrCb *InstancePtr, double *ACoef, double *BCoef,
 				double *CCoef, double *DCoef);
 
 void XRgb2YCrCb_Select_Standard(XRgb2YCrCb *InstancePtr,
-				enum Standards StandardSel,
-				enum OutputRanges InputRange, u32 DataWidth,
+				enum XRgb_Standards StandardSel,
+			enum XRgb_OutputRanges InputRange, u32 DataWidth,
 				struct XRgb2YCrCb_Coef_Inputs *CoefIn);
 
 u32 XRgb2YCrCb_Coefficient_Translation(XRgb2YCrCb *InstancePtr,
@@ -818,7 +818,7 @@ u32 XRgb2YCrCb_Coefficient_Translation(XRgb2YCrCb *InstancePtr,
 				u32 Data_Width);
 
 void XRgb2YCrCb_Select_OutputRange(XRgb2YCrCb *InstancePtr,
-					enum OutputRanges Range);
+					enum XRgb_OutputRanges Range);
 
 /* Self-test function implemented in xrgb2ycrcb_selftest.c */
 int XRgb2YCrCb_SelfTest(XRgb2YCrCb *InstancePtr);
