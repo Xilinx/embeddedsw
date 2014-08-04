@@ -752,7 +752,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
 	set sw_processor [get_sw_processor]
 	set processor [get_cells [get_property HW_INSTANCE $sw_processor]]
-	set processor_type [get_property NAME $processor]
+	set processor_type [get_property IP_NAME $processor]
 	set force_emaclite_on_zynq 0
 	
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
@@ -818,7 +818,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
                 if {$pname_type != "chipscope_ila"} {
                 	incr intr_cnt
                 	set intc_handle [get_cells -of_objects $intr_sink]
-			set intc_periph_type [get_property NAME $intc_handle]
+			set intc_periph_type [get_property IP_NAME $intc_handle]
                 	set intc_name [get_property NAME $intc_handle]
                 	# can we address this intc from the processor?
 			set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
@@ -953,7 +953,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 	global use_emaclite_on_zynq
 	set sw_processor [get_sw_processor]
 	set processor [get_cells [get_property HW_INSTANCE $sw_processor]]
-	set processor_type [get_property NAME $processor]
+	set processor_type [get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	set have_emaclite 0
@@ -1071,7 +1071,7 @@ proc generate_adapterconfig_include {libhandle} {
 	global use_emaclite_on_zynq
 	set sw_processor [get_sw_processor]
 	set processor [get_cells [get_property HW_INSTANCE $sw_processor]]
-	set processor_type [get_property NAME $processor]
+	set processor_type [get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	set have_emaclite 0
