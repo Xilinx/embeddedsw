@@ -43,6 +43,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a ecm	01/10/10 Initial release
 * 2.00a mb	30/05/12 added the flag XPAR_PS7_NAND_0_BASEADDR
+* 10.00a kc 08/04/14 Fix for CR#809336 - Removed smc.h
 * </pre>
 *
 * @note
@@ -58,8 +59,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
-
-#include "smc.h"
 
 #ifdef XPAR_PS7_NAND_0_BASEADDR
 
