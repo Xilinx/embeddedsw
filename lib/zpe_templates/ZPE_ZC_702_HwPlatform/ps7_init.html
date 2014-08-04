@@ -77,7 +77,7 @@
 </DIV>
 </A>
 </DIV>
-<DIV class="content_container">This design is targeted for xc7z020 board (part number: xc7z020clg484-1)
+<DIV class="content_container">This design is targeted for 7z020 board (part number: 7z020clg484-1)
 
 <br>
 <H1>Zynq Design Summary</H1>
@@ -87,7 +87,7 @@
 <B>Device</B>
 </TD>
 <TD width=80% BGCOLOR=#E6E6E6>
-xc7z020
+7z020
 </TD>
 </TR>
 <TR valign="top">
@@ -103,7 +103,7 @@ xc7z020
 <B>Part</B>
 </TD>
 <TD width=80% BGCOLOR=#E6E6E6>
-xc7z020clg484-1
+7z020clg484-1
 </TD>
 </TR>
 <TR valign="top">
@@ -44345,6 +44345,72 @@ SLCR_LOCK
 </TR>
 <TR valign="top">
 <TD width=15% BGCOLOR=#FBF5EF>
+<A href="#LAR">
+LAR
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>WO</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<A href="#CurrentSize">
+CurrentSize
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803004</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>RW</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Current Port Size Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<A href="#LAR">
+LAR
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>WO</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
 <A href="#Baud_rate_divider_reg0">
 Baud_rate_divider_reg0
 </A>
@@ -45555,7 +45621,330 @@ MASK_DATA_0_LSW
 </TABLE>
 <P>
 <H1>SRAM/NOR SET OPMODE</H1>
+<H1>TRACE LOCK ACCESS REGISTER</H1>
+<H2><a name="LAR">Register (<A href=#mod___slcr> slcr </A>)LAR</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>LAR</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>c5acce55</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>c5acce55</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Write Access Code. Write behavior depends on PADDRDBG31 pin: - PADDRDBG31=0 (lower 2GB): After reset (via PRESETDBGn), TPIU is locked, i.e., writes to all other registers using lower 2GB addresses are ignored. To unlock, 0xC5ACCE55 must be written this register. After the required registers are written, to lock again, write a value other than 0xC5ACCE55 to this register. - PADDRDBG31=1 (upper 2GB): TPIU is unlocked when upper 2GB addresses are used to write to all the registers. However, write to this register is ignored using a upper 2GB address! Note: read from this register always returns 0, regardless of PADDRDBG31.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>LAR@0XF8803FB0</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>c5acce55</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
 <H1>TRACE CURRENT PORT SIZE</H1>
+<H2><a name="CurrentSize">Register (<A href=#mod___slcr> slcr </A>)CurrentSize</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>CurrentSize</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803004</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>2</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>2</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>The Current Port Size Register has the same format as the Supported Port Sizes register but only one bit is set, and all others must be zero. Writing values with more than one bit set or setting a bit that is not indicated as supported is not supported and causes unpredictable behavior.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>CurrentSize@0XF8803004</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>2</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Current Port Size Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<H1>TRACE LOCK ACCESS REGISTER</H1>
+<H2><a name="LAR">Register (<A href=#mod___slcr> slcr </A>)LAR</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>LAR</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>0</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Write Access Code. Write behavior depends on PADDRDBG31 pin: - PADDRDBG31=0 (lower 2GB): After reset (via PRESETDBGn), TPIU is locked, i.e., writes to all other registers using lower 2GB addresses are ignored. To unlock, 0xC5ACCE55 must be written this register. After the required registers are written, to lock again, write a value other than 0xC5ACCE55 to this register. - PADDRDBG31=1 (upper 2GB): TPIU is unlocked when upper 2GB addresses are used to write to all the registers. However, write to this register is ignored using a upper 2GB address! Note: read from this register always returns 0, regardless of PADDRDBG31.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>LAR@0XF8803FB0</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>0</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
 <H1>UART REGISTERS</H1>
 <H2><a name="Baud_rate_divider_reg0">Register (<A href=#mod___slcr> slcr </A>)Baud_rate_divider_reg0</a></H2>
 <TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
@@ -93418,6 +93807,72 @@ SLCR_LOCK
 </TR>
 <TR valign="top">
 <TD width=15% BGCOLOR=#FBF5EF>
+<A href="#LAR">
+LAR
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>WO</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<A href="#CurrentSize">
+CurrentSize
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803004</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>RW</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Current Port Size Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<A href="#LAR">
+LAR
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>WO</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
 <A href="#Baud_rate_divider_reg0">
 Baud_rate_divider_reg0
 </A>
@@ -94628,7 +95083,330 @@ MASK_DATA_0_LSW
 </TABLE>
 <P>
 <H1>SRAM/NOR SET OPMODE</H1>
+<H1>TRACE LOCK ACCESS REGISTER</H1>
+<H2><a name="LAR">Register (<A href=#mod___slcr> slcr </A>)LAR</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>LAR</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>c5acce55</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>c5acce55</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Write Access Code. Write behavior depends on PADDRDBG31 pin: - PADDRDBG31=0 (lower 2GB): After reset (via PRESETDBGn), TPIU is locked, i.e., writes to all other registers using lower 2GB addresses are ignored. To unlock, 0xC5ACCE55 must be written this register. After the required registers are written, to lock again, write a value other than 0xC5ACCE55 to this register. - PADDRDBG31=1 (upper 2GB): TPIU is unlocked when upper 2GB addresses are used to write to all the registers. However, write to this register is ignored using a upper 2GB address! Note: read from this register always returns 0, regardless of PADDRDBG31.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>LAR@0XF8803FB0</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>c5acce55</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
 <H1>TRACE CURRENT PORT SIZE</H1>
+<H2><a name="CurrentSize">Register (<A href=#mod___slcr> slcr </A>)CurrentSize</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>CurrentSize</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803004</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>2</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>2</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>The Current Port Size Register has the same format as the Supported Port Sizes register but only one bit is set, and all others must be zero. Writing values with more than one bit set or setting a bit that is not indicated as supported is not supported and causes unpredictable behavior.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>CurrentSize@0XF8803004</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>2</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Current Port Size Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<H1>TRACE LOCK ACCESS REGISTER</H1>
+<H2><a name="LAR">Register (<A href=#mod___slcr> slcr </A>)LAR</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>LAR</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>0</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Write Access Code. Write behavior depends on PADDRDBG31 pin: - PADDRDBG31=0 (lower 2GB): After reset (via PRESETDBGn), TPIU is locked, i.e., writes to all other registers using lower 2GB addresses are ignored. To unlock, 0xC5ACCE55 must be written this register. After the required registers are written, to lock again, write a value other than 0xC5ACCE55 to this register. - PADDRDBG31=1 (upper 2GB): TPIU is unlocked when upper 2GB addresses are used to write to all the registers. However, write to this register is ignored using a upper 2GB address! Note: read from this register always returns 0, regardless of PADDRDBG31.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>LAR@0XF8803FB0</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>0</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
 <H1>UART REGISTERS</H1>
 <H2><a name="Baud_rate_divider_reg0">Register (<A href=#mod___slcr> slcr </A>)Baud_rate_divider_reg0</a></H2>
 <TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
@@ -141853,6 +142631,72 @@ SLCR_LOCK
 </TR>
 <TR valign="top">
 <TD width=15% BGCOLOR=#FBF5EF>
+<A href="#LAR">
+LAR
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>WO</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<A href="#CurrentSize">
+CurrentSize
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803004</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>RW</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Current Port Size Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<A href="#LAR">
+LAR
+</A>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>WO</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
 <A href="#Baud_rate_divider_reg0">
 Baud_rate_divider_reg0
 </A>
@@ -143063,7 +143907,330 @@ MASK_DATA_0_LSW
 </TABLE>
 <P>
 <H1>SRAM/NOR SET OPMODE</H1>
+<H1>TRACE LOCK ACCESS REGISTER</H1>
+<H2><a name="LAR">Register (<A href=#mod___slcr> slcr </A>)LAR</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>LAR</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>c5acce55</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>c5acce55</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Write Access Code. Write behavior depends on PADDRDBG31 pin: - PADDRDBG31=0 (lower 2GB): After reset (via PRESETDBGn), TPIU is locked, i.e., writes to all other registers using lower 2GB addresses are ignored. To unlock, 0xC5ACCE55 must be written this register. After the required registers are written, to lock again, write a value other than 0xC5ACCE55 to this register. - PADDRDBG31=1 (upper 2GB): TPIU is unlocked when upper 2GB addresses are used to write to all the registers. However, write to this register is ignored using a upper 2GB address! Note: read from this register always returns 0, regardless of PADDRDBG31.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>LAR@0XF8803FB0</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>c5acce55</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
 <H1>TRACE CURRENT PORT SIZE</H1>
+<H2><a name="CurrentSize">Register (<A href=#mod___slcr> slcr </A>)CurrentSize</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>CurrentSize</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803004</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>2</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>2</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>The Current Port Size Register has the same format as the Supported Port Sizes register but only one bit is set, and all others must be zero. Writing values with more than one bit set or setting a bit that is not indicated as supported is not supported and causes unpredictable behavior.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>CurrentSize@0XF8803004</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>2</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Current Port Size Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<H1>TRACE LOCK ACCESS REGISTER</H1>
+<H2><a name="LAR">Register (<A href=#mod___slcr> slcr </A>)LAR</a></H2>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Register Name</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Address</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Width</B>
+</TD>
+<TD width=10% BGCOLOR=#FFFF00>
+<B>Type</B>
+</TD>
+<TD width=15% BGCOLOR=#FFFF00>
+<B>Reset Value</B>
+</TD>
+<TD width=35% BGCOLOR=#FFFF00>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>LAR</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0XF8803FB0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>32</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>rw</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0x00000000</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>--</B>
+</TD>
+</TR>
+</TABLE>
+<P>
+<TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Field Name</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Bits</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Mask</B>
+</TD>
+<TD width=10% BGCOLOR=#C0FFC0>
+<B>Value</B>
+</TD>
+<TD width=15% BGCOLOR=#C0FFC0>
+<B>Shifted Value</B>
+</TD>
+<TD width=35% BGCOLOR=#C0FFC0>
+<B>Description</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>a</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#FBF5EF>
+<B>0</B>
+</TD>
+<TD width=15% BGCOLOR=#FBF5EF>
+<B>0</B>
+</TD>
+<TD width=35% BGCOLOR=#FBF5EF>
+<B>Write Access Code. Write behavior depends on PADDRDBG31 pin: - PADDRDBG31=0 (lower 2GB): After reset (via PRESETDBGn), TPIU is locked, i.e., writes to all other registers using lower 2GB addresses are ignored. To unlock, 0xC5ACCE55 must be written this register. After the required registers are written, to lock again, write a value other than 0xC5ACCE55 to this register. - PADDRDBG31=1 (upper 2GB): TPIU is unlocked when upper 2GB addresses are used to write to all the registers. However, write to this register is ignored using a upper 2GB address! Note: read from this register always returns 0, regardless of PADDRDBG31.</B>
+</TD>
+</TR>
+<TR valign="top">
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>LAR@0XF8803FB0</B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>31:0</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B>ffffffff</B>
+</TD>
+<TD width=10% BGCOLOR=#C0C0C0>
+<B></B>
+</TD>
+<TD width=15% BGCOLOR=#C0C0C0>
+<B>0</B>
+</TD>
+<TD width=35% BGCOLOR=#C0C0C0>
+<B>Lock Access Register</B>
+</TD>
+</TR>
+</TABLE>
+<P>
 <H1>UART REGISTERS</H1>
 <H2><a name="Baud_rate_divider_reg0">Register (<A href=#mod___slcr> slcr </A>)Baud_rate_divider_reg0</a></H2>
 <TABLE border=1 cellspacing=0 BORDERCOLOR=black WIDTH=100%">
