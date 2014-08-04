@@ -39,6 +39,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 1.00a sdm  11/03/09 Initial release.
+* 4.2	pkp	 08/04/14 Removed function definition of XSmc_NorInit and XSmc_NorInit
+*					  as smc.c is removed
 * </pre>
 *
 * @note		None.
@@ -104,9 +106,6 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-
-void XSmc_SramInit (void);
-void XSmc_NorInit(void);
 
 #ifdef __cplusplus
 }

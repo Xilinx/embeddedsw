@@ -50,6 +50,8 @@
 ; 3.07a sgd 	07/05/12 Updated with reset and start Global Timer
 ; 3.07a sgd 	10/19/12 SMC NOR and SRAM initialization with build option
 ; 4.2   pkp	06/19/14 Enabled asynchronous abort exception
+; 4.2	pkp  	08/04/14 Removed PEEP board related code which contained
+;			 initialization of uart smc nor and sram
 ; </pre>
 ;
 ; @note
@@ -76,9 +78,6 @@
 	IMPORT _vector_table
 	IMPORT __main
 	IMPORT Xil_ExceptionInit
-	IMPORT XSmc_NorInit
-	IMPORT XSmc_SramInit
-	IMPORT Init_Uart
 	IMPORT XTime_SetTime
 
 PSS_L2CC_BASE_ADDR	EQU	0xF8F02000
@@ -347,16 +346,7 @@ mmu_loop:
 	mrs	r0, cpsr			/* get the current PSR */
 	bic	r0, r0, #0x100			/* enable asynchronous abort exception */
 	msr	cpsr_xsf, r0
-
-#ifdef PEEP
-	; Initialize STDOUT to 115200bps
-	bl	Init_Uart
-
-	bl	XSmc_NorInit
-
-	bl	XSmc_SramInit
-#endif
-
+	
 ; Clear cp15 regs with unknown reset values
 	mov	r0, #0x0
 	mcr	p15, 0, r0, c5, c0, 0		; DFSR

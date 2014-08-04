@@ -40,7 +40,9 @@
 ;
 ; Ver	Who     Date	  Changes
 ; ----- ------- -------- ---------------------------------------------------
-; 1.00a 				 Initial version
+; 1.00a 		 Initial version
+; 4.2	pkp  	08/04/14 Removed PEEP board related code which contained
+;			 initialization of uart smc nor and sram
 ; </pre>
 ;
 ; @note
@@ -69,9 +71,6 @@
 	IMPORT MMUTable
 	IMPORT __cmain
 	IMPORT Xil_ExceptionInit
-	IMPORT XSmc_NorInit
-	IMPORT XSmc_SramInit
-	IMPORT Init_Uart
 	IMPORT XTime_SetTime
 
 PSS_L2CC_BASE_ADDR	EQU	0xF8F02000
@@ -361,14 +360,6 @@ mmu_loop
 
 	; Initialize the vector table
 	;bl	 Xil_ExceptionInit
-#ifdef PEEP
-	; Initialize STDOUT to 115200bps
-	bl	Init_Uart
-
-	bl	XSmc_NorInit
-
-	bl	XSmc_SramInit
-#endif
 
 ; Clear cp15 regs with unknown reset values
 	mov	r0, #0x0

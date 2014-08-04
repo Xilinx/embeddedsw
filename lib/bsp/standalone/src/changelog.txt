@@ -192,4 +192,9 @@
  * 4.2 pkp   08/04/14  Removed unimplemented nanosleep routine from cortexa9/usleep.c as 
  *		       it is not possible to generate timer in nanosecond due to limited
  *		       cpu frequency
+ * 4.2 pkp   08/04/14  Removed PEEP board related code which contained initialization of 
+ *		       uart, smc nor and sram from cortexa9/gcc/xil-crt0.s and armcc/boot.s
+ *		       and iccarm/boot.s. Also uart.c and smc.c have been removed. Also 
+ *		       removed function definition of XSmc_NorInit and XSmc_NorInit from
+ *		       cortexa9/smc.h
  ******************************************************************************************/

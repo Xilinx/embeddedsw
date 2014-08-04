@@ -43,7 +43,9 @@
 * 3.06a sgd  05/16/12 Added global constructors and cleanup code
 *                     Uart initialization based on compiler flag
 * 3.07a sgd  07/05/12 Updated with reset and start Global Timer
-* 3.07a sgd	 10/19/12 SMC NOR and SRAM initialization with build option
+* 3.07a sgd  10/19/12 SMC NOR and SRAM initialization with build option
+* 4.2	pkp  08/04/14 Removed PEEP board related code which contained
+*		      initialization of uart smc nor and sram
 * </pre>
 *
 * @note
@@ -51,9 +53,6 @@
 * None.
 *
 ******************************************************************************/
-
-.extern XSmc_NorInit
-.extern XSmc_SramInit
 
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
@@ -112,17 +111,6 @@ _start:
 	mov	r0, #0x0
 	mov	r1, #0x0
     bl XTime_SetTime
-    	
-#ifdef PEEP
-	/* Initialize STDOUT */
-	bl	Init_Uart
-
-	/* Initialize the SMC interfaces for NOR */
-	bl	XSmc_NorInit
-
-    /* Initialize the SMC interfaces for SRAM */
-	bl	XSmc_SramInit
-#endif
 
 #ifdef PROFILING			/* defined in Makefile */
 	/* Setup profiling stuff */
