@@ -45,6 +45,7 @@
 * 1.00a hk/sg  10/17/13 Initial release
 * 2.0   hk     12/13/13 Added check for arm to use sleep.h and its API's
 * 2.1   hk     04/18/14 Add sleep for microblaze designs. CR# 781117.
+* 2.2   hk     07/28/14 Make changes to enable use of data cache.
 *
 * </pre>
 *
@@ -685,6 +686,8 @@ int XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
 			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK);
 
+	Xil_DCacheInvalidateRange(Buff, BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+
 	/*
 	 * Send block read command
 	 */
@@ -723,7 +726,7 @@ int XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	Status = XST_SUCCESS;
 
 	RETURN_PATH:
-		return Status;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -773,6 +776,7 @@ int XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	}
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
+	Xil_DCacheFlushRange(Buff, BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_XFER_MODE_OFFSET,
@@ -932,6 +936,9 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
 			(u32)&(InstancePtr->Adma2_DescrTbl[0]));
+
+	Xil_DCacheFlushRange(&(InstancePtr->Adma2_DescrTbl[0]),
+			sizeof(XSdPs_Adma2Descriptor) * 32);
 
 }
 

@@ -103,6 +103,7 @@
 * 2.0   hk      03/07/14 Version number revised.
 * 2.1   hk     04/18/14 Increase sleep for eMMC switch command.
 *                       Add sleep for microblaze designs. CR# 781117.
+* 2.2   hk     07/28/14 Make changes to enable use of data cache.
 *
 * </pre>
 *
@@ -153,7 +154,14 @@ typedef struct {
 	u32 HCS;		/**< High capacity support in card */
 	u32 CardID[4];		/**< Card ID */
 	u32 RelCardAddr;	/**< Relative Card Address */
-	XSdPs_Adma2Descriptor Adma2_DescrTbl[32]; /**< ADMA Descriptors */
+	/**< ADMA Descriptors */
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	XSdPs_Adma2Descriptor Adma2_DescrTbl[32];
+#pragma data_alignment = 4
+#else
+	XSdPs_Adma2Descriptor Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
+#endif
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
