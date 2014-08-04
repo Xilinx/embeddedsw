@@ -48,6 +48,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.00a hk  10/17/13 First release
+* 2.2   hk  07/28/14 Make changes to enable use of data cache.
 *
 *</pre>
 *
@@ -76,8 +77,17 @@ static FIL fil;		/* File object */
 static FATFS fatfs;
 static char FileName[32] = "Test.bin";
 static char *SD_File;
+
+#ifdef __ICCARM__
+#pragma data_alignment = 32
 u8 DestinationAddress[10*1024*1024];
 u8 SourceAddress[10*1024*1024];
+#pragma data_alignment = 4
+#else
+u8 DestinationAddress[10*1024*1024] __attribute__ ((aligned(32)));
+u8 SourceAddress[10*1024*1024] __attribute__ ((aligned(32)));
+#endif
+
 #define TEST 7
 
 /*****************************************************************************/
@@ -132,9 +142,6 @@ int FfsSdPolledExample(void)
 	UINT NumBytesWritten;
 	u32 BuffCnt;
 	u32 FileSize = (8*1024*1024);
-
-	Xil_DCacheFlush();
-	Xil_DCacheDisable();
 
 	for(BuffCnt = 0; BuffCnt < FileSize; BuffCnt++){
 		SourceAddress[BuffCnt] = TEST + BuffCnt;

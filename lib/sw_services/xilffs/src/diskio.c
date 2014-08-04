@@ -64,6 +64,7 @@
 * 2.1   hk   04/16/14 Move check for ExtCSD high speed bit set inside if
 *                     condition for high speed support.
 *                     Include xil_types.h irrespective of xsdps.h. CR# 797086.
+* 2.2   hk   07/28/14 Make changes to enable use of data cache.
 *
 * </pre>
 *
