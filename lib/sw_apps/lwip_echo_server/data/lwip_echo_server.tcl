@@ -240,7 +240,7 @@ proc generate_emac_config {fp} {
     	if {$proc_type == "ps7_cortexa9" && $use_softeth_on_zynq == 0} {	
     	} else {
         	if {$proc_type == "ps7_cortexa9" && $use_softeth_on_zynq == 1} {
-        		puts $fp "#define USE_AXIETH_ON_ZYNQ 1";
+        		puts $fp "#define USE_SOFTETH_ON_ZYNQ  1";
         	}
         	set temac [lindex $temacs 0]
 		set prefix "XPAR_";
