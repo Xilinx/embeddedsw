@@ -1133,7 +1133,7 @@ void XRgb2YCrCb_GetCoefs(XRgb2YCrCb *InstancePtr, double *ACoef, double *BCoef,
 * from the selected video standard.
 *
 * @param	InstancePtr is a pointer to the XRgb2YCrCb instance.
-* @param	StandardSel needs to be set from enum Standards value as :
+* @param	StandardSel needs to be set from enum XRgb_Standards value as :
 *		0 = XRGB_STANDARD_ITU_601_SD
 *		1 = XRGB_STANDARD_ITU_709_NTSC
 *		2 = XRGB_STANDARD_ITU_709_PAL
@@ -1154,8 +1154,8 @@ void XRgb2YCrCb_GetCoefs(XRgb2YCrCb *InstancePtr, double *ACoef, double *BCoef,
 *
 ******************************************************************************/
 void XRgb2YCrCb_Select_Standard(XRgb2YCrCb *InstancePtr,
-				enum Standards StandardSel,
-				enum OutputRanges InputRange, u32 DataWidth,
+				enum XRgb_Standards StandardSel,
+				enum XRgb_OutputRanges InputRange, u32 DataWidth,
 				struct XRgb2YCrCb_Coef_Inputs *CoefIn)
 {
 	/* Verify arguments. */
@@ -1344,7 +1344,8 @@ u32 XRgb2YCrCb_Coefficient_Translation(XRgb2YCrCb *InstancePtr,
 * conversion coefficients as well as the clipping and clamping values.
 *
 * @param	InstancePtr is a pointer to the XRgb2YCrCb instance.
-* @param	Range needs to be set from the enum OutputRanges values as:
+* @param	Range needs to be set from the enum XRgb_OutputRanges
+*		values as:
 *		0 = XRGB_TV_16_TO_240,
 *		1 = XRGB_STUDIO_16_TO_235,
 *		2 = XRGB_GRAPHICS_0_TO_255.
@@ -1355,7 +1356,7 @@ u32 XRgb2YCrCb_Coefficient_Translation(XRgb2YCrCb *InstancePtr,
 *
 *****************************************************************************/
 void XRgb2YCrCb_Select_OutputRange(XRgb2YCrCb *InstancePtr,
-					enum OutputRanges Range)
+					enum XRgb_OutputRanges Range)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
