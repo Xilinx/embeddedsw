@@ -37,7 +37,6 @@
 extern "C" {
 #endif
 
-void nanosleep(unsigned int nanoseconds);
 int usleep(unsigned int useconds);
 int sleep(unsigned int seconds);
 

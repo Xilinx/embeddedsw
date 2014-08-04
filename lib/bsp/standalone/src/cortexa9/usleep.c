@@ -44,6 +44,9 @@
 * ----- -------- -------- -----------------------------------------------
 * 1.00a ecm/sdm  11/11/09 First release
 * 3.07a sgd      07/05/12 Upadted micro sleep function to make use Global Timer
+* 4.2	pkp		 08/04/14 Removed unimplemented nanosleep routine as it is not
+*						  possible to generate timer in nanosecond due to
+*						  limited cpu frequency
 * </pre>
 *
 ******************************************************************************/
@@ -57,23 +60,6 @@
 
 /* Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_USECOND  (XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ / (2*1000000))
-
-/*****************************************************************************/
-/**
-*
-* This is not implemented .
-*
-* @param	nanoseconds
-*
-* @return	None
-*
-* @note		None.
-*
-****************************************************************************/
-void nanosleep(unsigned int nanoseconds){
-	/* not implemented */
-	(void)nanoseconds;
-}
 
 /*****************************************************************************/
 /**
