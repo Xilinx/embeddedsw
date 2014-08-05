@@ -216,7 +216,7 @@ enum {
 * These constants specify different types of standards used to represent
 * standard color encoding.
 */
-enum Standards {
+enum XYcc_Standards {
 	XYCC_STANDARD_ITU_601_SD = 0,	 /**< Standard ITU 601 SD. */
 	XYCC_STANDARD_ITU_709_NTSC,	 /**< Standard ITU 709 NTSC. */
 	XYCC_STANDARD_ITU_709_PAL,	 /**< Standard ITU 709 PAL. */
@@ -233,7 +233,7 @@ enum Standards {
 * These constants specify different ranges used for studio equipment,
 * television and computer graphics respectively.
 */
-enum OutputRanges {
+enum XYcc_OutputRanges {
 	XYCC_TV_16_TO_240 = 0,	/**< 16 to 240, for Television. */
 	XYCC_STUDIO_16_TO_235,	/**< 16 to 235, for Studio Equipment. */
 	XYCC_GRAPHICS_0_TO_255	/**< 0 to 255, for Computer Graphics. */
@@ -762,8 +762,8 @@ void XYCrCb2Rgb_GetCoefs(XYCrCb2Rgb *InstancePtr,
 				struct XYCrCb2Rgb_Coefficients *Coef);
 
 void XYCrCb2Rgb_Select_Standard(XYCrCb2Rgb *InstancePtr,
-				enum Standards StandardSel,
-				enum OutputRanges InputRange, u32 DataWidth,
+				enum XYcc_Standards StandardSel,
+				enum XYcc_OutputRanges InputRange, u32 DataWidth,
 				struct XYCrCb2Rgb_Coef_Inputs *CoefIn);
 
 u32 XYCrCb2Rgb_Coefficient_Translation(XYCrCb2Rgb *InstancePtr,
@@ -772,7 +772,7 @@ u32 XYCrCb2Rgb_Coefficient_Translation(XYCrCb2Rgb *InstancePtr,
 			u32 DataWidth, u32 MWidth);
 
 void XYCrCb2Rgb_Select_OutputRange(XYCrCb2Rgb *InstancePtr,
-			enum OutputRanges Range);
+			enum XYcc_OutputRanges Range);
 
 /* Self-test function implemented in xycrcb2rgb_selftest.c */
 int XYCrCb2Rgb_SelfTest(XYCrCb2Rgb *InstancePtr);

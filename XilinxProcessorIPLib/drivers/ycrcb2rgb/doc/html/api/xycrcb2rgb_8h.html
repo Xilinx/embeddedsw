@@ -21,96 +21,7 @@
     <li><a href="files.html"><span>File&nbsp;List</span></a></li>
     <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
   </ul></div>
-<h1>xycrcb2rgb.h File Reference</h1><hr><a name="_details"></a><h2>Detailed Description</h2>
-This header file contains identifiers and register-level driver functions (or macros), range macros, structure typedefs that can be used to access the Xilinx YCRCB2RGB core.<p>
-The YCrCb to RGB Color-Space Convertor core is a simplified 3x3 matrix multiplier converts three input color samples to three output samples in a single clock cycle. The core supports four common format conversions as well as a custom mode that allows for a user-defined transform. The core is capable of a maximum resolution of 7680 columns by 7680 rows with 8, 10, 12, or 16 bits per pixel.<p>
-<b>Initialization &amp; Configuration</b><p>
-The device driver enables higher layer software (e.g., an application) to communicate to the YCRCB2RGB core.<p>
-<a class="el" href="xycrcb2rgb_8c.html#c5025d0ba54b65adaa027af5fb417af6">XYCrCb2Rgb_CfgInitialize()</a> API is used to initialize the YCRCB2RGB core. The user needs to first call the <a class="el" href="xycrcb2rgb_8h.html#efc2983c39179e4c195f7aac035ec77a">XYCrCb2Rgb_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="xycrcb2rgb_8c.html#c5025d0ba54b65adaa027af5fb417af6">XYCrCb2Rgb_CfgInitialize()</a> API.<p>
-<b> Interrupts </b><p>
-The driver provides an interrupt handler XYCrCb2Rgb_IntrHandler for handling the interrupt from the YCRCB2RGB core. The users of this driver have to register this handler with the interrupt system and provide the callback functions by using XYCrCb2Rgb_SetCallBack API.<p>
-<b> Virtual Memory </b><p>
-This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.<p>
-<b> Threads </b><p>
-This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.<p>
-<b> Asserts </b><p>
-Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.<p>
-<b> Building the driver </b><p>
-The <a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.<p>
-<pre>
- MODIFICATION HISTORY:</pre><p>
-<pre> Ver   Who    Date     Changes
- ----- ------ -------- -------------------------------------------------------
- 5.00a tb     02/28/12 Updated for YCRCB2RGB V5.00.a
- 5.01a bao    12/28/12 Converted from xio.h to xil_io.h, translating basic
-                       types, MB cache functions, exceptions and assertions
-                       to xil_io format.
- 6.0   adk    19/12/13 Updated as per the New Tcl API's
- 7.0   adk    01/31/14 Changed the file name from "ycrcb2rgb.h" to
-                       "xycrcb2rgb.h".</pre><p>
-<pre>                       Moved register offsets and bit definitions from
-                       ycrcb2rgb.h file to <a class="el" href="xycrcb2rgb__hw_8h.html">xycrcb2rgb_hw.h</a> file.</pre><p>
-<pre>                       Removed YCC_TIMING_STATUS register offset because this
-                       register is not present in latest product guide.</pre><p>
-<pre>                       Removed following function macros:
-                       YCC_Enable, YCC_Disable, YCC_RegUpdateEnable,
-                       YCC_RegUpdateDisable, YCC_Reset, YCC_ClearReset,
-                       YCC_AutoSyncReset, ycc_max..</pre><p>
-<pre>                       Removed following functions:
-                       YCC_select_standard, YCC_coefficient_translation,
-                       YCC_set_coefficients, YCC_get_coefficients.</pre><p>
-<pre>                       Added following handler types as enum:
-                       XYCC_HANDLER_PROCSTART, XYCC_HANDLER_FRAMEDONE,
-                       XYCC_HANDLER_ERROR.</pre><p>
-<pre>                       Added following standard types as enum:
-                       XYCC_STANDARD_ITU_601_SD, XYCC_STANDARD_ITU_709_NTSC,
-                       XYCC_STANDARD_ITU_709_PAL, XYCC_STANDARD_YUV,
-                       XYCC_STANDARD_CUSTOM.</pre><p>
-<pre>                       Added following output ranges as enum:
-                       XYCC_TV_16_TO_240, XYCC_STUDIO_16_TO_235,
-                       XYCC_GRAPHICS_0_TO_255.</pre><p>
-<pre>                       Added range macros for ActiveSize, RGBMAX, RGBMIN,
-                       ROFFSET, GOFFSET, BOFFSET registers.</pre><p>
-<pre>                       Added following function macros:
-                       XYCrCb2Rgb_IntrEnable, XYCrCb2Rgb_IntrDisable,
-                       XYCrCb2Rgb_StatusGetPending, XYCrCb2Rgb_IntrGetPending,
-                       XYCrCb2Rgb_IntrClear, XYCrCb2Rgb_Reset,
-                       XYCrCb2Rgb_Enable, XYCrCb2Rgb_Disable,
-                       XYCrCb2Rgb_Start, XYCrCb2Rgb_Stop,
-                       XYCrCb2Rgb_RegUpdateEnable,
-                       XYCrCb2Rgb_RegUpdateDisable,
-                       XYCrCb2Rgb_SyncReset, XYCrCb2Rgb_Max</pre><p>
-<pre>                       Added core, configuration and coefficient structure.
-                       Renamed ycc_coef_inputs -&gt; <a class="el" href="struct_x_y_cr_cb2_rgb___coef___inputs.html">XYCrCb2Rgb_Coef_Inputs</a> and
-                       ycc_coef_outputs - &gt; <a class="el" href="struct_x_y_cr_cb2_rgb___coef___outputs.html">XYCrCb2Rgb_Coef_Outputs</a>.</pre><p>
-<pre>                       Added callback functions typedef.</pre><p>
-<pre>                       Implemented XYCrCb2Rgb_LookupConfig in
-                       <a class="el" href="xycrcb2rgb__sinit_8c.html">xycrcb2rgb_sinit.c</a>
-                       Implemented XYCrCb2Rgb_SelfTest in
-                       <a class="el" href="xycrcb2rgb__selftest_8c.html">xycrcb2rgb_selftest.c</a>
-                       Implemented XYCrCb2Rgb_IntrHandler,
-                       XYCrCb2Rgb_SetCallBack in <a class="el" href="xycrcb2rgb__intr_8c.html">xycrcb2rgb_intr.c</a>.</pre><p>
-<pre>                       Implemented following functions in <a class="el" href="xycrcb2rgb_8c.html">xycrcb2rgb.c</a>:
-                       XYCrCb2Rgb_CfgInitialize, XYCrCb2Rgb_EnableDbgByPass,
-                       XYCrCb2Rgb_IsDbgByPassEnabled,
-                       XYCrCb2Rgb_DisableDbgBypass,
-                       XYCrCb2Rgb_EnableDbgTestPattern,
-                       XYCrCb2Rgb_IsDbgTestPatternEnabled,
-                       XYCrCb2Rgb_DisableDbgTestPattern,
-                       XYCrCb2Rgb_GetVersion, XYCrCb2Rgb_GetDbgFrameCount,
-                       XYCrCb2Rgb_GetDbgLineCount,
-                       XYCrCb2Rgb_GetDbgPixelCount, XYCrCb2Rgb_Setup,
-                       XYCrCb2Rgb_SetActiveSize, XYCrCb2Rgb_GetActiveSize,
-                       XYCrCb2Rgb_SetRGBMax, XYCrCb2Rgb_GetRGBMax,
-                       XYCrCb2Rgb_SetRGBMin, XYCrCb2Rgb_GetRGBMin,
-                       XYCrCb2Rgb_SetROffset, XYCrCb2Rgb_GetROffset,
-                       XYCrCb2Rgb_SetGOffset, XYCrCb2Rgb_GetGOffset,
-                       XYCrCb2Rgb_SetBOffset, XYCrCb2Rgb_GetBOffset,
-                       XYCrCb2Rgb_SetCoefs, XYCrCb2Rgb_GetCoefs,
-                       XYCrCb2Rgb_Select_Standard,
-                       XYCrCb2Rgb_Coefficient_Translation,
-                       XYCrCb2Rgb_Select_OutputRange.
-*</pre> 
+<h1>xycrcb2rgb.h File Reference</h1>
 <p>
 <code>#include &quot;<a class="el" href="xycrcb2rgb__hw_8h.html">xycrcb2rgb_hw.h</a>&quot;</code><br>
 <code>#include &quot;xil_assert.h&quot;</code><br>
@@ -147,20 +58,20 @@ The <a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> driver is com
  }</td></tr>
 
 <tr><td colspan="2"><br><h2>Standard Types</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d">Standards</a> { <br>
-&nbsp;&nbsp;<a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d1217ea6e63d324a65afedd246c3afa38">XYCC_STANDARD_ITU_601_SD</a> =  0, 
-<a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d46e2f294a2871542dd275903d47525f1">XYCC_STANDARD_ITU_709_NTSC</a>, 
-<a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55daf6639705d9b4fb937b2760e72e01849">XYCC_STANDARD_ITU_709_PAL</a>, 
-<a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d0b82d96962dd13c0307cd48707b37b5a">XYCC_STANDARD_YUV</a>, 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af721">XYcc_Standards</a> { <br>
+&nbsp;&nbsp;<a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af7211217ea6e63d324a65afedd246c3afa38">XYCC_STANDARD_ITU_601_SD</a> =  0, 
+<a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af72146e2f294a2871542dd275903d47525f1">XYCC_STANDARD_ITU_709_NTSC</a>, 
+<a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af721af6639705d9b4fb937b2760e72e01849">XYCC_STANDARD_ITU_709_PAL</a>, 
+<a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af7210b82d96962dd13c0307cd48707b37b5a">XYCC_STANDARD_YUV</a>, 
 <br>
-&nbsp;&nbsp;<a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d0b1c78077197c7527fc7952fcc89c211">XYCC_STANDARD_CUSTOM</a>
+&nbsp;&nbsp;<a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af7210b1c78077197c7527fc7952fcc89c211">XYCC_STANDARD_CUSTOM</a>
 <br>
  }</td></tr>
 
 <tr><td colspan="2"><br><h2>Output Ranges</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c6">OutputRanges</a> { <a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c63c73c9762977b65219b2ad82a0b4bb73">XYCC_TV_16_TO_240</a> =  0, 
-<a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c60516093ac40f49d9a0161ce9dbf852d0">XYCC_STUDIO_16_TO_235</a>, 
-<a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c6e1f1d2c55a2ef7feadbbde1ca748337e">XYCC_GRAPHICS_0_TO_255</a>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a">XYcc_OutputRanges</a> { <a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a3c73c9762977b65219b2ad82a0b4bb73">XYCC_TV_16_TO_240</a> =  0, 
+<a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a0516093ac40f49d9a0161ce9dbf852d0">XYCC_STUDIO_16_TO_235</a>, 
+<a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968ae1f1d2c55a2ef7feadbbde1ca748337e">XYCC_GRAPHICS_0_TO_255</a>
  }</td></tr>
 
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
@@ -254,11 +165,11 @@ The <a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> driver is com
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#4fdf94c700fe6fafe0f7753193264367">XYCrCb2Rgb_GetCoefs</a> (<a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> *InstancePtr, struct <a class="el" href="struct_x_y_cr_cb2_rgb___coefficients.html">XYCrCb2Rgb_Coefficients</a> *Coef)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#739c05fe4dba7388f1e72ceadcbc3205">XYCrCb2Rgb_Select_Standard</a> (<a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> *InstancePtr, enum <a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d">Standards</a> StandardSel, enum <a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c6">OutputRanges</a> InputRange, u32 DataWidth, struct <a class="el" href="struct_x_y_cr_cb2_rgb___coef___inputs.html">XYCrCb2Rgb_Coef_Inputs</a> *CoefIn)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#0072eba5715f04664184a2bbfe9a4247">XYCrCb2Rgb_Select_Standard</a> (<a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> *InstancePtr, enum <a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af721">XYcc_Standards</a> StandardSel, enum <a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a">XYcc_OutputRanges</a> InputRange, u32 DataWidth, struct <a class="el" href="struct_x_y_cr_cb2_rgb___coef___inputs.html">XYCrCb2Rgb_Coef_Inputs</a> *CoefIn)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#be717fccdb512b0150bc0bf5f3610d59">XYCrCb2Rgb_Coefficient_Translation</a> (<a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> *InstancePtr, struct <a class="el" href="struct_x_y_cr_cb2_rgb___coef___inputs.html">XYCrCb2Rgb_Coef_Inputs</a> *CoefIn, struct <a class="el" href="struct_x_y_cr_cb2_rgb___coef___outputs.html">XYCrCb2Rgb_Coef_Outputs</a> *CoefOut, u32 DataWidth, u32 MWidth)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#a6fff23e29d7affab6a4912e8c52a8cf">XYCrCb2Rgb_Select_OutputRange</a> (<a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> *InstancePtr, enum <a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c6">OutputRanges</a> Range)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#f5e8a42e14dd074ae90b9911a5f078fd">XYCrCb2Rgb_Select_OutputRange</a> (<a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> *InstancePtr, enum <a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a">XYcc_OutputRanges</a> Range)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xycrcb2rgb_8h.html#9829c0d1d3eb9b8c4e6151b9dab69af2">XYCrCb2Rgb_SelfTest</a> (<a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> *InstancePtr)</td></tr>
 
@@ -886,12 +797,12 @@ An error condition interrupt type </td></tr>
 
 </div>
 </div><p>
-<a class="anchor" name="a9c553a5835e996be86db99d5d5b14c6"></a><!-- doxytag: member="xycrcb2rgb.h::OutputRanges" ref="a9c553a5835e996be86db99d5d5b14c6" args="" -->
+<a class="anchor" name="dcae94ec346c6a5744c334402ff0968a"></a><!-- doxytag: member="xycrcb2rgb.h::XYcc_OutputRanges" ref="dcae94ec346c6a5744c334402ff0968a" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c6">OutputRanges</a>          </td>
+          <td class="memname">enum <a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a">XYcc_OutputRanges</a>          </td>
         </tr>
       </table>
 </div>
@@ -900,23 +811,23 @@ An error condition interrupt type </td></tr>
 <p>
 These constants specify different ranges used for studio equipment, television and computer graphics respectively. <dl compact><dt><b>Enumerator: </b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="a9c553a5835e996be86db99d5d5b14c63c73c9762977b65219b2ad82a0b4bb73"></a><!-- doxytag: member="XYCC_TV_16_TO_240" ref="a9c553a5835e996be86db99d5d5b14c63c73c9762977b65219b2ad82a0b4bb73" args="" -->XYCC_TV_16_TO_240</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="dcae94ec346c6a5744c334402ff0968a3c73c9762977b65219b2ad82a0b4bb73"></a><!-- doxytag: member="XYCC_TV_16_TO_240" ref="dcae94ec346c6a5744c334402ff0968a3c73c9762977b65219b2ad82a0b4bb73" args="" -->XYCC_TV_16_TO_240</em>&nbsp;</td><td>
 16 to 240, for Television. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="a9c553a5835e996be86db99d5d5b14c60516093ac40f49d9a0161ce9dbf852d0"></a><!-- doxytag: member="XYCC_STUDIO_16_TO_235" ref="a9c553a5835e996be86db99d5d5b14c60516093ac40f49d9a0161ce9dbf852d0" args="" -->XYCC_STUDIO_16_TO_235</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="dcae94ec346c6a5744c334402ff0968a0516093ac40f49d9a0161ce9dbf852d0"></a><!-- doxytag: member="XYCC_STUDIO_16_TO_235" ref="dcae94ec346c6a5744c334402ff0968a0516093ac40f49d9a0161ce9dbf852d0" args="" -->XYCC_STUDIO_16_TO_235</em>&nbsp;</td><td>
 16 to 235, for Studio Equipment. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="a9c553a5835e996be86db99d5d5b14c6e1f1d2c55a2ef7feadbbde1ca748337e"></a><!-- doxytag: member="XYCC_GRAPHICS_0_TO_255" ref="a9c553a5835e996be86db99d5d5b14c6e1f1d2c55a2ef7feadbbde1ca748337e" args="" -->XYCC_GRAPHICS_0_TO_255</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="dcae94ec346c6a5744c334402ff0968ae1f1d2c55a2ef7feadbbde1ca748337e"></a><!-- doxytag: member="XYCC_GRAPHICS_0_TO_255" ref="dcae94ec346c6a5744c334402ff0968ae1f1d2c55a2ef7feadbbde1ca748337e" args="" -->XYCC_GRAPHICS_0_TO_255</em>&nbsp;</td><td>
 0 to 255, for Computer Graphics. </td></tr>
 </table>
 </dl>
 
 </div>
 </div><p>
-<a class="anchor" name="1e26713d0e6ef278ede893feaae2c55d"></a><!-- doxytag: member="xycrcb2rgb.h::Standards" ref="1e26713d0e6ef278ede893feaae2c55d" args="" -->
+<a class="anchor" name="bd7ea7f87d1779cac60386bf999af721"></a><!-- doxytag: member="xycrcb2rgb.h::XYcc_Standards" ref="bd7ea7f87d1779cac60386bf999af721" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d">Standards</a>          </td>
+          <td class="memname">enum <a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af721">XYcc_Standards</a>          </td>
         </tr>
       </table>
 </div>
@@ -925,15 +836,15 @@ These constants specify different ranges used for studio equipment, television a
 <p>
 These constants specify different types of standards used to represent standard color encoding. <dl compact><dt><b>Enumerator: </b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="1e26713d0e6ef278ede893feaae2c55d1217ea6e63d324a65afedd246c3afa38"></a><!-- doxytag: member="XYCC_STANDARD_ITU_601_SD" ref="1e26713d0e6ef278ede893feaae2c55d1217ea6e63d324a65afedd246c3afa38" args="" -->XYCC_STANDARD_ITU_601_SD</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bd7ea7f87d1779cac60386bf999af7211217ea6e63d324a65afedd246c3afa38"></a><!-- doxytag: member="XYCC_STANDARD_ITU_601_SD" ref="bd7ea7f87d1779cac60386bf999af7211217ea6e63d324a65afedd246c3afa38" args="" -->XYCC_STANDARD_ITU_601_SD</em>&nbsp;</td><td>
 Standard ITU 601 SD. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="1e26713d0e6ef278ede893feaae2c55d46e2f294a2871542dd275903d47525f1"></a><!-- doxytag: member="XYCC_STANDARD_ITU_709_NTSC" ref="1e26713d0e6ef278ede893feaae2c55d46e2f294a2871542dd275903d47525f1" args="" -->XYCC_STANDARD_ITU_709_NTSC</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bd7ea7f87d1779cac60386bf999af72146e2f294a2871542dd275903d47525f1"></a><!-- doxytag: member="XYCC_STANDARD_ITU_709_NTSC" ref="bd7ea7f87d1779cac60386bf999af72146e2f294a2871542dd275903d47525f1" args="" -->XYCC_STANDARD_ITU_709_NTSC</em>&nbsp;</td><td>
 Standard ITU 709 NTSC. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="1e26713d0e6ef278ede893feaae2c55daf6639705d9b4fb937b2760e72e01849"></a><!-- doxytag: member="XYCC_STANDARD_ITU_709_PAL" ref="1e26713d0e6ef278ede893feaae2c55daf6639705d9b4fb937b2760e72e01849" args="" -->XYCC_STANDARD_ITU_709_PAL</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bd7ea7f87d1779cac60386bf999af721af6639705d9b4fb937b2760e72e01849"></a><!-- doxytag: member="XYCC_STANDARD_ITU_709_PAL" ref="bd7ea7f87d1779cac60386bf999af721af6639705d9b4fb937b2760e72e01849" args="" -->XYCC_STANDARD_ITU_709_PAL</em>&nbsp;</td><td>
 Standard ITU 709 PAL. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="1e26713d0e6ef278ede893feaae2c55d0b82d96962dd13c0307cd48707b37b5a"></a><!-- doxytag: member="XYCC_STANDARD_YUV" ref="1e26713d0e6ef278ede893feaae2c55d0b82d96962dd13c0307cd48707b37b5a" args="" -->XYCC_STANDARD_YUV</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bd7ea7f87d1779cac60386bf999af7210b82d96962dd13c0307cd48707b37b5a"></a><!-- doxytag: member="XYCC_STANDARD_YUV" ref="bd7ea7f87d1779cac60386bf999af7210b82d96962dd13c0307cd48707b37b5a" args="" -->XYCC_STANDARD_YUV</em>&nbsp;</td><td>
 Standard YUV. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="1e26713d0e6ef278ede893feaae2c55d0b1c78077197c7527fc7952fcc89c211"></a><!-- doxytag: member="XYCC_STANDARD_CUSTOM" ref="1e26713d0e6ef278ede893feaae2c55d0b1c78077197c7527fc7952fcc89c211" args="" -->XYCC_STANDARD_CUSTOM</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bd7ea7f87d1779cac60386bf999af7210b1c78077197c7527fc7952fcc89c211"></a><!-- doxytag: member="XYCC_STANDARD_CUSTOM" ref="bd7ea7f87d1779cac60386bf999af7210b1c78077197c7527fc7952fcc89c211" args="" -->XYCC_STANDARD_CUSTOM</em>&nbsp;</td><td>
 Standard Custom. </td></tr>
 </table>
 </dl>
@@ -1612,7 +1523,7 @@ This function returns a reference to an <a class="el" href="struct_x_y_cr_cb2_rg
 
 </div>
 </div><p>
-<a class="anchor" name="a6fff23e29d7affab6a4912e8c52a8cf"></a><!-- doxytag: member="xycrcb2rgb.h::XYCrCb2Rgb_Select_OutputRange" ref="a6fff23e29d7affab6a4912e8c52a8cf" args="(XYCrCb2Rgb *InstancePtr, enum OutputRanges Range)" -->
+<a class="anchor" name="f5e8a42e14dd074ae90b9911a5f078fd"></a><!-- doxytag: member="xycrcb2rgb.h::XYCrCb2Rgb_Select_OutputRange" ref="f5e8a42e14dd074ae90b9911a5f078fd" args="(XYCrCb2Rgb *InstancePtr, enum XYcc_OutputRanges Range)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1625,7 +1536,7 @@ This function returns a reference to an <a class="el" href="struct_x_y_cr_cb2_rg
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c6">OutputRanges</a>&nbsp;</td>
+          <td class="paramtype">enum <a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a">XYcc_OutputRanges</a>&nbsp;</td>
           <td class="paramname"> <em>Range</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -1642,7 +1553,7 @@ This function governs the range of outputs R, G and B by affecting the conversio
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_y_cr_cb2_rgb.html">XYCrCb2Rgb</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Range</em>&nbsp;</td><td>needs to be set from the enum OutputRanges values as: 0 = XYCC_TV_16_TO_240, 1 = XYCC_STUDIO_16_TO_235, 2 = XYCC_GRAPHICS_0_TO_255.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Range</em>&nbsp;</td><td>needs to be set from the enum XYcc_OutputRanges values as: 0 = XYCC_TV_16_TO_240, 1 = XYCC_STUDIO_16_TO_235, 2 = XYCC_GRAPHICS_0_TO_255.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
@@ -1650,7 +1561,7 @@ This function governs the range of outputs R, G and B by affecting the conversio
 
 </div>
 </div><p>
-<a class="anchor" name="739c05fe4dba7388f1e72ceadcbc3205"></a><!-- doxytag: member="xycrcb2rgb.h::XYCrCb2Rgb_Select_Standard" ref="739c05fe4dba7388f1e72ceadcbc3205" args="(XYCrCb2Rgb *InstancePtr, enum Standards StandardSel, enum OutputRanges InputRange, u32 DataWidth, struct XYCrCb2Rgb_Coef_Inputs *CoefIn)" -->
+<a class="anchor" name="0072eba5715f04664184a2bbfe9a4247"></a><!-- doxytag: member="xycrcb2rgb.h::XYCrCb2Rgb_Select_Standard" ref="0072eba5715f04664184a2bbfe9a4247" args="(XYCrCb2Rgb *InstancePtr, enum XYcc_Standards StandardSel, enum XYcc_OutputRanges InputRange, u32 DataWidth, struct XYCrCb2Rgb_Coef_Inputs *CoefIn)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1663,13 +1574,13 @@ This function governs the range of outputs R, G and B by affecting the conversio
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="xycrcb2rgb_8h.html#1e26713d0e6ef278ede893feaae2c55d">Standards</a>&nbsp;</td>
+          <td class="paramtype">enum <a class="el" href="xycrcb2rgb_8h.html#bd7ea7f87d1779cac60386bf999af721">XYcc_Standards</a>&nbsp;</td>
           <td class="paramname"> <em>StandardSel</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="xycrcb2rgb_8h.html#a9c553a5835e996be86db99d5d5b14c6">OutputRanges</a>&nbsp;</td>
+          <td class="paramtype">enum <a class="el" href="xycrcb2rgb_8h.html#dcae94ec346c6a5744c334402ff0968a">XYcc_OutputRanges</a>&nbsp;</td>
           <td class="paramname"> <em>InputRange</em>, </td>
         </tr>
         <tr>
@@ -1698,8 +1609,8 @@ This function populates an <a class="el" href="struct_x_y_cr_cb2_rgb___coef___in
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the XYCrCb2Rgbb instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>StandardSel</em>&nbsp;</td><td>needs to be set from enum Standards value as : 0 = XYCC_STANDARD_ITU_601_SD 1 = XYCC_STANDARD_ITU_709_NTSC 2 = XYCC_STANDARD_ITU_709_PAL 3 = XYCC_STANDARD_YUV. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>InputRange</em>&nbsp;</td><td>needs to be set from enum OutputRanges value as: 0 = XYCC_TV_16_TO_240, 1 = XYCC_STUDIO_16_TO_235, 2 = XYCC_GRAPHICS_0_TO_255. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>StandardSel</em>&nbsp;</td><td>needs to be set from enum XYcc_Standards value as : 0 = XYCC_STANDARD_ITU_601_SD 1 = XYCC_STANDARD_ITU_709_NTSC 2 = XYCC_STANDARD_ITU_709_PAL 3 = XYCC_STANDARD_YUV. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InputRange</em>&nbsp;</td><td>needs to be set from enum XYcc_OutputRanges value as: 0 = XYCC_TV_16_TO_240, 1 = XYCC_STUDIO_16_TO_235, 2 = XYCC_GRAPHICS_0_TO_255. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>DataWidth</em>&nbsp;</td><td>specifies the valid range of [8,10,12,16] that needs to be set. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>CoefIn</em>&nbsp;</td><td>specifies a pointer to a <a class="el" href="struct_x_y_cr_cb2_rgb___coef___inputs.html">XYCrCb2Rgb_Coef_Inputs</a> structure which is populated with the values from selected video standard.</td></tr>
   </table>

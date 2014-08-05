@@ -161,7 +161,7 @@ int YCrCb2Rgb_Update_Example(u16 DeviceId)
 
 	/* Setup CoefIn for XYCC_STANDARD_ITU_601_SD, 16_to_240_for_TV
 	 * and data width of 8-bits.
-	 * enum Standards are:
+	 * enum XYcc_Standards are:
 	 *	0 = XYCC_STANDARD_ITU_601_SD
 	 *	1 = XYCC_STANDARD_ITU_709_NTSC
 	 *	2 = XYCC_STANDARD_ITU_709_PAL
