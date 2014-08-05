@@ -67,7 +67,7 @@ This file contains the implementation of the interface functions for Test Patter
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#57155013bf0bb1be8a723b3fc3c36291">XTpg_GetActiveSize</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr, u16 *HSize, u16 *VSize)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#6a523445d4915e10651f4a308a257ced">XTpg_SetBackground</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr, enum <a class="el" href="xtpg_8h.html#e2af0bd5ba249a86cf88af3c1116b24a">BackgroundPattern</a> Pattern)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#bbd4255a15fdc65701ac1f510d9a686e">XTpg_SetBackground</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr, enum <a class="el" href="xtpg_8h.html#2e143ee9595509e9f14a379fd271606d">XTpg_BackgroundPattern</a> Pattern)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#926545a06de67862ef7e47f150398b1d">XTpg_GetBackground</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr)</td></tr>
 
@@ -79,7 +79,7 @@ This file contains the implementation of the interface functions for Test Patter
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#32b89243e5f5ef7a81178b8ac7a5c839">XTpg_DisableBox</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#cae25eb363367026dd37b0961e60e739">XTpg_SetComponentMask</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr, enum <a class="el" href="xtpg_8h.html#5c7b39dc28fba8e5090f8738c615d9b2">ComponentMask</a> Mask)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#f56158886e9a7035ca278a3f09719a35">XTpg_SetComponentMask</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr, enum <a class="el" href="xtpg_8h.html#1f1917d8a17d4c602c86ebb711b50910">XTpg_ComponentMask</a> Mask)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#a64c3c09f85d0a9be69f95a55042f1a6">XTpg_GetComponentMask</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr)</td></tr>
 
@@ -135,7 +135,7 @@ This file contains the implementation of the interface functions for Test Patter
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#d1c4aa5543691d012b272a1527ebccac">XTpg_GetNoiseGain</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#d030dbe7aba705e8d2e9e1acd63ac44b">XTpg_SetBayerPhase</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr, enum <a class="el" href="xtpg_8h.html#d8fa790638141991e3be81ea5401344c">BayerPhaseCombination</a> BayerPhaseComb)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#a0212da7460aae9993a9624dfa7a9006">XTpg_SetBayerPhase</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr, enum <a class="el" href="xtpg_8h.html#cd31acaea34a0ee434bb96a76ab6c519">XTpg_BayerPhaseCombination</a> BayerPhaseComb)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtpg_8c.html#5bb2f302ceb32b9862de7a9f4e034e0c">XTpg_GetBayerPhase</a> (<a class="el" href="struct_x_tpg.html">XTpg</a> *InstancePtr)</td></tr>
 
@@ -1028,7 +1028,7 @@ This function sets the active H/V sizes in the Active Size register.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="6a523445d4915e10651f4a308a257ced"></a><!-- doxytag: member="xtpg.c::XTpg_SetBackground" ref="6a523445d4915e10651f4a308a257ced" args="(XTpg *InstancePtr, enum BackgroundPattern Pattern)" -->
+<a class="anchor" name="bbd4255a15fdc65701ac1f510d9a686e"></a><!-- doxytag: member="xtpg.c::XTpg_SetBackground" ref="bbd4255a15fdc65701ac1f510d9a686e" args="(XTpg *InstancePtr, enum XTpg_BackgroundPattern Pattern)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1041,7 +1041,7 @@ This function sets the active H/V sizes in the Active Size register.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="xtpg_8h.html#e2af0bd5ba249a86cf88af3c1116b24a">BackgroundPattern</a>&nbsp;</td>
+          <td class="paramtype">enum <a class="el" href="xtpg_8h.html#2e143ee9595509e9f14a379fd271606d">XTpg_BackgroundPattern</a>&nbsp;</td>
           <td class="paramname"> <em>Pattern</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -1068,7 +1068,7 @@ This function sets the background pattern in the Pattern Control Register.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="d030dbe7aba705e8d2e9e1acd63ac44b"></a><!-- doxytag: member="xtpg.c::XTpg_SetBayerPhase" ref="d030dbe7aba705e8d2e9e1acd63ac44b" args="(XTpg *InstancePtr, enum BayerPhaseCombination BayerPhaseComb)" -->
+<a class="anchor" name="a0212da7460aae9993a9624dfa7a9006"></a><!-- doxytag: member="xtpg.c::XTpg_SetBayerPhase" ref="a0212da7460aae9993a9624dfa7a9006" args="(XTpg *InstancePtr, enum XTpg_BayerPhaseCombination BayerPhaseComb)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1081,7 +1081,7 @@ This function sets the background pattern in the Pattern Control Register.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="xtpg_8h.html#d8fa790638141991e3be81ea5401344c">BayerPhaseCombination</a>&nbsp;</td>
+          <td class="paramtype">enum <a class="el" href="xtpg_8h.html#cd31acaea34a0ee434bb96a76ab6c519">XTpg_BayerPhaseCombination</a>&nbsp;</td>
           <td class="paramname"> <em>BayerPhaseComb</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -1200,7 +1200,7 @@ This function sets the Box Size.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="cae25eb363367026dd37b0961e60e739"></a><!-- doxytag: member="xtpg.c::XTpg_SetComponentMask" ref="cae25eb363367026dd37b0961e60e739" args="(XTpg *InstancePtr, enum ComponentMask Mask)" -->
+<a class="anchor" name="f56158886e9a7035ca278a3f09719a35"></a><!-- doxytag: member="xtpg.c::XTpg_SetComponentMask" ref="f56158886e9a7035ca278a3f09719a35" args="(XTpg *InstancePtr, enum XTpg_ComponentMask Mask)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1213,7 +1213,7 @@ This function sets the Box Size.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="xtpg_8h.html#5c7b39dc28fba8e5090f8738c615d9b2">ComponentMask</a>&nbsp;</td>
+          <td class="paramtype">enum <a class="el" href="xtpg_8h.html#1f1917d8a17d4c602c86ebb711b50910">XTpg_ComponentMask</a>&nbsp;</td>
           <td class="paramname"> <em>Mask</em></td><td>&nbsp;</td>
         </tr>
         <tr>
