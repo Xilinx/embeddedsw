@@ -210,7 +210,7 @@ extern "C" {
  * @{
  */
 #define XTG_STREAM_CNTL_VER_SHIFT		24		/**< Version Shift */
-#define XTG_STREAM_CNTL_VER_MASK		0xFE000000	/**< Version Mask */
+#define XTG_STREAM_CNTL_VER_MASK		0xFF000000	/**< Version Mask */
 
 #define XTG_STREAM_CNTL_TD_SHIFT		1		/**< Transfer Done Shift */
 #define XTG_STREAM_CNTL_TD_MASK			0x00000002	/**< Transfer Done Mask */
@@ -254,7 +254,7 @@ extern "C" {
  * @{
  */
 #define XTG_STATIC_CNTL_VER_SHIFT		24		/**< Version Shift */
-#define XTG_STATIC_CNTL_VER_MASK		0xFE000000	/**< Version Mask */
+#define XTG_STATIC_CNTL_VER_MASK		0xFF000000	/**< Version Mask */
 
 #define XTG_STATIC_CNTL_TD_SHIFT		1		/**< Transfer Done Shift */
 #define XTG_STATIC_CNTL_TD_MASK			0x00000002	/**< Transfer Done Mask */
@@ -279,7 +279,7 @@ extern "C" {
 #define XTG_LOCK_MASK		0x1		/**< Driven to a*_lock line */
 #define XTG_BURST_MASK		0x3		/**< Driven to a*_burst line */
 #define XTG_SIZE_MASK		0x7		/**< Driven to a*_size line */
-#define XTG_ID_MASK		0x1F		/**< Driven to a*_id line */
+#define XTG_ID_MASK		0x2F		/**< Driven to a*_id line */
 #define XTG_PROT_MASK		0x7		/**< Driven to a*_prot line */
 #define XTG_LAST_ADDR_MASK	0x7		/**< Last address */
 #define XTG_VALID_CMD_MASK	0x1		/**< Valid Command */	
@@ -304,7 +304,7 @@ extern "C" {
 #define XTG_OTHER_DEPEND_SHIFT	13		/**< Other depend cmd num */
 #define XTG_MY_DEPEND_SHIFT	22		/**< My depend cmd num */
 #define XTG_QOS_SHIFT		16		/**< Driven to a*_qos line */
-#define XTG_USER_SHIFT		5		/**< Driven to a*_user line */
+#define XTG_USER_SHIFT		8		/**< Driven to a*_user line */
 #define XTG_CACHE_SHIFT		4		/**< Driven to a*_cache line */
 #define XTG_EXPECTED_RESP_SHIFT	0		/**< Expected response */
 
