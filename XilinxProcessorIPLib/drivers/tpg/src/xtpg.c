@@ -318,7 +318,7 @@ void XTpg_GetActiveSize(XTpg *InstancePtr, u16 *HSize, u16 *VSize)
 * @note		None.
 *
 ******************************************************************************/
-void XTpg_SetBackground(XTpg *InstancePtr, enum BackgroundPattern Pattern)
+void XTpg_SetBackground(XTpg *InstancePtr, enum XTpg_BackgroundPattern Pattern)
 {
 	u32 Background;
 
@@ -513,7 +513,7 @@ void XTpg_DisableBox(XTpg *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XTpg_SetComponentMask(XTpg *InstancePtr, enum ComponentMask Mask)
+void XTpg_SetComponentMask(XTpg *InstancePtr, enum XTpg_ComponentMask Mask)
 {
 	u32 ColorComponent;
 
@@ -1342,7 +1342,7 @@ u32 XTpg_GetNoiseGain(XTpg *InstancePtr)
 *
 ******************************************************************************/
 void XTpg_SetBayerPhase(XTpg *InstancePtr,
-		enum BayerPhaseCombination BayerPhaseComb)
+		enum XTpg_BayerPhaseCombination BayerPhaseComb)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
