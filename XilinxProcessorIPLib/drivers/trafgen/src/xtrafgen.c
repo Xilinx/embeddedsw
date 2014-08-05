@@ -393,7 +393,7 @@ void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset,
 		
 	/* Verify arguments */
         Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Offset + Length) < XTG_MASTER_RAM_SIZE);
+	Xil_AssertVoid((Offset + Length) <= XTG_MASTER_RAM_SIZE);
 
 	while (Length > 0) {
 		if (RdWrFlag == XTG_WRITE) {

@@ -176,7 +176,7 @@
 * 1.00a srt  01/24/13 First release
 * 1.01a adk  03/09/13 Updated Driver to Support Streaming and Static Mode
 * 2.00a adk  16/09/13 Fixed CR:737291
-* 2.01a adk  21/10/13 Fixed CR:740522 Updated the MasterRam offset as per latest 
+* 2.01a adk  21/10/13 Fixed CR:740522 Updated the MasterRam offset as per latest
 *		      IP.This driver is valid only for IP(v2.0) onwards. The 
 *		      XTG_MASTER_RAM_OFFSET has been changed from 
 *		      0x10000 to 0xc000.
@@ -185,6 +185,9 @@
 * 3.0   adk  12/10/13 Updated as per the New Tcl API's
 * 3.1   adk  28/04/14 Fixed CR:782131 Incorrect mask value for the
 *		      loopenable bit.
+* 3.2   adk  05/08/14 Fixed CR:798742 The last word of 8KB Master RAM in
+*		      axi traffic generator can't access and CR:799554
+* 		      Some incorrect parameter in axi traffic generator driver.
 * </pre>
 ******************************************************************************/
 
