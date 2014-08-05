@@ -270,37 +270,37 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	u8 AuxData[1];
 
 	/* Set the bits per color. If not set, the default is 6. */
-	XDptx_CfgMsaSetBpc(InstancePtr, 8);
+	XDptx_CfgMsaSetBpc(InstancePtr, 1, 8);
 
 /* Choose a method for selecting the video mode. There are 3 ways to do this:
  * 1) Use the preferred timing from the monitor's EDID:
  *	XDptx_GetEdid(InstancePtr);
- *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr);
+ *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, 1);
  *
  * 2) Use a standard video timing mode (see mode_table.h):
- *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_VM_640x480_60_P);
+ *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, 1, XDPTX_VM_640x480_60_P);
  *
  * 3) Use a custom configuration for the main stream attributes (MSA):
  *	XDptx_MainStreamAttributes MsaConfigCustom;
- *	MsaConfigCustom.MVid = 108000;
- *	MsaConfigCustom.HSyncPolarity = 0;
- *	MsaConfigCustom.VSyncPolarity = 0;
- *	MsaConfigCustom.HSyncPulseWidth = 112;
- *	MsaConfigCustom.VSyncPulseWidth = 3;
- *	MsaConfigCustom.HResolution = 1280;
- *	MsaConfigCustom.VResolution = 1024;
- *	MsaConfigCustom.VBackPorch = 38;
- *	MsaConfigCustom.VFrontPorch = 1;
- *	MsaConfigCustom.HBackPorch = 248;
- *	MsaConfigCustom.HFrontPorch = 48;
- *	XDptx_CfgMsaUseCustom(InstancePtr, &MsaConfigCustom, 1);
+ *	MsaConfigCustom.Dmt.HResolution = 1280;
+ *	MsaConfigCustom.Dmt.VResolution = 1024;
+ *	MsaConfigCustom.Dmt.PixelClkKhz = 108000;
+ *	MsaConfigCustom.Dmt.HSyncPolarity = 0;
+ *	MsaConfigCustom.Dmt.VSyncPolarity = 0;
+ *	MsaConfigCustom.Dmt.HFrontPorch = 48;
+ *	MsaConfigCustom.Dmt.HSyncPulseWidth = 112;
+ *	MsaConfigCustom.Dmt.HBackPorch = 248;
+ *	MsaConfigCustom.Dmt.VFrontPorch = 1;
+ *	MsaConfigCustom.Dmt.VSyncPulseWidth = 3;
+ *	MsaConfigCustom.Dmt.VBackPorch = 38;
+ *	XDptx_CfgMsaUseCustom(InstancePtr, 1, &MsaConfigCustom, 1);
  */
 	Status = XDptx_GetEdid(InstancePtr);
 	if (Status == XST_SUCCESS) {
-		XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr);
+		XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, 1);
 	}
 	else {
-		XDptx_CfgMsaUseStandardVideoMode(InstancePtr,
+		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, 1,
 							XDPTX_VM_640x480_60_P);
 	}
 
@@ -320,7 +320,7 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	/* Configure video stream source or generator here. This function needs
 	 * to be implemented in order for video to be displayed and is hardware
 	 * system specific. It is up to the user to implement this function. */
-	Dptx_ConfigureStreamSrc(InstancePtr);
+	Dptx_ConfigureStreamSrc(InstancePtr, 1);
 	/*********************************/
 
 	XDptx_EnableMainLink(InstancePtr);

@@ -63,7 +63,7 @@
  * 3) Horizontal resolution (pixels)
  * 4) Vertical resolution (lines)
  * 5) Pixel clock (KHz)
- * 6) Scan (0=non-interlaced|1=interlaced)
+ * 6) Interlaced (0=non-interlaced|1=interlaced)
  * 7) Horizontal sync polarity (0=positive|1=negative)
  * 8) Vertical sync polarity (0=positive|1=negative)
  * 9) Horizontal front porch (pixels)

@@ -304,33 +304,6 @@ typedef enum {
 } XDptx_VideoMode;
 
 /**
- * This typedef contains the display monitor timing attributes for a video mode.
- */
-typedef struct {
-	XDptx_VideoMode	VideoMode;	/**< Enumerated key. */
-	u8 DmtId;			/**< Standard Display Monitor Timing
-						(DMT) ID number. */
-	u16 HResolution;		/**< Horizontal resolution. */
-	u16 VResolution;		/**< Vertical resolution. */
-	u32 PixelClkKhz;		/**< Pixel frequency (in KHz). */
-	u8 Scan;			/**< Interlaced/non-interlaced. */
-	u8 HSyncPolarity;		/**< Horizontal synchronization
-						polarity. */
-	u8 VSyncPolarity;		/**< Vertical synchronization
-						polarity. */
-	u32 HFrontPorch;		/**< Horizontal front porch. */
-	u32 HSyncPulseWidth;		/**< Horizontal synchronization pulse
-						width. */
-	u32 HBackPorch;			/**< Horizontal back porch. */
-	u32 VFrontPorch;		/**< Vertical front porch. */
-	u32 VSyncPulseWidth;		/**< Vertical synchronization pulse
-						width.*/
-	u32 VBackPorch;			/**< Vertical back porch. */
-} XDptx_DmtMode;
-
-extern XDptx_DmtMode XDptx_DmtModes[];
-
-/**
  * This typedef contains configuration information for the DisplayPort TX core.
  */
 typedef struct {
@@ -404,58 +377,65 @@ typedef struct {
 						each lane. */
 	u8 PeLevel;			/**< The current pre-emphasis/cursor
 						level for each lane. */
-	u8 ComponentFormat;		/**< The component format currently in
-						use over the main link. */
-	u8 DynamicRange;		/**< The dynamic range currently in use
-						over the main link. */
-	u8 YCbCrColorimetry;		/**< The YCbCr colorimetry currently in
-						use over the main link. */
-	u8 SynchronousClockMode;	/**< Synchronous clock mode is currently
-						in use over the main link. */
 	u8 Pattern;			/**< The current pattern currently in
 						use over the main link. */
 } XDptx_LinkConfig;                     
+
+/**
+ * This typedef contains the display monitor timing attributes for a video mode.
+ */
+typedef struct {
+	XDptx_VideoMode	VideoMode;	/**< Enumerated key. */
+	u8 DmtId;			/**< Standard Display Monitor Timing
+						(DMT) ID number. */
+	u16 HResolution;		/**< Horizontal resolution (in
+						pixels). */
+	u16 VResolution;		/**< Vertical resolution (in lines). */
+	u32 PixelClkKhz;		/**< Pixel frequency (in KHz). This is
+						also the M value for the video
+						stream (MVid). */
+	u8 Interlaced;			/**< Input stream interlaced scan
+						(0=non-interlaced/
+						1=interlaced). */
+	u8 HSyncPolarity;		/**< Horizontal synchronization polarity
+						(0=positive/1=negative). */
+	u8 VSyncPolarity;		/**< Vertical synchronization polarity
+						(0=positive/1=negative). */
+	u32 HFrontPorch;		/**< Horizontal front porch (in
+						pixels). */
+	u32 HSyncPulseWidth;		/**< Horizontal synchronization time
+						(pulse width in pixels). */
+	u32 HBackPorch;			/**< Horizontal back porch (in
+						pixels). */
+	u32 VFrontPorch;		/**< Vertical front porch (in lines). */
+	u32 VSyncPulseWidth;		/**< Vertical synchronization time
+						(pulse width in lines). */
+	u32 VBackPorch;			/**< Vertical back porch (in lines). */
+} XDptx_DmtMode;
 
 /**
  * This typedef contains the main stream attributes which determine how the
  * video will be displayed.
  */
 typedef struct {
+	XDptx_DmtMode Dmt;		/**< Holds the set of Display Mode
+						Timing (DMT) attributes that
+						correspond to the information
+						stored in the XDptx_DmtModes
+						table. */
 	u32 HClkTotal;			/**< Horizontal total time (in
 						pixels). */
 	u32 VClkTotal;			/**< Vertical total time (in pixels). */
-	u32 HSyncPulseWidth;		/**< Horizontal synchronization time (in
-						pixels). */
-	u32 VSyncPulseWidth;		/**< Vertical synchronization time (in
-						lines */
-	u32 HResolution;		/**< Horizontal resolution (in
-						pixels). */
-	u32 VResolution;		/**< Vertical resolution (in lines). */
-	u32 HSyncPolarity;		/**< Horizontal synchronization polarity
-						(0=positive/1=negative). */
-	u32 VSyncPolarity;		/**< Vertical synchronization polarity
-						(0=positive/1=negative). */
 	u32 HStart;			/**< Horizontal blank start (in
 						pixels). */
 	u32 VStart;			/**< Vertical blank start (in lines). */
-	u32 VBackPorch;			/**< Vertical back porch (in lines). */
-	u32 VFrontPorch;		/**< Vertical front porch (in lines). */
-	u32 HBackPorch;			/**< Horizontal back porch (in
-						pixels). */
-	u32 HFrontPorch;		/**< Horizontal front porch (in
-						pixels). */
 	u32 Misc0;			/**< Miscellaneous stream attributes 0
 						as specified by the DisplayPort
 						1.2 specification. */
 	u32 Misc1;			/**< Miscellaneous stream attributes 1
 						as specified by the DisplayPort
 						1.2 specification. */
-	u32 MVid;			/**< M value for the video stream. This
-						value is equal to the pixel
-						clock in KHz. */
 	u32 NVid;			/**< N value for the video stream. */
-	u32 TransferUnitSize;		/**< Size of the transfer unit in the
-						framing logic. */
 	u32 UserPixelWidth;		/**< The width of the user data input
 						port. */
 	u32 DataPerLane;		/**< Used to translate the number of
@@ -464,12 +444,30 @@ typedef struct {
 	u32 AvgBytesPerTU;		/**< Average number of bytes per
 						transfer unit, scaled up by a
 						factor of 1000. */
+	u32 TransferUnitSize;		/**< Size of the transfer unit in the
+						framing logic. In MST mode, this
+						is also the number of time slots
+						that are alloted in the payload
+						ID table. */
 	u32 InitWait;			/**< Number of initial wait cycles at
 						the start of a new line by
 						the framing logic. */
-	u32 Interlaced;			/**< Input stream is interlaced. */
 	u32 BitsPerColor;		/**< Number of bits per color
 						component. */
+	u8 ComponentFormat;		/**< The component format currently in
+						use by the video stream. */
+	u8 DynamicRange;		/**< The dynamic range currently in use
+						by the video stream. */
+	u8 YCbCrColorimetry;		/**< The YCbCr colorimetry currently in
+						use by the video stream. */
+	u8 SynchronousClockMode;	/**< Synchronous clock mode is currently
+						in use by the video stream. */
+	u16 MstPbn;			/**< Payload bandwidth number used to
+						allocate bandwidth in MST
+						mode. */
+	u8 MstStreamEnable;		/**< In MST mode, enables the
+						corresponding stream for this
+						MSA configuration. */
 } XDptx_MainStreamAttributes;
 
 /******************************************************************************/
@@ -520,6 +518,12 @@ typedef void (*XDptx_HpdPulseHandler)(void *InstancePtr);
  * this type is then passed to the driver API functions.
  */
 typedef struct {
+	u32 MstEnable;				/**< Multi-stream transport
+							(MST) mode. Enables
+							functionality, allowing
+							multiple streams to be
+							sent over the main
+							link. */
 	u32 IsReady;				/**< Device is initialized and
 							ready. */
 	u8 TrainAdaptive;			/**< Downshift lane count and
@@ -535,9 +539,13 @@ typedef struct {
 							the RX device. */
 	XDptx_LinkConfig LinkConfig;		/**< Configuration structure for
 							the main link. */
-	XDptx_MainStreamAttributes MsaConfig;	/**< Configuration structure for
-							the main stream
-							attributes. */
+	XDptx_MainStreamAttributes MsaConfig[4]; /**< Configuration structure
+							for the main stream
+							attributes (MSA). Each
+							stream has its own set
+							of attributes. When MST
+							mode is disabled, only
+							MsaConfig[0] is used. */
 	XDptx_TimerHandler UserTimerWaitUs;	/**< Custom user function for
 							delay/sleep. */
 	void *UserTimerPtr;			/**< Pointer to a timer instance
@@ -556,6 +564,10 @@ typedef struct {
 							passed to the HPD pulse
 							callback function.*/
 } XDptx;
+
+/*************************** Variable Declarations ****************************/
+
+extern XDptx_DmtMode XDptx_DmtModes[];
 
 /**************************** Function Prototypes *****************************/
 
@@ -597,14 +609,16 @@ void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
 			XDptx_TimerHandler CallbackFunc, void *CallbackRef);
 
 /* xdptx_spm.c: Stream policy maker functions. */
-void XDptx_CfgMsaRecalculate(XDptx *InstancePtr);
-void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr,
+void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream);
+void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 						XDptx_VideoMode VideoMode);
-void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr);
-void XDptx_CfgMsaUseCustom(XDptx *InstancePtr,
+void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream);
+void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 		XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate);
-void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 BitsPerColor);
-void XDptx_SetVideoMode(XDptx *InstancePtr);
+void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor);
+void XDptx_SetVideoMode(XDptx *InstancePtr, u8 Stream);
+void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream);
+void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream);
 
 /* xdptx_intr.c: Interrupt handling functions. */
 void XDptx_SetHpdEventHandler(XDptx *InstancePtr,

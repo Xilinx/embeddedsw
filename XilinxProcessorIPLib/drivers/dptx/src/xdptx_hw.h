@@ -300,7 +300,7 @@
   * @{
   */
 #define XDPTX_STREAM2_MSA_START		0x0500	/**< Start of the MSA registers
-for stream 2. */
+							for stream 2. */
 #define XDPTX_STREAM2_MSA_START_OFFSET	(XDPTX_STREAM2_MSA_START - \
 		XDPTX_STREAM1_MSA_START)	/**< The MSA registers for
 							stream 2 are at an
