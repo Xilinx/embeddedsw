@@ -49,10 +49,10 @@
  }</td></tr>
 
 <tr><td colspan="2"><br><h2>Bayer phase</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344c">BayerPhaseCombination</a> { <a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344c1344f0701043b93a31bbd3bcb2dfa220">XCFA_RGRG_COMBINATION</a>, 
-<a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344c065a79b379aa7133d3843cbc2166a168">XCFA_GRGR_COMBINATION</a>, 
-<a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344c877fcf299fdf12f854fd4836bdd0f627">XCFA_GBGB_COMBINATION</a>, 
-<a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344cd49bcfa76555d078d8704371d65db911">XCFA_BGBG_COMBINATION</a>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a4362">XCfa_BayerPhaseCombination</a> { <a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a43621344f0701043b93a31bbd3bcb2dfa220">XCFA_RGRG_COMBINATION</a>, 
+<a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a4362065a79b379aa7133d3843cbc2166a168">XCFA_GRGR_COMBINATION</a>, 
+<a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a4362877fcf299fdf12f854fd4836bdd0f627">XCFA_GBGB_COMBINATION</a>, 
+<a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a4362d49bcfa76555d078d8704371d65db911">XCFA_BGBG_COMBINATION</a>
  }</td></tr>
 
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
@@ -120,7 +120,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcfa_8h.html#a11033dd33aa2ea4e272c8f478db9fc2">XCfa_GetActiveSize</a> (<a class="el" href="struct_x_cfa.html">XCfa</a> *InstancePtr, u16 *HSize, u16 *VSize)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcfa_8h.html#f271da6a9bacbc9c1c2167be036b9136">XCfa_SetBayerPhase</a> (<a class="el" href="struct_x_cfa.html">XCfa</a> *InstancePtr, enum <a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344c">BayerPhaseCombination</a> BayerPhase)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcfa_8h.html#8faa20631de11e27941ddfb10e9f07cd">XCfa_SetBayerPhase</a> (<a class="el" href="struct_x_cfa.html">XCfa</a> *InstancePtr, enum <a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a4362">XCfa_BayerPhaseCombination</a> BayerPhase)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcfa_8h.html#2456dd20b52e21211b6fb8ca071d24b4">XCfa_GetBayerPhase</a> (<a class="el" href="struct_x_cfa.html">XCfa</a> *InstancePtr)</td></tr>
 
@@ -683,12 +683,12 @@ An error condition interrupt type </td></tr>
 
 </div>
 </div><p>
-<a class="anchor" name="d8fa790638141991e3be81ea5401344c"></a><!-- doxytag: member="xcfa.h::BayerPhaseCombination" ref="d8fa790638141991e3be81ea5401344c" args="" -->
+<a class="anchor" name="35d3b821b350bd181c6d75ce422a4362"></a><!-- doxytag: member="xcfa.h::XCfa_BayerPhaseCombination" ref="35d3b821b350bd181c6d75ce422a4362" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344c">BayerPhaseCombination</a>          </td>
+          <td class="memname">enum <a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a4362">XCfa_BayerPhaseCombination</a>          </td>
         </tr>
       </table>
 </div>
@@ -697,13 +697,13 @@ An error condition interrupt type </td></tr>
 <p>
 These constants specify Bayer phase combinations of the core. <dl compact><dt><b>Enumerator: </b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="d8fa790638141991e3be81ea5401344c1344f0701043b93a31bbd3bcb2dfa220"></a><!-- doxytag: member="XCFA_RGRG_COMBINATION" ref="d8fa790638141991e3be81ea5401344c1344f0701043b93a31bbd3bcb2dfa220" args="" -->XCFA_RGRG_COMBINATION</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="35d3b821b350bd181c6d75ce422a43621344f0701043b93a31bbd3bcb2dfa220"></a><!-- doxytag: member="XCFA_RGRG_COMBINATION" ref="35d3b821b350bd181c6d75ce422a43621344f0701043b93a31bbd3bcb2dfa220" args="" -->XCFA_RGRG_COMBINATION</em>&nbsp;</td><td>
 Red green combination </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="d8fa790638141991e3be81ea5401344c065a79b379aa7133d3843cbc2166a168"></a><!-- doxytag: member="XCFA_GRGR_COMBINATION" ref="d8fa790638141991e3be81ea5401344c065a79b379aa7133d3843cbc2166a168" args="" -->XCFA_GRGR_COMBINATION</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="35d3b821b350bd181c6d75ce422a4362065a79b379aa7133d3843cbc2166a168"></a><!-- doxytag: member="XCFA_GRGR_COMBINATION" ref="35d3b821b350bd181c6d75ce422a4362065a79b379aa7133d3843cbc2166a168" args="" -->XCFA_GRGR_COMBINATION</em>&nbsp;</td><td>
 Green red combination </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="d8fa790638141991e3be81ea5401344c877fcf299fdf12f854fd4836bdd0f627"></a><!-- doxytag: member="XCFA_GBGB_COMBINATION" ref="d8fa790638141991e3be81ea5401344c877fcf299fdf12f854fd4836bdd0f627" args="" -->XCFA_GBGB_COMBINATION</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="35d3b821b350bd181c6d75ce422a4362877fcf299fdf12f854fd4836bdd0f627"></a><!-- doxytag: member="XCFA_GBGB_COMBINATION" ref="35d3b821b350bd181c6d75ce422a4362877fcf299fdf12f854fd4836bdd0f627" args="" -->XCFA_GBGB_COMBINATION</em>&nbsp;</td><td>
 Green blue combination </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="d8fa790638141991e3be81ea5401344cd49bcfa76555d078d8704371d65db911"></a><!-- doxytag: member="XCFA_BGBG_COMBINATION" ref="d8fa790638141991e3be81ea5401344cd49bcfa76555d078d8704371d65db911" args="" -->XCFA_BGBG_COMBINATION</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="35d3b821b350bd181c6d75ce422a4362d49bcfa76555d078d8704371d65db911"></a><!-- doxytag: member="XCFA_BGBG_COMBINATION" ref="35d3b821b350bd181c6d75ce422a4362d49bcfa76555d078d8704371d65db911" args="" -->XCFA_BGBG_COMBINATION</em>&nbsp;</td><td>
 Blue green combination </td></tr>
 </table>
 </dl>
@@ -1250,7 +1250,7 @@ This function sets the active H/V sizes in the Active Size register.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="f271da6a9bacbc9c1c2167be036b9136"></a><!-- doxytag: member="xcfa.h::XCfa_SetBayerPhase" ref="f271da6a9bacbc9c1c2167be036b9136" args="(XCfa *InstancePtr, enum BayerPhaseCombination BayerPhase)" -->
+<a class="anchor" name="8faa20631de11e27941ddfb10e9f07cd"></a><!-- doxytag: member="xcfa.h::XCfa_SetBayerPhase" ref="8faa20631de11e27941ddfb10e9f07cd" args="(XCfa *InstancePtr, enum XCfa_BayerPhaseCombination BayerPhase)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1263,7 +1263,7 @@ This function sets the active H/V sizes in the Active Size register.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="xcfa_8h.html#d8fa790638141991e3be81ea5401344c">BayerPhaseCombination</a>&nbsp;</td>
+          <td class="paramtype">enum <a class="el" href="xcfa_8h.html#35d3b821b350bd181c6d75ce422a4362">XCfa_BayerPhaseCombination</a>&nbsp;</td>
           <td class="paramname"> <em>BayerPhase</em></td><td>&nbsp;</td>
         </tr>
         <tr>
