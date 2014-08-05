@@ -159,6 +159,13 @@
 *			in xadcps.c to fix CR #693371
 * 1.03a bss    11/01/13 Modified xadcps_hw.h to use correct Register offsets
 *			CR#749687
+* 2.1   bss    08/05/14 Added declarations for XAdcPs_SetSequencerEvent,
+*			XAdcPs_GetSamplingMode, XAdcPs_SetMuxMode,
+*			XAdcPs_SetPowerdownMode and XAdcPs_GetPowerdownMode
+*			functions.
+*			Modified Assert for XAdcPs_SetSingleChParams in
+*			xadcps.c to fix CR #807563.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -535,6 +542,16 @@ u16 XAdcPs_GetAlarmThreshold(XAdcPs *InstancePtr, u8 AlarmThrReg);
 
 void XAdcPs_EnableUserOverTemp(XAdcPs *InstancePtr);
 void XAdcPs_DisableUserOverTemp(XAdcPs *InstancePtr);
+
+void XAdcPs_SetSequencerEvent(XAdcPs *InstancePtr, int IsEventMode);
+
+int XAdcPs_GetSamplingMode(XAdcPs *InstancePtr);
+
+void XAdcPs_SetMuxMode(XAdcPs *InstancePtr, int MuxMode, u8 Channel);
+
+void XAdcPs_SetPowerdownMode(XAdcPs *InstancePtr, u32 Mode);
+
+u32 XAdcPs_GetPowerdownMode(XAdcPs *InstancePtr);
 
 /**
  * Functions in xadcps_selftest.c

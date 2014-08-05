@@ -51,6 +51,8 @@
 * 1.01a bss    02/18/13	Modified XAdcPs_SetSeqChEnables,XAdcPs_SetSeqAvgEnables
 *			XAdcPs_SetSeqInputMode and XAdcPs_SetSeqAcqTime APIs
 *			to fix CR #693371
+* 2.1   bss    08/05/14	Modified Assert for XAdcPs_SetSingleChParams to fix
+*			CR #807563.
 * </pre>
 *
 *****************************************************************************/
@@ -537,7 +539,7 @@ u8 XAdcPs_GetAvg(XAdcPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XAdcPs instance.
 * @param	Channel is the channel number for the singel channel mode.
-*		The valid channels are 0 to 5, 8, and 16 to 31.
+*		The valid channels are 0 to 6, 8, and 13 to 31.
 *		If the external Mux is used then this specifies the channel
 *		oonnected to the external Mux. Please read the Device Spec
 *		to know which channels are valid.
@@ -580,9 +582,9 @@ int XAdcPs_SetSingleChParams(XAdcPs *InstancePtr,
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((Channel <= XADCPS_CH_VREFN) ||
+	Xil_AssertNonvoid((Channel <= XADCPS_CH_VBRAM) ||
 			(Channel == XADCPS_CH_ADC_CALIB) ||
-			((Channel >= XADCPS_CH_AUX_MIN) &&
+			((Channel >= XADCPS_CH_VCCPINT) &&
 			(Channel <= XADCPS_CH_AUX_MAX)));
 	Xil_AssertNonvoid((IncreaseAcqCycles == TRUE) ||
 			(IncreaseAcqCycles == FALSE));
