@@ -899,12 +899,12 @@ void XYCrCb2Rgb_GetCoefs(XYCrCb2Rgb *InstancePtr,
 * from the selected video standard.
 *
 * @param	InstancePtr is a pointer to the XYCrCb2Rgbb instance.
-* @param	StandardSel needs to be set from enum Standards value as :
+* @param	StandardSel needs to be set from enum XYcc_Standards value as :
 *		0 = XYCC_STANDARD_ITU_601_SD
 *		1 = XYCC_STANDARD_ITU_709_NTSC
 *		2 = XYCC_STANDARD_ITU_709_PAL
 *		3 = XYCC_STANDARD_YUV.
-* @param	InputRange needs to be set from enum OutputRanges value as:
+* @param	InputRange needs to be set from enum XYcc_OutputRanges value as:
 *		0 = XYCC_TV_16_TO_240,
 *		1 = XYCC_STUDIO_16_TO_235,
 *		2 = XYCC_GRAPHICS_0_TO_255.
@@ -922,8 +922,8 @@ void XYCrCb2Rgb_GetCoefs(XYCrCb2Rgb *InstancePtr,
 *
 ******************************************************************************/
 void XYCrCb2Rgb_Select_Standard(XYCrCb2Rgb *InstancePtr,
-				enum Standards StandardSel,
-				enum OutputRanges InputRange, u32 DataWidth,
+				enum XYcc_Standards StandardSel,
+				enum XYcc_OutputRanges InputRange, u32 DataWidth,
 				struct XYCrCb2Rgb_Coef_Inputs *CoefIn)
 {
 
@@ -1174,7 +1174,7 @@ u32 XYCrCb2Rgb_Coefficient_Translation(XYCrCb2Rgb *InstancePtr,
 * conversion coefficients as well as the clipping and clamping values.
 *
 * @param	InstancePtr is a pointer to the XYCrCb2Rgb instance.
-* @param	Range needs to be set from the enum OutputRanges values as:
+* @param	Range needs to be set from the enum XYcc_OutputRanges values as:
 *		0 = XYCC_TV_16_TO_240,
 *		1 = XYCC_STUDIO_16_TO_235,
 *		2 = XYCC_GRAPHICS_0_TO_255.
@@ -1185,7 +1185,7 @@ u32 XYCrCb2Rgb_Coefficient_Translation(XYCrCb2Rgb *InstancePtr,
 *
 *****************************************************************************/
 void XYCrCb2Rgb_Select_OutputRange(XYCrCb2Rgb *InstancePtr,
-					enum OutputRanges Range)
+					enum XYcc_OutputRanges Range)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
