@@ -51,7 +51,8 @@
 ## 2.1     bss 04/14/14 Updated to copy libgloss.a and libgcc.a libraries
 ## 2.1     bss 04/29/14 Updated to copy libgloss.a if exists otherwise libxil.a
 ##			 CR#794205
-
+## 2.2     bss 08/04/14 Updated to add protection macros for xparameters.h
+##			 CR#802257
 # uses xillib.tcl
 
 ########################################
@@ -271,6 +272,9 @@ proc generate {drv_handle} {
     # Handle the Bus Frequency
     #--------------------------
     set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+    puts $file_handle "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
+    puts $file_handle "#define XPARAMETERS_H   /* by using protection macros */"
+    puts $file_handle ""
     puts $file_handle "/* Definitions for bus frequencies */"
     set bus_array {"M_AXI_DP" "M_AXI_IP"}
     set bus_freq [::hsm::utils::get_clk_pin_freq $periph "Clk"]
@@ -379,6 +383,12 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
       }		
 
     close $file_handle
+}
+
+proc post_generate {drv_handle} {
+	set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+    	puts $file_handle "#endif  /* end of protection macro */"
+    	close $file_handle	
 }
 
 # Returns the frequency of a bus

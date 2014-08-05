@@ -57,6 +57,8 @@
 * 2.1   bss  04/14/14 Updated tcl to copy libgloss.a and libgcc.a libraries
 * 2.1   bss  04/29/14 Updated to copy libgloss.a if exists otherwise libxil.a
 *			CR#794205
+* 2.2   bss  08/04/14 Updated driver tcl to add protection macros for
+*		      xparameters.h (CR#802257).
 *
 * </pre>
 *
