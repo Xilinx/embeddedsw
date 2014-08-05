@@ -116,8 +116,8 @@
 *                       XTPG_HANDLER_PROCSTART ,XTPG_HANDLER_FRAMEDONE and
 *                       XTPG_HANDLER_ERROR.
 *                       Defined the following enums:
-*                       BackgroundPattern, ComponentMask and
-*                       BayerPhaseCombination.
+*                       XTpg_BackgroundPattern, XTpg_ComponentMask and
+*                       XTpg_BayerPhaseCombination.
 *
 *                       Defined the following range macros
 *                       XTPG_MOTION_SPEED_MIN, XTPG_MOTION_SPEED_MAX,
@@ -214,7 +214,7 @@ enum {
 * These constants specify different types of background patterns supported by
 * the core.
 */
-enum BackgroundPattern {
+enum XTpg_BackgroundPattern {
 	XTPG_PASS_THROUGH,		/**< Pass video input straight through
 					  *  the video output */
 	XTPG_H_RAMP,			/**< Horizontal ramp */
@@ -240,7 +240,7 @@ enum BackgroundPattern {
 /**
 * These constants specify mask outs for a particular color component.
 */
-enum ComponentMask {
+enum XTpg_ComponentMask {
 	XTPG_NOMASK,		/**< No masking */
 	XTPG_MASKOUT_RED,	/**< Mask out red,
 				  *  Cr(for YCbCr mode) component */
@@ -257,7 +257,7 @@ enum ComponentMask {
 /**
 * These constants specify Bayer phase combinations of the core.
 */
-enum BayerPhaseCombination {
+enum XTpg_BayerPhaseCombination {
 	XTPG_BAYER_PHASE_RGRG,		/**< Red green combination */
 	XTPG_BAYER_PHASE_GRGR,		/**< Green red combination */
 	XTPG_BAYER_PHASE_GBGB,		/**< Green blue combination */
@@ -662,7 +662,7 @@ void XTpg_SetActiveSize(XTpg *InstancePtr, u16 HSize, u16 VSize);
 void XTpg_GetActiveSize(XTpg *InstancePtr, u16 *HSize, u16 *VSize);
 void XTpg_SetPattern(XTpg *InstancePtr, u32 Pattern);
 u32 XTpg_GetPattern(XTpg *InstancePtr);
-void XTpg_SetBackground(XTpg *InstancePtr, enum BackgroundPattern Pattern);
+void XTpg_SetBackground(XTpg *InstancePtr, enum XTpg_BackgroundPattern Pattern);
 u32 XTpg_GetBackground(XTpg *InstancePtr);
 void XTpg_EnableCrossHair(XTpg *InstancePtr);
 void XTpg_DisableCrossHair(XTpg *InstancePtr);
@@ -670,7 +670,7 @@ void XTpg_EnableMotion(XTpg *InstancePtr);
 void XTpg_DisableMotion(XTpg *InstancePtr);
 void XTpg_EnableBox(XTpg *InstancePtr);
 void XTpg_DisableBox(XTpg *InstancePtr);
-void XTpg_SetComponentMask(XTpg *InstancePtr, enum ComponentMask Mask);
+void XTpg_SetComponentMask(XTpg *InstancePtr, enum XTpg_ComponentMask Mask);
 u32 XTpg_GetComponentMask(XTpg *InstancePtr);
 void XTpg_EnableStuckPixel(XTpg *InstancePtr);
 void XTpg_DisableStuckPixel(XTpg *InstancePtr);
@@ -697,7 +697,7 @@ u32 XTpg_GetStuckPixelThreshold (XTpg *InstancePtr);
 void XTpg_SetNoiseGain(XTpg *InstancePtr, u32 NoiseGain);
 u32 XTpg_GetNoiseGain(XTpg *InstancePtr);
 void XTpg_SetBayerPhase(XTpg *InstancePtr,
-		enum BayerPhaseCombination BayerPhaseComb);
+		enum XTpg_BayerPhaseCombination BayerPhaseComb);
 u32 XTpg_GetBayerPhase(XTpg *InstancePtr);
 
 /*
