@@ -551,7 +551,7 @@ void XCfa_GetActiveSize(XCfa *InstancePtr, u16 *HSize, u16 *VSize)
 *
 ******************************************************************************/
 void XCfa_SetBayerPhase(XCfa *InstancePtr,
-				enum BayerPhaseCombination BayerPhase)
+				enum XCfa_BayerPhaseCombination BayerPhase)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);

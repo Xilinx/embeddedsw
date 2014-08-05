@@ -195,7 +195,7 @@ enum {
 /**
 * These constants specify Bayer phase combinations of the core.
 */
-enum BayerPhaseCombination {
+enum XCfa_BayerPhaseCombination {
 	XCFA_RGRG_COMBINATION,	/**< Red green combination */
 	XCFA_GRGR_COMBINATION,	/**< Green red combination */
 	XCFA_GBGB_COMBINATION,	/**< Green blue combination */
@@ -582,7 +582,7 @@ u32 XCfa_GetDbgPixelCount(XCfa *InstancePtr);
 void XCfa_SetActiveSize(XCfa *InstancePtr, u16 HSize, u16 VSize);
 void XCfa_GetActiveSize(XCfa *InstancePtr, u16 *HSize, u16 *VSize);
 void XCfa_SetBayerPhase(XCfa *InstancePtr,
-			enum BayerPhaseCombination BayerPhase);
+			enum XCfa_BayerPhaseCombination BayerPhase);
 u32 XCfa_GetBayerPhase(XCfa *InstancePtr);
 
 /* Self - Test function in xcfa_selftest.c */
