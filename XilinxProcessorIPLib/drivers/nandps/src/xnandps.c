@@ -71,6 +71,8 @@
 *			   Disabling/Re-enabling ECC block in read/write API's
 *			   of spare bytes since we don't calculate ECC for
 *			   spare bytes.
+* 2.01 kpc    07/24/2014   Fixed CR#808770. Update command register twice only
+                           if flash device requires >= four address cycles.
 * </pre>
 *
 ******************************************************************************/
