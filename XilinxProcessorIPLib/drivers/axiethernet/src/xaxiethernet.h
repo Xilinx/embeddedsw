@@ -451,6 +451,9 @@
 *
 * 4.1  adk 21/04/14 - Fixed CR:780537 Changes are Made in the file 
 * 		      axiethernet test-app tcl
+* 4.2  adk 08/08/15 - Fixed CR:810643 SDK generated 'xparamters.h' erroneously
+*		      generated with errors due to part of '#define' misplaced
+*		      changes are made in the driver tcl file.
 * </pre>
 *
 ******************************************************************************/

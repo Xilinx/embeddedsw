@@ -39,6 +39,8 @@
 #	       operation (CR 704195)
 # 08/06/13 srt Added support to handle multiple instances of AxiEthernet 
 #	       FIFO interface (CR 721141)
+# 06/08/14 adk Modified the driver tcl to handle the open/close of files
+#	       properly (CR 810643)
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -105,14 +107,15 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
     }
     puts $file_handle "\#define [::hsm::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
 
-
+    close $file_handle
     # Now print all useful parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
-        puts $file_handle ""
+        #puts $file_handle ""
   
 	    xdefine_include_file $drv_handle "xparameters.h" "XAxiEthernet" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TYPE" "C_TXCSUM" "C_RXCSUM" "C_PHY_TYPE" "C_TXVLAN_TRAN" "C_RXVLAN_TRAN" "C_TXVLAN_TAG" "C_RXVLAN_TAG" "C_TXVLAN_STRP" "C_RXVLAN_STRP" "C_MCAST_EXTEND" "C_STATS" "C_AVB" "C_PHYADDR"
-	    
+	 
+	    set file_handle [::hsm::utils::open_include_file $file_name]
 	    # Create canonical definitions
             xdefine_temac_params_canonical $file_handle $periph $device_id  
 	    
@@ -123,11 +126,13 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
      
             incr device_id
             puts $file_handle "\n"
+	    close $file_handle
         
     }
      # -------------------------------------------------------
     # PART 2 -- AXIFIFO/AXIDMA Connection related parameters
     # -------------------------------------------------------
+     set file_handle [::hsm::utils::open_include_file $file_name]
     xdefine_axi_target_params $periphs $file_handle
 
     puts $file_handle "\n/******************************************************************/\n"
