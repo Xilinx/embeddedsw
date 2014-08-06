@@ -135,8 +135,8 @@ int XCanPs_SelfTest(XCanPs *InstancePtr)
 	 * equal to 24MHz. For more information see the CAN 2.0A, CAN 2.0B,
 	 * ISO 11898-1 specifications.
 	 */
-	XCanPs_SetBaudRatePrescaler(InstancePtr, 1);
-	XCanPs_SetBitTiming(InstancePtr, 1, 3, 8);
+	XCanPs_SetBaudRatePrescaler(InstancePtr, 29);
+	XCanPs_SetBitTiming(InstancePtr, 3, 2, 15);
 
 	/*
 	 * Enter the loop back mode.

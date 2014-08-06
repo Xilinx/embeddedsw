@@ -96,9 +96,9 @@
  * These values are for a 40 Kbps baudrate assuming the CAN input clock
  * frequency is 24 MHz.
  */
-#define TEST_BTR_SYNCJUMPWIDTH		1
-#define TEST_BTR_SECOND_TIMESEGMENT	3
-#define TEST_BTR_FIRST_TIMESEGMENT	8
+#define TEST_BTR_SYNCJUMPWIDTH		3
+#define TEST_BTR_SECOND_TIMESEGMENT	2
+#define TEST_BTR_FIRST_TIMESEGMENT	15
 
 /*
  * The Baud rate Prescalar value in the Baud Rate Prescaler Register
@@ -107,7 +107,7 @@
  * This value is for a 40 Kbps baudrate assuming the CAN input clock frequency
  * is 24 MHz.
  */
-#define TEST_BRPR_BAUD_PRESCALAR	1
+#define TEST_BRPR_BAUD_PRESCALAR	29
 
 /**************************** Type Definitions *******************************/
 
