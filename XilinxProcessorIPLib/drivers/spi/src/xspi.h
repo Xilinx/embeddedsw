@@ -277,6 +277,10 @@
 *                     block is used in the h/w design (CR 721229).
 * 3.07a adk  11/10/13 Fixed CR:732962 Changes are made in the xspi.c file
 * 4.0   adk  19/12/13 Updated as per the New Tcl API's
+* 4.1	bss  08/07/14 Modified XSpi_Transfer in xspi.c and LoopbackTest in
+*		      xspi_selftest.c to check for Interrupt Status
+*		      register Tx Empty bit instead of Status register
+*		      CR#810294.
 * 
 *
 * </pre>
