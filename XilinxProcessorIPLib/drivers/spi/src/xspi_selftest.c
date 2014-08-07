@@ -305,12 +305,15 @@ static int LoopbackTest(XSpi *InstancePtr)
 		 * empty status bit.
 		 */
 		do {
-			StatusReg = XSpi_GetStatusReg(InstancePtr);
-		} while ((StatusReg & XSP_SR_TX_EMPTY_MASK) == 0);
+			StatusReg = XSpi_IntrGetStatus(InstancePtr);
+		} while ((StatusReg & XSP_INTR_TX_EMPTY_MASK) == 0);
+
+		XSpi_IntrClear(InstancePtr, XSP_INTR_TX_EMPTY_MASK);
 
 		/*
 		 * Receive and verify the data just transmitted.
 		 */
+		StatusReg = XSpi_GetStatusReg(InstancePtr);
 		while ((StatusReg & XSP_SR_RX_EMPTY_MASK) == 0) {
 
 			RxData = XSpi_ReadReg(InstancePtr->BaseAddr,

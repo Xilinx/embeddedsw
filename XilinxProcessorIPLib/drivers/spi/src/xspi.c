@@ -90,6 +90,9 @@
 *		      register inorder to work with CPOL and CPHA High Options.
 * 		      As per spec (Dual/Quad SPI Transaction instrunction 7,8,9)
 * 		      CR:732962
+* 4.1	bss 08/07/14  Modified XSpi_Transfer to check for Interrupt Status
+*		      register Tx Empty bit instead of Status register
+*		      CR#810294.
 * </pre>
 *
 ******************************************************************************/
@@ -687,8 +690,10 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 			 * Transmit empty status bit
 			 */
 			do {
-				StatusReg = XSpi_GetStatusReg(InstancePtr);
-			} while ((StatusReg & XSP_SR_TX_EMPTY_MASK) == 0);
+				StatusReg = XSpi_IntrGetStatus(InstancePtr);
+			} while ((StatusReg & XSP_INTR_TX_EMPTY_MASK) == 0);
+
+			XSpi_IntrClear(InstancePtr,XSP_INTR_TX_EMPTY_MASK);
 
 			/*
 			 * A transmit has just completed. Process received data
