@@ -47,7 +47,11 @@
 * 2.01a sdm      01/04/10 Added Support for Winbond W25QXX/W25XX devices
 * 2.04a sdm      08/17/10 Updated to support Numonyx (N25QXX) and Spansion
 *			  flash memories
-*
+* 5.0   sb	 08/05/14 Updated support for > 128 MB flash for PSQSPI
+*			  interface.
+*			  Changed API:
+*				ReadData()
+*				FastReadData()
 * </pre>
 *
 ******************************************************************************/
@@ -59,6 +63,8 @@
 /************************** Constant Definitions *****************************/
 
 #define FAST_READ_NUM_DUMMY_BYTES	1
+#define SIXTEENMB	0x1000000	/**< Sixteen MB */
+#define BANKMASK 	0xF000000	/**< Bank mask */
 
 /**************************** Type Definitions *******************************/
 
@@ -68,8 +74,16 @@
 
 extern int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8* ReadPtr,
 			 u32 ByteCount);
-static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount);
-static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address, u8 *ReadPtr,
+extern u32 GetRealAddr(XIsf_Iface *QspiPtr, u32 Address);
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
+#endif
+
+static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
+		u32 ByteCount);
+static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
+		u8 *ReadPtr,
 			u32 ByteCount, int NumDummyBytes);
 static int FlashToBufTransfer(XIsf *InstancePtr, u8 BufferNum, u32 Address);
 static int BufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
@@ -80,7 +94,8 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 			u32 ByteCount);
 
 /************************** Variable Definitions *****************************/
-
+extern u32 XIsf_StatusEventInfo;
+extern unsigned int XIsf_ByteCountInfo;
 /************************** Function Definitions ******************************/
 
 /*****************************************************************************/
@@ -107,9 +122,9 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 *		type is dependant on the type of Operation to be performed.
 *
 *		- Normal Read (XISF_READ), Fast Read (XISF_FAST_READ),
-*		One Time Programmable Area Read(XISF_OTP_READ), Dual Output Fast
-*		Read (XISF_CMD_DUAL_OP_FAST_READ), Dual Input/Output Fast Read
-*		(XISF_CMD_DUAL_IO_FAST_READ), Quad Output Fast Read
+*		One Time Programmable Area Read(XISF_OTP_READ), Dual Output
+*		Fast Read (XISF_CMD_DUAL_OP_FAST_READ), Dual Input/Output
+*		Fast Read (XISF_CMD_DUAL_IO_FAST_READ), Quad Output Fast Read
 *		(XISF_CMD_QUAD_OP_FAST_READ) and Quad Input/Output Fast Read
 *		(XISF_CMD_QUAD_IO_FAST_READ):
 *		The OpParamPtr must be of type struct XIsf_ReadParam.
@@ -131,7 +146,7 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 *		XIsf_FlashToBufTransferParam .
 *		OpParamPtr->BufferNum specifies the internal SRAM Buffer of
 *		the Serial Flash. The valid values are XISF_PAGE_BUFFER1
-*		or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in the case
+*		or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case
 *		of AT45DB011D Flash as it contains a single buffer.
 *		OpParamPtr->Address is start address in the Serial Flash.
 *		This operation is only supported in Atmel Serial Flash.
@@ -143,7 +158,7 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 *		the Serial Flash. The valid values are XISF_PAGE_BUFFER1
 *		or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
 *		AT45DB011D Flash as it contains a single buffer.
-*		OpParamPtr->ReadPtr is pointer to the memory where the data read
+*		OpParamPtr->ReadPtr is pointer to the memory where data read
 *		from the SRAM buffer is to be stored.
 *		OpParamPtr->ByteOffset is byte offset in the SRAM buffer from
 *		where the first byte is read.
@@ -159,30 +174,32 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 *		pointer.
 *		- The valid data is available from the fourth location pointed
 *		to by the ReadPtr for Normal Read and Buffer Read operations.
-*		- The valid data is available from the fifth location pointed to
+*		- The valid data is available from fifth location pointed to
 *		by the ReadPtr for Fast Read, Fast Buffer Read and OTP Read
 *		operations.
 *		- The valid data is available from the (4 + NumDummyBytes)th
 *		location pointed to by ReadPtr for Dual/Quad Read operations.
 *
 ******************************************************************************/
-int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
+int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
+		void *OpParamPtr)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+	u8 Mode;
 	XIsf_ReadParam *ReadParamPtr;
 	XIsf_FlashToBufTransferParam *FlashToBufTransferParamPtr;
 	XIsf_BufferReadParam *BufferReadParamPtr;
 
 	if (InstancePtr == NULL) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (InstancePtr->IsReady != TRUE) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (NULL == OpParamPtr) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	switch (Operation) {
@@ -195,25 +212,29 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 			break;
 
 		case XISF_FAST_READ:
-			ReadParamPtr = (XIsf_ReadParam*) OpParamPtr;
+			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(ReadParamPtr != NULL);
 			Status = FastReadData(InstancePtr,
 					XISF_CMD_FAST_READ,
 					ReadParamPtr->Address,
 					ReadParamPtr->ReadPtr,
 					ReadParamPtr->NumBytes,
-					FAST_READ_NUM_DUMMY_BYTES);
+					ReadParamPtr->NumDummyBytes);
 			break;
 
 		case XISF_PAGE_TO_BUF_TRANS:
 			FlashToBufTransferParamPtr =
-				(XIsf_FlashToBufTransferParam*) OpParamPtr;
+			(XIsf_FlashToBufTransferParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(FlashToBufTransferParamPtr != NULL);
 			Status = FlashToBufTransfer(InstancePtr,
 					FlashToBufTransferParamPtr->BufferNum,
 					FlashToBufTransferParamPtr->Address);
 			break;
 
 		case XISF_BUFFER_READ:
-			BufferReadParamPtr = (XIsf_BufferReadParam*) OpParamPtr;
+			BufferReadParamPtr =
+			(XIsf_BufferReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(BufferReadParamPtr != NULL);
 			Status = BufferRead(InstancePtr,
 					BufferReadParamPtr->BufferNum,
 					BufferReadParamPtr->ReadPtr,
@@ -222,7 +243,9 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 			break;
 
 		case XISF_FAST_BUFFER_READ:
-			BufferReadParamPtr = (XIsf_BufferReadParam*) OpParamPtr;
+			BufferReadParamPtr =
+			(XIsf_BufferReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(BufferReadParamPtr != NULL);
 			Status = FastBufferRead(InstancePtr,
 					BufferReadParamPtr->BufferNum,
 					BufferReadParamPtr->ReadPtr,
@@ -231,17 +254,19 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 			break;
 
 		case XISF_OTP_READ:
-			ReadParamPtr = (XIsf_ReadParam*) OpParamPtr;
+			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(ReadParamPtr != NULL);
 			Status = ReadOTPData(InstancePtr,
 					ReadParamPtr->Address,
 					ReadParamPtr->ReadPtr,
 					ReadParamPtr->NumBytes);
 			break;
 
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-     (XPAR_XISF_FLASH_FAMILY == SPANSION))
+#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == STM) \
+     || (XPAR_XISF_FLASH_FAMILY == SPANSION))
 		case XISF_DUAL_OP_FAST_READ:
-			ReadParamPtr = (XIsf_ReadParam*) OpParamPtr;
+			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(ReadParamPtr != NULL);
 			Status = FastReadData(InstancePtr,
 					XISF_CMD_DUAL_OP_FAST_READ,
 					ReadParamPtr->Address,
@@ -251,7 +276,8 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 			break;
 
 		case XISF_DUAL_IO_FAST_READ:
-			ReadParamPtr = (XIsf_ReadParam*) OpParamPtr;
+			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(ReadParamPtr != NULL);
 			Status = FastReadData(InstancePtr,
 					XISF_CMD_DUAL_IO_FAST_READ,
 					ReadParamPtr->Address,
@@ -261,7 +287,8 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 			break;
 
 		case XISF_QUAD_OP_FAST_READ:
-			ReadParamPtr = (XIsf_ReadParam*) OpParamPtr;
+			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(ReadParamPtr != NULL);
 			Status = FastReadData(InstancePtr,
 					XISF_CMD_QUAD_OP_FAST_READ,
 					ReadParamPtr->Address,
@@ -271,7 +298,8 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 			break;
 
 		case XISF_QUAD_IO_FAST_READ:
-			ReadParamPtr = (XIsf_ReadParam*) OpParamPtr;
+			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(ReadParamPtr != NULL);
 			Status = FastReadData(InstancePtr,
 					XISF_CMD_QUAD_IO_FAST_READ,
 					ReadParamPtr->Address,
@@ -285,6 +313,16 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 
 		default:
 			break;
+	}
+
+	/*
+	 * Get the Transfer Mode
+	 */
+	Mode = XIsf_GetTransferMode(InstancePtr);
+
+	if(Mode == XISF_INTERRUPT_MODE){
+			InstancePtr->StatusHandler(InstancePtr,
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
 	}
 
 	return Status;
@@ -316,31 +354,110 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation, void *OpParamPtr)
 ******************************************************************************/
 static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 {
+	u8 Mode;
+	u32 BankSel;
+	u32 RealAddr;
 	int Status;
-
-	if (ByteCount <= 0 ) {
-		return XST_FAILURE;
+	u32 RealByteCnt;
+	u32 BufferIndex;
+	u8 ShiftSize;
+	u32 TotalByteCnt = ByteCount;
+	u32 LocalByteCnt = ByteCount;
+	u32 LocalAddress = Address;
+	u8 WriteBuffer[5] = {0};
+	if (LocalByteCnt <= 0 ) {
+		return (int)XST_FAILURE;
 	}
 
 	if (ReadPtr == NULL) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
-	ReadPtr[BYTE1] = XISF_CMD_RANDOM_READ;
-	ReadPtr[BYTE2] = (u8) (Address >> XISF_ADDR_SHIFT16);
-	ReadPtr[BYTE3] = (u8) (Address >> XISF_ADDR_SHIFT8);
-	ReadPtr[BYTE4] = (u8) Address;
+	while(((s32)(LocalByteCnt)) > 0) {
 
 	/*
-	 * Initiate the Transfer.
+	 * Translate address based on type of connection
+	 * If stacked assert the slave select based on address
 	 */
-	Status = XIsf_Transfer(InstancePtr, ReadPtr, ReadPtr,
-				ByteCount + XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, LocalAddress);
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	if(InstancePtr->DeviceIDMemSize > 0x18U) {
+
+		/*
+		 * Get the Transfer Mode
+		 */
+		Mode = XIsf_GetTransferMode(InstancePtr);
+
+		/*
+		 * Seting the transfer mode to Polled Mode before
+		 * performing the Bank Select operation.
+		 */
+		XIsf_SetTransferMode(InstancePtr, XISF_POLLING_MODE);
+
+		BankSel = RealAddr/SIXTEENMB;
+
+		(void)SendBankSelect(InstancePtr, BankSel);
+
+		/*
+		 * Restoring the transfer mode back
+		 */
+		XIsf_SetTransferMode(InstancePtr, Mode);
 	}
 
-	return XST_SUCCESS;
+	/*
+	 * If data to be read spans beyond the current bank, then
+	 * calculate RealByteCnt in current bank. Else
+	 * RealByteCnt is the same as ByteCount
+	 */
+	if((RealAddr & BANKMASK) != ((RealAddr+LocalByteCnt) & BANKMASK)) {
+		RealByteCnt = ((RealAddr & BANKMASK) + SIXTEENMB) - RealAddr;
+	}
+	else {
+#endif
+		RealByteCnt = LocalByteCnt;
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	}
+#endif
+
+	WriteBuffer[BYTE1] = XISF_CMD_RANDOM_READ;
+	WriteBuffer[BYTE2] = (u8)((RealAddr & 0xFF0000) >> XISF_ADDR_SHIFT16);
+	WriteBuffer[BYTE3] = (u8)((RealAddr & 0xFF00) >> XISF_ADDR_SHIFT8);
+	WriteBuffer[BYTE4] = (u8)(RealAddr & 0xFF);
+
+	Status = XIsf_Transfer(InstancePtr, WriteBuffer,
+				&(ReadPtr[TotalByteCnt - LocalByteCnt]),
+				RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES);
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)XST_FAILURE;
+	}
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	/*
+	 * To discard the first 4 dummy bytes, shift the data in read buffer
+	 */
+	ShiftSize =  XISF_CMD_SEND_EXTRA_BYTES;
+	BufferIndex = (TotalByteCnt - LocalByteCnt);
+	for(;
+		BufferIndex < ((TotalByteCnt - LocalByteCnt) + RealByteCnt);
+		BufferIndex++) {
+		ReadPtr[BufferIndex] = ReadPtr[BufferIndex + ShiftSize];
+	}
+
+	/*
+	 * Increase address to next bank
+	 */
+	LocalAddress = (LocalAddress & BANKMASK) + SIXTEENMB;
+#endif
+	/*
+	 * Decrease byte count by bytes already read.
+	 */
+	LocalByteCnt = LocalByteCnt - RealByteCnt;
+
+	}
+
+	return (int)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -376,44 +493,126 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 *		  location pointed to by the ReadPtr.
 *
 ******************************************************************************/
-static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address, u8 *ReadPtr,
-			u32 ByteCount, int NumDummyBytes)
+static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
+			u8 *ReadPtr, u32 ByteCount, int NumDummyBytes)
 {
-	int Status;
+	u8 Mode;
 	int Index;
+	int Status;
+	u32 BankSel;
+	u32 RealAddr;
+	u32 RealByteCnt;
+	u32 BufferIndex;
+	u8 ShiftSize;
+	u32 TotalByteCnt = ByteCount;
+	u32 LocalByteCnt = ByteCount;
+	u32 LocalAddress = Address;
+	u8 WriteBuffer[5]= {0};
 
-	if (ByteCount <= 0 ) {
-		return XST_FAILURE;
+	if (LocalByteCnt <= 0 ) {
+		return (int)XST_FAILURE;
 	}
 
 	if (ReadPtr == NULL) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (NumDummyBytes <= 0) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
-	ReadPtr[BYTE1] = Command;
-	ReadPtr[BYTE2] = (u8) (Address >> XISF_ADDR_SHIFT16);
-	ReadPtr[BYTE3] = (u8) (Address >> XISF_ADDR_SHIFT8);
-	ReadPtr[BYTE4] = (u8) Address;
+	while(((s32)(LocalByteCnt)) > 0) {
+
+	/*
+	 * Translate address based on type of connection
+	 * If stacked assert the slave select based on address
+	 */
+	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, LocalAddress);
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	if(InstancePtr->DeviceIDMemSize > 0x18U) {
+		/*
+		 * Get the Transfer Mode
+		 */
+		Mode = XIsf_GetTransferMode(InstancePtr);
+
+		/*
+		 * Seting the transfer mode to Polled Mode before
+		 * performing the Bank Select operation.
+		 */
+		XIsf_SetTransferMode(InstancePtr, XISF_POLLING_MODE);
+
+		BankSel = RealAddr/SIXTEENMB;
+
+		(void)SendBankSelect(InstancePtr, BankSel);
+
+		/*
+		 * Restoring the transfer mode back
+		 */
+		XIsf_SetTransferMode(InstancePtr, Mode);
+	}
+
+	/*
+	 * If data to be read spans beyond the current bank, then
+	 * calculate RealByteCnt in current bank. Else
+	 * RealByteCnt is the same as ByteCount
+	 */
+	if((RealAddr & BANKMASK) != ((RealAddr+LocalByteCnt) & BANKMASK)) {
+		RealByteCnt = ((RealAddr & BANKMASK) + SIXTEENMB) - RealAddr;
+	}
+	else {
+#endif
+		RealByteCnt = LocalByteCnt;
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	}
+#endif
+
+	WriteBuffer[BYTE1] = Command;
+	WriteBuffer[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+	WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+	WriteBuffer[BYTE4] = (u8) RealAddr;
 
 	for (Index = 0; Index < NumDummyBytes; Index++) {
-		ReadPtr[Index + BYTE5] = (u8) (XISF_DUMMYBYTE);
+		WriteBuffer[Index + BYTE5] = (u8) (XISF_DUMMYBYTE);
 	}
+
+	RealByteCnt += NumDummyBytes;
 
 	/*
 	 * Initiate the Transfer.
 	 */
-	Status = XIsf_Transfer(InstancePtr, ReadPtr, ReadPtr,
-				ByteCount + NumDummyBytes +
-				XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	Status = (int)XIsf_Transfer(InstancePtr, WriteBuffer,
+			&(ReadPtr[TotalByteCnt - LocalByteCnt]),
+			RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES);
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 
-	return XST_SUCCESS;
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	/*
+	 * To discard the first 5 dummy bytes, shift the data in read buffer
+	 */
+	ShiftSize =  XISF_CMD_SEND_EXTRA_BYTES + (u8)NumDummyBytes;
+	BufferIndex = (TotalByteCnt - LocalByteCnt);
+	for(;
+		BufferIndex < ((TotalByteCnt - LocalByteCnt) + RealByteCnt);
+		BufferIndex++) {
+		ReadPtr[BufferIndex] = ReadPtr[BufferIndex + ShiftSize];
+	}
+
+	/*
+	 * Increase address to next bank
+	 */
+	LocalAddress = (LocalAddress & BANKMASK) + SIXTEENMB;
+#endif
+	/*
+	 * Decrease byte count by bytes already read.
+	 */
+	LocalByteCnt = LocalByteCnt - (RealByteCnt - NumDummyBytes);
+	}
+
+	return (int)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -424,10 +623,10 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address, u8 *ReadPtr,
 *
 * @param	InstancePtr is a pointer to the XIsf instance.
 * @param	BufferNum specifies the internal SRAM Buffer to which the data
-*		from the Serial Flash is to be transferred. The valid values are
-*		XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not
-*		valid in the case of AT45DB011D Flash as it contains a single
-*		buffer.
+*		from Serial Flash is to be transferred. The valid values are
+*		XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is
+*		not valid in the case of AT45DB011D Flash as it contains a
+*		single buffer.
 * @param	Address specifies any address within the Page of the Serial
 *		Flash from where the Page of data is to be copied.
 *		Byte address in this Address is ignored as an entire Page of
@@ -444,7 +643,11 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address, u8 *ReadPtr,
 ******************************************************************************/
 static int FlashToBufTransfer(XIsf *InstancePtr, u8 BufferNum, u32 Address)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Address != 0);
+	Xil_AssertNonvoid(BufferNum != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	/*
@@ -454,10 +657,10 @@ static int FlashToBufTransfer(XIsf *InstancePtr, u8 BufferNum, u32 Address)
 		(BufferNum == XISF_PAGE_BUFFER2)) {
 		if ((InstancePtr->DeviceCode  == XISF_ATMEL_DEV_AT45DB011D) &&
 			(BufferNum != XISF_PAGE_BUFFER1)) {
-			return XST_FAILURE;
+			return (int)(XST_FAILURE);
 		}
 	} else {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (BufferNum == XISF_PAGE_BUFFER1) {
@@ -483,8 +686,8 @@ static int FlashToBufTransfer(XIsf *InstancePtr, u8 BufferNum, u32 Address)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 				XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -495,12 +698,12 @@ static int FlashToBufTransfer(XIsf *InstancePtr, u8 BufferNum, u32 Address)
 /*****************************************************************************/
 /**
 *
-* This function reads the data available in the SRAM buffer of the Serial Flash.
+* This function reads the data available in the SRAM buffer of Serial Flash.
 *
 * @param	InstancePtr is a pointer to the XIsf instance.
-* @param	BufferNum specifies the internal SRAM Buffer from which the data
+* @param	BufferNum specifies the internal SRAM Buffer from which data
 *		is to be read. The valid values are XISF_PAGE_BUFFER1 or
-*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in the case of
+*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
 *		AT45DB011D Flash as it contains a single buffer.
 * @param	ReadPtr is a pointer to the memory where the data read from the
 *		SRAM buffer is stored.
@@ -523,7 +726,13 @@ static int FlashToBufTransfer(XIsf *InstancePtr, u8 BufferNum, u32 Address)
 static int BufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 			u32 ByteOffset, u32 NumBytes)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BufferNum != 0);
+	Xil_AssertNonvoid(ReadPtr != NULL);
+	Xil_AssertNonvoid(ByteOffset != 0);
+	Xil_AssertNonvoid(NumBytes != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 
@@ -534,22 +743,22 @@ static int BufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 			(BufferNum == XISF_PAGE_BUFFER2)) {
 		if ((InstancePtr->DeviceCode  == XISF_ATMEL_DEV_AT45DB011D) &&
 			(BufferNum != XISF_PAGE_BUFFER1)) {
-			return XST_FAILURE;
+			return (int)(XST_FAILURE);
 		}
 	} else {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (ReadPtr == NULL) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (ByteOffset > InstancePtr->BytesPerPage){
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if ((NumBytes <= 0) || (NumBytes > InstancePtr->BytesPerPage)) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (BufferNum == XISF_PAGE_BUFFER1) {
@@ -566,8 +775,8 @@ static int BufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 	 */
 	Status = XIsf_Transfer(InstancePtr, ReadPtr, ReadPtr,
 				NumBytes + XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -581,9 +790,9 @@ static int BufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 * Flash memory at higher speed than normal Buffer Read operation.
 *
 * @param	InstancePtr is a pointer to the XIsf instance.
-* @param	BufferNum specifies the internal SRAM Buffer from which the data
+* @param	BufferNum specifies the internal SRAM Buffer from which data
 *		is to be read. The valid values are XISF_PAGE_BUFFER1 or
-*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in the case of
+*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
 *		AT45DB011D Flash as it contains a single buffer.
 * @param	ReadPtr is a pointer to the memory where the data read from the
 *		SRAM buffer is stored.
@@ -606,7 +815,13 @@ static int BufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 static int FastBufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 				u32 ByteOffset, u32 NumBytes)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BufferNum != 0);
+	Xil_AssertNonvoid(ReadPtr != NULL);
+	Xil_AssertNonvoid(ByteOffset != 0);
+	Xil_AssertNonvoid(NumBytes != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	/*
@@ -616,22 +831,22 @@ static int FastBufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 			(BufferNum == XISF_PAGE_BUFFER2)) {
 		if ((InstancePtr->DeviceCode  == XISF_ATMEL_DEV_AT45DB011D) &&
 			(BufferNum != XISF_PAGE_BUFFER1)) {
-			return XST_FAILURE;
+			return (int)(XST_FAILURE);
 		}
 	} else {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (ReadPtr == NULL) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (ByteOffset > InstancePtr->BytesPerPage){
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if ((NumBytes <= 0) || (NumBytes > InstancePtr->BytesPerPage)) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (BufferNum == XISF_PAGE_BUFFER1) {
@@ -656,8 +871,8 @@ static int FastBufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 	 */
 	Status = XIsf_Transfer(InstancePtr, ReadPtr, ReadPtr,
 			NumBytes + XISF_CMD_FAST_READ_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -687,15 +902,20 @@ static int FastBufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 			u32 ByteCount)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Address != 0);
+	Xil_AssertNonvoid(ReadPtr != NULL);
+	Xil_AssertNonvoid(ByteCount != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == INTEL)
 	if (ByteCount <= 0 ) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	if (ReadPtr == NULL) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 	ReadPtr[BYTE1] = XISF_CMD_OTP_READ;
@@ -710,8 +930,8 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 	 */
 	Status = XIsf_Transfer(InstancePtr, ReadPtr, ReadPtr,
 				ByteCount + XISF_OTP_RDWR_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == INTEL) */
 

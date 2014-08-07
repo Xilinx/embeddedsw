@@ -49,7 +49,11 @@
 *			  flash memories
 * 3.00a srt	 06/20/12 Updated to support interfaces SPI PS and QSPI PS.
 *			  Added support to SST flash on SPI PS interface.
-*
+* 5.0   sb	 08/05/14 Updated support for > 128 MB flash for PSQSPI
+*			  interface.
+*			  Changed API:
+*				WriteData()
+*				XIsf_Write()
 * </pre>
 *
 ******************************************************************************/
@@ -59,6 +63,7 @@
 #include "include/xilisf.h"
 
 /************************** Constant Definitions *****************************/
+#define SIXTEENMB	0x1000000	/**< Sixteen MB */
 
 /**************************** Type Definitions *******************************/
 
@@ -68,6 +73,11 @@
 
 extern int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8* ReadPtr,
 			 u32 ByteCount);
+extern u32 GetRealAddr(XIsf_Iface *QspiPtr, u32 Address);
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
+#endif
 static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 			const u8 *BufferPtr, u32 ByteCount);
 static int AutoPageWrite(XIsf *InstancePtr, u32 Address);
@@ -82,7 +92,8 @@ static int WriteSR2(XIsf *InstancePtr, u8 *SRData);
 static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
 
 /************************** Variable Definitions *****************************/
-
+extern u32 XIsf_StatusEventInfo;
+extern unsigned int XIsf_ByteCountInfo;
 /************************** Function Definitions ******************************/
 
 
@@ -110,7 +121,7 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
 *		- XISF_WRITE_STATUS_REG2: 2 byte Status Register Write
 *		- XISF_OTP_WRITE: OTP Write.
 *
-* @param	OpParamPtr is the pointer to a structure variable which contains
+* @param	OpParamPtr is pointer to a structure variable which contains
 *		operational parameters of the specified operation.
 *		This parameter type is dependant on value of first argument
 *		(Operation).
@@ -124,15 +135,15 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
 * 		OpParamPtr->Address is the start address in the Serial Flash.
 *		OpParamPtr->WritePtr is a pointer to the data to be written to
 *		the Serial Flash.
-*		OpParamPtr->NumBytes is the number of bytes to be written to the
+*		OpParamPtr->NumBytes is the number of bytes to be written to
 *		Serial Flash.
 *		This operation is supported for Atmel, Intel, STM, Winbond and
 *		Spansion Serial Flash.
 *
 *		- Auto Page Write (XISF_AUTO_PAGE_WRITE):
-*		The OpParamPtr must be of 32 bit unsigned integer variable. This
-*		is the address of page number in the Serial Flash which is to be
-*		refreshed.
+*		The OpParamPtr must be of 32 bit unsigned integer variable.
+*		This is the address of page number in the Serial Flash which is
+*		to be refreshed.
 *		This operation is only supported for Atmel Serial Flash.
 *
 *		- Buffer Write (XISF_BUFFER_WRITE):
@@ -140,13 +151,13 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
 *		XIsf_BufferToFlashWriteParam.
 *		OpParamPtr->BufferNum specifies the internal SRAM Buffer of the
 *		Serial Flash. The valid values are XISF_PAGE_BUFFER1 or
-*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in the case of
+*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
 *		AT45DB011D Flash as it contains a single buffer.
 *		OpParamPtr->WritePtr is a pointer to the data to be written to
 *		the Serial Flash SRAM Buffer.
 *		OpParamPtr->ByteOffset is byte offset in the buffer from where
 *		the data is to be written.
-*		OpParamPtr->NumBytes is the number of bytes to be written to the
+*		OpParamPtr->NumBytes is number of bytes to be written to the
 *		Buffer.
 *		This operation is supported only for Atmel Serial Flash.
 *
@@ -158,7 +169,7 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
 *		XIsf_BufferToFlashWriteParam.
 *		OpParamPtr->BufferNum specifies the internal SRAM Buffer of the
 *		Serial Flash. The valid values are XISF_PAGE_BUFFER1 or
-*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in the case of
+*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
 *		AT45DB011D Flash as it contains a single buffer.
 *		OpParamPtr->Address is starting address in the Serial Flash
 *		memory from where the data is to be written.
@@ -183,8 +194,8 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
 *		Serial Flash to which the data is to be written.
 *		OpParamPtr->WritePtr is a pointer to the data to be written to
 *		the Serial Flash.
-*		OpParamPtr->NumBytes should be set to 1 when performing OTPWrite
-*		operation.
+*		OpParamPtr->NumBytes should be set to 1 when performing
+*		OTPWrite operation.
 *		This operation is only supported for Intel Serial Flash.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
@@ -202,26 +213,28 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
 int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			void *OpParamPtr)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
+	u8 Mode;
 	XIsf_WriteParam *WriteParamPtr;
 	XIsf_BufferWriteParam *BufferWriteParamPtr;
 	XIsf_BufferToFlashWriteParam *BufferToFlashWriteParamPtr;
 
 	if (InstancePtr == NULL) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	if (InstancePtr->IsReady != TRUE) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	if (NULL == OpParamPtr) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	switch (Operation) {
 		case XISF_WRITE:
-			WriteParamPtr = (XIsf_WriteParam*) OpParamPtr;
+			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(WriteParamPtr != NULL);
 			Status = WriteData(InstancePtr,
 					XISF_CMD_PAGEPROG_WRITE,
 					WriteParamPtr->Address,
@@ -231,12 +244,13 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 
 		case XISF_AUTO_PAGE_WRITE:
 			Status = AutoPageWrite(InstancePtr,
-						*((u32*)OpParamPtr));
+					*((u32*)(void *) OpParamPtr));
 			break;
 
 		case XISF_BUFFER_WRITE:
 			BufferWriteParamPtr = (XIsf_BufferWriteParam*)
-						OpParamPtr;
+						(void *) OpParamPtr;
+			Xil_AssertNonvoid(BufferWriteParamPtr != NULL);
 			Status = BufferWrite(InstancePtr,
 					BufferWriteParamPtr->BufferNum,
 					BufferWriteParamPtr->WritePtr,
@@ -246,7 +260,8 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 
 		case XISF_BUF_TO_PAGE_WRITE_WITH_ERASE:
 			BufferToFlashWriteParamPtr =
-				(XIsf_BufferToFlashWriteParam*) OpParamPtr;
+			(XIsf_BufferToFlashWriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(BufferToFlashWriteParamPtr != NULL);
 			Status = BufferToFlashWriteWithErase(InstancePtr,
 					BufferToFlashWriteParamPtr->BufferNum,
 					BufferToFlashWriteParamPtr->Address);
@@ -254,18 +269,21 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 
 		case XISF_BUF_TO_PAGE_WRITE_WITHOUT_ERASE:
 			BufferToFlashWriteParamPtr =
-				(XIsf_BufferToFlashWriteParam*) OpParamPtr;
+			(XIsf_BufferToFlashWriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(BufferToFlashWriteParamPtr != NULL);
 			Status = BufferToFlashWriteWithoutErase(InstancePtr,
 					BufferToFlashWriteParamPtr->BufferNum,
 					BufferToFlashWriteParamPtr->Address);
 			break;
 
 		case XISF_WRITE_STATUS_REG:
-			Status = WriteSR(InstancePtr, *((u8*)OpParamPtr));
+			Status = WriteSR(InstancePtr,
+				*((u8*)(void *) OpParamPtr));
 			break;
 
 		case XISF_OTP_WRITE:
-			WriteParamPtr = (XIsf_WriteParam*) OpParamPtr;
+			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(WriteParamPtr != NULL);
 			if (1 == WriteParamPtr->NumBytes) {
 				Status = WriteOTPData(InstancePtr,
 					WriteParamPtr->Address,
@@ -274,13 +292,15 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			break;
 
 		case XISF_WRITE_STATUS_REG2:
-			Status = WriteSR2(InstancePtr, (u8*)OpParamPtr);
+			Status = WriteSR2(InstancePtr,
+				(u8*)(void *) OpParamPtr);
 			break;
 
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-     (XPAR_XISF_FLASH_FAMILY == SPANSION))
+#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == STM) \
+     || (XPAR_XISF_FLASH_FAMILY == SPANSION))
 		case XISF_QUAD_IP_PAGE_WRITE:
-			WriteParamPtr = (XIsf_WriteParam*) OpParamPtr;
+			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(WriteParamPtr != NULL);
 			Status = WriteData(InstancePtr,
 					XISF_CMD_QUAD_IP_PAGE_WRITE,
 					WriteParamPtr->Address,
@@ -294,7 +314,8 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 
 #if (XPAR_XISF_FLASH_FAMILY == STM)
 		case XISF_DUAL_IP_PAGE_WRITE:
-			WriteParamPtr = (XIsf_WriteParam*) OpParamPtr;
+			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(WriteParamPtr != NULL);
 			Status = WriteData(InstancePtr,
 					XISF_CMD_DUAL_IP_PAGE_WRITE,
 					WriteParamPtr->Address,
@@ -303,7 +324,8 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			break;
 
 		case XISF_DUAL_IP_EXT_PAGE_WRITE:
-			WriteParamPtr = (XIsf_WriteParam*) OpParamPtr;
+			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(WriteParamPtr != NULL);
 			Status = WriteData(InstancePtr,
 					XISF_CMD_DUAL_IP_EXT_PAGE_WRITE,
 					WriteParamPtr->Address,
@@ -312,7 +334,8 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			break;
 
 		case XISF_QUAD_IP_EXT_PAGE_WRITE:
-			WriteParamPtr = (XIsf_WriteParam*) OpParamPtr;
+			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
+			Xil_AssertNonvoid(WriteParamPtr != NULL);
 			Status = WriteData(InstancePtr,
 					XISF_CMD_QUAD_IP_EXT_PAGE_WRITE,
 					WriteParamPtr->Address,
@@ -325,13 +348,23 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			break;
 	}
 
+	/*
+	 * Get the Transfer Mode
+	 */
+	Mode = XIsf_GetTransferMode(InstancePtr);
+
+	if(Mode == XISF_INTERRUPT_MODE){
+		InstancePtr->StatusHandler(InstancePtr,
+			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+	}
+
 	return Status;
 }
 
 /*****************************************************************************/
 /**
 *
-* This function writes the data to the specified address locations in the Serial
+* This function writes the data to the specified address locations in Serial
 * Flash.
 *
 * @param	InstancePtr is a pointer to the XIsf instance.
@@ -353,37 +386,144 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 			const u8 *BufferPtr, u32 ByteCount)
 {
+	u8 Mode;
 	u32 Index;
+	u32 BankSel;
+	u32 RealAddr;
 	int Status;
+	u8 FlagStatus[2] = {0};
+	u8 FlashStatus[2] = {0};
+	u8 * NULLPtr = NULL;
+	const u8 * LocalBufPtr = BufferPtr;
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	u32 FlashMake = InstancePtr->ManufacturerID;
+#endif
+	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
+	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
 
 	if ((ByteCount <= 0) || (ByteCount > InstancePtr->BytesPerPage)) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
-	if (BufferPtr == NULL) {
-		return XST_FAILURE;
-	}
-
-	InstancePtr->WriteBufPtr[BYTE1] = Command;
-	InstancePtr->WriteBufPtr[BYTE2] = (u8) (Address >> XISF_ADDR_SHIFT16);
-	InstancePtr->WriteBufPtr[BYTE3] = (u8) (Address >> XISF_ADDR_SHIFT8);
-	InstancePtr->WriteBufPtr[BYTE4] = (u8) (Address);
-
-	for(Index = 4; Index < ByteCount + XISF_CMD_SEND_EXTRA_BYTES;
-								Index++) {
-		InstancePtr->WriteBufPtr[Index] = *BufferPtr++;
+	if (LocalBufPtr == NULL) {
+		return (int)XST_FAILURE;
 	}
 
 	/*
-	 * Initiate the Transfer.
+	 * Translate address based on type of connection
+	 * If stacked assert the slave select based on address
 	 */
-	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
-				(ByteCount + XISF_CMD_SEND_EXTRA_BYTES));
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, Address);
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	/*
+	 * 0x18 is the DeviceIDMemSize for different make of
+	 * flashes of size 16MB
+	 */
+	if(InstancePtr->DeviceIDMemSize > 0x18) {
+
+		/*
+		 * Get the Transfer Mode
+		 */
+		Mode = XIsf_GetTransferMode(InstancePtr);
+
+		/*
+		 * Seting the transfer mode to Polled Mode before
+		 * performing the Bank Select operation.
+		 */
+		XIsf_SetTransferMode(InstancePtr, XISF_POLLING_MODE);
+
+		/*
+		 * Calculate bank
+		 */
+		BankSel = RealAddr/SIXTEENMB;
+		/*
+		 * Select bank
+		 */
+		(void)SendBankSelect(InstancePtr, BankSel);
+
+		/*
+		 * Restoring the transfer mode back
+		 */
+		XIsf_SetTransferMode(InstancePtr, Mode);
+	}
+#endif
+
+	InstancePtr->WriteBufPtr[BYTE1] = Command;
+	InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+	InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+	InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
+
+	for(Index = 4U; Index < (ByteCount + XISF_CMD_SEND_EXTRA_BYTES);
+								Index++) {
+			InstancePtr->WriteBufPtr[Index] = *LocalBufPtr;
+			LocalBufPtr += 1;
 	}
 
-	return XST_SUCCESS;
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	/*
+	 * Enable write before transfer
+	 */
+	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+#endif
+	/*
+	 * Initiate the Transfer.
+	 */
+	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULLPtr,
+				(ByteCount + XISF_CMD_SEND_EXTRA_BYTES));
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
+	}
+
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	if((InstancePtr->NumDie > 1) &&
+			(FlashMake == XISF_MANUFACTURER_ID_MICRON)) {
+		Status = XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
+					(u32)sizeof(ReadFlagSRCmd));
+		if(Status != (int)XST_SUCCESS){
+			return (int)XST_FAILURE;
+		}
+	}
+
+	/*
+	 * Wait for the write command to the Flash to be completed, it takes
+	 * some time for the data to be written
+	 */
+	while (1) {
+		/*
+		 * Poll the status register of the Flash to determine when it
+		 * completes, by sending a read status command and receiving
+		 * status byte
+		 */
+		Status = XIsf_Transfer(InstancePtr, ReadStatusCmdBuf,
+				FlashStatus, (u32)sizeof(ReadStatusCmdBuf));
+		if(Status != (int)XST_SUCCESS){
+			return (int)XST_FAILURE;
+		}
+
+		/*
+		 * If status indicates the write is done, then stop waiting,
+		 * if a value of 0xFF in the status byte is read from the
+		 * device and this loop never exits, the device slave select is
+		 * possibly incorrect such that the device status is not being
+		 * read
+		 */
+		if ((FlashStatus[1] & 0x01) == 0) {
+			break;
+		}
+	}
+
+	if((InstancePtr->NumDie > 1) &&
+			(FlashMake == XISF_MANUFACTURER_ID_MICRON)) {
+		Status = XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
+					(u32)sizeof(ReadFlagSRCmd));
+		if(Status != (int)XST_SUCCESS){
+			return (int)XST_FAILURE;
+		}
+	}
+#endif
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -401,7 +541,11 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 ******************************************************************************/
 static int AutoPageWrite(XIsf *InstancePtr, u32 Address)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Address != 0);
+
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_AUTOPAGE_WRITE;
@@ -414,8 +558,8 @@ static int AutoPageWrite(XIsf *InstancePtr, u32 Address)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 				XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -449,7 +593,13 @@ static int AutoPageWrite(XIsf *InstancePtr, u32 Address)
 static int BufferWrite(XIsf *InstancePtr, u8 BufferNum, const u8 *WritePtr,
 			u32 ByteOffset, u32 NumBytes)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BufferNum != 0);
+	Xil_AssertNonvoid(WritePtr != NULL);
+	Xil_AssertNonvoid(ByteOffset != 0);
+	Xil_AssertNonvoid(NumBytes != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	u16 Index;
@@ -461,23 +611,23 @@ static int BufferWrite(XIsf *InstancePtr, u8 BufferNum, const u8 *WritePtr,
 		(BufferNum == XISF_PAGE_BUFFER2)) {
 		if ((InstancePtr->DeviceCode  == XISF_ATMEL_DEV_AT45DB011D) &&
 			(BufferNum != XISF_PAGE_BUFFER1)) {
-			return XST_FAILURE;
+			return (int)XST_FAILURE;
 		}
 	}
 	else{
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	if (WritePtr == NULL) {
-			return XST_FAILURE;
+			return (int)XST_FAILURE;
 	}
 
 	if (ByteOffset > InstancePtr->BytesPerPage) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	if ((NumBytes <= 0) || (NumBytes > InstancePtr->BytesPerPage)) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 
@@ -501,8 +651,8 @@ static int BufferWrite(XIsf *InstancePtr, u8 BufferNum, const u8 *WritePtr,
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 				(NumBytes + XISF_CMD_SEND_EXTRA_BYTES));
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -518,8 +668,8 @@ static int BufferWrite(XIsf *InstancePtr, u8 BufferNum, const u8 *WritePtr,
 * @param	InstancePtr is a pointer to the XIsf instance.
 * @param	BufferNum specifies the internal SRAM Buffer, from which the
 *		data needs to be written to the Serial Flash. The valid values
-*		are XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is
-*		not valid in the case of Atmel AT45DB011D Serial Flash as it
+*		are XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2
+*		is not valid in the case of Atmel AT45DB011D Serial Flash as it
 *		contains a single buffer.
 * @param	Address is the starting address in the Serial Flash where
 *		the data has to be written. Byte address in this address is
@@ -528,15 +678,19 @@ static int BufferWrite(XIsf *InstancePtr, u8 BufferNum, const u8 *WritePtr,
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note
-*		- A minimum of one Page and a maximum of one Page can be written
-*		using this function.
+*		- A minimum of one Page and a maximum of one Page can be
+*		written using this function.
 *		- This operation is only supported for Atmel Serial Flash.
 *
 ******************************************************************************/
 static int BufferToFlashWriteWithErase(XIsf *InstancePtr, u8 BufferNum,
 					u32 Address)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BufferNum != 0);
+	Xil_AssertNonvoid(Address != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	/*
@@ -546,11 +700,11 @@ static int BufferToFlashWriteWithErase(XIsf *InstancePtr, u8 BufferNum,
 		(BufferNum == XISF_PAGE_BUFFER2)) {
 		if ((InstancePtr->DeviceCode  == XISF_ATMEL_DEV_AT45DB011D) &&
 			(BufferNum != XISF_PAGE_BUFFER1)) {
-			return XST_FAILURE;
+			return (int)XST_FAILURE;
 		}
 	}
 	else {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	if (BufferNum == XISF_PAGE_BUFFER1) {
@@ -575,8 +729,8 @@ static int BufferToFlashWriteWithErase(XIsf *InstancePtr, u8 BufferNum,
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 				XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -592,8 +746,8 @@ static int BufferToFlashWriteWithErase(XIsf *InstancePtr, u8 BufferNum,
 * @param	InstancePtr is a pointer to the XIsf instance.
 * @param	BufferNum specifies the internal SRAM Buffer, from which the
 *		data needs to be written to the Serial Flash. The valid values
-*		are XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is
-*		not valid in the case of Atmel AT45DB011D Serial Flash as it
+*		are XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2
+*		is not valid in the case of Atmel AT45DB011D Serial Flash as it
 *		contains a single buffer.
 * @param	Address is the starting address in the Serial Flash where
 *		data has to be written. Byte address in this address will be
@@ -602,15 +756,19 @@ static int BufferToFlashWriteWithErase(XIsf *InstancePtr, u8 BufferNum,
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-*		- A minimum of one Page and a maximum of one Page can be written
-*		using this function.
+*		- A minimum of one Page and a maximum of one Page can be
+*		written using this function.
 *		- This operation is only supported for Atmel Serial Flash.
 *
 ******************************************************************************/
 static int BufferToFlashWriteWithoutErase(XIsf *InstancePtr, u8 BufferNum,
 					u32 Address)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(BufferNum != 0);
+	Xil_AssertNonvoid(Address != 0);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	/*
@@ -620,11 +778,11 @@ static int BufferToFlashWriteWithoutErase(XIsf *InstancePtr, u8 BufferNum,
 		(BufferNum == XISF_PAGE_BUFFER2)) {
 		if ((InstancePtr->DeviceCode == XISF_ATMEL_DEV_AT45DB011D) &&
 			(XISF_PAGE_BUFFER1 != 1)) {
-			return XST_FAILURE;
+			return (int)XST_FAILURE;
 		}
 	}
 	else {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	if (BufferNum == XISF_PAGE_BUFFER1) {
@@ -649,8 +807,8 @@ static int BufferToFlashWriteWithoutErase(XIsf *InstancePtr, u8 BufferNum,
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 				XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -679,8 +837,8 @@ static int WriteSR(XIsf *InstancePtr, u8 SRData)
 	int Status = XST_FAILURE;
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == SPANSION) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))
+    (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+    (XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
 	/*
 	 * Prepare the Write Buffer.
 	 */
@@ -692,8 +850,8 @@ static int WriteSR(XIsf *InstancePtr, u8 SRData)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 						XISF_STATUS_RDWR_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
 	}
 #endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \\
 	   (XPAR_XISF_FLASH_FAMILY == WINBOND) ||
@@ -705,7 +863,7 @@ static int WriteSR(XIsf *InstancePtr, u8 SRData)
 /*****************************************************************************/
 /**
 *
-* This function writes data to the Status Register of the Serial Flash. This API
+* This function writes data to Status Register of the Serial Flash. This API
 * should be used to write to the 16 bit status register in Winbond Quad Flash
 * (W25QXX).
 *
@@ -721,7 +879,10 @@ static int WriteSR(XIsf *InstancePtr, u8 SRData)
 ******************************************************************************/
 static int WriteSR2(XIsf *InstancePtr, u8 *SRData)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(SRData != NULL);
 
 #if (XPAR_XISF_FLASH_FAMILY == WINBOND)
 	/*
@@ -736,8 +897,8 @@ static int WriteSR2(XIsf *InstancePtr, u8 *SRData)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 						XISF_STATUS_RDWR_BYTES + 1);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == WINBOND) */
 
@@ -750,7 +911,7 @@ static int WriteSR2(XIsf *InstancePtr, u8 *SRData)
 * This function writes one byte of data to the OTP area in the Serial Flash.
 *
 * @param	InstancePtr is a pointer to the XIsf instance.
-* @param	Address is the address in the OTP area, where to write the data.
+* @param	Address is the address in the OTP area, where to write data.
 * @param	BufferPtr is the pointer to the data to be written into OTP
 *		region of Serial Flash.
 *
@@ -764,11 +925,16 @@ static int WriteSR2(XIsf *InstancePtr, u8 *SRData)
 ******************************************************************************/
 static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Address != 0);
+	Xil_AssertNonvoid(BufferPtr != NULL);
+
 
 #if (XPAR_XISF_FLASH_FAMILY == INTEL)
 	if (BufferPtr == NULL) {
-		return XST_FAILURE;
+		return (int)XST_FAILURE;
 	}
 
 	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_OTP_WRITE;
@@ -782,8 +948,8 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 					XISF_OTP_RDWR_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)XST_SUCCESS) {
+		return (int)XST_FAILURE;
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == INTEL) */
 

@@ -57,7 +57,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 2.04a sdm  08/25/11 First release
-*
+* 5.0   sb   08/05/14 Registering to Xilisf Interrupt handler
+*		      instead of driver handler.
 * </pre>
 *
 ******************************************************************************/
@@ -220,7 +221,7 @@ int main()
 	 * driver instance as the callback reference so the handler is able to
 	 * access the instance data.
 	 */
-	XSpi_SetStatusHandler(&Spi, &Spi, (XSpi_StatusHandler)SpiHandler);
+	XIsf_SetStatusHandler(&Isf, &Spi, (XSpi_StatusHandler)SpiHandler);
 
 	/*
 	 * Start the SPI driver so that interrupts and the device are enabled.
@@ -234,6 +235,11 @@ int main()
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	/*
+	 * Set The transfer Mode to Interrupt
+	 */
+	XIsf_SetTransferMode(&Isf,XISF_INTERRUPT_MODE);
 
 	/*
 	 * Specify the address in the Serial Flash for the Erase/Write/Read

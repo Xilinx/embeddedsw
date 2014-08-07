@@ -47,6 +47,10 @@
 * 2.01a sdm      01/04/10 Added Support for Winbond W25QXX/W25XX devices
 * 2.04a sdm      08/17/10 Updated to support Numonyx (N25QXX) and Spansion
 *			  flash memories
+* 5.0   sb	 08/05/14 Added Call back to lib interrupt handler
+*			  after XIsf_Transfer Calls.
+*			  Changed API:
+*			  - XIsf_SectorProtect()
 *
 * </pre>
 *
@@ -75,7 +79,8 @@ static int SpEnable(XIsf *InstancePtr);
 static int SpDisable(XIsf *InstancePtr);
 
 /************************** Variable Definitions *****************************/
-
+extern u32 XIsf_StatusEventInfo;
+extern unsigned int XIsf_ByteCountInfo;
 /************************** Function Definitions ******************************/
 
 
@@ -115,7 +120,8 @@ static int SpDisable(XIsf *InstancePtr);
 int XIsf_SectorProtect(XIsf *InstancePtr, XIsf_SpOperation Operation,
 				u8 *BufferPtr)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+	u8 Mode;
 
 	switch (Operation) {
 		case XISF_SPR_READ:
@@ -139,7 +145,18 @@ int XIsf_SectorProtect(XIsf *InstancePtr, XIsf_SpOperation Operation,
 			break;
 
 		default:
+			/* Added Comment for MISRA C */
 			break;
+	}
+
+	/*
+	 * Get the Transfer Mode
+	 */
+	Mode = XIsf_GetTransferMode(InstancePtr);
+
+	if(Mode == XISF_INTERRUPT_MODE){
+		InstancePtr->StatusHandler(InstancePtr,
+			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
 	}
 
 	return Status;
@@ -160,7 +177,7 @@ int XIsf_SectorProtect(XIsf *InstancePtr, XIsf_SpOperation Operation,
 *		- This operation is supported for Atmel, Intel, STM, Winbond
 *		and Spansion Serial Flash.
 *		- The SPR content is stored at the fourth location pointed
-*		by the ReadPtr for Atmel Serial Flash and at the second location
+*		by the ReadPtr for Atmel Serial Flash and at second location
 *		for STM/Intel/Winbond/Spansion Serial Flash.
 *
 ******************************************************************************/
@@ -168,8 +185,11 @@ static int SprRead(XIsf *InstancePtr, u8 *ReadPtr)
 {
 	int Status;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+
 	if (ReadPtr == NULL) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
@@ -198,11 +218,11 @@ static int SprRead(XIsf *InstancePtr, u8 *ReadPtr)
 
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 
-	return XST_SUCCESS;
+	return (int)(XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -223,8 +243,10 @@ static int SprProgram(XIsf *InstancePtr, u8 *BufferPtr)
 {
 	int Status;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	if (BufferPtr == NULL) {
-		return XST_FAILURE;
+		return (int)(XST_FAILURE);
 	}
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
@@ -256,11 +278,11 @@ static int SprProgram(XIsf *InstancePtr, u8 *BufferPtr)
 
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 
-	return XST_SUCCESS;
+	return (int)(XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -277,7 +299,9 @@ static int SprProgram(XIsf *InstancePtr, u8 *BufferPtr)
 ******************************************************************************/
 static int SprErase(XIsf *InstancePtr)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	/*
@@ -293,8 +317,9 @@ static int SprErase(XIsf *InstancePtr)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 					XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -316,7 +341,10 @@ static int SprErase(XIsf *InstancePtr)
 ******************************************************************************/
 static int SpEnable(XIsf *InstancePtr)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	/*
@@ -332,8 +360,9 @@ static int SpEnable(XIsf *InstancePtr)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 				XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
@@ -354,7 +383,9 @@ static int SpEnable(XIsf *InstancePtr)
 ******************************************************************************/
 static int SpDisable(XIsf *InstancePtr)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	/*
@@ -370,8 +401,9 @@ static int SpDisable(XIsf *InstancePtr)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULL,
 				XISF_CMD_SEND_EXTRA_BYTES);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
 	}
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 

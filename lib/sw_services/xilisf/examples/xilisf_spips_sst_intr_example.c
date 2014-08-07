@@ -58,7 +58,8 @@
 *		     or write operation. (CR 703816)
 * 3.02  srt 04/26/13 Modified Erase function to perform Write Enable operation
 *		     for each sector erase.
-*
+* 5.0   sb  08/05/14 Registering to Xilisf Interrupt handler
+*	             instead of driver handler.
 *</pre>
 *
 ******************************************************************************/
@@ -265,7 +266,7 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	 * the SPI driver instance as the callback reference so the handler is
 	 * able to access the instance data
 	 */
-	XSpiPs_SetStatusHandler(SpiInstancePtr, SpiInstancePtr,
+	XIsf_SetStatusHandler(&Isf, SpiInstancePtr,
 				 (XSpiPs_StatusHandler) SpiHandler);
 
 
@@ -305,7 +306,6 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
 			 Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
-			xil_printf("Buffer %x Unique %x Count %d\n\r", BufferPtr[Count],  UniqueValue, Count);
 			return XST_FAILURE;
 		}
 	}
@@ -443,7 +443,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 
 	/*
 	 * Wait till the Transfer is complete and check if there are any errors
-         * in the transaction.
+	 * in the transaction.
 	 */
 	while(TransferInProgress);
 	if(ErrorCount != 0) {

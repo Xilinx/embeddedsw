@@ -79,6 +79,8 @@
 * 1.00a ktn 	 09/08/09 Updated this example such that every SPR write should
 *			  be preceded by an erase as per the atmel datasheet.
 * 2.00a ktn  	 11/22/09 Updated to use HAL processor APIs.
+* 5.0   sb   	 08/05/14 Registering to Xilisf Interrupt handler
+*		      	  instead of driver handler.
 *</pre>
 ******************************************************************************/
 
@@ -215,7 +217,7 @@ int main(void)
 	 * driver instance as the callback reference so the handler is able to
 	 * access the instance data.
 	 */
-	XSpi_SetStatusHandler(&Spi, &Spi, (XSpi_StatusHandler)SpiHandler);
+	XIsf_SetStatusHandler(&Isf, &Spi, (XSpi_StatusHandler)SpiHandler);
 
 	/*
 	 * Start the SPI driver so that interrupts and the device are enabled.
@@ -232,6 +234,11 @@ int main(void)
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	/*
+	 * Set The transfer Mode to Interrupt
+	 */
+	XIsf_SetTransferMode(&Isf,XISF_INTERRUPT_MODE);
 
 	/*
 	 * Perform the SPR erase operation.

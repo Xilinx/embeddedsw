@@ -53,11 +53,11 @@
 *
 * <b>Library Description</b>
 *
-* The library enables higher layer software (e.g. an application) to communicate
-* with the Serial Flash.
+* The library enables higher layer software (e.g. an application) to
+* communicate with the Serial Flash.
 *
 * The library allows the user to Write, Read and Erase the Serial Flash.
-* The user can also protect the data stored in the Serial Flash from unwarranted
+* The user can also protect the data stored in Serial Flash from unwarranted
 * modification by enabling the Sector Protection feature. User can also perform
 * different Control operations on Intel, STM (Numonyx), Winbond and Spansion
 * Serial Flash devices.
@@ -293,7 +293,7 @@
 *	This operation is supported only in Atmel Serial Flash.
 *
 * - Fast Buffer Read:
-*	Read multiple contiguous bytes from the internal SRAM page buffer of the
+*	Read multiple contiguous bytes from the internal SRAM page buffer of
 *	Serial Flash at a higher speed than normal Buffer Read.
 *	This operation is supported only for Atmel Serial Flash.
 *
@@ -306,7 +306,7 @@
 * The XIsf_Erase() API can be used to Erase the contents of the Serial Flash.
 * Once the user initiates an Erase operation, the Serial Flash takes time to
 * complete the Erase operation internally. The user has to read the Status
-* Register to know if the Serial Flash is still busy with a previously initiated
+* Register to know if Serial Flash is still busy with a previously initiated
 * operation before initiating a new one.
 *
 * Using the XIsf_Erase() API the user can perform four different types of Erase
@@ -336,7 +336,7 @@
 *
 * <b>Sector Protection Operations</b>
 *
-* The XIsf_SectorProtect() API can be  used to perform Sector Protection related
+* The XIsf_SectorProtect() API can be used to perform Sector Protection related
 * operations. The Serial Flash is divided into Sectors. Each Sector or number of
 * Sectors can be protected from unwarranted writing/erasing.
 *
@@ -421,7 +421,7 @@
 *
 * For Intel, STM, Winbond and Spansion Serial Flash the user application must
 * enable the Write to the Serial Flash by calling XIsf_WriteEnable
-* (XISF_WRITE_ENABLE) API before doing any Write operations to the Serial Flash.
+* (XISF_WRITE_ENABLE) API before doing any Write operations to Serial Flash.
 * Writing to the Serial Flash is disabled by calling XIsf_WriteEnable
 * (XISF_WRITE_DISABLE) API.
 *
@@ -443,13 +443,13 @@
 * Ver   Who      Date     Changes
 * ----- -------  -------- -----------------------------------------------
 * 1.00a ksu/sdm  03/03/08 First release
-* 2.00a ktn      11/27/09 Updated to use HAL processor APIs/definitions
-* 2.01a sdm      01/04/10 Added Support for Winbond W25Q80/16/32 devices
-* 2.01a sdm      06/17/10 Updated the Tcl to support axi_spi
-* 2.03a sdm      04/17/10 Updated to support Winbond memory W25Q128 and added
+* 2.00a ktn	 11/27/09 Updated to use HAL processor APIs/definitions
+* 2.01a sdm	 01/04/10 Added Support for Winbond W25Q80/16/32 devices
+* 2.01a sdm	 06/17/10 Updated the Tcl to support axi_spi
+* 2.03a sdm	 04/17/10 Updated to support Winbond memory W25Q128 and added
 *			  a list of supported flash memories
 *			  Updated the Tcl to support axi_quad_spi
-* 2.04a sdm      08/17/10 Updated to support Numonyx (N25QXX) and Spansion
+* 2.04a sdm	 08/17/10 Updated to support Numonyx (N25QXX) and Spansion
 *			  flash memories
 * 3.00a srt	 06/20/12 Updated to support interfaces SPI PS and QSPI PS.
 *			  New API:
@@ -475,8 +475,18 @@
 *			    (CR 703816)
 *			  - Updated spips and qspips examples to perform
 *			    Write enable operation in each sector
-*   		  	  - Removed compiler errors when not selecting proper
-*		      	    interface for Zynq. (CR 716451)
+*			  - Removed compiler errors when not selecting proper
+*			    interface for Zynq. (CR 716451)
+* 5.0   sb	 08/05/14 - Updated for support for > 128 MB flash for PSQSPI
+*			    Interface.
+*			  - Added Library Handler API which will
+*			    register to driver interrupts, based upon the
+*			    interface selected.
+*			  New API:
+*				GetRealAddr()
+*				SendBankSelect()
+*				XIsf_SetStatusHandler()
+*				XIsf_IfaceHandler()
 *
 * </pre>
 *
@@ -517,8 +527,8 @@ extern "C" {
 #endif
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == SPANSION) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))
+    (XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
+    (XPAR_XISF_FLASH_FAMILY == SPANSION) || (XPAR_XISF_FLASH_FAMILY == SST))
 #include "xilisf_intelstm.h"
 #endif
 
@@ -534,13 +544,79 @@ extern "C" {
 #define XISF_MANUFACTURER_ID_WINBOND	0xEF	/**< Winbond device */
 #define XISF_MANUFACTURER_ID_SPANSION	0x01	/**< Spansion device */
 #define XISF_MANUFACTURER_ID_SST	0xBF	/**< SST device */
+#define XISF_MANUFACTURER_ID_MICRON	0x20	/**< Micron device */
+
+#define XISF_SPANSION_ID_BYTE2_128	0x18
+#define XISF_SPANSION_ID_BYTE2_256	0x19
+#define XISF_SPANSION_ID_BYTE2_512	0x20
+/*Micron*/
+#define XISF_MICRON_ID_BYTE2_128	0x18
+#define XISF_MICRON_ID_BYTE2_256	0x19
+#define XISF_MICRON_ID_BYTE2_512	0x20
+#define XISF_MICRON_ID_BYTE2_1G		0x21
+/*Winbond*/
+#define XISF_WINBOND_ID_BYTE2_128	0x18
+
+
+
+#define READ_STATUS_CMD		0x05
+#define WRITE_ENABLE_CMD	0x06
+#define READ_FLAG_STATUS_CMD	0x70
+
+#define RD_ID_SIZE		4
+#define DIE_ERASE_SIZE	  	4
+#define	DIE_ERASE_CMD		0xC4
+#define READ_ID			0x9F
+
+/*
+ * QSPI Flash Connection Mode
+ */
+#define XISF_QSPIPS_CONNECTION_MODE_SINGLE	0
+#define XISF_QSPIPS_CONNECTION_MODE_STACKED	1
+#define XISF_QSPIPS_CONNECTION_MODE_PARALLEL	2
+
+/*
+ * The index for Flash config table
+ */
+/* Spansion*/
+#define SPANSION_INDEX_START		0
+#define FLASH_CFG_TBL_SINGLE_128_SP	SPANSION_INDEX_START
+#define FLASH_CFG_TBL_STACKED_128_SP	(SPANSION_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_128_SP	(SPANSION_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_256_SP	(SPANSION_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_256_SP	(SPANSION_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_256_SP	(SPANSION_INDEX_START + 5)
+#define FLASH_CFG_TBL_SINGLE_512_SP	(SPANSION_INDEX_START + 6)
+#define FLASH_CFG_TBL_STACKED_512_SP	(SPANSION_INDEX_START + 7)
+#define FLASH_CFG_TBL_PARALLEL_512_SP	(SPANSION_INDEX_START + 8)
+
+/* Micron */
+#define MICRON_INDEX_START		(FLASH_CFG_TBL_PARALLEL_512_SP + 1)
+#define FLASH_CFG_TBL_SINGLE_128_MC	MICRON_INDEX_START
+#define FLASH_CFG_TBL_STACKED_128_MC	(MICRON_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_128_MC	(MICRON_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_256_MC	(MICRON_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_256_MC	(MICRON_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_256_MC	(MICRON_INDEX_START + 5)
+#define FLASH_CFG_TBL_SINGLE_512_MC	(MICRON_INDEX_START + 6)
+#define FLASH_CFG_TBL_STACKED_512_MC	(MICRON_INDEX_START + 7)
+#define FLASH_CFG_TBL_PARALLEL_512_MC	(MICRON_INDEX_START + 8)
+#define FLASH_CFG_TBL_SINGLE_1GB_MC	(MICRON_INDEX_START + 9)
+#define FLASH_CFG_TBL_STACKED_1GB_MC	(MICRON_INDEX_START + 10)
+#define FLASH_CFG_TBL_PARALLEL_1GB_MC	(MICRON_INDEX_START + 11)
+
+/* Winbond */
+#define WINBOND_INDEX_START		(FLASH_CFG_TBL_PARALLEL_1GB_MC + 1)
+#define FLASH_CFG_TBL_SINGLE_128_WB	WINBOND_INDEX_START
+#define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
+
 
 /*
  * Interrupt or Polling mode of Operation Flags
  */
 #define XISF_POLLING_MODE	0
 #define XISF_INTERRUPT_MODE 	1
-
 /*
  * SPI Options flags
  */
@@ -577,7 +653,7 @@ typedef enum {
 	XISF_AUTO_PAGE_WRITE,			/**< Auto rewrite the contents
 						  *  of the page */
 	XISF_BUFFER_WRITE,			/**< Write data to the internal
-						  *  SRAM buffer of the Flash */
+						  *  SRAM buffer of Flash */
 	XISF_BUF_TO_PAGE_WRITE_WITH_ERASE,	/**< Erase the specified Page
 						  *  then Write data to Flash
 						  *  from the internal SRAM
@@ -625,8 +701,8 @@ typedef enum {
 	XISF_FAST_BUFFER_READ,	/**< Fast SRAM buffer read operation on Flash */
 	XISF_OTP_READ,		/**< Read One Time Programmable area */
 
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-     (XPAR_XISF_FLASH_FAMILY == SPANSION))
+#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == STM) \
+     || (XPAR_XISF_FLASH_FAMILY == SPANSION))
 	XISF_DUAL_OP_FAST_READ,	/**< Dual output fast read */
 	XISF_DUAL_IO_FAST_READ,	/**< Dual input/output fast read */
 	XISF_QUAD_OP_FAST_READ,	/**< Quad output fast read */
@@ -648,8 +724,8 @@ typedef enum {
 } XIsf_EraseOperation;
 
 /**
- * The following definitions determines the type of Sector protection operations
- * to be performed on the Serial Flash.
+ * The following definitions determines the type of Sector protection
+ * operations to be performed on the Serial Flash.
  */
 typedef enum {
 	XISF_SPR_READ,		/**< Sector protect register read */
@@ -681,6 +757,8 @@ typedef XSpiPs XIsf_Iface;
 #elif XPAR_XISF_INTERFACE_PSQSPI
 typedef XQspiPs XIsf_Iface;
 #endif
+typedef void (*XIsf_StatusHandler) (void *CallBackRef, u32 StatusEvent,
+					unsigned int ByteCount);
 
 /**
  * The following definition specifies the instance structure of the Serial
@@ -701,6 +779,14 @@ typedef struct {
 				  *  0 - Default/Normal Addressing Mode
 				  *  1 - Power-Of-2 Addressing Mode */
 	u16 DeviceCode;		/**< The Serial Flash Device Code */
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	u8 DeviceIDMemSize;	/**< Byte of device ID indicating the memory
+				 *   size */
+	u8 NumDie;		/**< No. of die forming a single flash */
+	u32 SectorSize;		/**< Size of the Sector */
+	u32 NumSectors;		/**< No. of sectors */
+	u32 ManufacturerID;	/**< Serial Flash Manufacturer ID */
+#endif
 	XIsf_Iface *SpiInstPtr;	/**< SPI Device Instance pointer */
 	u32 SpiSlaveSelect;	/**< SPI Slave select for the Serial Flash */
 	u8 *WriteBufPtr; 	/**< Pointer to Write Buffer */
@@ -722,13 +808,13 @@ typedef struct {
 		(XIsf_Iface *InstancePtr);
 	int (*XIsf_Iface_Transfer)
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
-                  u8 *RecvBufPtr, unsigned int ByteCount);
+			u8 *RecvBufPtr, unsigned int ByteCount);
 	int (*XIsf_Iface_PolledTransfer)
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
-                  u8 *RecvBufPtr, unsigned ByteCount);
+			u8 *RecvBufPtr, unsigned ByteCount);
 	int (*XIsf_Iface_SetClkPrescaler)
 		(XIsf_Iface *InstancePtr, u8 PreScaler);
-
+	XIsf_StatusHandler StatusHandler;
 } XIsf;
 
 /**
@@ -761,12 +847,10 @@ typedef struct {
 				  *  fast read and quad i/o fast read */
 } XIsf_ReadParam;
 
-
-
 /**
- * The following structure definition specifies the operational parameters to be
- * passed to the XIsf_Write API while writing data to the internal SRAM buffer
- * of the Atmel Serial Flash (XISF_BUFFER_WRITE).
+ * The following structure definition specifies the operational parameters to
+ * be passed to the XIsf_Write API while writing data to the internal SRAM
+ * buffer of the Atmel Serial Flash (XISF_BUFFER_WRITE).
  */
 typedef struct {
 	u8 BufferNum;		/**< SRAM buffer number of Serial Flash */
@@ -777,7 +861,6 @@ typedef struct {
 	u32 NumBytes;		/**< Number of bytes to be written into the
 				  *  buffer */
 } XIsf_BufferWriteParam;
-
 
 /**
  * The following structure definition specifies the operational parameters to be
@@ -801,7 +884,7 @@ typedef struct {
 } XIsf_FlashToBufTransferParam;
 
 /**
- * The following structure definition specifies the operational parameters to be
+ * The following structure definition specifies operational parameters to be
  * passed to the XIsf_Read API while reading data from the Internal SRAM buffer
  * of Flash using XISF_BUFFER_READ or XISF_FAST_BUFFER_READ commands in Atmel
  * Serial Flash.
@@ -838,6 +921,20 @@ static inline void XIsf_SetTransferMode(XIsf *InstancePtr, u8 Mode)
 	InstancePtr->IntrMode = Mode;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API gets the interrupt/polling mode of transfer.
+*
+* @param	InstancePtr is a pointer to the XIsf instance.
+*
+* @note		(shakti)
+******************************************************************************/
+static inline u8 XIsf_GetTransferMode(XIsf *InstancePtr)
+{
+	return(InstancePtr->IntrMode);
+}
+
 /************************** Function Prototypes ******************************/
 
 /*
@@ -854,6 +951,7 @@ int XIsf_GetStatus(XIsf *InstancePtr, u8 *ReadPtr);
 #if (XPAR_XISF_FLASH_FAMILY == WINBOND)
 int XIsf_GetStatusReg2(XIsf *InstancePtr, u8 *ReadPtr);
 #endif
+
 
 /*
  * Function to read the Serial Flash information.
@@ -889,7 +987,7 @@ int XIsf_SectorProtect(XIsf *InstancePtr, XIsf_SpOperation Operation,
 int XIsf_Ioctl(XIsf *InstancePtr, XIsf_IoctlOperation Operation);
 
 /*
- * Function for Enabling/Disabling Write to the Intel, STM, Winbond and Spansion
+ * Function for Enabling/Disabling Write to Intel, STM, Winbond and Spansion
  * Serial Flash.
  */
 int XIsf_WriteEnable(XIsf *InstancePtr, u8 WriteEnable);
@@ -904,6 +1002,18 @@ void XIsf_RegisterInterface(XIsf *InstancePtr);
  */
 int XIsf_SetSpiConfiguration(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr,
 				u32 Options, u8 PreScaler);
+
+/*
+ *Interrupt Status Handler of XilIsf Lib
+ */
+void XIsf_SetStatusHandler(XIsf *InstancePtr, XIsf_Iface *QspiInstancePtr,
+				XIsf_StatusHandler XilIsf_Handler);
+
+/*
+ *Interrupt Handler of XilISF Lib
+ */
+void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent,
+		unsigned int ByteCount);
 
 #ifdef __cplusplus
 }

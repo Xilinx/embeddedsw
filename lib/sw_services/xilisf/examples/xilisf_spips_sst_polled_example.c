@@ -257,7 +257,6 @@ int SpiFlashPolledExample(XSpiPs *SpiInstancePtr,
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
 			 Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
-			xil_printf("Buffer %x Unique %x Count %d\n\r", BufferPtr[Count],  UniqueValue, Count);
 			return XST_FAILURE;
 		}
 	}
