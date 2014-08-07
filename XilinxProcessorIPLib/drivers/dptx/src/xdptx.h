@@ -127,7 +127,7 @@
  * either the HPD event handler function or the HPD pulse handler function,
  * depending on whether a an HPD event on an HPD pulse event occurred.
  *
- * The DisplayPort Tx's XDPTX_INTERRUPT_STATUS register indicates the type of
+ * The DisplayPort TX's XDPTX_INTERRUPT_STATUS register indicates the type of
  * interrupt that has occured, and the XDptx_HpdInterruptHandler will use this
  * information to decide which handler to call. An HPD event is identified if
  * bit XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK is set, and an HPD pulse is
@@ -181,6 +181,32 @@
 #include "xdptx_hw.h"
 #include "xil_assert.h"
 #include "xil_types.h"
+
+/* Need to reorganize this... */
+/* To add to xstatus.h. */
+#define XST_CRC_ERROR				30L
+
+#define XDPTX_SBMSG_LINK_ADDRESS		0x01
+#define XDPTX_SBMSG_ENUM_PATH_RESOURCES		0x10
+#define XDPTX_SBMSG_ALLOCATE_PAYLOAD		0x11
+#define XDPTX_SBMSG_CLEAR_PAYLOAD_ID_TABLE	0x14
+#define XDPTX_SBMSG_REMOTE_DPCD_READ		0x20
+#define XDPTX_SBMSG_REMOTE_DPCD_WRITE		0x21
+#define XDPTX_SBMSG_REMOTE_I2C_READ		0x22
+
+/* When returning the reason for NACK reply, XST_SBREPLY_NACK is added in order
+ * to differentiate between the return codes in xstatus.h. */
+#define XST_SBREPLY_NACK			1452L
+#define XDPTX_SBREPLY_NACK_WRITE_FAILURE	0x01
+#define XDPTX_SBREPLY_NACK_INVALID_RAD		0x02
+#define XDPTX_SBREPLY_NACK_CRC_FAILURE		0x03
+#define XDPTX_SBREPLY_NACK_BAD_PARAM		0x04
+#define XDPTX_SBREPLY_NACK_DEFER		0x05
+#define XDPTX_SBREPLY_NACK_LINK_FAILURE		0x06
+#define XDPTX_SBREPLY_NACK_NO_RESOURCES		0x07
+#define XDPTX_SBREPLY_NACK_DPCD_FAIL		0x08
+#define XDPTX_SBREPLY_NACK_I2C_NAK		0x09
+#define XDPTX_SBREPLY_NACK_ALLOCATE_FAIL	0x0A
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
@@ -462,13 +488,46 @@ typedef struct {
 						use by the video stream. */
 	u8 SynchronousClockMode;	/**< Synchronous clock mode is currently
 						in use by the video stream. */
+} XDptx_MainStreamAttributes;
+
+typedef struct {
+	u8 LinkCountTotal;		/** The total number of DisplayPort
+						links from the DisplayPort TX
+						to the sink device that this MST
+						stream is targeting.*/
+	u8 RelativeAddress[15];		/** The relative address from the
+						DisplayPort TX to the sink
+						device that this MST stream is
+						targeting.*/
 	u16 MstPbn;			/**< Payload bandwidth number used to
-						allocate bandwidth in MST
-						mode. */
+						allocate bandwidth for the MST
+						stream. */
 	u8 MstStreamEnable;		/**< In MST mode, enables the
 						corresponding stream for this
 						MSA configuration. */
-} XDptx_MainStreamAttributes;
+} XDptx_MstStream;
+
+typedef struct {
+	u8 InputPort;
+	u8 PeerDeviceType;
+	u8 PortNum;
+	u8 MsgCapStatus;
+	u8 DpDevPlugStatus;
+
+	u8 LegacyDevPlugStatus;
+	u8 DpcdRev;
+	u32 Guid[4];
+	u8 NumSdpStreams;
+	u8 NumSdpStreamSinks;
+} XDptx_SbMsgLinkAddressReplyPortDetail;
+
+typedef struct {
+	u8 ReplyType;
+	u8 RequestId;
+	u32 Guid[4];
+	u8 NumPorts;
+	XDptx_SbMsgLinkAddressReplyPortDetail PortDetails[16];
+} XDptx_SbMsgLinkAddressReplyDeviceInfo;
 
 /******************************************************************************/
 /**
@@ -512,6 +571,22 @@ typedef void (*XDptx_HpdEventHandler)(void *InstancePtr);
 *******************************************************************************/
 typedef void (*XDptx_HpdPulseHandler)(void *InstancePtr);
 
+typedef struct {
+	u32 Guid[4];
+	u8 RelativeAddress[15];
+	u8 DeviceType;
+	u8 LinkCountTotal;
+	u8 DpcdRev;
+	u8 MsgCapStatus;
+} XDptx_TopologyNode;
+
+typedef struct {
+	u8 NodeTotal;
+	XDptx_TopologyNode NodeTable[63];
+	u8 SinkTotal;
+	XDptx_TopologyNode *SinkList[63];
+} XDptx_Topology;
+
 /**
  * The XDptx driver instance data. The user is required to allocate a variable
  * of this type for every XDptx device in the system. A pointer to a variable of
@@ -546,6 +621,11 @@ typedef struct {
 							of attributes. When MST
 							mode is disabled, only
 							MsaConfig[0] is used. */
+	XDptx_MstStream MstStreamConfig[4];	/**< Configuration structure
+							for a multi-stream
+							transport (MST)
+							stream. */
+	XDptx_Topology Topology;
 	XDptx_TimerHandler UserTimerWaitUs;	/**< Custom user function for
 							delay/sleep. */
 	void *UserTimerPtr;			/**< Pointer to a timer instance
@@ -616,6 +696,7 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream);
 void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 		XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate);
 void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor);
+void XDptx_CfgMsaEnSynchClkMode(XDptx *InstancePtr, u8 Stream, u8 Enable);
 void XDptx_SetVideoMode(XDptx *InstancePtr, u8 Stream);
 void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream);
 void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream);
@@ -632,5 +713,31 @@ u32 XDptx_SelfTest(XDptx *InstancePtr);
 
 /* xdptx_sinit.c: Configuration extraction function.*/
 XDptx_Config *XDptx_LookupConfig(u16 DeviceId);
+
+/* xdptx_mst.c: Multi-stream transport (MST) functions. */
+void XDptx_MstCfgModeEnable(XDptx *InstancePtr);
+void XDptx_MstCfgModeDisable(XDptx *InstancePtr);
+void XDptx_MstCfgStreamEnable(XDptx *InstancePtr, u8 Stream);
+void XDptx_MstCfgStreamDisable(XDptx *InstancePtr, u8 Stream);
+u8 XDptx_MstStreamIsEnabled(XDptx *InstancePtr, u8 Stream);
+
+u32 XDptx_MstEnable(XDptx *InstancePtr);
+u32 XDptx_MstDisable(XDptx *InstancePtr);
+u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr);
+void XDptx_SetStreamSelectFromSinkList(XDptx *InstancePtr, u8 Stream, u8 SinkNum);
+void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal, u8 *RelativeAddress);
+u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr);
+void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress);
+void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 Guid[4]);
+void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 *Guid);
+
+/* Sideband messages. */
+u32 XDptx_SendSbMsgRemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u8 BytesToWrite, u8 *WriteData);
+u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u8 BytesToRead, u8 *ReadData);
+u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 IicDeviceId, u8 BytesToRead, u8 *ReadData);
+u32 XDptx_SendSbMsgLinkAddress(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, XDptx_SbMsgLinkAddressReplyDeviceInfo *FormatReply);
+u32 XDptx_SendSbMsgEnumPathResources(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn);
+u32 XDptx_SendSbMsgAllocatePayload(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 VcId, u16 Pbn);
+u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr);
 
 #endif /* XDPTX_H_ */

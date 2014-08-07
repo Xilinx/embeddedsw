@@ -185,9 +185,6 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 			(MsaConfig->SynchronousClockMode);
 	MsaConfig->Misc1 = 0;
 
-	MsaConfig->DataPerLane = (MsaConfig->Dmt.HResolution *
-		MsaConfig->BitsPerColor * 3 / 16) - LinkConfig->LaneCount;
-
 	/* Determine the number of bits per pixel for the specified color
 	 * component format. */
 	if (MsaConfig->ComponentFormat ==
@@ -202,6 +199,9 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 
 
 	if (InstancePtr->MstEnable == 1) {
+		MsaConfig->DataPerLane = (MsaConfig->Dmt.HResolution *
+					MsaConfig->BitsPerColor * 3 / 16) - 4;
+
 		/* Do time slot (and payload bandwidth number) calculations for
 		 * MST. */
 		XDptx_CalculateTs(InstancePtr, Stream, BitsPerPixel);
@@ -209,6 +209,10 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 		MsaConfig->InitWait = 0;
 	}
 	else {
+		MsaConfig->DataPerLane = (MsaConfig->Dmt.HResolution *
+					MsaConfig->BitsPerColor * 3 / 16) -
+					LinkConfig->LaneCount;
+
 		/* Allocate a fixed size for single-stream transport (SST)
 		 * operation. */
 		MsaConfig->TransferUnitSize = 64;
@@ -480,6 +484,27 @@ void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)
 	XDptx_CfgMsaRecalculate(InstancePtr, Stream);
 }
 
+void XDptx_CfgMsaEnSynchClkMode(XDptx *InstancePtr, u8 Stream, u8 Enable)
+{
+	XDptx_MainStreamAttributes *MsaConfig =
+					&InstancePtr->MsaConfig[Stream - 1];
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Enable == 0) || (Enable == 1));
+
+        MsaConfig->SynchronousClockMode = Enable;
+
+	if (Enable == 1) {
+		MsaConfig->Misc0 |= (1 <<
+			XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT);
+	}
+	else {
+		MsaConfig->Misc0 &= ~(1 <<
+			XDPTX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT);
+	}
+}
+
 /******************************************************************************/
 /**
  * This function clears the main stream attributes registers of the DisplayPort
@@ -552,7 +577,6 @@ void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream)
 						StreamOffset[Stream - 1], 0);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_N_VID +
 						StreamOffset[Stream - 1], 0);
-
 
         XDptx_WriteReg(Config->BaseAddr, XDPTX_STREAM0 + (Stream - 1) * 4, 0);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_TU_SIZE +
@@ -657,12 +681,14 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 
 	/* Calculate the payload bandiwdth number (PBN).  */
-	MsaConfig->MstPbn = ceil(1.006 * PeakPixelBw * ((double)64 / 54));
+	InstancePtr->MstStreamConfig[Stream - 1].MstPbn =
+				ceil(1.006 * PeakPixelBw * ((double)64 / 54));
 
 	/* Calculate the average stream symbol time slots per MTP. */
 	Average_StreamSymbolTimeSlotsPerMTP = (64.0 * PeakPixelBw / LinkBw);
 	MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (54.0 *
-					((double)MsaConfig->MstPbn / LinkBw));
+		((double)InstancePtr->MstStreamConfig[Stream - 1].MstPbn /
+		LinkBw));
 
 	/* The target value to be found needs to follow the condition:
 	 *	Average_StreamSymbolTimeSlotsPerMTP <=
@@ -700,6 +726,7 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	}
 
 	/* Determine the PBN for the stream. */
-	MsaConfig->MstPbn = MsaConfig->TransferUnitSize *
+	InstancePtr->MstStreamConfig[Stream - 1].MstPbn =
+			MsaConfig->TransferUnitSize *
 			(LinkConfig->LaneCount * LinkConfig->LinkRate / 2);
 }
