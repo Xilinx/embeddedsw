@@ -10,7 +10,7 @@
 	<File Type="PS_FSBL_INIT" Name="ps7_init.h" ModTime="1407149188"/>
 	<File Type="PS_XMD_INIT" Name="ps7_init.tcl" ModTime="1407149188"/>
 	<File Type="PS_INIT_HELP" Name="ps7_init.html" ModTime="1407149188"/>
-	<File Type="BIT" Name="zpe_without_controller_wrapper.bit" ModTime="1407155537"/>
+	<File Type="BIT" Name="zpe_without_controller_wrapper.bit" ModTime="1407133622"/>
 	<File Type="BD_TCL" Name="zpe_without_controller_bd.tcl" ModTime="1407149188"/>
 	<USEDRESOURCES LUT="38170" FF="36527" BRAM="56" DSP="0"/>
 </Project>
