@@ -164,6 +164,8 @@
 *			   Added function prototypes for Page cache read/write
 *			   and spare byte read/write API's.
 * 2.0   adk    12/10/13    Updated as per the New Tcl API's
+* 2.1   kpc    07/24/13    Fixed CR#808770. Update command register twice only
+*                          if flash device requires >= four address cycles.
 * </pre>
 *
 ******************************************************************************/
