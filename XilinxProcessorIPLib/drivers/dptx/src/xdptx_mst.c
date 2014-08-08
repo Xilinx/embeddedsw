@@ -50,106 +50,194 @@
 #include "xdptx.h"
 #include "xstatus.h"
 
+/**************************** Constant Definitions ****************************/
+
+/* Error out if waiting for a sideband message reply or waiting for the payload
+ * ID table to be updated takes more than 100 AUX read iterations. */
+#define XDPTX_MAX_TIMEOUT_COUNT 100
+
+/****************************** Type Definitions ******************************/
+
+/**
+ * This typedef stores the sideband message header.
+ */
 typedef struct
 {
-	u8 LinkCountTotal;
-	u8 LinkCountRemaining;
-	u8 RelativeAddress[14];
-	u8 BroadcastMsg;
-	u8 PathMsg;
-	u8 MsgBodyLength;
-	u8 StartOfMsgTransaction;
-	u8 EndOfMsgTransaction;
-	u8 MsgSequenceNum;
-	u8 Crc;
+	u8 LinkCountTotal;		/**< The total number of DisplayPort
+						links connecting the device
+						device that this sideband
+						message is targeted from the
+						DisplayPort TX. */
+	u8 LinkCountRemaining;		/**< The remaining link count until
+						the sideband message reaches
+						the target device. */
+	u8 RelativeAddress[15];		/**< The relative address from the
+						DisplayPort TX to the target
+						device. */
+	u8 BroadcastMsg;		/**< Specifies that this message is
+						a broadcast message, to be
+						handled by all downstream
+						devices. */
+	u8 PathMsg;			/**< Specifies that this message is
+						a path message, to be handled by
+						all the devices between the
+						origin and the target device. */
+	u8 MsgBodyLength;		/**< The total number of data bytes that
+						are stored in the sideband
+						message body. */
+	u8 StartOfMsgTransaction;	/**< This message is the first sideband
+						message in the transaction. */
+	u8 EndOfMsgTransaction;		/**< This message is the last sideband
+						message in the transaction. */
+	u8 MsgSequenceNum;		/**< Identifies invidiual message
+						transactions to a given
+						DisplayPort device. */
+	u8 Crc;				/**< The cyclic-redundancy check (CRC)
+						value of the header data. */
 
-	u8 MsgHeaderLength;
+	u8 MsgHeaderLength;		/**< The number of data bytes stored as
+						part of the sideband message
+						header. */
 } XDptx_SidebandMsgHeader;
 
+/**
+ * This typedef stores the sideband message body.
+ */
 typedef struct
 {
-	u8 MsgData[62];
-	u8 MsgDataLength;
-	u8 Crc;
+	u8 MsgData[62];			/**< The raw body data of the sideband
+						message. */
+	u8 MsgDataLength;		/**< The number of data bytes stored as
+						part of the sideband message
+						body. */
+	u8 Crc;				/**< The cyclic-redundancy check (CRC)
+						value of the body data. */
 } XDptx_SidebandMsgBody;
 
+/**
+ * This typedef stores the entire sideband message.
+ */
 typedef struct
 {
-	XDptx_SidebandMsgHeader Header;
-	XDptx_SidebandMsgBody Body;
+	XDptx_SidebandMsgHeader Header;	/**< The header segment of the sideband
+						message. */
+	XDptx_SidebandMsgBody Body;	/**< The body segment of the sideband
+						message. */
 } XDptx_SidebandMsg;
 
+/**
+ * This typedef describes a sideband message reply.
+ */
 typedef struct
 {
-	u8 Length;
-	u8 Data[256];
+	u8 Length;			/**< The number of bytes of reply
+						data. */
+	u8 Data[256];			/**< The raw reply data. */
 } XDptx_SidebandReply;
 
-static u32 XDptx_SendActTrigger(XDptx *InstancePtr);
-static u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
-				u8 *RelativeAddress, u8 VcId, u16 Pbn, u8 Ts);
-static u32 XDptx_GetFirstAvailableTs(XDptx *InstancePtr, u8 *FirstTs);
-static void XDptx_AddBranchToList(XDptx_Topology *Topology,
-			XDptx_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
-			u8 LinkCountTotal, u8 *RelativeAddress);
-static void XDptx_AddSinkToList(XDptx_Topology *Topology,
-			XDptx_SbMsgLinkAddressReplyPortDetail *SinkDevice,
-			u8 LinkCountTotal, u8 *RelativeAddress);
+/**************************** Function Prototypes *****************************/
+
 static void XDptx_IssueGuid(XDptx *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDptx_Topology *Topology,
 			u32 *Guid);
-static u32 XDptx_SendSbMsg(XDptx *InstancePtr, XDptx_SidebandMsg *Msg);
-static u32 XDptx_WaitSbReply(XDptx *InstancePtr);
+static void XDptx_AddBranchToList(XDptx *InstancePtr,
+			XDptx_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
+			u8 LinkCountTotal, u8 *RelativeAddress);
+static void XDptx_AddSinkToList(XDptx *InstancePtr,
+			XDptx_SbMsgLinkAddressReplyPortDetail *SinkDevice,
+			u8 LinkCountTotal, u8 *RelativeAddress);
 static void XDptx_GetDeviceInfoFromSbMsgLinkAddress(
 			XDptx_SidebandReply *SbReply,
 			XDptx_SbMsgLinkAddressReplyDeviceInfo *FormatReply);
-static u8 XDptx_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
+static u32 XDptx_GetFirstAvailableTs(XDptx *InstancePtr, u8 *FirstTs);
+static u32 XDptx_SendActTrigger(XDptx *InstancePtr);
+static u32 XDptx_SendSbMsg(XDptx *InstancePtr, XDptx_SidebandMsg *Msg);
+static u32 XDptx_ReceiveSbMsg(XDptx *InstancePtr, XDptx_SidebandReply *SbReply);
+static u32 XDptx_WaitSbReply(XDptx *InstancePtr);
+static u32 XDptx_Transaction2MsgFormat(u8 *Transaction, XDptx_SidebandMsg *Msg);
 static u8 XDptx_Crc4CalculateHeader(XDptx_SidebandMsgHeader *Header);
 static u8 XDptx_Crc8CalculateBody(XDptx_SidebandMsgBody *Body);
-static u32 XDptx_Transaction2MsgFormat(u8 *Transaction, XDptx_SidebandMsg *Msg);
-static u32 XDptx_ReceiveSbMsg(XDptx *InstancePtr, XDptx_SidebandReply *SbReply);
+static u8 XDptx_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
 
-u32 GuidTable[11][4] = {
-                {0x12341234, 0x43214321, 0x56785678, 0x87658765},
-                {0xDEADBEEF, 0xBEEFDEAD, 0x10011001, 0xDADADADA},
-                {0xDABADABA, 0x10011001, 0xBADABADA, 0x5AD5AD5A},
-                {0x12345678, 0x43214321, 0xABCDEF98, 0x87658765},
-                {0x12141214, 0x41214121, 0x56785678, 0x87658765},
-                {0xD1CDB11F, 0xB11FD1CD, 0xFEBCDA90, 0xDCDCDCDC},
-                {0xDCBCDCBC, 0xE000E000, 0xBCDCBCDC, 0x5CD5CD5C},
-                {0x11111111, 0x11111111, 0x11111111, 0x11111111},
-                {0x22222222, 0x22222222, 0x22222222, 0x22222222},
-                {0x33333333, 0x33333333, 0x33333333, 0x33333333},
-                {0x12145678, 0x41214121, 0xCBCD1F98, 0x87658765}
+/**************************** Variable Definitions ****************************/
+
+/**
+ * This table contains a list of global unique identifiers (GUIDs) that will be
+ * issued when exploring the topology using the algorithm in the
+ * XDptx_FindAccessibleDpDevices function.
+ */
+u32 GuidTable[16][4] = {
+	{0x12341234, 0x43214321, 0x56785678, 0x87658765},
+	{0xDEADBEEF, 0xBEEFDEAD, 0x10011001, 0xDADADADA},
+	{0xDABADABA, 0x10011001, 0xBADABADA, 0x5AD5AD5A},
+	{0x12345678, 0x43214321, 0xABCDEF98, 0x87658765},
+	{0x12141214, 0x41214121, 0x56785678, 0x87658765},
+	{0xD1CDB11F, 0xB11FD1CD, 0xFEBCDA90, 0xDCDCDCDC},
+	{0xDCBCDCBC, 0xE000E000, 0xBCDCBCDC, 0x5CD5CD5C},
+	{0x11111111, 0x11111111, 0x11111111, 0x11111111},
+	{0x22222222, 0x22222222, 0x22222222, 0x22222222},
+	{0x33333333, 0x33333333, 0x33333333, 0x33333333},
+	{0xAAAAAAAA, 0xFFFFFFFF, 0xFEBCDA90, 0xDCDCDCDC},
+	{0xBBBBBBBB, 0xE000E000, 0xFFFFFFFF, 0x5CD5CD5C},
+	{0xCCCCCCCC, 0x11111111, 0x11111111, 0xFFFFFFFF},
+	{0xDDDDDDDD, 0x22222222, 0xFFFFFFFF, 0x22222222},
+	{0xEEEEEEEE, 0xFFFFFFFF, 0x33333333, 0x33333333},
+	{0x12145678, 0x41214121, 0xCBCD1F98, 0x87658765}
 };
 
 /**************************** Function Definitions ****************************/
 
+/******************************************************************************/
+/**
+ * This function will enable multi-stream transport (MST) mode for the driver.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDptx_MstCfgModeEnable(XDptx *InstancePtr)
 {
 	InstancePtr->MstEnable = 1;
 }
 
+/******************************************************************************/
+/**
+ * This function will disable multi-stream transport (MST) mode for the driver.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return	None.
+ *
+ * @note	When disabled, the driver will behave in single-stream transport
+ *		(SST) mode.
+ *
+*******************************************************************************/
 void XDptx_MstCfgModeDisable(XDptx *InstancePtr)
 {
 	InstancePtr->MstEnable = 0;
 }
 
-void XDptx_MstCfgStreamEnable(XDptx *InstancePtr, u8 Stream)
-{
-	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 1;
-}
-
-void XDptx_MstCfgStreamDisable(XDptx *InstancePtr, u8 Stream)
-{
-	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 0;
-}
-
-u8 XDptx_MstStreamIsEnabled(XDptx *InstancePtr, u8 Stream)
-{
-	return InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable;
-}
-
+/******************************************************************************/
+/**
+ * This function will enable multi-stream transport (MST) mode in both the
+ * DisplayPort TX and the immediate downstream RX device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if MST mode has been successful enabled in
+ *		  hardware.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if an AUX request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_MstEnable(XDptx *InstancePtr)
 {
 	u32 Status;
@@ -181,6 +269,23 @@ u32 XDptx_MstEnable(XDptx *InstancePtr)
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will disable multi-stream transport (MST) mode in both the
+ * DisplayPort TX and the immediate downstream RX device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if MST mode has been successful disabled in
+ *		  hardware.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if the AUX write request timed out.
+ *		- XST_FAILURE otherwise - if the AUX write transaction failed.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_MstDisable(XDptx *InstancePtr)
 {
 	u32 Status;
@@ -200,14 +305,86 @@ u32 XDptx_MstDisable(XDptx *InstancePtr)
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will check whether
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream ID to check for enable/disable status.
+ *
+ * @return
+ *		- 1 if the specified stream is enabled.
+ *		- 0 if the specified stream is disabled.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u8 XDptx_MstStreamIsEnabled(XDptx *InstancePtr, u8 Stream)
+{
+	return InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable;
+}
+
+/******************************************************************************/
+/**
+ * This function will configure the InstancePtr->MstStreamConfig structure to
+ * enable the specified stream.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream ID that will be enabled.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_MstCfgStreamEnable(XDptx *InstancePtr, u8 Stream)
+{
+	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 1;
+}
+
+/******************************************************************************/
+/**
+ * This function will configure the InstancePtr->MstStreamConfig structure to
+ * disable the specified stream.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream ID that will be disabled.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_MstCfgStreamDisable(XDptx *InstancePtr, u8 Stream)
+{
+	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 0;
+}
+
+/******************************************************************************/
+/**
+ * This function will map a stream to a downstream DisplayPort TX device that is
+ * associated with a sink from the InstancePtr->Topology.SinkList.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream ID that will be mapped to a DisplayPort
+ *		device.
+ * @param	SinkNum is the sink ID in the sink list that will be mapped to
+ *		the stream.
+ *
+ * @return	None.
+ *
+ * @note	The contents of the InstancePtr->MstStreamConfig[Stream] will be
+ *		modified.
+ * @note	The topology will need to be determined prior to calling this
+ *		function using the XDptx_FindAccessibleDpDevices.
+ *
+*******************************************************************************/
 void XDptx_SetStreamSelectFromSinkList(XDptx *InstancePtr, u8 Stream, u8
 									SinkNum)
 {
 	u8 Index;
-	XDptx_MstStream *MstStream = &InstancePtr->MstStreamConfig[Stream];
+	XDptx_MstStream *MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
 	XDptx_Topology *Topology = &InstancePtr->Topology;
-
-	/* Check sink count. */
 
 	MstStream->LinkCountTotal = Topology->SinkList[SinkNum]->LinkCountTotal;
 	for (Index = 0; Index < MstStream->LinkCountTotal - 1; Index++) {
@@ -216,11 +393,30 @@ void XDptx_SetStreamSelectFromSinkList(XDptx *InstancePtr, u8 Stream, u8
 	}
 }
 
+/******************************************************************************/
+/**
+ * This function will map a stream to a downstream DisplayPort TX device
+ * determined by the relative address.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream number that will be mapped to a DisplayPort
+ *		device.
+ * @param	LinkCountTotal is the total DisplayPort links connecting the
+ *		DisplayPort TX to the targeted downstream device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the targeted DisplayPort device.
+ *
+ * @return	None.
+ *
+ * @note	The contents of the InstancePtr->MstStreamConfig[Stream] will be
+ *		modified.
+ *
+*******************************************************************************/
 void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
 							u8 *RelativeAddress)
 {
 	u8 Index;
-	XDptx_MstStream *MstStream = &InstancePtr->MstStreamConfig[Stream];
+	XDptx_MstStream *MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
 
 	MstStream->LinkCountTotal = LinkCountTotal;
 	for (Index = 0; Index < MstStream->LinkCountTotal - 1; Index++) {
@@ -228,30 +424,234 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
 	}
 }
 
+/******************************************************************************/
+/**
+ * This function will explore the DisplayPort topology of downstream devices
+ * connected to the DisplayPort TX. It will recursively go through each branch
+ * device, obtain its information by sending a LINK_ADDRESS sideband message,
+ * and add this information to the the topology's node table. For each sink
+ * device connected to a branch's downstream port, this function will obtain
+ * the details of the sink, add it to the topology's node table, as well as
+ * add it to the topology's sink list.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the total DisplayPort links connecting the
+ *		DisplayPort TX to the current downstream device in the
+ *		recursion.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the current target DisplayPort device in the
+ *		recursion.
+ *
+ * @return	None - the recursion will exit from nodes that have an error
+ *		when replying to the LINK_ADDRESS sideband message.
+ *
+ * @note	The contents of the InstancePtr->Topology structure will be
+ *		modified.
+ *
+*******************************************************************************/
+void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
+							u8 *RelativeAddress)
+{
+	u32 Status;
+	u8 Index;
+	u8 RadIndex;
+	XDptx_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
+	XDptx_SbMsgLinkAddressReplyPortDetail *PortDetails;
+	XDptx_Topology *Topology = &InstancePtr->Topology;
+
+	Status = XDptx_SendSbMsgLinkAddress(InstancePtr, LinkCountTotal,
+						RelativeAddress, &DeviceInfo);
+	if (Status != XST_SUCCESS) {
+		/* The LINK_ADDRESS was sent to a device that cannot reply;
+		 * exit from this recursion path. */
+		return;
+	}
+
+	/* Write GUID to the branch device if it doesn't already have one. */
+	XDptx_IssueGuid(InstancePtr, LinkCountTotal, RelativeAddress, Topology,
+							DeviceInfo.Guid);
+
+	/* Add the branch device to the topology table. */
+	XDptx_AddBranchToList(InstancePtr, &DeviceInfo, LinkCountTotal,
+							RelativeAddress);
+
+	/* Downstream devices will be an extra link away from the source than
+	 * this branch device. */
+	LinkCountTotal++;
+
+	/* Any downstream device downstream device will have the RAD of the
+	 * current branch device appended with the port number. */
+	u8 DownstreamRelativeAddress[LinkCountTotal - 1];
+	/* Copy the branch device's RAD. */
+	for (RadIndex = 0; RadIndex < (LinkCountTotal - 2); RadIndex++) {
+		DownstreamRelativeAddress[RadIndex] = RelativeAddress[RadIndex];
+	}
+
+	for (Index = 0; Index < DeviceInfo.NumPorts; Index++) {
+		PortDetails = &DeviceInfo.PortDetails[Index];
+
+		if (PortDetails->InputPort == 0) {
+			/* Append the port number to the RAD of the branch
+			 * device. */
+			DownstreamRelativeAddress[RadIndex] =
+							PortDetails->PortNum;
+
+			if (PortDetails->PeerDeviceType == 0x2) {
+				/* Found a branch device; recurse the algorithm
+				 * to see what DisplayPort devices are connected
+				 * to it with the appended RAD. */
+				XDptx_FindAccessibleDpDevices(InstancePtr,
+						LinkCountTotal,
+						DownstreamRelativeAddress);
+			}
+			else if (PortDetails->DpDevPlugStatus == 1) {
+				if ((PortDetails->MsgCapStatus == 1) &&
+					(PortDetails->DpcdRev >= 0x12)) {
+					/* Write GUID to the branch device if it
+					 * doesn't already have one. */
+					XDptx_IssueGuid(InstancePtr,
+						LinkCountTotal, RelativeAddress,
+						Topology, PortDetails->Guid);
+				}
+
+				XDptx_AddSinkToList(InstancePtr, PortDetails,
+						LinkCountTotal,
+						DownstreamRelativeAddress);
+			}
+		}
+	}
+}
+
+/******************************************************************************/
+/**
+ * This function will write a global unique identifier (GUID) to the target
+ * DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target device.
+ * @param	Guid is a the GUID to write to the target device.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
+								u32 Guid[4])
+{
+	u8 AuxData[16];
+	u8 Index;
+
+	memset(AuxData, 0, 16);
+	for (Index = 0; Index < 16; Index++) {
+		AuxData[Index] = (Guid[Index / 4] >> ((3 - (Index % 4)) * 8)) &
+									0xFF;
+	}
+
+	if (LinkCountTotal == 1) {
+		XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_GUID, 16, AuxData);
+	}
+	else {
+		XDptx_SendSbMsgRemoteDpcdWrite(InstancePtr, LinkCountTotal,
+				RelativeAddress, XDPTX_DPCD_GUID, 16, AuxData);
+	}
+}
+
+/******************************************************************************/
+/**
+ * This function will obtain the global unique identifier (GUID) for the target
+ * DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target device.
+ * @param	Guid is a pointer to the GUID that will store the existing GUID
+ *		of the target device.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
+								u32 *Guid)
+{
+	u8 Index;
+	u8 Data[30];
+
+	if (LinkCountTotal == 1) {
+		XDptx_AuxRead(InstancePtr, XDPTX_DPCD_GUID, 16, Data);
+
+		memset(Guid, 0, 16);
+		for (Index = 0; Index < 16; Index++) {
+			Guid[Index / 4] <<= 8;
+			Guid[Index / 4] |= Data[Index];
+		}
+	}
+	else {
+		XDptx_SendSbMsgRemoteDpcdRead(InstancePtr, LinkCountTotal,
+				RelativeAddress, XDPTX_DPCD_GUID, 16, Data);
+
+		memset(Guid, 0, 16);
+		for (Index = 0; Index < 16; Index++) {
+			Guid[Index / 4] <<= 8;
+			Guid[Index / 4] |= Data[Index + 3];
+		}
+	}
+}
+
+/******************************************************************************/
+/**
+ * This function will allocate bandwidth for all enabled stream.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the payload ID tables were successfully updated
+ *		  with the new allocation.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, waiting for
+ *		  the payload ID table to be cleared or updated, or an AUX
+ *		  request timed out.
+ *		- XST_BUFFER_TOO_SMALL if there is not enough free timeslots in
+ *		  the payload ID table for the requested Ts.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of a sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 {
 	u32 Status;
 	u8 StreamIndex;
+	XDptx_MstStream *MstStream;
+	XDptx_MainStreamAttributes *MsaConfig;
 
+	/* Clear the payload ID table first. */
 	Status = XDptx_ClearPayloadVcIdTable(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		/* Either a AUX read or write transaction failed trying to clear
-		 * the payload ID table or read the update status, or waiting
-		 * for an indication that the payload ID table was updated
-		 * timed out. */
 		return Status;
 	}
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
+		MstStream = &InstancePtr->MstStreamConfig[StreamIndex];
+		MsaConfig = &InstancePtr->MsaConfig[StreamIndex];
+
 		if (XDptx_MstStreamIsEnabled(InstancePtr, StreamIndex + 1)) {
 			Status = XDptx_AllocatePayloadVcIdTable(InstancePtr,
-		InstancePtr->MstStreamConfig[StreamIndex].LinkCountTotal,
-		InstancePtr->MstStreamConfig[StreamIndex].RelativeAddress,
-							StreamIndex + 1,
-		InstancePtr->MstStreamConfig[StreamIndex].MstPbn,
-		InstancePtr->MsaConfig[StreamIndex].TransferUnitSize);
+				MstStream->LinkCountTotal,
+				MstStream->RelativeAddress, StreamIndex + 1,
+				MstStream->MstPbn, MsaConfig->TransferUnitSize);
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
@@ -266,12 +666,13 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 
 	/* Send ALLOCATE_PAYLOAD request. */
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
+		MstStream = &InstancePtr->MstStreamConfig[StreamIndex];
+
 		if (XDptx_MstStreamIsEnabled(InstancePtr, StreamIndex + 1)) {
 			Status = XDptx_SendSbMsgAllocatePayload(InstancePtr,
-		InstancePtr->MstStreamConfig[StreamIndex].LinkCountTotal,
-		InstancePtr->MstStreamConfig[StreamIndex].RelativeAddress,
-							StreamIndex + 1,
-		InstancePtr->MstStreamConfig[StreamIndex].MstPbn);
+				MstStream->LinkCountTotal,
+				MstStream->RelativeAddress, StreamIndex + 1,
+				MstStream->MstPbn);
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
@@ -281,7 +682,42 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 	return XST_SUCCESS;
 }
 
-static u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
+/******************************************************************************/
+/**
+ * This function will allocate a bandwidth for a virtual channel in the payload
+ * ID table in both the DisplayPort TX and the downstream DisplayPort devices
+ * on the path to the target device specified by LinkCountTotal and
+ * RelativeAddress.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	VcId is the unique virtual channel ID to allocate into the
+ *		payload ID tables.
+ * @param	Pbn is the payload bandwidth number that determines how much
+ *		bandwidth will be allocated for the virtual channel.
+ * @param	Ts is the number of timeslots to allocate in the payload ID
+ *		tables.
+ *
+ * @return
+ *		- XST_SUCCESS if the payload ID tables were successfully updated
+ *		  with the new allocation.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_BUFFER_TOO_SMALL if there is not enough free timeslots in
+ *		  the payload ID table for the requested Ts.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of a sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
 				u8 *RelativeAddress, u8 VcId, u16 Pbn, u8 Ts)
 {
 	u32 Status;
@@ -351,50 +787,27 @@ static u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
-static u32 XDptx_SendActTrigger(XDptx *InstancePtr)
-{
-	u32 Status;
-	u8 AuxData[1];
-
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG, 0x3);
-
-	do {
-		Status = XDptx_AuxRead(InstancePtr,
-			XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, AuxData);
-		if (Status != XST_SUCCESS) {
-			/* The AUX read transaction failed. */
-			return Status;
-		}
-	} while ((AuxData[0] & 0x02) != 0x02);
-
-	return XST_SUCCESS;
-}
-
-static u32 XDptx_GetFirstAvailableTs(XDptx *InstancePtr, u8 *FirstTs)
-{
-	u32 Status;
-	u8 Index;
-	u8 AuxData[64];
-
-	Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_VC_PAYLOAD_ID_SLOT(1),
-								64, AuxData);
-	if (Status != XST_SUCCESS) {
-		/* The AUX read transaction failed. */
-		return Status;
-	}
-
-	for (Index = 0; Index < 64; Index++) {
-		if (AuxData[Index] == 0) {
-			*FirstTs = (Index + 1);
-			return XST_SUCCESS;
-		}
-	}
-
-	/* No free time slots available. */
-	*FirstTs = 0;
-	return XST_SUCCESS;
-}
-
+/******************************************************************************/
+/**
+ * This function will clear the virtual channel payload ID table in both the
+ * DisplayPort TX and all downstream DisplayPort devices.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the payload ID tables were successfully
+ *		  cleared.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of a sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
 {
 	u32 Status;
@@ -452,121 +865,38 @@ u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
 	return Status;
 }
 
-void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
-							u8 *RelativeAddress)
-{
-	u8 Index;
-	u8 RadIndex;
-	XDptx_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
-	XDptx_Topology *Topology = &InstancePtr->Topology;
-
-	XDptx_SendSbMsgLinkAddress(InstancePtr, LinkCountTotal, RelativeAddress,
-								&DeviceInfo);
-
-	/* Write GUID to the branch device if it doesn't already have one. */
-	XDptx_IssueGuid(InstancePtr, LinkCountTotal, RelativeAddress, Topology,
-							DeviceInfo.Guid);
-
-	/* Add the branch device to the topology table. */
-	XDptx_AddBranchToList(Topology, &DeviceInfo, LinkCountTotal,
-							RelativeAddress);
-
-	/* Downstream devices will be an extra link away from the source than
-	 * this branch device. */
-	LinkCountTotal++;
-
-	/* Any downstream device downstream device will have the RAD of the
-	 * current branch device appended with the port number. */
-	u8 DownstreamRelativeAddress[LinkCountTotal - 1];
-	/* Copy the branch device's RAD. */
-	for (RadIndex = 0; RadIndex < (LinkCountTotal - 2); RadIndex++) {
-		DownstreamRelativeAddress[RadIndex] = RelativeAddress[RadIndex];
-	}
-
-	for (Index = 0; Index < DeviceInfo.NumPorts; Index++) {
-		if (DeviceInfo.PortDetails[Index].InputPort == 0) {
-			/* Append the port number to the RAD of the branch
-			 * device. */
-			DownstreamRelativeAddress[RadIndex] =
-					DeviceInfo.PortDetails[Index].PortNum;
-
-			if (DeviceInfo.PortDetails[Index].PeerDeviceType ==
-									0x2) {
-				/* Found a branch device; recurse the algorithm
-				 * to see what DisplayPort devices are connected
-				 * to it with the appended RAD. */
-				XDptx_FindAccessibleDpDevices(InstancePtr,
-						LinkCountTotal,
-						DownstreamRelativeAddress);
-			}
-			else if (DeviceInfo.PortDetails[Index].DpDevPlugStatus
-									== 1) {
-				if ((DeviceInfo.PortDetails[Index].MsgCapStatus
-		== 1) && (DeviceInfo.PortDetails[Index].DpcdRev >= 0x12)) {
-					/* Write GUID to the branch device if it
-					 * doesn't already have one. */
-					XDptx_IssueGuid(InstancePtr,
-						LinkCountTotal, RelativeAddress,
-						Topology, DeviceInfo.Guid);
-				}
-
-				XDptx_AddSinkToList(Topology,
-						&DeviceInfo.PortDetails[Index],
-						LinkCountTotal,
-						DownstreamRelativeAddress);
-			}
-		}
-	}
-}
-
-void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 *Guid)
-{
-	u8 Index;
-	u8 Data[30];
-
-	if (LinkCountTotal == 1) {
-		XDptx_AuxRead(InstancePtr, 0x30, 16, Data);
-
-		memset(Guid, 0, 16);
-		for (Index = 0; Index < 16; Index++) {
-			Guid[Index / 4] <<= 8;
-			Guid[Index / 4] |= Data[Index];
-		}
-	}
-	else {
-		XDptx_SendSbMsgRemoteDpcdRead(InstancePtr, LinkCountTotal,
-					RelativeAddress, 0x30, 16, Data);
-
-		memset(Guid, 0, 16);
-		for (Index = 0; Index < 16; Index++) {
-			Guid[Index / 4] <<= 8;
-			Guid[Index / 4] |= Data[Index + 3];
-		}
-	}
-}
-
-void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 Guid[4])
-{
-	u8 AuxData[16];
-	u8 Index;
-
-	memset(AuxData, 0, 16);
-	for (Index = 0; Index < 16; Index++) {
-		AuxData[Index] = (Guid[Index / 4] >> ((3 - (Index % 4)) * 8)) &
-									0xFF;
-	}
-
-	if (LinkCountTotal == 1) {
-		XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_GUID, 16, AuxData);
-	}
-	else {
-		XDptx_SendSbMsgRemoteDpcdWrite(InstancePtr, LinkCountTotal,
-				RelativeAddress, XDPTX_DPCD_GUID, 16, AuxData);
-	}
-}
-
+/******************************************************************************/
+/**
+ * This function will send a REMOTE_DPCD_WRITE sideband message which will write
+ * some data to the specified DisplayPort Configuration Data (DPCD) address of a
+ * downstream DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	DpcdAddress is the DPCD address of the target device that data
+ *		will be written to.
+ * @param	BytesToRead is the number of bytes to write to the specified
+ *		DPCD address.
+ * @param	ReadData is a pointer to a buffer that stores the data to write
+ *		to the DPCD location.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_SendSbMsgRemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u8 BytesToWrite, u8 *WriteData)
 {
@@ -614,6 +944,38 @@ u32 XDptx_SendSbMsgRemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function will send a REMOTE_DPCD_READ sideband message which will read
+ * from the specified DisplayPort Configuration Data (DPCD) address of a
+ * downstream DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	DpcdAddress is the DPCD address of the target device that data
+ *		will be read from.
+ * @param	BytesToRead is the number of bytes to read from the specified
+ *		DPCD address.
+ * @param	ReadData is a pointer to a buffer that will be filled with the
+ *		DPCD read data.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u8 BytesToRead, u8 *ReadData)
 {
@@ -669,6 +1031,35 @@ u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will send a REMOTE_I2C_READ sideband message which will read
+ * from the specified I2C address of a downstream DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	IicDeviceId is the address on the I2C bus of the target device.
+ * @param	BytesToRead is the number of bytes to read from the I2C address.
+ * @param	ReadData is a pointer to a buffer that will be filled with the
+ *		I2C read data.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 IicDeviceId, u8 BytesToRead, u8 *ReadData)
 {
@@ -727,6 +1118,38 @@ u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function will send a LINK_ADDRESS sideband message to a target
+ * DisplayPort branch device. It is used to determine the resources available
+ * for that device and some device information for each of the ports connected
+ * to the branch device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort branch device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort branch device.
+ * @param	DeviceInfo is a pointer to the device information structure
+ *		whose contents will be filled in with the information obtained
+ *		by the LINK_ADDRESS sideband message.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	The contents of the DeviceInfo structure will be modified with
+ *		the information obtained from the LINK_ADDRESS sideband message
+ *		reply.
+ *
+*******************************************************************************/
 u32 XDptx_SendSbMsgLinkAddress(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, XDptx_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo)
 {
@@ -762,12 +1185,53 @@ u32 XDptx_SendSbMsgLinkAddress(XDptx *InstancePtr, u8 LinkCountTotal,
 		return Status;
 	}
 
-	XDptx_ReceiveSbMsg(InstancePtr, &SbMsgReply);
+	Status = XDptx_ReceiveSbMsg(InstancePtr, &SbMsgReply);
+	if (Status != XST_SUCCESS) {
+		/* Either the reply indicates a NACK, an AUX read or write
+		 * transaction failed, there was a time out waiting for a reply,
+		 * or a CRC check failed. */
+		return Status;
+	}
 	XDptx_GetDeviceInfoFromSbMsgLinkAddress(&SbMsgReply, DeviceInfo);
 
-	return Status;
+	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will send an ENUM_PATH_RESOURCES sideband message which will
+ * determine the available payload bandwidth number (PBN) for a path to a target
+ * device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	AvailPbn is a pointer to the available PBN of the path whose
+ *		value will be filled in by this function.
+ * @param	FullPbn is a pointer to the total PBN of the path whose value
+ *		will be filled in by this function.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	ENUM_PATH_RESOURCES is a path message that will be serviced by
+ *		all downstream DisplayPort devices connecting the DisplayPort TX
+ *		and the target device.
+ * @note	AvailPbn will be modified with the available PBN from the reply.
+ * @note	FullPbn will be modified with the total PBN of the path from the
+ *		reply.
+ *
+*******************************************************************************/
 u32 XDptx_SendSbMsgEnumPathResources(XDptx *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)
 {
@@ -818,6 +1282,38 @@ u32 XDptx_SendSbMsgEnumPathResources(XDptx *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will send an ALLOCATE_PAYLOAD sideband message which will
+ * allocate bandwidth for a virtual channel in the payload ID tables of the
+ * downstream devices connecting the DisplayPort TX to the target device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	VcId is the unique virtual channel ID to allocate into the
+ *		payload ID tables.
+ * @param	Pbn is the payload bandwidth number that determines how much
+ *		bandwidth will be allocated for the virtual channel.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	ALLOCATE_PAYLOAD is a path message that will be serviced by all
+ *		downstream DisplayPort devices connecting the DisplayPort TX and
+ *		the target device.
+ *
+*******************************************************************************/
 u32 XDptx_SendSbMsgAllocatePayload(XDptx *InstancePtr, u8 LinkCountTotal,
 					u8 *RelativeAddress, u8 VcId, u16 Pbn)
 {
@@ -862,6 +1358,28 @@ u32 XDptx_SendSbMsgAllocatePayload(XDptx *InstancePtr, u8 LinkCountTotal,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function will send a CLEAR_PAYLOAD_ID_TABLE sideband message which will
+ * de-allocate all virtual channel payload ID tables.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	CLEAR_PAYLOAD_ID_TABLE is a broadcast message sent to all
+ *		downstream devices.
+ *
+*******************************************************************************/
 u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr)
 {
 	u32 Status;
@@ -896,6 +1414,26 @@ u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr)
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function will check whether or not a DisplayPort device has a global
+ * unique identifier (GUID). If it doesn't (the GUID is all zeros), then it will
+ * issue one.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target device.
+ * @param	Topology is a pointer to the downstream topology.
+ * @param	Guid is a pointer to the GUID that will store the new, or
+ *		existing GUID for the target device.
+ *
+ * @return	None.
+ *
+ * @note	The GUID will be issued from the GuidTable.
+ *
+*******************************************************************************/
 static void XDptx_IssueGuid(XDptx *InstancePtr, u8 LinkCountTotal,
 		u8 *RelativeAddress, XDptx_Topology *Topology, u32 *Guid)
 {
@@ -910,63 +1448,289 @@ static void XDptx_IssueGuid(XDptx *InstancePtr, u8 LinkCountTotal,
 	}
 }
 
-static void XDptx_AddBranchToList(XDptx_Topology *Topology,
+/******************************************************************************/
+/**
+ * This function will copy the branch device's information into the topology's
+ * node table.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	DeviceInfo is a pointer to the device information of the branch
+ *		device to add to the list.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the branch device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the branch device.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDptx_AddBranchToList(XDptx *InstancePtr,
 			XDptx_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
 			u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u8 Index;
+	/* Add this node to the topology's node list. */
+	XDptx_TopologyNode *TopologyNode =
+			&InstancePtr->Topology.NodeTable[
+					InstancePtr->Topology.NodeTotal];
 
 	for (Index = 0; Index < 4; Index++) {
-		Topology->NodeTable[Topology->NodeTotal].Guid[Index] =
-							DeviceInfo->Guid[Index];
+		TopologyNode->Guid[Index] = DeviceInfo->Guid[Index];
 	}
 	for (Index = 0; Index < (LinkCountTotal - 1); Index++) {
-		Topology->NodeTable[Topology->NodeTotal].RelativeAddress[Index]
-						= RelativeAddress[Index];
+		TopologyNode->RelativeAddress[Index] = RelativeAddress[Index];
 	}
-	Topology->NodeTable[Topology->NodeTotal].DeviceType = 0x02;
-	Topology->NodeTable[Topology->NodeTotal].LinkCountTotal =
-								LinkCountTotal;
-	Topology->NodeTable[Topology->NodeTotal].DpcdRev = 0x12;
-	Topology->NodeTable[Topology->NodeTotal].MsgCapStatus = 1;
+	TopologyNode->DeviceType = 0x02;
+	TopologyNode->LinkCountTotal = LinkCountTotal;
+	TopologyNode->DpcdRev = 0x12;
+	TopologyNode->MsgCapStatus = 1;
 
-	Topology->NodeTotal++;
+	/* The branch device has been added to the topology node list. */
+	InstancePtr->Topology.NodeTotal++;
 }
 
-static void XDptx_AddSinkToList(XDptx_Topology *Topology,
+/******************************************************************************/
+/**
+ * This function will copy the sink device's information into the topology's
+ * node table and also add this entry into the topology's sink list.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	SinkDevice is a pointer to the device information of the sink
+ *		device to add to the lists.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the sink device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the sink device.
+ *
+ * @return	None.
+ *
+ * @note	The sink device is added to both the node and sink list of the
+ *		topology structure.
+ *
+*******************************************************************************/
+static void XDptx_AddSinkToList(XDptx *InstancePtr,
 			XDptx_SbMsgLinkAddressReplyPortDetail *SinkDevice,
 			u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u8 Index;
+	XDptx_Topology *Topology = &InstancePtr->Topology;
+	/* Add this node to the topology's node list. */
+	XDptx_TopologyNode *TopologyNode =
+				&Topology->NodeTable[Topology->NodeTotal];
 
 	/* Copy the GUID of the sink for the new entry in the topology node
 	 * table. */
 	for (Index = 0; Index < 4; Index++) {
-		Topology->NodeTable[Topology->NodeTotal].Guid[Index] =
-							SinkDevice->Guid[Index];
+		TopologyNode->Guid[Index] = SinkDevice->Guid[Index];
 	}
 	/* Copy the RAD of the sink for the new entry in the topology node
 	 * table. */
 	for (Index = 0; Index < (LinkCountTotal - 2); Index++) {
-		Topology->NodeTable[Topology->NodeTotal].RelativeAddress[Index]
-						= RelativeAddress[Index];
+		TopologyNode->RelativeAddress[Index] = RelativeAddress[Index];
 	}
-	Topology->NodeTable[Topology->NodeTotal].RelativeAddress[Index] =
-						SinkDevice->PortNum;
-	Topology->NodeTable[Topology->NodeTotal].DeviceType =
-						SinkDevice->PeerDeviceType;
-	Topology->NodeTable[Topology->NodeTotal].LinkCountTotal =
-						LinkCountTotal;
-	Topology->NodeTable[Topology->NodeTotal].DpcdRev =
-						SinkDevice->DpcdRev;
-	Topology->NodeTable[Topology->NodeTotal].MsgCapStatus =
-						SinkDevice->MsgCapStatus;
+	TopologyNode->RelativeAddress[Index] = SinkDevice->PortNum;
+	TopologyNode->DeviceType = SinkDevice->PeerDeviceType;
+	TopologyNode->LinkCountTotal = LinkCountTotal;
+	TopologyNode->DpcdRev = SinkDevice->DpcdRev;
+	TopologyNode->MsgCapStatus = SinkDevice->MsgCapStatus;
 
-	Topology->SinkList[Topology->SinkTotal] =
-				&Topology->NodeTable[Topology->NodeTotal++];
+	/* Add this node to the sink list by linking it to the appropriate node
+	 * in the topology's node list. */
+	Topology->SinkList[Topology->SinkTotal] = TopologyNode;
+
+	/* This node is a sink device, so both the node and sink total are
+	 * incremented. */
+	Topology->NodeTotal++;
 	Topology->SinkTotal++;
 }
 
+/******************************************************************************/
+/**
+ * This function will fill in a device information structure from data obtained
+ * by reading the sideband reply from a LINK_ADDRESS sideband message.
+ *
+ * @param	SbReply is a pointer to the sideband reply structure that stores
+ *		the reply data.
+ * @param	FormatReply is a pointer to the device information structure
+ *		that will filled in with the sideband reply data.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDptx_GetDeviceInfoFromSbMsgLinkAddress(XDptx_SidebandReply
+		*SbReply, XDptx_SbMsgLinkAddressReplyDeviceInfo *FormatReply)
+{
+	u8 ReplyIndex = 0;
+	u8 Index, Index2;
+	XDptx_SbMsgLinkAddressReplyPortDetail *PortDetails;
+
+	/* Determine the device information from the sideband message reply
+	 * structure. */
+	FormatReply->ReplyType = (SbReply->Data[ReplyIndex] >> 7);
+	FormatReply->RequestId = (SbReply->Data[ReplyIndex++] & 0x7F);
+
+	memset(FormatReply->Guid, 0, 16);
+	for (Index = 0; Index < 16; Index++) {
+		FormatReply->Guid[Index / 4] <<= 8;
+		FormatReply->Guid[Index / 4] |= SbReply->Data[ReplyIndex++];
+	}
+
+	FormatReply->NumPorts = SbReply->Data[ReplyIndex++];
+
+	/* For each port of the current device, obtain the details. */
+	for (Index = 0; Index < FormatReply->NumPorts; Index++) {
+		PortDetails = &FormatReply->PortDetails[Index];
+
+		PortDetails->InputPort = (SbReply->Data[ReplyIndex] >> 7);
+		PortDetails->PeerDeviceType =
+				((SbReply->Data[ReplyIndex] & 0x70) >> 4);
+		PortDetails->PortNum = (SbReply->Data[ReplyIndex++] & 0x0F);
+		PortDetails->MsgCapStatus = (SbReply->Data[ReplyIndex] >> 7);
+		PortDetails->DpDevPlugStatus =
+				((SbReply->Data[ReplyIndex] & 0x40) >> 6);
+
+		if (PortDetails->InputPort == 0) {
+			/* Get the port details of the downstream device. */
+			PortDetails->LegacyDevPlugStatus =
+				((SbReply->Data[ReplyIndex++] & 0x20) >> 5);
+			PortDetails->DpcdRev = (SbReply->Data[ReplyIndex++]);
+
+			memset(PortDetails->Guid, 0, 16);
+			for (Index2 = 0; Index2 < 16; Index2++) {
+				PortDetails->Guid[Index2 / 4] <<= 8;
+				PortDetails->Guid[Index2 / 4] |=
+						SbReply->Data[ReplyIndex++];
+			}
+
+			PortDetails->NumSdpStreams =
+					(SbReply->Data[ReplyIndex] >> 4);
+			PortDetails->NumSdpStreamSinks =
+					(SbReply->Data[ReplyIndex++] & 0x0F);
+		}
+		else {
+			ReplyIndex++;
+		}
+	}
+}
+
+/******************************************************************************/
+/**
+ * This function will read the payload ID table from the immediate downstream RX
+ * device and determine what the first available time slot is in the table.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the immediate downstream RX device's payload ID
+ *		  table was successfully read (regardless of whether there are
+ *		  any available time slots or not).
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if waiting for the the AUX read request to
+ *		  read the RX device's payload ID table timed out.
+ *		- XST_FAILURE if the AUX read transaction failed while trying to
+ *		  read the RX device's payload ID table.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDptx_GetFirstAvailableTs(XDptx *InstancePtr, u8 *FirstTs)
+{
+	u32 Status;
+	u8 Index;
+	u8 AuxData[64];
+
+	Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_VC_PAYLOAD_ID_SLOT(1),
+								64, AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	}
+
+	for (Index = 0; Index < 64; Index++) {
+		/* A zero in the payload ID table indicates that the timeslot is
+		 * available. */
+		if (AuxData[Index] == 0) {
+			*FirstTs = (Index + 1);
+			return XST_SUCCESS;
+		}
+	}
+
+	/* No free time slots available. */
+	*FirstTs = 0;
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function will send a sideband message by creating a data array from the
+ * supplied sideband message structure and submitting an AUX write transaction.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device indicates that the ACT trigger
+ *		  has taken effect and the payload ID table has been updated.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for the payload ID table
+ *		  to indicate that it has been updated, or the AUX read request
+ *		  timed out.
+ *		- XST_FAILURE if the AUX read transaction failed while accessing
+ *		  the RX device.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDptx_SendActTrigger(XDptx *InstancePtr)
+{
+	u32 Status;
+	u8 AuxData;
+	u8 TimeoutCount = 0;
+
+	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG, 0x3);
+
+	do {
+		Status = XDptx_AuxRead(InstancePtr,
+			XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, &AuxData);
+		if (Status != XST_SUCCESS) {
+			/* The AUX read transaction failed. */
+			return Status;
+		}
+
+		/* Error out if timed out. */
+		if (TimeoutCount > XDPTX_MAX_TIMEOUT_COUNT) {
+			return XST_ERROR_COUNT_MAX;
+		}
+
+		TimeoutCount++;
+		XDptx_WaitUs(InstancePtr, 1000);
+	} while ((AuxData & 0x02) != 0x02);
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function will send a sideband message by creating a data array from the
+ * supplied sideband message structure and submitting an AUX write transaction.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Msg is a pointer to the sideband message structure that holds
+ *		the contents of the data to be submitted.
+ *
+ * @return
+ *		- XST_SUCCESS if the AUX write transaction used to transmit the
+ *		  sideband message was successful.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if the AUX write request timed out.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u32 XDptx_SendSbMsg(XDptx *InstancePtr, XDptx_SidebandMsg *Msg)
 {
 	u32 Status;
@@ -1013,79 +1777,153 @@ static u32 XDptx_SendSbMsg(XDptx *InstancePtr, XDptx_SidebandMsg *Msg)
 	return Status;
 }
 
-static u32 XDptx_WaitSbReply(XDptx *InstancePtr)
+/******************************************************************************/
+/**
+ * This function will wait for a sideband message reply and fill in the SbReply
+ * structure with the reply data for use by higher-level functions.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	SbReply is a pointer to the reply structure that this function
+ *		will fill in for use by higher-level functions.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply was successfully obtained and it
+ *		  indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC did not match the calculated
+ *		  value, or the reply was negative acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDptx_ReceiveSbMsg(XDptx *InstancePtr, XDptx_SidebandReply *SbReply)
 {
 	u32 Status;
-	u8 AuxData[1];
+	u8 Index = 0;
+	u8 AuxData[80];
+	XDptx_SidebandMsg Msg;
+
+	SbReply->Length = 0;
 
 	do {
-		Status = XDptx_AuxRead(InstancePtr,
-				XDPTX_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
-				1, AuxData);
+		/* Wait for a reply. */
+		Status = XDptx_WaitSbReply(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		/* Receive reply. */
+		Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_DOWN_REP, 80,
+								AuxData);
 		if (Status != XST_SUCCESS) {
 			/* The AUX read transaction failed. */
 			return Status;
 		}
+
+		/* Convert the reply transaction into XDptx_SidebandReply
+		 * format. */
+		Status = XDptx_Transaction2MsgFormat(AuxData, &Msg);
+		if (Status != XST_SUCCESS) {
+			/* The CRC of the header or the body did not match the
+			 * calculated value. */
+			return XST_FAILURE;
+		}
+
+		/* Collect body data into an array. */
+		for (Index = 0; Index < Msg.Body.MsgDataLength; Index++) {
+			SbReply->Data[SbReply->Length++] =
+							Msg.Body.MsgData[Index];
+		}
+
+		/* Clear. */
+		AuxData[0] = 0x10;
+		Status = XDptx_AuxWrite(InstancePtr,
+				XDPTX_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
+				1, AuxData);
+		if (Status != XST_SUCCESS) {
+			/* The AUX write transaction failed. */
+			return Status;
+		}
 	}
-	while ((AuxData[0] & 0x10) != 0x10);
+	while (Msg.Header.EndOfMsgTransaction == 0);
+
+	/* Check if the reply indicates a NACK. */
+	if ((SbReply->Data[0] & 0x80) == 0x80) {
+		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
 }
 
-static void XDptx_GetDeviceInfoFromSbMsgLinkAddress(XDptx_SidebandReply
-		*SbReply, XDptx_SbMsgLinkAddressReplyDeviceInfo *FormatReply)
+/******************************************************************************/
+/**
+ * This function will wait until the RX device directly downstream to the
+ * DisplayPort TX indicates that a sideband reply is ready to be received by
+ * the source.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if a reply message is ready.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or the AUX
+ *		  read request timed out.
+ *		- XST_FAILURE if the AUX read transaction failed while accessing
+ *		  the RX device.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDptx_WaitSbReply(XDptx *InstancePtr)
 {
-	u8 ReplyIndex = 0;
-	u8 Index, Index2;
+	u32 Status;
+	u8 AuxData;
+	u8 TimeoutCount = 0;
 
-	FormatReply->ReplyType = (SbReply->Data[ReplyIndex] >> 7);
-	FormatReply->RequestId = (SbReply->Data[ReplyIndex++] & 0x7F);
-
-	memset(FormatReply->Guid, 0, 16);
-	for (Index = 0; Index < 16; Index++) {
-		FormatReply->Guid[Index / 4] <<= 8;
-		FormatReply->Guid[Index / 4] |= SbReply->Data[ReplyIndex++];
-	}
-
-	FormatReply->NumPorts = SbReply->Data[ReplyIndex++];
-
-	for (Index = 0; Index < FormatReply->NumPorts; Index++) {
-		FormatReply->PortDetails[Index].InputPort =
-				(SbReply->Data[ReplyIndex] >> 7);
-		FormatReply->PortDetails[Index].PeerDeviceType =
-				((SbReply->Data[ReplyIndex] & 0x70) >> 4);
-		FormatReply->PortDetails[Index].PortNum =
-				(SbReply->Data[ReplyIndex++] & 0x0F);
-		FormatReply->PortDetails[Index].MsgCapStatus =
-				(SbReply->Data[ReplyIndex] >> 7);
-		FormatReply->PortDetails[Index].DpDevPlugStatus =
-				((SbReply->Data[ReplyIndex] & 0x40) >> 6);
-
-		if (FormatReply->PortDetails[Index].InputPort == 0) {
-			FormatReply->PortDetails[Index].LegacyDevPlugStatus =
-				((SbReply->Data[ReplyIndex++] & 0x20) >> 5);
-			FormatReply->PortDetails[Index].DpcdRev =
-						(SbReply->Data[ReplyIndex++]);
-
-			memset(FormatReply->PortDetails[Index].Guid, 0, 16);
-			for (Index2 = 0; Index2 < 16; Index2++) {
-				FormatReply->PortDetails[Index].Guid[Index2 / 4]
-									<<= 8;
-				FormatReply->PortDetails[Index].Guid[Index2 / 4]
-						|= SbReply->Data[ReplyIndex++];
-			}
-
-			FormatReply->PortDetails[Index].NumSdpStreams =
-					(SbReply->Data[ReplyIndex] >> 4);
-			FormatReply->PortDetails[Index].NumSdpStreamSinks =
-					(SbReply->Data[ReplyIndex++] & 0x0F);
+	do {
+		Status = XDptx_AuxRead(InstancePtr,
+				XDPTX_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
+				1, &AuxData);
+		if (Status != XST_SUCCESS) {
+			/* The AUX read transaction failed. */
+			return Status;
 		}
-		else {
-			ReplyIndex++;
+
+		/* Error out if timed out. */
+		if (TimeoutCount > XDPTX_MAX_TIMEOUT_COUNT) {
+			return XST_ERROR_COUNT_MAX;
 		}
+
+		TimeoutCount++;
+		XDptx_WaitUs(InstancePtr, 1000);
 	}
+	while ((AuxData & 0x10) != 0x10);
+
+	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will take a byte array and convert it into a sideband message
+ * format by filling in the XDptx_SidebandMsg structure with the array data.
+ *
+ * @param	Transaction is the pointer to the data used to fill in the
+ *		sideband message structure.
+ * @param	Msg is a pointer to the sideband message structure that will be
+ *		filled in with the transaction data.
+ *
+ * @return
+ *		- XST_SUCCESS if the transaction data was successfully converted
+ *		  into the sideband message structure format.
+ *		- XST_FAILURE otherwise, if the calculated header or body CRC
+ *		  does not match that contained in the transaction data.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u32 XDptx_Transaction2MsgFormat(u8 *Transaction, XDptx_SidebandMsg *Msg)
 {
 	XDptx_SidebandMsgHeader *Header = &Msg->Header;
@@ -1132,7 +1970,7 @@ static u32 XDptx_Transaction2MsgFormat(u8 *Transaction, XDptx_SidebandMsg *Msg)
 	if (CrcCheck != Header->Crc) {
 		/* The calculated CRC for the header did not match the
 		 * response. */
-		return XST_CRC_ERROR;
+		return XST_FAILURE;
 	}
 
 	/* Fill the body structure from the reply transaction. */
@@ -1147,12 +1985,97 @@ static u32 XDptx_Transaction2MsgFormat(u8 *Transaction, XDptx_SidebandMsg *Msg)
 	if (CrcCheck != Body->Crc) {
 		/* The calculated CRC for the body did not match the
 		 * response. */
-		return XST_CRC_ERROR;
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will perform a cyclic redundancy check (CRC) on the header of a
+ * sideband message using a generator polynomial of 4.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Header is a pointer sideband message header that the CRC
+ *		algorithm is to be run on.
+ *
+ * @return	The CRC value obtained by running the algorithm on the sideband
+ *		message header.
+ *
+ * @note	The header is divided into 4-bit nibbles for use by the lower-
+ *		level XDptx_CrcCalculate function.
+ *
+*******************************************************************************/
+static u8 XDptx_Crc4CalculateHeader(XDptx_SidebandMsgHeader *Header)
+{
+	u8 Nibbles[20];
+	u8 RadOffset = 0;
+
+	/* Arrange header into nibbles for the CRC. */
+	Nibbles[0] = Header->LinkCountTotal;
+	Nibbles[1] = Header->LinkCountRemaining;
+
+	for (RadOffset = 0; RadOffset < (Header->LinkCountTotal - 1);
+							RadOffset += 2) {
+		Nibbles[2 + RadOffset] = Header->RelativeAddress[RadOffset];
+
+		/* Byte (8-bits) align the nibbles (4-bits). */
+		if ((RadOffset + 1) < (Header->LinkCountTotal - 1)) {
+			Nibbles[2 + RadOffset + 1] =
+					Header->RelativeAddress[RadOffset + 1];
+		}
+		else {
+			Nibbles[2 + RadOffset + 1] = 0;
+		}
+	}
+
+	Nibbles[2 + RadOffset] = (Header->BroadcastMsg << 3) |
+		(Header->PathMsg << 2) | ((Header->MsgBodyLength & 0x30) >> 4);
+	Nibbles[3 + RadOffset] = Header->MsgBodyLength & 0x0F;
+	Nibbles[4 + RadOffset] = (Header->StartOfMsgTransaction << 3) |
+		(Header->EndOfMsgTransaction << 2) | Header->MsgSequenceNum;
+
+	return XDptx_CrcCalculate(Nibbles, 4 * (5 + RadOffset), 4);
+}
+
+/******************************************************************************/
+/**
+ * This function will perform a cyclic redundancy check (CRC) on the body of a
+ * sideband message using a generator polynomial of 8.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Body is a pointer sideband message body that the CRC algorithm
+ *		is to be run on.
+ *
+ * @return	The CRC value obtained by running the algorithm on the sideband
+ *		message body.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u8 XDptx_Crc8CalculateBody(XDptx_SidebandMsgBody *Body)
+{
+	return XDptx_CrcCalculate(Body->MsgData, 8 * Body->MsgDataLength, 8);
+}
+
+/******************************************************************************/
+/**
+ * This function will run a cyclic redundancy check (CRC) algorithm on some data
+ * given a generator polynomial.
+ *
+ * @param	Data is a pointer to the data that the algorithm is to run on.
+ * @param	NumberOfBits is the total number of data bits that the algorithm
+ *		is to run on.
+ * @param	Polynomial is the generator polynomial for the CRC algorithm and
+ *		will be used as the divisor in the polynomial long division.
+ *
+ * @return	The CRC value obtained by running the algorithm on the data
+ *		using the specified polynomial.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u8 XDptx_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial)
 {
 	u8 BitMask;
@@ -1220,106 +2143,4 @@ static u8 XDptx_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial)
 	}
 
 	return Remainder & 0xFF;
-}
-
-static u8 XDptx_Crc4CalculateHeader(XDptx_SidebandMsgHeader *Header)
-{
-	u8 Nibbles[20];
-	u8 RadOffset = 0;
-
-	/* Arrange header into nibbles for the CRC. */
-	Nibbles[0] = Header->LinkCountTotal;
-	Nibbles[1] = Header->LinkCountRemaining;
-
-	for (RadOffset = 0; RadOffset < (Header->LinkCountTotal - 1);
-							RadOffset += 2) {
-		Nibbles[2 + RadOffset] = Header->RelativeAddress[RadOffset];
-
-		/* Byte (8-bits) align the nibbles (4-bits). */
-		if ((RadOffset + 1) < (Header->LinkCountTotal - 1)) {
-			Nibbles[2 + RadOffset + 1] =
-					Header->RelativeAddress[RadOffset + 1];
-		}
-		else {
-			Nibbles[2 + RadOffset + 1] = 0;
-		}
-	}
-
-	Nibbles[2 + RadOffset] = (Header->BroadcastMsg << 3) |
-		(Header->PathMsg << 2) | ((Header->MsgBodyLength & 0x30) >> 4);
-	Nibbles[3 + RadOffset] = Header->MsgBodyLength & 0x0F;
-	Nibbles[4 + RadOffset] = (Header->StartOfMsgTransaction << 3) |
-		(Header->EndOfMsgTransaction << 2) | Header->MsgSequenceNum;
-
-	return XDptx_CrcCalculate(Nibbles, 4 * (5 + RadOffset), 4);
-}
-
-static u8 XDptx_Crc8CalculateBody(XDptx_SidebandMsgBody *Body)
-{
-	return XDptx_CrcCalculate(Body->MsgData, 8 * Body->MsgDataLength, 8);
-}
-
-static u32 XDptx_ReceiveSbMsg(XDptx *InstancePtr, XDptx_SidebandReply *SbReply)
-{
-	u32 Status;
-	u8 Index = 0;
-	u8 AuxData[80];
-	XDptx_SidebandMsg Msg;
-
-	SbReply->Length = 0;
-
-	do {
-		/* Wait for a reply. */
-		Status = XDptx_WaitSbReply(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			/* Either the AUX read transaction used to check the
-			 * reply status failed, or waiting for a reply timed
-			 * out. */
-			return Status;
-		}
-
-		/* Receive reply. */
-		Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_DOWN_REP, 80,
-								AuxData);
-		if (Status != XST_SUCCESS) {
-			/* The AUX read transaction failed. */
-			return Status;
-		}
-
-		/* Convert the reply transaction into XDptx_SidebandReply
-		 * format. */
-		Status = XDptx_Transaction2MsgFormat(AuxData, &Msg);
-		if (Status != XST_SUCCESS) {
-			/* The CRC of the header or the body did not match the
-			 * calculated value. */
-			return XST_CRC_ERROR;
-		}
-
-		/* Collect body data into an array. */
-		for (Index = 0; Index < Msg.Body.MsgDataLength; Index++) {
-			SbReply->Data[SbReply->Length++] =
-							Msg.Body.MsgData[Index];
-		}
-
-		/* Clear. */
-		AuxData[0] = 0x10;
-		Status = XDptx_AuxWrite(InstancePtr,
-				XDPTX_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
-				1, AuxData);
-		if (Status != XST_SUCCESS) {
-			/* The AUX write transaction failed. */
-			return Status;
-		}
-	}
-	while (Msg.Header.EndOfMsgTransaction == 0);
-
-	/* Check if the reply indicates a NACK. */
-	if ((SbReply->Data[0] & 0x80) == 0x80) {
-		/* Reply with the reason for NACK. See xdptx.h
-		 * XDPTX_SBREPLY_NACK_* for a list of possible values (range is
-		 * (XST_SBREPLY_NACK + 0x01) to (XST_SBREPLY_NACK + 0x0A)). */
-		return (XST_SBREPLY_NACK + SbReply->Data[17]);
-	}
-
-	return XST_SUCCESS;
 }

@@ -663,6 +663,24 @@ void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream)
 			StreamOffset[Stream - 1], MsaConfig->InitWait);
 }
 
+/******************************************************************************/
+/**
+ * When the driver is in multi-stream transport (MST) mode, this function will
+ * make the necessary calculations to describe a stream in MST mode. The key
+ * values are the payload bandwidth number (PBN), the number of timeslots
+ * required for allocating the bandwidth, and the average bytes per transfer
+ * unit (both the integer and the fractional part).
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream number to make the calculations for.
+ * @param	BitsPerPixel is the number of bits that is used to store one
+ *		pixel.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 {
 	XDptx_MainStreamAttributes *MsaConfig =

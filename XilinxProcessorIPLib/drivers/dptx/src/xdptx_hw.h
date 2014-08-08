@@ -1156,6 +1156,32 @@
 #define XDPTX_EDID_DTD_SIGNAL_VPOLARITY_SHIFT		2
 /* @} */
 
+/******************************************************************************/
+/**
+ * Multi-stream transport (MST) definitions.
+ *
+*******************************************************************************/
+/** @name Stream identification.
+  * @{
+  */
+#define XDPTX_STREAM_ID1			1
+#define XDPTX_STREAM_ID2			2
+#define XDPTX_STREAM_ID3			3
+#define XDPTX_STREAM_ID4			4
+/* @} */
+
+/** @name Sideband message codes when the driver is in MST mode.
+  * @{
+  */
+#define XDPTX_SBMSG_LINK_ADDRESS		0x01
+#define XDPTX_SBMSG_ENUM_PATH_RESOURCES		0x10
+#define XDPTX_SBMSG_ALLOCATE_PAYLOAD		0x11
+#define XDPTX_SBMSG_CLEAR_PAYLOAD_ID_TABLE	0x14
+#define XDPTX_SBMSG_REMOTE_DPCD_READ		0x20
+#define XDPTX_SBMSG_REMOTE_DPCD_WRITE		0x21
+#define XDPTX_SBMSG_REMOTE_I2C_READ		0x22
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.

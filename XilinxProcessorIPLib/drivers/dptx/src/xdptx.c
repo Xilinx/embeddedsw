@@ -609,7 +609,7 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  *		to be written to the RX device.
  *
  * @return
- *		- XST_SUCCESS if AUX write request was successfully
+ *		- XST_SUCCESS if the AUX write request was successfully
  *		  acknowledged.
  *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
  *		- XST_ERROR_COUNT_MAX if the AUX request timed out.
