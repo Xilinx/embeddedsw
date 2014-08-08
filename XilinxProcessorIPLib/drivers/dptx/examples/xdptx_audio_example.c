@@ -52,11 +52,11 @@
  * @note	For this example to display output, after training is complete,
  *		the user will need to implement configuration of the video
  *		stream source in order to provide the DisplayPort core with
- *		input (Dptx_ConfigureStreamSrc - called in
- *		xdptx_example_common.c). See XAPP1178 for reference.
- * @note	The functions Dptx_PlatformInit and Dptx_ConfigureStreamSrc are
- *		declared extern in xdptx_example_common.h and are left up to the
- *		user to implement. The functions Dptx_ConfigureAudioSrc and
+ *		input (Dptx_StreamSrc* - called in xdptx_example_common.c). See
+ *		XAPP1178 for reference.
+ * @note	The functions Dptx_PlatformInit and Dptx_StreamSrc* are declared
+ *		extern in xdptx_example_common.h and are left up to the user to
+ *		implement. The functions Dptx_ConfigureAudioSrc and
  *		Dptx_AudioSendInfoFrame are present in this file and are also
  *		left for the user to implement. 
  *
@@ -130,6 +130,10 @@ int main(void)
 u32 Dptx_AudioExample(XDptx *InstancePtr, u16 DeviceId)
 {
 	u32 Status;
+
+	/* Use single-stream transport (SST) mode for this example. Audio is
+	 * not supported in multi-stream transport (MST) mode. */
+	XDptx_MstCfgModeDisable(InstancePtr);
 
 	/* Do platform initialization here. This is hardware system specific -
 	 * it is up to the user to implement this function. */

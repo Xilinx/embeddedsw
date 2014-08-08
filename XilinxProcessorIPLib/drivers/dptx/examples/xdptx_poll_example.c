@@ -42,11 +42,11 @@
  *		implement initialization of the system (Dptx_PlatformInit) and,
  *		after training is complete, implement configuration of the video
  *		stream source in order to provide the DisplayPort core with
- *		input (Dptx_ConfigureStreamSrc - called in
- *		xdptx_example_common.c). See XAPP1178 for reference.
- * @note	The functions Dptx_PlatformInit and Dptx_ConfigureStreamSrc are
- *		declared extern in xdptx_example_common.h and are left up to the
- *		user to implement.
+ *		input (Dptx_StreamSrc* - called in xdptx_example_common.c). See
+ *		XAPP1178 for reference.
+ * @note	The functions Dptx_PlatformInit and Dptx_StreamSrc* are declared
+ *		extern in xdptx_example_common.h and are left up to the user to
+ *		implement.
  *
  * <pre>
  * MODIFICATION HISTORY:

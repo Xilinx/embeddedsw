@@ -121,9 +121,12 @@
 /**************************** Function Prototypes *****************************/
 
 extern u32 Dptx_PlatformInit(void);
-extern u32 Dptx_ConfigureStreamSrc(XDptx *InstancePtr, u8 Stream);
+extern u32 Dptx_StreamSrcSync(XDptx *InstancePtr);
+extern u32 Dptx_StreamSrcSetup(XDptx *InstancePtr);
+extern u32 Dptx_StreamSrcConfigure(XDptx *InstancePtr);
 
 u32 Dptx_SetupExample(XDptx *InstancePtr, u16 DeviceId);
+u32 Dptx_StartLink(XDptx *InstancePtr);
 u32 Dptx_Run(XDptx *InstancePtr);
 
 /*************************** Variable Declarations ****************************/

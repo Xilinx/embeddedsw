@@ -63,7 +63,6 @@
 
 /**************************** Function Prototypes *****************************/
 
-static u32 Dptx_StartLink(XDptx *InstancePtr);
 static void Dptx_StartVideoStream(XDptx *InstancePtr);
 
 /**************************** Function Definitions ****************************/
@@ -155,7 +154,7 @@ u32 Dptx_SetupExample(XDptx *InstancePtr, u16 DeviceId)
  * @note	None.
  *
 *******************************************************************************/
-static u32 Dptx_StartLink(XDptx *InstancePtr)
+u32 Dptx_StartLink(XDptx *InstancePtr)
 {
 	u32 VsLevelTx;
 	u32 PeLevelTx;
@@ -256,7 +255,7 @@ static u32 Dptx_StartLink(XDptx *InstancePtr)
  *
  * @return	None.
  *
- * @note	Dptx_ConfigureStreamSrc is intentionally left for the user to
+ * @note	The Dptx_StreamSrc* are intentionally left for the user to
  *		implement since configuration of the stream source is
  *		application-specific.
  * @note	The Extended Display Identification Data (EDID) is read in order
@@ -270,15 +269,16 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	u8 AuxData[1];
 
 	/* Set the bits per color. If not set, the default is 6. */
-	XDptx_CfgMsaSetBpc(InstancePtr, 1, 8);
+	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID1, 8);
 
 /* Choose a method for selecting the video mode. There are 3 ways to do this:
  * 1) Use the preferred timing from the monitor's EDID:
  *	XDptx_GetEdid(InstancePtr);
- *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, 1);
+ *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, XDPTX_STREAM_ID1);
  *
  * 2) Use a standard video timing mode (see mode_table.h):
- *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, 1, XDPTX_VM_640x480_60_P);
+ *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID1,
+							XDPTX_VM_640x480_60_P);
  *
  * 3) Use a custom configuration for the main stream attributes (MSA):
  *	XDptx_MainStreamAttributes MsaConfigCustom;
@@ -293,14 +293,16 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
  *	MsaConfigCustom.Dmt.VFrontPorch = 1;
  *	MsaConfigCustom.Dmt.VSyncPulseWidth = 3;
  *	MsaConfigCustom.Dmt.VBackPorch = 38;
- *	XDptx_CfgMsaUseCustom(InstancePtr, 1, &MsaConfigCustom, 1);
+ *	XDptx_CfgMsaUseCustom(InstancePtr, XDPTX_STREAM_ID1,
+ *							&MsaConfigCustom, 1);
  */
 	Status = XDptx_GetEdid(InstancePtr);
 	if (Status == XST_SUCCESS) {
-		XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, 1);
+		XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr,
+							XDPTX_STREAM_ID1);
 	}
 	else {
-		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, 1,
+		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID1,
 							XDPTX_VM_640x480_60_P);
 	}
 
@@ -317,10 +319,16 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 					XDPTX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SOFT_RESET, 0x0);
 
-	/* Configure video stream source or generator here. This function needs
+	/* Set the DisplayPort TX video mode. */
+	XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID1);
+
+	/* Configure video stream source or generator here. These function need
 	 * to be implemented in order for video to be displayed and is hardware
-	 * system specific. It is up to the user to implement this function. */
-	Dptx_ConfigureStreamSrc(InstancePtr, 1);
+	 * system specific. It is up to the user to implement these
+	 * functions. */
+	Dptx_StreamSrcSetup(InstancePtr);
+	Dptx_StreamSrcConfigure(InstancePtr);
+	Dptx_StreamSrcSync(InstancePtr);
 	/*********************************/
 
 	XDptx_EnableMainLink(InstancePtr);

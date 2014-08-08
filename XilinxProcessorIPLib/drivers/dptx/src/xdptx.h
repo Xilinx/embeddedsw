@@ -137,6 +137,19 @@
  * function and, for the HPD pulse handler, the XDptx_SetHpdPulseHandler
  * function.
  *
+ * <b>Multi-stream transport (MST) mode</b>
+ *
+ * The driver handles MST mode functionality, including sideband messaging,
+ * topology discovery, virtual channel payload ID table management, and
+ * directing streams to different sinks.
+ *
+ * MST testing has been done at 5.40Gbps per 4 lanes, with 4 sinks in a daisy-
+ * chain configuration, with each stream having the same resolution. Extensive
+ * testing has been done at resolutions of 1080p for each of 1 to 4 streams and
+ * UHD/2 for each of 1 or 2 streams. Other resolutions have been tested as well,
+ * however with the current version of the driver, some monitors required a
+ * power cycle for all streams to come up.
+ *
  * <b>Audio</b>
  *
  * The driver does not handle audio. For an example as to how to configure and
@@ -153,8 +166,24 @@
  * it is recommended that application developers leave asserts on during
  * development.
  *
- * <b>Limitations</b>
+ * <b>Limitations and known issues</b>
  *
+ * - For MST mode to correctly display, the current version of the driver
+ *   requires that each of the DisplayPort TX streams be allocated without
+ *   skipping streams (i.e. assign stream 1, stream 2, and stream 3 - problems
+ *   were experienced if skipping stream 2 and assigning stream 4 instead).
+ *   skipping monitors in a daisy chain is OK as long as they are assigned to
+ *   streams in order.
+ * - In MST mode, the current version of the driver does not support removal of
+ *   an allocated stream from the virtual channel payload ID table without
+ *   clearing the entire table.
+ * - Some sideband messages have not been implemented in the current version of
+ *   the driver for MST mode. Notable, reception of a CONNECTION_STATUS_NOTIFY
+ *   sideband message.
+ * - Some monitors required a power cycle for all streams to come up at certain
+ *   resolutions (outside of the 1080p and UHD/2 resolutions) during testing.
+ *   Different resolutions for different streams were not tested. This will be
+ *   investigated for the next SDK release.
  * - The driver does not handle audio. See the audio example in the driver
  *   examples directory for the required sequence for enabling audio.
  *
@@ -167,6 +196,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.00a als  05/17/14 Initial release.
+ *       als  08/03/14 Initial MST addition.
  * </pre>
  *
 *******************************************************************************/

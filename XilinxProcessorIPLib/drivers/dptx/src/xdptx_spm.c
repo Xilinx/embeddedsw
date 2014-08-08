@@ -93,6 +93,8 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel);
  *	- Vertical back porch
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream number for which to calculate the MSA
+ *		values.
  *
  * @return	None.
  *
@@ -253,6 +255,8 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
  * XDptx_VideoMode enumeration in xdptx.h lists the available video modes.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream number for which the MSA values will be
+ *		used for.
  * @param	VideoMode is one of the enumerated standard video modes that is
  *		used to determine the MSA values to be used.
  *
@@ -300,6 +304,8 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
  * Identification Data (EDID).
  *
  * @param	InstancePtr is a pointer to the XDptx instance
+ * @param	Stream is the stream number for which the MSA values will be
+ *		used for.
  *
  * @return	None.
  *
@@ -385,7 +391,7 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
  * This function takes a the main stream attributes from MsaConfigCustom and
  * copies them into InstancePtr->MsaConfig. If desired, given a base set of
  * attributes, the rest of the attributes may be derived. The minimal required
- * main stream attributes that must be contained in the MsaConfigCustom
+ * main stream attributes (MSA) that must be contained in the MsaConfigCustom
  * structure are:
  *	- Pixel clock (in KHz)
  *	- Horizontal sync polarity
@@ -400,6 +406,8 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
  *	- Horizontal front porch
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream number for which the MSA values will be
+ *		used for.
  * @param	MsaConfigCustom is the structure that will be used to copy the
  *		main stream attributes from (into InstancePtr->MsaConfig).
  * @param	Recalculate is a boolean enable that determines whether or not
@@ -461,6 +469,7 @@ void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
  * This function sets the bits per color value of the video stream.
  *
  * @param	InstancePtr is a pointer to the XDptx instance
+ * @param	Stream is the stream number for which to set the color depth.
  * @param	BitsPerColor is the new number of bits per color to use.
  *
  * @return	None.
@@ -484,6 +493,21 @@ void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)
 	XDptx_CfgMsaRecalculate(InstancePtr, Stream);
 }
 
+/******************************************************************************/
+/**
+ * This function enables or disables synchronous clock mode for a video stream.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance
+ * @param	Stream is the stream number for which to enable or disable
+ *		synchronous clock mode.
+ * @param	Enable if set to 1, will enable synchronous clock mode.
+ *		Otherwise, if set to 0, synchronous clock mode will be disabled.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDptx_CfgMsaEnSynchClkMode(XDptx *InstancePtr, u8 Stream, u8 Enable)
 {
 	XDptx_MainStreamAttributes *MsaConfig =
@@ -512,6 +536,7 @@ void XDptx_CfgMsaEnSynchClkMode(XDptx *InstancePtr, u8 Stream, u8 Enable)
  * configuration structure.
  *
  * @param	InstancePtr is a pointer to the XDptx instance
+ * @param	Stream is the stream number for which to set the MSA values for.
  *
  * @return	None.
  *
@@ -535,6 +560,7 @@ void XDptx_SetVideoMode(XDptx *InstancePtr, u8 Stream)
  * TX core.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream number for which to clear the MSA values.
  *
  * @return	None.
  *
@@ -596,6 +622,7 @@ void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream)
  * structure.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Stream is the stream number for which to set the MSA values for.
  *
  * @return	None.
  *

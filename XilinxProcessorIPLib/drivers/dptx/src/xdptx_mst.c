@@ -878,9 +878,9 @@ u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
  *		source to the target DisplayPort device.
  * @param	DpcdAddress is the DPCD address of the target device that data
  *		will be written to.
- * @param	BytesToRead is the number of bytes to write to the specified
+ * @param	BytesToWrite is the number of bytes to write to the specified
  *		DPCD address.
- * @param	ReadData is a pointer to a buffer that stores the data to write
+ * @param	WriteData is a pointer to a buffer that stores the data to write
  *		to the DPCD location.
  *
  * @return
