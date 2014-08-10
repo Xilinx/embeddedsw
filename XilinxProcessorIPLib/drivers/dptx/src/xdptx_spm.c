@@ -727,7 +727,12 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 
 	/* Calculate the payload bandiwdth number (PBN).  */
 	InstancePtr->MstStreamConfig[Stream - 1].MstPbn =
-				ceil(1.006 * PeakPixelBw * ((double)64 / 54));
+					1.006 * PeakPixelBw * ((double)64 / 54);
+	/* Ceil - round up if required, avoiding overhead of math.h. */
+	if ((double)(1.006 * PeakPixelBw * ((double)64 / 54)) >
+		((double)InstancePtr->MstStreamConfig[Stream - 1].MstPbn)) {
+		InstancePtr->MstStreamConfig[Stream - 1].MstPbn++;
+	}
 
 	/* Calculate the average stream symbol time slots per MTP. */
 	Average_StreamSymbolTimeSlotsPerMTP = (64.0 * PeakPixelBw / LinkBw);
