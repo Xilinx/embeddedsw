@@ -760,6 +760,7 @@ XDptx_Config *XDptx_LookupConfig(u16 DeviceId);
  * MST mode. */
 void XDptx_MstCfgModeEnable(XDptx *InstancePtr);
 void XDptx_MstCfgModeDisable(XDptx *InstancePtr);
+u32 XDptx_MstCapable(XDptx *InstancePtr);
 u32 XDptx_MstEnable(XDptx *InstancePtr);
 u32 XDptx_MstDisable(XDptx *InstancePtr);
 

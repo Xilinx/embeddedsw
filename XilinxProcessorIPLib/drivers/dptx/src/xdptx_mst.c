@@ -228,6 +228,60 @@ void XDptx_MstCfgModeDisable(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function will check if the immediate downstream RX device is capable of
+ * multi-stream transport (MST) mode. A DisplayPort Configuration Data (DPCD)
+ * version of 1.2 or higher is required and the MST capability bit in the DPCD
+ * must be set for this function to return XST_SUCCESS.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device is MST capable.
+ *		- XST_NO_FEATURE if the RX device does not support MST.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if an AUX read request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read transaction failed.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDptx_MstCapable(XDptx *InstancePtr)
+{
+	u32 Status;
+	u8 AuxData;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Check that the RX device has a DisplayPort Configuration Data (DPCD)
+	 * version greater than or equal to 1.2 to be able to support MST
+	 * functionality. */
+	Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_REV, 1, &AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	}
+	else if (AuxData < 0x12) {
+		return XST_NO_FEATURE;
+	}
+
+	/* Check if the RX device has MST capabilities.. */
+	Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_MSTM_CAP, 1, &AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX read transaction failed. */
+		return Status;
+	}
+	else if ((AuxData & XDPTX_DPCD_MST_CAP_MASK) !=
+						XDPTX_DPCD_MST_CAP_MASK) {
+		return XST_NO_FEATURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
  * This function will enable multi-stream transport (MST) mode in both the
  * DisplayPort TX and the immediate downstream RX device.
  *
@@ -236,6 +290,10 @@ void XDptx_MstCfgModeDisable(XDptx *InstancePtr)
  * @return
  *		- XST_SUCCESS if MST mode has been successful enabled in
  *		  hardware.
+ *		- XST_NO_FEATURE if the immediate downstream RX device does not
+ *		  support MST - that is, if its DisplayPort Configuration Data
+ *		  (DPCD) version is less than 1.2, or if the DPCD indicates that
+ *		  it has no DPCD capabilities.
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *		- XST_ERROR_COUNT_MAX if an AUX request timed out.
  *		- XST_FAILURE otherwise - if an AUX read or write transaction
@@ -252,6 +310,13 @@ u32 XDptx_MstEnable(XDptx *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Check if the immediate downstream RX device has MST capabilities. */
+	Status = XDptx_MstCapable(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		/* The RX device is not downstream capable. */
+		return Status;
+	}
 
 	/* HPD long pulse used for upstream notification. */
 	AuxData = 0;
@@ -276,6 +341,7 @@ u32 XDptx_MstEnable(XDptx *InstancePtr)
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG,
 					XDPTX_TX_MST_CONFIG_MST_EN_MASK);
 
+	XDptx_MstCfgModeEnable(InstancePtr);
 	return XST_SUCCESS;
 }
 
@@ -316,6 +382,7 @@ u32 XDptx_MstDisable(XDptx *InstancePtr)
 	/* Disable MST mode in the DisplayPort TX. */
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG, 0x0);
 
+	XDptx_MstCfgModeDisable(InstancePtr);
 	return XST_SUCCESS;
 }
 
