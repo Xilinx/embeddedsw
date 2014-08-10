@@ -200,6 +200,9 @@ u32 GuidTable[16][4] = {
 *******************************************************************************/
 void XDptx_MstCfgModeEnable(XDptx *InstancePtr)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	InstancePtr->MstEnable = 1;
 }
 
@@ -217,6 +220,9 @@ void XDptx_MstCfgModeEnable(XDptx *InstancePtr)
 *******************************************************************************/
 void XDptx_MstCfgModeDisable(XDptx *InstancePtr)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	InstancePtr->MstEnable = 0;
 }
 
@@ -242,6 +248,10 @@ u32 XDptx_MstEnable(XDptx *InstancePtr)
 {
 	u32 Status;
 	u8 AuxData;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* HPD long pulse used for upstream notification. */
 	AuxData = 0;
@@ -291,6 +301,10 @@ u32 XDptx_MstDisable(XDptx *InstancePtr)
 	u32 Status;
 	u8 AuxData;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	/* Disable MST mode in the immediate branch device. */
 	AuxData = 0;
 	Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_MSTM_CTRL, 1, &AuxData);
@@ -321,6 +335,12 @@ u32 XDptx_MstDisable(XDptx *InstancePtr)
 *******************************************************************************/
 u8 XDptx_MstStreamIsEnabled(XDptx *InstancePtr, u8 Stream)
 {
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
 	return InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable;
 }
 
@@ -339,6 +359,12 @@ u8 XDptx_MstStreamIsEnabled(XDptx *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDptx_MstCfgStreamEnable(XDptx *InstancePtr, u8 Stream)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
 	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 1;
 }
 
@@ -357,6 +383,12 @@ void XDptx_MstCfgStreamEnable(XDptx *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDptx_MstCfgStreamDisable(XDptx *InstancePtr, u8 Stream)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
 	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 0;
 }
 
@@ -383,8 +415,17 @@ void XDptx_SetStreamSelectFromSinkList(XDptx *InstancePtr, u8 Stream, u8
 									SinkNum)
 {
 	u8 Index;
-	XDptx_MstStream *MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
-	XDptx_Topology *Topology = &InstancePtr->Topology;
+	XDptx_MstStream *MstStream;
+	XDptx_Topology *Topology;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
+	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+	Topology = &InstancePtr->Topology;
 
 	MstStream->LinkCountTotal = Topology->SinkList[SinkNum]->LinkCountTotal;
 	for (Index = 0; Index < MstStream->LinkCountTotal - 1; Index++) {
@@ -416,7 +457,17 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
 							u8 *RelativeAddress)
 {
 	u8 Index;
-	XDptx_MstStream *MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+	XDptx_MstStream *MstStream;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+	Xil_AssertVoid(LinkCountTotal > 0);
+	Xil_AssertVoid(RelativeAddress != NULL);
+
+	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
 
 	MstStream->LinkCountTotal = LinkCountTotal;
 	for (Index = 0; Index < MstStream->LinkCountTotal - 1; Index++) {
@@ -457,8 +508,18 @@ void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 RadIndex;
 	XDptx_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
 	XDptx_SbMsgLinkAddressReplyPortDetail *PortDetails;
-	XDptx_Topology *Topology = &InstancePtr->Topology;
+	XDptx_Topology *Topology;
 
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(LinkCountTotal > 0);
+	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+
+	Topology = &InstancePtr->Topology;
+
+	/* Send a LINK_ADDRESS sideband message to the branch device in order to
+	 * obtain information on it and its downstream devices. */
 	Status = XDptx_SendSbMsgLinkAddress(InstancePtr, LinkCountTotal,
 						RelativeAddress, &DeviceInfo);
 	if (Status != XST_SUCCESS) {
@@ -545,6 +606,14 @@ void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 	u8 AuxData[16];
 	u8 Index;
 
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(LinkCountTotal > 0);
+	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertVoid((Guid[0] != 0) || (Guid[1] != 0) || (Guid[2] != 0) ||
+								(Guid[3] != 0));
+
 	memset(AuxData, 0, 16);
 	for (Index = 0; Index < 16; Index++) {
 		AuxData[Index] = (Guid[Index / 4] >> ((3 - (Index % 4)) * 8)) &
@@ -583,6 +652,13 @@ void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 {
 	u8 Index;
 	u8 Data[30];
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(LinkCountTotal > 0);
+	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertVoid(Guid != NULL);
 
 	if (LinkCountTotal == 1) {
 		XDptx_AuxRead(InstancePtr, XDPTX_DPCD_GUID, 16, Data);
@@ -634,6 +710,10 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 	u8 StreamIndex;
 	XDptx_MstStream *MstStream;
 	XDptx_MainStreamAttributes *MsaConfig;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Clear the payload ID table first. */
 	Status = XDptx_ClearPayloadVcIdTable(InstancePtr);
@@ -725,6 +805,15 @@ u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 Index;
 	u8 StartTs;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(VcId > 0);
+	Xil_AssertNonvoid(Pbn > 0);
+	Xil_AssertNonvoid(Ts > 0);
+
 	/* Find next available timeslot. */
 	Status = XDptx_GetFirstAvailableTs(InstancePtr, &StartTs);
 	if (Status != XST_SUCCESS) {
@@ -814,6 +903,10 @@ u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
 	u8 AuxData[3];
 	u8 Index;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	/* Clear the payload table in the transmitter. */
 	for (Index = 0; Index < 63; Index++) {
 		XDptx_WriteReg(InstancePtr->Config.BaseAddr,
@@ -898,12 +991,21 @@ u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
  *
 *******************************************************************************/
 u32 XDptx_SendSbMsgRemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
-	u8 *RelativeAddress, u32 DpcdAddress, u8 BytesToWrite, u8 *WriteData)
+	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)
 {
 	u32 Status;
 	XDptx_SidebandMsg Msg;
 	XDptx_SidebandReply SbMsgReply;
 	u8 Index;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
+	Xil_AssertNonvoid(BytesToWrite <= 0xFFFFF);
+	Xil_AssertNonvoid(WriteData != NULL);
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
@@ -977,12 +1079,21 @@ u32 XDptx_SendSbMsgRemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
  *
 *******************************************************************************/
 u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
-	u8 *RelativeAddress, u32 DpcdAddress, u8 BytesToRead, u8 *ReadData)
+	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)
 {
 	u32 Status;
 	XDptx_SidebandMsg Msg;
 	XDptx_SidebandReply SbMsgReply;
 	u8 Index;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
+	Xil_AssertNonvoid(BytesToRead <= 0xFFFFF);
+	Xil_AssertNonvoid(ReadData != NULL);
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
@@ -1061,12 +1172,21 @@ u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
  *
 *******************************************************************************/
 u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
-	u8 *RelativeAddress, u32 IicDeviceId, u8 BytesToRead, u8 *ReadData)
+	u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToRead, u8 *ReadData)
 {
 	u32 Status;
 	XDptx_SidebandMsg Msg;
 	XDptx_SidebandReply SbMsgReply;
 	u8 Index;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(IicDeviceId <= 0xFF);
+	Xil_AssertNonvoid(BytesToRead <= 0xFF);
+	Xil_AssertNonvoid(ReadData != NULL);
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
@@ -1158,6 +1278,13 @@ u32 XDptx_SendSbMsgLinkAddress(XDptx *InstancePtr, u8 LinkCountTotal,
 	XDptx_SidebandReply SbMsgReply;
 	u8 Index;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(DeviceInfo != NULL);
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal;
 	for (Index = 0; Index < (LinkCountTotal - 1); Index++) {
@@ -1239,6 +1366,14 @@ u32 XDptx_SendSbMsgEnumPathResources(XDptx *InstancePtr, u8 LinkCountTotal,
 	XDptx_SidebandMsg Msg;
 	XDptx_SidebandReply SbMsgReply;
 	u8 Index;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(AvailPbn != NULL);
+	Xil_AssertNonvoid(FullPbn != NULL);
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
@@ -1322,6 +1457,14 @@ u32 XDptx_SendSbMsgAllocatePayload(XDptx *InstancePtr, u8 LinkCountTotal,
 	XDptx_SidebandReply SbMsgReply;
 	u8 Index;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(VcId > 0);
+	Xil_AssertNonvoid(Pbn > 0);
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
 	for (Index = 0; Index < (LinkCountTotal - 1); Index++) {
@@ -1385,6 +1528,10 @@ u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr)
 	u32 Status;
 	XDptx_SidebandMsg Msg;
 	XDptx_SidebandReply SbMsgReply;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = 1;
@@ -1471,9 +1618,10 @@ static void XDptx_AddBranchToList(XDptx *InstancePtr,
 			u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u8 Index;
+	XDptx_TopologyNode *TopologyNode;
+
 	/* Add this node to the topology's node list. */
-	XDptx_TopologyNode *TopologyNode =
-			&InstancePtr->Topology.NodeTable[
+	TopologyNode = &InstancePtr->Topology.NodeTable[
 					InstancePtr->Topology.NodeTotal];
 
 	for (Index = 0; Index < 4; Index++) {
@@ -1516,9 +1664,10 @@ static void XDptx_AddSinkToList(XDptx *InstancePtr,
 {
 	u8 Index;
 	XDptx_Topology *Topology = &InstancePtr->Topology;
+	XDptx_TopologyNode *TopologyNode;
+
 	/* Add this node to the topology's node list. */
-	XDptx_TopologyNode *TopologyNode =
-				&Topology->NodeTable[Topology->NodeTotal];
+	TopologyNode = &Topology->NodeTable[Topology->NodeTotal];
 
 	/* Copy the GUID of the sink for the new entry in the topology node
 	 * table. */

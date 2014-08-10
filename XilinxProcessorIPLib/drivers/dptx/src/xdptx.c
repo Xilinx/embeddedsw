@@ -673,9 +673,9 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(IicAddress <= 0xFFFFF);
-	Xil_AssertNonvoid(RegStartAddress <= 256);
-	Xil_AssertNonvoid(NumBytes <= 256);
+	Xil_AssertNonvoid(IicAddress <= 0xFF);
+	Xil_AssertNonvoid(RegStartAddress <= 0xFF);
+	Xil_AssertNonvoid(NumBytes <= 0xFF);
 	Xil_AssertNonvoid(Data != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
@@ -733,9 +733,9 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(IicAddress <= 0xFFFFF);
-	Xil_AssertNonvoid(RegStartAddress <= 256);
-	Xil_AssertNonvoid(NumBytes <= 256);
+	Xil_AssertNonvoid(IicAddress <= 0xFF);
+	Xil_AssertNonvoid(RegStartAddress <= 0xFF);
+	Xil_AssertNonvoid(NumBytes <= 0xFF);
 	Xil_AssertNonvoid(Data != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
