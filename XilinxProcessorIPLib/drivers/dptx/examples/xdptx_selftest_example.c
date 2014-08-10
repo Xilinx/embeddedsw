@@ -60,6 +60,21 @@ u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId);
 
 /**************************** Function Definitions ****************************/
 
+/******************************************************************************/
+/**
+ * This function is the main function of the XDptx selftest example.
+ *
+ * @param	None.
+ *
+ * @return
+ *		- XST_SUCCESS if the self test example passed.
+ *		- XST_FAILURE if the self test example was unsuccessful - the
+ *		  DisplayPort TX's registers do not match their default values
+ *		  or no DisplayPort TX instance was found.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 int main(void)
 {
 	u32 Status;
@@ -73,6 +88,26 @@ int main(void)
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * The main entry point for the selftest example using the XDptx driver. This
+ * function will check whether or not the DisplayPort TX's registers are at
+ * their default reset values to ensure that the core is in a known and working
+ * state.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	DeviceId is the unique device ID of the DisplayPort TX core
+ *		instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the DisplayPort TX's registers are at their
+ *		  default reset values.
+ *		- XST_FAILURE if the DisplayPort TX's registers do not match
+ *		  their default values or no DisplayPort TX instance was found.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId)
 {
 	u32 Status;
