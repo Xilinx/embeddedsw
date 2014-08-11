@@ -107,9 +107,8 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 {
 	u32 VideoBw;
 	u8 BitsPerPixel;
-	XDptx_MainStreamAttributes *MsaConfig =
-					&InstancePtr->MsaConfig[Stream - 1];
-	XDptx_LinkConfig *LinkConfig = &InstancePtr->LinkConfig;
+	XDptx_MainStreamAttributes *MsaConfig;
+	XDptx_LinkConfig *LinkConfig;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -130,6 +129,12 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 					(MsaConfig->BitsPerColor == 10) ||
 					(MsaConfig->BitsPerColor == 12) ||
 					(MsaConfig->BitsPerColor == 16));
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+	LinkConfig = &InstancePtr->LinkConfig;
 
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
@@ -269,13 +274,17 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 						XDptx_VideoMode VideoMode)
 {
-	XDptx_MainStreamAttributes *MsaConfig =
-					&InstancePtr->MsaConfig[Stream - 1];
+	XDptx_MainStreamAttributes *MsaConfig;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsaConfig != NULL);
 	Xil_AssertVoid(VideoMode <= XDPTX_VM_LAST);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Configure the MSA values from the display monitor DMT table. */
 	MsaConfig->Dmt.HResolution = XDptx_DmtModes[VideoMode].HResolution;
@@ -316,14 +325,19 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 *******************************************************************************/
 void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
 {
-	XDptx_MainStreamAttributes *MsaConfig =
-					&InstancePtr->MsaConfig[Stream - 1];
-	u8 *Ptm = &InstancePtr->RxConfig.Edid[XDPTX_EDID_PTM];
+	XDptx_MainStreamAttributes *MsaConfig;
+	u8 *Ptm;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsaConfig != NULL);
 	Xil_AssertVoid(Ptm != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+	Ptm = InstancePtr->RxConfig.Edid[XDPTX_EDID_PTM];
 
 	/* Configure the MSA values with the PTM information as
 	 * specified by the preferred Detailed Timing Descriptor (DTD) of the
@@ -422,13 +436,17 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
 void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 		XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate)
 {
-	XDptx_MainStreamAttributes *MsaConfig =
-					&InstancePtr->MsaConfig[Stream - 1];
+	XDptx_MainStreamAttributes *MsaConfig;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
 	Xil_AssertVoid(MsaConfig != NULL);
 	Xil_AssertVoid(MsaConfigCustom != NULL);
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Copy the MSA values from the user configuration structure. */
 	MsaConfig->Dmt.HResolution = MsaConfigCustom->Dmt.HResolution;
@@ -483,6 +501,9 @@ void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
 	Xil_AssertVoid((BitsPerColor == 6) || (BitsPerColor == 8) ||
 				(BitsPerColor == 10) || (BitsPerColor == 12) ||
 				(BitsPerColor == 16));
@@ -510,12 +531,16 @@ void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)
 *******************************************************************************/
 void XDptx_CfgMsaEnSynchClkMode(XDptx *InstancePtr, u8 Stream, u8 Enable)
 {
-	XDptx_MainStreamAttributes *MsaConfig =
-					&InstancePtr->MsaConfig[Stream - 1];
+	XDptx_MainStreamAttributes *MsaConfig;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
 	Xil_AssertVoid((Enable == 0) || (Enable == 1));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
         MsaConfig->SynchronousClockMode = Enable;
 
@@ -548,7 +573,9 @@ void XDptx_SetVideoMode(XDptx *InstancePtr, u8 Stream)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(&InstancePtr->MsaConfig[Stream - 1] != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
 
 	XDptx_ClearMsaValues(InstancePtr, Stream);
 	XDptx_SetMsaValues(InstancePtr, Stream);
@@ -569,9 +596,18 @@ void XDptx_SetVideoMode(XDptx *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream)
 {
-	XDptx_Config *Config = &InstancePtr->Config;
+	XDptx_Config *Config;
 	u32 StreamOffset[4] = {0, XDPTX_STREAM2_MSA_START_OFFSET,
 		XDPTX_STREAM3_MSA_START_OFFSET, XDPTX_STREAM4_MSA_START_OFFSET};
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
+	Config = &InstancePtr->Config;
 
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HTOTAL +
 						StreamOffset[Stream - 1], 0);
@@ -631,11 +667,20 @@ void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream)
 {
-	XDptx_Config *Config = &InstancePtr->Config;
-	XDptx_MainStreamAttributes *MsaConfig =
-					&InstancePtr->MsaConfig[Stream - 1];
+	XDptx_Config *Config;
+	XDptx_MainStreamAttributes *MsaConfig;
 	u32 StreamOffset[4] = {0, XDPTX_STREAM2_MSA_START_OFFSET,
 		XDPTX_STREAM3_MSA_START_OFFSET, XDPTX_STREAM4_MSA_START_OFFSET};
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
+	Config = &InstancePtr->Config;
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Set the main stream attributes to the associated DisplayPort TX core
 	 * registers. */
