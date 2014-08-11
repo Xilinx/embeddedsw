@@ -37,6 +37,9 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00a sdm  11/22/11 Created
 # 2.0   adk  10/12/13 Updated as per the New Tcl API's
+# 2.1   adk  11/08/14 Fixed the CR#811288 when PCS/PMA core is present in the hw
+#		      XPAR_GIGE_PCS_PMA_CORE_PRESENT and phy address values 
+#		      should export to the xparameters.h file.
 #
 ##############################################################################
 
@@ -108,42 +111,27 @@ proc is_gmii2rgmii_conv_present {slave} {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {
 				if { [string compare -nocase $enetipinstance_name "ps7_ethernet_0"] == 0} {
-					set phy_addr [scan_int_parameter_value $ipconv "C_PHYADDR"]
+					set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
+					set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr] 
+					if {[llength $phy_addr] == 0} {
+						set phy_addr 0
+					}
 				}
 			} else {
 				set tmp0 [string first "ENET1" $port_value]
 				if { $tmp0 >= 0 } {
 					if { [string compare -nocase $enetipinstance_name "ps7_ethernet_1"] == 0} {
-						set phy_addr [scan_int_parameter_value $ipconv "C_PHYADDR"]
+						set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
+						set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr] 
+						if {[llength $phy_addr] == 0} {
+							set phy_addr 0
+						}
 					}
 				}
 			}
 		}
 	}
 	return $phy_addr
-}
-
-proc scan_int_parameter_value {ip_handle name} {
-	set param_handle [xget_hw_parameter_handle $ip_handle $name]
-	if {$param_handle == ""} {
-		error "Can't find parameter $name in [get_property NAME  $ip_handle]"
-		return 0
-	}
-	set value [get_property IP_NAME $param_handle]
-	# tcl 8.4 doesn't handle binary literals..
-	if {[string match 0b* $value]} {
-		# Chop off the 0b
-		set tail [string range $value 2 [expr [string length $value]-1]]
-		# Pad to 32 bits, because binary scan ignores incomplete words
-		set list [split $tail ""]
-		for {} {[llength $list] < 32} {} {
-			set list [linsert $list 0 0]
-		}
-		set tail [join $list ""]
-		# Convert the remainder back to decimal
-		binary scan [binary format "B*" $tail] "I*" value
-	}
-	return [expr $value]
 }
 
 proc generate_sgmii_params {drv_handle file_name} {
@@ -154,7 +142,7 @@ proc generate_sgmii_params {drv_handle file_name} {
 		set ips [get_cells "*"]
 		foreach ip $ips {
 			set ipname [get_property NAME $ip]
-			set periph [get_property NAME  $ip]
+			set periph [get_property IP_NAME  $ip]
 			if { [string compare -nocase $periph "ps7_ethernet"] == 0} { 
 				set phya [is_gige_pcs_pma_ip_present $ip]
 				if { $phya == 0} {
@@ -176,15 +164,15 @@ proc is_gige_pcs_pma_ip_present {slave} {
 	set phy_addr 0
 	set ipconv 0
 
-	set mhs_handle [get_cells -of_objects  $slave]
+	#set mhs_handle [get_cells -of_objects  $slave]
 	set ips [get_cells "*"]
 	set enetipinstance_name [get_property NAME  $slave]
 	
 	foreach ip $ips {
 		set convipname [get_property NAME  $ip]
-		set periph [get_property NAME $ip]
+		set periph [get_property IP_NAME $ip]
 		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
-			set sgmii_param [::hsm::utils::get_param_value $ip c_is_sgmii]
+			set sgmii_param [get_property CONFIG.c_is_sgmii $ip]
 			if {$sgmii_param == true} {
 				set ipconv $ip
 			} 
@@ -197,13 +185,21 @@ proc is_gige_pcs_pma_ip_present {slave} {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {
 				if { [string compare -nocase $enetipinstance_name "ps7_ethernet_0"] == 0} {
-					set phy_addr [scan_int_parameter_value $ipconv "C_PHYADDR"]
+					set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
+					set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr] 
+					if {[llength $phy_addr] == 0} {
+						set phy_addr 0
+					}
 				}
 			} else {
 				set tmp0 [string first "ENET1" $port_value]
 				if { $tmp0 >= 0 } {
 					if { [string compare -nocase $enetipinstance_name "ps7_ethernet_1"] == 0} {
-						set phy_addr [scan_int_parameter_value $ipconv "C_PHYADDR"]
+						set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
+						set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr] 
+						if {[llength $phy_addr] == 0} {
+							set phy_addr 0
+						}
 					}
 				}
 			}
@@ -211,27 +207,3 @@ proc is_gige_pcs_pma_ip_present {slave} {
 	}
 	return $phy_addr
 }
-
-proc scan_int_parameter_value {ip_handle name} {
-	set param_handle [xget_hw_parameter_handle $ip_handle $name]
-	if {$param_handle == ""} {
-		error "Can't find parameter $name in [get_property NAME  $ip_handle]"
-		return 0
-	}
-	set value [get_property IP_NAME $param_handle]
-	# tcl 8.4 doesn't handle binary literals..
-	if {[string match 0b* $value]} {
-		# Chop off the 0b
-		set tail [string range $value 2 [expr [string length $value]-1]]
-		# Pad to 32 bits, because binary scan ignores incomplete words
-		set list [split $tail ""]
-		for {} {[llength $list] < 32} {} {
-			set list [linsert $list 0 0]
-		}
-		set tail [join $list ""]
-		# Convert the remainder back to decimal
-		binary scan [binary format "B*" $tail] "I*" value
-	}
-	return [expr $value]
-}
-

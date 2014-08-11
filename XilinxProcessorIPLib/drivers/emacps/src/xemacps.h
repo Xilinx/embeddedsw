@@ -292,6 +292,7 @@
  *			  Made changes in example file xemacps_example.h to fix compilation
  *			  issues with iarcc compiler.
  * 2.0   adk  10/12/13 Updated as per the New Tcl API's
+ * 2.1   adk  11/08/14 Fixed the CR#811288. Changes are made in the driver tcl file.
  * </pre>
  *
  ****************************************************************************/
