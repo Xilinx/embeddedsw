@@ -60,6 +60,10 @@ extern void microblaze_flush_dcache_range(unsigned int cacheaddr, unsigned int l
 extern void microblaze_scrub(void);                     /* Scrub LMB and internal BRAM */
 extern void microblaze_invalidate_cache_ext(void);         /* Invalidate cache ext */
 extern void microblaze_flush_cache_ext(void);         /* Flush cache ext */
+extern void microblaze_flush_cache_ext_range(unsigned int cacheaddr,
+			unsigned int len); /* Flush cache ext range */
+extern void microblaze_invalidate_cache_ext_range(unsigned int cacheaddr,
+			unsigned int len); /* Invalidate cache ext range */
 
 /* Deprecated */
 extern void microblaze_update_icache (int , int , int ) __attribute__((deprecated));

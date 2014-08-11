@@ -197,4 +197,6 @@
  *		       and iccarm/boot.s. Also uart.c and smc.c have been removed. Also 
  *		       removed function definition of XSmc_NorInit and XSmc_NorInit from
  *		       cortexa9/smc.h
+ * 4.2 bss   08/11/14  Added microblaze_flush_cache_ext_range and microblaze_invalidate_
+ *		       cache_ext_range declarations in mb_interface.h CR#783821.
  ******************************************************************************************/
