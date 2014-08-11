@@ -718,7 +718,7 @@ void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 *Guid)
 {
 	u8 Index;
-	u8 Data[30];
+	u8 Data[16];
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -729,22 +729,16 @@ void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 
 	if (LinkCountTotal == 1) {
 		XDptx_AuxRead(InstancePtr, XDPTX_DPCD_GUID, 16, Data);
-
-		memset(Guid, 0, 16);
-		for (Index = 0; Index < 16; Index++) {
-			Guid[Index / 4] <<= 8;
-			Guid[Index / 4] |= Data[Index];
-		}
 	}
 	else {
 		XDptx_SendSbMsgRemoteDpcdRead(InstancePtr, LinkCountTotal,
 				RelativeAddress, XDPTX_DPCD_GUID, 16, Data);
+	}
 
-		memset(Guid, 0, 16);
-		for (Index = 0; Index < 16; Index++) {
-			Guid[Index / 4] <<= 8;
-			Guid[Index / 4] |= Data[Index + 3];
-		}
+	memset(Guid, 0, 16);
+	for (Index = 0; Index < 16; Index++) {
+		Guid[Index / 4] <<= 8;
+		Guid[Index / 4] |= Data[Index];
 	}
 }
 
@@ -1137,6 +1131,8 @@ u32 XDptx_SendSbMsgRemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
  *		  request timed out.
+ *		- XST_DATA_LOST if the requested number of BytesToRead does not
+ *		  equal that actually received.
  *		- XST_FAILURE otherwise - if an AUX read or write transaction
  *		  failed, the header or body CRC of the sideband message did not
  *		  match the calculated value, or the a reply was negative
@@ -1202,8 +1198,13 @@ u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	}
 
 	/* Collect body data into an array. */
-	for (Index = 0; Index < SbMsgReply.Length; Index++) {
-		ReadData[Index] = SbMsgReply.Data[Index];
+	for (Index = 3; Index < SbMsgReply.Length; Index++) {
+		ReadData[Index - 3] = SbMsgReply.Data[Index];
+	}
+
+	/* The number of bytes actually read does not match that requested. */
+	if (Index < BytesToRead) {
+		return XST_DATA_LOST;
 	}
 
 	return XST_SUCCESS;
@@ -1230,6 +1231,8 @@ u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
  *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
  *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
  *		  request timed out.
+ *		- XST_DATA_LOST if the requested number of BytesToRead does not
+ *		  equal that actually received.
  *		- XST_FAILURE otherwise - if an AUX read or write transaction
  *		  failed, the header or body CRC of the sideband message did not
  *		  match the calculated value, or the a reply was negative
@@ -1298,8 +1301,13 @@ u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	}
 
 	/* Collect body data into an array. */
-	for (Index = 0; Index < SbMsgReply.Length; Index++) {
-		ReadData[Index] = SbMsgReply.Data[Index];
+	for (Index = 3; Index < SbMsgReply.Length; Index++) {
+		ReadData[Index - 3] = SbMsgReply.Data[Index];
+	}
+
+	/* The number of bytes actually read does not match that requested. */
+	if (Index < BytesToRead) {
+		return XST_DATA_LOST;
 	}
 
 	return Status;
