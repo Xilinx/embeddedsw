@@ -280,7 +280,6 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(MsaConfig != NULL);
 	Xil_AssertVoid(VideoMode <= XDPTX_VM_LAST);
 	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
 		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
@@ -332,8 +331,6 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(MsaConfig != NULL);
-	Xil_AssertVoid(Ptm != NULL);
 	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
 		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
 		(Stream == XDPTX_STREAM_ID4));
@@ -445,7 +442,6 @@ void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
 		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
 		(Stream == XDPTX_STREAM_ID4));
-	Xil_AssertVoid(MsaConfig != NULL);
 	Xil_AssertVoid(MsaConfigCustom != NULL);
 
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];

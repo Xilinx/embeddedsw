@@ -341,7 +341,6 @@ u32 XDptx_MstEnable(XDptx *InstancePtr)
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG,
 					XDPTX_TX_MST_CONFIG_MST_EN_MASK);
 
-	XDptx_MstCfgModeEnable(InstancePtr);
 	return XST_SUCCESS;
 }
 
@@ -382,7 +381,6 @@ u32 XDptx_MstDisable(XDptx *InstancePtr)
 	/* Disable MST mode in the DisplayPort TX. */
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG, 0x0);
 
-	XDptx_MstCfgModeDisable(InstancePtr);
 	return XST_SUCCESS;
 }
 
