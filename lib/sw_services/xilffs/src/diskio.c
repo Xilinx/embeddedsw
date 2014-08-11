@@ -107,7 +107,13 @@ static DSTATUS Stat;	/* Disk status */
 static XSdPs SdInstance;
 #endif
 
+#ifdef __ICCARM__
+#pragma data_alignment = 32
 u8 ExtCsd[512];
+#pragma data_alignment = 4
+#else
+u8 ExtCsd[512] __attribute__ ((aligned(32)));
+#endif
 
 /*-----------------------------------------------------------------------*/
 /* Get Disk Status							*/
@@ -185,8 +191,15 @@ DSTATUS disk_initialize (
 {
 	DSTATUS s;
 	int Status;
+#ifdef __ICCARM__
+#pragma data_alignment = 32
 	u8 SCR[8];
 	u8 ReadBuff[64];
+#pragma data_alignment = 4
+#else
+	u8 SCR[8] __attribute__ ((aligned(32)));
+	u8 ReadBuff[64] __attribute__ ((aligned(32)));
+#endif
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 

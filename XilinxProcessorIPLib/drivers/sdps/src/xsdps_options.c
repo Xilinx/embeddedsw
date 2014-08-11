@@ -203,6 +203,8 @@ int XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 			XSDPS_XFER_MODE_OFFSET,
 			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
 
+	Xil_DCacheInvalidateRange(SCR, 8);
+
 	Status = XSdPs_CmdTransfer(InstancePtr, ACMD51, 0, BlkCnt);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
@@ -380,6 +382,8 @@ int XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	Arg = XSDPS_SWITCH_CMD_HS_GET;
 
+	Xil_DCacheInvalidateRange(ReadBuff, 64);
+
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 1);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
@@ -444,7 +448,13 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 #ifndef MMC_CARD
 	u32 ClockReg;
+#ifdef __ICCARM__
+#pragma data_alignment = 32
 	u8 ReadBuff[64];
+#pragma data_alignment = 4
+#else
+	u8 ReadBuff[64] __attribute__ ((aligned(32)));
+#endif
 	u16 BlkCnt;
 	u16 BlkSize;
 #endif
@@ -461,6 +471,8 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 			XSDPS_BLK_SIZE_OFFSET, BlkSize);
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
+
+	Xil_DCacheFlushRange(ReadBuff, 64);
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_XFER_MODE_OFFSET,
@@ -751,6 +763,8 @@ int XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 			XSDPS_BLK_SIZE_OFFSET, BlkSize);
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
+
+	Xil_DCacheInvalidateRange(ReadBuff, 512);
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_XFER_MODE_OFFSET,
