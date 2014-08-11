@@ -826,10 +826,6 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
  * discovery. */
 void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 							u8 *RelativeAddress);
-void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 Guid[4]);
-void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 *Guid);
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions related to MST stream
  * allocation. */
@@ -853,5 +849,13 @@ u32 XDptx_SendSbMsgEnumPathResources(XDptx *InstancePtr, u8 LinkCountTotal,
 u32 XDptx_SendSbMsgAllocatePayload(XDptx *InstancePtr, u8 LinkCountTotal,
 					u8 *RelativeAddress, u8 VcId, u16 Pbn);
 u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr);
+
+/* xdptx_mst.c: Multi-stream transport (MST) utility functions. */
+void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
+								u32 Guid[4]);
+void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
+								u32 *Guid);
+u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
+						u8 *RelativeAddress, u8 *Edid);
 
 #endif /* XDPTX_H_ */

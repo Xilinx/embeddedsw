@@ -650,98 +650,6 @@ void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 
 /******************************************************************************/
 /**
- * This function will write a global unique identifier (GUID) to the target
- * DisplayPort device.
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	LinkCountTotal is the number of DisplayPort links from the
- *		DisplayPort source to the target device.
- * @param	RelativeAddress is the relative address from the DisplayPort
- *		source to the target device.
- * @param	Guid is a the GUID to write to the target device.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 Guid[4])
-{
-	u8 AuxData[16];
-	u8 Index;
-
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(LinkCountTotal > 0);
-	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
-	Xil_AssertVoid((Guid[0] != 0) || (Guid[1] != 0) || (Guid[2] != 0) ||
-								(Guid[3] != 0));
-
-	memset(AuxData, 0, 16);
-	for (Index = 0; Index < 16; Index++) {
-		AuxData[Index] = (Guid[Index / 4] >> ((3 - (Index % 4)) * 8)) &
-									0xFF;
-	}
-
-	if (LinkCountTotal == 1) {
-		XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_GUID, 16, AuxData);
-	}
-	else {
-		XDptx_SendSbMsgRemoteDpcdWrite(InstancePtr, LinkCountTotal,
-				RelativeAddress, XDPTX_DPCD_GUID, 16, AuxData);
-	}
-}
-
-/******************************************************************************/
-/**
- * This function will obtain the global unique identifier (GUID) for the target
- * DisplayPort device.
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	LinkCountTotal is the number of DisplayPort links from the
- *		DisplayPort source to the target device.
- * @param	RelativeAddress is the relative address from the DisplayPort
- *		source to the target device.
- * @param	Guid is a pointer to the GUID that will store the existing GUID
- *		of the target device.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 *Guid)
-{
-	u8 Index;
-	u8 Data[16];
-
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(LinkCountTotal > 0);
-	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
-	Xil_AssertVoid(Guid != NULL);
-
-	if (LinkCountTotal == 1) {
-		XDptx_AuxRead(InstancePtr, XDPTX_DPCD_GUID, 16, Data);
-	}
-	else {
-		XDptx_SendSbMsgRemoteDpcdRead(InstancePtr, LinkCountTotal,
-				RelativeAddress, XDPTX_DPCD_GUID, 16, Data);
-	}
-
-	memset(Guid, 0, 16);
-	for (Index = 0; Index < 16; Index++) {
-		Guid[Index / 4] <<= 8;
-		Guid[Index / 4] |= Data[Index];
-	}
-}
-
-/******************************************************************************/
-/**
  * This function will allocate bandwidth for all enabled stream.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
@@ -1630,6 +1538,144 @@ u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr)
 		return Status;
 	}
 	Status = XDptx_ReceiveSbMsg(InstancePtr, &SbMsgReply);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function will write a global unique identifier (GUID) to the target
+ * DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target device.
+ * @param	Guid is a the GUID to write to the target device.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
+								u32 Guid[4])
+{
+	u8 AuxData[16];
+	u8 Index;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(LinkCountTotal > 0);
+	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertVoid((Guid[0] != 0) || (Guid[1] != 0) || (Guid[2] != 0) ||
+								(Guid[3] != 0));
+
+	memset(AuxData, 0, 16);
+	for (Index = 0; Index < 16; Index++) {
+		AuxData[Index] = (Guid[Index / 4] >> ((3 - (Index % 4)) * 8)) &
+									0xFF;
+	}
+
+	if (LinkCountTotal == 1) {
+		XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_GUID, 16, AuxData);
+	}
+	else {
+		XDptx_SendSbMsgRemoteDpcdWrite(InstancePtr, LinkCountTotal,
+				RelativeAddress, XDPTX_DPCD_GUID, 16, AuxData);
+	}
+}
+
+/******************************************************************************/
+/**
+ * This function will obtain the global unique identifier (GUID) for the target
+ * DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target device.
+ * @param	Guid is a pointer to the GUID that will store the existing GUID
+ *		of the target device.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
+								u32 *Guid)
+{
+	u8 Index;
+	u8 Data[16];
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(LinkCountTotal > 0);
+	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertVoid(Guid != NULL);
+
+	if (LinkCountTotal == 1) {
+		XDptx_AuxRead(InstancePtr, XDPTX_DPCD_GUID, 16, Data);
+	}
+	else {
+		XDptx_SendSbMsgRemoteDpcdRead(InstancePtr, LinkCountTotal,
+				RelativeAddress, XDPTX_DPCD_GUID, 16, Data);
+	}
+
+	memset(Guid, 0, 16);
+	for (Index = 0; Index < 16; Index++) {
+		Guid[Index / 4] <<= 8;
+		Guid[Index / 4] |= Data[Index];
+	}
+}
+
+/******************************************************************************/
+/**
+ * This function retrieves a remote RX device's Extended Display Identification
+ * Data (EDID).
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	A pointer to the Edid buffer to save to.
+ *
+ * @return
+ *		- XST_SUCCESS if the I2C transactions to read the EDID were
+ *		  successful.
+ *		- XST_ERROR_COUNT_MAX if the EDID read request timed out.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
+						u8 *RelativeAddress, u8 *Edid)
+{
+	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(Edid != NULL);
+
+	if (LinkCountTotal == 1) {
+		Status = XDptx_GetEdid(InstancePtr, Edid);
+	}
+	else {
+		Status = XDptx_SendSbMsgRemoteIicRead(InstancePtr,
+				LinkCountTotal, RelativeAddress,
+				XDPTX_EDID_ADDR, XDPTX_EDID_SIZE, Edid);
+	}
 
 	return Status;
 }
