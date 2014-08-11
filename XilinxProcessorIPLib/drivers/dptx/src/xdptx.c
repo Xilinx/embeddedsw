@@ -250,6 +250,18 @@ void XDptx_CfgInitialize(XDptx *InstancePtr, XDptx_Config *ConfigPtr,
 	InstancePtr->Config.MaxLinkRate = ConfigPtr->MaxLinkRate;
 	InstancePtr->Config.MaxLaneCount = ConfigPtr->MaxLaneCount;
 
+	/* Set the DisplayPort TX's voltage swing and pre-emphasis levels to
+	 * their defaults. */
+	XDptx_CfgTxVsOffset(InstancePtr, XDPTX_VS_LEVEL_OFFSET);
+	XDptx_CfgTxVsLevel(InstancePtr, 0, XDPTX_VS_LEVEL_0);
+	XDptx_CfgTxVsLevel(InstancePtr, 1, XDPTX_VS_LEVEL_1);
+	XDptx_CfgTxVsLevel(InstancePtr, 2, XDPTX_VS_LEVEL_2);
+	XDptx_CfgTxVsLevel(InstancePtr, 3, XDPTX_VS_LEVEL_3);
+	XDptx_CfgTxPeLevel(InstancePtr, 0, XDPTX_PE_LEVEL_0);
+	XDptx_CfgTxPeLevel(InstancePtr, 1, XDPTX_PE_LEVEL_1);
+	XDptx_CfgTxPeLevel(InstancePtr, 2, XDPTX_PE_LEVEL_2);
+	XDptx_CfgTxPeLevel(InstancePtr, 3, XDPTX_PE_LEVEL_3);
+
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
@@ -552,7 +564,87 @@ void XDptx_SetHasRedriverInPath(XDptx *InstancePtr, u8 Set)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Set == 1) || (Set == 0));
 
-	InstancePtr->HasRedriverInPath = Set;
+	InstancePtr->BoardChar.HasRedriverInPath = Set;
+}
+
+/******************************************************************************/
+/**
+ * This function sets the voltage swing offset to use during training when no
+ * redriver exists. The offset will be added to the DisplayPort TX's voltage
+ * swing level value when pre-emphasis is used (when the pre-emphasis level not
+ * equal to 0).
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Offset is the value to set for the voltage swing offset.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_CfgTxVsOffset(XDptx *InstancePtr, u8 Offset)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Offset >= 0) && (Offset < 16));
+
+	InstancePtr->BoardChar.TxVsOffset = Offset;
+}
+
+/******************************************************************************/
+/**
+ * This function sets the voltage swing level value in the DisplayPort TX that
+ * will be used during link training for a given voltage swing training level.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Level is the voltage swing training level to set the DisplayPort
+ *		TX level for.
+ * @param	TxLevel is the DisplayPort TX voltage swing level value to be
+ *		used during link training.
+ *
+ * @return	None.
+ *
+ * @note	There are 16 possible voltage swing levels in the DisplayPort TX
+ *		core that map to 4 possible voltage swing training levels in the
+ *		RX device.
+ *
+*******************************************************************************/
+void XDptx_CfgTxVsLevel(XDptx *InstancePtr, u8 Level, u8 TxLevel)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Level >= 0) && (Level < 4));
+	Xil_AssertVoid((TxLevel >= 0) && (TxLevel < 16));
+
+	InstancePtr->BoardChar.TxVsLevels[Level] = TxLevel;
+}
+
+/******************************************************************************/
+/**
+ * This function sets the pre-emphasis level value in the DisplayPort TX that
+ * will be used during link training for a given pre-emphasis training level.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Level is the pre-emphasis training level to set the DisplayPort
+ *		TX level for.
+ * @param	TxLevel is the DisplayPort TX pre-emphasis level value to be
+ *		used during link training.
+ *
+ * @return	None.
+ *
+ * @note	There are 32 possible pre-emphasis levels in the DisplayPort TX
+ *		core that map to 4 possible pre-emphasis training levels in the
+ *		RX device.
+ *
+*******************************************************************************/
+void XDptx_CfgTxPeLevel(XDptx *InstancePtr, u8 Level, u8 TxLevel)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Level >= 0) && (Level < 4));
+	Xil_AssertVoid((TxLevel >= 0) && (TxLevel < 32));
+
+	InstancePtr->BoardChar.TxPeLevels[Level] = TxLevel;
 }
 
 /******************************************************************************/
@@ -1863,18 +1955,14 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
 	u8 PeLevelRx = InstancePtr->LinkConfig.PeLevel;
 	u32 VsLevel;
 	u32 PeLevel;
-	u32 VsLevels[4] = {XDPTX_VS_LEVEL_0, XDPTX_VS_LEVEL_1,
-					XDPTX_VS_LEVEL_2, XDPTX_VS_LEVEL_3};
-	u32 PeLevels[4] = {XDPTX_PE_LEVEL_0, XDPTX_PE_LEVEL_1,
-					XDPTX_PE_LEVEL_2, XDPTX_PE_LEVEL_3};
 
-	if (InstancePtr->HasRedriverInPath == 0) {
-		PeLevel = PeLevels[PeLevelRx];
-		VsLevel = VsLevels[VsLevelRx];
+	if (InstancePtr->BoardChar.HasRedriverInPath == 0) {
+		PeLevel = InstancePtr->BoardChar.TxPeLevels[PeLevelRx];
+		VsLevel = InstancePtr->BoardChar.TxVsLevels[VsLevelRx];
 
 		/* Need to compensate due to no redriver in the path. */
 		if (PeLevelRx != 0) {
-			VsLevel += XDPTX_VS_LEVEL_OFFSET;
+			VsLevel += InstancePtr->BoardChar.TxVsOffset;
 		}
 	}
 	else {

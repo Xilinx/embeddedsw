@@ -515,6 +515,21 @@ typedef struct {
 } XDptx_MstStream;
 
 /**
+ * This typedef describes some board characteristics information that affects
+ * link training.
+ */
+typedef struct {
+	u8 HasRedriverInPath;	/**< Redriver in path requires different voltage
+					swing and pre-emphasis. */
+	u8 TxVsLevels[4];	/**< The voltage swing levels to be used by the
+					DisplayPort TX. */
+	u8 TxPeLevels[4];	/**< The pre-emphasis/cursor level to be used by
+					the DisplayPort TX. */
+	u8 TxVsOffset;		/**< Voltage swing compensation offset used when
+					pre-emphasis is used. */
+} XDptx_BoardChar;
+
+/**
  * This typedef describes a downstream DisplayPort device when the driver is
  * running in multi-stream transport (MST) mode.
  */
@@ -674,9 +689,6 @@ typedef struct {
 	u8 TrainAdaptive;			/**< Downshift lane count and
 							link rate if necessary
 							during training. */
-	u8 HasRedriverInPath;			/**< Redriver in path requires
-							different voltage swing
-							and pre-emphasis. */
 	XDptx_Config Config;			/**< Configuration structure for
 							the DisplayPort TX
 							core. */
@@ -684,6 +696,9 @@ typedef struct {
 							the RX device. */
 	XDptx_LinkConfig LinkConfig;		/**< Configuration structure for
 							the main link. */
+	XDptx_BoardChar BoardChar;		/**< Some board characteristics
+							information that affects
+							link training. */
 	XDptx_MainStreamAttributes MsaConfig[4]; /**< Configuration structure
 							for the main stream
 							attributes (MSA). Each
@@ -710,13 +725,13 @@ typedef struct {
 							interrupts. */
 	void *HpdEventCallbackRef;		/**< A pointer to the user data
 							passed to the HPD event
-							callback function.*/
+							callback function. */
 	XDptx_HpdPulseHandler HpdPulseHandler;	/**< Callback function for Hot-
 							Plug-Detect (HPD) pulse
 							interrupts. */
 	void *HpdPulseCallbackRef;		/**< A pointer to the user data
 							passed to the HPD pulse
-							callback function.*/
+							callback function. */
 } XDptx;
 
 /*************************** Variable Declarations ****************************/
@@ -738,6 +753,9 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr);
 u32 XDptx_CheckLinkStatus(XDptx *InstancePtr, u8 LaneCount);
 void XDptx_EnableTrainAdaptive(XDptx *InstancePtr, u8 Enable);
 void XDptx_SetHasRedriverInPath(XDptx *InstancePtr, u8 Set);
+void XDptx_CfgTxVsOffset(XDptx *InstancePtr, u8 Offset);
+void XDptx_CfgTxVsLevel(XDptx *InstancePtr, u8 Level, u8 TxLevel);
+void XDptx_CfgTxPeLevel(XDptx *InstancePtr, u8 Level, u8 TxLevel);
 
 /* xdptx.c: AUX transaction functions. */
 u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data);
