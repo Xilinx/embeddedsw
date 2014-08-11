@@ -49,7 +49,7 @@ _mcount:
 	swi r9, r1, 20
 	swi r10, r1, 16
 	swi r15, r1, 12
-	add r5, r0, r15
+	add r6, r0, r15
 	brlid r15, mcount
 	lwi r5, r1, 48
 
