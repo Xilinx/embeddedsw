@@ -112,6 +112,14 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
+		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
+		(Stream == XDPTX_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+	LinkConfig = &InstancePtr->LinkConfig;
+
+	/* Verify the rest of the values used. */
 	Xil_AssertVoid((LinkConfig->LinkRate == XDPTX_LINK_BW_SET_162GBPS) ||
 			(LinkConfig->LinkRate == XDPTX_LINK_BW_SET_270GBPS) ||
 			(LinkConfig->LinkRate == XDPTX_LINK_BW_SET_540GBPS));
@@ -129,12 +137,6 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 					(MsaConfig->BitsPerColor == 10) ||
 					(MsaConfig->BitsPerColor == 12) ||
 					(MsaConfig->BitsPerColor == 16));
-	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
-		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
-		(Stream == XDPTX_STREAM_ID4));
-
-	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
-	LinkConfig = &InstancePtr->LinkConfig;
 
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
@@ -337,7 +339,7 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
 		(Stream == XDPTX_STREAM_ID4));
 
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
-	Ptm = InstancePtr->RxConfig.Edid[XDPTX_EDID_PTM];
+	Ptm = &InstancePtr->RxConfig.Edid[XDPTX_EDID_PTM];
 
 	/* Configure the MSA values with the PTM information as
 	 * specified by the preferred Detailed Timing Descriptor (DTD) of the
