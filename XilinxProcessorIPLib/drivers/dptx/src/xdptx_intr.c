@@ -14,7 +14,7 @@
  *
  * Use of the Software is limited solely to applications:
  * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect. 
+ * (b) that interact with a Xilinx device through a bus or interconnect.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -58,7 +58,7 @@
 /**
  * This function installs a callback function for when a hot-plug-detect event
  * interrupt occurs.
- * 
+ *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	CallbackFunc is the address to the callback function.
  * @param	CallbackRef is the user data item that will be passed to the
@@ -85,7 +85,7 @@ void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
 /**
  * This function installs a callback function for when a hot-plug-detect pulse
  * interrupt occurs.
- * 
+ *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	CallbackFunc is the address to the callback function.
  * @param	CallbackRef is the user data item that will be passed to the
@@ -114,7 +114,7 @@ void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
  *
  * When an interrupt happens, it first detects what kind of interrupt happened,
  * then decides which callback function to invoke.
- * 
+ *
  * @param	InstancePtr is a pointer to the XDptx instance.
  *
  * @return	None.

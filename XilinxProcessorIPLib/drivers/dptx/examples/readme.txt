@@ -45,12 +45,12 @@ Each of these examples are meant to be used in conjunction with
 xdptx_example_common.[ch] which holds common functionality for all examples.
 After importing the examples, these files will need to be manually copied into
 the example src/ directory.
-This code shows how to train the main link and set up the 
+This code shows how to train the main link and set up a video stream.
 
 Additionally, in order to be able to use the interrupt, polling, and timer
 examples, the user will need to implement and link the following functions:
 1) Dptx_InitPlatform : This function needs to do all hardware system
-   initialization. This function is invoked when calling 
+   initialization.
 2) Dptx_StreamSrc* : These function need to configure the source of the stream
    (pattern generators, video input, etc.) such that a video stream, with
    timings and video attributes that correspond to the main stream attributes

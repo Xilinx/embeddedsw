@@ -14,7 +14,7 @@
  *
  * Use of the Software is limited solely to applications:
  * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect. 
+ * (b) that interact with a Xilinx device through a bus or interconnect.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -1324,7 +1324,7 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
  *	2e) Loop back to 2a.
  * For a more detailed description of the clock recovery sequence, see section
  * 3.5.1.2.1 of the DisplayPort 1.2a specification document.
- * 
+ *
  * @param	InstancePtr is a pointer to the XDptx instance.
  *
  * @return	The next training state:
@@ -2253,7 +2253,7 @@ static u32 XDptx_AuxRequest(XDptx *InstancePtr, XDptx_AuxTransaction *Request)
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	Request is a pointer to an initialized XDptx_AuxTransaction
  *		structure containing the required information for issuing an AUX
- *		command. 
+ *		command.
  *
  * @return
  *		- XST_SUCCESS if the request was acknowledged.

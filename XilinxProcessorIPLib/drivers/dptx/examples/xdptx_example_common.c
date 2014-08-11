@@ -14,7 +14,7 @@
  *
  * Use of the Software is limited solely to applications:
  * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect. 
+ * (b) that interact with a Xilinx device through a bus or interconnect.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -77,7 +77,7 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr);
  * @param	LinkRate is the link rate to use over the main link.
  *
  * @return
- *		- XST_SUCCESS if main link was successfully established. 
+ *		- XST_SUCCESS if main link was successfully established.
  *		- XST_FAILURE otherwise.
  *
  * @note	None.
@@ -112,7 +112,7 @@ u32 Dptx_Run(XDptx *InstancePtr)
  *
  * @return
  *		- XST_SUCCESS if the device configuration was found and obtained
- *		  and if the main link was successfully established. 
+ *		  and if the main link was successfully established.
  *		- XST_FAILURE otherwise.
  *
  * @note	None.
@@ -148,7 +148,7 @@ u32 Dptx_SetupExample(XDptx *InstancePtr, u16 DeviceId)
  * @param	InstancePtr is a pointer to the XDptx instance.
  *
  * @return
- *		- XST_SUCCESS the if main link was successfully established. 
+ *		- XST_SUCCESS the if main link was successfully established.
  *		- XST_FAILURE otherwise.
  *
  * @note	None.

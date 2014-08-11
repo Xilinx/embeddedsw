@@ -14,7 +14,7 @@
  *
  * Use of the Software is limited solely to applications:
  * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect. 
+ * (b) that interact with a Xilinx device through a bus or interconnect.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -408,7 +408,7 @@ typedef struct {
 						level for each lane. */
 	u8 Pattern;			/**< The current pattern currently in
 						use over the main link. */
-} XDptx_LinkConfig;                     
+} XDptx_LinkConfig;
 
 /**
  * This typedef contains the display monitor timing attributes for a video mode.
@@ -591,7 +591,7 @@ typedef struct {
  * using loop iterations; this isn't too accurate. If a custom timer handler is
  * used, the user may implement their own wait implementation using a hardware
  * timer (see example/) for better accuracy.
- * 
+ *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	MicroSeconds is the number of microseconds to be passed to the
  *		timer function.
@@ -601,7 +601,7 @@ typedef struct {
 *******************************************************************************/
 typedef void (*XDptx_TimerHandler)(void *InstancePtr, u32 MicroSeconds);
 
-/******************************************************************************/ 
+/******************************************************************************/
 /**
  * Callback type which represents the handler for a Hot-Plug-Detect (HPD) event
  * interrupt.

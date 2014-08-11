@@ -14,7 +14,7 @@
  *
  * Use of the Software is limited solely to applications:
  * (a) running on a Xilinx device, or
- * (b) that interact with a Xilinx device through a bus or interconnect. 
+ * (b) that interact with a Xilinx device through a bus or interconnect.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
