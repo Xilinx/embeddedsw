@@ -316,6 +316,7 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
  * @param	InstancePtr is a pointer to the XDptx instance
  * @param	Stream is the stream number for which the MSA values will be
  *		used for.
+ * @param	Edid is a pointer to the Edid to use for the specified stream.
  *
  * @return	None.
  *
@@ -324,7 +325,7 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
  *		of the sink monitor.
  *
 *******************************************************************************/
-void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
+void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
 {
 	XDptx_MainStreamAttributes *MsaConfig;
 	u8 *Ptm;
@@ -334,9 +335,10 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream)
 	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
 		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
 		(Stream == XDPTX_STREAM_ID4));
+	Xil_AssertVoid(Edid != NULL);
 
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
-	Ptm = &InstancePtr->RxConfig.Edid[XDPTX_EDID_PTM];
+	Ptm = &Edid[XDPTX_EDID_PTM];
 
 	/* Configure the MSA values with the PTM information as
 	 * specified by the preferred Detailed Timing Descriptor (DTD) of the

@@ -266,15 +266,16 @@ u32 Dptx_StartLink(XDptx *InstancePtr)
 static void Dptx_StartVideoStream(XDptx *InstancePtr)
 {
 	u32 Status;
-	u8 AuxData[1];
+	u8 Edid[XDPTX_EDID_SIZE];
 
 	/* Set the bits per color. If not set, the default is 6. */
 	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID1, 8);
 
 /* Choose a method for selecting the video mode. There are 3 ways to do this:
  * 1) Use the preferred timing from the monitor's EDID:
- *	XDptx_GetEdid(InstancePtr);
- *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, XDPTX_STREAM_ID1);
+ *	u8 Edid[XDPTX_EDID_SIZE];
+ *	XDptx_GetEdid(InstancePtr, Edid);
+ *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, XDPTX_STREAM_ID1, Edid);
  *
  * 2) Use a standard video timing mode (see mode_table.h):
  *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID1,
@@ -296,10 +297,10 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
  *	XDptx_CfgMsaUseCustom(InstancePtr, XDPTX_STREAM_ID1,
  *							&MsaConfigCustom, 1);
  */
-	Status = XDptx_GetEdid(InstancePtr);
+	Status = XDptx_GetEdid(InstancePtr, Edid);
 	if (Status == XST_SUCCESS) {
 		XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr,
-							XDPTX_STREAM_ID1);
+							XDPTX_STREAM_ID1, Edid);
 	}
 	else {
 		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID1,
@@ -307,9 +308,7 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	}
 
 	/* Disable MST for this example. */
-	AuxData[0] = 0;
-	XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_MSTM_CTRL, 0x1, AuxData);
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG, 0x0);
+	XDptx_MstDisable(InstancePtr);
 
 	/* Disable main stream to force sending of IDLE patterns. */
 	XDptx_DisableMainLink(InstancePtr);

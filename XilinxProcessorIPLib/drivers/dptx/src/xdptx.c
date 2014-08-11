@@ -331,6 +331,7 @@ u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
  * (EDID).
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	A pointer to the Edid buffer to save to.
  *
  * @return
  *		- XST_SUCCESS if the I2C transactions to read the EDID were
@@ -342,22 +343,19 @@ u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_GetEdid(XDptx *InstancePtr)
+u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
 {
 	u32 Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(InstancePtr->RxConfig.Edid != NULL);
+	Xil_AssertNonvoid(Edid != NULL);
 
 	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, 0, XDPTX_EDID_SIZE,
-						InstancePtr->RxConfig.Edid);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
+									Edid);
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /******************************************************************************/

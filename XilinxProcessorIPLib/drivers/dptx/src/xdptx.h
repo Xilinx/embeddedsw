@@ -364,9 +364,6 @@ typedef struct {
 					/**< The raw capabilities field
 						of the RX device's DisplayPort
 						Configuration Data (DPCD). */
-	u8 Edid[XDPTX_EDID_SIZE];	/**< The RX device's raw Extended
-						Display Identification Data
-						(EDID). */
 	u8 LaneStatusAdjReqs[6];	/**< This is a raw read of the
 						RX device's status registers.
 						The first 4 bytes correspond to
@@ -745,7 +742,7 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr);
 void XDptx_CfgInitialize(XDptx *InstancePtr, XDptx_Config *ConfigPtr,
 							u32 EffectiveAddr);
 u32 XDptx_GetRxCapabilities(XDptx *InstancePtr);
-u32 XDptx_GetEdid(XDptx *InstancePtr);
+u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid);
 
 /* xdptx.c: Link policy maker functions. */
 u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr);
@@ -784,7 +781,8 @@ void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
 void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream);
 void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 						XDptx_VideoMode VideoMode);
-void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream);
+void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream,
+								u8 *Edid);
 void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 		XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate);
 void XDptx_CfgMsaSetBpc(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor);
