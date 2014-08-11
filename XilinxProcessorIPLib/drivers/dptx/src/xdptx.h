@@ -546,10 +546,16 @@ typedef struct {
  * in multi-stream transport (MST) mode.
  */
 typedef struct {
-	u8 NodeTotal;
-	XDptx_TopologyNode NodeTable[63];
-	u8 SinkTotal;
-	XDptx_TopologyNode *SinkList[63];
+	u8 NodeTotal;			/**< The total number of nodes that were
+						found in the MST topology. */
+	XDptx_TopologyNode NodeTable[63]; /**< A table listing all the nodes in
+						the MST topology. */
+	u8 SinkTotal;			/**< The total number of sinks in the
+						MST topology. */
+	XDptx_TopologyNode *SinkList[63]; /**< A pointer list of sinks in the
+						MST topology. The entries will
+						point to the sinks in the
+						NodeTable. */
 } XDptx_Topology;
 
 /**
@@ -558,17 +564,30 @@ typedef struct {
  * transport (MST) mode.
  */
 typedef struct {
-	u8 InputPort;
-	u8 PeerDeviceType;
-	u8 PortNum;
-	u8 MsgCapStatus;
-	u8 DpDevPlugStatus;
+	u8 InputPort;			/**< Specifies that this port is an
+						input port. */
+	u8 PeerDeviceType;		/**< Specifies the device type connected
+						to this port. */
+	u8 PortNum;			/**< The port number of this port. */
+	u8 MsgCapStatus;		/**< This port or the device at this
+						port can send and receive MST
+						messages. */
+	u8 DpDevPlugStatus;		/**< There is a device connected to this
+						port. */
 
-	u8 LegacyDevPlugStatus;
-	u8 DpcdRev;
-	u32 Guid[4];
-	u8 NumSdpStreams;
-	u8 NumSdpStreamSinks;
+	u8 LegacyDevPlugStatus;		/**< This port is connected to a legacy
+						device. */
+	u8 DpcdRev;			/**< The DisplayPort Configuration Data
+						(DPCD) revision of the device
+						connected to this port. */
+	u32 Guid[4];			/**< The global unique identifier (GUID)
+						of the device connected to this
+						port. */
+	u8 NumSdpStreams;		/**< The total number of Secondary-Data
+						Packet (SDP) streams that this
+						port can handle. */
+	u8 NumSdpStreamSinks;		/**< The number of SDP streams
+						associated with this port. */
 } XDptx_SbMsgLinkAddressReplyPortDetail;
 
 /**
@@ -576,11 +595,24 @@ typedef struct {
  * when the driver is operating in multi-stream transport (MST) mode.
  */
 typedef struct {
-	u8 ReplyType;
-	u8 RequestId;
-	u32 Guid[4];
-	u8 NumPorts;
-	XDptx_SbMsgLinkAddressReplyPortDetail PortDetails[16];
+	u8 ReplyType;			/**< The reply type of the sideband
+						message. A value of 1 indicates
+						that the request wasn't
+						successful and the return data
+						will give the reason for a
+						negative-acknowledge (NACK). */
+	u8 RequestId;			/**< The request identifier of the
+						reply. This should correspond to
+						the request identifier for the
+						LINK_ADDRESS sideband message
+						request. */
+	u32 Guid[4];			/**< The global unique identifier (GUID)
+						of the branch device. */
+	u8 NumPorts;			/**< The number of ports associated with
+						this branch device. */
+	XDptx_SbMsgLinkAddressReplyPortDetail PortDetails[16]; /**< An array
+						describing all ports attached to
+						this branch device. */
 } XDptx_SbMsgLinkAddressReplyDeviceInfo;
 
 /******************************************************************************/
