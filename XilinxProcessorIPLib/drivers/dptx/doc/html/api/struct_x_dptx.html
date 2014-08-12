@@ -29,11 +29,11 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#65244ac7460329fff6b94cb8fc022670">MstEnable</a></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#fd956a307a852de5554532ee69c05189">IsReady</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#cec7536fbd35b65e8ef4bba747753408">TrainAdaptive</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#b730a9890ab4e02b36bdf615bd5882f1">HasRedriverInPath</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#af511bfd6dc96881ff13802a8cc10722">Config</a></td></tr>
 
@@ -41,7 +41,13 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___link_config.html">XDptx_LinkConfig</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#c9d9cfcf43fc735b778a4e0b8248d8c6">LinkConfig</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#b3e96d1c28a2813865576ff5cbf9f8c2">MsaConfig</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___board_char.html">XDptx_BoardChar</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#8dae945757783a68a8106615b59f65c0">BoardChar</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#f655e135b0d016dde23354d682f9ed25">MsaConfig</a> [4]</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___mst_stream.html">XDptx_MstStream</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#02c88b01b932312a848aee2c01f1a0b6">MstStreamConfig</a> [4]</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___topology.html">XDptx_Topology</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#913434506922a73af175516ef84ba126">Topology</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#67a7c4a7e698ddb155ceaccbf196e82d">UserTimerWaitUs</a></td></tr>
 
@@ -57,6 +63,21 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 
 </table>
 <hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="8dae945757783a68a8106615b59f65c0"></a><!-- doxytag: member="XDptx::BoardChar" ref="8dae945757783a68a8106615b59f65c0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_dptx___board_char.html">XDptx_BoardChar</a> <a class="el" href="struct_x_dptx.html#8dae945757783a68a8106615b59f65c0">XDptx::BoardChar</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Some board characteristics information that affects link training. 
+</div>
+</div><p>
 <a class="anchor" name="af511bfd6dc96881ff13802a8cc10722"></a><!-- doxytag: member="XDptx::Config" ref="af511bfd6dc96881ff13802a8cc10722" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -70,21 +91,6 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 
 <p>
 Configuration structure for the DisplayPort TX core. 
-</div>
-</div><p>
-<a class="anchor" name="b730a9890ab4e02b36bdf615bd5882f1"></a><!-- doxytag: member="XDptx::HasRedriverInPath" ref="b730a9890ab4e02b36bdf615bd5882f1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u8 <a class="el" href="struct_x_dptx.html#b730a9890ab4e02b36bdf615bd5882f1">XDptx::HasRedriverInPath</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Redriver in path requires different voltage swing and pre-emphasis. 
 </div>
 </div><p>
 <a class="anchor" name="c27591bcf8d7e13e7b3fdbeb1f968c63"></a><!-- doxytag: member="XDptx::HpdEventCallbackRef" ref="c27591bcf8d7e13e7b3fdbeb1f968c63" args="" -->
@@ -177,19 +183,49 @@ Device is initialized and ready.
 Configuration structure for the main link. 
 </div>
 </div><p>
-<a class="anchor" name="b3e96d1c28a2813865576ff5cbf9f8c2"></a><!-- doxytag: member="XDptx::MsaConfig" ref="b3e96d1c28a2813865576ff5cbf9f8c2" args="" -->
+<a class="anchor" name="f655e135b0d016dde23354d682f9ed25"></a><!-- doxytag: member="XDptx::MsaConfig" ref="f655e135b0d016dde23354d682f9ed25" args="[4]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a> <a class="el" href="struct_x_dptx.html#b3e96d1c28a2813865576ff5cbf9f8c2">XDptx::MsaConfig</a>          </td>
+          <td class="memname"><a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a> <a class="el" href="struct_x_dptx.html#f655e135b0d016dde23354d682f9ed25">XDptx::MsaConfig</a>[4]          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Configuration structure for the main stream attributes. 
+Configuration structure for the main stream attributes (MSA). Each stream has its own set of attributes. When MST mode is disabled, only MsaConfig[0] is used. 
+</div>
+</div><p>
+<a class="anchor" name="65244ac7460329fff6b94cb8fc022670"></a><!-- doxytag: member="XDptx::MstEnable" ref="65244ac7460329fff6b94cb8fc022670" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 <a class="el" href="struct_x_dptx.html#65244ac7460329fff6b94cb8fc022670">XDptx::MstEnable</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Multi-stream transport (MST) mode. Enables functionality, allowing multiple streams to be sent over the main link. 
+</div>
+</div><p>
+<a class="anchor" name="02c88b01b932312a848aee2c01f1a0b6"></a><!-- doxytag: member="XDptx::MstStreamConfig" ref="02c88b01b932312a848aee2c01f1a0b6" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_dptx___mst_stream.html">XDptx_MstStream</a> <a class="el" href="struct_x_dptx.html#02c88b01b932312a848aee2c01f1a0b6">XDptx::MstStreamConfig</a>[4]          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Configuration structure for a multi-stream transport (MST) stream. 
 </div>
 </div><p>
 <a class="anchor" name="939b973272c6b24c902ea836517440b2"></a><!-- doxytag: member="XDptx::RxConfig" ref="939b973272c6b24c902ea836517440b2" args="" -->
@@ -205,6 +241,21 @@ Configuration structure for the main stream attributes.
 
 <p>
 Configuration structure for the RX device. 
+</div>
+</div><p>
+<a class="anchor" name="913434506922a73af175516ef84ba126"></a><!-- doxytag: member="XDptx::Topology" ref="913434506922a73af175516ef84ba126" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_dptx___topology.html">XDptx_Topology</a> <a class="el" href="struct_x_dptx.html#913434506922a73af175516ef84ba126">XDptx::Topology</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+The topology of connected downstream DisplayPort devices when the driver is running in MST mode. 
 </div>
 </div><p>
 <a class="anchor" name="cec7536fbd35b65e8ef4bba747753408"></a><!-- doxytag: member="XDptx::TrainAdaptive" ref="cec7536fbd35b65e8ef4bba747753408" args="" -->

@@ -34,7 +34,8 @@
 </div>
 <div class="tabs">
   <ul>
-    <li><a href="globals.html#index_r"><span>r</span></a></li>
+    <li><a href="globals.html#index_g"><span>g</span></a></li>
+    <li><a href="globals_0x72.html#index_r"><span>r</span></a></li>
     <li id="current"><a href="globals_0x78.html#index_x"><span>x</span></a></li>
   </ul>
 </div>
@@ -43,7 +44,9 @@
 Here is a list of all file members with links to the files they belong to:
 <p>
 <h3><a class="anchor" name="index_x">- x -</a></h3><ul>
-<li>XDPTX_AUX_ADDRESS
+<li>XDptx_AllocatePayloadStreams()
+: <a class="el" href="xdptx__mst_8c.html#a688873fb1701355cbb33ac5d25d3da2">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#a688873fb1701355cbb33ac5d25d3da2">xdptx.h</a><li>XDptx_AllocatePayloadVcIdTable()
+: <a class="el" href="xdptx__mst_8c.html#95c6b72ff8fbfafa79050ceb21318967">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#95c6b72ff8fbfafa79050ceb21318967">xdptx.h</a><li>XDPTX_AUX_ADDRESS
 : <a class="el" href="xdptx__hw_8h.html#f52ee8f253e0d90f456e57b99956d39b">xdptx_hw.h</a><li>XDPTX_AUX_CLK_DIVIDER
 : <a class="el" href="xdptx__hw_8h.html#bf2869e5451d401fcaefafc818884742">xdptx_hw.h</a><li>XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK
 : <a class="el" href="xdptx__hw_8h.html#b889c393389b474415c281874cd1ae28">xdptx_hw.h</a><li>XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_SHIFT
@@ -77,13 +80,19 @@ Here is a list of all file members with links to the files they belong to:
 : <a class="el" href="xdptx_8h.html#591d601b5e6913df09ad73ea92881e31">xdptx.h</a>, <a class="el" href="xdptx_8c.html#591d601b5e6913df09ad73ea92881e31">xdptx.c</a><li>XDptx_AuxWrite()
 : <a class="el" href="xdptx_8h.html#690a6ee9d1b4df0624967cb00892347b">xdptx.h</a>, <a class="el" href="xdptx_8c.html#690a6ee9d1b4df0624967cb00892347b">xdptx.c</a><li>XDptx_CfgInitialize()
 : <a class="el" href="xdptx_8h.html#9de0242347480cc38571113e5edd73ba">xdptx.h</a>, <a class="el" href="xdptx_8c.html#9de0242347480cc38571113e5edd73ba">xdptx.c</a><li>XDptx_CfgMainLinkMax()
-: <a class="el" href="xdptx_8h.html#1b0ea5fdead5a6955b72b4775ec1d0a3">xdptx.h</a>, <a class="el" href="xdptx_8c.html#1b0ea5fdead5a6955b72b4775ec1d0a3">xdptx.c</a><li>XDptx_CfgMsaRecalculate()
-: <a class="el" href="xdptx__spm_8c.html#d6d0ab65e5e57372fb02d3eb3d0c08b4">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#d6d0ab65e5e57372fb02d3eb3d0c08b4">xdptx.h</a><li>XDptx_CfgMsaSetBpc()
-: <a class="el" href="xdptx__spm_8c.html#2d3e7a69218cfb430dabc556296859dc">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#2d3e7a69218cfb430dabc556296859dc">xdptx.h</a><li>XDptx_CfgMsaUseCustom()
-: <a class="el" href="xdptx__spm_8c.html#abbab1fd51ea73f8f021cd3fa7f3ff54">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#abbab1fd51ea73f8f021cd3fa7f3ff54">xdptx.h</a><li>XDptx_CfgMsaUseEdidPreferredTiming()
-: <a class="el" href="xdptx__spm_8c.html#15e3eafa3e673961309e8eb784d6409b">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#15e3eafa3e673961309e8eb784d6409b">xdptx.h</a><li>XDptx_CfgMsaUseStandardVideoMode()
-: <a class="el" href="xdptx__spm_8c.html#0b37747c136d40edc4bd401b23e39297">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#0b37747c136d40edc4bd401b23e39297">xdptx.h</a><li>XDptx_CheckLinkStatus()
-: <a class="el" href="xdptx_8h.html#e85ec3a02cdf8f8ffd611e026bf9ff01">xdptx.h</a>, <a class="el" href="xdptx_8c.html#e85ec3a02cdf8f8ffd611e026bf9ff01">xdptx.c</a><li>XDptx_ConfigTable
+: <a class="el" href="xdptx_8h.html#1b0ea5fdead5a6955b72b4775ec1d0a3">xdptx.h</a>, <a class="el" href="xdptx_8c.html#1b0ea5fdead5a6955b72b4775ec1d0a3">xdptx.c</a><li>XDptx_CfgMsaEnSynchClkMode()
+: <a class="el" href="xdptx__spm_8c.html#f424835447a6965b6c07316fb71dfc02">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#f424835447a6965b6c07316fb71dfc02">xdptx.h</a><li>XDptx_CfgMsaRecalculate()
+: <a class="el" href="xdptx__spm_8c.html#6bdddb30f33a780cf9f1111837ffb7d1">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#6bdddb30f33a780cf9f1111837ffb7d1">xdptx.h</a><li>XDptx_CfgMsaSetBpc()
+: <a class="el" href="xdptx__spm_8c.html#435f4058b60f8b3b05507b588054cfeb">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#435f4058b60f8b3b05507b588054cfeb">xdptx.h</a><li>XDptx_CfgMsaUseCustom()
+: <a class="el" href="xdptx__spm_8c.html#5449461b3f651fdd723dacff95414082">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#5449461b3f651fdd723dacff95414082">xdptx.h</a><li>XDptx_CfgMsaUseEdidPreferredTiming()
+: <a class="el" href="xdptx__spm_8c.html#ecaf86c0529067f86824e516ec24ffc6">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#ecaf86c0529067f86824e516ec24ffc6">xdptx.h</a><li>XDptx_CfgMsaUseStandardVideoMode()
+: <a class="el" href="xdptx__spm_8c.html#5af802ebc56dec263acc0d730d4196c2">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#5af802ebc56dec263acc0d730d4196c2">xdptx.h</a><li>XDptx_CfgTxPeLevel()
+: <a class="el" href="xdptx_8h.html#a6815e6062e47eecfd9616eaa15a19a1">xdptx.h</a>, <a class="el" href="xdptx_8c.html#a6815e6062e47eecfd9616eaa15a19a1">xdptx.c</a><li>XDptx_CfgTxVsLevel()
+: <a class="el" href="xdptx_8h.html#8f4603bb5e1496650e3cda3aa06924b8">xdptx.h</a>, <a class="el" href="xdptx_8c.html#8f4603bb5e1496650e3cda3aa06924b8">xdptx.c</a><li>XDptx_CfgTxVsOffset()
+: <a class="el" href="xdptx_8h.html#2584e9ee897c8e017029ab4d7755eaaa">xdptx.h</a>, <a class="el" href="xdptx_8c.html#2584e9ee897c8e017029ab4d7755eaaa">xdptx.c</a><li>XDptx_CheckLinkStatus()
+: <a class="el" href="xdptx_8h.html#e85ec3a02cdf8f8ffd611e026bf9ff01">xdptx.h</a>, <a class="el" href="xdptx_8c.html#e85ec3a02cdf8f8ffd611e026bf9ff01">xdptx.c</a><li>XDptx_ClearMsaValues()
+: <a class="el" href="xdptx__spm_8c.html#ed928effbb7778d00af50ecfa3a1dafc">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#ed928effbb7778d00af50ecfa3a1dafc">xdptx.h</a><li>XDptx_ClearPayloadVcIdTable()
+: <a class="el" href="xdptx__mst_8c.html#d460e5bed77a33b7f1eb59011bd61641">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#d460e5bed77a33b7f1eb59011bd61641">xdptx.h</a><li>XDptx_ConfigTable
 : <a class="el" href="xdptx__sinit_8c.html#fb75a3dfcbf84256620c004c99e47b47">xdptx_sinit.c</a><li>XDPTX_CORE_ID
 : <a class="el" href="xdptx__hw_8h.html#fe16c5bc7cdf55f7851c23e27e0fad65">xdptx_hw.h</a><li>XDPTX_CORE_ID_DP_MJR_VER_MASK
 : <a class="el" href="xdptx__hw_8h.html#2c7093b7bf7dea2056c9225d82af1ee5">xdptx_hw.h</a><li>XDPTX_CORE_ID_DP_MJR_VER_SHIFT
@@ -410,10 +419,13 @@ Here is a list of all file members with links to the files they belong to:
 : <a class="el" href="xdptx_8h.html#0f43683ba44e5e1544042be2bcfc45de">xdptx.h</a>, <a class="el" href="xdptx_8c.html#0f43683ba44e5e1544042be2bcfc45de">xdptx.c</a><li>XDptx_EnableTrainAdaptive()
 : <a class="el" href="xdptx_8h.html#6f302303735c870085d65253bcc9acdb">xdptx.h</a>, <a class="el" href="xdptx_8c.html#6f302303735c870085d65253bcc9acdb">xdptx.c</a><li>XDPTX_ENHANCED_FRAME_EN
 : <a class="el" href="xdptx__hw_8h.html#2505aad381cb4ca9d1c970523229934b">xdptx_hw.h</a><li>XDptx_EstablishLink()
-: <a class="el" href="xdptx_8h.html#32b552e953f9c486a6a5e04228dcf6b6">xdptx.h</a>, <a class="el" href="xdptx_8c.html#32b552e953f9c486a6a5e04228dcf6b6">xdptx.c</a><li>XDPTX_FORCE_SCRAMBLER_RESET
+: <a class="el" href="xdptx_8h.html#32b552e953f9c486a6a5e04228dcf6b6">xdptx.h</a>, <a class="el" href="xdptx_8c.html#32b552e953f9c486a6a5e04228dcf6b6">xdptx.c</a><li>XDptx_FindAccessibleDpDevices()
+: <a class="el" href="xdptx__mst_8c.html#d4d2ebaad714c817b647f8d21f879eca">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#d4d2ebaad714c817b647f8d21f879eca">xdptx.h</a><li>XDPTX_FORCE_SCRAMBLER_RESET
 : <a class="el" href="xdptx__hw_8h.html#5217c3a80875b6dcda385d57c2116551">xdptx_hw.h</a><li>XDPTX_FRAC_BYTES_PER_TU
 : <a class="el" href="xdptx__hw_8h.html#95e419cf6d2c09a29e29584e26120376">xdptx_hw.h</a><li>XDptx_GetEdid()
-: <a class="el" href="xdptx_8h.html#db337d62a4acae90149ed159d3526af9">xdptx.h</a>, <a class="el" href="xdptx_8c.html#db337d62a4acae90149ed159d3526af9">xdptx.c</a><li>XDptx_GetRxCapabilities()
+: <a class="el" href="xdptx_8h.html#23038e52574ffb4620617e4078727a0a">xdptx.h</a>, <a class="el" href="xdptx_8c.html#23038e52574ffb4620617e4078727a0a">xdptx.c</a><li>XDptx_GetGuid()
+: <a class="el" href="xdptx__mst_8c.html#ef32287d856ac7ab17a50e5600b6a9d6">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#ef32287d856ac7ab17a50e5600b6a9d6">xdptx.h</a><li>XDptx_GetRemoteEdid()
+: <a class="el" href="xdptx__mst_8c.html#3cec2b8fa349961931ec5b57c2d614df">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#3cec2b8fa349961931ec5b57c2d614df">xdptx.h</a><li>XDptx_GetRxCapabilities()
 : <a class="el" href="xdptx_8h.html#567d49c31f86ae5c704ac42730fa2e00">xdptx.h</a>, <a class="el" href="xdptx_8c.html#567d49c31f86ae5c704ac42730fa2e00">xdptx.c</a><li>XDPTX_GT_DRP_CHANNEL_STATUS
 : <a class="el" href="xdptx__hw_8h.html#a20e3869a077ed56257240989c3afcc3">xdptx_hw.h</a><li>XDPTX_GT_DRP_COMMAND
 : <a class="el" href="xdptx__hw_8h.html#08e43a348bf05477f71646320ab41ddd">xdptx_hw.h</a><li>XDPTX_GT_DRP_COMMAND_DRP_ADDR_MASK
@@ -500,10 +512,19 @@ Here is a list of all file members with links to the files they belong to:
 : <a class="el" href="xdptx__hw_8h.html#e1cde89ba2f6c3fdcef7fc5e8aa9c1d9">xdptx_hw.h</a><li>XDPTX_MAIN_STREAMX_POLARITY_HSYNC_POL_MASK
 : <a class="el" href="xdptx__hw_8h.html#2eaf9f11789d40c04fb868b0d8c80319">xdptx_hw.h</a><li>XDPTX_MAIN_STREAMX_POLARITY_VSYNC_POL_MASK
 : <a class="el" href="xdptx__hw_8h.html#b175eaedce85c047e38e6ff17d9d45fe">xdptx_hw.h</a><li>XDPTX_MAIN_STREAMX_POLARITY_VSYNC_POL_SHIFT
-: <a class="el" href="xdptx__hw_8h.html#1a50b240b33c499a4271db5ee4d4bb62">xdptx_hw.h</a><li>XDPTX_MAXIMUM_PE_LEVEL
+: <a class="el" href="xdptx__hw_8h.html#1a50b240b33c499a4271db5ee4d4bb62">xdptx_hw.h</a><li>XDPTX_MAX_TIMEOUT_COUNT
+: <a class="el" href="xdptx__mst_8c.html#2ccc52eda76ccfd8c643dcdb7af55d53">xdptx_mst.c</a><li>XDPTX_MAXIMUM_PE_LEVEL
 : <a class="el" href="xdptx_8c.html#e55be64e0c7523c211582a564f32c3d7">xdptx.c</a><li>XDPTX_MAXIMUM_VS_LEVEL
 : <a class="el" href="xdptx_8c.html#75ec77e0967dc9325f9cc8dfb38c6079">xdptx.c</a><li>XDPTX_MIN_BYTES_PER_TU
-: <a class="el" href="xdptx__hw_8h.html#c0d71f16f11b0debe9e20c47442208bf">xdptx_hw.h</a><li>XDPTX_N_VID
+: <a class="el" href="xdptx__hw_8h.html#c0d71f16f11b0debe9e20c47442208bf">xdptx_hw.h</a><li>XDptx_MstCapable()
+: <a class="el" href="xdptx__mst_8c.html#04c0a0cf85542a721ce4a0ef4bcf75b0">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#04c0a0cf85542a721ce4a0ef4bcf75b0">xdptx.h</a><li>XDptx_MstCfgModeDisable()
+: <a class="el" href="xdptx__mst_8c.html#2ee695f7ae87c5c4562c6476363c0c00">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#2ee695f7ae87c5c4562c6476363c0c00">xdptx.h</a><li>XDptx_MstCfgModeEnable()
+: <a class="el" href="xdptx__mst_8c.html#f15269f0f6d4a121d3f4258f5a51b298">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#f15269f0f6d4a121d3f4258f5a51b298">xdptx.h</a><li>XDptx_MstCfgStreamDisable()
+: <a class="el" href="xdptx__mst_8c.html#32542b979844e06b18b5dc7fbd2a4f33">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#32542b979844e06b18b5dc7fbd2a4f33">xdptx.h</a><li>XDptx_MstCfgStreamEnable()
+: <a class="el" href="xdptx__mst_8c.html#665b86549678eabb60f20f9924554cb3">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#665b86549678eabb60f20f9924554cb3">xdptx.h</a><li>XDptx_MstDisable()
+: <a class="el" href="xdptx__mst_8c.html#b61d820b6767defde5d9f3ae427f1cdc">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#b61d820b6767defde5d9f3ae427f1cdc">xdptx.h</a><li>XDptx_MstEnable()
+: <a class="el" href="xdptx__mst_8c.html#8123a5bcf543018ba0e104547c5291d5">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#8123a5bcf543018ba0e104547c5291d5">xdptx.h</a><li>XDptx_MstStreamIsEnabled()
+: <a class="el" href="xdptx__mst_8c.html#d8278e0c69dd1a2ebdfb13d9075fa694">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#d8278e0c69dd1a2ebdfb13d9075fa694">xdptx.h</a><li>XDPTX_N_VID
 : <a class="el" href="xdptx__hw_8h.html#246df330b0d3f6ea5d05fd95089e9f99">xdptx_hw.h</a><li>XDptx_Out32
 : <a class="el" href="xdptx__hw_8h.html#fd0152d6cb8b03d06fc4f278b0b23872">xdptx_hw.h</a><li>XDPTX_PE_LEVEL_0
 : <a class="el" href="xdptx__hw_8h.html#19051dad4d1c1c265327291bfe33ad94">xdptx_hw.h</a><li>XDPTX_PE_LEVEL_1
@@ -569,19 +590,36 @@ Here is a list of all file members with links to the files they belong to:
 : <a class="el" href="xdptx__hw_8h.html#ee67e335775bd954e6509576977e45be">xdptx_hw.h</a><li>XDPTX_REPLY_STATUS_REPLY_STATUS_STATE_SHIFT
 : <a class="el" href="xdptx__hw_8h.html#be3af3d8dab5f5fe9127a6d0681fce30">xdptx_hw.h</a><li>XDPTX_REPLY_STATUS_REQUEST_IN_PROGRESS_MASK
 : <a class="el" href="xdptx__hw_8h.html#3a890eeacb3f8acfd9202413cb04ca8b">xdptx_hw.h</a><li>XDptx_ResetPhy()
-: <a class="el" href="xdptx_8h.html#a71e17a951f445b9c7bcfcc3104cdf4c">xdptx.h</a>, <a class="el" href="xdptx_8c.html#a71e17a951f445b9c7bcfcc3104cdf4c">xdptx.c</a><li>XDPTX_SCRAMBLING_DISABLE
+: <a class="el" href="xdptx_8h.html#a71e17a951f445b9c7bcfcc3104cdf4c">xdptx.h</a>, <a class="el" href="xdptx_8c.html#a71e17a951f445b9c7bcfcc3104cdf4c">xdptx.c</a><li>XDPTX_SBMSG_ALLOCATE_PAYLOAD
+: <a class="el" href="xdptx__hw_8h.html#3ccb09a9123f82524cdd8986a1965e39">xdptx_hw.h</a><li>XDPTX_SBMSG_CLEAR_PAYLOAD_ID_TABLE
+: <a class="el" href="xdptx__hw_8h.html#2fea0c3e45ed7a10f450817a0b00f79c">xdptx_hw.h</a><li>XDPTX_SBMSG_ENUM_PATH_RESOURCES
+: <a class="el" href="xdptx__hw_8h.html#a179a409cd616096fd78a6f9985f2f41">xdptx_hw.h</a><li>XDPTX_SBMSG_LINK_ADDRESS
+: <a class="el" href="xdptx__hw_8h.html#b1867ff8828f2a9a0dce425819b55312">xdptx_hw.h</a><li>XDPTX_SBMSG_REMOTE_DPCD_READ
+: <a class="el" href="xdptx__hw_8h.html#bc6ccdc0e117c430711986eed0faa5d8">xdptx_hw.h</a><li>XDPTX_SBMSG_REMOTE_DPCD_WRITE
+: <a class="el" href="xdptx__hw_8h.html#0656f2692c7e28a180b83612aadcb3f2">xdptx_hw.h</a><li>XDPTX_SBMSG_REMOTE_I2C_READ
+: <a class="el" href="xdptx__hw_8h.html#e4f88c65a8b0756ac894afc0abdd17ce">xdptx_hw.h</a><li>XDPTX_SCRAMBLING_DISABLE
 : <a class="el" href="xdptx__hw_8h.html#245e3300cb64b18ae8b5a2c05a2726a5">xdptx_hw.h</a><li>XDptx_SelfTest()
-: <a class="el" href="xdptx__selftest_8c.html#f6cbfafba59214dcaad29991a3e265a4">xdptx_selftest.c</a>, <a class="el" href="xdptx_8h.html#f6cbfafba59214dcaad29991a3e265a4">xdptx.h</a><li>XDptx_SetDownspread()
+: <a class="el" href="xdptx__selftest_8c.html#f6cbfafba59214dcaad29991a3e265a4">xdptx_selftest.c</a>, <a class="el" href="xdptx_8h.html#f6cbfafba59214dcaad29991a3e265a4">xdptx.h</a><li>XDptx_SendSbMsgAllocatePayload()
+: <a class="el" href="xdptx__mst_8c.html#87da5896e9f88e367812db2d9a7b9bf6">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#87da5896e9f88e367812db2d9a7b9bf6">xdptx.h</a><li>XDptx_SendSbMsgClearPayloadIdTable()
+: <a class="el" href="xdptx__mst_8c.html#eb94576f1a407c2667877a49e065d015">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#eb94576f1a407c2667877a49e065d015">xdptx.h</a><li>XDptx_SendSbMsgEnumPathResources()
+: <a class="el" href="xdptx__mst_8c.html#f6e580f6a8dc0289713c4ef70d3a5c33">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#f6e580f6a8dc0289713c4ef70d3a5c33">xdptx.h</a><li>XDptx_SendSbMsgLinkAddress()
+: <a class="el" href="xdptx__mst_8c.html#be41e03326f878840b41aa07af466fec">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#be41e03326f878840b41aa07af466fec">xdptx.h</a><li>XDptx_SendSbMsgRemoteDpcdRead()
+: <a class="el" href="xdptx__mst_8c.html#af5dcb26c43a878d7e85e2432a56079c">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#af5dcb26c43a878d7e85e2432a56079c">xdptx.h</a><li>XDptx_SendSbMsgRemoteDpcdWrite()
+: <a class="el" href="xdptx__mst_8c.html#29eb074a43044c54a51fd333d2e1ddef">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#29eb074a43044c54a51fd333d2e1ddef">xdptx.h</a><li>XDptx_SendSbMsgRemoteIicRead()
+: <a class="el" href="xdptx__mst_8c.html#d8a8b2d9cf3ea0d2d3a73398076f3279">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#d8a8b2d9cf3ea0d2d3a73398076f3279">xdptx.h</a><li>XDptx_SetDownspread()
 : <a class="el" href="xdptx_8h.html#2a9f86dab2f5de738680e7b4320469b2">xdptx.h</a>, <a class="el" href="xdptx_8c.html#2a9f86dab2f5de738680e7b4320469b2">xdptx.c</a><li>XDptx_SetEnhancedFrameMode()
 : <a class="el" href="xdptx_8h.html#1d545645af32331e179e42e979bc3de3">xdptx.h</a>, <a class="el" href="xdptx_8c.html#1d545645af32331e179e42e979bc3de3">xdptx.c</a><li>XDptx_SetHasRedriverInPath()
 : <a class="el" href="xdptx_8h.html#55147fabd5935ff1198d732b54d1f310">xdptx.h</a>, <a class="el" href="xdptx_8c.html#55147fabd5935ff1198d732b54d1f310">xdptx.c</a><li>XDptx_SetHpdEventHandler()
 : <a class="el" href="xdptx__intr_8c.html#0fc77fba78c3de3cdd141273b9348d45">xdptx_intr.c</a>, <a class="el" href="xdptx_8h.html#0fc77fba78c3de3cdd141273b9348d45">xdptx.h</a><li>XDptx_SetHpdPulseHandler()
 : <a class="el" href="xdptx__intr_8c.html#a1dd03865a96f1323a8e3445dd4b15a6">xdptx_intr.c</a>, <a class="el" href="xdptx_8h.html#a1dd03865a96f1323a8e3445dd4b15a6">xdptx.h</a><li>XDptx_SetLaneCount()
 : <a class="el" href="xdptx_8h.html#a273dec21586ac33395010f87401c2d0">xdptx.h</a>, <a class="el" href="xdptx_8c.html#a273dec21586ac33395010f87401c2d0">xdptx.c</a><li>XDptx_SetLinkRate()
-: <a class="el" href="xdptx_8h.html#fc742d9a00ff909e56766f5a692159f2">xdptx.h</a>, <a class="el" href="xdptx_8c.html#fc742d9a00ff909e56766f5a692159f2">xdptx.c</a><li>XDptx_SetScrambler()
-: <a class="el" href="xdptx_8h.html#3e9dee7b0b7711677c8c39fd14d585c8">xdptx.h</a>, <a class="el" href="xdptx_8c.html#3e9dee7b0b7711677c8c39fd14d585c8">xdptx.c</a><li>XDptx_SetUserTimerHandler()
+: <a class="el" href="xdptx_8h.html#fc742d9a00ff909e56766f5a692159f2">xdptx.h</a>, <a class="el" href="xdptx_8c.html#fc742d9a00ff909e56766f5a692159f2">xdptx.c</a><li>XDptx_SetMsaValues()
+: <a class="el" href="xdptx__spm_8c.html#4d45bf3647f8a8698e330ca531198834">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#4d45bf3647f8a8698e330ca531198834">xdptx.h</a><li>XDptx_SetScrambler()
+: <a class="el" href="xdptx_8h.html#3e9dee7b0b7711677c8c39fd14d585c8">xdptx.h</a>, <a class="el" href="xdptx_8c.html#3e9dee7b0b7711677c8c39fd14d585c8">xdptx.c</a><li>XDptx_SetStreamSelectFromSinkList()
+: <a class="el" href="xdptx__mst_8c.html#65045054e997195fefb69e1edcb07a5a">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#65045054e997195fefb69e1edcb07a5a">xdptx.h</a><li>XDptx_SetStreamSinkRad()
+: <a class="el" href="xdptx__mst_8c.html#895b0d104c1772fe0f60c879cd0a2b82">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#895b0d104c1772fe0f60c879cd0a2b82">xdptx.h</a><li>XDptx_SetUserTimerHandler()
 : <a class="el" href="xdptx_8h.html#0cfe4355d8e2fa3e46be78c1800bb9d5">xdptx.h</a>, <a class="el" href="xdptx_8c.html#0cfe4355d8e2fa3e46be78c1800bb9d5">xdptx.c</a><li>XDptx_SetVideoMode()
-: <a class="el" href="xdptx__spm_8c.html#7cd047ab5d5dc46af427086469e7a0db">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#7cd047ab5d5dc46af427086469e7a0db">xdptx.h</a><li>XDPTX_SOFT_RESET
+: <a class="el" href="xdptx__spm_8c.html#8c94639847747642864da0f053598cea">xdptx_spm.c</a>, <a class="el" href="xdptx_8h.html#8c94639847747642864da0f053598cea">xdptx.h</a><li>XDPTX_SOFT_RESET
 : <a class="el" href="xdptx__hw_8h.html#d67b688fb3c16c3aa74b8c6f5a6b4967">xdptx_hw.h</a><li>XDPTX_SOFT_RESET_AUX_MASK
 : <a class="el" href="xdptx__hw_8h.html#a42b3c0d8bb96f522f7d3c1e16c1ba5d">xdptx_hw.h</a><li>XDPTX_SOFT_RESET_VIDEO_STREAM1_MASK
 : <a class="el" href="xdptx__hw_8h.html#037c22e295d3f8b26fcddff580293cc6">xdptx_hw.h</a><li>XDPTX_SOFT_RESET_VIDEO_STREAM2_MASK
@@ -599,7 +637,11 @@ Here is a list of all file members with links to the files they belong to:
 : <a class="el" href="xdptx__hw_8h.html#3051631e2a05018aa80a84c7e5fefbc6">xdptx_hw.h</a><li>XDPTX_STREAM3_MSA_START_OFFSET
 : <a class="el" href="xdptx__hw_8h.html#08cfbe233278a84564ce994a71bc278a">xdptx_hw.h</a><li>XDPTX_STREAM4_MSA_START
 : <a class="el" href="xdptx__hw_8h.html#f33541dae460d595f6cc804399632ac3">xdptx_hw.h</a><li>XDPTX_STREAM4_MSA_START_OFFSET
-: <a class="el" href="xdptx__hw_8h.html#afb94c79ee042aaf261c3028dfe230e2">xdptx_hw.h</a><li>XDptx_TimerHandler
+: <a class="el" href="xdptx__hw_8h.html#afb94c79ee042aaf261c3028dfe230e2">xdptx_hw.h</a><li>XDPTX_STREAM_ID1
+: <a class="el" href="xdptx__hw_8h.html#811ba90677c59c67dca8e75145357ecd">xdptx_hw.h</a><li>XDPTX_STREAM_ID2
+: <a class="el" href="xdptx__hw_8h.html#56fa1ea197ef08a69c7df6eb0b230484">xdptx_hw.h</a><li>XDPTX_STREAM_ID3
+: <a class="el" href="xdptx__hw_8h.html#8de674862400c37ce9d7b58546755d2f">xdptx_hw.h</a><li>XDPTX_STREAM_ID4
+: <a class="el" href="xdptx__hw_8h.html#8d25af337e3880dc5478228ac344aba9">xdptx_hw.h</a><li>XDptx_TimerHandler
 : <a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">xdptx.h</a><li>XDPTX_TRAINING_PATTERN_SET
 : <a class="el" href="xdptx__hw_8h.html#80266896bc3c68c7109deba44db4fcac">xdptx_hw.h</a><li>XDPTX_TRAINING_PATTERN_SET_OFF
 : <a class="el" href="xdptx__hw_8h.html#47a32150d890b4990105454f66661a7d">xdptx_hw.h</a><li>XDPTX_TRAINING_PATTERN_SET_TP1
@@ -732,6 +774,7 @@ Here is a list of all file members with links to the files they belong to:
 : <a class="el" href="xdptx__hw_8h.html#e0a4c903dcc0de3fd56378ea721534a2">xdptx_hw.h</a><li>XDPTX_VS_LEVEL_3
 : <a class="el" href="xdptx__hw_8h.html#5d28772a94530d91c12e8aa054380280">xdptx_hw.h</a><li>XDPTX_VS_LEVEL_OFFSET
 : <a class="el" href="xdptx__hw_8h.html#7852023a12302535fd5aef02adf966a2">xdptx_hw.h</a><li>XDptx_WaitUs()
-: <a class="el" href="xdptx_8h.html#f60126291b4c1d2ac2d054707c804dce">xdptx.h</a>, <a class="el" href="xdptx_8c.html#f60126291b4c1d2ac2d054707c804dce">xdptx.c</a><li>XDptx_WriteReg
+: <a class="el" href="xdptx_8h.html#f60126291b4c1d2ac2d054707c804dce">xdptx.h</a>, <a class="el" href="xdptx_8c.html#f60126291b4c1d2ac2d054707c804dce">xdptx.c</a><li>XDptx_WriteGuid()
+: <a class="el" href="xdptx__mst_8c.html#d03f3a2b6a8262cb230ad8bc6022d648">xdptx_mst.c</a>, <a class="el" href="xdptx_8h.html#d03f3a2b6a8262cb230ad8bc6022d648">xdptx.h</a><li>XDptx_WriteReg
 : <a class="el" href="xdptx__hw_8h.html#740519ee4cc95e492351ad8cf9085632">xdptx_hw.h</a></ul>
 Copyright @ 1995-2014 Xilinx, Inc. All rights reserved. 

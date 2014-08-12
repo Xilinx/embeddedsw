@@ -29,6 +29,7 @@ This header file contains the identifiers and low-level driver functions (or mac
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
  1.00a als  05/17/14 Initial release.
+       als  08/03/14 Initial MST addition.
  </pre> 
 <p>
 <code>#include &quot;xil_io.h&quot;</code><br>
@@ -1152,6 +1153,30 @@ This header file contains the identifiers and low-level driver functions (or mac
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#d676201acfd1008cc325d9431a9de051">XDPTX_EDID_DTD_SIGNAL_HPOLARITY_SHIFT</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#7a8f4fccb4432d3ba0a8d52cbfb373af">XDPTX_EDID_DTD_SIGNAL_VPOLARITY_SHIFT</a>&nbsp;&nbsp;&nbsp;2</td></tr>
+
+<tr><td colspan="2"><br><h2>Stream identification.</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#811ba90677c59c67dca8e75145357ecd">XDPTX_STREAM_ID1</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#56fa1ea197ef08a69c7df6eb0b230484">XDPTX_STREAM_ID2</a>&nbsp;&nbsp;&nbsp;2</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8de674862400c37ce9d7b58546755d2f">XDPTX_STREAM_ID3</a>&nbsp;&nbsp;&nbsp;3</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8d25af337e3880dc5478228ac344aba9">XDPTX_STREAM_ID4</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+
+<tr><td colspan="2"><br><h2>Sideband message codes when the driver is in MST mode.</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#b1867ff8828f2a9a0dce425819b55312">XDPTX_SBMSG_LINK_ADDRESS</a>&nbsp;&nbsp;&nbsp;0x01</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#a179a409cd616096fd78a6f9985f2f41">XDPTX_SBMSG_ENUM_PATH_RESOURCES</a>&nbsp;&nbsp;&nbsp;0x10</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#3ccb09a9123f82524cdd8986a1965e39">XDPTX_SBMSG_ALLOCATE_PAYLOAD</a>&nbsp;&nbsp;&nbsp;0x11</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#2fea0c3e45ed7a10f450817a0b00f79c">XDPTX_SBMSG_CLEAR_PAYLOAD_ID_TABLE</a>&nbsp;&nbsp;&nbsp;0x14</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#bc6ccdc0e117c430711986eed0faa5d8">XDPTX_SBMSG_REMOTE_DPCD_READ</a>&nbsp;&nbsp;&nbsp;0x20</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#0656f2692c7e28a180b83612aadcb3f2">XDPTX_SBMSG_REMOTE_DPCD_WRITE</a>&nbsp;&nbsp;&nbsp;0x21</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#e4f88c65a8b0756ac894afc0abdd17ce">XDPTX_SBMSG_REMOTE_I2C_READ</a>&nbsp;&nbsp;&nbsp;0x22</td></tr>
 
 <tr><td colspan="2"><br><h2>Register access macro definitions.</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#1c23aa0582256889f83db7336a3915ae">XDptx_In32</a>&nbsp;&nbsp;&nbsp;Xil_In32</td></tr>
@@ -8619,6 +8644,111 @@ Shift bits for the internal AUX reply state machine status.
 AUX request is currently being transmitted. 
 </div>
 </div><p>
+<a class="anchor" name="3ccb09a9123f82524cdd8986a1965e39"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_ALLOCATE_PAYLOAD" ref="3ccb09a9123f82524cdd8986a1965e39" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_ALLOCATE_PAYLOAD&nbsp;&nbsp;&nbsp;0x11          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="2fea0c3e45ed7a10f450817a0b00f79c"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_CLEAR_PAYLOAD_ID_TABLE" ref="2fea0c3e45ed7a10f450817a0b00f79c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_CLEAR_PAYLOAD_ID_TABLE&nbsp;&nbsp;&nbsp;0x14          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="a179a409cd616096fd78a6f9985f2f41"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_ENUM_PATH_RESOURCES" ref="a179a409cd616096fd78a6f9985f2f41" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_ENUM_PATH_RESOURCES&nbsp;&nbsp;&nbsp;0x10          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="b1867ff8828f2a9a0dce425819b55312"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_LINK_ADDRESS" ref="b1867ff8828f2a9a0dce425819b55312" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_LINK_ADDRESS&nbsp;&nbsp;&nbsp;0x01          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="bc6ccdc0e117c430711986eed0faa5d8"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_REMOTE_DPCD_READ" ref="bc6ccdc0e117c430711986eed0faa5d8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_REMOTE_DPCD_READ&nbsp;&nbsp;&nbsp;0x20          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="0656f2692c7e28a180b83612aadcb3f2"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_REMOTE_DPCD_WRITE" ref="0656f2692c7e28a180b83612aadcb3f2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_REMOTE_DPCD_WRITE&nbsp;&nbsp;&nbsp;0x21          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="e4f88c65a8b0756ac894afc0abdd17ce"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_REMOTE_I2C_READ" ref="e4f88c65a8b0756ac894afc0abdd17ce" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_REMOTE_I2C_READ&nbsp;&nbsp;&nbsp;0x22          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="245e3300cb64b18ae8b5a2c05a2726a5"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SCRAMBLING_DISABLE" ref="245e3300cb64b18ae8b5a2c05a2726a5" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -8908,6 +9038,66 @@ Start of the MSA registers for stream 4.
 <b>Value:</b><div class="fragment"><pre class="fragment">(<a class="code" href="xdptx__hw_8h.html#f33541dae460d595f6cc804399632ac3">XDPTX_STREAM4_MSA_START</a> - \
                 <a class="code" href="xdptx__hw_8h.html#26719c8b85fcca4dfb4d0b05b4ff830f">XDPTX_STREAM1_MSA_START</a>)
 </pre></div>The MSA registers for stream 4 are at an offset from the corresponding registers of stream 1. 
+</div>
+</div><p>
+<a class="anchor" name="811ba90677c59c67dca8e75145357ecd"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_STREAM_ID1" ref="811ba90677c59c67dca8e75145357ecd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_STREAM_ID1&nbsp;&nbsp;&nbsp;1          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="56fa1ea197ef08a69c7df6eb0b230484"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_STREAM_ID2" ref="56fa1ea197ef08a69c7df6eb0b230484" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_STREAM_ID2&nbsp;&nbsp;&nbsp;2          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="8de674862400c37ce9d7b58546755d2f"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_STREAM_ID3" ref="8de674862400c37ce9d7b58546755d2f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_STREAM_ID3&nbsp;&nbsp;&nbsp;3          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="8d25af337e3880dc5478228ac344aba9"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_STREAM_ID4" ref="8d25af337e3880dc5478228ac344aba9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_STREAM_ID4&nbsp;&nbsp;&nbsp;4          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
 </div>
 </div><p>
 <a class="anchor" name="80266896bc3c68c7109deba44db4fcac"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_TRAINING_PATTERN_SET" ref="80266896bc3c68c7109deba44db4fcac" args="" -->

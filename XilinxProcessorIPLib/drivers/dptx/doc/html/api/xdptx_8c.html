@@ -67,7 +67,7 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#567d49c31f86ae5c704ac42730fa2e00">XDptx_GetRxCapabilities</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#db337d62a4acae90149ed159d3526af9">XDptx_GetEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#23038e52574ffb4620617e4078727a0a">XDptx_GetEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Edid)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#1b0ea5fdead5a6955b72b4775ec1d0a3">XDptx_CfgMainLinkMax</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
@@ -78,6 +78,12 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#6f302303735c870085d65253bcc9acdb">XDptx_EnableTrainAdaptive</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#55147fabd5935ff1198d732b54d1f310">XDptx_SetHasRedriverInPath</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Set)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#2584e9ee897c8e017029ab4d7755eaaa">XDptx_CfgTxVsOffset</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Offset)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#8f4603bb5e1496650e3cda3aa06924b8">XDptx_CfgTxVsLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#a6815e6062e47eecfd9616eaa15a19a1">XDptx_CfgTxPeLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#591d601b5e6913df09ad73ea92881e31">XDptx_AuxRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 NumBytes, void *Data)</td></tr>
 
@@ -304,7 +310,7 @@ This function issues a write request over the AUX channel.<p>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>XST_SUCCESS if AUX write request was successfully acknowledged.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise.</li></ul>
+<li>XST_SUCCESS if the AUX write request was successfully acknowledged.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if the AUX request timed out.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
@@ -381,6 +387,134 @@ This function determines the common capabilities between the DisplayPort TX core
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
 <li>XST_SUCCESS if main link settings were successfully set.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="a6815e6062e47eecfd9616eaa15a19a1"></a><!-- doxytag: member="xdptx.c::XDptx_CfgTxPeLevel" ref="a6815e6062e47eecfd9616eaa15a19a1" args="(XDptx *InstancePtr, u8 Level, u8 TxLevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDptx_CfgTxPeLevel           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>TxLevel</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function sets the pre-emphasis level value in the DisplayPort TX that will be used during link training for a given pre-emphasis training level.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Level</em>&nbsp;</td><td>is the pre-emphasis training level to set the DisplayPort TX level for. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>TxLevel</em>&nbsp;</td><td>is the DisplayPort TX pre-emphasis level value to be used during link training.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>There are 32 possible pre-emphasis levels in the DisplayPort TX core that map to 4 possible pre-emphasis training levels in the RX device. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="8f4603bb5e1496650e3cda3aa06924b8"></a><!-- doxytag: member="xdptx.c::XDptx_CfgTxVsLevel" ref="8f4603bb5e1496650e3cda3aa06924b8" args="(XDptx *InstancePtr, u8 Level, u8 TxLevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDptx_CfgTxVsLevel           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>TxLevel</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function sets the voltage swing level value in the DisplayPort TX that will be used during link training for a given voltage swing training level.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Level</em>&nbsp;</td><td>is the voltage swing training level to set the DisplayPort TX level for. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>TxLevel</em>&nbsp;</td><td>is the DisplayPort TX voltage swing level value to be used during link training.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>There are 16 possible voltage swing levels in the DisplayPort TX core that map to 4 possible voltage swing training levels in the RX device. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="2584e9ee897c8e017029ab4d7755eaaa"></a><!-- doxytag: member="xdptx.c::XDptx_CfgTxVsOffset" ref="2584e9ee897c8e017029ab4d7755eaaa" args="(XDptx *InstancePtr, u8 Offset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDptx_CfgTxVsOffset           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Offset</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function sets the voltage swing offset to use during training when no redriver exists. The offset will be added to the DisplayPort TX's voltage swing level value when pre-emphasis is used (when the pre-emphasis level not equal to 0).<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Offset</em>&nbsp;</td><td>is the value to set for the voltage swing offset.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
@@ -549,7 +683,7 @@ This function checks if the link needs training and runs the training sequence i
 
 </div>
 </div><p>
-<a class="anchor" name="db337d62a4acae90149ed159d3526af9"></a><!-- doxytag: member="xdptx.c::XDptx_GetEdid" ref="db337d62a4acae90149ed159d3526af9" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="23038e52574ffb4620617e4078727a0a"></a><!-- doxytag: member="xdptx.c::XDptx_GetEdid" ref="23038e52574ffb4620617e4078727a0a" args="(XDptx *InstancePtr, u8 *Edid)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -557,9 +691,18 @@ This function checks if the link needs training and runs the training sequence i
           <td class="memname">u32 XDptx_GetEdid           </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
-          <td class="paramname"> <em>InstancePtr</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>Edid</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
         </tr>
       </table>
 </div>
@@ -569,7 +712,8 @@ This function checks if the link needs training and runs the training sequence i
 This function retrieves the RX device's Extended Display Identification Data (EDID).<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Edid</em>&nbsp;</td><td>is a pointer to the Edid buffer to save to.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>

@@ -39,7 +39,7 @@ This typedef contains the display monitor timing attributes for a video mode.
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___dmt_mode.html#a8befc410e54eb85edb49f4712a667c9">PixelClkKhz</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___dmt_mode.html#676abdd11594127d0ef7006777d3a826">Scan</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___dmt_mode.html#d565a82d3eddd1ea741edad99c1e7361">Interlaced</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___dmt_mode.html#f792ca11331a8f6f97db131a66b1afa9">HSyncPolarity</a></td></tr>
 
@@ -86,7 +86,7 @@ Standard Display Monitor Timing (DMT) ID number.
 <div class="memdoc">
 
 <p>
-Horizontal back porch. 
+Horizontal back porch (in pixels). 
 </div>
 </div><p>
 <a class="anchor" name="5c42fec92a1182944a61fddd5e16a95e"></a><!-- doxytag: member="XDptx_DmtMode::HFrontPorch" ref="5c42fec92a1182944a61fddd5e16a95e" args="" -->
@@ -101,7 +101,7 @@ Horizontal back porch.
 <div class="memdoc">
 
 <p>
-Horizontal front porch. 
+Horizontal front porch (in pixels). 
 </div>
 </div><p>
 <a class="anchor" name="1529828ed4ab61fa0a8f73a3ef58ebad"></a><!-- doxytag: member="XDptx_DmtMode::HResolution" ref="1529828ed4ab61fa0a8f73a3ef58ebad" args="" -->
@@ -116,7 +116,7 @@ Horizontal front porch.
 <div class="memdoc">
 
 <p>
-Horizontal resolution. 
+Horizontal resolution (in pixels). 
 </div>
 </div><p>
 <a class="anchor" name="f792ca11331a8f6f97db131a66b1afa9"></a><!-- doxytag: member="XDptx_DmtMode::HSyncPolarity" ref="f792ca11331a8f6f97db131a66b1afa9" args="" -->
@@ -131,7 +131,7 @@ Horizontal resolution.
 <div class="memdoc">
 
 <p>
-Horizontal synchronization polarity. 
+Horizontal synchronization polarity (0=positive/1=negative). 
 </div>
 </div><p>
 <a class="anchor" name="8f34bec755f4274423a826d141619e48"></a><!-- doxytag: member="XDptx_DmtMode::HSyncPulseWidth" ref="8f34bec755f4274423a826d141619e48" args="" -->
@@ -146,7 +146,22 @@ Horizontal synchronization polarity.
 <div class="memdoc">
 
 <p>
-Horizontal synchronization pulse width. 
+Horizontal synchronization time (pulse width in pixels). 
+</div>
+</div><p>
+<a class="anchor" name="d565a82d3eddd1ea741edad99c1e7361"></a><!-- doxytag: member="XDptx_DmtMode::Interlaced" ref="d565a82d3eddd1ea741edad99c1e7361" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 <a class="el" href="struct_x_dptx___dmt_mode.html#d565a82d3eddd1ea741edad99c1e7361">XDptx_DmtMode::Interlaced</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Input stream interlaced scan (0=non-interlaced/ 1=interlaced). 
 </div>
 </div><p>
 <a class="anchor" name="a8befc410e54eb85edb49f4712a667c9"></a><!-- doxytag: member="XDptx_DmtMode::PixelClkKhz" ref="a8befc410e54eb85edb49f4712a667c9" args="" -->
@@ -161,22 +176,7 @@ Horizontal synchronization pulse width.
 <div class="memdoc">
 
 <p>
-Pixel frequency (in KHz). 
-</div>
-</div><p>
-<a class="anchor" name="676abdd11594127d0ef7006777d3a826"></a><!-- doxytag: member="XDptx_DmtMode::Scan" ref="676abdd11594127d0ef7006777d3a826" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u8 <a class="el" href="struct_x_dptx___dmt_mode.html#676abdd11594127d0ef7006777d3a826">XDptx_DmtMode::Scan</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Interlaced/non-interlaced. 
+Pixel frequency (in KHz). This is also the M value for the video stream (MVid). 
 </div>
 </div><p>
 <a class="anchor" name="7da956a69abe62b28dffae47b6962ec3"></a><!-- doxytag: member="XDptx_DmtMode::VBackPorch" ref="7da956a69abe62b28dffae47b6962ec3" args="" -->
@@ -191,7 +191,7 @@ Interlaced/non-interlaced.
 <div class="memdoc">
 
 <p>
-Vertical back porch. 
+Vertical back porch (in lines). 
 </div>
 </div><p>
 <a class="anchor" name="23865e6f7e3265af6b75d2dcd0144a60"></a><!-- doxytag: member="XDptx_DmtMode::VFrontPorch" ref="23865e6f7e3265af6b75d2dcd0144a60" args="" -->
@@ -206,7 +206,7 @@ Vertical back porch.
 <div class="memdoc">
 
 <p>
-Vertical front porch. 
+Vertical front porch (in lines). 
 </div>
 </div><p>
 <a class="anchor" name="8b968433d15f6bb03512ee597ebef0d5"></a><!-- doxytag: member="XDptx_DmtMode::VideoMode" ref="8b968433d15f6bb03512ee597ebef0d5" args="" -->
@@ -236,7 +236,7 @@ Enumerated key.
 <div class="memdoc">
 
 <p>
-Vertical resolution. 
+Vertical resolution (in lines). 
 </div>
 </div><p>
 <a class="anchor" name="78ca69a627d19d1053438e5b33f016eb"></a><!-- doxytag: member="XDptx_DmtMode::VSyncPolarity" ref="78ca69a627d19d1053438e5b33f016eb" args="" -->
@@ -251,7 +251,7 @@ Vertical resolution.
 <div class="memdoc">
 
 <p>
-Vertical synchronization polarity. 
+Vertical synchronization polarity (0=positive/1=negative). 
 </div>
 </div><p>
 <a class="anchor" name="4bcfd12f87dbbdd45c73e7bfe97f7237"></a><!-- doxytag: member="XDptx_DmtMode::VSyncPulseWidth" ref="4bcfd12f87dbbdd45c73e7bfe97f7237" args="" -->
@@ -266,7 +266,7 @@ Vertical synchronization polarity.
 <div class="memdoc">
 
 <p>
-Vertical synchronization pulse width. 
+Vertical synchronization time (pulse width in lines). 
 </div>
 </div><p>
 <hr>The documentation for this struct was generated from the following file:<ul>
