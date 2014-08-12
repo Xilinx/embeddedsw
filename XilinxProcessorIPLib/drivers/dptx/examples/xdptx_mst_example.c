@@ -141,23 +141,20 @@ int main(void)
 u32 Dptx_MstExample(XDptx *InstancePtr, u16 DeviceId)
 {
 	u32 Status;
+	u32 MaskVal;
+	u8 StreamIndex;
 	XDptx_VideoMode VideoMode = USE_VIDEO_MODE;
 	u8 Bpc = USE_BPC;
-	u32 MaskVal;
 
 	/* Enable multi-stream transport (MST) mode for this example. */
 	XDptx_MstCfgModeEnable(InstancePtr);
-	if (NUM_STREAMS >= 1) {
-		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID1);
+	for (StreamIndex = 0; StreamIndex < NUM_STREAMS; StreamIndex++) {
+		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID1 +
+								StreamIndex);
 	}
-	if (NUM_STREAMS >= 2) {
-		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID2);
-	}
-	if (NUM_STREAMS >= 3) {
-		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID3);
-	}
-	if (NUM_STREAMS >= 4) {
-		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID4);
+	for (StreamIndex = NUM_STREAMS; StreamIndex < 4; StreamIndex++) {
+		XDptx_MstCfgStreamDisable(InstancePtr, XDPTX_STREAM_ID1 +
+								StreamIndex);
 	}
 
 	/* Do platform initialization here. This is hardware system specific -
@@ -183,6 +180,9 @@ u32 Dptx_MstExample(XDptx *InstancePtr, u16 DeviceId)
 		return XST_FAILURE;
 	}
 
+	XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
+	XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
+
 	/* A DisplayPort connection must exist at this point. See the interrupt
 	 * and polling examples for waiting for connection events. */
 	Status = Dptx_StartLink(InstancePtr);
@@ -190,18 +190,10 @@ u32 Dptx_MstExample(XDptx *InstancePtr, u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
-	XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
-
 	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID1, Bpc);
 	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID2, Bpc);
 	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID3, Bpc);
 	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID4, Bpc);
-
-	Status = XDptx_GetRxCapabilities(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
 
 #ifndef ALLOCATE_FROM_SINKLIST
 	u8 Lct;
@@ -253,21 +245,12 @@ u32 Dptx_MstExample(XDptx *InstancePtr, u16 DeviceId)
 	/* Disable MST for now. */
 	XDptx_MstDisable(InstancePtr);
 
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1)) {
-		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID1,
-								VideoMode);
-	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID2)) {
-		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID2,
-								VideoMode);
-	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID3)) {
-		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID3,
-								VideoMode);
-	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID4)) {
-		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID4,
-								VideoMode);
+	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
+		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1 +
+								StreamIndex)) {
+			XDptx_CfgMsaUseStandardVideoMode(InstancePtr,
+				XDPTX_STREAM_ID1 + StreamIndex, VideoMode);
+		}
 	}
 
 	/* Disable main stream to force sending of IDLE patterns. */
@@ -279,17 +262,12 @@ u32 Dptx_MstExample(XDptx *InstancePtr, u16 DeviceId)
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SOFT_RESET, 0x0);
 
 	/* Set the video modes for each stream. */
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1)) {
-		XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID1);
-	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID2)) {
-		XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID2);
-	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID3)) {
-		XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID3);
-	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID4)) {
-		XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID4);
+	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
+		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1 +
+								StreamIndex)) {
+			XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID1 +
+								StreamIndex);
+		}
 	}
 
 	/* Configure video stream source or generator here. This function needs
