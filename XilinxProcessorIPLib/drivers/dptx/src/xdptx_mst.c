@@ -1644,7 +1644,7 @@ void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
  *		DisplayPort source to the target DisplayPort device.
  * @param	RelativeAddress is the relative address from the DisplayPort
  *		source to the target DisplayPort device.
- * @param	A pointer to the Edid buffer to save to.
+ * @param	Edid is a pointer to the Edid buffer to save to.
  *
  * @return
  *		- XST_SUCCESS if the I2C transactions to read the EDID were

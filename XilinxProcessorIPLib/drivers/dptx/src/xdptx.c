@@ -331,7 +331,7 @@ u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
  * (EDID).
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	A pointer to the Edid buffer to save to.
+ * @param	Edid is a pointer to the Edid buffer to save to.
  *
  * @return
  *		- XST_SUCCESS if the I2C transactions to read the EDID were
