@@ -2562,10 +2562,9 @@ u16 XVtc_ConvTiming2VideoMode(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 ******************************************************************************/
 void XVtc_SetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing * TimingPtr)
 {
-	XVtc_Polarity Polarity = {0};
-	XVtc_Signal Signal = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0};
-	XVtc_HoriOffsets Hoff = {0};
+  XVtc_Polarity Polarity;
+  XVtc_Signal Signal;
+  XVtc_HoriOffsets Hoff;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2623,23 +2622,21 @@ void XVtc_SetGeneratorVideoMode(XVtc *InstancePtr, u16 Mode)
 ******************************************************************************/
 void XVtc_GetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 {
-	XVtc_Polarity Polarity = {0};
 
-	/* Signal.OriginMode set to 1 */
-	XVtc_Signal Signal = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0};
-	XVtc_HoriOffsets Hoff = {0};
+  XVtc_Polarity Polarity;
+  XVtc_Signal Signal;
+  XVtc_HoriOffsets Hoff;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 	Xil_AssertVoid(TimingPtr != NULL);
 
-	/* Signal.OriginMode = 1 */
 
-	XVtc_GetGeneratorHoriOffset(InstancePtr, &Hoff);
-	XVtc_GetPolarity(InstancePtr, &Polarity);
-	XVtc_GetGenerator(InstancePtr, &Signal);
+  Signal.OriginMode = 1;
+  XVtc_GetPolarity(InstancePtr, &Polarity);
+  XVtc_GetGeneratorHoriOffset(InstancePtr, &Hoff);
+  XVtc_GetGenerator(InstancePtr, &Signal);
 
 	XVtc_ConvSignal2Timing(InstancePtr, &Signal, &Hoff, &Polarity,
 					TimingPtr);
@@ -2693,20 +2690,20 @@ u16 XVtc_GetGeneratorVideoMode(XVtc *InstancePtr)
 ******************************************************************************/
 void XVtc_GetDetectorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 {
-	XVtc_Polarity Polarity = {0};
-	XVtc_Signal Signal = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0};
-	XVtc_HoriOffsets Hoff = {0};
+  XVtc_Polarity Polarity;
+  XVtc_Signal Signal;
+  XVtc_HoriOffsets Hoff;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 	Xil_AssertVoid(TimingPtr != NULL);
 
-	/* Signal.OriginMode = 1U */
-	XVtc_GetDetector(InstancePtr, &Signal);
-	XVtc_GetDetectorPolarity(InstancePtr, &Polarity);
-	XVtc_GetDetectorHoriOffset(InstancePtr, &Hoff);
+
+  Signal.OriginMode = 1;
+  XVtc_GetDetector(InstancePtr, &Signal);
+  XVtc_GetDetectorPolarity(InstancePtr, &Polarity);
+  XVtc_GetDetectorHoriOffset(InstancePtr, &Hoff);
 
 	XVtc_ConvSignal2Timing(InstancePtr, &Signal, &Hoff, &Polarity,
 					TimingPtr);

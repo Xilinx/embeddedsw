@@ -184,35 +184,30 @@ void XVtc_IntrHandler(void *InstancePtr)
 	if ((u32)0x0 == (PendingIntr | (XVTC_IXR_ALLINTR_MASK))) {
 		ErrorStatus = (u32)0x0;
 		XVtcPtr->ErrCallBack(XVtcPtr->ErrRef, ErrorStatus);
+		return;
 	}
 
 	/* A generator event has happened */
-	if ((PendingIntr & (XVTC_IXR_G_ALL_MASK)) ==
-					(XVTC_IXR_G_ALL_MASK)) {
-		XVtcPtr->GeneratorCallBack
-				(XVtcPtr->GeneratorRef, PendingIntr);
-	}
+	if ((PendingIntr & XVTC_IXR_G_ALL_MASK))
+		XVtcPtr->GeneratorCallBack(XVtcPtr->GeneratorRef,
+		PendingIntr);
 
 	/* A detector event has happened */
-	if ((PendingIntr & (XVTC_IXR_D_ALL_MASK)) ==
-					(XVTC_IXR_D_ALL_MASK)) {
-		XVtcPtr->DetectorCallBack
-				(XVtcPtr->DetectorRef, PendingIntr);
-	}
+	if ((PendingIntr & XVTC_IXR_D_ALL_MASK))
+		XVtcPtr->DetectorCallBack(XVtcPtr->DetectorRef,
+		PendingIntr);
 
-	/* A frame sync has happened */
-	if ((PendingIntr & (XVTC_IXR_FSYNCALL_MASK)) ==
-					(XVTC_IXR_FSYNCALL_MASK)) {
-		XVtcPtr->FrameSyncCallBack
-				(XVtcPtr->FrameSyncRef, PendingIntr);
-	}
+	/* A frame sync is done */
+	if ((PendingIntr & XVTC_IXR_FSYNCALL_MASK))
+		XVtcPtr->FrameSyncCallBack(XVtcPtr->FrameSyncRef,
+		PendingIntr);
 
-	/* A signal lock has happened */
-	if ((PendingIntr & (XVTC_IXR_LOCKALL_MASK)) ==
-					(XVTC_IXR_LOCKALL_MASK)) {
-		XVtcPtr->LockCallBack(XVtcPtr->LockRef, PendingIntr);
-	}
+	/* A signal lock is detected */
+	if ((PendingIntr & XVTC_IXR_LOCKALL_MASK))
+		XVtcPtr->LockCallBack(XVtcPtr->LockRef,
+		PendingIntr);
 }
+
 
 /*****************************************************************************/
 /**
