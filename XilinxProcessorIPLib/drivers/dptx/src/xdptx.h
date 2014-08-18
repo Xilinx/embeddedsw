@@ -504,6 +504,9 @@ typedef struct {
 						use by the video stream. */
 	u8 SynchronousClockMode;	/**< Synchronous clock mode is currently
 						in use by the video stream. */
+	u8 OverrideUserPixelWidth;	/**< If set to 1, the value stored for
+						UserPixelWidth will be used as
+						the pixel width. */
 } XDptx_MainStreamAttributes;
 
 /**

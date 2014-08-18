@@ -139,16 +139,18 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
-	if ((MsaConfig->Dmt.PixelClkKhz > 300000) &&
+	if (MsaConfig->OverrideUserPixelWidth == 0) {
+		if ((MsaConfig->Dmt.PixelClkKhz > 300000) &&
 			(LinkConfig->LaneCount == XDPTX_LANE_COUNT_SET_4)) {
-		MsaConfig->UserPixelWidth = 4;
-	}
-	else if ((MsaConfig->Dmt.PixelClkKhz > 75000) &&
+			MsaConfig->UserPixelWidth = 4;
+		}
+		else if ((MsaConfig->Dmt.PixelClkKhz > 75000) &&
 			(LinkConfig->LaneCount != XDPTX_LANE_COUNT_SET_1)) {
-		MsaConfig->UserPixelWidth = 2;
-	}
-	else {
-		MsaConfig->UserPixelWidth = 1;
+			MsaConfig->UserPixelWidth = 2;
+		}
+		else {
+			MsaConfig->UserPixelWidth = 1;
+		}
 	}
 
 	/* Compute the rest of the MSA values. */

@@ -304,6 +304,11 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
  *	MsaConfigCustom.Dmt.VBackPorch = 38;
  *	XDptx_CfgMsaUseCustom(InstancePtr, XDPTX_STREAM_ID0,
  *							&MsaConfigCustom, 1);
+ *
+ * To override the user pixel width:
+ *	InstancePtr->MsaConfig[_STREAM#_].OverrideUserPixelWidth = 1;
+ *	InstancePtr->MsaConfig[_STREAM#_].UserPixelWidth = _DESIRED_VALUE_;
+ *	Then, use one of the methods above to calculate the rest of the MSA.
  */
 	Status = XDptx_GetEdid(InstancePtr, Edid);
 	if (Status == XST_SUCCESS) {
