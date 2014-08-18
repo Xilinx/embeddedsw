@@ -159,14 +159,14 @@ u32 Dptx_MstExample(XDptx *InstancePtr, u16 DeviceId)
 
 	Status = XDptx_MstCapable(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("The immediate downstream DisplayPort device does "
-						"not have MST capabilities.\n");
 		/* If the immediate downstream RX device is an MST monitor and
 		 * the DisplayPort Configuration Data (DPCD) does not indicate
 		 * MST capability, it is likely that the MST or DisplayPort v1.2
-		 * option must be selected from the monitor's option menu. */
-		xil_printf("Check that the RX device is operating with a "
-			"DisplayPort version greater or equal to 1.2.\n");
+		 * option must be selected from the monitor's option menu.
+		 * Likewise, the DisplayPort TX core must be configured to
+		 * support MST mode. */
+		xil_printf("Verify DisplayPort MST capabilities in the TX "
+							"and/or RX device.\n");
 		return XST_FAILURE;
 	}
 
@@ -209,6 +209,12 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	XDptx_VideoMode VideoMode = USE_VIDEO_MODE;
 	u8 Bpc = USE_BPC;
 	u8 NumStreams = NUM_STREAMS;
+
+	/* Limit the number of streams to configure based on the configuration
+	 * of the DisplayPort core. */
+	if (NumStreams > InstancePtr->Config.NumMstStreams) {
+		NumStreams = InstancePtr->Config.NumMstStreams;
+	}
 
 	XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
 		XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
