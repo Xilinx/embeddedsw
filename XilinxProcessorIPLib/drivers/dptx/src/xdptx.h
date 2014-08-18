@@ -725,6 +725,14 @@ typedef struct {
 							devices when the driver
 							is running in MST
 							mode. */
+	u32 AuxDelayUs;				/**< Amount of latency in micro-
+							seconds to use between
+							AUX transactions. */
+	u32 SbMsgDelayUs;			/**< Amount of latency in micro-
+							seconds to use between
+							sideband messages for
+							multi-stream transport
+							(MST) mode. */
 	XDptx_TimerHandler UserTimerWaitUs;	/**< Custom user function for
 							delay/sleep. */
 	void *UserTimerPtr;			/**< Pointer to a timer instance

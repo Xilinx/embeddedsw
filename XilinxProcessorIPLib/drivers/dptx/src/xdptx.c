@@ -1302,6 +1302,10 @@ void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+	if (MicroSeconds == 0) {
+		return;
+	}
+
 #if defined(__MICROBLAZE__)
 	if (InstancePtr->UserTimerWaitUs != NULL) {
 		/* Use the timer handler specified by the user for better
@@ -2274,6 +2278,8 @@ static u32 XDptx_AuxCommon(XDptx *InstancePtr, u32 CmdType, u32 Address,
 			 * the command code that was set to CmdType. */
 			Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
 		}
+
+		XDptx_WaitUs(InstancePtr, InstancePtr->AuxDelayUs);
 
 		Status = XDptx_AuxRequest(InstancePtr, &Request);
 		if (Status != XST_SUCCESS) {

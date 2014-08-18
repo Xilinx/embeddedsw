@@ -2007,6 +2007,8 @@ static u32 XDptx_SendSbMsg(XDptx *InstancePtr, XDptx_SidebandMsg *Msg)
 	XDptx_SidebandMsgBody *Body = &Msg->Body;
 	u8 Index;
 
+	XDptx_WaitUs(InstancePtr, InstancePtr->SbMsgDelayUs);
+
 	/* Add the header to the sideband message transaction. */
 	Msg->Header.MsgHeaderLength = 0;
 	AuxData[Msg->Header.MsgHeaderLength++] =
@@ -2077,6 +2079,8 @@ static u32 XDptx_ReceiveSbMsg(XDptx *InstancePtr, XDptx_SidebandReply *SbReply)
 	SbReply->Length = 0;
 
 	do {
+		XDptx_WaitUs(InstancePtr, InstancePtr->SbMsgDelayUs);
+
 		/* Wait for a reply. */
 		Status = XDptx_WaitSbReply(InstancePtr);
 		if (Status != XST_SUCCESS) {
