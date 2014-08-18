@@ -815,7 +815,13 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 		/* Round up. */
 		MsaConfig->TransferUnitSize++;
 	}
-	if ((MsaConfig->TransferUnitSize % 2) != 0) {
+	if ((InstancePtr->Config.PayloadDataWidth == 4) &&
+				(MsaConfig->TransferUnitSize % 4) != 0) {
+		/* Set to a multiple of 4 boundary. */
+		MsaConfig->TransferUnitSize += (4 -
+					(MsaConfig->TransferUnitSize % 4));
+	}
+	else if ((MsaConfig->TransferUnitSize % 2) != 0) {
 		/* Set to an even boundary. */
 		MsaConfig->TransferUnitSize++;
 	}
