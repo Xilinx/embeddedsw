@@ -269,24 +269,24 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	u8 Edid[XDPTX_EDID_SIZE];
 
 	/* Set the bits per color. If not set, the default is 6. */
-	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID1, 8);
+	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID0, 8);
 
 	/* Set synchronous clock mode. */
-	XDptx_CfgMsaEnSynchClkMode(InstancePtr, XDPTX_STREAM_ID1, 1);
+	XDptx_CfgMsaEnSynchClkMode(InstancePtr, XDPTX_STREAM_ID0, 1);
 
+	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID0);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID1);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID2);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID3);
-	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID4);
 
 /* Choose a method for selecting the video mode. There are 3 ways to do this:
  * 1) Use the preferred timing from the monitor's EDID:
  *	u8 Edid[XDPTX_EDID_SIZE];
  *	XDptx_GetEdid(InstancePtr, Edid);
- *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, XDPTX_STREAM_ID1, Edid);
+ *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, XDPTX_STREAM_ID0, Edid);
  *
  * 2) Use a standard video timing mode (see mode_table.h):
- *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID1,
+ *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID0,
 							XDPTX_VM_640x480_60_P);
  *
  * 3) Use a custom configuration for the main stream attributes (MSA):
@@ -302,16 +302,16 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
  *	MsaConfigCustom.Dmt.VFrontPorch = 1;
  *	MsaConfigCustom.Dmt.VSyncPulseWidth = 3;
  *	MsaConfigCustom.Dmt.VBackPorch = 38;
- *	XDptx_CfgMsaUseCustom(InstancePtr, XDPTX_STREAM_ID1,
+ *	XDptx_CfgMsaUseCustom(InstancePtr, XDPTX_STREAM_ID0,
  *							&MsaConfigCustom, 1);
  */
 	Status = XDptx_GetEdid(InstancePtr, Edid);
 	if (Status == XST_SUCCESS) {
 		XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr,
-							XDPTX_STREAM_ID1, Edid);
+							XDPTX_STREAM_ID0, Edid);
 	}
 	else {
-		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID1,
+		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID0,
 							XDPTX_VM_640x480_60_P);
 	}
 
@@ -327,7 +327,7 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SOFT_RESET, 0x0);
 
 	/* Set the DisplayPort TX video mode. */
-	XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID1);
+	XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID0);
 
 	/* Configure video stream source or generator here. These function need
 	 * to be implemented in order for video to be displayed and is hardware

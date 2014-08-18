@@ -79,10 +79,10 @@
 /* Define the mapping between sinks and streams. The sink numbers are in the
  * order that they are discovered by the XDptx_FindAccessibleDpDevices driver
  * function. */
-#define STREAM1_USE_SINKNUM 0
-#define STREAM2_USE_SINKNUM 1
-#define STREAM3_USE_SINKNUM 2
-#define STREAM4_USE_SINKNUM 3
+#define STREAM0_USE_SINKNUM 0
+#define STREAM1_USE_SINKNUM 1
+#define STREAM2_USE_SINKNUM 2
+#define STREAM3_USE_SINKNUM 3
 #endif
 
 /* The video resolution from the display mode timings (DMT) table to use for
@@ -91,6 +91,9 @@
 
 /* The color depth (bits per color component) to use for each stream. */
 #define USE_BPC 8
+
+/* Some MST configurations require delays when sending sideband messages. */
+#define USE_DELAYS_FOR_MST
 
 /**************************** Function Prototypes *****************************/
 
@@ -221,14 +224,15 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/* If required, add delays in MST mode. */
+#ifdef USE_DELAYS_FOR_MST
 	InstancePtr->AuxDelayUs = 30000;
 	InstancePtr->SbMsgDelayUs = 100000;
+#endif
 
+	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID0);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID1);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID2);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID3);
-	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID4);
 
 #ifdef ALLOCATE_FROM_SINKLIST
 	xil_printf("Find topology >>>\n");
@@ -247,11 +251,11 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	/* Enable multi-stream transport (MST) mode for this example. */
 	XDptx_MstCfgModeEnable(InstancePtr);
 	for (StreamIndex = 0; StreamIndex < NumStreams; StreamIndex++) {
-		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID1 +
+		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID0 +
 								StreamIndex);
 	}
 	for (StreamIndex = NumStreams; StreamIndex < 4; StreamIndex++) {
-		XDptx_MstCfgStreamDisable(InstancePtr, XDPTX_STREAM_ID1 +
+		XDptx_MstCfgStreamDisable(InstancePtr, XDPTX_STREAM_ID0 +
 								StreamIndex);
 	}
 
@@ -259,24 +263,28 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	u8 Lct;
 	u8 Rad[15];
 
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1)) {
+	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0)) {
 		Lct = 2; Rad[0] = 8;
+		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID0, Lct, Rad);
+	}
+	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1)) {
+		Lct = 3; Rad[0] = 1; Rad[1] = 8;
 		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID1, Lct, Rad);
 	}
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID2)) {
-		Lct = 3; Rad[0] = 1; Rad[1] = 8;
+		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 8;
 		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID2, Lct, Rad);
 	}
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID3)) {
-		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 8;
-		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID3, Lct, Rad);
-	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID4)) {
 		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 9;
-		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID4, Lct, Rad);
+		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID3, Lct, Rad);
 	}
 
 #else
+	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0)) {
+		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID0,
+							STREAM0_USE_SINKNUM);
+	}
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1)) {
 		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID1,
 							STREAM1_USE_SINKNUM);
@@ -289,25 +297,21 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID3,
 							STREAM3_USE_SINKNUM);
 	}
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID4)) {
-		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID4,
-							STREAM4_USE_SINKNUM);
-	}
 #endif
 
 	/* Disable MST for now. */
 	XDptx_MstDisable(InstancePtr);
 
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
-		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1 +
+		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0 +
 								StreamIndex)) {
-			XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID1 +
+			XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID0 +
 							StreamIndex, Bpc);
 			XDptx_CfgMsaEnSynchClkMode(InstancePtr,
-					XDPTX_STREAM_ID1 + StreamIndex, 1);
+					XDPTX_STREAM_ID0 + StreamIndex, 1);
 
 			XDptx_CfgMsaUseStandardVideoMode(InstancePtr,
-				XDPTX_STREAM_ID1 + StreamIndex, VideoMode);
+				XDPTX_STREAM_ID0 + StreamIndex, VideoMode);
 		}
 	}
 
@@ -321,9 +325,9 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 
 	/* Set the video modes for each stream. */
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
-		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1 +
+		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0 +
 								StreamIndex)) {
-			XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID1 +
+			XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID0 +
 								StreamIndex);
 		}
 	}

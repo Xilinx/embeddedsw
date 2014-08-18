@@ -254,6 +254,10 @@ u32 XDptx_MstCapable(XDptx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+	if (InstancePtr->Config.MstSupport == 0) {
+		return XST_NO_FEATURE;
+	}
+
 	/* Check that the RX device has a DisplayPort Configuration Data (DPCD)
 	 * version greater than or equal to 1.2 to be able to support MST
 	 * functionality. */
@@ -402,11 +406,11 @@ u8 XDptx_MstStreamIsEnabled(XDptx *InstancePtr, u8 Stream)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Stream == XDPTX_STREAM_ID1) ||
-		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
-		(Stream == XDPTX_STREAM_ID4));
+	Xil_AssertNonvoid((Stream == XDPTX_STREAM_ID0) ||
+		(Stream == XDPTX_STREAM_ID1) || (Stream == XDPTX_STREAM_ID2) ||
+		(Stream == XDPTX_STREAM_ID3));
 
-	return InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable;
+	return InstancePtr->MstStreamConfig[Stream].MstStreamEnable;
 }
 
 /******************************************************************************/
@@ -426,11 +430,11 @@ void XDptx_MstCfgStreamEnable(XDptx *InstancePtr, u8 Stream)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
-		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
-		(Stream == XDPTX_STREAM_ID4));
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID0) ||
+		(Stream == XDPTX_STREAM_ID1) || (Stream == XDPTX_STREAM_ID2) ||
+		(Stream == XDPTX_STREAM_ID3));
 
-	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 1;
+	InstancePtr->MstStreamConfig[Stream].MstStreamEnable = 1;
 }
 
 /******************************************************************************/
@@ -450,11 +454,11 @@ void XDptx_MstCfgStreamDisable(XDptx *InstancePtr, u8 Stream)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
-		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
-		(Stream == XDPTX_STREAM_ID4));
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID0) ||
+		(Stream == XDPTX_STREAM_ID1) || (Stream == XDPTX_STREAM_ID2) ||
+		(Stream == XDPTX_STREAM_ID3));
 
-	InstancePtr->MstStreamConfig[Stream - 1].MstStreamEnable = 0;
+	InstancePtr->MstStreamConfig[Stream].MstStreamEnable = 0;
 }
 
 /******************************************************************************/
@@ -485,11 +489,11 @@ void XDptx_SetStreamSelectFromSinkList(XDptx *InstancePtr, u8 Stream, u8
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
-		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
-		(Stream == XDPTX_STREAM_ID4));
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID0) ||
+		(Stream == XDPTX_STREAM_ID1) || (Stream == XDPTX_STREAM_ID2) ||
+		(Stream == XDPTX_STREAM_ID3));
 
-	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+	MstStream = &InstancePtr->MstStreamConfig[Stream];
 	Topology = &InstancePtr->Topology;
 
 	MstStream->LinkCountTotal = Topology->SinkList[SinkNum]->LinkCountTotal;
@@ -526,13 +530,13 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
-		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
-		(Stream == XDPTX_STREAM_ID4));
+	Xil_AssertVoid((Stream == XDPTX_STREAM_ID0) ||
+		(Stream == XDPTX_STREAM_ID1) || (Stream == XDPTX_STREAM_ID2) ||
+		(Stream == XDPTX_STREAM_ID3));
 	Xil_AssertVoid(LinkCountTotal > 0);
 	Xil_AssertVoid(RelativeAddress != NULL);
 
-	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+	MstStream = &InstancePtr->MstStreamConfig[Stream];
 
 	MstStream->LinkCountTotal = LinkCountTotal;
 	for (Index = 0; Index < MstStream->LinkCountTotal - 1; Index++) {
@@ -688,7 +692,7 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 		MstStream = &InstancePtr->MstStreamConfig[StreamIndex];
 		MsaConfig = &InstancePtr->MsaConfig[StreamIndex];
 
-		if (XDptx_MstStreamIsEnabled(InstancePtr, StreamIndex + 1)) {
+		if (XDptx_MstStreamIsEnabled(InstancePtr, StreamIndex)) {
 			Status = XDptx_AllocatePayloadVcIdTable(InstancePtr,
 				MstStream->LinkCountTotal,
 				MstStream->RelativeAddress, StreamIndex + 1,
@@ -709,7 +713,7 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
 		MstStream = &InstancePtr->MstStreamConfig[StreamIndex];
 
-		if (XDptx_MstStreamIsEnabled(InstancePtr, StreamIndex + 1)) {
+		if (XDptx_MstStreamIsEnabled(InstancePtr, StreamIndex)) {
 			Status = XDptx_SendSbMsgAllocatePayload(InstancePtr,
 				MstStream->LinkCountTotal,
 				MstStream->RelativeAddress, StreamIndex + 1,

@@ -188,13 +188,13 @@ u32 XDptx_SelfTest(XDptx *InstancePtr)
 			StreamOffset = 0;
 		}
 		else if (StreamIndex == 1) {
-			StreamOffset = XDPTX_STREAM2_MSA_START_OFFSET;
+			StreamOffset = XDPTX_STREAM1_MSA_START_OFFSET;
 		}
 		else if (StreamIndex == 2) {
-			StreamOffset = XDPTX_STREAM3_MSA_START_OFFSET;
+			StreamOffset = XDPTX_STREAM2_MSA_START_OFFSET;
 		}
 		else if (StreamIndex == 3) {
-			StreamOffset = XDPTX_STREAM4_MSA_START_OFFSET;
+			StreamOffset = XDPTX_STREAM3_MSA_START_OFFSET;
 		}
 
 		for (Index = 0; Index < 20; Index++) {
