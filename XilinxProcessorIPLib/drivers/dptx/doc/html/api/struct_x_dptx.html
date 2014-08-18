@@ -49,6 +49,10 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___topology.html">XDptx_Topology</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#913434506922a73af175516ef84ba126">Topology</a></td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#cb98c8c35b97020fe4767c2b174af54b">AuxDelayUs</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#f85b7947bcf05b3a71ad5d27eb746520">SbMsgDelayUs</a></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#67a7c4a7e698ddb155ceaccbf196e82d">UserTimerWaitUs</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#fbdd98ca9563d3f2fc595ea2d6f6053b">UserTimerPtr</a></td></tr>
@@ -63,6 +67,21 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 
 </table>
 <hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="cb98c8c35b97020fe4767c2b174af54b"></a><!-- doxytag: member="XDptx::AuxDelayUs" ref="cb98c8c35b97020fe4767c2b174af54b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 <a class="el" href="struct_x_dptx.html#cb98c8c35b97020fe4767c2b174af54b">XDptx::AuxDelayUs</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Amount of latency in micro- seconds to use between AUX transactions. 
+</div>
+</div><p>
 <a class="anchor" name="8dae945757783a68a8106615b59f65c0"></a><!-- doxytag: member="XDptx::BoardChar" ref="8dae945757783a68a8106615b59f65c0" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -241,6 +260,21 @@ Configuration structure for a multi-stream transport (MST) stream.
 
 <p>
 Configuration structure for the RX device. 
+</div>
+</div><p>
+<a class="anchor" name="f85b7947bcf05b3a71ad5d27eb746520"></a><!-- doxytag: member="XDptx::SbMsgDelayUs" ref="f85b7947bcf05b3a71ad5d27eb746520" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 <a class="el" href="struct_x_dptx.html#f85b7947bcf05b3a71ad5d27eb746520">XDptx::SbMsgDelayUs</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Amount of latency in micro- seconds to use between sideband messages for multi-stream transport (MST) mode. 
 </div>
 </div><p>
 <a class="anchor" name="913434506922a73af175516ef84ba126"></a><!-- doxytag: member="XDptx::Topology" ref="913434506922a73af175516ef84ba126" args="" -->

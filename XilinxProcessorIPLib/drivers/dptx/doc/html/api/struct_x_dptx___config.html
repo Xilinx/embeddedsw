@@ -45,9 +45,21 @@ This typedef contains configuration information for the DisplayPort TX core.
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#6f12c22e02f63866b778271799411fcf">DualPixelEn</a></td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#1fa10c843358db42acdb3d5d14cecdec">YCrCbEn</a></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#99330a915a6ffaf0122ffd6d835175f9">YOnlyEn</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#1fa10c843358db42acdb3d5d14cecdec">YCrCbEn</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#d7c3a428223bc15b333f49a099ea0149">PayloadDataWidth</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#76a6d413d59c2c6386a2dff120137cb9">SecondaryChEn</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#8d1a62f2b08a183d3837151b3a01c79a">NumAudioChs</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#df88f4ab48c55bacd7bc4f55acafd54e">MstSupport</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#d61517af6e6ef03007a5efdef39de756">NumMstStreams</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___config.html#26c90c8cdf918c870e7aff75a976e832">DpProtocol</a></td></tr>
 
 </table>
 <hr><h2>Member Data Documentation</h2>
@@ -63,7 +75,7 @@ This typedef contains configuration information for the DisplayPort TX core.
 <div class="memdoc">
 
 <p>
-The base address of the core. 
+The base address of the core instance. 
 </div>
 </div><p>
 <a class="anchor" name="70a0f6a8bd4f9e8a200be435d89063c1"></a><!-- doxytag: member="XDptx_Config::DeviceId" ref="70a0f6a8bd4f9e8a200be435d89063c1" args="" -->
@@ -81,6 +93,21 @@ The base address of the core.
 Device instance ID. 
 </div>
 </div><p>
+<a class="anchor" name="26c90c8cdf918c870e7aff75a976e832"></a><!-- doxytag: member="XDptx_Config::DpProtocol" ref="26c90c8cdf918c870e7aff75a976e832" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 <a class="el" href="struct_x_dptx___config.html#26c90c8cdf918c870e7aff75a976e832">XDptx_Config::DpProtocol</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+The DisplayPort protocol version that this core instance is configured for. 0 = v1.1a, 1 = v1.2. 
+</div>
+</div><p>
 <a class="anchor" name="6f12c22e02f63866b778271799411fcf"></a><!-- doxytag: member="XDptx_Config::DualPixelEn" ref="6f12c22e02f63866b778271799411fcf" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -93,7 +120,7 @@ Device instance ID.
 <div class="memdoc">
 
 <p>
-Dual pixel support by this core's instance. 
+Dual pixel support by this core instance. 
 </div>
 </div><p>
 <a class="anchor" name="942cbb0213b9727931c2e0a43a5498a4"></a><!-- doxytag: member="XDptx_Config::MaxBitsPerColor" ref="942cbb0213b9727931c2e0a43a5498a4" args="" -->
@@ -108,7 +135,7 @@ Dual pixel support by this core's instance.
 <div class="memdoc">
 
 <p>
-The maximum bits/color supported by this core's instance 
+The maximum bits/color supported by this core instance 
 </div>
 </div><p>
 <a class="anchor" name="07c3b796a735220333fd3ac017edf23e"></a><!-- doxytag: member="XDptx_Config::MaxLaneCount" ref="07c3b796a735220333fd3ac017edf23e" args="" -->
@@ -123,7 +150,7 @@ The maximum bits/color supported by this core's instance
 <div class="memdoc">
 
 <p>
-The maximum lane count supported by this core's instance. 
+The maximum lane count supported by this core instance. 
 </div>
 </div><p>
 <a class="anchor" name="68a7554cc20c1dbd895a166bd13412e5"></a><!-- doxytag: member="XDptx_Config::MaxLinkRate" ref="68a7554cc20c1dbd895a166bd13412e5" args="" -->
@@ -138,7 +165,67 @@ The maximum lane count supported by this core's instance.
 <div class="memdoc">
 
 <p>
-The maximum link rate supported by this core's instance. 
+The maximum link rate supported by this core instance. 
+</div>
+</div><p>
+<a class="anchor" name="df88f4ab48c55bacd7bc4f55acafd54e"></a><!-- doxytag: member="XDptx_Config::MstSupport" ref="df88f4ab48c55bacd7bc4f55acafd54e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 <a class="el" href="struct_x_dptx___config.html#df88f4ab48c55bacd7bc4f55acafd54e">XDptx_Config::MstSupport</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Multi-stream transport (MST) mode is enabled by this core instance. 
+</div>
+</div><p>
+<a class="anchor" name="8d1a62f2b08a183d3837151b3a01c79a"></a><!-- doxytag: member="XDptx_Config::NumAudioChs" ref="8d1a62f2b08a183d3837151b3a01c79a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 <a class="el" href="struct_x_dptx___config.html#8d1a62f2b08a183d3837151b3a01c79a">XDptx_Config::NumAudioChs</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+The number of audio channels supported by this core instance. 
+</div>
+</div><p>
+<a class="anchor" name="d61517af6e6ef03007a5efdef39de756"></a><!-- doxytag: member="XDptx_Config::NumMstStreams" ref="d61517af6e6ef03007a5efdef39de756" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 <a class="el" href="struct_x_dptx___config.html#d61517af6e6ef03007a5efdef39de756">XDptx_Config::NumMstStreams</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+The total number of MST streams supported by this core instance. 
+</div>
+</div><p>
+<a class="anchor" name="d7c3a428223bc15b333f49a099ea0149"></a><!-- doxytag: member="XDptx_Config::PayloadDataWidth" ref="d7c3a428223bc15b333f49a099ea0149" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 <a class="el" href="struct_x_dptx___config.html#d7c3a428223bc15b333f49a099ea0149">XDptx_Config::PayloadDataWidth</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+The payload data width used by this core instance. 
 </div>
 </div><p>
 <a class="anchor" name="df2eea4130c268436028df2cbf5357e8"></a><!-- doxytag: member="XDptx_Config::QuadPixelEn" ref="df2eea4130c268436028df2cbf5357e8" args="" -->
@@ -153,7 +240,7 @@ The maximum link rate supported by this core's instance.
 <div class="memdoc">
 
 <p>
-Quad pixel support by this core's instance. 
+Quad pixel support by this core instance. 
 </div>
 </div><p>
 <a class="anchor" name="1e9e27ea68e4b36fb2ede842c77e94c1"></a><!-- doxytag: member="XDptx_Config::SAxiClkHz" ref="1e9e27ea68e4b36fb2ede842c77e94c1" args="" -->
@@ -168,7 +255,22 @@ Quad pixel support by this core's instance.
 <div class="memdoc">
 
 <p>
-The clock frequency of the core's S_AXI_ACLK port. 
+The clock frequency of the core instance's S_AXI_ACLK port. 
+</div>
+</div><p>
+<a class="anchor" name="76a6d413d59c2c6386a2dff120137cb9"></a><!-- doxytag: member="XDptx_Config::SecondaryChEn" ref="76a6d413d59c2c6386a2dff120137cb9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 <a class="el" href="struct_x_dptx___config.html#76a6d413d59c2c6386a2dff120137cb9">XDptx_Config::SecondaryChEn</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This core instance supports audio packets being sent by the secondary channel. 
 </div>
 </div><p>
 <a class="anchor" name="1fa10c843358db42acdb3d5d14cecdec"></a><!-- doxytag: member="XDptx_Config::YCrCbEn" ref="1fa10c843358db42acdb3d5d14cecdec" args="" -->
@@ -183,7 +285,7 @@ The clock frequency of the core's S_AXI_ACLK port.
 <div class="memdoc">
 
 <p>
-YCrCb format support by this core's instance. 
+YCrCb format support by this core instance. 
 </div>
 </div><p>
 <a class="anchor" name="99330a915a6ffaf0122ffd6d835175f9"></a><!-- doxytag: member="XDptx_Config::YOnlyEn" ref="99330a915a6ffaf0122ffd6d835175f9" args="" -->
@@ -198,7 +300,7 @@ YCrCb format support by this core's instance.
 <div class="memdoc">
 
 <p>
-YOnly format support by this core's instance. 
+YOnly format support by this core instance. 
 </div>
 </div><p>
 <hr>The documentation for this struct was generated from the following file:<ul>
