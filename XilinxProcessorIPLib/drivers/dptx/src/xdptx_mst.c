@@ -682,12 +682,6 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Clear the payload ID table first. */
-	Status = XDptx_ClearPayloadVcIdTable(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
@@ -913,6 +907,8 @@ u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
 			return Status;
 		}
 	} while ((AuxData[0] & 0x01) != 0x01);
+
+	XDptx_WaitUs(InstancePtr, 1000);
 
 	Status = XDptx_SendActTrigger(InstancePtr);
 	if (Status != XST_SUCCESS) {

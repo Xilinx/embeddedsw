@@ -53,7 +53,6 @@
 
 /******************************* Include Files ********************************/
 
-#include "math.h"
 #include "xdptx.h"
 #include "xdptx_hw.h"
 #include "xstatus.h"

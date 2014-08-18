@@ -186,6 +186,9 @@
  *   investigated for the next SDK release.
  * - The driver does not handle audio. See the audio example in the driver
  *   examples directory for the required sequence for enabling audio.
+ * - Limited testing was done with 4-byte GT data width.
+ * - Most testing was done on a KC705 board. Some testing was done on a ZC706
+ *   board, mostly with a 2-byte GT data width configuration.
  *
  * @note	For a 5.4Gbps link rate, a high performance 7 series FPGA is
  *		required with a speed grade of -2 or -3.

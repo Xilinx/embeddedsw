@@ -271,6 +271,14 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	/* Set the bits per color. If not set, the default is 6. */
 	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID1, 8);
 
+	/* Set synchronous clock mode. */
+	XDptx_CfgMsaEnSynchClkMode(InstancePtr, XDPTX_STREAM_ID1, 1);
+
+	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID1);
+	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID2);
+	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID3);
+	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID4);
+
 /* Choose a method for selecting the video mode. There are 3 ways to do this:
  * 1) Use the preferred timing from the monitor's EDID:
  *	u8 Edid[XDPTX_EDID_SIZE];
