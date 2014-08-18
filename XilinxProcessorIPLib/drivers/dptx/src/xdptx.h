@@ -337,23 +337,36 @@ typedef enum {
  */
 typedef struct {
 	u16 DeviceId;		/**< Device instance ID. */
-	u32 BaseAddr;		/**< The base address of the core. */
-	u32 SAxiClkHz;		/**< The clock frequency of the core's
+	u32 BaseAddr;		/**< The base address of the core instance. */
+	u32 SAxiClkHz;		/**< The clock frequency of the core instance's
 					S_AXI_ACLK port. */
 	u8 MaxLaneCount;	/**< The maximum lane count supported by this
-					core's instance. */
+					core instance. */
 	u8 MaxLinkRate;		/**< The maximum link rate supported by this
-					core's instance. */
+					core instance. */
 	u8 MaxBitsPerColor;	/**< The maximum bits/color supported by this
-					core's instance*/
-	u8 QuadPixelEn;		/**< Quad pixel support by this core's
+					core instance*/
+	u8 QuadPixelEn;		/**< Quad pixel support by this core
 					instance. */
-	u8 DualPixelEn;		/**< Dual pixel support by this core's
+	u8 DualPixelEn;		/**< Dual pixel support by this core
 					instance. */
-	u8 YOnlyEn;		/**< YOnly format support by this core's
+	u8 YCrCbEn;		/**< YCrCb format support by this core
 					instance. */
-	u8 YCrCbEn;		/**< YCrCb format support by this core's
+	u8 YOnlyEn;		/**< YOnly format support by this core
 					instance. */
+	u8 PayloadDataWidth;	/**< The payload data width used by this core
+					instance. */
+	u8 SecondaryChEn;	/**< This core instance supports audio packets
+					being sent by the secondary channel. */
+	u8 NumAudioChs;		/**< The number of audio channels supported by
+					this core instance. */
+	u8 MstSupport;		/**< Multi-stream transport (MST) mode is
+					enabled by this core instance. */
+	u8 NumMstStreams;	/**< The total number of MST streams supported
+					by this core instance. */
+	u8 DpProtocol;		/**< The DisplayPort protocol version that this
+					core instance is configured for.
+					0 = v1.1a, 1 = v1.2. */
 } XDptx_Config;
 
 /**
