@@ -153,6 +153,9 @@
 * 2.02a adk 09/16/13 Fixed CR:735289 changes are made in the xuartns550_intr.c
 *		     file.
 * 3.0   adk  19/12/13 Updated as per the New Tcl API's
+* 3.1   adk  20/08/14 Fixed CR:816989 Canonical Definition for Multiple
+* 		      Instances of UARTSNS550 have the same Device Id.
+*		      Changes are made in the driver tcl file.
 * </pre>
 *
 *****************************************************************************/

@@ -34,6 +34,8 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
+# 3.1 	   adk    20/08/14 Fixed CR:816989 Canonical Definition for Multiple
+#			   Instances of UARTSNS550 have the same Device Id.
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_L
 ##    Deprecated the CLOCK_HZ parameter in mdd and updated the Tcl to obtain the
@@ -205,6 +207,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     }
 
     set i 0
+    set device_id 0
     foreach periph $periphs {
         set periph_name [string toupper [get_property NAME $periph]]
 
@@ -220,7 +223,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 #handle CLOCK_FREQ_HZ as a special case
                 if {[string compare -nocase "CLOCK_FREQ_HZ" $arg] == 0} {
                     set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
-                } else {
+                } elseif {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+				set rvalue $device_id
+				incr device_id
+		} else {
                     set rvalue [get_property CONFIG.$arg $periph]
                     if {[llength $rvalue] == 0} {
                         set rvalue 0
