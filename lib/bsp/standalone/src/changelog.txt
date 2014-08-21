@@ -199,5 +199,7 @@
  *		       cortexa9/smc.h
  * 4.2 bss   08/11/14  Added microblaze_flush_cache_ext_range and microblaze_invalidate_
  *		       cache_ext_range declarations in mb_interface.h CR#783821.
- *		       Modified profile_mcount_mb.S to fix CR#808412. 
+ *		       Modified profile_mcount_mb.S to fix CR#808412.
+ * 4.2 pkp   08/21/14  modified makefile of iccarm for proper linking of objectfiles in
+ *		       cortexa9/iccarm to fix CR#816701
 ******************************************************************************************/

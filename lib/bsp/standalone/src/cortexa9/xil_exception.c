@@ -204,7 +204,7 @@ void Xil_DataAbortHandler(void *CallBackRef){
 	#ifdef __GNUC__
 		FaultStatus = mfcp(XREG_CP15_DATA_FAULT_STATUS);
 	#elif defined (__ICCARM__)
-
+		mfcp(XREG_CP15_DATA_FAULT_STATUS,FaultStatus);
 	#else
 		{ volatile register unsigned int Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
 	  FaultStatus = Reg; }
@@ -231,7 +231,7 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 	#ifdef __GNUC__
 		FaultStatus = mfcp(XREG_CP15_INST_FAULT_STATUS);
 	#elif defined (__ICCARM__)
-
+		mfcp(XREG_CP15_INST_FAULT_STATUS,FaultStatus);
 	#else
 		{ volatile register unsigned int Reg __asm(XREG_CP15_INST_FAULT_STATUS);
 	  FaultStatus = Reg; }

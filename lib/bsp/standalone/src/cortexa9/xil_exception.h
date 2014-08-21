@@ -108,9 +108,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 		mtcpsr(mfcpsr() & ~ (Mask & XIL_EXCEPTION_ALL))
 #elif defined (__ICCARM__)
 #define Xil_ExceptionEnableMask(Mask)	\
-		{ register unsigned int rval; \
-		mfcpsr(rval); \
-		mtcpsr(rval & ~ (Mask & XIL_EXCEPTION_ALL)) ;}
+		mtcpsr(mfcpsr() & ~ (Mask & XIL_EXCEPTION_ALL))
 #else
 #define Xil_ExceptionEnableMask(Mask)	\
 		{ register unsigned int Reg __asm("cpsr"); \
@@ -146,9 +144,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 		mtcpsr(mfcpsr() | (Mask & XIL_EXCEPTION_ALL))
 #elif defined (__ICCARM__)
 #define Xil_ExceptionDisableMask(Mask)	\
-		{ register unsigned int rval; \
-		mfcpsr(rval); \
-		mtcpsr(rval | (Mask & XIL_EXCEPTION_ALL)) ;}
+		mtcpsr(mfcpsr() | (Mask & XIL_EXCEPTION_ALL))
 #else
 #define Xil_ExceptionDisableMask(Mask)	\
 		{ register unsigned int Reg __asm("cpsr"); \

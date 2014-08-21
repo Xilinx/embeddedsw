@@ -74,7 +74,7 @@ banner:
 	echo "${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<"
 
 standalone_libs: ${OBJECTS}
-	$(ARCHIVER) --create ${RELEASEDIR}/${LIB} ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 
 .PHONY: include
 include: standalone_includes
