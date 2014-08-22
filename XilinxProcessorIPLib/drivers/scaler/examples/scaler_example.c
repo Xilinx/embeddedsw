@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *
- * @file example.c
+ * @file scaler_example.c
  *
  * This file demonstrates how to use Xilinx XScaler driver on Xilinx MVI Video
  * Scaler core. This code does not cover the Video DMA (VDMA) setup and any
@@ -46,9 +46,14 @@
  * <pre>
  * MODIFICATION HISTORY:
  *
- * Ver	 Who	Date	 Changes
- * ----- ----	-------- ------------------------------------------------------
- * 1.00a xd	02/09/09 First release
+ * Ver   Who    Date     Changes
+ * ----- ---   -------- ------------------------------------------------------
+ * 1.00a xd    02/09/09 First release
+ * 7.00 adk    22/08/14 Renamed example.c to scaler_example.c
+  *                     XPAR_SCALER_0_DEVICE_ID is changed to
+ *                      XPAR_XSCALER_0_DEVICE_ID.
+ *                      Chaged typecast of XScaler_CoefValueLookup from u16 to
+ *                      s16.
  * </pre>
  *
  *****************************************************************************/
@@ -59,7 +64,7 @@
 /*
  * Device related constants. Defined in xparameters.h.
  */
-#define SCALER_DEVICE_ID    XPAR_SCALER_0_DEVICE_ID
+#define SCALER_DEVICE_ID    XPAR_XSCALER_0_DEVICE_ID
 
 /*
  * Index of Coefficient Set to load and use
@@ -106,7 +111,7 @@ int main(void)
 	if (Status != 0) {
 		return 1;
 	}
-
+	printf("\n Successfully ran Scaler example \n");
 	return 0;
 }
 

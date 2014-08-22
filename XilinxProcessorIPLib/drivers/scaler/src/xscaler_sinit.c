@@ -39,10 +39,10 @@
  * <pre>
  * MODIFICATION HISTORY:
  *
-* Ver	Who	Date	 Changes
-* -----	----	-------- -------------------------------------------------------
-* 1.00a	xd	05/14/09 First release
-* 2.00a	xd	12/14/09 Updated doxygen document tags
+ * Ver    Who  Date     Changes
+ * ----- ----  -------- -------- -------------------------------------------------------
+ * 1.00a  xd   05/14/09 First release
+ * 2.00a  xd   12/14/09 Updated doxygen document tags
  * </pre>
  *
  *****************************************************************************/
