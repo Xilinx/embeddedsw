@@ -43,10 +43,15 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a xd   06/15/09 First release. Coefficients are auto-generated in
-*		      Matlab using
-*		      /Video_Scaler/reference_model/src/CreateCoefficients.m
+*                     Matlab using
+*                     /Video_Scaler/reference_model/src/CreateCoefficients.m
 * 2.00a xd   12/14/09 Updated doxygen document tags
 * 5.00a mpv  12/13/13 Updated to dynamic coeff generation to reduce driver size
+* 7.0   adk  08/22/14 Removed typedef unsigned short s16 as it was already
+*                     defined in xil_types.h.
+*                     Updated doxygen document tags.
+*                     XScaler_coef_table is made as a global variable.
+*                     Memory allocated was freed after usage.
 * </pre>
 *
 ******************************************************************************/
@@ -54,8 +59,11 @@
 #include "xscaler.h"
 
 /************************** Constant Definitions *****************************/
-
-/***************** Macros (Inline Functions) Definitions *********************/
+/** @name PI definition
+ *  @{
+ */
+#define PI 3.14159265358979
+/*@}*/
 
 /************************* Data Structure Definitions ************************/
 
@@ -86,96 +94,180 @@ u16 XScaler_CoefficientBinScalingFactors[XSCL_NUM_COEF_BINS] = {
 	6666
 };
 
-/**
-* XScaler_GenCoefTable generates a table that contains the coefficient values
-* for scaling operations
- * @param  Tap     is the number of taps configured
- * @param  Phase   is the number of phase configured
- *		   the Scaler device.
- * @return XScaler_coef_table
- *
-************ new coef generation************
-*/
-#define PI 3.14159265358979
-typedef unsigned short uint16;
+s16* XScaler_coef_table = NULL; /**< Coefficients table */
 
+/**
+* This structure contains a pointer to double dimensional array which will be
+* filled by coefficients.
+*/
 struct coefs_struct{
 	short int** coefficients;
 }SingleFrameCoefs;
 
-/*memory allocation*/
-int XScaler_AllocCoefsBuff(struct coefs_struct* coefs, int max_taps, int max_phases)
+
+/************************** Function Definitions ******************************/
+
+/*****************************************************************************/
+/**
+* This function allocates memory to a double dimensional array.
+*
+* @param	Coefs is a pointer to Coefs_Struct structure which has a
+*		double dimensional array which needs to be allocated memory.
+* @param	Max_Taps indicates the number of taps which is used to allocate
+*		that number of columns.
+* @param	Max_Phases indicates the number of phases which is used to
+*		allocate that number of rows.
+*
+* @return
+*		1 - Indicates allocation of memory is failed.
+*		0 - Indicates allocation of memory is success.
+*
+* @note		None.
+*
+******************************************************************************/
+int XScaler_AllocCoefsBuff(struct coefs_struct* Coefs, u32 Max_Taps,
+							u32 Max_Phases)
 {
-  int phase, tap;
-  if ((coefs->coefficients = (short int **) ((uint16**)calloc(max_phases, sizeof(uint16*)))) == 0) return(1);
-	for (phase = 0; phase <max_phases; phase++) {
-	  if ((coefs->coefficients[phase] = (short int *) ((uint16*)calloc(max_taps, sizeof(uint16)))) == 0) return(1);
+	u32 Phase;
+	if ((Coefs->coefficients =
+		  (s16 **) ((s16**)calloc(Max_Phases, sizeof(s16*)))) == 0) {
+	  return(1);
 	}
-  return(0);
+	for (Phase = 0; Phase < Max_Phases; Phase++) {
+		if ((Coefs->coefficients[Phase] =
+			(s16 *) ((s16*)calloc(Max_Taps, sizeof(s16)))) == 0) {
+			return(1);
+		}
+	}
+	return(0);
 }
 
+/*****************************************************************************/
 /**
-*  Sine generation
-*  This Sine generation algorithm implements Taylor series decomposition of the 
-*  Sine function according to http://en.wikipedia.org/wiki/Taylor_series#Approximation_and_convergence
-*/
+* This Sine generation algorithm implements Taylor series decomposition of the
+* Sine function.
+*
+* @param	x is a float variable which needs to be set.
+*
+* @return	Returns Taylor series.
+*
+* @note		It works according to
+*	http://en.wikipedia.org/wiki/Taylor_series#Approximation_and_convergence
+*
+*
+******************************************************************************/
 float XScaler_Sine(float x)
 {
-    int n, fac=1;
-    float px, taylor=0;
+	int n, fac=1;
+	float px, taylor=0;
 	float rng = ((x-PI)/PI);
 	x = x - rng*PI;
 	px = x;
-    for (n=0;n<6;n++)
-    {
-        taylor +=  (px / fac);
-        px *= -(x*x);
-        fac *= (2*n+2)*(2*n+3);
-    }
-    return taylor;
-}
-
-
-/*coef generation*/
-float XScaler_Lanczos(float x, int a)
+	for (n=0;n<6;n++)
 	{
-		return((x<-a) ? 0 : ((x>a) ? 0 : ((x==0) ? 1.0 : ( a*XScaler_Sine(PI*x)*XScaler_Sine(PI*x/a)/(PI*PI*x*x)))));
-
+	taylor +=  (px / fac);
+	px *= -(x*x);
+	fac *= (2*n+2)*(2*n+3);
 	}
+	return taylor;
+	}
+
+
+/*****************************************************************************/
 /**
-* This coefficient generation algorithm implements the Lanczos coefficients: http://en.wikipedia.org/wiki/Lanczos_resampling
-* For a particular scaling ratio, the coefficients can be pre-canned to memory
-*/
+* This function generates coffficient.
+*
+* @param	x is a float varaible based on which coefficient is
+*		generated.
+* @param	a is a 32 bit variable which holds half of the number of taps.
+*
+* @return	Returns Coefficient value depending on inputs.
+*
+* @note		It works according to
+* http://en.wikipedia.org/wiki/Taylor_series#Approximation_and_convergence
+*
+*
+******************************************************************************/
+float XScaler_Lanczos(float x, int a)
+{
+	return((x<-a) ? 0 : ((x>a) ? 0 : ((x==0) ?
+	1.0 : ( a*XScaler_Sine(PI*x)*XScaler_Sine(PI*x/a)/(PI*PI*x*x)))));
+
+}
+/*****************************************************************************/
+/**
+* This coefficient generation algorithm implements the Lanczos coefficients.
+* For a particular scaling ratio, the coefficients can be pre-canned to memory.
+*
+* @param	p is a float variable.
+* @param	icoeffs is a pointer to a single row of Coefficients array
+*		which is in SingleFrameCoefs structure.
+* @param	NCOEFF is variable which holds number of taps which indicates
+*		the number of columns
+*
+* @return	None.
+*
+* @note		It works according to
+*		http://en.wikipedia.org/wiki/Lanczos_resampling.
+*
+******************************************************************************/
 void XScaler_GetLanczosCoeffs(float p, short int icoeffs[], int NCOEFF)
 	{
 	  float s=0;
 	  float coeff[64];
 	  int   i;
 
-	  for (i=0; i<NCOEFF; i++) s+=(coeff[i] = XScaler_Lanczos( i-(NCOEFF>>1)+p, (NCOEFF>>1)));    /* To implement convolution using the 2D FIR kernel, coefficient order is reversed*/
-	  for (i=0; i<NCOEFF; i++) icoeffs[i]=(int) (0.5+coeff[i]*16384/s);              /* Normalize coefficients, so sum()=1 for all phases.*/
+	  /* To implement convolution using the
+	   * 2D FIR kernel, coefficient order is reversed
+	   */
+	  for (i=0; i<NCOEFF; i++) {
+		  s+=(coeff[i] =
+		  	XScaler_Lanczos( i-(NCOEFF>>1)+p, (NCOEFF>>1)));
+	  }
+	  /* Normalize coefficients, so sum()=1 for all phases.*/
+	  for (i=0; i<NCOEFF; i++) {
+		  icoeffs[i]=(int) (0.5+coeff[i]*16384/s);
+	  }
 	}
-
+/*****************************************************************************/
+/**
+* This function generates a table that contains the coefficient values
+* for scaling operations
+*
+* @param	Tap indicates the number of taps configured to the
+*		Scaler device.
+* @param	Phase indicates the number of phase configured to
+*		the Scaler device.
+*
+* @return	The pointer to XScaler_Coef_Table.
+*
+* @note		None.
+*
+******************************************************************************/
 s16 *XScaler_GenCoefTable(u32 Tap, u32 Phase)
 {
-	int    phase, i , j;
-	short int    *current_phase_ptr;
-	double dy;
+	u32 i , j;
+	s16 *current_phase_ptr;
+	float dy;
 
 	XScaler_AllocCoefsBuff(&SingleFrameCoefs, Tap, Phase);
 
-	s16* XScaler_coef_table;
-	XScaler_coef_table = calloc(Tap*Phase, sizeof(uint16));
-	
-	for (i=0; i<Phase; i++) {
-		dy=((double) i)/Phase;
+	if (XScaler_coef_table != NULL) {
+		free(XScaler_coef_table);
+	}
+	XScaler_coef_table = calloc(Tap*Phase, sizeof(s16));
+
+	for (i = 0; i < Phase; i++) {
+		dy = ((float) i)/ (float)Phase;
 		current_phase_ptr = SingleFrameCoefs.coefficients[i];
 		XScaler_GetLanczosCoeffs(dy,current_phase_ptr, Tap);
 		for (j=0; j<Tap; j++){
-			XScaler_coef_table[((i*Tap) + j)] = SingleFrameCoefs.coefficients[i][j];
+			XScaler_coef_table[((i*Tap) + j)] =
+					SingleFrameCoefs.coefficients[i][j];
 		}
 	}
 
+	free(SingleFrameCoefs.coefficients);
 	return (XScaler_coef_table);
 
 }

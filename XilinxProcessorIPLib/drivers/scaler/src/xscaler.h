@@ -97,12 +97,78 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver	Who  Date     Changes
-* -----	---- -------- -------------------------------------------------------
-* 1.00a	xd   05/14/09 First release
-* 2.00a	xd   12/14/09 Updated doxygen document tags
-* 3.00a	xd   07/29/10 Added device version & sharable coefficient bank support
-* 6.0   adk  19/12/13 Updated as per the New Tcl API's
+* Ver   Who    Date     Changes
+* ----- ------ -------- -------------------------------------------------------
+* 1.00a xd     05/14/09 First release
+* 2.00a xd     12/14/09 Updated Doxygen document tags
+* 3.00a xd     07/29/10 Added core version & sharable coefficient bank
+*                       support
+* 6.0   adk    12/19/13 Updated as per the New Tcl API's
+* 7.0   adk    08/22/14 Removed XSCL_HANDLER_ERROR and XSCL_HANDLER_EVENT macros.
+*                       Removed ErrorCallBack and its ref ErrorRef from XScaler
+*                       structure.
+*                       Modified EventCallBack as CallBack and
+*                       EventRef as CallBackRef.
+*                       Modified XSCL_STSDONE to XSCL_STATUS_OFFSET,
+*                       XSCL_STS to XSCL_STATUS_OFFSET, XSCL_STSERR to
+*                       XSCL_ERROR_OFFSET.
+*                       Removed the following functional macros
+*                       XScaler_IntrGetPending,
+*                       XScaler_IntrEnableGlobal and XScaler_IntrDisableGlobal.
+*                       uncommented interrupt related macros.
+*                       Modified prototypes of the following functions by removing IntrType
+*                       parameter as there was only one interrupt :XScaler_IntrEnable,
+*                       XScaler_IntrDisable and XScaler_IntrClear.
+*
+*                       Modifications from xscalar_hw.h file are:
+*                       Appended register offset macros with _OFFSET and
+*                       Bit definition with _MASK.
+*                       Provided backward compatibility for changed macros.
+*                       Defined the following macros XSCL_CTL_MEMRD_EN_MASK.
+*                       Modified XSCL_CTL_ENABLE to XSCL_CTL_SW_EN_MASK,
+*                       XSCL_RESET_RESET_MASK to XSCL_CTL_RESET_MASK,
+*                       XSCL_CTL_REGUPDATE to XSCL_CTL_RUE_MASK,
+*                       XSCL_STSDONE_DONE and XSCL_STS_COEF_W_RDY_MASK to
+*                       XSCL_IXR_COEF_W_RDY_MASK.
+*                       Added XSCL_ERR_*_MASK s.
+*                       Removed XSCL_GIER_GIE_MASK.
+*                       Removed following macros as they were not defined in
+*                       latest product guide(v 8.1):
+*                       XSCL_STSERR_CODE*_MASK, XSCL_IXR_OUTPUT_FRAME_DONE_MASK,
+*                       XSCL_IXR_COEF_FIFO_READY_MASK, XSCL_IXR_INPUT_ERROR_MASK
+*                       XSCL_IXR_COEF_WR_ERROR_MASK,
+*                       XSCL_IXR_REG_UPDATE_DONE_MASK,
+*                       XSCL_IXR_OUTPUT_ERROR_MASK, XSCL_IXR_EVENT_MASK,
+*                       XSCL_IXR_ERROR_MASK, XSCL_IXR_ALLINTR_MASK,
+*                       XSCL_HSF_INT_MASK, XSCL_VSF_INT_MASK,
+*                       XSCL_COEFFVALUE_BASE_SHIFT and XSCL_COEFVALUE_BASE_MASK.
+*                       Modified bits of the following macros:
+*                       XSCL_HSF_FRAC_MASK and XSCL_VSF_FRAC_MASK.
+*
+*                       Modifications from xscalar.c file are:
+*                       Modified prototype of XScaler_GetVersion API.
+*                       and functionality of StubCallBack. Modified assert
+*                       conditions in functions XScaler_CfgInitialize,
+*                       XScaler_SetPhaseNum, XScaler_LoadCoeffBank.
+*                       Removed error callback from XScaler_CfgInitialize
+*                       function.
+*                       Uncommented XScaler_Reset in XScaler_CfgInitialize
+*                       function.
+*
+*                       Modifications from file xscalar_coefs.c file are
+*                       Removed typedef unsigned short s16 as it was already
+*                       defined in xil_types.h.
+*                       Modified coefs_struct to Coefs_Struct.
+*                       Updated doxygen document tags.
+*                       XScaler_coef_table is made as a global variable.
+*                       Memory allocated was freed after usage.
+*
+*                       Modifications from xscalar_intr.c file are
+*                       XScaler_IntrHandler and XScaler_SetCallBack APIs were
+*                       modified
+*
+*                       Added XScaler_LookupConfig in xscalar_sinit.c file and
+*
 * </pre>
 *
 ******************************************************************************/
@@ -119,19 +185,13 @@ extern "C" {
 #include "stdio.h"
 #include "math.h"
 #include "stdlib.h"
-
+#include "xil_assert.h"
 #include "xscaler_hw.h"
 #include "xil_types.h"
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
 
-/** @name Interrupt Types for setting up Callbacks
- *	@{
- */
-#define XSCL_HANDLER_EVENT	1	/**< Normal Event Interrupt Type */
-#define XSCL_HANDLER_ERROR	2	/**< Error Interrupt Type */
-/*@}*/
 
 /** @name Minimum and Maximum Tap Numbers
  *	@{
@@ -210,7 +270,7 @@ typedef struct {
  *	  either normal events or errors. The value is created by "OR'ing"
  *	  XSCL_IXR_* constants defined in xscaler_hw.h
  */
-typedef void (*XScaler_CallBack) (void *CallBackRef, u32 EventMask);
+typedef void (*XScaler_CallBack) (void *CallBackRef);
 
 /**
  * The XScaler driver instance data. An instance must be allocated for each
@@ -221,15 +281,10 @@ typedef struct {
 	u32 IsReady;			/**< Device and the driver instance are
 					     initialized */
 
-	XScaler_CallBack EventCallBack;	/**< Call back for Normal Event
+	XScaler_CallBack CallBack;	/**< Call back for
 					     interrupt */
-	void *EventRef;			/**< To be passed to the Normal Event
+	void *CallBackRef;			/**< To be passed to the
 					     interrupt callback */
-
-	XScaler_CallBack ErrorCallBack;	/**< Call back for Error interrupt */
-	void *ErrorRef;			/**< To be passed to the Error
-					     interrupt callback */
-
 } XScaler;
 
 /**
@@ -287,20 +342,20 @@ typedef struct {
 *
 * This macro enables a Scaler device.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be worked
+*		on.
 *
 * @return None.
 *
-* @note
-* C-style signature:
-*	 void XScaler_Enable(XScaler *InstancePtr);
+* @note		C-style signature:
+*		void XScaler_Enable(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_Enable(InstancePtr) \
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_CTL, \
-		XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_CTL) \
-			| XSCL_CTL_ENABLE)
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_CTL_OFFSET), \
+			((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+				(XSCL_CTL_OFFSET))) | (XSCL_CTL_SW_EN_MASK)))
 
 
 /*****************************************************************************/
@@ -308,58 +363,60 @@ typedef struct {
 *
 * This macro disables a Scaler device.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return None.
+* @return	None.
 *
-* @note
-* C-style signature:
-*	 void XScaler_Disable(XScaler *InstancePtr);
+* @note		C-style signature:
+*	 	void XScaler_Disable(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_Disable(InstancePtr) \
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_CTL, \
-		XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_CTL) \
-			& (~XSCL_CTL_ENABLE))
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_CTL_OFFSET), \
+			((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+			(XSCL_CTL_OFFSET)) & (~(XSCL_CTL_SW_EN_MASK)))))
 
 /*****************************************************************************/
 /**
 *
 * This macro checks if a Scaler device is enabled.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return TRUE if the Scaler device is enabled; FALSE otherwise.
+* @return	- TRUE if the Scaler device is enabled.
+*		- FALSE otherwise.
 *
-* @note
-* C-style signature:
-*	boolean XScaler_IsEnabled(XScaler *InstancePtr);
+* @note		C-style signature:
+*		boolean XScaler_IsEnabled(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_IsEnabled(InstancePtr) \
-	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_CTL) & \
-		XSCL_CTL_ENABLE) ? TRUE : FALSE)
+	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_CTL_OFFSET)) & (XSCL_CTL_SW_EN_MASK) ? TRUE : FALSE
 
 /*****************************************************************************/
 /**
 *
 * This macro checks if a Scaler operation is finished
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return TRUE if the Scaler operation is finished; FALSE otherwise.
+* @return
+*		- TRUE if the Scaler operation is finished.
+*		- FALSE otherwise.
 *
-* @note
-* C-style signature:
-* boolean XScaler_CheckDone(XScaler *InstancePtr);
+* @note		C-style signature:
+* 		boolean XScaler_CheckDone(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_CheckDone(InstancePtr) \
-	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STSDONE) & \
-		XSCL_STSDONE_DONE) ? TRUE : FALSE)
+	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+					(XSCL_STATUS_OFFSET)) & \
+		(XSCL_STS_COEF_W_RDY_MASK) ? TRUE : FALSE
 
 /*****************************************************************************/
 /**
@@ -367,20 +424,20 @@ typedef struct {
 * This macro tells a Scaler device to pick up the register value changes made
 * so far.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
 * @return None.
 *
-* @note
-* C-style signature:
-*	 void XScaler_EnableRegUpdate(XScaler *InstancePtr);
+* @note 	C-style signature:
+*		void XScaler_EnableRegUpdate(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_EnableRegUpdate(InstancePtr) \
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_CTL, \
-		XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_CTL) \
-			| XSCL_CTL_REGUPDATE)
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_CTL_OFFSET), \
+			((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+			(XSCL_CTL_OFFSET))) | (XSCL_CTL_RUE_MASK)))
 
 /*****************************************************************************/
 /**
@@ -390,20 +447,20 @@ typedef struct {
 * multiple registers need to be updated. All register updates could be made
 * with no tight time constraints with the help of this macro.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return None.
+* @return	None.
 *
-* @note
-* C-style signature:
-*	 void XScaler_DisableRegUpdate(XScaler *InstancePtr);
+* @note		C-style signature:
+*		void XScaler_DisableRegUpdate(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_DisableRegUpdate(InstancePtr) \
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_CTL, \
-		XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_CTL) \
-			& ~XSCL_CTL_REGUPDATE)
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_CTL_OFFSET), \
+			((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+			(XSCL_CTL_OFFSET))) & (~(XSCL_CTL_RUE_MASK))))
 
 /*****************************************************************************/
 /**
@@ -411,89 +468,90 @@ typedef struct {
 * This macro checks if a Scaler device is ready to accept the coefficients
 * the software is going to load.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return TRUE if the Scaler device is ready for the coefficient load; FALSE
-	  otherwise
+* @return
+*		- TRUE if the Scaler device is ready for the coefficient load.
+*		- FALSE otherwise.
 *
-* @note
-* C-style signature:
-* boolean XScaler_CoeffLoadReady(XScaler *InstancePtr);
+* @note		C-style signature:
+*		boolean XScaler_CoeffLoadReady(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_CoeffLoadReady(InstancePtr) \
-	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STS) & \
-		XSCL_STS_COEF_W_RDY_MASK) ? TRUE : FALSE)
+	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+					(XSCL_STATUS_OFFSET)) & \
+		(XSCL_STS_COEF_W_RDY_MASK) ? TRUE : FALSE
 
 /*****************************************************************************/
 /**
 *
 * This macro checks the error status of a Scaler device.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return The error type, if any. Use XSCL_STSERR_* defined in xscaler_hw.h
-*	  to interpret the value.
+* @return	The error type, if any. Use XSCL_STSERR_* defined in
+*		xscaler_hw.h to interpret the value.
 *
-* @note
-* C-style signature:
-*	  u32 XScaler_GetError(XScaler *InstancePtr);
+* @note		C-style signature:
+*		u32 XScaler_GetError(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_GetError(InstancePtr) \
-	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STSERR)
+	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, (XSCL_ERROR_OFFSET))
 
 /*****************************************************************************/
 /**
 *
 * This macro resets a Scaler device.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return None.
+* @return	None.
 *
-* @note
-* C-style signature:
-*	 void XScaler_Reset(XScaler *InstancePtr);
+* @note		C-style signature:
+*		void XScaler_Reset(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_Reset(InstancePtr) \
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_CTL, \
-		XSCL_RESET_RESET_MASK)
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_CTL_OFFSET), (XSCL_CTL_RESET_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro checks if the reset on a Scaler device is done.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return TRUE if the reset is done; FALSE otherwise.
+* @return
+*		- TRUE if the reset is done;
+*		- FALSE otherwise.
 *
-* @note
-* C-style signature:
-* boolean XScaler_IsResetDone(XScaler *InstancePtr);
+* @note		C-style signature:
+*		boolean XScaler_IsResetDone(XScaler *InstancePtr);
 *
 ******************************************************************************/
 #define XScaler_IsResetDone(InstancePtr) \
-	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_RESET) & \
-		XSCL_RESET_RESET_MASK) ? FALSE : TRUE)
+	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, \
+					(XSCL_CTL_OFFSET)) & \
+					(XSCL_CTL_RESET_MASK) ? FALSE : TRUE
 
 /*****************************************************************************/
 /**
  * This macro calculates the N-th Triangular number: 1 + 2 + ... + N
  *
- * @param  N indicates the positive integer number to calculate the N-th
- *	   Triangular number.
- * @return The N-th triangular number.
+ * @param	N indicates the positive integer number to calculate the N-th
+ *		Triangular number.
  *
- * @note
- * C-style signature:
- *	   u32 XScaler_TriangularNumber(u32 N);
+ * @return	The N-th triangular number.
+ *
+ * @note	C-style signature:
+ *		u32 XScaler_TriangularNumber(u32 N);
  *
  *****************************************************************************/
 #define XScaler_TriangularNumber(N) ((N) * ((N) + 1) / 2)
@@ -503,13 +561,13 @@ typedef struct {
  * This macro calculates the offset of a coefficient Tap from the beginning of
  * a coefficient Bin.
  *
- * @param  Tap indicates the index of the coefficient tap in the coefficient
- *		   Bin
- * @return The offset of the coefficient TAP from the beginning of a
- *		   coefficient Bin
- * @note
- * C-style signature:
- *	   u32 XScaler_CoefTapOffset(u32 Tap);
+ * @param	Tap indicates the index of the coefficient tap in the
+ *		coefficient Bin.
+ *
+ * @return	The offset of the coefficient TAP from the beginning of a
+ *		coefficient Bin.
+ * @note	C-style signature:
+ *		u32 XScaler_CoefTapOffset(u32 Tap);
  *
  *****************************************************************************/
 #define XScaler_CoefTapOffset(Tap) \
@@ -522,13 +580,14 @@ typedef struct {
  * beginning of a coefficient Tap given the currently used Phase and Tap
  * numbers for scaling operation.
  *
- * @param  Tap indicates the number of Taps used for the scaling operation
- * @param  Phase indicates the number of Phases used for the scaling operation
- * @return The offset of the first coefficient Phase from the beginning of a
- *	   coefficient Tap.
- * @note
- * C-style signature:
- *	   u32 XScaler_CoefPhaseOffset(u32 Tap, u32 Phase);
+ * @param	Tap indicates the number of Taps used for the scaling operation.
+ * @param	Phase indicates the number of Phases used for the scaling
+ *		operation.
+ *
+ * @return	The offset of the first coefficient Phase from the beginning of
+ *		a coefficient Tap.
+ * @note	C-style signature:
+ *		u32 XScaler_CoefPhaseOffset(u32 Tap, u32 Phase);
  *
  *****************************************************************************/
 #define XScaler_CoefPhaseOffset(Tap, Phase) \
@@ -538,144 +597,60 @@ typedef struct {
 			(Tap) * (XScaler_TriangularNumber(16) - 1) : \
 			(Tap) * (XScaler_TriangularNumber(16) - 1 + 32))
 
-/*****************************************************************************/
-/**
-*
-* This macro enables the global interrupt on a Scaler device.
-*
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
-*
-* @return None.
-*
-* @note
-* C-style signature:
-*	 void XScaler_IntrEnableGlobal(XScaler *InstancePtr);
-*
-******************************************************************************/
-//#define XScaler_IntrEnableGlobal(InstancePtr) \
-//	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_GIER, \
-//		XSCL_GIER_GIE_MASK)
 
 /*****************************************************************************/
 /**
 *
-* This macro disables the global interrupt on a Scaler device.
+* This macro enables the Coef_FIFO_Ready interrupt on a Scaler device.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @return None.
+* @return	None.
 *
-* @note
-* C-style signature:
-*	 void XScaler_IntrDisableGlobal(XScaler *InstancePtr);
+* @note		C-style signature:
+*		void XScaler_IntrEnable(XScaler *InstancePtr);
 *
 ******************************************************************************/
-//#define XScaler_IntrDisableGlobal(InstancePtr) \
-//	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_GIER, 0)
+#define XScaler_IntrEnable(InstancePtr) \
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_IRQ_EN_OFFSET),(XSCL_IXR_COEF_W_RDY_MASK)) \
 
 /*****************************************************************************/
 /**
 *
-* This macro enables the given individual interrupt(s) on a Scaler device.
+* This macro disables the Coef_FIFO_Ready interrupt on a Scaler device.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @param  IntrType is the type of the interrupts to enable. Use OR'ing of
-*	  XSCL_IXR_* constants defined in xscaler_hw.h to create this parameter
-*	  value.
+* @return	None.
 *
-* @return None
-*
-* @note
-*
-* The existing enabled interrupt(s) will remain enabled.
-*
-* C-style signature:
-*	 void XScaler_IntrEnable(XScaler *InstancePtr, u32 IntrType);
+* @note		C-style signature:
+*		void XScaler_IntrDisable(XScaler *InstancePtr);
 *
 ******************************************************************************/
-//#define XScaler_IntrEnable(InstancePtr, IntrType) \
-//	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_IER, \
-//		((IntrType) & XSCL_IXR_ALLINTR_MASK) | \
-//		XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_IER))
+#define XScaler_IntrDisable(InstancePtr) \
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_IRQ_EN_OFFSET), 0)
 
 /*****************************************************************************/
 /**
 *
-* This macro disables the given individual interrupt(s) on a Scaler device.
+* This macro clears/acknowledges Coef_FIFO_Ready interrupt of a Scaler device.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
 *
-* @param  IntrType is the type of the interrupts to disable. Use OR'ing of
-*	  XSCL_IXR_* constants defined in xscaler_hw.h to create this parameter
-*	  value.
+* @return	None
 *
-* @return None
-*
-* @note
-*
-* Any other interrupt not covered by parameter IntrType, if enabled before
-* this macro is called, will remain enabled.
-*
-* C-style signature:
-*	 void XScaler_IntrDisable(XScaler *InstancePtr, u32 IntrType);
+* @note		C-style signature:
+*		void XScaler_IntrClear(XScaler *InstancePtr)
 *
 ******************************************************************************/
-//#define XScaler_IntrDisable(InstancePtr, IntrType) \
-//	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_IER, \
-//		(~(IntrType)) & XSCL_IXR_ALLINTR_MASK & \
-//		XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_IER))
-
-/*****************************************************************************/
-/**
-*
-* This macro returns the pending interrupts of a Scaler device.
-*
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
-*
-* @return The pending interrupts of the Scaler. Use XSCL_IXR_* constants
-*	  defined in xscaler_hw.h to interpret this value.
-*
-* @note
-*
-* C-style signature:
-*	 u32 XScaler_IntrGetPending(XScaler *InstancePtr)
-*
-******************************************************************************/
-//#define XScaler_IntrGetPending(InstancePtr) \
-//	(XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_IER) & \
-//	 XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_ISR) & \
-//		XSCL_IXR_ALLINTR_MASK)
-
-/*****************************************************************************/
-/**
-*
-* This macro clears/acknowledges pending interrupts of a Scaler device.
-*
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
-*
-* @param  IntrType is the pending interrupts to clear/acknowledge. Use OR'ing
-*	  of XSCL_IXR_* constants defined in xscaler_hw.h to create this
-*	  parameter value.
-*
-* @return None
-*
-* @note
-*
-* C-style signature:
-*	 void XScaler_IntrClear(XScaler *InstancePtr, u32 IntrType)
-*
-******************************************************************************/
-//#define XScaler_IntrClear(InstancePtr, IntrType) \
-//	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_ISR, \
-//		(IntrType) & XSCL_IXR_ALLINTR_MASK & \
-//		XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_ISR))
+#define XScaler_IntrClear(InstancePtr) \
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, \
+		(XSCL_STATUS_OFFSET), (XSCL_IXR_COEF_W_RDY_MASK))
 
 /*@}*/
 
@@ -719,10 +694,7 @@ void XScaler_GetCoeffBankSharingInfo(XScaler *InstancePtr,
 					u8 *ChromaFormat,
 					u8 *ChromaLumaShareCoeff,
 					u8 *HoriVertShareCoeff);
-
-/* Version functions */
-//void XScaler_GetVersion(XScaler *InstancePtr, u16 *Major, u16 *Minor,
-//			u16 *Revision);
+u32 XScaler_GetVersion(XScaler *InstancePtr);
 
 /*
  * Initialization functions in xscaler_sinit.c
@@ -733,7 +705,7 @@ XScaler_Config *XScaler_LookupConfig(u16 DeviceId);
  * Interrupt related functions in xscaler_intr.c
  */
 void XScaler_IntrHandler(void *InstancePtr);
-int XScaler_SetCallBack(XScaler *InstancePtr, u32 IntrType,
+void XScaler_SetCallBack(XScaler *InstancePtr,
 				void *CallBackFunc, void *CallBackRef);
 
 #ifdef __cplusplus

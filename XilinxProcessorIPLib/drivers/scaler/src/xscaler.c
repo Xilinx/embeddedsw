@@ -41,18 +41,31 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver	Who	 Date	  Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00a xd   02/10/09 First release
-* 2.00a xd   12/14/09 Updated doxygen document tags
-* 4.01a cw   06/27/12 Updated tcl file with new parameter names (num_x_taps)
-                      Updated mdd file with updated supported_peripherals field.
-* 4.02a mpv  03/11/13 Updated the Driver to select the correct coeff bin.
-*                     Changed RegValue variable to a volatile type
-*                     Removed 10.x patch in the Tcl file
-* 4.03a mpv  05/28/13 Fixed version limit in MDD file
-*                     Updated the Driver input, output and aperture size mask
-* 5.00a mpv  12/13/13 Updated to dynamic coeff generation to reduce driver size
+* Ver   Who     Date     Changes
+* ----- ----    -------- -------------------------------------------------------
+* 1.00a xd      02/10/09 First release
+* 2.00a xd      12/14/09 Updated Doxygen document tags
+* 4.01a cw      06/27/12 Updated tcl file with new parameter names (num_x_taps)
+*                        Updated mdd file with updated supported_peripherals
+*                        field.
+* 4.02a mpv     03/11/13 Updated the Driver to select the correct coeff bin.
+*                        Changed RegValue variable to a volatile type
+*                        Removed 10.x patch in the Tcl file
+* 4.03a mpv     05/28/13 Fixed version limit in MDD file
+*                        Updated the Driver input, output and aperture size
+*                        mask
+* 5.00a mpv     12/13/13 Updated to dynamic coeff generation to reduce driver
+*                        size
+* 7.0   adk     08/22/14 Modified prototype of XScaler_GetVersion API.
+*                        and functionality of StubCallBack. Modified assert
+*                        conditions in functions XScaler_CfgInitialize,
+*                        XScaler_SetPhaseNum, XScaler_LoadCoeffBank.
+*                        Removed error callback from XScaler_CfgInitialize
+*                        function.
+*                        Uncommented XScaler_Reset in XScaler_CfgInitialize
+*                        function.
+*                        Removed ErrorMask parameter in StubCallBack as there
+*                        was only one interrupt.
 * </pre>
 *
 ******************************************************************************/
@@ -82,14 +95,12 @@
 * This macro calculates the integral value nearest to x rounding half-way cases
 * away from zero, regardless of the current rounding direction.
 *
-* @param  x has a float type value
+* @param	x has a float type value
 *
-* @return the integral value nearest to x rounding half-way cases away from
-*		  zero, regardless of the current rounding direction.
+* @return	The integral value nearest to x rounding half-way cases away
+*		from zero, regardless of the current rounding direction.
 *
-* @note
-* C-style signature:
-*  s32 round(float x);
+* @note		C-style signature: s32 round(float x);
 *
 ******************************************************************************/
 #define round(x) ((x) >= 0 ? (s32)((x) + 0.5) : (s32)((x) - 0.5))
@@ -99,7 +110,7 @@
 /************************** Function Prototypes ******************************/
 
 static u32 XScaler_CoeffBinOffset(u32 InSize, u32 OutSize);
-static void StubCallBack(void *CallBackRef, u32 Mask);
+static void StubCallBack(void *CallBackRef);
 
 /************************* Data Structure Definitions ************************/
 
@@ -125,35 +136,34 @@ extern s16 *XScaler_GenCoefTable(u32 Tap, u32 Phase);
  * prior to using a Scaler device. Initialization of a Scaler includes setting
  * up the instance data, and ensuring the hardware is in a quiescent state.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *	   on.
- * @param  CfgPtr points to the configuration structure associated with the
- *	   Scaler device.
- * @param  EffectiveAddr is the base address of the device. If address
- *	   translation is being used, then this parameter must
- *	   reflect the virtual base address. Otherwise, the physical address
- *	   should be used.
- * @return XST_SUCCESS
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	CfgPtr points to the configuration structure associated with
+ *		the Scaler device.
+ * @param	EffectiveAddr is the base address of the device. If address
+ *		translation is being used, then this parameter must
+ *		reflect the virtual base address. Otherwise, the physical
+ *		address should be used.
+ *
+ * @return	XST_SUCCESS
+ *
+ * @note	None.
  *
  *****************************************************************************/
 int XScaler_CfgInitialize(XScaler *InstancePtr, XScaler_Config *CfgPtr,
 			  u32 EffectiveAddr)
 {
-   
+
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
-	Xil_AssertNonvoid(CfgPtr->MaxPhaseNum >  0);
 	Xil_AssertNonvoid(CfgPtr->MaxPhaseNum <= XSCL_MAX_PHASE_NUM);
 
-	Xil_AssertNonvoid(CfgPtr->HoriTapNum >  0);
 	Xil_AssertNonvoid(CfgPtr->HoriTapNum <= XSCL_MAX_TAP_NUM);
 
-	Xil_AssertNonvoid(CfgPtr->VertTapNum >  0);
 	Xil_AssertNonvoid(CfgPtr->VertTapNum <= XSCL_MAX_TAP_NUM);
 
-	Xil_AssertNonvoid(CfgPtr->CoeffSetNum >  0);
 	Xil_AssertNonvoid(CfgPtr->CoeffSetNum <= XSCL_MAX_COEFF_SET_NUM);
 
 	Xil_AssertNonvoid(EffectiveAddr != (u32)NULL);
@@ -166,13 +176,12 @@ int XScaler_CfgInitialize(XScaler *InstancePtr, XScaler_Config *CfgPtr,
 
 	/* Set all handlers to stub values, let user configure this data later
 	 */
-	InstancePtr->EventCallBack = (XScaler_CallBack)StubCallBack;
-	InstancePtr->ErrorCallBack = (XScaler_CallBack)StubCallBack;
+	InstancePtr->CallBack = (XScaler_CallBack)StubCallBack;
 
 	/* Reset the hardware and set the flag to indicate the driver is ready
 	 */
-	 
-	//XScaler_Reset(InstancePtr);
+
+	XScaler_Reset(InstancePtr);
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return XST_SUCCESS;
@@ -185,11 +194,14 @@ int XScaler_CfgInitialize(XScaler *InstancePtr, XScaler_Config *CfgPtr,
  * calculates the scale factor accordingly based on the aperture setting and
  * sets up the Scaler appropriately.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *		   on.
- * @param  AperturePtr points to the aperture setting structure to set up
- *		   the Scaler device.
- * @return XST_SUCCESS
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	AperturePtr points to the aperture setting structure to set up
+ *		the Scaler device.
+ *
+ * @return	XST_SUCCESS.
+ *
+  * @note	None.
  *
  *****************************************************************************/
 int XScaler_SetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
@@ -273,18 +285,20 @@ int XScaler_SetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
 					& XSCL_SRCSIZE_NUMLINE_MASK;
 
 	/* Set up aperture related register in the Scaler */
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-				XSCL_APTVERT, InLine);
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-				XSCL_APTHORI, InPixel);
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-				XSCL_OUTSIZE, OutSize);
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-				XSCL_SRCSIZE, SrcSize);
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-				XSCL_HSF, (u32)(round(HoriScaleFactor)));
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-				XSCL_VSF, (u32)(round(VertScaleFactor)));
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+				(XSCL_APTVERT_OFFSET), InLine);
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+				(XSCL_APTHORI_OFFSET), InPixel);
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+				(XSCL_OUTSIZE_OFFSET), OutSize);
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+				(XSCL_SRCSIZE_OFFSET), SrcSize);
+
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+		(XSCL_HSF_OFFSET), (u32)(round(HoriScaleFactor)));
+
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+		(XSCL_VSF_OFFSET), (u32)(round(VertScaleFactor)));
 
 	return XST_SUCCESS;
 }
@@ -294,11 +308,14 @@ int XScaler_SetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
  * This function gets aperture of a Scaler device. The aperture setting
  * consists of input video aperture and output video size.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *	   on.
- * @param  AperturePtr points to the aperture structure to store the current
- *	   Scaler device setting after this function returns.
- * @return None
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	AperturePtr points to the aperture structure to store the
+ *		current Scaler device setting after this function returns.
+ *
+ * @return	None.
+ *
+ * @note	None.
  *
  *****************************************************************************/
 void XScaler_GetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
@@ -338,7 +355,6 @@ void XScaler_GetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
 		(OutSize & XSCL_OUTSIZE_NUMLINE_MASK) >>
 			XSCL_OUTSIZE_NUMLINE_SHIFT;
 
-	return;
 }
 
 /*****************************************************************************/
@@ -346,11 +362,14 @@ void XScaler_GetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
  * This function sets the numbers of vertical and horizontal phases to be used
  * by a Scaler device.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *		   on.
- * @param  VertPhaseNum is the number of vertical phase to set to
- * @param  HoriPhaseNum is the number of horizontal phase to set to
- * @return None
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	VertPhaseNum is the number of vertical phase to set to
+ * @param	HoriPhaseNum is the number of horizontal phase to set to
+ *
+ * @return	None.
+ *
+ * @note	None.
  *
  *****************************************************************************/
 void XScaler_SetPhaseNum(XScaler *InstancePtr, u16 VertPhaseNum,
@@ -361,8 +380,6 @@ void XScaler_SetPhaseNum(XScaler *InstancePtr, u16 VertPhaseNum,
 	/* Assert bad arguments and conditions */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(VertPhaseNum > 0);
-	Xil_AssertVoid(HoriPhaseNum > 0);
 	Xil_AssertVoid(VertPhaseNum <= InstancePtr->Config.MaxPhaseNum);
 	Xil_AssertVoid(HoriPhaseNum <= InstancePtr->Config.MaxPhaseNum);
 
@@ -373,10 +390,8 @@ void XScaler_SetPhaseNum(XScaler *InstancePtr, u16 VertPhaseNum,
 	PhaseRegValue |= HoriPhaseNum & XSCL_NUMPHASE_HORI_MASK;
 
 	/* Set up the Scaler core using the numbers of phases */
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_NUMPHASE,
-				PhaseRegValue);
-
-	return;
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+		(XSCL_NUMPHASE_OFFSET), PhaseRegValue);
 }
 
 /*****************************************************************************/
@@ -384,13 +399,16 @@ void XScaler_SetPhaseNum(XScaler *InstancePtr, u16 VertPhaseNum,
  * This function gets the numbers of vertical and horizontal phases currently
  * used by a Scaler device.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *	   on.
- * @param  VertPhaseNumPtr will point to the number of vertical phases used
- *	   after this function returns.
- * @param  HoriPhaseNumPtr will point to the number of horizontal phases used
- *	   after this function returns.
- * @return None
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	VertPhaseNumPtr will point to the number of vertical phases
+ *		used after this function returns.
+ * @param	HoriPhaseNumPtr will point to the number of horizontal phases
+ *		used after this function returns.
+ *
+ * @return	None.
+ *
+ * @note	None.
  *
  *****************************************************************************/
 void XScaler_GetPhaseNum(XScaler *InstancePtr, u16 *VertPhaseNumPtr,
@@ -405,8 +423,8 @@ void XScaler_GetPhaseNum(XScaler *InstancePtr, u16 *VertPhaseNumPtr,
 	Xil_AssertVoid(HoriPhaseNumPtr != NULL);
 
 	/* Get the value of "Number of Phases Register" */
-	PhaseRegValue = XScaler_ReadReg((InstancePtr)->Config.BaseAddress,
-					XSCL_NUMPHASE);
+	PhaseRegValue = XScaler_ReadReg(InstancePtr->Config.BaseAddress,
+				(XSCL_NUMPHASE_OFFSET));
 
 	/* Parse the value and store the results */
 	*VertPhaseNumPtr =
@@ -414,7 +432,6 @@ void XScaler_GetPhaseNum(XScaler *InstancePtr, u16 *VertPhaseNumPtr,
 			XSCL_NUMPHASE_VERT_SHIFT;
 	*HoriPhaseNumPtr = PhaseRegValue & XSCL_NUMPHASE_HORI_MASK;
 
-	return;
 }
 
 /*****************************************************************************/
@@ -422,11 +439,14 @@ void XScaler_GetPhaseNum(XScaler *InstancePtr, u16 *VertPhaseNumPtr,
  * This function sets up Luma and Chroma start fractional values used by a
  * Scaler device.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *	   on.
- * @param  StartFractionPtr is a pointer to a start fractional value set to be
- *	   used.
- * @return None
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	StartFractionPtr is a pointer to a start fractional value set
+ *		to be used.
+ *
+ * @return	None.
+ *
+ * @note	None.
  *
  *****************************************************************************/
 void XScaler_SetStartFraction(XScaler *InstancePtr,
@@ -438,11 +458,13 @@ void XScaler_SetStartFraction(XScaler *InstancePtr,
 	Xil_AssertVoid(StartFractionPtr != NULL);
 
 	/* Set up the fractional values */
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_FRCTLUMALEFT,
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
+				 XSCL_FRCTLUMALEFT_OFFSET,
 			 (u32)StartFractionPtr->LumaLeftHori &
 			 XSCL_FRCTLUMALEFT_VALUE_MASK);
 
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_FRCTLUMATOP,
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
+			 XSCL_FRCTLUMATOP_OFFSET,
 			 (u32)StartFractionPtr->LumaTopVert &
 			 XSCL_FRCTLUMATOP_VALUE_MASK);
 
@@ -451,11 +473,11 @@ void XScaler_SetStartFraction(XScaler *InstancePtr,
 			 (u32)StartFractionPtr->ChromaLeftHori &
 			 XSCL_FRCTCHROMALEFT_VALUE_MASK);
 
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_FRCTCHROMATOP,
+	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
+				XSCL_FRCTCHROMATOP_OFFSET,
 			 (u32)StartFractionPtr->ChromaTopVert &
 			 XSCL_FRCTCHROMATOP_VALUE_MASK);
 
-	return;
 }
 
 /*****************************************************************************/
@@ -463,12 +485,15 @@ void XScaler_SetStartFraction(XScaler *InstancePtr,
  * This function gets Luma and Chroma start fractional values currently used
  * by a Scaler device.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *	   on.
- * @param  StartFractionPtr is a pointer to a start fractional value structure
- *	   to be populated with the fractional values after this function
- *	   returns.
- * @return None
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	StartFractionPtr is a pointer to a start fractional value
+ *		structure to be populated with the fractional values after this
+ *		function returns.
+ *
+ * @return	None.
+ *
+ * @note	None.
  *
  *****************************************************************************/
 void XScaler_GetStartFraction(XScaler *InstancePtr,
@@ -482,25 +507,24 @@ void XScaler_GetStartFraction(XScaler *InstancePtr,
 	/* Fetch the fractional values */
 	StartFractionPtr->LumaLeftHori = (s32)
 		XScaler_ReadReg((InstancePtr)->Config.BaseAddress,
-			XSCL_FRCTLUMALEFT)
+			XSCL_FRCTLUMALEFT_OFFSET)
 			& XSCL_FRCTLUMALEFT_VALUE_MASK;
 
 	StartFractionPtr->LumaTopVert = (s32)
 		XScaler_ReadReg((InstancePtr)->Config.BaseAddress,
-			XSCL_FRCTLUMATOP)
+			XSCL_FRCTLUMATOP_OFFSET)
 			& XSCL_FRCTLUMATOP_VALUE_MASK;
 
 	StartFractionPtr->ChromaLeftHori = (s32)
 		XScaler_ReadReg((InstancePtr)->Config.BaseAddress,
-			XSCL_FRCTCHROMALEFT)
+			XSCL_FRCTCHROMALEFT_OFFSET)
 			& XSCL_FRCTCHROMALEFT_VALUE_MASK;
 
 	StartFractionPtr->ChromaTopVert = (s32)
 		XScaler_ReadReg((InstancePtr)->Config.BaseAddress,
-			XSCL_FRCTCHROMATOP)
+			XSCL_FRCTCHROMATOP_OFFSET)
 			& XSCL_FRCTCHROMATOP_VALUE_MASK;
 
-	return;
 }
 
 /*****************************************************************************/
@@ -508,28 +532,32 @@ void XScaler_GetStartFraction(XScaler *InstancePtr,
  * This function fetches the color space format and coefficient bank sharing
  * decisions made on a Scaler device at build-time.
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *	   on.
- * @param  ChromaFormat points to an 8-bit variable that will be assigned with
- *	   the Chroma format chosen for the Scaler device at the build time
- *	   after this function returns. Please use XSCL_CHROMA_FORMAT_* defined
- *	   in xscaler_hw.h to interpret the variable value.
- * @param  ChromaLumaShareCoeff points to an 8-bit variable that will be
- *	   assigned by this function with the decision value on coefficient
- *	   bank sharing between Chroma and Luma filter operations. The decision
- *	   is made for the Scaler device at build time and can NOT be changed
- *	   at run-time. Value 0 indicates that each of Chroma and Luma filter
- *	   operations has its own coefficient bank. Value 1 indicates that
- *	   Chroma and Luma filter operations share one common coefficient bank.
- * @param  HoriVertShareCoeff points to an 8-bit variable that will be
- *	   assigned by this function with the decision value on coefficient
- *	   bank sharing between Horizontal and Vertical filter operations. The
- *	   decision is made for the Scaler device at build time and can NOT
- *	   be changed at run-time. Value 0 indicates that each of Horizontal
- *	   and Vertical filter operations has its own coefficient bank. Value 1
- *	   indicates that Horizontal and Vertical filter operations share one
- *	   common coefficient bank.
- * @return None.
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	ChromaFormat points to an 8-bit variable that will be assigned
+ *		with the Chroma format chosen for the Scaler device at the
+ *		build time after this function returns. Please use
+ *		XSCL_CHROMA_FORMAT_* defined in xscaler_hw.h to interpret the
+ *		variable value.
+ * @param	ChromaLumaShareCoeff points to an 8-bit variable that will be
+ *		assigned by this function with the decision value on coefficient
+ *		bank sharing between Chroma and Luma filter operations. The
+ *		decision is made for the Scaler device at build time and can
+ *		NOT be changed at run-time. Value 0 indicates that each of Chroma
+ *		and Luma filter operations has its own coefficient bank. Value
+ *		1 indicates that Chroma and Luma filter operations share one
+ *		common coefficient bank.
+ * @param	HoriVertShareCoeff points to an 8-bit variable that will be
+ *		assigned by this function with the decision value on coefficient
+ *		bank sharing between Horizontal and Vertical filter operations.
+ *		The decision is made for the Scaler device at build time and
+ *		can NOT be changed at run-time. Value 0 indicates that each of
+ *		Horizontal and Vertical filter operations has its own
+ *		coefficient bank. Value 1 indicates that Horizontal and
+ *		Vertical filter operations share one common coefficient bank.
+ *
+ * @return	None.
+ *
  * @note
  *
  * !!!IMPORTANT!!!
@@ -619,7 +647,6 @@ void XScaler_GetCoeffBankSharingInfo(XScaler *InstancePtr,
 		break;
 	}
 
-	return;
 }
 
 /*****************************************************************************/
@@ -627,12 +654,15 @@ void XScaler_GetCoeffBankSharingInfo(XScaler *InstancePtr,
  * This function returns the pointer to the coefficients for a scaling
  * operation given input/output sizes and the Tap and Phase numbers.
  *
- * @param  InSize indicates the size (width or height) of the input video.
- * @param  OutSize indicates the size (width or height) of the output video.
- * @param  Tap indicates the Tap number.
- * @param  Phase indicates the Phase number.
- * @return The points to the coefficients ready for the scaling operation.
- * @note   None.
+ * @param	InSize indicates the size (width or height) of the input video.
+ * @param	OutSize indicates the size (width or height) of the output
+ *		video.
+ * @param	Tap indicates the Tap number.
+ * @param	Phase indicates the Phase number.
+ *
+ * @return	The points to the coefficients ready for the scaling operation.
+ *
+ * @note	None.
  *
  *****************************************************************************/
 s16 *XScaler_CoefValueLookup(u32 InSize, u32 OutSize, u32 Tap, u32 Phase)
@@ -676,10 +706,12 @@ s16 *XScaler_CoefValueLookup(u32 InSize, u32 OutSize, u32 Tap, u32 Phase)
  *	   XScaler_LoadCoeffBank(&Scaler, &VertChromaCoeffBank);
  * </pre>
  *
- * @param  InstancePtr is a pointer to the Scaler device instance to be worked
- *	   on.
- * @param  CoeffBankPtr is a pointer to a coefficient bank that is to be loaded
- * @return None
+ * @param	InstancePtr is a pointer to the Scaler device instance to be
+ *		worked on.
+ * @param	CoeffBankPtr is a pointer to a coefficient bank that is to be
+ *		loaded.
+ *
+ * @return	None.
  *
  *****************************************************************************/
 void XScaler_LoadCoeffBank(XScaler *InstancePtr,
@@ -696,16 +728,17 @@ void XScaler_LoadCoeffBank(XScaler *InstancePtr,
 	Xil_AssertVoid(CoeffBankPtr != NULL);
 	Xil_AssertVoid(CoeffBankPtr->SetIndex < InstancePtr->Config.CoeffSetNum);
 	Xil_AssertVoid(CoeffBankPtr->CoeffValueBuf != NULL);
-	Xil_AssertVoid(CoeffBankPtr->PhaseNum > 0);
+
 	Xil_AssertVoid(CoeffBankPtr->PhaseNum <=
 			InstancePtr->Config.MaxPhaseNum);
-	Xil_AssertVoid(CoeffBankPtr->TapNum > 0);
+
 	Xil_AssertVoid(CoeffBankPtr->TapNum <= XSCL_MAX_TAP_NUM);
 
 	/* Start the coefficient bank loading by writing the bank index first
 	 */
-	XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_COEFFSETADDR,
-			 CoeffBankPtr->SetIndex & XSCL_COEFFSETADDR_ADDR_MASK);
+	XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+		(XSCL_COEFFSETADDR_OFFSET), ((CoeffBankPtr->SetIndex) &
+			(XSCL_COEFFSETADDR_ADDR_MASK)));
 
 	/* Now load the valid values */
 	CoeffValueTapBase = CoeffBankPtr->CoeffValueBuf;
@@ -719,8 +752,8 @@ void XScaler_LoadCoeffBank(XScaler *InstancePtr,
 					(((u32)CoeffValueTapBase[TapIndex++]) &
 						0xFFFF)	<< 16;
 			}
-			XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-						XSCL_COEFFVALUE, CoeffValue);
+			XScaler_WriteReg(InstancePtr->Config.BaseAddress,
+				(XSCL_COEFFVALUE_OFFSET), CoeffValue);
 		}
 		CoeffValueTapBase +=  CoeffBankPtr->TapNum;
 	}
@@ -734,11 +767,10 @@ void XScaler_LoadCoeffBank(XScaler *InstancePtr,
 		for (TapIndex = 0; TapIndex < (CoeffBankPtr->TapNum + 1) / 2;
 				TapIndex++) {
 			XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-					XSCL_COEFFVALUE, 0);
+					XSCL_COEFFVALUE_OFFSET, 0);
 		}
 	}
 
-	return;
 }
 
 /*****************************************************************************/
@@ -752,22 +784,20 @@ void XScaler_LoadCoeffBank(XScaler *InstancePtr,
 * the vertical part and the Scaler device supports using the horizontal part
 * of one coefficient set w/ the vertical part of a different coefficient set.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
+* @param	VertSetIndex indicates the index of the coefficient set in which
+*		the vertical part will be used by the Scaler device. Valid value
+*		is from 0 to (the number of the coefficient sets implemented by
+*		the Scaler device - 1).
+* @param	HoriSetIndex indicates the index of the coefficient set in which
+*		the horizontal part will be used by the Scaler device. Valid
+*		value is from 0 to (the number of the coefficient sets
+*		implemented by the Scaler device - 1).
 *
-* @param  VertSetIndex indicates the index of the coefficient set in which
-*	  the vertical part will be used by the Scaler device. Valid value
-*	  is from 0 to (the number of the coefficient sets implemented by the
-*	  Scaler device - 1)
+* @return	None.
 *
-* @param  HoriSetIndex indicates the index of the coefficient set in which
-*	  the horizontal part will be used by the Scaler device. Valid value
-*	  is from 0 to (the number of the coefficient sets implemented by the
-*	  Scaler device - 1)
-*
-* @return None.
-*
-* @note	  None.
+* @note		None.
 *
 ******************************************************************************/
 void XScaler_SetActiveCoeffSet(XScaler *InstancePtr,
@@ -787,9 +817,8 @@ void XScaler_SetActiveCoeffSet(XScaler *InstancePtr,
 			XSCL_COEFFSETS_VERT_MASK;
 
 	XScaler_WriteReg((InstancePtr)->Config.BaseAddress,
-				XSCL_COEFFSETS, RegValue);
+				XSCL_COEFFSETS_OFFSET, RegValue);
 
-	return;
 }
 
 /*****************************************************************************/
@@ -803,25 +832,23 @@ void XScaler_SetActiveCoeffSet(XScaler *InstancePtr,
 * the vertical part and the Scaler device supports using the horizontal part
 * of one coefficient set w/ the vertical part of a different coefficient set.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be worked
-*	  on.
+* @param	InstancePtr is a pointer to the Scaler device instance to be
+*		worked on.
+* @param	VertSetIndexPtr points to the index of the active coefficient
+*		set in which the vertical part is being used by the Scaler
+*		device after this function returns.
+* @param	HoriSetIndexPtr points to the index of the active coefficient
+*		set in which the horizontal part is being used by the Scaler
+*		device after this function returns.
 *
-* @param  VertSetIndexPtr points to the index of the active coefficient set
-*	  in which the vertical part is being used by the Scaler device
-*	  after this function returns.
+* @return	None.
 *
-* @param  HoriSetIndexPtr points to the index of the active coefficient set
-*	  in which the horizontal part is being used by the Scaler device
-*	  after this function returns.
-*
-* @return None.
-*
-* @note	  None.
+* @note		None.
 *
 ******************************************************************************/
 void XScaler_GetActiveCoeffSet(XScaler *InstancePtr,
-				   u8 *VertSetIndexPtr,
-				   u8 *HoriSetIndexPtr)
+				u8 *VertSetIndexPtr,
+				u8 *HoriSetIndexPtr)
 {
 	u32 RegValue;
 
@@ -840,7 +867,6 @@ void XScaler_GetActiveCoeffSet(XScaler *InstancePtr,
 
 	*HoriSetIndexPtr = (u8)(RegValue & XSCL_COEFFSETS_HORI_MASK);
 
-	return;
 }
 
 /*****************************************************************************/
@@ -848,9 +874,11 @@ void XScaler_GetActiveCoeffSet(XScaler *InstancePtr,
  * This function calculates the index of the coefficient Bin to use based on
  * the input and output video size (Width or Height)
  *
- * @param  InSize indicates the size (width or height) of the input video.
- * @param  OutSize indicates the size (width or height) of the output video.
- * @return The index of the coefficient Bin.
+ * @param	InSize indicates the size (width or height) of the input video.
+ * @param	OutSize indicates the size (width or height) of the output
+ *		video.
+ *
+ * @return	The index of the coefficient Bin.
  *
  *****************************************************************************/
 static u32 XScaler_CoeffBinOffset(u32 InSize, u32 OutSize)
@@ -864,7 +892,7 @@ static u32 XScaler_CoeffBinOffset(u32 InSize, u32 OutSize)
 	if (OutSize > InSize)
 		CoeffBinIndex = 0;
 	else
-	  CoeffBinIndex =1 + (OutSize * 16 / InSize);
+	  CoeffBinIndex = 1 + (OutSize * 16 / InSize);
 
 	return CoeffBinIndex;
 }
@@ -872,63 +900,49 @@ static u32 XScaler_CoeffBinOffset(u32 InSize, u32 OutSize)
 /*****************************************************************************/
 /**
 *
-* This function returns the version of a Scaler device.
+* This function returns the contents of version register of the Scaler core.
 *
-* @param  InstancePtr is a pointer to the Scaler device instance to be
-*	  worked on.
-* @param  Major points to an unsigned 16-bit variable that will be assigned
-*	  with the major version number after this function returns. Value
-*	  range is from 0x0 to 0xF.
-* @param  Minor points to an unsigned 16-bit variable that will be assigned
-*	  with the minor version number after this function returns. Value
-*	  range is from 0x00 to 0xFF.
-* @param  Revision points to an unsigned 16-bit variable that will be assigned
-*	  with the revision version number after this function returns. Value
-*	  range is from 0xA to 0xF.
-* @return None.
-* @note	  Example: Device version should read v2.01.c if major version number
-*	  is 0x2, minor version number is 0x1, and revision version number is
-*	  0xC.
+* @param	InstancePtr is a pointer to the Scaler core instance to be
+*		worked on.
+*
+* @return	Contents of the version register.
+*
+* @note		None.
 *
 ******************************************************************************/
-//void XScaler_GetVersion(XScaler *InstancePtr, u16 *Major, u16 *Minor,
-//			u16 *Revision)
-//{
-//	u32 Version;
-//
-//	/* Verify arguments */
-//	Xil_AssertVoid(InstancePtr != NULL);
-//	Xil_AssertVoid(Major != NULL);
-//	Xil_AssertVoid(Minor != NULL);
-//	Xil_AssertVoid(Revision != NULL);
-//
-//	/* Read device version */
-//	Version = XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_VER);
-//
-//	/* Parse the version and pass the info to the caller via output
-//	 * parameters
-//	 */
-//	*Major = (u16)
-//		((Version & XSCL_VER_MAJOR_MASK) >> XSCL_VER_MAJOR_SHIFT);
-//
-//	*Minor = (u16)
-//		((Version & XSCL_VER_MINOR_MASK) >> XSCL_VER_MINOR_SHIFT);
-//
-//	*Revision = (u16)
-//		((Version & XSCL_VER_REV_MASK) >> XSCL_VER_REV_SHIFT);
-//
-//	return;
-//}
+u32 XScaler_GetVersion(XScaler *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Data = XScaler_ReadReg(InstancePtr->Config.BaseAddress,
+				(XSCL_VER_OFFSET));
+
+	return Data;
+}
 
 /*****************************************************************************/
 /*
- * This routine is a stub for the frame done interrupt callback. The stub is
- * here in case the upper layer forgot to set the callback. On initialization,
- * the frame done interrupt callback is set to this stub. It is considered an
- * error for this function to be invoked.
- *
- *****************************************************************************/
-static void StubCallBack(void *CallBackRef, u32 EventMask)
+*
+* This routine is a stub for the frame done interrupt callback. The stub is
+* here in case the upper layer forgot to set the callback. On initialization,
+* the frame done interrupt callback is set to this stub. It is considered an
+* error for this function to be invoked.
+*
+* @param	CallBackRef is a callback reference passed in by the upper
+*		layer when setting the callback functions, and passed back
+*		to the upper layer when the callback is invoked.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static void StubCallBack(void *CallBackRef)
 {
+
+	(void)CallBackRef;
 	Xil_AssertVoidAlways();
 }
