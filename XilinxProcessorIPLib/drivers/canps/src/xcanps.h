@@ -193,6 +193,8 @@
 * 			XCANPS_TXBUF_DLC_OFFSET to XCANPS_TXHPB_DLC_OFFSET
 *			XCANPS_TXBUF_DW1_OFFSET to XCANPS_TXHPB_DW1_OFFSET
 *			XCANPS_TXBUF_DW2_OFFSET to XCANPS_TXHPB_DW2_OFFSET
+* 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
+*						 SDK claims a 40kbps baud rate but it's not.
 * </pre>
 *
 ******************************************************************************/

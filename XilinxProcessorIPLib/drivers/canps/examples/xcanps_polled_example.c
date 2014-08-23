@@ -47,6 +47,8 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00a xd/sv  01/12/10 First release
+* 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
+*						 SDK claims a 40kbps baud rate but it's not.
 * </pre>
 *
 ******************************************************************************/
