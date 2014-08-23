@@ -2,7 +2,7 @@
 <head>
    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
 <title>
-   VTC
+   vtc_6_1
 </title>
 <link href="$DriverApiDocsCssPath" rel="stylesheet" type="text/css">
 </head>
@@ -16,11 +16,13 @@
     <li><a href="annotated.html"><span>Classes</span></a></li>
     <li><a href="files.html"><span>Files</span></a></li>
   </ul></div>
-<h1>VTC</h1>
+<h1>vtc_6_1</h1>
 <p>
-This is the main header file of Xilinx Video Timing Controller (VTC) core. The VTC core detects video signals, independently overrides any one of them, re-generates video signals with +/- delay and with polarity inversion and generates up to 16 one cycle frame sync outputs.<p>
-<b>Core Features </b> The core has the following main features:<ul>
-<li>Detect video signals:</li><li>horizontal sync</li><li>horizontal blank</li><li>vertical sync</li><li>vertical blank</li><li>active video</li><li>field id</li><li>Independently override any one signal.</li><li>Re-generate video signals with +/- delay and with polarity inversion.</li><li>Generate up to 16 one cycle frame sync outputs.</li></ul>
+This is the main header file of Xilinx MVI Video Timing Controller (VTC) device driver. The VTC device detects video signals, independently overrides any one of them, re-generates video signals with +/- delay and with polarity inversion, and generates up to 16 one cycle Frame Sync outputs.<p>
+The device has the following main features:<ul>
+<li>Detect video signals:<ul>
+<li>horizontal sync</li><li>horizontal blank</li><li>vertical sync</li><li>vertical blank</li><li>active video</li><li>field id</li></ul>
+</li><li>Independently override any one signal.</li><li>Re-generate video signals with +/- delay and with polarity inversion.</li><li>Generate up to 16 one cycle Frame Sync outputs.</li></ul>
 <p>
 For a full description of VTC features, please see the hardware specification.<p>
 <b>Software Initialization &amp; Configuration</b><p>
@@ -168,8 +170,27 @@ An example is provided with this driver to demonstrate the driver usage.<p>
                        XVtc_GetDetectorTiming
                        XVtc_GetDetectorVideoMode
  6.0   adk    19/12/13 Updated as per the New Tcl API's.
- 6.1   adk    03/03/14 Implemented XVtc_SelfTest in
+ 6.1   adk    23/08/14 Implemented XVtc_SelfTest in
                        <a class="el" href="xvtc__selftest_8c.html">xvtc_selftest.c</a>.
-                       Defined range macro for frame sync register.
-                       Defined XVTC_FSYNC_NUM_FRAMES.
+                       Modified prototype of XVtc_GetVersion API.</pre><p>
+<pre>                       Modifications from <a class="el" href="xvtc_8c.html">xvtc.c</a> file are:
+                       Modified HActiveVideo value to 1920 for
+                       XVTC_VMODE_1080I mode.
+                       Removed Major, Minor and Revision parameters from
+                       XVtc_GetVersion.
+                       Modified return type of XVtc_GetVersion from
+                       void to u32.</pre><p>
+<pre>                       Modifications from <a class="el" href="xvtc__hw_8h.html">xvtc_hw.h</a> file are:
+                       Removed XVTC_ERR_FIL_MASK macro because it is  not
+                       present in latest product guide.
+                       Modified register offsets from XVTC_* to XVTC_*_OFFSET
+                       for consistency.
+                       Added backward compatibility macros.</pre><p>
+<pre>                       Modifications from <a class="el" href="xvtc__intr_8c.html">xvtc_intr.c</a> and <a class="el" href="xvtc__sinit_8c.html">xvtc_sinit.c</a> files
+                       are:
+                       updated doxygen tags.</pre><p>
+<pre>                       Modifications from <a class="el" href="xvtc__selftest_8c.html">xvtc_selftest.c</a> file are:
+                       First Release.
+                       Implemented following function:
+                       XVtc_SelfTest.
  </pre> Copyright @ 1995-2014 Xilinx, Inc. All rights reserved. 

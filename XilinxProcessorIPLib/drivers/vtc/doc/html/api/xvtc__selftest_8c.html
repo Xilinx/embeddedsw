@@ -27,7 +27,7 @@ This file contains the self test function for the VTC core. The self test functi
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who    Date     Changes
  ----- ------ -------- --------------------------------------------------
- 6.1   adk    03/03/14 First Release.
+ 6.1   adk    08/23/14 First Release.
                        Implemented following function:
                        XVtc_SelfTest.
  </pre> 
@@ -63,8 +63,8 @@ This function reads version register of the VTC core and compares with zero as p
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_vtc.html">XVtc</a> instance.</td></tr>
   </table>
 </dl>
-<dl compact><dt><b>Returns:</b></dt><dd>- XST_SUCCESS if the Version register read test was successful.<ul>
-<li>XST_FAILURE if the Version register read test failed.</li></ul>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the Version register read test was successful.</li><li>XST_FAILURE if the Version register read test failed.</li></ul>
 </dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 

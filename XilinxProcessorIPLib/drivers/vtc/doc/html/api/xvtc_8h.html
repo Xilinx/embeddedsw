@@ -88,14 +88,6 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#eb8bf337fe48013bf25cea0dbe061440">XVTC_VMODE_PAL</a>&nbsp;&nbsp;&nbsp;102</td></tr>
 
-<tr><td colspan="2"><br><h2>Frame Sync range macros</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#3e3be6952a350f241b8de9e488422ca4">XVTC_FSYNC_FIRST</a>&nbsp;&nbsp;&nbsp;0</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#67c8541ddeb381dc24e15feb2fe88ed6">XVTC_FSYNC_LAST</a>&nbsp;&nbsp;&nbsp;4095</td></tr>
-
-<tr><td colspan="2"><br><h2>Number of FSYNC frames</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#08c4f6cd6397aec8feb352567be5b3fa">XVTC_FSYNC_NUM_FRAMES</a>&nbsp;&nbsp;&nbsp;15</td></tr>
-
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#c602bc32e1f3687b4da518eb433be72c">XVTC_H_</a></td></tr>
 
@@ -191,19 +183,19 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#7f87049e38a6abab9495ed52f81ed279">XVtc_GetDetector</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, <a class="el" href="struct_x_vtc___signal.html">XVtc_Signal</a> *SignalCfgPtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#41512df33fa88cfe2ce97736c6b547fb">XVtc_SetDelay</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, u32 VertDelay, u32 HoriDelay)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#bfb3ffcd7f3ac258e1503b28c8f2a17c">XVtc_SetDelay</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, int VertDelay, int HoriDelay)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#3cf6c931e8d077160e7e39789ef876dc">XVtc_GetDelay</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, u32 *VertDelayPtr, u32 *HoriDelayPtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#97b58d69b1752d2d1542a49d2cdb8b1d">XVtc_GetDelay</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, int *VertDelayPtr, int *HoriDelayPtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#cb67e4e6e1ca2fb525ccc9a4fd3bad06">XVtc_SetFSync</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, u16 FrameSyncIndex, u16 VertStart, u16 HoriStart)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#48898cf9a0c2c38d5e2f0d520c9ffdba">XVtc_GetFSync</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, u16 FrameSyncIndex, u16 *VertStartPtr, u16 *HoriStartPtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#93ca3256bd11b14fc2ed960028121e27">XVtc_SetGeneratorHoriOffset</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, <a class="el" href="struct_x_vtc___hori_offsets.html">XVtc_HoriOffsets</a> *HoriOffsets)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#f6c75d56af87cededd9a57aa98c31087">XVtc_SetGeneratorHoriOffset</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, <a class="el" href="struct_x_vtc___hori_offsets.html">XVtc_HoriOffsets</a> *HoriOffset)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#7bbbedce0f72517db6b0fdb4593ccca2">XVtc_GetGeneratorHoriOffset</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, <a class="el" href="struct_x_vtc___hori_offsets.html">XVtc_HoriOffsets</a> *HoriOffsets)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#4f6296735d6a50cbdf5a97d34478089a">XVtc_GetGeneratorHoriOffset</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, <a class="el" href="struct_x_vtc___hori_offsets.html">XVtc_HoriOffsets</a> *HoriOffset)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#a42a49953fb922a5bd8851f4d0b7e9c3">XVtc_GetDetectorHoriOffset</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, <a class="el" href="struct_x_vtc___hori_offsets.html">XVtc_HoriOffsets</a> *HoriOffsets)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#9bc79bbabf248e17566a68a6a286ab46">XVtc_GetDetectorHoriOffset</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, <a class="el" href="struct_x_vtc___hori_offsets.html">XVtc_HoriOffsets</a> *HoriOffset)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#970f3fda51300164bf853b5e27469444">XVtc_GetVersion</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr)</td></tr>
 
@@ -211,9 +203,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#f4c9f950bb8be8ec38f650d3752c8007">XVtc_IntrHandler</a> (void *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#2c8331343095cb78377c7887cb62d87b">XVtc_SetCallBack</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, u32 HandlerType, void *CallBackFunc, void *CallBackRef)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#34bc19c168a2d7bbfb3252b2c23e53ae">XVtc_SelfTest</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc_8h.html#69695e97e578e8baaf99d19c0c3bca85">XVtc_SetCallBack</a> (<a class="el" href="struct_x_vtc.html">XVtc</a> *InstancePtr, u32 IntrType, void *CallBackFunc, void *CallBackRef)</td></tr>
 
 </table>
 <hr><h2>Define Documentation</h2>
@@ -307,51 +297,6 @@ To enable generator
 <dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>C-style signature: void <a class="el" href="xvtc_8h.html#0415945948fb1420667ef11689d8747c">XVtc_EnableSync(XVtc *InstancePtr)</a> </dd></dl>
 
-</div>
-</div><p>
-<a class="anchor" name="3e3be6952a350f241b8de9e488422ca4"></a><!-- doxytag: member="xvtc.h::XVTC_FSYNC_FIRST" ref="3e3be6952a350f241b8de9e488422ca4" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FSYNC_FIRST&nbsp;&nbsp;&nbsp;0          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Frame Sync starting value 
-</div>
-</div><p>
-<a class="anchor" name="67c8541ddeb381dc24e15feb2fe88ed6"></a><!-- doxytag: member="xvtc.h::XVTC_FSYNC_LAST" ref="67c8541ddeb381dc24e15feb2fe88ed6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FSYNC_LAST&nbsp;&nbsp;&nbsp;4095          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Frame Sync ending value 
-</div>
-</div><p>
-<a class="anchor" name="08c4f6cd6397aec8feb352567be5b3fa"></a><!-- doxytag: member="xvtc.h::XVTC_FSYNC_NUM_FRAMES" ref="08c4f6cd6397aec8feb352567be5b3fa" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FSYNC_NUM_FRAMES&nbsp;&nbsp;&nbsp;15          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Total number of FSYNC frames. 
 </div>
 </div><p>
 <a class="anchor" name="977bdd07311a20a9d9f4e4cc0df5ca38"></a><!-- doxytag: member="xvtc.h::XVtc_GetDetectionStatus" ref="977bdd07311a20a9d9f4e4cc0df5ca38" args="(InstancePtr)" -->
@@ -492,7 +437,7 @@ A signal lock event interrupt type
 <div class="memdoc">
 
 <p>
-<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xvtc__hw_8h.html#9c524801283cc3bf9a782c7cbf093098">XVtc_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xvtc__hw_8h.html#159a75f7463b98abf67d279aba9edd67">XVTC_CTL_OFFSET</a>), \
+<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xvtc__hw_8h.html#9c524801283cc3bf9a782c7cbf093098">XVtc_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xvtc__hw_8h.html#a690829886e09994bae91932d380240a">XVTC_ISR_OFFSET</a>), \
                 ((IntrType) &amp; (<a class="code" href="xvtc__hw_8h.html#c7bc3f9544f412ba6a4681b84e2420d7">XVTC_IXR_ALLINTR_MASK</a>)))
 </pre></div>This function macro clears/acknowledges pending interrupts of the VTC core in the Status register. Bit positions of 1 will be cleared.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
@@ -594,9 +539,9 @@ A signal lock event interrupt type
 <div class="memdoc">
 
 <p>
-<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xvtc__hw_8h.html#c0ac89b5f531d863ad78e8b8af3c0df2">XVTC_IER_OFFSET</a>)) &amp; \
-                (<a class="code" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \
-                (<a class="code" href="xvtc__hw_8h.html#159a75f7463b98abf67d279aba9edd67">XVTC_CTL_OFFSET</a>)) &amp; (<a class="code" href="xvtc__hw_8h.html#c7bc3f9544f412ba6a4681b84e2420d7">XVTC_IXR_ALLINTR_MASK</a>))
+<b>Value:</b><div class="fragment"><pre class="fragment">(<a class="code" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, <a class="code" href="xvtc__hw_8h.html#c0ac89b5f531d863ad78e8b8af3c0df2">XVTC_IER_OFFSET</a>) &amp; \
+         <a class="code" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, <a class="code" href="xvtc__hw_8h.html#a690829886e09994bae91932d380240a">XVTC_ISR_OFFSET</a>) &amp; \
+         <a class="code" href="xvtc__hw_8h.html#c7bc3f9544f412ba6a4681b84e2420d7">XVTC_IXR_ALLINTR_MASK</a>)
 </pre></div>This function macro returns the pending interrupts of the VTC core for the interrupts that have been enabled.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -763,7 +708,7 @@ Register address gap
 <div class="memdoc">
 
 <p>
-<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xvtc__hw_8h.html#159a75f7463b98abf67d279aba9edd67">XVTC_CTL_OFFSET</a>)) &amp; \
+<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xvtc__hw_8h.html#a690829886e09994bae91932d380240a">XVTC_ISR_OFFSET</a>)) &amp; \
                 (<a class="code" href="xvtc__hw_8h.html#c7bc3f9544f412ba6a4681b84e2420d7">XVTC_IXR_ALLINTR_MASK</a>)
 </pre></div>This function macro returns the pending interrupt status of the VTC core read from the Status register.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
@@ -1490,7 +1435,7 @@ This function enables the VTC Generator core.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="3cf6c931e8d077160e7e39789ef876dc"></a><!-- doxytag: member="xvtc.h::XVtc_GetDelay" ref="3cf6c931e8d077160e7e39789ef876dc" args="(XVtc *InstancePtr, u32 *VertDelayPtr, u32 *HoriDelayPtr)" -->
+<a class="anchor" name="97b58d69b1752d2d1542a49d2cdb8b1d"></a><!-- doxytag: member="xvtc.h::XVtc_GetDelay" ref="97b58d69b1752d2d1542a49d2cdb8b1d" args="(XVtc *InstancePtr, int *VertDelayPtr, int *HoriDelayPtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1503,13 +1448,13 @@ This function enables the VTC Generator core.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32 *&nbsp;</td>
+          <td class="paramtype">int *&nbsp;</td>
           <td class="paramname"> <em>VertDelayPtr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32 *&nbsp;</td>
+          <td class="paramtype">int *&nbsp;</td>
           <td class="paramname"> <em>HoriDelayPtr</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -1573,7 +1518,7 @@ This function gets the VTC signal setting used by the Detector module in the VTC
 
 </div>
 </div><p>
-<a class="anchor" name="a42a49953fb922a5bd8851f4d0b7e9c3"></a><!-- doxytag: member="xvtc.h::XVtc_GetDetectorHoriOffset" ref="a42a49953fb922a5bd8851f4d0b7e9c3" args="(XVtc *InstancePtr, XVtc_HoriOffsets *HoriOffsets)" -->
+<a class="anchor" name="9bc79bbabf248e17566a68a6a286ab46"></a><!-- doxytag: member="xvtc.h::XVtc_GetDetectorHoriOffset" ref="9bc79bbabf248e17566a68a6a286ab46" args="(XVtc *InstancePtr, XVtc_HoriOffsets *HoriOffset)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1804,7 +1749,7 @@ This function gets the VTC signal setting used by the Generator module in the VT
 
 </div>
 </div><p>
-<a class="anchor" name="7bbbedce0f72517db6b0fdb4593ccca2"></a><!-- doxytag: member="xvtc.h::XVtc_GetGeneratorHoriOffset" ref="7bbbedce0f72517db6b0fdb4593ccca2" args="(XVtc *InstancePtr, XVtc_HoriOffsets *HoriOffsets)" -->
+<a class="anchor" name="4f6296735d6a50cbdf5a97d34478089a"></a><!-- doxytag: member="xvtc.h::XVtc_GetGeneratorHoriOffset" ref="4f6296735d6a50cbdf5a97d34478089a" args="(XVtc *InstancePtr, XVtc_HoriOffsets *HoriOffset)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2107,7 +2052,7 @@ This function facilitates software identification of exact version of the VTC ha
 <p>
 This function is the interrupt handler for the VTC core.<p>
 This handler reads the pending interrupt from the IER/ISR, determines the source of the interrupts, calls according callbacks and finally clears the interrupts.<p>
-The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <a class="el" href="xvtc_8h.html#2c8331343095cb78377c7887cb62d87b">XVtc_SetCallBack()</a> during initialization phase.<p>
+The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <a class="el" href="xvtc_8h.html#69695e97e578e8baaf99d19c0c3bca85">XVtc_SetCallBack()</a> during initialization phase.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_vtc.html">XVtc</a> instance that just interrupted.</td></tr>
@@ -2146,37 +2091,7 @@ This function returns a reference to an <a class="el" href="struct_x_vtc___confi
 
 </div>
 </div><p>
-<a class="anchor" name="34bc19c168a2d7bbfb3252b2c23e53ae"></a><!-- doxytag: member="xvtc.h::XVtc_SelfTest" ref="34bc19c168a2d7bbfb3252b2c23e53ae" args="(XVtc *InstancePtr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XVtc_SelfTest           </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_vtc.html">XVtc</a> *&nbsp;</td>
-          <td class="paramname"> <em>InstancePtr</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-This function reads version register of the VTC core and compares with zero as part of self test.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_vtc.html">XVtc</a> instance.</td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Returns:</b></dt><dd>- XST_SUCCESS if the Version register read test was successful.<ul>
-<li>XST_FAILURE if the Version register read test failed.</li></ul>
-</dd></dl>
-<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="2c8331343095cb78377c7887cb62d87b"></a><!-- doxytag: member="xvtc.h::XVtc_SetCallBack" ref="2c8331343095cb78377c7887cb62d87b" args="(XVtc *InstancePtr, u32 HandlerType, void *CallBackFunc, void *CallBackRef)" -->
+<a class="anchor" name="69695e97e578e8baaf99d19c0c3bca85"></a><!-- doxytag: member="xvtc.h::XVtc_SetCallBack" ref="69695e97e578e8baaf99d19c0c3bca85" args="(XVtc *InstancePtr, u32 IntrType, void *CallBackFunc, void *CallBackRef)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2218,11 +2133,11 @@ This routine installs an asynchronous callback function for the given HandlerTyp
 <pre>
  HandlerType              Callback Function Type
  -----------------------  --------------------------------------------------
- (XVTC_HANDLER_FRAMESYNC) XVtc_FrameSyncCallBack
- (XVTC_HANDLER_LOCK)      XVtc_LockCallBack
- (XVTC_HANDLER_DETECTOR)  XVtc_DetectorCallBack
- (XVTC_HANDLER_GENERATOR) XVtc_GeneratorCallBack
- (XVTC_HANDLER_ERROR)     XVtc_ErrCallBack</pre><p>
+ XVTC_HANDLER_FRAMESYNC   XVtc_FrameSyncCallBack
+ XVTC_HANDLER_LOCK        XVtc_LockCallBack
+ XVTC_HANDLER_DETECTOR    XVtc_DetectorCallBack
+ XVTC_HANDLER_GENERATOR   XVtc_GeneratorCallBack
+ XVTC_HANDLER_ERROR       XVtc_ErrCallBack</pre><p>
 <pre> HandlerType              Invoked by this driver when:
  -----------------------  --------------------------------------------------
  XVTC_HANDLER_FRAMESYNC   A frame sync event happens
@@ -2246,7 +2161,7 @@ This routine installs an asynchronous callback function for the given HandlerTyp
 
 </div>
 </div><p>
-<a class="anchor" name="41512df33fa88cfe2ce97736c6b547fb"></a><!-- doxytag: member="xvtc.h::XVtc_SetDelay" ref="41512df33fa88cfe2ce97736c6b547fb" args="(XVtc *InstancePtr, u32 VertDelay, u32 HoriDelay)" -->
+<a class="anchor" name="bfb3ffcd7f3ac258e1503b28c8f2a17c"></a><!-- doxytag: member="xvtc.h::XVtc_SetDelay" ref="bfb3ffcd7f3ac258e1503b28c8f2a17c" args="(XVtc *InstancePtr, int VertDelay, int HoriDelay)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2259,13 +2174,13 @@ This routine installs an asynchronous callback function for the given HandlerTyp
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32&nbsp;</td>
+          <td class="paramtype">int&nbsp;</td>
           <td class="paramname"> <em>VertDelay</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32&nbsp;</td>
+          <td class="paramtype">int&nbsp;</td>
           <td class="paramname"> <em>HoriDelay</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -2381,7 +2296,7 @@ This function sets up VTC signal to be used by the Generator module in the VTC c
 
 </div>
 </div><p>
-<a class="anchor" name="93ca3256bd11b14fc2ed960028121e27"></a><!-- doxytag: member="xvtc.h::XVtc_SetGeneratorHoriOffset" ref="93ca3256bd11b14fc2ed960028121e27" args="(XVtc *InstancePtr, XVtc_HoriOffsets *HoriOffsets)" -->
+<a class="anchor" name="f6c75d56af87cededd9a57aa98c31087"></a><!-- doxytag: member="xvtc.h::XVtc_SetGeneratorHoriOffset" ref="f6c75d56af87cededd9a57aa98c31087" args="(XVtc *InstancePtr, XVtc_HoriOffsets *HoriOffset)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2407,15 +2322,14 @@ This function sets up VTC signal to be used by the Generator module in the VTC c
 <div class="memdoc">
 
 <p>
-This function sets the VBlank/VSync Horizontal Offsets for the Generator in the VTC core.<p>
+This function sets the VBlank/VSync Horizontal Offsets for the Generator in a VTC device.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the VTC instance to be worked on. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>HoriOffsets</em>&nbsp;</td><td>points to a VBlank/VSync Horizontal Offset configuration with the setting to use on the VTC core.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the VTC device instance to be worked on. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>HoriOffsets</em>&nbsp;</td><td>points to a VBlank/VSync Horizontal Offset configuration with the setting to use on the VTC device. </td></tr>
   </table>
 </dl>
-<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
-<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+<dl compact><dt><b>Returns:</b></dt><dd>NONE. </dd></dl>
 
 </div>
 </div><p>

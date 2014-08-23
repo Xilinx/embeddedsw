@@ -112,7 +112,7 @@ For more information about the operation of this core, see the hardware specific
  5.00a cjm    11/03/13 Added Chroma/field parity bit masks.
                        Replaced old timing bit masks/shifts with Start/End Bit
                        masks/shifts.
- 6.1   adk    03/03/14 Removed XVTC_ERR_FIL_MASK macro because it is  not
+ 6.1   adk    08/23/14 Removed XVTC_ERR_FIL_MASK macro because it is  not
                        present in latest product guide.
                        Modified register offsets from XVTC_* to XVTC_*_OFFSET
                        for consistency.
@@ -436,111 +436,14 @@ For more information about the operation of this core, see the hardware specific
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#fdfbb60141c1787d0b7d960588c0812a">XVTC_GGD_HDELAY_MASK</a>&nbsp;&nbsp;&nbsp;0x00001FFF</td></tr>
 
-<tr><td colspan="2"><br><h2>Compatibility Macros</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#3c34f1e095231749fbe79ec9a6de717a">XVTC_CTL</a>&nbsp;&nbsp;&nbsp;XVTC_CTL_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#1c083e5797e0d37db81b34e902f997fe">XVTC_ISR</a>&nbsp;&nbsp;&nbsp;XVTC_ISR_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#9892c177c089ce19e214057b03d67516">XVTC_ERROR</a>&nbsp;&nbsp;&nbsp;XVTC_ERROR_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#f471146f8c902c1cfb149c828cef9820">XVTC_IER</a>&nbsp;&nbsp;&nbsp;XVTC_IER_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#b0b6e45dea8ce0cbde35f7c81239fc5d">XVTC_VER</a>&nbsp;&nbsp;&nbsp;XVTC_VER_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#db5ecdb336f9b1d6fecd2feeffe49014">XVTC_DASIZE</a>&nbsp;&nbsp;&nbsp;XVTC_DASIZE_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#ca967168aad696fe8f1948fb849a6ffa">XVTC_DTSTAT</a>&nbsp;&nbsp;&nbsp;XVTC_DTSTAT_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#c8e3336cebc216840a5a402cbe9407ac">XVTC_DFENC</a>&nbsp;&nbsp;&nbsp;XVTC_DFENC_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#c5eb9385e344513f92c367cc8e2256d6">XVTC_DPOL</a>&nbsp;&nbsp;&nbsp;XVTC_DPOL_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#880de7e77e37548be6dc75c44dbc0ef1">XVTC_DHSIZE</a>&nbsp;&nbsp;&nbsp;XVTC_DHSIZE_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#d5adf3d6272af9a41096522f3e89c51a">XVTC_DVSIZE</a>&nbsp;&nbsp;&nbsp;XVTC_DVSIZE_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#cbb40329ff749efee3a4f9ee0b2fb82f">XVTC_DHSYNC</a>&nbsp;&nbsp;&nbsp;XVTC_DHSYNC_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#36f5dac8de17fe388cc07619a2760545">XVTC_DVBHOFF</a>&nbsp;&nbsp;&nbsp;XVTC_DVBHOFF_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#44b74f2f74bbcdc63544c1e76de7666c">XVTC_DVSYNC</a>&nbsp;&nbsp;&nbsp;XVTC_DVSYNC_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#816fb3c8c7cb79971958e7338a4d2238">XVTC_DVSHOFF</a>&nbsp;&nbsp;&nbsp;XVTC_DVSHOFF_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#459374db6eb07785e88d2269f02d0708">XVTC_DVBHOFF_F1</a>&nbsp;&nbsp;&nbsp;XVTC_DVBHOFF_F1_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#5e1a69ff9d4a9ee49404c374ea8a8dfa">XVTC_DVSYNC_F1</a>&nbsp;&nbsp;&nbsp;XVTC_DVSYNC_F1_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#b782a671be46e387a0128dd1dece143e">XVTC_DVSHOFF_F1</a>&nbsp;&nbsp;&nbsp;XVTC_DVSHOFF_F1_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#1d7d6f2083b5663c4c9b89ae41cea029">XVTC_GASIZE</a>&nbsp;&nbsp;&nbsp;XVTC_GASIZE_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#31e10b17205259155d523737003d3572">XVTC_GTSTAT</a>&nbsp;&nbsp;&nbsp;XVTC_GTSTAT_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#5edb52d1550175511e91c4d8d937c007">XVTC_GFENC</a>&nbsp;&nbsp;&nbsp;XVTC_GFENC_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#2bf993898d0f7dde08ff132a54d1bad1">XVTC_GPOL</a>&nbsp;&nbsp;&nbsp;XVTC_GPOL_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#684d47fefc353525a89a868e3cc0d97d">XVTC_GHSIZE</a>&nbsp;&nbsp;&nbsp;XVTC_GHSIZE_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#1d6baed408549d75e60e8219d6df9d01">XVTC_GVSIZE</a>&nbsp;&nbsp;&nbsp;XVTC_GVSIZE_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#51417c621ff6eda031a4800714835dc2">XVTC_GHSYNC</a>&nbsp;&nbsp;&nbsp;XVTC_GHSYNC_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#51c6f52cbdbefb5798a5ac8e596fff11">XVTC_GVBHOFF</a>&nbsp;&nbsp;&nbsp;XVTC_GVBHOFF_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#2c578f55d0afde86605cbd159207fe76">XVTC_GVSYNC</a>&nbsp;&nbsp;&nbsp;XVTC_GVSYNC_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#a09616d3bcaf536c0797c1497b574049">XVTC_GVSHOFF</a>&nbsp;&nbsp;&nbsp;XVTC_GVSHOFF_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#93107e2098bc81f91761d8e3e558d101">XVTC_GVBHOFF_F1</a>&nbsp;&nbsp;&nbsp;XVTC_GVBHOFF_F1_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#4713135a51b5ecaf623753a72abfdee5">XVTC_GVSYNC_F1</a>&nbsp;&nbsp;&nbsp;XVTC_GVSYNC_F1_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#45ac4d33cc538c5ee97b6eb08d248551">XVTC_GVSHOFF_F1</a>&nbsp;&nbsp;&nbsp;XVTC_GVSHOFF_F1_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#9781e6fe796b80e132be3274727895da">XVTC_FS00</a>&nbsp;&nbsp;&nbsp;XVTC_FS00_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#109f10eb48e60356b8ea2ecdb106f1b4">XVTC_FS01</a>&nbsp;&nbsp;&nbsp;XVTC_FS01_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#2caa98557a5de58c7e13f2edf67700d4">XVTC_FS02</a>&nbsp;&nbsp;&nbsp;XVTC_FS02_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#dfa74adc49589324fa3d8d0493597ed8">XVTC_FS03</a>&nbsp;&nbsp;&nbsp;XVTC_FS03_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#36ee775a3cb0a9f982610c8b08dfda49">XVTC_FS04</a>&nbsp;&nbsp;&nbsp;XVTC_FS04_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#61517eb887a83f277ac8e90d391f0515">XVTC_FS05</a>&nbsp;&nbsp;&nbsp;XVTC_FS05_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#6f94c05b4bb7f8fa2991e2c66c80c922">XVTC_FS06</a>&nbsp;&nbsp;&nbsp;XVTC_FS06_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#3de941a576c65e5d84f7f6d2992a1667">XVTC_FS07</a>&nbsp;&nbsp;&nbsp;XVTC_FS07_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#ee51f8459663cde788a81f9ad94dd525">XVTC_FS08</a>&nbsp;&nbsp;&nbsp;XVTC_FS08_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#677af9f39dd3e0ad3e6be9a7cf89d249">XVTC_FS09</a>&nbsp;&nbsp;&nbsp;XVTC_FS09_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#b00e12fcff755ab479dc257dddd428e3">XVTC_FS10</a>&nbsp;&nbsp;&nbsp;XVTC_FS10_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#07da1477e7882a4a152e4c66cf3694a5">XVTC_FS11</a>&nbsp;&nbsp;&nbsp;XVTC_FS11_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#57b56b94b3353e5acdd656114d114f0e">XVTC_FS12</a>&nbsp;&nbsp;&nbsp;XVTC_FS12_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#579d8c4a914fc1de95e5586bcc176699">XVTC_FS13</a>&nbsp;&nbsp;&nbsp;XVTC_FS13_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#ce99d55136973f9c56c69602712aa58c">XVTC_FS14</a>&nbsp;&nbsp;&nbsp;XVTC_FS14_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#626bff0caf0e0ba5bd1f10bafde26786">XVTC_FS15</a>&nbsp;&nbsp;&nbsp;XVTC_FS15_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#744d960bfc08ebc976592c4778ed1ea4">XVTC_GGD</a>&nbsp;&nbsp;&nbsp;XVTC_GGD_OFFSET</td></tr>
-
 <tr><td colspan="2"><br><h2>Register Access Macro Definition</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#8c21088f7fe4f0b05330a7681dd01419">XVtc_In32</a>&nbsp;&nbsp;&nbsp;Xil_In32</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#de6c5f7d09b842234c34bee14fa9d127">XVtc_Out32</a>&nbsp;&nbsp;&nbsp;Xil_Out32</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>(BaseAddress, RegOffset)&nbsp;&nbsp;&nbsp;XVtc_In32((BaseAddress) + ((u32)RegOffset))</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#31cab60bdab40dbd0c9762c4de5de734">XVtc_ReadReg</a>(BaseAddress, RegOffset)&nbsp;&nbsp;&nbsp;XVtc_In32((BaseAddress) + (RegOffset))</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#9c524801283cc3bf9a782c7cbf093098">XVtc_WriteReg</a>(BaseAddress, RegOffset, Data)&nbsp;&nbsp;&nbsp;XVtc_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#9c524801283cc3bf9a782c7cbf093098">XVtc_WriteReg</a>(BaseAddress, RegOffset, Data)&nbsp;&nbsp;&nbsp;XVtc_Out32((BaseAddress) + (RegOffset), (Data))</td></tr>
 
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvtc__hw_8h.html#5be2d72e7f52f6c37b32e746dba9e988">XVTC_HW_H_</a></td></tr>
@@ -590,21 +493,6 @@ Total number of lines (including blanking) for frame or field 1
 
 <p>
 Bit shift for End Cycle or Line Count 
-</div>
-</div><p>
-<a class="anchor" name="3c34f1e095231749fbe79ec9a6de717a"></a><!-- doxytag: member="xvtc_hw.h::XVTC_CTL" ref="3c34f1e095231749fbe79ec9a6de717a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_CTL&nbsp;&nbsp;&nbsp;XVTC_CTL_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="60b2db8419fbf77558381183aec50034"></a><!-- doxytag: member="xvtc_hw.h::XVTC_CTL_ACPSS_MASK" ref="60b2db8419fbf77558381183aec50034" args="" -->
@@ -664,7 +552,7 @@ Active Video Output Polarity Source Mask
 <div class="memdoc">
 
 <p>
-VTC Detector Enable Mask 
+VTC Detector Enable
 </div>
 </div><p>
 <a class="anchor" name="397570c1d6af6c8def7c226d4b74f711"></a><!-- doxytag: member="xvtc_hw.h::XVTC_CTL_FIPSS_MASK" ref="397570c1d6af6c8def7c226d4b74f711" args="" -->
@@ -694,7 +582,7 @@ Field ID Output Polarity Source Mask
 <div class="memdoc">
 
 <p>
-VTC Generator Enable Mask 
+VTC Generator Enable
 </div>
 </div><p>
 <a class="anchor" name="6908437e492dc5dd68d0bf4d0ea74a60"></a><!-- doxytag: member="xvtc_hw.h::XVTC_CTL_HBPSS_MASK" ref="6908437e492dc5dd68d0bf4d0ea74a60" args="" -->
@@ -829,7 +717,7 @@ Software Reset Mask
 <div class="memdoc">
 
 <p>
-VTC Register Update Mask 
+VTC Register Update
 </div>
 </div><p>
 <a class="anchor" name="58f7d1446c989f9b0cdbef1f3ea3d416"></a><!-- doxytag: member="xvtc_hw.h::XVTC_CTL_SE_MASK" ref="58f7d1446c989f9b0cdbef1f3ea3d416" args="" -->
@@ -844,7 +732,7 @@ VTC Register Update Mask
 <div class="memdoc">
 
 <p>
-Enable Sync with Detector Mask 
+Enable Sync with Detector
 </div>
 </div><p>
 <a class="anchor" name="69c5d873081f28c84e2ae4f8bfde398a"></a><!-- doxytag: member="xvtc_hw.h::XVTC_CTL_SRST_MASK" ref="69c5d873081f28c84e2ae4f8bfde398a" args="" -->
@@ -874,7 +762,7 @@ Frame Sync'ed Software Reset Mask
 <div class="memdoc">
 
 <p>
-VTC Core Enable Mask 
+VTC Core Enable
 </div>
 </div><p>
 <a class="anchor" name="fc2d67fef3acd738ca71ecd194ad4228"></a><!-- doxytag: member="xvtc_hw.h::XVTC_CTL_VASS_MASK" ref="fc2d67fef3acd738ca71ecd194ad4228" args="" -->
@@ -997,21 +885,6 @@ Generator Vertical Sync Start Source Select Mask
 Generator Vertical Total Source Select (Frame Size) Mask 
 </div>
 </div><p>
-<a class="anchor" name="db5ecdb336f9b1d6fecd2feeffe49014"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DASIZE" ref="db5ecdb336f9b1d6fecd2feeffe49014" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DASIZE&nbsp;&nbsp;&nbsp;XVTC_DASIZE_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="5fd53f71992b29ea22a40d29030b5125"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DASIZE_OFFSET" ref="5fd53f71992b29ea22a40d29030b5125" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1025,21 +898,6 @@ Generator Vertical Total Source Select (Frame Size) Mask
 
 <p>
 Detector Active Size Offset 
-</div>
-</div><p>
-<a class="anchor" name="c8e3336cebc216840a5a402cbe9407ac"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DFENC" ref="c8e3336cebc216840a5a402cbe9407ac" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DFENC&nbsp;&nbsp;&nbsp;XVTC_DFENC_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="cefed56343d0bda25584d1bf55ef5ad2"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DFENC_OFFSET" ref="cefed56343d0bda25584d1bf55ef5ad2" args="" -->
@@ -1057,21 +915,6 @@ Detector Active Size Offset
 Detector Encoding Offset 
 </div>
 </div><p>
-<a class="anchor" name="880de7e77e37548be6dc75c44dbc0ef1"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DHSIZE" ref="880de7e77e37548be6dc75c44dbc0ef1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DHSIZE&nbsp;&nbsp;&nbsp;XVTC_DHSIZE_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="70c49477008fdbd56a3f2d65b4b4ef09"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DHSIZE_OFFSET" ref="70c49477008fdbd56a3f2d65b4b4ef09" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1085,21 +928,6 @@ Detector Encoding Offset
 
 <p>
 Detector Frame Horizontal Size Offset 
-</div>
-</div><p>
-<a class="anchor" name="cbb40329ff749efee3a4f9ee0b2fb82f"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DHSYNC" ref="cbb40329ff749efee3a4f9ee0b2fb82f" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DHSYNC&nbsp;&nbsp;&nbsp;XVTC_DHSYNC_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="c045ec9e225a24a6d87363dc1f970ee7"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DHSYNC_OFFSET" ref="c045ec9e225a24a6d87363dc1f970ee7" args="" -->
@@ -1117,21 +945,6 @@ Detector Frame Horizontal Size Offset
 Detector Horizontal sync Offset 
 </div>
 </div><p>
-<a class="anchor" name="c5eb9385e344513f92c367cc8e2256d6"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DPOL" ref="c5eb9385e344513f92c367cc8e2256d6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DPOL&nbsp;&nbsp;&nbsp;XVTC_DPOL_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="87d855aa56ad0fe1bf1e23700bc7e708"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DPOL_OFFSET" ref="87d855aa56ad0fe1bf1e23700bc7e708" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1147,21 +960,6 @@ Detector Horizontal sync Offset
 Detector Polarity Offset 
 </div>
 </div><p>
-<a class="anchor" name="ca967168aad696fe8f1948fb849a6ffa"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DTSTAT" ref="ca967168aad696fe8f1948fb849a6ffa" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DTSTAT&nbsp;&nbsp;&nbsp;XVTC_DTSTAT_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="c124ae86b82dccb5437f9720e6fc145b"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DTSTAT_OFFSET" ref="c124ae86b82dccb5437f9720e6fc145b" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1175,36 +973,6 @@ Detector Polarity Offset
 
 <p>
 Detector Timing Status Offset 
-</div>
-</div><p>
-<a class="anchor" name="36f5dac8de17fe388cc07619a2760545"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVBHOFF" ref="36f5dac8de17fe388cc07619a2760545" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DVBHOFF&nbsp;&nbsp;&nbsp;XVTC_DVBHOFF_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="459374db6eb07785e88d2269f02d0708"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVBHOFF_F1" ref="459374db6eb07785e88d2269f02d0708" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DVBHOFF_F1&nbsp;&nbsp;&nbsp;XVTC_DVBHOFF_F1_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="ad602265b9c2a24868b3b2c36a1419ec"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVBHOFF_F1_OFFSET" ref="ad602265b9c2a24868b3b2c36a1419ec" args="" -->
@@ -1237,36 +1005,6 @@ Detector Field 1 Vblank Horizontal Offset
 Detector Frame/F0 Vblank Horizontal Offset 
 </div>
 </div><p>
-<a class="anchor" name="816fb3c8c7cb79971958e7338a4d2238"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSHOFF" ref="816fb3c8c7cb79971958e7338a4d2238" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DVSHOFF&nbsp;&nbsp;&nbsp;XVTC_DVSHOFF_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="b782a671be46e387a0128dd1dece143e"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSHOFF_F1" ref="b782a671be46e387a0128dd1dece143e" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DVSHOFF_F1&nbsp;&nbsp;&nbsp;XVTC_DVSHOFF_F1_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="cb7b940b2b5a145c254d48fa02f9f8a5"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSHOFF_F1_OFFSET" ref="cb7b940b2b5a145c254d48fa02f9f8a5" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1297,21 +1035,6 @@ Detector Field 1 Vsync Horizontal Offset
 Detector Frame/F0 Vsync Horizontal Offset 
 </div>
 </div><p>
-<a class="anchor" name="d5adf3d6272af9a41096522f3e89c51a"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSIZE" ref="d5adf3d6272af9a41096522f3e89c51a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DVSIZE&nbsp;&nbsp;&nbsp;XVTC_DVSIZE_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="a455a8e165902107740172ee4ca54625"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSIZE_OFFSET" ref="a455a8e165902107740172ee4ca54625" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1325,36 +1048,6 @@ Detector Frame/F0 Vsync Horizontal Offset
 
 <p>
 Detector Frame Vertical Size Offset 
-</div>
-</div><p>
-<a class="anchor" name="44b74f2f74bbcdc63544c1e76de7666c"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSYNC" ref="44b74f2f74bbcdc63544c1e76de7666c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DVSYNC&nbsp;&nbsp;&nbsp;XVTC_DVSYNC_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="5e1a69ff9d4a9ee49404c374ea8a8dfa"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSYNC_F1" ref="5e1a69ff9d4a9ee49404c374ea8a8dfa" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_DVSYNC_F1&nbsp;&nbsp;&nbsp;XVTC_DVSYNC_F1_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="f5acce97a17b0acaf7ecbba27c37af89"></a><!-- doxytag: member="xvtc_hw.h::XVTC_DVSYNC_F1_OFFSET" ref="f5acce97a17b0acaf7ecbba27c37af89" args="" -->
@@ -1459,7 +1152,7 @@ Generator Active Chroma Line Skip/parity Mask
 <div class="memdoc">
 
 <p>
-Generator Active Chroma Pixel Skip/Parity Mask 
+Generator Active Chroma Pixel Skip/Parity Mask
 </div>
 </div><p>
 <a class="anchor" name="c8aafaeafb1be9786874f30f41307854"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ENC_PROG_MASK" ref="c8aafaeafb1be9786874f30f41307854" args="" -->
@@ -1474,7 +1167,7 @@ Generator Active Chroma Pixel Skip/Parity Mask
 <div class="memdoc">
 
 <p>
-Progressive/Interlaced Mask 
+Progressive/Interlaced Mask
 </div>
 </div><p>
 <a class="anchor" name="2c81eb772437bed51f1b298b71b59021"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERR_ACL_MASK" ref="2c81eb772437bed51f1b298b71b59021" args="" -->
@@ -1489,7 +1182,7 @@ Progressive/Interlaced Mask
 <div class="memdoc">
 
 <p>
-Active Chroma Signal Lock Mask 
+Active Chroma Signal Lock Mask
 </div>
 </div><p>
 <a class="anchor" name="ba8ad08bebb5532c38a61a28c4ad5e5b"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERR_AVL_MASK" ref="ba8ad08bebb5532c38a61a28c4ad5e5b" args="" -->
@@ -1504,7 +1197,7 @@ Active Chroma Signal Lock Mask
 <div class="memdoc">
 
 <p>
-Active Video Signal Lock Mask 
+Active Video Signal Lock Mask
 </div>
 </div><p>
 <a class="anchor" name="a351c4904a352130ec131503bb5c046f"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERR_HBL_MASK" ref="a351c4904a352130ec131503bb5c046f" args="" -->
@@ -1519,7 +1212,7 @@ Active Video Signal Lock Mask
 <div class="memdoc">
 
 <p>
-Horizontal Blank Signal Lock Mask 
+Horizontal Blank Signal Lock Mask
 </div>
 </div><p>
 <a class="anchor" name="282d23430cfdb4795d84be4acead0d62"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERR_HSL_MASK" ref="282d23430cfdb4795d84be4acead0d62" args="" -->
@@ -1534,7 +1227,7 @@ Horizontal Blank Signal Lock Mask
 <div class="memdoc">
 
 <p>
-Horizontal Sync Signal Lock Mask 
+Horizontal Sync Signal Lock Mask
 </div>
 </div><p>
 <a class="anchor" name="40266778ff0ea2c2d03e97e14dca0ccf"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERR_VBL_MASK" ref="40266778ff0ea2c2d03e97e14dca0ccf" args="" -->
@@ -1549,7 +1242,7 @@ Horizontal Sync Signal Lock Mask
 <div class="memdoc">
 
 <p>
-Vertical Blank Signal Lock Mask 
+Vertical Blank Signal Lock Mask
 </div>
 </div><p>
 <a class="anchor" name="3de4c253e1778e091a7705fcd87a3b9d"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERR_VSL_MASK" ref="3de4c253e1778e091a7705fcd87a3b9d" args="" -->
@@ -1564,22 +1257,7 @@ Vertical Blank Signal Lock Mask
 <div class="memdoc">
 
 <p>
-Vertical Sync Signal Lock Mask 
-</div>
-</div><p>
-<a class="anchor" name="9892c177c089ce19e214057b03d67516"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERROR" ref="9892c177c089ce19e214057b03d67516" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_ERROR&nbsp;&nbsp;&nbsp;XVTC_ERROR_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Vertical Sync Signal Lock Mask
 </div>
 </div><p>
 <a class="anchor" name="f207254454492cdd2c8de0643bdac9bb"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ERROR_OFFSET" ref="f207254454492cdd2c8de0643bdac9bb" args="" -->
@@ -1594,22 +1272,7 @@ Vertical Sync Signal Lock Mask
 <div class="memdoc">
 
 <p>
-Error Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="9781e6fe796b80e132be3274727895da"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS00" ref="9781e6fe796b80e132be3274727895da" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS00&nbsp;&nbsp;&nbsp;XVTC_FS00_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Error Register Offset
 </div>
 </div><p>
 <a class="anchor" name="96e62aab696d168ef108ac72d3b72cd3"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS00_OFFSET" ref="96e62aab696d168ef108ac72d3b72cd3" args="" -->
@@ -1624,22 +1287,7 @@ Error Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 00 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="109f10eb48e60356b8ea2ecdb106f1b4"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS01" ref="109f10eb48e60356b8ea2ecdb106f1b4" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS01&nbsp;&nbsp;&nbsp;XVTC_FS01_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 00 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="fddbf378acba2cc4612e164c2462a27d"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS01_OFFSET" ref="fddbf378acba2cc4612e164c2462a27d" args="" -->
@@ -1654,22 +1302,7 @@ Frame Sync 00 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 01 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="2caa98557a5de58c7e13f2edf67700d4"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS02" ref="2caa98557a5de58c7e13f2edf67700d4" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS02&nbsp;&nbsp;&nbsp;XVTC_FS02_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 01 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="6ab538f50485e12a3eb978647aa63d32"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS02_OFFSET" ref="6ab538f50485e12a3eb978647aa63d32" args="" -->
@@ -1684,22 +1317,7 @@ Frame Sync 01 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 02 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="dfa74adc49589324fa3d8d0493597ed8"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS03" ref="dfa74adc49589324fa3d8d0493597ed8" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS03&nbsp;&nbsp;&nbsp;XVTC_FS03_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 02 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="7fb7088ca720a2e6cda9bec684078395"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS03_OFFSET" ref="7fb7088ca720a2e6cda9bec684078395" args="" -->
@@ -1714,22 +1332,7 @@ Frame Sync 02 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 03 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="36ee775a3cb0a9f982610c8b08dfda49"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS04" ref="36ee775a3cb0a9f982610c8b08dfda49" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS04&nbsp;&nbsp;&nbsp;XVTC_FS04_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 03 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="bbc1872c13705c5a9a26d20ade907a41"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS04_OFFSET" ref="bbc1872c13705c5a9a26d20ade907a41" args="" -->
@@ -1744,22 +1347,7 @@ Frame Sync 03 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 04 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="61517eb887a83f277ac8e90d391f0515"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS05" ref="61517eb887a83f277ac8e90d391f0515" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS05&nbsp;&nbsp;&nbsp;XVTC_FS05_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 04 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="136dfcf22d228bc0d8afc8b515a72d18"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS05_OFFSET" ref="136dfcf22d228bc0d8afc8b515a72d18" args="" -->
@@ -1774,22 +1362,7 @@ Frame Sync 04 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 05 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="6f94c05b4bb7f8fa2991e2c66c80c922"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS06" ref="6f94c05b4bb7f8fa2991e2c66c80c922" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS06&nbsp;&nbsp;&nbsp;XVTC_FS06_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 05 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="86282e4d8e31455560261b7ee782467a"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS06_OFFSET" ref="86282e4d8e31455560261b7ee782467a" args="" -->
@@ -1804,22 +1377,7 @@ Frame Sync 05 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 06 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="3de941a576c65e5d84f7f6d2992a1667"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS07" ref="3de941a576c65e5d84f7f6d2992a1667" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS07&nbsp;&nbsp;&nbsp;XVTC_FS07_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 06 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="553d890543d36c25317df68cb4386fb4"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS07_OFFSET" ref="553d890543d36c25317df68cb4386fb4" args="" -->
@@ -1834,22 +1392,7 @@ Frame Sync 06 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 07 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="ee51f8459663cde788a81f9ad94dd525"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS08" ref="ee51f8459663cde788a81f9ad94dd525" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS08&nbsp;&nbsp;&nbsp;XVTC_FS08_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 07 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="bd86ad6e72df3dcb319b1958d25eb0df"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS08_OFFSET" ref="bd86ad6e72df3dcb319b1958d25eb0df" args="" -->
@@ -1864,22 +1407,7 @@ Frame Sync 07 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 08 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="677af9f39dd3e0ad3e6be9a7cf89d249"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS09" ref="677af9f39dd3e0ad3e6be9a7cf89d249" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS09&nbsp;&nbsp;&nbsp;XVTC_FS09_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 08 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="06ca862139e3fe6bb3c51432664c9030"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS09_OFFSET" ref="06ca862139e3fe6bb3c51432664c9030" args="" -->
@@ -1894,22 +1422,7 @@ Frame Sync 08 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 09 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="b00e12fcff755ab479dc257dddd428e3"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS10" ref="b00e12fcff755ab479dc257dddd428e3" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS10&nbsp;&nbsp;&nbsp;XVTC_FS10_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 09 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="7bb97e46d60fddda869eba7e0916cc47"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS10_OFFSET" ref="7bb97e46d60fddda869eba7e0916cc47" args="" -->
@@ -1924,22 +1437,7 @@ Frame Sync 09 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 10 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="07da1477e7882a4a152e4c66cf3694a5"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS11" ref="07da1477e7882a4a152e4c66cf3694a5" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS11&nbsp;&nbsp;&nbsp;XVTC_FS11_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 10 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="7e977700305e3ace7b3d59d8cd8bfa7e"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS11_OFFSET" ref="7e977700305e3ace7b3d59d8cd8bfa7e" args="" -->
@@ -1954,22 +1452,7 @@ Frame Sync 10 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 11 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="57b56b94b3353e5acdd656114d114f0e"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS12" ref="57b56b94b3353e5acdd656114d114f0e" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS12&nbsp;&nbsp;&nbsp;XVTC_FS12_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 11 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="0fabcaea8463a3e5ab10194e2ef9f3fa"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS12_OFFSET" ref="0fabcaea8463a3e5ab10194e2ef9f3fa" args="" -->
@@ -1984,22 +1467,7 @@ Frame Sync 11 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 12 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="579d8c4a914fc1de95e5586bcc176699"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS13" ref="579d8c4a914fc1de95e5586bcc176699" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS13&nbsp;&nbsp;&nbsp;XVTC_FS13_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 12 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="35241f9952b0f5cbf1488288445e7df1"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS13_OFFSET" ref="35241f9952b0f5cbf1488288445e7df1" args="" -->
@@ -2014,22 +1482,7 @@ Frame Sync 12 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 13 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="ce99d55136973f9c56c69602712aa58c"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS14" ref="ce99d55136973f9c56c69602712aa58c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS14&nbsp;&nbsp;&nbsp;XVTC_FS14_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 13 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="ac9fb8e2e06585e3e55712f66b182962"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS14_OFFSET" ref="ac9fb8e2e06585e3e55712f66b182962" args="" -->
@@ -2044,22 +1497,7 @@ Frame Sync 13 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 14 Config Register Offset 
-</div>
-</div><p>
-<a class="anchor" name="626bff0caf0e0ba5bd1f10bafde26786"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS15" ref="626bff0caf0e0ba5bd1f10bafde26786" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_FS15&nbsp;&nbsp;&nbsp;XVTC_FS15_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Frame Sync 14 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="f452465a8fc0e79f27c381420f0b4b08"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FS15_OFFSET" ref="f452465a8fc0e79f27c381420f0b4b08" args="" -->
@@ -2074,7 +1512,7 @@ Frame Sync 14 Config Register Offset
 <div class="memdoc">
 
 <p>
-Frame Sync 15 Config Register Offset 
+Frame Sync 15 Config Register Offset
 </div>
 </div><p>
 <a class="anchor" name="f8f1fa0cc91836625a35c94312338466"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FSXX_HSTART_MASK" ref="f8f1fa0cc91836625a35c94312338466" args="" -->
@@ -2089,7 +1527,7 @@ Frame Sync 15 Config Register Offset
 <div class="memdoc">
 
 <p>
-Horizontal cycle count during which current Frame Sync is active Mask 
+Horizontal cycle count during which current Frame Sync is active Mask
 </div>
 </div><p>
 <a class="anchor" name="a69be863f1b3c3961ab0d9f135e4b391"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FSXX_VSTART_MASK" ref="a69be863f1b3c3961ab0d9f135e4b391" args="" -->
@@ -2104,7 +1542,7 @@ Horizontal cycle count during which current Frame Sync is active Mask
 <div class="memdoc">
 
 <p>
-Vertical line count during which current Frame Sync is active Mask 
+Vertical line count during which current Frame Sync is active Mask
 </div>
 </div><p>
 <a class="anchor" name="4705a1946469f96743216d595dc8e420"></a><!-- doxytag: member="xvtc_hw.h::XVTC_FSXX_VSTART_SHIFT" ref="4705a1946469f96743216d595dc8e420" args="" -->
@@ -2119,22 +1557,7 @@ Vertical line count during which current Frame Sync is active Mask
 <div class="memdoc">
 
 <p>
-Bit shift for the vertical line count 
-</div>
-</div><p>
-<a class="anchor" name="1d7d6f2083b5663c4c9b89ae41cea029"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GASIZE" ref="1d7d6f2083b5663c4c9b89ae41cea029" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GASIZE&nbsp;&nbsp;&nbsp;XVTC_GASIZE_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Bit shift for the vertical line count
 </div>
 </div><p>
 <a class="anchor" name="10c0e460c3df1f6cf5cde54cb597b9b9"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GASIZE_OFFSET" ref="10c0e460c3df1f6cf5cde54cb597b9b9" args="" -->
@@ -2149,22 +1572,7 @@ Bit shift for the vertical line count
 <div class="memdoc">
 
 <p>
-Generator Active Size Offset 
-</div>
-</div><p>
-<a class="anchor" name="5edb52d1550175511e91c4d8d937c007"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GFENC" ref="5edb52d1550175511e91c4d8d937c007" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GFENC&nbsp;&nbsp;&nbsp;XVTC_GFENC_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Active Size Offset
 </div>
 </div><p>
 <a class="anchor" name="94bc001b50845a4eca652498aed73ee1"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GFENC_OFFSET" ref="94bc001b50845a4eca652498aed73ee1" args="" -->
@@ -2179,22 +1587,7 @@ Generator Active Size Offset
 <div class="memdoc">
 
 <p>
-Generator Encoding Offset 
-</div>
-</div><p>
-<a class="anchor" name="744d960bfc08ebc976592c4778ed1ea4"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GGD" ref="744d960bfc08ebc976592c4778ed1ea4" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GGD&nbsp;&nbsp;&nbsp;XVTC_GGD_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Encoding Offset
 </div>
 </div><p>
 <a class="anchor" name="fdfbb60141c1787d0b7d960588c0812a"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GGD_HDELAY_MASK" ref="fdfbb60141c1787d0b7d960588c0812a" args="" -->
@@ -2209,7 +1602,7 @@ Generator Encoding Offset
 <div class="memdoc">
 
 <p>
-Total clock cycles per line to delay generator output Mask 
+Total clock cycles per line to delay generator output Mask
 </div>
 </div><p>
 <a class="anchor" name="1d092a9b6722c4f7b74e752ee1682646"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GGD_OFFSET" ref="1d092a9b6722c4f7b74e752ee1682646" args="" -->
@@ -2224,7 +1617,7 @@ Total clock cycles per line to delay generator output Mask
 <div class="memdoc">
 
 <p>
-Generator Global Delay Register Offset 
+Generator Global Delay Register Offset
 </div>
 </div><p>
 <a class="anchor" name="9ad0af215c5e1fb306f9e8fb822061ee"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GGD_VDELAY_MASK" ref="9ad0af215c5e1fb306f9e8fb822061ee" args="" -->
@@ -2239,7 +1632,7 @@ Generator Global Delay Register Offset
 <div class="memdoc">
 
 <p>
-Total lines per frame to delay generator output Mask 
+Total lines per frame to delay generator output Mask
 </div>
 </div><p>
 <a class="anchor" name="704b7492350216f5fad89b7914102556"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GGD_VDELAY_SHIFT" ref="704b7492350216f5fad89b7914102556" args="" -->
@@ -2254,22 +1647,7 @@ Total lines per frame to delay generator output Mask
 <div class="memdoc">
 
 <p>
-Bit shift for the total lines 
-</div>
-</div><p>
-<a class="anchor" name="684d47fefc353525a89a868e3cc0d97d"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GHSIZE" ref="684d47fefc353525a89a868e3cc0d97d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GHSIZE&nbsp;&nbsp;&nbsp;XVTC_GHSIZE_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Bit shift for the total lines
 </div>
 </div><p>
 <a class="anchor" name="459460a068ba9d30de3c2c129c0bfe77"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GHSIZE_OFFSET" ref="459460a068ba9d30de3c2c129c0bfe77" args="" -->
@@ -2284,22 +1662,7 @@ Bit shift for the total lines
 <div class="memdoc">
 
 <p>
-Generator Frame Horizontal Size Offset 
-</div>
-</div><p>
-<a class="anchor" name="51417c621ff6eda031a4800714835dc2"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GHSYNC" ref="51417c621ff6eda031a4800714835dc2" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GHSYNC&nbsp;&nbsp;&nbsp;XVTC_GHSYNC_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Frame Horizontal Size Offset
 </div>
 </div><p>
 <a class="anchor" name="b1efc7231f18feb307e5d2354f8ffe62"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GHSYNC_OFFSET" ref="b1efc7231f18feb307e5d2354f8ffe62" args="" -->
@@ -2314,22 +1677,7 @@ Generator Frame Horizontal Size Offset
 <div class="memdoc">
 
 <p>
-Generator Horizontal Sync Offset 
-</div>
-</div><p>
-<a class="anchor" name="2bf993898d0f7dde08ff132a54d1bad1"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GPOL" ref="2bf993898d0f7dde08ff132a54d1bad1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GPOL&nbsp;&nbsp;&nbsp;XVTC_GPOL_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Horizontal Sync Offset
 </div>
 </div><p>
 <a class="anchor" name="3ad16c3e3994cea885a9b662840a4651"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GPOL_OFFSET" ref="3ad16c3e3994cea885a9b662840a4651" args="" -->
@@ -2344,22 +1692,7 @@ Generator Horizontal Sync Offset
 <div class="memdoc">
 
 <p>
-Generator Polarity Offset 
-</div>
-</div><p>
-<a class="anchor" name="31e10b17205259155d523737003d3572"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GTSTAT" ref="31e10b17205259155d523737003d3572" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GTSTAT&nbsp;&nbsp;&nbsp;XVTC_GTSTAT_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Polarity Offset
 </div>
 </div><p>
 <a class="anchor" name="27376de702a2fed963f98dbb096bdaeb"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GTSTAT_OFFSET" ref="27376de702a2fed963f98dbb096bdaeb" args="" -->
@@ -2374,37 +1707,7 @@ Generator Polarity Offset
 <div class="memdoc">
 
 <p>
-Generator Timing Status Offset 
-</div>
-</div><p>
-<a class="anchor" name="51c6f52cbdbefb5798a5ac8e596fff11"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVBHOFF" ref="51c6f52cbdbefb5798a5ac8e596fff11" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GVBHOFF&nbsp;&nbsp;&nbsp;XVTC_GVBHOFF_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="93107e2098bc81f91761d8e3e558d101"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVBHOFF_F1" ref="93107e2098bc81f91761d8e3e558d101" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GVBHOFF_F1&nbsp;&nbsp;&nbsp;XVTC_GVBHOFF_F1_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Timing Status Offset
 </div>
 </div><p>
 <a class="anchor" name="498dd3256671119be8ccac1b9824d704"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVBHOFF_F1_OFFSET" ref="498dd3256671119be8ccac1b9824d704" args="" -->
@@ -2419,7 +1722,7 @@ Generator Timing Status Offset
 <div class="memdoc">
 
 <p>
-Generator Field 1 Vblank Horizontal Offset 
+Generator Field 1 Vblank Horizontal Offset
 </div>
 </div><p>
 <a class="anchor" name="f0332b2599e090ad73dc80ec4c94ebf0"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVBHOFF_OFFSET" ref="f0332b2599e090ad73dc80ec4c94ebf0" args="" -->
@@ -2434,37 +1737,7 @@ Generator Field 1 Vblank Horizontal Offset
 <div class="memdoc">
 
 <p>
-Generator Frame/F0 Vblank Horizontal Offset 
-</div>
-</div><p>
-<a class="anchor" name="a09616d3bcaf536c0797c1497b574049"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSHOFF" ref="a09616d3bcaf536c0797c1497b574049" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GVSHOFF&nbsp;&nbsp;&nbsp;XVTC_GVSHOFF_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="45ac4d33cc538c5ee97b6eb08d248551"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSHOFF_F1" ref="45ac4d33cc538c5ee97b6eb08d248551" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GVSHOFF_F1&nbsp;&nbsp;&nbsp;XVTC_GVSHOFF_F1_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Frame/F0 Vblank Horizontal Offset
 </div>
 </div><p>
 <a class="anchor" name="ba4d4579991d626d8fb749b6a5031a1b"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSHOFF_F1_OFFSET" ref="ba4d4579991d626d8fb749b6a5031a1b" args="" -->
@@ -2479,7 +1752,7 @@ Generator Frame/F0 Vblank Horizontal Offset
 <div class="memdoc">
 
 <p>
-Generator Field 1 Vsync horizontal Offset 
+Generator Field 1 Vsync horizontal Offset
 </div>
 </div><p>
 <a class="anchor" name="3826c4acb9959f8371d1e677eeb20689"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSHOFF_OFFSET" ref="3826c4acb9959f8371d1e677eeb20689" args="" -->
@@ -2494,22 +1767,7 @@ Generator Field 1 Vsync horizontal Offset
 <div class="memdoc">
 
 <p>
-Generator Frame/F0 Vsync horizontal Offset 
-</div>
-</div><p>
-<a class="anchor" name="1d6baed408549d75e60e8219d6df9d01"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSIZE" ref="1d6baed408549d75e60e8219d6df9d01" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GVSIZE&nbsp;&nbsp;&nbsp;XVTC_GVSIZE_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Frame/F0 Vsync horizontal Offset
 </div>
 </div><p>
 <a class="anchor" name="cee65d364a7ae4710d77df92acfc76c5"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSIZE_OFFSET" ref="cee65d364a7ae4710d77df92acfc76c5" args="" -->
@@ -2524,37 +1782,7 @@ Generator Frame/F0 Vsync horizontal Offset
 <div class="memdoc">
 
 <p>
-Generator Frame Vertical Size Offset 
-</div>
-</div><p>
-<a class="anchor" name="2c578f55d0afde86605cbd159207fe76"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSYNC" ref="2c578f55d0afde86605cbd159207fe76" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GVSYNC&nbsp;&nbsp;&nbsp;XVTC_GVSYNC_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="4713135a51b5ecaf623753a72abfdee5"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSYNC_F1" ref="4713135a51b5ecaf623753a72abfdee5" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_GVSYNC_F1&nbsp;&nbsp;&nbsp;XVTC_GVSYNC_F1_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
+Generator Frame Vertical Size Offset
 </div>
 </div><p>
 <a class="anchor" name="427e980962c29110b2ba3b5344e364ba"></a><!-- doxytag: member="xvtc_hw.h::XVTC_GVSYNC_F1_OFFSET" ref="427e980962c29110b2ba3b5344e364ba" args="" -->
@@ -2602,21 +1830,6 @@ Generator Frame/F0 Vertical Sync Offset
 prevent circular inclusions by using protection macros 
 </div>
 </div><p>
-<a class="anchor" name="f471146f8c902c1cfb149c828cef9820"></a><!-- doxytag: member="xvtc_hw.h::XVTC_IER" ref="f471146f8c902c1cfb149c828cef9820" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_IER&nbsp;&nbsp;&nbsp;XVTC_IER_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="c0ac89b5f531d863ad78e8b8af3c0df2"></a><!-- doxytag: member="xvtc_hw.h::XVTC_IER_OFFSET" ref="c0ac89b5f531d863ad78e8b8af3c0df2" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2645,21 +1858,6 @@ Interrupt Enable Register Offset
 
 <p>
 Input Operations 
-</div>
-</div><p>
-<a class="anchor" name="1c083e5797e0d37db81b34e902f997fe"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ISR" ref="1c083e5797e0d37db81b34e902f997fe" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_ISR&nbsp;&nbsp;&nbsp;XVTC_ISR_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="a690829886e09994bae91932d380240a"></a><!-- doxytag: member="xvtc_hw.h::XVTC_ISR_OFFSET" ref="a690829886e09994bae91932d380240a" args="" -->
@@ -3234,7 +2432,7 @@ Vertical Sync Output Polarity Mask
           <td class="paramtype">RegOffset&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%">&nbsp;&nbsp;&nbsp;XVtc_In32((BaseAddress) + ((u32)RegOffset))</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;XVtc_In32((BaseAddress) + (RegOffset))</td>
         </tr>
       </table>
 </div>
@@ -3341,21 +2539,6 @@ Lock Status. Set High when all signals have locked. (Detector only) Mask
 
 <p>
 Vertical Blank Interrupt Status Mask 
-</div>
-</div><p>
-<a class="anchor" name="b0b6e45dea8ce0cbde35f7c81239fc5d"></a><!-- doxytag: member="xvtc_hw.h::XVTC_VER" ref="b0b6e45dea8ce0cbde35f7c81239fc5d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XVTC_VER&nbsp;&nbsp;&nbsp;XVTC_VER_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="4db70394c44343429049317a46dee18f"></a><!-- doxytag: member="xvtc_hw.h::XVTC_VER_IREV_MASK" ref="4db70394c44343429049317a46dee18f" args="" -->
@@ -3554,7 +2737,7 @@ Bit shift for End Cycle or Line Count
           <td class="paramtype">Data&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%">&nbsp;&nbsp;&nbsp;XVtc_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;XVtc_Out32((BaseAddress) + (RegOffset), (Data))</td>
         </tr>
       </table>
 </div>

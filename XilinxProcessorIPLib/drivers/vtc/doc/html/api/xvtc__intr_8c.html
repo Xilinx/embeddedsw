@@ -92,7 +92,7 @@ This file contains interrupt related functions of Xilinx VTC core. Please see <a
                        "Xboolean" -&gt; "int"
                        "XTEST_FAILED" -&gt; "XST_FAILURE"
                        "XTEST_PASSED" -&gt; "XST_SUCCESS"
- 6.1   adk    03/03/14 Version change as per SDK 2014.2.
+ 6.1   adk    08/23/14 Alligned doxygen tags.
  </pre> 
 <p>
 <code>#include &quot;<a class="el" href="xvtc_8h.html">xvtc.h</a>&quot;</code><br>
@@ -124,7 +124,7 @@ This file contains interrupt related functions of Xilinx VTC core. Please see <a
 <p>
 This function is the interrupt handler for the VTC core.<p>
 This handler reads the pending interrupt from the IER/ISR, determines the source of the interrupts, calls according callbacks and finally clears the interrupts.<p>
-The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <a class="el" href="xvtc_8h.html#2c8331343095cb78377c7887cb62d87b">XVtc_SetCallBack()</a> during initialization phase.<p>
+The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <a class="el" href="xvtc_8h.html#69695e97e578e8baaf99d19c0c3bca85">XVtc_SetCallBack()</a> during initialization phase.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_vtc.html">XVtc</a> instance that just interrupted.</td></tr>
@@ -177,11 +177,11 @@ This routine installs an asynchronous callback function for the given HandlerTyp
 <pre>
  HandlerType              Callback Function Type
  -----------------------  --------------------------------------------------
- (XVTC_HANDLER_FRAMESYNC) XVtc_FrameSyncCallBack
- (XVTC_HANDLER_LOCK)      XVtc_LockCallBack
- (XVTC_HANDLER_DETECTOR)  XVtc_DetectorCallBack
- (XVTC_HANDLER_GENERATOR) XVtc_GeneratorCallBack
- (XVTC_HANDLER_ERROR)     XVtc_ErrCallBack</pre><p>
+ XVTC_HANDLER_FRAMESYNC   XVtc_FrameSyncCallBack
+ XVTC_HANDLER_LOCK        XVtc_LockCallBack
+ XVTC_HANDLER_DETECTOR    XVtc_DetectorCallBack
+ XVTC_HANDLER_GENERATOR   XVtc_GeneratorCallBack
+ XVTC_HANDLER_ERROR       XVtc_ErrCallBack</pre><p>
 <pre> HandlerType              Invoked by this driver when:
  -----------------------  --------------------------------------------------
  XVTC_HANDLER_FRAMESYNC   A frame sync event happens
