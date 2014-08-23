@@ -141,7 +141,7 @@
 * 5.00a cjm    11/03/13 Added Chroma/field parity bit masks.
 *                       Replaced old timing bit masks/shifts with Start/End Bit
 *                       masks/shifts.
-* 6.1   adk    03/03/14 Removed XVTC_ERR_FIL_MASK macro because it is  not
+* 6.1   adk    08/23/14 Removed XVTC_ERR_FIL_MASK macro because it is  not
 *                       present in latest product guide.
 *                       Modified register offsets from XVTC_* to XVTC_*_OFFSET
 *                       for consistency.
@@ -312,14 +312,13 @@ extern "C" {
 					      *  Mask */
 
 #define XVTC_CTL_ALLSS_MASK	0x03F5EF00 /**< Bit mask for all source
-					      *  select Mask */
-
-#define XVTC_CTL_SE_MASK	0x00000020 /**< Enable Sync with Detector
-					      *  Mask */
-#define XVTC_CTL_DE_MASK	0x00000008 /**< VTC Detector Enable Mask */
-#define XVTC_CTL_GE_MASK	0x00000004 /**< VTC Generator Enable Mask */
-#define XVTC_CTL_RU_MASK	0x00000002 /**< VTC Register Update Mask */
-#define XVTC_CTL_SW_MASK	0x00000001 /**< VTC Core Enable Mask */
+					     *  select Mask */
+//#define XVTC_CTL_LP_MASK	0x00000008 /**< Lock Polarity */
+#define XVTC_CTL_SE_MASK	0x00000020 /**< Enable Sync with Detector */
+#define XVTC_CTL_DE_MASK	0x00000008 /**< VTC Detector Enable */
+#define XVTC_CTL_GE_MASK	0x00000004 /**< VTC Generator Enable */
+#define XVTC_CTL_RU_MASK	0x00000002 /**< VTC Register Update */
+#define XVTC_CTL_SW_MASK	0x00000001 /**< VTC Core Enable */
 /*@}*/
 
 /** @name Interrupt Status/Enable Register Bit Definitions

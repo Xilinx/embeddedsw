@@ -42,7 +42,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 6.1   adk    03/03/14 First Release.
+* 6.1   adk    08/23/14 First Release.
 *                       Implemented following function:
 *                       XVtc_SelfTest.
 * </pre>
@@ -78,7 +78,8 @@
 *
 * @param	InstancePtr is a pointer to the XVtc instance.
 *
-* @return	- XST_SUCCESS if the Version register read test was successful.
+* @return
+*		- XST_SUCCESS if the Version register read test was successful.
 *		- XST_FAILURE if the Version register read test failed.
 *
 * @note		None.

@@ -34,23 +34,22 @@
 *
 * @file xvtc.h
 *
-* This is the main header file of Xilinx Video Timing Controller (VTC) core.
-* The VTC core detects video signals, independently overrides any one
-* of them, re-generates video signals with +/- delay and with polarity
-* inversion and generates up to 16 one cycle frame sync outputs.
+* This is the main header file of Xilinx MVI Video Timing Controller (VTC)
+* device driver. The VTC device detects video signals, independently
+* overrides any one of them, re-generates video signals with +/- delay and
+* with polarity inversion, and generates up to 16 one cycle Frame Sync outputs.
 *
-* <b>Core Features </b>
-* The core has the following main features:
-*	- Detect video signals:
+* The device has the following main features:
+* - Detect video signals:
 *	- horizontal sync
 *	- horizontal blank
 *	- vertical sync
 *	- vertical blank
 *	- active video
 *	- field id
-*	- Independently override any one signal.
-*	- Re-generate video signals with +/- delay and with polarity inversion.
-*	- Generate up to 16 one cycle frame sync outputs.
+* - Independently override any one signal.
+* - Re-generate video signals with +/- delay and with polarity inversion.
+* - Generate up to 16 one cycle Frame Sync outputs.
 *
 * For a full description of VTC features, please see the hardware
 * specification.
@@ -255,10 +254,33 @@
 *                       XVtc_GetDetectorTiming
 *                       XVtc_GetDetectorVideoMode
 * 6.0   adk    19/12/13 Updated as per the New Tcl API's.
-* 6.1   adk    03/03/14 Implemented XVtc_SelfTest in
+* 6.1   adk    23/08/14 Implemented XVtc_SelfTest in
 *                       xvtc_selftest.c.
-*                       Defined range macro for frame sync register.
-*                       Defined XVTC_FSYNC_NUM_FRAMES.
+*                       Modified prototype of XVtc_GetVersion API.
+*
+*                       Modifications from xvtc.c file are:
+*                       Modified HActiveVideo value to 1920 for
+*                       XVTC_VMODE_1080I mode.
+*                       Removed Major, Minor and Revision parameters from
+*                       XVtc_GetVersion.
+*                       Modified return type of XVtc_GetVersion from
+*                       void to u32.
+*
+*                       Modifications from xvtc_hw.h file are:
+*                       Removed XVTC_ERR_FIL_MASK macro because it is  not
+*                       present in latest product guide.
+*                       Modified register offsets from XVTC_* to XVTC_*_OFFSET
+*                       for consistency.
+*                       Added backward compatibility macros.
+*
+*                       Modifications from xvtc_intr.c and xvtc_sinit.c files
+*                       are:
+*                       updated doxygen tags.
+*
+*                       Modifications from xvtc_selftest.c file are:
+*                       First Release.
+*                       Implemented following function:
+*                       XVtc_SelfTest.
 * </pre>
 *
 ******************************************************************************/
@@ -295,16 +317,17 @@ extern "C" {
 /*@}*/
 
 /** @name Options for enabling VTC modules
-* @{
-*/
+ *  @{
+ */
 #define XVTC_EN_GENERATOR	1	/**< To enable generator */
 #define XVTC_EN_DETECTOR	2	/**< To enable detector */
 /*@}*/
 
 /** @name Address gap between two register next to each other
-* @{
-*/
+ *  @{
+ */
 #define XVTC_REG_ADDRGAP	4	/**< Register address gap */
+
 
 #define XVTC_VMODE_720P		1	/**< Video mode 720P */
 #define XVTC_VMODE_1080P	2	/**< Video mode 1080P */
@@ -321,25 +344,12 @@ extern "C" {
 #define XVTC_VMODE_PAL		102	/**< Video mode PAL */
 /*@}*/
 
-/** @name Frame Sync range macros
- * @{
- */
-#define XVTC_FSYNC_FIRST	0	/**< Frame Sync starting value */
-#define XVTC_FSYNC_LAST		4095	/**< Frame Sync ending value */
-/*@}*/
-
-/** @name Number of FSYNC frames
- * @{
- */
- #define XVTC_FSYNC_NUM_FRAMES	15	/**< Total number of FSYNC frames. */
-/*@}*/
-
 /**************************** Type Definitions *******************************/
 
 /**
-* This typedef contains configuration information for the VTC core.
-* Each VTC device should have a configuration structure associated.
-*/
+ * This typedef contains configuration information for a VTC core.
+ * Each VTC device should have a configuration structure associated
+ */
 typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the VTC
 				  *  core */
@@ -348,8 +358,8 @@ typedef struct {
 } XVtc_Config;
 
 /**
-* This typedef contains polarity configuration information for the VTC core.
-*/
+ * This typedef contains Polarity configuration information for a VTC core.
+ */
 typedef struct {
 	u8 ActiveChromaPol;	/**< Active Chroma Output Polarity */
 	u8 ActiveVideoPol;	/**< Active Video Output Polarity */
@@ -362,9 +372,9 @@ typedef struct {
 } XVtc_Polarity;
 
 /**
-* This typedef contains source selection configuration information for the
-* VTC core.
-*/
+ * This typedef contains Source Selection configuration information for a
+ * VTC core.
+ */
 typedef struct {
 	u8 FieldIdPolSrc;	/**< Field ID Output Polarity Source */
 	u8 ActiveChromaPolSrc;	/**< Active Chroma Output Polarity Source */
@@ -394,12 +404,13 @@ typedef struct {
 	u8 HFrontPorchSrc;	/**< Horizontal Front Porch Start Register
 				  *  Source Select */
 	u8 HTotalSrc;		/**< Horizontal Total Register Source Select */
+
 } XVtc_SourceSelect;
 
 /**
-* This typedef contains the VTC signal configuration used by the
-* Generator/Detector modules in the VTC core.
-*/
+ * This typedef contains the VTC signal configuration used by the
+ * Generator/Detector modules in a VTC device.
+ */
 typedef struct {
 	u16 OriginMode;		/**< Origin Mode */
 	u16 HTotal;		/**< Horizontal total clock cycles per Line */
@@ -436,9 +447,9 @@ typedef struct {
 } XVtc_Signal;
 
 /**
-* This typedef contains Detector/Generator VBlank/VSync Horizontal Offset
-* configuration information for a VTC core.
-*/
+ * This typedef contains Detector/Generator VBlank/VSync Horizontal Offset
+ * configuration information for a VTC device.
+ */
 typedef struct {
 	u16 V0BlankHoriStart;	/**< Vertical Blank Hori Offset Start
 				  *  (field 0) */
@@ -522,9 +533,9 @@ typedef void (*XVtc_CallBack)(void *CallBackRef, u32 Mask);
 typedef void (*XVtc_ErrorCallBack)(void *CallBackRef, u32 ErrorMask);
 
 /**
-* The XVtc driver instance data. An instance must be allocated for each
-* VTC core in use.
-*/
+ * The XVtc driver instance data. An instance must be allocated for each
+ * VTC core in use.
+ */
 typedef struct {
 	XVtc_Config Config;	/**< Hardware Configuration */
 	u32 IsReady;		/**< Core and the driver instance are
@@ -784,7 +795,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVtc_StatusGetPending(InstancePtr) \
-	XVtc_ReadReg((InstancePtr)->Config.BaseAddress, (XVTC_CTL_OFFSET)) & \
+	XVtc_ReadReg((InstancePtr)->Config.BaseAddress, (XVTC_ISR_OFFSET)) & \
 		(XVTC_IXR_ALLINTR_MASK)
 
 /*****************************************************************************/
@@ -807,9 +818,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVtc_IntrGetPending(InstancePtr) \
-	XVtc_ReadReg((InstancePtr)->Config.BaseAddress, (XVTC_IER_OFFSET)) & \
-		(XVtc_ReadReg((InstancePtr)->Config.BaseAddress, \
-		(XVTC_CTL_OFFSET)) & (XVTC_IXR_ALLINTR_MASK))
+	(XVtc_ReadReg((InstancePtr)->Config.BaseAddress, XVTC_IER_OFFSET) & \
+	 XVtc_ReadReg((InstancePtr)->Config.BaseAddress, XVTC_ISR_OFFSET) & \
+	 XVTC_IXR_ALLINTR_MASK)
 
 /*****************************************************************************/
 /**
@@ -830,7 +841,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVtc_IntrClear(InstancePtr, IntrType) \
-	XVtc_WriteReg((InstancePtr)->Config.BaseAddress, (XVTC_CTL_OFFSET), \
+	XVtc_WriteReg((InstancePtr)->Config.BaseAddress, (XVTC_ISR_OFFSET), \
 		((IntrType) & (XVTC_IXR_ALLINTR_MASK)))
 
 /*****************************************************************************/
@@ -881,9 +892,9 @@ u16 XVtc_ConvTiming2VideoMode(XVtc *InstancePtr, XVtc_Timing *TimingPtr);
 void XVtc_SetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing * TimingPtr);
 void XVtc_SetGeneratorVideoMode(XVtc *InstancePtr, u16 Mode);
 void XVtc_GetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr);
-u16 XVtc_GetGeneratorVideoMode(XVtc *InstancePtr);
+u16  XVtc_GetGeneratorVideoMode(XVtc *InstancePtr);
 void XVtc_GetDetectorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr);
-u16 XVtc_GetDetectorVideoMode(XVtc *InstancePtr);
+u16  XVtc_GetDetectorVideoMode(XVtc *InstancePtr);
 
 /* Polarity setting */
 void XVtc_SetPolarity(XVtc *InstancePtr, XVtc_Polarity *PolarityPtr);
@@ -906,22 +917,22 @@ void XVtc_GetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr);
 void XVtc_GetDetector(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr);
 
 /* Delay setting */
-void XVtc_SetDelay(XVtc *InstancePtr, u32 VertDelay, u32 HoriDelay);
-void XVtc_GetDelay(XVtc *InstancePtr, u32 *VertDelayPtr, u32 *HoriDelayPtr);
+void XVtc_SetDelay(XVtc *InstancePtr, int VertDelay, int HoriDelay);
+void XVtc_GetDelay(XVtc *InstancePtr, int *VertDelayPtr, int *HoriDelayPtr);
 
 /* Frame Sync setting */
-void XVtc_SetFSync(XVtc *InstancePtr, u16 FrameSyncIndex,u16 VertStart,
-			u16 HoriStart);
-void XVtc_GetFSync(XVtc *InstancePtr, u16 FrameSyncIndex, u16 *VertStartPtr,
-			u16 *HoriStartPtr);
+void XVtc_SetFSync(XVtc *InstancePtr, u16 FrameSyncIndex,
+			   u16 VertStart, u16 HoriStart);
+void XVtc_GetFSync(XVtc *InstancePtr, u16 FrameSyncIndex,
+			   u16 *VertStartPtr, u16 *HoriStartPtr);
 
 /* Horizontal Offset Setting */
 void XVtc_SetGeneratorHoriOffset(XVtc *InstancePtr,
-					XVtc_HoriOffsets *HoriOffsets);
+			   XVtc_HoriOffsets *HoriOffset);
 void XVtc_GetGeneratorHoriOffset(XVtc *InstancePtr,
-					XVtc_HoriOffsets *HoriOffsets);
+			   XVtc_HoriOffsets *HoriOffset);
 void XVtc_GetDetectorHoriOffset(XVtc *InstancePtr,
-					XVtc_HoriOffsets *HoriOffsets);
+			   XVtc_HoriOffsets *HoriOffset);
 
 /* Version function */
 u32 XVtc_GetVersion(XVtc *InstancePtr);
@@ -929,10 +940,12 @@ u32 XVtc_GetVersion(XVtc *InstancePtr);
 /* Initialization functions in xvtc_sinit.c */
 XVtc_Config *XVtc_LookupConfig(u16 DeviceId);
 
-/* Interrupt related functions in xvtc_intr.c */
+/*
+ * Interrupt related function(s) in xvtc_intr.c
+ */
 void XVtc_IntrHandler(void *InstancePtr);
-int XVtc_SetCallBack(XVtc *InstancePtr, u32 HandlerType, void *CallBackFunc,
-			void *CallBackRef);
+int XVtc_SetCallBack(XVtc *InstancePtr, u32 IntrType,
+			void *CallBackFunc, void *CallBackRef);
 
 /* SelfTest related function in xvtc_selftest.c */
 int XVtc_SelfTest(XVtc *InstancePtr);

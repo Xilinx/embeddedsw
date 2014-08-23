@@ -50,7 +50,7 @@
 *                       assertions to xil_io format.
 *                       Replaced the following:
 *                       "Xuint16" -> "u16".
-* 6.1   adk    03/03/14 Version change as per SDK 2014.2.
+* 6.1   adk    08/23/14 updated doxygen tags.
 * </pre>
 *
 ******************************************************************************/
@@ -96,22 +96,20 @@
 ******************************************************************************/
 XVtc_Config *XVtc_LookupConfig(u16 DeviceId)
 {
-	extern XVtc_Config XVtc_ConfigTable[XPAR_XVTC_NUM_INSTANCES];
+	extern XVtc_Config XVtc_ConfigTable[];
 	XVtc_Config *CfgPtr = NULL;
-	u32 Index;
+	int i;
 
 	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XVTC_NUM_INSTANCES);
-								Index++) {
-
+	for (i = 0; i < XPAR_XVTC_NUM_INSTANCES; i++) {
 		/* Assigning address of config table if both device ids
 		 * are matched
 		 */
-		if (XVtc_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XVtc_ConfigTable[Index];
+		if (XVtc_ConfigTable[i].DeviceId == DeviceId) {
+			CfgPtr = &XVtc_ConfigTable[i];
 			break;
 		}
 	}
 
-	return (XVtc_Config *)CfgPtr;
+	return CfgPtr;
 }

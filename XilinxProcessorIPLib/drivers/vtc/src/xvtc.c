@@ -34,9 +34,9 @@
 *
 * @file xvtc.c
 *
-* This is the main file of Xilinx Video Timing Controller (VTC) core.
-* The VTC core detects and generates video sync signals to Video IP cores
-* like Video Scaler. Please see xvtc.h for more details of the driver.
+* This is main code of Xilinx MVI Video Timing Controller (VTC) device driver.
+* The VTC device detects and generates video sync signals to Video IP cores
+* like MVI Video Scaler. Please see xvtc.h for more details of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -145,18 +145,12 @@
 * 5.00a cjm    11/03/13 Added Chroma/field parity bit masks.
 *                       Replaced old timing bit masks/shifts with Start/End Bit
 *                       masks/shifts.
-* 6.1   adk    03/03/14 Modified HActiveVideo value to 1920 for
+* 6.1   adk    08/23/14 Modified HActiveVideo value to 1920 for
 *                       XVTC_VMODE_1080I mode.
 *                       Removed Major, Minor and Revision parameters from
 *                       XVtc_GetVersion.
 *                       Modified return type of XVtc_GetVersion from
 *                       void to u32.
-*                       Modified following functions parameters data type from
-*                       int to u32
-*                       XVtc_SetDelay and XVtc_GetDelay.
-*                       Adherence to Xilinx coding guidelines and Doxygen
-*                       standards.
-*
 * </pre>
 *
 ******************************************************************************/
@@ -164,14 +158,15 @@
 /***************************** Include Files *********************************/
 
 #include "xvtc.h"
+#include "xenv.h"
 
 /************************** Constant Definitions *****************************/
 
 
-/***************** Macros (Inline Functions) Definitions *********************/
-
-
 /**************************** Type Definitions *******************************/
+
+
+/***************** Macros (Inline Functions) Definitions *********************/
 
 
 /************************** Function Prototypes ******************************/
@@ -215,30 +210,25 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask);
 int XVtc_CfgInitialize(XVtc *InstancePtr, XVtc_Config *CfgPtr,
 				u32 EffectiveAddr)
 {
-	/* Verify arguments. */
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+	Xil_AssertNonvoid((u32 *)EffectiveAddr != NULL);
 
 	/* Setup the instance */
-	(void)memset((void *)InstancePtr, 0, sizeof(XVtc));
-	(void)memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
-							sizeof(XVtc_Config));
+	memset((void *)InstancePtr, 0, sizeof(XVtc));
+
+	memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
+			   sizeof(XVtc_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
-	/* Set all handlers to stub values, let user configure
-	 * this data later
+	/* Set all handlers to stub values, let user configure this data later
 	 */
-	InstancePtr->FrameSyncCallBack =
-				(XVtc_CallBack)((void *)StubCallBack);
-	InstancePtr->LockCallBack =
-				(XVtc_CallBack)((void *)StubCallBack);
-	InstancePtr->DetectorCallBack =
-				(XVtc_CallBack)((void *)StubCallBack);
-	InstancePtr->GeneratorCallBack =
-				(XVtc_CallBack)((void *)StubCallBack);
-	InstancePtr->ErrCallBack  =
-				(XVtc_ErrorCallBack)((void *)StubErrCallBack);
+	InstancePtr->FrameSyncCallBack = (XVtc_CallBack) StubCallBack;
+	InstancePtr->LockCallBack = (XVtc_CallBack) StubCallBack;
+	InstancePtr->DetectorCallBack = (XVtc_CallBack) StubCallBack;
+	InstancePtr->GeneratorCallBack = (XVtc_CallBack) StubCallBack;
+	InstancePtr->ErrCallBack = (XVtc_ErrorCallBack) StubErrCallBack;
 
 	/* Reset the hardware and set the flag to indicate the driver is
 	 * ready
@@ -246,7 +236,7 @@ int XVtc_CfgInitialize(XVtc *InstancePtr, XVtc_Config *CfgPtr,
 	XVtc_Reset(InstancePtr);
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
-	return (XST_SUCCESS);
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -268,14 +258,14 @@ void XVtc_EnableGenerator(XVtc *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Read Control register value back */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
 					(XVTC_CTL_OFFSET));
 
 	/* Change the value according to the enabling type and write it back */
-	CtrlRegValue |= (XVTC_CTL_GE_MASK);
+	CtrlRegValue |= XVTC_CTL_GE_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_CTL_OFFSET),
 			CtrlRegValue);
@@ -300,14 +290,14 @@ void XVtc_EnableDetector(XVtc *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Read Control register value back */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
 					(XVTC_CTL_OFFSET));
 
 	/* Change the value according to the enabling type and write it back */
-	CtrlRegValue |= (XVTC_CTL_DE_MASK);
+	CtrlRegValue |= XVTC_CTL_DE_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_CTL_OFFSET),
 			CtrlRegValue);
@@ -333,14 +323,14 @@ void XVtc_Enable(XVtc *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Read Control register value back */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
 					(XVTC_CTL_OFFSET));
 
 	/* Setup the SW Enable Bit and write it back */
-	CtrlRegValue |= (XVTC_CTL_SW_MASK);
+	CtrlRegValue |= XVTC_CTL_SW_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_CTL_OFFSET),
 				CtrlRegValue);
@@ -365,7 +355,7 @@ void XVtc_DisableGenerator(XVtc *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Read Control register value back */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
@@ -399,7 +389,7 @@ void XVtc_DisableDetector(XVtc *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Read Control register value back */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
@@ -434,14 +424,14 @@ void XVtc_Disable(XVtc *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Read Control register value back */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
 					(XVTC_CTL_OFFSET));
 
-	/* Change the value, clearing Core Enable, and write it back */
-	CtrlRegValue &= (u32)(~(XVTC_CTL_SW_MASK));
+	/* Change the value, clearing Core Enable, and write it back*/
+	CtrlRegValue &= ~XVTC_CTL_SW_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_CTL_OFFSET),
 			CtrlRegValue);
@@ -468,7 +458,7 @@ void XVtc_SetPolarity(XVtc *InstancePtr, XVtc_Polarity *PolarityPtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(PolarityPtr != NULL);
 
 	/* Read Control register value back and clear all polarity
@@ -481,40 +471,26 @@ void XVtc_SetPolarity(XVtc *InstancePtr, XVtc_Polarity *PolarityPtr)
 	/* Change the register value according to the setting in the Polarity
 	 * configuration structure
 	 */
-	/* Checking for ActiveChromaPol */
-	if (PolarityPtr->ActiveChromaPol != 0x0) {
-		PolRegValue |= (XVTC_POL_ACP_MASK);
-	}
+	if (PolarityPtr->ActiveChromaPol)
+		PolRegValue |= XVTC_POL_ACP_MASK;
 
-	/* Checking for ActiveVideoPol */
-	if (PolarityPtr->ActiveVideoPol != 0x0) {
-		PolRegValue |= (XVTC_POL_AVP_MASK);
-	}
+	if (PolarityPtr->ActiveVideoPol)
+		PolRegValue |= XVTC_POL_AVP_MASK;
 
-	/* Checking for FieldIdPol */
-	if (PolarityPtr->FieldIdPol != 0x0) {
-		PolRegValue |= (XVTC_POL_FIP_MASK);
-	}
+	if (PolarityPtr->FieldIdPol)
+		PolRegValue |= XVTC_POL_FIP_MASK;
 
-	/* Checking for VBlankPol */
-	if (PolarityPtr->VBlankPol != 0x0) {
-		PolRegValue |= (XVTC_POL_VBP_MASK);
-	}
+	if (PolarityPtr->VBlankPol)
+		PolRegValue |= XVTC_POL_VBP_MASK;
 
-	/* Checking for VSyncPol */
-	if (PolarityPtr->VSyncPol != 0x0) {
-		PolRegValue |= (XVTC_POL_VSP_MASK);
-	}
+	if (PolarityPtr->VSyncPol)
+		PolRegValue |= XVTC_POL_VSP_MASK;
 
-	/* Checking for HBlankPol */
-	if (PolarityPtr->HBlankPol != 0x0) {
-		PolRegValue |= (XVTC_POL_HBP_MASK);
-	}
+	if (PolarityPtr->HBlankPol)
+		PolRegValue |= XVTC_POL_HBP_MASK;
 
-	/* Checking for HSyncPol */
-	if (PolarityPtr->HSyncPol != 0x0) {
-		PolRegValue |= (XVTC_POL_HSP_MASK);
-	}
+	if (PolarityPtr->HSyncPol)
+		PolRegValue |= XVTC_POL_HSP_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_GPOL_OFFSET),
 			PolRegValue);
@@ -542,11 +518,11 @@ void XVtc_GetPolarity(XVtc *InstancePtr, XVtc_Polarity *PolarityPtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(PolarityPtr != NULL);
 
 	/* Clear the Polarity configuration structure */
-	(void)memset((void *)PolarityPtr, 0, sizeof(XVtc_Polarity));
+	memset((void *)PolarityPtr, 0, sizeof(XVtc_Polarity));
 
 	/* Read Control register value back */
 	PolRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
@@ -555,33 +531,26 @@ void XVtc_GetPolarity(XVtc *InstancePtr, XVtc_Polarity *PolarityPtr)
 	/* Populate the Polarity configuration structure w/ the current setting
 	 * used in the device
 	 */
-	if ((PolRegValue & (XVTC_POL_ACP_MASK)) == (XVTC_POL_ACP_MASK)) {
+	if (PolRegValue & XVTC_POL_ACP_MASK)
 		PolarityPtr->ActiveChromaPol = 1;
-	}
 
-	if ((PolRegValue & (XVTC_POL_AVP_MASK)) == (XVTC_POL_AVP_MASK)) {
+	if (PolRegValue & XVTC_POL_AVP_MASK)
 		PolarityPtr->ActiveVideoPol = 1;
-	}
 
-	if ((PolRegValue & (XVTC_POL_FIP_MASK)) == (XVTC_POL_FIP_MASK)) {
+	if (PolRegValue & XVTC_POL_FIP_MASK)
 		PolarityPtr->FieldIdPol = 1;
-	}
 
-	if ((PolRegValue & (XVTC_POL_VBP_MASK)) == (XVTC_POL_VBP_MASK)) {
+	if (PolRegValue & XVTC_POL_VBP_MASK)
 		PolarityPtr->VBlankPol = 1;
-	}
 
-	if ((PolRegValue & (XVTC_POL_VSP_MASK)) == (XVTC_POL_VSP_MASK)) {
+	if (PolRegValue & XVTC_POL_VSP_MASK)
 		PolarityPtr->VSyncPol = 1;
-	}
 
-	if ((PolRegValue & (XVTC_POL_HBP_MASK)) == (XVTC_POL_HBP_MASK)) {
+	if (PolRegValue & XVTC_POL_HBP_MASK)
 		PolarityPtr->HBlankPol = 1;
-	}
 
-	if ((PolRegValue & (XVTC_POL_HSP_MASK)) == (XVTC_POL_HSP_MASK)) {
+	if (PolRegValue & XVTC_POL_HSP_MASK)
 		PolarityPtr->HSyncPol = 1;
-	}
 }
 
 /*****************************************************************************/
@@ -606,11 +575,11 @@ void XVtc_GetDetectorPolarity(XVtc *InstancePtr, XVtc_Polarity *PolarityPtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(PolarityPtr != NULL);
 
 	/* Clear the Polarity configuration structure */
-	(void)memset((void *)PolarityPtr, 0, sizeof(XVtc_Polarity));
+	memset((void *)PolarityPtr, 0, sizeof(XVtc_Polarity));
 
 	/* Read Control register value back */
 	PolRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
@@ -619,40 +588,26 @@ void XVtc_GetDetectorPolarity(XVtc *InstancePtr, XVtc_Polarity *PolarityPtr)
 	/* Populate the Polarity configuration structure w/ the current setting
 	 * used in the core.
 	 */
-	/* Checking whether PolRegValue is equal to XVTC_POL_ACP_MASK */
-	if ((PolRegValue & (XVTC_POL_ACP_MASK)) == (XVTC_POL_ACP_MASK)) {
+	if (PolRegValue & XVTC_POL_ACP_MASK)
 		PolarityPtr->ActiveChromaPol = 1;
-	}
 
-	/* Checking whether PolRegValue is equal to XVTC_POL_AVP_MASK */
-	if ((PolRegValue & (XVTC_POL_AVP_MASK)) == (XVTC_POL_AVP_MASK)) {
+	if (PolRegValue & XVTC_POL_AVP_MASK)
 		PolarityPtr->ActiveVideoPol = 1;
-	}
 
-	/* Checking whether PolRegValue is equal to XVTC_POL_FIP_MASK */
-	if ((PolRegValue & (XVTC_POL_FIP_MASK)) == (XVTC_POL_FIP_MASK)) {
+	if (PolRegValue & XVTC_POL_FIP_MASK)
 		PolarityPtr->FieldIdPol = 1;
-	}
 
-	/* Checking whether PolRegValue is equal to XVTC_POL_VBP_MASK*/
-	if ((PolRegValue & (XVTC_POL_VBP_MASK)) == (XVTC_POL_VBP_MASK)) {
+	if (PolRegValue & XVTC_POL_VBP_MASK)
 		PolarityPtr->VBlankPol = 1;
-	}
 
-	/* Checking whether PolRegValue is equal to XVTC_POL_VSP_MASK */
-	if ((PolRegValue & (XVTC_POL_VSP_MASK)) == (XVTC_POL_VSP_MASK)) {
+	if (PolRegValue & XVTC_POL_VSP_MASK)
 		PolarityPtr->VSyncPol = 1;
-	}
 
-	/* Checking whether PolRegValue is equal to XVTC_POL_HBP_MASK*/
-	if ((PolRegValue & (XVTC_POL_HBP_MASK)) == (XVTC_POL_HBP_MASK)) {
+	if (PolRegValue & XVTC_POL_HBP_MASK)
 		PolarityPtr->HBlankPol = 1;
-	}
 
-	/* Checking whether PolRegValue is equal to XVTC_POL_HSP_MASK */
-	if ((PolRegValue & (XVTC_POL_HSP_MASK)) == (XVTC_POL_HSP_MASK)) {
+	if (PolRegValue & XVTC_POL_HSP_MASK)
 		PolarityPtr->HSyncPol = 1;
-	}
 }
 
 /*****************************************************************************/
@@ -676,7 +631,7 @@ void XVtc_SetSource(XVtc *InstancePtr, XVtc_SourceSelect *SourcePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(SourcePtr != NULL);
 
 	/* Read Control register value back and clear all source selection bits
@@ -684,78 +639,63 @@ void XVtc_SetSource(XVtc *InstancePtr, XVtc_SourceSelect *SourcePtr)
 	 */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
 					(XVTC_CTL_OFFSET));
-	CtrlRegValue &= (u32)(~(XVTC_CTL_ALLSS_MASK));
+	CtrlRegValue &= ~XVTC_CTL_ALLSS_MASK;
 
 	/* Change the register value according to the setting in the source
 	 * selection configuration structure
 	 */
-	if (SourcePtr->FieldIdPolSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_FIPSS_MASK);
-	}
 
-	if (SourcePtr->ActiveChromaPolSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_ACPSS_MASK);
-	}
+	if (SourcePtr->FieldIdPolSrc)
+		CtrlRegValue |= XVTC_CTL_FIPSS_MASK;
 
-	if (SourcePtr->ActiveVideoPolSrc != 0x0) {
-		CtrlRegValue |= ((XVTC_CTL_AVPSS_MASK));
-	}
+	if (SourcePtr->ActiveChromaPolSrc)
+		CtrlRegValue |= XVTC_CTL_ACPSS_MASK;
 
-	if (SourcePtr->HSyncPolSrc != 0x0) {
+	if (SourcePtr->ActiveVideoPolSrc)
+		CtrlRegValue |= XVTC_CTL_AVPSS_MASK;
+
+	if (SourcePtr->HSyncPolSrc)
 		CtrlRegValue |= XVTC_CTL_HSPSS_MASK;
-	}
 
-	if (SourcePtr->VSyncPolSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VSPSS_MASK);
-	}
+	if (SourcePtr->VSyncPolSrc)
+		CtrlRegValue |= XVTC_CTL_VSPSS_MASK;
 
-	if (SourcePtr->HBlankPolSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_HBPSS_MASK);
-	}
+	if (SourcePtr->HBlankPolSrc)
+		CtrlRegValue |= XVTC_CTL_HBPSS_MASK;
 
-	if (SourcePtr->VBlankPolSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VBPSS_MASK);
-	}
+	if (SourcePtr->VBlankPolSrc)
+		CtrlRegValue |= XVTC_CTL_VBPSS_MASK;
 
-	if (SourcePtr->VChromaSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VCSS_MASK);
-	}
 
-	if (SourcePtr->VActiveSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VASS_MASK);
-	}
+	if (SourcePtr->VChromaSrc)
+		CtrlRegValue |= XVTC_CTL_VCSS_MASK;
 
-	if (SourcePtr->VBackPorchSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VBSS_MASK);
-	}
+	if (SourcePtr->VActiveSrc)
+		CtrlRegValue |= XVTC_CTL_VASS_MASK;
 
-	if (SourcePtr->VSyncSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VSSS_MASK);
-	}
+	if (SourcePtr->VBackPorchSrc)
+		CtrlRegValue |= XVTC_CTL_VBSS_MASK;
 
-	if (SourcePtr->VFrontPorchSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VFSS_MASK);
-	}
+	if (SourcePtr->VSyncSrc)
+		CtrlRegValue |= XVTC_CTL_VSSS_MASK;
 
-	if (SourcePtr->VTotalSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_VTSS_MASK);
-	}
+	if (SourcePtr->VFrontPorchSrc)
+		CtrlRegValue |= XVTC_CTL_VFSS_MASK;
 
-	if (SourcePtr->HBackPorchSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_HBSS_MASK);
-	}
+	if (SourcePtr->VTotalSrc)
+		CtrlRegValue |= XVTC_CTL_VTSS_MASK;
 
-	if (SourcePtr->HSyncSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_HSSS_MASK);
-	}
+	if (SourcePtr->HBackPorchSrc)
+		CtrlRegValue |= XVTC_CTL_HBSS_MASK;
 
-	if (SourcePtr->HFrontPorchSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_HFSS_MASK);
-	}
+	if (SourcePtr->HSyncSrc)
+		CtrlRegValue |= XVTC_CTL_HSSS_MASK;
 
-	if (SourcePtr->HTotalSrc != 0x0) {
-		CtrlRegValue |= (XVTC_CTL_HTSS_MASK);
-	}
+	if (SourcePtr->HFrontPorchSrc)
+		CtrlRegValue |= XVTC_CTL_HFSS_MASK;
+
+	if (SourcePtr->HTotalSrc)
+		CtrlRegValue |= XVTC_CTL_HTSS_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_CTL_OFFSET),
 			CtrlRegValue);
@@ -783,11 +723,11 @@ void XVtc_GetSource(XVtc *InstancePtr, XVtc_SourceSelect *SourcePtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(SourcePtr != NULL);
 
 	/* Clear the source selection configuration structure */
-	(void)memset((void *)SourcePtr, 0, sizeof(XVtc_SourceSelect));
+	memset((void *)SourcePtr, 0, sizeof(XVtc_SourceSelect));
 
 	/* Read Control register value back */
 	CtrlRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
@@ -796,72 +736,41 @@ void XVtc_GetSource(XVtc *InstancePtr, XVtc_SourceSelect *SourcePtr)
 	/* Populate the source select configuration structure with the current
 	 * setting used in the core
 	 */
-	if ((CtrlRegValue & (XVTC_CTL_FIPSS_MASK)) == (XVTC_CTL_FIPSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_FIPSS_MASK)
 		SourcePtr->FieldIdPolSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_ACPSS_MASK)) == (XVTC_CTL_ACPSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_ACPSS_MASK)
 		SourcePtr->ActiveChromaPolSrc = 1;
-	}
-
-	if ((CtrlRegValue & ((XVTC_CTL_AVPSS_MASK))) ==
-						((XVTC_CTL_AVPSS_MASK))) {
+	if (CtrlRegValue & XVTC_CTL_AVPSS_MASK)
 		SourcePtr->ActiveVideoPolSrc= 1;
-	}
-
-	if ((CtrlRegValue & XVTC_CTL_HSPSS_MASK) == XVTC_CTL_HSPSS_MASK) {
+	if (CtrlRegValue & XVTC_CTL_HSPSS_MASK)
 		SourcePtr->HSyncPolSrc = 1;
-	}
-	if ((CtrlRegValue & (XVTC_CTL_VSPSS_MASK)) == (XVTC_CTL_VSPSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VSPSS_MASK)
 		SourcePtr->VSyncPolSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_HBPSS_MASK)) == (XVTC_CTL_HBPSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_HBPSS_MASK)
 		SourcePtr->HBlankPolSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_VBPSS_MASK)) == (XVTC_CTL_VBPSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VBPSS_MASK)
 		SourcePtr->VBlankPolSrc = 1;
-	}
 
-	if ((CtrlRegValue & (XVTC_CTL_VCSS_MASK)) == (XVTC_CTL_VCSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VCSS_MASK)
 		SourcePtr->VChromaSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_VASS_MASK)) == (XVTC_CTL_VASS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VASS_MASK)
 		SourcePtr->VActiveSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_VBSS_MASK)) == (XVTC_CTL_VBSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VBSS_MASK)
 		SourcePtr->VBackPorchSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_VSSS_MASK)) == (XVTC_CTL_VSSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VSSS_MASK)
 		SourcePtr->VSyncSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_VFSS_MASK)) == (XVTC_CTL_VFSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VFSS_MASK)
 		SourcePtr->VFrontPorchSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_VTSS_MASK)) == (XVTC_CTL_VTSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_VTSS_MASK)
 		SourcePtr->VTotalSrc = 1;
-	}
-	if ((CtrlRegValue & (XVTC_CTL_HBSS_MASK)) == (XVTC_CTL_HBSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_HBSS_MASK)
 		SourcePtr->HBackPorchSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_HSSS_MASK)) == (XVTC_CTL_HSSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_HSSS_MASK)
 		SourcePtr->HSyncSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_HFSS_MASK)) == (XVTC_CTL_HFSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_HFSS_MASK)
 		SourcePtr->HFrontPorchSrc = 1;
-	}
-
-	if ((CtrlRegValue & (XVTC_CTL_HTSS_MASK)) == (XVTC_CTL_HTSS_MASK)) {
+	if (CtrlRegValue & XVTC_CTL_HTSS_MASK)
 		SourcePtr->HTotalSrc = 1;
-	}
 }
 
 /*****************************************************************************/
@@ -887,7 +796,7 @@ void XVtc_SetSkipLine(XVtc *InstancePtr, int GeneratorChromaSkip)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Read Control register value back and clear all skip bits first */
 	FrameEncodeRegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
@@ -897,9 +806,8 @@ void XVtc_SetSkipLine(XVtc *InstancePtr, int GeneratorChromaSkip)
 	/* Change the register value according to the skip setting passed
 	 * into this function.
 	 */
-	if (GeneratorChromaSkip != 0x0) {
-		FrameEncodeRegValue |= (u32)(XVTC_ENC_GACLS_MASK);
-	}
+	if (GeneratorChromaSkip)
+		FrameEncodeRegValue |= XVTC_ENC_GACLS_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_GFENC_OFFSET),
 			FrameEncodeRegValue);
@@ -930,7 +838,7 @@ void XVtc_GetSkipLine(XVtc *InstancePtr, int *GeneratorChromaSkipPtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(GeneratorChromaSkipPtr != NULL);
 
 	/* Read Control register value back */
@@ -940,13 +848,10 @@ void XVtc_GetSkipLine(XVtc *InstancePtr, int *GeneratorChromaSkipPtr)
 	/* Populate the skip variable values according to the skip setting
 	 * used by the core.
 	 */
-	if ((FrameEncodeRegValue & (XVTC_ENC_GACLS_MASK)) ==
-						(XVTC_ENC_GACLS_MASK)) {
+	if (FrameEncodeRegValue & XVTC_ENC_GACLS_MASK)
 		*GeneratorChromaSkipPtr = 1;
-	}
-	else {
-		*GeneratorChromaSkipPtr = 0x0;
-	}
+	else
+		*GeneratorChromaSkipPtr = 0;
 }
 
 /*****************************************************************************/
@@ -982,9 +887,8 @@ void XVtc_SetSkipPixel(XVtc *InstancePtr, int GeneratorChromaSkip)
 	/* Change the register value according to the skip setting passed
 	 * into this function.
 	 */
-	if (GeneratorChromaSkip != 0x0) {
-		FrameEncodeRegValue |= (u32)(XVTC_ENC_GACPS_MASK);
-	}
+	if (GeneratorChromaSkip)
+		FrameEncodeRegValue |= XVTC_ENC_GACPS_MASK;
 
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_GFENC_OFFSET),
 				FrameEncodeRegValue);
@@ -1015,7 +919,7 @@ void XVtc_GetSkipPixel(XVtc *InstancePtr, int *GeneratorChromaSkipPtr)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(GeneratorChromaSkipPtr != NULL);
 
 	/* Read Control register value back */
@@ -1025,13 +929,10 @@ void XVtc_GetSkipPixel(XVtc *InstancePtr, int *GeneratorChromaSkipPtr)
 	/* Populate the skip variable values according to the skip setting
 	 * used by the core.
 	 */
-	if ((FrameEncodeRegValue & (XVTC_ENC_GACPS_MASK)) ==
-						(XVTC_ENC_GACPS_MASK)) {
+	if (FrameEncodeRegValue & XVTC_ENC_GACPS_MASK)
 		*GeneratorChromaSkipPtr = 1;
-	}
-	else {
-		*GeneratorChromaSkipPtr = 0x0;
-	}
+	else
+		*GeneratorChromaSkipPtr = 0;
 }
 
 /*****************************************************************************/
@@ -1052,20 +953,22 @@ void XVtc_GetSkipPixel(XVtc *InstancePtr, int *GeneratorChromaSkipPtr)
 * @note		None.
 *
 ******************************************************************************/
-void XVtc_SetDelay(XVtc *InstancePtr, u32 VertDelay, u32 HoriDelay)
+void XVtc_SetDelay(XVtc *InstancePtr, int VertDelay, int HoriDelay)
 {
 	u32 RegValue;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
-	Xil_AssertVoid(VertDelay <= (u32)XVTC_FSYNC_LAST);
-	Xil_AssertVoid(HoriDelay <= (u32)XVTC_FSYNC_LAST);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(VertDelay >= 0);
+	Xil_AssertVoid(HoriDelay >= 0);
+	Xil_AssertVoid(VertDelay <= 4095);
+	Xil_AssertVoid(HoriDelay <= 4095);
 
 	/* Calculate the delay value */
-	RegValue = HoriDelay & (XVTC_GGD_HDELAY_MASK);
-	RegValue |= (VertDelay << (XVTC_GGD_VDELAY_SHIFT)) &
-					(XVTC_GGD_VDELAY_MASK);
+	RegValue = HoriDelay & XVTC_GGD_HDELAY_MASK;
+	RegValue |= (VertDelay << XVTC_GGD_VDELAY_SHIFT) &
+			XVTC_GGD_VDELAY_MASK;
 
 	/* Update the Generator Global Delay register w/ the value */
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_GGD_OFFSET),
@@ -1091,13 +994,13 @@ void XVtc_SetDelay(XVtc *InstancePtr, u32 VertDelay, u32 HoriDelay)
 * @note		None.
 *
 ******************************************************************************/
-void XVtc_GetDelay(XVtc *InstancePtr, u32 *VertDelayPtr, u32 *HoriDelayPtr)
+void XVtc_GetDelay(XVtc *InstancePtr, int *VertDelayPtr, int *HoriDelayPtr)
 {
 	u32 RegValue;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(VertDelayPtr != NULL);
 	Xil_AssertVoid(HoriDelayPtr != NULL);
 
@@ -1106,9 +1009,9 @@ void XVtc_GetDelay(XVtc *InstancePtr, u32 *VertDelayPtr, u32 *HoriDelayPtr)
 				(XVTC_GGD_OFFSET));
 
 	/* Calculate the delay values */
-	*HoriDelayPtr = RegValue & (XVTC_GGD_HDELAY_MASK);
-	*VertDelayPtr = (RegValue & (XVTC_GGD_VDELAY_MASK)) >>
-				(XVTC_GGD_VDELAY_SHIFT);
+	*HoriDelayPtr = RegValue & XVTC_GGD_HDELAY_MASK;
+	*VertDelayPtr = (RegValue & XVTC_GGD_VDELAY_MASK) >>
+				XVTC_GGD_VDELAY_SHIFT;
 }
 
 /*****************************************************************************/
@@ -1139,19 +1042,18 @@ void XVtc_SetFSync(XVtc *InstancePtr, u16 FrameSyncIndex, u16 VertStart,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
-	Xil_AssertVoid(FrameSyncIndex <= (u16)XVTC_FSYNC_NUM_FRAMES);
-	Xil_AssertVoid(VertStart <= (u16)XVTC_FSYNC_LAST);
-	Xil_AssertVoid(HoriStart <= (u16)XVTC_FSYNC_LAST);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(FrameSyncIndex <= 15);
+	Xil_AssertVoid(VertStart <= 4095);
+	Xil_AssertVoid(HoriStart <= 4095);
 
 	/* Calculate the sync value */
-	RegValue = (u32)HoriStart & (u32)(XVTC_FSXX_HSTART_MASK);
-	RegValue |= ((u32)VertStart << (XVTC_FSXX_VSTART_SHIFT)) &
-					(XVTC_FSXX_VSTART_MASK);
+	RegValue = HoriStart & XVTC_FSXX_HSTART_MASK;
+	RegValue |= (VertStart << XVTC_FSXX_VSTART_SHIFT) &
+			XVTC_FSXX_VSTART_MASK;
 
 	/* Calculate the frame sync register address to write to */
-	RegAddress = (u32)(XVTC_FS00_OFFSET) +
-			((u32)FrameSyncIndex * (u32)(XVTC_REG_ADDRGAP));
+	RegAddress = XVTC_FS00_OFFSET + FrameSyncIndex * XVTC_REG_ADDRGAP;
 
 	/* Update the Generator Global Delay register w/ the value */
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, RegAddress, RegValue);
@@ -1182,91 +1084,81 @@ void XVtc_GetFSync(XVtc *InstancePtr, u16 FrameSyncIndex,
 	u32 RegValue;
 	u32 RegAddress;
 
-	/* Verify arguments. */
+	/* Assert bad arguments and conditions */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
-	Xil_AssertVoid(FrameSyncIndex <= (u16)XVTC_FSYNC_NUM_FRAMES);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(FrameSyncIndex <= 15);
 	Xil_AssertVoid(VertStartPtr != NULL);
 	Xil_AssertVoid(VertStartPtr != NULL);
 
 	/* Calculate the frame sync register address to read from */
-	RegAddress = (u32)(XVTC_FS00_OFFSET) +
-			((u32)FrameSyncIndex * (u32)(XVTC_REG_ADDRGAP));
+	RegAddress = XVTC_FS00_OFFSET + FrameSyncIndex * XVTC_REG_ADDRGAP;
 
 	/* Read the frame sync register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, RegAddress);
 
 	/* Calculate the frame sync values */
-	*HoriStartPtr = (u16)(RegValue & (XVTC_FSXX_HSTART_MASK));
-	*VertStartPtr = (u16)((RegValue & (XVTC_FSXX_VSTART_MASK)) >>
-						(XVTC_FSXX_VSTART_SHIFT));
+	*HoriStartPtr = RegValue & XVTC_FSXX_HSTART_MASK;
+	*VertStartPtr = (RegValue & XVTC_FSXX_VSTART_MASK) >>
+				XVTC_FSXX_VSTART_SHIFT;
 }
 
 /*****************************************************************************/
 /**
-*
-* This function sets the VBlank/VSync Horizontal Offsets for the Generator
-* in the VTC core.
-*
-* @param	InstancePtr is a pointer to the VTC instance to be
-*		worked on.
-* @param	HoriOffsets points to a VBlank/VSync Horizontal Offset
-*		configuration with the setting to use on the VTC core.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
+ * This function sets the VBlank/VSync Horizontal Offsets for the Generator
+ * in a VTC device.
+ *
+ * @param  InstancePtr is a pointer to the VTC device instance to be worked on.
+ * @param  HoriOffsets points to a VBlank/VSync Horizontal Offset configuration
+ *	   with the setting to use on the VTC device.
+ * @return NONE.
+ *
+ *****************************************************************************/
 void XVtc_SetGeneratorHoriOffset(XVtc *InstancePtr,
-					XVtc_HoriOffsets *HoriOffsets)
+				XVtc_HoriOffsets *HoriOffsets)
 {
 	u32 RegValue;
 
-	/* Verify arguments. */
+	/* Assert bad arguments and conditions */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(HoriOffsets != NULL);
 
-	/* Calculate and update Generator VBlank Hori. Offset 0 register
-	 * value
+	/* Calculate and update Generator VBlank Hori. Offset 0 register value
 	 */
-	RegValue = (u32)(HoriOffsets->V0BlankHoriStart) &
-						(XVTC_XVXHOX_HSTART_MASK);
-	RegValue |= ((u32)(HoriOffsets->V0BlankHoriEnd) <<
-			(XVTC_XVXHOX_HEND_SHIFT)) & (XVTC_XVXHOX_HEND_MASK);
-	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_GVBHOFF_OFFSET),
-			RegValue);
+	RegValue = (HoriOffsets->V0BlankHoriStart) & XVTC_XVXHOX_HSTART_MASK;
+	RegValue |= (HoriOffsets->V0BlankHoriEnd << XVTC_XVXHOX_HEND_SHIFT) &
+					XVTC_XVXHOX_HEND_MASK;
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress, XVTC_GVBHOFF_OFFSET,
+								RegValue);
 
 	/* Calculate and update Generator VSync Hori. Offset 0 register
 	 * value
 	 */
-	RegValue = (u32)(HoriOffsets->V0SyncHoriStart) &
-						(XVTC_XVXHOX_HSTART_MASK);
-	RegValue |= ((u32)(HoriOffsets->V0SyncHoriEnd) <<
-			(XVTC_XVXHOX_HEND_SHIFT)) & (XVTC_XVXHOX_HEND_MASK);
-	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_GVSHOFF_OFFSET),
-			RegValue);
+	RegValue = (HoriOffsets->V0SyncHoriStart) & XVTC_XVXHOX_HSTART_MASK;
+	RegValue |= (HoriOffsets->V0SyncHoriEnd << XVTC_XVXHOX_HEND_SHIFT) &
+					XVTC_XVXHOX_HEND_MASK;
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress, XVTC_GVSHOFF_OFFSET,
+								RegValue);
 
 	/* Calculate and update Generator VBlank Hori. Offset 1 register
 	 * value
 	 */
-	RegValue = (u32)(HoriOffsets->V1BlankHoriStart) &
-						(XVTC_XVXHOX_HSTART_MASK);
-	RegValue |= ((u32)(HoriOffsets->V1BlankHoriEnd) <<
-			(XVTC_XVXHOX_HEND_SHIFT)) & (XVTC_XVXHOX_HEND_MASK);
-	XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-			(XVTC_GVBHOFF_F1_OFFSET), RegValue);
+	RegValue = (HoriOffsets->V1BlankHoriStart) & XVTC_XVXHOX_HSTART_MASK;
+	RegValue |= (HoriOffsets->V1BlankHoriEnd << XVTC_XVXHOX_HEND_SHIFT) &
+					XVTC_XVXHOX_HEND_MASK;
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress, XVTC_GVBHOFF_F1_OFFSET,
+								RegValue);
 
 	/* Calculate and update Generator VSync Hori. Offset 1 register
 	 * value
 	 */
-	RegValue = (u32)(HoriOffsets->V1SyncHoriStart) &
-						(XVTC_XVXHOX_HSTART_MASK);
-	RegValue |= ((u32)(HoriOffsets->V1SyncHoriEnd) <<
-			(XVTC_XVXHOX_HEND_SHIFT)) & (XVTC_XVXHOX_HEND_MASK);
+	RegValue = (HoriOffsets->V1SyncHoriStart) & XVTC_XVXHOX_HSTART_MASK;
+	RegValue |= (HoriOffsets->V1SyncHoriEnd << XVTC_XVXHOX_HEND_SHIFT) &
+					XVTC_XVXHOX_HEND_MASK;
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-			(XVTC_GVSHOFF_F1_OFFSET), RegValue);
+						XVTC_GVSHOFF_F1_OFFSET,
+								RegValue);
 }
 
 /*****************************************************************************/
@@ -1294,41 +1186,36 @@ void XVtc_GetGeneratorHoriOffset(XVtc *InstancePtr,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(HoriOffsets != NULL);
 
 	/* Parse Generator VBlank Hori. Offset 0 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_GVBHOFF_OFFSET));
-	HoriOffsets->V0BlankHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V0BlankHoriEnd =
-				(u16)((RegValue & (XVTC_XVXHOX_HEND_MASK)) >>
-					(XVTC_XVXHOX_HEND_SHIFT));
+							XVTC_GVBHOFF_OFFSET);
+	HoriOffsets->V0BlankHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V0BlankHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 
 	/* Parse Generator VSync Hori. Offset 0 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_GVSHOFF_OFFSET));
-	HoriOffsets->V0SyncHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V0SyncHoriEnd = (u16)((RegValue &
-			(XVTC_XVXHOX_HEND_MASK)) >> (XVTC_XVXHOX_HEND_SHIFT));
+						XVTC_GVSHOFF_OFFSET);
+	HoriOffsets->V0SyncHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V0SyncHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 
 	/* Parse Generator VBlank Hori. Offset 1 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_GVBHOFF_F1_OFFSET));
-	HoriOffsets->V1BlankHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V1BlankHoriEnd = (u16)((RegValue &
-			(XVTC_XVXHOX_HEND_MASK)) >> (XVTC_XVXHOX_HEND_SHIFT));
+						XVTC_GVBHOFF_F1_OFFSET);
+	HoriOffsets->V1BlankHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V1BlankHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 
 	/* Parse Generator VSync Hori. Offset 1 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_GVSHOFF_F1_OFFSET));
-	HoriOffsets->V1SyncHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V1SyncHoriEnd = (u16)((RegValue &
-			(XVTC_XVXHOX_HEND_MASK)) >> (XVTC_XVXHOX_HEND_SHIFT));
+					 XVTC_GVSHOFF_F1_OFFSET);
+	HoriOffsets->V1SyncHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V1SyncHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 }
 
 /*****************************************************************************/
@@ -1356,40 +1243,36 @@ void XVtc_GetDetectorHoriOffset(XVtc *InstancePtr,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(HoriOffsets != NULL);
 
 	/* Parse Detector VBlank Hori. Offset 0 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_DVBHOFF_OFFSET));
-	HoriOffsets->V0BlankHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V0BlankHoriEnd = (u16)((RegValue &
-			(XVTC_XVXHOX_HEND_MASK)) >> (XVTC_XVXHOX_HEND_SHIFT));
+							XVTC_DVBHOFF_OFFSET);
+	HoriOffsets->V0BlankHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V0BlankHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 
 	/* Parse Detector VSync Hori. Offset 0 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_DVSHOFF_OFFSET));
-	HoriOffsets->V0SyncHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V0SyncHoriEnd = (u16)((RegValue &
-			(XVTC_XVXHOX_HEND_MASK)) >> (XVTC_XVXHOX_HEND_SHIFT));
+						XVTC_DVSHOFF_OFFSET);
+	HoriOffsets->V0SyncHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V0SyncHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 
 	/* Parse Detector VBlank Hori. Offset 1 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_DVBHOFF_F1_OFFSET));
-	HoriOffsets->V1BlankHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V1BlankHoriEnd = (u16)((RegValue &
-			(XVTC_XVXHOX_HEND_MASK)) >> (XVTC_XVXHOX_HEND_SHIFT));
+						XVTC_DVBHOFF_F1_OFFSET);
+	HoriOffsets->V1BlankHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V1BlankHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 
 	/* Parse Detector VSync Hori. Offset 1 register value */
 	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-					(XVTC_DVSHOFF_F1_OFFSET));
-	HoriOffsets->V1SyncHoriStart = (u16)(RegValue &
-						(XVTC_XVXHOX_HSTART_MASK));
-	HoriOffsets->V1SyncHoriEnd = (u16)((RegValue &
-			(XVTC_XVXHOX_HEND_MASK)) >> (XVTC_XVXHOX_HEND_SHIFT));
+						XVTC_DVSHOFF_F1_OFFSET);
+	HoriOffsets->V1SyncHoriStart = RegValue & XVTC_XVXHOX_HSTART_MASK;
+	HoriOffsets->V1SyncHoriEnd = (RegValue & XVTC_XVXHOX_HEND_MASK)
+					>> XVTC_XVXHOX_HEND_SHIFT;
 }
 
 /*****************************************************************************/
@@ -1411,167 +1294,162 @@ void XVtc_GetDetectorHoriOffset(XVtc *InstancePtr,
 void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 {
 	u32 RegValue;
-	u32 R_HTotal;
-	u32 R_VTotal;
-	u32 R_HActive;
-	u32 R_VActive;
+	u32 r_htotal, r_vtotal, r_hactive, r_vactive;
 	XVtc_Signal *SCPtr;
-	XVtc_HoriOffsets HoriOffsets;
+	XVtc_HoriOffsets horiOffsets;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(SignalCfgPtr != NULL);
 
 	SCPtr = SignalCfgPtr;
+	if(SCPtr->OriginMode == 0)
+	{
+		r_htotal = SCPtr->HTotal+1;
+		r_vtotal = SCPtr->V0Total+1;
 
-	/* checking for origin mode */
-	if (SCPtr->OriginMode == (u16)0x0) {
-		R_HTotal = (u32)(SCPtr->HTotal + 1);
-		R_VTotal = (u32)(SCPtr->V0Total + 1);
+		r_hactive = r_htotal - SCPtr->HActiveStart;
+		r_vactive = r_vtotal - SCPtr->V0ActiveStart;
 
-		R_HActive = R_HTotal - (u32)SCPtr->HActiveStart;
-		R_VActive = R_VTotal - (u32)SCPtr->V0ActiveStart;
-
-		RegValue = (R_HTotal) & (XVTC_SB_START_MASK);
+		RegValue = (r_htotal) & XVTC_SB_START_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GHSIZE_OFFSET), RegValue);
+					XVTC_GHSIZE_OFFSET, RegValue);
 
-		RegValue = (R_VTotal) & (XVTC_VSIZE_F0_MASK);
-		RegValue |= ((u32)(SCPtr->V1Total + 1) <<
-				(XVTC_VSIZE_F1_SHIFT)) & (XVTC_VSIZE_F1_MASK);
+		RegValue = (r_vtotal) & XVTC_VSIZE_F0_MASK;
+		RegValue |= ((SCPtr->V1Total+1) << XVTC_VSIZE_F1_SHIFT) &
+							XVTC_VSIZE_F1_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GVSIZE_OFFSET), RegValue);
+					XVTC_GVSIZE_OFFSET, RegValue);
 
-		RegValue = (R_HActive) & (XVTC_ASIZE_HORI_MASK);
-		RegValue |= ((R_VActive) << (XVTC_ASIZE_VERT_SHIFT) ) &
-							(XVTC_ASIZE_VERT_MASK);
+
+		RegValue = (r_hactive) & XVTC_ASIZE_HORI_MASK;
+		RegValue |= ((r_vactive) << XVTC_ASIZE_VERT_SHIFT ) &
+							XVTC_ASIZE_VERT_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GASIZE_OFFSET), RegValue);
+						XVTC_GASIZE_OFFSET, RegValue);
 
 		/* Update the Generator Horizontal 1 Register */
-		RegValue = ((u32)(SCPtr->HSyncStart) + R_HActive) &
-							(XVTC_SB_START_MASK);
-		RegValue |= (((u32)(SCPtr->HBackPorchStart) + R_HActive) <<
-				(XVTC_SB_END_SHIFT)) & (XVTC_SB_END_MASK);
+		RegValue = (SCPtr->HSyncStart + r_hactive) &
+						XVTC_SB_START_MASK;
+		RegValue |= ((SCPtr->HBackPorchStart + r_hactive) <<
+				XVTC_SB_END_SHIFT) & XVTC_SB_END_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GHSYNC_OFFSET), RegValue);
+					XVTC_GHSYNC_OFFSET, RegValue);
 
 		/* Update the Generator Vertical 1 Register (field 0) */
-		RegValue = ((u32)(SCPtr->V0SyncStart) + (R_VActive - 1)) &
-							(u32)(XVTC_SB_START_MASK);
-		RegValue |= (((u32)(SCPtr->V0BackPorchStart) +
-				(R_VActive - 1)) << (XVTC_SB_END_SHIFT)) &
-					(u32)(XVTC_SB_END_MASK);
+		RegValue = (SCPtr->V0SyncStart + r_vactive -1) &
+						XVTC_SB_START_MASK;
+		RegValue |= ((SCPtr->V0BackPorchStart + r_vactive -1) <<
+				XVTC_SB_END_SHIFT) & XVTC_SB_END_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-					(XVTC_GVSYNC_OFFSET), RegValue);
+					XVTC_GVSYNC_OFFSET, RegValue);
 
 		/* Update the Generator Vertical Sync Register (field 1) */
-		RegValue = ((u32)(SCPtr->V1SyncStart) + (R_VActive - 1)) &
-						(u32)(XVTC_SB_START_MASK);
-		RegValue |= (((u32)(SCPtr->V1BackPorchStart) +
-					(R_VActive - 1)) <<
-				(XVTC_SB_END_SHIFT)) & (u32)(XVTC_SB_END_MASK);
+		RegValue = (SCPtr->V1SyncStart + r_vactive -1) &
+						XVTC_SB_START_MASK;
+		RegValue |= ((SCPtr->V1BackPorchStart + r_vactive -1) <<
+					XVTC_SB_END_SHIFT) & XVTC_SB_END_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GVSYNC_F1_OFFSET), RegValue);
+					XVTC_GVSYNC_F1_OFFSET, RegValue);
 
 		/* Chroma Start */
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GFENC_OFFSET));
-		RegValue &= (u32)(~(XVTC_ENC_CPARITY_MASK));
+							XVTC_GFENC_OFFSET);
+		RegValue &= ~XVTC_ENC_CPARITY_MASK;
 		RegValue = (((SCPtr->V0ChromaStart - SCPtr->V0ActiveStart) <<
-				(XVTC_ENC_CPARITY_SHIFT)) &
-					(XVTC_ENC_CPARITY_MASK)) | RegValue;
+						XVTC_ENC_CPARITY_SHIFT) &
+					XVTC_ENC_CPARITY_MASK) | RegValue;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GFENC_OFFSET), RegValue);
+						XVTC_GFENC_OFFSET, RegValue);
 
 		/* Setup default Horizontal Offsets - can override later with
-		 * XVtc_SetGeneratorHoriOffset
+		 * XVtc_SetGeneratorHoriOffset()
 		 */
-		HoriOffsets.V0BlankHoriStart = (u16)R_HActive;
-		HoriOffsets.V0BlankHoriEnd = (u16)R_HActive;
-		HoriOffsets.V0SyncHoriStart = SCPtr->HSyncStart +
-								(u16)R_HActive;
-		HoriOffsets.V0SyncHoriEnd = SCPtr->HSyncStart + (u16)R_HActive;
+		horiOffsets.V0BlankHoriStart = r_hactive;
+		horiOffsets.V0BlankHoriEnd = r_hactive;
+		horiOffsets.V0SyncHoriStart = SCPtr->HSyncStart + r_hactive;
+		horiOffsets.V0SyncHoriEnd = SCPtr->HSyncStart + r_hactive;
 
-		HoriOffsets.V1BlankHoriStart = (u16)R_HActive;
-		HoriOffsets.V1BlankHoriEnd = (u16)R_HActive;
-		HoriOffsets.V1SyncHoriStart = SCPtr->HSyncStart +
-								(u16)R_HActive;
-		HoriOffsets.V1SyncHoriEnd = SCPtr->HSyncStart + (u16)R_HActive;
+		horiOffsets.V1BlankHoriStart = r_hactive;
+		horiOffsets.V1BlankHoriEnd = r_hactive;
+		horiOffsets.V1SyncHoriStart = SCPtr->HSyncStart + r_hactive;
+		horiOffsets.V1SyncHoriEnd = SCPtr->HSyncStart + r_hactive;
+
 	}
-	else {
-		R_HTotal = (u32)SCPtr->HTotal;
+	else
+	{
+		/* Total in mode=1 is the line width */
+		r_htotal = SCPtr->HTotal;
+		/* Total in mode=1 is the frame height */
+		r_vtotal = SCPtr->V0Total;
+		r_hactive = SCPtr->HFrontPorchStart;
+		r_vactive = SCPtr->V0FrontPorchStart;
 
-		/* Total in mode = 1 is the line width */
-		R_VTotal = (u32)SCPtr->V0Total;
-
-		/* Total in mode = 1 is the frame height */
-		R_HActive = (u32)SCPtr->HFrontPorchStart;
-		R_VActive = (u32)SCPtr->V0FrontPorchStart;
-
-		RegValue = (R_HTotal) & (XVTC_SB_START_MASK);
+		RegValue = (r_htotal) & XVTC_SB_START_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GHSIZE_OFFSET), RegValue);
+					XVTC_GHSIZE_OFFSET, RegValue);
 
-		RegValue = (R_VTotal) & (XVTC_VSIZE_F0_MASK);
-		RegValue |= ((SCPtr->V1Total) << (XVTC_VSIZE_F1_SHIFT)) &
-							(XVTC_VSIZE_F1_MASK);
+		RegValue = (r_vtotal) & XVTC_VSIZE_F0_MASK;
+		RegValue |= ((SCPtr->V1Total) << XVTC_VSIZE_F1_SHIFT) &
+							XVTC_VSIZE_F1_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GVSIZE_OFFSET), RegValue);
+						XVTC_GVSIZE_OFFSET, RegValue);
 
-		RegValue = (R_HActive) & (XVTC_ASIZE_HORI_MASK);
-		RegValue |= ((R_VActive) << (XVTC_ASIZE_VERT_SHIFT)) &
-						(XVTC_ASIZE_VERT_MASK);
+
+		RegValue = (r_hactive) & XVTC_ASIZE_HORI_MASK;
+		RegValue |= ((r_vactive) << XVTC_ASIZE_VERT_SHIFT) &
+							XVTC_ASIZE_VERT_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GASIZE_OFFSET), RegValue);
+						XVTC_GASIZE_OFFSET, RegValue);
 
 		/* Update the Generator Horizontal 1 Register */
-		RegValue = ((u32)(SCPtr->HSyncStart) & (XVTC_SB_START_MASK));
-		RegValue |= (((u32)(SCPtr->HBackPorchStart) <<
-				(XVTC_SB_END_SHIFT)) & (XVTC_SB_END_MASK));
+		RegValue = (SCPtr->HSyncStart) & XVTC_SB_START_MASK;
+		RegValue |= ((SCPtr->HBackPorchStart) << XVTC_SB_END_SHIFT) &
+						XVTC_SB_END_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GHSYNC_OFFSET), RegValue);
+					XVTC_GHSYNC_OFFSET, RegValue);
 
 
 		/* Update the Generator Vertical Sync Register (field 0) */
-		RegValue = ((u32)SCPtr->V0SyncStart & (XVTC_SB_START_MASK));
-		RegValue |= (((u32)(SCPtr->V0BackPorchStart) <<
-				(XVTC_SB_END_SHIFT)) & (XVTC_SB_END_MASK));
+		RegValue = (SCPtr->V0SyncStart) & XVTC_SB_START_MASK;
+		RegValue |= ((SCPtr->V0BackPorchStart) << XVTC_SB_END_SHIFT) &
+						XVTC_SB_END_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GVSYNC_OFFSET), RegValue);
+						XVTC_GVSYNC_OFFSET, RegValue);
 
 		/* Update the Generator Vertical Sync Register (field 1) */
-		RegValue = ((u32)(SCPtr->V1SyncStart) & (XVTC_SB_START_MASK));
-		RegValue |= (((u32)(SCPtr->V1BackPorchStart) <<
-				(XVTC_SB_END_SHIFT)) & (XVTC_SB_END_MASK));
+		RegValue = (SCPtr->V1SyncStart) & XVTC_SB_START_MASK;
+		RegValue |= ((SCPtr->V1BackPorchStart) << XVTC_SB_END_SHIFT) &
+						XVTC_SB_END_MASK;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-					(XVTC_GVSYNC_F1_OFFSET), RegValue);
+					XVTC_GVSYNC_F1_OFFSET, RegValue);
 
 		/* Chroma Start */
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GFENC_OFFSET));
-		RegValue &= (u32)(~(XVTC_ENC_CPARITY_MASK));
-		RegValue |= (((u32)((u32)SCPtr->V0ChromaStart -
-				(u32)SCPtr->V0ActiveStart) <<
-					(XVTC_ENC_CPARITY_SHIFT)) &
-						(XVTC_ENC_CPARITY_MASK));
+		  RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
+							XVTC_GFENC_OFFSET);
+		RegValue &= ~XVTC_ENC_CPARITY_MASK;
+		RegValue = (((SCPtr->V0ChromaStart - SCPtr->V0ActiveStart) <<
+							XVTC_ENC_CPARITY_SHIFT)
+					& XVTC_ENC_CPARITY_MASK) | RegValue;
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
-				(XVTC_GFENC_OFFSET), RegValue);
+					XVTC_GFENC_OFFSET, RegValue);
 
 		/* Setup default Horizontal Offsets - can override later with
-		 * XVtc_SetGeneratorHoriOffset
+		 * XVtc_SetGeneratorHoriOffset()
 		 */
-		HoriOffsets.V0BlankHoriStart = (u16)R_HActive;
-		HoriOffsets.V0BlankHoriEnd = (u16)R_HActive;
-		HoriOffsets.V0SyncHoriStart = SCPtr->HSyncStart;
-		HoriOffsets.V0SyncHoriEnd = SCPtr->HSyncStart;
-		HoriOffsets.V1BlankHoriStart = (u16)R_HActive;
-		HoriOffsets.V1BlankHoriEnd = (u16)R_HActive;
-		HoriOffsets.V1SyncHoriStart = SCPtr->HSyncStart;
-		HoriOffsets.V1SyncHoriEnd = SCPtr->HSyncStart;
+		horiOffsets.V0BlankHoriStart = r_hactive;
+		horiOffsets.V0BlankHoriEnd = r_hactive;
+		horiOffsets.V0SyncHoriStart = SCPtr->HSyncStart;
+		horiOffsets.V0SyncHoriEnd = SCPtr->HSyncStart;
+		horiOffsets.V1BlankHoriStart = r_hactive;
+		horiOffsets.V1BlankHoriEnd = r_hactive;
+		horiOffsets.V1SyncHoriStart = SCPtr->HSyncStart;
+		horiOffsets.V1SyncHoriEnd = SCPtr->HSyncStart;
+
 	}
-	XVtc_SetGeneratorHoriOffset(InstancePtr, &HoriOffsets);
+	XVtc_SetGeneratorHoriOffset(InstancePtr, &horiOffsets);
+
 }
 
 /*****************************************************************************/
@@ -1594,159 +1472,116 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 void XVtc_GetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 {
 	u32 RegValue;
-	u32 R_HTotal;
-	u32 R_VTotal;
-	u32 R_HActive;
-	u32 R_VActive;
+  u32 r_htotal, r_vtotal, r_hactive, r_vactive;
 	XVtc_Signal *SCPtr;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(SignalCfgPtr != NULL);
 
 	SCPtr = SignalCfgPtr;
+  if(SCPtr->OriginMode == 0)
+  {
 
-	/* checking for origin mode */
-	if (SCPtr->OriginMode == (u16)0x0) {
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GHSIZE_OFFSET));
-		R_HTotal = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->HTotal = (u16)((R_HTotal - (u32)1) &
-						(XVTC_SB_START_MASK));
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, XVTC_GHSIZE_OFFSET);
+	r_htotal = (RegValue) & XVTC_SB_START_MASK;
+	SCPtr->HTotal = (r_htotal-1) & XVTC_SB_START_MASK;
 
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSIZE_OFFSET));
-		R_VTotal = (RegValue) & (XVTC_VSIZE_F0_MASK);
-		SCPtr->V0Total = (u16)((R_VTotal - (u32)1) &
-						(XVTC_VSIZE_F0_MASK));
-		SCPtr->V1Total = (u16)((RegValue & (XVTC_VSIZE_F1_MASK)) >>
-							(XVTC_VSIZE_F1_SHIFT));
-		if (SCPtr->V1Total != 0x0) {
-			SCPtr->V1Total = SCPtr->V1Total - (u16)1;
-		}
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, XVTC_GVSIZE_OFFSET);
+	r_vtotal = (RegValue) & XVTC_VSIZE_F0_MASK;
+	SCPtr->V0Total = (r_vtotal-1) & XVTC_VSIZE_F0_MASK;
+	SCPtr->V1Total = (RegValue & XVTC_VSIZE_F1_MASK) >> XVTC_VSIZE_F1_SHIFT;
+    if(SCPtr->V1Total != 0)
+    {
+      SCPtr->V1Total = SCPtr->V1Total - 1;
+    }
 
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GASIZE_OFFSET));
-		R_HActive = (RegValue) & (XVTC_ASIZE_HORI_MASK);
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, XVTC_GASIZE_OFFSET);
+	r_hactive = (RegValue) & XVTC_ASIZE_HORI_MASK;
+	SCPtr->HActiveStart = (r_htotal - r_hactive) & XVTC_ASIZE_HORI_MASK;
+	r_vactive = (RegValue & XVTC_ASIZE_VERT_MASK) >> XVTC_ASIZE_VERT_SHIFT;
 
-		SCPtr->HActiveStart = (u16)((R_HTotal - R_HActive) &
-						(XVTC_ASIZE_HORI_MASK));
-		R_VActive = (RegValue & (XVTC_ASIZE_VERT_MASK)) >>
-						(XVTC_ASIZE_VERT_SHIFT);
+	SCPtr->V0ActiveStart = (r_vtotal - r_vactive) & XVTC_VSIZE_F0_MASK;
+	SCPtr->V1ActiveStart = (SCPtr->V1Total - r_vactive - 1) & XVTC_VSIZE_F0_MASK;
 
-		SCPtr->V0ActiveStart = (u16)((R_VTotal - R_VActive) &
-						(XVTC_VSIZE_F0_MASK));
-		SCPtr->V1ActiveStart = ((SCPtr->V1Total -
-						(u16)R_VActive - 1) &
-						(u16)(XVTC_VSIZE_F0_MASK));
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, XVTC_GHSYNC_OFFSET);
+    SCPtr->HSyncStart = ((RegValue - r_hactive) & XVTC_SB_START_MASK);
+    SCPtr->HBackPorchStart = (((RegValue>>16) - r_hactive) & XVTC_SB_START_MASK);
 
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GHSYNC_OFFSET));
-		SCPtr->HSyncStart = (u16)((RegValue - R_HActive) &
-						(XVTC_SB_START_MASK));
-		SCPtr->HBackPorchStart = (u16)(((RegValue >> 16) -
-					R_HActive) & (XVTC_SB_START_MASK));
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, XVTC_GVSYNC_OFFSET);
+    SCPtr->V0SyncStart = ((RegValue-r_vactive+1) & XVTC_SB_START_MASK);
+    SCPtr->V0BackPorchStart = (((RegValue>>16) - r_vactive+1) & XVTC_SB_START_MASK);
 
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSYNC_OFFSET));
-		SCPtr->V0SyncStart = (u16)((RegValue - (R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
-		SCPtr->V0BackPorchStart = (u16)(((RegValue >> 16) -
-						(R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, XVTC_GVSYNC_F1_OFFSET);
+    SCPtr->V1SyncStart = ((RegValue-r_vactive+1) & XVTC_SB_START_MASK);
+    SCPtr->V1BackPorchStart = (((RegValue>>16) - r_vactive+1) & XVTC_SB_START_MASK);
 
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSYNC_F1_OFFSET));
-		SCPtr->V1SyncStart = (u16)((RegValue - (R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
-		SCPtr->V1BackPorchStart = (u16)(((RegValue >> 16) -
-							(R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
 
-		/* Get signal values from the Generator Vertical 2
-		 * Register (field 0)
-		 */
-		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GFENC_OFFSET));
-		SCPtr->V0ChromaStart = (u16)(((RegValue &
-						(XVTC_ENC_CPARITY_MASK)) >>
-						(XVTC_ENC_CPARITY_SHIFT)) +
-						(R_VTotal - R_VActive)) &
-						(XVTC_SB_START_MASK);
-		SCPtr->V1ChromaStart = (u16)((((RegValue &
-						(XVTC_ENC_CPARITY_MASK)) >>
-						(XVTC_ENC_CPARITY_SHIFT)) +
-						(SCPtr->V1Total -
-						(u16)R_VActive - 1)) &
-						(u32)(XVTC_SB_START_MASK));
+	/* Get signal values from the Generator Vertical 2 Register (field 0)*/
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress, XVTC_GFENC_OFFSET);
+	SCPtr->V0ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+					XVTC_ENC_CPARITY_SHIFT) + (r_vtotal - r_vactive)) & XVTC_SB_START_MASK;
 
-		SCPtr->HFrontPorchStart = 0x0;
-		SCPtr->V0FrontPorchStart = 0x0;
-	}
+	SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+					XVTC_ENC_CPARITY_SHIFT) + (SCPtr->V1Total - r_vactive - 1)) & XVTC_SB_START_MASK;
+
+
+    SCPtr->HFrontPorchStart = 0;
+    SCPtr->V0FrontPorchStart = 0;
+  }
 	else
 	{
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GHSIZE_OFFSET));
-		R_HTotal = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->HTotal = (u16)((R_HTotal) & (XVTC_SB_START_MASK));
+							XVTC_GHSIZE_OFFSET);
+		r_htotal = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->HTotal = (r_htotal) & XVTC_SB_START_MASK;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSIZE_OFFSET));
-		R_VTotal = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->V0Total = (u16)((R_VTotal) & (XVTC_SB_START_MASK));
-		SCPtr->V1Total = (u16)((RegValue >> (XVTC_SB_END_SHIFT)) &
-							(XVTC_SB_START_MASK));
+							XVTC_GVSIZE_OFFSET);
+		r_vtotal = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->V0Total = (r_vtotal) & XVTC_SB_START_MASK;
+		SCPtr->V1Total = (RegValue>>XVTC_SB_END_SHIFT) &
+							XVTC_SB_START_MASK;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GASIZE_OFFSET));
-		R_HActive = (RegValue & (XVTC_SB_START_MASK));
-		SCPtr->HFrontPorchStart = (u16)(R_HActive &
-						(XVTC_SB_START_MASK));
-		R_VActive = (RegValue>>(XVTC_SB_END_SHIFT)) &
-						(XVTC_SB_START_MASK);
-		SCPtr->V0FrontPorchStart = (u16)(R_VActive &
-						(XVTC_SB_START_MASK));
-
+							XVTC_GASIZE_OFFSET);
+		r_hactive = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->HFrontPorchStart = (r_hactive) & XVTC_SB_START_MASK;
+		r_vactive = (RegValue>>XVTC_SB_END_SHIFT) & XVTC_SB_START_MASK;
+		SCPtr->V0FrontPorchStart = (r_vactive) & XVTC_SB_START_MASK;
 		SCPtr->V1FrontPorchStart = SCPtr->V0FrontPorchStart;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GHSYNC_OFFSET));
-		SCPtr->HSyncStart = (u16)((RegValue) & (XVTC_SB_START_MASK));
-		SCPtr->HBackPorchStart = (u16)(((RegValue >>
-				XVTC_SB_END_SHIFT))) & (XVTC_SB_START_MASK);
+							XVTC_GHSYNC_OFFSET);
+		SCPtr->HSyncStart = ((RegValue) & XVTC_SB_START_MASK);
+		SCPtr->HBackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT)) &
+							XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSYNC_OFFSET));
-		SCPtr->V0SyncStart = (u16)((RegValue) & (XVTC_SB_START_MASK));
-		SCPtr->V0BackPorchStart = (u16)(((RegValue >>
-							(XVTC_SB_END_SHIFT))) &
-							(XVTC_SB_START_MASK));
+							XVTC_GVSYNC_OFFSET);
+		SCPtr->V0SyncStart = ((RegValue) & XVTC_SB_START_MASK);
+		SCPtr->V0BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT)) &
+							XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSYNC_F1_OFFSET));
-		SCPtr->V1SyncStart = (u16)((RegValue) & (XVTC_SB_START_MASK));
-		SCPtr->V1BackPorchStart = (u16)(((RegValue >>
-						(XVTC_SB_END_SHIFT))) &
-							(XVTC_SB_START_MASK));
+							XVTC_GVSYNC_F1_OFFSET);
+		SCPtr->V1SyncStart = ((RegValue) & XVTC_SB_START_MASK);
+		SCPtr->V1BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT)) &
+							XVTC_SB_START_MASK);
 
-		/* Get signal values from the Generator Vertical 2
-		 * Register (field 0)
-		 */
+		/* Get signal values from the Generator Vertical 2 Register (field 0)*/
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GFENC_OFFSET));
+							XVTC_GFENC_OFFSET);
+		SCPtr->V0ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+				XVTC_ENC_CPARITY_SHIFT)) & XVTC_SB_START_MASK;
+		SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+				XVTC_ENC_CPARITY_SHIFT)) & XVTC_SB_START_MASK;
 
-		SCPtr->V0ChromaStart =
-			(u16)((((RegValue & (XVTC_ENC_CPARITY_MASK)) >>
-			(XVTC_ENC_CPARITY_SHIFT))) & (XVTC_SB_START_MASK));
-		SCPtr->V1ChromaStart =
-			(u16)((((RegValue & (XVTC_ENC_CPARITY_MASK)) >>
-				(XVTC_ENC_CPARITY_SHIFT))) &
-					(XVTC_SB_START_MASK));
 
-		SCPtr->HActiveStart = 0x0;
-		SCPtr->V0ActiveStart = 0x0;
-		SCPtr->V1ActiveStart = 0x0;
+		SCPtr->HActiveStart = 0;
+		SCPtr->V0ActiveStart = 0;
+		SCPtr->V1ActiveStart = 0;
 	}
 }
 
@@ -1770,161 +1605,143 @@ void XVtc_GetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 void XVtc_GetDetector(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 {
 	u32 RegValue;
-	u32 R_HTotal;
-	u32 R_VTotal;
-	u32 R_HActive;
-	u32 R_VActive;
+	u32 r_htotal, r_vtotal, r_hactive, r_vactive;
 	XVtc_Signal *SCPtr;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(SignalCfgPtr != NULL);
 
 	SCPtr = SignalCfgPtr;
 
-	/* Checking value of oringinMode */
-	if (SCPtr->OriginMode == (u16)0x0) {
+	if(SCPtr->OriginMode == 0)
+	{
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DHSIZE_OFFSET));
-		R_HTotal = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->HTotal = (u16)((R_HTotal - (u32)1) &
-						(XVTC_SB_START_MASK));
+						XVTC_DHSIZE_OFFSET);
+		r_htotal = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->HTotal = (r_htotal-1) & XVTC_SB_START_MASK;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DVSIZE_OFFSET));
-		R_VTotal = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->V0Total = (u16)((R_VTotal - (u32)1) &
-						(XVTC_SB_START_MASK));
-		SCPtr->V1Total = (u16)((RegValue >> (XVTC_SB_END_SHIFT)) &
-							(XVTC_SB_START_MASK));
-
-		/* Checking for V1Total value */
-		if (SCPtr->V1Total != (u16)0x0) {
-			SCPtr->V1Total = SCPtr->V1Total - (u16)1;
+						XVTC_DVSIZE_OFFSET);
+		r_vtotal = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->V0Total = (r_vtotal-1) & XVTC_SB_START_MASK;
+		SCPtr->V1Total = (RegValue>>XVTC_SB_END_SHIFT) &
+							XVTC_SB_START_MASK;
+		if(SCPtr->V1Total != 0) {
+			SCPtr->V1Total = SCPtr->V1Total - 1;
 		}
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DASIZE_OFFSET));
-		R_HActive = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->HActiveStart = (u16)((R_HTotal - R_HActive) &
-							(XVTC_SB_START_MASK));
-		R_VActive = (RegValue>>(XVTC_SB_END_SHIFT)) &
-							(XVTC_SB_START_MASK);
-		SCPtr->V0ActiveStart = (u16)((R_VTotal - R_VActive) &
-							(XVTC_SB_START_MASK));
-		SCPtr->V1ActiveStart =
-			(u16)((SCPtr->V1Total - (u16)R_VActive - (u16)1) &
-							(XVTC_SB_START_MASK));
+							XVTC_DASIZE_OFFSET);
+		r_hactive = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->HActiveStart = (r_htotal - r_hactive) &
+						XVTC_SB_START_MASK;
+		r_vactive = (RegValue>>XVTC_SB_END_SHIFT) &
+						XVTC_SB_START_MASK;
+		SCPtr->V0ActiveStart = (r_vtotal - r_vactive) &
+						XVTC_SB_START_MASK;
+		SCPtr->V1ActiveStart = (SCPtr->V1Total - r_vactive - 1) &
+							XVTC_SB_START_MASK;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DHSYNC_OFFSET));
-		SCPtr->HSyncStart = (u16)((RegValue - R_HActive) &
-							(XVTC_SB_START_MASK));
-		SCPtr->HBackPorchStart =
-			(u16)(((RegValue >> (XVTC_SB_END_SHIFT)) -
-					R_HActive) & (XVTC_SB_START_MASK));
+							XVTC_DHSYNC_OFFSET);
+		SCPtr->HSyncStart = ((RegValue - r_hactive) &
+						XVTC_SB_START_MASK);
+		SCPtr->HBackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT) -
+							r_hactive)
+						& XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DVSYNC_OFFSET));
-		SCPtr->V0SyncStart = (u16)((RegValue - (R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
-		SCPtr->V0BackPorchStart = (u16)(((RegValue >>
-					(XVTC_SB_END_SHIFT)) -
-						(R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
+							XVTC_DVSYNC_OFFSET);
+		SCPtr->V0SyncStart = ((RegValue-r_vactive+1) &
+							XVTC_SB_START_MASK);
+		SCPtr->V0BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT) -
+					r_vactive+1) & XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSYNC_F1_OFFSET));
-		SCPtr->V1SyncStart = (u16)((RegValue - (R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
-		SCPtr->V1BackPorchStart = (u16)(((RegValue >>
-						(XVTC_SB_END_SHIFT)) -
-						(R_VActive + 1)) &
-						(u32)(XVTC_SB_START_MASK));
+						XVTC_GVSYNC_F1_OFFSET);
+		SCPtr->V1SyncStart = ((RegValue-r_vactive+1) &
+						XVTC_SB_START_MASK);
+		SCPtr->V1BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT) -
+								r_vactive+1)
+							& XVTC_SB_START_MASK);
 
 		/* Get signal values from the Generator Vertical 2 Register
 		 * (field 0)
 		 */
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DFENC_OFFSET));
-		SCPtr->V0ChromaStart = (u16)((((RegValue &
-						(XVTC_ENC_CPARITY_MASK)) >>
-					(XVTC_ENC_CPARITY_SHIFT)) + (R_VTotal -
-					R_VActive)) & (XVTC_SB_START_MASK));
+							XVTC_DFENC_OFFSET);
+		SCPtr->V0ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+					XVTC_ENC_CPARITY_SHIFT) +
+				(r_vtotal - r_vactive)) & XVTC_SB_START_MASK;
 
-		SCPtr->V1ChromaStart = (u16)((((RegValue &
-						(XVTC_ENC_CPARITY_MASK)) >>
-						(XVTC_ENC_CPARITY_SHIFT)) +
-				((u32)SCPtr->V1Total - R_VActive - 1)) &
-						(u32)(XVTC_SB_START_MASK));
+		SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+						XVTC_ENC_CPARITY_SHIFT) +
+			(SCPtr->V1Total - r_vactive - 1)) & XVTC_SB_START_MASK;
 
-		SCPtr->HFrontPorchStart = 0x0;
-		SCPtr->V0FrontPorchStart = 0x0;
+		SCPtr->HFrontPorchStart = 0;
+		SCPtr->V0FrontPorchStart = 0;
 	}
-	else {
+	else
+	{
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DHSIZE_OFFSET));
-		R_HTotal = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->HTotal = (u16)(R_HTotal & (XVTC_SB_START_MASK));
+							XVTC_DHSIZE_OFFSET);
+		r_htotal = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->HTotal = (r_htotal) & XVTC_SB_START_MASK;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DVSIZE_OFFSET));
-		R_VTotal = (RegValue & (XVTC_SB_START_MASK));
-		SCPtr->V0Total = (u16)(R_VTotal & (XVTC_SB_START_MASK));
-		SCPtr->V1Total = (u16)((RegValue >> (XVTC_SB_END_SHIFT)) &
-							(XVTC_SB_START_MASK));
+							XVTC_DVSIZE_OFFSET);
+		r_vtotal = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->V0Total = (r_vtotal) & XVTC_SB_START_MASK;
+		SCPtr->V1Total = (RegValue>>XVTC_SB_END_SHIFT) &
+							XVTC_SB_START_MASK;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DASIZE_OFFSET));
-		R_HActive = (RegValue) & (XVTC_SB_START_MASK);
-		SCPtr->HFrontPorchStart = (u16)(R_HActive &
-							(XVTC_SB_START_MASK));
-		R_VActive = (RegValue>>(XVTC_SB_END_SHIFT)) &
-							(XVTC_SB_START_MASK);
-		SCPtr->V0FrontPorchStart = (u16)(R_VActive &
-							(XVTC_SB_START_MASK));
+							XVTC_DASIZE_OFFSET);
+		r_hactive = (RegValue) & XVTC_SB_START_MASK;
+		SCPtr->HFrontPorchStart = (r_hactive) & XVTC_SB_START_MASK;
+		r_vactive = (RegValue>>XVTC_SB_END_SHIFT) & XVTC_SB_START_MASK;
+		SCPtr->V0FrontPorchStart = (r_vactive) & XVTC_SB_START_MASK;
 		SCPtr->V1FrontPorchStart = SCPtr->V0FrontPorchStart;
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DHSYNC_OFFSET));
-		SCPtr->HSyncStart = (u16)((RegValue) & (XVTC_SB_START_MASK));
-		SCPtr->HBackPorchStart = (u16)(((RegValue >>
-						(XVTC_SB_END_SHIFT))) &
-							(XVTC_SB_START_MASK));
+							XVTC_DHSYNC_OFFSET);
+		SCPtr->HSyncStart = ((RegValue) & XVTC_SB_START_MASK);
+		SCPtr->HBackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT)) &
+							XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DVSYNC_OFFSET));
-		SCPtr->V0SyncStart = (u16)((RegValue) & (XVTC_SB_START_MASK));
-		SCPtr->V0BackPorchStart = (u16)(((RegValue >>
-							(XVTC_SB_END_SHIFT))) &
-							(XVTC_SB_START_MASK));
+							XVTC_DVSYNC_OFFSET);
+		SCPtr->V0SyncStart = ((RegValue) & XVTC_SB_START_MASK);
+		SCPtr->V0BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT)) &
+							XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_GVSYNC_F1_OFFSET));
-		SCPtr->V1SyncStart = (u16)((RegValue) & (XVTC_SB_START_MASK));
-		SCPtr->V1BackPorchStart = (u16)(((RegValue >>
-							(XVTC_SB_END_SHIFT))) &
-							(XVTC_SB_START_MASK));
+							XVTC_GVSYNC_F1_OFFSET);
+		SCPtr->V1SyncStart = ((RegValue) & XVTC_SB_START_MASK);
+		SCPtr->V1BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT)) &
+							XVTC_SB_START_MASK);
 
-		/* Get signal values from the Generator Vertical
-		 * 2 Register (field 0)
+
+		/* Get signal values from the Generator Vertical 2 Register
+		 * (field 0)
 		 */
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						(XVTC_DFENC_OFFSET));
-		SCPtr->V0ChromaStart = (u16)((((RegValue &
-						(XVTC_ENC_CPARITY_MASK)) >>
-						  (XVTC_ENC_CPARITY_SHIFT))) &
-							(XVTC_SB_START_MASK));
-		SCPtr->V1ChromaStart = (u16)((((RegValue &
-						(XVTC_ENC_CPARITY_MASK)) >>
-						  (XVTC_ENC_CPARITY_SHIFT))) &
-							(XVTC_SB_START_MASK));
+							XVTC_DFENC_OFFSET);
+		SCPtr->V0ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+				XVTC_ENC_CPARITY_SHIFT)) & XVTC_SB_START_MASK;
 
-		SCPtr->HActiveStart = 0x0;
-		SCPtr->V0ActiveStart = 0x0;
-		SCPtr->V1ActiveStart = 0x0;
+		SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
+				XVTC_ENC_CPARITY_SHIFT)) & XVTC_SB_START_MASK;
+
+
+		SCPtr->HActiveStart = 0;
+		SCPtr->V0ActiveStart = 0;
+		SCPtr->V1ActiveStart = 0;
 	}
+
+
 }
 
 /*****************************************************************************/
@@ -1976,274 +1793,271 @@ void XVtc_ConvVideoMode2Timing(XVtc *InstancePtr, u16 Mode,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(TimingPtr != NULL);
 
 	/* clear timing structure. Set Interlaced to 0 by default */
-	(void)memset((void *)TimingPtr, 0, sizeof(XVtc_Timing));
+	memset((void *)TimingPtr, 0, sizeof(XVtc_Timing));
 
-	/* Assigning values based on type of mode */
-	switch(Mode) {
-		case (XVTC_VMODE_720P): /* 720p@60 (1280x720 HD 720) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)1280;
-			TimingPtr->HFrontPorch   = (u16)110;
-			TimingPtr->HSyncWidth    = (u16)40;
-			TimingPtr->HBackPorch    = (u16)220;
-			TimingPtr->HSyncPolarity = (u16)1;
+	switch(Mode)
+	{
+	case XVTC_VMODE_720P: // 720p@60 (1280x720 HD 720)
+	{
 
-			/* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)720;
-			TimingPtr->V0FrontPorch   = (u16)5;
-			TimingPtr->V0SyncWidth    = (u16)5;
-			TimingPtr->V0BackPorch    = (u16)20;
-			TimingPtr->VSyncPolarity  = (u16)1;
-			break;
-		}
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 1280;
+		TimingPtr->HFrontPorch   = 110;
+		TimingPtr->HSyncWidth    = 40;
+		TimingPtr->HBackPorch    = 220;
+		TimingPtr->HSyncPolarity = 1;
 
-		case (XVTC_VMODE_1080P): /* 1080p@60 (1920x1080 HD 1080) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)1920;
-			TimingPtr->HFrontPorch   = (u16)88;
-			TimingPtr->HSyncWidth    = (u16)44;
-			TimingPtr->HBackPorch    = (u16)148;
-			TimingPtr->HSyncPolarity = (u16)1;
+		// Vertical Timing
+		TimingPtr->VActiveVideo  = 720;
+		TimingPtr->V0FrontPorch   = 5;
+		TimingPtr->V0SyncWidth    = 5;
+		TimingPtr->V0BackPorch    = 20;
+		TimingPtr->VSyncPolarity = 1;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)1080;
-			TimingPtr->V0FrontPorch   = (u16)4;
-			TimingPtr->V0SyncWidth    = (u16)5;
-			TimingPtr->V0BackPorch    = (u16)36;
-			TimingPtr->VSyncPolarity  = (u16)1;
-			break;
-		}
+		break;
+	}
+	case XVTC_VMODE_1080P: // 1080p@60 (1920x1080 HD 1080)
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 1920;
+		TimingPtr->HFrontPorch   = 88;
+		TimingPtr->HSyncWidth    = 44;
+		TimingPtr->HBackPorch    = 148;
+		TimingPtr->HSyncPolarity = 1;
 
-		case (XVTC_VMODE_480P): /* 480p@60 */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)720;
-			TimingPtr->HFrontPorch   = (u16)16;
-			TimingPtr->HSyncWidth    = (u16)62;
-			TimingPtr->HBackPorch    = (u16)60;
-			TimingPtr->HSyncPolarity = (u16)0;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 1080;
+		TimingPtr->V0FrontPorch   = 4;
+		TimingPtr->V0SyncWidth    = 5;
+		TimingPtr->V0BackPorch    = 36;
+		TimingPtr->VSyncPolarity = 1;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)480;
-			TimingPtr->V0FrontPorch   = (u16)9;
-			TimingPtr->V0SyncWidth    = (u16)6;
-			TimingPtr->V0BackPorch    = (u16)30;
-			TimingPtr->VSyncPolarity  = (u16)0;
-			break;
-		}
+		break;
+	}
+	case XVTC_VMODE_480P: // 480p@60
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 720;
+		TimingPtr->HFrontPorch   = 16;
+		TimingPtr->HSyncWidth    = 62;
+		TimingPtr->HBackPorch    = 60;
+		TimingPtr->HSyncPolarity = 0;
 
-		case (XVTC_VMODE_576P): /* 576p@50 */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)720;
-			TimingPtr->HFrontPorch   = (u16)12;
-			TimingPtr->HSyncWidth    = (u16)64;
-			TimingPtr->HBackPorch    = (u16)68;
-			TimingPtr->HSyncPolarity = (u16)0;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 480;
+		TimingPtr->V0FrontPorch   = 9;
+		TimingPtr->V0SyncWidth    = 6;
+		TimingPtr->V0BackPorch    = 30;
+		TimingPtr->VSyncPolarity = 0;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)576;
-			TimingPtr->V0FrontPorch   = (u16)5;
-			TimingPtr->V0SyncWidth    = (u16)5;
-			TimingPtr->V0BackPorch    = (u16)39;
-			TimingPtr->VSyncPolarity  = (u16)0;
-			break;
-		}
+		break;
+	}
+	case XVTC_VMODE_576P: // 576p@50
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 720;
+		TimingPtr->HFrontPorch   = 12;
+		TimingPtr->HSyncWidth    = 64;
+		TimingPtr->HBackPorch    = 68;
+		TimingPtr->HSyncPolarity = 0;
 
-		case (XVTC_VMODE_VGA): /* 640x480 (VGA) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)656;
-			TimingPtr->HFrontPorch   = (u16)8;
-			TimingPtr->HSyncWidth    = (u16)96;
-			TimingPtr->HBackPorch    = (u16)40;
-			TimingPtr->HSyncPolarity = (u16)0;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 576;
+		TimingPtr->V0FrontPorch   = 5;
+		TimingPtr->V0SyncWidth    = 5;
+		TimingPtr->V0BackPorch    = 39;
+		TimingPtr->VSyncPolarity = 0;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)496;
-			TimingPtr->V0FrontPorch   = (u16)2;
-			TimingPtr->V0SyncWidth    = (u16)2;
-			TimingPtr->V0BackPorch    = (u16)25;
-			TimingPtr->VSyncPolarity  = (u16)0;
-			break;
-		}
+		break;
+	}
+	case XVTC_VMODE_VGA: // 640x480 (VGA)
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 656;
+		TimingPtr->HFrontPorch   = 8;
+		TimingPtr->HSyncWidth    = 96;
+		TimingPtr->HBackPorch    = 40;
+		TimingPtr->HSyncPolarity = 0;
 
-		case (XVTC_VMODE_SVGA): /* 800x600@60 (SVGA) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)800;
-			TimingPtr->HFrontPorch   = (u16)40;
-			TimingPtr->HSyncWidth    = (u16)128;
-			TimingPtr->HBackPorch    = (u16)88;
-			TimingPtr->HSyncPolarity = (u16)1;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 496;
+		TimingPtr->V0FrontPorch   = 2;
+		TimingPtr->V0SyncWidth    = 2;
+		TimingPtr->V0BackPorch    = 25;
+		TimingPtr->VSyncPolarity = 0;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)600;
-			TimingPtr->V0FrontPorch   = (u16)1;
-			TimingPtr->V0SyncWidth    = (u16)4;
-			TimingPtr->V0BackPorch    = (u16)23;
-			TimingPtr->VSyncPolarity  = (u16)1;
-			break;
-		}
+		break;
+	}
+	case XVTC_VMODE_SVGA: // 800x600@60 (SVGA)
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 800;
+		TimingPtr->HFrontPorch   = 40;
+		TimingPtr->HSyncWidth    = 128;
+		TimingPtr->HBackPorch    = 88;
+		TimingPtr->HSyncPolarity = 1;
 
-		case (XVTC_VMODE_XGA): /* 1024x768@60 (XGA) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)1024;
-			TimingPtr->HFrontPorch   = (u16)24;
-			TimingPtr->HSyncWidth    = (u16)136;
-			TimingPtr->HBackPorch    = (u16)160;
-			TimingPtr->HSyncPolarity = (u16)0;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 600;
+		TimingPtr->V0FrontPorch   = 1;
+		TimingPtr->V0SyncWidth    = 4;
+		TimingPtr->V0BackPorch    = 23;
+		TimingPtr->VSyncPolarity = 1;
 
-			/* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)768;
-			TimingPtr->V0FrontPorch   = (u16)3;
-			TimingPtr->V0SyncWidth    = (u16)6;
-			TimingPtr->V0BackPorch    = (u16)29;
-			TimingPtr->VSyncPolarity  = (u16)0;
-			break;
-		}
+		break;
+	}
+	case XVTC_VMODE_XGA: // 1024x768@60 (XGA)
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 1024;
+		TimingPtr->HFrontPorch   = 24;
+		TimingPtr->HSyncWidth    = 136;
+		TimingPtr->HBackPorch    = 160;
+		TimingPtr->HSyncPolarity = 0;
 
-		case (XVTC_VMODE_SXGA): /* 1280x1024@60 (SXGA) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)1280;
-			TimingPtr->HFrontPorch   = (u16)48;
-			TimingPtr->HSyncWidth    = (u16)112;
-			TimingPtr->HBackPorch    = (u16)248;
-			TimingPtr->HSyncPolarity = (u16)1;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 768;
+		TimingPtr->V0FrontPorch   = 3;
+		TimingPtr->V0SyncWidth    = 6;
+		TimingPtr->V0BackPorch    = 29;
+		TimingPtr->VSyncPolarity = 0;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)1024;
-			TimingPtr->V0FrontPorch   = (u16)1;
-			TimingPtr->V0SyncWidth    = (u16)3;
-			TimingPtr->V0BackPorch    = (u16)38;
-			TimingPtr->VSyncPolarity  = (u16)1;
-			break;
-		}
+		break;
+	}
+	case XVTC_VMODE_SXGA: // 1280x1024@60 (SXGA)
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 1280;
+		TimingPtr->HFrontPorch   = 48;
+		TimingPtr->HSyncWidth    = 112;
+		TimingPtr->HBackPorch    = 248;
+		TimingPtr->HSyncPolarity = 1;
 
-		case (XVTC_VMODE_WXGAPLUS): /* 1440x900@60 (WXGA+) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)1440;
-			TimingPtr->HFrontPorch   = (u16)80;
-			TimingPtr->HSyncWidth    = (u16)152;
-			TimingPtr->HBackPorch    = (u16)232;
-			TimingPtr->HSyncPolarity = (u16)0;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 1024;
+		TimingPtr->V0FrontPorch   = 1;
+		TimingPtr->V0SyncWidth    = 3;
+		TimingPtr->V0BackPorch    = 38;
+		TimingPtr->VSyncPolarity = 1;
 
-			/* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)900;
-			TimingPtr->V0FrontPorch   = (u16)3;
-			TimingPtr->V0SyncWidth    = (u16)6;
-			TimingPtr->V0BackPorch    = (u16)25;
-			TimingPtr->VSyncPolarity  = (u16)1;
-			break;
-		}
+		break;
+	}
 
-		case (XVTC_VMODE_WSXGAPLUS): /* 1680x1050@60 (WSXGA+) */
-		{
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)1680;
-			TimingPtr->HFrontPorch   = (u16)104;
-			TimingPtr->HSyncWidth    = (u16)176;
-			TimingPtr->HBackPorch    = (u16)280;
-			TimingPtr->HSyncPolarity = (u16)0;
+	case XVTC_VMODE_WXGAPLUS: // 1440x900@60 (WXGA+)
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 1440;
+		TimingPtr->HFrontPorch   = 80;
+		TimingPtr->HSyncWidth    = 152;
+		TimingPtr->HBackPorch    = 232;
+		TimingPtr->HSyncPolarity = 0;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)1050;
-			TimingPtr->V0FrontPorch   = (u16)3;
-			TimingPtr->V0SyncWidth    = (u16)6;
-			TimingPtr->V0BackPorch    = (u16)30;
-			TimingPtr->VSyncPolarity  = (u16)1;
-			break;
-		}
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 900;
+		TimingPtr->V0FrontPorch   = 3;
+		TimingPtr->V0SyncWidth    = 6;
+		TimingPtr->V0BackPorch    = 25;
+		TimingPtr->VSyncPolarity = 1;
 
-		case (XVTC_VMODE_1080I): /* 1080i@60 */
-		{
-			TimingPtr->Interlaced = (u8)1;
+		break;
+	}
+	case XVTC_VMODE_WSXGAPLUS: // 1680x1050@60 (WSXGA+)
+	{
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 1680;
+		TimingPtr->HFrontPorch   = 104;
+		TimingPtr->HSyncWidth    = 176;
+		TimingPtr->HBackPorch    = 280;
+		TimingPtr->HSyncPolarity = 0;
 
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)1920;
-			TimingPtr->HFrontPorch   = (u16)88;
-			TimingPtr->HSyncWidth    = (u16)44;
-			TimingPtr->HBackPorch    = (u16)148;
-			TimingPtr->HSyncPolarity = (u16)1;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 1050;
+		TimingPtr->V0FrontPorch   = 3;
+		TimingPtr->V0SyncWidth    = 6;
+		TimingPtr->V0BackPorch    = 30;
+		TimingPtr->VSyncPolarity = 1;
 
-			/* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)540;
-			TimingPtr->V0FrontPorch   = (u16)2;
-			TimingPtr->V0SyncWidth    = (u16)5;
-			TimingPtr->V0BackPorch    = (u16)15;
+		break;
+	}
+	case XVTC_VMODE_1080I: // 1080i@60
+	{
+		TimingPtr->Interlaced = 1;
 
-			TimingPtr->V1FrontPorch   = (u16)2;
-			TimingPtr->V1SyncWidth    = (u16)5;
-			TimingPtr->V1BackPorch    = (u16)16;
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 1920;
+		TimingPtr->HFrontPorch   = 88;
+		TimingPtr->HSyncWidth    = 44;
+		TimingPtr->HBackPorch    = 148;
+		TimingPtr->HSyncPolarity = 1;
 
-			TimingPtr->VSyncPolarity = (u16)1;
-			break;
-		}
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 540;
+		TimingPtr->V0FrontPorch   = 2;
+		TimingPtr->V0SyncWidth    = 5;
+		TimingPtr->V0BackPorch    = 15;
 
-		case (XVTC_VMODE_NTSC): /* 480i@60 */
-		{
-			TimingPtr->Interlaced = (u8)1;
+		TimingPtr->V1FrontPorch   = 2;
+		TimingPtr->V1SyncWidth    = 5;
+		TimingPtr->V1BackPorch    = 16;
 
-			/* Horizontal Timing */
-			TimingPtr->HActiveVideo  = (u16)720;
-			TimingPtr->HFrontPorch   = (u16)19;
-			TimingPtr->HSyncWidth    = (u16)62;
-			TimingPtr->HBackPorch    = (u16)57;
-			TimingPtr->HSyncPolarity = (u16)0;
+		TimingPtr->VSyncPolarity = 1;
 
-			 /* Vertical Timing */
-			TimingPtr->VActiveVideo   = (u16)240;
-			TimingPtr->V0FrontPorch   = (u16)4;
-			TimingPtr->V0SyncWidth    = (u16)3;
-			TimingPtr->V0BackPorch    = (u16)15;
+		break;
+	}
+	case XVTC_VMODE_NTSC: //480i@60
+	{
+		TimingPtr->Interlaced = 1;
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 720;
+		TimingPtr->HFrontPorch   = 19;
+		TimingPtr->HSyncWidth    = 62;
+		TimingPtr->HBackPorch    = 57;
+		TimingPtr->HSyncPolarity = 0;
 
-			TimingPtr->V1FrontPorch   = (u16)4;
-			TimingPtr->V1SyncWidth    = (u16)3;
-			TimingPtr->V1BackPorch    = (u16)16;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 240;
+		TimingPtr->V0FrontPorch   = 4;
+		TimingPtr->V0SyncWidth    = 3;
+		TimingPtr->V0BackPorch    = 15;
 
-			TimingPtr->VSyncPolarity = (u16)0;
-			break;
-		}
+		TimingPtr->V1FrontPorch   = 4;
+		TimingPtr->V1SyncWidth    = 3;
+		TimingPtr->V1BackPorch    = 16;
 
-		default: /* 576i@50 */
-		{
-			if (Mode == (XVTC_VMODE_PAL)) {
-				TimingPtr->Interlaced = (u8)1;
+		TimingPtr->VSyncPolarity = 0;
 
-				/* Horizontal Timing */
-				TimingPtr->HActiveVideo  = (u16)720;
-				TimingPtr->HFrontPorch   = (u16)12;
-				TimingPtr->HSyncWidth    = (u16)63;
-				TimingPtr->HBackPorch    = (u16)69;
-				TimingPtr->HSyncPolarity = (u16)0;
+		break;
+	}
+	case XVTC_VMODE_PAL: //576i@50
+	{
+		TimingPtr->Interlaced = 1;
+		// Horizontal Timing
+		TimingPtr->HActiveVideo  = 720;
+		TimingPtr->HFrontPorch   = 12;
+		TimingPtr->HSyncWidth    = 63;
+		TimingPtr->HBackPorch    = 69;
+		TimingPtr->HSyncPolarity = 0;
 
-				/* Vertical Timing */
-				TimingPtr->VActiveVideo   = (u16)288;
-				TimingPtr->V0FrontPorch   = (u16)2;
-				TimingPtr->V0SyncWidth    = (u16)3;
-				TimingPtr->V0BackPorch    = (u16)19;
+		 // Vertical Timing
+		TimingPtr->VActiveVideo  = 288;
+		TimingPtr->V0FrontPorch   = 2;
+		TimingPtr->V0SyncWidth    = 3;
+		TimingPtr->V0BackPorch    = 19;
 
-				TimingPtr->V1FrontPorch   = (u16)2;
-				TimingPtr->V1SyncWidth    = (u16)3;
-				TimingPtr->V1BackPorch    = (u16)20;
+		TimingPtr->V1FrontPorch   = 2;
+		TimingPtr->V1SyncWidth    = 3;
+		TimingPtr->V1BackPorch    = 20;
 
-				TimingPtr->VSyncPolarity = (u16)0;
-				break;
-			}
-			else {
-				break;
-			}
-		}
-		/* add other video formats here */
+		TimingPtr->VSyncPolarity = 0;
+
+		break;
+	}
+
+	// add other video formats here
 	}
 }
 
@@ -2274,34 +2088,33 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(TimingPtr != NULL);
 	Xil_AssertVoid(SignalCfgPtr != NULL);
 	Xil_AssertVoid(HOffPtr != NULL);
 	Xil_AssertVoid(PolarityPtr != NULL);
 
-	/* Setting up VTC Polarity.  */
-	(void)memset((void *)PolarityPtr, 0, sizeof(XVtc_Polarity));
 
+	/* Setting up VTC Polarity.  */
+	memset((void *)PolarityPtr, 0, sizeof(XVtc_Polarity));
 	PolarityPtr->ActiveChromaPol = 1;
 	PolarityPtr->ActiveVideoPol  = 1;
 	PolarityPtr->FieldIdPol      = 1;
-
 	/* Vblank matches Vsync Polarity */
-	PolarityPtr->VBlankPol       =(u8)TimingPtr->VSyncPolarity;
-	PolarityPtr->VSyncPol        = (u8)TimingPtr->VSyncPolarity;
-
+	PolarityPtr->VBlankPol       = TimingPtr->VSyncPolarity;
+	PolarityPtr->VSyncPol        = TimingPtr->VSyncPolarity;
 	/* hblank matches hsync Polarity */
-	PolarityPtr->HBlankPol       = (u8)TimingPtr->HSyncPolarity;
-	PolarityPtr->HSyncPol        = (u8)TimingPtr->HSyncPolarity;
+	PolarityPtr->HBlankPol       = TimingPtr->HSyncPolarity;
+	PolarityPtr->HSyncPol        = TimingPtr->HSyncPolarity;
 
-	(void)memset((void *)SignalCfgPtr, 0, sizeof(XVtc_Signal));
-	(void)memset((void *)HOffPtr, 0, sizeof(XVtc_HoriOffsets));
+
+	memset((void *)SignalCfgPtr, 0, sizeof(XVtc_Signal));
+	memset((void *)HOffPtr, 0, sizeof(XVtc_HoriOffsets));
 
 	/* Populate the VTC Signal config structure. */
 	/* Active Video starts at 0 */
 	SignalCfgPtr->OriginMode = 1;
-	SignalCfgPtr->HActiveStart      = 0x0;
+	SignalCfgPtr->HActiveStart      = 0;
 	SignalCfgPtr->HFrontPorchStart  = TimingPtr->HActiveVideo;
 	SignalCfgPtr->HSyncStart        = SignalCfgPtr->HFrontPorchStart +
 							TimingPtr->HFrontPorch;
@@ -2310,9 +2123,8 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 	SignalCfgPtr->HTotal            = SignalCfgPtr->HBackPorchStart +
 							TimingPtr->HBackPorch;
 
-	SignalCfgPtr->V0ChromaStart     = 0x0;
-	SignalCfgPtr->V0ActiveStart     = 0x0;
-
+	SignalCfgPtr->V0ChromaStart     = 0;
+	SignalCfgPtr->V0ActiveStart     = 0;
 	SignalCfgPtr->V0FrontPorchStart = TimingPtr->VActiveVideo;
 	SignalCfgPtr->V0SyncStart       = SignalCfgPtr->V0FrontPorchStart +
 						TimingPtr->V0FrontPorch;
@@ -2326,10 +2138,9 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 	HOffPtr->V0SyncHoriStart  = SignalCfgPtr->HSyncStart;
 	HOffPtr->V0SyncHoriEnd    = SignalCfgPtr->HSyncStart;
 
-	/* Checking for Interlaced value */
-	if (TimingPtr->Interlaced == 1) {
-		SignalCfgPtr->V1ChromaStart     = 0x0;
-		SignalCfgPtr->V1ActiveStart     = 0x0;
+	if(TimingPtr->Interlaced == 1) {
+		SignalCfgPtr->V1ChromaStart     = 0;
+		SignalCfgPtr->V1ActiveStart     = 0;
 		SignalCfgPtr->V1FrontPorchStart = TimingPtr->VActiveVideo;
 		SignalCfgPtr->V1SyncStart       =
 					SignalCfgPtr->V1FrontPorchStart +
@@ -2354,11 +2165,9 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 	}
 	/* Progressive formats */
 	else {
-		/* Set Field 1 same as Field 0 */
+	/* Set Field 1 same as Field 0 */
 		SignalCfgPtr->V1ChromaStart     = SignalCfgPtr->V0ChromaStart;
 		SignalCfgPtr->V1ActiveStart     = SignalCfgPtr->V0ActiveStart;
-
-
 		SignalCfgPtr->V1FrontPorchStart =
 					SignalCfgPtr->V0FrontPorchStart;
 		SignalCfgPtr->V1SyncStart       = SignalCfgPtr->V0SyncStart;
@@ -2371,6 +2180,7 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 		HOffPtr->V1SyncHoriStart  = HOffPtr->V0SyncHoriStart;
 		HOffPtr->V1SyncHoriEnd    = HOffPtr->V0SyncHoriEnd;
 	}
+
 }
 
 /*****************************************************************************/
@@ -2401,18 +2211,18 @@ void XVtc_ConvSignal2Timing(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(SignalCfgPtr != NULL);
 	Xil_AssertVoid(HOffPtr != NULL);
 	Xil_AssertVoid(PolarityPtr != NULL);
 	Xil_AssertVoid(TimingPtr != NULL);
 	Xil_AssertVoid(SignalCfgPtr->OriginMode == 1);
 
-	(void)memset((void *)TimingPtr, 0, sizeof(XVtc_Timing));
+	memset((void *)TimingPtr, 0, sizeof(XVtc_Timing));
 
 	/* Set Polarity */
-	TimingPtr->VSyncPolarity = (u16)PolarityPtr->VSyncPol;
-	TimingPtr->HSyncPolarity = (u16)PolarityPtr->HSyncPol;
+	TimingPtr->VSyncPolarity = PolarityPtr->VSyncPol;
+	TimingPtr->HSyncPolarity = PolarityPtr->HSyncPol;
 
 	/* Horizontal Timing */
 	TimingPtr->HActiveVideo = SignalCfgPtr->HFrontPorchStart;
@@ -2469,76 +2279,69 @@ u16 XVtc_ConvTiming2VideoMode(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady ==
-					(u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(TimingPtr != NULL);
 
 	/* Checking for Interlaced value */
-	if (TimingPtr->Interlaced == 0x0) {
-		if (TimingPtr->HActiveVideo == 1280) {
+	if(TimingPtr->Interlaced == 0) {
+		if(TimingPtr->HActiveVideo == 1280) {
 			if (TimingPtr->VActiveVideo == 720) {
-				return (XVTC_VMODE_720P);
+				return XVTC_VMODE_720P;
 			}
-			if (TimingPtr->VActiveVideo == 1024) {
-				return (XVTC_VMODE_SXGA);
+			else if (TimingPtr->VActiveVideo == 1024) {
+				return XVTC_VMODE_SXGA;
 			}
-		}
 
-		if ((TimingPtr->HActiveVideo == 1920) &&
+		}
+		else if((TimingPtr->HActiveVideo == 1920) &&
 				(TimingPtr->VActiveVideo == 1080)) {
-			return (XVTC_VMODE_1080P);
+			return XVTC_VMODE_1080P;
 		}
-
-		if (TimingPtr->HActiveVideo == 720) {
+		else if(TimingPtr->HActiveVideo == 720) {
 			if (TimingPtr->VActiveVideo == 480) {
-				return (XVTC_VMODE_480P);
+				return XVTC_VMODE_480P;
 			}
-			if (TimingPtr->VActiveVideo == 576) {
-				return (XVTC_VMODE_576P);
+			else if (TimingPtr->VActiveVideo == 576) {
+				return XVTC_VMODE_576P;
 			}
 		}
-
-		if ((TimingPtr->HActiveVideo == 656) &&
+		else if((TimingPtr->HActiveVideo == 656) &&
 				(TimingPtr->VActiveVideo == 496)) {
-			return (XVTC_VMODE_VGA);
+			return XVTC_VMODE_VGA;
 		}
-
-		if ((TimingPtr->HActiveVideo == 800) &&
+		else if((TimingPtr->HActiveVideo == 800) &&
 				(TimingPtr->VActiveVideo == 600)) {
-			return (XVTC_VMODE_SVGA);
+			return XVTC_VMODE_SVGA;
 		}
-
-		if ((TimingPtr->HActiveVideo == 1024U) &&
-				(TimingPtr->VActiveVideo == 768U)) {
-			return (XVTC_VMODE_XGA);
+		else if((TimingPtr->HActiveVideo == 1024) &&
+			(TimingPtr->VActiveVideo == 768)) {
+			return XVTC_VMODE_XGA;
 		}
-
-		if ((TimingPtr->HActiveVideo == 1440) &&
+		else if((TimingPtr->HActiveVideo == 1440) &&
 				(TimingPtr->VActiveVideo == 900)) {
-			return (XVTC_VMODE_WXGAPLUS);
+			return XVTC_VMODE_WXGAPLUS;
+		}
+		else if((TimingPtr->HActiveVideo == 1680) &&
+				(TimingPtr->VActiveVideo == 1050)) {
+			return XVTC_VMODE_WSXGAPLUS;
 		}
 
-		if ((TimingPtr->HActiveVideo == 1680) &&
-				(TimingPtr->VActiveVideo == 1050)) {
-			return (XVTC_VMODE_WSXGAPLUS);
-		}
 	}
 	/* Interlaced */
 	else {
-		if ((TimingPtr->HActiveVideo == 720) &&
-				(TimingPtr->VActiveVideo == 240)) {
-			return (XVTC_VMODE_NTSC);
+		if((TimingPtr->HActiveVideo == 720) &&
+			(TimingPtr->VActiveVideo == 240)) {
+			return XVTC_VMODE_NTSC;
 		}
-
-		if ((TimingPtr->HActiveVideo == 1920) &&
-				(TimingPtr->VActiveVideo == 540)) {
-			return (XVTC_VMODE_1080I);
+		else if((TimingPtr->HActiveVideo == 1920) &&
+			(TimingPtr->VActiveVideo == 540)) {
+			return XVTC_VMODE_1080I;
 		}
-
-		if ((TimingPtr->HActiveVideo == 720) &&
+		else if((TimingPtr->HActiveVideo == 720) &&
 				(TimingPtr->VActiveVideo == 288)) {
-			return (XVTC_VMODE_PAL);
+			return XVTC_VMODE_PAL;
 		}
+
 	}
 
 	/* Not found - read from Timing to discover format */
@@ -2562,17 +2365,17 @@ u16 XVtc_ConvTiming2VideoMode(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 ******************************************************************************/
 void XVtc_SetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing * TimingPtr)
 {
-  XVtc_Polarity Polarity;
-  XVtc_Signal Signal;
-  XVtc_HoriOffsets Hoff;
+	XVtc_Polarity Polarity;
+	XVtc_Signal Signal;
+	XVtc_HoriOffsets Hoff;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(TimingPtr != NULL);
 
 	XVtc_ConvTiming2Signal(InstancePtr, TimingPtr, &Signal, &Hoff,
-					&Polarity);
+				&Polarity);
 	XVtc_SetPolarity(InstancePtr, &Polarity);
 	XVtc_SetGenerator(InstancePtr, &Signal);
 	XVtc_SetGeneratorHoriOffset(InstancePtr, &Hoff);
@@ -2595,14 +2398,16 @@ void XVtc_SetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing * TimingPtr)
 ******************************************************************************/
 void XVtc_SetGeneratorVideoMode(XVtc *InstancePtr, u16 Mode)
 {
-	XVtc_Timing Timing = {0};
+	XVtc_Timing Timing;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XVtc_ConvVideoMode2Timing(InstancePtr, Mode, &Timing);
+
 	XVtc_SetGeneratorTiming(InstancePtr, &Timing);
+
 }
 
 /*****************************************************************************/
@@ -2623,20 +2428,20 @@ void XVtc_SetGeneratorVideoMode(XVtc *InstancePtr, u16 Mode)
 void XVtc_GetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 {
 
-  XVtc_Polarity Polarity;
-  XVtc_Signal Signal;
-  XVtc_HoriOffsets Hoff;
+	XVtc_Polarity Polarity;
+	XVtc_Signal Signal;
+	XVtc_HoriOffsets Hoff;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(TimingPtr != NULL);
 
 
-  Signal.OriginMode = 1;
-  XVtc_GetPolarity(InstancePtr, &Polarity);
-  XVtc_GetGeneratorHoriOffset(InstancePtr, &Hoff);
-  XVtc_GetGenerator(InstancePtr, &Signal);
+	Signal.OriginMode = 1;
+	XVtc_GetPolarity(InstancePtr, &Polarity);
+	XVtc_GetGeneratorHoriOffset(InstancePtr, &Hoff);
+	XVtc_GetGenerator(InstancePtr, &Signal);
 
 	XVtc_ConvSignal2Timing(InstancePtr, &Signal, &Hoff, &Polarity,
 					TimingPtr);
@@ -2659,18 +2464,18 @@ void XVtc_GetGeneratorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 ******************************************************************************/
 u16 XVtc_GetGeneratorVideoMode(XVtc *InstancePtr)
 {
-	u16 Mode;
-	XVtc_Timing Timing = {0};
+
+	u16 mode;
+	XVtc_Timing Timing;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady ==
-						(u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XVtc_GetGeneratorTiming(InstancePtr, &Timing);
-	Mode = XVtc_ConvTiming2VideoMode(InstancePtr, &Timing);
+	mode = XVtc_ConvTiming2VideoMode(InstancePtr, &Timing);
 
-	return Mode;
+	return mode;
 }
 
 /*****************************************************************************/
@@ -2690,20 +2495,20 @@ u16 XVtc_GetGeneratorVideoMode(XVtc *InstancePtr)
 ******************************************************************************/
 void XVtc_GetDetectorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 {
-  XVtc_Polarity Polarity;
-  XVtc_Signal Signal;
-  XVtc_HoriOffsets Hoff;
+	XVtc_Polarity Polarity;
+	XVtc_Signal Signal;
+	XVtc_HoriOffsets Hoff;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(TimingPtr != NULL);
 
 
-  Signal.OriginMode = 1;
-  XVtc_GetDetector(InstancePtr, &Signal);
-  XVtc_GetDetectorPolarity(InstancePtr, &Polarity);
-  XVtc_GetDetectorHoriOffset(InstancePtr, &Hoff);
+	Signal.OriginMode = 1;
+	XVtc_GetDetector(InstancePtr, &Signal);
+	XVtc_GetDetectorPolarity(InstancePtr, &Polarity);
+	XVtc_GetDetectorHoriOffset(InstancePtr, &Hoff);
 
 	XVtc_ConvSignal2Timing(InstancePtr, &Signal, &Hoff, &Polarity,
 					TimingPtr);
@@ -2726,18 +2531,18 @@ void XVtc_GetDetectorTiming(XVtc *InstancePtr, XVtc_Timing *TimingPtr)
 ******************************************************************************/
 u16 XVtc_GetDetectorVideoMode(XVtc *InstancePtr)
 {
-	u16 Mode;
-	XVtc_Timing Timing = {0};
+	u16 mode;
+	XVtc_Timing Timing;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady ==
-					(u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 
 	XVtc_GetDetectorTiming(InstancePtr, &Timing);
-	Mode = XVtc_ConvTiming2VideoMode(InstancePtr, &Timing);
+	mode = XVtc_ConvTiming2VideoMode(InstancePtr, &Timing);
 
-	return Mode;
+	return mode;
 }
 
 /*****************************************************************************/
@@ -2760,6 +2565,7 @@ u16 XVtc_GetDetectorVideoMode(XVtc *InstancePtr)
 static void StubCallBack(void *CallBackRef)
 {
 	(void)CallBackRef;
+	Xil_AssertVoidAlways();
 }
 
 /*****************************************************************************/
@@ -2786,4 +2592,5 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 {
 	(void)CallBackRef;
 	(void)ErrorMask;
+	Xil_AssertVoidAlways();
 }

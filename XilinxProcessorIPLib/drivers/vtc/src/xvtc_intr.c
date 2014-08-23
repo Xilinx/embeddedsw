@@ -116,7 +116,7 @@
 *                       "Xboolean" -> "int"
 *                       "XTEST_FAILED" -> "XST_FAILURE"
 *                       "XTEST_PASSED" -> "XST_SUCCESS"
-* 6.1   adk    03/03/14 Version change as per SDK 2014.2.
+* 6.1   adk    08/23/14 Alligned doxygen tags.
 * </pre>
 *
 ******************************************************************************/
@@ -168,11 +168,11 @@ void XVtc_IntrHandler(void *InstancePtr)
 {
 	u32 PendingIntr;
 	u32 ErrorStatus;
-	XVtc *XVtcPtr = (XVtc *)((void *)InstancePtr);
+	XVtc *XVtcPtr = (XVtc *) InstancePtr;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(XVtcPtr != NULL);
-	Xil_AssertVoid(XVtcPtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertVoid(XVtcPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Get pending interrupts */
 	PendingIntr = XVtc_IntrGetPending(XVtcPtr);
@@ -181,8 +181,8 @@ void XVtc_IntrHandler(void *InstancePtr)
 	XVtc_IntrClear(XVtcPtr, PendingIntr);
 
 	/* Spurious interrupt has happened */
-	if ((u32)0x0 == (PendingIntr | (XVTC_IXR_ALLINTR_MASK))) {
-		ErrorStatus = (u32)0x0;
+	if (0 == (PendingIntr | XVTC_IXR_ALLINTR_MASK)) {
+		ErrorStatus = 0;
 		XVtcPtr->ErrCallBack(XVtcPtr->ErrRef, ErrorStatus);
 		return;
 	}
@@ -218,11 +218,11 @@ void XVtc_IntrHandler(void *InstancePtr)
 * <pre>
 * HandlerType              Callback Function Type
 * -----------------------  --------------------------------------------------
-* (XVTC_HANDLER_FRAMESYNC) XVtc_FrameSyncCallBack
-* (XVTC_HANDLER_LOCK)      XVtc_LockCallBack
-* (XVTC_HANDLER_DETECTOR)  XVtc_DetectorCallBack
-* (XVTC_HANDLER_GENERATOR) XVtc_GeneratorCallBack
-* (XVTC_HANDLER_ERROR)     XVtc_ErrCallBack
+* XVTC_HANDLER_FRAMESYNC   XVtc_FrameSyncCallBack
+* XVTC_HANDLER_LOCK        XVtc_LockCallBack
+* XVTC_HANDLER_DETECTOR    XVtc_DetectorCallBack
+* XVTC_HANDLER_GENERATOR   XVtc_GeneratorCallBack
+* XVTC_HANDLER_ERROR       XVtc_ErrCallBack
 *
 * HandlerType              Invoked by this driver when:
 * -----------------------  --------------------------------------------------
@@ -251,58 +251,45 @@ void XVtc_IntrHandler(void *InstancePtr)
 int XVtc_SetCallBack(XVtc *InstancePtr, u32 HandlerType,
 				void *CallBackFunc, void *CallBackRef)
 {
-	int Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady ==
-						(u32)(XIL_COMPONENT_IS_READY));
-	Xil_AssertNonvoid((HandlerType >=(XVTC_HANDLER_FRAMESYNC)) &&
-				(HandlerType <= (XVTC_HANDLER_ERROR)));
-	Xil_AssertNonvoid(CallBackFunc != NULL);
-	Xil_AssertNonvoid(CallBackRef != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* For specific handler type assigning callback function reference */
 	switch (HandlerType) {
-		case (XVTC_HANDLER_FRAMESYNC):
-			InstancePtr->FrameSyncCallBack =
-					(XVtc_CallBack)((void *)CallBackFunc);
-			InstancePtr->FrameSyncRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
+	case XVTC_HANDLER_FRAMESYNC:
+		InstancePtr->FrameSyncCallBack =
+				(XVtc_CallBack) CallBackFunc;
+		InstancePtr->FrameSyncRef = CallBackRef;
+		break;
 
-		case (XVTC_HANDLER_LOCK):
-			InstancePtr->LockCallBack =
-					(XVtc_CallBack)((void *)CallBackFunc);
-			InstancePtr->LockRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
+	case XVTC_HANDLER_LOCK:
+		InstancePtr->LockCallBack = (XVtc_CallBack) CallBackFunc;
+		InstancePtr->LockRef = CallBackRef;
+		break;
 
-		case (XVTC_HANDLER_DETECTOR):
-			InstancePtr->DetectorCallBack =
-					(XVtc_CallBack)((void *)CallBackFunc);
-			InstancePtr->DetectorRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
+	case XVTC_HANDLER_DETECTOR:
+		InstancePtr->DetectorCallBack =
+				(XVtc_CallBack) CallBackFunc;
+		InstancePtr->DetectorRef = CallBackRef;
+		break;
 
-		case (XVTC_HANDLER_GENERATOR):
-			InstancePtr->GeneratorCallBack =
-					(XVtc_CallBack)((void *)CallBackFunc);
-			InstancePtr->GeneratorRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
+	case XVTC_HANDLER_GENERATOR:
+		InstancePtr->GeneratorCallBack =
+				(XVtc_CallBack) CallBackFunc;
+		InstancePtr->GeneratorRef = CallBackRef;
+		break;
 
-		case (XVTC_HANDLER_ERROR):
-			InstancePtr->ErrCallBack =
-				(XVtc_ErrorCallBack)((void *)CallBackFunc);
-			InstancePtr->ErrRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
+	case XVTC_HANDLER_ERROR:
+		InstancePtr->ErrCallBack =
+				(XVtc_ErrorCallBack) CallBackFunc;
+		InstancePtr->ErrRef = CallBackRef;
+		break;
 
-		default:
-			Status = (XST_INVALID_PARAM);
-			break;
+	default:
+		return XST_INVALID_PARAM;
+
 	}
-
-	return Status;
+	return XST_SUCCESS;
 }
