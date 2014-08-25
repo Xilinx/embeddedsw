@@ -174,6 +174,8 @@
  *	      11/02/12 Fixed CR# 683931. Mult bits are set properly in dQH.
  * 2.00a kpc 04/03/14 Fixed CR#777763. Corrected the setup tripwire macro val.
  * 2.1   kpc 04/28/14 Removed unused function prototypes
+ * 2.2   kpc 08/23/14 Exported XUsbPs_DeviceReset API as global for calling in
+ *                    code coverage tests.
  * </pre>
  *
  ******************************************************************************/
