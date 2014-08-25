@@ -71,6 +71,7 @@
 *			   the IARCC compiler around PDBG, it is better to remove it.
 *			   Users can always use xil_printfs if they want to debug.
 * 2.0   adk    10/12/13  Updated as per the New Tcl API's
+* 2.01  kpc    08/23/14  Fixed the IAR compiler reported errors
 * </pre>
 *
 *****************************************************************************/

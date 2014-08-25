@@ -48,6 +48,7 @@
 *			  functions within the example.
 * 1.06a kpc    04/24/2012 Modified the APIs to make this file compatible with 
 *                         peripheral test suite.							 
+* 2.1   kpc    08/23/2014 Fixed IAR compiler reported error.
 * </pre>
 *
 *****************************************************************************/
