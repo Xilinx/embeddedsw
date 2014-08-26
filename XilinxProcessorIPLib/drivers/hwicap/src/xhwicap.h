@@ -158,9 +158,6 @@
 *		      Removed IDCODE lookup logic in XHwIcap_CfgInitialize
 *		      in xhwicap.c.
 *		      Removed IDCODE macros from xhwicap_i.h.
-*		      Removed xhwicap_ff.h and xhwicap_lut.h examples.
-*		      Removed xhwicap_clb_ff.h, xhwicap_clb_lut.h and
-*		      xhwicap_clb_srinv.h files from driver.
 * 10.0  bss  7/10/14  Fix compilation failure for designs other than 32 bit
 *		      data width of HWICAP in xhwicap.c.
 *
