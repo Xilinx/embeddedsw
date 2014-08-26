@@ -172,6 +172,9 @@
 *                    Explicitly reset CR and clear FIFO in Abort function
 *                    and state the same in the comments. CR# 784254.
 *                    Fix for CR# 761060 - provision for repeated start.
+* 2.2   hk  08/23/14 Slave monitor mode changes - clear FIFO, enable
+*                    read mode and clear transfer size register.
+*                    Disable NACK to avoid interrupts on each retry.
 *
 * </pre>
 *
