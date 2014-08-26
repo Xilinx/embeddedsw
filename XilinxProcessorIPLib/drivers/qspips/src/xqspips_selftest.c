@@ -87,7 +87,6 @@
 int XQspiPs_SelfTest(XQspiPs *InstancePtr)
 {
 	int Status;
-	u32 Register;
 	u8 DelayTestNss;
 	u8 DelayTestBtwn;
 	u8 DelayTestAfter;
