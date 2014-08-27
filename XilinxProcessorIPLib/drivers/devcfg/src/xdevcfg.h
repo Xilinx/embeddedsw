@@ -3,7 +3,7 @@
 * Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
+* of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
@@ -20,7 +20,7 @@
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
@@ -137,6 +137,18 @@
 *		     version UG585 (v1.4) November 16, 2012.
 * 3.0   adk 10/12/13 Updated as per the New Tcl API's
 * 3.0   kpc 21/02/14 Added function prototype for XDcfg_ClearControlRegister
+* 3.2   sb  08/25/14 Fixed XDcfg_PcapReadback() function
+*		     updated driver code with != instead of ==,
+*		     while checking for Interrupt Status with DMA and
+*		     PCAP Done Mask
+*		     ((XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
+*			XDCFG_INT_STS_OFFSET) &
+*			XDCFG_IXR_D_P_DONE_MASK) !=
+*			XDCFG_IXR_D_P_DONE_MASK);
+*		     A new example has been added to read back the
+*		     configuration registers from the PL region.
+*		     xdevcfg_reg_readback_example.c
+*
 * </pre>
 *
 ******************************************************************************/
