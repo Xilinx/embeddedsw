@@ -57,7 +57,7 @@ This is main code of Xilinx Vide Deinterlacer core. Please see <a class="el" hre
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint_8c.html#25a0f63a61e1961271d4420b706cfd05">XDeint_SetSize</a> (<a class="el" href="struct_x_deint.html">XDeint</a> *InstancePtr, u32 Width, u32 Height)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint_8c.html#e48c83a75d38a639ad82671eb0e5aaad">XDeint_GetVideo</a> (<a class="el" href="struct_x_deint.html">XDeint</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint_8c.html#e5adf76ce47a8d1a2fb0755aaf10eea4">XDeint_GetVideo</a> (<a class="el" href="struct_x_deint.html">XDeint</a> *InstancePtr, u32 *Packing, u32 *Color, u32 *Order, u32 *PSF)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint_8c.html#82b511cd2e3bb26360c72b74ead50726">XDeint_GetPulldown</a> (<a class="el" href="struct_x_deint.html">XDeint</a> *InstancePtr, u32 *Enable_32, u32 *Enable_22)</td></tr>
 
@@ -341,17 +341,44 @@ This function returns the contents of Version register.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="e48c83a75d38a639ad82671eb0e5aaad"></a><!-- doxytag: member="xdeint.c::XDeint_GetVideo" ref="e48c83a75d38a639ad82671eb0e5aaad" args="(XDeint *InstancePtr)" -->
+<a class="anchor" name="e5adf76ce47a8d1a2fb0755aaf10eea4"></a><!-- doxytag: member="xdeint.c::XDeint_GetVideo" ref="e5adf76ce47a8d1a2fb0755aaf10eea4" args="(XDeint *InstancePtr, u32 *Packing, u32 *Color, u32 *Order, u32 *PSF)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XDeint_GetVideo           </td>
+          <td class="memname">void XDeint_GetVideo           </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_deint.html">XDeint</a> *&nbsp;</td>
-          <td class="paramname"> <em>InstancePtr</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&nbsp;</td>
+          <td class="paramname"> <em>Packing</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&nbsp;</td>
+          <td class="paramname"> <em>Color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&nbsp;</td>
+          <td class="paramname"> <em>Order</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&nbsp;</td>
+          <td class="paramname"> <em>PSF</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
         </tr>
       </table>
 </div>
@@ -361,10 +388,22 @@ This function returns the contents of Version register.<p>
 This function gets the video format of the Deinterlacer core.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to <a class="el" href="struct_x_deint.html">XDeint</a> instance to be worked on.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to <a class="el" href="struct_x_deint.html">XDeint</a> instance to be worked on. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Packing</em>&nbsp;</td><td>is a pointer to 32 bit variable which holds Packaging format.<ul>
+<li>0 4:2:0 Packging is used.</li><li>XDEINT_MODE_PACKING_0 4:2:2 Packging is used.</li><li>XDEINT_MODE_PACKING_1 4:4:4 Packging is used. </li></ul>
+</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Color</em>&nbsp;</td><td>is a pointer to 32 bit varaible which holds color value.<ul>
+<li>0 YUV color space is used.</li><li>XDEINT_MODE_COL RGB color space is used. </li></ul>
+</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Order</em>&nbsp;</td><td>is a pointer to 32 bit varaible which holds Field order.<ul>
+<li>0 the field order maps to PAL/HD/3G.</li><li>XDEINT_MODE_FIELD_ORDER the field order maps to NTSC/480i </li></ul>
+</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>PSF</em>&nbsp;</td><td>is a pointer to 32 bit variable which says whether Psf enabled or disabled.<ul>
+<li>XDEINT_MODE_PSF_ENABLE for psf enable.</li></ul>
+</td></tr>
   </table>
 </dl>
-<dl compact><dt><b>Returns:</b></dt><dd>Returns the video format.</dd></dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
@@ -464,8 +503,12 @@ This function sets the pull down controller of the Deinterlacer core.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to <a class="el" href="struct_x_deint.html">XDeint</a> instance to be worked on. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Enable_32</em>&nbsp;</td><td>allows detectors to automatically control Deinterlacer core. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Enable_22</em>&nbsp;</td><td>allows detectors to automatically control Deinterlacer core.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Enable_32</em>&nbsp;</td><td>allows detectors to automatically control Deinterlacer core.<ul>
+<li>1 Pull down enable 3:2 </li></ul>
+</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Enable_22</em>&nbsp;</td><td>allows detectors to automatically control Deinterlacer core.<ul>
+<li>1 Pull down enable 2:2</li></ul>
+</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
@@ -611,10 +654,18 @@ This function sets the video format of the Deinterlacer core.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to <a class="el" href="struct_x_deint.html">XDeint</a> instance to be worked on. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Packing</em>&nbsp;</td><td>selects the XSVI video packing mode. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Color</em>&nbsp;</td><td>selects what color space to use. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Order</em>&nbsp;</td><td>selects which field ordering is being used. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>PSF</em>&nbsp;</td><td>enables psf (progressive segmented frame mode).</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Packing</em>&nbsp;</td><td>selects the XSVI video packing mode.<ul>
+<li>0 4:2:0 Packging is used.</li><li>XDEINT_MODE_PACKING_0 4:2:2 Packging is used.</li><li>XDEINT_MODE_PACKING_1 4:4:4 Packging is used. </li></ul>
+</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Color</em>&nbsp;</td><td>selects what color space to use.<ul>
+<li>0 YUV color space is used.</li><li>XDEINT_MODE_COL RGB color space is used. </li></ul>
+</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Order</em>&nbsp;</td><td>selects which field ordering is being used.<ul>
+<li>0 the field order maps to PAL/HD/3G.</li><li>XDEINT_MODE_FIELD_ORDER the field order maps to NTSC/480i </li></ul>
+</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>PSF</em>&nbsp;</td><td>enables psf (progressive segmented frame mode).<ul>
+<li>XDEINT_MODE_PSF_ENABLE for psf enable.</li></ul>
+</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>

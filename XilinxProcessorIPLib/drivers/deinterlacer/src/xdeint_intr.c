@@ -108,7 +108,7 @@ void XDeint_IntrHandler(void *InstancePtr)
 	PendingIntr = XDeint_IntrGetPending(XDeintPtr);
 
 	/* A known interrupt has happened. */
-	if (PendingIntr == (u32)1) {
+	if (PendingIntr != 0) {
 		XDeintPtr->IntCallBack(PendingIntr);
 	}
 

@@ -33,7 +33,9 @@
 
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XDEINT" "NUM_INSTANCES" "DEVICE_ID" "C_DIAG" "C_MOTION" "C_DEPTH" "C_STREAMS" "C_TRIPLE_PORT" "C_MAX_XSIZE" "C_BASEADDR" "C_HIGHADDR" "XDeint" "DEVICE_ID" "C_BASEADDR"
+    xdefine_include_file $drv_handle "xparameters.h" "XDEINT" "NUM_INSTANCES" "DEVICE_ID" "C_DIAG" "C_MOTION" "C_DEPTH" "C_STREAMS" "C_TRIPLE_PORT" "C_MAX_XSIZE" "C_BASEADDR" "C_HIGHADDR"
+
     xdefine_config_file $drv_handle "xdeint_g.c" "XDeint" "DEVICE_ID" "C_BASEADDR"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Deinterlacer" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "XDeint" "DEVICE_ID" "C_BASEADDR"
+
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "Deinterlacer" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR"
 }

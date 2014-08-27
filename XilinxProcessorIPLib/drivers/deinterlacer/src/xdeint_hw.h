@@ -143,7 +143,7 @@ extern "C" {
 /** @name Error Status/ bit definitions:
  *  @{
  */
-#define XDEINT_STS_ERROR_OFFSET		0x00000008	/**< Deinterlacer
+#define XDEINT_STS_ERROR		0x00000008	/**< Deinterlacer
 							  *  internal FIFO
 							  *  error */
 #define XDEINT_STS_FS_CFG_ERROR		0x00000100	/**< Frame store Write

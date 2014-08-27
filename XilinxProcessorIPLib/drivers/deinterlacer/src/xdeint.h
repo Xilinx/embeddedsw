@@ -153,8 +153,6 @@ typedef struct {
 	u32 XSize;		/**< X Input Dimension */
 	u32 YSize;		/**< Y Input Dimension */
 	XDeint_CallBack IntCallBack;	/**< Call back for Status interrupt */
-	void *IntRef;		/**< To be passed to interrupt
-				  *  call back */
 } XDeint;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -490,7 +488,7 @@ typedef struct {
 ******************************************************************************/
 #define XDeint_GetAlgorithm(InstancePtr) \
 	XDeint_ReadReg((InstancePtr)->Config.BaseAddress, \
-			(XDEINT_MODE_OFFSET)) & (~(XDEINT_MODE_ALGORITHM_FULL))
+			(XDEINT_MODE_OFFSET)) & (XDEINT_MODE_ALGORITHM_FULL)
 
 /************************** Function Prototypes ******************************/
 /*
@@ -520,7 +518,8 @@ void XDeint_SetVideo(XDeint *InstancePtr, u32 Packing, u32 Color, u32 Order,
 void XDeint_IntrHandler(void *InstancePtr);
 int XDeint_SetCallBack(XDeint *InstancePtr, void *CallBackFunc);
 
-u32 XDeint_GetVideo(XDeint *InstancePtr);
+void XDeint_GetVideo(XDeint *InstancePtr, u32 *Packing, u32 *Color,
+		u32 *Order, u32 *PSF);
 void XDeint_GetPulldown(XDeint *InstancePtr, u32 *Enable_32, u32 *Enable_22);
 void XDeint_GetSize(XDeint *InstancePtr, u32 *Width, u32 *Height);
 void XDeint_GetThresholds(XDeint *InstancePtr, u32 *ThresholdT1,
