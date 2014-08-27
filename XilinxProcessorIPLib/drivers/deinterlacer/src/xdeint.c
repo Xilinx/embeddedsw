@@ -178,9 +178,17 @@ void XDeint_SetFramestore(XDeint *InstancePtr,
 *
 * @param	InstancePtr is a pointer to XDeint instance to be worked on.
 * @param	Packing selects the XSVI video packing mode.
+* 		- 0 4:2:0 Packging is used.
+* 		- XDEINT_MODE_PACKING_0 4:2:2 Packging is used.
+* 		- XDEINT_MODE_PACKING_1 4:4:4 Packging is used.
 * @param	Color selects what color space to use.
+* 		- 0 YUV color space is used.
+* 		- XDEINT_MODE_COL RGB color space is used.
 * @param	Order selects which field ordering is being used.
+* 		- 0 the field order maps to PAL/HD/3G.
+* 		- XDEINT_MODE_FIELD_ORDER the field order maps to NTSC/480i
 * @param	PSF enables psf (progressive segmented frame mode).
+* 		- XDEINT_MODE_PSF_ENABLE for psf enable.
 *
 * @return	None.
 *
@@ -251,8 +259,10 @@ void XDeint_SetThresholds(XDeint *InstancePtr, u32 ThresholdT1,
 * @param	InstancePtr is a pointer to XDeint instance to be worked on.
 * @param	Enable_32 allows detectors to automatically control
 *		Deinterlacer core.
+*		- 1 Pull down enable 3:2
 * @param	Enable_22 allows detectors to automatically control
 *		Deinterlacer core.
+*		- 1 Pull down enable 2:2
 *
 * @return	None.
 *
@@ -277,11 +287,11 @@ void XDeint_SetPulldown(XDeint *InstancePtr, u32 Enable_32,
 	ModeReg &= ~(((u32)(XDEINT_MODE_PULL_22_ENABLE)) |
 				((u32)(XDEINT_MODE_PULL_32_ENABLE)));
 	/* Checking for Enable_32 */
-	if (Enable_32 == 1U) {
+	if (Enable_32 == 1) {
 		ModeReg |= ((u32)(XDEINT_MODE_PULL_32_ENABLE));
 	}
 	/* Checking for Enable_22 */
-	if (Enable_22 == 1U) {
+	if (Enable_22 == 1) {
 		ModeReg |= ((u32)(XDEINT_MODE_PULL_22_ENABLE));
 	}
 
@@ -306,7 +316,7 @@ u32 XDeint_GetVersion(XDeint *InstancePtr)
 	u32 Version;
 
 	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Read core version. */
 	Version = XDeint_ReadReg(InstancePtr->Config.BaseAddress,
@@ -364,26 +374,43 @@ static void StubCallBack(void *CallBackRef)
 * This function gets the video format of the Deinterlacer core.
 *
 * @param	InstancePtr is a pointer to XDeint instance to be worked on.
+* @param	Packing is a pointer to 32 bit variable which holds Packaging
+*		format.
+*		- 0 4:2:0 Packging is used.
+* 		- XDEINT_MODE_PACKING_0 4:2:2 Packging is used.
+* 		- XDEINT_MODE_PACKING_1 4:4:4 Packging is used.
+* @param	Color is a pointer to 32 bit varaible which holds color value.
+*		- 0 YUV color space is used.
+* 		- XDEINT_MODE_COL RGB color space is used.
+* @param	Order is a pointer to 32 bit varaible which holds Field order.
+*		- 0 the field order maps to PAL/HD/3G.
+* 		- XDEINT_MODE_FIELD_ORDER the field order maps to NTSC/480i
+* @param	PSF is a pointer to 32 bit variable which says whether Psf
+*		enabled or disabled.
+*		- XDEINT_MODE_PSF_ENABLE for psf enable.
 *
-* @return	Returns the video format.
+* @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-u32 XDeint_GetVideo(XDeint *InstancePtr)
+void XDeint_GetVideo(XDeint *InstancePtr, u32 *Packing, u32 *Color,
+		u32 *Order, u32 *PSF)
 {
 	u32 ModeReg;
 
 	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady ==
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady ==
 			(u32)(XIL_COMPONENT_IS_READY));
 
 	/* Read modify write the mode register. */
 	ModeReg = XDeint_ReadReg((InstancePtr)->Config.BaseAddress,
 						(XDEINT_MODE_OFFSET));
-
-	return ModeReg;
+	*Packing = ModeReg & (XDEINT_MODE_PACKING_MASK);
+	*Color = ModeReg & (XDEINT_MODE_COL_MASK);
+	*Order = ModeReg & (XDEINT_MODE_FIELD_ORDER_MASK);
+	*PSF = ModeReg & (XDEINT_MODE_PSF_ENABLE_MASK);
 }
 
 /*****************************************************************************/
@@ -454,9 +481,9 @@ void XDeint_GetSize(XDeint *InstancePtr, u32 *Width, u32 *Height)
 	Xil_AssertVoid(Height != NULL);
 
 	*Height = XDeint_ReadReg((InstancePtr)->Config.BaseAddress,
-						(XDEINT_HEIGHT_OFFSET));
+			(XDEINT_HEIGHT_OFFSET)) & (XDEINT_HEIGHT_MASK);
 	*Width = XDeint_ReadReg((InstancePtr)->Config.BaseAddress,
-						(XDEINT_WIDTH_OFFSET));
+			(XDEINT_WIDTH_OFFSET)) & (XDEINT_WIDTH_MASK);
 }
 
 /*****************************************************************************/
@@ -485,9 +512,9 @@ void XDeint_GetThresholds(XDeint *InstancePtr, u32 *ThresholdT1,
 
 	/* Determine the T1->T2 cross fade setting.*/
 	*ThresholdT1 = XDeint_ReadReg((InstancePtr)->Config.BaseAddress,
-						(XDEINT_THRESH1_OFFSET));
+			(XDEINT_THRESH1_OFFSET)) & (XDEINT_THRESHOLD_MASK);
 	*ThresholdT2 = XDeint_ReadReg((InstancePtr)->Config.BaseAddress,
-						(XDEINT_THRESH2_OFFSET));
+			(XDEINT_THRESH2_OFFSET)) & (XDEINT_THRESHOLD_MASK);
 }
 
 /*****************************************************************************/
