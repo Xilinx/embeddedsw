@@ -106,7 +106,7 @@ FsblHandoffExit:
 .Ldone: b		.Ldone					/* Paranoia: we should never get here */
 .end
 
-#elif defined (__ICCARM__)
+#elif defined (__IASMARM__)
 	
 	PUBLIC FsblHandoffJtagExit
 	

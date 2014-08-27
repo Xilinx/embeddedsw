@@ -93,7 +93,9 @@
 * 9.00a kc  04/16/14	Fix for CR#724166 - SetPpk() will fail on secure
 *		 									fallback unless FSBL* and FSBL
 *		 									are identical in length
-* 10.00a kc 07/24/14    Fix for CR#809336 - Minor code cleanup
+* 10.00a kc 07/24/14	Fix for CR#809336 - Minor code cleanup
+*        kc 08/27/14	Fix for CR#820356 - FSBL compilation fails with
+* 											IAR compiler
 * </pre>
 *
 * @note
@@ -624,7 +626,7 @@ void FsblFallback(void)
 	/*
 	 * Barrier for synchronization
 	 */
-		__asm__(
+		__asm(
 			"dsb\n\t"
 			"isb"
 		);

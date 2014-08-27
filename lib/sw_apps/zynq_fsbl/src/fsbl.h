@@ -211,6 +211,8 @@
 * 						Resolution: Same as 773866
 * 						809336 Minor code cleanup
 * 						Resolution Minor code changes
+*        kc 08/27/14	820356 - FSBL compilation fails with IAR compiler
+* 						Resolution: Change of __asm__ to __asm
 * </pre>
 *
 * </pre>
