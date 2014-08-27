@@ -70,7 +70,9 @@
 * 1.00a rjh    07/10/11 First release
 * 2.00a rjh    18/01/12 Updated for v_deinterlacer 2.00
 * 3.0   adk    19/12/13 Updated as per the New Tcl API's.
-* 3.2   adk    02/13/14 Added Doxygen support, adherence to Xilinx
+* 3.2   adk    02/13/14 Modified XDeint_IntrDisable macro replace ISR_OFFSET
+*                       with IER OFFSET.
+*                       Added Doxygen support, adherence to Xilinx
 *                       coding standards.
 *
 *                       Modification history of xdeint_sinit.c:
@@ -345,7 +347,7 @@ typedef struct {
 	XDeint_WriteReg((InstancePtr)->Config.BaseAddress, \
 		(XDEINT_IER_OFFSET), ((~(IntrType)) & \
 			(XDEINT_IXR_ALLINTR_MASK)) & \
-	XDeint_ReadReg((InstancePtr)->Config.BaseAddress, (XDEINT_ISR_OFFSET)))
+	XDeint_ReadReg((InstancePtr)->Config.BaseAddress, (XDEINT_IER_OFFSET)))
 
 /*****************************************************************************/
 /**
