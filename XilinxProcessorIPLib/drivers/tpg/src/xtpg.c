@@ -130,8 +130,6 @@ int XTpg_CfgInitialize(XTpg *InstancePtr, XTpg_Config *CfgPtr,
 	/* Setup the instance. */
 	(void)memset((void *)InstancePtr, 0, sizeof(XTpg));
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
 	(void)memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
 			sizeof(XTpg_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
@@ -1469,8 +1467,8 @@ u32 XTpg_GetPattern(XTpg *InstancePtr)
 ******************************************************************************/
 static void StubCallBack(void *CallBackRef)
 {
+	(void)CallBackRef;
 	/* Verify arguments. */
-	Xil_AssertVoid(CallBackRef != NULL);
 	Xil_AssertVoidAlways();
 }
 
@@ -1496,9 +1494,9 @@ static void StubCallBack(void *CallBackRef)
 ******************************************************************************/
 static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 {
+	(void)CallBackRef;
+	(void)ErrorMask;
 	/* Verify arguments. */
-	Xil_AssertVoid(CallBackRef != NULL);
-	Xil_AssertVoid(ErrorMask != ((u32)0x0));
 	Xil_AssertVoidAlways();
 }
 

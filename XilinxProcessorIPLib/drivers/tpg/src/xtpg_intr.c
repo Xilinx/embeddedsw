@@ -109,17 +109,11 @@ void XTpg_IntrHandler(void *InstancePtr)
 	/* Get pending interrupts */
 	PendingIntr = (u32)XTpg_IntrGetPending(XTpgPtr);
 
-	/* Error interrupt is occurring or spurious interrupt */
-	if (((u32)0x0 == ((PendingIntr) & ((u32)(XTPG_IXR_ALLINTR_MASK)))) ||
-		(((PendingIntr) & ((u32)(XTPG_IXR_SE_MASK))) ==
-			(u32)(XTPG_IXR_SE_MASK))) {
+	/* A Slave error interrupt has been happened */
+	if (((PendingIntr) & (XTPG_IXR_SE_MASK)) ==
+			(XTPG_IXR_SE_MASK)) {
 		ErrorStatus = (PendingIntr) & ((u32)(XTPG_IXR_SE_MASK));
 		XTpgPtr->ErrCallBack(XTpgPtr->ErrRef, ErrorStatus);
-
-		/*
-		 * The Error CallBack should reset the core and so
-		 * there is no need to handle other interrupts
-		 */
 	}
 
 	/* A Processing Start interrupt has occurred */
@@ -176,6 +170,10 @@ int XTpg_SetCallBack(XTpg *InstancePtr, u32 HandlerType,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady ==
 				(u32)(XIL_COMPONENT_IS_READY));
+	Xil_AssertNonvoid(CallBackFunc != NULL);
+	Xil_AssertNonvoid(CallBackRef != NULL);
+	Xil_AssertNonvoid((HandlerType >= XTPG_HANDLER_PROCSTART) &&
+				(HandlerType <= XTPG_HANDLER_ERROR));
 
 	/* Setting the handlerType */
 	switch (HandlerType) {
