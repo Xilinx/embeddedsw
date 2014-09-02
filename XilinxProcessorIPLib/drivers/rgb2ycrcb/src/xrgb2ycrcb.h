@@ -552,7 +552,7 @@ enum XRgb_OutputRanges {
 ******************************************************************************/
 #define XRgb2YCrCb_StatusGetPending(InstancePtr) \
 		XRgb2YCrCb_ReadReg((InstancePtr)->Config.BaseAddress, \
-			(XRGB_STATUS_OFFSET)) & (XRgb2YCrCb_IXR_ALLINTR_MASK)
+			(XRGB_STATUS_OFFSET)) & (XRGB_IXR_ALLINTR_MASK)
 
 /*****************************************************************************/
 /**
