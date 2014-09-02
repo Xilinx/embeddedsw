@@ -279,7 +279,7 @@ extern "C" {
 #define XTG_LOCK_MASK		0x1		/**< Driven to a*_lock line */
 #define XTG_BURST_MASK		0x3		/**< Driven to a*_burst line */
 #define XTG_SIZE_MASK		0x7		/**< Driven to a*_size line */
-#define XTG_ID_MASK		0x2F		/**< Driven to a*_id line */
+#define XTG_ID_MASK		0x3F		/**< Driven to a*_id line */
 #define XTG_PROT_MASK		0x7		/**< Driven to a*_prot line */
 #define XTG_LAST_ADDR_MASK	0x7		/**< Last address */
 #define XTG_VALID_CMD_MASK	0x1		/**< Valid Command */	
