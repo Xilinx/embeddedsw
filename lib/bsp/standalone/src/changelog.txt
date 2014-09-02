@@ -202,4 +202,8 @@
  *		       Modified profile_mcount_mb.S to fix CR#808412.
  * 4.2 pkp   08/21/14  modified makefile of iccarm for proper linking of objectfiles in
  *		       cortexa9/iccarm to fix CR#816701
+ * 4.2 pkp   09/02/14  modified translation table entries in cortexa9/gcc/translation_table.s,
+ *		       armcc/translation_table.s and iccarm/translation_table.s
+ *		       to properly defined reserved entries according to address map for
+ *		       fixing CR#820146
 ******************************************************************************************/

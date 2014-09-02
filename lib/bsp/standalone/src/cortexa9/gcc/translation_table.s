@@ -46,6 +46,11 @@
 * 3.07a sgd  07/05/2012 Configuring device address spaces as shareable device
 *		       instead of strongly-ordered.
 * 3.07a asa  07/17/2012 Changed the property of the ".mmu_tbl" section.
+* 4.2	pkp  09/02/2014 added entries for 0xfe000000 to 0xffefffff as reserved
+*			and  0xe0000000 - 0xe1ffffff is broken down into
+*			0xe0000000 - 0xe02fffff (memory mapped devides)
+*			0xe0300000 - 0xe0ffffff (reserved) and
+*			0xe1000000 - 0xe1ffffff (NAND)
 * </pre>
 *
 * @note
@@ -86,8 +91,19 @@ MMUTable:
 .set	SECT, SECT+0x100000
 .endr
 
-.rept	0x0020			/* 0xe0000000 - 0xe1ffffff (Memory mapped devices)
+.rept	0x003			/* 0xe0000000 - 0xe02fffff (Memory mapped devices)
 				 * UART/USB/IIC/SPI/CAN/GEM/GPIO/QSPI/SD/NAND */
+.word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
+.set	SECT, SECT+0x100000
+.endr
+
+.rept	0x0D			/* 0xe0300000 - 0xe0ffffff (unassigned/reserved).
+				 * Generates a translation fault if accessed */
+.word	SECT + 0x0		/* S=b0 TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 */
+.set	SECT, SECT+0x100000
+.endr
+
+.rept	0x0010			/* 0xe1000000 - 0xe1ffffff (NAND) */
 .word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
@@ -108,7 +124,12 @@ MMUTable:
 .set	SECT, SECT+0x100000
 .endr
 
+/* 0xf8000c00 to 0xf8000fff, 0xf8010000 to 0xf88fffff and
+   0xf8f03000 to 0xf8ffffff are reserved  but due to granual size of
+   1MB, it is not possible to define separate regions for them */
+
 .rept	0x0010			/* 0xf8000000 - 0xf8ffffff (AMBA APB Peripherals) */
+
 .word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
@@ -119,13 +140,23 @@ MMUTable:
 .set	SECT, SECT+0x100000
 .endr
 
-.rept	0x003f			/* 0xfc000000 - 0xffefffff (Linear QSPI - XIP) */
+.rept	0x0020			/* 0xfc000000 - 0xfdffffff (Linear QSPI - XIP) */
 .word	SECT + 0xc0a		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b1, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
 
-				/* 256K OCM when mapped to high address space
-				 * inner-cacheable */
+.rept	0x001F			/* 0xfe000000 - 0xffefffff (unassigned/reserved).
+				 * Generates a translation fault if accessed */
+.word	SECT + 0x0		/* S=b0 TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 */
+.set	SECT, SECT+0x100000
+.endr
+
+/* 0xfff00000 to 0xfffb0000 is reserved but due to granual size of
+   1MB, it is not possible to define separate region for  it
+
+/* 0xfff00000 - 0xffffffff
+   256K OCM when mapped to high address space
+   inner-cacheable */
 .word	SECT + 0x4c0e		/* S=b0 TEX=b100 AP=b11, Domain=b0, C=b1, B=b1 */
 .set	SECT, SECT+0x100000
 
