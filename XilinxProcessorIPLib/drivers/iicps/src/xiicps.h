@@ -134,14 +134,6 @@
 * thread mutual exclusion, virtual memory, or cache control must be satisfied by
 * the layer above this driver.
 *
-* @note
-* . Less than FIFO size transfers work for both 100 KHz and 400 KHz.
-* . Larger than FIFO size interrupt-driven transfers are not reliable on
-*    busy systems where interrupt latency is high.
-* . Larger than FIFO size interrupt-driven transfers are not reliable for
-*    data rate of 400 KHz.
-* . Larger than FIFO size polled mode transfers work reliably.
-*
 * <pre> MODIFICATION HISTORY:
 *
 * Ver   Who     Date     Changes
