@@ -142,9 +142,10 @@ int XOsd_CfgInitialize(XOsd *InstancePtr, XOsd_Config *CfgPtr,
 				u32 EffectiveAddr)
 {
 	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	Xil_AssertNonvoid(CfgPtr->LayerNum <= (XOSD_MAX_NUM_OF_LAYERS));
-	Xil_AssertNonvoid(EffectiveAddr != (u32)0x0U);
+	Xil_AssertNonvoid(EffectiveAddr != (u32)0x00);
 
 	/* Setup the instance */
 	(void)memset((void *)InstancePtr, 0, sizeof(XOsd));
@@ -200,8 +201,8 @@ void XOsd_SetActiveSize(XOsd *InstancePtr, u32 Width, u32 Height)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
-	Xil_AssertVoid(Width > (u32)0x0U);
-	Xil_AssertVoid(Height > (u32)0x0U);
+	Xil_AssertVoid(Width > (u32)0x0);
+	Xil_AssertVoid(Height > (u32)0x0);
 	Xil_AssertVoid(Width <= (u32)(XOSD_ACTSIZE_NUM_PIXEL_MASK));
 	Xil_AssertVoid(Height <= ((XOSD_ACTSIZE_NUM_LINE_MASK) >>
 					(XOSD_ACTSIZE_NUM_LINE_SHIFT)));
@@ -360,8 +361,8 @@ void XOsd_SetLayerDimension(XOsd *InstancePtr, u8 LayerIndex, u16 XStart,
 	Xil_AssertVoid((u16)LayerIndex < InstancePtr->Config.LayerNum);
 	Xil_AssertVoid(InstancePtr->Layers[LayerIndex].LayerType !=
 						(XOSD_LAYER_TYPE_DISABLE));
-	Xil_AssertVoid(XSize > (u16)0x0U);
-	Xil_AssertVoid(YSize > (u16)0x0U);
+	Xil_AssertVoid(XSize > (u16)0x0);
+	Xil_AssertVoid(YSize > (u16)0x0);
 	Xil_AssertVoid(((u32)XStart + (u32)XSize) <= InstancePtr->ScreenWidth);
 	Xil_AssertVoid(((u32)YStart + (u32)YSize) <=
 			InstancePtr->ScreenHeight);
@@ -433,8 +434,8 @@ void XOsd_GetLayerDimension(XOsd *InstancePtr, u8 LayerIndex, u16 *XStartPtr,
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
 				((LayerBaseRegAddr) + (XOSD_LXP)));
 	*XStartPtr = (u16)((RegValue) & (XOSD_LXP_XSTART_MASK));
-	*YStartPtr = (u16)((RegValue) & (XOSD_LXP_YSTART_MASK)) >>
-				(XOSD_LXP_YSTART_SHIFT);
+	*YStartPtr = (u16)(((RegValue) & (XOSD_LXP_YSTART_MASK)) >>
+				(XOSD_LXP_YSTART_SHIFT));
 
 	/* Get the size of the layer */
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
@@ -488,7 +489,7 @@ void XOsd_SetLayerAlpha(XOsd *InstancePtr, u8 LayerIndex,
 					((LayerBaseRegAddr) + (XOSD_LXC)));
 
 	/* Update the global alpha enable and the global alpha value fields */
-	if (GlobalAlphaEnable != (u16)0x0U) {
+	if (GlobalAlphaEnable != (u16)0x0) {
 		RegValue |= ((u32)(XOSD_LXC_GALPHAEN_MASK));
 	}
 	else {
@@ -551,7 +552,7 @@ void XOsd_GetLayerAlpha(XOsd *InstancePtr, u8 LayerIndex,
 	 */
 	*GlobalAlphaEnablePtr = (u16)((((RegValue) &
 				((u32)(XOSD_LXC_GALPHAEN_MASK))) ==
-					(XOSD_LXC_GALPHAEN_MASK)) ? 1U : 0U);
+					(XOSD_LXC_GALPHAEN_MASK)) ? 1 : 0);
 	*GlobalAlphaValuePtr = (u16)(((RegValue) & (XOSD_LXC_ALPHA_MASK)) >>
 					(XOSD_LXC_ALPHA_SHIFT));
 }
@@ -720,7 +721,7 @@ void XOsd_DisableLayer(XOsd *InstancePtr, u8 LayerIndex)
 
 	/* Calculate the base register address of the layer to work on */
 	LayerBaseRegAddr = ((u32)(XOSD_L0C_OFFSET)) +
-				((((u32)LayerIndex) * ((u32)(XOSD_LAYER_SIZE))));
+			((((u32)LayerIndex) * ((u32)(XOSD_LAYER_SIZE))));
 
 	/* Read the current layer control register value */
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
@@ -777,7 +778,7 @@ void XOsd_LoadColorLUTBank(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 
 	/* Load color data */
 	if(InstancePtr->Config.SlaveAxisVideoDataWidth == (u16)(XOSD_DATA_8)) {
-		for(Index = 0x0U;
+		for(Index = 0x0;
 		Index < ((InstancePtr->Layers[GcIndex].ColorLutSize *
 				(XOSD_COLOR_ENTRY_SIZE)) / sizeof(u32));
 		Index++) {
@@ -787,7 +788,7 @@ void XOsd_LoadColorLUTBank(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 	}
 	/* For video channel size of 10 or 12, the color size is 64 bits */
 	else {
-		for (Index = 0U;
+		for (Index = 0;
 			Index < (((InstancePtr->Layers[GcIndex].ColorLutSize) *
 				((XOSD_DATA_2) * (XOSD_COLOR_ENTRY_SIZE))) /
 					(sizeof(u32)));
@@ -799,8 +800,7 @@ void XOsd_LoadColorLUTBank(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 	/* Set the active color LUT bank */
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
 				(XOSD_GCABA_OFFSET));
-	RegValue &= ((u32)(~1U) << (((u32)(XOSD_GCABA_COL_SHIFT)) +
-			((u32)GcIndex)));
+	RegValue &= ~((u32)1 << ((XOSD_GCABA_COL_SHIFT) + GcIndex));
 
 	RegValue |= ((u32)BankIndex) << ((XOSD_GCABA_COL_SHIFT) +
 			((u32)GcIndex));
@@ -861,7 +861,7 @@ void XOsd_LoadCharacterSetBank(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 	FontWriteNum /= (u32)sizeof(u32);
 
 	/* Load the font data */
-	for (Index = 0x0U; Index < FontWriteNum; Index++) {
+	for (Index = 0x0; Index < FontWriteNum; Index++) {
 		XOsd_WriteReg(InstancePtr->Config.BaseAddress, (XOSD_GCD_OFFSET),
 						CharSetData[Index]);
 	}
@@ -869,8 +869,7 @@ void XOsd_LoadCharacterSetBank(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 	/* Set the bank to be active so the font is used by the core */
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
 					(XOSD_GCABA_OFFSET));
-	RegValue &= (u32)((~((u32)1U << (XOSD_GCABA_CHR_SHIFT)) +
-			((u32)GcIndex)));
+	RegValue &= ~((u32)1 << ((XOSD_GCABA_CHR_SHIFT) + GcIndex));
 	RegValue |= ((u32)BankIndex) << ((XOSD_GCABA_CHR_SHIFT) +
 			((u32)GcIndex));
 	XOsd_WriteReg(InstancePtr->Config.BaseAddress, (XOSD_GCABA_OFFSET),
@@ -921,7 +920,7 @@ void XOsd_LoadTextBank(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 			RegValue);
 
 	/* Load text data */
-	for (Index = 0x0U;
+	for (Index = 0x0;
 		Index < (u32)((((u32)(InstancePtr->
 				Layers[GcIndex].TextNumStrings) *
 		(u32)(InstancePtr->Layers[GcIndex].TextMaxStringLength)) /
@@ -934,7 +933,7 @@ void XOsd_LoadTextBank(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 	/* Set the active text bank */
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
 					(XOSD_GCABA_OFFSET));
-	RegValue &= ~(1U << ((XOSD_GCABA_TXT_SHIFT) + GcIndex));
+	RegValue &= ~(1 << ((XOSD_GCABA_TXT_SHIFT) + GcIndex));
 
 	RegValue |= ((u32)BankIndex) << ((XOSD_GCABA_TXT_SHIFT) +
 			((u32)GcIndex));
@@ -985,12 +984,12 @@ void XOsd_SetActiveBank(XOsd *InstancePtr, u8 GcIndex, u8 ColorBankIndex,
 	/* Clear the current active bank setting first */
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
 					(XOSD_GCABA_OFFSET));
-	RegValue &= ~(1U << GcIndex) & (XOSD_GCABA_INS_MASK);
-	RegValue &= ~(1U << ((XOSD_GCABA_COL_SHIFT) + (GcIndex))) &
+	RegValue &= ~(1 << GcIndex) & (XOSD_GCABA_INS_MASK);
+	RegValue &= ~(1 << ((XOSD_GCABA_COL_SHIFT) + (GcIndex))) &
 				(XOSD_GCABA_COL_MASK);
-	RegValue &= ~(1U << ((XOSD_GCABA_TXT_SHIFT) + (GcIndex))) &
+	RegValue &= ~(1 << ((XOSD_GCABA_TXT_SHIFT) + (GcIndex))) &
 				(XOSD_GCABA_TXT_MASK);
-	RegValue &= ~(1U << ((XOSD_GCABA_CHR_SHIFT) + (GcIndex))) &
+	RegValue &= ~(1 << ((XOSD_GCABA_CHR_SHIFT) + (GcIndex))) &
 				(XOSD_GCABA_CHR_MASK);
 
 	/* Choose the active banks */
@@ -1141,7 +1140,7 @@ void XOsd_LoadInstructionList(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 					(XOSD_GCWBA_GCNUM_MASK);
 	XOsd_WriteReg(InstancePtr->Config.BaseAddress, (XOSD_GCWBA_OFFSET),
 			RegValue);
-	for (Index = 0U; Index < (InstNum * (XOSD_INS_SIZE)); Index++) {
+	for (Index = 0; Index < (InstNum * (XOSD_INS_SIZE)); Index++) {
 		XOsd_WriteReg(InstancePtr->Config.BaseAddress,
 				(XOSD_GCD_OFFSET), InstSetPtr[Index]);
 	}
@@ -1150,16 +1149,16 @@ void XOsd_LoadInstructionList(XOsd *InstancePtr, u8 GcIndex, u8 BankIndex,
 	 * instruction
 	 */
 	if (InstNum < InstancePtr->Layers[GcIndex].InstructionNum) {
-		for (Index = 0x0U; Index < (XOSD_INS_SIZE); Index++) {
+		for (Index = 0x0; Index < (XOSD_INS_SIZE); Index++) {
 			XOsd_WriteReg(InstancePtr->Config.BaseAddress,
-						(XOSD_GCD_OFFSET), 0x0U);
+						(XOSD_GCD_OFFSET), 0x0);
 		}
 	}
 
 	/* Set the active instruction bank */
 	RegValue = XOsd_ReadReg(InstancePtr->Config.BaseAddress,
 					(XOSD_GCABA_OFFSET));
-	RegValue &= ~(1U << GcIndex);
+	RegValue &= ~(1 << GcIndex);
 	RegValue |= ((u32)BankIndex << (u32)GcIndex);
 	XOsd_WriteReg(InstancePtr->Config.BaseAddress,
 			(XOSD_GCABA_OFFSET), RegValue);
@@ -1194,9 +1193,7 @@ static void PopulateLayerProperty(XOsd *InstancePtr, XOsd_Config *CfgPtr)
 	 * shorter
 	 */
 	IpTemp = InstancePtr;
-	Xil_AssertVoid(IpTemp != NULL);
 	Cfg = CfgPtr;
-	Xil_AssertVoid(Cfg != NULL);
 
 	/* Layer #0 */
 	IpTemp->Layers[0].LayerType	= Cfg->Layer0Type;

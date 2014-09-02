@@ -268,6 +268,7 @@ enum {
 #define XOSD_LoadTextBank		XOsd_LoadTextBank
 #define XOSD_SetActiveBank		XOsd_SetActiveBank
 #define XOSD_CreateInstruction		XOsd_CreateInstruction
+#define XOSD_GetVersion			XOsd_GetVersion
 #define XOSD_LoadInstructionList	XOsd_LoadInstructionList
 #define XOSD_LookupConfig		XOsd_LookupConfig
 #define XOSD_IntrHandler		XOsd_IntrHandler

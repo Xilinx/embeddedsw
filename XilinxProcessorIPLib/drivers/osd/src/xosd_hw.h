@@ -137,8 +137,8 @@ extern "C" {
  * Interrupt status register generates a interrupt if the corresponding bits
  * of interrupt enable register bits are set.
  */
-#define XOSD_ISR_OFFSET		XOSD_STATUS	/**< Interrupt Status
-						  *  Register Offset */
+#define XOSD_ISR_OFFSET		XOSD_STATUS_OFFSET/**< Interrupt Status
+						    *  Register Offset */
 #define XOSD_IER_OFFSET		0x00C		/**< Interrupt Enable
 						  *  Register Offset */
 
@@ -601,10 +601,8 @@ extern "C" {
  *  @{
  */
 #define XOSD_CTL		XOSD_CTL_OFFSET
-#define XOSD_STATUS		XOSD_STATUS_OFFSET
-#define XOSD_ERROR		XOSD_ERROR_OFFSET
-#define XOSD_VER		XOSD_VER_OFFSET
 #define XOSD_SS			XOSD_ACTIVE_SIZE_OFFSET
+#define XOSD_VER		XOSD_VER_OFFSET
 #define XOSD_OPENC		XOSD_OPENC_OFFSET
 #define XOSD_BC0		XOSD_BC0_OFFSET
 #define XOSD_BC1		XOSD_BC1_OFFSET
@@ -650,6 +648,10 @@ extern "C" {
 
 #define XOSD_ISR		XOSD_ISR_OFFSET
 #define XOSD_IER		XOSD_IER_OFFSET
+
+#define XOSD_SS_YSIZE_MASK	XOSD_ACTSIZE_NUM_LINE_MASK
+#define XOSD_SS_XSIZE_MASK	XOSD_ACTSIZE_NUM_PIXEL_MASK
+#define XOSD_SS_YSIZE_SHIFT	XOSD_ACTSIZE_NUM_LINE_SHIFT
 
 #define XOSD_In32	XOsd_In32
 #define XOSD_Out32	XOsd_Out32
