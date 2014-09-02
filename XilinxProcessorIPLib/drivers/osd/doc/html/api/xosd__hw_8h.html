@@ -117,7 +117,7 @@ For more information about the operation of this core, see the hardware specific
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#3e1d00b23577b666a2f91a563f56f7f4">XOSD_RST_OFFSET</a>&nbsp;&nbsp;&nbsp;XOSD_CTL_OFFSET</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#391290622b578053a6e4f87b94afe6d2">XOSD_ISR_OFFSET</a>&nbsp;&nbsp;&nbsp;XOSD_STATUS</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#391290622b578053a6e4f87b94afe6d2">XOSD_ISR_OFFSET</a>&nbsp;&nbsp;&nbsp;XOSD_STATUS_OFFSET</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#f99a287707b01d05bb7ad6aadbe7d328">XOSD_IER_OFFSET</a>&nbsp;&nbsp;&nbsp;0x00C</td></tr>
 
@@ -445,13 +445,9 @@ For more information about the operation of this core, see the hardware specific
 <tr><td colspan="2"><br><h2>Compatibility Macros</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#8f160298d92b7e17204cd10053ceec37">XOSD_CTL</a>&nbsp;&nbsp;&nbsp;XOSD_CTL_OFFSET</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#73cfbb2c8fc912fb251e04a62bac9a13">XOSD_STATUS</a>&nbsp;&nbsp;&nbsp;XOSD_STATUS_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#274a7a398add7c34c11d9f956f9e10bc">XOSD_ERROR</a>&nbsp;&nbsp;&nbsp;XOSD_ERROR_OFFSET</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#7431b34af4a0111b645d156723cb1ec0">XOSD_SS</a>&nbsp;&nbsp;&nbsp;XOSD_ACTIVE_SIZE_OFFSET</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#050ded370604237151b03ac5003eb144">XOSD_VER</a>&nbsp;&nbsp;&nbsp;XOSD_VER_OFFSET</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#7431b34af4a0111b645d156723cb1ec0">XOSD_SS</a>&nbsp;&nbsp;&nbsp;XOSD_ACTIVE_SIZE_OFFSET</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#be93bb3ba0a8860f8c7d56dfcea8df73">XOSD_OPENC</a>&nbsp;&nbsp;&nbsp;XOSD_OPENC_OFFSET</td></tr>
 
@@ -520,6 +516,12 @@ For more information about the operation of this core, see the hardware specific
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#500f997f63759a43d02dc425e9b6de33">XOSD_ISR</a>&nbsp;&nbsp;&nbsp;XOSD_ISR_OFFSET</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#42c0cf8b389215cdc1173ac477698a5b">XOSD_IER</a>&nbsp;&nbsp;&nbsp;XOSD_IER_OFFSET</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#09bfa3eb5c81d0f2ff502356fea268a0">XOSD_SS_YSIZE_MASK</a>&nbsp;&nbsp;&nbsp;XOSD_ACTSIZE_NUM_LINE_MASK</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#861f853fac4c07735fbbc488fe323a65">XOSD_SS_XSIZE_MASK</a>&nbsp;&nbsp;&nbsp;XOSD_ACTSIZE_NUM_PIXEL_MASK</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#12d2364166a3e45b1e817f0e0a941e3e">XOSD_SS_YSIZE_SHIFT</a>&nbsp;&nbsp;&nbsp;XOSD_ACTSIZE_NUM_LINE_SHIFT</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xosd__hw_8h.html#dc564eda553a82a9ef6f4f7c4ced8a7f">XOSD_In32</a>&nbsp;&nbsp;&nbsp;XOsd_In32</td></tr>
 
@@ -1366,21 +1368,6 @@ OSD Layer 7 error for SOF early Mask
 
 <p>
 OSD Layer 7 error for SOF late Mask 
-</div>
-</div><p>
-<a class="anchor" name="274a7a398add7c34c11d9f956f9e10bc"></a><!-- doxytag: member="xosd_hw.h::XOSD_ERROR" ref="274a7a398add7c34c11d9f956f9e10bc" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XOSD_ERROR&nbsp;&nbsp;&nbsp;XOSD_ERROR_OFFSET          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
 </div>
 </div><p>
 <a class="anchor" name="1410ce6e4fff4ea10154e9724d0823af"></a><!-- doxytag: member="xosd_hw.h::XOSD_ERROR_OFFSET" ref="1410ce6e4fff4ea10154e9724d0823af" args="" -->
@@ -2273,7 +2260,7 @@ Size of an instruction in words
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XOSD_ISR_OFFSET&nbsp;&nbsp;&nbsp;XOSD_STATUS          </td>
+          <td class="memname">#define XOSD_ISR_OFFSET&nbsp;&nbsp;&nbsp;XOSD_STATUS_OFFSET          </td>
         </tr>
       </table>
 </div>
@@ -3811,12 +3798,42 @@ Software Reset
 
 </div>
 </div><p>
-<a class="anchor" name="73cfbb2c8fc912fb251e04a62bac9a13"></a><!-- doxytag: member="xosd_hw.h::XOSD_STATUS" ref="73cfbb2c8fc912fb251e04a62bac9a13" args="" -->
+<a class="anchor" name="861f853fac4c07735fbbc488fe323a65"></a><!-- doxytag: member="xosd_hw.h::XOSD_SS_XSIZE_MASK" ref="861f853fac4c07735fbbc488fe323a65" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XOSD_STATUS&nbsp;&nbsp;&nbsp;XOSD_STATUS_OFFSET          </td>
+          <td class="memname">#define XOSD_SS_XSIZE_MASK&nbsp;&nbsp;&nbsp;XOSD_ACTSIZE_NUM_PIXEL_MASK          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="09bfa3eb5c81d0f2ff502356fea268a0"></a><!-- doxytag: member="xosd_hw.h::XOSD_SS_YSIZE_MASK" ref="09bfa3eb5c81d0f2ff502356fea268a0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XOSD_SS_YSIZE_MASK&nbsp;&nbsp;&nbsp;XOSD_ACTSIZE_NUM_LINE_MASK          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="12d2364166a3e45b1e817f0e0a941e3e"></a><!-- doxytag: member="xosd_hw.h::XOSD_SS_YSIZE_SHIFT" ref="12d2364166a3e45b1e817f0e0a941e3e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XOSD_SS_YSIZE_SHIFT&nbsp;&nbsp;&nbsp;XOSD_ACTSIZE_NUM_LINE_SHIFT          </td>
         </tr>
       </table>
 </div>
