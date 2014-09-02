@@ -495,7 +495,7 @@ enum {
 ******************************************************************************/
 #define XCresample_StatusGetPending(InstancePtr) \
 	XCresample_ReadReg((InstancePtr)->Config.BaseAddress, \
-		(XCRE_STATUS)) & (XCRE_IXR_ALLINTR_MASK)
+		(XCRE_STATUS_OFFSET)) & (XCRE_IXR_ALLINTR_MASK)
 
 /*****************************************************************************/
 /**
