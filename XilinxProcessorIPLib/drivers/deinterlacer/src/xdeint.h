@@ -71,7 +71,7 @@
 * 2.00a rjh    18/01/12 Updated for v_deinterlacer 2.00
 * 3.0   adk    19/12/13 Updated as per the New Tcl API's.
 * 3.2   adk    02/13/14 Modified XDeint_IntrDisable macro replace ISR_OFFSET
-*                       with IER OFFSET.
+*                       with IER OFFSET, XDeint_InReset.
 *                       Added Doxygen support, adherence to Xilinx
 *                       coding standards.
 *
@@ -271,8 +271,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XDeint_InReset(InstancePtr) \
-	XDeint_ReadReg((InstancePtr)->Config.BaseAddress, \
-				(XDEINT_RESET_OFFSET))
+	(XDeint_ReadReg((InstancePtr)->Config.BaseAddress, \
+				(XDEINT_RESET_OFFSET)) & (XDEINT_RESET_RESET_MASK))
 
 /*****************************************************************************/
 /**
@@ -460,8 +460,8 @@ typedef struct {
 * @param	InstancePtr is a pointer to XDeint instance to be worked on.
 *
 * @return	Returns the color space.
-*		0x00000004 - YUV color space,
-*		0x00000000 - RGB color space.
+*		0x00000004 - RGB color space,
+*		0x00000000 - YUV color space.
 *
 * @note		C-style signature:
 *		u32 XDeint_GetColorSpace(XDeint *InstancePtr)
@@ -469,7 +469,7 @@ typedef struct {
 ******************************************************************************/
 #define XDeint_GetColorSpace(InstancePtr) \
 	XDeint_ReadReg((InstancePtr)->Config.BaseAddress, \
-		(XDEINT_MODE_OFFSET)) & (XDEINT_MODE_COLOUR_YUV)
+		(XDEINT_MODE_OFFSET)) & (XDEINT_MODE_COL)
 
 /*****************************************************************************/
 /**
