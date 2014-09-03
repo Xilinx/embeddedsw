@@ -51,6 +51,9 @@
 * 3.2   adk    02/13/14 Suffixed "_OFFSET" to all register offset macros.
 *                       Added bit masks for the registers and added
 *                       backward compatibility for macros.
+*                       Swapped bit definitions of XDEINT_MODE_COLOUR_YUV
+*                       and XDEINT_MODE_COLOUR_RGB.
+*                       Modified bit definitions of version register.
 * </pre>
 *
 ******************************************************************************/
@@ -161,9 +164,9 @@ extern "C" {
 /** @name Deinterlacer Control Fields:
  *  @{
  */
-#define XDEINT_VER_MAJOR_MASK		0xF0000000	/**< Major Version */
-#define XDEINT_VER_MAJOR_SHIFT		28		/**< Major Bit Shift */
-#define XDEINT_VER_MINOR_MASK		0x0FF00000	/**< Minor Version */
+#define XDEINT_VER_MAJOR_MASK		0xFF000000	/**< Major Version */
+#define XDEINT_VER_MAJOR_SHIFT		24		/**< Major Bit Shift */
+#define XDEINT_VER_MINOR_MASK		0x00F00000	/**< Minor Version */
 #define XDEINT_VER_MINOR_SHIFT		20		/**< Minor Bit Shift */
 #define XDEINT_VER_REV_MASK		0x000F0000	/**< Revision
 							  *  Version */
@@ -203,9 +206,9 @@ extern "C" {
 #define XDEINT_MODE_PULL_22_FIELDP	0x00000200	/**< Pull down 2:2
 							  *  Field
 							  *  Precedence */
-#define XDEINT_MODE_COLOUR_RGB		0x00000000	/**< Deinterlacer
+#define XDEINT_MODE_COLOUR_YUV		0x00000000	/**< Deinterlacer
 							  *  color space */
-#define XDEINT_MODE_COLOUR_YUV		0x00000004	/**< Deinterlacer
+#define XDEINT_MODE_COLOUR_RGB		0x00000004	/**< Deinterlacer
 							  *  color space */
 #define XDEINT_MODE_ALGORITHM_RAW	0x00000000	/**< Deinterlacer
 							  *  algorithm
