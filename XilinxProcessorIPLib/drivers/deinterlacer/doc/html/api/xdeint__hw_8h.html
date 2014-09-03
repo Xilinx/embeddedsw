@@ -33,6 +33,9 @@ For more information about the operation of this core, see the hardware specific
  3.2   adk    02/13/14 Suffixed "_OFFSET" to all register offset macros.
                        Added bit masks for the registers and added
                        backward compatibility for macros.
+                       Swapped bit definitions of XDEINT_MODE_COLOUR_YUV
+                       and XDEINT_MODE_COLOUR_RGB.
+                       Modified bit definitions of version register.
  </pre> 
 <p>
 <code>#include &quot;xil_io.h&quot;</code><br>
@@ -106,11 +109,11 @@ For more information about the operation of this core, see the hardware specific
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#025d2faf550c2294aa9c3fa46ffc31c1">XDEINT_STS_FS_RD_FRAME_ERROR</a>&nbsp;&nbsp;&nbsp;0x00000800</td></tr>
 
 <tr><td colspan="2"><br><h2>Deinterlacer Control Fields:</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#2d2bb014d89e424d8d75e6517fc22e65">XDEINT_VER_MAJOR_MASK</a>&nbsp;&nbsp;&nbsp;0xF0000000</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#2d2bb014d89e424d8d75e6517fc22e65">XDEINT_VER_MAJOR_MASK</a>&nbsp;&nbsp;&nbsp;0xFF000000</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#242adae9cf3d19d888a7dba37825101f">XDEINT_VER_MAJOR_SHIFT</a>&nbsp;&nbsp;&nbsp;28</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#242adae9cf3d19d888a7dba37825101f">XDEINT_VER_MAJOR_SHIFT</a>&nbsp;&nbsp;&nbsp;24</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#d642c1f4a5c822380bd42fdccff84609">XDEINT_VER_MINOR_MASK</a>&nbsp;&nbsp;&nbsp;0x0FF00000</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#d642c1f4a5c822380bd42fdccff84609">XDEINT_VER_MINOR_MASK</a>&nbsp;&nbsp;&nbsp;0x00F00000</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#eb1fa591fc484a947fa092a6e4122df3">XDEINT_VER_MINOR_SHIFT</a>&nbsp;&nbsp;&nbsp;20</td></tr>
 
@@ -146,9 +149,9 @@ For more information about the operation of this core, see the hardware specific
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#80ea288bb53f964b7c6434f5c167c17d">XDEINT_MODE_PULL_22_FIELDP</a>&nbsp;&nbsp;&nbsp;0x00000200</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#0a3b9c44cc615bd2a23a7bd364f6a2b1">XDEINT_MODE_COLOUR_RGB</a>&nbsp;&nbsp;&nbsp;0x00000000</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#95dc03a814c7f9ff2800b5949e0e5f05">XDEINT_MODE_COLOUR_YUV</a>&nbsp;&nbsp;&nbsp;0x00000000</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#95dc03a814c7f9ff2800b5949e0e5f05">XDEINT_MODE_COLOUR_YUV</a>&nbsp;&nbsp;&nbsp;0x00000004</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#0a3b9c44cc615bd2a23a7bd364f6a2b1">XDEINT_MODE_COLOUR_RGB</a>&nbsp;&nbsp;&nbsp;0x00000004</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdeint__hw_8h.html#6404ad7d41d8f173f028d177f029c19d">XDEINT_MODE_ALGORITHM_RAW</a>&nbsp;&nbsp;&nbsp;0x00000000</td></tr>
 
@@ -950,7 +953,7 @@ Color Space
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDEINT_MODE_COLOUR_RGB&nbsp;&nbsp;&nbsp;0x00000000          </td>
+          <td class="memname">#define XDEINT_MODE_COLOUR_RGB&nbsp;&nbsp;&nbsp;0x00000004          </td>
         </tr>
       </table>
 </div>
@@ -965,7 +968,7 @@ Deinterlacer color space
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDEINT_MODE_COLOUR_YUV&nbsp;&nbsp;&nbsp;0x00000004          </td>
+          <td class="memname">#define XDEINT_MODE_COLOUR_YUV&nbsp;&nbsp;&nbsp;0x00000000          </td>
         </tr>
       </table>
 </div>
@@ -1492,7 +1495,7 @@ Deinterlacer threshold
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDEINT_VER_MAJOR_MASK&nbsp;&nbsp;&nbsp;0xF0000000          </td>
+          <td class="memname">#define XDEINT_VER_MAJOR_MASK&nbsp;&nbsp;&nbsp;0xFF000000          </td>
         </tr>
       </table>
 </div>
@@ -1507,7 +1510,7 @@ Major Version
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDEINT_VER_MAJOR_SHIFT&nbsp;&nbsp;&nbsp;28          </td>
+          <td class="memname">#define XDEINT_VER_MAJOR_SHIFT&nbsp;&nbsp;&nbsp;24          </td>
         </tr>
       </table>
 </div>
@@ -1522,7 +1525,7 @@ Major Bit Shift
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDEINT_VER_MINOR_MASK&nbsp;&nbsp;&nbsp;0x0FF00000          </td>
+          <td class="memname">#define XDEINT_VER_MINOR_MASK&nbsp;&nbsp;&nbsp;0x00F00000          </td>
         </tr>
       </table>
 </div>

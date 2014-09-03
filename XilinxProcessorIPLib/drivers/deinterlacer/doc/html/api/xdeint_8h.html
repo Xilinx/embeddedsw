@@ -223,14 +223,14 @@
 
 <p>
 <b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xdeint__hw_8h.html#23f0a76b05af8e52c359a2330f0785e1">XDeint_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \
-                (<a class="code" href="xdeint__hw_8h.html#a4ddf97ec440161ec497fbc15a072e59">XDEINT_MODE_OFFSET</a>)) &amp; (<a class="code" href="xdeint__hw_8h.html#95dc03a814c7f9ff2800b5949e0e5f05">XDEINT_MODE_COLOUR_YUV</a>)
+                (<a class="code" href="xdeint__hw_8h.html#a4ddf97ec440161ec497fbc15a072e59">XDEINT_MODE_OFFSET</a>)) &amp; (<a class="code" href="xdeint__hw_8h.html#4ba135e2728b4eafc68280dae1bd0f7d">XDEINT_MODE_COL</a>)
 </pre></div>This macro gets the Deinterlacer's color space.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to <a class="el" href="struct_x_deint.html">XDeint</a> instance to be worked on.</td></tr>
   </table>
 </dl>
-<dl compact><dt><b>Returns:</b></dt><dd>Returns the color space. 0x00000004 - YUV color space, 0x00000000 - RGB color space.</dd></dl>
+<dl compact><dt><b>Returns:</b></dt><dd>Returns the color space. 0x00000004 - RGB color space, 0x00000000 - YUV color space.</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>C-style signature: u32 <a class="el" href="xdeint_8h.html#6600d1eb9d04bbd03edf2bfc046545f3">XDeint_GetColorSpace(XDeint *InstancePtr)</a> </dd></dl>
 
 </div>
@@ -282,8 +282,8 @@ Internal Register update done
 <div class="memdoc">
 
 <p>
-<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xdeint__hw_8h.html#23f0a76b05af8e52c359a2330f0785e1">XDeint_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \
-                                (<a class="code" href="xdeint__hw_8h.html#8535b5f3d0aa09f4283330f3d8fc5b84">XDEINT_RESET_OFFSET</a>))
+<b>Value:</b><div class="fragment"><pre class="fragment">(<a class="code" href="xdeint__hw_8h.html#23f0a76b05af8e52c359a2330f0785e1">XDeint_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \
+                                (<a class="code" href="xdeint__hw_8h.html#8535b5f3d0aa09f4283330f3d8fc5b84">XDEINT_RESET_OFFSET</a>)) &amp; (<a class="code" href="xdeint__hw_8h.html#29cda40e0d5cccf062e9af72a58af84c">XDEINT_RESET_RESET_MASK</a>))
 </pre></div>This macro returns the current soft-reset state.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -353,7 +353,7 @@ Internal Register update done
 <b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="xdeint__hw_8h.html#8fcf5f5163b0b7e0e2bdf9a2aa3a63df">XDeint_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \
                 (<a class="code" href="xdeint__hw_8h.html#064dfe4f2be460786dbe3839dc2c5548">XDEINT_IER_OFFSET</a>), ((~(IntrType)) &amp; \
                         (<a class="code" href="xdeint__hw_8h.html#f766950c11d76b491d2817e7b71132d5">XDEINT_IXR_ALLINTR_MASK</a>)) &amp; \
-        <a class="code" href="xdeint__hw_8h.html#23f0a76b05af8e52c359a2330f0785e1">XDeint_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xdeint__hw_8h.html#dd2b35c78b464c2e7ae57774ae739a11">XDEINT_ISR_OFFSET</a>)))
+        <a class="code" href="xdeint__hw_8h.html#23f0a76b05af8e52c359a2330f0785e1">XDeint_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xdeint__hw_8h.html#064dfe4f2be460786dbe3839dc2c5548">XDEINT_IER_OFFSET</a>)))
 </pre></div>This macro disables the given individual interrupt(s) on the Deinterlacer core.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
