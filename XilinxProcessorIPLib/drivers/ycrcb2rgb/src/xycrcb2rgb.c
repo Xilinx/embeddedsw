@@ -531,20 +531,21 @@ void XYCrCb2Rgb_SetActiveSize(XYCrCb2Rgb *InstancePtr, u16 HSize, u16 VSize)
 ******************************************************************************/
 void XYCrCb2Rgb_GetActiveSize(XYCrCb2Rgb *InstancePtr, u16 *HSize, u16 *VSize)
 {
+	u32 Data;
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(HSize != NULL);
 	Xil_AssertVoid(VSize != NULL);
 
+	Data = XYCrCb2Rgb_ReadReg(InstancePtr->Config.BaseAddress,
+			(XYCC_ACTIVE_SIZE_OFFSET));
 	/* Reads Number of Active Pixels per scan line */
-	*VSize = (u16)(XYCrCb2Rgb_ReadReg(InstancePtr->Config.BaseAddress,
-			(XYCC_ACTIVE_SIZE_OFFSET)) &
+	*VSize = (u16)((Data &
 				(XYCC_ACTSIZE_NUM_LINE_MASK)) >>
-					(XYCC_ACTSIZE_NUM_LINE_SHIFT);
+					(XYCC_ACTSIZE_NUM_LINE_SHIFT));
 
 	/* Reads number of active lines per frame */
-	*HSize = (u16)(XYCrCb2Rgb_ReadReg(InstancePtr->Config.BaseAddress,
-				(XYCC_ACTIVE_SIZE_OFFSET)) &
+	*HSize = (u16)(Data &
 					(XYCC_ACTSIZE_NUM_PIXEL_MASK));
 }
 
