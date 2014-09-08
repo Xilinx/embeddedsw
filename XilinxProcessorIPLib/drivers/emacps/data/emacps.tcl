@@ -40,6 +40,8 @@
 # 2.1   adk  11/08/14 Fixed the CR#811288 when PCS/PMA core is present in the hw
 #		      XPAR_GIGE_PCS_PMA_CORE_PRESENT and phy address values 
 #		      should export to the xparameters.h file.
+# 2.1   bss  09/08/14 Fixed CR#820349 to export phy address in xparameters.h
+#		      when GMII to RGMII converter is present in hw.
 #
 ##############################################################################
 
@@ -60,53 +62,48 @@ proc generate {drv_handle} {
 
 proc generate_gmii2rgmii_params {drv_handle file_name} {
 	set file_handle [::hsm::utils::open_include_file $file_name]
-	set proc_handle [get_sw_processor]
-	set hwproc_handle [get_cells $proc_handle]
-	set mhs_handle [get_cells]
-		set ips [get_cells  "*"]
-		foreach ip $ips {
-			set ipname [get_property NAME  $ip]
-			set periph [get_property NAME  $ip]
-			if { [string compare -nocase $periph "ps7_ethernet"] == 0} {
-				set phya [is_gmii2rgmii_conv_present $ip]
-				if { $phya == 0} {
-					close $file_handle
-					return 0
-				}
-				puts $file_handle "/* Definition for the MDIO address for the GMII2RGMII converter PL IP*/"
-				
-				if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0} {
-					puts $file_handle "\#define XPAR_GMII2RGMIICON_0N_ETH0_ADDR $phya"
-				}
-				if { [string compare -nocase $ipname "ps7_ethernet_1"] == 0} {
-					puts $file_handle "\#define XPAR_GMII2RGMIICON_0N_ETH1_ADDR $phya"
-				}
-				puts $file_handle "\n/******************************************************************/\n"
+	set ips [get_cells  "*"]
+	foreach ip $ips {
+		set ipname [get_property NAME  $ip]
+		set periph [get_property IP_NAME  $ip]
+		if { [string compare -nocase $periph "ps7_ethernet"] == 0} {
+			set phya [is_gmii2rgmii_conv_present $ip]
+			if { $phya == 0} {
+				close $file_handle
+				return 0
 			}
-			
+			puts $file_handle "/* Definition for the MDIO address for the GMII2RGMII converter PL IP*/"
+				
+			if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0} {
+				puts $file_handle "\#define XPAR_GMII2RGMIICON_0N_ETH0_ADDR $phya"
+			}
+			if { [string compare -nocase $ipname "ps7_ethernet_1"] == 0} {
+				puts $file_handle "\#define XPAR_GMII2RGMIICON_0N_ETH1_ADDR $phya"
+			}
+			puts $file_handle "\n/******************************************************************/\n"
 		}
-  close $file_handle
+
+	}
+	close $file_handle
 }
 	
 proc is_gmii2rgmii_conv_present {slave} {
 	set port_value 0
 	set phy_addr 0
 	set ipconv 0
-
-	set mhs_handle [get_cells -of_objects $slave]
 	set ips [get_cells "*"]
 	set enetipinstance_name [get_property NAME  $slave]
 	
 	foreach ip $ips {
 		set convipname [get_property NAME  $ip]
-		set periph [get_property NAME $ip]
+		set periph [get_property IP_NAME $ip]
 		if { [string compare -nocase $periph "gmii_to_rgmii"] == 0} {
 			set ipconv $ip
 			break
 		}
 	}
 	if { $ipconv != 0 }  {
-		set port_value [::hsm::utils::get_net_name $ipconv "gmii_txd"]
+		set port_value [get_pins -of_objects [get_nets -of_objects [get_pins -of_objects $ipconv gmii_txd]]]
 		if { $port_value != 0 } {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {

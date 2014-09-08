@@ -293,6 +293,9 @@
  *			  issues with iarcc compiler.
  * 2.0   adk  10/12/13 Updated as per the New Tcl API's
  * 2.1   adk  11/08/14 Fixed the CR#811288. Changes are made in the driver tcl file.
+ * 2.1   bss  09/08/14 Modified driver tcl to fix CR#820349 to export phy
+ *		       address in xparameters.h when GMII to RGMII converter
+ *		       is present in hw.
  * </pre>
  *
  ****************************************************************************/
