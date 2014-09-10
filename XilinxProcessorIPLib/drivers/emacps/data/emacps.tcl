@@ -133,27 +133,24 @@ proc is_gmii2rgmii_conv_present {slave} {
 
 proc generate_sgmii_params {drv_handle file_name} {
 	set file_handle [::hsm::utils::open_include_file $file_name]
-	set proc_handle [get_sw_processor]
-	set hwproc_handle [get_cells [get_property HW_INSTANCE $proc_handle]]
-	set mhs_handle [get_cells]
-		set ips [get_cells "*"]
-		foreach ip $ips {
-			set ipname [get_property NAME $ip]
-			set periph [get_property IP_NAME  $ip]
-			if { [string compare -nocase $periph "ps7_ethernet"] == 0} { 
-				set phya [is_gige_pcs_pma_ip_present $ip]
-				if { $phya == 0} {
-					close $file_handle
-					return 0
-				}
-				puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_CORE_PRESENT 1"
-				puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
-				puts $file_handle "\n/******************************************************************/\n"
+	set ips [get_cells "*"]
+
+	foreach ip $ips {
+		set ipname [get_property NAME $ip]
+		set periph [get_property IP_NAME  $ip]
+		if { [string compare -nocase $periph "ps7_ethernet"] == 0} {
+			set phya [is_gige_pcs_pma_ip_present $ip]
+			if { $phya == 0} {
+				close $file_handle
+				return 0
 			}
-			
+			puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
+			puts $file_handle "\#define XPAR_GIGE_PCS_PMA_CORE_PRESENT 1"
+			puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
+			puts $file_handle "\n/******************************************************************/\n"
 		}
-  close $file_handle
+	}
+	close $file_handle
 }
 	
 proc is_gige_pcs_pma_ip_present {slave} {
@@ -161,7 +158,6 @@ proc is_gige_pcs_pma_ip_present {slave} {
 	set phy_addr 0
 	set ipconv 0
 
-	#set mhs_handle [get_cells -of_objects  $slave]
 	set ips [get_cells "*"]
 	set enetipinstance_name [get_property NAME  $slave]
 	
@@ -177,7 +173,7 @@ proc is_gige_pcs_pma_ip_present {slave} {
 		}
 	}
 	if { $ipconv != 0 }  {
-		set port_value [::hsm::utils::get_net_name $ipconv "gmii_txd"]
+		set port_value [get_pins -of_objects [get_nets -of_objects [get_pins -of_objects $ipconv gmii_txd]]]
 		if { $port_value != 0 } {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {
