@@ -206,4 +206,7 @@
  *		       armcc/translation_table.s and iccarm/translation_table.s
  *		       to properly defined reserved entries according to address map for
  *		       fixing CR#820146
+ * 4.2 pkp   09/11/14  modified translation table entries in cortexa9/iccarm/translation_table.s
+ *		       and  cortexa9/armcc/translation_table.s to resolve compilation
+ *		       error for solving CR#822897
 ******************************************************************************************/

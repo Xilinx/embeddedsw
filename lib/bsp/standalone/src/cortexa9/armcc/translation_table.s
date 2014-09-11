@@ -46,6 +46,8 @@
 ; 3.07a sgd  07/05/2012 Configuring device address spaces as shareable device
 ;		       instead of strongly-ordered.
 ; 4.2	pkp  09/02/14 modified translation table entries according to address map
+; 4.2	pkp  09/11/14 modified translation table entries to resolve compilation
+;		      error for solving CR#822897
 ; </pre>
 ;
 ; @note
@@ -132,11 +134,11 @@ count   SETA  count+1
    WEND
 
  ; 0xe4000000 - 0xe5ffffff  (SRAM)
- count   SETA  0
+count   SETA  0
     WHILE count<0x20
     DCD	sect + 0xc0e		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b1, B=b1
- sect    SETA  sect+0x100000
- count   SETA  count+1
+sect    SETA  sect+0x100000
+count   SETA  count+1
    WEND
 
 ; 0xe6000000 - 0xf7ffffff  (reserved)
@@ -168,11 +170,11 @@ count   SETA  count+1
    WEND
 
 ; 0xfc000000 - 0xfdffffff   (QSPI)
- count   SETA  0
+count   SETA  0
     WHILE count<0x20
     DCD	sect + 0xc0a		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b1, B=b1
- sect    SETA  sect+0x100000
- count   SETA  count+1
+sect    SETA  sect+0x100000
+count   SETA  count+1
    WEND
 
 ; 0xfe000000 - 0xffefffff (reserved)
@@ -188,7 +190,7 @@ count   SETA  count+1
 
 ; 0xfff00000 to 0xfffb0000 (OCM)
 count   SETA  0
-DCD	sect + 0x4c0e		; S=b0 TEX=b100 AP=b11, Domain=b0, C=b1, B=b1
+   DCD	sect + 0x4c0e		; S=b0 TEX=b100 AP=b11, Domain=b0, C=b1, B=b1
 sect    SETA  sect+0x100000
 
    END
