@@ -39,7 +39,8 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.00a als  08/03/14 Initial release.
+ * 1.0   als  08/03/14 Initial release.
+ * 2.0   als  09/21/14 Improvements to topology discovery and sideband messages.
  * </pre>
  *
 *******************************************************************************/
@@ -570,8 +571,7 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
 *******************************************************************************/
 u32 XDptx_DiscoverTopology(XDptx *InstancePtr)
 {
-	XDptx_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
-	u8 RelativeAddress[16];
+	u8 RelativeAddress[15];
 
 	return XDptx_FindAccessibleDpDevices(InstancePtr, 1, RelativeAddress);
 }
@@ -923,10 +923,12 @@ u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Clear the payload table in the transmitter. */
-	for (Index = 0; Index < 63; Index++) {
+	for (Index = 0; Index < 64; Index++) {
 		XDptx_WriteReg(InstancePtr->Config.BaseAddr,
 			(XDPTX_VC_PAYLOAD_BUFFER_ADDR + (4 * Index)), 0);
 	}
+
+	XDptx_WaitUs(InstancePtr, 1000);
 
 	/* Clear the payload table in the immediate downstream branch device. */
 
@@ -1566,7 +1568,7 @@ u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr)
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = 1;
-	Msg.Header.LinkCountRemaining = 6;
+	Msg.Header.LinkCountRemaining = 0;
 	Msg.Header.BroadcastMsg = 1;
 	Msg.Header.PathMsg = 1;
 	Msg.Header.MsgBodyLength = 2;
@@ -2007,6 +2009,8 @@ static u32 XDptx_SendActTrigger(XDptx *InstancePtr)
 	u32 Status;
 	u8 AuxData;
 	u8 TimeoutCount = 0;
+
+	XDptx_WaitUs(InstancePtr, 10000);
 
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_TX_MST_CONFIG, 0x3);
 
