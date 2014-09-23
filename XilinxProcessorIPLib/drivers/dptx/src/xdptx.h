@@ -851,7 +851,8 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions related to MST topology
  * discovery. */
-void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
+u32 XDptx_DiscoverTopology(XDptx *InstancePtr);
+u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 							u8 *RelativeAddress);
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions related to MST stream

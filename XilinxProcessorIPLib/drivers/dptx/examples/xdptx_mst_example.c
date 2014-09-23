@@ -37,9 +37,6 @@
  * Contains a design example using the XDptx driver in multi-stream transport
  * (MST) mode.
  *
- * @note	When topology discovery is enabled, the required stack size will
- *		be larger than the default that SDK sets. Increase the stack
- *		size if the ALLOCATE_FROM_SINKLIST option is used.
  * @note	For this example to display output, the user will need to
  *		implement initialization of the system (Dptx_PlatformInit) and,
  *		after training is complete, implement configuration of the video
@@ -245,7 +242,13 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	InstancePtr->Topology.NodeTotal = 0;
 	InstancePtr->Topology.SinkTotal = 0;
 
-	XDptx_FindAccessibleDpDevices(InstancePtr, 1, NULL);
+	Status = XDptx_DiscoverTopology(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("!!! A LINK_ADDRESS response from a branch device "
+			"in the MST topology was not successfully received.\n");
+		return XST_FAILURE;
+	}
+
 	xil_printf("<<< Find topology DONE; # of sinks found = %d.\n",
 					InstancePtr->Topology.SinkTotal);
 

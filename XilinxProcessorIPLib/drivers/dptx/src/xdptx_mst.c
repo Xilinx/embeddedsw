@@ -555,6 +555,36 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
  * add it to the topology's sink list.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the topology discovery is successful.
+ *		- XST_FAILURE otherwise - if sending a LINK_ADDRESS sideband
+ *		  message to one of the branch devices in the topology failed.
+ *
+ * @note	The contents of the InstancePtr->Topology structure will be
+ *		modified.
+ *
+*******************************************************************************/
+u32 XDptx_DiscoverTopology(XDptx *InstancePtr)
+{
+	XDptx_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
+	u8 RelativeAddress[16];
+
+	return XDptx_FindAccessibleDpDevices(InstancePtr, 1, RelativeAddress);
+}
+
+/******************************************************************************/
+/**
+ * This function will explore the DisplayPort topology of downstream devices
+ * starting from the branch device specified by the LinkCountTotal and
+ * RelativeAddress parameters. It will recursively go through each branch
+ * device, obtain its information by sending a LINK_ADDRESS sideband message,
+ * and add this information to the the topology's node table. For each sink
+ * device connected to a branch's downstream port, this function will obtain
+ * the details of the sink, add it to the topology's node table, as well as
+ * add it to the topology's sink list.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	LinkCountTotal is the total DisplayPort links connecting the
  *		DisplayPort TX to the current downstream device in the
  *		recursion.
@@ -562,22 +592,25 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
  *		source to the current target DisplayPort device in the
  *		recursion.
  *
- * @return	None - the recursion will exit from nodes that have an error
- *		when replying to the LINK_ADDRESS sideband message.
+ * @return
+ *		- XST_SUCCESS if the topology discovery is successful.
+ *		- XST_FAILURE otherwise - if sending a LINK_ADDRESS sideband
+ *		  message to one of the branch devices in the topology failed.
  *
  * @note	The contents of the InstancePtr->Topology structure will be
  *		modified.
  *
 *******************************************************************************/
-void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
+u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 							u8 *RelativeAddress)
 {
 	u32 Status;
 	u8 Index;
-	u8 RadIndex;
-	XDptx_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
-	XDptx_SbMsgLinkAddressReplyPortDetail *PortDetails;
+	u8 NumDownBranches = 0;
+	u8 OverallFailures = 0;
 	XDptx_Topology *Topology;
+	XDptx_SbMsgLinkAddressReplyPortDetail *PortDetails;
+	static XDptx_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -592,9 +625,9 @@ void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	Status = XDptx_SendSbMsgLinkAddress(InstancePtr, LinkCountTotal,
 						RelativeAddress, &DeviceInfo);
 	if (Status != XST_SUCCESS) {
-		/* The LINK_ADDRESS was sent to a device that cannot reply;
-		 * exit from this recursion path. */
-		return;
+		/* The LINK_ADDRESS was sent to a device that cannot reply; exit
+		 * from this recursion path. */
+		return XST_FAILURE;
 	}
 
 	/* Write GUID to the branch device if it doesn't already have one. */
@@ -609,47 +642,61 @@ void XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	 * this branch device. */
 	LinkCountTotal++;
 
-	/* Any downstream device downstream device will have the RAD of the
-	 * current branch device appended with the port number. */
-	u8 DownstreamRelativeAddress[LinkCountTotal - 1];
-	/* Copy the branch device's RAD. */
-	for (RadIndex = 0; RadIndex < (LinkCountTotal - 2); RadIndex++) {
-		DownstreamRelativeAddress[RadIndex] = RelativeAddress[RadIndex];
-	}
-
+	u8 DownBranchesDownPorts[DeviceInfo.NumPorts];
 	for (Index = 0; Index < DeviceInfo.NumPorts; Index++) {
 		PortDetails = &DeviceInfo.PortDetails[Index];
+		/* Any downstream device downstream device will have the RAD of the
+		 * current branch device appended with the port number. */
+		RelativeAddress[LinkCountTotal - 2] = PortDetails->PortNum;
 
-		if (PortDetails->InputPort == 0) {
-			/* Append the port number to the RAD of the branch
-			 * device. */
-			DownstreamRelativeAddress[RadIndex] =
-							PortDetails->PortNum;
+		if ((PortDetails->InputPort == 0) &&
+					(PortDetails->PeerDeviceType != 0x2) &&
+					(PortDetails->DpDevPlugStatus == 1)) {
 
-			if (PortDetails->PeerDeviceType == 0x2) {
-				/* Found a branch device; recurse the algorithm
-				 * to see what DisplayPort devices are connected
-				 * to it with the appended RAD. */
-				XDptx_FindAccessibleDpDevices(InstancePtr,
-						LinkCountTotal,
-						DownstreamRelativeAddress);
-			}
-			else if (PortDetails->DpDevPlugStatus == 1) {
-				if ((PortDetails->MsgCapStatus == 1) &&
+			if ((PortDetails->MsgCapStatus == 1) &&
 					(PortDetails->DpcdRev >= 0x12)) {
-					/* Write GUID to the branch device if it
-					 * doesn't already have one. */
-					XDptx_IssueGuid(InstancePtr,
-						LinkCountTotal, RelativeAddress,
-						Topology, PortDetails->Guid);
-				}
-
-				XDptx_AddSinkToList(InstancePtr, PortDetails,
-						LinkCountTotal,
-						DownstreamRelativeAddress);
+				/* Write GUID to the branch device if it
+				 * doesn't already have one. */
+				XDptx_IssueGuid(InstancePtr,
+					LinkCountTotal, RelativeAddress,
+					Topology, PortDetails->Guid);
 			}
+
+			XDptx_AddSinkToList(InstancePtr, PortDetails,
+					LinkCountTotal,
+					RelativeAddress);
+		}
+
+		if (PortDetails->PeerDeviceType == 0x2) {
+			DownBranchesDownPorts[NumDownBranches] =
+							PortDetails->PortNum;
+			NumDownBranches++;
 		}
 	}
+
+	for (Index = 0; Index < NumDownBranches; Index++) {
+		/* Any downstream device downstream device will have the RAD of
+		 * the current branch device appended with the port number. */
+		RelativeAddress[LinkCountTotal - 2] =
+						DownBranchesDownPorts[Index];
+
+		/* Found a branch device; recurse the algorithm to see what
+		 * DisplayPort devices are connected to it with the appended
+		 * RAD. */
+		Status = XDptx_FindAccessibleDpDevices(InstancePtr,
+					LinkCountTotal, RelativeAddress);
+		if (Status != XST_SUCCESS) {
+			/* Keep trying to discover the topology, but the top
+			 * level function call should indicate that a failure
+			 * was detected. */
+			OverallFailures++;
+		}
+	}
+
+	if (OverallFailures != 0) {
+		return XST_FAILURE;
+	}
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
