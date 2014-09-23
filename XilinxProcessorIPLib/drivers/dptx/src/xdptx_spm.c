@@ -45,7 +45,7 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.00a als  05/17/14 Initial release.
+ * 1.0   als  05/17/14 Initial release.
  *       als  08/03/14 Initial MST addition.
  * </pre>
  *

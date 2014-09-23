@@ -198,8 +198,10 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.00a als  05/17/14 Initial release.
+ * 1.0   als  05/17/14 Initial release.
  *       als  08/03/14 Initial MST addition.
+ * 2.0   als  09/21/14 Added XDptx_DiscoverTopology function and changed
+ *                     XDptx_IsConnected from macro to function.
  * </pre>
  *
 *******************************************************************************/
