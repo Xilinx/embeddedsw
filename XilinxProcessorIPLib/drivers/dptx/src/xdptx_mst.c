@@ -2059,6 +2059,16 @@ static u32 XDptx_SendSbMsg(XDptx *InstancePtr, XDptx_SidebandMsg *Msg)
 
 	XDptx_WaitUs(InstancePtr, InstancePtr->SbMsgDelayUs);
 
+	/* First, clear the DOWN_REP_MSG_RDY in case the RX device is in a weird
+	 * state. */
+	AuxData[0] = 0x10;
+	Status = XDptx_AuxWrite(InstancePtr,
+			XDPTX_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0, 1,
+			AuxData);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
 	/* Add the header to the sideband message transaction. */
 	Msg->Header.MsgHeaderLength = 0;
 	AuxData[Msg->Header.MsgHeaderLength++] =
