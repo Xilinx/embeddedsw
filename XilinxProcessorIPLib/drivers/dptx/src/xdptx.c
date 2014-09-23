@@ -72,6 +72,8 @@
 #define XDPTX_AUX_MAX_DEFER_COUNT 50
 /* Error out if an AUX request times out more than 50 times awaiting a reply. */
 #define XDPTX_AUX_MAX_TIMEOUT_COUNT 50
+/* Error out if checking for a connected device times out more than 50 times. */
+#define XDPTX_IS_CONNECTED_MAX_TIMEOUT_COUNT 50
 
 /****************************** Type Definitions ******************************/
 
@@ -658,6 +660,38 @@ void XDptx_CfgTxPeLevel(XDptx *InstancePtr, u8 Level, u8 TxLevel)
 	Xil_AssertVoid((TxLevel >= 0) && (TxLevel < 32));
 
 	InstancePtr->BoardChar.TxPeLevels[Level] = TxLevel;
+}
+
+/******************************************************************************/
+/**
+ * This function checks if there is a connected RX device.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return
+ *		- TRUE if there is a connection.
+ *		- FALSE if there is no connection.
+ *
+*******************************************************************************/
+u32 XDptx_IsConnected(XDptx *InstancePtr)
+{
+	u32 Status;
+	u8 Retries = 0;
+
+	do {
+		Status = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+				XDPTX_INTERRUPT_SIG_STATE) &
+				XDPTX_INTERRUPT_SIG_STATE_HPD_STATE_MASK;
+
+		if (Retries > XDPTX_IS_CONNECTED_MAX_TIMEOUT_COUNT) {
+			return 0;
+		}
+
+		Retries++;
+		XDptx_WaitUs(InstancePtr, 1000);
+	} while (Status == 0);
+
+	return 1;
 }
 
 /******************************************************************************/

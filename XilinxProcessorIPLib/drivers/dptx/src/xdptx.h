@@ -214,26 +214,6 @@
 #include "xil_assert.h"
 #include "xil_types.h"
 
-/******************* Macros (Inline Functions) Definitions ********************/
-
-/******************************************************************************/
-/**
- * This macro checks if there is a connected RX device.
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- *
- * @return
- *		- TRUE if there is a connection.
- *		- FALSE if there is no connection.
- *
- * @note	C-style signature:
- *		void XDptx_IsConnected(XDptx *InstancePtr)
- *
-*******************************************************************************/
-#define XDptx_IsConnected(InstancePtr) \
-	(XDptx_ReadReg(InstancePtr->Config.BaseAddr, \
-	XDPTX_INTERRUPT_SIG_STATE) & XDPTX_INTERRUPT_SIG_STATE_HPD_STATE_MASK)
-
 /****************************** Type Definitions ******************************/
 
 /**
@@ -797,6 +777,7 @@ u32 XDptx_SetLinkRate(XDptx *InstancePtr, u8 LinkRate);
 u32 XDptx_SetScrambler(XDptx *InstancePtr, u8 Enable);
 
 /* xdptx.c: General usage functions. */
+u32 XDptx_IsConnected(XDptx *InstancePtr);
 void XDptx_EnableMainLink(XDptx *InstancePtr);
 void XDptx_DisableMainLink(XDptx *InstancePtr);
 void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset);
