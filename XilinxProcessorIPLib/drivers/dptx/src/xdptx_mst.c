@@ -53,8 +53,11 @@
 /**************************** Constant Definitions ****************************/
 
 /* Error out if waiting for a sideband message reply or waiting for the payload
- * ID table to be updated takes more than 100 AUX read iterations. */
-#define XDPTX_MAX_TIMEOUT_COUNT 100
+ * ID table to be updated takes more than 5000 AUX read iterations. */
+#define XDPTX_MAX_SBMSG_REPLY_TIMEOUT_COUNT 5000
+/* Error out if waiting for the RX device to indicate that it has received an
+ * ACT trigger takes more than 30 AUX read iterations. */
+#define XDPTX_VCP_TABLE_MAX_TIMEOUT_COUNT 30
 
 /****************************** Type Definitions ******************************/
 
@@ -2016,7 +2019,7 @@ static u32 XDptx_SendActTrigger(XDptx *InstancePtr)
 		}
 
 		/* Error out if timed out. */
-		if (TimeoutCount > XDPTX_MAX_TIMEOUT_COUNT) {
+		if (TimeoutCount > XDPTX_VCP_TABLE_MAX_TIMEOUT_COUNT) {
 			return XST_ERROR_COUNT_MAX;
 		}
 
@@ -2200,7 +2203,7 @@ static u32 XDptx_WaitSbReply(XDptx *InstancePtr)
 {
 	u32 Status;
 	u8 AuxData;
-	u8 TimeoutCount = 0;
+	u16 TimeoutCount = 0;
 
 	do {
 		Status = XDptx_AuxRead(InstancePtr,
@@ -2212,7 +2215,7 @@ static u32 XDptx_WaitSbReply(XDptx *InstancePtr)
 		}
 
 		/* Error out if timed out. */
-		if (TimeoutCount > XDPTX_MAX_TIMEOUT_COUNT) {
+		if (TimeoutCount > XDPTX_MAX_SBMSG_REPLY_TIMEOUT_COUNT) {
 			return XST_ERROR_COUNT_MAX;
 		}
 
