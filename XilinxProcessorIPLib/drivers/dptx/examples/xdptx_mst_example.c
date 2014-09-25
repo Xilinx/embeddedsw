@@ -45,8 +45,8 @@
  * @note	The functions Dptx_PlatformInit and Dptx_StreamSrc* are declared
  *		extern in xdptx_example_common.h and are left up to the user to
  *		implement.
- * @note	Some setups require introduction of delays when sending sideband
- *		messages.
+ * @note	Some setups may require introduction of delays when sending
+ *		sideband messages.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -54,6 +54,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  08/07/14 Initial creation.
+ * 2.0   als  09/23/14 Improved programming sequence for payload allocation.
  * </pre>
  *
 *******************************************************************************/
@@ -64,7 +65,7 @@
 
 /**************************** Constant Definitions ****************************/
 
-/* The number of streams to enable. */
+/* The maximum number of streams to enable. */
 #define NUM_STREAMS 4
 
 /* This enables topology discovery which will create a list of sinks in the
@@ -89,8 +90,9 @@
 /* The color depth (bits per color component) to use for each stream. */
 #define USE_BPC 8
 
-/* Some MST configurations require delays when sending sideband messages. */
-#define USE_DELAYS_FOR_MST
+/* Some MST configurations may require delays when sending sideband messages. By
+ * default, disable these delays.*/
+#undef USE_DELAYS_FOR_MST
 
 /**************************** Function Prototypes *****************************/
 
@@ -162,16 +164,15 @@ u32 Dptx_MstExample(XDptx *InstancePtr, u16 DeviceId)
 		 * option must be selected from the monitor's option menu.
 		 * Likewise, the DisplayPort TX core must be configured to
 		 * support MST mode. */
-		xil_printf("Verify DisplayPort MST capabilities in the TX "
+		xil_printf("!!! Verify DisplayPort MST capabilities in the TX "
 							"and/or RX device.\n");
 		return XST_FAILURE;
 	}
 
 	do {
 		Status = Dptx_MstExampleRun(InstancePtr);
-
-		if (Status == XST_ERROR_COUNT_MAX) {
-			xil_printf("ACT trigger lost... Need to re-train.\n");
+		if (Status == XST_DATA_LOST) {
+			xil_printf("!!! Link lost... Need to re-train.\n");
 		}
 	} while (Status != XST_SUCCESS);
 
@@ -214,10 +215,7 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	}
 
 	XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
-		XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
-
-	InstancePtr->AuxDelayUs = 0;
-	InstancePtr->SbMsgDelayUs = 0;
+	XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
 
 	/* A DisplayPort connection must exist at this point. See the interrupt
 	 * and polling examples for waiting for connection events. */
@@ -230,6 +228,9 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 #ifdef USE_DELAYS_FOR_MST
 	InstancePtr->AuxDelayUs = 30000;
 	InstancePtr->SbMsgDelayUs = 100000;
+#else
+	InstancePtr->AuxDelayUs = 0;
+	InstancePtr->SbMsgDelayUs = 0;
 #endif
 
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID0);
@@ -238,6 +239,8 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID3);
 
 #ifdef ALLOCATE_FROM_SINKLIST
+	/* Run topology discovery to determine what devices are accessible to
+	 * the DisplayPort TX. */
 	xil_printf("Find topology >>>\n");
 	InstancePtr->Topology.NodeTotal = 0;
 	InstancePtr->Topology.SinkTotal = 0;
@@ -268,7 +271,11 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 								StreamIndex);
 	}
 
+	/* Specify the DisplayPort sink devices that each enabled stream will be
+	 * directed towards. */
 #ifndef ALLOCATE_FROM_SINKLIST
+	/* If topology discovery is not used, specify the relative addresses of
+	 * the DisplayPort sink devices. */
 	u8 Lct;
 	u8 Rad[15];
 
@@ -288,8 +295,11 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 9;
 		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID3, Lct, Rad);
 	}
-
 #else
+	/* If topology discovery is used, associate a stream number with a sink
+	 * number from the sink list obtained during topology discovery. The
+	 * sinks are numbered in the order that they were found during topology
+	 * discovery. */
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0)) {
 		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID0,
 							STREAM0_USE_SINKNUM);
@@ -308,9 +318,13 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	}
 #endif
 
-	/* Disable MST for now. */
+	/* Reset MST mode in both the RX and TX. */
 	XDptx_MstDisable(InstancePtr);
+	XDptx_MstEnable(InstancePtr);
 
+	/* Set the main stream attributes (MSA) for each enabled stream (each
+	 * stream has an identical configuration). Then, set the configuration
+	 * for that stream in the corresponding DisplayPort TX registers. */
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
 		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0 +
 								StreamIndex)) {
@@ -321,21 +335,6 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 
 			XDptx_CfgMsaUseStandardVideoMode(InstancePtr,
 				XDPTX_STREAM_ID0 + StreamIndex, VideoMode);
-		}
-	}
-
-	/* Disable main stream to force sending of IDLE patterns. */
-	XDptx_DisableMainLink(InstancePtr);
-
-	/* Reset the transmitter. */
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SOFT_RESET,
-					XDPTX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SOFT_RESET, 0x0);
-
-	/* Set the video modes for each stream. */
-	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
-		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0 +
-								StreamIndex)) {
 			XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID0 +
 								StreamIndex);
 		}
@@ -349,33 +348,22 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	Dptx_StreamSrcSync(InstancePtr);
 	////////////////////////////////////
 
-	/* Reset the transmitter. */
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SOFT_RESET,
-					XDPTX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_SOFT_RESET, 0x0);
-
-	/* Sync the stream source to the DisplayPort TX if needed. */
-	Dptx_StreamSrcSync(InstancePtr);
-	////////////////////////////////////
-
 	/* Mask interrupts while allocating payloads. */
 	MaskVal = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
 							XDPTX_INTERRUPT_MASK);
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_INTERRUPT_MASK,
 									0x3F);
 
-	XDptx_MstEnable(InstancePtr);
-
 	/* Clear the payload ID table first. */
 	Status = XDptx_ClearPayloadVcIdTable(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		return XST_DATA_LOST;
 	}
 
 	/* Allocate payloads. */
 	Status = XDptx_AllocatePayloadStreams(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		return XST_DATA_LOST;
 	}
 
 	/* Enable the main link. */
@@ -384,6 +372,14 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	/* Unmask interrupts. */
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_INTERRUPT_MASK,
 								MaskVal);
+
+	/* Do a final check to verify that the link wasn't lost. */
+	Status = XDptx_CheckLinkStatus(InstancePtr,
+					InstancePtr->LinkConfig.LaneCount);
+	if (Status != XST_SUCCESS) {
+		XDptx_WaitUs(InstancePtr, 10000);
+		return XST_DATA_LOST;
+	}
 
 	return XST_SUCCESS;
 }
