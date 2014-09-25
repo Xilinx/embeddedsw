@@ -144,11 +144,11 @@
  * directing streams to different sinks.
  *
  * MST testing has been done at 5.40Gbps per 4 lanes, with 4 sinks in a daisy-
- * chain configuration, with each stream having the same resolution. Extensive
- * testing has been done at resolutions of 1080p for each of 1 to 4 streams and
- * UHD/2 for each of 1 or 2 streams. Other resolutions have been tested as well,
- * however with the current version of the driver, some monitors required a
- * power cycle for all streams to come up.
+ * chain configuration, with each stream having the same resolution. Testing has
+ * been done at the following resolutions: 640x480, 720x480, 800x600, 848x480,
+ * 1024x768, 1280x720, 1280x1024, 1080p, and UHD (UHD/2 on 2 streams). Each
+ * resolutions was tested at 24 bits per pixel using 1, 2, 3, and 4 streams.
+ * Color depths of 18, 30, 36, and 48 bits per pixel were also tested.
  *
  * <b>Audio</b>
  *
@@ -178,17 +178,10 @@
  *   an allocated stream from the virtual channel payload ID table without
  *   clearing the entire table.
  * - Some sideband messages have not been implemented in the current version of
- *   the driver for MST mode. Notable, reception of a CONNECTION_STATUS_NOTIFY
+ *   the driver for MST mode. Notably, reception of a CONNECTION_STATUS_NOTIFY
  *   sideband message.
- * - Some monitors required a power cycle for all streams to come up at certain
- *   resolutions (outside of the 1080p and UHD/2 resolutions) during testing.
- *   Different resolutions for different streams were not tested. This will be
- *   investigated for the next SDK release.
  * - The driver does not handle audio. See the audio example in the driver
  *   examples directory for the required sequence for enabling audio.
- * - Limited testing was done with 4-byte GT data width.
- * - Most testing was done on a KC705 board. Some testing was done on a ZC706
- *   board, mostly with a 2-byte GT data width configuration.
  *
  * @note	For a 5.4Gbps link rate, a high performance 7 series FPGA is
  *		required with a speed grade of -2 or -3.
