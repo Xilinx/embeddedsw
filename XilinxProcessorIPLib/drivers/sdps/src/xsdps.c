@@ -46,6 +46,8 @@
 * 2.0   hk     12/13/13 Added check for arm to use sleep.h and its API's
 * 2.1   hk     04/18/14 Add sleep for microblaze designs. CR# 781117.
 * 2.2   hk     07/28/14 Make changes to enable use of data cache.
+* 2.3   sk     09/23/14 Send command for relative card address
+*                       when re-initialization is done.CR# 819614.
 *
 * </pre>
 *
@@ -370,8 +372,7 @@ int XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	InstancePtr->CardID[3] =
 			XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP3_OFFSET);
-
-	while (InstancePtr->RelCardAddr == 0) {
+	do {
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD3, 0, 0);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
@@ -385,7 +386,7 @@ int XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 		InstancePtr->RelCardAddr =
 				XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XSDPS_RESP0_OFFSET) & 0xFFFF0000;
-	}
+	} while (InstancePtr->RelCardAddr == 0);
 
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD9, (InstancePtr->RelCardAddr), 0);
 	if (Status != XST_SUCCESS) {

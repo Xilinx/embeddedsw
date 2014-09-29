@@ -104,6 +104,8 @@
 * 2.1   hk     04/18/14 Increase sleep for eMMC switch command.
 *                       Add sleep for microblaze designs. CR# 781117.
 * 2.2   hk     07/28/14 Make changes to enable use of data cache.
+* 2.3   sk     09/23/14 Send command for relative card address
+*                       when re-initialization is done.CR# 819614.
 *
 * </pre>
 *
