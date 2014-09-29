@@ -106,6 +106,8 @@
 * 2.2   hk     07/28/14 Make changes to enable use of data cache.
 * 2.3   sk     09/23/14 Send command for relative card address
 *                       when re-initialization is done.CR# 819614.
+*						Use XSdPs_Change_ClkFreq API whenever changing
+*						clock.CR# 816586.
 *
 * </pre>
 *
@@ -125,6 +127,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+#define XSDPS_CLK_400_KHZ		400000		/**< 400 KHZ */
+#define XSDPS_CLK_50_MHZ		50000000	/**< 50 MHZ */
 /**************************** Type Definitions *******************************/
 /**
  * This typedef contains configuration information for the device.

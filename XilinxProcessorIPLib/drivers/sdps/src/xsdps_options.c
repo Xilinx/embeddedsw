@@ -45,6 +45,8 @@
 * 1.00a hk/sg  10/17/13 Initial release
 * 2.1   hk     04/18/14 Increase sleep for eMMC switch command.
 *                       Add sleep for microblaze designs. CR# 781117.
+* 2.3   sk     09/23/14 Use XSdPs_Change_ClkFreq API whenever changing
+*						clock.CR# 816586.
 *
 * </pre>
 *
@@ -510,35 +512,14 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 
-	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET);
-	ClockReg &= ~(XSDPS_CC_INT_CLK_EN_MASK | XSDPS_CC_SD_CLK_EN_MASK);
-
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, ClockReg);
-
-	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET);
-	ClockReg &= (~XSDPS_CC_SDCLK_FREQ_SEL_MASK);
-	ClockReg |= XSDPS_CC_SDCLK_FREQ_BASE_MASK | XSDPS_CC_INT_CLK_EN_MASK;
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, ClockReg);
-
 	/*
-	 * Wait for internal clock to stabilize
+	 * Change the clock frequency to 50 MHz
 	 */
-	while((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-		XSDPS_CLK_CTRL_OFFSET) & XSDPS_CC_INT_CLK_STABLE_MASK) == 0);
-
-	/*
-	 * Enable SD clock
-	 */
-	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET);
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET,
-			ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
-
+	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_50_MHZ);
+	if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+	}
 
 	StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL1_OFFSET);

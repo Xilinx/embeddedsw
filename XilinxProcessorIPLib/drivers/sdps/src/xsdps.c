@@ -48,6 +48,8 @@
 * 2.2   hk     07/28/14 Make changes to enable use of data cache.
 * 2.3   sk     09/23/14 Send command for relative card address
 *                       when re-initialization is done.CR# 819614.
+*						Use XSdPs_Change_ClkFreq API whenever changing
+*						clock.CR# 816586.
 *
 * </pre>
 *
@@ -126,6 +128,7 @@ int XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	u32 ClockReg;
+	u32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -157,26 +160,13 @@ int XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 						XSDPS_CAPS_OFFSET);
 
 	/*
-	 * SD clock frequency divider 128
-	 * Enable the internal clock
+	 * Change the clock frequency to 400 KHz
 	 */
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-		XSDPS_CLK_CTRL_OFFSET,
-		XSDPS_CC_SDCLK_FREQ_D128_MASK | XSDPS_CC_INT_CLK_EN_MASK);
-
-	/*
-	 * Wait for internal clock to stabilize
-	 */
-	while ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-		XSDPS_CLK_CTRL_OFFSET) & XSDPS_CC_INT_CLK_STABLE_MASK) == 0);
-
-	/*
-	 * Enable SD clock
-	 */
-	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET);
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-		XSDPS_CLK_CTRL_OFFSET, ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
+	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_400_KHZ);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH ;
+	}
 
 	/*
 	 * Select voltage and enable bus power.
@@ -223,7 +213,11 @@ int XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_BLK_SIZE_OFFSET, XSDPS_BLK_SIZE_512_MASK);
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+RETURN_PATH:
+	return Status;
+
 }
 
 /*****************************************************************************/
