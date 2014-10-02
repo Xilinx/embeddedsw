@@ -14,7 +14,7 @@
 ##
 ## Use of the Software is limited solely to applications:
 ## (a) running on a Xilinx device, or
-## (b) that interact with a Xilinx device through a bus or interconnect. 
+## (b) that interact with a Xilinx device through a bus or interconnect.
 ##
 ## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ## IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -36,6 +36,6 @@ BEGIN driver dptx
         OPTION supported_peripherals = (displayport);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 1.0; 
+        OPTION VERSION = 2.0;
         OPTION NAME = dptx;
 END driver

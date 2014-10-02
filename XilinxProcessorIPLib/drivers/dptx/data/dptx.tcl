@@ -14,7 +14,7 @@
 ##
 ## Use of the Software is limited solely to applications:
 ## (a) running on a Xilinx device, or
-## (b) that interact with a Xilinx device through a bus or interconnect. 
+## (b) that interact with a Xilinx device through a bus or interconnect.
 ##
 ## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ## IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -47,7 +47,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set file_handle [xopen_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle] 
+    set periphs [xget_sw_iplist_for_driver $drv_handle]
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -60,7 +60,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     }
 
     # Check if it is a driver parameter
-    lappend newargs 
+    lappend newargs
     foreach arg $args {
         set value [get_property CONFIG.$arg $drv_handle]
         if {[llength $value] == 0} {
@@ -103,13 +103,13 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             }
         }
         puts $file_handle ""
-    }		
+    }
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
 }
 
 #
-# xdefine_canonical_xpars - Used to print out canonical defines for a driver. 
+# xdefine_canonical_xpars - Used to print out canonical defines for a driver.
 # Given a list of arguments, define each as a canonical constant name, using
 # the driver name, in an include file.
 #
@@ -133,7 +133,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
    foreach periph $periphs {
        set canonical_name [string toupper [format "%s_%s" $drv_string $device_id]]
        lappend canonicals $canonical_name
-       
+
        # Create a list of IDs of the peripherals whose hardware instance name
        # doesn't match the canonical name. These IDs can be used later to
        # generate canonical definitions
