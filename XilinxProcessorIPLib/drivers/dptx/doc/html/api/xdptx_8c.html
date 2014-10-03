@@ -28,7 +28,8 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
- 1.00a als  05/17/14 Initial release.
+ 1.0   als  05/17/14 Initial release.
+ 2.0   als  09/21/14 Added XDptx_IsConnected (previously a macro).
  </pre> 
 <p>
 <code>#include &quot;<a class="el" href="xdptx_8h.html">xdptx.h</a>&quot;</code><br>
@@ -47,6 +48,8 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#bbdc0c5e7cbbf8c2b4c5a22ccab7a5b5">XDPTX_AUX_MAX_DEFER_COUNT</a>&nbsp;&nbsp;&nbsp;50</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#262c9ca1b03f1dcd681e8e275f2160df">XDPTX_AUX_MAX_TIMEOUT_COUNT</a>&nbsp;&nbsp;&nbsp;50</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#b7e1f5ddc501431e93a85de17df88db4">XDPTX_IS_CONNECTED_MAX_TIMEOUT_COUNT</a>&nbsp;&nbsp;&nbsp;50</td></tr>
 
 <tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#cd850705884d914c6c8468f61336f06d">XDptx_TrainingState</a> { <br>
@@ -84,6 +87,8 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#8f4603bb5e1496650e3cda3aa06924b8">XDptx_CfgTxVsLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#a6815e6062e47eecfd9616eaa15a19a1">XDptx_CfgTxPeLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#44eafdd44ab545ce448b0c0476455d7c">XDptx_IsConnected</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#591d601b5e6913df09ad73ea92881e31">XDptx_AuxRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 NumBytes, void *Data)</td></tr>
 
@@ -136,6 +141,21 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
       <table class="memname">
         <tr>
           <td class="memname">#define XDPTX_AUX_MAX_TIMEOUT_COUNT&nbsp;&nbsp;&nbsp;50          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="b7e1f5ddc501431e93a85de17df88db4"></a><!-- doxytag: member="xdptx.c::XDPTX_IS_CONNECTED_MAX_TIMEOUT_COUNT" ref="b7e1f5ddc501431e93a85de17df88db4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_IS_CONNECTED_MAX_TIMEOUT_COUNT&nbsp;&nbsp;&nbsp;50          </td>
         </tr>
       </table>
 </div>
@@ -905,6 +925,35 @@ This function prepares the DisplayPort TX core for use.<p>
 
 </div>
 </div><p>
+<a class="anchor" name="44eafdd44ab545ce448b0c0476455d7c"></a><!-- doxytag: member="xdptx.c::XDptx_IsConnected" ref="44eafdd44ab545ce448b0c0476455d7c" args="(XDptx *InstancePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_IsConnected           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function checks if there is a connected RX device.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>TRUE if there is a connection.</li><li>FALSE if there is no connection. </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="a71e17a951f445b9c7bcfcc3104cdf4c"></a><!-- doxytag: member="xdptx.c::XDptx_ResetPhy" ref="a71e17a951f445b9c7bcfcc3104cdf4c" args="(XDptx *InstancePtr, u32 Reset)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1266,4 +1315,4 @@ This function is the delay/sleep function for the <a class="el" href="struct_x_d
 
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved. 
+Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.

@@ -26,7 +26,8 @@
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
- 1.00a als  08/03/14 Initial release.
+ 1.0   als  08/03/14 Initial release.
+ 2.0   als  09/21/14 Improvements to topology discovery and sideband messages.
  </pre> 
 <p>
 <code>#include &quot;string.h&quot;</code><br>
@@ -44,7 +45,9 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___sideband_reply.html">XDptx_SidebandReply</a></td></tr>
 
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#2ccc52eda76ccfd8c643dcdb7af55d53">XDPTX_MAX_TIMEOUT_COUNT</a>&nbsp;&nbsp;&nbsp;100</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#e85abccec81b5307fbf9a638320a7f62">XDPTX_MAX_SBMSG_REPLY_TIMEOUT_COUNT</a>&nbsp;&nbsp;&nbsp;5000</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#8d5d2071b1842667aa49efa4742360ee">XDPTX_VCP_TABLE_MAX_TIMEOUT_COUNT</a>&nbsp;&nbsp;&nbsp;30</td></tr>
 
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#f15269f0f6d4a121d3f4258f5a51b298">XDptx_MstCfgModeEnable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
@@ -67,7 +70,9 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#895b0d104c1772fe0f60c879cd0a2b82">XDptx_SetStreamSinkRad</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#d4d2ebaad714c817b647f8d21f879eca">XDptx_FindAccessibleDpDevices</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#e81134f5cfd2bd5ad5826048c7c2f2dd">XDptx_DiscoverTopology</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#03309887289769ac323f0b7e7b004dae">XDptx_FindAccessibleDpDevices</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__mst_8c.html#a688873fb1701355cbb33ac5d25d3da2">XDptx_AllocatePayloadStreams</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
@@ -100,12 +105,27 @@
 
 </table>
 <hr><h2>Define Documentation</h2>
-<a class="anchor" name="2ccc52eda76ccfd8c643dcdb7af55d53"></a><!-- doxytag: member="xdptx_mst.c::XDPTX_MAX_TIMEOUT_COUNT" ref="2ccc52eda76ccfd8c643dcdb7af55d53" args="" -->
+<a class="anchor" name="e85abccec81b5307fbf9a638320a7f62"></a><!-- doxytag: member="xdptx_mst.c::XDPTX_MAX_SBMSG_REPLY_TIMEOUT_COUNT" ref="e85abccec81b5307fbf9a638320a7f62" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPTX_MAX_TIMEOUT_COUNT&nbsp;&nbsp;&nbsp;100          </td>
+          <td class="memname">#define XDPTX_MAX_SBMSG_REPLY_TIMEOUT_COUNT&nbsp;&nbsp;&nbsp;5000          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="8d5d2071b1842667aa49efa4742360ee"></a><!-- doxytag: member="xdptx_mst.c::XDPTX_VCP_TABLE_MAX_TIMEOUT_COUNT" ref="8d5d2071b1842667aa49efa4742360ee" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_VCP_TABLE_MAX_TIMEOUT_COUNT&nbsp;&nbsp;&nbsp;30          </td>
         </tr>
       </table>
 </div>
@@ -259,12 +279,42 @@ This function will clear the virtual channel payload ID table in both the Displa
 
 </div>
 </div><p>
-<a class="anchor" name="d4d2ebaad714c817b647f8d21f879eca"></a><!-- doxytag: member="xdptx_mst.c::XDptx_FindAccessibleDpDevices" ref="d4d2ebaad714c817b647f8d21f879eca" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<a class="anchor" name="e81134f5cfd2bd5ad5826048c7c2f2dd"></a><!-- doxytag: member="xdptx_mst.c::XDptx_DiscoverTopology" ref="e81134f5cfd2bd5ad5826048c7c2f2dd" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XDptx_FindAccessibleDpDevices           </td>
+          <td class="memname">u32 XDptx_DiscoverTopology           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function will explore the DisplayPort topology of downstream devices connected to the DisplayPort TX. It will recursively go through each branch device, obtain its information by sending a LINK_ADDRESS sideband message, and add this information to the the topology's node table. For each sink device connected to a branch's downstream port, this function will obtain the details of the sink, add it to the topology's node table, as well as add it to the topology's sink list.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the topology discovery is successful.</li><li>XST_FAILURE otherwise - if sending a LINK_ADDRESS sideband message to one of the branch devices in the topology failed.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>The contents of the InstancePtr-&gt;Topology structure will be modified. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="03309887289769ac323f0b7e7b004dae"></a><!-- doxytag: member="xdptx_mst.c::XDptx_FindAccessibleDpDevices" ref="03309887289769ac323f0b7e7b004dae" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_FindAccessibleDpDevices           </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
           <td class="paramname"> <em>InstancePtr</em>, </td>
@@ -291,7 +341,7 @@ This function will clear the virtual channel payload ID table in both the Displa
 <div class="memdoc">
 
 <p>
-This function will explore the DisplayPort topology of downstream devices connected to the DisplayPort TX. It will recursively go through each branch device, obtain its information by sending a LINK_ADDRESS sideband message, and add this information to the the topology's node table. For each sink device connected to a branch's downstream port, this function will obtain the details of the sink, add it to the topology's node table, as well as add it to the topology's sink list.<p>
+This function will explore the DisplayPort topology of downstream devices starting from the branch device specified by the LinkCountTotal and RelativeAddress parameters. It will recursively go through each branch device, obtain its information by sending a LINK_ADDRESS sideband message, and add this information to the the topology's node table. For each sink device connected to a branch's downstream port, this function will obtain the details of the sink, add it to the topology's node table, as well as add it to the topology's sink list.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -299,7 +349,9 @@ This function will explore the DisplayPort topology of downstream devices connec
     <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the current target DisplayPort device in the recursion.</td></tr>
   </table>
 </dl>
-<dl compact><dt><b>Returns:</b></dt><dd>None - the recursion will exit from nodes that have an error when replying to the LINK_ADDRESS sideband message.</dd></dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the topology discovery is successful.</li><li>XST_FAILURE otherwise - if sending a LINK_ADDRESS sideband message to one of the branch devices in the topology failed.</li></ul>
+</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>The contents of the InstancePtr-&gt;Topology structure will be modified. </dd></dl>
 
 </div>
@@ -1318,4 +1370,4 @@ This function will write a global unique identifier (GUID) to the target Display
 </pre></div>This table contains a list of global unique identifiers (GUIDs) that will be issued when exploring the topology using the algorithm in the XDptx_FindAccessibleDpDevices function. 
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved. 
+Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.

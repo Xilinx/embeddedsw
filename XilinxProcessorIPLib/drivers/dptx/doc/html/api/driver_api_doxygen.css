@@ -72,7 +72,7 @@ P.HeadingGlossary {
 
 P.LinkGlossary  {
         margin-bottom: .50em;
-}       
+}
 
 P.Note  {
 }
@@ -230,7 +230,7 @@ TD.indexvalue {
 	border: 1px solid #CCCCCC;
 }
 TR.memlist {
-   background-color: #f0f0f0; 
+   background-color: #f0f0f0;
 }
 P.formulaDsp { text-align: center; }
 IMG.formulaDsp { }

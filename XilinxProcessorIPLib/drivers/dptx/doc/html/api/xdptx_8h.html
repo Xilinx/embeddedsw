@@ -53,9 +53,6 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html">XDptx</a></td></tr>
 
-<tr><td colspan="2"><br><h2>Defines</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d754af91a71cc550407212fa54831a92">XDptx_IsConnected</a>(InstancePtr)</td></tr>
-
 <tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">typedef void(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a> (void *InstancePtr, u32 MicroSeconds)</td></tr>
 
@@ -220,6 +217,8 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3e9dee7b0b7711677c8c39fd14d585c8">XDptx_SetScrambler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#44eafdd44ab545ce448b0c0476455d7c">XDptx_IsConnected</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0f43683ba44e5e1544042be2bcfc45de">XDptx_EnableMainLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0086628f0fcfab2389efb4100415df96">XDptx_DisableMainLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
@@ -278,7 +277,9 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#895b0d104c1772fe0f60c879cd0a2b82">XDptx_SetStreamSinkRad</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d4d2ebaad714c817b647f8d21f879eca">XDptx_FindAccessibleDpDevices</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#e81134f5cfd2bd5ad5826048c7c2f2dd">XDptx_DiscoverTopology</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#03309887289769ac323f0b7e7b004dae">XDptx_FindAccessibleDpDevices</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a688873fb1701355cbb33ac5d25d3da2">XDptx_AllocatePayloadStreams</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
@@ -310,39 +311,6 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___dmt_mode.html">XDptx_DmtMode</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#35408b37824862d172606842e26e66e0">XDptx_DmtModes</a> []</td></tr>
 
 </table>
-<hr><h2>Define Documentation</h2>
-<a class="anchor" name="d754af91a71cc550407212fa54831a92"></a><!-- doxytag: member="xdptx.h::XDptx_IsConnected" ref="d754af91a71cc550407212fa54831a92" args="(InstancePtr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XDptx_IsConnected          </td>
-          <td>(</td>
-          <td class="paramtype">InstancePtr&nbsp;</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-<b>Value:</b><div class="fragment"><pre class="fragment">(<a class="code" href="xdptx__hw_8h.html#b9ae114efe97122a7a212baf3a27d5fe">XDptx_ReadReg</a>(InstancePtr-&gt;Config.BaseAddr, \
-        <a class="code" href="xdptx__hw_8h.html#0f779ac12934252a5548f520e776b1e8">XDPTX_INTERRUPT_SIG_STATE</a>) &amp; <a class="code" href="xdptx__hw_8h.html#97bafe03ef5703095f172353e91b1b9c">XDPTX_INTERRUPT_SIG_STATE_HPD_STATE_MASK</a>)
-</pre></div>This macro checks if there is a connected RX device.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Returns:</b></dt><dd><ul>
-<li>TRUE if there is a connection.</li><li>FALSE if there is no connection.</li></ul>
-</dd></dl>
-<dl compact><dt><b>Note:</b></dt><dd>C-style signature: void <a class="el" href="xdptx_8h.html#d754af91a71cc550407212fa54831a92">XDptx_IsConnected(XDptx *InstancePtr)</a> </dd></dl>
-
-</div>
-</div><p>
 <hr><h2>Typedef Documentation</h2>
 <a class="anchor" name="55e031231c2489c71c5b0187f8b2941e"></a><!-- doxytag: member="xdptx.h::XDptx_HpdEventHandler" ref="55e031231c2489c71c5b0187f8b2941e" args="(void *InstancePtr)" -->
 <div class="memitem">
@@ -1444,6 +1412,36 @@ This function disables the main link.<p>
 
 </div>
 </div><p>
+<a class="anchor" name="e81134f5cfd2bd5ad5826048c7c2f2dd"></a><!-- doxytag: member="xdptx.h::XDptx_DiscoverTopology" ref="e81134f5cfd2bd5ad5826048c7c2f2dd" args="(XDptx *InstancePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_DiscoverTopology           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function will explore the DisplayPort topology of downstream devices connected to the DisplayPort TX. It will recursively go through each branch device, obtain its information by sending a LINK_ADDRESS sideband message, and add this information to the the topology's node table. For each sink device connected to a branch's downstream port, this function will obtain the details of the sink, add it to the topology's node table, as well as add it to the topology's sink list.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the topology discovery is successful.</li><li>XST_FAILURE otherwise - if sending a LINK_ADDRESS sideband message to one of the branch devices in the topology failed.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>The contents of the InstancePtr-&gt;Topology structure will be modified. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="0f43683ba44e5e1544042be2bcfc45de"></a><!-- doxytag: member="xdptx.h::XDptx_EnableMainLink" ref="0f43683ba44e5e1544042be2bcfc45de" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1540,12 +1538,12 @@ This function checks if the link needs training and runs the training sequence i
 
 </div>
 </div><p>
-<a class="anchor" name="d4d2ebaad714c817b647f8d21f879eca"></a><!-- doxytag: member="xdptx.h::XDptx_FindAccessibleDpDevices" ref="d4d2ebaad714c817b647f8d21f879eca" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<a class="anchor" name="03309887289769ac323f0b7e7b004dae"></a><!-- doxytag: member="xdptx.h::XDptx_FindAccessibleDpDevices" ref="03309887289769ac323f0b7e7b004dae" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XDptx_FindAccessibleDpDevices           </td>
+          <td class="memname">u32 XDptx_FindAccessibleDpDevices           </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
           <td class="paramname"> <em>InstancePtr</em>, </td>
@@ -1572,7 +1570,7 @@ This function checks if the link needs training and runs the training sequence i
 <div class="memdoc">
 
 <p>
-This function will explore the DisplayPort topology of downstream devices connected to the DisplayPort TX. It will recursively go through each branch device, obtain its information by sending a LINK_ADDRESS sideband message, and add this information to the the topology's node table. For each sink device connected to a branch's downstream port, this function will obtain the details of the sink, add it to the topology's node table, as well as add it to the topology's sink list.<p>
+This function will explore the DisplayPort topology of downstream devices starting from the branch device specified by the LinkCountTotal and RelativeAddress parameters. It will recursively go through each branch device, obtain its information by sending a LINK_ADDRESS sideband message, and add this information to the the topology's node table. For each sink device connected to a branch's downstream port, this function will obtain the details of the sink, add it to the topology's node table, as well as add it to the topology's sink list.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -1580,7 +1578,9 @@ This function will explore the DisplayPort topology of downstream devices connec
     <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the current target DisplayPort device in the recursion.</td></tr>
   </table>
 </dl>
-<dl compact><dt><b>Returns:</b></dt><dd>None - the recursion will exit from nodes that have an error when replying to the LINK_ADDRESS sideband message.</dd></dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the topology discovery is successful.</li><li>XST_FAILURE otherwise - if sending a LINK_ADDRESS sideband message to one of the branch devices in the topology failed.</li></ul>
+</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>The contents of the InstancePtr-&gt;Topology structure will be modified. </dd></dl>
 
 </div>
@@ -1939,6 +1939,35 @@ This function prepares the DisplayPort TX core for use.<p>
 <li>XST_SUCCESS if the DisplayPort TX core was successfully initialized.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="44eafdd44ab545ce448b0c0476455d7c"></a><!-- doxytag: member="xdptx.h::XDptx_IsConnected" ref="44eafdd44ab545ce448b0c0476455d7c" args="(XDptx *InstancePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_IsConnected           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function checks if there is a connected RX device.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>TRUE if there is a connection.</li><li>FALSE if there is no connection. </li></ul>
+</dd></dl>
 
 </div>
 </div><p>
@@ -3417,4 +3446,4 @@ This function will write a global unique identifier (GUID) to the target Display
 This table contains the main stream attributes for various standard resolutions. Each entry is of the format: 1) XDPTX_VM_&lt;HRES&gt;x&lt;VRES&gt;_&lt;REFRESH (HZ)&gt;_P(_RB = Reduced Blanking) 2) Display Monitor Timing (DMT) ID 3) Horizontal resolution (pixels) 4) Vertical resolution (lines) 5) Pixel clock (KHz) 6) Interlaced (0=non-interlaced|1=interlaced) 7) Horizontal sync polarity (0=positive|1=negative) 8) Vertical sync polarity (0=positive|1=negative) 9) Horizontal front porch (pixels) 10) Horizontal sync time (pixels) 11) Horizontal back porch (pixels) 12) Vertical front porch (lines) 13) Vertical sync time (lines) 14) Vertical back porch (lines) 
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved. 
+Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
