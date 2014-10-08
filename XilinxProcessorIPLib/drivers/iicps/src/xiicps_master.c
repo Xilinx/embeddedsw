@@ -53,6 +53,8 @@
 * 2.2   hk   08/23/14 Slave monitor mode changes - clear FIFO, enable
 *                     read mode and clear transfer size register.
 *                     Disable NACK to avoid interrupts on each retry.
+* 2.3	sk	 10/06/14 Fill transmit fifo before address register when sending.
+* 					  Replaced XIICPS_DATA_INTR_DEPTH with XIICPS_FIFO_DEPTH.
 *
 * </pre>
 *
@@ -128,12 +130,12 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	 */
 	XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
 
+	TransmitFifoFill(InstancePtr);
+
 	/*
 	 * Do the address transfer to notify the slave.
 	 */
 	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
-
-	TransmitFifoFill(InstancePtr);
 
 	XIicPs_EnableInterrupts(BaseAddr,
 		XIICPS_IXR_NACK_MASK | XIICPS_IXR_COMP_MASK |
@@ -178,7 +180,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	InstancePtr->IsSend = 0;
 	InstancePtr->UpdateTxSize = 0;
 
-	if ((ByteCount > XIICPS_DATA_INTR_DEPTH) ||
+	if ((ByteCount > XIICPS_FIFO_DEPTH) ||
 		(InstancePtr->IsRepeatedStart))
 	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
@@ -265,8 +267,6 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 
 	XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
 
-	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
-
 	/*
 	 * Intrs keeps all the error-related interrupts.
 	 */
@@ -283,6 +283,8 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	 * Transmit first FIFO full of data.
 	 */
 	TransmitFifoFill(InstancePtr);
+
+	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
 
 	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 
@@ -374,7 +376,7 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	InstancePtr->RecvBufferPtr = MsgPtr;
 	InstancePtr->RecvByteCount = ByteCount;
 
-	if((ByteCount > XIICPS_DATA_INTR_DEPTH) ||
+	if((ByteCount > XIICPS_FIFO_DEPTH) ||
 		(InstancePtr->IsRepeatedStart))
 	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
