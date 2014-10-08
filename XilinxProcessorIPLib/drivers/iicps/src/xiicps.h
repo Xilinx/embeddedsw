@@ -167,6 +167,7 @@
 * 2.2   hk  08/23/14 Slave monitor mode changes - clear FIFO, enable
 *                    read mode and clear transfer size register.
 *                    Disable NACK to avoid interrupts on each retry.
+* 2.3	sk	10/07/14 Repeated start feature deleted.
 *
 * </pre>
 *
@@ -199,7 +200,6 @@ extern "C" {
 #define XIICPS_7_BIT_ADDR_OPTION	0x01  /**< 7-bit address mode */
 #define XIICPS_10_BIT_ADDR_OPTION	0x02  /**< 10-bit address mode */
 #define XIICPS_SLAVE_MON_OPTION		0x04  /**< Slave monitor mode */
-#define XIICPS_REP_START_OPTION		0x08  /**< Repeated Start */
 /*@}*/
 
 /** @name Callback events
@@ -275,7 +275,6 @@ typedef struct {
 
 	int UpdateTxSize;	/* If tx size register has to be updated */
 	int IsSend;		/* Whether master is sending or receiving */
-	int IsRepeatedStart;	/* Indicates if user set repeated start */
 
 	XIicPs_IntrHandler StatusHandler;  /* Event handler function */
 	void *CallBackRef;	/* Callback reference for event handler */

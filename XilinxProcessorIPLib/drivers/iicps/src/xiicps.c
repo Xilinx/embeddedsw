@@ -47,6 +47,7 @@
 * 2.1   hk      04/25/14 Explicitly reset CR and clear FIFO in Abort function
 *                        and state the same in the comments. CR# 784254.
 *                        Fix for CR# 761060 - provision for repeated start.
+* 2.3	sk		10/07/14 Repeated start feature removed.
 *
 * </pre>
 *
@@ -128,9 +129,6 @@ int XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	 * Keep a copy of what options this instance has.
 	 */
 	InstancePtr->Options = XIicPs_GetOptions(InstancePtr);
-
-	/* Initialize repeated start flag to 0 */
-	InstancePtr->IsRepeatedStart = 0;
 
 	return XST_SUCCESS;
 }
