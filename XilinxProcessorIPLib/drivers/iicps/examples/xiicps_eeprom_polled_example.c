@@ -63,6 +63,7 @@
 *		      the IIC EEPROM.
 *                     Updated to use usleep instead of delay loop
 * 1.04a hk   09/03/13 Removed GPIO code to pull MUX out of reset - CR#722425.
+* 2.3 	sk	 10/07/14 Removed multiple initializations for read buffer.
 * </pre>
 *
 ******************************************************************************/
@@ -217,7 +218,6 @@ int IicPsEepromPolledExample(void)
 	} else {
 		WriteBuffer[0] = (u8) (Address >> 8);
 		WriteBuffer[1] = (u8) (Address);
-		ReadBuffer[Index] = 0;
 	}
 
 	for (Index = 0; Index < PAGE_SIZE; Index++) {
@@ -248,8 +248,6 @@ int IicPsEepromPolledExample(void)
 		if (ReadBuffer[Index] != WriteBuffer[Index + sizeof(Address)]) {
 			return XST_FAILURE;
 		}
-
-		ReadBuffer[Index] = 0;
 	}
 
 	/*
@@ -260,7 +258,6 @@ int IicPsEepromPolledExample(void)
 	} else {
 		WriteBuffer[0] = (u8) (Address >> 8);
 		WriteBuffer[1] = (u8) (Address);
-		ReadBuffer[Index] = 0;
 	}
 
 	for (Index = 0; Index < PAGE_SIZE; Index++) {
@@ -291,8 +288,6 @@ int IicPsEepromPolledExample(void)
 		if (ReadBuffer[Index] != WriteBuffer[Index + sizeof(Address)]) {
 			return XST_FAILURE;
 		}
-
-		ReadBuffer[Index] = 0;
 	}
 
 	return XST_SUCCESS;
