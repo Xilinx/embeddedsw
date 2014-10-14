@@ -213,6 +213,12 @@
 * 						Resolution Minor code changes
 *        kc 08/27/14	820356 - FSBL compilation fails with IAR compiler
 * 						Resolution: Change of __asm__ to __asm
+* 11.00a kv 10/08/14	826030 - FSBL:LinearBootDeviceFlag is not initialized
+*						in IO mode case.Due to which the variable is
+*						remaining in unknown state.
+*						Resolution: LinearBootDeviceFlag is initialized 0
+*						in main.c
+*
 * </pre>
 *
 * </pre>
@@ -298,7 +304,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2014
-#define SDK_RELEASE_QUARTER	3
+#define SDK_RELEASE_QUARTER	4
 
 #define WORD_LENGTH_SHIFT	2
 

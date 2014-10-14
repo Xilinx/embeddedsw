@@ -96,6 +96,9 @@
 * 10.00a kc 07/24/14	Fix for CR#809336 - Minor code cleanup
 *        kc 08/27/14	Fix for CR#820356 - FSBL compilation fails with
 * 											IAR compiler
+* 11.00a kv 10/08/14	Fix for CR#826030 - LinearBootDeviceFlag should
+*											be initialized to 0 in IO mode
+*											case
 * </pre>
 *
 * @note
@@ -196,7 +199,7 @@ u32 Silicon_Version;
 /*
  * Boot Device flag
  */
-u8 LinearBootDeviceFlag;
+u8 LinearBootDeviceFlag=0;
 
 u32 PcapCtrlRegVal;
 
