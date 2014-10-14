@@ -42,6 +42,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   01/18/10 First Release
+* 2.2	sk	 10/13/14 Used Pin number in Bank instead of pin number
+* 					  passed to API's. CR# 822636
 * </pre>
 *
 ******************************************************************************/
@@ -257,7 +259,7 @@ int XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, int Pin)
 				    ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				    XGPIOPS_INTMASK_OFFSET);
 
-	return (IntrReg & (1 << Pin)) ? TRUE : FALSE;
+	return (IntrReg & (1 << PinNumber)) ? FALSE : TRUE;
 }
 
 /****************************************************************************/
@@ -321,7 +323,7 @@ int XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, int Pin)
 				   ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				   XGPIOPS_INTSTS_OFFSET);
 
-	return (IntrReg & (1 << Pin)) ? TRUE : FALSE;
+	return (IntrReg & (1 << PinNumber)) ? TRUE : FALSE;
 }
 
 /****************************************************************************/
@@ -390,7 +392,7 @@ void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, int Pin)
 				   ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				   XGPIOPS_INTSTS_OFFSET);
 
-	IntrReg &= (1 << Pin);
+	IntrReg &= (1 << PinNumber);
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_INTSTS_OFFSET, IntrReg);
@@ -608,26 +610,26 @@ u8 XGpioPs_GetIntrTypePin(XGpioPs *InstancePtr, int Pin)
 
 	IntrType = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				    ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
-				    XGPIOPS_INTTYPE_OFFSET) & PinNumber;
+				    XGPIOPS_INTTYPE_OFFSET) & (1 << PinNumber);
 
 	IntrPol = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				   ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
-				   XGPIOPS_INTPOL_OFFSET) & PinNumber;
+				   XGPIOPS_INTPOL_OFFSET) & (1 << PinNumber);
 
 	IntrOnAny = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				     ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
-				     XGPIOPS_INTANY_OFFSET) & PinNumber;
+				     XGPIOPS_INTANY_OFFSET) & (1 << PinNumber);
 
-	if (IntrType == 1) {
-		if (IntrOnAny == 1) {
+	if (IntrType == (1 << PinNumber)) {
+		if (IntrOnAny == (1 << PinNumber)) {
 			IrqType = XGPIOPS_IRQ_TYPE_EDGE_BOTH;
-		} else if (IntrPol == 1) {
+		} else if (IntrPol == (1 << PinNumber)) {
 			IrqType = XGPIOPS_IRQ_TYPE_EDGE_RISING;
 		} else {
 			IrqType = XGPIOPS_IRQ_TYPE_EDGE_FALLING;
 		}
 	} else {
-		if (IntrPol == 1) {
+		if (IntrPol == (1 << PinNumber)) {
 			IrqType = XGPIOPS_IRQ_TYPE_LEVEL_HIGH;
 		} else {
 			IrqType = XGPIOPS_IRQ_TYPE_LEVEL_LOW;

@@ -90,6 +90,8 @@
 *		      for output pins on all banks during initialization.
 * 1.02a hk   08/22/13 Added low level reset API
 * 2.1   hk   04/29/14 Use Input data register DATA_RO for read. CR# 771667.
+* 2.2	sk	 10/13/14 Used Pin number in Bank instead of pin number
+* 					  passed to APIs. CR# 822636
 *
 * </pre>
 *
