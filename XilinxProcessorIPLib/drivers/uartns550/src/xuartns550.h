@@ -157,7 +157,8 @@
 * 		      Instances of UARTSNS550 have the same Device Id.
 *		      Changes are made in the driver tcl file.
 * 3.2   adk  15/10/14 Fixed CR:824444 changes are made in the example file
-*		      xuartns550_intr_example.c
+*		      xuartns550_intr_example.c.
+* 3.2   adk 15/10/14  Fixed CR:826435 changes are made in the driver tcl file.
 * </pre>
 *
 *****************************************************************************/

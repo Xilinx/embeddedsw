@@ -36,6 +36,8 @@
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
 # 3.1 	   adk    20/08/14 Fixed CR:816989 Canonical Definition for Multiple
 #			   Instances of UARTSNS550 have the same Device Id.
+# 3.2 	   adk    15/10/14 Fixed CR:826435 external clock speed is not
+#			   being updated with proper value in xparametrs.h file.
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_L
 ##    Deprecated the CLOCK_HZ parameter in mdd and updated the Tcl to obtain the
@@ -262,7 +264,7 @@ proc xget_freq {periph} {
         # If the clock frequency can not be obtained from "xin" port,
         # read the value of the parameter C_EXTERNAL_XIN_CLK_HZ to get
         # the frequency
-        if { [llength $freq] == 0 && $use_xin_clk == "1" } {
+        if { $use_xin_clk == "1" } {
             set freq [get_property CONFIG.C_EXTERNAL_XIN_CLK_HZ $periph]
         }
         return $freq
