@@ -156,6 +156,8 @@
 * 3.1   adk  20/08/14 Fixed CR:816989 Canonical Definition for Multiple
 * 		      Instances of UARTSNS550 have the same Device Id.
 *		      Changes are made in the driver tcl file.
+* 3.2   adk  15/10/14 Fixed CR:824444 changes are made in the example file
+*		      xuartns550_intr_example.c
 * </pre>
 *
 *****************************************************************************/

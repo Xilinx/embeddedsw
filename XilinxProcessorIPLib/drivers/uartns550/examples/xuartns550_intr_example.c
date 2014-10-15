@@ -51,6 +51,10 @@
 *		      as per coding guidelines.
 * 2.01a ssb  01/11/01 Updated the example to be used with the SCUGIC in
 *		      Zynq.
+* 3.2   adk  15/10/14 Clear the global counters.If multiple instance of ip is
+*		      present in the h/w design without clearing these counters
+*		      will result undefined behaviour for the second ip
+* 		      instance while running the peripheral tests.
 * </pre>
 ******************************************************************************/
 
@@ -314,6 +318,11 @@ int UartNs550IntrExample(INTC *IntcInstancePtr,
 	if (BadByteCount != 0) {
 		return XST_FAILURE;
 	}
+
+	/* Clear the counters */
+	TotalErrorCount = 0;
+	TotalReceivedCount = 0;
+	TotalSentCount = 0;
 
 	return XST_SUCCESS;
 }
