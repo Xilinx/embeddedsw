@@ -1,0 +1,56 @@
+Steps to compile
+################
+1. Download the latest PCI Utilites source from
+   https://www.kernel.org/pub/software/utils/pciutils/
+
+   (Or) Source can be clone from the GIT repository,
+	http://git.kernel.org/cgit/utils/pciutils/pciutils.git/
+
+2. Compile the PCI Utilities by the following command,
+   $pci-utils> make
+
+3. Compile the MCAP Library by the following make command,
+   $mcap-lib> make PCIUTILS_PATH=<PATH to PCI Utilities Source>
+
+4. Compiling the MCAP library generates 'libmcap.a' and
+   example elf 'mcap' built on top of generated library.
+
+Steps to Run
+############
+-> Running the 'mcap.elf' with '-h' lists all the options
+   that are available to communicate with the underlying
+   MCAP device,
+   $Linux> ./mcap -h
+   Usage: mcap [options]
+
+   Options:
+	-x		Specify MCAP Device ID in hex (Mandatory)
+	-p    <file>	Program Bitstream (.bin/.bit/.rbt)
+	-r		Performs Simple Reset
+	-m		Performs Module Reset
+	-f		Performs Full Reset
+	-D		Read Data Registers
+	-d		Dump all the MCAP Registers
+	-v		Verbose information of MCAP Device
+	-h/H		Help
+	-c <address> [type [data]]  Access Device Configuration Space
+
+   NOTE: Specifying MCAP Device Id option is mandatory for the application
+   to run. For example,
+   $Linux> ./mcap -x 0x8011
+   Xilinx MCAP Device Found
+
+NOTES
+#####
+. PCI Extended Capability Registers in Linux will only be
+  accessible with privileged user access.  So, the example elf should
+  be run with ROOT permissions.
+
+. To access device configuration space, 'type' in the above syntax should
+  be either b/h/w (byte/half-word/word). For example,
+
+  -> Reading a byte
+     ./mcap -x 0x8011 -c 0x354 b
+
+  -> Writing a word
+     ./mcap -x 0x8011 -c 0x354 w 0x3

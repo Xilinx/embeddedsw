@@ -9,6 +9,9 @@ All software is version less and divided into three directories
 		contains all drivers
 	- ThirdParty
 		software from third party like light weight IP stack
+	- mcap
+		software for using MCAP interface on Ultra Scale boards to
+		program 2nd level bitstream
 
 Every driver/lib/apps/services has these sub-directories
 
@@ -56,6 +59,9 @@ Every driver/lib/apps/services has these sub-directories
 |-ThirdParty
 |	|- sw_services
 |        	|- lwip140
+|
+|-mcap
+|	|-linux
 
 
 Building FSBL from git:
