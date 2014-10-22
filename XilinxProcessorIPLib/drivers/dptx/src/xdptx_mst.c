@@ -1568,7 +1568,7 @@ u32 XDptx_SendSbMsgClearPayloadIdTable(XDptx *InstancePtr)
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = 1;
-	Msg.Header.LinkCountRemaining = 0;
+	Msg.Header.LinkCountRemaining = 6;
 	Msg.Header.BroadcastMsg = 1;
 	Msg.Header.PathMsg = 1;
 	Msg.Header.MsgBodyLength = 2;
