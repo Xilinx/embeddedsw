@@ -1181,6 +1181,7 @@
 #define XDPTX_SBMSG_REMOTE_DPCD_READ		0x20
 #define XDPTX_SBMSG_REMOTE_DPCD_WRITE		0x21
 #define XDPTX_SBMSG_REMOTE_I2C_READ		0x22
+#define XDPTX_SBMSG_REMOTE_I2C_WRITE		0x23
 /* @} */
 
 /******************* Macros (Inline Functions) Definitions ********************/

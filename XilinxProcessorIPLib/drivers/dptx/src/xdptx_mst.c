@@ -1168,6 +1168,60 @@ u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
+u32 XDptx_SendSbMsgRemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)
+{
+	u32 Status;
+	XDptx_SidebandMsg Msg;
+	XDptx_SidebandReply SbMsgReply;
+	u8 Index;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(IicDeviceId <= 0xFF);
+	Xil_AssertNonvoid(BytesToWrite <= 0xFF);
+	Xil_AssertNonvoid(WriteData != NULL);
+
+	/* Prepare the sideband message header. */
+	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
+	for (Index = 0; Index < (Msg.Header.LinkCountTotal - 1); Index++) {
+		Msg.Header.RelativeAddress[Index] = RelativeAddress[Index];
+	}
+	Msg.Header.LinkCountRemaining = Msg.Header.LinkCountTotal - 1;
+	Msg.Header.BroadcastMsg = 0;
+	Msg.Header.PathMsg = 0;
+	Msg.Header.MsgBodyLength = 5 + BytesToWrite;
+	Msg.Header.StartOfMsgTransaction = 1;
+	Msg.Header.EndOfMsgTransaction = 1;
+	Msg.Header.MsgSequenceNum = 0;
+	Msg.Header.Crc = XDptx_Crc4CalculateHeader(&Msg.Header);
+
+	/* Prepare the sideband message body. */
+	Msg.Body.MsgData[0] = XDPTX_SBMSG_REMOTE_I2C_WRITE;
+	Msg.Body.MsgData[1] = RelativeAddress[Msg.Header.LinkCountTotal - 1] << 4;
+	Msg.Body.MsgData[2] = IicDeviceId; /* Write I2C device ID. */
+	Msg.Body.MsgData[3] = BytesToWrite; /* Number of bytes to write. */
+	for (Index = 0; Index < BytesToWrite; Index++) {
+		Msg.Body.MsgData[Index + 4] = WriteData[Index];
+	}
+	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
+	Msg.Body.Crc = XDptx_Crc8CalculateBody(&Msg.Body);
+
+	/* Submit the REMOTE_I2C_WRITE transaction message request. */
+	Status = XDptx_SendSbMsg(InstancePtr, &Msg);
+	if (Status != XST_SUCCESS) {
+		/* The AUX write transaction used to send the sideband message
+		 * failed. */
+		return Status;
+	}
+	Status = XDptx_ReceiveSbMsg(InstancePtr, &SbMsgReply);
+
+	return Status;
+}
+
 /******************************************************************************/
 /**
  * This function will send a REMOTE_I2C_READ sideband message which will read

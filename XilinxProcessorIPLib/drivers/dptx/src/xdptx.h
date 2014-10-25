@@ -844,6 +844,8 @@ u32 XDptx_SendSbMsgRemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData);
 u32 XDptx_SendSbMsgRemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData);
+u32 XDptx_SendSbMsgRemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData);
 u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToRead, u8 *ReadData);
 u32 XDptx_SendSbMsgLinkAddress(XDptx *InstancePtr, u8 LinkCountTotal,
