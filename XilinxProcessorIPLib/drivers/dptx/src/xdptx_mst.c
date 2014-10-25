@@ -1254,7 +1254,8 @@ u32 XDptx_SendSbMsgRemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
  *
 *******************************************************************************/
 u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
-	u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToRead, u8 *ReadData)
+	u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead,
+	u8 *ReadData)
 {
 	u32 Status;
 	XDptx_SidebandMsg Msg;
@@ -1290,7 +1291,7 @@ u32 XDptx_SendSbMsgRemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 									4) | 1;
 	Msg.Body.MsgData[2] = IicDeviceId; /* Write I2C device ID. */
 	Msg.Body.MsgData[3] = 1; /* Number of bytes to write. */
-	Msg.Body.MsgData[4] = 0; /* Write byte[0]. */
+	Msg.Body.MsgData[4] = Offset;
 	Msg.Body.MsgData[5] = (0 << 4) | 0;
 	Msg.Body.MsgData[6] = IicDeviceId; /* Read I2C device ID. */
 	Msg.Body.MsgData[7] = BytesToRead;
@@ -1780,7 +1781,7 @@ u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
 	else {
 		Status = XDptx_SendSbMsgRemoteIicRead(InstancePtr,
 				LinkCountTotal, RelativeAddress,
-				XDPTX_EDID_ADDR, XDPTX_EDID_SIZE, Edid);
+				XDPTX_EDID_ADDR, 0, XDPTX_EDID_SIZE, Edid);
 	}
 
 	return Status;
