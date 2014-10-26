@@ -916,58 +916,13 @@ u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 VcId, u8 Ts)
 u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr)
 {
 	u32 Status;
-	u8 AuxData[3];
 	u8 Index;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Clear the payload table in the transmitter. */
-	for (Index = 0; Index < 64; Index++) {
-		XDptx_WriteReg(InstancePtr->Config.BaseAddr,
-			(XDPTX_VC_PAYLOAD_BUFFER_ADDR + (4 * Index)), 0);
-	}
-
-	XDptx_WaitUs(InstancePtr, 1000);
-
-	/* Clear the payload table in the immediate downstream branch device. */
-
-	/* Clear the VCP table update bit. */
-	AuxData[0] = 0x01;
-	Status = XDptx_AuxWrite(InstancePtr,
-			XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, AuxData);
-	if (Status != XST_SUCCESS) {
-		/* The AUX write transaction failed. */
-		return Status;
-	}
-
-	/* Allocate VC with VcId. */
-	AuxData[0] = 0;
-	/* Start timeslot for VC with VcId. */
-	AuxData[1] = 0;
-	/* Timeslot count for VC with VcId. */
-	AuxData[2] = 0x3F;
-	Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_PAYLOAD_ALLOCATE_SET, 3,
-								AuxData);
-	if (Status != XST_SUCCESS) {
-		/* The AUX write transaction failed. */
-		return Status;
-	}
-
-	/* Wait for the VC table to be updated. */
-	do {
-		Status = XDptx_AuxRead(InstancePtr,
-			XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, AuxData);
-		if (Status != XST_SUCCESS) {
-			/* The AUX read transaction failed. */
-			return Status;
-		}
-	} while ((AuxData[0] & 0x01) != 0x01);
-
-	XDptx_WaitUs(InstancePtr, 1000);
-
-	Status = XDptx_SendActTrigger(InstancePtr);
+	Status = XDptx_AllocatePayloadVcIdTable(InstancePtr, 0, 64);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
