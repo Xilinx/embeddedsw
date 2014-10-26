@@ -648,8 +648,8 @@ u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 DownBranchesDownPorts[DeviceInfo.NumPorts];
 	for (Index = 0; Index < DeviceInfo.NumPorts; Index++) {
 		PortDetails = &DeviceInfo.PortDetails[Index];
-		/* Any downstream device downstream device will have the RAD of the
-		 * current branch device appended with the port number. */
+		/* Any downstream device downstream device will have the RAD of
+		 * the current branch device appended with the port number. */
 		RelativeAddress[LinkCountTotal - 2] = PortDetails->PortNum;
 
 		if ((PortDetails->InputPort == 0) &&
@@ -744,9 +744,7 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
 
 		if (XDptx_MstStreamIsEnabled(InstancePtr, StreamIndex)) {
 			Status = XDptx_AllocatePayloadVcIdTable(InstancePtr,
-				MstStream->LinkCountTotal,
-				MstStream->RelativeAddress, StreamIndex + 1,
-				MstStream->MstPbn, MsaConfig->TransferUnitSize);
+				StreamIndex + 1, MsaConfig->TransferUnitSize);
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
@@ -812,36 +810,43 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
-				u8 *RelativeAddress, u8 VcId, u16 Pbn, u8 Ts)
+u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 VcId, u8 Ts)
 {
 	u32 Status;
 	u8 AuxData[3];
 	u8 Index;
-	u8 StartTs;
+	u8 StartTs = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(LinkCountTotal > 0);
-	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
-	Xil_AssertNonvoid(VcId > 0);
-	Xil_AssertNonvoid(Pbn > 0);
-	Xil_AssertNonvoid(Ts > 0);
+	Xil_AssertNonvoid(VcId >= 0);
+	Xil_AssertNonvoid((Ts >= 0) && (Ts <= 64));
 
-	/* Find next available timeslot. */
-	Status = XDptx_GetFirstAvailableTs(InstancePtr, &StartTs);
+	/* Clear the VC payload ID table updated bit. */
+	AuxData[0] = 0x1;
+	Status = XDptx_AuxWrite(InstancePtr,
+			XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, AuxData);
 	if (Status != XST_SUCCESS) {
-		/* The AUX read transaction failed. */
+		/* The AUX write transaction failed. */
 		return Status;
 	}
 
-	/* Check that there are enough time slots available. */
-	if (((63 - StartTs + 1) < Ts) ||
-			(StartTs == 0)) {
-		/* Clearing the payload ID table is required to re-allocate
-		 * streams. */
-		return XST_BUFFER_TOO_SMALL;
+	if (VcId != 0) {
+		/* Find next available timeslot. */
+		Status = XDptx_GetFirstAvailableTs(InstancePtr, &StartTs);
+		if (Status != XST_SUCCESS) {
+			/* The AUX read transaction failed. */
+			return Status;
+		}
+
+		/* Check that there are enough time slots available. */
+		if (((63 - StartTs + 1) < Ts) ||
+				(StartTs == 0)) {
+			/* Clearing the payload ID table is required to
+			 * re-allocate streams. */
+			return XST_BUFFER_TOO_SMALL;
+		}
 	}
 
 	/* Allocate timeslots in TX. */
@@ -854,21 +859,17 @@ u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
 
 	/* Allocate timeslots in sink. */
 
-	/* Clear the VCP table update bit. */
-	AuxData[0] = 0x01;
-	Status = XDptx_AuxWrite(InstancePtr,
-			XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, AuxData);
-	if (Status != XST_SUCCESS) {
-		/* The AUX write transaction failed. */
-		return Status;
-	}
-
 	/* Allocate VC with VcId. */
 	AuxData[0] = VcId;
 	/* Start timeslot for VC with VcId. */
 	AuxData[1] = StartTs;
 	/* Timeslot count for VC with VcId. */
-	AuxData[2] = Ts;
+	if (VcId == 0) {
+		AuxData[2] = 0x3F;
+	}
+	else {
+		AuxData[2] = Ts;
+	}
 	Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_PAYLOAD_ALLOCATE_SET, 3,
 								AuxData);
 	if (Status != XST_SUCCESS) {

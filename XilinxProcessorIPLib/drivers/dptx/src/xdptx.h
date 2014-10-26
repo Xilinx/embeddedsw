@@ -834,8 +834,7 @@ u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 /* xdptx_mst.c: Multi-stream transport (MST) functions related to MST stream
  * allocation. */
 u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr);
-u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 LinkCountTotal,
-				u8 *RelativeAddress, u8 VcId, u16 Pbn, u8 Ts);
+u32 XDptx_AllocatePayloadVcIdTable(XDptx *InstancePtr, u8 VcId, u8 Ts);
 u32 XDptx_ClearPayloadVcIdTable(XDptx *InstancePtr);
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions for issuing sideband
