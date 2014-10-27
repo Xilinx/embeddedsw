@@ -2042,6 +2042,15 @@ static u32 XDptx_SendActTrigger(XDptx *InstancePtr)
 		XDptx_WaitUs(InstancePtr, 1000);
 	} while ((AuxData & 0x02) != 0x02);
 
+	/* Clear the ACT event received bit. */
+	AuxData = 0x2;
+	Status = XDptx_AuxWrite(InstancePtr,
+			XDPTX_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, &AuxData);
+	if (Status != XST_SUCCESS) {
+		/* The AUX write transaction failed. */
+		return Status;
+	}
+
 	return XST_SUCCESS;
 }
 
