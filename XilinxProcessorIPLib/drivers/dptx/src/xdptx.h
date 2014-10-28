@@ -763,8 +763,8 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 BytesToWrite,
 							void *WriteData);
 u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset, u8 BytesToRead,
 								void *ReadData);
-u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 Offset,
-					u8 BytesToWrite, void *WriteData);
+u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 BytesToWrite,
+							void *WriteData);
 
 /* xdptx.c: Functions for controlling the link configuration. */
 u32 XDptx_SetDownspread(XDptx *InstancePtr, u8 Enable);

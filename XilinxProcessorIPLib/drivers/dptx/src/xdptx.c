@@ -812,8 +812,8 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset,
-						u8 BytesToRead, void *ReadData)
+u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset, u8 BytesToRead,
+								void *ReadData)
 {
 	u32 Status;
 	XDptx_AuxTransaction Request;
@@ -856,8 +856,6 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset,
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	IicAddress is the address on the I2C bus of the target device.
- * @param	Offset is the sub-address of the targeted I2C device that the
- *		write will start at.
  * @param	BytesToWrite is the number of bytes to write.
  * @param	WriteData is a pointer to a buffer which will be used as the
  *		data source for the write.
@@ -872,35 +870,21 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset,
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 Offset,
-					u8 BytesToWrite, void *WriteData)
+u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 BytesToWrite,
+								void *WriteData)
 {
 	u32 Status;
 	XDptx_AuxTransaction Request;
-	u8 AuxData[2];
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(IicAddress <= 0xFF);
-	Xil_AssertNonvoid(Offset <= 0xFF);
 	Xil_AssertNonvoid(BytesToWrite <= 0xFF);
 	Xil_AssertNonvoid(WriteData != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
-	}
-
-	/* Setup the I2C-over-AUX write transaction with the address. */
-	Request.Address = IicAddress;
-	Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
-	Request.NumBytes = 2;
-	AuxData[0] = Offset;
-	AuxData[1] = 0;
-	Request.Data = AuxData;
-	Status = XDptx_AuxRequest(InstancePtr, &Request);
-	if (Status != XST_SUCCESS) {
-		return Status;
 	}
 
 	/* Send I2C-over-AUX read transaction. */
