@@ -702,13 +702,14 @@ u32 XDptx_IsConnected(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function issues a read request over the AUX channel.
+ * This function issues a read request over the AUX channel that will read from
+ * the RX device's DisplayPort Configuration Data (DPCD) address space.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	Address is the starting address to read from the RX device.
- * @param	NumBytes is the number of bytes to read from the RX device.
- * @param	Data is a pointer to the data buffer that will be filled with
- *		read data.
+ * @param	DpcdAddress is the starting address to read from the RX device.
+ * @param	BytesToRead is the number of bytes to read from the RX device.
+ * @param	ReadData is a pointer to the data buffer that will be filled
+ *		with read data.
  *
  * @return
  *		- XST_SUCCESS if the AUX read request was successfully
@@ -720,7 +721,8 @@ u32 XDptx_IsConnected(XDptx *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
+u32 XDptx_AuxRead(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
+								void *ReadData)
 {
 	u32 Status;
 	XDptx_AuxTransaction Request;
@@ -728,29 +730,30 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Address <= 0xFFFFF);
-	Xil_AssertNonvoid(NumBytes <= 0xFFFFF);
-	Xil_AssertNonvoid(Data != NULL);
+	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
+	Xil_AssertNonvoid(BytesToRead <= 0xFFFFF);
+	Xil_AssertNonvoid(ReadData != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
 	}
 
 	/* Send AUX read transaction. */
-	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_READ, Address,
-							NumBytes, (u8 *)Data);
+	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_READ, DpcdAddress,
+						BytesToRead, (u8 *)ReadData);
 
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * This function issues a write request over the AUX channel.
+ * This function issues a write request over the AUX channel that will write to
+ * the RX device's DisplayPort Configuration Data (DPCD) address space.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	Address is the starting address to write to the RX device.
- * @param	NumBytes is the number of bytes to write to the RX device.
- * @param	Data is a pointer to the data buffer that contains the data
+ * @param	DpcdAddress is the starting address to write to the RX device.
+ * @param	BytesToWrite is the number of bytes to write to the RX device.
+ * @param	WriteData is a pointer to the data buffer that contains the data
  *		to be written to the RX device.
  *
  * @return
@@ -763,7 +766,8 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
+u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
+								void *WriteData)
 {
 	u32 Status;
 	XDptx_AuxTransaction Request;
@@ -771,17 +775,17 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Address <= 0xFFFFF);
-	Xil_AssertNonvoid(NumBytes <= 0xFFFFF);
-	Xil_AssertNonvoid(Data != NULL);
+	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
+	Xil_AssertNonvoid(BytesToWrite <= 0xFFFFF);
+	Xil_AssertNonvoid(WriteData != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
 	}
 
 	/* Send AUX write transaction. */
-	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_WRITE, Address,
-							NumBytes, (u8 *)Data);
+	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_WRITE, DpcdAddress,
+						BytesToWrite, (u8 *)WriteData);
 
 	return Status;
 }
@@ -792,11 +796,11 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	IicAddress is the address on the I2C bus of the target device.
- * @param	RegStartAddress is the subaddress of the targeted I2C device
- *		that the read will start from.
- * @param	NumBytes is the number of bytes to read.
- * @param	Data is a pointer to a buffer that will be filled with the I2C
- *		read data.
+ * @param	Offset is the offset at the specified address of the targeted
+ *		I2C device that the read will start from.
+ * @param	BytesToRead is the number of bytes to read.
+ * @param	ReadData is a pointer to a buffer that will be filled with the
+ *		I2C read data.
  *
  * @return
  *		- XST_SUCCESS if the I2C read has successfully completed with no
@@ -808,8 +812,8 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
-							u8 NumBytes, void *Data)
+u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset,
+						u8 BytesToRead, void *ReadData)
 {
 	u32 Status;
 	XDptx_AuxTransaction Request;
@@ -819,9 +823,9 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(IicAddress <= 0xFF);
-	Xil_AssertNonvoid(RegStartAddress <= 0xFF);
-	Xil_AssertNonvoid(NumBytes <= 0xFF);
-	Xil_AssertNonvoid(Data != NULL);
+	Xil_AssertNonvoid(Offset <= 0xFF);
+	Xil_AssertNonvoid(BytesToRead <= 0xFF);
+	Xil_AssertNonvoid(ReadData != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
@@ -831,7 +835,7 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 	Request.Address = IicAddress;
 	Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
 	Request.NumBytes = 2;
-	AuxData[0] = RegStartAddress;
+	AuxData[0] = Offset;
 	AuxData[1] = 0;
 	Request.Data = AuxData;
 	Status = XDptx_AuxRequest(InstancePtr, &Request);
@@ -841,7 +845,7 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 
 	/* Send I2C-over-AUX read transaction. */
 	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_READ,
-					IicAddress, NumBytes, (u8 *)Data);
+				IicAddress, BytesToRead, (u8 *)ReadData);
 
 	return Status;
 }
@@ -852,11 +856,11 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	IicAddress is the address on the I2C bus of the target device.
- * @param	RegStartAddress is the sub-address of the targeted I2C device
- *		that the write will start at.
- * @param	NumBytes is the number of bytes to write.
- * @param	Data is a pointer to a buffer which will be used as the data
- *		source for the write.
+ * @param	Offset is the sub-address of the targeted I2C device that the
+ *		write will start at.
+ * @param	BytesToWrite is the number of bytes to write.
+ * @param	WriteData is a pointer to a buffer which will be used as the
+ *		data source for the write.
  *
  * @return
  *		- XST_SUCCESS if the I2C write has successfully completed with
@@ -868,8 +872,8 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
-							u8 NumBytes, void *Data)
+u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 Offset,
+					u8 BytesToWrite, void *WriteData)
 {
 	u32 Status;
 	XDptx_AuxTransaction Request;
@@ -879,9 +883,9 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(IicAddress <= 0xFF);
-	Xil_AssertNonvoid(RegStartAddress <= 0xFF);
-	Xil_AssertNonvoid(NumBytes <= 0xFF);
-	Xil_AssertNonvoid(Data != NULL);
+	Xil_AssertNonvoid(Offset <= 0xFF);
+	Xil_AssertNonvoid(BytesToWrite <= 0xFF);
+	Xil_AssertNonvoid(WriteData != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
@@ -891,7 +895,7 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 	Request.Address = IicAddress;
 	Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
 	Request.NumBytes = 2;
-	AuxData[0] = RegStartAddress;
+	AuxData[0] = Offset;
 	AuxData[1] = 0;
 	Request.Data = AuxData;
 	Status = XDptx_AuxRequest(InstancePtr, &Request);
@@ -900,8 +904,8 @@ u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress,
 	}
 
 	/* Send I2C-over-AUX read transaction. */
-	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_READ,
-					IicAddress, NumBytes, (u8 *)Data);
+	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_WRITE,
+				IicAddress, BytesToWrite, (u8 *)WriteData);
 
 	return Status;
 }
