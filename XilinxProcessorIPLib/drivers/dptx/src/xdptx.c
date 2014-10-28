@@ -169,6 +169,11 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CONFIG,
 					XDPTX_PHY_CONFIG_GT_ALL_RESET_MASK);
 
+	/* Reset the video streams and AUX logic. */
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_SOFT_RESET,
+		XDPTX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+		XDPTX_SOFT_RESET_AUX_MASK);
+
 	/* Disable the DisplayPort TX core. */
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_ENABLE, 0);
 
