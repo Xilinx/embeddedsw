@@ -254,7 +254,6 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 	}
 }
 
-
 /******************************************************************************/
 /**
  * This function sets the Main Stream Attribute (MSA) values in the
