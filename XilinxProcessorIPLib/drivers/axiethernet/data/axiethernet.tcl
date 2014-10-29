@@ -41,6 +41,8 @@
 #	       FIFO interface (CR 721141)
 # 06/08/14 adk Modified the driver tcl to handle the open/close of files
 #	       properly (CR 810643)
+# 29/10/14 adk Added support for generating parameters for SGMII/1000BaseX modes
+#	       When IP is configured with the PCS/PMA core (CR 828796)
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -122,7 +124,9 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
 	     # Interrupt ID (canonical)
             xdefine_temac_interrupt $file_handle $periph $device_id 
            
-	   display_avb_warning_if_applicable $periph
+		   generate_sgmii_params $drv_handle "xparameters.h"
+
+			display_avb_warning_if_applicable $periph
      
             incr device_id
             puts $file_handle "\n"
@@ -410,6 +414,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
         set value 0
     }
     puts $file_handle "\#define $canonical_name $value"
+
 }
 
 # ------------------------------------------------------------------
@@ -631,4 +636,75 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
         puts $file_handle [format "#define $canonical_name 0xFF"]
         add_field_to_periph_config_struct $device_id 0xFF
     }
+}
+
+proc generate_sgmii_params {drv_handle file_name} {
+	set file_handle [::hsm::utils::open_include_file $file_name]
+	set ips [get_cells "*"]
+
+	foreach ip $ips {
+		set periph [get_property IP_NAME  $ip]
+		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
+				set PhyStandard [get_property CONFIG.Standard $ip]
+		}
+	}
+
+	foreach ip $ips {
+		set periph [get_property IP_NAME  $ip]
+		if { [string compare -nocase $periph "axi_ethernet_buffer"] == 0} {
+			set phya [is_gige_pcs_pma_ip_present $ip]
+			if { $phya == 0} {
+				close $file_handle
+				return 0
+			}
+			if { $PhyStandard == "1000BASEX" } {
+				puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
+				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT 1"
+				puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya"
+				puts $file_handle "\n/******************************************************************/\n"
+			} else {
+				puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
+				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
+				puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
+				puts $file_handle "\n/******************************************************************/\n"
+
+			}
+		}
+	}
+	close $file_handle
+}
+
+proc is_gige_pcs_pma_ip_present {slave} {
+	set port_value 0
+	set phy_addr 0
+	set ipconv 0
+
+	set ips [get_cells "*"]
+	set enetipinstance_name [get_property IP_NAME  $slave]
+
+	foreach ip $ips {
+		set periph [get_property IP_NAME $ip]
+		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
+				set sgmii_param [get_property CONFIG.c_is_sgmii $ip]
+				set PhyStandarrd [get_property CONFIG.Standard $ip]
+				if {$sgmii_param == true || $PhyStandarrd == "1000BASEX"} {
+					set ipconv $ip
+				}
+				break
+		}
+	}
+
+	if { $ipconv != 0 }  {
+		set port_value [get_pins -of_objects [get_nets -of_objects [get_pins -of_objects $ipconv gmii_txd]]]
+		if { $port_value != 0 } {
+				if { [string compare -nocase $enetipinstance_name "axi_ethernet_buffer"] == 0} {
+					set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
+					set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr]
+					if {[llength $phy_addr] == 0} {
+						set phy_addr 0
+					}
+				}
+		}
+	}
+	return $phy_addr
 }
