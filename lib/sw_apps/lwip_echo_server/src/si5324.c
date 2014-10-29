@@ -53,7 +53,9 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#if XPAR_GIGE_PCS_PMA_CORE_PRESENT == 1
+#ifdef __arm__
+#if XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1 || \
+	XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
 #include "xil_printf.h"
 #include "xiicps.h"
 #include "sleep.h"
@@ -185,4 +187,5 @@ int ProgramSi5324(void)
 	}
 	return XST_SUCCESS;
 }
+#endif
 #endif

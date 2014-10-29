@@ -49,7 +49,9 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#if XPAR_GIGE_PCS_PMA_CORE_PRESENT == 1
+#ifdef __arm__
+#if XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1 || \
+	XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "xiicps.h"
@@ -418,4 +420,5 @@ static void StatusHandler(XIIC_LIB *I2cLibPtr, int Event)
 		I2cLibPtr->TotalErrorCount++;
 	}
 }
+#endif
 #endif

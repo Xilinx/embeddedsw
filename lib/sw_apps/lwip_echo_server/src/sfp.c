@@ -48,7 +48,9 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#if XPAR_GIGE_PCS_PMA_CORE_PRESENT == 1
+#ifdef __arm__
+#if XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1 || \
+	XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
 #include "xil_printf.h"
 #include "xiicps.h"
 #include "sleep.h"
@@ -136,8 +138,13 @@ int ProgramSfpPhy(void)
 		return XST_FAILURE;
 	}
 
+#if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
+	/* Enabling 1000BASEX */
+	I2cPhyWrite(&I2cLibInstance, IIC_SLAVE_ADDR, 0x1B, 0x9088, IIC_SLAVE_ADDR);
+#else
 	/* Enabling SGMII */
 	I2cPhyWrite(&I2cLibInstance, IIC_SLAVE_ADDR, 0x1B, 0x9084, IIC_SLAVE_ADDR);
+#endif
 
 	/* Apply Soft Reset */
 	I2cPhyWrite(&I2cLibInstance, IIC_SLAVE_ADDR, 0x00, 0x9140, IIC_SLAVE_ADDR);
@@ -185,4 +192,5 @@ int ProgramSfpPhy(void)
 
 	return XST_SUCCESS;
 }
+#endif
 #endif
