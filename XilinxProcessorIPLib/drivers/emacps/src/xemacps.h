@@ -296,6 +296,9 @@
  * 2.1   bss  09/08/14 Modified driver tcl to fix CR#820349 to export phy
  *		       address in xparameters.h when GMII to RGMII converter
  *		       is present in hw.
+ * 2.2   adk  29/10/14 Fixed CR#827686 when PCS/PMA core is configured with
+ *                    1000BASE-X mode export proper values to the xparameters.h
+ *                    file. Changes are made in the driver tcl file.
  * </pre>
  *
  ****************************************************************************/
