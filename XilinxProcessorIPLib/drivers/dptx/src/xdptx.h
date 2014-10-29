@@ -761,8 +761,8 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 Address, u32 BytesToRead,
 								void *ReadData);
 u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 Address, u32 BytesToWrite,
 							void *WriteData);
-u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset, u8 BytesToRead,
-								void *ReadData);
+u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
+					u16 BytesToRead, void *ReadData);
 u32 XDptx_IicWrite(XDptx *InstancePtr, u8 IicAddress, u8 BytesToWrite,
 							void *WriteData);
 
