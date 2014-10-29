@@ -812,40 +812,101 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u8 Offset, u8 BytesToRead,
-								void *ReadData)
+u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
+						u16 BytesToRead, void *ReadData)
 {
 	u32 Status;
 	XDptx_AuxTransaction Request;
-	u8 AuxData[2];
+	u8 SegPtr;
+	u16 NumBytesLeftInSeg;
+	u16 BytesLeft;
+	u8 CurrBytesToRead;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(IicAddress <= 0xFF);
-	Xil_AssertNonvoid(Offset <= 0xFF);
-	Xil_AssertNonvoid(BytesToRead <= 0xFF);
+	Xil_AssertNonvoid(Offset <= 0xFFFF);
+	Xil_AssertNonvoid(BytesToRead <= 0xFFFF);
 	Xil_AssertNonvoid(ReadData != NULL);
 
 	if (!XDptx_IsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
 	}
 
-	/* Setup the I2C-over-AUX read transaction with the address. */
-	Request.Address = IicAddress;
-	Request.CmdCode = XDPTX_AUX_CMD_I2C_WRITE_MOT;
-	Request.NumBytes = 2;
-	AuxData[0] = Offset;
-	AuxData[1] = 0;
-	Request.Data = AuxData;
-	Status = XDptx_AuxRequest(InstancePtr, &Request);
+	BytesLeft = BytesToRead;
+
+	/* Reposition based on a segment length of 256 bytes. */
+	SegPtr = 0;
+	if (Offset >= 255) {
+		SegPtr += Offset / 256;
+		Offset %= 256;
+	}
+	NumBytesLeftInSeg = 256 - Offset;
+
+	/* Set the segment pointer to 0. */
+	Status = XDptx_IicWrite(InstancePtr, 0x30, 1, &SegPtr);
 	if (Status != XST_SUCCESS) {
+		/* The I2C write to set the segment pointer failed. */
 		return Status;
 	}
 
-	/* Send I2C-over-AUX read transaction. */
-	Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_READ,
-				IicAddress, BytesToRead, (u8 *)ReadData);
+	/* Send I2C read message in 16 byte chunks. */
+	while (BytesLeft > 0) {
+		/* Reposition based on segment boundaries. */
+		if (NumBytesLeftInSeg >= 16) {
+			CurrBytesToRead = 16;
+		}
+		else if (NumBytesLeftInSeg >= BytesLeft) {
+			CurrBytesToRead = BytesLeft;
+		}
+		else {
+			CurrBytesToRead = NumBytesLeftInSeg;
+		}
+
+		/* Setup the I2C-over-AUX read transaction with the offset. */
+		Status = XDptx_IicWrite(InstancePtr, IicAddress, 1, &Offset);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		/* Send I2C-over-AUX read transaction. */
+		Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_READ,
+				IicAddress, CurrBytesToRead, (u8 *)ReadData);
+		if (Status != XST_SUCCESS) {
+			/* The AUX read transaction failed. */
+			return Status;
+		}
+
+		/* I2C read of 16 bytes. */
+		if (BytesLeft > CurrBytesToRead) {
+			BytesLeft -= CurrBytesToRead;
+			Offset += CurrBytesToRead;
+			ReadData += CurrBytesToRead;
+			NumBytesLeftInSeg -= CurrBytesToRead;
+		}
+		/* Last I2C read. */
+		else {
+			BytesLeft = 0;
+		}
+
+		/* Increment the segment pointer to access more I2C address
+		 * space, if required. */
+		if ((NumBytesLeftInSeg == 0) && (BytesLeft > 0)) {
+			SegPtr++;
+			Offset %= 256;
+			NumBytesLeftInSeg = 256;
+
+			Status = XDptx_IicWrite(InstancePtr, 0x30, 1, &SegPtr);
+			if (Status != XST_SUCCESS) {
+				return Status;
+			}
+		}
+	}
+
+	/* Reset the segment pointer to 0. */
+	SegPtr = 0;
+	Status = XDptx_IicWrite(InstancePtr, 0x30, 1, &SegPtr);
 
 	return Status;
 }
