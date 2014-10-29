@@ -501,7 +501,7 @@ static err_t low_level_init(struct netif *netif)
 	}
 
 	xemacliteif = mem_malloc(sizeof *xemacliteif);
-	if (xemac == NULL) {
+	if (xemacliteif == NULL) {
 		LWIP_DEBUGF(NETIF_DEBUG, ("xemacliteif_init: out of memory\r\n"));
 		return ERR_MEM;
 	}

@@ -5,6 +5,7 @@ Change Log for lwip
 	getting "PHY not connected" error.
 	* Fix for CR 828796 - 2014.3 - AXI Ethernet - 1000BASEX interface not
 	  working with echo server design on Zynq.
+	* Fix for CR 823736 - Fix typo error in xmaecliteif.c file.
 2014-13-06
 	* Fix for CR 802558 - LWIP library doesn't compile
 	with XilKernel/FreeRTOS BSP.
