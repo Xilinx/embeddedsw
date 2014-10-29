@@ -1,5 +1,10 @@
 Change Log for lwip
 =================================
+2014-29-30
+	* Fix for CR 827686 - Gem connected 1000BASE-X in PL
+	getting "PHY not connected" error.
+	* Fix for CR 828796 - 2014.3 - AXI Ethernet - 1000BASEX interface not
+	  working with echo server design on Zynq.
 2014-13-06
 	* Fix for CR 802558 - LWIP library doesn't compile
 	with XilKernel/FreeRTOS BSP.
