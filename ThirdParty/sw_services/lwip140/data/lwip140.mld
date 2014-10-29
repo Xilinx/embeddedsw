@@ -11,7 +11,7 @@ BEGIN LIBRARY lwip140
 	
   PARAM name = api_mode, desc = "Mode of operation for lwIP (RAW API/Sockets API)", type = enum, values = ("RAW API" = RAW_API, "SOCKET API" = SOCKET_API), default = RAW_API;
   PARAM name = socket_mode_thread_prio, desc = "Priority of threads in socket mode", type = int, default = 2;
-  PARAM name = use_axieth_on_zynq, desc = "Option if set to 1 ensures axiethernet adapter being used in Zynq. Valid only for Zynq", type = int, default = 0;
+  PARAM name = use_axieth_on_zynq, desc = "Option if set to 1 ensures axiethernet adapter being used in Zynq. Valid only for Zynq", type = int, default = 1;
 
   BEGIN CATEGORY temac_adapter_options
 	PARAM name = temac_adapter_options, desc = "Settings for xps-ll-temac/Axi-Ethernet/Gem lwIP adapter", type = bool, default = true, permit = none;

@@ -539,6 +539,17 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define TCP_QUEUE_OOSEQ $tcp_queue_ooseq"
 	puts $lwipopts_fd "\#define TCP_SND_QUEUELEN   16 * TCP_SND_BUF/TCP_MSS"
 	
+	set have_ethonzynq 0
+	foreach emac $emac_periphs_list {
+		set iptype [get_property IP_NAME $emac]
+		if {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer" } {
+			set have_ethonzynq 1
+		}
+	}
+
+	if { $have_ethonzynq != 1} {
+		set use_axieth_on_zynq 0
+	}
 	
 	if {$proctype != "ps7_cortexa9" || $use_axieth_on_zynq == 1} {
 		set tx_full_csum_temp [get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
