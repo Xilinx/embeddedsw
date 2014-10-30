@@ -833,6 +833,13 @@ u32 XDptx_DiscoverTopology(XDptx *InstancePtr);
 u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 							u8 *RelativeAddress);
 
+/* xdptx_mst.c: Multi-stream transport (MST) functions for communicating
+ * with downstream DisplayPort devices. */
+u32 XDptx_RemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData);
+u32 XDptx_RemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData);
+
 /* xdptx_mst.c: Multi-stream transport (MST) functions related to MST stream
  * allocation. */
 u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr);
