@@ -706,6 +706,84 @@ u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
+u32 XDptx_RemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)
+{
+	u32 Status;
+
+	if (LinkCountTotal == 1) {
+		Status = XDptx_AuxRead(InstancePtr, DpcdAddress, BytesToRead,
+								ReadData);
+	}
+	else {
+		u32 BytesLeft = BytesToRead;
+		while (BytesLeft > 0) {
+			if (BytesLeft > 16) {
+				Status = XDptx_SendSbMsgRemoteDpcdRead(
+					InstancePtr, LinkCountTotal,
+					RelativeAddress, DpcdAddress, 16,
+					ReadData);
+				BytesLeft -= 16;
+				DpcdAddress += 16;
+				ReadData += 16;
+			}
+			else {
+				Status = XDptx_SendSbMsgRemoteDpcdRead(
+					InstancePtr, LinkCountTotal,
+					RelativeAddress, DpcdAddress, BytesLeft,
+					ReadData);
+				BytesLeft = 0;
+			}
+
+			if (Status != XST_SUCCESS) {
+				/* The AUX read transaction failed. */
+				return Status;
+			}
+		}
+	}
+
+	return Status;
+}
+
+u32 XDptx_RemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)
+{
+	u32 Status;
+
+	if (LinkCountTotal == 1) {
+		Status = XDptx_AuxWrite(InstancePtr, DpcdAddress, BytesToWrite,
+								WriteData);
+	}
+	else {
+		u32 BytesLeft = BytesToWrite;
+		while (BytesLeft > 0) {
+			if (BytesLeft > 16) {
+				Status = XDptx_SendSbMsgRemoteDpcdWrite(
+					InstancePtr, LinkCountTotal,
+					RelativeAddress, DpcdAddress, 16,
+					WriteData);
+				BytesLeft -= 16;
+				DpcdAddress += 16;
+				WriteData += 16;
+			}
+			else {
+				Status = XDptx_SendSbMsgRemoteDpcdWrite(
+					InstancePtr, LinkCountTotal,
+					RelativeAddress, DpcdAddress, BytesLeft,
+					WriteData);
+				BytesLeft = 0;
+			}
+
+			if (Status != XST_SUCCESS) {
+				/* The AUX read transaction failed. */
+				return Status;
+			}
+		}
+	}
+
+	return Status;
+}
+
 /******************************************************************************/
 /**
  * This function will allocate bandwidth for all enabled stream.
