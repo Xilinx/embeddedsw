@@ -32,7 +32,7 @@ DIV.tabs A
    float            : left;
    background       : url("tab_r.gif") no-repeat right top;
    border-bottom    : 1px solid #84B0C7;
-   font-size        : 80%;
+   font-size        : x-small;
    font-weight      : bold;
    text-decoration  : none;
 }
@@ -57,7 +57,7 @@ DIV.tabs SPAN
    white-space      : nowrap;
 }
 
-DIV.tabs #MSearchBox
+DIV.tabs INPUT
 {
    float            : right;
    display          : inline;
@@ -66,7 +66,7 @@ DIV.tabs #MSearchBox
 
 DIV.tabs TD
 {
-   font-size        : 80%;
+   font-size        : x-small;
    font-weight      : bold;
    text-decoration  : none;
 }
@@ -82,24 +82,21 @@ DIV.tabs A:hover SPAN
    background-position: 0% -150px;
 }
 
-DIV.tabs LI.current A
+DIV.tabs LI#current A
 {
    background-position: 100% -150px;
    border-width     : 0px;
 }
 
-DIV.tabs LI.current SPAN
+DIV.tabs LI#current SPAN
 {
    background-position: 0% -150px;
    padding-bottom   : 6px;
 }
 
-DIV.navpath
+DIV.nav
 {
    background       : none;
    border           : none;
    border-bottom    : 1px solid #84B0C7;
-   text-align       : center;
-   margin           : 2px;
-   padding          : 2px;
 }
