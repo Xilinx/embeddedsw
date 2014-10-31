@@ -839,6 +839,11 @@ u32 XDptx_RemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData);
 u32 XDptx_RemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData);
+u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead,
+	u8 *ReadData);
+u32 XDptx_RemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
+	u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite, u8 *WriteData);
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions related to MST stream
  * allocation. */
