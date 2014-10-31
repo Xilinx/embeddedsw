@@ -838,7 +838,7 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 
 	/* Reposition based on a segment length of 256 bytes. */
 	SegPtr = 0;
-	if (Offset >= 255) {
+	if (Offset > 255) {
 		SegPtr += Offset / 256;
 		Offset %= 256;
 	}
