@@ -1724,13 +1724,8 @@ void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 									0xFF;
 	}
 
-	if (LinkCountTotal == 1) {
-		XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_GUID, 16, AuxData);
-	}
-	else {
-		XDptx_SendSbMsgRemoteDpcdWrite(InstancePtr, LinkCountTotal,
-				RelativeAddress, XDPTX_DPCD_GUID, 16, AuxData);
-	}
+	XDptx_RemoteDpcdWrite(InstancePtr, LinkCountTotal, RelativeAddress,
+						XDPTX_DPCD_GUID, 16, AuxData);
 }
 
 /******************************************************************************/
@@ -1764,13 +1759,8 @@ void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertVoid(Guid != NULL);
 
-	if (LinkCountTotal == 1) {
-		XDptx_AuxRead(InstancePtr, XDPTX_DPCD_GUID, 16, Data);
-	}
-	else {
-		XDptx_SendSbMsgRemoteDpcdRead(InstancePtr, LinkCountTotal,
-				RelativeAddress, XDPTX_DPCD_GUID, 16, Data);
-	}
+	XDptx_RemoteDpcdRead(InstancePtr, LinkCountTotal, RelativeAddress,
+						XDPTX_DPCD_GUID, 16, Data);
 
 	memset(Guid, 0, 16);
 	for (Index = 0; Index < 16; Index++) {
