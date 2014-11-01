@@ -1102,8 +1102,9 @@
 /** @name Extended Display Identification Data: Field addresses and sizes.
   * @{
   */
+#define XDPTX_SEGPTR_ADDR				0x30
 #define XDPTX_EDID_ADDR					0x50
-#define XDPTX_EDID_SIZE					128
+#define XDPTX_EDID_BLOCK_SIZE				128
 #define XDPTX_EDID_DTD_DD(Num)				(0x36 + (18 * Num))
 #define XDPTX_EDID_PTM					XDPTX_EDID_DTD_DD(0)
 /* @} */
