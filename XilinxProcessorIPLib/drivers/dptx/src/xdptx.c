@@ -375,8 +375,8 @@ u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Edid != NULL);
 
-	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, 0, XDPTX_EDID_SIZE,
-									Edid);
+	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, 0,
+						XDPTX_EDID_BLOCK_SIZE, Edid);
 
 	return Status;
 }
@@ -845,7 +845,7 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 	NumBytesLeftInSeg = 256 - Offset;
 
 	/* Set the segment pointer to 0. */
-	Status = XDptx_IicWrite(InstancePtr, 0x30, 1, &SegPtr);
+	Status = XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 	if (Status != XST_SUCCESS) {
 		/* The I2C write to set the segment pointer failed. */
 		return Status;
@@ -897,7 +897,8 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 			Offset %= 256;
 			NumBytesLeftInSeg = 256;
 
-			Status = XDptx_IicWrite(InstancePtr, 0x30, 1, &SegPtr);
+			Status = XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR,
+								1, &SegPtr);
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
@@ -906,7 +907,7 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 
 	/* Reset the segment pointer to 0. */
 	SegPtr = 0;
-	Status = XDptx_IicWrite(InstancePtr, 0x30, 1, &SegPtr);
+	Status = XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 
 	return Status;
 }

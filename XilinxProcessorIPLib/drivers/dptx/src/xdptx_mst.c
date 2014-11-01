@@ -812,7 +812,7 @@ u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 
 	/* Set the segment pointer to 0. */
 	Status = XDptx_RemoteIicWrite(InstancePtr, LinkCountTotal,
-		RelativeAddress, 0x30, 1, &SegPtr);
+		RelativeAddress, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 	if (Status != XST_SUCCESS) {
 		/* The I2C write to set the segment pointer failed. */
 		return Status;
@@ -860,8 +860,8 @@ u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 			NumBytesLeftInSeg = 256;
 
 			Status = XDptx_RemoteIicWrite(InstancePtr,
-				LinkCountTotal, RelativeAddress, 0x30, 1,
-				&SegPtr);
+				LinkCountTotal, RelativeAddress,
+				XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
@@ -871,7 +871,7 @@ u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	/* Reset the segment pointer to 0. */
 	SegPtr = 0;
 	Status = XDptx_RemoteIicWrite(InstancePtr, LinkCountTotal,
-		RelativeAddress, 0x30, 1, &SegPtr);
+				RelativeAddress, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 
 	return Status;
 }
@@ -1920,7 +1920,8 @@ u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(Edid != NULL);
 
 	Status = XDptx_RemoteIicRead(InstancePtr, LinkCountTotal,
-		RelativeAddress, XDPTX_EDID_ADDR, 0, XDPTX_EDID_SIZE, Edid);
+		RelativeAddress, XDPTX_EDID_ADDR, 0, XDPTX_EDID_BLOCK_SIZE,
+									Edid);
 
 	return Status;
 }
