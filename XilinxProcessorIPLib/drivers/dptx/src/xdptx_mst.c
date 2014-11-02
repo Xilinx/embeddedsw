@@ -706,6 +706,40 @@ u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function performs a remote DisplayPort Configuration Data (DPCD) read
+ * by sending a sideband message. In case message is directed at the RX device
+ * connected immediately to the TX, the message is issued over the AUX channel.
+ * The read message will be divided into multiple transactions which read a
+ * maximum of 16 bytes each.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	DpcdAddress is the starting address to read from the RX device.
+ * @param	BytesToRead is the number of bytes to read.
+ * @param	WriteData is a pointer to a buffer which will be used as the
+ *		data source for the write.
+ *
+ * @return
+ *		- XST_SUCCESS if the DPCD read has successfully completed (has
+ *		  been acknowledged).
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_DATA_LOST if the requested number of BytesToRead does not
+ *		  equal that actually received.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_RemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)
 {
@@ -745,6 +779,40 @@ u32 XDptx_RemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function performs a remote DisplayPort Configuration Data (DPCD) write
+ * by sending a sideband message. In case message is directed at the RX device
+ * connected immediately to the TX, the message is issued over the AUX channel.
+ * The write message will be divided into multiple transactions which write a
+ * maximum of 16 bytes each.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	DpcdAddress is the starting address to write to the RX device.
+ * @param	BytesToWrite is the number of bytes to write.
+ * @param	WriteData is a pointer to a buffer which will be used as the
+ *		data source for the write.
+ *
+ * @return
+ *		- XST_SUCCESS if the DPCD write has successfully completed (has
+ *		  been acknowledged).
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_DATA_LOST if the requested number of BytesToWrite does not
+ *		  equal that actually received.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_RemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)
 {
@@ -784,6 +852,48 @@ u32 XDptx_RemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function performs a remote I2C read by sending a sideband message. In
+ * case message is directed at the RX device connected immediately to the TX,
+ * the message is sent over the AUX channel. The read message will be divided
+ * into multiple transactions which read a maximum of 16 bytes each. The segment
+ * pointer is automatically incremented and the offset is calibrated as needed.
+ * E.g. For an overall offset of:
+ *	- 128, an I2C read is done on segptr=0; offset=128.
+ *	- 256, an I2C read is done on segptr=1; offset=0.
+ *	- 384, an I2C read is done on segptr=1; offset=128.
+ *	- 512, an I2C read is done on segptr=2; offset=0.
+ *	- etc.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	IicAddress is the address on the I2C bus of the target device.
+ * @param	Offset is the offset at the specified address of the targeted
+ *		I2C device that the read will start from.
+ * @param	BytesToRead is the number of bytes to read.
+ * @param	ReadData is a pointer to a buffer that will be filled with the
+ *		I2C read data.
+ *
+ * @return
+ *		- XST_SUCCESS if the I2C read has successfully completed with no
+ *		  errors.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_DATA_LOST if the requested number of BytesToRead does not
+ *		  equal that actually received.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead,
 	u8 *ReadData)
@@ -876,6 +986,38 @@ u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function performs a remote I2C write by sending a sideband message. In
+ * case message is directed at the RX device connected immediately to the TX,
+ * the message is sent over the AUX channel.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	IicAddress is the address on the I2C bus of the target device.
+ * @param	BytesToWrite is the number of bytes to write.
+ * @param	WriteData is a pointer to a buffer which will be used as the
+ *		data source for the write.
+ *
+ * @return
+ *		- XST_SUCCESS if the I2C write has successfully completed with
+ *		  no errors.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_DATA_LOST if the requested number of BytesToWrite does not
+ *		  equal that actually received.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_RemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite,
 	u8 *WriteData)
@@ -890,11 +1032,6 @@ u32 XDptx_RemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 		Status = XDptx_SendSbMsgRemoteIicWrite(InstancePtr,
 			LinkCountTotal, RelativeAddress, IicAddress,
 			BytesToWrite, WriteData);
-
-		if (Status != XST_SUCCESS) {
-			/* The AUX read transaction failed. */
-			return Status;
-		}
 	}
 
 	return Status;

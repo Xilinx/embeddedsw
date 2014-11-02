@@ -703,7 +703,9 @@ u32 XDptx_IsConnected(XDptx *InstancePtr)
 /******************************************************************************/
 /**
  * This function issues a read request over the AUX channel that will read from
- * the RX device's DisplayPort Configuration Data (DPCD) address space.
+ * the RX device's DisplayPort Configuration Data (DPCD) address space. The read
+ * message will be divided into multiple transactions which read a maximum of 16
+ * bytes each.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	DpcdAddress is the starting address to read from the RX device.
@@ -748,7 +750,9 @@ u32 XDptx_AuxRead(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
 /******************************************************************************/
 /**
  * This function issues a write request over the AUX channel that will write to
- * the RX device's DisplayPort Configuration Data (DPCD) address space.
+ * the RX device's DisplayPort Configuration Data (DPCD) address space. The
+ * write message will be divided into multiple transactions which write a
+ * maximum of 16 bytes each.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	DpcdAddress is the starting address to write to the RX device.
@@ -792,7 +796,15 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
 
 /******************************************************************************/
 /**
- * This function performs an I2C read over the AUX channel.
+ * This function performs an I2C read over the AUX channel. The read message
+ * will be divided into multiple transactions which read a maximum of 16 bytes
+ * each. The segment pointer is automatically incremented and the offset is
+ * calibrated as needed. E.g. For an overall offset of:
+ *	- 128, an I2C read is done on segptr=0; offset=128.
+ *	- 256, an I2C read is done on segptr=1; offset=0.
+ *	- 384, an I2C read is done on segptr=1; offset=128.
+ *	- 512, an I2C read is done on segptr=2; offset=0.
+ *	- etc.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	IicAddress is the address on the I2C bus of the target device.
