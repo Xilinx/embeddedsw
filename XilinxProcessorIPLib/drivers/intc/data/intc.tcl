@@ -66,11 +66,13 @@
 ##		    if number of interrupt ports not equal to total numer of 
 ##		    interrupts returning immediatly.And in the xredefine_intc
 ##		    if there is not interrupt source returining immediately.
-##     4/8/14   bss Modified xredefine_intc to handle external interrupt pins 
+##     4/8/14   bss Modified xredefine_intc to handle external interrupt pins
 ##		    correctly (CR#799609).
+##     11/3/14 adk  added generation of C_HAS_ILR parameter to xparameters.h
+##		    (CR#828046).
 ##
 ##
-##    
+##
 ## @END_CHANGELOG
 
 ############################################################
@@ -118,11 +120,22 @@ proc generate {drv_handle} {
 		puts $file_handle "#define XPAR_INTC_MAX_NUM_INTR_INPUTS $maxintrs"
         close $file_handle
 	}
-	
-	::hsm::utils::define_if_all $drv_handle "xparameters.h" "XIntc" "C_HAS_IPR" "C_HAS_SIE" "C_HAS_CIE" "C_HAS_IVR" 
+
+	foreach periph $periphs {
+		set fast [::hsm::utils::get_param_value $periph "C_HAS_FAST"]
+		set nested [::hsm::utils::get_param_value $periph "C_HAS_ILR"]
+	        if {$fast == 1 && $nested == 1} {
+				 puts "ERROR: Internal error: Interrupt Controller Driver has no support for nesting fast interrupts"
+	        }
+	        if {$cascade == 1 && $nested == 1} {
+			puts "ERROR: Internal error: Interrupt Controller Driver has no support for nesting interrupts in Cascaded mode"
+	        }
+	}
+
+	::hsm::utils::define_if_all $drv_handle "xparameters.h" "XIntc" "C_HAS_IPR" "C_HAS_SIE" "C_HAS_CIE" "C_HAS_IVR" "C_HAS_ILR"
 	xdefine_include_file $drv_handle "xparameters.h" "XIntc" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS"
-	
-		
+
+
 	# Define XPAR_SINGLE_DEVICE_ID
     	
     	if {$count == 1} {

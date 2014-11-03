@@ -200,6 +200,9 @@
 *			   the test-app tcl
 * 3.2     bss    4/8/14    Fixed driver tcl to handle external interrupt pins
 *			   correctly (CR#799609).
+* 3.3     adk    11/3/14   added generation of C_HAS_ILR parameter to
+*			   xparameters.h.Changes are made in the driver tcl file
+*			   (CR#828046).
 *
 * </pre>
 *
