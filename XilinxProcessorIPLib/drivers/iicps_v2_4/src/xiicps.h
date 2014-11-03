@@ -168,6 +168,8 @@
 *                    read mode and clear transfer size register.
 *                    Disable NACK to avoid interrupts on each retry.
 * 2.3	sk	10/07/14 Repeated start feature deleted.
+* 2.4	sk	11/03/14 Modified TimeOut Register value to 0xFF
+* 					 in XIicPs_Reset.
 *
 * </pre>
 *

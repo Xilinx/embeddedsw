@@ -45,6 +45,7 @@
 * ----- ------  -------- -----------------------------------------------
 * 1.00a drg/jz  01/30/10 First release
 * 1.04a kpc		11/07/13 Added function prototype.
+* 2.4	sk		11/03/14 Modified the TimeOut Register value to 0xFF
 * </pre>
 *
 ******************************************************************************/
@@ -253,7 +254,7 @@ extern "C" {
 * @{
  */
 #define XIICPS_TIME_OUT_MASK    0x000000FF    /**< IIC Time Out mask */
-#define XIICPS_TO_RESET_VALUE   0x0000001F    /**< IIC Time Out reset value */
+#define XIICPS_TO_RESET_VALUE   0x000000FF    /**< IIC Time Out reset value */
 /* @} */
 
 /**************************** Type Definitions *******************************/

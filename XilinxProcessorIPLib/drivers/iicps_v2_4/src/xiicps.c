@@ -48,6 +48,8 @@
 *                        and state the same in the comments. CR# 784254.
 *                        Fix for CR# 761060 - provision for repeated start.
 * 2.3	sk		10/07/14 Repeated start feature removed.
+* 2.4	sk		11/03/14 Modified TimeOut Register value to 0xFF
+* 						 in XIicPs_Reset.
 *
 * </pre>
 *
