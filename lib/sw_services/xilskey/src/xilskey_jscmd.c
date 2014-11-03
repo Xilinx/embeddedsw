@@ -606,11 +606,15 @@ int jtagShiftTDIBits (unsigned char* tdiBuf, unsigned char* tdoBuf, int bitCount
     int currentByteCount = getByteCountFromBitCount (bitCount);
     int byteCount = currentByteCount;
     int index = 0;
+    unsigned char TdiTemp = 0x0;
     int bitsLeft = 8;
     if (bitCount % 8)
     {
     	bitsLeft = bitCount % 8;
     }
+
+	if(flags | JS_ONES)
+		TdiTemp = 0xFF;
 
     while (index < byteCount)
     {
@@ -642,7 +646,11 @@ int jtagShiftTDIBits (unsigned char* tdiBuf, unsigned char* tdoBuf, int bitCount
        		tdoByte = &tdoBuf [index];
        	}
 
-        jtagShiftTDI (tdiBuf [index], tdoByte, count, exitState);
+	if(tdiBuf != NULL)
+		jtagShiftTDI (tdiBuf [index], tdoByte, count, exitState);
+	else
+		jtagShiftTDI (TdiTemp, tdoByte, count, exitState);
+
         if (tdoBuf)
         	js_printf ("tdoBuf=0x%02X\n", *tdoByte);
 
