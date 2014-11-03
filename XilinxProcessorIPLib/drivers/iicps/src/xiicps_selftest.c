@@ -44,6 +44,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00a drg/jz 01/30/10 First release
 * 1.00a sdm    09/22/11 Removed unused code
+* 2.4	sk	   11/03/14 Removed TimeOut Register value check
 * </pre>
 *
 ******************************************************************************/
@@ -99,9 +100,6 @@ int XIicPs_SelfTest(XIicPs *InstancePtr)
 	if ((XIICPS_CR_RESET_VALUE !=
 		 XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XIICPS_CR_OFFSET)) ||
-		(XIICPS_TO_RESET_VALUE !=
-		 XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-				  XIICPS_TIME_OUT_OFFSET)) ||
 		(XIICPS_IXR_ALL_INTR_MASK !=
 		 XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XIICPS_IMR_OFFSET))) {

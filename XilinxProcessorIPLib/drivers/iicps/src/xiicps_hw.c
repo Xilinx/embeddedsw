@@ -42,6 +42,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- --------------------------------------------
 * 1.04a kpc     11/07/13 First release
+* 2.4	sk		11/03/14 Modified TimeOut Register value to 0xFF
 *
 * </pre>
 *
@@ -95,7 +96,7 @@ void XIicPs_ResetHw(u32 BaseAddress)
 	RegVal |= XIICPS_CR_CLR_FIFO_MASK;
 	XIicPs_WriteReg(BaseAddress, XIICPS_CR_OFFSET, RegVal);
 	/* Clear the timeout register */
-	XIicPs_WriteReg(BaseAddress, XIICPS_TIME_OUT_OFFSET, 0x0);
+	XIicPs_WriteReg(BaseAddress, XIICPS_TIME_OUT_OFFSET, XIICPS_TO_RESET_VALUE);
 	/* Clear the transfer size register */
 	XIicPs_WriteReg(BaseAddress, XIICPS_TRANS_SIZE_OFFSET, 0x0);
 	/* Clear the status register */
