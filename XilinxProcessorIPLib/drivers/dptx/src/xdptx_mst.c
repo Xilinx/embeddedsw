@@ -745,34 +745,44 @@ u32 XDptx_RemoteDpcdRead(XDptx *InstancePtr, u8 LinkCountTotal,
 {
 	u32 Status;
 
+	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
 		Status = XDptx_AuxRead(InstancePtr, DpcdAddress, BytesToRead,
 								ReadData);
+		return Status;
 	}
-	else {
-		u32 BytesLeft = BytesToRead;
-		while (BytesLeft > 0) {
-			if (BytesLeft > 16) {
-				Status = XDptx_SendSbMsgRemoteDpcdRead(
-					InstancePtr, LinkCountTotal,
-					RelativeAddress, DpcdAddress, 16,
-					ReadData);
-				BytesLeft -= 16;
-				DpcdAddress += 16;
-				ReadData += 16;
-			}
-			else {
-				Status = XDptx_SendSbMsgRemoteDpcdRead(
-					InstancePtr, LinkCountTotal,
-					RelativeAddress, DpcdAddress, BytesLeft,
-					ReadData);
-				BytesLeft = 0;
-			}
 
-			if (Status != XST_SUCCESS) {
-				/* The AUX read transaction failed. */
-				return Status;
-			}
+	u32 BytesLeft = BytesToRead;
+	u8 CurrBytesToRead;
+
+	/* Send read message in 16 byte chunks. */
+	while (BytesLeft > 0) {
+		/* Read a maximum of 16 bytes. */
+		if (BytesLeft > 16) {
+			CurrBytesToRead = 16;
+		}
+		/* Read the remaining number of bytes as requested. */
+		else {
+			CurrBytesToRead = BytesLeft;
+		}
+
+		/* Send remote DPCD read sideband message. */
+		Status = XDptx_SendSbMsgRemoteDpcdRead(InstancePtr,
+			LinkCountTotal, RelativeAddress, DpcdAddress,
+			CurrBytesToRead, ReadData);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		/* Previous DPCD read was 16 bytes; prepare for next read. */
+		if (BytesLeft > 16) {
+			BytesLeft -= 16;
+			DpcdAddress += 16;
+			ReadData += 16;
+		}
+		/* Last DPCD read. */
+		else {
+			BytesLeft = 0;
 		}
 	}
 
@@ -818,34 +828,44 @@ u32 XDptx_RemoteDpcdWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 {
 	u32 Status;
 
+	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
 		Status = XDptx_AuxWrite(InstancePtr, DpcdAddress, BytesToWrite,
 								WriteData);
+		return Status;
 	}
-	else {
-		u32 BytesLeft = BytesToWrite;
-		while (BytesLeft > 0) {
-			if (BytesLeft > 16) {
-				Status = XDptx_SendSbMsgRemoteDpcdWrite(
-					InstancePtr, LinkCountTotal,
-					RelativeAddress, DpcdAddress, 16,
-					WriteData);
-				BytesLeft -= 16;
-				DpcdAddress += 16;
-				WriteData += 16;
-			}
-			else {
-				Status = XDptx_SendSbMsgRemoteDpcdWrite(
-					InstancePtr, LinkCountTotal,
-					RelativeAddress, DpcdAddress, BytesLeft,
-					WriteData);
-				BytesLeft = 0;
-			}
 
-			if (Status != XST_SUCCESS) {
-				/* The AUX read transaction failed. */
-				return Status;
-			}
+	u32 BytesLeft = BytesToWrite;
+	u8 CurrBytesToWrite;
+
+	/* Send write message in 16 byte chunks. */
+	while (BytesLeft > 0) {
+		/* Write a maximum of 16 bytes. */
+		if (BytesLeft > 16) {
+			CurrBytesToWrite = 16;
+		}
+		/* Write the remaining number of bytes as requested. */
+		else {
+			CurrBytesToWrite = BytesLeft;
+		}
+
+		/* Send remote DPCD write sideband message. */
+		Status = XDptx_SendSbMsgRemoteDpcdWrite(InstancePtr,
+			LinkCountTotal, RelativeAddress, DpcdAddress,
+			CurrBytesToWrite, WriteData);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		/* Previous DPCD write was 16 bytes; prepare for next read. */
+		if (BytesLeft > 16) {
+			BytesLeft -= 16;
+			DpcdAddress += 16;
+			WriteData += 16;
+		}
+		/* Last DPCD write. */
+		else {
+			BytesLeft = 0;
 		}
 	}
 
@@ -900,10 +920,10 @@ u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 {
 	u32 Status;
 
+	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
 		Status = XDptx_IicRead(InstancePtr, IicAddress, Offset,
 							BytesToRead, ReadData);
-
 		return Status;
 	}
 
@@ -924,19 +944,20 @@ u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 	Status = XDptx_RemoteIicWrite(InstancePtr, LinkCountTotal,
 		RelativeAddress, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 	if (Status != XST_SUCCESS) {
-		/* The I2C write to set the segment pointer failed. */
 		return Status;
 	}
 
 	/* Send I2C read message in 16 byte chunks. */
 	while (BytesLeft > 0) {
-		/* Reposition based on segment boundaries. */
-		if (NumBytesLeftInSeg >= 16) {
+		/* Read a maximum of 16 bytes. */
+		if ((NumBytesLeftInSeg >= 16) && (BytesLeft >= 16)) {
 			CurrBytesToRead = 16;
 		}
+		/* Read the remaining number of bytes as requested. */
 		else if (NumBytesLeftInSeg >= BytesLeft) {
 			CurrBytesToRead = BytesLeft;
 		}
+		/* Read the remaining data in the current segment boundary. */
 		else {
 			CurrBytesToRead = NumBytesLeftInSeg;
 		}
@@ -946,11 +967,10 @@ u32 XDptx_RemoteIicRead(XDptx *InstancePtr, u8 LinkCountTotal,
 			LinkCountTotal, RelativeAddress, IicAddress, Offset,
 			BytesLeft, ReadData);
 		if (Status != XST_SUCCESS) {
-			/* The sideband message transaction failed. */
 			return Status;
 		}
 
-		/* I2C read of 16 bytes. */
+		/* Previous I2C read was 16 bytes; prepare for next read. */
 		if (BytesLeft > CurrBytesToRead) {
 			BytesLeft -= CurrBytesToRead;
 			Offset += CurrBytesToRead;
@@ -1024,10 +1044,12 @@ u32 XDptx_RemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
 {
 	u32 Status;
 
+	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
 		Status = XDptx_IicWrite(InstancePtr, IicAddress, BytesToWrite,
 								WriteData);
 	}
+	/* Send remote I2C sideband message. */
 	else {
 		Status = XDptx_SendSbMsgRemoteIicWrite(InstancePtr,
 			LinkCountTotal, RelativeAddress, IicAddress,
