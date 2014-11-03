@@ -859,19 +859,20 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 	/* Set the segment pointer to 0. */
 	Status = XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 	if (Status != XST_SUCCESS) {
-		/* The I2C write to set the segment pointer failed. */
 		return Status;
 	}
 
 	/* Send I2C read message in 16 byte chunks. */
 	while (BytesLeft > 0) {
-		/* Reposition based on segment boundaries. */
-		if (NumBytesLeftInSeg >= 16) {
+		/* Read a maximum of 16 bytes. */
+		if ((NumBytesLeftInSeg >= 16) && (BytesLeft >= 16)) {
 			CurrBytesToRead = 16;
 		}
+		/* Read the remaining number of bytes as requested. */
 		else if (NumBytesLeftInSeg >= BytesLeft) {
 			CurrBytesToRead = BytesLeft;
 		}
+		/* Read the remaining data in the current segment boundary. */
 		else {
 			CurrBytesToRead = NumBytesLeftInSeg;
 		}
@@ -886,7 +887,6 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 		Status = XDptx_AuxCommon(InstancePtr, XDPTX_AUX_CMD_I2C_READ,
 				IicAddress, CurrBytesToRead, (u8 *)ReadData);
 		if (Status != XST_SUCCESS) {
-			/* The AUX read transaction failed. */
 			return Status;
 		}
 
@@ -2316,6 +2316,8 @@ static u32 XDptx_GetTrainingDelay(XDptx *InstancePtr,
 /**
  * This function contains the common sequence of submitting an AUX command for
  * AUX read, AUX write, I2C-over-AUX read, and I2C-over-AUX write transactions.
+ * If required, the reads and writes are split into multiple requests, each
+ * acting on a maximum of 16 bytes.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	CmdType is the type of AUX command (one of: XDPTX_AUX_CMD_READ,
