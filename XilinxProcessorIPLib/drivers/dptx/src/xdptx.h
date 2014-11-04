@@ -878,4 +878,9 @@ void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
 						u8 *RelativeAddress, u8 *Edid);
 
+/* xdptx_edid.c: EDID utility functions. */
+u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum);
+u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
+					u8 LinkCountTotal, u8 *RelativeAddress);
+
 #endif /* XDPTX_H_ */
