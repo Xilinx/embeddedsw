@@ -797,9 +797,9 @@ u32 XDptx_AuxWrite(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
 /******************************************************************************/
 /**
  * This function performs an I2C read over the AUX channel. The read message
- * will be divided into multiple transactions which read a maximum of 16 bytes
- * each. The segment pointer is automatically incremented and the offset is
- * calibrated as needed. E.g. For an overall offset of:
+ * will be divided into multiple transactions if the requested data spans
+ * multiple segments. The segment pointer is automatically incremented and the
+ * offset is calibrated as needed. E.g. For an overall offset of:
  *	- 128, an I2C read is done on segptr=0; offset=128.
  *	- 256, an I2C read is done on segptr=1; offset=0.
  *	- 384, an I2C read is done on segptr=1; offset=128.
@@ -862,14 +862,11 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 		return Status;
 	}
 
-	/* Send I2C read message in 16 byte chunks. */
+	/* Send I2C read message. Multiple transactions are required if the
+	 * requested data spans multiple segments. */
 	while (BytesLeft > 0) {
-		/* Read a maximum of 16 bytes. */
-		if ((NumBytesLeftInSeg >= 16) && (BytesLeft >= 16)) {
-			CurrBytesToRead = 16;
-		}
 		/* Read the remaining number of bytes as requested. */
-		else if (NumBytesLeftInSeg >= BytesLeft) {
+		if (NumBytesLeftInSeg >= BytesLeft) {
 			CurrBytesToRead = BytesLeft;
 		}
 		/* Read the remaining data in the current segment boundary. */
@@ -890,30 +887,30 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 			return Status;
 		}
 
-		/* I2C read of 16 bytes. */
+		/* Previous I2C read was done on the remaining data in the
+		 * current segment; prepare for next read. */
 		if (BytesLeft > CurrBytesToRead) {
 			BytesLeft -= CurrBytesToRead;
 			Offset += CurrBytesToRead;
 			ReadData += CurrBytesToRead;
-			NumBytesLeftInSeg -= CurrBytesToRead;
+
+			/* Increment the segment pointer to access more I2C
+			 * address space, if required. */
+			if (BytesLeft > 0) {
+				NumBytesLeftInSeg = 256;
+				Offset %= 256;
+				SegPtr++;
+
+				Status = XDptx_IicWrite(InstancePtr,
+						XDPTX_SEGPTR_ADDR, 1, &SegPtr);
+				if (Status != XST_SUCCESS) {
+					return Status;
+				}
+			}
 		}
 		/* Last I2C read. */
 		else {
 			BytesLeft = 0;
-		}
-
-		/* Increment the segment pointer to access more I2C address
-		 * space, if required. */
-		if ((NumBytesLeftInSeg == 0) && (BytesLeft > 0)) {
-			SegPtr++;
-			Offset %= 256;
-			NumBytesLeftInSeg = 256;
-
-			Status = XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR,
-								1, &SegPtr);
-			if (Status != XST_SUCCESS) {
-				return Status;
-			}
 		}
 	}
 
