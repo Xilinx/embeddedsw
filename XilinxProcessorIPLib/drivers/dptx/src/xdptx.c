@@ -350,39 +350,6 @@ u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function retrieves the RX device's Extended Display Identification Data
- * (EDID).
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	Edid is a pointer to the Edid buffer to save to.
- *
- * @return
- *		- XST_SUCCESS if the I2C transactions to read the EDID were
- *		  successful.
- *		- XST_ERROR_COUNT_MAX if the EDID read request timed out.
- *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
- *		- XST_FAILURE otherwise.
- *
- * @note	None.
- *
-*******************************************************************************/
-u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
-{
-	u32 Status;
-
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Edid != NULL);
-
-	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, 0,
-						XDPTX_EDID_BLOCK_SIZE, Edid);
-
-	return Status;
-}
-
-/******************************************************************************/
-/**
  * This function determines the common capabilities between the DisplayPort TX
  * core and the RX device.
  *

@@ -744,7 +744,6 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr);
 void XDptx_CfgInitialize(XDptx *InstancePtr, XDptx_Config *ConfigPtr,
 							u32 EffectiveAddr);
 u32 XDptx_GetRxCapabilities(XDptx *InstancePtr);
-u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid);
 
 /* xdptx.c: Link policy maker functions. */
 u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr);
@@ -875,10 +874,11 @@ void XDptx_WriteGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 Guid[4]);
 void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 *Guid);
-u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
-						u8 *RelativeAddress, u8 *Edid);
 
 /* xdptx_edid.c: EDID utility functions. */
+u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid);
+u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
+						u8 *RelativeAddress, u8 *Edid);
 u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum);
 u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
 					u8 LinkCountTotal, u8 *RelativeAddress);
