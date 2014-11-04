@@ -82,8 +82,8 @@ u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Edid != NULL);
 
-	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, 0,
-						XDPTX_EDID_BLOCK_SIZE, Edid);
+	/* Retrieve the base EDID block = EDID block #0. */
+	Status = XDptx_GetEdidBlock(InstancePtr, Edid, 0);
 
 	return Status;
 }
@@ -122,9 +122,9 @@ u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(Edid != NULL);
 
-	Status = XDptx_RemoteIicRead(InstancePtr, LinkCountTotal,
-		RelativeAddress, XDPTX_EDID_ADDR, 0, XDPTX_EDID_BLOCK_SIZE,
-									Edid);
+	/* Retrieve the base EDID block = EDID block #0. */
+	Status = XDptx_GetRemoteEdidBlock(InstancePtr, Edid, 0, LinkCountTotal,
+							RelativeAddress);
 
 	return Status;
 }
@@ -135,10 +135,11 @@ u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum)
 	u16 Offset;
 
 	/* Calculate the I2C offset for the specified EDID block. */
-	Offset = BlockNum * 128;
+	Offset = BlockNum * XDPTX_EDID_BLOCK_SIZE;
 
 	/* Issue the I2C read for the specified EDID block. */
-	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, Offset, 128, Data);
+	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, Offset,
+						XDPTX_EDID_BLOCK_SIZE, Data);
 
 	return Status;
 }
@@ -150,11 +151,12 @@ u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
 	u16 Offset;
 
 	/* Calculate the I2C offset for the specified EDID block. */
-	Offset = BlockNum * 128;
+	Offset = BlockNum * XDPTX_EDID_BLOCK_SIZE;
 
 	/* Issue the I2C read for the specified EDID block. */
 	Status = XDptx_RemoteIicRead(InstancePtr, LinkCountTotal,
-		RelativeAddress, XDPTX_EDID_ADDR, Offset, 128, Data);
+		RelativeAddress, XDPTX_EDID_ADDR, Offset, XDPTX_EDID_BLOCK_SIZE,
+									Data);
 
 	return Status;
 }
