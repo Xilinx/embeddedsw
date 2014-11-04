@@ -2046,47 +2046,6 @@ void XDptx_GetGuid(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 
 /******************************************************************************/
 /**
- * This function retrieves a remote RX device's Extended Display Identification
- * Data (EDID).
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	LinkCountTotal is the number of DisplayPort links from the
- *		DisplayPort source to the target DisplayPort device.
- * @param	RelativeAddress is the relative address from the DisplayPort
- *		source to the target DisplayPort device.
- * @param	Edid is a pointer to the Edid buffer to save to.
- *
- * @return
- *		- XST_SUCCESS if the I2C transactions to read the EDID were
- *		  successful.
- *		- XST_ERROR_COUNT_MAX if the EDID read request timed out.
- *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
- *		- XST_FAILURE otherwise.
- *
- * @note	None.
- *
-*******************************************************************************/
-u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
-						u8 *RelativeAddress, u8 *Edid)
-{
-	u32 Status;
-
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(LinkCountTotal > 0);
-	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
-	Xil_AssertNonvoid(Edid != NULL);
-
-	Status = XDptx_RemoteIicRead(InstancePtr, LinkCountTotal,
-		RelativeAddress, XDPTX_EDID_ADDR, 0, XDPTX_EDID_BLOCK_SIZE,
-									Edid);
-
-	return Status;
-}
-
-/******************************************************************************/
-/**
  * This function will check whether or not a DisplayPort device has a global
  * unique identifier (GUID). If it doesn't (the GUID is all zeros), then it will
  * issue one.
