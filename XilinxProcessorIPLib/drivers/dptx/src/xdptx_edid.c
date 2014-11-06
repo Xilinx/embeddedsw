@@ -50,8 +50,9 @@
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
-#include "xstatus.h"
+
 #include "xdptx.h"
+#include "xstatus.h"
 
 /**************************** Function Definitions ****************************/
 
@@ -169,7 +170,8 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 	u8 ExtIndex;
 
 	/* Get the base EDID block. */
-	Status = XDptx_GetRemoteEdid(InstancePtr, LinkCountTotal, RelativeAddress, Data);
+	Status = XDptx_GetRemoteEdid(InstancePtr, LinkCountTotal,
+							RelativeAddress, Data);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}

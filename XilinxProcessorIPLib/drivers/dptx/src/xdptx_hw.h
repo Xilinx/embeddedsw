@@ -1292,14 +1292,41 @@
 #define XDptx_WriteReg(BaseAddress, RegOffset, Data) \
 				XDptx_Out32((BaseAddress) + (RegOffset), (Data))
 
-
-
 #define XDptx_GetExtBlockCount(E)	(E[XDPTX_EDID_EXT_BLOCK_COUNT])
 
 #define XDptx_IsEdidExtBlockDispId(B) \
 	(B[XDPTX_EDID_EXT_BLOCK_TAG] == XDPTX_EDID_EXT_BLOCK_TAG_DISPID)
 
 #define XDptx_GetDispIdSize(D)		(D[XDPTX_DISPID_SIZE])
+
 #define XDptx_GetDispIdDbSecTag(B)	(B[XDPTX_DISPID_DB_SEC_TAG])
+
+#define XDptx_GetDispIdTdtHTotal(B) \
+	(((((B[XDPTX_DISPID_TDT_TOP2] & XDPTX_DISPID_TDT_TOP2_HTOT_H_MASK) >> \
+	XDPTX_DISPID_TDT_TOP2_HTOT_H_SHIFT) << 4) | \
+	((B[XDPTX_DISPID_TDT_TOP0] & XDPTX_DISPID_TDT_TOP0_HTOT_L_MASK) >> \
+	XDPTX_DISPID_TDT_TOP0_HTOT_L_SHIFT)) + 1)
+
+#define XDptx_GetDispIdTdtVTotal(B) \
+	(((((B[XDPTX_DISPID_TDT_TOP2] & XDPTX_DISPID_TDT_TOP2_VTOT_H_MASK) >> \
+	XDPTX_DISPID_TDT_TOP2_VTOT_H_SHIFT) << 4) | \
+	(B[XDPTX_DISPID_TDT_TOP0] & XDPTX_DISPID_TDT_TOP0_VTOT_L_MASK)) + 1)
+
+#define XDptx_GetDispIdTdtHLoc(B) \
+	((((B[XDPTX_DISPID_TDT_TOP2] & XDPTX_DISPID_TDT_TOP2_HLOC_H_MASK) >> \
+	XDPTX_DISPID_TDT_TOP2_HLOC_H_SHIFT) << 4) | \
+	((B[XDPTX_DISPID_TDT_TOP1] & XDPTX_DISPID_TDT_TOP1_HLOC_L_MASK) >> \
+	XDPTX_DISPID_TDT_TOP1_HLOC_L_SHIFT))
+
+#define XDptx_GetDispIdTdtVLoc(B) \
+	(((B[XDPTX_DISPID_TDT_TOP2] & XDPTX_DISPID_TDT_TOP2_VLOC_H_MASK) << 4) \
+	| (B[XDPTX_DISPID_TDT_TOP1] & XDPTX_DISPID_TDT_TOP1_VLOC_L_MASK))
+
+#define XDptx_GetDispIdTdtNumTiles(B) \
+	(XDptx_GetDispIdTdtHTotal(B) * XDptx_GetDispIdTdtVTotal(B))
+
+#define XDptx_GetDispIdTdtTileOrder(B) \
+	((XDptx_GetDispIdTdtVLoc(B) * XDptx_GetDispIdTdtHTotal(B)) + \
+	XDptx_GetDispIdTdtHLoc(B))
 
 #endif /* XDPTX_HW_H_ */
