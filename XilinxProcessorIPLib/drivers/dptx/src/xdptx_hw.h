@@ -1107,6 +1107,7 @@
 #define XDPTX_EDID_BLOCK_SIZE				128
 #define XDPTX_EDID_DTD_DD(Num)				(0x36 + (18 * Num))
 #define XDPTX_EDID_PTM					XDPTX_EDID_DTD_DD(0)
+#define XDPTX_EDID_EXT_BLOCK_COUNT			0x7E
 /* @} */
 
 /** @name Extended Display Identification Data: Register offsets for the
@@ -1156,6 +1157,20 @@
 #define XDPTX_EDID_DTD_SIGNAL_VPOLARITY_MASK		0x04
 #define XDPTX_EDID_DTD_SIGNAL_HPOLARITY_SHIFT		1
 #define XDPTX_EDID_DTD_SIGNAL_VPOLARITY_SHIFT		2
+/* @} */
+
+/** @name Extended Display Identification Data: Register offsets for the
+  *       DisplayID extension block.
+  * @{
+  */
+#define XDPTX_EDID_EXT_BLOCK_TAG		0x00
+/* @} */
+
+/** @name Extended Display Identification Data: Masks, shifts, and register
+  *       values for the DisplayID extension block.
+  * @{
+  */
+#define XDPTX_EDID_EXT_BLOCK_TAG_DISPID		0x70
 /* @} */
 
 /******************************************************************************/
@@ -1226,5 +1241,12 @@
 *******************************************************************************/
 #define XDptx_WriteReg(BaseAddress, RegOffset, Data) \
 				XDptx_Out32((BaseAddress) + (RegOffset), (Data))
+
+
+
+#define XDptx_GetExtBlockCount(E)	(E[XDPTX_EDID_EXT_BLOCK_COUNT])
+
+#define XDptx_IsEdidExtBlockDispId(B) \
+	(B[XDPTX_EDID_EXT_BLOCK_TAG] == XDPTX_EDID_EXT_BLOCK_TAG_DISPID)
 
 #endif /* XDPTX_HW_H_ */

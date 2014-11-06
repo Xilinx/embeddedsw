@@ -160,3 +160,36 @@ u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
 
 	return Status;
 }
+
+u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
+					u8 LinkCountTotal, u8 *RelativeAddress)
+{
+	u32 Status;
+	u8 NumExt;
+	u8 ExtIndex;
+
+	/* Get the base EDID block. */
+	Status = XDptx_GetRemoteEdid(InstancePtr, LinkCountTotal, RelativeAddress, Data);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	NumExt = XDptx_GetExtBlockCount(Data);
+	for (ExtIndex = 0; ExtIndex < NumExt; ExtIndex++) {
+		/* Get an EDID extension block. */
+		Status = XDptx_GetRemoteEdidBlock(InstancePtr, Data,
+				ExtIndex + 1, LinkCountTotal, RelativeAddress);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		if (XDptx_IsEdidExtBlockDispId(Data)) {
+			/* The current extension block is of type DisplayID. */
+			return XST_SUCCESS;
+		}
+	}
+
+	/* All extension blocks have been searched; no DisplayID extension block
+	 * exists in sink's EDID structure. */
+	return XST_FAILURE;
+}
