@@ -886,5 +886,7 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 					u8 LinkCountTotal, u8 *RelativeAddress);
 u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag,
 							u8 **DataBlockPtr);
+u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
+		u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr);
 
 #endif /* XDPTX_H_ */

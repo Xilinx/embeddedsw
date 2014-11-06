@@ -227,3 +227,33 @@ u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 	 * block with the specified tag was found. */
 	return XST_FAILURE;
 }
+
+u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
+		u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)
+{
+	u32 Status;
+	u8 *EdidExtDispId;
+
+	/* Obtain a DisplayID EDID extension block. */
+	Status = XDptx_GetRemoteEdidDispIdExt(InstancePtr, EdidExt,
+					LinkCountTotal, RelativeAddress);
+	if (Status != XST_SUCCESS) {
+		/* The sink does not possess a DisplayID EDID extension block. */
+		return Status;
+	}
+
+	/* The first byte of the extension block is the tag. */
+	EdidExtDispId = &EdidExt[0x01];
+
+	/* Obtain the tiled display topology block data from the DisplayId EDID
+	 * extension block. */
+	Status = XDptx_GetDispIdDataBlock(EdidExtDispId, XDPTX_DISPID_TDT_TAG,
+								DataBlockPtr);
+	if (Status != XST_SUCCESS) {
+		/* The sink does not possess a DisplayID EDID data block with
+		 * the specified tag. */
+		return Status;
+	}
+
+	return XST_SUCCESS;
+}
