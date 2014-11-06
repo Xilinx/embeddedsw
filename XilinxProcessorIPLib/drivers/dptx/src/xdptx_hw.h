@@ -1164,6 +1164,14 @@
   * @{
   */
 #define XDPTX_EDID_EXT_BLOCK_TAG		0x00
+#define XDPTX_DISPID_VER_REV			0x00
+#define XDPTX_DISPID_SIZE			0x01
+#define XDPTX_DISPID_TYPE			0x02
+#define XDPTX_DISPID_EXT_COUNT			0x03
+#define XDPTX_DISPID_PAYLOAD_START		0x04
+#define XDPTX_DISPID_DB_SEC_TAG			0x00
+#define XDPTX_DISPID_DB_SEC_REV			0x01
+#define XDPTX_DISPID_DB_SEC_SIZE		0x02
 /* @} */
 
 /** @name Extended Display Identification Data: Masks, shifts, and register
@@ -1248,5 +1256,8 @@
 
 #define XDptx_IsEdidExtBlockDispId(B) \
 	(B[XDPTX_EDID_EXT_BLOCK_TAG] == XDPTX_EDID_EXT_BLOCK_TAG_DISPID)
+
+#define XDptx_GetDispIdSize(D)		(D[XDPTX_DISPID_SIZE])
+#define XDptx_GetDispIdDbSecTag(B)	(B[XDPTX_DISPID_DB_SEC_TAG])
 
 #endif /* XDPTX_HW_H_ */
