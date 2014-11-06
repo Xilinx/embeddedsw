@@ -193,3 +193,37 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 	 * exists in sink's EDID structure. */
 	return XST_FAILURE;
 }
+
+u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
+{
+	u8 Index;
+	u8 DispIdSize = XDptx_GetDispIdSize(DisplayIdRaw);
+	u8 *DataBlock;
+
+	/* Search for a section data block matching the specified tag. */
+	for (Index = XDPTX_DISPID_PAYLOAD_START; Index < DispIdSize; Index++) {
+		DataBlock = &DisplayIdRaw[Index];
+
+		/* Check if the tag mataches the current section data block. */
+		if (XDptx_GetDispIdDbSecTag(DataBlock) == SectionTag) {
+			*DataBlockPtr = DataBlock;
+			return XST_SUCCESS;
+		}
+
+		if (DataBlock[XDPTX_DISPID_DB_SEC_SIZE] == 0) {
+			/* End of valid section data blocks. */
+			break;
+		}
+		else {
+			/* Increment the search index to skip the remaining
+			 * bytes of the current section data block. */
+			Index += (XDPTX_DISPID_DB_SEC_SIZE +
+					DataBlock[XDPTX_DISPID_DB_SEC_SIZE]);
+		}
+	}
+
+	/* The entire DisplayID was searched or the search ended due to data
+	 * no longer containing a valid section data block. No section data
+	 * block with the specified tag was found. */
+	return XST_FAILURE;
+}
