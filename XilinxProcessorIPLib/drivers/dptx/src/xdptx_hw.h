@@ -1179,6 +1179,48 @@
   * @{
   */
 #define XDPTX_EDID_EXT_BLOCK_TAG_DISPID		0x70
+#define XDPTX_DISPID_TDT_TAG			0x12
+/* @} */
+
+/** @name Extended Display Identification Data: Register offsets for the
+  *       Tiled Display Topology (TDT) section data block.
+  * @{
+  */
+#define XDPTX_DISPID_TDT_TOP0			0x04
+#define XDPTX_DISPID_TDT_TOP1			0x05
+#define XDPTX_DISPID_TDT_TOP2			0x06
+#define XDPTX_DISPID_TDT_HSIZE0			0x07
+#define XDPTX_DISPID_TDT_HSIZE1			0x08
+#define XDPTX_DISPID_TDT_VSIZE0			0x09
+#define XDPTX_DISPID_TDT_VSIZE1			0x0A
+#define XDPTX_DISPID_TDT_VENID0			0x10
+#define XDPTX_DISPID_TDT_VENID1			0x11
+#define XDPTX_DISPID_TDT_VENID2			0x12
+#define XDPTX_DISPID_TDT_PCODE0			0x13
+#define XDPTX_DISPID_TDT_PCODE1			0x14
+#define XDPTX_DISPID_TDT_SN0			0x15
+#define XDPTX_DISPID_TDT_SN1			0x16
+#define XDPTX_DISPID_TDT_SN2			0x17
+#define XDPTX_DISPID_TDT_SN3			0x18
+/* @} */
+
+/** @name Extended Display Identification Data: Masks, shifts, and register
+  *       values for the Tiled Display Topology (TDT) section data block.
+  * @{
+  */
+#define XDPTX_DISPID_TDT_TOP0_HTOT_L_SHIFT	4
+#define XDPTX_DISPID_TDT_TOP0_HTOT_L_MASK	(0xF << 4)
+#define XDPTX_DISPID_TDT_TOP0_VTOT_L_MASK	0xF
+#define XDPTX_DISPID_TDT_TOP1_HLOC_L_SHIFT	4
+#define XDPTX_DISPID_TDT_TOP1_HLOC_L_MASK	(0xF << 4)
+#define XDPTX_DISPID_TDT_TOP1_VLOC_L_MASK	0xF
+#define XDPTX_DISPID_TDT_TOP2_HTOT_H_SHIFT	6
+#define XDPTX_DISPID_TDT_TOP2_HTOT_H_MASK	(0x3 << 6)
+#define XDPTX_DISPID_TDT_TOP2_VTOT_H_SHIFT	4
+#define XDPTX_DISPID_TDT_TOP2_VTOT_H_MASK	(0x3 << 4)
+#define XDPTX_DISPID_TDT_TOP2_HLOC_H_SHIFT	2
+#define XDPTX_DISPID_TDT_TOP2_HLOC_H_MASK	(0x3 << 2)
+#define XDPTX_DISPID_TDT_TOP2_VLOC_H_MASK	0x3
 /* @} */
 
 /******************************************************************************/
