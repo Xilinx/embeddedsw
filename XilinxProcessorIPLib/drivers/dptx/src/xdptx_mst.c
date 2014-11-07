@@ -707,6 +707,25 @@ u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * Swap the ordering of the sinks in the topology's sink list. All sink
+ * information is preserved in the node table - the swapping takes place only on
+ * the pointers to the sinks in the node table. The reason this swapping is done
+ * is so that functions that use the sink list will act on the sinks in a
+ * different order.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Index0 is the sink list's index of one of the sink pointers to
+ *		be swapped.
+ * @param	Index1 is the sink list's index of the other sink pointer to be
+ *		swapped.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDptx_TopologySwapSinks(XDptx *InstancePtr, u8 Index0, u8 Index1)
 {
 	XDptx_TopologyNode *TmpSink = InstancePtr->Topology.SinkList[Index0];
@@ -717,6 +736,26 @@ void XDptx_TopologySwapSinks(XDptx *InstancePtr, u8 Index0, u8 Index1)
 	InstancePtr->Topology.SinkList[Index1] = TmpSink;
 }
 
+/******************************************************************************/
+/**
+ * Order the sink list with all sinks of the same tiled display being sorted by
+ * 'tile order'. Refer to the XDptx_GetDispIdTdtTileOrder macro on how to
+ * determine the 'tile order'. Sinks of a tiled display will have an index in
+ * the sink list that is lower than all indices of other sinks within that same
+ * tiled display that have a greater 'tile order'.
+ * When operations are done on the sink list, this ordering will ensure that
+ * sinks within the same tiled display will be acted upon in a consistent
+ * manner - with an incrementing sink list index, sinks with a lower 'tile
+ * order' will be acted upon first relative to the other sinks in the same tiled
+ * display. Multiple tiled displays may exist in the sink list.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 {
 	u32 Status;
@@ -735,7 +774,7 @@ u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 				CurrSink->LinkCountTotal,
 				CurrSink->RelativeAddress, &CurrTdt);
 		if (Status != XST_SUCCESS) {
-			/* No tiled display topology data block exists. */
+			/* No Tiled Display Topology (TDT) data block exists. */
 			return XST_FAILURE;
 		}
 
@@ -747,7 +786,7 @@ u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 		SameTileDispNum	= XDptx_GetDispIdTdtNumTiles(CurrTdt);
 
 		/* Try to find a sink that is part of the same tiled display,
-		 * but has a smaller tile location - the sink with a smaller
+		 * but has a smaller tile location - the sink with a smallest
 		 * tile location should be ordered first in the topology's sink
 		 * list. */
 		for (CmpIndex = (CurrIndex + 1);
@@ -761,7 +800,7 @@ u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 				CmpSink->LinkCountTotal,
 				CmpSink->RelativeAddress, &CmpTdt);
 			if (Status != XST_SUCCESS) {
-				/* No tiled display topology data block. */
+				/* No TDT data block. */
 				return XST_FAILURE;
 			}
 
@@ -2890,6 +2929,24 @@ static u8 XDptx_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial)
 	return Remainder & 0xFF;
 }
 
+/******************************************************************************/
+/**
+ * Check whether or not the two specified Tiled Display Topology (TDT) data
+ * blocks represent devices that are part of the same tiled display. This is
+ * done by comparing the TDT ID descriptor (tiled display manufacturer/vendor
+ * ID, product ID and serial number fields).
+ *
+ * @param	TileDisp0 is one of the TDT data blocks to be compared.
+ * @param	TileDisp1 is the other TDT data block to be compared.
+ *
+ * @return
+ *		- 1 if the two TDT sections represent devices that are part of
+ *		  the same tiled display.
+ *		- 0 otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u32 XDptx_IsSameTileDisplay(u8 *TileDisp0, u8 *TileDisp1)
 {
 	if ((TileDisp0[XDPTX_DISPID_TDT_VENID0] !=

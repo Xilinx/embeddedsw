@@ -130,6 +130,27 @@ u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * Retrieve an immediately connected RX device's Extended Display Identification
+ * Data (EDID) block given the block number. A block number of 0 represents the
+ * base EDID and subsequent block numbers represent EDID extension blocks.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Data is a pointer to the data buffer to save the block data to.
+ * @param	BlockNum is the EDID block number to retrieve.
+ *
+ * @return
+ *		- XST_SUCCESS if the block read has successfully completed with
+ *		  no errors.
+ *		- XST_ERROR_COUNT_MAX if a time out occurred while attempting to
+ *		  read the requested block.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum)
 {
 	u32 Status;
@@ -145,6 +166,31 @@ u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum)
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * Retrieve a downstream DisplayPort device's Extended Display Identification
+ * Data (EDID) block given the block number. A block number of 0 represents the
+ * base EDID and subsequent block numbers represent EDID extension blocks.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Data is a pointer to the data buffer to save the block data to.
+ * @param	BlockNum is the EDID block number to retrieve.
+ * @param	LinkCountTotal is the total DisplayPort links connecting the
+ *		DisplayPort TX to the targeted downstream device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the targeted DisplayPort device.
+ *
+ * @return
+ *		- XST_SUCCESS if the block read has successfully completed with
+ *		  no errors.
+ *		- XST_ERROR_COUNT_MAX if a time out occurred while attempting to
+ *		  read the requested block.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
 					u8 LinkCountTotal, u8 *RelativeAddress)
 {
@@ -162,6 +208,29 @@ u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * Search for and retrieve a downstream DisplayPort device's Extended Display
+ * Identification Data (EDID) extension block of type DisplayID.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	Data is a pointer to the data buffer to save the DisplayID to.
+ * @param	LinkCountTotal is the total DisplayPort links connecting the
+ *		DisplayPort TX to the targeted downstream device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the targeted DisplayPort device.
+ *
+ * @return
+ *		- XST_SUCCESS a DisplayID extension block was found.
+ *		- XST_ERROR_COUNT_MAX if a time out occurred while attempting to
+ *		  read an extension block.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE if no DisplayID extension block was found or some
+ *		  error occurred in the search.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 					u8 LinkCountTotal, u8 *RelativeAddress)
 {
@@ -196,6 +265,27 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 	return XST_FAILURE;
 }
 
+/******************************************************************************/
+/**
+ * Given a section tag, search for and retrieve the appropriate section data
+ * block that is part of the specified DisplayID structure.
+ *
+ * @param	DisplayIdRaw is a pointer to the DisplayID data.
+ * @param	SectionTag is the tag to search for that represents the desired
+ *		section data block.
+ * @param	DataBlockPtr will be set by this function to point to the
+ *		appropriate section data block that is part of the DisplayIdRaw.
+ *
+ * @return
+ *		- XST_SUCCESS if the section data block with the specified tag
+ *		  was found.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	The DataBlockPtr argument is modified to point to the entry
+ *		in DisplayIdRaw that represents the beginning of the desired
+ *		section data block.
+ *
+*******************************************************************************/
 u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 {
 	u8 Index;
@@ -230,6 +320,36 @@ u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 	return XST_FAILURE;
 }
 
+/******************************************************************************/
+/**
+ * Search for and retrieve a downstream DisplayPort device's Tiled Display
+ * Topology (TDT) section data block that is part of the downstream device's
+ * DisplayID structure. The DisplayID structure is part of the Extended Display
+ * Identification Data (EDID) in the form of an extension block.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	EdidExt is a pointer to the data area that will be filled by the
+ *		retrieved DisplayID extension block.
+ * @param	LinkCountTotal is the total DisplayPort links connecting the
+ *		DisplayPort TX to the targeted downstream device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the targeted DisplayPort device.
+ * @param	DataBlockPtr will be set by this function to point to the TDT
+ *		data block that is part of the EdidExt extension block.
+ *
+ * @return
+ *		- XST_SUCCESS a DisplayID extension block was found.
+ *		- XST_ERROR_COUNT_MAX if a time out occurred while attempting to
+ *		  read an extension block.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE if no DisplayID extension block was found or some
+ *		  error occurred in the search.
+ *
+ * @note	The EdidExt will be filled with the DisplayID EDID extension
+ *		block and the DataBlockPtr argument is modified to point to the
+ *		EdidExt entry representing the TDT section data block.
+ *
+*******************************************************************************/
 u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
 		u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)
 {
@@ -240,7 +360,7 @@ u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
 	Status = XDptx_GetRemoteEdidDispIdExt(InstancePtr, EdidExt,
 					LinkCountTotal, RelativeAddress);
 	if (Status != XST_SUCCESS) {
-		/* The sink does not possess a DisplayID EDID extension block. */
+		/* The sink does not have a DisplayID EDID extension block. */
 		return Status;
 	}
 
