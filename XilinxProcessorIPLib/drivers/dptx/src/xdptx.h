@@ -827,10 +827,12 @@ void XDptx_SetStreamSinkRad(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal,
 							u8 *RelativeAddress);
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions related to MST topology
- * discovery. */
+ * discovery and management. */
 u32 XDptx_DiscoverTopology(XDptx *InstancePtr);
 u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 							u8 *RelativeAddress);
+void XDptx_TopologySwapSinks(XDptx *InstancePtr, u8 Index0, u8 Index1);
+u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr);
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions for communicating
  * with downstream DisplayPort devices. */
