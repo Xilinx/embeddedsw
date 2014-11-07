@@ -162,6 +162,7 @@ static u32 XDptx_Transaction2MsgFormat(u8 *Transaction, XDptx_SidebandMsg *Msg);
 static u8 XDptx_Crc4CalculateHeader(XDptx_SidebandMsgHeader *Header);
 static u8 XDptx_Crc8CalculateBody(XDptx_SidebandMsgBody *Body);
 static u8 XDptx_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
+static u32 XDptx_IsSameTileDisplay(u8 *DispIdSecTile0, u8 *DispIdSecTile1);
 
 /**************************** Variable Definitions ****************************/
 
@@ -703,6 +704,93 @@ u32 XDptx_FindAccessibleDpDevices(XDptx *InstancePtr, u8 LinkCountTotal,
 	if (OverallFailures != 0) {
 		return XST_FAILURE;
 	}
+	return XST_SUCCESS;
+}
+
+void XDptx_TopologySwapSinks(XDptx *InstancePtr, u8 Index0, u8 Index1)
+{
+	XDptx_TopologyNode *TmpSink = InstancePtr->Topology.SinkList[Index0];
+
+	InstancePtr->Topology.SinkList[Index0] =
+					InstancePtr->Topology.SinkList[Index1];
+
+	InstancePtr->Topology.SinkList[Index1] = TmpSink;
+}
+
+u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
+{
+	u32 Status;
+	XDptx_TopologyNode *CurrSink, *CmpSink;
+	u8 CurrIndex, CmpIndex, NewIndex;
+	u8 CurrEdidExt[128], CmpEdidExt[128];
+	u8 *CurrTdt, *CmpTdt;
+	u8 CurrTileOrder, CmpTileOrder;
+	u8 SameTileDispCount, SameTileDispNum;
+
+	for (CurrIndex = 0; CurrIndex <
+			(InstancePtr->Topology.SinkTotal - 1); CurrIndex++) {
+		CurrSink = InstancePtr->Topology.SinkList[CurrIndex];
+
+		Status = XDptx_GetRemoteTiledDisplayDb(InstancePtr, CurrEdidExt,
+				CurrSink->LinkCountTotal,
+				CurrSink->RelativeAddress, &CurrTdt);
+		if (Status != XST_SUCCESS) {
+			/* No tiled display topology data block exists. */
+			return XST_FAILURE;
+		}
+
+		/* Start by using the tiling parameters of the current sink
+		 * index. */
+		CurrTileOrder = XDptx_GetDispIdTdtTileOrder(CurrTdt);
+		NewIndex = CurrIndex;
+		SameTileDispCount = 1;
+		SameTileDispNum	= XDptx_GetDispIdTdtNumTiles(CurrTdt);
+
+		/* Try to find a sink that is part of the same tiled display,
+		 * but has a smaller tile location - the sink with a smaller
+		 * tile location should be ordered first in the topology's sink
+		 * list. */
+		for (CmpIndex = (CurrIndex + 1);
+				(CmpIndex < InstancePtr->Topology.SinkTotal)
+				&& (SameTileDispCount < SameTileDispNum);
+				CmpIndex++) {
+			CmpSink = InstancePtr->Topology.SinkList[CmpIndex];
+
+			Status = XDptx_GetRemoteTiledDisplayDb(
+				InstancePtr, CmpEdidExt,
+				CmpSink->LinkCountTotal,
+				CmpSink->RelativeAddress, &CmpTdt);
+			if (Status != XST_SUCCESS) {
+				/* No tiled display topology data block. */
+				return XST_FAILURE;
+			}
+
+			if (!XDptx_IsSameTileDisplay(CurrTdt, CmpTdt)) {
+				/* The sink under comparison does not belong to
+				 * the same tiled display. */
+				continue;
+			}
+
+			/* Keep track of the sink with a tile location that
+			 * should be ordered first out of the remaining sinks
+			 * that are part of the same tiled display. */
+			CmpTileOrder = XDptx_GetDispIdTdtTileOrder(CmpTdt);
+			if (CurrTileOrder > CmpTileOrder) {
+				CurrTileOrder = CmpTileOrder;
+				NewIndex = CmpIndex;
+				SameTileDispCount++;
+			}
+		}
+
+		/* If required, swap the current sink with the sink that is a
+		 * part of the same tiled display, but has a smaller tile
+		 * location. */
+		if (CurrIndex != NewIndex) {
+			XDptx_TopologySwapSinks(InstancePtr, CurrIndex,
+								NewIndex);
+		}
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -2800,4 +2888,30 @@ static u8 XDptx_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial)
 	}
 
 	return Remainder & 0xFF;
+}
+
+static u32 XDptx_IsSameTileDisplay(u8 *TileDisp0, u8 *TileDisp1)
+{
+	if ((TileDisp0[XDPTX_DISPID_TDT_VENID0] !=
+				TileDisp1[XDPTX_DISPID_TDT_VENID0]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_VENID1] !=
+				TileDisp1[XDPTX_DISPID_TDT_VENID1]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_VENID2] !=
+				TileDisp1[XDPTX_DISPID_TDT_VENID2]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_PCODE0] !=
+				TileDisp1[XDPTX_DISPID_TDT_PCODE0]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_PCODE1] !=
+				TileDisp1[XDPTX_DISPID_TDT_PCODE1]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_SN0] !=
+				TileDisp1[XDPTX_DISPID_TDT_SN0]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_SN1] !=
+				TileDisp1[XDPTX_DISPID_TDT_SN1]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_SN2] !=
+				TileDisp1[XDPTX_DISPID_TDT_SN2]) ||
+			(TileDisp0[XDPTX_DISPID_TDT_SN3] !=
+				TileDisp1[XDPTX_DISPID_TDT_SN3]) ) {
+		return 0;
+	}
+
+	return 1;
 }
