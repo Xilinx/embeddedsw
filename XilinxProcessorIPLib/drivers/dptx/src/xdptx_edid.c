@@ -245,7 +245,7 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 		return Status;
 	}
 
-	NumExt = XDptx_GetExtBlockCount(Data);
+	NumExt = Data[XDPTX_EDID_EXT_BLOCK_COUNT];
 	for (ExtIndex = 0; ExtIndex < NumExt; ExtIndex++) {
 		/* Get an EDID extension block. */
 		Status = XDptx_GetRemoteEdidBlock(InstancePtr, Data,
@@ -289,7 +289,7 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 {
 	u8 Index;
-	u8 DispIdSize = XDptx_GetDispIdSize(DisplayIdRaw);
+	u8 DispIdSize = DisplayIdRaw[XDPTX_DISPID_SIZE];
 	u8 *DataBlock;
 
 	/* Search for a section data block matching the specified tag. */
@@ -297,7 +297,7 @@ u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 		DataBlock = &DisplayIdRaw[Index];
 
 		/* Check if the tag mataches the current section data block. */
-		if (XDptx_GetDispIdDbSecTag(DataBlock) == SectionTag) {
+		if (DataBlock[XDPTX_DISPID_DB_SEC_TAG] == SectionTag) {
 			*DataBlockPtr = DataBlock;
 			return XST_SUCCESS;
 		}
