@@ -756,7 +756,7 @@ void XDptx_TopologySwapSinks(XDptx *InstancePtr, u8 Index0, u8 Index1)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
+void XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 {
 	u32 Status;
 	XDptx_TopologyNode *CurrSink, *CmpSink;
@@ -775,7 +775,7 @@ u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 				CurrSink->RelativeAddress, &CurrTdt);
 		if (Status != XST_SUCCESS) {
 			/* No Tiled Display Topology (TDT) data block exists. */
-			return XST_FAILURE;
+			continue;
 		}
 
 		/* Start by using the tiling parameters of the current sink
@@ -801,7 +801,7 @@ u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 				CmpSink->RelativeAddress, &CmpTdt);
 			if (Status != XST_SUCCESS) {
 				/* No TDT data block. */
-				return XST_FAILURE;
+				continue;
 			}
 
 			if (!XDptx_IsSameTileDisplay(CurrTdt, CmpTdt)) {
@@ -829,8 +829,6 @@ u32 XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
 								NewIndex);
 		}
 	}
-
-	return XST_SUCCESS;
 }
 
 /******************************************************************************/
