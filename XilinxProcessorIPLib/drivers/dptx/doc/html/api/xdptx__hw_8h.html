@@ -1066,13 +1066,17 @@ This header file contains the identifiers and low-level driver functions (or mac
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#c80c1175189db78cff50f2d60e268c03">XDPTX_DPCD_ADJ_REQ_PC2_LANE_3_SHIFT</a>&nbsp;&nbsp;&nbsp;6</td></tr>
 
 <tr><td colspan="2"><br><h2>Extended Display Identification Data: Field addresses and sizes.</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#c256c3392433521182254ed257ed3bd2">XDPTX_SEGPTR_ADDR</a>&nbsp;&nbsp;&nbsp;0x30</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#a62e441e9c88b6df47c902193cd7eab8">XDPTX_EDID_ADDR</a>&nbsp;&nbsp;&nbsp;0x50</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#5266772d5ecd60d4b7b75acd04945c86">XDPTX_EDID_SIZE</a>&nbsp;&nbsp;&nbsp;128</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8427cc1ac6cb7be484a7dacd21b6562b">XDPTX_EDID_BLOCK_SIZE</a>&nbsp;&nbsp;&nbsp;128</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#ad70678b1d75f64006098becdca052f4">XDPTX_EDID_DTD_DD</a>(Num)&nbsp;&nbsp;&nbsp;(0x36 + (18 * Num))</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#d016bc1e69bb0b60b50c0b09acc196c3">XDPTX_EDID_PTM</a>&nbsp;&nbsp;&nbsp;XDPTX_EDID_DTD_DD(0)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#392d06deb37ee5ca17c7ef3819be52f1">XDPTX_EDID_EXT_BLOCK_COUNT</a>&nbsp;&nbsp;&nbsp;0x7E</td></tr>
 
 <tr><td colspan="2"><br><h2>Extended Display Identification Data: Register offsets for the</h2></td></tr>
 <tr><td colspan="2">Detailed Timing Descriptor (DTD). <br><br></td></tr>
@@ -1154,6 +1158,94 @@ This header file contains the identifiers and low-level driver functions (or mac
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#7a8f4fccb4432d3ba0a8d52cbfb373af">XDPTX_EDID_DTD_SIGNAL_VPOLARITY_SHIFT</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 
+<tr><td colspan="2"><br><h2>Extended Display Identification Data: Register offsets for the</h2></td></tr>
+<tr><td colspan="2">DisplayID extension block. <br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#4a0cccbf13117efdd67878c0c5b72f40">XDPTX_EDID_EXT_BLOCK_TAG</a>&nbsp;&nbsp;&nbsp;0x00</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#06fc9aea6aecbea9cb3586d3be2c2693">XDPTX_DISPID_VER_REV</a>&nbsp;&nbsp;&nbsp;0x00</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#d4556549fbb731ddb2703e962027c821">XDPTX_DISPID_SIZE</a>&nbsp;&nbsp;&nbsp;0x01</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#23fd3953b335245689bf4a5347ec025f">XDPTX_DISPID_TYPE</a>&nbsp;&nbsp;&nbsp;0x02</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#85c0dd2320dce0c600e9d0f0feed4a08">XDPTX_DISPID_EXT_COUNT</a>&nbsp;&nbsp;&nbsp;0x03</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#bb13c529acb03ef3e4fa8c16d890d0a6">XDPTX_DISPID_PAYLOAD_START</a>&nbsp;&nbsp;&nbsp;0x04</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#7329d624f3c120410291274a933fb1cd">XDPTX_DISPID_DB_SEC_TAG</a>&nbsp;&nbsp;&nbsp;0x00</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8018ed2ee7ad6bcdb3ae59f63836daaf">XDPTX_DISPID_DB_SEC_REV</a>&nbsp;&nbsp;&nbsp;0x01</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#e0f87245f9ee27bed006657cd8f82617">XDPTX_DISPID_DB_SEC_SIZE</a>&nbsp;&nbsp;&nbsp;0x02</td></tr>
+
+<tr><td colspan="2"><br><h2>Extended Display Identification Data: Masks, shifts, and register</h2></td></tr>
+<tr><td colspan="2">values for the DisplayID extension block. <br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#ab41220e44afd130a9345e4c4db73636">XDPTX_EDID_EXT_BLOCK_TAG_DISPID</a>&nbsp;&nbsp;&nbsp;0x70</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#3d2e9c5326edce8f8425cd411bdc5dfa">XDPTX_DISPID_TDT_TAG</a>&nbsp;&nbsp;&nbsp;0x12</td></tr>
+
+<tr><td colspan="2"><br><h2>Extended Display Identification Data: Register offsets for the</h2></td></tr>
+<tr><td colspan="2">Tiled Display Topology (TDT) section data block. <br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#1dc7be5875039110f46d9139c78ca9b1">XDPTX_DISPID_TDT_TOP0</a>&nbsp;&nbsp;&nbsp;0x04</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#bb949f4e7bb5fe763612f25f646f8ae2">XDPTX_DISPID_TDT_TOP1</a>&nbsp;&nbsp;&nbsp;0x05</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8b9278fd879e2abef2e16868249de3a3">XDPTX_DISPID_TDT_TOP2</a>&nbsp;&nbsp;&nbsp;0x06</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#7f0d42999c5cf6e443af0c129afbac1b">XDPTX_DISPID_TDT_HSIZE0</a>&nbsp;&nbsp;&nbsp;0x07</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#f46509ca97eb5089cdf146c03c964e58">XDPTX_DISPID_TDT_HSIZE1</a>&nbsp;&nbsp;&nbsp;0x08</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#d39bfec95bdc64e79643a4902dc9db67">XDPTX_DISPID_TDT_VSIZE0</a>&nbsp;&nbsp;&nbsp;0x09</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#9bd7543e96e99f0c317ea4475a0332c7">XDPTX_DISPID_TDT_VSIZE1</a>&nbsp;&nbsp;&nbsp;0x0A</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8655f6c2dca13bfae3942eb36e75c82a">XDPTX_DISPID_TDT_VENID0</a>&nbsp;&nbsp;&nbsp;0x10</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#31e3debcda345e442beb51ede992ca65">XDPTX_DISPID_TDT_VENID1</a>&nbsp;&nbsp;&nbsp;0x11</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#191cb28d00f7a4fe2240aba952bc3e29">XDPTX_DISPID_TDT_VENID2</a>&nbsp;&nbsp;&nbsp;0x12</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#6526b82cca6e0eb29c1d125b575450d5">XDPTX_DISPID_TDT_PCODE0</a>&nbsp;&nbsp;&nbsp;0x13</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#04f6d07b9c7bdd59c546e11230d6591c">XDPTX_DISPID_TDT_PCODE1</a>&nbsp;&nbsp;&nbsp;0x14</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#d938995f0f9b1b8f7ca4454c09400508">XDPTX_DISPID_TDT_SN0</a>&nbsp;&nbsp;&nbsp;0x15</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#2c8453028b86a867e1f16016a69a78db">XDPTX_DISPID_TDT_SN1</a>&nbsp;&nbsp;&nbsp;0x16</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#566d9e56e13cf02a77859fa54f9b1bdd">XDPTX_DISPID_TDT_SN2</a>&nbsp;&nbsp;&nbsp;0x17</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8ad295541aa5247873ac3b312731f2b8">XDPTX_DISPID_TDT_SN3</a>&nbsp;&nbsp;&nbsp;0x18</td></tr>
+
+<tr><td colspan="2"><br><h2>Extended Display Identification Data: Masks, shifts, and register</h2></td></tr>
+<tr><td colspan="2">values for the Tiled Display Topology (TDT) section data block. <br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#0d7227d8b3f28bb66709ab93b54e576f">XDPTX_DISPID_TDT_TOP0_HTOT_L_SHIFT</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#b5ab08c05f01fa2328ff8dd5c357eb5f">XDPTX_DISPID_TDT_TOP0_HTOT_L_MASK</a>&nbsp;&nbsp;&nbsp;(0xF &lt;&lt; 4)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#09c12f3d9268e773afe7685f3ffd28e4">XDPTX_DISPID_TDT_TOP0_VTOT_L_MASK</a>&nbsp;&nbsp;&nbsp;0xF</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#3f8e175dfc05f65c97b1b60d39937341">XDPTX_DISPID_TDT_TOP1_HLOC_L_SHIFT</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#6e5f026857f203e2a9be01cfe48bb982">XDPTX_DISPID_TDT_TOP1_HLOC_L_MASK</a>&nbsp;&nbsp;&nbsp;(0xF &lt;&lt; 4)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#45ee39bb11bb61a87f009eafd1a92635">XDPTX_DISPID_TDT_TOP1_VLOC_L_MASK</a>&nbsp;&nbsp;&nbsp;0xF</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#19a0c7ec4082e59132b8448baebe860a">XDPTX_DISPID_TDT_TOP2_HTOT_H_SHIFT</a>&nbsp;&nbsp;&nbsp;6</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#0aff165260c2290c1ef9457dada043fa">XDPTX_DISPID_TDT_TOP2_HTOT_H_MASK</a>&nbsp;&nbsp;&nbsp;(0x3 &lt;&lt; 6)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#f865ca3175483b579d54a74aacfd5f86">XDPTX_DISPID_TDT_TOP2_VTOT_H_SHIFT</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#5f6dd5c6a8791ff95f0248f52408920d">XDPTX_DISPID_TDT_TOP2_VTOT_H_MASK</a>&nbsp;&nbsp;&nbsp;(0x3 &lt;&lt; 4)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#19f81b7df03ec27f6881a530fd269fb3">XDPTX_DISPID_TDT_TOP2_HLOC_H_SHIFT</a>&nbsp;&nbsp;&nbsp;2</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#b62bb4d36353b61a9eeeea991d2b9e13">XDPTX_DISPID_TDT_TOP2_HLOC_H_MASK</a>&nbsp;&nbsp;&nbsp;(0x3 &lt;&lt; 2)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#8ff8deabf7a695e54ade341fa17bebef">XDPTX_DISPID_TDT_TOP2_VLOC_H_MASK</a>&nbsp;&nbsp;&nbsp;0x3</td></tr>
+
 <tr><td colspan="2"><br><h2>Stream identification.</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#3320db39117d4dc5a6bc4f95878cc7e2">XDPTX_STREAM_ID0</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 
@@ -1178,6 +1270,8 @@ This header file contains the identifiers and low-level driver functions (or mac
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#e4f88c65a8b0756ac894afc0abdd17ce">XDPTX_SBMSG_REMOTE_I2C_READ</a>&nbsp;&nbsp;&nbsp;0x22</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#e218bee79205f828115da7f35a077a52">XDPTX_SBMSG_REMOTE_I2C_WRITE</a>&nbsp;&nbsp;&nbsp;0x23</td></tr>
+
 <tr><td colspan="2"><br><h2>Register access macro definitions.</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#1c23aa0582256889f83db7336a3915ae">XDptx_In32</a>&nbsp;&nbsp;&nbsp;Xil_In32</td></tr>
 
@@ -1189,6 +1283,20 @@ This header file contains the identifiers and low-level driver functions (or mac
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#b9ae114efe97122a7a212baf3a27d5fe">XDptx_ReadReg</a>(BaseAddress, RegOffset)&nbsp;&nbsp;&nbsp;XDptx_In32((BaseAddress) + (RegOffset))</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#740519ee4cc95e492351ad8cf9085632">XDptx_WriteReg</a>(BaseAddress, RegOffset, Data)&nbsp;&nbsp;&nbsp;XDptx_Out32((BaseAddress) + (RegOffset), (Data))</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#ac2945bf58da8bed5a413a4f33c62d52">XDptx_IsEdidExtBlockDispId</a>(Ext)&nbsp;&nbsp;&nbsp;(Ext[XDPTX_EDID_EXT_BLOCK_TAG] == XDPTX_EDID_EXT_BLOCK_TAG_DISPID)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#db8b30e5c8b30109e9b634d6d855cd5d">XDptx_GetDispIdTdtHTotal</a>(Tdt)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#6833dbcbe5f284baf3520ca7632973af">XDptx_GetDispIdTdtVTotal</a>(Tdt)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#e7c4d4a81636cd411fea034e41afb6cc">XDptx_GetDispIdTdtHLoc</a>(Tdt)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#7a2823820813023421a9cd262d5891d9">XDptx_GetDispIdTdtVLoc</a>(Tdt)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#99c7eaaa74ff67ee1f734b5cd5a80312">XDptx_GetDispIdTdtNumTiles</a>(Tdt)&nbsp;&nbsp;&nbsp;(XDptx_GetDispIdTdtHTotal(Tdt) * XDptx_GetDispIdTdtVTotal(Tdt))</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#6181a5e4dd1fcd0ea12385c8156b010d">XDptx_GetDispIdTdtTileOrder</a>(Tdt)</td></tr>
 
 </table>
 <hr><h2>Define Documentation</h2>
@@ -1594,7 +1702,7 @@ Number of reply transactions receieved over AUX.
 <div class="memdoc">
 
 <p>
-Reply data received during the AUX reply. 
+Reply data received during the AUX reply.
 </div>
 </div><p>
 <a class="anchor" name="17b9eb2badecaf2e252834db0e9fb454"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_AUX_WRITE_FIFO" ref="17b9eb2badecaf2e252834db0e9fb454" args="" -->
@@ -1609,7 +1717,7 @@ Reply data received during the AUX reply.
 <div class="memdoc">
 
 <p>
-Write data for the current AUX command. 
+Write data for the current AUX command.
 </div>
 </div><p>
 <a class="anchor" name="fe16c5bc7cdf55f7851c23e27e0fad65"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID" ref="fe16c5bc7cdf55f7851c23e27e0fad65" args="" -->
@@ -1624,7 +1732,7 @@ Write data for the current AUX command.
 <div class="memdoc">
 
 <p>
-DisplayPort revision. 
+DisplayPort revision.
 </div>
 </div><p>
 <a class="anchor" name="2c7093b7bf7dea2056c9225d82af1ee5"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_DP_MJR_VER_MASK" ref="2c7093b7bf7dea2056c9225d82af1ee5" args="" -->
@@ -1639,7 +1747,7 @@ DisplayPort revision.
 <div class="memdoc">
 
 <p>
-DisplayPort protocol major version. 
+DisplayPort protocol major version.
 </div>
 </div><p>
 <a class="anchor" name="b043766862fa12d137764416ee8ce9f1"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_DP_MJR_VER_SHIFT" ref="b043766862fa12d137764416ee8ce9f1" args="" -->
@@ -1654,7 +1762,7 @@ DisplayPort protocol major version.
 <div class="memdoc">
 
 <p>
-Shift bits for DisplayPort protocol major version. 
+Shift bits for DisplayPort protocol major version.
 </div>
 </div><p>
 <a class="anchor" name="599eff5e2d775c9eef905351446d23d5"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_DP_MNR_VER_MASK" ref="599eff5e2d775c9eef905351446d23d5" args="" -->
@@ -1669,7 +1777,7 @@ Shift bits for DisplayPort protocol major version.
 <div class="memdoc">
 
 <p>
-DisplayPort protocol minor version. 
+DisplayPort protocol minor version.
 </div>
 </div><p>
 <a class="anchor" name="79e16c199c23e4bde7d3abbcfd6c3fbf"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_DP_MNR_VER_SHIFT" ref="79e16c199c23e4bde7d3abbcfd6c3fbf" args="" -->
@@ -1684,7 +1792,7 @@ DisplayPort protocol minor version.
 <div class="memdoc">
 
 <p>
-Shift bits for DisplayPort protocol major version. 
+Shift bits for DisplayPort protocol major version.
 </div>
 </div><p>
 <a class="anchor" name="4849053e05562d60e19e26bb5d2fb843"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_DP_REV_MASK" ref="4849053e05562d60e19e26bb5d2fb843" args="" -->
@@ -1699,7 +1807,7 @@ Shift bits for DisplayPort protocol major version.
 <div class="memdoc">
 
 <p>
-DisplayPort protocol revision. 
+DisplayPort protocol revision.
 </div>
 </div><p>
 <a class="anchor" name="268fa71b51b61450b7422ddce2b2e6df"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_DP_REV_SHIFT" ref="268fa71b51b61450b7422ddce2b2e6df" args="" -->
@@ -1714,7 +1822,7 @@ DisplayPort protocol revision.
 <div class="memdoc">
 
 <p>
-Shift bits for DisplayPort protocol revision. 
+Shift bits for DisplayPort protocol revision.
 </div>
 </div><p>
 <a class="anchor" name="768c41baf0f19de032e8951f606a0dcf"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_TYPE_MASK" ref="768c41baf0f19de032e8951f606a0dcf" args="" -->
@@ -1729,7 +1837,7 @@ Shift bits for DisplayPort protocol revision.
 <div class="memdoc">
 
 <p>
-Core type. 
+Core type.
 </div>
 </div><p>
 <a class="anchor" name="fc831ef5eb6d5ac9eec6537478ade75d"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_TYPE_RX" ref="fc831ef5eb6d5ac9eec6537478ade75d" args="" -->
@@ -1744,7 +1852,7 @@ Core type.
 <div class="memdoc">
 
 <p>
-Core is a receiver. 
+Core is a receiver.
 </div>
 </div><p>
 <a class="anchor" name="a3286f7a30712bf5556860deb2165c9e"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_TYPE_TX" ref="a3286f7a30712bf5556860deb2165c9e" args="" -->
@@ -1759,7 +1867,577 @@ Core is a receiver.
 <div class="memdoc">
 
 <p>
-Core is a transmitter. 
+Core is a transmitter.
+</div>
+</div><p>
+<a class="anchor" name="8018ed2ee7ad6bcdb3ae59f63836daaf"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_DB_SEC_REV" ref="8018ed2ee7ad6bcdb3ae59f63836daaf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_DB_SEC_REV&nbsp;&nbsp;&nbsp;0x01          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="e0f87245f9ee27bed006657cd8f82617"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_DB_SEC_SIZE" ref="e0f87245f9ee27bed006657cd8f82617" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_DB_SEC_SIZE&nbsp;&nbsp;&nbsp;0x02          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="7329d624f3c120410291274a933fb1cd"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_DB_SEC_TAG" ref="7329d624f3c120410291274a933fb1cd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_DB_SEC_TAG&nbsp;&nbsp;&nbsp;0x00          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="85c0dd2320dce0c600e9d0f0feed4a08"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_EXT_COUNT" ref="85c0dd2320dce0c600e9d0f0feed4a08" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_EXT_COUNT&nbsp;&nbsp;&nbsp;0x03          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="bb13c529acb03ef3e4fa8c16d890d0a6"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_PAYLOAD_START" ref="bb13c529acb03ef3e4fa8c16d890d0a6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_PAYLOAD_START&nbsp;&nbsp;&nbsp;0x04          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d4556549fbb731ddb2703e962027c821"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_SIZE" ref="d4556549fbb731ddb2703e962027c821" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_SIZE&nbsp;&nbsp;&nbsp;0x01          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="7f0d42999c5cf6e443af0c129afbac1b"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_HSIZE0" ref="7f0d42999c5cf6e443af0c129afbac1b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_HSIZE0&nbsp;&nbsp;&nbsp;0x07          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="f46509ca97eb5089cdf146c03c964e58"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_HSIZE1" ref="f46509ca97eb5089cdf146c03c964e58" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_HSIZE1&nbsp;&nbsp;&nbsp;0x08          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="6526b82cca6e0eb29c1d125b575450d5"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_PCODE0" ref="6526b82cca6e0eb29c1d125b575450d5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_PCODE0&nbsp;&nbsp;&nbsp;0x13          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="04f6d07b9c7bdd59c546e11230d6591c"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_PCODE1" ref="04f6d07b9c7bdd59c546e11230d6591c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_PCODE1&nbsp;&nbsp;&nbsp;0x14          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d938995f0f9b1b8f7ca4454c09400508"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_SN0" ref="d938995f0f9b1b8f7ca4454c09400508" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_SN0&nbsp;&nbsp;&nbsp;0x15          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="2c8453028b86a867e1f16016a69a78db"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_SN1" ref="2c8453028b86a867e1f16016a69a78db" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_SN1&nbsp;&nbsp;&nbsp;0x16          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="566d9e56e13cf02a77859fa54f9b1bdd"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_SN2" ref="566d9e56e13cf02a77859fa54f9b1bdd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_SN2&nbsp;&nbsp;&nbsp;0x17          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="8ad295541aa5247873ac3b312731f2b8"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_SN3" ref="8ad295541aa5247873ac3b312731f2b8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_SN3&nbsp;&nbsp;&nbsp;0x18          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="3d2e9c5326edce8f8425cd411bdc5dfa"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TAG" ref="3d2e9c5326edce8f8425cd411bdc5dfa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TAG&nbsp;&nbsp;&nbsp;0x12          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="1dc7be5875039110f46d9139c78ca9b1"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP0" ref="1dc7be5875039110f46d9139c78ca9b1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP0&nbsp;&nbsp;&nbsp;0x04          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="b5ab08c05f01fa2328ff8dd5c357eb5f"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP0_HTOT_L_MASK" ref="b5ab08c05f01fa2328ff8dd5c357eb5f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP0_HTOT_L_MASK&nbsp;&nbsp;&nbsp;(0xF &lt;&lt; 4)          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="0d7227d8b3f28bb66709ab93b54e576f"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP0_HTOT_L_SHIFT" ref="0d7227d8b3f28bb66709ab93b54e576f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP0_HTOT_L_SHIFT&nbsp;&nbsp;&nbsp;4          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="09c12f3d9268e773afe7685f3ffd28e4"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP0_VTOT_L_MASK" ref="09c12f3d9268e773afe7685f3ffd28e4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP0_VTOT_L_MASK&nbsp;&nbsp;&nbsp;0xF          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="bb949f4e7bb5fe763612f25f646f8ae2"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP1" ref="bb949f4e7bb5fe763612f25f646f8ae2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP1&nbsp;&nbsp;&nbsp;0x05          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="6e5f026857f203e2a9be01cfe48bb982"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP1_HLOC_L_MASK" ref="6e5f026857f203e2a9be01cfe48bb982" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP1_HLOC_L_MASK&nbsp;&nbsp;&nbsp;(0xF &lt;&lt; 4)          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="3f8e175dfc05f65c97b1b60d39937341"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP1_HLOC_L_SHIFT" ref="3f8e175dfc05f65c97b1b60d39937341" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP1_HLOC_L_SHIFT&nbsp;&nbsp;&nbsp;4          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="45ee39bb11bb61a87f009eafd1a92635"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP1_VLOC_L_MASK" ref="45ee39bb11bb61a87f009eafd1a92635" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP1_VLOC_L_MASK&nbsp;&nbsp;&nbsp;0xF          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="8b9278fd879e2abef2e16868249de3a3"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2" ref="8b9278fd879e2abef2e16868249de3a3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2&nbsp;&nbsp;&nbsp;0x06          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="b62bb4d36353b61a9eeeea991d2b9e13"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2_HLOC_H_MASK" ref="b62bb4d36353b61a9eeeea991d2b9e13" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2_HLOC_H_MASK&nbsp;&nbsp;&nbsp;(0x3 &lt;&lt; 2)          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="19f81b7df03ec27f6881a530fd269fb3"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2_HLOC_H_SHIFT" ref="19f81b7df03ec27f6881a530fd269fb3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2_HLOC_H_SHIFT&nbsp;&nbsp;&nbsp;2          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="0aff165260c2290c1ef9457dada043fa"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2_HTOT_H_MASK" ref="0aff165260c2290c1ef9457dada043fa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2_HTOT_H_MASK&nbsp;&nbsp;&nbsp;(0x3 &lt;&lt; 6)          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="19a0c7ec4082e59132b8448baebe860a"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2_HTOT_H_SHIFT" ref="19a0c7ec4082e59132b8448baebe860a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2_HTOT_H_SHIFT&nbsp;&nbsp;&nbsp;6          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="8ff8deabf7a695e54ade341fa17bebef"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2_VLOC_H_MASK" ref="8ff8deabf7a695e54ade341fa17bebef" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2_VLOC_H_MASK&nbsp;&nbsp;&nbsp;0x3          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="5f6dd5c6a8791ff95f0248f52408920d"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2_VTOT_H_MASK" ref="5f6dd5c6a8791ff95f0248f52408920d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2_VTOT_H_MASK&nbsp;&nbsp;&nbsp;(0x3 &lt;&lt; 4)          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="f865ca3175483b579d54a74aacfd5f86"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_TOP2_VTOT_H_SHIFT" ref="f865ca3175483b579d54a74aacfd5f86" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_TOP2_VTOT_H_SHIFT&nbsp;&nbsp;&nbsp;4          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="8655f6c2dca13bfae3942eb36e75c82a"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_VENID0" ref="8655f6c2dca13bfae3942eb36e75c82a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_VENID0&nbsp;&nbsp;&nbsp;0x10          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="31e3debcda345e442beb51ede992ca65"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_VENID1" ref="31e3debcda345e442beb51ede992ca65" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_VENID1&nbsp;&nbsp;&nbsp;0x11          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="191cb28d00f7a4fe2240aba952bc3e29"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_VENID2" ref="191cb28d00f7a4fe2240aba952bc3e29" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_VENID2&nbsp;&nbsp;&nbsp;0x12          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d39bfec95bdc64e79643a4902dc9db67"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_VSIZE0" ref="d39bfec95bdc64e79643a4902dc9db67" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_VSIZE0&nbsp;&nbsp;&nbsp;0x09          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="9bd7543e96e99f0c317ea4475a0332c7"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TDT_VSIZE1" ref="9bd7543e96e99f0c317ea4475a0332c7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TDT_VSIZE1&nbsp;&nbsp;&nbsp;0x0A          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="23fd3953b335245689bf4a5347ec025f"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_TYPE" ref="23fd3953b335245689bf4a5347ec025f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_TYPE&nbsp;&nbsp;&nbsp;0x02          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="06fc9aea6aecbea9cb3586d3be2c2693"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DISPID_VER_REV" ref="06fc9aea6aecbea9cb3586d3be2c2693" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_DISPID_VER_REV&nbsp;&nbsp;&nbsp;0x00          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
 </div>
 </div><p>
 <a class="anchor" name="dadb6bd439c17cd13d8fa0fc9ac5187d"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_DOWNSPREAD_CTRL" ref="dadb6bd439c17cd13d8fa0fc9ac5187d" args="" -->
@@ -5757,6 +6435,21 @@ Enable a 0.5% spreading of the clock.
 
 </div>
 </div><p>
+<a class="anchor" name="8427cc1ac6cb7be484a7dacd21b6562b"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_BLOCK_SIZE" ref="8427cc1ac6cb7be484a7dacd21b6562b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_EDID_BLOCK_SIZE&nbsp;&nbsp;&nbsp;128          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="ad70678b1d75f64006098becdca052f4"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_DTD_DD" ref="ad70678b1d75f64006098becdca052f4" args="(Num)" -->
 <div class="memitem">
 <div class="memproto">
@@ -6347,12 +7040,12 @@ Enable a 0.5% spreading of the clock.
 
 </div>
 </div><p>
-<a class="anchor" name="d016bc1e69bb0b60b50c0b09acc196c3"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_PTM" ref="d016bc1e69bb0b60b50c0b09acc196c3" args="" -->
+<a class="anchor" name="392d06deb37ee5ca17c7ef3819be52f1"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_EXT_BLOCK_COUNT" ref="392d06deb37ee5ca17c7ef3819be52f1" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPTX_EDID_PTM&nbsp;&nbsp;&nbsp;XDPTX_EDID_DTD_DD(0)          </td>
+          <td class="memname">#define XDPTX_EDID_EXT_BLOCK_COUNT&nbsp;&nbsp;&nbsp;0x7E          </td>
         </tr>
       </table>
 </div>
@@ -6362,12 +7055,42 @@ Enable a 0.5% spreading of the clock.
 
 </div>
 </div><p>
-<a class="anchor" name="5266772d5ecd60d4b7b75acd04945c86"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_SIZE" ref="5266772d5ecd60d4b7b75acd04945c86" args="" -->
+<a class="anchor" name="4a0cccbf13117efdd67878c0c5b72f40"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_EXT_BLOCK_TAG" ref="4a0cccbf13117efdd67878c0c5b72f40" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPTX_EDID_SIZE&nbsp;&nbsp;&nbsp;128          </td>
+          <td class="memname">#define XDPTX_EDID_EXT_BLOCK_TAG&nbsp;&nbsp;&nbsp;0x00          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="ab41220e44afd130a9345e4c4db73636"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_EXT_BLOCK_TAG_DISPID" ref="ab41220e44afd130a9345e4c4db73636" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_EDID_EXT_BLOCK_TAG_DISPID&nbsp;&nbsp;&nbsp;0x70          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="d016bc1e69bb0b60b50c0b09acc196c3"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_EDID_PTM" ref="d016bc1e69bb0b60b50c0b09acc196c3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_EDID_PTM&nbsp;&nbsp;&nbsp;XDPTX_EDID_DTD_DD(0)          </td>
         </tr>
       </table>
 </div>
@@ -6464,7 +7187,190 @@ Force a scrambler reset.
 <div class="memdoc">
 
 <p>
-The fractional component when calculated the XDPTX_MIN_BYTES_PER_TU register value. 
+The fractional component when calculated the XDPTX_MIN_BYTES_PER_TU register value.
+</div>
+</div><p>
+<a class="anchor" name="e7c4d4a81636cd411fea034e41afb6cc"></a><!-- doxytag: member="xdptx_hw.h::XDptx_GetDispIdTdtHLoc" ref="e7c4d4a81636cd411fea034e41afb6cc" args="(Tdt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDptx_GetDispIdTdtHLoc          </td>
+          <td>(</td>
+          <td class="paramtype">Tdt&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<b>Value:</b><div class="fragment"><pre class="fragment">((((Tdt[<a class="code" href="xdptx__hw_8h.html#8b9278fd879e2abef2e16868249de3a3">XDPTX_DISPID_TDT_TOP2</a>] &amp; <a class="code" href="xdptx__hw_8h.html#b62bb4d36353b61a9eeeea991d2b9e13">XDPTX_DISPID_TDT_TOP2_HLOC_H_MASK</a>) \
+        &gt;&gt; <a class="code" href="xdptx__hw_8h.html#19f81b7df03ec27f6881a530fd269fb3">XDPTX_DISPID_TDT_TOP2_HLOC_H_SHIFT</a>) &lt;&lt; 4) | \
+        ((Tdt[<a class="code" href="xdptx__hw_8h.html#bb949f4e7bb5fe763612f25f646f8ae2">XDPTX_DISPID_TDT_TOP1</a>] &amp; <a class="code" href="xdptx__hw_8h.html#6e5f026857f203e2a9be01cfe48bb982">XDPTX_DISPID_TDT_TOP1_HLOC_L_MASK</a>) &gt;&gt; \
+        <a class="code" href="xdptx__hw_8h.html#3f8e175dfc05f65c97b1b60d39937341">XDPTX_DISPID_TDT_TOP1_HLOC_L_SHIFT</a>))
+</pre></div>Given a Tiled Display Topology (TDT) data block, retrieve the horizontal tile location in the tiled display. The TDT block is part of an Extended Display Identification Data (EDID) extension block of type DisplayID.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Tdt</em>&nbsp;</td><td>is a pointer to the TDT data block.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>The horizontal tile location in the tiled display represented by the specified TDT.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>C-style signature: u8 <a class="el" href="xdptx__hw_8h.html#e7c4d4a81636cd411fea034e41afb6cc">XDptx_GetDispIdTdtHLoc(u8 *Tdt)</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="db8b30e5c8b30109e9b634d6d855cd5d"></a><!-- doxytag: member="xdptx_hw.h::XDptx_GetDispIdTdtHTotal" ref="db8b30e5c8b30109e9b634d6d855cd5d" args="(Tdt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDptx_GetDispIdTdtHTotal          </td>
+          <td>(</td>
+          <td class="paramtype">Tdt&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<b>Value:</b><div class="fragment"><pre class="fragment">(((((Tdt[<a class="code" href="xdptx__hw_8h.html#8b9278fd879e2abef2e16868249de3a3">XDPTX_DISPID_TDT_TOP2</a>] &amp; <a class="code" href="xdptx__hw_8h.html#0aff165260c2290c1ef9457dada043fa">XDPTX_DISPID_TDT_TOP2_HTOT_H_MASK</a>) \
+        &gt;&gt; <a class="code" href="xdptx__hw_8h.html#19a0c7ec4082e59132b8448baebe860a">XDPTX_DISPID_TDT_TOP2_HTOT_H_SHIFT</a>) &lt;&lt; 4) | \
+        ((Tdt[<a class="code" href="xdptx__hw_8h.html#1dc7be5875039110f46d9139c78ca9b1">XDPTX_DISPID_TDT_TOP0</a>] &amp; <a class="code" href="xdptx__hw_8h.html#b5ab08c05f01fa2328ff8dd5c357eb5f">XDPTX_DISPID_TDT_TOP0_HTOT_L_MASK</a>) &gt;&gt; \
+        <a class="code" href="xdptx__hw_8h.html#0d7227d8b3f28bb66709ab93b54e576f">XDPTX_DISPID_TDT_TOP0_HTOT_L_SHIFT</a>)) + 1)
+</pre></div>Given a Tiled Display Topology (TDT) data block, retrieve the total number of horizontal tiles in the tiled display. The TDT block is part of an Extended Display Identification Data (EDID) extension block of type DisplayID.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Tdt</em>&nbsp;</td><td>is a pointer to the TDT data block.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>The total number of horizontal tiles in the tiled display.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>C-style signature: u8 <a class="el" href="xdptx__hw_8h.html#db8b30e5c8b30109e9b634d6d855cd5d">XDptx_GetDispIdTdtHTotal(u8 *Tdt)</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="99c7eaaa74ff67ee1f734b5cd5a80312"></a><!-- doxytag: member="xdptx_hw.h::XDptx_GetDispIdTdtNumTiles" ref="99c7eaaa74ff67ee1f734b5cd5a80312" args="(Tdt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDptx_GetDispIdTdtNumTiles          </td>
+          <td>(</td>
+          <td class="paramtype">Tdt&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;(XDptx_GetDispIdTdtHTotal(Tdt) * XDptx_GetDispIdTdtVTotal(Tdt))</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Given a Tiled Display Topology (TDT) data block, retrieve the total number of tiles in the tiled display. The TDT block is part of an Extended Display Identification Data (EDID) extension block of type DisplayID.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Tdt</em>&nbsp;</td><td>is a pointer to the TDT data block.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>The total number of tiles in the tiled display.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>C-style signature: u8 <a class="el" href="xdptx__hw_8h.html#99c7eaaa74ff67ee1f734b5cd5a80312">XDptx_GetDispIdTdtNumTiles(u8 *Tdt)</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="6181a5e4dd1fcd0ea12385c8156b010d"></a><!-- doxytag: member="xdptx_hw.h::XDptx_GetDispIdTdtTileOrder" ref="6181a5e4dd1fcd0ea12385c8156b010d" args="(Tdt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDptx_GetDispIdTdtTileOrder          </td>
+          <td>(</td>
+          <td class="paramtype">Tdt&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<b>Value:</b><div class="fragment"><pre class="fragment">((<a class="code" href="xdptx__hw_8h.html#7a2823820813023421a9cd262d5891d9">XDptx_GetDispIdTdtVLoc</a>(Tdt) * <a class="code" href="xdptx__hw_8h.html#db8b30e5c8b30109e9b634d6d855cd5d">XDptx_GetDispIdTdtHTotal</a>(Tdt)) + \
+        <a class="code" href="xdptx__hw_8h.html#e7c4d4a81636cd411fea034e41afb6cc">XDptx_GetDispIdTdtHLoc</a>(Tdt))
+</pre></div>Given a Tiled Display Topology (TDT) data block, calculate the tiling order of the associated tile. The TDT block is part of an Extended Display Identification Data (EDID) extension block of type DisplayID. The tiling order starts at 0 for x,y coordinate 0,0 and increments as the horizontal location increases. Once the last horizontal tile has been reached, the next tile in the order is 0,y+1.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Tdt</em>&nbsp;</td><td>is a pointer to the TDT data block.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>The total number of horizontal tiles in the tiled display.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>C-style signature: u8 <a class="el" href="xdptx__hw_8h.html#6181a5e4dd1fcd0ea12385c8156b010d">XDptx_GetDispIdTdtTileOrder(u8 *Tdt)</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="7a2823820813023421a9cd262d5891d9"></a><!-- doxytag: member="xdptx_hw.h::XDptx_GetDispIdTdtVLoc" ref="7a2823820813023421a9cd262d5891d9" args="(Tdt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDptx_GetDispIdTdtVLoc          </td>
+          <td>(</td>
+          <td class="paramtype">Tdt&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<b>Value:</b><div class="fragment"><pre class="fragment">(((Tdt[<a class="code" href="xdptx__hw_8h.html#8b9278fd879e2abef2e16868249de3a3">XDPTX_DISPID_TDT_TOP2</a>] &amp; <a class="code" href="xdptx__hw_8h.html#8ff8deabf7a695e54ade341fa17bebef">XDPTX_DISPID_TDT_TOP2_VLOC_H_MASK</a>) &lt;&lt; \
+        4) | (Tdt[<a class="code" href="xdptx__hw_8h.html#bb949f4e7bb5fe763612f25f646f8ae2">XDPTX_DISPID_TDT_TOP1</a>] &amp; <a class="code" href="xdptx__hw_8h.html#45ee39bb11bb61a87f009eafd1a92635">XDPTX_DISPID_TDT_TOP1_VLOC_L_MASK</a>))
+</pre></div>Given a Tiled Display Topology (TDT) data block, retrieve the vertical tile location in the tiled display. The TDT block is part of an Extended Display Identification Data (EDID) extension block of type DisplayID.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Tdt</em>&nbsp;</td><td>is a pointer to the TDT data block.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>The vertical tile location in the tiled display represented by the specified TDT.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>C-style signature: u8 <a class="el" href="xdptx__hw_8h.html#7a2823820813023421a9cd262d5891d9">XDptx_GetDispIdTdtVLoc(u8 *Tdt)</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="6833dbcbe5f284baf3520ca7632973af"></a><!-- doxytag: member="xdptx_hw.h::XDptx_GetDispIdTdtVTotal" ref="6833dbcbe5f284baf3520ca7632973af" args="(Tdt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDptx_GetDispIdTdtVTotal          </td>
+          <td>(</td>
+          <td class="paramtype">Tdt&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<b>Value:</b><div class="fragment"><pre class="fragment">(((((Tdt[<a class="code" href="xdptx__hw_8h.html#8b9278fd879e2abef2e16868249de3a3">XDPTX_DISPID_TDT_TOP2</a>] &amp; <a class="code" href="xdptx__hw_8h.html#5f6dd5c6a8791ff95f0248f52408920d">XDPTX_DISPID_TDT_TOP2_VTOT_H_MASK</a>) \
+        &gt;&gt; <a class="code" href="xdptx__hw_8h.html#f865ca3175483b579d54a74aacfd5f86">XDPTX_DISPID_TDT_TOP2_VTOT_H_SHIFT</a>) &lt;&lt; 4) | \
+        (Tdt[<a class="code" href="xdptx__hw_8h.html#1dc7be5875039110f46d9139c78ca9b1">XDPTX_DISPID_TDT_TOP0</a>] &amp; <a class="code" href="xdptx__hw_8h.html#09c12f3d9268e773afe7685f3ffd28e4">XDPTX_DISPID_TDT_TOP0_VTOT_L_MASK</a>)) + 1)
+</pre></div>Given a Tiled Display Topology (TDT) data block, retrieve the total number of vertical tiles in the tiled display. The TDT block is part of an Extended Display Identification Data (EDID) extension block of type DisplayID.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Tdt</em>&nbsp;</td><td>is a pointer to the TDT data block.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>The total number of vertical tiles in the tiled display.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>C-style signature: u8 <a class="el" href="xdptx__hw_8h.html#6833dbcbe5f284baf3520ca7632973af">XDptx_GetDispIdTdtVTotal(u8 *Tdt)</a> </dd></dl>
+
 </div>
 </div><p>
 <a class="anchor" name="a20e3869a077ed56257240989c3afcc3"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_GT_DRP_CHANNEL_STATUS" ref="a20e3869a077ed56257240989c3afcc3" args="" -->
@@ -6899,7 +7805,37 @@ An AUX reply transaction has been detected.
 <div class="memdoc">
 
 <p>
-A reply timeout has occurred. 
+A reply timeout has occurred.
+</div>
+</div><p>
+<a class="anchor" name="ac2945bf58da8bed5a413a4f33c62d52"></a><!-- doxytag: member="xdptx_hw.h::XDptx_IsEdidExtBlockDispId" ref="ac2945bf58da8bed5a413a4f33c62d52" args="(Ext)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDptx_IsEdidExtBlockDispId          </td>
+          <td>(</td>
+          <td class="paramtype">Ext&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;(Ext[XDPTX_EDID_EXT_BLOCK_TAG] == XDPTX_EDID_EXT_BLOCK_TAG_DISPID)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Check if an Extended Display Identification Data (EDID) extension block is of type DisplayID.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Ext</em>&nbsp;</td><td>is a pointer to the EDID extension block under comparison.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>1 if the extension block is of type DisplayID.</li><li>Otherwise.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>C-style signature: u8 <a class="el" href="xdptx__hw_8h.html#ac2945bf58da8bed5a413a4f33c62d52">XDptx_IsEdidExtBlockDispId(u8 *Ext)</a> </dd></dl>
+
 </div>
 </div><p>
 <a class="anchor" name="f0852cab2ae824fe3dfd71c8d093f143"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_LANE_COUNT_SET" ref="f0852cab2ae824fe3dfd71c8d093f143" args="" -->
@@ -8749,6 +9685,21 @@ AUX request is currently being transmitted.
 
 </div>
 </div><p>
+<a class="anchor" name="e218bee79205f828115da7f35a077a52"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SBMSG_REMOTE_I2C_WRITE" ref="e218bee79205f828115da7f35a077a52" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SBMSG_REMOTE_I2C_WRITE&nbsp;&nbsp;&nbsp;0x23          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="245e3300cb64b18ae8b5a2c05a2726a5"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SCRAMBLING_DISABLE" ref="245e3300cb64b18ae8b5a2c05a2726a5" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -8761,7 +9712,22 @@ AUX request is currently being transmitted.
 <div class="memdoc">
 
 <p>
-Disable scrambler and transmit all symbols. 
+Disable scrambler and transmit all symbols.
+</div>
+</div><p>
+<a class="anchor" name="c256c3392433521182254ed257ed3bd2"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SEGPTR_ADDR" ref="c256c3392433521182254ed257ed3bd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_SEGPTR_ADDR&nbsp;&nbsp;&nbsp;0x30          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
 </div>
 </div><p>
 <a class="anchor" name="d67b688fb3c16c3aa74b8c6f5a6b4967"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_SOFT_RESET" ref="d67b688fb3c16c3aa74b8c6f5a6b4967" args="" -->

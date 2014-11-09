@@ -181,8 +181,6 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#567d49c31f86ae5c704ac42730fa2e00">XDptx_GetRxCapabilities</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#23038e52574ffb4620617e4078727a0a">XDptx_GetEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Edid)</td></tr>
-
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1b0ea5fdead5a6955b72b4775ec1d0a3">XDptx_CfgMainLinkMax</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#32b552e953f9c486a6a5e04228dcf6b6">XDptx_EstablishLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
@@ -199,13 +197,13 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a6815e6062e47eecfd9616eaa15a19a1">XDptx_CfgTxPeLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#591d601b5e6913df09ad73ea92881e31">XDptx_AuxRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 NumBytes, void *Data)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#66e22710eebdc6628ac5f42f4b6ce976">XDptx_AuxRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 BytesToRead, void *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#690a6ee9d1b4df0624967cb00892347b">XDptx_AuxWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 NumBytes, void *Data)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ca0eec27f959fb6252c1ec0eae8498cc">XDptx_AuxWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 BytesToWrite, void *WriteData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#fa48be4f79ab6db64c359ce99b2684f2">XDptx_IicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1cced75f64e9dc4292dc1910a2f6a2c0">XDptx_IicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u16 Offset, u16 BytesToRead, void *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#4bf3b5bebfa79de9e3fdc1a982559e2c">XDptx_IicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#93d3333e43aef67e21e20e33d757aead">XDptx_IicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 BytesToWrite, void *WriteData)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#2a9f86dab2f5de738680e7b4320469b2">XDptx_SetDownspread</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
@@ -281,9 +279,21 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#03309887289769ac323f0b7e7b004dae">XDptx_FindAccessibleDpDevices</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#694b4d0af61fef8fdfbe93409ad0d680">XDptx_TopologySwapSinks</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Index0, u8 Index1)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#5a46ddefc4cb8118d5258e0e43443992">XDptx_TopologySortSinksByTiling</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#4e0615e6cad83aa1b444aed245a9030c">XDptx_RemoteDpcdRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f41e0216fd6ecea35bb949597d734c52">XDptx_RemoteDpcdWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3df4fc065e1c38853cf9d779b6cb9b1d">XDptx_RemoteIicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead, u8 *ReadData)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#58192dcfe2a793952544fa4a09bb62c7">XDptx_RemoteIicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite, u8 *WriteData)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a688873fb1701355cbb33ac5d25d3da2">XDptx_AllocatePayloadStreams</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#95c6b72ff8fbfafa79050ceb21318967">XDptx_AllocatePayloadVcIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 VcId, u16 Pbn, u8 Ts)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#78839b647fb5b13723e9832589f1fde2">XDptx_AllocatePayloadVcIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 VcId, u8 Ts)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d460e5bed77a33b7f1eb59011bd61641">XDptx_ClearPayloadVcIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
@@ -291,7 +301,9 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#af5dcb26c43a878d7e85e2432a56079c">XDptx_SendSbMsgRemoteDpcdRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d8a8b2d9cf3ea0d2d3a73398076f3279">XDptx_SendSbMsgRemoteIicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToRead, u8 *ReadData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#9cf1853a5369c3b54cf684422ae0477f">XDptx_SendSbMsgRemoteIicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#67a5dc5b564d88b72e1e20140e0c9fdd">XDptx_SendSbMsgRemoteIicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead, u8 *ReadData)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#be41e03326f878840b41aa07af466fec">XDptx_SendSbMsgLinkAddress</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, <a class="el" href="struct_x_dptx___sb_msg_link_address_reply_device_info.html">XDptx_SbMsgLinkAddressReplyDeviceInfo</a> *DeviceInfo)</td></tr>
 
@@ -305,7 +317,19 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ef32287d856ac7ab17a50e5600b6a9d6">XDptx_GetGuid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 *Guid)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#23038e52574ffb4620617e4078727a0a">XDptx_GetEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Edid)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3cec2b8fa349961931ec5b57c2d614df">XDptx_GetRemoteEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 *Edid)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#fda74bd6ad6661094b9a1d38feb8d6fe">XDptx_GetEdidBlock</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 BlockNum)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ef8fa35d008dbcca9bc2787efa7b234e">XDptx_GetRemoteEdidBlock</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 BlockNum, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#00468c8162b9984e876fb90400ddd847">XDptx_GetRemoteEdidDispIdExt</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#edf36b76f4ec73e9360fe3f24103cb88">XDptx_GetDispIdDataBlock</a> (u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#705c56777702c1d68ac41191051a8e68">XDptx_GetRemoteTiledDisplayDb</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *EdidExt, u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)</td></tr>
 
 <tr><td colspan="2"><br><h2>Variables</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___dmt_mode.html">XDptx_DmtMode</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#35408b37824862d172606842e26e66e0">XDptx_DmtModes</a> []</td></tr>
@@ -613,7 +637,7 @@ This function will allocate bandwidth for all enabled stream.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="95c6b72ff8fbfafa79050ceb21318967"></a><!-- doxytag: member="xdptx.h::XDptx_AllocatePayloadVcIdTable" ref="95c6b72ff8fbfafa79050ceb21318967" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 VcId, u16 Pbn, u8 Ts)" -->
+<a class="anchor" name="78839b647fb5b13723e9832589f1fde2"></a><!-- doxytag: member="xdptx.h::XDptx_AllocatePayloadVcIdTable" ref="78839b647fb5b13723e9832589f1fde2" args="(XDptx *InstancePtr, u8 VcId, u8 Ts)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -627,25 +651,7 @@ This function will allocate bandwidth for all enabled stream.<p>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u8&nbsp;</td>
-          <td class="paramname"> <em>LinkCountTotal</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&nbsp;</td>
-          <td class="paramname"> <em>RelativeAddress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&nbsp;</td>
           <td class="paramname"> <em>VcId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&nbsp;</td>
-          <td class="paramname"> <em>Pbn</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -667,10 +673,7 @@ This function will allocate a bandwidth for a virtual channel in the payload ID 
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the number of DisplayPort links from the DisplayPort source to the target DisplayPort device. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the target DisplayPort device. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>VcId</em>&nbsp;</td><td>is the unique virtual channel ID to allocate into the payload ID tables. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Pbn</em>&nbsp;</td><td>is the payload bandwidth number that determines how much bandwidth will be allocated for the virtual channel. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>Ts</em>&nbsp;</td><td>is the number of timeslots to allocate in the payload ID tables.</td></tr>
   </table>
 </dl>
@@ -686,7 +689,7 @@ This function will allocate a bandwidth for a virtual channel in the payload ID 
 
 </div>
 </div><p>
-<a class="anchor" name="591d601b5e6913df09ad73ea92881e31"></a><!-- doxytag: member="xdptx.h::XDptx_AuxRead" ref="591d601b5e6913df09ad73ea92881e31" args="(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)" -->
+<a class="anchor" name="66e22710eebdc6628ac5f42f4b6ce976"></a><!-- doxytag: member="xdptx.h::XDptx_AuxRead" ref="66e22710eebdc6628ac5f42f4b6ce976" args="(XDptx *InstancePtr, u32 Address, u32 BytesToRead, void *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -700,19 +703,19 @@ This function will allocate a bandwidth for a virtual channel in the payload ID 
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&nbsp;</td>
-          <td class="paramname"> <em>Address</em>, </td>
+          <td class="paramname"> <em>DpcdAddress</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&nbsp;</td>
-          <td class="paramname"> <em>NumBytes</em>, </td>
+          <td class="paramname"> <em>BytesToRead</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>Data</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>ReadData</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -724,13 +727,13 @@ This function will allocate a bandwidth for a virtual channel in the payload ID 
 <div class="memdoc">
 
 <p>
-This function issues a read request over the AUX channel.<p>
+This function issues a read request over the AUX channel that will read from the RX device's DisplayPort Configuration Data (DPCD) address space. The read message will be divided into multiple transactions which read a maximum of 16 bytes each.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Address</em>&nbsp;</td><td>is the starting address to read from the RX device. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to read from the RX device. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer that will be filled with read data.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>DpcdAddress</em>&nbsp;</td><td>is the starting address to read from the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToRead</em>&nbsp;</td><td>is the number of bytes to read from the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ReadData</em>&nbsp;</td><td>is a pointer to the data buffer that will be filled with read data.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
@@ -740,7 +743,7 @@ This function issues a read request over the AUX channel.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="690a6ee9d1b4df0624967cb00892347b"></a><!-- doxytag: member="xdptx.h::XDptx_AuxWrite" ref="690a6ee9d1b4df0624967cb00892347b" args="(XDptx *InstancePtr, u32 Address, u32 NumBytes, void *Data)" -->
+<a class="anchor" name="ca0eec27f959fb6252c1ec0eae8498cc"></a><!-- doxytag: member="xdptx.h::XDptx_AuxWrite" ref="ca0eec27f959fb6252c1ec0eae8498cc" args="(XDptx *InstancePtr, u32 Address, u32 BytesToWrite, void *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -754,19 +757,19 @@ This function issues a read request over the AUX channel.<p>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&nbsp;</td>
-          <td class="paramname"> <em>Address</em>, </td>
+          <td class="paramname"> <em>DpcdAddress</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&nbsp;</td>
-          <td class="paramname"> <em>NumBytes</em>, </td>
+          <td class="paramname"> <em>BytesToWrite</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>Data</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>WriteData</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -778,13 +781,13 @@ This function issues a read request over the AUX channel.<p>
 <div class="memdoc">
 
 <p>
-This function issues a write request over the AUX channel.<p>
+This function issues a write request over the AUX channel that will write to the RX device's DisplayPort Configuration Data (DPCD) address space. The write message will be divided into multiple transactions which write a maximum of 16 bytes each.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Address</em>&nbsp;</td><td>is the starting address to write to the RX device. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to write to the RX device. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer that contains the data to be written to the RX device.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>DpcdAddress</em>&nbsp;</td><td>is the starting address to write to the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToWrite</em>&nbsp;</td><td>is the number of bytes to write to the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>WriteData</em>&nbsp;</td><td>is a pointer to the data buffer that contains the data to be written to the RX device.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
@@ -1585,6 +1588,53 @@ This function will explore the DisplayPort topology of downstream devices starti
 
 </div>
 </div><p>
+<a class="anchor" name="edf36b76f4ec73e9360fe3f24103cb88"></a><!-- doxytag: member="xdptx.h::XDptx_GetDispIdDataBlock" ref="edf36b76f4ec73e9360fe3f24103cb88" args="(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_GetDispIdDataBlock           </td>
+          <td>(</td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>DisplayIdRaw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>SectionTag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 **&nbsp;</td>
+          <td class="paramname"> <em>DataBlockPtr</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Given a section tag, search for and retrieve the appropriate section data block that is part of the specified DisplayID structure.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>DisplayIdRaw</em>&nbsp;</td><td>is a pointer to the DisplayID data. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>SectionTag</em>&nbsp;</td><td>is the tag to search for that represents the desired section data block. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>DataBlockPtr</em>&nbsp;</td><td>will be set by this function to point to the appropriate section data block that is part of the DisplayIdRaw.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the section data block with the specified tag was found.</li><li>XST_FAILURE otherwise.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>The DataBlockPtr argument is modified to point to the entry in DisplayIdRaw that represents the beginning of the desired section data block. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="23038e52574ffb4620617e4078727a0a"></a><!-- doxytag: member="xdptx.h::XDptx_GetEdid" ref="23038e52574ffb4620617e4078727a0a" args="(XDptx *InstancePtr, u8 *Edid)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1611,7 +1661,7 @@ This function will explore the DisplayPort topology of downstream devices starti
 <div class="memdoc">
 
 <p>
-This function retrieves the RX device's Extended Display Identification Data (EDID).<p>
+This function retrieves an immediately connected RX device's Extended Display Identification Data (EDID) structure.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -1620,6 +1670,53 @@ This function retrieves the RX device's Extended Display Identification Data (ED
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
 <li>XST_SUCCESS if the I2C transactions to read the EDID were successful.</li><li>XST_ERROR_COUNT_MAX if the EDID read request timed out.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="fda74bd6ad6661094b9a1d38feb8d6fe"></a><!-- doxytag: member="xdptx.h::XDptx_GetEdidBlock" ref="fda74bd6ad6661094b9a1d38feb8d6fe" args="(XDptx *InstancePtr, u8 *Data, u8 BlockNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_GetEdidBlock           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>BlockNum</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Retrieve an immediately connected RX device's Extended Display Identification Data (EDID) block given the block number. A block number of 0 represents the base EDID and subsequent block numbers represent EDID extension blocks.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer to save the block data to. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BlockNum</em>&nbsp;</td><td>is the EDID block number to retrieve.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the block read has successfully completed with no errors.</li><li>XST_ERROR_COUNT_MAX if a time out occurred while attempting to read the requested block.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
@@ -1715,7 +1812,7 @@ This function will obtain the global unique identifier (GUID) for the target Dis
 <div class="memdoc">
 
 <p>
-This function retrieves a remote RX device's Extended Display Identification Data (EDID).<p>
+This function retrieves a remote RX device's Extended Display Identification Data (EDID) structure.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
@@ -1728,6 +1825,182 @@ This function retrieves a remote RX device's Extended Display Identification Dat
 <li>XST_SUCCESS if the I2C transactions to read the EDID were successful.</li><li>XST_ERROR_COUNT_MAX if the EDID read request timed out.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="ef8fa35d008dbcca9bc2787efa7b234e"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdidBlock" ref="ef8fa35d008dbcca9bc2787efa7b234e" args="(XDptx *InstancePtr, u8 *Data, u8 BlockNum, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_GetRemoteEdidBlock           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>BlockNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Retrieve a downstream DisplayPort device's Extended Display Identification Data (EDID) block given the block number. A block number of 0 represents the base EDID and subsequent block numbers represent EDID extension blocks.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer to save the block data to. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BlockNum</em>&nbsp;</td><td>is the EDID block number to retrieve. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the total DisplayPort links connecting the DisplayPort TX to the targeted downstream device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the targeted DisplayPort device.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the block read has successfully completed with no errors.</li><li>XST_ERROR_COUNT_MAX if a time out occurred while attempting to read the requested block.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE otherwise.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="00468c8162b9984e876fb90400ddd847"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdidDispIdExt" ref="00468c8162b9984e876fb90400ddd847" args="(XDptx *InstancePtr, u8 *Data, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_GetRemoteEdidDispIdExt           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Search for and retrieve a downstream DisplayPort device's Extended Display Identification Data (EDID) extension block of type DisplayID.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to the data buffer to save the DisplayID to. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the total DisplayPort links connecting the DisplayPort TX to the targeted downstream device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the targeted DisplayPort device.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS a DisplayID extension block was found.</li><li>XST_ERROR_COUNT_MAX if a time out occurred while attempting to read an extension block.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE if no DisplayID extension block was found or some error occurred in the search.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="705c56777702c1d68ac41191051a8e68"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteTiledDisplayDb" ref="705c56777702c1d68ac41191051a8e68" args="(XDptx *InstancePtr, u8 *EdidExt, u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_GetRemoteTiledDisplayDb           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>EdidExt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 **&nbsp;</td>
+          <td class="paramname"> <em>DataBlockPtr</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Search for and retrieve a downstream DisplayPort device's Tiled Display Topology (TDT) section data block that is part of the downstream device's DisplayID structure. The DisplayID structure is part of the Extended Display Identification Data (EDID) in the form of an extension block.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>EdidExt</em>&nbsp;</td><td>is a pointer to the data area that will be filled by the retrieved DisplayID extension block. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the total DisplayPort links connecting the DisplayPort TX to the targeted downstream device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the targeted DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>DataBlockPtr</em>&nbsp;</td><td>will be set by this function to point to the TDT data block that is part of the EdidExt extension block.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS a DisplayID extension block was found.</li><li>XST_ERROR_COUNT_MAX if a time out occurred while attempting to read an extension block.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_FAILURE if no DisplayID extension block was found or some error occurred in the search.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>The EdidExt will be filled with the DisplayID EDID extension block and the DataBlockPtr argument is modified to point to the EdidExt entry representing the TDT section data block. </dd></dl>
 
 </div>
 </div><p>
@@ -1790,7 +2063,7 @@ When an interrupt happens, it first detects what kind of interrupt happened, the
 
 </div>
 </div><p>
-<a class="anchor" name="fa48be4f79ab6db64c359ce99b2684f2"></a><!-- doxytag: member="xdptx.h::XDptx_IicRead" ref="fa48be4f79ab6db64c359ce99b2684f2" args="(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)" -->
+<a class="anchor" name="1cced75f64e9dc4292dc1910a2f6a2c0"></a><!-- doxytag: member="xdptx.h::XDptx_IicRead" ref="1cced75f64e9dc4292dc1910a2f6a2c0" args="(XDptx *InstancePtr, u8 IicAddress, u16 Offset, u16 BytesToRead, void *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1809,20 +2082,20 @@ When an interrupt happens, it first detects what kind of interrupt happened, the
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u8&nbsp;</td>
-          <td class="paramname"> <em>RegStartAddress</em>, </td>
+          <td class="paramtype">u16&nbsp;</td>
+          <td class="paramname"> <em>Offset</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u8&nbsp;</td>
-          <td class="paramname"> <em>NumBytes</em>, </td>
+          <td class="paramtype">u16&nbsp;</td>
+          <td class="paramname"> <em>BytesToRead</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>Data</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>ReadData</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -1834,14 +2107,16 @@ When an interrupt happens, it first detects what kind of interrupt happened, the
 <div class="memdoc">
 
 <p>
-This function performs an I2C read over the AUX channel.<p>
+This function performs an I2C read over the AUX channel. The read message will be divided into multiple transactions if the requested data spans multiple segments. The segment pointer is automatically incremented and the offset is calibrated as needed. E.g. For an overall offset of:<ul>
+<li>128, an I2C read is done on segptr=0; offset=128.</li><li>256, an I2C read is done on segptr=1; offset=0.</li><li>384, an I2C read is done on segptr=1; offset=128.</li><li>512, an I2C read is done on segptr=2; offset=0.</li><li>etc.</li></ul>
+<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>IicAddress</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>RegStartAddress</em>&nbsp;</td><td>is the subaddress of the targeted I2C device that the read will start from. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to read. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to a buffer that will be filled with the I2C read data.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Offset</em>&nbsp;</td><td>is the offset at the specified address of the targeted I2C device that the read will start from. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToRead</em>&nbsp;</td><td>is the number of bytes to read. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ReadData</em>&nbsp;</td><td>is a pointer to a buffer that will be filled with the I2C read data.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
@@ -1851,7 +2126,7 @@ This function performs an I2C read over the AUX channel.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="4bf3b5bebfa79de9e3fdc1a982559e2c"></a><!-- doxytag: member="xdptx.h::XDptx_IicWrite" ref="4bf3b5bebfa79de9e3fdc1a982559e2c" args="(XDptx *InstancePtr, u8 IicAddress, u8 RegStartAddress, u8 NumBytes, void *Data)" -->
+<a class="anchor" name="93d3333e43aef67e21e20e33d757aead"></a><!-- doxytag: member="xdptx.h::XDptx_IicWrite" ref="93d3333e43aef67e21e20e33d757aead" args="(XDptx *InstancePtr, u8 IicAddress, u8 BytesToWrite, void *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1871,19 +2146,13 @@ This function performs an I2C read over the AUX channel.<p>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u8&nbsp;</td>
-          <td class="paramname"> <em>RegStartAddress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&nbsp;</td>
-          <td class="paramname"> <em>NumBytes</em>, </td>
+          <td class="paramname"> <em>BytesToWrite</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>Data</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>WriteData</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -1900,9 +2169,8 @@ This function performs an I2C write over the AUX channel.<p>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>IicAddress</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>RegStartAddress</em>&nbsp;</td><td>is the sub-address of the targeted I2C device that the write will start at. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>NumBytes</em>&nbsp;</td><td>is the number of bytes to write. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Data</em>&nbsp;</td><td>is a pointer to a buffer which will be used as the data source for the write.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToWrite</em>&nbsp;</td><td>is the number of bytes to write. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>WriteData</em>&nbsp;</td><td>is a pointer to a buffer which will be used as the data source for the write.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
@@ -2271,6 +2539,287 @@ This function will check whether<p>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
 <li>1 if the specified stream is enabled.</li><li>0 if the specified stream is disabled.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="4e0615e6cad83aa1b444aed245a9030c"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteDpcdRead" ref="4e0615e6cad83aa1b444aed245a9030c" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_RemoteDpcdRead           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&nbsp;</td>
+          <td class="paramname"> <em>DpcdAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&nbsp;</td>
+          <td class="paramname"> <em>BytesToRead</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>ReadData</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function performs a remote DisplayPort Configuration Data (DPCD) read by sending a sideband message. In case message is directed at the RX device connected immediately to the TX, the message is issued over the AUX channel. The read message will be divided into multiple transactions which read a maximum of 16 bytes each.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the number of DisplayPort links from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>DpcdAddress</em>&nbsp;</td><td>is the starting address to read from the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToRead</em>&nbsp;</td><td>is the number of bytes to read. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ReadData</em>&nbsp;</td><td>is a pointer to the data buffer that will be filled with read data.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the DPCD read has successfully completed (has been acknowledged).</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX request timed out.</li><li>XST_DATA_LOST if the requested number of BytesToRead does not equal that actually received.</li><li>XST_FAILURE otherwise - if an AUX read or write transaction failed, the header or body CRC of the sideband message did not match the calculated value, or the a reply was negative acknowledged (NACK'ed).</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="f41e0216fd6ecea35bb949597d734c52"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteDpcdWrite" ref="f41e0216fd6ecea35bb949597d734c52" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_RemoteDpcdWrite           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&nbsp;</td>
+          <td class="paramname"> <em>DpcdAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&nbsp;</td>
+          <td class="paramname"> <em>BytesToWrite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>WriteData</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function performs a remote DisplayPort Configuration Data (DPCD) write by sending a sideband message. In case message is directed at the RX device connected immediately to the TX, the message is issued over the AUX channel. The write message will be divided into multiple transactions which write a maximum of 16 bytes each.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the number of DisplayPort links from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>DpcdAddress</em>&nbsp;</td><td>is the starting address to write to the RX device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToWrite</em>&nbsp;</td><td>is the number of bytes to write. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>WriteData</em>&nbsp;</td><td>is a pointer to a buffer which will be used as the data source for the write.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the DPCD write has successfully completed (has been acknowledged).</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX request timed out.</li><li>XST_DATA_LOST if the requested number of BytesToWrite does not equal that actually received.</li><li>XST_FAILURE otherwise - if an AUX read or write transaction failed, the header or body CRC of the sideband message did not match the calculated value, or the a reply was negative acknowledged (NACK'ed).</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="3df4fc065e1c38853cf9d779b6cb9b1d"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteIicRead" ref="3df4fc065e1c38853cf9d779b6cb9b1d" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead, u8 *ReadData)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_RemoteIicRead           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>IicAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&nbsp;</td>
+          <td class="paramname"> <em>Offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&nbsp;</td>
+          <td class="paramname"> <em>BytesToRead</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>ReadData</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function performs a remote I2C read by sending a sideband message. In case message is directed at the RX device connected immediately to the TX, the message is sent over the AUX channel. The read message will be divided into multiple transactions which read a maximum of 16 bytes each. The segment pointer is automatically incremented and the offset is calibrated as needed. E.g. For an overall offset of:<ul>
+<li>128, an I2C read is done on segptr=0; offset=128.</li><li>256, an I2C read is done on segptr=1; offset=0.</li><li>384, an I2C read is done on segptr=1; offset=128.</li><li>512, an I2C read is done on segptr=2; offset=0.</li><li>etc.</li></ul>
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the number of DisplayPort links from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>IicAddress</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Offset</em>&nbsp;</td><td>is the offset at the specified address of the targeted I2C device that the read will start from. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToRead</em>&nbsp;</td><td>is the number of bytes to read. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ReadData</em>&nbsp;</td><td>is a pointer to a buffer that will be filled with the I2C read data.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the I2C read has successfully completed with no errors.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX request timed out.</li><li>XST_DATA_LOST if the requested number of BytesToRead does not equal that actually received.</li><li>XST_FAILURE otherwise - if an AUX read or write transaction failed, the header or body CRC of the sideband message did not match the calculated value, or the a reply was negative acknowledged (NACK'ed).</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="58192dcfe2a793952544fa4a09bb62c7"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteIicWrite" ref="58192dcfe2a793952544fa4a09bb62c7" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite, u8 *WriteData)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_RemoteIicWrite           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>IicAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>BytesToWrite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>WriteData</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function performs a remote I2C write by sending a sideband message. In case message is directed at the RX device connected immediately to the TX, the message is sent over the AUX channel.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the number of DisplayPort links from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>IicAddress</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToWrite</em>&nbsp;</td><td>is the number of bytes to write. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>WriteData</em>&nbsp;</td><td>is a pointer to a buffer which will be used as the data source for the write.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the I2C write has successfully completed with no errors.</li><li>XST_DEVICE_NOT_FOUND if no RX device is connected.</li><li>XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX request timed out.</li><li>XST_DATA_LOST if the requested number of BytesToWrite does not equal that actually received.</li><li>XST_FAILURE otherwise - if an AUX read or write transaction failed, the header or body CRC of the sideband message did not match the calculated value, or the a reply was negative acknowledged (NACK'ed).</li></ul>
 </dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
@@ -2718,7 +3267,7 @@ This function will send a REMOTE_DPCD_WRITE sideband message which will write so
 
 </div>
 </div><p>
-<a class="anchor" name="d8a8b2d9cf3ea0d2d3a73398076f3279"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteIicRead" ref="d8a8b2d9cf3ea0d2d3a73398076f3279" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToRead, u8 *ReadData)" -->
+<a class="anchor" name="67a5dc5b564d88b72e1e20140e0c9fdd"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteIicRead" ref="67a5dc5b564d88b72e1e20140e0c9fdd" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead, u8 *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2750,6 +3299,12 @@ This function will send a REMOTE_DPCD_WRITE sideband message which will write so
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
           <td class="paramname"> <em>BytesToRead</em>, </td>
         </tr>
         <tr>
@@ -2775,6 +3330,7 @@ This function will send a REMOTE_I2C_READ sideband message which will read from 
     <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the number of DisplayPort links from the DisplayPort source to the target DisplayPort device. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the target DisplayPort device. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>IicDeviceId</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Offset</em>&nbsp;</td><td>is the offset at the specified address of the targeted I2C device that the read will start from. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>BytesToRead</em>&nbsp;</td><td>is the number of bytes to read from the I2C address. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>ReadData</em>&nbsp;</td><td>is a pointer to a buffer that will be filled with the I2C read data.</td></tr>
   </table>
@@ -2788,6 +3344,59 @@ This function will send a REMOTE_I2C_READ sideband message which will read from 
 </li></ul>
 <p>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="9cf1853a5369c3b54cf684422ae0477f"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteIicWrite" ref="9cf1853a5369c3b54cf684422ae0477f" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDptx_SendSbMsgRemoteIicWrite           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>LinkCountTotal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>RelativeAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>IicDeviceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>BytesToWrite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&nbsp;</td>
+          <td class="paramname"> <em>WriteData</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
 
 </div>
 </div><p>
@@ -3333,6 +3942,79 @@ This function clears the main stream attributes registers of the DisplayPort TX 
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>Stream</em>&nbsp;</td><td>is the stream number for which to set the MSA values for.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="5a46ddefc4cb8118d5258e0e43443992"></a><!-- doxytag: member="xdptx.h::XDptx_TopologySortSinksByTiling" ref="5a46ddefc4cb8118d5258e0e43443992" args="(XDptx *InstancePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDptx_TopologySortSinksByTiling           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Order the sink list with all sinks of the same tiled display being sorted by 'tile order'. Refer to the XDptx_GetDispIdTdtTileOrder macro on how to determine the 'tile order'. Sinks of a tiled display will have an index in the sink list that is lower than all indices of other sinks within that same tiled display that have a greater 'tile order'. When operations are done on the sink list, this ordering will ensure that sinks within the same tiled display will be acted upon in a consistent manner - with an incrementing sink list index, sinks with a lower 'tile order' will be acted upon first relative to the other sinks in the same tiled display. Multiple tiled displays may exist in the sink list.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="694b4d0af61fef8fdfbe93409ad0d680"></a><!-- doxytag: member="xdptx.h::XDptx_TopologySwapSinks" ref="694b4d0af61fef8fdfbe93409ad0d680" args="(XDptx *InstancePtr, u8 Index0, u8 Index1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDptx_TopologySwapSinks           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dptx.html">XDptx</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Index0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Index1</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Swap the ordering of the sinks in the topology's sink list. All sink information is preserved in the node table - the swapping takes place only on the pointers to the sinks in the node table. The reason this swapping is done is so that functions that use the sink list will act on the sinks in a different order.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Index0</em>&nbsp;</td><td>is the sink list's index of one of the sink pointers to be swapped. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Index1</em>&nbsp;</td><td>is the sink list's index of the other sink pointer to be swapped.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
