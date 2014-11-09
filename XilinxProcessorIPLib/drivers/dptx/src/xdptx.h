@@ -153,9 +153,9 @@
  * <b>Audio</b>
  *
  * The driver does not handle audio. For an example as to how to configure and
- * transmit audio, dptx/examples/xdptx_audio_example.c illustrates the
- * required sequence. The user will need to configure the audio source connected
- * to the Displayport TX instance and set up the audio info frame as per user
+ * transmit audio, examples/xdptx_audio_example.c illustrates the required
+ * sequence. The user will need to configure the audio source connected to the
+ * Displayport TX instance and set up the audio info frame as per user
  * requirements.
  *
  * <b>Asserts</b>

@@ -846,8 +846,8 @@ void XDptx_TopologySortSinksByTiling(XDptx *InstancePtr)
  *		source to the target DisplayPort device.
  * @param	DpcdAddress is the starting address to read from the RX device.
  * @param	BytesToRead is the number of bytes to read.
- * @param	WriteData is a pointer to a buffer which will be used as the
- *		data source for the write.
+ * @param	ReadData is a pointer to the data buffer that will be filled
+ *		with read data.
  *
  * @return
  *		- XST_SUCCESS if the DPCD read has successfully completed (has
@@ -1265,14 +1265,8 @@ u32 XDptx_AllocatePayloadStreams(XDptx *InstancePtr)
  * RelativeAddress.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	LinkCountTotal is the number of DisplayPort links from the
- *		DisplayPort source to the target DisplayPort device.
- * @param	RelativeAddress is the relative address from the DisplayPort
- *		source to the target DisplayPort device.
  * @param	VcId is the unique virtual channel ID to allocate into the
  *		payload ID tables.
- * @param	Pbn is the payload bandwidth number that determines how much
- *		bandwidth will be allocated for the virtual channel.
  * @param	Ts is the number of timeslots to allocate in the payload ID
  *		tables.
  *
@@ -1671,6 +1665,8 @@ u32 XDptx_SendSbMsgRemoteIicWrite(XDptx *InstancePtr, u8 LinkCountTotal,
  * @param	RelativeAddress is the relative address from the DisplayPort
  *		source to the target DisplayPort device.
  * @param	IicDeviceId is the address on the I2C bus of the target device.
+ * @param	Offset is the offset at the specified address of the targeted
+ *		I2C device that the read will start from.
  * @param	BytesToRead is the number of bytes to read from the I2C address.
  * @param	ReadData is a pointer to a buffer that will be filled with the
  *		I2C read data.
