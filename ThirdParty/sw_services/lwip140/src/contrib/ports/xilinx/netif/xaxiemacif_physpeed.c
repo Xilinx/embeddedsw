@@ -208,7 +208,26 @@ unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 		xil_printf("Link error, temp = %x\r\n", temp);
 		return 0;
 	}
-#else
+#elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
+	xil_printf("Waiting for Link to be up; Polling for SGMII core Reg \r\n");
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+	while(!(temp & 0x8000)) {
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+	}
+	if((temp & 0x0C00) == 0x0800) {
+		return 1000;
+	}
+	else if((temp & 0x0C00) == 0x0400) {
+		return 100;
+	}
+	else if((temp & 0x0C00) == 0x0000) {
+		return 10;
+	} else {
+		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Deafulting to Speed = 10 Mbps\r\n");
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
+		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
+		return 10;
+	}
 #endif
 #endif
 

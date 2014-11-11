@@ -1,6 +1,9 @@
 Change Log for lwip
 =================================
-2014-29-30
+2014-11-11
+	* Fix for CR 835081 - lwip adapter for AxiEthernet does not
+	  work for SGMII mode.
+2014-29-10
 	* Fix for CR 827686 - Gem connected 1000BASE-X in PL
 	getting "PHY not connected" error.
 	* Fix for CR 828796 - 2014.3 - AXI Ethernet - 1000BASEX interface not
