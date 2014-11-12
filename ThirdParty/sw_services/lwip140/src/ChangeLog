@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2014-12-11
+	* Fixed the bug in the emaclite on zynq. Added the parameter
+	  use_emaclite_on_zynq to the mld file.
 2014-11-11
 	* Fix for CR 835081 - lwip adapter for AxiEthernet does not
 	  work for SGMII mode.
