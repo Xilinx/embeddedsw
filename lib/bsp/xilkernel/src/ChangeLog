@@ -174,4 +174,7 @@ Change Log for Xilkernel
 
 2014-06-27
 	* Fixed the CR:802962 and the CR:803104 changes are made in the tcl file
-	
+
+2014-11-13
+	* Fixed CR:828759 Changes are made in the tcl file
+

@@ -553,10 +553,18 @@ proc generate {os_handle} {
 	    set addrlists [get_mem_ranges -of_objects [get_cells $sw_proc_handle]]
 	    set addrlist [list]
 	    foreach addrist $addrlists {
-		set mem [xget_ip_mem_ranges $addrist]
-		set mc_base [get_property BASE_VALUE  $mem]
-		set mc_high [get_property HIGH_VALUE $mem]
-		lappend addrlist $mc_base $mc_high
+			set ip_name [get_property IP_NAME [get_cells $addrist]]
+			if { $ip_name == "axi_emc" || $ip_name == "mig_7series" } {
+						set mem  [lindex [get_mem_ranges $addrist] 0]
+						set mc_base [get_property BASE_VALUE  $mem]
+						set mc_high [get_property HIGH_VALUE $mem]
+						lappend addrlist $mc_base $mc_high
+			} else {
+					set mem [hsm::utils::get_ip_mem_ranges $addrist]
+					set mc_base [get_property BASE_VALUE  $mem]
+					set mc_high [get_property HIGH_VALUE $mem]
+					lappend addrlist $mc_base $mc_high
+			}
 	   }
 	   
             if { $dcachelink_handle != "" } {
