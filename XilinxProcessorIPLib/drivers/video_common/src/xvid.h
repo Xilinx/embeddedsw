@@ -56,7 +56,140 @@
 
 /****************************** Type Definitions ******************************/
 
+/**
+ * This typedef enumerates the list of available standard display monitor
+ * timings as specified in the xvid_dmt_table.c file. The naming format is:
+ *
+ * XVID_VM_<RESOLUTION>_<REFRESH RATE (HZ)>_<P|RB>
+ *
+ * Where RB stands for reduced blanking.
+ */
+typedef enum {
+	XVID_VM_640x480_60_P,
+	XVID_VM_800x600_60_P,
+	XVID_VM_848x480_60_P,
+	XVID_VM_1024x768_60_P,
+	XVID_VM_1280x768_60_P_RB,
+	XVID_VM_1280x768_60_P,
+	XVID_VM_1280x800_60_P_RB,
+	XVID_VM_1280x800_60_P,
+	XVID_VM_1280x960_60_P,
+	XVID_VM_1280x1024_60_P,
+	XVID_VM_1360x768_60_P,
+	XVID_VM_1400x1050_60_P_RB,
+	XVID_VM_1400x1050_60_P,
+	XVID_VM_1440x900_60_P_RB,
+	XVID_VM_1440x900_60_P,
+	XVID_VM_1600x1200_60_P,
+	XVID_VM_1680x1050_60_P_RB,
+	XVID_VM_1680x1050_60_P,
+	XVID_VM_1792x1344_60_P,
+	XVID_VM_1856x1392_60_P,
+	XVID_VM_1920x1200_60_P_RB,
+	XVID_VM_1920x1200_60_P,
+	XVID_VM_1920x1440_60_P,
+	XVID_VM_2560x1600_60_P_RB,
+	XVID_VM_2560x1600_60_P,
+	XVID_VM_800x600_56_P,
+	XVID_VM_1600x1200_65_P,
+	XVID_VM_1600x1200_70_P,
+	XVID_VM_1024x768_70_P,
+	XVID_VM_640x480_72_P,
+	XVID_VM_800x600_72_P,
+	XVID_VM_640x480_75_P,
+	XVID_VM_800x600_75_P,
+	XVID_VM_1024x768_75_P,
+	XVID_VM_1152x864_75_P,
+	XVID_VM_1280x768_75_P,
+	XVID_VM_1280x800_75_P,
+	XVID_VM_1280x1024_75_P,
+	XVID_VM_1400x1050_75_P,
+	XVID_VM_1440x900_75_P,
+	XVID_VM_1600x1200_75_P,
+	XVID_VM_1680x1050_75_P,
+	XVID_VM_1792x1344_75_P,
+	XVID_VM_1856x1392_75_P,
+	XVID_VM_1920x1200_75_P,
+	XVID_VM_1920x1440_75_P,
+	XVID_VM_2560x1600_75_P,
+	XVID_VM_640x350_85_P,
+	XVID_VM_640x400_85_P,
+	XVID_VM_720x400_85_P,
+	XVID_VM_640x480_85_P,
+	XVID_VM_800x600_85_P,
+	XVID_VM_1024x768_85_P,
+	XVID_VM_1280x768_85_P,
+	XVID_VM_1280x800_85_P,
+	XVID_VM_1280x960_85_P,
+	XVID_VM_1280x1024_85_P,
+	XVID_VM_1400x1050_85_P,
+	XVID_VM_1440x900_85_P,
+	XVID_VM_1600x1200_85_P,
+	XVID_VM_1680x1050_85_P,
+	XVID_VM_1920x1200_85_P,
+	XVID_VM_2560x1600_85_P,
+	XVID_VM_800x600_120_P_RB,
+	XVID_VM_1024x768_120_P_RB,
+	XVID_VM_1280x768_120_P_RB,
+	XVID_VM_1280x800_120_P_RB,
+	XVID_VM_1280x960_120_P_RB,
+	XVID_VM_1280x1024_120_P_RB,
+	XVID_VM_1360x768_120_P_RB,
+	XVID_VM_1400x1050_120_P_RB,
+	XVID_VM_1440x900_120_P_RB,
+	XVID_VM_1600x1200_120_P_RB,
+	XVID_VM_1680x1050_120_P_RB,
+	XVID_VM_1792x1344_120_P_RB,
+	XVID_VM_1856x1392_120_P_RB,
+	XVID_VM_1920x1200_120_P_RB,
+	XVID_VM_1920x1440_120_P_RB,
+	XVID_VM_2560x1600_120_P_RB,
+	XVID_VM_1366x768_60_P,
+	XVID_VM_1920x1080_60_P,
+	XVID_VM_UHD_30_P,
+	XVID_VM_720_60_P,
+	XVID_VM_480_60_P,
+	XVID_VM_UHD2_60_P,
+	XVID_VM_UHD_60,
+	XVID_VM_USE_EDID_PREFERRED,
+	XVID_VM_LAST = XVID_VM_USE_EDID_PREFERRED
+} XVid_VideoMode;
+
+/**
+ * This typedef contains the display monitor timing attributes for a video mode.
+ */
+typedef struct {
+	XVid_VideoMode VideoMode;	/**< Enumerated key. */
+	u8 DmtId;			/**< Standard Display Monitor Timing
+						(DMT) ID number. */
+	u16 HResolution;		/**< Horizontal resolution (in
+						pixels). */
+	u16 VResolution;		/**< Vertical resolution (in lines). */
+	u32 PixelClkKhz;		/**< Pixel frequency (in KHz). This is
+						also the M value for the video
+						stream (MVid). */
+	u8 Interlaced;			/**< Input stream interlaced scan
+						(0=non-interlaced/
+						1=interlaced). */
+	u8 HSyncPolarity;		/**< Horizontal synchronization polarity
+						(0=positive/1=negative). */
+	u8 VSyncPolarity;		/**< Vertical synchronization polarity
+						(0=positive/1=negative). */
+	u32 HFrontPorch;		/**< Horizontal front porch (in
+						pixels). */
+	u32 HSyncPulseWidth;		/**< Horizontal synchronization time
+						(pulse width in pixels). */
+	u32 HBackPorch;			/**< Horizontal back porch (in
+						pixels). */
+	u32 VFrontPorch;		/**< Vertical front porch (in lines). */
+	u32 VSyncPulseWidth;		/**< Vertical synchronization time
+						(pulse width in lines). */
+	u32 VBackPorch;			/**< Vertical back porch (in lines). */
+} XVid_DmtMode;
+
 /*************************** Variable Declarations ****************************/
+
+extern XVid_DmtMode XVid_DmtModes[];
 
 /**************************** Function Prototypes *****************************/
 
