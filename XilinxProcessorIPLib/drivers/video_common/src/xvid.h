@@ -60,7 +60,7 @@
 
 /**
  * This typedef enumerates the list of available standard display monitor
- * timings as specified in the xvid_dmt_table.c file. The naming format is:
+ * timings as specified in the xvid_timings_table.c file. The naming format is:
  *
  * XVID_VM_<RESOLUTION>_<REFRESH RATE (HZ)>_<P|RB>
  *
@@ -191,7 +191,7 @@ typedef struct {
 
 /*************************** Variable Declarations ****************************/
 
-extern XVid_DmtMode XVid_DmtModes[];
+extern const XVid_DmtMode XVid_DmtModes[];
 
 /**************************** Function Prototypes *****************************/
 

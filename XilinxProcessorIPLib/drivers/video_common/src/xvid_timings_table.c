@@ -32,9 +32,9 @@
 /******************************************************************************/
 /**
  *
- * @file xvid_dmt_table.c
+ * @file xvid_timings_table.c
  *
- * Contains display monitor timing (DMT) modes for various standard resolutions.
+ * Contains video timings for various standard resolutions.
  *
  * @note	None.
  *
@@ -71,7 +71,7 @@
  * 13) Vertical sync time (lines)
  * 14) Vertical back porch (lines)
  */
-XVid_DmtMode XVid_DmtModes[] =
+const XVid_DmtMode XVid_DmtModes[] =
 {
 	{XVID_VM_640x480_60_P,		0x04, 640,  480,  25175,  0, 1, 1, 8,   96,  40,  2,  2,  25},
 	{XVID_VM_800x600_60_P,		0x09, 800,  600,  40000,  0, 0, 0, 40,  128, 88,  1,  4,  23},
