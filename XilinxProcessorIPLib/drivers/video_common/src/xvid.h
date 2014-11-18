@@ -56,7 +56,7 @@
 
 #include "xedid.h"
 
-/****************************** Type Definitions ******************************/
+/************************** Constant Definitions ******************************/
 
 /**
  * This typedef enumerates the list of available standard display monitor
@@ -67,7 +67,7 @@
  * Where RB stands for reduced blanking.
  */
 typedef enum {
-	XVID_VM_640x480_60_P,
+	XVID_VM_640x480_60_P = 0,
 	XVID_VM_800x600_60_P,
 	XVID_VM_848x480_60_P,
 	XVID_VM_1024x768_60_P,
@@ -153,51 +153,80 @@ typedef enum {
 	XVID_VM_480_60_P,
 	XVID_VM_UHD2_60_P,
 	XVID_VM_UHD_60,
+	XVID_VM_NUM_SUPPORT_0,
 	XVID_VM_USE_EDID_PREFERRED,
-	XVID_VM_LAST = XVID_VM_USE_EDID_PREFERRED
-} XVid_VideoMode;
+} XVid_VideoMode0;
 
 typedef enum {
-    XV_RATE_24HZ = 0,
-    XV_RATE_25HZ,
-    XV_RATE_30HZ,
-    XV_RATE_50HZ,
-    XV_RATE_60HZ,
-    XV_NUM_SUPPORTED_RATE
-}FrameRate_t;
+	XVID_VM_576I25 = 0,
+	XVID_VM_480I30,
+	XVID_VM_1080I25,
+	XVID_VM_1080I30,
+	XVID_VM_480P60,
+	XVID_VM_720P50,
+	XVID_VM_720P60,
+	XVID_VM_1080P24,
+	XVID_VM_1080P25,
+	XVID_VM_1080P30,
+	XVID_VM_1080P50,
+	XVID_VM_1080P60,
+	XVID_VM_4K2KP24,
+	XVID_VM_4K2KP25,
+	XVID_VM_4K2KP30,
+	XVID_VM_4K2KP60,
+	XVID_VM_WXGAP60,
+	XVID_VM_UXGAP60,
+	XVID_VM_WUXGAP60,
+	XVID_VM_WSXGAP60,
+	XVID_VM_NUM_SUPPORT_1,
+	XVID_VM_NO_INPUT
+} XVid_VideoMode1;
 
 typedef enum {
-	//Video
-    XV_576I25 = 0,
-    XV_480I30,
-    XV_1080I25,
-    XV_1080I30,
-	XV_480P60,
-    XV_720P50,
-    XV_720P60,
-    XV_1080P24,
-    XV_1080P25,
-    XV_1080P30,
-    XV_1080P50,
-    XV_1080P60,
-    XV_4K2KP24,
-    XV_4K2KP25,
-    XV_4K2KP30,
-    XV_4K2KP60,
-    //PC Resolutions
-    XV_WXGAP60,
-    XV_UXGAP60,
-    XV_WUXGAP60,
-    XV_WSXGAP60,
-    XV_NUM_SUPPORTED_MODES,  //Add new modes before this index
-    XV_NO_INPUT
-}Resolution_t;
+	XVID_FR_24HZ = 0,
+	XVID_FR_25HZ,
+	XVID_FR_30HZ,
+	XVID_FR_50HZ,
+	XVID_FR_60HZ,
+	XV_NUM_SUPPORTED_RATE
+} XVid_FrameRate;
+
+/****************************** Type Definitions ******************************/
+
+/**
+ * Video timing structure.
+ */
+typedef struct {
+	u32 HActive;
+	u32 HFrontPorch;
+	u32 HSyncWidth;
+	u32 HBackPorch;
+	u32 HTotal;
+	u32 HSyncPolarity;
+	u32 VActive;
+	u32 F0PVFrontPorch;
+	u32 F0PVSyncWidth;
+	u32 F0PVBackPorch;
+	u32 F0PVTotal;
+	u32 F1VFrontPorch;
+	u32 F1VSyncWidth;
+	u32 F1VBackPorch;
+	u32 F1VTotal;
+	u32 VSyncPolarity;
+} XVid_VideoTiming;
+
+typedef struct {
+	XVid_VideoMode1		VmId;
+	char			*Name;
+	XVid_FrameRate		FrameRate;
+	XVid_VideoTiming	Timing;
+} XVid_VideoTimingMode;
 
 /**
  * This typedef contains the display monitor timing attributes for a video mode.
  */
 typedef struct {
-	XVid_VideoMode VideoMode;	/**< Enumerated key. */
+	XVid_VideoMode0 VmId;		/**< Enumerated key. */
 	u8 DmtId;			/**< Standard Display Monitor Timing
 						(DMT) ID number. */
 	u16 HResolution;		/**< Horizontal resolution (in
@@ -225,39 +254,10 @@ typedef struct {
 	u32 VBackPorch;			/**< Vertical back porch (in lines). */
 } XVid_DmtMode;
 
-/**
- * Video Timing Structure
- */
-typedef struct {
-    u32 HActive;
-    u32 HFrontPorch;
-    u32 HSyncWidth;
-    u32 HBackPorch;
-    u32 HTotal;
-    u32 HSyncPolarity;
-    u32 VActive;
-    u32 F0PVFrontPorch;
-    u32 F0PVSyncWidth;
-    u32 F0PVBackPorch;
-    u32 F0PVTotal;
-    u32 F1VFrontPorch;
-    u32 F1VSyncWidth;
-    u32 F1VBackPorch;
-    u32 F1VTotal;
-    u32 VSyncPolarity;
-}VideoTiming_t;
-
-typedef struct {
-	Resolution_t  ResId;
-	char          *Name;
-    FrameRate_t   FrameRate;
-    VideoTiming_t Timing;
-}ModeTable_t;
-
 /*************************** Variable Declarations ****************************/
 
-extern const XVid_DmtMode XVid_DmtModes[];
-extern const ModeTable_t ModeTable[XV_NUM_SUPPORTED_MODES];
+extern const XVid_DmtMode XVid_DmtModes[XVID_VM_NUM_SUPPORT_0];
+extern const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT_1];
 
 /**************************** Function Prototypes *****************************/
 
