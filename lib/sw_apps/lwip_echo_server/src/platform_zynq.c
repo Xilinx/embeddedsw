@@ -79,6 +79,9 @@ static int ResetRxCntr = 0;
 extern struct netif *echo_netif;
 #endif
 
+volatile int TcpFastTmrFlag = 0;
+volatile int TcpSlowTmrFlag = 0;
+
 #if LWIP_DHCP==1
 volatile int dhcp_timoutcntr = 24;
 void dhcp_fine_tmr();
@@ -95,18 +98,18 @@ timer_callback(XScuTimer * TimerInstance)
 #if LWIP_DHCP==1
     static int dhcp_timer = 0;
 #endif
+	 TcpFastTmrFlag = 1;
 
 	odd = !odd;
 #ifndef USE_SOFTETH_ON_ZYNQ
 	ResetRxCntr++;
 #endif
-	tcp_fasttmr();
 	if (odd) {
 #if LWIP_DHCP==1
 		dhcp_timer++;
 		dhcp_timoutcntr--;
 #endif
-		tcp_slowtmr();
+		TcpSlowTmrFlag = 1;
 #if LWIP_DHCP==1
 		dhcp_fine_tmr();
 		if (dhcp_timer >= 120) {

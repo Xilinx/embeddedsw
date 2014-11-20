@@ -42,6 +42,8 @@
 #include "xil_printf.h"
 #endif
 
+#include "lwip/tcp.h"
+
 #if LWIP_DHCP==1
 #include "lwip/dhcp.h"
 #endif
@@ -59,6 +61,8 @@ extern volatile int dhcp_timoutcntr;
 err_t dhcp_start(struct netif *netif);
 #endif
 
+extern volatile int TcpFastTmrFlag;
+extern volatile int TcpSlowTmrFlag;
 static struct netif server_netif;
 struct netif *echo_netif;
 
@@ -165,6 +169,14 @@ int main()
 
 	/* receive and process packets */
 	while (1) {
+		if (TcpFastTmrFlag) {
+			tcp_fasttmr();
+			TcpFastTmrFlag = 0;
+		}
+		if (TcpSlowTmrFlag) {
+			tcp_slowtmr();
+			TcpSlowTmrFlag = 0;
+		}
 		xemacif_input(echo_netif);
 		transfer_data();
 	}
