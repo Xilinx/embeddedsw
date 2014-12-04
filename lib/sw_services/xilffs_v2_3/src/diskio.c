@@ -65,6 +65,8 @@
 *                     condition for high speed support.
 *                     Include xil_types.h irrespective of xsdps.h. CR# 797086.
 * 2.2   hk   07/28/14 Make changes to enable use of data cache.
+* 2.3	sk	 12/04/14 Added support for micro SD without
+* 					  WP/CD. CR# 810655.
 *
 * </pre>
 *
@@ -146,18 +148,22 @@ DSTATUS disk_status (
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 		StatusReg = XSdPs_GetPresentStatusReg(XPAR_XSDPS_0_BASEADDR);
+#if XPAR_XSDPS_0_HAS_CD
 		if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0) {
 				s = STA_NODISK | STA_NOINIT;
-		} else {
-			s &= ~STA_NODISK;
-			if (StatusReg & XSDPS_PSR_WPS_PL_MASK){
-				s &= ~STA_PROTECT;
-			}
-			else{
-				s |= STA_PROTECT;
-			}
+				goto Label;
 		}
+#endif
+		s &= ~STA_NODISK;
+#if XPAR_XSDPS_0_HAS_WP
+		if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0){
+			s |= STA_PROTECT;
+			goto Label;
+		}
+#endif
+		s &= ~STA_PROTECT;
 
+Label:
 		Stat = s;
 #endif
 		return s;
