@@ -52,6 +52,8 @@
 *						clock.CR# 816586.
 * 2.4	sk	   12/04/14 Added support for micro SD without
 * 						WP/CD. CR# 810655.
+*						Checked for DAT Inhibit mask instead of CMD
+* 						Inhibit mask in Cmd Transfer API.
 *
 * </pre>
 *
@@ -487,7 +489,7 @@ int XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 	 */
 	PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_PRES_STATE_OFFSET);
-	if ((PresentStateReg & XSDPS_PSR_INHIBIT_CMD_MASK) &&
+	if ((PresentStateReg & XSDPS_PSR_INHIBIT_DAT_MASK) &&
 			(CommandReg & XSDPS_DAT_PRESENT_SEL_MASK)) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;

@@ -110,6 +110,8 @@
 *						clock.CR# 816586.
 * 2.4	sk	   12/04/14 Added support for micro SD without
 * 						WP/CD. CR# 810655.
+*						Checked for DAT Inhibit mask instead of CMD
+* 						Inhibit mask in Cmd Transfer API.
 *
 * </pre>
 *
