@@ -50,6 +50,8 @@
 *                       when re-initialization is done.CR# 819614.
 *						Use XSdPs_Change_ClkFreq API whenever changing
 *						clock.CR# 816586.
+* 2.4	sk	   12/04/14 Added support for micro SD without
+* 						WP/CD. CR# 810655.
 *
 * </pre>
 *
@@ -139,6 +141,8 @@ int XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;
+	InstancePtr->Config.WriteProtect =  ConfigPtr->WriteProtect;
 
 	/*
 	 * "Software reset for all" is initiated
@@ -255,15 +259,17 @@ int XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Check the present state register to make sure
-	 * card is inserted and detected by host controller
-	 */
-	PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_PRES_STATE_OFFSET);
-	if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0)	{
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	if(InstancePtr->Config.CardDetect) {
+		/*
+		 * Check the present state register to make sure
+		 * card is inserted and detected by host controller
+		 */
+		PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+				XSDPS_PRES_STATE_OFFSET);
+		if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0)	{
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/*
@@ -650,14 +656,16 @@ int XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	u32 PresentStateReg;
 	u32 StatusReg;
 
-	/*
-	 * Check status to ensure card is initialized
-	 */
-	PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_PRES_STATE_OFFSET);
-	if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0x0) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	if(InstancePtr->Config.CardDetect) {
+		/*
+		 * Check status to ensure card is initialized
+		 */
+		PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+				XSDPS_PRES_STATE_OFFSET);
+		if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0x0) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/*
@@ -746,14 +754,16 @@ int XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	u32 PresentStateReg;
 	u32 StatusReg;
 
-	/*
-	 * Check status to ensure card is initialized
-	 */
-	PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_PRES_STATE_OFFSET);
-	if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0x0) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	if(InstancePtr->Config.CardDetect) {
+		/*
+		 * Check status to ensure card is initialized
+		 */
+		PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+				XSDPS_PRES_STATE_OFFSET);
+		if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0x0) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/*
@@ -970,15 +980,17 @@ int XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Check the present state register to make sure
-	 * card is inserted and detected by host controller
-	 */
-	PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_PRES_STATE_OFFSET);
-	if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0)	{
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	if(InstancePtr->Config.CardDetect) {
+		/*
+		 * Check the present state register to make sure
+		 * card is inserted and detected by host controller
+		 */
+		PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+				XSDPS_PRES_STATE_OFFSET);
+		if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0)	{
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/*

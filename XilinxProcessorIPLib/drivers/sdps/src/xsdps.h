@@ -108,6 +108,8 @@
 *                       when re-initialization is done.CR# 819614.
 *						Use XSdPs_Change_ClkFreq API whenever changing
 *						clock.CR# 816586.
+* 2.4	sk	   12/04/14 Added support for micro SD without
+* 						WP/CD. CR# 810655.
 *
 * </pre>
 *
@@ -137,6 +139,8 @@ typedef struct {
 	u16 DeviceId;			/**< Unique ID  of device */
 	u32 BaseAddress;		/**< Base address of the device */
 	u32 InputClockHz;		/**< Input clock frequency */
+	u32 CardDetect;			/**< Card Detect */
+	u32 WriteProtect;			/**< Write Protect */
 } XSdPs_Config;
 
 /*
