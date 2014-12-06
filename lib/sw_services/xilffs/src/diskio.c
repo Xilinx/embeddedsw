@@ -67,6 +67,8 @@
 * 2.2   hk   07/28/14 Make changes to enable use of data cache.
 * 2.3	sk	 12/04/14 Added support for micro SD without
 * 					  WP/CD. CR# 810655.
+*					  Make changes for prototypes of disk_read and
+*					  disk_write according to latest version.
 *
 * </pre>
 *
@@ -398,7 +400,7 @@ DRESULT disk_read (
 		BYTE drv,	/* Physical drive number (0) */
 		BYTE *buff,	/* Pointer to the data buffer to store read data */
 		DWORD sector,	/* Start sector number (LBA) */
-		BYTE count	/* Sector count (1..128) */
+		UINT count	/* Sector count (1..128) */
 )
 {
 #ifdef FILE_SYSTEM_INTERFACE_SD
@@ -509,7 +511,7 @@ DRESULT disk_write (
 	BYTE drv,			/* Physical drive nmuber (0..) */
 	const BYTE *buff,	/* Data to be written */
 	DWORD sector,		/* Sector address (LBA) */
-	BYTE count			/* Number of sectors to write (1..128) */
+	UINT count			/* Number of sectors to write (1..128) */
 )
 {
 	DSTATUS s;
