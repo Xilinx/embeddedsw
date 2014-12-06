@@ -142,6 +142,7 @@ int FfsSdPolledExample(void)
 	UINT NumBytesWritten;
 	u32 BuffCnt;
 	u32 FileSize = (8*1024*1024);
+	TCHAR *Path = "0:/";
 
 	for(BuffCnt = 0; BuffCnt < FileSize; BuffCnt++){
 		SourceAddress[BuffCnt] = TEST + BuffCnt;
@@ -150,7 +151,7 @@ int FfsSdPolledExample(void)
 	/*
 	 * Register volume work area, initialize device
 	 */
-	Res = f_mount(0, &fatfs);
+	Res = f_mount(&fatfs, Path, 0);
 
 	if (Res != FR_OK) {
 		return XST_FAILURE;
