@@ -1,9 +1,16 @@
-/*-----------------------------------------------------------------------
-/  Low level disk interface modlue include file   (C)ChaN, 2009
+/*-----------------------------------------------------------------------/
+/  Low level disk interface modlue include file   (C)ChaN, 2013          /
 /-----------------------------------------------------------------------*/
 
-#ifndef _DISKIO
-#define _DISKIO
+#ifndef _DISKIO_DEFINED
+#define _DISKIO_DEFINED
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define _USE_WRITE	1	/* 1: Enable disk_write function */
+#define _USE_IOCTL	1	/* 1: Enable disk_ioctl fucntion */
 
 #include "integer.h"
 
@@ -24,13 +31,12 @@ typedef enum {
 /*---------------------------------------*/
 /* Prototypes for disk control functions */
 
-int assign_drives (int, int);
-DSTATUS disk_initialize (BYTE);
-DSTATUS disk_status (BYTE);
-DRESULT disk_read (BYTE, BYTE*, DWORD, BYTE);
-DRESULT disk_write (BYTE, const BYTE*, DWORD, BYTE);
-DRESULT disk_ioctl (BYTE, BYTE, void*);
 
+DSTATUS disk_initialize (BYTE pdrv);
+DSTATUS disk_status (BYTE pdrv);
+DRESULT disk_read (BYTE pdrv, BYTE* buff, DWORD sector, UINT count);
+DRESULT disk_write (BYTE pdrv, const BYTE* buff, DWORD sector, UINT count);
+DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff);
 
 
 /* Disk Status Bits (DSTATUS) */
@@ -42,10 +48,33 @@ DRESULT disk_ioctl (BYTE, BYTE, void*);
 
 /* Command code for disk_ioctrl fucntion */
 
-/* Generic command (mandatory for FatFs) */
+/* Generic command (used by FatFs) */
 #define CTRL_SYNC			0	/* Flush disk cache (for write functions) */
 #define GET_SECTOR_COUNT	1	/* Get media size (for only f_mkfs()) */
 #define GET_SECTOR_SIZE		2	/* Get sector size (for multiple sector size (_MAX_SS >= 1024)) */
 #define GET_BLOCK_SIZE		3	/* Get erase block size (for only f_mkfs()) */
+#define CTRL_ERASE_SECTOR	4	/* Force erased a block of sectors (for only _USE_ERASE) */
+
+/* Generic command (not used by FatFs) */
+#define CTRL_POWER			5	/* Get/Set power status */
+#define CTRL_LOCK			6	/* Lock/Unlock media removal */
+#define CTRL_EJECT			7	/* Eject media */
+#define CTRL_FORMAT			8	/* Create physical format on the media */
+
+/* MMC/SDC specific ioctl command */
+#define MMC_GET_TYPE		10	/* Get card type */
+#define MMC_GET_CSD			11	/* Get CSD */
+#define MMC_GET_CID			12	/* Get CID */
+#define MMC_GET_OCR			13	/* Get OCR */
+#define MMC_GET_SDSTAT		14	/* Get SD status */
+
+/* ATA/CF specific ioctl command */
+#define ATA_GET_REV			20	/* Get F/W revision */
+#define ATA_GET_MODEL		21	/* Get model name */
+#define ATA_GET_SN			22	/* Get serial number */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
