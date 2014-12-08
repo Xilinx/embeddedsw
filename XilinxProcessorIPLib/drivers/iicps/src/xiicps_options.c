@@ -51,6 +51,7 @@
 *                    selected. This is a hardware limitation. CR#779290.
 * 2.1   hk  04/24/14 Fix for CR# 761060 - provision for repeated start.
 * 2.3	sk	10/07/14 Repeated start feature removed.
+* 2.4	sk	12/06/14 Implemented Repeated start feature.
 *
 * </pre>
 *
@@ -87,6 +88,7 @@ static OptionsMap OptionsTable[] = {
 		{XIICPS_7_BIT_ADDR_OPTION, XIICPS_CR_NEA_MASK},
 		{XIICPS_10_BIT_ADDR_OPTION, XIICPS_CR_NEA_MASK},
 		{XIICPS_SLAVE_MON_OPTION, XIICPS_CR_SLVMON_MASK},
+		{XIICPS_REP_START_OPTION, XIICPS_CR_HOLD_MASK},
 };
 
 #define XIICPS_NUM_OPTIONS      (sizeof(OptionsTable) / sizeof(OptionsMap))
@@ -123,6 +125,16 @@ int XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 				      XIICPS_CR_OFFSET);
+
+	/*
+	 * If repeated start option is requested, set the flag.
+	 * The hold bit in CR will be written by driver when the next transfer
+	 * is initiated.
+	 */
+	if (Options & XIICPS_REP_START_OPTION) {
+		InstancePtr->IsRepeatedStart = 1;
+		Options = Options & (~XIICPS_REP_START_OPTION);
+	}
 
 	/*
 	 * Loop through the options table, turning the option on.
@@ -192,6 +204,16 @@ int XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XIICPS_CR_OFFSET);
+
+	/*
+	 * If repeated start option is cleared, set the flag.
+	 * The hold bit in CR will be cleared by driver when the
+	 * following transfer ends.
+	 */
+	if (Options & XIICPS_REP_START_OPTION) {
+		InstancePtr->IsRepeatedStart = 0;
+		Options = Options & (~XIICPS_REP_START_OPTION);
+	}
 
 	/*
 	 * Loop through the options table and clear the specified options.
@@ -276,6 +298,9 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 		}
 	}
 
+	if (InstancePtr->IsRepeatedStart) {
+		OptionsFlag |= XIICPS_REP_START_OPTION;
+	}
 	return OptionsFlag;
 }
 
