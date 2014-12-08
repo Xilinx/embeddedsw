@@ -50,6 +50,7 @@
 * 2.3	sk		10/07/14 Repeated start feature removed.
 * 2.4	sk		11/03/14 Modified TimeOut Register value to 0xFF
 * 						 in XIicPs_Reset.
+*				12/06/14 Implemented Repeated start feature.
 *
 * </pre>
 *
@@ -131,6 +132,9 @@ int XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	 * Keep a copy of what options this instance has.
 	 */
 	InstancePtr->Options = XIicPs_GetOptions(InstancePtr);
+
+	/* Initialize repeated start flag to 0 */
+	InstancePtr->IsRepeatedStart = 0;
 
 	return XST_SUCCESS;
 }

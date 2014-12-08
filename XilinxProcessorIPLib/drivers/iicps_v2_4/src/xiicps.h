@@ -134,6 +134,12 @@
 * thread mutual exclusion, virtual memory, or cache control must be satisfied by
 * the layer above this driver.
 *
+*<b>Repeated Start</b>
+*
+* The I2C controller does not indicate completion of a receive transfer if HOLD
+* bit is set. Due to this errata, repeated start cannot be used if a receive
+* transfer is followed by any other transfer.
+*
 * <pre> MODIFICATION HISTORY:
 *
 * Ver   Who     Date     Changes
@@ -170,6 +176,7 @@
 * 2.3	sk	10/07/14 Repeated start feature deleted.
 * 2.4	sk	11/03/14 Modified TimeOut Register value to 0xFF
 * 					 in XIicPs_Reset.
+* 			12/06/14 Implemented Repeated start feature.
 *
 * </pre>
 *
@@ -202,6 +209,7 @@ extern "C" {
 #define XIICPS_7_BIT_ADDR_OPTION	0x01  /**< 7-bit address mode */
 #define XIICPS_10_BIT_ADDR_OPTION	0x02  /**< 10-bit address mode */
 #define XIICPS_SLAVE_MON_OPTION		0x04  /**< Slave monitor mode */
+#define XIICPS_REP_START_OPTION		0x08  /**< Repeated Start */
 /*@}*/
 
 /** @name Callback events
@@ -277,6 +285,7 @@ typedef struct {
 
 	int UpdateTxSize;	/* If tx size register has to be updated */
 	int IsSend;		/* Whether master is sending or receiving */
+	int IsRepeatedStart;	/* Indicates if user set repeated start */
 
 	XIicPs_IntrHandler StatusHandler;  /* Event handler function */
 	void *CallBackRef;	/* Callback reference for event handler */

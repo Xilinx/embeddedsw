@@ -56,6 +56,7 @@
 * 2.3	sk	 10/06/14 Fill transmit fifo before address register when sending.
 * 					  Replaced XIICPS_DATA_INTR_DEPTH with XIICPS_FIFO_DEPTH.
 * 					  Repeated start feature removed.
+*			 12/06/14 Implemented Repeated start feature.
 *
 * </pre>
 *
@@ -116,20 +117,20 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	InstancePtr->RecvBufferPtr = NULL;
 	InstancePtr->IsSend = 1;
 
+	/*
+	 * Set repeated start if sending more than FIFO of data.
+	 */
+	if ((InstancePtr->IsRepeatedStart) ||
+		(ByteCount > XIICPS_FIFO_DEPTH)) {
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+			XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
+				XIICPS_CR_HOLD_MASK);
+	}
 
 	/*
 	 * Setup as a master sending role.
 	 */
 	XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
-
-	/*
-	 * Set HOLD bit if sending more than FIFO of data.
-	 */
-	if (ByteCount > XIICPS_FIFO_DEPTH) {
-		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-			XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
-				XIICPS_CR_HOLD_MASK);
-	}
 
 	TransmitFifoFill(InstancePtr);
 
@@ -181,7 +182,9 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	InstancePtr->IsSend = 0;
 	InstancePtr->UpdateTxSize = 0;
 
-	if (ByteCount > XIICPS_FIFO_DEPTH) {
+	if ((ByteCount > XIICPS_FIFO_DEPTH) ||
+		(InstancePtr->IsRepeatedStart))
+	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
 						XIICPS_CR_HOLD_MASK);
@@ -257,7 +260,8 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	InstancePtr->SendBufferPtr = MsgPtr;
 	InstancePtr->SendByteCount = ByteCount;
 
-	if (ByteCount > XIICPS_FIFO_DEPTH) {
+	if ((InstancePtr->IsRepeatedStart) ||
+		(ByteCount > XIICPS_FIFO_DEPTH)) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
 						XIICPS_CR_HOLD_MASK);
@@ -323,9 +327,11 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		}
 	}
 
-	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-		XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
-				(~XIICPS_CR_HOLD_MASK));
+	if (!(InstancePtr->IsRepeatedStart)) {
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
+						(~XIICPS_CR_HOLD_MASK));
+	}
 
 	return XST_SUCCESS;
 }
@@ -372,14 +378,16 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	InstancePtr->RecvBufferPtr = MsgPtr;
 	InstancePtr->RecvByteCount = ByteCount;
 
-	XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
-
-	if(ByteCount > XIICPS_FIFO_DEPTH) {
+	if((ByteCount > XIICPS_FIFO_DEPTH) ||
+		(InstancePtr->IsRepeatedStart))
+	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
 						XIICPS_CR_HOLD_MASK);
 		IsHold = 1;
 	}
+
+	XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
 
 	/*
 	 * Clear the interrupt status register before use it to monitor.
@@ -419,7 +427,8 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 
 		while (StatusReg & XIICPS_SR_RXDV_MASK) {
 			if ((InstancePtr->RecvByteCount <
-				XIICPS_DATA_INTR_DEPTH) && IsHold) {
+				XIICPS_DATA_INTR_DEPTH) && IsHold &&
+				(!(InstancePtr->IsRepeatedStart))) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
@@ -465,9 +474,11 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 	}
 
-	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-			XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
-					(~XIICPS_CR_HOLD_MASK));
+	if (!(InstancePtr->IsRepeatedStart)) {
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
+						(~XIICPS_CR_HOLD_MASK));
+	}
 
 	if (IntrStatusReg & Intrs) {
 		return XST_FAILURE;
@@ -674,7 +685,8 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		while (XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET) &
 				XIICPS_SR_RXDV_MASK) {
 			if ((InstancePtr->RecvByteCount <
-				XIICPS_DATA_INTR_DEPTH) && IsHold) {
+				XIICPS_DATA_INTR_DEPTH) && IsHold &&
+				(!(InstancePtr->IsRepeatedStart))) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
@@ -724,10 +736,12 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		 * If all done, tell the application.
 		 */
 		if (InstancePtr->RecvByteCount == 0){
-			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-					XIicPs_ReadReg(BaseAddr,
-					XIICPS_CR_OFFSET) &
-					(~XIICPS_CR_HOLD_MASK));
+			if (!(InstancePtr->IsRepeatedStart)) {
+				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+						XIicPs_ReadReg(BaseAddr,
+						XIICPS_CR_OFFSET) &
+						(~XIICPS_CR_HOLD_MASK));
+			}
 			StatusEvent |= XIICPS_EVENT_COMPLETE_RECV;
 		}
 	}
@@ -741,10 +755,12 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	}
 
 	if (0 != (IntrStatusReg & XIICPS_IXR_NACK_MASK)) {
-		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-				XIicPs_ReadReg(BaseAddr,
-				XIICPS_CR_OFFSET) &
-				(~XIICPS_CR_HOLD_MASK));
+		if (!(InstancePtr->IsRepeatedStart)) {
+			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+					XIicPs_ReadReg(BaseAddr,
+					XIICPS_CR_OFFSET) &
+					(~XIICPS_CR_HOLD_MASK));
+		}
 		StatusEvent |= XIICPS_EVENT_NACK;
 	}
 
@@ -754,10 +770,12 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	if (0 != (IntrStatusReg & (XIICPS_IXR_NACK_MASK |
 			XIICPS_IXR_ARB_LOST_MASK | XIICPS_IXR_RX_UNF_MASK |
 			XIICPS_IXR_TX_OVR_MASK | XIICPS_IXR_RX_OVR_MASK))) {
-		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-				XIicPs_ReadReg(BaseAddr,
-				XIICPS_CR_OFFSET) &
-				(~XIICPS_CR_HOLD_MASK));
+		if (!(InstancePtr->IsRepeatedStart)) {
+			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+					XIicPs_ReadReg(BaseAddr,
+					XIICPS_CR_OFFSET) &
+					(~XIICPS_CR_HOLD_MASK));
+		}
 		StatusEvent |= XIICPS_EVENT_ERROR;
 	}
 
@@ -800,7 +818,7 @@ static int XIicPs_SetupMaster(XIicPs *InstancePtr, int Role)
 
 
 	/*
-	 * Only check if bus is busy when HOLD bit is not set.
+	 * Only check if bus is busy when repeated start option is not set.
 	 */
 	if ((ControlReg & XIICPS_CR_HOLD_MASK) == 0) {
 		if (XIicPs_BusIsBusy(InstancePtr)) {
@@ -849,10 +867,18 @@ static void MasterSendData(XIicPs *InstancePtr)
 	 * Clear hold bit if done, so stop can be sent out.
 	 */
 	if (InstancePtr->SendByteCount == 0) {
-		XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XIICPS_CR_OFFSET,
-			XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XIICPS_CR_OFFSET) & ~ XIICPS_CR_HOLD_MASK);
+
+		/*
+		 * If user has enabled repeated start as an option,
+		 * do not disable it.
+		 */
+		if (!(InstancePtr->IsRepeatedStart)) {
+
+			XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
+				XIICPS_CR_OFFSET,
+				XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
+				XIICPS_CR_OFFSET) & ~ XIICPS_CR_HOLD_MASK);
+		}
 	}
 
 	return;
