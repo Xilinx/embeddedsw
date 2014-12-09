@@ -39,9 +39,9 @@
 # 1.05a hk   06/26/13 Modified to export external interrupts correctly
 #                     to xparameters.h. Fix for CR's 690505, 708928 & 719359
 # 2.0   adk  12/10/13 Updated as per the New Tcl API's
-# 2.1   adk  25/04/14 Added support for corenIRQ/FIQ interrupts.Fix for the 
+# 2.1   adk  25/04/14 Added support for corenIRQ/FIQ interrupts.Fix for the
 #		      CR#789373
-#
+# 3.0	pkp  12/09/14 Added support for Zynq Ultrascale Mp
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -91,21 +91,44 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 	}
     }
     set args $newargs
-
+	set procdrv [get_sw_processor]
+	set compiler [get_property CONFIG.compiler $procdrv]
     # Print all parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
 	puts $file_handle ""
 	puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
 	foreach arg $args {
-	    if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
-		set value $device_id
-		incr device_id
-	    } elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
-		set value 0xf8f01000
-	    } else {
-		set value [get_property CONFIG.$arg $periph]
-	    }
+		if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+			set value $device_id
+			incr device_id
+		} elseif {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
+			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+				set value 0xF9001000
+			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+				set value [get_property CONFIG.$arg $periph]
+			} else {
+				set value 0xF9020000
+			}
+		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
+			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+				set value 0xF9001FFF
+			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+				set value [get_property CONFIG.$arg $periph]
+			} else {
+				set value 0xF9020FFF
+			}
+		   } elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
+			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+				set value 0xF9000000
+			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+				set value 0xf8f01000
+			} else {
+				set value 0xF9010000
+			}
+		} else {
+			set value [get_property CONFIG.$arg $periph]
+		}
 	    if {[llength $value] == 0} {
 		set value 0
 	    }
@@ -161,7 +184,8 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     set i 0
     foreach periph $periphs {
         set periph_name [string toupper [get_property NAME $periph]]
-
+	set procdrv [get_sw_processor]
+	set compiler [get_property CONFIG.compiler $procdrv]
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
         if { [lsearch $canonicals $periph_name] < 0 } {
@@ -177,16 +201,38 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
                 # The commented out rvalue is the name of the instance-specific constant
                 # set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
-                if {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
-                    set rvalue 0xf8f01000
-                } else {
-                    set rvalue [get_property CONFIG.$arg $periph]
-                }
-                if {[llength $rvalue] == 0} {
-                    set rvalue 0
-                }
-                set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
-    
+                if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
+			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+				set rvalue 0xF9001000
+			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+				set rvalue [get_property CONFIG.$arg $periph]
+			} else {
+				set rvalue 0xF9020000
+			}
+		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
+			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+				set rvalue 0xF9001FFF
+			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+				set rvalue [get_property CONFIG.$arg $periph]
+			} else {
+				set rvalue 0xF9020FFF
+			}
+		} elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
+			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+				set rvalue 0xF9000000
+			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+				set rvalue 0xf8f01000
+			} else {
+				set rvalue 0xF9010000
+			}
+		} else {
+			set rvalue [get_property CONFIG.$arg $periph]
+		}
+		if {[llength $rvalue] == 0} {
+			set rvalue 0
+		}
+		set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
+
                 puts $file_handle "#define $lvalue $rvalue"
 
             }
