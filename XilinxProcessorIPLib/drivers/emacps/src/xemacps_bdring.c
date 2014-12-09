@@ -54,6 +54,8 @@
 * 1.05a asa  09/23/13 Cache operations on BDs are not required and hence
 *		      removed. It is expected that all BDs are allocated in
 *		      from uncached area. Fix for CR #663885.
+* 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp architecture.
+*
 * </pre>
 ******************************************************************************/
 
@@ -82,7 +84,7 @@
  * @note Assume BdPtr is always a valid BD in the ring
  ****************************************************************************/
 #define XEMACPS_PHYS_TO_VIRT(BdPtr) \
-    ((u32)BdPtr + (RingPtr->BaseBdAddr - RingPtr->PhysBaseAddr))
+    ((UINTPTR)(BdPtr) + (RingPtr->BaseBdAddr - RingPtr->PhysBaseAddr))
 
 /****************************************************************************
  * Compute the physical address of a descriptor from its virtual address
@@ -94,7 +96,7 @@
  * @note Assume BdPtr is always a valid BD in the ring
  ****************************************************************************/
 #define XEMACPS_VIRT_TO_PHYS(BdPtr) \
-    ((u32)BdPtr - (RingPtr->BaseBdAddr - RingPtr->PhysBaseAddr))
+    ((UINTPTR)(BdPtr) - (RingPtr->BaseBdAddr - RingPtr->PhysBaseAddr))
 
 /****************************************************************************
  * Move the BdPtr argument ahead an arbitrary number of BDs wrapping around
@@ -113,15 +115,15 @@
  ****************************************************************************/
 #define XEMACPS_RING_SEEKAHEAD(RingPtr, BdPtr, NumBd)                  \
     {                                                                   \
-        u32 Addr = (u32)BdPtr;                                  \
+        UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                        \
                                                                         \
-        Addr += ((RingPtr)->Separation * NumBd);                        \
-        if ((Addr > (RingPtr)->HighBdAddr) || ((u32)BdPtr > Addr))  \
+        Addr += ((RingPtr)->Separation * (NumBd));                        \
+        if ((Addr > (RingPtr)->HighBdAddr) || ((UINTPTR)(void *)(BdPtr) > Addr))  \
         {                                                               \
             Addr -= (RingPtr)->Length;                                  \
         }                                                               \
                                                                         \
-        BdPtr = (XEmacPs_Bd*)Addr;                                     \
+        (BdPtr) = (XEmacPs_Bd*)(void *)Addr;                                     \
     }
 
 /****************************************************************************
@@ -141,20 +143,22 @@
  ****************************************************************************/
 #define XEMACPS_RING_SEEKBACK(RingPtr, BdPtr, NumBd)                   \
     {                                                                   \
-        u32 Addr = (u32)BdPtr;                                  \
+        UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                                  \
                                                                         \
-        Addr -= ((RingPtr)->Separation * NumBd);                        \
-        if ((Addr < (RingPtr)->BaseBdAddr) || ((u32)BdPtr < Addr))  \
+        Addr -= ((RingPtr)->Separation * (NumBd));                        \
+        if ((Addr < (RingPtr)->BaseBdAddr) || ((UINTPTR)(void*)(BdPtr) < Addr))  \
         {                                                               \
             Addr += (RingPtr)->Length;                                  \
         }                                                               \
                                                                         \
-        BdPtr = (XEmacPs_Bd*)Addr;                                     \
+        (BdPtr) = (XEmacPs_Bd*)(void*)Addr;                                     \
     }
 
 
 /************************** Function Prototypes ******************************/
 
+static void XEmacPs_BdSetRxWrap(UINTPTR BdPtr);
+static void XEmacPs_BdSetTxWrap(UINTPTR BdPtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -181,9 +185,9 @@
  *   channel.
  * - XST_INVALID_PARAM under any of the following conditions:
  *   1) PhysAddr and/or VirtAddr are not aligned to the given Alignment
- *      parameter;
+ *      parameter.
  *   2) Alignment parameter does not meet minimum requirements or is not a
- *      power of 2 value;
+ *      power of 2 value.
  *   3) BdCount is 0.
  * - XST_DMA_SG_LIST_ERROR if the memory segment containing the list spans
  *   over address 0x00000000 in virtual address space.
@@ -191,84 +195,85 @@
  * @note
  * Make sure to pass in the right alignment value.
  *****************************************************************************/
-int XEmacPs_BdRingCreate(XEmacPs_BdRing * RingPtr, u32 PhysAddr,
-			  u32 VirtAddr, u32 Alignment, unsigned BdCount)
+LONG XEmacPs_BdRingCreate(XEmacPs_BdRing * RingPtr, UINTPTR PhysAddr,
+			  UINTPTR VirtAddr, u32 Alignment, u32 BdCount)
 {
-	unsigned i;
-	u32 BdVirtAddr;
-	u32 BdPhyAddr;
+	u32 i;
+	UINTPTR BdVirtAddr;
+	UINTPTR BdPhyAddr;
+	UINTPTR VirtAddrLoc = VirtAddr;
 
 	/* In case there is a failure prior to creating list, make sure the
 	 * following attributes are 0 to prevent calls to other functions
 	 * from doing anything.
 	 */
-	RingPtr->AllCnt = 0;
-	RingPtr->FreeCnt = 0;
-	RingPtr->HwCnt = 0;
-	RingPtr->PreCnt = 0;
-	RingPtr->PostCnt = 0;
+	RingPtr->AllCnt = 0U;
+	RingPtr->FreeCnt = 0U;
+	RingPtr->HwCnt = 0U;
+	RingPtr->PreCnt = 0U;
+	RingPtr->PostCnt = 0U;
 
 	/* Make sure Alignment parameter meets minimum requirements */
-	if (Alignment < XEMACPS_DMABD_MINIMUM_ALIGNMENT) {
-		return (XST_INVALID_PARAM);
+	if (Alignment < (u32)XEMACPS_DMABD_MINIMUM_ALIGNMENT) {
+		return (LONG)(XST_INVALID_PARAM);
 	}
 
 	/* Make sure Alignment is a power of 2 */
-	if ((Alignment - 1) & Alignment) {
-		return (XST_INVALID_PARAM);
+	if (((Alignment - 0x00000001U) & Alignment)!=0x00000000U) {
+		return (LONG)(XST_INVALID_PARAM);
 	}
 
 	/* Make sure PhysAddr and VirtAddr are on same Alignment */
-	if ((PhysAddr % Alignment) || (VirtAddr % Alignment)) {
-		return (XST_INVALID_PARAM);
+	if (((PhysAddr % Alignment)!=(u32)0) || ((VirtAddrLoc % Alignment)!=(u32)0)) {
+		return (LONG)(XST_INVALID_PARAM);
 	}
 
 	/* Is BdCount reasonable? */
-	if (BdCount == 0) {
-		return (XST_INVALID_PARAM);
+	if (BdCount == 0x00000000U) {
+		return (LONG)(XST_INVALID_PARAM);
 	}
 
 	/* Figure out how many bytes will be between the start of adjacent BDs */
 	RingPtr->Separation =
-		(sizeof(XEmacPs_Bd) + (Alignment - 1)) & ~(Alignment - 1);
+		((u32)sizeof(XEmacPs_Bd) + (Alignment - (u32)1)) & ~(Alignment - (u32)1);
 
 	/* Must make sure the ring doesn't span address 0x00000000. If it does,
 	 * then the next/prev BD traversal macros will fail.
 	 */
-	if (VirtAddr > (VirtAddr + (RingPtr->Separation * BdCount) - 1)) {
-		return (XST_DMA_SG_LIST_ERROR);
+	if (VirtAddrLoc > ((VirtAddrLoc + (RingPtr->Separation * BdCount)) - (u32)1)) {
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
 	/* Initial ring setup:
 	 *  - Clear the entire space
 	 *  - Setup each BD's BDA field with the physical address of the next BD
 	 */
-	memset((void *) VirtAddr, 0, (RingPtr->Separation * BdCount));
+	(void)memset((void *) VirtAddrLoc, 0, (RingPtr->Separation * BdCount));
 
-	BdVirtAddr = VirtAddr;
+	BdVirtAddr = VirtAddrLoc;
 	BdPhyAddr = PhysAddr + RingPtr->Separation;
-	for (i = 1; i < BdCount; i++) {
+	for (i = 1U; i < BdCount; i++) {
 		BdVirtAddr += RingPtr->Separation;
 		BdPhyAddr += RingPtr->Separation;
 	}
 
 	/* Setup and initialize pointers and counters */
-	RingPtr->RunState = XST_DMA_SG_IS_STOPPED;
-	RingPtr->BaseBdAddr = VirtAddr;
+	RingPtr->RunState = (u32)(XST_DMA_SG_IS_STOPPED);
+	RingPtr->BaseBdAddr = VirtAddrLoc;
 	RingPtr->PhysBaseAddr = PhysAddr;
 	RingPtr->HighBdAddr = BdVirtAddr;
 	RingPtr->Length =
-		RingPtr->HighBdAddr - RingPtr->BaseBdAddr + RingPtr->Separation;
-	RingPtr->AllCnt = BdCount;
-	RingPtr->FreeCnt = BdCount;
-	RingPtr->FreeHead = (XEmacPs_Bd *) VirtAddr;
-	RingPtr->PreHead = (XEmacPs_Bd *) VirtAddr;
-	RingPtr->HwHead = (XEmacPs_Bd *) VirtAddr;
-	RingPtr->HwTail = (XEmacPs_Bd *) VirtAddr;
-	RingPtr->PostHead = (XEmacPs_Bd *) VirtAddr;
-	RingPtr->BdaRestart = (XEmacPs_Bd *) PhysAddr;
+		((RingPtr->HighBdAddr - RingPtr->BaseBdAddr) + RingPtr->Separation);
+	RingPtr->AllCnt = (u32)BdCount;
+	RingPtr->FreeCnt = (u32)BdCount;
+	RingPtr->FreeHead = (XEmacPs_Bd *)(void *)VirtAddrLoc;
+	RingPtr->PreHead = (XEmacPs_Bd *)VirtAddrLoc;
+	RingPtr->HwHead = (XEmacPs_Bd *)VirtAddrLoc;
+	RingPtr->HwTail = (XEmacPs_Bd *)VirtAddrLoc;
+	RingPtr->PostHead = (XEmacPs_Bd *)VirtAddrLoc;
+	RingPtr->BdaRestart = (XEmacPs_Bd *)(void *)PhysAddr;
 
-	return (XST_SUCCESS);
+	return (LONG)(XST_SUCCESS);
 }
 
 
@@ -296,37 +301,38 @@ int XEmacPs_BdRingCreate(XEmacPs_BdRing * RingPtr, u32 PhysAddr,
  *   - XST_DEVICE_IS_STARTED if the DMA channel has not been stopped.
  *
  *****************************************************************************/
-int XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
+LONG XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
 			 u8 Direction)
 {
-	unsigned i;
-	u32 CurBd;
+	u32 i;
+	UINTPTR CurBd;
 
 	/* Can't do this function if there isn't a ring */
-	if (RingPtr->AllCnt == 0) {
-		return (XST_DMA_SG_NO_LIST);
+	if (RingPtr->AllCnt == 0x00000000U) {
+		return (LONG)(XST_DMA_SG_NO_LIST);
 	}
 
 	/* Can't do this function with the channel running */
-	if (RingPtr->RunState == XST_DMA_SG_IS_STARTED) {
-		return (XST_DEVICE_IS_STARTED);
+	if (RingPtr->RunState == (u32)XST_DMA_SG_IS_STARTED) {
+		return (LONG)(XST_DEVICE_IS_STARTED);
 	}
 
 	/* Can't do this function with some of the BDs in use */
 	if (RingPtr->FreeCnt != RingPtr->AllCnt) {
-		return (XST_DMA_SG_LIST_ERROR);
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
-	if ((Direction != XEMACPS_SEND) && (Direction != XEMACPS_RECV)) {
-		return (XST_INVALID_PARAM);
+	if ((Direction != (u8)XEMACPS_SEND) && (Direction != (u8)XEMACPS_RECV)) {
+		return (LONG)(XST_INVALID_PARAM);
 	}
 
 	/* Starting from the top of the ring, save BD.Next, overwrite the entire
 	 * BD with the template, then restore BD.Next
 	 */
-	for (i = 0, CurBd = (u32) RingPtr->BaseBdAddr;
-	     i < RingPtr->AllCnt; i++, CurBd += RingPtr->Separation) {
+	CurBd = RingPtr->BaseBdAddr;
+	for (i = 0U; i < RingPtr->AllCnt; i++) {
 		memcpy((void *)CurBd, SrcBdPtr, sizeof(XEmacPs_Bd));
+	CurBd += RingPtr->Separation;
 	}
 
 	CurBd -= RingPtr->Separation;
@@ -338,7 +344,7 @@ int XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
 		XEmacPs_BdSetTxWrap(CurBd);
 	}
 
-	return (XST_SUCCESS);
+	return (LONG)(XST_SUCCESS);
 }
 
 
@@ -350,45 +356,45 @@ int XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
  * order which they were allocated here. Example:
  *
  * <pre>
- *        NumBd = 2;
- *        Status = XEmacPs_BdRingAlloc(MyRingPtr, NumBd, &MyBdSet);
+ *        NumBd = 2,
+ *        Status = XEmacPs_BdRingAlloc(MyRingPtr, NumBd, &MyBdSet),
  *
  *        if (Status != XST_SUCCESS)
  *        {
- *            // Not enough BDs available for the request
+ *            *Not enough BDs available for the request*
  *        }
  *
- *        CurBd = MyBdSet;
+ *        CurBd = MyBdSet,
  *        for (i=0; i<NumBd; i++)
  *        {
- *            // Prepare CurBd.....
+ *            * Prepare CurBd *.....
  *
- *            // Onto next BD
- *            CurBd = XEmacPs_BdRingNext(MyRingPtr, CurBd);
+ *            * Onto next BD *
+ *            CurBd = XEmacPs_BdRingNext(MyRingPtr, CurBd),
  *        }
  *
- *        // Give list to hardware
- *        Status = XEmacPs_BdRingToHw(MyRingPtr, NumBd, MyBdSet);
+ *        * Give list to hardware *
+ *        Status = XEmacPs_BdRingToHw(MyRingPtr, NumBd, MyBdSet),
  * </pre>
  *
  * A more advanced use of this function may allocate multiple sets of BDs.
  * They must be allocated and given to hardware in the correct sequence:
  * <pre>
- *        // Legal
- *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingToHw(MyRingPtr, NumBd1, MySet1);
+ *        * Legal *
+ *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingToHw(MyRingPtr, NumBd1, MySet1),
  *
- *        // Legal
- *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd2, &MySet2);
- *        XEmacPs_BdRingToHw(MyRingPtr, NumBd1, MySet1);
- *        XEmacPs_BdRingToHw(MyRingPtr, NumBd2, MySet2);
+ *        * Legal *
+ *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd2, &MySet2),
+ *        XEmacPs_BdRingToHw(MyRingPtr, NumBd1, MySet1),
+ *        XEmacPs_BdRingToHw(MyRingPtr, NumBd2, MySet2),
  *
- *        // Not legal
- *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd2, &MySet2);
- *        XEmacPs_BdRingToHw(MyRingPtr, NumBd2, MySet2);
- *        XEmacPs_BdRingToHw(MyRingPtr, NumBd1, MySet1);
+ *        * Not legal *
+ *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingAlloc(MyRingPtr, NumBd2, &MySet2),
+ *        XEmacPs_BdRingToHw(MyRingPtr, NumBd2, MySet2),
+ *        XEmacPs_BdRingToHw(MyRingPtr, NumBd1, MySet1),
  * </pre>
  *
  * Use the API defined in xemacps_bd.h to modify individual BDs. Traversal
@@ -414,20 +420,22 @@ int XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
  *       instability.
  *
  *****************************************************************************/
-int XEmacPs_BdRingAlloc(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingAlloc(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			 XEmacPs_Bd ** BdSetPtr)
 {
+	LONG Status;
 	/* Enough free BDs available for the request? */
 	if (RingPtr->FreeCnt < NumBd) {
-		return (XST_FAILURE);
-	}
-
+		Status = (LONG)(XST_FAILURE);
+	} else {
 	/* Set the return argument and move FreeHead forward */
 	*BdSetPtr = RingPtr->FreeHead;
 	XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->FreeHead, NumBd);
 	RingPtr->FreeCnt -= NumBd;
 	RingPtr->PreCnt += NumBd;
-	return (XST_SUCCESS);
+		Status = (LONG)(XST_SUCCESS);
+	}
+	return Status;
 }
 
 /*****************************************************************************/
@@ -448,30 +456,30 @@ int XEmacPs_BdRingAlloc(XEmacPs_BdRing * RingPtr, unsigned NumBd,
  * Partial UnAlloc. A Full UnAlloc means all the BDs Alloc'd will be returned:
  *
  * <pre>
- *    Status = XEmacPs_BdRingAlloc(MyRingPtr, 10, &BdPtr);
+ *    Status = XEmacPs_BdRingAlloc(MyRingPtr, 10, &BdPtr),
  *        ...
  *    if (Error)
  *    {
- *        Status = XEmacPs_BdRingUnAlloc(MyRingPtr, 10, &BdPtr);
+ *        Status = XEmacPs_BdRingUnAlloc(MyRingPtr, 10, &BdPtr),
  *    }
  * </pre>
  *
  * A partial UnAlloc means some of the BDs Alloc'd will be returned:
  *
  * <pre>
- *    Status = XEmacPs_BdRingAlloc(MyRingPtr, 10, &BdPtr);
- *    BdsLeft = 10;
- *    CurBdPtr = BdPtr;
+ *    Status = XEmacPs_BdRingAlloc(MyRingPtr, 10, &BdPtr),
+ *    BdsLeft = 10,
+ *    CurBdPtr = BdPtr,
  *
  *    while (BdsLeft)
  *    {
  *       if (Error)
  *       {
- *          Status = XEmacPs_BdRingUnAlloc(MyRingPtr, BdsLeft, CurBdPtr);
+ *          Status = XEmacPs_BdRingUnAlloc(MyRingPtr, BdsLeft, CurBdPtr),
  *       }
  *
- *       CurBdPtr = XEmacPs_BdRingNext(MyRingPtr, CurBdPtr);
- *       BdsLeft--;
+ *       CurBdPtr = XEmacPs_BdRingNext(MyRingPtr, CurBdPtr),
+ *       BdsLeft--,
  *    }
  * </pre>
  *
@@ -492,21 +500,25 @@ int XEmacPs_BdRingAlloc(XEmacPs_BdRing * RingPtr, unsigned NumBd,
  *       provide a mutual exclusion mechanism.
  *
  *****************************************************************************/
-int XEmacPs_BdRingUnAlloc(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingUnAlloc(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			   XEmacPs_Bd * BdSetPtr)
 {
-	(void)BdSetPtr;
+	LONG Status;
+	(void *)BdSetPtr;
+	Xil_AssertNonvoid(RingPtr != NULL);
+	Xil_AssertNonvoid(BdSetPtr != NULL);
 
 	/* Enough BDs in the free state for the request? */
 	if (RingPtr->PreCnt < NumBd) {
-		return (XST_FAILURE);
-	}
-
+		Status = (LONG)(XST_FAILURE);
+	} else {
 	/* Set the return argument and move FreeHead backward */
-	XEMACPS_RING_SEEKBACK(RingPtr, RingPtr->FreeHead, NumBd);
+		XEMACPS_RING_SEEKBACK(RingPtr, (RingPtr->FreeHead), NumBd);
 	RingPtr->FreeCnt += NumBd;
 	RingPtr->PreCnt -= NumBd;
-	return (XST_SUCCESS);
+		Status = (LONG)(XST_SUCCESS);
+	}
+	return Status;
 }
 
 
@@ -536,34 +548,34 @@ int XEmacPs_BdRingUnAlloc(XEmacPs_BdRing * RingPtr, unsigned NumBd,
  *       provide a mutual exclusion mechanism.
  *
  *****************************************************************************/
-int XEmacPs_BdRingToHw(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingToHw(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			XEmacPs_Bd * BdSetPtr)
 {
 	XEmacPs_Bd *CurBdPtr;
-	unsigned i;
-
+	u32 i;
+	LONG Status;
 	/* if no bds to process, simply return. */
-	if (0 == NumBd)
-		return (XST_SUCCESS);
-
+	if (0U == NumBd){
+		Status = (LONG)(XST_SUCCESS);
+	} else {
 	/* Make sure we are in sync with XEmacPs_BdRingAlloc() */
 	if ((RingPtr->PreCnt < NumBd) || (RingPtr->PreHead != BdSetPtr)) {
-		return (XST_DMA_SG_LIST_ERROR);
-	}
-
+			Status = (LONG)(XST_DMA_SG_LIST_ERROR);
+		} else {
 	CurBdPtr = BdSetPtr;
-	for (i = 0; i < NumBd; i++) {
-		CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
+			for (i = 0U; i < NumBd; i++) {
+				CurBdPtr = (XEmacPs_Bd *)((void *)XEmacPs_BdRingNext(RingPtr, CurBdPtr));
 	}
-
 	/* Adjust ring pointers & counters */
 	XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->PreHead, NumBd);
 	RingPtr->PreCnt -= NumBd;
-
 	RingPtr->HwTail = CurBdPtr;
 	RingPtr->HwCnt += NumBd;
 
-	return (XST_SUCCESS);
+			Status = (LONG)(XST_SUCCESS);
+		}
+	}
+	return Status;
 }
 
 
@@ -575,44 +587,43 @@ int XEmacPs_BdRingToHw(XEmacPs_BdRing * RingPtr, unsigned NumBd,
  * in the same order which they were retrieved here. Example:
  *
  * <pre>
- *        NumBd = XEmacPs_BdRingFromHwTx(MyRingPtr, MaxBd, &MyBdSet);
- *
+ *        NumBd = XEmacPs_BdRingFromHwTx(MyRingPtr, MaxBd, &MyBdSet),
  *        if (NumBd == 0)
  *        {
- *           // hardware has nothing ready for us yet
+ *           * hardware has nothing ready for us yet*
  *        }
  *
- *        CurBd = MyBdSet;
+ *        CurBd = MyBdSet,
  *        for (i=0; i<NumBd; i++)
  *        {
- *           // Examine CurBd for post processing.....
+ *           * Examine CurBd for post processing *.....
  *
- *           // Onto next BD
- *           CurBd = XEmacPs_BdRingNext(MyRingPtr, CurBd);
+ *           * Onto next BD *
+ *           CurBd = XEmacPs_BdRingNext(MyRingPtr, CurBd),
  *           }
  *
- *           XEmacPs_BdRingFree(MyRingPtr, NumBd, MyBdSet); // Return list
+ *           XEmacPs_BdRingFree(MyRingPtr, NumBd, MyBdSet),  *Return list*
  *        }
  * </pre>
  *
  * A more advanced use of this function may allocate multiple sets of BDs.
  * They must be retrieved from hardware and freed in the correct sequence:
  * <pre>
- *        // Legal
- *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1);
+ *        * Legal *
+ *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1),
  *
- *        // Legal
- *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd2, &MySet2);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2);
+ *        * Legal *
+ *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd2, &MySet2),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2),
  *
- *        // Not legal
- *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd2, &MySet2);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1);
+ *        * Not legal *
+ *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingFromHwTx(MyRingPtr, NumBd2, &MySet2),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1),
  * </pre>
  *
  * If hardware has only partially completed a packet spanning multiple BDs,
@@ -634,43 +645,45 @@ int XEmacPs_BdRingToHw(XEmacPs_BdRing * RingPtr, unsigned NumBd,
  *       provide a mutual exclusion mechanism.
  *
  *****************************************************************************/
-unsigned XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
+u32 XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 				 XEmacPs_Bd ** BdSetPtr)
 {
 	XEmacPs_Bd *CurBdPtr;
-	u32 BdStr = 0;
-	unsigned BdCount;
-	unsigned BdPartialCount;
-	unsigned int Sop = 0;
-
-
+	u32 BdStr = 0U;
+	u32 BdCount;
+	u32 BdPartialCount;
+	u32 Sop = 0U;
+	u32 BdLimitLoc = BdLimit;
 	CurBdPtr = RingPtr->HwHead;
-	BdCount = 0;
-	BdPartialCount = 0;
+	BdCount = 0U;
+	BdPartialCount = 0U;
+	u32 Status;
 
 	/* If no BDs in work group, then there's nothing to search */
-	if (RingPtr->HwCnt == 0) {
+	if (RingPtr->HwCnt == 0x00000000U) {
 		*BdSetPtr = NULL;
-		return (0);
+		Status = 0U;
+	} else {
+
+		if (BdLimitLoc > RingPtr->HwCnt){
+			BdLimitLoc = RingPtr->HwCnt;
 	}
-
-	if (BdLimit > RingPtr->HwCnt)
-		BdLimit = RingPtr->HwCnt;
-
 	/* Starting at HwHead, keep moving forward in the list until:
 	 *  - A BD is encountered with its new/used bit set which means
 	 *    hardware has not completed processing of that BD.
 	 *  - RingPtr->HwTail is reached and RingPtr->HwCnt is reached.
 	 *  - The number of requested BDs has been processed
 	 */
-	while (BdCount < BdLimit) {
+		while (BdCount < BdLimitLoc) {
 		/* Read the status */
+			if(CurBdPtr != NULL){
 		BdStr = XEmacPs_BdRead(CurBdPtr, XEMACPS_BD_STAT_OFFSET);
+			}
 
-		if ((Sop == 0) && (BdStr & XEMACPS_TXBUF_USED_MASK))
-			Sop = 1;
-
-		if (Sop == 1) {
+			if ((Sop == 0x00000000U) && ((BdStr & XEMACPS_TXBUF_USED_MASK)!=0x00000000U)){
+				Sop = 1U;
+			}
+			if (Sop == 0x00000001U) {
 			BdCount++;
 			BdPartialCount++;
 		}
@@ -679,9 +692,9 @@ unsigned XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
 		 * If it is clear, then there are more BDs for the current
 		 * packet. Keep a count of these partial packet BDs.
 		 */
-		if ((Sop == 1) && (BdStr & XEMACPS_TXBUF_LAST_MASK)) {
-			Sop = 0;
-			BdPartialCount = 0;
+			if ((Sop == 0x00000001U) && ((BdStr & XEMACPS_TXBUF_LAST_MASK)!=0x00000000U)) {
+				Sop = 0U;
+				BdPartialCount = 0U;
 		}
 
 		/* Move on to next BD in work group */
@@ -694,17 +707,18 @@ unsigned XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
 	/* If BdCount is non-zero then BDs were found to return. Set return
 	 * parameters, update pointers and counters, return success
 	 */
-	if (BdCount > 0) {
+		if (BdCount > 0x00000000U) {
 		*BdSetPtr = RingPtr->HwHead;
 		RingPtr->HwCnt -= BdCount;
 		RingPtr->PostCnt += BdCount;
 		XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->HwHead, BdCount);
-		return (BdCount);
+			Status = (BdCount);
+		} else {
+			*BdSetPtr = NULL;
+			Status = 0U;
 	}
-	else {
-		*BdSetPtr = NULL;
-		return (0);
 	}
+	return Status;
 }
 
 
@@ -716,44 +730,44 @@ unsigned XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
  * in the same order which they were retrieved here. Example:
  *
  * <pre>
- *        NumBd = XEmacPs_BdRingFromHwRx(MyRingPtr, MaxBd, &MyBdSet);
+ *        NumBd = XEmacPs_BdRingFromHwRx(MyRingPtr, MaxBd, &MyBdSet),
  *
  *        if (NumBd == 0)
  *        {
- *           // hardware has nothing ready for us yet
+ *           *hardware has nothing ready for us yet*
  *        }
  *
- *        CurBd = MyBdSet;
+ *        CurBd = MyBdSet,
  *        for (i=0; i<NumBd; i++)
  *        {
- *           // Examine CurBd for post processing.....
+ *           * Examine CurBd for post processing *.....
  *
- *           // Onto next BD
- *           CurBd = XEmacPs_BdRingNext(MyRingPtr, CurBd);
+ *           * Onto next BD *
+ *           CurBd = XEmacPs_BdRingNext(MyRingPtr, CurBd),
  *           }
  *
- *           XEmacPs_BdRingFree(MyRingPtr, NumBd, MyBdSet); // Return list
+ *           XEmacPs_BdRingFree(MyRingPtr, NumBd, MyBdSet),  * Return list *
  *        }
  * </pre>
  *
  * A more advanced use of this function may allocate multiple sets of BDs.
  * They must be retrieved from hardware and freed in the correct sequence:
  * <pre>
- *        // Legal
- *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1);
+ *        * Legal *
+ *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1),
  *
- *        // Legal
- *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd2, &MySet2);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2);
+ *        * Legal *
+ *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd2, &MySet2),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2),
  *
- *        // Not legal
- *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd1, &MySet1);
- *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd2, &MySet2);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2);
- *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1);
+ *        * Not legal *
+ *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd1, &MySet1),
+ *        XEmacPs_BdRingFromHwRx(MyRingPtr, NumBd2, &MySet2),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd2, MySet2),
+ *        XEmacPs_BdRingFree(MyRingPtr, NumBd1, MySet1),
  * </pre>
  *
  * If hardware has only partially completed a packet spanning multiple BDs,
@@ -775,23 +789,24 @@ unsigned XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
  *       provide a mutual exclusion mechanism.
  *
  *****************************************************************************/
-unsigned XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
+u32 XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 				 XEmacPs_Bd ** BdSetPtr)
 {
 	XEmacPs_Bd *CurBdPtr;
-	u32 BdStr = 0;
-	unsigned BdCount;
-	unsigned BdPartialCount;
+	u32 BdStr = 0U;
+	u32 BdCount;
+	u32 BdPartialCount;
+	u32 Status;
 
 	CurBdPtr = RingPtr->HwHead;
-	BdCount = 0;
-	BdPartialCount = 0;
+	BdCount = 0U;
+	BdPartialCount = 0U;
 
 	/* If no BDs in work group, then there's nothing to search */
-	if (RingPtr->HwCnt == 0) {
+	if (RingPtr->HwCnt == 0x00000000U) {
 		*BdSetPtr = NULL;
-		return (0);
-	}
+		Status = 0U;
+	} else {
 
 	/* Starting at HwHead, keep moving forward in the list until:
 	 *  - A BD is encountered with its new/used bit set which means
@@ -802,9 +817,10 @@ unsigned XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
 	while (BdCount < BdLimit) {
 
 		/* Read the status */
+			if(CurBdPtr!=NULL){
 		BdStr = XEmacPs_BdRead(CurBdPtr, XEMACPS_BD_STAT_OFFSET);
-
-		if (!(XEmacPs_BdIsRxNew(CurBdPtr))) {
+			}
+			if ((!(XEmacPs_BdIsRxNew(CurBdPtr)))==TRUE) {
 			break;
 		}
 
@@ -814,10 +830,9 @@ unsigned XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
                  * it is clear, then there are more BDs for the current packet.
                  * Keep a count of these partial packet BDs.
 		 */
-		if (BdStr & XEMACPS_RXBUF_EOF_MASK) {
-			BdPartialCount = 0;
-		}
-		else {
+			if ((BdStr & XEMACPS_RXBUF_EOF_MASK)!=0x00000000U) {
+				BdPartialCount = 0U;
+			} else {
 			BdPartialCount++;
 		}
 
@@ -831,17 +846,19 @@ unsigned XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
 	/* If BdCount is non-zero then BDs were found to return. Set return
 	 * parameters, update pointers and counters, return success
 	 */
-	if (BdCount > 0) {
+		if (BdCount > 0x00000000U) {
 		*BdSetPtr = RingPtr->HwHead;
 		RingPtr->HwCnt -= BdCount;
 		RingPtr->PostCnt += BdCount;
 		XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->HwHead, BdCount);
-		return (BdCount);
+			Status = (BdCount);
 	}
 	else {
 		*BdSetPtr = NULL;
-		return (0);
+			Status = 0U;
 	}
+}
+	return Status;
 }
 
 
@@ -865,23 +882,26 @@ unsigned XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
  *       provide a mutual exclusion mechanism.
  *
  *****************************************************************************/
-int XEmacPs_BdRingFree(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingFree(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			XEmacPs_Bd * BdSetPtr)
 {
+	LONG Status;
 	/* if no bds to process, simply return. */
-	if (0 == NumBd)
-		return (XST_SUCCESS);
-
+	if (0x00000000U == NumBd){
+		Status = (LONG)(XST_SUCCESS);
+	} else {
 	/* Make sure we are in sync with XEmacPs_BdRingFromHw() */
 	if ((RingPtr->PostCnt < NumBd) || (RingPtr->PostHead != BdSetPtr)) {
-		return (XST_DMA_SG_LIST_ERROR);
-	}
-
+			Status = (LONG)(XST_DMA_SG_LIST_ERROR);
+		} else {
 	/* Update pointers and counters */
 	RingPtr->FreeCnt += NumBd;
 	RingPtr->PostCnt -= NumBd;
 	XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->PostHead, NumBd);
-	return (XST_SUCCESS);
+			Status = (LONG)(XST_SUCCESS);
+		}
+	}
+	return Status;
 }
 
 
@@ -913,70 +933,70 @@ int XEmacPs_BdRingFree(XEmacPs_BdRing * RingPtr, unsigned NumBd,
  *       provide a mutual exclusion mechanism.
  *
  *****************************************************************************/
-int XEmacPs_BdRingCheck(XEmacPs_BdRing * RingPtr, u8 Direction)
+LONG XEmacPs_BdRingCheck(XEmacPs_BdRing * RingPtr, u8 Direction)
 {
-	u32 AddrV, AddrP;
-	unsigned i;
+	UINTPTR AddrV, AddrP;
+	u32 i;
 
-	if ((Direction != XEMACPS_SEND) && (Direction != XEMACPS_RECV)) {
-		return (XST_INVALID_PARAM);
+	if ((Direction != (u8)XEMACPS_SEND) && (Direction != (u8)XEMACPS_RECV)) {
+		return (LONG)(XST_INVALID_PARAM);
 	}
 
 	/* Is the list created */
-	if (RingPtr->AllCnt == 0) {
-		return (XST_DMA_SG_NO_LIST);
+	if (RingPtr->AllCnt == 0x00000000U) {
+		return (LONG)(XST_DMA_SG_NO_LIST);
 	}
 
 	/* Can't check if channel is running */
-	if (RingPtr->RunState == XST_DMA_SG_IS_STARTED) {
-		return (XST_IS_STARTED);
+	if (RingPtr->RunState == (u32)XST_DMA_SG_IS_STARTED) {
+		return (LONG)(XST_IS_STARTED);
 	}
 
 	/* RunState doesn't make sense */
-	else if (RingPtr->RunState != XST_DMA_SG_IS_STOPPED) {
-		return (XST_DMA_SG_LIST_ERROR);
+	if (RingPtr->RunState != (u32)XST_DMA_SG_IS_STOPPED) {
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
 	/* Verify internal pointers point to correct memory space */
-	AddrV = (u32) RingPtr->FreeHead;
+	AddrV = (UINTPTR) RingPtr->FreeHead;
 	if ((AddrV < RingPtr->BaseBdAddr) || (AddrV > RingPtr->HighBdAddr)) {
-		return (XST_DMA_SG_LIST_ERROR);
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
-	AddrV = (u32) RingPtr->PreHead;
+	AddrV = (UINTPTR) RingPtr->PreHead;
 	if ((AddrV < RingPtr->BaseBdAddr) || (AddrV > RingPtr->HighBdAddr)) {
-		return (XST_DMA_SG_LIST_ERROR);
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
-	AddrV = (u32) RingPtr->HwHead;
+	AddrV = (UINTPTR) RingPtr->HwHead;
 	if ((AddrV < RingPtr->BaseBdAddr) || (AddrV > RingPtr->HighBdAddr)) {
-		return (XST_DMA_SG_LIST_ERROR);
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
-	AddrV = (u32) RingPtr->HwTail;
+	AddrV = (UINTPTR) RingPtr->HwTail;
 	if ((AddrV < RingPtr->BaseBdAddr) || (AddrV > RingPtr->HighBdAddr)) {
-		return (XST_DMA_SG_LIST_ERROR);
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
-	AddrV = (u32) RingPtr->PostHead;
+	AddrV = (UINTPTR) RingPtr->PostHead;
 	if ((AddrV < RingPtr->BaseBdAddr) || (AddrV > RingPtr->HighBdAddr)) {
-		return (XST_DMA_SG_LIST_ERROR);
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
 	/* Verify internal counters add up */
 	if ((RingPtr->HwCnt + RingPtr->PreCnt + RingPtr->FreeCnt +
 	     RingPtr->PostCnt) != RingPtr->AllCnt) {
-		return (XST_DMA_SG_LIST_ERROR);
+		return (LONG)(XST_DMA_SG_LIST_ERROR);
 	}
 
 	/* Verify BDs are linked correctly */
 	AddrV = RingPtr->BaseBdAddr;
 	AddrP = RingPtr->PhysBaseAddr + RingPtr->Separation;
 
-	for (i = 1; i < RingPtr->AllCnt; i++) {
+	for (i = 1U; i < RingPtr->AllCnt; i++) {
 		/* Check BDA for this BD. It should point to next physical addr */
 		if (XEmacPs_BdRead(AddrV, XEMACPS_BD_ADDR_OFFSET) != AddrP) {
-			return (XST_DMA_SG_LIST_ERROR);
+			return (LONG)(XST_DMA_SG_LIST_ERROR);
 		}
 
 		/* Move on to next BD */
@@ -986,16 +1006,68 @@ int XEmacPs_BdRingCheck(XEmacPs_BdRing * RingPtr, u8 Direction)
 
 	/* Last BD should have wrap bit set */
 	if (XEMACPS_SEND == Direction) {
-		if (!XEmacPs_BdIsTxWrap(AddrV)) {
-			return (XST_DMA_SG_LIST_ERROR);
+		if ((!XEmacPs_BdIsTxWrap(AddrV))==TRUE) {
+			return (LONG)(XST_DMA_SG_LIST_ERROR);
 		}
 	}
 	else {			/* XEMACPS_RECV */
-		if (!XEmacPs_BdIsRxWrap(AddrV)) {
-			return (XST_DMA_SG_LIST_ERROR);
+		if ((!XEmacPs_BdIsRxWrap(AddrV))==TRUE) {
+			return (LONG)(XST_DMA_SG_LIST_ERROR);
 		}
 	}
 
 	/* No problems found */
-	return (XST_SUCCESS);
+	return (LONG)(XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+ * Set this bit to mark the last descriptor in the receive buffer descriptor
+ * list.
+ *
+ * @param  BdPtr is the BD pointer to operate on
+ *
+ * @note
+ * C-style signature:
+ *    void XEmacPs_BdSetRxWrap(XEmacPs_Bd* BdPtr)
+ *
+ *****************************************************************************/
+static void XEmacPs_BdSetRxWrap(UINTPTR BdPtr)
+{
+    u32 DataValueRx;
+	u32 *TempPtr;
+
+	BdPtr += (u32)(XEMACPS_BD_ADDR_OFFSET);
+	TempPtr = (u32 *)BdPtr;
+	if(TempPtr != NULL) {
+		DataValueRx = *TempPtr;
+		DataValueRx |= XEMACPS_RXBUF_WRAP_MASK;
+		*TempPtr = DataValueRx;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * Sets this bit to mark the last descriptor in the transmit buffer
+ * descriptor list.
+ *
+ * @param  BdPtr is the BD pointer to operate on
+ *
+ * @note
+ * C-style signature:
+ *    void XEmacPs_BdSetTxWrap(XEmacPs_Bd* BdPtr)
+ *
+ *****************************************************************************/
+static void XEmacPs_BdSetTxWrap(UINTPTR BdPtr)
+{
+    u32 DataValueTx;
+	u32 *TempPtr;
+
+	BdPtr += (u32)(XEMACPS_BD_STAT_OFFSET);
+	TempPtr = (u32 *)BdPtr;
+	if(TempPtr != NULL) {
+		DataValueTx = *TempPtr;
+		DataValueTx |= XEMACPS_TXBUF_WRAP_MASK;
+		*TempPtr = DataValueTx;
+	}
 }

@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver emacps
 
-  OPTION supported_peripherals = (ps7_ethernet);
+  OPTION supported_peripherals = (ps7_ethernet ps8_ethernet pss_ethernet);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 3.0;

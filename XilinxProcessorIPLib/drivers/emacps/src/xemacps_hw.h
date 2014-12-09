@@ -50,6 +50,7 @@
 * 1.05a kpc  28/06/13 Added XEmacPs_ResetHw function prototype
 * 1.06a asa  11/02/13 Changed the value for XEMACPS_RXBUF_LEN_MASK from 0x3fff
 *					  to 0x1fff. This fixes the CR#744902.
+* 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification.
 * </pre>
 *
 ******************************************************************************/
@@ -69,12 +70,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XEMACPS_MAX_MAC_ADDR     4   /**< Maxmum number of mac address
+#define XEMACPS_MAX_MAC_ADDR     4U   /**< Maxmum number of mac address
                                            supported */
-#define XEMACPS_MAX_TYPE_ID      4   /**< Maxmum number of type id supported */
-#define XEMACPS_BD_ALIGNMENT     4   /**< Minimum buffer descriptor alignment
+#define XEMACPS_MAX_TYPE_ID      4U   /**< Maxmum number of type id supported */
+
+#define XEMACPS_BD_ALIGNMENT     64U   /**< Minimum buffer descriptor alignment
                                            on the local bus */
-#define XEMACPS_RX_BUF_ALIGNMENT 4   /**< Minimum buffer alignment when using
+#define XEMACPS_RX_BUF_ALIGNMENT 4U   /**< Minimum buffer alignment when using
                                            options that impose alignment
                                            restrictions on the buffer data on
                                            the local bus */
@@ -85,275 +87,289 @@ extern "C" {
  *  to specify whether an operation specifies a send or receive channel.
  * @{
  */
-#define XEMACPS_SEND        1	      /**< send direction */
-#define XEMACPS_RECV        2	      /**< receive direction */
+#define XEMACPS_SEND        1U	      /**< send direction */
+#define XEMACPS_RECV        2U	      /**< receive direction */
 /*@}*/
 
 /**  @name MDC clock division
  *  currently supporting 8, 16, 32, 48, 64, 96, 128, 224.
  * @{
  */
-typedef enum { MDC_DIV_8 = 0, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
+typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 	MDC_DIV_64, MDC_DIV_96, MDC_DIV_128, MDC_DIV_224
 } XEmacPs_MdcDiv;
 
 /*@}*/
 
-#define XEMACPS_RX_BUF_SIZE 1536 /**< Specify the receive buffer size in
+#define XEMACPS_RX_BUF_SIZE 1536U /**< Specify the receive buffer size in
                                        bytes, 64, 128, ... 10240 */
-#define XEMACPS_RX_BUF_UNIT   64 /**< Number of receive buffer bytes as a
+#define XEMACPS_RX_BUF_UNIT   64U /**< Number of receive buffer bytes as a
                                        unit, this is HW setup */
 
-#define XEMACPS_MAX_RXBD     128 /**< Size of RX buffer descriptor queues */
-#define XEMACPS_MAX_TXBD     128 /**< Size of TX buffer descriptor queues */
+#define XEMACPS_MAX_RXBD     128U /**< Size of RX buffer descriptor queues */
+#define XEMACPS_MAX_TXBD     128U /**< Size of TX buffer descriptor queues */
 
-#define XEMACPS_MAX_HASH_BITS 64 /**< Maximum value for hash bits. 2**6 */
+#define XEMACPS_MAX_HASH_BITS 64U /**< Maximum value for hash bits. 2**6 */
 
 /* Register offset definitions. Unless otherwise noted, register access is
  * 32 bit. Names are self explained here.
  */
 
-#define XEMACPS_NWCTRL_OFFSET        0x00000000 /**< Network Control reg */
-#define XEMACPS_NWCFG_OFFSET         0x00000004 /**< Network Config reg */
-#define XEMACPS_NWSR_OFFSET          0x00000008 /**< Network Status reg */
+#define XEMACPS_NWCTRL_OFFSET        0x00000000U /**< Network Control reg */
+#define XEMACPS_NWCFG_OFFSET         0x00000004U /**< Network Config reg */
+#define XEMACPS_NWSR_OFFSET          0x00000008U /**< Network Status reg */
 
-#define XEMACPS_DMACR_OFFSET         0x00000010 /**< DMA Control reg */
-#define XEMACPS_TXSR_OFFSET          0x00000014 /**< TX Status reg */
-#define XEMACPS_RXQBASE_OFFSET       0x00000018 /**< RX Q Base address reg */
-#define XEMACPS_TXQBASE_OFFSET       0x0000001C /**< TX Q Base address reg */
-#define XEMACPS_RXSR_OFFSET          0x00000020 /**< RX Status reg */
+#define XEMACPS_DMACR_OFFSET         0x00000010U /**< DMA Control reg */
+#define XEMACPS_TXSR_OFFSET          0x00000014U /**< TX Status reg */
+#define XEMACPS_RXQBASE_OFFSET       0x00000018U /**< RX Q Base address reg */
+#define XEMACPS_TXQBASE_OFFSET       0x0000001CU /**< TX Q Base address reg */
+#define XEMACPS_RXSR_OFFSET          0x00000020U /**< RX Status reg */
 
-#define XEMACPS_ISR_OFFSET           0x00000024 /**< Interrupt Status reg */
-#define XEMACPS_IER_OFFSET           0x00000028 /**< Interrupt Enable reg */
-#define XEMACPS_IDR_OFFSET           0x0000002C /**< Interrupt Disable reg */
-#define XEMACPS_IMR_OFFSET           0x00000030 /**< Interrupt Mask reg */
+#define XEMACPS_ISR_OFFSET           0x00000024U /**< Interrupt Status reg */
+#define XEMACPS_IER_OFFSET           0x00000028U /**< Interrupt Enable reg */
+#define XEMACPS_IDR_OFFSET           0x0000002CU /**< Interrupt Disable reg */
+#define XEMACPS_IMR_OFFSET           0x00000030U /**< Interrupt Mask reg */
 
-#define XEMACPS_PHYMNTNC_OFFSET      0x00000034 /**< Phy Maintaince reg */
-#define XEMACPS_RXPAUSE_OFFSET       0x00000038 /**< RX Pause Time reg */
-#define XEMACPS_TXPAUSE_OFFSET       0x0000003C /**< TX Pause Time reg */
+#define XEMACPS_PHYMNTNC_OFFSET      0x00000034U /**< Phy Maintaince reg */
+#define XEMACPS_RXPAUSE_OFFSET       0x00000038U /**< RX Pause Time reg */
+#define XEMACPS_TXPAUSE_OFFSET       0x0000003CU /**< TX Pause Time reg */
 
-#define XEMACPS_HASHL_OFFSET         0x00000080 /**< Hash Low address reg */
-#define XEMACPS_HASHH_OFFSET         0x00000084 /**< Hash High address reg */
+#define XEMACPS_HASHL_OFFSET         0x00000080U /**< Hash Low address reg */
+#define XEMACPS_HASHH_OFFSET         0x00000084U /**< Hash High address reg */
 
-#define XEMACPS_LADDR1L_OFFSET       0x00000088 /**< Specific1 addr low reg */
-#define XEMACPS_LADDR1H_OFFSET       0x0000008C /**< Specific1 addr high reg */
-#define XEMACPS_LADDR2L_OFFSET       0x00000090 /**< Specific2 addr low reg */
-#define XEMACPS_LADDR2H_OFFSET       0x00000094 /**< Specific2 addr high reg */
-#define XEMACPS_LADDR3L_OFFSET       0x00000098 /**< Specific3 addr low reg */
-#define XEMACPS_LADDR3H_OFFSET       0x0000009C /**< Specific3 addr high reg */
-#define XEMACPS_LADDR4L_OFFSET       0x000000A0 /**< Specific4 addr low reg */
-#define XEMACPS_LADDR4H_OFFSET       0x000000A4 /**< Specific4 addr high reg */
+#define XEMACPS_LADDR1L_OFFSET       0x00000088U /**< Specific1 addr low reg */
+#define XEMACPS_LADDR1H_OFFSET       0x0000008CU /**< Specific1 addr high reg */
+#define XEMACPS_LADDR2L_OFFSET       0x00000090U /**< Specific2 addr low reg */
+#define XEMACPS_LADDR2H_OFFSET       0x00000094U /**< Specific2 addr high reg */
+#define XEMACPS_LADDR3L_OFFSET       0x00000098U /**< Specific3 addr low reg */
+#define XEMACPS_LADDR3H_OFFSET       0x0000009CU /**< Specific3 addr high reg */
+#define XEMACPS_LADDR4L_OFFSET       0x000000A0U /**< Specific4 addr low reg */
+#define XEMACPS_LADDR4H_OFFSET       0x000000A4U /**< Specific4 addr high reg */
 
-#define XEMACPS_MATCH1_OFFSET        0x000000A8 /**< Type ID1 Match reg */
-#define XEMACPS_MATCH2_OFFSET        0x000000AC /**< Type ID2 Match reg */
-#define XEMACPS_MATCH3_OFFSET        0x000000B0 /**< Type ID3 Match reg */
-#define XEMACPS_MATCH4_OFFSET        0x000000B4 /**< Type ID4 Match reg */
+#define XEMACPS_MATCH1_OFFSET        0x000000A8U /**< Type ID1 Match reg */
+#define XEMACPS_MATCH2_OFFSET        0x000000ACU /**< Type ID2 Match reg */
+#define XEMACPS_MATCH3_OFFSET        0x000000B0U /**< Type ID3 Match reg */
+#define XEMACPS_MATCH4_OFFSET        0x000000B4U /**< Type ID4 Match reg */
 
-#define XEMACPS_STRETCH_OFFSET       0x000000BC /**< IPG Stretch reg */
+#define XEMACPS_STRETCH_OFFSET       0x000000BCU /**< IPG Stretch reg */
 
-#define XEMACPS_OCTTXL_OFFSET        0x00000100 /**< Octects transmitted Low
+#define XEMACPS_OCTTXL_OFFSET        0x00000100U /**< Octects transmitted Low
                                                       reg */
-#define XEMACPS_OCTTXH_OFFSET        0x00000104 /**< Octects transmitted High
+#define XEMACPS_OCTTXH_OFFSET        0x00000104U /**< Octects transmitted High
                                                       reg */
 
-#define XEMACPS_TXCNT_OFFSET         0x00000108 /**< Error-free Frmaes
+#define XEMACPS_TXCNT_OFFSET         0x00000108U /**< Error-free Frmaes
                                                       transmitted counter */
-#define XEMACPS_TXBCCNT_OFFSET       0x0000010C /**< Error-free Broadcast
+#define XEMACPS_TXBCCNT_OFFSET       0x0000010CU /**< Error-free Broadcast
                                                       Frames counter*/
-#define XEMACPS_TXMCCNT_OFFSET       0x00000110 /**< Error-free Multicast
+#define XEMACPS_TXMCCNT_OFFSET       0x00000110U /**< Error-free Multicast
                                                       Frame counter */
-#define XEMACPS_TXPAUSECNT_OFFSET    0x00000114 /**< Pause Frames Transmitted
+#define XEMACPS_TXPAUSECNT_OFFSET    0x00000114U /**< Pause Frames Transmitted
                                                       Counter */
-#define XEMACPS_TX64CNT_OFFSET       0x00000118 /**< Error-free 64 byte Frames
+#define XEMACPS_TX64CNT_OFFSET       0x00000118U /**< Error-free 64 byte Frames
                                                       Transmitted counter */
-#define XEMACPS_TX65CNT_OFFSET       0x0000011C /**< Error-free 65-127 byte
+#define XEMACPS_TX65CNT_OFFSET       0x0000011CU /**< Error-free 65-127 byte
                                                       Frames Transmitted
                                                       counter */
-#define XEMACPS_TX128CNT_OFFSET      0x00000120 /**< Error-free 128-255 byte
+#define XEMACPS_TX128CNT_OFFSET      0x00000120U /**< Error-free 128-255 byte
                                                       Frames Transmitted
                                                       counter*/
-#define XEMACPS_TX256CNT_OFFSET      0x00000124 /**< Error-free 256-511 byte
+#define XEMACPS_TX256CNT_OFFSET      0x00000124U /**< Error-free 256-511 byte
                                                       Frames transmitted
                                                       counter */
-#define XEMACPS_TX512CNT_OFFSET      0x00000128 /**< Error-free 512-1023 byte
+#define XEMACPS_TX512CNT_OFFSET      0x00000128U /**< Error-free 512-1023 byte
                                                       Frames transmitted
                                                       counter */
-#define XEMACPS_TX1024CNT_OFFSET     0x0000012C /**< Error-free 1024-1518 byte
+#define XEMACPS_TX1024CNT_OFFSET     0x0000012CU /**< Error-free 1024-1518 byte
                                                       Frames transmitted
                                                       counter */
-#define XEMACPS_TX1519CNT_OFFSET     0x00000130 /**< Error-free larger than
+#define XEMACPS_TX1519CNT_OFFSET     0x00000130U /**< Error-free larger than
                                                       1519 byte Frames
                                                       transmitted counter */
-#define XEMACPS_TXURUNCNT_OFFSET     0x00000134 /**< TX under run error
+#define XEMACPS_TXURUNCNT_OFFSET     0x00000134U /**< TX under run error
                                                       counter */
 
-#define XEMACPS_SNGLCOLLCNT_OFFSET   0x00000138 /**< Single Collision Frame
+#define XEMACPS_SNGLCOLLCNT_OFFSET   0x00000138U /**< Single Collision Frame
                                                       Counter */
-#define XEMACPS_MULTICOLLCNT_OFFSET  0x0000013C /**< Multiple Collision Frame
+#define XEMACPS_MULTICOLLCNT_OFFSET  0x0000013CU /**< Multiple Collision Frame
                                                       Counter */
-#define XEMACPS_EXCESSCOLLCNT_OFFSET 0x00000140 /**< Excessive Collision Frame
+#define XEMACPS_EXCESSCOLLCNT_OFFSET 0x00000140U /**< Excessive Collision Frame
                                                       Counter */
-#define XEMACPS_LATECOLLCNT_OFFSET   0x00000144 /**< Late Collision Frame
+#define XEMACPS_LATECOLLCNT_OFFSET   0x00000144U /**< Late Collision Frame
                                                       Counter */
-#define XEMACPS_TXDEFERCNT_OFFSET    0x00000148 /**< Deferred Transmission
+#define XEMACPS_TXDEFERCNT_OFFSET    0x00000148U /**< Deferred Transmission
                                                       Frame Counter */
-#define XEMACPS_TXCSENSECNT_OFFSET   0x0000014C /**< Transmit Carrier Sense
+#define XEMACPS_TXCSENSECNT_OFFSET   0x0000014CU /**< Transmit Carrier Sense
                                                       Error Counter */
 
-#define XEMACPS_OCTRXL_OFFSET        0x00000150 /**< Octects Received register
+#define XEMACPS_OCTRXL_OFFSET        0x00000150U /**< Octects Received register
                                                       Low */
-#define XEMACPS_OCTRXH_OFFSET        0x00000154 /**< Octects Received register
+#define XEMACPS_OCTRXH_OFFSET        0x00000154U /**< Octects Received register
                                                       High */
 
-#define XEMACPS_RXCNT_OFFSET         0x00000158 /**< Error-free Frames
+#define XEMACPS_RXCNT_OFFSET         0x00000158U /**< Error-free Frames
                                                       Received Counter */
-#define XEMACPS_RXBROADCNT_OFFSET    0x0000015C /**< Error-free Broadcast
+#define XEMACPS_RXBROADCNT_OFFSET    0x0000015CU /**< Error-free Broadcast
                                                       Frames Received Counter */
-#define XEMACPS_RXMULTICNT_OFFSET    0x00000160 /**< Error-free Multicast
+#define XEMACPS_RXMULTICNT_OFFSET    0x00000160U /**< Error-free Multicast
                                                       Frames Received Counter */
-#define XEMACPS_RXPAUSECNT_OFFSET    0x00000164 /**< Pause Frames
+#define XEMACPS_RXPAUSECNT_OFFSET    0x00000164U /**< Pause Frames
                                                       Received Counter */
-#define XEMACPS_RX64CNT_OFFSET       0x00000168 /**< Error-free 64 byte Frames
+#define XEMACPS_RX64CNT_OFFSET       0x00000168U /**< Error-free 64 byte Frames
                                                       Received Counter */
-#define XEMACPS_RX65CNT_OFFSET       0x0000016C /**< Error-free 65-127 byte
+#define XEMACPS_RX65CNT_OFFSET       0x0000016CU /**< Error-free 65-127 byte
                                                       Frames Received Counter */
-#define XEMACPS_RX128CNT_OFFSET      0x00000170 /**< Error-free 128-255 byte
+#define XEMACPS_RX128CNT_OFFSET      0x00000170U /**< Error-free 128-255 byte
                                                       Frames Received Counter */
-#define XEMACPS_RX256CNT_OFFSET      0x00000174 /**< Error-free 256-512 byte
+#define XEMACPS_RX256CNT_OFFSET      0x00000174U /**< Error-free 256-512 byte
                                                       Frames Received Counter */
-#define XEMACPS_RX512CNT_OFFSET      0x00000178 /**< Error-free 512-1023 byte
+#define XEMACPS_RX512CNT_OFFSET      0x00000178U /**< Error-free 512-1023 byte
                                                       Frames Received Counter */
-#define XEMACPS_RX1024CNT_OFFSET     0x0000017C /**< Error-free 1024-1518 byte
+#define XEMACPS_RX1024CNT_OFFSET     0x0000017CU /**< Error-free 1024-1518 byte
                                                       Frames Received Counter */
-#define XEMACPS_RX1519CNT_OFFSET     0x00000180 /**< Error-free 1519-max byte
+#define XEMACPS_RX1519CNT_OFFSET     0x00000180U /**< Error-free 1519-max byte
                                                       Frames Received Counter */
-#define XEMACPS_RXUNDRCNT_OFFSET     0x00000184 /**< Undersize Frames Received
+#define XEMACPS_RXUNDRCNT_OFFSET     0x00000184U /**< Undersize Frames Received
                                                       Counter */
-#define XEMACPS_RXOVRCNT_OFFSET      0x00000188 /**< Oversize Frames Received
+#define XEMACPS_RXOVRCNT_OFFSET      0x00000188U /**< Oversize Frames Received
                                                       Counter */
-#define XEMACPS_RXJABCNT_OFFSET      0x0000018C /**< Jabbers Received
+#define XEMACPS_RXJABCNT_OFFSET      0x0000018CU /**< Jabbers Received
                                                       Counter */
-#define XEMACPS_RXFCSCNT_OFFSET      0x00000190 /**< Frame Check Sequence
+#define XEMACPS_RXFCSCNT_OFFSET      0x00000190U /**< Frame Check Sequence
                                                       Error Counter */
-#define XEMACPS_RXLENGTHCNT_OFFSET   0x00000194 /**< Length Field Error
+#define XEMACPS_RXLENGTHCNT_OFFSET   0x00000194U /**< Length Field Error
                                                       Counter */
-#define XEMACPS_RXSYMBCNT_OFFSET     0x00000198 /**< Symbol Error Counter */
-#define XEMACPS_RXALIGNCNT_OFFSET    0x0000019C /**< Alignment Error Counter */
-#define XEMACPS_RXRESERRCNT_OFFSET   0x000001A0 /**< Receive Resource Error
+#define XEMACPS_RXSYMBCNT_OFFSET     0x00000198U /**< Symbol Error Counter */
+#define XEMACPS_RXALIGNCNT_OFFSET    0x0000019CU /**< Alignment Error Counter */
+#define XEMACPS_RXRESERRCNT_OFFSET   0x000001A0U /**< Receive Resource Error
                                                       Counter */
-#define XEMACPS_RXORCNT_OFFSET       0x000001A4 /**< Receive Overrun Counter */
-#define XEMACPS_RXIPCCNT_OFFSET      0x000001A8 /**< IP header Checksum Error
+#define XEMACPS_RXORCNT_OFFSET       0x000001A4U /**< Receive Overrun Counter */
+#define XEMACPS_RXIPCCNT_OFFSET      0x000001A8U /**< IP header Checksum Error
                                                       Counter */
-#define XEMACPS_RXTCPCCNT_OFFSET     0x000001AC /**< TCP Checksum Error
+#define XEMACPS_RXTCPCCNT_OFFSET     0x000001ACU /**< TCP Checksum Error
                                                       Counter */
-#define XEMACPS_RXUDPCCNT_OFFSET     0x000001B0 /**< UDP Checksum Error
+#define XEMACPS_RXUDPCCNT_OFFSET     0x000001B0U /**< UDP Checksum Error
                                                       Counter */
-#define XEMACPS_LAST_OFFSET          0x000001B4 /**< Last statistic counter
+#define XEMACPS_LAST_OFFSET          0x000001B4U /**< Last statistic counter
 						      offset, for clearing */
 
-#define XEMACPS_1588_SEC_OFFSET      0x000001D0 /**< 1588 second counter */
-#define XEMACPS_1588_NANOSEC_OFFSET  0x000001D4 /**< 1588 nanosecond counter */
-#define XEMACPS_1588_ADJ_OFFSET      0x000001D8 /**< 1588 nanosecond
+#define XEMACPS_1588_SEC_OFFSET      0x000001D0U /**< 1588 second counter */
+#define XEMACPS_1588_NANOSEC_OFFSET  0x000001D4U /**< 1588 nanosecond counter */
+#define XEMACPS_1588_ADJ_OFFSET      0x000001D8U /**< 1588 nanosecond
 						      adjustment counter */
-#define XEMACPS_1588_INC_OFFSET      0x000001DC /**< 1588 nanosecond
+#define XEMACPS_1588_INC_OFFSET      0x000001DCU /**< 1588 nanosecond
 						      increment counter */
-#define XEMACPS_PTP_TXSEC_OFFSET     0x000001E0 /**< 1588 PTP transmit second
+#define XEMACPS_PTP_TXSEC_OFFSET     0x000001E0U /**< 1588 PTP transmit second
 						      counter */
-#define XEMACPS_PTP_TXNANOSEC_OFFSET 0x000001E4 /**< 1588 PTP transmit
+#define XEMACPS_PTP_TXNANOSEC_OFFSET 0x000001E4U /**< 1588 PTP transmit
 						      nanosecond counter */
-#define XEMACPS_PTP_RXSEC_OFFSET     0x000001E8 /**< 1588 PTP receive second
+#define XEMACPS_PTP_RXSEC_OFFSET     0x000001E8U /**< 1588 PTP receive second
 						      counter */
-#define XEMACPS_PTP_RXNANOSEC_OFFSET 0x000001EC /**< 1588 PTP receive
+#define XEMACPS_PTP_RXNANOSEC_OFFSET 0x000001ECU /**< 1588 PTP receive
 						      nanosecond counter */
-#define XEMACPS_PTPP_TXSEC_OFFSET    0x000001F0 /**< 1588 PTP peer transmit
+#define XEMACPS_PTPP_TXSEC_OFFSET    0x000001F0U /**< 1588 PTP peer transmit
 						      second counter */
-#define XEMACPS_PTPP_TXNANOSEC_OFFSET 0x000001F4 /**< 1588 PTP peer transmit
+#define XEMACPS_PTPP_TXNANOSEC_OFFSET 0x000001F4U /**< 1588 PTP peer transmit
 						      nanosecond counter */
-#define XEMACPS_PTPP_RXSEC_OFFSET    0x000001F8 /**< 1588 PTP peer receive
+#define XEMACPS_PTPP_RXSEC_OFFSET    0x000001F8U /**< 1588 PTP peer receive
 						      second counter */
-#define XEMACPS_PTPP_RXNANOSEC_OFFSET 0x000001FC /**< 1588 PTP peer receive
+#define XEMACPS_PTPP_RXNANOSEC_OFFSET 0x000001FCU /**< 1588 PTP peer receive
 						      nanosecond counter */
+
+#define XEMACPS_INTQ1_STS_OFFSET     0x00000400U /**< Interrupt Q1 Status
+							reg */
+#define XEMACPS_TXQ1BASE_OFFSET	     0x00000440U /**< TX Q1 Base address
+							reg */
+#define XEMACPS_MSBBUF_QBASE_OFFSET  0x000004C8U /**< MSB Buffer Q Base
+							reg */
+#define XEMACPS_INTQ1_IER_OFFSET     0x00000600U /**< Interrupt Q1 Enable
+							reg */
+#define XEMACPS_INTQ1_IDR_OFFSET     0x00000620U /**< Interrupt Q1 Disable
+							reg */
+#define XEMACPS_INTQ1_IMR_OFFSET     0x00000640U /**< Interrupt Q1 Mask
+							reg */
 
 /* Define some bit positions for registers. */
 
 /** @name network control register bit definitions
  * @{
  */
-#define XEMACPS_NWCTRL_FLUSH_DPRAM_MASK	0x00040000 /**< Flush a packet from
+#define XEMACPS_NWCTRL_FLUSH_DPRAM_MASK	0x00040000U /**< Flush a packet from
 							Rx SRAM */
-#define XEMACPS_NWCTRL_ZEROPAUSETX_MASK 0x00000800 /**< Transmit zero quantum
+#define XEMACPS_NWCTRL_ZEROPAUSETX_MASK 0x00000800U /**< Transmit zero quantum
                                                          pause frame */
-#define XEMACPS_NWCTRL_PAUSETX_MASK     0x00000800 /**< Transmit pause frame */
-#define XEMACPS_NWCTRL_HALTTX_MASK      0x00000400 /**< Halt transmission
+#define XEMACPS_NWCTRL_PAUSETX_MASK     0x00000800U /**< Transmit pause frame */
+#define XEMACPS_NWCTRL_HALTTX_MASK      0x00000400U /**< Halt transmission
                                                          after current frame */
-#define XEMACPS_NWCTRL_STARTTX_MASK     0x00000200 /**< Start tx (tx_go) */
+#define XEMACPS_NWCTRL_STARTTX_MASK     0x00000200U /**< Start tx (tx_go) */
 
-#define XEMACPS_NWCTRL_STATWEN_MASK     0x00000080 /**< Enable writing to
+#define XEMACPS_NWCTRL_STATWEN_MASK     0x00000080U /**< Enable writing to
                                                          stat counters */
-#define XEMACPS_NWCTRL_STATINC_MASK     0x00000040 /**< Increment statistic
+#define XEMACPS_NWCTRL_STATINC_MASK     0x00000040U /**< Increment statistic
                                                          registers */
-#define XEMACPS_NWCTRL_STATCLR_MASK     0x00000020 /**< Clear statistic
+#define XEMACPS_NWCTRL_STATCLR_MASK     0x00000020U /**< Clear statistic
                                                          registers */
-#define XEMACPS_NWCTRL_MDEN_MASK        0x00000010 /**< Enable MDIO port */
-#define XEMACPS_NWCTRL_TXEN_MASK        0x00000008 /**< Enable transmit */
-#define XEMACPS_NWCTRL_RXEN_MASK        0x00000004 /**< Enable receive */
-#define XEMACPS_NWCTRL_LOOPEN_MASK      0x00000002 /**< local loopback */
+#define XEMACPS_NWCTRL_MDEN_MASK        0x00000010U /**< Enable MDIO port */
+#define XEMACPS_NWCTRL_TXEN_MASK        0x00000008U /**< Enable transmit */
+#define XEMACPS_NWCTRL_RXEN_MASK        0x00000004U /**< Enable receive */
+#define XEMACPS_NWCTRL_LOOPEN_MASK      0x00000002U /**< local loopback */
 /*@}*/
 
 /** @name network configuration register bit definitions
  * @{
  */
-#define XEMACPS_NWCFG_BADPREAMBEN_MASK 0x20000000 /**< disable rejection of
+#define XEMACPS_NWCFG_BADPREAMBEN_MASK 0x20000000U /**< disable rejection of
                                                         non-standard preamble */
-#define XEMACPS_NWCFG_IPDSTRETCH_MASK  0x10000000 /**< enable transmit IPG */
-#define XEMACPS_NWCFG_FCSIGNORE_MASK   0x04000000 /**< disable rejection of
+#define XEMACPS_NWCFG_IPDSTRETCH_MASK  0x10000000U /**< enable transmit IPG */
+#define XEMACPS_NWCFG_FCSIGNORE_MASK   0x04000000U /**< disable rejection of
                                                         FCS error */
-#define XEMACPS_NWCFG_HDRXEN_MASK      0x02000000 /**< RX half duplex */
-#define XEMACPS_NWCFG_RXCHKSUMEN_MASK  0x01000000 /**< enable RX checksum
+#define XEMACPS_NWCFG_HDRXEN_MASK      0x02000000U /**< RX half duplex */
+#define XEMACPS_NWCFG_RXCHKSUMEN_MASK  0x01000000U /**< enable RX checksum
                                                         offload */
-#define XEMACPS_NWCFG_PAUSECOPYDI_MASK 0x00800000 /**< Do not copy pause
+#define XEMACPS_NWCFG_PAUSECOPYDI_MASK 0x00800000U /**< Do not copy pause
                                                         Frames to memory */
-#define XEMACPS_NWCFG_MDC_SHIFT_MASK   18	   /**< shift bits for MDC */
-#define XEMACPS_NWCFG_MDCCLKDIV_MASK   0x001C0000 /**< MDC Mask PCLK divisor */
-#define XEMACPS_NWCFG_FCSREM_MASK      0x00020000 /**< Discard FCS from
+#define XEMACPS_NWCFG_DWIDTH_64_MASK   0x00200000U /**< 64 bit Data bus width */
+#define XEMACPS_NWCFG_MDC_SHIFT_MASK   18U	   /**< shift bits for MDC */
+#define XEMACPS_NWCFG_MDCCLKDIV_MASK   0x001C0000U /**< MDC Mask PCLK divisor */
+#define XEMACPS_NWCFG_FCSREM_MASK      0x00020000U /**< Discard FCS from
                                                         received frames */
-#define XEMACPS_NWCFG_LENGTHERRDSCRD_MASK 0x00010000
+#define XEMACPS_NWCFG_LENERRDSCRD_MASK 0x00010000U
 /**< RX length error discard */
-#define XEMACPS_NWCFG_RXOFFS_MASK      0x0000C000 /**< RX buffer offset */
-#define XEMACPS_NWCFG_PAUSEEN_MASK     0x00002000 /**< Enable pause RX */
-#define XEMACPS_NWCFG_RETRYTESTEN_MASK 0x00001000 /**< Retry test */
-#define XEMACPS_NWCFG_EXTADDRMATCHEN_MASK 0x00000200
+#define XEMACPS_NWCFG_RXOFFS_MASK      0x0000C000U /**< RX buffer offset */
+#define XEMACPS_NWCFG_PAUSEEN_MASK     0x00002000U /**< Enable pause RX */
+#define XEMACPS_NWCFG_RETRYTESTEN_MASK 0x00001000U /**< Retry test */
+#define XEMACPS_NWCFG_XTADDMACHEN_MASK 0x00000200U
 /**< External address match enable */
-#define XEMACPS_NWCFG_1000_MASK        0x00000400 /**< 1000 Mbps */
-#define XEMACPS_NWCFG_1536RXEN_MASK    0x00000100 /**< Enable 1536 byte
+#define XEMACPS_NWCFG_1000_MASK        0x00000400U /**< 1000 Mbps */
+#define XEMACPS_NWCFG_1536RXEN_MASK    0x00000100U /**< Enable 1536 byte
                                                         frames reception */
-#define XEMACPS_NWCFG_UCASTHASHEN_MASK 0x00000080 /**< Receive unicast hash
+#define XEMACPS_NWCFG_UCASTHASHEN_MASK 0x00000080U /**< Receive unicast hash
                                                         frames */
-#define XEMACPS_NWCFG_MCASTHASHEN_MASK 0x00000040 /**< Receive multicast hash
+#define XEMACPS_NWCFG_MCASTHASHEN_MASK 0x00000040U /**< Receive multicast hash
                                                         frames */
-#define XEMACPS_NWCFG_BCASTDI_MASK     0x00000020 /**< Do not receive
+#define XEMACPS_NWCFG_BCASTDI_MASK     0x00000020U /**< Do not receive
                                                         broadcast frames */
-#define XEMACPS_NWCFG_COPYALLEN_MASK   0x00000010 /**< Copy all frames */
-#define XEMACPS_NWCFG_JUMBO_MASK       0x00000008 /**< Jumbo frames */
-#define XEMACPS_NWCFG_NVLANDISC_MASK   0x00000004 /**< Receive only VLAN
+#define XEMACPS_NWCFG_COPYALLEN_MASK   0x00000010U /**< Copy all frames */
+#define XEMACPS_NWCFG_JUMBO_MASK       0x00000008U /**< Jumbo frames */
+#define XEMACPS_NWCFG_NVLANDISC_MASK   0x00000004U /**< Receive only VLAN
                                                         frames */
-#define XEMACPS_NWCFG_FDEN_MASK        0x00000002 /**< full duplex */
-#define XEMACPS_NWCFG_100_MASK         0x00000001 /**< 100 Mbps */
-#define XEMACPS_NWCFG_RESET_MASK       0x00080000 /**< reset value */
+#define XEMACPS_NWCFG_FDEN_MASK        0x00000002U/**< full duplex */
+#define XEMACPS_NWCFG_100_MASK         0x00000001U /**< 100 Mbps */
+#define XEMACPS_NWCFG_RESET_MASK       0x00080000U/**< reset value */
 /*@}*/
 
 /** @name network status register bit definitaions
  * @{
  */
-#define XEMACPS_NWSR_MDIOIDLE_MASK     0x00000004 /**< PHY management idle */
-#define XEMACPS_NWSR_MDIO_MASK         0x00000002 /**< Status of mdio_in */
+#define XEMACPS_NWSR_MDIOIDLE_MASK     0x00000004U /**< PHY management idle */
+#define XEMACPS_NWSR_MDIO_MASK         0x00000002U /**< Status of mdio_in */
 /*@}*/
 
 
 /** @name MAC address register word 1 mask
  * @{
  */
-#define XEMACPS_LADDR_MACH_MASK        0x0000FFFF /**< Address bits[47:32]
+#define XEMACPS_LADDR_MACH_MASK        0x0000FFFFU /**< Address bits[47:32]
                                                       bit[31:0] are in BOTTOM */
 /*@}*/
 
@@ -361,55 +377,69 @@ typedef enum { MDC_DIV_8 = 0, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 /** @name DMA control register bit definitions
  * @{
  */
-#define XEMACPS_DMACR_RXBUF_MASK		0x00FF0000 /**< Mask bit for RX buffer
+#define XEMACPS_DMACR_TXEXTEND_MASK		0x02000000U /**< Tx Extended desc mode */
+#define XEMACPS_DMACR_RXEXTEND_MASK		0x01000000U /**< Rx Extended desc mode */
+#define XEMACPS_DMACR_RXBUF_MASK		0x00FF0000U /**< Mask bit for RX buffer
 													size */
-#define XEMACPS_DMACR_RXBUF_SHIFT 		16	/**< Shift bit for RX buffer
+#define XEMACPS_DMACR_RXBUF_SHIFT 		16U	/**< Shift bit for RX buffer
 												size */
-#define XEMACPS_DMACR_TCPCKSUM_MASK		0x00000800 /**< enable/disable TX
+#define XEMACPS_DMACR_TCPCKSUM_MASK		0x00000800U /**< enable/disable TX
 													    checksum offload */
-#define XEMACPS_DMACR_TXSIZE_MASK		0x00000400 /**< TX buffer memory size */
-#define XEMACPS_DMACR_RXSIZE_MASK		0x00000300 /**< RX buffer memory size */
-#define XEMACPS_DMACR_ENDIAN_MASK		0x00000080 /**< endian configuration */
-#define XEMACPS_DMACR_BLENGTH_MASK		0x0000001F /**< buffer burst length */
-#define XEMACPS_DMACR_SINGLE_AHB_BURST	0x00000001 /**< single AHB bursts */
-#define XEMACPS_DMACR_INCR4_AHB_BURST	0x00000004 /**< 4 bytes AHB bursts */
-#define XEMACPS_DMACR_INCR8_AHB_BURST	0x00000008 /**< 8 bytes AHB bursts */
-#define XEMACPS_DMACR_INCR16_AHB_BURST	0x00000010 /**< 16 bytes AHB bursts */
+#define XEMACPS_DMACR_TXSIZE_MASK		0x00000400U /**< TX buffer memory size */
+#define XEMACPS_DMACR_RXSIZE_MASK		0x00000300U /**< RX buffer memory size */
+#define XEMACPS_DMACR_ENDIAN_MASK		0x00000080U /**< endian configuration */
+#define XEMACPS_DMACR_BLENGTH_MASK		0x0000001FU /**< buffer burst length */
+#define XEMACPS_DMACR_SINGLE_AHB_BURST	0x00000001U /**< single AHB bursts */
+#define XEMACPS_DMACR_INCR4_AHB_BURST	0x00000004U /**< 4 bytes AHB bursts */
+#define XEMACPS_DMACR_INCR8_AHB_BURST	0x00000008U /**< 8 bytes AHB bursts */
+#define XEMACPS_DMACR_INCR16_AHB_BURST	0x00000010U /**< 16 bytes AHB bursts */
 /*@}*/
 
 /** @name transmit status register bit definitions
  * @{
  */
-#define XEMACPS_TXSR_HRESPNOK_MASK    0x00000100 /**< Transmit hresp not OK */
-#define XEMACPS_TXSR_URUN_MASK        0x00000040 /**< Transmit underrun */
-#define XEMACPS_TXSR_TXCOMPL_MASK     0x00000020 /**< Transmit completed OK */
-#define XEMACPS_TXSR_BUFEXH_MASK      0x00000010 /**< Transmit buffs exhausted
+#define XEMACPS_TXSR_HRESPNOK_MASK    0x00000100U /**< Transmit hresp not OK */
+#define XEMACPS_TXSR_URUN_MASK        0x00000040U /**< Transmit underrun */
+#define XEMACPS_TXSR_TXCOMPL_MASK     0x00000020U /**< Transmit completed OK */
+#define XEMACPS_TXSR_BUFEXH_MASK      0x00000010U /**< Transmit buffs exhausted
                                                        mid frame */
-#define XEMACPS_TXSR_TXGO_MASK        0x00000008 /**< Status of go flag */
-#define XEMACPS_TXSR_RXOVR_MASK       0x00000004 /**< Retry limit exceeded */
-#define XEMACPS_TXSR_FRAMERX_MASK     0x00000002 /**< Collision tx frame */
-#define XEMACPS_TXSR_USEDREAD_MASK    0x00000001 /**< TX buffer used bit set */
+#define XEMACPS_TXSR_TXGO_MASK        0x00000008U /**< Status of go flag */
+#define XEMACPS_TXSR_RXOVR_MASK       0x00000004U /**< Retry limit exceeded */
+#define XEMACPS_TXSR_FRAMERX_MASK     0x00000002U /**< Collision tx frame */
+#define XEMACPS_TXSR_USEDREAD_MASK    0x00000001U /**< TX buffer used bit set */
 
-#define XEMACPS_TXSR_ERROR_MASK      (XEMACPS_TXSR_HRESPNOK_MASK | \
-                                       XEMACPS_TXSR_URUN_MASK | \
-                                       XEMACPS_TXSR_BUFEXH_MASK | \
-                                       XEMACPS_TXSR_RXOVR_MASK | \
-                                       XEMACPS_TXSR_FRAMERX_MASK | \
-                                       XEMACPS_TXSR_USEDREAD_MASK)
+#define XEMACPS_TXSR_ERROR_MASK      ((u32)XEMACPS_TXSR_HRESPNOK_MASK | \
+                                       (u32)XEMACPS_TXSR_URUN_MASK | \
+                                       (u32)XEMACPS_TXSR_BUFEXH_MASK | \
+                                       (u32)XEMACPS_TXSR_RXOVR_MASK | \
+                                       (u32)XEMACPS_TXSR_FRAMERX_MASK | \
+                                       (u32)XEMACPS_TXSR_USEDREAD_MASK)
 /*@}*/
 
 /**
  * @name receive status register bit definitions
  * @{
  */
-#define XEMACPS_RXSR_HRESPNOK_MASK    0x00000008 /**< Receive hresp not OK */
-#define XEMACPS_RXSR_RXOVR_MASK       0x00000004 /**< Receive overrun */
-#define XEMACPS_RXSR_FRAMERX_MASK     0x00000002 /**< Frame received OK */
-#define XEMACPS_RXSR_BUFFNA_MASK      0x00000001 /**< RX buffer used bit set */
+#define XEMACPS_RXSR_HRESPNOK_MASK    0x00000008U /**< Receive hresp not OK */
+#define XEMACPS_RXSR_RXOVR_MASK       0x00000004U /**< Receive overrun */
+#define XEMACPS_RXSR_FRAMERX_MASK     0x00000002U /**< Frame received OK */
+#define XEMACPS_RXSR_BUFFNA_MASK      0x00000001U /**< RX buffer used bit set */
 
-#define XEMACPS_RXSR_ERROR_MASK      (XEMACPS_RXSR_HRESPNOK_MASK | \
-                                       XEMACPS_RXSR_RXOVR_MASK | \
-                                       XEMACPS_RXSR_BUFFNA_MASK)
+#define XEMACPS_RXSR_ERROR_MASK      ((u32)XEMACPS_RXSR_HRESPNOK_MASK | \
+                                       (u32)XEMACPS_RXSR_RXOVR_MASK | \
+                                       (u32)XEMACPS_RXSR_BUFFNA_MASK)
+/*@}*/
+
+/**
+ * @name Interrupt Q1 status register bit definitions
+ * @{
+ */
+#define XEMACPS_INTQ1SR_TXCOMPL_MASK	0x00000080U /**< Transmit completed OK */
+#define XEMACPS_INTQ1SR_TXERR_MASK	0x00000040U /**< Transmit AMBA Error */
+
+#define XEMACPS_INTQ1_IXR_ALL_MASK	((u32)XEMACPS_INTQ1SR_TXCOMPL_MASK | \
+					 (u32)XEMACPS_INTQ1SR_TXERR_MASK)
+
 /*@}*/
 
 /**
@@ -418,63 +448,65 @@ typedef enum { MDC_DIV_8 = 0, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
  * XEMACPS_IER_OFFSET, XEMACPS_IDR_OFFSET, and XEMACPS_IMR_OFFSET
  * @{
  */
-#define XEMACPS_IXR_PTPPSTX_MASK    0x02000000 /**< PTP Psync transmitted */
-#define XEMACPS_IXR_PTPPDRTX_MASK   0x01000000 /**< PTP Pdelay_req
+#define XEMACPS_IXR_PTPPSTX_MASK    0x02000000U /**< PTP Psync transmitted */
+#define XEMACPS_IXR_PTPPDRTX_MASK   0x01000000U /**< PTP Pdelay_req
 						     transmitted */
-#define XEMACPS_IXR_PTPSTX_MASK     0x00800000 /**< PTP Sync transmitted */
-#define XEMACPS_IXR_PTPDRTX_MASK    0x00400000 /**< PTP Delay_req transmitted
+#define XEMACPS_IXR_PTPSTX_MASK     0x00800000U /**< PTP Sync transmitted */
+#define XEMACPS_IXR_PTPDRTX_MASK    0x00400000U /**< PTP Delay_req transmitted
 						*/
-#define XEMACPS_IXR_PTPPSRX_MASK    0x00200000 /**< PTP Psync received */
-#define XEMACPS_IXR_PTPPDRRX_MASK   0x00100000 /**< PTP Pdelay_req received */
-#define XEMACPS_IXR_PTPSRX_MASK     0x00080000 /**< PTP Sync received */
-#define XEMACPS_IXR_PTPDRRX_MASK    0x00040000 /**< PTP Delay_req received */
-#define XEMACPS_IXR_PAUSETX_MASK    0x00004000	/**< Pause frame transmitted */
-#define XEMACPS_IXR_PAUSEZERO_MASK  0x00002000	/**< Pause time has reached
+#define XEMACPS_IXR_PTPPSRX_MASK    0x00200000U /**< PTP Psync received */
+#define XEMACPS_IXR_PTPPDRRX_MASK   0x00100000U /**< PTP Pdelay_req received */
+#define XEMACPS_IXR_PTPSRX_MASK     0x00080000U /**< PTP Sync received */
+#define XEMACPS_IXR_PTPDRRX_MASK    0x00040000U /**< PTP Delay_req received */
+#define XEMACPS_IXR_PAUSETX_MASK    0x00004000U	/**< Pause frame transmitted */
+#define XEMACPS_IXR_PAUSEZERO_MASK  0x00002000U	/**< Pause time has reached
                                                      zero */
-#define XEMACPS_IXR_PAUSENZERO_MASK 0x00001000	/**< Pause frame received */
-#define XEMACPS_IXR_HRESPNOK_MASK   0x00000800	/**< hresp not ok */
-#define XEMACPS_IXR_RXOVR_MASK      0x00000400	/**< Receive overrun occurred */
-#define XEMACPS_IXR_TXCOMPL_MASK    0x00000080	/**< Frame transmitted ok */
-#define XEMACPS_IXR_TXEXH_MASK      0x00000040	/**< Transmit err occurred or
+#define XEMACPS_IXR_PAUSENZERO_MASK 0x00001000U	/**< Pause frame received */
+#define XEMACPS_IXR_HRESPNOK_MASK   0x00000800U	/**< hresp not ok */
+#define XEMACPS_IXR_RXOVR_MASK      0x00000400U	/**< Receive overrun occurred */
+#define XEMACPS_IXR_TXCOMPL_MASK    0x00000080U	/**< Frame transmitted ok */
+#define XEMACPS_IXR_TXEXH_MASK      0x00000040U	/**< Transmit err occurred or
                                                      no buffers*/
-#define XEMACPS_IXR_RETRY_MASK      0x00000020	/**< Retry limit exceeded */
-#define XEMACPS_IXR_URUN_MASK       0x00000010	/**< Transmit underrun */
-#define XEMACPS_IXR_TXUSED_MASK     0x00000008	/**< Tx buffer used bit read */
-#define XEMACPS_IXR_RXUSED_MASK     0x00000004	/**< Rx buffer used bit read */
-#define XEMACPS_IXR_FRAMERX_MASK    0x00000002	/**< Frame received ok */
-#define XEMACPS_IXR_MGMNT_MASK      0x00000001	/**< PHY management complete */
-#define XEMACPS_IXR_ALL_MASK        0x00007FFF	/**< Everything! */
+#define XEMACPS_IXR_RETRY_MASK      0x00000020U	/**< Retry limit exceeded */
+#define XEMACPS_IXR_URUN_MASK       0x00000010U	/**< Transmit underrun */
+#define XEMACPS_IXR_TXUSED_MASK     0x00000008U	/**< Tx buffer used bit read */
+#define XEMACPS_IXR_RXUSED_MASK     0x00000004U	/**< Rx buffer used bit read */
+#define XEMACPS_IXR_FRAMERX_MASK    0x00000002U	/**< Frame received ok */
+#define XEMACPS_IXR_MGMNT_MASK      0x00000001U	/**< PHY management complete */
+#define XEMACPS_IXR_ALL_MASK        0x00007FFFU	/**< Everything! */
 
-#define XEMACPS_IXR_TX_ERR_MASK    (XEMACPS_IXR_TXEXH_MASK |         \
-                                     XEMACPS_IXR_RETRY_MASK |         \
-                                     XEMACPS_IXR_URUN_MASK  |         \
-                                     XEMACPS_IXR_TXUSED_MASK)
+#define XEMACPS_IXR_TX_ERR_MASK    ((u32)XEMACPS_IXR_TXEXH_MASK |         \
+                                     (u32)XEMACPS_IXR_RETRY_MASK |         \
+                                     (u32)XEMACPS_IXR_URUN_MASK  |         \
+                                     (u32)XEMACPS_IXR_TXUSED_MASK)
 
 
-#define XEMACPS_IXR_RX_ERR_MASK    (XEMACPS_IXR_HRESPNOK_MASK |      \
-                                     XEMACPS_IXR_RXUSED_MASK |        \
-                                     XEMACPS_IXR_RXOVR_MASK)
+#define XEMACPS_IXR_RX_ERR_MASK    ((u32)XEMACPS_IXR_HRESPNOK_MASK |      \
+                                     (u32)XEMACPS_IXR_RXUSED_MASK |        \
+                                     (u32)XEMACPS_IXR_RXOVR_MASK)
 
 /*@}*/
 
 /** @name PHY Maintenance bit definitions
  * @{
  */
-#define XEMACPS_PHYMNTNC_OP_MASK    0x40020000	/**< operation mask bits */
-#define XEMACPS_PHYMNTNC_OP_R_MASK  0x20000000	/**< read operation */
-#define XEMACPS_PHYMNTNC_OP_W_MASK  0x10000000	/**< write operation */
-#define XEMACPS_PHYMNTNC_ADDR_MASK  0x0F800000	/**< Address bits */
-#define XEMACPS_PHYMNTNC_REG_MASK   0x007C0000	/**< register bits */
-#define XEMACPS_PHYMNTNC_DATA_MASK  0x00000FFF	/**< data bits */
-#define XEMACPS_PHYMNTNC_PHYAD_SHIFT_MASK   23	/**< Shift bits for PHYAD */
-#define XEMACPS_PHYMNTNC_PHREG_SHIFT_MASK   18	/**< Shift bits for PHREG */
+#define XEMACPS_PHYMNTNC_OP_MASK    0x40020000U	/**< operation mask bits */
+#define XEMACPS_PHYMNTNC_OP_R_MASK  0x20000000U	/**< read operation */
+#define XEMACPS_PHYMNTNC_OP_W_MASK  0x10000000U	/**< write operation */
+#define XEMACPS_PHYMNTNC_ADDR_MASK  0x0F800000U	/**< Address bits */
+#define XEMACPS_PHYMNTNC_REG_MASK   0x007C0000U	/**< register bits */
+#define XEMACPS_PHYMNTNC_DATA_MASK  0x00000FFFU	/**< data bits */
+#define XEMACPS_PHYMNTNC_PHAD_SHFT_MSK   23U	/**< Shift bits for PHYAD */
+#define XEMACPS_PHYMNTNC_PREG_SHFT_MSK   18U	/**< Shift bits for PHREG */
 /*@}*/
 
 /* Transmit buffer descriptor status words offset
  * @{
  */
-#define XEMACPS_BD_ADDR_OFFSET  0x00000000 /**< word 0/addr of BDs */
-#define XEMACPS_BD_STAT_OFFSET  0x00000004 /**< word 1/status of BDs */
+#define XEMACPS_BD_ADDR_OFFSET  0x00000000U /**< word 0/addr of BDs */
+#define XEMACPS_BD_STAT_OFFSET  0x00000004U /**< word 1/status of BDs */
+#define XEMACPS_BD_ADDR_HI_OFFSET  0x00000008U /**< word 2/addr of BDs */
+
 /*
  * @}
  */
@@ -488,15 +520,15 @@ typedef enum { MDC_DIV_8 = 0, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
  * information, whether the frame was transmitted OK or why it had failed.
  * @{
  */
-#define XEMACPS_TXBUF_USED_MASK  0x80000000 /**< Used bit. */
-#define XEMACPS_TXBUF_WRAP_MASK  0x40000000 /**< Wrap bit, last descriptor */
-#define XEMACPS_TXBUF_RETRY_MASK 0x20000000 /**< Retry limit exceeded */
-#define XEMACPS_TXBUF_URUN_MASK  0x10000000 /**< Transmit underrun occurred */
-#define XEMACPS_TXBUF_EXH_MASK   0x08000000 /**< Buffers exhausted */
-#define XEMACPS_TXBUF_TCP_MASK   0x04000000 /**< Late collision. */
-#define XEMACPS_TXBUF_NOCRC_MASK 0x00010000 /**< No CRC */
-#define XEMACPS_TXBUF_LAST_MASK  0x00008000 /**< Last buffer */
-#define XEMACPS_TXBUF_LEN_MASK   0x00003FFF /**< Mask for length field */
+#define XEMACPS_TXBUF_USED_MASK  0x80000000U /**< Used bit. */
+#define XEMACPS_TXBUF_WRAP_MASK  0x40000000U /**< Wrap bit, last descriptor */
+#define XEMACPS_TXBUF_RETRY_MASK 0x20000000U /**< Retry limit exceeded */
+#define XEMACPS_TXBUF_URUN_MASK  0x10000000U /**< Transmit underrun occurred */
+#define XEMACPS_TXBUF_EXH_MASK   0x08000000U /**< Buffers exhausted */
+#define XEMACPS_TXBUF_TCP_MASK   0x04000000U /**< Late collision. */
+#define XEMACPS_TXBUF_NOCRC_MASK 0x00010000U /**< No CRC */
+#define XEMACPS_TXBUF_LAST_MASK  0x00008000U /**< Last buffer */
+#define XEMACPS_TXBUF_LEN_MASK   0x00003FFFU /**< Mask for length field */
 /*
  * @}
  */
@@ -512,32 +544,32 @@ typedef enum { MDC_DIV_8 = 0, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
  * useful info.
  * @{
  */
-#define XEMACPS_RXBUF_BCAST_MASK     0x80000000 /**< Broadcast frame */
-#define XEMACPS_RXBUF_MULTIHASH_MASK 0x40000000 /**< Multicast hashed frame */
-#define XEMACPS_RXBUF_UNIHASH_MASK   0x20000000 /**< Unicast hashed frame */
-#define XEMACPS_RXBUF_EXH_MASK       0x08000000 /**< buffer exhausted */
-#define XEMACPS_RXBUF_AMATCH_MASK    0x06000000 /**< Specific address
+#define XEMACPS_RXBUF_BCAST_MASK     0x80000000U /**< Broadcast frame */
+#define XEMACPS_RXBUF_MULTIHASH_MASK 0x40000000U /**< Multicast hashed frame */
+#define XEMACPS_RXBUF_UNIHASH_MASK   0x20000000U /**< Unicast hashed frame */
+#define XEMACPS_RXBUF_EXH_MASK       0x08000000U /**< buffer exhausted */
+#define XEMACPS_RXBUF_AMATCH_MASK    0x06000000U /**< Specific address
                                                       matched */
-#define XEMACPS_RXBUF_IDFOUND_MASK   0x01000000 /**< Type ID matched */
-#define XEMACPS_RXBUF_IDMATCH_MASK   0x00C00000 /**< ID matched mask */
-#define XEMACPS_RXBUF_VLAN_MASK      0x00200000 /**< VLAN tagged */
-#define XEMACPS_RXBUF_PRI_MASK       0x00100000 /**< Priority tagged */
-#define XEMACPS_RXBUF_VPRI_MASK      0x000E0000 /**< Vlan priority */
-#define XEMACPS_RXBUF_CFI_MASK       0x00010000 /**< CFI frame */
-#define XEMACPS_RXBUF_EOF_MASK       0x00008000 /**< End of frame. */
-#define XEMACPS_RXBUF_SOF_MASK       0x00004000 /**< Start of frame. */
-#define XEMACPS_RXBUF_LEN_MASK       0x00001FFF /**< Mask for length field */
+#define XEMACPS_RXBUF_IDFOUND_MASK   0x01000000U /**< Type ID matched */
+#define XEMACPS_RXBUF_IDMATCH_MASK   0x00C00000U /**< ID matched mask */
+#define XEMACPS_RXBUF_VLAN_MASK      0x00200000U /**< VLAN tagged */
+#define XEMACPS_RXBUF_PRI_MASK       0x00100000U /**< Priority tagged */
+#define XEMACPS_RXBUF_VPRI_MASK      0x000E0000U /**< Vlan priority */
+#define XEMACPS_RXBUF_CFI_MASK       0x00010000U /**< CFI frame */
+#define XEMACPS_RXBUF_EOF_MASK       0x00008000U /**< End of frame. */
+#define XEMACPS_RXBUF_SOF_MASK       0x00004000U /**< Start of frame. */
+#define XEMACPS_RXBUF_LEN_MASK       0x00001FFFU /**< Mask for length field */
 
-#define XEMACPS_RXBUF_WRAP_MASK      0x00000002 /**< Wrap bit, last BD */
-#define XEMACPS_RXBUF_NEW_MASK       0x00000001 /**< Used bit.. */
-#define XEMACPS_RXBUF_ADD_MASK       0xFFFFFFFC /**< Mask for address */
+#define XEMACPS_RXBUF_WRAP_MASK      0x00000002U /**< Wrap bit, last BD */
+#define XEMACPS_RXBUF_NEW_MASK       0x00000001U /**< Used bit.. */
+#define XEMACPS_RXBUF_ADD_MASK       0xFFFFFFFCU /**< Mask for address */
 /*
  * @}
  */
 
 /*
- * Define appropriate I/O access method to mempry mapped I/O or other
- * intarfce if necessary.
+ * Define appropriate I/O access method to memory mapped I/O or other
+ * interface if necessary.
  */
 
 #define XEmacPs_In32  Xil_In32
@@ -560,7 +592,7 @@ typedef enum { MDC_DIV_8 = 0, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 *
 *****************************************************************************/
 #define XEmacPs_ReadReg(BaseAddress, RegOffset) \
-    XEmacPs_In32((BaseAddress) + (RegOffset))
+    XEmacPs_In32((BaseAddress) + (u32)(RegOffset))
 
 
 /****************************************************************************/
@@ -581,7 +613,7 @@ typedef enum { MDC_DIV_8 = 0, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 *
 *****************************************************************************/
 #define XEmacPs_WriteReg(BaseAddress, RegOffset, Data) \
-    XEmacPs_Out32((BaseAddress) + (RegOffset), (Data))
+    XEmacPs_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
 
 /************************** Function Prototypes *****************************/
 /*
