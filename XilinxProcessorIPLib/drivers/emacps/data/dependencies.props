@@ -1,0 +1,2 @@
+xemacps_example_intr_dma.c=xemacps_example_util.c,xemacps_example.h
+xemacps_ieee1588_example.c=xemacps_example_util.c,xemacps_example.h,xemacps_ieee1588.c,xemacps_ieee1588.h
