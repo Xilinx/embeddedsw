@@ -73,13 +73,13 @@
  */
 XCanPs_Config XCanPs_ConfigTable[XPAR_XCANPS_NUM_INSTANCES] = {
 	{
-		XPAR_XCANPS_0_DEVICE_ID,	/* Unique ID of device */
-		XPAR_XCANPS_0_BASEADDR		/* Base address of device */
+		(u16)XPAR_XCANPS_0_DEVICE_ID,	/* Unique ID of device */
+		(u32)XPAR_XCANPS_0_BASEADDR		/* Base address of device */
 	},
 #ifdef XPAR_XCANPS_1_DEVICE_ID
 	{
-		XPAR_XCANPS_1_DEVICE_ID,	/* Unique ID of device */
-		XPAR_XCANPS_1_BASEADDR		/* Base address of device */
+		(u16)XPAR_XCANPS_1_DEVICE_ID,	/* Unique ID of device */
+		(u32)XPAR_XCANPS_1_BASEADDR		/* Base address of device */
 	}
 #endif
 };

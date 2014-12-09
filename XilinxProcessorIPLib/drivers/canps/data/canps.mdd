@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver canps
 
-  OPTION supported_peripherals = (ps7_can);
+  OPTION supported_peripherals = (ps7_can ps8_can pss_can);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 3.0;

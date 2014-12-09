@@ -91,10 +91,10 @@ static void StubHandler(void);
 * @note		None.
 *
 ******************************************************************************/
-int XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
+s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
-
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -102,7 +102,7 @@ int XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 	 * Set some default values for instance data, don't indicate the device
 	 * is ready to use until everything has been initialized successfully.
 	 */
-	InstancePtr->IsReady = 0;
+	InstancePtr->IsReady = 0U;
 	InstancePtr->CanConfig.BaseAddr = EffectiveAddr;
 	InstancePtr->CanConfig.DeviceId = ConfigPtr->DeviceId;
 
@@ -124,7 +124,8 @@ int XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 	 */
 	XCanPs_Reset(InstancePtr);
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -187,23 +188,26 @@ u8 XCanPs_GetMode(XCanPs *InstancePtr)
 
 	StatusReg = XCanPs_GetStatus(InstancePtr);
 
-	if (StatusReg & XCANPS_SR_CONFIG_MASK) {
-		return XCANPS_MODE_CONFIG;
+	if ((StatusReg & XCANPS_SR_CONFIG_MASK) != (u32)0) {
+		return (u8)XCANPS_MODE_CONFIG;
 
-	} else if (StatusReg & XCANPS_SR_SLEEP_MASK) {
-		return XCANPS_MODE_SLEEP;
+	}
+	else if ((StatusReg & XCANPS_SR_SLEEP_MASK) != (u32)0) {
+		return (u8)XCANPS_MODE_SLEEP;
 
-	} else if (StatusReg & XCANPS_SR_NORMAL_MASK) {
-		if (StatusReg & XCANPS_SR_SNOOP_MASK) {
-			return XCANPS_MODE_SNOOP;
+	}
+	else if ((StatusReg & XCANPS_SR_NORMAL_MASK) != (u32)0) {
+		if ((StatusReg & XCANPS_SR_SNOOP_MASK) != (u32)0) {
+			return (u8)XCANPS_MODE_SNOOP;
 		} else {
-			return XCANPS_MODE_NORMAL;
+			return (u8)XCANPS_MODE_NORMAL;
 		}
-	} else {
+	}
+	else {
 		/*
 		 * If this line is reached, the device is in Loop Back Mode.
 		 */
-		return XCANPS_MODE_LOOPBACK;
+		return (u8)XCANPS_MODE_LOOPBACK;
 	}
 }
 
@@ -241,11 +245,11 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((OperationMode == XCANPS_MODE_CONFIG) ||
-			(OperationMode == XCANPS_MODE_SLEEP) ||
-			(OperationMode == XCANPS_MODE_NORMAL) ||
-			(OperationMode == XCANPS_MODE_LOOPBACK) ||
-			(OperationMode == XCANPS_MODE_SNOOP));
+	Xil_AssertVoid((OperationMode == (u8)XCANPS_MODE_CONFIG) ||
+			(OperationMode == (u8)XCANPS_MODE_SLEEP) ||
+			(OperationMode == (u8)XCANPS_MODE_NORMAL) ||
+			(OperationMode == (u8)XCANPS_MODE_LOOPBACK) ||
+			(OperationMode == (u8)XCANPS_MODE_SNOOP));
 
 	CurrentMode = XCanPs_GetMode(InstancePtr);
 
@@ -254,8 +258,8 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 	 * or if current mode is Sleep Mode and the mode to enter is Normal
 	 * Mode, no transition through Configuration Mode is needed.
 	 */
-	if ((CurrentMode == XCANPS_MODE_NORMAL) &&
-		(OperationMode == XCANPS_MODE_SLEEP)) {
+	if ((CurrentMode == (u8)XCANPS_MODE_NORMAL) &&
+		(OperationMode == (u8)XCANPS_MODE_SLEEP)) {
 		/*
 		 * Normal Mode ---> Sleep Mode
 		 */
@@ -263,16 +267,19 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 				XCANPS_MSR_OFFSET, XCANPS_MSR_SLEEP_MASK);
 		return;
 
-	} else if ((CurrentMode == XCANPS_MODE_SLEEP) &&
-		 (OperationMode == XCANPS_MODE_NORMAL)) {
+	} else if ((CurrentMode == (u8)XCANPS_MODE_SLEEP) &&
+		 (OperationMode == (u8)XCANPS_MODE_NORMAL)) {
 		/*
 		 * Sleep Mode ---> Normal Mode
 		 */
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_MSR_OFFSET, 0);
+					XCANPS_MSR_OFFSET, 0U);
 		return;
 	}
-
+	else {
+		/*This else was made for misra-c compliance*/
+		;
+	}
 
 	/*
 	 * If the mode transition is not any of the two cases above, CAN must
@@ -280,51 +287,55 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 	 * mode.
 	 */
 	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_SRR_OFFSET, 0);
+				XCANPS_SRR_OFFSET, 0U);
 
 	/*
 	 * Check if the device has entered Configuration Mode, if not, return to
 	 * the caller.
 	 */
-	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG) {
+	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
 		return;
 	}
 
 	switch (OperationMode) {
-	case XCANPS_MODE_CONFIG:
-		/*
-		 * As CAN is in Configuration Mode already.
-		 * Nothing is needed to be done here.
-		 */
-		break;
+		case XCANPS_MODE_CONFIG:
+			/*
+			 * As CAN is in Configuration Mode already.
+			 * Nothing is needed to be done here.
+			 */
+			break;
 
-	case XCANPS_MODE_SLEEP:
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_MSR_OFFSET, XCANPS_MSR_SLEEP_MASK);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
-		break;
+		case XCANPS_MODE_SLEEP:
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_MSR_OFFSET, XCANPS_MSR_SLEEP_MASK);
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
+			break;
 
-	case XCANPS_MODE_NORMAL:
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_MSR_OFFSET, 0);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
-		break;
+		case XCANPS_MODE_NORMAL:
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_MSR_OFFSET, 0U);
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
+			break;
 
-	case XCANPS_MODE_LOOPBACK:
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_MSR_OFFSET, XCANPS_MSR_LBACK_MASK);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
-		break;
+		case XCANPS_MODE_LOOPBACK:
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_MSR_OFFSET, XCANPS_MSR_LBACK_MASK);
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
+			break;
 
-	case XCANPS_MODE_SNOOP:
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_MSR_OFFSET, XCANPS_MSR_SNOOP_MASK);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
-		break;
+		case XCANPS_MODE_SNOOP:
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_MSR_OFFSET, XCANPS_MSR_SNOOP_MASK);
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
+			break;
+
+		default:
+			/*This default was made for misra-c compliance*/
+			break;
 
 	}
 }
@@ -383,9 +394,9 @@ void XCanPs_GetBusErrorCounter(XCanPs *InstancePtr, u8 *RxErrorCount,
 	 */
 	ErrorCount = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_ECR_OFFSET);
-	*RxErrorCount = (ErrorCount & XCANPS_ECR_REC_MASK) >>
-				XCANPS_ECR_REC_SHIFT;
-	*TxErrorCount = ErrorCount & XCANPS_ECR_TEC_MASK;
+	*RxErrorCount = (u8)((ErrorCount & XCANPS_ECR_REC_MASK) >>
+				XCANPS_ECR_REC_SHIFT);
+	*TxErrorCount = (u8)(ErrorCount & XCANPS_ECR_TEC_MASK);
 }
 
 /*****************************************************************************/
@@ -459,29 +470,32 @@ void XCanPs_ClearBusErrorStatus(XCanPs *InstancePtr, u32 Mask)
 * @note		None.
 *
 ******************************************************************************/
-int XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
+s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_IsTxFifoFull(InstancePtr) == TRUE) {
-		return XST_FIFO_NO_ROOM;
+		Status = XST_FIFO_NO_ROOM;
+	} else {
+
+		/*
+		 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
+		 */
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXFIFO_ID_OFFSET, FramePtr[0]);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXFIFO_DLC_OFFSET, FramePtr[1]);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXFIFO_DW1_OFFSET, FramePtr[2]);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXFIFO_DW2_OFFSET, FramePtr[3]);
+
+		Status = XST_SUCCESS;
 	}
-
-	/*
-	 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
-	 */
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXFIFO_ID_OFFSET, FramePtr[0]);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXFIFO_DLC_OFFSET, FramePtr[1]);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXFIFO_DW1_OFFSET, FramePtr[2]);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXFIFO_DW2_OFFSET, FramePtr[3]);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -504,35 +518,38 @@ int XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
+s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_IsRxEmpty(InstancePtr) == TRUE) {
-		return XST_NO_DATA;
+		Status = XST_NO_DATA;
+	} else {
+
+		/*
+		 * Read IDR, DLC, Data Word 1 and Data Word 2 from the CAN device.
+		 */
+		FramePtr[0] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						XCANPS_RXFIFO_ID_OFFSET);
+		FramePtr[1] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						XCANPS_RXFIFO_DLC_OFFSET);
+		FramePtr[2] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						XCANPS_RXFIFO_DW1_OFFSET);
+		FramePtr[3] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						XCANPS_RXFIFO_DW2_OFFSET);
+
+		/*
+		 * Clear RXNEMP bit in ISR. This allows future XCanPs_IsRxEmpty() call
+		 * returns correct RX FIFO occupancy/empty condition.
+		 */
+		XCanPs_IntrClear(InstancePtr, XCANPS_IXR_RXNEMP_MASK);
+
+		Status = XST_SUCCESS;
 	}
-
-	/*
-	 * Read IDR, DLC, Data Word 1 and Data Word 2 from the CAN device.
-	 */
-	FramePtr[0] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_RXFIFO_ID_OFFSET);
-	FramePtr[1] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_RXFIFO_DLC_OFFSET);
-	FramePtr[2] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_RXFIFO_DW1_OFFSET);
-	FramePtr[3] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_RXFIFO_DW2_OFFSET);
-
-	/*
-	 * Clear RXNEMP bit in ISR. This allows future XCanPs_IsRxEmpty() call
-	 * returns correct RX FIFO occupancy/empty condition.
-	 */
-	XCanPs_IntrClear(InstancePtr, XCANPS_IXR_RXNEMP_MASK);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -549,7 +566,7 @@ int XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 *
 * @return
 *		- XST_SUCCESS if TX High Priority Buffer was not full and the
-*		given frame was written into the buffer;
+*		given frame was written into the buffer.
 *		- XST_FIFO_NO_ROOM if there is no room in the TX High Priority
 *		Buffer for this frame.
 *
@@ -560,29 +577,32 @@ int XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 * level before invoking this function.
 *
 ******************************************************************************/
-int XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
+s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_IsHighPriorityBufFull(InstancePtr) == TRUE) {
-		return XST_FIFO_NO_ROOM;
+		Status = XST_FIFO_NO_ROOM;
+	} else {
+
+		/*
+		 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
+		 */
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXHPB_ID_OFFSET, FramePtr[0]);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXHPB_DLC_OFFSET, FramePtr[1]);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXHPB_DW1_OFFSET, FramePtr[2]);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_TXHPB_DW2_OFFSET, FramePtr[3]);
+
+		Status = XST_SUCCESS;
 	}
-
-	/*
-	 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
-	 */
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXHPB_ID_OFFSET, FramePtr[0]);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXHPB_DLC_OFFSET, FramePtr[1]);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXHPB_DW1_OFFSET, FramePtr[2]);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_TXHPB_DW2_OFFSET, FramePtr[3]);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -617,7 +637,7 @@ void XCanPs_AcceptFilterEnable(XCanPs *InstancePtr, u32 FilterIndexes)
 	EnabledFilters =  XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 						XCANPS_AFR_OFFSET);
 	EnabledFilters |= FilterIndexes;
-	EnabledFilters &= XCANPS_AFR_UAF_ALL_MASK;
+	EnabledFilters &= (u32)XCANPS_AFR_UAF_ALL_MASK;
 	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_AFR_OFFSET,
 			EnabledFilters);
 }
@@ -655,7 +675,7 @@ void XCanPs_AcceptFilterDisable(XCanPs *InstancePtr, u32 FilterIndexes)
 	 */
 	EnabledFilters = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 					XCANPS_AFR_OFFSET);
-	EnabledFilters &= XCANPS_AFR_UAF_ALL_MASK & (~FilterIndexes);
+	EnabledFilters &= (u32)XCANPS_AFR_UAF_ALL_MASK & (~FilterIndexes);
 	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_AFR_OFFSET,
 			   EnabledFilters);
 }
@@ -695,7 +715,7 @@ u32 XCanPs_AcceptFilterGetEnabled(XCanPs *InstancePtr)
 * filter. Read the xcanps.h file and device specification for details.
 *
 * This function should be called only after:
-*   - The given filter is disabled by calling XCanPs_AcceptFilterDisable();
+*   - The given filter is disabled by calling XCanPs_AcceptFilterDisable()
 *   - And the CAN device is ready to accept writes to AFMR and AFIR, i.e.,
 *	 XCanPs_IsAcceptFilterBusy() returns FALSE.
 *
@@ -715,10 +735,11 @@ u32 XCanPs_AcceptFilterGetEnabled(XCanPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
+s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 			 u32 MaskValue, u32 IdValue)
 {
 	u32 EnabledFilters;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -732,52 +753,59 @@ int XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 	 */
 	EnabledFilters = XCanPs_AcceptFilterGetEnabled(InstancePtr);
 	if ((EnabledFilters & FilterIndex) == FilterIndex) {
-		return XST_FAILURE;
+		Status = XST_FAILURE;
+	} else {
+
+		/*
+		 * If the CAN device is not ready to accept writes to AFMR and AFIR,
+		 * return error code.
+		 */
+		if (XCanPs_IsAcceptFilterBusy(InstancePtr) == TRUE) {
+			Status = XST_FAILURE;
+		} else {
+
+			/*
+			 * Write to the AFMR and AFIR of the specified filter.
+			 */
+			switch (FilterIndex) {
+				case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
+
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFMR1_OFFSET, MaskValue);
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFIR1_OFFSET, IdValue);
+					break;
+
+				case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFMR2_OFFSET, MaskValue);
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFIR2_OFFSET, IdValue);
+					break;
+
+				case XCANPS_AFR_UAF3_MASK:	/* Acceptance Filter No. 3 */
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFMR3_OFFSET, MaskValue);
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFIR3_OFFSET, IdValue);
+					break;
+
+				case XCANPS_AFR_UAF4_MASK:	/* Acceptance Filter No. 4 */
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFMR4_OFFSET, MaskValue);
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFIR4_OFFSET, IdValue);
+					break;
+
+				default:
+					/*This default was made for misra-c compliance*/
+					break;
+			}
+
+			Status = XST_SUCCESS;
+		}
 	}
-
-	/*
-	 * If the CAN device is not ready to accept writes to AFMR and AFIR,
-	 * return error code.
-	 */
-	if (XCanPs_IsAcceptFilterBusy(InstancePtr) == TRUE) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Write to the AFMR and AFIR of the specified filter.
-	 */
-	switch (FilterIndex) {
-	case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
-
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFMR1_OFFSET, MaskValue);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFIR1_OFFSET, IdValue);
-		break;
-
-	case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFMR2_OFFSET, MaskValue);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFIR2_OFFSET, IdValue);
-		break;
-
-	case XCANPS_AFR_UAF3_MASK:	/* Acceptance Filter No. 3 */
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFMR3_OFFSET, MaskValue);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFIR3_OFFSET, IdValue);
-		break;
-
-	case XCANPS_AFR_UAF4_MASK:	/* Acceptance Filter No. 4 */
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFMR4_OFFSET, MaskValue);
-		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFIR4_OFFSET, IdValue);
-		break;
-	}
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -817,33 +845,37 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 	 * Read from the AFMR and AFIR of the specified filter.
 	 */
 	switch (FilterIndex) {
-	case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
-		*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFMR1_OFFSET);
-		*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFIR1_OFFSET);
-		break;
+		case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
+			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFMR1_OFFSET);
+			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFIR1_OFFSET);
+			break;
 
-	case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
-		*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFMR2_OFFSET);
-		*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFIR2_OFFSET);
-		break;
+		case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
+			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFMR2_OFFSET);
+			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFIR2_OFFSET);
+			break;
 
-	case XCANPS_AFR_UAF3_MASK:	/* Acceptance Filter No. 3 */
-		*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFMR3_OFFSET);
-		*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFIR3_OFFSET);
-		break;
+		case XCANPS_AFR_UAF3_MASK:	/* Acceptance Filter No. 3 */
+			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFMR3_OFFSET);
+			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFIR3_OFFSET);
+			break;
 
-	case XCANPS_AFR_UAF4_MASK:	/* Acceptance Filter No. 4 */
-		*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFMR4_OFFSET);
-		*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					  XCANPS_AFIR4_OFFSET);
-		break;
+		case XCANPS_AFR_UAF4_MASK:	/* Acceptance Filter No. 4 */
+			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFMR4_OFFSET);
+			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						  XCANPS_AFIR4_OFFSET);
+			break;
+
+		default:
+			/*This default was made for misra-c compliance*/
+			break;
 	}
 }
 
@@ -870,19 +902,22 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 * @note		None.
 *
 ******************************************************************************/
-int XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler)
+s32 XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG) {
-		return XST_FAILURE;
+	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	} else {
+
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_BRPR_OFFSET,
+					(u32)Prescaler);
+
+		Status = XST_SUCCESS;
 	}
-
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_BRPR_OFFSET,
-				(u32)Prescaler);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -903,12 +938,13 @@ int XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler)
 ******************************************************************************/
 u8 XCanPs_GetBaudRatePrescaler(XCanPs *InstancePtr)
 {
+	u32 ReadValue;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	return (u8) XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+	ReadValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 					XCANPS_BRPR_OFFSET);
-
+	return ((u8)ReadValue);
 }
 
 /*****************************************************************************/
@@ -938,31 +974,34 @@ u8 XCanPs_GetBaudRatePrescaler(XCanPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
+s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 			  u8 TimeSegment2, u8 TimeSegment1)
 {
 	u32 Value;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(SyncJumpWidth <= 3);
-	Xil_AssertNonvoid(TimeSegment2 <= 7);
-	Xil_AssertNonvoid(TimeSegment1 <= 15 );
+	Xil_AssertNonvoid(SyncJumpWidth <= (u8)3U);
+	Xil_AssertNonvoid(TimeSegment2 <= (u8)7U);
+	Xil_AssertNonvoid(TimeSegment1 <= (u8)15U );
 
-	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG) {
-		return XST_FAILURE;
+	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	} else {
+
+		Value = ((u32) TimeSegment1) & XCANPS_BTR_TS1_MASK;
+		Value |= (((u32) TimeSegment2) << XCANPS_BTR_TS2_SHIFT) &
+			XCANPS_BTR_TS2_MASK;
+		Value |= (((u32) SyncJumpWidth) << XCANPS_BTR_SJW_SHIFT) &
+			XCANPS_BTR_SJW_MASK;
+
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_BTR_OFFSET, Value);
+
+		Status = XST_SUCCESS;
 	}
-
-	Value = ((u32) TimeSegment1) & XCANPS_BTR_TS1_MASK;
-	Value |= (((u32) TimeSegment2) << XCANPS_BTR_TS2_SHIFT) &
-		XCANPS_BTR_TS2_MASK;
-	Value |= (((u32) SyncJumpWidth) << XCANPS_BTR_SJW_SHIFT) &
-		XCANPS_BTR_SJW_MASK;
-
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_BTR_OFFSET, Value);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1026,26 +1065,30 @@ void XCanPs_GetBitTiming(XCanPs *InstancePtr, u8 *SyncJumpWidth,
 *		configuration mode.
 *
 *****************************************************************************/
-int XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
+s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 {
 
 	u32 ThrReg;
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Threshold <= 63);
+	Xil_AssertNonvoid(Threshold <= (u8)63);
 
-	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG)
-		return XST_FAILURE;
+	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	} else {
 
-	ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_WIR_OFFSET);
+		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_WIR_OFFSET);
 
-	ThrReg &= XCANPS_WIR_EW_MASK;
-	ThrReg |= ((u32)Threshold & XCANPS_WIR_FW_MASK);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_WIR_OFFSET, ThrReg);
+		ThrReg &= XCANPS_WIR_EW_MASK;
+		ThrReg |= ((u32)Threshold & XCANPS_WIR_FW_MASK);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_WIR_OFFSET, ThrReg);
 
-	return XST_SUCCESS;
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 /****************************************************************************/
@@ -1092,26 +1135,30 @@ u8 XCanPs_GetRxIntrWatermark(XCanPs *InstancePtr)
 *		configuration mode.
 *
 *****************************************************************************/
-int XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
+s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 {
 	u32 ThrReg;
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Threshold <= 63);
+	Xil_AssertNonvoid(Threshold <= (u8)63);
 
-	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG)
-		return XST_FAILURE;
+	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
+		Status = XST_FAILURE;
+	} else {
 
-	ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_WIR_OFFSET);
+		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_WIR_OFFSET);
 
-	ThrReg &= XCANPS_WIR_FW_MASK;
-	ThrReg |= ((u32)(Threshold << XCANPS_WIR_EW_SHIFT)
-			& XCANPS_WIR_EW_MASK);
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-			XCANPS_WIR_OFFSET, ThrReg);
+		ThrReg &= XCANPS_WIR_FW_MASK;
+		ThrReg |= (((u32)Threshold << XCANPS_WIR_EW_SHIFT)
+				& XCANPS_WIR_EW_MASK);
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+				XCANPS_WIR_OFFSET, ThrReg);
 
-	return XST_SUCCESS;
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 /****************************************************************************/
