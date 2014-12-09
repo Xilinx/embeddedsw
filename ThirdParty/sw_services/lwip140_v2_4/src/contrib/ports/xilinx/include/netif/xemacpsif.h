@@ -40,6 +40,7 @@ extern "C" {
 #include "xlwipconfig.h"
 #include "lwip/netif.h"
 #include "netif/etharp.h"
+#include "lwip/sys.h"
 #include "netif/xadapter.h"
 
 #include "xstatus.h"
@@ -63,10 +64,7 @@ extern "C" {
 void 	xemacpsif_setmac(u32_t index, u8_t *addr);
 u8_t*	xemacpsif_getmac(u32_t index);
 err_t 	xemacpsif_init(struct netif *netif);
-int 	xemacpsif_input(struct netif *netif);
-#ifdef NOTNOW_BHILL
-unsigned get_IEEE_phy_speed(XLlTemac *xlltemacp);
-#endif
+s32_t 	xemacpsif_input(struct netif *netif);
 
 /* xaxiemacif_hw.c */
 void 	xemacps_error_handler(XEmacPs * Temac);
@@ -91,13 +89,13 @@ typedef struct {
 
 extern xemacpsif_s xemacpsif;
 
-int	is_tx_space_available(xemacpsif_s *emac);
+s32_t	is_tx_space_available(xemacpsif_s *emac);
 
-/* xaxiemacif_dma.c */
+/* xemacpsif_dma.c */
 
-XStatus init_axi_dma(struct xemac_s *xemac);
 void  process_sent_bds(XEmacPs_BdRing *txring);
-unsigned Phy_Setup (XEmacPs *xemacpsp);
+u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr);
+void detect_phy(XEmacPs *xemacpsp);
 void emacps_send_handler(void *arg);
 XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p);
 void emacps_recv_handler(void *arg);
@@ -110,8 +108,8 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif);
 void setup_isr (struct xemac_s *xemac);
 XStatus init_dma(struct xemac_s *xemac);
 void start_emacps (xemacpsif_s *xemacps);
-void FreeTxRxPBufs(void);
-void FreeOnlyTxPBufs(void);
+void free_txrx_pbufs(void);
+void free_onlytx_pbufs(void);
 void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif);
 void clean_dma_txdescs(struct xemac_s *xemac);
 void resetrx_on_no_rxdata(xemacpsif_s *xemacpsif);

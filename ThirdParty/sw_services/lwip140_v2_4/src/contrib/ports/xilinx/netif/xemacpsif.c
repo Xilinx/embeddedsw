@@ -85,7 +85,7 @@ static u8_t xemacps_mcast_entry_mask = 0;
 
 XEmacPs_Config *mac_config;
 struct netif *NetIf;
-void FreeTxPBufs(void);
+
 /*
  * this function is always called with interrupts off
  * this function also assumes that there are available BD's
@@ -129,26 +129,32 @@ static err_t _unbuffered_low_level_output(xemacpsif_s *xemacpsif,
 static err_t low_level_output(struct netif *netif, struct pbuf *p)
 {
 	SYS_ARCH_DECL_PROTECT(lev);
-        err_t err;
+    err_t err;
+    s32_t freecnt;
+    XEmacPs_BdRing *txring;
 
 	struct xemac_s *xemac = (struct xemac_s *)(netif->state);
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
 
 	SYS_ARCH_PROTECT(lev);
 
-
 	/* check if space is available to send */
-        if (is_tx_space_available(xemacpsif)) {
+    freecnt = is_tx_space_available(xemacpsif);
+    if (freecnt <= 5) {
+	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
+	process_sent_bds(txring);
+	}
+
+    if (is_tx_space_available(xemacpsif)) {
 		_unbuffered_low_level_output(xemacpsif, p);
 		err = ERR_OK;
 	} else {
 #if LINK_STATS
 		lwip_stats.link.drop++;
 #endif
-		print("pack dropped, no space\r\n");
+		printf("pack dropped, no space\r\n");
 		err = ERR_MEM;
 	}
-
 
 	SYS_ARCH_UNPROTECT(lev);
 	return err;
@@ -205,7 +211,7 @@ static err_t xemacpsif_output(struct netif *netif, struct pbuf *p,
  *
  */
 
-int xemacpsif_input(struct netif *netif)
+s32_t xemacpsif_input(struct netif *netif)
 {
 	struct eth_hdr *ethhdr;
 	struct pbuf *p;
@@ -215,45 +221,45 @@ int xemacpsif_input(struct netif *netif)
 	while (1)
 #endif
 	{
-	/* move received packet into a new pbuf */
-	SYS_ARCH_PROTECT(lev);
-	p = low_level_input(netif);
-	SYS_ARCH_UNPROTECT(lev);
+		/* move received packet into a new pbuf */
+		SYS_ARCH_PROTECT(lev);
+		p = low_level_input(netif);
+		SYS_ARCH_UNPROTECT(lev);
 
-	/* no packet could be read, silently ignore this */
-	if (p == NULL) {
-		return 0;
-	}
+		/* no packet could be read, silently ignore this */
+		if (p == NULL) {
+			return 0;
+		}
 
-	/* points to packet payload, which starts with an Ethernet header */
-	ethhdr = p->payload;
+		/* points to packet payload, which starts with an Ethernet header */
+		ethhdr = p->payload;
 
-#if LINK_STATS
-	lwip_stats.link.recv++;
-#endif /* LINK_STATS */
+	#if LINK_STATS
+		lwip_stats.link.recv++;
+	#endif /* LINK_STATS */
 
-	switch (htons(ethhdr->type)) {
-		/* IP or ARP packet? */
-		case ETHTYPE_IP:
-		case ETHTYPE_ARP:
-#if PPPOE_SUPPORT
-			/* PPPoE packet? */
-		case ETHTYPE_PPPOEDISC:
-		case ETHTYPE_PPPOE:
-#endif /* PPPOE_SUPPORT */
-			/* full packet send to tcpip_thread to process */
-			if (netif->input(p, netif) != ERR_OK) {
-				LWIP_DEBUGF(NETIF_DEBUG, ("xemacpsif_input: IP input error\r\n"));
+		switch (htons(ethhdr->type)) {
+			/* IP or ARP packet? */
+			case ETHTYPE_IP:
+			case ETHTYPE_ARP:
+	#if PPPOE_SUPPORT
+				/* PPPoE packet? */
+			case ETHTYPE_PPPOEDISC:
+			case ETHTYPE_PPPOE:
+	#endif /* PPPOE_SUPPORT */
+				/* full packet send to tcpip_thread to process */
+				if (netif->input(p, netif) != ERR_OK) {
+					LWIP_DEBUGF(NETIF_DEBUG, ("xemacpsif_input: IP input error\r\n"));
+					pbuf_free(p);
+					p = NULL;
+				}
+				break;
+
+			default:
 				pbuf_free(p);
 				p = NULL;
-			}
-			break;
-
-		default:
-			pbuf_free(p);
-			p = NULL;
-			break;
-	}
+				break;
+		}
 	}
 
 	return 1;
@@ -262,12 +268,12 @@ int xemacpsif_input(struct netif *netif)
 
 static err_t low_level_init(struct netif *netif)
 {
-	unsigned mac_address = (unsigned)(netif->state);
+	u32_t mac_address = (u32_t)(netif->state);
 	struct xemac_s *xemac;
 	xemacpsif_s *xemacpsif;
 	u32 dmacrreg;
 
-	int Status = XST_SUCCESS;
+	s32_t status = XST_SUCCESS;
 
 	NetIf = netif;
 
@@ -312,9 +318,9 @@ static err_t low_level_init(struct netif *netif)
 	/* obtain config of this emac */
 	mac_config = (XEmacPs_Config *)xemacps_lookup_config((unsigned)netif->state);
 
-	Status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
+	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (status != XST_SUCCESS) {
 		xil_printf("In %s:EmacPs Configuration Failed....\r\n", __func__);
 	}
 
@@ -342,17 +348,17 @@ static err_t low_level_init(struct netif *netif)
 void HandleEmacPsError(struct xemac_s *xemac)
 {
 	xemacpsif_s   *xemacpsif;
-	int Status = XST_SUCCESS;
+	s32_t status = XST_SUCCESS;
 	u32 dmacrreg;
 
 	SYS_ARCH_DECL_PROTECT(lev);
 	SYS_ARCH_PROTECT(lev);
 
-	FreeTxRxPBufs();
+	free_txrx_pbufs();
 	xemacpsif = (xemacpsif_s *)(xemac->state);
-	Status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
+	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (status != XST_SUCCESS) {
 		xil_printf("In %s:EmacPs Configuration Failed....\r\n", __func__);
 	}
 	/* initialize the mac */
@@ -382,7 +388,7 @@ void HandleTxErrors(struct xemac_s *xemac)
     netctrlreg = netctrlreg & (~XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,
 									XEMACPS_NWCTRL_OFFSET, netctrlreg);
-	FreeOnlyTxPBufs();
+	free_onlytx_pbufs();
 
 	clean_dma_txdescs(xemac);
 	netctrlreg = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress,

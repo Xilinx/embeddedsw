@@ -56,7 +56,7 @@ struct xemac_s {
 	int  topology_index;
 	void *state;
 #if !NO_SYS
-        sys_sem_t sem_rx_data_available;
+    sys_sem_t sem_rx_data_available;
 #endif
 };
 
