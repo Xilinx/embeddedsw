@@ -46,8 +46,9 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who    Date     Changes
-* ---- ------ -------- ---------------------------------------------
+* ---- ------ -------- --------------------------------------------------------
 * 1.00 drg/jz 01/23/10 First release
+* 3.0  pkp	  12/09/14 Change TTC_NUM_DEVICES for Zynq Ultrascale MP support
 *</pre>
 ******************************************************************************/
 
@@ -66,7 +67,7 @@
  * change all the needed parameters in one place.
  */
 #define PCLK_FREQ_HZ		XPAR_XTTCPS_0_CLOCK_HZ /* Input freq */
-#define TTC_NUM_DEVICES		XPAR_XTTCPS_NUM_INSTANCES
+#define TTC_NUM_DEVICES		2
 
 #define TABLE_OFFSET		6
 #define MAX_LOOP_COUNT		0xFFFF
