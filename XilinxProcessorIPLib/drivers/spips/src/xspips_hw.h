@@ -78,18 +78,18 @@ extern "C" {
  * Register offsets from the base address of an SPI device.
  * @{
  */
-#define XSPIPS_CR_OFFSET	0x00  /**< Configuration */
-#define XSPIPS_SR_OFFSET	0x04  /**< Interrupt Status */
-#define XSPIPS_IER_OFFSET	0x08  /**< Interrupt Enable */
-#define XSPIPS_IDR_OFFSET	0x0c  /**< Interrupt Disable */
-#define XSPIPS_IMR_OFFSET	0x10  /**< Interrupt Enabled Mask */
-#define XSPIPS_ER_OFFSET	0x14  /**< Enable/Disable Register */
-#define XSPIPS_DR_OFFSET	0x18  /**< Delay Register */
-#define XSPIPS_TXD_OFFSET	0x1C  /**< Data Transmit Register */
-#define XSPIPS_RXD_OFFSET	0x20  /**< Data Receive Register */
-#define XSPIPS_SICR_OFFSET	0x24  /**< Slave Idle Count */
-#define XSPIPS_TXWR_OFFSET	0x28  /**< Transmit FIFO Watermark */
-#define XSPIPS_RXWR_OFFSET	0x2C  /**< Receive FIFO Watermark */
+#define XSPIPS_CR_OFFSET	0x00U  /**< Configuration */
+#define XSPIPS_SR_OFFSET	0x04U  /**< Interrupt Status */
+#define XSPIPS_IER_OFFSET	0x08U  /**< Interrupt Enable */
+#define XSPIPS_IDR_OFFSET	0x0CU  /**< Interrupt Disable */
+#define XSPIPS_IMR_OFFSET	0x10U  /**< Interrupt Enabled Mask */
+#define XSPIPS_ER_OFFSET	0x14U  /**< Enable/Disable Register */
+#define XSPIPS_DR_OFFSET	0x18U  /**< Delay Register */
+#define XSPIPS_TXD_OFFSET	0x1CU  /**< Data Transmit Register */
+#define XSPIPS_RXD_OFFSET	0x20U  /**< Data Receive Register */
+#define XSPIPS_SICR_OFFSET	0x24U  /**< Slave Idle Count */
+#define XSPIPS_TXWR_OFFSET	0x28U  /**< Transmit FIFO Watermark */
+#define XSPIPS_RXWR_OFFSET	0x2CU  /**< Receive FIFO Watermark */
 /* @} */
 
 /** @name Configuration Register
@@ -98,26 +98,26 @@ extern "C" {
  * affects the operation of an SPI device. Read/Write.
  * @{
  */
-#define XSPIPS_CR_MODF_GEN_EN_MASK 0x00020000 /**< Modefail Generation
+#define XSPIPS_CR_MODF_GEN_EN_MASK 0x00020000U /**< Modefail Generation
 						 Enable */
-#define XSPIPS_CR_MANSTRT_MASK   0x00010000 /**< Manual Transmission Start */
-#define XSPIPS_CR_MANSTRTEN_MASK 0x00008000 /**< Manual Transmission Start
+#define XSPIPS_CR_MANSTRT_MASK   0x00010000U /**< Manual Transmission Start */
+#define XSPIPS_CR_MANSTRTEN_MASK 0x00008000U /**< Manual Transmission Start
 						 Enable */
-#define XSPIPS_CR_SSFORCE_MASK   0x00004000 /**< Force Slave Select */
-#define XSPIPS_CR_SSCTRL_MASK    0x00003C00 /**< Slave Select Decode */
-#define XSPIPS_CR_SSCTRL_SHIFT   10	    /**< Slave Select Decode shift */
-#define XSPIPS_CR_SSCTRL_MAXIMUM 0xF	    /**< Slave Select maximum value */
-#define XSPIPS_CR_SSDECEN_MASK   0x00000200 /**< Slave Select Decode Enable */
+#define XSPIPS_CR_SSFORCE_MASK   0x00004000U /**< Force Slave Select */
+#define XSPIPS_CR_SSCTRL_MASK    0x00003C00U /**< Slave Select Decode */
+#define XSPIPS_CR_SSCTRL_SHIFT   10U	    /**< Slave Select Decode shift */
+#define XSPIPS_CR_SSCTRL_MAXIMUM 0xFU	    /**< Slave Select maximum value */
+#define XSPIPS_CR_SSDECEN_MASK   0x00000200U /**< Slave Select Decode Enable */
 
-#define XSPIPS_CR_PRESC_MASK     0x00000038 /**< Prescaler Setting */
-#define XSPIPS_CR_PRESC_SHIFT    3	    /**< Prescaler shift */
-#define XSPIPS_CR_PRESC_MAXIMUM  0x07	    /**< Prescaler maximum value */
+#define XSPIPS_CR_PRESC_MASK     0x00000038U /**< Prescaler Setting */
+#define XSPIPS_CR_PRESC_SHIFT    3U	    /**< Prescaler shift */
+#define XSPIPS_CR_PRESC_MAXIMUM  0x07U	    /**< Prescaler maximum value */
 
-#define XSPIPS_CR_CPHA_MASK      0x00000004 /**< Phase Configuration */
-#define XSPIPS_CR_CPOL_MASK      0x00000002 /**< Polarity Configuration */
+#define XSPIPS_CR_CPHA_MASK      0x00000004U /**< Phase Configuration */
+#define XSPIPS_CR_CPOL_MASK      0x00000002U /**< Polarity Configuration */
 
-#define XSPIPS_CR_MSTREN_MASK    0x00000001 /**< Master Mode Enable */
-#define XSPIPS_CR_RESET_STATE    0x00020000 /**< Mode Fail Generation Enable */
+#define XSPIPS_CR_MSTREN_MASK    0x00000001U /**< Master Mode Enable */
+#define XSPIPS_CR_RESET_STATE    0x00020000U /**< Mode Fail Generation Enable */
 /* @} */
 
 
@@ -156,20 +156,20 @@ extern "C" {
  * @{
  */
 
-#define XSPIPS_IXR_TXUF_MASK		0x00000040  /**< Tx FIFO Underflow */
-#define XSPIPS_IXR_RXFULL_MASK		0x00000020  /**< Rx FIFO Full */
-#define XSPIPS_IXR_RXNEMPTY_MASK	0x00000010  /**< Rx FIFO Not Empty */
-#define XSPIPS_IXR_TXFULL_MASK		0x00000008  /**< Tx FIFO Full */
-#define XSPIPS_IXR_TXOW_MASK		0x00000004  /**< Tx FIFO Overwater */
-#define XSPIPS_IXR_MODF_MASK		0x00000002  /**< Mode Fault */
-#define XSPIPS_IXR_RXOVR_MASK		0x00000001  /**< Rx FIFO Overrun */
-#define XSPIPS_IXR_DFLT_MASK		0x00000027  /**< Default interrupts
+#define XSPIPS_IXR_TXUF_MASK		0x00000040U  /**< Tx FIFO Underflow */
+#define XSPIPS_IXR_RXFULL_MASK		0x00000020U  /**< Rx FIFO Full */
+#define XSPIPS_IXR_RXNEMPTY_MASK	0x00000010U  /**< Rx FIFO Not Empty */
+#define XSPIPS_IXR_TXFULL_MASK		0x00000008U  /**< Tx FIFO Full */
+#define XSPIPS_IXR_TXOW_MASK		0x00000004U  /**< Tx FIFO Overwater */
+#define XSPIPS_IXR_MODF_MASK		0x00000002U  /**< Mode Fault */
+#define XSPIPS_IXR_RXOVR_MASK		0x00000001U  /**< Rx FIFO Overrun */
+#define XSPIPS_IXR_DFLT_MASK		0x00000027U  /**< Default interrupts
 							 mask */
-#define XSPIPS_IXR_WR_TO_CLR_MASK	0x00000043  /**< Interrupts which
+#define XSPIPS_IXR_WR_TO_CLR_MASK	0x00000043U  /**< Interrupts which
 							 need write to clear */
-#define XSPIPS_ISR_RESET_STATE		0x04	    /**< Default to tx/rx
+#define XSPIPS_ISR_RESET_STATE		0x04U	    /**< Default to tx/rx
 						       * reg empty */
-#define XSPIPS_IXR_DISABLE_ALL_MASK	0x00000043  /**< Disable all
+#define XSPIPS_IXR_DISABLE_ALL_MASK	0x00000043U  /**< Disable all
 						       * interrupts */
 /* @} */
 
@@ -180,7 +180,7 @@ extern "C" {
  * Read/Write
  * @{
  */
-#define XSPIPS_ER_ENABLE_MASK	0x00000001 /**< SPI Enable Bit Mask */
+#define XSPIPS_ER_ENABLE_MASK	0x00000001U /**< SPI Enable Bit Mask */
 /* @} */
 
 
@@ -190,17 +190,17 @@ extern "C" {
  * slave mode. Read/Write
  * @{
  */
-#define XSPIPS_DR_NSS_MASK	0xFF000000 /**< Delay for slave select
+#define XSPIPS_DR_NSS_MASK	0xFF000000U /**< Delay for slave select
 					      * de-assertion between
 					      * word transfers mask */
-#define XSPIPS_DR_NSS_SHIFT	24	   /**< Delay for slave select
+#define XSPIPS_DR_NSS_SHIFT	24U	   /**< Delay for slave select
 					      * de-assertion between
 					      * word transfers shift */
-#define XSPIPS_DR_BTWN_MASK	0x00FF0000 /**< Delay Between Transfers	mask */
-#define XSPIPS_DR_BTWN_SHIFT	16	   /**< Delay Between Transfers shift */
-#define XSPIPS_DR_AFTER_MASK	0x0000FF00 /**< Delay After Transfers mask */
-#define XSPIPS_DR_AFTER_SHIFT	8 	   /**< Delay After Transfers shift */
-#define XSPIPS_DR_INIT_MASK	0x000000FF /**< Delay Initially mask */
+#define XSPIPS_DR_BTWN_MASK	0x00FF0000U /**< Delay Between Transfers	mask */
+#define XSPIPS_DR_BTWN_SHIFT	16U	   /**< Delay Between Transfers shift */
+#define XSPIPS_DR_AFTER_MASK	0x0000FF00U /**< Delay After Transfers mask */
+#define XSPIPS_DR_AFTER_SHIFT	8U 	   /**< Delay After Transfers shift */
+#define XSPIPS_DR_INIT_MASK	0x000000FFU /**< Delay Initially mask */
 /* @} */
 
 
@@ -213,7 +213,7 @@ extern "C" {
  *
  * @{
  */
-#define XSPIPS_SICR_MASK	0x000000FF /**< Slave Idle Count Mask */
+#define XSPIPS_SICR_MASK	0x000000FFU /**< Slave Idle Count Mask */
 /* @} */
 
 
@@ -226,8 +226,8 @@ extern "C" {
  *
  * @{
  */
-#define XSPIPS_TXWR_MASK	0x0000007F /**< Transmit Watermark Mask */
-#define XSPIPS_TXWR_RESET_VALUE	0x00000001 /**< Transmit Watermark
+#define XSPIPS_TXWR_MASK	0x0000007FU /**< Transmit Watermark Mask */
+#define XSPIPS_TXWR_RESET_VALUE	0x00000001U /**< Transmit Watermark
 					      * register reset value */
 /* @} */
 
@@ -239,8 +239,8 @@ extern "C" {
  *
  * @{
  */
-#define XSPIPS_RXWR_MASK	0x0000007F /**< Receive Watermark Mask */
-#define XSPIPS_RXWR_RESET_VALUE	0x00000001 /**< Receive Watermark
+#define XSPIPS_RXWR_MASK	0x0000007FU /**< Receive Watermark Mask */
+#define XSPIPS_RXWR_RESET_VALUE	0x00000001U /**< Receive Watermark
 					      * register reset value */
 /* @} */
 
@@ -250,7 +250,7 @@ extern "C" {
  *
  * @{
  */
-#define XSPIPS_FIFO_DEPTH	128 /**< FIFO depth of Tx and Rx */
+#define XSPIPS_FIFO_DEPTH	128U /**< FIFO depth of Tx and Rx */
 /* @} */
 
 /**************************** Type Definitions *******************************/

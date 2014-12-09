@@ -69,7 +69,7 @@
 *
 * Resets the spi module
 *
-* @param	None
+* @param    BaseAddress is the base address of the device.
 *
 * @return	None
 *
@@ -78,7 +78,7 @@
 ******************************************************************************/
 void XSpiPs_ResetHw(u32 BaseAddress)
 {
-
+	u32 Check;
 	/*
 	 * Disable Interrupts
 	 */
@@ -89,7 +89,7 @@ void XSpiPs_ResetHw(u32 BaseAddress)
 	 * Disable device
 	 */
 	XSpiPs_WriteReg(BaseAddress, XSPIPS_ER_OFFSET,
-				0);
+				0U);
 	/*
 	 * Write default value to RX and TX threshold registers
 	 * RX threshold should be set to 1 here as the corresponding
@@ -103,9 +103,12 @@ void XSpiPs_ResetHw(u32 BaseAddress)
 	/*
 	 * Clear RXFIFO
 	 */
-	while ((XSpiPs_ReadReg(BaseAddress,XSPIPS_SR_OFFSET) &
-		XSPIPS_IXR_RXNEMPTY_MASK) != 0) {
-		XSpiPs_ReadReg(BaseAddress, XSPIPS_RXD_OFFSET);
+	Check = (XSpiPs_ReadReg(BaseAddress,XSPIPS_SR_OFFSET) &
+		XSPIPS_IXR_RXNEMPTY_MASK);
+	while (Check != 0U) {
+		(void)XSpiPs_ReadReg(BaseAddress, XSPIPS_RXD_OFFSET);
+		Check = (XSpiPs_ReadReg(BaseAddress,XSPIPS_SR_OFFSET) &
+			XSPIPS_IXR_RXNEMPTY_MASK);
 	}
 
 	/*

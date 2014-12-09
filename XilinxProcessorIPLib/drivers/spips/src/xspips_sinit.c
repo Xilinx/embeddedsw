@@ -62,7 +62,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XSpiPs_Config XSpiPs_ConfigTable[];
+extern XSpiPs_Config XSpiPs_ConfigTable[XPAR_XSPIPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -84,13 +84,13 @@ extern XSpiPs_Config XSpiPs_ConfigTable[];
 XSpiPs_Config *XSpiPs_LookupConfig(u16 DeviceId)
 {
 	XSpiPs_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XSPIPS_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XSPIPS_NUM_INSTANCES; Index++) {
 		if (XSpiPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XSpiPs_ConfigTable[Index];
 			break;
 		}
 	}
-	return CfgPtr;
+	return (XSpiPs_Config *)CfgPtr;
 }
