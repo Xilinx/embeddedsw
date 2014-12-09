@@ -59,15 +59,15 @@
 /************************** Function Prototypes *****************************/
 
 static void ReceiveDataHandler(XUartPs *InstancePtr);
-static void SendDataHandler(XUartPs *InstancePtr, u32 isrstatus);
+static void SendDataHandler(XUartPs *InstancePtr, u32 IsrStatus);
 static void ReceiveErrorHandler(XUartPs *InstancePtr);
 static void ReceiveTimeoutHandler(XUartPs *InstancePtr);
 static void ModemHandler(XUartPs *InstancePtr);
 
 
 /* Internal function prototypes implemented in xuartps.c */
-extern unsigned int XUartPs_ReceiveBuffer(XUartPs *InstancePtr);
-extern unsigned int XUartPs_SendBuffer(XUartPs *InstancePtr);
+extern u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr);
+extern u32 XUartPs_SendBuffer(XUartPs *InstancePtr);
 
 /************************** Variable Definitions ****************************/
 
@@ -117,24 +117,25 @@ u32 XUartPs_GetInterruptMask(XUartPs *InstancePtr)
 *****************************************************************************/
 void XUartPs_SetInterruptMask(XUartPs *InstancePtr, u32 Mask)
 {
+	u32 TempMask = Mask;
 	/*
 	 * Assert validates the input arguments
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	Mask &= XUARTPS_IXR_MASK;
+	TempMask &= (u32)XUARTPS_IXR_MASK;
 
 	/*
 	 * Write the mask to the IER Register
 	 */
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
-		 XUARTPS_IER_OFFSET, Mask);
+		 XUARTPS_IER_OFFSET, TempMask);
 
 	/*
 	 * Write the inverse of the Mask to the IDR register
 	 */
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
-		 XUARTPS_IDR_OFFSET, (~Mask));
+		 XUARTPS_IDR_OFFSET, (~TempMask));
 
 }
 
@@ -204,31 +205,32 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr)
 				   XUARTPS_ISR_OFFSET);
 
 	/*
-	 * Dispatch an appropiate handler.
+	 * Dispatch an appropriate handler.
 	 */
-	if(0 != (IsrStatus & (XUARTPS_IXR_RXOVR | XUARTPS_IXR_RXEMPTY |
-				 XUARTPS_IXR_RXFULL))) {
-		/* Recieved data interrupt */
+	if((IsrStatus & ((u32)XUARTPS_IXR_RXOVR | (u32)XUARTPS_IXR_RXEMPTY |
+			(u32)XUARTPS_IXR_RXFULL)) != (u32)0) {
+		/* Received data interrupt */
 		ReceiveDataHandler(InstancePtr);
 	}
 
-	if(0 != (IsrStatus & (XUARTPS_IXR_TXEMPTY | XUARTPS_IXR_TXFULL))) {
+	if((IsrStatus & ((u32)XUARTPS_IXR_TXEMPTY | (u32)XUARTPS_IXR_TXFULL))
+									 != (u32)0) {
 		/* Transmit data interrupt */
 		SendDataHandler(InstancePtr, IsrStatus);
 	}
 
-	if(0 != (IsrStatus & (XUARTPS_IXR_OVER | XUARTPS_IXR_FRAMING |
-				XUARTPS_IXR_PARITY))) {
-		/* Recieved Error Status interrupt */
+	if((IsrStatus & ((u32)XUARTPS_IXR_OVER | (u32)XUARTPS_IXR_FRAMING |
+			(u32)XUARTPS_IXR_PARITY)) != (u32)0) {
+		/* Received Error Status interrupt */
 		ReceiveErrorHandler(InstancePtr);
 	}
 
-	if(0 != (IsrStatus & XUARTPS_IXR_TOUT )) {
-		/* Recieved Timeout interrupt */
+	if((IsrStatus & ((u32)XUARTPS_IXR_TOUT)) != (u32)0) {
+		/* Received Timeout interrupt */
 		ReceiveTimeoutHandler(InstancePtr);
 	}
 
-	if(0 != (IsrStatus & XUARTPS_IXR_DMS)) {
+	if((IsrStatus & ((u32)XUARTPS_IXR_DMS)) != (u32)0) {
 		/* Modem status interrupt */
 		ModemHandler(InstancePtr);
 	}
@@ -261,8 +263,8 @@ static void ReceiveErrorHandler(XUartPs *InstancePtr)
 	 * go ahead and receive them. Removing bytes from the RX FIFO will
 	 * clear the interrupt.
 	 */
-	if (InstancePtr->ReceiveBuffer.RemainingBytes != 0) {
-		XUartPs_ReceiveBuffer(InstancePtr);
+	if (InstancePtr->ReceiveBuffer.RemainingBytes != (u32)0) {
+		(void)XUartPs_ReceiveBuffer(InstancePtr);
 	}
 
 	/*
@@ -300,8 +302,8 @@ static void ReceiveTimeoutHandler(XUartPs *InstancePtr)
 	 * go ahead and receive them. Removing bytes from the RX FIFO will
 	 * clear the interrupt.
 	 */
-	if (InstancePtr->ReceiveBuffer.RemainingBytes != 0) {
-		XUartPs_ReceiveBuffer(InstancePtr);
+	if (InstancePtr->ReceiveBuffer.RemainingBytes != (u32)0) {
+		(void)XUartPs_ReceiveBuffer(InstancePtr);
 	}
 
 	/*
@@ -311,7 +313,7 @@ static void ReceiveTimeoutHandler(XUartPs *InstancePtr)
 	 * don't rely on previous test of remaining bytes since receive
 	 * function updates it
 	 */
-	if (InstancePtr->ReceiveBuffer.RemainingBytes != 0) {
+	if (InstancePtr->ReceiveBuffer.RemainingBytes != (u32)0) {
 		Event = XUARTPS_EVENT_RECV_TOUT;
 	} else {
 		Event = XUARTPS_EVENT_RECV_DATA;
@@ -345,17 +347,16 @@ static void ReceiveDataHandler(XUartPs *InstancePtr)
 	 * go ahead and receive them. Removing bytes from the RX FIFO will
 	 * clear the interrupt.
 	 */
-	 if (InstancePtr->ReceiveBuffer.RemainingBytes != 0) {
-		XUartPs_ReceiveBuffer(InstancePtr);
+	 if (InstancePtr->ReceiveBuffer.RemainingBytes != (u32)0) {
+		(void)XUartPs_ReceiveBuffer(InstancePtr);
 	}
 
-
-	/* If the last byte of a message was received then call the application
+	 /* If the last byte of a message was received then call the application
 	 * handler, this code should not use an else from the previous check of
 	 * the number of bytes to receive because the call to receive the buffer
 	 * updates the bytes ramained
 	 */
-	if (InstancePtr->ReceiveBuffer.RemainingBytes == 0) {
+	if (InstancePtr->ReceiveBuffer.RemainingBytes == (u32)0) {
 		InstancePtr->Handler(InstancePtr->CallBackRef,
 				XUARTPS_EVENT_RECV_DATA,
 				(InstancePtr->ReceiveBuffer.RequestedBytes -
@@ -386,10 +387,10 @@ static void SendDataHandler(XUartPs *InstancePtr, u32 IsrStatus)
 	 * the transmit interrupt so it will stop interrupting as it interrupts
 	 * any time the FIFO is empty
 	 */
-	if (InstancePtr->SendBuffer.RemainingBytes == 0) {
+	if (InstancePtr->SendBuffer.RemainingBytes == (u32)0) {
 		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 				XUARTPS_IDR_OFFSET,
-				(XUARTPS_IXR_TXEMPTY | XUARTPS_IXR_TXFULL));
+				((u32)XUARTPS_IXR_TXEMPTY | (u32)XUARTPS_IXR_TXFULL));
 
 		/* Call the application handler to indicate the sending is done */
 		InstancePtr->Handler(InstancePtr->CallBackRef,
@@ -401,10 +402,13 @@ static void SendDataHandler(XUartPs *InstancePtr, u32 IsrStatus)
 	/*
 	 * If TX FIFO is empty, send more.
 	 */
-	else if(IsrStatus & XUARTPS_IXR_TXEMPTY) {
-		XUartPs_SendBuffer(InstancePtr);
+	else if((IsrStatus & ((u32)XUARTPS_IXR_TXEMPTY)) != (u32)0) {
+		(void)XUartPs_SendBuffer(InstancePtr);
 	}
-
+	else {
+		/* Else with dummy entry for MISRA-C Compliance.*/
+		;
+	}
 }
 
 /****************************************************************************/

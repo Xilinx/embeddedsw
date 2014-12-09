@@ -152,6 +152,8 @@
 * 2.1   hk     04/16/14 Change XUARTPS_MAX_RATE to 921600. CR# 780625.
 * 2.2   hk     06/23/14 SW reset of RX and TX should be done when changing
 *                       baud rate. CR# 804281.
+* 3.0   vm     12/09/14 Modified source code according to misrac guideline.
+*			Support for Zynq Ultrascale Mp added.
 *
 * </pre>
 *
@@ -178,10 +180,10 @@ extern "C" {
  * numbers are based only on the testing that has been done. The hardware
  * is capable of other baud rates.
  */
-#define XUARTPS_MAX_RATE	 921600
-#define XUARTPS_MIN_RATE	 110
+#define XUARTPS_MAX_RATE	 921600U
+#define XUARTPS_MIN_RATE	 110U
 
-#define XUARTPS_DFT_BAUDRATE  115200   /* Default baud rate */
+#define XUARTPS_DFT_BAUDRATE  115200U   /* Default baud rate */
 
 /** @name Configuration options
  * @{
@@ -194,14 +196,14 @@ extern "C" {
  *
  */
 
-#define XUARTPS_OPTION_SET_BREAK	0x0080 /**< Starts break transmission */
-#define XUARTPS_OPTION_STOP_BREAK	0x0040 /**< Stops break transmission */
-#define XUARTPS_OPTION_RESET_TMOUT	0x0020 /**< Reset the receive timeout */
-#define XUARTPS_OPTION_RESET_TX		0x0010 /**< Reset the transmitter */
-#define XUARTPS_OPTION_RESET_RX		0x0008 /**< Reset the receiver */
-#define XUARTPS_OPTION_ASSERT_RTS	0x0004 /**< Assert the RTS bit */
-#define XUARTPS_OPTION_ASSERT_DTR	0x0002 /**< Assert the DTR bit */
-#define XUARTPS_OPTION_SET_FCM		0x0001 /**< Turn on flow control mode */
+#define XUARTPS_OPTION_SET_BREAK	0x0080U /**< Starts break transmission */
+#define XUARTPS_OPTION_STOP_BREAK	0x0040U /**< Stops break transmission */
+#define XUARTPS_OPTION_RESET_TMOUT	0x0020U /**< Reset the receive timeout */
+#define XUARTPS_OPTION_RESET_TX		0x0010U /**< Reset the transmitter */
+#define XUARTPS_OPTION_RESET_RX		0x0008U /**< Reset the receiver */
+#define XUARTPS_OPTION_ASSERT_RTS	0x0004U /**< Assert the RTS bit */
+#define XUARTPS_OPTION_ASSERT_DTR	0x0002U /**< Assert the DTR bit */
+#define XUARTPS_OPTION_SET_FCM		0x0001U /**< Turn on flow control mode */
 /*@}*/
 
 
@@ -213,10 +215,10 @@ extern "C" {
  * @{
  */
 
-#define XUARTPS_OPER_MODE_NORMAL	0x00	/**< Normal Mode */
-#define XUARTPS_OPER_MODE_AUTO_ECHO	0x01	/**< Auto Echo Mode */
-#define XUARTPS_OPER_MODE_LOCAL_LOOP	0x02	/**< Local Loopback Mode */
-#define XUARTPS_OPER_MODE_REMOTE_LOOP	0x03	/**< Remote Loopback Mode */
+#define XUARTPS_OPER_MODE_NORMAL		(u8)0x00U	/**< Normal Mode */
+#define XUARTPS_OPER_MODE_AUTO_ECHO		(u8)0x01U	/**< Auto Echo Mode */
+#define XUARTPS_OPER_MODE_LOCAL_LOOP	(u8)0x02U	/**< Local Loopback Mode */
+#define XUARTPS_OPER_MODE_REMOTE_LOOP	(u8)0x03U	/**< Remote Loopback Mode */
 
 /* @} */
 
@@ -228,19 +230,19 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_FORMAT_8_BITS		0 /**< 8 data bits */
-#define XUARTPS_FORMAT_7_BITS		2 /**< 7 data bits */
-#define XUARTPS_FORMAT_6_BITS		3 /**< 6 data bits */
+#define XUARTPS_FORMAT_8_BITS		0U /**< 8 data bits */
+#define XUARTPS_FORMAT_7_BITS		2U /**< 7 data bits */
+#define XUARTPS_FORMAT_6_BITS		3U /**< 6 data bits */
 
-#define XUARTPS_FORMAT_NO_PARITY	4 /**< No parity */
-#define XUARTPS_FORMAT_MARK_PARITY	3 /**< Mark parity */
-#define XUARTPS_FORMAT_SPACE_PARITY	2 /**< parity */
-#define XUARTPS_FORMAT_ODD_PARITY	1 /**< Odd parity */
-#define XUARTPS_FORMAT_EVEN_PARITY	0 /**< Even parity */
+#define XUARTPS_FORMAT_NO_PARITY	4U /**< No parity */
+#define XUARTPS_FORMAT_MARK_PARITY	3U /**< Mark parity */
+#define XUARTPS_FORMAT_SPACE_PARITY	2U /**< parity */
+#define XUARTPS_FORMAT_ODD_PARITY	1U /**< Odd parity */
+#define XUARTPS_FORMAT_EVEN_PARITY	0U /**< Even parity */
 
-#define XUARTPS_FORMAT_2_STOP_BIT	2 /**< 2 stop bits */
-#define XUARTPS_FORMAT_1_5_STOP_BIT	1 /**< 1.5 stop bits */
-#define XUARTPS_FORMAT_1_STOP_BIT	0 /**< 1 stop bit */
+#define XUARTPS_FORMAT_2_STOP_BIT	2U /**< 2 stop bits */
+#define XUARTPS_FORMAT_1_5_STOP_BIT	1U /**< 1.5 stop bits */
+#define XUARTPS_FORMAT_1_STOP_BIT	0U /**< 1 stop bit */
 /*@}*/
 
 /** @name Callback events
@@ -251,11 +253,11 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_EVENT_RECV_DATA		1 /**< Data receiving done */
-#define XUARTPS_EVENT_RECV_TOUT		2 /**< A receive timeout occurred */
-#define XUARTPS_EVENT_SENT_DATA		3 /**< Data transmission done */
-#define XUARTPS_EVENT_RECV_ERROR	4 /**< A receive error detected */
-#define XUARTPS_EVENT_MODEM		5 /**< Modem status changed */
+#define XUARTPS_EVENT_RECV_DATA		1U /**< Data receiving done */
+#define XUARTPS_EVENT_RECV_TOUT		2U /**< A receive timeout occurred */
+#define XUARTPS_EVENT_SENT_DATA		3U /**< Data transmission done */
+#define XUARTPS_EVENT_RECV_ERROR	4U /**< A receive error detected */
+#define XUARTPS_EVENT_MODEM			5U /**< Modem status changed */
 /*@}*/
 
 
@@ -268,7 +270,7 @@ typedef struct {
 	u16 DeviceId;	 /**< Unique ID  of device */
 	u32 BaseAddress; /**< Base address of device (IPIF) */
 	u32 InputClockHz;/**< Input clock frequency */
-	int ModemPinsConnected; /** Specifies whether modem pins are connected
+	s32 ModemPinsConnected; /** Specifies whether modem pins are connected
 				 *  to MIO or FMIO */
 } XUartPs_Config;
 
@@ -277,8 +279,8 @@ typedef struct {
  */
 typedef struct {
 	u8 *NextBytePtr;
-	unsigned int RequestedBytes;
-	unsigned int RemainingBytes;
+	u32 RequestedBytes;
+	u32 RemainingBytes;
 } XUartPsBuffer;
 
 /**
@@ -287,7 +289,7 @@ typedef struct {
 typedef struct {
 	u32 BaudRate;	/**< In bps, ie 1200 */
 	u32 DataBits;	/**< Number of data bits */
-	u32 Parity;	/**< Parity */
+	u32 Parity;		/**< Parity */
 	u8 StopBits;	/**< Number of stop bits */
 } XUartPsFormat;
 
@@ -308,7 +310,7 @@ typedef struct {
  *
  ******************************************************************************/
 typedef void (*XUartPs_Handler) (void *CallBackRef, u32 Event,
-				  unsigned int EventData);
+				  u32 EventData);
 
 /**
  * The XUartPs driver instance data structure. A pointer to an instance data
@@ -344,7 +346,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUartPs_GetChannelStatus(InstancePtr)   \
-	Xil_In32(((InstancePtr)->Config.BaseAddress) + XUARTPS_SR_OFFSET)
+	Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)XUARTPS_SR_OFFSET)
 
 /****************************************************************************/
 /**
@@ -359,7 +361,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUartPs_GetModeControl(InstancePtr)  \
-	Xil_In32(((InstancePtr)->Config.BaseAddress) + XUARTPS_CR_OFFSET)
+	Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)XUARTPS_CR_OFFSET)
 
 /****************************************************************************/
 /**
@@ -375,8 +377,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUartPs_SetModeControl(InstancePtr, RegisterValue) \
-   Xil_Out32(((InstancePtr)->Config.BaseAddress) + XUARTPS_CR_OFFSET, \
-			(RegisterValue))
+   Xil_Out32(((InstancePtr)->Config.BaseAddress) + (u32)XUARTPS_CR_OFFSET, \
+			(u32)(RegisterValue))
 
 /****************************************************************************/
 /**
@@ -391,9 +393,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUartPs_EnableUart(InstancePtr) \
-   Xil_Out32(((InstancePtr)->Config.BaseAddress + XUARTPS_CR_OFFSET), \
-	  ((Xil_In32((InstancePtr)->Config.BaseAddress + XUARTPS_CR_OFFSET) & \
-	  ~XUARTPS_CR_EN_DIS_MASK) | (XUARTPS_CR_RX_EN | XUARTPS_CR_TX_EN)))
+   Xil_Out32(((InstancePtr)->Config.BaseAddress + (u32)XUARTPS_CR_OFFSET), \
+	  ((Xil_In32((InstancePtr)->Config.BaseAddress + (u32)XUARTPS_CR_OFFSET) & \
+	  (u32)(~XUARTPS_CR_EN_DIS_MASK)) | ((u32)XUARTPS_CR_RX_EN | (u32)XUARTPS_CR_TX_EN)))
 
 /****************************************************************************/
 /**
@@ -408,9 +410,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUartPs_DisableUart(InstancePtr) \
-   Xil_Out32(((InstancePtr)->Config.BaseAddress + XUARTPS_CR_OFFSET), \
-	  (((Xil_In32((InstancePtr)->Config.BaseAddress + XUARTPS_CR_OFFSET)) & \
-	  ~XUARTPS_CR_EN_DIS_MASK) | (XUARTPS_CR_RX_DIS | XUARTPS_CR_TX_DIS)))
+   Xil_Out32(((InstancePtr)->Config.BaseAddress + (u32)XUARTPS_CR_OFFSET), \
+	  (((Xil_In32((InstancePtr)->Config.BaseAddress + (u32)XUARTPS_CR_OFFSET)) & \
+	  (u32)(~XUARTPS_CR_EN_DIS_MASK)) | ((u32)XUARTPS_CR_RX_DIS | (u32)XUARTPS_CR_TX_DIS)))
 
 /****************************************************************************/
 /**
@@ -427,8 +429,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUartPs_IsTransmitEmpty(InstancePtr)				\
-	((Xil_In32(((InstancePtr)->Config.BaseAddress) + XUARTPS_SR_OFFSET) & \
-	 XUARTPS_SR_TXEMPTY) == XUARTPS_SR_TXEMPTY)
+	((Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)XUARTPS_SR_OFFSET) & \
+	 (u32)XUARTPS_SR_TXEMPTY) == (u32)XUARTPS_SR_TXEMPTY)
 
 
 /************************** Function Prototypes *****************************/
@@ -441,16 +443,16 @@ XUartPs_Config *XUartPs_LookupConfig(u16 DeviceId);
 /*
  * Interface functions implemented in xuartps.c
  */
-int XUartPs_CfgInitialize(XUartPs *InstancePtr,
-				   XUartPs_Config * Config, u32 EffectiveAddr);
+s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
+				  XUartPs_Config * Config, u32 EffectiveAddr);
 
-unsigned int XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
-			   unsigned int NumBytes);
+u32 XUartPs_Send(XUartPs *InstancePtr,u8 *BufferPtr,
+			   u32 NumBytes);
 
-unsigned int XUartPs_Recv(XUartPs *InstancePtr, u8 *BufferPtr,
-			   unsigned int NumBytes);
+u32 XUartPs_Recv(XUartPs *InstancePtr,u8 *BufferPtr,
+			   u32 NumBytes);
 
-int XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate);
+s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate);
 
 /*
  * Options functions in xuartps_options.c
@@ -479,8 +481,9 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr);
 
 void XUartPs_SetRecvTimeout(XUartPs *InstancePtr, u8 RecvTimeout);
 
-int XUartPs_SetDataFormat(XUartPs *InstancePtr, XUartPsFormat * Format);
-void XUartPs_GetDataFormat(XUartPs *InstancePtr, XUartPsFormat * Format);
+s32 XUartPs_SetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr);
+
+void XUartPs_GetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr);
 
 /*
  * interrupt functions in xuartps_intr.c
@@ -497,7 +500,7 @@ void XUartPs_SetHandler(XUartPs *InstancePtr, XUartPs_Handler FuncPtr,
 /*
  * self-test functions in xuartps_selftest.c
  */
-int XUartPs_SelfTest(XUartPs *InstancePtr);
+s32 XUartPs_SelfTest(XUartPs *InstancePtr);
 
 #ifdef __cplusplus
 }

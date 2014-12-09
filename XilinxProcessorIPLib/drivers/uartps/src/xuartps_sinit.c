@@ -60,7 +60,7 @@
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
-extern XUartPs_Config XUartPs_ConfigTable[];
+extern XUartPs_Config XUartPs_ConfigTable[XPAR_XUARTPS_NUM_INSTANCES];
 
 /************************** Function Prototypes *****************************/
 
@@ -82,14 +82,14 @@ XUartPs_Config *XUartPs_LookupConfig(u16 DeviceId)
 {
 	XUartPs_Config *CfgPtr = NULL;
 
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XUARTPS_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XUARTPS_NUM_INSTANCES; Index++) {
 		if (XUartPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XUartPs_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return CfgPtr;
+	return (XUartPs_Config *)CfgPtr;
 }

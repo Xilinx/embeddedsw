@@ -70,17 +70,19 @@
 /**
  * Each XUartPs device in the system has an entry in this table.
  */
-XUartPs_Config XUartPs_ConfigTable[] = {
+XUartPs_Config XUartPs_ConfigTable[XPAR_XUARTPS_NUM_INSTANCES] = {
 #ifdef XPAR_XUARTPS_0_DEVICE_ID
 	{
-		XPAR_XUARTPS_0_DEVICE_ID,
-		XPAR_XUARTPS_0_BASEADDR,
-		XPAR_XUARTPS_0_CLOCK_HZ
+		(u16)XPAR_XUARTPS_0_DEVICE_ID,
+		(u32)XPAR_XUARTPS_0_BASEADDR,
+		(u32)XPAR_XUARTPS_0_CLOCK_HZ,
+		(s32)0
 	},
 #endif
 	{
-		XPAR_PS7_UART_1_DEVICE_ID,
-		XPAR_PS7_UART_1_BASEADDR,
-		XPAR_PS7_UART_1_UART_CLK_FREQ_HZ
+		(u16)XPAR_PS7_UART_1_DEVICE_ID,
+		(u32)XPAR_PS7_UART_1_BASEADDR,
+		(u32)XPAR_PS7_UART_1_UART_CLK_FREQ_HZ,
+		(s32)0
 	}
 };

@@ -114,9 +114,9 @@ static Mapping OptionsTable[] = {
 *****************************************************************************/
 u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 {
-	u16 Options = 0;
+	u16 Options = 0U;
 	u32 Register;
-	unsigned int Index;
+	u32 Index;
 
 	/*
 	 * Assert validates the input arguments
@@ -128,7 +128,7 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 	 * Loop thru the options table to map the physical options in the
 	 * registers of the UART to the logical options to be returned
 	 */
-	for (Index = 0; Index < XUARTPS_NUM_OPTIONS; Index++) {
+	for (Index = 0U; Index < XUARTPS_NUM_OPTIONS; Index++) {
 		Register = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 						 OptionsTable[Index].
 						 RegisterOffset);
@@ -139,7 +139,7 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 		 * ignoring any bits which are zero since the options variable
 		 * is initialized to zero
 		 */
-		if (Register & OptionsTable[Index].Mask) {
+		if ((Register & OptionsTable[Index].Mask) != (u32)0) {
 			Options |= OptionsTable[Index].Option;
 		}
 	}
@@ -170,7 +170,7 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 *****************************************************************************/
 void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 {
-	unsigned int Index;
+	u32 Index;
 	u32 Register;
 
 	/*
@@ -183,7 +183,7 @@ void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 	 * Loop thru the options table to map the logical options to the
 	 * physical options in the registers of the UART.
 	 */
-	for (Index = 0; Index < XUARTPS_NUM_OPTIONS; Index++) {
+	for (Index = 0U; Index < XUARTPS_NUM_OPTIONS; Index++) {
 
 		/*
 		 * Read the register which contains option so that the register
@@ -199,7 +199,7 @@ void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 		 * bit in the specified register, otherwise clear the bit in
 		 * the register.
 		 */
-		if (Options & OptionsTable[Index].Option) {
+		if ((Options & OptionsTable[Index].Option) != (u16)0) {
 			Register |= OptionsTable[Index].Mask;
 		}
 		else {
@@ -248,7 +248,8 @@ u8 XUartPs_GetFifoThreshold(XUartPs *InstancePtr)
 
 	/* Return only the trigger level from the register value */
 
-	return (RtrigRegister & XUARTPS_RXWM_MASK);
+	RtrigRegister &= (u8)XUARTPS_RXWM_MASK;
+	return RtrigRegister;
 }
 
 /****************************************************************************/
@@ -274,10 +275,10 @@ void XUartPs_SetFifoThreshold(XUartPs *InstancePtr, u8 TriggerLevel)
 	 * Assert validates the input arguments
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(TriggerLevel <= XUARTPS_RXWM_MASK);
+	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPS_RXWM_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	RtrigRegister = TriggerLevel & XUARTPS_RXWM_MASK;
+	RtrigRegister = ((u32)TriggerLevel) & (u32)XUARTPS_RXWM_MASK;
 
 	/*
 	 * Write the new value for the FIFO control register to it such that the
@@ -313,7 +314,7 @@ void XUartPs_SetFifoThreshold(XUartPs *InstancePtr, u8 TriggerLevel)
 u16 XUartPs_GetModemStatus(XUartPs *InstancePtr)
 {
 	u32 ModemStatusRegister;
-
+	u16 TmpRegister;
 	/*
 	 * Assert validates the input arguments
 	 */
@@ -324,7 +325,8 @@ u16 XUartPs_GetModemStatus(XUartPs *InstancePtr)
 	 */
 	ModemStatusRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 						XUARTPS_MODEMSR_OFFSET);
-	return ModemStatusRegister;
+	TmpRegister = (u16)ModemStatusRegister;
+	return TmpRegister;
 }
 
 /****************************************************************************/
@@ -344,6 +346,9 @@ u16 XUartPs_GetModemStatus(XUartPs *InstancePtr)
 u32 XUartPs_IsSending(XUartPs *InstancePtr)
 {
 	u32 ChanStatRegister;
+	u32 ChanTmpSRegister;
+	u32 ActiveResult;
+	u32 EmptyResult;
 
 	/*
 	 * Assert validates the input arguments
@@ -362,10 +367,12 @@ u32 XUartPs_IsSending(XUartPs *InstancePtr)
 	 * If the transmitter is active, or the TX FIFO is not empty, then indicate
 	 * that the UART is still sending some data
 	 */
-	return ((XUARTPS_SR_TACTIVE == (ChanStatRegister &
-					 XUARTPS_SR_TACTIVE)) ||
-		(XUARTPS_SR_TXEMPTY != (ChanStatRegister &
-					 XUARTPS_SR_TXEMPTY)));
+	ActiveResult = ChanStatRegister & ((u32)XUARTPS_SR_TACTIVE);
+	EmptyResult = ChanStatRegister & ((u32)XUARTPS_SR_TXEMPTY);
+	ChanTmpSRegister = (((u32)XUARTPS_SR_TACTIVE) == ActiveResult) ||
+		(((u32)XUARTPS_SR_TXEMPTY) != EmptyResult);
+
+	return ChanTmpSRegister;
 }
 
 /****************************************************************************/
@@ -403,7 +410,7 @@ u8 XUartPs_GetOperMode(XUartPs *InstancePtr)
 		XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XUARTPS_MR_OFFSET);
 
-	ModeRegister &= XUARTPS_MR_CHMODE_MASK;
+	ModeRegister &= (u32)XUARTPS_MR_CHMODE_MASK;
 	/*
 	 * Return the constant
 	 */
@@ -421,8 +428,9 @@ u8 XUartPs_GetOperMode(XUartPs *InstancePtr)
 		OperMode = XUARTPS_OPER_MODE_REMOTE_LOOP;
 		break;
 	default:
-		OperMode = (u8) ((ModeRegister & XUARTPS_MR_CHMODE_MASK) >>
+		OperMode = (u8) ((ModeRegister & (u32)XUARTPS_MR_CHMODE_MASK) >>
 			XUARTPS_MR_CHMODE_SHIFT);
+		break;
 	}
 
 	return OperMode;
@@ -464,21 +472,24 @@ void XUartPs_SetOperMode(XUartPs *InstancePtr, u8 OperationMode)
 	/*
 	 * Set the correct value by masking the bits, then ORing the const.
 	 */
-	ModeRegister &= ~XUARTPS_MR_CHMODE_MASK;
+	ModeRegister &= (u32)(~XUARTPS_MR_CHMODE_MASK);
 
 	switch (OperationMode) {
-	case XUARTPS_OPER_MODE_NORMAL:
-		ModeRegister |= XUARTPS_MR_CHMODE_NORM;
-		break;
-	case XUARTPS_OPER_MODE_AUTO_ECHO:
-		ModeRegister |= XUARTPS_MR_CHMODE_ECHO;
-		break;
-	case XUARTPS_OPER_MODE_LOCAL_LOOP:
-		ModeRegister |= XUARTPS_MR_CHMODE_L_LOOP;
-		break;
-	case XUARTPS_OPER_MODE_REMOTE_LOOP:
-		ModeRegister |= XUARTPS_MR_CHMODE_R_LOOP;
-		break;
+		case XUARTPS_OPER_MODE_NORMAL:
+			ModeRegister |= (u32)XUARTPS_MR_CHMODE_NORM;
+			break;
+		case XUARTPS_OPER_MODE_AUTO_ECHO:
+			ModeRegister |= (u32)XUARTPS_MR_CHMODE_ECHO;
+			break;
+		case XUARTPS_OPER_MODE_LOCAL_LOOP:
+			ModeRegister |= (u32)XUARTPS_MR_CHMODE_L_LOOP;
+			break;
+		case XUARTPS_OPER_MODE_REMOTE_LOOP:
+			ModeRegister |= (u32)XUARTPS_MR_CHMODE_R_LOOP;
+			break;
+		default:
+			/* Default case made for MISRA-C Compliance. */
+			break;
 	}
 
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
@@ -506,7 +517,7 @@ void XUartPs_SetOperMode(XUartPs *InstancePtr, u8 OperationMode)
 *****************************************************************************/
 u8 XUartPs_GetFlowDelay(XUartPs *InstancePtr)
 {
-	u32 FdelRegister;
+	u32 FdelTmpRegister;
 
 	/*
 	 * Assert validates the input arguments
@@ -517,13 +528,14 @@ u8 XUartPs_GetFlowDelay(XUartPs *InstancePtr)
 	/*
 	 * Read the Mode register.
 	 */
-	FdelRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
+	FdelTmpRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 					 XUARTPS_FLOWDEL_OFFSET);
 
 	/*
 	 * Return the contents of the flow delay register
 	 */
-	return (u8) (FdelRegister & XUARTPS_FLOWDEL_MASK);
+	FdelTmpRegister = (u8)(FdelTmpRegister & (u32)XUARTPS_FLOWDEL_MASK);
+	return  FdelTmpRegister;
 }
 
 /****************************************************************************/
@@ -550,14 +562,14 @@ void XUartPs_SetFlowDelay(XUartPs *InstancePtr, u8 FlowDelayValue)
 	 * Assert validates the input arguments
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(FlowDelayValue > XUARTPS_FLOWDEL_MASK);
+	Xil_AssertVoid(FlowDelayValue > (u8)XUARTPS_FLOWDEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
 	 * Set the correct value by shifting the input constant, then masking
 	 * the bits
 	 */
-	FdelRegister = (FlowDelayValue & XUARTPS_FLOWDEL_MASK);
+	FdelRegister = ((u32)FlowDelayValue) & (u32)XUARTPS_FLOWDEL_MASK;
 
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XUARTPS_FLOWDEL_OFFSET, FdelRegister);
@@ -579,6 +591,7 @@ void XUartPs_SetFlowDelay(XUartPs *InstancePtr, u8 FlowDelayValue)
 u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 {
 	u32 RtoRegister;
+	u8 RtoRTmpRegister;
 
 	/*
 	 * Assert validates the input arguments
@@ -587,7 +600,7 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Read the Recieve Timeout register.
+	 * Read the Receive Timeout register.
 	 */
 	RtoRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPS_RXTOUT_OFFSET);
@@ -595,7 +608,8 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 	/*
 	 * Return the contents of the mode register shifted appropriately
 	 */
-	return (RtoRegister & XUARTPS_RXTOUT_MASK);
+	RtoRTmpRegister = (u8)(RtoRegister & (u32)XUARTPS_RXTOUT_MASK);
+	return RtoRTmpRegister;
 }
 
 /****************************************************************************/
@@ -627,7 +641,7 @@ void XUartPs_SetRecvTimeout(XUartPs *InstancePtr, u8 RecvTimeout)
 	/*
 	 * Set the correct value by masking the bits
 	 */
-	RtoRegister = (RecvTimeout & XUARTPS_RXTOUT_MASK);
+	RtoRegister = ((u32)RecvTimeout & (u32)XUARTPS_RXTOUT_MASK);
 
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XUARTPS_RXTOUT_OFFSET, RtoRegister);
@@ -670,10 +684,10 @@ void XUartPs_SetRecvTimeout(XUartPs *InstancePtr, u8 RecvTimeout)
 * <br><br>
 *
 *****************************************************************************/
-int XUartPs_SetDataFormat(XUartPs *InstancePtr,
+s32 XUartPs_SetDataFormat(XUartPs *InstancePtr,
 			XUartPsFormat * FormatPtr)
 {
-	int Status;
+	s32 Status;
 	u32 ModeRegister;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -683,56 +697,59 @@ int XUartPs_SetDataFormat(XUartPs *InstancePtr,
 	/*
 	 * Verify the inputs specified are valid
 	 */
-	if ((FormatPtr->DataBits > XUARTPS_FORMAT_6_BITS) ||
-		(FormatPtr->StopBits > XUARTPS_FORMAT_2_STOP_BIT) ||
-		(FormatPtr->Parity > XUARTPS_FORMAT_NO_PARITY)) {
-		return XST_INVALID_PARAM;
+	if ((FormatPtr->DataBits > ((u32)XUARTPS_FORMAT_6_BITS)) ||
+		(FormatPtr->StopBits > ((u8)XUARTPS_FORMAT_2_STOP_BIT)) ||
+		(FormatPtr->Parity > ((u32)XUARTPS_FORMAT_NO_PARITY))) {
+		Status = XST_INVALID_PARAM;
+	} else {
+
+		/*
+		 * Try to set the baud rate and if it's not successful then don't
+		 * continue altering the data format, this is done first to avoid the
+		 * format from being altered when an error occurs
+		 */
+		Status = XUartPs_SetBaudRate(InstancePtr, FormatPtr->BaudRate);
+		if (Status != (s32)XST_SUCCESS) {
+			;
+		} else {
+
+			ModeRegister =
+				XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
+						  XUARTPS_MR_OFFSET);
+
+			/*
+			 * Set the length of data (8,7,6) by first clearing out the bits
+			 * that control it in the register, then set the length in the register
+			 */
+			ModeRegister &= (u32)(~XUARTPS_MR_CHARLEN_MASK);
+			ModeRegister |= (FormatPtr->DataBits << XUARTPS_MR_CHARLEN_SHIFT);
+
+			/*
+			 * Set the number of stop bits in the mode register by first clearing
+			 * out the bits that control it in the register, then set the number
+			 * of stop bits in the register.
+			 */
+			ModeRegister &= (u32)(~XUARTPS_MR_STOPMODE_MASK);
+			ModeRegister |= (((u32)FormatPtr->StopBits) << XUARTPS_MR_STOPMODE_SHIFT);
+
+			/*
+			 * Set the parity by first clearing out the bits that control it in the
+			 * register, then set the bits in the register, the default is no parity
+			 * after clearing the register bits
+			 */
+			ModeRegister &= (u32)(~XUARTPS_MR_PARITY_MASK);
+			ModeRegister |= (FormatPtr->Parity << XUARTPS_MR_PARITY_SHIFT);
+
+			/*
+			 * Update the mode register
+			 */
+			XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
+					   ModeRegister);
+
+			Status = XST_SUCCESS;
+		}
 	}
-
-	/*
-	 * Try to set the baud rate and if it's not successful then don't
-	 * continue altering the data format, this is done first to avoid the
-	 * format from being altered when an error occurs
-	 */
-	Status = XUartPs_SetBaudRate(InstancePtr, FormatPtr->BaudRate);
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-
-	ModeRegister =
-		XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
-				  XUARTPS_MR_OFFSET);
-
-	/*
-	 * Set the length of data (8,7,6) by first clearing out the bits
-	 * that control it in the register, then set the length in the register
-	 */
-	ModeRegister &= ~XUARTPS_MR_CHARLEN_MASK;
-	ModeRegister |= (FormatPtr->DataBits << XUARTPS_MR_CHARLEN_SHIFT);
-
-	/*
-	 * Set the number of stop bits in the mode register by first clearing
-	 * out the bits that control it in the register, then set the number
-	 * of stop bits in the register.
-	 */
-	ModeRegister &= ~XUARTPS_MR_STOPMODE_MASK;
-	ModeRegister |= (FormatPtr->StopBits << XUARTPS_MR_STOPMODE_SHIFT);
-
-	/*
-	 * Set the parity by first clearing out the bits that control it in the
-	 * register, then set the bits in the register, the default is no parity
-	 * after clearing the register bits
-	 */
-	ModeRegister &= ~XUARTPS_MR_PARITY_MASK;
-	ModeRegister |= (FormatPtr->Parity << XUARTPS_MR_PARITY_SHIFT);
-
-	/*
-	 * Update the mode register
-	 */
-	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
-			   ModeRegister);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /****************************************************************************/
@@ -777,20 +794,20 @@ void XUartPs_GetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr)
 	 * Get the length of data (8,7,6,5)
 	 */
 	FormatPtr->DataBits =
-		(ModeRegister & XUARTPS_MR_CHARLEN_MASK) >>
-		XUARTPS_MR_CHARLEN_SHIFT;
+		((ModeRegister & (u32)XUARTPS_MR_CHARLEN_MASK) >>
+		XUARTPS_MR_CHARLEN_SHIFT);
 
 	/*
 	 * Get the number of stop bits
 	 */
 	FormatPtr->StopBits =
-		(ModeRegister & XUARTPS_MR_STOPMODE_MASK) >>
-		XUARTPS_MR_STOPMODE_SHIFT;
+		(u8)((ModeRegister & (u32)XUARTPS_MR_STOPMODE_MASK) >>
+		XUARTPS_MR_STOPMODE_SHIFT);
 
 	/*
 	 * Determine what parity is
 	 */
 	FormatPtr->Parity =
-		(ModeRegister & XUARTPS_MR_PARITY_MASK) >>
-		XUARTPS_MR_PARITY_SHIFT;
+		(u32)((ModeRegister & (u32)XUARTPS_MR_PARITY_MASK) >>
+		XUARTPS_MR_PARITY_SHIFT);
 }

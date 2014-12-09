@@ -62,7 +62,7 @@
  * baud rate that will be generated using the specified clock and the
  * desired baud rate.
  */
-#define XUARTPS_MAX_BAUD_ERROR_RATE		 3	/* max % error allowed */
+#define XUARTPS_MAX_BAUD_ERROR_RATE		 3U	/* max % error allowed */
 
 /**************************** Type Definitions ******************************/
 
@@ -73,11 +73,11 @@
 /************************** Function Prototypes *****************************/
 
 static void XUartPs_StubHandler(void *CallBackRef, u32 Event,
-				 unsigned int ByteCount);
+				 u32 ByteCount);
 
-unsigned int XUartPs_SendBuffer(XUartPs *InstancePtr);
+u32  XUartPs_SendBuffer(XUartPs *InstancePtr);
 
-unsigned int XUartPs_ReceiveBuffer(XUartPs *InstancePtr);
+u32  XUartPs_ReceiveBuffer(XUartPs *InstancePtr);
 
 /************************** Variable Definitions ****************************/
 
@@ -123,10 +123,10 @@ unsigned int XUartPs_ReceiveBuffer(XUartPs *InstancePtr);
 *   All interrupts are disabled.
 *
 *****************************************************************************/
-int XUartPs_CfgInitialize(XUartPs *InstancePtr,
+s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 				   XUartPs_Config * Config, u32 EffectiveAddr)
 {
-	int Status;
+	s32 Status;
 	u32 ModeRegister;
 	u32 BaudRate;
 
@@ -149,12 +149,12 @@ int XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	InstancePtr->Handler = XUartPs_StubHandler;
 
 	InstancePtr->SendBuffer.NextBytePtr = NULL;
-	InstancePtr->SendBuffer.RemainingBytes = 0;
-	InstancePtr->SendBuffer.RequestedBytes = 0;
+	InstancePtr->SendBuffer.RemainingBytes = 0U;
+	InstancePtr->SendBuffer.RequestedBytes = 0U;
 
 	InstancePtr->ReceiveBuffer.NextBytePtr = NULL;
-	InstancePtr->ReceiveBuffer.RemainingBytes = 0;
-	InstancePtr->ReceiveBuffer.RequestedBytes = 0;
+	InstancePtr->ReceiveBuffer.RemainingBytes = 0U;
+	InstancePtr->ReceiveBuffer.RequestedBytes = 0U;
 
 	/*
 	 * Flag that the driver instance is ready to use
@@ -165,59 +165,60 @@ int XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	 * Set the default baud rate here, can be changed prior to
 	 * starting the device
 	 */
-	BaudRate = XUARTPS_DFT_BAUDRATE;
+	BaudRate = (u32)XUARTPS_DFT_BAUDRATE;
 	Status = XUartPs_SetBaudRate(InstancePtr, BaudRate);
-	if (Status != XST_SUCCESS) {
-		InstancePtr->IsReady = 0;
-		return Status;
+	if (Status != (s32)XST_SUCCESS) {
+		InstancePtr->IsReady = 0U;
+	} else {
+
+		/*
+		 * Set up the default data format: 8 bit data, 1 stop bit, no
+		 * parity
+		 */
+		ModeRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
+					  XUARTPS_MR_OFFSET);
+
+		/*
+		 * Mask off what's already there
+		 */
+		ModeRegister &= (~((u32)XUARTPS_MR_CHARLEN_MASK |
+						 (u32)XUARTPS_MR_STOPMODE_MASK |
+						 (u32)XUARTPS_MR_PARITY_MASK));
+
+		/*
+		 * Set the register value to the desired data format
+		 */
+		ModeRegister |=	((u32)XUARTPS_MR_CHARLEN_8_BIT |
+						 (u32)XUARTPS_MR_STOPMODE_1_BIT |
+						 (u32)XUARTPS_MR_PARITY_NONE);
+
+		/*
+		 * Write the mode register out
+		 */
+		XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
+				   ModeRegister);
+
+		/*
+		 * Set the RX FIFO trigger at 8 data bytes.
+		 */
+		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
+				   XUARTPS_RXWM_OFFSET, 0x08U);
+
+		/*
+		 * Set the RX timeout to 1, which will be 4 character time
+		 */
+		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
+				   XUARTPS_RXTOUT_OFFSET, 0x01U);
+
+		/*
+		 * Disable all interrupts, polled mode is the default
+		 */
+		XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_IDR_OFFSET,
+				   XUARTPS_IXR_MASK);
+
+		Status = XST_SUCCESS;
 	}
-
-	/*
-	 * Set up the default data format: 8 bit data, 1 stop bit, no
-	 * parity
-	 */
-	ModeRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
-				  XUARTPS_MR_OFFSET);
-
-	/*
-	 * Mask off what's already there
-	 */
-	ModeRegister &= ~(XUARTPS_MR_CHARLEN_MASK |
-					 XUARTPS_MR_STOPMODE_MASK |
-					 XUARTPS_MR_PARITY_MASK);
-
-	/*
-	 * Set the register value to the desired data format
-	 */
-	ModeRegister |=	(XUARTPS_MR_CHARLEN_8_BIT |
-					XUARTPS_MR_STOPMODE_1_BIT |
-					XUARTPS_MR_PARITY_NONE);
-
-	/*
-	 * Write the mode register out
-	 */
-	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
-			   ModeRegister);
-
-	/*
-	 * Set the RX FIFO trigger at 8 data bytes.
-	 */
-	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XUARTPS_RXWM_OFFSET, 0x08);
-
-	/*
-	 * Set the RX timeout to 1, which will be 4 character time
-	 */
-	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XUARTPS_RXTOUT_OFFSET, 0x01);
-
-	/*
-	 * Disable all interrupts, polled mode is the default
-	 */
-	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_IDR_OFFSET,
-			   XUARTPS_IXR_MASK);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /****************************************************************************/
@@ -254,10 +255,10 @@ int XUartPs_CfgInitialize(XUartPs *InstancePtr,
 * <br><br>
 *
 *****************************************************************************/
-unsigned int XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
-			   unsigned int NumBytes)
+u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
+			   u32 NumBytes)
 {
-	unsigned int BytesSent;
+	u32 BytesSent;
 
 	/*
 	 * Asserts validate the input arguments
@@ -320,10 +321,10 @@ unsigned int XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 * with a value of zero to stop an operation that is already in progress.
 *
 *****************************************************************************/
-unsigned int XUartPs_Recv(XUartPs *InstancePtr,
-			   u8 *BufferPtr, unsigned int NumBytes)
+u32 XUartPs_Recv(XUartPs *InstancePtr,
+			  u8 *BufferPtr, u32 NumBytes)
 {
-	unsigned int ReceivedCount;
+	u32 ReceivedCount;
 	u32 ImrRegister;
 
 	/*
@@ -391,9 +392,9 @@ unsigned int XUartPs_Recv(XUartPs *InstancePtr,
 * @note		None.
 *
 *****************************************************************************/
-unsigned int XUartPs_SendBuffer(XUartPs *InstancePtr)
+u32 XUartPs_SendBuffer(XUartPs *InstancePtr)
 {
-	unsigned int SentCount = 0;
+	u32 SentCount = 0U;
 	u32 ImrRegister;
 
 	/*
@@ -409,11 +410,11 @@ unsigned int XUartPs_SendBuffer(XUartPs *InstancePtr)
 		 */
 		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_FIFO_OFFSET,
-				   InstancePtr->SendBuffer.
-				   NextBytePtr[SentCount]);
+				   ((u32)InstancePtr->SendBuffer.
+				   NextBytePtr[SentCount]));
 
 		/*
-		 * Incriment the send count.
+		 * Increment the send count.
 		 */
 		SentCount++;
 	}
@@ -432,13 +433,13 @@ unsigned int XUartPs_SendBuffer(XUartPs *InstancePtr)
 	ImrRegister =
 		XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XUARTPS_IMR_OFFSET);
-	if ((ImrRegister & XUARTPS_IXR_RXFULL) ||
-		(ImrRegister & XUARTPS_IXR_RXEMPTY) ||
-		(ImrRegister & XUARTPS_IXR_RXOVR)) {
+	if (((ImrRegister & XUARTPS_IXR_RXFULL) != (u32)0) ||
+		((ImrRegister & XUARTPS_IXR_RXEMPTY) != (u32)0)||
+		((ImrRegister & XUARTPS_IXR_RXOVR) != (u32)0)) {
 
-	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
-				   XUARTPS_IER_OFFSET,
-				   ImrRegister | XUARTPS_IXR_TXEMPTY);
+		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
+					   XUARTPS_IER_OFFSET,
+					   ImrRegister | (u32)XUARTPS_IXR_TXEMPTY);
 	}
 
 	return SentCount;
@@ -473,10 +474,10 @@ unsigned int XUartPs_SendBuffer(XUartPs *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-unsigned int XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
+u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 {
 	u32 CsrRegister;
-	unsigned int ReceivedCount = 0;
+	u32 ReceivedCount = 0U;
 
 	/*
  	 * Read the Channel Status Register to determine if there is any data in
@@ -490,7 +491,7 @@ unsigned int XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 	 * number of bytes has been received
 	 */
 	while((ReceivedCount < InstancePtr->ReceiveBuffer.RemainingBytes)&&
-		(0 == (CsrRegister & XUARTPS_SR_RXEMPTY))){
+		(((CsrRegister & XUARTPS_SR_RXEMPTY) == (u32)0))){
 
 		InstancePtr->ReceiveBuffer.NextBytePtr[ReceivedCount] =
 			XUartPs_ReadReg(InstancePtr->Config.
@@ -507,7 +508,9 @@ unsigned int XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 	 * Update the receive buffer to reflect the number of bytes just
 	 * received
 	 */
-	InstancePtr->ReceiveBuffer.NextBytePtr += ReceivedCount;
+	if(InstancePtr->ReceiveBuffer.NextBytePtr != NULL){
+		InstancePtr->ReceiveBuffer.NextBytePtr += ReceivedCount;
+	}
 	InstancePtr->ReceiveBuffer.RemainingBytes -= ReceivedCount;
 
 	return ReceivedCount;
@@ -532,15 +535,15 @@ unsigned int XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-int XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
+s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 {
-	u8 IterBAUDDIV;		/* Iterator for available baud divisor values */
+	u32 IterBAUDDIV;	/* Iterator for available baud divisor values */
 	u32 BRGR_Value;		/* Calculated value for baud rate generator */
 	u32 CalcBaudRate;	/* Calculated baud rate */
 	u32 BaudError;		/* Diff between calculated and requested baud rate */
-	u32 Best_BRGR = 0;	/* Best value for baud rate generator */
-	u8 Best_BAUDDIV = 0;	/* Best value for baud divisor */
-	u32 Best_Error = 0xFFFFFFFF;
+	u32 Best_BRGR = 0U;	/* Best value for baud rate generator */
+	u8 Best_BAUDDIV = 0U;	/* Best value for baud divisor */
+	u32 Best_Error = 0xFFFFFFFFU;
 	u32 PercentError;
 	u32 ModeReg;
 	u32 InputClk;
@@ -550,8 +553,8 @@ int XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(BaudRate <= XUARTPS_MAX_RATE);
-	Xil_AssertNonvoid(BaudRate >= XUARTPS_MIN_RATE);
+	Xil_AssertNonvoid(BaudRate <= (u32)XUARTPS_MAX_RATE);
+	Xil_AssertNonvoid(BaudRate >= (u32)XUARTPS_MIN_RATE);
 
 	/*
 	 * Make sure the baud rate is not impossilby large.
@@ -660,9 +663,9 @@ int XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 *
 *****************************************************************************/
 static void XUartPs_StubHandler(void *CallBackRef, u32 Event,
-				 unsigned int ByteCount)
+				 u32 ByteCount)
 {
-	(void) CallBackRef;
+	(void *) CallBackRef;
 	(void) Event;
 	(void) ByteCount;
 	/*

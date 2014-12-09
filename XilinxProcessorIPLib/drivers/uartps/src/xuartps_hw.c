@@ -76,15 +76,17 @@
 *****************************************************************************/
 void XUartPs_SendByte(u32 BaseAddress, u8 Data)
 {
-		/*
-		 * Wait until there is space in TX FIFO
-		 */
-		while (XUartPs_IsTransmitFull(BaseAddress));
+	/*
+	 * Wait until there is space in TX FIFO
+	 */
+	while (XUartPs_IsTransmitFull(BaseAddress)) {
+		;
+	}
 
-		/*
-		 * Write the byte into the TX FIFO
-		 */
-		XUartPs_WriteReg(BaseAddress, XUARTPS_FIFO_OFFSET, Data);
+	/*
+	 * Write the byte into the TX FIFO
+	 */
+	XUartPs_WriteReg(BaseAddress, XUARTPS_FIFO_OFFSET, (u32)Data);
 }
 
 /****************************************************************************/
@@ -102,15 +104,18 @@ void XUartPs_SendByte(u32 BaseAddress, u8 Data)
 *****************************************************************************/
 u8 XUartPs_RecvByte(u32 BaseAddress)
 {
-		/*
-		 * Wait until there is data
-		 */
-		while (!XUartPs_IsReceiveData(BaseAddress));
-
-		/*
-		 * Return the byte received
-		 */
-		return (XUartPs_ReadReg(BaseAddress, XUARTPS_FIFO_OFFSET));
+	u32 RecievedByte;
+	/*
+	 * Wait until there is data
+	 */
+	while (!XUartPs_IsReceiveData(BaseAddress)) {
+		;
+	}
+	RecievedByte = XUartPs_ReadReg(BaseAddress, XUARTPS_FIFO_OFFSET);
+	/*
+	 * Return the byte received
+	 */
+	return (u8)RecievedByte;
 }
 
 /****************************************************************************/
@@ -137,14 +142,14 @@ void XUartPs_ResetHw(u32 BaseAddress)
 	 * Disable receive and transmit
 	 */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_CR_OFFSET,
-				XUARTPS_CR_RX_DIS | XUARTPS_CR_TX_DIS);
+				((u32)XUARTPS_CR_RX_DIS | (u32)XUARTPS_CR_TX_DIS));
 
 	/*
 	 * Software reset of receive and transmit
 	 * This clears the FIFO.
 	 */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_CR_OFFSET,
-				XUARTPS_CR_TXRST | XUARTPS_CR_RXRST);
+				((u32)XUARTPS_CR_TXRST | (u32)XUARTPS_CR_RXRST));
 
 	/*
 	 * Clear status flags - SW reset wont clear sticky flags.
@@ -185,8 +190,8 @@ void XUartPs_ResetHw(u32 BaseAddress)
 	 * RX and TX are disable by default
 	 */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_CR_OFFSET,
-				XUARTPS_CR_RX_DIS | XUARTPS_CR_TX_DIS |
-				XUARTPS_CR_STOPBRK);
+				((u32)XUARTPS_CR_RX_DIS | (u32)XUARTPS_CR_TX_DIS |
+						(u32)XUARTPS_CR_STOPBRK));
 
 }
 

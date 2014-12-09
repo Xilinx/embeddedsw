@@ -75,22 +75,22 @@ extern "C" {
  * Register offsets for the UART.
  * @{
  */
-#define XUARTPS_CR_OFFSET	0x00  /**< Control Register [8:0] */
-#define XUARTPS_MR_OFFSET	0x04  /**< Mode Register [9:0] */
-#define XUARTPS_IER_OFFSET	0x08  /**< Interrupt Enable [12:0] */
-#define XUARTPS_IDR_OFFSET	0x0C  /**< Interrupt Disable [12:0] */
-#define XUARTPS_IMR_OFFSET	0x10  /**< Interrupt Mask [12:0] */
-#define XUARTPS_ISR_OFFSET	0x14  /**< Interrupt Status [12:0]*/
-#define XUARTPS_BAUDGEN_OFFSET	0x18  /**< Baud Rate Generator [15:0] */
-#define XUARTPS_RXTOUT_OFFSET	0x1C  /**< RX Timeout [7:0] */
-#define XUARTPS_RXWM_OFFSET	0x20  /**< RX FIFO Trigger Level [5:0] */
-#define XUARTPS_MODEMCR_OFFSET	0x24  /**< Modem Control [5:0] */
-#define XUARTPS_MODEMSR_OFFSET	0x28  /**< Modem Status [8:0] */
-#define XUARTPS_SR_OFFSET	0x2C  /**< Channel Status [14:0] */
-#define XUARTPS_FIFO_OFFSET	0x30  /**< FIFO [7:0] */
-#define XUARTPS_BAUDDIV_OFFSET	0x34  /**< Baud Rate Divider [7:0] */
-#define XUARTPS_FLOWDEL_OFFSET	0x38  /**< Flow Delay [5:0] */
-#define XUARTPS_TXWM_OFFSET	0x44  /**< TX FIFO Trigger Level [5:0] */
+#define XUARTPS_CR_OFFSET		0x0000U  /**< Control Register [8:0] */
+#define XUARTPS_MR_OFFSET		0x0004U  /**< Mode Register [9:0] */
+#define XUARTPS_IER_OFFSET		0x0008U  /**< Interrupt Enable [12:0] */
+#define XUARTPS_IDR_OFFSET		0x000CU  /**< Interrupt Disable [12:0] */
+#define XUARTPS_IMR_OFFSET		0x0010U  /**< Interrupt Mask [12:0] */
+#define XUARTPS_ISR_OFFSET		0x0014U  /**< Interrupt Status [12:0]*/
+#define XUARTPS_BAUDGEN_OFFSET	0x0018U  /**< Baud Rate Generator [15:0] */
+#define XUARTPS_RXTOUT_OFFSET	0x001CU  /**< RX Timeout [7:0] */
+#define XUARTPS_RXWM_OFFSET		0x0020U  /**< RX FIFO Trigger Level [5:0] */
+#define XUARTPS_MODEMCR_OFFSET	0x0024U  /**< Modem Control [5:0] */
+#define XUARTPS_MODEMSR_OFFSET	0x0028U  /**< Modem Status [8:0] */
+#define XUARTPS_SR_OFFSET		0x002CU  /**< Channel Status [14:0] */
+#define XUARTPS_FIFO_OFFSET		0x0030U  /**< FIFO [7:0] */
+#define XUARTPS_BAUDDIV_OFFSET	0x0034U  /**< Baud Rate Divider [7:0] */
+#define XUARTPS_FLOWDEL_OFFSET	0x0038U  /**< Flow Delay [5:0] */
+#define XUARTPS_TXWM_OFFSET		0x0044U  /**< TX FIFO Trigger Level [5:0] */
 /* @} */
 
 /** @name Control Register
@@ -100,16 +100,16 @@ extern "C" {
  * Control Register Bit Definition
  */
 
-#define XUARTPS_CR_STOPBRK	0x00000100  /**< Stop transmission of break */
-#define XUARTPS_CR_STARTBRK	0x00000080  /**< Set break */
-#define XUARTPS_CR_TORST	0x00000040  /**< RX timeout counter restart */
-#define XUARTPS_CR_TX_DIS	0x00000020  /**< TX disabled. */
-#define XUARTPS_CR_TX_EN	0x00000010  /**< TX enabled */
-#define XUARTPS_CR_RX_DIS	0x00000008  /**< RX disabled. */
-#define XUARTPS_CR_RX_EN	0x00000004  /**< RX enabled */
-#define XUARTPS_CR_EN_DIS_MASK	0x0000003C  /**< Enable/disable Mask */
-#define XUARTPS_CR_TXRST	0x00000002  /**< TX logic reset */
-#define XUARTPS_CR_RXRST	0x00000001  /**< RX logic reset */
+#define XUARTPS_CR_STOPBRK	0x00000100U  /**< Stop transmission of break */
+#define XUARTPS_CR_STARTBRK	0x00000080U  /**< Set break */
+#define XUARTPS_CR_TORST	0x00000040U  /**< RX timeout counter restart */
+#define XUARTPS_CR_TX_DIS	0x00000020U  /**< TX disabled. */
+#define XUARTPS_CR_TX_EN	0x00000010U  /**< TX enabled */
+#define XUARTPS_CR_RX_DIS	0x00000008U  /**< RX disabled. */
+#define XUARTPS_CR_RX_EN	0x00000004U  /**< RX enabled */
+#define XUARTPS_CR_EN_DIS_MASK	0x0000003CU  /**< Enable/disable Mask */
+#define XUARTPS_CR_TXRST	0x00000002U  /**< TX logic reset */
+#define XUARTPS_CR_RXRST	0x00000001U  /**< RX logic reset */
 /* @}*/
 
 
@@ -122,31 +122,31 @@ extern "C" {
  * Mode Register Bit Definition
  * @{
  */
-#define XUARTPS_MR_CCLK			0x00000400 /**< Input clock selection */
-#define XUARTPS_MR_CHMODE_R_LOOP	0x00000300 /**< Remote loopback mode */
-#define XUARTPS_MR_CHMODE_L_LOOP	0x00000200 /**< Local loopback mode */
-#define XUARTPS_MR_CHMODE_ECHO		0x00000100 /**< Auto echo mode */
-#define XUARTPS_MR_CHMODE_NORM		0x00000000 /**< Normal mode */
-#define XUARTPS_MR_CHMODE_SHIFT			8  /**< Mode shift */
-#define XUARTPS_MR_CHMODE_MASK		0x00000300 /**< Mode mask */
-#define XUARTPS_MR_STOPMODE_2_BIT	0x00000080 /**< 2 stop bits */
-#define XUARTPS_MR_STOPMODE_1_5_BIT	0x00000040 /**< 1.5 stop bits */
-#define XUARTPS_MR_STOPMODE_1_BIT	0x00000000 /**< 1 stop bit */
-#define XUARTPS_MR_STOPMODE_SHIFT		6  /**< Stop bits shift */
-#define XUARTPS_MR_STOPMODE_MASK	0x000000A0 /**< Stop bits mask */
-#define XUARTPS_MR_PARITY_NONE		0x00000020 /**< No parity mode */
-#define XUARTPS_MR_PARITY_MARK		0x00000018 /**< Mark parity mode */
-#define XUARTPS_MR_PARITY_SPACE		0x00000010 /**< Space parity mode */
-#define XUARTPS_MR_PARITY_ODD		0x00000008 /**< Odd parity mode */
-#define XUARTPS_MR_PARITY_EVEN		0x00000000 /**< Even parity mode */
-#define XUARTPS_MR_PARITY_SHIFT			3  /**< Parity setting shift */
-#define XUARTPS_MR_PARITY_MASK		0x00000038 /**< Parity mask */
-#define XUARTPS_MR_CHARLEN_6_BIT	0x00000006 /**< 6 bits data */
-#define XUARTPS_MR_CHARLEN_7_BIT	0x00000004 /**< 7 bits data */
-#define XUARTPS_MR_CHARLEN_8_BIT	0x00000000 /**< 8 bits data */
-#define XUARTPS_MR_CHARLEN_SHIFT		1  /**< Data Length shift */
-#define XUARTPS_MR_CHARLEN_MASK		0x00000006 /**< Data length mask */
-#define XUARTPS_MR_CLKSEL		0x00000001 /**< Input clock selection */
+#define XUARTPS_MR_CCLK				0x00000400U /**< Input clock selection */
+#define XUARTPS_MR_CHMODE_R_LOOP	0x00000300U /**< Remote loopback mode */
+#define XUARTPS_MR_CHMODE_L_LOOP	0x00000200U /**< Local loopback mode */
+#define XUARTPS_MR_CHMODE_ECHO		0x00000100U /**< Auto echo mode */
+#define XUARTPS_MR_CHMODE_NORM		0x00000000U /**< Normal mode */
+#define XUARTPS_MR_CHMODE_SHIFT				8U  /**< Mode shift */
+#define XUARTPS_MR_CHMODE_MASK		0x00000300U /**< Mode mask */
+#define XUARTPS_MR_STOPMODE_2_BIT	0x00000080U /**< 2 stop bits */
+#define XUARTPS_MR_STOPMODE_1_5_BIT	0x00000040U /**< 1.5 stop bits */
+#define XUARTPS_MR_STOPMODE_1_BIT	0x00000000U /**< 1 stop bit */
+#define XUARTPS_MR_STOPMODE_SHIFT			6U  /**< Stop bits shift */
+#define XUARTPS_MR_STOPMODE_MASK	0x000000A0U /**< Stop bits mask */
+#define XUARTPS_MR_PARITY_NONE		0x00000020U /**< No parity mode */
+#define XUARTPS_MR_PARITY_MARK		0x00000018U /**< Mark parity mode */
+#define XUARTPS_MR_PARITY_SPACE		0x00000010U /**< Space parity mode */
+#define XUARTPS_MR_PARITY_ODD		0x00000008U /**< Odd parity mode */
+#define XUARTPS_MR_PARITY_EVEN		0x00000000U /**< Even parity mode */
+#define XUARTPS_MR_PARITY_SHIFT				3U  /**< Parity setting shift */
+#define XUARTPS_MR_PARITY_MASK		0x00000038U /**< Parity mask */
+#define XUARTPS_MR_CHARLEN_6_BIT	0x00000006U /**< 6 bits data */
+#define XUARTPS_MR_CHARLEN_7_BIT	0x00000004U /**< 7 bits data */
+#define XUARTPS_MR_CHARLEN_8_BIT	0x00000000U /**< 8 bits data */
+#define XUARTPS_MR_CHARLEN_SHIFT			1U  /**< Data Length shift */
+#define XUARTPS_MR_CHARLEN_MASK		0x00000006U /**< Data length mask */
+#define XUARTPS_MR_CLKSEL			0x00000001U /**< Input clock selection */
 /* @} */
 
 
@@ -164,20 +164,20 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_IXR_TOVR	0x00001000 /**< Tx FIFO Overflow interrupt */
-#define XUARTPS_IXR_TNFUL	0x00000800 /**< Tx FIFO Nearly Full interrupt */
-#define XUARTPS_IXR_TTRIG	0x00000400 /**< Tx Trig interrupt */
-#define XUARTPS_IXR_DMS		0x00000200 /**< Modem status change interrupt */
-#define XUARTPS_IXR_TOUT	0x00000100 /**< Timeout error interrupt */
-#define XUARTPS_IXR_PARITY 	0x00000080 /**< Parity error interrupt */
-#define XUARTPS_IXR_FRAMING	0x00000040 /**< Framing error interrupt */
-#define XUARTPS_IXR_OVER	0x00000020 /**< Overrun error interrupt */
-#define XUARTPS_IXR_TXFULL 	0x00000010 /**< TX FIFO full interrupt. */
-#define XUARTPS_IXR_TXEMPTY	0x00000008 /**< TX FIFO empty interrupt. */
-#define XUARTPS_IXR_RXFULL 	0x00000004 /**< RX FIFO full interrupt. */
-#define XUARTPS_IXR_RXEMPTY	0x00000002 /**< RX FIFO empty interrupt. */
-#define XUARTPS_IXR_RXOVR  	0x00000001 /**< RX FIFO trigger interrupt. */
-#define XUARTPS_IXR_MASK	0x00001FFF /**< Valid bit mask */
+#define XUARTPS_IXR_TOVR	0x00001000U /**< Tx FIFO Overflow interrupt */
+#define XUARTPS_IXR_TNFUL	0x00000800U /**< Tx FIFO Nearly Full interrupt */
+#define XUARTPS_IXR_TTRIG	0x00000400U /**< Tx Trig interrupt */
+#define XUARTPS_IXR_DMS		0x00000200U /**< Modem status change interrupt */
+#define XUARTPS_IXR_TOUT	0x00000100U /**< Timeout error interrupt */
+#define XUARTPS_IXR_PARITY 	0x00000080U /**< Parity error interrupt */
+#define XUARTPS_IXR_FRAMING	0x00000040U /**< Framing error interrupt */
+#define XUARTPS_IXR_OVER	0x00000020U /**< Overrun error interrupt */
+#define XUARTPS_IXR_TXFULL 	0x00000010U /**< TX FIFO full interrupt. */
+#define XUARTPS_IXR_TXEMPTY	0x00000008U /**< TX FIFO empty interrupt. */
+#define XUARTPS_IXR_RXFULL 	0x00000004U /**< RX FIFO full interrupt. */
+#define XUARTPS_IXR_RXEMPTY	0x00000002U /**< RX FIFO empty interrupt. */
+#define XUARTPS_IXR_RXOVR  	0x00000001U /**< RX FIFO trigger interrupt. */
+#define XUARTPS_IXR_MASK	0x00001FFFU /**< Valid bit mask */
 /* @} */
 
 
@@ -191,9 +191,9 @@ extern "C" {
  * in the MR register.
  * @{
  */
-#define XUARTPS_BAUDGEN_DISABLE		0x00000000 /**< Disable clock */
-#define XUARTPS_BAUDGEN_MASK		0x0000FFFF /**< Valid bits mask */
-#define XUARTPS_BAUDGEN_RESET_VAL	0x0000028B /**< Reset value */
+#define XUARTPS_BAUDGEN_DISABLE		0x00000000U /**< Disable clock */
+#define XUARTPS_BAUDGEN_MASK		0x0000FFFFU /**< Valid bits mask */
+#define XUARTPS_BAUDGEN_RESET_VAL	0x0000028BU /**< Reset value */
 
 /** @name Baud Divisor Rate register
  *
@@ -205,8 +205,8 @@ extern "C" {
  * the MR_CCLK bit in the MR register.
  * @{
  */
-#define XUARTPS_BAUDDIV_MASK        0x000000FF	/**< 8 bit baud divider mask */
-#define XUARTPS_BAUDDIV_RESET_VAL   0x0000000F	/**< Reset value */
+#define XUARTPS_BAUDDIV_MASK        0x000000FFU	/**< 8 bit baud divider mask */
+#define XUARTPS_BAUDDIV_RESET_VAL   0x0000000FU	/**< Reset value */
 /* @} */
 
 
@@ -217,8 +217,8 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_RXTOUT_DISABLE		0x00000000  /**< Disable time out */
-#define XUARTPS_RXTOUT_MASK		0x000000FF  /**< Valid bits mask */
+#define XUARTPS_RXTOUT_DISABLE		0x00000000U  /**< Disable time out */
+#define XUARTPS_RXTOUT_MASK			0x000000FFU  /**< Valid bits mask */
 
 /** @name Receiver FIFO Trigger Level Register
  *
@@ -227,9 +227,9 @@ extern "C" {
  * @{
  */
 
-#define XUARTPS_RXWM_DISABLE	0x00000000  /**< Disable RX trigger interrupt */
-#define XUARTPS_RXWM_MASK	0x0000003F  /**< Valid bits mask */
-#define XUARTPS_RXWM_RESET_VAL	0x00000020  /**< Reset value */
+#define XUARTPS_RXWM_DISABLE	0x00000000U  /**< Disable RX trigger interrupt */
+#define XUARTPS_RXWM_MASK		0x0000003FU  /**< Valid bits mask */
+#define XUARTPS_RXWM_RESET_VAL	0x00000020U  /**< Reset value */
 /* @} */
 
 /** @name Transmit FIFO Trigger Level Register
@@ -239,8 +239,8 @@ extern "C" {
  * @{
  */
 
-#define XUARTPS_TXWM_MASK	0x0000003F  /**< Valid bits mask */
-#define XUARTPS_TXWM_RESET_VAL	0x00000020  /**< Reset value */
+#define XUARTPS_TXWM_MASK		0x0000003FU  /**< Valid bits mask */
+#define XUARTPS_TXWM_RESET_VAL	0x00000020U  /**< Reset value */
 /* @} */
 
 /** @name Modem Control Register
@@ -250,9 +250,9 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_MODEMCR_FCM	0x00000010  /**< Flow control mode */
-#define XUARTPS_MODEMCR_RTS	0x00000002  /**< Request to send */
-#define XUARTPS_MODEMCR_DTR	0x00000001  /**< Data terminal ready */
+#define XUARTPS_MODEMCR_FCM	0x00000010U  /**< Flow control mode */
+#define XUARTPS_MODEMCR_RTS	0x00000002U  /**< Request to send */
+#define XUARTPS_MODEMCR_DTR	0x00000001U  /**< Data terminal ready */
 /* @} */
 
 /** @name Modem Status Register
@@ -268,15 +268,15 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_MODEMSR_FCMS	0x00000100  /**< Flow control mode (FCMS) */
-#define XUARTPS_MODEMSR_DCD	0x00000080  /**< Complement of DCD input */
-#define XUARTPS_MODEMSR_RI	0x00000040  /**< Complement of RI input */
-#define XUARTPS_MODEMSR_DSR	0x00000020  /**< Complement of DSR input */
-#define XUARTPS_MODEMSR_CTS	0x00000010  /**< Complement of CTS input */
-#define XUARTPS_MODEMSR_DDCD	0x00000008  /**< Delta DCD indicator */
-#define XUARTPS_MODEMSR_TERI	0x00000004  /**< Trailing Edge Ring Indicator */
-#define XUARTPS_MODEMSR_DDSR	0x00000002  /**< Change of DSR */
-#define XUARTPS_MODEMSR_DCTS	0x00000001  /**< Change of CTS */
+#define XUARTPS_MODEMSR_FCMS	0x00000100U  /**< Flow control mode (FCMS) */
+#define XUARTPS_MODEMSR_DCD		0x00000080U  /**< Complement of DCD input */
+#define XUARTPS_MODEMSR_RI		0x00000040U  /**< Complement of RI input */
+#define XUARTPS_MODEMSR_DSR		0x00000020U  /**< Complement of DSR input */
+#define XUARTPS_MODEMSR_CTS		0x00000010U  /**< Complement of CTS input */
+#define XUARTPS_MODEMSR_DDCD	0x00000008U  /**< Delta DCD indicator */
+#define XUARTPS_MODEMSR_TERI  0x00000004U  /**< Trailing Edge Ring Indicator */
+#define XUARTPS_MODEMSR_DDSR	0x00000002U  /**< Change of DSR */
+#define XUARTPS_MODEMSR_DCTS	0x00000001U  /**< Change of CTS */
 /* @} */
 
 /** @name Channel Status Register
@@ -287,21 +287,21 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_SR_TNFUL	0x00004000 /**< TX FIFO Nearly Full Status */
-#define XUARTPS_SR_TTRIG	0x00002000 /**< TX FIFO Trigger Status */
-#define XUARTPS_SR_FLOWDEL	0x00001000 /**< RX FIFO fill over flow delay */
-#define XUARTPS_SR_TACTIVE	0x00000800 /**< TX active */
-#define XUARTPS_SR_RACTIVE	0x00000400 /**< RX active */
-#define XUARTPS_SR_DMS		0x00000200 /**< Delta modem status change */
-#define XUARTPS_SR_TOUT		0x00000100 /**< RX timeout */
-#define XUARTPS_SR_PARITY	0x00000080 /**< RX parity error */
-#define XUARTPS_SR_FRAME	0x00000040 /**< RX frame error */
-#define XUARTPS_SR_OVER		0x00000020 /**< RX overflow error */
-#define XUARTPS_SR_TXFULL	0x00000010 /**< TX FIFO full */
-#define XUARTPS_SR_TXEMPTY	0x00000008 /**< TX FIFO empty */
-#define XUARTPS_SR_RXFULL	0x00000004 /**< RX FIFO full */
-#define XUARTPS_SR_RXEMPTY	0x00000002 /**< RX FIFO empty */
-#define XUARTPS_SR_RXOVR	0x00000001 /**< RX FIFO fill over trigger */
+#define XUARTPS_SR_TNFUL	0x00004000U /**< TX FIFO Nearly Full Status */
+#define XUARTPS_SR_TTRIG	0x00002000U /**< TX FIFO Trigger Status */
+#define XUARTPS_SR_FLOWDEL	0x00001000U /**< RX FIFO fill over flow delay */
+#define XUARTPS_SR_TACTIVE	0x00000800U /**< TX active */
+#define XUARTPS_SR_RACTIVE	0x00000400U /**< RX active */
+#define XUARTPS_SR_DMS		0x00000200U /**< Delta modem status change */
+#define XUARTPS_SR_TOUT		0x00000100U /**< RX timeout */
+#define XUARTPS_SR_PARITY	0x00000080U /**< RX parity error */
+#define XUARTPS_SR_FRAME	0x00000040U /**< RX frame error */
+#define XUARTPS_SR_OVER		0x00000020U /**< RX overflow error */
+#define XUARTPS_SR_TXFULL	0x00000010U /**< TX FIFO full */
+#define XUARTPS_SR_TXEMPTY	0x00000008U /**< TX FIFO empty */
+#define XUARTPS_SR_RXFULL	0x00000004U /**< RX FIFO full */
+#define XUARTPS_SR_RXEMPTY	0x00000002U /**< RX FIFO empty */
+#define XUARTPS_SR_RXOVR	0x00000001U /**< RX FIFO fill over trigger */
 /* @} */
 
 /** @name Flow Delay Register
@@ -352,7 +352,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XUartPs_ReadReg(BaseAddress, RegOffset) \
-	Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (u32)(RegOffset))
 
 /***************************************************************************/
 /**
@@ -371,7 +371,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XUartPs_WriteReg(BaseAddress, RegOffset, RegisterValue) \
-	Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))
+	Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
 
 /****************************************************************************/
 /**
@@ -387,7 +387,7 @@ extern "C" {
 ******************************************************************************/
 #define XUartPs_IsReceiveData(BaseAddress)			 \
 	!((Xil_In32((BaseAddress) + XUARTPS_SR_OFFSET) & 	\
-	XUARTPS_SR_RXEMPTY) == XUARTPS_SR_RXEMPTY)
+	(u32)XUARTPS_SR_RXEMPTY) == (u32)XUARTPS_SR_RXEMPTY)
 
 /****************************************************************************/
 /**
@@ -404,7 +404,7 @@ extern "C" {
 ******************************************************************************/
 #define XUartPs_IsTransmitFull(BaseAddress)			 \
 	((Xil_In32((BaseAddress) + XUARTPS_SR_OFFSET) & 	\
-	 XUARTPS_SR_TXFULL) == XUARTPS_SR_TXFULL)
+	 (u32)XUARTPS_SR_TXFULL) == (u32)XUARTPS_SR_TXFULL)
 
 /************************** Function Prototypes ******************************/
 

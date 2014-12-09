@@ -59,7 +59,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XUARTPS_TOTAL_BYTES 32
+#define XUARTPS_TOTAL_BYTES (u8)32
 
 /************************** Variable Definitions *****************************/
 
@@ -91,12 +91,13 @@ static u8 ReturnString[XUARTPS_TOTAL_BYTES];
 * This function can hang if the hardware is not functioning properly.
 *
 ******************************************************************************/
-int XUartPs_SelfTest(XUartPs *InstancePtr)
+s32 XUartPs_SelfTest(XUartPs *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	s32 Status = XST_SUCCESS;
 	u32 IntrRegister;
 	u32 ModeRegister;
 	u8 Index;
+	u32 ReceiveDataResult;
 
 	/*
 	 * Assert validates the input arguments
@@ -118,37 +119,41 @@ int XUartPs_SelfTest(XUartPs *InstancePtr)
 	ModeRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_MR_OFFSET);
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
-			   ((ModeRegister & (~XUARTPS_MR_CHMODE_MASK)) |
-				XUARTPS_MR_CHMODE_L_LOOP));
+			   ((ModeRegister & (u32)(~XUARTPS_MR_CHMODE_MASK)) |
+				(u32)XUARTPS_MR_CHMODE_L_LOOP));
 
 	/*
 	 * Send a number of bytes and receive them, one at a time.
 	 */
-	for (Index = 0; Index < XUARTPS_TOTAL_BYTES; Index++) {
+	for (Index = 0U; Index < XUARTPS_TOTAL_BYTES; Index++) {
 		/*
 		 * Send out the byte and if it was not sent then the failure
 		 * will be caught in the comparison at the end
 		 */
-		XUartPs_Send(InstancePtr, &TestString[Index], 1);
+		(void)XUartPs_Send(InstancePtr, &TestString[Index], 1U);
 
 		/*
 		 * Wait until the byte is received. This can hang if the HW
 		 * is broken. Watch for the FIFO empty flag to be false.
 		 */
-		while (!(XUartPs_IsReceiveData(InstancePtr->Config.
-						BaseAddress)));
+		ReceiveDataResult = Xil_In32((InstancePtr->Config.BaseAddress) + XUARTPS_SR_OFFSET) &
+				XUARTPS_SR_RXEMPTY;
+		while (ReceiveDataResult == XUARTPS_SR_RXEMPTY ) {
+			ReceiveDataResult = Xil_In32((InstancePtr->Config.BaseAddress) + XUARTPS_SR_OFFSET) &
+					XUARTPS_SR_RXEMPTY;
+		}
 
 		/*
 		 * Receive the byte
 		 */
-		XUartPs_Recv(InstancePtr, &ReturnString[Index], 1);
+		(void)XUartPs_Recv(InstancePtr, &ReturnString[Index], 1U);
 	}
 
 	/*
 	 * Compare the bytes received to the bytes sent to verify the exact data
 	 * was received
 	 */
-	for (Index = 0; Index < XUARTPS_TOTAL_BYTES; Index++) {
+	for (Index = 0U; Index < XUARTPS_TOTAL_BYTES; Index++) {
 		if (TestString[Index] != ReturnString[Index]) {
 			Status = XST_UART_TEST_FAIL;
 		}
