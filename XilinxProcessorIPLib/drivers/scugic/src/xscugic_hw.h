@@ -63,9 +63,10 @@
 * 1.03a srt  02/27/13 Moved Offset calculation macros from *_hw.c (CR
 *		      702687).
 * 1.04a hk   05/04/13 Fix for CR#705621. Moved function prototypes
-*			  XScuGic_SetPriTrigTypeByDistAddr and
-*             XScuGic_GetPriTrigTypeByDistAddr here from xscugic.h
-*
+*		      XScuGic_SetPriTrigTypeByDistAddr and
+*         	      XScuGic_GetPriTrigTypeByDistAddr here from xscugic.h
+* 3.0	pkp  12/09/14 changed XSCUGIC_MAX_NUM_INTR_INPUTS for
+*		      Zynq Ultrascale Mp
 * </pre>
 *
 ******************************************************************************/
@@ -89,7 +90,11 @@ extern "C" {
 /*
  * The maximum number of interrupts supported by the hardware.
  */
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	95
+#ifdef __ARM_NEON__
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    	95 /* Maximum number of interrupt defined by Zynq */
+#else
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    	150 /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
+#endif
 
 /*
  * The maximum priority value that can be used in the GIC.
