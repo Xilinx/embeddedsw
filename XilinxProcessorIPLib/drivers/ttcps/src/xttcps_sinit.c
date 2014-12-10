@@ -48,8 +48,8 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xttcps.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -60,7 +60,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XTtcPs_Config XTtcPs_ConfigTable[];
+extern XTtcPs_Config XTtcPs_ConfigTable[XPAR_XTTCPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -81,14 +81,14 @@ extern XTtcPs_Config XTtcPs_ConfigTable[];
 XTtcPs_Config *XTtcPs_LookupConfig(u16 DeviceId)
 {
 	XTtcPs_Config *CfgPtr = NULL;
-	unsigned Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XTTCPS_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XTTCPS_NUM_INSTANCES; Index++) {
 		if (XTtcPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XTtcPs_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return CfgPtr;
+	return (XTtcPs_Config *)CfgPtr;
 }

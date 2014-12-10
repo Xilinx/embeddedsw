@@ -101,9 +101,11 @@
 *		initialize it.
 *
 ******************************************************************************/
-int XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
+s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 			      u32 EffectiveAddr)
 {
+	s32 Status;
+	u32 IsStartResult;
 	/*
 	 * Assert to validate input arguments.
 	 */
@@ -117,47 +119,48 @@ int XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 
+	IsStartResult = XTtcPs_IsStarted(InstancePtr);
 	/*
 	 * If the timer counter has already started, return an error
 	 * Device should be stopped first.
 	 */
-	if(XTtcPs_IsStarted(InstancePtr)) {
-		return XST_DEVICE_IS_STARTED;
+	if(IsStartResult == (u32)TRUE) {
+		Status = XST_DEVICE_IS_STARTED;
+	} else {
+		/*
+		 * Reset the count control register to it's default value.
+		 */
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_CNT_CNTRL_OFFSET,
+				  XTTCPS_CNT_CNTRL_RESET_VALUE);
+
+		/*
+		 * Reset the rest of the registers to the default values.
+		 */
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_CLK_CNTRL_OFFSET, 0x00U);
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_INTERVAL_VAL_OFFSET, 0x00U);
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_MATCH_1_OFFSET, 0x00U);
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_MATCH_2_OFFSET, 0x00U);
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_MATCH_2_OFFSET, 0x00U);
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_IER_OFFSET, 0x00U);
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_ISR_OFFSET, XTTCPS_IXR_ALL_MASK);
+
+		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+		/*
+		 * Reset the counter value
+		 */
+		XTtcPs_ResetCounterValue(InstancePtr);
+		Status = XST_SUCCESS;
 	}
-
-	/*
-	 * Reset the count control register to it's default value.
-	 */
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_CNT_CNTRL_OFFSET,
-			  XTTCPS_CNT_CNTRL_RESET_VALUE);
-
-	/*
-	 * Reset the rest of the registers to the default values.
-	 */
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_CLK_CNTRL_OFFSET, 0x00);
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_INTERVAL_VAL_OFFSET, 0x00);
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_MATCH_1_OFFSET, 0x00);
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_MATCH_2_OFFSET, 0x00);
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_MATCH_2_OFFSET, 0x00);
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_IER_OFFSET, 0x00);
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_ISR_OFFSET, XTTCPS_IXR_ALL_MASK);
-
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
-	/*
-	 * Reset the counter value
-	 */
-	XTtcPs_ResetCounterValue(InstancePtr);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -188,7 +191,7 @@ void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, u16 Value)
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(MatchIndex < XTTCPS_NUM_MATCH_REG);
+	Xil_AssertVoid(MatchIndex < (u8)XTTCPS_NUM_MATCH_REG);
 
 	/*
 	 * Write the value to the correct match register with MatchIndex
@@ -275,9 +278,9 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 		/*
 		 * Set the prescaler value and enable prescaler
 		 */
-		ClockReg |= (PrescalerValue << XTTCPS_CLK_CNTRL_PS_VAL_SHIFT) &
-			XTTCPS_CLK_CNTRL_PS_VAL_MASK;
-		ClockReg |= XTTCPS_CLK_CNTRL_PS_EN_MASK;
+		ClockReg |= (u32)(((u32)PrescalerValue << (u32)XTTCPS_CLK_CNTRL_PS_VAL_SHIFT) &
+			(u32)XTTCPS_CLK_CNTRL_PS_VAL_MASK);
+		ClockReg |= (u32)XTTCPS_CLK_CNTRL_PS_EN_MASK;
 	}
 
 	/*
@@ -311,6 +314,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 ****************************************************************************/
 u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 {
+	u8 Status;
 	u32 ClockReg;
 
 	/*
@@ -329,11 +333,14 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 		/*
 		 * Prescaler is disabled. Return the correct flag value
 		 */
-		return XTTCPS_CLK_CNTRL_PS_DISABLE;
+		Status = (u8)XTTCPS_CLK_CNTRL_PS_DISABLE;
 	}
+	else {
 
-	return ((ClockReg & XTTCPS_CLK_CNTRL_PS_VAL_MASK) >>
-		XTTCPS_CLK_CNTRL_PS_VAL_SHIFT);
+		Status = (u8)((ClockReg & (u32)XTTCPS_CLK_CNTRL_PS_VAL_MASK) >>
+			(u32)XTTCPS_CLK_CNTRL_PS_VAL_SHIFT);
+	}
+	return Status;
 }
 
 /*****************************************************************************/
@@ -374,41 +381,41 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	 */
 	TempValue = InputClock/ Freq;
 
-	if (TempValue < 4) {
+	if (TempValue < 4U) {
 		/*
 		 * The frequency is too high, it is too close to the input
 		 * clock value. Use maximum values to signal caller.
 		 */
-		*Interval = 0xFFFF;
-		*Prescaler = 0xFF;
+		*Interval = 0xFFFFU;
+		*Prescaler = 0xFFU;
 		return;
 	}
 
 	/*
 	 * First, do we need a prescaler or not?
 	 */
-	if (65536 > TempValue) {
+	if (((u32)65536U) > TempValue) {
 		/*
 		 * We do not need a prescaler, so set the values appropriately
 		 */
-		*Interval = TempValue;
+		*Interval = (u16)TempValue;
 		*Prescaler = XTTCPS_CLK_CNTRL_PS_DISABLE;
 		return;
 	}
 
 
-	for (TmpPrescaler = 0; TmpPrescaler < XTTCPS_CLK_CNTRL_PS_DISABLE;
+	for (TmpPrescaler = 0U; TmpPrescaler < XTTCPS_CLK_CNTRL_PS_DISABLE;
 	     TmpPrescaler++) {
-		TempValue =	InputClock/ (Freq * (1 << (TmpPrescaler + 1)));
+		TempValue =	InputClock/ (Freq * (1U << (TmpPrescaler + 1U)));
 
 		/*
 		 * The first value less than 2^16 is the best bet
 		 */
-		if (65536 > TempValue) {
+		if (((u32)65536U) > TempValue) {
 			/*
 			 * Set the values appropriately
 			 */
-			*Interval = TempValue;
+			*Interval = (u16)TempValue;
 			*Prescaler = TmpPrescaler;
 			return;
 		}
@@ -417,7 +424,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	/* Can not find interval values that work for the given frequency.
 	 * Return maximum values to signal caller.
 	 */
-	*Interval = 0XFFFF;
-	*Prescaler = 0XFF;
+	*Interval = 0XFFFFU;
+	*Prescaler = 0XFFU;
 	return;
 }

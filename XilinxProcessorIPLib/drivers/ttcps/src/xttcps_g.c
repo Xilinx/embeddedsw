@@ -73,47 +73,47 @@
  */
 XTtcPs_Config XTtcPs_ConfigTable[XPAR_XTTCPS_NUM_INSTANCES] = {
 	{
-		 XPAR_XTTCPS_0_DEVICE_ID,	/* Device ID for instance */
-		 XPAR_XTTCPS_0_BASEADDR,	/* Device base address */
-		 XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ	/* Device input clock frequency */
+		 (u16)XPAR_XTTCPS_0_DEVICE_ID,	/* Device ID for instance */
+		 (u32)XPAR_XTTCPS_0_BASEADDR,	/* Device base address */
+		 (u32)XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ	/* Device input clock frequency */
 	},
 #ifdef XPAR_XTTCPS_1_DEVICE_ID
 	{
-		 XPAR_XTTCPS_1_DEVICE_ID,	/* Device ID for instance */
-		 XPAR_XTTCPS_1_BASEADDR,	/* Device base address */
-		 XPAR_XTTCPS_1_CLOCK_HZ	/* Device input clock frequency */
+		 (u16)XPAR_XTTCPS_1_DEVICE_ID,	/* Device ID for instance */
+		 (u32)XPAR_XTTCPS_1_BASEADDR,	/* Device base address */
+		 (u32)XPAR_XTTCPS_1_CLOCK_HZ	/* Device input clock frequency */
 	},
 #endif
 
 #ifdef XPAR_XTTCPS_2_DEVICE_ID
 	{
-		 XPAR_XTTCPS_2_DEVICE_ID,	/* Device ID for instance */
-		 XPAR_XTTCPS_2_BASEADDR,	/* Device base address */
-		 XPAR_XTTCPS_2_CLOCK_HZ	/* Device input clock frequency */
+		 (u16)XPAR_XTTCPS_2_DEVICE_ID,	/* Device ID for instance */
+		 (u32)XPAR_XTTCPS_2_BASEADDR,	/* Device base address */
+		 (u32)XPAR_XTTCPS_2_CLOCK_HZ	/* Device input clock frequency */
 	},
 #endif
 
 #ifdef XPAR_XTTCPS_3_DEVICE_ID
 	{
-		 XPAR_XTTCPS_3_DEVICE_ID,	/* Device ID for instance */
-		 XPAR_XTTCPS_3_BASEADDR,	/* Device base address */
-		 XPAR_XTTCPS_3_CLOCK_HZ	/* Device input clock frequency */
+		 (u16)XPAR_XTTCPS_3_DEVICE_ID,	/* Device ID for instance */
+		 (u32)XPAR_XTTCPS_3_BASEADDR,	/* Device base address */
+		 (u32)XPAR_XTTCPS_3_CLOCK_HZ	/* Device input clock frequency */
 	},
 #endif
 
 #ifdef XPAR_XTTCPS_4_DEVICE_ID
 	{
-		 XPAR_XTTCPS_4_DEVICE_ID,	/* Device ID for instance */
-		 XPAR_XTTCPS_4_BASEADDR,	/* Device base address */
-		 XPAR_XTTCPS_4_CLOCK_HZ	/* Device input clock frequency */
+		 (u16)XPAR_XTTCPS_4_DEVICE_ID,	/* Device ID for instance */
+		 (u32)XPAR_XTTCPS_4_BASEADDR,	/* Device base address */
+		 (u32)XPAR_XTTCPS_4_CLOCK_HZ	/* Device input clock frequency */
 	},
 #endif
 
 #ifdef XPAR_XTTCPS_5_DEVICE_ID
 	{
-		 XPAR_XTTCPS_5_DEVICE_ID,	/* Device ID for instance */
-		 XPAR_XTTCPS_5_BASEADDR,	/* Device base address */
-		 XPAR_XTTCPS_5_CLOCK_HZ	/* Device input clock frequency */
+		 (u16)XPAR_XTTCPS_5_DEVICE_ID,	/* Device ID for instance */
+		 (u32)XPAR_XTTCPS_5_BASEADDR,	/* Device base address */
+		 (u32)XPAR_XTTCPS_5_CLOCK_HZ	/* Device input clock frequency */
 	},
 #endif
 };

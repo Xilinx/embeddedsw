@@ -112,14 +112,14 @@ extern "C" {
  *
  * @{
  */
-#define XTTCPS_OPTION_EXTERNAL_CLK	0x0001 	/**< External clock source */
-#define XTTCPS_OPTION_CLK_EDGE_NEG	0x0002	/**< Clock on trailing edge for
+#define XTTCPS_OPTION_EXTERNAL_CLK	0x00000001U 	/**< External clock source */
+#define XTTCPS_OPTION_CLK_EDGE_NEG	0x00000002U	/**< Clock on trailing edge for
 						     external clock*/
-#define XTTCPS_OPTION_INTERVAL_MODE	0x0004	/**< Interval mode */
-#define XTTCPS_OPTION_DECREMENT		0x0008	/**< Decrement the counter */
-#define XTTCPS_OPTION_MATCH_MODE	0x0010	/**< Match mode */
-#define XTTCPS_OPTION_WAVE_DISABLE	0x0020 	/**< No waveform output */
-#define XTTCPS_OPTION_WAVE_POLARITY	0x0040	/**< Waveform polarity */
+#define XTTCPS_OPTION_INTERVAL_MODE	0x00000004U	/**< Interval mode */
+#define XTTCPS_OPTION_DECREMENT		0x00000008U	/**< Decrement the counter */
+#define XTTCPS_OPTION_MATCH_MODE	0x00000010U	/**< Match mode */
+#define XTTCPS_OPTION_WAVE_DISABLE	0x00000020U 	/**< No waveform output */
+#define XTTCPS_OPTION_WAVE_POLARITY	0x00000040U	/**< Waveform polarity */
 /*@}*/
 
 /**************************** Type Definitions *******************************/
@@ -151,10 +151,10 @@ typedef struct {
  * Internal helper macros
  */
 #define InstReadReg(InstancePtr, RegOffset) \
-    (Xil_In32(((InstancePtr)->Config.BaseAddress) + (RegOffset)))
+    (Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)(RegOffset)))
 
 #define InstWriteReg(InstancePtr, RegOffset, Data) \
-    (Xil_Out32(((InstancePtr)->Config.BaseAddress) + (RegOffset), (Data)))
+    (Xil_Out32(((InstancePtr)->Config.BaseAddress) + (u32)(RegOffset), (u32)(Data)))
 
 /*****************************************************************************/
 /**
@@ -208,8 +208,8 @@ typedef struct {
 *
 ****************************************************************************/
 #define XTtcPs_IsStarted(InstancePtr) \
-     (int)((InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) & \
-       XTTCPS_CNT_CNTRL_DIS_MASK) == 0)
+     ((InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) & \
+       XTTCPS_CNT_CNTRL_DIS_MASK) == 0U)
 
 /*****************************************************************************/
 /**
@@ -280,7 +280,7 @@ typedef struct {
 #define XTtcPs_ResetCounterValue(InstancePtr) \
 		InstWriteReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET,	\
 		(InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) | \
-		 XTTCPS_CNT_CNTRL_RST_MASK))
+		 (u32)XTTCPS_CNT_CNTRL_RST_MASK))
 
 /*****************************************************************************/
 /**
@@ -377,7 +377,7 @@ XTtcPs_Config *XTtcPs_LookupConfig(u16 DeviceId);
 /*
  * Required functions, in xttcps.c
  */
-int XTtcPs_CfgInitialize(XTtcPs *InstancePtr,
+s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr,
          XTtcPs_Config * ConfigPtr, u32 EffectiveAddr);
 
 void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, u16 Value);
@@ -392,13 +392,13 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 /*
  * Functions for options, in file xttcps_options.c
  */
-int XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options);
+s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options);
 u32 XTtcPs_GetOptions(XTtcPs *InstancePtr);
 
 /*
  * Function for self-test, in file xttcps_selftest.c
  */
-int XTtcPs_SelfTest(XTtcPs *InstancePtr);
+s32 XTtcPs_SelfTest(XTtcPs *InstancePtr);
 
 #ifdef __cplusplus
 }
