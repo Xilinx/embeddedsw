@@ -116,11 +116,12 @@ static OptionsMap TmrCtrOptionsTable[] = {
 * @note		None
 *
 ******************************************************************************/
-int XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
+s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 {
 	u32 CountReg;
 	u32 ClockReg;
-	unsigned Index;
+	u32 Index;
+	s32 Status = XST_SUCCESS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -134,8 +135,9 @@ int XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	 * Loop through the options table, turning the option on or off
 	 * depending on whether the bit is set in the incoming options flag.
 	 */
-	for (Index = 0; Index < XTTCPS_NUM_TMRCTR_OPTIONS; Index++) {
-		if (Options & TmrCtrOptionsTable[Index].Option) {
+	for (Index = 0U; Index < XTTCPS_NUM_TMRCTR_OPTIONS; Index++) {
+		if(Status != (s32)XST_FAILURE) {
+			if ((Options & TmrCtrOptionsTable[Index].Option) != (u32)0) {
 
 			switch (TmrCtrOptionsTable[Index].Register) {
 
@@ -150,7 +152,8 @@ int XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 				break;
 
 			default:
-				return XST_FAILURE;
+				Status = XST_FAILURE;
+				break;
 			}
 		}
 		else {
@@ -167,7 +170,9 @@ int XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 				break;
 
 			default:
-				return XST_FAILURE;
+				Status = XST_FAILURE;
+				break;
+				}
 			}
 		}
 	}
@@ -176,12 +181,14 @@ int XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	 * Now write the registers. Leave it to the upper layers to restart the
 	 * device.
 	 */
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
-	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_CNT_CNTRL_OFFSET, CountReg);
+	if (Status != (s32)XST_FAILURE ) {
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
+		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+				  XTTCPS_CNT_CNTRL_OFFSET, CountReg);
+	}
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -203,9 +210,9 @@ int XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 ******************************************************************************/
 u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)
 {
-	u32 OptionsFlag = 0;
+	u32 OptionsFlag = 0U;
 	u32 Register;
-	unsigned Index;
+	u32 Index;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -214,7 +221,7 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)
 	/*
 	 * Loop through the options table to determine which options are set
 	 */
-	for (Index = 0; Index < XTTCPS_NUM_TMRCTR_OPTIONS; Index++) {
+	for (Index = 0U; Index < XTTCPS_NUM_TMRCTR_OPTIONS; Index++) {
 		/*
 		 * Get the control register to determine which options are
 		 * currently set.
@@ -223,7 +230,7 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)
 					      TmrCtrOptionsTable[Index].
 					      Register);
 
-		if (Register & TmrCtrOptionsTable[Index].Mask) {
+		if ((Register & TmrCtrOptionsTable[Index].Mask) != (u32)0) {
 			OptionsFlag |= TmrCtrOptionsTable[Index].Option;
 		}
 	}

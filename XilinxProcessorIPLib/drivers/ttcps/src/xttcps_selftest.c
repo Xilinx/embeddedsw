@@ -82,8 +82,9 @@
 * @note		This test fails if it is not called right after initialization.
 *
 ******************************************************************************/
-int XTtcPs_SelfTest(XTtcPs *InstancePtr)
+s32 XTtcPs_SelfTest(XTtcPs *InstancePtr)
 {
+	s32 Status;
 	u32 TempReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -94,9 +95,11 @@ int XTtcPs_SelfTest(XTtcPs *InstancePtr)
 	 */
 	TempReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XTTCPS_CNT_CNTRL_OFFSET);
-	if (XTTCPS_CNT_CNTRL_RESET_VALUE != TempReg) {
-		return XST_FAILURE;
+	if (XTTCPS_CNT_CNTRL_RESET_VALUE != (u32)TempReg) {
+		Status = XST_FAILURE;
 	}
-
-	return XST_SUCCESS;
+	else {
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
