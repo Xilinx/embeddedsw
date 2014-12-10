@@ -65,7 +65,7 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XScuGic_Config XScuGic_ConfigTable[];
+extern XScuGic_Config XScuGic_ConfigTable[XPAR_SCUGIC_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 
@@ -86,15 +86,15 @@ extern XScuGic_Config XScuGic_ConfigTable[];
 XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 {
 	XScuGic_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index=0; Index < XPAR_SCUGIC_NUM_INSTANCES; Index++) {
+	for (Index=0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
 		if (XScuGic_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return CfgPtr;
+	return (XScuGic_Config *)CfgPtr;
 }
 

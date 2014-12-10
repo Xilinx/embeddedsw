@@ -211,7 +211,7 @@ typedef struct
 *****************************************************************************/
 #define XScuGic_CPUWriteReg(InstancePtr, RegOffset, Data) \
 (XScuGic_WriteReg(((InstancePtr)->Config->CpuBaseAddress), (RegOffset), \
-					((u32)Data)))
+					((u32)(Data))))
 
 /****************************************************************************/
 /**
@@ -249,7 +249,7 @@ typedef struct
 *****************************************************************************/
 #define XScuGic_DistWriteReg(InstancePtr, RegOffset, Data) \
 (XScuGic_WriteReg(((InstancePtr)->Config->DistBaseAddress), (RegOffset), \
-					((u32)Data)))
+					((u32)(Data))))
 
 /****************************************************************************/
 /**
@@ -275,17 +275,17 @@ typedef struct
  * Required functions in xscugic.c
  */
 
-int  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
+s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
 			Xil_InterruptHandler Handler, void *CallBackRef);
 void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id);
 
 void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id);
 void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id);
 
-int  XScuGic_CfgInitialize(XScuGic *InstancePtr, XScuGic_Config *ConfigPtr,
+s32  XScuGic_CfgInitialize(XScuGic *InstancePtr, XScuGic_Config *ConfigPtr,
 							u32 EffectiveAddr);
 
-int  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id);
+s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id);
 
 void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 					u8 *Priority, u8 *Trigger);
@@ -305,7 +305,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr);
 /*
  * Self-test functions in xscugic_selftest.c
  */
-int  XScuGic_SelfTest(XScuGic *InstancePtr);
+s32  XScuGic_SelfTest(XScuGic *InstancePtr);
 
 #ifdef __cplusplus
 }

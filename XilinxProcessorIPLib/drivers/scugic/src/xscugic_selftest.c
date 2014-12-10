@@ -54,7 +54,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define	XSCUGIC_PCELL_ID	0xB105F00D
+#define	XSCUGIC_PCELL_ID	0xB105F00DU
 
 /**************************** Type Definitions *******************************/
 
@@ -82,10 +82,11 @@
 * @note		None.
 *
 ******************************************************************************/
-int  XScuGic_SelfTest(XScuGic *InstancePtr)
+s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 {
-	u32 RegValue1 =0;
-	int Index;
+	u32 RegValue1 = 0U;
+	u32 Index;
+	s32 Status;
 
 	/*
 	 * Assert the arguments
@@ -96,15 +97,16 @@ int  XScuGic_SelfTest(XScuGic *InstancePtr)
 	/*
 	 * Read the ID registers.
 	 */
-	for(Index=0; Index<=3; Index++) {
+	for(Index=0U; Index<=3U; Index++) {
 		RegValue1 |= XScuGic_DistReadReg(InstancePtr,
-			(XSCUGIC_PCELLID_OFFSET + (Index * 4))) << (Index * 8);
+			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) << (Index * 8U);
 	}
 
 	if(XSCUGIC_PCELL_ID != RegValue1){
-		return XST_FAILURE;
+		Status = XST_FAILURE;
+	} else {
+		Status = XST_SUCCESS;
 	}
-
-	return XST_SUCCESS;
+	return Status;
 }
 

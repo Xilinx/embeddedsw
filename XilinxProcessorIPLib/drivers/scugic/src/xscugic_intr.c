@@ -113,7 +113,7 @@
 void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 {
 
-    u32 IntID;
+	u32 InterruptID;
 	    u32 IntIDFull;
 	    XScuGic_VectorTableEntry *TablePtr;
 
@@ -127,9 +127,9 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	     * in the GIC.
 	     */
 	    IntIDFull = XScuGic_CPUReadReg(InstancePtr, XSCUGIC_INT_ACK_OFFSET);
-	    IntID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
+	    InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
 
-	    if(XSCUGIC_MAX_NUM_INTR_INPUTS < IntID){
+	    if(XSCUGIC_MAX_NUM_INTR_INPUTS < InterruptID){
 		goto IntrExit;
 	    }
 
@@ -151,8 +151,10 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	     * Execute the ISR. Jump into the Interrupt service routine based on the
 	     * IRQSource. A software trigger is cleared by the ACK.
 	     */
-	        TablePtr = &(InstancePtr->Config->HandlerTable[IntID]);
+	    TablePtr = &(InstancePtr->Config->HandlerTable[InterruptID]);
+		if(TablePtr != NULL) {
 	        TablePtr->Handler(TablePtr->CallBackRef);
+		}
 
 	IntrExit:
 	    /*

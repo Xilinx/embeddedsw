@@ -67,10 +67,10 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xscugic.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -82,11 +82,11 @@
 
 static void DistInit(XScuGic_Config *Config, u32 CpuID);
 static void CPUInit(XScuGic_Config *Config);
-static XScuGic_Config *LookupConfigByBaseAddress(u32 BaseAddress);
+static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-extern XScuGic_Config XScuGic_ConfigTable[];
+extern XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -109,6 +109,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];
 static void DistInit(XScuGic_Config *Config, u32 CpuID)
 {
 	u32 Int_Id;
+	u32 LocalCpuID = CpuID;
 
 #if USE_AMP==1
 	#warning "Building GIC for AMP"
@@ -121,7 +122,7 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 	return;
 #endif
 
-	XScuGic_WriteReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET, 0UL);
+	XScuGic_WriteReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET, 0U);
 
 	/*
 	 * Set the security domains in the int_security registers for non-secure
@@ -138,18 +139,18 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 	 * 1. The trigger mode in the int_config register
 	 * Only write to the SPI interrupts, so start at 32
 	 */
-	for (Int_Id = 32; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=16) {
+	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+16U) {
 	/*
 	 * Each INT_ID uses two bits, or 16 INT_ID per register
 	 * Set them all to be level sensitive, active HIGH.
 	 */
 		XScuGic_WriteReg(Config->DistBaseAddress,
-			XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id), 0UL);
+			XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id), 0U);
 	}
 
 
-#define DEFAULT_PRIORITY	0xa0a0a0a0UL
-	for (Int_Id = 0; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=4) {
+#define DEFAULT_PRIORITY	0xa0a0a0a0U
+	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
 		/*
 		 * 2. The priority using int the priority_level register
 		 * The priority_level and spi_target registers use one byte per
@@ -161,27 +162,27 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 				DEFAULT_PRIORITY);
 	}
 
-	for (Int_Id = 32; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=4) {
+	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
 		/*
 		 * 3. The CPU interface in the spi_target register
 		 * Only write to the SPI interrupts, so start at 32
 		 */
-		CpuID |= CpuID << 8;
-		CpuID |= CpuID << 16;
+		LocalCpuID |= LocalCpuID << 8U;
+		LocalCpuID |= LocalCpuID << 16U;
 
 		XScuGic_WriteReg(Config->DistBaseAddress,
- 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), CpuID);
+				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), LocalCpuID);
 	}
 
-	for (Int_Id = 0; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=32) {
+	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
 	/*
 	 * 4. Enable the SPI using the enable_set register. Leave all disabled
 	 * for now.
 	 */
 		XScuGic_WriteReg(Config->DistBaseAddress,
-		XSCUGIC_ENABLE_DISABLE_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
+		XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
 		Int_Id),
-		0xFFFFFFFFUL);
+		0xFFFFFFFFU);
 
 	}
 
@@ -213,7 +214,7 @@ static void CPUInit(XScuGic_Config *Config)
 	 * register
 	 */
 	XScuGic_WriteReg(Config->CpuBaseAddress, XSCUGIC_CPU_PRIOR_OFFSET,
-									0xF0);
+									0xF0U);
 
 	/*
 	 * If the CPU operates in both security domains, set parameters in the
@@ -233,7 +234,7 @@ static void CPUInit(XScuGic_Config *Config)
 	 * interrupts Only enable the IRQ output unless secure interrupts
 	 * are needed.
 	 */
-	XScuGic_WriteReg(Config->CpuBaseAddress, XSCUGIC_CONTROL_OFFSET, 0x07);
+	XScuGic_WriteReg(Config->CpuBaseAddress, XSCUGIC_CONTROL_OFFSET, 0x07U);
 
 }
 
@@ -267,10 +268,10 @@ static void CPUInit(XScuGic_Config *Config)
 * None.
 *
 ******************************************************************************/
-int XScuGic_DeviceInitialize(u32 DeviceId)
+s32 XScuGic_DeviceInitialize(u32 DeviceId)
 {
 	XScuGic_Config *Config;
-	u8 Cpu_Id = XPAR_CPU_ID + 1;
+	u32 Cpu_Id = (u32)XPAR_CPU_ID + (u32)1;
 
 	Config = &XScuGic_ConfigTable[(u32 )DeviceId];
 
@@ -304,20 +305,21 @@ int XScuGic_DeviceInitialize(u32 DeviceId)
 void XScuGic_DeviceInterruptHandler(void *DeviceId)
 {
 
-	u32 IntID;
+	u32 InterruptID;
+	u32 IntIDFull;
 	XScuGic_VectorTableEntry *TablePtr;
 	XScuGic_Config *CfgPtr;
 
-	CfgPtr = &XScuGic_ConfigTable[(u32 )DeviceId];
+	CfgPtr = &XScuGic_ConfigTable[(INTPTR )DeviceId];
 
 	/*
 	 * Read the int_ack register to identify the highest priority
 	 * interrupt ID and make sure it is valid. Reading Int_Ack will
 	 * clear the interrupt in the GIC.
 	 */
-	IntID = XScuGic_ReadReg(CfgPtr->CpuBaseAddress, XSCUGIC_INT_ACK_OFFSET)
-					& XSCUGIC_ACK_INTID_MASK;
-	if(XSCUGIC_MAX_NUM_INTR_INPUTS < IntID){
+	IntIDFull = XScuGic_ReadReg(CfgPtr->CpuBaseAddress, XSCUGIC_INT_ACK_OFFSET);
+	InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
+	if(XSCUGIC_MAX_NUM_INTR_INPUTS < InterruptID){
 		goto IntrExit;
 	}
 
@@ -339,15 +341,17 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 	 * Execute the ISR. Jump into the Interrupt service routine based on
 	 * the IRQSource. A software trigger is cleared by the ACK.
 	 */
-	TablePtr = &(CfgPtr->HandlerTable[IntID]);
-	TablePtr->Handler(TablePtr->CallBackRef);
+	TablePtr = &(CfgPtr->HandlerTable[InterruptID]);
+	if(TablePtr != NULL) {
+		TablePtr->Handler(TablePtr->CallBackRef);
+	}
 
 IntrExit:
 	/*
 	 * Write to the EOI register, we are all done here.
 	 * Let this function return, the boot code will restore the stack.
 	 */
-	XScuGic_WriteReg(CfgPtr->CpuBaseAddress, XSCUGIC_EOI_OFFSET, IntID);
+	XScuGic_WriteReg(CfgPtr->CpuBaseAddress, XSCUGIC_EOI_OFFSET, IntIDFull);
 
 	/*
 	 * Return from the interrupt. Change security domains could happen
@@ -379,15 +383,19 @@ IntrExit:
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XScuGic_RegisterHandler(u32 BaseAddress, int InterruptId,
-			     Xil_InterruptHandler Handler, void *CallBackRef)
+void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
+			     Xil_InterruptHandler IntrHandler, void *CallBackRef)
 {
 	XScuGic_Config *CfgPtr;
-
 	CfgPtr = LookupConfigByBaseAddress(BaseAddress);
-	if (CfgPtr != NULL) {
-		CfgPtr->HandlerTable[InterruptId].Handler = Handler;
-		CfgPtr->HandlerTable[InterruptId].CallBackRef = CallBackRef;
+
+	if(CfgPtr != NULL) {
+		if( IntrHandler != NULL) {
+			CfgPtr->HandlerTable[InterruptID].Handler = IntrHandler;
+		}
+		if( CallBackRef != NULL) {
+			CfgPtr->HandlerTable[InterruptID].CallBackRef = CallBackRef;
+		}
 	}
 }
 
@@ -409,9 +417,9 @@ void XScuGic_RegisterHandler(u32 BaseAddress, int InterruptId,
 static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 {
 	XScuGic_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_SCUGIC_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_SCUGIC_NUM_INSTANCES; Index++) {
 		if (XScuGic_ConfigTable[Index].CpuBaseAddress ==
 				CpuBaseAddress) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
@@ -419,7 +427,7 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 		}
 	}
 
-	return CfgPtr;
+	return (XScuGic_Config *)CfgPtr;
 }
 
 /****************************************************************************/
@@ -452,10 +460,11 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 Priority, u8 Trigger)
 {
 	u32 RegValue;
+	u8 LocalPriority = Priority;
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(Trigger <= XSCUGIC_INT_CFG_MASK);
-	Xil_AssertVoid(Priority <= XSCUGIC_MAX_INTR_PRIO_VAL);
+	Xil_AssertVoid(LocalPriority <= XSCUGIC_MAX_INTR_PRIO_VAL);
 
 	/*
 	 * Determine the register to write to using the Int_Id.
@@ -469,13 +478,13 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * in steps of 8. The priorities can be 0, 8, 16, 32, 48, ... etc.
 	 * The lower order 3 bits are masked before putting it in the register.
 	 */
-	Priority = Priority & XSCUGIC_INTR_PRIO_MASK;
+	LocalPriority = LocalPriority & XSCUGIC_INTR_PRIO_MASK;
 	/*
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue &= ~(XSCUGIC_PRIORITY_MASK << ((Int_Id%4)*8));
-	RegValue |= Priority << ((Int_Id%4)*8);
+	RegValue &= ~(XSCUGIC_PRIORITY_MASK << ((Int_Id%4U)*8U));
+	RegValue |= (u32)LocalPriority << ((Int_Id%4U)*8U);
 
 	/*
 	 * Write the value back to the register.
@@ -492,8 +501,8 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue &= ~(XSCUGIC_INT_CFG_MASK << ((Int_Id%16)*2));
-	RegValue |= Trigger << ((Int_Id%16)*2);
+	RegValue &= ~(XSCUGIC_INT_CFG_MASK << ((Int_Id%16U)*2U));
+	RegValue |= (u32)Trigger << ((Int_Id%16U)*2U);
 
 	/*
 	 * Write the value back to the register.
@@ -538,8 +547,8 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue = RegValue >> ((Int_Id%4)*8);
-	*Priority = RegValue & XSCUGIC_PRIORITY_MASK;
+	RegValue = RegValue >> ((Int_Id%4U)*8U);
+	*Priority = (u8)(RegValue & XSCUGIC_PRIORITY_MASK);
 
 	/*
 	 * Determine the register to read to using the Int_Id.
@@ -551,8 +560,8 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue = RegValue >> ((Int_Id%16)*2);
+	RegValue = RegValue >> ((Int_Id%16U)*2U);
 
-	*Trigger = RegValue & XSCUGIC_INT_CFG_MASK;
+	*Trigger = (u8)(RegValue & XSCUGIC_INT_CFG_MASK);
 }
 

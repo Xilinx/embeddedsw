@@ -85,8 +85,8 @@
 XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES] =
 {
     {
-        XPAR_SCUGIC_0_DEVICE_ID,	/* Unique ID  of device */
-        XPAR_SCUGIC_0_CPU_BASEADDR,	/* CPU Interface base address */
-        XPAR_SCUGIC_0_DIST_BASEADDR	/* Distributor base address */
+        (u16)XPAR_SCUGIC_0_DEVICE_ID,	/* Unique ID  of device */
+        (u32)XPAR_SCUGIC_0_CPU_BASEADDR,	/* CPU Interface base address */
+        (u32)XPAR_SCUGIC_0_DIST_BASEADDR	/* Distributor base address */
     }
 };
