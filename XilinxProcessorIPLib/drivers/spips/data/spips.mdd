@@ -28,15 +28,6 @@
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
 #
-
-<pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who    Date     Changes
-* ----- ------ -------- -----------------------------------------------
-* 3.0	vm   12/09/14  support for Zynq Ultrascale Mp added
-*
-
 ###############################################################################
 OPTION psf_version = 2.1;
 
