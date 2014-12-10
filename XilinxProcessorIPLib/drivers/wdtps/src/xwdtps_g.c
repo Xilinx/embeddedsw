@@ -49,8 +49,8 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xwdtps.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -72,7 +72,11 @@
  */
 XWdtPs_Config XWdtPs_ConfigTable[XPAR_XWDTPS_NUM_INSTANCES] = {
 	{
-		XPAR_XWDTPS_0_DEVICE_ID,
-		XPAR_XWDTPS_0_BASEADDR
+		(u16)XPAR_XWDTPS_0_DEVICE_ID,
+		(u32)XPAR_XWDTPS_0_BASEADDR
+	},
+	{
+		(u16)XPAR_XWDTPS_1_DEVICE_ID,
+		(u32)XPAR_XWDTPS_1_BASEADDR
 	}
 };

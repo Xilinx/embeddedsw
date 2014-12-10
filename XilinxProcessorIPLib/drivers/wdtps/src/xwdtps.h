@@ -106,15 +106,15 @@ extern "C" {
  * Choices for output selections for the device, used in
  * XWdtPs_EnableOutput()/XWdtPs_DisableOutput() functions
  */
-#define XWDTPS_RESET_SIGNAL	1   /**< Reset signal request */
-#define XWDTPS_IRQ_SIGNAL	2   /**< IRQ signal request */
+#define XWDTPS_RESET_SIGNAL	0x01U   /**< Reset signal request */
+#define XWDTPS_IRQ_SIGNAL	0x02U   /**< IRQ signal request */
 
 /*
  * Control value setting flags, used in
  * XWdtPs_SetControlValues()/XWdtPs_GetControlValues() functions
  */
-#define XWDTPS_CLK_PRESCALE	1   /**< Clock Prescale request */
-#define XWDTPS_COUNTER_RESET	2   /**< Counter Reset request */
+#define XWDTPS_CLK_PRESCALE		0x01U   /**< Clock Prescale request */
+#define XWDTPS_COUNTER_RESET	0x02U   /**< Counter Reset request */
 
 /**************************** Type Definitions *******************************/
 
@@ -190,7 +190,7 @@ XWdtPs_Config *XWdtPs_LookupConfig(u16 DeviceId);
 /*
  * Interface functions in xwdtps.c
  */
-int XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
+s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 			XWdtPs_Config *ConfigPtr, u32 EffectiveAddress);
 
 void XWdtPs_Start(XWdtPs *InstancePtr);
@@ -208,7 +208,7 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value);
 /*
  * Self-test function in xwdttb_selftest.c.
  */
-int XWdtPs_SelfTest(XWdtPs *InstancePtr);
+s32 XWdtPs_SelfTest(XWdtPs *InstancePtr);
 
 
 #ifdef __cplusplus

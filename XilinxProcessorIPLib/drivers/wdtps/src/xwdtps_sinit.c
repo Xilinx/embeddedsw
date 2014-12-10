@@ -49,8 +49,8 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xwdtps.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -59,6 +59,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/*************************** Variable Definitions ****************************/
+extern XWdtPs_Config XWdtPs_ConfigTable[XPAR_XWDTPS_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 
@@ -77,16 +79,14 @@
 ******************************************************************************/
 XWdtPs_Config *XWdtPs_LookupConfig(u16 DeviceId)
 {
-	extern XWdtPs_Config XWdtPs_ConfigTable[];
 	XWdtPs_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XWDTPS_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XWDTPS_NUM_INSTANCES; Index++) {
 		if (XWdtPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XWdtPs_ConfigTable[Index];
 			break;
 		}
 	}
-
-	return (CfgPtr);
+	return (XWdtPs_Config *)CfgPtr;
 }

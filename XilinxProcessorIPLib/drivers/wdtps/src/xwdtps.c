@@ -89,9 +89,10 @@
 * @note		None.
 *
 ******************************************************************************/
-int XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
+s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 			XWdtPs_Config *ConfigPtr, u32 EffectiveAddress)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -102,27 +103,29 @@ int XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 	 * initializing.
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		return XST_DEVICE_IS_STARTED;
+		Status = XST_DEVICE_IS_STARTED;
+	} else {
+
+		/*
+		 * Copy configuration into instance.
+		 */
+		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+
+		/*
+		 * Save the base address pointer such that the registers of the block
+		 * can be accessed and indicate it has not been started yet.
+		 */
+		InstancePtr->Config.BaseAddress = EffectiveAddress;
+		InstancePtr->IsStarted = 0U;
+
+		/*
+		 * Indicate the instance is ready to use, successfully initialized.
+		 */
+		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+		Status = XST_SUCCESS;
 	}
-
-	/*
-	 * Copy configuration into instance.
-	 */
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-
-	/*
-	 * Save the base address pointer such that the registers of the block
-	 * can be accessed and indicate it has not been started yet.
-	 */
-	InstancePtr->Config.BaseAddress = EffectiveAddress;
-	InstancePtr->IsStarted = 0;
-
-	/*
-	 * Indicate the instance is ready to use, successfully initialized.
-	 */
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /****************************************************************************/
@@ -203,7 +206,7 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 	 * Disable the Timer field in the register and
 	 * Set the access key for the write to be done the register.
 	 */
-	Register &= ~XWDTPS_ZMR_WDEN_MASK;
+	Register &= (u32)(~XWDTPS_ZMR_WDEN_MASK);
 	Register |= XWDTPS_ZMR_ZKEY_VAL;
 
 	/*
@@ -212,7 +215,7 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
 			  Register);
 
-	InstancePtr->IsStarted = 0;
+	InstancePtr->IsStarted = 0U;
 }
 
 
@@ -235,7 +238,7 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 ******************************************************************************/
 void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 {
-	u32 Register = 0;
+	u32 Register;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -260,6 +263,9 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 		 */
 		Register |= XWDTPS_ZMR_IRQEN_MASK;
 
+	} else {
+		/* Else was made for misra-c compliance */
+		;
 	}
 
 	/*
@@ -293,7 +299,7 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 ******************************************************************************/
 void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 {
-	u32 Register = 0;
+	u32 Register;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -310,14 +316,17 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 		/*
 		 * Disable the field in the register.
 		 */
-		Register &= ~XWDTPS_ZMR_RSTEN_MASK;
+		Register &= (u32)(~XWDTPS_ZMR_RSTEN_MASK);
 
 	} else if (Signal == XWDTPS_IRQ_SIGNAL) {
 		/*
 		 * Disable the field in the register.
 		 */
-		Register &= ~XWDTPS_ZMR_IRQEN_MASK;
+		Register &= (u32)(~XWDTPS_ZMR_IRQEN_MASK);
 
+	} else {
+		/* Else was made for misra-c compliance */
+		;
 	}
 
 	/*
@@ -358,7 +367,7 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 {
 	u32 Register;
-	u32 ReturnValue = 0;
+	u32 ReturnValue = 0U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -387,6 +396,9 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 		 * Shift over to the right most positions.
 		 */
 		ReturnValue = Register >> XWDTPS_CCR_CRV_SHIFT;
+	} else {
+		/* Else was made for misra-c compliance */
+		;
 	}
 
 	return ReturnValue;
@@ -420,7 +432,8 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 ******************************************************************************/
 void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 {
-	u32 Register = 0;
+	u32 Register;
+	u32 LocalValue = Value;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -437,21 +450,24 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 		/*
 		 * Zero the field in the register.
 		 */
-		Register &= ~XWDTPS_CCR_CLKSEL_MASK;
+		Register &= (u32)(~XWDTPS_CCR_CLKSEL_MASK);
 
 	} else if (Control == XWDTPS_COUNTER_RESET) {
 		/*
 		 * Zero the field in the register.
 		 */
-		Register &= ~XWDTPS_CCR_CRV_MASK;
+		Register &= (u32)(~XWDTPS_CCR_CRV_MASK);
 
 		/*
 		 * Shift Value over to the proper positions.
 		 */
-		Value = Value << XWDTPS_CCR_CRV_SHIFT;
+		LocalValue = LocalValue << XWDTPS_CCR_CRV_SHIFT;
+	} else{
+		/* This was made for misrac compliance. */
+		;
 	}
 
-	Register |= Value;
+	Register |= LocalValue;
 
 	/*
 	 * Set the access key so the write takes.
