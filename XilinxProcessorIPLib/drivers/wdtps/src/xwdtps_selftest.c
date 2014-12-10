@@ -86,11 +86,12 @@
 * @note		None.
 *
 ******************************************************************************/
-int XWdtPs_SelfTest(XWdtPs *InstancePtr)
+s32 XWdtPs_SelfTest(XWdtPs *InstancePtr)
 {
 	u32 ZmrOrig;
 	u32 ZmrValue1;
 	u32 ZmrValue2;
+	s32 Status;
 
 	/*
 	 * Assert to ensure the inputs are valid and the instance has been
@@ -109,7 +110,7 @@ int XWdtPs_SelfTest(XWdtPs *InstancePtr)
 	 * EX-OR in the length of the interrupt pulse,
 	 * do not set the key value.
 	 */
-	ZmrValue1 = ZmrOrig ^ XWDTPS_ZMR_RSTLN_MASK;
+	ZmrValue1 = ZmrOrig ^ (u32)XWDTPS_ZMR_RSTLN_MASK;
 
 
 	/*
@@ -128,39 +129,42 @@ int XWdtPs_SelfTest(XWdtPs *InstancePtr)
 		 */
 		XWdtPs_WriteReg(InstancePtr->Config.BaseAddress,
 				  XWDTPS_ZMR_OFFSET,
-				  (ZmrOrig | XWDTPS_ZMR_ZKEY_VAL));
-		return XST_FAILURE;
-	}
+				  (ZmrOrig | (u32)XWDTPS_ZMR_ZKEY_VAL));
+		Status = XST_FAILURE;
+	} else {
 
 
-	/*
-	 * Try to write to register with key value then read back.
-	 */
-	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
-			  (ZmrValue1 | XWDTPS_ZMR_ZKEY_VAL));
-
-	ZmrValue2 =	XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XWDTPS_ZMR_OFFSET);
-
-	if (ZmrValue1 != ZmrValue2) {
 		/*
-		 * If the values do not match, the hw failed the test,
-		 * return orig register value.
+		 * Try to write to register with key value then read back.
 		 */
-		XWdtPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XWDTPS_ZMR_OFFSET,
-				  ZmrOrig | XWDTPS_ZMR_ZKEY_VAL);
-		return XST_FAILURE;
+		XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
+				  (ZmrValue1 | XWDTPS_ZMR_ZKEY_VAL));
 
+		ZmrValue2 =	XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
+					 XWDTPS_ZMR_OFFSET);
+
+		if (ZmrValue1 != ZmrValue2) {
+			/*
+			 * If the values do not match, the hw failed the test,
+			 * return orig register value.
+			 */
+			XWdtPs_WriteReg(InstancePtr->Config.BaseAddress,
+					  XWDTPS_ZMR_OFFSET,
+					  ZmrOrig | XWDTPS_ZMR_ZKEY_VAL);
+			Status = XST_FAILURE;
+
+		} else {
+
+			/*
+			 * The hardware locking feature is functional, return the original value
+			 * and return success.
+			 */
+			XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
+					  ZmrOrig | XWDTPS_ZMR_ZKEY_VAL);
+
+			Status = XST_SUCCESS;
+		}
 	}
-
-	/*
-	 * The hardware locking feature is functional, return the original value
-	 * and return success.
-	 */
-	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
-			  ZmrOrig | XWDTPS_ZMR_ZKEY_VAL);
-
-	return XST_SUCCESS;
+	return Status;
 }
 

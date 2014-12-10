@@ -67,10 +67,10 @@ extern "C" {
  * @{
  */
 
-#define XWDTPS_ZMR_OFFSET	0x0 /**< Zero Mode Register */
-#define XWDTPS_CCR_OFFSET	0x4 /**< Counter Control Register */
-#define XWDTPS_RESTART_OFFSET	0x8 /**< Restart Register */
-#define XWDTPS_SR_OFFSET	0xC /**< Status Register */
+#define XWDTPS_ZMR_OFFSET	0x00000000U /**< Zero Mode Register */
+#define XWDTPS_CCR_OFFSET	0x00000004U /**< Counter Control Register */
+#define XWDTPS_RESTART_OFFSET	0x00000008U /**< Restart Register */
+#define XWDTPS_SR_OFFSET	0x0000000CU /**< Status Register */
 /* @} */
 
 
@@ -79,18 +79,18 @@ extern "C" {
  * the access code (0xABC) to allow writes to the register
  * @{
  */
-#define XWDTPS_ZMR_WDEN_MASK	0x00000001 /**< enable the WDT */
-#define XWDTPS_ZMR_RSTEN_MASK	0x00000002 /**< enable the reset output */
-#define XWDTPS_ZMR_IRQEN_MASK	0x00000004 /**< enable the IRQ output */
+#define XWDTPS_ZMR_WDEN_MASK	0x00000001U /**< enable the WDT */
+#define XWDTPS_ZMR_RSTEN_MASK	0x00000002U /**< enable the reset output */
+#define XWDTPS_ZMR_IRQEN_MASK	0x00000004U /**< enable the IRQ output */
 
-#define XWDTPS_ZMR_RSTLN_MASK	0x00000070 /**< set length of reset pulse */
-#define XWDTPS_ZMR_RSTLN_SHIFT	4	   /**< shift for reset pulse */
+#define XWDTPS_ZMR_RSTLN_MASK	0x00000070U /**< set length of reset pulse */
+#define XWDTPS_ZMR_RSTLN_SHIFT	4U	   /**< shift for reset pulse */
 
-#define XWDTPS_ZMR_IRQLN_MASK	0x00000180 /**< set length of interrupt pulse */
-#define XWDTPS_ZMR_IRQLN_SHIFT	7	   /**< shift for interrupt pulse */
+#define XWDTPS_ZMR_IRQLN_MASK	0x00000180U /**< set length of interrupt pulse */
+#define XWDTPS_ZMR_IRQLN_SHIFT	7U	   /**< shift for interrupt pulse */
 
-#define XWDTPS_ZMR_ZKEY_MASK	0x00FFF000 /**< mask for writing access key */
-#define XWDTPS_ZMR_ZKEY_VAL	0x00ABC000 /**< access key, 0xABC << 12 */
+#define XWDTPS_ZMR_ZKEY_MASK	0x00FFF000U /**< mask for writing access key */
+#define XWDTPS_ZMR_ZKEY_VAL		0x00ABC000U /**< access key, 0xABC << 12 */
 
 /* @} */
 
@@ -101,20 +101,20 @@ extern "C" {
  * @{
  */
 
-#define XWDTPS_CCR_CLKSEL_MASK	0x00000003 /**< counter clock prescale */
+#define XWDTPS_CCR_CLKSEL_MASK	0x00000003U /**< counter clock prescale */
 
-#define XWDTPS_CCR_CRV_MASK	0x00003FFC /**< counter reset value */
-#define XWDTPS_CCR_CRV_SHIFT	2	   /**< shift for writing value */
+#define XWDTPS_CCR_CRV_MASK	0x00003FFCU /**< counter reset value */
+#define XWDTPS_CCR_CRV_SHIFT	2U	   /**< shift for writing value */
 
-#define XWDTPS_CCR_CKEY_MASK	0x03FFC000 /**< mask for writing access key */
-#define XWDTPS_CCR_CKEY_VAL	0x00920000 /**< access key, 0x248 << 14 */
+#define XWDTPS_CCR_CKEY_MASK	0x03FFC000U /**< mask for writing access key */
+#define XWDTPS_CCR_CKEY_VAL	0x00920000U /**< access key, 0x248 << 14 */
 
 /* Bit patterns for Clock prescale divider values */
 
-#define XWDTPS_CCR_PSCALE_0008   0x00000000 /**< divide clock by 8 */
-#define XWDTPS_CCR_PSCALE_0064   0x00000001 /**< divide clock by 64 */
-#define XWDTPS_CCR_PSCALE_0512   0x00000002 /**< divide clock by 512 */
-#define XWDTPS_CCR_PSCALE_4096   0x00000003 /**< divide clock by 4096 */
+#define XWDTPS_CCR_PSCALE_0008  0x00000000U /**< divide clock by 8 */
+#define XWDTPS_CCR_PSCALE_0064  0x00000001U /**< divide clock by 64 */
+#define XWDTPS_CCR_PSCALE_0512  0x00000002U /**< divide clock by 512 */
+#define XWDTPS_CCR_PSCALE_4096  0x00000003U /**< divide clock by 4096 */
 
 /* @} */
 
@@ -124,7 +124,7 @@ extern "C" {
  * @{
  */
 
-#define XWDTPS_RESTART_KEY_VAL	0x00001999 /**< valid key */
+#define XWDTPS_RESTART_KEY_VAL	0x00001999U /**< valid key */
 
 /*@}*/
 
@@ -132,7 +132,7 @@ extern "C" {
  * This register indicates timer reached zero count.
  * @{
  */
-#define XWDTPS_SR_WDZ_MASK	0x00000001 /**< time out occurred */
+#define XWDTPS_SR_WDZ_MASK	0x00000001U /**< time out occurred */
 
 /*@}*/
 
@@ -156,7 +156,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XWdtPs_ReadReg(BaseAddress, RegOffset) \
-	Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (u32)(RegOffset))
 
 /****************************************************************************/
 /**
@@ -174,7 +174,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XWdtPs_WriteReg(BaseAddress, RegOffset, Data) \
-	Xil_Out32((BaseAddress) + (RegOffset), (Data))
+	Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
 
 
 /************************** Function Prototypes ******************************/
