@@ -43,6 +43,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a jz	04/28/11 Initial release
 * 7.00a kc  10/18/13 Integrated SD/MMC driver
+* 12.00a ssc 12/11/14 Fix for CR# 839182
 *
 * </pre>
 *
@@ -102,9 +103,10 @@ u32 InitSD(const char *filename)
 {
 
 	FRESULT rc;
+	TCHAR *path = "0:/"; /* Logical drive number is 0 */
 
 	/* Register volume work area, initialize device */
-	rc = f_mount(0, &fatfs);
+	rc = f_mount(&fatfs, path, 0);
 	fsbl_printf(DEBUG_INFO,"SD: rc= %.8x\n\r", rc);
 
 	if (rc != FR_OK) {

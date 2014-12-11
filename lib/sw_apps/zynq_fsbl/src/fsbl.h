@@ -218,6 +218,11 @@
 *						remaining in unknown state.
 *						Resolution: LinearBootDeviceFlag is initialized 0
 *						in main.c
+* 12.00a ssc 12/11/14	839182 - FSBL -In the file sd.c, f_mount is called with
+*                       two arguments but f_mount is expecting the 3 arguments
+*                       from build 2015.1_1210_1, causing compilation error.
+*						Resolution: Arguments for f_mount in InitSD() are
+*						changed as per new signature.
 *
 * </pre>
 *
@@ -303,8 +308,8 @@ extern "C" {
 /*
  * SDK release version
  */
-#define SDK_RELEASE_YEAR	2014
-#define SDK_RELEASE_QUARTER	4
+#define SDK_RELEASE_YEAR	2015
+#define SDK_RELEASE_QUARTER	1
 
 #define WORD_LENGTH_SHIFT	2
 
