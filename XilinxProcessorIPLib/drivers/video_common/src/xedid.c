@@ -57,6 +57,7 @@
 /**************************** Function Prototypes *****************************/
 
 static u32 XEdid_IsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw, XVid_VideoTimingMode *VtMode);
+static u32 XEdid_IsVideoTimingSupportedStandardTimings(u8 *EdidRaw, XVid_VideoTimingMode *VtMode);
 static float XVid_CalculatePower(float Base, u8 Power);
 static float XVid_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
 
@@ -191,8 +192,11 @@ u32 XEdid_IsVideoTimingSupported(u8 *EdidRaw, XVid_VideoTimingMode *VtMode)
 {
 	u32 Status;
 
-	/* First, check established timings I, II, and III. */
+	/* Check established timings I, II, and III. */
 	Status = XEdid_IsVideoTimingSupportedEstablishedTimings(EdidRaw, VtMode);
+
+	/* Check in standard timings support. */
+	XEdid_IsVideoTimingSupportedStandardTimings(EdidRaw, VtMode);
 
 	return Status;
 }
@@ -289,6 +293,24 @@ static u32 XEdid_IsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw, XVid_Vide
 	}
 
 	return Status;
+}
+
+static u32 XEdid_IsVideoTimingSupportedStandardTimings(u8 *EdidRaw, XVid_VideoTimingMode *VtMode)
+{
+	u8 Index;
+
+	for (Index = 0; Index < 8; Index++) {
+		if ((VtMode->Timing.HActive ==
+					XEDID_GET_STD_TIMINGS_H(EdidRaw, Index + 1)) &&
+				(VtMode->Timing.VActive ==
+					XEDID_GET_STD_TIMINGS_V(EdidRaw, Index + 1)) &&
+				(VtMode->FrameRate ==
+					XEDID_GET_STD_TIMINGS_FRR(EdidRaw, Index + 1))) {
+			return XST_SUCCESS;
+		}
+	}
+
+	return XST_FAILURE;
 }
 
 /******************************************************************************/
