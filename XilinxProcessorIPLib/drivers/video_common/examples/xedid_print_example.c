@@ -7,10 +7,9 @@
 
 
 
+#include "string.h"
 #include "xedid.h"
 #include "xedid_print_example.h"
-#include "xdispid_print_example.h"
-#include "dp_tools.h"
 #include "xil_printf.h"
 #include "xstatus.h"
 
@@ -22,6 +21,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw);
 static void Edid_Print_ColorChar(u8 *EdidRaw);
 static void Edid_Print_EstTimings(u8 *EdidRaw);
 static void Edid_Print_StdTimings(u8 *EdidRaw);
+static u8 Edid_CalculateChecksum(u8 *Data, u8 Size);
 
 u32 Edid_PrintDecodeAll(XDptx *InstancePtr, u8 Lct, u8 *Rad)
 {
@@ -48,7 +48,9 @@ u32 Edid_PrintDecodeAll(XDptx *InstancePtr, u8 Lct, u8 *Rad)
 
 	NumExt = XEDID_GET_EXT_BLK_COUNT(EdidBase);
 
+	/*
 	u8 EdidExtBlocks[NumExt * 128];
+
 	DpTools_GetEdidAllExtBlocks(InstancePtr, NumExt, EdidExtBlocks, Lct, Rad);
 
 	xil_printf("\nExtension blocks ::::::::::::::::::::::\n");
@@ -60,6 +62,7 @@ u32 Edid_PrintDecodeAll(XDptx *InstancePtr, u8 Lct, u8 *Rad)
 		}
 		xil_printf("\n");
 	}
+	*/
 
 	xil_printf("\n::::::::::::::::::::::::::::::::::::::::::::::::\n");
 
@@ -94,7 +97,7 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 	xil_printf("Number of extensions:\t%d\n", XEDID_GET_EXT_BLK_COUNT(EdidRaw));
 	xil_printf("Checksum:\t\t0x%02lx -> Calculated sum = 0x%02lx (== 0x00)\n",
 			XEDID_GET_CHECKSUM(EdidRaw),
-			DpTools_CalculateChecksum(EdidRaw, 128));
+			Edid_CalculateChecksum(EdidRaw, 128));
 
 	return XST_SUCCESS;
 }
@@ -450,4 +453,16 @@ static void Edid_Print_StdTimings(u8 *EdidRaw)
 				XEDID_GET_STD_TIMINGS_V(EdidRaw, Index + 1),
 				XEDID_GET_STD_TIMINGS_FRR(EdidRaw, Index + 1));
 	}
+}
+
+static u8 Edid_CalculateChecksum(u8 *Data, u8 Size)
+{
+	u8 Index;
+	u8 Sum = 0;
+
+	for (Index = 0; Index < Size; Index++) {
+		Sum += Data[Index];
+	}
+
+	return Sum;
 }
