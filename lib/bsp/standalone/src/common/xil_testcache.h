@@ -56,6 +56,8 @@
 #ifndef XIL_TESTCACHE_H	/* prevent circular inclusions */
 #define XIL_TESTCACHE_H	/* by using protection macros */
 
+#include "xil_types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

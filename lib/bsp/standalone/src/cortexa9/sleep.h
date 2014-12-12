@@ -29,10 +29,11 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-#include "xil_types.h"
 
 #ifndef SLEEP_H
 #define SLEEP_H
+
+#include "xil_types.h"
 
 #ifdef __cplusplus
 extern "C" {

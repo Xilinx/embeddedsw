@@ -73,6 +73,8 @@
 #include "xreg_cortexr5.h"
 #endif
 
+#include "xil_types.h"
+
 extern void xil_printf(const char8 *ctrl1, ...);
 
 #define DATA_LENGTH 128
