@@ -57,7 +57,6 @@
 
 /******************************* Include Files ********************************/
 
-#include "xil_types.h"
 #include "xstatus.h"
 #include "xvid.h"
 

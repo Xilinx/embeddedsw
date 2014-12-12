@@ -54,7 +54,7 @@
 
 /******************************* Include Files ********************************/
 
-#include "xedid.h"
+#include "xil_types.h"
 
 /************************** Constant Definitions ******************************/
 
@@ -62,7 +62,7 @@
  * This typedef enumerates the list of available standard display monitor
  * timings as specified in the xvid_timings_table.c file. The naming format is:
  *
- * XVID_VM_<RESOLUTION>_<REFRESH RATE (HZ)>_<P|RB>
+ * XVID_VM_<RESOLUTION>_<REFRESH RATE (HZ)>_<P|I>(_RB)
  *
  * Where RB stands for reduced blanking.
  */
@@ -146,41 +146,38 @@ typedef enum {
 	XVID_VM_1920x1200_120_P_RB,
 	XVID_VM_1920x1440_120_P_RB,
 	XVID_VM_2560x1600_120_P_RB,
-	XVID_VM_1366x768_60_P,
-	XVID_VM_1920x1080_60_P,
-	XVID_VM_UHD_30_P,
-	XVID_VM_720_60_P,
-	XVID_VM_480_60_P,
-	XVID_VM_UHD2_60_P,
-	XVID_VM_UHD_60,
-	XVID_VM_NUM_SUPPORT_0,
-	XVID_VM_USE_EDID_PREFERRED,
-} XVid_VideoMode0;
 
-typedef enum {
-	XVID_VM_576I25 = 0,
-	XVID_VM_480I30,
-	XVID_VM_1080I25,
-	XVID_VM_1080I30,
-	XVID_VM_480P60,
-	XVID_VM_720P50,
-	XVID_VM_720P60,
-	XVID_VM_1080P24,
-	XVID_VM_1080P25,
-	XVID_VM_1080P30,
-	XVID_VM_1080P50,
-	XVID_VM_1080P60,
-	XVID_VM_4K2KP24,
-	XVID_VM_4K2KP25,
-	XVID_VM_4K2KP30,
-	XVID_VM_4K2KP60,
-	XVID_VM_WXGAP60,
-	XVID_VM_UXGAP60,
-	XVID_VM_WUXGAP60,
-	XVID_VM_WSXGAP60,
-	XVID_VM_NUM_SUPPORT_1,
+	XVID_VM_480_60_P,
+	XVID_VM_720_50_P,
+	XVID_VM_720_60_P,
+	XVID_VM_1366x768_60_P,
+	XVID_VM_1080_24_P,
+	XVID_VM_1080_25_P,
+	XVID_VM_1080_30_P,
+	XVID_VM_1080_50_P,
+	XVID_VM_1080_60_P,
+	XVID_VM_UHD2_60_P,
+	XVID_VM_UHD_30_P,
+	XVID_VM_UHD_60_P,
+	XVID_VM_4K2K_24_P,
+	XVID_VM_4K2K_25_P,
+	XVID_VM_4K2K_30_P,
+	XVID_VM_4K2K_60_P,
+
+	XVID_VM_WXGA_60_P,
+	XVID_VM_UXGA_60_P,
+	XVID_VM_WUXGA_60_P,
+	XVID_VM_WSXGA_60_P,
+
+	XVID_VM_480_30_I,
+	XVID_VM_576_25_I,
+	XVID_VM_1080_25_I,
+	XVID_VM_1080_30_I,
+
+	XVID_VM_NUM_SUPPORT,
+	XVID_VM_USE_EDID_PREFERRED,
 	XVID_VM_NO_INPUT
-} XVid_VideoMode1;
+} XVid_VideoMode;
 
 typedef enum {
 	XVID_FR_24HZ = 24,
@@ -189,13 +186,16 @@ typedef enum {
 	XVID_FR_50HZ = 50,
 	XVID_FR_56HZ = 56,
 	XVID_FR_60HZ = 60,
+	XVID_FR_65HZ = 65,
 	XVID_FR_67HZ = 67,
 	XVID_FR_70HZ = 70,
 	XVID_FR_72HZ = 72,
 	XVID_FR_75HZ = 75,
+	XVID_FR_85HZ = 85,
 	XVID_FR_87HZ = 87,
 	XVID_FR_88HZ = 88,
-	XV_NUM_SUPPORTED_RATE = 12
+	XVID_FR_120HZ = 120,
+	XV_NUM_SUPPORTED_RATE = 15
 } XVid_FrameRate;
 
 /****************************** Type Definitions ******************************/
@@ -223,48 +223,16 @@ typedef struct {
 } XVid_VideoTiming;
 
 typedef struct {
-	XVid_VideoMode1		VmId;
+	XVid_VideoMode		VmId;
 	char			*Name;
 	XVid_FrameRate		FrameRate;
+	u32			PixelClkKhz;
 	XVid_VideoTiming	Timing;
 } XVid_VideoTimingMode;
 
-/**
- * This typedef contains the display monitor timing attributes for a video mode.
- */
-typedef struct {
-	XVid_VideoMode0 VmId;		/**< Enumerated key. */
-	u8 DmtId;			/**< Standard Display Monitor Timing
-						(DMT) ID number. */
-	u16 HResolution;		/**< Horizontal resolution (in
-						pixels). */
-	u16 VResolution;		/**< Vertical resolution (in lines). */
-	u32 PixelClkKhz;		/**< Pixel frequency (in KHz). This is
-						also the M value for the video
-						stream (MVid). */
-	u8 Interlaced;			/**< Input stream interlaced scan
-						(0=non-interlaced/
-						1=interlaced). */
-	u8 HSyncPolarity;		/**< Horizontal synchronization polarity
-						(0=positive/1=negative). */
-	u8 VSyncPolarity;		/**< Vertical synchronization polarity
-						(0=positive/1=negative). */
-	u32 HFrontPorch;		/**< Horizontal front porch (in
-						pixels). */
-	u32 HSyncPulseWidth;		/**< Horizontal synchronization time
-						(pulse width in pixels). */
-	u32 HBackPorch;			/**< Horizontal back porch (in
-						pixels). */
-	u32 VFrontPorch;		/**< Vertical front porch (in lines). */
-	u32 VSyncPulseWidth;		/**< Vertical synchronization time
-						(pulse width in lines). */
-	u32 VBackPorch;			/**< Vertical back porch (in lines). */
-} XVid_DmtMode;
-
 /*************************** Variable Declarations ****************************/
 
-extern const XVid_DmtMode XVid_DmtModes[XVID_VM_NUM_SUPPORT_0];
-extern const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT_1];
+extern const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT];
 
 /**************************** Function Prototypes *****************************/
 
