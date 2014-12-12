@@ -794,9 +794,9 @@ static s32 XNandPs8_WriteBbt(XNandPs8 *InstancePtr, XNandPs8_BbtDesc *Desc,
 	/*
 	 * Copy the signature and version to the Buffer
 	 */
-	memcpy(Buf , &Desc->Signature[0],
+	memcpy(Buf + Desc->SigOffset, &Desc->Signature[0],
 							Desc->SigLength);
-	memcpy(Buf + Desc->SigLength, &Desc->Version[Target], 1U);
+	memcpy(Buf + Desc->VerOffset, &Desc->Version[Target], 1U);
 	/*
 	 * Write the Buffer to page offset
 	 */
