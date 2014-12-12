@@ -126,7 +126,7 @@ extern "C" {
 #define XNANDPS8_FLASH_BLOCK_GOOD		0x3U	/**< Block is good */
 #define XNANDPS8_FLASH_BLOCK_BAD		0x2U	/**< Block is bad */
 #define XNANDPS8_FLASH_BLOCK_RESERVED		0x1U	/**< Reserved block */
-#define XNANDPS8_FLASH_BLOCK_FACTORY_BAD	0x0U	/**< Factory marked bad
+#define XNANDPS8_FLASH_BLOCK_FAC_BAD	0x0U	/**< Factory marked bad
 							  block */
 
 #define XNANDPS8_BBT_SCAN_2ND_PAGE		0x00000001U	/**< Scan the
@@ -149,14 +149,14 @@ extern "C" {
 							  for a block in BBT */
 #define XNANDPS8_BBT_ENTRY_NUM_BLOCKS		4U	/**< Num of blocks in
 							  one BBT entry */
-#define XNANDPS8_BB_PATTERN_OFFSET_SMALL_PAGE	5U	/**< Bad block pattern
+#define XNANDPS8_BB_PTRN_OFF_SML_PAGE	5U	/**< Bad block pattern
 							  offset in a page */
-#define XNANDPS8_BB_PATTERN_LENGTH_SMALL_PAGE	1U	/**< Bad block pattern
+#define XNANDPS8_BB_PTRN_LEN_SML_PAGE	1U	/**< Bad block pattern
 							  length */
-#define XNANDPS8_BB_PATTERN_OFFSET_LARGE_PAGE	0U	/**< Bad block pattern
+#define XNANDPS8_BB_PTRN_OFF_LARGE_PAGE	0U	/**< Bad block pattern
 							  offset in a large
 							  page */
-#define XNANDPS8_BB_PATTERN_LENGTH_LARGE_PAGE	2U	/**< Bad block pattern
+#define XNANDPS8_BB_PTRN_LEN_LARGE_PAGE	2U	/**< Bad block pattern
 							  length */
 #define XNANDPS8_BB_PATTERN			0xFFU	/**< Bad block pattern
 							  to search in a page

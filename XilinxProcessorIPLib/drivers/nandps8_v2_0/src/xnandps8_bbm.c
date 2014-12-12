@@ -167,17 +167,17 @@ void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr)
 		/* For flash page size > 512 bytes */
 		InstancePtr->BbPattern.Options = XNANDPS8_BBT_SCAN_2ND_PAGE;
 		InstancePtr->BbPattern.Offset =
-			XNANDPS8_BB_PATTERN_OFFSET_LARGE_PAGE;
+			XNANDPS8_BB_PTRN_OFF_LARGE_PAGE;
 		InstancePtr->BbPattern.Length =
-			XNANDPS8_BB_PATTERN_LENGTH_LARGE_PAGE;
+			XNANDPS8_BB_PTRN_LEN_LARGE_PAGE;
 	} else {
 		InstancePtr->BbPattern.Options = XNANDPS8_BBT_SCAN_2ND_PAGE;
 		InstancePtr->BbPattern.Offset =
-			XNANDPS8_BB_PATTERN_OFFSET_SMALL_PAGE;
+			XNANDPS8_BB_PTRN_OFF_SML_PAGE;
 		InstancePtr->BbPattern.Length =
-			XNANDPS8_BB_PATTERN_LENGTH_SMALL_PAGE;
+			XNANDPS8_BB_PTRN_LEN_SML_PAGE;
 	}
-	for(Index = 0U; Index < XNANDPS8_BB_PATTERN_LENGTH_LARGE_PAGE; Index++) {
+	for(Index = 0U; Index < XNANDPS8_BB_PTRN_LEN_LARGE_PAGE; Index++) {
 		InstancePtr->BbPattern.Pattern[Index] = XNANDPS8_BB_PATTERN;
 	}
 }
@@ -383,7 +383,7 @@ static void XNandPs8_ConvertBbt(XNandPs8 *InstancePtr, u8 *Buf, u32 Target)
 			BlockType = (u8) ((Data >> BlockShift) &
 				XNANDPS8_BLOCK_TYPE_MASK);
 			switch(BlockType) {
-				case XNANDPS8_FLASH_BLOCK_FACTORY_BAD:
+				case XNANDPS8_FLASH_BLOCK_FAC_BAD:
 					/* Factory bad block */
 					InstancePtr->Bbt[BlockOffset] |=
 						(u8)
