@@ -270,7 +270,7 @@ const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT] =
 		0x02, 31500,
 		{640, 32, 64, 96, 832, 1,
 		400, 1, 3, 41, 445, 0, 0, 0, 0, 0} },
-	{ XVID_VM_720x400_85_P,      "720x400@85Hz", XVID_FR_85HZ,
+	{ XVID_VM_720x400_85_P, "720x400@85Hz", XVID_FR_85HZ,
 		0x03, 35500,
 		{720, 36, 72, 108, 936, 1,
 		400, 1, 3, 42, 446, 0, 0, 0, 0, 0} },
@@ -326,7 +326,7 @@ const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT] =
 		0x4F, 505250,
 		{2560, 208, 280, 488, 3536, 1,
 		1600, 3, 6, 73, 1682, 0, 0, 0, 0, 0} },
-	{ XVID_VM_800x600_120_P_RB, "800x700@120Hz (RB)", XVID_FR_120HZ,
+	{ XVID_VM_800x600_120_P_RB, "800x600@120Hz (RB)", XVID_FR_120HZ,
 		0x0D, 73250,
 		{800, 48, 32, 80, 960, 0,
 		600, 3, 4, 29, 636, 0, 0, 0, 0, 1} },
@@ -473,6 +473,7 @@ const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT] =
 		1200, 3, 6, 36, 1245, 0, 0, 0, 0, 1} },
 		/* XVID_VM_1920x1200_60_P */
 	{ XVID_VM_WSXGA_60_P, "1680x1050", XVID_FR_60HZ,
+		0x00, 0,
 		{1680, 104, 176, 280, 2240, 1,
 		1050, 3, 6, 30, 1089, 0, 0, 0, 0, 1} },
 		/* XVID_VM_1680x1050_60_P */
