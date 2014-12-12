@@ -448,6 +448,11 @@ static void Edid_Print_StdTimings(u8 *EdidRaw)
 
 	xil_printf("Standard timings:\n");
 	for (Index = 0; Index < 8; Index++) {
+		if (EdidRaw[XEDID_STD_TIMINGS_H(Index + 1)] <= 1) {
+			/* Not a valid standard timing. */
+			continue;
+		}
+
 		xil_printf("\t%dx%d @ %dHz supported.\n",
 				XEDID_GET_STD_TIMINGS_H(EdidRaw, Index + 1),
 				XEDID_GET_STD_TIMINGS_V(EdidRaw, Index + 1),
