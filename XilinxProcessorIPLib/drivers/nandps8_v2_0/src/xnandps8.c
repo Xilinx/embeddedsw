@@ -397,75 +397,68 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 			goto Out;
 		}
 
-		if ((Id[0] == (u8)'O') && (Id[1] == (u8)'N') &&
-			(Id[2] == (u8)'F') && (Id[3] == (u8)'I')) {
-			/*
-			 * Read Parameter Page
-			 */
-			for(Index = 0U; Index < ONFI_MND_PRM_PGS; Index++) {
-				if (Index == 0U) {
-					Status = XNandPs8_OnfiReadParamPage(
-							InstancePtr, Target,
-							(u8 *)&Param);
-				} else {
-					PrmPgOff = Index * ONFI_PRM_PG_LEN;
-					PrmPgLen = ONFI_PRM_PG_LEN;
-
-					Status = XNandPs8_ChangeReadColumn(
-							InstancePtr,
-							Target,
-							PrmPgOff,
-							ONFI_PRM_PG_LEN, 1U,
-							(u8 *) &Param);
-				}
-				if (Status != XST_SUCCESS) {
-					goto Out;
-				}
-				/*
-				 * Check CRC
-				 */
-				Crc = XNandPs8_OnfiParamPageCrc((u8*)&Param,
-								0U,
-								ONFI_CRC_LEN);
-				if (Crc != Param.Crc) {
+		if (!IS_ONFI(Id)) {
+			if (Target == 0U) {
 #ifdef XNANDPS8_DEBUG
-	xil_printf("%s: ONFI parameter page (%d) crc check failed\r\n",
-							__func__, Index);
+				xil_printf("%s: ONFI ID doesn't match\r\n",
+								__func__);
 #endif
-					continue;
-				} else {
-					break;
-				}
-			}
-			if (Index >= ONFI_MND_PRM_PGS) {
 				Status = XST_FAILURE;
 				goto Out;
 			}
-			/*
-			 * Fill Geometry for the first target
-			 */
-			if (Target == 0U) {
-				XNandPs8_InitGeometry(InstancePtr, &Param);
-				XNandPs8_InitFeatures(InstancePtr, &Param);
-				if ((!InstancePtr->Features.EzNand) != 0U) {
-					Status =XNandPs8_CheckOnDie(
-						InstancePtr,&Param);
-					if (Status != XST_SUCCESS) {
-						InstancePtr->Features.OnDie = 0U;
-					}
+		}
+
+		/* Read Parameter Page */
+		for(Index = 0U; Index < ONFI_MND_PRM_PGS; Index++) {
+			if (Index == 0U) {
+				Status = XNandPs8_OnfiReadParamPage(InstancePtr,
+							Target, (u8 *)&Param);
+			} else {
+				PrmPgOff = Index * ONFI_PRM_PG_LEN;
+				PrmPgLen = ONFI_PRM_PG_LEN;
+				Status = XNandPs8_ChangeReadColumn(InstancePtr,
+							Target,PrmPgOff,
+							ONFI_PRM_PG_LEN, 1U,
+							(u8 *) &Param);
+			}
+			if (Status != XST_SUCCESS) {
+				goto Out;
+			}
+			/* Check CRC */
+			Crc = XNandPs8_OnfiParamPageCrc((u8*)&Param, 0U,
+								ONFI_CRC_LEN);
+			if (Crc != Param.Crc) {
+#ifdef XNANDPS8_DEBUG
+				xil_printf("%s: ONFI parameter page (%d) crc check failed\r\n",
+							__func__, Index);
+#endif
+				continue;
+			} else {
+				break;
+			}
+		}
+		if (Index >= ONFI_MND_PRM_PGS) {
+			Status = XST_FAILURE;
+			goto Out;
+		}
+		/* Fill Geometry for the first target */
+		if (Target == 0U) {
+			XNandPs8_InitGeometry(InstancePtr, &Param);
+			XNandPs8_InitFeatures(InstancePtr, &Param);
+			if ((!InstancePtr->Features.EzNand) != 0U) {
+				Status =XNandPs8_CheckOnDie(InstancePtr,&Param);
+				if (Status != XST_SUCCESS) {
+					InstancePtr->Features.OnDie = 0U;
 				}
-				if (isQemuPlatform != 0U) {
-					InstancePtr->Geometry.NumTargets++;
-					break;
-				}
-				if ((InstancePtr->Geometry.NumBitsECC == 0xFFU)
-						&&
-					(InstancePtr->Features.ExtPrmPage != 0U)) {
-					/*
-					 * ONFI 3.1 section 5.7.1.6 & 5.7.1.7
-					 */
-					PrmPgLen = (u32)Param.ExtParamPageLen
-									* 16U;
+			}
+			if (isQemuPlatform != 0U) {
+				InstancePtr->Geometry.NumTargets++;
+				break;
+			}
+			if ((InstancePtr->Geometry.NumBitsECC == 0xFFU) &&
+				(InstancePtr->Features.ExtPrmPage != 0U)) {
+				/* ONFI 3.1 section 5.7.1.6 & 5.7.1.7 */
+				PrmPgLen = (u32)Param.ExtParamPageLen * 16U;
 					PrmPgOff = (u32)((u32)Param.NumOfParamPages *
 							ONFI_PRM_PG_LEN) +
 							(Index * (u32)PrmPgLen);
@@ -504,24 +497,12 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 	xil_printf("%s: Init extended ecc failed\r\n",__func__);
 #endif
 						goto Out;
-					}
 				}
-				/*
-				 * Configure ECC settings
-				 */
-				XNandPs8_SetEccAddrSize(InstancePtr);
 			}
-			InstancePtr->Geometry.NumTargets++;
-		} else {
-			if (Target == 0U) {
-#ifdef XNANDPS8_DEBUG
-				xil_printf("%s: ONFI ID doesn't match\r\n",
-								__func__);
-#endif
-				Status = XST_FAILURE;
-				goto Out;
-			}
+			/* Configure ECC settings */
+			XNandPs8_SetEccAddrSize(InstancePtr);
 		}
+		InstancePtr->Geometry.NumTargets++;
 	}
 	/*
 	 * Calculate total number of blocks and total size of flash

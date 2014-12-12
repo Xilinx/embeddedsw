@@ -515,6 +515,18 @@ typedef struct {
 			XNANDPS8_INTR_STS_EN_OFFSET,			\
 			(Mask))
 
+/*****************************************************************************/
+/**
+ * This macro checks for the ONFI ID.
+ *
+ * @param	Buff is the buffer holding ONFI ID
+ *
+ * @note	none.
+ *
+ *****************************************************************************/
+#define IS_ONFI(Buff)					\
+	(Buff[0] == (u8)'O') && (Buff[1] == (u8)'N') &&	\
+	(Buff[2] == (u8)'F') && (Buff[3] == (u8)'I')
 
 /************************** Function Prototypes *****************************/
 
