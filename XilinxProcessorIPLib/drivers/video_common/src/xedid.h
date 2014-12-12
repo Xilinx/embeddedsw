@@ -58,6 +58,8 @@
 /******************************* Include Files ********************************/
 
 #include "xil_types.h"
+#include "xstatus.h"
+#include "xvid.h"
 
 /************************** Constant Definitions ******************************/
 
@@ -367,5 +369,8 @@ u16 XEDID_GET_STD_TIMINGS_V(u8 *EdidRaw, u8 StdTimingsNum);
 
 /* Checksum. */
 #define XEDID_GET_CHECKSUM(E)		(E[XEDID_CHECKSUM])
+
+/* Utility functions. */
+u32 XEdid_IsVideoTimingSupported(u8 *EdidRaw, XVid_VideoTimingMode *VtMode);
 
 #endif /* XEDID_H_ */
