@@ -183,19 +183,19 @@ typedef enum {
 } XVid_VideoMode1;
 
 typedef enum {
-	XVID_FR_24HZ = 0,
-	XVID_FR_25HZ,
-	XVID_FR_30HZ,
-	XVID_FR_50HZ,
-	XVID_FR_56HZ,
-	XVID_FR_60HZ,
-	XVID_FR_67HZ,
-	XVID_FR_70HZ,
-	XVID_FR_72HZ,
-	XVID_FR_75HZ,
-	XVID_FR_87HZ,
-	XVID_FR_88HZ,
-	XV_NUM_SUPPORTED_RATE
+	XVID_FR_24HZ = 24,
+	XVID_FR_25HZ = 25,
+	XVID_FR_30HZ = 30,
+	XVID_FR_50HZ = 50,
+	XVID_FR_56HZ = 56,
+	XVID_FR_60HZ = 60,
+	XVID_FR_67HZ = 67,
+	XVID_FR_70HZ = 70,
+	XVID_FR_72HZ = 72,
+	XVID_FR_75HZ = 75,
+	XVID_FR_87HZ = 87,
+	XVID_FR_88HZ = 88,
+	XV_NUM_SUPPORTED_RATE = 12
 } XVid_FrameRate;
 
 /****************************** Type Definitions ******************************/
