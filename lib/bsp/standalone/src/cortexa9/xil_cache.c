@@ -79,7 +79,9 @@
 * 4.01   asa 05/09/14 Made changes in cortexa9/xil_cache.c to fix CR# 798230.
 * 4.02	 pkp 06/27/14 Added notes to Xil_L1DCacheInvalidateRange function for
 *					  explanation of CR#785243
-*
+* 5.00   kvn 12/15/14 Xil_L2CacheInvalidate was modified to fix CR# 838835. L2 Cache
+*					  has stack memory which has return address. Before invalidating
+*					  cache, stack memory was flushed first and L2 Cache is invalidated.
 * </pre>
 *
 ******************************************************************************/
@@ -1354,6 +1356,15 @@ void Xil_L2CacheDisable(void)
 ****************************************************************************/
 void Xil_L2CacheInvalidate(void)
 {
+	#ifdef __GNUC__
+	u32 stack_start,stack_end,stack_size;
+	stack_end = (u32)&_stack_end;
+	stack_start = (u32)&_stack;
+	stack_size=stack_start-stack_end;
+
+	/*Flush stack memory to save return address*/
+	Xil_DCacheFlushRange(stack_end, stack_size);
+	#endif
 	u32 ResultDCache;
 	/* Invalidate the caches */
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_WAY_OFFSET,
