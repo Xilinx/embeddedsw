@@ -29,6 +29,16 @@
 # this Software without prior written authorization from Xilinx.
 #
 ###############################################################################
+#
+# MODIFICATION HISTORY:
+#
+# Ver   Who  Date	 Changes
+# ----- ---- -------- -------------------------------------------------------
+# 2.3   sk   12/15/14 Deleted �ffunction-sections & -fdata-sections
+#		      flags from extra compiler flags CR#838648
+#		      Changed default os to latest version.
+#
+###############################################################################
 OPTION psf_version = 2.1;
 
 BEGIN driver cpu
@@ -36,14 +46,14 @@ BEGIN driver cpu
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze);
-OPTION default_os = "standalone_v4_1";
+OPTION default_os = "standalone_v5_0";
 OPTION VERSION = 2.3;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
 PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default = mb-ar;
 PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail bacause there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
-PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g -ffunction-sections -fdata-sections";
+PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g";
 PARAM name = multiplier, desc = "Is there a hard multiplier present ?", type = bool, default = false, state = "deprecated", state_desc = "Presence of hardware multiplier is now automatically detected based on the target FPGA architecture.";
 PARAM name = xmdstub_peripheral, desc = "Debug peripheral to be used with xmdstub", type = peripheral_instance, range = (none, opb_uartlite, opb_uart16550, opb_jtag_uart, opb_mdm, debugnotraceblaze, debugnotraceblazenode, debugtraceblazenode, debugtraceblaze, mdm, xps_uartlite), default = none;
 
