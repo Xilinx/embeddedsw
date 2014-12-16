@@ -228,7 +228,7 @@ int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 	 * a pointer to the UART driver instance as the callback reference
 	 * so the handlers are able to access the instance data
 	 */
-	XUartPs_SetHandler(UartInstPtr, Handler, UartInstPtr);
+	XUartPs_SetHandler(UartInstPtr, (XUartPs_Handler)Handler, UartInstPtr);
 
 	/*
 	 * Enable the interrupt of the UART so interrupts will occur, setup
