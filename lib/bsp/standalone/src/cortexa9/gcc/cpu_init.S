@@ -42,6 +42,8 @@
 * ----- ------- -------- ---------------------------------------------------
 * 1.00a ecm/sdm 10/20/09 Initial version
 * 3.04a sdm	01/02/12 Updated to clear cp15 regs with unknown reset values
+* 5.0   pkp	12/16/14 removed incorrect initialization of TLB lockdown
+*			 register to fix CR#830580
 * </pre>
 *
 * @note
@@ -64,7 +66,6 @@ __cpu_init:
 	mcr	p15, 0, r0, c9, c13, 2	/* PMXEVCNTR */
 	mcr	p15, 0, r0, c13, c0, 2	/* TPIDRURW */
 	mcr	p15, 0, r0, c13, c0, 3	/* TPIDRURO */
-	mcr	p15, 5, r0, c15, c5, 2	/* Write Lockdown TLB VA */
 
 /* Reset and start Cycle Counter */
 	mov	r2, #0x80000000		/* clear overflow */

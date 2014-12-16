@@ -55,6 +55,8 @@
 * 3.10a srt     04/18/13 Implemented ARM Erratas. Please refer to file
 *			 'xil_errata.h' for errata description
 * 4.2   pkp	06/19/14 Enabled asynchronous abort exception
+* 5.0	pkp	16/15/14 Modified initialization code to enable scu after
+*			 MMU is enabled
 * </pre>
 *
 * @note
@@ -179,17 +181,6 @@ OKToRun:
 	/* set VBAR to the _vector_table address in linker script */
 	ldr	r0, =vector_base
 	mcr	p15, 0, r0, c12, c0, 0
-
-	/*set scu enable bit in scu*/
-	ldr	r7, =0xf8f00000
-	ldr	r0, [r7]
-	orr	r0, r0, #0x1
-	str	r0, [r7]
-
-	/*invalidate scu*/
-	ldr	r7, =0xf8f0000c
-	ldr	r6, =0xffff
-	str	r6, [r7]
 
 	/* Write to ACTLR */
 	mrc	p15, 0, r0, c1, c0, 1		/* Read ACTLR*/
@@ -333,6 +324,17 @@ mmu_loop:
 	dsb					/* dsb	allow the MMU to start up */
 
 	isb					/* isb	flush prefetch buffer */
+
+	/*set scu enable bit in scu*/
+	ldr	r7, =0xf8f00000
+	ldr	r0, [r7]
+	orr	r0, r0, #0x1
+	str	r0, [r7]
+
+	/*invalidate scu*/
+	ldr	r7, =0xf8f0000c
+	ldr	r6, =0xffff
+	str	r6, [r7]
 
 /* For AMP, assume running on CPU1. Don't initialize L2 Cache (up to Linux) */
 #if USE_AMP!=1

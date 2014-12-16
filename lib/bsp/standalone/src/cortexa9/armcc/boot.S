@@ -51,6 +51,9 @@
 ; 4.2   pkp	06/19/14 Enabled asynchronous abort exception
 ; 4.2	pkp  	08/04/14 Removed PEEP board related code which contained
 ;			 initialization of uart smc nor and sram
+; 5.0	pkp	16/12/14 Modified initialization code to enable scu after
+;			 MMU is enabled and removed incorrect initialization
+;			 of TLB lockdown register to fix CR#830580
 ; </pre>
 ;
 ; @note
@@ -162,17 +165,6 @@ OKToRun
 	/* set VBAR to the _vector_table address in scatter file */
 	ldr	r0, =_vector_table
 	mcr	p15, 0, r0, c12, c0, 0
-
-	;set scu enable bit in scu
-	ldr	r7, =0xf8f00000
-	ldr	r0, [r7]
-	orr	r0, r0, #0x1
-	str	r0, [r7]
-
-	;invalidate scu
-	ldr	r7, =0xf8f0000c
-	ldr	r6, =0xffff
-	str	r6, [r7]
 
 	; Write to ACTLR
 	mrc	p15, 0,r0, c1, c0, 1		; Read ACTLR
@@ -302,6 +294,17 @@ mmu_loop:
 	dsb					; dsb allow the MMU to start up
 	isb					; isb flush prefetch buffer
 
+	;set scu enable bit in scu
+	ldr	r7, =0xf8f00000
+	ldr	r0, [r7]
+	orr	r0, r0, #0x1
+	str	r0, [r7]
+
+	;invalidate scu
+	ldr	r7, =0xf8f0000c
+	ldr	r6, =0xffff
+	str	r6, [r7]
+
 ; For AMP, assume running on CPU1. Don't initialize L2 Cache (up to Linux)
 #if USE_AMP!=1
 	ldr	r0,=SLCRUnlockReg		/* Load SLCR base address base + unlock register */
@@ -355,7 +358,6 @@ mmu_loop:
 	mcr	p15, 0, r0, c9, c13, 2		; PMXEVCNTR
 	mcr	p15, 0, r0, c13, c0, 2		; TPIDRURW
 	mcr	p15, 0, r0, c13, c0, 3		; TPIDRURO
-	mcr	p15, 5, r0, c15, c5, 2		; Write Lockdown TLB VA
 
 ; Reset and start Cycle Counter
 	mov	r2, #0x80000000			; clear overflow
