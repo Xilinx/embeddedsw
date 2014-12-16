@@ -146,7 +146,7 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 	u32 RegISR;
 	u32 RegSR;
 	u32 RegCtrl;
-	u32 RegQ1ISR;
+	u32 RegQ1ISR = 0U;
 	XEmacPs *InstancePtr = (XEmacPs *) XEmacPsPtr;
 
 	Xil_AssertVoid(InstancePtr != NULL);

@@ -653,11 +653,11 @@ u32 XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 	u32 BdCount;
 	u32 BdPartialCount;
 	u32 Sop = 0U;
+	u32 Status;
 	u32 BdLimitLoc = BdLimit;
 	CurBdPtr = RingPtr->HwHead;
 	BdCount = 0U;
 	BdPartialCount = 0U;
-	u32 Status;
 
 	/* If no BDs in work group, then there's nothing to search */
 	if (RingPtr->HwCnt == 0x00000000U) {
