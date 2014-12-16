@@ -198,6 +198,16 @@ typedef enum {
 	XV_NUM_SUPPORTED_RATE = 15
 } XVid_FrameRate;
 
+/* Color depth / data width / bits per color component. */
+typedef enum {
+	XVID_BPC_6 = 6,
+	XVID_BPC_8 = 8,
+	XVID_BPC_10 = 10,
+	XVID_BPC_12 = 12,
+	XVID_BPC_16 = 16,
+	XVID_NUM_SUPPORTED_BPC = 5
+} XVid_DataWidth;
+
 /****************************** Type Definitions ******************************/
 
 /**
