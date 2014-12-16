@@ -128,7 +128,7 @@ void Xpm_ResetEventCounters(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
 #else
-	{ register uint32 C15Reg __asm(XREG_CP15_PERF_MONITOR_CTRL);
+	{ register u32 C15Reg __asm(XREG_CP15_PERF_MONITOR_CTRL);
 	  Reg = C15Reg; }
 #endif
 	Reg |= (1U << 1U); /* reset event counters */
