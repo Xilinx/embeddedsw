@@ -9,8 +9,9 @@
 #define XEDID_PRINT_H_
 
 #include "xdptx.h"
+#include "xedid.h"
 
 u32 Edid_PrintDecodeBase(u8 *EdidRaw);
-u32 Edid_PrintDecodeAll(XDptx *InstancePtr, u8 Lct, u8 *Rad);
+void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw);
 
 #endif /* XEDID_PRINT_H_ */

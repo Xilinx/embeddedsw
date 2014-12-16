@@ -21,53 +21,8 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw);
 static void Edid_Print_ColorChar(u8 *EdidRaw);
 static void Edid_Print_EstTimings(u8 *EdidRaw);
 static void Edid_Print_StdTimings(u8 *EdidRaw);
+static void Edid_Print_Ptm(u8 *EdidRaw);
 static u8 Edid_CalculateChecksum(u8 *Data, u8 Size);
-
-u32 Edid_PrintDecodeAll(XDptx *InstancePtr, u8 Lct, u8 *Rad)
-{
-	u32 Status;
-	u8 EdidBase[128];
-	u8 Index;
-	u8 NumExt;
-
-	xil_printf("*** EDID for: LCT = %d", Lct);
-	if ((Lct - 1) > 0) {
-		xil_printf("; Rad = ");
-	}
-	for (Index = 0; Index < (Lct - 1); Index++) {
-		xil_printf("%d ", Rad[Index]);
-	}
-	xil_printf("***\n");
-
-	Status = XDptx_GetRemoteEdidBlock(InstancePtr, EdidBase, 0, Lct, Rad);
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-	//DpTools_PrintData(EdidBase, 128);
-	//Edid_PrintDecodeBase(EdidBase);
-
-	NumExt = XEDID_GET_EXT_BLK_COUNT(EdidBase);
-
-	/*
-	u8 EdidExtBlocks[NumExt * 128];
-
-	DpTools_GetEdidAllExtBlocks(InstancePtr, NumExt, EdidExtBlocks, Lct, Rad);
-
-	xil_printf("\nExtension blocks ::::::::::::::::::::::\n");
-	for (Index = 0; Index < NumExt; Index++) {
-		//DpTools_PrintData(EdidExtBlocks + (Index * 128), 128);
-		Status = dptools_edid_parse_dispid(EdidExtBlocks + (Index * 128));
-		if (Status != XST_SUCCESS) {
-			xil_printf("\tNot a DispID extension block (tag: 0x%02lx)\n", EdidExtBlocks[Index * 128]);
-		}
-		xil_printf("\n");
-	}
-	*/
-
-	xil_printf("\n::::::::::::::::::::::::::::::::::::::::::::::::\n");
-
-	return Status;
-}
 
 u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 {
@@ -89,17 +44,37 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 	Edid_Print_StdTimings(EdidRaw);
 
 	xil_printf("Descriptors:\n");
-	xil_printf("\tFirst tag: 0x%02lx 0x%02lx\n", EdidRaw[0x36], EdidRaw[0x38]);
-	xil_printf("\tSecond tag: 0x%02lx 0x%02lx\n", EdidRaw[0x48], EdidRaw[0x4A]);
-	xil_printf("\tThird tag: 0x%02lx 0x%02lx\n", EdidRaw[0x5A], EdidRaw[0x5C]);
-	xil_printf("\tFourth tag: 0x%02lx 0x%02lx\n", EdidRaw[0x6C], EdidRaw[0x6E]);
+	xil_printf("\tFirst tag: 0x%02lx 0x%02lx\n", EdidRaw[0x36],
+								EdidRaw[0x38]);
+	xil_printf("\tSecond tag: 0x%02lx 0x%02lx\n", EdidRaw[0x48],
+								EdidRaw[0x4A]);
+	xil_printf("\tThird tag: 0x%02lx 0x%02lx\n", EdidRaw[0x5A],
+								EdidRaw[0x5C]);
+	xil_printf("\tFourth tag: 0x%02lx 0x%02lx\n", EdidRaw[0x6C],
+								EdidRaw[0x6E]);
 
-	xil_printf("Number of extensions:\t%d\n", XEDID_GET_EXT_BLK_COUNT(EdidRaw));
-	xil_printf("Checksum:\t\t0x%02lx -> Calculated sum = 0x%02lx (== 0x00)\n",
+	Edid_Print_Ptm(EdidRaw);
+
+	xil_printf("Number of extensions:\t%d\n",
+					XEDID_GET_EXT_BLK_COUNT(EdidRaw));
+	xil_printf("Checksum:\t\t0x%02lx -> Calculated sum = 0x%02lx\n",
 			XEDID_GET_CHECKSUM(EdidRaw),
 			Edid_CalculateChecksum(EdidRaw, 128));
 
 	return XST_SUCCESS;
+}
+
+void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
+{
+	u8 Index;
+
+	xil_printf("Supported resolutions from video mode table:\n");
+	for (Index = 0; Index < XVID_VM_NUM_SUPPORT; Index++) {
+		if (XEdid_IsVideoTimingSupported(EdidRaw,
+				&XVid_VideoTimingModes[Index]) == XST_SUCCESS) {
+			xil_printf("\t%s\n", XVid_VideoTimingModes[Index].Name);
+		}
+	}
 }
 
 static void Edid_Print_BaseVPId(u8 *EdidRaw)
@@ -110,23 +85,30 @@ static void Edid_Print_BaseVPId(u8 *EdidRaw)
 	/* Vendor and product identification. */
 	xil_printf("Vendor and product identification:\n");
 	xil_printf("\tID manufacturer name:\t%s\n", ManName);
-	xil_printf("\tID product code:\t0x%04lx\n", XEDID_GET_VPI_ID_PROD_CODE(EdidRaw));
-	xil_printf("\tID serial number:\t0x%08lx\n", XEDID_GET_VPI_SN(EdidRaw));
+	xil_printf("\tID product code:\t0x%04lx\n",
+					XEDID_GET_VPI_ID_PROD_CODE(EdidRaw));
+	xil_printf("\tID serial number:\t0x%08lx\n",
+					XEDID_GET_VPI_SN(EdidRaw));
 	if (XEDID_IS_VPI_YEAR_MODEL(EdidRaw)) {
-		xil_printf("\tModel year:\t\t%d\n", XEDID_GET_VPI_YEAR(EdidRaw));
+		xil_printf("\tModel year:\t\t%d\n",
+					XEDID_GET_VPI_YEAR(EdidRaw));
 	}
 	else if (XEDID_GET_VPI_WEEK_MAN(EdidRaw) == 0x00) {
-		xil_printf("\tManufactured:\t\tYear = %d ; Week not specified.\n", XEDID_GET_VPI_YEAR(EdidRaw));
+		xil_printf("\tManufactured:\t\tYear = %d ; Week N/A\n",
+						XEDID_GET_VPI_YEAR(EdidRaw));
 	}
 	else {
-		xil_printf("\tManufactured:\t\tYear = %d ; Week = %d\n", XEDID_GET_VPI_YEAR(EdidRaw), XEDID_GET_VPI_WEEK_MAN(EdidRaw));
+		xil_printf("\tManufactured:\t\tYear = %d ; Week = %d\n",
+					XEDID_GET_VPI_YEAR(EdidRaw),
+					XEDID_GET_VPI_WEEK_MAN(EdidRaw));
 	}
 }
 
 static void Edid_Print_BaseVerRev(u8 *EdidRaw)
 {
 	/* EDID structure version and revision. */
-	xil_printf("EDID structure version and revision: %d.%d\n", XEDID_GET_STRUCT_VER(EdidRaw), XEDID_GET_STRUCT_REV(EdidRaw));
+	xil_printf("EDID structure version and revision: %d.%d\n",
+		XEDID_GET_STRUCT_VER(EdidRaw), XEDID_GET_STRUCT_REV(EdidRaw));
 }
 
 static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
@@ -137,8 +119,10 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		/* Input is a digital video signal interface. */
 		xil_printf("\tVideo signal interface is digital.\n");
 
-		if (XEDID_GET_BDISP_VID_DIG_BPC(EdidRaw) != XEDID_BDISP_VID_DIG_BPC_UNDEF) {
-			xil_printf("\tColor bit depth:\t%d\n", XEDID_GET_BDISP_VID_DIG_BPC(EdidRaw));
+		if (XEDID_GET_BDISP_VID_DIG_BPC(EdidRaw) !=
+						XEDID_BDISP_VID_DIG_BPC_UNDEF) {
+			xil_printf("\tColor bit depth:\t%d\n",
+					XEDID_GET_BDISP_VID_DIG_BPC(EdidRaw));
 		}
 		else {
 			xil_printf("\tColor bit depth is undefined.\n");
@@ -161,7 +145,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 				xil_printf("\tDisplayPort is supported.\n");
 				break;
 			default:
-				xil_printf("\tDigital interface is not defined.\n");
+				xil_printf("\tDigital interface undefined.\n");
 				break;
 		}
 	}
@@ -229,7 +213,9 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	}
 
 	if (XEDID_IS_BDISP_SSAR_SS(EdidRaw)) {
-		xil_printf("\tScreen size (HxV):\t%dx%d(cm)\n", XEDID_GET_BDISP_SSAR_H(EdidRaw), XEDID_GET_BDISP_SSAR_V(EdidRaw));
+		xil_printf("\tScreen size (HxV):\t%dx%d(cm)\n",
+					XEDID_GET_BDISP_SSAR_H(EdidRaw),
+					XEDID_GET_BDISP_SSAR_V(EdidRaw));
 	}
 	else if (XEDID_IS_BDISP_SSAR_AR_L(EdidRaw)) {
 		xil_printf("\tAspect ratio (H:V):\t");
@@ -248,8 +234,10 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 				break;
 			default:
 				xil_printf("%d.%03d:1 ",
-						(u32)XEDID_GET_BDISP_SSAR_AR_L(EdidRaw),
-						FLOAT_FRAC_TO_U32(XEDID_GET_BDISP_SSAR_AR_L(EdidRaw), 1000));
+					(u32)XEDID_GET_BDISP_SSAR_AR_L(EdidRaw),
+					FLOAT_FRAC_TO_U32(
+					XEDID_GET_BDISP_SSAR_AR_L(EdidRaw),
+					1000));
 				break;
 		}
 		xil_printf("(landscape)\n");
@@ -270,8 +258,11 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 				xil_printf("4:5 ");
 				break;
 			default:
-				xil_printf("%d.%03d:1 ", (u32)XEDID_GET_BDISP_SSAR_AR_P(EdidRaw),
-						FLOAT_FRAC_TO_U32(XEDID_GET_BDISP_SSAR_AR_P(EdidRaw), 1000));
+				xil_printf("%d.%03d:1 ",
+					(u32)XEDID_GET_BDISP_SSAR_AR_P(EdidRaw),
+					FLOAT_FRAC_TO_U32(
+					XEDID_GET_BDISP_SSAR_AR_P(EdidRaw),
+					1000));
 				break;
 		}
 		xil_printf("(portrait)\n");
@@ -284,7 +275,9 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		xil_printf("\tGamma is defined in an extension block.\n");
 	}
 	else {
-		xil_printf("\tGamma:\t\t\t%d.%02d\n", (u32)XEDID_GET_BDISP_GAMMA(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_BDISP_GAMMA(EdidRaw), 100));
+		xil_printf("\tGamma:\t\t\t%d.%02d\n",
+			(u32)XEDID_GET_BDISP_GAMMA(EdidRaw),
+			FLOAT_FRAC_TO_U32(XEDID_GET_BDISP_GAMMA(EdidRaw), 100));
 	}
 
 	xil_printf("\tDisplay power management:\n");
@@ -359,7 +352,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	else {
 		xil_printf("does not include ");
 	}
-	xil_printf("the native pixel format and preferred refresh rate of the display device.\n");
+	xil_printf("the native pixel format and preferred refresh rate.\n");
 	/* Continuous frequency. */
 	xil_printf("\t\tDisplay ");
 	if (XEDID_IS_BDISP_FEATURE_CONTFREQ(EdidRaw)) {
@@ -374,14 +367,30 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 static void Edid_Print_ColorChar(u8 *EdidRaw)
 {
 	xil_printf("Color characterisitics:\n");
-	xil_printf("\tRed_x:\t\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_REDX(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_REDX(EdidRaw), 1000000000));
-	xil_printf("\tRed_y:\t\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_REDY(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_REDY(EdidRaw), 1000000000));
-	xil_printf("\tGreen_x:\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_GREENX(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_GREENX(EdidRaw), 1000000000));
-	xil_printf("\tGreen_y:\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_GREENY(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_GREENY(EdidRaw), 1000000000));
-	xil_printf("\tBlue_x:\t\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_BLUEX(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_BLUEX(EdidRaw), 1000000000));
-	xil_printf("\tBlue_y:\t\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_BLUEY(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_BLUEY(EdidRaw), 1000000000));
-	xil_printf("\tWhite_x:\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_WHITEX(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_WHITEX(EdidRaw), 1000000000));
-	xil_printf("\tWhite_y:\t\t%d.%09d +- 0.0005\n", (u32)XEDID_GET_CC_WHITEY(EdidRaw), FLOAT_FRAC_TO_U32(XEDID_GET_CC_WHITEY(EdidRaw), 1000000000));
+	xil_printf("\tRed_x:\t\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_REDX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_REDX(EdidRaw), 1000000000));
+	xil_printf("\tRed_y:\t\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_REDY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_REDY(EdidRaw), 1000000000));
+	xil_printf("\tGreen_x:\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_GREENX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_GREENX(EdidRaw), 1000000000));
+	xil_printf("\tGreen_y:\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_GREENY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_GREENY(EdidRaw), 1000000000));
+	xil_printf("\tBlue_x:\t\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_BLUEX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_BLUEX(EdidRaw), 1000000000));
+	xil_printf("\tBlue_y:\t\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_BLUEY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_BLUEY(EdidRaw), 1000000000));
+	xil_printf("\tWhite_x:\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_WHITEX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_WHITEX(EdidRaw), 1000000000));
+	xil_printf("\tWhite_y:\t\t%d.%09d +- 0.0005\n",
+		(u32)XEDID_GET_CC_WHITEY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XEDID_GET_CC_WHITEY(EdidRaw), 1000000000));
 }
 
 static void Edid_Print_EstTimings(u8 *EdidRaw)
@@ -438,7 +447,8 @@ static void Edid_Print_EstTimings(u8 *EdidRaw)
 	if (XEDID_SUPP_EST_TIMINGS_1152x870_75(EdidRaw)) {
 		xil_printf("\t1152x870 @ 75Hz supported.\n");
 	}
-	xil_printf("\tManufacturer specified timings field: 0x%02lx.\n", XEDID_GET_TIMINGS_MAN(EdidRaw));
+	xil_printf("\tManufacturer specified timings field: 0x%02lx.\n",
+						XEDID_GET_TIMINGS_MAN(EdidRaw));
 }
 
 static void Edid_Print_StdTimings(u8 *EdidRaw)
@@ -458,6 +468,95 @@ static void Edid_Print_StdTimings(u8 *EdidRaw)
 				XEDID_GET_STD_TIMINGS_V(EdidRaw, Index + 1),
 				XEDID_GET_STD_TIMINGS_FRR(EdidRaw, Index + 1));
 	}
+}
+
+static void Edid_Print_Ptm(u8 *EdidRaw)
+{
+	u8 *Ptm;
+
+	Ptm = &EdidRaw[XEDID_PTM];
+
+	u16 HBlank = ((Ptm[XEDID_DTD_PTM_HRES_HBLANK_U4] &
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XBLANK_MASK) << 8) |
+			Ptm[XEDID_DTD_PTM_HBLANK_LSB];
+
+	u16 VBlank = ((Ptm[XEDID_DTD_PTM_VRES_VBLANK_U4] &
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XBLANK_MASK) << 8) |
+			Ptm[XEDID_DTD_PTM_VBLANK_LSB];
+
+	u32 HActive =
+			(((Ptm[XEDID_DTD_PTM_HRES_HBLANK_U4] &
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
+			Ptm[XEDID_DTD_PTM_HRES_LSB];
+
+	u32 VActive =
+			(((Ptm[XEDID_DTD_PTM_VRES_VBLANK_U4] &
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
+			Ptm[XEDID_DTD_PTM_VRES_LSB];
+
+	u32 PixelClkKhz = ((Ptm[XEDID_DTD_PTM_PIXEL_CLK_KHZ_MSB] <<
+			8) | Ptm[XEDID_DTD_PTM_PIXEL_CLK_KHZ_LSB]) * 10;
+
+	u32 HFrontPorch =
+			(((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HFPORCH_MASK) >>
+			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HFPORCH_SHIFT) << 8) |
+			Ptm[XEDID_DTD_PTM_HFPORCH_LSB];
+
+	u32 HSyncWidth =
+			(((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HSPW_MASK) >>
+			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HSPW_SHIFT) << 8) |
+			Ptm[XEDID_DTD_PTM_HSPW_LSB];
+
+	u32 VFrontPorch =
+			(((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XEDID_DTD_PTM_XFPORCH_XSPW_U2_VFPORCH_MASK) >>
+			XEDID_DTD_PTM_XFPORCH_XSPW_U2_VFPORCH_SHIFT) << 8) |
+			((Ptm[XEDID_DTD_PTM_VFPORCH_VSPW_L4] &
+			XEDID_DTD_PTM_VFPORCH_VSPW_L4_VFPORCH_MASK) >>
+			XEDID_DTD_PTM_VFPORCH_VSPW_L4_VFPORCH_SHIFT);
+
+	u32 VSyncWidth =
+			((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XEDID_DTD_PTM_XFPORCH_XSPW_U2_VSPW_MASK) << 8) |
+			(Ptm[XEDID_DTD_PTM_VFPORCH_VSPW_L4] &
+			XEDID_DTD_PTM_VFPORCH_VSPW_L4_VSPW_MASK);
+
+	u32 HBackPorch = HBlank - (HFrontPorch + HSyncWidth);
+
+	u32 VBackPorch = VBlank - (VFrontPorch + VSyncWidth);
+
+	u8 HPolarity = (Ptm[XEDID_DTD_PTM_SIGNAL] &
+					XEDID_DTD_PTM_SIGNAL_HPOLARITY_MASK) >>
+					XEDID_DTD_PTM_SIGNAL_HPOLARITY_SHIFT;
+	u8 VPolarity = (Ptm[XEDID_DTD_PTM_SIGNAL] &
+					XEDID_DTD_PTM_SIGNAL_VPOLARITY_MASK) >>
+					XEDID_DTD_PTM_SIGNAL_VPOLARITY_SHIFT;
+
+	xil_printf("Preferred timing mode:\n");
+	xil_printf("\tHorizontal resolution:\t%d px\n"
+			"\tVertical resolution:\t%d lines\n"
+			"\tPixel clock:\t\t%d KHz\n"
+			"\tHorizontal front porch:\t%d px\n"
+			"\tHorizontal sync width:\t%d px\n"
+			"\tHorizontal back porch:\t%d px\n"
+			"\tHorizontal blanking:\t%d px\n"
+			"\tHorizontal polarity:\t%d\n"
+			"\tVertical front porch:\t%d px\n"
+			"\tVertical sync width:\t%d px\n"
+			"\tVertical back porch:\t%d px\n"
+			"\tVertical blanking:\t%d px\n"
+			"\tVertical polarity:\t%d\n"
+			, HActive, VActive, PixelClkKhz,
+			HFrontPorch, HSyncWidth, HBackPorch, HBlank, HPolarity,
+			VFrontPorch, VSyncWidth, VBackPorch, VBlank, VPolarity);
+
+	xil_printf("\tInterlaced:\t\t%s\n",
+		XEDID_IS_DTD_PTM_INTERLACED(EdidRaw) ?
+		"Yes." : "No (progressive).");
 }
 
 static u8 Edid_CalculateChecksum(u8 *Data, u8 Size)
