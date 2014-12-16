@@ -269,6 +269,16 @@ typedef struct {
 	XVid_VideoTiming	Timing;
 } XVid_VideoStream;
 
+/**
+ * Video window structure.
+ */
+typedef struct {
+	u32 StartX;
+	u32 StartY;
+	u32 Width;
+	u32 Height;
+} XVid_VideoWindow;
+
 typedef struct {
 	XVid_VideoMode		VmId;
 	const char		Name[21];
