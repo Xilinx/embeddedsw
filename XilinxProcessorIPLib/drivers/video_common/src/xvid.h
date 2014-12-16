@@ -225,6 +225,14 @@ typedef enum {
 	XVID_BT_UNKNOWN
 } XVid_ColorConversionStd;
 
+/* Color conversion output range. */
+typedef enum {
+    XVID_16_235 = 0,
+    XVID_16_240,
+    XVID_0_255,
+    XVID_UNKNOWN_RANGE
+} XVid_ColorRange;
+
 /****************************** Type Definitions ******************************/
 
 /**
