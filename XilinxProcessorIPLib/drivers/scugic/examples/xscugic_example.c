@@ -62,7 +62,7 @@
 #include "xparameters.h"
 #include "xil_cache.h"
 #include "xil_printf.h"
-
+#include "xil_types.h"
 #include "xscugic.h"
 
 /************************** Constant Definitions *****************************/
@@ -96,7 +96,7 @@ static XScuGic_Config *GicConfig;    /* The configuration parameters of the
  */
 volatile static int InterruptProcessed = FALSE;
 
-static void AssertPrint(const char *FilenamePtr, int LineNumber){
+static void AssertPrint(const char8 *FilenamePtr, s32 LineNumber){
 	xil_printf("ASSERT: File Name: %s ", FilenamePtr);
 	xil_printf("Line Number: %d\r\n",LineNumber);
 }
