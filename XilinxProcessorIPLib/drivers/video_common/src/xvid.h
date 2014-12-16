@@ -195,7 +195,8 @@ typedef enum {
 	XVID_FR_87HZ = 87,
 	XVID_FR_88HZ = 88,
 	XVID_FR_120HZ = 120,
-	XV_NUM_SUPPORTED_RATE = 15
+	XVID_FR_NUM_SUPPORTED = 15,
+	XVID_FR_UNKNOWN
 } XVid_FrameRate;
 
 /* Color depth / data width / bits per color component. */
@@ -205,16 +206,18 @@ typedef enum {
 	XVID_BPC_10 = 10,
 	XVID_BPC_12 = 12,
 	XVID_BPC_16 = 16,
-	XVID_NUM_SUPPORTED_BPC = 5
+	XVID_BPC_NUM_SUPPORTED = 5,
+	XVID_BPC_UNKNOWN
 } XVid_DataWidth;
 
 /* Color space and chroma format. */
 typedef enum {
-	XVID_RGB = 0,
-	XVID_YCRCB_444,
-	XVID_YCRCB_422,
-	XVID_YCRCB_420,
-	XVID_NUM_SUPPORTED_CHROMA_FORMAT
+	XVID_CS_RGB = 0,
+	XVID_CS_YCRCB_444,
+	XVID_CS_YCRCB_422,
+	XVID_CS_YCRCB_420,
+	XVID_CS_NUM_SUPPORTED,
+	XVID_CS_UNKNOWN
 } XVid_ColorFormat;
 
 /* Color space conversion standards. */
@@ -222,15 +225,17 @@ typedef enum {
 	XVID_BT_2020 = 0,
 	XVID_BT_709,
 	XVID_BT_601,
+	XVID_BT_NUM_SUPPORTED,
 	XVID_BT_UNKNOWN
 } XVid_ColorConversionStd;
 
 /* Color conversion output range. */
 typedef enum {
-    XVID_16_235 = 0,
-    XVID_16_240,
-    XVID_0_255,
-    XVID_UNKNOWN_RANGE
+	XVID_CR_16_235 = 0,
+	XVID_CR_16_240,
+	XVID_CR_0_255,
+	XVID_CR_NUM_SUPPORTED,
+	XVID_CR_UNKNOWN_RANGE
 } XVid_ColorRange;
 
 /****************************** Type Definitions ******************************/
