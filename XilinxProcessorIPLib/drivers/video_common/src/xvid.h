@@ -208,6 +208,15 @@ typedef enum {
 	XVID_NUM_SUPPORTED_BPC = 5
 } XVid_DataWidth;
 
+/* Color space and chroma format. */
+typedef enum {
+	XVID_RGB = 0,
+	XVID_YCRCB_444,
+	XVID_YCRCB_422,
+	XVID_YCRCB_420,
+	XVID_NUM_SUPPORTED_CHROMA_FORMAT
+} XVid_ColorFormat;
+
 /****************************** Type Definitions ******************************/
 
 /**
