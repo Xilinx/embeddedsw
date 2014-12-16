@@ -51,6 +51,8 @@
 * 1.06a asa  11/02/13 Changed the value for XEMACPS_RXBUF_LEN_MASK from 0x3fff
 *					  to 0x1fff. This fixes the CR#744902.
 * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification.
+* 3.0   kvn  12/16/14 Changed name of XEMACPS_NWCFG_LENGTHERRDSCRD_MASK to
+*					  XEMACPS_NWCFG_LENERRDSCRD_MASK as it exceeds 31 characters.
 * </pre>
 *
 ******************************************************************************/
