@@ -56,8 +56,12 @@
 
 /**************************** Function Prototypes *****************************/
 
-static u32 XEdid_IsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw, XVid_VideoTimingMode *VtMode);
-static u32 XEdid_IsVideoTimingSupportedStandardTimings(u8 *EdidRaw, XVid_VideoTimingMode *VtMode);
+static u32 XEdid_IsVideoTimingSupportedPreferredTiming(u8 *EdidRaw,
+						XVid_VideoTimingMode *VtMode);
+static u32 XEdid_IsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw,
+						XVid_VideoTimingMode *VtMode);
+static u32 XEdid_IsVideoTimingSupportedStandardTimings(u8 *EdidRaw,
+						XVid_VideoTimingMode *VtMode);
 static float XVid_CalculatePower(float Base, u8 Power);
 static float XVid_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
 
@@ -192,101 +196,160 @@ u32 XEdid_IsVideoTimingSupported(u8 *EdidRaw, XVid_VideoTimingMode *VtMode)
 {
 	u32 Status;
 
+	/* Check if the video mode is the preferred timing. */
+	Status = XEdid_IsVideoTimingSupportedPreferredTiming(EdidRaw, VtMode);
+	if (Status == XST_SUCCESS) {
+		return Status;
+	}
+
 	/* Check established timings I, II, and III. */
 	Status = XEdid_IsVideoTimingSupportedEstablishedTimings(EdidRaw, VtMode);
+	if (Status == XST_SUCCESS) {
+		return Status;
+	}
 
 	/* Check in standard timings support. */
-	XEdid_IsVideoTimingSupportedStandardTimings(EdidRaw, VtMode);
+	Status = XEdid_IsVideoTimingSupportedStandardTimings(EdidRaw, VtMode);
 
 	return Status;
 }
 
-static u32 XEdid_IsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw, XVid_VideoTimingMode *VtMode)
+
+
+static u32 XEdid_IsVideoTimingSupportedPreferredTiming(u8 *EdidRaw,
+						XVid_VideoTimingMode *VtMode)
+{
+	u8 *Ptm;
+
+	Ptm = &EdidRaw[XEDID_PTM];
+
+	u32 HActive =
+			(((Ptm[XEDID_DTD_PTM_HRES_HBLANK_U4] &
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
+			Ptm[XEDID_DTD_PTM_HRES_LSB];
+
+	u32 VActive =
+			(((Ptm[XEDID_DTD_PTM_VRES_VBLANK_U4] &
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
+			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
+			Ptm[XEDID_DTD_PTM_VRES_LSB];
+
+	if (VtMode->Timing.F1VTotal != XEDID_IS_DTD_PTM_INTERLACED(EdidRaw)) {
+		return XST_FAILURE;
+	}
+	else if ((VtMode->Timing.HActive == HActive) &&
+			(VtMode->Timing.VActive == VActive)) {
+		return XST_SUCCESS;
+	}
+
+	return XST_FAILURE;
+}
+
+static u32 XEdid_IsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw,
+						XVid_VideoTimingMode *VtMode)
 {
 	u32 Status = XST_FAILURE;
 
 	/* First, check established timings I, II, and III. */
-	if ((VtMode->Timing.HActive == 800) && (VtMode->Timing.VActive == 640) &&
+	if ((VtMode->Timing.HActive == 800) &&
+			(VtMode->Timing.VActive == 640) &&
 			(VtMode->FrameRate == XVID_FR_56HZ) &&
 			XEDID_SUPP_EST_TIMINGS_800x600_56(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 640) && (VtMode->Timing.VActive == 480) &&
+	else if ((VtMode->Timing.HActive == 640) &&
+			(VtMode->Timing.VActive == 480) &&
 			(VtMode->FrameRate == XVID_FR_60HZ) &&
 			XEDID_SUPP_EST_TIMINGS_640x480_60(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 800) && (VtMode->Timing.VActive == 600) &&
+	else if ((VtMode->Timing.HActive == 800) &&
+			(VtMode->Timing.VActive == 600) &&
 			(VtMode->FrameRate == XVID_FR_60HZ) &&
 			XEDID_SUPP_EST_TIMINGS_800x600_60(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 1024) && (VtMode->Timing.VActive == 768) &&
+	else if ((VtMode->Timing.HActive == 1024) &&
+			(VtMode->Timing.VActive == 768) &&
 			(VtMode->FrameRate == XVID_FR_60HZ) &&
 			XEDID_SUPP_EST_TIMINGS_1024x768_60(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 640) && (VtMode->Timing.VActive == 480) &&
+	else if ((VtMode->Timing.HActive == 640) &&
+			(VtMode->Timing.VActive == 480) &&
 			(VtMode->FrameRate == XVID_FR_67HZ) &&
 			XEDID_SUPP_EST_TIMINGS_640x480_67(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 720) && (VtMode->Timing.VActive == 400) &&
+	else if ((VtMode->Timing.HActive == 720) &&
+			(VtMode->Timing.VActive == 400) &&
 			(VtMode->FrameRate == XVID_FR_70HZ) &&
 			XEDID_SUPP_EST_TIMINGS_720x400_70(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 1024) && (VtMode->Timing.VActive == 768) &&
+	else if ((VtMode->Timing.HActive == 1024) &&
+			(VtMode->Timing.VActive == 768) &&
 			(VtMode->FrameRate == XVID_FR_70HZ) &&
 			XEDID_SUPP_EST_TIMINGS_1024x768_70(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 640) && (VtMode->Timing.VActive == 480) &&
+	else if ((VtMode->Timing.HActive == 640) &&
+			(VtMode->Timing.VActive == 480) &&
 			(VtMode->FrameRate == XVID_FR_72HZ) &&
 			XEDID_SUPP_EST_TIMINGS_640x480_72(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 800) && (VtMode->Timing.VActive == 600) &&
+	else if ((VtMode->Timing.HActive == 800) &&
+			(VtMode->Timing.VActive == 600) &&
 			(VtMode->FrameRate == XVID_FR_72HZ) &&
 			XEDID_SUPP_EST_TIMINGS_800x600_72(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 640) && (VtMode->Timing.VActive == 480) &&
+	else if ((VtMode->Timing.HActive == 640) &&
+			(VtMode->Timing.VActive == 480) &&
 			(VtMode->FrameRate == XVID_FR_75HZ) &&
 			XEDID_SUPP_EST_TIMINGS_640x480_75(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 800) && (VtMode->Timing.VActive == 600) &&
+	else if ((VtMode->Timing.HActive == 800) &&
+			(VtMode->Timing.VActive == 600) &&
 			(VtMode->FrameRate == XVID_FR_75HZ) &&
 			XEDID_SUPP_EST_TIMINGS_800x600_75(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 832) && (VtMode->Timing.VActive == 624) &&
+	else if ((VtMode->Timing.HActive == 832) &&
+			(VtMode->Timing.VActive == 624) &&
 			(VtMode->FrameRate == XVID_FR_75HZ) &&
 			XEDID_SUPP_EST_TIMINGS_832x624_75(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 1024) && (VtMode->Timing.VActive == 768) &&
+	else if ((VtMode->Timing.HActive == 1024) &&
+			(VtMode->Timing.VActive == 768) &&
 			(VtMode->FrameRate == XVID_FR_75HZ) &&
 			XEDID_SUPP_EST_TIMINGS_1024x768_75(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 1152) && (VtMode->Timing.VActive == 870) &&
+	else if ((VtMode->Timing.HActive == 1152) &&
+			(VtMode->Timing.VActive == 870) &&
 			(VtMode->FrameRate == XVID_FR_75HZ) &&
 			XEDID_SUPP_EST_TIMINGS_1152x870_75(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 1280) && (VtMode->Timing.VActive == 1024) &&
+	else if ((VtMode->Timing.HActive == 1280) &&
+			(VtMode->Timing.VActive == 1024) &&
 			(VtMode->FrameRate == XVID_FR_75HZ) &&
 			XEDID_SUPP_EST_TIMINGS_1280x1024_75(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 1024) && (VtMode->Timing.VActive == 768) &&
+	else if ((VtMode->Timing.HActive == 1024) &&
+			(VtMode->Timing.VActive == 768) &&
 			(VtMode->FrameRate == XVID_FR_87HZ) &&
 			XEDID_SUPP_EST_TIMINGS_1024x768_87(EdidRaw)) {
 		Status = XST_SUCCESS;
 	}
-	else if ((VtMode->Timing.HActive == 720) && (VtMode->Timing.VActive == 400) &&
+	else if ((VtMode->Timing.HActive == 720) &&
+			(VtMode->Timing.VActive == 400) &&
 			(VtMode->FrameRate == XVID_FR_88HZ) &&
 			XEDID_SUPP_EST_TIMINGS_720x400_88(EdidRaw)) {
 		Status = XST_SUCCESS;
@@ -295,17 +358,18 @@ static u32 XEdid_IsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw, XVid_Vide
 	return Status;
 }
 
-static u32 XEdid_IsVideoTimingSupportedStandardTimings(u8 *EdidRaw, XVid_VideoTimingMode *VtMode)
+static u32 XEdid_IsVideoTimingSupportedStandardTimings(u8 *EdidRaw,
+			XVid_VideoTimingMode *VtMode)
 {
 	u8 Index;
 
 	for (Index = 0; Index < 8; Index++) {
-		if ((VtMode->Timing.HActive ==
-					XEDID_GET_STD_TIMINGS_H(EdidRaw, Index + 1)) &&
-				(VtMode->Timing.VActive ==
-					XEDID_GET_STD_TIMINGS_V(EdidRaw, Index + 1)) &&
-				(VtMode->FrameRate ==
-					XEDID_GET_STD_TIMINGS_FRR(EdidRaw, Index + 1))) {
+		if ((VtMode->Timing.HActive == XEDID_GET_STD_TIMINGS_H(EdidRaw,
+								Index + 1)) &&
+		(VtMode->Timing.VActive == XEDID_GET_STD_TIMINGS_V(EdidRaw,
+								Index + 1)) &&
+		(VtMode->FrameRate == XEDID_GET_STD_TIMINGS_FRR(EdidRaw,
+								Index + 1))) {
 			return XST_SUCCESS;
 		}
 	}
