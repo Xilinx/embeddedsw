@@ -257,6 +257,18 @@ typedef struct {
 	u32 VSyncPolarity;
 } XVid_VideoTiming;
 
+/**
+ * Video stream structure.
+ */
+typedef struct {
+	XVid_ColorFormat	ColorFormatId;
+	XVid_DataWidth		Bpc;
+	XVid_FrameRate		FrameRate;
+	u32			IsInterlaced;
+	XVid_VideoMode		ResId;
+	XVid_VideoTiming	Timing;
+} XVid_VideoStream;
+
 typedef struct {
 	XVid_VideoMode		VmId;
 	const char		Name[21];
