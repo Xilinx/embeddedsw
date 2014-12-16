@@ -217,6 +217,14 @@ typedef enum {
 	XVID_NUM_SUPPORTED_CHROMA_FORMAT
 } XVid_ColorFormat;
 
+/* Color space conversion standards. */
+typedef enum {
+	XVID_BT_2020 = 0,
+	XVID_BT_709,
+	XVID_BT_601,
+	XVID_BT_UNKNOWN
+} XVid_ColorConversionStd;
+
 /****************************** Type Definitions ******************************/
 
 /**
