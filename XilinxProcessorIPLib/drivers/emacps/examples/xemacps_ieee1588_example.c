@@ -1488,7 +1488,7 @@ void XEmacPs_HandleRecdPTPPacket(XEmacPs_Ieee1588 *InstancePtr)
 			 * Get the buffer address in which the PTP packet is
 			 * stored from the BD.
 			 */
-			BufAddr = (void*)(XEmacPs_BdGetBufAddr(CurBdPtr) &
+			BufAddr = (void*)(INTPTR)(XEmacPs_BdGetBufAddr(CurBdPtr) &
 			~(XEMACPS_RXBUF_WRAP_MASK | XEMACPS_RXBUF_NEW_MASK));
 			BufLen = XEmacPs_BdGetLength(CurBdPtr);
 #ifndef PEEP
@@ -1501,7 +1501,7 @@ void XEmacPs_HandleRecdPTPPacket(XEmacPs_Ieee1588 *InstancePtr)
 			 * acceptable. Print the wrond packet to get some
 			 * idea regarding what it contains.
 			 */
-			if (XEmacPs_IsRxFramePTP(BufAddr) == FALSE) {
+			if (XEmacPs_IsRxFramePTP((u8*)BufAddr) == FALSE) {
 #ifdef DEBUG_XEMACPS_LEVEL1
 				xil_printf("A WRONG Packet Received \r\n");
 				for (k = 0; k <= 100; k=k+10) {
@@ -1707,7 +1707,7 @@ void XEmacPs_PtpTxInterruptHandler (XEmacPs_Ieee1588 *InstancePtr)
 	NumBdsToProcess = NumBds;
 	CurBdPtr=BdPtr;
 	while (NumBdsToProcess > 0) {
-		BufAddr = (void*)(XEmacPs_BdGetBufAddr(CurBdPtr));
+		BufAddr = (void*)(INTPTR)(XEmacPs_BdGetBufAddr(CurBdPtr));
 		BufLen = XEmacPs_BdGetLength(CurBdPtr);
 
 		XEmacPs_PtpTxDoFurtherProcessing (InstancePtr, (u8 *)BufAddr);
