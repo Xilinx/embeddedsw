@@ -69,6 +69,7 @@
 * 					  WP/CD. CR# 810655.
 *					  Make changes for prototypes of disk_read and
 *					  disk_write according to latest version.
+*			 12/15/14 Modified the code according to MISRAC 2012 Compliant.
 *
 * </pre>
 *
@@ -76,6 +77,7 @@
 *
 ******************************************************************************/
 #include "diskio.h"
+#include "ff.h"
 #include "xparameters.h"
 #include "xil_types.h"
 
@@ -86,11 +88,11 @@
 #include "xil_printf.h"
 
 #define SD_DEVICE_ID		XPAR_XSDPS_0_DEVICE_ID
-#define HIGH_SPEED_SUPPORT	0x01
-#define WIDTH_4_BIT_SUPPORT	0x4
-#define SD_CLK_25_MHZ		25000000
-#define SD_CLK_26_MHZ		26000000
-#define SD_CLK_52_MHZ		52000000
+#define HIGH_SPEED_SUPPORT	0x01U
+#define WIDTH_4_BIT_SUPPORT	0x4U
+#define SD_CLK_25_MHZ		25000000U
+#define SD_CLK_26_MHZ		26000000U
+#define SD_CLK_52_MHZ		52000000U
 #define EXT_CSD_DEVICE_TYPE_BYTE	196
 #define EXT_CSD_4_BIT_WIDTH_BYTE	183
 #define EXT_CSD_HIGH_SPEED_BYTE		185
@@ -113,10 +115,10 @@ static XSdPs SdInstance;
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 ExtCsd[512];
+static u8 ExtCsd[512];
 #pragma data_alignment = 4
 #else
-u8 ExtCsd[512] __attribute__ ((aligned(32)));
+static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 #endif
 
 /*-----------------------------------------------------------------------*/
@@ -129,7 +131,7 @@ u8 ExtCsd[512] __attribute__ ((aligned(32)));
 * Gets the status of the disk.
 * In case of SD, it checks whether card is present or not.
 *
-* @param	drv - Drive number
+* @param	pdrv - Drive number
 *
 * @return
 *		0		Status ok
@@ -142,23 +144,23 @@ u8 ExtCsd[512] __attribute__ ((aligned(32)));
 *
 ******************************************************************************/
 DSTATUS disk_status (
-		BYTE drv	/* Drive number (0) */
+		BYTE pdrv	/* Drive number (0) */
 )
 {
 	DSTATUS s = Stat;
 	u32 StatusReg;
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-		StatusReg = XSdPs_GetPresentStatusReg(XPAR_XSDPS_0_BASEADDR);
+		StatusReg = XSdPs_GetPresentStatusReg((u32)XPAR_XSDPS_0_BASEADDR);
 #if XPAR_XSDPS_0_HAS_CD
-		if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0) {
+		if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
 				s = STA_NODISK | STA_NOINIT;
 				goto Label;
 		}
 #endif
 		s &= ~STA_NODISK;
 #if XPAR_XSDPS_0_HAS_WP
-		if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0){
+		if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U){
 			s |= STA_PROTECT;
 			goto Label;
 		}
@@ -182,7 +184,7 @@ Label:
 * This function also selects additional settings such as bus width,
 * speed and block size.
 *
-* @param	drv - Drive number
+* @param	pdrv - Drive number
 *
 * @return	s - which contains an OR of the following information
 *		STA_NODISK	Disk is not present
@@ -194,19 +196,19 @@ Label:
 *
 ******************************************************************************/
 DSTATUS disk_initialize (
-		BYTE drv	/* Physical drive number (0) */
+		BYTE pdrv	/* Physical drive number (0) */
 )
 {
 	DSTATUS s;
-	int Status;
+	s32 Status;
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-	u8 SCR[8];
-	u8 ReadBuff[64];
+	u8 SCR[8] = {0U};
+	u8 ReadBuff[64] = {0U};
 #pragma data_alignment = 4
 #else
-	u8 SCR[8] __attribute__ ((aligned(32)));
-	u8 ReadBuff[64] __attribute__ ((aligned(32)));
+	u8 SCR[8] __attribute__ ((aligned(32))) = {0U};
+	u8 ReadBuff[64] __attribute__ ((aligned(32))) = {0U};
 #endif
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
@@ -216,15 +218,15 @@ DSTATUS disk_initialize (
 	/*
 	 * Check if card is in the socket
 	 */
-	s = disk_status(drv);
-	if (s & STA_NODISK) {
+	s = disk_status(pdrv);
+	if ((s & STA_NODISK) != 0U) {
 		return s;
 	}
 
 	/*
 	 * Initialize the host controller
 	 */
-	SdConfig = XSdPs_LookupConfig(SD_DEVICE_ID);
+	SdConfig = XSdPs_LookupConfig((u16)SD_DEVICE_ID);
 	if (NULL == SdConfig) {
 		s |= STA_NOINIT;
 		return s;
@@ -269,7 +271,7 @@ DSTATUS disk_initialize (
 		return s;
 	}
 
-	if(ReadBuff[13] & HIGH_SPEED_SUPPORT){
+	if((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U){
 		Status = XSdPs_Change_BusSpeed(&SdInstance);
 		if (Status != XST_SUCCESS) {
 			s |= STA_NOINIT;
@@ -283,7 +285,7 @@ DSTATUS disk_initialize (
 		return s;
 	}
 
-	if (SCR[1] & WIDTH_4_BIT_SUPPORT) {
+	if ((SCR[1] & WIDTH_4_BIT_SUPPORT) != 0U) {
 		Status = XSdPs_Change_BusWidth(&SdInstance);
 		if (Status != XST_SUCCESS) {
 			s |= STA_NOINIT;
@@ -291,7 +293,7 @@ DSTATUS disk_initialize (
 		}
 	}
 
-	Status = XSdPs_SetBlkSize(&SdInstance, XSDPS_BLK_SIZE_512_MASK);
+	Status = XSdPs_SetBlkSize(&SdInstance, (u16)XSDPS_BLK_SIZE_512_MASK);
 	if (Status != XST_SUCCESS) {
 		s |= STA_NOINIT;
 		return s;
@@ -383,7 +385,7 @@ DSTATUS disk_initialize (
 * Reads the drive
 * In case of SD, it reads the SD card using ADMA2 in polled mode.
 *
-* @param	drv - Drive number
+* @param	pdrv - Drive number
 * @param	*buff - Pointer to the data buffer to store read data
 * @param	sector - Start sector number
 * @param	count - Sector count
@@ -397,7 +399,7 @@ DSTATUS disk_initialize (
 *
 ******************************************************************************/
 DRESULT disk_read (
-		BYTE drv,	/* Physical drive number (0) */
+		BYTE pdrv,	/* Physical drive number (0) */
 		BYTE *buff,	/* Pointer to the data buffer to store read data */
 		DWORD sector,	/* Start sector number (LBA) */
 		UINT count	/* Sector count (1..128) */
@@ -405,18 +407,24 @@ DRESULT disk_read (
 {
 #ifdef FILE_SYSTEM_INTERFACE_SD
 	DSTATUS s;
-	int Status;
+	s32 Status;
+	DWORD LocSector = sector;
 
+	s = disk_status(pdrv);
 
-	s = disk_status(drv);
-
-	if (s & STA_NOINIT) return RES_NOTRDY;
-	if (!count) return RES_PARERR;
+	if ((s & STA_NOINIT) != 0U) {
+		return RES_NOTRDY;
+	}
+	if (count == 0U) {
+		return RES_PARERR;
+	}
 
 	/* Convert LBA to byte address if needed */
-	if (!(SdInstance.HCS)) sector *= XSDPS_BLK_SIZE_512_MASK;
+	if ((SdInstance.HCS) == 0U) {
+		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+	}
 
-	Status  = XSdPs_ReadPolled(&SdInstance, sector, count, buff);
+	Status  = XSdPs_ReadPolled(&SdInstance, (u32)LocSector, count, buff);
 	if (Status != XST_SUCCESS) {
 		return RES_ERROR;
 	}
@@ -430,28 +438,30 @@ DRESULT disk_read (
 /*-----------------------------------------------------------------------*/
 
 DRESULT disk_ioctl (
-	BYTE drv,				/* Physical drive number (0) */
-	BYTE ctrl,				/* Control code */
+	BYTE pdrv,				/* Physical drive number (0) */
+	BYTE cmd,				/* Control code */
 	void *buff				/* Buffer to send/receive control data */
 )
 {
 #ifdef FILE_SYSTEM_INTERFACE_SD
 	DRESULT res;
-
-	if (disk_status(drv) & STA_NOINIT)	/* Check if card is in the socket */
-			return RES_NOTRDY;
+	void *LocBuff = buff;
+	if ((disk_status(pdrv) & STA_NOINIT) != 0U) {	/* Check if card is in the socket */
+		return RES_NOTRDY;
+	}
 
 	res = RES_ERROR;
-	switch (ctrl) {
-		case CTRL_SYNC :	/* Make sure that no pending write process */
+	switch (cmd) {
+		case (BYTE)CTRL_SYNC :	/* Make sure that no pending write process */
 			res = RES_OK;
 			break;
 
-		case GET_SECTOR_COUNT : /* Get number of sectors on the disk (DWORD) */
+		case (BYTE)GET_SECTOR_COUNT : /* Get number of sectors on the disk (DWORD) */
+			res = RES_ERROR;
 			break;
 
-		case GET_BLOCK_SIZE :	/* Get erase block size in unit of sector (DWORD) */
-			*(DWORD*)buff = 128;
+		case (BYTE)GET_BLOCK_SIZE :	/* Get erase block size in unit of sector (DWORD) */
+			(*((DWORD *)((void *)LocBuff))) = ((DWORD)128);
 			res = RES_OK;
 			break;
 
@@ -461,8 +471,9 @@ DRESULT disk_ioctl (
 	}
 
 		return res;
-#endif
+#else
 		return 0;
+#endif
 }
 
 /******************************************************************************/
@@ -480,7 +491,7 @@ DRESULT disk_ioctl (
 
 DWORD get_fattime (void)
 {
-	return	((DWORD)(2010 - 1980) << 25)	/* Fixed to Jan. 1, 2010 */
+	return	((DWORD)(2010U - 1980U) << 25U)	/* Fixed to Jan. 1, 2010 */
 		| ((DWORD)1 << 21)
 		| ((DWORD)1 << 16)
 		| ((DWORD)0 << 11)
@@ -494,7 +505,7 @@ DWORD get_fattime (void)
 * Reads the drive
 * In case of SD, it reads the SD card using ADMA2 in polled mode.
 *
-* @param	drv - Drive number
+* @param	pdrv - Drive number
 * @param	*buff - Pointer to the data to be written
 * @param	sector - Sector address
 * @param	count - Sector count
@@ -508,25 +519,32 @@ DWORD get_fattime (void)
 *
 ******************************************************************************/
 DRESULT disk_write (
-	BYTE drv,			/* Physical drive nmuber (0..) */
+	BYTE pdrv,			/* Physical drive nmuber (0..) */
 	const BYTE *buff,	/* Data to be written */
 	DWORD sector,		/* Sector address (LBA) */
 	UINT count			/* Number of sectors to write (1..128) */
 )
 {
 	DSTATUS s;
-	int Status;
+	s32 Status;
+	DWORD LocSector = sector;
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	s = disk_status(drv);
+	s = disk_status(pdrv);
 
-	if (s & STA_NOINIT) return RES_NOTRDY;
-	if (!count) return RES_PARERR;
+	if ((s & STA_NOINIT) != 0U) {
+		return RES_NOTRDY;
+	}
+	if (count == 0U) {
+		return RES_PARERR;
+	}
 
 	/* Convert LBA to byte address if needed */
-	if (!(SdInstance.HCS)) sector *= XSDPS_BLK_SIZE_512_MASK;
+	if ((SdInstance.HCS) == 0U) {
+		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+	}
 
-	Status  = XSdPs_WritePolled(&SdInstance, sector, count, buff);
+	Status  = XSdPs_WritePolled(&SdInstance, (u32)LocSector, count, buff);
 	if (Status != XST_SUCCESS) {
 		return RES_ERROR;
 	}
