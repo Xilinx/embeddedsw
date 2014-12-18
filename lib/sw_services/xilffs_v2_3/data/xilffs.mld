@@ -48,6 +48,7 @@ BEGIN LIBRARY xilffs
   OPTION desc = "Generic Fat File System Library";
   OPTION VERSION = 2.3;
   OPTION NAME = xilffs;
+  OPTION library_state = "deprecated";
   PARAM name = fs_interface, desc = "Enables file system with selected interface. Enter 1 for SD.", type = int, default = 1;
   PARAM name = enable_mmc, desc = "Enables MMC support if true. If false, SD is enabled.", type = bool, default = false;
 
