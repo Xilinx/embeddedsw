@@ -186,7 +186,7 @@ static s32 getnum( charptr* linep)
 
 /* void esp_printf( const func_ptr f_ptr,
    const charptr ctrl1, ...) */
-void xil_printf( char8 *ctrl1, ...)
+void xil_printf( const char8 *ctrl1, ...)
 {
 	s32 Check;
     s32 long_flag;
