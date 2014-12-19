@@ -87,6 +87,8 @@
 #define MENU_TEST_SPAREBYTES_RW			4
 #define MENU_TEST_PARTIAL_RW			5
 #define MENU_TEST_ECC				6
+#define MENU_TEST_BBT				7
+#define MENU_TEST_MARK_BLOCK_BAD		8
 #define MENU_TEST_EXIT				99
 /*@}*/
 
@@ -101,6 +103,8 @@
 #define INTG_TEST_SPAREBYTES_RW			(1 << MENU_TEST_SPAREBYTES_RW)
 #define INTG_TEST_PARTIAL_RW			(1 << MENU_TEST_PARTIAL_RW)
 #define INTG_TEST_ECC				(1 << MENU_TEST_ECC)
+#define INTG_TEST_BBT				(1 << MENU_TEST_BBT)
+#define INTG_TEST_MARK_BLOCK_BAD		(1 << MENU_TEST_MARK_BLOCK_BAD)
 /*@}*/
 
 /**
@@ -177,6 +181,7 @@ extern char inbyte ();		/**< Inbyte returns the byte received by device. */
 s32 FlashInit(u16 NandDeviceId);
 #ifdef AUTOMATIC_TEST_MODE
 int Automode_Tests(int TestLoops);
+int CodeCoverage_Tests(int TestLoops);
 #endif
 
 /*****************************************************************************/
@@ -355,6 +360,11 @@ void Intg_Entry(void)
 		TestFailures += Automode_Tests(TestLoops);
 	}
 
+	/*
+	 * Run Code Coverage Tests
+	 */
+	TestFailures += CodeCoverage_Tests(TestLoops);
+
 	if (TestFailures) {
 		XIL_FAIL(TestFailures);
 	} else {
@@ -391,6 +401,36 @@ int Automode_Tests(int TestLoops)
 	failures += Intg_SpareBytesRWTest(NandInstPtr, TestLoops);
 	failures += Intg_PartialRWTest(NandInstPtr, TestLoops);
 	failures += Intg_EccTest(NandInstPtr, TestLoops);
+
+	return failures;
+}
+
+/*****************************************************************************/
+/**
+*
+* Code Coverage Tests
+*
+* Executes all code coverage tests for the device
+*
+* param		TestLoops: Number of times a test should run.
+*
+* @return	Total Test failures
+*
+* @note		None
+*
+******************************************************************************/
+int CodeCoverage_Tests(int TestLoops)
+{
+	volatile int failures = 0;
+
+	xil_printf("\tRunning Code Coverage Tests Now\r\n");
+
+	XNandPs8_DisableDmaMode(NandInstPtr);
+	failures += Automode_Tests(TestLoops);
+	XNandPs8_EnableDmaMode(NandInstPtr);
+	failures += Intg_BbtTest(NandInstPtr, TestLoops);
+	failures += Intg_MarkBlockBadTest(NandInstPtr, TestLoops);
+	failures += Intg_CodeCoverageTest(NandInstPtr, TestLoops);
 
 	return failures;
 }
@@ -469,8 +509,9 @@ static void RunTestMenu(char* CmdLine)
 				MENU_TEST_SPAREBYTES_RW);
 		printf("%d - Partial Page Read Write Test\r\n",
 				MENU_TEST_PARTIAL_RW);
-		printf("%d - ECC Test.\r\n",
-				MENU_TEST_ECC);
+		printf("%d - ECC Test.\r\n", MENU_TEST_ECC);
+		printf("%d - BBT Scan Test.\r\n", MENU_TEST_BBT);
+		printf("%d - Mark Block Bad Test.\r\n", MENU_TEST_MARK_BLOCK_BAD);
 		printf("%d - Exit to main menu\r\n\r\n", MENU_TEST_EXIT);
 		printf("More than one test can be specified\r\n");
 		printf("Adding l <number> sets the number of test loops\n\n");
@@ -521,6 +562,16 @@ static void RunTestMenu(char* CmdLine)
 						INTG_TEST_ECC;
 						break;
 
+					case MENU_TEST_BBT:
+						RunTestMask |=
+						INTG_TEST_BBT;
+						break;
+
+					case MENU_TEST_MARK_BLOCK_BAD:
+						RunTestMask |=
+						INTG_TEST_MARK_BLOCK_BAD;
+						break;
+
 					case MENU_TEST_EXIT:
 						QuitToMain = 1;
 						break;
@@ -562,6 +613,14 @@ static void RunTestMenu(char* CmdLine)
 
 		if (RunTestMask & INTG_TEST_ECC) {
 			TestFailures += Intg_EccTest(NandInstPtr, TestLoops);
+		}
+
+		if (RunTestMask & INTG_TEST_BBT) {
+			TestFailures += Intg_BbtTest(NandInstPtr, TestLoops);
+		}
+
+		if (RunTestMask & INTG_TEST_MARK_BLOCK_BAD) {
+			TestFailures += Intg_MarkBlockBadTest(NandInstPtr, TestLoops);
 		}
 
 		printf("************************************************\r\n");

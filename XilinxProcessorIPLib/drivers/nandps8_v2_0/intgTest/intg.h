@@ -159,4 +159,19 @@ int Intg_PartialRWTest(XNandPs8 * NandInstPtr,int TestLoops);
  */
 int Intg_EccTest(XNandPs8 * NandInstPtr,int TestLoops);
 
+/*
+ * BBT Scan test implemented in intg_bbt_test.c
+ */
+int Intg_BbtTest(XNandPs8 * NandInstPtr, int TestLoops);
+
+/*
+ * Mark Block Bad test implemented in intg_markblockbad_test.c
+ */
+int Intg_MarkBlockBadTest(XNandPs8 * NandInstPtr, int TestLoops);
+
+/*
+ * Code Coverage test implemented in intg_codecoverage_test.c
+ */
+int Intg_CodeCoverageTest(XNandPs8 * NandInstPtr, int TestLoops);
+
 #endif	/**< End of protection macro */
