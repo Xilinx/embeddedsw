@@ -118,7 +118,7 @@
 * Ver   Who    Date	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
-* 2.0   sb     11/04/2014  Removed Null checks for Buffer passed
+* 2.0   sb     12/19/2014  Removed Null checks for Buffer passed
 *			   as parameter to Read API's
 *			   - XNandPs8_Read()
 *			   - XNandPs8_ReadPage
@@ -155,6 +155,8 @@
 *			   - XNandPs8_SetEccAddrSize
 *			   ECC address now is calculated based upon the
 *			   size of spare area
+*			   Modified Block Erase API, removed clearing of
+*			   packet register before erase.
 * </pre>
 *
 ******************************************************************************/
@@ -178,7 +180,6 @@ extern "C" {
 
 #define XNANDPS8_DEBUG
 #define RTL_3_1_FIX
-#define RTL_3_1_DRIVER_WORKAROUND
 
 #define XNANDPS8_MAX_TARGETS		1U	/**< ce_n0, ce_n1 */
 #define XNANDPS8_MAX_PKT_SIZE		0x7FFU	/**< Max packet size */
