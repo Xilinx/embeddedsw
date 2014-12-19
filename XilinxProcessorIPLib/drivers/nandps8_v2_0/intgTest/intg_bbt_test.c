@@ -120,8 +120,6 @@ int Intg_BbtTest(XNandPs8 * NandInstPtr, int TestLoops)
 * If not found Create new and write it onto flash.
 *
 * @param	NandInstPtr - Instance to the nand driver.
-* @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
 *
 * @return
 *

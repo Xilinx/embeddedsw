@@ -164,7 +164,6 @@ u8 WriteBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));/**< write buffer */
  */
 XNandPs8 NandInstance;
 XNandPs8 *NandInstPtr = &NandInstance;
-XNandPs8_Config *Config;
 /************************** Function Prototypes ******************************/
 
 static unsigned int GetUserInput(char* Prompt, char* Response,
@@ -373,7 +372,7 @@ void Intg_Entry(void)
 #endif
 
 Out:
-	exit(0);
+	return;
 }
 
 #ifdef AUTOMATIC_TEST_MODE
@@ -817,6 +816,7 @@ int UART_RecvByte(u8 *Data)
 s32 FlashInit(u16 NandDeviceId){
 
 	s32 Status = XST_FAILURE;
+	XNandPs8_Config *Config;
 
 	Config = XNandPs8_LookupConfig(NandDeviceId);
 	if (Config == NULL) {

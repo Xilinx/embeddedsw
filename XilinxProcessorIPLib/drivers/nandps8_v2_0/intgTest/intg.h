@@ -116,8 +116,7 @@ extern u8 WriteBuffer[];	/**< write buffer */
 
 /************************** Variable Definitions ****************************/
 
-/**< XCanPs instance used throughout tests */
-extern XNandPs8 NandInstance;
+/**< XNandPs8 instance used throughout tests */
 extern XNandPs8* NandInstPtr;
 s32 MismatchCounter;
 /************************** Function Prototypes *****************************/

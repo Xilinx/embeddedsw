@@ -77,7 +77,7 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 Flash_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId);
+s32 Flash_RW_Test(XNandPs8 * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
@@ -100,9 +100,7 @@ int Intg_FlashRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 	CT_TestReset("Module FLASH Read Write test");
 
 	while(TestLoops--) {
-
-		/* Get the configuration table entry for this CAN device */
-		Status = Flash_RW_Test(NandInstPtr, NAND_DEVICE_ID);
+		Status = Flash_RW_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
 			CT_LOG_FAILURE("Nand Flash Read Write Test Failed"
 					" with %d mismatches\r\n", MismatchCounter);
@@ -128,8 +126,6 @@ int Intg_FlashRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
-* @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -139,7 +135,7 @@ int Intg_FlashRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 Flash_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
+s32 Flash_RW_Test(XNandPs8 * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Index;

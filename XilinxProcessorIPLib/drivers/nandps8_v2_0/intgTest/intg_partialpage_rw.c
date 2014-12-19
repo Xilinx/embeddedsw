@@ -78,7 +78,7 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 PartialPage_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId);
+s32 PartialPage_RW_Test(XNandPs8 * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
@@ -101,8 +101,7 @@ int Intg_PartialRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 	CT_TestReset("Module Partial Page Read Write test");
 
 	while(TestLoops--) {
-		/* Get the configuration table entry for this CAN device */
-		Status = PartialPage_RW_Test(NandInstPtr, NAND_DEVICE_ID);
+		Status = PartialPage_RW_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
 			CT_LOG_FAILURE("Nand Partial Page Read Write Failed"
 					" with %d mismatches\r\n", MismatchCounter);
@@ -127,8 +126,6 @@ int Intg_PartialRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
-* @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -138,7 +135,7 @@ int Intg_PartialRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 PartialPage_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
+s32 PartialPage_RW_Test(XNandPs8 * NandInstPtr)
 {
 	s32 Status = (s32)XST_FAILURE;
 	u32 Index;
@@ -150,7 +147,7 @@ s32 PartialPage_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
 	Length = NandInstPtr->Geometry.BytesPerPage;
 
 	/*
-	 * Repeat the test for 20 iterations
+	 * Repeat the test for 5 iterations
 	 */
 	for(i = 0; i< 5; i++){
 

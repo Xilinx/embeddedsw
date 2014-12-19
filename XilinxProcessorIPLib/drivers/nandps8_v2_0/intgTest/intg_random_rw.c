@@ -78,7 +78,7 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId);
+s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
@@ -101,8 +101,7 @@ int Intg_RandomRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 	CT_TestReset("Module Random Block Read Write test");
 
 	while(TestLoops--) {
-		/* Get the configuration table entry for this CAN device */
-		Status = Random_Block_RW_Test(NandInstPtr, NAND_DEVICE_ID);
+		Status = Random_Block_RW_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
 			CT_LOG_FAILURE("Nand Random Block Read Write Test Failed"
 					" with %d mismatches\r\n", MismatchCounter);
@@ -127,8 +126,6 @@ int Intg_RandomRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
-* @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -138,7 +135,7 @@ int Intg_RandomRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
+s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Index;
@@ -161,7 +158,7 @@ s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
 	}
 
 	/*
-	 * Flash operation i.e. erase, write and read for all the pages
+	 * Flash operation i.e. write and read for all the pages
 	 * of the block.
 	 * This test will take some time to execute. Please be patient.
 	 */

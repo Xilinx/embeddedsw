@@ -77,7 +77,7 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 Erase_Read_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId);
+s32 Erase_Read_Test(XNandPs8 * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
@@ -100,8 +100,7 @@ int Intg_EraseReadTest(XNandPs8 * NandInstPtr, int TestLoops)
 	CT_TestReset("Module FLASH Erase Read test");
 
 	while(TestLoops--) {
-		/* Get the configuration table entry for this CAN device */
-		Status = Erase_Read_Test(NandInstPtr, NAND_DEVICE_ID);
+		Status = Erase_Read_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
 			CT_LOG_FAILURE("Nand Flash Erase ReadTest Failed"
 					" with %d mismatches\r\n", MismatchCounter);
@@ -124,8 +123,6 @@ int Intg_EraseReadTest(XNandPs8 * NandInstPtr, int TestLoops)
 *	- Compare the data read against 0xFF.
 *
 * @param	NandInstPtr - Instance to the nand driver.
-* @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -135,7 +132,7 @@ int Intg_EraseReadTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 Erase_Read_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
+s32 Erase_Read_Test(XNandPs8 * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
 	s32 i = 0;
