@@ -262,7 +262,7 @@ typedef UINTPTR XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 	(XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_HI_OFFSET)) << 32U)
 #else
 #define XEmacPs_BdGetBufAddr(BdPtr)                               \
-    (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET) |)
+    (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET))
 #endif
 
 /*****************************************************************************/
