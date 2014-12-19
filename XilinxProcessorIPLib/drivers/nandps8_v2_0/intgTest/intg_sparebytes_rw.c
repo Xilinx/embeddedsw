@@ -140,6 +140,7 @@ s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u64 Offset;
+	u32 SpareOffset;
 	u16 Length;
 	s32 i;
 	MismatchCounter = 0;
@@ -148,18 +149,24 @@ s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
 	Length = NandInstPtr->Geometry.BytesPerPage;
 
 	/*
-	 * Erase the flash
+	 * Offset to write in spare area
 	 */
-	Status = XNandPs8_Erase(NandInstPtr, (u64)Offset, (u64)Length);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
+	SpareOffset = (u64)(TEST_PAGE_START);
 
 	/*
-	 * Repeat the test for 10 iterations
+	 * Repeat the test for 5 iterations
 	 */
-	for(i = 0; i< 10; i++){
-		Length = rand() % NandInstPtr->Geometry.SpareBytesPerPage;
+	for(i = 0; i< 5; i++){
+
+		/*
+		 * Erase the flash
+		 */
+		Status = XNandPs8_Erase(NandInstPtr, (u64)Offset, (u64)Length);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+
+		Length = rand() % (NandInstPtr->Geometry.SpareBytesPerPage);
 		if(Length == 0U){
 			Length = NandInstPtr->Geometry.SpareBytesPerPage;
 		}
@@ -179,7 +186,7 @@ s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
 		/*
 		 * Write to flash Spare Bytes Section
 		 */
-		Status = XNandPs8_WriteSpareBytes(NandInstPtr, (u32)Offset,
+		Status = XNandPs8_WriteSpareBytes(NandInstPtr, SpareOffset,
 				&WriteBuffer[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -188,7 +195,7 @@ s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
 		/*
 		 * Read from the flash Spare Bytes after writing
 		 */
-		Status = XNandPs8_ReadSpareBytes(NandInstPtr, (u32)Offset,
+		Status = XNandPs8_ReadSpareBytes(NandInstPtr, SpareOffset,
 				&ReadBuffer[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -209,7 +216,6 @@ s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr, u16 NandDeviceId)
 		}
 	}
 
-	Status = XST_SUCCESS;
 Out:
 	return Status;
 }
