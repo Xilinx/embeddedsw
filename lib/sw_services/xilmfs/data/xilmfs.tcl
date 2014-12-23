@@ -40,7 +40,7 @@ proc mfs_open_include_file {file_name} {
 	set config_inc [open $filename a]
     } else {
 	set config_inc [open $filename a]
-	::hsm::utils::write_c_header $config_inc "MFS Parameters"
+	::hsi::utils::write_c_header $config_inc "MFS Parameters"
     }
     return $config_inc
 }
