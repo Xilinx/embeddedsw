@@ -77,7 +77,7 @@ proc execs_generate {libhandle} {
 proc xgen_opts_file {libhandle} {
 
 	# Open xparameters.h file
-	set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
 	# Generate parameters for Flash family support
 	puts $file_handle "/* Xilinx EDK Parallel Flash Library (XilFlash) User Settings */"
