@@ -68,10 +68,10 @@ proc generate {drv_handle} {
 #
 proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [::hsm::utils::open_include_file $file_name]
+    set file_handle [::hsi::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [::hsm::utils::get_common_driver_ips $drv_handle] 
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -79,7 +79,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
 
@@ -94,7 +94,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             set freq "100000000"
         }
     }
-    puts $file_handle "#define [format "%s" [::hsm::utils::get_driver_param_name $drv_string $arg]] $freq"
+    puts $file_handle "#define [format "%s" [::hsi::utils::get_driver_param_name $drv_string $arg]] $freq"
 
     # Print all parameters for all peripherals
     set device_id 0
@@ -127,8 +127,8 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[llength $value] == 0} {
                 set value 0
             }
-            set value [::hsm::utils::format_addr_string $value $arg]
-            puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] $value"
+            set value [::hsi::utils::format_addr_string $value $arg]
+            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
         }
         puts $file_handle ""
     }
@@ -144,7 +144,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
     set filename [file join "src" $file_name] 
     file delete $filename
     set config_file [open $filename w]
-    ::hsm::utils::write_c_header $config_file "Driver configuration"    
+    ::hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "#include \"xparameters.h\""
     puts $config_file "#include \"[string tolower $drv_string].h\""
     puts $config_file "\n/*"
@@ -152,7 +152,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
     puts $config_file " */\n"
     puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
     puts $config_file "\{"
-    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]     
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set start_comma ""
     set device_id 0
     foreach periph $periphs {
@@ -161,7 +161,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         set canonical_name [format "%s_%s" "UartNs550" $device_id]
 
         foreach arg $args {
-            puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsm::utils::get_driver_param_name $canonical_name $arg]]
+            puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_driver_param_name $canonical_name $arg]]
             set comma ",\n"
         }
         puts -nonewline $config_file "\n\t\}"
@@ -182,10 +182,10 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 #
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [::hsm::utils::open_include_file $file_name]
+    set file_handle [::hsi::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -220,11 +220,11 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
             set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 
             foreach arg $args {
-                set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
+                set lvalue [::hsi::utils::get_driver_param_name $canonical_name $arg]
 
                 #handle CLOCK_FREQ_HZ as a special case
                 if {[string compare -nocase "CLOCK_FREQ_HZ" $arg] == 0} {
-                    set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
+                    set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
                 } elseif {[string compare -nocase "DEVICE_ID" $arg] == 0} {
 				set rvalue $device_id
 				incr device_id
@@ -233,7 +233,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                     if {[llength $rvalue] == 0} {
                         set rvalue 0
                     }
-                    set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
+                    set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
                 }
 
                 puts $file_handle "#define $lvalue $rvalue"
@@ -259,8 +259,8 @@ proc xget_freq {periph} {
             set port_name "xin"
         }
 
-      	set freq [::hsm::utils::get_clk_pin_freq  $periph "S_AXI_ACLK"]
-	
+	set freq [::hsi::utils::get_clk_pin_freq  $periph "S_AXI_ACLK"]
+
         # If the clock frequency can not be obtained from "xin" port,
         # read the value of the parameter C_EXTERNAL_XIN_CLK_HZ to get
         # the frequency
