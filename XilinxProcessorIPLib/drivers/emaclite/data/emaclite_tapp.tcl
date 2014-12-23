@@ -70,7 +70,7 @@ proc gen_include_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-        set ifemacliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set ifemacliteintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifemacliteintr == 1} {
             set inc_file_lines {xemaclite.h xemaclite_example.h emaclite_header.h emaclite_intr_header.h}
         } else {
@@ -85,7 +85,7 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-        set ifemacliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set ifemacliteintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifemacliteintr == 1} {
             set inc_file_lines {examples/xemaclite_example.h examples/xemaclite_polled_example.c examples/xemaclite_intr_example.c examples/xemaclite_example_util.c data/emaclite_header.h data/emaclite_intr_header.h}
         } else {
@@ -106,7 +106,7 @@ proc gen_init_code {swproj mhsinst} {
     if {$swproj == 1} {
         
       set ipname [get_property NAME $mhsinst]
-      set ifemacliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+      set ifemacliteintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
       if {$ifemacliteintr == 1} {
           set decl "   static XEmacLite ${ipname}_EmacLite;"
           set inc_file_lines $decl
@@ -124,9 +124,9 @@ proc gen_testfunc_call {swproj mhsinst} {
     return ""
   }
 
-  set ifemacliteintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst] 
+  set ifemacliteintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
   set ipname [get_property NAME $mhsinst] 
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [get_property CONFIG.STDOUT [get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -137,7 +137,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   if {$ifemacliteintr == 1} {
       set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
-      set intcname [::hsm::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+      set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
       set intcvar intc
       set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
   }
