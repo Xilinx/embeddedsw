@@ -78,10 +78,10 @@ proc xdefine_trafgen_include_file {drv_handle file_name drv_string} {
 	global periph_ninstances
 	
 	    # Open include file
-	    set file_handle [::hsm::utils::open_include_file $file_name]
+	    set file_handle [::hsi::utils::open_include_file $file_name]
 	
 	    # Get all peripherals connected to this driver
-	    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+	    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 	
 	    # Handle NUM_INSTANCES
 	    set periph_ninstances 0
@@ -90,7 +90,7 @@ proc xdefine_trafgen_include_file {drv_handle file_name drv_string} {
 	    	init_periph_config_struct_atg $periph_ninstances
 	    	incr periph_ninstances 1
 	    }
-	    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
+	    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
 	
 	
 	    # Now print all useful parameters for all peripherals
@@ -115,7 +115,7 @@ proc xdfeine_trafgen_params_constants { periph } {
     global baseaddr_value           
     global highaddr_value       
  
-    set atg_mode_name [::hsm::utils::get_param_value $periph C_ATG_MODE]
+    set atg_mode_name [::hsi::utils::get_param_value $periph C_ATG_MODE]
     set axi4_name [string match -nocase $atg_mode_name "AXI4"]
     set axi4_lite_name [string match -nocase $atg_mode_name "AXI4-Lite"]
     set axi4_Stream_name [string match -nocase $atg_mode_name "AXI4-Stream"]
@@ -133,7 +133,7 @@ proc xdfeine_trafgen_params_constants { periph } {
          set atg_mode_value 0
     }
     
-    set atg_mode_l2_name [::hsm::utils::get_param_value $periph C_ATG_MODE_L2]
+    set atg_mode_l2_name [::hsi::utils::get_param_value $periph C_ATG_MODE_L2]
     set adv_mode_name [string match -nocase $atg_mode_l2_name "Advanced"]
     set basic_mode_name [string match -nocase $atg_mode_l2_name "Basic"]
     set static_mode_name [string match -nocase $atg_mode_l2_name "Static"]
@@ -149,7 +149,7 @@ proc xdfeine_trafgen_params_constants { periph } {
     if {[llength $atg_mode_l2_name] == 0} {
          set atg_mode_value_l2 0
     }
-    set axi_mode_name [::hsm::utils::get_param_value $periph C_AXIS_MODE]
+    set axi_mode_name [::hsi::utils::get_param_value $periph C_AXIS_MODE]
     set master_name [string match -nocase $axi_mode_name "Master Only"]
     set slave_name [string match -nocase $axi_mode_name "Slave Only"]
     set master_loop_name [string match -nocase $axi_mode_name "Master Loop back"]
@@ -170,11 +170,11 @@ proc xdfeine_trafgen_params_constants { periph } {
          set axi_mode_value 0
     }
 
-    set baseaddr_value [::hsm::utils::get_param_value $periph C_BASEADDR]
+    set baseaddr_value [::hsi::utils::get_param_value $periph C_BASEADDR]
     if {[llength $baseaddr_value] == 0} {
              set baseaddr_value 0
     }
-    set highaddr_value [::hsm::utils::get_param_value $periph C_HIGHADDR]
+    set highaddr_value [::hsi::utils::get_param_value $periph C_HIGHADDR]
     if {[llength $highaddr_value] == 0} {
              set highaddr_value 0
     }
@@ -187,13 +187,13 @@ proc xdefine_trafgen_params_instance {file_handle periph device_id} {
     global axi_mode_value
     puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
     
-    puts $file_handle "\#define [::hsm::utils::get_ip_param_name $periph "DEVICE_ID"] $device_id"
-    puts $file_handle "\#define [::hsm::utils::get_ip_param_name $periph "BASEADDR"] [::hsm::utils::get_param_value $periph C_BASEADDR]"
-    puts $file_handle "\#define [::hsm::utils::get_ip_param_name $periph "HIGHADDR"] [::hsm::utils::get_param_value $periph C_HIGHADDR]"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "DEVICE_ID"] $device_id"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "BASEADDR"] [::hsi::utils::get_param_value $periph C_BASEADDR]"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "HIGHADDR"] [::hsi::utils::get_param_value $periph C_HIGHADDR]"
     
-    puts $file_handle "\#define [::hsm::utils::get_ip_param_name $periph "C_ATG_MODE"] $atg_mode_value"
-    puts $file_handle "\#define [::hsm::utils::get_ip_param_name $periph "C_ATG_MODE_L2"] $atg_mode_value_l2"
-    puts $file_handle "\#define [::hsm::utils::get_ip_param_name $periph "C_AXIS_MODE"] $axi_mode_value"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE"] $atg_mode_value"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE_L2"] $atg_mode_value_l2"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_AXIS_MODE"] $axi_mode_value"
 }
 
 proc xdefine_trafgen_params_canonical {file_handle periph device_id} {
@@ -239,7 +239,7 @@ proc xdefine_trafgen_config_file {file_name drv_string} {
     set filename [file join "src" $file_name]
     file delete $filename
     set config_file [open $filename w]
-    ::hsm::utils::write_c_header $config_file "Driver configuration"
+    ::hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "\#include \"xparameters.h\""
     puts $config_file "\#include \"[string tolower $drv_string].h\""
     puts $config_file "\n/*"
