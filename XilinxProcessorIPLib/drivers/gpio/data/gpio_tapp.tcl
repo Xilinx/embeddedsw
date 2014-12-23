@@ -88,7 +88,7 @@ proc gen_include_files {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-        set gpio_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set gpio_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         set all_inputs [get_property CONFIG.C_ALL_INPUTS $mhsinst]
         
         if { ${gpio_intr} == 1 && ${all_inputs} == 1 } {
@@ -108,7 +108,7 @@ proc gen_src_files {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-        set gpio_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set gpio_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         set all_inputs [get_property CONFIG.C_ALL_INPUTS $mhsinst]
         
         if { ${gpio_intr} == 1 && ${all_inputs} == 1 } {
@@ -127,7 +127,7 @@ proc gen_testfunc_def {swproj mhsinst} {
     }
     if {$swproj == 1} {
         set gpio_isdual [get_property CONFIG.C_IS_DUAL $mhsinst]
-        set gpio_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set gpio_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         set all_inputs [get_property CONFIG.C_ALL_INPUTS $mhsinst]
         
         if { ${gpio_intr} == 1 && ${all_inputs} == 1 } {
@@ -153,7 +153,7 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-        set gpio_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set gpio_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         set all_inputs [get_property CONFIG.C_ALL_INPUTS $mhsinst]
         set ipname [get_property NAME $mhsinst]
         
@@ -174,9 +174,9 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
     
     set ipname [get_property NAME $mhsinst]
-    set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+    set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set gpio_width [get_property CONFIG.C_GPIO_WIDTH $mhsinst]
-    set gpio_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+    set gpio_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set gpio_isdual [get_property CONFIG.C_IS_DUAL $mhsinst]
     set all_inputs [get_property CONFIG.C_ALL_INPUTS $mhsinst]
     set stdout [get_property CONFIG.STDOUT [get_os]]
@@ -187,7 +187,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
     if { ${gpio_intr} == 1 && ${all_inputs} == 1 } {
        set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
-       set intcname [::hsm::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+       set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
        set intcvar intc
        set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
     }
