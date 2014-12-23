@@ -64,7 +64,7 @@ proc generate {drv_handle} {
 }
 
 proc generate_gmii2rgmii_params {drv_handle file_name} {
-	set file_handle [::hsm::utils::open_include_file $file_name]
+	set file_handle [::hsi::utils::open_include_file $file_name]
 	set ips [get_cells  "*"]
 	foreach ip $ips {
 		set ipname [get_property NAME  $ip]
@@ -111,8 +111,8 @@ proc is_gmii2rgmii_conv_present {slave} {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {
 				if { [string compare -nocase $enetipinstance_name "ps7_ethernet_0"] == 0} {
-					set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
-					set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr]
+					set phyaddr [::hsi::utils::get_param_value $ipconv C_PHYADDR]
+					set phy_addr [::hsi::utils::convert_binary_to_decimal $phyaddr]
 					if {[llength $phy_addr] == 0} {
 						set phy_addr 0
 					}
@@ -121,8 +121,8 @@ proc is_gmii2rgmii_conv_present {slave} {
 				set tmp0 [string first "ENET1" $port_value]
 				if { $tmp0 >= 0 } {
 					if { [string compare -nocase $enetipinstance_name "ps7_ethernet_1"] == 0} {
-						set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
-						set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr]
+						set phyaddr [::hsi::utils::get_param_value $ipconv C_PHYADDR]
+						set phy_addr [::hsi::utils::convert_binary_to_decimal $phyaddr]
 						if {[llength $phy_addr] == 0} {
 							set phy_addr 0
 						}
@@ -135,7 +135,7 @@ proc is_gmii2rgmii_conv_present {slave} {
 }
 
 proc generate_sgmii_params {drv_handle file_name} {
-	set file_handle [::hsm::utils::open_include_file $file_name]
+	set file_handle [::hsi::utils::open_include_file $file_name]
 	set ips [get_cells "*"]
 
 	foreach ip $ips {
@@ -194,8 +194,8 @@ proc is_gige_pcs_pma_ip_present {slave} {
 			set tmp [string first "ENET0" $port_value]
 			if { $tmp >= 0 } {
 				if { [string compare -nocase $enetipinstance_name "ps7_ethernet"] == 0} {
-					set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
-					set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr]
+					set phyaddr [::hsi::utils::get_param_value $ipconv C_PHYADDR]
+					set phy_addr [::hsi::utils::convert_binary_to_decimal $phyaddr]
 					if {[llength $phy_addr] == 0} {
 						set phy_addr 0
 					}
@@ -204,8 +204,8 @@ proc is_gige_pcs_pma_ip_present {slave} {
 				set tmp0 [string first "ENET1" $port_value]
 				if { $tmp0 >= 0 } {
 					if { [string compare -nocase $enetipinstance_name "ps7_ethernet"] == 0} {
-						set phyaddr [::hsm::utils::get_param_value $ipconv C_PHYADDR]
-						set phy_addr [::hsm::utils::convert_binary_to_decimal $phyaddr]
+						set phyaddr [::hsi::utils::get_param_value $ipconv C_PHYADDR]
+						set phy_addr [::hsi::utils::convert_binary_to_decimal $phyaddr]
 						puts [format "phy_addr %s phyaddr %s" $phy_addr $phyaddr]
 						if {[llength $phy_addr] == 0} {
 							set phy_addr 0
