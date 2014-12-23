@@ -72,10 +72,10 @@ proc xdefine_axispi_include_file {drv_handle file_name drv_string} {
 	global periph_ninstances
 	
 	    # Open include file
-	    set file_handle [::hsm::utils::open_include_file $file_name]
+	    set file_handle [::hsi::utils::open_include_file $file_name]
 	
 	    # Get all peripherals connected to this driver
-	    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+	    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 	
 	    # Handle NUM_INSTANCES
 	    set periph_ninstances 0
@@ -84,7 +84,7 @@ proc xdefine_axispi_include_file {drv_handle file_name drv_string} {
 	    	init_periph_config_struct_spi $periph_ninstances
 	    	incr periph_ninstances 1
 	    }
-	    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
+	    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
 	
 	
 	    # Now print all useful parameters for all peripherals
@@ -122,18 +122,18 @@ proc xdefine_axispi_params_instance {file_handle periph device_id} {
     }
     puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
     
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
     if {$xip_mode_value == 0} {
     	if {$axi_type_value == 0} { 
-    		puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "BASEADDR"] [get_property CONFIG.C_BASEADDR $periph]"
-    		puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph HIGHADDR] [get_property CONFIG.C_HIGHADDR $periph]"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [get_property CONFIG.C_BASEADDR $periph]"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] [get_property CONFIG.C_HIGHADDR $periph]"
     	} else {
-    		puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "BASEADDR"] $axi4_baseaddr_value"
-    		puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph HIGHADDR] $axi4_highaddr_value"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] $axi4_baseaddr_value"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] $axi4_highaddr_value"
     	}
     } else {
-    	puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "BASEADDR"] [get_property CONFIG.C_BASEADDR $periph]"
-    	puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph HIGHADDR] [get_property CONFIG.C_HIGHADDR $periph]"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [get_property CONFIG.C_BASEADDR $periph]"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] [get_property CONFIG.C_HIGHADDR $periph]"
     }
     
     set value [get_property CONFIG.C_FIFO_EXIST $periph]
@@ -143,7 +143,7 @@ proc xdefine_axispi_params_instance {file_handle periph device_id} {
     	    set value1 0
          } else {
            set value1 [get_property CONFIG.C_FIFO_DEPTH $periph]
-           puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "FIFO_DEPTH"] $value1"	   
+           puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "FIFO_DEPTH"] $value1"
            if {$value1 == 0} {
               set value1 0
            } else {
@@ -153,32 +153,32 @@ proc xdefine_axispi_params_instance {file_handle periph device_id} {
     } else {
         set value1 $value
     }
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "FIFO_EXIST"] $value1"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "FIFO_EXIST"] $value1"
     
     set value [get_property CONFIG.C_SPI_SLAVE_ONLY $periph]
     if {[llength $value] == 0} {
 	set value 0
     }
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "SPI_SLAVE_ONLY"] $value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SPI_SLAVE_ONLY"] $value"
     set value [get_property CONFIG.C_NUM_SS_BITS $periph]
     if {[llength $value] == 0} {
     	set value 0
     }
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "NUM_SS_BITS"] $value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "NUM_SS_BITS"] $value"
     set value [get_property CONFIG.C_NUM_TRANSFER_BITS $periph]
     if {[llength $value] == 0} {
         set value 0
     }
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "NUM_TRANSFER_BITS"] $value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "NUM_TRANSFER_BITS"] $value"
     set value [get_property CONFIG.C_SPI_MODE $periph]
     if {[llength $value] == 0} {
             set value 0
     }
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "SPI_MODE"] $value"
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "TYPE_OF_AXI4_INTERFACE"] $axi_type_value"
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "AXI4_BASEADDR"] $axi4_baseaddr_value"
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "AXI4_HIGHADDR"] $axi4_highaddr_value"
-    puts $file_handle "\#define [::hsm::utils::get_driver_param_name $periph "XIP_MODE"] $xip_mode_value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SPI_MODE"] $value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TYPE_OF_AXI4_INTERFACE"] $axi_type_value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AXI4_BASEADDR"] $axi4_baseaddr_value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AXI4_HIGHADDR"] $axi4_highaddr_value"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "XIP_MODE"] $xip_mode_value"
 }
 
 proc xdefine_axispi_params_canonical {file_handle periph device_id} {
@@ -315,7 +315,7 @@ proc xdefine_axispi_config_file {file_name drv_string} {
     set filename [file join "src" $file_name]
     file delete $filename
     set config_file [open $filename w]
-    ::hsm::utils::write_c_header $config_file "Driver configuration"
+    ::hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "\#include \"xparameters.h\""
     puts $config_file "\#include \"[string tolower $drv_string].h\""
     puts $config_file "\n/*"
