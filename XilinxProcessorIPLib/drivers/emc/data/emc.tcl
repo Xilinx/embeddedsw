@@ -65,12 +65,12 @@ proc generate {drv_handle} {
 proc xdefine_include_file_membank {drv_handle file_name} {
 
     # Get all peripherals connected to this driver
-    set periphs [::hsm::utils::get_common_driver_ips  $drv_handle] 
+    set periphs [::hsi::utils::get_common_driver_ips  $drv_handle]
 
     foreach periph $periphs {
         set addr_params ""
-        set addr_params [::hsm::utils::find_addr_params $periph]
-        ::hsm::utils::define_membank $periph $file_name $addr_params
+        set addr_params [::hsi::utils::find_addr_params $periph]
+        ::hsi::utils::define_membank $periph $file_name $addr_params
     }
 }
 
@@ -80,10 +80,10 @@ proc xdefine_include_file_membank {drv_handle file_name} {
 #
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [::hsm::utils::open_include_file $file_name]
+    set file_handle [::hsi::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [::hsm::utils::get_common_driver_ips  $drv_handle]
+    set periphs [::hsi::utils::get_common_driver_ips  $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -119,30 +119,30 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
             # Generate canonical definitions for memory banks
             set addr_params ""
-            set addr_params [::hsm::utils::find_addr_params $periph]
+            set addr_params [::hsi::utils::find_addr_params $periph]
             set arguments [concat $args $addr_params]
             foreach arg $arguments {
-                set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
+                set lvalue [::hsi::utils::get_driver_param_name $canonical_name $arg]
 
                 # The commented out rvalue is the name of the instance-specific constant
-                # set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
+                # set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
                 set rvalue [get_property CONFIG.$arg $periph]
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
-                set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
+                set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
 
                 puts $file_handle "#define $lvalue $rvalue"
             }
 
             if {$i == 0} {
                 puts $file_handle ""
-                set bus_name [::hsm::utils::get_intfnet_name $periph "SPLB"]
+                set bus_name [::hsi::utils::get_intfnet_name $periph "SPLB"]
                 if { [string compare -nocase $bus_name ""] != 0 } {
                     puts $file_handle "#define XPAR_XPS_MCH_EMC"
                 } else {
-                    set bus_name [::hsm::utils::get_intfnet_name $periph "S_AXI_MEM"]
+                    set bus_name [::hsi::utils::get_intfnet_name $periph "S_AXI_MEM"]
                     if { [string compare -nocase $bus_name ""] != 0 } {
                         puts $file_handle "#define XPAR_AXI_EMC"
                     }
