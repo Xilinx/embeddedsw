@@ -68,8 +68,8 @@ proc check_stdout_hw {} {
 }
 
 proc swapp_generate {} {
-
-    # nothing to check but SwGen expects us to provide this
+    # generate/copy ps init files
+    ::hsm::utils::generate_psinit
 }
 
 proc swapp_get_linker_constraints {} {
