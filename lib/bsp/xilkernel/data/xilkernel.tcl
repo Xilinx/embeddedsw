@@ -158,7 +158,7 @@ proc generate {os_handle} {
 
             # Write the arch.make file
             set makecpu [open "./src/cpu.make" w]
-            ::hsm::utils::write_tcl_header $makecpu "Configuration parameters for PPC Xilkernel Makefile"
+            ::hsi::utils::write_tcl_header $makecpu "Configuration parameters for PPC Xilkernel Makefile"
             if { [string match -nocase ppc440* $proctype] } {
                 puts $makecpu "CPU_TYPE=440"
             } else {
@@ -181,7 +181,7 @@ proc generate {os_handle} {
 
     # Write the config.make file
     set makeconfig [open "../standalone/src/config.make" w]
-    #::hsm::utils::write_tcl_header $makeconfig "Configuration parameters for Standalone Makefile"
+    #::hsi::utils::write_tcl_header $makeconfig "Configuration parameters for Standalone Makefile"
 
     if { $proctype == "microblaze" } {
 	if { [mb_has_exceptions $hw_proc_handle] } {
@@ -199,8 +199,8 @@ proc generate {os_handle} {
     file delete -force $datadir
 
     # Handle stdin and stdout
-    ::hsm::utils::handle_stdin $os_handle
-    ::hsm::utils::handle_stdout $os_handle
+    ::hsi::utils::handle_stdin $os_handle
+    ::hsi::utils::handle_stdout $os_handle
 
 	# Modify Makefile based on whether inbyte.c and outbyte.c been created
 	if {[file exists "./src/inbyte.c"] && [file exists "./src/inbyte.c"]} {
@@ -245,7 +245,7 @@ proc generate {os_handle} {
     set bspcfg_fn [file join ".." "standalone" "src"  "bspconfig.h"]
     file delete $bspcfg_fn
     set bspcfg_fh [open $bspcfg_fn w]
-    ::hsm::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
+    ::hsi::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
@@ -271,7 +271,7 @@ proc generate {os_handle} {
 
     set config_file [xopen_new_include_file "./src/include/os_config.h" "XilKernel Configuration parameters"]
     set init_file [xopen_new_include_file  "./src/include/config/config_init.h" "XilKernel Configuration parameters"]
-    ::hsm::utils::write_c_header $init_file "LibXilKernel Initialization structures"
+    ::hsi::utils::write_c_header $init_file "LibXilKernel Initialization structures"
     puts $init_file "\#include <sys/init.h>"
     puts $init_file "\#include <os_config.h>\n\n"
 
@@ -409,8 +409,8 @@ proc generate {os_handle} {
     if { $sysintc_spec != "none" } {
 	xput_define $config_file "CONFIG_INTC" "true"
 	set sysintc_dev_handle [get_cells $sysintc_spec]
-	set sysintc_baseaddr [::hsm::utils::get_ip_param_name $sysintc_dev_handle "C_BASEADDR"]
-	set sysintc_device_id [::hsm::utils::get_ip_param_name $sysintc_dev_handle "DEVICE_ID"]
+	set sysintc_baseaddr [::hsi::utils::get_ip_param_name $sysintc_dev_handle "C_BASEADDR"]
+	set sysintc_device_id [::hsi::utils::get_ip_param_name $sysintc_dev_handle "DEVICE_ID"]
 	xput_define $config_file "sysintc_baseaddr" $sysintc_baseaddr
 	xput_define $config_file "sysintc_device_id" $sysintc_device_id
 
@@ -423,7 +423,7 @@ proc generate {os_handle} {
                 error "ERROR: System Timer Interrupt PORT is not specified" "" "mdt_error"
 	    }
 	    #set mhs_handle [get_cells -of_object $systmr_handle]
-	    set intr_ports [::hsm::utils::get_sink_pins [get_pins -of_objects [get_cells $systmr_intr] INTERRUPT]]
+	    set intr_ports [::hsi::utils::get_sink_pins [get_pins -of_objects [get_cells $systmr_intr] INTERRUPT]]
 	    #set intr_ports [xget_connected_ports_handle $mhs_handle $systmr_intr "sink"]
 	    foreach intr_port $intr_ports {
                 set intr_port_type [get_property TYPE $intr_port]
@@ -438,7 +438,7 @@ proc generate {os_handle} {
                     continue
                 }
                 set systmr_intrpin  [get_pins -of_objects [get_cells $systmr_handle] -filter "TYPE == INTERRUPT"]
-		set intr_id [::hsm::utils::get_port_intr_id $systmr_handle $systmr_intrpin]
+		set intr_id [::hsi::utils::get_port_intr_id $systmr_handle $systmr_intrpin]
 		puts $config_file "#define SYSTMR_INTR_ID $intr_id\n"
             }
 	}
@@ -541,7 +541,7 @@ proc generate {os_handle} {
                 set dbus_if_name "M_AXI_DP"
             }
 
-            set dbus_name [::hsm::utils::get_intfnet_name $hw_proc_handle $dbus_if_name]
+            set dbus_name [::hsi::utils::get_intfnet_name $hw_proc_handle $dbus_if_name]
             set dbus_handle [get_cells $dbus_name]
             if { $interconnect == 2 } {
                 set dcachelink_handle [get_cells "DXCL"]
@@ -560,7 +560,7 @@ proc generate {os_handle} {
 						set mc_high [get_property HIGH_VALUE $mem]
 						lappend addrlist $mc_base $mc_high
 			} else {
-					set mem [hsm::utils::get_ip_mem_ranges $addrist]
+					set mem [hsi::utils::get_ip_mem_ranges $addrist]
 					set mc_base [get_property BASE_VALUE  $mem]
 					set mc_high [get_property HIGH_VALUE $mem]
 					lappend addrlist $mc_base $mc_high
@@ -583,7 +583,7 @@ proc generate {os_handle} {
             foreach {base high} $addrlist {
                 set skip 0
                 foreach {memcon_handle} $memcon_handles {
-                    set memcon_addrlist [::hsm::utils::get_ip_mem_ranges $memcon_handle]
+                    set memcon_addrlist [::hsi::utils::get_ip_mem_ranges $memcon_handle]
 		    foreach  mem_range $memcon_addrlist {
 		    set mc_base [get_property BASE_VALUE $mem_range]
 		    set mc_high [get_property HIGH_VALUE $mem_range]
@@ -638,7 +638,7 @@ proc generate {os_handle} {
 
 proc xopen_new_include_file { filename description } {
     set inc_file [open $filename w]
-    ::hsm::utils::write_c_header $inc_file $description
+    ::hsi::utils::write_c_header $inc_file $description
     set newfname [string map {. _} [lindex [split $filename {\/}] end]]
     puts $inc_file "\#ifndef _[string toupper $newfname]"
     puts $inc_file "\#define _[string toupper $newfname]\n\n"
@@ -771,9 +771,9 @@ proc xhandle_mb_interrupts {} {
     # Handle the interrupt pin
     set sw_proc_handle [get_sw_processor]
     set periph [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-    set source_ports [::hsm::utils::get_interrupt_sources $periph]
+    set source_ports [::hsi::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
-	error "ERROR: Too many interrupting ports on the MicroBlaze.  Should only find 1" "" "hsm_error"
+	error "ERROR: Too many interrupting ports on the MicroBlaze.  Should only find 1" "" "hsi_error"
 	return
     }
 
@@ -798,12 +798,12 @@ proc xhandle_mb_interrupts {} {
 				    set source_interrupt_handler [get_property CONFIG.int_handler $int_array_elem]
 				    set source_handler_arg [get_property CONFIG.int_handler_arg $int_array_elem]
 				    if {[string compare -nocase $source_handler_arg DEVICE_ID] == 0 } {
-					set source_handler_arg [::hsm::utils::get_ip_param_name $source_periph "DEVICE_ID"]
+					set source_handler_arg [::hsi::utils::get_ip_param_name $source_periph "DEVICE_ID"]
 				    } else {
 					if {[string compare -nocase "global" [get_property TYPE $source_port]] == 0} {
 					    set source_handler_arg $default_arg
 					} else {
-					    set source_handler_arg [::hsm::utils::get_ip_param_name $source_periph "C_BASEADDR"]
+					    set source_handler_arg [::hsi::utils::get_ip_param_name $source_periph "C_BASEADDR"]
 					}
 				    }
 				    break
@@ -831,7 +831,7 @@ proc xcreate_mb_intr_config_file {handler arg} {
     file delete $filename
     set config_file [open $filename w]
 
-    ::hsm::utils::write_c_header $config_file "Interrupt Handler Table for MicroBlaze Processor"
+    ::hsi::utils::write_c_header $config_file "Interrupt Handler Table for MicroBlaze Processor"
 
     puts $config_file "#include \"microblaze_interrupts_i.h\""
     puts $config_file "#include \"xparameters.h\""
@@ -859,7 +859,7 @@ proc xcreate_mb_exc_config_file { } {
     file delete $hfilename
     set hconfig_file [open $hfilename w]
 
-    ::hsm::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
+    ::hsi::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
 
     puts $hconfig_file "\n"
 
@@ -1024,7 +1024,7 @@ proc xget_memory_controller_handles { mhs } {
    foreach mhsinst $mhsinsts {
       # Gets all parameters of the component
 
-      set mem_ranges [::hsm::utils::get_ip_mem_ranges $mhsinst]
+      set mem_ranges [::hsi::utils::get_ip_mem_ranges $mhsinst]
 
       # Loop thru each param and find tag "ADDR_TYPE = MEMORY"
       foreach mem_range $mem_ranges {
