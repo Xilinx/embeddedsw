@@ -59,7 +59,7 @@ proc ffs_drc {libhandle} {
 }
 
 proc get_ffs_periphs {processor} {
-	set periphs_list [hsm::utils::get_proc_slave_periphs $processor]
+	set periphs_list [hsi::utils::get_proc_slave_periphs $processor]
 	set ffs_periphs_list {}
 
 	global ffs_periphs_name_list
@@ -102,7 +102,7 @@ proc execs_generate {libhandle} {
 proc xgen_opts_file {libhandle} {
 
 	# Open xparameters.h file
-	set file_handle [hsm::utils::open_include_file "xparameters.h"]
+	set file_handle [hsi::utils::open_include_file "xparameters.h"]
 
 	# Generate parameters for "file system with SD" and "MMC support"
 	puts $file_handle "/* Xilinx FAT File System Library (XilFFs) User Settings */"
