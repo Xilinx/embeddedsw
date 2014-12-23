@@ -67,10 +67,10 @@ proc generate {drv_handle} {
 
 proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [hsm::utils::open_include_file $file_name]
+    set file_handle [hsi::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [hsm::utils::get_common_driver_ips $drv_handle]
+    set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -78,7 +78,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
     # Check if it is a driver parameter
@@ -89,7 +89,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [hsm::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
+            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
         }
     }
     set args $newargs
@@ -104,7 +104,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
                 set value $device_id
                 incr device_id
             } else {
-                set value [::hsm::utils::get_param_value $periph $arg]
+                set value [::hsi::utils::get_param_value $periph $arg]
             }
             if {[llength $value] == 0} {
                 set value 0
@@ -113,16 +113,16 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
  	    # to VDMA IPv6.00a (IPI release). For all the previous versions these
             # parameters should be set.
             if {[string first "ENABLE_DEBUG" $arg] >= 0} {
-    		set foundparam [::hsm::utils::get_param_value $periph $arg]
+		set foundparam [::hsi::utils::get_param_value $periph $arg]
         	if {[llength $foundparam] == 0} {
 		    set value 1
 		}
 	    }
-            set value [hsm::utils::format_addr_string $value $arg]
+            set value [hsi::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
-                puts $file_handle "#define [hsm::utils::get_ip_param_name $periph $arg] \"$value\""
+                puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
-                puts $file_handle "#define [hsm::utils::get_ip_param_name $periph $arg] $value"
+                puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] $value"
             }
         }
         puts $file_handle ""
@@ -133,10 +133,10 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
 
 proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [hsm::utils::open_include_file $file_name]
+    set file_handle [hsi::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [hsm::utils::get_common_driver_ips $drv_handle]
+    set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -171,12 +171,12 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
             set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 
             foreach arg $args {
-                set lvalue [hsm::utils::get_driver_param_name $canonical_name $arg]
+                set lvalue [hsi::utils::get_driver_param_name $canonical_name $arg]
 
                 # The commented out rvalue is the name of the instance-specific constant
-                # set rvalue [hsm::utils::get_driver_param_name $periph $arg]
+                # set rvalue [hsi::utils::get_driver_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
-                set rvalue [::hsm::utils::get_param_value $periph $arg]
+                set rvalue [::hsi::utils::get_param_value $periph $arg]
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
@@ -184,12 +184,12 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
  		# to VDMA IPv6.00a (IPI release).  For all the previous versions these
 		# parameters should be set.
                 if {[string first "ENABLE_DEBUG" $arg] >= 0} {
-    		    set foundparam [::hsm::utils::get_param_value $periph $arg]
+		    set foundparam [::hsi::utils::get_param_value $periph $arg]
         	    if {[llength $foundparam] == 0} {
 		        set rvalue 1
 		    }
 	        }
-                set rvalue [hsm::utils::format_addr_string $rvalue $arg]
+                set rvalue [hsi::utils::format_addr_string $rvalue $arg]
 
                 puts $file_handle "#define $lvalue $rvalue"
 
