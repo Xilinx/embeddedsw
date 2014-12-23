@@ -45,7 +45,7 @@ proc generate {drv_handle} {
     #---------------------------------
     # memory_banks in xparameters.h
     #---------------------------------
-    hsm::utils::define_addr_params $drv_handle "xparameters.h"  
+    hsi::utils::define_addr_params $drv_handle "xparameters.h"
     
     xdefine_canonical_xpars $drv_handle "xparameters.h" "Mig7series" "DEVICE_ID" "DDR_ROW_WIDTH" "DDR_COL_WIDTH" "DDR_BANK_WIDTH" "DDR_DQ_WIDTH"
     
@@ -53,10 +53,10 @@ proc generate {drv_handle} {
 
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
-    set file_handle [hsm::utils::open_include_file $file_name]
+    set file_handle [hsi::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [hsm::utils::get_common_driver_ips $drv_handle]
+    set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -91,26 +91,26 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
             set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 
             set addr_params ""
-            set addr_params [hsm::utils::find_addr_params $periph]
+            set addr_params [hsi::utils::find_addr_params $periph]
             set arguments [concat $args $addr_params]
             set memtype [get_property CONFIG.MEM_TYPE $periph]
        	    
        	    foreach arg $arguments {
-                set lvalue [hsm::utils::get_driver_param_name $canonical_name $arg]
+                set lvalue [hsi::utils::get_driver_param_name $canonical_name $arg]
 
                 # The commented out rvalue is the name of the instance-specific constant
-                # set rvalue [hsm::utils::get_ip_param_name $periph $arg]
+                # set rvalue [hsi::utils::get_ip_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
                 if { [string match *WIDTH* $arg] } {
                 	set vars [split $arg "_"]
                 	lassign $vars var1 var2 var3
                 	set arg "${memtype}_${var2}_WIDTH"                	
                 }
-                set rvalue [hsm::utils::get_param_value $periph $arg]
+                set rvalue [hsi::utils::get_param_value $periph $arg]
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
-                set rvalue [hsm::utils::format_addr_string $rvalue $arg]
+                set rvalue [hsi::utils::format_addr_string $rvalue $arg]
     
                 puts $file_handle "#define $lvalue $rvalue"
             }
@@ -125,12 +125,12 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 }
 
 proc xdefine_include_file {drv_handle file_name drv_string args} {
-    set args [hsm::utils::get_exact_arg_list $args]
+    set args [hsi::utils::get_exact_arg_list $args]
     # Open include file
-    set file_handle [hsm::utils::open_include_file $file_name]
+    set file_handle [hsi::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [hsm::utils::get_common_driver_ips $drv_handle] 
+    set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -138,7 +138,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
 
@@ -149,7 +149,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [hsm::utils::get_driver_param_name $drv_string $arg] [get_property $arg $drv_handle]"
+            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [get_property $arg $drv_handle]"
         }
     }
     set args $newargs
@@ -170,14 +170,14 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[llength $value] == 0} {
                 set value 0
             }
-            set value [hsm::utils::format_addr_string $value $arg]
+            set value [hsi::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
-                puts $file_handle "#define [hsm::utils::get_ip_param_name $periph $arg] \"$value\""
+                puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
                  if { [string match *WIDTH* $arg] } {
-                 	puts $file_handle "#define [hsm::utils::get_ip_param_name $periph ${memtype}_$arg] $value"
+			puts $file_handle "#define [hsi::utils::get_ip_param_name $periph ${memtype}_$arg] $value"
                  } else {
-                 	puts $file_handle "#define [hsm::utils::get_ip_param_name $periph $arg] $value"
+			puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] $value"
                  }
             }
         }
