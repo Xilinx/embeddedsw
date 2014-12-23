@@ -71,7 +71,7 @@ proc generate {drv_handle} {
     global env
     global tcl_platform
 
-    set osname "[::hsm::utils::get_hostos_platform]/"
+    set osname "[::hsi::utils::get_hostos_platform]/"
 
     #---------------------------------------------------------------------------
     # Start of mb-gcc specific processing..
@@ -196,12 +196,12 @@ proc generate {drv_handle} {
     if { ![file exists $library_dir] } {
         set library_dir [file join $compiler_root "microblaze-xilinx-elf/lib"]
          if { ![file exists $library_dir] } {
-	            error "Couldn't figure out compiler's library directory" "" "hsm_error"
+	            error "Couldn't figure out compiler's library directory" "" "hsi_error"
         }
         set libgcc_dir [file join $compiler_root "lib/gcc/microblaze-xilinx-elf"]
         set libgcc_dir [glob -dir $libgcc_dir *]
         if { ![file exists $libgcc_dir] } {
-            error "Couldn't figure out compiler's GCC library directory" "" "hsm_error"
+            error "Couldn't figure out compiler's GCC library directory" "" "hsi_error"
         }
     }
 
@@ -252,17 +252,17 @@ proc generate {drv_handle} {
         file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
             file mtime [file join $targetdir $filename] [clock seconds]
         set xmd_addr_file [open "../../code/xmdstubaddr.s" w]
-        set xmdstub_periph_baseaddr [::hsm::utils::format_addr_string [xget_value $xmdstub_periph_handle "PARAMETER" "C_BASEADDR"] "C_BASEADDR"]
+        set xmdstub_periph_baseaddr [::hsi::utils::format_addr_string [xget_value $xmdstub_periph_handle "PARAMETER" "C_BASEADDR"] "C_BASEADDR"]
         puts $xmd_addr_file ".equ DEBUG_PERIPHERAL_BASEADDRESS, $xmdstub_periph_baseaddr"
         close $xmd_addr_file
         # execute make
         set pwd [pwd]
         if [catch {cd "../../code"} err] {
-	    error "Couldn't cd to code directory: $err" "" "hsm_error"
+	    error "Couldn't cd to code directory: $err" "" "hsi_error"
 	    return
         }
         if [catch {exec make -f make.xmdstub xmdstub} err] {
-            error "Couldn't make xmdstub: $err" "" "hsm_error"
+            error "Couldn't make xmdstub: $err" "" "hsi_error"
             return
         }
         cd $pwd
@@ -271,13 +271,13 @@ proc generate {drv_handle} {
     #--------------------------
     # Handle the Bus Frequency
     #--------------------------
-    set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+    set file_handle [::hsi::utils::open_include_file "xparameters.h"]
     puts $file_handle "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
     puts $file_handle "#define XPARAMETERS_H   /* by using protection macros */"
     puts $file_handle ""
     puts $file_handle "/* Definitions for bus frequencies */"
     set bus_array {"M_AXI_DP" "M_AXI_IP"}
-    set bus_freq [::hsm::utils::get_clk_pin_freq $periph "Clk"]
+    set bus_freq [::hsi::utils::get_clk_pin_freq $periph "Clk"]
     if {[llength $bus_freq] == 0} {
         set bus_freq "100000000"
     }
@@ -287,7 +287,7 @@ proc generate {drv_handle} {
         if { $bhandle == "" } {
           continue;
         }
-       puts $file_handle "#define [::hsm::utils::get_driver_param_name "cpu" [format "%s_FREQ_HZ" $bus_inst]] $bus_freq"
+       puts $file_handle "#define [::hsi::utils::get_driver_param_name "cpu" [format "%s_FREQ_HZ" $bus_inst]] $bus_freq"
     }
 
     puts $file_handle "/******************************************************************/"
@@ -299,7 +299,7 @@ proc generate {drv_handle} {
         if { $bhandle == "" } {
           continue;
         }
-        puts $file_handle "#define [::hsm::utils::get_driver_param_name "PROC_BUS" [format "%d_FREQ_HZ" $bus_id]] $bus_freq"
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name "PROC_BUS" [format "%d_FREQ_HZ" $bus_id]] $bus_freq"
         incr bus_id
     }
     puts $file_handle "/******************************************************************/"
@@ -308,8 +308,8 @@ proc generate {drv_handle} {
     #--------------------------
     # define CORE_CLOCK_FREQ_HZ
     #--------------------------
-    set clk_freq [::hsm::utils::get_clk_pin_freq $periph "Clk"]
-    puts $file_handle "#define [::hsm::utils::get_driver_param_name "cpu" CORE_CLOCK_FREQ_HZ] $clk_freq"
+    set clk_freq [::hsi::utils::get_clk_pin_freq $periph "Clk"]
+    puts $file_handle "#define [::hsi::utils::get_driver_param_name "cpu" CORE_CLOCK_FREQ_HZ] $clk_freq"
     puts $file_handle "#define [format "XPAR_%s_CORE_CLOCK_FREQ_HZ" [string toupper $proctype]] $clk_freq"
 
     puts $file_handle "\n/******************************************************************/\n"
@@ -318,12 +318,12 @@ proc generate {drv_handle} {
     #--------------------------
     # define all params
     #--------------------------
-    ::hsm::utils::define_all_params $drv_handle "xparameters.h"
+    ::hsi::utils::define_all_params $drv_handle "xparameters.h"
 
     #----------------------------------------
     # define all params without instance name
     #----------------------------------------
-    ::hsm::utils::define_processor_params $drv_handle "xparameters.h"
+    ::hsi::utils::define_processor_params $drv_handle "xparameters.h"
     xdefine_addr_params_for_ext_intf $drv_handle "xparameters.h"
 }
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
@@ -331,7 +331,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
 
  # Open include file
-   set file_handle [::hsm::utils::open_include_file $file_name]
+   set file_handle [::hsi::utils::open_include_file $file_name]
 
    set mem_ranges [get_mem_ranges -of_objects $hw_proc_handle]
    foreach mem_range $mem_ranges {
@@ -353,7 +353,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
            set name [format "XPAR_%s_" $name]
 
            if {$bparam_value != ""} {
-               set value [::hsm::utils::format_addr_string $bparam_value $bparam_name]
+               set value [::hsi::utils::format_addr_string $bparam_value $bparam_name]
                    set param [string toupper $bparam_name]
                    if {[string match C_* $param]} {
                        set name [format "%s%s" $name [string range $param 2 end]]
@@ -367,7 +367,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
 	   set name [string toupper [get_property NAME $mem_range]]
            set name [format "XPAR_%s_" $name]
            if {$hparam_value != ""} {
-               set value [::hsm::utils::format_addr_string $hparam_value $hparam_name]
+               set value [::hsi::utils::format_addr_string $hparam_value $hparam_name]
                 set param [string toupper $hparam_name]
                    if {[string match C_* $param]} {
                        set name [format "%s%s" $name [string range $param 2 end]]
@@ -386,7 +386,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
 }
 
 proc post_generate {drv_handle} {
-	set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "#endif  /* end of protection macro */"
 	close $file_handle
 }
