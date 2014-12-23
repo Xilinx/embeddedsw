@@ -55,7 +55,7 @@ proc gen_include_files {swproj mhsinst} {
       return ""
    }
    if {$swproj == 1} {
-      set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+      set ifintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
       set dmaType [get_dma_type $mhsinst]
 
       if {$ifintr == 1} {
@@ -87,9 +87,9 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-        set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set ifintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         set dmaType [get_dma_type $mhsinst]
-                
+
       if {$ifintr == 1} {
           if {$dmaType == 1} {
               set inc_file_lines {examples/xaxiethernet_example.h examples/xaxiethernet_example_polled.c examples/xaxiethernet_example_util.c examples/xaxiethernet_example_intr_fifo.c data/axiethernet_header.h data/axiethernet_fifo_intr_header.h}
@@ -116,10 +116,10 @@ proc gen_init_code {swproj mhsinst} {
       return ""
    }
    if {$swproj == 1} {
-        
-      set ipname [get_property NAME  $mhsinst] 
-      set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
-        
+
+      set ipname [get_property NAME  $mhsinst]
+      set ifintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+
       if {$ifintr == 1} {
          set dmaType [get_dma_type $mhsinst]
          set decl "   static XAxiEthernet ${ipname}_AxiEthernet;"
@@ -157,8 +157,8 @@ proc gen_testfunc_call {swproj mhsinst} {
     return ""
   }
 
-  set ipname [get_property NAME $mhsinst] 
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set ipname [get_property NAME $mhsinst]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [get_property CONFIG.STDOUT [get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -166,7 +166,7 @@ proc gen_testfunc_call {swproj mhsinst} {
        set hasStdout 1
   }
   set dma [get_dma_type $mhsinst]
-  set ifintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]  
+  set ifintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
 
   set fifo_deviceid [get_fifo_info $mhsinst "id"]
   set fifo_ipname   [get_fifo_info $mhsinst "name"]
@@ -176,10 +176,10 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   if {$ifintr == 1} {
 	set intr_pin_name [get_pins -of_objects [get_cells $ipname] INTERRUPT]
-	set intcname [::hsm::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
 	set intcvar intc
 	set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
-  } 
+  }
 
 
   if { $dma == 1 } {
@@ -359,7 +359,7 @@ proc get_fifo_info {mhsHandle type} {
       if {[string compare -nocase $coreName "axi_fifo_mm_s"] == 0} {
 
          if {[string compare -nocase $type "id"] == 0} {
-            set deviceid [::hsm::utils::get_ip_param_name $ipinst "DEVICE_ID"]
+            set deviceid [::hsi::utils::get_ip_param_name $ipinst "DEVICE_ID"]
             return $deviceid
          }
          if {[string compare -nocase $type "name"] == 0} {
@@ -376,7 +376,7 @@ proc get_dma_info {mhsinst type} {
 	# Add p2p periphs
         foreach p2p_busif $p2p_busifs_i {
 	    set busif_name [string toupper [get_property NAME  $p2p_busif]]
-            set conn_busif_handle [::hsm::utils::get_connected_intf $mhsinst $busif_name] 
+            set conn_busif_handle [::hsi::utils::get_connected_intf $mhsinst $busif_name]
 	    if { [string compare -nocase $conn_busif_handle ""] == 0} {
                 continue
             } else {
@@ -392,7 +392,7 @@ proc get_dma_info {mhsinst type} {
 		set instName [get_property NAME  $target_periph]
 		if {[string compare -nocase $target_periph_type "axi_dma"] == 0} {
 			if {[string compare -nocase $type "id"] == 0} {
-				set deviceid [::hsm::utils::get_ip_param_name $target_periph "DEVICE_ID"]
+				set deviceid [::hsi::utils::get_ip_param_name $target_periph "DEVICE_ID"]
 				return $deviceid
 			}
 			if {[string compare -nocase $type "name"] == 0} {
