@@ -68,7 +68,7 @@ proc gen_include_files {swproj mhsinst} {
 
   if {$swproj == 1} {
   
-      set axicdmaintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+      set axicdmaintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
       set sg [get_property CONFIG.C_INCLUDE_SG $mhsinst]      
             
       if {$sg == 1} {
@@ -100,7 +100,7 @@ proc gen_src_files {swproj mhsinst} {
   }
 
   if {$swproj == 1} {
-      set axicdmaintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]   
+      set axicdmaintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
       set sg [get_property CONFIG.C_INCLUDE_SG $mhsinst]      
             
       if {$sg == 1} {
@@ -145,7 +145,7 @@ proc gen_init_code {swproj mhsinst} {
      if {$swproj == 1} {
          
        set ipname [get_property NAME $mhsinst]
-       set axicdmaintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+       set axicdmaintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
        if {$axicdmaintr == 1} {
            set decl "   static XAxiCdma ${ipname};"
            set inc_file_lines $decl
@@ -167,9 +167,9 @@ proc gen_testfunc_call {swproj mhsinst} {
       return ""
   }
 
-  set axicdmaintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+  set axicdmaintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
   set ipname [get_property NAME  $mhsinst] 
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [get_property CONFIG.STDOUT [get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -180,7 +180,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   
   if {$axicdmaintr == 1} {
       set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
-      set intcname [::hsm::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+      set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
       set intcvar intc
       set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
   }
