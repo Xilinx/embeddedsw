@@ -97,33 +97,33 @@ proc intc_drc {drv_handle} {
 ############################################################
 proc generate {drv_handle} {
 
-    	# Generate the following definitions in xparameters.h
-    	# 2. BASEADDR, HIGHADDR, C_NUM_INTR_INPUTS, XPAR_INTC_MAX_NUM_INTR_INPUTS
-	
-	set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+	# Generate the following definitions in xparameters.h
+	# 2. BASEADDR, HIGHADDR, C_NUM_INTR_INPUTS, XPAR_INTC_MAX_NUM_INTR_INPUTS
+
+	set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set count [llength $periphs]
     variable cascade
-   
+
    	if {$count > 1} {
    		set cascade [check_cascade $drv_handle]
-   	}
+	}
 
 	if {$cascade == 0} {
-		::hsm::utils::define_max $drv_handle "xparameters.h" "XPAR_INTC_MAX_NUM_INTR_INPUTS" "C_NUM_INTR_INPUTS"
+		::hsi::utils::define_max $drv_handle "xparameters.h" "XPAR_INTC_MAX_NUM_INTR_INPUTS" "C_NUM_INTR_INPUTS"
 	} else {
 		set maxintrs 0
 		foreach periph $periphs {
 			set intrs [get_property CONFIG.C_NUM_INTR_INPUTS $periph]
 			set maxintrs [expr "$maxintrs + $intrs"]
 		}
-		set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "#define XPAR_INTC_MAX_NUM_INTR_INPUTS $maxintrs"
         close $file_handle
 	}
 
 	foreach periph $periphs {
-		set fast [::hsm::utils::get_param_value $periph "C_HAS_FAST"]
-		set nested [::hsm::utils::get_param_value $periph "C_HAS_ILR"]
+		set fast [::hsi::utils::get_param_value $periph "C_HAS_FAST"]
+		set nested [::hsi::utils::get_param_value $periph "C_HAS_ILR"]
 	        if {$fast == 1 && $nested == 1} {
 				 puts "ERROR: Internal error: Interrupt Controller Driver has no support for nesting fast interrupts"
 	        }
@@ -132,21 +132,21 @@ proc generate {drv_handle} {
 	        }
 	}
 
-	::hsm::utils::define_if_all $drv_handle "xparameters.h" "XIntc" "C_HAS_IPR" "C_HAS_SIE" "C_HAS_CIE" "C_HAS_IVR" "C_HAS_ILR"
+	::hsi::utils::define_if_all $drv_handle "xparameters.h" "XIntc" "C_HAS_IPR" "C_HAS_SIE" "C_HAS_CIE" "C_HAS_IVR" "C_HAS_ILR"
 	xdefine_include_file $drv_handle "xparameters.h" "XIntc" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS"
 
 
 	# Define XPAR_SINGLE_DEVICE_ID
-    	
-    	if {$count == 1} {
-    	    ::hsm::utils::define_with_names $drv_handle [::hsm::utils::get_common_driver_ips $drv_handle] "xparameters.h" "XPAR_INTC_SINGLE_BASEADDR" "C_BASEADDR" "XPAR_INTC_SINGLE_HIGHADDR" "C_HIGHADDR" "XPAR_INTC_SINGLE_DEVICE_ID" "DEVICE_ID"
-    	}
 
-    	
-    	set config_inc [::hsm::utils::open_include_file "xparameters.h"]
+	if {$count == 1} {
+	    ::hsi::utils::define_with_names $drv_handle [::hsi::utils::get_common_driver_ips $drv_handle] "xparameters.h" "XPAR_INTC_SINGLE_BASEADDR" "C_BASEADDR" "XPAR_INTC_SINGLE_HIGHADDR" "C_HIGHADDR" "XPAR_INTC_SINGLE_DEVICE_ID" "DEVICE_ID"
+	}
 
-    	# Generate config table, vector tables
-    	intc_define_config_file $drv_handle $periphs $config_inc
+
+	set config_inc [::hsi::utils::open_include_file "xparameters.h"]
+
+	# Generate config table, vector tables
+	intc_define_config_file $drv_handle $periphs $config_inc
 
     	close $config_inc
 
@@ -175,7 +175,7 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 	set filename [file join "src" $file_name]
 	file delete $filename
 	set config_file [open $filename w]
-	::hsm::utils::write_c_header $config_file "Driver configuration"
+	::hsi::utils::write_c_header $config_file "Driver configuration"
 	puts $config_file "#include \"xparameters.h\""
 	puts $config_file "#include \"[string tolower $drv_string].h\""
 	puts $config_file "\n"
@@ -202,9 +202,9 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
                 # Check if this is a driver parameter or a peripheral parameter
                 set value [get_property CONFIG.$arg $drv_handle ]
             if {[llength $value] == 0} {
-                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsm::utils::get_ip_param_name $periph $arg]]
+                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
             } else {
-                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsm::utils::get_driver_param_name $drv_string $arg]]
+                puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsi::utils::get_driver_param_name $drv_string $arg]]
             }
             set comma ",\n"
         }
@@ -253,25 +253,25 @@ proc intc_define_vector_table {periph config_inc config_file} {
 
 	# Get pins/ports that are driving the interrupt
 	lappend source_pins
-	set source_pins [::hsm::utils::get_source_pins $interrupt_pin]
-	
+	set source_pins [::hsi::utils::get_source_pins $interrupt_pin]
+
     set num_intr_inputs [get_property CONFIG.C_NUM_INTR_INPUTS $periph]
 
     #calculate the total interrupt sources
 
-    set total_intr_ports [::hsm::utils::get_connected_pin_count $interrupt_pin]
-   
+    set total_intr_ports [::hsi::utils::get_connected_pin_count $interrupt_pin]
+
     if {$num_intr_inputs != $total_intr_ports} {
-        puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the same as length of ::hsm::utils::get_interrupt_sources [llength $source_pins] hsm_error"
-	return          
+        puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the same as length of ::hsi::utils::get_interrupt_sources [llength $source_pins] hsi_error"
+	return
     }
 
     set i 0
     foreach source_pin $source_pins {
 
-        if { [::hsm::utils::is_external_pin $source_pin]} {
+        if { [::hsi::utils::is_external_pin $source_pin]} {
             #external interrupt port case
-            set width [::hsm::utils::get_port_width $source_pin]
+            set width [::hsi::utils::get_port_width $source_pin]
             for { set j 0 } { $j < $width } { incr j } {
                 set source_port_name($i) "[get_property NAME $source_pin]_$j"
                 set source_name($i) "system"
@@ -345,12 +345,12 @@ proc intc_add_handler {handler} {
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
    
    variable cascade
-   
+
    # Open include file
-    set file_handle [::hsm::utils::open_include_file $file_name]
+    set file_handle [::hsi::utils::open_include_file $file_name]
 
     # Get all the peripherals connected to this driver
-    set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
@@ -384,25 +384,25 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
             set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 
             foreach arg $args {
-                set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
+                set lvalue [::hsi::utils::get_driver_param_name $canonical_name $arg]
 
     # The commented out rvalue is the name of the instance-specific constant
-    #           set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
+    #           set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
 
                 # The rvalue set below is the actual value of the parameter
-                set rvalue [::hsm::utils::get_param_value $periph $arg]
+                set rvalue [::hsi::utils::get_param_value $periph $arg]
                 if {[llength $rvalue] == 0} {
                      set rvalue 0
                 }
-                set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
-    
+                set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
+
                 puts $file_handle "#define $lvalue $rvalue"
 
             }
             if {$cascade == 1} {
-            	puts $file_handle "#define [::hsm::utils::get_driver_param_name $canonical_name "INTC_TYPE"] [get_intctype $periph]"
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "INTC_TYPE"] [get_intctype $periph]"
             } else {
-            	puts $file_handle "#define [::hsm::utils::get_driver_param_name $canonical_name "INTC_TYPE"] $cascade"
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "INTC_TYPE"] $cascade"
             }
             puts $file_handle ""
             incr i
@@ -428,7 +428,7 @@ proc xredefine_intc {drvhandle config_inc} {
 
     # Next define interrupt IDs for each connected peripheral
 
-    set periphs [::hsm::utils::get_common_driver_ips $drvhandle]
+    set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
     set device_id 0
     set periph_name [string toupper "intc"]
 
@@ -438,7 +438,7 @@ proc xredefine_intc {drvhandle config_inc} {
         set periph_ip_name [get_property NAME $periph]
 
         # Get ports that are driving the interrupt
-        set source_pins [::hsm::utils::get_interrupt_sources $periph]
+        set source_pins [::hsi::utils::get_interrupt_sources $periph]
 	if {$source_pins == ""} {
 		return
 	}
@@ -446,8 +446,8 @@ proc xredefine_intc {drvhandle config_inc} {
         lappend source_list
         foreach source_pin $source_pins {
             set source_pin_name($i) [get_property NAME $source_pin]
-            if {[::hsm::utils::is_external_pin $source_pin]} {
-                set width [::hsm::utils::get_port_width $source_pin]
+            if {[::hsi::utils::is_external_pin $source_pin]} {
+                set width [::hsi::utils::get_port_width $source_pin]
                 for { set j 0 } { $j < $width } { incr j } {
                   set source_name($i) "system"
                   lappend source_list $source_name($i)
@@ -563,7 +563,7 @@ proc lcount {list match_entry} {
 ###################################################################
 proc xfind_instance {drvhandle instname} {
 
-    set instlist [::hsm::utils::get_common_driver_ips $drvhandle]
+    set instlist [::hsi::utils::get_common_driver_ips $drvhandle]
     set i 0
     foreach inst $instlist {
         set name [get_property NAME $inst]
@@ -582,13 +582,13 @@ proc xfind_instance {drvhandle instname} {
 #
 ###################################################################################
 proc check_cascade {drv_handle} {
-	set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+	set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     foreach periph $periphs {
 		set i 0
-		set source_pins [::hsm::utils::get_interrupt_sources $periph]
+		set source_pins [::hsi::utils::get_interrupt_sources $periph]
         foreach source_pin $source_pins {
             set source_pin_name($i) [get_property NAME $source_pin]
-            if { [::hsm::utils::is_external_pin $source_pin] } {
+            if { [::hsi::utils::is_external_pin $source_pin] } {
                 continue
             }
             set source_periph [get_cells -of_objects $source_pin ]
@@ -611,11 +611,11 @@ proc check_cascade {drv_handle} {
 ##################################################################
 
 proc get_intctype {periph} {
-		set iscascade [::hsm::utils::get_param_value $periph "C_EN_CASCADE_MODE"]
-    		set ismaster [::hsm::utils::get_param_value $periph "C_CASCADE_MASTER"]
-    		if {$iscascade == 1 && $ismaster == 1} {
-    			set retval 1
-    		} elseif {$iscascade == 1 && $ismaster == 0} {
+		set iscascade [::hsi::utils::get_param_value $periph "C_EN_CASCADE_MODE"]
+		set ismaster [::hsi::utils::get_param_value $periph "C_CASCADE_MASTER"]
+		if {$iscascade == 1 && $ismaster == 1} {
+			set retval 1
+		} elseif {$iscascade == 1 && $ismaster == 0} {
     			 set retval 2
    		} elseif {$iscascade == 0 && $ismaster == 0} {
 			 set retval 3
