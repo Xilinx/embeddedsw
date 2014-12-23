@@ -96,7 +96,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 	if {"ps7_dma_ns" == $ipname} {
 	     return ""
 	}	
-    set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+    set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set stdout [get_property CONFIG.STDOUT [get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
@@ -104,7 +104,7 @@ proc gen_testfunc_call {swproj mhsinst} {
        set hasStdout 1
     }
     
-    set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+    set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
   
     set testfunc_call ""
