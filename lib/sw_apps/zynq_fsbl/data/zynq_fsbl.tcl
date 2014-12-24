@@ -69,7 +69,29 @@ proc check_stdout_hw {} {
 
 proc swapp_generate {} {
     # generate/copy ps init files
-    ::hsm::utils::generate_psinit
+    ::hsi::utils::generate_psinit
+
+    #delete unnecessary files (only ps7_init.c & ps7_init.h are needed for FSBL)
+    set file "ps7_init.html"
+    if { [file exists $file] } {
+      file delete -force $file
+    }
+
+    set file "ps7_init.tcl"
+    if { [file exists $file] } {
+      file delete -force $file
+    }
+
+    set file "ps7_init_gpl.c"
+    if { [file exists $file] } {
+      file delete -force $file
+    }
+
+    set file "ps7_init_gpl.h"
+    if { [file exists $file] } {
+      file delete -force $file
+    }
+
 }
 
 proc swapp_get_linker_constraints {} {
