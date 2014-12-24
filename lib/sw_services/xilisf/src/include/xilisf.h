@@ -487,6 +487,8 @@
 *				SendBankSelect()
 *				XIsf_SetStatusHandler()
 *				XIsf_IfaceHandler()
+* 5.1   sb	 12/23/14 Added check for flash interface for Winbond, Spansion
+*			  and Micron flash family for PSQSPI.
 *
 * </pre>
 *
@@ -1006,7 +1008,7 @@ int XIsf_SetSpiConfiguration(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr,
 /*
  *Interrupt Status Handler of XilIsf Lib
  */
-void XIsf_SetStatusHandler(XIsf *InstancePtr, XIsf_Iface *QspiInstancePtr,
+void XIsf_SetStatusHandler(XIsf *InstancePtr, XIsf_Iface *XIfaceInstancePtr,
 				XIsf_StatusHandler XilIsf_Handler);
 
 /*

@@ -87,7 +87,8 @@
 *				- XIsf_GetDeviceInfo()
 *				- XIsf_WriteEnable()
 *				- XIsf_Ioctl()
-*
+* 5.1   sb	 12/23/14 Added check for flash interface for Winbond, Spansion
+*			  and Micron flash family for PSQSPI.
 *
 * </pre>
 *
@@ -115,8 +116,11 @@ typedef struct {
 } AtmelDeviceGeometry;
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
+	|| (XPAR_XISF_FLASH_FAMILY == SST) || 		\
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || 		\
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))		\
 /**
  * The following structure specifies the geometry of the Intel/STM Serial Flash.
  */
@@ -127,11 +131,16 @@ typedef struct {
 	u16 PagesPerSector;		/**< Number of Pages per Sector */
 	u16 NumOfSectors;		/**< Number of Sectors in the device */
 } IntelStmDeviceGeometry;
-#endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))*/
+#endif /* (((XPAR_XISF_FLASH_FAMILY == INTEL) ||
+	(XPAR_XISF_FLASH_FAMILY == STM) || \
+	(XPAR_XISF_FLASH_FAMILY == SST) || \
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))*/
 
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION))
+#if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	defined(XPAR_XISF_INTERFACE_PSQSPI))
 /**
  * The following structure specifies the geometry of the Spansion/Micron
  * Serial Flash.
@@ -157,8 +166,9 @@ typedef struct {
 	u8 NumDie;		/**< No. of die forming a single flash */
 } SpaMicWinDeviceGeometry;
 
-#endif /* ((XPAR_XISF_FLASH_FAMILY == WINBOND) ||
-	  (XPAR_XISF_FLASH_FAMILY == SPANSION)) */
+#endif /* (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	defined(XPAR_XISF_INTERFACE_PSQSPI)) */
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -177,19 +187,26 @@ int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == SST))
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
+    (XPAR_XISF_FLASH_FAMILY == SST) || (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+    (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
-#endif /* ((XPAR_XISF_FLASH_FAMILY == INTEL) || \
-	  (XPAR_XISF_FLASH_FAMILY == STM) || \
-	  (|| (XPAR_XISF_FLASH_FAMILY == SST)) */
+#endif /* (((XPAR_XISF_FLASH_FAMILY == INTEL) ||	\
+	(XPAR_XISF_FLASH_FAMILY == STM) ||	\
+    (XPAR_XISF_FLASH_FAMILY == SST) ||	\
+    (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+    (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI))) */
 
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) ||	\
-    (XPAR_XISF_FLASH_FAMILY == SPANSION))
+#if (((XPAR_XISF_FLASH_FAMILY == WINBOND) ||	\
+    (XPAR_XISF_FLASH_FAMILY == SPANSION)) && 	\
+	defined(XPAR_XISF_INTERFACE_PSQSPI))
 static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr);
 
-#endif /* ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-	  (XPAR_XISF_FLASH_FAMILY == SPANSION)) */
+#endif /* (((XPAR_XISF_FLASH_FAMILY == WINBOND) ||	\
+    (XPAR_XISF_FLASH_FAMILY == SPANSION)) && 	\
+	defined(XPAR_XISF_INTERFACE_PSQSPI)) */
 
 /************************** Variable Definitions *****************************/
 
@@ -226,8 +243,11 @@ static const AtmelDeviceGeometry AtmelDevices[] = {
 };
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
+	|| (XPAR_XISF_FLASH_FAMILY == SST) || 		\
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || 		\
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && 	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 static const IntelStmDeviceGeometry IntelStmDevices[] = {
 	{XISF_MANUFACTURER_ID_INTEL, XISF_INTEL_DEV_S3316MBIT,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
@@ -370,11 +390,15 @@ static const IntelStmDeviceGeometry IntelStmDevices[] = {
 	 XISF_NUM_OF_SECTORS256},
 
 };
-#endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))*/
+#endif /* (((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
+	|| (XPAR_XISF_FLASH_FAMILY == SST) || 		\
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || 		\
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && 	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))*/
 
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-    (XPAR_XISF_FLASH_FAMILY == SPANSION))
+#if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || 	\
+    (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+    defined(XPAR_XISF_INTERFACE_PSQSPI))
 static const SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
 	{0x10000, 0x100, 256, 0x10000, 0x1000000,
 		XISF_MANUFACTURER_ID_SPANSION, XISF_SPANSION_ID_BYTE2_128,
@@ -452,8 +476,9 @@ static const SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
 		XISF_MANUFACTURER_ID_WINBOND, XISF_WINBOND_ID_BYTE2_128,
 		0xFFFE0000, 1}
 };
-#endif /* ((XPAR_XISF_FLASH_FAMILY == WINBOND) || 	\
-	  (XPAR_XISF_FLASH_FAMILY == SPANSION)) */
+#endif /* (((XPAR_XISF_FLASH_FAMILY == WINBOND) || 	\
+	  (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+	  defined(XPAR_XISF_INTERFACE_PSQSPI)) */
 
 /*
  * The following variables are shared between non-interrupt processing and
@@ -583,23 +608,31 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
+	|| (XPAR_XISF_FLASH_FAMILY == SST) || 		\
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || 		\
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && 	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 
 	/*
 	 * Check for Intel/STM/Winbond/Spansion Serial Flash.
 	 */
 	Status = IntelStmFlashInitialize(InstancePtr, ReadBuf);
 
-#endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
-	 || (XPAR_XISF_FLASH_FAMILY == SST))*/
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION))
+#endif /* (((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
+	 || (XPAR_XISF_FLASH_FAMILY == SST) || 		\
+	 (XPAR_XISF_FLASH_FAMILY == WINBOND) || 	\
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && 	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))*/
+#if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || 	\
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	defined(XPAR_XISF_INTERFACE_PSQSPI))
 
 	Status = SpaMicWinFlashInitialize(InstancePtr, ReadBuf);
 
-#endif /*(XPAR_XISF_FLASH_FAMILY == WINBOND) ||
-	(XPAR_XISF_FLASH_FAMILY == SPANSION)) */
+#endif /*(((XPAR_XISF_FLASH_FAMILY == WINBOND) ||	\
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+	defined(XPAR_XISF_INTERFACE_PSQSPI)) */
 
 	return Status;
 }
@@ -1289,8 +1322,11 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 }
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
- 	|| (XPAR_XISF_FLASH_FAMILY == SST))
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
+	|| (XPAR_XISF_FLASH_FAMILY == SST) || \
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 /*****************************************************************************/
 /**
 *
@@ -1369,11 +1405,15 @@ static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 
 	return (int)(XST_SUCCESS);
 }
-#endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST))*/
+#endif /* (((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
+	|| (XPAR_XISF_FLASH_FAMILY == SST) || \
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))*/
 
-#if  ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION))
+#if  (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	defined(XPAR_XISF_INTERFACE_PSQSPI))
 /*****************************************************************************/
 /**
 *
@@ -1562,8 +1602,9 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 
 	return (int)(XST_SUCCESS);
 }
-#endif /*  (XPAR_XISF_FLASH_FAMILY == WINBOND) ||
-	   (XPAR_XISF_FLASH_FAMILY == SPANSION)) */
+#endif /*  (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	   (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	   defined(XPAR_XISF_INTERFACE_PSQSPI))*/
 
 /*****************************************************************************/
 /**
