@@ -68,7 +68,7 @@
  */
 XGpioPs_Config XGpioPs_ConfigTable[XPAR_XGPIOPS_NUM_INSTANCES] = {
 	{
-		XPAR_XGPIOPS_0_DEVICE_ID,	/* Unique ID of device */
-		XPAR_XGPIOPS_0_BASEADDR		/* Base address of device */
+		(u16)XPAR_XGPIOPS_0_DEVICE_ID,	/* Unique ID of device */
+		(u32)XPAR_XGPIOPS_0_BASEADDR		/* Base address of device */
 	}
 };

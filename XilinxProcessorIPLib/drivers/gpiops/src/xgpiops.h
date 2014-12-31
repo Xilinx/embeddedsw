@@ -115,22 +115,22 @@ extern "C" {
  * The following constants define the interrupt types that can be set for each
  * GPIO pin.
  */
-#define XGPIOPS_IRQ_TYPE_EDGE_RISING	0  /**< Interrupt on Rising edge */
-#define XGPIOPS_IRQ_TYPE_EDGE_FALLING	1  /**< Interrupt Falling edge */
-#define XGPIOPS_IRQ_TYPE_EDGE_BOTH	2  /**< Interrupt on both edges */
-#define XGPIOPS_IRQ_TYPE_LEVEL_HIGH	3  /**< Interrupt on high level */
-#define XGPIOPS_IRQ_TYPE_LEVEL_LOW	4  /**< Interrupt on low level */
+#define XGPIOPS_IRQ_TYPE_EDGE_RISING	0x00U  /**< Interrupt on Rising edge */
+#define XGPIOPS_IRQ_TYPE_EDGE_FALLING	0x01U  /**< Interrupt Falling edge */
+#define XGPIOPS_IRQ_TYPE_EDGE_BOTH	0x02U  /**< Interrupt on both edges */
+#define XGPIOPS_IRQ_TYPE_LEVEL_HIGH	0x03U  /**< Interrupt on high level */
+#define XGPIOPS_IRQ_TYPE_LEVEL_LOW	0x04U  /**< Interrupt on low level */
 /*@}*/
 
-#define XGPIOPS_BANK0			0  /**< GPIO Bank 0 */
-#define XGPIOPS_BANK1			1  /**< GPIO Bank 1 */
-#define XGPIOPS_BANK2			2  /**< GPIO Bank 2 */
-#define XGPIOPS_BANK3			3  /**< GPIO Bank 3 */
+#define XGPIOPS_BANK0			0x00U  /**< GPIO Bank 0 */
+#define XGPIOPS_BANK1			0x01U  /**< GPIO Bank 1 */
+#define XGPIOPS_BANK2			0x02U  /**< GPIO Bank 2 */
+#define XGPIOPS_BANK3			0x03U  /**< GPIO Bank 3 */
 
-#define XGPIOPS_MAX_BANKS		4  /**< Max banks in a GPIO device */
-#define XGPIOPS_BANK_MAX_PINS		32 /**< Max pins in a GPIO bank */
+#define XGPIOPS_MAX_BANKS		0x04U  /**< Max banks in a GPIO device */
+#define XGPIOPS_BANK_MAX_PINS		(u32)32 /**< Max pins in a GPIO bank */
 
-#define XGPIOPS_DEVICE_MAX_PIN_NUM	118 /*< Max pins in the GPIO device
+#define XGPIOPS_DEVICE_MAX_PIN_NUM	(u32)118 /*< Max pins in the GPIO device
 					      * 0 - 31,  Bank 0
 					      * 32 - 53, Bank 1
 					      *	54 - 85, Bank 2
@@ -156,7 +156,7 @@ extern "C" {
  * @param	Status is the Interrupt status of the GPIO bank.
  *
  *****************************************************************************/
-typedef void (*XGpioPs_Handler) (void *CallBackRef, int Bank, u32 Status);
+typedef void (*XGpioPs_Handler) (void *CallBackRef, u32 Bank, u32 Status);
 
 /**
  * This typedef contains configuration information for a device.
@@ -185,7 +185,7 @@ typedef struct {
 /*
  * Functions in xgpiops.c
  */
-int XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
+s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 			   u32 EffectiveAddr);
 
 /*
@@ -195,24 +195,24 @@ u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank);
 void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data);
 void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction);
 u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank);
-void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 Enable);
+void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable);
 u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank);
 void XGpioPs_GetBankPin(u8 PinNumber,	u8 *BankNumber, u8 *PinNumberInBank);
 
 /*
  * Pin APIs in xgpiops.c
  */
-int XGpioPs_ReadPin(XGpioPs *InstancePtr, int Pin);
-void XGpioPs_WritePin(XGpioPs *InstancePtr, int Pin, int Data);
-void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, int Pin, int Direction);
-int XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, int Pin);
-void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, int Pin, int Enable);
-int XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, int Pin);
+u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data);
+void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction);
+u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable);
+u32 XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin);
 
 /*
  * Diagnostic functions in xgpiops_selftest.c
  */
-int XGpioPs_SelfTest(XGpioPs *InstancePtr);
+s32 XGpioPs_SelfTest(XGpioPs *InstancePtr);
 
 /*
  * Functions in xgpiops_intr.c
@@ -230,20 +230,20 @@ void XGpioPs_SetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 void XGpioPs_GetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 			  u32 *IntrPolarity, u32 *IntrOnAny);
 void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
-			     XGpioPs_Handler FuncPtr);
+			     XGpioPs_Handler FuncPointer);
 void XGpioPs_IntrHandler(XGpioPs *InstancePtr);
 
 /*
  * Pin APIs in xgpiops_intr.c
  */
-void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, int Pin, u8 IrqType);
-u8 XGpioPs_GetIntrTypePin(XGpioPs *InstancePtr, int Pin);
+void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, u32 Pin, u8 IrqType);
+u8 XGpioPs_GetIntrTypePin(XGpioPs *InstancePtr, u32 Pin);
 
-void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, int Pin);
-void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, int Pin);
-int XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, int Pin);
-int XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, int Pin);
-void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, int Pin);
+void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin);
+u32 XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, u32 Pin);
+u32 XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, u32 Pin);
 
 /*
  * Functions in xgpiops_sinit.c

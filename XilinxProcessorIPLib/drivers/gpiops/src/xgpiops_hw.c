@@ -83,54 +83,54 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 	/*
 	 * Write reset values to all mask data registers
 	 */
-	for(BankCount = 2; BankCount < XGPIOPS_MAX_BANKS; BankCount++) {
+	for(BankCount = 2U; BankCount < (u32)XGPIOPS_MAX_BANKS; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_DATA_MASK_OFFSET) +
-				 XGPIOPS_DATA_LSW_OFFSET), 0x0);
+				 XGPIOPS_DATA_LSW_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_DATA_MASK_OFFSET) +
-				 XGPIOPS_DATA_MSW_OFFSET), 0x0);
+				 XGPIOPS_DATA_MSW_OFFSET), 0x0U);
 	}
 	/*
 	 * Write reset values to all output data registers
 	 */
-	for(BankCount = 2; BankCount < XGPIOPS_MAX_BANKS; BankCount++) {
+	for(BankCount = 2U; BankCount < (u32)XGPIOPS_MAX_BANKS; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_DATA_BANK_OFFSET) +
-				 XGPIOPS_DATA_OFFSET), 0x0);
+				 XGPIOPS_DATA_OFFSET), 0x0U);
 	}
 
 	/*
 	 * Reset all registers of all 4 banks
 	 */
-	for(BankCount = 0; BankCount < XGPIOPS_MAX_BANKS; BankCount++) {
+	for(BankCount = 0U; BankCount < (u32)XGPIOPS_MAX_BANKS; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_DIRM_OFFSET), 0x0);
+				 XGPIOPS_DIRM_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_OUTEN_OFFSET), 0x0);
+				 XGPIOPS_OUTEN_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_INTMASK_OFFSET), 0x0);
+				 XGPIOPS_INTMASK_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_INTEN_OFFSET), 0x0);
+				 XGPIOPS_INTEN_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_INTDIS_OFFSET), 0x0);
+				 XGPIOPS_INTDIS_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_INTSTS_OFFSET), 0x0);
+				 XGPIOPS_INTSTS_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_INTPOL_OFFSET), 0x0);
+				 XGPIOPS_INTPOL_OFFSET), 0x0U);
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_INTANY_OFFSET), 0x0);
+				 XGPIOPS_INTANY_OFFSET), 0x0U);
 	}
 
 	/*
@@ -142,19 +142,19 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 	 * Bank 1 Int type
 	 */
 	XGpioPs_WriteReg(BaseAddress,
-			(XGPIOPS_REG_MASK_OFFSET + XGPIOPS_INTTYPE_OFFSET),
+			((u32)XGPIOPS_REG_MASK_OFFSET + (u32)XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK1_RESET);
 	/*
 	 * Bank 2 Int type
 	 */
 	XGpioPs_WriteReg(BaseAddress,
-			((2*XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+			(((u32)2 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK2_RESET);
 	/*
 	 * Bank 3 Int type
 	 */
 	XGpioPs_WriteReg(BaseAddress,
-			((3*XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+			(((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK3_RESET);
 
 }

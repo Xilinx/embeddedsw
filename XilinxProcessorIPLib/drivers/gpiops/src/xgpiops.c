@@ -65,20 +65,10 @@
 
 /************************** Variable Definitions *****************************/
 
-/*
- * This structure defines the mapping of the pin numbers to the banks when
- * the driver APIs are used for working on the individual pins.
- */
-unsigned int XGpioPsPinTable[] = {
-	31, /* 0 - 31, Bank 0 */
-	53, /* 32 - 53, Bank 1 */
-	85, /* 54 - 85, Bank 2 */
-	117 /* 86 - 117 Bank 3 */
-};
 
 /************************** Function Prototypes ******************************/
 
-extern void StubHandler(void *CallBackRef, int Bank, u32 Status);
+extern void StubHandler(void *CallBackRef, u32 Bank, u32 Status);
 
 /*****************************************************************************/
 /*
@@ -100,18 +90,18 @@ extern void StubHandler(void *CallBackRef, int Bank, u32 Status);
 * @note		None.
 *
 ******************************************************************************/
-int XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
+s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
-
+	s32 Status = XST_SUCCESS;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
-
+	Xil_AssertNonvoid(EffectiveAddr != (u32)0);
 	/*
 	 * Set some default values for instance data, don't indicate the device
 	 * is ready to use until everything has been initialized successfully.
 	 */
-	InstancePtr->IsReady = 0;
+	InstancePtr->IsReady = 0U;
 	InstancePtr->GpioConfig.BaseAddr = EffectiveAddr;
 	InstancePtr->GpioConfig.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Handler = StubHandler;
@@ -121,26 +111,26 @@ int XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 	 * interrupts for all pins in all the 4 banks.
 	 */
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFF);
+			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((1) * XGPIOPS_REG_MASK_OFFSET) +
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFF);
+			  ((u32)(1) * XGPIOPS_REG_MASK_OFFSET) +
+			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((2) * XGPIOPS_REG_MASK_OFFSET) +
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFF);
+			  ((u32)(2) * XGPIOPS_REG_MASK_OFFSET) +
+			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((3) * XGPIOPS_REG_MASK_OFFSET) +
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFF);
+			  ((u32)(3) * XGPIOPS_REG_MASK_OFFSET) +
+			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
 
 	/*
 	 * Indicate the component is now ready to use.
 	 */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /****************************************************************************/
@@ -165,7 +155,7 @@ u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				 ((Bank) * XGPIOPS_DATA_BANK_OFFSET) +
+				 ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
 				 XGPIOPS_DATA_RO_OFFSET);
 }
 
@@ -185,7 +175,7 @@ u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank)
 *		GPIO pin.
 *
 *****************************************************************************/
-int XGpioPs_ReadPin(XGpioPs *InstancePtr, int Pin)
+u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -197,11 +187,11 @@ int XGpioPs_ReadPin(XGpioPs *InstancePtr, int Pin)
 	/*
 	 * Get the Bank number and Pin number within the bank.
 	 */
-	XGpioPs_GetBankPin(Pin, &Bank, &PinNumber);
+	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				 ((Bank) * XGPIOPS_DATA_BANK_OFFSET) +
-				 XGPIOPS_DATA_RO_OFFSET) >> PinNumber) & 1;
+				 ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
+				 XGPIOPS_DATA_RO_OFFSET) >> (u32)PinNumber) & (u32)1;
 
 }
 
@@ -228,7 +218,7 @@ void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data)
 	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((Bank) * XGPIOPS_DATA_BANK_OFFSET) +
+			  ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
 			  XGPIOPS_DATA_OFFSET, Data);
 }
 
@@ -249,12 +239,13 @@ void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data)
 *		is maintained.
 *
 *****************************************************************************/
-void XGpioPs_WritePin(XGpioPs *InstancePtr, int Pin, int Data)
+void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data)
 {
 	u32 RegOffset;
 	u32 Value;
 	u8 Bank;
 	u8 PinNumber;
+	u32 DataVar = Data;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -263,13 +254,13 @@ void XGpioPs_WritePin(XGpioPs *InstancePtr, int Pin, int Data)
 	/*
 	 * Get the Bank number and Pin number within the bank.
 	 */
-	XGpioPs_GetBankPin(Pin, &Bank, &PinNumber);
+	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
-	if (PinNumber > 15) {
+	if (PinNumber > 15U) {
 		/*
 		 * There are only 16 data bits in bit maskable register.
 		 */
-		PinNumber -= 16;
+		PinNumber -= (u8)16;
 		RegOffset = XGPIOPS_DATA_MSW_OFFSET;
 	} else {
 		RegOffset = XGPIOPS_DATA_LSW_OFFSET;
@@ -279,10 +270,10 @@ void XGpioPs_WritePin(XGpioPs *InstancePtr, int Pin, int Data)
 	 * Get the 32 bit value to be written to the Mask/Data register where
 	 * the upper 16 bits is the mask and lower 16 bits is the data.
 	 */
-	Data &= 0x01;
-	Value = ~(1 << (PinNumber + 16)) & ((Data << PinNumber) | 0xFFFF0000);
+	DataVar &= (u32)0x01;
+	Value = ~((u32)1 << (PinNumber + 16U)) & ((DataVar << PinNumber) | 0xFFFF0000U);
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((Bank) * XGPIOPS_DATA_MASK_OFFSET) +
+			  ((u32)(Bank) * XGPIOPS_DATA_MASK_OFFSET) +
 			  RegOffset, Value);
 }
 
@@ -314,7 +305,7 @@ void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_DIRM_OFFSET, Direction);
 }
 
@@ -332,7 +323,7 @@ void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 * @return	None.
 *
 *****************************************************************************/
-void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, int Pin, int Direction)
+void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -341,25 +332,25 @@ void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, int Pin, int Direction)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
-	Xil_AssertVoid((Direction == 0) || (Direction == 1));
+	Xil_AssertVoid(Direction <= (u32)1);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
 	 */
-	XGpioPs_GetBankPin(Pin, &Bank, &PinNumber);
+	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	DirModeReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				      ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+				      ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				      XGPIOPS_DIRM_OFFSET);
 
-	if (Direction) { /*  Output Direction */
-		DirModeReg |= (1 << PinNumber);
+	if (Direction!=(u32)0) { /*  Output Direction */
+		DirModeReg |= ((u32)1 << (u32)PinNumber);
 	} else { /* Input Direction */
-		DirModeReg &= ~ (1 << PinNumber);
+		DirModeReg &= ~ ((u32)1 << (u32)PinNumber);
 	}
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			 ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+			 ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			 XGPIOPS_DIRM_OFFSET, DirModeReg);
 }
 
@@ -385,7 +376,7 @@ u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+				((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				XGPIOPS_DIRM_OFFSET);
 }
 
@@ -406,7 +397,7 @@ u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank)
 * @note		None.
 *
 *****************************************************************************/
-int XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, int Pin)
+u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -418,11 +409,11 @@ int XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, int Pin)
 	/*
 	 * Get the Bank number and Pin number within the bank.
 	 */
-	XGpioPs_GetBankPin(Pin, &Bank, &PinNumber);
+	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				 ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_DIRM_OFFSET) >> PinNumber) & 1;
+				 ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
+				 XGPIOPS_DIRM_OFFSET) >> (u32)PinNumber) & (u32)1;
 }
 
 /****************************************************************************/
@@ -451,7 +442,7 @@ void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_OUTEN_OFFSET, OpEnable);
 }
 
@@ -473,7 +464,7 @@ void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, int Pin, int OpEnable)
+void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -482,25 +473,25 @@ void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, int Pin, int OpEnable)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
-	Xil_AssertVoid((OpEnable == 0) || (OpEnable == 1));
+	Xil_AssertVoid(OpEnable <= (u32)1);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
 	 */
-	XGpioPs_GetBankPin(Pin, &Bank, &PinNumber);
+	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	OpEnableReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				       ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+				       ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				       XGPIOPS_OUTEN_OFFSET);
 
-	if (OpEnable) { /*  Enable Output Enable */
-		OpEnableReg |= (1 << PinNumber);
+	if (OpEnable != (u32)0) { /*  Enable Output Enable */
+		OpEnableReg |= ((u32)1 << (u32)PinNumber);
 	} else { /* Disable Output Enable */
-		OpEnableReg &= ~ (1 << PinNumber);
+		OpEnableReg &= ~ ((u32)1 << (u32)PinNumber);
 	}
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_OUTEN_OFFSET, OpEnableReg);
 }
 /****************************************************************************/
@@ -526,7 +517,7 @@ u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				((Bank) * XGPIOPS_REG_MASK_OFFSET) +
+				((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				XGPIOPS_OUTEN_OFFSET);
 }
 
@@ -547,7 +538,7 @@ u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank)
 * @note		None.
 *
 *****************************************************************************/
-int XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, int Pin)
+u32 XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -559,11 +550,11 @@ int XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, int Pin)
 	/*
 	 * Get the Bank number and Pin number within the bank.
 	 */
-	XGpioPs_GetBankPin(Pin, &Bank, &PinNumber);
+	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
-				 ((Bank) * XGPIOPS_REG_MASK_OFFSET) +
-				 XGPIOPS_OUTEN_OFFSET) >> PinNumber) & 1;
+				 ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
+				 XGPIOPS_OUTEN_OFFSET) >> (u32)PinNumber) & (u32)1;
 }
 
 /****************************************************************************/
@@ -577,21 +568,34 @@ int XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, int Pin)
 *		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
 * @param	PinNumberInBank returns the Pin Number within the Bank.
 *
-* return	None;
+* @return	None.
 *
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_GetBankPin(u8 PinNumber,	u8 *BankNumber, u8 *PinNumberInBank)
+void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 {
-	for (*BankNumber = 0; *BankNumber < 4; (*BankNumber)++)
-		if (PinNumber <= XGpioPsPinTable[*BankNumber])
+	/*
+	 * This structure defines the mapping of the pin numbers to the banks when
+	 * the driver APIs are used for working on the individual pins.
+	 */
+	u32 XGpioPsPinTable[] = {
+		(u32)31, /* 0 - 31, Bank 0 */
+		(u32)53, /* 32 - 53, Bank 1 */
+		(u32)85, /* 54 - 85, Bank 2 */
+		(u32)117 /* 86 - 117 Bank 3 */
+	};
+	*BankNumber = 0U;
+	while (*BankNumber < 4U) {
+		if (PinNumber <= XGpioPsPinTable[*BankNumber]) {
 			break;
-
-	if (*BankNumber == 0) {
+		}
+		(*BankNumber)++;
+    }
+	if (*BankNumber == (u8)0) {
 		*PinNumberInBank = PinNumber;
 	} else {
-		*PinNumberInBank = PinNumber %
-					(XGpioPsPinTable[*BankNumber - 1] + 1);
+		*PinNumberInBank = (u8)((u32)PinNumber %
+					(XGpioPsPinTable[*BankNumber - (u8)1] + (u32)1));
 	}
 }

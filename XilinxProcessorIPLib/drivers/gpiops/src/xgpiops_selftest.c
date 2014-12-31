@@ -78,17 +78,17 @@
 *
 *
 ******************************************************************************/
-int XGpioPs_SelfTest(XGpioPs *InstancePtr)
+s32 XGpioPs_SelfTest(XGpioPs *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	s32 Status = XST_SUCCESS;
 	u32 IntrEnabled;
-	u32 CurrentIntrType;
-	u32 CurrentIntrPolarity;
-	u32 CurrentIntrOnAny;
-	u32 IntrType;
-	u32 IntrPolarity;
-	u32 IntrOnAny;
-	u32 IntrTestValue = 0x22;
+	u32 CurrentIntrType = 0U;
+	u32 CurrentIntrPolarity = 0U;
+	u32 CurrentIntrOnAny = 0U;
+	u32 IntrType = 0U;
+	u32 IntrPolarity = 0U;
+	u32 IntrOnAny = 0U;
+	u32 IntrTestValue = 0x22U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

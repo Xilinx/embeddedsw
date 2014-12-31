@@ -52,8 +52,8 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xgpiops.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -64,7 +64,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XGpioPs_Config XGpioPs_ConfigTable[];
+extern XGpioPs_Config XGpioPs_ConfigTable[XPAR_XGPIOPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -86,12 +86,12 @@ XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId)
 	XGpioPs_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0; Index < XPAR_XGPIOPS_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XGPIOPS_NUM_INSTANCES; Index++) {
 		if (XGpioPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XGpioPs_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return CfgPtr;
+	return (XGpioPs_Config *)CfgPtr;
 }
