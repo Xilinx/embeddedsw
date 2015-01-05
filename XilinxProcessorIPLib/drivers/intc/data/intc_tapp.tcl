@@ -109,7 +109,7 @@ if {$cascade == 1} {
 
   set ipname [get_property NAME  $mhsinst]
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
@@ -195,10 +195,10 @@ proc check_cascade {mhsinst} {
             if { [::hsi::utils::is_external_pin $source_pin] } {
                 continue
             }
-            set source_periph [get_cells -of_objects $source_pin ]
-            set source_type [get_property IP_TYPE $source_periph]           
+            set source_periph [hsi::get_cells -of_objects $source_pin ]
+            set source_type [get_property IP_TYPE $source_periph]
             if {[string compare -nocase $source_type "INTERRUPT_CNTLR"] == 0} {
-            	return 1
+		return 1
             }
         }
     }

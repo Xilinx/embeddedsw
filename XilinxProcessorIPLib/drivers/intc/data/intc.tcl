@@ -249,7 +249,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	variable cascade
 
 	set periph_name [get_property NAME $periph]
-    set interrupt_pin [get_pins -of_objects $periph intr]
+    set interrupt_pin [hsi::get_pins -of_objects $periph intr]
 
 	# Get pins/ports that are driving the interrupt
 	lappend source_pins
@@ -282,12 +282,12 @@ proc intc_define_vector_table {periph config_inc config_file} {
             }
         } else {
             #peripheral interrrupt case
-            set source_periph [get_cells -of_objects $source_pin ]
+            set source_periph [hsi::get_cells -of_objects $source_pin ]
             set port_type($i) "local"
             set source_name($i) [get_property NAME $source_periph]
             set source_port_name($i) [get_property NAME $source_pin]
-            set source_driver [get_drivers -filter "HW_INSTANCE==$source_periph"]
-    		set source_interrupt_handler($i) $default_interrupt_handler
+            set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph"]
+		set source_interrupt_handler($i) $default_interrupt_handler
             incr i
         }
     }
@@ -451,10 +451,10 @@ proc xredefine_intc {drvhandle config_inc} {
                 for { set j 0 } { $j < $width } { incr j } {
                   set source_name($i) "system"
                   lappend source_list $source_name($i)
-                  incr i  
+                  incr i
                 }
             } else {
-                set source_periph [get_cells -of_objects $source_pin]
+                set source_periph [hsi::get_cells -of_objects $source_pin]
                 set source_name($i) [get_property NAME $source_periph]
                 lappend source_list $source_name($i)
                 incr i
@@ -468,7 +468,7 @@ proc xredefine_intc {drvhandle config_inc} {
             if {[string compare -nocase $source_name($i) "system"] == 0} {
                 continue
             }
-            set drv [get_drivers -filter "HW_INSTANCE==$source_name($i)"]
+            set drv [hsi::get_drivers -filter "HW_INSTANCE==$source_name($i)"]
 
             if {[llength $source_name($i)] != 0 && [llength $drv] != 0} {
 
@@ -591,10 +591,10 @@ proc check_cascade {drv_handle} {
             if { [::hsi::utils::is_external_pin $source_pin] } {
                 continue
             }
-            set source_periph [get_cells -of_objects $source_pin ]
-            set source_type [get_property IP_TYPE $source_periph]           
+            set source_periph [hsi::get_cells -of_objects $source_pin ]
+            set source_type [get_property IP_TYPE $source_periph]
             if {[string compare -nocase $source_type "INTERRUPT_CNTLR"] == 0} {
-            	return 1
+		return 1
             }
         }
     }
