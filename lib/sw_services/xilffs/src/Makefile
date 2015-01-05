@@ -37,6 +37,10 @@ COMPILER_FLAGS=
 
 ifeq ($(COMPILER) , arm-xilinx-eabi-gcc)
 	EXTRA_ARCHIVE_FLAGS=rc
+else ifeq ($(COMPILER), aarch64-none-elf-gcc)
+	EXTRA_ARCHIVE_FLAGS=rc
+else ifeq ($(COMPILER), arm-none-eabi-gcc)
+	EXTRA_ARCHIVE_FLAGS=rc
 else
 	EXTRA_ARCHIVE_FLAGS=--create
 endif
