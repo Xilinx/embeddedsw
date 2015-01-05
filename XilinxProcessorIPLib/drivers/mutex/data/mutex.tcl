@@ -137,12 +137,12 @@ proc xdefine_mutex_config_files {drv_handle hfile_name cfile_name drv_string} {
 }
 
 proc check_if_connected {periph if_num} {
-	set sw_proc_handle [get_sw_processor]
-	set hw_proc_handle [get_cells $sw_proc_handle]
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
     	set if_isaxi 0
 
 	set baseaddr [get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
-	set mem [get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$periph"]
+	set mem [hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$periph"]
 	if {[llength $mem] != 0} {
 		set addrs [get_property BASE_VALUE $mem]
 		foreach addr $addrs {
