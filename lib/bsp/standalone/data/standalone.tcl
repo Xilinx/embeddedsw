@@ -56,8 +56,8 @@ proc generate {os_handle} {
     set need_config_file "false"
 
     # Copy over the right set of files as src based on processor type
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [get_property IP_NAME $hw_proc_handle]
     set procname [get_property NAME    $hw_proc_handle]
 
@@ -69,7 +69,7 @@ proc generate {os_handle} {
     set cortexa53srcdir "./src/cortexa53"
     set cortexr5srcdir "./src/cortexr5"
     set cortexa9srcdir "./src/cortexa9"
-    set procdrv [get_sw_processor]
+    set procdrv [hsi::get_sw_processor]
     set commonsrcdir "./src/common"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
@@ -88,7 +88,7 @@ proc generate {os_handle} {
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
         "pss_cortexa53"  {
-            set procdrv [get_sw_processor]
+            set procdrv [hsi::get_sw_processor]
             set ccdir "./src/cortexa53/gcc"
             foreach entry [glob -nocomplain [file join $cortexa53srcdir *]] {
                 file copy -force $entry "./src/"
@@ -104,7 +104,7 @@ proc generate {os_handle} {
             close $file_handle
         }
         "pss_cortexr5"  {
-	    set procdrv [get_sw_processor]
+	    set procdrv [hsi::get_sw_processor]
 	    set ccdir "./src/cortexr5/gcc"
 	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
 		file copy -force $entry "./src/"
@@ -120,7 +120,7 @@ proc generate {os_handle} {
 	    close $file_handle
         }
        "ps7_cortexa9"  {
-                   set procdrv [get_sw_processor]
+                   set procdrv [hsi::get_sw_processor]
                    set compiler [get_property CONFIG.compiler $procdrv]
                    if {[string compare -nocase $compiler "armcc"] == 0} {
                        set ccdir "./src/cortexa9/armcc"
@@ -256,19 +256,19 @@ proc xhandle_mb_interrupts {} {
     set source_handler_arg $default_arg
 
     # Handle the interrupt pin
-    set sw_proc_handle [get_sw_processor]
-    set periph [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set periph [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
     set source_ports [::hsi::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
         error "ERROR: Too many interrupting ports on the MicroBlaze. Should only find 1" "" "hsi_error"
         return
     }
     if { [llength $source_ports] != 0 } {
-        set source_periph [get_cells -of_objects $source_ports]
+        set source_periph [hsi::get_cells -of_objects $source_ports]
         if { [llength $source_periph] != 0 } {
-            set source_driver [get_drivers -filter "HW_INSTANCE==$source_periph"]
+            set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph"]
             if { [llength $source_driver] != 0 } {
-                set intr_array [get_arrays -of_objects $source_driver -filter "NAME==interrupt_handler"]
+                set intr_array [hsi::get_arrays -of_objects $source_driver -filter "NAME==interrupt_handler"]
                 if { [llength $intr_array] != 0 } {
                     set array_size [get_property PROPERTY.size $intr_array]
                     for { set i 0 } { $i < $array_size } { incr i } {
@@ -331,8 +331,8 @@ proc xcreate_mb_exc_config_file {os_handle} {
     file delete $hfilename
     set hconfig_file [open $hfilename w]
     ::hsi::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
     set procvlnv [get_property VLNV $hw_proc_handle]
     set procvlnv [split $procvlnv :]
     set procver [lindex $procvlnv 3]
@@ -406,15 +406,15 @@ proc xcreate_mb_exc_config_file {os_handle} {
 # --------------------------------------
 proc post_generate {os_handle} {
 
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
 
     set procname [get_property NAME $hw_proc_handle]
     set proctype [get_property IP_NAME $hw_proc_handle]
 
     if {[string compare -nocase $proctype "microblaze"] == 0} {
 
-        set procdrv [get_sw_processor]
+        set procdrv [hsi::get_sw_processor]
         # Remove _interrupt_handler.o from libxil.a for mb-gcc
         set archiver [get_property CONFIG.archiver $procdrv]
         set libgloss_a [file join .. .. lib libgloss.a]
@@ -567,18 +567,18 @@ proc handle_profile { os_handle proctype } {
     variable scugic_cpu_base
     variable scugic_dist_base
 
-    set proc [get_sw_processor]
+    set proc [hsi::get_sw_processor]
 
     if {{$proctype == "pss_cortexa53"} | {$proctype == "pss_cortexr5"} | {$proctype == "ps7_cortexa9"}} {
-        set sw_proc_handle [get_sw_processor]
-        set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+        set sw_proc_handle [hsi::get_sw_processor]
+        set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
         set cpu_freq [get_property CONFIG.C_CPU_CLK_FREQ_HZ $hw_proc_handle]
         if { [string compare -nocase $cpu_freq ""] == 0 } {
             puts "WARNING<profile> :: CPU Clk Frequency not specified, Assuming 666Mhz"
             set cpu_freq 666000000
         }
     } else {
-        set cpu_freq [get_property CONFIG.C_FREQ  [get_cells $proc]]
+        set cpu_freq [get_property CONFIG.C_FREQ  [hsi::get_cells $proc]]
         if { [string compare -nocase $cpu_freq ""] == 0 } {
             puts "WARNING<profile> :: CPU Clk Frequency not specified, Assuming 100Mhz"
             set cpu_freq 100000000
@@ -704,21 +704,21 @@ proc execpipe {COMMAND} {
 # - The xps/opb_timer can be connected directly to Microblaze External Intr Pin.
 # - (OR) xps/opb_timer can be connected to xps/opb_intc
 proc handle_profile_opbtimer { config_file timer_inst } {
-    set timer_handle [get_cells  $timer_inst]
+    set timer_handle [hsi::get_cells  $timer_inst]
     set timer_baseaddr [get_property CONFIG.C_BASEADDR $timer_handle]
     puts $config_file "#define PROFILE_TIMER_BASEADDR [::hsi::utils::format_addr_string $timer_baseaddr "C_BASEADDR"]"
 
     # Figure out how Timer is connected.
-     set timer_intr [get_pins -of_objects [get_cells $timer_handle] Interrupt]
+     set timer_intr [hsi::get_pins -of_objects [hsi::get_cells $timer_handle] Interrupt]
     if { [string compare -nocase $timer_intr ""] == 0 } {
 	error "ERROR <profile> :: Timer Interrupt PORT is not specified" "" "mdt_error"
     }
     #set mhs_handle [xget_handle $timer_handle "parent"]
     # CR 302300 - There can be multiple "sink" for the interrupt. So need to iterate through the list
-    set intr_port_list [::hsi::utils::get_sink_pins [get_pins -of_objects [get_cells $timer_intr] INTERRUPT]]
+    set intr_port_list [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $timer_intr] INTERRUPT]]
     set timer_connection 0
     foreach intr_port $intr_port_list {
-	set intc_handle [get_cells -of_object $intr_port]
+	set intc_handle [hsi::get_cells -of_object $intr_port]
 	# Check if the Sink is a Global Port. If so, Skip the Port Connection
 
 	if {  [::hsi::utils::is_external_pin $intr_port] } {
