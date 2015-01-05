@@ -54,8 +54,8 @@ proc isf_drc {libhandle} {
 	puts "Running DRC for XilIsf library... \n"
 
 	# find the list of xps or opb spi cores
-	set sw_processor [get_sw_processor]
-	set processor [get_cells [get_property HW_INSTANCE $sw_processor]]
+	set sw_processor [hsi::get_sw_processor]
+	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
 
 	set spi_periphs_list [get_spi_periphs $processor]
 
