@@ -7,15 +7,15 @@ proc swapp_get_description {} {
 }
 
 proc get_stdout {} {
-    set os [get_os];
+    set os [hsi::get_os];
     set stdout [get_property CONFIG.STDOUT $os];
     return $stdout;
 }
 
 proc check_stdout_hw {} {
-	set slaves [get_property SLAVES [get_cells [get_sw_processor]]]
+	set slaves [get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
 	foreach slave $slaves {
-		set slave_type [get_property IP_NAME [get_cells $slave]];
+		set slave_type [get_property IP_NAME [hsi::get_cells $slave]];
 		# Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "ps7_uart" || $slave_type == "axi_uartlite" ||
@@ -27,14 +27,14 @@ proc check_stdout_hw {} {
 
 	error "This application requires a Uart IP in the hardware."
 
-#    set uartlites [get_cells -filter { ip_name == "axi_uartlite" }];
+#    set uartlites [hsi::get_cells -filter { ip_name == "axi_uartlite" }];
 #    if { [llength $uartlites] == 0 } {
 #        # we do not have an uartlite
-#	set uart16550s [get_cells -filter {ip_name == "axi_uart16550"}];
+#	set uart16550s [hsi::get_cells -filter {ip_name == "axi_uart16550"}];
 #	if { [llength $uart16550s] == 0 } {      
 #	    # Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 #	    # only if it has a UART interface. So no further check is required
-#	    set mdmlist [get_cells -filter {ip_name == "mdm"}]
+#	    set mdmlist [hsi::get_cells -filter {ip_name == "mdm"}]
 #	    if { [llength $mdmlist] == 0 } {
 #		error "This application requires a Uart IP in the hardware."
 #	    }
@@ -51,7 +51,7 @@ proc check_stdout_sw {} {
 }
 
 proc check_xilkernel_os {} {
-    set oslist [get_os];
+    set oslist [hsi::get_os];
 
     if { [llength $oslist] != 1 } {
         return 0;
@@ -65,7 +65,7 @@ proc check_xilkernel_os {} {
 
 proc swapp_is_supported_hw {} {
     # xilkernel is supported only for microblaze target
-    set proc [get_sw_processor];
+    set proc [hsi::get_sw_processor];
     set proc_type [string match "microblaze*" $proc];
 
     if { ($proc_type != 1) } { 
@@ -77,9 +77,9 @@ proc swapp_is_supported_hw {} {
 
     if { $proc_type == 1} {
         # make sure there is a timer (if this is a MB)
-        set timerlist [get_cells -filter {ip_name == "xps_timer"}];
+        set timerlist [hsi::get_cells -filter {ip_name == "xps_timer"}];
         if { [llength $timerlist] <= 0 } {
-            set timerlist [get_cells -filter {ip_name == "axi_timer"}];
+            set timerlist [hsi::get_cells -filter {ip_name == "axi_timer"}];
             if { [llength $timerlist] <= 0 } {
                 error "There seems to be no timer peripheral in the hardware. Xilkernel requires a timer for operation.";
             }
@@ -97,7 +97,7 @@ proc swapp_is_supported_sw {} {
     # check for stdout being set
     check_stdout_sw;
 
-    set n_threads [get_property CONFIG.max_pthreads [get_os]];
+    set n_threads [get_property CONFIG.max_pthreads [hsi::get_os]];
     if { $n_threads < 6 } {
         error "This application requires that your Xilkernel OS be configured to support at-least 6 POSIX threads. Currently, it is configured to support only $n_threads threads."
     }
@@ -109,7 +109,7 @@ proc generate_stdout_config { fid } {
     set stdout [get_stdout];
 
     # if stdout is uartlite, we don't have to generate anything
-    set stdout_type [get_property IP_NAME [get_cells $stdout]];
+    set stdout_type [get_property IP_NAME [hsi::get_cells $stdout]];
 
     if { [regexp -nocase "uartlite" $stdout_type] || [string match -nocase "mdm" $stdout_type] } {
         puts $fid "#define STDOUT_IS_UARTLITE";
