@@ -9,9 +9,9 @@ proc swapp_get_description {} {
 }
 
 proc check_stdout_hw {} {
-	set slaves [get_property SLAVES [get_cells [get_sw_processor]]]
+	set slaves [get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
 	foreach slave $slaves {
-		set slave_type [get_property IP_NAME [get_cells $slave]];
+		set slave_type [get_property IP_NAME [hsi::get_cells $slave]];
 		# Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "ps7_uart" || $slave_type == "axi_uartlite" ||
@@ -26,35 +26,35 @@ proc check_stdout_hw {} {
 }
 
 proc get_stdout {} {
-    set os [get_os];
+    set os [hsi::get_os];
     set stdout [get_property CONFIG.STDOUT $os];
     return $stdout;
 }
 
 proc check_emac_hw {} {
-    set emaclites [get_cells -filter { ip_name == "xps_ethernetlite" }];
+    set emaclites [hsi::get_cells -filter { ip_name == "xps_ethernetlite" }];
     if { [llength $emaclites] != 0 } {
         return;
     }
-    set emaclites [get_cells -filter { ip_name == "axi_ethernetlite"}];
+    set emaclites [hsi::get_cells -filter { ip_name == "axi_ethernetlite"}];
     if { [llength $emaclites] != 0 } {
         return;
     }
-    set temacs [get_cells -filter { ip_name == "xps_ll_temac" }];
+    set temacs [hsi::get_cells -filter { ip_name == "xps_ll_temac" }];
     if { [llength $temacs] != 0 } {      
         return;
     }
-    set temacs [get_cells -filter { ip_name == "axi_ethernet" }];
+    set temacs [hsi::get_cells -filter { ip_name == "axi_ethernet" }];
     if { [llength $temacs] != 0 } {      
         return;
     }
     
-     set temacs [get_cells -filter { ip_name == "axi_ethernet_buffer" }];
+     set temacs [hsi::get_cells -filter { ip_name == "axi_ethernet_buffer" }];
     if { [llength $temacs] != 0 } {      
         return;
     }
     
-    set temacs [get_cells -filter { ip_name == "ps7_ethernet" }];
+    set temacs [hsi::get_cells -filter { ip_name == "ps7_ethernet" }];
     if { [llength $temacs] != 0 } {      
             return;
     }
@@ -67,10 +67,10 @@ proc get_mem_size { memlist } {
 }
 
 proc require_memory {memsize} {
-    set proc_instance [get_sw_processor]
-    set imemlist [get_mem_ranges -of_objects [get_cells $proc_instance] -filter "IS_INSTRUCTION==1"];
-    set idmemlist [get_mem_ranges -of_objects [get_cells $proc_instance] -filter "IS_INSTRUCTION==1 && IS_DATA==1"];
-    set dmemlist [get_mem_ranges -of_objects [get_cells $proc_instance] -filter "IS_DATA==1"];
+    set proc_instance [hsi::get_sw_processor]
+    set imemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells $proc_instance] -filter "IS_INSTRUCTION==1"];
+    set idmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells $proc_instance] -filter "IS_INSTRUCTION==1 && IS_DATA==1"];
+    set dmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells $proc_instance] -filter "IS_DATA==1"];
 
     set memlist [concat $imemlist $idmemlist $dmemlist];
 
@@ -94,7 +94,7 @@ proc check_stdout_sw {} {
 }
 
 proc check_standalone_os {} {
-    set oslist [get_os];
+    set oslist [hsi::get_os];
 
     if { [llength $oslist] != 1 } {
         return 0;
@@ -114,13 +114,13 @@ proc swapp_is_supported_hw {} {
     check_stdout_hw;
 
     # do processor specific checks
-    set proc  [get_sw_processor];
-     set proc_type [get_property IP_NAME [get_cells $proc]]
+    set proc  [hsi::get_sw_processor];
+     set proc_type [get_property IP_NAME [hsi::get_cells $proc]]
     if { $proc_type == "microblaze"} {
         # make sure there is a timer (if this is a MB)
-        set timerlist [get_cells -filter { ip_name == "xps_timer" }];
+        set timerlist [hsi::get_cells -filter { ip_name == "xps_timer" }];
         if { [llength $timerlist] <= 0 } {
-            set timerlist [get_cells -filter { ip_name == "axi_timer" }];
+            set timerlist [hsi::get_cells -filter { ip_name == "axi_timer" }];
             if { [llength $timerlist] <= 0 } {
                 error "There seems to be no timer peripheral in the hardware. lwIP requires an xps_timer for TCP operations.";
             }
@@ -141,7 +141,7 @@ proc swapp_is_supported_sw {} {
     check_stdout_sw;
 
     # make sure lwip140 is available
-    set librarylist [get_libs -filter "NAME==lwip140"];
+    set librarylist [hsi::get_libs -filter "NAME==lwip140"];
 
     if { [llength $librarylist] == 0 } {
         error "This application requires lwIP library in the Board Support Package.";
@@ -154,7 +154,7 @@ proc swapp_is_supported_sw {} {
 
 proc generate_stdout_config { fid } {
     set stdout [get_stdout];
-    set stdout [get_cells $stdout]
+    set stdout [hsi::get_cells $stdout]
 
     # if stdout is uartlite, we don't have to generate anything
     set stdout_type [get_property IP_TYPE $stdout];
@@ -183,12 +183,12 @@ proc generate_emac_config {fp} {
     # FIXME we'll just use the first emac we find. This is not consistent with
     # how lwIP determines the EMAC's that can be used.
     
-     set proc  [get_sw_processor];
-    set proc_type [get_property IP_NAME [get_cells $proc]]
+     set proc  [hsi::get_sw_processor];
+    set proc_type [get_property IP_NAME [hsi::get_cells $proc]]
 
-    set emaclites [get_cells -filter { ip_name == "xps_ethernetlite" }];
+    set emaclites [hsi::get_cells -filter { ip_name == "xps_ethernetlite" }];
     if { [llength $emaclites] == 0 } {   
-        set emaclites [get_cells -filter { ip_name == "axi_ethernetlite" }];
+        set emaclites [hsi::get_cells -filter { ip_name == "axi_ethernetlite" }];
     }
     if { [llength $emaclites] > 0 } {   
         # we have an emaclite
@@ -207,7 +207,7 @@ proc generate_emac_config {fp} {
     }
     }
 
-    set temacs [get_cells -filter { ip_name == "xps_ll_temac" }];
+    set temacs [hsi::get_cells -filter { ip_name == "xps_ll_temac" }];
     if { [llength $temacs] > 0 } {   
         # we have an emaclite
         set temac [lindex $temacs 0]
@@ -218,7 +218,7 @@ proc generate_emac_config {fp} {
         puts $fp "#define PLATFORM_EMAC_BASEADDR $emac_baseaddr";
         return;
     }
-    set temacs [get_cells -filter { ip_name == "axi_ethernet" }];
+    set temacs [hsi::get_cells -filter { ip_name == "axi_ethernet" }];
     if { [llength $temacs] > 0 } {
     	if {$proc_type == "ps7_cortexa9" && $use_softeth_on_zynq == 0} {	
     	} else {
@@ -235,7 +235,7 @@ proc generate_emac_config {fp} {
         }
     }
     
-    set temacs [get_cells -filter { ip_name == "axi_ethernet_buffer" }];
+    set temacs [hsi::get_cells -filter { ip_name == "axi_ethernet_buffer" }];
     if { [llength $temacs] > 0 } {
     	if {$proc_type == "ps7_cortexa9" && $use_softeth_on_zynq == 0} {	
     	} else {
@@ -252,7 +252,7 @@ proc generate_emac_config {fp} {
         }
     }
     
-    set temacs [get_cells -filter { ip_name == "ps7_ethernet" }];
+    set temacs [hsi::get_cells -filter { ip_name == "ps7_ethernet" }];
     if { [llength $temacs] > 0 } {   
             puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
             return;
@@ -265,15 +265,15 @@ proc generate_timer_config { fp } {
     set postfix_intr "_INTERRUPT_INTR";
     set postfix_base "_BASEADDR";
 
-    set intcs [get_cells -filter {ip_name == "xps_intc"}];
+    set intcs [hsi::get_cells -filter {ip_name == "xps_intc"}];
     if { [llength $intcs] == 0 } {
-        set intcs [get_cells -filter { ip_name == "axi_intc" }];
+        set intcs [hsi::get_cells -filter { ip_name == "axi_intc" }];
     }
     set intc [lindex $intcs 0];
 
-    set timers [get_cells -filter { ip_name == "xps_timer" }];
+    set timers [hsi::get_cells -filter { ip_name == "xps_timer" }];
     if { [llength $timers] == 0 } {
-        set timers [get_cells -filter { ip_name == "axi_timer" }];
+        set timers [hsi::get_cells -filter { ip_name == "axi_timer" }];
     }
     set timer [lindex $timers 0];
 
@@ -306,15 +306,15 @@ proc swapp_generate {} {
     generate_stdout_config $fid;
     puts $fid "";
 
-    set use_softeth_on_zynq [get_property CONFIG.use_axieth_on_zynq [get_libs lwip140]];
-    set use_ethernetlite_on_zynq [get_property CONFIG.use_emaclite_on_zynq [get_libs lwip140]];
+    set use_softeth_on_zynq [get_property CONFIG.use_axieth_on_zynq [hsi::get_libs lwip140]];
+    set use_ethernetlite_on_zynq [get_property CONFIG.use_emaclite_on_zynq [hsi::get_libs lwip140]];
     # figure out the emac baseaddr
     generate_emac_config $fid;
     puts $fid "";
 
     # if MB, figure out the timer to be used 
-     set proc  [get_sw_processor];
-     set proc_type [get_property IP_NAME [get_cells $proc]]
+     set proc  [hsi::get_sw_processor];
+     set proc_type [get_property IP_NAME [hsi::get_cells $proc]]
 
     if { $proc_type == "microblaze"} {
         generate_timer_config $fid;
