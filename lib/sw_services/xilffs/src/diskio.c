@@ -204,15 +204,8 @@ DSTATUS disk_initialize (
 {
 	DSTATUS s;
 	s32 Status;
-#ifdef __ICCARM__
-#pragma data_alignment = 32
 	u8 SCR[8] = {0U};
 	u8 ReadBuff[64] = {0U};
-#pragma data_alignment = 4
-#else
-	u8 SCR[8] __attribute__ ((aligned(32))) = {0U};
-	u8 ReadBuff[64] __attribute__ ((aligned(32))) = {0U};
-#endif
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 
