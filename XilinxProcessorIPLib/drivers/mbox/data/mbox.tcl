@@ -62,8 +62,8 @@ proc xdefine_mbox_config_if {periph hfile_handle cfile_handle bus_if if_num dev_
 
 	# Copy over the right set of files as src based on processor type
 	# sw_proc_handle contains driver handle for processor for which libgen is running. Name of the sw_proc_handle will be driver name for processor[Ex:cpu for microblaze]
-	set sw_proc_handle [get_sw_processor]
-	set hw_proc_handle [get_cells $sw_proc_handle]
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
  	
 	
 	set periph_name [string toupper [get_property NAME $periph]]
@@ -166,14 +166,14 @@ proc xdefine_mbox_config_files {drv_handle hfile_name cfile_name drv_string} {
 
 # Check whether the interface is connected or not
 proc check_if_connected {periph if_num bus_if} {
-	set sw_proc_handle [get_sw_processor]
-	set hw_proc_handle [get_cells $sw_proc_handle]
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
     	set if_isaxi 0
     	set if_axis_connected 0
 
      	if {$bus_if == 2} {
 		set baseaddr [get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
-		set mem [get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$periph"]
+		set mem [hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$periph"]
 		if {[llength $mem] != 0} {
 			set addrs [get_property BASE_VALUE $mem]
 			foreach addr $addrs {
@@ -295,8 +295,8 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	upvar $recfsl 	recv_fsl
 	set not_connected 0
 	
-	set sw_proc_handle [get_sw_processor]
-	set hw_proc_handle [get_cells $sw_proc_handle]
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
 		
 	set periph_name [string toupper [get_property NAME $periph]]
 	
@@ -304,7 +304,7 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	if { [llength $initiator_handle] != 1 } {
 		incr not_connected
 	} else {
-		set maxis_initiator_handle [get_cells -of_objects $initiator_handle]
+		set maxis_initiator_handle [hsi::get_cells -of_objects $initiator_handle]
 		if { $maxis_initiator_handle == $hw_proc_handle } {
 			if {[get_property CONFIG.C_USE_EXTENDED_FSL_INSTR $hw_proc_handle] != 1 } {
 				error  "ERROR: The mailbox driver requires parameter C_USE_EXTENDED_FSL_INSTR on MicroBlaze to be enabled when an AXI Stream interface is used to connect the mailbox core." "" "mdt_error"				
@@ -321,7 +321,7 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	if { [llength $target_handle] != 1 } {
 		incr not_connected
 	} else {
-		set saxis_target_handle [get_cells -of_objects $target_handle]
+		set saxis_target_handle [hsi::get_cells -of_objects $target_handle]
 		if { $saxis_target_handle == $hw_proc_handle } {
 			if {[get_property CONFIG.C_USE_EXTENDED_FSL_INSTR $hw_proc_handle] != 1 } {
 				error "ERROR: The mailbox driver requires parameter C_USE_EXTENDED_FSL_INSTR on MicroBlaze to be enabled when an AXI Stream interface is used to connect the mailbox core." "" "mdt_error"				
