@@ -36,8 +36,8 @@
 ###############################################################################
 
 proc kernel_drc {os_handle} {
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
     set proctype [get_property IP_NAME $hw_proc_handle]
     set compiler [get_property CONFIG.compiler $sw_proc_handle]
 
@@ -58,7 +58,7 @@ proc kernel_drc {os_handle} {
             if { $systmr_dev == "none" } {
                 error "ERROR: Xilkernel for Microblaze requires a system timer device to be specified. Please choose a valid peripheral instance in the systmr_dev parameter." "" "mdt_error"
             }
-            set systmr_handle [get_cells $systmr_dev]
+            set systmr_handle [hsi::get_cells $systmr_dev]
             set systmr_type [get_property IP_NAME $systmr_handle]
             if { $systmr_type != "fit_timer" && $systmr_type != "opb_timer" && $systmr_type != "xps_timer" && $systmr_type != "axi_timer" } {
                 error "ERROR: Xilkernel for Microblaze can work only with an axi_timer, xps_timer, opb_timer or fit_timer. Please choose a valid device as the system timer with the parameter systmr_dev." "" "mdt_error"
@@ -96,7 +96,7 @@ proc kernel_drc {os_handle} {
 
     set config_bufmalloc [get_property CONFIG.config_bufmalloc $os_handle]
     if { $config_bufmalloc == "true" } {
-        set memtable_handle [get_arrays mem_table -of_objects $os_handle]
+        set memtable_handle [hsi::get_arrays mem_table -of_objects $os_handle]
         #set memtable_elements [xget_handle $memtable_handle "ELEMENTS" "*"]
 	set memtable_elements [llength [get_property PARAM.mem_nblks $memtable_handle]]
 	   foreach ele $memtable_elements {
@@ -122,8 +122,8 @@ proc kernel_drc {os_handle} {
 
 proc generate {os_handle} {
     variable standalone_version
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
     set proctype [get_property IP_NAME $hw_proc_handle]
     set procver [get_property CONFIG.HW_VER $hw_proc_handle]
 
@@ -334,7 +334,7 @@ proc generate {os_handle} {
         xadd_define $config_file $os_handle "max_procs"
 
         # Get the Entry Point address, priority for static ELF processes table
-        set static_elf_process_table_handle [get_arrays -of_objects $os_handle "static_elf_process_table"]
+        set static_elf_process_table_handle [hsi::get_arrays -of_objects $os_handle "static_elf_process_table"]
         if { $static_elf_process_table_handle != "" } {
 #SRI FIX THIS
             set n_init_process [get_property SIZE $static_elf_process_table_handle]
@@ -350,10 +350,10 @@ proc generate {os_handle} {
 	xadd_define $config_file $os_handle "max_pthreads"
 	xadd_define $config_file $os_handle "pthread_stack_size"
 
-	set static_pthread_table_handle [get_arrays static_pthread_table -of_objects $os_handle]
+	set static_pthread_table_handle [hsi::get_arrays static_pthread_table -of_objects $os_handle]
 	if { $static_pthread_table_handle != "" } {
 	    #set n_init_self_pthreads [llength  $static_pthread_table_handle]
-	    set n_init_self_pthreads [llength [get_property PARAM.pthread_prio [get_arrays $static_pthread_table_handle -of_objects $os_handle]]]
+	    set n_init_self_pthreads [llength [get_property PARAM.pthread_prio [hsi::get_arrays $static_pthread_table_handle -of_objects $os_handle]]]
 	    #set n_init_self_pthreads [get_property CONFIG.static_pthread_table $os_handle]
 	     if {$n_init_self_pthreads != "" } {
 		xput_define $config_file "config_static_pthread_support" "true"
@@ -376,7 +376,7 @@ proc generate {os_handle} {
     set systmr_spec [get_property CONFIG.systmr_spec $os_handle]
     if { $proctype == "microblaze" } {
         set systmr_dev [get_property CONFIG.systmr_dev  $os_handle]
-        set systmr_handle [get_cells $systmr_dev]
+        set systmr_handle [hsi::get_cells $systmr_dev]
 	set systmr_type [get_property IP_NAME $systmr_handle]
     }
 
@@ -408,7 +408,7 @@ proc generate {os_handle} {
     set sysintc_spec [get_property CONFIG.sysintc_spec $os_handle]
     if { $sysintc_spec != "none" } {
 	xput_define $config_file "CONFIG_INTC" "true"
-	set sysintc_dev_handle [get_cells $sysintc_spec]
+	set sysintc_dev_handle [hsi::get_cells $sysintc_spec]
 	set sysintc_baseaddr [::hsi::utils::get_ip_param_name $sysintc_dev_handle "C_BASEADDR"]
 	set sysintc_device_id [::hsi::utils::get_ip_param_name $sysintc_dev_handle "DEVICE_ID"]
 	xput_define $config_file "sysintc_baseaddr" $sysintc_baseaddr
@@ -417,13 +417,13 @@ proc generate {os_handle} {
 	# Additionally for microblaze, figure out which interrupt
 	# input is the system timer interrupt and define its ID
 	if { $proctype == "microblaze" } {
-	     set systmr_intr [get_pins -of_objects [get_cells $systmr_handle] Interrupt]
+	     set systmr_intr [hsi::get_pins -of_objects [hsi::get_cells $systmr_handle] Interrupt]
 	     #set systmr_intr [xget_value $systmr_handle "PORT" "Interrupt"]
 	    if { [string compare -nocase $systmr_intr ""] == 0 } {
                 error "ERROR: System Timer Interrupt PORT is not specified" "" "mdt_error"
 	    }
-	    #set mhs_handle [get_cells -of_object $systmr_handle]
-	    set intr_ports [::hsi::utils::get_sink_pins [get_pins -of_objects [get_cells $systmr_intr] INTERRUPT]]
+	    #set mhs_handle [hsi::get_cells -of_object $systmr_handle]
+	    set intr_ports [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $systmr_intr] INTERRUPT]]
 	    #set intr_ports [xget_connected_ports_handle $mhs_handle $systmr_intr "sink"]
 	    foreach intr_port $intr_ports {
                 set intr_port_type [get_property TYPE $intr_port]
@@ -431,13 +431,13 @@ proc generate {os_handle} {
                     continue
                 }
 
-                set intc_handle [get_cells -of_object $intr_port]
+                set intc_handle [hsi::get_cells -of_object $intr_port]
                 set intc_name [get_property NAME $intc_handle]
-                set proc_intc_handle [get_cells $intc_name]
+                set proc_intc_handle [hsi::get_cells $intc_name]
                 if { [string compare -nocase $sysintc_dev_handle $intc_handle] == 0 } {
                     continue
                 }
-                set systmr_intrpin  [get_pins -of_objects [get_cells $systmr_handle] -filter "TYPE == INTERRUPT"]
+                set systmr_intrpin  [hsi::get_pins -of_objects [hsi::get_cells $systmr_handle] -filter "TYPE == INTERRUPT"]
 		set intr_id [::hsi::utils::get_port_intr_id $systmr_handle $systmr_intrpin]
 		puts $config_file "#define SYSTMR_INTR_ID $intr_id\n"
             }
@@ -487,11 +487,11 @@ proc generate {os_handle} {
     set config_shm [get_property CONFIG.config_shm $os_handle]
     if { $config_shm == "true" } {
 	xadd_define $config_file $os_handle "config_shm"
-	set shm_handle [get_arrays -of_objects $os_handle "shm_table"]
+	set shm_handle [hsi::get_arrays -of_objects $os_handle "shm_table"]
 	if { $shm_handle == "" } {
 	    error "ERROR: SHM configuration needs shm_table specification." "" "mdt_error"
 	}
-	set n_shm [llength [get_arrays $shm_handle -of_objects $os_handle]]
+	set n_shm [llength [hsi::get_arrays $shm_handle -of_objects $os_handle]]
 	xput_define $config_file "n_shm" $n_shm
 	set shm_msize [get_field_sum $os_handle "shm_table"  "shm_size"]
 	xput_define $config_file "shm_msize" $shm_msize
@@ -502,7 +502,7 @@ proc generate {os_handle} {
     if { $config_bufmalloc == "true" } {
 	xadd_define $config_file $os_handle "config_bufmalloc"
         #set memtable_handle [xget_handle $os_handle "ARRAY" "mem_table"]
-        set memtable_elements [get_arrays -of_objects $os_handle "mem_table"]
+        set memtable_elements [hsi::get_arrays -of_objects $os_handle "mem_table"]
 	set n_static_bufs [llength $memtable_elements]
         set max_bufs [get_property CONFIG.max_bufs $os_handle]
 
@@ -527,7 +527,7 @@ proc generate {os_handle} {
 
     # Handle I/O ranges for MicroBlaze MPU here
     if { $proctype == "microblaze" } {
-        #set mhs_handle [get_cells -of_object $hw_proc_handle]
+        #set mhs_handle [hsi::get_cells -of_object $hw_proc_handle]
         set mmu [get_property CONFIG.C_USE_MMU $hw_proc_handle]
         if { $mmu >= 2 } {
 
@@ -542,20 +542,20 @@ proc generate {os_handle} {
             }
 
             set dbus_name [::hsi::utils::get_intfnet_name $hw_proc_handle $dbus_if_name]
-            set dbus_handle [get_cells $dbus_name]
+            set dbus_handle [hsi::get_cells $dbus_name]
             if { $interconnect == 2 } {
-                set dcachelink_handle [get_cells "DXCL"]
+                set dcachelink_handle [hsi::get_cells "DXCL"]
             } else {
-                set dcachelink_handle [get_cells "M_AXI_DC"]
+                set dcachelink_handle [hsi::get_cells "M_AXI_DC"]
             }
 
             #set addrlist [xget_hw_bus_slave_addrpairs $dbus_handle]
-	    set addrlists [get_mem_ranges -of_objects [get_cells $sw_proc_handle]]
+	    set addrlists [hsi::get_mem_ranges -of_objects [hsi::get_cells $sw_proc_handle]]
 	    set addrlist [list]
 	    foreach addrist $addrlists {
-			set ip_name [get_property IP_NAME [get_cells $addrist]]
+			set ip_name [get_property IP_NAME [hsi::get_cells $addrist]]
 			if { $ip_name == "axi_emc" || $ip_name == "mig_7series" } {
-						set mem  [lindex [get_mem_ranges $addrist] 0]
+						set mem  [lindex [hsi::get_mem_ranges $addrist] 0]
 						set mc_base [get_property BASE_VALUE  $mem]
 						set mc_high [get_property HIGH_VALUE $mem]
 						lappend addrlist $mc_base $mc_high
@@ -569,7 +569,7 @@ proc generate {os_handle} {
 
             if { $dcachelink_handle != "" } {
                 #set xcl_addrlist [xget_hw_bus_slave_addrpairs $dcachelink_handle]
-		set xcl_addrlist [get_mem_ranges -of_objects [get_cells $sw_proc_handle]]
+		set xcl_addrlist [hsi::get_mem_ranges -of_objects [hsi::get_cells $sw_proc_handle]]
                 set addrlist [concat addrlist xcl_addrlist]
             }
 
@@ -577,8 +577,8 @@ proc generate {os_handle} {
 
             # Get the list of memory controllers in the mhs. We want to filter
             # "memories" from the above addrlist
-            set memcon_handles [xget_memory_controller_handles [get_cells $sw_proc_handle]]
-	    #set memcon_handles [get_mem_ranges -of_objects [get_cells $sw_proc_handle]]
+            set memcon_handles [xget_memory_controller_handles [hsi::get_cells $sw_proc_handle]]
+	    #set memcon_handles [hsi::get_mem_ranges -of_objects [hsi::get_cells $sw_proc_handle]]
             set n_ioranges 0
             foreach {base high} $addrlist {
                 set skip 0
@@ -661,7 +661,7 @@ proc xput_define { config_file parameter param_value } {
 
 # args field of the array
 proc xadd_extern_fname {initfile oshandle arrayname arg} {
-    set arrahandle [get_arrays $arrayname -of_objects $oshandle]
+    set arrahandle [hsi::get_arrays $arrayname -of_objects $oshandle]
     set elements [llength [get_property PARAM.$arg $arrahandle]]
     foreach  ele $elements {
 	set thread_names [get_property PARAM.$arg $arrahandle]
@@ -675,8 +675,8 @@ proc xadd_extern_fname {initfile oshandle arrayname arg} {
 # args is variable no - fields of the array
 proc xadd_struct {initfile oshandle structtype structname arrayname args} {
 
-    #set arrhandle [get_arrays $arrayname -of_objects $oshandle]
-    set arrhandle [get_arrays $arrayname -of_objects $oshandle]
+    #set arrhandle [hsi::get_arrays $arrayname -of_objects $oshandle]
+    set arrhandle [hsi::get_arrays $arrayname -of_objects $oshandle]
     foreach arg $args {
 	set max_count [llength [get_property PARAM.$arg $arrhandle]]
     }
@@ -719,8 +719,8 @@ proc xadd_struct {initfile oshandle structtype structname arrayname args} {
 # return the sum of all the arg field values in arrayname
 proc get_field_sum {oshandle arrayname arg} {
 
-    #set arrhandle [get_arrays -of_objects $oshandle $arrayname]
-    set elements [get_arrays -of_objects $oshandle $arrayname]
+    #set arrhandle [hsi::get_arrays -of_objects $oshandle $arrayname]
+    set elements [hsi::get_arrays -of_objects $oshandle $arrayname]
     #set elements [xget_handle $arrhandle "ELEMENTS" "*"]
     set count 0
     set max_count [llength $elements]
@@ -735,8 +735,8 @@ proc get_field_sum {oshandle arrayname arg} {
 # return the sum of the product of field values in arrayname
 proc get_field_product_sum {oshandle arrayname field1 field2} {
 
-    #set arrhandle [get_arrays -of_objects $oshandle $arrayname]
-    set elements [get_arrays -of_objects $oshandle $arrayname]
+    #set arrhandle [hsi::get_arrays -of_objects $oshandle $arrayname]
+    set elements [hsi::get_arrays -of_objects $oshandle $arrayname]
     #set elements [xget_handle $arrhandle "ELEMENTS" "*"]
     set count 0
     set max_count [llength $elements]
@@ -769,8 +769,8 @@ proc xhandle_mb_interrupts {} {
     set source_handler_arg $default_arg
 
     # Handle the interrupt pin
-    set sw_proc_handle [get_sw_processor]
-    set periph [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set periph [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
     set source_ports [::hsi::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
 	error "ERROR: Too many interrupting ports on the MicroBlaze.  Should only find 1" "" "hsi_error"
@@ -781,13 +781,13 @@ proc xhandle_mb_interrupts {} {
 	set source_port [lindex $source_ports 0]
 	if {[llength $source_port] != 0} {
 	    set source_port_name [get_property NAME $source_port]
-	    set source_periph [get_cells -of_object $source_port]
+	    set source_periph [hsi::get_cells -of_object $source_port]
 	    set source_name [get_property NAME $source_periph]
-	    set source_driver [get_drivers $source_name]
+	    set source_driver [hsi::get_drivers $source_name]
 
 	    if {[string compare -nocase $source_driver ""] != 0} {
-		#set int_array [get_arrays interrupt_handler -of_objects $source_driver]
-		set int_array_elems [get_arrays interrupt_handler -of_objects $source_driver]
+		#set int_array [hsi::get_arrays interrupt_handler -of_objects $source_driver]
+		set int_array_elems [hsi::get_arrays interrupt_handler -of_objects $source_driver]
 		#if {[llength $int_array] != 0} {
 		    #set int_array_elems [xget_handle $int_array "ELEMENTS" "*"]
 		    if {[llength $int_array_elems] != 0} {
@@ -863,8 +863,8 @@ proc xcreate_mb_exc_config_file { } {
 
     puts $hconfig_file "\n"
 
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
     set procver [get_property CONFIG.HW_VER $hw_proc_handle]
 
     if { ![mb_has_exceptions $hw_proc_handle]} { ;# NO exceptions are enabled
@@ -888,12 +888,12 @@ proc xcreate_mb_exc_config_file { } {
 # routines
 # --------------------------------------
 proc post_generate {os_handle} {
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
     set proctype [get_property IP_NAME $hw_proc_handle]
     set procname [get_property NAME $hw_proc_handle]
 
-    set procdrv [get_sw_processor]
+    set procdrv [hsi::get_sw_processor]
     set archiver [get_property CONFIG.archiver $procdrv]
 
     if {[string compare -nocase $proctype "microblaze"] == 0 } {
@@ -1017,7 +1017,7 @@ proc xget_memory_controller_handles { mhs } {
    set ret_list ""
 
    # Gets all MhsInsts in the system
-   set mhsinsts [get_cells *]
+   set mhsinsts [hsi::get_cells *]
 
    # Loop thru each MhsInst and determine if have "ADDR_TYPE = MEMORY" in
    # the parameters.
