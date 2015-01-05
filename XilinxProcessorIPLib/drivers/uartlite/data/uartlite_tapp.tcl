@@ -67,7 +67,7 @@ proc gen_include_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     set ipname [get_property IP_NAME $mhsinst]
     if {${isStdout} == 0} {
@@ -95,7 +95,7 @@ proc gen_src_files {swproj mhsinst} {
    
     if {$swproj == 1} {
 	 set ipname [get_property IP_NAME $mhsinst]
-	 set stdout [get_property CONFIG.STDOUT [get_os]]
+	 set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
 	set isStdout [string match $stdout $mhsinst]
 	if {${isStdout} == 0} {
 	    set ifuartliteintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
@@ -126,7 +126,7 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-	  set stdout [get_property CONFIG.STDOUT [get_os]]
+	  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
 	  set isStdout [string match $stdout $mhsinst]
 	if {${isStdout} == 0} {
 	    
@@ -160,7 +160,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   # Don't generate test code if this is the STDOUT device
   # We will be using this to generate print stmts for other tests
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   set isStdout [string match $stdout $mhsinst]
   if {${isStdout} == 1} {
       append testfunc_call "
@@ -173,17 +173,17 @@ proc gen_testfunc_call {swproj mhsinst} {
   }
   
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
        set hasStdout 1
   }
    if {$ifuartliteintr == 1} {
-        set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
+        set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname $intr_pin_name]
 	set intcvar intc
-	set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
+	set proc [get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
 	set mdm_name [get_property IP_NAME $mhsinst]
   }
 
