@@ -450,13 +450,7 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 #ifndef MMC_CARD
 	u32 ClockReg;
-#ifdef __ICCARM__
-#pragma data_alignment = 32
 	u8 ReadBuff[64];
-#pragma data_alignment = 4
-#else
-	u8 ReadBuff[64] __attribute__ ((aligned(32)));
-#endif
 	u16 BlkCnt;
 	u16 BlkSize;
 #endif
@@ -474,7 +468,7 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-	Xil_DCacheFlushRange(ReadBuff, 64);
+	Xil_DCacheInvalidateRange(ReadBuff, 64);
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_XFER_MODE_OFFSET,
