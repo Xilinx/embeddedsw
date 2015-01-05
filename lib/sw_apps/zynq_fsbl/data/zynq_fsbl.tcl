@@ -10,7 +10,7 @@ proc swapp_get_description {} {
 }
 
 proc check_standalone_os {} {
-    set oslist [get_os];
+    set oslist [hsi::get_os];
 
     if { [llength $oslist] != 1 } {
         return 0;
@@ -28,8 +28,8 @@ proc swapp_is_supported_sw {} {
 
 	# make sure xilffs and xilrsa libraries are available
 
-    set librarylist_1 [get_libs -filter "NAME==xilffs"];
-    set librarylist_2 [get_libs -filter "NAME==xilrsa"];
+    set librarylist_1 [hsi::get_libs -filter "NAME==xilffs"];
+    set librarylist_2 [hsi::get_libs -filter "NAME==xilrsa"];
 
 	if { [llength $librarylist_1] == 0 && [llength $librarylist_2] == 0 } {
         error "This application requires xilffs and xilrsa libraries in the Board Support Package.";
@@ -44,10 +44,10 @@ proc swapp_is_supported_sw {} {
 proc swapp_is_supported_hw {} {
 
     # check processor type
-    set proc_instance [get_sw_processor];
+    set proc_instance [hsi::get_sw_processor];
     set hw_processor [get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [get_property IP_NAME [get_cells $hw_processor]];
+    set proc_type [get_property IP_NAME [hsi::get_cells $hw_processor]];
     
     if { $proc_type != "ps7_cortexa9" } {
                 error "This application is supported only for CortexA9 processors.";
@@ -58,13 +58,13 @@ proc swapp_is_supported_hw {} {
 
 
 proc get_stdout {} {
-    set os [get_os];
+    set os [hsi::get_os];
     set stdout [get_property CONFIG.STDOUT $os];
     return $stdout;
 }
 
 proc check_stdout_hw {} {
-    set p7_uarts [get_cells -filter "IP_NAME=ps7_uart"];
+    set p7_uarts [hsi::get_cells -filter "IP_NAME=ps7_uart"];
 }
 
 proc swapp_generate {} {
