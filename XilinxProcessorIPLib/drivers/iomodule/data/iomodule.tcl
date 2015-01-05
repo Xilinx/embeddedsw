@@ -303,7 +303,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
 
      set i 0
     foreach source_pin $source_ports {
-        set source_periph [get_cells -of_objects $source_pin ]
+        set source_periph [hsi::get_cells -of_objects $source_pin ]
         if { [llength $source_periph ] == 0} {
             #external interrupt port case
             set width [hsi::utils::get_port_width $source_pin]
@@ -320,12 +320,12 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
             set port_type($i) "local"
             set source_name($i) [get_property NAME $source_periph]
             set source_port_name($i) [get_property NAME $source_pin]
-            set source_driver [get_drivers -filter "HW_INSTANCE==$source_periph"]
+            set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph"]
     		set source_interrupt_handler($i) $default_interrupt_handler
             incr i
         }
         if {[string compare -nocase $source_driver ""] != 0} {
-            set int_array [get_arrays interrupt_handler -of_objects $source_driver]
+            set int_array [hsi::get_arrays interrupt_handler -of_objects $source_driver]
             if {[string compare -nocase $int_array ""] != 0} {
                 set int_array_elems [xget_handle $int_array "ELEMENTS" "*"]
                 foreach int_array_elem $int_array_elems {
@@ -493,7 +493,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
 	set i 0
 	lappend source_list
         foreach source_pin $source_ports {
-        set source_periph($i) [get_cells -of_objects $source_pin ]
+        set source_periph($i) [hsi::get_cells -of_objects $source_pin ]
         if { [llength $source_periph($i) ] == 0} {
             #external interrupt port case
             set width [hsi::utils::get_port_width $source_pin]
@@ -511,7 +511,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
             set port_type($i) "local"
             set source_name($i) [get_property NAME $source_periph($i)]
             set source_port_name($i) [get_property NAME $source_pin]
-            set source_driver [get_drivers -filter "HW_INSTANCE==$source_periph($i)"]
+            set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph($i)"]
     	    set source_interrupt_handler($i) $default_interrupt_handler
 	    lappend source_list $source_name($i)
             incr i
@@ -530,7 +530,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
                 continue
             }
 
-            set drv [get_drivers -filter "HW_INSTANCE==$source_name($i)"]
+            set drv [hsi::get_drivers -filter "HW_INSTANCE==$source_name($i)"]
             set iptype [get_property IPTYPE $source_periph($i)]
 
 #           if {[llength $source_name($i)] != 0 && [llength $drv] != 0 && 
@@ -633,7 +633,7 @@ proc xfind_instance {drvhandle instname} {
 # (from external source).
 ##########################################################################
 proc xget_port_type {periph} {
-    set mhs [get_cells -of_object $periph]
+    set mhs [hsi::get_cells -of_object $periph]
     if {[llength $mhs] == 0} {
         return "global"
     } else {
