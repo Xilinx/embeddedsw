@@ -125,7 +125,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     set iftmrintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set ipname [get_property NAME  $mhsinst] 
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
 	set hasStdout 0
     } else {
@@ -133,10 +133,10 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
     
     if {$iftmrintr == 1} {
-       set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
+       set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
        set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
        set intcvar intc
-       set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
+       set proc [get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
     }
     
     set testfunc_call ""
