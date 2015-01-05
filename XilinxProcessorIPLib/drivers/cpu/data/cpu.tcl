@@ -120,8 +120,8 @@ proc generate {drv_handle} {
         set libc "libc"
         set libm "libm"
 
-        set sw_proc_handle [get_sw_processor]
-        set periph [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+        set sw_proc_handle [hsi::get_sw_processor]
+        set periph [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
         set proctype [get_property IP_NAME $periph]
 
         set endian [get_property CONFIG.C_ENDIANNESS $periph]
@@ -283,7 +283,7 @@ proc generate {drv_handle} {
     }
 
     foreach bus_inst $bus_array {
-        set bhandle [get_intf_pins $bus_inst -of_objects $periph]
+        set bhandle [hsi::get_intf_pins $bus_inst -of_objects $periph]
         if { $bhandle == "" } {
           continue;
         }
@@ -295,7 +295,7 @@ proc generate {drv_handle} {
     puts $file_handle "/* Canonical definitions for bus frequencies */"
     set bus_id 0
     foreach bus $bus_array {
-        set bhandle [get_intf_pins $bus_inst -of_objects $periph]
+        set bhandle [hsi::get_intf_pins $bus_inst -of_objects $periph]
         if { $bhandle == "" } {
           continue;
         }
@@ -327,13 +327,13 @@ proc generate {drv_handle} {
     xdefine_addr_params_for_ext_intf $drv_handle "xparameters.h"
 }
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
 
  # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]
 
-   set mem_ranges [get_mem_ranges -of_objects $hw_proc_handle]
+   set mem_ranges [hsi::get_mem_ranges -of_objects $hw_proc_handle]
    foreach mem_range $mem_ranges {
        set inst [get_property INSTANCE $mem_range]
        if {$inst != ""} {
