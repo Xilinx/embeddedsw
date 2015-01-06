@@ -58,6 +58,9 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/************************** Variable Definitions ****************************/
+extern XScuTimer_Config XScuTimer_ConfigTable[XPAR_XSCUTIMER_NUM_INSTANCES];
+
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
@@ -75,16 +78,15 @@
 ******************************************************************************/
 XScuTimer_Config *XScuTimer_LookupConfig(u16 DeviceId)
 {
-	extern XScuTimer_Config XScuTimer_ConfigTable[];
 	XScuTimer_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XSCUTIMER_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XSCUTIMER_NUM_INSTANCES; Index++) {
 		if (XScuTimer_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XScuTimer_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return (CfgPtr);
+	return (XScuTimer_Config *)CfgPtr;
 }

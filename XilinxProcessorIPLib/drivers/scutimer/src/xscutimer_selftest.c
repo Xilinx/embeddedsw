@@ -52,7 +52,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSCUTIMER_SELFTEST_VALUE	0xA55AF00F
+#define XSCUTIMER_SELFTEST_VALUE	0xA55AF00FU
 
 /**************************** Type Definitions *******************************/
 
@@ -79,11 +79,12 @@
 * @note		None.
 *
 ******************************************************************************/
-int XScuTimer_SelfTest(XScuTimer *InstancePtr)
+s32 XScuTimer_SelfTest(XScuTimer *InstancePtr)
 {
 	u32 Register;
 	u32 CtrlOrig;
 	u32 LoadOrig;
+	s32 Status;
 
 	/*
 	 * Assert to ensure the inputs are valid and the instance has been
@@ -97,7 +98,7 @@ int XScuTimer_SelfTest(XScuTimer *InstancePtr)
 	 */
 	CtrlOrig = XScuTimer_ReadReg(InstancePtr->Config.BaseAddr,
 				  XSCUTIMER_CONTROL_OFFSET);
-	Register = CtrlOrig & ~XSCUTIMER_CONTROL_ENABLE_MASK;
+	Register = CtrlOrig & (u32)(~XSCUTIMER_CONTROL_ENABLE_MASK);
 	XScuTimer_WriteReg(InstancePtr->Config.BaseAddr,
 			XSCUTIMER_CONTROL_OFFSET, Register);
 
@@ -124,8 +125,11 @@ int XScuTimer_SelfTest(XScuTimer *InstancePtr)
 	 * match with the value written to it.
 	 */
 	if (Register != XSCUTIMER_SELFTEST_VALUE) {
-		return XST_FAILURE;
+		Status = (s32)XST_FAILURE;
+	}
+	else {
+		Status = (s32)XST_SUCCESS;
 	}
 
-	return XST_SUCCESS;
+	return Status;
 }
