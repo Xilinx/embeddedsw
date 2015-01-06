@@ -60,6 +60,9 @@
 
 /************************** Function Prototypes ******************************/
 
+/************************** Variable Definitions *****************************/
+extern XScuWdt_Config XScuWdt_ConfigTable[XPAR_XSCUWDT_NUM_INSTANCES];
+
 /*****************************************************************************/
 /**
 * Lookup the device configuration based on the unique device ID. The table
@@ -75,16 +78,15 @@
 ******************************************************************************/
 XScuWdt_Config *XScuWdt_LookupConfig(u16 DeviceId)
 {
-	extern XScuWdt_Config XScuWdt_ConfigTable[];
 	XScuWdt_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XSCUWDT_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XSCUWDT_NUM_INSTANCES; Index++) {
 		if (XScuWdt_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XScuWdt_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return (CfgPtr);
+	return (XScuWdt_Config *)CfgPtr;
 }

@@ -178,9 +178,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScuWdt_IsWdtExpired(InstancePtr)				\
-	((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
+	{((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
 			  XSCUWDT_RST_STS_OFFSET) &			\
-	 XSCUWDT_RST_STS_RESET_FLAG_MASK) == XSCUWDT_RST_STS_RESET_FLAG_MASK)
+	 XSCUWDT_RST_STS_RESET_FLAG_MASK) == XSCUWDT_RST_STS_RESET_FLAG_MASK);}
 
 /****************************************************************************/
 /**
@@ -199,9 +199,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScuWdt_IsTimerExpired(InstancePtr)				\
-	((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
+	{((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
 			  XSCUWDT_ISR_OFFSET) &				\
-	 XSCUWDT_ISR_EVENT_FLAG_MASK) == XSCUWDT_ISR_EVENT_FLAG_MASK)
+	 XSCUWDT_ISR_EVENT_FLAG_MASK) == XSCUWDT_ISR_EVENT_FLAG_MASK);}
 
 /****************************************************************************/
 /**
@@ -220,7 +220,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScuWdt_RestartWdt(InstancePtr)					 \
-	XScuWdt_LoadWdt(InstancePtr,					 \
+	XScuWdt_LoadWdt((InstancePtr),					 \
 			(XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr, \
 					 XSCUWDT_LOAD_OFFSET)))
 
@@ -242,7 +242,7 @@ typedef struct {
 ******************************************************************************/
 #define XScuWdt_LoadWdt(InstancePtr, Value)				\
 	XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUWDT_LOAD_OFFSET, Value)
+			XSCUWDT_LOAD_OFFSET, (Value))
 
 /****************************************************************************/
 /**
@@ -263,7 +263,7 @@ typedef struct {
 			 XSCUWDT_CONTROL_OFFSET,			  \
 			 (XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr, \
 			  XSCUWDT_CONTROL_OFFSET) |			  \
-			  XSCUWDT_CONTROL_WD_MODE_MASK))
+			  (XSCUWDT_CONTROL_WD_MODE_MASK)))
 
 /****************************************************************************/
 /**
@@ -326,7 +326,7 @@ typedef struct {
 ******************************************************************************/
 #define XScuWdt_SetControlReg(InstancePtr, ControlReg)			\
 	XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			 XSCUWDT_CONTROL_OFFSET, ControlReg)
+			 XSCUWDT_CONTROL_OFFSET, (ControlReg))
 
 /****************************************************************************/
 /**
@@ -356,22 +356,18 @@ XScuWdt_Config *XScuWdt_LookupConfig(u16 DeviceId);
 /*
  * Selftest function in xscuwdt_selftest.c
  */
-int XScuWdt_SelfTest(XScuWdt *InstancePtr);
+s32 XScuWdt_SelfTest(XScuWdt *InstancePtr);
 
 /*
  * Interface functions in xscuwdt.c
  */
-int XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
+s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 			  XScuWdt_Config *ConfigPtr, u32 EffectiveAddress);
 
 void XScuWdt_Start(XScuWdt *InstancePtr);
 
 void XScuWdt_Stop(XScuWdt *InstancePtr);
 
-/*
- * Self-test function in xwdttb_selftest.c.
- */
-int XScuWdt_SelfTest(XScuWdt *InstancePtr);
 
 #ifdef __cplusplus
 }
