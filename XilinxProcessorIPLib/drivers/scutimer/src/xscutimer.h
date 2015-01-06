@@ -176,7 +176,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScuTimer_RestartTimer(InstancePtr)				\
-	XScuTimer_LoadTimer(InstancePtr,				\
+	XScuTimer_LoadTimer((InstancePtr),				\
 		XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
 					XSCUTIMER_LOAD_OFFSET))
 
@@ -198,7 +198,7 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_LoadTimer(InstancePtr, Value)				\
 	XScuTimer_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUTIMER_LOAD_OFFSET, Value)
+			XSCUTIMER_LOAD_OFFSET, (Value))
 
 /****************************************************************************/
 /**
@@ -342,12 +342,12 @@ XScuTimer_Config *XScuTimer_LookupConfig(u16 DeviceId);
 /*
  * Selftest function in xscutimer_selftest.c
  */
-int XScuTimer_SelfTest(XScuTimer *InstancePtr);
+s32 XScuTimer_SelfTest(XScuTimer *InstancePtr);
 
 /*
  * Interface functions in xscutimer.c
  */
-int XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
+s32 XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
 			    XScuTimer_Config *ConfigPtr, u32 EffectiveAddress);
 void XScuTimer_Start(XScuTimer *InstancePtr);
 void XScuTimer_Stop(XScuTimer *InstancePtr);

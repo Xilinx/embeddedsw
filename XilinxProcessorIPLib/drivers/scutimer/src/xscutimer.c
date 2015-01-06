@@ -80,9 +80,10 @@
 * @note		None.
 *
 ******************************************************************************/
-int XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
+s32 XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
 			 XScuTimer_Config *ConfigPtr, u32 EffectiveAddress)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -92,29 +93,31 @@ int XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
 	 * device and reinitialize, but prevents a user from inadvertently
 	 * initializing.
 	 */
-	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		return XST_DEVICE_IS_STARTED;
+	if (InstancePtr->IsStarted != XIL_COMPONENT_IS_STARTED) {
+		/*
+		 * Copy configuration into the instance structure.
+		 */
+		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+
+		/*
+		 * Save the base address pointer such that the registers of the block
+		 * can be accessed and indicate it has not been started yet.
+		 */
+		InstancePtr->Config.BaseAddr = EffectiveAddress;
+
+		InstancePtr->IsStarted = (u32)0;
+
+		/*
+		 * Indicate the instance is ready to use, successfully initialized.
+		 */
+		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+		Status =(s32)XST_SUCCESS;
 	}
-
-	/*
-	 * Copy configuration into the instance structure.
-	 */
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-
-	/*
-	 * Save the base address pointer such that the registers of the block
-	 * can be accessed and indicate it has not been started yet.
-	 */
-	InstancePtr->Config.BaseAddr = EffectiveAddress;
-
-	InstancePtr->IsStarted = 0;
-
-	/*
-	 * Indicate the instance is ready to use, successfully initialized.
-	 */
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
-	return XST_SUCCESS;
+	else {
+		Status = (s32)XST_DEVICE_IS_STARTED;
+	}
+	return Status;
 }
 
 /****************************************************************************/
@@ -187,7 +190,7 @@ void XScuTimer_Stop(XScuTimer *InstancePtr)
 	/*
 	 * Clear the 'timer enable' bit in the register.
 	 */
-	Register &= ~XSCUTIMER_CONTROL_ENABLE_MASK;
+	Register &= (u32)(~XSCUTIMER_CONTROL_ENABLE_MASK);
 
 	/*
 	 * Update the Control register with the new value.
@@ -198,7 +201,7 @@ void XScuTimer_Stop(XScuTimer *InstancePtr)
 	/*
 	 * Indicate that the device is stopped.
 	 */
-	InstancePtr->IsStarted = 0;
+	InstancePtr->IsStarted = (u32)0;
 }
 
 /*****************************************************************************/
@@ -232,12 +235,12 @@ void XScuTimer_SetPrescaler(XScuTimer *InstancePtr, u8 PrescalerValue)
 	/*
 	 * Clear all of the prescaler control bits in the register.
 	 */
-	ControlReg &= ~XSCUTIMER_CONTROL_PRESCALER_MASK;
+	ControlReg &= (u32)(~XSCUTIMER_CONTROL_PRESCALER_MASK);
 
 	/*
 	 * Set the prescaler value.
 	 */
-	ControlReg |= (PrescalerValue << XSCUTIMER_CONTROL_PRESCALER_SHIFT);
+	ControlReg |= (((u32)PrescalerValue) << XSCUTIMER_CONTROL_PRESCALER_SHIFT);
 
 	/*
 	 * Write the register with the new values.
@@ -275,5 +278,5 @@ u8 XScuTimer_GetPrescaler(XScuTimer *InstancePtr)
 				    XSCUTIMER_CONTROL_OFFSET);
 	ControlReg &= XSCUTIMER_CONTROL_PRESCALER_MASK;
 
-	return (ControlReg >> XSCUTIMER_CONTROL_PRESCALER_SHIFT);
+	return (u8)(ControlReg >> XSCUTIMER_CONTROL_PRESCALER_SHIFT);
 }
