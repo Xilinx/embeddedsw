@@ -81,11 +81,13 @@
 * @note		This function enables the watchdog mode.
 *
 ******************************************************************************/
-int XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
+s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 			 XScuWdt_Config *ConfigPtr, u32 EffectiveAddress)
 {
+	s32 CfgStatus;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
+	Xil_AssertNonvoid(EffectiveAddress != 0x00U);
 
 	/*
 	 * If the device is started, disallow the initialize and return a
@@ -94,32 +96,34 @@ int XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 	 * initializing.
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		return XST_DEVICE_IS_STARTED;
+		CfgStatus = (s32)XST_DEVICE_IS_STARTED;
 	}
+	else {
+		/*
+		 * Copy configuration into instance.
+		 */
+		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 
-	/*
-	 * Copy configuration into instance.
-	 */
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+		/*
+		 * Save the base address pointer such that the registers of the block
+		 * can be accessed and indicate it has not been started yet.
+		 */
+		InstancePtr->Config.BaseAddr = EffectiveAddress;
+		InstancePtr->IsStarted = 0U;
 
-	/*
-	 * Save the base address pointer such that the registers of the block
-	 * can be accessed and indicate it has not been started yet.
-	 */
-	InstancePtr->Config.BaseAddr = EffectiveAddress;
-	InstancePtr->IsStarted = 0;
+		/*
+		 * Put the watchdog timer in Watchdog mode.
+		 */
+		XScuWdt_SetWdMode(InstancePtr);
 
-	/*
-	 * Put the watchdog timer in Watchdog mode.
-	 */
-	XScuWdt_SetWdMode(InstancePtr);
+		/*
+		 * Indicate the instance is ready to use, successfully initialized.
+		 */
+		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-	/*
-	 * Indicate the instance is ready to use, successfully initialized.
-	 */
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
-	return XST_SUCCESS;
+		CfgStatus =(s32)XST_SUCCESS;
+	}
+	return CfgStatus;
 }
 
 /****************************************************************************/
@@ -195,7 +199,7 @@ void XScuWdt_Stop(XScuWdt *InstancePtr)
 	/*
 	 * Clear the 'watchdog enable' bit in the register.
 	 */
-	Register &= ~XSCUWDT_CONTROL_WD_ENABLE_MASK;
+	Register &= (u32)(~XSCUWDT_CONTROL_WD_ENABLE_MASK);
 
 	/*
 	 * Update the Control register with the new value.
@@ -206,5 +210,5 @@ void XScuWdt_Stop(XScuWdt *InstancePtr)
 	/*
 	 * Indicate that the device is stopped.
 	 */
-	InstancePtr->IsStarted = 0;
+	InstancePtr->IsStarted = 0U;
 }

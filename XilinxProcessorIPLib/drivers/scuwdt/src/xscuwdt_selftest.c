@@ -78,8 +78,9 @@
 * @note		None.
 *
 ******************************************************************************/
-int XScuWdt_SelfTest(XScuWdt *InstancePtr)
+s32 XScuWdt_SelfTest(XScuWdt *InstancePtr)
 {
+	s32 SelfTestStatus;
 	u32 Register;
 	u32 CtrlOrig;
 	u32 LoadOrig;
@@ -96,18 +97,18 @@ int XScuWdt_SelfTest(XScuWdt *InstancePtr)
 	 */
 	CtrlOrig = XScuWdt_GetControlReg(InstancePtr);
 	XScuWdt_SetControlReg(InstancePtr,
-			      CtrlOrig & ~XSCUWDT_CONTROL_WD_ENABLE_MASK);
+			      CtrlOrig & (u32)(~XSCUWDT_CONTROL_WD_ENABLE_MASK));
 
 	LoadOrig = XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,
 				   XSCUWDT_LOAD_OFFSET);
-	XScuWdt_LoadWdt(InstancePtr, 0xFFFFFFFF);
+	XScuWdt_LoadWdt(InstancePtr, 0xFFFFFFFFU);
 
 	/*
 	 * Start the watchdog timer and check if the watchdog counter is
 	 * decrementing.
 	 */
 	XScuWdt_SetControlReg(InstancePtr,
-			      CtrlOrig | XSCUWDT_CONTROL_WD_ENABLE_MASK);
+			      CtrlOrig | (u32)XSCUWDT_CONTROL_WD_ENABLE_MASK);
 
 	Register = XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,
 				   XSCUWDT_COUNTER_OFFSET);
@@ -115,9 +116,12 @@ int XScuWdt_SelfTest(XScuWdt *InstancePtr)
 	XScuWdt_LoadWdt(InstancePtr, LoadOrig);
 	XScuWdt_SetControlReg(InstancePtr, CtrlOrig);
 
-	if (Register == 0xFFFFFFFF) {
-		return XST_FAILURE;
+	if (Register == 0xFFFFFFFFU) {
+		SelfTestStatus = (s32)XST_FAILURE;
+	}
+	else {
+		SelfTestStatus = (s32)XST_SUCCESS;
 	}
 
-	return XST_SUCCESS;
+	return SelfTestStatus;
 }
