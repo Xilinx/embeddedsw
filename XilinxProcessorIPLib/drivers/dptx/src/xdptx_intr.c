@@ -149,12 +149,13 @@ void XDptx_HpdInterruptHandler(XDptx *InstancePtr)
 
 	if (HpdPulseDetected) {
 		/* The source device must debounce the incoming HPD signal by
-		 * sampling the value at an interval greater than 250 ms. */
+		 * sampling the value at an interval greater than 0.500 ms. An
+		 * HPD pulse should be of width 0.5 ms - 1.0 ms. */
 		HpdDuration = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
 							XDPTX_HPD_DURATION);
-		if (HpdDuration >= 250) {
+		if (HpdDuration >= 500) {
 			InstancePtr->HpdPulseHandler(
-			InstancePtr->HpdPulseCallbackRef);
+					InstancePtr->HpdPulseCallbackRef);
 		}
 	}
 }
