@@ -41,6 +41,14 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  08/03/14 Initial release.
  * 2.0   als  09/21/14 Improvements to topology discovery and sideband messages.
+ * 3.0   als  12/16/14 Updated to use common video library.
+ *                     Stream naming now starts at 1 to follow IP.
+ *                     Added topology reordering functions:
+ *                         XDptx_TopologySwapSinks,
+ *                         XDptx_TopologySortSinksByTiling
+ *                     Added wrapper functions for remote DPCD/I2C read/writes:
+ *                         XDptx_RemoteDpcdRead, XDptx_RemoteDpcdWrite,
+ *                         XDptx_RemoteIicRead, XDptx_RemoteIicWrite
  * </pre>
  *
 *******************************************************************************/

@@ -47,6 +47,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  05/17/14 Initial release.
  *       als  08/03/14 Initial MST addition.
+ * 3.0   als  12/16/14 Updated to use common video library.
+ *                     Stream naming now starts at 1 to follow IP.
  * </pre>
  *
 *******************************************************************************/

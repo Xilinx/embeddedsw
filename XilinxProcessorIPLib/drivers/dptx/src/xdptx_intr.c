@@ -44,6 +44,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  05/17/14 Initial release.
+ * 3.0   als  12/16/14 Increased debounce duration for HPD to 0.500ms.
+ *                     Added masking of interrupts during servicing.
  * </pre>
  *
 *******************************************************************************/
