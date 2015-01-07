@@ -325,7 +325,7 @@ u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
 	}
 
 	Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_RECEIVER_CAP_FIELD_START,
-				XDPTX_DPCD_RECEIVER_CAP_FIELD_SIZE, Dpcd);
+								16, Dpcd);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
