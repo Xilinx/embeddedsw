@@ -87,10 +87,10 @@ u32 ResetValues[53][2] =
 	{XDPTX_INTERRUPT_MASK, 0x3F},
 	{XDPTX_REPLY_DATA_COUNT, 0},
 	{XDPTX_REPLY_STATUS, 0x10},
-	{XDPTX_STREAM0, 0},
 	{XDPTX_STREAM1, 0},
 	{XDPTX_STREAM2, 0},
 	{XDPTX_STREAM3, 0},
+	{XDPTX_STREAM4, 0},
 	{XDPTX_PHY_CONFIG, 0x03},
 	{XDPTX_PHY_VOLTAGE_DIFF_LANE_0, 0},
 	{XDPTX_PHY_VOLTAGE_DIFF_LANE_1, 0},
@@ -188,13 +188,13 @@ u32 XDptx_SelfTest(XDptx *InstancePtr)
 			StreamOffset = 0;
 		}
 		else if (StreamIndex == 1) {
-			StreamOffset = XDPTX_STREAM1_MSA_START_OFFSET;
-		}
-		else if (StreamIndex == 2) {
 			StreamOffset = XDPTX_STREAM2_MSA_START_OFFSET;
 		}
-		else if (StreamIndex == 3) {
+		else if (StreamIndex == 2) {
 			StreamOffset = XDPTX_STREAM3_MSA_START_OFFSET;
+		}
+		else if (StreamIndex == 3) {
+			StreamOffset = XDPTX_STREAM4_MSA_START_OFFSET;
 		}
 
 		for (Index = 0; Index < 20; Index++) {
