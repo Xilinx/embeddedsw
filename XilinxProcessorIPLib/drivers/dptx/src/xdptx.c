@@ -47,6 +47,10 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  05/17/14 Initial release.
  * 2.0   als  09/21/14 Added XDptx_IsConnected (previously a macro).
+ * 3.0   als  12/16/14 Fixed XDptx_WaitPhyReady for maximum lane counts != 4.
+ *                     Force re-train during XDptx_EstablishLink.
+ *                     Modified XDptx_SetVswingPreemp usage to enable more
+ *                         efficient use of burst writes to a sink DPCD.
  * </pre>
  *
 *******************************************************************************/

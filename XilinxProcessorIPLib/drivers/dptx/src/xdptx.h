@@ -150,7 +150,7 @@
  * - Number of sink displays: 1, 2, 3, and 4 sink displays in both a daisy-chain
  *   configuration and in a configuration using a combination of a 1-to-3 hub
  *   and daisy-chain. Each stream was using the same resolution.
- * - Resolutions (@60Hz): 640x480, 800x600, 1024x768, 1280x800, 1280x1024,
+ * - Resolutions (60Hz): 640x480, 800x600, 1024x768, 1280x800, 1280x1024,
  *   1360x768, 1400x1050, 1680x1050, 1920x1080, 1920x2160, and 3840x2160.
  * - Color depths: 18, 24, 30, 36, and 48 bits per pixel.
  *
@@ -199,6 +199,23 @@
  *       als  08/03/14 Initial MST addition.
  * 2.0   als  09/21/14 Added XDptx_DiscoverTopology function and changed
  *                     XDptx_IsConnected from macro to function.
+ * 3.0   als  12/16/14 Updated to use common video library.
+ *                     Added topology reordering functions:
+ *                         XDptx_TopologySwapSinks,
+ *                         XDptx_TopologySortSinksByTiling
+ *                     Added wrapper functions for remote DPCD/I2C read/writes:
+ *                         XDptx_RemoteDpcdRead, XDptx_RemoteDpcdWrite,
+ *                         XDptx_RemoteIicRead, XDptx_RemoteIicWrite
+ *                     Added EDID utility functions:
+ *                         XDptx_GetRemoteEdid, XDptx_GetEdidBlock,
+ *                         XDptx_GetRemoteEdidBlock,
+ *                         XDptx_GetRemoteEdidDispIdExt,
+ *                         XDptx_GetDispIdDataBlock,
+ *                         XDptx_GetRemoteTiledDisplayDb
+ *                     Remove unused arguments from functions:
+ *                         LinkCountTotal, RelativeAddress from
+ *                             XDptx_AllocatePayloadVcIdTable
+ *                         RegStartAddress from XDptx_IicWrite
  * </pre>
  *
 *******************************************************************************/
