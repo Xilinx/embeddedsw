@@ -1911,7 +1911,7 @@ static void XDmaPs_DoneISR_n(XDmaPs *InstPtr, unsigned Channel)
 			XDMAPS_INTSTATUS_OFFSET);*/
 
 
-	if ((DmaCmd = ChanData->DmaCmdToHw)) {
+	if ((DmaCmd == ChanData->DmaCmdToHw)) {
 		if (!ChanData->HoldDmaProg) {
 			DmaProgBuf = (void *)DmaCmd->GeneratedDmaProg;
 			if (DmaProgBuf)
