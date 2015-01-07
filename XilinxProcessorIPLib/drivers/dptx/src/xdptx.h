@@ -143,12 +143,16 @@
  * topology discovery, virtual channel payload ID table management, and
  * directing streams to different sinks.
  *
- * MST testing has been done at 5.40Gbps per 4 lanes, with 4 sinks in a daisy-
- * chain configuration, with each stream having the same resolution. Testing has
- * been done at the following resolutions: 640x480, 720x480, 800x600, 848x480,
- * 1024x768, 1280x720, 1280x1024, 1080p, and UHD (UHD/2 on 2 streams). Each
- * resolutions was tested at 24 bits per pixel using 1, 2, 3, and 4 streams.
- * Color depths of 18, 30, 36, and 48 bits per pixel were also tested.
+ * MST testing has been done at all possible link rate/lane count/topology/
+ * resolution/color depth combinations with each setting using following values:
+ * - Link rate: 1.62, 2.70, and 5.40Gbps per lane.
+ * - Lane count: 1, 2, and 4 lanes.
+ * - Number of sink displays: 1, 2, 3, and 4 sink displays in both a daisy-chain
+ *   configuration and in a configuration using a combination of a 1-to-3 hub
+ *   and daisy-chain. Each stream was using the same resolution.
+ * - Resolutions (@60Hz): 640x480, 800x600, 1024x768, 1280x800, 1280x1024,
+ *   1360x768, 1400x1050, 1680x1050, 1920x1080, 1920x2160, and 3840x2160.
+ * - Color depths: 18, 24, 30, 36, and 48 bits per pixel.
  *
  * <b>Audio</b>
  *
@@ -166,7 +170,7 @@
  * it is recommended that application developers leave asserts on during
  * development.
  *
- * <b>Limitations and known issues</b>
+ * <b>Limitations</b>
  *
  * - For MST mode to correctly display, the current version of the driver
  *   requires that each of the DisplayPort TX streams be allocated without
