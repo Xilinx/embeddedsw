@@ -2001,6 +2001,8 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
  * the LinkConfig structure to hardware.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	AuxData is a pointer to the array used for preparing a burst
+ *		write over the AUX channel.
  *
  * @return
  *		- XST_SUCCESS if writing the settings was successful.
