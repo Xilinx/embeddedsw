@@ -428,12 +428,6 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->RxConfig.LaneStatusAdjReqs != NULL);
 	Xil_AssertNonvoid(InstancePtr->RxConfig.DpcdRxCapsField != NULL);
 
-	Status = XDptx_CheckLinkStatus(InstancePtr,
-					InstancePtr->LinkConfig.LaneCount);
-	if (Status != XST_FAILURE) {
-		return Status;
-	}
-
 	XDptx_ResetPhy(InstancePtr, XDPTX_PHY_CONFIG_PHY_RESET_MASK);
 
 	XDptx_DisableMainLink(InstancePtr);
