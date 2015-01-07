@@ -414,6 +414,7 @@ u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr)
 u32 XDptx_EstablishLink(XDptx *InstancePtr)
 {
 	u32 Status;
+	u32 ReenableMainLink;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -433,6 +434,9 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
 
 	XDptx_ResetPhy(InstancePtr, XDPTX_PHY_CONFIG_PHY_RESET_MASK);
 
+	ReenableMainLink = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
+						XDPTX_ENABLE_MAIN_STREAM);
+
 	XDptx_DisableMainLink(InstancePtr);
 
 	/* Train main link. */
@@ -441,7 +445,9 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	XDptx_EnableMainLink(InstancePtr);
+	if (ReenableMainLink != 0) {
+		XDptx_EnableMainLink(InstancePtr);
+	}
 
 	return XST_SUCCESS;
 }
