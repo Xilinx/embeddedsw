@@ -1095,9 +1095,9 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 void XSpiPs_Abort(XSpiPs *InstancePtr)
 {
 
-	XSpiPs_Disable(InstancePtr);
 	u8 Temp;
 	u32 Check;
+	XSpiPs_Disable(InstancePtr);
 
 	/*
 	 * Clear the RX FIFO and drop any data.
