@@ -230,7 +230,6 @@ void XCanPs_IntrHandler(void *InstancePtr)
 {
 	u32 PendingIntr;
 	u32 EventIntr;
-	u32 ErrorStatus;
 	XCanPs *CanPtr = (XCanPs *) ((void *)InstancePtr);
 
 	Xil_AssertVoid(CanPtr != NULL);
