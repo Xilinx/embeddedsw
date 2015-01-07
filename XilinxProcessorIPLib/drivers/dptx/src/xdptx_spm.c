@@ -105,6 +105,8 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel);
 void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 {
 	u32 VideoBw;
+	u32 LinkBw;
+	u32 WordsPerLine;
 	u8 BitsPerPixel;
 	XDptx_MainStreamAttributes *MsaConfig;
 	XDptx_LinkConfig *LinkConfig;
@@ -207,11 +209,19 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 		BitsPerPixel = MsaConfig->BitsPerColor * 3;
 	}
 
+	/* Calculate the data per lane. */
+	WordsPerLine = (MsaConfig->Vtm.Timing.HActive * BitsPerPixel);
+	if ((WordsPerLine % 16) != 0) {
+		WordsPerLine += 16;
+	}
+	WordsPerLine /= 16;
+
+	MsaConfig->DataPerLane = WordsPerLine - LinkConfig->LaneCount;
+	if ((WordsPerLine % LinkConfig->LaneCount) != 0) {
+		MsaConfig->DataPerLane += (WordsPerLine % LinkConfig->LaneCount);
+	}
 
 	if (InstancePtr->MstEnable == 1) {
-		MsaConfig->DataPerLane = (MsaConfig->Vtm.Timing.HActive *
-					MsaConfig->BitsPerColor * 3 / 16) - 4;
-
 		/* Do time slot (and payload bandwidth number) calculations for
 		 * MST. */
 		XDptx_CalculateTs(InstancePtr, Stream, BitsPerPixel);
@@ -219,10 +229,6 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 		MsaConfig->InitWait = 0;
 	}
 	else {
-		MsaConfig->DataPerLane = (MsaConfig->Vtm.Timing.HActive *
-					MsaConfig->BitsPerColor * 3 / 16) -
-					LinkConfig->LaneCount;
-
 		/* Allocate a fixed size for single-stream transport (SST)
 		 * operation. */
 		MsaConfig->TransferUnitSize = 64;
@@ -231,25 +237,19 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 		 * Note: Both the integer and the fractional part is stored in
 		 * AvgBytesPerTU. */
 		VideoBw = (MsaConfig->Vtm.PixelClkKhz * BitsPerPixel) / 8;
+		LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 		MsaConfig->AvgBytesPerTU = (VideoBw *
-				MsaConfig->TransferUnitSize) /
-				(LinkConfig->LaneCount *
-				(MsaConfig->NVid / 1000));
+					MsaConfig->TransferUnitSize) / LinkBw;
 
 		/* The number of initial wait cycles at the start of a new line
 		 * by the framing logic. This allows enough data to be buffered
 		 * in the input FIFO before video is sent. */
-		MsaConfig->InitWait = (MsaConfig->TransferUnitSize -
-					(MsaConfig->AvgBytesPerTU / 1000));
-		if ((MsaConfig->AvgBytesPerTU / 1000) >
-						MsaConfig->TransferUnitSize) {
-			MsaConfig->InitWait = 0;
-		}
-		else if (MsaConfig->InitWait > 10) {
-			MsaConfig->InitWait -= 10;
+		if ((MsaConfig->AvgBytesPerTU / 1000) <= 4) {
+			MsaConfig->InitWait = 64;
 		}
 		else {
-			MsaConfig->InitWait = 0;
+			MsaConfig->InitWait = MsaConfig->TransferUnitSize -
+					(MsaConfig->AvgBytesPerTU / 1000);
 		}
 	}
 }
