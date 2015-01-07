@@ -144,11 +144,11 @@
 							in microseconds. */
 /* @} */
 
-/** @name DPTX core registers: Main stream attributes for SST / MST STREAM0.
+/** @name DPTX core registers: Main stream attributes for SST / MST STREAM1.
   * @{
   */
-#define XDPTX_STREAM0_MSA_START		0x0180	/**< Start of the MSA registers
-							for stream 0. */
+#define XDPTX_STREAM1_MSA_START		0x0180	/**< Start of the MSA registers
+							for stream 1. */
 #define XDPTX_MAIN_STREAM_HTOTAL	0x0180	/**< Total number of clocks in
 							the horizontal framing
 							period. */
@@ -212,16 +212,16 @@
 							logic, allowing enough
 							data to be buffered in
 							the input FIFO. */
-#define XDPTX_STREAM0			0x01D0	/**< Average stream symbol
+#define XDPTX_STREAM1			0x01D0	/**< Average stream symbol
 							timeslots per MTP
 							config. */
-#define XDPTX_STREAM1			0x01D4	/**< Average stream symbol
+#define XDPTX_STREAM2			0x01D4	/**< Average stream symbol
 							timeslots per MTP
 							config. */
-#define XDPTX_STREAM2			0x01D8	/**< Average stream symbol
+#define XDPTX_STREAM3			0x01D8	/**< Average stream symbol
 							timeslots per MTP
 							config. */
-#define XDPTX_STREAM3			0x01DC	/**< Average stream symbol
+#define XDPTX_STREAM4			0x01DC	/**< Average stream symbol
 							timeslots per MTP
 							config. */
 /* @} */
@@ -297,33 +297,33 @@
 							extension packet. */
 /* @} */
 
-/** @name DPTX core registers: Main stream attributes for MST STREAM1, 2, and 3.
+/** @name DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
   */
-#define XDPTX_STREAM1_MSA_START		0x0500	/**< Start of the MSA registers
-							for stream 1. */
-#define XDPTX_STREAM1_MSA_START_OFFSET	(XDPTX_STREAM1_MSA_START - \
-		XDPTX_STREAM0_MSA_START)	/**< The MSA registers for
-							stream 1 are at an
-							offset from the
-							corresponding registers
-							of stream 0. */
-#define XDPTX_STREAM2_MSA_START		0x0550	/**< Start of the MSA registers
+#define XDPTX_STREAM2_MSA_START		0x0500	/**< Start of the MSA registers
 							for stream 2. */
 #define XDPTX_STREAM2_MSA_START_OFFSET	(XDPTX_STREAM2_MSA_START - \
-		XDPTX_STREAM0_MSA_START)	/**< The MSA registers for
+		XDPTX_STREAM1_MSA_START)	/**< The MSA registers for
 							stream 2 are at an
 							offset from the
 							corresponding registers
-							of stream 0. */
-#define XDPTX_STREAM3_MSA_START		0x05A0	/**< Start of the MSA registers
+							of stream 1. */
+#define XDPTX_STREAM3_MSA_START		0x0550	/**< Start of the MSA registers
 							for stream 3. */
 #define XDPTX_STREAM3_MSA_START_OFFSET	(XDPTX_STREAM3_MSA_START - \
-		XDPTX_STREAM0_MSA_START)	/**< The MSA registers for
+		XDPTX_STREAM1_MSA_START)	/**< The MSA registers for
 							stream 3 are at an
 							offset from the
 							corresponding registers
-							of stream 0. */
+							of stream 1. */
+#define XDPTX_STREAM4_MSA_START		0x05A0	/**< Start of the MSA registers
+							for stream 4. */
+#define XDPTX_STREAM4_MSA_START_OFFSET	(XDPTX_STREAM4_MSA_START - \
+		XDPTX_STREAM1_MSA_START)	/**< The MSA registers for
+							stream 4 are at an
+							offset from the
+							corresponding registers
+							of stream 1. */
 /* @} */
 
 #define XDPTX_VC_PAYLOAD_BUFFER_ADDR	0x0800	/**< Virtual channel payload
@@ -365,13 +365,13 @@
 					0x3	/**< Pseudo random bit sequence
 							7 transmitted. */
 /* 0x01C: SOFTWARE_RESET */
-#define XDPTX_SOFT_RESET_VIDEO_STREAM0_MASK \
-				0x00000001	/**< Reset video logic. */
 #define XDPTX_SOFT_RESET_VIDEO_STREAM1_MASK \
-				0x00000002	/**< Reset video logic. */
+				0x00000001	/**< Reset video logic. */
 #define XDPTX_SOFT_RESET_VIDEO_STREAM2_MASK \
-				0x00000004	/**< Reset video logic. */
+				0x00000002	/**< Reset video logic. */
 #define XDPTX_SOFT_RESET_VIDEO_STREAM3_MASK \
+				0x00000004	/**< Reset video logic. */
+#define XDPTX_SOFT_RESET_VIDEO_STREAM4_MASK \
 				0x00000008	/**< Reset video logic. */
 #define XDPTX_SOFT_RESET_AUX_MASK \
 				0x00000080	/**< Reset AUX logic. */
@@ -618,23 +618,23 @@
 							attribute. */
 /* 0x200: PHY_CONFIG */
 #define XDPTX_PHY_CONFIG_PHY_RESET_ENABLE_MASK \
-				0x0010000	/**< Release reset. */
+				0x0000000	/**< Release reset. */
 #define XDPTX_PHY_CONFIG_PHY_RESET_MASK \
-				0x0010001	/**< Hold the PHY in reset. */
+				0x0000001	/**< Hold the PHY in reset. */
 #define XDPTX_PHY_CONFIG_GTTX_RESET_MASK \
-				0x0010002	/**< Hold GTTXRESET in reset. */
+				0x0000002	/**< Hold GTTXRESET in reset. */
 #define XDPTX_PHY_CONFIG_TX_PHY_PMA_RESET_MASK \
-				0x0010100	/**< Hold TX_PHY_PMA reset. */
+				0x0000100	/**< Hold TX_PHY_PMA reset. */
 #define XDPTX_PHY_CONFIG_TX_PHY_PCS_RESET_MASK \
-				0x0010200	/**< HOLD TX_PHY_PCS reset. */
+				0x0000200	/**< HOLD TX_PHY_PCS reset. */
 #define XDPTX_PHY_CONFIG_TX_PHY_POLARITY_MASK \
-				0x0010400	/**< Set TX_PHY_POLARITY. */
+				0x0000400	/**< Set TX_PHY_POLARITY. */
 #define XDPTX_PHY_CONFIG_TX_PHY_PRBSFORCEERR_MASK \
-				0x0011000	/**< Set TX_PHY_PRBSFORCEERR. */
+				0x0001000	/**< Set TX_PHY_PRBSFORCEERR. */
 #define XDPTX_PHY_CONFIG_TX_PHY_LOOPBACK_MASK \
-				0x001E000	/**< Set TX_PHY_LOOPBACK. */
+				0x000E000	/**< Set TX_PHY_LOOPBACK. */
 #define XDPTX_PHY_CONFIG_GT_ALL_RESET_MASK \
-				0x0010003	/**< Rest GT and PHY. */
+				0x0000003	/**< Rest GT and PHY. */
 /* 0x234: PHY_CLOCK_SELECT */
 #define XDPTX_PHY_CLOCK_SELECT_162GBPS	0x1	/**< 1.62 Gbps link. */
 #define XDPTX_PHY_CLOCK_SELECT_270GBPS	0x3	/**< 2.70 Gbps link. */
@@ -709,6 +709,8 @@
 #define XDPTX_PHY_STATUS_TX_ERROR_LANE_3_SHIFT \
 				30		/**< Shift bits for TX error on
 							lane 3. */
+#define XDPTX_PHY_STATUS_LANES_0_1_READY_MASK \
+				0x00000013	/**< Lanes 0 and 1 are ready. */
 #define XDPTX_PHY_STATUS_ALL_LANES_READY_MASK \
 				0x0000003F	/**< All lanes are ready. */
 /* 0x2A0: XDPTX_GT_DRP_COMMAND */
@@ -1231,10 +1233,10 @@
 /** @name Stream identification.
   * @{
   */
-#define XDPTX_STREAM_ID0			0
 #define XDPTX_STREAM_ID1			1
 #define XDPTX_STREAM_ID2			2
 #define XDPTX_STREAM_ID3			3
+#define XDPTX_STREAM_ID4			4
 /* @} */
 
 /** @name Sideband message codes when the driver is in MST mode.
