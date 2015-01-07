@@ -122,7 +122,7 @@ static XDptx_TrainingState XDptx_TrainingStateAdjustLaneCount(
 static u32 XDptx_GetLaneStatusAdjReqs(XDptx *InstancePtr);
 static u32 XDptx_CheckClockRecovery(XDptx *InstancePtr, u8 LaneCount);
 static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount);
-static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr);
+static void XDptx_SetVswingPreemp(XDptx *InstancePtr, u8 *AuxData);
 static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr);
 static u32 XDptx_SetTrainingPattern(XDptx *InstancePtr, u32 Pattern);
 static u32 XDptx_GetTrainingDelay(XDptx *InstancePtr,
@@ -1407,12 +1407,6 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
 	u32 Status;
 	XDptx_TrainingState TrainingState = XDPTX_TS_CLOCK_RECOVERY;
 
-	/* Disable scrambler. */
-	Status = XDptx_SetScrambler(InstancePtr, 0);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
 	while (1) {
 		switch (TrainingState) {
 		case XDPTX_TS_CLOCK_RECOVERY:
@@ -1449,15 +1443,9 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
 		}
 	}
 
-	/* Turn off the training pattern. */
+	/* Turn off the training pattern and enable scrambler. */
 	Status = XDptx_SetTrainingPattern(InstancePtr,
 						XDPTX_TRAINING_PATTERN_SET_OFF);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Enable scrambler. */
-	Status = XDptx_SetScrambler(InstancePtr, 1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -1522,16 +1510,12 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
 	/* Start CRLock. */
 
 	/* Transmit training pattern 1. */
+	/* Disable the scrambler. */
+	/* Start from minimal voltage swing and pre-emphasis levels. */
+	InstancePtr->LinkConfig.VsLevel = 0;
+	InstancePtr->LinkConfig.PeLevel = 0;
 	Status = XDptx_SetTrainingPattern(InstancePtr,
 						XDPTX_TRAINING_PATTERN_SET_TP1);
-	if (Status != XST_SUCCESS) {
-		return XDPTX_TS_FAILURE;
-	}
-
-	/* Start from minimal voltage swing and pre-emphasis levels. */
-	LinkConfig->VsLevel = 0;
-	LinkConfig->PeLevel = 0;
-	Status = XDptx_SetVswingPreemp(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XDPTX_TS_FAILURE;
 	}
@@ -1635,12 +1619,7 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
 
 	/* Start channel equalization. */
 
-	/* Write the current drive settings to the RX device. */
-	Status = XDptx_SetVswingPreemp(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XDPTX_TS_FAILURE;
-	}
-
+	/* Write the current drive settings. */
 	/* Transmit training pattern 2/3. */
 	if (InstancePtr->RxConfig.DpcdRxCapsField[XDPTX_DPCD_MAX_LANE_COUNT] &
 						XDPTX_DPCD_TPS3_SUPPORT_MASK) {
@@ -2022,11 +2001,10 @@ static u32 XDptx_CheckChannelEqualization(XDptx *InstancePtr, u8 LaneCount)
  *		represent the DisplayPort pre-emphasis levels.
  *
 *******************************************************************************/
-static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
+static void XDptx_SetVswingPreemp(XDptx *InstancePtr, u8 *AuxData)
 {
 	u32 Status;
 	u8 Data;
-	u8 AuxData[4];
 	u8 Index;
 	u8 VsLevelRx = InstancePtr->LinkConfig.VsLevel;
 	u8 PeLevelRx = InstancePtr->LinkConfig.PeLevel;
@@ -2065,7 +2043,7 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
 	if (PeLevelRx == XDPTX_MAXIMUM_PE_LEVEL) {
 		Data |= XDPTX_DPCD_TRAINING_LANEX_SET_MAX_PE_MASK;
 	}
-	memset(AuxData, Data, InstancePtr->LinkConfig.LaneCount);
+	memset(AuxData, Data, 4);
 
 	for (Index = 0; Index < InstancePtr->LinkConfig.LaneCount; Index++) {
 		/* Disable pre-cursor levels. */
@@ -2080,16 +2058,6 @@ static u32 XDptx_SetVswingPreemp(XDptx *InstancePtr)
 		XDptx_WriteReg(InstancePtr->Config.BaseAddr,
 			XDPTX_PHY_POSTCURSOR_LANE_0 + 4 * Index, PeLevel);
 	}
-
-	/* Write the voltage swing and pre-emphasis levels for each lane to the
-	 * RX device. */
-	Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_TRAINING_LANE0_SET,
-				InstancePtr->LinkConfig.LaneCount, AuxData);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
 }
 
 /******************************************************************************/
@@ -2112,6 +2080,7 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
 	u8 Index;
 	u8 VsLevelAdjReq[4];
 	u8 PeLevelAdjReq[4];
+	u8 AuxData[4];
 	u8 *AdjReqs = &InstancePtr->RxConfig.LaneStatusAdjReqs[4];
 
 	/* Analyze the adjustment requests for changes in voltage swing and
@@ -2163,7 +2132,11 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
 
 	/* Make the adjustments to both the DisplayPort TX core and the RX
 	 * device. */
-	Status = XDptx_SetVswingPreemp(InstancePtr);
+	XDptx_SetVswingPreemp(InstancePtr, AuxData);
+	/* Write the voltage swing and pre-emphasis levels for each lane to the
+	 * RX device. */
+	Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_TRAINING_LANE0_SET,
+				4, AuxData);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -2193,22 +2166,40 @@ static u32 XDptx_AdjVswingPreemp(XDptx *InstancePtr)
 static u32 XDptx_SetTrainingPattern(XDptx *InstancePtr, u32 Pattern)
 {
 	u32 Status;
-	u8 RegVal;
+	u8 AuxData[5];
 
 	/* Write to the DisplayPort TX core. */
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr,
 					XDPTX_TRAINING_PATTERN_SET, Pattern);
 
-	/* Preserve the current RX device settings. */
-	Status = XDptx_AuxRead(InstancePtr, XDPTX_DPCD_TP_SET, 1, &RegVal);
-	RegVal &= ~XDPTX_DPCD_TP_SEL_MASK;
-	RegVal |= (Pattern & XDPTX_DPCD_TP_SEL_MASK);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	AuxData[0] = Pattern;
+
+	/* Write scrambler disable to the DisplayPort TX core. */
+	switch (Pattern) {
+	case XDPTX_TRAINING_PATTERN_SET_OFF:
+		XDptx_WriteReg(InstancePtr->Config.BaseAddr,
+						XDPTX_SCRAMBLING_DISABLE, 0);
+		InstancePtr->LinkConfig.ScramblerEn = 1;
+		break;
+	case XDPTX_TRAINING_PATTERN_SET_TP1:
+	case XDPTX_TRAINING_PATTERN_SET_TP2:
+	case XDPTX_TRAINING_PATTERN_SET_TP3:
+		AuxData[0] |= XDPTX_DPCD_TP_SET_SCRAMB_DIS_MASK;
+		XDptx_WriteReg(InstancePtr->Config.BaseAddr,
+						XDPTX_SCRAMBLING_DISABLE, 1);
+		InstancePtr->LinkConfig.ScramblerEn = 0;
+		break;
+	default:
+		break;
 	}
 
-	/* Write to the RX device. */
-	Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_TP_SET, 1, &RegVal);
+	/* Make the adjustments to both the DisplayPort TX core and the RX
+	 * device. */
+	XDptx_SetVswingPreemp(InstancePtr, &AuxData[1]);
+	/* Write the voltage swing and pre-emphasis levels for each lane to the
+	 * RX device. */
+	Status = XDptx_AuxWrite(InstancePtr, XDPTX_DPCD_TP_SET,
+				5, AuxData);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
