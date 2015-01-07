@@ -424,9 +424,12 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
 					XDPTX_LINK_BW_SET_270GBPS) ||
 					(InstancePtr->LinkConfig.LinkRate ==
 					XDPTX_LINK_BW_SET_540GBPS));
-	/* The lane count will be checked in XDptx_CheckLinkStatus. */
-	Xil_AssertNonvoid(InstancePtr->RxConfig.LaneStatusAdjReqs != NULL);
-	Xil_AssertNonvoid(InstancePtr->RxConfig.DpcdRxCapsField != NULL);
+	Xil_AssertNonvoid((InstancePtr->LinkConfig.LaneCount ==
+					XDPTX_LANE_COUNT_SET_1) ||
+					(InstancePtr->LinkConfig.LaneCount ==
+					XDPTX_LANE_COUNT_SET_2) ||
+					(InstancePtr->LinkConfig.LaneCount ==
+					XDPTX_LANE_COUNT_SET_4));
 
 	XDptx_ResetPhy(InstancePtr, XDPTX_PHY_CONFIG_PHY_RESET_MASK);
 
