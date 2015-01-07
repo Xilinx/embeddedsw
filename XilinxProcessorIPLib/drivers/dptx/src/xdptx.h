@@ -208,107 +208,9 @@
 #include "xdptx_hw.h"
 #include "xil_assert.h"
 #include "xil_types.h"
+#include "xvid.h"
 
 /****************************** Type Definitions ******************************/
-
-/**
- * This typedef enumerates the list of available standard display monitor
- * timings as specified in the mode_table.c file. The naming format is:
- *
- * XDPTX_VM_<RESOLUTION>_<REFRESH RATE (HZ)>_<P|RB>
- *
- * Where RB stands for reduced blanking.
- */
-typedef enum {
-	XDPTX_VM_640x480_60_P,
-	XDPTX_VM_800x600_60_P,
-	XDPTX_VM_848x480_60_P,
-	XDPTX_VM_1024x768_60_P,
-	XDPTX_VM_1280x768_60_P_RB,
-	XDPTX_VM_1280x768_60_P,
-	XDPTX_VM_1280x800_60_P_RB,
-	XDPTX_VM_1280x800_60_P,
-	XDPTX_VM_1280x960_60_P,
-	XDPTX_VM_1280x1024_60_P,
-	XDPTX_VM_1360x768_60_P,
-	XDPTX_VM_1400x1050_60_P_RB,
-	XDPTX_VM_1400x1050_60_P,
-	XDPTX_VM_1440x900_60_P_RB,
-	XDPTX_VM_1440x900_60_P,
-	XDPTX_VM_1600x1200_60_P,
-	XDPTX_VM_1680x1050_60_P_RB,
-	XDPTX_VM_1680x1050_60_P,
-	XDPTX_VM_1792x1344_60_P,
-	XDPTX_VM_1856x1392_60_P,
-	XDPTX_VM_1920x1200_60_P_RB,
-	XDPTX_VM_1920x1200_60_P,
-	XDPTX_VM_1920x1440_60_P,
-	XDPTX_VM_2560x1600_60_P_RB,
-	XDPTX_VM_2560x1600_60_P,
-	XDPTX_VM_800x600_56_P,
-	XDPTX_VM_1600x1200_65_P,
-	XDPTX_VM_1600x1200_70_P,
-	XDPTX_VM_1024x768_70_P,
-	XDPTX_VM_640x480_72_P,
-	XDPTX_VM_800x600_72_P,
-	XDPTX_VM_640x480_75_P,
-	XDPTX_VM_800x600_75_P,
-	XDPTX_VM_1024x768_75_P,
-	XDPTX_VM_1152x864_75_P,
-	XDPTX_VM_1280x768_75_P,
-	XDPTX_VM_1280x800_75_P,
-	XDPTX_VM_1280x1024_75_P,
-	XDPTX_VM_1400x1050_75_P,
-	XDPTX_VM_1440x900_75_P,
-	XDPTX_VM_1600x1200_75_P,
-	XDPTX_VM_1680x1050_75_P,
-	XDPTX_VM_1792x1344_75_P,
-	XDPTX_VM_1856x1392_75_P,
-	XDPTX_VM_1920x1200_75_P,
-	XDPTX_VM_1920x1440_75_P,
-	XDPTX_VM_2560x1600_75_P,
-	XDPTX_VM_640x350_85_P,
-	XDPTX_VM_640x400_85_P,
-	XDPTX_VM_720x400_85_P,
-	XDPTX_VM_640x480_85_P,
-	XDPTX_VM_800x600_85_P,
-	XDPTX_VM_1024x768_85_P,
-	XDPTX_VM_1280x768_85_P,
-	XDPTX_VM_1280x800_85_P,
-	XDPTX_VM_1280x960_85_P,
-	XDPTX_VM_1280x1024_85_P,
-	XDPTX_VM_1400x1050_85_P,
-	XDPTX_VM_1440x900_85_P,
-	XDPTX_VM_1600x1200_85_P,
-	XDPTX_VM_1680x1050_85_P,
-	XDPTX_VM_1920x1200_85_P,
-	XDPTX_VM_2560x1600_85_P,
-	XDPTX_VM_800x600_120_P_RB,
-	XDPTX_VM_1024x768_120_P_RB,
-	XDPTX_VM_1280x768_120_P_RB,
-	XDPTX_VM_1280x800_120_P_RB,
-	XDPTX_VM_1280x960_120_P_RB,
-	XDPTX_VM_1280x1024_120_P_RB,
-	XDPTX_VM_1360x768_120_P_RB,
-	XDPTX_VM_1400x1050_120_P_RB,
-	XDPTX_VM_1440x900_120_P_RB,
-	XDPTX_VM_1600x1200_120_P_RB,
-	XDPTX_VM_1680x1050_120_P_RB,
-	XDPTX_VM_1792x1344_120_P_RB,
-	XDPTX_VM_1856x1392_120_P_RB,
-	XDPTX_VM_1920x1200_120_P_RB,
-	XDPTX_VM_1920x1440_120_P_RB,
-	XDPTX_VM_2560x1600_120_P_RB,
-	XDPTX_VM_1366x768_60_P,
-	XDPTX_VM_1920x1080_60_P,
-	XDPTX_VM_UHD_30_P,
-	XDPTX_VM_720_60_P,
-	XDPTX_VM_480_60_P,
-	XDPTX_VM_UHD2_60_P,
-	XDPTX_VM_UHD_60,
-	XDPTX_VM_USE_EDID_PREFERRED,
-	XDPTX_VM_LAST = XDPTX_VM_USE_EDID_PREFERRED
-} XDptx_VideoMode;
 
 /**
  * This typedef contains configuration information for the DisplayPort TX core.
@@ -396,47 +298,11 @@ typedef struct {
 } XDptx_LinkConfig;
 
 /**
- * This typedef contains the display monitor timing attributes for a video mode.
- */
-typedef struct {
-	XDptx_VideoMode	VideoMode;	/**< Enumerated key. */
-	u8 DmtId;			/**< Standard Display Monitor Timing
-						(DMT) ID number. */
-	u16 HResolution;		/**< Horizontal resolution (in
-						pixels). */
-	u16 VResolution;		/**< Vertical resolution (in lines). */
-	u32 PixelClkKhz;		/**< Pixel frequency (in KHz). This is
-						also the M value for the video
-						stream (MVid). */
-	u8 Interlaced;			/**< Input stream interlaced scan
-						(0=non-interlaced/
-						1=interlaced). */
-	u8 HSyncPolarity;		/**< Horizontal synchronization polarity
-						(0=positive/1=negative). */
-	u8 VSyncPolarity;		/**< Vertical synchronization polarity
-						(0=positive/1=negative). */
-	u32 HFrontPorch;		/**< Horizontal front porch (in
-						pixels). */
-	u32 HSyncPulseWidth;		/**< Horizontal synchronization time
-						(pulse width in pixels). */
-	u32 HBackPorch;			/**< Horizontal back porch (in
-						pixels). */
-	u32 VFrontPorch;		/**< Vertical front porch (in lines). */
-	u32 VSyncPulseWidth;		/**< Vertical synchronization time
-						(pulse width in lines). */
-	u32 VBackPorch;			/**< Vertical back porch (in lines). */
-} XDptx_DmtMode;
-
-/**
  * This typedef contains the main stream attributes which determine how the
  * video will be displayed.
  */
 typedef struct {
-	XDptx_DmtMode Dmt;		/**< Holds the set of Display Mode
-						Timing (DMT) attributes that
-						correspond to the information
-						stored in the XDptx_DmtModes
-						table. */
+	XVid_VideoTimingMode Vtm;	/**< The video timing. */
 	u32 HClkTotal;			/**< Horizontal total time (in
 						pixels). */
 	u32 VClkTotal;			/**< Vertical total time (in pixels). */
@@ -730,10 +596,6 @@ typedef struct {
 							callback function. */
 } XDptx;
 
-/*************************** Variable Declarations ****************************/
-
-extern XDptx_DmtMode XDptx_DmtModes[];
-
 /**************************** Function Prototypes *****************************/
 
 /* xdptx.c: Setup and initialization functions. */
@@ -781,7 +643,7 @@ void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
 /* xdptx_spm.c: Stream policy maker functions. */
 void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream);
 void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
-						XDptx_VideoMode VideoMode);
+						XVid_VideoMode VideoMode);
 void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream,
 								u8 *Edid);
 void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
