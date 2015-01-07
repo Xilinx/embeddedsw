@@ -667,7 +667,7 @@
 				0x00000020	/**< PLL locked for lanes
 							2 and 3. */
 #define XDPTX_PHY_STATUS_PLL_FABRIC_LOCK_MASK \
-				0x00000020	/**< FPGA fabric clock PLL
+				0x00000040	/**< FPGA fabric clock PLL
 							locked. */
 #define XDPTX_PHY_STATUS_TX_BUFFER_STATUS_LANE_0_MASK \
 				0x00030000	/**< TX buffer status lane 0. */
