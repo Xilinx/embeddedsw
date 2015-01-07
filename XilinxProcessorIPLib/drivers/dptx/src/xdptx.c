@@ -2640,12 +2640,19 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr)
 {
 	u32 Timeout = 100;
 	u32 PhyStatus;
+	u32 Mask;
+
+	if (InstancePtr->Config.MaxLaneCount > 2) {
+		Mask = XDPTX_PHY_STATUS_ALL_LANES_READY_MASK;
+	}
+	else {
+		Mask = XDPTX_PHY_STATUS_LANES_0_1_READY_MASK;
+	}
 
 	/* Wait until the PHY is ready. */
 	do {
 		PhyStatus = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
-					XDPTX_PHY_STATUS) &
-					XDPTX_PHY_STATUS_ALL_LANES_READY_MASK;
+					XDPTX_PHY_STATUS) & Mask;
 
 		/* Protect against an infinite loop. */
 		if (!Timeout--) {
@@ -2653,7 +2660,7 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr)
 		}
 		XDptx_WaitUs(InstancePtr, 20);
 	}
-	while (PhyStatus != XDPTX_PHY_STATUS_ALL_LANES_READY_MASK);
+	while (PhyStatus != Mask);
 
 	return XST_SUCCESS;
 }
