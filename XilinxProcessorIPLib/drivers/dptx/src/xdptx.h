@@ -351,21 +351,18 @@ typedef struct {
  * This typedef contains configuration information about the RX device.
  */
 typedef struct {
-	u8 DpcdRxCapsField[XDPTX_DPCD_RECEIVER_CAP_FIELD_SIZE];
-					/**< The raw capabilities field
-						of the RX device's DisplayPort
-						Configuration Data (DPCD). */
-	u8 LaneStatusAdjReqs[6];	/**< This is a raw read of the
-						RX device's status registers.
-						The first 4 bytes correspond to
-						the lane status associated with
-						clock recovery, channel
-						equalization, symbol lock, and
-						interlane alignment. The
-						remaining 2 bytes represent the
-						pre-emphasis and voltage swing
-						level adjustments requested by
-						the RX device. */
+	u8 DpcdRxCapsField[16];	/**< The first 16 bytes of the raw capabilities
+					field of the RX device's DisplayPort
+					Configuration Data (DPCD). */
+	u8 LaneStatusAdjReqs[6];/**< This is a raw read of the RX device's
+					status registers. The first 4 bytes
+					correspond to the lane status associated
+					with clock recovery, channel
+					equalization, symbol lock, and interlane
+					alignment. The remaining 2 bytes
+					represent the pre-emphasis and voltage
+					swing level adjustments requested by the
+					RX device. */
 } XDptx_SinkConfig;
 
 /**
