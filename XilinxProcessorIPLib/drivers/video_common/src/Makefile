@@ -19,7 +19,7 @@ INCLUDEFILES:=*.h
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
-libs: banner xdptx_libs clean
+libs: banner video_common_libs clean
 
 %.o: %.c
 	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
@@ -27,13 +27,13 @@ libs: banner xdptx_libs clean
 banner:
 	echo "Compiling video_common"
 
-xdptx_libs: ${OBJECTS}
+video_common_libs: ${OBJECTS}
 	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 
 .PHONY: include
-include: xdptx_includes
+include: video_common_includes
 
-xdptx_includes:
+video_common_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
