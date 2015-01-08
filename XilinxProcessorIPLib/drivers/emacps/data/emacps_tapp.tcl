@@ -36,6 +36,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 2.0   adk  10/12/13 Updated as per the New Tcl API's
+# 3.0   adk  08/1/15  Don't include gem in peripheral test when gem is
+#		      configured with PCS/PMA Core.
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -48,28 +50,74 @@
 # -----------------------------------------------------------------
 # TCL Procedures:
 # -----------------------------------------------------------------
+set ispcs_pma 0
 
 proc gen_include_files {swproj mhsinst} {
-     
+
+	global ispcs_pma
+
     if {$swproj == 0} {
             return ""
     }
-    if {$swproj == 1} {
+
+	set ispcs_pma 0
+	set ipname [get_property NAME $mhsinst]
+	set ips [get_cells "*"]
+	set ipconv 0
+	foreach ip $ips {
+		set convipname [get_property NAME  $ip]
+		set periph [get_property IP_NAME $ip]
+		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
+			set sgmii_param [get_property CONFIG.c_is_sgmii $ip]
+			set PhyStandarrd [get_property CONFIG.Standard $ip]
+			if {$sgmii_param == true || $PhyStandarrd == "1000BASEX"} {
+				set ipconv $ip
+			}
+			break
+		}
+	}
+
+	if { $ipconv != 0 }  {
+		set port_value [get_pins -of_objects [get_nets -of_objects [get_pins -of_objects $ipconv gmii_txd]]]
+		if { $port_value != 0 } {
+			set tmp [string first "ENET0" $port_value]
+		}
+		if { $tmp >= 0 } {
+			if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0} {
+				set ispcs_pma 1
+			}
+		}
+		set tmp0 [string first "ENET1" $port_value]
+		if { $tmp0 >= 0 } {
+					if { [string compare -nocase $ipname "ps7_ethernet_1"] == 0} {
+						set ispcs_pma 1
+					}
+		}
+	}
+
+	if {$ispcs_pma == 0} {
+		if {$swproj == 1} {
             set inc_file_lines {xemacps.h xemacps_example.h emacps_header.h}
-    }    
-        return $inc_file_lines
+			 return $inc_file_lines
+		}
+	}
+    return ""
 }
-    
+
 proc gen_src_files {swproj mhsinst} {
+  global ispcs_pma
   if {$swproj == 0} {
     return ""
   }
-  if {$swproj == 1} {
-            
-      set inc_file_lines {examples/xemacps_example_intr_dma.c examples/xemacps_example_util.c examples/xemacps_example.h data/emacps_header.h}
-      
-      return $inc_file_lines
-  }
+  if {$ispcs_pma == 0} {
+		if {$swproj == 1} {
+
+			set inc_file_lines {examples/xemacps_example_intr_dma.c examples/xemacps_example_util.c examples/xemacps_example.h data/emacps_header.h}
+
+			return $inc_file_lines
+		}
+	}
+	 return ""
 }
 
 proc gen_testfunc_def {swproj mhsinst} {
@@ -77,23 +125,27 @@ proc gen_testfunc_def {swproj mhsinst} {
 }
 
 proc gen_init_code {swproj mhsinst} {
-    
+	global ispcs_pma
     if {$swproj == 0} {
         return ""
     }
-    if {$swproj == 1} {
-        
-      set ipname [get_property NAME $mhsinst]
-      set decl "   static XEmacPs ${ipname};"
-      set inc_file_lines $decl
-      return $inc_file_lines
-      
-    }
-    
+
+	if {$ispcs_pma == 0} {
+		if {$swproj == 1} {
+
+		set ipname [get_property NAME $mhsinst]
+		set decl "   static XEmacPs ${ipname};"
+		set inc_file_lines $decl
+		return $inc_file_lines
+
+		}
+	}
+	 return ""
+
 }
 
 proc gen_testfunc_call {swproj mhsinst} {
-    
+	global ispcs_pma
     if {$swproj == 0} {
         return ""
     }
@@ -110,11 +162,12 @@ proc gen_testfunc_call {swproj mhsinst} {
     set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
 
-
     set testfunc_call ""
 
   if {${hasStdout} == 0} {
-  
+
+	if {$ispcs_pma == 0} {
+
 	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
@@ -130,9 +183,10 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    }
 
-
+	}
   } else {
 
+	if {$ispcs_pma == 0} {
 	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
@@ -157,7 +211,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
 
    }
-
+	}
  }
 
   return $testfunc_call
