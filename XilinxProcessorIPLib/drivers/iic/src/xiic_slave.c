@@ -67,6 +67,9 @@
 *		      bus. This flag is to be used by slave applications for
 *		      recovering when it has gone out of sync with the master.
 *		      CR 615004.
+* 3.1   adk  01/08/15 When configured as a slave return the actual number of
+*		      bytes have been received/sent by the Master
+*		      to the user callback (CR: 828504).
 * </pre>
 *
 ****************************************************************************/
@@ -368,6 +371,7 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 	u32 CntlReg;
 	u8 BytesToRead;
 	u8 LoopCnt;
+	u32 TxFifoOcy;
 
 	/*
 	 * Disable NAAS so that the condition will not continue to interrupt
@@ -376,6 +380,20 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 	 */
 	XIic_DisableIntr(InstancePtr->BaseAddress, XIIC_INTR_NAAS_MASK);
 	XIic_ClearEnableIntr(InstancePtr->BaseAddress, XIIC_INTR_AAS_MASK);
+
+	/*
+         * In the slave transmitter case pass the actual number of
+         * bytes being recievd by the master to the user callback.
+         */
+	Status = XIic_ReadReg(InstancePtr->BaseAddress, XIIC_SR_REG_OFFSET);
+        TxFifoOcy = XIic_ReadReg(InstancePtr->BaseAddress, XIIC_TFO_REG_OFFSET);
+	if (!(Status & XIIC_SR_TX_FIFO_EMPTY_MASK)) {
+		    InstancePtr->SendByteCount = InstancePtr->Stats.SendBytes -
+                                        (TxFifoOcy+1) ;
+	} else {
+		    InstancePtr->SendByteCount = InstancePtr->Stats.SendBytes;
+	}
+
 
 	/*
 	 * Flush Tx FIFO by toggling TxFIFOResetBit. FIFO runs normally at 0
@@ -404,7 +422,6 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 		}
 	}
 
-	InstancePtr->RecvByteCount = 0;
 	/*
 	 * Flush Rx FIFO should slave Rx had a problem, sent No ack but
 	 * still received a few bytes. Should the slave receive have disabled
@@ -456,6 +473,7 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 		InstancePtr->RecvHandler(InstancePtr->RecvCallBackRef,
 					 InstancePtr->RecvByteCount);
 	}
+	InstancePtr->RecvByteCount = 0;
 	return;
 }
 

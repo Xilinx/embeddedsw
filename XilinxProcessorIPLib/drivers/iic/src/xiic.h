@@ -286,6 +286,10 @@
 *		      It Fixes the CR:685759 Changes are done in the file
 *		      xiic_l.c in the function XIic_Recv.
 * 3.0   adk  19/12/13 Updated as per the New Tcl API's
+* 3.1   adk  01/08/15 When configured as a slave return the actual number of
+*                     bytes have been received/sent by the Master
+*                     to the user callback (CR: 828504). Changes are made in the
+*		      file xiic_slave.c.
 * </pre>
 *
 ******************************************************************************/
