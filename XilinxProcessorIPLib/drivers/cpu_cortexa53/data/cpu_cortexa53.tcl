@@ -52,8 +52,8 @@ proc generate {drv_handle} {
 
 proc xdefine_cortexa53_params {drvhandle} {
 
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
     set procdrv [get_sw_processor]
     set archiver [get_property CONFIG.archiver $procdrv]
     if {[string first "iarchive" $archiver] < 0 } {
@@ -68,7 +68,7 @@ proc xdefine_cortexa53_params {drvhandle} {
 	}
     }
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
-    set lprocs [get_cells -filter "IP_NAME==pss_cortexa53"]
+    set lprocs [hsi::get_cells -filter "IP_NAME==pss_cortexa53"]
     set lprocs [lsort $lprocs]
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
@@ -93,13 +93,13 @@ proc xdefine_cortexa53_params {drvhandle} {
 }
 
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
 
  # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]
 
-   set mem_ranges [get_mem_ranges -of_objects $hw_proc_handle]
+   set mem_ranges [hsi::get_mem_ranges -of_objects $hw_proc_handle]
    foreach mem_range $mem_ranges {
        set inst [get_property INSTANCE $mem_range]
        if {$inst != ""} {
