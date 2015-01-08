@@ -301,6 +301,9 @@
  * 2.2   adk  29/10/14 Fixed CR#827686 when PCS/PMA core is configured with
  *                    1000BASE-X mode export proper values to the xparameters.h
  *                    file. Changes are made in the driver tcl file.
+ * 3.0   adk  08/1/15  Don't include gem in peripheral test when gem is
+ *                    configured with PCS/PMA Core. Changes are made in the
+ *		       test app tcl(CR:827686).
  * </pre>
  *
  ****************************************************************************/
