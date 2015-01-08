@@ -43,6 +43,8 @@
 #	       properly (CR 810643)
 # 29/10/14 adk Added support for generating parameters for SGMII/1000BaseX modes
 #	       When IP is configured with the PCS/PMA core (CR 828796)
+# 8/1/15   adk Fixed TCL errors when axiethernet is configured with the
+#	       Axi stream fifo (CR 835605).
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -237,9 +239,9 @@ proc xdefine_axi_target_params {periphs file_handle} {
 				add_field_to_periph_config_struct $device_id 0xFF
 			} else {
 				set canonical_name [format "XPAR_%s_CONNECTED_FIFO_INTR" $canonical_tag]
-				set target_periph_name [string toupper [get_property NAME $target_periph_type]]
-				puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_S2MM_INTROUT_INTR" $target_periph_name]
-				add_field_to_periph_config_struct $deviceid $canonical_name
+				set temp [string toupper $int_pin]
+				puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_%s_INTR" $target_periph_name $temp]
+				add_field_to_periph_config_struct $device_id $canonical_name
 				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF" $canonical_tag]
 				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF" $canonical_tag]
 				add_field_to_periph_config_struct $device_id 0xFF

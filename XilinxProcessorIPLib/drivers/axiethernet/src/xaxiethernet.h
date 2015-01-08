@@ -457,6 +457,9 @@
 * 4.3 adk 29/10/14 -  Added support for generating parameters for SGMII/1000BaseX
 *		      modes When IP is configured with the PCS/PMA core.
 *		      Changes are made in the driver tcl file (CR 828796).
+* 4.4  adk  8/1/15 -  Fixed TCL errors when axiethernet is configured with the
+*		      Axi stream fifo (CR 835605). Changes are made in the
+*		      driver tcl file.
 * </pre>
 *
 ******************************************************************************/
