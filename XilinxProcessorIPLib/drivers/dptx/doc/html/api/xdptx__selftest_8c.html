@@ -29,23 +29,24 @@ This file contains a diagnostic self-test function for the <a class="el" href="s
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
  1.0   als  05/17/14 Initial release.
- </pre> 
+ 3.0   als  12/16/14 Stream naming now starts at 1 to follow IP.
+ </pre>
 <p>
 <code>#include &quot;<a class="el" href="xdptx_8h.html">xdptx.h</a>&quot;</code><br>
 <code>#include &quot;xstatus.h&quot;</code><br>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__selftest_8c.html#f6cbfafba59214dcaad29991a3e265a4">XDptx_SelfTest</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__selftest_8c.html#0f3e36d00cbb3c9550cf880bb03cfea9">XDptx_SelfTest</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 <tr><td colspan="2"><br><h2>Variables</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__selftest_8c.html#254d7b9aa60f1abeb3c4d86ffe696039">ResetValues</a> [53][2]</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__selftest_8c.html#65af729ef8da95153475f2224b4329c2">ResetValues</a> [53][2]</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__selftest_8c.html#75e026490111a3043f3f5af681d9e3ed">ResetValuesMsa</a> [20][2]</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__selftest_8c.html#7a190e8d88f6885fdd71e6bbda945c72">ResetValuesMsa</a> [20][2]</td></tr>
 
 </table>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="f6cbfafba59214dcaad29991a3e265a4"></a><!-- doxytag: member="xdptx_selftest.c::XDptx_SelfTest" ref="f6cbfafba59214dcaad29991a3e265a4" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="0f3e36d00cbb3c9550cf880bb03cfea9"></a><!-- doxytag: member="xdptx_selftest.c::XDptx_SelfTest" ref="0f3e36d00cbb3c9550cf880bb03cfea9" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -76,27 +77,27 @@ This function runs a self-test on the <a class="el" href="struct_x_dptx.html">XD
 </div>
 </div><p>
 <hr><h2>Variable Documentation</h2>
-<a class="anchor" name="254d7b9aa60f1abeb3c4d86ffe696039"></a><!-- doxytag: member="xdptx_selftest.c::ResetValues" ref="254d7b9aa60f1abeb3c4d86ffe696039" args="[53][2]" -->
+<a class="anchor" name="65af729ef8da95153475f2224b4329c2"></a><!-- doxytag: member="xdptx_selftest.c::ResetValues" ref="65af729ef8da95153475f2224b4329c2" args="[53][2]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 <a class="el" href="xdptx__selftest_8c.html#254d7b9aa60f1abeb3c4d86ffe696039">ResetValues</a>[53][2]          </td>
+          <td class="memname">u32 <a class="el" href="xdptx__selftest_8c.html#65af729ef8da95153475f2224b4329c2">ResetValues</a>[53][2]          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-This table contains the default values for the DisplayPort TX core's general usage registers. 
+This table contains the default values for the DisplayPort TX core's general usage registers.
 </div>
 </div><p>
-<a class="anchor" name="75e026490111a3043f3f5af681d9e3ed"></a><!-- doxytag: member="xdptx_selftest.c::ResetValuesMsa" ref="75e026490111a3043f3f5af681d9e3ed" args="[20][2]" -->
+<a class="anchor" name="7a190e8d88f6885fdd71e6bbda945c72"></a><!-- doxytag: member="xdptx_selftest.c::ResetValuesMsa" ref="7a190e8d88f6885fdd71e6bbda945c72" args="[20][2]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 <a class="el" href="xdptx__selftest_8c.html#75e026490111a3043f3f5af681d9e3ed">ResetValuesMsa</a>[20][2]          </td>
+          <td class="memname">u32 <a class="el" href="xdptx__selftest_8c.html#7a190e8d88f6885fdd71e6bbda945c72">ResetValuesMsa</a>[20][2]          </td>
         </tr>
       </table>
 </div>
@@ -105,28 +106,28 @@ This table contains the default values for the DisplayPort TX core's general usa
 <p>
 <b>Initial value:</b><div class="fragment"><pre class="fragment">
 {
-        {<a class="code" href="xdptx__hw_8h.html#71148ad51c2dcde442f3661ac23b1c8a">XDPTX_MAIN_STREAM_HTOTAL</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#72ccb4478dc0844d4564fd883595894f">XDPTX_MAIN_STREAM_VTOTAL</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#5021184f173d31eaf40914c08aa67c70">XDPTX_MAIN_STREAM_POLARITY</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#c68242b93975b27a4dd5f5424edca7c4">XDPTX_MAIN_STREAM_HSWIDTH</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#80c45e2a27ace9e4b0750311c0ef84a9">XDPTX_MAIN_STREAM_VSWIDTH</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#f7dbf65764896c37d62a1be149cae2f8">XDPTX_MAIN_STREAM_HRES</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#c4442cbc0e52f8ba741a7becd59b7264">XDPTX_MAIN_STREAM_VRES</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#6878375b4d3054a6438d6c120f7aee92">XDPTX_MAIN_STREAM_HSTART</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#59f96811362a03af568f526087d813c2">XDPTX_MAIN_STREAM_VSTART</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#ec12e1b6482a3af5aefc43344ed3bb3d">XDPTX_MAIN_STREAM_MISC0</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#dae3820b7afc1aa4e0f71b6daad496a9">XDPTX_MAIN_STREAM_MISC1</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#a9bdd81b87727fd34d2a7980d3bb8024">XDPTX_M_VID</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#630b1bfbcebf8469d72b29b80e5cf9ef">XDPTX_TU_SIZE</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#246df330b0d3f6ea5d05fd95089e9f99">XDPTX_N_VID</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#2eccd9b84a12fae6acf5fa0fb7e8963d">XDPTX_USER_PIXEL_WIDTH</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#59420080445456a7bae12e8cdebbec5d">XDPTX_USER_DATA_COUNT_PER_LANE</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#feb884273648457f2af0709b75df4928">XDPTX_MAIN_STREAM_INTERLACED</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#c0d71f16f11b0debe9e20c47442208bf">XDPTX_MIN_BYTES_PER_TU</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#95e419cf6d2c09a29e29584e26120376">XDPTX_FRAC_BYTES_PER_TU</a>, 0},
-        {<a class="code" href="xdptx__hw_8h.html#5a2bc7766152ab752d2a3821c439740f">XDPTX_INIT_WAIT</a>, 32}
+        {<a class="code" href="xdptx__hw_8h.html#abfdf1c8ce7c380c8e1a1e8f054f5120">XDPTX_MAIN_STREAM_HTOTAL</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#0106cb54397959b72820d01d2738e44f">XDPTX_MAIN_STREAM_VTOTAL</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#3191336d71991f45e685370166b75235">XDPTX_MAIN_STREAM_POLARITY</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#4f0cf03e1278c8fa08884e3684115c12">XDPTX_MAIN_STREAM_HSWIDTH</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#b76db8018242c149a8f04425b96a0073">XDPTX_MAIN_STREAM_VSWIDTH</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#46f4a5ce423759c35bc5e033cc959065">XDPTX_MAIN_STREAM_HRES</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#550fd6231df126304130eeddd06eecb4">XDPTX_MAIN_STREAM_VRES</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#e9e74dfaeeef0afcab887f8c2d8e16c8">XDPTX_MAIN_STREAM_HSTART</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#146ad1908ab33bcea4ff20864857fcda">XDPTX_MAIN_STREAM_VSTART</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#98a49091321fa30ac74a868dfdda94ea">XDPTX_MAIN_STREAM_MISC0</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#f8260d6919b171a531a5140e36b53d5f">XDPTX_MAIN_STREAM_MISC1</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#12525c000e5e27377091080aeb16f676">XDPTX_M_VID</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#636b945926097deba9547fe7b03523a6">XDPTX_TU_SIZE</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#40b298687646706b016e22b7519d307d">XDPTX_N_VID</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#82d867d418c722d84dccf08c1c01cfb6">XDPTX_USER_PIXEL_WIDTH</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#878e506f4f5d3177baddd2c56b779b93">XDPTX_USER_DATA_COUNT_PER_LANE</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#369f88c7bed81fcc320ed60590ee198b">XDPTX_MAIN_STREAM_INTERLACED</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#ef02dda0634e52791bb332de791a79c3">XDPTX_MIN_BYTES_PER_TU</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#d6fb8fc7ffbc02a36aec3763720e5d51">XDPTX_FRAC_BYTES_PER_TU</a>, 0},
+        {<a class="code" href="xdptx__hw_8h.html#8e570f6926e0dc55c65a0c73dc0c7113">XDPTX_INIT_WAIT</a>, 32}
 }
-</pre></div>This table contains the default values for the DisplayPort TX core's main stream attribute (MSA) registers. 
+</pre></div>This table contains the default values for the DisplayPort TX core's main stream attribute (MSA) registers.
 </div>
 </div><p>
 Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.

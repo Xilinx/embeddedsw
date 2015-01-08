@@ -30,7 +30,9 @@ This file contains the stream policy maker functions for the <a class="el" href=
  ----- ---- -------- -----------------------------------------------
  1.0   als  05/17/14 Initial release.
        als  08/03/14 Initial MST addition.
- </pre> 
+ 3.0   als  12/16/14 Updated to use common video library.
+                     Stream naming now starts at 1 to follow IP.
+ </pre>
 <p>
 <code>#include &quot;<a class="el" href="xdptx_8h.html">xdptx.h</a>&quot;</code><br>
 <code>#include &quot;<a class="el" href="xdptx__hw_8h.html">xdptx_hw.h</a>&quot;</code><br>
@@ -38,27 +40,27 @@ This file contains the stream policy maker functions for the <a class="el" href=
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#6bdddb30f33a780cf9f1111837ffb7d1">XDptx_CfgMsaRecalculate</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#99d8902337e7bb3f7c607568501e16a1">XDptx_CfgMsaRecalculate</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#5af802ebc56dec263acc0d730d4196c2">XDptx_CfgMsaUseStandardVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, <a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6">XDptx_VideoMode</a> VideoMode)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#8f5a8d3f316f519145ecd9a94bf27ce8">XDptx_CfgMsaUseStandardVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, XVid_VideoMode VideoMode)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#ecaf86c0529067f86824e516ec24ffc6">XDptx_CfgMsaUseEdidPreferredTiming</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 *Edid)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#b4778897734128bf467047a90066c922">XDptx_CfgMsaUseEdidPreferredTiming</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 *Edid)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#5449461b3f651fdd723dacff95414082">XDptx_CfgMsaUseCustom</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, <a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a> *MsaConfigCustom, u8 Recalculate)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#b04d6d38ab65f7d6d5b4734eedf9b020">XDptx_CfgMsaUseCustom</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, <a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a> *MsaConfigCustom, u8 Recalculate)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#435f4058b60f8b3b05507b588054cfeb">XDptx_CfgMsaSetBpc</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 BitsPerColor)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#5dba8599ab68d0766e120119a6c6b83a">XDptx_CfgMsaSetBpc</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 BitsPerColor)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#f424835447a6965b6c07316fb71dfc02">XDptx_CfgMsaEnSynchClkMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 Enable)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#9192eda72dd8e74339cca7de45383110">XDptx_CfgMsaEnSynchClkMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 Enable)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#8c94639847747642864da0f053598cea">XDptx_SetVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#1c1894cfa6ff7425bb8cdfa19847cd38">XDptx_SetVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#ed928effbb7778d00af50ecfa3a1dafc">XDptx_ClearMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#b2120a4c08427e4e102efdfd17d65fac">XDptx_ClearMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#4d45bf3647f8a8698e330ca531198834">XDptx_SetMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#93def464f8e63597dfde42ea658ec2a6">XDptx_SetMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
 </table>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="f424835447a6965b6c07316fb71dfc02"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaEnSynchClkMode" ref="f424835447a6965b6c07316fb71dfc02" args="(XDptx *InstancePtr, u8 Stream, u8 Enable)" -->
+<a class="anchor" name="9192eda72dd8e74339cca7de45383110"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaEnSynchClkMode" ref="9192eda72dd8e74339cca7de45383110" args="(XDptx *InstancePtr, u8 Stream, u8 Enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -103,7 +105,7 @@ This function enables or disables synchronous clock mode for a video stream.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="6bdddb30f33a780cf9f1111837ffb7d1"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaRecalculate" ref="6bdddb30f33a780cf9f1111837ffb7d1" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="99d8902337e7bb3f7c607568501e16a1"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaRecalculate" ref="99d8902337e7bb3f7c607568501e16a1" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -143,7 +145,7 @@ This function calculates the following Main Stream Attributes (MSA):<ul>
 
 </div>
 </div><p>
-<a class="anchor" name="435f4058b60f8b3b05507b588054cfeb"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaSetBpc" ref="435f4058b60f8b3b05507b588054cfeb" args="(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)" -->
+<a class="anchor" name="5dba8599ab68d0766e120119a6c6b83a"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaSetBpc" ref="5dba8599ab68d0766e120119a6c6b83a" args="(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -188,7 +190,7 @@ This function sets the bits per color value of the video stream.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="5449461b3f651fdd723dacff95414082"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseCustom" ref="5449461b3f651fdd723dacff95414082" args="(XDptx *InstancePtr, u8 Stream, XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate)" -->
+<a class="anchor" name="b04d6d38ab65f7d6d5b4734eedf9b020"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseCustom" ref="b04d6d38ab65f7d6d5b4734eedf9b020" args="(XDptx *InstancePtr, u8 Stream, XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -242,7 +244,7 @@ This function takes a the main stream attributes from MsaConfigCustom and copies
 
 </div>
 </div><p>
-<a class="anchor" name="ecaf86c0529067f86824e516ec24ffc6"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseEdidPreferredTiming" ref="ecaf86c0529067f86824e516ec24ffc6" args="(XDptx *InstancePtr, u8 Stream, u8 *Edid)" -->
+<a class="anchor" name="b4778897734128bf467047a90066c922"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseEdidPreferredTiming" ref="b4778897734128bf467047a90066c922" args="(XDptx *InstancePtr, u8 Stream, u8 *Edid)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -287,7 +289,7 @@ This function sets the main stream attribute values in the configuration structu
 
 </div>
 </div><p>
-<a class="anchor" name="5af802ebc56dec263acc0d730d4196c2"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseStandardVideoMode" ref="5af802ebc56dec263acc0d730d4196c2" args="(XDptx *InstancePtr, u8 Stream, XDptx_VideoMode VideoMode)" -->
+<a class="anchor" name="8f5a8d3f316f519145ecd9a94bf27ce8"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseStandardVideoMode" ref="8f5a8d3f316f519145ecd9a94bf27ce8" args="(XDptx *InstancePtr, u8 Stream, XVid_VideoMode VideoMode)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -306,7 +308,7 @@ This function sets the main stream attribute values in the configuration structu
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6">XDptx_VideoMode</a>&nbsp;</td>
+          <td class="paramtype">XVid_VideoMode&nbsp;</td>
           <td class="paramname"> <em>VideoMode</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -332,7 +334,7 @@ This function sets the Main Stream Attribute (MSA) values in the configuration s
 
 </div>
 </div><p>
-<a class="anchor" name="ed928effbb7778d00af50ecfa3a1dafc"></a><!-- doxytag: member="xdptx_spm.c::XDptx_ClearMsaValues" ref="ed928effbb7778d00af50ecfa3a1dafc" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="b2120a4c08427e4e102efdfd17d65fac"></a><!-- doxytag: member="xdptx_spm.c::XDptx_ClearMsaValues" ref="b2120a4c08427e4e102efdfd17d65fac" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -370,7 +372,7 @@ This function clears the main stream attributes registers of the DisplayPort TX 
 
 </div>
 </div><p>
-<a class="anchor" name="4d45bf3647f8a8698e330ca531198834"></a><!-- doxytag: member="xdptx_spm.c::XDptx_SetMsaValues" ref="4d45bf3647f8a8698e330ca531198834" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="93def464f8e63597dfde42ea658ec2a6"></a><!-- doxytag: member="xdptx_spm.c::XDptx_SetMsaValues" ref="93def464f8e63597dfde42ea658ec2a6" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -408,7 +410,7 @@ This function sets the main stream attributes registers of the DisplayPort TX co
 
 </div>
 </div><p>
-<a class="anchor" name="8c94639847747642864da0f053598cea"></a><!-- doxytag: member="xdptx_spm.c::XDptx_SetVideoMode" ref="8c94639847747642864da0f053598cea" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="1c1894cfa6ff7425bb8cdfa19847cd38"></a><!-- doxytag: member="xdptx_spm.c::XDptx_SetVideoMode" ref="1c1894cfa6ff7425bb8cdfa19847cd38" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">

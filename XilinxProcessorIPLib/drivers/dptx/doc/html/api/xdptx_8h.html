@@ -21,11 +21,78 @@
     <li><a href="files.html"><span>File&nbsp;List</span></a></li>
     <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
   </ul></div>
-<h1>xdptx.h File Reference</h1>
+<h1>xdptx.h File Reference</h1><hr><a name="_details"></a><h2>Detailed Description</h2>
+The Xilinx DisplayPort transmitter (DPTX) driver. This driver supports the Xilinx DisplayPort soft IP core in source (TX) mode. This driver follows the DisplayPort 1.2a specification.<p>
+The Xilinx DisplayPort soft IP supports the following features:<ul>
+<li>1, 2, or 4 lanes.</li><li>A link rate of 1.62, 2.70, or 5.40Gbps per lane.</li><li>1, 2, or 4 pixel-wide video interfaces.</li><li>RGB and YCbCr color space.</li><li>Up to 16 bits per component.</li><li>Up to 4Kx2K monitor resolution.</li><li>Auto lane rate and width negotiation.</li><li>I2C over a 1Mb/s AUX channel.</li><li>Secondary channel audio support (2 channels).</li><li>4 independent video multi-streams.</li></ul>
+<p>
+The Xilinx DisplayPort soft IP does not support the following features:<ul>
+<li>The automated test feature.</li><li>Audio (3-8 channel).</li><li>FAUX.</li><li>Bridging function.</li><li>MST audio.</li><li>eDP optional features.</li><li>iDP.</li><li>GTC.</li></ul>
+<p>
+<b>DisplayPort overview</b><p>
+A DisplayPort link consists of:<ul>
+<li>A unidirectional main link which is used to transport isochronous data streams such as video and audio. The main link may use 1, 2, or 4 lanes at a link rate of 1.62, 2.70, or 5.40Gbps per lane. The link needs to be trained prior to sending streams.</li><li>An auxiliary (AUX) channel is a 1MBps bidirectional channel used for link training, link management, and device control.</li><li>A hot-plug-detect (HPD) signal line is used to determine whether a DisplayPort connection exists between the DisplayPort TX connector and an RX device. It is serves as an interrupt request by the RX device.</li></ul>
+<p>
+<b>Driver description</b><p>
+The device driver enables higher-level software (e.g., an application) to configure and control a DisplayPort TX soft IP, communicate and control an RX device/sink monitor over the AUX channel, and to initialize and transmit data streams over the main link.<p>
+This driver implements link layer functionality: a Link Policy Maker (LPM) and a Stream Policy Maker (SPM) as per the DisplayPort 1.2a specification.<ul>
+<li>The LPM manages the main link and is responsible for keeping the link synchronized. It will establish a link with a downstream RX device by undergoing a link training sequence which consists of:<ul>
+<li>Clock recovery: The clock needs to be recovered and PLLs need to be locked for all lanes.</li><li>Channel equalization: All lanes need to achieve channel equalization and and symbol lock, as well as for interlane alignment to take place.</li></ul>
+</li><li>The SPM manages transportation of an isochronous stream. That is, it will initialize and maintain a video stream, establish a virtual channel to a sink monitor, and transmit the stream.</li></ul>
+<p>
+Using AUX transactions to read/write from/to the sink's DisplayPort Configuration Data (DPCD) address space, the LPM obtains the link capabilities, obtains link configuration and link and sink status, and configures and controls the link and sink. The main link is trained this way.<p>
+I2C-over-AUX transactions are used to obtain the sink's Extended Display Identification Data (EDID) which give information on the display capabilities of the monitor. The SPM may use this information to determine what available screen resolutions and video timing are possible.<p>
+<b>Device configuration</b><p>
+The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the xdptx_g.c file which is generated when compiling the board support package (BSP). A table is defined where each entry contains configuration information for the DisplayPort instances present in the system. This information includes parameters that are defined in the driver's data/dptx.tcl file such as the base address of the memory-mapped device and the maximum number of lanes, maximum link rate, and video interface that the DisplayPort instance supports, among others.<p>
+<b>Interrupt processing</b><p>
+DisplayPort interrupts occur on the HPD signal line when the DisplayPort cable is connected/disconnected or when the RX device sends a pulse. The user hardware design must contain an interrupt controller which the DisplayPort TX instance's interrupt signal is connected to. The user application must enable interrupts in the system and set up the interrupt controller such that the XDptx_HpdInterruptHandler handler will service DisplayPort interrupts. When the XDptx_HpdInterruptHandler function is invoked, the handler will identify what type of DisplayPort interrupt has occurred, and will call either the HPD event handler function or the HPD pulse handler function, depending on whether a an HPD event on an HPD pulse event occurred.<p>
+The DisplayPort TX's XDPTX_INTERRUPT_STATUS register indicates the type of interrupt that has occured, and the XDptx_HpdInterruptHandler will use this information to decide which handler to call. An HPD event is identified if bit XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK is set, and an HPD pulse is identified from the XDPTX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK bit.<p>
+The HPD event handler may be set up by using the XDptx_SetHpdEventHandler function and, for the HPD pulse handler, the XDptx_SetHpdPulseHandler function.<p>
+<b>Multi-stream transport (MST) mode</b><p>
+The driver handles MST mode functionality, including sideband messaging, topology discovery, virtual channel payload ID table management, and directing streams to different sinks.<p>
+MST testing has been done at all possible link rate/lane count/topology/ resolution/color depth combinations with each setting using following values:<ul>
+<li>Link rate: 1.62, 2.70, and 5.40Gbps per lane.</li><li>Lane count: 1, 2, and 4 lanes.</li><li>Number of sink displays: 1, 2, 3, and 4 sink displays in both a daisy-chain configuration and in a configuration using a combination of a 1-to-3 hub and daisy-chain. Each stream was using the same resolution.</li><li>Resolutions (60Hz): 640x480, 800x600, 1024x768, 1280x800, 1280x1024, 1360x768, 1400x1050, 1680x1050, 1920x1080, 1920x2160, and 3840x2160.</li><li>Color depths: 18, 24, 30, 36, and 48 bits per pixel.</li></ul>
+<p>
+<b>Audio</b><p>
+The driver does not handle audio. For an example as to how to configure and transmit audio, examples/xdptx_audio_example.c illustrates the required sequence. The user will need to configure the audio source connected to the Displayport TX instance and set up the audio info frame as per user requirements.<p>
+<b>Asserts</b><p>
+Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that application developers leave asserts on during development.<p>
+<b>Limitations</b><p>
+<ul>
+<li>For MST mode to correctly display, the current version of the driver requires that each of the DisplayPort TX streams be allocated without skipping streams (i.e. assign stream 1, stream 2, and stream 3 - problems were experienced if skipping stream 2 and assigning stream 4 instead). skipping monitors in a daisy chain is OK as long as they are assigned to streams in order.</li><li>In MST mode, the current version of the driver does not support removal of an allocated stream from the virtual channel payload ID table without clearing the entire table.</li><li>Some sideband messages have not been implemented in the current version of the driver for MST mode. Notably, reception of a CONNECTION_STATUS_NOTIFY sideband message.</li><li>The driver does not handle audio. See the audio example in the driver examples directory for the required sequence for enabling audio.</li></ul>
+<p>
+<dl compact><dt><b>Note:</b></dt><dd>For a 5.4Gbps link rate, a high performance 7 series FPGA is required with a speed grade of -2 or -3.</dd></dl>
+<pre>
+ MODIFICATION HISTORY:</pre><p>
+<pre> Ver   Who  Date     Changes
+ ----- ---- -------- -----------------------------------------------
+ 1.0   als  05/17/14 Initial release.
+       als  08/03/14 Initial MST addition.
+ 2.0   als  09/21/14 Added XDptx_DiscoverTopology function and changed
+                     XDptx_IsConnected from macro to function.
+ 3.0   als  12/16/14 Updated to use common video library.
+                     Added topology reordering functions:
+                         XDptx_TopologySwapSinks,
+                         XDptx_TopologySortSinksByTiling
+                     Added wrapper functions for remote DPCD/I2C read/writes:
+                         XDptx_RemoteDpcdRead, XDptx_RemoteDpcdWrite,
+                         XDptx_RemoteIicRead, XDptx_RemoteIicWrite
+                     Added EDID utility functions:
+                         XDptx_GetRemoteEdid, XDptx_GetEdidBlock,
+                         XDptx_GetRemoteEdidBlock,
+                         XDptx_GetRemoteEdidDispIdExt,
+                         XDptx_GetDispIdDataBlock,
+                         XDptx_GetRemoteTiledDisplayDb
+                     Remove unused arguments from functions:
+                         LinkCountTotal, RelativeAddress from
+                             XDptx_AllocatePayloadVcIdTable
+                         RegStartAddress from XDptx_IicWrite
+ </pre>
 <p>
 <code>#include &quot;<a class="el" href="xdptx__hw_8h.html">xdptx_hw.h</a>&quot;</code><br>
 <code>#include &quot;xil_assert.h&quot;</code><br>
 <code>#include &quot;xil_types.h&quot;</code><br>
+<code>#include &quot;xvid.h&quot;</code><br>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
@@ -34,8 +101,6 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___sink_config.html">XDptx_SinkConfig</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___link_config.html">XDptx_LinkConfig</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___dmt_mode.html">XDptx_DmtMode</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a></td></tr>
 
@@ -54,294 +119,177 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html">XDptx</a></td></tr>
 
 <tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef void(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a> (void *InstancePtr, u32 MicroSeconds)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef void(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a> (void *InstancePtr, u32 MicroSeconds)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef void(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a> (void *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef void(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#6f6cee9a7863df256adb35802fc65017">XDptx_HpdEventHandler</a> (void *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef void(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a> (void *InstancePtr)</td></tr>
-
-<tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6">XDptx_VideoMode</a> { <br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa60aea46f261427d546f2a271eebeaa197">XDPTX_VM_640x480_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa63017ab05ce11b6a6cc23bc7f923888f8">XDPTX_VM_800x600_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6bdf5f44ad1d34908db7844394d1fe0f3">XDPTX_VM_848x480_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6acbd5a016a899ef040babda170c7f769">XDPTX_VM_1024x768_60_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6b55b74994919049cd6ba09b58f82e440">XDPTX_VM_1280x768_60_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa67697e158cc75c5b2c66cbd5b5dc54dd9">XDPTX_VM_1280x768_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6447c49820002a96adaf4ec242fac1110">XDPTX_VM_1280x800_60_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa635f4064753f45917748c62f06b25ecee">XDPTX_VM_1280x800_60_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa64e3a00634eb8971f6a9abdcbbb3bec0b">XDPTX_VM_1280x960_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa69be869b4ad609439c8279776b2cf5338">XDPTX_VM_1280x1024_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa631e68c210a29e8b94ccad987e3d57947">XDPTX_VM_1360x768_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6c991941b052bf6d41403f0073e1f68bf">XDPTX_VM_1400x1050_60_P_RB</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6797d426b485eb6ef29afac9a7ce82614">XDPTX_VM_1400x1050_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6b26a890c9f60cf339567d83c089365b5">XDPTX_VM_1440x900_60_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6b1cdaa8a9f10ae595bf06205b5e8970d">XDPTX_VM_1440x900_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6c6895667cb502c5217d7b366b25f3310">XDPTX_VM_1600x1200_60_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6e0795b39f86a1d15604b24f2c22a486a">XDPTX_VM_1680x1050_60_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa625ad2b8d10f159b8bda5dcabe96cf833">XDPTX_VM_1680x1050_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6fdec74c38215c6fcc5e98fb36dce912b">XDPTX_VM_1792x1344_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6d42606fff3d09ff38a7869a2b9f6e21f">XDPTX_VM_1856x1392_60_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa628021dbf0e779de362ce8d103c2b06a0">XDPTX_VM_1920x1200_60_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa62d4d66b06f7e56152bad96d08c7dbd48">XDPTX_VM_1920x1200_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa68d2a0f2c9976040a4b3921b7b5d299be">XDPTX_VM_1920x1440_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6e7c2acfc87b74065b08269126632e5bf">XDPTX_VM_2560x1600_60_P_RB</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa68b1974e7d1912dc0388b636ced2adbe5">XDPTX_VM_2560x1600_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6653e5a788aad65846b7858950c6b1019">XDPTX_VM_800x600_56_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6e3bcf9dbce87bdbf5d917481ad5ac404">XDPTX_VM_1600x1200_65_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa671457e5809d640ce904672979e126b11">XDPTX_VM_1600x1200_70_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa64d4d6164d1c43e69197987b279fd132f">XDPTX_VM_1024x768_70_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa62d2d1c543555cc19a8a941c4b65bc96d">XDPTX_VM_640x480_72_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa69693e58dc6bcbeab4603b36e4334bca6">XDPTX_VM_800x600_72_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6bba67793e453d3369501d06f67c6603b">XDPTX_VM_640x480_75_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa623e1742bfbabc1a5d84de88e34f07fb3">XDPTX_VM_800x600_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa655a7cd0ad4322f0930a29ef5bb587a93">XDPTX_VM_1024x768_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6ab26aaacfe69efcc089f3596ef51f753">XDPTX_VM_1152x864_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa67b0cc1852c10c12334782fe587bdad5e">XDPTX_VM_1280x768_75_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6e63eedf8bc444d31e69e5dfa748ed771">XDPTX_VM_1280x800_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6ffbd7067b813cca0c360cf4dc29d6cee">XDPTX_VM_1280x1024_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6d3633c6ed3e69ab43a2418e05c942677">XDPTX_VM_1400x1050_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6dac175947d95d8713dad4363a1a33f2b">XDPTX_VM_1440x900_75_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6cc1fa396294eb5d1b82f187c2cca8f03">XDPTX_VM_1600x1200_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6e5835b27a74955aa6649ce57417246d0">XDPTX_VM_1680x1050_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa67099bafed8b799dec738ff8f05c1a687">XDPTX_VM_1792x1344_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa66d295144b9037fafb7a2065979e8a5d8">XDPTX_VM_1856x1392_75_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6b3f6da45ed60c5ddf1e2c1ee82a43be6">XDPTX_VM_1920x1200_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa68f29a8c417f052434c9d9dee09589580">XDPTX_VM_1920x1440_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa67f38aa9c503e2efe11afb3adee619745">XDPTX_VM_2560x1600_75_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa692aa90df6722ef3be732f2e893d57960">XDPTX_VM_640x350_85_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa658b57ffa68eac679508a4023ba0e425b">XDPTX_VM_640x400_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6562b28727c8a0cd977d85db782991097">XDPTX_VM_720x400_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6fa807041b46bde289e15d954559f5ce0">XDPTX_VM_640x480_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa60149a615f772313a05753404b5f9523c">XDPTX_VM_800x600_85_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa61eba755b6a4f26e5f2c2b9f21cf95984">XDPTX_VM_1024x768_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa63c976932604b9483c1a2982c79c834a8">XDPTX_VM_1280x768_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6dfe0e9a6398e286bd8ede3356a4a964e">XDPTX_VM_1280x800_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa629e599bb0bfaf113cb20f6c8233686c2">XDPTX_VM_1280x960_85_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa68b713eb8b8cf129962052ea35ea5e55e">XDPTX_VM_1280x1024_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6171317f2a7f66fbcf747a8ce4411f39a">XDPTX_VM_1400x1050_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa63c1f5d25e0ec0ce5235cba928e0d3a0a">XDPTX_VM_1440x900_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa66232bc19938ba03447a8a3ff8a61a57f">XDPTX_VM_1600x1200_85_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6f9cb0a9864a6486aded045368af8c50e">XDPTX_VM_1680x1050_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa672c6dce5a2fb86a413b58d505d37054c">XDPTX_VM_1920x1200_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6a06ea8cb35dfd95faeed9c0f2f8c9549">XDPTX_VM_2560x1600_85_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6ed4476dea507136024a11f2dcaa4ae85">XDPTX_VM_800x600_120_P_RB</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6b2eea6941532e8c0890d65b1c6d4623d">XDPTX_VM_1024x768_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa607edeafe6f252d721955274e3d49c357">XDPTX_VM_1280x768_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6ab8b39593c6d9ea0b183de031fba66b0">XDPTX_VM_1280x800_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa696d2a40dff753291fdd3783a34537132">XDPTX_VM_1280x960_120_P_RB</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa648b320153f3fd093d57233f4df95f286">XDPTX_VM_1280x1024_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa62de8aff5f06769711509c6a0368f741a">XDPTX_VM_1360x768_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa62fe769d09c4bc13cc82f597376ee2e41">XDPTX_VM_1400x1050_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6975ca412e35035e5af656fae1c1a71a8">XDPTX_VM_1440x900_120_P_RB</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa62fdde48bb388504795bbb1029b0c3298">XDPTX_VM_1600x1200_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6b2e2d5234a29af5d88eb4a0e12c9076c">XDPTX_VM_1680x1050_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa675982297ab07916c1b29603b1da1fa55">XDPTX_VM_1792x1344_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa65de00f99a6821fb3e4a1289c2971c4d8">XDPTX_VM_1856x1392_120_P_RB</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6b1be55d25f29d1527005509c3e060e67">XDPTX_VM_1920x1200_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6210b3bc631207dc9f1661a66307f9543">XDPTX_VM_1920x1440_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6cc42661885acdb739caeec9c15fcf621">XDPTX_VM_2560x1600_120_P_RB</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa696240455fc7099ad7d38a75d16453175">XDPTX_VM_1366x768_60_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6f0c347dfd54d96953b939a694f40d475">XDPTX_VM_1920x1080_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa68bc8919957e4ed8bc05af5b7d4346d32">XDPTX_VM_UHD_30_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa68b7a733de12b08be732e69e884a80572">XDPTX_VM_720_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6917c1d3cc24cb9b1512a885c226704d4">XDPTX_VM_480_60_P</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6f96acc279875160a4d80acd3914fb14f">XDPTX_VM_UHD2_60_P</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa630e184be3f6863e1e08352ce7c7cdb45">XDPTX_VM_UHD_60</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa65ec3529a1af698bc7ec52ebdc532fc7f">XDPTX_VM_USE_EDID_PREFERRED</a>, 
-<a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa699c34fa04f187d8ae9c8a3b5fa6e2bbd">XDPTX_VM_LAST</a> =  XDPTX_VM_USE_EDID_PREFERRED
-<br>
- }</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef void(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#41e04c356fe95636134164b0f03bca9b">XDptx_HpdPulseHandler</a> (void *InstancePtr)</td></tr>
 
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b2fbc41e2f0ac4471e4edbf71d877af3">XDptx_InitializeTx</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#9ebb3ed7a51593c63fbd31ea14924a49">XDptx_InitializeTx</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#9de0242347480cc38571113e5edd73ba">XDptx_CfgInitialize</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#9128bf8d6da59ba2b255197db5e621b6">XDptx_CfgInitialize</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#567d49c31f86ae5c704ac42730fa2e00">XDptx_GetRxCapabilities</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b8c55ba66858d6af8095f263ee308d2d">XDptx_GetRxCapabilities</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1b0ea5fdead5a6955b72b4775ec1d0a3">XDptx_CfgMainLinkMax</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#7ef44713234442c3a6cf13e2fce70a4b">XDptx_CfgMainLinkMax</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#32b552e953f9c486a6a5e04228dcf6b6">XDptx_EstablishLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b567f6a342ca0e7c4ceef86ff1df87cf">XDptx_EstablishLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#e85ec3a02cdf8f8ffd611e026bf9ff01">XDptx_CheckLinkStatus</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LaneCount)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3cedae7883dc5cab5f15f8110805f2c6">XDptx_CheckLinkStatus</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LaneCount)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#6f302303735c870085d65253bcc9acdb">XDptx_EnableTrainAdaptive</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#7d15cd84e2391c5d8f19c7fbeac1781a">XDptx_EnableTrainAdaptive</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#55147fabd5935ff1198d732b54d1f310">XDptx_SetHasRedriverInPath</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Set)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b93d01339bd8c577ea22804786ce3c28">XDptx_SetHasRedriverInPath</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Set)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#2584e9ee897c8e017029ab4d7755eaaa">XDptx_CfgTxVsOffset</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Offset)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#74b044b7d09f44e887d9a5c61b6dfcdb">XDptx_CfgTxVsOffset</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Offset)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#8f4603bb5e1496650e3cda3aa06924b8">XDptx_CfgTxVsLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1c2e557e06c47e2f6d3b6f072a462d03">XDptx_CfgTxVsLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a6815e6062e47eecfd9616eaa15a19a1">XDptx_CfgTxPeLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#eda4459fe23e2926575401293fa9ee75">XDptx_CfgTxPeLevel</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Level, u8 TxLevel)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#66e22710eebdc6628ac5f42f4b6ce976">XDptx_AuxRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 BytesToRead, void *ReadData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b25ef45e949568bf5ae5623fb3303a31">XDptx_AuxRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 DpcdAddress, u32 BytesToRead, void *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ca0eec27f959fb6252c1ec0eae8498cc">XDptx_AuxWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Address, u32 BytesToWrite, void *WriteData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d24537a5bd001781f3ec2157e80438bd">XDptx_AuxWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 DpcdAddress, u32 BytesToWrite, void *WriteData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1cced75f64e9dc4292dc1910a2f6a2c0">XDptx_IicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u16 Offset, u16 BytesToRead, void *ReadData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#c46b9e42cbf67c0f95fcbeb54b469839">XDptx_IicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u16 Offset, u16 BytesToRead, void *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#93d3333e43aef67e21e20e33d757aead">XDptx_IicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 BytesToWrite, void *WriteData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#eaac8c34e7831b805916a05a8946fa29">XDptx_IicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 IicAddress, u8 BytesToWrite, void *WriteData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#2a9f86dab2f5de738680e7b4320469b2">XDptx_SetDownspread</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b030d699fd11a5691295ac4ab3c48c27">XDptx_SetDownspread</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1d545645af32331e179e42e979bc3de3">XDptx_SetEnhancedFrameMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#92d90bd5e3b79ba1ba2da23815af3de9">XDptx_SetEnhancedFrameMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a273dec21586ac33395010f87401c2d0">XDptx_SetLaneCount</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LaneCount)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#115ea420baf50627b248038ef176a068">XDptx_SetLaneCount</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LaneCount)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#fc742d9a00ff909e56766f5a692159f2">XDptx_SetLinkRate</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkRate)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#83816bbeac40d06d6fc9e37e310b0fce">XDptx_SetLinkRate</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkRate)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3e9dee7b0b7711677c8c39fd14d585c8">XDptx_SetScrambler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#2725860ddb4c74bf0abca8878dd987b3">XDptx_SetScrambler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Enable)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#44eafdd44ab545ce448b0c0476455d7c">XDptx_IsConnected</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#6e793e6d9919548dc5396e7aba1cf77b">XDptx_IsConnected</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0f43683ba44e5e1544042be2bcfc45de">XDptx_EnableMainLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#7d10dab87f3f11b925e9780765c0ae08">XDptx_EnableMainLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0086628f0fcfab2389efb4100415df96">XDptx_DisableMainLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#c440c032b45acf3ae5be9eba37c9203e">XDptx_DisableMainLink</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a71e17a951f445b9c7bcfcc3104cdf4c">XDptx_ResetPhy</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Reset)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ebfd44b68145676eebcc0d463c9b4d6f">XDptx_ResetPhy</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Reset)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f60126291b4c1d2ac2d054707c804dce">XDptx_WaitUs</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 MicroSeconds)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#6c460b31a3226815a96543e9c4c161fe">XDptx_WaitUs</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 MicroSeconds)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0cfe4355d8e2fa3e46be78c1800bb9d5">XDptx_SetUserTimerHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#2ccd64b33b2bd65423338312aa2977b5">XDptx_SetUserTimerHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#6bdddb30f33a780cf9f1111837ffb7d1">XDptx_CfgMsaRecalculate</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#99d8902337e7bb3f7c607568501e16a1">XDptx_CfgMsaRecalculate</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#5af802ebc56dec263acc0d730d4196c2">XDptx_CfgMsaUseStandardVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, <a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6">XDptx_VideoMode</a> VideoMode)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#8f5a8d3f316f519145ecd9a94bf27ce8">XDptx_CfgMsaUseStandardVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, XVid_VideoMode VideoMode)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ecaf86c0529067f86824e516ec24ffc6">XDptx_CfgMsaUseEdidPreferredTiming</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 *Edid)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b4778897734128bf467047a90066c922">XDptx_CfgMsaUseEdidPreferredTiming</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 *Edid)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#5449461b3f651fdd723dacff95414082">XDptx_CfgMsaUseCustom</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, <a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a> *MsaConfigCustom, u8 Recalculate)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b04d6d38ab65f7d6d5b4734eedf9b020">XDptx_CfgMsaUseCustom</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, <a class="el" href="struct_x_dptx___main_stream_attributes.html">XDptx_MainStreamAttributes</a> *MsaConfigCustom, u8 Recalculate)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#435f4058b60f8b3b05507b588054cfeb">XDptx_CfgMsaSetBpc</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 BitsPerColor)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#5dba8599ab68d0766e120119a6c6b83a">XDptx_CfgMsaSetBpc</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 BitsPerColor)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f424835447a6965b6c07316fb71dfc02">XDptx_CfgMsaEnSynchClkMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 Enable)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#9192eda72dd8e74339cca7de45383110">XDptx_CfgMsaEnSynchClkMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 Enable)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#8c94639847747642864da0f053598cea">XDptx_SetVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#1c1894cfa6ff7425bb8cdfa19847cd38">XDptx_SetVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ed928effbb7778d00af50ecfa3a1dafc">XDptx_ClearMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b2120a4c08427e4e102efdfd17d65fac">XDptx_ClearMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#4d45bf3647f8a8698e330ca531198834">XDptx_SetMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#93def464f8e63597dfde42ea658ec2a6">XDptx_SetMsaValues</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0fc77fba78c3de3cdd141273b9348d45">XDptx_SetHpdEventHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#af4bdfbe0785e1d0ec3d80edec1a86cb">XDptx_SetHpdEventHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#6f6cee9a7863df256adb35802fc65017">XDptx_HpdEventHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a1dd03865a96f1323a8e3445dd4b15a6">XDptx_SetHpdPulseHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#2ab1eec64ba571d155e56bb433fea5bf">XDptx_SetHpdPulseHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#41e04c356fe95636134164b0f03bca9b">XDptx_HpdPulseHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#42ad278e82e98ad5440ced0791eb1232">XDptx_HpdInterruptHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#52950290a845ab93bac618ea8af9efc4">XDptx_HpdInterruptHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f6cbfafba59214dcaad29991a3e265a4">XDptx_SelfTest</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0f3e36d00cbb3c9550cf880bb03cfea9">XDptx_SelfTest</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#32ba0cb6907ed3d2ecfdb31c699db3b4">XDptx_LookupConfig</a> (u16 DeviceId)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#696416992bebdddc0fad449fe7afe24f">XDptx_LookupConfig</a> (u16 DeviceId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f15269f0f6d4a121d3f4258f5a51b298">XDptx_MstCfgModeEnable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d7e8bb68f2e7c81be8ffad72b57601ff">XDptx_MstCfgModeEnable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#2ee695f7ae87c5c4562c6476363c0c00">XDptx_MstCfgModeDisable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#7615c8afb7181ef0857c8d2b6973499a">XDptx_MstCfgModeDisable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#04c0a0cf85542a721ce4a0ef4bcf75b0">XDptx_MstCapable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#688ad3269be26bc021855c7f8353883e">XDptx_MstCapable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#8123a5bcf543018ba0e104547c5291d5">XDptx_MstEnable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#9e21cc5e80eee639bfcb6d86db3c63e2">XDptx_MstEnable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b61d820b6767defde5d9f3ae427f1cdc">XDptx_MstDisable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d743a4fa1c3ebd1170df1042339146b1">XDptx_MstDisable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#665b86549678eabb60f20f9924554cb3">XDptx_MstCfgStreamEnable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ac2290634f6866f2deb960f6714aff2e">XDptx_MstCfgStreamEnable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#32542b979844e06b18b5dc7fbd2a4f33">XDptx_MstCfgStreamDisable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#026e20a4f7d12c3a0f6aa6b7ebcb9461">XDptx_MstCfgStreamDisable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d8278e0c69dd1a2ebdfb13d9075fa694">XDptx_MstStreamIsEnabled</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#737c353ccd6a4700ac71cff76d28c8ce">XDptx_MstStreamIsEnabled</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#65045054e997195fefb69e1edcb07a5a">XDptx_SetStreamSelectFromSinkList</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 SinkNum)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#8363e32d51c93e25b85a802b70a3715c">XDptx_SetStreamSelectFromSinkList</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 SinkNum)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#895b0d104c1772fe0f60c879cd0a2b82">XDptx_SetStreamSinkRad</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f4716adc915bedad28b2bf0b1d7bd4fa">XDptx_SetStreamSinkRad</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#e81134f5cfd2bd5ad5826048c7c2f2dd">XDptx_DiscoverTopology</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#cb0e6bda66711f10a0ce352cbd61b0ab">XDptx_DiscoverTopology</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#03309887289769ac323f0b7e7b004dae">XDptx_FindAccessibleDpDevices</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#991faef9c1e7417849ee2c682a3033de">XDptx_FindAccessibleDpDevices</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#694b4d0af61fef8fdfbe93409ad0d680">XDptx_TopologySwapSinks</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Index0, u8 Index1)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ec0c3b81cece2bd4e51188e2bb50f13b">XDptx_TopologySwapSinks</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Index0, u8 Index1)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#5a46ddefc4cb8118d5258e0e43443992">XDptx_TopologySortSinksByTiling</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#b6b286732cdad782f909c9461ea0f508">XDptx_TopologySortSinksByTiling</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#4e0615e6cad83aa1b444aed245a9030c">XDptx_RemoteDpcdRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#333314b39c0f89f069e4af89b2f9bcb0">XDptx_RemoteDpcdRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f41e0216fd6ecea35bb949597d734c52">XDptx_RemoteDpcdWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#5497755a5ad4e92aeb4819804aebb336">XDptx_RemoteDpcdWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3df4fc065e1c38853cf9d779b6cb9b1d">XDptx_RemoteIicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead, u8 *ReadData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d33b578260cff02298873bb62a697876">XDptx_RemoteIicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead, u8 *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#58192dcfe2a793952544fa4a09bb62c7">XDptx_RemoteIicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite, u8 *WriteData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3926b013ecc4f15d82ef39d07447ae4a">XDptx_RemoteIicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite, u8 *WriteData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a688873fb1701355cbb33ac5d25d3da2">XDptx_AllocatePayloadStreams</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#cd8369516355503303d1b82f3ffae846">XDptx_AllocatePayloadStreams</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#78839b647fb5b13723e9832589f1fde2">XDptx_AllocatePayloadVcIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 VcId, u8 Ts)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#af814b5ceb3b267656ef120b55569d80">XDptx_AllocatePayloadVcIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 VcId, u8 Ts)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d460e5bed77a33b7f1eb59011bd61641">XDptx_ClearPayloadVcIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#a023515f0fbe9fbfa26fb72ed5219579">XDptx_ClearPayloadVcIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#29eb074a43044c54a51fd333d2e1ddef">XDptx_SendSbMsgRemoteDpcdWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#22edd6fd3495a31fab9e0397161e76d3">XDptx_SendSbMsgRemoteDpcdWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#af5dcb26c43a878d7e85e2432a56079c">XDptx_SendSbMsgRemoteDpcdRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#0e865810199439fc345dd4858e0e077c">XDptx_SendSbMsgRemoteDpcdRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#9cf1853a5369c3b54cf684422ae0477f">XDptx_SendSbMsgRemoteIicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#8c528a3f1c067232e9359f1006271c32">XDptx_SendSbMsgRemoteIicWrite</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#67a5dc5b564d88b72e1e20140e0c9fdd">XDptx_SendSbMsgRemoteIicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead, u8 *ReadData)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d848e62d19c981547a4d301cee71c0ba">XDptx_SendSbMsgRemoteIicRead</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead, u8 *ReadData)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#be41e03326f878840b41aa07af466fec">XDptx_SendSbMsgLinkAddress</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, <a class="el" href="struct_x_dptx___sb_msg_link_address_reply_device_info.html">XDptx_SbMsgLinkAddressReplyDeviceInfo</a> *DeviceInfo)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d8fc0c473eaa6ad66997bac406c664ba">XDptx_SendSbMsgLinkAddress</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, <a class="el" href="struct_x_dptx___sb_msg_link_address_reply_device_info.html">XDptx_SbMsgLinkAddressReplyDeviceInfo</a> *DeviceInfo)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f6e580f6a8dc0289713c4ef70d3a5c33">XDptx_SendSbMsgEnumPathResources</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3f5e598656e5badca2846be6c1b068a0">XDptx_SendSbMsgEnumPathResources</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#87da5896e9f88e367812db2d9a7b9bf6">XDptx_SendSbMsgAllocatePayload</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 VcId, u16 Pbn)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#c8547de5fd9d0c04d024f8721f3ed8bb">XDptx_SendSbMsgAllocatePayload</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 VcId, u16 Pbn)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#eb94576f1a407c2667877a49e065d015">XDptx_SendSbMsgClearPayloadIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#46bdd4a2732e25bc1faeb119b399dacf">XDptx_SendSbMsgClearPayloadIdTable</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#d03f3a2b6a8262cb230ad8bc6022d648">XDptx_WriteGuid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 Guid[4])</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3db9ce86a190354ab3c671faf5991a8f">XDptx_WriteGuid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 Guid[4])</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ef32287d856ac7ab17a50e5600b6a9d6">XDptx_GetGuid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 *Guid)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f9dd742b76b327254d4e144ad015e261">XDptx_GetGuid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 *Guid)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#23038e52574ffb4620617e4078727a0a">XDptx_GetEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Edid)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#cdf3fcdd140ad27aacedc8852d43cdc5">XDptx_GetEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Edid)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#3cec2b8fa349961931ec5b57c2d614df">XDptx_GetRemoteEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 *Edid)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#504e1da83e392f0428ebf750f3fa5df5">XDptx_GetRemoteEdid</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 *Edid)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#fda74bd6ad6661094b9a1d38feb8d6fe">XDptx_GetEdidBlock</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 BlockNum)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#f055e7ce4942e1bb7b0d20bc0d38d6c1">XDptx_GetEdidBlock</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 BlockNum)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#ef8fa35d008dbcca9bc2787efa7b234e">XDptx_GetRemoteEdidBlock</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 BlockNum, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#52517d09cc73a7e286d04790594a30c2">XDptx_GetRemoteEdidBlock</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 BlockNum, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#00468c8162b9984e876fb90400ddd847">XDptx_GetRemoteEdidDispIdExt</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#65c571add61a17c00ac380b24dbe9b98">XDptx_GetRemoteEdidDispIdExt</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *Data, u8 LinkCountTotal, u8 *RelativeAddress)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#edf36b76f4ec73e9360fe3f24103cb88">XDptx_GetDispIdDataBlock</a> (u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#4ad4de26b5e25389163b42e50def32fb">XDptx_GetDispIdDataBlock</a> (u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#705c56777702c1d68ac41191051a8e68">XDptx_GetRemoteTiledDisplayDb</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *EdidExt, u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)</td></tr>
-
-<tr><td colspan="2"><br><h2>Variables</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___dmt_mode.html">XDptx_DmtMode</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#35408b37824862d172606842e26e66e0">XDptx_DmtModes</a> []</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8h.html#86ed8332a0bd5e0069132fe6bf945f21">XDptx_GetRemoteTiledDisplayDb</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 *EdidExt, u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)</td></tr>
 
 </table>
 <hr><h2>Typedef Documentation</h2>
-<a class="anchor" name="55e031231c2489c71c5b0187f8b2941e"></a><!-- doxytag: member="xdptx.h::XDptx_HpdEventHandler" ref="55e031231c2489c71c5b0187f8b2941e" args="(void *InstancePtr)" -->
+<a class="anchor" name="6f6cee9a7863df256adb35802fc65017"></a><!-- doxytag: member="xdptx.h::XDptx_HpdEventHandler" ref="6f6cee9a7863df256adb35802fc65017" args="(void *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(*) <a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a>(void *InstancePtr)          </td>
+          <td class="memname">typedef void(*) <a class="el" href="xdptx_8h.html#6f6cee9a7863df256adb35802fc65017">XDptx_HpdEventHandler</a>(void *InstancePtr)          </td>
         </tr>
       </table>
 </div>
@@ -358,12 +306,12 @@ Callback type which represents the handler for a Hot-Plug-Detect (HPD) event int
 
 </div>
 </div><p>
-<a class="anchor" name="26acfa8f4b98b86385c7095bd3668313"></a><!-- doxytag: member="xdptx.h::XDptx_HpdPulseHandler" ref="26acfa8f4b98b86385c7095bd3668313" args="(void *InstancePtr)" -->
+<a class="anchor" name="41e04c356fe95636134164b0f03bca9b"></a><!-- doxytag: member="xdptx.h::XDptx_HpdPulseHandler" ref="41e04c356fe95636134164b0f03bca9b" args="(void *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(*) <a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a>(void *InstancePtr)          </td>
+          <td class="memname">typedef void(*) <a class="el" href="xdptx_8h.html#41e04c356fe95636134164b0f03bca9b">XDptx_HpdPulseHandler</a>(void *InstancePtr)          </td>
         </tr>
       </table>
 </div>
@@ -380,12 +328,12 @@ Callback type which represents the handler for a Hot-Plug-Detect (HPD) pulse int
 
 </div>
 </div><p>
-<a class="anchor" name="c09d771f709e37e756d8de2ba627701f"></a><!-- doxytag: member="xdptx.h::XDptx_TimerHandler" ref="c09d771f709e37e756d8de2ba627701f" args="(void *InstancePtr, u32 MicroSeconds)" -->
+<a class="anchor" name="1cc5fb6d828593d0e83a4fe44eb0d87d"></a><!-- doxytag: member="xdptx.h::XDptx_TimerHandler" ref="1cc5fb6d828593d0e83a4fe44eb0d87d" args="(void *InstancePtr, u32 MicroSeconds)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(*) <a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a>(void *InstancePtr, u32 MicroSeconds)          </td>
+          <td class="memname">typedef void(*) <a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a>(void *InstancePtr, u32 MicroSeconds)          </td>
         </tr>
       </table>
 </div>
@@ -403,206 +351,8 @@ Callback type which represents a custom timer wait handler. This is only used fo
 
 </div>
 </div><p>
-<hr><h2>Enumeration Type Documentation</h2>
-<a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6"></a><!-- doxytag: member="xdptx.h::XDptx_VideoMode" ref="af8a64fd1433b74b07e2b2081a9c2fa6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6">XDptx_VideoMode</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-This typedef enumerates the list of available standard display monitor timings as specified in the mode_table.c file. The naming format is:<p>
-XDPTX_VM_&lt;RESOLUTION&gt;_&lt;REFRESH RATE (HZ)&gt;_&lt;P|RB&gt;<p>
-Where RB stands for reduced blanking. <dl compact><dt><b>Enumerator: </b></dt><dd>
-<table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa60aea46f261427d546f2a271eebeaa197"></a><!-- doxytag: member="XDPTX_VM_640x480_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa60aea46f261427d546f2a271eebeaa197" args="" -->XDPTX_VM_640x480_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa63017ab05ce11b6a6cc23bc7f923888f8"></a><!-- doxytag: member="XDPTX_VM_800x600_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa63017ab05ce11b6a6cc23bc7f923888f8" args="" -->XDPTX_VM_800x600_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6bdf5f44ad1d34908db7844394d1fe0f3"></a><!-- doxytag: member="XDPTX_VM_848x480_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6bdf5f44ad1d34908db7844394d1fe0f3" args="" -->XDPTX_VM_848x480_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6acbd5a016a899ef040babda170c7f769"></a><!-- doxytag: member="XDPTX_VM_1024x768_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6acbd5a016a899ef040babda170c7f769" args="" -->XDPTX_VM_1024x768_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6b55b74994919049cd6ba09b58f82e440"></a><!-- doxytag: member="XDPTX_VM_1280x768_60_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6b55b74994919049cd6ba09b58f82e440" args="" -->XDPTX_VM_1280x768_60_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa67697e158cc75c5b2c66cbd5b5dc54dd9"></a><!-- doxytag: member="XDPTX_VM_1280x768_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa67697e158cc75c5b2c66cbd5b5dc54dd9" args="" -->XDPTX_VM_1280x768_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6447c49820002a96adaf4ec242fac1110"></a><!-- doxytag: member="XDPTX_VM_1280x800_60_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6447c49820002a96adaf4ec242fac1110" args="" -->XDPTX_VM_1280x800_60_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa635f4064753f45917748c62f06b25ecee"></a><!-- doxytag: member="XDPTX_VM_1280x800_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa635f4064753f45917748c62f06b25ecee" args="" -->XDPTX_VM_1280x800_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa64e3a00634eb8971f6a9abdcbbb3bec0b"></a><!-- doxytag: member="XDPTX_VM_1280x960_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa64e3a00634eb8971f6a9abdcbbb3bec0b" args="" -->XDPTX_VM_1280x960_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa69be869b4ad609439c8279776b2cf5338"></a><!-- doxytag: member="XDPTX_VM_1280x1024_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa69be869b4ad609439c8279776b2cf5338" args="" -->XDPTX_VM_1280x1024_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa631e68c210a29e8b94ccad987e3d57947"></a><!-- doxytag: member="XDPTX_VM_1360x768_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa631e68c210a29e8b94ccad987e3d57947" args="" -->XDPTX_VM_1360x768_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6c991941b052bf6d41403f0073e1f68bf"></a><!-- doxytag: member="XDPTX_VM_1400x1050_60_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6c991941b052bf6d41403f0073e1f68bf" args="" -->XDPTX_VM_1400x1050_60_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6797d426b485eb6ef29afac9a7ce82614"></a><!-- doxytag: member="XDPTX_VM_1400x1050_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6797d426b485eb6ef29afac9a7ce82614" args="" -->XDPTX_VM_1400x1050_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6b26a890c9f60cf339567d83c089365b5"></a><!-- doxytag: member="XDPTX_VM_1440x900_60_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6b26a890c9f60cf339567d83c089365b5" args="" -->XDPTX_VM_1440x900_60_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6b1cdaa8a9f10ae595bf06205b5e8970d"></a><!-- doxytag: member="XDPTX_VM_1440x900_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6b1cdaa8a9f10ae595bf06205b5e8970d" args="" -->XDPTX_VM_1440x900_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6c6895667cb502c5217d7b366b25f3310"></a><!-- doxytag: member="XDPTX_VM_1600x1200_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6c6895667cb502c5217d7b366b25f3310" args="" -->XDPTX_VM_1600x1200_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6e0795b39f86a1d15604b24f2c22a486a"></a><!-- doxytag: member="XDPTX_VM_1680x1050_60_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6e0795b39f86a1d15604b24f2c22a486a" args="" -->XDPTX_VM_1680x1050_60_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa625ad2b8d10f159b8bda5dcabe96cf833"></a><!-- doxytag: member="XDPTX_VM_1680x1050_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa625ad2b8d10f159b8bda5dcabe96cf833" args="" -->XDPTX_VM_1680x1050_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6fdec74c38215c6fcc5e98fb36dce912b"></a><!-- doxytag: member="XDPTX_VM_1792x1344_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6fdec74c38215c6fcc5e98fb36dce912b" args="" -->XDPTX_VM_1792x1344_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6d42606fff3d09ff38a7869a2b9f6e21f"></a><!-- doxytag: member="XDPTX_VM_1856x1392_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6d42606fff3d09ff38a7869a2b9f6e21f" args="" -->XDPTX_VM_1856x1392_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa628021dbf0e779de362ce8d103c2b06a0"></a><!-- doxytag: member="XDPTX_VM_1920x1200_60_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa628021dbf0e779de362ce8d103c2b06a0" args="" -->XDPTX_VM_1920x1200_60_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa62d4d66b06f7e56152bad96d08c7dbd48"></a><!-- doxytag: member="XDPTX_VM_1920x1200_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa62d4d66b06f7e56152bad96d08c7dbd48" args="" -->XDPTX_VM_1920x1200_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa68d2a0f2c9976040a4b3921b7b5d299be"></a><!-- doxytag: member="XDPTX_VM_1920x1440_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa68d2a0f2c9976040a4b3921b7b5d299be" args="" -->XDPTX_VM_1920x1440_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6e7c2acfc87b74065b08269126632e5bf"></a><!-- doxytag: member="XDPTX_VM_2560x1600_60_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6e7c2acfc87b74065b08269126632e5bf" args="" -->XDPTX_VM_2560x1600_60_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa68b1974e7d1912dc0388b636ced2adbe5"></a><!-- doxytag: member="XDPTX_VM_2560x1600_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa68b1974e7d1912dc0388b636ced2adbe5" args="" -->XDPTX_VM_2560x1600_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6653e5a788aad65846b7858950c6b1019"></a><!-- doxytag: member="XDPTX_VM_800x600_56_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6653e5a788aad65846b7858950c6b1019" args="" -->XDPTX_VM_800x600_56_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6e3bcf9dbce87bdbf5d917481ad5ac404"></a><!-- doxytag: member="XDPTX_VM_1600x1200_65_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6e3bcf9dbce87bdbf5d917481ad5ac404" args="" -->XDPTX_VM_1600x1200_65_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa671457e5809d640ce904672979e126b11"></a><!-- doxytag: member="XDPTX_VM_1600x1200_70_P" ref="af8a64fd1433b74b07e2b2081a9c2fa671457e5809d640ce904672979e126b11" args="" -->XDPTX_VM_1600x1200_70_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa64d4d6164d1c43e69197987b279fd132f"></a><!-- doxytag: member="XDPTX_VM_1024x768_70_P" ref="af8a64fd1433b74b07e2b2081a9c2fa64d4d6164d1c43e69197987b279fd132f" args="" -->XDPTX_VM_1024x768_70_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa62d2d1c543555cc19a8a941c4b65bc96d"></a><!-- doxytag: member="XDPTX_VM_640x480_72_P" ref="af8a64fd1433b74b07e2b2081a9c2fa62d2d1c543555cc19a8a941c4b65bc96d" args="" -->XDPTX_VM_640x480_72_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa69693e58dc6bcbeab4603b36e4334bca6"></a><!-- doxytag: member="XDPTX_VM_800x600_72_P" ref="af8a64fd1433b74b07e2b2081a9c2fa69693e58dc6bcbeab4603b36e4334bca6" args="" -->XDPTX_VM_800x600_72_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6bba67793e453d3369501d06f67c6603b"></a><!-- doxytag: member="XDPTX_VM_640x480_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6bba67793e453d3369501d06f67c6603b" args="" -->XDPTX_VM_640x480_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa623e1742bfbabc1a5d84de88e34f07fb3"></a><!-- doxytag: member="XDPTX_VM_800x600_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa623e1742bfbabc1a5d84de88e34f07fb3" args="" -->XDPTX_VM_800x600_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa655a7cd0ad4322f0930a29ef5bb587a93"></a><!-- doxytag: member="XDPTX_VM_1024x768_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa655a7cd0ad4322f0930a29ef5bb587a93" args="" -->XDPTX_VM_1024x768_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6ab26aaacfe69efcc089f3596ef51f753"></a><!-- doxytag: member="XDPTX_VM_1152x864_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6ab26aaacfe69efcc089f3596ef51f753" args="" -->XDPTX_VM_1152x864_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa67b0cc1852c10c12334782fe587bdad5e"></a><!-- doxytag: member="XDPTX_VM_1280x768_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa67b0cc1852c10c12334782fe587bdad5e" args="" -->XDPTX_VM_1280x768_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6e63eedf8bc444d31e69e5dfa748ed771"></a><!-- doxytag: member="XDPTX_VM_1280x800_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6e63eedf8bc444d31e69e5dfa748ed771" args="" -->XDPTX_VM_1280x800_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6ffbd7067b813cca0c360cf4dc29d6cee"></a><!-- doxytag: member="XDPTX_VM_1280x1024_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6ffbd7067b813cca0c360cf4dc29d6cee" args="" -->XDPTX_VM_1280x1024_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6d3633c6ed3e69ab43a2418e05c942677"></a><!-- doxytag: member="XDPTX_VM_1400x1050_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6d3633c6ed3e69ab43a2418e05c942677" args="" -->XDPTX_VM_1400x1050_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6dac175947d95d8713dad4363a1a33f2b"></a><!-- doxytag: member="XDPTX_VM_1440x900_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6dac175947d95d8713dad4363a1a33f2b" args="" -->XDPTX_VM_1440x900_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6cc1fa396294eb5d1b82f187c2cca8f03"></a><!-- doxytag: member="XDPTX_VM_1600x1200_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6cc1fa396294eb5d1b82f187c2cca8f03" args="" -->XDPTX_VM_1600x1200_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6e5835b27a74955aa6649ce57417246d0"></a><!-- doxytag: member="XDPTX_VM_1680x1050_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6e5835b27a74955aa6649ce57417246d0" args="" -->XDPTX_VM_1680x1050_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa67099bafed8b799dec738ff8f05c1a687"></a><!-- doxytag: member="XDPTX_VM_1792x1344_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa67099bafed8b799dec738ff8f05c1a687" args="" -->XDPTX_VM_1792x1344_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa66d295144b9037fafb7a2065979e8a5d8"></a><!-- doxytag: member="XDPTX_VM_1856x1392_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa66d295144b9037fafb7a2065979e8a5d8" args="" -->XDPTX_VM_1856x1392_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6b3f6da45ed60c5ddf1e2c1ee82a43be6"></a><!-- doxytag: member="XDPTX_VM_1920x1200_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6b3f6da45ed60c5ddf1e2c1ee82a43be6" args="" -->XDPTX_VM_1920x1200_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa68f29a8c417f052434c9d9dee09589580"></a><!-- doxytag: member="XDPTX_VM_1920x1440_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa68f29a8c417f052434c9d9dee09589580" args="" -->XDPTX_VM_1920x1440_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa67f38aa9c503e2efe11afb3adee619745"></a><!-- doxytag: member="XDPTX_VM_2560x1600_75_P" ref="af8a64fd1433b74b07e2b2081a9c2fa67f38aa9c503e2efe11afb3adee619745" args="" -->XDPTX_VM_2560x1600_75_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa692aa90df6722ef3be732f2e893d57960"></a><!-- doxytag: member="XDPTX_VM_640x350_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa692aa90df6722ef3be732f2e893d57960" args="" -->XDPTX_VM_640x350_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa658b57ffa68eac679508a4023ba0e425b"></a><!-- doxytag: member="XDPTX_VM_640x400_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa658b57ffa68eac679508a4023ba0e425b" args="" -->XDPTX_VM_640x400_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6562b28727c8a0cd977d85db782991097"></a><!-- doxytag: member="XDPTX_VM_720x400_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6562b28727c8a0cd977d85db782991097" args="" -->XDPTX_VM_720x400_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6fa807041b46bde289e15d954559f5ce0"></a><!-- doxytag: member="XDPTX_VM_640x480_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6fa807041b46bde289e15d954559f5ce0" args="" -->XDPTX_VM_640x480_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa60149a615f772313a05753404b5f9523c"></a><!-- doxytag: member="XDPTX_VM_800x600_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa60149a615f772313a05753404b5f9523c" args="" -->XDPTX_VM_800x600_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa61eba755b6a4f26e5f2c2b9f21cf95984"></a><!-- doxytag: member="XDPTX_VM_1024x768_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa61eba755b6a4f26e5f2c2b9f21cf95984" args="" -->XDPTX_VM_1024x768_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa63c976932604b9483c1a2982c79c834a8"></a><!-- doxytag: member="XDPTX_VM_1280x768_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa63c976932604b9483c1a2982c79c834a8" args="" -->XDPTX_VM_1280x768_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6dfe0e9a6398e286bd8ede3356a4a964e"></a><!-- doxytag: member="XDPTX_VM_1280x800_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6dfe0e9a6398e286bd8ede3356a4a964e" args="" -->XDPTX_VM_1280x800_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa629e599bb0bfaf113cb20f6c8233686c2"></a><!-- doxytag: member="XDPTX_VM_1280x960_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa629e599bb0bfaf113cb20f6c8233686c2" args="" -->XDPTX_VM_1280x960_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa68b713eb8b8cf129962052ea35ea5e55e"></a><!-- doxytag: member="XDPTX_VM_1280x1024_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa68b713eb8b8cf129962052ea35ea5e55e" args="" -->XDPTX_VM_1280x1024_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6171317f2a7f66fbcf747a8ce4411f39a"></a><!-- doxytag: member="XDPTX_VM_1400x1050_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6171317f2a7f66fbcf747a8ce4411f39a" args="" -->XDPTX_VM_1400x1050_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa63c1f5d25e0ec0ce5235cba928e0d3a0a"></a><!-- doxytag: member="XDPTX_VM_1440x900_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa63c1f5d25e0ec0ce5235cba928e0d3a0a" args="" -->XDPTX_VM_1440x900_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa66232bc19938ba03447a8a3ff8a61a57f"></a><!-- doxytag: member="XDPTX_VM_1600x1200_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa66232bc19938ba03447a8a3ff8a61a57f" args="" -->XDPTX_VM_1600x1200_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6f9cb0a9864a6486aded045368af8c50e"></a><!-- doxytag: member="XDPTX_VM_1680x1050_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6f9cb0a9864a6486aded045368af8c50e" args="" -->XDPTX_VM_1680x1050_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa672c6dce5a2fb86a413b58d505d37054c"></a><!-- doxytag: member="XDPTX_VM_1920x1200_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa672c6dce5a2fb86a413b58d505d37054c" args="" -->XDPTX_VM_1920x1200_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6a06ea8cb35dfd95faeed9c0f2f8c9549"></a><!-- doxytag: member="XDPTX_VM_2560x1600_85_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6a06ea8cb35dfd95faeed9c0f2f8c9549" args="" -->XDPTX_VM_2560x1600_85_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6ed4476dea507136024a11f2dcaa4ae85"></a><!-- doxytag: member="XDPTX_VM_800x600_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6ed4476dea507136024a11f2dcaa4ae85" args="" -->XDPTX_VM_800x600_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6b2eea6941532e8c0890d65b1c6d4623d"></a><!-- doxytag: member="XDPTX_VM_1024x768_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6b2eea6941532e8c0890d65b1c6d4623d" args="" -->XDPTX_VM_1024x768_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa607edeafe6f252d721955274e3d49c357"></a><!-- doxytag: member="XDPTX_VM_1280x768_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa607edeafe6f252d721955274e3d49c357" args="" -->XDPTX_VM_1280x768_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6ab8b39593c6d9ea0b183de031fba66b0"></a><!-- doxytag: member="XDPTX_VM_1280x800_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6ab8b39593c6d9ea0b183de031fba66b0" args="" -->XDPTX_VM_1280x800_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa696d2a40dff753291fdd3783a34537132"></a><!-- doxytag: member="XDPTX_VM_1280x960_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa696d2a40dff753291fdd3783a34537132" args="" -->XDPTX_VM_1280x960_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa648b320153f3fd093d57233f4df95f286"></a><!-- doxytag: member="XDPTX_VM_1280x1024_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa648b320153f3fd093d57233f4df95f286" args="" -->XDPTX_VM_1280x1024_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa62de8aff5f06769711509c6a0368f741a"></a><!-- doxytag: member="XDPTX_VM_1360x768_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa62de8aff5f06769711509c6a0368f741a" args="" -->XDPTX_VM_1360x768_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa62fe769d09c4bc13cc82f597376ee2e41"></a><!-- doxytag: member="XDPTX_VM_1400x1050_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa62fe769d09c4bc13cc82f597376ee2e41" args="" -->XDPTX_VM_1400x1050_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6975ca412e35035e5af656fae1c1a71a8"></a><!-- doxytag: member="XDPTX_VM_1440x900_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6975ca412e35035e5af656fae1c1a71a8" args="" -->XDPTX_VM_1440x900_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa62fdde48bb388504795bbb1029b0c3298"></a><!-- doxytag: member="XDPTX_VM_1600x1200_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa62fdde48bb388504795bbb1029b0c3298" args="" -->XDPTX_VM_1600x1200_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6b2e2d5234a29af5d88eb4a0e12c9076c"></a><!-- doxytag: member="XDPTX_VM_1680x1050_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6b2e2d5234a29af5d88eb4a0e12c9076c" args="" -->XDPTX_VM_1680x1050_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa675982297ab07916c1b29603b1da1fa55"></a><!-- doxytag: member="XDPTX_VM_1792x1344_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa675982297ab07916c1b29603b1da1fa55" args="" -->XDPTX_VM_1792x1344_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa65de00f99a6821fb3e4a1289c2971c4d8"></a><!-- doxytag: member="XDPTX_VM_1856x1392_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa65de00f99a6821fb3e4a1289c2971c4d8" args="" -->XDPTX_VM_1856x1392_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6b1be55d25f29d1527005509c3e060e67"></a><!-- doxytag: member="XDPTX_VM_1920x1200_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6b1be55d25f29d1527005509c3e060e67" args="" -->XDPTX_VM_1920x1200_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6210b3bc631207dc9f1661a66307f9543"></a><!-- doxytag: member="XDPTX_VM_1920x1440_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6210b3bc631207dc9f1661a66307f9543" args="" -->XDPTX_VM_1920x1440_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6cc42661885acdb739caeec9c15fcf621"></a><!-- doxytag: member="XDPTX_VM_2560x1600_120_P_RB" ref="af8a64fd1433b74b07e2b2081a9c2fa6cc42661885acdb739caeec9c15fcf621" args="" -->XDPTX_VM_2560x1600_120_P_RB</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa696240455fc7099ad7d38a75d16453175"></a><!-- doxytag: member="XDPTX_VM_1366x768_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa696240455fc7099ad7d38a75d16453175" args="" -->XDPTX_VM_1366x768_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6f0c347dfd54d96953b939a694f40d475"></a><!-- doxytag: member="XDPTX_VM_1920x1080_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6f0c347dfd54d96953b939a694f40d475" args="" -->XDPTX_VM_1920x1080_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa68bc8919957e4ed8bc05af5b7d4346d32"></a><!-- doxytag: member="XDPTX_VM_UHD_30_P" ref="af8a64fd1433b74b07e2b2081a9c2fa68bc8919957e4ed8bc05af5b7d4346d32" args="" -->XDPTX_VM_UHD_30_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa68b7a733de12b08be732e69e884a80572"></a><!-- doxytag: member="XDPTX_VM_720_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa68b7a733de12b08be732e69e884a80572" args="" -->XDPTX_VM_720_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6917c1d3cc24cb9b1512a885c226704d4"></a><!-- doxytag: member="XDPTX_VM_480_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6917c1d3cc24cb9b1512a885c226704d4" args="" -->XDPTX_VM_480_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa6f96acc279875160a4d80acd3914fb14f"></a><!-- doxytag: member="XDPTX_VM_UHD2_60_P" ref="af8a64fd1433b74b07e2b2081a9c2fa6f96acc279875160a4d80acd3914fb14f" args="" -->XDPTX_VM_UHD2_60_P</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa630e184be3f6863e1e08352ce7c7cdb45"></a><!-- doxytag: member="XDPTX_VM_UHD_60" ref="af8a64fd1433b74b07e2b2081a9c2fa630e184be3f6863e1e08352ce7c7cdb45" args="" -->XDPTX_VM_UHD_60</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa65ec3529a1af698bc7ec52ebdc532fc7f"></a><!-- doxytag: member="XDPTX_VM_USE_EDID_PREFERRED" ref="af8a64fd1433b74b07e2b2081a9c2fa65ec3529a1af698bc7ec52ebdc532fc7f" args="" -->XDPTX_VM_USE_EDID_PREFERRED</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="af8a64fd1433b74b07e2b2081a9c2fa699c34fa04f187d8ae9c8a3b5fa6e2bbd"></a><!-- doxytag: member="XDPTX_VM_LAST" ref="af8a64fd1433b74b07e2b2081a9c2fa699c34fa04f187d8ae9c8a3b5fa6e2bbd" args="" -->XDPTX_VM_LAST</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dl>
-
-</div>
-</div><p>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="a688873fb1701355cbb33ac5d25d3da2"></a><!-- doxytag: member="xdptx.h::XDptx_AllocatePayloadStreams" ref="a688873fb1701355cbb33ac5d25d3da2" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="cd8369516355503303d1b82f3ffae846"></a><!-- doxytag: member="xdptx.h::XDptx_AllocatePayloadStreams" ref="cd8369516355503303d1b82f3ffae846" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -637,7 +387,7 @@ This function will allocate bandwidth for all enabled stream.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="78839b647fb5b13723e9832589f1fde2"></a><!-- doxytag: member="xdptx.h::XDptx_AllocatePayloadVcIdTable" ref="78839b647fb5b13723e9832589f1fde2" args="(XDptx *InstancePtr, u8 VcId, u8 Ts)" -->
+<a class="anchor" name="af814b5ceb3b267656ef120b55569d80"></a><!-- doxytag: member="xdptx.h::XDptx_AllocatePayloadVcIdTable" ref="af814b5ceb3b267656ef120b55569d80" args="(XDptx *InstancePtr, u8 VcId, u8 Ts)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -689,7 +439,7 @@ This function will allocate a bandwidth for a virtual channel in the payload ID 
 
 </div>
 </div><p>
-<a class="anchor" name="66e22710eebdc6628ac5f42f4b6ce976"></a><!-- doxytag: member="xdptx.h::XDptx_AuxRead" ref="66e22710eebdc6628ac5f42f4b6ce976" args="(XDptx *InstancePtr, u32 Address, u32 BytesToRead, void *ReadData)" -->
+<a class="anchor" name="b25ef45e949568bf5ae5623fb3303a31"></a><!-- doxytag: member="xdptx.h::XDptx_AuxRead" ref="b25ef45e949568bf5ae5623fb3303a31" args="(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToRead, void *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -743,7 +493,7 @@ This function issues a read request over the AUX channel that will read from the
 
 </div>
 </div><p>
-<a class="anchor" name="ca0eec27f959fb6252c1ec0eae8498cc"></a><!-- doxytag: member="xdptx.h::XDptx_AuxWrite" ref="ca0eec27f959fb6252c1ec0eae8498cc" args="(XDptx *InstancePtr, u32 Address, u32 BytesToWrite, void *WriteData)" -->
+<a class="anchor" name="d24537a5bd001781f3ec2157e80438bd"></a><!-- doxytag: member="xdptx.h::XDptx_AuxWrite" ref="d24537a5bd001781f3ec2157e80438bd" args="(XDptx *InstancePtr, u32 DpcdAddress, u32 BytesToWrite, void *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -797,7 +547,7 @@ This function issues a write request over the AUX channel that will write to the
 
 </div>
 </div><p>
-<a class="anchor" name="9de0242347480cc38571113e5edd73ba"></a><!-- doxytag: member="xdptx.h::XDptx_CfgInitialize" ref="9de0242347480cc38571113e5edd73ba" args="(XDptx *InstancePtr, XDptx_Config *ConfigPtr, u32 EffectiveAddr)" -->
+<a class="anchor" name="9128bf8d6da59ba2b255197db5e621b6"></a><!-- doxytag: member="xdptx.h::XDptx_CfgInitialize" ref="9128bf8d6da59ba2b255197db5e621b6" args="(XDptx *InstancePtr, XDptx_Config *ConfigPtr, u32 EffectiveAddr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -842,7 +592,7 @@ This function retrieves the configuration for this DisplayPort TX instance and f
 
 </div>
 </div><p>
-<a class="anchor" name="1b0ea5fdead5a6955b72b4775ec1d0a3"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMainLinkMax" ref="1b0ea5fdead5a6955b72b4775ec1d0a3" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="7ef44713234442c3a6cf13e2fce70a4b"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMainLinkMax" ref="7ef44713234442c3a6cf13e2fce70a4b" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -872,7 +622,7 @@ This function determines the common capabilities between the DisplayPort TX core
 
 </div>
 </div><p>
-<a class="anchor" name="f424835447a6965b6c07316fb71dfc02"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaEnSynchClkMode" ref="f424835447a6965b6c07316fb71dfc02" args="(XDptx *InstancePtr, u8 Stream, u8 Enable)" -->
+<a class="anchor" name="9192eda72dd8e74339cca7de45383110"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaEnSynchClkMode" ref="9192eda72dd8e74339cca7de45383110" args="(XDptx *InstancePtr, u8 Stream, u8 Enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -917,7 +667,7 @@ This function enables or disables synchronous clock mode for a video stream.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="6bdddb30f33a780cf9f1111837ffb7d1"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaRecalculate" ref="6bdddb30f33a780cf9f1111837ffb7d1" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="99d8902337e7bb3f7c607568501e16a1"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaRecalculate" ref="99d8902337e7bb3f7c607568501e16a1" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -957,7 +707,7 @@ This function calculates the following Main Stream Attributes (MSA):<ul>
 
 </div>
 </div><p>
-<a class="anchor" name="435f4058b60f8b3b05507b588054cfeb"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaSetBpc" ref="435f4058b60f8b3b05507b588054cfeb" args="(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)" -->
+<a class="anchor" name="5dba8599ab68d0766e120119a6c6b83a"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaSetBpc" ref="5dba8599ab68d0766e120119a6c6b83a" args="(XDptx *InstancePtr, u8 Stream, u8 BitsPerColor)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1002,7 +752,7 @@ This function sets the bits per color value of the video stream.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="5449461b3f651fdd723dacff95414082"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaUseCustom" ref="5449461b3f651fdd723dacff95414082" args="(XDptx *InstancePtr, u8 Stream, XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate)" -->
+<a class="anchor" name="b04d6d38ab65f7d6d5b4734eedf9b020"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaUseCustom" ref="b04d6d38ab65f7d6d5b4734eedf9b020" args="(XDptx *InstancePtr, u8 Stream, XDptx_MainStreamAttributes *MsaConfigCustom, u8 Recalculate)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1056,7 +806,7 @@ This function takes a the main stream attributes from MsaConfigCustom and copies
 
 </div>
 </div><p>
-<a class="anchor" name="ecaf86c0529067f86824e516ec24ffc6"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaUseEdidPreferredTiming" ref="ecaf86c0529067f86824e516ec24ffc6" args="(XDptx *InstancePtr, u8 Stream, u8 *Edid)" -->
+<a class="anchor" name="b4778897734128bf467047a90066c922"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaUseEdidPreferredTiming" ref="b4778897734128bf467047a90066c922" args="(XDptx *InstancePtr, u8 Stream, u8 *Edid)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1101,7 +851,7 @@ This function sets the main stream attribute values in the configuration structu
 
 </div>
 </div><p>
-<a class="anchor" name="5af802ebc56dec263acc0d730d4196c2"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaUseStandardVideoMode" ref="5af802ebc56dec263acc0d730d4196c2" args="(XDptx *InstancePtr, u8 Stream, XDptx_VideoMode VideoMode)" -->
+<a class="anchor" name="8f5a8d3f316f519145ecd9a94bf27ce8"></a><!-- doxytag: member="xdptx.h::XDptx_CfgMsaUseStandardVideoMode" ref="8f5a8d3f316f519145ecd9a94bf27ce8" args="(XDptx *InstancePtr, u8 Stream, XVid_VideoMode VideoMode)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1120,7 +870,7 @@ This function sets the main stream attribute values in the configuration structu
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#af8a64fd1433b74b07e2b2081a9c2fa6">XDptx_VideoMode</a>&nbsp;</td>
+          <td class="paramtype">XVid_VideoMode&nbsp;</td>
           <td class="paramname"> <em>VideoMode</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -1146,7 +896,7 @@ This function sets the Main Stream Attribute (MSA) values in the configuration s
 
 </div>
 </div><p>
-<a class="anchor" name="a6815e6062e47eecfd9616eaa15a19a1"></a><!-- doxytag: member="xdptx.h::XDptx_CfgTxPeLevel" ref="a6815e6062e47eecfd9616eaa15a19a1" args="(XDptx *InstancePtr, u8 Level, u8 TxLevel)" -->
+<a class="anchor" name="eda4459fe23e2926575401293fa9ee75"></a><!-- doxytag: member="xdptx.h::XDptx_CfgTxPeLevel" ref="eda4459fe23e2926575401293fa9ee75" args="(XDptx *InstancePtr, u8 Level, u8 TxLevel)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1191,7 +941,7 @@ This function sets the pre-emphasis level value in the DisplayPort TX that will 
 
 </div>
 </div><p>
-<a class="anchor" name="8f4603bb5e1496650e3cda3aa06924b8"></a><!-- doxytag: member="xdptx.h::XDptx_CfgTxVsLevel" ref="8f4603bb5e1496650e3cda3aa06924b8" args="(XDptx *InstancePtr, u8 Level, u8 TxLevel)" -->
+<a class="anchor" name="1c2e557e06c47e2f6d3b6f072a462d03"></a><!-- doxytag: member="xdptx.h::XDptx_CfgTxVsLevel" ref="1c2e557e06c47e2f6d3b6f072a462d03" args="(XDptx *InstancePtr, u8 Level, u8 TxLevel)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1236,7 +986,7 @@ This function sets the voltage swing level value in the DisplayPort TX that will
 
 </div>
 </div><p>
-<a class="anchor" name="2584e9ee897c8e017029ab4d7755eaaa"></a><!-- doxytag: member="xdptx.h::XDptx_CfgTxVsOffset" ref="2584e9ee897c8e017029ab4d7755eaaa" args="(XDptx *InstancePtr, u8 Offset)" -->
+<a class="anchor" name="74b044b7d09f44e887d9a5c61b6dfcdb"></a><!-- doxytag: member="xdptx.h::XDptx_CfgTxVsOffset" ref="74b044b7d09f44e887d9a5c61b6dfcdb" args="(XDptx *InstancePtr, u8 Offset)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1274,7 +1024,7 @@ This function sets the voltage swing offset to use during training when no redri
 
 </div>
 </div><p>
-<a class="anchor" name="e85ec3a02cdf8f8ffd611e026bf9ff01"></a><!-- doxytag: member="xdptx.h::XDptx_CheckLinkStatus" ref="e85ec3a02cdf8f8ffd611e026bf9ff01" args="(XDptx *InstancePtr, u8 LaneCount)" -->
+<a class="anchor" name="3cedae7883dc5cab5f15f8110805f2c6"></a><!-- doxytag: member="xdptx.h::XDptx_CheckLinkStatus" ref="3cedae7883dc5cab5f15f8110805f2c6" args="(XDptx *InstancePtr, u8 LaneCount)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1314,7 +1064,7 @@ This function checks if the reciever's DisplayPort Configuration Data (DPCD) ind
 
 </div>
 </div><p>
-<a class="anchor" name="ed928effbb7778d00af50ecfa3a1dafc"></a><!-- doxytag: member="xdptx.h::XDptx_ClearMsaValues" ref="ed928effbb7778d00af50ecfa3a1dafc" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="b2120a4c08427e4e102efdfd17d65fac"></a><!-- doxytag: member="xdptx.h::XDptx_ClearMsaValues" ref="b2120a4c08427e4e102efdfd17d65fac" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1352,7 +1102,7 @@ This function clears the main stream attributes registers of the DisplayPort TX 
 
 </div>
 </div><p>
-<a class="anchor" name="d460e5bed77a33b7f1eb59011bd61641"></a><!-- doxytag: member="xdptx.h::XDptx_ClearPayloadVcIdTable" ref="d460e5bed77a33b7f1eb59011bd61641" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="a023515f0fbe9fbfa26fb72ed5219579"></a><!-- doxytag: member="xdptx.h::XDptx_ClearPayloadVcIdTable" ref="a023515f0fbe9fbfa26fb72ed5219579" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1387,7 +1137,7 @@ This function will clear the virtual channel payload ID table in both the Displa
 
 </div>
 </div><p>
-<a class="anchor" name="0086628f0fcfab2389efb4100415df96"></a><!-- doxytag: member="xdptx.h::XDptx_DisableMainLink" ref="0086628f0fcfab2389efb4100415df96" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="c440c032b45acf3ae5be9eba37c9203e"></a><!-- doxytag: member="xdptx.h::XDptx_DisableMainLink" ref="c440c032b45acf3ae5be9eba37c9203e" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1415,7 +1165,7 @@ This function disables the main link.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="e81134f5cfd2bd5ad5826048c7c2f2dd"></a><!-- doxytag: member="xdptx.h::XDptx_DiscoverTopology" ref="e81134f5cfd2bd5ad5826048c7c2f2dd" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="cb0e6bda66711f10a0ce352cbd61b0ab"></a><!-- doxytag: member="xdptx.h::XDptx_DiscoverTopology" ref="cb0e6bda66711f10a0ce352cbd61b0ab" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1445,7 +1195,7 @@ This function will explore the DisplayPort topology of downstream devices connec
 
 </div>
 </div><p>
-<a class="anchor" name="0f43683ba44e5e1544042be2bcfc45de"></a><!-- doxytag: member="xdptx.h::XDptx_EnableMainLink" ref="0f43683ba44e5e1544042be2bcfc45de" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="7d10dab87f3f11b925e9780765c0ae08"></a><!-- doxytag: member="xdptx.h::XDptx_EnableMainLink" ref="7d10dab87f3f11b925e9780765c0ae08" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1473,7 +1223,7 @@ This function enables the main link.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="6f302303735c870085d65253bcc9acdb"></a><!-- doxytag: member="xdptx.h::XDptx_EnableTrainAdaptive" ref="6f302303735c870085d65253bcc9acdb" args="(XDptx *InstancePtr, u8 Enable)" -->
+<a class="anchor" name="7d15cd84e2391c5d8f19c7fbeac1781a"></a><!-- doxytag: member="xdptx.h::XDptx_EnableTrainAdaptive" ref="7d15cd84e2391c5d8f19c7fbeac1781a" args="(XDptx *InstancePtr, u8 Enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1511,7 +1261,7 @@ This function enables or disables downshifting during the training process.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="32b552e953f9c486a6a5e04228dcf6b6"></a><!-- doxytag: member="xdptx.h::XDptx_EstablishLink" ref="32b552e953f9c486a6a5e04228dcf6b6" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="b567f6a342ca0e7c4ceef86ff1df87cf"></a><!-- doxytag: member="xdptx.h::XDptx_EstablishLink" ref="b567f6a342ca0e7c4ceef86ff1df87cf" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1541,7 +1291,7 @@ This function checks if the link needs training and runs the training sequence i
 
 </div>
 </div><p>
-<a class="anchor" name="03309887289769ac323f0b7e7b004dae"></a><!-- doxytag: member="xdptx.h::XDptx_FindAccessibleDpDevices" ref="03309887289769ac323f0b7e7b004dae" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<a class="anchor" name="991faef9c1e7417849ee2c682a3033de"></a><!-- doxytag: member="xdptx.h::XDptx_FindAccessibleDpDevices" ref="991faef9c1e7417849ee2c682a3033de" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1588,7 +1338,7 @@ This function will explore the DisplayPort topology of downstream devices starti
 
 </div>
 </div><p>
-<a class="anchor" name="edf36b76f4ec73e9360fe3f24103cb88"></a><!-- doxytag: member="xdptx.h::XDptx_GetDispIdDataBlock" ref="edf36b76f4ec73e9360fe3f24103cb88" args="(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)" -->
+<a class="anchor" name="4ad4de26b5e25389163b42e50def32fb"></a><!-- doxytag: member="xdptx.h::XDptx_GetDispIdDataBlock" ref="4ad4de26b5e25389163b42e50def32fb" args="(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1635,7 +1385,7 @@ Given a section tag, search for and retrieve the appropriate section data block 
 
 </div>
 </div><p>
-<a class="anchor" name="23038e52574ffb4620617e4078727a0a"></a><!-- doxytag: member="xdptx.h::XDptx_GetEdid" ref="23038e52574ffb4620617e4078727a0a" args="(XDptx *InstancePtr, u8 *Edid)" -->
+<a class="anchor" name="cdf3fcdd140ad27aacedc8852d43cdc5"></a><!-- doxytag: member="xdptx.h::XDptx_GetEdid" ref="cdf3fcdd140ad27aacedc8852d43cdc5" args="(XDptx *InstancePtr, u8 *Edid)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1675,7 +1425,7 @@ This function retrieves an immediately connected RX device's Extended Display Id
 
 </div>
 </div><p>
-<a class="anchor" name="fda74bd6ad6661094b9a1d38feb8d6fe"></a><!-- doxytag: member="xdptx.h::XDptx_GetEdidBlock" ref="fda74bd6ad6661094b9a1d38feb8d6fe" args="(XDptx *InstancePtr, u8 *Data, u8 BlockNum)" -->
+<a class="anchor" name="f055e7ce4942e1bb7b0d20bc0d38d6c1"></a><!-- doxytag: member="xdptx.h::XDptx_GetEdidBlock" ref="f055e7ce4942e1bb7b0d20bc0d38d6c1" args="(XDptx *InstancePtr, u8 *Data, u8 BlockNum)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1722,7 +1472,7 @@ Retrieve an immediately connected RX device's Extended Display Identification Da
 
 </div>
 </div><p>
-<a class="anchor" name="ef32287d856ac7ab17a50e5600b6a9d6"></a><!-- doxytag: member="xdptx.h::XDptx_GetGuid" ref="ef32287d856ac7ab17a50e5600b6a9d6" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 *Guid)" -->
+<a class="anchor" name="f9dd742b76b327254d4e144ad015e261"></a><!-- doxytag: member="xdptx.h::XDptx_GetGuid" ref="f9dd742b76b327254d4e144ad015e261" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 *Guid)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1774,7 +1524,7 @@ This function will obtain the global unique identifier (GUID) for the target Dis
 
 </div>
 </div><p>
-<a class="anchor" name="3cec2b8fa349961931ec5b57c2d614df"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdid" ref="3cec2b8fa349961931ec5b57c2d614df" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 *Edid)" -->
+<a class="anchor" name="504e1da83e392f0428ebf750f3fa5df5"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdid" ref="504e1da83e392f0428ebf750f3fa5df5" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 *Edid)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1828,7 +1578,7 @@ This function retrieves a remote RX device's Extended Display Identification Dat
 
 </div>
 </div><p>
-<a class="anchor" name="ef8fa35d008dbcca9bc2787efa7b234e"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdidBlock" ref="ef8fa35d008dbcca9bc2787efa7b234e" args="(XDptx *InstancePtr, u8 *Data, u8 BlockNum, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<a class="anchor" name="52517d09cc73a7e286d04790594a30c2"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdidBlock" ref="52517d09cc73a7e286d04790594a30c2" args="(XDptx *InstancePtr, u8 *Data, u8 BlockNum, u8 LinkCountTotal, u8 *RelativeAddress)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1889,7 +1639,7 @@ Retrieve a downstream DisplayPort device's Extended Display Identification Data 
 
 </div>
 </div><p>
-<a class="anchor" name="00468c8162b9984e876fb90400ddd847"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdidDispIdExt" ref="00468c8162b9984e876fb90400ddd847" args="(XDptx *InstancePtr, u8 *Data, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<a class="anchor" name="65c571add61a17c00ac380b24dbe9b98"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteEdidDispIdExt" ref="65c571add61a17c00ac380b24dbe9b98" args="(XDptx *InstancePtr, u8 *Data, u8 LinkCountTotal, u8 *RelativeAddress)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1943,7 +1693,7 @@ Search for and retrieve a downstream DisplayPort device's Extended Display Ident
 
 </div>
 </div><p>
-<a class="anchor" name="705c56777702c1d68ac41191051a8e68"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteTiledDisplayDb" ref="705c56777702c1d68ac41191051a8e68" args="(XDptx *InstancePtr, u8 *EdidExt, u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)" -->
+<a class="anchor" name="86ed8332a0bd5e0069132fe6bf945f21"></a><!-- doxytag: member="xdptx.h::XDptx_GetRemoteTiledDisplayDb" ref="86ed8332a0bd5e0069132fe6bf945f21" args="(XDptx *InstancePtr, u8 *EdidExt, u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2004,7 +1754,7 @@ Search for and retrieve a downstream DisplayPort device's Tiled Display Topology
 
 </div>
 </div><p>
-<a class="anchor" name="567d49c31f86ae5c704ac42730fa2e00"></a><!-- doxytag: member="xdptx.h::XDptx_GetRxCapabilities" ref="567d49c31f86ae5c704ac42730fa2e00" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="b8c55ba66858d6af8095f263ee308d2d"></a><!-- doxytag: member="xdptx.h::XDptx_GetRxCapabilities" ref="b8c55ba66858d6af8095f263ee308d2d" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2034,7 +1784,7 @@ This function retrieves the RX device's capabilities from the RX device's Displa
 
 </div>
 </div><p>
-<a class="anchor" name="42ad278e82e98ad5440ced0791eb1232"></a><!-- doxytag: member="xdptx.h::XDptx_HpdInterruptHandler" ref="42ad278e82e98ad5440ced0791eb1232" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="52950290a845ab93bac618ea8af9efc4"></a><!-- doxytag: member="xdptx.h::XDptx_HpdInterruptHandler" ref="52950290a845ab93bac618ea8af9efc4" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2063,7 +1813,7 @@ When an interrupt happens, it first detects what kind of interrupt happened, the
 
 </div>
 </div><p>
-<a class="anchor" name="1cced75f64e9dc4292dc1910a2f6a2c0"></a><!-- doxytag: member="xdptx.h::XDptx_IicRead" ref="1cced75f64e9dc4292dc1910a2f6a2c0" args="(XDptx *InstancePtr, u8 IicAddress, u16 Offset, u16 BytesToRead, void *ReadData)" -->
+<a class="anchor" name="c46b9e42cbf67c0f95fcbeb54b469839"></a><!-- doxytag: member="xdptx.h::XDptx_IicRead" ref="c46b9e42cbf67c0f95fcbeb54b469839" args="(XDptx *InstancePtr, u8 IicAddress, u16 Offset, u16 BytesToRead, void *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2126,7 +1876,7 @@ This function performs an I2C read over the AUX channel. The read message will b
 
 </div>
 </div><p>
-<a class="anchor" name="93d3333e43aef67e21e20e33d757aead"></a><!-- doxytag: member="xdptx.h::XDptx_IicWrite" ref="93d3333e43aef67e21e20e33d757aead" args="(XDptx *InstancePtr, u8 IicAddress, u8 BytesToWrite, void *WriteData)" -->
+<a class="anchor" name="eaac8c34e7831b805916a05a8946fa29"></a><!-- doxytag: member="xdptx.h::XDptx_IicWrite" ref="eaac8c34e7831b805916a05a8946fa29" args="(XDptx *InstancePtr, u8 IicAddress, u8 BytesToWrite, void *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2180,7 +1930,7 @@ This function performs an I2C write over the AUX channel.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="b2fbc41e2f0ac4471e4edbf71d877af3"></a><!-- doxytag: member="xdptx.h::XDptx_InitializeTx" ref="b2fbc41e2f0ac4471e4edbf71d877af3" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="9ebb3ed7a51593c63fbd31ea14924a49"></a><!-- doxytag: member="xdptx.h::XDptx_InitializeTx" ref="9ebb3ed7a51593c63fbd31ea14924a49" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2210,7 +1960,7 @@ This function prepares the DisplayPort TX core for use.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="44eafdd44ab545ce448b0c0476455d7c"></a><!-- doxytag: member="xdptx.h::XDptx_IsConnected" ref="44eafdd44ab545ce448b0c0476455d7c" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="6e793e6d9919548dc5396e7aba1cf77b"></a><!-- doxytag: member="xdptx.h::XDptx_IsConnected" ref="6e793e6d9919548dc5396e7aba1cf77b" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2239,7 +1989,7 @@ This function checks if there is a connected RX device.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="32ba0cb6907ed3d2ecfdb31c699db3b4"></a><!-- doxytag: member="xdptx.h::XDptx_LookupConfig" ref="32ba0cb6907ed3d2ecfdb31c699db3b4" args="(u16 DeviceId)" -->
+<a class="anchor" name="696416992bebdddc0fad449fe7afe24f"></a><!-- doxytag: member="xdptx.h::XDptx_LookupConfig" ref="696416992bebdddc0fad449fe7afe24f" args="(u16 DeviceId)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2267,7 +2017,7 @@ This function looks for the device configuration based on the unique device ID. 
 
 </div>
 </div><p>
-<a class="anchor" name="04c0a0cf85542a721ce4a0ef4bcf75b0"></a><!-- doxytag: member="xdptx.h::XDptx_MstCapable" ref="04c0a0cf85542a721ce4a0ef4bcf75b0" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="688ad3269be26bc021855c7f8353883e"></a><!-- doxytag: member="xdptx.h::XDptx_MstCapable" ref="688ad3269be26bc021855c7f8353883e" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2302,7 +2052,7 @@ This function will check if the immediate downstream RX device is capable of mul
 
 </div>
 </div><p>
-<a class="anchor" name="2ee695f7ae87c5c4562c6476363c0c00"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgModeDisable" ref="2ee695f7ae87c5c4562c6476363c0c00" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="7615c8afb7181ef0857c8d2b6973499a"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgModeDisable" ref="7615c8afb7181ef0857c8d2b6973499a" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2330,7 +2080,7 @@ This function will disable multi-stream transport (MST) mode for the driver.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="f15269f0f6d4a121d3f4258f5a51b298"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgModeEnable" ref="f15269f0f6d4a121d3f4258f5a51b298" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="d7e8bb68f2e7c81be8ffad72b57601ff"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgModeEnable" ref="d7e8bb68f2e7c81be8ffad72b57601ff" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2358,7 +2108,7 @@ This function will enable multi-stream transport (MST) mode for the driver.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="32542b979844e06b18b5dc7fbd2a4f33"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgStreamDisable" ref="32542b979844e06b18b5dc7fbd2a4f33" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="026e20a4f7d12c3a0f6aa6b7ebcb9461"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgStreamDisable" ref="026e20a4f7d12c3a0f6aa6b7ebcb9461" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2396,7 +2146,7 @@ This function will configure the InstancePtr-&gt;MstStreamConfig structure to di
 
 </div>
 </div><p>
-<a class="anchor" name="665b86549678eabb60f20f9924554cb3"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgStreamEnable" ref="665b86549678eabb60f20f9924554cb3" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="ac2290634f6866f2deb960f6714aff2e"></a><!-- doxytag: member="xdptx.h::XDptx_MstCfgStreamEnable" ref="ac2290634f6866f2deb960f6714aff2e" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2434,7 +2184,7 @@ This function will configure the InstancePtr-&gt;MstStreamConfig structure to en
 
 </div>
 </div><p>
-<a class="anchor" name="b61d820b6767defde5d9f3ae427f1cdc"></a><!-- doxytag: member="xdptx.h::XDptx_MstDisable" ref="b61d820b6767defde5d9f3ae427f1cdc" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="d743a4fa1c3ebd1170df1042339146b1"></a><!-- doxytag: member="xdptx.h::XDptx_MstDisable" ref="d743a4fa1c3ebd1170df1042339146b1" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2469,7 +2219,7 @@ This function will disable multi-stream transport (MST) mode in both the Display
 
 </div>
 </div><p>
-<a class="anchor" name="8123a5bcf543018ba0e104547c5291d5"></a><!-- doxytag: member="xdptx.h::XDptx_MstEnable" ref="8123a5bcf543018ba0e104547c5291d5" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="9e21cc5e80eee639bfcb6d86db3c63e2"></a><!-- doxytag: member="xdptx.h::XDptx_MstEnable" ref="9e21cc5e80eee639bfcb6d86db3c63e2" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2504,7 +2254,7 @@ This function will enable multi-stream transport (MST) mode in both the DisplayP
 
 </div>
 </div><p>
-<a class="anchor" name="d8278e0c69dd1a2ebdfb13d9075fa694"></a><!-- doxytag: member="xdptx.h::XDptx_MstStreamIsEnabled" ref="d8278e0c69dd1a2ebdfb13d9075fa694" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="737c353ccd6a4700ac71cff76d28c8ce"></a><!-- doxytag: member="xdptx.h::XDptx_MstStreamIsEnabled" ref="737c353ccd6a4700ac71cff76d28c8ce" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2544,7 +2294,7 @@ This function will check whether<p>
 
 </div>
 </div><p>
-<a class="anchor" name="4e0615e6cad83aa1b444aed245a9030c"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteDpcdRead" ref="4e0615e6cad83aa1b444aed245a9030c" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)" -->
+<a class="anchor" name="333314b39c0f89f069e4af89b2f9bcb0"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteDpcdRead" ref="333314b39c0f89f069e4af89b2f9bcb0" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2612,7 +2362,7 @@ This function performs a remote DisplayPort Configuration Data (DPCD) read by se
 
 </div>
 </div><p>
-<a class="anchor" name="f41e0216fd6ecea35bb949597d734c52"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteDpcdWrite" ref="f41e0216fd6ecea35bb949597d734c52" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)" -->
+<a class="anchor" name="5497755a5ad4e92aeb4819804aebb336"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteDpcdWrite" ref="5497755a5ad4e92aeb4819804aebb336" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2680,7 +2430,7 @@ This function performs a remote DisplayPort Configuration Data (DPCD) write by s
 
 </div>
 </div><p>
-<a class="anchor" name="3df4fc065e1c38853cf9d779b6cb9b1d"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteIicRead" ref="3df4fc065e1c38853cf9d779b6cb9b1d" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead, u8 *ReadData)" -->
+<a class="anchor" name="d33b578260cff02298873bb62a697876"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteIicRead" ref="d33b578260cff02298873bb62a697876" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u16 Offset, u16 BytesToRead, u8 *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2757,7 +2507,7 @@ This function performs a remote I2C read by sending a sideband message. In case 
 
 </div>
 </div><p>
-<a class="anchor" name="58192dcfe2a793952544fa4a09bb62c7"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteIicWrite" ref="58192dcfe2a793952544fa4a09bb62c7" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite, u8 *WriteData)" -->
+<a class="anchor" name="3926b013ecc4f15d82ef39d07447ae4a"></a><!-- doxytag: member="xdptx.h::XDptx_RemoteIicWrite" ref="3926b013ecc4f15d82ef39d07447ae4a" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite, u8 *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2825,7 +2575,7 @@ This function performs a remote I2C write by sending a sideband message. In case
 
 </div>
 </div><p>
-<a class="anchor" name="a71e17a951f445b9c7bcfcc3104cdf4c"></a><!-- doxytag: member="xdptx.h::XDptx_ResetPhy" ref="a71e17a951f445b9c7bcfcc3104cdf4c" args="(XDptx *InstancePtr, u32 Reset)" -->
+<a class="anchor" name="ebfd44b68145676eebcc0d463c9b4d6f"></a><!-- doxytag: member="xdptx.h::XDptx_ResetPhy" ref="ebfd44b68145676eebcc0d463c9b4d6f" args="(XDptx *InstancePtr, u32 Reset)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2863,7 +2613,7 @@ This function does a PHY reset.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="f6cbfafba59214dcaad29991a3e265a4"></a><!-- doxytag: member="xdptx.h::XDptx_SelfTest" ref="f6cbfafba59214dcaad29991a3e265a4" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="0f3e36d00cbb3c9550cf880bb03cfea9"></a><!-- doxytag: member="xdptx.h::XDptx_SelfTest" ref="0f3e36d00cbb3c9550cf880bb03cfea9" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2893,7 +2643,7 @@ This function runs a self-test on the <a class="el" href="struct_x_dptx.html">XD
 
 </div>
 </div><p>
-<a class="anchor" name="87da5896e9f88e367812db2d9a7b9bf6"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgAllocatePayload" ref="87da5896e9f88e367812db2d9a7b9bf6" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 VcId, u16 Pbn)" -->
+<a class="anchor" name="c8547de5fd9d0c04d024f8721f3ed8bb"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgAllocatePayload" ref="c8547de5fd9d0c04d024f8721f3ed8bb" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 VcId, u16 Pbn)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2959,7 +2709,7 @@ This function will send an ALLOCATE_PAYLOAD sideband message which will allocate
 
 </div>
 </div><p>
-<a class="anchor" name="eb94576f1a407c2667877a49e065d015"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgClearPayloadIdTable" ref="eb94576f1a407c2667877a49e065d015" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="46bdd4a2732e25bc1faeb119b399dacf"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgClearPayloadIdTable" ref="46bdd4a2732e25bc1faeb119b399dacf" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2994,7 +2744,7 @@ This function will send a CLEAR_PAYLOAD_ID_TABLE sideband message which will de-
 
 </div>
 </div><p>
-<a class="anchor" name="f6e580f6a8dc0289713c4ef70d3a5c33"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgEnumPathResources" ref="f6e580f6a8dc0289713c4ef70d3a5c33" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)" -->
+<a class="anchor" name="3f5e598656e5badca2846be6c1b068a0"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgEnumPathResources" ref="3f5e598656e5badca2846be6c1b068a0" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3062,7 +2812,7 @@ FullPbn will be modified with the total PBN of the path from the reply. </dd></d
 
 </div>
 </div><p>
-<a class="anchor" name="be41e03326f878840b41aa07af466fec"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgLinkAddress" ref="be41e03326f878840b41aa07af466fec" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, XDptx_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo)" -->
+<a class="anchor" name="d8fc0c473eaa6ad66997bac406c664ba"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgLinkAddress" ref="d8fc0c473eaa6ad66997bac406c664ba" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, XDptx_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3121,7 +2871,7 @@ This function will send a LINK_ADDRESS sideband message to a target DisplayPort 
 
 </div>
 </div><p>
-<a class="anchor" name="af5dcb26c43a878d7e85e2432a56079c"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteDpcdRead" ref="af5dcb26c43a878d7e85e2432a56079c" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)" -->
+<a class="anchor" name="0e865810199439fc345dd4858e0e077c"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteDpcdRead" ref="0e865810199439fc345dd4858e0e077c" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToRead, u8 *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3194,7 +2944,7 @@ This function will send a REMOTE_DPCD_READ sideband message which will read from
 
 </div>
 </div><p>
-<a class="anchor" name="29eb074a43044c54a51fd333d2e1ddef"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteDpcdWrite" ref="29eb074a43044c54a51fd333d2e1ddef" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)" -->
+<a class="anchor" name="22edd6fd3495a31fab9e0397161e76d3"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteDpcdWrite" ref="22edd6fd3495a31fab9e0397161e76d3" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3267,7 +3017,7 @@ This function will send a REMOTE_DPCD_WRITE sideband message which will write so
 
 </div>
 </div><p>
-<a class="anchor" name="67a5dc5b564d88b72e1e20140e0c9fdd"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteIicRead" ref="67a5dc5b564d88b72e1e20140e0c9fdd" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead, u8 *ReadData)" -->
+<a class="anchor" name="d848e62d19c981547a4d301cee71c0ba"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteIicRead" ref="d848e62d19c981547a4d301cee71c0ba" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead, u8 *ReadData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3347,7 +3097,7 @@ This function will send a REMOTE_I2C_READ sideband message which will read from 
 
 </div>
 </div><p>
-<a class="anchor" name="9cf1853a5369c3b54cf684422ae0477f"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteIicWrite" ref="9cf1853a5369c3b54cf684422ae0477f" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)" -->
+<a class="anchor" name="8c528a3f1c067232e9359f1006271c32"></a><!-- doxytag: member="xdptx.h::XDptx_SendSbMsgRemoteIicWrite" ref="8c528a3f1c067232e9359f1006271c32" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3400,7 +3150,7 @@ This function will send a REMOTE_I2C_READ sideband message which will read from 
 
 </div>
 </div><p>
-<a class="anchor" name="2a9f86dab2f5de738680e7b4320469b2"></a><!-- doxytag: member="xdptx.h::XDptx_SetDownspread" ref="2a9f86dab2f5de738680e7b4320469b2" args="(XDptx *InstancePtr, u8 Enable)" -->
+<a class="anchor" name="b030d699fd11a5691295ac4ab3c48c27"></a><!-- doxytag: member="xdptx.h::XDptx_SetDownspread" ref="b030d699fd11a5691295ac4ab3c48c27" args="(XDptx *InstancePtr, u8 Enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3440,7 +3190,7 @@ This function enables or disables 0.5% spreading of the clock for both the Displ
 
 </div>
 </div><p>
-<a class="anchor" name="1d545645af32331e179e42e979bc3de3"></a><!-- doxytag: member="xdptx.h::XDptx_SetEnhancedFrameMode" ref="1d545645af32331e179e42e979bc3de3" args="(XDptx *InstancePtr, u8 Enable)" -->
+<a class="anchor" name="92d90bd5e3b79ba1ba2da23815af3de9"></a><!-- doxytag: member="xdptx.h::XDptx_SetEnhancedFrameMode" ref="92d90bd5e3b79ba1ba2da23815af3de9" args="(XDptx *InstancePtr, u8 Enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3480,7 +3230,7 @@ This function enables or disables the enhanced framing symbol sequence for both 
 
 </div>
 </div><p>
-<a class="anchor" name="55147fabd5935ff1198d732b54d1f310"></a><!-- doxytag: member="xdptx.h::XDptx_SetHasRedriverInPath" ref="55147fabd5935ff1198d732b54d1f310" args="(XDptx *InstancePtr, u8 Set)" -->
+<a class="anchor" name="b93d01339bd8c577ea22804786ce3c28"></a><!-- doxytag: member="xdptx.h::XDptx_SetHasRedriverInPath" ref="b93d01339bd8c577ea22804786ce3c28" args="(XDptx *InstancePtr, u8 Set)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3518,7 +3268,7 @@ This function sets a software switch that signifies whether or not a redriver ex
 
 </div>
 </div><p>
-<a class="anchor" name="0fc77fba78c3de3cdd141273b9348d45"></a><!-- doxytag: member="xdptx.h::XDptx_SetHpdEventHandler" ref="0fc77fba78c3de3cdd141273b9348d45" args="(XDptx *InstancePtr, XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)" -->
+<a class="anchor" name="af4bdfbe0785e1d0ec3d80edec1a86cb"></a><!-- doxytag: member="xdptx.h::XDptx_SetHpdEventHandler" ref="af4bdfbe0785e1d0ec3d80edec1a86cb" args="(XDptx *InstancePtr, XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3531,7 +3281,7 @@ This function sets a software switch that signifies whether or not a redriver ex
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#6f6cee9a7863df256adb35802fc65017">XDptx_HpdEventHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -3563,7 +3313,7 @@ This function installs a callback function for when a hot-plug-detect event inte
 
 </div>
 </div><p>
-<a class="anchor" name="a1dd03865a96f1323a8e3445dd4b15a6"></a><!-- doxytag: member="xdptx.h::XDptx_SetHpdPulseHandler" ref="a1dd03865a96f1323a8e3445dd4b15a6" args="(XDptx *InstancePtr, XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)" -->
+<a class="anchor" name="2ab1eec64ba571d155e56bb433fea5bf"></a><!-- doxytag: member="xdptx.h::XDptx_SetHpdPulseHandler" ref="2ab1eec64ba571d155e56bb433fea5bf" args="(XDptx *InstancePtr, XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3576,7 +3326,7 @@ This function installs a callback function for when a hot-plug-detect event inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#41e04c356fe95636134164b0f03bca9b">XDptx_HpdPulseHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -3608,7 +3358,7 @@ This function installs a callback function for when a hot-plug-detect pulse inte
 
 </div>
 </div><p>
-<a class="anchor" name="a273dec21586ac33395010f87401c2d0"></a><!-- doxytag: member="xdptx.h::XDptx_SetLaneCount" ref="a273dec21586ac33395010f87401c2d0" args="(XDptx *InstancePtr, u8 LaneCount)" -->
+<a class="anchor" name="115ea420baf50627b248038ef176a068"></a><!-- doxytag: member="xdptx.h::XDptx_SetLaneCount" ref="115ea420baf50627b248038ef176a068" args="(XDptx *InstancePtr, u8 LaneCount)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3648,7 +3398,7 @@ This function sets the number of lanes to be used by the main link for both the 
 
 </div>
 </div><p>
-<a class="anchor" name="fc742d9a00ff909e56766f5a692159f2"></a><!-- doxytag: member="xdptx.h::XDptx_SetLinkRate" ref="fc742d9a00ff909e56766f5a692159f2" args="(XDptx *InstancePtr, u8 LinkRate)" -->
+<a class="anchor" name="83816bbeac40d06d6fc9e37e310b0fce"></a><!-- doxytag: member="xdptx.h::XDptx_SetLinkRate" ref="83816bbeac40d06d6fc9e37e310b0fce" args="(XDptx *InstancePtr, u8 LinkRate)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3690,7 +3440,7 @@ This function sets the data rate to be used by the main link for both the Displa
 
 </div>
 </div><p>
-<a class="anchor" name="4d45bf3647f8a8698e330ca531198834"></a><!-- doxytag: member="xdptx.h::XDptx_SetMsaValues" ref="4d45bf3647f8a8698e330ca531198834" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="93def464f8e63597dfde42ea658ec2a6"></a><!-- doxytag: member="xdptx.h::XDptx_SetMsaValues" ref="93def464f8e63597dfde42ea658ec2a6" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3728,7 +3478,7 @@ This function sets the main stream attributes registers of the DisplayPort TX co
 
 </div>
 </div><p>
-<a class="anchor" name="3e9dee7b0b7711677c8c39fd14d585c8"></a><!-- doxytag: member="xdptx.h::XDptx_SetScrambler" ref="3e9dee7b0b7711677c8c39fd14d585c8" args="(XDptx *InstancePtr, u8 Enable)" -->
+<a class="anchor" name="2725860ddb4c74bf0abca8878dd987b3"></a><!-- doxytag: member="xdptx.h::XDptx_SetScrambler" ref="2725860ddb4c74bf0abca8878dd987b3" args="(XDptx *InstancePtr, u8 Enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3768,7 +3518,7 @@ This function enables or disables scrambling of symbols for both the DisplayPort
 
 </div>
 </div><p>
-<a class="anchor" name="65045054e997195fefb69e1edcb07a5a"></a><!-- doxytag: member="xdptx.h::XDptx_SetStreamSelectFromSinkList" ref="65045054e997195fefb69e1edcb07a5a" args="(XDptx *InstancePtr, u8 Stream, u8 SinkNum)" -->
+<a class="anchor" name="8363e32d51c93e25b85a802b70a3715c"></a><!-- doxytag: member="xdptx.h::XDptx_SetStreamSelectFromSinkList" ref="8363e32d51c93e25b85a802b70a3715c" args="(XDptx *InstancePtr, u8 Stream, u8 SinkNum)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3814,7 +3564,7 @@ The topology will need to be determined prior to calling this function using the
 
 </div>
 </div><p>
-<a class="anchor" name="895b0d104c1772fe0f60c879cd0a2b82"></a><!-- doxytag: member="xdptx.h::XDptx_SetStreamSinkRad" ref="895b0d104c1772fe0f60c879cd0a2b82" args="(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal, u8 *RelativeAddress)" -->
+<a class="anchor" name="f4716adc915bedad28b2bf0b1d7bd4fa"></a><!-- doxytag: member="xdptx.h::XDptx_SetStreamSinkRad" ref="f4716adc915bedad28b2bf0b1d7bd4fa" args="(XDptx *InstancePtr, u8 Stream, u8 LinkCountTotal, u8 *RelativeAddress)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3866,7 +3616,7 @@ This function will map a stream to a downstream DisplayPort TX device determined
 
 </div>
 </div><p>
-<a class="anchor" name="0cfe4355d8e2fa3e46be78c1800bb9d5"></a><!-- doxytag: member="xdptx.h::XDptx_SetUserTimerHandler" ref="0cfe4355d8e2fa3e46be78c1800bb9d5" args="(XDptx *InstancePtr, XDptx_TimerHandler CallbackFunc, void *CallbackRef)" -->
+<a class="anchor" name="2ccd64b33b2bd65423338312aa2977b5"></a><!-- doxytag: member="xdptx.h::XDptx_SetUserTimerHandler" ref="2ccd64b33b2bd65423338312aa2977b5" args="(XDptx *InstancePtr, XDptx_TimerHandler CallbackFunc, void *CallbackRef)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3879,7 +3629,7 @@ This function will map a stream to a downstream DisplayPort TX device determined
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#c09d771f709e37e756d8de2ba627701f">XDptx_TimerHandler</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -3911,7 +3661,7 @@ This function installs a custom delay/sleep function to be used by the XDdptx dr
 
 </div>
 </div><p>
-<a class="anchor" name="8c94639847747642864da0f053598cea"></a><!-- doxytag: member="xdptx.h::XDptx_SetVideoMode" ref="8c94639847747642864da0f053598cea" args="(XDptx *InstancePtr, u8 Stream)" -->
+<a class="anchor" name="1c1894cfa6ff7425bb8cdfa19847cd38"></a><!-- doxytag: member="xdptx.h::XDptx_SetVideoMode" ref="1c1894cfa6ff7425bb8cdfa19847cd38" args="(XDptx *InstancePtr, u8 Stream)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3949,7 +3699,7 @@ This function clears the main stream attributes registers of the DisplayPort TX 
 
 </div>
 </div><p>
-<a class="anchor" name="5a46ddefc4cb8118d5258e0e43443992"></a><!-- doxytag: member="xdptx.h::XDptx_TopologySortSinksByTiling" ref="5a46ddefc4cb8118d5258e0e43443992" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="b6b286732cdad782f909c9461ea0f508"></a><!-- doxytag: member="xdptx.h::XDptx_TopologySortSinksByTiling" ref="b6b286732cdad782f909c9461ea0f508" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3977,7 +3727,7 @@ Order the sink list with all sinks of the same tiled display being sorted by 'ti
 
 </div>
 </div><p>
-<a class="anchor" name="694b4d0af61fef8fdfbe93409ad0d680"></a><!-- doxytag: member="xdptx.h::XDptx_TopologySwapSinks" ref="694b4d0af61fef8fdfbe93409ad0d680" args="(XDptx *InstancePtr, u8 Index0, u8 Index1)" -->
+<a class="anchor" name="ec0c3b81cece2bd4e51188e2bb50f13b"></a><!-- doxytag: member="xdptx.h::XDptx_TopologySwapSinks" ref="ec0c3b81cece2bd4e51188e2bb50f13b" args="(XDptx *InstancePtr, u8 Index0, u8 Index1)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -4022,7 +3772,7 @@ Swap the ordering of the sinks in the topology's sink list. All sink information
 
 </div>
 </div><p>
-<a class="anchor" name="f60126291b4c1d2ac2d054707c804dce"></a><!-- doxytag: member="xdptx.h::XDptx_WaitUs" ref="f60126291b4c1d2ac2d054707c804dce" args="(XDptx *InstancePtr, u32 MicroSeconds)" -->
+<a class="anchor" name="6c460b31a3226815a96543e9c4c161fe"></a><!-- doxytag: member="xdptx.h::XDptx_WaitUs" ref="6c460b31a3226815a96543e9c4c161fe" args="(XDptx *InstancePtr, u32 MicroSeconds)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -4060,7 +3810,7 @@ This function is the delay/sleep function for the <a class="el" href="struct_x_d
 
 </div>
 </div><p>
-<a class="anchor" name="d03f3a2b6a8262cb230ad8bc6022d648"></a><!-- doxytag: member="xdptx.h::XDptx_WriteGuid" ref="d03f3a2b6a8262cb230ad8bc6022d648" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 Guid[4])" -->
+<a class="anchor" name="3db9ce86a190354ab3c671faf5991a8f"></a><!-- doxytag: member="xdptx.h::XDptx_WriteGuid" ref="3db9ce86a190354ab3c671faf5991a8f" args="(XDptx *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress, u32 Guid[4])" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -4110,22 +3860,6 @@ This function will write a global unique identifier (GUID) to the target Display
 <dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
-</div>
-</div><p>
-<hr><h2>Variable Documentation</h2>
-<a class="anchor" name="35408b37824862d172606842e26e66e0"></a><!-- doxytag: member="xdptx.h::XDptx_DmtModes" ref="35408b37824862d172606842e26e66e0" args="[]" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_x_dptx___dmt_mode.html">XDptx_DmtMode</a> <a class="el" href="xdptx__vidmodetable_8c.html#35408b37824862d172606842e26e66e0">XDptx_DmtModes</a>[]          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-This table contains the main stream attributes for various standard resolutions. Each entry is of the format: 1) XDPTX_VM_&lt;HRES&gt;x&lt;VRES&gt;_&lt;REFRESH (HZ)&gt;_P(_RB = Reduced Blanking) 2) Display Monitor Timing (DMT) ID 3) Horizontal resolution (pixels) 4) Vertical resolution (lines) 5) Pixel clock (KHz) 6) Interlaced (0=non-interlaced|1=interlaced) 7) Horizontal sync polarity (0=positive|1=negative) 8) Vertical sync polarity (0=positive|1=negative) 9) Horizontal front porch (pixels) 10) Horizontal sync time (pixels) 11) Horizontal back porch (pixels) 12) Vertical front porch (lines) 13) Vertical sync time (lines) 14) Vertical back porch (lines) 
 </div>
 </div><p>
 Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.

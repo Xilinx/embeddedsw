@@ -29,21 +29,23 @@ This file contains functions related to <a class="el" href="struct_x_dptx.html">
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
  1.0   als  05/17/14 Initial release.
- </pre> 
+ 3.0   als  12/16/14 Increased debounce duration for HPD to 0.500ms.
+                     Added masking of interrupts during servicing.
+ </pre>
 <p>
 <code>#include &quot;<a class="el" href="xdptx_8h.html">xdptx.h</a>&quot;</code><br>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#0fc77fba78c3de3cdd141273b9348d45">XDptx_SetHpdEventHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#af4bdfbe0785e1d0ec3d80edec1a86cb">XDptx_SetHpdEventHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#6f6cee9a7863df256adb35802fc65017">XDptx_HpdEventHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#a1dd03865a96f1323a8e3445dd4b15a6">XDptx_SetHpdPulseHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#2ab1eec64ba571d155e56bb433fea5bf">XDptx_SetHpdPulseHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#41e04c356fe95636134164b0f03bca9b">XDptx_HpdPulseHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#42ad278e82e98ad5440ced0791eb1232">XDptx_HpdInterruptHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__intr_8c.html#52950290a845ab93bac618ea8af9efc4">XDptx_HpdInterruptHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 </table>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="42ad278e82e98ad5440ced0791eb1232"></a><!-- doxytag: member="xdptx_intr.c::XDptx_HpdInterruptHandler" ref="42ad278e82e98ad5440ced0791eb1232" args="(XDptx *InstancePtr)" -->
+<a class="anchor" name="52950290a845ab93bac618ea8af9efc4"></a><!-- doxytag: member="xdptx_intr.c::XDptx_HpdInterruptHandler" ref="52950290a845ab93bac618ea8af9efc4" args="(XDptx *InstancePtr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -72,7 +74,7 @@ When an interrupt happens, it first detects what kind of interrupt happened, the
 
 </div>
 </div><p>
-<a class="anchor" name="0fc77fba78c3de3cdd141273b9348d45"></a><!-- doxytag: member="xdptx_intr.c::XDptx_SetHpdEventHandler" ref="0fc77fba78c3de3cdd141273b9348d45" args="(XDptx *InstancePtr, XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)" -->
+<a class="anchor" name="af4bdfbe0785e1d0ec3d80edec1a86cb"></a><!-- doxytag: member="xdptx_intr.c::XDptx_SetHpdEventHandler" ref="af4bdfbe0785e1d0ec3d80edec1a86cb" args="(XDptx *InstancePtr, XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -85,7 +87,7 @@ When an interrupt happens, it first detects what kind of interrupt happened, the
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#55e031231c2489c71c5b0187f8b2941e">XDptx_HpdEventHandler</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#6f6cee9a7863df256adb35802fc65017">XDptx_HpdEventHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -117,7 +119,7 @@ This function installs a callback function for when a hot-plug-detect event inte
 
 </div>
 </div><p>
-<a class="anchor" name="a1dd03865a96f1323a8e3445dd4b15a6"></a><!-- doxytag: member="xdptx_intr.c::XDptx_SetHpdPulseHandler" ref="a1dd03865a96f1323a8e3445dd4b15a6" args="(XDptx *InstancePtr, XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)" -->
+<a class="anchor" name="2ab1eec64ba571d155e56bb433fea5bf"></a><!-- doxytag: member="xdptx_intr.c::XDptx_SetHpdPulseHandler" ref="2ab1eec64ba571d155e56bb433fea5bf" args="(XDptx *InstancePtr, XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -130,7 +132,7 @@ This function installs a callback function for when a hot-plug-detect event inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#26acfa8f4b98b86385c7095bd3668313">XDptx_HpdPulseHandler</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdptx_8h.html#41e04c356fe95636134164b0f03bca9b">XDptx_HpdPulseHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
