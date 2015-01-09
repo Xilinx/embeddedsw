@@ -244,12 +244,36 @@ typedef struct {
 	u8 DpProtocol;		/**< The DisplayPort protocol version that this
 					core instance is configured for.
 					0 = v1.1a, 1 = v1.2. */
+	u8 IsRx;		/**< The type of DisplayPort core.
+					0 = TX, 1 = RX. */
 } XDp_Config;
 
 /**************************** Function Prototypes *****************************/
 
 /* xdp_sinit.c: Configuration extraction function.*/
 XDp_Config *XDp_LookupConfig(u16 DeviceId);
+
+/******************* Macros (Inline Functions) Definitions ********************/
+
+#define XDP_TX 0
+#define XDP_RX 1
+
+/******************************************************************************/
+/**
+ * This is function determines whether the DisplayPort core that the
+ * configuration structure represents is a transmitter (TX) or a receiver (RX).
+ *
+ * @param	ConfigPtr is a pointer to the DisplayPort core's configuration
+ *		structure.
+ *
+ * @return	XDP_RX if the configuration structure is for a core of type RX.
+ *		XDP_TX if the configuration structure is for a core of type TX.
+ *
+ * @note	C-style signature:
+ *		u32 XDp_CfgGetCoreType(XDp_Config *ConfigPtr)
+ *
+*******************************************************************************/
+#define XDp_CfgGetCoreType(ConfigPtr)	((ConfigPtr)->IsRx ? XDP_RX : XDP_TX)
 
 /******************************* Compatibility ********************************/
 

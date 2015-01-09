@@ -277,6 +277,8 @@ void XDptx_CfgInitialize(XDptx *InstancePtr, XDp_Config *ConfigPtr,
 
 	InstancePtr->Config.DpProtocol = ConfigPtr->DpProtocol;
 
+	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
+
 	/* Set the DisplayPort TX's voltage swing and pre-emphasis levels to
 	 * their defaults. */
 	XDptx_CfgTxVsOffset(InstancePtr, XDPTX_VS_LEVEL_OFFSET);
