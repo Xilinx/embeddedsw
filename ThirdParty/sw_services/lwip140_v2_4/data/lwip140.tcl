@@ -3,20 +3,20 @@ set use_emaclite_on_zynq 0
 
 # emaclite hw requirements - interrupt needs to be connected
 proc lwip_elite_hw_drc {libhandle emac} {
-	set emacname [get_property NAME $emac]
+	set emacname [common::get_property NAME $emac]
 	set intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] IP2INTC_Irpt]
 	if {[string compare -nocase $intr_port ""] == 0} {
 		error "ERROR: xps_ethernetlite core $emacname does not have its interrupt connected to interrupt controller. \
 			lwIP operates only in interrupt mode, so please connect the interrupt port to \
 			the interrupt controller.\n" "" "MDT_ERROR"
 	}
-	set tx_csum [get_property CONFIG.tcp_tx_checksum_offload $libhandle]
-	set rx_csum [get_property CONFIG.tcp_rx_checksum_offload $libhandle]
+	set tx_csum [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
+	set rx_csum [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
 
-	set tx_full_csum [get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
-	set rx_full_csum [get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
+	set tx_full_csum [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
+	set rx_full_csum [common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
 
-	set igmp_val [get_property CONFIG.igmp_options $libhandle]
+	set igmp_val [common::get_property CONFIG.igmp_options $libhandle]
 
 	if {$tx_full_csum} {
 		error "ERROR: Full TCP/IP checksum offload on Tx path is not supported for emaclite" "" "MDT_ERROR"
@@ -41,7 +41,7 @@ proc lwip_elite_hw_drc {libhandle emac} {
 #	- if sdma, sdma tx&rx intr (not verified)
 #	- if fifo, fifo intr (not verified)
 proc lwip_temac_channel_hw_drc {libhandle emac irpt_name llink_name tx_csum_name rx_csum_name} {
-	set emacname [get_property NAME $emac]
+	set emacname [common::get_property NAME $emac]
 	set mhs_handle [hsi::get_cells $emac]
 
 	set intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] irpt_name]
@@ -58,16 +58,16 @@ proc lwip_temac_channel_hw_drc {libhandle emac irpt_name llink_name tx_csum_name
                     "" "MDT_ERROR"
         }
 
-	set connected_bus_name [get_property NAME $connected_bus]
+	set connected_bus_name [common::get_property NAME $connected_bus]
 	set target_handle [xget_hw_connected_busifs_handle $mhs_handle $connected_bus_name "TARGET"]
 	set parent_handle [hsi::get_cells -of_objects  $target_handle]
-	set parent_name [get_property NAME $parent_handle]
+	set parent_name [common::get_property NAME $parent_handle]
 
-	set tx_csum [get_property CONFIG.tcp_tx_checksum_offload $libhandle]
-	set rx_csum [get_property CONFIG.tcp_rx_checksum_offload $libhandle]
+	set tx_csum [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
+	set rx_csum [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
 
-	set tx_full_csum [get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
-	set rx_full_csum [get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
+	set tx_full_csum [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
+	set rx_full_csum [common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
 
 
 	if {$tx_full_csum} {
@@ -83,7 +83,7 @@ proc lwip_temac_channel_hw_drc {libhandle emac irpt_name llink_name tx_csum_name
 		if {$parent_name == "xps_ll_fifo"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_tx_csum [get_property CONFIG.$tx_csum_name $emac]
+		set hw_tx_csum [common::get_property CONFIG.$tx_csum_name $emac]
 		if {!$hw_tx_csum} {
 			error "ERROR: lwIP cannot offload TX checksum calculation since hardware \
 				does not support TX checksum offload" "" "MDT_ERROR"
@@ -94,7 +94,7 @@ proc lwip_temac_channel_hw_drc {libhandle emac irpt_name llink_name tx_csum_name
 		if {$parent_name == "xps_ll_fifo"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_rx_csum [get_property CONFIG.$rx_csum_name $emac]
+		set hw_rx_csum [common::get_property CONFIG.$rx_csum_name $emac]
 		if {!$hw_rx_csum} {
 			error "ERROR: lwIP cannot offload RX checksum calculation since hardware \
 				does not support RX checksum offload" "" "MDT_ERROR"
@@ -110,7 +110,7 @@ proc lwip_temac_hw_drc {libhandle emac} {
 		lwip_temac_channel_hw_drc $libhandle $emac "TemacIntc0_Irpt" "LLINK0" "C_TEMAC0_TXCSUM" "C_TEMAC0_RXCSUM"
 	}
 
-	set emac1_enabled [get_property CONFIG.C_TEMAC1_ENABLED $emac]
+	set emac1_enabled [common::get_property CONFIG.C_TEMAC1_ENABLED $emac]
 	if {$emac1_enabled == "1"} {
 		lwip_temac_channel_hw_drc $libhandle $emac "TemacIntc1_Irpt" "LLINK1" "C_TEMAC1_TXCSUM" "C_TEMAC1_RXCSUM"
 	}
@@ -122,7 +122,7 @@ proc lwip_temac_hw_drc {libhandle emac} {
 #	- if fifo, fifo intr (not verified)
 proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 
-	set emacname [get_property NAME $emac]
+	set emacname [common::get_property NAME $emac]
 	set mhs_handle [hsi::get_cells $emac]
 
 	set intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] INTERRUPT]
@@ -139,11 +139,11 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
                     "" "MDT_ERROR"
 	}
 
-	set tx_csum [get_property CONFIG.tcp_tx_checksum_offload $libhandle]
-	set rx_csum [get_property CONFIG.tcp_rx_checksum_offload $libhandle]
+	set tx_csum [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
+	set rx_csum [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
 
-	set tx_full_csum [get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
-	set rx_full_csum [get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
+	set tx_full_csum [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
+	set rx_full_csum [common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
 
 	if {$tx_csum && $tx_full_csum} {
 		error "ERROR: Both partial and full checksums on Tx path can not be enabled at the same time" "" "MDT_ERROR"
@@ -155,17 +155,17 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 
 	# Find the AXI FIFO or AXI DMA that this emac is connected to.
 	set connected_bus [xget_hw_busif_handle $emac "AXI_STR_RXD"]
-	set connected_bus_name [get_property NAME $connected_bus]
+	set connected_bus_name [common::get_property NAME $connected_bus]
 	set target_handle [xget_hw_connected_busifs_handle $mhs_handle $connected_bus_name "TARGET"]
 	set parent_handle [hsi::get_cells -of_objects $port $target_handle]
-	set parent_name [get_property NAME $parent_handle]
+	set parent_name [common::get_property NAME $parent_handle]
 
 	# check checksum parameters
 	if {$tx_csum || $tx_full_csum} {
 		if {$parent_name == "axi_fifo_mm_s"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_tx_csum [get_property CONFIG.C_TXCSUM $emac]
+		set hw_tx_csum [common::get_property CONFIG.C_TXCSUM $emac]
 		if {$hw_tx_csum == "1" &&  $tx_full_csum } {
 			error "ERROR: lwIP cannot offload full TX checksum calculation since hardware \
 				supports partial TX checksum offload" "" "MDT_ERROR"
@@ -188,7 +188,7 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 		if {$parent_name == "axi_fifo_mm_s"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_rx_csum [get_property CONFIG.C_RXCSUM $emac]
+		set hw_rx_csum [common::get_property CONFIG.C_RXCSUM $emac]
 		if {$hw_rx_csum == "1" &&  $rx_full_csum } {
 			error "ERROR: lwIP cannot offload full RX checksum calculation since hardware \
 				supports partial RX checksum offload" "" "MDT_ERROR"
@@ -216,7 +216,7 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 #--
 proc lwip_hw_drc {libhandle emacs_list} {
 	foreach ip $emacs_list {
-		set iptype [get_property NAME $ip]
+		set iptype [common::get_property NAME $ip]
 		if {$iptype == "xps_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			lwip_elite_hw_drc $libhandle $ip
 		} elseif {$iptype == "xps_ll_temac"} {
@@ -232,12 +232,12 @@ proc lwip_hw_drc {libhandle emacs_list} {
 #	1. in SOCKET API is used, then xilkernel is required
 #--------
 proc lwip_sw_drc {libhandle emacs_list} {
-	set api_mode [get_property CONFIG.api_mode $libhandle]
+	set api_mode [common::get_property CONFIG.api_mode $libhandle]
 	set api_mode [string toupper $api_mode]
 	if { [string compare -nocase "SOCKET_API" $api_mode] == 0} {
 		set sw_proc_handle [hsi::get_sw_processor]
 		set os_handle [hsi::get_os]
-		set os_name [get_property NAME $os_handle]
+		set os_name [common::get_property NAME $os_handle]
 		if { [string compare -nocase "xilkernel" $os_name] != 0} {
 			if { [string compare -nocase "freertos_zynq" $os_name] != 0} {
 				error "ERROR: lwIP with Sockets requires \"xilkernel or freertos\" OS" "" "mdt_error"
@@ -251,7 +251,7 @@ proc get_emac_periphs {processor} {
 	set emac_periphs_list {}
 
 	foreach periph $periphs_list {
-		set periphname [get_property IP_NAME $periph]
+		set periphname [common::get_property IP_NAME $periph]
 		if {$periphname == "xps_ethernetlite"
 			|| $periphname == "opb_ethernetlite"
 			|| $periphname == "axi_ethernet"
@@ -262,7 +262,7 @@ proc get_emac_periphs {processor} {
 		} elseif {$periphname == "xps_ll_temac"} {
 			set emac0_enabled "0"
 			set emac1_enabled "0"
-			set emac_name [get_property NAME $periph]
+			set emac_name [common::get_property NAME $periph]
 
 			# emac 0 is always enabled. just check for its interrupt port
 			set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $periph] TemacIntc0_Irpt]
@@ -274,7 +274,7 @@ proc get_emac_periphs {processor} {
 			}
 
 			# for emac 1, check C_TEMAC1_ENABLED and then its interrupt port
-			set emac1_on [get_property CONFIG.C_TEMAC1_ENABLED $periph "PARAMETER"]
+			set emac1_on [common::get_property CONFIG.C_TEMAC1_ENABLED $periph "PARAMETER"]
 			if {$emac1_on == "1"} {
 				set emac_intr_port2 [hsi::get_pins -of_objects [hsi::get_cells  $periph] TemacIntc1_Irpt]
 				if {$emac_intr_port2 != ""} {
@@ -304,12 +304,12 @@ proc lwip_drc {libhandle} {
 
 	# find the list of xps_ethernetlite, xps_ll_temac, or axi_ethernet cores
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
 
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	if { [llength $emac_periphs_list] == 0 } {
-		set cpuname [get_property NAME $processor]
+		set cpuname [common::get_property NAME $processor]
 		error "ERROR: No Ethernet MAC cores are addressable from processor $cpuname. \
 			lwIP requires atleast one EMAC (xps_ethernetlite | xps_ll_temac | axi_ethernet | axi_ethernet_buffer | axi_ethernetlite | ps7_ethernet) core \
 			with its interrupt pin connected to the interrupt controller.\n" "" "MDT_ERROR"
@@ -318,7 +318,7 @@ proc lwip_drc {libhandle} {
 		set emac_names_list {}
 
 		foreach emac $emac_periphs_list {
-			lappend emac_names_list [get_property NAME $emac]
+			lappend emac_names_list [common::get_property NAME $emac]
 		}
 		#puts "lwIP can be used with the following EMAC peripherals found in your system: $emac_names_list"
 	}
@@ -336,13 +336,13 @@ proc generate_lwip_opts {libhandle} {
 	global use_emaclite_on_zynq
 	set lwipopts_file "src/contrib/ports/xilinx/include/lwipopts.h"
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
-	set processor_type [get_property IP_NAME $processor]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	set have_emaclite 0
 	foreach emac $emac_periphs_list {
-		set iptype [get_property IP_NAME $emac]
+		set iptype [common::get_property IP_NAME $emac]
 		if {$iptype == "xps_ethernetlite" || $iptype == "opb_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			set have_emaclite 1
 		}
@@ -355,12 +355,12 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define __LWIPOPTS_H_"
 	puts $lwipopts_fd ""
 
-        set proctype [get_property IP_NAME $processor]
+        set proctype [common::get_property IP_NAME $processor]
 	switch -regexp $proctype {
             "microblaze" {
                 # AXI systems are Little Endian
                 # 0 = BE, 1 = LE
-                set endian [get_property CONFIG.C_ENDIANNESS $processor]
+                set endian [common::get_property CONFIG.C_ENDIANNESS $processor]
                 if {$endian != 0} {
                     puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
 		    puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
@@ -388,7 +388,7 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define SYS_LIGHTWEIGHT_PROT 1"
 	puts $lwipopts_fd ""
 
-	set api_mode [get_property CONFIG.api_mode $libhandle]
+	set api_mode [common::get_property CONFIG.api_mode $libhandle]
 	if {$api_mode == "RAW_API"} {
 		puts $lwipopts_fd "\#define NO_SYS 1"
 		puts $lwipopts_fd "\#define LWIP_SOCKET 0"
@@ -397,11 +397,11 @@ proc generate_lwip_opts {libhandle} {
 	}
 	puts $lwipopts_fd ""
 
-	set thread_prio [get_property CONFIG.socket_mode_thread_prio $libhandle]
+	set thread_prio [common::get_property CONFIG.socket_mode_thread_prio $libhandle]
 	if {$api_mode == "SOCKET_API"} {
 		set sw_proc_handle [hsi::get_sw_processor]
 		set os_handle [hsi::get_os]
-		set os_name [get_property NAME $os_handle]
+		set os_name [common::get_property NAME $os_handle]
 		if { [string compare -nocase "xilkernel" $os_name] == 0} {
 			puts $lwipopts_fd "\#define OS_IS_XILKERNEL"
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO $thread_prio"
@@ -423,21 +423,21 @@ proc generate_lwip_opts {libhandle} {
 		}
 	}
 
-	set use_axieth_on_zynq [get_property CONFIG.use_axieth_on_zynq $libhandle]
-	set use_emaclite_on_zynq [get_property CONFIG.use_emaclite_on_zynq  $libhandle]
+	set use_axieth_on_zynq [common::get_property CONFIG.use_axieth_on_zynq $libhandle]
+	set use_emaclite_on_zynq [common::get_property CONFIG.use_emaclite_on_zynq  $libhandle]
 
 	# memory options
-	set mem_size 		[get_property CONFIG.mem_size $libhandle]
-	set memp_n_pbuf 	[get_property CONFIG.memp_n_pbuf $libhandle]
-	set memp_n_udp_pcb 	[get_property CONFIG.memp_n_udp_pcb $libhandle]
-	set memp_n_tcp_pcb 	[get_property CONFIG.memp_n_tcp_pcb $libhandle]
-	set memp_n_tcp_pcb_listen 	[get_property CONFIG.memp_n_tcp_pcb_listen $libhandle]
-	set memp_n_tcp_seg 	[get_property CONFIG.memp_n_tcp_seg $libhandle]
-	set memp_n_sys_timeout 	[get_property CONFIG.memp_n_sys_timeout $libhandle]
-	set memp_num_netbuf 	[get_property CONFIG.memp_num_netbuf $libhandle]
-	set memp_num_netconn 	[get_property CONFIG.memp_num_netconn $libhandle]
-	set memp_num_api_msg 	[get_property CONFIG.memp_num_api_msg $libhandle]
-	set memp_num_tcpip_msg 	[get_property CONFIG.memp_num_tcpip_msg $libhandle]
+	set mem_size 		[common::get_property CONFIG.mem_size $libhandle]
+	set memp_n_pbuf 	[common::get_property CONFIG.memp_n_pbuf $libhandle]
+	set memp_n_udp_pcb 	[common::get_property CONFIG.memp_n_udp_pcb $libhandle]
+	set memp_n_tcp_pcb 	[common::get_property CONFIG.memp_n_tcp_pcb $libhandle]
+	set memp_n_tcp_pcb_listen 	[common::get_property CONFIG.memp_n_tcp_pcb_listen $libhandle]
+	set memp_n_tcp_seg 	[common::get_property CONFIG.memp_n_tcp_seg $libhandle]
+	set memp_n_sys_timeout 	[common::get_property CONFIG.memp_n_sys_timeout $libhandle]
+	set memp_num_netbuf 	[common::get_property CONFIG.memp_num_netbuf $libhandle]
+	set memp_num_netconn 	[common::get_property CONFIG.memp_num_netconn $libhandle]
+	set memp_num_api_msg 	[common::get_property CONFIG.memp_num_api_msg $libhandle]
+	set memp_num_tcpip_msg 	[common::get_property CONFIG.memp_num_tcpip_msg $libhandle]
 
 	puts $lwipopts_fd "\#define MEM_ALIGNMENT 64"
 	puts $lwipopts_fd "\#define MEM_SIZE $mem_size"
@@ -465,9 +465,9 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define MEMP_NUM_SYS_TIMEOUT $memp_n_sys_timeout"
 
 	# pbuf options
-	set pbuf_pool_size	[get_property CONFIG.pbuf_pool_size $libhandle]
-	set pbuf_pool_bufsize	[get_property CONFIG.pbuf_pool_bufsize $libhandle]
-	set pbuf_link_hlen	[get_property CONFIG.pbuf_link_hlen $libhandle]
+	set pbuf_pool_size	[common::get_property CONFIG.pbuf_pool_size $libhandle]
+	set pbuf_pool_bufsize	[common::get_property CONFIG.pbuf_pool_bufsize $libhandle]
+	set pbuf_link_hlen	[common::get_property CONFIG.pbuf_link_hlen $libhandle]
 
 	puts $lwipopts_fd "\#define PBUF_POOL_SIZE $pbuf_pool_size"
 	puts $lwipopts_fd "\#define PBUF_POOL_BUFSIZE $pbuf_pool_bufsize"
@@ -475,32 +475,32 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd ""
 
 	# ARP options
-	set arp_table_size	[get_property CONFIG.arp_table_size $libhandle]
-	set arp_queueing	[get_property CONFIG.arp_queueing $libhandle]
+	set arp_table_size	[common::get_property CONFIG.arp_table_size $libhandle]
+	set arp_queueing	[common::get_property CONFIG.arp_queueing $libhandle]
 	puts $lwipopts_fd "\#define ARP_TABLE_SIZE $arp_table_size"
 	puts $lwipopts_fd "\#define ARP_QUEUEING $arp_queueing"
 	puts $lwipopts_fd ""
 
 	# ICMP options
-	set icmp_ttl 		[get_property CONFIG.icmp_ttl $libhandle]
+	set icmp_ttl 		[common::get_property CONFIG.icmp_ttl $libhandle]
 	puts $lwipopts_fd "\#define ICMP_TTL $icmp_ttl"
 	puts $lwipopts_fd ""
 
 	# IGMP options
-	set igmp_val 		[get_property CONFIG.igmp_options $libhandle]
+	set igmp_val 		[common::get_property CONFIG.igmp_options $libhandle]
 	if {$igmp_val == true} {
 	puts $lwipopts_fd "\#define LWIP_IGMP 1"
 	puts $lwipopts_fd ""
 	}
 
 	# IP options
-	set ip_forward          [get_property CONFIG.ip_forward $libhandle]
-	set ip_options          [get_property CONFIG.ip_options $libhandle]
-	set ip_reassembly       [get_property CONFIG.ip_reassembly $libhandle]
-	set ip_frag             [get_property CONFIG.ip_frag $libhandle]
-	set ip_reass_max_pbufs    [get_property CONFIG.ip_reass_max_pbufs $libhandle]
-	set ip_frag_max_mtu     [get_property CONFIG.ip_frag_max_mtu $libhandle]
-	set ip_default_ttl      [get_property CONFIG.ip_default_ttl $libhandle]
+	set ip_forward          [common::get_property CONFIG.ip_forward $libhandle]
+	set ip_options          [common::get_property CONFIG.ip_options $libhandle]
+	set ip_reassembly       [common::get_property CONFIG.ip_reassembly $libhandle]
+	set ip_frag             [common::get_property CONFIG.ip_frag $libhandle]
+	set ip_reass_max_pbufs    [common::get_property CONFIG.ip_reass_max_pbufs $libhandle]
+	set ip_frag_max_mtu     [common::get_property CONFIG.ip_frag_max_mtu $libhandle]
+	set ip_default_ttl      [common::get_property CONFIG.ip_default_ttl $libhandle]
 
 	puts $lwipopts_fd "\#define IP_OPTIONS $ip_options"
 	puts $lwipopts_fd "\#define IP_FORWARD $ip_forward"
@@ -513,21 +513,21 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd ""
 
 	# UDP options
-	set lwip_udp 		[expr [get_property CONFIG.lwip_udp $libhandle] == true]
-	set udp_ttl 		[get_property CONFIG.udp_ttl $libhandle]
+	set lwip_udp 		[expr [common::get_property CONFIG.lwip_udp $libhandle] == true]
+	set udp_ttl 		[common::get_property CONFIG.udp_ttl $libhandle]
 	puts $lwipopts_fd "\#define LWIP_UDP $lwip_udp"
 	puts $lwipopts_fd "\#define UDP_TTL $udp_ttl"
 	puts $lwipopts_fd ""
 
 	# TCP options
-	set lwip_tcp 		[expr [get_property CONFIG.lwip_tcp $libhandle] == true]
-	set tcp_mss 		[get_property CONFIG.tcp_mss $libhandle]
-	set tcp_snd_buf 	[get_property CONFIG.tcp_snd_buf $libhandle]
-	set tcp_wnd 		[get_property CONFIG.tcp_wnd $libhandle]
-	set tcp_ttl		[get_property CONFIG.tcp_ttl $libhandle]
-	set tcp_maxrtx          [get_property CONFIG.tcp_maxrtx $libhandle]
-	set tcp_synmaxrtx       [get_property CONFIG.tcp_synmaxrtx $libhandle]
-	set tcp_queue_ooseq     [get_property CONFIG.tcp_queue_ooseq $libhandle]
+	set lwip_tcp 		[expr [common::get_property CONFIG.lwip_tcp $libhandle] == true]
+	set tcp_mss 		[common::get_property CONFIG.tcp_mss $libhandle]
+	set tcp_snd_buf 	[common::get_property CONFIG.tcp_snd_buf $libhandle]
+	set tcp_wnd 		[common::get_property CONFIG.tcp_wnd $libhandle]
+	set tcp_ttl		[common::get_property CONFIG.tcp_ttl $libhandle]
+	set tcp_maxrtx          [common::get_property CONFIG.tcp_maxrtx $libhandle]
+	set tcp_synmaxrtx       [common::get_property CONFIG.tcp_synmaxrtx $libhandle]
+	set tcp_queue_ooseq     [common::get_property CONFIG.tcp_queue_ooseq $libhandle]
 
 	puts $lwipopts_fd "\#define LWIP_TCP $lwip_tcp"
 	puts $lwipopts_fd "\#define TCP_MSS $tcp_mss"
@@ -541,7 +541,7 @@ proc generate_lwip_opts {libhandle} {
 
 	set have_ethonzynq 0
 	foreach emac $emac_periphs_list {
-		set iptype [get_property IP_NAME $emac]
+		set iptype [common::get_property IP_NAME $emac]
 		if {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer" } {
 			set have_ethonzynq 1
 		}
@@ -552,24 +552,24 @@ proc generate_lwip_opts {libhandle} {
 	}
 
 	if {$proctype != "ps7_cortexa9" || $use_axieth_on_zynq == 1} {
-		set tx_full_csum_temp [get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
-		set rx_full_csum_temp [get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
+		set tx_full_csum_temp [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
+		set rx_full_csum_temp [common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
 
-		set tx_csum_temp [get_property CONFIG.tcp_tx_checksum_offload $libhandle]
-		set rx_csum_temp [get_property CONFIG.tcp_rx_checksum_offload $libhandle]
+		set tx_csum_temp [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
+		set rx_csum_temp [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
 
 		if {$tx_csum_temp || $rx_csum_temp} {
-			set tx_csum [expr ![get_property CONFIG.tcp_tx_checksum_offload $libhandle]]
+			set tx_csum [expr ![common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]]
 			puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP $tx_csum"
-			set rx_csum [expr ![get_property CONFIG.tcp_rx_checksum_offload $libhandle]]
+			set rx_csum [expr ![common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]]
 			puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP $rx_csum"
 		}
 		if {$tx_full_csum_temp || $rx_full_csum_temp} {
-			set tx_full_csum [expr ![get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]]
+			set tx_full_csum [expr ![common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]]
 			puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP $tx_full_csum"
 			puts $lwipopts_fd "\#define CHECKSUM_GEN_UDP $tx_full_csum"
 			puts $lwipopts_fd "\#define CHECKSUM_GEN_IP $tx_full_csum"
-			set rx_full_csum [expr ![get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]]
+			set rx_full_csum [expr ![common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]]
 			puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP $rx_full_csum"
 			puts $lwipopts_fd "\#define CHECKSUM_CHECK_UDP $rx_full_csum"
 			puts $lwipopts_fd "\#define CHECKSUM_CHECK_IP $rx_full_csum"
@@ -614,27 +614,27 @@ proc generate_lwip_opts {libhandle} {
 	}
 	puts $lwipopts_fd ""
 
-	set jumbo_frames [get_property CONFIG.temac_use_jumbo_frames $libhandle]
+	set jumbo_frames [common::get_property CONFIG.temac_use_jumbo_frames $libhandle]
 	if {$jumbo_frames} {
 		puts $lwipopts_fd "\#define USE_JUMBO_FRAMES 1"
 		puts $lwipopts_fd ""
 	}
 
 	# DHCP options
-	set lwip_dhcp 		[expr [get_property CONFIG.lwip_dhcp $libhandle] == true]
-	set dhcp_does_arp_check [expr [get_property CONFIG.dhcp_does_arp_check $libhandle] == true]
+	set lwip_dhcp 		[expr [common::get_property CONFIG.lwip_dhcp $libhandle] == true]
+	set dhcp_does_arp_check [expr [common::get_property CONFIG.dhcp_does_arp_check $libhandle] == true]
 	puts $lwipopts_fd "\#define LWIP_DHCP $lwip_dhcp"
 	puts $lwipopts_fd "\#define DHCP_DOES_ARP_CHECK $dhcp_does_arp_check"
 	puts $lwipopts_fd ""
 
 
 	# temac adapter options
-	set linkspeed [get_property CONFIG.phy_link_speed $libhandle]
+	set linkspeed [common::get_property CONFIG.phy_link_speed $libhandle]
 	puts $lwipopts_fd "\#define $linkspeed 1"
 	puts $lwipopts_fd ""
 
 	# lwIP stats
-	set lwip_stats		[get_property CONFIG.lwip_stats $libhandle]
+	set lwip_stats		[common::get_property CONFIG.lwip_stats $libhandle]
 	if {$lwip_stats} {
 		puts $lwipopts_fd "\#define LWIP_STATS 1"
 		puts $lwipopts_fd "\#define LWIP_STATS_DISPLAY 1"
@@ -642,15 +642,15 @@ proc generate_lwip_opts {libhandle} {
 	}
 
 	# lwIP debug
-	set lwip_debug		[expr [get_property CONFIG.lwip_debug $libhandle] == true]
-	set ip_debug		[expr [get_property CONFIG.ip_debug $libhandle] == true]
-	set tcp_debug		[expr [get_property CONFIG.tcp_debug $libhandle] == true]
-	set udp_debug		[expr [get_property CONFIG.udp_debug $libhandle] == true]
-	set icmp_debug		[expr [get_property CONFIG.icmp_debug $libhandle] == true]
-	set igmp_debug		[expr [get_property CONFIG.igmp_debug $libhandle] == true]
-	set netif_debug		[expr [get_property CONFIG.netif_debug $libhandle] == true]
-	set sys_debug		[expr [get_property CONFIG.sys_debug $libhandle] == true]
-	set pbuf_debug		[expr [get_property CONFIG.pbuf_debug $libhandle] == true]
+	set lwip_debug		[expr [common::get_property CONFIG.lwip_debug $libhandle] == true]
+	set ip_debug		[expr [common::get_property CONFIG.ip_debug $libhandle] == true]
+	set tcp_debug		[expr [common::get_property CONFIG.tcp_debug $libhandle] == true]
+	set udp_debug		[expr [common::get_property CONFIG.udp_debug $libhandle] == true]
+	set icmp_debug		[expr [common::get_property CONFIG.icmp_debug $libhandle] == true]
+	set igmp_debug		[expr [common::get_property CONFIG.igmp_debug $libhandle] == true]
+	set netif_debug		[expr [common::get_property CONFIG.netif_debug $libhandle] == true]
+	set sys_debug		[expr [common::get_property CONFIG.sys_debug $libhandle] == true]
+	set pbuf_debug		[expr [common::get_property CONFIG.pbuf_debug $libhandle] == true]
 
 	if {$lwip_debug == 1} {
 		puts $lwipopts_fd "\#define LWIP_DEBUG 1"
@@ -686,7 +686,7 @@ proc generate_lwip_opts {libhandle} {
 proc update_temac_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
 
-        set topology(emac_baseaddr) [get_property CONFIG.C_BASEADDR $emac]
+        set topology(emac_baseaddr) [common::get_property CONFIG.C_BASEADDR $emac]
 	set topology(emac_type) "xemac_type_xps_ll_temac"
 
 	# find intc to which the interrupt line is connected
@@ -696,7 +696,7 @@ proc update_temac_topology {emac processor topologyvar} {
 	set l [llength $intr_ports]
 
 	if { [llength $intr_ports] != 1 } {
-		set emac_name [get_property NAME $emac]
+		set emac_name [common::get_property NAME $emac]
 		error "ERROR: xps_ll_temac ($emac_name) interrupt port connected to more than one IP.\
 			lwIP requires that the interrupt line be connected only to the interrupt controller"
 			"" "mdt_error"
@@ -708,13 +708,13 @@ proc update_temac_topology {emac processor topologyvar} {
 	# can we address this intc from the processor?
 	set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 	if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
-		set intc_name [get_property NAME $intc_handle]
-		set proc_name [get_property NAME $processor]
+		set intc_name [common::get_property NAME $intc_handle]
+		set proc_name [common::get_property NAME $processor]
 		error "ERROR: $intc_name to which xps_ll_temac interrupt is connected is not addressable \
 			from processor $proc_name" "" "mdt_error"
 	}
 
-	set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
+	set topology(intc_baseaddr) [common::get_property CONFIG.C_BASEADDR $intc_handle]
 	set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 	set topology(scugic_baseaddr) "0x0"
 	set topology(scugic_emac_intr) "0x0"
@@ -725,7 +725,7 @@ proc update_temac_topology {emac processor topologyvar} {
 proc update_temac1_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
 
-        set topology(emac_baseaddr) [format 0x%x [expr [get_property CONFIG.C_BASEADDR $emac] + 0x40]]
+        set topology(emac_baseaddr) [format 0x%x [expr [common::get_property CONFIG.C_BASEADDR $emac] + 0x40]]
 	set topology(emac_type) "xemac_type_xps_ll_temac"
 
 	# find intc to which the interrupt line is connected
@@ -734,7 +734,7 @@ proc update_temac1_topology {emac processor topologyvar} {
 	set intr_ports [xget_connected_ports_handle $mhs_handle $emac_intr_port "sink"]
 
 	if { [llength $intr_ports] != 1 } {
-		set emac_name [get_property NAME $emac]
+		set emac_name [common::get_property NAME $emac]
 		error "ERROR: xps_ll_temac ($emac_name) interrupt port connected to more than one IP.\
 			lwIP requires that the interrupt line be connected only to the interrupt controller"
 			"" "mdt_error"
@@ -746,13 +746,13 @@ proc update_temac1_topology {emac processor topologyvar} {
 	# can we address this intc from the processor?
 	set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 	if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
-		set intc_name [get_property NAME $intc_handle]
-		set proc_name [get_property NAME $processor]
+		set intc_name [common::get_property NAME $intc_handle]
+		set proc_name [common::get_property NAME $processor]
 		error "ERROR: $intc_name to which xps_ll_temac interrupt is connected is not addressable \
 			from processor $proc_name" "" "mdt_error"
 	}
 
-	set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
+	set topology(intc_baseaddr) [common::get_property CONFIG.C_BASEADDR $intc_handle]
 	set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 	set topology(scugic_baseaddr) "0x0"
 	set topology(scugic_emac_intr) "0x0"
@@ -762,8 +762,8 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	global use_emaclite_on_zynq
 	upvar $topologyvar topology
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
-	set processor_type [get_property IP_NAME $processor]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
 	set force_emaclite_on_zynq 0
 
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
@@ -771,7 +771,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	}
 
 	# get emac baseaddr
-        set topology(emac_baseaddr) [get_property CONFIG.C_BASEADDR $emac]
+        set topology(emac_baseaddr) [common::get_property CONFIG.C_BASEADDR $emac]
 	set topology(emac_type) "xemac_type_xps_emaclite"
 
 	if {$force_emaclite_on_zynq == 1} {
@@ -787,7 +787,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	set intr_ports [::hsm::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $emac] IP2INTC_Irpt]]
 
 	if { [llength $intr_ports] != 1 } {
-		set emac_name [get_property NAME $emac]
+		set emac_name [common::get_property NAME $emac]
 		error "ERROR: emaclite ($emac_name) interrupt port connected to more than one IP.\
 			lwIP requires that the interrupt line be connected only to the interrupt controller"
 			"" "mdt_error"
@@ -799,13 +799,13 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	# can we address this intc from the processor?
 	set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 	if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
-		set intc_name [get_property NAME $intc_handle]
-		set proc_name [get_property NAME $processor]
+		set intc_name [common::get_property NAME $intc_handle]
+		set proc_name [common::get_property NAME $processor]
 		error "ERROR: $intc_name to which ethernetlite interrupt is connected is not addressable \
 			from processor $proc_name" "" "mdt_error"
 	}
 
-	set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
+	set topology(intc_baseaddr) [common::get_property CONFIG.C_BASEADDR $intc_handle]
 
 	# find interrupt pin number
 	set topology(emac_intr_id) [xget_port_interrupt_id $emac $emac_intr_port]
@@ -816,7 +816,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 
 proc update_axi_ethernet_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
-	set topology(emac_baseaddr) [get_property CONFIG.C_BASEADDR $emac]
+	set topology(emac_baseaddr) [common::get_property CONFIG.C_BASEADDR $emac]
 	set topology(emac_type) "xemac_type_axi_ethernet"
 
 	# find intc to which the interrupt line is connected
@@ -825,16 +825,16 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 	set intr_cnt 0
 	foreach intr_sink $intr_ports {
 		set phandle [hsi::get_cells -of_objects $intr_sink]
-                set pname_type [get_property NAME $phandle]
+                set pname_type [common::get_property NAME $phandle]
                 if {$pname_type != "chipscope_ila"} {
 			incr intr_cnt
 			set intc_handle [hsi::get_cells -of_objects $intr_sink]
-			set intc_periph_type [get_property IP_NAME $intc_handle]
-			set intc_name [get_property NAME $intc_handle]
+			set intc_periph_type [common::get_property IP_NAME $intc_handle]
+			set intc_name [common::get_property NAME $intc_handle]
 			# can we address this intc from the processor?
 			set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
 			if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
-				set proc_name [get_property NAME $processor]
+				set proc_name [common::get_property NAME $processor]
 				error "ERROR: $intc_name to which axi_ethernet interrupt is connected is not addressable \
 					from processor $proc_name" "" "mdt_error"
 			}
@@ -843,14 +843,14 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
         }
 
 	if { $intr_cnt != 1 } {
-		set emac_name [get_property NAME $emac]
+		set emac_name [common::get_property NAME $emac]
 		error "ERROR: axi_ethernet ($emac_name) interrupt port connected to more than one IP.\
 			lwIP requires that the interrupt line be connected only to the interrupt controller"
 			"" "mdt_error"
 	}
 
 	if { $intc_periph_type != [format "ps7_scugic"] } {
-		set topology(intc_baseaddr) [get_property CONFIG.C_BASEADDR $intc_handle]
+		set topology(intc_baseaddr) [common::get_property CONFIG.C_BASEADDR $intc_handle]
 		set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 		set topology(scugic_baseaddr) "0x0"
 		set topology(scugic_emac_intr) "0x0"
@@ -864,13 +864,13 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 
 proc update_ps7_ethernet_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
-	set topology(emac_baseaddr) [get_property CONFIG.C_S_AXI_BASEADDR $emac]
+	set topology(emac_baseaddr) [common::get_property CONFIG.C_S_AXI_BASEADDR $emac]
 	set topology(emac_type) "xemac_type_emacps"
 	set topology(intc_baseaddr) "0x0"
 	set topology(emac_intr_id) "0x0"
 	set topology(scugic_baseaddr) "0xF8F00100"
 	set topology(scugic_emac_intr) "0x0"
-	set ethernet_instance [get_property NAME $emac]
+	set ethernet_instance [common::get_property NAME $emac]
 	if {$ethernet_instance == "ps7_ethernet_0" || $ethernet_instance == "ps7_enet0"} {
 		set topology(scugic_emac_intr) "0x36"
 	} elseif {$ethernet_instance == "ps7_ethernet_1" || $ethernet_instance == "ps7_enet1"} {
@@ -893,7 +893,7 @@ proc generate_topology_per_emac {fd topologyvar} {
 
 proc generate_topology {libhandle} {
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
 	set emac_periphs_list [get_emac_periphs $processor]
 	set tempcntr 0
 
@@ -918,7 +918,7 @@ proc generate_topology {libhandle} {
 		set topology(emac_intr_id)  -1
 
 		# get topology for the emac
-		set iptype [get_property IP_NAME $emac]
+		set iptype [common::get_property IP_NAME $emac]
 		if {$iptype == "xps_ethernetlite" || $iptype == "opb_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			update_emaclite_topology $emac $processor topology
 			generate_topology_per_emac $tfd topology
@@ -933,7 +933,7 @@ proc generate_topology {libhandle} {
 				incr topology_size 1
 			}
 
-			set temac1 [get_property CONFIG.C_TEMAC1_ENABLED $emac]
+			set temac1 [common::get_property CONFIG.C_TEMAC1_ENABLED $emac]
 			if {$temac1 == "1"} {
 				update_temac1_topology $emac $processor topology
 				generate_topology_per_emac $tfd topology
@@ -963,8 +963,8 @@ proc generate_adapterconfig_makefile {libhandle} {
 	global use_axieth_on_zynq
 	global use_emaclite_on_zynq
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
-	set processor_type [get_property IP_NAME $processor]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	set have_emaclite 0
@@ -984,7 +984,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 	}
 
 	foreach emac $emac_periphs_list {
-		set iptype [get_property IP_NAME $emac]
+		set iptype [common::get_property IP_NAME $emac]
 		if {$iptype == "xps_ethernetlite" || $iptype == "opb_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			set have_emaclite 1
 		} elseif {$iptype == "xps_ll_temac"} {
@@ -994,7 +994,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 			# Find the AXI FIFO or AXI DMA that this emac is connected to.
 			set connected_bus_name [::hsm::utils::get_connected_intf $emac AXI_STR_RXD]
 			set parent_handle [hsi::get_cells -of_objects $connected_bus_name]
-			set parent_name [get_property IP_NAME $parent_handle]
+			set parent_name [common::get_property IP_NAME $parent_handle]
 			if {$parent_name == "axi_fifo_mm_s"} {
 				set have_axi_ethernet_fifo 1
 			} else {
@@ -1018,14 +1018,14 @@ proc generate_adapterconfig_makefile {libhandle} {
 	set fd [open $makeconfig w]
 
         # determine the processor type so that we know the compiler to use
-        set proctype [get_property IP_NAME $processor]
+        set proctype [common::get_property IP_NAME $processor]
 	switch -regexp $proctype {
             "microblaze" {
                 puts $fd "GCC_COMPILER=mb-gcc"
 
                 # AXI systems are Little Endian
                 # 0 = BE, 1 = LE
-                set endian [get_property CONFIG.C_ENDIANNESS $processor]
+                set endian [common::get_property CONFIG.C_ENDIANNESS $processor]
                 if {$endian != 0} {
                     #puts "Little Endian system"
                     puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
@@ -1069,7 +1069,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 		puts $fd "CONFIG_PS7_ETHERNET=y"
 	}
 
-	set api_mode [get_property CONFIG.api_mode $libhandle]
+	set api_mode [common::get_property CONFIG.api_mode $libhandle]
 	if {$api_mode == "SOCKET_API"} {
 		puts $fd "CONFIG_SOCKETS=y"
 	}
@@ -1081,8 +1081,8 @@ proc generate_adapterconfig_include {libhandle} {
 	global use_axieth_on_zynq
 	global use_emaclite_on_zynq
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
-	set processor_type [get_property IP_NAME $processor]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	set have_emaclite 0
@@ -1102,7 +1102,7 @@ proc generate_adapterconfig_include {libhandle} {
 	}
 
 	foreach emac $emac_periphs_list {
-		set iptype [get_property IP_NAME $emac]
+		set iptype [common::get_property IP_NAME $emac]
 		if {$iptype == "xps_ethernetlite" || $iptype == "opb_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			set have_emaclite 1
 		} elseif {$iptype == "xps_ll_temac"} {
@@ -1111,7 +1111,7 @@ proc generate_adapterconfig_include {libhandle} {
 			# Find the AXI FIFO or AXI DMA that this emac is connected to.
 			set connected_bus_name [::hsm::utils::get_connected_intf $emac AXI_STR_RXD]
 			set parent_handle [hsi::get_cells -of_objects $connected_bus_name]
-			set parent_name [get_property IP_NAME $parent_handle]
+			set parent_name [common::get_property IP_NAME $parent_handle]
 			if {$parent_name == "axi_fifo_mm_s"} {
 				set have_axi_ethernet_fifo 1
 			} else {
@@ -1170,24 +1170,24 @@ proc generate_adapterconfig_include {libhandle} {
 	}
 
 	if {$have_temac == 1 || $have_axi_ethernet == 1} {
-		set ndesc [get_property CONFIG.n_tx_descriptors $libhandle]
+		set ndesc [common::get_property CONFIG.n_tx_descriptors $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_N_TX_DESC $ndesc"
-		set ndesc [get_property CONFIG.n_rx_descriptors $libhandle]
+		set ndesc [common::get_property CONFIG.n_rx_descriptors $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_N_RX_DESC $ndesc"
 		puts $fd ""
 
-		set ncoalesce [get_property CONFIG.n_tx_coalesce $libhandle]
+		set ncoalesce [common::get_property CONFIG.n_tx_coalesce $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_N_TX_COALESCE $ncoalesce"
-		set ncoalesce [get_property CONFIG.n_rx_coalesce $libhandle]
+		set ncoalesce [common::get_property CONFIG.n_rx_coalesce $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_N_RX_COALESCE $ncoalesce"
 		puts $fd ""
 	}
 	if {$have_ps7_ethernet == 1} {
-		set emacnum [get_property CONFIG.emac_number $libhandle]
+		set emacnum [common::get_property CONFIG.emac_number $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_EMAC_NUMBER $emacnum"
-		set ndesc [get_property CONFIG.n_tx_descriptors $libhandle]
+		set ndesc [common::get_property CONFIG.n_tx_descriptors $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_N_TX_DESC $ndesc"
-		set ndesc [get_property CONFIG.n_rx_descriptors $libhandle]
+		set ndesc [common::get_property CONFIG.n_rx_descriptors $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_N_RX_DESC $ndesc"
 		puts $fd ""
 	}
