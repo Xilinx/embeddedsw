@@ -205,7 +205,6 @@
 
 /******************************* Include Files ********************************/
 
-#include "xdptx.h"
 #include "xil_types.h"
 
 /****************************** Type Definitions ******************************/
@@ -247,15 +246,16 @@ typedef struct {
 					0 = v1.1a, 1 = v1.2. */
 } XDp_Config;
 
-/* Backwards compatible with dptx. */
-#define XDptx_Config XDp_Config
-
 /**************************** Function Prototypes *****************************/
 
 /* xdp_sinit.c: Configuration extraction function.*/
 XDp_Config *XDp_LookupConfig(u16 DeviceId);
 
-/* Backwards compatible with dptx. */
+/******************************* Compatibility ********************************/
+
 #define XDptx_LookupConfig XDp_LookupConfig
+#define XDptx_Config XDp_Config
+
+#include "xdptx.h"
 
 #endif /* XDP_H_ */
