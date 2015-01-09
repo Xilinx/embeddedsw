@@ -79,7 +79,7 @@ proc xdefine_axispi_include_file {drv_handle file_name drv_string} {
 	
 	    # Handle NUM_INSTANCES
 	    set periph_ninstances 0
-	    puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+	    puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
 	    foreach periph $periphs {
 	    	init_periph_config_struct_spi $periph_ninstances
 	    	incr periph_ninstances 1
@@ -104,45 +104,45 @@ proc xdefine_axispi_include_file {drv_handle file_name drv_string} {
 
 proc xdefine_axispi_params_instance {file_handle periph device_id} {
 	set ip [hsi::get_cells $periph]
-    set xip_mode_value [get_property  CONFIG.C_XIP_MODE $ip]
+    set xip_mode_value [common::get_property  CONFIG.C_XIP_MODE $ip]
     if {[llength $xip_mode_value] == 0} {
          set xip_mode_value 0
     }
-    set axi_type_value [get_property CONFIG.C_TYPE_OF_AXI4_INTERFACE $periph]
+    set axi_type_value [common::get_property CONFIG.C_TYPE_OF_AXI4_INTERFACE $periph]
     if {[llength $axi_type_value] == 0} {
          set axi_type_value 0
     }
-    set axi4_baseaddr_value [get_property CONFIG.C_S_AXI4_BASEADDR $periph]
+    set axi4_baseaddr_value [common::get_property CONFIG.C_S_AXI4_BASEADDR $periph]
     if {[llength $axi4_baseaddr_value] == 0} {
              set axi4_baseaddr_value 0
     }
-    set axi4_highaddr_value [get_property CONFIG.C_S_AXI4_HIGHADDR $periph]
+    set axi4_highaddr_value [common::get_property CONFIG.C_S_AXI4_HIGHADDR $periph]
     if {[llength $axi4_highaddr_value] == 0} {
              set axi4_highaddr_value 0
     }
-    puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+    puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
     
     puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
     if {$xip_mode_value == 0} {
     	if {$axi_type_value == 0} { 
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [get_property CONFIG.C_BASEADDR $periph]"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] [get_property CONFIG.C_HIGHADDR $periph]"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] [common::get_property CONFIG.C_HIGHADDR $periph]"
     	} else {
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] $axi4_baseaddr_value"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] $axi4_highaddr_value"
     	}
     } else {
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [get_property CONFIG.C_BASEADDR $periph]"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] [get_property CONFIG.C_HIGHADDR $periph]"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph HIGHADDR] [common::get_property CONFIG.C_HIGHADDR $periph]"
     }
     
-    set value [get_property CONFIG.C_FIFO_EXIST $periph]
+    set value [common::get_property CONFIG.C_FIFO_EXIST $periph]
     if {[llength $value] == 0} {
-         set value1 [get_property CONFIG.C_FIFO_DEPTH $periph]
+         set value1 [common::get_property CONFIG.C_FIFO_DEPTH $periph]
          if {[llength $value1] == 0} {
     	    set value1 0
          } else {
-           set value1 [get_property CONFIG.C_FIFO_DEPTH $periph]
+           set value1 [common::get_property CONFIG.C_FIFO_DEPTH $periph]
            puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "FIFO_DEPTH"] $value1"
            if {$value1 == 0} {
               set value1 0
@@ -155,22 +155,22 @@ proc xdefine_axispi_params_instance {file_handle periph device_id} {
     }
     puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "FIFO_EXIST"] $value1"
     
-    set value [get_property CONFIG.C_SPI_SLAVE_ONLY $periph]
+    set value [common::get_property CONFIG.C_SPI_SLAVE_ONLY $periph]
     if {[llength $value] == 0} {
 	set value 0
     }
     puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SPI_SLAVE_ONLY"] $value"
-    set value [get_property CONFIG.C_NUM_SS_BITS $periph]
+    set value [common::get_property CONFIG.C_NUM_SS_BITS $periph]
     if {[llength $value] == 0} {
     	set value 0
     }
     puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "NUM_SS_BITS"] $value"
-    set value [get_property CONFIG.C_NUM_TRANSFER_BITS $periph]
+    set value [common::get_property CONFIG.C_NUM_TRANSFER_BITS $periph]
     if {[llength $value] == 0} {
         set value 0
     }
     puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "NUM_TRANSFER_BITS"] $value"
-    set value [get_property CONFIG.C_SPI_MODE $periph]
+    set value [common::get_property CONFIG.C_SPI_MODE $periph]
     if {[llength $value] == 0} {
             set value 0
     }
@@ -183,29 +183,29 @@ proc xdefine_axispi_params_instance {file_handle periph device_id} {
 
 proc xdefine_axispi_params_canonical {file_handle periph device_id} {
 
-    set xip_mode_value [get_property CONFIG.C_XIP_MODE $periph]
+    set xip_mode_value [common::get_property CONFIG.C_XIP_MODE $periph]
     if {[llength $xip_mode_value] == 0} {
       set xip_mode_value 0
     }
-    set axi_type_value [get_property CONFIG.C_TYPE_OF_AXI4_INTERFACE $periph]
+    set axi_type_value [common::get_property CONFIG.C_TYPE_OF_AXI4_INTERFACE $periph]
     if {[llength $axi_type_value] == 0} {
        set axi_type_value 0
     }
-    set axi4_baseaddr_value [get_property CONFIG.C_S_AXI4_BASEADDR $periph]
+    set axi4_baseaddr_value [common::get_property CONFIG.C_S_AXI4_BASEADDR $periph]
     if {[llength $axi4_baseaddr_value] == 0} {
 	 set axi4_baseaddr_value 0
     }
-    set axi4_highaddr_value [get_property CONFIG.C_S_AXI4_HIGHADDR $periph]
+    set axi4_highaddr_value [common::get_property CONFIG.C_S_AXI4_HIGHADDR $periph]
     if {[llength $axi4_highaddr_value] == 0} {
 	 set axi4_highaddr_value 0
     }
     
-    set use_startup_value [get_property CONFIG.C_USE_STARTUP $periph]
+    set use_startup_value [common::get_property CONFIG.C_USE_STARTUP $periph]
     if {[llength $use_startup_value] == 0} {
 	set use_startup_value 0
     }
     
-    puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [get_property NAME $periph]] */"
+    puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 
     set canonical_tag [string toupper [format "XPAR_SPI_%d" $device_id]]
 
@@ -217,10 +217,10 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
     if {$xip_mode_value == 0} {
 	if {$axi_type_value == 0} { 
 		set canonical_name  [format "%s_BASEADDR" $canonical_tag]
-		puts $file_handle "\#define $canonical_name [get_property CONFIG.C_BASEADDR $periph]"
+		puts $file_handle "\#define $canonical_name [common::get_property CONFIG.C_BASEADDR $periph]"
                 add_field_to_periph_config_struct_spi $device_id $canonical_name
                 set canonical_name  [format "%s_HIGHADDR" $canonical_tag]
-                puts $file_handle "\#define $canonical_name [get_property CONFIG.C_HIGHADDR $periph]"
+                puts $file_handle "\#define $canonical_name [common::get_property CONFIG.C_HIGHADDR $periph]"
 	} else {
 		set canonical_name  [format "%s_BASEADDR" $canonical_tag]
 		puts $file_handle "\#define $canonical_name $axi4_baseaddr_value"
@@ -230,15 +230,15 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
 	}
     } else {
         set canonical_name  [format "%s_BASEADDR" $canonical_tag]
-	puts $file_handle "\#define $canonical_name [get_property CONFIG.C_BASEADDR $periph]"
+	puts $file_handle "\#define $canonical_name [common::get_property CONFIG.C_BASEADDR $periph]"
 	add_field_to_periph_config_struct_spi $device_id $canonical_name
 	set canonical_name  [format "%s_HIGHADDR" $canonical_tag]
-        puts $file_handle "\#define $canonical_name [get_property CONFIG.C_HIGHADDR $periph]"
+        puts $file_handle "\#define $canonical_name [common::get_property CONFIG.C_HIGHADDR $periph]"
     }
     set canonical_name  [format "%s_FIFO_EXIST" $canonical_tag]
-    set value [get_property CONFIG.C_FIFO_EXIST $periph]
+    set value [common::get_property CONFIG.C_FIFO_EXIST $periph]
     if {[llength $value] == 0} {
-        set value1 [get_property CONFIG.C_FIFO_DEPTH $periph]
+        set value1 [common::get_property CONFIG.C_FIFO_DEPTH $periph]
         if {[llength $value1] == 0} {
 	    set value1 0
     	} else {
@@ -257,7 +257,7 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct_spi $device_id $canonical_name
     
     set canonical_name  [format "%s_SPI_SLAVE_ONLY" $canonical_tag]
-    set value [get_property CONFIG.C_SPI_SLAVE_ONLY $periph]
+    set value [common::get_property CONFIG.C_SPI_SLAVE_ONLY $periph]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -265,7 +265,7 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct_spi $device_id $canonical_name
 
     set canonical_name  [format "%s_NUM_SS_BITS" $canonical_tag]
-    set value [get_property CONFIG.C_NUM_SS_BITS $periph]
+    set value [common::get_property CONFIG.C_NUM_SS_BITS $periph]
     if {[llength $value] == 0} {
         set value 0
     }
@@ -273,7 +273,7 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct_spi $device_id $canonical_name
 
     set canonical_name  [format "%s_NUM_TRANSFER_BITS" $canonical_tag]
-    set value [get_property CONFIG.C_NUM_TRANSFER_BITS $periph]
+    set value [common::get_property CONFIG.C_NUM_TRANSFER_BITS $periph]
     if {[llength $value] == 0} {
     	set value 0
     }
@@ -281,7 +281,7 @@ proc xdefine_axispi_params_canonical {file_handle periph device_id} {
     add_field_to_periph_config_struct_spi $device_id $canonical_name
 
     set canonical_name  [format "%s_SPI_MODE" $canonical_tag]
-    set value [get_property CONFIG.C_SPI_MODE $periph]
+    set value [common::get_property CONFIG.C_SPI_MODE $periph]
     if {[llength $value] == 0} {
        	set value 0
     }
