@@ -59,7 +59,7 @@
  * A table of configuration structures containing the configuration information
  * for each DisplayPort TX core in the system.
  */
-extern XDp_Config XDp_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
+extern XDp_Config XDp_ConfigTable[XPAR_XDP_NUM_INSTANCES];
 
 /**************************** Function Definitions ****************************/
 
@@ -82,7 +82,7 @@ XDp_Config *XDp_LookupConfig(u16 DeviceId)
 	XDp_Config *CfgPtr;
 	u32 Index;
 
-	for (Index = 0; Index < XPAR_XDPTX_NUM_INSTANCES; Index++) {
+	for (Index = 0; Index < XPAR_XDP_NUM_INSTANCES; Index++) {
 		if (XDp_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XDp_ConfigTable[Index];
 			break;
