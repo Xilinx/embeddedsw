@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  *
- * @file xdptx_sinit.c
+ * @file xdp_sinit.c
  *
  * This file contains static initialization methods for the XDptx driver.
  *
@@ -77,7 +77,7 @@ extern XDptx_Config XDptx_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
  * @note	None.
  *
 *******************************************************************************/
-XDptx_Config *XDptx_LookupConfig(u16 DeviceId)
+XDptx_Config *XDp_LookupConfig(u16 DeviceId)
 {
 	XDptx_Config *CfgPtr;
 	u32 Index;

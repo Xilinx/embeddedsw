@@ -226,6 +226,7 @@
 
 /******************************* Include Files ********************************/
 
+#include "xdp.h"
 #include "xdptx_hw.h"
 #include "xil_assert.h"
 #include "xil_types.h"
@@ -684,9 +685,6 @@ void XDptx_HpdInterruptHandler(XDptx *InstancePtr);
 
 /* xdptx_selftest.c: Self test function. */
 u32 XDptx_SelfTest(XDptx *InstancePtr);
-
-/* xdptx_sinit.c: Configuration extraction function.*/
-XDptx_Config *XDptx_LookupConfig(u16 DeviceId);
 
 /* xdptx_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST mode. */
