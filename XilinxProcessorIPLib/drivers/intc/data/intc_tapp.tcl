@@ -100,16 +100,16 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 set cascade [check_cascade $mhsinst]
 if {$cascade == 1} {
-	set iscascade [get_property CONFIG.C_EN_CASCADE_MODE $mhsinst]
-	set ismaster [get_property CONFIG.C_CASCADE_MASTER $mhsinst]
+	set iscascade [common::get_property CONFIG.C_EN_CASCADE_MODE $mhsinst]
+	set ismaster [common::get_property CONFIG.C_CASCADE_MASTER $mhsinst]
 	if {!($iscascade == 1 && $ismaster == 1)} {
-    		return ""
+		return ""
 	}
  }
 
-  set ipname [get_property NAME  $mhsinst]
+  set ipname [common::get_property NAME  $mhsinst]
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
@@ -191,12 +191,12 @@ proc check_cascade {mhsinst} {
 		set i 0
 		set source_pins [::hsi::utils::get_interrupt_sources $periph]
         foreach source_pin $source_pins {
-            set source_pin_name($i) [get_property NAME $source_pin]
+            set source_pin_name($i) [common::get_property NAME $source_pin]
             if { [::hsi::utils::is_external_pin $source_pin] } {
                 continue
             }
             set source_periph [hsi::get_cells -of_objects $source_pin ]
-            set source_type [get_property IP_TYPE $source_periph]
+            set source_type [common::get_property IP_TYPE $source_periph]
             if {[string compare -nocase $source_type "INTERRUPT_CNTLR"] == 0} {
 		return 1
             }

@@ -50,9 +50,9 @@
 ##		CR565336
 ##     06/15/11 hvm Updated tcl with bypassing the external interrupt definition
 ##		in xredefine_intc function. CR613925.
-##     01/19/12 Updated the intc_define_use_dcr function so that it doesnot 
-##              error out if there is more than one bus interface to the 
-##              intc controller. The new version of the AXI_INTC can have two
+##     01/19/12 Updated the intc_define_use_dcr function so that it doesnot
+##              error out if there is more than one bus interface to the
+##              intc controller. The new common::version of the AXI_INTC can have two
 ##              bus interfaces to support the fast interrupt for MicroBlaze.
 ##              Updated for the generation of the C_HAS_FAST xparameters
 ##     08/16/12 bss added generation of C_IVAR_RESET_VALUE xparameters
@@ -113,7 +113,7 @@ proc generate {drv_handle} {
 	} else {
 		set maxintrs 0
 		foreach periph $periphs {
-			set intrs [get_property CONFIG.C_NUM_INTR_INPUTS $periph]
+			set intrs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
 			set maxintrs [expr "$maxintrs + $intrs"]
 		}
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -192,15 +192,15 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
     set start_comma ""
     foreach periph $periphs {
         if {$cascade == 1} {
-            puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [get_property NAME $periph ]] "TYPE" [get_intctype $periph]] 
+            puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [common::get_property NAME $periph ]] "TYPE" [get_intctype $periph]]
         } else {
-            puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [get_property NAME $periph ]] "TYPE" $cascade]
+            puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [common::get_property NAME $periph ]] "TYPE" $cascade]
         }
         puts $tmp_config_file [format "%s\t\{" $start_comma]
             set comma ""
             foreach arg $args {
                 # Check if this is a driver parameter or a peripheral parameter
-                set value [get_property CONFIG.$arg $drv_handle ]
+                set value [common::get_property CONFIG.$arg $drv_handle ]
             if {[llength $value] == 0} {
                 puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
             } else {
@@ -209,12 +209,12 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
             set comma ",\n"
         }
         # add the OPTIONS as an arg to the config table - default OPTIONS value is XIN_SVC_SGL_ISR_OPTION
-    		puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma $isr_options]
-    		puts -nonewline $tmp_config_file ",\n\t\t"
-    		puts -nonewline $tmp_config_file [format "XPAR_%s_%s" [string toupper [get_property NAME $periph]] "TYPE"]
-		
-    		# generate the vector table for this intc instance
-    		intc_define_vector_table $periph $config_inc $tmp_config_file
+		puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma $isr_options]
+		puts -nonewline $tmp_config_file ",\n\t\t"
+		puts -nonewline $tmp_config_file [format "XPAR_%s_%s" [string toupper [common::get_property NAME $periph]] "TYPE"]
+
+		# generate the vector table for this intc instance
+		intc_define_vector_table $periph $config_inc $tmp_config_file
 
     		puts $config_inc "\n/******************************************************************/\n"
 
@@ -248,14 +248,14 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	variable intrid
 	variable cascade
 
-	set periph_name [get_property NAME $periph]
+	set periph_name [common::get_property NAME $periph]
     set interrupt_pin [hsi::get_pins -of_objects $periph intr]
 
 	# Get pins/ports that are driving the interrupt
 	lappend source_pins
 	set source_pins [::hsi::utils::get_source_pins $interrupt_pin]
 
-    set num_intr_inputs [get_property CONFIG.C_NUM_INTR_INPUTS $periph]
+    set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
 
     #calculate the total interrupt sources
 
@@ -273,7 +273,7 @@ proc intc_define_vector_table {periph config_inc config_file} {
             #external interrupt port case
             set width [::hsi::utils::get_port_width $source_pin]
             for { set j 0 } { $j < $width } { incr j } {
-                set source_port_name($i) "[get_property NAME $source_pin]_$j"
+                set source_port_name($i) "[common::get_property NAME $source_pin]_$j"
                 set source_name($i) "system"
                 set port_type($i) "global"
                 set source_driver ""
@@ -284,8 +284,8 @@ proc intc_define_vector_table {periph config_inc config_file} {
             #peripheral interrrupt case
             set source_periph [hsi::get_cells -of_objects $source_pin ]
             set port_type($i) "local"
-            set source_name($i) [get_property NAME $source_periph]
-            set source_port_name($i) [get_property NAME $source_pin]
+            set source_name($i) [common::get_property NAME $source_periph]
+            set source_port_name($i) [common::get_property NAME $source_pin]
             set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph"]
 		set source_interrupt_handler($i) $default_interrupt_handler
             incr i
@@ -354,7 +354,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -375,7 +375,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
@@ -435,7 +435,7 @@ proc xredefine_intc {drvhandle config_inc} {
     foreach periph $periphs {
 
         # Get the edk based name of peripheral for printing redefines
-        set periph_ip_name [get_property NAME $periph]
+        set periph_ip_name [common::get_property NAME $periph]
 
         # Get ports that are driving the interrupt
         set source_pins [::hsi::utils::get_interrupt_sources $periph]
@@ -445,7 +445,7 @@ proc xredefine_intc {drvhandle config_inc} {
         set i 0
         lappend source_list
         foreach source_pin $source_pins {
-            set source_pin_name($i) [get_property NAME $source_pin]
+            set source_pin_name($i) [common::get_property NAME $source_pin]
             if {[::hsi::utils::is_external_pin $source_pin]} {
                 set width [::hsi::utils::get_port_width $source_pin]
                 for { set j 0 } { $j < $width } { incr j } {
@@ -455,14 +455,14 @@ proc xredefine_intc {drvhandle config_inc} {
                 }
             } else {
                 set source_periph [hsi::get_cells -of_objects $source_pin]
-                set source_name($i) [get_property NAME $source_periph]
+                set source_name($i) [common::get_property NAME $source_periph]
                 lappend source_list $source_name($i)
                 incr i
             }
 
         }
 
-        set num_intr_inputs [get_property CONFIG.C_NUM_INTR_INPUTS $periph]
+        set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
         for {set i 0} {$i < $num_intr_inputs} {incr i} {
 
             if {[string compare -nocase $source_name($i) "system"] == 0} {
@@ -473,7 +473,7 @@ proc xredefine_intc {drvhandle config_inc} {
             if {[llength $source_name($i)] != 0 && [llength $drv] != 0} {
 
                 set instance [xfind_instance $drv $source_name($i)]
-                set drvname [get_property NAME $drv]
+                set drvname [common::get_property NAME $drv]
 
                 #
                 # Handle reference cores, which have non-reference driver names
@@ -566,7 +566,7 @@ proc xfind_instance {drvhandle instname} {
     set instlist [::hsi::utils::get_common_driver_ips $drvhandle]
     set i 0
     foreach inst $instlist {
-        set name [get_property NAME $inst]
+        set name [common::get_property NAME $inst]
         if {[string compare -nocase $instname $name] == 0} {
             return $i
         }
@@ -587,12 +587,12 @@ proc check_cascade {drv_handle} {
 		set i 0
 		set source_pins [::hsi::utils::get_interrupt_sources $periph]
         foreach source_pin $source_pins {
-            set source_pin_name($i) [get_property NAME $source_pin]
+            set source_pin_name($i) [common::get_property NAME $source_pin]
             if { [::hsi::utils::is_external_pin $source_pin] } {
                 continue
             }
             set source_periph [hsi::get_cells -of_objects $source_pin ]
-            set source_type [get_property IP_TYPE $source_periph]
+            set source_type [common::get_property IP_TYPE $source_periph]
             if {[string compare -nocase $source_type "INTERRUPT_CNTLR"] == 0} {
 		return 1
             }
