@@ -72,7 +72,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #define INTC_DEVICE_INT_ID	0x0E
 
 /**************************** Type Definitions *******************************/

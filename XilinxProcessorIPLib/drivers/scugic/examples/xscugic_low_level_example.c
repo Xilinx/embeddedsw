@@ -71,8 +71,8 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define CPU_BASEADDR		XPAR_SCUGIC_CPU_BASEADDR
-#define DIST_BASEADDR		XPAR_SCUGIC_DIST_BASEADDR
+#define CPU_BASEADDR		XPAR_SCUGIC_0_CPU_BASEADDR
+#define DIST_BASEADDR		XPAR_SCUGIC_0_DIST_BASEADDR
 
 
 #define GIC_DEVICE_INT_MASK        0x02010003 /* Bit [25:24] Target list filter
