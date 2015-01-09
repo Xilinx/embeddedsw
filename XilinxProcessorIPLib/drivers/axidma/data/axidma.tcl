@@ -62,7 +62,7 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+	puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
 	# Define NUM_INSTANCES
 	puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
 	set args [lreplace $args $posn $posn]
@@ -71,11 +71,11 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
 
     lappend newargs 
     foreach arg $args {
-	set value [get_property CONFIG.$arg $drv_handle]
+	set value [common::get_property CONFIG.$arg $drv_handle]
 	if {[llength $value] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [xget_dname $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
+	    puts $file_handle "#define [xget_dname $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]"
 	}
     }
     set args $newargs
@@ -84,7 +84,7 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
 	puts $file_handle ""
-	puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 	foreach arg $args {
 	    if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
 		set value $device_id
@@ -138,7 +138,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -160,7 +160,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
