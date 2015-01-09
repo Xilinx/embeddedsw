@@ -90,7 +90,7 @@ proc gen_testfunc_def {swproj mhsinst} {
 
 proc gen_init_code {swproj mhsinst} {
     if {$swproj == 1} {
-        set ipname [get_property NAME  $mhsinst]
+        set ipname [common::get_property NAME  $mhsinst]
         set ifintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifintr == 1} {
             set decl "   static XIOModule ${ipname}_IOModule;"
@@ -106,9 +106,9 @@ proc gen_testfunc_call {swproj mhsinst} {
         return ""
     }
 
-    set ipname [get_property NAME $mhsinst] 
+    set ipname [common::get_property NAME $mhsinst]
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
@@ -116,7 +116,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
     set iomodulevar "${ipname}_IOModule"
     set ifintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
-    set extintr [get_property CONFIG.C_INTC_USE_EXT_INTR $mhsinst]
+    set extintr [common::get_property CONFIG.C_INTC_USE_EXT_INTR $mhsinst]
     set testfunc_call ""
 
     if {${hasStdout} == 0} {

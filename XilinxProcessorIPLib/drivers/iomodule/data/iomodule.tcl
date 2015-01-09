@@ -189,7 +189,7 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
         set comma ""
         foreach arg $args {
             # Check if this is a driver parameter or a peripheral parameter
-            set value [get_property CONFIG.$arg $drv_handle]
+            set value [common::get_property CONFIG.$arg $drv_handle]
             if {[llength $value] == 0} {
                 puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
             } else {
@@ -289,7 +289,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
     variable interrupt_handlers
     variable default_interrupt_handler
 
-    set periph_name [get_property NAME $periph]
+    set periph_name [common::get_property NAME $periph]
 
     # Get ports that are driving the interrupt
     set source_ports [hsi::utils::get_interrupt_sources $periph]
@@ -308,7 +308,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
             #external interrupt port case
             set width [hsi::utils::get_port_width $source_pin]
             for { set j 0 } { $j < $width } { incr j } {
-                set source_port_name($i) "[get_property NAME $source_pin]_$j"
+                set source_port_name($i) "[common::get_property NAME $source_pin]_$j"
                 set source_name($i) "system"
                 set port_type($i) "global"
                 set source_driver ""
@@ -318,8 +318,8 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
         } else {
             #peripheral interrrupt case
             set port_type($i) "local"
-            set source_name($i) [get_property NAME $source_periph]
-            set source_port_name($i) [get_property NAME $source_pin]
+            set source_name($i) [common::get_property NAME $source_periph]
+            set source_port_name($i) [common::get_property NAME $source_pin]
             set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph"]
     		set source_interrupt_handler($i) $default_interrupt_handler
             incr i
@@ -329,15 +329,15 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
             if {[string compare -nocase $int_array ""] != 0} {
                 set int_array_elems [xget_handle $int_array "ELEMENTS" "*"]
                 foreach int_array_elem $int_array_elems {
-                    set int_port [get_property CONFIG.int_port $int_array_elem]
-                    set mhs_handle [get_property CONFIG.mhsinst $int_array_elem]
+                    set int_port [common::get_property CONFIG.int_port $int_array_elem]
+                    set mhs_handle [common::get_property CONFIG.mhsinst $int_array_elem]
                     if {[string compare -nocase $int_port $source_port_name] == 0 && \
                         $mhs_handle == $source_periph } {
-                        set source_interrupt_handler($i) [get_property CONFIG.int_handler $int_array_elem]
+                        set source_interrupt_handler($i) [common::get_property CONFIG.int_handler $int_array_elem]
                         # copy this handler to interrupt_handlers
                         set arrsize [array size interrupt_handlers]
                         iomodule_add_handler $source_interrupt_handler($i)
-                        set source_handler_arg($i) [get_property CONFIG.int_handler_arg $int_array_elem]
+                        set source_handler_arg($i) [common::get_property CONFIG.int_handler_arg $int_array_elem]
                         if {[string compare -nocase $source_handler_arg($i) DEVICE_ID] == 0 } {
                             set source_handler_arg($i) [::hsi::utils::get_ip_param_name $source_periph "DEVICE_ID"]
                         }
@@ -421,7 +421,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
         puts $file_handle ""
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
         set canonical_name [format "%s_%s" $drv_string $device_id]
 
         # Make sure canonical name is not the same as hardware instance
@@ -439,7 +439,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 	    	set sizearg [format "C_PIT%d_SIZE" $size]
 	    	set lvalue [format "C_PIT%d_EXPIRED_MASK" $size]
 		set lvalue [hsi::utils::get_driver_param_name $canonical_name $lvalue]
-	    	set rvalue [get_property CONFIG.$sizearg $periph]
+		set rvalue [common::get_property CONFIG.$sizearg $periph]
 	    	set rvalue [expr pow(2, $rvalue) - 1]
 	    	set rvalue [format "%.0f" $rvalue]
 	    	set rvalue [format "0x%08X" $rvalue]
@@ -448,7 +448,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
  # The commented out rvalue is the name of the instance-specific constant
  #              set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
 	    	# The rvalue set below is the actual value of the parameter
-            	set rvalue [get_property CONFIG.$arg  $periph]
+		set rvalue [common::get_property CONFIG.$arg  $periph]
             }          
             if {[llength $rvalue] == 0} {
                 set rvalue 0
@@ -485,7 +485,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
     foreach periph $periphs {
 
         # Get the edk based name of peripheral for printing redefines
-        set edk_periph_name [get_property NAME $periph]
+        set edk_periph_name [common::get_property NAME $periph]
 
         # Get ports that are driving the interrupt
         set source_ports [hsi::utils::get_interrupt_sources $periph]
@@ -498,7 +498,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
             #external interrupt port case
             set width [hsi::utils::get_port_width $source_pin]
             for { set j 0 } { $j < $width } { incr j } {
-                set source_port_name($i) "[get_property NAME $source_pin]_$j"
+                set source_port_name($i) "[common::get_property NAME $source_pin]_$j"
                 set source_name($i) "system"
                 set port_type($i) "global"
                 set source_driver ""
@@ -509,8 +509,8 @@ proc xredefine_iomodule {drvhandle config_inc} {
         } else {
             #peripheral interrrupt case
             set port_type($i) "local"
-            set source_name($i) [get_property NAME $source_periph($i)]
-            set source_port_name($i) [get_property NAME $source_pin]
+            set source_name($i) [common::get_property NAME $source_periph($i)]
+            set source_port_name($i) [common::get_property NAME $source_pin]
             set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph($i)"]
     	    set source_interrupt_handler($i) $default_interrupt_handler
 	    lappend source_list $source_name($i)
@@ -525,20 +525,20 @@ proc xredefine_iomodule {drvhandle config_inc} {
             if {$source_periph($i) == ""} {
                 continue
             }
-            set port_type($i) [get_property TYPE $source_periph($i)]
+            set port_type($i) [common::get_property TYPE $source_periph($i)]
             if {[string compare -nocase $port_type($i) "global"] == 0} {
                 continue
             }
 
             set drv [hsi::get_drivers -filter "HW_INSTANCE==$source_name($i)"]
-            set iptype [get_property IPTYPE $source_periph($i)]
+            set iptype [common::get_property IPTYPE $source_periph($i)]
 
 #           if {[llength $source_name($i)] != 0 && [llength $drv] != 0 && 
 #               [string compare -nocase $iptype "PERIPHERAL"] == 0}
             if {[llength $source_name($i)] != 0 && [llength $drv] != 0} {
 
                 set instance [xfind_instance $drv $source_name($i)]
-                set drvname [get_property NAME $drv]
+                set drvname [common::get_property NAME $drv]
 
                 #
                 # Handle reference cores, which have non-reference driver names
@@ -617,7 +617,7 @@ proc xfind_instance {drvhandle instname} {
     set instlist [hsi::utils::get_common_driver_ips $drvhandle]
     set i 0
     foreach inst $instlist {
-        set name [get_property NAME $inst]
+        set name [common::get_property NAME $inst]
         if {[string compare -nocase $instname $name] == 0} {
             return $i
         }
@@ -646,9 +646,9 @@ proc xget_port_type {periph} {
 # Get number of used external interrupts
 ##########################################################################
 proc get_num_intr_inputs {periph} {
-    set intc_use_ext_intr [get_property CONFIG.C_INTC_USE_EXT_INTR $periph]
+    set intc_use_ext_intr [common::get_property CONFIG.C_INTC_USE_EXT_INTR $periph]
     if {$intc_use_ext_intr} {
-        set num_intr_inputs [get_property CONFIG.C_INTC_INTR_SIZE $periph]
+        set num_intr_inputs [common::get_property CONFIG.C_INTC_INTR_SIZE $periph]
     } else {
         set num_intr_inputs 0
     }
@@ -660,13 +660,13 @@ proc get_num_intr_inputs {periph} {
 # Get number of used internal interrupts
 ##########################################################################
 proc get_num_intr_internal {periph} {
-    set c_use_uart_rx          [get_property CONFIG.C_USE_UART_RX $periph]
-    set c_uart_error_interrupt [get_property CONFIG.C_UART_ERROR_INTERRUPT $periph]
-    set c_uart_rx_interrupt    [get_property CONFIG.C_UART_RX_INTERRUPT $periph]
-    set c_use_uart_tx          [get_property CONFIG.C_USE_UART_TX $periph]
-    set c_uart_tx_interrupt    [get_property CONFIG.C_UART_TX_INTERRUPT $periph]
-    set c_intc_use_ext_intr    [get_property CONFIG.C_INTC_USE_EXT_INTR $periph]
-    set c_intc_intr_size       [get_property CONFIG.C_INTC_INTR_SIZE $periph]
+    set c_use_uart_rx          [common::get_property CONFIG.C_USE_UART_RX $periph]
+    set c_uart_error_interrupt [common::get_property CONFIG.C_UART_ERROR_INTERRUPT $periph]
+    set c_uart_rx_interrupt    [common::get_property CONFIG.C_UART_RX_INTERRUPT $periph]
+    set c_use_uart_tx          [common::get_property CONFIG.C_USE_UART_TX $periph]
+    set c_uart_tx_interrupt    [common::get_property CONFIG.C_UART_TX_INTERRUPT $periph]
+    set c_intc_use_ext_intr    [common::get_property CONFIG.C_INTC_USE_EXT_INTR $periph]
+    set c_intc_intr_size       [common::get_property CONFIG.C_INTC_INTR_SIZE $periph]
 
     set num_intr_internal 0
     if {$c_use_uart_tx * $c_use_uart_rx * $c_uart_error_interrupt} { set num_intr_internal 1 }
@@ -674,8 +674,8 @@ proc get_num_intr_internal {periph} {
     if {$c_use_uart_rx * $c_uart_rx_interrupt}                     { set num_intr_internal 3 }
     foreach kind {PIT FIT GPI} suffix {"SIZE" "No_CLOCKS" "INTERRUPT"} intbit {3 7 11} {
       foreach it {1 2 3 4} {
-        set c_use_it       [expr [get_property CONFIG.C_${kind}${it}_${suffix} $periph] > 0]
-        set c_it_interrupt [get_property CONFIG.C_${kind}${it}_INTERRUPT $periph]
+        set c_use_it       [expr [common::get_property CONFIG.C_${kind}${it}_${suffix} $periph] > 0]
+        set c_it_interrupt [common::get_property CONFIG.C_${kind}${it}_INTERRUPT $periph]
         if {$c_use_it * $c_it_interrupt} { set num_intr_internal [expr $intbit + $it] }
       }
     }
@@ -704,9 +704,9 @@ proc xdefine_include_file_hex {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
         puts $file_handle ""
-        puts $file_handle "/* Additional definitions for peripheral [string toupper [get_property NAME  $periph]] */"
+        puts $file_handle "/* Additional definitions for peripheral [string toupper [common::get_property NAME  $periph]] */"
         foreach arg $args {
-            set value [get_property CONFIG.$arg $periph]
+            set value [common::get_property CONFIG.$arg $periph]
             if {[llength $value] == 0} {
                 set value 0
             }
@@ -744,7 +744,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-        puts $file_handle "/* Definitions for driver [string toupper [get_property name $drv_handle]] */"
+        puts $file_handle "/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
         puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
@@ -753,11 +753,11 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Check if it is a driver parameter
     lappend newargs 
     foreach arg $args {
-        set value [get_property CONFIG.$arg $drv_handle]
+        set value [common::get_property CONFIG.$arg $drv_handle]
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [get_property $arg $drv_handle]"
+            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]"
         }
     }
     set args $newargs
@@ -766,7 +766,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
         puts $file_handle ""
-        puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+        puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
         foreach arg $args {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
                 set value $device_id
@@ -777,14 +777,14 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 	        	set size [string index $arg [expr $charindex - 1]]
 	        	set sizearg [format "C_PIT%d_SIZE" $size]
 	        	set lvalue [format "PIT%d_EXPIRED_MASK" $size]
-	            	set lvalue [format "XPAR_%s_%s" [string toupper [get_property NAME $periph]] $lvalue]
-	                set rvalue [get_property CONFIG.$sizearg $periph]
+			set lvalue [format "XPAR_%s_%s" [string toupper [common::get_property NAME $periph]] $lvalue]
+	                set rvalue [common::get_property CONFIG.$sizearg $periph]
 	                set rvalue [expr pow(2, $rvalue) - 1]
 	                set rvalue [format "%.0f" $rvalue]
 	                set rvalue [format "0x%08X" $rvalue]
 	                set flag 1
 		} else {
-	         	set value [get_property CONFIG.$arg $periph]
+			set value [common::get_property CONFIG.$arg $periph]
             	}
             }
             if {[llength $value] == 0} {
