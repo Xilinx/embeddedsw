@@ -97,8 +97,8 @@ static int TmrCtrLowLevelExample(u8 SettingsTableOffset);
  * xttcps_hw.h
  */
 static u32 TimerCounterBaseAddr[] = {
-	XPS_TTC0_BASEADDR,
-	XPS_TTC1_BASEADDR
+	XPAR_XTTCPS_0_BASEADDR,
+	XPAR_XTTCPS_1_BASEADDR
 };
 
 /*
