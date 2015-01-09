@@ -78,7 +78,7 @@ proc generate {drv_handle} {
     # 1. Copy libc, libm and libxil files..
     # 2. Generate the attribute interrupt_handler for the interrupting source...
     #---------------------------------------------------------------------------
-    set compiler [get_property CONFIG.compiler $drv_handle]
+    set compiler [common::get_property CONFIG.compiler $drv_handle]
     # preserve case
     set temp $compiler
     set compiler [string tolower $compiler]
@@ -121,10 +121,10 @@ proc generate {drv_handle} {
         set libm "libm"
 
         set sw_proc_handle [hsi::get_sw_processor]
-        set periph [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-        set proctype [get_property IP_NAME $periph]
+        set periph [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+        set proctype [common::get_property IP_NAME $periph]
 
-        set endian [get_property CONFIG.C_ENDIANNESS $periph]
+        set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
         if {[string compare -nocase "1" $endian] == 0 } {
             set endian "_le"
                 set libxil_endian "le"
@@ -133,18 +133,18 @@ proc generate {drv_handle} {
                 set libxil_endian ""
             }
 
-        set shift [get_property CONFIG.C_USE_BARREL $periph]
+        set shift [common::get_property CONFIG.C_USE_BARREL $periph]
         if {[string compare -nocase "1" $shift] == 0 } {
             set shifter "_bs"
                 set libxil_shifter "bs"
         }
 
-        set hard_float [get_property CONFIG.C_USE_FPU $periph]
+        set hard_float [common::get_property CONFIG.C_USE_FPU $periph]
         if {[string compare -nocase "1" $hard_float] == 0 || [string compare -nocase "2" $hard_float] == 0} {
             set fpu "_fpd"
         }
 
-        set pcmp [get_property CONFIG.C_USE_PCMP_INSTR $periph]
+        set pcmp [common::get_property CONFIG.C_USE_PCMP_INSTR $periph]
         if {[string compare -nocase "1" $pcmp] == 0 } {
             set pattern "_p"
         }
@@ -154,9 +154,9 @@ proc generate {drv_handle} {
         # If so, then use it. Else find the C_FAMILY
         # and set the multiplier accordingly
         #-------------------------------------------------
-        set multiply [get_property CONFIG.C_USE_HW_MUL $periph]
+        set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
         if {[string compare -nocase "" $multiply] == 0 } {
-            set family [string tolower [get_property CONFIG.C_FAMILY $periph]
+            set family [string tolower [common::get_property CONFIG.C_FAMILY $periph]
             if {[string first "virtex" $family] >= 0 } {
             if {[string compare -nocase "virtexe" $family] == 0 } {
                 set multiplier ""
@@ -241,7 +241,7 @@ proc generate {drv_handle} {
     #------------------------------------
     # Handle xmdstub generation
     #------------------------------------
-    set xmdstub_periph [get_property CONFIG.xmdstub_peripheral $drv_handle]
+    set xmdstub_periph [common::get_property CONFIG.xmdstub_peripheral $drv_handle]
     if {[string compare -nocase "none" $xmdstub_periph] != 0 } {
         set xmdstub_periph_handle [xget_hwhandle $xmdstub_periph]
         set targetdir "../../code"
@@ -328,26 +328,26 @@ proc generate {drv_handle} {
 }
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle ]]
 
  # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]
 
    set mem_ranges [hsi::get_mem_ranges -of_objects $hw_proc_handle]
    foreach mem_range $mem_ranges {
-       set inst [get_property INSTANCE $mem_range]
+       set inst [common::get_property INSTANCE $mem_range]
        if {$inst != ""} {
             continue
        }
 
-       set bparam_name [get_property BASE_NAME $mem_range]
-       set bparam_value [get_property BASE_VALUE $mem_range]
-       set hparam_name [get_property HIGH_NAME $mem_range]
-       set hparam_value [get_property HIGH_VALUE $mem_range]
+       set bparam_name [common::get_property BASE_NAME $mem_range]
+       set bparam_value [common::get_property BASE_VALUE $mem_range]
+       set hparam_name [common::get_property HIGH_NAME $mem_range]
+       set hparam_value [common::get_property HIGH_VALUE $mem_range]
 
        # Print all parameters for all peripherals
 
-           set name [string toupper [get_property NAME $mem_range]]
+           set name [string toupper [common::get_property NAME $mem_range]]
 	   puts $file_handle ""
            puts $file_handle "/* Definitions for interface [string toupper $name] */"
            set name [format "XPAR_%s_" $name]
@@ -364,7 +364,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
                puts $file_handle "#define $name $value"
            }
 
-	   set name [string toupper [get_property NAME $mem_range]]
+	   set name [string toupper [common::get_property NAME $mem_range]]
            set name [format "XPAR_%s_" $name]
            if {$hparam_value != ""} {
                set value [::hsi::utils::format_addr_string $hparam_value $hparam_name]
