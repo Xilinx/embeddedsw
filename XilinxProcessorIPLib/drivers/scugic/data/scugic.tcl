@@ -74,7 +74,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+	puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
 	# Define NUM_INSTANCES
 	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
 	set args [lreplace $args $posn $posn]
@@ -83,21 +83,21 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 
     lappend newargs
     foreach arg $args {
-	set value [get_property CONFIG.$arg $drv_handle]
+	set value [common::get_property CONFIG.$arg $drv_handle]
 	if {[llength $value] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
+	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]"
 	}
     }
     set args $newargs
 	set procdrv [hsi::get_sw_processor]
-	set compiler [get_property CONFIG.compiler $procdrv]
+	set compiler [common::get_property CONFIG.compiler $procdrv]
     # Print all parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
 	puts $file_handle ""
-	puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 	foreach arg $args {
 		if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
 			set value $device_id
@@ -106,7 +106,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 				set value 0xF9001000
 			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
-				set value [get_property CONFIG.$arg $periph]
+				set value [common::get_property CONFIG.$arg $periph]
 			} else {
 				set value 0xF9020000
 			}
@@ -114,7 +114,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 				set value 0xF9001FFF
 			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
-				set value [get_property CONFIG.$arg $periph]
+				set value [common::get_property CONFIG.$arg $periph]
 			} else {
 				set value 0xF9020FFF
 			}
@@ -127,7 +127,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 				set value 0xF9010000
 			}
 		} else {
-			set value [get_property CONFIG.$arg $periph]
+			set value [common::get_property CONFIG.$arg $periph]
 		}
 	    if {[llength $value] == 0} {
 		set value 0
@@ -161,7 +161,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -183,9 +183,9 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 	set procdrv [hsi::get_sw_processor]
-	set compiler [get_property CONFIG.compiler $procdrv]
+	set compiler [common::get_property CONFIG.compiler $procdrv]
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
         if { [lsearch $canonicals $periph_name] < 0 } {
@@ -205,7 +205,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 				set rvalue 0xF9001000
 			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
-				set rvalue [get_property CONFIG.$arg $periph]
+				set rvalue [common::get_property CONFIG.$arg $periph]
 			} else {
 				set rvalue 0xF9020000
 			}
@@ -213,7 +213,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 				set rvalue 0xF9001FFF
 			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
-				set rvalue [get_property CONFIG.$arg $periph]
+				set rvalue [common::get_property CONFIG.$arg $periph]
 			} else {
 				set rvalue 0xF9020FFF
 			}
@@ -226,7 +226,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 				set rvalue 0xF9010000
 			}
 		} else {
-			set rvalue [get_property CONFIG.$arg $periph]
+			set rvalue [common::get_property CONFIG.$arg $periph]
 		}
 		if {[llength $rvalue] == 0} {
 			set rvalue 0
@@ -256,10 +256,10 @@ proc xdefine_gic_params {drvhandle} {
     foreach periph $periphs {
 
 	# get the gic mode information
-	set scugic_mode [get_property CONFIG.C_IRQ_F2P_MODE $periph]
+	set scugic_mode [common::get_property CONFIG.C_IRQ_F2P_MODE $periph]
 
         # Get the edk based name of peripheral for printing redefines
-        set edk_periph_name [get_property NAME $periph]
+        set edk_periph_name [common::get_property NAME $periph]
 
 	# Handle CorenIRQ/FIQ interrupts
 	xhandle_coreirq_interrupts
@@ -279,13 +279,13 @@ proc xdefine_gic_params {drvhandle} {
             } else {
 				set external_pin [::hsi::utils::is_external_pin $source_port]
 				if {$external_pin} {
-				set source_port_name($i) [get_property NAME $source_port]
+				set source_port_name($i) [common::get_property NAME $source_port]
 				set source_periph($i) "system"
 				set source_name($i) "system"
 				} else {
-                set source_port_name($i) [get_property NAME $source_port]
+                set source_port_name($i) [common::get_property NAME $source_port]
                 set source_periph($i) [hsi::get_cells -of_object $source_port]
-                set source_name($i) [get_property NAME $source_periph($i)]
+                set source_name($i) [common::get_property NAME $source_periph($i)]
             }
 			}
             lappend source_list $source_name($i)
@@ -352,7 +352,7 @@ proc xdefine_gic_params {drvhandle} {
 
             # Skip global (external) ports
 			if {[string compare -nocase $source_periph($i) "system"] != 0} {
-            set port_type [get_property TYPE $source_periph($i)]
+            set port_type [common::get_property TYPE $source_periph($i)]
             if {[string compare -nocase $port_type "global"] == 0} {
                 continue
             }
@@ -362,7 +362,7 @@ proc xdefine_gic_params {drvhandle} {
             if {[llength $source_name($i)] != 0 && [llength $drv] != 0} {
 
                 set instance [xfind_instance $drv $source_name($i)]
-                set drvname [get_property  NAME $drv]
+                set drvname [common::get_property  NAME $drv]
                 set drvname [string toupper $drvname]
 
                 #
@@ -441,7 +441,7 @@ proc xfind_instance {drvhandle instname} {
     set instlist [::hsi::utils::get_common_driver_ips $drvhandle]
     set i 0
     foreach inst $instlist {
-        set name [get_property  NAME $inst]
+        set name [common::get_property  NAME $inst]
         if {[string compare -nocase $instname $name] == 0} {
             return $i
         }
@@ -479,7 +479,7 @@ proc xhandle_coreirq_interrupts { } {
 		foreach intr_piin $intr_pins {
 			set sink_pin [::hsi::utils::get_sink_pins $intr_piin]
 			if { $sink_pin == "Core1_nIRQ" || $sink_pin == "Core0_nIRQ" } {
-				set ip_name [get_property IP_NAME [hsi::get_cells $periph]]
+				set ip_name [common::get_property IP_NAME [hsi::get_cells $periph]]
 				set periph  [string toupper $periph]
 				set intr_pin [string toupper $intr_piin]
 				if {$ip_name != "ps7_scugic" } {
@@ -489,7 +489,7 @@ proc xhandle_coreirq_interrupts { } {
 					close $file_handle
 				}
 			} elseif { $sink_pin == "Core0_nFIQ" || $sink_pin == "Core1_nFIQ" } {
-				set ip_name [get_property IP_NAME [hsi::get_cells $periph]]
+				set ip_name [common::get_property IP_NAME [hsi::get_cells $periph]]
 				set periph  [string toupper $periph]
 				set intr_pin [string toupper $intr_piin]
 				if {$ip_name != "ps7_scugic" } {

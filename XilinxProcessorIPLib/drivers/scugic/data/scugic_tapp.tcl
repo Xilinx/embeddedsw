@@ -85,10 +85,10 @@ proc gen_testfunc_call {swproj mhsinst} {
     return ""
   }
 
-  set ipname [get_property NAME $mhsinst]
+  set ipname [common::get_property NAME $mhsinst]
   set decl "   static XScuGic ${ipname};"
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
      set hasStdout 0
   } else {
