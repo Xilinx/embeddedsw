@@ -34,7 +34,7 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 1.0	pkp  07/21/14 Initial version
+# 1.0	pkp  07/21/14 Initial common::version
 #
 ##############################################################################
 #uses "xillib.tcl"
@@ -53,9 +53,9 @@ proc generate {drv_handle} {
 proc xdefine_cortexa53_params {drvhandle} {
 
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle ]]
     set procdrv [get_sw_processor]
-    set archiver [get_property CONFIG.archiver $procdrv]
+    set archiver [common::get_property CONFIG.archiver $procdrv]
     if {[string first "iarchive" $archiver] < 0 } {
     } else {
 	 set libxil_a [file join .. .. lib libxil.a]
@@ -75,7 +75,7 @@ proc xdefine_cortexa53_params {drvhandle} {
     puts $config_inc "/* Definition for CPU ID */"
 
     foreach periph $periphs {
-        set iname [get_property NAME $periph]
+        set iname [common::get_property NAME $periph]
 
 	#-----------
 	# Set CPU ID
@@ -94,28 +94,28 @@ proc xdefine_cortexa53_params {drvhandle} {
 
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle ]]
 
  # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]
 
    set mem_ranges [hsi::get_mem_ranges -of_objects $hw_proc_handle]
    foreach mem_range $mem_ranges {
-       set inst [get_property INSTANCE $mem_range]
+       set inst [common::get_property INSTANCE $mem_range]
        if {$inst != ""} {
             continue
        }
 
 
-       set bparam_name [get_property BASE_NAME $mem_range]
-       set bparam_value [get_property BASE_VALUE $mem_range]
-       set hparam_name [get_property HIGH_NAME $mem_range]
-       set hparam_value [get_property HIGH_VALUE $mem_range]
+       set bparam_name [common::get_property BASE_NAME $mem_range]
+       set bparam_value [common::get_property BASE_VALUE $mem_range]
+       set hparam_name [common::get_property HIGH_NAME $mem_range]
+       set hparam_value [common::get_property HIGH_VALUE $mem_range]
 
        # Print all parameters for all peripherals
 
 
-           set name [string toupper [get_property NAME $mem_range]]
+           set name [string toupper [common::get_property NAME $mem_range]]
 	   puts $file_handle ""
            puts $file_handle "/* Definitions for interface [string toupper $name] */"
            set name [format "XPAR_%s_" $name]
@@ -133,7 +133,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
                puts $file_handle "#define $name $value"
            }
 
-	   set name [string toupper [get_property NAME $mem_range]]
+	   set name [string toupper [common::get_property NAME $mem_range]]
            set name [format "XPAR_%s_" $name]
            if {$hparam_value != ""} {
                set value [::hsi::utils::format_addr_string $hparam_value $hparam_name]
