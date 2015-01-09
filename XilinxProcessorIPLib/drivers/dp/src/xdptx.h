@@ -517,6 +517,11 @@ typedef void (*XDptx_HpdPulseHandler)(void *InstancePtr);
  * this type is then passed to the driver API functions.
  */
 typedef struct {
+	XDp_Config Config;			/**< Configuration structure for
+							the DisplayPort TX
+							core. It is important to
+							keep this member first
+							in the XDptx order. */
 	u32 MstEnable;				/**< Multi-stream transport
 							(MST) mode. Enables
 							functionality, allowing
@@ -528,9 +533,6 @@ typedef struct {
 	u8 TrainAdaptive;			/**< Downshift lane count and
 							link rate if necessary
 							during training. */
-	XDp_Config Config;			/**< Configuration structure for
-							the DisplayPort TX
-							core. */
 	XDptx_SinkConfig RxConfig;		/**< Configuration structure for
 							the RX device. */
 	XDptx_LinkConfig LinkConfig;		/**< Configuration structure for
