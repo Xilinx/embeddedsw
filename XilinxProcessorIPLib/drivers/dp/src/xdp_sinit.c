@@ -34,7 +34,7 @@
  *
  * @file xdp_sinit.c
  *
- * This file contains static initialization methods for the XDptx driver.
+ * This file contains static initialization methods for the XDp driver.
  *
  * @note	None.
  *
@@ -59,14 +59,14 @@
  * A table of configuration structures containing the configuration information
  * for each DisplayPort TX core in the system.
  */
-extern XDp_Config XDptx_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
+extern XDp_Config XDp_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
 
 /**************************** Function Definitions ****************************/
 
 /******************************************************************************/
 /**
  * This function looks for the device configuration based on the unique device
- * ID. The table XDptx_ConfigTable[] contains the configuration information for
+ * ID. The table XDp_ConfigTable[] contains the configuration information for
  * each device in the system.
  *
  * @param	DeviceId is the unique device ID of the device being looked up.
@@ -83,8 +83,8 @@ XDp_Config *XDp_LookupConfig(u16 DeviceId)
 	u32 Index;
 
 	for (Index = 0; Index < XPAR_XDPTX_NUM_INSTANCES; Index++) {
-		if (XDptx_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XDptx_ConfigTable[Index];
+		if (XDp_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XDp_ConfigTable[Index];
 			break;
 		}
 	}
