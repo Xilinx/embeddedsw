@@ -1,0 +1,6 @@
+xdptx_audio_example.c=xdptx_example_common.h,xdptx_example_common.c
+xdptx_intr_example.c=xdptx_example_common.h,xdptx_example_common.c
+xdptx_mst_example.c=xdptx_example_common.h,xdptx_example_common.c
+xdptx_poll_example.c=xdptx_example_common.h,xdptx_example_common.c
+xdptx_selftest_example.c=xdptx_example_common.h,xdptx_example_common.c
+xdptx_timer_example.c=xdptx_example_common.h,xdptx_example_common.c
