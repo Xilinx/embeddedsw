@@ -206,6 +206,8 @@
 /******************************* Include Files ********************************/
 
 #include "xil_types.h"
+#include "xdprx.h"
+/* xdptx.h is included below for backward compatiblity. */
 
 /****************************** Type Definitions ******************************/
 
