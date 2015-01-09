@@ -67,6 +67,13 @@ typedef u64 XTime;
 
 /* Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_SECOND          0x007A1200U
+
+#define XIOU_SCNTRS_BASEADDR      0XFF260000U
+#define XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET    0x00000000U
+#define XIOU_SCNTRS_FREQ_REG_OFFSET    0x00000020U
+#define XIOU_SCNTRS_FREQ		0x02FAF080U	/* 50 MHz */
+#define XIOU_SCNTRS_CNT_CNTRL_REG_EN    0X00000001U
+
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
