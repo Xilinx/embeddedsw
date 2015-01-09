@@ -85,7 +85,7 @@ proc gen_init_code {swproj mhsinst} {
 
 proc gen_testfunc_call {swproj mhsinst} {
 
-    set ipname [string toupper [get_property NAME $mhsinst]]
+    set ipname [string toupper [common::get_property NAME $mhsinst]]
     set testfunc_call ""
     
     if {$swproj == 0} {

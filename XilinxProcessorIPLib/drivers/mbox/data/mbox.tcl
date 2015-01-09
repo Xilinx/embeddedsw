@@ -35,7 +35,7 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 3.01a sdm  05/06/10 Updated to support AXI version of the core
+# 3.01a sdm  05/06/10 Updated to support AXI common::version of the core
 # 3.02a bss  08/18/12 Updated the script to fix CR 655224 and CR 672073.
 # 		      Added check for C_USE_EXTENDED_FSL_INSTR for AXI Stream.
 # 3.02a bss  12/03/12 Updated the script to fix CR#687103 and CR#688715
@@ -66,10 +66,10 @@ proc xdefine_mbox_config_if {periph hfile_handle cfile_handle bus_if if_num dev_
 	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
  	
 	
-	set periph_name [string toupper [get_property NAME $periph]]
+	set periph_name [string toupper [common::get_property NAME $periph]]
 	
 	if {$bus_if == 2} {
-		set mbox_baseaddr [get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
+		set mbox_baseaddr [common::get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
 		
 		set if_isaxi [check_if_connected $periph $if_num $bus_if] 	
 	
@@ -149,7 +149,7 @@ proc xdefine_mbox_config_files {drv_handle hfile_name cfile_name drv_string} {
     foreach periph $periphs {
     	set has_if0_device_id 0
 	for {set if_num 0} {$if_num < 2} {incr if_num} {
-		set bus_if [get_property CONFIG.[format "C_INTERCONNECT_PORT_%d" $if_num] $periph]
+		set bus_if [common::get_property CONFIG.[format "C_INTERCONNECT_PORT_%d" $if_num] $periph]
 		xdefine_mbox_config_if $periph $hfile_handle $cfile_handle $bus_if $if_num device_id has_if0_device_id
 	}
     }
@@ -172,10 +172,10 @@ proc check_if_connected {periph if_num bus_if} {
     	set if_axis_connected 0
 
      	if {$bus_if == 2} {
-		set baseaddr [get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
+		set baseaddr [common::get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
 		set mem [hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$periph"]
 		if {[llength $mem] != 0} {
-			set addrs [get_property BASE_VALUE $mem]
+			set addrs [common::get_property BASE_VALUE $mem]
 			foreach addr $addrs {
 				if {$addr == $baseaddr} {
 					set if_isaxi 1
@@ -226,7 +226,7 @@ proc gen_canonical_param_def {file_handle canonical_name periph param_prefix par
 }
 
 proc gen_canonical_fsl_param_def {file_handle canonical_name periph if_num} {
-	set periph_name [string toupper [get_property NAME $periph]]
+	set periph_name [string toupper [common::get_property NAME $periph]]
 
 	puts $file_handle [format "#define [::hsi::utils::get_driver_param_name $canonical_name "USE_FSL"] XPAR_%s_IF_%d_USE_FSL" $periph_name $if_num]
 	puts $file_handle [format "#define [::hsi::utils::get_driver_param_name $canonical_name "SEND_FSL"] XPAR_%s_IF_%d_SEND_FSL" $periph_name $if_num]
@@ -237,7 +237,7 @@ proc gen_canonical_fsl_param_def {file_handle canonical_name periph if_num} {
 proc gen_canonical_if_def {file_handle periph if_num bus_if drv_string dev_id common_params} {
     upvar $dev_id device_id
 
-    set periph_name [string toupper [get_property NAME $periph]]
+    set periph_name [string toupper [common::get_property NAME $periph]]
     set canonical_name [format "%s_%s" $drv_string $device_id]
 
     # Make sure canonical name is not the same as hardware instance
@@ -280,7 +280,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
 	for {set if_num 0} {$if_num < 2} {incr if_num} {
-		set bus_if [get_property CONFIG.[format "C_INTERCONNECT_PORT_%d" $if_num] $periph]
+		set bus_if [common::get_property CONFIG.[format "C_INTERCONNECT_PORT_%d" $if_num] $periph]
 	    	gen_canonical_if_def $file_handle $periph $if_num $bus_if $drv_string device_id $args
 	}
     }
@@ -298,7 +298,7 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	set sw_proc_handle [hsi::get_sw_processor]
 	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
 		
-	set periph_name [string toupper [get_property NAME $periph]]
+	set periph_name [string toupper [common::get_property NAME $periph]]
 	
 	set initiator_handle [::hsi::utils::get_connected_intf $periph S${if_num}_AXIS]
 	if { [llength $initiator_handle] != 1 } {
@@ -306,10 +306,10 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	} else {
 		set maxis_initiator_handle [hsi::get_cells -of_objects $initiator_handle]
 		if { $maxis_initiator_handle == $hw_proc_handle } {
-			if {[get_property CONFIG.C_USE_EXTENDED_FSL_INSTR $hw_proc_handle] != 1 } {
+			if {[common::get_property CONFIG.C_USE_EXTENDED_FSL_INSTR $hw_proc_handle] != 1 } {
 				error  "ERROR: The mailbox driver requires parameter C_USE_EXTENDED_FSL_INSTR on MicroBlaze to be enabled when an AXI Stream interface is used to connect the mailbox core." "" "mdt_error"				
 	    		}
-		set initiator_name [get_property NAME $initiator_handle]
+		set initiator_name [common::get_property NAME $initiator_handle]
 		scan $initiator_name "M%d_AXIS" send_fsl
 		set use_fsl 1
 		} else {
@@ -323,10 +323,10 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	} else {
 		set saxis_target_handle [hsi::get_cells -of_objects $target_handle]
 		if { $saxis_target_handle == $hw_proc_handle } {
-			if {[get_property CONFIG.C_USE_EXTENDED_FSL_INSTR $hw_proc_handle] != 1 } {
+			if {[common::get_property CONFIG.C_USE_EXTENDED_FSL_INSTR $hw_proc_handle] != 1 } {
 				error "ERROR: The mailbox driver requires parameter C_USE_EXTENDED_FSL_INSTR on MicroBlaze to be enabled when an AXI Stream interface is used to connect the mailbox core." "" "mdt_error"				
 			}
-			set target_name [get_property NAME $target_handle]
+			set target_name [common::get_property NAME $target_handle]
 			scan $target_name "S%d_AXIS" recv_fsl
 			set use_fsl 1
 		} else {
