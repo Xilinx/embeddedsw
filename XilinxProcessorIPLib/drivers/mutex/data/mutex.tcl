@@ -33,7 +33,7 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 3.01a sdm  05/06/10 Updated to support AXI version of the core
+# 3.01a sdm  05/06/10 Updated to support AXI common::version of the core
 # 3.01a sdm  05/06/11 Updated to handle mutex connected through axi2axiconnector
 # 3.02a bss  01/31/13 Updated script to fix CR #679127
 # 4.0   bss  12/10/13 Updated as per the New Tcl API's
@@ -58,7 +58,7 @@ proc xdefine_mutex_config_if {periph hfile_handle cfile_handle num_ifs dev_id ha
 	set mutex_num     0
 	set if_connected  0
 
-	set periph_name [string toupper [get_property NAME $periph]]
+	set periph_name [string toupper [common::get_property NAME $periph]]
 
 
 	for {set x 0} {$x < $num_ifs} {incr x} {
@@ -66,9 +66,9 @@ proc xdefine_mutex_config_if {periph hfile_handle cfile_handle num_ifs dev_id ha
 
 	    if {$if_connected} {		
 		
-		set mutex_baseaddr [get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $x] $periph]		
-		set mutex_enableuser [get_property CONFIG.C_ENABLE_USER $periph]
-		set mutex_num [get_property CONFIG.C_NUM_MUTEX $periph]
+		set mutex_baseaddr [common::get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $x] $periph]
+		set mutex_enableuser [common::get_property CONFIG.C_ENABLE_USER $periph]
+		set mutex_num [common::get_property CONFIG.C_NUM_MUTEX $periph]
 
 		puts $hfile_handle ""
 		puts $hfile_handle "/* Definitions for peripheral $periph_name IF ${x} */"
@@ -122,7 +122,7 @@ proc xdefine_mutex_config_files {drv_handle hfile_name cfile_name drv_string} {
     set device_id 0
     foreach periph $periphs {
 	set has_if0_device_id 0
-	set num_ifs [get_property CONFIG.C_NUM_AXI $periph]
+	set num_ifs [common::get_property CONFIG.C_NUM_AXI $periph]
 	xdefine_mutex_config_if $periph $hfile_handle $cfile_handle $num_ifs device_id has_if0_device_id
     }
 
@@ -141,10 +141,10 @@ proc check_if_connected {periph if_num} {
 	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
     	set if_isaxi 0
 
-	set baseaddr [get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
+	set baseaddr [common::get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]
 	set mem [hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$periph"]
 	if {[llength $mem] != 0} {
-		set addrs [get_property BASE_VALUE $mem]
+		set addrs [common::get_property BASE_VALUE $mem]
 		foreach addr $addrs {
 			if {$addr == $baseaddr} {
 				set if_isaxi 1
@@ -193,7 +193,7 @@ proc gen_canonical_param_def {file_handle canonical_name periph param_prefix par
 proc gen_canonical_if_def {file_handle periph num_ifs drv_string dev_id common_params} {
     upvar $dev_id device_id
 
-    set periph_name [string toupper [get_property NAME $periph]]
+    set periph_name [string toupper [common::get_property NAME $periph]]
     set canonical_name [format "%s_%s" $drv_string $device_id]
     
     # Make sure canonical name is not the same as hardware instance
