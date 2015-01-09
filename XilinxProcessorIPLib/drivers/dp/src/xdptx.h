@@ -471,24 +471,6 @@ typedef struct {
 
 /******************************************************************************/
 /**
- * Callback type which represents a custom timer wait handler. This is only
- * used for Microblaze since it doesn't have a native sleep function. To avoid
- * dependency on a hardware timer, the default wait functionality is implemented
- * using loop iterations; this isn't too accurate. If a custom timer handler is
- * used, the user may implement their own wait implementation using a hardware
- * timer (see example/) for better accuracy.
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	MicroSeconds is the number of microseconds to be passed to the
- *		timer function.
- *
- * @note	None.
- *
-*******************************************************************************/
-typedef void (*XDptx_TimerHandler)(void *InstancePtr, u32 MicroSeconds);
-
-/******************************************************************************/
-/**
  * Callback type which represents the handler for a Hot-Plug-Detect (HPD) event
  * interrupt.
  *
@@ -564,7 +546,7 @@ typedef struct {
 							sideband messages for
 							multi-stream transport
 							(MST) mode. */
-	XDptx_TimerHandler UserTimerWaitUs;	/**< Custom user function for
+	XDp_TimerHandler UserTimerWaitUs;	/**< Custom user function for
 							delay/sleep. */
 	void *UserTimerPtr;			/**< Pointer to a timer instance
 							used by the custom user
@@ -625,7 +607,7 @@ void XDptx_DisableMainLink(XDptx *InstancePtr);
 void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset);
 void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds);
 void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
-			XDptx_TimerHandler CallbackFunc, void *CallbackRef);
+			XDp_TimerHandler CallbackFunc, void *CallbackRef);
 
 /* xdptx_spm.c: Stream policy maker functions. */
 void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream);

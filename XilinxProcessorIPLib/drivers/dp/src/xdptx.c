@@ -1341,7 +1341,7 @@ void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset)
  *
 *******************************************************************************/
 void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
-			XDptx_TimerHandler CallbackFunc, void *CallbackRef)
+			XDp_TimerHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);

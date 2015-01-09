@@ -248,6 +248,24 @@ typedef struct {
 					0 = TX, 1 = RX. */
 } XDp_Config;
 
+/******************************************************************************/
+/**
+ * Callback type which represents a custom timer wait handler. This is only
+ * used for Microblaze since it doesn't have a native sleep function. To avoid
+ * dependency on a hardware timer, the default wait functionality is implemented
+ * using loop iterations; this isn't too accurate. If a custom timer handler is
+ * used, the user may implement their own wait implementation using a hardware
+ * timer (see example/) for better accuracy.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	MicroSeconds is the number of microseconds to be passed to the
+ *		timer function.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+typedef void (*XDp_TimerHandler)(void *InstancePtr, u32 MicroSeconds);
+
 /**************************** Function Prototypes *****************************/
 
 /* xdp_sinit.c: Configuration extraction function.*/
@@ -277,8 +295,9 @@ XDp_Config *XDp_LookupConfig(u16 DeviceId);
 
 /******************************* Compatibility ********************************/
 
-#define XDptx_LookupConfig XDp_LookupConfig
-#define XDptx_Config XDp_Config
+#define XDptx_LookupConfig	XDp_LookupConfig
+#define XDptx_Config		XDp_Config
+#define XDptx_TimerHandler	XDp_TimerHandler
 
 #include "xdptx.h"
 
