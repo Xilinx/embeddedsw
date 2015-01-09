@@ -54,6 +54,7 @@
 * 						WP/CD. CR# 810655.
 *						Checked for DAT Inhibit mask instead of CMD
 * 						Inhibit mask in Cmd Transfer API.
+*						Added Support for SD Card v1.0
 *
 * </pre>
 *
@@ -314,8 +315,10 @@ int XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	RespOCR = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 						XSDPS_RESP0_OFFSET);
 	if (RespOCR != XSDPS_CMD8_VOL_PATTERN) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+		InstancePtr->CardType = CT_SD1;
+	}
+	else {
+		InstancePtr->CardType = CT_SD2;
 	}
 
 	RespOCR = 0;
@@ -1021,6 +1024,7 @@ int XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 		goto RETURN_PATH;
 	}
 
+	InstancePtr->CardType = CT_MMC;
 	RespOCR = 0;
 	/*
 	 * Send CMD1 while card is still busy with power up

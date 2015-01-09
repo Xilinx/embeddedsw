@@ -112,6 +112,7 @@
 * 						WP/CD. CR# 810655.
 *						Checked for DAT Inhibit mask instead of CMD
 * 						Inhibit mask in Cmd Transfer API.
+*						Added Support for SD Card v1.0
 *
 * </pre>
 *
@@ -133,6 +134,9 @@ extern "C" {
 
 #define XSDPS_CLK_400_KHZ		400000		/**< 400 KHZ */
 #define XSDPS_CLK_50_MHZ		50000000	/**< 50 MHZ */
+#define CT_MMC					0x1		/**< MMC Card */
+#define CT_SD1					0x2		/**< SD ver 1 */
+#define CT_SD2					0x3		/**< SD ver 2 */
 /**************************** Type Definitions *******************************/
 /**
  * This typedef contains configuration information for the device.
@@ -166,6 +170,7 @@ typedef struct {
 	u32 HCS;		/**< High capacity support in card */
 	u32 CardID[4];		/**< Card ID */
 	u32 RelCardAddr;	/**< Relative Card Address */
+	u32 CardType;		/**< Card Type(version) */
 	/**< ADMA Descriptors */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
