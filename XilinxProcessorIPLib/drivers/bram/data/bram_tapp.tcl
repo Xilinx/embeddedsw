@@ -133,7 +133,7 @@ proc gen_init_code {swproj mhsinst} {
   }
   if {$swproj == 1} {
     set bram_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
-    set ipname [get_property NAME $mhsinst]
+    set ipname [common::get_property NAME $mhsinst]
     if { ${bram_intr} == 1 } {
       set decl "   static XBram ${ipname}_Bram;"
       set inc_file_lines $decl
@@ -150,9 +150,9 @@ proc gen_testfunc_call {swproj mhsinst} {
       return ""
     }
 
-    set ipname [get_property NAME $mhsinst]
+    set ipname [common::get_property NAME $mhsinst]
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
@@ -336,7 +336,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 }
 
 proc has_ecc_support {mhsinst} {
-  set ecc [get_property CONFIG.C_ECC $mhsinst]
+  set ecc [common::get_property CONFIG.C_ECC $mhsinst]
 
   if {$ecc != 0} {
     return 1
@@ -345,7 +345,7 @@ proc has_ecc_support {mhsinst} {
 }
 
 proc get_intr_port_name {mhsinst} {
-    set ipname [get_property NAME $mhsinst]
+    set ipname [common::get_property NAME $mhsinst]
     set port_intr [hsi::get_pins -of_objects [hsi::get_cells $mhsinst] "Interrupt"]
     if {$port_intr != ""} {
       return "INTERRUPT"

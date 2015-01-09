@@ -38,7 +38,7 @@
 ##
 ##  - Addded the generation of C_*E_FAILING_DATA_REGISTERS to the config structure
 ##    to distinguish between AXI BRAM and LMB BRAM. These registers are not present 
-##    in the current version of the AXI BRAM Controller.
+##    in the current common::version of the AXI BRAM Controller.
 ##
 ##  - Added sorting of address parameters to not depend on the order in the hardware
 ##    description.
@@ -113,7 +113,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-        puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+        puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
         puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
@@ -123,7 +123,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     lappend newargs 
     foreach arg $args {
         #set value [xget_value $drv_handle "PARAMETER" $arg]
-        set value [get_property "$arg" $drv_handle]
+        set value [common::get_property "$arg" $drv_handle]
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
@@ -135,11 +135,11 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Print all parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
-        set have_ecc [get_property CONFIG.C_ECC $periph]
-        set periph_type [get_property IP_NAME $periph]
+        set have_ecc [common::get_property CONFIG.C_ECC $periph]
+        set periph_type [common::get_property IP_NAME $periph]
 
         puts $file_handle ""
-        puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+        puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
         set addr_params ""
         set addr_params [find_addr_params $periph]
         set arguments [concat $args $addr_params]
@@ -163,7 +163,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 # DATA_WIDTH = 32 for lmb_bram_if_cntlr
                 set value 32
             } else {
-                set value [get_property CONFIG.$arg $periph]
+                set value [common::get_property CONFIG.$arg $periph]
             }
             if {[llength $value] == 0} {
                 set value 0
@@ -208,14 +208,14 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set start_comma ""
     foreach periph $periphs {
-        set have_ecc [get_property CONFIG.C_ECC $periph]
+        set have_ecc [common::get_property CONFIG.C_ECC $periph]
         puts $config_file [format "%s\t\{" $start_comma]
         set comma ""
         set addr_params ""
         set addr_params [find_addr_params $periph]
         set arguments [concat $args $addr_params]
         foreach arg $arguments {
-            set local_value [get_property CONFIG.$arg $periph]
+            set local_value [common::get_property CONFIG.$arg $periph]
             set arg_name [::hsi::utils::get_driver_param_name $periph $arg]
             # If a parameter isn't found locally (in the current
             # peripheral), we will (for some obscure and ancient reason)
@@ -239,9 +239,9 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
                 
             }
             # Also output C_*E_FAILING_DATA_REGISTERS, set to 0 for axi_bram_ctrl
-            # since the current version doesn't support FFD and FFE registers
+            # since the current common::version doesn't support FFD and FFE registers
             if {[regexp {C_.E_FAILING_REGISTERS} $arg]} {
-                set periph_type [get_property IP_NAME $periph]
+                set periph_type [common::get_property IP_NAME $periph]
                 if {$periph_type == "axi_bram_ctrl"} {
                     puts -nonewline $config_file [format "%s\t\t%s" $comma "0"]
                 } else {
@@ -290,7 +290,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -312,10 +312,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     set i 0
     foreach periph $periphs {
         #set have_ecc [::hsi::utils::get_param_value $periph "C_ECC"]
-        set have_ecc [get_property CONFIG.C_ECC $periph]
-        set periph_type [get_property IP_NAME $periph]
+        set have_ecc [common::get_property CONFIG.C_ECC $periph]
+        set periph_type [common::get_property IP_NAME $periph]
 
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
