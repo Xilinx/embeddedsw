@@ -67,4 +67,8 @@ typedef struct {
 
 /**************************** Function Prototypes *****************************/
 
+/* xdptx.c: Setup and initialization functions. */
+void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
+							u32 EffectiveAddr);
+
 #endif /* XDPRX_H_ */
