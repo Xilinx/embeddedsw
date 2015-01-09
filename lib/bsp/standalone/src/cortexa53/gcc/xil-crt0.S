@@ -47,9 +47,6 @@
 *
 ******************************************************************************/
 
-.extern XSmc_NorInit
-.extern XSmc_SramInit
-
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
