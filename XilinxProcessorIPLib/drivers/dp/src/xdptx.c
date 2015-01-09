@@ -163,7 +163,7 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
 {
 	u32 Status;
 	u32 RegVal;
-	XDptx_Config *Config = &InstancePtr->Config;
+	XDp_Config *Config = &InstancePtr->Config;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -245,7 +245,7 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
  *		after this function is invoked.
  *
 *******************************************************************************/
-void XDptx_CfgInitialize(XDptx *InstancePtr, XDptx_Config *ConfigPtr,
+void XDptx_CfgInitialize(XDptx *InstancePtr, XDp_Config *ConfigPtr,
 							u32 EffectiveAddr)
 {
 	/* Verify arguments. */
@@ -313,7 +313,7 @@ u32 XDptx_GetRxCapabilities(XDptx *InstancePtr)
 	u32 Status;
 	u8 *Dpcd = InstancePtr->RxConfig.DpcdRxCapsField;
 	XDptx_LinkConfig *LinkConfig = &InstancePtr->LinkConfig;
-	XDptx_Config *Config = &InstancePtr->Config;
+	XDp_Config *Config = &InstancePtr->Config;
 	u8 RxMaxLinkRate;
 	u8 RxMaxLaneCount;
 

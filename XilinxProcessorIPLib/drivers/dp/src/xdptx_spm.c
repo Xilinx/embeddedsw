@@ -622,7 +622,7 @@ void XDptx_SetVideoMode(XDptx *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream)
 {
-	XDptx_Config *Config;
+	XDp_Config *Config;
 	u32 StreamOffset[4] = {0, XDPTX_STREAM2_MSA_START_OFFSET,
 		XDPTX_STREAM3_MSA_START_OFFSET, XDPTX_STREAM4_MSA_START_OFFSET};
 
@@ -693,7 +693,7 @@ void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream)
 {
-	XDptx_Config *Config;
+	XDp_Config *Config;
 	XDptx_MainStreamAttributes *MsaConfig;
 	u32 StreamOffset[4] = {0, XDPTX_STREAM2_MSA_START_OFFSET,
 		XDPTX_STREAM3_MSA_START_OFFSET, XDPTX_STREAM4_MSA_START_OFFSET};

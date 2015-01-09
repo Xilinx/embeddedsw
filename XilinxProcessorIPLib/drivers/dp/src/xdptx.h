@@ -235,43 +235,6 @@
 /****************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the DisplayPort TX core.
- */
-typedef struct {
-	u16 DeviceId;		/**< Device instance ID. */
-	u32 BaseAddr;		/**< The base address of the core instance. */
-	u32 SAxiClkHz;		/**< The clock frequency of the core instance's
-					S_AXI_ACLK port. */
-	u8 MaxLaneCount;	/**< The maximum lane count supported by this
-					core instance. */
-	u8 MaxLinkRate;		/**< The maximum link rate supported by this
-					core instance. */
-	u8 MaxBitsPerColor;	/**< The maximum bits/color supported by this
-					core instance*/
-	u8 QuadPixelEn;		/**< Quad pixel support by this core
-					instance. */
-	u8 DualPixelEn;		/**< Dual pixel support by this core
-					instance. */
-	u8 YCrCbEn;		/**< YCrCb format support by this core
-					instance. */
-	u8 YOnlyEn;		/**< YOnly format support by this core
-					instance. */
-	u8 PayloadDataWidth;	/**< The payload data width used by this core
-					instance. */
-	u8 SecondaryChEn;	/**< This core instance supports audio packets
-					being sent by the secondary channel. */
-	u8 NumAudioChs;		/**< The number of audio channels supported by
-					this core instance. */
-	u8 MstSupport;		/**< Multi-stream transport (MST) mode is
-					enabled by this core instance. */
-	u8 NumMstStreams;	/**< The total number of MST streams supported
-					by this core instance. */
-	u8 DpProtocol;		/**< The DisplayPort protocol version that this
-					core instance is configured for.
-					0 = v1.1a, 1 = v1.2. */
-} XDptx_Config;
-
-/**
  * This typedef contains configuration information about the RX device.
  */
 typedef struct {
@@ -565,7 +528,7 @@ typedef struct {
 	u8 TrainAdaptive;			/**< Downshift lane count and
 							link rate if necessary
 							during training. */
-	XDptx_Config Config;			/**< Configuration structure for
+	XDp_Config Config;			/**< Configuration structure for
 							the DisplayPort TX
 							core. */
 	XDptx_SinkConfig RxConfig;		/**< Configuration structure for
@@ -622,7 +585,7 @@ typedef struct {
 
 /* xdptx.c: Setup and initialization functions. */
 u32 XDptx_InitializeTx(XDptx *InstancePtr);
-void XDptx_CfgInitialize(XDptx *InstancePtr, XDptx_Config *ConfigPtr,
+void XDptx_CfgInitialize(XDptx *InstancePtr, XDp_Config *ConfigPtr,
 							u32 EffectiveAddr);
 u32 XDptx_GetRxCapabilities(XDptx *InstancePtr);
 

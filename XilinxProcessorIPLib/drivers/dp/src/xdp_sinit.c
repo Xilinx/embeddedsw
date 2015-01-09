@@ -59,7 +59,7 @@
  * A table of configuration structures containing the configuration information
  * for each DisplayPort TX core in the system.
  */
-extern XDptx_Config XDptx_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
+extern XDp_Config XDptx_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
 
 /**************************** Function Definitions ****************************/
 
@@ -77,9 +77,9 @@ extern XDptx_Config XDptx_ConfigTable[XPAR_XDPTX_NUM_INSTANCES];
  * @note	None.
  *
 *******************************************************************************/
-XDptx_Config *XDp_LookupConfig(u16 DeviceId)
+XDp_Config *XDp_LookupConfig(u16 DeviceId)
 {
-	XDptx_Config *CfgPtr;
+	XDp_Config *CfgPtr;
 	u32 Index;
 
 	for (Index = 0; Index < XPAR_XDPTX_NUM_INSTANCES; Index++) {
