@@ -45,8 +45,10 @@
 * Ver   Who    Date        Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
-* 2.0   sb     11/04/2014  Added support for writing BBT signature and version
+* 2.0   sb     01/12/2015  Added support for writing BBT signature and version
 *			   in page section by enabling XNANDPS8_BBT_NO_OOB.
+*			   Modified Bbt Signature and Version Offset value for
+*			   Oob and No-Oob region.
 * </pre>
 *
 ******************************************************************************/

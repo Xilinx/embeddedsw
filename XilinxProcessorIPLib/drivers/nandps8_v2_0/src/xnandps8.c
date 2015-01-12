@@ -50,7 +50,7 @@
 * Ver   Who    Date	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
-* 2.0   sb     12/19/2014  Removed Null checks for Buffer passed
+* 2.0   sb     01/12/2015  Removed Null checks for Buffer passed
 *			   as parameter to Read API's
 *			   - XNandPs8_Read()
 *			   - XNandPs8_ReadPage
@@ -91,6 +91,8 @@
 *			   XNandPs8_OnfiReset call.
 *			   Modified XNandPs8_ChangeTimingMode API supporting
 *			   SDR and NVDDR interface for timing modes 0 to 5.
+*			   Modified Bbt Signature and Version Offset value for
+*			   Oob and No-Oob region.
 * </pre>
 *
 ******************************************************************************/
@@ -814,6 +816,13 @@ void XNandPs8_EnableBbtOobMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_OOB;
 	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_OOB;
+	/*
+	 * Setting the Signature and Version Offset
+	 */
+	InstancePtr->BbtDesc.SigOffset = XNANDPS8_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtMirrorDesc.SigOffset = XNANDPS8_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtDesc.VerOffset = XNANDPS8_BBT_DESC_VER_OFFSET;
+	InstancePtr->BbtMirrorDesc.VerOffset = XNANDPS8_BBT_DESC_VER_OFFSET;
 }
 
 /*****************************************************************************/
@@ -838,6 +847,15 @@ void XNandPs8_DisableBbtOobMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_NO_OOB;
 	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_NO_OOB;
+	/*
+	 * Setting the Signature and Version Offset
+	 */
+	InstancePtr->BbtDesc.SigOffset = XNANDPS8_NO_OOB_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtMirrorDesc.SigOffset =
+					XNANDPS8_NO_OOB_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtDesc.VerOffset = XNANDPS8_NO_OOB_BBT_DESC_VER_OFFSET;
+	InstancePtr->BbtMirrorDesc.VerOffset =
+					XNANDPS8_NO_OOB_BBT_DESC_VER_OFFSET;
 }
 
 /*****************************************************************************/

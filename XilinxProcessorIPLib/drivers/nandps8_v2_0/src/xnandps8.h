@@ -106,7 +106,7 @@
 * Ver   Who    Date	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
-* 2.0   sb     12/19/2014  Removed Null checks for Buffer passed
+* 2.0   sb     01/12/2015  Removed Null checks for Buffer passed
 *			   as parameter to Read API's
 *			   - XNandPs8_Read()
 *			   - XNandPs8_ReadPage
@@ -149,6 +149,8 @@
 *			   XNandPs8_OnfiReset call.
 *			   Modified XNandPs8_ChangeTimingMode API supporting
 *			   SDR and NVDDR interface for timing modes 0 to 5.
+*			   Modified Bbt Signature and Version Offset value for
+*			   Oob and No-Oob region.
 * </pre>
 *
 ******************************************************************************/

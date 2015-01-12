@@ -84,8 +84,10 @@
 * Ver   Who    Date        Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
-* 2.0   sb     11/04/2014  Added support for writing BBT signature and version
+* 2.0   sb     01/12/2015  Added support for writing BBT signature and version
 *			   in page section by enabling XNANDPS8_BBT_NO_OOB.
+*			   Modified Bbt Signature and Version Offset value for
+*			   Oob and No-Oob region.
 * </pre>
 *
 ******************************************************************************/
@@ -124,10 +126,16 @@ extern "C" {
 								  */
 #define XNANDPS8_BBT_DESC_PAGE_OFFSET		0U	/**< Page offset of Bad
 							  Block Table Desc */
-#define XNANDPS8_BBT_DESC_SIG_OFFSET		2U	/**< Bad Block Table
+#define XNANDPS8_BBT_DESC_SIG_OFFSET		8U	/**< Bad Block Table
 							  signature offset */
-#define XNANDPS8_BBT_DESC_VER_OFFSET		6U	/**< Bad block Table
+#define XNANDPS8_BBT_DESC_VER_OFFSET		12U	/**< Bad block Table
 							  version offset */
+#define XNANDPS8_NO_OOB_BBT_DESC_SIG_OFFSET	0U	/**< Bad Block Table
+							  signature offset in
+							  page memory */
+#define XNANDPS8_NO_OOB_BBT_DESC_VER_OFFSET	4U	/**< Bad block Table
+							  version offset in
+							  page memory */
 #define XNANDPS8_BBT_DESC_SIG_LEN		4U	/**< Bad block Table
 							  signature length */
 #define XNANDPS8_BBT_DESC_MAX_BLOCKS		64U	/**< Bad block Table
