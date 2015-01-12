@@ -285,9 +285,10 @@ s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
 	}
 
 	/*
-	 * Initialize BCH Error counter
+	 * Initialize Ecc Error flip counters
 	 */
-	 InstancePtr->BCH_Error_Status = 0U;
+	 InstancePtr->Ecc_Stat_PerPage_flips = 0U;
+	 InstancePtr->Ecc_Stats_total_flips = 0U;
 
 	/*
 	 * Scan for the bad block table(bbt) stored in the flash & load it in
@@ -2822,6 +2823,13 @@ CheckEccError:
 			xil_printf("%s: ECC Hamming multi bit error\r\n",
 							__func__);
 #endif
+			InstancePtr->Ecc_Stat_PerPage_flips =
+					((XNandPs8_ReadReg(
+					InstancePtr->Config.BaseAddress,
+					XNANDPS8_ECC_ERR_CNT_OFFSET) &
+					0x1FF00U) >> 8U);
+			InstancePtr->Ecc_Stats_total_flips +=
+					InstancePtr->Ecc_Stat_PerPage_flips;
 			Status = XST_FAILURE;
 		}
 		/*
@@ -2836,8 +2844,13 @@ CheckEccError:
 					XNANDPS8_INTR_STS_ERR_INTR_STS_EN_MASK);
 
 			if (InstancePtr->EccCfg.IsBCH == 1U) {
-				InstancePtr->BCH_Error_Status++;
-
+				InstancePtr->Ecc_Stat_PerPage_flips =
+						((XNandPs8_ReadReg(
+						InstancePtr->Config.BaseAddress,
+						XNANDPS8_ECC_ERR_CNT_OFFSET)&
+						0x1FF00U) >> 8U);
+				InstancePtr->Ecc_Stats_total_flips +=
+					InstancePtr->Ecc_Stat_PerPage_flips;
 				Status = XST_SUCCESS;
 			}
 		}

@@ -375,7 +375,8 @@ typedef struct {
 typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	XNandPs8_Config Config;
-	u8 BCH_Error_Status;
+	u16 Ecc_Stat_PerPage_flips;	/**< Ecc Correctable Error Counter for Current Page */
+	u32 Ecc_Stats_total_flips;     /**< Total Ecc Errors Corrected */
 	XNandPs8_DataInterface DataInterface;
 	XNandPs8_TimingMode TimingMode;
 	XNandPs8_SWMode Mode;		/**< Driver operating mode */
