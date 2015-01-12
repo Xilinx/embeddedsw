@@ -55,12 +55,12 @@ proc isf_drc {libhandle} {
 
 	# find the list of xps or opb spi cores
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
 
 	set spi_periphs_list [get_spi_periphs $processor]
 
 	if { [llength $spi_periphs_list] == 0 } {
-		set cpuname [get_property NAME $processor]
+		set cpuname [common::get_property NAME $processor]
 		error  "ERROR: No SPI core is addressable from processor $cpuname. \
 			XilIsf library requires a SPI Core \n"
 		return
@@ -75,7 +75,7 @@ proc get_spi_periphs {processor} {
 	set spi_periphs_name_list {}
 
 	foreach periph $periphs_list {
-		set periphname [get_property IP_NAME $periph]
+		set periphname [common::get_property IP_NAME $periph]
 		if {$periphname == "xps_spi"
 			|| $periphname == "opb_spi"
 			|| $periphname == "xps_insystem_flash"
@@ -134,11 +134,11 @@ proc xgen_opts_file {libhandle} {
 	# -----------------------------
 	# Generate Flash options
 	# -----------------------------
-	puts $file_handle "/* Xilinx EDK In-system and Serial Flash Library (XilIsf) User Settings */"	
-	set serial_flash_family [get_property CONFIG.serial_flash_family $libhandle]
+	puts $file_handle "/* Xilinx EDK In-system and Serial Flash Library (XilIsf) User Settings */"
+	set serial_flash_family [common::get_property CONFIG.serial_flash_family $libhandle]
 	puts $file_handle "\#define XPAR_XISF_FLASH_FAMILY	$serial_flash_family"
 
-	set serial_flash_interface [get_property CONFIG.serial_flash_interface $libhandle]
+	set serial_flash_interface [common::get_property CONFIG.serial_flash_interface $libhandle]
 	set ifaceselect 0
 	set ps7qspi 0
 	global spi_periphs_name_list
