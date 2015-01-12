@@ -54,18 +54,18 @@ proc generate {lib_handle} {
 
     puts $conffile "#ifndef _MFS_CONFIG_H" 
     puts $conffile "#define _MFS_CONFIG_H" 
-    set need_utils [get_property CONFIG.need_utils $lib_handle] 
+    set need_utils [common::get_property CONFIG.need_utils $lib_handle]
     if {$need_utils} { 
         # tell libgen or xps that the hardware platform needs to provide stdio functions 
         # inbyte and outbyte to support utils 
 	puts $conffile "#include <stdio.h>" 
     } 
     puts $conffile "#include <xilmfs.h>"
-    set value  [get_property CONFIG.numbytes $lib_handle]
+    set value  [common::get_property CONFIG.numbytes $lib_handle]
     puts  $conffile "#define MFS_NUMBYTES  $value"
-    set value  [get_property CONFIG.base_address $lib_handle]
+    set value  [common::get_property CONFIG.base_address $lib_handle]
     puts  $conffile "#define MFS_BASE_ADDRESS $value"
-    set value  [get_property CONFIG.init_type $lib_handle]
+    set value  [common::get_property CONFIG.init_type $lib_handle]
     puts  $conffile "#define MFS_INIT_TYPE  $value"
     puts $conffile "#endif" 
     close $conffile 
