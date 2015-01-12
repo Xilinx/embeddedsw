@@ -458,11 +458,6 @@ const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT] =
 		0,
 		{1366, 70, 143, 213, 1792, 1,
 		768, 3, 3, 24, 798, 0, 0, 0, 0, 1} },
-	{ XVID_VM_UXGA_60_P,  "1600x1200@60Hz", XVID_FR_60HZ,
-		0,
-		{1600, 64, 192, 304, 2160, 1,
-		1200, 1, 3, 46, 1250, 0, 0, 0, 0, 1} },
-		/* XVID_VM_1600x1200_60_P */
 
 	/* Interlaced modes. */
 	{ XVID_VM_480_30_I, "720x480@30Hz (I)", XVID_FR_30HZ,
