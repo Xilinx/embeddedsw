@@ -72,9 +72,9 @@ proc swapp_is_supported_hw {} {
 
     # check processor type
     set proc_instance [get_sw_processor];
-    set hw_processor [get_property HW_INSTANCE $proc_instance]
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [get_property IP_NAME [get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [get_cells $hw_processor]];
 
     if { $proc_type != "pss_cortexr5" && $proc_type != "pss_cortexa53" } {
                 error "This application is supported only for CortexA53/CortexR5 processors.";
@@ -86,7 +86,7 @@ proc swapp_is_supported_hw {} {
 
 proc get_stdout {} {
     set os [get_os];
-    set stdout [get_property CONFIG.STDOUT $os];
+    set stdout [common::get_property CONFIG.STDOUT $os];
     return $stdout;
 }
 
