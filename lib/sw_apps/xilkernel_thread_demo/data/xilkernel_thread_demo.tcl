@@ -8,14 +8,14 @@ proc swapp_get_description {} {
 
 proc get_stdout {} {
     set os [hsi::get_os];
-    set stdout [get_property CONFIG.STDOUT $os];
+    set stdout [common::get_property CONFIG.STDOUT $os];
     return $stdout;
 }
 
 proc check_stdout_hw {} {
-	set slaves [get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
+	set slaves [common::get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
 	foreach slave $slaves {
-		set slave_type [get_property IP_NAME [hsi::get_cells $slave]];
+		set slave_type [common::get_property IP_NAME [hsi::get_cells $slave]];
 		# Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "ps7_uart" || $slave_type == "axi_uartlite" ||
@@ -97,7 +97,7 @@ proc swapp_is_supported_sw {} {
     # check for stdout being set
     check_stdout_sw;
 
-    set n_threads [get_property CONFIG.max_pthreads [hsi::get_os]];
+    set n_threads [common::get_property CONFIG.max_pthreads [hsi::get_os]];
     if { $n_threads < 6 } {
         error "This application requires that your Xilkernel OS be configured to support at-least 6 POSIX threads. Currently, it is configured to support only $n_threads threads."
     }
@@ -109,7 +109,7 @@ proc generate_stdout_config { fid } {
     set stdout [get_stdout];
 
     # if stdout is uartlite, we don't have to generate anything
-    set stdout_type [get_property IP_NAME [hsi::get_cells $stdout]];
+    set stdout_type [common::get_property IP_NAME [hsi::get_cells $stdout]];
 
     if { [regexp -nocase "uartlite" $stdout_type] || [string match -nocase "mdm" $stdout_type] } {
         puts $fid "#define STDOUT_IS_UARTLITE";
