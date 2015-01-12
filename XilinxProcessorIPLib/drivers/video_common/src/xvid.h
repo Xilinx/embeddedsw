@@ -288,7 +288,6 @@ typedef struct {
 	XVid_VideoMode		VmId;
 	const char		Name[21];
 	XVid_FrameRate		FrameRate;
-	u8			DmtId;
 	u32			PixelClkKhz;
 	XVid_VideoTiming	Timing;
 } XVid_VideoTimingMode;
