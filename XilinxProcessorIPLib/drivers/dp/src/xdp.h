@@ -206,8 +206,7 @@
 /******************************* Include Files ********************************/
 
 #include "xil_types.h"
-#include "xdprx.h"
-/* xdptx.h is included below for backward compatiblity. */
+/* xdprx.h and xdptx.h are included. They require some type definitions. */
 
 /****************************** Type Definitions ******************************/
 
@@ -301,6 +300,7 @@ XDp_Config *XDp_LookupConfig(u16 DeviceId);
 #define XDptx_Config		XDp_Config
 #define XDptx_TimerHandler	XDp_TimerHandler
 
+#include "xdprx.h"
 #include "xdptx.h"
 
 #endif /* XDP_H_ */
