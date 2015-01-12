@@ -68,7 +68,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -89,7 +89,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
@@ -110,7 +110,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     #           set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
 
                 # The rvalue set below is the actual value of the parameter
-                set rvalue [get_property CONFIG.$arg $periph]
+                set rvalue [common::get_property CONFIG.$arg $periph]
                 if {[llength $rvalue] == 0} {
                     set rvalue 0
                 }
