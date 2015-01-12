@@ -57,11 +57,11 @@ proc generate {os_handle} {
 
     # Copy over the right set of files as src based on processor type
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
-    set proctype [get_property IP_NAME $hw_proc_handle]
-    set procname [get_property NAME    $hw_proc_handle]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+    set procname [common::get_property NAME    $hw_proc_handle]
 
-    set enable_sw_profile [get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
+    set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
     set mb_exceptions false
 
     # proctype should be "microblaze" or pss_cortexa53 or pss_cortexr5 or ps7_cortexa9
@@ -121,7 +121,7 @@ proc generate {os_handle} {
         }
        "ps7_cortexa9"  {
                    set procdrv [hsi::get_sw_processor]
-                   set compiler [get_property CONFIG.compiler $procdrv]
+                   set compiler [common::get_property CONFIG.compiler $procdrv]
                    if {[string compare -nocase $compiler "armcc"] == 0} {
                        set ccdir "./src/cortexa9/armcc"
 	    } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
@@ -221,7 +221,7 @@ proc generate {os_handle} {
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
-        set pvr [get_property CONFIG.C_PVR $hw_proc_handle]
+        set pvr [common::get_property CONFIG.C_PVR $hw_proc_handle]
 
         switch $pvr {
             "0" {
@@ -257,7 +257,7 @@ proc xhandle_mb_interrupts {} {
 
     # Handle the interrupt pin
     set sw_proc_handle [hsi::get_sw_processor]
-    set periph [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set periph [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set source_ports [::hsi::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
         error "ERROR: Too many interrupting ports on the MicroBlaze. Should only find 1" "" "hsi_error"
@@ -270,13 +270,13 @@ proc xhandle_mb_interrupts {} {
             if { [llength $source_driver] != 0 } {
                 set intr_array [hsi::get_arrays -of_objects $source_driver -filter "NAME==interrupt_handler"]
                 if { [llength $intr_array] != 0 } {
-                    set array_size [get_property PROPERTY.size $intr_array]
+                    set array_size [common::get_property PROPERTY.size $intr_array]
                     for { set i 0 } { $i < $array_size } { incr i } {
-                        set int_port [lindex [get_property PARAM.int_port $intr_array] $i]
+                        set int_port [lindex [common::get_property PARAM.int_port $intr_array] $i]
                         if { [llength $int_port] != 0 } {
                             if { [string compare -nocase $int_port $source_ports] == 0 } {
-                                set source_interrupt_handler [lindex [get_property PARAM.int_handler $intr_array] $i]
-                                set source_handler_arg [lindex [get_property PARAM.int_handler_arg $intr_array] $i]
+                                set source_interrupt_handler [lindex [common::get_property PARAM.int_handler $intr_array] $i]
+                                set source_handler_arg [lindex [common::get_property PARAM.int_handler_arg $intr_array] $i]
                                 if { [string compare -nocase $source_handler_arg DEVICE_ID] == 0 } {
                                     set source_handler_arg [::hsi::utils::get_ip_param_name $source_periph "DEVICE_ID"]
                                 } else {
@@ -332,33 +332,33 @@ proc xcreate_mb_exc_config_file {os_handle} {
     set hconfig_file [open $hfilename w]
     ::hsi::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
-    set procvlnv [get_property VLNV $hw_proc_handle]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set procvlnv [common::get_property VLNV $hw_proc_handle]
     set procvlnv [split $procvlnv :]
     set procver [lindex $procvlnv 3]
-    set ibus_ee [get_property CONFIG.C_M_AXI_I_BUS_EXCEPTION $hw_proc_handle]
-    set dbus_ee [get_property CONFIG.C_M_AXI_D_BUS_EXCEPTION $hw_proc_handle]
-    set ill_ee [get_property CONFIG.C_ILL_OPCODE_EXCEPTION $hw_proc_handle]
-    set unalign_ee [get_property CONFIG.C_UNALIGNED_EXCEPTIONS $hw_proc_handle]
-    set div0_ee [get_property CONFIG.C_DIV_ZERO_EXCEPTION $hw_proc_handle]
-    set mmu_ee [get_property CONFIG.C_USE_MMU $hw_proc_handle]
+    set ibus_ee [common::get_property CONFIG.C_M_AXI_I_BUS_EXCEPTION $hw_proc_handle]
+    set dbus_ee [common::get_property CONFIG.C_M_AXI_D_BUS_EXCEPTION $hw_proc_handle]
+    set ill_ee [common::get_property CONFIG.C_ILL_OPCODE_EXCEPTION $hw_proc_handle]
+    set unalign_ee [common::get_property CONFIG.C_UNALIGNED_EXCEPTIONS $hw_proc_handle]
+    set div0_ee [common::get_property CONFIG.C_DIV_ZERO_EXCEPTION $hw_proc_handle]
+    set mmu_ee [common::get_property CONFIG.C_USE_MMU $hw_proc_handle]
     if { $mmu_ee == "" } {
         set mmu_ee 0
     }
-    set fsl_ee [get_property CONFIG.C_FSL_EXCEPTION $hw_proc_handle]
+    set fsl_ee [common::get_property CONFIG.C_FSL_EXCEPTION $hw_proc_handle]
     if { $fsl_ee == "" } {
         set fsl_ee 0
     }
     if { [mb_has_fpu_exceptions $hw_proc_handle] } {
-        set fpu_ee [get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
+        set fpu_ee [common::get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
     } else {
         set fpu_ee 0
     }
-    set sp_ee [get_property CONFIG.C_USE_STACK_PROTECTION $hw_proc_handle]
+    set sp_ee [common::get_property CONFIG.C_USE_STACK_PROTECTION $hw_proc_handle]
     if { $sp_ee == "" } {
         set sp_ee 0
     }
-    set ft_ee [get_property CONFIG.C_FAULT_TOLERANT $hw_proc_handle]
+    set ft_ee [common::get_property CONFIG.C_FAULT_TOLERANT $hw_proc_handle]
     if { $ft_ee == "" } {
         set ft_ee 0
     }
@@ -387,7 +387,7 @@ proc xcreate_mb_exc_config_file {os_handle} {
 
     if { $fpu_ee != 0 } {
         puts $hconfig_file "\#define MICROBLAZE_FP_EXCEPTION_ENABLED 1"
-        set predecode_fpu_exceptions [get_property CONFIG.predecode_fpu_exceptions $os_handle]
+        set predecode_fpu_exceptions [common::get_property CONFIG.predecode_fpu_exceptions $os_handle]
         if {$predecode_fpu_exceptions != false } {
             puts $hconfig_file "\#define MICROBLAZE_FP_EXCEPTION_DECODE 1"
         }
@@ -407,16 +407,16 @@ proc xcreate_mb_exc_config_file {os_handle} {
 proc post_generate {os_handle} {
 
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
 
-    set procname [get_property NAME $hw_proc_handle]
-    set proctype [get_property IP_NAME $hw_proc_handle]
+    set procname [common::get_property NAME $hw_proc_handle]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
 
     if {[string compare -nocase $proctype "microblaze"] == 0} {
 
         set procdrv [hsi::get_sw_processor]
         # Remove _interrupt_handler.o from libxil.a for mb-gcc
-        set archiver [get_property CONFIG.archiver $procdrv]
+        set archiver [common::get_property CONFIG.archiver $procdrv]
         set libgloss_a [file join .. .. lib libgloss.a]
         if { ![file exists $libgloss_a] } {
 		set libgloss_a [file join .. .. lib libxil.a]
@@ -437,77 +437,77 @@ proc post_generate {os_handle} {
 proc mb_has_exceptions { hw_proc_handle } {
 
     # Check if the following parameters exist on this MicroBlaze's MPD
-    set ee [get_property CONFIG.C_UNALIGNED_EXCEPTIONS $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_UNALIGNED_EXCEPTIONS $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_ILL_OPCODE_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_ILL_OPCODE_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_IOPB_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_IOPB_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_DOPB_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_DOPB_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_IPLB_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_IPLB_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_DPLB_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_DPLB_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_M_AXI_I_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_M_AXI_I_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_M_AXI_D_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_M_AXI_D_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_DIV_BY_ZERO_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_DIV_BY_ZERO_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_DIV_ZERO_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_DIV_ZERO_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_FSL_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_FSL_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_USE_MMU $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_USE_MMU $hw_proc_handle]
     if { $ee != ""} {
         return true
     }
 
-    set ee [get_property CONFIG.C_USE_STACK_PROTECTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_USE_STACK_PROTECTION $hw_proc_handle]
     if { $ee != ""} {
         return true
     }
 
-    set ee [get_property CONFIG.C_FAULT_TOLERANT $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_FAULT_TOLERANT $hw_proc_handle]
     if { $ee != ""} {
         return true
     }
@@ -521,7 +521,7 @@ proc mb_has_exceptions { hw_proc_handle } {
 proc mb_has_fpu_exceptions { hw_proc_handle } {
 
     # Check if the following parameters exist on this MicroBlaze's MPD
-    set ee [get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
@@ -535,7 +535,7 @@ proc mb_has_fpu_exceptions { hw_proc_handle } {
 proc mb_has_pvr { hw_proc_handle } {
 
     # Check if the following parameters exist on this MicroBlaze's MPD
-    set pvr [get_property CONFIG.C_PVR $hw_proc_handle]
+    set pvr [common::get_property CONFIG.C_PVR $hw_proc_handle]
     if { $pvr != "" } {
         return true
     }
@@ -571,14 +571,14 @@ proc handle_profile { os_handle proctype } {
 
     if {{$proctype == "pss_cortexa53"} | {$proctype == "pss_cortexr5"} | {$proctype == "ps7_cortexa9"}} {
         set sw_proc_handle [hsi::get_sw_processor]
-        set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-        set cpu_freq [get_property CONFIG.C_CPU_CLK_FREQ_HZ $hw_proc_handle]
+        set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+        set cpu_freq [common::get_property CONFIG.C_CPU_CLK_FREQ_HZ $hw_proc_handle]
         if { [string compare -nocase $cpu_freq ""] == 0 } {
             puts "WARNING<profile> :: CPU Clk Frequency not specified, Assuming 666Mhz"
             set cpu_freq 666000000
         }
     } else {
-        set cpu_freq [get_property CONFIG.C_FREQ  [hsi::get_cells $proc]]
+        set cpu_freq [common::get_property CONFIG.C_FREQ  [hsi::get_cells $proc]]
         if { [string compare -nocase $cpu_freq ""] == 0 } {
             puts "WARNING<profile> :: CPU Clk Frequency not specified, Assuming 100Mhz"
             set cpu_freq 100000000
@@ -603,7 +603,7 @@ proc handle_profile { os_handle proctype } {
         "microblaze" {
             # Microblaze Processor.
             puts $config_file "#define PROC_MICROBLAZE 1"
-            set timer_inst [get_property CONFIG.profile_timer $os_handle]
+            set timer_inst [common::get_property CONFIG.profile_timer $os_handle]
             if { [string compare -nocase $timer_inst "none"] == 0 } {
             # Profile Timer Not Selected
                 error "ERROR : Timer for Profiling NOT selected.\nS/W Intrusive Profiling on MicroBlaze requires an axi_timer." "" "mdt_error"
@@ -616,7 +616,7 @@ proc handle_profile { os_handle proctype } {
             # Cortex A53 Processor.
 
             puts $config_file "#define PROC_CORTEXA53 1"
-            set timer_inst [get_property CONFIG.profile_timer $os_handle]
+            set timer_inst [common::get_property CONFIG.profile_timer $os_handle]
             if { [string compare -nocase $timer_inst "none"] == 0 } {
                 # SCU Timer
                 puts $config_file "#define ENABLE_SCU_TIMER 1"
@@ -631,7 +631,7 @@ proc handle_profile { os_handle proctype } {
             # Cortex R5 Processor.
 
             puts $config_file "#define PROC_CORTEXR5 1"
-            set timer_inst [get_property CONFIG.profile_timer $os_handle]
+            set timer_inst [common::get_property CONFIG.profile_timer $os_handle]
             if { [string compare -nocase $timer_inst "none"] == 0 } {
                 # SCU Timer
                 puts $config_file "#define ENABLE_SCU_TIMER 1"
@@ -647,7 +647,7 @@ proc handle_profile { os_handle proctype } {
 	            # Cortex A9 Processor.
 
 	            puts $config_file "#define PROC_CORTEXA9 1"
-	            set timer_inst [get_property CONFIG.profile_timer $os_handle]
+	            set timer_inst [common::get_property CONFIG.profile_timer $os_handle]
 	            if { [string compare -nocase $timer_inst "none"] == 0 } {
 	                # SCU Timer
 	                puts $config_file "#define ENABLE_SCU_TIMER 1"
@@ -705,7 +705,7 @@ proc execpipe {COMMAND} {
 # - (OR) xps/opb_timer can be connected to xps/opb_intc
 proc handle_profile_opbtimer { config_file timer_inst } {
     set timer_handle [hsi::get_cells  $timer_inst]
-    set timer_baseaddr [get_property CONFIG.C_BASEADDR $timer_handle]
+    set timer_baseaddr [common::get_property CONFIG.C_BASEADDR $timer_handle]
     puts $config_file "#define PROFILE_TIMER_BASEADDR [::hsi::utils::format_addr_string $timer_baseaddr "C_BASEADDR"]"
 
     # Figure out how Timer is connected.
@@ -724,7 +724,7 @@ proc handle_profile_opbtimer { config_file timer_inst } {
 	if {  [::hsi::utils::is_external_pin $intr_port] } {
 	    continue
 	}
-	set iptype [get_property CONFIG.EDK_IPTYPE $intc_handle]
+	set iptype [common::get_property CONFIG.EDK_IPTYPE $intc_handle]
 	if { [string compare -nocase $iptype "PROCESSOR"] == 0 } {
 	    # Timer Directly Connected to the Processor
 	    puts $config_file "#define ENABLE_SYS_INTR 1"
@@ -732,13 +732,13 @@ proc handle_profile_opbtimer { config_file timer_inst } {
 	    break
 	}
 
-	set ipsptype [get_property CONFIG.EDK_SPECIAL $intc_handle]
+	set ipsptype [common::get_property CONFIG.EDK_SPECIAL $intc_handle]
 	if { [string compare -nocase $iptype "PERIPHERAL"] == 0  &&
 	     [string compare -nocase $ipsptype "INTR_CTRL"] == 0 } {
 	    # Timer connected to Interrupt controller
 	    puts $config_file "#define TIMER_CONNECT_INTC 1"
 	    puts $config_file "#define INTC_BASEADDR [xget_value $intc_handle "PARAMETER" "C_BASEADDR"]"
-	    set num_intr_inputs [get_property CONFIG.C_NUM_INTR_INPUTS $intc_handle]
+	    set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $intc_handle]
 	    # if { $num_intr_inputs == 1 } {  ## Always enable system interrupt CR 472288
 		 puts $config_file "#define ENABLE_SYS_INTR 1"
 	    # }
