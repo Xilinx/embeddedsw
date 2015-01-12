@@ -48,7 +48,7 @@ proc ffs_drc {libhandle} {
 
 	# Check if any IP instances that use FATFS are present
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
 
 	set ffs_periphs_list [get_ffs_periphs $processor]
 
@@ -66,7 +66,7 @@ proc get_ffs_periphs {processor} {
 	set ffs_periphs_name_list {}
 
 	foreach periph $periphs_list {
-		set periphname [get_property IP_NAME $periph]
+		set periphname [common::get_property IP_NAME $periph]
 		# Checks if SD instance is present
 		# This can be expanded to add more instances.
 		if {$periphname == "ps7_sdio"} {
@@ -106,10 +106,10 @@ proc xgen_opts_file {libhandle} {
 
 	# Generate parameters for "file system with SD" and "MMC support"
 	puts $file_handle "/* Xilinx FAT File System Library (XilFFs) User Settings */"
-	set fs_interface [get_property CONFIG.fs_interface $libhandle]
-	set enable_mmc [get_property CONFIG.enable_mmc $libhandle]
+	set fs_interface [common::get_property CONFIG.fs_interface $libhandle]
+	set enable_mmc [common::get_property CONFIG.enable_mmc $libhandle]
 
-	# Checking if SD with FATFS is enabled. 
+	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
 	
 	global ffs_periphs_name_list
