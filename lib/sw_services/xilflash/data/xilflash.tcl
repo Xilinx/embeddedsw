@@ -81,8 +81,8 @@ proc xgen_opts_file {libhandle} {
 
 	# Generate parameters for Flash family support
 	puts $file_handle "/* Xilinx EDK Parallel Flash Library (XilFlash) User Settings */"
-	set enable_intel [get_property CONFIG.enable_intel $libhandle]
-	set enable_amd [get_property CONFIG.enable_amd $libhandle]
+	set enable_intel [common::get_property CONFIG.enable_intel $libhandle]
+	set enable_amd [common::get_property CONFIG.enable_amd $libhandle]
 
 	if {$enable_intel == false && $enable_amd == false} {
 		error  "ERROR: no flash family enabled. enable atleast one flash family in the bsp settings and rebuild the libraries"
