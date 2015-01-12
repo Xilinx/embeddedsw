@@ -9,9 +9,9 @@ proc swapp_get_description {} {
 }
 
 proc check_stdout_hw {} {
-	set slaves [get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
+	set slaves [common::get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
 	foreach slave $slaves {
-		set slave_type [get_property IP_NAME [hsi::get_cells $slave]];
+		set slave_type [common::get_property IP_NAME [hsi::get_cells $slave]];
 		# Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "ps7_uart" || $slave_type == "axi_uartlite" ||
@@ -27,7 +27,7 @@ proc check_stdout_hw {} {
 
 proc get_stdout {} {
     set os [hsi::get_os];
-    set stdout [get_property CONFIG.STDOUT $os];
+    set stdout [common::get_property CONFIG.STDOUT $os];
     return $stdout;
 }
 
@@ -115,7 +115,7 @@ proc swapp_is_supported_hw {} {
 
     # do processor specific checks
     set proc  [hsi::get_sw_processor];
-     set proc_type [get_property IP_NAME [hsi::get_cells $proc]]
+     set proc_type [common::get_property IP_NAME [hsi::get_cells $proc]]
     if { $proc_type == "microblaze"} {
         # make sure there is a timer (if this is a MB)
         set timerlist [hsi::get_cells -filter { ip_name == "xps_timer" }];
@@ -157,7 +157,7 @@ proc generate_stdout_config { fid } {
     set stdout [hsi::get_cells $stdout]
 
     # if stdout is uartlite, we don't have to generate anything
-    set stdout_type [get_property IP_TYPE $stdout];
+    set stdout_type [common::get_property IP_TYPE $stdout];
 
     if { [regexp -nocase "uartlite" $stdout_type] || 
 	 [regexp -nocase "ps7_uart" $stdout_type] ||
@@ -184,7 +184,7 @@ proc generate_emac_config {fp} {
     # how lwIP determines the EMAC's that can be used.
     
      set proc  [hsi::get_sw_processor];
-    set proc_type [get_property IP_NAME [hsi::get_cells $proc]]
+    set proc_type [common::get_property IP_NAME [hsi::get_cells $proc]]
 
     set emaclites [hsi::get_cells -filter { ip_name == "xps_ethernetlite" }];
     if { [llength $emaclites] == 0 } {   
@@ -306,15 +306,15 @@ proc swapp_generate {} {
     generate_stdout_config $fid;
     puts $fid "";
 
-    set use_softeth_on_zynq [get_property CONFIG.use_axieth_on_zynq [hsi::get_libs lwip140]];
-    set use_ethernetlite_on_zynq [get_property CONFIG.use_emaclite_on_zynq [hsi::get_libs lwip140]];
+    set use_softeth_on_zynq [common::get_property CONFIG.use_axieth_on_zynq [hsi::get_libs lwip140]];
+    set use_ethernetlite_on_zynq [common::get_property CONFIG.use_emaclite_on_zynq [hsi::get_libs lwip140]];
     # figure out the emac baseaddr
     generate_emac_config $fid;
     puts $fid "";
 
     # if MB, figure out the timer to be used 
      set proc  [hsi::get_sw_processor];
-     set proc_type [get_property IP_NAME [hsi::get_cells $proc]]
+     set proc_type [common::get_property IP_NAME [hsi::get_cells $proc]]
 
     if { $proc_type == "microblaze"} {
         generate_timer_config $fid;
