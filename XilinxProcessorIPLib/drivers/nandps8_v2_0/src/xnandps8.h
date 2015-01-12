@@ -145,6 +145,8 @@
 *			   size of spare area
 *			   Modified Block Erase API, removed clearing of
 *			   packet register before erase.
+*			   Clearing Data Interface Register before
+*			   XNandPs8_OnfiReset call.
 * </pre>
 *
 ******************************************************************************/

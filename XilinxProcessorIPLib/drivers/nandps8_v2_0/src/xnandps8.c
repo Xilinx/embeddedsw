@@ -87,6 +87,8 @@
 *			   size of spare area
 *			   Modified Block Erase API, removed clearing of
 *			   packet register before erase.
+*			   Clearing Data Interface Register before
+*			   XNandPs8_OnfiReset call.
 * </pre>
 *
 ******************************************************************************/
@@ -367,6 +369,12 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 	 * Assert the input arguments.
 	 */
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/*
+	 * Clear Data Interface Register
+	 */
+	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPS8_DATA_INTF_OFFSET, 0U);
 
 	for (Target = 0U; Target < XNANDPS8_MAX_TARGETS; Target++) {
 		/*
