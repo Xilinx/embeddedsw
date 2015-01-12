@@ -108,7 +108,7 @@ void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr)
 		InstancePtr->BbtDesc.PageOffset[Index] =
 						XNANDPS8_BBT_DESC_PAGE_OFFSET;
 	}
-	if (InstancePtr->EccMode == ONDIE) {
+	if (InstancePtr->EccMode == XNANDPS8_ONDIE) {
 		InstancePtr->BbtDesc.SigOffset = XNANDPS8_ONDIE_SIG_OFFSET;
 		InstancePtr->BbtDesc.VerOffset = XNANDPS8_ONDIE_VER_OFFSET;
 	} else {
@@ -131,7 +131,7 @@ void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr)
 		InstancePtr->BbtMirrorDesc.PageOffset[Index] =
 						XNANDPS8_BBT_DESC_PAGE_OFFSET;
 	}
-	if (InstancePtr->EccMode == ONDIE) {
+	if (InstancePtr->EccMode == XNANDPS8_ONDIE) {
 		InstancePtr->BbtMirrorDesc.SigOffset =
 						XNANDPS8_ONDIE_SIG_OFFSET;
 		InstancePtr->BbtMirrorDesc.VerOffset =

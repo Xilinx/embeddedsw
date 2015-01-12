@@ -171,7 +171,6 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #define XNANDPS8_DEBUG
-#define RTL_3_1_FIX
 
 #define XNANDPS8_MAX_TARGETS		1U	/**< ce_n0, ce_n1 */
 #define XNANDPS8_MAX_PKT_SIZE		0x7FFU	/**< Max packet size */
@@ -188,8 +187,8 @@ extern "C" {
 #define XNANDPS8_BUS_WIDTH_8		0U	/**< 8-bit bus width */
 #define XNANDPS8_BUS_WIDTH_16		1U	/**< 16-bit bus width */
 
-#define XNANDPS8_HAMMING			0x1U	/**< Hamming Flash */
-#define XNANDPS8_BCH				0x2U	/**< BCH Flash */
+#define XNANDPS8_HAMMING		0x1U	/**< Hamming Flash */
+#define XNANDPS8_BCH			0x2U	/**< BCH Flash */
 
 #define XNANDPS8_MAX_BLOCKS		32768U	/**< Max number of Blocks */
 #define XNANDPS8_MAX_SPARE_SIZE		0x800U	/**< Max spare bytes of a NAND
@@ -197,13 +196,13 @@ extern "C" {
 
 #define XNANDPS8_INTR_POLL_TIMEOUT	10000U
 
-#define SDR_CLK				((u16)100U * (u16)1000U * (u16)1000U)
-#define NVDDR_CLK_0			((u16)20U * (u16)1000U * (u16)1000U)
-#define NVDDR_CLK_1			((u16)33U * (u16)1000U * (u16)1000U)
-#define NVDDR_CLK_2			((u16)50U * (u16)1000U * (u16)1000U)
-#define NVDDR_CLK_3			((u16)66U * (u16)1000U * (u16)1000U)
-#define NVDDR_CLK_4			((u16)83U * (u16)1000U * (u16)1000U)
-#define NVDDR_CLK_5			((u16)100U * (u16)1000U * (u16)1000U)
+#define XNANDPS8_SDR_CLK		((u16)100U * (u16)1000U * (u16)1000U)
+#define XNANDPS8_NVDDR_CLK_0		((u16)20U * (u16)1000U * (u16)1000U)
+#define XNANDPS8_NVDDR_CLK_1		((u16)33U * (u16)1000U * (u16)1000U)
+#define XNANDPS8_NVDDR_CLK_2		((u16)50U * (u16)1000U * (u16)1000U)
+#define XNANDPS8_NVDDR_CLK_3		((u16)66U * (u16)1000U * (u16)1000U)
+#define XNANDPS8_NVDDR_CLK_4		((u16)83U * (u16)1000U * (u16)1000U)
+#define XNANDPS8_NVDDR_CLK_5		((u16)100U * (u16)1000U * (u16)1000U)
 
 /**
  * The XNandPs8_Config structure contains configuration information for NAND
@@ -218,53 +217,53 @@ typedef struct {
  * The XNandPs8_DataInterface enum contains flash operating mode.
  */
 typedef enum {
-	SDR = 0U,		/**< Single Data Rate */
-	NVDDR			/**< Double Data Rate */
+	XNANDPS8_SDR = 0U,		/**< Single Data Rate */
+	XNANDPS8_NVDDR			/**< Double Data Rate */
 } XNandPs8_DataInterface;
 
 /**
  * XNandPs8_TimingMode enum contains timing modes.
  */
 typedef enum {
-	SDR0 = 0U,
-	SDR1,
-	SDR2,
-	SDR3,
-	SDR4,
-	SDR5,
-	NVDDR0,
-	NVDDR1,
-	NVDDR2,
-	NVDDR3,
-	NVDDR4,
-	NVDDR5
+	XNANDPS8_SDR0 = 0U,
+	XNANDPS8_SDR1,
+	XNANDPS8_SDR2,
+	XNANDPS8_SDR3,
+	XNANDPS8_SDR4,
+	XNANDPS8_SDR5,
+	XNANDPS8_NVDDR0,
+	XNANDPS8_NVDDR1,
+	XNANDPS8_NVDDR2,
+	XNANDPS8_NVDDR3,
+	XNANDPS8_NVDDR4,
+	XNANDPS8_NVDDR5
 } XNandPs8_TimingMode;
 
 /**
  * The XNandPs8_SWMode enum contains the driver operating mode.
  */
 typedef enum {
-	POLLING = 0,		/**< Polling */
-	INTERRUPT		/**< Interrupt */
+	XNANDPS8_POLLING = 0,		/**< Polling */
+	XNANDPS8_INTERRUPT		/**< Interrupt */
 } XNandPs8_SWMode;
 
 /**
  * The XNandPs8_DmaMode enum contains the controller MDMA mode.
  */
 typedef enum {
-	PIO = 0,		/**< PIO Mode */
-	SDMA,			/**< SDMA Mode */
-	MDMA			/**< MDMA Mode */
+	XNANDPS8_PIO = 0,		/**< PIO Mode */
+	XNANDPS8_SDMA,			/**< SDMA Mode */
+	XNANDPS8_MDMA			/**< MDMA Mode */
 } XNandPs8_DmaMode;
 
 /**
  * The XNandPs8_EccMode enum contains ECC functionality.
  */
 typedef enum {
-	NONE = 0,
-	HWECC,
-	EZNAND,
-	ONDIE
+	XNANDPS8_NONE = 0,
+	XNANDPS8_HWECC,
+	XNANDPS8_EZNAND,
+	XNANDPS8_ONDIE
 } XNandPs8_EccMode;
 
 /**

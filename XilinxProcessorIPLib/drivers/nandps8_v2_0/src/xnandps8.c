@@ -240,11 +240,11 @@ s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
 	/*
 	 * Operate in Polling Mode
 	 */
-	InstancePtr->Mode = POLLING;
+	InstancePtr->Mode = XNANDPS8_POLLING;
 	/*
 	 * Enable MDMA mode by default
 	 */
-	InstancePtr->DmaMode = MDMA;
+	InstancePtr->DmaMode = XNANDPS8_MDMA;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/*
@@ -272,15 +272,15 @@ s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
 	 * Set ECC mode
 	 */
 	if (InstancePtr->Features.EzNand != 0U) {
-		InstancePtr->EccMode = EZNAND;
+		InstancePtr->EccMode = XNANDPS8_EZNAND;
 	} else if (InstancePtr->Features.OnDie != 0U) {
-		InstancePtr->EccMode = ONDIE;
+		InstancePtr->EccMode = XNANDPS8_ONDIE;
 	} else {
-		InstancePtr->EccMode = HWECC;
+		InstancePtr->EccMode = XNANDPS8_HWECC;
 	}
 
 	if (isQemuPlatform != 0U) {
-		InstancePtr->EccMode = NONE;
+		InstancePtr->EccMode = XNANDPS8_NONE;
 		goto Out;
 	}
 
@@ -721,7 +721,7 @@ void XNandPs8_EnableDmaMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->DmaMode = MDMA;
+	InstancePtr->DmaMode = XNANDPS8_MDMA;
 }
 
 /*****************************************************************************/
@@ -745,7 +745,7 @@ void XNandPs8_DisableDmaMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->DmaMode = PIO;
+	InstancePtr->DmaMode = XNANDPS8_PIO;
 }
 
 /*****************************************************************************/
@@ -769,7 +769,7 @@ void XNandPs8_EnableEccMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->EccMode = HWECC;
+	InstancePtr->EccMode = XNANDPS8_HWECC;
 }
 
 /*****************************************************************************/
@@ -793,7 +793,7 @@ void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->EccMode = NONE;
+	InstancePtr->EccMode = XNANDPS8_NONE;
 }
 
 /*****************************************************************************/
@@ -1299,7 +1299,7 @@ static s32 XNandPs8_OnfiReadStatus(XNandPs8 *InstancePtr, u32 Target,
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	if(InstancePtr->DataInterface == SDR){
+	if(InstancePtr->DataInterface == XNANDPS8_SDR){
 		XNandPs8_SetPktSzCnt(InstancePtr, 1U, 1U);
 	}
 	else{
@@ -2102,7 +2102,7 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_PG_PROG1, ONFI_CMD_PG_PROG2,
 					1U, 1U, (u8)AddrCycles);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
@@ -2132,7 +2132,7 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Flush the Data Cache
 		 */
@@ -2162,7 +2162,7 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	/*
 	 * Set ECC
 	 */
-	if (InstancePtr->EccMode == HWECC) {
+	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
 		XNandPs8_SetEccSpareCmd(InstancePtr, ONFI_CMD_CHNG_WR_COL,
 					InstancePtr->Geometry.ColAddrCycles);
 	}
@@ -2172,7 +2172,7 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_PG_PROG_MASK);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		goto WriteDmaDone;
 	}
 
@@ -2325,7 +2325,7 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 
 	PageVar %= InstancePtr->Geometry.NumTargetPages;
 
-	if (InstancePtr->EccMode == HWECC) {
+	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
 		/*
 		 * Calculate ECC free positions before and after ECC code
 		 */
@@ -2365,7 +2365,7 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 		}
 	}
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Enable Transfer Complete Interrupt in Interrupt Status
 		 * Enable Register
@@ -2408,7 +2408,7 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Flush the Data Cache
 		 */
@@ -2451,7 +2451,7 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_PG_PROG_MASK);
 	}
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		goto WriteDmaDone;
 	}
 
@@ -2552,7 +2552,7 @@ WriteDmaDone:
 				XNANDPS8_INTR_STS_OFFSET,
 				XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
-	if (InstancePtr->EccMode == HWECC) {
+	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
 		if (PostWrite > 0U) {
 			BufPtr = (u32 *)(void *)&Buf[PostEccSpareCol];
 			Status = XNandPs8_ChangeWriteColumn(InstancePtr,
@@ -2615,7 +2615,7 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_RD1, ONFI_CMD_RD2,
 					1U, 1U, (u8)AddrCycles);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
@@ -2639,7 +2639,7 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	/*
 	 * Enable Single bit error and Multi bit error
 	 */
-	if (InstancePtr->EccMode == HWECC) {
+	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
 		/*
 		 * Interrupt Status Enable Register
 		 */
@@ -2662,7 +2662,7 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Invalidate the Data Cache
 		 */
@@ -2689,7 +2689,7 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	/*
 	 * Set ECC
 	 */
-	if (InstancePtr->EccMode == HWECC) {
+	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
 		XNandPs8_SetEccSpareCmd(InstancePtr,
 					(ONFI_CMD_CHNG_RD_COL1 |
 					(ONFI_CMD_CHNG_RD_COL2 << (u8)8U)),
@@ -2702,7 +2702,7 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
 				XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		goto ReadDmaDone;
 	}
 
@@ -2807,7 +2807,7 @@ CheckEccError:
 	/*
 	 * Check ECC Errors
 	 */
-	if (InstancePtr->EccMode == HWECC) {
+	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
 		/*
 		 * Hamming Multi Bit Errors
 		 */
@@ -2900,7 +2900,7 @@ s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 
 	PageVar %= InstancePtr->Geometry.NumTargetPages;
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Enable Transfer Complete Interrupt in Interrupt Status
 		 * Enable Register
@@ -2937,7 +2937,7 @@ s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 
 		/*
 		 * Invalidate the Data Cache
@@ -2967,7 +2967,7 @@ s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
 				XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		goto ReadDmaDone;
 	}
 
@@ -3199,7 +3199,7 @@ s32 XNandPs8_GetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 */
 	Xil_AssertNonvoid(Buf != NULL);
 
-	if (InstancePtr->DataInterface == NVDDR) {
+	if (InstancePtr->DataInterface == XNANDPS8_NVDDR) {
 		PktSize = 8U;
 	}
 
@@ -3339,7 +3339,7 @@ s32 XNandPs8_SetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 * Assert the input arguments.
 	 */
 	Xil_AssertNonvoid(Buf != NULL);
-	if (InstancePtr->DataInterface == NVDDR) {
+	if (InstancePtr->DataInterface == XNANDPS8_NVDDR) {
 		PktSize = 8U;
 	}
 
@@ -3511,13 +3511,13 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	/*
 	 * Check for valid input arguments
 	 */
-	if((NewIntf != SDR && NewIntf != NVDDR) ||
+	if((NewIntf != XNANDPS8_SDR && NewIntf != XNANDPS8_NVDDR) ||
 			(NewModeVar > 5U)){
 		Status = XST_FAILURE;
 		goto Out;
 	}
 
-	if(NewIntf == NVDDR){
+	if(NewIntf == XNANDPS8_NVDDR){
 		NewModeVar = NewModeVar | 0x10U;
 	}
 	/*
@@ -3534,19 +3534,19 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 		goto Out;
 	}
 
-	if ((CurIntf == NVDDR) && (NewIntf == SDR)) {
+	if ((CurIntf == XNANDPS8_NVDDR) && (NewIntf == XNANDPS8_SDR)) {
 
-		NewModeVar = SDR0;
+		NewModeVar = XNANDPS8_SDR0;
 
 		/*
 		 * Change the clock frequency
 		 */
-		XNandPs8_ChangeClockFreq(InstancePtr, SDR_CLK);
+		XNandPs8_ChangeClockFreq(InstancePtr, XNANDPS8_SDR_CLK);
 
 		/*
 		 * Update Data Interface Register
 		 */
-		RegVal = ((NewModeVar % 6U) << ((NewIntf == NVDDR) ? 3U : 0U)) |
+		RegVal = ((NewModeVar % 6U) << ((NewIntf == XNANDPS8_NVDDR) ? 3U : 0U)) |
 				((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
 		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
 					XNANDPS8_DATA_INTF_OFFSET, RegVal);
@@ -3594,7 +3594,7 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	}
 
 	SetFeature = NewModeVar;
-	if(CurIntf == NVDDR && NewIntf == NVDDR){
+	if(CurIntf == XNANDPS8_NVDDR && NewIntf == XNANDPS8_NVDDR){
 		SetFeature |= SetFeature << 8U;
 	}
 	/*
@@ -3614,7 +3614,7 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	/*
 	 * Update Data Interface Register
 	 */
-	RegVal = ((NewMode % 6U) << ((NewIntf == NVDDR) ? 3U : 0U)) |
+	RegVal = ((NewMode % 6U) << ((NewIntf == XNANDPS8_NVDDR) ? 3U : 0U)) |
 			((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
 	XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPS8_DATA_INTF_OFFSET, RegVal);
@@ -3680,7 +3680,7 @@ static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
 	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
 	Xil_AssertNonvoid(Buf != NULL);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
 		 * Enable Register
@@ -3718,7 +3718,7 @@ static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Invalidate the Data Cache
 		 */
@@ -3746,7 +3746,7 @@ static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
 	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		goto ReadDmaDone;
 	}
 
@@ -3891,7 +3891,7 @@ static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
 		return XST_SUCCESS;
 	}
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
 		 * Enable Register
@@ -3932,7 +3932,7 @@ static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 #ifdef __aarch64__
 		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPS8_DMA_SYS_ADDR1_OFFSET,
@@ -3956,7 +3956,7 @@ static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
 	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
 		XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_CHNG_ROW_ADDR_END_MASK);
 
-	if (InstancePtr->DmaMode == MDMA) {
+	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
 		goto WriteDmaDone;
 	}
 
@@ -4142,12 +4142,12 @@ void XNandPs8_Prepare_Cmd(XNandPs8 *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 	RegValue = (u32)Cmd1 | (((u32)Cmd2 << (u32)XNANDPS8_CMD_CMD2_SHIFT) &
 			(u32)XNANDPS8_CMD_CMD2_MASK);
 
-	if ((EccState != 0U) && (InstancePtr->EccMode == HWECC)) {
+	if ((EccState != 0U) && (InstancePtr->EccMode == XNANDPS8_HWECC)) {
 		RegValue |= 1U << XNANDPS8_CMD_ECC_ON_SHIFT;
 	}
 
-	if ((DmaMode != 0U) && (InstancePtr->DmaMode == MDMA)) {
-		RegValue |= MDMA << XNANDPS8_CMD_DMA_EN_SHIFT;
+	if ((DmaMode != 0U) && (InstancePtr->DmaMode == XNANDPS8_MDMA)) {
+		RegValue |= XNANDPS8_MDMA << XNANDPS8_CMD_DMA_EN_SHIFT;
 	}
 
 	if (AddrCycles != 0U) {
