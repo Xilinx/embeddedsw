@@ -59,7 +59,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+	puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
 	# Define NUM_INSTANCES
 	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [expr [llength $periphs] * 3]"
 	set args [lreplace $args $posn $posn]
@@ -68,11 +68,11 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 
     lappend newargs
     foreach arg $args {
-	set value [get_property CONFIG.$arg $drv_handle]
+	set value [common::get_property CONFIG.$arg $drv_handle]
 	if {[llength $value] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
+	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]"
 	}
     }
     set args $newargs
@@ -81,7 +81,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
 	puts $file_handle ""
-	puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 	for {set x 0} {$x<3} {incr x} {
 	    foreach arg $args {
 		if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
@@ -102,7 +102,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 		} else {
 		    set arg_name $arg
 		}
-		set arg_name [format "XPAR_%s_%d_%s" [string toupper [string range [get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg_name]
+		set arg_name [format "XPAR_%s_%d_%s" [string toupper [string range [common::get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg_name]
 		regsub "S_AXI_" $arg_name "" arg_name
 		if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
 		    puts $file_handle "#define $arg_name [string toupper [format 0x%08x [expr $value + $x * 4]]]"
@@ -143,9 +143,9 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 	    set comma ""
 	    foreach arg $args {
 		# Check if this is a driver parameter or a peripheral parameter
-		set value [get_property CONFIG.$arg $drv_handle]
+		set value [common::get_property CONFIG.$arg $drv_handle]
 		if {[llength $value] == 0} {
-		    set local_value [get_property CONFIG.$arg $periph]
+		    set local_value [common::get_property CONFIG.$arg $periph]
 		    # If a parameter isn't found locally (in the current
 		    # peripheral), we will (for some obscure and ancient reason)
 		    # look in peripherals connected via point to point links
@@ -157,7 +157,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 			    } else {
 				set arg_name $arg
 			    }
-			    set arg_name [format "XPAR_%s_%d_%s" [string toupper [string range [get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg_name]
+			    set arg_name [format "XPAR_%s_%d_%s" [string toupper [string range [common::get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg_name]
 			    regsub "S_AXI_" $arg_name "" arg_name
 			    puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 			} else {
@@ -170,7 +170,7 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 			} else {
 			    set arg_name $arg
 			}
-			set arg_name [format "XPAR_%s_%d_%s" [string toupper [string range [get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg_name]
+			set arg_name [format "XPAR_%s_%d_%s" [string toupper [string range [common::get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg_name]
 			regsub "S_AXI_" $arg_name "" arg_name
 			puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 		    }
@@ -207,7 +207,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -232,7 +232,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     set i 0
     set device_id 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
@@ -254,7 +254,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                     # set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
                     # The rvalue set below is the actual value of the parameter
                     if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
-                        set rvalue [format "XPAR_%s_%d_%s" [string toupper [string range [get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg]
+                        set rvalue [format "XPAR_%s_%d_%s" [string toupper [string range [common::get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg]
                     } else {
                         if {[string compare -nocase "C_TTC_CLK_CLKSRC" $arg] == 0} {
                             set rvalue [::hsi::utils::get_param_value $periph [format "C_TTC_CLK%d_CLKSRC" $x]]
