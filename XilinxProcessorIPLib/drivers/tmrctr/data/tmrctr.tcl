@@ -60,7 +60,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-        puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+        puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
         puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
@@ -69,7 +69,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Print all parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
         #set freq [xget_freq $periph]
 	set freq [::hsi::utils::get_clk_pin_freq  $periph "S_AXI_ACLK"]
 
@@ -89,7 +89,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 }
                 set value $freq
             } else {
-                set value [get_property CONFIG.$arg $periph]
+                set value [common::get_property CONFIG.$arg $periph]
             }
             if {[llength $value] == 0} {
                 set value 0
@@ -117,7 +117,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -138,7 +138,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
@@ -153,7 +153,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 if {[string compare -nocase "CLOCK_FREQ_HZ" $arg] == 0} {
                     set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
                 } else {
-                    set rvalue [get_property CONFIG.$arg $periph]
+                    set rvalue [common::get_property CONFIG.$arg $periph]
                     if {[llength $rvalue] == 0} {
                         set rvalue 0
                     }
