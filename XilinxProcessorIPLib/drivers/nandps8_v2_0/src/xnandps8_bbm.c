@@ -125,6 +125,14 @@ void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr)
 	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_OOB;
 
 	/*
+	 * Assuming that the flash device will have at least 4 blocks.
+	 */
+	if (InstancePtr->Geometry.NumTargetBlocks <= InstancePtr->
+							BbtDesc.MaxBlocks){
+		InstancePtr->BbtDesc.MaxBlocks = 4U;
+	}
+
+	/*
 	 * Initialize mirror Bad Block Table(BBT)
 	 */
 	for (Index = 0U; Index < XNANDPS8_MAX_TARGETS; Index++) {
@@ -150,6 +158,14 @@ void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr)
 	}
 	InstancePtr->BbtMirrorDesc.Valid = 0U;
 	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_OOB;
+
+	/*
+	 * Assuming that the flash device will have at least 4 blocks.
+	 */
+	if (InstancePtr->Geometry.NumTargetBlocks <= InstancePtr->
+						BbtMirrorDesc.MaxBlocks){
+		InstancePtr->BbtMirrorDesc.MaxBlocks = 4U;
+	}
 
 	/*
 	 * Initialize Bad block search pattern structure
