@@ -85,7 +85,7 @@ proc xdefine_trafgen_include_file {drv_handle file_name drv_string} {
 	
 	    # Handle NUM_INSTANCES
 	    set periph_ninstances 0
-	    puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+	    puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
 	    foreach periph $periphs {
 	    	init_periph_config_struct_atg $periph_ninstances
 	    	incr periph_ninstances 1
@@ -185,7 +185,7 @@ proc xdefine_trafgen_params_instance {file_handle periph device_id} {
     global atg_mode_value
     global atg_mode_value_l2
     global axi_mode_value
-    puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+    puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
     
     puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "DEVICE_ID"] $device_id"
     puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "BASEADDR"] [::hsi::utils::get_param_value $periph C_BASEADDR]"
@@ -203,7 +203,7 @@ proc xdefine_trafgen_params_canonical {file_handle periph device_id} {
     global axi_mode_value           
     global baseaddr_value           
     global highaddr_value
-    puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [get_property NAME $periph]] */"
+    puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
     
     set canonical_tag [string toupper [format "XPAR_XTRAFGEN_%d" $device_id]]
     
