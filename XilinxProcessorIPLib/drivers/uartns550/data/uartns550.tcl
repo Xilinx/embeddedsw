@@ -77,7 +77,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-        puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
+        puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
         puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
@@ -89,7 +89,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set periph [lindex $periphs 0]
     set freq [xget_freq $periph]
     if {[llength $freq] == 0} {
-        set freq [get_property CONFIG.C_S_AXI_ACLK_FREQ_HZ $periph]
+        set freq [common::get_property CONFIG.C_S_AXI_ACLK_FREQ_HZ $periph]
         if {[llength $freq] == 0} {
             set freq "100000000"
         }
@@ -99,7 +99,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Print all parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
         set freq [xget_freq $periph]
 
         puts $file_handle ""
@@ -111,7 +111,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 incr device_id
             } elseif {[string compare -nocase "CLOCK_FREQ_HZ" $arg] == 0} {
                 if {[llength $freq] == 0} {
-                    set freq [get_property CONFIG.C_S_AXI_ACLK_FREQ_HZ $periph]
+                    set freq [common::get_property CONFIG.C_S_AXI_ACLK_FREQ_HZ $periph]
                     if {[llength $freq] == 0} {
                         set freq "100000000"
                         puts "WARNING: Clock frequency information is not available in the design, \
@@ -122,7 +122,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 }
                 set value $freq
             } else {
-                set value [get_property CONFIG.$arg $periph]
+                set value [common::get_property CONFIG.$arg $periph]
             }
             if {[llength $value] == 0} {
                 set value 0
@@ -189,7 +189,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [get_property NAME $periph]]
+        set peripheral_name [string toupper [common::get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -211,7 +211,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     set i 0
     set device_id 0
     foreach periph $periphs {
-        set periph_name [string toupper [get_property NAME $periph]]
+        set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
@@ -229,7 +229,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 				set rvalue $device_id
 				incr device_id
 		} else {
-                    set rvalue [get_property CONFIG.$arg $periph]
+                    set rvalue [common::get_property CONFIG.$arg $periph]
                     if {[llength $rvalue] == 0} {
                         set rvalue 0
                     }
@@ -254,7 +254,7 @@ proc xget_freq {periph} {
         set freq ""
 
         # Check if the device uses external XIN
-        set use_xin_clk [get_property CONFIG.C_HAS_EXTERNAL_XIN $periph]
+        set use_xin_clk [common::get_property CONFIG.C_HAS_EXTERNAL_XIN $periph]
         if { $use_xin_clk == "1" } {
             set port_name "xin"
         }
@@ -265,7 +265,7 @@ proc xget_freq {periph} {
         # read the value of the parameter C_EXTERNAL_XIN_CLK_HZ to get
         # the frequency
         if { $use_xin_clk == "1" } {
-            set freq [get_property CONFIG.C_EXTERNAL_XIN_CLK_HZ $periph]
+            set freq [common::get_property CONFIG.C_EXTERNAL_XIN_CLK_HZ $periph]
         }
         return $freq
 }

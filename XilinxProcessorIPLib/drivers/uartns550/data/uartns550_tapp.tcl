@@ -82,7 +82,7 @@ proc gen_include_files {swproj mhsinst} {
     return "xuartns550_l.h"
   }
   if {$swproj == 1} {
-    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
 	set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
@@ -104,7 +104,7 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
         set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
@@ -125,11 +125,11 @@ proc gen_testfunc_def {swproj mhsinst} {
 
 proc gen_init_code {swproj mhsinst} {
 
-    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
        if {$swproj == 1} {
-	    set ipname [get_property NAME  $mhsinst]
+	    set ipname [common::get_property NAME  $mhsinst]
 	    set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
 	    if {$ifuartns550intr == 1} {
 		set decl "   static XUartNs550 ${ipname}_UartNs550;"
@@ -144,7 +144,7 @@ proc gen_init_code {swproj mhsinst} {
 
   set clockhz [::hsi::utils::get_driver_param_name "XUartNs550" "CLOCK_HZ"]
   set baseaddr [::hsi::utils::get_ip_param_name $mhsinst "BASEADDR"]
-  set ipname [get_property NAME  $mhsinst]
+  set ipname [common::get_property NAME  $mhsinst]
 
   append testfunc_call "
    /* Initialize ${ipname} - Set baudrate and number of stop bits */
@@ -156,7 +156,7 @@ proc gen_init_code {swproj mhsinst} {
 
 proc gen_testfunc_call {swproj mhsinst} {
 
-  set ipname [get_property NAME  $mhsinst]
+  set ipname [common::get_property NAME  $mhsinst]
   set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
   set testfunc_call ""
 
@@ -164,7 +164,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     return $testfunc_call
   }
 
-  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   set isStdout [string match $stdout $mhsinst]
   if {${isStdout} == 1} {
     append testfunc_call "
@@ -177,7 +177,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   }
 
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
@@ -187,7 +187,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
       set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
       set intcvar intc
-      set proc [get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
+      set proc [common::get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
   }
 
   if {${hasStdout} == 0} {
