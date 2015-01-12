@@ -830,6 +830,54 @@ void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function enables storing bbt version in oob area.
+*
+* @param	InstancePtr is a pointer to the XNandPs8 instance.
+*
+* @return
+*			None
+*
+* @note		None
+*
+******************************************************************************/
+void XNandPs8_EnableBbtOobMode(XNandPs8 *InstancePtr)
+{
+	/*
+	 * Assert the input arguments.
+	 */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_OOB;
+	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_OOB;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables storing bbt version in no oob area i.e. page memory.
+*
+* @param	InstancePtr is a pointer to the XNandPs8 instance.
+*
+* @return
+*			None
+*
+* @note		None
+*
+******************************************************************************/
+void XNandPs8_DisableBbtOobMode(XNandPs8 *InstancePtr)
+{
+	/*
+	 * Assert the input arguments.
+	 */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_NO_OOB;
+	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_NO_OOB;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function polls for a register bit set status till the timeout.
 *
 * @param	InstancePtr is a pointer to the XNandPs8 instance.

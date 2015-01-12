@@ -202,7 +202,6 @@ extern "C" {
 #define NVDDR_CLK_3			((u16)66U * (u16)1000U * (u16)1000U)
 #define NVDDR_CLK_4			((u16)83U * (u16)1000U * (u16)1000U)
 #define NVDDR_CLK_5			((u16)100U * (u16)1000U * (u16)1000U)
-//#define XNANDPS8_BBT_NO_OOB
 
 /**
  * The XNandPs8_Config structure contains configuration information for NAND
@@ -275,6 +274,14 @@ typedef struct {
 } XNandPs8_TimingModeDesc;
 
 /**
+ * The XNandPs8_BbtOption enum contains the BBT storage option.
+ */
+typedef enum {
+	XNANDPS8_BBT_OOB = 0,		/**< OOB area */
+	XNANDPS8_BBT_NO_OOB,		/**< No OOB i.e page area */
+} XNandPs8_BbtOption;
+
+/**
  * Bad block table descriptor
  */
 typedef struct {
@@ -288,6 +295,7 @@ typedef struct {
 	u8 Version[XNANDPS8_MAX_TARGETS];
 				/**< BBT version */
 	u32 Valid;		/**< BBT descriptor is valid or not */
+	XNandPs8_BbtOption Option;	/**< BBT Oob option enabled/disabled */
 } XNandPs8_BbtDesc;
 
 /**
@@ -558,6 +566,9 @@ void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr);
 void XNandPs8_Prepare_Cmd(XNandPs8 *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 			u8 DmaMode, u8 AddrCycles);
 
+void XNandPs8_EnableBbtOobMode(XNandPs8 *InstancePtr);
+
+void XNandPs8_DisableBbtOobMode(XNandPs8 *InstancePtr);
 /*
  * XNandPs8_LookupConfig in xnandps8_sinit.c
  */

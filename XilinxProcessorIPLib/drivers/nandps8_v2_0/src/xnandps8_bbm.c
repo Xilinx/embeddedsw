@@ -122,6 +122,7 @@ void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr)
 		InstancePtr->BbtDesc.Version[Index] = 0U;
 	}
 	InstancePtr->BbtDesc.Valid = 0U;
+	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_OOB;
 
 	/*
 	 * Initialize mirror Bad Block Table(BBT)
@@ -148,6 +149,7 @@ void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr)
 		InstancePtr->BbtMirrorDesc.Version[Index] = 0U;
 	}
 	InstancePtr->BbtMirrorDesc.Valid = 0U;
+	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_OOB;
 
 	/*
 	 * Initialize Bad block search pattern structure
@@ -458,10 +460,10 @@ static s32 XNandPs8_ReadBbt(XNandPs8 *InstancePtr, u32 Target)
 				goto Out;
 			}
 
-#ifdef XNANDPS8_BBT_NO_OOB
-			BufPtr = BufPtr + Desc->VerOffset +
-				XNANDPS8_BBT_VERSION_LENGTH;
-#endif
+			if (Desc->Option == XNANDPS8_BBT_NO_OOB){
+				BufPtr = BufPtr + Desc->VerOffset +
+						XNANDPS8_BBT_VERSION_LENGTH;
+			}
 			/*
 			 * Convert flash BBT to memory based BBT
 			 */
@@ -485,10 +487,10 @@ static s32 XNandPs8_ReadBbt(XNandPs8 *InstancePtr, u32 Target)
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
-#ifdef XNANDPS8_BBT_NO_OOB
-			BufPtr = BufPtr + Desc->VerOffset +
-				XNANDPS8_BBT_VERSION_LENGTH;
-#endif
+			if(Desc->Option == XNANDPS8_BBT_NO_OOB){
+				BufPtr = BufPtr + Desc->VerOffset +
+						XNANDPS8_BBT_VERSION_LENGTH;
+			}
 			/*
 			 * Convert flash BBT to memory based BBT
 			 */
@@ -512,10 +514,11 @@ static s32 XNandPs8_ReadBbt(XNandPs8 *InstancePtr, u32 Target)
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
-#ifdef XNANDPS8_BBT_NO_OOB
-			BufPtr = BufPtr + Desc->VerOffset +
-				XNANDPS8_BBT_VERSION_LENGTH;
-#endif
+
+			if(Desc->Option == XNANDPS8_BBT_NO_OOB){
+				BufPtr = BufPtr + Desc->VerOffset +
+						XNANDPS8_BBT_VERSION_LENGTH;
+			}
 
 			/*
 			 * Convert flash BBT to memory based BBT
@@ -532,10 +535,10 @@ static s32 XNandPs8_ReadBbt(XNandPs8 *InstancePtr, u32 Target)
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
-#ifdef XNANDPS8_BBT_NO_OOB
+		if(Desc->Option == XNANDPS8_BBT_NO_OOB){
 			BufPtr = BufPtr + Desc->VerOffset +
 				XNANDPS8_BBT_VERSION_LENGTH;
-#endif
+		}
 		/*
 		 * Convert flash BBT to memory based BBT
 		 */
@@ -560,10 +563,10 @@ static s32 XNandPs8_ReadBbt(XNandPs8 *InstancePtr, u32 Target)
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
-#ifdef XNANDPS8_BBT_NO_OOB
+		if(Desc->Option == XNANDPS8_BBT_NO_OOB){
 			BufPtr = BufPtr + Desc->VerOffset +
 				XNANDPS8_BBT_VERSION_LENGTH;
-#endif
+		}
 
 		/*
 		 * Convert flash BBT to memory based BBT
@@ -627,13 +630,13 @@ static s32 XNandPs8_SearchBbt(XNandPs8 *InstancePtr, XNandPs8_BbtDesc *Desc,
 		PageOff = (StartBlock - Block) *
 			InstancePtr->Geometry.PagesPerBlock;
 
-#ifdef XNANDPS8_BBT_NO_OOB
-		BlockOff = (u64)PageOff * (u64)InstancePtr->Geometry.BytesPerPage;
-		Status = XNandPs8_Read(InstancePtr, BlockOff,
-			Desc->SigLength + Desc->SigOffset , &Buf[0]);
-#else
-		Status = XNandPs8_ReadSpareBytes(InstancePtr, PageOff, &Buf[0]);
-#endif
+		if(Desc->Option == XNANDPS8_BBT_NO_OOB){
+			BlockOff = (u64)PageOff * (u64)InstancePtr->Geometry.BytesPerPage;
+			Status = XNandPs8_Read(InstancePtr, BlockOff,
+				Desc->SigLength + Desc->SigOffset , &Buf[0]);
+		}else{
+			Status = XNandPs8_ReadSpareBytes(InstancePtr, PageOff, &Buf[0]);
+		}
 		if (Status != XST_SUCCESS) {
 			continue;
 		}
@@ -751,9 +754,9 @@ static s32 XNandPs8_WriteBbt(XNandPs8 *InstancePtr, XNandPs8_BbtDesc *Desc,
 	 */
 	memset(Buf, 0xff, BufLen);
 
-#ifdef XNANDPS8_BBT_NO_OOB
-	BufPtr = BufPtr + Desc->VerOffset + XNANDPS8_BBT_VERSION_LENGTH;
-#endif
+	if(Desc->Option == XNANDPS8_BBT_NO_OOB){
+		BufPtr = BufPtr + Desc->VerOffset + XNANDPS8_BBT_VERSION_LENGTH;
+	}
 	/*
 	 * Loop through the number of blocks
 	 */
@@ -779,52 +782,53 @@ static s32 XNandPs8_WriteBbt(XNandPs8 *InstancePtr, XNandPs8_BbtDesc *Desc,
 		goto Out;
 	}
 
-#ifdef XNANDPS8_BBT_NO_OOB
-	/*
-	 * Copy the signature and version to the Buffer
-	 */
-	memcpy(Buf + Desc->SigOffset, &Desc->Signature[0],
+	if(Desc->Option == XNANDPS8_BBT_NO_OOB){
+		/*
+		 * Copy the signature and version to the Buffer
+		 */
+		memcpy(Buf + Desc->SigOffset, &Desc->Signature[0],
 							Desc->SigLength);
-	memcpy(Buf + Desc->VerOffset, &Desc->Version[Target], 1U);
-	/*
-	 * Write the Buffer to page offset
-	 */
-	Offset = (u64)Desc->PageOffset[Target] *
-			(u64)InstancePtr->Geometry.BytesPerPage;
-	Status = XNandPs8_Write(InstancePtr, Offset, BufLen, &Buf[0]);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
-#else
-	/*
-	 * Write the BBT to page offset
-	 */
-	Offset = (u64)Desc->PageOffset[Target] *
-			(u64)InstancePtr->Geometry.BytesPerPage;
-	Status = XNandPs8_Write(InstancePtr, Offset, BbtLen, &Buf[0]);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
-	/*
-	 * Write the signature and version in the spare data area
-	 */
-	memset(SpareBuf, 0xff, InstancePtr->Geometry.SpareBytesPerPage);
-	Status = XNandPs8_ReadSpareBytes(InstancePtr, Desc->PageOffset[Target],
-							&SpareBuf[0]);
-	if (Status != XST_SUCCESS) {
-		goto Out;
+		memcpy(Buf + Desc->VerOffset, &Desc->Version[Target], 1U);
+		/*
+		 * Write the Buffer to page offset
+		 */
+		Offset = (u64)Desc->PageOffset[Target] *
+				(u64)InstancePtr->Geometry.BytesPerPage;
+		Status = XNandPs8_Write(InstancePtr, Offset, BufLen, &Buf[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+	}else{
+		/*
+		 * Write the BBT to page offset
+		 */
+		Offset = (u64)Desc->PageOffset[Target] *
+				(u64)InstancePtr->Geometry.BytesPerPage;
+		Status = XNandPs8_Write(InstancePtr, Offset, BbtLen, &Buf[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+		/*
+		 * Write the signature and version in the spare data area
+		 */
+		memset(SpareBuf, 0xff, InstancePtr->Geometry.SpareBytesPerPage);
+		Status = XNandPs8_ReadSpareBytes(InstancePtr, Desc->PageOffset[Target],
+				&SpareBuf[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+
+		memcpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
+							Desc->SigLength);
+		memcpy(SpareBuf + Desc->VerOffset, &Desc->Version[Target], 1U);
+
+		Status = XNandPs8_WriteSpareBytes(InstancePtr,
+				Desc->PageOffset[Target], &SpareBuf[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
 	}
 
-	memcpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
-							Desc->SigLength);
-	memcpy(SpareBuf + Desc->VerOffset, &Desc->Version[Target], 1U);
-
-	Status = XNandPs8_WriteSpareBytes(InstancePtr,
-		Desc->PageOffset[Target], &SpareBuf[0]);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
-#endif
 	Status = XST_SUCCESS;
 Out:
 	return Status;
