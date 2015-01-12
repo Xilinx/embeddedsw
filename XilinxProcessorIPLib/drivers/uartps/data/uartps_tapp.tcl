@@ -53,7 +53,7 @@ proc gen_include_files {swproj mhsinst} {
     return
   }
   if {$swproj == 1} {
-    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
         set inc_file_lines { xuartps.h uartps_header.h }
@@ -69,7 +69,7 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-	set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+	set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
 	set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
             set inc_file_lines {examples/xuartps_intr_example.c examples/xuartps_polled_example.c data/uartps_header.h }
@@ -86,9 +86,9 @@ proc gen_testfunc_def {swproj mhsinst} {
 proc gen_init_code {swproj mhsinst} {
 
 
- set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+ set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
  set isStdout [string match $stdout $mhsinst]
- set ipname [get_property NAME $mhsinst]
+ set ipname [common::get_property NAME $mhsinst]
  if {${isStdout} == 0} {
     if {$swproj == 1} {
 		set decl "   static XUartPs ${ipname};"
@@ -102,14 +102,14 @@ proc gen_init_code {swproj mhsinst} {
 
 proc gen_testfunc_call {swproj mhsinst} {
 
-  set ipname [get_property NAME $mhsinst]
+  set ipname [common::get_property NAME $mhsinst]
   set testfunc_call ""
 
   if {$swproj == 0} {
     return $testfunc_call
   }
 
-  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   set isStdout [string match $stdout $mhsinst]
   if {${isStdout} == 1} {
     append testfunc_call "
@@ -122,7 +122,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   }
 
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
      set hasStdout 0
   } else {
