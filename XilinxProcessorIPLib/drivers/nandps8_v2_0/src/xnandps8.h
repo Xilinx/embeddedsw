@@ -147,6 +147,8 @@
 *			   packet register before erase.
 *			   Clearing Data Interface Register before
 *			   XNandPs8_OnfiReset call.
+*			   Modified XNandPs8_ChangeTimingMode API supporting
+*			   SDR and NVDDR interface for timing modes 0 to 5.
 * </pre>
 *
 ******************************************************************************/
@@ -264,14 +266,6 @@ typedef enum {
 	EZNAND,
 	ONDIE
 } XNandPs8_EccMode;
-
-typedef struct {
-	XNandPs8_DataInterface CurDataIntf;
-	XNandPs8_DataInterface NewDataIntf;
-	XNandPs8_TimingMode NewTimingMode;
-	u32 ClockFreq;
-	u32 FeatureVal;
-} XNandPs8_TimingModeDesc;
 
 /**
  * The XNandPs8_BbtOption enum contains the BBT storage option.

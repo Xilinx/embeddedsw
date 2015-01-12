@@ -89,6 +89,8 @@
 *			   packet register before erase.
 *			   Clearing Data Interface Register before
 *			   XNandPs8_OnfiReset call.
+*			   Modified XNandPs8_ChangeTimingMode API supporting
+*			   SDR and NVDDR interface for timing modes 0 to 5.
 * </pre>
 *
 ******************************************************************************/
@@ -97,40 +99,6 @@
 #include "xnandps8.h"
 #include "xnandps8_bbm.h"
 /************************** Constant Definitions *****************************/
-
-const static XNandPs8_TimingModeDesc TimingDesc[] = {
-		/*
-		 * SDR to SDR
-		 */
-		{SDR, SDR, SDR0, 0U, 0x00000000U},
-		{SDR, SDR, SDR1, 0U, 0x00000001U},
-		{SDR, SDR, SDR2, 0U, 0x00000002U},
-		{SDR, SDR, SDR3, 0U, 0x00000003U},
-		{SDR, SDR, SDR4, 0U, 0x00000004U},
-		{SDR, SDR, SDR5, 0U, 0x00000005U},
-		/*
-		 * NVDDR to NVDDR
-		 */
-		{NVDDR, NVDDR, NVDDR0, NVDDR_CLK_0, 0x00001010U},
-		{NVDDR, NVDDR, NVDDR1, NVDDR_CLK_1, 0x00001111U},
-		{NVDDR, NVDDR, NVDDR2, NVDDR_CLK_2, 0x00001212U},
-		{NVDDR, NVDDR, NVDDR3, NVDDR_CLK_3, 0x00001313U},
-		{NVDDR, NVDDR, NVDDR4, NVDDR_CLK_4, 0x00001414U},
-		{NVDDR, NVDDR, NVDDR5, NVDDR_CLK_5, 0x00001515U},
-		/*
-		 * SDR to NVDDR
-		 */
-		{SDR, NVDDR, NVDDR0, NVDDR_CLK_0, 0x00000010U},
-		{SDR, NVDDR, NVDDR1, NVDDR_CLK_1, 0x00000011U},
-		{SDR, NVDDR, NVDDR2, NVDDR_CLK_2, 0x00000012U},
-		{SDR, NVDDR, NVDDR3, NVDDR_CLK_3, 0x00000013U},
-		{SDR, NVDDR, NVDDR4, NVDDR_CLK_4, 0x00000014U},
-		{SDR, NVDDR, NVDDR5, NVDDR_CLK_5, 0x00000015U},
-		/*
-		 * NVDDR to SDR
-		 */
-		{NVDDR, SDR, SDR0, SDR_CLK, 0U},
-};
 
 const XNandPs8_EccMatrix EccMatrix[] = {
 	/*
@@ -3518,7 +3486,8 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	u32 RegVal;
 	u8 Buf[4] = {0U};
 	u32 *Feature = (u32 *)(void *)&Buf[0];
-	const XNandPs8_TimingModeDesc *Desc = NULL;
+	u32 SetFeature = 0U;
+	u32 NewModeVar = NewMode;
 
 	/*
 	 * Assert the input arguments.
@@ -3527,73 +3496,93 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
+	 * Check for valid input arguments
+	 */
+	if((NewIntf != SDR && NewIntf != NVDDR) ||
+			(NewModeVar > 5U)){
+		Status = XST_FAILURE;
+		goto Out;
+	}
+
+	if(NewIntf == NVDDR){
+		NewModeVar = NewModeVar | 0x10U;
+	}
+	/*
 	 * Get current data interface type and timing mode
 	 */
 	XNandPs8_DataInterface CurIntf = InstancePtr->DataInterface;
 	XNandPs8_TimingMode CurMode = InstancePtr->TimingMode;
-	/*
-	 * Find the timing mode descriptor
-	 */
-	for (Index = 0U; Index <
-		(sizeof(TimingDesc)/sizeof(XNandPs8_TimingModeDesc)); Index++) {
-		Desc = &TimingDesc[Index];
-		if ((Desc->CurDataIntf == CurIntf) &&
-			(Desc->NewDataIntf == NewIntf) &&
-			(Desc->NewTimingMode == NewMode)) {
-			Found = 1U;
-			break;
-		}
-	}
-	if ((!Found) != 0U) {
-#ifdef XNANDPS8_DEBUG
-		xil_printf("%s: Timing mode desc not found\r\n",__func__);
-#endif
-		Status = XST_FAILURE;
-		goto Out;
-	}
+
 	/*
 	 * Check if the flash is in same mode
 	 */
-	if ((CurIntf == NewIntf) && (CurMode == NewMode)) {
+	if ((CurIntf == NewIntf) && (CurMode == NewModeVar)) {
 		Status = XST_SUCCESS;
 		goto Out;
 	}
 
 	if ((CurIntf == NVDDR) && (NewIntf == SDR)) {
+
+		NewModeVar = SDR0;
+
 		/*
 		 * Change the clock frequency
 		 */
-		XNandPs8_ChangeClockFreq(InstancePtr, Desc->ClockFreq);
+		XNandPs8_ChangeClockFreq(InstancePtr, SDR_CLK);
+
 		/*
-		 * Issue Reset command
+		 * Update Data Interface Register
 		 */
+		RegVal = ((NewModeVar % 6U) << ((NewIntf == NVDDR) ? 3U : 0U)) |
+				((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
+		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
+					XNANDPS8_DATA_INTF_OFFSET, RegVal);
+
 		for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 							Target++) {
 			Status = XNandPs8_OnfiReset(InstancePtr, Target);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
-			/*
-			 * Get Feature
-			 */
-			Status = XNandPs8_GetFeature(InstancePtr, Target,
-							0x01U, &Buf[0]);
+		}
+
+		/*
+		 * Set Feature
+		 */
+		for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
+								Target++) {
+			Status = XNandPs8_SetFeature(InstancePtr, Target, 0x01U,
+							(u8 *)&NewModeVar);
+			if (Status != XST_SUCCESS) {
+				goto Out;
+			}
+		}
+
+		InstancePtr->DataInterface = NewIntf;
+		InstancePtr->TimingMode = NewModeVar;
+
+		for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
+								Target++) {
+			Status = XNandPs8_GetFeature(InstancePtr, Target, 0x01U,
+								&Buf[0]);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
 			/*
-			 * Check SDR mode and Timing Mode 0
+			 * Check if set_feature was successful
 			 */
-			if (Feature != 0x0U) {
+			if ((u32)*Feature != (u32)NewModeVar) {
 				Status = XST_FAILURE;
 				goto Out;
 			}
 		}
-		InstancePtr->DataInterface = SDR;
-		InstancePtr->TimingMode = SDR0;
-		Status = XNandPs8_ChangeTimingMode(InstancePtr, NewIntf,
-								NewMode);
+
 		goto Out;
+	}
+
+	SetFeature = NewModeVar;
+	if(CurIntf == NVDDR && NewIntf == NVDDR){
+		SetFeature |= SetFeature << 8U;
 	}
 	/*
 	 * Set Feature
@@ -3601,17 +3590,22 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 							Target++) {
 		Status = XNandPs8_SetFeature(InstancePtr, Target, 0x01U,
-						(u8 *)&Desc->FeatureVal);
+						(u8 *)&SetFeature);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 	}
+
+	InstancePtr->DataInterface = NewIntf;
+	InstancePtr->TimingMode = NewModeVar;
 	/*
-	 * Change the clock frequency
+	 * Update Data Interface Register
 	 */
-	if (Desc->ClockFreq > 0U) {
-		XNandPs8_ChangeClockFreq(InstancePtr, Desc->ClockFreq);
-	}
+	RegVal = ((NewMode % 6U) << ((NewIntf == NVDDR) ? 3U : 0U)) |
+			((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
+	XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPS8_DATA_INTF_OFFSET, RegVal);
+
 	/*
 	 * Get Feature
 	 */
@@ -3622,23 +3616,15 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
+
 		/*
 		 * Check if set_feature was successful
 		 */
-		if (*Feature != Desc->FeatureVal) {
+		if (*Feature != NewModeVar) {
 			Status = XST_FAILURE;
 			goto Out;
 		}
 	}
-	InstancePtr->DataInterface = NewIntf;
-	InstancePtr->TimingMode = NewMode;
-	/*
-	 * Update Data Interface Register
-	 */
-	RegVal = ((NewMode % 6U) << ((NewIntf == NVDDR) ? 3U : 0U)) |
-			((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
-	XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DATA_INTF_OFFSET, RegVal);
 
 	Status = XST_SUCCESS;
 Out:
