@@ -37,29 +37,29 @@
 
 proc kernel_drc {os_handle} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-    set proctype [get_property IP_NAME $hw_proc_handle]
-    set compiler [get_property CONFIG.compiler $sw_proc_handle]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+    set compiler [common::get_property CONFIG.compiler $sw_proc_handle]
 
     # System timer frequency must be specified
-    set systmr_spec [get_property CONFIG.systmr_spec $os_handle]
+    set systmr_spec [common::get_property CONFIG.systmr_spec $os_handle]
     if { $systmr_spec == "false" }  {
         error "ERROR: Xilkernel requires some or all of the parameters in the systmr_spec category to be defined. Please configure this categry as 'true'." "" "mdt_error"
     }
 
-    set stacksiz [get_property CONFIG.pthread_stack_size $os_handle]
+    set stacksiz [common::get_property CONFIG.pthread_stack_size $os_handle]
     switch -regexp $proctype {
 	"microblaze" {
             if { [string first "mb-gcc" $compiler] == 0 && [string first "mb-g++" $compiler] == 0} {
                 error "ERROR: Wrong compiler requested. Xilkernel can be compiled only with the GNU compiler for MicroBlaze." "" "mdt_error"
             }
 
-            set systmr_dev [get_property CONFIG.systmr_dev $os_handle]
+            set systmr_dev [common::get_property CONFIG.systmr_dev $os_handle]
             if { $systmr_dev == "none" } {
                 error "ERROR: Xilkernel for Microblaze requires a system timer device to be specified. Please choose a valid peripheral instance in the systmr_dev parameter." "" "mdt_error"
             }
             set systmr_handle [hsi::get_cells $systmr_dev]
-            set systmr_type [get_property IP_NAME $systmr_handle]
+            set systmr_type [common::get_property IP_NAME $systmr_handle]
             if { $systmr_type != "fit_timer" && $systmr_type != "opb_timer" && $systmr_type != "xps_timer" && $systmr_type != "axi_timer" } {
                 error "ERROR: Xilkernel for Microblaze can work only with an axi_timer, xps_timer, opb_timer or fit_timer. Please choose a valid device as the system timer with the parameter systmr_dev." "" "mdt_error"
             }
@@ -68,7 +68,7 @@ proc kernel_drc {os_handle} {
                 error "ERROR: pthread_stack_size must be a multiple of 4."
             }
 
-            set procver [get_property CONFIG.HW_VER $hw_proc_handle]
+            set procver [common::get_property CONFIG.HW_VER $hw_proc_handle]
 	}
 	ppc* {
 	    if { $compiler != "powerpc-eabi-gcc" && $compiler != "powerpc-eabi-g++" } {
@@ -84,24 +84,24 @@ proc kernel_drc {os_handle} {
 	}
     }
 
-    set systmr_freq [get_property CONFIG.systmr_freq $os_handle]
+    set systmr_freq [common::get_property CONFIG.systmr_freq $os_handle]
     if { $systmr_freq == -1 } {
         error "ERROR: System timer frequency not specified." "" "mdt_error"
     }
 
-    set systmr_interval_ms [get_property CONFIG.systmr_interval $os_handle]
+    set systmr_interval_ms [common::get_property CONFIG.systmr_interval $os_handle]
     if { $systmr_interval_ms <= 0 } {
         error "ERROR: Invalid value for parameter systmr_interval specified. Please specify a positive value." "" "mdt_error"
     }
 
-    set config_bufmalloc [get_property CONFIG.config_bufmalloc $os_handle]
+    set config_bufmalloc [common::get_property CONFIG.config_bufmalloc $os_handle]
     if { $config_bufmalloc == "true" } {
         set memtable_handle [hsi::get_arrays mem_table -of_objects $os_handle]
         #set memtable_elements [xget_handle $memtable_handle "ELEMENTS" "*"]
-	set memtable_elements [llength [get_property PARAM.mem_nblks $memtable_handle]]
+	set memtable_elements [llength [common::get_property PARAM.mem_nblks $memtable_handle]]
 	   foreach ele $memtable_elements {
-		set bsiz  [get_property PARAM.mem_bsize $memtable_handle]
-                set nblks  [get_property PARAM.mem_nblks $memtable_handle]
+		set bsiz  [common::get_property PARAM.mem_bsize $memtable_handle]
+                set nblks  [common::get_property PARAM.mem_nblks $memtable_handle]
                 if { $bsiz < 4 } {
                     error "ERROR: mem_table mem_bsize specification of $bsiz is incorrect. Block size should be >= 4." "" "mdt_error"
                 }
@@ -111,9 +111,9 @@ proc kernel_drc {os_handle} {
           }
     }
 
-    set config_msgq [get_property CONFIG.config_msgq $os_handle]
+    set config_msgq [common::get_property CONFIG.config_msgq $os_handle]
     if { $config_msgq == "true" } {
-        set use_malloc [get_property CONFIG.use_malloc $os_handle]
+        set use_malloc [common::get_property CONFIG.use_malloc $os_handle]
         if { $use_malloc != "true" && $config_bufmalloc != "true" } {
             error "ERROR: Message queues require memory allocation support. Please configure parameters config_bufmalloc or use_malloc to be true." "" "mdt_error"
         }
@@ -123,9 +123,9 @@ proc kernel_drc {os_handle} {
 proc generate {os_handle} {
     variable standalone_version
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-    set proctype [get_property IP_NAME $hw_proc_handle]
-    set procver [get_property CONFIG.HW_VER $hw_proc_handle]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+    set procver [common::get_property CONFIG.HW_VER $hw_proc_handle]
 
     set need_config_file "false"
 
@@ -249,7 +249,7 @@ proc generate {os_handle} {
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
-        set pvr [get_property CONFIG.C_PVR $hw_proc_handle]
+        set pvr [common::get_property CONFIG.C_PVR $hw_proc_handle]
 
         switch $pvr {
             "0" {
@@ -284,9 +284,9 @@ proc generate {os_handle} {
             if {[mb_has_exceptions $hw_proc_handle] } {
                 xput_define $config_file "CONFIG_HARDWARE_EXCEPTIONS" ""
             }
-            set base_vectors_handle [get_property CONFIG.C_BASE_VECTORS $hw_proc_handle]
+            set base_vectors_handle [common::get_property CONFIG.C_BASE_VECTORS $hw_proc_handle]
 	    if { $base_vectors_handle != "" } {
-	        set base_vectors [get_property CONFIG.C_BASE_VECTORS $hw_proc_handle]
+	        set base_vectors [common::get_property CONFIG.C_BASE_VECTORS $hw_proc_handle]
 	    } else {
 	        set base_vectors 0x00000000
 	    }
@@ -302,9 +302,9 @@ proc generate {os_handle} {
 
     # Create defines and struct initializations
 
-    set config_debug_support [get_property CONFIG.config_debug_support $os_handle]
+    set config_debug_support [common::get_property CONFIG.config_debug_support $os_handle]
     if { $config_debug_support == "true" } {
-        set config_debug_mode [get_property CONFIG.verbose $os_handle]
+        set config_debug_mode [common::get_property CONFIG.verbose $os_handle]
         if { $config_debug_mode == "true" } {
             xadd_define $config_file $os_handle "verbose"
         }
@@ -315,20 +315,20 @@ proc generate {os_handle} {
         ;# }
     }
 
-    set config_enhanced_features [get_property CONFIG.enhanced_features $os_handle]
+    set config_enhanced_features [common::get_property CONFIG.enhanced_features $os_handle]
     if { $config_enhanced_features == "true" } {
-	set config_kill [get_property CONFIG.config_kill $os_handle]
+	set config_kill [common::get_property CONFIG.config_kill $os_handle]
 	if { $config_kill == "true" } {
 	    xadd_define $config_file $os_handle "config_kill"
 	}
 
-	set config_yield [get_property CONFIG.config_yield $os_handle]
+	set config_yield [common::get_property CONFIG.config_yield $os_handle]
 	if { $config_yield == "true" } {
 	    xadd_define $config_file $os_handle "config_yield"
 	}
     }
 
-    set config_elf_process [get_property CONFIG.config_elf_process $os_handle]
+    set config_elf_process [common::get_property CONFIG.config_elf_process $os_handle]
     if { $config_elf_process == "true" } {
         xadd_define $config_file $os_handle "config_elf_process"
         xadd_define $config_file $os_handle "max_procs"
@@ -337,14 +337,14 @@ proc generate {os_handle} {
         set static_elf_process_table_handle [hsi::get_arrays -of_objects $os_handle "static_elf_process_table"]
         if { $static_elf_process_table_handle != "" } {
 #SRI FIX THIS
-            set n_init_process [get_property SIZE $static_elf_process_table_handle]
+            set n_init_process [common::get_property SIZE $static_elf_process_table_handle]
             xput_define $config_file "n_init_process" $n_init_process
             xadd_define $config_file $os_handle "config_static_elf_process_support"
             xadd_struct $init_file $os_handle "_process_init" "se_process_table" "static_elf_process_table" "process_start_addr" "process_prio"
         }
     }
 
-    set config_pthread [get_property CONFIG.config_pthread_support $os_handle]
+    set config_pthread [common::get_property CONFIG.config_pthread_support $os_handle]
     if { $config_pthread == "true" } {
 	xadd_define $config_file $os_handle "config_pthread_support"
 	xadd_define $config_file $os_handle "max_pthreads"
@@ -353,8 +353,8 @@ proc generate {os_handle} {
 	set static_pthread_table_handle [hsi::get_arrays static_pthread_table -of_objects $os_handle]
 	if { $static_pthread_table_handle != "" } {
 	    #set n_init_self_pthreads [llength  $static_pthread_table_handle]
-	    set n_init_self_pthreads [llength [get_property PARAM.pthread_prio [hsi::get_arrays $static_pthread_table_handle -of_objects $os_handle]]]
-	    #set n_init_self_pthreads [get_property CONFIG.static_pthread_table $os_handle]
+	    set n_init_self_pthreads [llength [common::get_property PARAM.pthread_prio [hsi::get_arrays $static_pthread_table_handle -of_objects $os_handle]]]
+	    #set n_init_self_pthreads [common::get_property CONFIG.static_pthread_table $os_handle]
 	     if {$n_init_self_pthreads != "" } {
 		xput_define $config_file "config_static_pthread_support" "true"
 		xput_define $config_file "n_init_self_pthreads" $n_init_self_pthreads
@@ -363,49 +363,49 @@ proc generate {os_handle} {
 	    }
 	}
 
-	set config_pthread_mutex [get_property CONFIG.config_pthread_mutex $os_handle]
+	set config_pthread_mutex [common::get_property CONFIG.config_pthread_mutex $os_handle]
 	if { $config_pthread_mutex == "true" } {
 	    xadd_define $config_file $os_handle "config_pthread_mutex"
 	    xadd_define $config_file $os_handle "max_pthread_mutex"
-	    set max_pthread_mutex_waitq [get_property CONFIG.max_pthread_mutex_waitq $os_handle]
+	    set max_pthread_mutex_waitq [common::get_property CONFIG.max_pthread_mutex_waitq $os_handle]
 	    xput_define $config_file "max_pthread_mutex_waitq" $max_pthread_mutex_waitq
 	}
     }
 
     # System timer configuration (Microblaze only. kernel DRC ensures this)
-    set systmr_spec [get_property CONFIG.systmr_spec $os_handle]
+    set systmr_spec [common::get_property CONFIG.systmr_spec $os_handle]
     if { $proctype == "microblaze" } {
-        set systmr_dev [get_property CONFIG.systmr_dev  $os_handle]
+        set systmr_dev [common::get_property CONFIG.systmr_dev  $os_handle]
         set systmr_handle [hsi::get_cells $systmr_dev]
-	set systmr_type [get_property IP_NAME $systmr_handle]
+	set systmr_type [common::get_property IP_NAME $systmr_handle]
     }
 
     if { $proctype == "microblaze" } {
         if { $systmr_type == "opb_timer" || $systmr_type == "xps_timer" || $systmr_type == "axi_timer"} {
             xput_define $config_file "CONFIG_TIMER_PIT" "true"
-            set systmr_baseaddr [get_property CONFIG.C_BASEADDR $systmr_handle]
+            set systmr_baseaddr [common::get_property CONFIG.C_BASEADDR $systmr_handle]
             xput_define $config_file "systmr_baseaddr" $systmr_baseaddr
         }
     }
 
-    set systmr_freq [get_property CONFIG.systmr_freq $os_handle]
+    set systmr_freq [common::get_property CONFIG.systmr_freq $os_handle]
     if { $proctype == "ppc405" || $proctype == "ppc405_virtex4" || $proctype == "ppc440_virtex5" } {
-        set systmr_interval_ms [get_property CONFIG.systmr_interval $os_handle]
+        set systmr_interval_ms [common::get_property CONFIG.systmr_interval $os_handle]
         set systmr_interval [expr [expr double($systmr_freq) * double($systmr_interval_ms)] / 1000]
         set systmr_interval [expr int($systmr_interval)]
     } elseif {$proctype == "microblaze" && [expr {$systmr_type == "opb_timer" || $systmr_type == "xps_timer" || $systmr_type == "axi_timer"}]} {
-        set systmr_interval_ms [get_property CONFIG.systmr_interval $os_handle]
+        set systmr_interval_ms [common::get_property CONFIG.systmr_interval $os_handle]
         set systmr_interval [expr [expr double($systmr_freq) * double($systmr_interval_ms)] / 1000]
         set systmr_interval [expr int($systmr_interval)]
     } elseif { $proctype == "microblaze" && $systmr_type == "fit_timer" } {
-        set systmr_interval [get_property CONFIG.C_NO_CLOCKS $systmr_handle]
+        set systmr_interval [common::get_property CONFIG.C_NO_CLOCKS $systmr_handle]
     }
     xput_define $config_file "SYSTMR_INTERVAL" $systmr_interval
     xput_define $config_file "SYSTMR_CLK_FREQ" $systmr_freq
     xput_define $config_file "SYSTMR_CLK_FREQ_KHZ" [expr $systmr_freq / 1000]
 
     # Interrupt controller configuration
-    set sysintc_spec [get_property CONFIG.sysintc_spec $os_handle]
+    set sysintc_spec [common::get_property CONFIG.sysintc_spec $os_handle]
     if { $sysintc_spec != "none" } {
 	xput_define $config_file "CONFIG_INTC" "true"
 	set sysintc_dev_handle [hsi::get_cells $sysintc_spec]
@@ -426,13 +426,13 @@ proc generate {os_handle} {
 	    set intr_ports [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $systmr_intr] INTERRUPT]]
 	    #set intr_ports [xget_connected_ports_handle $mhs_handle $systmr_intr "sink"]
 	    foreach intr_port $intr_ports {
-                set intr_port_type [get_property TYPE $intr_port]
+                set intr_port_type [common::get_property TYPE $intr_port]
                 if { [string compare -nocase $intr_port_type "global"] == 0 } {
                     continue
                 }
 
                 set intc_handle [hsi::get_cells -of_object $intr_port]
-                set intc_name [get_property NAME $intc_handle]
+                set intc_name [common::get_property NAME $intc_handle]
                 set proc_intc_handle [hsi::get_cells $intc_name]
                 if { [string compare -nocase $sysintc_dev_handle $intc_handle] == 0 } {
                     continue
@@ -445,12 +445,12 @@ proc generate {os_handle} {
     }
 
 
-    set config_sched [get_property CONFIG.config_sched $os_handle]
+    set config_sched [common::get_property CONFIG.config_sched $os_handle]
     if { $config_sched == "true" } {
 	xadd_define $config_file $os_handle "config_sched"
 	xadd_define $config_file $os_handle "sched_type"
 	xadd_define $config_file $os_handle "n_prio"
-        set sched_type [get_property CONFIG.sched_type $os_handle]
+        set sched_type [common::get_property CONFIG.sched_type $os_handle]
         if { $sched_type == "SCHED_PRIO" } {
             xput_define $config_file "config_priosched" "true"
         } else {
@@ -459,22 +459,22 @@ proc generate {os_handle} {
 	xadd_define $config_file $os_handle "max_readyq"
     }
 
-    set config_sema [get_property CONFIG.config_sema $os_handle]
+    set config_sema [common::get_property CONFIG.config_sema $os_handle]
     if { $config_sema == "true" } {
 	xadd_define $config_file $os_handle "config_sema"
 	xadd_define $config_file $os_handle "max_sem"
 	xadd_define $config_file $os_handle "max_sem_waitq"
-        set config_named_sema [get_property CONFIG.config_named_sema $os_handle]
+        set config_named_sema [common::get_property CONFIG.config_named_sema $os_handle]
         if { $config_named_sema == "true" } {
             xadd_define $config_file $os_handle "config_named_sema"
         }
     }
 
-    set config_msgq [get_property CONFIG.config_msgq $os_handle]
+    set config_msgq [common::get_property CONFIG.config_msgq $os_handle]
     if { $config_msgq == "true" } {
-	set num_msgqs [get_property CONFIG.num_msgqs $os_handle]
-	set msgq_capacity [get_property CONFIG.msgq_capacity $os_handle]
-        set use_malloc [get_property CONFIG.use_malloc $os_handle]
+	set num_msgqs [common::get_property CONFIG.num_msgqs $os_handle]
+	set msgq_capacity [common::get_property CONFIG.msgq_capacity $os_handle]
+        set use_malloc [common::get_property CONFIG.use_malloc $os_handle]
 	xadd_define $config_file $os_handle "config_msgq"
 	xadd_define $config_file $os_handle "num_msgqs"
 	xadd_define $config_file $os_handle "msgq_capacity"
@@ -484,7 +484,7 @@ proc generate {os_handle} {
         }
     }
 
-    set config_shm [get_property CONFIG.config_shm $os_handle]
+    set config_shm [common::get_property CONFIG.config_shm $os_handle]
     if { $config_shm == "true" } {
 	xadd_define $config_file $os_handle "config_shm"
 	set shm_handle [hsi::get_arrays -of_objects $os_handle "shm_table"]
@@ -498,13 +498,13 @@ proc generate {os_handle} {
 	xadd_struct $init_file $os_handle "_shm_init" "shm_config" "shm_table" "shm_size"
     }
 
-    set config_bufmalloc [get_property CONFIG.config_bufmalloc $os_handle]
+    set config_bufmalloc [common::get_property CONFIG.config_bufmalloc $os_handle]
     if { $config_bufmalloc == "true" } {
 	xadd_define $config_file $os_handle "config_bufmalloc"
         #set memtable_handle [xget_handle $os_handle "ARRAY" "mem_table"]
         set memtable_elements [hsi::get_arrays -of_objects $os_handle "mem_table"]
 	set n_static_bufs [llength $memtable_elements]
-        set max_bufs [get_property CONFIG.max_bufs $os_handle]
+        set max_bufs [common::get_property CONFIG.max_bufs $os_handle]
 
 
         set bufmalloc_msize [get_field_product_sum $os_handle "mem_table"  "mem_bsize" "mem_nblks"]
@@ -514,7 +514,7 @@ proc generate {os_handle} {
 	xadd_struct $init_file $os_handle "bufmalloc_init_s" "bufmalloc_cfg" "mem_table" "mem_bsize" "mem_nblks"
     }
 
-    set config_time [get_property CONFIG.config_time $os_handle]
+    set config_time [common::get_property CONFIG.config_time $os_handle]
     if { $config_time == "true" } {
 	xadd_define $config_file $os_handle "config_time"
 	xadd_define $config_file $os_handle "max_tmrs"
@@ -528,11 +528,11 @@ proc generate {os_handle} {
     # Handle I/O ranges for MicroBlaze MPU here
     if { $proctype == "microblaze" } {
         #set mhs_handle [hsi::get_cells -of_object $hw_proc_handle]
-        set mmu [get_property CONFIG.C_USE_MMU $hw_proc_handle]
+        set mmu [common::get_property CONFIG.C_USE_MMU $hw_proc_handle]
         if { $mmu >= 2 } {
 
             # Enumerate all the I/O ranges into a structure
-            set interconnect [get_property CONFIG.C_INTERCONNECT $hw_proc_handle]
+            set interconnect [common::get_property CONFIG.C_INTERCONNECT $hw_proc_handle]
             if { $interconnect == "" || $interconnect == 0 } {
                 set dbus_if_name "DOPB"
             } elseif { $interconnect == 1 } {
@@ -553,16 +553,16 @@ proc generate {os_handle} {
 	    set addrlists [hsi::get_mem_ranges -of_objects [hsi::get_cells $sw_proc_handle]]
 	    set addrlist [list]
 	    foreach addrist $addrlists {
-			set ip_name [get_property IP_NAME [hsi::get_cells $addrist]]
+			set ip_name [common::get_property IP_NAME [hsi::get_cells $addrist]]
 			if { $ip_name == "axi_emc" || $ip_name == "mig_7series" } {
 						set mem  [lindex [hsi::get_mem_ranges $addrist] 0]
-						set mc_base [get_property BASE_VALUE  $mem]
-						set mc_high [get_property HIGH_VALUE $mem]
+						set mc_base [common::get_property BASE_VALUE  $mem]
+						set mc_high [common::get_property HIGH_VALUE $mem]
 						lappend addrlist $mc_base $mc_high
 			} else {
 					set mem [hsi::utils::get_ip_mem_ranges $addrist]
-					set mc_base [get_property BASE_VALUE  $mem]
-					set mc_high [get_property HIGH_VALUE $mem]
+					set mc_base [common::get_property BASE_VALUE  $mem]
+					set mc_high [common::get_property HIGH_VALUE $mem]
 					lappend addrlist $mc_base $mc_high
 			}
 	   }
@@ -585,8 +585,8 @@ proc generate {os_handle} {
                 foreach {memcon_handle} $memcon_handles {
                     set memcon_addrlist [::hsi::utils::get_ip_mem_ranges $memcon_handle]
 		    foreach  mem_range $memcon_addrlist {
-		    set mc_base [get_property BASE_VALUE $mem_range]
-		    set mc_high [get_property HIGH_VALUE $mem_range]
+		    set mc_base [common::get_property BASE_VALUE $mem_range]
+		    set mc_high [common::get_property HIGH_VALUE $mem_range]
 
                         if {$mc_base == $base && $mc_high == $high} {
                             set skip 1
@@ -646,7 +646,7 @@ proc xopen_new_include_file { filename description } {
 }
 
 proc xadd_define { config_file os_handle parameter } {
-    set param_value [get_property CONFIG.$parameter $os_handle]
+    set param_value [common::get_property CONFIG.$parameter $os_handle]
     puts $config_file "#define [string toupper $parameter] $param_value\n"
 
     # puts "creating #define [string toupper $parameter] $param_value\n"
@@ -662,9 +662,9 @@ proc xput_define { config_file parameter param_value } {
 # args field of the array
 proc xadd_extern_fname {initfile oshandle arrayname arg} {
     set arrahandle [hsi::get_arrays $arrayname -of_objects $oshandle]
-    set elements [llength [get_property PARAM.$arg $arrahandle]]
+    set elements [llength [common::get_property PARAM.$arg $arrahandle]]
     foreach  ele $elements {
-	set thread_names [get_property PARAM.$arg $arrahandle]
+	set thread_names [common::get_property PARAM.$arg $arrahandle]
 	foreach thread_name $thread_names {
 		puts $initfile "extern void $thread_name\(void\)\;"
 	}
@@ -678,7 +678,7 @@ proc xadd_struct {initfile oshandle structtype structname arrayname args} {
     #set arrhandle [hsi::get_arrays $arrayname -of_objects $oshandle]
     set arrhandle [hsi::get_arrays $arrayname -of_objects $oshandle]
     foreach arg $args {
-	set max_count [llength [get_property PARAM.$arg $arrhandle]]
+	set max_count [llength [common::get_property PARAM.$arg $arrhandle]]
     }
 
     #set elements [xget_handle $arrhandle "ELEMENTS" "*"]
@@ -689,7 +689,7 @@ proc xadd_struct {initfile oshandle structtype structname arrayname args} {
     set index 0
     puts $initfile "struct $structtype $structname\[$max_count\] = \{"
     foreach arg $args {
-	set field_values [get_property PARAM.$arg $arrhandle]
+	set field_values [common::get_property PARAM.$arg $arrhandle]
 	set field_value [list]
 	if {$index == 0} {
 		set name_list $field_values
@@ -726,7 +726,7 @@ proc get_field_sum {oshandle arrayname arg} {
     set max_count [llength $elements]
 
     foreach ele $elements {
-	set field_value [get_property CONFIG.$arg $ele]
+	set field_value [common::get_property CONFIG.$arg $ele]
 	set count [expr $field_value+$count]
     }
     return $count
@@ -744,10 +744,10 @@ proc get_field_product_sum {oshandle arrayname field1 field2} {
     set field2_list ""
 
     foreach ele $elements {
-	    #set field_value [get_property PARAM.$field $ele]
-	set field1_value [get_property PARAM.$field1 $ele]
+	    #set field_value [common::get_property PARAM.$field $ele]
+	set field1_value [common::get_property PARAM.$field1 $ele]
 	set field1_list $field1_value
-	set field2_value [get_property PARAM.$field2 $ele]
+	set field2_value [common::get_property PARAM.$field2 $ele]
 	set field2_list $field2_value
     }
 
@@ -770,7 +770,7 @@ proc xhandle_mb_interrupts {} {
 
     # Handle the interrupt pin
     set sw_proc_handle [hsi::get_sw_processor]
-    set periph [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
+    set periph [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
     set source_ports [::hsi::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
 	error "ERROR: Too many interrupting ports on the MicroBlaze.  Should only find 1" "" "hsi_error"
@@ -780,9 +780,9 @@ proc xhandle_mb_interrupts {} {
     if {[llength $source_ports] == 1} {
 	set source_port [lindex $source_ports 0]
 	if {[llength $source_port] != 0} {
-	    set source_port_name [get_property NAME $source_port]
+	    set source_port_name [common::get_property NAME $source_port]
 	    set source_periph [hsi::get_cells -of_object $source_port]
-	    set source_name [get_property NAME $source_periph]
+	    set source_name [common::get_property NAME $source_periph]
 	    set source_driver [hsi::get_drivers $source_name]
 
 	    if {[string compare -nocase $source_driver ""] != 0} {
@@ -792,15 +792,15 @@ proc xhandle_mb_interrupts {} {
 		    #set int_array_elems [xget_handle $int_array "ELEMENTS" "*"]
 		    if {[llength $int_array_elems] != 0} {
 			foreach int_array_elem $int_array_elems {
-			    set int_port [get_property CONFIG.int_port $int_array_elem]
+			    set int_port [common::get_property CONFIG.int_port $int_array_elem]
 			    if {[llength $int_port] != 0} {
 				if {[string compare -nocase $int_port $source_port_name] == 0 } {
-				    set source_interrupt_handler [get_property CONFIG.int_handler $int_array_elem]
-				    set source_handler_arg [get_property CONFIG.int_handler_arg $int_array_elem]
+				    set source_interrupt_handler [common::get_property CONFIG.int_handler $int_array_elem]
+				    set source_handler_arg [common::get_property CONFIG.int_handler_arg $int_array_elem]
 				    if {[string compare -nocase $source_handler_arg DEVICE_ID] == 0 } {
 					set source_handler_arg [::hsi::utils::get_ip_param_name $source_periph "DEVICE_ID"]
 				    } else {
-					if {[string compare -nocase "global" [get_property TYPE $source_port]] == 0} {
+					if {[string compare -nocase "global" [common::get_property TYPE $source_port]] == 0} {
 					    set source_handler_arg $default_arg
 					} else {
 					    set source_handler_arg [::hsi::utils::get_ip_param_name $source_periph "C_BASEADDR"]
@@ -864,8 +864,8 @@ proc xcreate_mb_exc_config_file { } {
     puts $hconfig_file "\n"
 
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-    set procver [get_property CONFIG.HW_VER $hw_proc_handle]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set procver [common::get_property CONFIG.HW_VER $hw_proc_handle]
 
     if { ![mb_has_exceptions $hw_proc_handle]} { ;# NO exceptions are enabled
         close $hconfig_file              ;# Do not generate any info in either the header or the C file
@@ -889,12 +889,12 @@ proc xcreate_mb_exc_config_file { } {
 # --------------------------------------
 proc post_generate {os_handle} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-    set proctype [get_property IP_NAME $hw_proc_handle]
-    set procname [get_property NAME $hw_proc_handle]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+    set procname [common::get_property NAME $hw_proc_handle]
 
     set procdrv [hsi::get_sw_processor]
-    set archiver [get_property CONFIG.archiver $procdrv]
+    set archiver [common::get_property CONFIG.archiver $procdrv]
 
     if {[string compare -nocase $proctype "microblaze"] == 0 } {
         # Remove _interrupt_handler.o from libxil.a for Xilkernel
@@ -922,42 +922,42 @@ proc post_generate {os_handle} {
 proc mb_has_exceptions { hw_proc_handle } {
 
     # Check if the following parameters exist on this MicroBlaze's MPD
-    set ee [get_property CONFIG.C_UNALIGNED_EXCEPTIONS $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_UNALIGNED_EXCEPTIONS $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_ILL_OPCODE_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_ILL_OPCODE_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_IOPB_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_IOPB_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_DOPB_BUS_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_DOPB_BUS_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_DIV_BY_ZERO_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_DIV_BY_ZERO_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_DIV_ZERO_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_DIV_ZERO_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
 
-    set ee [get_property CONFIG.C_USE_MMU $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_USE_MMU $hw_proc_handle]
     if { $ee != "" && $ee != 0 } {
         return true
     }
@@ -972,7 +972,7 @@ proc mb_has_exceptions { hw_proc_handle } {
 proc mb_has_fpu_exceptions { hw_proc_handle } {
 
     # Check if the following parameters exist on this MicroBlaze's MPD
-    set ee [get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
+    set ee [common::get_property CONFIG.C_FPU_EXCEPTION $hw_proc_handle]
     if { $ee != "" } {
         return true
     }
@@ -986,7 +986,7 @@ proc mb_has_fpu_exceptions { hw_proc_handle } {
 proc mb_has_pvr { hw_proc_handle } {
 
     # Check if the following parameters exist on this MicroBlaze's MPD
-    set pvr [get_property CONFIG.C_PVR $hw_proc_handle]
+    set pvr [common::get_property CONFIG.C_PVR $hw_proc_handle]
     if { $pvr != "" } {
         return true
     }
@@ -1032,7 +1032,7 @@ proc xget_memory_controller_handles { mhs } {
             continue
          }
          #set addrTypeValue [xget_hw_subproperty_value $param "ADDR_TYPE" ]
-	 if {[string compare -nocase [get_property MEM_TYPE $mem_range ] MEMORY] == 0} {
+	 if {[string compare -nocase [common::get_property MEM_TYPE $mem_range ] MEMORY] == 0} {
 		lappend ret_list $mhsinst
 		break;
          }
