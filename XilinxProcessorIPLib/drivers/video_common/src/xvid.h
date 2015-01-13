@@ -216,7 +216,7 @@ typedef enum {
 	XVID_FR_UNKNOWN
 } XVid_FrameRate;
 
-/* Color depth / data width / bits per color component. */
+/* Color depth - bits per color component. */
 typedef enum {
 	XVID_BPC_6 = 6,
 	XVID_BPC_8 = 8,
@@ -225,7 +225,7 @@ typedef enum {
 	XVID_BPC_16 = 16,
 	XVID_BPC_NUM_SUPPORTED = 5,
 	XVID_BPC_UNKNOWN
-} XVid_DataWidth;
+} XVid_ColorDepth;
 
 /* Pixels per clock. */
 typedef enum {
@@ -292,7 +292,7 @@ typedef struct {
  */
 typedef struct {
 	XVid_ColorFormat	ColorFormatId;
-	XVid_DataWidth		Bpc;
+	XVid_ColorDepth		Bpc;
 	XVid_FrameRate		FrameRate;
 	u32			IsInterlaced;
 	XVid_VideoMode		VmId;
