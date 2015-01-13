@@ -583,7 +583,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 				      2, &BdRxPtr);
 	}
 
-	if (GemVersion == 7)
+	if (GemVersion > 2)
 		{
 	Status = XEmacPs_BdRingAlloc(&
 				      (XEmacPs_GetRxRing(EmacPsInstancePtr)),
@@ -612,7 +612,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	Status = XEmacPs_BdRingToHw(&(XEmacPs_GetRxRing(EmacPsInstancePtr)),
 				     2, BdRxPtr);
 	}
-	if (GemVersion == 7)
+	if (GemVersion > 2)
 	{
 		Status = XEmacPs_BdRingToHw(&(XEmacPs_GetRxRing(EmacPsInstancePtr)),
 					     1, BdRxPtr);
@@ -626,7 +626,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	 * Though the max BD size is 16 bytes for extended desc mode, performing
 	 * cache flush for 64 bytes. which is equal to the cache line size.
 	 */
-	if (GemVersion == 7)
+	if (GemVersion > 2)
 	{
 	Xil_DCacheFlushRange((UINTPTR)BdRxPtr, 64);
 	}
@@ -644,7 +644,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 				      2, &Bd1Ptr);
 	}
 
-	if (GemVersion == 7)
+	if (GemVersion > 2)
 		{
 	Status = XEmacPs_BdRingAlloc(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
 				      1, &Bd1Ptr);
@@ -685,7 +685,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 
 	}
 
-	if (GemVersion == 7)
+	if (GemVersion > 2)
 		{
 
 	Status = XEmacPs_BdRingToHw(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
@@ -701,7 +701,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	 * Set the Queue pointers
 	 */
 	XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->RxBdRing.BaseBdAddr, 0, XEMACPS_RECV);
-	if (GemVersion == 7) {
+	if (GemVersion > 2) {
 	XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->TxBdRing.BaseBdAddr, 1, XEMACPS_SEND);
 	}else {
 		XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->TxBdRing.BaseBdAddr, 0, XEMACPS_SEND);
@@ -735,7 +735,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	}
 	}
 
-	if (GemVersion == 7)
+	if (GemVersion > 2)
 		{
 	if (XEmacPs_BdRingFromHwTx(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
 				    1, &Bd1Ptr) == 0) {
@@ -1100,7 +1100,7 @@ static void XEmacPsSendHandler(void *Callback)
 	 */
 	XEmacPs_IntDisable(EmacPsInstancePtr, (XEMACPS_IXR_TXCOMPL_MASK |
 		XEMACPS_IXR_TX_ERR_MASK));
-	if (GemVersion == 7) {
+	if (GemVersion > 2) {
 	XEmacPs_IntQ1Disable(EmacPsInstancePtr, XEMACPS_INTQ1_IXR_ALL_MASK);
 	}
 	/*
@@ -1139,7 +1139,7 @@ static void XEmacPsRecvHandler(void *Callback)
 	 */
 	FramesRx++;
 	Xil_DCacheInvalidateRange((UINTPTR)&RxFrame, sizeof(EthernetFrame));
-	if (GemVersion == 7) {
+	if (GemVersion > 2) {
 		Xil_DCacheInvalidateRange((UINTPTR)RX_BD_LIST_START_ADDRESS, 64);
 	}
 }
