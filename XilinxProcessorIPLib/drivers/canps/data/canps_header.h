@@ -38,7 +38,7 @@
 
 int CanPsPolledExample(u16 DeviceId);
 
-#ifdef XPAR_PS7_SCUGIC_0_DEVICE_ID
+#ifdef XPAR_SCUGIC_0_DEVICE_ID
 int CanPsIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 			u16 CanDeviceId, u16 CanIntrId);
 #endif
