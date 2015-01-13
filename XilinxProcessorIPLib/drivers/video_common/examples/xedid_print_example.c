@@ -69,7 +69,7 @@ void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
 	u8 Index;
 
 	xil_printf("Supported resolutions from video mode table:\n");
-	for (Index = 0; Index < XVID_VM_NUM_SUPPORT; Index++) {
+	for (Index = 0; Index < XVID_VM_NUM_SUPPORTED; Index++) {
 		if (XEdid_IsVideoTimingSupported(EdidRaw,
 				&XVid_VideoTimingModes[Index]) == XST_SUCCESS) {
 			xil_printf("\t%s\n", XVid_VideoTimingModes[Index].Name);
