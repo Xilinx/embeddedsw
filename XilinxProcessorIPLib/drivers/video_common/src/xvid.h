@@ -275,22 +275,22 @@ typedef enum {
  * Video timing structure.
  */
 typedef struct {
-	u32 HActive;
-	u32 HFrontPorch;
-	u32 HSyncWidth;
-	u32 HBackPorch;
-	u32 HTotal;
-	u32 HSyncPolarity;
-	u32 VActive;
-	u32 F0PVFrontPorch;
-	u32 F0PVSyncWidth;
-	u32 F0PVBackPorch;
-	u32 F0PVTotal;
-	u32 F1VFrontPorch;
-	u32 F1VSyncWidth;
-	u32 F1VBackPorch;
-	u32 F1VTotal;
-	u32 VSyncPolarity;
+	u16 HActive;
+	u16 HFrontPorch;
+	u16 HSyncWidth;
+	u16 HBackPorch;
+	u16 HTotal;
+	u8 HSyncPolarity;
+	u16 VActive;
+	u16 F0PVFrontPorch;
+	u16 F0PVSyncWidth;
+	u16 F0PVBackPorch;
+	u16 F0PVTotal;
+	u16 F1VFrontPorch;
+	u16 F1VSyncWidth;
+	u16 F1VBackPorch;
+	u16 F1VTotal;
+	u8 VSyncPolarity;
 } XVid_VideoTiming;
 
 /**
