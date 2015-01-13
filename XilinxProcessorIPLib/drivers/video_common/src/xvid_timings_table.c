@@ -93,7 +93,7 @@ const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORTED] =
 		540, 2, 5, 15, 562, 2, 5, 16, 563, 1} },
 	{ XVID_VM_1080_30_I, "1920x1080@30Hz (I)", XVID_FR_30HZ,
 		{1920, 88, 44, 148, 2200, 1,
-		540, 2, 5, 15, 562, 2, 5, 16, 563, 1} }
+		540, 2, 5, 15, 562, 2, 5, 16, 563, 1} },
 
 	/* Progressive modes. */
 	{ XVID_VM_640x350_85_P, "640x350@85Hz", XVID_FR_85HZ,
@@ -371,5 +371,5 @@ const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORTED] =
 		2160, 20, 10, 60, 2250, 0, 0, 0, 0, 0} },
 	{ XVID_VM_3840x2160_60_P, "3840x2160@60Hz", XVID_FR_60HZ,
 		{3840, 176, 88, 296, 4400, 1,
-		2160, 20, 10, 60, 2250, 0, 0, 0, 0, 0} },
+		2160, 20, 10, 60, 2250, 0, 0, 0, 0, 0} }
 };
