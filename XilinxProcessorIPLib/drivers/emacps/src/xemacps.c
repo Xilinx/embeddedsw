@@ -198,7 +198,7 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 	(u32)XEMACPS_IXR_TXCOMPL_MASK));
 
 	/* Enable TX Q1 Interrupts */
-	if (InstancePtr->Version == 7)
+	if (InstancePtr->Version > 2)
 		XEmacPs_IntQ1Enable(InstancePtr, XEMACPS_INTQ1_IXR_ALL_MASK);
 
 	/* Mark as started */
@@ -317,7 +317,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 					((u32)XEMACPS_NWCFG_100_MASK |
 					(u32)XEMACPS_NWCFG_FDEN_MASK |
 					(u32)XEMACPS_NWCFG_UCASTHASHEN_MASK));
-	if (InstancePtr->Version == 7) {
+	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET,
 			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET) |
 				XEMACPS_NWCFG_DWIDTH_64_MASK));
@@ -336,7 +336,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 
 	/* Single bursts */
 	/* FIXME: Why Single bursts? */
-	if (InstancePtr->Version == 7) {
+	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
 			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET) |
 			(u32)XEMACPS_DMACR_INCR4_AHB_BURST));
@@ -352,7 +352,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 			   XEMACPS_TXSR_OFFSET, 0x0U);
 
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_SEND);
-	if (InstancePtr->Version == 7)
+	if (InstancePtr->Version > 2)
 		XEmacPs_SetQueuePtr(InstancePtr, 0, 0x01U, (u16)XEMACPS_SEND);
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_RECV);
 

@@ -162,7 +162,7 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 
 	/* Read Transmit Q1 ISR */
 
-	if (InstancePtr->Version == 7)
+	if (InstancePtr->Version > 2)
 		RegQ1ISR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XEMACPS_INTQ1_STS_OFFSET);
 
@@ -182,7 +182,7 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 	}
 
 	/* Transmit Q1 complete interrupt */
-	if ((InstancePtr->Version == 7) &&
+	if ((InstancePtr->Version > 2) &&
 			((RegQ1ISR & XEMACPS_INTQ1SR_TXCOMPL_MASK) != 0x00000000U)) {
 		/* Clear TX status register TX complete indication but preserve
 		 * error bits if there is any */
@@ -235,7 +235,7 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
          * Have to distinguish this bit to handle the real error condition.
          */
 	/* Transmit Q1 error conditions interrupt */
-        if ((InstancePtr->Version == 7) &&
+        if ((InstancePtr->Version > 2) &&
 			((RegQ1ISR & XEMACPS_INTQ1SR_TXERR_MASK) != 0x00000000U) &&
             ((RegQ1ISR & XEMACPS_INTQ1SR_TXCOMPL_MASK) != 0x00000000U)) {
 			/* Clear Interrupt Q1 status register */
