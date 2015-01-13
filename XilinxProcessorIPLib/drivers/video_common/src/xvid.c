@@ -64,11 +64,11 @@ u32 XVid_GetPixelClockHz(XVid_VideoMode VmId)
 	 * total. This is useful for interlaced modes with frames that don't
 	 * have exactly the same vertical total. For progressive modes,
 	 * F0PVTotal will be used since F1PVTotal will be equal to 0. */
-	if (VmPtr->Timing.F0PVTotal >= VmPtr->Timing.F1PVTotal) {
+	if (VmPtr->Timing.F0PVTotal >= VmPtr->Timing.F1VTotal) {
 		ClkHz = VmPtr->Timing.F0PVTotal;
 	}
 	else {
-		ClkHz = VmPtr->Timing.F1PVTotal;
+		ClkHz = VmPtr->Timing.F1VTotal;
 	}
 
 	/* Multiply the vertical total by the horizontal total for number of
@@ -83,7 +83,7 @@ u32 XVid_GetPixelClockHz(XVid_VideoMode VmId)
 
 XVid_VideoFormat XVid_IsVideoFormatInterlaced(XVid_VideoMode VmId)
 {
-	if (XVid_VideoTimingModes[VmId].Timing.F1PVTotal == 0) {
+	if (XVid_VideoTimingModes[VmId].Timing.F1VTotal == 0) {
 		return XVID_VM_PROGRESSIVE;
 	}
 
