@@ -189,6 +189,12 @@ typedef enum {
 	XVID_VM_UHD_60_P = XVID_VM_3840x2160_60_P
 } XVid_VideoMode;
 
+/* Progressive/interlaced video format. */
+typedef enum {
+	XVid_VM_PROGRESSIVE = 0,
+	XVid_VM_INTERLACED
+} XVid_VideoFormat;
+
 typedef enum {
 	XVID_FR_24HZ = 24,
 	XVID_FR_25HZ = 25,
