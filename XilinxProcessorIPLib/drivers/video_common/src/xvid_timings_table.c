@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,8 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
+ * 1.0   als, 01/10/15 Initial release.
+ *       rc
  * </pre>
  *
 *******************************************************************************/
@@ -56,24 +58,31 @@
 /**
  * This table contains the main stream attributes for various standard
  * resolutions. Each entry is of the format:
- * 1) XVID_VM_<HRES>x<VRES>_<REFRESH (HZ)>_P(_RB = Reduced Blanking)
- * 2) Display Monitor Timing (DMT) ID
- * 3) Horizontal active resolution (pixels)
- * 4) Vertical active resolution (lines)
- * 5) Pixel clock (KHz)
- * 6) Interlaced (0=non-interlaced|1=interlaced)
- * 7) Horizontal sync polarity (0=positive|1=negative)
- * 8) Vertical sync polarity (0=positive|1=negative)
- * 9) Horizontal front porch (pixels)
- * 10) Horizontal sync time (pixels)
- * 11) Horizontal back porch (pixels)
- * 12) Vertical front porch (lines)
- * 13) Vertical sync time (lines)
- * 14) Vertical back porch (lines)
+ * 1) ID: XVID_VM_<HRES>x<VRES>_<FRAME RATE (HZ)>_<P|I>(_RB = Reduced Blanking)
+ * 2) Resolution naming: "<HRES>x<VRES>@<FRAME RATE (HZ)>"
+ * 3) Frame rate: XVID_FR_<FRAME RATE (HZ)>
+ * 4) Pixel clock (KHz)
+ * 5) Video timing structure:
+ *    1) Horizontal active resolution (pixels)
+ *    2) Horizontal front porch (pixels)
+ *    3) Horizontal sync width (pixels)
+ *    4) Horizontal back porch (pixels)
+ *    5) Horizontal total (pixels)
+ *    6) Horizontal sync polarity (0=positive|1=negative)
+ *    7) Vertical active resolution (lines)
+ *    8) Frame 0: Vertical front porch (lines)
+ *    9) Frame 0: Vertical sync width (lines)
+ *    10) Frame 0: Vertical back porch (lines)
+ *    11) Frame 0: Vertical total (lines)
+ *    12) Frame 1: Vertical front porch (lines)
+ *    13) Frame 1: Vertical sync width (lines)
+ *    14) Frame 1: Vertical back porch (lines)
+ *    15) Frame 1: Vertical total (lines)
+ *    16) Vertical sync polarity (0=positive|1=negative)
  */
-const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT] =
+const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORTED] =
 {
-	/* Progressive modes - display mode timings (DMT). */
+	/* Progressive modes. */
 	{ XVID_VM_640x350_85_P, "640x350@85Hz", XVID_FR_85HZ,
 		31500,
 		{640, 32, 64, 96, 832, 0,

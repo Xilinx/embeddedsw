@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,8 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
+ * 1.0   rc,  01/10/15 Initial release.
+ *       als
  * </pre>
  *
 *******************************************************************************/
@@ -67,6 +69,7 @@
  * Where RB stands for reduced blanking.
  */
 typedef enum {
+	/* Progressive modes. */
 	XVID_VM_640x350_85_P = 0,
 	XVID_VM_640x400_85_P,
 	XVID_VM_640x480_60_P,
@@ -161,15 +164,17 @@ typedef enum {
 	XVID_VM_3840x2160_30_P,
 	XVID_VM_3840x2160_60_P,
 
+	/* Interlaced modes. */
 	XVID_VM_480_30_I,
 	XVID_VM_576_25_I,
 	XVID_VM_1080_25_I,
 	XVID_VM_1080_30_I,
 
-	XVID_VM_NUM_SUPPORT,
+	XVID_VM_NUM_SUPPORTED,
 	XVID_VM_USE_EDID_PREFERRED,
 	XVID_VM_NO_INPUT,
 
+	/* Common naming. */
 	XVID_VM_480_60_P = XVID_VM_720x480_60_P,
 	XVID_VM_720_50_P = XVID_VM_1280x720_50_P,
 	XVID_VM_720_60_P = XVID_VM_1280x720_60_P,
@@ -195,6 +200,7 @@ typedef enum {
 	XVid_VM_INTERLACED
 } XVid_VideoFormat;
 
+/* Frame rate. */
 typedef enum {
 	XVID_FR_24HZ = 24,
 	XVID_FR_25HZ = 25,
@@ -245,7 +251,7 @@ typedef enum {
 	XVID_CS_UNKNOWN
 } XVid_ColorFormat;
 
-/* Color space conversion standards. */
+/* Color space conversion standard. */
 typedef enum {
 	XVID_BT_2020 = 0,
 	XVID_BT_709,
@@ -310,6 +316,9 @@ typedef struct {
 	u32 Height;
 } XVid_VideoWindow;
 
+/**
+ * Video timing mode from the video timing table.
+ */
 typedef struct {
 	XVid_VideoMode		VmId;
 	const char		Name[21];
@@ -320,7 +329,7 @@ typedef struct {
 
 /*************************** Variable Declarations ****************************/
 
-extern const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT];
+extern const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORTED];
 
 /**************************** Function Prototypes *****************************/
 
