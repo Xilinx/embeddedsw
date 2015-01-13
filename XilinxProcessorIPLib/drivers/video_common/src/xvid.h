@@ -227,6 +227,14 @@ typedef enum {
 	XVID_BPC_UNKNOWN
 } XVid_DataWidth;
 
+/* Pixels per clock. */
+typedef enum {
+	XVID_PPC_1 = 1,
+	XVID_PPC_2 = 2,
+	XVID_PPC_4 = 4,
+	XVID_PPC_NUM_SUPPORTED = 3,
+} XVid_DataWidth;
+
 /* Color space and chroma format. */
 typedef enum {
 	XVID_CS_RGB = 0,
