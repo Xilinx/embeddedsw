@@ -420,6 +420,7 @@ u32 XDptx_CfgMainLinkMax(XDptx *InstancePtr)
 u32 XDptx_EstablishLink(XDptx *InstancePtr)
 {
 	u32 Status;
+	u32 Status2;
 	u32 ReenableMainLink;
 
 	/* Verify arguments. */
@@ -440,19 +441,24 @@ u32 XDptx_EstablishLink(XDptx *InstancePtr)
 
 	XDptx_ResetPhy(InstancePtr, XDPTX_PHY_CONFIG_PHY_RESET_MASK);
 
+	/* Disable main link during training. */
 	ReenableMainLink = XDptx_ReadReg(InstancePtr->Config.BaseAddr,
 						XDPTX_ENABLE_MAIN_STREAM);
-
 	XDptx_DisableMainLink(InstancePtr);
 
 	/* Train main link. */
 	Status = XDptx_RunTraining(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
 
+	/* Reenable main link after training if required. */
 	if (ReenableMainLink != 0) {
 		XDptx_EnableMainLink(InstancePtr);
+	}
+
+	/* Turn off the training pattern and enable scrambler. */
+	Status2 = XDptx_SetTrainingPattern(InstancePtr,
+						XDPTX_TRAINING_PATTERN_SET_OFF);
+	if ((Status != XST_SUCCESS) || (Status2 != XST_SUCCESS)) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
@@ -1456,13 +1462,6 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
 			(TrainingState == XDPTX_TS_ADJUST_LINK_RATE))) {
 			return XST_FAILURE;
 		}
-	}
-
-	/* Turn off the training pattern and enable scrambler. */
-	Status = XDptx_SetTrainingPattern(InstancePtr,
-						XDPTX_TRAINING_PATTERN_SET_OFF);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
 	}
 
 	/* Final status check. */
