@@ -70,13 +70,13 @@
  */
 typedef enum {
 	/* Interlaced modes. */
-	XVID_VM_480_30_I,
+	XVID_VM_480_30_I = 0,
 	XVID_VM_576_25_I,
 	XVID_VM_1080_25_I,
 	XVID_VM_1080_30_I,
 
 	/* Progressive modes. */
-	XVID_VM_640x350_85_P = 0,
+	XVID_VM_640x350_85_P,
 	XVID_VM_640x400_85_P,
 	XVID_VM_640x480_60_P,
 	XVID_VM_640x480_72_P,
@@ -173,6 +173,13 @@ typedef enum {
 	XVID_VM_NUM_SUPPORTED,
 	XVID_VM_USE_EDID_PREFERRED,
 	XVID_VM_NO_INPUT,
+	XVID_VM_NOT_SUPPORTED,
+
+	/* Marks beginning/end of interlaced/progressive modes in the table. */
+	XVID_VM_INTL_START = XVID_VM_480_30_I,
+	XVID_VM_PROG_START = XVID_VM_640x350_85_P,
+	XVID_VM_INTL_END = (XVID_VM_PROG_START - 1),
+	XVID_VM_PROG_END = (XVID_VM_NUM_SUPPORTED - 1),
 
 	/* Common naming. */
 	XVID_VM_480_60_P = XVID_VM_720x480_60_P,
@@ -190,14 +197,14 @@ typedef enum {
 	XVID_VM_UHD2_60_P = XVID_VM_1920x2160_60_P,
 	XVID_VM_UHD_24_P = XVID_VM_3840x2160_24_P,
 	XVID_VM_UHD_25_P = XVID_VM_3840x2160_25_P,
-	XVID_VM_UHD_30_P = XVID_VM_3840x2160_30_P
+	XVID_VM_UHD_30_P = XVID_VM_3840x2160_30_P,
 	XVID_VM_UHD_60_P = XVID_VM_3840x2160_60_P
 } XVid_VideoMode;
 
 /* Progressive/interlaced video format. */
 typedef enum {
-	XVid_VM_PROGRESSIVE = 0,
-	XVid_VM_INTERLACED
+	XVID_VM_PROGRESSIVE = 0,
+	XVID_VM_INTERLACED
 } XVid_VideoFormat;
 
 /* Frame rate. */
