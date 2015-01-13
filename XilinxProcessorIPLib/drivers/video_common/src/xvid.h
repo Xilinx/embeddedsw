@@ -295,7 +295,7 @@ typedef struct {
 	XVid_DataWidth		Bpc;
 	XVid_FrameRate		FrameRate;
 	u32			IsInterlaced;
-	XVid_VideoMode		ResId;
+	XVid_VideoMode		VmId;
 	XVid_VideoTiming	Timing;
 } XVid_VideoStream;
 
