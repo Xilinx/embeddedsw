@@ -426,11 +426,11 @@ const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORT] =
 		552750,
 		{2560, 48, 32, 80, 2720, 0,
 		1600, 3, 6, 85, 1694, 0, 0, 0, 0, 1} },
-
-	{ XVID_VM_UHD_30_P, "UHD@30Hz", XVID_FR_30HZ,
+	{ XVID_VM_3840x2160_30_P, "3840x2160@30Hz", XVID_FR_30HZ,
 		297000,
 		{3840, 176, 88, 296, 4400, 0,
 		2160, 20, 10, 60, 2250, 0, 0, 0, 0, 1} },
+
 	{ XVID_VM_UHD_60_P, "UHD@60Hz", XVID_FR_60HZ,
 		594000,
 		{3840, 176, 88, 296, 4400, 0,
