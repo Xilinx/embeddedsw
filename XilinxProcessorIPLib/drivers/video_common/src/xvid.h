@@ -292,9 +292,10 @@ typedef struct {
  */
 typedef struct {
 	XVid_ColorFormat	ColorFormatId;
-	XVid_ColorDepth		Bpc;
+	XVid_ColorDepth		ColorDepth;
+	XVid_PixelsPerClock	PixPerClk;
 	XVid_FrameRate		FrameRate;
-	u32			IsInterlaced;
+	u8			IsInterlaced;
 	XVid_VideoMode		VmId;
 	XVid_VideoTiming	Timing;
 } XVid_VideoStream;
