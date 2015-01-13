@@ -77,7 +77,6 @@ typedef enum {
 
 	/* Progressive modes. */
 	XVID_VM_640x350_85_P,
-	XVID_VM_640x400_85_P,
 	XVID_VM_640x480_60_P,
 	XVID_VM_640x480_72_P,
 	XVID_VM_640x480_75_P,
