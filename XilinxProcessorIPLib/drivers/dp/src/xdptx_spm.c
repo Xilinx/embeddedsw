@@ -163,14 +163,6 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 					MsaConfig->Vtm.Timing.HBackPorch;
 	MsaConfig->VStart = MsaConfig->Vtm.Timing.F0PVSyncWidth +
 					MsaConfig->Vtm.Timing.F0PVBackPorch;
-	MsaConfig->HClkTotal = (MsaConfig->Vtm.Timing.HSyncWidth +
-				MsaConfig->Vtm.Timing.HBackPorch +
-				MsaConfig->Vtm.Timing.HFrontPorch +
-				MsaConfig->Vtm.Timing.HActive);
-	MsaConfig->VClkTotal = (MsaConfig->Vtm.Timing.F0PVSyncWidth +
-				MsaConfig->Vtm.Timing.F0PVBackPorch +
-				MsaConfig->Vtm.Timing.F0PVFrontPorch +
-				MsaConfig->Vtm.Timing.VActive);
 
 	/* Miscellaneous attributes. */
 	if (MsaConfig->BitsPerColor == 6) {
@@ -548,8 +540,6 @@ void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 		MsaConfig->NVid = MsaConfigCustom->NVid;
 		MsaConfig->HStart = MsaConfigCustom->HStart;
 		MsaConfig->VStart = MsaConfigCustom->VStart;
-		MsaConfig->HClkTotal = MsaConfigCustom->HClkTotal;
-		MsaConfig->VClkTotal = MsaConfigCustom->VClkTotal;
 		MsaConfig->Misc0 = MsaConfigCustom->Misc0;
 		MsaConfig->Misc1 = MsaConfigCustom->Misc1;
 		MsaConfig->DataPerLane = MsaConfigCustom->DataPerLane;
@@ -761,9 +751,10 @@ void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream)
 	/* Set the main stream attributes to the associated DisplayPort TX core
 	 * registers. */
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_HTOTAL +
-			StreamOffset[Stream - 1], MsaConfig->HClkTotal);
+			StreamOffset[Stream - 1], MsaConfig->Vtm.Timing.HTotal);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_VTOTAL +
-			StreamOffset[Stream - 1], MsaConfig->VClkTotal);
+			StreamOffset[Stream - 1],
+			MsaConfig->Vtm.Timing.F0PVTotal);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_POLARITY +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.HSyncPolarity |
