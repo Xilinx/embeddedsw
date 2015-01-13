@@ -338,7 +338,8 @@ extern const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORTED];
 
 /**************************** Function Prototypes *****************************/
 
-u32 XVid_GetPixelClockHz(XVid_VideoMode VmId);
+u32 XVid_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 Fr);
+u32 XVid_GetPixelClockHzByVmId(XVid_VideoMode VmId);
 XVid_VideoFormat XVid_IsVideoFormatInterlaced(XVid_VideoMode VmId);
 
 #endif /* XVID_H_ */

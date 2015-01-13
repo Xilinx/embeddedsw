@@ -53,7 +53,12 @@
 
 #include "xvid.h"
 
-u32 XVid_GetPixelClockHz(XVid_VideoMode VmId)
+u32 XVid_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 Fr)
+{
+	return (HTotal * VTotal * Fr);
+}
+
+u32 XVid_GetPixelClockHzByVmId(XVid_VideoMode VmId)
 {
 	u32 ClkHz;
 	XVid_VideoTimingMode *VmPtr;
