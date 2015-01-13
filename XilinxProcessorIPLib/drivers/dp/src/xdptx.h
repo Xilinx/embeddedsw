@@ -288,6 +288,8 @@ typedef struct {
  */
 typedef struct {
 	XVid_VideoTimingMode Vtm;	/**< The video timing. */
+	u32 PixelClockHz;		/**< The pixel clock of the stream (in
+						Hz). */
 	u32 HClkTotal;			/**< Horizontal total time (in
 						pixels). */
 	u32 VClkTotal;			/**< Vertical total time (in pixels). */

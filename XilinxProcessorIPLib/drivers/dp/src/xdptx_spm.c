@@ -144,11 +144,11 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
 	if (MsaConfig->OverrideUserPixelWidth == 0) {
-		if ((MsaConfig->Vtm.PixelClkKhz > 300000) &&
+		if ((MsaConfig->PixelClockHz > 300000000) &&
 			(LinkConfig->LaneCount == XDPTX_LANE_COUNT_SET_4)) {
 			MsaConfig->UserPixelWidth = 4;
 		}
-		else if ((MsaConfig->Vtm.PixelClkKhz > 75000) &&
+		else if ((MsaConfig->PixelClockHz > 75000000) &&
 			(LinkConfig->LaneCount != XDPTX_LANE_COUNT_SET_1)) {
 			MsaConfig->UserPixelWidth = 2;
 		}
@@ -238,7 +238,7 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 		/* Calculate the average number of bytes per transfer unit.
 		 * Note: Both the integer and the fractional part is stored in
 		 * AvgBytesPerTU. */
-		VideoBw = (MsaConfig->Vtm.PixelClkKhz * BitsPerPixel) / 8;
+		VideoBw = ((MsaConfig->PixelClockHz / 1000) * BitsPerPixel) / 8;
 		LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 		MsaConfig->AvgBytesPerTU = (VideoBw *
 					MsaConfig->TransferUnitSize) / LinkBw;
@@ -282,7 +282,7 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(VideoMode < XVID_VM_NUM_SUPPORT);
+	Xil_AssertVoid(VideoMode < XVID_VM_NUM_SUPPORTED);
 	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
 		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
 		(Stream == XDPTX_STREAM_ID4));
@@ -290,28 +290,44 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Configure the MSA values from the display monitor DMT table. */
-	MsaConfig->Vtm.PixelClkKhz =
-			XVid_VideoTimingModes[VideoMode].PixelClkKhz;
+	MsaConfig->Vtm.VmId = XVid_VideoTimingModes[VideoMode].VmId;
+	MsaConfig->Vtm.FrameRate = XVid_VideoTimingModes[VideoMode].FrameRate;
 	MsaConfig->Vtm.Timing.HActive =
 			XVid_VideoTimingModes[VideoMode].Timing.HActive;
-	MsaConfig->Vtm.Timing.VActive =
-			XVid_VideoTimingModes[VideoMode].Timing.VActive;
-	MsaConfig->Vtm.Timing.HSyncPolarity =
-			XVid_VideoTimingModes[VideoMode].Timing.HSyncPolarity;
-	MsaConfig->Vtm.Timing.VSyncPolarity =
-			XVid_VideoTimingModes[VideoMode].Timing.VSyncPolarity;
 	MsaConfig->Vtm.Timing.HFrontPorch =
 			XVid_VideoTimingModes[VideoMode].Timing.HFrontPorch;
 	MsaConfig->Vtm.Timing.HSyncWidth =
 			XVid_VideoTimingModes[VideoMode].Timing.HSyncWidth;
 	MsaConfig->Vtm.Timing.HBackPorch =
 			XVid_VideoTimingModes[VideoMode].Timing.HBackPorch;
+	MsaConfig->Vtm.Timing.HTotal =
+			XVid_VideoTimingModes[VideoMode].Timing.HTotal;
+	MsaConfig->Vtm.Timing.HSyncPolarity =
+			XVid_VideoTimingModes[VideoMode].Timing.HSyncPolarity;
+	MsaConfig->Vtm.Timing.VActive =
+			XVid_VideoTimingModes[VideoMode].Timing.VActive;
 	MsaConfig->Vtm.Timing.F0PVFrontPorch =
 			XVid_VideoTimingModes[VideoMode].Timing.F0PVFrontPorch;
 	MsaConfig->Vtm.Timing.F0PVSyncWidth =
 			XVid_VideoTimingModes[VideoMode].Timing.F0PVSyncWidth;
 	MsaConfig->Vtm.Timing.F0PVBackPorch =
 			XVid_VideoTimingModes[VideoMode].Timing.F0PVBackPorch;
+	MsaConfig->Vtm.Timing.F0PVTotal =
+			XVid_VideoTimingModes[VideoMode].Timing.F0PVTotal;
+	MsaConfig->Vtm.Timing.F1VFrontPorch =
+			XVid_VideoTimingModes[VideoMode].Timing.F1VFrontPorch;
+	MsaConfig->Vtm.Timing.F1VSyncWidth =
+			XVid_VideoTimingModes[VideoMode].Timing.F1VSyncWidth;
+	MsaConfig->Vtm.Timing.F1VBackPorch =
+			XVid_VideoTimingModes[VideoMode].Timing.F1VBackPorch;
+	MsaConfig->Vtm.Timing.F1VTotal =
+			XVid_VideoTimingModes[VideoMode].Timing.F1VTotal;
+	MsaConfig->Vtm.Timing.VSyncPolarity =
+			XVid_VideoTimingModes[VideoMode].Timing.VSyncPolarity;
+
+	/* Calculate the pixel clock frequency. */
+	MsaConfig->PixelClockHz =
+				XVid_GetPixelClockHzByVmId(MsaConfig->Vtm.VmId);
 
 	/* Calculate the rest of the MSA values. */
 	XDptx_CfgMsaRecalculate(InstancePtr, Stream);
@@ -376,8 +392,8 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
 			XDPTX_EDID_DTD_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
 			Ptm[XDPTX_EDID_DTD_VRES_LSB];
 
-	MsaConfig->Vtm.PixelClkKhz = ((Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_MSB] <<
-			8) | Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_LSB]) * 10;
+	MsaConfig->PixelClockHz = (((Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_MSB] <<
+		8) | Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_LSB]) * 10) * 1000;
 
 	MsaConfig->Vtm.Timing.HFrontPorch =
 			(((Ptm[XDPTX_EDID_DTD_XFPORCH_XSPW_U2] &
@@ -405,6 +421,7 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
 			(Ptm[XDPTX_EDID_DTD_VFPORCH_VSPW_L4] &
 			XDPTX_EDID_DTD_VFPORCH_VSPW_L4_VSPW_MASK);
 
+	/* Compute video mode timing values. */
 	MsaConfig->Vtm.Timing.HBackPorch = HBlank -
 					(MsaConfig->Vtm.Timing.HFrontPorch +
 					MsaConfig->Vtm.Timing.HSyncWidth);
@@ -412,6 +429,22 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
 	MsaConfig->Vtm.Timing.F0PVBackPorch = VBlank -
 					(MsaConfig->Vtm.Timing.F0PVFrontPorch +
 					MsaConfig->Vtm.Timing.F0PVSyncWidth);
+
+	MsaConfig->Vtm.Timing.HTotal = (MsaConfig->Vtm.Timing.HSyncWidth +
+					MsaConfig->Vtm.Timing.HFrontPorch +
+					MsaConfig->Vtm.Timing.HActive +
+					MsaConfig->Vtm.Timing.HBackPorch);
+
+	MsaConfig->Vtm.Timing.F0PVTotal = (MsaConfig->Vtm.Timing.F0PVSyncWidth +
+					MsaConfig->Vtm.Timing.F0PVFrontPorch +
+					MsaConfig->Vtm.Timing.VActive +
+					MsaConfig->Vtm.Timing.F0PVBackPorch);
+
+	MsaConfig->Vtm.FrameRate = MsaConfig->PixelClockHz /
+					(MsaConfig->Vtm.Timing.HTotal *
+					MsaConfig->Vtm.Timing.F0PVTotal);
+
+	MsaConfig->Vtm.VmId = XVID_VM_USE_EDID_PREFERRED;
 
 	/* Calculate the rest of the MSA values. */
 	XDptx_CfgMsaRecalculate(InstancePtr, Stream);
@@ -424,17 +457,20 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
  * attributes, the rest of the attributes may be derived. The minimal required
  * main stream attributes (MSA) that must be contained in the MsaConfigCustom
  * structure are:
- *	- Pixel clock (in KHz)
- *	- Horizontal sync polarity
- *	- Vertical sync polarity
- *	- Horizontal sync pulse width
- *	- Vertical sync pulse width
- *	- Horizontal resolution
- *	- Vertical resolution
- *	- Vertical back porch
- *	- Vertical front porch
- *	- Horizontal back porch
+ *	- Pixel clock (in Hz)
+ *	- Frame rate
+ *	- Horizontal active resolution
  *	- Horizontal front porch
+ *	- Horizontal sync pulse width
+ *	- Horizontal back porch
+ *	- Horizontal total
+ *	- Horizontal sync polarity
+ *	- Vertical active resolution
+ *	- Vertical back porch
+ *	- Vertical sync pulse width
+ *	- Vertical front porch
+ *	- Vertical total
+ *	- Vertical sync polarity
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
  * @param	Stream is the stream number for which the MSA values will be
@@ -465,27 +501,41 @@ void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Copy the MSA values from the user configuration structure. */
+	MsaConfig->PixelClockHz = MsaConfigCustom->PixelClockHz;
+	MsaConfig->Vtm.VmId = MsaConfigCustom->Vtm.VmId;
+	MsaConfig->Vtm.FrameRate = MsaConfigCustom->Vtm.FrameRate;
 	MsaConfig->Vtm.Timing.HActive =
 				MsaConfigCustom->Vtm.Timing.HActive;
-	MsaConfig->Vtm.Timing.VActive =
-				MsaConfigCustom->Vtm.Timing.VActive;
-	MsaConfig->Vtm.PixelClkKhz = MsaConfigCustom->Vtm.PixelClkKhz;
-	MsaConfig->Vtm.Timing.HSyncPolarity =
-				MsaConfigCustom->Vtm.Timing.HSyncPolarity;
-	MsaConfig->Vtm.Timing.VSyncPolarity =
-				MsaConfigCustom->Vtm.Timing.VSyncPolarity;
 	MsaConfig->Vtm.Timing.HFrontPorch =
 				MsaConfigCustom->Vtm.Timing.HFrontPorch;
 	MsaConfig->Vtm.Timing.HSyncWidth =
 				MsaConfigCustom->Vtm.Timing.HSyncWidth;
 	MsaConfig->Vtm.Timing.HBackPorch =
 				MsaConfigCustom->Vtm.Timing.HBackPorch;
+	MsaConfig->Vtm.Timing.HTotal =
+				MsaConfigCustom->Vtm.Timing.HTotal;
+	MsaConfig->Vtm.Timing.HSyncPolarity =
+				MsaConfigCustom->Vtm.Timing.HSyncPolarity;
+	MsaConfig->Vtm.Timing.VActive =
+				MsaConfigCustom->Vtm.Timing.VActive;
 	MsaConfig->Vtm.Timing.F0PVFrontPorch =
 				MsaConfigCustom->Vtm.Timing.F0PVFrontPorch;
 	MsaConfig->Vtm.Timing.F0PVSyncWidth =
 				MsaConfigCustom->Vtm.Timing.F0PVSyncWidth;
 	MsaConfig->Vtm.Timing.F0PVBackPorch =
 				MsaConfigCustom->Vtm.Timing.F0PVBackPorch;
+	MsaConfig->Vtm.Timing.F0PVTotal =
+				MsaConfigCustom->Vtm.Timing.F0PVTotal;
+	MsaConfig->Vtm.Timing.F1VFrontPorch =
+				MsaConfigCustom->Vtm.Timing.F1VFrontPorch;
+	MsaConfig->Vtm.Timing.F1VSyncWidth =
+				MsaConfigCustom->Vtm.Timing.F1VSyncWidth;
+	MsaConfig->Vtm.Timing.F1VBackPorch =
+				MsaConfigCustom->Vtm.Timing.F1VBackPorch;
+	MsaConfig->Vtm.Timing.F1VTotal =
+				MsaConfigCustom->Vtm.Timing.F1VTotal;
+	MsaConfig->Vtm.Timing.VSyncPolarity =
+				MsaConfigCustom->Vtm.Timing.VSyncPolarity;
 
 	if (Recalculate) {
 		/* Calculate the rest of the MSA values. */
@@ -738,7 +788,8 @@ void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream)
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_MISC1 +
 			StreamOffset[Stream - 1], MsaConfig->Misc1);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_M_VID +
-			StreamOffset[Stream - 1], MsaConfig->Vtm.PixelClkKhz);
+			StreamOffset[Stream - 1],
+			MsaConfig->PixelClockHz / 1000);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_N_VID +
 			StreamOffset[Stream - 1], MsaConfig->NVid);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_USER_PIXEL_WIDTH +
@@ -795,7 +846,7 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	u32 TsInt;
 	u32 TsFrac;
 
-	PeakPixelBw = ((double)MsaConfig->Vtm.PixelClkKhz / 1000) *
+	PeakPixelBw = ((double)MsaConfig->PixelClockHz / 1000000) *
 						((double)BitsPerPixel / 8);
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 
