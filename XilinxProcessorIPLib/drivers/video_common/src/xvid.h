@@ -233,7 +233,7 @@ typedef enum {
 	XVID_PPC_2 = 2,
 	XVID_PPC_4 = 4,
 	XVID_PPC_NUM_SUPPORTED = 3,
-} XVid_DataWidth;
+} XVid_PixelsPerClock;
 
 /* Color space and chroma format. */
 typedef enum {
