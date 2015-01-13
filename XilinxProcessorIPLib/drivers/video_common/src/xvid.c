@@ -80,3 +80,12 @@ u32 XVid_GetPixelClockHz(XVid_VideoMode VmId)
 
 	return ClkHz;
 }
+
+XVid_VideoFormat XVid_IsVideoFormatInterlaced(XVid_VideoMode VmId)
+{
+	if (XVid_VideoTimingModes[VmId].Timing.F1PVTotal == 0) {
+		return XVID_VM_PROGRESSIVE;
+	}
+
+	return XVID_VM_INTERLACED;
+}
