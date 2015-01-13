@@ -323,7 +323,6 @@ typedef struct {
 	XVid_VideoMode		VmId;
 	const char		Name[21];
 	XVid_FrameRate		FrameRate;
-	u32			PixelClkKhz;
 	XVid_VideoTiming	Timing;
 } XVid_VideoTimingMode;
 
@@ -332,5 +331,7 @@ typedef struct {
 extern const XVid_VideoTimingMode XVid_VideoTimingModes[XVID_VM_NUM_SUPPORTED];
 
 /**************************** Function Prototypes *****************************/
+
+u32 XVid_GetPixelClockHz(XVid_VideoMode VmId);
 
 #endif /* XVID_H_ */
