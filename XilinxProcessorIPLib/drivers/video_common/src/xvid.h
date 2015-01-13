@@ -69,6 +69,12 @@
  * Where RB stands for reduced blanking.
  */
 typedef enum {
+	/* Interlaced modes. */
+	XVID_VM_480_30_I,
+	XVID_VM_576_25_I,
+	XVID_VM_1080_25_I,
+	XVID_VM_1080_30_I,
+
 	/* Progressive modes. */
 	XVID_VM_640x350_85_P = 0,
 	XVID_VM_640x400_85_P,
@@ -163,12 +169,6 @@ typedef enum {
 	XVID_VM_3840x2160_25_P,
 	XVID_VM_3840x2160_30_P,
 	XVID_VM_3840x2160_60_P,
-
-	/* Interlaced modes. */
-	XVID_VM_480_30_I,
-	XVID_VM_576_25_I,
-	XVID_VM_1080_25_I,
-	XVID_VM_1080_30_I,
 
 	XVID_VM_NUM_SUPPORTED,
 	XVID_VM_USE_EDID_PREFERRED,
