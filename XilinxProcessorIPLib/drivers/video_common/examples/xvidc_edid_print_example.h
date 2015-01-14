@@ -5,13 +5,13 @@
  *      Author: andreis
  */
 
-#ifndef XEDID_PRINT_H_
-#define XEDID_PRINT_H_
+#ifndef XVIDC_EDID_PRINT_H_
+#define XVIDC_EDID_PRINT_H_
 
-#include "xdptx.h"
-#include "xedid.h"
+#include "xdp.h"
+#include "xvidc_edid.h"
 
 u32 Edid_PrintDecodeBase(u8 *EdidRaw);
 void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw);
 
-#endif /* XEDID_PRINT_H_ */
+#endif /* XVIDC_EDID_PRINT_H_ */

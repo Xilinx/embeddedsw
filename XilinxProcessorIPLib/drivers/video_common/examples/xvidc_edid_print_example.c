@@ -8,8 +8,7 @@
 
 
 #include "string.h"
-#include "xedid.h"
-#include "xedid_print_example.h"
+#include "xvidc_edid_print_example.h"
 #include "xil_printf.h"
 #include "xstatus.h"
 
@@ -27,7 +26,7 @@ static u8 Edid_CalculateChecksum(u8 *Data, u8 Size);
 u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 {
 	/* Check valid header. */
-	if (XEDID_IS_HEADER_VALID(EdidRaw)) {
+	if (XVidC_EdidIsHeaderValid(EdidRaw)) {
 		xil_printf("\nEDID header is: 00 FF FF FF FF FF FF 00\n");
 	}
 	else {
@@ -56,10 +55,10 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 	Edid_Print_Ptm(EdidRaw);
 
 	xil_printf("Number of extensions:\t%d\n",
-					XEDID_GET_EXT_BLK_COUNT(EdidRaw));
+					XVidC_EdidGetExtBlkCount(EdidRaw));
 	xil_printf("Checksum:\t\t0x%02lx -> Calculated sum = 0x%02lx\n",
-			XEDID_GET_CHECKSUM(EdidRaw),
-			Edid_CalculateChecksum(EdidRaw, 128));
+					XVidC_EdidGetChecksum(EdidRaw),
+					Edid_CalculateChecksum(EdidRaw, 128));
 
 	return XST_SUCCESS;
 }
@@ -69,10 +68,10 @@ void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
 	u8 Index;
 
 	xil_printf("Supported resolutions from video mode table:\n");
-	for (Index = 0; Index < XVID_VM_NUM_SUPPORTED; Index++) {
-		if (XEdid_IsVideoTimingSupported(EdidRaw,
-				&XVid_VideoTimingModes[Index]) == XST_SUCCESS) {
-			xil_printf("\t%s\n", XVid_VideoTimingModes[Index].Name);
+	for (Index = 0; Index < XVIDC_VM_NUM_SUPPORTED; Index++) {
+		if (XVidC_EdidIsVideoTimingSupported(EdidRaw,
+			&XVidC_VideoTimingModes[Index]) == XST_SUCCESS) {
+			xil_printf("\t%s\n", XVidC_VideoTimingModes[Index].Name);
 		}
 	}
 }
@@ -80,27 +79,27 @@ void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
 static void Edid_Print_BaseVPId(u8 *EdidRaw)
 {
 	char ManName[4];
-	XEDID_GET_VPI_ID_MAN_NAME(EdidRaw, ManName);
+	XVidC_EdidGetVpiIdManName(EdidRaw, ManName);
 
 	/* Vendor and product identification. */
 	xil_printf("Vendor and product identification:\n");
 	xil_printf("\tID manufacturer name:\t%s\n", ManName);
 	xil_printf("\tID product code:\t0x%04lx\n",
-					XEDID_GET_VPI_ID_PROD_CODE(EdidRaw));
+					XVidC_EdidGetVpiIdProdCode(EdidRaw));
 	xil_printf("\tID serial number:\t0x%08lx\n",
-					XEDID_GET_VPI_SN(EdidRaw));
-	if (XEDID_IS_VPI_YEAR_MODEL(EdidRaw)) {
+					XVidC_EditGetVpiSn(EdidRaw));
+	if (XVidC_EdidIsVpiYearModel(EdidRaw)) {
 		xil_printf("\tModel year:\t\t%d\n",
-					XEDID_GET_VPI_YEAR(EdidRaw));
+					XVidC_EdidGetVpiYear(EdidRaw));
 	}
-	else if (XEDID_GET_VPI_WEEK_MAN(EdidRaw) == 0x00) {
+	else if (XVidC_EdidGetVpiWeekMan(EdidRaw) == 0x00) {
 		xil_printf("\tManufactured:\t\tYear = %d ; Week N/A\n",
-						XEDID_GET_VPI_YEAR(EdidRaw));
+					XVidC_EdidGetVpiYear(EdidRaw));
 	}
 	else {
 		xil_printf("\tManufactured:\t\tYear = %d ; Week = %d\n",
-					XEDID_GET_VPI_YEAR(EdidRaw),
-					XEDID_GET_VPI_WEEK_MAN(EdidRaw));
+					XVidC_EdidGetVpiYear(EdidRaw),
+					XVidC_EdidGetVpiWeekMan(EdidRaw));
 	}
 }
 
@@ -108,40 +107,41 @@ static void Edid_Print_BaseVerRev(u8 *EdidRaw)
 {
 	/* EDID structure version and revision. */
 	xil_printf("EDID structure version and revision: %d.%d\n",
-		XEDID_GET_STRUCT_VER(EdidRaw), XEDID_GET_STRUCT_REV(EdidRaw));
+					XVidC_EdidGetStructVer(EdidRaw),
+					XVidC_EdidGetStructRev(EdidRaw));
 }
 
 static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 {
 	/* Basic display parameters and features. */
 	xil_printf("Basic display parameters and features:\n");
-	if (XEDID_IS_BDISP_VID_VSI_DIGITAL(EdidRaw)) {
+	if (XVidC_EdidIsBDispVidVsiDigital(EdidRaw)) {
 		/* Input is a digital video signal interface. */
 		xil_printf("\tVideo signal interface is digital.\n");
 
-		if (XEDID_GET_BDISP_VID_DIG_BPC(EdidRaw) !=
-						XEDID_BDISP_VID_DIG_BPC_UNDEF) {
+		if (XVidC_EdidGetBDispVidDigBpc(EdidRaw) !=
+					XVIDC_EDID_BDISP_VID_DIG_BPC_UNDEF) {
 			xil_printf("\tColor bit depth:\t%d\n",
-					XEDID_GET_BDISP_VID_DIG_BPC(EdidRaw));
+					XVidC_EdidGetBDispVidDigBpc(EdidRaw));
 		}
 		else {
 			xil_printf("\tColor bit depth is undefined.\n");
 		}
 
-		switch (XEDID_GET_BDISP_VID_DIG_VIS(EdidRaw)) {
-			case XEDID_BDISP_VID_DIG_VIS_DVI:
+		switch (XVidC_EdidGetBDispVidDigVis(EdidRaw)) {
+			case XVIDC_EDID_BDISP_VID_DIG_VIS_DVI:
 				xil_printf("\tDVI is supported.\n");
 				break;
-			case XEDID_BDISP_VID_DIG_VIS_HDMIA:
+			case XVIDC_EDID_BDISP_VID_DIG_VIS_HDMIA:
 				xil_printf("\tHDMI-a is supported.\n");
 				break;
-			case XEDID_BDISP_VID_DIG_VIS_HDMIB:
+			case XVIDC_EDID_BDISP_VID_DIG_VIS_HDMIB:
 				xil_printf("\tHDMI-b is supported.\n");
 				break;
-			case XEDID_BDISP_VID_DIG_VIS_MDDI:
+			case XVIDC_EDID_BDISP_VID_DIG_VIS_MDDI:
 				xil_printf("\tMDDI is supported.\n");
 				break;
-			case XEDID_BDISP_VID_DIG_VIS_DP:
+			case XVIDC_EDID_BDISP_VID_DIG_VIS_DP:
 				xil_printf("\tDisplayPort is supported.\n");
 				break;
 			default:
@@ -155,17 +155,17 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 
 		xil_printf("\tSignal level standard:\t");
 
-		switch (XEDID_GET_BDISP_VID_ANA_SLS(EdidRaw)) {
-			case XEDID_BDISP_VID_ANA_SLS_0700_0300_1000:
+		switch (XVidC_EdidGetBDispVidAnaSls(EdidRaw)) {
+			case XVIDC_EDID_BDISP_VID_ANA_SLS_0700_0300_1000:
 				xil_printf("0.700 : 0.300 : 1.000 Vp-p ");
 				break;
-			case XEDID_BDISP_VID_ANA_SLS_0714_0286_1000:
+			case XVIDC_EDID_BDISP_VID_ANA_SLS_0714_0286_1000:
 				xil_printf("0.714 : 0.286 : 1.000 Vp-p ");
 				break;
-			case XEDID_BDISP_VID_ANA_SLS_1000_0400_1400:
+			case XVIDC_EDID_BDISP_VID_ANA_SLS_1000_0400_1400:
 				xil_printf("1.000 : 0.400 : 1.400 Vp-p ");
 				break;
-			case XEDID_BDISP_VID_ANA_SLS_0700_0000_0700:
+			case XVIDC_EDID_BDISP_VID_ANA_SLS_0700_0000_0700:
 			default:
 				xil_printf("0.700 : 0.000 : 0.700 V p-p");
 				break;
@@ -173,7 +173,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		xil_printf("(Video : Sync : Total)\n");
 
 		xil_printf("\tVideo setup:\t\t");
-		if (XEDID_SUPP_BDISP_VID_ANA_VID_SETUP(EdidRaw)) {
+		if (XVidC_Edid_SuppBDispVidAnaVidSetup(EdidRaw)) {
 			xil_printf("Blank-to-black setup or pedestal.\n");
 		}
 		else {
@@ -182,21 +182,21 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 
 		xil_printf("\tSynchronization types:\n");
 		xil_printf("\t\tSeparate sync H & V signals ");
-		if (XEDID_SUPP_BDISP_VID_ANA_SEP_SYNC_HV(EdidRaw)) {
+		if (XVidC_EdidSuppBDispVidAnaSepSyncHv(EdidRaw)) {
 			xil_printf("are supported.\n");
 		}
 		else {
 			xil_printf("are not supported.\n");
 		}
 		xil_printf("\t\tComposite sync signal on horizontal ");
-		if (XEDID_SUPP_BDISP_VID_ANA_COMP_SYNC_H(EdidRaw)) {
+		if (XVidC_EdidSuppBDispVidAnaCompSyncH(EdidRaw)) {
 			xil_printf("is supported.\n");
 		}
 		else {
 			xil_printf("is not supported.\n");
 		}
 		xil_printf("\t\tComposite sync signal on green video ");
-		if (XEDID_SUPP_BDISP_VID_ANA_COMP_SYNC_G(EdidRaw)) {
+		if (XVidC_EdidSupp_BDispVidAnaCompSyncG(EdidRaw)) {
 			xil_printf("is supported.\n");
 		}
 		else {
@@ -204,7 +204,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		}
 
 		xil_printf("\tSerrations on the vertical sync ");
-		if (XEDID_SUPP_BDISP_VID_ANA_SERR_V_SYNC(EdidRaw)) {
+		if (XVidC_EdidSuppBDispVidAnaSerrVsync(EdidRaw)) {
 			xil_printf("is supported.\n");
 		}
 		else {
@@ -212,14 +212,14 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		}
 	}
 
-	if (XEDID_IS_BDISP_SSAR_SS(EdidRaw)) {
+	if (XVidC_EdidIsBDispSsArSs(EdidRaw)) {
 		xil_printf("\tScreen size (HxV):\t%dx%d(cm)\n",
-					XEDID_GET_BDISP_SSAR_H(EdidRaw),
-					XEDID_GET_BDISP_SSAR_V(EdidRaw));
+					XVidC_EdidGetBDispSsArH(EdidRaw),
+					XVidC_EdidGetBDispSsArV(EdidRaw));
 	}
-	else if (XEDID_IS_BDISP_SSAR_AR_L(EdidRaw)) {
+	else if (XVidC_EdidIsBDispSsArArL(EdidRaw)) {
 		xil_printf("\tAspect ratio (H:V):\t");
-		switch(XEDID_GET_BDISP_SSAR_H(EdidRaw)) {
+		switch (XVidC_EdidGetBDispSsArH(EdidRaw)) {
 			case 0x4F:
 				xil_printf("16:9 ");
 				break;
@@ -234,17 +234,17 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 				break;
 			default:
 				xil_printf("%d.%03d:1 ",
-					(u32)XEDID_GET_BDISP_SSAR_AR_L(EdidRaw),
+					(u32)XVidC_Edid_GetBDispSsArArL(EdidRaw),
 					FLOAT_FRAC_TO_U32(
-					XEDID_GET_BDISP_SSAR_AR_L(EdidRaw),
-					1000));
+					XVidC_Edid_GetBDispSsArArL(EdidRaw),
+									1000));
 				break;
 		}
 		xil_printf("(landscape)\n");
 	}
-	else if (XEDID_IS_BDISP_SSAR_AR_P(EdidRaw)) {
+	else if (XVidC_EdidIsBDispSsArArP(EdidRaw)) {
 		xil_printf("\tAspect ratio (H:V):\t");
-		switch(XEDID_GET_BDISP_SSAR_V(EdidRaw)) {
+		switch(XVidC_EdidGetBDispSsArV(EdidRaw)) {
 			case 0x4F:
 				xil_printf("9:16 ");
 				break;
@@ -259,9 +259,9 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 				break;
 			default:
 				xil_printf("%d.%03d:1 ",
-					(u32)XEDID_GET_BDISP_SSAR_AR_P(EdidRaw),
+					(u32)XVidC_EdidIsBDispSsArArP(EdidRaw),
 					FLOAT_FRAC_TO_U32(
-					XEDID_GET_BDISP_SSAR_AR_P(EdidRaw),
+					XVidC_Edid_GetBDispSsArArP(EdidRaw),
 					1000));
 				break;
 		}
@@ -271,63 +271,64 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		xil_printf("\tScreen size and aspect ratio are undefined.\n");
 	}
 
-	if (XEDID_IS_BDISP_GAMMA_IN_EXT(EdidRaw)) {
+	if (XVidC_EdidIsBDispGammaInExt(EdidRaw)) {
 		xil_printf("\tGamma is defined in an extension block.\n");
 	}
 	else {
 		xil_printf("\tGamma:\t\t\t%d.%02d\n",
-			(u32)XEDID_GET_BDISP_GAMMA(EdidRaw),
-			FLOAT_FRAC_TO_U32(XEDID_GET_BDISP_GAMMA(EdidRaw), 100));
+			(u32)XVidC_EdidGetBDispGamma(EdidRaw),
+			FLOAT_FRAC_TO_U32(XVidC_EdidGetBDispGamma(EdidRaw),
+			100));
 	}
 
 	xil_printf("\tDisplay power management:\n");
 	xil_printf("\t\t\t\tStandby mode ");
-	if (XEDID_SUPP_BDISP_FEATURE_PM_STANDBY(EdidRaw)) {
+	if (XVidC_EdidSuppBDispFeaturePmStandby(EdidRaw)) {
 		xil_printf("is supported.\n");
 	}
 	else {
 		xil_printf("is not supported.\n");
 	}
 	xil_printf("\t\t\t\tSuspend mode ");
-	if (XEDID_SUPP_BDISP_FEATURE_PM_SUSPEND(EdidRaw)) {
+	if (XVidC_EdidSuppBDispFeaturePmSuspend(EdidRaw)) {
 		xil_printf("is supported.\n");
 	}
 	else {
 		xil_printf("is not supported.\n");
 	}
 	xil_printf("\t\t\t\tActive off = very low power ");
-	if (XEDID_SUPP_BDISP_FEATURE_PM_OFF_VLP(EdidRaw)) {
+	if (XVidC_EdidSuppBDispFeaturePmOffVlp(EdidRaw)) {
 		xil_printf("is supported.\n");
 	}
 	else {
 		xil_printf("is not supported.\n");
 	}
 
-	if (XEDID_IS_BDISP_VID_VSI_DIGITAL(EdidRaw)) {
+	if (XVidC_EdidIsBDispVidVsiDigital(EdidRaw)) {
 		/* Input is a digital video signal interface. */
 		xil_printf("\tSupported color encoding format(s):\n");
 		xil_printf("\t\t\t\tRGB 4:4:4\n");
-		if (XEDID_SUPP_BDISP_FEATURE_DIG_COLORENC_YCRCB444(EdidRaw)) {
+		if (XVidC_EdidSuppBDispFeatureDigColorEncYCrCb444(EdidRaw)) {
 			xil_printf("\t\t\t\tYCrCb 4:4:4\n");
 		}
-		if (XEDID_SUPP_BDISP_FEATURE_DIG_COLORENC_YCRCB422(EdidRaw)) {
+		if (XVidC_EdidSuppBDispFeatureDigColorEncYCrCb422(EdidRaw)) {
 			xil_printf("\t\t\t\tYCrCb 4:2:2\n");
 		}
 	}
 	else {
 		/* Input is an analog video signal interface. */
 		xil_printf("\tDisplay color type:\t");
-		switch (XEDID_GET_BDISP_FEATURE_ANA_COLORTYPE(EdidRaw)) {
-		case XEDID_BDISP_FEATURE_ANA_COLORTYPE_MCG:
+		switch (XVidC_EdidGetBDispFeatureAnaColorType(EdidRaw)) {
+		case XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_MCG:
 			xil_printf("Monochrome or grayscale display.\n");
 			break;
-		case XEDID_BDISP_FEATURE_ANA_COLORTYPE_RGB:
+		case XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_RGB:
 			xil_printf("RGB color display.\n");
 			break;
-		case XEDID_BDISP_FEATURE_ANA_COLORTYPE_NRGB:
+		case XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_NRGB:
 			xil_printf("Non-RGB color display.\n");
 			break;
-		case XEDID_BDISP_FEATURE_ANA_COLORTYPE_UNDEF:
+		case XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_UNDEF:
 		default:
 			xil_printf("Display color type is undefined.\n");
 			break;
@@ -337,7 +338,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	xil_printf("\tOther supported features:\n");
 	/* sRGB standard is the default color space. */
 	xil_printf("\t\tsRGB standard ");
-	if (XEDID_IS_BDISP_FEATURE_SRGB_DEF(EdidRaw)) {
+	if (XVidC_EdidIsBDispFeaturePtmInc(EdidRaw)) {
 		xil_printf("is ");
 	}
 	else {
@@ -346,7 +347,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	xil_printf("the default color space.\n");
 	/* Preferred timing mode includes. */
 	xil_printf("\t\tPtm ");
-	if (XEDID_IS_BDISP_FEATURE_PTM_INC(EdidRaw)) {
+	if (XVidC_EdidIsBDispFeaturePtmInc(EdidRaw)) {
 		xil_printf("includes ");
 	}
 	else {
@@ -355,7 +356,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	xil_printf("the native pixel format and preferred refresh rate.\n");
 	/* Continuous frequency. */
 	xil_printf("\t\tDisplay ");
-	if (XEDID_IS_BDISP_FEATURE_CONTFREQ(EdidRaw)) {
+	if (XVidC_EdidIsBDispFeatureContFreq(EdidRaw)) {
 		xil_printf("is ");
 	}
 	else {
@@ -368,87 +369,87 @@ static void Edid_Print_ColorChar(u8 *EdidRaw)
 {
 	xil_printf("Color characterisitics:\n");
 	xil_printf("\tRed_x:\t\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_REDX(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_REDX(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcRedX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcRedX(EdidRaw), 1000000000));
 	xil_printf("\tRed_y:\t\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_REDY(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_REDY(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcRedY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcRedY(EdidRaw), 1000000000));
 	xil_printf("\tGreen_x:\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_GREENX(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_GREENX(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcGreenX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcGreenX(EdidRaw), 1000000000));
 	xil_printf("\tGreen_y:\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_GREENY(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_GREENY(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcGreenY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcGreenY(EdidRaw), 1000000000));
 	xil_printf("\tBlue_x:\t\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_BLUEX(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_BLUEX(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcBlueX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcBlueX(EdidRaw), 1000000000));
 	xil_printf("\tBlue_y:\t\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_BLUEY(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_BLUEY(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcBlueY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcBlueY(EdidRaw), 1000000000));
 	xil_printf("\tWhite_x:\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_WHITEX(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_WHITEX(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcWhiteX(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcWhiteX(EdidRaw), 1000000000));
 	xil_printf("\tWhite_y:\t\t%d.%09d +- 0.0005\n",
-		(u32)XEDID_GET_CC_WHITEY(EdidRaw),
-		FLOAT_FRAC_TO_U32(XEDID_GET_CC_WHITEY(EdidRaw), 1000000000));
+		(u32)XVidC_EdidGetCcWhiteY(EdidRaw),
+		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcWhiteY(EdidRaw), 1000000000));
 }
 
 static void Edid_Print_EstTimings(u8 *EdidRaw)
 {
 	xil_printf("Established timings:\n");
-	if (XEDID_SUPP_EST_TIMINGS_720x400_70(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings720x400_70(EdidRaw)) {
 		xil_printf("\t720x400 @ 70Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_720x400_88(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings720x400_88(EdidRaw)) {
 		xil_printf("\t720x400 @ 88Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_640x480_60(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings640x480_60(EdidRaw)) {
 		xil_printf("\t640x480 @ 60Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_640x480_67(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings640x480_67(EdidRaw)) {
 		xil_printf("\t640x480 @ 67Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_640x480_72(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings640x480_72(EdidRaw)) {
 		xil_printf("\t640x480 @ 72Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_640x480_75(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings640x480_75(EdidRaw)) {
 		xil_printf("\t640x480 @ 75Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_800x600_56(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings800x600_56(EdidRaw)) {
 		xil_printf("\t800x600 @ 56Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_800x600_60(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings800x600_60(EdidRaw)) {
 		xil_printf("\t800x600 @ 60Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_800x600_72(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings800x600_72(EdidRaw)) {
 		xil_printf("\t800x600 @ 72Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_800x600_75(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings800x600_75(EdidRaw)) {
 		xil_printf("\t800x600 @ 75Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_832x624_75(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings832x624_75(EdidRaw)) {
 		xil_printf("\t832x624 @ 75Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_1024x768_87(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings1024x768_87(EdidRaw)) {
 		xil_printf("\t1024x768 @ 87Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_1024x768_60(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings1024x768_60(EdidRaw)) {
 		xil_printf("\t1024x768 @ 60Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_1024x768_70(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings1024x768_70(EdidRaw)) {
 		xil_printf("\t1024x768 @ 70Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_1024x768_75(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings1024x768_75(EdidRaw)) {
 		xil_printf("\t1024x768 @ 75Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_1280x1024_75(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings1280x1024_75(EdidRaw)) {
 		xil_printf("\t1280x1024 @ 75Hz supported.\n");
 	}
-	if (XEDID_SUPP_EST_TIMINGS_1152x870_75(EdidRaw)) {
+	if (XVidC_EdidSuppEstTimings1152x870_75(EdidRaw)) {
 		xil_printf("\t1152x870 @ 75Hz supported.\n");
 	}
 	xil_printf("\tManufacturer specified timings field: 0x%02lx.\n",
-						XEDID_GET_TIMINGS_MAN(EdidRaw));
+					XVidC_EdidGetTimingsMan(EdidRaw));
 }
 
 static void Edid_Print_StdTimings(u8 *EdidRaw)
@@ -458,15 +459,15 @@ static void Edid_Print_StdTimings(u8 *EdidRaw)
 
 	xil_printf("Standard timings:\n");
 	for (Index = 0; Index < 8; Index++) {
-		if (EdidRaw[XEDID_STD_TIMINGS_H(Index + 1)] <= 1) {
+		if (EdidRaw[XVIDC_EDID_STD_TIMINGS_H(Index + 1)] <= 1) {
 			/* Not a valid standard timing. */
 			continue;
 		}
 
 		xil_printf("\t%dx%d @ %dHz supported.\n",
-				XEDID_GET_STD_TIMINGS_H(EdidRaw, Index + 1),
-				XEDID_GET_STD_TIMINGS_V(EdidRaw, Index + 1),
-				XEDID_GET_STD_TIMINGS_FRR(EdidRaw, Index + 1));
+				XVidC_EdidGetStdTimingsH(EdidRaw, Index + 1),
+				XVidC_EdidGetStdTimingsV(EdidRaw, Index + 1),
+				XVidC_EdidGetStdTimingsFrr(EdidRaw, Index + 1));
 	}
 }
 
@@ -474,67 +475,61 @@ static void Edid_Print_Ptm(u8 *EdidRaw)
 {
 	u8 *Ptm;
 
-	Ptm = &EdidRaw[XEDID_PTM];
+	Ptm = &EdidRaw[XVIDC_EDID_PTM];
 
-	u16 HBlank = ((Ptm[XEDID_DTD_PTM_HRES_HBLANK_U4] &
-			XEDID_DTD_PTM_XRES_XBLANK_U4_XBLANK_MASK) << 8) |
-			Ptm[XEDID_DTD_PTM_HBLANK_LSB];
+	u16 HBlank = ((Ptm[XVIDC_EDID_DTD_PTM_HRES_HBLANK_U4] &
+			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XBLANK_MASK) << 8) |
+			Ptm[XVIDC_EDID_DTD_PTM_HBLANK_LSB];
 
-	u16 VBlank = ((Ptm[XEDID_DTD_PTM_VRES_VBLANK_U4] &
-			XEDID_DTD_PTM_XRES_XBLANK_U4_XBLANK_MASK) << 8) |
-			Ptm[XEDID_DTD_PTM_VBLANK_LSB];
+	u16 VBlank = ((Ptm[XVIDC_EDID_DTD_PTM_VRES_VBLANK_U4] &
+			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XBLANK_MASK) << 8) |
+			Ptm[XVIDC_EDID_DTD_PTM_VBLANK_LSB];
 
-	u32 HActive =
-			(((Ptm[XEDID_DTD_PTM_HRES_HBLANK_U4] &
-			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
-			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
-			Ptm[XEDID_DTD_PTM_HRES_LSB];
+	u32 HActive = (((Ptm[XVIDC_EDID_DTD_PTM_HRES_HBLANK_U4] &
+			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
+			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
+			Ptm[XVIDC_EDID_DTD_PTM_HRES_LSB];
 
-	u32 VActive =
-			(((Ptm[XEDID_DTD_PTM_VRES_VBLANK_U4] &
-			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
-			XEDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
-			Ptm[XEDID_DTD_PTM_VRES_LSB];
+	u32 VActive = (((Ptm[XVIDC_EDID_DTD_PTM_VRES_VBLANK_U4] &
+			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
+			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
+			Ptm[XVIDC_EDID_DTD_PTM_VRES_LSB];
 
-	u32 PixelClkKhz = ((Ptm[XEDID_DTD_PTM_PIXEL_CLK_KHZ_MSB] <<
-			8) | Ptm[XEDID_DTD_PTM_PIXEL_CLK_KHZ_LSB]) * 10;
+	u32 PixelClkKhz = ((Ptm[XVIDC_EDID_DTD_PTM_PIXEL_CLK_KHZ_MSB] <<
+			8) | Ptm[XVIDC_EDID_DTD_PTM_PIXEL_CLK_KHZ_LSB]) * 10;
 
-	u32 HFrontPorch =
-			(((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
-			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HFPORCH_MASK) >>
-			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HFPORCH_SHIFT) << 8) |
-			Ptm[XEDID_DTD_PTM_HFPORCH_LSB];
+	u32 HFrontPorch = (((Ptm[XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2_HFPORCH_MASK) >>
+			XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2_HFPORCH_SHIFT) << 8)
+			| Ptm[XVIDC_EDID_DTD_PTM_HFPORCH_LSB];
 
-	u32 HSyncWidth =
-			(((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
-			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HSPW_MASK) >>
-			XEDID_DTD_PTM_XFPORCH_XSPW_U2_HSPW_SHIFT) << 8) |
-			Ptm[XEDID_DTD_PTM_HSPW_LSB];
+	u32 HSyncWidth = (((Ptm[XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2_HSPW_MASK) >>
+			XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2_HSPW_SHIFT) << 8) |
+			Ptm[XVIDC_EDID_DTD_PTM_HSPW_LSB];
 
-	u32 VFrontPorch =
-			(((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
-			XEDID_DTD_PTM_XFPORCH_XSPW_U2_VFPORCH_MASK) >>
-			XEDID_DTD_PTM_XFPORCH_XSPW_U2_VFPORCH_SHIFT) << 8) |
-			((Ptm[XEDID_DTD_PTM_VFPORCH_VSPW_L4] &
-			XEDID_DTD_PTM_VFPORCH_VSPW_L4_VFPORCH_MASK) >>
-			XEDID_DTD_PTM_VFPORCH_VSPW_L4_VFPORCH_SHIFT);
+	u32 VFrontPorch = (((Ptm[XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2_VFPORCH_MASK) >>
+			XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2_VFPORCH_SHIFT) << 8)
+			| ((Ptm[XVIDC_EDID_DTD_PTM_VFPORCH_VSPW_L4] &
+			XVIDC_EDID_DTD_PTM_VFPORCH_VSPW_L4_VFPORCH_MASK) >>
+			XVIDC_EDID_DTD_PTM_VFPORCH_VSPW_L4_VFPORCH_SHIFT);
 
-	u32 VSyncWidth =
-			((Ptm[XEDID_DTD_PTM_XFPORCH_XSPW_U2] &
-			XEDID_DTD_PTM_XFPORCH_XSPW_U2_VSPW_MASK) << 8) |
-			(Ptm[XEDID_DTD_PTM_VFPORCH_VSPW_L4] &
-			XEDID_DTD_PTM_VFPORCH_VSPW_L4_VSPW_MASK);
+	u32 VSyncWidth = ((Ptm[XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2] &
+			XVIDC_EDID_DTD_PTM_XFPORCH_XSPW_U2_VSPW_MASK) << 8) |
+			(Ptm[XVIDC_EDID_DTD_PTM_VFPORCH_VSPW_L4] &
+			XVIDC_EDID_DTD_PTM_VFPORCH_VSPW_L4_VSPW_MASK);
 
 	u32 HBackPorch = HBlank - (HFrontPorch + HSyncWidth);
 
 	u32 VBackPorch = VBlank - (VFrontPorch + VSyncWidth);
 
-	u8 HPolarity = (Ptm[XEDID_DTD_PTM_SIGNAL] &
-					XEDID_DTD_PTM_SIGNAL_HPOLARITY_MASK) >>
-					XEDID_DTD_PTM_SIGNAL_HPOLARITY_SHIFT;
-	u8 VPolarity = (Ptm[XEDID_DTD_PTM_SIGNAL] &
-					XEDID_DTD_PTM_SIGNAL_VPOLARITY_MASK) >>
-					XEDID_DTD_PTM_SIGNAL_VPOLARITY_SHIFT;
+	u8 HPolarity = (Ptm[XVIDC_EDID_DTD_PTM_SIGNAL] &
+				XVIDC_EDID_DTD_PTM_SIGNAL_HPOLARITY_MASK) >>
+				XVIDC_EDID_DTD_PTM_SIGNAL_HPOLARITY_SHIFT;
+	u8 VPolarity = (Ptm[XVIDC_EDID_DTD_PTM_SIGNAL] &
+				XVIDC_EDID_DTD_PTM_SIGNAL_VPOLARITY_MASK) >>
+				XVIDC_EDID_DTD_PTM_SIGNAL_VPOLARITY_SHIFT;
 
 	xil_printf("Preferred timing mode:\n");
 	xil_printf("\tHorizontal resolution:\t%d px\n"
@@ -555,8 +550,8 @@ static void Edid_Print_Ptm(u8 *EdidRaw)
 			VFrontPorch, VSyncWidth, VBackPorch, VBlank, VPolarity);
 
 	xil_printf("\tInterlaced:\t\t%s\n",
-		XEDID_IS_DTD_PTM_INTERLACED(EdidRaw) ?
-		"Yes." : "No (progressive).");
+					XVidC_EdidIsDtdPtmInterlaced(EdidRaw) ?
+					"Yes." : "No (progressive).");
 }
 
 static u8 Edid_CalculateChecksum(u8 *Data, u8 Size)
