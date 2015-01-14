@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  *
- * @file xvid.c
+ * @file xvidc.c
  *
  * Contains common utility functions that are typically used by video-related
  * drivers and applications.
@@ -51,19 +51,47 @@
 
 /******************************* Include Files ********************************/
 
-#include "xvid.h"
+#include "xvidc.h"
 
-u32 XVid_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 Fr)
+/************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+*
+* This function calculates pixel clock based on the inputs.
+*
+* @param	HTotal specifies horizontal total.
+* @param	VTotal specifies vertical total.
+* @param	FrameRate specifies rate at which frames are generated.
+*
+* @return	Pixel clock in Hz.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
 {
-	return (HTotal * VTotal * Fr);
+	return (HTotal * VTotal * FrameRate);
 }
 
-u32 XVid_GetPixelClockHzByVmId(XVid_VideoMode VmId)
+/*****************************************************************************/
+/**
+*
+* This function calculates pixel clock from video mode.
+*
+* @param	VmId specifies the resolution id.
+*
+* @return	Pixel clock in Hz.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 {
 	u32 ClkHz;
-	XVid_VideoTimingMode *VmPtr;
+	const XVidC_VideoTimingMode *VmPtr;
 
-	VmPtr = &XVid_VideoTimingModes[VmId];
+	VmPtr = &XVidC_VideoTimingModes[VmId];
 
 	/* For pixel clock calculation, use frame with the larger vertical
 	 * total. This is useful for interlaced modes with frames that don't
@@ -86,11 +114,25 @@ u32 XVid_GetPixelClockHzByVmId(XVid_VideoMode VmId)
 	return ClkHz;
 }
 
-XVid_VideoFormat XVid_IsVideoFormatInterlaced(XVid_VideoMode VmId)
+/*****************************************************************************/
+/**
+*
+* This function check input video mode is interlaced/progressive.
+*
+* @param	VmId specifies the resolution id.
+*
+* @return	Video format.
+*		- XVIDC_VF_PROGRESSIVE
+*		- XVIDC_VF_INTERLACED
+*
+* @note		None.
+*
+******************************************************************************/
+XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId)
 {
-	if (XVid_VideoTimingModes[VmId].Timing.F1VTotal == 0) {
-		return XVID_VM_PROGRESSIVE;
+	if (XVidC_VideoTimingModes[VmId].Timing.F1VTotal == 0) {
+		return (XVIDC_VF_PROGRESSIVE);
 	}
 
-	return XVID_VM_INTERLACED;
+	return (XVIDC_VF_INTERLACED);
 }
