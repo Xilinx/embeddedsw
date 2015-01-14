@@ -71,9 +71,13 @@
 typedef enum {
 	/* Interlaced modes. */
 	XVIDC_VM_480_30_I = 0,
+	XVIDC_VM_480_60_I,
 	XVIDC_VM_576_25_I,
+	XVIDC_VM_576_50_I,
 	XVIDC_VM_1080_25_I,
 	XVIDC_VM_1080_30_I,
+	XVIDC_VM_1080_50_I,
+	XVIDC_VM_1080_60_I,
 
 	/* Progressive modes. */
 	XVIDC_VM_640x350_85_P,
@@ -83,6 +87,7 @@ typedef enum {
 	XVIDC_VM_640x480_85_P,
 	XVIDC_VM_720x400_85_P,
 	XVIDC_VM_720x480_60_P,
+	XVIDC_VM_720x576_50_P,
 	XVIDC_VM_800x600_56_P,
 	XVIDC_VM_800x600_60_P,
 	XVIDC_VM_800x600_72_P,
@@ -346,11 +351,35 @@ typedef struct {
 	XVidC_VideoTiming	Timing;
 } XVidC_VideoTimingMode;
 
+/**
+ * Callback type which represents a custom timer wait handler. This is only
+ * used for Microblaze since it doesn't have a native sleep function. To avoid
+ * dependency on a hardware timer, the default wait functionality is implemented
+ * using loop iterations; this isn't too accurate. Therefore a custom timer
+ * handler is used, the user may implement their own wait implementation.
+ *
+ * @param	TimerPtr is a pointer to the timer instance.
+ * @param	Delay is the duration (msec/usec) to be passed to the timer
+ *		function.
+ *
+*******************************************************************************/
+typedef void (*XVidC_DelayHandler)(void *TimerPtr, u32 Delay);
+
 /**************************** Function Prototypes *****************************/
 
 u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
 u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
 XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId);
+XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
+					u8 IsInterlaced);
+const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);
+const char* XVidC_GetVideoModeStr(XVidC_VideoMode VmId);
+char* XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
+char* XVidC_GetColorFormatStr(XVidC_ColorSpace ColorSpaceId);
+XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId);
+const XVidC_VideoTiming* XVidC_GetTimingInfo(XVidC_VideoMode VmId);
+void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream);
+void XVidC_ReportTiming(XVidC_VideoTiming *Timing, u8 IsInterlaced);
 
 /*************************** Variable Declarations ****************************/
 
