@@ -230,7 +230,7 @@
 #include "xdptx_hw.h"
 #include "xil_assert.h"
 #include "xil_types.h"
-#include "xvid.h"
+#include "xvidc.h"
 
 /****************************** Type Definitions ******************************/
 
@@ -287,7 +287,7 @@ typedef struct {
  * video will be displayed.
  */
 typedef struct {
-	XVid_VideoTimingMode Vtm;	/**< The video timing. */
+	XVidC_VideoTimingMode Vtm;	/**< The video timing. */
 	u32 PixelClockHz;		/**< The pixel clock of the stream (in
 						Hz). */
 	u32 HStart;			/**< Horizontal blank start (in
@@ -611,7 +611,7 @@ void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
 /* xdptx_spm.c: Stream policy maker functions. */
 void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream);
 void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
-						XVid_VideoMode VideoMode);
+						XVidC_VideoMode VideoMode);
 void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream,
 								u8 *Edid);
 void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,

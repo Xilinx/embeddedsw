@@ -268,13 +268,13 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
  *
 *******************************************************************************/
 void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
-						XVid_VideoMode VideoMode)
+						XVidC_VideoMode VideoMode)
 {
 	XDptx_MainStreamAttributes *MsaConfig;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(VideoMode < XVID_VM_NUM_SUPPORTED);
+	Xil_AssertVoid(VideoMode < XVIDC_VM_NUM_SUPPORTED);
 	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
 		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
 		(Stream == XDPTX_STREAM_ID4));
@@ -282,44 +282,44 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Configure the MSA values from the display monitor DMT table. */
-	MsaConfig->Vtm.VmId = XVid_VideoTimingModes[VideoMode].VmId;
-	MsaConfig->Vtm.FrameRate = XVid_VideoTimingModes[VideoMode].FrameRate;
+	MsaConfig->Vtm.VmId = XVidC_VideoTimingModes[VideoMode].VmId;
+	MsaConfig->Vtm.FrameRate = XVidC_VideoTimingModes[VideoMode].FrameRate;
 	MsaConfig->Vtm.Timing.HActive =
-			XVid_VideoTimingModes[VideoMode].Timing.HActive;
+			XVidC_VideoTimingModes[VideoMode].Timing.HActive;
 	MsaConfig->Vtm.Timing.HFrontPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.HFrontPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.HFrontPorch;
 	MsaConfig->Vtm.Timing.HSyncWidth =
-			XVid_VideoTimingModes[VideoMode].Timing.HSyncWidth;
+			XVidC_VideoTimingModes[VideoMode].Timing.HSyncWidth;
 	MsaConfig->Vtm.Timing.HBackPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.HBackPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.HBackPorch;
 	MsaConfig->Vtm.Timing.HTotal =
-			XVid_VideoTimingModes[VideoMode].Timing.HTotal;
+			XVidC_VideoTimingModes[VideoMode].Timing.HTotal;
 	MsaConfig->Vtm.Timing.HSyncPolarity =
-			XVid_VideoTimingModes[VideoMode].Timing.HSyncPolarity;
+			XVidC_VideoTimingModes[VideoMode].Timing.HSyncPolarity;
 	MsaConfig->Vtm.Timing.VActive =
-			XVid_VideoTimingModes[VideoMode].Timing.VActive;
+			XVidC_VideoTimingModes[VideoMode].Timing.VActive;
 	MsaConfig->Vtm.Timing.F0PVFrontPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.F0PVFrontPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.F0PVFrontPorch;
 	MsaConfig->Vtm.Timing.F0PVSyncWidth =
-			XVid_VideoTimingModes[VideoMode].Timing.F0PVSyncWidth;
+			XVidC_VideoTimingModes[VideoMode].Timing.F0PVSyncWidth;
 	MsaConfig->Vtm.Timing.F0PVBackPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.F0PVBackPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.F0PVBackPorch;
 	MsaConfig->Vtm.Timing.F0PVTotal =
-			XVid_VideoTimingModes[VideoMode].Timing.F0PVTotal;
+			XVidC_VideoTimingModes[VideoMode].Timing.F0PVTotal;
 	MsaConfig->Vtm.Timing.F1VFrontPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.F1VFrontPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.F1VFrontPorch;
 	MsaConfig->Vtm.Timing.F1VSyncWidth =
-			XVid_VideoTimingModes[VideoMode].Timing.F1VSyncWidth;
+			XVidC_VideoTimingModes[VideoMode].Timing.F1VSyncWidth;
 	MsaConfig->Vtm.Timing.F1VBackPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.F1VBackPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.F1VBackPorch;
 	MsaConfig->Vtm.Timing.F1VTotal =
-			XVid_VideoTimingModes[VideoMode].Timing.F1VTotal;
+			XVidC_VideoTimingModes[VideoMode].Timing.F1VTotal;
 	MsaConfig->Vtm.Timing.VSyncPolarity =
-			XVid_VideoTimingModes[VideoMode].Timing.VSyncPolarity;
+			XVidC_VideoTimingModes[VideoMode].Timing.VSyncPolarity;
 
 	/* Calculate the pixel clock frequency. */
 	MsaConfig->PixelClockHz =
-				XVid_GetPixelClockHzByVmId(MsaConfig->Vtm.VmId);
+			XVidC_GetPixelClockHzByVmId(MsaConfig->Vtm.VmId);
 
 	/* Calculate the rest of the MSA values. */
 	XDptx_CfgMsaRecalculate(InstancePtr, Stream);
@@ -436,7 +436,7 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
 					(MsaConfig->Vtm.Timing.HTotal *
 					MsaConfig->Vtm.Timing.F0PVTotal);
 
-	MsaConfig->Vtm.VmId = XVID_VM_USE_EDID_PREFERRED;
+	MsaConfig->Vtm.VmId = XVIDC_VM_USE_EDID_PREFERRED;
 
 	/* Calculate the rest of the MSA values. */
 	XDptx_CfgMsaRecalculate(InstancePtr, Stream);
