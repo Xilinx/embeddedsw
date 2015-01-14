@@ -301,7 +301,7 @@
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_VID_SETUP_MASK) != 0)
 #define XVidC_EdidSuppBDispVidAnaSepSyncHv(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SEP_SYNC_HV_MASK) != 0)
-#define XVidC_EdidSuppBDispVidAnaCompSuncH(E) \
+#define XVidC_EdidSuppBDispVidAnaCompSyncH(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_COMP_SYNC_H_MASK) != 0)
 #define XVidC_EdidSupp_BDispVidAnaCompSyncG(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_COMP_SYNC_G_MASK) != 0)
@@ -318,18 +318,18 @@
 #define XVidC_EdidGetBDispSsArH(E)	E[XVIDC_EDID_BDISP_H_SSAR]
 #define XVidC_EdidGetBDispSsArV(E)	E[XVIDC_EDID_BDISP_V_SSAR]
 #define XVidC_EdidIsBDispSsArSs(E) \
-	((XVIDC_EDID_GET_BDISP_SSAR_H(E) != 0) && \
-	(XVIDC_EDID_GET_BDISP_SSAR_V(E) != 0))
+	((XVidC_EdidGetBDispSsArH(E) != 0) && \
+	(XVidC_EdidGetBDispSsArV(E) != 0))
 #define XVidC_EdidIsBDispSsArArL(E) \
-	((XVIDC_EDID_GET_BDISP_SSAR_H(E) != 0) && \
-	(XVIDC_EDID_GET_BDISP_SSAR_V(E) == 0))
+	((XVidC_EdidGetBDispSsArH(E) != 0) && \
+	(XVidC_EdidGetBDispSsArV(E) == 0))
 #define XVidC_EdidIsBDispSsArArP(E) \
-	((XVIDC_EDID_GET_BDISP_SSAR_H(E) == 0) && \
-	(XVIDC_EDID_GET_BDISP_SSAR_V(E) != 0))
+	((XVidC_EdidGetBDispSsArH(E) == 0) && \
+	(XVidC_EdidGetBDispSsArV(E) != 0))
 #define XVidC_Edid_GetBDispSsArArL(E) \
-	((float)((XVIDC_EDID_GET_BDISP_SSAR_H(E) + 99.0) / 100.0))
+	((float)((XVidC_EdidGetBDispSsArH(E) + 99.0) / 100.0))
 #define XVidC_Edid_GetBDispSsArArP(E) \
-	((float)(100.0 / (XVIDC_EDID_GET_BDISP_SSAR_V(E) + 99.0)))
+	((float)(100.0 / (XVidC_EdidGetBDispSsArV(E) + 99.0)))
 
 /* Basic display parameters and features: Gamma. */
 #define XVidC_EdidIsBDispGammaInExt(E)	(E[XVIDC_EDID_BDISP_GAMMA] == 0xFF)
@@ -350,7 +350,7 @@
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_MASK) >> \
 	XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_SHIFT)
-#define XVidC_EdidSuppBDispFeatureDidColorEncYCrCb444(E) \
+#define XVidC_EdidSuppBDispFeatureDigColorEncYCrCb444(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_DIG_COLORENC_YCRCB444_MASK) != 0)
 #define XVidC_EdidSuppBDispFeatureDigColorEncYCrCb422(E) \
