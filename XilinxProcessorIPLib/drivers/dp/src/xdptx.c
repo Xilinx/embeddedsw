@@ -1565,6 +1565,9 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
 		if (SameVsLevelCount >= 5) {
 			break;
 		}
+		if (LinkConfig->VsLevel == XDPTX_MAXIMUM_VS_LEVEL) {
+			break;
+		}
 
 		/* Adjust the drive settings as requested by the RX device. */
 		Status = XDptx_AdjVswingPreemp(InstancePtr);
