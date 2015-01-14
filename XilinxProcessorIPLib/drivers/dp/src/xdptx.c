@@ -118,7 +118,7 @@ typedef struct {
 static u32 XDptx_RunTraining(XDptx *InstancePtr);
 static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr);
 static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
-					XDptx *InstancePtr, u32 MaxIterations);
+							XDptx *InstancePtr);
 static XDptx_TrainingState XDptx_TrainingStateAdjustLinkRate(
 							XDptx *InstancePtr);
 static XDptx_TrainingState XDptx_TrainingStateAdjustLaneCount(
@@ -1436,7 +1436,7 @@ static u32 XDptx_RunTraining(XDptx *InstancePtr)
 			break;
 		case XDPTX_TS_CHANNEL_EQUALIZATION:
 			TrainingState = XDptx_TrainingStateChannelEqualization(
-								InstancePtr, 5);
+								InstancePtr);
 			break;
 		case XDPTX_TS_ADJUST_LINK_RATE:
 			TrainingState = XDptx_TrainingStateAdjustLinkRate(
@@ -1589,7 +1589,7 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
  *	1) Transmit training pattern 2 (or 3) over the main link with symbol
  *	   scrambling disabled.
  *	2) The channel equalization loop. If channel equalization is
- *	   unsuccessful after MaxIterations loop iterations, return.
+ *	   unsuccessful after 5 loop iterations, return.
  *	2a) Wait for at least the period of time specified in the RX device's
  *	    DisplayPort Configuration Data (DPCD) register,
  *	    TRAINING_AUX_RD_INTERVAL.
@@ -1604,23 +1604,19 @@ static XDptx_TrainingState XDptx_TrainingStateClockRecovery(XDptx *InstancePtr)
  * section 3.5.1.2.2 of the DisplayPort 1.2a specification document.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	MaxIterations is the maximum number of times to loop through the
- *		clock recovery sequence before down-shifting to a reduced data
- *		rate or a reduced number of lanes.
  *
  * @return	The next training state:
  *		- XDPTX_TS_SUCCESS if training succeeded.
  *		- XDPTX_TS_FAILURE if writing the drive settings to the RX
  *		  device was unsuccesful.
- *		- XDPTX_TS_ADJUST_LINK_RATE if, after MaxIterations loop
- *		  iterations, the channel equalization sequence did not complete
- *		  successfully.
+ *		- XDPTX_TS_ADJUST_LINK_RATE if, after 5 loop iterations, the
+ *		  channel equalization sequence did not complete successfully.
  *
  * @note	None.
  *
 *******************************************************************************/
 static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
-					XDptx *InstancePtr, u32 MaxIterations)
+							XDptx *InstancePtr)
 {
 	u32 Status;
 	u32 DelayUs;
@@ -1649,7 +1645,7 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
 		return XDPTX_TS_FAILURE;
 	}
 
-	while (IterationCount < MaxIterations) {
+	while (IterationCount < 5) {
 		/* Wait delay specified in TRAINING_AUX_RD_INTERVAL. */
 		XDptx_WaitUs(InstancePtr, DelayUs);
 
