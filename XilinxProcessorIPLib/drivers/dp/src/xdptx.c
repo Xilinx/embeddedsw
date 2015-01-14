@@ -1625,8 +1625,6 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
 	u32 Status;
 	u32 DelayUs;
 	u32 IterationCount = 0;
-	u8 PrevVsLevel = 0;
-	u8 SameVsLevelCount = 0;
 	XDptx_LinkConfig *LinkConfig = &InstancePtr->LinkConfig;
 
 	/* Obtain the required delay for channel equalization as specified by
@@ -1675,19 +1673,6 @@ static XDptx_TrainingState XDptx_TrainingStateChannelEqualization(
 					InstancePtr->LinkConfig.LaneCount);
 		if (Status == XST_SUCCESS) {
 			return XDPTX_TS_SUCCESS;
-		}
-
-		/* Check if the same voltage swing for each lane has been used 5
-		 * consecutive times. */
-		if (PrevVsLevel == LinkConfig->VsLevel) {
-			SameVsLevelCount++;
-		}
-		else {
-			SameVsLevelCount = 0;
-			PrevVsLevel = LinkConfig->VsLevel;
-		}
-		if (SameVsLevelCount >= 5) {
-			break;
 		}
 
 		/* Adjust the drive settings as requested by the RX device. */
