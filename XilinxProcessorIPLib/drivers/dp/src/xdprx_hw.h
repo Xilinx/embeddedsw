@@ -423,6 +423,20 @@
 							of stream 1. */
 /* @} */
 
+/** @name DPRX core registers: MST field for sideband message buffers and the
+  *	  virtual channel payload table.
+  * @{
+  */
+#define XDPRX_DOWN_REQ			0xA00	/**< Down request buffer address
+							space. */
+#define XDPRX_DOWN_REP			0xB00	/**< Down reply buffer address
+							space. */
+#define XDPRX_VC_PAYLOAD_TABLE		0x800	/**< Virtual channel payload
+							table (0xFF bytes). */
+#define XDPRX_VC_PAYLOAD_TABLE_ID_SLOT(SlotNum) \
+			(XDPRX_VC_PAYLOAD_TABLE + SlotNum)
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
