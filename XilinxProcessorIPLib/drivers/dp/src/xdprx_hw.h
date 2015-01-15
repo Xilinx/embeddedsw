@@ -437,6 +437,23 @@
 			(XDPRX_VC_PAYLOAD_TABLE + SlotNum)
 /* @} */
 
+/** @name DPRX core registers: Vendor specific DPCD.
+  * @{
+  */
+#define XDPRX_SOURCE_DEVICE_SPECIFIC_FIELD 0xE00 /**< User access to the source
+							specific field as
+							exposed in the RX
+							DPCD (0xFF bytes). */
+#define XDPRX_SOURCE_DEVICE_SPECIFIC_FIELD_REG(RegNum) \
+			(XDPRX_SOURCE_DEVICE_SPECIFIC_FIELD + (4 * RegNum))
+#define XDPRX_SINK_DEVICE_SPECIFIC_FIELD 0xF00	/**< User access to the sink
+							specific field as
+							exposed in the RX
+							DPCD (0xFF bytes). */
+#define XDPRX_SINK_DEVICE_SPECIFIC_FIELD_REG(RegNum) \
+			(XDPRX_SINK_DEVICE_SPECIFIC_FIELD + (4 * RegNum))
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
