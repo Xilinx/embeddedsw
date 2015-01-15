@@ -106,6 +106,28 @@
 							recent AUX request. */
 /* @} */
 
+/** @name DPRX core registers: Interrupt registers.
+  * @{
+  */
+#define XDPRX_INTERRUPT_CAUSE		0x040	/**< Indicates the cause of
+							pending host interrupts
+							for stream 1, training,
+							payload allocation, and
+							for the AUX channel. */
+#define XDPRX_INTERRUPT_MASK_1		0x044	/**< Masks the specified
+							interrupt sources. */
+#define XDPRX_INTERRUPT_CAUSE_1		0x048	/**< Indicates the cause of a
+							pending host interrupts
+							for streams 2, 3, 4. */
+#define XDPRX_HSYNC_WIDTH		0x050	/**< Controls the timing of the
+							active-high horizontal
+							sync pulse generated
+							by the display timing
+							generator (DTG). */
+#define XDPRX_FAST_I2C_DIVIDER		0x060	/**< Fast I2C mode clock divider
+							value. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
