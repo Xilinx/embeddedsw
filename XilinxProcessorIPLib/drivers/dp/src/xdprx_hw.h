@@ -226,6 +226,31 @@
 							video data path. */
 /* @} */
 
+/** @name DPRX core registers: PHY configuration and status.
+  * @{
+  */
+#define XDPRX_PHY_CONFIG		0x200	/**< Transceiver PHY reset and
+							configuration. */
+#define XDPRX_PHY_STATUS		0x208	/**< Current PHY status. */
+#define XDPRX_PHY_POWER_DOWN		0x210	/**< Control PHY power down. */
+#define XDPRX_MIN_VOLTAGE_SWING		0x214	/**< Specifies the minimum
+							voltage swing required
+							during training before
+							a link can be reliably
+							established and advanced
+							configuration for link
+							training. */
+#define XDPRX_CDR_CONTROL_CONFIG	0x21C	/**< Control the configuration
+							for clock and data
+							recovery. */
+#define XDPRX_GT_DRP_COMMAND		0x2A0	/**< Provides access to the GT
+							DRP ports. */
+#define XDPRX_GT_DRP_READ_DATA		0x2A4	/**< Provides access to GT DRP
+							read data. */
+#define XDPRX_GT_DRP_CH_STATUS		0x2A8	/**< Provides access to GT DRP
+							channel status. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
