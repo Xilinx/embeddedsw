@@ -128,6 +128,84 @@
 							value. */
 /* @} */
 
+/** @name DPRX core registers: DPCD fields.
+  * @{
+  */
+#define XDPRX_LOCAL_EDID_VIDEO		0x084	/**< Indicates the presence of
+							EDID information for the
+							video stream. */
+#define XDPRX_LOCAL_EDID_AUDIO		0x088	/**< Indicates the presence of
+							EDID information for the
+							audio stream. */
+#define XDPRX_REMOTE_CMD		0x08C	/**< Used for passing remote
+							information to the
+							DisplayPort TX. */
+#define XDPRX_DEVICE_SERVICE_IRQ	0x090	/**< Indicates the DPCD
+							DEVICE_SERVICE_IRQ_
+							VECTOR state. */
+#define XDPRX_VIDEO_UNSUPPORTED		0x094	/**< DPCD register bit to inform
+							the DisplayPort TX that
+							video data is not
+							supported. */
+#define XDPRX_AUDIO_UNSUPPORTED		0x098	/**< DPCD register bit to inform
+							the DisplayPort TX that
+							audio data is not
+							supported. */
+#define XDPRX_OVER_LINK_BW_SET		0x09C	/**< Used to override the main
+							link bandwidth setting
+							in the DPCD. */
+#define XDPRX_OVER_LANE_COUNT_SET	0x0A0	/**< Used to override the lane
+							count setting in the
+							DPCD. */
+#define XDPRX_OVER_TP_SET		0x0A4	/**< Used to override the link
+							training pattern in the
+							DPCD. */
+#define XDPRX_OVER_TRAINING_LANE0_SET	0x0A8	/**< Used to override the
+							TRAINING_LANE0_SET
+							register in the DPCD. */
+#define XDPRX_OVER_TRAINING_LANE1_SET	0x0AC	/**< Used to override the
+							TRAINING_LANE1_SET
+							register in the DPCD. */
+#define XDPRX_OVER_TRAINING_LANE2_SET	0x0B0	/**< Used to override the
+							TRAINING_LANE2_SET
+							register in the DPCD. */
+#define XDPRX_OVER_TRAINING_LANE3_SET	0x0B4	/**< Used to override the
+							TRAINING_LANE3_SET
+							register in the DPCD. */
+#define XDPRX_OVER_CTRL_DPCD		0x0B8	/**< Used to enable AXI/APB
+							write access to the DPCD
+							capability structure. */
+#define XDPRX_OVER_DOWNSPREAD_CTRL	0x0BC	/**< Used to override downspread
+							control in the DPCD. */
+#define XDPRX_OVER_LINK_QUAL_LANE0_SET	0x0C0	/**< Used to override the
+							LINK_QUAL_LANE0_SET
+							register in the DPCD. */
+#define XDPRX_OVER_LINK_QUAL_LANE1_SET	0x0C4	/**< Used to override the
+							LINK_QUAL_LANE1_SET
+							register in the DPCD. */
+#define XDPRX_OVER_LINK_QUAL_LANE2_SET	0x0C8	/**< Used to override the
+							LINK_QUAL_LANE2_SET
+							register in the DPCD. */
+#define XDPRX_OVER_LINK_QUAL_LANE3_SET	0x0CC	/**< Used to override the
+							LINK_QUAL_LANE3_SET
+							register in the DPCD. */
+#define XDPRX_MST_CAP			0x0D0	/**< Used to enable or disable
+							MST capability. */
+#define XDPRX_SINK_COUNT		0x0D4	/**< The sink device count. */
+#define XDPRX_GUID0			0x0E0	/**< Lower 4 bytes of the DPCD's
+							GUID field. */
+#define XDPRX_GUID1			0x0E4	/**< Bytes 4 to 7 of the DPCD's
+							GUID field. */
+#define XDPRX_GUID2			0x0E8	/**< Bytes 8 to 11 of the DPCD's
+							GUID field. */
+#define XDPRX_GUID3			0x0EC	/**< Upper 4 bytes of the DPCD's
+							GUID field. */
+#define XDPRX_OVER_GUID			0x0F0	/**< Used to override the GUID
+							field in the DPCD with
+							what is stored in
+							XDPRX_GUID[0-3]. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
