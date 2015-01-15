@@ -104,8 +104,10 @@
 /** @name DPTX core registers: Core ID.
   * @{
   */
-#define XDPTX_VERSION			0x00F8	/**< Core version. */
-#define XDPTX_CORE_ID			0x00FC	/**< DisplayPort revision. */
+#define XDPTX_VERSION			0x00F8	/**< Version and revision of the
+							DisplayPort core. */
+#define XDPTX_CORE_ID			0x00FC	/**< DisplayPort protocol
+							version and revision. */
 /* @} */
 
 /** @name DPTX core registers: AUX channel interface.

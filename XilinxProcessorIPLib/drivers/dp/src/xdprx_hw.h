@@ -206,6 +206,15 @@
 							XDPRX_GUID[0-3]. */
 /* @} */
 
+/** @name DPRX core registers: Core ID.
+  * @{
+  */
+#define XDPRX_VERSION			0x0F8	/**< Version and revision of the
+							DisplayPort core. */
+#define XDPRX_CORE_ID			0x0FC	/**< DisplayPort protocol
+							version and revision. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
