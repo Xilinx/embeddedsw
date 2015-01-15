@@ -55,6 +55,11 @@
 #include "microblaze_sleep.h"
 #endif
 
+/**************************** Function Prototypes *****************************/
+
+/* Miscellaneous functions. */
+static u32 XDprx_WaitPhyReady(XDprx *InstancePtr, u8 Mask);
+
 /**************************** Function Definitions ****************************/
 
 /******************************************************************************/
@@ -184,4 +189,39 @@ void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds)
 	/* Wait the requested amount of time. */
 	usleep(MicroSeconds);
 #endif
+}
+
+/******************************************************************************/
+/**
+ * This function waits for the DisplayPort PHY to come out of reset.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	Mask specifies which bits to wait for the PHY to be ready on.
+ *
+ * @return
+ *		- XST_ERROR_COUNT_MAX if the PHY failed to be ready.
+ *		- XST_SUCCESS otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDprx_WaitPhyReady(XDprx *InstancePtr, u8 Mask)
+{
+	u32 Timeout = 100;
+	u32 PhyStatus;
+
+	/* Wait until the PHY is ready. */
+	do {
+		PhyStatus = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
+						XDPRX_PHY_STATUS) & Mask;
+
+		/* Protect against an infinite loop. */
+		if (!Timeout--) {
+			return XST_ERROR_COUNT_MAX;
+		}
+		XDprx_WaitUs(InstancePtr, 20);
+	}
+	while (PhyStatus != Mask);
+
+	return XST_SUCCESS;
 }
