@@ -78,6 +78,34 @@
 #define XDPRX_SOFT_RESET		0x01C	/**< Software reset. */
 /* @} */
 
+/** @name DPRX core registers: AUX channel status.
+  * @{
+  */
+#define XDPRX_AUX_REQ_IN_PROGRESS	0x020	/**< Indicates the receipt of an
+							AUX channel request. */
+#define XDPRX_REQ_ERROR_COUNT		0x024	/**< Provides a running total of
+							errors detected on
+							inbound AUX channel
+							requests. */
+#define XDPRX_REQ_COUNT			0x028	/**< Provides a running total of
+							the number of AUX
+							requests received. */
+#define XDPRX_HPD_INTERRUPT		0x02C	/**< Instructs the DisplayPort
+							RX core to assert an
+							interrupt to the TX
+							using the HPD signal. */
+#define XDPRX_REQ_CLK_WIDTH		0x030	/**< Holds the half period of
+							the recovered AUX
+							clock. */
+#define XDPRX_REQ_CMD			0x034	/**< Provides the most recent
+							AUX command received. */
+#define XDPRX_REQ_ADDRESS		0x038	/**< Contains the address field
+							of the most recent AUX
+							request. */
+#define XDPRX_REQ_LENGTH		0x03C	/**< Contains length of the most
+							recent AUX request. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
