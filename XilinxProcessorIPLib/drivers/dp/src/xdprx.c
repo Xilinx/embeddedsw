@@ -49,6 +49,11 @@
 
 #include "xdprx.h"
 #include "xstatus.h"
+#if defined(__arm__)
+#include "sleep.h"
+#elif defined(__MICROBLAZE__)
+#include "microblaze_sleep.h"
+#endif
 
 /**************************** Function Definitions ****************************/
 
@@ -105,4 +110,78 @@ void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
 	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a custom delay/sleep function to be used by the XDprx
+ * driver.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item (microseconds to delay) that
+ *		will be passed to the custom sleep/delay function when it is
+ *		invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
+			XDp_TimerHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->UserTimerWaitUs = CallbackFunc;
+	InstancePtr->UserTimerPtr = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function is the delay/sleep function for the XDprx driver. For the Zynq
+ * family, there exists native sleep functionality. For MicroBlaze however,
+ * there does not exist such functionality. In the MicroBlaze case, the default
+ * method for delaying is to use a predetermined amount of loop iterations. This
+ * method is prone to inaccuracy and dependent on system configuration; for
+ * greater accuracy, the user may supply their own delay/sleep handler, pointed
+ * to by InstancePtr->UserTimerWaitUs, which may have better accuracy if a
+ * hardware timer is used.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	MicroSeconds is the number of microseconds to delay/sleep for.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	if (MicroSeconds == 0) {
+		return;
+	}
+
+#if defined(__MICROBLAZE__)
+	if (InstancePtr->UserTimerWaitUs != NULL) {
+		/* Use the timer handler specified by the user for better
+		 * accuracy. */
+		InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
+	}
+	else {
+		/* MicroBlaze sleep only has millisecond accuracy. Round up. */
+		u32 MilliSeconds = (MicroSeconds + 999) / 1000;
+		MB_Sleep(MilliSeconds);
+	}
+#elif defined(__arm__)
+	/* Wait the requested amount of time. */
+	usleep(MicroSeconds);
+#endif
 }

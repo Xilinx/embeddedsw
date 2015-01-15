@@ -59,10 +59,10 @@
 
 #include "xdptx.h"
 #include "xstatus.h"
-#if defined(__MICROBLAZE__)
-#include "microblaze_sleep.h"
-#elif defined(__arm__)
+#if defined(__arm__)
 #include "sleep.h"
+#elif defined(__MICROBLAZE__)
+#include "microblaze_sleep.h"
 #endif
 #include "xenv.h"
 
@@ -1332,7 +1332,7 @@ void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset)
 
 /******************************************************************************/
 /**
- * This function installs a custom delay/sleep function to be used by the XDdptx
+ * This function installs a custom delay/sleep function to be used by the XDptx
  * driver.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.

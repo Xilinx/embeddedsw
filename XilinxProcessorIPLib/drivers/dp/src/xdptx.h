@@ -604,9 +604,9 @@ u32 XDptx_IsConnected(XDptx *InstancePtr);
 void XDptx_EnableMainLink(XDptx *InstancePtr);
 void XDptx_DisableMainLink(XDptx *InstancePtr);
 void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset);
-void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds);
 void XDptx_SetUserTimerHandler(XDptx *InstancePtr,
 			XDp_TimerHandler CallbackFunc, void *CallbackRef);
+void XDptx_WaitUs(XDptx *InstancePtr, u32 MicroSeconds);
 
 /* xdptx_spm.c: Stream policy maker functions. */
 void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream);

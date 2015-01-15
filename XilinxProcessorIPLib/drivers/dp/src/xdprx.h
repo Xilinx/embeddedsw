@@ -76,12 +76,22 @@ typedef struct {
 							ready. */
 	XDprx_LinkConfig LinkConfig;		/**< Configuration structure for
 							the main link. */
+	XDp_TimerHandler UserTimerWaitUs;	/**< Custom user function for
+							delay/sleep. */
+	void *UserTimerPtr;			/**< Pointer to a timer instance
+							used by the custom user
+							delay/sleep function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
 
-/* xdptx.c: Setup and initialization functions. */
+/* xdprx.c: Setup and initialization functions. */
 void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
 							u32 EffectiveAddr);
+
+/* xdprx.c: General usage functions. */
+void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
+			XDp_TimerHandler CallbackFunc, void *CallbackRef);
+void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);
 
 #endif /* XDPRX_H_ */
