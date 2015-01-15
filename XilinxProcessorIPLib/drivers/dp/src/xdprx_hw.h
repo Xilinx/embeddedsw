@@ -351,7 +351,7 @@
 /** @name DPRX core registers: Main stream attributes for SST / MST STREAM1.
   * @{
   */
-#define XDPTX_STREAM1_MSA_START		0x500	/**< Start of the MSA registers
+#define XDPRX_STREAM1_MSA_START		0x500	/**< Start of the MSA registers
 							for stream 1. */
 #define XDPRX_MSA_HRES			0x500	/**< Number of active pixels per
 							line (the horizontal
@@ -392,6 +392,35 @@
 							clock. */
 #define XDPRX_MSA_VBID			0x538	/**< The most recently received
 							VB-ID value. */
+/* @} */
+
+/** @name DPRX core registers: Main stream attributes for MST STREAM2, 3, and 4.
+  * @{
+  */
+#define XDPRX_STREAM2_MSA_START		0x540	/**< Start of the MSA registers
+							for stream 2. */
+#define XDPRX_STREAM2_MSA_START_OFFSET	(XDPRX_STREAM2_MSA_START - \
+		XDPRX_STREAM1_MSA_START)	/**< The MSA registers for
+							stream 2 are at an
+							offset from the
+							corresponding registers
+							of stream 1. */
+#define XDPRX_STREAM3_MSA_START		0x580	/**< Start of the MSA registers
+							for stream 3. */
+#define XDPRX_STREAM3_MSA_START_OFFSET	(XDPRX_STREAM3_MSA_START - \
+		XDPRX_STREAM1_MSA_START)	/**< The MSA registers for
+							stream 3 are at an
+							offset from the
+							corresponding registers
+							of stream 1. */
+#define XDPRX_STREAM4_MSA_START		0x5C0	/**< Start of the MSA registers
+							for stream 4. */
+#define XDPRX_STREAM4_MSA_START_OFFSET	(XDPRX_STREAM4_MSA_START - \
+		XDPRX_STREAM1_MSA_START)	/**< The MSA registers for
+							stream 4 are at an
+							offset from the
+							corresponding registers
+							of stream 1. */
 /* @} */
 
 /******************* Macros (Inline Functions) Definitions ********************/
