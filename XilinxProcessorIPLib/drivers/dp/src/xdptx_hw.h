@@ -296,7 +296,7 @@
 							DisplayPort TX core when
 							audio and link clocks
 							are synchronous. */
-#define XDPTX_AUDIO_EXT_DATA(NUM)	(0x0330 + 4 * (NUM - 1)) /**< Word
+#define XDPTX_TX_AUDIO_EXT_DATA(NUM)	(0x0330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
 /* @} */
