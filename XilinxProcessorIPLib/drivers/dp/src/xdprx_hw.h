@@ -348,6 +348,52 @@
 							DPCD. */
 /* @} */
 
+/** @name DPRX core registers: Main stream attributes for SST / MST STREAM1.
+  * @{
+  */
+#define XDPTX_STREAM1_MSA_START		0x500	/**< Start of the MSA registers
+							for stream 1. */
+#define XDPRX_MSA_HRES			0x500	/**< Number of active pixels per
+							line (the horizontal
+							resolution). */
+#define XDPRX_MSA_HSPOL			0x504	/**< The horizontal sync
+							polarity. */
+#define XDPRX_MSA_HSWIDTH		0x508	/**< Width of the horizontal
+							sync pulse. */
+#define XDPRX_MSA_HSTART		0x50C	/**< Number of clocks between
+							the leading edge of the
+							horizontal sync and the
+							start of active data. */
+#define XDPRX_MSA_HTOTAL		0x510	/**< Total number of clocks in
+							the horizontal framing
+							period. */
+#define XDPRX_MSA_VHEIGHT		0x514	/**< Number of active lines (the
+							vertical resolution). */
+#define XDPRX_MSA_VSPOL			0x518	/**< The vertical sync
+							polarity. */
+#define XDPRX_MSA_VSWIDTH		0x51C	/**< Width of the vertical
+							sync pulse. */
+#define XDPRX_MSA_VSTART		0x520	/**< Number of lines between the
+							leading edge of the
+							vertical sync and the
+							first line of active
+							data. */
+#define XDPRX_MSA_VTOTAL		0x524	/**< Total number of lines in
+							the video frame. */
+#define XDPRX_MSA_MISC0			0x528	/**< Miscellaneous stream
+							attributes. */
+#define XDPRX_MSA_MISC1			0x52C	/**< Miscellaneous stream
+							attributes. */
+#define XDPRX_MSA_MVID			0x530	/**< Used to recover the video
+							clock from the link
+							clock. */
+#define XDPRX_MSA_NVID			0x534	/**< Used to recover the video
+							clock from the link
+							clock. */
+#define XDPRX_MSA_VBID			0x538	/**< The most recently received
+							VB-ID value. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
