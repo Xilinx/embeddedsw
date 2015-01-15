@@ -52,6 +52,16 @@
 /****************************** Type Definitions ******************************/
 
 /**
+ * This typedef contains configuration information about the main link settings.
+ */
+typedef struct {
+	u8 LaneCount;			/**< The current lane count of the main
+						link. */
+	u8 LinkRate;			/**< The current link rate of the main
+						link. */
+} XDprx_LinkConfig;
+
+/**
  * The XDprx driver instance data. The user is required to allocate a variable
  * of this type for every XDprx device in the system. A pointer to a variable of
  * this type is then passed to the driver API functions.
@@ -64,6 +74,8 @@ typedef struct {
 							in the XDprx order. */
 	u32 IsReady;				/**< Device is initialized and
 							ready. */
+	XDprx_LinkConfig LinkConfig;		/**< Configuration structure for
+							the main link. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
