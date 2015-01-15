@@ -251,6 +251,26 @@
 							channel status. */
 /* @} */
 
+/** @name DPRX core registers: Audio.
+  * @{
+  */
+#define XDPRX_RX_AUDIO_CONTROL		0x300	/**< Enables audio stream
+							packets in main link. */
+#define XDPRX_RX_AUDIO_INFO_DATA(NUM)	(0x304 + 4 * (NUM - 1)) /**< Word
+							formatted as per CEA
+							861-C info frame. */
+#define XDPRX_RX_AUDIO_MAUD		0x324	/**< M value of audio stream
+							as decoded from audio
+							time stamp packet. */
+#define XDPRX_RX_AUDIO_NAUD		0x328	/**< N value of audio stream
+							as decoded from audio
+							time stamp packet. */
+#define XDPRX_RX_AUDIO_STATUS		0x32C	/**< Status of audio stream. */
+#define XDPRX_RX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
+							formatted as per
+							extension packet. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.

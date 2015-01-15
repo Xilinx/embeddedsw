@@ -283,8 +283,9 @@
 							buffer control. */
 #define XDPTX_TX_AUDIO_CHANNELS		0x0304	/**< Used to input active
 							channel count. */
-#define XDPTX_TX_AUDIO_INFO_DATA	0x0308	/**< Word formatted as per
-							CEA 861-C info frame. */
+#define XDPTX_TX_AUDIO_INFO_DATA(NUM)	(0x0308 + 4 * (NUM - 1)) /**< Word
+							formatted as per CEA
+							861-C info frame. */
 #define XDPTX_TX_AUDIO_MAUD		0x0328	/**< M value of audio stream
 							as computed by the
 							DisplayPort TX core when
@@ -295,7 +296,8 @@
 							DisplayPort TX core when
 							audio and link clocks
 							are synchronous. */
-#define XDPTX_TX_AUDIO_EXT_DATA		0x0330	/**< Word formatted as per
+#define XDPTX_AUDIO_EXT_DATA(NUM)	(0x0330 + 4 * (NUM - 1)) /**< Word
+							formatted as per
 							extension packet. */
 /* @} */
 
