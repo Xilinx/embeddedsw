@@ -271,6 +271,83 @@
 							extension packet. */
 /* @} */
 
+/** @name DPRX core registers: DPCD configuration space.
+  * @{
+  */
+#define XDPRX_DPCD_LINK_BW_SET		0x400	/**< Current link bandwidth
+							setting as exposed in
+							the RX DPCD. */
+#define XDPRX_DPCD_LANE_COUNT_SET	0x404	/**< Current lane count
+							setting as exposed in
+							the RX DPCD. */
+#define XDPRX_DPCD_ENHANCED_FRAME_EN	0x408	/**< Current setting for
+							enhanced framing symbol
+							mode as exposed in the
+							RX DPCD. */
+#define XDPRX_DPCD_TRAINING_PATTERN_SET	0x40C	/**< Current training pattern
+							setting as exposed in
+							the RX DPCD. */
+#define XDPRX_DPCD_LINK_QUALITY_PATTERN_SET 0x410 /**< Current value of the link
+							quality pattern
+							field as exposed in the
+							RX DPCD. */
+#define XDPRX_DPCD_RECOVERED_CLOCK_OUT_EN 0x414	/**< Value of the output clock
+							enable field as exposed
+							in the RX DPCD. */
+#define XDPRX_DPCD_SCRAMBLING_DISABLE	0x418	/**< Value of the scrambling
+							disable field as exposed
+							in the RX DPCD. */
+#define XDPRX_DPCD_SYMBOL_ERROR_COUNT_SELECT 0x41C /**< Current value of the
+							symbol error count
+							select field as exposed
+							in the RX DPCD. */
+#define XDPRX_DPCD_TRAINING_LANE_0_SET	0x420	/**< The RX DPCD value used by
+							the TX during link
+							training to configure
+							the RX PHY lane 0. */
+#define XDPRX_DPCD_TRAINING_LANE_1_SET	0x424	/**< The RX DPCD value used by
+							the TX during link
+							training to configure
+							the RX PHY lane 1. */
+#define XDPRX_DPCD_TRAINING_LANE_2_SET	0x428	/**< The RX DPCD value used by
+							the TX during link
+							training to configure
+							the RX PHY lane 2. */
+#define XDPRX_DPCD_TRAINING_LANE_3_SET	0x42C	/**< The RX DPCD value Used by
+							the TX during link
+							training to configure
+							the RX PHY lane 3. */
+#define XDPRX_DPCD_DOWNSPREAD_CONTROL	0x430	/**< The RX DPCD value that
+							is used by the TX to
+							inform the RX that
+							downspreading has been
+							enabled. */
+#define XDPRX_DPCD_MAIN_LINK_CHANNEL_CODING_SET 0x434 /**< 8B/10B encoding
+							setting as exposed in
+							the RX DPCD. */
+#define XDPRX_DPCD_SET_POWER_STATE	0x438	/**< Power state requested by
+							the TX as exposed in the
+							RX DPCD. */
+#define XDPRX_DPCD_LANE01_STATUS	0x43C	/**< Link training status for
+							lanes 0 and 1 as exposed
+							in the RX DPCD. */
+#define XDPRX_DPCD_LANE23_STATUS	0x440	/**< Link training status for
+							lanes 2 and 3 as exposed
+							in the RX DPCD. */
+#define XDPRX_DPCD_SOURCE_OUI_VALUE	0x444	/** The RX DPCD value used by
+							the TX to set the
+							organizationally unique
+							identifier (OUI). */
+#define XDPRX_DPCD_SYM_ERR_CNT01	0x448	/** The symbol error counter
+							values for lanes 0 and 1
+							as exposed in the RX
+							DPCD. */
+#define XDPRX_DPCD_SYM_ERR_CNT23	0x44C	/** The symbol error counter
+							values for lanes 2 and 3
+							as exposed in the RX
+							DPCD. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
