@@ -59,6 +59,25 @@
 
 /************************** Constant Definitions ******************************/
 
+/** @name DPRX core registers: Receiver core configuration.
+  * @{
+  */
+#define XDPRX_LINK_ENABLE		0x000	/**< Enable the receiver
+							core. */
+#define XDPRX_AUX_CLK_DIVIDER		0x004	/**< Clock divider value for
+							generating the internal
+							1MHz clock. */
+#define XDPRX_DTG_ENABLE		0x00C	/**< Enables the display timing
+							generator (DTG). */
+#define XDPRX_USER_PIXEL_WIDTH		0x010	/**< Selects the width of the
+							user data input port. */
+#define XDPRX_INTERRUPT_MASK		0x014	/**< Masks the specified
+							interrupt sources. */
+#define XDPRX_MISC_CTRL			0x018	/**< Miscellaneous control of
+							RX behavior. */
+#define XDPRX_SOFT_RESET		0x01C	/**< Software reset. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
