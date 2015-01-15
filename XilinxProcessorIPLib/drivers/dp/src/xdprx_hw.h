@@ -215,6 +215,17 @@
 							version and revision. */
 /* @} */
 
+/** @name DPRX core registers: User video status.
+  * @{
+  */
+#define XDPRX_USER_FIFO_OVERFLOW	0x110	/**< Indicates an overflow in
+							user FIFO. */
+#define XDPRX_USER_VSYNC_STATE		0x114	/**< Provides a mechanism for
+							the host processor to
+							monitor the state of the
+							video data path. */
+/* @} */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.
