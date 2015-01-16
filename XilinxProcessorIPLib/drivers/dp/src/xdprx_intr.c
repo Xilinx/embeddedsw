@@ -133,3 +133,30 @@ void XDptx_SetIntrNoVideoHandler(XDptx *InstancePtr,
 	InstancePtr->IntrNoVideoHandler = CallbackFunc;
 	InstancePtr->IntrNoVideoCallbackRef = CallbackRef;
 }
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a vertical blanking
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_SetIntrVBlankHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->IntrVBlankHandler = CallbackFunc;
+	InstancePtr->IntrVBlankCallbackRef = CallbackRef;
+}

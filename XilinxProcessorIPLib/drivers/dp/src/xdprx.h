@@ -111,6 +111,13 @@ typedef struct {
 	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
 							passed to the no video
 							callback function. */
+	XDptx_IntrHandler IntrVBlankHandler;	/**< Callback function for
+							vertical blanking
+							 interrupts. */
+	void *IntrVBlankCallbackRef;		/**< A pointer to the user data
+							passed to the vertical
+							blanking callback
+							function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
@@ -137,6 +144,8 @@ void XDptx_SetIntrVmChangeHandler(XDptx *InstancePtr,
 void XDptx_SetIntrPowerStateHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 void XDptx_SetIntrNoVideoHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrVBlankHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */
