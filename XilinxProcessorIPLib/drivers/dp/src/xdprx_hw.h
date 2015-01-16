@@ -496,4 +496,88 @@
 #define XDprx_WriteReg(BaseAddress, RegOffset, Data) \
 				XDprx_Out32((BaseAddress) + (RegOffset), (Data))
 
+/** @name DPTX core masks, shifts, and register values.
+  * @{
+  */
+/* 0x014: INTERRUPT_MASK */
+#define XDPRX_INTERRUPT_MASK_VIDEO_MODE_CHANGE \
+					0x00001	/**< Mask the interrupt
+							assertion for a
+							resolution change, as
+							detected from the MSA
+							fields. */
+#define XDPRX_INTERRUPT_MASK_POWER_STATE \
+					0x00002 /**< Mask the interrupt
+							assertion for a power
+							state change. */
+#define XDPRX_INTERRUPT_MASK_NO_VIDEO	0x00004 /**< Mask the interrupt
+							assertion for the
+							no-video condition being
+							detected after active
+							video received. */
+#define XDPRX_INTERRUPT_MASK_VERTICAL_BLANKING \
+					0x00008 /**< Mask the interrupt
+							assertion for the start
+							of the blanking
+							interval. */
+#define XDPRX_INTERRUPT_MASK_TRAINING_LOST \
+					0x00010 /**< Mask the interrupt
+							assertion for training
+							loss on active lanes. */
+#define XDPRX_INTERRUPT_MASK_VIDEO	0x00040 /**< Mask the interrupt
+							assertion for a valid
+							video frame being
+							detected on the main
+							link. Video interrupt is
+							set after a delay of 8
+							video frames following a
+							valid scrambler reset
+							character. */
+#define XDPRX_INTERRUPT_MASK_INFO_PKT_RXD \
+					0x00100 /**< Mask the interrupt
+							assertion for an audio
+							info packet being
+							received. */
+#define XDPRX_INTERRUPT_MASK_EXT_PKT_RXD \
+					0x00200 /**< Mask the interrupt
+							assertion for an audio
+							extension packet being
+							received. */
+#define XDPRX_INTERRUPT_MASK_VCP_ALLOC	0x00400 /**< Mask the interrupt
+							assertion for a virtual
+							channel payload being
+							allocated. */
+#define XDPRX_INTERRUPT_MASK_VCP_DEALLOC \
+					0x00800 /**< Mask the interrupt
+							assertion for a virtual
+							channel payload being
+							allocated. */
+#define XDPRX_INTERRUPT_MASK_DOWN_REPLY	0x01000 /**< Mask the interrupt
+							assertion for a
+							downstream reply being
+							ready. */
+#define XDPRX_INTERRUPT_MASK_DOWN_REQUEST \
+					0x02000 /**< Mask the interrupt
+							assertion for a
+							downstream request being
+							ready. */
+#define XDPRX_INTERRUPT_MASK_TRAINING_DONE \
+					0x04000 /**< Mask the interrupt
+							assertion for link
+							training completion. */
+#define XDPRX_INTERRUPT_MASK_BW_CHANGE	0x08000 /**< Mask the interrupt
+							assertion for a change
+							in bandwidth. */
+#define XDPRX_INTERRUPT_MASK_TP1	0x10000 /**< Mask the interrupt
+							assertion for start of
+							training pattern 1. */
+#define XDPRX_INTERRUPT_MASK_TP2	0x20000 /**< Mask the interrupt
+							assertion for start of
+							training pattern 2. */
+#define XDPRX_INTERRUPT_MASK_TP3	0x40000 /**< Mask the interrupt
+							assertion for start of
+							training pattern 3. */
+#define XDPRX_INTERRUPT_MASK_ALL	0x7FFFF /**< Mask all interrupts. */
+/* @} */
+
 #endif /* XDPRX_HW_H_ */
