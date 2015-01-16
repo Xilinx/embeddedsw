@@ -158,6 +158,17 @@ void XDprx_GenerateHpdInterrupt(XDprx *InstancePtr, u16 DurationUs)
 						(DurationUs << 16) | 0x1);
 }
 
+void XDprx_InterruptEnable(XDprx *InstancePtr, u32 Mask)
+{
+	u32 MaskVal;
+
+	MaskVal = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPRX_INTERRUPT_CAUSE);
+	MaskVal &= ~Mask;
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_INTERRUPT_MASK,
+								MaskVal);
+}
+
 void XDprx_InterruptDisable(XDprx *InstancePtr, u32 Mask)
 {
 	u32 MaskVal;
