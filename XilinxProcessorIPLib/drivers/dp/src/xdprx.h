@@ -95,6 +95,7 @@ void XDprx_DtgEn(XDprx *InstancePtr);
 void XDprx_DtgDis(XDprx *InstancePtr);
 void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate);
 void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount);
+void XDprx_SetUserPixelWidth(XDprx *InstancePtr, u8 UserPixelWidth);
 void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
 			XDp_TimerHandler CallbackFunc, void *CallbackRef);
 void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);

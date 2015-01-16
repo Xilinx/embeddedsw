@@ -231,6 +231,15 @@ void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
 									0x01);
 }
 
+void XDprx_SetUserPixelWidth(XDprx *InstancePtr, u8 UserPixelWidth)
+{
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_USER_PIXEL_WIDTH,
+								UserPixelWidth);
+
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
+}
+
 /******************************************************************************/
 /**
  * This function installs a custom delay/sleep function to be used by the XDprx
