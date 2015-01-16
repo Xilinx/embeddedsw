@@ -113,10 +113,17 @@ typedef struct {
 							callback function. */
 	XDptx_IntrHandler IntrVBlankHandler;	/**< Callback function for
 							vertical blanking
-							 interrupts. */
+							interrupts. */
 	void *IntrVBlankCallbackRef;		/**< A pointer to the user data
 							passed to the vertical
 							blanking callback
+							function. */
+	XDptx_IntrHandler IntrTrainingLostHandler; /**< Callback function for
+							training lost
+							interrupts. */
+	void *IntrTrainingLostCallbackRef;	/**< A pointer to the user data
+							passed to the training
+							lost callback
 							function. */
 } XDprx;
 
@@ -146,6 +153,8 @@ void XDptx_SetIntrPowerStateHandler(XDptx *InstancePtr,
 void XDptx_SetIntrNoVideoHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 void XDptx_SetIntrVBlankHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrTrainingLostHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */
