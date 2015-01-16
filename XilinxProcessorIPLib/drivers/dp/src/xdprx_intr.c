@@ -55,6 +55,105 @@
 
 /******************************************************************************/
 /**
+ * This function is the interrupt handler for the XDprx driver.
+ *
+ * When an interrupt happens, it first detects what kind of interrupt happened,
+ * then decides which callback function to invoke.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDprx_InterruptHandler(XDprx *InstancePtr)
+{
+	u32 IntrStatus;
+	u8 IntrVmChange, IntrPowerState, IntrNoVideo, IntrVBlank,
+		IntrTrainingLost, IntrVideo, IntrTrainingDone, IntrBwChange,
+		IntrTp1, IntrTp2, IntrTp3;
+
+	/* Determine what kind of interrupt(s) occurred.
+	 * Note: XDPRX_INTERRUPT_STATUS is an RC (read-clear) register. */
+	IntrStatus = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPRX_INTERRUPT_CAUSE);
+	IntrVmChange = (IntrStatus & 0x00001);
+	IntrPowerState = ((IntrStatus & 0x00002) >> 1);
+	IntrNoVideo = ((IntrStatus & 0x00004) >> 2);
+	IntrVBlank = ((IntrStatus & 0x00008) >> 3);
+	IntrTrainingLost = ((IntrStatus & 0x00010) >> 4);
+	IntrVideo = ((IntrStatus & 0x00040) >> 6);
+	IntrTrainingDone = ((IntrStatus & 0x04000) >> 14);
+	IntrBwChange = ((IntrStatus & 0x08000) >> 15);
+	IntrTp1 = ((IntrStatus & 0x10000) >> 16);
+	IntrTp2 = ((IntrStatus & 0x20000) >> 17);
+	IntrTp3 = ((IntrStatus & 0x40000) >> 18);
+
+	/* Training pattern 1 has started. */
+	if (IntrTp1) {
+		InstancePtr->IntrTp1Handler(InstancePtr->IntrTp1CallbackRef);
+	}
+	/* Training pattern 2 has started. */
+	if (IntrTp2) {
+		InstancePtr->IntrTp2Handler(InstancePtr->IntrTp2CallbackRef);
+	}
+	/* Training pattern 3 has started. */
+	if (IntrTp3) {
+		InstancePtr->IntrTp3Handler(InstancePtr->IntrTp3CallbackRef);
+	}
+	/* Training lost - the link has been lost. */
+	if (IntrTrainingLost) {
+		InstancePtr->IntrTrainingLostHandler(
+				InstancePtr->IntrTrainingLostCallbackRef);
+	}
+	/* The link has been trained. */
+	else if (IntrTrainingDone) {
+		InstancePtr->IntrTrainingDoneHandler(
+				InstancePtr->IntrTrainingDoneCallbackRef);
+	}
+
+	/* A change has been detected in the current video transmitted on the
+	 * link as indicated by the main stream attributes (MSA) fields. The
+	 * horizontal and vertical resolution parameters are monitored for
+	 * changes. */
+	if (IntrVmChange) {
+		InstancePtr->IntrVmChangeHandler(
+					InstancePtr->IntrVmChangeCallbackRef);
+	}
+	/* The VerticalBlanking_Flag in the VB-ID field of the received stream
+	 * indicates the start of the vertical blanking interval. */
+	if (IntrVBlank) {
+		InstancePtr->IntrVBlankHandler(
+					InstancePtr->IntrVBlankCallbackRef);
+	}
+	/* The receiver has detected the no-video flags in the VB-ID field after
+	 * active video has been received. */
+	if (IntrNoVideo) {
+		InstancePtr->IntrNoVideoHandler(
+					InstancePtr->IntrNoVideoCallbackRef);
+	}
+	/* A valid video frame is detected on the main link. */
+	else if (IntrVideo) {
+		InstancePtr->IntrVideoHandler(
+					InstancePtr->IntrVideoCallbackRef);
+	}
+
+	/* The transmitter has requested a change in the current power state of
+	 * the receiver core. */
+	if (IntrPowerState) {
+		InstancePtr->IntrPowerStateHandler(
+					InstancePtr->IntrPowerStateCallbackRef);
+	}
+	/* A change in the bandwidth has been detected. */
+	if (IntrBwChange) {
+		InstancePtr->IntrBwChangeHandler(
+					InstancePtr->IntrBwChangeCallbackRef);
+	}
+}
+
+/******************************************************************************/
+/**
  * This function installs a callback function for when a video mode change
  * interrupt occurs.
  *

@@ -623,11 +623,11 @@ void XDptx_ClearMsaValues(XDptx *InstancePtr, u8 Stream);
 void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream);
 
 /* xdptx_intr.c: Interrupt handling functions. */
+void XDptx_HpdInterruptHandler(XDptx *InstancePtr);
 void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
 			XDptx_HpdEventHandler CallbackFunc, void *CallbackRef);
 void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
 			XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef);
-void XDptx_HpdInterruptHandler(XDptx *InstancePtr);
 
 /* xdptx_selftest.c: Self test function. */
 u32 XDptx_SelfTest(XDptx *InstancePtr);

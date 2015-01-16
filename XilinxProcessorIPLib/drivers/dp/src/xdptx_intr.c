@@ -58,60 +58,6 @@
 
 /******************************************************************************/
 /**
- * This function installs a callback function for when a hot-plug-detect event
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
-			XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->HpdEventHandler = CallbackFunc;
-	InstancePtr->HpdEventCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a hot-plug-detect pulse
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
-			XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->HpdPulseHandler = CallbackFunc;
-	InstancePtr->HpdPulseCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
  * This function is the interrupt handler for the XDptx driver.
  *
  * When an interrupt happens, it first detects what kind of interrupt happened,
@@ -177,4 +123,58 @@ void XDptx_HpdInterruptHandler(XDptx *InstancePtr)
 	/* Unmask previously masked interrupts once handling is done. */
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_INTERRUPT_MASK,
 								IntrMask);
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a hot-plug-detect event
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_SetHpdEventHandler(XDptx *InstancePtr,
+			XDptx_HpdEventHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->HpdEventHandler = CallbackFunc;
+	InstancePtr->HpdEventCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a hot-plug-detect pulse
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_SetHpdPulseHandler(XDptx *InstancePtr,
+			XDptx_HpdPulseHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->HpdPulseHandler = CallbackFunc;
+	InstancePtr->HpdPulseCallbackRef = CallbackRef;
 }

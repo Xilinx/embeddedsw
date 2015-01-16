@@ -187,6 +187,7 @@ void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
 void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);
 
 /* xdprx_intr.c: Interrupt handling functions. */
+void XDprx_InterruptHandler(XDprx *InstancePtr);
 void XDprx_SetIntrVmChangeHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 void XDprx_SetIntrPowerStateHandler(XDprx *InstancePtr,
