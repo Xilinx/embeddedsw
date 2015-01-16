@@ -99,6 +99,13 @@ typedef struct {
 							passed to the video mode
 							change callback
 							function. */
+	XDptx_IntrHandler IntrPowerStateHandler; /**< Callback function for
+							power state change
+							interrupts. */
+	void *IntrPowerStateCallbackRef;	/**< A pointer to the user data
+							passed to the power
+							state change callback
+							function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
@@ -121,6 +128,8 @@ void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);
 
 /* xdprx_intr.c: Interrupt handling functions. */
 void XDptx_SetIntrVmChangeHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrPowerStateHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */
