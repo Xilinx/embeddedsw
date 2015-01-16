@@ -106,6 +106,11 @@ typedef struct {
 							passed to the power
 							state change callback
 							function. */
+	XDptx_IntrHandler IntrNoVideoHandler;	/**< Callback function for
+							no video interrupts. */
+	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
+							passed to the no video
+							callback function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
@@ -130,6 +135,8 @@ void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);
 void XDptx_SetIntrVmChangeHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 void XDptx_SetIntrPowerStateHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrNoVideoHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */
