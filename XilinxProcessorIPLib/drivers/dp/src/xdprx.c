@@ -189,6 +189,37 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr)
 	return XST_SUCCESS;
 }
 
+u32 XDprx_CheckLinkStatus(XDprx *InstancePtr)
+{
+	u8 LaneCount;
+	u8 LaneStatus[2];
+
+	LaneCount = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
+						XDPRX_DPCD_LANE_COUNT_SET);
+
+	LaneStatus[0] = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
+						XDPRX_DPCD_LANE01_STATUS);
+	LaneStatus[1] = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
+						XDPRX_DPCD_LANE23_STATUS);
+
+	switch (LaneCount) {
+	case 4:
+		if (LaneStatus[1] != 0x77) {
+			return XST_FAILURE;
+		}
+	case 2:
+		if ((LaneStatus[0] & 0x70) != 0x70) {
+			return XST_FAILURE;
+		}
+	case 1:
+		if ((LaneStatus[0] & 0x07) != 0x07) {
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
+}
+
 void XDprx_DtgEn(XDprx *InstancePtr)
 {
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);

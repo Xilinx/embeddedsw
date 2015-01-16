@@ -91,6 +91,7 @@ void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
 u32 XDprx_InitializeRx(XDprx *InstancePtr);
 
 /* xdprx.c: General usage functions. */
+u32 XDprx_CheckLinkStatus(XDprx *InstancePtr);
 void XDprx_DtgEn(XDprx *InstancePtr);
 void XDprx_DtgDis(XDprx *InstancePtr);
 void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate);
