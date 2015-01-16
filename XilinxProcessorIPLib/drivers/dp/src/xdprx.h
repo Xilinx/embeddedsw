@@ -92,74 +92,74 @@ typedef struct {
 	void *UserTimerPtr;			/**< Pointer to a timer instance
 							used by the custom user
 							delay/sleep function. */
-	XDptx_IntrHandler IntrVmChangeHandler;	/**< Callback function for video
+	XDprx_IntrHandler IntrVmChangeHandler;	/**< Callback function for video
 							mode change
 							interrupts. */
 	void *IntrVmChangeCallbackRef;		/**< A pointer to the user data
 							passed to the video mode
 							change callback
 							function. */
-	XDptx_IntrHandler IntrPowerStateHandler; /**< Callback function for
+	XDprx_IntrHandler IntrPowerStateHandler; /**< Callback function for
 							power state change
 							interrupts. */
 	void *IntrPowerStateCallbackRef;	/**< A pointer to the user data
 							passed to the power
 							state change callback
 							function. */
-	XDptx_IntrHandler IntrNoVideoHandler;	/**< Callback function for
+	XDprx_IntrHandler IntrNoVideoHandler;	/**< Callback function for
 							no video interrupts. */
 	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
 							passed to the no video
 							callback function. */
-	XDptx_IntrHandler IntrVBlankHandler;	/**< Callback function for
+	XDprx_IntrHandler IntrVBlankHandler;	/**< Callback function for
 							vertical blanking
 							interrupts. */
 	void *IntrVBlankCallbackRef;		/**< A pointer to the user data
 							passed to the vertical
 							blanking callback
 							function. */
-	XDptx_IntrHandler IntrTrainingLostHandler; /**< Callback function for
+	XDprx_IntrHandler IntrTrainingLostHandler; /**< Callback function for
 							training lost
 							interrupts. */
 	void *IntrTrainingLostCallbackRef;	/**< A pointer to the user data
 							passed to the training
 							lost callback
 							function. */
-	XDptx_IntrHandler IntrVideoHandler;	/**< Callback function for valid
+	XDprx_IntrHandler IntrVideoHandler;	/**< Callback function for valid
 							video interrupts. */
 	void *IntrVideoCallbackRef;		/**< A pointer to the user data
 							passed to the valid
 							video callback
 							function. */
-	XDptx_IntrHandler IntrTrainingDoneHandler; /**< Callback function for
+	XDprx_IntrHandler IntrTrainingDoneHandler; /**< Callback function for
 							training done
 							interrupts. */
 	void *IntrTrainingDoneCallbackRef;	/**< A pointer to the user data
 							passed to the training
 							done callback
 							function. */
-	XDptx_IntrHandler IntrBwChangeHandler;	/**< Callback function for
+	XDprx_IntrHandler IntrBwChangeHandler;	/**< Callback function for
 							bandwidth change
 							interrupts. */
 	void *IntrBwChangeCallbackRef;		/**< A pointer to the user data
 							passed to the bandwidth
 							change callback
 							function. */
-	XDptx_IntrHandler IntrTp1Handler;	/**< Callback function for
+	XDprx_IntrHandler IntrTp1Handler;	/**< Callback function for
 							training pattern 1
 							interrupts. */
 	void *IntrTp1CallbackRef;		/**< A pointer to the user data
 							passed to the training
 							pattern 1 callback
 							function. */
-	XDptx_IntrHandler IntrTp2Handler;	/**< Callback function for
+	XDprx_IntrHandler IntrTp2Handler;	/**< Callback function for
 							training pattern 2
 							interrupts. */
 	void *IntrTp2CallbackRef;		/**< A pointer to the user data
 							passed to the training
 							pattern 2 callback
 							function. */
-	XDptx_IntrHandler IntrTp3Handler;	/**< Callback function for
+	XDprx_IntrHandler IntrTp3Handler;	/**< Callback function for
 							training pattern 3
 							interrupts. */
 	void *IntrTp3CallbackRef;		/**< A pointer to the user data
@@ -187,27 +187,27 @@ void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
 void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);
 
 /* xdprx_intr.c: Interrupt handling functions. */
-void XDptx_SetIntrVmChangeHandler(XDptx *InstancePtr,
+void XDprx_SetIntrVmChangeHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrPowerStateHandler(XDptx *InstancePtr,
+void XDprx_SetIntrPowerStateHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrNoVideoHandler(XDptx *InstancePtr,
+void XDprx_SetIntrNoVideoHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrVBlankHandler(XDptx *InstancePtr,
+void XDprx_SetIntrVBlankHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrTrainingLostHandler(XDptx *InstancePtr,
+void XDprx_SetIntrTrainingLostHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrVideoHandler(XDptx *InstancePtr,
+void XDprx_SetIntrVideoHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrTrainingDoneHandler(XDptx *InstancePtr,
+void XDprx_SetIntrTrainingDoneHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrBwChangeHandler(XDptx *InstancePtr,
+void XDprx_SetIntrBwChangeHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrTp1Handler(XDptx *InstancePtr,
+void XDprx_SetIntrTp1Handler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrTp2Handler(XDptx *InstancePtr,
+void XDprx_SetIntrTp2Handler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
-void XDptx_SetIntrTp3Handler(XDptx *InstancePtr,
+void XDprx_SetIntrTp3Handler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */

@@ -68,7 +68,7 @@
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrVmChangeHandler(XDptx *InstancePtr,
+void XDprx_SetIntrVmChangeHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -95,7 +95,7 @@ void XDptx_SetIntrVmChangeHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrPowerStateHandler(XDptx *InstancePtr,
+void XDprx_SetIntrPowerStateHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -122,7 +122,7 @@ void XDptx_SetIntrPowerStateHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrNoVideoHandler(XDptx *InstancePtr,
+void XDprx_SetIntrNoVideoHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -149,7 +149,7 @@ void XDptx_SetIntrNoVideoHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrVBlankHandler(XDptx *InstancePtr,
+void XDprx_SetIntrVBlankHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -176,7 +176,7 @@ void XDptx_SetIntrVBlankHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrTrainingLostHandler(XDptx *InstancePtr,
+void XDprx_SetIntrTrainingLostHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -203,7 +203,7 @@ void XDptx_SetIntrTrainingLostHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrVideoHandler(XDptx *InstancePtr,
+void XDprx_SetIntrVideoHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -230,7 +230,7 @@ void XDptx_SetIntrVideoHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrTrainingDoneHandler(XDptx *InstancePtr,
+void XDprx_SetIntrTrainingDoneHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -257,7 +257,7 @@ void XDptx_SetIntrTrainingDoneHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrBwChangeHandler(XDptx *InstancePtr,
+void XDprx_SetIntrBwChangeHandler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -284,7 +284,7 @@ void XDptx_SetIntrBwChangeHandler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrTp1Handler(XDptx *InstancePtr,
+void XDprx_SetIntrTp1Handler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -311,7 +311,7 @@ void XDptx_SetIntrTp1Handler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrTp2Handler(XDptx *InstancePtr,
+void XDprx_SetIntrTp2Handler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
@@ -338,7 +338,7 @@ void XDptx_SetIntrTp2Handler(XDptx *InstancePtr,
  * @note	None.
  *
 *******************************************************************************/
-void XDptx_SetIntrTp3Handler(XDptx *InstancePtr,
+void XDprx_SetIntrTp3Handler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
