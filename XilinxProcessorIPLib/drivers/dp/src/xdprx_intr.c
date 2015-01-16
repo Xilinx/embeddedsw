@@ -214,3 +214,30 @@ void XDptx_SetIntrVideoHandler(XDptx *InstancePtr,
 	InstancePtr->IntrVideoHandler = CallbackFunc;
 	InstancePtr->IntrVideoCallbackRef = CallbackRef;
 }
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a training done interrupt
+ * occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_SetIntrTrainingDoneHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->IntrTrainingDoneHandler = CallbackFunc;
+	InstancePtr->IntrTrainingDoneCallbackRef = CallbackRef;
+}

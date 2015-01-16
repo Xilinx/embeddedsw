@@ -131,6 +131,13 @@ typedef struct {
 							passed to the valid
 							video callback
 							function. */
+	XDptx_IntrHandler IntrTrainingDoneHandler; /**< Callback function for
+							training done
+							interrupts. */
+	void *IntrTrainingDoneCallbackRef;	/**< A pointer to the user data
+							passed to the training
+							done callback
+							function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
@@ -163,6 +170,8 @@ void XDptx_SetIntrVBlankHandler(XDptx *InstancePtr,
 void XDptx_SetIntrTrainingLostHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 void XDptx_SetIntrVideoHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrTrainingDoneHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */
