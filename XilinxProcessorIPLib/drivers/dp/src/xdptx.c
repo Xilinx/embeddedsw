@@ -147,6 +147,73 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr);
 
 /******************************************************************************/
 /**
+ * This function retrieves the configuration for this DisplayPort TX instance
+ * and fills in the InstancePtr->Config structure.
+ *
+ * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	ConfigPtr is a pointer to the configuration structure that will
+ *		be used to copy the settings from.
+ * @param	EffectiveAddr is the device base address in the virtual memory
+ *		space. If the address translation is not used, then the physical
+ *		address is passed.
+ *
+ * @return	None.
+ *
+ * @note	Unexpected errors may occur if the address mapping is changed
+ *		after this function is invoked.
+ *
+*******************************************************************************/
+void XDptx_CfgInitialize(XDptx *InstancePtr, XDp_Config *ConfigPtr,
+							u32 EffectiveAddr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ConfigPtr != NULL);
+	Xil_AssertVoid(EffectiveAddr != 0x0);
+
+	InstancePtr->IsReady = 0;
+
+	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+	InstancePtr->Config.BaseAddr = EffectiveAddr;
+	InstancePtr->Config.SAxiClkHz = ConfigPtr->SAxiClkHz;
+
+	InstancePtr->Config.MaxLaneCount = ConfigPtr->MaxLaneCount;
+	InstancePtr->Config.MaxLinkRate = ConfigPtr->MaxLinkRate;
+
+	InstancePtr->Config.MaxBitsPerColor = ConfigPtr->MaxBitsPerColor;
+	InstancePtr->Config.QuadPixelEn = ConfigPtr->QuadPixelEn;
+	InstancePtr->Config.DualPixelEn = ConfigPtr->DualPixelEn;
+	InstancePtr->Config.YCrCbEn = ConfigPtr->YCrCbEn;
+	InstancePtr->Config.YOnlyEn = ConfigPtr->YOnlyEn;
+	InstancePtr->Config.PayloadDataWidth = ConfigPtr->PayloadDataWidth;
+
+	InstancePtr->Config.SecondaryChEn = ConfigPtr->SecondaryChEn;
+	InstancePtr->Config.NumAudioChs = ConfigPtr->NumAudioChs;
+
+	InstancePtr->Config.MstSupport = ConfigPtr->MstSupport;
+	InstancePtr->Config.NumMstStreams = ConfigPtr->NumMstStreams;
+
+	InstancePtr->Config.DpProtocol = ConfigPtr->DpProtocol;
+
+	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
+
+	/* Set the DisplayPort TX's voltage swing and pre-emphasis levels to
+	 * their defaults. */
+	XDptx_CfgTxVsOffset(InstancePtr, XDPTX_VS_LEVEL_OFFSET);
+	XDptx_CfgTxVsLevel(InstancePtr, 0, XDPTX_VS_LEVEL_0);
+	XDptx_CfgTxVsLevel(InstancePtr, 1, XDPTX_VS_LEVEL_1);
+	XDptx_CfgTxVsLevel(InstancePtr, 2, XDPTX_VS_LEVEL_2);
+	XDptx_CfgTxVsLevel(InstancePtr, 3, XDPTX_VS_LEVEL_3);
+	XDptx_CfgTxPeLevel(InstancePtr, 0, XDPTX_PE_LEVEL_0);
+	XDptx_CfgTxPeLevel(InstancePtr, 1, XDPTX_PE_LEVEL_1);
+	XDptx_CfgTxPeLevel(InstancePtr, 2, XDPTX_PE_LEVEL_2);
+	XDptx_CfgTxPeLevel(InstancePtr, 3, XDPTX_PE_LEVEL_3);
+
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+}
+
+/******************************************************************************/
+/**
  * This function prepares the DisplayPort TX core for use.
  *
  * @param	InstancePtr is a pointer to the XDptx instance.
@@ -225,73 +292,6 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
 				~XDPTX_INTERRUPT_MASK_HPD_IRQ_MASK);
 
 	return XST_SUCCESS;
-}
-
-/******************************************************************************/
-/**
- * This function retrieves the configuration for this DisplayPort TX instance
- * and fills in the InstancePtr->Config structure.
- *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	ConfigPtr is a pointer to the configuration structure that will
- *		be used to copy the settings from.
- * @param	EffectiveAddr is the device base address in the virtual memory
- *		space. If the address translation is not used, then the physical
- *		address is passed.
- *
- * @return	None.
- *
- * @note	Unexpected errors may occur if the address mapping is changed
- *		after this function is invoked.
- *
-*******************************************************************************/
-void XDptx_CfgInitialize(XDptx *InstancePtr, XDp_Config *ConfigPtr,
-							u32 EffectiveAddr)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(ConfigPtr != NULL);
-	Xil_AssertVoid(EffectiveAddr != 0x0);
-
-	InstancePtr->IsReady = 0;
-
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-	InstancePtr->Config.BaseAddr = EffectiveAddr;
-	InstancePtr->Config.SAxiClkHz = ConfigPtr->SAxiClkHz;
-
-	InstancePtr->Config.MaxLaneCount = ConfigPtr->MaxLaneCount;
-	InstancePtr->Config.MaxLinkRate = ConfigPtr->MaxLinkRate;
-
-	InstancePtr->Config.MaxBitsPerColor = ConfigPtr->MaxBitsPerColor;
-	InstancePtr->Config.QuadPixelEn = ConfigPtr->QuadPixelEn;
-	InstancePtr->Config.DualPixelEn = ConfigPtr->DualPixelEn;
-	InstancePtr->Config.YCrCbEn = ConfigPtr->YCrCbEn;
-	InstancePtr->Config.YOnlyEn = ConfigPtr->YOnlyEn;
-	InstancePtr->Config.PayloadDataWidth = ConfigPtr->PayloadDataWidth;
-
-	InstancePtr->Config.SecondaryChEn = ConfigPtr->SecondaryChEn;
-	InstancePtr->Config.NumAudioChs = ConfigPtr->NumAudioChs;
-
-	InstancePtr->Config.MstSupport = ConfigPtr->MstSupport;
-	InstancePtr->Config.NumMstStreams = ConfigPtr->NumMstStreams;
-
-	InstancePtr->Config.DpProtocol = ConfigPtr->DpProtocol;
-
-	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
-
-	/* Set the DisplayPort TX's voltage swing and pre-emphasis levels to
-	 * their defaults. */
-	XDptx_CfgTxVsOffset(InstancePtr, XDPTX_VS_LEVEL_OFFSET);
-	XDptx_CfgTxVsLevel(InstancePtr, 0, XDPTX_VS_LEVEL_0);
-	XDptx_CfgTxVsLevel(InstancePtr, 1, XDPTX_VS_LEVEL_1);
-	XDptx_CfgTxVsLevel(InstancePtr, 2, XDPTX_VS_LEVEL_2);
-	XDptx_CfgTxVsLevel(InstancePtr, 3, XDPTX_VS_LEVEL_3);
-	XDptx_CfgTxPeLevel(InstancePtr, 0, XDPTX_PE_LEVEL_0);
-	XDptx_CfgTxPeLevel(InstancePtr, 1, XDPTX_PE_LEVEL_1);
-	XDptx_CfgTxPeLevel(InstancePtr, 2, XDPTX_PE_LEVEL_2);
-	XDptx_CfgTxPeLevel(InstancePtr, 3, XDPTX_PE_LEVEL_3);
-
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
 /******************************************************************************/

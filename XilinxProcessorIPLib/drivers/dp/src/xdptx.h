@@ -567,9 +567,9 @@ typedef struct {
 /**************************** Function Prototypes *****************************/
 
 /* xdptx.c: Setup and initialization functions. */
-u32 XDptx_InitializeTx(XDptx *InstancePtr);
 void XDptx_CfgInitialize(XDptx *InstancePtr, XDp_Config *ConfigPtr,
 							u32 EffectiveAddr);
+u32 XDptx_InitializeTx(XDptx *InstancePtr);
 u32 XDptx_GetRxCapabilities(XDptx *InstancePtr);
 
 /* xdptx.c: Link policy maker functions. */

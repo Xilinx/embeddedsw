@@ -64,6 +64,61 @@ static u32 XDprx_WaitPhyReady(XDprx *InstancePtr, u8 Mask);
 
 /******************************************************************************/
 /**
+ * This function retrieves the configuration for this DisplayPort RX instance
+ * and fills in the InstancePtr->Config structure.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	ConfigPtr is a pointer to the configuration structure that will
+ *		be used to copy the settings from.
+ * @param	EffectiveAddr is the device base address in the virtual memory
+ *		space. If the address translation is not used, then the physical
+ *		address is passed.
+ *
+ * @return	None.
+ *
+ * @note	Unexpected errors may occur if the address mapping is changed
+ *		after this function is invoked.
+ *
+*******************************************************************************/
+void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
+							u32 EffectiveAddr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ConfigPtr != NULL);
+	Xil_AssertVoid(EffectiveAddr != 0x0);
+
+	InstancePtr->IsReady = 0;
+
+	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+	InstancePtr->Config.BaseAddr = EffectiveAddr;
+	InstancePtr->Config.SAxiClkHz = ConfigPtr->SAxiClkHz;
+
+	InstancePtr->Config.MaxLaneCount = ConfigPtr->MaxLaneCount;
+	InstancePtr->Config.MaxLinkRate = ConfigPtr->MaxLinkRate;
+
+	InstancePtr->Config.MaxBitsPerColor = ConfigPtr->MaxBitsPerColor;
+	InstancePtr->Config.QuadPixelEn = ConfigPtr->QuadPixelEn;
+	InstancePtr->Config.DualPixelEn = ConfigPtr->DualPixelEn;
+	InstancePtr->Config.YCrCbEn = ConfigPtr->YCrCbEn;
+	InstancePtr->Config.YOnlyEn = ConfigPtr->YOnlyEn;
+	InstancePtr->Config.PayloadDataWidth = ConfigPtr->PayloadDataWidth;
+
+	InstancePtr->Config.SecondaryChEn = ConfigPtr->SecondaryChEn;
+	InstancePtr->Config.NumAudioChs = ConfigPtr->NumAudioChs;
+
+	InstancePtr->Config.MstSupport = ConfigPtr->MstSupport;
+	InstancePtr->Config.NumMstStreams = ConfigPtr->NumMstStreams;
+
+	InstancePtr->Config.DpProtocol = ConfigPtr->DpProtocol;
+
+	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
+
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+}
+
+/******************************************************************************/
+/**
  * This function prepares the DisplayPort RX core for use.
  *
  * @param	InstancePtr is a pointer to the XDprx instance.
@@ -132,61 +187,6 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr)
 	XDprx_DtgEn(InstancePtr);
 
 	return XST_SUCCESS;
-}
-
-/******************************************************************************/
-/**
- * This function retrieves the configuration for this DisplayPort RX instance
- * and fills in the InstancePtr->Config structure.
- *
- * @param	InstancePtr is a pointer to the XDprx instance.
- * @param	ConfigPtr is a pointer to the configuration structure that will
- *		be used to copy the settings from.
- * @param	EffectiveAddr is the device base address in the virtual memory
- *		space. If the address translation is not used, then the physical
- *		address is passed.
- *
- * @return	None.
- *
- * @note	Unexpected errors may occur if the address mapping is changed
- *		after this function is invoked.
- *
-*******************************************************************************/
-void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
-							u32 EffectiveAddr)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(ConfigPtr != NULL);
-	Xil_AssertVoid(EffectiveAddr != 0x0);
-
-	InstancePtr->IsReady = 0;
-
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-	InstancePtr->Config.BaseAddr = EffectiveAddr;
-	InstancePtr->Config.SAxiClkHz = ConfigPtr->SAxiClkHz;
-
-	InstancePtr->Config.MaxLaneCount = ConfigPtr->MaxLaneCount;
-	InstancePtr->Config.MaxLinkRate = ConfigPtr->MaxLinkRate;
-
-	InstancePtr->Config.MaxBitsPerColor = ConfigPtr->MaxBitsPerColor;
-	InstancePtr->Config.QuadPixelEn = ConfigPtr->QuadPixelEn;
-	InstancePtr->Config.DualPixelEn = ConfigPtr->DualPixelEn;
-	InstancePtr->Config.YCrCbEn = ConfigPtr->YCrCbEn;
-	InstancePtr->Config.YOnlyEn = ConfigPtr->YOnlyEn;
-	InstancePtr->Config.PayloadDataWidth = ConfigPtr->PayloadDataWidth;
-
-	InstancePtr->Config.SecondaryChEn = ConfigPtr->SecondaryChEn;
-	InstancePtr->Config.NumAudioChs = ConfigPtr->NumAudioChs;
-
-	InstancePtr->Config.MstSupport = ConfigPtr->MstSupport;
-	InstancePtr->Config.NumMstStreams = ConfigPtr->NumMstStreams;
-
-	InstancePtr->Config.DpProtocol = ConfigPtr->DpProtocol;
-
-	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
-
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
 void XDprx_DtgEn(XDprx *InstancePtr)
