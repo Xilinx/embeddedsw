@@ -93,6 +93,7 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr);
 /* xdprx.c: General usage functions. */
 void XDprx_DtgEn(XDprx *InstancePtr);
 void XDprx_DtgDis(XDprx *InstancePtr);
+void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate);
 void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
 			XDp_TimerHandler CallbackFunc, void *CallbackRef);
 void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);

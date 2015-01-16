@@ -203,6 +203,19 @@ void XDprx_DtgDis(XDprx *InstancePtr)
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
 }
 
+void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
+{
+	InstancePtr->LinkConfig.LinkRate = LinkRate;
+
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
+									0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_LINK_BW_SET,
+								LinkRate);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
+									0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LOCAL_EDID_VIDEO,
+									0x01);
+}
 
 /******************************************************************************/
 /**
