@@ -138,6 +138,13 @@ typedef struct {
 							passed to the training
 							done callback
 							function. */
+	XDptx_IntrHandler IntrBwChangeHandler;	/**< Callback function for
+							bandwidth change
+							interrupts. */
+	void *IntrBwChangeCallbackRef;		/**< A pointer to the user data
+							passed to the bandwidth
+							change callback
+							function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
@@ -172,6 +179,8 @@ void XDptx_SetIntrTrainingLostHandler(XDptx *InstancePtr,
 void XDptx_SetIntrVideoHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 void XDptx_SetIntrTrainingDoneHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrBwChangeHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */
