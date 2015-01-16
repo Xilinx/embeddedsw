@@ -217,6 +217,20 @@ void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
 									0x01);
 }
 
+void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
+{
+	InstancePtr->LinkConfig.LaneCount = LaneCount;
+
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
+									0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_LANE_COUNT_SET,
+								LaneCount);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
+									0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LOCAL_EDID_VIDEO,
+									0x01);
+}
+
 /******************************************************************************/
 /**
  * This function installs a custom delay/sleep function to be used by the XDprx
