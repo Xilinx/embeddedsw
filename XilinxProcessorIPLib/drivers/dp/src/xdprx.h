@@ -91,6 +91,7 @@ void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
 
 /* xdprx.c: General usage functions. */
 void XDprx_DtgEn(XDprx *InstancePtr);
+void XDprx_DtgDis(XDprx *InstancePtr);
 void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
 			XDp_TimerHandler CallbackFunc, void *CallbackRef);
 void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);
