@@ -145,6 +145,27 @@ typedef struct {
 							passed to the bandwidth
 							change callback
 							function. */
+	XDptx_IntrHandler IntrTp1Handler;	/**< Callback function for
+							training pattern 1
+							interrupts. */
+	void *IntrTp1CallbackRef;		/**< A pointer to the user data
+							passed to the training
+							pattern 1 callback
+							function. */
+	XDptx_IntrHandler IntrTp2Handler;	/**< Callback function for
+							training pattern 2
+							interrupts. */
+	void *IntrTp2CallbackRef;		/**< A pointer to the user data
+							passed to the training
+							pattern 2 callback
+							function. */
+	XDptx_IntrHandler IntrTp3Handler;	/**< Callback function for
+							training pattern 3
+							interrupts. */
+	void *IntrTp3CallbackRef;		/**< A pointer to the user data
+							passed to the training
+							pattern 3 callback
+							function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
@@ -181,6 +202,12 @@ void XDptx_SetIntrVideoHandler(XDptx *InstancePtr,
 void XDptx_SetIntrTrainingDoneHandler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 void XDptx_SetIntrBwChangeHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrTp1Handler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrTp2Handler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
+void XDptx_SetIntrTp3Handler(XDptx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */

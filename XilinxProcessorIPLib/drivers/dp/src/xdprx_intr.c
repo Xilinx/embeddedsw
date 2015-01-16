@@ -268,3 +268,84 @@ void XDptx_SetIntrBwChangeHandler(XDptx *InstancePtr,
 	InstancePtr->IntrBwChangeHandler = CallbackFunc;
 	InstancePtr->IntrBwChangeCallbackRef = CallbackRef;
 }
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a training pattern 1
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_SetIntrTp1Handler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->IntrTp1Handler = CallbackFunc;
+	InstancePtr->IntrTp1CallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a training pattern 2
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_SetIntrTp2Handler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->IntrTp2Handler = CallbackFunc;
+	InstancePtr->IntrTp2CallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a training pattern 3
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDptx_SetIntrTp3Handler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->IntrTp3Handler = CallbackFunc;
+	InstancePtr->IntrTp3CallbackRef = CallbackRef;
+}
