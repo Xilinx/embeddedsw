@@ -64,6 +64,75 @@ static u32 XDprx_WaitPhyReady(XDprx *InstancePtr, u8 Mask);
 
 /******************************************************************************/
 /**
+ * This function prepares the DisplayPort RX core for use.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the DisplayPort RX core was successfully
+ *		  initialized.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDprx_InitializeRx(XDprx *InstancePtr)
+{
+	u32 Status;
+
+	/* Disable the main link. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LINK_ENABLE, 0x00);
+
+	/* Set the AUX clock divider. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_AUX_CLK_DIVIDER,
+				(InstancePtr->Config.SAxiClkHz / 1000000));
+
+	/* Put both GT RX/TX and CPLL into reset. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x03);
+
+	/* Release CPLL reset. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x02);
+
+	/* Wait until all lane CPLLs have locked. */
+	XDprx_WaitPhyReady(InstancePtr, 0x30);
+
+	/* Remove the reset from the PHY. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x00);
+
+	/* Wait until the PHY has completed the reset cycle. */
+	Status = XDprx_WaitPhyReady(InstancePtr, 0xFF);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Enable the RX core. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LINK_ENABLE, 0x01);
+
+	/* Set other user parameters. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_MIN_VOLTAGE_SWING,
+									0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SINK_COUNT, 0x01);
+	/* Set the AUX training interval. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
+									0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_TP_SET, 0x0200);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
+									0x00);
+	/* Set the link configuration.*/
+	XDprx_SetLinkRate(InstancePtr, InstancePtr->LinkConfig.LinkRate);
+	XDprx_SetLaneCount(InstancePtr, InstancePtr->LinkConfig.LaneCount);
+	/* Set the interrupt masks. */
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_INTERRUPT_MASK,
+						~XDPRX_INTERRUPT_MASK_ALL);
+
+	/* Enable the display timing generator. */
+	XDprx_DtgEn(InstancePtr);
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
  * This function retrieves the configuration for this DisplayPort RX instance
  * and fills in the InstancePtr->Config structure.
  *

@@ -88,6 +88,7 @@ typedef struct {
 /* xdprx.c: Setup and initialization functions. */
 void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
 							u32 EffectiveAddr);
+u32 XDprx_InitializeRx(XDprx *InstancePtr);
 
 /* xdprx.c: General usage functions. */
 void XDprx_DtgEn(XDprx *InstancePtr);
