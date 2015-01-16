@@ -61,6 +61,17 @@ typedef struct {
 						link. */
 } XDprx_LinkConfig;
 
+/******************************************************************************/
+/**
+ * Callback type which represents the handler for interrupts.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+typedef void (*XDprx_IntrHandler)(void *InstancePtr);
+
 /**
  * The XDprx driver instance data. The user is required to allocate a variable
  * of this type for every XDprx device in the system. A pointer to a variable of
@@ -81,6 +92,13 @@ typedef struct {
 	void *UserTimerPtr;			/**< Pointer to a timer instance
 							used by the custom user
 							delay/sleep function. */
+	XDptx_IntrHandler IntrVmChangeHandler;	/**< Callback function for video
+							mode change
+							interrupts. */
+	void *IntrVmChangeCallbackRef;		/**< A pointer to the user data
+							passed to the video mode
+							change callback
+							function. */
 } XDprx;
 
 /**************************** Function Prototypes *****************************/
@@ -100,5 +118,9 @@ void XDprx_SetUserPixelWidth(XDprx *InstancePtr, u8 UserPixelWidth);
 void XDprx_SetUserTimerHandler(XDprx *InstancePtr,
 			XDp_TimerHandler CallbackFunc, void *CallbackRef);
 void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds);
+
+/* xdprx_intr.c: Interrupt handling functions. */
+void XDptx_SetIntrVmChangeHandler(XDptx *InstancePtr,
+			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
 #endif /* XDPRX_H_ */
