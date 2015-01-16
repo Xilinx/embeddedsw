@@ -158,6 +158,17 @@ void XDprx_GenerateHpdInterrupt(XDprx *InstancePtr, u16 DurationUs)
 						(DurationUs << 16) | 0x1);
 }
 
+void XDprx_InterruptDisable(XDprx *InstancePtr, u32 Mask)
+{
+	u32 MaskVal;
+
+	MaskVal = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
+							XDPRX_INTERRUPT_CAUSE);
+	MaskVal |= Mask;
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_INTERRUPT_MASK,
+								MaskVal);
+}
+
 /******************************************************************************/
 /**
  * This function installs a callback function for when a video mode change
