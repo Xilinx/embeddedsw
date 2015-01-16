@@ -94,7 +94,10 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr)
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x02);
 
 	/* Wait until all lane CPLLs have locked. */
-	XDprx_WaitPhyReady(InstancePtr, 0x30);
+	Status = XDprx_WaitPhyReady(InstancePtr, 0x30);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/* Remove the reset from the PHY. */
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x00);
@@ -291,7 +294,7 @@ void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds)
 *******************************************************************************/
 static u32 XDprx_WaitPhyReady(XDprx *InstancePtr, u8 Mask)
 {
-	u32 Timeout = 100;
+	u16 Timeout = 20000;
 	u32 PhyStatus;
 
 	/* Wait until the PHY is ready. */

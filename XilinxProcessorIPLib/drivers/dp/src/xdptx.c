@@ -2623,7 +2623,7 @@ static u32 XDptx_SetClkSpeed(XDptx *InstancePtr, u32 Speed)
 *******************************************************************************/
 static u32 XDptx_WaitPhyReady(XDptx *InstancePtr)
 {
-	u32 Timeout = 100;
+	u16 Timeout = 20000;
 	u32 PhyStatus;
 	u32 Mask;
 
