@@ -578,6 +578,11 @@
 							assertion for start of
 							training pattern 3. */
 #define XDPRX_INTERRUPT_MASK_ALL	0x7FFFF /**< Mask all interrupts. */
+
+/* 0x09C: XDPRX_OVER_LINK_BW_SET */
+#define XDPRX_OVER_LINK_BW_SET_162GBPS	0x06    /**< 1.62 Gbps link rate. */
+#define XDPRX_OVER_LINK_BW_SET_270GBPS	0x0A    /**< 2.70 Gbps link rate. */
+#define XDPRX_OVER_LINK_BW_SET_540GBPS	0x14    /**< 5.40 Gbps link rate. */
 /* @} */
 
 #endif /* XDPRX_HW_H_ */
