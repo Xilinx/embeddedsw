@@ -583,6 +583,11 @@
 #define XDPRX_OVER_LINK_BW_SET_162GBPS	0x06    /**< 1.62 Gbps link rate. */
 #define XDPRX_OVER_LINK_BW_SET_270GBPS	0x0A    /**< 2.70 Gbps link rate. */
 #define XDPRX_OVER_LINK_BW_SET_540GBPS	0x14    /**< 5.40 Gbps link rate. */
+
+/* 0x0A0: XDPRX_OVER_LANE_COUNT_SET */
+#define XDPRX_OVER_LANE_COUNT_SET_1	0x01	/**< Lane count of 1. */
+#define XDPRX_OVER_LANE_COUNT_SET_2	0x02	/**< Lane count of 2. */
+#define XDPRX_OVER_LANE_COUNT_SET_4	0x04	/**< Lane count of 4. */
 /* @} */
 
 #endif /* XDPRX_HW_H_ */
