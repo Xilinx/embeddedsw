@@ -44,6 +44,7 @@
 * 1.00a ecm/sdm 02/01/10 Initial version
 * 3.04a sdm     02/02/12 Removed some of the defines as they are being generated through
 *                        driver tcl
+* 5.0	pkp		01/16/15 Added interrupt ID definition of ttc for TEST APP
 * </pre>
 *
 * @note
@@ -290,6 +291,12 @@ extern "C" {
 #define XPAR_PS7_SCUWDT_0_INTR		XPS_SCU_WDT_INT_ID
 #define XPAR_PS7_SCUTIMER_0_INTR	XPS_SCU_TMR_INT_ID
 #define XPAR_PS7_XADC_0_INTR		XPS_SYSMON_INT_ID
+#define XPAR_PS7_TTC_0_INTR         XPS_TTC0_0_INT_ID
+#define XPAR_PS7_TTC_1_INTR         XPS_TTC0_1_INT_ID
+#define XPAR_PS7_TTC_2_INTR         XPS_TTC0_2_INT_ID
+#define XPAR_PS7_TTC_3_INTR         XPS_TTC1_0_INT_ID
+#define XPAR_PS7_TTC_4_INTR         XPS_TTC1_1_INT_ID
+#define XPAR_PS7_TTC_5_INTR         XPS_TTC1_2_INT_ID
 
 #define XPAR_XADCPS_INT_ID		XPS_SYSMON_INT_ID
 
