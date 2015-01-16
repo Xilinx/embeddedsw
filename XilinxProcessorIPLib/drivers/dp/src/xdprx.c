@@ -117,6 +117,13 @@ void XDprx_CfgInitialize(XDprx *InstancePtr, XDp_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
+void XDprx_DtgEn(XDprx *InstancePtr)
+{
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x01);
+}
+
 /******************************************************************************/
 /**
  * This function installs a custom delay/sleep function to be used by the XDprx
