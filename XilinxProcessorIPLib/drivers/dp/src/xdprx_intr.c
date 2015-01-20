@@ -152,12 +152,38 @@ void XDprx_InterruptHandler(XDprx *InstancePtr)
 	}
 }
 
+/******************************************************************************/
+/**
+ * This function generates a pulse on the hot-plug-detect (HPD) line of the
+ * specified duration.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	DurationUs is the duration of the HPD pulse, in microseconds.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_GenerateHpdInterrupt(XDprx *InstancePtr, u16 DurationUs)
 {
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_HPD_INTERRUPT,
 						(DurationUs << 16) | 0x1);
 }
 
+/******************************************************************************/
+/**
+ * This function enables interrupts associated with the specified mask.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	Mask specifies which interrupts should be enabled. Bits set to
+ *		1 will enable the corresponding interrupts.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_InterruptEnable(XDprx *InstancePtr, u32 Mask)
 {
 	u32 MaskVal;
@@ -169,6 +195,19 @@ void XDprx_InterruptEnable(XDprx *InstancePtr, u32 Mask)
 								MaskVal);
 }
 
+/******************************************************************************/
+/**
+ * This function disables interrupts associated with the specified mask.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	Mask specifies which interrupts should be disabled. Bits set to
+ *		1 will disable the corresponding interrupts.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_InterruptDisable(XDprx *InstancePtr, u32 Mask)
 {
 	u32 MaskVal;
