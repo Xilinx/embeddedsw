@@ -189,6 +189,22 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr)
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function checks if the reciever's internal registers indicate that link
+ * training has complete. That is, training has achieved channel equalization,
+ * symbol lock, and interlane alignment for all lanes currently in use.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device has achieved clock recovery,
+ *		  channel equalization, symbol lock, and interlane alignment.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDprx_CheckLinkStatus(XDprx *InstancePtr)
 {
 	u8 LaneCount;
@@ -220,6 +236,17 @@ u32 XDprx_CheckLinkStatus(XDprx *InstancePtr)
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function enables the display timing generator (DTG).
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_DtgEn(XDprx *InstancePtr)
 {
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
@@ -227,6 +254,17 @@ void XDprx_DtgEn(XDprx *InstancePtr)
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x01);
 }
 
+/******************************************************************************/
+/**
+ * This function disables the display timing generator (DTG).
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_DtgDis(XDprx *InstancePtr)
 {
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x00);
@@ -234,6 +272,23 @@ void XDprx_DtgDis(XDprx *InstancePtr)
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
 }
 
+/******************************************************************************/
+/**
+ * This function sets the maximum data rate to be exposed in the RX device's
+ * DisplayPort Configuration Data (DPCD) registers.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	LinkRate is the link rate to be used over the main link based on
+ *		one of the following selects:
+ *		- XDPRX_LINK_BW_SET_162GBPS = 0x06 (for a 1.62 Gbps data rate)
+ *		- XDPRX_LINK_BW_SET_270GBPS = 0x0A (for a 2.70 Gbps data rate)
+ *		- XDPRX_LINK_BW_SET_540GBPS = 0x14 (for a 5.40 Gbps data rate)
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
 {
 	InstancePtr->LinkConfig.LinkRate = LinkRate;
@@ -248,6 +303,19 @@ void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
 									0x01);
 }
 
+/******************************************************************************/
+/**
+ * This function sets the maximum lane count to be exposed in the RX device's
+ * DisplayPort Configuration Data (DPCD) registers.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	LaneCount is the number of lanes to be used over the main link.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
 {
 	InstancePtr->LinkConfig.LaneCount = LaneCount;
@@ -262,6 +330,19 @@ void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
 									0x01);
 }
 
+/******************************************************************************/
+/**
+ * This function configures the number of pixels output through the user data
+ * interface.
+ *
+ * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	UserPixelWidth is the user pixel width to be configured.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void XDprx_SetUserPixelWidth(XDprx *InstancePtr, u8 UserPixelWidth)
 {
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_USER_PIXEL_WIDTH,
