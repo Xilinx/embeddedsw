@@ -75,7 +75,7 @@ void XDprx_InterruptHandler(XDprx *InstancePtr)
 		IntrTp1, IntrTp2, IntrTp3;
 
 	/* Determine what kind of interrupt(s) occurred.
-	 * Note: XDPRX_INTERRUPT_STATUS is an RC (read-clear) register. */
+	 * Note: XDPRX_INTERRUPT_CAUSE is an RC (read-clear) register. */
 	IntrStatus = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
 							XDPRX_INTERRUPT_CAUSE);
 	IntrVmChange = (IntrStatus & 0x00001);

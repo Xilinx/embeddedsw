@@ -34,6 +34,10 @@
  *
  * @file xdprx.c
  *
+ * Contains a minimal set of functions for the XDprx driver that allow access
+ * to all of the DisplayPort RX core's functionality. See xdprx.h for a detailed
+ * description of the driver.
+ *
  * @note	None.
  *
  * <pre>

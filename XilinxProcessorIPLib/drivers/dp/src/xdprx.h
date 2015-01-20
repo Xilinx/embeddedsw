@@ -34,6 +34,54 @@
  *
  * @file xdprx.h
  *
+ * The Xilinx DisplayPort receiver (DPRX) driver. This driver supports the
+ * Xilinx DisplayPort soft IP core in receive (RX) mode.
+ *
+ * <b>Driver description</b>
+ *
+ * The device driver enables higher-level software (e.g., an application) to
+ * configure and control a DisplayPort RX soft IP.
+ *
+ * This driver gives applications the ability to configure the RX using various
+ * settings, handle and issue interrupts, and modify a subset of its DisplayPort
+ * Configuration Data (DPCD) fields.
+ *
+ * <b>Interrupt processing</b>
+ *
+ * The DisplayPort RX driver may generate a pulse on the hot-plug-detect (HPD)
+ * signal line using the XDprx_GenerateHpdInterrupt function. This allows the RX
+ * to send an interrupt to the upstream TX device, useful for signaling the TX
+ * that it needs to do some checks for changes in downstream devices or a loss
+ * of link training.
+ *
+ * For RX interrupt handling of HPD events or events that happen internal to the
+ * RX, the user hardware design must contain an interrupt controller which the
+ * DisplayPort RX instance's interrupt signal is connected to. The user
+ * application must enable interrupts in the system and set up the interrupt
+ * controller such that the XDprx_InterruptHandler handler will service
+ * interrupts. When the XDprx_InterruptHandler function is invoked, the handler
+ * will identify what type of interrupt has occurred, and will call the
+ * appropriate interrupt handler.
+ *
+ * The DisplayPort RX's XDPRX_INTERRUPT_CAUSE register indicates the type of
+ * interrupt that has occured, and the XDprx_InterruptHandler will use this
+ * information to decide which handler to call.
+ *
+ * The handlers are set up using the XDprx_SetIntr* functions.
+ *
+ * Specific interrupts may be enabled or disabled using the
+ * XDprx_InterruptEnable and XDprx_InterruptDisable functions.
+ *
+ * <b>Multi-stream transport (MST) mode</b>
+ *
+ * The DisplayPort RX driver does not support MST functionality in 2015.1.
+ *
+ * <b>Audio</b>
+ *
+ * The driver does not handle audio.
+ *
+ * @note	None.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  * </pre>

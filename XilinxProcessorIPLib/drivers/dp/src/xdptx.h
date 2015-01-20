@@ -38,41 +38,6 @@
  * Xilinx DisplayPort soft IP core in source (TX) mode. This driver follows the
  * DisplayPort 1.2a specification.
  *
- * The Xilinx DisplayPort soft IP supports the following features:
- *	- 1, 2, or 4 lanes.
- *	- A link rate of 1.62, 2.70, or 5.40Gbps per lane.
- *	- 1, 2, or 4 pixel-wide video interfaces.
- *	- RGB and YCbCr color space.
- *	- Up to 16 bits per component.
- *	- Up to 4Kx2K monitor resolution.
- *	- Auto lane rate and width negotiation.
- *	- I2C over a 1Mb/s AUX channel.
- *	- Secondary channel audio support (2 channels).
- *	- 4 independent video multi-streams.
- *
- * The Xilinx DisplayPort soft IP does not support the following features:
- *	- The automated test feature.
- *	- Audio (3-8 channel).
- *	- FAUX.
- *	- Bridging function.
- *	- MST audio.
- *	- eDP optional features.
- *	- iDP.
- *	- GTC.
- *
- * <b>DisplayPort overview</b>
- *
- * A DisplayPort link consists of:
- *	- A unidirectional main link which is used to transport isochronous data
- *	  streams such as video and audio. The main link may use 1, 2, or 4
- *	  lanes at a link rate of 1.62, 2.70, or 5.40Gbps per lane. The link
- *	  needs to be trained prior to sending streams.
- *	- An auxiliary (AUX) channel is a 1MBps bidirectional channel used for
- *	  link training, link management, and device control.
- *	- A hot-plug-detect (HPD) signal line is used to determine whether a
- *	  DisplayPort connection exists between the DisplayPort TX connector and
- *	  an RX device. It is serves as an interrupt request by the RX device.
- *
  * <b>Driver description</b>
  *
  * The device driver enables higher-level software (e.g., an application) to
@@ -102,17 +67,6 @@
  * Identification Data (EDID) which give information on the display capabilities
  * of the monitor. The SPM may use this information to determine what available
  * screen resolutions and video timing are possible.
- *
- * <b>Device configuration</b>
- *
- * The device can be configured in various ways during the FPGA implementation
- * process.  Configuration parameters are stored in the xdptx_g.c file which is
- * generated when compiling the board support package (BSP). A table is defined
- * where each entry contains configuration information for the DisplayPort
- * instances present in the system. This information includes parameters that
- * are defined in the driver's data/dptx.tcl file such as the base address of
- * the memory-mapped device and the maximum number of lanes, maximum link rate,
- * and video interface that the DisplayPort instance supports, among others.
  *
  * <b>Interrupt processing</b>
  *
@@ -162,14 +116,6 @@
  * Displayport TX instance and set up the audio info frame as per user
  * requirements.
  *
- * <b>Asserts</b>
- *
- * Asserts are used within all Xilinx drivers to enforce constraints on argument
- * values. Asserts can be turned off on a system-wide basis by defining, at
- * compile time, the NDEBUG identifier.  By default, asserts are turned on and
- * it is recommended that application developers leave asserts on during
- * development.
- *
  * <b>Limitations</b>
  *
  * - For MST mode to correctly display, the current version of the driver
@@ -187,8 +133,7 @@
  * - The driver does not handle audio. See the audio example in the driver
  *   examples directory for the required sequence for enabling audio.
  *
- * @note	For a 5.4Gbps link rate, a high performance 7 series FPGA is
- *		required with a speed grade of -2 or -3.
+ * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
