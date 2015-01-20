@@ -45,6 +45,7 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
+ * 1.0   als  01/20/14 Initial release.
  * </pre>
  *
 *******************************************************************************/
@@ -61,7 +62,6 @@
 
 /**************************** Function Prototypes *****************************/
 
-/* Miscellaneous functions. */
 static u32 XDprx_WaitPhyReady(XDprx *InstancePtr, u8 Mask);
 
 /**************************** Function Definitions ****************************/

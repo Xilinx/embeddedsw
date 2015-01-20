@@ -200,7 +200,7 @@ typedef void (*XDp_TimerHandler)(void *InstancePtr, u32 MicroSeconds);
 
 /**************************** Function Prototypes *****************************/
 
-/* xdp_sinit.c: Configuration extraction function.*/
+/* xdp_sinit.c: Configuration extraction function. */
 XDp_Config *XDp_LookupConfig(u16 DeviceId);
 
 /******************* Macros (Inline Functions) Definitions ********************/
