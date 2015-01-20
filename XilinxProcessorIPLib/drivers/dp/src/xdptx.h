@@ -173,9 +173,6 @@
 
 #include "xdp.h"
 #include "xdptx_hw.h"
-#include "xil_assert.h"
-#include "xil_types.h"
-#include "xvidc.h"
 
 /****************************** Type Definitions ******************************/
 

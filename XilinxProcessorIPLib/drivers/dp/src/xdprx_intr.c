@@ -75,6 +75,9 @@ void XDprx_InterruptHandler(XDprx *InstancePtr)
 		IntrTrainingLost, IntrVideo, IntrTrainingDone, IntrBwChange,
 		IntrTp1, IntrTp2, IntrTp3;
 
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* Determine what kind of interrupt(s) occurred.
 	 * Note: XDPRX_INTERRUPT_CAUSE is an RC (read-clear) register. */
 	IntrStatus = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
@@ -168,6 +171,10 @@ void XDprx_InterruptHandler(XDprx *InstancePtr)
 *******************************************************************************/
 void XDprx_GenerateHpdInterrupt(XDprx *InstancePtr, u16 DurationUs)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_HPD_INTERRUPT,
 						(DurationUs << 16) | 0x1);
 }
@@ -188,6 +195,10 @@ void XDprx_GenerateHpdInterrupt(XDprx *InstancePtr, u16 DurationUs)
 void XDprx_InterruptEnable(XDprx *InstancePtr, u32 Mask)
 {
 	u32 MaskVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	MaskVal = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
 							XDPRX_INTERRUPT_CAUSE);
@@ -212,6 +223,10 @@ void XDprx_InterruptEnable(XDprx *InstancePtr, u32 Mask)
 void XDprx_InterruptDisable(XDprx *InstancePtr, u32 Mask)
 {
 	u32 MaskVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	MaskVal = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
 							XDPRX_INTERRUPT_CAUSE);

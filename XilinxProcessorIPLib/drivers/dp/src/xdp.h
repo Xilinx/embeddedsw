@@ -136,7 +136,9 @@
 
 /******************************* Include Files ********************************/
 
+#include "xil_assert.h"
 #include "xil_types.h"
+#include "xvidc.h"
 /* xdprx.h and xdptx.h are included. They require some type definitions. */
 
 /****************************** Type Definitions ******************************/

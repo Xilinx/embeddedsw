@@ -139,6 +139,10 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr)
 {
 	u32 Status;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	/* Disable the main link. */
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LINK_ENABLE, 0x00);
 
@@ -214,6 +218,10 @@ u32 XDprx_CheckLinkStatus(XDprx *InstancePtr)
 	u8 LaneCount;
 	u8 LaneStatus[2];
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	LaneCount = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
 						XDPRX_DPCD_LANE_COUNT_SET);
 
@@ -253,6 +261,10 @@ u32 XDprx_CheckLinkStatus(XDprx *InstancePtr)
 *******************************************************************************/
 void XDprx_DtgEn(XDprx *InstancePtr)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x01);
@@ -271,6 +283,10 @@ void XDprx_DtgEn(XDprx *InstancePtr)
 *******************************************************************************/
 void XDprx_DtgDis(XDprx *InstancePtr)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x00);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
@@ -295,6 +311,13 @@ void XDprx_DtgDis(XDprx *InstancePtr)
 *******************************************************************************/
 void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid((LinkRate == XDPRX_LINK_BW_SET_162GBPS) ||
+				(LinkRate == XDPRX_LINK_BW_SET_270GBPS) ||
+				(LinkRate == XDPRX_LINK_BW_SET_540GBPS));
+
 	InstancePtr->LinkConfig.LinkRate = LinkRate;
 
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
@@ -322,6 +345,13 @@ void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
 *******************************************************************************/
 void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid((LaneCount == XDPRX_LANE_COUNT_SET_1) ||
+					(LaneCount == XDPRX_LANE_COUNT_SET_2) ||
+					(LaneCount == XDPRX_LANE_COUNT_SET_4));
+
 	InstancePtr->LinkConfig.LaneCount = LaneCount;
 
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
@@ -349,6 +379,12 @@ void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
 *******************************************************************************/
 void XDprx_SetUserPixelWidth(XDprx *InstancePtr, u8 UserPixelWidth)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
+							(UserPixelWidth == 4));
+
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_USER_PIXEL_WIDTH,
 								UserPixelWidth);
 
