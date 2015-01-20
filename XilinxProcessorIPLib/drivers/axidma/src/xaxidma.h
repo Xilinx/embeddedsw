@@ -444,6 +444,8 @@
 *			* XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr,
 *						int Direction, int Select)
  *			* XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd*, u32)
+* 8.1   adk  20/01/15  Added support for peripheral test. Created the self
+*		       test example to include it on peripheral test's(CR#823144).
 *
 * </pre>
 *
