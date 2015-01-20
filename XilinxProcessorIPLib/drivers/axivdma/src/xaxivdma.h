@@ -275,6 +275,8 @@
 * 4.06a srt  04/09/13 - Added support for the newly added S2MM_DMA_IRQ_MASK
 *                       register (CR 734741)
 * 5.0   adk  19/12/13 - Updated as per the New Tcl API's
+* 5.1   adk  20/01/15  Added support for peripheral test. Created the self
+*		       test example to include it on peripheral test's(CR#823144).
 *
 * </pre>
 *
