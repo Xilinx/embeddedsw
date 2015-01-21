@@ -457,7 +457,10 @@ void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds)
 		return;
 	}
 
-#if defined(__MICROBLAZE__)
+#if defined(__arm__)
+	/* Wait the requested amount of time. */
+	usleep(MicroSeconds);
+#elif defined(__MICROBLAZE__)
 	if (InstancePtr->UserTimerWaitUs != NULL) {
 		/* Use the timer handler specified by the user for better
 		 * accuracy. */
@@ -468,9 +471,6 @@ void XDprx_WaitUs(XDprx *InstancePtr, u32 MicroSeconds)
 		u32 MilliSeconds = (MicroSeconds + 999) / 1000;
 		MB_Sleep(MilliSeconds);
 	}
-#elif defined(__arm__)
-	/* Wait the requested amount of time. */
-	usleep(MicroSeconds);
 #endif
 }
 
