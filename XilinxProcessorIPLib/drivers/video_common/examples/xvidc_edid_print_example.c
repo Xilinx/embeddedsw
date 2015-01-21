@@ -119,10 +119,9 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		/* Input is a digital video signal interface. */
 		xil_printf("\tVideo signal interface is digital.\n");
 
-		if (XVidC_EdidGetBDispVidDigBpc(EdidRaw) !=
-					XVIDC_EDID_BDISP_VID_DIG_BPC_UNDEF) {
+		if (XVidC_EdidGetColorDepth(EdidRaw) != XVIDC_BPC_UNKNOWN) {
 			xil_printf("\tColor bit depth:\t%d\n",
-					XVidC_EdidGetBDispVidDigBpc(EdidRaw));
+					XVidC_EdidGetColorDepth(EdidRaw));
 		}
 		else {
 			xil_printf("\tColor bit depth is undefined.\n");

@@ -307,7 +307,7 @@
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_COMP_SYNC_G_MASK) != 0)
 #define XVidC_EdidSuppBDispVidAnaSerrVsync(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SERR_V_SYNC_MASK) != 0)
-/* u8 XVidC_EdidGetBDispVidDigBpc(u8 *EdidRaw); */
+/* XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw); */
 #define XVidC_EdidGetBDispVidDigVis(E) \
 	(E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_DIG_VIS_MASK)
 
@@ -457,7 +457,7 @@
 void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4]);
 
 /* Basic display parameters and features: Video input definition. */
-u8 XVidC_EdidGetBDispVidDigBpc(u8 *EdidRaw);
+XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw);
 
 /* Color characteristics (display x,y chromaticity coordinates). */
 float XVidC_EdidGetCcRedX(u8 *EdidRaw);

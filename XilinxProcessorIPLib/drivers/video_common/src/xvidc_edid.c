@@ -99,7 +99,8 @@ void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4])
 
 /******************************************************************************/
 /**
- * Get the color bit depth (bits per primary color) as specified in the supplied
+ * Get the color bit depth (bits per primary color) as specified in the basic
+ * display parameters and features, video input definition field of the supplied
  * base Extended Display Identification Data (EDID).
  *
  * @param	EdidRaw is the supplied base EDID to retrieve color depth
@@ -111,7 +112,7 @@ void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4])
  * @note	None.
  *
 *******************************************************************************/
-u8 XVidC_EdidGetBDispVidDigBpc(u8 *EdidRaw)
+XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw)
 {
 	u8 Bpc;
 
@@ -119,31 +120,31 @@ u8 XVidC_EdidGetBDispVidDigBpc(u8 *EdidRaw)
 			XVIDC_EDID_BDISP_VID_DIG_BPC_MASK) >>
 					XVIDC_EDID_BDISP_VID_DIG_BPC_SHIFT)) {
 		case XVIDC_EDID_BDISP_VID_DIG_BPC_6:
-			Bpc = 6;
+			Bpc = XVIDC_BPC_6;
 			break;
 
 		case XVIDC_EDID_BDISP_VID_DIG_BPC_8:
-			Bpc = 8;
+			Bpc = XVIDC_BPC_8;
 			break;
 
 		case XVIDC_EDID_BDISP_VID_DIG_BPC_10:
-			Bpc = 10;
+			Bpc = XVIDC_BPC_10;
 			break;
 
 		case XVIDC_EDID_BDISP_VID_DIG_BPC_12:
-			Bpc = 12;
+			Bpc = XVIDC_BPC_12;
 			break;
 
 		case XVIDC_EDID_BDISP_VID_DIG_BPC_14:
-			Bpc = 14;
+			Bpc = XVIDC_BPC_14;
 			break;
 
 		case XVIDC_EDID_BDISP_VID_DIG_BPC_16:
-			Bpc = 16;
+			Bpc = XVIDC_BPC_16;
 			break;
 
 		default:
-			Bpc = XVIDC_EDID_BDISP_VID_DIG_BPC_UNDEF;
+			Bpc = XVIDC_BPC_UNKNOWN;
 			break;
 	}
 
