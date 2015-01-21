@@ -70,8 +70,10 @@ void Edid_PrintSuppVmTable(u8 *EdidRaw)
 	xil_printf("Supported resolutions from video mode table:\n");
 	for (Index = 0; Index < XVIDC_VM_NUM_SUPPORTED; Index++) {
 		if (XVidC_EdidIsVideoTimingSupported(EdidRaw,
-			&XVidC_VideoTimingModes[Index]) == XST_SUCCESS) {
-			xil_printf("\t%s\n", XVidC_VideoTimingModes[Index].Name);
+				&XVidC_VideoTimingModes[Index]) ==
+				XST_SUCCESS) {
+			xil_printf("\t%s\n",
+					XVidC_VideoTimingModes[Index].Name);
 		}
 	}
 }
@@ -542,8 +544,8 @@ static void Edid_PrintPtm(u8 *EdidRaw)
 			"\tVertical sync width:\t%d px\n"
 			"\tVertical back porch:\t%d px\n"
 			"\tVertical blanking:\t%d px\n"
-			"\tVertical polarity:\t%d\n"
-			, HActive, VActive, PixelClkKhz,
+			"\tVertical polarity:\t%d\n",
+			HActive, VActive, PixelClkKhz,
 			HFrontPorch, HSyncWidth, HBackPorch, HBlank, HPolarity,
 			VFrontPorch, VSyncWidth, VBackPorch, VBlank, VPolarity);
 
