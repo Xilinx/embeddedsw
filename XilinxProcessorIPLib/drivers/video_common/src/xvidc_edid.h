@@ -281,7 +281,7 @@
 /* Vendor and product identification: Week and year of manufacture or model
  * year. */
 #define XVidC_EdidGetManWeek(E)		(E[XVIDC_EDID_VPI_WEEK_MAN])
-#define XVidC_EdidGetVpiYear(E)		(E[XVIDC_EDID_VPI_YEAR] + 1990)
+#define XVidC_EdidGetModManYear(E)	(E[XVIDC_EDID_VPI_YEAR] + 1990)
 #define XVidC_EdidIsVpiYearModel(E)	(XVidC_EdidGetManWeek(E) == 0xFF)
 #define XVidC_EdidIsVpiYearMab(E)	(XVidC_EdidGetManWeek(E) != 0xFF)
 

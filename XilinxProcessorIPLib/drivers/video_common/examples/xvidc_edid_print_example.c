@@ -90,15 +90,15 @@ static void Edid_Print_BaseVPId(u8 *EdidRaw)
 						XVidC_EdidGetIdSn(EdidRaw));
 	if (XVidC_EdidIsVpiYearModel(EdidRaw)) {
 		xil_printf("\tModel year:\t\t%d\n",
-					XVidC_EdidGetVpiYear(EdidRaw));
+					XVidC_EdidGetModManYear(EdidRaw));
 	}
 	else if (XVidC_EdidGetManWeek(EdidRaw) == 0x00) {
 		xil_printf("\tManufactured:\t\tYear = %d ; Week N/A\n",
-					XVidC_EdidGetVpiYear(EdidRaw));
+					XVidC_EdidGetModManYear(EdidRaw));
 	}
 	else {
 		xil_printf("\tManufactured:\t\tYear = %d ; Week = %d\n",
-					XVidC_EdidGetVpiYear(EdidRaw),
+					XVidC_EdidGetModManYear(EdidRaw),
 					XVidC_EdidGetManWeek(EdidRaw));
 	}
 }
