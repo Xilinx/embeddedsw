@@ -172,7 +172,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		xil_printf("(Video : Sync : Total)\n");
 
 		xil_printf("\tVideo setup:\t\t");
-		if (XVidC_Edid_SuppBDispVidAnaVidSetup(EdidRaw)) {
+		if (XVidC_EdidGetAnalogSigVidSetup(EdidRaw)) {
 			xil_printf("Blank-to-black setup or pedestal.\n");
 		}
 		else {

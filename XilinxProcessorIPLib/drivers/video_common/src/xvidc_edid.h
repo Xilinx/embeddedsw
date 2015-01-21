@@ -297,7 +297,7 @@
 #define XVidC_EdidGetAnalogSigLvlStd(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SLS_MASK) >> \
 	XVIDC_EDID_BDISP_VID_ANA_SLS_SHIFT)
-#define XVidC_Edid_SuppBDispVidAnaVidSetup(E) \
+#define XVidC_EdidGetAnalogSigVidSetup(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_VID_SETUP_MASK) != 0)
 #define XVidC_EdidSuppBDispVidAnaSepSyncHv(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SEP_SYNC_HV_MASK) != 0)
