@@ -14,13 +14,13 @@
 
 #define FLOAT_FRAC_TO_U32(V, D) ((u32)(V * D) - (((u32)V) * D))
 
-static void Edid_Print_BaseVPId(u8 *EdidRaw);
-static void Edid_Print_BaseVerRev(u8 *EdidRaw);
-static void Edid_Print_BaseBasicDisp(u8 *EdidRaw);
-static void Edid_Print_ColorChar(u8 *EdidRaw);
-static void Edid_Print_EstTimings(u8 *EdidRaw);
-static void Edid_Print_StdTimings(u8 *EdidRaw);
-static void Edid_Print_Ptm(u8 *EdidRaw);
+static void Edid_PrintBaseVPId(u8 *EdidRaw);
+static void Edid_PrintBaseVerRev(u8 *EdidRaw);
+static void Edid_PrintBaseBasicDisp(u8 *EdidRaw);
+static void Edid_PrintColorChar(u8 *EdidRaw);
+static void Edid_PrintEstTimings(u8 *EdidRaw);
+static void Edid_PrintStdTimings(u8 *EdidRaw);
+static void Edid_PrintPtm(u8 *EdidRaw);
 static u8 Edid_CalculateChecksum(u8 *Data, u8 Size);
 
 u32 Edid_PrintDecodeBase(u8 *EdidRaw)
@@ -35,12 +35,12 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 	}
 
 	/* Obtain vendor and product identification information. */
-	Edid_Print_BaseVPId(EdidRaw);
-	Edid_Print_BaseVerRev(EdidRaw);
-	Edid_Print_BaseBasicDisp(EdidRaw);
-	Edid_Print_ColorChar(EdidRaw);
-	Edid_Print_EstTimings(EdidRaw);
-	Edid_Print_StdTimings(EdidRaw);
+	Edid_PrintBaseVPId(EdidRaw);
+	Edid_PrintBaseVerRev(EdidRaw);
+	Edid_PrintBaseBasicDisp(EdidRaw);
+	Edid_PrintColorChar(EdidRaw);
+	Edid_PrintEstTimings(EdidRaw);
+	Edid_PrintStdTimings(EdidRaw);
 
 	xil_printf("Descriptors:\n");
 	xil_printf("\tFirst tag: 0x%02lx 0x%02lx\n", EdidRaw[0x36],
@@ -52,7 +52,7 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 	xil_printf("\tFourth tag: 0x%02lx 0x%02lx\n", EdidRaw[0x6C],
 								EdidRaw[0x6E]);
 
-	Edid_Print_Ptm(EdidRaw);
+	Edid_PrintPtm(EdidRaw);
 
 	xil_printf("Number of extensions:\t%d\n",
 					XVidC_EdidGetExtBlkCount(EdidRaw));
@@ -63,7 +63,7 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 	return XST_SUCCESS;
 }
 
-void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
+void Edid_PrintSuppVmTable(u8 *EdidRaw)
 {
 	u8 Index;
 
@@ -76,7 +76,7 @@ void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
 	}
 }
 
-static void Edid_Print_BaseVPId(u8 *EdidRaw)
+static void Edid_PrintBaseVPId(u8 *EdidRaw)
 {
 	char ManName[4];
 	XVidC_EdidGetManName(EdidRaw, ManName);
@@ -103,7 +103,7 @@ static void Edid_Print_BaseVPId(u8 *EdidRaw)
 	}
 }
 
-static void Edid_Print_BaseVerRev(u8 *EdidRaw)
+static void Edid_PrintBaseVerRev(u8 *EdidRaw)
 {
 	/* EDID structure version and revision. */
 	xil_printf("EDID structure version and revision: %d.%d\n",
@@ -111,7 +111,7 @@ static void Edid_Print_BaseVerRev(u8 *EdidRaw)
 					XVidC_EdidGetStructRev(EdidRaw));
 }
 
-static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
+static void Edid_PrintBaseBasicDisp(u8 *EdidRaw)
 {
 	/* Basic display parameters and features. */
 	xil_printf("Basic display parameters and features:\n");
@@ -363,7 +363,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	xil_printf("continuous frequency.\n");
 }
 
-static void Edid_Print_ColorChar(u8 *EdidRaw)
+static void Edid_PrintColorChar(u8 *EdidRaw)
 {
 	xil_printf("Color characterisitics:\n");
 	xil_printf("\tRed_x:\t\t\t%d.%09d +- 0.0005\n",
@@ -392,7 +392,7 @@ static void Edid_Print_ColorChar(u8 *EdidRaw)
 		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcWhiteY(EdidRaw), 1000000000));
 }
 
-static void Edid_Print_EstTimings(u8 *EdidRaw)
+static void Edid_PrintEstTimings(u8 *EdidRaw)
 {
 	xil_printf("Established timings:\n");
 	if (XVidC_EdidSuppEstTimings720x400_70(EdidRaw)) {
@@ -450,7 +450,7 @@ static void Edid_Print_EstTimings(u8 *EdidRaw)
 					XVidC_EdidGetTimingsMan(EdidRaw));
 }
 
-static void Edid_Print_StdTimings(u8 *EdidRaw)
+static void Edid_PrintStdTimings(u8 *EdidRaw)
 {
 	/* Standard timings. */
 	u8 Index;
@@ -469,7 +469,7 @@ static void Edid_Print_StdTimings(u8 *EdidRaw)
 	}
 }
 
-static void Edid_Print_Ptm(u8 *EdidRaw)
+static void Edid_PrintPtm(u8 *EdidRaw)
 {
 	u8 *Ptm;
 

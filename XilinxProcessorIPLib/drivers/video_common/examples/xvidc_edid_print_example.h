@@ -12,6 +12,6 @@
 #include "xvidc_edid.h"
 
 u32 Edid_PrintDecodeBase(u8 *EdidRaw);
-void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw);
+void Edid_PrintSuppVmTable(u8 *EdidRaw);
 
 #endif /* XVIDC_EDID_PRINT_H_ */
