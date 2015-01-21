@@ -266,4 +266,7 @@ void XDprx_SetIntrTp2Handler(XDprx *InstancePtr,
 void XDprx_SetIntrTp3Handler(XDprx *InstancePtr,
 			XDprx_IntrHandler CallbackFunc, void *CallbackRef);
 
+/* xdprx_selftest.c: Self test function. */
+u32 XDprx_SelfTest(XDprx *InstancePtr);
+
 #endif /* XDPRX_H_ */
