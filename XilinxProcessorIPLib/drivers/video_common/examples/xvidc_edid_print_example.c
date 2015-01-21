@@ -115,7 +115,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 {
 	/* Basic display parameters and features. */
 	xil_printf("Basic display parameters and features:\n");
-	if (XVidC_EdidIsBDispVidVsiDigital(EdidRaw)) {
+	if (XVidC_EdidIsDigitalSig(EdidRaw)) {
 		/* Input is a digital video signal interface. */
 		xil_printf("\tVideo signal interface is digital.\n");
 
@@ -303,7 +303,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		xil_printf("is not supported.\n");
 	}
 
-	if (XVidC_EdidIsBDispVidVsiDigital(EdidRaw)) {
+	if (XVidC_EdidIsDigitalSig(EdidRaw)) {
 		/* Input is a digital video signal interface. */
 		xil_printf("\tSupported color encoding format(s):\n");
 		xil_printf("\t\t\t\tRGB 4:4:4\n");

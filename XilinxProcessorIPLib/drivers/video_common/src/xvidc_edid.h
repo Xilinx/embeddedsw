@@ -290,7 +290,7 @@
 #define XVidC_EdidGetStructRev(E)	(E[XVIDC_EDID_STRUCT_REV])
 
 /* Basic display parameters and features: Video input definition. */
-#define XVidC_EdidIsBDispVidVsiDigital(E) \
+#define XVidC_EdidIsDigitalSig(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_VSI_MASK) != 0)
 #define XVidC_EdidIsBDispVidVsiAnalog(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_VSI_MASK) == 0)
