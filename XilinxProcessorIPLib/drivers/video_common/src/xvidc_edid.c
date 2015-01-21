@@ -67,6 +67,21 @@ static float XVidC_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
 
 /**************************** Function Definitions ****************************/
 
+/******************************************************************************/
+/**
+ * Get the manufacturer name as specified in the supplied base Extended Display
+ * Identification Data (EDID).
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve the manufacturer
+ *		name from.
+ * @param	ManName is the string that will be modified to hold the
+ *		retrieved manufacturer name.
+ *
+ * @return	None.
+ *
+ * @note	The ManName argument is modified with the manufacturer name.
+ *
+*******************************************************************************/
 void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4])
 {
 	ManName[0] = 0x40 + ((EdidRaw[XVIDC_EDID_VPI_ID_MAN_NAME0] &
@@ -82,6 +97,20 @@ void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4])
 	ManName[3] = '\0';
 }
 
+/******************************************************************************/
+/**
+ * Get the color bit depth (bits per primary color) as specified in the supplied
+ * base Extended Display Identification Data (EDID).
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve color depth
+ *		information from.
+ *
+ * @return	The number of bits per primary color as specified by the
+ *		supplied base EDID.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u8 XVidC_EdidGetBDispVidDigBpc(u8 *EdidRaw)
 {
 	u8 Bpc;
@@ -121,6 +150,20 @@ u8 XVidC_EdidGetBDispVidDigBpc(u8 *EdidRaw)
 	return Bpc;
 }
 
+/******************************************************************************/
+/**
+ * Calculates the x chromaticity coordinate for red by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The x chromatacity coordinate for red.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcRedX(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -129,6 +172,20 @@ float XVidC_EdidGetCcRedX(u8 *EdidRaw)
 		XVIDC_EDID_CC_RBX_LOW_SHIFT), 9);
 }
 
+/******************************************************************************/
+/**
+ * Calculates the y chromaticity coordinate for red by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The y chromatacity coordinate for red.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcRedY(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -138,6 +195,20 @@ float XVidC_EdidGetCcRedY(u8 *EdidRaw)
 		XVIDC_EDID_CC_RBY_LOW_SHIFT), 9);
 }
 
+/******************************************************************************/
+/**
+ * Calculates the x chromaticity coordinate for green by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The x chromatacity coordinate for green.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcGreenX(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -147,6 +218,20 @@ float XVidC_EdidGetCcGreenX(u8 *EdidRaw)
 		XVIDC_EDID_CC_GWX_LOW_SHIFT), 9);
 }
 
+/******************************************************************************/
+/**
+ * Calculates the y chromaticity coordinate for green by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The y chromatacity coordinate for green.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcGreenY(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -155,6 +240,20 @@ float XVidC_EdidGetCcGreenY(u8 *EdidRaw)
 		XVIDC_EDID_CC_GWY_LOW_MASK), 9);
 }
 
+/******************************************************************************/
+/**
+ * Calculates the x chromaticity coordinate for blue by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The x chromatacity coordinate for blue.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcBlueX(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -163,6 +262,20 @@ float XVidC_EdidGetCcBlueX(u8 *EdidRaw)
 		XVIDC_EDID_CC_RBX_LOW_SHIFT), 9);
 }
 
+/******************************************************************************/
+/**
+ * Calculates the y chromaticity coordinate for blue by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The y chromatacity coordinate for blue.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcBlueY(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -171,6 +284,20 @@ float XVidC_EdidGetCcBlueY(u8 *EdidRaw)
 		XVIDC_EDID_CC_RBY_LOW_MASK) >> XVIDC_EDID_CC_RBY_LOW_SHIFT), 9);
 }
 
+/******************************************************************************/
+/**
+ * Calculates the x chromaticity coordinate for white by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The x chromatacity coordinate for white.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcWhiteX(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -179,6 +306,20 @@ float XVidC_EdidGetCcWhiteX(u8 *EdidRaw)
 		XVIDC_EDID_CC_GWX_LOW_MASK) >> XVIDC_EDID_CC_GWX_LOW_SHIFT), 9);
 }
 
+/******************************************************************************/
+/**
+ * Calculates the y chromaticity coordinate for white by converting a 10 bit
+ * binary fraction representation from the supplied base Extended Display
+ * Identification Data (EDID) to a float.
+ *
+ * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
+ *		information from.
+ *
+ * @return	The y chromatacity coordinate for white.
+ *
+ * @note	All values will be accurate to +/-0.0005.
+ *
+*******************************************************************************/
 float XVidC_EdidGetCcWhiteY(u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
@@ -187,6 +328,21 @@ float XVidC_EdidGetCcWhiteY(u8 *EdidRaw)
 		XVIDC_EDID_CC_GWY_LOW_MASK), 9);
 }
 
+/******************************************************************************/
+/**
+ * Retrieves the active vertical resolution from the standard timings field of
+ * the supplied base Extended Display Identification Data (EDID).
+ *
+ * @param	EdidRaw is the supplied base EDID to check the timing against.
+ * @param	StdTimingsNum specifies which one of the standard timings to
+ *		retrieve from the standard timings field.
+ *
+ * @return	The vertical active resolution of the specified standard timing
+ *		from the supplied base EDID.
+ *
+ * @note	StdTimingsNum is an index 1-8.
+ *
+*******************************************************************************/
 u16 XVidC_EdidGetStdTimingsV(u8 *EdidRaw, u8 StdTimingsNum)
 {
 	u16 V;
@@ -207,15 +363,36 @@ u16 XVidC_EdidGetStdTimingsV(u8 *EdidRaw, u8 StdTimingsNum)
 							StdTimingsNum)) / 5;
 			break;
 
-		default:
+		case XVIDC_EDID_STD_TIMINGS_AR_16_9:
 			V = (9 * XVidC_EdidGetStdTimingsH(EdidRaw,
 							StdTimingsNum)) / 16;
+			break;
+		default:
+			V = 0;
 			break;
 	}
 
 	return V;
 }
 
+/******************************************************************************/
+/**
+ * Checks whether or not a specified video timing mode is supported as specified
+ * in the supplied base Extended Display Identification Data (EDID). The
+ * preferred timing, established timings (I, II, II), and the standard timings
+ * fields are checked for support.
+ *
+ * @param	EdidRaw is the supplied base EDID to check the timing against.
+ * @param	VtMode is the video timing mode to check for support.
+ *
+ * @return
+ *		- XST_SUCCESS if the video timing mode is supported as specified
+ *		  in the supplied base EDID.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XVidC_EdidIsVideoTimingSupported(u8 *EdidRaw, XVidC_VideoTimingMode *VtMode)
 {
 	u32 Status;
@@ -241,6 +418,22 @@ u32 XVidC_EdidIsVideoTimingSupported(u8 *EdidRaw, XVidC_VideoTimingMode *VtMode)
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * Checks whether or not a specified video timing mode is the preferred timing
+ * of the supplied base Extended Display Identification Data (EDID).
+ *
+ * @param	EdidRaw is the supplied base EDID to check the timing against.
+ * @param	VtMode is the video timing mode to check for support.
+ *
+ * @return
+ *		- XST_SUCCESS if the video timing mode is the preferred timing
+ *		  as specified in the base EDID.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(u8 *EdidRaw,
 						XVidC_VideoTimingMode *VtMode)
 {
@@ -271,12 +464,29 @@ static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(u8 *EdidRaw,
 	return XST_FAILURE;
 }
 
+/******************************************************************************/
+/**
+ * Checks whether or not a specified video timing mode is supported in the
+ * established timings field of the supplied base Extended Display
+ * Identification Data (EDID).
+ *
+ * @param	EdidRaw is the supplied base EDID to check the timing against.
+ * @param	VtMode is the video timing mode to check for support.
+ *
+ * @return
+ *		- XST_SUCCESS if the video timing mode is supported in the
+ *		  base EDID's established timings field.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw,
 						XVidC_VideoTimingMode *VtMode)
 {
 	u32 Status = XST_FAILURE;
 
-	/* First, check established timings I, II, and III. */
+	/* Check established timings I, II, and III. */
 	if ((VtMode->Timing.HActive == 800) &&
 			(VtMode->Timing.VActive == 640) &&
 			(VtMode->FrameRate == XVIDC_FR_56HZ) &&
@@ -383,6 +593,23 @@ static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw,
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * Checks whether or not a specified video timing mode is supported in the
+ * standard timings field of the supplied base Extended Display Identification
+ * Data (EDID).
+ *
+ * @param	EdidRaw is the supplied base EDID to check the timing against.
+ * @param	VtMode is the video timing mode to check for support.
+ *
+ * @return
+ *		- XST_SUCCESS if the video timing mode is supported in the
+ *		  base EDID's standard timings fields.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings(u8 *EdidRaw,
 			XVidC_VideoTimingMode *VtMode)
 {
