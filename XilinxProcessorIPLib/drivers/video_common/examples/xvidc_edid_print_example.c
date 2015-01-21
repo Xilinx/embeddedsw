@@ -181,21 +181,21 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 
 		xil_printf("\tSynchronization types:\n");
 		xil_printf("\t\tSeparate sync H & V signals ");
-		if (XVidC_EdidSuppBDispVidAnaSepSyncHv(EdidRaw)) {
+		if (XVidC_EdidSuppAnalogSigSepSyncHv(EdidRaw)) {
 			xil_printf("are supported.\n");
 		}
 		else {
 			xil_printf("are not supported.\n");
 		}
 		xil_printf("\t\tComposite sync signal on horizontal ");
-		if (XVidC_EdidSuppBDispVidAnaCompSyncH(EdidRaw)) {
+		if (XVidC_EdidSuppAnalogSigCompSyncH(EdidRaw)) {
 			xil_printf("is supported.\n");
 		}
 		else {
 			xil_printf("is not supported.\n");
 		}
 		xil_printf("\t\tComposite sync signal on green video ");
-		if (XVidC_EdidSupp_BDispVidAnaCompSyncG(EdidRaw)) {
+		if (XVidC_EdidSuppAnalogSigCompSyncG(EdidRaw)) {
 			xil_printf("is supported.\n");
 		}
 		else {
@@ -203,7 +203,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		}
 
 		xil_printf("\tSerrations on the vertical sync ");
-		if (XVidC_EdidSuppBDispVidAnaSerrVsync(EdidRaw)) {
+		if (XVidC_EdidSuppAnalogSigSerrVsync(EdidRaw)) {
 			xil_printf("is supported.\n");
 		}
 		else {

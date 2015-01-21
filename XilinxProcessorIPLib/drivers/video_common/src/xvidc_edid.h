@@ -299,13 +299,13 @@
 	XVIDC_EDID_BDISP_VID_ANA_SLS_SHIFT)
 #define XVidC_EdidGetAnalogSigVidSetup(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_VID_SETUP_MASK) != 0)
-#define XVidC_EdidSuppBDispVidAnaSepSyncHv(E) \
+#define XVidC_EdidSuppAnalogSigSepSyncHv(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SEP_SYNC_HV_MASK) != 0)
-#define XVidC_EdidSuppBDispVidAnaCompSyncH(E) \
+#define XVidC_EdidSuppAnalogSigCompSyncH(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_COMP_SYNC_H_MASK) != 0)
-#define XVidC_EdidSupp_BDispVidAnaCompSyncG(E) \
+#define XVidC_EdidSuppAnalogSigCompSyncG(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_COMP_SYNC_G_MASK) != 0)
-#define XVidC_EdidSuppBDispVidAnaSerrVsync(E) \
+#define XVidC_EdidSuppAnalogSigSerrVsync(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SERR_V_SYNC_MASK) != 0)
 /* XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw); */
 #define XVidC_EdidGetBDispVidDigVis(E) \
