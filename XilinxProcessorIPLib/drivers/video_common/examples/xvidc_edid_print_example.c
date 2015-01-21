@@ -88,7 +88,7 @@ static void Edid_Print_BaseVPId(u8 *EdidRaw)
 					XVidC_EdidGetIdProdCode(EdidRaw));
 	xil_printf("\tID serial number:\t0x%08lx\n",
 						XVidC_EdidGetIdSn(EdidRaw));
-	if (XVidC_EdidIsVpiYearModel(EdidRaw)) {
+	if (XVidC_EdidIsYearModel(EdidRaw)) {
 		xil_printf("\tModel year:\t\t%d\n",
 					XVidC_EdidGetModManYear(EdidRaw));
 	}
