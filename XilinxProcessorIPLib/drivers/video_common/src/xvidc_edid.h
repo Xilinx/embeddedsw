@@ -313,56 +313,53 @@
 
 /* Basic display parameters and features: Horizontal and vertical screen size or
  * aspect ratio. */
-#define XVidC_EdidIBDispSsarDefined(E) \
+#define XVidC_EdidIsSsArDefined(E) \
 	((E[XVIDC_EDID_BDISP_H_SSAR] | E[XVIDC_EDID_BDISP_V_SSAR]) != 0)
-#define XVidC_EdidGetBDispSsArH(E)	E[XVIDC_EDID_BDISP_H_SSAR]
-#define XVidC_EdidGetBDispSsArV(E)	E[XVIDC_EDID_BDISP_V_SSAR]
-#define XVidC_EdidIsBDispSsArSs(E) \
-	((XVidC_EdidGetBDispSsArH(E) != 0) && \
-	(XVidC_EdidGetBDispSsArV(E) != 0))
-#define XVidC_EdidIsBDispSsArArL(E) \
-	((XVidC_EdidGetBDispSsArH(E) != 0) && \
-	(XVidC_EdidGetBDispSsArV(E) == 0))
-#define XVidC_EdidIsBDispSsArArP(E) \
-	((XVidC_EdidGetBDispSsArH(E) == 0) && \
-	(XVidC_EdidGetBDispSsArV(E) != 0))
-#define XVidC_Edid_GetBDispSsArArL(E) \
-	((float)((XVidC_EdidGetBDispSsArH(E) + 99.0) / 100.0))
-#define XVidC_Edid_GetBDispSsArArP(E) \
-	((float)(100.0 / (XVidC_EdidGetBDispSsArV(E) + 99.0)))
+#define XVidC_EdidGetSsArH(E)	E[XVIDC_EDID_BDISP_H_SSAR]
+#define XVidC_EdidGetSsArV(E)	E[XVIDC_EDID_BDISP_V_SSAR]
+#define XVidC_EdidIsSsArSs(E) \
+	((XVidC_EdidGetSsArH(E) != 0) && (XVidC_EdidGetSsArV(E) != 0))
+#define XVidC_EdidIsSsArArL(E) \
+	((XVidC_EdidGetSsArH(E) != 0) && (XVidC_EdidGetSsArV(E) == 0))
+#define XVidC_EdidIsSsArArP(E) \
+	((XVidC_EdidGetSsArH(E) == 0) && (XVidC_EdidGetSsArV(E) != 0))
+#define XVidC_EdidGetSsArArL(E) \
+	((float)((XVidC_EdidGetSsArH(E) + 99.0) / 100.0))
+#define XVidC_EdidGetSsArArP(E) \
+	((float)(100.0 / (XVidC_EdidGetSsArV(E) + 99.0)))
 
 /* Basic display parameters and features: Gamma. */
-#define XVidC_EdidIsBDispGammaInExt(E)	(E[XVIDC_EDID_BDISP_GAMMA] == 0xFF)
-#define XVidC_EdidGetBDispGamma(E) \
+#define XVidC_EdidIsGammaInExt(E)	(E[XVIDC_EDID_BDISP_GAMMA] == 0xFF)
+#define XVidC_EdidGetGamma(E) \
 	((float)((E[XVIDC_EDID_BDISP_GAMMA] + 100.0) / 100.0))
 
 /* Basic display parameters and features: Feature support. */
-#define XVidC_EdidSuppBDispFeaturePmStandby(E) \
+#define XVidC_EdidSuppFeaturePmStandby(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_PM_STANDBY_MASK) != 0)
-#define XVidC_EdidSuppBDispFeaturePmSuspend(E) \
+#define XVidC_EdidSuppFeaturePmSuspend(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_PM_SUSPEND_MASK) != 0)
-#define XVidC_EdidSuppBDispFeaturePmOffVlp(E) \
+#define XVidC_EdidSuppFeaturePmOffVlp(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_PM_OFF_VLP_MASK) != 0)
-#define XVidC_EdidGetBDispFeatureAnaColorType(E) \
+#define XVidC_EdidGetFeatureAnaColorType(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_MASK) >> \
 	XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_SHIFT)
-#define XVidC_EdidSuppBDispFeatureDigColorEncYCrCb444(E) \
+#define XVidC_EdidSuppFeatureDigColorEncYCrCb444(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_DIG_COLORENC_YCRCB444_MASK) != 0)
-#define XVidC_EdidSuppBDispFeatureDigColorEncYCrCb422(E) \
+#define XVidC_EdidSuppFeatureDigColorEncYCrCb422(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_DIG_COLORENC_YCRCB422_MASK) != 0)
-#define XVidC_EdidIsBDispFeatureSrgbDef(E) \
+#define XVidC_EdidIsFeatureSrgbDef(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_SRGB_DEF_MASK) != 0)
-#define XVidC_EdidIsBDispFeaturePtmInc(E) \
+#define XVidC_EdidIsFeaturePtmInc(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_PTM_INC_MASK) != 0)
-#define XVidC_EdidIsBDispFeatureContFreq(E) \
+#define XVidC_EdidIsFeatureContFreq(E) \
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_CONTFREQ_MASK) != 0)
 

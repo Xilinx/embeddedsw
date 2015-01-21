@@ -127,7 +127,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 			xil_printf("\tColor bit depth is undefined.\n");
 		}
 
-		switch (XVidC_EdidGetBDispVidDigVis(EdidRaw)) {
+		switch (XVidC_EdidGetDigitalSigIfaceStd(EdidRaw)) {
 			case XVIDC_EDID_BDISP_VID_DIG_VIS_DVI:
 				xil_printf("\tDVI is supported.\n");
 				break;
@@ -211,14 +211,14 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		}
 	}
 
-	if (XVidC_EdidIsBDispSsArSs(EdidRaw)) {
+	if (XVidC_EdidIsSsArSs(EdidRaw)) {
 		xil_printf("\tScreen size (HxV):\t%dx%d(cm)\n",
-					XVidC_EdidGetBDispSsArH(EdidRaw),
-					XVidC_EdidGetBDispSsArV(EdidRaw));
+						XVidC_EdidGetSsArH(EdidRaw),
+						XVidC_EdidGetSsArV(EdidRaw));
 	}
-	else if (XVidC_EdidIsBDispSsArArL(EdidRaw)) {
+	else if (XVidC_EdidIsSsArArL(EdidRaw)) {
 		xil_printf("\tAspect ratio (H:V):\t");
-		switch (XVidC_EdidGetBDispSsArH(EdidRaw)) {
+		switch (XVidC_EdidGetSsArH(EdidRaw)) {
 			case 0x4F:
 				xil_printf("16:9 ");
 				break;
@@ -233,17 +233,16 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 				break;
 			default:
 				xil_printf("%d.%03d:1 ",
-					(u32)XVidC_Edid_GetBDispSsArArL(EdidRaw),
+					(u32)XVidC_EdidGetSsArArL(EdidRaw),
 					FLOAT_FRAC_TO_U32(
-					XVidC_Edid_GetBDispSsArArL(EdidRaw),
-									1000));
+					XVidC_EdidGetSsArArL(EdidRaw), 1000));
 				break;
 		}
 		xil_printf("(landscape)\n");
 	}
-	else if (XVidC_EdidIsBDispSsArArP(EdidRaw)) {
+	else if (XVidC_EdidIsSsArArP(EdidRaw)) {
 		xil_printf("\tAspect ratio (H:V):\t");
-		switch(XVidC_EdidGetBDispSsArV(EdidRaw)) {
+		switch(XVidC_EdidGetSsArV(EdidRaw)) {
 			case 0x4F:
 				xil_printf("9:16 ");
 				break;
@@ -258,9 +257,9 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 				break;
 			default:
 				xil_printf("%d.%03d:1 ",
-					(u32)XVidC_EdidIsBDispSsArArP(EdidRaw),
+					(u32)XVidC_EdidIsSsArArP(EdidRaw),
 					FLOAT_FRAC_TO_U32(
-					XVidC_Edid_GetBDispSsArArP(EdidRaw),
+					XVidC_EdidGetSsArArP(EdidRaw),
 					1000));
 				break;
 		}
@@ -270,33 +269,33 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		xil_printf("\tScreen size and aspect ratio are undefined.\n");
 	}
 
-	if (XVidC_EdidIsBDispGammaInExt(EdidRaw)) {
+	if (XVidC_EdidIsGammaInExt(EdidRaw)) {
 		xil_printf("\tGamma is defined in an extension block.\n");
 	}
 	else {
 		xil_printf("\tGamma:\t\t\t%d.%02d\n",
-			(u32)XVidC_EdidGetBDispGamma(EdidRaw),
-			FLOAT_FRAC_TO_U32(XVidC_EdidGetBDispGamma(EdidRaw),
+			(u32)XVidC_EdidGetGamma(EdidRaw),
+			FLOAT_FRAC_TO_U32(XVidC_EdidGetGamma(EdidRaw),
 			100));
 	}
 
 	xil_printf("\tDisplay power management:\n");
 	xil_printf("\t\t\t\tStandby mode ");
-	if (XVidC_EdidSuppBDispFeaturePmStandby(EdidRaw)) {
+	if (XVidC_EdidSuppFeaturePmStandby(EdidRaw)) {
 		xil_printf("is supported.\n");
 	}
 	else {
 		xil_printf("is not supported.\n");
 	}
 	xil_printf("\t\t\t\tSuspend mode ");
-	if (XVidC_EdidSuppBDispFeaturePmSuspend(EdidRaw)) {
+	if (XVidC_EdidSuppFeaturePmSuspend(EdidRaw)) {
 		xil_printf("is supported.\n");
 	}
 	else {
 		xil_printf("is not supported.\n");
 	}
 	xil_printf("\t\t\t\tActive off = very low power ");
-	if (XVidC_EdidSuppBDispFeaturePmOffVlp(EdidRaw)) {
+	if (XVidC_EdidSuppFeaturePmOffVlp(EdidRaw)) {
 		xil_printf("is supported.\n");
 	}
 	else {
@@ -307,17 +306,17 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 		/* Input is a digital video signal interface. */
 		xil_printf("\tSupported color encoding format(s):\n");
 		xil_printf("\t\t\t\tRGB 4:4:4\n");
-		if (XVidC_EdidSuppBDispFeatureDigColorEncYCrCb444(EdidRaw)) {
+		if (XVidC_EdidSuppFeatureDigColorEncYCrCb444(EdidRaw)) {
 			xil_printf("\t\t\t\tYCrCb 4:4:4\n");
 		}
-		if (XVidC_EdidSuppBDispFeatureDigColorEncYCrCb422(EdidRaw)) {
+		if (XVidC_EdidSuppFeatureDigColorEncYCrCb422(EdidRaw)) {
 			xil_printf("\t\t\t\tYCrCb 4:2:2\n");
 		}
 	}
 	else {
 		/* Input is an analog video signal interface. */
 		xil_printf("\tDisplay color type:\t");
-		switch (XVidC_EdidGetBDispFeatureAnaColorType(EdidRaw)) {
+		switch (XVidC_EdidGetFeatureAnaColorType(EdidRaw)) {
 		case XVIDC_EDID_BDISP_FEATURE_ANA_COLORTYPE_MCG:
 			xil_printf("Monochrome or grayscale display.\n");
 			break;
@@ -337,7 +336,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	xil_printf("\tOther supported features:\n");
 	/* sRGB standard is the default color space. */
 	xil_printf("\t\tsRGB standard ");
-	if (XVidC_EdidIsBDispFeaturePtmInc(EdidRaw)) {
+	if (XVidC_EdidIsFeaturePtmInc(EdidRaw)) {
 		xil_printf("is ");
 	}
 	else {
@@ -346,7 +345,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	xil_printf("the default color space.\n");
 	/* Preferred timing mode includes. */
 	xil_printf("\t\tPtm ");
-	if (XVidC_EdidIsBDispFeaturePtmInc(EdidRaw)) {
+	if (XVidC_EdidIsFeaturePtmInc(EdidRaw)) {
 		xil_printf("includes ");
 	}
 	else {
@@ -355,7 +354,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 	xil_printf("the native pixel format and preferred refresh rate.\n");
 	/* Continuous frequency. */
 	xil_printf("\t\tDisplay ");
-	if (XVidC_EdidIsBDispFeatureContFreq(EdidRaw)) {
+	if (XVidC_EdidIsFeatureContFreq(EdidRaw)) {
 		xil_printf("is ");
 	}
 	else {
