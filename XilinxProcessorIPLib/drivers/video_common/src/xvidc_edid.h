@@ -292,7 +292,7 @@
 /* Basic display parameters and features: Video input definition. */
 #define XVidC_EdidIsDigitalSig(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_VSI_MASK) != 0)
-#define XVidC_EdidIsBDispVidVsiAnalog(E) \
+#define XVidC_EdidIsAnalogSig(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_VSI_MASK) == 0)
 #define XVidC_EdidGetBDispVidAnaSls(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SLS_MASK) >> \
