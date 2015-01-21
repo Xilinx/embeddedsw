@@ -273,7 +273,7 @@
 	E[XVIDC_EDID_VPI_ID_PROD_CODE_LSB]))
 
 /* Vendor and product identification: ID serial number. */
-#define XVidC_EditGetVpiSn(E) \
+#define XVidC_EdidGetIdSn(E) \
 	((u32)((E[XVIDC_EDID_VPI_ID_SN3] << 24) | \
 	(E[XVIDC_EDID_VPI_ID_SN2] << 16) | (E[XVIDC_EDID_VPI_ID_SN1] << 8) | \
 	E[XVIDC_EDID_VPI_ID_SN0]))
