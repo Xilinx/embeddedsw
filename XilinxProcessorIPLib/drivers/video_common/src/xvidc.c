@@ -59,7 +59,6 @@
 
 /******************************************************************************/
 /**
- *
  * This function calculates pixel clock based on the inputs.
  *
  * @param	HTotal specifies horizontal total.
@@ -78,7 +77,6 @@ u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
 
 /******************************************************************************/
 /**
- *
  * This function calculates pixel clock from video mode.
  *
  * @param	VmId specifies the resolution id.
@@ -118,7 +116,6 @@ u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
- *
  * This function check input video mode is interlaced/progressive.
  *
  * @param	VmId specifies the resolution id.
@@ -141,7 +138,6 @@ XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
- *
  * This function returns the Video Mode ID that matches the detected input
  * width, height, frame rate and I/P flag
  *
@@ -244,7 +240,6 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 
 /******************************************************************************/
 /**
- *
  * This function returns the pointer to video mode data at index provided.
  *
  * @param	VmId specifies the resolution id.
@@ -289,7 +284,6 @@ const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
- *
  * This function returns the frame rate name for index specified.
  *
  * @param	VmId specifies the resolution id.
@@ -362,7 +356,6 @@ char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
- *
  * This function returns the color format name for index specified.
  *
  * @param	ColorSpaceId specifies the index of color space.
@@ -398,7 +391,6 @@ char *XVidC_GetColorFormatStr(XVidC_ColorSpace ColorSpaceId)
 
 /******************************************************************************/
 /**
- *
  * This function returns the frame rate for index specified.
  *
  * @param	VmId specifies the resolution id.
@@ -420,7 +412,6 @@ XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
- *
  * This function returns the timing parameters for specified resolution.
  *
  * @param	VmId specifies the resolution id.
@@ -442,7 +433,6 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
- *
  * This function prints the stream information on STDIO/UART console.
  *
  * @param	Stream is a pointer to video stream.
@@ -468,7 +458,6 @@ void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
 
 /******************************************************************************/
 /**
- *
  * This function prints timing information on STDIO/Uart console.
  *
  * @param	Timing is a pointer to Video Timing structure of the stream.

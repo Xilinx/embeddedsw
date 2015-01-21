@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  *
- * @file xvidc_edid_print.h
+ * @file xvidc_edid_print_example.h
  *
  * Contains an example that, given a supplied base Extended Display
  * Identification Data (EDID) structure, will parse, decode, and print its

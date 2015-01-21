@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  *
- * @file xvidc_edid_print.c
+ * @file xvidc_edid_print_example.c
  *
  * Contains an example that, given a supplied base Extended Display
  * Identification Data (EDID) structure, will parse, decode, and print its
@@ -74,6 +74,20 @@ static u8 Edid_CalculateChecksum(u8 *Data, u8 Size);
 
 /*************************** Function Definitions *****************************/
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure and prints its contents.
+ *
+ * @param	EdidRaw is the base EDID structure to decode and print.
+ *
+ * @return
+ *		- XST_SUCCESS if the supplied base EDID has a valid EDID header.
+ *		- XST_FAILURE otherwise. The EDID wasn't decoded further.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 {
 	/* Check valid header. */
@@ -114,6 +128,20 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for supported video timing modes and prints all video
+ * timing modes that are both supported in the EDID and listed in the
+ * XVidC_VideoTimingModes table.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 void Edid_PrintSuppVmTable(u8 *EdidRaw)
 {
 	u8 Index;
@@ -129,6 +157,18 @@ void Edid_PrintSuppVmTable(u8 *EdidRaw)
 	}
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for the vendor and product ID and prints this information.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void Edid_PrintBaseVPId(u8 *EdidRaw)
 {
 	char ManName[4];
@@ -156,6 +196,19 @@ static void Edid_PrintBaseVPId(u8 *EdidRaw)
 	}
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for the EDID version and revision and prints this
+ * information.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void Edid_PrintBaseVerRev(u8 *EdidRaw)
 {
 	/* EDID structure version and revision. */
@@ -164,6 +217,19 @@ static void Edid_PrintBaseVerRev(u8 *EdidRaw)
 					XVidC_EdidGetStructRev(EdidRaw));
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for basic display parameters and features and prints this
+ * information.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void Edid_PrintBaseBasicDisp(u8 *EdidRaw)
 {
 	/* Basic display parameters and features. */
@@ -416,6 +482,18 @@ static void Edid_PrintBaseBasicDisp(u8 *EdidRaw)
 	xil_printf("continuous frequency.\n");
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for color characteristics and prints this information.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void Edid_PrintColorChar(u8 *EdidRaw)
 {
 	xil_printf("Color characterisitics:\n");
@@ -445,6 +523,19 @@ static void Edid_PrintColorChar(u8 *EdidRaw)
 		FLOAT_FRAC_TO_U32(XVidC_EdidGetCcWhiteY(EdidRaw), 1000000000));
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for supported established timings and prints this
+ * information.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void Edid_PrintEstTimings(u8 *EdidRaw)
 {
 	xil_printf("Established timings:\n");
@@ -503,9 +594,20 @@ static void Edid_PrintEstTimings(u8 *EdidRaw)
 					XVidC_EdidGetTimingsMan(EdidRaw));
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for supported standard timings and prints this information.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void Edid_PrintStdTimings(u8 *EdidRaw)
 {
-	/* Standard timings. */
 	u8 Index;
 
 	xil_printf("Standard timings:\n");
@@ -522,6 +624,19 @@ static void Edid_PrintStdTimings(u8 *EdidRaw)
 	}
 }
 
+/******************************************************************************/
+/**
+ * This function decodes the supplied base Extended Display Identification Data
+ * (EDID) structure for the preferred timing mode (PTM) and prints its timing
+ * information.
+ *
+ * @param	EdidRaw is the base EDID structure to decode.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static void Edid_PrintPtm(u8 *EdidRaw)
 {
 	u8 *Ptm;
@@ -605,6 +720,18 @@ static void Edid_PrintPtm(u8 *EdidRaw)
 					"Yes." : "No (progressive).");
 }
 
+/******************************************************************************/
+/**
+ * This function calculates a checksum.
+ *
+ * @param	Data is a pointer to the data to calculate the checksum on.
+ * @param	Size the number of bytes of Data to calculate the checksum on.
+ *
+ * @return	The checksum value (truncated to a 8 bits).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 static u8 Edid_CalculateChecksum(u8 *Data, u8 Size)
 {
 	u8 Index;
