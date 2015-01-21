@@ -69,8 +69,8 @@ static float XVidC_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
 
 /******************************************************************************/
 /**
- * Get the manufacturer name as specified in the supplied base Extended Display
- * Identification Data (EDID).
+ * Get the manufacturer name as specified in the vendor and product ID field of
+ * the supplied base Extended Display Identification Data (EDID).
  *
  * @param	EdidRaw is the supplied base EDID to retrieve the manufacturer
  *		name from.
@@ -82,7 +82,7 @@ static float XVidC_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
  * @note	The ManName argument is modified with the manufacturer name.
  *
 *******************************************************************************/
-void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4])
+void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4])
 {
 	ManName[0] = 0x40 + ((EdidRaw[XVIDC_EDID_VPI_ID_MAN_NAME0] &
 				XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR0_MASK) >>

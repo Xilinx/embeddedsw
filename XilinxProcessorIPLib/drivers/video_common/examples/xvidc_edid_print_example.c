@@ -79,7 +79,7 @@ void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
 static void Edid_Print_BaseVPId(u8 *EdidRaw)
 {
 	char ManName[4];
-	XVidC_EdidGetVpiIdManName(EdidRaw, ManName);
+	XVidC_EdidGetManName(EdidRaw, ManName);
 
 	/* Vendor and product identification. */
 	xil_printf("Vendor and product identification:\n");

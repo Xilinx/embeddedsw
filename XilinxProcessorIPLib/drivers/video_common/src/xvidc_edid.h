@@ -265,7 +265,7 @@
 	!memcmp(E, "\x00\xFF\xFF\xFF\xFF\xFF\xFF\x00", 8)
 
 /* Vendor and product identification: ID manufacturer name. */
-/* void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4]); */
+/* void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4]); */
 
 /* Vendor and product identification: ID product code. */
 #define XVidC_EdidGetVpiIdProdCode(E) \
@@ -454,7 +454,7 @@
 /**************************** Function Prototypes *****************************/
 
 /* Vendor and product identification: ID manufacturer name. */
-void XVidC_EdidGetVpiIdManName(u8 *EdidRaw, char ManName[4]);
+void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4]);
 
 /* Basic display parameters and features: Video input definition. */
 XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw);
