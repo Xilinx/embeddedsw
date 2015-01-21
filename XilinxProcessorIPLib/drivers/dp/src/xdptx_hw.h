@@ -388,7 +388,7 @@
 #define XDPTX_TX_MST_CONFIG_VCP_UPDATED_MASK \
 				0x00000002	/**< The VC payload has been
 							updated in the sink. */
-/* 0x0F8 : VERSION_REGISTER */
+/* 0x0F8: VERSION */
 #define XDPTX_VERSION_INTER_REV_MASK \
 				0x0000000F	/**< Internal revision. */
 #define XDPTX_VERSION_CORE_PATCH_MASK \
@@ -411,7 +411,7 @@
 #define XDPTX_VERSION_CORE_VER_MJR_SHIFT \
 				24		/**< Shift bits for core major
 							version. */
-/* 0x0FC : CORE_ID */
+/* 0x0FC: CORE_ID */
 #define XDPTX_CORE_ID_TYPE_MASK	0x0000000F	/**< Core type. */
 #define XDPTX_CORE_ID_TYPE_TX	0x0		/**< Core is a transmitter. */
 #define XDPTX_CORE_ID_TYPE_RX	0x1		/**< Core is a receiver. */
@@ -435,7 +435,7 @@
 				24		/**< Shift bits for DisplayPort
 							protocol major
 							version. */
-/* 0x100 AUX_CMD */
+/* 0x100: AUX_CMD */
 #define XDPTX_AUX_CMD_NBYTES_TRANSFER_MASK \
 				0x0000000F	/**< Number of bytes to transfer
 							with the current AUX
@@ -465,13 +465,12 @@
 							enable (STOP will be
 							sent after command). */
 /* 0x10C: AUX_CLK_DIVIDER */
-#define XDPTX_AUX_CLK_DIVIDER_VAL_MASK \
-				0x0000000F	/**< Clock divider value. */
+#define XDPTX_AUX_CLK_DIVIDER_VAL_MASK	0x00FF	/**< Clock divider value. */
 #define XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK \
-				0x00000F00	/**< AUX (noise) signal width
+					0xFF00	/**< AUX (noise) signal width
 							filter. */
 #define XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_SHIFT \
-				8		/**< Shift bits for AUX signal
+					8	/**< Shift bits for AUX signal
 							width filter. */
 /* 0x130: INTERRUPT_SIG_STATE */
 #define XDPTX_INTERRUPT_SIG_STATE_HPD_STATE_MASK \
@@ -630,7 +629,7 @@
 #define XDPTX_PHY_CONFIG_TX_PHY_PMA_RESET_MASK \
 				0x0000100	/**< Hold TX_PHY_PMA reset. */
 #define XDPTX_PHY_CONFIG_TX_PHY_PCS_RESET_MASK \
-				0x0000200	/**< HOLD TX_PHY_PCS reset. */
+				0x0000200	/**< Hold TX_PHY_PCS reset. */
 #define XDPTX_PHY_CONFIG_TX_PHY_POLARITY_MASK \
 				0x0000400	/**< Set TX_PHY_POLARITY. */
 #define XDPTX_PHY_CONFIG_TX_PHY_PRBSFORCEERR_MASK \
@@ -664,6 +663,9 @@
 #define XDPTX_PHY_STATUS_RESET_LANE_2_3_DONE_MASK \
 				0x0000000C	/**< Reset done for lanes
 							2 and 3. */
+#define XDPTX_PHY_STATUS_RESET_LANE_2_3_DONE_SHIFT \
+				2		/**< Shift bits for reset done
+							for lanes 2 and 3. */
 #define XDPTX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK \
 				0x00000010	/**< PLL locked for lanes
 							0 and 1. */
