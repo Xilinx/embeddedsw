@@ -154,7 +154,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 
 		xil_printf("\tSignal level standard:\t");
 
-		switch (XVidC_EdidGetBDispVidAnaSls(EdidRaw)) {
+		switch (XVidC_EdidGetAnalogSigLvlStd(EdidRaw)) {
 			case XVIDC_EDID_BDISP_VID_ANA_SLS_0700_0300_1000:
 				xil_printf("0.700 : 0.300 : 1.000 Vp-p ");
 				break;
