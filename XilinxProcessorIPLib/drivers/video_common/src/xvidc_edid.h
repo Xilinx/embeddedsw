@@ -268,7 +268,7 @@
 /* void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4]); */
 
 /* Vendor and product identification: ID product code. */
-#define XVidC_EdidGetVpiIdProdCode(E) \
+#define XVidC_EdidGetIdProdCode(E) \
 	((u16)((E[XVIDC_EDID_VPI_ID_PROD_CODE_MSB] << 8) | \
 	E[XVIDC_EDID_VPI_ID_PROD_CODE_LSB]))
 
