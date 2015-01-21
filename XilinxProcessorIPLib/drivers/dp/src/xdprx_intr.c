@@ -82,17 +82,19 @@ void XDprx_InterruptHandler(XDprx *InstancePtr)
 	 * Note: XDPRX_INTERRUPT_CAUSE is an RC (read-clear) register. */
 	IntrStatus = XDprx_ReadReg(InstancePtr->Config.BaseAddr,
 							XDPRX_INTERRUPT_CAUSE);
-	IntrVmChange = (IntrStatus & 0x00001);
-	IntrPowerState = ((IntrStatus & 0x00002) >> 1);
-	IntrNoVideo = ((IntrStatus & 0x00004) >> 2);
-	IntrVBlank = ((IntrStatus & 0x00008) >> 3);
-	IntrTrainingLost = ((IntrStatus & 0x00010) >> 4);
-	IntrVideo = ((IntrStatus & 0x00040) >> 6);
-	IntrTrainingDone = ((IntrStatus & 0x04000) >> 14);
-	IntrBwChange = ((IntrStatus & 0x08000) >> 15);
-	IntrTp1 = ((IntrStatus & 0x10000) >> 16);
-	IntrTp2 = ((IntrStatus & 0x20000) >> 17);
-	IntrTp3 = ((IntrStatus & 0x40000) >> 18);
+	IntrVmChange = (IntrStatus & XDPRX_INTERRUPT_CAUSE_VM_CHANGE_MASK);
+	IntrPowerState = (IntrStatus & XDPRX_INTERRUPT_CAUSE_POWER_STATE_MASK);
+	IntrNoVideo = (IntrStatus & XDPRX_INTERRUPT_CAUSE_NO_VIDEO_MASK);
+	IntrVBlank = (IntrStatus & XDPRX_INTERRUPT_CAUSE_VBLANK_MASK);
+	IntrTrainingLost = (IntrStatus &
+				XDPRX_INTERRUPT_CAUSE_TRAINING_LOST_MASK);
+	IntrVideo = (IntrStatus & XDPRX_INTERRUPT_CAUSE_VIDEO_MASK);
+	IntrTrainingDone = (IntrStatus &
+				XDPRX_INTERRUPT_CAUSE_TRAINING_DONE_MASK);
+	IntrBwChange = (IntrStatus & XDPRX_INTERRUPT_CAUSE_BW_CHANGE_MASK);
+	IntrTp1 = (IntrStatus & XDPRX_INTERRUPT_CAUSE_TP1_MASK);
+	IntrTp2 = (IntrStatus & XDPRX_INTERRUPT_CAUSE_TP2_MASK);
+	IntrTp3 = (IntrStatus & XDPRX_INTERRUPT_CAUSE_TP3_MASK);
 
 	/* Training pattern 1 has started. */
 	if (IntrTp1) {
@@ -176,7 +178,8 @@ void XDprx_GenerateHpdInterrupt(XDprx *InstancePtr, u16 DurationUs)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_HPD_INTERRUPT,
-						(DurationUs << 16) | 0x1);
+			(DurationUs << XDPRX_HPD_INTERRUPT_LENGTH_US_SHIFT) |
+			XDPRX_HPD_INTERRUPT_ASSERT_MASK);
 }
 
 /******************************************************************************/

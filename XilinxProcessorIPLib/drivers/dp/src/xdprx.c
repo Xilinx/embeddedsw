@@ -144,46 +144,54 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Disable the main link. */
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LINK_ENABLE, 0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LINK_ENABLE, 0x0);
 
 	/* Set the AUX clock divider. */
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_AUX_CLK_DIVIDER,
 				(InstancePtr->Config.SAxiClkHz / 1000000));
 
 	/* Put both GT RX/TX and CPLL into reset. */
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x03);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG,
+					XDPRX_PHY_CONFIG_GTPLL_RESET_MASK |
+					XDPRX_PHY_CONFIG_GTRX_RESET_MASK);
 
 	/* Release CPLL reset. */
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x02);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG,
+					XDPRX_PHY_CONFIG_GTRX_RESET_MASK);
 
 	/* Wait until all lane CPLLs have locked. */
-	Status = XDprx_WaitPhyReady(InstancePtr, 0x30);
+	Status = XDprx_WaitPhyReady(InstancePtr,
+					XDPRX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK |
+					XDPRX_PHY_STATUS_PLL_LANE2_3_LOCK_MASK);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/* Remove the reset from the PHY. */
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG, 0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_PHY_CONFIG,
+					XDPRX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
 
 	/* Wait until the PHY has completed the reset cycle. */
-	Status = XDprx_WaitPhyReady(InstancePtr, 0xFF);
+	Status = XDprx_WaitPhyReady(InstancePtr,
+					XDPRX_PHY_STATUS_ALL_LANES_READY_MASK |
+					XDPRX_PHY_STATUS_PLL_FABRIC_LOCK_MASK |
+					XDPRX_PHY_STATUS_RX_CLK_LOCK_MASK);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/* Enable the RX core. */
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LINK_ENABLE, 0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LINK_ENABLE, 0x1);
 
 	/* Set other user parameters. */
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_MIN_VOLTAGE_SWING,
 									0x01);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SINK_COUNT, 0x01);
 	/* Set the AUX training interval. */
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
-									0x01);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_TP_SET, 0x0200);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
-									0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD, 0x1);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_TP_SET,
+		(2 << XDPRX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD, 0x0);
 	/* Set the link configuration.*/
 	XDprx_SetLinkRate(InstancePtr, InstancePtr->LinkConfig.LinkRate);
 	XDprx_SetLaneCount(InstancePtr, InstancePtr->LinkConfig.LaneCount);
@@ -265,9 +273,11 @@ void XDprx_DtgEn(XDprx *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET,
+						XDPRX_SOFT_RESET_VIDEO_MASK);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x0);
+
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x1);
 }
 
 /******************************************************************************/
@@ -287,9 +297,11 @@ void XDprx_DtgDis(XDprx *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x00);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_DTG_ENABLE, 0x0);
+
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET,
+						XDPRX_SOFT_RESET_VIDEO_MASK);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x0);
 }
 
 /******************************************************************************/
@@ -320,14 +332,12 @@ void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
 
 	InstancePtr->LinkConfig.LinkRate = LinkRate;
 
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
-									0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD, 0x1);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_LINK_BW_SET,
 								LinkRate);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
-									0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD, 0x0);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LOCAL_EDID_VIDEO,
-									0x01);
+									0x1);
 }
 
 /******************************************************************************/
@@ -354,14 +364,12 @@ void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
 
 	InstancePtr->LinkConfig.LaneCount = LaneCount;
 
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
-									0x01);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD, 0x1);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_LANE_COUNT_SET,
 								LaneCount);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD,
-									0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_OVER_CTRL_DPCD, 0x0);
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_LOCAL_EDID_VIDEO,
-									0x01);
+									0x1);
 }
 
 /******************************************************************************/
@@ -388,8 +396,8 @@ void XDprx_SetUserPixelWidth(XDprx *InstancePtr, u8 UserPixelWidth)
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_USER_PIXEL_WIDTH,
 								UserPixelWidth);
 
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x01);
-	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x00);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x1);
+	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_SOFT_RESET, 0x0);
 }
 
 /******************************************************************************/
