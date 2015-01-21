@@ -189,7 +189,7 @@ u32 XDprx_InitializeRx(XDprx *InstancePtr)
 	XDprx_SetLaneCount(InstancePtr, InstancePtr->LinkConfig.LaneCount);
 	/* Set the interrupt masks. */
 	XDprx_WriteReg(InstancePtr->Config.BaseAddr, XDPRX_INTERRUPT_MASK,
-						~XDPRX_INTERRUPT_MASK_ALL);
+						~XDPRX_INTERRUPT_MASK_ALL_MASK);
 
 	/* Enable the display timing generator. */
 	XDprx_DtgEn(InstancePtr);
@@ -314,9 +314,9 @@ void XDprx_SetLinkRate(XDprx *InstancePtr, u8 LinkRate)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((LinkRate == XDPRX_LINK_BW_SET_162GBPS) ||
-				(LinkRate == XDPRX_LINK_BW_SET_270GBPS) ||
-				(LinkRate == XDPRX_LINK_BW_SET_540GBPS));
+	Xil_AssertVoid((LinkRate == XDPRX_OVER_LINK_BW_SET_162GBPS) ||
+				(LinkRate == XDPRX_OVER_LINK_BW_SET_270GBPS) ||
+				(LinkRate == XDPRX_OVER_LINK_BW_SET_540GBPS));
 
 	InstancePtr->LinkConfig.LinkRate = LinkRate;
 
@@ -348,9 +348,9 @@ void XDprx_SetLaneCount(XDprx *InstancePtr, u8 LaneCount)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((LaneCount == XDPRX_LANE_COUNT_SET_1) ||
-					(LaneCount == XDPRX_LANE_COUNT_SET_2) ||
-					(LaneCount == XDPRX_LANE_COUNT_SET_4));
+	Xil_AssertVoid((LaneCount == XDPRX_OVER_LANE_COUNT_SET_1) ||
+				(LaneCount == XDPRX_OVER_LANE_COUNT_SET_2) ||
+				(LaneCount == XDPRX_OVER_LANE_COUNT_SET_4));
 
 	InstancePtr->LinkConfig.LaneCount = LaneCount;
 
