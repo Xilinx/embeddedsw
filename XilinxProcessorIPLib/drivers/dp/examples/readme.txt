@@ -1,4 +1,18 @@
-There are 6 examples included in this directory:
+There is 1 DisplayPort RX example included in this directory:
+1) xdprx_intr_timer_example.c : This interrupt with timer example shows how to
+   set up both the interrupt system with interrupt handlers and how to override
+   the default sleep/delay functionality for MicroBlaze. A timer needs to exist
+   in the hardware system and will be used for sleep/delay functionality inside
+   of a callback function. The default behavior in MicroBlaze for sleep/delay is
+   to call MB_Sleep from microblaze_sleep.h, which has only millisecond
+   accuracy. For ARM/Zynq SoC systems, the supplied callback function will be
+   ignored - the usleep function will be called since the SoC has a timer
+   built-in.
+
+Note: All example functions start with Dprx_*, while all driver functions start
+with XDprx_*.
+
+There are 6 DisplayPort TX examples included in this directory:
 1) xdptx_audio_example.c : This audio example, apart from training the main link
    and outputting video, illustrates the sequence required for setting up audio
    in the DisplayPort TX. This example requires that an audio source, such as a
