@@ -308,7 +308,7 @@
 #define XVidC_EdidSuppAnalogSigSerrVsync(E) \
 	((E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_ANA_SERR_V_SYNC_MASK) != 0)
 /* XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw); */
-#define XVidC_EdidGetBDispVidDigVis(E) \
+#define XVidC_EdidGetDigitalSigIfaceStd(E) \
 	(E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_DIG_VIS_MASK)
 
 /* Basic display parameters and features: Horizontal and vertical screen size or
