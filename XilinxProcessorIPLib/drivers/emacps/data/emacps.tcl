@@ -67,8 +67,8 @@ proc generate_gmii2rgmii_params {drv_handle file_name} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
 	set ips [hsi::get_cells  "*"]
 	foreach ip $ips {
-		set ipname [get_property NAME  $ip]
-		set periph [get_property IP_NAME  $ip]
+		set ipname [common::get_property NAME  $ip]
+		set periph [common::get_property IP_NAME  $ip]
 		if { [string compare -nocase $periph "ps7_ethernet"] == 0} {
 			set phya [is_gmii2rgmii_conv_present $ip]
 			if { $phya == 0} {
@@ -95,11 +95,11 @@ proc is_gmii2rgmii_conv_present {slave} {
 	set phy_addr 0
 	set ipconv 0
 	set ips [hsi::get_cells "*"]
-	set enetipinstance_name [get_property NAME  $slave]
+	set enetipinstance_name [common::get_property NAME  $slave]
 
 	foreach ip $ips {
-		set convipname [get_property NAME  $ip]
-		set periph [get_property IP_NAME $ip]
+		set convipname [common::get_property NAME  $ip]
+		set periph [common::get_property IP_NAME $ip]
 		if { [string compare -nocase $periph "gmii_to_rgmii"] == 0} {
 			set ipconv $ip
 			break
@@ -139,10 +139,10 @@ proc generate_sgmii_params {drv_handle file_name} {
 	set ips [hsi::get_cells "*"]
 
 	foreach ip $ips {
-		set ipname [get_property NAME $ip]
-		set periph [get_property IP_NAME  $ip]
+		set ipname [common::get_property NAME $ip]
+		set periph [common::get_property IP_NAME  $ip]
 		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
-				set PhyStandard [get_property CONFIG.Standard $ip]
+				set PhyStandard [common::get_property CONFIG.Standard $ip]
 		}
 		if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0} {
 			set phya [is_gige_pcs_pma_ip_present $ip]
@@ -173,14 +173,14 @@ proc is_gige_pcs_pma_ip_present {slave} {
 	set ipconv 0
 
 	set ips [hsi::get_cells "*"]
-	set enetipinstance_name [get_property IP_NAME  $slave]
+	set enetipinstance_name [common::get_property IP_NAME  $slave]
 
 	foreach ip $ips {
-		set convipname [get_property NAME  $ip]
-		set periph [get_property IP_NAME $ip]
+		set convipname [common::get_property NAME  $ip]
+		set periph [common::get_property IP_NAME $ip]
 		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
-			set sgmii_param [get_property CONFIG.c_is_sgmii $ip]
-			set PhyStandarrd [get_property CONFIG.Standard $ip]
+			set sgmii_param [common::get_property CONFIG.c_is_sgmii $ip]
+			set PhyStandarrd [common::get_property CONFIG.Standard $ip]
 			if {$sgmii_param == true || $PhyStandarrd == "1000BASEX"} {
 				set ipconv $ip
 			}

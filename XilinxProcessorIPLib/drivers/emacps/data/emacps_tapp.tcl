@@ -133,7 +133,7 @@ proc gen_init_code {swproj mhsinst} {
 	if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
-		set ipname [get_property NAME $mhsinst]
+		set ipname [common::get_property NAME $mhsinst]
 		set decl "   static XEmacPs ${ipname};"
 		set inc_file_lines $decl
 		return $inc_file_lines
@@ -150,9 +150,9 @@ proc gen_testfunc_call {swproj mhsinst} {
         return ""
     }
 
-    set ipname [get_property NAME $mhsinst]
+    set ipname [common::get_property NAME $mhsinst]
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
