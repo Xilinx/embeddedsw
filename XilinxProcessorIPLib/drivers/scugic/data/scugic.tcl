@@ -70,6 +70,11 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     # Get all peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
+    #Get the processor instance name
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
@@ -91,8 +96,6 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 	}
     }
     set args $newargs
-	set procdrv [hsi::get_sw_processor]
-	set compiler [common::get_property CONFIG.compiler $procdrv]
     # Print all parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
@@ -103,25 +106,25 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			set value $device_id
 			incr device_id
 		} elseif {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			if {[string compare -nocase $proctype "pss_cortexr5"] == 0} {
 				set value 0xF9001000
-			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
 			} else {
 				set value 0xF9020000
 			}
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
-			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			if {[string compare -nocase $proctype "pss_cortexr5"] == 0} {
 				set value 0xF9001FFF
-			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
 			} else {
 				set value 0xF9020FFF
 			}
 		   } elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			if {[string compare -nocase $proctype "pss_cortexr5"] == 0} {
 				set value 0xF9000000
-			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value 0xf8f01000
 			} else {
 				set value 0xF9010000
@@ -159,6 +162,11 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     # Get all the peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
+    #Get the processor instance name
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
         set peripheral_name [string toupper [common::get_property NAME $periph]]
@@ -184,8 +192,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     set i 0
     foreach periph $periphs {
         set periph_name [string toupper [common::get_property NAME $periph]]
-	set procdrv [hsi::get_sw_processor]
-	set compiler [common::get_property CONFIG.compiler $procdrv]
+
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
         if { [lsearch $canonicals $periph_name] < 0 } {
@@ -202,25 +209,25 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
                 # set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
                 if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			if {[string compare -nocase $proctype "pss_cortexr5"] == 0} {
 				set rvalue 0xF9001000
-			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
 			} else {
 				set rvalue 0xF9020000
 			}
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
-			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			if {[string compare -nocase $proctype "pss_cortexr5"] == 0} {
 				set rvalue 0xF9001FFF
-			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
 			} else {
 				set rvalue 0xF9020FFF
 			}
 		} elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			if {[string compare -nocase $proctype "pss_cortexr5"] == 0} {
 				set rvalue 0xF9000000
-			} elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue 0xf8f01000
 			} else {
 				set rvalue 0xF9010000
