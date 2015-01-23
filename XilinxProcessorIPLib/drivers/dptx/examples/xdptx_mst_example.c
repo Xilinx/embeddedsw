@@ -77,10 +77,10 @@
 /* Define the mapping between sinks and streams. The sink numbers are in the
  * order that they are discovered by the XDptx_FindAccessibleDpDevices driver
  * function. */
-#define STREAM0_USE_SINKNUM 0
-#define STREAM1_USE_SINKNUM 1
-#define STREAM2_USE_SINKNUM 2
-#define STREAM3_USE_SINKNUM 3
+#define STREAM1_USE_SINKNUM 0
+#define STREAM2_USE_SINKNUM 1
+#define STREAM3_USE_SINKNUM 2
+#define STREAM4_USE_SINKNUM 3
 #endif
 
 /* The video resolution from the display mode timings (DMT) table to use for
@@ -204,7 +204,7 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	u32 Status;
 	u32 MaskVal;
 	u8 StreamIndex;
-	XDptx_VideoMode VideoMode = USE_VIDEO_MODE;
+	XVidC_VideoMode VideoMode = USE_VIDEO_MODE;
 	u8 Bpc = USE_BPC;
 	u8 NumStreams = NUM_STREAMS;
 
@@ -233,10 +233,10 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	InstancePtr->SbMsgDelayUs = 0;
 #endif
 
-	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID0);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID1);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID2);
 	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID3);
+	XDptx_ClearMsaValues(InstancePtr, XDPTX_STREAM_ID4);
 
 #ifdef ALLOCATE_FROM_SINKLIST
 	/* Run topology discovery to determine what devices are accessible to
@@ -263,11 +263,11 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	/* Enable multi-stream transport (MST) mode for this example. */
 	XDptx_MstCfgModeEnable(InstancePtr);
 	for (StreamIndex = 0; StreamIndex < NumStreams; StreamIndex++) {
-		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID0 +
+		XDptx_MstCfgStreamEnable(InstancePtr, XDPTX_STREAM_ID1 +
 								StreamIndex);
 	}
 	for (StreamIndex = NumStreams; StreamIndex < 4; StreamIndex++) {
-		XDptx_MstCfgStreamDisable(InstancePtr, XDPTX_STREAM_ID0 +
+		XDptx_MstCfgStreamDisable(InstancePtr, XDPTX_STREAM_ID1 +
 								StreamIndex);
 	}
 
@@ -279,31 +279,27 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	u8 Lct;
 	u8 Rad[15];
 
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0)) {
-		Lct = 2; Rad[0] = 8;
-		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID0, Lct, Rad);
-	}
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1)) {
-		Lct = 3; Rad[0] = 1; Rad[1] = 8;
+		Lct = 2; Rad[0] = 8;
 		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID1, Lct, Rad);
 	}
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID2)) {
-		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 8;
+		Lct = 3; Rad[0] = 1; Rad[1] = 8;
 		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID2, Lct, Rad);
 	}
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID3)) {
-		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 9;
+		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 8;
 		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID3, Lct, Rad);
+	}
+	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID4)) {
+		Lct = 4; Rad[0] = 1; Rad[1] = 1; Rad[2] = 9;
+		XDptx_SetStreamSinkRad(InstancePtr, XDPTX_STREAM_ID4, Lct, Rad);
 	}
 #else
 	/* If topology discovery is used, associate a stream number with a sink
 	 * number from the sink list obtained during topology discovery. The
 	 * sinks are numbered in the order that they were found during topology
 	 * discovery. */
-	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0)) {
-		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID0,
-							STREAM0_USE_SINKNUM);
-	}
 	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1)) {
 		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID1,
 							STREAM1_USE_SINKNUM);
@@ -316,6 +312,10 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID3,
 							STREAM3_USE_SINKNUM);
 	}
+	if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID4)) {
+		XDptx_SetStreamSelectFromSinkList(InstancePtr, XDPTX_STREAM_ID4,
+							STREAM4_USE_SINKNUM);
+	}
 #endif
 
 	/* Reset MST mode in both the RX and TX. */
@@ -326,16 +326,16 @@ u32 Dptx_MstExampleRun(XDptx *InstancePtr)
 	 * stream has an identical configuration). Then, set the configuration
 	 * for that stream in the corresponding DisplayPort TX registers. */
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
-		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID0 +
+		if (XDptx_MstStreamIsEnabled(InstancePtr, XDPTX_STREAM_ID1 +
 								StreamIndex)) {
-			XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID0 +
+			XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID1 +
 							StreamIndex, Bpc);
 			XDptx_CfgMsaEnSynchClkMode(InstancePtr,
-					XDPTX_STREAM_ID0 + StreamIndex, 1);
+					XDPTX_STREAM_ID1 + StreamIndex, 1);
 
 			XDptx_CfgMsaUseStandardVideoMode(InstancePtr,
-				XDPTX_STREAM_ID0 + StreamIndex, VideoMode);
-			XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID0 +
+				XDPTX_STREAM_ID1 + StreamIndex, VideoMode);
+			XDptx_SetVideoMode(InstancePtr, XDPTX_STREAM_ID1 +
 								StreamIndex);
 		}
 	}
