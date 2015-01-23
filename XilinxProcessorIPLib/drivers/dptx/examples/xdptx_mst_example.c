@@ -85,7 +85,7 @@
 
 /* The video resolution from the display mode timings (DMT) table to use for
  * each stream. */
-#define USE_VIDEO_MODE XDPTX_VM_1920x1080_60_P
+#define USE_VIDEO_MODE XVIDC_VM_1920x1080_60_P
 
 /* The color depth (bits per color component) to use for each stream. */
 #define USE_BPC 8

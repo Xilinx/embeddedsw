@@ -144,11 +144,11 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
 	if (MsaConfig->OverrideUserPixelWidth == 0) {
-		if ((MsaConfig->Vtm.PixelClkKhz > 300000) &&
+		if ((MsaConfig->PixelClkHz > 300000000) &&
 			(LinkConfig->LaneCount == XDPTX_LANE_COUNT_SET_4)) {
 			MsaConfig->UserPixelWidth = 4;
 		}
-		else if ((MsaConfig->Vtm.PixelClkKhz > 75000) &&
+		else if ((MsaConfig->PixelClkHz > 75000000) &&
 			(LinkConfig->LaneCount != XDPTX_LANE_COUNT_SET_1)) {
 			MsaConfig->UserPixelWidth = 2;
 		}
@@ -238,7 +238,7 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
 		/* Calculate the average number of bytes per transfer unit.
 		 * Note: Both the integer and the fractional part is stored in
 		 * AvgBytesPerTU. */
-		VideoBw = (MsaConfig->Vtm.PixelClkKhz * BitsPerPixel) / 8;
+		VideoBw = (MsaConfig->PixelClkHz * BitsPerPixel) / 8000;
 		LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 		MsaConfig->AvgBytesPerTU = (VideoBw *
 					MsaConfig->TransferUnitSize) / LinkBw;
@@ -276,13 +276,13 @@ void XDptx_CfgMsaRecalculate(XDptx *InstancePtr, u8 Stream)
  *
 *******************************************************************************/
 void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
-						XVid_VideoMode VideoMode)
+						XVidC_VideoMode VideoMode)
 {
 	XDptx_MainStreamAttributes *MsaConfig;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(VideoMode < XVID_VM_NUM_SUPPORT);
+	Xil_AssertVoid(VideoMode < XVIDC_VM_NUM_SUPPORTED);
 	Xil_AssertVoid((Stream == XDPTX_STREAM_ID1) ||
 		(Stream == XDPTX_STREAM_ID2) || (Stream == XDPTX_STREAM_ID3) ||
 		(Stream == XDPTX_STREAM_ID4));
@@ -290,28 +290,30 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Configure the MSA values from the display monitor DMT table. */
-	MsaConfig->Vtm.PixelClkKhz =
-			XVid_VideoTimingModes[VideoMode].PixelClkKhz;
 	MsaConfig->Vtm.Timing.HActive =
-			XVid_VideoTimingModes[VideoMode].Timing.HActive;
+			XVidC_VideoTimingModes[VideoMode].Timing.HActive;
 	MsaConfig->Vtm.Timing.VActive =
-			XVid_VideoTimingModes[VideoMode].Timing.VActive;
+			XVidC_VideoTimingModes[VideoMode].Timing.VActive;
 	MsaConfig->Vtm.Timing.HSyncPolarity =
-			XVid_VideoTimingModes[VideoMode].Timing.HSyncPolarity;
+			XVidC_VideoTimingModes[VideoMode].Timing.HSyncPolarity;
 	MsaConfig->Vtm.Timing.VSyncPolarity =
-			XVid_VideoTimingModes[VideoMode].Timing.VSyncPolarity;
+			XVidC_VideoTimingModes[VideoMode].Timing.VSyncPolarity;
 	MsaConfig->Vtm.Timing.HFrontPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.HFrontPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.HFrontPorch;
 	MsaConfig->Vtm.Timing.HSyncWidth =
-			XVid_VideoTimingModes[VideoMode].Timing.HSyncWidth;
+			XVidC_VideoTimingModes[VideoMode].Timing.HSyncWidth;
 	MsaConfig->Vtm.Timing.HBackPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.HBackPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.HBackPorch;
 	MsaConfig->Vtm.Timing.F0PVFrontPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.F0PVFrontPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.F0PVFrontPorch;
 	MsaConfig->Vtm.Timing.F0PVSyncWidth =
-			XVid_VideoTimingModes[VideoMode].Timing.F0PVSyncWidth;
+			XVidC_VideoTimingModes[VideoMode].Timing.F0PVSyncWidth;
 	MsaConfig->Vtm.Timing.F0PVBackPorch =
-			XVid_VideoTimingModes[VideoMode].Timing.F0PVBackPorch;
+			XVidC_VideoTimingModes[VideoMode].Timing.F0PVBackPorch;
+
+	/* Calculate the pixel clock frequency. */
+	MsaConfig->PixelClkHz =
+			XVidC_GetPixelClockHzByVmId(MsaConfig->Vtm.VmId);
 
 	/* Calculate the rest of the MSA values. */
 	XDptx_CfgMsaRecalculate(InstancePtr, Stream);
@@ -376,8 +378,8 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
 			XDPTX_EDID_DTD_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
 			Ptm[XDPTX_EDID_DTD_VRES_LSB];
 
-	MsaConfig->Vtm.PixelClkKhz = ((Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_MSB] <<
-			8) | Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_LSB]) * 10;
+	MsaConfig->PixelClkHz = ((Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_MSB] <<
+			8) | Ptm[XDPTX_EDID_DTD_PIXEL_CLK_KHZ_LSB]) * 10000;
 
 	MsaConfig->Vtm.Timing.HFrontPorch =
 			(((Ptm[XDPTX_EDID_DTD_XFPORCH_XSPW_U2] &
@@ -469,7 +471,7 @@ void XDptx_CfgMsaUseCustom(XDptx *InstancePtr, u8 Stream,
 				MsaConfigCustom->Vtm.Timing.HActive;
 	MsaConfig->Vtm.Timing.VActive =
 				MsaConfigCustom->Vtm.Timing.VActive;
-	MsaConfig->Vtm.PixelClkKhz = MsaConfigCustom->Vtm.PixelClkKhz;
+	MsaConfig->PixelClkHz = MsaConfigCustom->PixelClkHz;
 	MsaConfig->Vtm.Timing.HSyncPolarity =
 				MsaConfigCustom->Vtm.Timing.HSyncPolarity;
 	MsaConfig->Vtm.Timing.VSyncPolarity =
@@ -738,7 +740,7 @@ void XDptx_SetMsaValues(XDptx *InstancePtr, u8 Stream)
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_MAIN_STREAM_MISC1 +
 			StreamOffset[Stream - 1], MsaConfig->Misc1);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_M_VID +
-			StreamOffset[Stream - 1], MsaConfig->Vtm.PixelClkKhz);
+			StreamOffset[Stream - 1], MsaConfig->PixelClkHz / 1000);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_N_VID +
 			StreamOffset[Stream - 1], MsaConfig->NVid);
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_USER_PIXEL_WIDTH +
@@ -795,7 +797,7 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	u32 TsInt;
 	u32 TsFrac;
 
-	PeakPixelBw = ((double)MsaConfig->Vtm.PixelClkKhz / 1000) *
+	PeakPixelBw = ((double)MsaConfig->PixelClkHz) *
 						((double)BitsPerPixel / 8);
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 
