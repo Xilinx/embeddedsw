@@ -42,7 +42,7 @@ This file contains the stream policy maker functions for the <a class="el" href=
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#99d8902337e7bb3f7c607568501e16a1">XDptx_CfgMsaRecalculate</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#8f5a8d3f316f519145ecd9a94bf27ce8">XDptx_CfgMsaUseStandardVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, XVid_VideoMode VideoMode)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#79a528fe544595d48fbf1d2438f0304d">XDptx_CfgMsaUseStandardVideoMode</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, XVidC_VideoMode VideoMode)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__spm_8c.html#b4778897734128bf467047a90066c922">XDptx_CfgMsaUseEdidPreferredTiming</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u8 Stream, u8 *Edid)</td></tr>
 
@@ -229,7 +229,7 @@ This function sets the bits per color value of the video stream.<p>
 
 <p>
 This function takes a the main stream attributes from MsaConfigCustom and copies them into InstancePtr-&gt;MsaConfig. If desired, given a base set of attributes, the rest of the attributes may be derived. The minimal required main stream attributes (MSA) that must be contained in the MsaConfigCustom structure are:<ul>
-<li>Pixel clock (in KHz)</li><li>Horizontal sync polarity</li><li>Vertical sync polarity</li><li>Horizontal sync pulse width</li><li>Vertical sync pulse width</li><li>Horizontal resolution</li><li>Vertical resolution</li><li>Vertical back porch</li><li>Vertical front porch</li><li>Horizontal back porch</li><li>Horizontal front porch</li></ul>
+<li>Pixel clock (in Hz)</li><li>Frame rate</li><li>Horizontal active resolution</li><li>Horizontal front porch</li><li>Horizontal sync pulse width</li><li>Horizontal back porch</li><li>Horizontal total</li><li>Horizontal sync polarity</li><li>Vertical active resolution</li><li>Vertical back porch</li><li>Vertical sync pulse width</li><li>Vertical front porch</li><li>Vertical total</li><li>Vertical sync polarity</li></ul>
 <p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -289,7 +289,7 @@ This function sets the main stream attribute values in the configuration structu
 
 </div>
 </div><p>
-<a class="anchor" name="8f5a8d3f316f519145ecd9a94bf27ce8"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseStandardVideoMode" ref="8f5a8d3f316f519145ecd9a94bf27ce8" args="(XDptx *InstancePtr, u8 Stream, XVid_VideoMode VideoMode)" -->
+<a class="anchor" name="79a528fe544595d48fbf1d2438f0304d"></a><!-- doxytag: member="xdptx_spm.c::XDptx_CfgMsaUseStandardVideoMode" ref="79a528fe544595d48fbf1d2438f0304d" args="(XDptx *InstancePtr, u8 Stream, XVidC_VideoMode VideoMode)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -308,7 +308,7 @@ This function sets the main stream attribute values in the configuration structu
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">XVid_VideoMode&nbsp;</td>
+          <td class="paramtype">XVidC_VideoMode&nbsp;</td>
           <td class="paramname"> <em>VideoMode</em></td><td>&nbsp;</td>
         </tr>
         <tr>

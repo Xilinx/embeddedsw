@@ -29,13 +29,13 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dp___config.html">XDp_Config</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#e0e5a00ece5242bf0da8f9bf94dc0a9f">Config</a></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#a4c0fd5e83c23fd09c3c5a75cf76a7a9">MstEnable</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#015d2c021b09d7574d280aa6ce4d9f80">IsReady</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#ea0d9e963446066ccce156f4ca642408">TrainAdaptive</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#e3324edbc15a89340bdee2bbf56244df">Config</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct_x_dptx___sink_config.html">XDptx_SinkConfig</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#480b18d97985dd93a873f14bf27a8ea1">RxConfig</a></td></tr>
 
@@ -53,7 +53,7 @@ The <a class="el" href="struct_x_dptx.html">XDptx</a> driver instance data. The 
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#02d8905bbfcbc162babc2de8b5191d5d">SbMsgDelayUs</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#fd2cbc84e307d853f48f19d9d8aedc06">UserTimerWaitUs</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdp_8h.html#b2ee8cde914736409c4b04146aa84462">XDp_TimerHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#68a400cb7e5412562a3cc203cd68de4e">UserTimerWaitUs</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx.html#fd631f0f90f6cdbbba8848ca5a216ba8">UserTimerPtr</a></td></tr>
 
@@ -97,19 +97,19 @@ Amount of latency in micro- seconds to use between AUX transactions.
 Some board characteristics information that affects link training.
 </div>
 </div><p>
-<a class="anchor" name="e3324edbc15a89340bdee2bbf56244df"></a><!-- doxytag: member="XDptx::Config" ref="e3324edbc15a89340bdee2bbf56244df" args="" -->
+<a class="anchor" name="e0e5a00ece5242bf0da8f9bf94dc0a9f"></a><!-- doxytag: member="XDptx::Config" ref="e0e5a00ece5242bf0da8f9bf94dc0a9f" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> <a class="el" href="struct_x_dptx.html#e3324edbc15a89340bdee2bbf56244df">XDptx::Config</a>          </td>
+          <td class="memname"><a class="el" href="struct_x_dp___config.html">XDp_Config</a> <a class="el" href="struct_x_dptx.html#e0e5a00ece5242bf0da8f9bf94dc0a9f">XDptx::Config</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Configuration structure for the DisplayPort TX core.
+Configuration structure for the DisplayPort TX core. It is important to keep this member first in the <a class="el" href="struct_x_dptx.html">XDptx</a> order.
 </div>
 </div><p>
 <a class="anchor" name="71e5740080d8cced1992a1ab73ccc0f2"></a><!-- doxytag: member="XDptx::HpdEventCallbackRef" ref="71e5740080d8cced1992a1ab73ccc0f2" args="" -->
@@ -322,12 +322,12 @@ Downshift lane count and link rate if necessary during training.
 Pointer to a timer instance used by the custom user delay/sleep function.
 </div>
 </div><p>
-<a class="anchor" name="fd2cbc84e307d853f48f19d9d8aedc06"></a><!-- doxytag: member="XDptx::UserTimerWaitUs" ref="fd2cbc84e307d853f48f19d9d8aedc06" args="" -->
+<a class="anchor" name="68a400cb7e5412562a3cc203cd68de4e"></a><!-- doxytag: member="XDptx::UserTimerWaitUs" ref="68a400cb7e5412562a3cc203cd68de4e" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a> <a class="el" href="struct_x_dptx.html#fd2cbc84e307d853f48f19d9d8aedc06">XDptx::UserTimerWaitUs</a>          </td>
+          <td class="memname"><a class="el" href="xdp_8h.html#b2ee8cde914736409c4b04146aa84462">XDp_TimerHandler</a> <a class="el" href="struct_x_dptx.html#68a400cb7e5412562a3cc203cd68de4e">XDptx::UserTimerWaitUs</a>          </td>
         </tr>
       </table>
 </div>

@@ -29,11 +29,9 @@ This typedef contains the main stream attributes which determine how the video w
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">XVid_VideoTimingMode&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___main_stream_attributes.html#2e5f919bab78b5937a78d9855b545a24">Vtm</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">XVidC_VideoTimingMode&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___main_stream_attributes.html#f4c5b131d48d852703dc31c3f3b6dcde">Vtm</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___main_stream_attributes.html#6dd2f67ac69e011b4aca69e5c8993c96">HClkTotal</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___main_stream_attributes.html#862e898079c25c530cc796330de0ba1a">VClkTotal</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___main_stream_attributes.html#fd9713a9d0069b52c41f2badea942920">PixelClockHz</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dptx___main_stream_attributes.html#8a71abcd837672ebc8786afeec2a85d3">HStart</a></td></tr>
 
@@ -144,21 +142,6 @@ Used to translate the number of pixels per line to the native internal 16-bit da
 The dynamic range currently in use by the video stream.
 </div>
 </div><p>
-<a class="anchor" name="6dd2f67ac69e011b4aca69e5c8993c96"></a><!-- doxytag: member="XDptx_MainStreamAttributes::HClkTotal" ref="6dd2f67ac69e011b4aca69e5c8993c96" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 <a class="el" href="struct_x_dptx___main_stream_attributes.html#6dd2f67ac69e011b4aca69e5c8993c96">XDptx_MainStreamAttributes::HClkTotal</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Horizontal total time (in pixels).
-</div>
-</div><p>
 <a class="anchor" name="8a71abcd837672ebc8786afeec2a85d3"></a><!-- doxytag: member="XDptx_MainStreamAttributes::HStart" ref="8a71abcd837672ebc8786afeec2a85d3" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -249,6 +232,21 @@ N value for the video stream.
 If set to 1, the value stored for UserPixelWidth will be used as the pixel width.
 </div>
 </div><p>
+<a class="anchor" name="fd9713a9d0069b52c41f2badea942920"></a><!-- doxytag: member="XDptx_MainStreamAttributes::PixelClockHz" ref="fd9713a9d0069b52c41f2badea942920" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 <a class="el" href="struct_x_dptx___main_stream_attributes.html#fd9713a9d0069b52c41f2badea942920">XDptx_MainStreamAttributes::PixelClockHz</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+The pixel clock of the stream (in Hz).
+</div>
+</div><p>
 <a class="anchor" name="fcdf2d723786ffe2c7153a61fdea2966"></a><!-- doxytag: member="XDptx_MainStreamAttributes::SynchronousClockMode" ref="fcdf2d723786ffe2c7153a61fdea2966" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -294,21 +292,6 @@ Size of the transfer unit in the framing logic. In MST mode, this is also the nu
 The width of the user data input port.
 </div>
 </div><p>
-<a class="anchor" name="862e898079c25c530cc796330de0ba1a"></a><!-- doxytag: member="XDptx_MainStreamAttributes::VClkTotal" ref="862e898079c25c530cc796330de0ba1a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 <a class="el" href="struct_x_dptx___main_stream_attributes.html#862e898079c25c530cc796330de0ba1a">XDptx_MainStreamAttributes::VClkTotal</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Vertical total time (in pixels).
-</div>
-</div><p>
 <a class="anchor" name="b37f3817a1bda33892d2dd8a2a6bcc23"></a><!-- doxytag: member="XDptx_MainStreamAttributes::VStart" ref="b37f3817a1bda33892d2dd8a2a6bcc23" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -324,12 +307,12 @@ Vertical total time (in pixels).
 Vertical blank start (in lines).
 </div>
 </div><p>
-<a class="anchor" name="2e5f919bab78b5937a78d9855b545a24"></a><!-- doxytag: member="XDptx_MainStreamAttributes::Vtm" ref="2e5f919bab78b5937a78d9855b545a24" args="" -->
+<a class="anchor" name="f4c5b131d48d852703dc31c3f3b6dcde"></a><!-- doxytag: member="XDptx_MainStreamAttributes::Vtm" ref="f4c5b131d48d852703dc31c3f3b6dcde" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XVid_VideoTimingMode <a class="el" href="struct_x_dptx___main_stream_attributes.html#2e5f919bab78b5937a78d9855b545a24">XDptx_MainStreamAttributes::Vtm</a>          </td>
+          <td class="memname">XVidC_VideoTimingMode <a class="el" href="struct_x_dptx___main_stream_attributes.html#f4c5b131d48d852703dc31c3f3b6dcde">XDptx_MainStreamAttributes::Vtm</a>          </td>
         </tr>
       </table>
 </div>

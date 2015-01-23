@@ -34,7 +34,6 @@ This header file contains the identifiers and low-level driver functions (or mac
  </pre>
 <p>
 <code>#include &quot;xil_io.h&quot;</code><br>
-<code>#include &quot;xil_types.h&quot;</code><br>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>DPTX core registers: Link configuration field.</h2></td></tr>
@@ -196,13 +195,13 @@ This header file contains the identifiers and low-level driver functions (or mac
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#c37ba2f83438eeaf5330caba081b6394">XDPTX_TX_AUDIO_CHANNELS</a>&nbsp;&nbsp;&nbsp;0x0304</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#3d4932d0e30b72d83325ed1f0eff1dc0">XDPTX_TX_AUDIO_INFO_DATA</a>&nbsp;&nbsp;&nbsp;0x0308</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#ba6c7b8418c1e3174620e3351d9903bd">XDPTX_TX_AUDIO_INFO_DATA</a>(NUM)&nbsp;&nbsp;&nbsp;(0x0308 + 4 * (NUM - 1))</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#b733bc0cbec6dc730f6284e30840a3f8">XDPTX_TX_AUDIO_MAUD</a>&nbsp;&nbsp;&nbsp;0x0328</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#59f322babeebcbbcad569d2b383a7108">XDPTX_TX_AUDIO_NAUD</a>&nbsp;&nbsp;&nbsp;0x032C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#c7f55a04726ce5ab66d997aa3d398e5e">XDPTX_TX_AUDIO_EXT_DATA</a>&nbsp;&nbsp;&nbsp;0x0330</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#fa64dcbd437a6f6babcc6807f831efdc">XDPTX_TX_AUDIO_EXT_DATA</a>(NUM)&nbsp;&nbsp;&nbsp;(0x0330 + 4 * (NUM - 1))</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#ecc95afdc6f83c73fc875db4befebd6d">XDPTX_STREAM2_MSA_START</a>&nbsp;&nbsp;&nbsp;0x0500</td></tr>
@@ -322,9 +321,9 @@ This header file contains the identifiers and low-level driver functions (or mac
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#f26422aba2aac6856f7505a8aea074a1">XDPTX_AUX_CMD_ADDR_ONLY_TRANSFER_EN</a>&nbsp;&nbsp;&nbsp;0x00001000</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#4fe1ec40f3824ebed89671597f4c7a47">XDPTX_AUX_CLK_DIVIDER_VAL_MASK</a>&nbsp;&nbsp;&nbsp;0x0000000F</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#4fe1ec40f3824ebed89671597f4c7a47">XDPTX_AUX_CLK_DIVIDER_VAL_MASK</a>&nbsp;&nbsp;&nbsp;0x00FF</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#256c4dc0f04dc61a37e4513576d3b15d">XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK</a>&nbsp;&nbsp;&nbsp;0x00000F00</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#256c4dc0f04dc61a37e4513576d3b15d">XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK</a>&nbsp;&nbsp;&nbsp;0xFF00</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#1bdc93d900d56dc734a9952abd04d357">XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_SHIFT</a>&nbsp;&nbsp;&nbsp;8</td></tr>
 
@@ -475,6 +474,8 @@ This header file contains the identifiers and low-level driver functions (or mac
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#a1952aa5d9dfa957d15d40ac4a85b529">XDPTX_PHY_STATUS_RESET_LANE_0_1_DONE_MASK</a>&nbsp;&nbsp;&nbsp;0x00000003</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#f84d3b4c7c14fb85fbc5c2c14bf84da7">XDPTX_PHY_STATUS_RESET_LANE_2_3_DONE_MASK</a>&nbsp;&nbsp;&nbsp;0x0000000C</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#2d535c7b224f110d3a20209d4eac3263">XDPTX_PHY_STATUS_RESET_LANE_2_3_DONE_SHIFT</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx__hw_8h.html#0fc3cb0054f5da72ec8d48c37f1a98d7">XDPTX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK</a>&nbsp;&nbsp;&nbsp;0x00000010</td></tr>
 
@@ -1338,7 +1339,7 @@ Clock divider value for generating the internal 1MHz clock.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK&nbsp;&nbsp;&nbsp;0x00000F00          </td>
+          <td class="memname">#define XDPTX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_MASK&nbsp;&nbsp;&nbsp;0xFF00          </td>
         </tr>
       </table>
 </div>
@@ -1368,7 +1369,7 @@ Shift bits for AUX signal width filter.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPTX_AUX_CLK_DIVIDER_VAL_MASK&nbsp;&nbsp;&nbsp;0x0000000F          </td>
+          <td class="memname">#define XDPTX_AUX_CLK_DIVIDER_VAL_MASK&nbsp;&nbsp;&nbsp;0x00FF          </td>
         </tr>
       </table>
 </div>
@@ -1735,7 +1736,7 @@ Write data for the current AUX command.
 <div class="memdoc">
 
 <p>
-DisplayPort revision.
+DisplayPort protocol version and revision.
 </div>
 </div><p>
 <a class="anchor" name="d488a646ac9f8879590723a51ef1a566"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_CORE_ID_DP_MJR_VER_MASK" ref="d488a646ac9f8879590723a51ef1a566" args="" -->
@@ -8843,7 +8844,7 @@ Set TX_PHY_LOOPBACK.
 <div class="memdoc">
 
 <p>
-HOLD TX_PHY_PCS reset.
+Hold TX_PHY_PCS reset.
 </div>
 </div><p>
 <a class="anchor" name="e6c85c6919805d15697f133b970f6a0e"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_PHY_CONFIG_TX_PHY_PMA_RESET_MASK" ref="e6c85c6919805d15697f133b970f6a0e" args="" -->
@@ -9129,6 +9130,21 @@ Reset done for lanes 0 and 1.
 
 <p>
 Reset done for lanes 2 and 3.
+</div>
+</div><p>
+<a class="anchor" name="2d535c7b224f110d3a20209d4eac3263"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_PHY_STATUS_RESET_LANE_2_3_DONE_SHIFT" ref="2d535c7b224f110d3a20209d4eac3263" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPTX_PHY_STATUS_RESET_LANE_2_3_DONE_SHIFT&nbsp;&nbsp;&nbsp;2          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Shift bits for reset done for lanes 2 and 3.
 </div>
 </div><p>
 <a class="anchor" name="6ec37de0a0fae9a49eaf3de511f21291"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_PHY_STATUS_TX_BUFFER_STATUS_LANE_0_MASK" ref="6ec37de0a0fae9a49eaf3de511f21291" args="" -->
@@ -10204,12 +10220,17 @@ Used to input active channel count.
 Enables audio stream packets in main link and buffer control.
 </div>
 </div><p>
-<a class="anchor" name="c7f55a04726ce5ab66d997aa3d398e5e"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_TX_AUDIO_EXT_DATA" ref="c7f55a04726ce5ab66d997aa3d398e5e" args="" -->
+<a class="anchor" name="fa64dcbd437a6f6babcc6807f831efdc"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_TX_AUDIO_EXT_DATA" ref="fa64dcbd437a6f6babcc6807f831efdc" args="(NUM)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPTX_TX_AUDIO_EXT_DATA&nbsp;&nbsp;&nbsp;0x0330          </td>
+          <td class="memname">#define XDPTX_TX_AUDIO_EXT_DATA          </td>
+          <td>(</td>
+          <td class="paramtype">NUM&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;(0x0330 + 4 * (NUM - 1))</td>
         </tr>
       </table>
 </div>
@@ -10219,12 +10240,17 @@ Enables audio stream packets in main link and buffer control.
 Word formatted as per extension packet.
 </div>
 </div><p>
-<a class="anchor" name="3d4932d0e30b72d83325ed1f0eff1dc0"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_TX_AUDIO_INFO_DATA" ref="3d4932d0e30b72d83325ed1f0eff1dc0" args="" -->
+<a class="anchor" name="ba6c7b8418c1e3174620e3351d9903bd"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_TX_AUDIO_INFO_DATA" ref="ba6c7b8418c1e3174620e3351d9903bd" args="(NUM)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDPTX_TX_AUDIO_INFO_DATA&nbsp;&nbsp;&nbsp;0x0308          </td>
+          <td class="memname">#define XDPTX_TX_AUDIO_INFO_DATA          </td>
+          <td>(</td>
+          <td class="paramtype">NUM&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;(0x0308 + 4 * (NUM - 1))</td>
         </tr>
       </table>
 </div>
@@ -10396,7 +10422,7 @@ Virtual channel payload table (0xFF bytes).
 <div class="memdoc">
 
 <p>
-Core version.
+Version and revision of the DisplayPort core.
 </div>
 </div><p>
 <a class="anchor" name="3a86f4228ec12b11d77c495357e525a4"></a><!-- doxytag: member="xdptx_hw.h::XDPTX_VERSION_CORE_PATCH_MASK" ref="3a86f4228ec12b11d77c495357e525a4" args="" -->

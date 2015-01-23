@@ -68,9 +68,9 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
  }</td></tr>
 
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#9ebb3ed7a51593c63fbd31ea14924a49">XDptx_InitializeTx</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#6afcadd1dcc393edd3ec783be09644de">XDptx_CfgInitialize</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="struct_x_dp___config.html">XDp_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#9128bf8d6da59ba2b255197db5e621b6">XDptx_CfgInitialize</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#9ebb3ed7a51593c63fbd31ea14924a49">XDptx_InitializeTx</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#b8c55ba66858d6af8095f263ee308d2d">XDptx_GetRxCapabilities</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr)</td></tr>
 
@@ -116,7 +116,7 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dptx.ht
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#ebfd44b68145676eebcc0d463c9b4d6f">XDptx_ResetPhy</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 Reset)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#2ccd64b33b2bd65423338312aa2977b5">XDptx_SetUserTimerHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#5bb2dce320bd4ba2821954f447b79779">XDptx_SetUserTimerHandler</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, <a class="el" href="xdp_8h.html#b2ee8cde914736409c4b04146aa84462">XDp_TimerHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptx_8c.html#6c460b31a3226815a96543e9c4c161fe">XDptx_WaitUs</a> (<a class="el" href="struct_x_dptx.html">XDptx</a> *InstancePtr, u32 MicroSeconds)</td></tr>
 
@@ -338,7 +338,7 @@ This function issues a write request over the AUX channel that will write to the
 
 </div>
 </div><p>
-<a class="anchor" name="9128bf8d6da59ba2b255197db5e621b6"></a><!-- doxytag: member="xdptx.c::XDptx_CfgInitialize" ref="9128bf8d6da59ba2b255197db5e621b6" args="(XDptx *InstancePtr, XDptx_Config *ConfigPtr, u32 EffectiveAddr)" -->
+<a class="anchor" name="6afcadd1dcc393edd3ec783be09644de"></a><!-- doxytag: member="xdptx.c::XDptx_CfgInitialize" ref="6afcadd1dcc393edd3ec783be09644de" args="(XDptx *InstancePtr, XDp_Config *ConfigPtr, u32 EffectiveAddr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -351,7 +351,7 @@ This function issues a write request over the AUX channel that will write to the
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_x_dptx___config.html">XDptx_Config</a> *&nbsp;</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp___config.html">XDp_Config</a> *&nbsp;</td>
           <td class="paramname"> <em>ConfigPtr</em>, </td>
         </tr>
         <tr>
@@ -1189,7 +1189,7 @@ This function enables or disables scrambling of symbols for both the DisplayPort
 
 </div>
 </div><p>
-<a class="anchor" name="2ccd64b33b2bd65423338312aa2977b5"></a><!-- doxytag: member="xdptx.c::XDptx_SetUserTimerHandler" ref="2ccd64b33b2bd65423338312aa2977b5" args="(XDptx *InstancePtr, XDptx_TimerHandler CallbackFunc, void *CallbackRef)" -->
+<a class="anchor" name="5bb2dce320bd4ba2821954f447b79779"></a><!-- doxytag: member="xdptx.c::XDptx_SetUserTimerHandler" ref="5bb2dce320bd4ba2821954f447b79779" args="(XDptx *InstancePtr, XDp_TimerHandler CallbackFunc, void *CallbackRef)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1202,7 +1202,7 @@ This function enables or disables scrambling of symbols for both the DisplayPort
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xdptx_8h.html#1cc5fb6d828593d0e83a4fe44eb0d87d">XDptx_TimerHandler</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="xdp_8h.html#b2ee8cde914736409c4b04146aa84462">XDp_TimerHandler</a>&nbsp;</td>
           <td class="paramname"> <em>CallbackFunc</em>, </td>
         </tr>
         <tr>
@@ -1221,7 +1221,7 @@ This function enables or disables scrambling of symbols for both the DisplayPort
 <div class="memdoc">
 
 <p>
-This function installs a custom delay/sleep function to be used by the XDdptx driver.<p>
+This function installs a custom delay/sleep function to be used by the <a class="el" href="struct_x_dptx.html">XDptx</a> driver.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dptx.html">XDptx</a> instance. </td></tr>
