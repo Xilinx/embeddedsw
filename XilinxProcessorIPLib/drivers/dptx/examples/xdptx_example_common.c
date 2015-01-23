@@ -287,7 +287,7 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
  *
  * 2) Use a standard video timing mode (see mode_table.h):
  *	XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID0,
-							XDPTX_VM_640x480_60_P);
+							XVIDC_VM_640x480_60_P);
  *
  * 3) Use a custom configuration for the main stream attributes (MSA):
  *	XDptx_MainStreamAttributes MsaConfigCustom;
@@ -317,7 +317,7 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 	}
 	else {
 		XDptx_CfgMsaUseStandardVideoMode(InstancePtr, XDPTX_STREAM_ID0,
-							XDPTX_VM_640x480_60_P);
+							XVIDC_VM_640x480_60_P);
 	}
 
 	/* Disable MST for this example. */
