@@ -68,160 +68,160 @@
 /** @name DPTX core registers: Link configuration field.
   * @{
   */
-#define XDP_TX_LINK_BW_SET		0x0000	/**< Set main link bandwidth
+#define XDP_TX_LINK_BW_SET		0x000	/**< Set main link bandwidth
 							setting. */
-#define XDP_TX_LANE_COUNT_SET		0x0004	/**< Set lane count setting. */
-#define XDP_TX_ENHANCED_FRAME_EN	0x0008	/**< Enable enhanced framing
+#define XDP_TX_LANE_COUNT_SET		0x004	/**< Set lane count setting. */
+#define XDP_TX_ENHANCED_FRAME_EN	0x008	/**< Enable enhanced framing
 							symbol sequence. */
-#define XDP_TX_TRAINING_PATTERN_SET	0x000C	/**< Set the link training
+#define XDP_TX_TRAINING_PATTERN_SET	0x00C	/**< Set the link training
 							pattern. */
-#define XDP_TX_LINK_QUAL_PATTERN_SET	0x0010	/**< Transmit the link quality
+#define XDP_TX_LINK_QUAL_PATTERN_SET	0x010	/**< Transmit the link quality
 							pattern. */
-#define XDP_TX_SCRAMBLING_DISABLE	0x0014	/**< Disable scrambler and
+#define XDP_TX_SCRAMBLING_DISABLE	0x014	/**< Disable scrambler and
 							transmit all symbols. */
-#define XDP_TX_DOWNSPREAD_CTRL		0x0018	/**< Enable a 0.5% spreading of
+#define XDP_TX_DOWNSPREAD_CTRL		0x018	/**< Enable a 0.5% spreading of
 							the clock. */
-#define XDP_TX_SOFT_RESET		0x001C	/**< Software reset. */
+#define XDP_TX_SOFT_RESET		0x01C	/**< Software reset. */
 /* @} */
 
 /** @name DPTX core registers: Core enables.
   * @{
   */
-#define XDP_TX_ENABLE			0x0080	/**< Enable the basic operations
+#define XDP_TX_ENABLE			0x080	/**< Enable the basic operations
 							of the DisplayPort TX
 							core or output stuffing
 							symbols if disabled. */
-#define XDP_TX_ENABLE_MAIN_STREAM	0x0084	/**< Enable transmission of main
+#define XDP_TX_ENABLE_MAIN_STREAM	0x084	/**< Enable transmission of main
 							link video info. */
-#define XDP_TX_ENABLE_SEC_STREAM	0x0088	/**< Enable the transmission of
+#define XDP_TX_ENABLE_SEC_STREAM	0x088	/**< Enable the transmission of
 							secondary link info. */
-#define XDP_TX_FORCE_SCRAMBLER_RESET	0x00C0	/**< Force a scrambler reset. */
-#define XDP_TX_MST_CONFIG		0x00D0	/**< Enable MST. */
+#define XDP_TX_FORCE_SCRAMBLER_RESET	0x0C0	/**< Force a scrambler reset. */
+#define XDP_TX_MST_CONFIG		0x0D0	/**< Enable MST. */
 /* @} */
 
 /** @name DPTX core registers: Core ID.
   * @{
   */
-#define XDP_TX_VERSION			0x00F8	/**< Version and revision of the
+#define XDP_TX_VERSION			0x0F8	/**< Version and revision of the
 							DisplayPort core. */
-#define XDP_TX_CORE_ID			0x00FC	/**< DisplayPort protocol
+#define XDP_TX_CORE_ID			0x0FC	/**< DisplayPort protocol
 							version and revision. */
 /* @} */
 
 /** @name DPTX core registers: AUX channel interface.
   * @{
   */
-#define XDP_TX_AUX_CMD			0x0100	/**< Initiates AUX commands. */
-#define XDP_TX_AUX_WRITE_FIFO		0x0104	/**< Write data for the current
+#define XDP_TX_AUX_CMD			0x100	/**< Initiates AUX commands. */
+#define XDP_TX_AUX_WRITE_FIFO		0x104	/**< Write data for the current
 							AUX command. */
-#define XDP_TX_AUX_ADDRESS		0x0108	/**< Specifies the address of
+#define XDP_TX_AUX_ADDRESS		0x108	/**< Specifies the address of
 							current AUX command. */
-#define XDP_TX_AUX_CLK_DIVIDER		0x010C	/**< Clock divider value for
+#define XDP_TX_AUX_CLK_DIVIDER		0x10C	/**< Clock divider value for
 							generating the internal
 							1MHz clock. */
-#define XDP_TX_USER_FIFO_OVERFLOW	0x0110	/**< Indicates an overflow in
+#define XDP_TX_USER_FIFO_OVERFLOW	0x110	/**< Indicates an overflow in
 							user FIFO. */
-#define XDP_TX_INTERRUPT_SIG_STATE	0x0130	/**< The raw signal values for
+#define XDP_TX_INTERRUPT_SIG_STATE	0x130	/**< The raw signal values for
 							interupt events. */
-#define XDP_TX_AUX_REPLY_DATA		0x0134	/**< Reply data received during
+#define XDP_TX_AUX_REPLY_DATA		0x134	/**< Reply data received during
 							the AUX reply. */
-#define XDP_TX_AUX_REPLY_CODE		0x0138	/**< Reply code received from
+#define XDP_TX_AUX_REPLY_CODE		0x138	/**< Reply code received from
 							the most recent AUX
 							command. */
-#define XDP_TX_AUX_REPLY_COUNT		0x013C	/**< Number of reply
+#define XDP_TX_AUX_REPLY_COUNT		0x13C	/**< Number of reply
 							transactions receieved
 							over AUX. */
-#define XDP_TX_INTERRUPT_STATUS		0x0140	/**< Status for interrupt
+#define XDP_TX_INTERRUPT_STATUS		0x140	/**< Status for interrupt
 							events. */
-#define XDP_TX_INTERRUPT_MASK		0x0144	/**< Masks the specified
+#define XDP_TX_INTERRUPT_MASK		0x144	/**< Masks the specified
 							interrupt sources. */
-#define XDP_TX_REPLY_DATA_COUNT		0x0148	/**< Total number of data bytes
+#define XDP_TX_REPLY_DATA_COUNT		0x148	/**< Total number of data bytes
 							actually received during
 							a transaction. */
-#define XDP_TX_REPLY_STATUS		0x014C	/**< Reply status of most recent
+#define XDP_TX_REPLY_STATUS		0x14C	/**< Reply status of most recent
 							AUX transaction. */
-#define XDP_TX_HPD_DURATION		0x0150	/**< Duration of the HPD pulse
+#define XDP_TX_HPD_DURATION		0x150	/**< Duration of the HPD pulse
 							in microseconds. */
 /* @} */
 
 /** @name DPTX core registers: Main stream attributes for SST / MST STREAM1.
   * @{
   */
-#define XDP_TX_STREAM1_MSA_START	0x0180	/**< Start of the MSA registers
+#define XDP_TX_STREAM1_MSA_START	0x180	/**< Start of the MSA registers
 							for stream 1. */
-#define XDP_TX_MAIN_STREAM_HTOTAL	0x0180	/**< Total number of clocks in
+#define XDP_TX_MAIN_STREAM_HTOTAL	0x180	/**< Total number of clocks in
 							the horizontal framing
 							period. */
-#define XDP_TX_MAIN_STREAM_VTOTAL	0x0184	/**< Total number of lines in
+#define XDP_TX_MAIN_STREAM_VTOTAL	0x184	/**< Total number of lines in
 							the video frame. */
-#define XDP_TX_MAIN_STREAM_POLARITY	0x0188	/**< Polarity for the video
+#define XDP_TX_MAIN_STREAM_POLARITY	0x188	/**< Polarity for the video
 							sync signals. */
-#define XDP_TX_MAIN_STREAM_HSWIDTH	0x018C	/**< Width of the horizontal
+#define XDP_TX_MAIN_STREAM_HSWIDTH	0x18C	/**< Width of the horizontal
 							sync pulse. */
-#define XDP_TX_MAIN_STREAM_VSWIDTH	0x0190	/**< Width of the vertical sync
+#define XDP_TX_MAIN_STREAM_VSWIDTH	0x190	/**< Width of the vertical sync
 							pulse. */
-#define XDP_TX_MAIN_STREAM_HRES		0x0194	/**< Number of active pixels per
+#define XDP_TX_MAIN_STREAM_HRES		0x194	/**< Number of active pixels per
 							line (the horizontal
 							resolution). */
-#define XDP_TX_MAIN_STREAM_VRES		0x0198	/**< Number of active lines (the
+#define XDP_TX_MAIN_STREAM_VRES		0x198	/**< Number of active lines (the
 							vertical resolution). */
-#define XDP_TX_MAIN_STREAM_HSTART	0x019C	/**< Number of clocks between
+#define XDP_TX_MAIN_STREAM_HSTART	0x19C	/**< Number of clocks between
 							the leading edge of the
 							horizontal sync and the
 							start of active data. */
-#define XDP_TX_MAIN_STREAM_VSTART	0x01A0	/**< Number of lines between the
+#define XDP_TX_MAIN_STREAM_VSTART	0x1A0	/**< Number of lines between the
 							leading edge of the
 							vertical sync and the
 							first line of active
 							data. */
-#define XDP_TX_MAIN_STREAM_MISC0	0x01A4	/**< Miscellaneous stream
+#define XDP_TX_MAIN_STREAM_MISC0	0x1A4	/**< Miscellaneous stream
 							attributes. */
-#define XDP_TX_MAIN_STREAM_MISC1	0x01A8	/**< Miscellaneous stream
+#define XDP_TX_MAIN_STREAM_MISC1	0x1A8	/**< Miscellaneous stream
 							attributes. */
-#define XDP_TX_M_VID			0x01AC	/**< M value for the video
+#define XDP_TX_M_VID			0x1AC	/**< M value for the video
 							stream as computed by
 							the source core in
 							asynchronous clock
 							mode. Must be written
 							in synchronous mode. */
-#define XDP_TX_TU_SIZE			0x01B0	/**< Size of a transfer unit in
+#define XDP_TX_TU_SIZE			0x1B0	/**< Size of a transfer unit in
 							the framing logic. */
-#define XDP_TX_N_VID			0x01B4	/**< N value for the video
+#define XDP_TX_N_VID			0x1B4	/**< N value for the video
 							stream as computed by
 							the source core in
 							asynchronous clock mode.
 							Must be written in
 							synchronous mode. */
-#define XDP_TX_USER_PIXEL_WIDTH		0x01B8	/**< Selects the width of the
+#define XDP_TX_USER_PIXEL_WIDTH		0x1B8	/**< Selects the width of the
 							user data input port. */
-#define XDP_TX_USER_DATA_COUNT_PER_LANE	0x01BC	/**< Used to translate the
+#define XDP_TX_USER_DATA_COUNT_PER_LANE	0x1BC	/**< Used to translate the
 							number of pixels per
 							line to the native
 							internal 16-bit
 							datapath. */
-#define XDP_TX_MAIN_STREAM_INTERLACED	0x01C0	/**< Video is interlaced. */
-#define XDP_TX_MIN_BYTES_PER_TU		0x01C4	/**< The minimum number of bytes
+#define XDP_TX_MAIN_STREAM_INTERLACED	0x1C0	/**< Video is interlaced. */
+#define XDP_TX_MIN_BYTES_PER_TU		0x1C4	/**< The minimum number of bytes
 							per transfer unit. */
-#define XDP_TX_FRAC_BYTES_PER_TU	0x01C8	/**< The fractional component
+#define XDP_TX_FRAC_BYTES_PER_TU	0x1C8	/**< The fractional component
 							when calculated the
 							XDP_TX_MIN_BYTES_PER_TU
 							register value. */
-#define XDP_TX_INIT_WAIT		0x01CC	/**< Number of initial wait
+#define XDP_TX_INIT_WAIT		0x1CC	/**< Number of initial wait
 							cycles at the start of a
 							new line by the framing
 							logic, allowing enough
 							data to be buffered in
 							the input FIFO. */
-#define XDP_TX_STREAM1			0x01D0	/**< Average stream symbol
+#define XDP_TX_STREAM1			0x1D0	/**< Average stream symbol
 							timeslots per MTP
 							config. */
-#define XDP_TX_STREAM2			0x01D4	/**< Average stream symbol
+#define XDP_TX_STREAM2			0x1D4	/**< Average stream symbol
 							timeslots per MTP
 							config. */
-#define XDP_TX_STREAM3			0x01D8	/**< Average stream symbol
+#define XDP_TX_STREAM3			0x1D8	/**< Average stream symbol
 							timeslots per MTP
 							config. */
-#define XDP_TX_STREAM4			0x01DC	/**< Average stream symbol
+#define XDP_TX_STREAM4			0x1DC	/**< Average stream symbol
 							timeslots per MTP
 							config. */
 /* @} */
@@ -229,72 +229,72 @@
 /** @name DPTX core registers: PHY configuration status.
   * @{
   */
-#define XDP_TX_PHY_CONFIG		0x0200	/**< Transceiver PHY reset and
+#define XDP_TX_PHY_CONFIG		0x200	/**< Transceiver PHY reset and
 							configuration. */
-#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_0	0x0220	/**< Controls the differential
+#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_0	0x220	/**< Controls the differential
 							voltage swing. */
-#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_1	0x0224	/**< Controls the differential
+#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_1	0x224	/**< Controls the differential
 							voltage swing. */
-#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_2	0x0228	/**< Controls the differential
+#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_2	0x228	/**< Controls the differential
 							voltage swing. */
-#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_3	0x022C	/**< Controls the differential
+#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_3	0x22C	/**< Controls the differential
 							voltage swing. */
-#define XDP_TX_PHY_TRANSMIT_PRBS7	0x0230	/**< Enable pseudo random bit
+#define XDP_TX_PHY_TRANSMIT_PRBS7	0x230	/**< Enable pseudo random bit
 							sequence 7 pattern
 							transmission for link
 							quality assessment. */
-#define XDP_TX_PHY_CLOCK_SELECT		0x0234	/**< Instructs the PHY PLL to
+#define XDP_TX_PHY_CLOCK_SELECT		0x234	/**< Instructs the PHY PLL to
 							generate the proper
 							clock frequency for the
 							required link rate. */
-#define XDP_TX_PHY_POWER_DOWN		0x0238	/**< Controls PHY power down. */
-#define XDP_TX_PHY_PRECURSOR_LANE_0	0x023C	/**< Controls the pre-cursor
+#define XDP_TX_PHY_POWER_DOWN		0x238	/**< Controls PHY power down. */
+#define XDP_TX_PHY_PRECURSOR_LANE_0	0x23C	/**< Controls the pre-cursor
 							level. */
-#define XDP_TX_PHY_PRECURSOR_LANE_1	0x0240	/**< Controls the pre-cursor
+#define XDP_TX_PHY_PRECURSOR_LANE_1	0x240	/**< Controls the pre-cursor
 							level. */
-#define XDP_TX_PHY_PRECURSOR_LANE_2	0x0244	/**< Controls the pre-cursor
+#define XDP_TX_PHY_PRECURSOR_LANE_2	0x244	/**< Controls the pre-cursor
 							level. */
-#define XDP_TX_PHY_PRECURSOR_LANE_3	0x0248	/**< Controls the pre-cursor
+#define XDP_TX_PHY_PRECURSOR_LANE_3	0x248	/**< Controls the pre-cursor
 							level. */
-#define XDP_TX_PHY_POSTCURSOR_LANE_0	0x024C	/**< Controls the post-cursor
+#define XDP_TX_PHY_POSTCURSOR_LANE_0	0x24C	/**< Controls the post-cursor
 							level. */
-#define XDP_TX_PHY_POSTCURSOR_LANE_1	0x0250	/**< Controls the post-cursor
+#define XDP_TX_PHY_POSTCURSOR_LANE_1	0x250	/**< Controls the post-cursor
 							level. */
-#define XDP_TX_PHY_POSTCURSOR_LANE_2	0x0254	/**< Controls the post-cursor
+#define XDP_TX_PHY_POSTCURSOR_LANE_2	0x254	/**< Controls the post-cursor
 							level. */
-#define XDP_TX_PHY_POSTCURSOR_LANE_3	0x0258	/**< Controls the post-cursor
+#define XDP_TX_PHY_POSTCURSOR_LANE_3	0x258	/**< Controls the post-cursor
 							level. */
-#define XDP_TX_PHY_STATUS		0x0280	/**< Current PHY status. */
-#define XDP_TX_GT_DRP_COMMAND		0x02A0	/**< Provides acces to the GT
+#define XDP_TX_PHY_STATUS		0x280	/**< Current PHY status. */
+#define XDP_TX_GT_DRP_COMMAND		0x2A0	/**< Provides acces to the GT
 							DRP ports. */
-#define XDP_TX_GT_DRP_READ_DATA		0x02A4	/**< Provides access to GT DRP
+#define XDP_TX_GT_DRP_READ_DATA		0x2A4	/**< Provides access to GT DRP
 							read data. */
-#define XDP_TX_GT_DRP_CHANNEL_STATUS	0x02A8	/**< Provides access to GT DRP
+#define XDP_TX_GT_DRP_CHANNEL_STATUS	0x2A8	/**< Provides access to GT DRP
 							channel status. */
 /* @} */
 
 /** @name DPTX core registers: DisplayPort audio.
   * @{
   */
-#define XDP_TX_AUDIO_CONTROL		0x0300	/**< Enables audio stream
+#define XDP_TX_AUDIO_CONTROL		0x300	/**< Enables audio stream
 							packets in main link and
 							buffer control. */
-#define XDP_TX_AUDIO_CHANNELS		0x0304	/**< Used to input active
+#define XDP_TX_AUDIO_CHANNELS		0x304	/**< Used to input active
 							channel count. */
-#define XDP_TX_AUDIO_INFO_DATA(NUM)	(0x0308 + 4 * (NUM - 1)) /**< Word
+#define XDP_TX_AUDIO_INFO_DATA(NUM)	(0x308 + 4 * (NUM - 1)) /**< Word
 							formatted as per CEA
 							861-C info frame. */
-#define XDP_TX_AUDIO_MAUD		0x0328	/**< M value of audio stream
+#define XDP_TX_AUDIO_MAUD		0x328	/**< M value of audio stream
 							as computed by the
 							DisplayPort TX core when
 							audio and link clocks
 							are synchronous. */
-#define XDP_TX_AUDIO_NAUD		0x032C	/**< N value of audio stream
+#define XDP_TX_AUDIO_NAUD		0x32C	/**< N value of audio stream
 							as computed by the
 							DisplayPort TX core when
 							audio and link clocks
 							are synchronous. */
-#define XDP_TX_AUDIO_EXT_DATA(NUM)	(0x0330 + 4 * (NUM - 1)) /**< Word
+#define XDP_TX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
 /* @} */
@@ -302,7 +302,7 @@
 /** @name DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
   */
-#define XDP_TX_STREAM2_MSA_START	0x0500	/**< Start of the MSA registers
+#define XDP_TX_STREAM2_MSA_START	0x500	/**< Start of the MSA registers
 							for stream 2. */
 #define XDP_TX_STREAM2_MSA_START_OFFSET	(XDP_TX_STREAM2_MSA_START - \
 		XDP_TX_STREAM1_MSA_START)	/**< The MSA registers for
@@ -310,7 +310,7 @@
 							offset from the
 							corresponding registers
 							of stream 1. */
-#define XDP_TX_STREAM3_MSA_START	0x0550	/**< Start of the MSA registers
+#define XDP_TX_STREAM3_MSA_START	0x550	/**< Start of the MSA registers
 							for stream 3. */
 #define XDP_TX_STREAM3_MSA_START_OFFSET	(XDP_TX_STREAM3_MSA_START - \
 		XDP_TX_STREAM1_MSA_START)	/**< The MSA registers for
@@ -318,7 +318,7 @@
 							offset from the
 							corresponding registers
 							of stream 1. */
-#define XDP_TX_STREAM4_MSA_START	0x05A0	/**< Start of the MSA registers
+#define XDP_TX_STREAM4_MSA_START	0x5A0	/**< Start of the MSA registers
 							for stream 4. */
 #define XDP_TX_STREAM4_MSA_START_OFFSET	(XDP_TX_STREAM4_MSA_START - \
 		XDP_TX_STREAM1_MSA_START)	/**< The MSA registers for
@@ -328,7 +328,7 @@
 							of stream 1. */
 /* @} */
 
-#define XDP_TX_VC_PAYLOAD_BUFFER_ADDR	0x0800	/**< Virtual channel payload
+#define XDP_TX_VC_PAYLOAD_BUFFER_ADDR	0x800	/**< Virtual channel payload
 							table (0xFF bytes). */
 
 /******************************************************************************/
