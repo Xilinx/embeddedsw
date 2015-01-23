@@ -32,10 +32,10 @@
 /******************************************************************************/
 /**
  *
- * @file xdptx_selftest_example.c
+ * @file xdp_selftest_example.c
  *
- * Contains a design example using the XDptx driver. It performs a self test on
- * the DisplayPort TX core that will compare many of the DisplayPort TX core's
+ * Contains a design example using the XDp driver. It performs a self test on
+ * the DisplayPort TX/RX core that will compare many of the DisplayPort core's
  * registers against their default reset values.
  *
  * @note	None.
@@ -45,24 +45,33 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.0   als  06/17/14 Initial creation.
+ * 1.0   als  01/20/15 Initial creation.
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
-#include "xdptx_example_common.h"
+#include "xdp.h"
+#include "xparameters.h"
+
+/**************************** Constant Definitions ****************************/
+
+#define DP_DEVICE_ID XPAR_DISPLAYPORT_0_DEVICE_ID
 
 /**************************** Function Prototypes *****************************/
 
-u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId);
+u32 Dp_SelfTestExample(XDp *InstancePtr, u16 DeviceId);
+
+/*************************** Variable Declarations ****************************/
+
+XDp DpInstance;
 
 /**************************** Function Definitions ****************************/
 
 /******************************************************************************/
 /**
- * This function is the main function of the XDptx selftest example.
+ * This function is the main function of the XDp selftest example.
  *
  * @param	None.
  *
@@ -79,23 +88,23 @@ int main(void)
 {
 	u32 Status;
 
-	Status = Dptx_SelfTestExample(&DptxInstance, DPTX_DEVICE_ID);
+	Status = Dp_SelfTestExample(&DpInstance, DP_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("XDptx_SelfTest failed, check register values.\n");
+		xil_printf("XDp_SelfTest failed, check register values.\n");
 		return XST_FAILURE;
 	}
-	xil_printf("XDptx_SelfTest passed.\n");
+	xil_printf("XDp_SelfTest passed.\n");
 	return Status;
 }
 
 /******************************************************************************/
 /**
- * The main entry point for the selftest example using the XDptx driver. This
+ * The main entry point for the selftest example using the XDp driver. This
  * function will check whether or not the DisplayPort TX's registers are at
  * their default reset values to ensure that the core is in a known and working
  * state.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	DeviceId is the unique device ID of the DisplayPort TX core
  *		instance.
  *
@@ -108,21 +117,21 @@ int main(void)
  * @note	None.
  *
 *******************************************************************************/
-u32 Dptx_SelfTestExample(XDptx *InstancePtr, u16 DeviceId)
+u32 Dp_SelfTestExample(XDp *InstancePtr, u16 DeviceId)
 {
 	u32 Status;
-	XDptx_Config *ConfigPtr;
+	XDp_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the DisplayPort TX core. */
-	ConfigPtr = XDptx_LookupConfig(DeviceId);
+	ConfigPtr = XDp_LookupConfig(DeviceId);
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
 	/* Copy the device configuration into the InstancePtr's Config
 	 * structure. */
-	XDptx_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddr);
+	XDp_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddr);
 
 	/* Run the self test. */
-	Status = XDptx_SelfTest(InstancePtr);
+	Status = XDp_SelfTest(InstancePtr);
 	return Status;
 }

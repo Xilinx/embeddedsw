@@ -32,18 +32,19 @@
 /******************************************************************************/
 /**
  *
- * @file xdptx_example_common.h
+ * @file xdp_tx_example_common.h
  *
- * Contains a design example using the XDptx driver. It performs a self test on
- * the DisplayPort TX core by training the main link at the maximum common
- * capabilities between the TX and RX and checking the lane status.
+ * Contains a design example using the XDp driver (operating in TX mode). It
+ * performs a self test on the DisplayPort TX core by training the main link at
+ * the maximum common capabilities between the TX and RX and checking the lane
+ * status.
  *
  * @note	The DisplayPort TX core does not work alone - video/audio
  *		sources need to be set up in the system correctly, as well as
  *		setting up the output path (for example, configuring the
  *		hardware system with the DisplayPort TX core output to an FMC
  *		card with DisplayPort output capabilities. Some platform
- *		initialization will need to happen prior to calling XDptx driver
+ *		initialization will need to happen prior to calling XDp driver
  *		functions. See XAPP1178 as a reference.
  *
  * <pre>
@@ -51,22 +52,20 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.0   als  06/17/14 Initial creation.
+ * 1.0   als  01/20/15 Initial creation.
  * </pre>
  *
 *******************************************************************************/
 
-#ifndef XDPTX_EXAMPLE_COMMON_H_
+#ifndef XDP_TX_EXAMPLE_COMMON_H_
 /* Prevent circular inclusions by using protection macros. */
-#define XDPTX_EXAMPLE_COMMON_H_
+#define XDP_TX_EXAMPLE_COMMON_H_
 
 /******************************* Include Files ********************************/
 
-#include "xdptx.h"
+#include "xdp.h"
 #include "xil_printf.h"
-#include "xil_types.h"
 #include "xparameters.h"
-#include "xstatus.h"
 
 /**************************** Constant Definitions ****************************/
 
@@ -83,7 +82,7 @@
  * If set to 0, link training will return failure if the training failed using
  * the current lane count and link rate settings.
  * TRAIN_ADAPTIVE is used by the examples as input to the
- * XDptx_EnableTrainAdaptive driver function. */
+ * XDp_TxEnableTrainAdaptive driver function. */
 #define TRAIN_ADAPTIVE 1
 
 /* A value of 1 is used to indicate that the DisplayPort output path has a
@@ -96,20 +95,20 @@
  * a DisplayPort RX device, the level values specified to the DisplayPort TX
  * core will require some compensation.
  * TRAIN_HAS_REDRIVER is used by the examples as input to the
- * XDptx_SetHasRedriverInPath driver function.
+ * XDp_TxSetHasRedriverInPath driver function.
  * Note: There are 16 possible voltage swing levels and 32 possible pre-emphasis
  *       levels in the DisplayPort TX core that will be mapped to 4 possible
  *       voltage swing and 4 possible pre-emphasis levels in the RX device. */
 #define TRAIN_HAS_REDRIVER 1
 
 /* The link rate setting to begin link training with. Valid values are:
- * XDPTX_LINK_BW_SET_540GBPS, XDPTX_LINK_BW_SET_270GBPS, and
- * XDPTX_LINK_BW_SET_162GBPS. */
-#define TRAIN_USE_LINK_RATE XDPTX_LINK_BW_SET_540GBPS
+ * XDP_TX_LINK_BW_SET_540GBPS, XDP_TX_LINK_BW_SET_270GBPS, and
+ * XDP_TX_LINK_BW_SET_162GBPS. */
+#define TRAIN_USE_LINK_RATE XDP_TX_LINK_BW_SET_540GBPS
 /* The lane count setting to begin link training with. Valid values are:
- * XDPTX_LANE_COUNT_SET_4, XDPTX_LANE_COUNT_SET_2, and
- * XDPTX_LANE_COUNT_SET_1. */
-#define TRAIN_USE_LANE_COUNT XDPTX_LANE_COUNT_SET_4
+ * XDP_TX_LANE_COUNT_SET_4, XDP_TX_LANE_COUNT_SET_2, and
+ * XDP_TX_LANE_COUNT_SET_1. */
+#define TRAIN_USE_LANE_COUNT XDP_TX_LANE_COUNT_SET_4
 /* If set to 1, TRAIN_USE_LINK_RATE and TRAIN_USE_LANE_COUNT will be ignored.
  * Instead, the maximum common link capabilities between the DisplayPort TX core
  * and the RX device will be used when establishing a link.
@@ -121,16 +120,16 @@
 /**************************** Function Prototypes *****************************/
 
 extern u32 Dptx_PlatformInit(void);
-extern u32 Dptx_StreamSrcSync(XDptx *InstancePtr);
-extern u32 Dptx_StreamSrcSetup(XDptx *InstancePtr);
-extern u32 Dptx_StreamSrcConfigure(XDptx *InstancePtr);
+extern u32 Dptx_StreamSrcSync(XDp *InstancePtr);
+extern u32 Dptx_StreamSrcSetup(XDp *InstancePtr);
+extern u32 Dptx_StreamSrcConfigure(XDp *InstancePtr);
 
-u32 Dptx_SetupExample(XDptx *InstancePtr, u16 DeviceId);
-u32 Dptx_StartLink(XDptx *InstancePtr);
-u32 Dptx_Run(XDptx *InstancePtr);
+u32 Dptx_SetupExample(XDp *InstancePtr, u16 DeviceId);
+u32 Dptx_StartLink(XDp *InstancePtr);
+u32 Dptx_Run(XDp *InstancePtr);
 
 /*************************** Variable Declarations ****************************/
 
-XDptx DptxInstance;
+XDp DpInstance;
 
-#endif /* XDPTX_EXAMPLE_COMMON_H_ */
+#endif /* XDP_TX_EXAMPLE_COMMON_H_ */

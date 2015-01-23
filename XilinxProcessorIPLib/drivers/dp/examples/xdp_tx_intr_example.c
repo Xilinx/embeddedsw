@@ -32,11 +32,12 @@
 /******************************************************************************/
 /**
  *
- * @file xdptx_intr_example.c
+ * @file xdp_tx_intr_example.c
  *
- * Contains a design example using the XDptx driver with interrupts. Upon Hot-
- * Plug-Detect (HPD - DisplayPort cable is plugged/unplugged or the monitor is
- * turned on/off), the main link will be trained.
+ * Contains a design example using the XDp driver (operating in TX mode) with
+ * interrupts. Upon Hot-Plug-Detect (HPD - DisplayPort cable is
+ * plugged/unplugged or the monitor is turned on/off), the main link will be
+ * trained.
  *
  * @note	This example requires an interrupt controller connected to the
  *		processor and the DisplayPort TX core in the system.
@@ -44,10 +45,10 @@
  *		implement initialization of the system (Dptx_PlatformInit) and,
  *		after training is complete, implement configuration of the video
  *		stream source in order to provide the DisplayPort core with
- *		input (Dptx_StreamSrc* - called in xdptx_example_common.c). See
+ *		input (Dptx_StreamSrc* - called in xdp_tx_example_common.c). See
  *		XAPP1178 for reference.
  * @note	The functions Dptx_PlatformInit and Dptx_StreamSrc* are declared
- *		extern in xdptx_example_common.h and are left up to the user to
+ *		extern in xdp_tx_example_common.h and are left up to the user to
  *		implement.
  *
  * <pre>
@@ -55,14 +56,14 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.0   als  06/17/14 Initial creation.
+ * 1.0   als  01/20/15 Initial creation.
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
-#include "xdptx_example_common.h"
+#include "xdp_tx_example_common.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
 #include "xintc.h"
@@ -97,12 +98,12 @@
 
 /**************************** Function Prototypes *****************************/
 
-u32 Dptx_IntrExample(XDptx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-		u16 IntrId, u16 DpIntrId, XDptx_HpdEventHandler HpdEventHandler,
-		XDptx_HpdPulseHandler HpdPulseHandler);
-static u32 Dptx_SetupInterruptHandler(XDptx *InstancePtr, INTC *IntcPtr,
-		u16 IntrId, u16 DpIntrId, XDptx_HpdEventHandler HpdEventHandler,
-		XDptx_HpdPulseHandler HpdPulseHandler);
+u32 Dptx_IntrExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
+		u16 IntrId, u16 DpIntrId, XDp_IntrHandler HpdEventHandler,
+		XDp_IntrHandler HpdPulseHandler);
+static u32 Dptx_SetupInterruptHandler(XDp *InstancePtr, INTC *IntcPtr,
+		u16 IntrId, u16 DpIntrId, XDp_IntrHandler HpdEventHandler,
+		XDp_IntrHandler HpdPulseHandler);
 static void Dptx_HpdEventHandler(void *InstancePtr);
 static void Dptx_HpdPulseHandler(void *InstancePtr);
 
@@ -134,7 +135,7 @@ INTC IntcInstance; /* The interrupt controller instance. */
 int main(void)
 {
 	/* Run the XDptx interrupt example. */
-	Dptx_IntrExample(&DptxInstance, DPTX_DEVICE_ID,
+	Dptx_IntrExample(&DpInstance, DPTX_DEVICE_ID,
 				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
 				&Dptx_HpdEventHandler, &Dptx_HpdPulseHandler);
 
@@ -143,11 +144,11 @@ int main(void)
 
 /******************************************************************************/
 /**
- * The main entry point for the interrupt example using the XDptx driver. This
+ * The main entry point for the interrupt example using the XDp driver. This
  * function will set up the system with interrupts and set up the Hot-Plug-Event
  * (HPD) handlers.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	DeviceId is the unique device ID of the DisplayPort TX core
  *		instance.
  * @param	IntcPtr is a pointer to the interrupt instance.
@@ -169,14 +170,14 @@ int main(void)
  *		events.
  *
 *******************************************************************************/
-u32 Dptx_IntrExample(XDptx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-		u16 IntrId, u16 DpIntrId, XDptx_HpdEventHandler HpdEventHandler,
-		XDptx_HpdPulseHandler HpdPulseHandler)
+u32 Dptx_IntrExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
+		u16 IntrId, u16 DpIntrId, XDp_IntrHandler HpdEventHandler,
+		XDp_IntrHandler HpdPulseHandler)
 {
 	u32 Status;
 
 	/* Use single-stream transport (SST) mode for this example. */
-	XDptx_MstCfgModeDisable(InstancePtr);
+	XDp_TxMstCfgModeDisable(InstancePtr);
 
 	/* Do platform initialization here. This is hardware system specific -
 	 * it is up to the user to implement this function. */
@@ -188,8 +189,8 @@ u32 Dptx_IntrExample(XDptx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 		return XST_FAILURE;
 	}
 
-	XDptx_EnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
-	XDptx_SetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
+	XDp_TxEnableTrainAdaptive(InstancePtr, TRAIN_ADAPTIVE);
+	XDp_TxSetHasRedriverInPath(InstancePtr, TRAIN_HAS_REDRIVER);
 
 	/* Setup interrupt handling in the system. */
 	Status = Dptx_SetupInterruptHandler(InstancePtr, IntcPtr, IntrId,
@@ -213,7 +214,7 @@ u32 Dptx_IntrExample(XDptx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
  * to the processor. The user should modify this function to fit the
  * application.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	IntcPtr is a pointer to the interrupt instance.
  * @param	IntrId is the unique device ID of the interrupt controller.
  * @param	DpIntrId is the interrupt ID of the DisplayPort TX connection to
@@ -231,15 +232,15 @@ u32 Dptx_IntrExample(XDptx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
  *		to the processor and the DisplayPort TX core.
  *
 *******************************************************************************/
-static u32 Dptx_SetupInterruptHandler(XDptx *InstancePtr, INTC *IntcPtr,
-		u16 IntrId, u16 DpIntrId, XDptx_HpdEventHandler HpdEventHandler,
-		XDptx_HpdPulseHandler HpdPulseHandler)
+static u32 Dptx_SetupInterruptHandler(XDp *InstancePtr, INTC *IntcPtr,
+		u16 IntrId, u16 DpIntrId, XDp_IntrHandler HpdEventHandler,
+		XDp_IntrHandler HpdPulseHandler)
 {
 	u32 Status;
 
 	/* Set the HPD interrupt handlers. */
-	XDptx_SetHpdEventHandler(InstancePtr, HpdEventHandler, InstancePtr);
-	XDptx_SetHpdPulseHandler(InstancePtr, HpdPulseHandler, InstancePtr);
+	XDp_TxSetHpdEventHandler(InstancePtr, HpdEventHandler, InstancePtr);
+	XDp_TxSetHpdPulseHandler(InstancePtr, HpdPulseHandler, InstancePtr);
 
 	/* Initialize interrupt controller driver. */
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -264,10 +265,10 @@ static u32 Dptx_SetupInterruptHandler(XDptx *InstancePtr, INTC *IntcPtr,
 	 * the specific interrupt processing for the device. */
 #ifdef XPAR_INTC_0_DEVICE_ID
 	Status = XIntc_Connect(IntcPtr, DpIntrId,
-		(XInterruptHandler)XDptx_HpdInterruptHandler, InstancePtr);
+		(XInterruptHandler)XDp_InterruptHandler, InstancePtr);
 #else
 	Status = XScuGic_Connect(IntcPtr, DpIntrId,
-		(Xil_InterruptHandler)XDptx_HpdInterruptHandler, InstancePtr);
+		(Xil_InterruptHandler)XDp_InterruptHandler, InstancePtr);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -300,26 +301,26 @@ static u32 Dptx_SetupInterruptHandler(XDptx *InstancePtr, INTC *IntcPtr,
 /******************************************************************************/
 /**
  * This function is called when a Hot-Plug-Detect (HPD) event is received by the
- * DisplayPort TX core. The XDPTX_INTERRUPT_STATUS_HPD_EVENT_MASK bit of the
- * core's XDPTX_INTERRUPT_STATUS register indicates that an HPD event has
+ * DisplayPort TX core. The XDP_TX_INTERRUPT_STATUS_HPD_EVENT_MASK bit of the
+ * core's XDP_TX_INTERRUPT_STATUS register indicates that an HPD event has
  * occurred.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
- * @note	Use the XDptx_SetHpdEventHandler driver function to set this
+ * @note	Use the XDp_TxSetHpdEventHandler driver function to set this
  *		function as the handler for HPD pulses.
  *
 *******************************************************************************/
 static void Dptx_HpdEventHandler(void *InstancePtr)
 {
-	XDptx *XDptx_InstancePtr = (XDptx *)InstancePtr;
+	XDp *XDp_InstancePtr = (XDp *)InstancePtr;
 
-	if (XDptx_IsConnected(XDptx_InstancePtr)) {
+	if (XDp_TxIsConnected(XDp_InstancePtr)) {
 		xil_printf("+===> HPD connection event detected.\n");
 
-		Dptx_Run(XDptx_InstancePtr);
+		Dptx_Run(XDp_InstancePtr);
 	}
 	else {
 		xil_printf("+===> HPD disconnection event detected.\n\n");
@@ -329,23 +330,23 @@ static void Dptx_HpdEventHandler(void *InstancePtr)
 /******************************************************************************/
 /**
  * This function is called when a Hot-Plug-Detect (HPD) pulse is received by the
- * DisplayPort TX core. The XDPTX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK bit
- * of the core's XDPTX_INTERRUPT_STATUS register indicates that an HPD event has
- * occurred.
+ * DisplayPort TX core. The XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK bit
+ * of the core's XDP_TX_INTERRUPT_STATUS register indicates that an HPD event
+ * has occurred.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
- * @note	Use the XDptx_SetHpdPulseHandler driver function to set this
+ * @note	Use the XDp_TxSetHpdPulseHandler driver function to set this
  *		function as the handler for HPD pulses.
  *
 *******************************************************************************/
 static void Dptx_HpdPulseHandler(void *InstancePtr)
 {
-	XDptx *XDptx_InstancePtr = (XDptx *)InstancePtr;
+	XDp *XDp_InstancePtr = (XDp *)InstancePtr;
 
 	xil_printf("===> HPD pulse detected.\n");
 
-	Dptx_Run(XDptx_InstancePtr);
+	Dptx_Run(XDp_InstancePtr);
 }

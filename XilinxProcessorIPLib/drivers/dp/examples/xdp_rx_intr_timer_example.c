@@ -32,9 +32,9 @@
 /******************************************************************************/
 /**
  *
- * @file xdprx_intr_timer_example.c
+ * @file xdp_rx_intr_timer_example.c
  *
- * Contains a design example using the XDprx driver with a user-defined hook
+ * Contains a design example using the XDp driver with a user-defined hook
  * for delay. The reasoning behind this is that MicroBlaze sleep is not very
  * accurate without a hardware timer. For systems that have a hardware timer,
  * the user may override the default MicroBlaze sleep with a function that will
@@ -46,7 +46,8 @@
  * This example will print out the detected resolution of the incoming
  * DisplayPort video stream.
  * This example is meant to take in the incoming DisplayPort video stream and
- * output it over HDMI (pass-through).
+ * pass it through using the Dprd_Vidpipe* functions which are left for the user
+ * to implement.
  *
  * @note	This example requires an AXI timer in the system.
  * @note	For this example to work, the user will need to implement
@@ -68,7 +69,7 @@
 
 /******************************* Include Files ********************************/
 
-#include "xdprx.h"
+#include "xdp.h"
 #include "xparameters.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
@@ -107,10 +108,10 @@ XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_INTC_1_DISPLAYPORT_0_AXI_INT_INTR
 
 /**************************** Function Prototypes *****************************/
 
-u32 Dprx_IntrTimerExample(XDprx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
+u32 Dprx_IntrTimerExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 			u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr);
-static u32 Dprx_SetupExample(XDprx *InstancePtr, u16 DeviceId);
-static u32 Dprx_SetupInterruptHandler(XDprx *InstancePtr, INTC *IntcPtr,
+static u32 Dprx_SetupExample(XDp *InstancePtr, u16 DeviceId);
+static u32 Dprx_SetupInterruptHandler(XDp *InstancePtr, INTC *IntcPtr,
 						u16 IntrId, u16 DpIntrId);
 static void Dprx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 static void Dprx_ResetVideoOutput(void *InstancePtr);
@@ -127,12 +128,12 @@ static void Dprx_InterruptHandlerTp1(void *InstancePtr);
 static void Dprx_InterruptHandlerTp2(void *InstancePtr);
 static void Dprx_InterruptHandlerTp3(void *InstancePtr);
 
-extern void Dprx_VidpipeConfig(XDprx *InstancePtr);
+extern void Dprx_VidpipeConfig(XDp *InstancePtr);
 extern void Dprx_VidpipeReset(void);
 
 /*************************** Variable Declarations ****************************/
 
-XDprx DprxInstance; /* The Dprx instance. */
+XDp DpInstance; /* The Dp instance. */
 INTC IntcInstance; /* The interrupt controller instance. */
 XTmrCtr TimerCounterInst; /* The timer counter instance. */
 
@@ -144,9 +145,9 @@ u8 VBlankCount;
 
 /******************************************************************************/
 /**
- * This function is the main function of the XDprx interrupt with timer example.
- * If the DprxIntrTimerExample function, which sets up the system succeeds, this
- * function will wait for interrupts.
+ * This function is the main function of the XDp (operating in RX mode)
+ * interrupt with timer example. If the Dprx_IntrTimerExample function, which
+ * sets up the system succeeds, this function will wait for interrupts.
  *
  * @param	None.
  *
@@ -155,15 +156,15 @@ u8 VBlankCount;
  *		  setup failed.
  *
  * @note	Unless setup failed, main will never return since
- *		DprxIntrTimerExample is blocking.
+ *		Dprx_IntrTimerExample is blocking.
  *
 *******************************************************************************/
 int main(void)
 {
 	u32 Status;
 
-	/* Run the XDprx timer example. */
-	Status = Dprx_IntrTimerExample(&DprxInstance, DPRX_DEVICE_ID,
+	/* Run the XDp (in RX mode) interrupt with timer example. */
+	Status = Dprx_IntrTimerExample(&DpInstance, DPRX_DEVICE_ID,
 				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
 				&TimerCounterInst);
 	if (Status != XST_SUCCESS) {
@@ -175,11 +176,11 @@ int main(void)
 
 /******************************************************************************/
 /**
- * The main entry point for the interrupt with timer example using the XDprx
+ * The main entry point for the interrupt with timer example using the XDp
  * driver. This function will set up the system, interrupt controller and
  * interrupt handlers, and the custom sleep handler.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	DeviceId is the unique device ID of the DisplayPort RX core
  *		instance.
  * @param	IntcPtr is a pointer to the interrupt instance.
@@ -196,7 +197,7 @@ int main(void)
  * @note	None.
  *
 *******************************************************************************/
-u32 Dprx_IntrTimerExample(XDprx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
+u32 Dprx_IntrTimerExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 			u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr)
 {
 	u32 Status;
@@ -212,7 +213,7 @@ u32 Dprx_IntrTimerExample(XDprx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 	 * Note: This only has an affect for MicroBlaze systems since the Zynq
 	 * ARM SoC contains a timer, which is used when the driver calls the
 	 * delay function. */
-	XDprx_SetUserTimerHandler(InstancePtr, &Dprx_CustomWaitUs,
+	XDp_SetUserTimerHandler(InstancePtr, &Dprx_CustomWaitUs,
 							TimerCounterPtr);
 
 	/* Setup interrupt handling in the system. */
@@ -239,7 +240,7 @@ u32 Dprx_IntrTimerExample(XDprx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
  * configuration parameters will be retrieved based on the configuration
  * to the DisplayPort RX core instance with the specified device ID.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	DeviceId is the unique device ID of the DisplayPort RX core
  *		instance.
  *
@@ -251,7 +252,7 @@ u32 Dprx_IntrTimerExample(XDprx *InstancePtr, u16 DeviceId, INTC *IntcPtr,
  * @note	None.
  *
 *******************************************************************************/
-static u32 Dprx_SetupExample(XDprx *InstancePtr, u16 DeviceId)
+static u32 Dprx_SetupExample(XDp *InstancePtr, u16 DeviceId)
 {
 	XDp_Config *ConfigPtr;
 	u32 Status;
@@ -263,13 +264,13 @@ static u32 Dprx_SetupExample(XDprx *InstancePtr, u16 DeviceId)
 	}
 	/* Copy the device configuration into the InstancePtr's Config
 	 * structure. */
-	XDprx_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddr);
+	XDp_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddr);
 
-	XDprx_SetLaneCount(InstancePtr, InstancePtr->Config.MaxLaneCount);
-	XDprx_SetLinkRate(InstancePtr, InstancePtr->Config.MaxLinkRate);
+	XDp_RxSetLaneCount(InstancePtr, InstancePtr->Config.MaxLaneCount);
+	XDp_RxSetLinkRate(InstancePtr, InstancePtr->Config.MaxLinkRate);
 
 	/* Initialize the DisplayPort RX core. */
-	Status = XDprx_InitializeRx(InstancePtr);
+	Status = XDp_Initialize(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -285,7 +286,7 @@ static u32 Dprx_SetupExample(XDprx *InstancePtr, u16 DeviceId)
  * to the processor. The user should modify this function to fit the
  * application.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	IntcPtr is a pointer to the interrupt instance.
  * @param	IntrId is the unique device ID of the interrupt controller.
  * @param	DpIntrId is the interrupt ID of the DisplayPort RX connection to
@@ -299,33 +300,33 @@ static u32 Dprx_SetupExample(XDprx *InstancePtr, u16 DeviceId)
  *		to the processor and the DisplayPort RX core.
  *
 *******************************************************************************/
-static u32 Dprx_SetupInterruptHandler(XDprx *InstancePtr, INTC *IntcPtr,
+static u32 Dprx_SetupInterruptHandler(XDp *InstancePtr, INTC *IntcPtr,
 						u16 IntrId, u16 DpIntrId)
 {
 	u32 Status;
 
 	/* Set the HPD interrupt handlers. */
-	XDprx_SetIntrVmChangeHandler(InstancePtr,
+	XDp_RxSetIntrVmChangeHandler(InstancePtr,
 			Dprx_InterruptHandlerVmChange, InstancePtr);
-	XDprx_SetIntrPowerStateHandler(InstancePtr,
+	XDp_RxSetIntrPowerStateHandler(InstancePtr,
 			Dprx_InterruptHandlerPowerState, InstancePtr);
-	XDprx_SetIntrNoVideoHandler(InstancePtr,
+	XDp_RxSetIntrNoVideoHandler(InstancePtr,
 			Dprx_InterruptHandlerNoVideo, InstancePtr);
-	XDprx_SetIntrVBlankHandler(InstancePtr,
+	XDp_RxSetIntrVBlankHandler(InstancePtr,
 			Dprx_InterruptHandlerVBlank, InstancePtr);
-	XDprx_SetIntrTrainingLostHandler(InstancePtr,
+	XDp_RxSetIntrTrainingLostHandler(InstancePtr,
 			Dprx_InterruptHandlerTrainingLost, InstancePtr);
-	XDprx_SetIntrVideoHandler(InstancePtr,
+	XDp_RxSetIntrVideoHandler(InstancePtr,
 			Dprx_InterruptHandlerVideo, InstancePtr);
-	XDprx_SetIntrTrainingDoneHandler(InstancePtr,
+	XDp_RxSetIntrTrainingDoneHandler(InstancePtr,
 			Dprx_InterruptHandlerTrainingDone, InstancePtr);
-	XDprx_SetIntrBwChangeHandler(InstancePtr,
+	XDp_RxSetIntrBwChangeHandler(InstancePtr,
 			Dprx_InterruptHandlerBwChange, InstancePtr);
-	XDprx_SetIntrTp1Handler(InstancePtr,
+	XDp_RxSetIntrTp1Handler(InstancePtr,
 			Dprx_InterruptHandlerTp1, InstancePtr);
-	XDprx_SetIntrTp2Handler(InstancePtr,
+	XDp_RxSetIntrTp2Handler(InstancePtr,
 			Dprx_InterruptHandlerTp2, InstancePtr);
-	XDprx_SetIntrTp3Handler(InstancePtr,
+	XDp_RxSetIntrTp3Handler(InstancePtr,
 			Dprx_InterruptHandlerTp3, InstancePtr);
 
 	/* Initialize interrupt controller driver. */
@@ -351,10 +352,10 @@ static u32 Dprx_SetupInterruptHandler(XDprx *InstancePtr, INTC *IntcPtr,
 	 * the specific interrupt processing for the device. */
 #ifdef XPAR_INTC_0_DEVICE_ID
 	Status = XIntc_Connect(IntcPtr, DpIntrId,
-			(XInterruptHandler)XDprx_InterruptHandler, InstancePtr);
+			(XInterruptHandler)XDp_InterruptHandler, InstancePtr);
 #else
 	Status = XScuGic_Connect(IntcPtr, DpIntrId,
-		(Xil_InterruptHandler)XDprx_InterruptHandler, InstancePtr);
+		(Xil_InterruptHandler)XDp_InterruptHandler, InstancePtr);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -388,43 +389,43 @@ static u32 Dprx_SetupInterruptHandler(XDprx *InstancePtr, INTC *IntcPtr,
 /******************************************************************************/
 /**
  * This function is used to override the driver's default sleep functionality.
- * For MicroBlaze systems, the XDprx_WaitUs driver function's default behavior
+ * For MicroBlaze systems, the XDp_WaitUs driver function's default behavior
  * is to use the MB_Sleep function from microblaze_sleep.h, which is implemented
  * in software and only has millisecond accuracy. For this reason, using a
  * hardware timer is preferrable. For ARM/Zynq SoC systems, the SoC's timer is
- * used - XDprx_WaitUs will ignore this custom timer handler.
+ * used - XDp_WaitUs will ignore this custom timer handler.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
- * @note	Use the XDprx_SetUserTimerHandler driver function to set this
- *		function as the handler for when the XDprx_WaitUs driver
+ * @note	Use the XDp_SetUserTimerHandler driver function to set this
+ *		function as the handler for when the XDp_WaitUs driver
  *		function is called.
  *
 *******************************************************************************/
 static void Dprx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
-	XDprx *XDprx_InstancePtr = (XDprx *)InstancePtr;
+	XDp *XDp_InstancePtr = (XDp *)InstancePtr;
 	u32 TimerVal;
 
-	XTmrCtr_Start(XDprx_InstancePtr->UserTimerPtr, 0);
+	XTmrCtr_Start(XDp_InstancePtr->UserTimerPtr, 0);
 
 	/* Wait specified number of useconds. */
 	do {
-		TimerVal = XTmrCtr_GetValue(XDprx_InstancePtr->UserTimerPtr, 0);
+		TimerVal = XTmrCtr_GetValue(XDp_InstancePtr->UserTimerPtr, 0);
 	}
 	while (TimerVal < (MicroSeconds *
-			(XDprx_InstancePtr->Config.SAxiClkHz / 1000000)));
+			(XDp_InstancePtr->Config.SAxiClkHz / 1000000)));
 
-	XTmrCtr_Stop(XDprx_InstancePtr->UserTimerPtr, 0);
+	XTmrCtr_Stop(XDp_InstancePtr->UserTimerPtr, 0);
 }
 
 /******************************************************************************/
 /**
  * This function is used to reset video output for this example.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -434,7 +435,7 @@ static void Dprx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 static void Dprx_ResetVideoOutput(void *InstancePtr)
 {
 	xil_printf("\tDisabling the display timing generator.\n");
-	XDprx_DtgDis(InstancePtr);
+	XDp_RxDtgDis(InstancePtr);
 
 	xil_printf("\tResetting the video output pipeline.\n");
 	/* This is hardware system specific - it is up to the user to implement
@@ -449,14 +450,14 @@ static void Dprx_ResetVideoOutput(void *InstancePtr)
 	/*******************/
 
 	xil_printf("\tRe-enabling the display timing generator.\n");
-	XDprx_DtgEn(InstancePtr);
+	XDp_RxDtgEn(InstancePtr);
 }
 
 /******************************************************************************/
 /**
  * This function will present the resolution of the incoming video stream.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -470,12 +471,12 @@ static void Dprx_DetectResolution(void *InstancePtr)
 	u32 GetResCount = 0;
 
 	do {
-		DpHres = (XDprx_ReadReg(((XDprx *)InstancePtr)->Config.BaseAddr,
-							XDPRX_MSA_HRES));
-		DpVres = (XDprx_ReadReg(((XDprx *)InstancePtr)->Config.BaseAddr,
-							XDPRX_MSA_VHEIGHT));
+		DpHres = (XDp_ReadReg(((XDp *)InstancePtr)->Config.BaseAddr,
+							XDP_RX_MSA_HRES));
+		DpVres = (XDp_ReadReg(((XDp *)InstancePtr)->Config.BaseAddr,
+							XDP_RX_MSA_VHEIGHT));
 		GetResCount++;
-		XDprx_WaitUs(InstancePtr, 1000);
+		XDp_WaitUs(InstancePtr, 1000);
 	} while (((DpHres == 0) || (DpVres == 0)) && (GetResCount < 2000));
 
 	xil_printf("\n*** Detected resolution: %d x %d ***\n", DpHres, DpVres);
@@ -486,7 +487,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
  * This function is the callback function for when a video mode chang interrupt
  * occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -499,7 +500,7 @@ static void Dprx_InterruptHandlerVmChange(void *InstancePtr)
 
 	xil_printf("> Interrupt: video mode change.\n");
 
-	Status = XDprx_CheckLinkStatus(InstancePtr);
+	Status = XDp_RxCheckLinkStatus(InstancePtr);
 	if ((Status == XST_SUCCESS) && (VBlankCount >= 20)) {
 		Dprx_ResetVideoOutput(InstancePtr);
 		Dprx_DetectResolution(InstancePtr);
@@ -511,7 +512,7 @@ static void Dprx_InterruptHandlerVmChange(void *InstancePtr)
  * This function is the callback function for when the power state interrupt
  * occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -527,7 +528,7 @@ static void Dprx_InterruptHandlerPowerState(void *InstancePtr)
 /**
  * This function is the callback function for when a no video interrupt occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -545,7 +546,7 @@ static void Dprx_InterruptHandlerNoVideo(void *InstancePtr)
  * This function is the callback function for when a vertical blanking interrupt
  * occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -566,10 +567,10 @@ static void Dprx_InterruptHandlerVBlank(void *InstancePtr)
 		 * outputting any video stream. */
 		if (VBlankCount >= 20) {
 			VBlankEnable = 0;
-			XDprx_InterruptDisable(InstancePtr,
-					XDPRX_INTERRUPT_MASK_VBLANK_MASK);
+			XDp_RxInterruptDisable(InstancePtr,
+					XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 
-			Status = XDprx_CheckLinkStatus(InstancePtr);
+			Status = XDp_RxCheckLinkStatus(InstancePtr);
 			if (Status == XST_SUCCESS) {
 				Dprx_ResetVideoOutput(InstancePtr);
 				Dprx_DetectResolution(InstancePtr);
@@ -583,7 +584,7 @@ static void Dprx_InterruptHandlerVBlank(void *InstancePtr)
  * This function is the callback function for when a training lost interrupt
  * occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -596,11 +597,11 @@ static void Dprx_InterruptHandlerTrainingLost(void *InstancePtr)
 
 	/* Re-enable vertical blanking interrupt and counter. */
 	VBlankEnable = 1;
-	XDprx_InterruptEnable(InstancePtr, XDPRX_INTERRUPT_MASK_VBLANK_MASK);
+	XDp_RxInterruptEnable(InstancePtr, XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 	VBlankCount = 0;
 
 	xil_printf("\tDisabling the display timing generator.\n");
-	XDprx_DtgDis(InstancePtr);
+	XDp_RxDtgDis(InstancePtr);
 	xil_printf("\tResetting the video output pipeline.\n");
 	/* This is hardware system specific - it is up to the user to implement
 	 * this function if needed. */
@@ -613,7 +614,7 @@ static void Dprx_InterruptHandlerTrainingLost(void *InstancePtr)
  * This function is the callback function for when a valid video interrupt
  * occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -631,7 +632,7 @@ static void Dprx_InterruptHandlerVideo(void *InstancePtr)
  * This function is the callback function for when a training done interrupt
  * occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -648,7 +649,7 @@ static void Dprx_InterruptHandlerTrainingDone(void *InstancePtr)
  * This function is the callback function for when a bandwidth change interrupt
  * occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -665,7 +666,7 @@ static void Dprx_InterruptHandlerBwChange(void *InstancePtr)
  * This function is the callback function for when a training pattern 1
  * interrupt occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -682,7 +683,7 @@ static void Dprx_InterruptHandlerTp1(void *InstancePtr)
  * This function is the callback function for when a training pattern 2
  * interrupt occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *
@@ -699,7 +700,7 @@ static void Dprx_InterruptHandlerTp2(void *InstancePtr)
  * This function is the callback function for when a training pattern 3
  * interrupt occurs.
  *
- * @param	InstancePtr is a pointer to the XDprx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	None.
  *

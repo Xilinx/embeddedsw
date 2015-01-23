@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,10 +32,11 @@
 /******************************************************************************/
 /**
  *
- * @file xdptx_edid.c
+ * @file xdp_edid.c
  *
  * This file contains functions related to accessing the Extended Display
- * Identification Data (EDID) of a specified sink using the XDptx driver.
+ * Identification Data (EDID) of a specified sink using the XDp driver operating
+ * in TX mode.
  *
  * @note	None.
  *
@@ -44,15 +45,14 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 3.0   als  11/04/14 Initial release.
+ * 1.0   als  01/20/15 Initial release.
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
-#include "xdptx.h"
-#include "xstatus.h"
+#include "xdp.h"
 
 /**************************** Function Definitions ****************************/
 
@@ -61,7 +61,7 @@
  * This function retrieves an immediately connected RX device's Extended Display
  * Identification Data (EDID) structure.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	Edid is a pointer to the Edid buffer to save to.
  *
  * @return
@@ -74,7 +74,7 @@
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
+u32 XDp_TxGetEdid(XDp *InstancePtr, u8 *Edid)
 {
 	u32 Status;
 
@@ -84,7 +84,7 @@ u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
 	Xil_AssertNonvoid(Edid != NULL);
 
 	/* Retrieve the base EDID block = EDID block #0. */
-	Status = XDptx_GetEdidBlock(InstancePtr, Edid, 0);
+	Status = XDp_TxGetEdidBlock(InstancePtr, Edid, 0);
 
 	return Status;
 }
@@ -94,7 +94,7 @@ u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
  * This function retrieves a remote RX device's Extended Display Identification
  * Data (EDID) structure.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	LinkCountTotal is the number of DisplayPort links from the
  *		DisplayPort source to the target DisplayPort device.
  * @param	RelativeAddress is the relative address from the DisplayPort
@@ -111,7 +111,7 @@ u32 XDptx_GetEdid(XDptx *InstancePtr, u8 *Edid)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
+u32 XDp_TxGetRemoteEdid(XDp *InstancePtr, u8 LinkCountTotal,
 						u8 *RelativeAddress, u8 *Edid)
 {
 	u32 Status;
@@ -124,7 +124,7 @@ u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(Edid != NULL);
 
 	/* Retrieve the base EDID block = EDID block #0. */
-	Status = XDptx_GetRemoteEdidBlock(InstancePtr, Edid, 0, LinkCountTotal,
+	Status = XDp_TxGetRemoteEdidBlock(InstancePtr, Edid, 0, LinkCountTotal,
 							RelativeAddress);
 
 	return Status;
@@ -136,7 +136,7 @@ u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
  * Data (EDID) block given the block number. A block number of 0 represents the
  * base EDID and subsequent block numbers represent EDID extension blocks.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	Data is a pointer to the data buffer to save the block data to.
  * @param	BlockNum is the EDID block number to retrieve.
  *
@@ -151,17 +151,17 @@ u32 XDptx_GetRemoteEdid(XDptx *InstancePtr, u8 LinkCountTotal,
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum)
+u32 XDp_TxGetEdidBlock(XDp *InstancePtr, u8 *Data, u8 BlockNum)
 {
 	u32 Status;
 	u16 Offset;
 
 	/* Calculate the I2C offset for the specified EDID block. */
-	Offset = BlockNum * XDPTX_EDID_BLOCK_SIZE;
+	Offset = BlockNum * XDP_EDID_BLOCK_SIZE;
 
 	/* Issue the I2C read for the specified EDID block. */
-	Status = XDptx_IicRead(InstancePtr, XDPTX_EDID_ADDR, Offset,
-						XDPTX_EDID_BLOCK_SIZE, Data);
+	Status = XDp_TxIicRead(InstancePtr, XDP_EDID_ADDR, Offset,
+						XDP_EDID_BLOCK_SIZE, Data);
 
 	return Status;
 }
@@ -172,7 +172,7 @@ u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum)
  * Data (EDID) block given the block number. A block number of 0 represents the
  * base EDID and subsequent block numbers represent EDID extension blocks.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	Data is a pointer to the data buffer to save the block data to.
  * @param	BlockNum is the EDID block number to retrieve.
  * @param	LinkCountTotal is the total DisplayPort links connecting the
@@ -191,18 +191,18 @@ u32 XDptx_GetEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
+u32 XDp_TxGetRemoteEdidBlock(XDp *InstancePtr, u8 *Data, u8 BlockNum,
 					u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u32 Status;
 	u16 Offset;
 
 	/* Calculate the I2C offset for the specified EDID block. */
-	Offset = BlockNum * XDPTX_EDID_BLOCK_SIZE;
+	Offset = BlockNum * XDP_EDID_BLOCK_SIZE;
 
 	/* Issue the I2C read for the specified EDID block. */
-	Status = XDptx_RemoteIicRead(InstancePtr, LinkCountTotal,
-		RelativeAddress, XDPTX_EDID_ADDR, Offset, XDPTX_EDID_BLOCK_SIZE,
+	Status = XDp_TxRemoteIicRead(InstancePtr, LinkCountTotal,
+		RelativeAddress, XDP_EDID_ADDR, Offset, XDP_EDID_BLOCK_SIZE,
 									Data);
 
 	return Status;
@@ -213,7 +213,7 @@ u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
  * Search for and retrieve a downstream DisplayPort device's Extended Display
  * Identification Data (EDID) extension block of type DisplayID.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	Data is a pointer to the data buffer to save the DisplayID to.
  * @param	LinkCountTotal is the total DisplayPort links connecting the
  *		DisplayPort TX to the targeted downstream device.
@@ -231,7 +231,7 @@ u32 XDptx_GetRemoteEdidBlock(XDptx *InstancePtr, u8 *Data, u8 BlockNum,
  * @note	None.
  *
 *******************************************************************************/
-u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
+u32 XDp_TxGetRemoteEdidDispIdExt(XDp *InstancePtr, u8 *Data,
 					u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u32 Status;
@@ -239,22 +239,22 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
 	u8 ExtIndex;
 
 	/* Get the base EDID block. */
-	Status = XDptx_GetRemoteEdid(InstancePtr, LinkCountTotal,
+	Status = XDp_TxGetRemoteEdid(InstancePtr, LinkCountTotal,
 							RelativeAddress, Data);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
-	NumExt = Data[XDPTX_EDID_EXT_BLOCK_COUNT];
+	NumExt = Data[XDP_EDID_EXT_BLOCK_COUNT];
 	for (ExtIndex = 0; ExtIndex < NumExt; ExtIndex++) {
 		/* Get an EDID extension block. */
-		Status = XDptx_GetRemoteEdidBlock(InstancePtr, Data,
+		Status = XDp_TxGetRemoteEdidBlock(InstancePtr, Data,
 				ExtIndex + 1, LinkCountTotal, RelativeAddress);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 
-		if (XDptx_IsEdidExtBlockDispId(Data)) {
+		if (XDp_TxIsEdidExtBlockDispId(Data)) {
 			/* The current extension block is of type DisplayID. */
 			return XST_SUCCESS;
 		}
@@ -286,31 +286,31 @@ u32 XDptx_GetRemoteEdidDispIdExt(XDptx *InstancePtr, u8 *Data,
  *		section data block.
  *
 *******************************************************************************/
-u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
+u32 XDp_TxGetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 {
 	u8 Index;
-	u8 DispIdSize = DisplayIdRaw[XDPTX_DISPID_SIZE];
+	u8 DispIdSize = DisplayIdRaw[XDP_TX_DISPID_SIZE];
 	u8 *DataBlock;
 
 	/* Search for a section data block matching the specified tag. */
-	for (Index = XDPTX_DISPID_PAYLOAD_START; Index < DispIdSize; Index++) {
+	for (Index = XDP_TX_DISPID_PAYLOAD_START; Index < DispIdSize; Index++) {
 		DataBlock = &DisplayIdRaw[Index];
 
 		/* Check if the tag mataches the current section data block. */
-		if (DataBlock[XDPTX_DISPID_DB_SEC_TAG] == SectionTag) {
+		if (DataBlock[XDP_TX_DISPID_DB_SEC_TAG] == SectionTag) {
 			*DataBlockPtr = DataBlock;
 			return XST_SUCCESS;
 		}
 
-		if (DataBlock[XDPTX_DISPID_DB_SEC_SIZE] == 0) {
+		if (DataBlock[XDP_TX_DISPID_DB_SEC_SIZE] == 0) {
 			/* End of valid section data blocks. */
 			break;
 		}
 		else {
 			/* Increment the search index to skip the remaining
 			 * bytes of the current section data block. */
-			Index += (XDPTX_DISPID_DB_SEC_SIZE +
-					DataBlock[XDPTX_DISPID_DB_SEC_SIZE]);
+			Index += (XDP_TX_DISPID_DB_SEC_SIZE +
+					DataBlock[XDP_TX_DISPID_DB_SEC_SIZE]);
 		}
 	}
 
@@ -327,7 +327,7 @@ u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
  * DisplayID structure. The DisplayID structure is part of the Extended Display
  * Identification Data (EDID) in the form of an extension block.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
+ * @param	InstancePtr is a pointer to the XDp instance.
  * @param	EdidExt is a pointer to the data area that will be filled by the
  *		retrieved DisplayID extension block.
  * @param	LinkCountTotal is the total DisplayPort links connecting the
@@ -350,14 +350,14 @@ u32 XDptx_GetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
  *		EdidExt entry representing the TDT section data block.
  *
 *******************************************************************************/
-u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
+u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 		u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr)
 {
 	u32 Status;
 	u8 *EdidExtDispId;
 
 	/* Obtain a DisplayID EDID extension block. */
-	Status = XDptx_GetRemoteEdidDispIdExt(InstancePtr, EdidExt,
+	Status = XDp_TxGetRemoteEdidDispIdExt(InstancePtr, EdidExt,
 					LinkCountTotal, RelativeAddress);
 	if (Status != XST_SUCCESS) {
 		/* The sink does not have a DisplayID EDID extension block. */
@@ -369,7 +369,7 @@ u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
 
 	/* Obtain the tiled display topology block data from the DisplayId EDID
 	 * extension block. */
-	Status = XDptx_GetDispIdDataBlock(EdidExtDispId, XDPTX_DISPID_TDT_TAG,
+	Status = XDp_TxGetDispIdDataBlock(EdidExtDispId, XDP_TX_DISPID_TDT_TAG,
 								DataBlockPtr);
 	if (Status != XST_SUCCESS) {
 		/* The sink does not possess a DisplayID EDID data block with

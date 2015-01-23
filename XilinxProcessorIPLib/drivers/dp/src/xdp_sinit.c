@@ -50,7 +50,7 @@
 
 /******************************* Include Files ********************************/
 
-#include "xdptx.h"
+#include "xdp.h"
 #include "xparameters.h"
 
 /*************************** Variable Declarations ****************************/
