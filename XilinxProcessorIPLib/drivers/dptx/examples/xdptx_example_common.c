@@ -266,7 +266,7 @@ u32 Dptx_StartLink(XDptx *InstancePtr)
 static void Dptx_StartVideoStream(XDptx *InstancePtr)
 {
 	u32 Status;
-	u8 Edid[XDPTX_EDID_SIZE];
+	u8 Edid[XDPTX_EDID_BLOCK_SIZE];
 
 	/* Set the bits per color. If not set, the default is 6. */
 	XDptx_CfgMsaSetBpc(InstancePtr, XDPTX_STREAM_ID0, 8);
@@ -281,7 +281,7 @@ static void Dptx_StartVideoStream(XDptx *InstancePtr)
 
 /* Choose a method for selecting the video mode. There are 3 ways to do this:
  * 1) Use the preferred timing from the monitor's EDID:
- *	u8 Edid[XDPTX_EDID_SIZE];
+ *	u8 Edid[XDPTX_EDID_BLOCK_SIZE];
  *	XDptx_GetEdid(InstancePtr, Edid);
  *	XDptx_CfgMsaUseEdidPreferredTiming(InstancePtr, XDPTX_STREAM_ID0, Edid);
  *
