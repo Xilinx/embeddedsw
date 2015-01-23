@@ -9,6 +9,7 @@ BEGIN LIBRARY lwip140
   OPTION requires_os = (standalone xilkernel freertos_zynq);
   OPTION VERSION = 2.4;
   OPTION NAME = lwip140;
+  OPTION library_state = "deprecated";
 
   PARAM name = api_mode, desc = "Mode of operation for lwIP (RAW API/Sockets API)", type = enum, values = ("RAW API" = RAW_API, "SOCKET API" = SOCKET_API), default = RAW_API;
   PARAM name = socket_mode_thread_prio, desc = "Priority of threads in socket mode", type = int, default = 2;
