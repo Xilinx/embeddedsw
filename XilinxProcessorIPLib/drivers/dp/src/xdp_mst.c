@@ -414,8 +414,9 @@ u8 XDp_TxMstStreamIsEnabled(XDp *InstancePtr, u8 Stream)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 
 	return InstancePtr->TxInstance.
 				MstStreamConfig[Stream - 1].MstStreamEnable;
@@ -439,8 +440,9 @@ void XDp_TxMstCfgStreamEnable(XDp *InstancePtr, u8 Stream)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 
 	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstStreamEnable = 1;
 }
@@ -463,8 +465,9 @@ void XDp_TxMstCfgStreamDisable(XDp *InstancePtr, u8 Stream)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 
 	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstStreamEnable = 0;
 }
@@ -488,8 +491,7 @@ void XDp_TxMstCfgStreamDisable(XDp *InstancePtr, u8 Stream)
  *		function using the XDp_TxFindAccessibleDpDevices.
  *
 *******************************************************************************/
-void XDp_TxSetStreamSelectFromSinkList(XDp *InstancePtr, u8 Stream, u8
-									SinkNum)
+void XDp_TxSetStreamSelectFromSinkList(XDp *InstancePtr, u8 Stream, u8 SinkNum)
 {
 	u8 Index;
 	XDp_TxMstStream *MstStream;
@@ -498,8 +500,9 @@ void XDp_TxSetStreamSelectFromSinkList(XDp *InstancePtr, u8 Stream, u8
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 
 	MstStream = &InstancePtr->TxInstance.MstStreamConfig[Stream - 1];
 	Topology = &InstancePtr->TxInstance.Topology;
@@ -539,8 +542,9 @@ void XDp_TxSetStreamSinkRad(XDp *InstancePtr, u8 Stream, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 	Xil_AssertVoid(LinkCountTotal > 0);
 	Xil_AssertVoid(RelativeAddress != NULL);
 
@@ -1639,7 +1643,8 @@ u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 
 	/* Prepare the sideband message body. */
 	Msg.Body.MsgData[0] = XDP_TX_SBMSG_REMOTE_I2C_WRITE;
-	Msg.Body.MsgData[1] = RelativeAddress[Msg.Header.LinkCountTotal - 1] << 4;
+	Msg.Body.MsgData[1] = RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
+									4;
 	Msg.Body.MsgData[2] = IicDeviceId; /* Write I2C device ID. */
 	Msg.Body.MsgData[3] = BytesToWrite; /* Number of bytes to write. */
 	for (Index = 0; Index < BytesToWrite; Index++) {

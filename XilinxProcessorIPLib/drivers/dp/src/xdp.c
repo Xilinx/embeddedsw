@@ -377,7 +377,8 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_162GBPS) ||
+	Xil_AssertNonvoid((LinkConfig->LinkRate ==
+			XDP_TX_LINK_BW_SET_162GBPS) ||
 			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_270GBPS) ||
 			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_540GBPS));
 	Xil_AssertNonvoid((LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
@@ -401,7 +402,7 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 
 	/* Turn off the training pattern and enable scrambler. */
 	Status2 = XDp_TxSetTrainingPattern(InstancePtr,
-						XDP_TX_TRAINING_PATTERN_SET_OFF);
+					XDP_TX_TRAINING_PATTERN_SET_OFF);
 	if ((Status != XST_SUCCESS) || (Status2 != XST_SUCCESS)) {
 		return XST_FAILURE;
 	}
@@ -438,8 +439,8 @@ u32 XDp_TxCheckLinkStatus(XDp *InstancePtr, u8 LaneCount)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
-					(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
-					(LaneCount == XDP_TX_LANE_COUNT_SET_4));
+				(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
+				(LaneCount == XDP_TX_LANE_COUNT_SET_4));
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
@@ -1039,8 +1040,8 @@ u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
-					(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
-					(LaneCount == XDP_TX_LANE_COUNT_SET_4));
+				(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
+				(LaneCount == XDP_TX_LANE_COUNT_SET_4));
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
@@ -1110,15 +1111,15 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	switch (LinkRate) {
 	case XDP_TX_LINK_BW_SET_162GBPS:
 		Status = XDp_TxSetClkSpeed(InstancePtr,
-						XDP_TX_PHY_CLOCK_SELECT_162GBPS);
+					XDP_TX_PHY_CLOCK_SELECT_162GBPS);
 		break;
 	case XDP_TX_LINK_BW_SET_270GBPS:
 		Status = XDp_TxSetClkSpeed(InstancePtr,
-						XDP_TX_PHY_CLOCK_SELECT_270GBPS);
+					XDP_TX_PHY_CLOCK_SELECT_270GBPS);
 		break;
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		Status = XDp_TxSetClkSpeed(InstancePtr,
-						XDP_TX_PHY_CLOCK_SELECT_540GBPS);
+					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
 		break;
 	default:
 		break;
@@ -1269,7 +1270,7 @@ void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset)
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, Reset);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG,
-					XDP_TX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+				XDP_TX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
 	if (InstancePtr->Config.MaxLaneCount > 2) {
 		XDp_WaitPhyReady(InstancePtr,
 					XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK);
@@ -1665,15 +1666,15 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 	switch (ConfigPtr->MaxLinkRate) {
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CLOCK_SELECT,
-						XDP_TX_PHY_CLOCK_SELECT_540GBPS);
+					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
 		break;
 	case XDP_TX_LINK_BW_SET_270GBPS:
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CLOCK_SELECT,
-						XDP_TX_PHY_CLOCK_SELECT_270GBPS);
+					XDP_TX_PHY_CLOCK_SELECT_270GBPS);
 		break;
 	case XDP_TX_LINK_BW_SET_162GBPS:
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CLOCK_SELECT,
-						XDP_TX_PHY_CLOCK_SELECT_162GBPS);
+					XDP_TX_PHY_CLOCK_SELECT_162GBPS);
 		break;
 	default:
 		break;
@@ -1681,16 +1682,16 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 
 	/* Bring the PHY (and GTTXRESET) out of reset. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG,
-					XDP_TX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+				XDP_TX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
 
 	/* Wait for the PHY to be ready. */
 	if (ConfigPtr->MaxLaneCount > 2) {
 		Status = XDp_WaitPhyReady(InstancePtr,
-					XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK);
+				XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK);
 	}
 	else {
 		Status = XDp_WaitPhyReady(InstancePtr,
-					XDP_TX_PHY_STATUS_LANES_0_1_READY_MASK);
+				XDP_TX_PHY_STATUS_LANES_0_1_READY_MASK);
 	}
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -1782,7 +1783,7 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 				InstancePtr->RxInstance.LinkConfig.LaneCount);
 	/* Set the interrupt masks. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
-						~XDP_RX_INTERRUPT_MASK_ALL_MASK);
+					~XDP_RX_INTERRUPT_MASK_ALL_MASK);
 
 	/* Enable the display timing generator. */
 	XDp_RxDtgEn(InstancePtr);
@@ -1915,7 +1916,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr)
 	InstancePtr->TxInstance.LinkConfig.VsLevel = 0;
 	InstancePtr->TxInstance.LinkConfig.PeLevel = 0;
 	Status = XDp_TxSetTrainingPattern(InstancePtr,
-						XDP_TX_TRAINING_PATTERN_SET_TP1);
+					XDP_TX_TRAINING_PATTERN_SET_TP1);
 	if (Status != XST_SUCCESS) {
 		return XDP_TX_TS_FAILURE;
 	}
@@ -2022,11 +2023,11 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 				DpcdRxCapsField[XDP_DPCD_MAX_LANE_COUNT] &
 				XDP_DPCD_TPS3_SUPPORT_MASK) {
 		Status = XDp_TxSetTrainingPattern(InstancePtr,
-						XDP_TX_TRAINING_PATTERN_SET_TP3);
+					XDP_TX_TRAINING_PATTERN_SET_TP3);
 	}
 	else {
 		Status = XDp_TxSetTrainingPattern(InstancePtr,
-						XDP_TX_TRAINING_PATTERN_SET_TP2);
+					XDP_TX_TRAINING_PATTERN_SET_TP2);
 	}
 	if (Status != XST_SUCCESS) {
 		return XDP_TX_TS_FAILURE;
@@ -2084,8 +2085,8 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
  * @param	InstancePtr is a pointer to the XDp instance.
  *
  * @return	The next training state:
- *		- XDP_TX_TS_ADJUST_LANE_COUNT if the minimal data rate is already
- *		  in use. Re-attempt training at a reduced lane count.
+ *		- XDP_TX_TS_ADJUST_LANE_COUNT if the minimal data rate is
+ *		  already in use. Re-attempt training at a reduced lane count.
  *		- XDP_TX_TS_CLOCK_RECOVERY otherwise. Re-attempt training.
  *
  * @note	None.
@@ -2153,7 +2154,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLaneCount(XDp *InstancePtr)
 	switch (LinkConfig->LaneCount) {
 	case XDP_TX_LANE_COUNT_SET_4:
 		Status = XDp_TxSetLaneCount(InstancePtr,
-							XDP_TX_LANE_COUNT_SET_2);
+						XDP_TX_LANE_COUNT_SET_2);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
@@ -2169,7 +2170,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLaneCount(XDp *InstancePtr)
 		break;
 	case XDP_TX_LANE_COUNT_SET_2:
 		Status = XDp_TxSetLaneCount(InstancePtr,
-							XDP_TX_LANE_COUNT_SET_1);
+						XDP_TX_LANE_COUNT_SET_1);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
@@ -2901,7 +2902,7 @@ static u32 XDp_TxAuxWaitReply(XDp *InstancePtr)
 
 	while (0 < Timeout) {
 		Status = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-							XDP_TX_INTERRUPT_STATUS);
+						XDP_TX_INTERRUPT_STATUS);
 
 		/* Check for a timeout. */
 		if (Status & XDP_TX_INTERRUPT_STATUS_REPLY_TIMEOUT_MASK) {

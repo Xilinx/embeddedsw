@@ -349,8 +349,9 @@ void XDp_TxCfgMsaUseEdidPreferredTiming(XDp *InstancePtr, u8 Stream, u8 *Edid)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 	Xil_AssertVoid(Edid != NULL);
 
 	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];
@@ -484,8 +485,9 @@ void XDp_TxCfgMsaUseCustom(XDp *InstancePtr, u8 Stream,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 	Xil_AssertVoid(MsaConfigCustom != NULL);
 
 	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];
@@ -566,8 +568,9 @@ void XDp_TxCfgMsaSetBpc(XDp *InstancePtr, u8 Stream, u8 BitsPerColor)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 	Xil_AssertVoid((BitsPerColor == 6) || (BitsPerColor == 8) ||
 				(BitsPerColor == 10) || (BitsPerColor == 12) ||
 				(BitsPerColor == 16));
@@ -640,8 +643,9 @@ void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 
 	XDp_TxClearMsaValues(InstancePtr, Stream);
 	XDp_TxSetMsaValues(InstancePtr, Stream);
@@ -671,8 +675,9 @@ void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 
 	Config = &InstancePtr->Config;
 
@@ -744,8 +749,9 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
-		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
-		(Stream == XDP_TX_STREAM_ID4));
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
 
 	ConfigPtr = &InstancePtr->Config;
 	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];

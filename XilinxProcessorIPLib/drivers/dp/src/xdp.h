@@ -867,8 +867,7 @@ u32 XDp_TxMstDisable(XDp *InstancePtr);
 void XDp_TxMstCfgStreamEnable(XDp *InstancePtr, u8 Stream);
 void XDp_TxMstCfgStreamDisable(XDp *InstancePtr, u8 Stream);
 u8 XDp_TxMstStreamIsEnabled(XDp *InstancePtr, u8 Stream);
-void XDp_TxSetStreamSelectFromSinkList(XDp *InstancePtr, u8 Stream, u8
-								SinkNum);
+void XDp_TxSetStreamSelectFromSinkList(XDp *InstancePtr, u8 Stream, u8 SinkNum);
 void XDp_TxSetStreamSinkRad(XDp *InstancePtr, u8 Stream, u8 LinkCountTotal,
 							u8 *RelativeAddress);
 
@@ -992,14 +991,9 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 #define XDptx_HpdInterruptHandler	XDp_InterruptHandler
 #define XDprx_InterruptHandler		XDp_InterruptHandler
 
-#define XDptx_				XDp_Tx
-#define XDprx_				XDp_Rx
-#define XDptx				XDp
-#define XDprx				XDp
+#define XDptx				XDp_Tx
+#define XDprx				XDp_Rx
 
-#define XDPTX_DPCD_			XDP_DPCD_
-#define XDPTX_				XDP_TX_
-#define XDPRX_				XDP_RX_
 #define XDPTX				XDP_TX
 #define XDPRX				XDP_RX
 
