@@ -2714,10 +2714,16 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 	/* Make the adjustments to both the DisplayPort TX core and the RX
 	 * device. */
 	XDp_TxSetVswingPreemp(InstancePtr, &AuxData[1]);
-	/* Write the voltage swing and pre-emphasis levels for each lane to the
-	 * RX device. */
-	Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET,
-				5, AuxData);
+	if  (Pattern == XDP_TX_TRAINING_PATTERN_SET_OFF) {
+		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 1,
+								AuxData);
+	}
+	else {
+		/* Write the voltage swing and pre-emphasis levels for each lane
+		 * to the RX device. */
+		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 5,
+								AuxData);
+	}
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
