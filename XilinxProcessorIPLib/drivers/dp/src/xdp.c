@@ -1744,22 +1744,36 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 					XDP_RX_PHY_CONFIG_GTRX_RESET_MASK);
 
 	/* Wait until all lane CPLLs have locked. */
-	Status = XDp_WaitPhyReady(InstancePtr,
-					XDP_RX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK |
-					XDP_RX_PHY_STATUS_PLL_LANE2_3_LOCK_MASK);
+	if (InstancePtr->Config.MaxLaneCount > 2) {
+		Status = XDp_WaitPhyReady(InstancePtr,
+				XDP_RX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK |
+				XDP_RX_PHY_STATUS_PLL_LANE2_3_LOCK_MASK);
+	}
+	else {
+		Status = XDp_WaitPhyReady(InstancePtr,
+				XDP_RX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK);
+	}
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/* Remove the reset from the PHY. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_PHY_CONFIG,
-					XDP_RX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+				XDP_RX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
 
 	/* Wait until the PHY has completed the reset cycle. */
-	Status = XDp_WaitPhyReady(InstancePtr,
+	if (InstancePtr->Config.MaxLaneCount > 2) {
+		Status = XDp_WaitPhyReady(InstancePtr,
 					XDP_RX_PHY_STATUS_ALL_LANES_READY_MASK |
 					XDP_RX_PHY_STATUS_PLL_FABRIC_LOCK_MASK |
 					XDP_RX_PHY_STATUS_RX_CLK_LOCK_MASK);
+	}
+	else {
+		Status = XDp_WaitPhyReady(InstancePtr,
+					XDP_RX_PHY_STATUS_LANES_0_1_READY_MASK |
+					XDP_RX_PHY_STATUS_PLL_FABRIC_LOCK_MASK |
+					XDP_RX_PHY_STATUS_RX_CLK_LOCK_MASK);
+	}
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
