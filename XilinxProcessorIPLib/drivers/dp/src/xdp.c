@@ -1587,6 +1587,72 @@ void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 
 /******************************************************************************/
 /**
+ * This function enables audio stream packets on the main link.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxAudioEn(XDp *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUDIO_CONTROL, 0x1);
+}
+
+/******************************************************************************/
+/**
+ * This function disables audio stream packets on the main link.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxAudioDis(XDp *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUDIO_CONTROL, 0x0);
+}
+
+/******************************************************************************/
+/**
+ * This function resets the RX core's reception of audio stream packets on the
+ * main link.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxAudioReset(XDp *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	XDp_RxAudioDis(InstancePtr);
+	XDp_WaitUs(InstancePtr, 1000);
+	XDp_RxAudioEn(InstancePtr);
+}
+
+/******************************************************************************/
+/**
  * This function installs a custom delay/sleep function to be used by the XDp
  * driver.
  *

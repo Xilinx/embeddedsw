@@ -817,6 +817,11 @@ void XDp_RxDtgDis(XDp *InstancePtr);
 void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
 
+/* xdp.c: Audio functions. */
+void XDp_RxAudioEn(XDp *InstancePtr);
+void XDp_RxAudioDis(XDp *InstancePtr);
+void XDp_RxAudioReset(XDp *InstancePtr);
+
 /* xdp_edid.c: EDID utility functions. */
 u32 XDp_TxGetEdid(XDp *InstancePtr, u8 *Edid);
 u32 XDp_TxGetRemoteEdid(XDp *InstancePtr, u8 LinkCountTotal,
