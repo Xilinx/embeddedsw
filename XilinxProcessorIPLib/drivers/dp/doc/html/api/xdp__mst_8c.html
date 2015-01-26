@@ -26,7 +26,7 @@
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
- 1.0   als  01/20/15 Initial release.
+ 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  </pre>
 <p>
 <code>#include &quot;string.h&quot;</code><br>
@@ -1459,6 +1459,26 @@ This function will send a REMOTE_I2C_READ sideband message which will read from 
 <div class="memdoc">
 
 <p>
+This function will send a REMOTE_I2C_WRITE sideband message which will write to the specified I2C address of a downstream DisplayPort device.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>LinkCountTotal</em>&nbsp;</td><td>is the number of DisplayPort links from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>RelativeAddress</em>&nbsp;</td><td>is the relative address from the DisplayPort source to the target DisplayPort device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>IicDeviceId</em>&nbsp;</td><td>is the address on the I2C bus of the target device. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>BytesToWrite</em>&nbsp;</td><td>is the number of bytes to write to the I2C address. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>WriteData</em>&nbsp;</td><td>is a pointer to a buffer that will be written.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>XST_SUCCESS if the reply to the sideband message was successfully obtained and it indicates an acknowledge.</li></ul>
+</dd></dl>
+<ul>
+<li>XST_DEVICE_NOT_FOUND if no RX device is connected.<ul>
+<li>XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX request timed out.</li><li>XST_FAILURE otherwise - if an AUX read or write transaction failed, the header or body CRC of the sideband message did not match the calculated value, or the a reply was negative acknowledged (NACK'ed).</li></ul>
+</li></ul>
+<p>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
 </div><p>
@@ -1719,4 +1739,4 @@ This function will write a global unique identifier (GUID) to the target Display
 </pre></div>This table contains a list of global unique identifiers (GUIDs) that will be issued when exploring the topology using the algorithm in the XDp_TxFindAccessibleDpDevices function.
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
+Copyright @ 1995-2015 Xilinx, Inc. All rights reserved.

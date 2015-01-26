@@ -28,189 +28,189 @@ This header file contains the identifiers and low-level driver functions (or mac
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
- 1.0   als  01/20/15 Initial release.
+ 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  </pre>
 <p>
 <code>#include &quot;xil_io.h&quot;</code><br>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>DPTX core registers: Link configuration field.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#ae5925a444389bf34b490da77f28620b">XDP_TX_LINK_BW_SET</a>&nbsp;&nbsp;&nbsp;0x0000</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#ae5925a444389bf34b490da77f28620b">XDP_TX_LINK_BW_SET</a>&nbsp;&nbsp;&nbsp;0x000</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1b7deced9e40d38be828e5b20f406206">XDP_TX_LANE_COUNT_SET</a>&nbsp;&nbsp;&nbsp;0x0004</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1b7deced9e40d38be828e5b20f406206">XDP_TX_LANE_COUNT_SET</a>&nbsp;&nbsp;&nbsp;0x004</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5580fdf50bb0f3e73b7cf559a5a303e9">XDP_TX_ENHANCED_FRAME_EN</a>&nbsp;&nbsp;&nbsp;0x0008</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5580fdf50bb0f3e73b7cf559a5a303e9">XDP_TX_ENHANCED_FRAME_EN</a>&nbsp;&nbsp;&nbsp;0x008</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#2ee20831f59433fd81e3eb183af394b8">XDP_TX_TRAINING_PATTERN_SET</a>&nbsp;&nbsp;&nbsp;0x000C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#2ee20831f59433fd81e3eb183af394b8">XDP_TX_TRAINING_PATTERN_SET</a>&nbsp;&nbsp;&nbsp;0x00C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#86cc5fd0e294747e31bbe083b94f8e8f">XDP_TX_LINK_QUAL_PATTERN_SET</a>&nbsp;&nbsp;&nbsp;0x0010</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#86cc5fd0e294747e31bbe083b94f8e8f">XDP_TX_LINK_QUAL_PATTERN_SET</a>&nbsp;&nbsp;&nbsp;0x010</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#381f0df495ad38b4d3b7868614009d49">XDP_TX_SCRAMBLING_DISABLE</a>&nbsp;&nbsp;&nbsp;0x0014</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#381f0df495ad38b4d3b7868614009d49">XDP_TX_SCRAMBLING_DISABLE</a>&nbsp;&nbsp;&nbsp;0x014</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#21fbe46f022d0d33371a02bd29419988">XDP_TX_DOWNSPREAD_CTRL</a>&nbsp;&nbsp;&nbsp;0x0018</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#21fbe46f022d0d33371a02bd29419988">XDP_TX_DOWNSPREAD_CTRL</a>&nbsp;&nbsp;&nbsp;0x018</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#3363db51279aaf5815ce7b5608cba50c">XDP_TX_SOFT_RESET</a>&nbsp;&nbsp;&nbsp;0x001C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#3363db51279aaf5815ce7b5608cba50c">XDP_TX_SOFT_RESET</a>&nbsp;&nbsp;&nbsp;0x01C</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: Core enables.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1faa1e874bdf93214fb2b58770b61998">XDP_TX_ENABLE</a>&nbsp;&nbsp;&nbsp;0x0080</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1faa1e874bdf93214fb2b58770b61998">XDP_TX_ENABLE</a>&nbsp;&nbsp;&nbsp;0x080</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5f025620d6405df4681e32cfcd337fb2">XDP_TX_ENABLE_MAIN_STREAM</a>&nbsp;&nbsp;&nbsp;0x0084</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5f025620d6405df4681e32cfcd337fb2">XDP_TX_ENABLE_MAIN_STREAM</a>&nbsp;&nbsp;&nbsp;0x084</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c46731902c1bd43c64a97b57c961dfb2">XDP_TX_ENABLE_SEC_STREAM</a>&nbsp;&nbsp;&nbsp;0x0088</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c46731902c1bd43c64a97b57c961dfb2">XDP_TX_ENABLE_SEC_STREAM</a>&nbsp;&nbsp;&nbsp;0x088</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#bb955a3b18e92ad75f62a7b0d20f000e">XDP_TX_FORCE_SCRAMBLER_RESET</a>&nbsp;&nbsp;&nbsp;0x00C0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#bb955a3b18e92ad75f62a7b0d20f000e">XDP_TX_FORCE_SCRAMBLER_RESET</a>&nbsp;&nbsp;&nbsp;0x0C0</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#fb57f8ceb08142b6ddaf29c369629cf6">XDP_TX_MST_CONFIG</a>&nbsp;&nbsp;&nbsp;0x00D0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#fb57f8ceb08142b6ddaf29c369629cf6">XDP_TX_MST_CONFIG</a>&nbsp;&nbsp;&nbsp;0x0D0</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: Core ID.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#33fc769f58900351bf96b0a2a6a0b7a9">XDP_TX_VERSION</a>&nbsp;&nbsp;&nbsp;0x00F8</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#33fc769f58900351bf96b0a2a6a0b7a9">XDP_TX_VERSION</a>&nbsp;&nbsp;&nbsp;0x0F8</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1a016bc26e1258515c9709fab06e88d1">XDP_TX_CORE_ID</a>&nbsp;&nbsp;&nbsp;0x00FC</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1a016bc26e1258515c9709fab06e88d1">XDP_TX_CORE_ID</a>&nbsp;&nbsp;&nbsp;0x0FC</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: AUX channel interface.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#25c89044e396f0778a7647035b6f956e">XDP_TX_AUX_CMD</a>&nbsp;&nbsp;&nbsp;0x0100</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#25c89044e396f0778a7647035b6f956e">XDP_TX_AUX_CMD</a>&nbsp;&nbsp;&nbsp;0x100</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#6af11fabb2b714d43896f1529ac5671b">XDP_TX_AUX_WRITE_FIFO</a>&nbsp;&nbsp;&nbsp;0x0104</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#6af11fabb2b714d43896f1529ac5671b">XDP_TX_AUX_WRITE_FIFO</a>&nbsp;&nbsp;&nbsp;0x104</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#00556d0b8d0bab8965797590080ae34c">XDP_TX_AUX_ADDRESS</a>&nbsp;&nbsp;&nbsp;0x0108</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#00556d0b8d0bab8965797590080ae34c">XDP_TX_AUX_ADDRESS</a>&nbsp;&nbsp;&nbsp;0x108</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#3531faf924dcdd3b7fd06ef4bad8d2e0">XDP_TX_AUX_CLK_DIVIDER</a>&nbsp;&nbsp;&nbsp;0x010C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#3531faf924dcdd3b7fd06ef4bad8d2e0">XDP_TX_AUX_CLK_DIVIDER</a>&nbsp;&nbsp;&nbsp;0x10C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#29331ebc55cccdb9f0dfd08ee9a4b659">XDP_TX_USER_FIFO_OVERFLOW</a>&nbsp;&nbsp;&nbsp;0x0110</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#29331ebc55cccdb9f0dfd08ee9a4b659">XDP_TX_USER_FIFO_OVERFLOW</a>&nbsp;&nbsp;&nbsp;0x110</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1b184675f6ebaa215e0e01acb3409536">XDP_TX_INTERRUPT_SIG_STATE</a>&nbsp;&nbsp;&nbsp;0x0130</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#1b184675f6ebaa215e0e01acb3409536">XDP_TX_INTERRUPT_SIG_STATE</a>&nbsp;&nbsp;&nbsp;0x130</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#41008af47a2ba66b7082a998df55c77d">XDP_TX_AUX_REPLY_DATA</a>&nbsp;&nbsp;&nbsp;0x0134</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#41008af47a2ba66b7082a998df55c77d">XDP_TX_AUX_REPLY_DATA</a>&nbsp;&nbsp;&nbsp;0x134</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f9180b7f677d984ba467304fd6b273a9">XDP_TX_AUX_REPLY_CODE</a>&nbsp;&nbsp;&nbsp;0x0138</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f9180b7f677d984ba467304fd6b273a9">XDP_TX_AUX_REPLY_CODE</a>&nbsp;&nbsp;&nbsp;0x138</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#6b5bf072149f4202f8db0977ae9b1e48">XDP_TX_AUX_REPLY_COUNT</a>&nbsp;&nbsp;&nbsp;0x013C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#6b5bf072149f4202f8db0977ae9b1e48">XDP_TX_AUX_REPLY_COUNT</a>&nbsp;&nbsp;&nbsp;0x13C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#837a25ff174ef281197a5913e599fe87">XDP_TX_INTERRUPT_STATUS</a>&nbsp;&nbsp;&nbsp;0x0140</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#837a25ff174ef281197a5913e599fe87">XDP_TX_INTERRUPT_STATUS</a>&nbsp;&nbsp;&nbsp;0x140</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#100fb56fd519455af2cb5a82791f8cbe">XDP_TX_INTERRUPT_MASK</a>&nbsp;&nbsp;&nbsp;0x0144</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#100fb56fd519455af2cb5a82791f8cbe">XDP_TX_INTERRUPT_MASK</a>&nbsp;&nbsp;&nbsp;0x144</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#82c6eb8c04375d614b4496a395169ca8">XDP_TX_REPLY_DATA_COUNT</a>&nbsp;&nbsp;&nbsp;0x0148</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#82c6eb8c04375d614b4496a395169ca8">XDP_TX_REPLY_DATA_COUNT</a>&nbsp;&nbsp;&nbsp;0x148</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#4bf9eabddf1dfddb0fe0abf88ef7985e">XDP_TX_REPLY_STATUS</a>&nbsp;&nbsp;&nbsp;0x014C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#4bf9eabddf1dfddb0fe0abf88ef7985e">XDP_TX_REPLY_STATUS</a>&nbsp;&nbsp;&nbsp;0x14C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#ba08c96bde1eaf5ececc5b5b6cd60efd">XDP_TX_HPD_DURATION</a>&nbsp;&nbsp;&nbsp;0x0150</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#ba08c96bde1eaf5ececc5b5b6cd60efd">XDP_TX_HPD_DURATION</a>&nbsp;&nbsp;&nbsp;0x150</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: Main stream attributes for SST / MST STREAM1.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#4477bd0bedda0bde55b7a79d61e7a253">XDP_TX_STREAM1_MSA_START</a>&nbsp;&nbsp;&nbsp;0x0180</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#4477bd0bedda0bde55b7a79d61e7a253">XDP_TX_STREAM1_MSA_START</a>&nbsp;&nbsp;&nbsp;0x180</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#bbcd2d62b0dd5e341ad20fd4be6d7867">XDP_TX_MAIN_STREAM_HTOTAL</a>&nbsp;&nbsp;&nbsp;0x0180</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#bbcd2d62b0dd5e341ad20fd4be6d7867">XDP_TX_MAIN_STREAM_HTOTAL</a>&nbsp;&nbsp;&nbsp;0x180</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#814a12aac489dfadf109675dbe9f64d2">XDP_TX_MAIN_STREAM_VTOTAL</a>&nbsp;&nbsp;&nbsp;0x0184</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#814a12aac489dfadf109675dbe9f64d2">XDP_TX_MAIN_STREAM_VTOTAL</a>&nbsp;&nbsp;&nbsp;0x184</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#30c991341adb99847009ea319e89f42e">XDP_TX_MAIN_STREAM_POLARITY</a>&nbsp;&nbsp;&nbsp;0x0188</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#30c991341adb99847009ea319e89f42e">XDP_TX_MAIN_STREAM_POLARITY</a>&nbsp;&nbsp;&nbsp;0x188</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5ba5b8a3110cae3e20c40c387b3dab42">XDP_TX_MAIN_STREAM_HSWIDTH</a>&nbsp;&nbsp;&nbsp;0x018C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5ba5b8a3110cae3e20c40c387b3dab42">XDP_TX_MAIN_STREAM_HSWIDTH</a>&nbsp;&nbsp;&nbsp;0x18C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#54a5f8bfffdc072c99ae2aef4a04950c">XDP_TX_MAIN_STREAM_VSWIDTH</a>&nbsp;&nbsp;&nbsp;0x0190</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#54a5f8bfffdc072c99ae2aef4a04950c">XDP_TX_MAIN_STREAM_VSWIDTH</a>&nbsp;&nbsp;&nbsp;0x190</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#9623d7a9d7526eb95f4fa2af41411ffe">XDP_TX_MAIN_STREAM_HRES</a>&nbsp;&nbsp;&nbsp;0x0194</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#9623d7a9d7526eb95f4fa2af41411ffe">XDP_TX_MAIN_STREAM_HRES</a>&nbsp;&nbsp;&nbsp;0x194</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f2c42cc25e381685070c2254f3522e45">XDP_TX_MAIN_STREAM_VRES</a>&nbsp;&nbsp;&nbsp;0x0198</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f2c42cc25e381685070c2254f3522e45">XDP_TX_MAIN_STREAM_VRES</a>&nbsp;&nbsp;&nbsp;0x198</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#d7c97311a98450c05888549323e85d97">XDP_TX_MAIN_STREAM_HSTART</a>&nbsp;&nbsp;&nbsp;0x019C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#d7c97311a98450c05888549323e85d97">XDP_TX_MAIN_STREAM_HSTART</a>&nbsp;&nbsp;&nbsp;0x19C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#faa0650ed9b35d79346c16e431328da4">XDP_TX_MAIN_STREAM_VSTART</a>&nbsp;&nbsp;&nbsp;0x01A0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#faa0650ed9b35d79346c16e431328da4">XDP_TX_MAIN_STREAM_VSTART</a>&nbsp;&nbsp;&nbsp;0x1A0</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a674756059c232768b7b67f6ad5f8d30">XDP_TX_MAIN_STREAM_MISC0</a>&nbsp;&nbsp;&nbsp;0x01A4</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a674756059c232768b7b67f6ad5f8d30">XDP_TX_MAIN_STREAM_MISC0</a>&nbsp;&nbsp;&nbsp;0x1A4</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c70a6186eae476ece2d9dd8ce7ba852f">XDP_TX_MAIN_STREAM_MISC1</a>&nbsp;&nbsp;&nbsp;0x01A8</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c70a6186eae476ece2d9dd8ce7ba852f">XDP_TX_MAIN_STREAM_MISC1</a>&nbsp;&nbsp;&nbsp;0x1A8</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c0cde333af76769090439d62713c50e9">XDP_TX_M_VID</a>&nbsp;&nbsp;&nbsp;0x01AC</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c0cde333af76769090439d62713c50e9">XDP_TX_M_VID</a>&nbsp;&nbsp;&nbsp;0x1AC</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f0689dd79b7ae9d8795a4553ee438f18">XDP_TX_TU_SIZE</a>&nbsp;&nbsp;&nbsp;0x01B0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f0689dd79b7ae9d8795a4553ee438f18">XDP_TX_TU_SIZE</a>&nbsp;&nbsp;&nbsp;0x1B0</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#9e8b464888a016529a3503bd90ab33c6">XDP_TX_N_VID</a>&nbsp;&nbsp;&nbsp;0x01B4</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#9e8b464888a016529a3503bd90ab33c6">XDP_TX_N_VID</a>&nbsp;&nbsp;&nbsp;0x1B4</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#8bb58185af94916cb9c3248deedb2dd9">XDP_TX_USER_PIXEL_WIDTH</a>&nbsp;&nbsp;&nbsp;0x01B8</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#8bb58185af94916cb9c3248deedb2dd9">XDP_TX_USER_PIXEL_WIDTH</a>&nbsp;&nbsp;&nbsp;0x1B8</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#68267948f6e181af7f6ee8b7b8c4dfdd">XDP_TX_USER_DATA_COUNT_PER_LANE</a>&nbsp;&nbsp;&nbsp;0x01BC</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#68267948f6e181af7f6ee8b7b8c4dfdd">XDP_TX_USER_DATA_COUNT_PER_LANE</a>&nbsp;&nbsp;&nbsp;0x1BC</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#06514d1d85e0f5930ec0b2c6e4456136">XDP_TX_MAIN_STREAM_INTERLACED</a>&nbsp;&nbsp;&nbsp;0x01C0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#06514d1d85e0f5930ec0b2c6e4456136">XDP_TX_MAIN_STREAM_INTERLACED</a>&nbsp;&nbsp;&nbsp;0x1C0</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#b9e1c6686701623b59a4f084742462ab">XDP_TX_MIN_BYTES_PER_TU</a>&nbsp;&nbsp;&nbsp;0x01C4</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#b9e1c6686701623b59a4f084742462ab">XDP_TX_MIN_BYTES_PER_TU</a>&nbsp;&nbsp;&nbsp;0x1C4</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#e6222752da33d25659a905b68ead7e11">XDP_TX_FRAC_BYTES_PER_TU</a>&nbsp;&nbsp;&nbsp;0x01C8</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#e6222752da33d25659a905b68ead7e11">XDP_TX_FRAC_BYTES_PER_TU</a>&nbsp;&nbsp;&nbsp;0x1C8</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f3e29d97f73b9e9d5f9f0bb39f5aeb44">XDP_TX_INIT_WAIT</a>&nbsp;&nbsp;&nbsp;0x01CC</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f3e29d97f73b9e9d5f9f0bb39f5aeb44">XDP_TX_INIT_WAIT</a>&nbsp;&nbsp;&nbsp;0x1CC</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#fbbcc199b3c8b82d2a7fe5e0274c180f">XDP_TX_STREAM1</a>&nbsp;&nbsp;&nbsp;0x01D0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#fbbcc199b3c8b82d2a7fe5e0274c180f">XDP_TX_STREAM1</a>&nbsp;&nbsp;&nbsp;0x1D0</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#0ac63688770bfea16fa128010679a9e3">XDP_TX_STREAM2</a>&nbsp;&nbsp;&nbsp;0x01D4</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#0ac63688770bfea16fa128010679a9e3">XDP_TX_STREAM2</a>&nbsp;&nbsp;&nbsp;0x1D4</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#934a0478902b7fbf554a53c2f904e881">XDP_TX_STREAM3</a>&nbsp;&nbsp;&nbsp;0x01D8</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#934a0478902b7fbf554a53c2f904e881">XDP_TX_STREAM3</a>&nbsp;&nbsp;&nbsp;0x1D8</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#57e32e532c5686b061e2769d832b509d">XDP_TX_STREAM4</a>&nbsp;&nbsp;&nbsp;0x01DC</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#57e32e532c5686b061e2769d832b509d">XDP_TX_STREAM4</a>&nbsp;&nbsp;&nbsp;0x1DC</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: PHY configuration status.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a9a5a594ade23724e9fd4237af07184c">XDP_TX_PHY_CONFIG</a>&nbsp;&nbsp;&nbsp;0x0200</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a9a5a594ade23724e9fd4237af07184c">XDP_TX_PHY_CONFIG</a>&nbsp;&nbsp;&nbsp;0x200</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#3f67e0961e2de45452712d3e49542d2e">XDP_TX_PHY_VOLTAGE_DIFF_LANE_0</a>&nbsp;&nbsp;&nbsp;0x0220</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#3f67e0961e2de45452712d3e49542d2e">XDP_TX_PHY_VOLTAGE_DIFF_LANE_0</a>&nbsp;&nbsp;&nbsp;0x220</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#92de577ba19aea454394caf2a1d59715">XDP_TX_PHY_VOLTAGE_DIFF_LANE_1</a>&nbsp;&nbsp;&nbsp;0x0224</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#92de577ba19aea454394caf2a1d59715">XDP_TX_PHY_VOLTAGE_DIFF_LANE_1</a>&nbsp;&nbsp;&nbsp;0x224</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#400419d5a0081e3819fcef4417b1b6d9">XDP_TX_PHY_VOLTAGE_DIFF_LANE_2</a>&nbsp;&nbsp;&nbsp;0x0228</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#400419d5a0081e3819fcef4417b1b6d9">XDP_TX_PHY_VOLTAGE_DIFF_LANE_2</a>&nbsp;&nbsp;&nbsp;0x228</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5442355cc64f933985c45d5ce15cb01f">XDP_TX_PHY_VOLTAGE_DIFF_LANE_3</a>&nbsp;&nbsp;&nbsp;0x022C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5442355cc64f933985c45d5ce15cb01f">XDP_TX_PHY_VOLTAGE_DIFF_LANE_3</a>&nbsp;&nbsp;&nbsp;0x22C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#de26487df8aa80910213bbe422a70c25">XDP_TX_PHY_TRANSMIT_PRBS7</a>&nbsp;&nbsp;&nbsp;0x0230</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#de26487df8aa80910213bbe422a70c25">XDP_TX_PHY_TRANSMIT_PRBS7</a>&nbsp;&nbsp;&nbsp;0x230</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a485819fbd9793b40764e36144f6f98d">XDP_TX_PHY_CLOCK_SELECT</a>&nbsp;&nbsp;&nbsp;0x0234</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a485819fbd9793b40764e36144f6f98d">XDP_TX_PHY_CLOCK_SELECT</a>&nbsp;&nbsp;&nbsp;0x234</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5e3d815b9618e24b0eba1b6ae5f2209c">XDP_TX_PHY_POWER_DOWN</a>&nbsp;&nbsp;&nbsp;0x0238</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5e3d815b9618e24b0eba1b6ae5f2209c">XDP_TX_PHY_POWER_DOWN</a>&nbsp;&nbsp;&nbsp;0x238</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f37a629a54e9aac4238c90b1496c0c22">XDP_TX_PHY_PRECURSOR_LANE_0</a>&nbsp;&nbsp;&nbsp;0x023C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#f37a629a54e9aac4238c90b1496c0c22">XDP_TX_PHY_PRECURSOR_LANE_0</a>&nbsp;&nbsp;&nbsp;0x23C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#fed4f4edd79b9c4ce53f7150f9f78a7c">XDP_TX_PHY_PRECURSOR_LANE_1</a>&nbsp;&nbsp;&nbsp;0x0240</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#fed4f4edd79b9c4ce53f7150f9f78a7c">XDP_TX_PHY_PRECURSOR_LANE_1</a>&nbsp;&nbsp;&nbsp;0x240</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#6a0cd4e25f24457ed2dd59ba073003ef">XDP_TX_PHY_PRECURSOR_LANE_2</a>&nbsp;&nbsp;&nbsp;0x0244</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#6a0cd4e25f24457ed2dd59ba073003ef">XDP_TX_PHY_PRECURSOR_LANE_2</a>&nbsp;&nbsp;&nbsp;0x244</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c894fde6dd528a0ecba1d62b527e237e">XDP_TX_PHY_PRECURSOR_LANE_3</a>&nbsp;&nbsp;&nbsp;0x0248</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c894fde6dd528a0ecba1d62b527e237e">XDP_TX_PHY_PRECURSOR_LANE_3</a>&nbsp;&nbsp;&nbsp;0x248</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#e97c39bcf6bd9799365783ee03c575fd">XDP_TX_PHY_POSTCURSOR_LANE_0</a>&nbsp;&nbsp;&nbsp;0x024C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#e97c39bcf6bd9799365783ee03c575fd">XDP_TX_PHY_POSTCURSOR_LANE_0</a>&nbsp;&nbsp;&nbsp;0x24C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#e93b1027d135089179b6d64e5586a6d6">XDP_TX_PHY_POSTCURSOR_LANE_1</a>&nbsp;&nbsp;&nbsp;0x0250</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#e93b1027d135089179b6d64e5586a6d6">XDP_TX_PHY_POSTCURSOR_LANE_1</a>&nbsp;&nbsp;&nbsp;0x250</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#66e9f884decfab29a45773476c21229a">XDP_TX_PHY_POSTCURSOR_LANE_2</a>&nbsp;&nbsp;&nbsp;0x0254</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#66e9f884decfab29a45773476c21229a">XDP_TX_PHY_POSTCURSOR_LANE_2</a>&nbsp;&nbsp;&nbsp;0x254</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#750999e425491b1094ad2f4fbf2bdb4c">XDP_TX_PHY_POSTCURSOR_LANE_3</a>&nbsp;&nbsp;&nbsp;0x0258</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#750999e425491b1094ad2f4fbf2bdb4c">XDP_TX_PHY_POSTCURSOR_LANE_3</a>&nbsp;&nbsp;&nbsp;0x258</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#7f08f2ae5f213b0b600d677ed0205549">XDP_TX_PHY_STATUS</a>&nbsp;&nbsp;&nbsp;0x0280</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#7f08f2ae5f213b0b600d677ed0205549">XDP_TX_PHY_STATUS</a>&nbsp;&nbsp;&nbsp;0x280</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5e9b8b7e0fa5058e8b554b48b7dacb57">XDP_TX_GT_DRP_COMMAND</a>&nbsp;&nbsp;&nbsp;0x02A0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#5e9b8b7e0fa5058e8b554b48b7dacb57">XDP_TX_GT_DRP_COMMAND</a>&nbsp;&nbsp;&nbsp;0x2A0</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#45eb748c64a7ea99e82bdbc05caceb21">XDP_TX_GT_DRP_READ_DATA</a>&nbsp;&nbsp;&nbsp;0x02A4</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#45eb748c64a7ea99e82bdbc05caceb21">XDP_TX_GT_DRP_READ_DATA</a>&nbsp;&nbsp;&nbsp;0x2A4</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a65b66a2bdf90aed36f668a43e5ece74">XDP_TX_GT_DRP_CHANNEL_STATUS</a>&nbsp;&nbsp;&nbsp;0x02A8</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a65b66a2bdf90aed36f668a43e5ece74">XDP_TX_GT_DRP_CHANNEL_STATUS</a>&nbsp;&nbsp;&nbsp;0x2A8</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: DisplayPort audio.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#609aa078aefad0af3bea290cf9c8d482">XDP_TX_AUDIO_CONTROL</a>&nbsp;&nbsp;&nbsp;0x0300</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#609aa078aefad0af3bea290cf9c8d482">XDP_TX_AUDIO_CONTROL</a>&nbsp;&nbsp;&nbsp;0x300</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#d12b65a5eacb65252401cd7dd4723565">XDP_TX_AUDIO_CHANNELS</a>&nbsp;&nbsp;&nbsp;0x0304</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#d12b65a5eacb65252401cd7dd4723565">XDP_TX_AUDIO_CHANNELS</a>&nbsp;&nbsp;&nbsp;0x304</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#dca9f9f446d37eeb6e9af4aa731cb8a4">XDP_TX_AUDIO_INFO_DATA</a>(NUM)&nbsp;&nbsp;&nbsp;(0x0308 + 4 * (NUM - 1))</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#dca9f9f446d37eeb6e9af4aa731cb8a4">XDP_TX_AUDIO_INFO_DATA</a>(NUM)&nbsp;&nbsp;&nbsp;(0x308 + 4 * (NUM - 1))</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c7f7a894cd1b0a093a1f385bda08b7ba">XDP_TX_AUDIO_MAUD</a>&nbsp;&nbsp;&nbsp;0x0328</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c7f7a894cd1b0a093a1f385bda08b7ba">XDP_TX_AUDIO_MAUD</a>&nbsp;&nbsp;&nbsp;0x328</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#25a66e4db61aa1b882c07897a24bebcf">XDP_TX_AUDIO_NAUD</a>&nbsp;&nbsp;&nbsp;0x032C</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#25a66e4db61aa1b882c07897a24bebcf">XDP_TX_AUDIO_NAUD</a>&nbsp;&nbsp;&nbsp;0x32C</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#bc83c4c819a3397f99481812ee85f011">XDP_TX_AUDIO_EXT_DATA</a>(NUM)&nbsp;&nbsp;&nbsp;(0x0330 + 4 * (NUM - 1))</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#bc83c4c819a3397f99481812ee85f011">XDP_TX_AUDIO_EXT_DATA</a>(NUM)&nbsp;&nbsp;&nbsp;(0x330 + 4 * (NUM - 1))</td></tr>
 
 <tr><td colspan="2"><br><h2>DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c6b285be506668b6f1a4f0f3dd5d0581">XDP_TX_STREAM2_MSA_START</a>&nbsp;&nbsp;&nbsp;0x0500</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c6b285be506668b6f1a4f0f3dd5d0581">XDP_TX_STREAM2_MSA_START</a>&nbsp;&nbsp;&nbsp;0x500</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#ad6afb742d6edbfa445ebaa1658ed64f">XDP_TX_STREAM2_MSA_START_OFFSET</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#53ff291474d87b04c5695ecc5409f23f">XDP_TX_STREAM3_MSA_START</a>&nbsp;&nbsp;&nbsp;0x0550</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#53ff291474d87b04c5695ecc5409f23f">XDP_TX_STREAM3_MSA_START</a>&nbsp;&nbsp;&nbsp;0x550</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#4ba34dd86d2d812e68396b9e8f8312e6">XDP_TX_STREAM3_MSA_START_OFFSET</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#689180e1100b0613e756f17e9ee94c54">XDP_TX_STREAM4_MSA_START</a>&nbsp;&nbsp;&nbsp;0x05A0</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#689180e1100b0613e756f17e9ee94c54">XDP_TX_STREAM4_MSA_START</a>&nbsp;&nbsp;&nbsp;0x5A0</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#9621ab19467d1674f53020ea97603126">XDP_TX_STREAM4_MSA_START_OFFSET</a></td></tr>
 
@@ -437,11 +437,23 @@ This header file contains the identifiers and low-level driver functions (or mac
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#aa1da2f5f073929af4e7860000975148">XDP_TX_PHY_CONFIG_TX_PHY_PCS_RESET_MASK</a>&nbsp;&nbsp;&nbsp;0x0000200</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#473b98b71a50d56abb70f3470e1ac2e3">XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK</a>&nbsp;&nbsp;&nbsp;0x0000400</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#473b98b71a50d56abb70f3470e1ac2e3">XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK</a>&nbsp;&nbsp;&nbsp;0x0000800</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#bc20a2e8833216bab843787c25c7010f">XDP_TX_PHY_CONFIG_TX_PHY_PRBSFORCEERR_MASK</a>&nbsp;&nbsp;&nbsp;0x0001000</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#29e81b9dfa1d6361cba8097dc7a705af">XDP_TX_PHY_CONFIG_TX_PHY_LOOPBACK_MASK</a>&nbsp;&nbsp;&nbsp;0x000E000</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#7001ed0ec0c6efa9ee94be12c6688ac4">XDP_TX_PHY_CONFIG_TX_PHY_LOOPBACK_SHIFT</a>&nbsp;&nbsp;&nbsp;13</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#ce019b28cc3a8b6e9de760f9d27a7516">XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_IND_LANE_MASK</a>&nbsp;&nbsp;&nbsp;0x0010000</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#d06a4cb3d3ea25f6fe96c983141209ad">XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE0_MASK</a>&nbsp;&nbsp;&nbsp;0x0020000</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#38e2dbf12c583aefaee5309ccb9da7af">XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE1_MASK</a>&nbsp;&nbsp;&nbsp;0x0040000</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#3cc617829d9d8bc3b5212c882306248b">XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE2_MASK</a>&nbsp;&nbsp;&nbsp;0x0080000</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#781df81417de610c420e8cf78b48a352">XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE3_MASK</a>&nbsp;&nbsp;&nbsp;0x0100000</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#d2d3d1a709631fc420dd1c049f698586">XDP_TX_PHY_CONFIG_GT_ALL_RESET_MASK</a>&nbsp;&nbsp;&nbsp;0x0000003</td></tr>
 
@@ -1871,7 +1883,7 @@ This header file contains the identifiers and low-level driver functions (or mac
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#c1ce5c13526ec2f6c55e049ee77d2673">XDp_Out32</a>&nbsp;&nbsp;&nbsp;Xil_Out32</td></tr>
 
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a32adc90e166602b6991ca4385b41e9f">XDP_TX_VC_PAYLOAD_BUFFER_ADDR</a>&nbsp;&nbsp;&nbsp;0x0800</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#a32adc90e166602b6991ca4385b41e9f">XDP_TX_VC_PAYLOAD_BUFFER_ADDR</a>&nbsp;&nbsp;&nbsp;0x800</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__hw_8h.html#ddf35ab387f5403190bd36a30f64f8ee">XDp_ReadReg</a>(BaseAddress, RegOffset)&nbsp;&nbsp;&nbsp;XDp_In32((BaseAddress) + (RegOffset))</td></tr>
 
@@ -11051,7 +11063,7 @@ DPCD register bit to inform the DisplayPort TX that video data is not supported.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUDIO_CHANNELS&nbsp;&nbsp;&nbsp;0x0304          </td>
+          <td class="memname">#define XDP_TX_AUDIO_CHANNELS&nbsp;&nbsp;&nbsp;0x304          </td>
         </tr>
       </table>
 </div>
@@ -11066,7 +11078,7 @@ Used to input active channel count.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUDIO_CONTROL&nbsp;&nbsp;&nbsp;0x0300          </td>
+          <td class="memname">#define XDP_TX_AUDIO_CONTROL&nbsp;&nbsp;&nbsp;0x300          </td>
         </tr>
       </table>
 </div>
@@ -11086,7 +11098,7 @@ Enables audio stream packets in main link and buffer control.
           <td class="paramtype">NUM&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%">&nbsp;&nbsp;&nbsp;(0x0330 + 4 * (NUM - 1))</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;(0x330 + 4 * (NUM - 1))</td>
         </tr>
       </table>
 </div>
@@ -11106,7 +11118,7 @@ Word formatted as per extension packet.
           <td class="paramtype">NUM&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%">&nbsp;&nbsp;&nbsp;(0x0308 + 4 * (NUM - 1))</td>
+          <td width="100%">&nbsp;&nbsp;&nbsp;(0x308 + 4 * (NUM - 1))</td>
         </tr>
       </table>
 </div>
@@ -11121,7 +11133,7 @@ Word formatted as per CEA 861-C info frame.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUDIO_MAUD&nbsp;&nbsp;&nbsp;0x0328          </td>
+          <td class="memname">#define XDP_TX_AUDIO_MAUD&nbsp;&nbsp;&nbsp;0x328          </td>
         </tr>
       </table>
 </div>
@@ -11136,7 +11148,7 @@ M value of audio stream as computed by the DisplayPort TX core when audio and li
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUDIO_NAUD&nbsp;&nbsp;&nbsp;0x032C          </td>
+          <td class="memname">#define XDP_TX_AUDIO_NAUD&nbsp;&nbsp;&nbsp;0x32C          </td>
         </tr>
       </table>
 </div>
@@ -11151,7 +11163,7 @@ N value of audio stream as computed by the DisplayPort TX core when audio and li
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUX_ADDRESS&nbsp;&nbsp;&nbsp;0x0108          </td>
+          <td class="memname">#define XDP_TX_AUX_ADDRESS&nbsp;&nbsp;&nbsp;0x108          </td>
         </tr>
       </table>
 </div>
@@ -11166,7 +11178,7 @@ Specifies the address of current AUX command.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUX_CLK_DIVIDER&nbsp;&nbsp;&nbsp;0x010C          </td>
+          <td class="memname">#define XDP_TX_AUX_CLK_DIVIDER&nbsp;&nbsp;&nbsp;0x10C          </td>
         </tr>
       </table>
 </div>
@@ -11226,7 +11238,7 @@ Clock divider value.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUX_CMD&nbsp;&nbsp;&nbsp;0x0100          </td>
+          <td class="memname">#define XDP_TX_AUX_CMD&nbsp;&nbsp;&nbsp;0x100          </td>
         </tr>
       </table>
 </div>
@@ -11421,7 +11433,7 @@ AUX write command.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUX_REPLY_CODE&nbsp;&nbsp;&nbsp;0x0138          </td>
+          <td class="memname">#define XDP_TX_AUX_REPLY_CODE&nbsp;&nbsp;&nbsp;0x138          </td>
         </tr>
       </table>
 </div>
@@ -11526,7 +11538,7 @@ AUX command not ACKed.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUX_REPLY_COUNT&nbsp;&nbsp;&nbsp;0x013C          </td>
+          <td class="memname">#define XDP_TX_AUX_REPLY_COUNT&nbsp;&nbsp;&nbsp;0x13C          </td>
         </tr>
       </table>
 </div>
@@ -11541,7 +11553,7 @@ Number of reply transactions receieved over AUX.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUX_REPLY_DATA&nbsp;&nbsp;&nbsp;0x0134          </td>
+          <td class="memname">#define XDP_TX_AUX_REPLY_DATA&nbsp;&nbsp;&nbsp;0x134          </td>
         </tr>
       </table>
 </div>
@@ -11556,7 +11568,7 @@ Reply data received during the AUX reply.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_AUX_WRITE_FIFO&nbsp;&nbsp;&nbsp;0x0104          </td>
+          <td class="memname">#define XDP_TX_AUX_WRITE_FIFO&nbsp;&nbsp;&nbsp;0x104          </td>
         </tr>
       </table>
 </div>
@@ -11571,7 +11583,7 @@ Write data for the current AUX command.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_CORE_ID&nbsp;&nbsp;&nbsp;0x00FC          </td>
+          <td class="memname">#define XDP_TX_CORE_ID&nbsp;&nbsp;&nbsp;0x0FC          </td>
         </tr>
       </table>
 </div>
@@ -12291,7 +12303,7 @@ Core is a transmitter.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_DOWNSPREAD_CTRL&nbsp;&nbsp;&nbsp;0x0018          </td>
+          <td class="memname">#define XDP_TX_DOWNSPREAD_CTRL&nbsp;&nbsp;&nbsp;0x018          </td>
         </tr>
       </table>
 </div>
@@ -12306,7 +12318,7 @@ Enable a 0.5% spreading of the clock.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_ENABLE&nbsp;&nbsp;&nbsp;0x0080          </td>
+          <td class="memname">#define XDP_TX_ENABLE&nbsp;&nbsp;&nbsp;0x080          </td>
         </tr>
       </table>
 </div>
@@ -12321,7 +12333,7 @@ Enable the basic operations of the DisplayPort TX core or output stuffing symbol
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_ENABLE_MAIN_STREAM&nbsp;&nbsp;&nbsp;0x0084          </td>
+          <td class="memname">#define XDP_TX_ENABLE_MAIN_STREAM&nbsp;&nbsp;&nbsp;0x084          </td>
         </tr>
       </table>
 </div>
@@ -12336,7 +12348,7 @@ Enable transmission of main link video info.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_ENABLE_SEC_STREAM&nbsp;&nbsp;&nbsp;0x0088          </td>
+          <td class="memname">#define XDP_TX_ENABLE_SEC_STREAM&nbsp;&nbsp;&nbsp;0x088          </td>
         </tr>
       </table>
 </div>
@@ -12351,7 +12363,7 @@ Enable the transmission of secondary link info.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_ENHANCED_FRAME_EN&nbsp;&nbsp;&nbsp;0x0008          </td>
+          <td class="memname">#define XDP_TX_ENHANCED_FRAME_EN&nbsp;&nbsp;&nbsp;0x008          </td>
         </tr>
       </table>
 </div>
@@ -12366,7 +12378,7 @@ Enable enhanced framing symbol sequence.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_FORCE_SCRAMBLER_RESET&nbsp;&nbsp;&nbsp;0x00C0          </td>
+          <td class="memname">#define XDP_TX_FORCE_SCRAMBLER_RESET&nbsp;&nbsp;&nbsp;0x0C0          </td>
         </tr>
       </table>
 </div>
@@ -12381,7 +12393,7 @@ Force a scrambler reset.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_FRAC_BYTES_PER_TU&nbsp;&nbsp;&nbsp;0x01C8          </td>
+          <td class="memname">#define XDP_TX_FRAC_BYTES_PER_TU&nbsp;&nbsp;&nbsp;0x1C8          </td>
         </tr>
       </table>
 </div>
@@ -12396,7 +12408,7 @@ The fractional component when calculated the XDP_TX_MIN_BYTES_PER_TU register va
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_GT_DRP_CHANNEL_STATUS&nbsp;&nbsp;&nbsp;0x02A8          </td>
+          <td class="memname">#define XDP_TX_GT_DRP_CHANNEL_STATUS&nbsp;&nbsp;&nbsp;0x2A8          </td>
         </tr>
       </table>
 </div>
@@ -12411,7 +12423,7 @@ Provides access to GT DRP channel status.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_GT_DRP_COMMAND&nbsp;&nbsp;&nbsp;0x02A0          </td>
+          <td class="memname">#define XDP_TX_GT_DRP_COMMAND&nbsp;&nbsp;&nbsp;0x2A0          </td>
         </tr>
       </table>
 </div>
@@ -12486,7 +12498,7 @@ Shift bits for DRP write data.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_GT_DRP_READ_DATA&nbsp;&nbsp;&nbsp;0x02A4          </td>
+          <td class="memname">#define XDP_TX_GT_DRP_READ_DATA&nbsp;&nbsp;&nbsp;0x2A4          </td>
         </tr>
       </table>
 </div>
@@ -12501,7 +12513,7 @@ Provides access to GT DRP read data.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_HPD_DURATION&nbsp;&nbsp;&nbsp;0x0150          </td>
+          <td class="memname">#define XDP_TX_HPD_DURATION&nbsp;&nbsp;&nbsp;0x150          </td>
         </tr>
       </table>
 </div>
@@ -12516,7 +12528,7 @@ Duration of the HPD pulse in microseconds.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_INIT_WAIT&nbsp;&nbsp;&nbsp;0x01CC          </td>
+          <td class="memname">#define XDP_TX_INIT_WAIT&nbsp;&nbsp;&nbsp;0x1CC          </td>
         </tr>
       </table>
 </div>
@@ -12531,7 +12543,7 @@ Number of initial wait cycles at the start of a new line by the framing logic, a
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_INTERRUPT_MASK&nbsp;&nbsp;&nbsp;0x0144          </td>
+          <td class="memname">#define XDP_TX_INTERRUPT_MASK&nbsp;&nbsp;&nbsp;0x144          </td>
         </tr>
       </table>
 </div>
@@ -12636,7 +12648,7 @@ Mask reply received interrupt.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_INTERRUPT_SIG_STATE&nbsp;&nbsp;&nbsp;0x0130          </td>
+          <td class="memname">#define XDP_TX_INTERRUPT_SIG_STATE&nbsp;&nbsp;&nbsp;0x130          </td>
         </tr>
       </table>
 </div>
@@ -12711,7 +12723,7 @@ A request is currently being sent.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_INTERRUPT_STATUS&nbsp;&nbsp;&nbsp;0x0140          </td>
+          <td class="memname">#define XDP_TX_INTERRUPT_STATUS&nbsp;&nbsp;&nbsp;0x140          </td>
         </tr>
       </table>
 </div>
@@ -12816,7 +12828,7 @@ A reply timeout has occurred.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_LANE_COUNT_SET&nbsp;&nbsp;&nbsp;0x0004          </td>
+          <td class="memname">#define XDP_TX_LANE_COUNT_SET&nbsp;&nbsp;&nbsp;0x004          </td>
         </tr>
       </table>
 </div>
@@ -12876,7 +12888,7 @@ Lane count of 4.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_LINK_BW_SET&nbsp;&nbsp;&nbsp;0x0000          </td>
+          <td class="memname">#define XDP_TX_LINK_BW_SET&nbsp;&nbsp;&nbsp;0x000          </td>
         </tr>
       </table>
 </div>
@@ -12936,7 +12948,7 @@ Set main link bandwidth setting.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_LINK_QUAL_PATTERN_SET&nbsp;&nbsp;&nbsp;0x0010          </td>
+          <td class="memname">#define XDP_TX_LINK_QUAL_PATTERN_SET&nbsp;&nbsp;&nbsp;0x010          </td>
         </tr>
       </table>
 </div>
@@ -13011,7 +13023,7 @@ Symbol error rate measurement pattern transmitted.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_M_VID&nbsp;&nbsp;&nbsp;0x01AC          </td>
+          <td class="memname">#define XDP_TX_M_VID&nbsp;&nbsp;&nbsp;0x1AC          </td>
         </tr>
       </table>
 </div>
@@ -13026,7 +13038,7 @@ M value for the video stream as computed by the source core in asynchronous cloc
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_HRES&nbsp;&nbsp;&nbsp;0x0194          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_HRES&nbsp;&nbsp;&nbsp;0x194          </td>
         </tr>
       </table>
 </div>
@@ -13041,7 +13053,7 @@ Number of active pixels per line (the horizontal resolution).
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_HSTART&nbsp;&nbsp;&nbsp;0x019C          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_HSTART&nbsp;&nbsp;&nbsp;0x19C          </td>
         </tr>
       </table>
 </div>
@@ -13056,7 +13068,7 @@ Number of clocks between the leading edge of the horizontal sync and the start o
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_HSWIDTH&nbsp;&nbsp;&nbsp;0x018C          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_HSWIDTH&nbsp;&nbsp;&nbsp;0x18C          </td>
         </tr>
       </table>
 </div>
@@ -13071,7 +13083,7 @@ Width of the horizontal sync pulse.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_HTOTAL&nbsp;&nbsp;&nbsp;0x0180          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_HTOTAL&nbsp;&nbsp;&nbsp;0x180          </td>
         </tr>
       </table>
 </div>
@@ -13086,7 +13098,7 @@ Total number of clocks in the horizontal framing period.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_INTERLACED&nbsp;&nbsp;&nbsp;0x01C0          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_INTERLACED&nbsp;&nbsp;&nbsp;0x1C0          </td>
         </tr>
       </table>
 </div>
@@ -13101,7 +13113,7 @@ Video is interlaced.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_MISC0&nbsp;&nbsp;&nbsp;0x01A4          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_MISC0&nbsp;&nbsp;&nbsp;0x1A4          </td>
         </tr>
       </table>
 </div>
@@ -13116,7 +13128,7 @@ Miscellaneous stream attributes.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_MISC1&nbsp;&nbsp;&nbsp;0x01A8          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_MISC1&nbsp;&nbsp;&nbsp;0x1A8          </td>
         </tr>
       </table>
 </div>
@@ -13131,7 +13143,7 @@ Miscellaneous stream attributes.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_POLARITY&nbsp;&nbsp;&nbsp;0x0188          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_POLARITY&nbsp;&nbsp;&nbsp;0x188          </td>
         </tr>
       </table>
 </div>
@@ -13146,7 +13158,7 @@ Polarity for the video sync signals.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_VRES&nbsp;&nbsp;&nbsp;0x0198          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_VRES&nbsp;&nbsp;&nbsp;0x198          </td>
         </tr>
       </table>
 </div>
@@ -13161,7 +13173,7 @@ Number of active lines (the vertical resolution).
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_VSTART&nbsp;&nbsp;&nbsp;0x01A0          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_VSTART&nbsp;&nbsp;&nbsp;0x1A0          </td>
         </tr>
       </table>
 </div>
@@ -13176,7 +13188,7 @@ Number of lines between the leading edge of the vertical sync and the first line
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_VSWIDTH&nbsp;&nbsp;&nbsp;0x0190          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_VSWIDTH&nbsp;&nbsp;&nbsp;0x190          </td>
         </tr>
       </table>
 </div>
@@ -13191,7 +13203,7 @@ Width of the vertical sync pulse.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MAIN_STREAM_VTOTAL&nbsp;&nbsp;&nbsp;0x0184          </td>
+          <td class="memname">#define XDP_TX_MAIN_STREAM_VTOTAL&nbsp;&nbsp;&nbsp;0x184          </td>
         </tr>
       </table>
 </div>
@@ -13551,7 +13563,7 @@ Shift bits for polarity of the vertical sync pulse.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MIN_BYTES_PER_TU&nbsp;&nbsp;&nbsp;0x01C4          </td>
+          <td class="memname">#define XDP_TX_MIN_BYTES_PER_TU&nbsp;&nbsp;&nbsp;0x1C4          </td>
         </tr>
       </table>
 </div>
@@ -13566,7 +13578,7 @@ The minimum number of bytes per transfer unit.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_MST_CONFIG&nbsp;&nbsp;&nbsp;0x00D0          </td>
+          <td class="memname">#define XDP_TX_MST_CONFIG&nbsp;&nbsp;&nbsp;0x0D0          </td>
         </tr>
       </table>
 </div>
@@ -13611,7 +13623,7 @@ The VC payload has been updated in the sink.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_N_VID&nbsp;&nbsp;&nbsp;0x01B4          </td>
+          <td class="memname">#define XDP_TX_N_VID&nbsp;&nbsp;&nbsp;0x1B4          </td>
         </tr>
       </table>
 </div>
@@ -13686,7 +13698,7 @@ Pre-emphasis level 3.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_CLOCK_SELECT&nbsp;&nbsp;&nbsp;0x0234          </td>
+          <td class="memname">#define XDP_TX_PHY_CLOCK_SELECT&nbsp;&nbsp;&nbsp;0x234          </td>
         </tr>
       </table>
 </div>
@@ -13746,7 +13758,7 @@ Instructs the PHY PLL to generate the proper clock frequency for the required li
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_CONFIG&nbsp;&nbsp;&nbsp;0x0200          </td>
+          <td class="memname">#define XDP_TX_PHY_CONFIG&nbsp;&nbsp;&nbsp;0x200          </td>
         </tr>
       </table>
 </div>
@@ -13831,6 +13843,21 @@ Hold the PHY in reset.
 Set TX_PHY_LOOPBACK.
 </div>
 </div><p>
+<a class="anchor" name="7001ed0ec0c6efa9ee94be12c6688ac4"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_LOOPBACK_SHIFT" ref="7001ed0ec0c6efa9ee94be12c6688ac4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_LOOPBACK_SHIFT&nbsp;&nbsp;&nbsp;13          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Shift bits for TX_PHY_LOOPBACK.
+</div>
+</div><p>
 <a class="anchor" name="aa1da2f5f073929af4e7860000975148"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_PCS_RESET_MASK" ref="aa1da2f5f073929af4e7860000975148" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -13861,12 +13888,87 @@ Hold TX_PHY_PCS reset.
 Hold TX_PHY_PMA reset.
 </div>
 </div><p>
+<a class="anchor" name="ce019b28cc3a8b6e9de760f9d27a7516"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_IND_LANE_MASK" ref="ce019b28cc3a8b6e9de760f9d27a7516" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_IND_LANE_MASK&nbsp;&nbsp;&nbsp;0x0010000          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set to enable individual lane polarity.
+</div>
+</div><p>
+<a class="anchor" name="d06a4cb3d3ea25f6fe96c983141209ad"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE0_MASK" ref="d06a4cb3d3ea25f6fe96c983141209ad" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE0_MASK&nbsp;&nbsp;&nbsp;0x0020000          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set TX_PHY_POLARITY for lane 0.
+</div>
+</div><p>
+<a class="anchor" name="38e2dbf12c583aefaee5309ccb9da7af"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE1_MASK" ref="38e2dbf12c583aefaee5309ccb9da7af" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE1_MASK&nbsp;&nbsp;&nbsp;0x0040000          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set TX_PHY_POLARITY for lane 1.
+</div>
+</div><p>
+<a class="anchor" name="3cc617829d9d8bc3b5212c882306248b"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE2_MASK" ref="3cc617829d9d8bc3b5212c882306248b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE2_MASK&nbsp;&nbsp;&nbsp;0x0080000          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set TX_PHY_POLARITY for lane 2.
+</div>
+</div><p>
+<a class="anchor" name="781df81417de610c420e8cf78b48a352"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE3_MASK" ref="781df81417de610c420e8cf78b48a352" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE3_MASK&nbsp;&nbsp;&nbsp;0x0100000          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Set TX_PHY_POLARITY for lane 3.
+</div>
+</div><p>
 <a class="anchor" name="473b98b71a50d56abb70f3470e1ac2e3"></a><!-- doxytag: member="xdp_hw.h::XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK" ref="473b98b71a50d56abb70f3470e1ac2e3" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK&nbsp;&nbsp;&nbsp;0x0000400          </td>
+          <td class="memname">#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK&nbsp;&nbsp;&nbsp;0x0000800          </td>
         </tr>
       </table>
 </div>
@@ -13896,7 +13998,7 @@ Set TX_PHY_PRBSFORCEERR.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_0&nbsp;&nbsp;&nbsp;0x024C          </td>
+          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_0&nbsp;&nbsp;&nbsp;0x24C          </td>
         </tr>
       </table>
 </div>
@@ -13911,7 +14013,7 @@ Controls the post-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_1&nbsp;&nbsp;&nbsp;0x0250          </td>
+          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_1&nbsp;&nbsp;&nbsp;0x250          </td>
         </tr>
       </table>
 </div>
@@ -13926,7 +14028,7 @@ Controls the post-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_2&nbsp;&nbsp;&nbsp;0x0254          </td>
+          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_2&nbsp;&nbsp;&nbsp;0x254          </td>
         </tr>
       </table>
 </div>
@@ -13941,7 +14043,7 @@ Controls the post-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_3&nbsp;&nbsp;&nbsp;0x0258          </td>
+          <td class="memname">#define XDP_TX_PHY_POSTCURSOR_LANE_3&nbsp;&nbsp;&nbsp;0x258          </td>
         </tr>
       </table>
 </div>
@@ -13956,7 +14058,7 @@ Controls the post-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_POWER_DOWN&nbsp;&nbsp;&nbsp;0x0238          </td>
+          <td class="memname">#define XDP_TX_PHY_POWER_DOWN&nbsp;&nbsp;&nbsp;0x238          </td>
         </tr>
       </table>
 </div>
@@ -13971,7 +14073,7 @@ Controls PHY power down.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_0&nbsp;&nbsp;&nbsp;0x023C          </td>
+          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_0&nbsp;&nbsp;&nbsp;0x23C          </td>
         </tr>
       </table>
 </div>
@@ -13986,7 +14088,7 @@ Controls the pre-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_1&nbsp;&nbsp;&nbsp;0x0240          </td>
+          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_1&nbsp;&nbsp;&nbsp;0x240          </td>
         </tr>
       </table>
 </div>
@@ -14001,7 +14103,7 @@ Controls the pre-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_2&nbsp;&nbsp;&nbsp;0x0244          </td>
+          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_2&nbsp;&nbsp;&nbsp;0x244          </td>
         </tr>
       </table>
 </div>
@@ -14016,7 +14118,7 @@ Controls the pre-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_3&nbsp;&nbsp;&nbsp;0x0248          </td>
+          <td class="memname">#define XDP_TX_PHY_PRECURSOR_LANE_3&nbsp;&nbsp;&nbsp;0x248          </td>
         </tr>
       </table>
 </div>
@@ -14031,7 +14133,7 @@ Controls the pre-cursor level.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_STATUS&nbsp;&nbsp;&nbsp;0x0280          </td>
+          <td class="memname">#define XDP_TX_PHY_STATUS&nbsp;&nbsp;&nbsp;0x280          </td>
         </tr>
       </table>
 </div>
@@ -14406,7 +14508,7 @@ Shift bits for TX error on lane 3.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_TRANSMIT_PRBS7&nbsp;&nbsp;&nbsp;0x0230          </td>
+          <td class="memname">#define XDP_TX_PHY_TRANSMIT_PRBS7&nbsp;&nbsp;&nbsp;0x230          </td>
         </tr>
       </table>
 </div>
@@ -14421,7 +14523,7 @@ Enable pseudo random bit sequence 7 pattern transmission for link quality assess
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_0&nbsp;&nbsp;&nbsp;0x0220          </td>
+          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_0&nbsp;&nbsp;&nbsp;0x220          </td>
         </tr>
       </table>
 </div>
@@ -14436,7 +14538,7 @@ Controls the differential voltage swing.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_1&nbsp;&nbsp;&nbsp;0x0224          </td>
+          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_1&nbsp;&nbsp;&nbsp;0x224          </td>
         </tr>
       </table>
 </div>
@@ -14451,7 +14553,7 @@ Controls the differential voltage swing.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_2&nbsp;&nbsp;&nbsp;0x0228          </td>
+          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_2&nbsp;&nbsp;&nbsp;0x228          </td>
         </tr>
       </table>
 </div>
@@ -14466,7 +14568,7 @@ Controls the differential voltage swing.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_3&nbsp;&nbsp;&nbsp;0x022C          </td>
+          <td class="memname">#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_3&nbsp;&nbsp;&nbsp;0x22C          </td>
         </tr>
       </table>
 </div>
@@ -14481,7 +14583,7 @@ Controls the differential voltage swing.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_REPLY_DATA_COUNT&nbsp;&nbsp;&nbsp;0x0148          </td>
+          <td class="memname">#define XDP_TX_REPLY_DATA_COUNT&nbsp;&nbsp;&nbsp;0x148          </td>
         </tr>
       </table>
 </div>
@@ -14496,7 +14598,7 @@ Total number of data bytes actually received during a transaction.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_REPLY_STATUS&nbsp;&nbsp;&nbsp;0x014C          </td>
+          <td class="memname">#define XDP_TX_REPLY_STATUS&nbsp;&nbsp;&nbsp;0x14C          </td>
         </tr>
       </table>
 </div>
@@ -14721,7 +14823,7 @@ AUX request is currently being transmitted.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_SCRAMBLING_DISABLE&nbsp;&nbsp;&nbsp;0x0014          </td>
+          <td class="memname">#define XDP_TX_SCRAMBLING_DISABLE&nbsp;&nbsp;&nbsp;0x014          </td>
         </tr>
       </table>
 </div>
@@ -14736,7 +14838,7 @@ Disable scrambler and transmit all symbols.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_SOFT_RESET&nbsp;&nbsp;&nbsp;0x001C          </td>
+          <td class="memname">#define XDP_TX_SOFT_RESET&nbsp;&nbsp;&nbsp;0x01C          </td>
         </tr>
       </table>
 </div>
@@ -14841,7 +14943,7 @@ Reset video logic for all streams.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM1&nbsp;&nbsp;&nbsp;0x01D0          </td>
+          <td class="memname">#define XDP_TX_STREAM1&nbsp;&nbsp;&nbsp;0x1D0          </td>
         </tr>
       </table>
 </div>
@@ -14856,7 +14958,7 @@ Average stream symbol timeslots per MTP config.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM1_MSA_START&nbsp;&nbsp;&nbsp;0x0180          </td>
+          <td class="memname">#define XDP_TX_STREAM1_MSA_START&nbsp;&nbsp;&nbsp;0x180          </td>
         </tr>
       </table>
 </div>
@@ -14871,7 +14973,7 @@ Start of the MSA registers for stream 1.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM2&nbsp;&nbsp;&nbsp;0x01D4          </td>
+          <td class="memname">#define XDP_TX_STREAM2&nbsp;&nbsp;&nbsp;0x1D4          </td>
         </tr>
       </table>
 </div>
@@ -14886,7 +14988,7 @@ Average stream symbol timeslots per MTP config.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM2_MSA_START&nbsp;&nbsp;&nbsp;0x0500          </td>
+          <td class="memname">#define XDP_TX_STREAM2_MSA_START&nbsp;&nbsp;&nbsp;0x500          </td>
         </tr>
       </table>
 </div>
@@ -14918,7 +15020,7 @@ Start of the MSA registers for stream 2.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM3&nbsp;&nbsp;&nbsp;0x01D8          </td>
+          <td class="memname">#define XDP_TX_STREAM3&nbsp;&nbsp;&nbsp;0x1D8          </td>
         </tr>
       </table>
 </div>
@@ -14933,7 +15035,7 @@ Average stream symbol timeslots per MTP config.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM3_MSA_START&nbsp;&nbsp;&nbsp;0x0550          </td>
+          <td class="memname">#define XDP_TX_STREAM3_MSA_START&nbsp;&nbsp;&nbsp;0x550          </td>
         </tr>
       </table>
 </div>
@@ -14965,7 +15067,7 @@ Start of the MSA registers for stream 3.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM4&nbsp;&nbsp;&nbsp;0x01DC          </td>
+          <td class="memname">#define XDP_TX_STREAM4&nbsp;&nbsp;&nbsp;0x1DC          </td>
         </tr>
       </table>
 </div>
@@ -14980,7 +15082,7 @@ Average stream symbol timeslots per MTP config.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_STREAM4_MSA_START&nbsp;&nbsp;&nbsp;0x05A0          </td>
+          <td class="memname">#define XDP_TX_STREAM4_MSA_START&nbsp;&nbsp;&nbsp;0x5A0          </td>
         </tr>
       </table>
 </div>
@@ -15072,7 +15174,7 @@ Start of the MSA registers for stream 4.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_TRAINING_PATTERN_SET&nbsp;&nbsp;&nbsp;0x000C          </td>
+          <td class="memname">#define XDP_TX_TRAINING_PATTERN_SET&nbsp;&nbsp;&nbsp;0x00C          </td>
         </tr>
       </table>
 </div>
@@ -15147,7 +15249,7 @@ Training pattern 3 used for channel equalization for cores with DP v1.2.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_TU_SIZE&nbsp;&nbsp;&nbsp;0x01B0          </td>
+          <td class="memname">#define XDP_TX_TU_SIZE&nbsp;&nbsp;&nbsp;0x1B0          </td>
         </tr>
       </table>
 </div>
@@ -15162,7 +15264,7 @@ Size of a transfer unit in the framing logic.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_USER_DATA_COUNT_PER_LANE&nbsp;&nbsp;&nbsp;0x01BC          </td>
+          <td class="memname">#define XDP_TX_USER_DATA_COUNT_PER_LANE&nbsp;&nbsp;&nbsp;0x1BC          </td>
         </tr>
       </table>
 </div>
@@ -15177,7 +15279,7 @@ Used to translate the number of pixels per line to the native internal 16-bit da
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_USER_FIFO_OVERFLOW&nbsp;&nbsp;&nbsp;0x0110          </td>
+          <td class="memname">#define XDP_TX_USER_FIFO_OVERFLOW&nbsp;&nbsp;&nbsp;0x110          </td>
         </tr>
       </table>
 </div>
@@ -15192,7 +15294,7 @@ Indicates an overflow in user FIFO.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_USER_PIXEL_WIDTH&nbsp;&nbsp;&nbsp;0x01B8          </td>
+          <td class="memname">#define XDP_TX_USER_PIXEL_WIDTH&nbsp;&nbsp;&nbsp;0x1B8          </td>
         </tr>
       </table>
 </div>
@@ -15207,7 +15309,7 @@ Selects the width of the user data input port.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_VC_PAYLOAD_BUFFER_ADDR&nbsp;&nbsp;&nbsp;0x0800          </td>
+          <td class="memname">#define XDP_TX_VC_PAYLOAD_BUFFER_ADDR&nbsp;&nbsp;&nbsp;0x800          </td>
         </tr>
       </table>
 </div>
@@ -15222,7 +15324,7 @@ Virtual channel payload table (0xFF bytes).
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XDP_TX_VERSION&nbsp;&nbsp;&nbsp;0x00F8          </td>
+          <td class="memname">#define XDP_TX_VERSION&nbsp;&nbsp;&nbsp;0x0F8          </td>
         </tr>
       </table>
 </div>
@@ -15691,4 +15793,4 @@ This is a low-level function that writes to the specified register.<p>
 
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
+Copyright @ 1995-2015 Xilinx, Inc. All rights reserved.

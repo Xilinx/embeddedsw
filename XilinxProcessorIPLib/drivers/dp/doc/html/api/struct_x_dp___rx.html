@@ -55,6 +55,14 @@ The <a class="el" href="struct_x_dp.html">XDp</a> driver instance data represent
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___rx.html#9a0b32232579ed8860727ba5390dd0bd">IntrVideoCallbackRef</a></td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___rx.html#0d96f5496bcc75767d1aefcd45ab8c7e">IntrInfoPktHandler</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___rx.html#d74c947e7d31c8fe258863c9deede1ab">IntrInfoPktCallbackRef</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___rx.html#2c7bf01947161996ae2a357455e755a7">IntrExtPktHandler</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___rx.html#4284dcf73b0962979eb3819338184989">IntrExtPktCallbackRef</a></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___rx.html#a427502e7f72b7239d363281a81f3dc5">IntrTrainingDoneHandler</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___rx.html#564710e35f3f88462feaa80f6391dce6">IntrTrainingDoneCallbackRef</a></td></tr>
@@ -105,6 +113,66 @@ A pointer to the user data passed to the bandwidth change callback function.
 
 <p>
 Callback function for bandwidth change interrupts.
+</div>
+</div><p>
+<a class="anchor" name="4284dcf73b0962979eb3819338184989"></a><!-- doxytag: member="XDp_Rx::IntrExtPktCallbackRef" ref="4284dcf73b0962979eb3819338184989" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* <a class="el" href="struct_x_dp___rx.html#4284dcf73b0962979eb3819338184989">XDp_Rx::IntrExtPktCallbackRef</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+A pointer to the user data passed to the audio extension packet callback function.
+</div>
+</div><p>
+<a class="anchor" name="2c7bf01947161996ae2a357455e755a7"></a><!-- doxytag: member="XDp_Rx::IntrExtPktHandler" ref="2c7bf01947161996ae2a357455e755a7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a> <a class="el" href="struct_x_dp___rx.html#2c7bf01947161996ae2a357455e755a7">XDp_Rx::IntrExtPktHandler</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Callback function for audio extension packet received interrupts.
+</div>
+</div><p>
+<a class="anchor" name="d74c947e7d31c8fe258863c9deede1ab"></a><!-- doxytag: member="XDp_Rx::IntrInfoPktCallbackRef" ref="d74c947e7d31c8fe258863c9deede1ab" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* <a class="el" href="struct_x_dp___rx.html#d74c947e7d31c8fe258863c9deede1ab">XDp_Rx::IntrInfoPktCallbackRef</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+A pointer to the user data passed to the audio info packet callback function.
+</div>
+</div><p>
+<a class="anchor" name="0d96f5496bcc75767d1aefcd45ab8c7e"></a><!-- doxytag: member="XDp_Rx::IntrInfoPktHandler" ref="0d96f5496bcc75767d1aefcd45ab8c7e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a> <a class="el" href="struct_x_dp___rx.html#0d96f5496bcc75767d1aefcd45ab8c7e">XDp_Rx::IntrInfoPktHandler</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Callback function for audio info packet received interrupts.
 </div>
 </div><p>
 <a class="anchor" name="f62bfb8c23d92f7ba65c2d04c44e9ec7"></a><!-- doxytag: member="XDp_Rx::IntrNoVideoCallbackRef" ref="f62bfb8c23d92f7ba65c2d04c44e9ec7" args="" -->
@@ -424,4 +492,4 @@ Configuration structure for the main link.
 </div><p>
 <hr>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="xdp_8h.html">xdp.h</a></ul>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
+Copyright @ 1995-2015 Xilinx, Inc. All rights reserved.

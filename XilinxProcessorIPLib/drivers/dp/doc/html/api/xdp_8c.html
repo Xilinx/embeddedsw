@@ -28,7 +28,7 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dp.html
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
- 1.0   als  01/20/15 Initial release.
+ 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  </pre>
 <p>
 <code>#include &quot;<a class="el" href="xdp_8h.html">xdp.h</a>&quot;</code><br>
@@ -110,6 +110,10 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dp.html
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#89c4158905d36c050a2f77cd70ebef11">XDp_TxResetPhy</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, u32 Reset)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#aedf47a4635bd225559da3b5cc4c6ac0">XDp_TxSetPhyPolarityAll</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, u8 Polarity)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#e829b18d0b930de7a7851172b2bd41bb">XDp_TxSetPhyPolarityLane</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, u8 Lane, u8 Polarity)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">u32&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#ec7d0a8c9e4b593ccdcb82e9d1e7f28d">XDp_RxCheckLinkStatus</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#5e8030bf5d75d0d33d65480200472f10">XDp_RxDtgEn</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr)</td></tr>
@@ -119,6 +123,12 @@ Contains a minimal set of functions for the <a class="el" href="struct_x_dp.html
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#f65a177db143ac0cff1f44f155673c22">XDp_RxSetLinkRate</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, u8 LinkRate)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#424d3b46101c70b80d79047d75227fa8">XDp_RxSetLaneCount</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, u8 LaneCount)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#85656ea0eb2f4208877f724413a25c3f">XDp_RxAudioEn</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#c946b1c8836833f0c1f0ff321a92bfc7">XDp_RxAudioDis</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#126e52feb62e37f339c56de2713bb2c0">XDp_RxAudioReset</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp_8c.html#7e31cad17809d5e67bade4c08a4b6c93">XDp_SetUserTimerHandler</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, <a class="el" href="xdp_8h.html#b2ee8cde914736409c4b04146aa84462">XDp_TimerHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
@@ -305,6 +315,90 @@ This function prepares the DisplayPort core for use depending on whether the cor
 <dl compact><dt><b>Returns:</b></dt><dd><ul>
 <li>XST_SUCCESS if the DisplayPort core was successfully initialized.</li><li>XST_FAILURE otherwise.</li></ul>
 </dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="c946b1c8836833f0c1f0ff321a92bfc7"></a><!-- doxytag: member="xdp.c::XDp_RxAudioDis" ref="c946b1c8836833f0c1f0ff321a92bfc7" args="(XDp *InstancePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDp_RxAudioDis           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp.html">XDp</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function disables audio stream packets on the main link.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="85656ea0eb2f4208877f724413a25c3f"></a><!-- doxytag: member="xdp.c::XDp_RxAudioEn" ref="85656ea0eb2f4208877f724413a25c3f" args="(XDp *InstancePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDp_RxAudioEn           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp.html">XDp</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function enables audio stream packets on the main link.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="126e52feb62e37f339c56de2713bb2c0"></a><!-- doxytag: member="xdp.c::XDp_RxAudioReset" ref="126e52feb62e37f339c56de2713bb2c0" args="(XDp *InstancePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDp_RxAudioReset           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp.html">XDp</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function resets the RX core's reception of audio stream packets on the main link.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
 <dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
 
 </div>
@@ -1362,6 +1456,89 @@ This function sets the data rate to be used by the main link for both the Displa
 
 </div>
 </div><p>
+<a class="anchor" name="aedf47a4635bd225559da3b5cc4c6ac0"></a><!-- doxytag: member="xdp.c::XDp_TxSetPhyPolarityAll" ref="aedf47a4635bd225559da3b5cc4c6ac0" args="(XDp *InstancePtr, u8 Polarity)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDp_TxSetPhyPolarityAll           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp.html">XDp</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Polarity</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function sets the PHY polarity on all lanes.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Polarity</em>&nbsp;</td><td>is the value to set for the polarity (0 or 1).</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>The individual PHY polarity option will be disabled if set. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="e829b18d0b930de7a7851172b2bd41bb"></a><!-- doxytag: member="xdp.c::XDp_TxSetPhyPolarityLane" ref="e829b18d0b930de7a7851172b2bd41bb" args="(XDp *InstancePtr, u8 Lane, u8 Polarity)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDp_TxSetPhyPolarityLane           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp.html">XDp</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Lane</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&nbsp;</td>
+          <td class="paramname"> <em>Polarity</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function sets the PHY polarity on a specified lane.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Lane</em>&nbsp;</td><td>is the lane number (0-3) to set the polarity for. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Polarity</em>&nbsp;</td><td>is the value to set for the polarity (0 or 1).</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>If individual lane polarity is used, it is recommended that this function is called for every lane in use. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="60da59209c30be099d00f0053a0e809d"></a><!-- doxytag: member="xdp.c::XDp_TxSetScrambler" ref="60da59209c30be099d00f0053a0e809d" args="(XDp *InstancePtr, u8 Enable)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1440,4 +1617,4 @@ This function is the delay/sleep function for the <a class="el" href="struct_x_d
 
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
+Copyright @ 1995-2015 Xilinx, Inc. All rights reserved.

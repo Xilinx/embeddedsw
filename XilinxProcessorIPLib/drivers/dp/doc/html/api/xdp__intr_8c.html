@@ -28,7 +28,7 @@ This file contains functions related to <a class="el" href="struct_x_dp.html">XD
  MODIFICATION HISTORY:</pre><p>
 <pre> Ver   Who  Date     Changes
  ----- ---- -------- -----------------------------------------------
- 1.0   als  01/20/15 Initial release.
+ 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  </pre>
 <p>
 <code>#include &quot;<a class="el" href="xdp_8h.html">xdp.h</a>&quot;</code><br>
@@ -58,6 +58,10 @@ This file contains functions related to <a class="el" href="struct_x_dp.html">XD
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__intr_8c.html#f1b3d151179648a008b57635ad21e418">XDp_RxSetIntrTrainingLostHandler</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, <a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__intr_8c.html#6bb8bfa0a951fca74a8d43d024bb4bb5">XDp_RxSetIntrVideoHandler</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, <a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__intr_8c.html#22ace1a70921ee6c408fb4ef86d89188">XDp_RxSetIntrInfoPktHandler</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, <a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__intr_8c.html#28512b0f6c69e090eb2297e6581d507b">XDp_RxSetIntrExtPktHandler</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, <a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdp__intr_8c.html#de66ad73b7c1a6fa78182a60b62731ef">XDp_RxSetIntrTrainingDoneHandler</a> (<a class="el" href="struct_x_dp.html">XDp</a> *InstancePtr, <a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a> CallbackFunc, void *CallbackRef)</td></tr>
 
@@ -246,6 +250,96 @@ This function enables interrupts associated with the specified mask.<p>
 
 <p>
 This function installs a callback function for when a bandwidth change interrupt occurs.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CallbackFunc</em>&nbsp;</td><td>is the address to the callback function. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item that will be passed to the callback function when it is invoked.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="28512b0f6c69e090eb2297e6581d507b"></a><!-- doxytag: member="xdp_intr.c::XDp_RxSetIntrExtPktHandler" ref="28512b0f6c69e090eb2297e6581d507b" args="(XDp *InstancePtr, XDp_IntrHandler CallbackFunc, void *CallbackRef)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDp_RxSetIntrExtPktHandler           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp.html">XDp</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a>&nbsp;</td>
+          <td class="paramname"> <em>CallbackFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>CallbackRef</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function installs a callback function for when an audio extension packet interrupt occurs.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CallbackFunc</em>&nbsp;</td><td>is the address to the callback function. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CallbackRef</em>&nbsp;</td><td>is the user data item that will be passed to the callback function when it is invoked.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>None.</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="22ace1a70921ee6c408fb4ef86d89188"></a><!-- doxytag: member="xdp_intr.c::XDp_RxSetIntrInfoPktHandler" ref="22ace1a70921ee6c408fb4ef86d89188" args="(XDp *InstancePtr, XDp_IntrHandler CallbackFunc, void *CallbackRef)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDp_RxSetIntrInfoPktHandler           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp.html">XDp</a> *&nbsp;</td>
+          <td class="paramname"> <em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xdp_8h.html#986a09cc49fd7645fa11107cc25c453f">XDp_IntrHandler</a>&nbsp;</td>
+          <td class="paramname"> <em>CallbackFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>CallbackRef</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function installs a callback function for when an audio info packet interrupt occurs.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>InstancePtr</em>&nbsp;</td><td>is a pointer to the <a class="el" href="struct_x_dp.html">XDp</a> instance. </td></tr>
@@ -798,4 +892,4 @@ This function installs a callback function for when a hot-plug-detect pulse inte
 
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
+Copyright @ 1995-2015 Xilinx, Inc. All rights reserved.
