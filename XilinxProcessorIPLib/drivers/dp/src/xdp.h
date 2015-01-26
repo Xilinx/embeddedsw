@@ -281,6 +281,15 @@
 /****************************** Type Definitions ******************************/
 
 /**
+ * This typedef enumerates the RX and TX modes of operation for the DisplayPort
+ * core.
+ */
+typedef enum {
+	XDP_TX = 0,
+	XDP_RX
+} XDp_CoreType;
+
+/**
  * This typedef contains configuration information for the DisplayPort core.
  */
 typedef struct {
@@ -942,9 +951,6 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
-#define XDP_TX 0
-#define XDP_RX 1
-
 /******************************************************************************/
 /**
  * This is function determines whether the DisplayPort core, represented by the
@@ -956,7 +962,7 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
  *		XDP_TX if the core is of type TX.
  *
  * @note	C-style signature:
- *		u32 XDp_GetCoreType(XDp *InstancePtr)
+ *		XDp_CoreType XDp_GetCoreType(XDp *InstancePtr)
  *
 *******************************************************************************/
 #define XDp_GetCoreType(InstancePtr)	((InstancePtr)->Config.IsRx \
