@@ -1964,6 +1964,14 @@ static u32 XDp_TxRunTraining(XDp *InstancePtr)
 			(TrainingState == XDP_TX_TS_ADJUST_LINK_RATE))) {
 			return XST_FAILURE;
 		}
+		if ((TrainingState == XDP_TX_TS_ADJUST_LINK_RATE) ||
+			(TrainingState == XDP_TX_TS_ADJUST_LANE_COUNT)) {
+			Status = XDp_TxSetTrainingPattern(InstancePtr,
+					XDP_TX_TRAINING_PATTERN_SET_OFF);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+		}
 	}
 
 	/* Final status check. */
