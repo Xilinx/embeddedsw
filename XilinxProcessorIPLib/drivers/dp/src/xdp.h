@@ -800,6 +800,8 @@ u32 XDp_TxIsConnected(XDp *InstancePtr);
 void XDp_TxEnableMainLink(XDp *InstancePtr);
 void XDp_TxDisableMainLink(XDp *InstancePtr);
 void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset);
+void XDp_TxSetPhyPolarityAll(XDp *InstancePtr, u8 Polarity);
+void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity);
 u32 XDp_RxCheckLinkStatus(XDp *InstancePtr);
 void XDp_RxDtgEn(XDp *InstancePtr);
 void XDp_RxDtgDis(XDp *InstancePtr);

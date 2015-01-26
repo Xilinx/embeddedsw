@@ -629,11 +629,28 @@
 #define XDP_TX_PHY_CONFIG_TX_PHY_PCS_RESET_MASK \
 				0x0000200	/**< Hold TX_PHY_PCS reset. */
 #define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK \
-				0x0000400	/**< Set TX_PHY_POLARITY. */
+				0x0000800	/**< Set TX_PHY_POLARITY. */
 #define XDP_TX_PHY_CONFIG_TX_PHY_PRBSFORCEERR_MASK \
 				0x0001000	/**< Set TX_PHY_PRBSFORCEERR. */
 #define XDP_TX_PHY_CONFIG_TX_PHY_LOOPBACK_MASK \
 				0x000E000	/**< Set TX_PHY_LOOPBACK. */
+#define XDP_TX_PHY_CONFIG_TX_PHY_LOOPBACK_SHIFT 13 /**< Shift bits for
+							TX_PHY_LOOPBACK. */
+#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_IND_LANE_MASK \
+				0x0010000	/**< Set to enable individual
+							lane polarity. */
+#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE0_MASK \
+				0x0020000	/**< Set TX_PHY_POLARITY for
+							lane 0. */
+#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE1_MASK \
+				0x0040000	/**< Set TX_PHY_POLARITY for
+							lane 1. */
+#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE2_MASK \
+				0x0080000	/**< Set TX_PHY_POLARITY for
+							lane 2. */
+#define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE3_MASK \
+				0x0100000	/**< Set TX_PHY_POLARITY for
+							lane 3. */
 #define XDP_TX_PHY_CONFIG_GT_ALL_RESET_MASK \
 				0x0000003	/**< Rest GT and PHY. */
 /* 0x234: PHY_CLOCK_SELECT */

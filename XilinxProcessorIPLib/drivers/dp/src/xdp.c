@@ -1284,6 +1284,106 @@ void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset)
 
 /******************************************************************************/
 /**
+ * This function sets the PHY polarity on all lanes.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Polarity is the value to set for the polarity (0 or 1).
+ *
+ * @return	None.
+ *
+ * @note	The individual PHY polarity option will be disabled if set.
+ *
+*******************************************************************************/
+void XDp_TxSetPhyPolarityAll(XDp *InstancePtr, u8 Polarity)
+{
+	u32 RegVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid((Polarity == 0) || (Polarity == 1));
+
+	/* Preserve current settings. */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG);
+
+	/* Set the polarity. */
+	if (Polarity) {
+		RegVal |= XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK;
+	}
+	else {
+		RegVal &= ~XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_MASK;
+	}
+
+	/* Disable individual polarity setting. */
+	RegVal &= ~XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_IND_LANE_MASK;
+
+	/* Write the new settings. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
+}
+
+/******************************************************************************/
+/**
+ * This function sets the PHY polarity on a specified lane.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Lane is the lane number (0-3) to set the polarity for.
+ * @param	Polarity is the value to set for the polarity (0 or 1).
+ *
+ * @return	None.
+ *
+ * @note	If individual lane polarity is used, it is recommended that this
+ *		function is called for every lane in use.
+ *
+*******************************************************************************/
+void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity)
+{
+	u32 RegVal;
+	u32 MaskVal;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid((Lane >= 0) && (Lane <= 3));
+	Xil_AssertVoid((Polarity == 0) || (Polarity == 1));
+
+	/* Preserve current settings. */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG);
+
+	/* Determine bit mask to use. */
+	switch (Lane) {
+	case 0:
+		MaskVal = XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE0_MASK;
+		break;
+	case 1:
+		MaskVal = XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE1_MASK;
+		break;
+	case 2:
+		MaskVal = XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE2_MASK;
+		break;
+	case 3:
+		MaskVal = XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE3_MASK;
+		break;
+	default:
+		break;
+	}
+
+	/* Set the polarity. */
+	if (Polarity) {
+		RegVal |= MaskVal;
+	}
+	else {
+		RegVal &= ~MaskVal;
+	}
+
+	/* Enable individual polarity setting. */
+	RegVal |= XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_IND_LANE_MASK;
+
+	/* Write the new settings. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
+}
+
+/******************************************************************************/
+/**
  * This function checks if the reciever's internal registers indicate that link
  * training has complete. That is, training has achieved channel equalization,
  * symbol lock, and interlane alignment for all lanes currently in use.
