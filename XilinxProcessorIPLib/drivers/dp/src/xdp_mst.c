@@ -1666,6 +1666,34 @@ u32 XDp_TxSendSbMsgRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function will send a REMOTE_I2C_WRITE sideband message which will write
+ * to the specified I2C address of a downstream DisplayPort device.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	LinkCountTotal is the number of DisplayPort links from the
+ *		DisplayPort source to the target DisplayPort device.
+ * @param	RelativeAddress is the relative address from the DisplayPort
+ *		source to the target DisplayPort device.
+ * @param	IicDeviceId is the address on the I2C bus of the target device.
+ * @param	BytesToWrite is the number of bytes to write to the I2C address.
+ * @param	WriteData is a pointer to a buffer that will be written.
+ *
+ * @return
+ *		- XST_SUCCESS if the reply to the sideband message was
+ *		  successfully obtained and it indicates an acknowledge.
+ *              - XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_ERROR_COUNT_MAX if either waiting for a reply, or an AUX
+ *		  request timed out.
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of the sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u8 IicDeviceId, u8 BytesToWrite, u8 *WriteData)
 {
