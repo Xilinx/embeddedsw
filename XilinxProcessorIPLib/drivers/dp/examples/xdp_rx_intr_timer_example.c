@@ -207,6 +207,11 @@ u32 Dprx_IntrTimerExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 	Dprx_PlatformInit(InstancePtr);
 	/*******************/
 
+	Status = Dprx_SetupExample(InstancePtr, DeviceId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	/* Set a custom timer handler for improved delay accuracy on MicroBlaze
 	 * systems since the driver does not assume/have a dependency on the
 	 * system having a timer in the FPGA.
@@ -219,11 +224,6 @@ u32 Dprx_IntrTimerExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 	/* Setup interrupt handling in the system. */
 	Status = Dprx_SetupInterruptHandler(InstancePtr, IntcPtr, IntrId,
 								DpIntrId);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	Status = Dprx_SetupExample(InstancePtr, DeviceId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
