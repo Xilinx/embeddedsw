@@ -222,8 +222,14 @@
  *
  * <b>Audio</b>
  *
- * The driver does not handle audio. For an example as to how to configure and
- * transmit audio, examples/xdptx_audio_example.c illustrates the required
+ * The driver in RX mode of operation may received audio info and extension
+ * packets. When this happens, if interrupts are enabled, the appropriate
+ * handlers will be invoked.
+ * Control functions are available for enabling, disabling, and resetting audio
+ * in the DisplayPort RX core.
+ *
+ * The TX driver does not handle audio. For an example as to how to configure
+ * and transmit audio, examples/xdptx_audio_example.c illustrates the required
  * sequence in the TX mode of operation. The user will need to configure the
  * audio source connected to the Displayport TX instance and set up the audio
  * info frame as per user requirements.
@@ -704,7 +710,21 @@ typedef struct {
 							passed to the valid
 							video callback
 							function. */
-	XDp_IntrHandler IntrTrainingDoneHandler;/**< Callback function for
+	XDp_IntrHandler IntrInfoPktHandler;	/**< Callback function for audio
+							info packet received
+							interrupts. */
+	void *IntrInfoPktCallbackRef;		/**< A pointer to the user data
+							passed to the audio info
+							packet callback
+							function. */
+	XDp_IntrHandler IntrExtPktHandler;	/**< Callback function for audio
+							extension packet
+							received interrupts. */
+	void *IntrExtPktCallbackRef;		/**< A pointer to the user data
+							passed to the audio
+							extension packet
+							callback function. */
+	XDp_IntrHandler IntrTrainingDoneHandler; /**< Callback function for
 							training done
 							interrupts. */
 	void *IntrTrainingDoneCallbackRef;	/**< A pointer to the user data
@@ -856,6 +876,10 @@ void XDp_RxSetIntrVBlankHandler(XDp *InstancePtr,
 void XDp_RxSetIntrTrainingLostHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetIntrVideoHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrInfoPktHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrExtPktHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetIntrTrainingDoneHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);

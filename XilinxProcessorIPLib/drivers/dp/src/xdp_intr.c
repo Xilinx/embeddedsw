@@ -398,6 +398,62 @@ void XDp_RxSetIntrVideoHandler(XDp *InstancePtr,
 
 /******************************************************************************/
 /**
+ * This function installs a callback function for when an audio info packet
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrInfoPktHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrInfoPktHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrInfoPktCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when an audio extension packet
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrExtPktHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrExtPktHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrExtPktCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
  * This function installs a callback function for when a training done interrupt
  * occurs.
  *
@@ -623,8 +679,8 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
 	u8 IntrVmChange, IntrPowerState, IntrNoVideo, IntrVBlank,
-		IntrTrainingLost, IntrVideo, IntrTrainingDone, IntrBwChange,
-		IntrTp1, IntrTp2, IntrTp3;
+		IntrTrainingLost, IntrVideo, IntrInfoPkt, IntrExtPkt,
+		IntrTrainingDone, IntrBwChange, IntrTp1, IntrTp2, IntrTp3;
 
 	/* Determine what kind of interrupt(s) occurred.
 	 * Note: XDP_RX_INTERRUPT_CAUSE is an RC (read-clear) register. */
@@ -637,6 +693,9 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	IntrTrainingLost = (IntrStatus &
 				XDP_RX_INTERRUPT_CAUSE_TRAINING_LOST_MASK);
 	IntrVideo = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK);
+
+	IntrInfoPkt = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_INFO_PKT_MASK);
+	IntrExtPkt = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_EXT_PKT_MASK);
 	IntrTrainingDone = (IntrStatus &
 				XDP_RX_INTERRUPT_CAUSE_TRAINING_DONE_MASK);
 	IntrBwChange = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_BW_CHANGE_MASK);
@@ -706,5 +765,16 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	if (IntrBwChange) {
 		InstancePtr->RxInstance.IntrBwChangeHandler(
 			InstancePtr->RxInstance.IntrBwChangeCallbackRef);
+	}
+
+	/* An audio info packet has been received. */
+	if (IntrInfoPkt) {
+		InstancePtr->RxInstance.IntrInfoPktHandler(
+			InstancePtr->RxInstance.IntrInfoPktCallbackRef);
+	}
+	/* An audio extension packet has been received. */
+	if (IntrExtPkt) {
+		InstancePtr->RxInstance.IntrExtPktHandler(
+			InstancePtr->RxInstance.IntrExtPktCallbackRef);
 	}
 }
