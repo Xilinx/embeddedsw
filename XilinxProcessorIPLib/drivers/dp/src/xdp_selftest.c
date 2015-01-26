@@ -230,7 +230,7 @@ u32 XDp_SelfTest(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (XDp_CfgGetCoreType(&InstancePtr->Config) == XDP_TX) {
+	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		Status = XDp_TxSelfTest(InstancePtr);
 	}
 	else {

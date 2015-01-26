@@ -947,20 +947,20 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 
 /******************************************************************************/
 /**
- * This is function determines whether the DisplayPort core that the
- * configuration structure represents is a transmitter (TX) or a receiver (RX).
+ * This is function determines whether the DisplayPort core, represented by the
+ * XDp structure pointed to, is a transmitter (TX) or a receiver (RX).
  *
- * @param	ConfigPtr is a pointer to the DisplayPort core's configuration
- *		structure.
+ * @param	InstancePtr is a pointer to the XDp instance.
  *
- * @return	XDP_RX if the configuration structure is for a core of type RX.
- *		XDP_TX if the configuration structure is for a core of type TX.
+ * @return	XDP_RX if the core is of type RX.
+ *		XDP_TX if the core is of type TX.
  *
  * @note	C-style signature:
- *		u32 XDp_CfgGetCoreType(XDp_Config *ConfigPtr)
+ *		u32 XDp_GetCoreType(XDp *InstancePtr)
  *
 *******************************************************************************/
-#define XDp_CfgGetCoreType(ConfigPtr)	((ConfigPtr)->IsRx ? XDP_RX : XDP_TX)
+#define XDp_GetCoreType(InstancePtr)	((InstancePtr)->Config.IsRx \
+							? XDP_RX : XDP_TX)
 
 /******************************* Compatibility ********************************/
 

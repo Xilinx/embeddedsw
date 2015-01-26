@@ -194,7 +194,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 
 	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
 
-	if (XDp_CfgGetCoreType(ConfigPtr) == XDP_TX) {
+	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		/* Set the DisplayPort TX's voltage swing and pre-emphasis
 		 * levels to their defaults. */
 		XDp_TxCfgTxVsOffset(InstancePtr, XDP_TX_VS_LEVEL_OFFSET);
@@ -234,7 +234,7 @@ u32 XDp_Initialize(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (XDp_CfgGetCoreType(&InstancePtr->Config) == XDP_TX) {
+	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		Status = XDp_TxInitialize(InstancePtr);
 	}
 	else {
@@ -3044,7 +3044,7 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 	u32 PhyStatus;
 	u32 RegPhyStatus;
 
-	if (XDp_CfgGetCoreType(&InstancePtr->Config) == XDP_TX) {
+	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		RegPhyStatus = XDP_TX_PHY_STATUS;
 	}
 	else {

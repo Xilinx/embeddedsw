@@ -80,7 +80,7 @@ void XDp_InterruptHandler(XDp *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (XDp_CfgGetCoreType(&InstancePtr->Config) == XDP_TX) {
+	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		XDp_TxInterruptHandler(InstancePtr);
 	}
 	else {
