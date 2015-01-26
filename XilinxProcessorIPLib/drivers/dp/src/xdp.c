@@ -390,7 +390,9 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	/* Disable main link during training. */
 	ReenableMainLink = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						XDP_TX_ENABLE_MAIN_STREAM);
-	XDp_TxDisableMainLink(InstancePtr);
+	if (ReenableMainLink) {
+		XDp_TxDisableMainLink(InstancePtr);
+	}
 
 	/* Train main link. */
 	Status = XDp_TxRunTraining(InstancePtr);
