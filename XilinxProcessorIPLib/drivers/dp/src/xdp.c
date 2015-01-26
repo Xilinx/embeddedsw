@@ -272,6 +272,7 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(Dpcd != NULL);
 	Xil_AssertNonvoid(LinkConfig != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -327,6 +328,7 @@ u32 XDp_TxCfgMainLinkMax(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	/* The link rate and lane count will be checked in XDp_TxSetLinkRate and
 	 * XDp_TxSetLaneCount. */
 
@@ -377,6 +379,7 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((LinkConfig->LinkRate ==
 			XDP_TX_LINK_BW_SET_162GBPS) ||
 			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_270GBPS) ||
@@ -440,6 +443,7 @@ u32 XDp_TxCheckLinkStatus(XDp *InstancePtr, u8 LaneCount)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
 				(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
 				(LaneCount == XDP_TX_LANE_COUNT_SET_4));
@@ -488,6 +492,7 @@ void XDp_TxEnableTrainAdaptive(XDp *InstancePtr, u8 Enable)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Enable == 1) || (Enable == 0));
 
 	InstancePtr->TxInstance.TrainAdaptive = Enable;
@@ -513,6 +518,7 @@ void XDp_TxSetHasRedriverInPath(XDp *InstancePtr, u8 Set)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Set == 1) || (Set == 0));
 
 	InstancePtr->TxInstance.BoardChar.HasRedriverInPath = Set;
@@ -537,6 +543,7 @@ void XDp_TxCfgTxVsOffset(XDp *InstancePtr, u8 Offset)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Offset >= 0) && (Offset < 16));
 
 	InstancePtr->TxInstance.BoardChar.TxVsOffset = Offset;
@@ -564,6 +571,7 @@ void XDp_TxCfgTxVsLevel(XDp *InstancePtr, u8 Level, u8 TxLevel)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Level >= 0) && (Level < 4));
 	Xil_AssertVoid((TxLevel >= 0) && (TxLevel < 16));
 
@@ -592,6 +600,7 @@ void XDp_TxCfgTxPeLevel(XDp *InstancePtr, u8 Level, u8 TxLevel)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Level >= 0) && (Level < 4));
 	Xil_AssertVoid((TxLevel >= 0) && (TxLevel < 32));
 
@@ -613,6 +622,11 @@ u32 XDp_TxIsConnected(XDp *InstancePtr)
 {
 	u32 Status;
 	u8 Retries = 0;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	do {
 		Status = XDp_ReadReg(InstancePtr->Config.BaseAddr,
@@ -662,6 +676,7 @@ u32 XDp_TxAuxRead(XDp *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
 	Xil_AssertNonvoid(BytesToRead <= 0xFFFFF);
 	Xil_AssertNonvoid(ReadData != NULL);
@@ -709,6 +724,7 @@ u32 XDp_TxAuxWrite(XDp *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
 	Xil_AssertNonvoid(BytesToWrite <= 0xFFFFF);
 	Xil_AssertNonvoid(WriteData != NULL);
@@ -767,6 +783,7 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(IicAddress <= 0xFF);
 	Xil_AssertNonvoid(Offset <= 0xFFFF);
 	Xil_AssertNonvoid(BytesToRead <= 0xFFFF);
@@ -880,6 +897,7 @@ u32 XDp_TxIicWrite(XDp *InstancePtr, u8 IicAddress, u8 BytesToWrite,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(IicAddress <= 0xFF);
 	Xil_AssertNonvoid(BytesToWrite <= 0xFF);
 	Xil_AssertNonvoid(WriteData != NULL);
@@ -921,6 +939,7 @@ u32 XDp_TxSetDownspread(XDp *InstancePtr, u8 Enable)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((Enable == 1) || (Enable == 0));
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
@@ -982,6 +1001,7 @@ u32 XDp_TxSetEnhancedFrameMode(XDp *InstancePtr, u8 Enable)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((Enable == 1) || (Enable == 0));
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
@@ -1041,6 +1061,7 @@ u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
 				(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
 				(LaneCount == XDP_TX_LANE_COUNT_SET_4));
@@ -1101,6 +1122,7 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((LinkRate == XDP_TX_LINK_BW_SET_162GBPS) ||
 				(LinkRate == XDP_TX_LINK_BW_SET_270GBPS) ||
 				(LinkRate == XDP_TX_LINK_BW_SET_540GBPS));
@@ -1169,6 +1191,7 @@ u32 XDp_TxSetScrambler(XDp *InstancePtr, u8 Enable)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((Enable == 1) || (Enable == 0));
 
 	InstancePtr->TxInstance.LinkConfig.ScramblerEn = Enable;
@@ -1214,6 +1237,7 @@ void XDp_TxEnableMainLink(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	/* Reset the scrambler. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr,
@@ -1240,6 +1264,7 @@ void XDp_TxDisableMainLink(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	/* Reset the scrambler. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr,
@@ -1267,6 +1292,7 @@ void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 
@@ -1304,6 +1330,7 @@ void XDp_TxSetPhyPolarityAll(XDp *InstancePtr, u8 Polarity)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Polarity == 0) || (Polarity == 1));
 
 	/* Preserve current settings. */
@@ -1346,6 +1373,7 @@ void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Lane >= 0) && (Lane <= 3));
 	Xil_AssertVoid((Polarity == 0) || (Polarity == 1));
 
@@ -1409,6 +1437,7 @@ u32 XDp_RxCheckLinkStatus(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	LaneCount = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						XDP_RX_DPCD_LANE_COUNT_SET);
@@ -1452,6 +1481,7 @@ void XDp_RxDtgEn(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_SOFT_RESET,
 						XDP_RX_SOFT_RESET_VIDEO_MASK);
@@ -1476,6 +1506,7 @@ void XDp_RxDtgDis(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE, 0x0);
 
@@ -1506,6 +1537,7 @@ void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid((LinkRate == XDP_RX_OVER_LINK_BW_SET_162GBPS) ||
 				(LinkRate == XDP_RX_OVER_LINK_BW_SET_270GBPS) ||
 				(LinkRate == XDP_RX_OVER_LINK_BW_SET_540GBPS));
@@ -1538,6 +1570,7 @@ void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid((LaneCount == XDP_RX_OVER_LANE_COUNT_SET_1) ||
 				(LaneCount == XDP_RX_OVER_LANE_COUNT_SET_2) ||
 				(LaneCount == XDP_RX_OVER_LANE_COUNT_SET_4));

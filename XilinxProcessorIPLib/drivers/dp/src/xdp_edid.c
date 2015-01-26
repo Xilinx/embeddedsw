@@ -81,6 +81,7 @@ u32 XDp_TxGetEdid(XDp *InstancePtr, u8 *Edid)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(Edid != NULL);
 
 	/* Retrieve the base EDID block = EDID block #0. */
@@ -119,6 +120,7 @@ u32 XDp_TxGetRemoteEdid(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(Edid != NULL);
@@ -155,6 +157,12 @@ u32 XDp_TxGetEdidBlock(XDp *InstancePtr, u8 *Data, u8 BlockNum)
 {
 	u32 Status;
 	u16 Offset;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(Data != NULL);
 
 	/* Calculate the I2C offset for the specified EDID block. */
 	Offset = BlockNum * XDP_EDID_BLOCK_SIZE;
@@ -197,6 +205,14 @@ u32 XDp_TxGetRemoteEdidBlock(XDp *InstancePtr, u8 *Data, u8 BlockNum,
 	u32 Status;
 	u16 Offset;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(Data != NULL);
+
 	/* Calculate the I2C offset for the specified EDID block. */
 	Offset = BlockNum * XDP_EDID_BLOCK_SIZE;
 
@@ -237,6 +253,14 @@ u32 XDp_TxGetRemoteEdidDispIdExt(XDp *InstancePtr, u8 *Data,
 	u32 Status;
 	u8 NumExt;
 	u8 ExtIndex;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(Data != NULL);
 
 	/* Get the base EDID block. */
 	Status = XDp_TxGetRemoteEdid(InstancePtr, LinkCountTotal,
@@ -291,6 +315,9 @@ u32 XDp_TxGetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 	u8 Index;
 	u8 DispIdSize = DisplayIdRaw[XDP_TX_DISPID_SIZE];
 	u8 *DataBlock;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(DisplayIdRaw != NULL);
 
 	/* Search for a section data block matching the specified tag. */
 	for (Index = XDP_TX_DISPID_PAYLOAD_START; Index < DispIdSize; Index++) {
@@ -355,6 +382,14 @@ u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 {
 	u32 Status;
 	u8 *EdidExtDispId;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(EdidExt != NULL);
 
 	/* Obtain a DisplayID EDID extension block. */
 	Status = XDp_TxGetRemoteEdidDispIdExt(InstancePtr, EdidExt,

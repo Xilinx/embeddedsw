@@ -205,6 +205,7 @@ void XDp_TxMstCfgModeEnable(XDp *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	InstancePtr->TxInstance.MstEnable = 1;
 }
@@ -225,6 +226,7 @@ void XDp_TxMstCfgModeDisable(XDp *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	InstancePtr->TxInstance.MstEnable = 0;
 }
@@ -256,6 +258,7 @@ u32 XDp_TxMstCapable(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	if (InstancePtr->Config.MstSupport == 0) {
 		return XST_NO_FEATURE;
@@ -317,6 +320,7 @@ u32 XDp_TxMstEnable(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	/* Check if the immediate downstream RX device has MST capabilities. */
 	Status = XDp_TxMstCapable(InstancePtr);
@@ -378,6 +382,7 @@ u32 XDp_TxMstDisable(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	/* Disable MST mode in the immediate branch device. */
 	AuxData = 0;
@@ -413,6 +418,7 @@ u8 XDp_TxMstStreamIsEnabled(XDp *InstancePtr, u8 Stream)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -439,6 +445,7 @@ void XDp_TxMstCfgStreamEnable(XDp *InstancePtr, u8 Stream)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -464,6 +471,7 @@ void XDp_TxMstCfgStreamDisable(XDp *InstancePtr, u8 Stream)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -499,6 +507,7 @@ void XDp_TxSetStreamSelectFromSinkList(XDp *InstancePtr, u8 Stream, u8 SinkNum)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -541,12 +550,13 @@ void XDp_TxSetStreamSinkRad(XDp *InstancePtr, u8 Stream, u8 LinkCountTotal,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
 						(Stream == XDP_TX_STREAM_ID4));
 	Xil_AssertVoid(LinkCountTotal > 0);
-	Xil_AssertVoid(RelativeAddress != NULL);
+	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 
 	MstStream = &InstancePtr->TxInstance.MstStreamConfig[Stream - 1];
 
@@ -624,10 +634,11 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 	static XDp_TxSbMsgLinkAddressReplyDeviceInfo DeviceInfo;
 
 	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(LinkCountTotal > 0);
-	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 
 	Topology = &InstancePtr->TxInstance.Topology;
 
@@ -731,6 +742,10 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 *******************************************************************************/
 void XDp_TxTopologySwapSinks(XDp *InstancePtr, u8 Index0, u8 Index1)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
 	XDp_TxTopologyNode *TmpSink =
 			InstancePtr->TxInstance.Topology.SinkList[Index0];
 
@@ -769,6 +784,10 @@ void XDp_TxTopologySortSinksByTiling(XDp *InstancePtr)
 	u8 *CurrTdt, *CmpTdt;
 	u8 CurrTileOrder, CmpTileOrder;
 	u8 SameTileDispCount, SameTileDispNum;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	for (CurrIndex = 0; CurrIndex <
 			(InstancePtr->TxInstance.Topology.SinkTotal - 1);
@@ -877,6 +896,14 @@ u32 XDp_TxRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 {
 	u32 Status;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(ReadData != NULL);
+
 	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
 		Status = XDp_TxAuxRead(InstancePtr, DpcdAddress, BytesToRead,
@@ -959,6 +986,14 @@ u32 XDp_TxRemoteDpcdWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u32 DpcdAddress, u32 BytesToWrite, u8 *WriteData)
 {
 	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(WriteData != NULL);
 
 	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
@@ -1051,6 +1086,14 @@ u32 XDp_TxRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	u8 *ReadData)
 {
 	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(ReadData != NULL);
 
 	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
@@ -1176,6 +1219,14 @@ u32 XDp_TxRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 {
 	u32 Status;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(LinkCountTotal > 0);
+	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
+	Xil_AssertNonvoid(WriteData != NULL);
+
 	/* Target RX device is immediately connected to the TX. */
 	if (LinkCountTotal == 1) {
 		Status = XDp_TxIicWrite(InstancePtr, IicAddress, BytesToWrite,
@@ -1224,6 +1275,7 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
@@ -1306,6 +1358,7 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(VcId >= 0);
 	Xil_AssertNonvoid((Ts >= 0) && (Ts <= 64));
 
@@ -1407,6 +1460,7 @@ u32 XDp_TxClearPayloadVcIdTable(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr, 0, 64);
 	if (Status != XST_SUCCESS) {
@@ -1462,6 +1516,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
@@ -1552,6 +1607,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(DpcdAddress <= 0xFFFFF);
@@ -1621,6 +1677,7 @@ u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(IicDeviceId <= 0xFF);
@@ -1710,6 +1767,7 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(IicDeviceId <= 0xFF);
@@ -1814,6 +1872,7 @@ u32 XDp_TxSendSbMsgLinkAddress(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(DeviceInfo != NULL);
@@ -1903,6 +1962,7 @@ u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(AvailPbn != NULL);
@@ -1993,6 +2053,7 @@ u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(VcId > 0);
@@ -2065,6 +2126,7 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = 1;
@@ -2120,6 +2182,7 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid(LinkCountTotal > 0);
 	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertVoid((Guid[0] != 0) || (Guid[1] != 0) || (Guid[2] != 0) ||
@@ -2162,6 +2225,7 @@ void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid(LinkCountTotal > 0);
 	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertVoid(Guid != NULL);

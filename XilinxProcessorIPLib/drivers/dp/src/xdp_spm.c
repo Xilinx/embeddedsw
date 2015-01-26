@@ -111,6 +111,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
 		(Stream == XDP_TX_STREAM_ID4));
@@ -271,6 +272,7 @@ void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid(VideoMode < XVIDC_VM_NUM_SUPPORTED);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
@@ -348,6 +350,7 @@ void XDp_TxCfgMsaUseEdidPreferredTiming(XDp *InstancePtr, u8 Stream, u8 *Edid)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -484,6 +487,7 @@ void XDp_TxCfgMsaUseCustom(XDp *InstancePtr, u8 Stream,
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -567,6 +571,7 @@ void XDp_TxCfgMsaSetBpc(XDp *InstancePtr, u8 Stream, u8 BitsPerColor)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -603,6 +608,7 @@ void XDp_TxCfgMsaEnSynchClkMode(XDp *InstancePtr, u8 Stream, u8 Enable)
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 		(Stream == XDP_TX_STREAM_ID2) ||
 		(Stream == XDP_TX_STREAM_ID3) ||
@@ -674,6 +680,7 @@ void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -748,6 +755,7 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
@@ -832,6 +840,7 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
 							(UserPixelWidth == 4));
 

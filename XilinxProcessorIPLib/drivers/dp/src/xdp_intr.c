@@ -106,6 +106,7 @@ void XDp_RxGenerateHpdInterrupt(XDp *InstancePtr, u16 DurationUs)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_HPD_INTERRUPT,
 			(DurationUs << XDP_RX_HPD_INTERRUPT_LENGTH_US_SHIFT) |
@@ -132,6 +133,7 @@ void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_RX_INTERRUPT_CAUSE);
@@ -160,6 +162,7 @@ void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_RX_INTERRUPT_CAUSE);
@@ -189,6 +192,7 @@ void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -216,6 +220,7 @@ void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -243,6 +248,7 @@ void XDp_RxSetIntrVmChangeHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -270,6 +276,7 @@ void XDp_RxSetIntrPowerStateHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -297,6 +304,7 @@ void XDp_RxSetIntrNoVideoHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -324,6 +332,7 @@ void XDp_RxSetIntrVBlankHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -351,6 +360,7 @@ void XDp_RxSetIntrTrainingLostHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -378,6 +388,7 @@ void XDp_RxSetIntrVideoHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -405,6 +416,7 @@ void XDp_RxSetIntrTrainingDoneHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -432,6 +444,7 @@ void XDp_RxSetIntrBwChangeHandler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -459,6 +472,7 @@ void XDp_RxSetIntrTp1Handler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -486,6 +500,7 @@ void XDp_RxSetIntrTp2Handler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
@@ -513,6 +528,7 @@ void XDp_RxSetIntrTp3Handler(XDp *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
