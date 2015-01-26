@@ -991,8 +991,8 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 #define XDptx_HpdInterruptHandler	XDp_InterruptHandler
 #define XDprx_InterruptHandler		XDp_InterruptHandler
 
-#define XDptx				XDp_Tx
-#define XDprx				XDp_Rx
+#define XDptx				XDp
+#define XDprx				XDp
 
 #define XDPTX				XDP_TX
 #define XDPRX				XDP_RX
