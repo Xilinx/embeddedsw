@@ -282,6 +282,8 @@ void XDptx_CfgMsaUseStandardVideoMode(XDptx *InstancePtr, u8 Stream,
 	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
 
 	/* Configure the MSA values from the display monitor DMT table. */
+	MsaConfig->Vtm.VmId = XVidC_VideoTimingModes[VideoMode].VmId;
+	MsaConfig->Vtm.FrameRate = XVidC_VideoTimingModes[VideoMode].FrameRate;
 	MsaConfig->Vtm.Timing.HActive =
 			XVidC_VideoTimingModes[VideoMode].Timing.HActive;
 	MsaConfig->Vtm.Timing.HFrontPorch =
@@ -411,6 +413,7 @@ void XDptx_CfgMsaUseEdidPreferredTiming(XDptx *InstancePtr, u8 Stream, u8 *Edid)
 			(Ptm[XDPTX_EDID_DTD_VFPORCH_VSPW_L4] &
 			XDPTX_EDID_DTD_VFPORCH_VSPW_L4_VSPW_MASK);
 
+	/* Compute video mode timing values. */
 	MsaConfig->Vtm.Timing.HBackPorch = HBlank -
 					(MsaConfig->Vtm.Timing.HFrontPorch +
 					MsaConfig->Vtm.Timing.HSyncWidth);
