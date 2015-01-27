@@ -93,23 +93,26 @@ u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 
 	VmPtr = &XVidC_VideoTimingModes[VmId];
 
-	/* For pixel clock calculation, use frame with the larger vertical
-	 * total. This is useful for interlaced modes with frames that don't
-	 * have exactly the same vertical total. For progressive modes,
-	 * F0PVTotal will be used since F1PVTotal will be equal to 0. */
-	if (VmPtr->Timing.F0PVTotal >= VmPtr->Timing.F1VTotal) {
-		ClkHz = VmPtr->Timing.F0PVTotal;
+	if (XVidC_IsInterlaced(VmId)) {
+		/* For interlaced mode, use both frame 0 and frame 1 vertical
+		 * totals. */
+		ClkHz = VmPtr->Timing.F0PVTotal + VmPtr->Timing.F1VTotal;
+
+		/* Multiply the number of pixels by the frame rate of each
+		 * individual frame (half of the total frame rate). */
+		ClkHz *= VmPtr->FrameRate / 2;
 	}
 	else {
-		ClkHz = VmPtr->Timing.F1VTotal;
+		/* For progressive mode, use only frame 0 vertical total. */
+		ClkHz = VmPtr->Timing.F0PVTotal;
+
+		/* Multiply the number of pixels by the frame rate. */
+		ClkHz *= VmPtr->FrameRate;
 	}
 
 	/* Multiply the vertical total by the horizontal total for number of
 	 * pixels. */
 	ClkHz *= VmPtr->Timing.HTotal;
-
-	/* Multiply the number of pixels by the frame rate. */
-	ClkHz *= VmPtr->FrameRate;
 
 	return ClkHz;
 }
