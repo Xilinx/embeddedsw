@@ -370,6 +370,7 @@ typedef void (*XVidC_DelayHandler)(void *TimerPtr, u32 Delay);
 u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
 u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
 XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId);
+u8 XVidC_IsInterlaced(XVidC_VideoMode VmId);
 XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 					u8 IsInterlaced);
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);

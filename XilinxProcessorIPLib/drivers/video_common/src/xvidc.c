@@ -116,9 +116,10 @@ u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
- * This function check input video mode is interlaced/progressive.
+ * This function checks if the input video mode is interlaced/progressive based
+ * on its ID from the video timings table.
  *
- * @param	VmId specifies the resolution id.
+ * @param	VmId specifies the resolution ID from the video timings table.
  *
  * @return	Video format.
  *		- XVIDC_VF_PROGRESSIVE
@@ -134,6 +135,30 @@ XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId)
 	}
 
 	return (XVIDC_VF_INTERLACED);
+}
+
+/******************************************************************************/
+/**
+ * This function checks if the input video mode is interlaced based on its ID
+ * from the video timings table.
+ *
+ * @param	VmId specifies the resolution ID from the video timings table.
+ *
+ * @return
+ *		- 1 if the video timing with the supplied table ID is
+ *		  interlaced.
+ *		- 0 if the video timing is progressive.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u8 XVidC_IsInterlaced(XVidC_VideoMode VmId)
+{
+	if (XVidC_GetVideoFormat(VmId) == XVIDC_VF_INTERLACED) {
+		return 1;
+	}
+
+	return 0;
 }
 
 /******************************************************************************/
