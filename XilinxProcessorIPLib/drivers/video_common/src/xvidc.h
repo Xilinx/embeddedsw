@@ -70,12 +70,8 @@
  */
 typedef enum {
 	/* Interlaced modes. */
-	XVIDC_VM_480_30_I = 0,
-	XVIDC_VM_480_60_I,
-	XVIDC_VM_576_25_I,
+	XVIDC_VM_480_60_I = 0,
 	XVIDC_VM_576_50_I,
-	XVIDC_VM_1080_25_I,
-	XVIDC_VM_1080_30_I,
 	XVIDC_VM_1080_50_I,
 	XVIDC_VM_1080_60_I,
 
@@ -180,7 +176,7 @@ typedef enum {
 	XVIDC_VM_NOT_SUPPORTED,
 
 	/* Marks beginning/end of interlaced/progressive modes in the table. */
-	XVIDC_VM_INTL_START = XVIDC_VM_480_30_I,
+	XVIDC_VM_INTL_START = XVIDC_VM_480_60_I,
 	XVIDC_VM_PROG_START = XVIDC_VM_640x350_85_P,
 	XVIDC_VM_INTL_END = (XVIDC_VM_PROG_START - 1),
 	XVIDC_VM_PROG_END = (XVIDC_VM_NUM_SUPPORTED - 1),

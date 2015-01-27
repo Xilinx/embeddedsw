@@ -163,7 +163,7 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 	u32 VActive;
 	u32 Rate;
 	u32 ResFound = (FALSE);
-	XVidC_VideoMode Mode = (XVIDC_VM_480_30_I);
+	XVidC_VideoMode Mode;
 
 	if (IsInterlaced) {
 		Low = (XVIDC_VM_INTL_START);
