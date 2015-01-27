@@ -383,7 +383,6 @@ void XVidC_ReportTiming(XVidC_VideoTiming *Timing, u8 IsInterlaced);
 
 /*************************** Variable Declarations ****************************/
 
-extern const XVidC_VideoTimingMode
-				XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED];
+const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED];
 
 #endif /* XVIDC_H_ */
