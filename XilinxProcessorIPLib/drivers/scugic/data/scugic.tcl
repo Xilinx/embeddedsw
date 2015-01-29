@@ -74,6 +74,16 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
+    #Get proper gic instance for periphs in case of zynqmp
+    foreach periph $periphs {
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	    (([string compare -nocase $proctype "pss_cortexa53"] == 0)&&([string compare -nocase $periph "pss_acpu_gic"] == 0))||
+	    (([string compare -nocase $proctype "pss_cortexr5"] == 0)&&([string compare -nocase $periph "pss_rcpu_gic"] == 0))} {
+		lappend newperiphs $periph
+	}
+    }
+    set periphs $newperiphs
+
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -167,6 +177,16 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
 
+    #Get proper gic instance for periphs in case of zynqmp
+     foreach periph $periphs {
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	    (([string compare -nocase $proctype "pss_cortexa53"] == 0)&&([string compare -nocase $periph "pss_acpu_gic"] == 0))||
+	    (([string compare -nocase $proctype "pss_cortexr5"] == 0)&&([string compare -nocase $periph "pss_rcpu_gic"] == 0))} {
+			lappend newperiphs $periph
+	}
+     }
+    set periphs $newperiphs
+
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
         set peripheral_name [string toupper [common::get_property NAME $periph]]
@@ -252,7 +272,95 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     close $file_handle
 }
 
+#
+# Create configuration C file as required by Xilinx Zynq drivers
+# Similar to proc define_config_file, except that uses regsub
+# to replace "S_AXI_" with ""
+#
+
+proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
+    set args [::hsi::utils::get_exact_arg_list $args]
+   set filename [file join "src" $file_name]
+   #file delete $filename
+   set config_file [open $filename w]
+   ::hsi::utils::write_c_header $config_file "Driver configuration"
+   puts $config_file "#include \"xparameters.h\""
+   puts $config_file "#include \"[string tolower $drv_string].h\""
+   puts $config_file "\n/*"
+   puts $config_file "* The configuration table for devices"
+   puts $config_file "*/\n"
+   puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+   puts $config_file "\{"
+   set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+
+   #Get the processor instance name
+   set sw_proc_handle [hsi::get_sw_processor]
+   set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+   set proctype [common::get_property IP_NAME $hw_proc_handle]
+
+   #Get proper gic instance for periphs in case of zynqmp
+   foreach periph $periphs {
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	    (([string compare -nocase $proctype "pss_cortexa53"] == 0)&&([string compare -nocase $periph "pss_acpu_gic"] == 0))||
+	    (([string compare -nocase $proctype "pss_cortexr5"] == 0)&&([string compare -nocase $periph "pss_rcpu_gic"] == 0))} {
+			lappend newperiphs $periph
+	}
+   }
+   set periphs $newperiphs
+   set start_comma ""
+   foreach periph $periphs {
+       puts $config_file [format "%s\t\{" $start_comma]
+       set comma ""
+       foreach arg $args {
+           # Check if this is a driver parameter or a peripheral parameter
+           set value [common::get_property CONFIG.$arg $drv_handle]
+           if {[llength $value] == 0} {
+            set local_value [common::get_property CONFIG.$arg $periph ]
+            # If a parameter isn't found locally (in the current
+            # peripheral), we will (for some obscure and ancient reason)
+            # look in peripherals connected via point to point links
+            if { [string compare -nocase $local_value ""] == 0} {
+               set p2p_name [::hsi::utils::get_p2p_name $periph $arg]
+               if { [string compare -nocase $p2p_name ""] == 0} {
+                   set arg_name [::hsi::utils::get_ip_param_name $periph $arg]
+                   regsub "S_AXI_" $arg_name "" arg_name
+                   puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+               } else {
+                   regsub "S_AXI_" $p2p_name "" p2p_name
+                   puts -nonewline $config_file [format "%s\t\t%s" $comma $p2p_name]
+               }
+           } else {
+               set arg_name [::hsi::utils::get_ip_param_name $periph $arg]
+               regsub "S_AXI_" $arg_name "" arg_name
+               puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+                   }
+           } else {
+               set arg_name [::hsi::utils::get_driver_param_name $drv_string $arg]
+               regsub "S_AXI_" $arg_name "" arg_name
+               puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+           }
+           set comma ",\n"
+       }
+       puts -nonewline $config_file "\n\t\}"
+       set start_comma ",\n"
+   }
+   puts $config_file "\n\};"
+
+   puts $config_file "\n";
+
+   close $config_file
+}
+
 proc xdefine_gic_params {drvhandle} {
+
+    #Get the processor instance name
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+    # Fix me
+    # Avoid generating fabric interrupts for zynqmp till the issue is fixed
+    if {([string compare -nocase $proctype "pss_cortexa53"] == 0) || ([string compare -nocase $proctype "pss_cortexr5"] == 0)} {
+    } else {
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
     # Next define interrupt IDs for each connected peripheral
@@ -413,6 +521,7 @@ proc xdefine_gic_params {drvhandle} {
 
     puts $config_inc "\n/******************************************************************/\n"
     close $config_inc
+    }
 }
 
 ###################################################################
