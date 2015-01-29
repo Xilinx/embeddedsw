@@ -277,6 +277,8 @@
 * 5.0   adk  19/12/13 - Updated as per the New Tcl API's
 * 5.1   adk  20/01/15  Added support for peripheral test. Created the self
 *		       test example to include it on peripheral test's(CR#823144).
+* 5.1   adk  29/01/15  Added the sefltest api (XAxiVdma_Selftest) to the driver source files
+*                     (xaxivdma_selftest.c) and called this from the selftest example
 *
 * </pre>
 *
@@ -583,6 +585,7 @@ void XAxiVdma_ReadIntrHandler(void * InstancePtr);
 void XAxiVdma_WriteIntrHandler(void * InstancePtr);
 int XAxiVdma_SetCallBack(XAxiVdma * InstancePtr, u32 HandlerType,
         void *CallBackFunc, void *CallBackRef, u16 Direction);
+int XAxiVdma_Selftest(XAxiVdma * InstancePtr);
 
 #ifdef __cplusplus
 }
