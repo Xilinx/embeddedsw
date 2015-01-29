@@ -54,7 +54,6 @@
 #define DMA_DEVICE_ID		XPAR_AXIVDMA_0_DEVICE_ID
 #endif
 
-#define XAXIVDMA_RESET_TIMEOUT   500
 
 /**************************** Type Definitions *******************************/
 
@@ -64,7 +63,7 @@
 
 /************************** Function Prototypes ******************************/
 
-int XAxiVdma_Selftest(u16 DeviceId);
+int AxiVDMASelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 /*
@@ -95,15 +94,15 @@ int main()
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
 	/* Run the poll example for simple transfer */
-	Status = XAxiVdma_Selftest(DMA_DEV_ID);
+	Status = AxiVDMASelfTestExample(DMA_DEV_ID);
 
 	if (Status != XST_SUCCESS) {
 
-		xil_printf("XAxiVdma_Selftest: Failed\r\n");
+		xil_printf("AxiVDMASelfTestExample: Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("XAxiDma_Selftest: Passed\r\n");
+	xil_printf("AxiVDMASelfTestExample: Passed\r\n");
 
 	xil_printf("--- Exiting main() --- \r\n");
 
@@ -125,13 +124,10 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
-int XAxiVdma_Selftest(u16 DeviceId)
+int AxiVDMASelfTestExample(u16 DeviceId)
 {
 	XAxiVdma_Config *Config;
 	int Status = XST_SUCCESS;
-	XAxiVdma_Channel *RdChannel;
-	XAxiVdma_Channel *WrChannel;
-	int Polls;
 
 	Config = XAxiVdma_LookupConfig(DeviceId);
 	if (!Config) {
@@ -144,38 +140,9 @@ int XAxiVdma_Selftest(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	if (Config->HasMm2S) {
-			RdChannel = XAxiVdma_GetChannel(&AxiVdma, XAXIVDMA_READ);
-			RdChannel->ChanBase = Config->BaseAddress + XAXIVDMA_TX_OFFSET;
-			RdChannel->InstanceBase = Config->BaseAddress;
-			XAxiVdma_ChannelReset(RdChannel);
-			Polls = XAXIVDMA_RESET_TIMEOUT;
-
-		while (Polls && XAxiVdma_ChannelResetNotDone(RdChannel)) {
-			Polls -= 1;
-		}
-
-		if (!Polls) {
-			return XST_FAILURE;
-		}
-	}
-
-	if (Config->HasS2Mm) {
-		WrChannel = XAxiVdma_GetChannel(&AxiVdma, XAXIVDMA_WRITE);
-		WrChannel->ChanBase = Config->BaseAddress + XAXIVDMA_RX_OFFSET;
-		WrChannel->InstanceBase = Config->BaseAddress;
-		XAxiVdma_ChannelReset(WrChannel);
-
-		Polls = XAXIVDMA_RESET_TIMEOUT;
-
-		while (Polls && XAxiVdma_ChannelResetNotDone(WrChannel)) {
-			Polls -= 1;
-		}
-
-		if (!Polls) {
-			return XST_FAILURE;
-		}
-
+	Status = XAxiVdma_Selftest(&AxiVdma);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	return Status;

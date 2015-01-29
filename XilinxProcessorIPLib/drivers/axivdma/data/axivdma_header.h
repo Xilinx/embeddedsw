@@ -36,6 +36,6 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
-int XAxiVdma_Selftest(u16 DeviceId);
+int AxiVDMASelfTestExample(u16 DeviceId);
 
 #endif

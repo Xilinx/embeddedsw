@@ -93,7 +93,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    {
       int status;
 
-      status = XAxiDma_Selftest(${deviceid});
+      status = AxiDMASelfTestExample(${deviceid});
 
    }"
   } else {
@@ -104,15 +104,15 @@ proc gen_testfunc_call {swproj mhsinst} {
       int status;
 
 
-      print(\"\\r\\n Running XAxiDma_Selftest() for ${ipname}...\\r\\n\");
+      print(\"\\r\\n Running AxiDMASelfTestExample() for ${ipname}...\\r\\n\");
 
-      status = XAxiDma_Selftest(${deviceid});
+      status = AxiDMASelfTestExample(${deviceid});
 
       if (status == 0) {
-         print(\"XAxiDma_Selftest PASSED\\r\\n\");
+         print(\"AxiDMASelfTestExample PASSED\\r\\n\");
       }
       else {
-         print(\"XAxiDma_Selftest FAILED\\r\\n\");
+         print(\"AxiDMASelfTestExample FAILED\\r\\n\");
       }
    }"
   }

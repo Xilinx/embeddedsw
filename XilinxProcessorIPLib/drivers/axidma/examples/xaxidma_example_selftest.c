@@ -54,8 +54,6 @@
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 #endif
 
-#define XAXIDMA_RESET_TIMEOUT   500
-
 /**************************** Type Definitions *******************************/
 
 
@@ -64,7 +62,7 @@
 
 /************************** Function Prototypes ******************************/
 
-int XAxiDma_Selftest(u16 DeviceId);
+int AxiDMASelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 /*
@@ -95,15 +93,15 @@ int main()
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
 	/* Run the poll example for simple transfer */
-	Status = XAxiDma_Selftest(DMA_DEV_ID);
+	Status = AxiDMASelfTestExample(DMA_DEV_ID);
 
 	if (Status != XST_SUCCESS) {
 
-		xil_printf("XAxiDma_Selftest: Failed\r\n");
+		xil_printf("AxiDMASelfTestExample: Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("XAxiDma_Selftest: Passed\r\n");
+	xil_printf("AxiDMASelfTestExample: Passed\r\n");
 
 	xil_printf("--- Exiting main() --- \r\n");
 
@@ -125,11 +123,10 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
-int XAxiDma_Selftest(u16 DeviceId)
+int AxiDMASelfTestExample(u16 DeviceId)
 {
 	XAxiDma_Config *CfgPtr;
 	int Status = XST_SUCCESS;
-	int TimeOut;
 
 	CfgPtr = XAxiDma_LookupConfig(DeviceId);
 	if (!CfgPtr) {
@@ -141,20 +138,10 @@ int XAxiDma_Selftest(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/* Reset the engine so the hardware starts from a known state */
-	XAxiDma_Reset(&AxiDma);
+	Status = XAxiDma_Selftest(&AxiDma);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-        TimeOut = XAXIDMA_RESET_TIMEOUT;
-
-        while (TimeOut) {
-               if(XAxiDma_ResetIsDone(&AxiDma)) {
-                       break;
-               }
-               TimeOut -= 1;
-        }
-
-        if (!TimeOut)
-                return XST_FAILURE;
-
-		return Status;
+	return Status;
 }

@@ -446,6 +446,8 @@
  *			* XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd*, u32)
 * 8.1   adk  20/01/15  Added support for peripheral test. Created the self
 *		       test example to include it on peripheral test's(CR#823144).
+* 8.1   adk  29/01/15  Added the sefltest api (XAxiDma_Selftest) to the driver source files
+* 		      (xaxidma_selftest.c) and called this from the selftest example
 *
 * </pre>
 *
@@ -722,6 +724,7 @@ int XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, u32 BuffAddr, u32 Length,
 	int Direction);
 int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select);
 int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select);
+int XAxiDma_Selftest(XAxiDma * InstancePtr);
 #ifdef __cplusplus
 }
 #endif
