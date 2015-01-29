@@ -43,6 +43,8 @@ Contains common utility functions that are typically used by video-related drive
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xvidc_8h.html#e8750e69caf5a7f747fbf410b14f447e">XVidC_VideoFormat</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#7b982d86111b66608e263b5ecd639e42">XVidC_GetVideoFormat</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#0bea011c3bea29cbae6263599ca9ff06">XVidC_IsInterlaced</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#0a1cda75da460feccd4ab2c2ee712fa5">XVidC_GetVideoModeId</a> (u32 Width, u32 Height, u32 FrameRate, u8 IsInterlaced)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="struct_x_vid_c___video_timing_mode.html">XVidC_VideoTimingMode</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#e8b7b51c36aafc8b60d4b11ff202f788">XVidC_GetVideoModeData</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
@@ -51,7 +53,7 @@ Contains common utility functions that are typically used by video-related drive
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#27815a5d7ac6d8c51d9130c92ff6ee97">XVidC_GetFrameRateStr</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#23d977b33ce80baad9213a0a8aa378ff">XVidC_GetColorFormatStr</a> (<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78">XVidC_ColorSpace</a> ColorSpaceId)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#9a685ddd698fa36b5c2a3cc4cca60532">XVidC_GetColorFormatStr</a> (<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a> ColorFormatId)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xvidc_8h.html#c192cb9c275d8ef2c985646f420c1a4e">XVidC_FrameRate</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8c.html#5359c410dfcc1bb7a851f77f0b92b287">XVidC_GetFrameRate</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
 
@@ -63,15 +65,15 @@ Contains common utility functions that are typically used by video-related drive
 
 </table>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="23d977b33ce80baad9213a0a8aa378ff"></a><!-- doxytag: member="xvidc.c::XVidC_GetColorFormatStr" ref="23d977b33ce80baad9213a0a8aa378ff" args="(XVidC_ColorSpace ColorSpaceId)" -->
+<a class="anchor" name="9a685ddd698fa36b5c2a3cc4cca60532"></a><!-- doxytag: member="xvidc.c::XVidC_GetColorFormatStr" ref="9a685ddd698fa36b5c2a3cc4cca60532" args="(XVidC_ColorFormat ColorFormatId)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">char* XVidC_GetColorFormatStr           </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78">XVidC_ColorSpace</a>&nbsp;</td>
-          <td class="paramname"> <em>ColorSpaceId</em>          </td>
+          <td class="paramtype"><a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a>&nbsp;</td>
+          <td class="paramname"> <em>ColorFormatId</em>          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"></td>
         </tr>
@@ -83,7 +85,7 @@ Contains common utility functions that are typically used by video-related drive
 This function returns the color format name for index specified.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>ColorSpaceId</em>&nbsp;</td><td>specifies the index of color space. 0 = XVIDC_CSF_RGB 1 = XVIDC_CSF_YCRCB_444, 2 = XVIDC_CSF_YCRCB_422, 3 = XVIDC_CSF_YCRCB_420,</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ColorFormatId</em>&nbsp;</td><td>specifies the index of color format space. 0 = XVIDC_CSF_RGB 1 = XVIDC_CSF_YCRCB_444, 2 = XVIDC_CSF_YCRCB_422, 3 = XVIDC_CSF_YCRCB_420,</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>Pointer to a color space name string.</dd></dl>
@@ -265,10 +267,10 @@ This function returns the timing parameters for specified resolution.<p>
 <div class="memdoc">
 
 <p>
-This function check input video mode is interlaced/progressive.<p>
+This function checks if the input video mode is interlaced/progressive based on its ID from the video timings table.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>VmId</em>&nbsp;</td><td>specifies the resolution id.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>VmId</em>&nbsp;</td><td>specifies the resolution ID from the video timings table.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>Video format.<ul>
@@ -388,6 +390,36 @@ This function returns the resolution name for index specified.<p>
 
 </div>
 </div><p>
+<a class="anchor" name="0bea011c3bea29cbae6263599ca9ff06"></a><!-- doxytag: member="xvidc.c::XVidC_IsInterlaced" ref="0bea011c3bea29cbae6263599ca9ff06" args="(XVidC_VideoMode VmId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XVidC_IsInterlaced           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a>&nbsp;</td>
+          <td class="paramname"> <em>VmId</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function checks if the input video mode is interlaced based on its ID from the video timings table.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>VmId</em>&nbsp;</td><td>specifies the resolution ID from the video timings table.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>1 if the video timing with the supplied table ID is interlaced.</li><li>0 if the video timing is progressive.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="c5cf2b6561b52f34a5e3d5879df647b9"></a><!-- doxytag: member="xvidc.c::XVidC_ReportStreamInfo" ref="c5cf2b6561b52f34a5e3d5879df647b9" args="(XVidC_VideoStream *Stream)" -->
 <div class="memitem">
 <div class="memproto">
@@ -454,4 +486,4 @@ This function prints timing information on STDIO/Uart console.<p>
 
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
+Copyright @ 1995-2015 Xilinx, Inc. All rights reserved.

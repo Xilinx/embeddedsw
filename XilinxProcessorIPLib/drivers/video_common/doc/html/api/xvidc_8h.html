@@ -40,13 +40,8 @@
 
 <tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> { <br>
-&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53cb72692b11c27ee98f49273730a11b6a">XVIDC_VM_480_30_I</a> =  0,
-<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53b367c18d6345f3f64224c487613501fd">XVIDC_VM_480_60_I</a>,
-<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef539d5f381133b126b897082c6c64bab098">XVIDC_VM_576_25_I</a>,
+&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53b367c18d6345f3f64224c487613501fd">XVIDC_VM_480_60_I</a> =  0,
 <a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef5387cc748e24af6f91ee7aa9240afa182f">XVIDC_VM_576_50_I</a>,
-<br>
-&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53847eb066b07b38ae7bf8de31b0450c16">XVIDC_VM_1080_25_I</a>,
-<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef5377da451d4ce086a023a6b97b4969d853">XVIDC_VM_1080_30_I</a>,
 <a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef5345ed068df5e9a848dca84fc95b0fdaa0">XVIDC_VM_1080_50_I</a>,
 <a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53a52877fbad581c02af5b024215983cf6">XVIDC_VM_1080_60_I</a>,
 <br>
@@ -171,7 +166,7 @@
 <a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef5344a640cdc4c506f95042cbdf475b0680">XVIDC_VM_NO_INPUT</a>,
 <br>
 &nbsp;&nbsp;<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53ec9d623b41e5c5b25faafcc558e9e48e">XVIDC_VM_NOT_SUPPORTED</a>,
-<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef5308ae2af18fd4207556d1815600f3eb8a">XVIDC_VM_INTL_START</a> =  XVIDC_VM_480_30_I,
+<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef5308ae2af18fd4207556d1815600f3eb8a">XVIDC_VM_INTL_START</a> =  XVIDC_VM_480_60_I,
 <a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef536967540a3a53a2a68e2d97597af76add">XVIDC_VM_PROG_START</a> =  XVIDC_VM_640x350_85_P,
 <a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53b44607661b5452a250d8acc83b90594d">XVIDC_VM_INTL_END</a> =  (XVIDC_VM_PROG_START - 1),
 <br>
@@ -253,24 +248,24 @@
 <a class="el" href="xvidc_8h.html#37beb8afba8203e270e2df7e67f720ecae4b0d4f6c024c5804fdf0657f9caf21">XVIDC_PPC_NUM_SUPPORTED</a> =  3
  }</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78">XVidC_ColorSpace</a> { <br>
-&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78d4f3c302a44e6a90a6a669ad801315a6">XVIDC_CSF_RGB</a> =  0,
-<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78de0e4d7bf47399291ac22433b43598e0">XVIDC_CSF_YCRCB_444</a>,
-<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78eb324e9e6cf24bc9b3c10315fbfc23c2">XVIDC_CSF_YCRCB_422</a>,
-<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b7872552113cfa8b493c770ee535e52ce46">XVIDC_CSF_YCRCB_420</a>,
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a> { <br>
+&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633d4f3c302a44e6a90a6a669ad801315a6">XVIDC_CSF_RGB</a> =  0,
+<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633de0e4d7bf47399291ac22433b43598e0">XVIDC_CSF_YCRCB_444</a>,
+<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633eb324e9e6cf24bc9b3c10315fbfc23c2">XVIDC_CSF_YCRCB_422</a>,
+<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c863372552113cfa8b493c770ee535e52ce46">XVIDC_CSF_YCRCB_420</a>,
 <br>
-&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b787f09361d21df1caefbaa52b6efccb1df">XVIDC_CSF_NUM_SUPPORTED</a>,
-<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b789820355b90608323b069e861ba74ced2">XVIDC_CSF_UNKNOWN</a>
+&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c86337f09361d21df1caefbaa52b6efccb1df">XVIDC_CSF_NUM_SUPPORTED</a>,
+<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c86339820355b90608323b069e861ba74ced2">XVIDC_CSF_UNKNOWN</a>
 <br>
  }</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#709f9f20c5ead132467ee57359227a2a">XVidC_ColorConversionStd</a> { <br>
-&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#709f9f20c5ead132467ee57359227a2acb0766e52f46f9f9a85d8ccb81edb10c">XVIDC_BT_2020</a> =  0,
-<a class="el" href="xvidc_8h.html#709f9f20c5ead132467ee57359227a2a696e68d977c8814499feb7c546d298b6">XVIDC_BT_709</a>,
-<a class="el" href="xvidc_8h.html#709f9f20c5ead132467ee57359227a2aa491a426fad8ff1e94781d38f6c76561">XVIDC_BT_601</a>,
-<a class="el" href="xvidc_8h.html#709f9f20c5ead132467ee57359227a2afc96158759c2c712c45272bc20d150bb">XVIDC_BT_NUM_SUPPORTED</a>,
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#bde81f3f568095c842d4669a4c62ed88">XVidC_ColorStd</a> { <br>
+&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#bde81f3f568095c842d4669a4c62ed88cb0766e52f46f9f9a85d8ccb81edb10c">XVIDC_BT_2020</a> =  0,
+<a class="el" href="xvidc_8h.html#bde81f3f568095c842d4669a4c62ed88696e68d977c8814499feb7c546d298b6">XVIDC_BT_709</a>,
+<a class="el" href="xvidc_8h.html#bde81f3f568095c842d4669a4c62ed88a491a426fad8ff1e94781d38f6c76561">XVIDC_BT_601</a>,
+<a class="el" href="xvidc_8h.html#bde81f3f568095c842d4669a4c62ed88fc96158759c2c712c45272bc20d150bb">XVIDC_BT_NUM_SUPPORTED</a>,
 <br>
-&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#709f9f20c5ead132467ee57359227a2ad5e86f7245212557fd6b430fe52792f2">XVIDC_BT_UNKNOWN</a>
+&nbsp;&nbsp;<a class="el" href="xvidc_8h.html#bde81f3f568095c842d4669a4c62ed88d5e86f7245212557fd6b430fe52792f2">XVIDC_BT_UNKNOWN</a>
 <br>
  }</td></tr>
 
@@ -291,6 +286,8 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xvidc_8h.html#e8750e69caf5a7f747fbf410b14f447e">XVidC_VideoFormat</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#7b982d86111b66608e263b5ecd639e42">XVidC_GetVideoFormat</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">u8&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#0bea011c3bea29cbae6263599ca9ff06">XVidC_IsInterlaced</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#0a1cda75da460feccd4ab2c2ee712fa5">XVidC_GetVideoModeId</a> (u32 Width, u32 Height, u32 FrameRate, u8 IsInterlaced)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">const <a class="el" href="struct_x_vid_c___video_timing_mode.html">XVidC_VideoTimingMode</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#e8b7b51c36aafc8b60d4b11ff202f788">XVidC_GetVideoModeData</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
@@ -299,7 +296,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#27815a5d7ac6d8c51d9130c92ff6ee97">XVidC_GetFrameRateStr</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#23d977b33ce80baad9213a0a8aa378ff">XVidC_GetColorFormatStr</a> (<a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78">XVidC_ColorSpace</a> ColorSpaceId)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#9a685ddd698fa36b5c2a3cc4cca60532">XVidC_GetColorFormatStr</a> (<a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a> ColorFormatId)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="xvidc_8h.html#c192cb9c275d8ef2c985646f420c1a4e">XVidC_FrameRate</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc_8h.html#5359c410dfcc1bb7a851f77f0b92b287">XVidC_GetFrameRate</a> (<a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> VmId)</td></tr>
 
@@ -337,35 +334,6 @@ Callback type which represents a custom timer wait handler. This is only used fo
 </div>
 </div><p>
 <hr><h2>Enumeration Type Documentation</h2>
-<a class="anchor" name="709f9f20c5ead132467ee57359227a2a"></a><!-- doxytag: member="xvidc.h::XVidC_ColorConversionStd" ref="709f9f20c5ead132467ee57359227a2a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="xvidc_8h.html#709f9f20c5ead132467ee57359227a2a">XVidC_ColorConversionStd</a>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Color space conversion standard. <dl compact><dt><b>Enumerator: </b></dt><dd>
-<table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="709f9f20c5ead132467ee57359227a2acb0766e52f46f9f9a85d8ccb81edb10c"></a><!-- doxytag: member="XVIDC_BT_2020" ref="709f9f20c5ead132467ee57359227a2acb0766e52f46f9f9a85d8ccb81edb10c" args="" -->XVIDC_BT_2020</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="709f9f20c5ead132467ee57359227a2a696e68d977c8814499feb7c546d298b6"></a><!-- doxytag: member="XVIDC_BT_709" ref="709f9f20c5ead132467ee57359227a2a696e68d977c8814499feb7c546d298b6" args="" -->XVIDC_BT_709</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="709f9f20c5ead132467ee57359227a2aa491a426fad8ff1e94781d38f6c76561"></a><!-- doxytag: member="XVIDC_BT_601" ref="709f9f20c5ead132467ee57359227a2aa491a426fad8ff1e94781d38f6c76561" args="" -->XVIDC_BT_601</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="709f9f20c5ead132467ee57359227a2afc96158759c2c712c45272bc20d150bb"></a><!-- doxytag: member="XVIDC_BT_NUM_SUPPORTED" ref="709f9f20c5ead132467ee57359227a2afc96158759c2c712c45272bc20d150bb" args="" -->XVIDC_BT_NUM_SUPPORTED</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="709f9f20c5ead132467ee57359227a2ad5e86f7245212557fd6b430fe52792f2"></a><!-- doxytag: member="XVIDC_BT_UNKNOWN" ref="709f9f20c5ead132467ee57359227a2ad5e86f7245212557fd6b430fe52792f2" args="" -->XVIDC_BT_UNKNOWN</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dl>
-
-</div>
-</div><p>
 <a class="anchor" name="8006bc80e39c26ee0081647990b9fedc"></a><!-- doxytag: member="xvidc.h::XVidC_ColorDepth" ref="8006bc80e39c26ee0081647990b9fedc" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -401,6 +369,37 @@ Color depth - bits per color component. <dl compact><dt><b>Enumerator: </b></dt>
 
 </div>
 </div><p>
+<a class="anchor" name="a562703f77eeee8ef4a222f1b99c8633"></a><!-- doxytag: member="xvidc.h::XVidC_ColorFormat" ref="a562703f77eeee8ef4a222f1b99c8633" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Color space format. <dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="a562703f77eeee8ef4a222f1b99c8633d4f3c302a44e6a90a6a669ad801315a6"></a><!-- doxytag: member="XVIDC_CSF_RGB" ref="a562703f77eeee8ef4a222f1b99c8633d4f3c302a44e6a90a6a669ad801315a6" args="" -->XVIDC_CSF_RGB</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="a562703f77eeee8ef4a222f1b99c8633de0e4d7bf47399291ac22433b43598e0"></a><!-- doxytag: member="XVIDC_CSF_YCRCB_444" ref="a562703f77eeee8ef4a222f1b99c8633de0e4d7bf47399291ac22433b43598e0" args="" -->XVIDC_CSF_YCRCB_444</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="a562703f77eeee8ef4a222f1b99c8633eb324e9e6cf24bc9b3c10315fbfc23c2"></a><!-- doxytag: member="XVIDC_CSF_YCRCB_422" ref="a562703f77eeee8ef4a222f1b99c8633eb324e9e6cf24bc9b3c10315fbfc23c2" args="" -->XVIDC_CSF_YCRCB_422</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="a562703f77eeee8ef4a222f1b99c863372552113cfa8b493c770ee535e52ce46"></a><!-- doxytag: member="XVIDC_CSF_YCRCB_420" ref="a562703f77eeee8ef4a222f1b99c863372552113cfa8b493c770ee535e52ce46" args="" -->XVIDC_CSF_YCRCB_420</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="a562703f77eeee8ef4a222f1b99c86337f09361d21df1caefbaa52b6efccb1df"></a><!-- doxytag: member="XVIDC_CSF_NUM_SUPPORTED" ref="a562703f77eeee8ef4a222f1b99c86337f09361d21df1caefbaa52b6efccb1df" args="" -->XVIDC_CSF_NUM_SUPPORTED</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="a562703f77eeee8ef4a222f1b99c86339820355b90608323b069e861ba74ced2"></a><!-- doxytag: member="XVIDC_CSF_UNKNOWN" ref="a562703f77eeee8ef4a222f1b99c86339820355b90608323b069e861ba74ced2" args="" -->XVIDC_CSF_UNKNOWN</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+
+</div>
+</div><p>
 <a class="anchor" name="5498ff9698bbb64fdf20a578ac1fc15f"></a><!-- doxytag: member="xvidc.h::XVidC_ColorRange" ref="5498ff9698bbb64fdf20a578ac1fc15f" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -430,31 +429,29 @@ Color conversion output range. <dl compact><dt><b>Enumerator: </b></dt><dd>
 
 </div>
 </div><p>
-<a class="anchor" name="24427a30644e82e3cc4ef8292c7a1b78"></a><!-- doxytag: member="xvidc.h::XVidC_ColorSpace" ref="24427a30644e82e3cc4ef8292c7a1b78" args="" -->
+<a class="anchor" name="bde81f3f568095c842d4669a4c62ed88"></a><!-- doxytag: member="xvidc.h::XVidC_ColorStd" ref="bde81f3f568095c842d4669a4c62ed88" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78">XVidC_ColorSpace</a>          </td>
+          <td class="memname">enum <a class="el" href="xvidc_8h.html#bde81f3f568095c842d4669a4c62ed88">XVidC_ColorStd</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Color space format. <dl compact><dt><b>Enumerator: </b></dt><dd>
+Color space conversion standard. <dl compact><dt><b>Enumerator: </b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="24427a30644e82e3cc4ef8292c7a1b78d4f3c302a44e6a90a6a669ad801315a6"></a><!-- doxytag: member="XVIDC_CSF_RGB" ref="24427a30644e82e3cc4ef8292c7a1b78d4f3c302a44e6a90a6a669ad801315a6" args="" -->XVIDC_CSF_RGB</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bde81f3f568095c842d4669a4c62ed88cb0766e52f46f9f9a85d8ccb81edb10c"></a><!-- doxytag: member="XVIDC_BT_2020" ref="bde81f3f568095c842d4669a4c62ed88cb0766e52f46f9f9a85d8ccb81edb10c" args="" -->XVIDC_BT_2020</em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="24427a30644e82e3cc4ef8292c7a1b78de0e4d7bf47399291ac22433b43598e0"></a><!-- doxytag: member="XVIDC_CSF_YCRCB_444" ref="24427a30644e82e3cc4ef8292c7a1b78de0e4d7bf47399291ac22433b43598e0" args="" -->XVIDC_CSF_YCRCB_444</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bde81f3f568095c842d4669a4c62ed88696e68d977c8814499feb7c546d298b6"></a><!-- doxytag: member="XVIDC_BT_709" ref="bde81f3f568095c842d4669a4c62ed88696e68d977c8814499feb7c546d298b6" args="" -->XVIDC_BT_709</em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="24427a30644e82e3cc4ef8292c7a1b78eb324e9e6cf24bc9b3c10315fbfc23c2"></a><!-- doxytag: member="XVIDC_CSF_YCRCB_422" ref="24427a30644e82e3cc4ef8292c7a1b78eb324e9e6cf24bc9b3c10315fbfc23c2" args="" -->XVIDC_CSF_YCRCB_422</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bde81f3f568095c842d4669a4c62ed88a491a426fad8ff1e94781d38f6c76561"></a><!-- doxytag: member="XVIDC_BT_601" ref="bde81f3f568095c842d4669a4c62ed88a491a426fad8ff1e94781d38f6c76561" args="" -->XVIDC_BT_601</em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="24427a30644e82e3cc4ef8292c7a1b7872552113cfa8b493c770ee535e52ce46"></a><!-- doxytag: member="XVIDC_CSF_YCRCB_420" ref="24427a30644e82e3cc4ef8292c7a1b7872552113cfa8b493c770ee535e52ce46" args="" -->XVIDC_CSF_YCRCB_420</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bde81f3f568095c842d4669a4c62ed88fc96158759c2c712c45272bc20d150bb"></a><!-- doxytag: member="XVIDC_BT_NUM_SUPPORTED" ref="bde81f3f568095c842d4669a4c62ed88fc96158759c2c712c45272bc20d150bb" args="" -->XVIDC_BT_NUM_SUPPORTED</em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="24427a30644e82e3cc4ef8292c7a1b787f09361d21df1caefbaa52b6efccb1df"></a><!-- doxytag: member="XVIDC_CSF_NUM_SUPPORTED" ref="24427a30644e82e3cc4ef8292c7a1b787f09361d21df1caefbaa52b6efccb1df" args="" -->XVIDC_CSF_NUM_SUPPORTED</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="24427a30644e82e3cc4ef8292c7a1b789820355b90608323b069e861ba74ced2"></a><!-- doxytag: member="XVIDC_CSF_UNKNOWN" ref="24427a30644e82e3cc4ef8292c7a1b789820355b90608323b069e861ba74ced2" args="" -->XVIDC_CSF_UNKNOWN</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" name="bde81f3f568095c842d4669a4c62ed88d5e86f7245212557fd6b430fe52792f2"></a><!-- doxytag: member="XVIDC_BT_UNKNOWN" ref="bde81f3f568095c842d4669a4c62ed88d5e86f7245212557fd6b430fe52792f2" args="" -->XVIDC_BT_UNKNOWN</em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dl>
@@ -582,17 +579,9 @@ This typedef enumerates the list of available standard display monitor timings a
 XVIDC_VM_&lt;RESOLUTION&gt;_&lt;REFRESH RATE (HZ)&gt;_&lt;P|I&gt;(_RB)<p>
 Where RB stands for reduced blanking. <dl compact><dt><b>Enumerator: </b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="562f08faf2fc329b1cd7147b3d66ef53cb72692b11c27ee98f49273730a11b6a"></a><!-- doxytag: member="XVIDC_VM_480_30_I" ref="562f08faf2fc329b1cd7147b3d66ef53cb72692b11c27ee98f49273730a11b6a" args="" -->XVIDC_VM_480_30_I</em>&nbsp;</td><td>
-</td></tr>
 <tr><td valign="top"><em><a class="anchor" name="562f08faf2fc329b1cd7147b3d66ef53b367c18d6345f3f64224c487613501fd"></a><!-- doxytag: member="XVIDC_VM_480_60_I" ref="562f08faf2fc329b1cd7147b3d66ef53b367c18d6345f3f64224c487613501fd" args="" -->XVIDC_VM_480_60_I</em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="562f08faf2fc329b1cd7147b3d66ef539d5f381133b126b897082c6c64bab098"></a><!-- doxytag: member="XVIDC_VM_576_25_I" ref="562f08faf2fc329b1cd7147b3d66ef539d5f381133b126b897082c6c64bab098" args="" -->XVIDC_VM_576_25_I</em>&nbsp;</td><td>
-</td></tr>
 <tr><td valign="top"><em><a class="anchor" name="562f08faf2fc329b1cd7147b3d66ef5387cc748e24af6f91ee7aa9240afa182f"></a><!-- doxytag: member="XVIDC_VM_576_50_I" ref="562f08faf2fc329b1cd7147b3d66ef5387cc748e24af6f91ee7aa9240afa182f" args="" -->XVIDC_VM_576_50_I</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="562f08faf2fc329b1cd7147b3d66ef53847eb066b07b38ae7bf8de31b0450c16"></a><!-- doxytag: member="XVIDC_VM_1080_25_I" ref="562f08faf2fc329b1cd7147b3d66ef53847eb066b07b38ae7bf8de31b0450c16" args="" -->XVIDC_VM_1080_25_I</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="562f08faf2fc329b1cd7147b3d66ef5377da451d4ce086a023a6b97b4969d853"></a><!-- doxytag: member="XVIDC_VM_1080_30_I" ref="562f08faf2fc329b1cd7147b3d66ef5377da451d4ce086a023a6b97b4969d853" args="" -->XVIDC_VM_1080_30_I</em>&nbsp;</td><td>
 </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="562f08faf2fc329b1cd7147b3d66ef5345ed068df5e9a848dca84fc95b0fdaa0"></a><!-- doxytag: member="XVIDC_VM_1080_50_I" ref="562f08faf2fc329b1cd7147b3d66ef5345ed068df5e9a848dca84fc95b0fdaa0" args="" -->XVIDC_VM_1080_50_I</em>&nbsp;</td><td>
 </td></tr>
@@ -846,15 +835,15 @@ Where RB stands for reduced blanking. <dl compact><dt><b>Enumerator: </b></dt><d
 </div>
 </div><p>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="23d977b33ce80baad9213a0a8aa378ff"></a><!-- doxytag: member="xvidc.h::XVidC_GetColorFormatStr" ref="23d977b33ce80baad9213a0a8aa378ff" args="(XVidC_ColorSpace ColorSpaceId)" -->
+<a class="anchor" name="9a685ddd698fa36b5c2a3cc4cca60532"></a><!-- doxytag: member="xvidc.h::XVidC_GetColorFormatStr" ref="9a685ddd698fa36b5c2a3cc4cca60532" args="(XVidC_ColorFormat ColorFormatId)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">char* XVidC_GetColorFormatStr           </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="xvidc_8h.html#24427a30644e82e3cc4ef8292c7a1b78">XVidC_ColorSpace</a>&nbsp;</td>
-          <td class="paramname"> <em>ColorSpaceId</em>          </td>
+          <td class="paramtype"><a class="el" href="xvidc_8h.html#a562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a>&nbsp;</td>
+          <td class="paramname"> <em>ColorFormatId</em>          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"></td>
         </tr>
@@ -866,7 +855,7 @@ Where RB stands for reduced blanking. <dl compact><dt><b>Enumerator: </b></dt><d
 This function returns the color format name for index specified.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>ColorSpaceId</em>&nbsp;</td><td>specifies the index of color space. 0 = XVIDC_CSF_RGB 1 = XVIDC_CSF_YCRCB_444, 2 = XVIDC_CSF_YCRCB_422, 3 = XVIDC_CSF_YCRCB_420,</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ColorFormatId</em>&nbsp;</td><td>specifies the index of color format space. 0 = XVIDC_CSF_RGB 1 = XVIDC_CSF_YCRCB_444, 2 = XVIDC_CSF_YCRCB_422, 3 = XVIDC_CSF_YCRCB_420,</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>Pointer to a color space name string.</dd></dl>
@@ -1048,10 +1037,10 @@ This function returns the timing parameters for specified resolution.<p>
 <div class="memdoc">
 
 <p>
-This function check input video mode is interlaced/progressive.<p>
+This function checks if the input video mode is interlaced/progressive based on its ID from the video timings table.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>VmId</em>&nbsp;</td><td>specifies the resolution id.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>VmId</em>&nbsp;</td><td>specifies the resolution ID from the video timings table.</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>Video format.<ul>
@@ -1171,6 +1160,36 @@ This function returns the resolution name for index specified.<p>
 
 </div>
 </div><p>
+<a class="anchor" name="0bea011c3bea29cbae6263599ca9ff06"></a><!-- doxytag: member="xvidc.h::XVidC_IsInterlaced" ref="0bea011c3bea29cbae6263599ca9ff06" args="(XVidC_VideoMode VmId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XVidC_IsInterlaced           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="xvidc_8h.html#562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a>&nbsp;</td>
+          <td class="paramname"> <em>VmId</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This function checks if the input video mode is interlaced based on its ID from the video timings table.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>VmId</em>&nbsp;</td><td>specifies the resolution ID from the video timings table.</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd><ul>
+<li>1 if the video timing with the supplied table ID is interlaced.</li><li>0 if the video timing is progressive.</li></ul>
+</dd></dl>
+<dl compact><dt><b>Note:</b></dt><dd>None. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="c5cf2b6561b52f34a5e3d5879df647b9"></a><!-- doxytag: member="xvidc.h::XVidC_ReportStreamInfo" ref="c5cf2b6561b52f34a5e3d5879df647b9" args="(XVidC_VideoStream *Stream)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1250,7 +1269,7 @@ This function prints timing information on STDIO/Uart console.<p>
 <div class="memdoc">
 
 <p>
-This table contains the main stream attributes for various standard resolutions. Each entry is of the format: 1) ID: XVIDC_VM_&lt;HRES&gt;x&lt;VRES&gt;_&lt;FRAME RATE (HZ)&gt;_&lt;P|I&gt;(_RB = Reduced Blanking) 2) Resolution naming: "&lt;HRES&gt;x&lt;VRES&gt;@&lt;FRAME RATE (HZ)&gt;" 3) Frame rate: XVIDC_FR_&lt;FRAME RATE (HZ)&gt; 4) Video timing structure: 1) Horizontal active resolution (pixels) 2) Horizontal front porch (pixels) 3) Horizontal sync width (pixels) 4) Horizontal back porch (pixels) 5) Horizontal total (pixels) 6) Horizontal sync polarity (0=negative|1=positive) 7) Vertical active resolution (lines) 8) Frame 0: Vertical front porch (lines) 9) Frame 0: Vertical sync width (lines) 10) Frame 0: Vertical back porch (lines) 11) Frame 0: Vertical total (lines) 12) Frame 1: Vertical front porch (lines) 13) Frame 1: Vertical sync width (lines) 14) Frame 1: Vertical back porch (lines) 15) Frame 1: Vertical total (lines) 16) Vertical sync polarity (0=negative|1=positive)
+
 </div>
 </div><p>
-Copyright @ 1995-2014 Xilinx, Inc. All rights reserved.
+Copyright @ 1995-2015 Xilinx, Inc. All rights reserved.
