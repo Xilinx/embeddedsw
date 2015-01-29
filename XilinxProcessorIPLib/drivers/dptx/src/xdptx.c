@@ -831,9 +831,8 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 	NumBytesLeftInSeg = 256 - Offset;
 
 	/* Set the segment pointer to 0. */
-	Status = XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
-	if (Status != XST_SUCCESS) {
-		return Status;
+	if (SegPtr != 0) {
+		XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
 	}
 
 	/* Send I2C read message. Multiple transactions are required if the
@@ -875,11 +874,8 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 				Offset %= 256;
 				SegPtr++;
 
-				Status = XDptx_IicWrite(InstancePtr,
-						XDPTX_SEGPTR_ADDR, 1, &SegPtr);
-				if (Status != XST_SUCCESS) {
-					return Status;
-				}
+				XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR,
+								1, &SegPtr);
 			}
 		}
 		/* Last I2C read. */
@@ -889,8 +885,10 @@ u32 XDptx_IicRead(XDptx *InstancePtr, u8 IicAddress, u16 Offset,
 	}
 
 	/* Reset the segment pointer to 0. */
-	SegPtr = 0;
-	Status = XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
+	if (SegPtr != 0) {
+		SegPtr = 0;
+		XDptx_IicWrite(InstancePtr, XDPTX_SEGPTR_ADDR, 1, &SegPtr);
+	}
 
 	return Status;
 }
