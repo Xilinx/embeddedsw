@@ -270,7 +270,7 @@ typedef enum {
 	XVIDC_CSF_YCRCB_420,
 	XVIDC_CSF_NUM_SUPPORTED,
 	XVIDC_CSF_UNKNOWN
-} XVidC_ColorSpace;
+} XVidC_ColorFormat;
 
 /**
  * Color space conversion standard.
@@ -322,7 +322,7 @@ typedef struct {
  * Video stream structure.
  */
 typedef struct {
-	XVidC_ColorSpace	ColorSpaceId;
+	XVidC_ColorFormat	ColorFormatId;
 	XVidC_ColorDepth	ColorDepth;
 	XVidC_PixelsPerClock	PixPerClk;
 	XVidC_FrameRate		FrameRate;
@@ -376,7 +376,7 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);
 const char* XVidC_GetVideoModeStr(XVidC_VideoMode VmId);
 char* XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
-char* XVidC_GetColorFormatStr(XVidC_ColorSpace ColorSpaceId);
+char* XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId);
 XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId);
 const XVidC_VideoTiming* XVidC_GetTimingInfo(XVidC_VideoMode VmId);
 void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream);

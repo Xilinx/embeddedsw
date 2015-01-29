@@ -386,7 +386,7 @@ char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 /**
  * This function returns the color format name for index specified.
  *
- * @param	ColorSpaceId specifies the index of color space.
+ * @param	ColorFormatId specifies the index of color format space.
  *		0 = XVIDC_CSF_RGB
  *		1 = XVIDC_CSF_YCRCB_444,
  *		2 = XVIDC_CSF_YCRCB_422,
@@ -397,9 +397,9 @@ char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
  * @note	None.
  *
 *******************************************************************************/
-char *XVidC_GetColorFormatStr(XVidC_ColorSpace ColorSpaceId)
+char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 {
-	switch (ColorSpaceId) {
+	switch (ColorFormatId) {
 		case (XVIDC_CSF_RGB):
 			return ("RGB");
 
@@ -473,7 +473,7 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
 {
 	xil_printf("\tColor Space Format:%s\r\n", \
-				XVidC_GetColorFormatStr(Stream->ColorSpaceId));
+				XVidC_GetColorFormatStr(Stream->ColorFormatId));
 	xil_printf("\tColor Depth:%d\r\n", Stream->ColorDepth);
 	xil_printf("\tPixels Per Clock:%d\r\n", Stream->PixPerClk);
 	xil_printf("\tFrame Rate:%s\r\n", XVidC_GetFrameRateStr(Stream->VmId));
