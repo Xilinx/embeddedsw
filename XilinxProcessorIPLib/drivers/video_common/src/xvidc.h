@@ -281,7 +281,7 @@ typedef enum {
 	XVIDC_BT_601,
 	XVIDC_BT_NUM_SUPPORTED,
 	XVIDC_BT_UNKNOWN
-} XVidC_ColorConversionStd;
+} XVidC_ColorStd;
 
 /**
  * Color conversion output range.
