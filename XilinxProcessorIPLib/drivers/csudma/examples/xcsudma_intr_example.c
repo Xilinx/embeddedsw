@@ -67,7 +67,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define CSUDMA_DEVICE_ID  0//XPAR_XCSUDMA_0_DEVICE_ID /* CSU DMA device Id */
+#define CSUDMA_DEVICE_ID  XPAR_XCSUDMA_0_DEVICE_ID /* CSU DMA device Id */
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define INTG_CSUDMA_INTR_DEVICE_ID 	102+32 /**< Interrupt device ID
 						 *  of CSU DMA device ID */
