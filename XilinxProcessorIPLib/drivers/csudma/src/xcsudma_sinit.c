@@ -54,8 +54,6 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XPAR_CSUDMA_NUM_INSTANCES	1 /**< XPAR_XCSUDMA_NUM_INSTANCES */
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -89,12 +87,12 @@
 ******************************************************************************/
 XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId)
 {
-	extern XCsuDma_Config XCsuDma_ConfigTable[XPAR_CSUDMA_NUM_INSTANCES];
+	extern XCsuDma_Config XCsuDma_ConfigTable[XPAR_XCSUDMA_NUM_INSTANCES];
 	XCsuDma_Config *CfgPtr = NULL;
 	u32 Index;
 
 	/* Checks all the instances */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_CSUDMA_NUM_INSTANCES);
+	for (Index = (u32)0x0; Index < (u32)(XPAR_XCSUDMA_NUM_INSTANCES);
 								Index++) {
 		if (XCsuDma_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XCsuDma_ConfigTable[Index];
