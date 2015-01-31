@@ -70,6 +70,7 @@
 #include "sleep.h"
 #include "xiicps.h"
 #include "xil_printf.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -106,7 +107,7 @@
  * The AddressType should be u8 as the address pointer in the on-board
  * EEPROM is 1 bytes.
  */
-typedef u8 AddressType;
+typedef u16 AddressType;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -120,6 +121,7 @@ int EepromReadDataRepStart(u8 *BufferPtr, u16 ByteCount);
 /************************** Variable Definitions *****************************/
 
 XIicPs IicInstance;		/* The instance of the IIC device. */
+u32 Platform;
 
 /*
  * Write buffer for writing a page.
@@ -183,6 +185,7 @@ int IicPsRepeatedStartExample(void)
 	AddressType AddressTemp;
 	int PageCnt;
 	int NumPages = 16;
+	int WrBfrOffset;
 
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
@@ -206,9 +209,12 @@ int IicPsRepeatedStartExample(void)
 	/*
 	 * Set the channel value in IIC Mux.
 	 */
-	Status = MuxInit();
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	Platform = XGetPlatform_Info();
+	if(Platform == XPLAT_ZYNQ) {
+		Status = MuxInit();
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 	}
 
 	AddressTemp = Address;
@@ -216,22 +222,24 @@ int IicPsRepeatedStartExample(void)
 		/*
 		 * Initialize the data to write and the read buffer.
 		 */
-		if (sizeof(AddressTemp) == 1) {
+		if (Platform == XPLAT_ZYNQ) {
 			WriteBuffer[0] = (u8) (AddressTemp);
+			WrBfrOffset = 1;
 		} else {
 			WriteBuffer[0] = (u8) (AddressTemp >> 8);
 			WriteBuffer[1] = (u8) (AddressTemp);
+			WrBfrOffset = 2;
 		}
 
 		for (Index = 0; Index < PAGE_SIZE; Index++) {
-			WriteBuffer[sizeof(AddressTemp) + Index] = 0xFF;
+			WriteBuffer[WrBfrOffset + Index] = 0xFF;
 			ReadBuffer[Index] = 0;
 		}
 
 		/*
 		 * Write to the EEPROM.
 		 */
-		Status = EepromWriteData(sizeof(AddressTemp) + PAGE_SIZE);
+		Status = EepromWriteData(WrBfrOffset + PAGE_SIZE);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -252,7 +260,7 @@ int IicPsRepeatedStartExample(void)
 	 */
 	for (Index = 0; Index < PAGE_SIZE*NumPages; Index++) {
 		if (ReadBuffer[Index] !=
-			WriteBuffer[Index%PAGE_SIZE + sizeof(Address)]) {
+			WriteBuffer[Index%PAGE_SIZE + WrBfrOffset]) {
 			return XST_FAILURE;
 		}
 
@@ -264,22 +272,24 @@ int IicPsRepeatedStartExample(void)
 		/*
 		 * Initialize the data to write and the read buffer.
 		 */
-		if (sizeof(AddressTemp) == 1) {
+		if (Platform == XPLAT_ZYNQ) {
 			WriteBuffer[0] = (u8) (AddressTemp);
+			WrBfrOffset = 1;
 		} else {
 			WriteBuffer[0] = (u8) (AddressTemp >> 8);
 			WriteBuffer[1] = (u8) (AddressTemp);
+			WrBfrOffset = 2;
 		}
 
 		for (Index = 0; Index < PAGE_SIZE; Index++) {
-			WriteBuffer[sizeof(AddressTemp) + Index] = Index + 10;
+			WriteBuffer[WrBfrOffset + Index] = Index + 10;
 			ReadBuffer[Index] = 0;
 		}
 
 		/*
 		 * Write to the EEPROM.
 		 */
-		Status = EepromWriteData(sizeof(AddressTemp) + PAGE_SIZE);
+		Status = EepromWriteData(WrBfrOffset + PAGE_SIZE);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -299,7 +309,7 @@ int IicPsRepeatedStartExample(void)
 	 */
 	for (Index = 0; Index < PAGE_SIZE*NumPages; Index++) {
 		if (ReadBuffer[Index] !=
-			WriteBuffer[Index%PAGE_SIZE + sizeof(Address)]) {
+			WriteBuffer[Index%PAGE_SIZE + WrBfrOffset]) {
 			return XST_FAILURE;
 		}
 
@@ -366,6 +376,7 @@ int EepromReadDataRepStart(u8 *BufferPtr, u16 ByteCount)
 {
 	int Status;
 	AddressType Address = EEPROM_START_ADDRESS;
+	int WrBfrOffset;
 
 	/*
 	 * Enable repeated start option.
@@ -377,15 +388,16 @@ int EepromReadDataRepStart(u8 *BufferPtr, u16 ByteCount)
 	/*
 	 * Position the Pointer in EEPROM.
 	 */
-	if (sizeof(Address) == 1) {
+	if (Platform == XPLAT_ZYNQ) {
 		WriteBuffer[0] = (u8) (Address);
-	}
-	else {
+		WrBfrOffset = 1;
+	} else {
 		WriteBuffer[0] = (u8) (Address >> 8);
 		WriteBuffer[1] = (u8) (Address);
+		WrBfrOffset = 2;
 	}
 
-	Status = EepromWriteData(sizeof(Address));
+	Status = EepromWriteData(WrBfrOffset);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
