@@ -77,6 +77,7 @@
 #include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -114,7 +115,7 @@
  * The AddressType should be u8 as the address pointer in the on-board
  * EEPROM is 1 byte.
  */
-typedef u8 AddressType;
+typedef u16 AddressType;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -133,6 +134,7 @@ static void Handler(void *CallBackRef, u32 Event);
 
 XIicPs IicInstance;		/* The instance of the IIC device. */
 XScuGic InterruptController;	/* The instance of the Interrupt Controller. */
+u32 Platform;
 
 /*
  * Write buffer for writing a page.
@@ -195,6 +197,7 @@ int IicPsEepromIntrExample(void)
 	int Status;
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
 	AddressType Address = EEPROM_START_ADDRESS;
+	int WrBfrOffset;
 
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
@@ -232,49 +235,13 @@ int IicPsEepromIntrExample(void)
 	XIicPs_SetSClk(&IicInstance, IIC_SCLK_RATE);
 
 	/*
-	 * Set the channel value in IIC Mux.
+	 * Set the channel value in IIC Mux if
+	 * it is Zynq platform
 	 */
-	Status = MuxInit();
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Initialize the data to write and the read buffer.
-	 */
-	if (sizeof(Address) == 1) {
-		WriteBuffer[0] = (u8) (Address);
-	} else {
-		WriteBuffer[0] = (u8) (Address >> 8);
-		WriteBuffer[1] = (u8) (Address);
-	}
-
-	for (Index = 0; Index < PAGE_SIZE; Index++) {
-		WriteBuffer[sizeof(Address) + Index] = 0xFF;
-		ReadBuffer[Index] = 0;
-	}
-
-	/*
-	 * Write to the EEPROM.
-	 */
-	Status = EepromWriteData(sizeof(Address) + PAGE_SIZE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Read from the EEPROM.
-	 */
-	Status = EepromReadData(ReadBuffer, PAGE_SIZE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Verify the data read against the data written.
-	 */
-	for (Index = 0; Index < PAGE_SIZE; Index++) {
-		if (ReadBuffer[Index] != WriteBuffer[Index + sizeof(Address)]) {
+	Platform = XGetPlatform_Info();
+	if(Platform == XPLAT_ZYNQ) {
+		Status = MuxInit();
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}
@@ -282,22 +249,24 @@ int IicPsEepromIntrExample(void)
 	/*
 	 * Initialize the data to write and the read buffer.
 	 */
-	if (sizeof(Address) == 1) {
+	if (Platform == XPLAT_ZYNQ) {
 		WriteBuffer[0] = (u8) (Address);
+		WrBfrOffset = 1;
 	} else {
 		WriteBuffer[0] = (u8) (Address >> 8);
 		WriteBuffer[1] = (u8) (Address);
+		WrBfrOffset = 2;
 	}
 
 	for (Index = 0; Index < PAGE_SIZE; Index++) {
-		WriteBuffer[sizeof(Address) + Index] = Index + 10;
+		WriteBuffer[WrBfrOffset + Index] = 0xFF;
 		ReadBuffer[Index] = 0;
 	}
 
 	/*
 	 * Write to the EEPROM.
 	 */
-	Status = EepromWriteData(sizeof(Address) + PAGE_SIZE);
+	Status = EepromWriteData(WrBfrOffset + PAGE_SIZE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -314,7 +283,49 @@ int IicPsEepromIntrExample(void)
 	 * Verify the data read against the data written.
 	 */
 	for (Index = 0; Index < PAGE_SIZE; Index++) {
-		if (ReadBuffer[Index] != WriteBuffer[Index + sizeof(Address)]) {
+		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
+			return XST_FAILURE;
+		}
+	}
+
+	/*
+	 * Initialize the data to write and the read buffer.
+	 */
+	if (Platform == XPLAT_ZYNQ) {
+		WriteBuffer[0] = (u8) (Address);
+		WrBfrOffset = 1;
+	} else {
+		WriteBuffer[0] = (u8) (Address >> 8);
+		WriteBuffer[1] = (u8) (Address);
+		WrBfrOffset = 2;
+	}
+
+	for (Index = 0; Index < PAGE_SIZE; Index++) {
+		WriteBuffer[WrBfrOffset + Index] = Index + 10;
+		ReadBuffer[Index] = 0;
+	}
+
+	/*
+	 * Write to the EEPROM.
+	 */
+	Status = EepromWriteData(WrBfrOffset + PAGE_SIZE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Read from the EEPROM.
+	 */
+	Status = EepromReadData(ReadBuffer, PAGE_SIZE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Verify the data read against the data written.
+	 */
+	for (Index = 0; Index < PAGE_SIZE; Index++) {
+		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
 			return XST_FAILURE;
 		}
 	}
@@ -387,19 +398,21 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 {
 	int Status;
 	AddressType Address = EEPROM_START_ADDRESS;
+	int WrBfrOffset;
 
 	/*
 	 * Position the Pointer in EEPROM.
 	 */
-	if (sizeof(Address) == 1) {
+	if (Platform == XPLAT_ZYNQ) {
 		WriteBuffer[0] = (u8) (Address);
-	}
-	else {
+		WrBfrOffset = 1;
+	} else {
 		WriteBuffer[0] = (u8) (Address >> 8);
 		WriteBuffer[1] = (u8) (Address);
+		WrBfrOffset = 2;
 	}
 
-	Status = EepromWriteData(sizeof(Address));
+	Status = EepromWriteData(WrBfrOffset);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
