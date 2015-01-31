@@ -49,8 +49,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xparameters.h"
+
 #include "xiicps.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -72,15 +73,15 @@
  */
 XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES] = {
 	{
-		 XPAR_XIICPS_0_DEVICE_ID, /* Device ID for instance */
-		 XPAR_XIICPS_0_BASEADDR,  /* Device base address */
-		 XPAR_XIICPS_0_I2C_CLK_FREQ_HZ  /* Device input clock frequency */
+		 (u16)XPAR_XIICPS_0_DEVICE_ID, /* Device ID for instance */
+		 (u32)XPAR_XIICPS_0_BASEADDR,  /* Device base address */
+		 (u32)XPAR_XIICPS_0_I2C_CLK_FREQ_HZ  /* Device input clock frequency */
 	},
 #ifdef XPAR_XIICPS_1_DEVICE_ID
 	{
-		 XPAR_XIICPS_1_DEVICE_ID, /* Device ID for instance */
-		 XPAR_XIICPS_1_BASEADDR,  /* Device base address */
-		 XPAR_XIICPS_1_CLOCK_HZ  /* Device input clock frequency */
+		 (u16)XPAR_XIICPS_1_DEVICE_ID, /* Device ID for instance */
+		 (u32)XPAR_XIICPS_1_BASEADDR,  /* Device base address */
+		 (u32)XPAR_XIICPS_1_CLOCK_HZ  /* Device input clock frequency */
 	 }
 #endif
 };

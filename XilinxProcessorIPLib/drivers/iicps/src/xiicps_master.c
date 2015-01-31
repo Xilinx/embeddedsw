@@ -73,9 +73,9 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int TransmitFifoFill(XIicPs *InstancePtr);
+s32 TransmitFifoFill(XIicPs *InstancePtr);
 
-static int XIicPs_SetupMaster(XIicPs *InstancePtr, int Role);
+static s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role);
 static void MasterSendData(XIicPs *InstancePtr);
 
 /************************* Variable Definitions *****************************/
@@ -97,7 +97,7 @@ static void MasterSendData(XIicPs *InstancePtr);
 * @note		This send routine is for interrupt-driven transfer only.
 *
  ****************************************************************************/
-void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
+void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		 u16 SlaveAddr)
 {
 	u32 BaseAddr;
@@ -107,7 +107,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsgPtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XIICPS_ADDR_MASK >= SlaveAddr);
 
 
@@ -120,28 +120,28 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	/*
 	 * Set repeated start if sending more than FIFO of data.
 	 */
-	if ((InstancePtr->IsRepeatedStart) ||
-		(ByteCount > XIICPS_FIFO_DEPTH)) {
-		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-			XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
-				XIICPS_CR_HOLD_MASK);
+	if (((InstancePtr->IsRepeatedStart) != 0)||
+		((ByteCount > XIICPS_FIFO_DEPTH) != 0U)) {
+		XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET,
+			XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
+				(u32)XIICPS_CR_HOLD_MASK);
 	}
 
 	/*
 	 * Setup as a master sending role.
 	 */
-	XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
+	(void)XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
 
-	TransmitFifoFill(InstancePtr);
+	(void)TransmitFifoFill(InstancePtr);
 
 	/*
 	 * Do the address transfer to notify the slave.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
 
 	XIicPs_EnableInterrupts(BaseAddr,
-		XIICPS_IXR_NACK_MASK | XIICPS_IXR_COMP_MASK |
-		XIICPS_IXR_ARB_LOST_MASK);
+		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_COMP_MASK |
+		(u32)XIICPS_IXR_ARB_LOST_MASK);
 }
 
 /*****************************************************************************/
@@ -161,7 +161,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 * @note		This receive routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
-void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
+void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		 u16 SlaveAddr)
 {
 	u32 BaseAddr;
@@ -171,7 +171,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsgPtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XIICPS_ADDR_MASK >= SlaveAddr);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
@@ -183,22 +183,22 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	InstancePtr->UpdateTxSize = 0;
 
 	if ((ByteCount > XIICPS_FIFO_DEPTH) ||
-		(InstancePtr->IsRepeatedStart))
+		((InstancePtr->IsRepeatedStart) !=0))
 	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
-						XIICPS_CR_HOLD_MASK);
+				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
+						(u32)XIICPS_CR_HOLD_MASK);
 	}
 
 	/*
 	 * Initialize for a master receiving role.
 	 */
-	XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
+	(void)XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
 
 	/*
 	 * Do the address transfer to signal the slave.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
 
 	/*
 	 * Setup the transfer size register so the slave knows how much
@@ -207,17 +207,17 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 	if (ByteCount > XIICPS_MAX_TRANSFER_SIZE) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET,
 				XIICPS_MAX_TRANSFER_SIZE);
-		InstancePtr->CurrByteCount = XIICPS_MAX_TRANSFER_SIZE;
+		InstancePtr->CurrByteCount = (s32)XIICPS_MAX_TRANSFER_SIZE;
 		InstancePtr->UpdateTxSize = 1;
 	}else {
-		XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET,
-			 ByteCount);
+		XIicPs_WriteReg(BaseAddr, (u32)(XIICPS_TRANS_SIZE_OFFSET),
+			 (u32)ByteCount);
 	}
 
 	XIicPs_EnableInterrupts(BaseAddr,
-		XIICPS_IXR_NACK_MASK | XIICPS_IXR_DATA_MASK |
-		XIICPS_IXR_RX_OVR_MASK | XIICPS_IXR_COMP_MASK |
-		XIICPS_IXR_ARB_LOST_MASK);
+		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_DATA_MASK |
+		(u32)XIICPS_IXR_RX_OVR_MASK | (u32)XIICPS_IXR_COMP_MASK |
+		(u32)XIICPS_IXR_ARB_LOST_MASK);
 }
 
 /*****************************************************************************/
@@ -240,40 +240,42 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, int ByteCount,
 * @note		This send routine is for polled mode transfer only.
 *
 ****************************************************************************/
-int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
-		 int ByteCount, u16 SlaveAddr)
+s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
+		 s32 ByteCount, u16 SlaveAddr)
 {
 	u32 IntrStatusReg;
 	u32 StatusReg;
 	u32 BaseAddr;
 	u32 Intrs;
+	u32 Value;
+	s32 Status;
 
 	/*
 	 * Assert validates the input arguments.
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MsgPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XIICPS_ADDR_MASK >= SlaveAddr);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->SendBufferPtr = MsgPtr;
 	InstancePtr->SendByteCount = ByteCount;
 
-	if ((InstancePtr->IsRepeatedStart) ||
-		(ByteCount > XIICPS_FIFO_DEPTH)) {
+	if (((InstancePtr->IsRepeatedStart) != 0) ||
+		((ByteCount > XIICPS_FIFO_DEPTH) != 0U)) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
-						XIICPS_CR_HOLD_MASK);
+				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
+						(u32)XIICPS_CR_HOLD_MASK);
 	}
 
-	XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
+	(void)XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
 
 	/*
 	 * Intrs keeps all the error-related interrupts.
 	 */
-	Intrs = XIICPS_IXR_ARB_LOST_MASK | XIICPS_IXR_TX_OVR_MASK |
-		XIICPS_IXR_NACK_MASK;
+	Intrs = (u32)XIICPS_IXR_ARB_LOST_MASK | (u32)XIICPS_IXR_TX_OVR_MASK |
+		(u32)XIICPS_IXR_NACK_MASK;
 
 	/*
 	 * Clear the interrupt status register before use it to monitor.
@@ -284,9 +286,9 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	/*
 	 * Transmit first FIFO full of data.
 	 */
-	TransmitFifoFill(InstancePtr);
+	(void)TransmitFifoFill(InstancePtr);
 
-	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
 
 	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 
@@ -294,23 +296,28 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	 * Continue sending as long as there is more data and
 	 * there are no errors.
 	 */
-	while ((InstancePtr->SendByteCount > 0) &&
-		((IntrStatusReg & Intrs) == 0)) {
+	Value = ((InstancePtr->SendByteCount > (s32)0) &&
+		((IntrStatusReg & Intrs) == (u32)0U));
+	while (Value != (u32)0x00U) {
 		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 
 		/*
 		 * Wait until transmit FIFO is empty.
 		 */
-		if ((StatusReg & XIICPS_SR_TXDV_MASK) != 0) {
+		if ((StatusReg & XIICPS_SR_TXDV_MASK) != 0U) {
 			IntrStatusReg = XIicPs_ReadReg(BaseAddr,
 					XIICPS_ISR_OFFSET);
+			Value = ((InstancePtr->SendByteCount > (s32)0) &&
+				((IntrStatusReg & Intrs) == (u32)0U));
 			continue;
 		}
 
 		/*
 		 * Send more data out through transmit FIFO.
 		 */
-		TransmitFifoFill(InstancePtr);
+		(void)TransmitFifoFill(InstancePtr);
+		Value = ((InstancePtr->SendByteCount > (s32)0) &&
+			((IntrStatusReg & Intrs) == (u32)0U));
 	}
 
 	/*
@@ -322,18 +329,18 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		/*
 		 * If there is an error, tell the caller.
 		 */
-		if ((IntrStatusReg & Intrs) != 0) {
-			return XST_FAILURE;
+		if ((IntrStatusReg & Intrs) != 0U) {
+			return (s32)XST_FAILURE;
 		}
 	}
 
-	if (!(InstancePtr->IsRepeatedStart)) {
+	if ((!(InstancePtr->IsRepeatedStart)) != 0) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -356,38 +363,46 @@ int XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 * @note		This receive routine is for polled mode transfer only.
 *
 ****************************************************************************/
-int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
-				int ByteCount, u16 SlaveAddr)
+s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
+				s32 ByteCount, u16 SlaveAddr)
 {
 	u32 IntrStatusReg;
 	u32 Intrs;
 	u32 StatusReg;
 	u32 BaseAddr;
-	int IsHold = 0;
-	int UpdateTxSize = 0;
+	s32 BytesToRecv;
+	s32 BytesToRead;
+	s32 TransSize;
+	s32 Tmp = 0;
+	u32 Status_Rcv;
+	u32 Status;
+	s32 Result;
+	s32 IsHold = 0;
+	s32 UpdateTxSize = 0;
+	s32 ByteCountVar = ByteCount;
 
 	/*
 	 * Assert validates the input arguments.
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MsgPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XIICPS_ADDR_MASK >= SlaveAddr);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
-	InstancePtr->RecvByteCount = ByteCount;
+	InstancePtr->RecvByteCount = ByteCountVar;
 
-	if((ByteCount > XIICPS_FIFO_DEPTH) ||
-		(InstancePtr->IsRepeatedStart))
+	if((ByteCountVar > XIICPS_FIFO_DEPTH) ||
+		((InstancePtr->IsRepeatedStart) !=0))
 	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) |
-						XIICPS_CR_HOLD_MASK);
+				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
+						(u32)XIICPS_CR_HOLD_MASK);
 		IsHold = 1;
 	}
 
-	XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
+	(void)XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
 
 	/*
 	 * Clear the interrupt status register before use it to monitor.
@@ -401,34 +416,33 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	 * Set up the transfer size register so the slave knows how much
 	 * to send to us.
 	 */
-	if (ByteCount > XIICPS_MAX_TRANSFER_SIZE) {
+	if (ByteCountVar > XIICPS_MAX_TRANSFER_SIZE) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET,
 				XIICPS_MAX_TRANSFER_SIZE);
-		ByteCount = XIICPS_MAX_TRANSFER_SIZE;
+		ByteCountVar = (s32)XIICPS_MAX_TRANSFER_SIZE;
 		UpdateTxSize = 1;
 	}else {
 		XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET,
-			 ByteCount);
+			 ByteCountVar);
 	}
 
 	/*
 	 * Intrs keeps all the error-related interrupts.
 	 */
-	Intrs = XIICPS_IXR_ARB_LOST_MASK | XIICPS_IXR_RX_OVR_MASK |
-			XIICPS_IXR_RX_UNF_MASK | XIICPS_IXR_NACK_MASK;
-
+	Intrs = (u32)XIICPS_IXR_ARB_LOST_MASK | (u32)XIICPS_IXR_RX_OVR_MASK |
+			(u32)XIICPS_IXR_RX_UNF_MASK | (u32)XIICPS_IXR_NACK_MASK;
 	/*
 	 * Poll the interrupt status register to find the errors.
 	 */
 	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 	while ((InstancePtr->RecvByteCount > 0) &&
-			((IntrStatusReg & Intrs) == 0)) {
+			((IntrStatusReg & Intrs) == 0U)) {
 		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 
-		while (StatusReg & XIICPS_SR_RXDV_MASK) {
-			if ((InstancePtr->RecvByteCount <
-				XIICPS_DATA_INTR_DEPTH) && IsHold &&
-				(!(InstancePtr->IsRepeatedStart))) {
+	    while ((StatusReg & XIICPS_SR_RXDV_MASK) != 0U) {
+		    if (((InstancePtr->RecvByteCount <
+			    XIICPS_DATA_INTR_DEPTH) != 0U) && (IsHold != 0) &&
+			    ((!(InstancePtr->IsRepeatedStart)) != 0)) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
@@ -436,22 +450,24 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 						(~XIICPS_CR_HOLD_MASK));
 			}
 			XIicPs_RecvByte(InstancePtr);
-			ByteCount --;
+		    ByteCountVar --;
 
-			if (UpdateTxSize &&
-				(ByteCount == XIICPS_FIFO_DEPTH + 1))
-				break;
+		    if ((UpdateTxSize != 0) &&
+			    ((ByteCountVar == (XIICPS_FIFO_DEPTH + 1)) != 0U)) {
+			    break;
+			}
 
 			StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 		}
 
-		if (UpdateTxSize && (ByteCount == XIICPS_FIFO_DEPTH + 1)) {
-			/*
-			 * wait while fifo is full
-			 */
-			while(XIicPs_ReadReg(BaseAddr,
-				XIICPS_TRANS_SIZE_OFFSET) !=
-				(ByteCount - XIICPS_FIFO_DEPTH));
+	    if ((UpdateTxSize != 0) && ((ByteCountVar == (XIICPS_FIFO_DEPTH + 1)) != 0U)) {
+		    /*
+		     * wait while fifo is full
+		     */
+		    while(XIicPs_ReadReg(BaseAddr,
+			    XIICPS_TRANS_SIZE_OFFSET) !=
+			    (u32)(ByteCountVar - XIICPS_FIFO_DEPTH)) { ;
+			}
 
 			if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
 				XIICPS_MAX_TRANSFER_SIZE) {
@@ -459,7 +475,7 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 				XIicPs_WriteReg(BaseAddr,
 					XIICPS_TRANS_SIZE_OFFSET,
 					XIICPS_MAX_TRANSFER_SIZE);
-				ByteCount = XIICPS_MAX_TRANSFER_SIZE +
+			    ByteCountVar = (s32)XIICPS_MAX_TRANSFER_SIZE +
 						XIICPS_FIFO_DEPTH;
 			}else {
 				XIicPs_WriteReg(BaseAddr,
@@ -467,24 +483,26 @@ int XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 					InstancePtr->RecvByteCount -
 					XIICPS_FIFO_DEPTH);
 				UpdateTxSize = 0;
-				ByteCount = InstancePtr->RecvByteCount;
+			    ByteCountVar = InstancePtr->RecvByteCount;
 			}
 		}
 
 		IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 	}
 
-	if (!(InstancePtr->IsRepeatedStart)) {
+	if ((!(InstancePtr->IsRepeatedStart)) != 0) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
 	}
-
-	if (IntrStatusReg & Intrs) {
-		return XST_FAILURE;
+	if ((IntrStatusReg & Intrs) != 0x0U) {
+		Result = (s32)XST_FAILURE;
+	}
+	else {
+		Result =  (s32)XST_SUCCESS;
 	}
 
-	return XST_SUCCESS;
+	return Result;
 }
 
 /*****************************************************************************/
@@ -514,33 +532,33 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
 	/* Clear transfer size register */
-	XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET, 0x0);
+	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_TRANS_SIZE_OFFSET, 0x0U);
 
 	/*
 	 * Enable slave monitor mode in control register.
 	 */
-	ConfigReg = XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET);
-	ConfigReg |= XIICPS_CR_MS_MASK | XIICPS_CR_NEA_MASK |
-			XIICPS_CR_CLR_FIFO_MASK | XIICPS_CR_SLVMON_MASK;
-	ConfigReg &= ~XIICPS_CR_RD_WR_MASK;
+	ConfigReg = XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET);
+	ConfigReg |= (u32)XIICPS_CR_MS_MASK | (u32)XIICPS_CR_NEA_MASK |
+			(u32)XIICPS_CR_CLR_FIFO_MASK | (u32)XIICPS_CR_SLVMON_MASK;
+	ConfigReg &= (u32)(~XIICPS_CR_RD_WR_MASK);
 
-	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, ConfigReg);
+	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET, ConfigReg);
 
 	/*
 	 * Set up interrupt flag for slave monitor interrupt.
 	 * Dont enable NACK.
 	 */
-	XIicPs_EnableInterrupts(BaseAddr, XIICPS_IXR_SLV_RDY_MASK);
+	XIicPs_EnableInterrupts(BaseAddr, (u32)XIICPS_IXR_SLV_RDY_MASK);
 
 	/*
 	 * Initialize the slave monitor register.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_SLV_PAUSE_OFFSET, 0xF);
+	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_SLV_PAUSE_OFFSET, 0xFU);
 
 	/*
 	 * Set the slave address to start the slave address transmission.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
+	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
 
 	return;
 }
@@ -624,16 +642,16 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 {
 	u32 IntrStatusReg;
-	u32 StatusEvent = 0;
+	u32 StatusEvent = 0U;
 	u32 BaseAddr;
-	int ByteCnt;
-	int IsHold;
+	s32 ByteCnt;
+	s32 IsHold;
 
 	/*
 	 * Assert validates the input arguments.
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
@@ -641,32 +659,32 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	 * Read the Interrupt status register.
 	 */
 	IntrStatusReg = XIicPs_ReadReg(BaseAddr,
-					 XIICPS_ISR_OFFSET);
+					 (u32)XIICPS_ISR_OFFSET);
 
 	/*
 	 * Write the status back to clear the interrupts so no events are
 	 * missed while processing this interrupt.
 	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
+	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_ISR_OFFSET, IntrStatusReg);
 
 	/*
 	 * Use the Mask register AND with the Interrupt Status register so
 	 * disabled interrupts are not processed.
 	 */
-	IntrStatusReg &= ~(XIicPs_ReadReg(BaseAddr, XIICPS_IMR_OFFSET));
+	IntrStatusReg &= ~(XIicPs_ReadReg(BaseAddr, (u32)XIICPS_IMR_OFFSET));
 
 	ByteCnt = InstancePtr->CurrByteCount;
 
 	IsHold = 0;
-	if (XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET) & XIICPS_CR_HOLD_MASK) {
+	if ((XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) & (u32)XIICPS_CR_HOLD_MASK) != 0U) {
 		IsHold = 1;
 	}
 
 	/*
 	 * Send
 	 */
-	if ((InstancePtr->IsSend) &&
-		(0 != (IntrStatusReg & XIICPS_IXR_COMP_MASK))) {
+	if (((InstancePtr->IsSend) != 0) &&
+		((u32)0U != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK))) {
 		if (InstancePtr->SendByteCount > 0) {
 			MasterSendData(InstancePtr);
 		} else {
@@ -678,15 +696,15 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	/*
 	 * Receive
 	 */
-	if ((!(InstancePtr->IsSend)) &&
-		((0 != (IntrStatusReg & XIICPS_IXR_DATA_MASK)) ||
-		(0 != (IntrStatusReg & XIICPS_IXR_COMP_MASK)))){
+	if (((!(InstancePtr->IsSend))!= 0) &&
+		((0 != (IntrStatusReg & (u32)XIICPS_IXR_DATA_MASK)) ||
+		(0 != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK)))){
 
-		while (XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET) &
-				XIICPS_SR_RXDV_MASK) {
-			if ((InstancePtr->RecvByteCount <
-				XIICPS_DATA_INTR_DEPTH) && IsHold &&
-				(!(InstancePtr->IsRepeatedStart))) {
+		while ((XIicPs_ReadReg(BaseAddr, (u32)XIICPS_SR_OFFSET) &
+				XIICPS_SR_RXDV_MASK) != 0U) {
+			if (((InstancePtr->RecvByteCount <
+				XIICPS_DATA_INTR_DEPTH)!= 0U)  && (IsHold != 0)  &&
+				((!(InstancePtr->IsRepeatedStart))!= 0)) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
@@ -696,19 +714,21 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 			XIicPs_RecvByte(InstancePtr);
 			ByteCnt--;
 
-			if (InstancePtr->UpdateTxSize &&
-				(ByteCnt == XIICPS_FIFO_DEPTH + 1))
+			if ((InstancePtr->UpdateTxSize != 0) &&
+				((ByteCnt == (XIICPS_FIFO_DEPTH + 1))!= 0U)) {
 				break;
+			}
 		}
 
-		if (InstancePtr->UpdateTxSize &&
-			(ByteCnt == XIICPS_FIFO_DEPTH + 1)) {
+		if ((InstancePtr->UpdateTxSize != 0) &&
+			((ByteCnt == (XIICPS_FIFO_DEPTH + 1))!= 0U)) {
 			/*
 			 * wait while fifo is full
 			 */
 			while(XIicPs_ReadReg(BaseAddr,
 				XIICPS_TRANS_SIZE_OFFSET) !=
-				(ByteCnt - XIICPS_FIFO_DEPTH));
+				(u32)(ByteCnt - XIICPS_FIFO_DEPTH)) {
+			}
 
 			if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
 				XIICPS_MAX_TRANSFER_SIZE) {
@@ -716,7 +736,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 				XIicPs_WriteReg(BaseAddr,
 					XIICPS_TRANS_SIZE_OFFSET,
 					XIICPS_MAX_TRANSFER_SIZE);
-				ByteCnt = XIICPS_MAX_TRANSFER_SIZE +
+				ByteCnt = (s32)XIICPS_MAX_TRANSFER_SIZE +
 						XIICPS_FIFO_DEPTH;
 			}else {
 				XIicPs_WriteReg(BaseAddr,
@@ -730,13 +750,13 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		InstancePtr->CurrByteCount = ByteCnt;
 	}
 
-	if ((!(InstancePtr->IsSend)) &&
-		(0 != (IntrStatusReg & XIICPS_IXR_COMP_MASK))) {
+	if (((!(InstancePtr->IsSend)) != 0) &&
+		(0U != (IntrStatusReg & XIICPS_IXR_COMP_MASK))) {
 		/*
 		 * If all done, tell the application.
 		 */
 		if (InstancePtr->RecvByteCount == 0){
-			if (!(InstancePtr->IsRepeatedStart)) {
+			if ((!(InstancePtr->IsRepeatedStart)) != 0) {
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
 						XIICPS_CR_OFFSET) &
@@ -750,12 +770,12 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	/*
 	 * Slave ready interrupt, it is only meaningful for master mode.
 	 */
-	if (0 != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
+	if (0U != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
 		StatusEvent |= XIICPS_EVENT_SLAVE_RDY;
 	}
 
-	if (0 != (IntrStatusReg & XIICPS_IXR_NACK_MASK)) {
-		if (!(InstancePtr->IsRepeatedStart)) {
+	if (0U != (IntrStatusReg & XIICPS_IXR_NACK_MASK)) {
+		if ((!(InstancePtr->IsRepeatedStart)) != 0 ) {
 			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr,
 					XIICPS_CR_OFFSET) &
@@ -767,10 +787,10 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	/*
 	 * All other interrupts are treated as error.
 	 */
-	if (0 != (IntrStatusReg & (XIICPS_IXR_NACK_MASK |
+	if (0U != (IntrStatusReg & (XIICPS_IXR_NACK_MASK |
 			XIICPS_IXR_ARB_LOST_MASK | XIICPS_IXR_RX_UNF_MASK |
 			XIICPS_IXR_TX_OVR_MASK | XIICPS_IXR_RX_OVR_MASK))) {
-		if (!(InstancePtr->IsRepeatedStart)) {
+		if ((!(InstancePtr->IsRepeatedStart)) != 0) {
 			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr,
 					XIICPS_CR_OFFSET) &
@@ -782,7 +802,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	/*
 	 * Signal application if there are any events.
 	 */
-	if (0 != StatusEvent) {
+	if (StatusEvent != 0U) {
 		InstancePtr->StatusHandler(InstancePtr->CallBackRef,
 					   StatusEvent);
 	}
@@ -805,11 +825,11 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 *		interrupts needs to setup interrupts after this call.
 *
 ****************************************************************************/
-static int XIicPs_SetupMaster(XIicPs *InstancePtr, int Role)
+static s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 {
 	u32 ControlReg;
 	u32 BaseAddr;
-	u32 EnabledIntr = 0x0;
+	u32 EnabledIntr = 0x0U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -820,31 +840,31 @@ static int XIicPs_SetupMaster(XIicPs *InstancePtr, int Role)
 	/*
 	 * Only check if bus is busy when repeated start option is not set.
 	 */
-	if ((ControlReg & XIICPS_CR_HOLD_MASK) == 0) {
-		if (XIicPs_BusIsBusy(InstancePtr)) {
-			return XST_FAILURE;
+	if ((ControlReg & XIICPS_CR_HOLD_MASK) == 0U) {
+		if (XIicPs_BusIsBusy(InstancePtr) == (s32)1) {
+			return (s32)XST_FAILURE;
 		}
 	}
 
 	/*
 	 * Set up master, AckEn, nea and also clear fifo.
 	 */
-	ControlReg |= XIICPS_CR_ACKEN_MASK | XIICPS_CR_CLR_FIFO_MASK |
-		 	XIICPS_CR_NEA_MASK | XIICPS_CR_MS_MASK;
+	ControlReg |= (u32)XIICPS_CR_ACKEN_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK |
+			(u32)XIICPS_CR_NEA_MASK | (u32)XIICPS_CR_MS_MASK;
 
 	if (Role == RECVING_ROLE) {
-		ControlReg |= XIICPS_CR_RD_WR_MASK;
-		EnabledIntr = XIICPS_IXR_DATA_MASK |XIICPS_IXR_RX_OVR_MASK;
+		ControlReg |= (u32)XIICPS_CR_RD_WR_MASK;
+		EnabledIntr = (u32)XIICPS_IXR_DATA_MASK |(u32)XIICPS_IXR_RX_OVR_MASK;
 	}else {
-		ControlReg &= ~XIICPS_CR_RD_WR_MASK;
+		ControlReg &= (u32)(~XIICPS_CR_RD_WR_MASK);
 	}
-	EnabledIntr |= XIICPS_IXR_COMP_MASK | XIICPS_IXR_ARB_LOST_MASK;
+	EnabledIntr |= (u32)XIICPS_IXR_COMP_MASK | (u32)XIICPS_IXR_ARB_LOST_MASK;
 
 	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, ControlReg);
 
 	XIicPs_DisableAllInterrupts(BaseAddr);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -861,7 +881,7 @@ static int XIicPs_SetupMaster(XIicPs *InstancePtr, int Role)
 ****************************************************************************/
 static void MasterSendData(XIicPs *InstancePtr)
 {
-	TransmitFifoFill(InstancePtr);
+	(void)TransmitFifoFill(InstancePtr);
 
 	/*
 	 * Clear hold bit if done, so stop can be sent out.
@@ -872,12 +892,12 @@ static void MasterSendData(XIicPs *InstancePtr)
 		 * If user has enabled repeated start as an option,
 		 * do not disable it.
 		 */
-		if (!(InstancePtr->IsRepeatedStart)) {
+		if ((!(InstancePtr->IsRepeatedStart)) != 0) {
 
 			XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XIICPS_CR_OFFSET,
-				XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XIICPS_CR_OFFSET) & ~ XIICPS_CR_HOLD_MASK);
+			(u32)XIICPS_CR_OFFSET,
+			XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
+			(u32)XIICPS_CR_OFFSET) & (u32)(~ XIICPS_CR_HOLD_MASK));
 		}
 	}
 
