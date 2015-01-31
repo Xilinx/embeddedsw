@@ -86,12 +86,12 @@
 *
 ******************************************************************************/
 void XIicPs_SetStatusHandler(XIicPs *InstancePtr, void *CallBackRef,
-				  XIicPs_IntrHandler FuncPtr)
+				  XIicPs_IntrHandler FunctionPtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(FuncPtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(FunctionPtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
-	InstancePtr->StatusHandler = FuncPtr;
+	InstancePtr->StatusHandler = FunctionPtr;
 	InstancePtr->CallBackRef = CallBackRef;
 }

@@ -98,10 +98,10 @@ void XIicPs_ResetHw(u32 BaseAddress)
 	/* Clear the timeout register */
 	XIicPs_WriteReg(BaseAddress, XIICPS_TIME_OUT_OFFSET, XIICPS_TO_RESET_VALUE);
 	/* Clear the transfer size register */
-	XIicPs_WriteReg(BaseAddress, XIICPS_TRANS_SIZE_OFFSET, 0x0);
+	XIicPs_WriteReg(BaseAddress, XIICPS_TRANS_SIZE_OFFSET, 0x0U);
 	/* Clear the status register */
 	RegVal = XIicPs_ReadReg(BaseAddress,XIICPS_SR_OFFSET);
 	XIicPs_WriteReg(BaseAddress, XIICPS_SR_OFFSET, RegVal);
 	/* Update the configuraqtion register with reset value */
-	XIicPs_WriteReg(BaseAddress, XIICPS_CR_OFFSET, 0x0);
+	XIicPs_WriteReg(BaseAddress, XIICPS_CR_OFFSET, 0x0U);
 }

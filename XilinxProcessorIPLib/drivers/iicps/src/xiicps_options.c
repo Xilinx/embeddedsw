@@ -115,13 +115,14 @@ static OptionsMap OptionsTable[] = {
 * @note		None.
 *
 ******************************************************************************/
-int XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
+s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 {
 	u32 ControlReg;
-	unsigned int Index;
+	u32 Index;
+	u32 OptionsVar = Options;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 				      XIICPS_CR_OFFSET);
@@ -131,23 +132,23 @@ int XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 	 * The hold bit in CR will be written by driver when the next transfer
 	 * is initiated.
 	 */
-	if (Options & XIICPS_REP_START_OPTION) {
+	if ((OptionsVar & XIICPS_REP_START_OPTION) != 0U ) {
 		InstancePtr->IsRepeatedStart = 1;
-		Options = Options & (~XIICPS_REP_START_OPTION);
+		OptionsVar = OptionsVar & (~XIICPS_REP_START_OPTION);
 	}
 
 	/*
 	 * Loop through the options table, turning the option on.
 	 */
-	for (Index = 0; Index < XIICPS_NUM_OPTIONS; Index++) {
-		if (Options & OptionsTable[Index].Option) {
+	for (Index = 0U; Index < XIICPS_NUM_OPTIONS; Index++) {
+		if ((OptionsVar & OptionsTable[Index].Option) != (u32)0x0U) {
 			/*
 			 * 10-bit option is specially treated, because it is
 			 * using the 7-bit option, so turning it on means
 			 * turning 7-bit option off.
 			 */
-			if (OptionsTable[Index].Option &
-				XIICPS_10_BIT_ADDR_OPTION) {
+			if ((OptionsTable[Index].Option &
+				XIICPS_10_BIT_ADDR_OPTION) != (u32)0x0U) {
 				/* Turn 7-bit off */
 				ControlReg &= ~OptionsTable[Index].Mask;
 			} else {
@@ -169,7 +170,7 @@ int XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 	 */
 	InstancePtr->Options = XIicPs_GetOptions(InstancePtr);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -194,13 +195,14 @@ int XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 * @note		None
 *
 ******************************************************************************/
-int XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
+s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 {
 	u32 ControlReg;
-	unsigned int Index;
+	u32 Index;
+	u32 OptionsVar = Options;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XIICPS_CR_OFFSET);
@@ -210,24 +212,24 @@ int XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 	 * The hold bit in CR will be cleared by driver when the
 	 * following transfer ends.
 	 */
-	if (Options & XIICPS_REP_START_OPTION) {
+	if ((OptionsVar & XIICPS_REP_START_OPTION) != (u32)0x0U ) {
 		InstancePtr->IsRepeatedStart = 0;
-		Options = Options & (~XIICPS_REP_START_OPTION);
+		OptionsVar = OptionsVar & (~XIICPS_REP_START_OPTION);
 	}
 
 	/*
 	 * Loop through the options table and clear the specified options.
 	 */
-	for (Index = 0; Index < XIICPS_NUM_OPTIONS; Index++) {
-		if (Options & OptionsTable[Index].Option) {
+	for (Index = 0U; Index < XIICPS_NUM_OPTIONS; Index++) {
+		if ((OptionsVar & OptionsTable[Index].Option) != (u32)0x0U) {
 
 			/*
 			 * 10-bit option is specially treated, because it is
 			 * using the 7-bit option, so clearing it means turning
 			 * 7-bit option on.
 			 */
-			if (OptionsTable[Index].Option &
-						XIICPS_10_BIT_ADDR_OPTION) {
+			if ((OptionsTable[Index].Option &
+				XIICPS_10_BIT_ADDR_OPTION) != (u32)0x0U) {
 
 				/* Turn 7-bit on */
 				ControlReg |= OptionsTable[Index].Mask;
@@ -273,12 +275,12 @@ int XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 ******************************************************************************/
 u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 {
-	u32 OptionsFlag = 0;
+	u32 OptionsFlag = 0U;
 	u32 ControlReg;
-	unsigned int Index;
+	u32 Index;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/*
 	 * Read control register to find which options are currently set.
@@ -289,16 +291,16 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 	/*
 	 * Loop through the options table to determine which options are set.
 	 */
-	for (Index = 0; Index < XIICPS_NUM_OPTIONS; Index++) {
-		if (ControlReg & OptionsTable[Index].Mask) {
+	for (Index = 0U; Index < XIICPS_NUM_OPTIONS; Index++) {
+		if ((ControlReg & OptionsTable[Index].Mask) != (u32)0x0U) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
-		if ((ControlReg & XIICPS_CR_NEA_MASK) == 0) {
+		if ((ControlReg & XIICPS_CR_NEA_MASK) == (u32)0x0U) {
 			OptionsFlag |= XIICPS_10_BIT_ADDR_OPTION;
 		}
 	}
 
-	if (InstancePtr->IsRepeatedStart) {
+	if (InstancePtr->IsRepeatedStart != 0 ) {
 		OptionsFlag |= XIICPS_REP_START_OPTION;
 	}
 	return OptionsFlag;
@@ -331,7 +333,7 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 * @note		The clock can not be faster than the input clock divide by 22.
 *
 ******************************************************************************/
-int XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
+s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 {
 	u32 Div_a;
 	u32 Div_b;
@@ -346,26 +348,27 @@ int XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	u32 CalcDivB;
 	u32 BestDivA = 0;
 	u32 BestDivB = 0;
+	u32 FsclHzVar = FsclHz;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(FsclHz > 0);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(FsclHzVar > 0U);
 
-	if (0 != XIicPs_In32((InstancePtr->Config.BaseAddress) +
+	if (0U != XIicPs_In32((InstancePtr->Config.BaseAddress) +
 					XIICPS_TRANS_SIZE_OFFSET)) {
-		return XST_DEVICE_IS_STARTED;
+		return (s32)XST_DEVICE_IS_STARTED;
 	}
 
 	/*
 	 * Assume Div_a is 0 and calculate (divisor_a+1) x (divisor_b+1).
 	 */
-	Temp = (InstancePtr->Config.InputClockHz) / (22 * FsclHz);
+	Temp = (InstancePtr->Config.InputClockHz) / ((u32)22U * FsclHzVar);
 
 	/*
 	 * If the answer is negative or 0, the Fscl input is out of range.
 	 */
-	if (0 == Temp) {
-		return XST_FAILURE;
+	if ((u32)(0U) == Temp) {
+		return (s32)XST_FAILURE;
 	}
 
 	/*
@@ -373,12 +376,12 @@ int XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	 * If frequency 100KHz is selected, 90KHz should be set.
 	 * This is due to a hardware limitation.
 	 */
-	if(FsclHz > 384600) {
-		FsclHz = 384600;
+	if(FsclHzVar > 384600U) {
+		FsclHzVar = 384600U;
 	}
 
-	if((FsclHz <= 100000) && (FsclHz > 90000)) {
-		FsclHz = 90000;
+	if((FsclHzVar <= 100000U) && (FsclHzVar > 90000U)) {
+		FsclHzVar = 90000U;
 	}
 
 	/*
@@ -386,34 +389,36 @@ int XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	 * find the closest clock rate achievable with divisors.
 	 * Iterate over the next value only if fractional part is involved.
 	 */
-	TempLimit = ((InstancePtr->Config.InputClockHz) % (22 * FsclHz)) ?
-							Temp + 1 : Temp;
-	BestError = FsclHz;
+	TempLimit = (((InstancePtr->Config.InputClockHz) %
+			((u32)22 * FsclHzVar)) != 	(u32)0x0U) ?
+						Temp + (u32)1U : Temp;
+	BestError = FsclHzVar;
 
+	BestDivA = 0U;
+	BestDivB = 0U;
 	for ( ; Temp <= TempLimit ; Temp++)
 	{
-		LastError = FsclHz;
-		CalcDivA = 0;
-		CalcDivB = 0;
-		CurrentError = 0;
+		LastError = FsclHzVar;
+		CalcDivA = 0U;
+		CalcDivB = 0U;
 
-		for (Div_b = 0; Div_b < 64; Div_b++) {
+		for (Div_b = 0U; Div_b < 64U; Div_b++) {
 
-			Div_a = Temp / (Div_b + 1);
+			Div_a = Temp / (Div_b + 1U);
 
-			if (Div_a != 0)
-				Div_a = Div_a - 1;
-
-			if (Div_a > 3)
+			if (Div_a != 0U){
+				Div_a = Div_a - (u32)1U;
+			}
+			if (Div_a > 3U){
 				continue;
-
+			}
 			ActualFscl = (InstancePtr->Config.InputClockHz) /
-						(22 * (Div_a + 1) * (Div_b + 1));
+						(22U * (Div_a + 1U) * (Div_b + 1U));
 
-			if (ActualFscl > FsclHz)
-				CurrentError = (ActualFscl - FsclHz);
-			else
-				CurrentError = (FsclHz - ActualFscl);
+			if (ActualFscl > FsclHzVar){
+				CurrentError = (ActualFscl - FsclHzVar);}
+			else{
+				CurrentError = (FsclHzVar - ActualFscl);}
 
 			if (LastError > CurrentError) {
 				CalcDivA = Div_a;
@@ -437,15 +442,15 @@ int XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	 * Read the control register and mask the Divisors.
 	 */
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-					  XIICPS_CR_OFFSET);
-	ControlReg &= ~(XIICPS_CR_DIV_A_MASK | XIICPS_CR_DIV_B_MASK);
+					  (u32)XIICPS_CR_OFFSET);
+	ControlReg &= ~((u32)XIICPS_CR_DIV_A_MASK | (u32)XIICPS_CR_DIV_B_MASK);
 	ControlReg |= (BestDivA << XIICPS_CR_DIV_A_SHIFT) |
 		(BestDivB << XIICPS_CR_DIV_B_SHIFT);
 
-	XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_CR_OFFSET,
+	XIicPs_WriteReg(InstancePtr->Config.BaseAddress, (u32)XIICPS_CR_OFFSET,
 			  ControlReg);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -472,7 +477,7 @@ u32 XIicPs_GetSClk(XIicPs *InstancePtr)
 	u32 Div_b;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	ControlReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 					  XIICPS_CR_OFFSET);
@@ -481,7 +486,7 @@ u32 XIicPs_GetSClk(XIicPs *InstancePtr)
 	Div_b = (ControlReg & XIICPS_CR_DIV_B_MASK) >> XIICPS_CR_DIV_B_SHIFT;
 
 	ActualFscl = (InstancePtr->Config.InputClockHz) /
-		(22 * (Div_a + 1) * (Div_b + 1));
+		(22U * (Div_a + 1U) * (Div_b + 1U));
 
 	return ActualFscl;
 }

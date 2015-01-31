@@ -64,7 +64,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XIicPs_Config XIicPs_ConfigTable[];
+extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -85,7 +85,7 @@ extern XIicPs_Config XIicPs_ConfigTable[];
 XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId)
 {
 	XIicPs_Config *CfgPtr = NULL;
-	int Index;
+	s32 Index;
 
 	for (Index = 0; Index < XPAR_XIICPS_NUM_INSTANCES; Index++) {
 		if (XIicPs_ConfigTable[Index].DeviceId == DeviceId) {
@@ -94,5 +94,5 @@ XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId)
 		}
 	}
 
-	return CfgPtr;
+	return (XIicPs_Config *)CfgPtr;
 }

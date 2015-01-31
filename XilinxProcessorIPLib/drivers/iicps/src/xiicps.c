@@ -101,7 +101,7 @@ static void StubHandler(void *CallBackRef, u32 StatusEvent);
 * @note		None.
 *
 ******************************************************************************/
-int XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
+s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 				  u32 EffectiveAddr)
 {
 	/*
@@ -119,7 +119,7 @@ int XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	InstancePtr->StatusHandler = StubHandler;
 	InstancePtr->CallBackRef = NULL;
 
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+	InstancePtr->IsReady = (u32)XIL_COMPONENT_IS_READY;
 
 	/*
 	 * Reset the IIC device to get it into its initial state. It is expected
@@ -136,7 +136,7 @@ int XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	/* Initialize repeated start flag to 0 */
 	InstancePtr->IsRepeatedStart = 0;
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -152,17 +152,19 @@ int XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 * @note		None.
 *
 ******************************************************************************/
-int XIicPs_BusIsBusy(XIicPs *InstancePtr)
+s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 {
 	u32 StatusReg;
+	s32	Status;
 
 	StatusReg = XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 					   XIICPS_SR_OFFSET);
-	if (StatusReg & XIICPS_SR_BA_MASK) {
-		return TRUE;
+	if ((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) {
+		Status = (s32)TRUE;
 	}else {
-		return FALSE;
+		Status = (s32)FALSE;
 	}
+	return Status;
 }
 
 /*****************************************************************************/
@@ -183,7 +185,7 @@ int XIicPs_BusIsBusy(XIicPs *InstancePtr)
 ******************************************************************************/
 static void StubHandler(void *CallBackRef, u32 StatusEvent)
 {
-	(void) CallBackRef;
+	(void) ((void *)CallBackRef);
 	(void) StatusEvent;
 	Xil_AssertVoidAlways();
 }
@@ -208,7 +210,7 @@ void XIicPs_Abort(XIicPs *InstancePtr)
 	u32 IntrStatusReg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/*
 	 * Enter a critical section, so disable the interrupts while we clear
@@ -265,7 +267,7 @@ void XIicPs_Reset(XIicPs *InstancePtr)
 {
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/*
 	 * Abort any transfer that is in progress.
@@ -296,21 +298,21 @@ void XIicPs_Reset(XIicPs *InstancePtr)
 * @note		This is function is shared by master and slave.
 *
 ******************************************************************************/
-int TransmitFifoFill(XIicPs *InstancePtr)
+s32 TransmitFifoFill(XIicPs *InstancePtr)
 {
 	u8 AvailBytes;
-	int LoopCnt;
-	int NumBytesToSend;
+	s32 LoopCnt;
+	s32 NumBytesToSend;
 
 	/*
 	 * Determine number of bytes to write to FIFO.
 	 */
-	AvailBytes = XIICPS_FIFO_DEPTH -
-		XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
+	AvailBytes = (u8)XIICPS_FIFO_DEPTH -
+		(u8)XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 					   XIICPS_TRANS_SIZE_OFFSET);
 
-	if (InstancePtr->SendByteCount > AvailBytes) {
-		NumBytesToSend = AvailBytes;
+	if (InstancePtr->SendByteCount > (s32)AvailBytes) {
+		NumBytesToSend = (s32)AvailBytes;
 	} else {
 		NumBytesToSend = InstancePtr->SendByteCount;
 	}

@@ -55,7 +55,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define REG_TEST_VALUE    0x00000005
+#define REG_TEST_VALUE    0x00000005U
 
 /**************************** Type Definitions *******************************/
 
@@ -88,11 +88,11 @@
 * @note		None.
 *
 ******************************************************************************/
-int XIicPs_SelfTest(XIicPs *InstancePtr)
+s32 XIicPs_SelfTest(XIicPs *InstancePtr)
 {
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/*
 	 * All the IIC registers should be in their default state right now.
@@ -103,7 +103,7 @@ int XIicPs_SelfTest(XIicPs *InstancePtr)
 		(XIICPS_IXR_ALL_INTR_MASK !=
 		 XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XIICPS_IMR_OFFSET))) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	XIicPs_Reset(InstancePtr);
@@ -116,13 +116,13 @@ int XIicPs_SelfTest(XIicPs *InstancePtr)
 
 	if (REG_TEST_VALUE != XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
 						   XIICPS_SLV_PAUSE_OFFSET)) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XIICPS_SLV_PAUSE_OFFSET, 0);
+			  XIICPS_SLV_PAUSE_OFFSET, 0U);
 
 	XIicPs_Reset(InstancePtr);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
