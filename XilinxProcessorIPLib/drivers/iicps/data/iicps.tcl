@@ -29,14 +29,24 @@
 # this Software without prior written authorization from Xilinx.
 #
 ###############################################################################
-OPTION psf_version = 2.1;
+##############################################################################
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.00a sdm  11/22/11 Created
+# 2.0   adk  12/10/13 Updated as per the New Tcl API's
+#
+##############################################################################
 
-BEGIN driver iicps
+#uses "xillib.tcl"
 
-  OPTION supported_peripherals = (ps7_i2c);
-  OPTION driver_state = DEPRECATED;
-  OPTION copyfiles = all;
-  OPTION VERSION = 2.4;
-  OPTION NAME = iicps;
+proc generate {drv_handle} {
+    xdefine_zynq_include_file $drv_handle "xparameters.h" "XIicPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_I2C_CLK_FREQ_HZ"
 
-END driver
+    xdefine_zynq_config_file $drv_handle "xiicps_g.c" "XIicPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_I2C_CLK_FREQ_HZ"
+
+    xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "XIicPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_I2C_CLK_FREQ_HZ"
+
+}
