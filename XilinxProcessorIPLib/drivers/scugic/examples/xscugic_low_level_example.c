@@ -300,11 +300,8 @@ void LowInterruptHandler(void *CallbackRef)
 static void GicDistInit(u32 BaseAddress)
 {
 	u32 Int_Id;
-	u32 MaxInt_In;
 
 	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, 0UL);
-
-	MaxInt_In = XScuGic_ReadReg(BaseAddress, XSCUGIC_IC_TYPE_OFFSET);
 
 	/*
 	 * Set the security domains in the int_security registers for non-secure interrupts
