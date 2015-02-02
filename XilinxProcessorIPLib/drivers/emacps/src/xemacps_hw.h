@@ -77,8 +77,14 @@ extern "C" {
                                            supported */
 #define XEMACPS_MAX_TYPE_ID      4U   /**< Maxmum number of type id supported */
 
+#ifdef __aarch64__
 #define XEMACPS_BD_ALIGNMENT     64U   /**< Minimum buffer descriptor alignment
                                            on the local bus */
+#else
+
+#define XEMACPS_BD_ALIGNMENT     4U   /**< Minimum buffer descriptor alignment
+                                           on the local bus */
+#endif
 #define XEMACPS_RX_BUF_ALIGNMENT 4U   /**< Minimum buffer alignment when using
                                            options that impose alignment
                                            restrictions on the buffer data on
