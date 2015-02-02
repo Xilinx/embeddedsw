@@ -72,7 +72,10 @@
 *			   of spare bytes since we don't calculate ECC for
 *			   spare bytes.
 * 2.01 kpc    07/24/2014   Fixed CR#808770. Update command register twice only
-                           if flash device requires >= four address cycles.
+*                          if flash device requires >= four address cycles.
+* 2.2  sb     01/31/2015   Use the address cycles defined in onfi parameter
+*			   page than hardcoding this value to 5 for read and
+*			   write operations.
 * </pre>
 *
 ******************************************************************************/
@@ -1074,6 +1077,15 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 
 	if (Command->EndCmdValid == XNANDPS_CMD_PHASE) {
 		EndCmdReq = 1;
+	}
+
+	if ((Command->StartCmd == ONFI_CMD_READ1) ||
+		(Command->StartCmd == ONFI_CMD_PAGE_PROG1)) {
+		Command->AddrCycles = InstancePtr->Geometry.RowAddrCycles +
+					InstancePtr->Geometry.ColAddrCycles;
+	}
+	if ((Command->StartCmd == ONFI_CMD_BLOCK_ERASE1)) {
+		Command->AddrCycles = InstancePtr->Geometry.RowAddrCycles;
 	}
 
 	/*
