@@ -108,8 +108,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XEmacPs_BdRingCntCalc(Alignment, Bytes)                    \
-    (u32)((Bytes) / ((sizeof(XEmacPs_Bd) + ((Alignment)-1)) &   \
-    ~((Alignment)-1)))
+    (u32)((Bytes) / (sizeof(XEmacPs_Bd)))
 
 /*****************************************************************************/
 /**
@@ -130,8 +129,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XEmacPs_BdRingMemCalc(Alignment, NumBd)                    \
-    (u32)((sizeof(XEmacPs_Bd) + ((Alignment)-1)) &              \
-    ~((Alignment)-1)) * ((NumBd))
+    (u32)(sizeof(XEmacPs_Bd) * (NumBd))
 
 /****************************************************************************/
 /**
