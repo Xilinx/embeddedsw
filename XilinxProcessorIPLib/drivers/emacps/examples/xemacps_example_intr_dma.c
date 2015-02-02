@@ -519,7 +519,6 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	u32 PayloadSize = 1000;
 	u32 NumRxBuf = 0;
 	XEmacPs_Bd *Bd1Ptr;
-	XEmacPs_Bd *Bd2Ptr;
 	XEmacPs_Bd *BdRxPtr;
 
 	/*
@@ -554,21 +553,8 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	 * Allocate RxBDs since we do not know how many BDs will be used
 	 * in advance, use RXBD_CNT here.
 	 */
-
-	if (GemVersion == 2)
-	{
-		Status = XEmacPs_BdRingAlloc(&
-				      (XEmacPs_GetRxRing(EmacPsInstancePtr)),
-				      2, &BdRxPtr);
-	}
-
-	if (GemVersion > 2)
-		{
-	Status = XEmacPs_BdRingAlloc(&
-				      (XEmacPs_GetRxRing(EmacPsInstancePtr)),
+	Status = XEmacPs_BdRingAlloc(&(XEmacPs_GetRxRing(EmacPsInstancePtr)),
 				      1, &BdRxPtr);
-		}
-
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error allocating RxBD");
 		return XST_FAILURE;
@@ -586,17 +572,8 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	/*
 	 * Enqueue to HW
 	 */
-	if (GemVersion == 2)
-	{
 	Status = XEmacPs_BdRingToHw(&(XEmacPs_GetRxRing(EmacPsInstancePtr)),
-				     2, BdRxPtr);
-	}
-	if (GemVersion > 2)
-	{
-		Status = XEmacPs_BdRingToHw(&(XEmacPs_GetRxRing(EmacPsInstancePtr)),
-					     1, BdRxPtr);
-	}
-
+				    1, BdRxPtr);
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error committing RxBD to HW");
 		return XST_FAILURE;
@@ -610,25 +587,15 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	Xil_DCacheFlushRange((UINTPTR)BdRxPtr, 64);
 	}
 	/*
-	 * Allocate, setup, and enqueue 2 TxBDs. The first BD will
+	 * Allocate, setup, and enqueue 1 TxBDs. The first BD will
 	 * describe the first 32 bytes of TxFrame and the rest of BDs
 	 * will describe the rest of the frame.
 	 *
-	 * The function below will allocate 2 adjacent BDs with Bd1Ptr
+	 * The function below will allocate 1 adjacent BDs with Bd1Ptr
 	 * being set as the lead BD.
 	 */
-	if (GemVersion == 2)
-	{
-	Status = XEmacPs_BdRingAlloc(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
-				      2, &Bd1Ptr);
-	}
-
-	if (GemVersion > 2)
-		{
 	Status = XEmacPs_BdRingAlloc(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
 				      1, &Bd1Ptr);
-		}
-
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error allocating TxBD");
 		return XST_FAILURE;
@@ -643,34 +610,10 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	XEmacPs_BdSetLast(Bd1Ptr);
 
 	/*
-	 * Setup second TxBD
-	 */
-	Bd2Ptr = XEmacPs_BdRingNext(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
-				      Bd1Ptr);
-	XEmacPs_BdSetAddressTx(Bd2Ptr,
-				(UINTPTR) (&TxFrame) + FIRST_FRAGMENT_SIZE);
-	XEmacPs_BdSetLength(Bd2Ptr, TxFrameLength - FIRST_FRAGMENT_SIZE);
-	XEmacPs_BdClearTxUsed(Bd2Ptr);
-	XEmacPs_BdSetLast(Bd2Ptr);
-
-
-	/*
 	 * Enqueue to HW
 	 */
-	if (GemVersion == 2)
-	{
-	Status = XEmacPs_BdRingToHw(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
-				     2, Bd1Ptr);
-
-	}
-
-	if (GemVersion > 2)
-		{
-
 	Status = XEmacPs_BdRingToHw(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
 				     1, Bd1Ptr);
-		}
-
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error committing TxBD to HW");
 		return XST_FAILURE;
@@ -701,29 +644,15 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 
 	/*
 	 * Now that the frame has been sent, post process our TxBDs.
-	 * Since we have only submitted 2 to hardware, then there should
-	 * be only 2 ready for post processing.
+	 * Since we have only submitted 1 to hardware, then there should
+	 * be only 1 ready for post processing.
 	 */
-	if (GemVersion == 2)
-	{
-	if (XEmacPs_BdRingFromHwTx(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
-				    2, &Bd1Ptr) == 0) {
-		EmacPsUtilErrorTrap
-			("TxBDs were not ready for post processing");
-		return XST_FAILURE;
-	}
-	}
-
-	if (GemVersion > 2)
-		{
 	if (XEmacPs_BdRingFromHwTx(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
 				    1, &Bd1Ptr) == 0) {
 		EmacPsUtilErrorTrap
 			("TxBDs were not ready for post processing");
 		return XST_FAILURE;
 	}
-		}
-
 
 	/*
 	 * Examine the TxBDs.
