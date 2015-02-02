@@ -53,6 +53,7 @@
 * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification.
 * 3.0   kvn  12/16/14 Changed name of XEMACPS_NWCFG_LENGTHERRDSCRD_MASK to
 *					  XEMACPS_NWCFG_LENERRDSCRD_MASK as it exceeds 31 characters.
+* 3.0  kpc   1/23/15  Corrected the extended descriptor macro values.
 * </pre>
 *
 ******************************************************************************/
@@ -379,8 +380,8 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 /** @name DMA control register bit definitions
  * @{
  */
-#define XEMACPS_DMACR_TXEXTEND_MASK		0x02000000U /**< Tx Extended desc mode */
-#define XEMACPS_DMACR_RXEXTEND_MASK		0x01000000U /**< Rx Extended desc mode */
+#define XEMACPS_DMACR_TXEXTEND_MASK		0x20000000U /**< Tx Extended desc mode */
+#define XEMACPS_DMACR_RXEXTEND_MASK		0x10000000U /**< Rx Extended desc mode */
 #define XEMACPS_DMACR_RXBUF_MASK		0x00FF0000U /**< Mask bit for RX buffer
 													size */
 #define XEMACPS_DMACR_RXBUF_SHIFT 		16U	/**< Shift bit for RX buffer
