@@ -38,6 +38,7 @@
 # 2.0   adk  10/12/13 Updated as per the New Tcl API's
 # 3.0   adk  08/1/15  Don't include gem in peripheral test when gem is
 #		      configured with PCS/PMA Core.
+# 3.0   kpc  01/20/15 Don't include examples when interrupt is not connected
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -59,6 +60,12 @@ proc gen_include_files {swproj mhsinst} {
     if {$swproj == 0} {
             return ""
     }
+
+	set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+
+	if {$isintr == 0} {
+		return ""
+	}
 
 	set ispcs_pma 0
 	set ipname [get_property NAME $mhsinst]
@@ -109,6 +116,13 @@ proc gen_src_files {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
+
+  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+
+  if {$isintr == 0} {
+     return ""
+  }
+
   if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
@@ -130,6 +144,12 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
 
+    set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+
+    if {$isintr == 0} {
+	return ""
+    }
+
 	if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
@@ -148,6 +168,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 	global ispcs_pma
     if {$swproj == 0} {
         return ""
+    }
+    set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+
+    if {$isintr == 0} {
+	return ""
     }
 
     set ipname [common::get_property NAME $mhsinst]
