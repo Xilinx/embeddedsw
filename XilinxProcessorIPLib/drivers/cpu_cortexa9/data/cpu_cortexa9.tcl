@@ -131,8 +131,9 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
                    } else {
                        set name [format "%s%s" $name $param]
                    }
+               set xparam_name [::hsi::utils::format_xparam_name $name]
+	       puts $file_handle "#define $xparam_name $value"
 
-               puts $file_handle "#define $name $value"
            }
 
 	   set name [string toupper [common::get_property NAME $mem_range]]
@@ -145,8 +146,9 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
                    } else {
                        set name [format "%s%s" $name $param]
                    }
+               set xparam_name [::hsi::utils::format_xparam_name $name]
+	       puts $file_handle "#define $xparam_name $value"
 
-               puts $file_handle "#define $name $value"
            }
 
            
