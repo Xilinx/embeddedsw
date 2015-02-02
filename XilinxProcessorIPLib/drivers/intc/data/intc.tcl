@@ -524,7 +524,7 @@ proc xredefine_intc {drvhandle config_inc} {
 	        set second_part [format "XPAR_%s_%s_%s_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_pin_name($i)] ]
 
                 if {[string compare -nocase $drvname "generic"] != 0} {
-                    puts $config_inc "$first_part $second_part"
+                    puts $config_inc "$first_part_xparam_name $second_part_xparam_name"
                 }
             }
         }
