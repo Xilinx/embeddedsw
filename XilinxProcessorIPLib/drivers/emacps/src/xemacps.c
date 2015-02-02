@@ -339,6 +339,9 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
 			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET) |
+#ifdef __aarch64__
+			(u32)XEMACPS_DMACR_ADDR_WIDTH_64 |
+#endif
 			(u32)XEMACPS_DMACR_INCR4_AHB_BURST));
 	}
 #if EXTENDED_DESC_MODE

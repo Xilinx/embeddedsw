@@ -386,6 +386,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 /** @name DMA control register bit definitions
  * @{
  */
+#define XEMACPS_DMACR_ADDR_WIDTH_64		0x40000000U /**< 64 bit address bus */
 #define XEMACPS_DMACR_TXEXTEND_MASK		0x20000000U /**< Tx Extended desc mode */
 #define XEMACPS_DMACR_RXEXTEND_MASK		0x10000000U /**< Rx Extended desc mode */
 #define XEMACPS_DMACR_RXBUF_MASK		0x00FF0000U /**< Mask bit for RX buffer
