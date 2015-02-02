@@ -458,14 +458,17 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 	 */
 	if (GemVersion == 2)
 	{
-	XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
-	sleep(1);
+		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+		sleep(1);
+		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
+		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 	}
-	/*
-	 * Set emacps to phy loopback
-	 */
-	EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
-	XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
+	else
+	{
+		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED);
+		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED);
+	}
 
 	/*
 	 * Setup the interrupt controller and enable interrupts
