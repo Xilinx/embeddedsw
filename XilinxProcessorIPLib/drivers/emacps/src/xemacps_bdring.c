@@ -234,8 +234,7 @@ LONG XEmacPs_BdRingCreate(XEmacPs_BdRing * RingPtr, UINTPTR PhysAddr,
 	}
 
 	/* Figure out how many bytes will be between the start of adjacent BDs */
-	RingPtr->Separation =
-		((u32)sizeof(XEmacPs_Bd) + (Alignment - (u32)1)) & ~(Alignment - (u32)1);
+	RingPtr->Separation = ((u32)sizeof(XEmacPs_Bd));
 
 	/* Must make sure the ring doesn't span address 0x00000000. If it does,
 	 * then the next/prev BD traversal macros will fail.
