@@ -151,7 +151,6 @@ EthernetFrame RxFrame;		/* Receive buffer */
  * Buffer descriptors are allocated in uncached memory. The memory is made
  * uncached by setting the attributes appropriately in the MMU table.
  */
- /* FIXME: This example is tested without caches */
 #define RXBD_SPACE_BYTES XEmacPs_BdRingMemCalc(XEMACPS_BD_ALIGNMENT, RXBD_CNT)
 #define TXBD_SPACE_BYTES XEmacPs_BdRingMemCalc(XEMACPS_BD_ALIGNMENT, TXBD_CNT)
 
@@ -1168,8 +1167,6 @@ static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
 		if (ErrorWord & XEMACPS_TXSR_HRESPNOK_MASK) {
 			EmacPsUtilErrorTrap("Transmit DMA error");
 		}
-		/* FIXME: Interrupt Q1 Status register has Tx AHB error and
-		   this has to be handled */
 		if (ErrorWord & XEMACPS_TXSR_URUN_MASK) {
 			EmacPsUtilErrorTrap("Transmit under run");
 		}
