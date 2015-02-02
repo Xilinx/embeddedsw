@@ -49,6 +49,7 @@
 * 		      in xemacps_example.h.
 * 1.01a asa  02/27/12 The sleep value after PHY loopback is setup is reduced
 *		      for Zynq.
+* 3.0   kpc  01/23/15 Removed PEEP board related code
 * </pre>
 *
 *****************************************************************************/
@@ -384,94 +385,6 @@ u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 * @note     None.
 *
 *****************************************************************************/
-#ifdef PEEP /* Define PEEP in xemacps_example.h if the example is run on PEEP*/
-#define PHY_REG0_RESET    		0x8000
-#define PHY_REG0_LOOPBACK 		0x4000
-#define PHY_REG0_10       		0x0100
-#define PHY_REG0_100      		0x2100
-#define PHY_REG0_1000     		0x0140
-#define PHY_R20_DFT_SPD_MASK 		0x0070
-#define PHY_R20_DFT_SPD_10   		0x0040
-#define PHY_R20_DFT_SPD_100  		0x0050
-#define PHY_R20_DFT_SPD_1000 		0x0060
-LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
-{
-	LONG Status;
-	u16 PhyReg0  = 0;
-	u16 PhyReg20 = 0;
-	u32 PhyAddr;
-
-	/* Detect the PHY address */
-	PhyAddr = XEmacPsDetectPHY(EmacPsInstancePtr);
-	if (PhyAddr >= 32) {
-		EmacPsUtilErrorTrap("Error detect phy");
-		return XST_FAILURE;
-	}
-
-
-	Status  = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 20, &PhyReg20);
-	Status  |= XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
-	PhyReg20 &= ~PHY_R20_DFT_SPD_MASK;
-
-	switch (Speed) {
-	case 10:
-		PhyReg20 |= PHY_R20_DFT_SPD_10;
-		break;
-	case 100:
-		PhyReg20 |= PHY_R20_DFT_SPD_100;
-		break;
-	case 1000:
-		PhyReg20 |= PHY_R20_DFT_SPD_1000;
-		break;
-	default:
-		EmacPsUtilErrorTrap("Error: speed not recognized ");
-		return XST_FAILURE;
-	}
-
-	Status  |= XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 20, PhyReg20);
-	Status  |= XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0,
-						PhyReg0 | PHY_REG0_RESET);
-
-	/* setup speed and duplex */
-	switch (Speed) {
-	case 10:
-		PhyReg0 = PHY_REG0_10;
-		break;
-	case 100:
-		PhyReg0 = PHY_REG0_100;
-		break;
-	case 1000:
-		PhyReg0 = PHY_REG0_1000;
-		break;
-	default:
-		EmacPsUtilErrorTrap("Error: speed not recognized ");
-		return XST_FAILURE;
-	}
-	Status |= XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
-	Status  |= XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0,
-						(PhyReg0 | PHY_REG0_RESET));
-	/* FIXME: Sleep doesn't seem to work */
-	//sleep(1);
-	Status |= XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
-	if (Status != XST_SUCCESS) {
-		EmacPsUtilErrorTrap("Error setup phy speed");
-		return XST_FAILURE;
-	}
-
-	/* enable loopback */
-	PhyReg0 |= PHY_REG0_LOOPBACK;
-	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
-
-	if (Status != XST_SUCCESS) {
-		EmacPsUtilErrorTrap("Error setup phy loopback");
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
-}
-
-#else /*For Zynq board*/
-
 #define PHY_REG0_RESET    0x8000
 #define PHY_REG0_LOOPBACK 0x4000
 #define PHY_REG0_10       0x0100
@@ -590,7 +503,6 @@ LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
 
 	return XST_SUCCESS;
 }
-#endif /*PEEP*/
 
 /****************************************************************************/
 /**

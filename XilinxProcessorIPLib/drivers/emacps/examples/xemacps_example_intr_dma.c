@@ -54,8 +54,6 @@
 * - EmacPsResetDevice() demonstrates how to reset the driver/HW without
 *   loosing all configuration settings.
 *
-* NOTE:
-* Define PEEP in xemacps_example.h to run the example on a PEEP board.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -105,6 +103,7 @@
 *			  TxFrameLength is now made global.
 * 2.1	srt 07/11/14 Implemented 64-bit changes and modified as per
 *		      Zynq Ultrascale Mp GEM specification
+* 3.0  kpc  01/23/14 Removed PEEP board related code
 *
 * </pre>
 *
@@ -137,22 +136,11 @@
 #define SLCR_GEM0_CLK_CTRL_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x140)
 #define SLCR_GEM1_CLK_CTRL_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x144)
 
-#ifdef PEEP /* Define PEEP in xemacps_example.h if the example is run on PEEP */
-#define SLCR_GEM_10M_CLK_CTRL_VALUE	0x00103031
-#define SLCR_GEM_100M_CLK_CTRL_VALUE	0x00103001
-#define SLCR_GEM_1G_CLK_CTRL_VALUE	0x00103011
-#endif
 
 #define SLCR_LOCK_KEY_VALUE		0x767B
 #define SLCR_UNLOCK_KEY_VALUE		0xDF0D
 #define SLCR_ADDR_GEM_RST_CTRL		(XPS_SYS_CTRL_BASEADDR + 0x214)
 
-/* FIXME: These are constants to enable GEM0 */
-#define GPIO_DATA2_REG	0xFF008048
-#define GPIO_DATA2_DIR	0xFF008284
-
-#define GPIO_GEM_MASK	(3<<18)
-#define GPIO_GEM_VAL_1G	(1<<18)
 
 /*************************** Variable Definitions ***************************/
 
@@ -291,9 +279,7 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 	LONG Status;
 	XEmacPs_Config *Config;
 	XEmacPs_Bd BdTemplate;
-#ifndef PEEP
 	u32 SlcrTxClkCntrl;
-#endif
 
 	/*************************************/
 	/* Setup device for first-time usage */
@@ -327,12 +313,6 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 
 	/* SLCR unlock */
 	*(volatile unsigned int *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
-#ifdef PEEP
-	*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) =
-						SLCR_GEM_1G_CLK_CTRL_VALUE;
-	*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR) =
-						SLCR_GEM_1G_CLK_CTRL_VALUE;
-#else
 	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
 		/* GEM0 1G clock configuration*/
@@ -356,7 +336,6 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 								SlcrTxClkCntrl;
 #endif
 	}
-#endif
 	/* SLCR lock */
 	*(unsigned int *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
 	sleep(1);
@@ -479,10 +458,8 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 	 */
 	if (GemVersion == 2)
 	{
-#ifndef PEEP /* For Zynq board */
 	XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
 	sleep(1);
-#endif
 	}
 	/*
 	 * Set emacps to phy loopback
