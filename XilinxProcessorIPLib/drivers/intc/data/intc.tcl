@@ -191,7 +191,10 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 
     set start_comma ""
     foreach periph $periphs {
-        if {$cascade == 1} {
+        set periph_name [string toupper [get_property NAME $periph ]]
+	set xpar_periph_name [::hsi::utils::format_xparam_name $periph_name]
+
+	if {$cascade == 1} {
             puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [common::get_property NAME $periph ]] "TYPE" [get_intctype $periph]]
         } else {
             puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [common::get_property NAME $periph ]] "TYPE" $cascade]
@@ -305,8 +308,12 @@ proc intc_define_vector_table {periph config_inc config_file} {
         if {[llength $source_name($i)] == 0} {
             puts $config_file "\t\t\t\t(void *)XNULL"
         } else {
-            puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X" [string toupper $source_name($i)] [string toupper $source_port_name($i)] [expr 1 << $i]]
-            if {$cascade ==1} {
+            set sname [string toupper $source_name($i)]
+	    set source_xparam_name [::hsi::utils::format_xparam_name $sname]
+	    set pname [string toupper $periph_name]
+	    set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
+	    puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
+	    if {$cascade ==1} {
                 puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $intrid]
             } else {
                 puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
@@ -524,6 +531,8 @@ proc xredefine_intc {drvhandle config_inc} {
 	        set second_part [format "XPAR_%s_%s_%s_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_pin_name($i)] ]
 
                 if {[string compare -nocase $drvname "generic"] != 0} {
+                    set first_part_xparam_name [::hsi::utils::format_xparam_name $first_part]
+                    set second_part_xparam_name [::hsi::utils::format_xparam_name $second_part]
                     puts $config_inc "$first_part_xparam_name $second_part_xparam_name"
                 }
             }
