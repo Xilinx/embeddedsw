@@ -45,7 +45,7 @@
 proc generate {drv_handle} {
     xdefine_zynq_include_file $drv_handle "xparameters.h" "XNandPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_NAND_CLK_FREQ_HZ" "C_SMC_BASEADDR" "C_NAND_WIDTH"
 
-    xdefine_zynq_config_file $drv_handle "xnandps_g.c" "XNandPs"  "DEVICE_ID" "C_SMC_BASEADDR" "C_S_AXI_BASEADDR" "C_NAND_WIDTH"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xnandps_g.c" "XNandPs"  "DEVICE_ID" "C_SMC_BASEADDR" "C_S_AXI_BASEADDR" "C_NAND_WIDTH"
 
     xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "XNandPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_NAND_CLK_FREQ_HZ" "C_SMC_BASEADDR" "C_NAND_WIDTH"
 
