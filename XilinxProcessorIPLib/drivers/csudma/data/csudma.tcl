@@ -42,10 +42,10 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_zynq_include_file $drv_handle "xparameters.h" "XCsuDma" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_CSUDMA_CLK_FREQ_HZ"
+    ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XCsuDma" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_CSUDMA_CLK_FREQ_HZ"
 
-    xdefine_zynq_config_file $drv_handle "xcsudma_g.c" "XCsuDma"  "DEVICE_ID" "C_S_AXI_BASEADDR"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xcsudma_g.c" "XCsuDma"  "DEVICE_ID" "C_S_AXI_BASEADDR"
 
-    xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "XCsuDma" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_CSUDMA_CLK_FREQ_HZ"
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XCsuDma" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_CSUDMA_CLK_FREQ_HZ"
 
 }
