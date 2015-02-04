@@ -115,7 +115,7 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
     foreach periph $periphs {
         #puts $file_handle ""
 
-	    xdefine_include_file $drv_handle "xparameters.h" "XAxiEthernet" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TYPE" "C_TXCSUM" "C_RXCSUM" "C_PHY_TYPE" "C_TXVLAN_TRAN" "C_RXVLAN_TRAN" "C_TXVLAN_TAG" "C_RXVLAN_TAG" "C_TXVLAN_STRP" "C_RXVLAN_STRP" "C_MCAST_EXTEND" "C_STATS" "C_AVB" "C_PHYADDR"
+	    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XAxiEthernet" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TYPE" "C_TXCSUM" "C_RXCSUM" "C_PHY_TYPE" "C_TXVLAN_TRAN" "C_RXVLAN_TRAN" "C_TXVLAN_TAG" "C_RXVLAN_TAG" "C_TXVLAN_STRP" "C_RXVLAN_STRP" "C_MCAST_EXTEND" "C_STATS" "C_AVB" "C_PHYADDR"
 
 	    set file_handle [::hsi::utils::open_include_file $file_name]
 	    # Create canonical definitions
