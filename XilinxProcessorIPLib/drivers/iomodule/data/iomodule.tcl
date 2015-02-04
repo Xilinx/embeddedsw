@@ -104,7 +104,7 @@ proc generate {drv_handle} {
                            $intc_params $io_params]
 
     eval [xdefine_include_file $drv_handle "xparameters.h" "XIOModule" $all_params]
-    eval [xdefine_config_file  $drv_handle "xiomodule_g.c" "XIOModule" $all_params]
+    eval [::hsi::utils::define_config_file  $drv_handle "xiomodule_g.c" "XIOModule" $all_params]
     
     # Generate the following definitions as hexadecimal values in xparameters.h
     # 5. GPO
