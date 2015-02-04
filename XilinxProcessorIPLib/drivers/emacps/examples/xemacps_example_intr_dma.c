@@ -177,6 +177,10 @@ u32 TxFrameLength;
 static XScuGic IntcInstance;
 #endif
 
+XEmacPs_Bd BdTxTerminate __attribute__ ((aligned(64)));
+
+XEmacPs_Bd BdRxTerminate __attribute__ ((aligned(64)));
+
 u32 GemVersion;
 
 /*************************** Function Prototypes ****************************/
@@ -450,6 +454,28 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 		EmacPsUtilErrorTrap
 			("Error setting up TxBD space, BdRingClone");
 		return XST_FAILURE;
+	}
+
+	if (GemVersion > 2)
+	{
+		/*
+		 * This version of GEM supports priority queuing and the current
+		 * dirver is using tx priority queue 1 and normal rx queue for
+		 * packet transmit and receive. The below code ensure that the
+		 * other queue pointers are parked to known state for avoiding
+		 * the controller to malfunction by fetching the descriptors
+		 * from these queues.
+		 */
+		XEmacPs_BdClear(&BdRxTerminate);
+		XEmacPs_BdSetAddressRx(&BdRxTerminate, (XEMACPS_RXBUF_NEW_MASK |
+						XEMACPS_RXBUF_WRAP_MASK));
+		XEmacPs_Out32((Config->BaseAddress + XEMACPS_RXQ1BASE_OFFSET),
+			       &BdRxTerminate);
+		XEmacPs_BdClear(&BdTxTerminate);
+		XEmacPs_BdSetStatus(&BdTxTerminate, (XEMACPS_TXBUF_USED_MASK |
+						XEMACPS_TXBUF_WRAP_MASK));
+		XEmacPs_Out32((Config->BaseAddress + XEMACPS_TXQBASE_OFFSET),
+			       &BdTxTerminate);
 	}
 
 	/*
