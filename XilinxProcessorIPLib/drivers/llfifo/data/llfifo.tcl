@@ -45,9 +45,9 @@
 
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XLlFifo"  "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR"  "C_AXI4_BASEADDR" "C_AXI4_HIGHADDR" "C_DATA_INTERFACE_TYPE"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XLlFifo"  "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR"  "C_AXI4_BASEADDR" "C_AXI4_HIGHADDR" "C_DATA_INTERFACE_TYPE"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Axi_Fifo" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_AXI4_BASEADDR" "C_AXI4_HIGHADDR" "C_DATA_INTERFACE_TYPE" 
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Axi_Fifo" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_AXI4_BASEADDR" "C_AXI4_HIGHADDR" "C_DATA_INTERFACE_TYPE"
 		
-   xdefine_config_file $drv_handle "xllfifo_g.c" "XLlFifo"  "DEVICE_ID" "C_BASEADDR" "C_AXI4_BASEADDR" "C_DATA_INTERFACE_TYPE"
+   ::hsi::utils::define_config_file $drv_handle "xllfifo_g.c" "XLlFifo"  "DEVICE_ID" "C_BASEADDR" "C_AXI4_BASEADDR" "C_DATA_INTERFACE_TYPE"
 }
