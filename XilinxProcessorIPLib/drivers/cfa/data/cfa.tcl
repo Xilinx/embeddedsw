@@ -31,7 +31,7 @@
 ##############################################################################
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "CFA" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_S_AXI_CLK_FREQ_HZ" "C_BAYER_PHASE" "C_ACTIVE_ROWS" "C_ACTIVE_COLS" "C_MAX_COLS" "C_HAS_INTC_IF" "C_HAS_DEBUG" "C_HOR_FILT" "C_FRINGE_TOL"
-    xdefine_config_file $drv_handle "xcfa_g.c" "XCfa" "DEVICE_ID" "C_BASEADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_S_AXI_CLK_FREQ_HZ" "C_BAYER_PHASE" "C_ACTIVE_ROWS" "C_ACTIVE_COLS" "C_MAX_COLS" "C_HAS_INTC_IF" "C_HAS_DEBUG" "C_HOR_FILT" "C_FRINGE_TOL"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "CFA" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_S_AXI_CLK_FREQ_HZ" "C_BAYER_PHASE" "C_ACTIVE_ROWS" "C_ACTIVE_COLS" "C_MAX_COLS" "C_HAS_INTC_IF" "C_HAS_DEBUG" "C_HOR_FILT" "C_FRINGE_TOL"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "CFA" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_S_AXI_CLK_FREQ_HZ" "C_BAYER_PHASE" "C_ACTIVE_ROWS" "C_ACTIVE_COLS" "C_MAX_COLS" "C_HAS_INTC_IF" "C_HAS_DEBUG" "C_HOR_FILT" "C_FRINGE_TOL"
+    ::hsi::utils::define_config_file $drv_handle "xcfa_g.c" "XCfa" "DEVICE_ID" "C_BASEADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_S_AXI_CLK_FREQ_HZ" "C_BAYER_PHASE" "C_ACTIVE_ROWS" "C_ACTIVE_COLS" "C_MAX_COLS" "C_HAS_INTC_IF" "C_HAS_DEBUG" "C_HOR_FILT" "C_FRINGE_TOL"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CFA" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_S_AXIS_VIDEO_FORMAT" "C_M_AXIS_VIDEO_FORMAT" "C_S_AXI_CLK_FREQ_HZ" "C_BAYER_PHASE" "C_ACTIVE_ROWS" "C_ACTIVE_COLS" "C_MAX_COLS" "C_HAS_INTC_IF" "C_HAS_DEBUG" "C_HOR_FILT" "C_FRINGE_TOL"
 }
