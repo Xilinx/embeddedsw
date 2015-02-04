@@ -36,8 +36,8 @@
 # 7.0      adk    22/08/14 Modified config_files parameters by adding prefix C_.
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XSCALER" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_NUM_V_TAPS" "C_NUM_H_TAPS" "C_MAX_PHASES" "C_MAX_COEF_SETS" "C_CHROMA_FORMAT" "C_SEPARATE_YC_COEFS" "C_SEPARATE_HV_COEFS"
-    xdefine_config_file $drv_handle "xscaler_g.c" "XScaler" "DEVICE_ID" "C_BASEADDR" "C_NUM_V_TAPS" "C_NUM_H_TAPS" "C_MAX_PHASES" "C_MAX_COEF_SETS" "C_CHROMA_FORMAT" "C_SEPARATE_YC_COEFS" "C_SEPARATE_HV_COEFS"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "XScaler" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_NUM_V_TAPS" "C_NUM_H_TAPS" "C_MAX_PHASES" "C_MAX_COEF_SETS" "C_CHROMA_FORMAT" "C_SEPARATE_YC_COEFS" "C_SEPARATE_HV_COEFS"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XSCALER" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_NUM_V_TAPS" "C_NUM_H_TAPS" "C_MAX_PHASES" "C_MAX_COEF_SETS" "C_CHROMA_FORMAT" "C_SEPARATE_YC_COEFS" "C_SEPARATE_HV_COEFS"
+    ::hsi::utils::define_config_file $drv_handle "xscaler_g.c" "XScaler" "DEVICE_ID" "C_BASEADDR" "C_NUM_V_TAPS" "C_NUM_H_TAPS" "C_MAX_PHASES" "C_MAX_COEF_SETS" "C_CHROMA_FORMAT" "C_SEPARATE_YC_COEFS" "C_SEPARATE_HV_COEFS"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "XScaler" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_NUM_V_TAPS" "C_NUM_H_TAPS" "C_MAX_PHASES" "C_MAX_COEF_SETS" "C_CHROMA_FORMAT" "C_SEPARATE_YC_COEFS" "C_SEPARATE_HV_COEFS"
 }
 
