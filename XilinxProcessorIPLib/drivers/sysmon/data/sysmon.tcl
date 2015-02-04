@@ -38,7 +38,7 @@
 
 proc generate {drv_handle} {
   xdefine_include_file $drv_handle "xparameters.h" "XSysMon" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_INTR"
-  xdefine_config_file  $drv_handle "xsysmon_g.c" "XSysMon" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_INTR" "IP_TYPE"
+  ::hsi::utils::define_config_file  $drv_handle "xsysmon_g.c" "XSysMon" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_INTR" "IP_TYPE"
 
   xdefine_canonical_xpars $drv_handle "xparameters.h" "SysMon" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_INTR"
 }
