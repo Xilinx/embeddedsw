@@ -42,8 +42,8 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XUartLite" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
-    xdefine_config_file $drv_handle "xuartlite_g.c" "XUartLite"  "DEVICE_ID" "C_BASEADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY"  "C_DATA_BITS"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XUartLite" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
+    ::hsi::utils::define_config_file $drv_handle "xuartlite_g.c" "XUartLite"  "DEVICE_ID" "C_BASEADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY"  "C_DATA_BITS"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "UartLite" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "UartLite" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
 }
