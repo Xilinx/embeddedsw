@@ -289,6 +289,8 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 							reg */
 #define XEMACPS_TXQ1BASE_OFFSET	     0x00000440U /**< TX Q1 Base address
 							reg */
+#define XEMACPS_RXQ1BASE_OFFSET	     0x00000480U /**< RX Q1 Base address
+							reg */
 #define XEMACPS_MSBBUF_QBASE_OFFSET  0x000004C8U /**< MSB Buffer Q Base
 							reg */
 #define XEMACPS_INTQ1_IER_OFFSET     0x00000600U /**< Interrupt Q1 Enable
