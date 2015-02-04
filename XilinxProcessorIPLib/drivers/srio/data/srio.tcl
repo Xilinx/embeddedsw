@@ -40,12 +40,12 @@
 ##############################################################################
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XSrio" "NUM_INSTANCES" \
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XSrio" "NUM_INSTANCES" \
 				     "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR"  \
 				     "C_DEVICEID" 
-    xdefine_config_file $drv_handle "xsrio_g.c" "XSrio"  "DEVICE_ID" "C_BASEADDR" 
+    ::hsi::utils::define_config_file $drv_handle "xsrio_g.c" "XSrio"  "DEVICE_ID" "C_BASEADDR"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Srio" "DEVICE_ID" "C_BASEADDR" 
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Srio" "DEVICE_ID" "C_BASEADDR"
 }
 
 
