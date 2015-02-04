@@ -47,8 +47,8 @@
 proc generate {drv_handle} {
 
     xdefine_cortexa9_params $drv_handle
-    xdefine_include_file $drv_handle "xparameters.h" "XCPU_CORTEXA9" "C_CPU_CLK_FREQ_HZ"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "CPU_CORTEXA9" "C_CPU_CLK_FREQ_HZ"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCPU_CORTEXA9" "C_CPU_CLK_FREQ_HZ"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CPU_CORTEXA9" "C_CPU_CLK_FREQ_HZ"
     xdefine_addr_params_for_ext_intf $drv_handle "xparameters.h"
 }
 
