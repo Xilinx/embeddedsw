@@ -50,8 +50,8 @@
 
 proc generate {drv_handle} {
 
-    xdefine_include_file $drv_handle "xparameters.h" "XTft" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_DEFAULT_TFT_BASE_ADDR" 
-    xdefine_config_file $drv_handle "xtft_g.c" "XTft" "DEVICE_ID" "C_BASEADDR" "C_DEFAULT_TFT_BASE_ADDR" 
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XTft" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_DEFAULT_TFT_BASE_ADDR"
+    ::hsi::utils::define_config_file $drv_handle "xtft_g.c" "XTft" "DEVICE_ID" "C_BASEADDR" "C_DEFAULT_TFT_BASE_ADDR"
     xdefine_canonical_xpars $drv_handle "xparameters.h" "Tft" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_DEFAULT_TFT_BASE_ADDR" 
 }
 
