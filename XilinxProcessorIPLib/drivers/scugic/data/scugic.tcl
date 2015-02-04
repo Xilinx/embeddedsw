@@ -53,7 +53,7 @@ proc generate {drv_handle} {
     xdefine_gic_params $drv_handle
 
     xdefine_zynq_include_file $drv_handle "xparameters.h" "XScuGic" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_DIST_BASEADDR"
-    xdefine_zynq_config_file $drv_handle "xscugic_g.c" "XScuGic" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_DIST_BASEADDR"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xscugic_g.c" "XScuGic" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_DIST_BASEADDR"
     xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "ScuGic" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_DIST_BASEADDR"
 
 }
