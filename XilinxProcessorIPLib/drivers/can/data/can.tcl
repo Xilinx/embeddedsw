@@ -32,8 +32,8 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XCan" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "C_CAN_NUM_ACF"
-    xdefine_config_file $drv_handle "xcan_g.c" "XCan" "DEVICE_ID" "C_BASEADDR" "C_CAN_NUM_ACF"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCan" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "C_CAN_NUM_ACF"
+    ::hsi::utils::define_config_file $drv_handle "xcan_g.c" "XCan" "DEVICE_ID" "C_BASEADDR" "C_CAN_NUM_ACF"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Can" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "C_CAN_NUM_ACF"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Can" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "C_CAN_NUM_ACF"
 }
