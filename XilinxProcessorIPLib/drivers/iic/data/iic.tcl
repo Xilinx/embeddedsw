@@ -35,8 +35,8 @@
 # 3.0     adk    12/10/13 Updated as per the New Tcl API's
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
-##  Removed the local xdefine_canonical_xpars API as there is 
-##  a common API in the tcl of the tools 
+##  Removed the local ::hsi::utils::define_canonical_xpars API as there is
+##  a common API in the tcl of the tools
 ##
 ## @END_CHANGELOG
 
@@ -49,8 +49,8 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XIic" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TEN_BIT_ADR" "C_GPO_WIDTH"
-    xdefine_config_file $drv_handle "xiic_g.c" "XIic"  "DEVICE_ID" "C_BASEADDR" "C_TEN_BIT_ADR" "C_GPO_WIDTH"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XIic" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TEN_BIT_ADR" "C_GPO_WIDTH"
+    ::hsi::utils::define_config_file $drv_handle "xiic_g.c" "XIic"  "DEVICE_ID" "C_BASEADDR" "C_TEN_BIT_ADR" "C_GPO_WIDTH"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Iic" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TEN_BIT_ADR" "C_GPO_WIDTH"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Iic" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TEN_BIT_ADR" "C_GPO_WIDTH"
 }
