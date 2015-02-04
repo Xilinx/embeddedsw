@@ -44,11 +44,11 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_zynq_include_file $drv_handle "xparameters.h" "XSdPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP"
+    ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XSdPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP"
 
-    xdefine_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xsdps_g.c" "XSdPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP"
 
-    xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "XSdPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP"
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XSdPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_SDIO_CLK_FREQ_HZ" "C_HAS_CD" "C_HAS_WP"
 
 }
 
