@@ -73,12 +73,12 @@ proc generate {drv_handle} {
 
 
     # Generate #defines in xparameters.h
-    xdefine_include_file $drv_handle "xparameters.h" "XHwIcap" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_ICAP_DWIDTH" "C_MODE"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XHwIcap" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_ICAP_DWIDTH" "C_MODE"
        
     # Generate the _g.c configuration file
-    xdefine_config_file $drv_handle "xhwicap_g.c" "XHwIcap"  "DEVICE_ID" "C_BASEADDR" "C_ICAP_DWIDTH" "C_MODE" 
+    ::hsi::utils::define_config_file $drv_handle "xhwicap_g.c" "XHwIcap"  "DEVICE_ID" "C_BASEADDR" "C_ICAP_DWIDTH" "C_MODE"
        
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "HwIcap" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_ICAP_DWIDTH" "C_MODE"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "HwIcap" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_ICAP_DWIDTH" "C_MODE"
 
 }
 
