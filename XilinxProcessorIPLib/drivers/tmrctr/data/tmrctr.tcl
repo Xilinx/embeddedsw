@@ -39,7 +39,7 @@
 
 proc generate {drv_handle} {
     xdefine_include_file $drv_handle "xparameters.h" "XTmrCtr" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
-    xdefine_config_file $drv_handle "xtmrctr_g.c" "XTmrCtr"  "DEVICE_ID" "C_BASEADDR"
+    ::hsi::utils::define_config_file $drv_handle "xtmrctr_g.c" "XTmrCtr"  "DEVICE_ID" "C_BASEADDR"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "TmrCtr" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
 }
