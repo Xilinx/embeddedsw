@@ -95,6 +95,9 @@
 *                    change is done only when no transfer is in progress.
 * 3.1   hk  08/13/14 When writing to the configuration register, set/reset
 *                    required bits leaving reserved bits untouched. CR# 796813.
+* 3.2	sk	02/05/15 Add SLCR reset in abort function as a workaround because
+* 					 controller does not update FIFO status flags as expected
+* 					 when thresholds are used.
 *
 * </pre>
 *
@@ -313,6 +316,17 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 			 XQSPIPS_CR_OFFSET, ConfigReg);
 
 	/*
+	 * QSPI Software Reset
+	 */
+	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_UNLOCK,
+			SLCR_UNLOCK_MASK);
+	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, LQSPI_RST_CTRL,
+			LQSPI_RST_CTRL_MASK);
+	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, LQSPI_RST_CTRL, 0x0);
+	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_LOCK,
+			SLCR_LOCK_MASK);
+
+	/*
 	 * Set the RX and TX FIFO threshold to reset value (one)
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
@@ -320,15 +334,6 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPS_TXWR_OFFSET, XQSPIPS_TXWR_RESET_VALUE);
-
-	/*
-	 * Clear the RX FIFO and drop any data.
-	 */
-	while ((XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-		 XQSPIPS_SR_OFFSET) & XQSPIPS_IXR_RXNEMPTY_MASK) != 0) {
-		XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XQSPIPS_RXD_OFFSET);
-	}
 
 	InstancePtr->RemainingBytes = 0;
 	InstancePtr->RequestedBytes = 0;

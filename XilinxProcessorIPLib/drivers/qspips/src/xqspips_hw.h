@@ -57,6 +57,9 @@
 *                    constant definitions.
 * 3.1   hk  08/13/14 Changed definition of CR reset value masks to set/reset
 *                    required bits leaving reserved bits untouched. CR# 796813.
+* 3.2	sk	02/05/15 Add SLCR reset in abort function as a workaround because
+* 					 controller does not update FIFO status flags as expected
+* 					 when thresholds are used.
 *
 * </pre>
 *
@@ -321,6 +324,34 @@ extern "C" {
  */
 
 #define XQSPIPS_LPBK_DLY_ADJ_USE_LPBK_MASK 0x00000020 /**< Loopback Bit */
+
+/* @} */
+
+
+/** @name SLCR Register
+ *
+ * Register offsets from SLCR base address.
+ *
+ * @{
+ */
+
+#define SLCR_LOCK 0x00000004 /**< SLCR Write Protection Lock */
+#define SLCR_UNLOCK 0x00000008 /**< SLCR Write Protection Unlock */
+#define LQSPI_RST_CTRL 0x00000230 /**< Quad SPI Software Reset Control */
+
+/* @} */
+
+
+/** @name SLCR Register
+ *
+ * Bit Masks of above SLCR Registers .
+ *
+ * @{
+ */
+
+#define SLCR_LOCK_MASK 0x767B /**< Write Protection Lock mask*/
+#define SLCR_UNLOCK_MASK 0xDF0D /**< SLCR Write Protection Unlock */
+#define LQSPI_RST_CTRL_MASK 0x3 /**< Quad SPI Software Reset Control */
 
 /* @} */
 

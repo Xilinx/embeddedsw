@@ -265,6 +265,9 @@
 *                    CR#737760.
 * 3.1   hk  08/13/14 When writing to the configuration register, set/reset
 *                    required bits leaving reserved bits untouched. CR# 796813.
+* 3.2	sk	02/05/15 Add SLCR reset in abort function as a workaround because
+* 					 controller does not update FIFO status flags as expected
+* 					 when thresholds are used.
 *
 * </pre>
 *
