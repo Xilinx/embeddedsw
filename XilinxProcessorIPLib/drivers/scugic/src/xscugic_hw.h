@@ -93,7 +93,7 @@ extern "C" {
 #ifdef __ARM_NEON__
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
 #else
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	150U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    	195U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
 #endif
 
 /*
