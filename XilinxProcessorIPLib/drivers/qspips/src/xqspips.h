@@ -263,7 +263,7 @@
 *                    change is done only when no transfer is in progress.
 *                    Updated linear init API for parallel and stacked modes.
 *                    CR#737760.
-* 3.1   hk  06/19/14 When writng configuration register, set/reset
+* 3.1   hk  08/13/14 When writing to the configuration register, set/reset
 *                    required bits leaving reserved bits untouched. CR# 796813.
 *
 * </pre>

@@ -93,7 +93,7 @@
 *                    Added RX threshold reset(1) after transfer in polled and
 *                    interrupt transfers. Made changes to make sure threshold
 *                    change is done only when no transfer is in progress.
-* 3.1   hk  06/19/14 When writng configuration register, set/reset
+* 3.1   hk  08/13/14 When writing to the configuration register, set/reset
 *                    required bits leaving reserved bits untouched. CR# 796813.
 *
 * </pre>
@@ -275,8 +275,10 @@ void XQspiPs_Reset(XQspiPs *InstancePtr)
 	 */
 	ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
 			 XQSPIPS_CR_OFFSET);
+	ConfigReg |= XQSPIPS_CR_RESET_MASK_SET;
+	ConfigReg &= ~XQSPIPS_CR_RESET_MASK_CLR;
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPS_CR_OFFSET,
-			  ConfigReg | XQSPIPS_CR_RESET_STATE);
+			  ConfigReg);
 }
 
 /*****************************************************************************/

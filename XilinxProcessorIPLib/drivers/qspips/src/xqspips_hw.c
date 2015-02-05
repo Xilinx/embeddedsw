@@ -42,7 +42,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 2.03a hk  09/17/13 First release
-* 3.1   hk  06/19/14 When writng configuration register, set/reset
+* 3.1   hk  06/19/14 When writing to the configuration register, set/reset
 *                    required bits leaving reserved bits untouched. CR# 796813.
 *
 * </pre>
@@ -140,8 +140,9 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 	 * Write default value to configuration register
 	 */
 	ConfigReg = XQspiPs_ReadReg(BaseAddress, XQSPIPS_CR_OFFSET);
-	XQspiPs_WriteReg(BaseAddress, XQSPIPS_CR_OFFSET,
-				ConfigReg | XQSPIPS_CR_RESET_STATE);
+	ConfigReg |= XQSPIPS_CR_RESET_MASK_SET;
+	ConfigReg &= ~XQSPIPS_CR_RESET_MASK_CLR;
+	XQspiPs_WriteReg(BaseAddress, XQSPIPS_CR_OFFSET, ConfigReg);
 
 	/*
 	 * De-select linear mode
@@ -167,6 +168,7 @@ void XQspiPs_LinearInit(u32 BaseAddress)
 {
 	u32 BaudRateDiv;
 	u32 LinearCfg;
+	u32 ConfigReg;
 
 	/*
 	 * Baud rate divisor for dividing by 4. Value of CR bits [5:3]
@@ -178,10 +180,10 @@ void XQspiPs_LinearInit(u32 BaseAddress)
 	 * Write configuration register with default values, slave selected &
 	 * pre-scaler value for divide by 4
 	 */
-	XQspiPs_WriteReg(BaseAddress, XQSPIPS_CR_OFFSET,
-				((XQSPIPS_CR_RESET_STATE |
-				XQSPIPS_CR_HOLD_B_MASK | BaudRateDiv) &
-				(~XQSPIPS_CR_SSCTRL_MASK) ));
+	ConfigReg = XQspiPs_ReadReg(BaseAddress, XQSPIPS_CR_OFFSET);
+	ConfigReg |= (XQSPIPS_CR_RESET_MASK_SET | BaudRateDiv);
+	ConfigReg &= ~(XQSPIPS_CR_RESET_MASK_CLR | XQSPIPS_CR_SSCTRL_MASK);
+	XQspiPs_WriteReg(BaseAddress, XQSPIPS_CR_OFFSET, ConfigReg);
 
 	/*
 	 * Write linear configuration register with default value -
