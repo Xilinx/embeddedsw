@@ -785,11 +785,18 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 	}
 
 	/*
+	 * Arbitration lost interrupt
+	 */
+	if (0U != (IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK)) {
+		StatusEvent |= XIICPS_EVENT_ARB_LOST;
+	}
+
+	/*
 	 * All other interrupts are treated as error.
 	 */
 	if (0U != (IntrStatusReg & (XIICPS_IXR_NACK_MASK |
-			XIICPS_IXR_ARB_LOST_MASK | XIICPS_IXR_RX_UNF_MASK |
-			XIICPS_IXR_TX_OVR_MASK | XIICPS_IXR_RX_OVR_MASK))) {
+			XIICPS_IXR_RX_UNF_MASK | XIICPS_IXR_TX_OVR_MASK |
+			XIICPS_IXR_RX_OVR_MASK))) {
 		if ((!(InstancePtr->IsRepeatedStart)) != 0) {
 			XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr,
