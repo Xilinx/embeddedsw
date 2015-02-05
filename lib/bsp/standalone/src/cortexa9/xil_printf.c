@@ -98,7 +98,7 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 	s32 i;
     char8 outbuf[32];
     const char8 digits[] = "0123456789ABCDEF";
-    s32 num;
+    u32 num;
     for(i = 0; i<32; i++) {
 	outbuf[i] = '0';
     }
