@@ -58,6 +58,7 @@
 * None.
 *
 ******************************************************************************/
+#include "xparameters.h"
 	.globl  MMUTable
 
 	.section .mmu_tbl,"a"
@@ -67,13 +68,28 @@ MMUTable:
 	 * 4096 entries, so the entire table takes up 16KB.
 	 * Each entry covers a 1MB section.
 	 */
-
 .set SECT, 0
+.set DDR_START, XPAR_PS7_DDR_0_S_AXI_BASEADDR
+.set DDR_END, XPAR_PS7_DDR_0_S_AXI_HIGHADDR
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.set DDR_REG, DDR_SIZE/0x100000
+.set UNDEF_REG, 0x3FF - DDR_REG
 
-.rept	0x0400			/* 0x00000000 - 0x3fffffff (DDR Cacheable) */
+							/*0x00000000 - 0x00100000 (cacheable )*/
+.word	SECT + 0x15de6		/* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
+.set	SECT, SECT+0x100000
+
+.rept	DDR_REG			/*  (DDR Cacheable) */
 .word	SECT + 0x15de6		/* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
+
+.rept	UNDEF_REG			/*  (unassigned/reserved).
+				 * Generates a translation fault if accessed */
+.word	SECT + 0x0		/* S=b0 TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 */
+.set	SECT, SECT+0x100000
+.endr
+
 
 .rept	0x0400			/* 0x40000000 - 0x7fffffff (FPGA slave0) */
 .word	SECT + 0xc02		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */

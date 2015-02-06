@@ -170,7 +170,7 @@ proc generate {os_handle} {
         } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
             puts $makeconfig "LIBSOURCES = *.c *.s"
 		} else {
-            puts $makeconfig "LIBSOURCES = *.c *.s *.S"
+            puts $makeconfig "LIBSOURCES = *.c *.S"
             puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_arm.o"
         }
     } else {
