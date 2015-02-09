@@ -90,14 +90,11 @@ typedef struct {
 
 extern xaxiemacif_s xaxiemacif;
 
-int	is_tx_space_available(xaxiemacif_s *emac);
-
+s32_t is_tx_space_available(xaxiemacif_s *emac);
+s32_t process_sent_bds(XAxiDma_BdRing *txring);
 /* xaxiemacif_dma.c */
 #ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 XStatus init_axi_dma(struct xemac_s *xemac);
-int  process_sent_bds(XAxiDma_BdRing *txring);
-
-void axidma_send_handler(void *arg);
 XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p);
 #endif
 
