@@ -2963,6 +2963,7 @@ static u32 XDp_TxAuxRequest(XDp *InstancePtr, XDp_AuxTransaction *Request)
 *******************************************************************************/
 static u32 XDp_TxAuxRequestSend(XDp *InstancePtr, XDp_AuxTransaction *Request)
 {
+	u32 TimeoutCount;
 	u32 Status;
 	u8 Index;
 
@@ -3012,6 +3013,20 @@ static u32 XDp_TxAuxRequestSend(XDp *InstancePtr, XDp_AuxTransaction *Request)
 	if ((Request->CmdCode == XDP_TX_AUX_CMD_READ) ||
 			(Request->CmdCode == XDP_TX_AUX_CMD_I2C_READ) ||
 			(Request->CmdCode == XDP_TX_AUX_CMD_I2C_READ_MOT)) {
+
+		/* Wait until all data has been received. */
+		TimeoutCount = 0;
+		do {
+			Status = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_TX_REPLY_DATA_COUNT);
+
+			XDp_WaitUs(InstancePtr, 100);
+			TimeoutCount++;
+			if (TimeoutCount >= XDP_AUX_MAX_TIMEOUT_COUNT) {
+				return XST_ERROR_COUNT_MAX;
+			}
+		} while (Status != Request->NumBytes);
+
 		/* Obtain the read data from the reply FIFO. */
 		for (Index = 0; Index < Request->NumBytes; Index++) {
 			Request->Data[Index] = XDp_ReadReg(
