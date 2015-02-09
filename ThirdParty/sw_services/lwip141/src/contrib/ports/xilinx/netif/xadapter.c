@@ -55,10 +55,6 @@
 #include "netif/xemacliteif.h"
 #endif
 
-#ifdef XLWIP_CONFIG_INCLUDE_TEMAC
-#include "netif/xlltemacif.h"
-#endif
-
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
 #include "netif/xaxiemacif.h"
 #endif
@@ -150,20 +146,6 @@ xemac_add(struct netif *netif,
 #else
 				return NULL;
 #endif
-			case xemac_type_xps_ll_temac:
-#ifdef XLWIP_CONFIG_INCLUDE_TEMAC
-				return netif_add(netif, ipaddr, netmask, gw,
-					(void*)mac_baseaddr,
-					xlltemacif_init,
-#if NO_SYS
-					ethernet_input
-#else
-					tcpip_input
-#endif
-					);
-#else
-				return NULL;
-#endif
 			case xemac_type_axi_ethernet:
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
 				return netif_add(netif, ipaddr, netmask, gw,
@@ -240,17 +222,6 @@ xemacif_input(struct netif *netif)
 			break;
 #else
 			print("incorrect configuration: xps_ethernetlite drivers not present?");
-			while(1);
-			return 0;
-#endif
-		case xemac_type_xps_ll_temac:
-#ifdef XLWIP_CONFIG_INCLUDE_TEMAC
-			SYS_ARCH_PROTECT(lev);
-			n_packets = xlltemacif_input(netif);
-			SYS_ARCH_UNPROTECT(lev);
-			break;
-#else
-			print("incorrect configuration: xps_ll_temac drivers not present?");
 			while(1);
 			return 0;
 #endif
