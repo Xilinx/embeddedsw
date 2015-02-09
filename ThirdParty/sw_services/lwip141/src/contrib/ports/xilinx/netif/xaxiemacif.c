@@ -242,45 +242,49 @@ int xaxiemacif_input(struct netif *netif)
 	struct pbuf *p;
 	SYS_ARCH_DECL_PROTECT(lev);
 
-	/* move received packet into a new pbuf */
-	SYS_ARCH_PROTECT(lev);
-	p = low_level_input(netif);
-	SYS_ARCH_UNPROTECT(lev);
+#if !NO_SYS
+	while (1)
+#endif
+	{
+		/* move received packet into a new pbuf */
+		SYS_ARCH_PROTECT(lev);
+		p = low_level_input(netif);
+		SYS_ARCH_UNPROTECT(lev);
 
-	/* no packet could be read, silently ignore this */
-	if (p == NULL)
-		return 0;
+		/* no packet could be read, silently ignore this */
+		if (p == NULL)
+			return 0;
 
-	/* points to packet payload, which starts with an Ethernet header */
-	ethhdr = p->payload;
+		/* points to packet payload, which starts with an Ethernet header */
+		ethhdr = p->payload;
 
 #if LINK_STATS
-	lwip_stats.link.recv++;
+		lwip_stats.link.recv++;
 #endif /* LINK_STATS */
 
-	switch (htons(ethhdr->type)) {
-		/* IP or ARP packet? */
-		case ETHTYPE_IP:
-		case ETHTYPE_ARP:
+		switch (htons(ethhdr->type)) {
+			/* IP or ARP packet? */
+			case ETHTYPE_IP:
+			case ETHTYPE_ARP:
 #if PPPOE_SUPPORT
-			/* PPPoE packet? */
-		case ETHTYPE_PPPOEDISC:
-		case ETHTYPE_PPPOE:
+				/* PPPoE packet? */
+			case ETHTYPE_PPPOEDISC:
+			case ETHTYPE_PPPOE:
 #endif /* PPPOE_SUPPORT */
-			/* full packet send to tcpip_thread to process */
-			if (netif->input(p, netif) != ERR_OK) {
-				LWIP_DEBUGF(NETIF_DEBUG, ("xaxiemacif_input: IP input error\r\n"));
+				/* full packet send to tcpip_thread to process */
+				if (netif->input(p, netif) != ERR_OK) {
+					LWIP_DEBUGF(NETIF_DEBUG, ("xaxiemacif_input: IP input error\r\n"));
+					pbuf_free(p);
+					p = NULL;
+				}
+				break;
+
+			default:
 				pbuf_free(p);
 				p = NULL;
-			}
-			break;
-
-		default:
-			pbuf_free(p);
-			p = NULL;
-			break;
+				break;
+		}
 	}
-
 	return 1;
 }
 
