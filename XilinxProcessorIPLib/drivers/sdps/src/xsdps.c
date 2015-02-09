@@ -167,6 +167,13 @@ int XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 						XSDPS_CAPS_OFFSET);
 
 	/*
+	 * Select voltage and enable bus power.
+	 */
+	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+			XSDPS_POWER_CTRL_OFFSET,
+			XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK);
+
+	/*
 	 * Change the clock frequency to 400 KHz
 	 */
 	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_400_KHZ);
@@ -174,13 +181,6 @@ int XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
 	}
-
-	/*
-	 * Select voltage and enable bus power.
-	 */
-	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_POWER_CTRL_OFFSET,
-			XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK);
 
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL1_OFFSET,
