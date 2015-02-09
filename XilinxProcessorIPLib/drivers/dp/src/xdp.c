@@ -3044,15 +3044,19 @@ static u32 XDp_TxAuxWaitReply(XDp *InstancePtr)
 
 	while (0 < Timeout) {
 		Status = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-						XDP_TX_INTERRUPT_STATUS);
+							XDP_TX_REPLY_STATUS);
 
-		/* Check for a timeout. */
-		if (Status & XDP_TX_INTERRUPT_STATUS_REPLY_TIMEOUT_MASK) {
+		/* Check for error. */
+		if (Status & XDP_TX_REPLY_STATUS_REPLY_ERROR_MASK) {
 			return XST_ERROR_COUNT_MAX;
 		}
 
 		/* Check for a reply. */
-		if (Status & XDP_TX_INTERRUPT_STATUS_REPLY_RECEIVED_MASK) {
+		if ((Status & XDP_TX_REPLY_STATUS_REPLY_RECEIVED_MASK) &&
+				!(Status &
+				XDP_TX_REPLY_STATUS_REQUEST_IN_PROGRESS_MASK) &&
+				!(Status &
+				XDP_TX_REPLY_STATUS_REPLY_IN_PROGRESS_MASK)) {
 			return XST_SUCCESS;
 		}
 
