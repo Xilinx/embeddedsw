@@ -93,14 +93,14 @@ s32_t	is_tx_space_available(xemacpsif_s *emac);
 
 /* xemacpsif_dma.c */
 
-void  process_sent_bds(XEmacPs_BdRing *txring);
+void  process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring);
 u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr);
 void detect_phy(XEmacPs *xemacpsp);
 void emacps_send_handler(void *arg);
 XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p);
 void emacps_recv_handler(void *arg);
 void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord);
-void setup_rx_bds(XEmacPs_BdRing *rxring);
+void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring);
 void HandleTxErrors(struct xemac_s *xemac);
 void HandleEmacPsError(struct xemac_s *xemac);
 XEmacPs_Config *xemacps_lookup_config(unsigned mac_base);
@@ -108,8 +108,8 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif);
 void setup_isr (struct xemac_s *xemac);
 XStatus init_dma(struct xemac_s *xemac);
 void start_emacps (xemacpsif_s *xemacps);
-void free_txrx_pbufs(void);
-void free_onlytx_pbufs(void);
+void free_txrx_pbufs(xemacpsif_s *xemacpsif);
+void free_onlytx_pbufs(xemacpsif_s *xemacpsif);
 void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif);
 void clean_dma_txdescs(struct xemac_s *xemac);
 void resetrx_on_no_rxdata(xemacpsif_s *xemacpsif);

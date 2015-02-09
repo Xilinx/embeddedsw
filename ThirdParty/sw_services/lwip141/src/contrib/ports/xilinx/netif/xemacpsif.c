@@ -142,7 +142,7 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
     freecnt = is_tx_space_available(xemacpsif);
     if (freecnt <= 5) {
 	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
-	process_sent_bds(txring);
+		process_sent_bds(xemacpsif, txring);
 	}
 
     if (is_tx_space_available(xemacpsif)) {
@@ -354,7 +354,7 @@ void HandleEmacPsError(struct xemac_s *xemac)
 	SYS_ARCH_DECL_PROTECT(lev);
 	SYS_ARCH_PROTECT(lev);
 
-	free_txrx_pbufs();
+	free_txrx_pbufs(xemacpsif);
 	xemacpsif = (xemacpsif_s *)(xemac->state);
 	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);
@@ -388,7 +388,7 @@ void HandleTxErrors(struct xemac_s *xemac)
     netctrlreg = netctrlreg & (~XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,
 									XEMACPS_NWCTRL_OFFSET, netctrlreg);
-	free_onlytx_pbufs();
+	free_onlytx_pbufs(xemacpsif);
 
 	clean_dma_txdescs(xemac);
 	netctrlreg = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress,

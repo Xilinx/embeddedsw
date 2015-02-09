@@ -60,8 +60,8 @@
 /* Byte alignment of BDs */
 #define BD_ALIGNMENT (XEMACPS_DMABD_MINIMUM_ALIGNMENT*2)
 
-static s32_t tx_pbufs_storage[XLWIP_CONFIG_N_TX_DESC];
-static s32_t rx_pbufs_storage[XLWIP_CONFIG_N_RX_DESC];
+static s32_t tx_pbufs_storage[2*XLWIP_CONFIG_N_TX_DESC];
+static s32_t rx_pbufs_storage[2*XLWIP_CONFIG_N_RX_DESC];
 
 static s32_t emac_intr_num;
 
@@ -130,7 +130,7 @@ s32_t is_tx_space_available(xemacpsif_s *emac)
 	return freecnt;
 }
 
-void process_sent_bds(XEmacPs_BdRing *txring)
+void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 {
 	XEmacPs_Bd *txbdset;
 	XEmacPs_Bd *curbdpntr;
@@ -140,6 +140,11 @@ void process_sent_bds(XEmacPs_BdRing *txring)
 	u32_t bdindex;
 	struct pbuf *p;
 	u32_t *temp;
+	u32_t index = 0;
+
+	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
+		index = sizeof(s32_t) * XLWIP_CONFIG_N_TX_DESC;
+	}
 
 	while (1) {
 		/* obtain processed BD's */
@@ -161,11 +166,11 @@ void process_sent_bds(XEmacPs_BdRing *txring)
 				*temp = 0xC0000000;
 			}
 
-			p = (struct pbuf *)tx_pbufs_storage[bdindex];
-			if(p != NULL) {
+			p = (struct pbuf *)tx_pbufs_storage[index + bdindex];
+			if (p != NULL) {
 				pbuf_free(p);
 			}
-			tx_pbufs_storage[bdindex] = 0;
+			tx_pbufs_storage[index + bdindex] = 0;
 			curbdpntr = XEmacPs_BdRingNext(txring, curbdpntr);
 			n_pbufs_freed--;
 			dsb();
@@ -195,7 +200,7 @@ void emacps_send_handler(void *arg)
 	XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,XEMACPS_TXSR_OFFSET, regval);
 
 	/* If Transmit done interrupt is asserted, process completed BD's */
-	process_sent_bds(txringptr);
+	process_sent_bds(xemacpsif, txringptr);
 #ifdef OS_IS_FREERTOS
 	xInsideISR--;
 #endif
@@ -211,11 +216,16 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	XEmacPs_BdRing *txring;
 	u32_t bdindex;
 	u32_t lev;
+	u32_t index = 0;
 
 	lev = mfcpsr();
 	mtcpsr(lev | 0x000000C0);
 
 	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
+
+	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
+		index = sizeof(s32_t) * XLWIP_CONFIG_N_TX_DESC;
+	}
 
 	/* first count the number of pbufs */
 	for (q = p, n_pbufs = 0; q != NULL; q = q->next)
@@ -231,7 +241,7 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 
 	for(q = p, txbd = txbdset; q != NULL; q = q->next) {
 		bdindex = XEMACPS_BD_TO_INDEX(txring, txbd);
-		if (tx_pbufs_storage[bdindex] != 0) {
+		if (tx_pbufs_storage[index + bdindex] != 0) {
 			mtcpsr(lev);
 			LWIP_DEBUGF(NETIF_DEBUG, ("PBUFS not available\r\n"));
 			return XST_FAILURE;
@@ -248,7 +258,7 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		else
 			XEmacPs_BdSetLength(txbd, q->len & 0x3FFF);
 
-		tx_pbufs_storage[bdindex] = (s32_t)q;
+		tx_pbufs_storage[index + bdindex] = (s32_t)q;
 
 		pbuf_ref(q);
 		last_txbd = txbd;
@@ -286,7 +296,7 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	return status;
 }
 
-void setup_rx_bds(XEmacPs_BdRing *rxring)
+void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 {
 	XEmacPs_Bd *rxbd;
 	XStatus status;
@@ -294,6 +304,11 @@ void setup_rx_bds(XEmacPs_BdRing *rxring)
 	u32_t freebds;
 	u32_t bdindex;
 	u32_t *temp;
+	u32_t index = 0;
+
+	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
+		index = sizeof(s32_t) * XLWIP_CONFIG_N_RX_DESC;
+	}
 
 	freebds = XEmacPs_BdRingGetFreeCnt (rxring);
 	while (freebds > 0) {
@@ -336,7 +351,7 @@ void setup_rx_bds(XEmacPs_BdRing *rxring)
 		*temp = 0;
 
 		XEmacPs_BdSetAddressRx(rxbd, (u32_t)p->payload);
-		rx_pbufs_storage[bdindex] = (s32_t)p;
+		rx_pbufs_storage[index + bdindex] = (s32_t)p;
 	}
 }
 
@@ -351,6 +366,7 @@ void emacps_recv_handler(void *arg)
 	s32_t rx_bytes, k;
 	u32_t bdindex;
 	u32_t regval;
+	u32_t index = 0;
 
 	xemac = (struct xemac_s *)(arg);
 	xemacpsif = (xemacpsif_s *)(xemac->state);
@@ -359,6 +375,9 @@ void emacps_recv_handler(void *arg)
 #ifdef OS_IS_FREERTOS
 	xInsideISR++;
 #endif
+	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
+		index = sizeof(s32_t) * XLWIP_CONFIG_N_RX_DESC;
+	}
 	/*
 	 * If Reception done interrupt is asserted, call RX call back function
 	 * to handle the processed BDs and then raise the according flag.
@@ -378,7 +397,7 @@ void emacps_recv_handler(void *arg)
 		for (k = 0, curbdptr=rxbdset; k < bd_processed; k++) {
 
 			bdindex = XEMACPS_BD_TO_INDEX(rxring, curbdptr);
-			p = (struct pbuf *)rx_pbufs_storage[bdindex];
+			p = (struct pbuf *)rx_pbufs_storage[index + bdindex];
 
 			/*
 			 * Adjust the buffer size to the actual number of bytes received.
@@ -404,7 +423,7 @@ void emacps_recv_handler(void *arg)
 		}
 		/* free up the BD's */
 		XEmacPs_BdRingFree(rxring, bd_processed, rxbdset);
-		setup_rx_bds(rxring);
+		setup_rx_bds(xemacpsif, rxring);
 	}
 
 #ifdef OS_IS_FREERTOS
@@ -443,10 +462,14 @@ XStatus init_dma(struct xemac_s *xemac)
 	s32_t i;
 	u32_t bdindex;
 	volatile u32_t tempaddress;
+	u32_t index = 0;
 
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 
+	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
+		index = sizeof(s32_t) * XLWIP_CONFIG_N_RX_DESC;
+	}
 	/*
 	 * The BDs need to be allocated in uncached memory. Hence the 1 MB
 	 * address range allocated for Bd_Space is made uncached
@@ -559,7 +582,7 @@ XStatus init_dma(struct xemac_s *xemac)
 		XEmacPs_BdSetAddressRx(rxbd, (u32_t)p->payload);
 
 		bdindex = XEMACPS_BD_TO_INDEX(rxringptr, rxbd);
-		rx_pbufs_storage[bdindex] = (s32_t)p;
+		rx_pbufs_storage[index + bdindex] = (s32_t)p;
 	}
 
 	/*
@@ -611,12 +634,17 @@ void resetrx_on_no_rxdata(xemacpsif_s *xemacpsif)
 	xemacpsif->last_rx_frms_cntr = tempcntr;
 }
 
-void free_txrx_pbufs(void)
+void free_txrx_pbufs(xemacpsif_s *xemacpsif)
 {
 	s32_t index;
+	s32_t index1 = 0;
 	struct pbuf *p;
 
-	for (index = 0; index < XLWIP_CONFIG_N_TX_DESC; index++) {
+	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
+		index1 = sizeof(s32_t) * XLWIP_CONFIG_N_TX_DESC;
+    }
+
+	for (index = index1; index < (index1 + XLWIP_CONFIG_N_TX_DESC); index++) {
 		if (tx_pbufs_storage[index] != 0) {
 			p = (struct pbuf *)tx_pbufs_storage[index];
 			pbuf_free(p);
@@ -624,19 +652,23 @@ void free_txrx_pbufs(void)
 		}
 	}
 
-	for (index = 0; index < XLWIP_CONFIG_N_RX_DESC; index++) {
+	for (index = index1; index < (index1 + XLWIP_CONFIG_N_TX_DESC); index++) {
 		p = (struct pbuf *)rx_pbufs_storage[index];
 		pbuf_free(p);
 
 	}
 }
 
-void free_onlytx_pbufs(void)
+void free_onlytx_pbufs(xemacpsif_s *xemacpsif)
 {
 	s32_t index;
+	s32_t index1 = 0;
 	struct pbuf *p;
 
-	for (index = 0; index < XLWIP_CONFIG_N_TX_DESC; index++) {
+	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
+		index1 = sizeof(s32_t) * XLWIP_CONFIG_N_TX_DESC;
+    }
+	for (index = index1; index < (index1 + XLWIP_CONFIG_N_TX_DESC); index++) {
 		if (tx_pbufs_storage[index] != 0) {
 			p = (struct pbuf *)tx_pbufs_storage[index];
 			pbuf_free(p);

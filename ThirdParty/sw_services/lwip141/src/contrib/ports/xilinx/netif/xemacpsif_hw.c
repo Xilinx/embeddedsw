@@ -227,12 +227,12 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 			if (ErrorWord & XEMACPS_RXSR_RXOVR_MASK) {
 				LWIP_DEBUGF(NETIF_DEBUG, ("Receive over run\r\n"));
 				emacps_recv_handler(arg);
-				setup_rx_bds(rxring);
+				setup_rx_bds(xemacpsif, rxring);
 			}
 			if (ErrorWord & XEMACPS_RXSR_BUFFNA_MASK) {
 				LWIP_DEBUGF(NETIF_DEBUG, ("Receive buffer not available\r\n"));
 				emacps_recv_handler(arg);
-				setup_rx_bds(rxring);
+				setup_rx_bds(xemacpsif, rxring);
 			}
 			break;
 			case XEMACPS_SEND:
@@ -254,7 +254,7 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 			}
 			if (ErrorWord & XEMACPS_TXSR_FRAMERX_MASK) {
 				LWIP_DEBUGF(NETIF_DEBUG, ("Transmit collision\r\n"));
-				process_sent_bds(txring);
+				process_sent_bds(xemacpsif, txring);
 			}
 			break;
 		}
