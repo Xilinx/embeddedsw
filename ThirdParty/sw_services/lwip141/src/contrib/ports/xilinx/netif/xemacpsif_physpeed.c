@@ -147,8 +147,10 @@
 #define IEEE_PAUSE_MASK						0x0400
 #define IEEE_AUTONEG_ERROR_MASK				0x8000
 
-#define PHY_DETECT_REG  1
-#define PHY_DETECT_MASK 0x1808
+#define PHY_DETECT_REG  						1
+#define PHY_IDENTIFIER_1_REG					2
+#define PHY_DETECT_MASK 					0x1808
+#define PHY_MARVELL_IDENTIFIER				0x0141
 
 #define XEMACPS_GMII2RGMII_SPEED1000_FD		0x140
 #define XEMACPS_GMII2RGMII_SPEED100_FD		0x2100
@@ -287,6 +289,12 @@ void detect_phy(XEmacPs *xemacpsp)
 				phymapemac0[phy_addr] = TRUE;
 			else
 				phymapemac1[phy_addr] = TRUE;
+
+			XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
+							&phy_reg);
+			if (phy_reg != PHY_MARVELL_IDENTIFIER) {
+				xil_printf("WARNING: Not a Marvell Ethernet PHY. Please verify the initialization sequence\r\n");
+			}
 		}
 	}
 }

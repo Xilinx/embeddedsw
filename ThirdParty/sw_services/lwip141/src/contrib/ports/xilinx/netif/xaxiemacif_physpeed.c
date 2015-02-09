@@ -106,10 +106,13 @@
 #define IEEE_PAUSE_MASK				0x0400
 #define IEEE_AUTONEG_ERROR_MASK			0x8000
 
-#define PHY_DETECT_REG  	1
-#define PHY_DETECT_MASK 	0x1808
-#define PHY_R0_ISOLATE  	0x0400
-#define PHY_MODEL_NUM_MASK	0x3F0
+#define PHY_R0_ISOLATE  						0x0400
+#define PHY_MODEL_NUM_MASK						0x3F0
+#define PHY_DETECT_REG  						1
+#define PHY_IDENTIFIER_1_REG					2
+#define PHY_DETECT_MASK 						0x1808
+#define PHY_MARVELL_IDENTIFIER					0x0141
+
 
 /* Marvel PHY flags */
 #define MARVEL_PHY_IDENTIFIER 		0x141
@@ -151,6 +154,11 @@ static int detect_phy(XAxiEthernet *xaxiemacp)
 			/* Found a valid PHY address */
 			LWIP_DEBUGF(NETIF_DEBUG, ("XAxiEthernet detect_phy: PHY detected at address %d.\r\n", phy_addr));
 			LWIP_DEBUGF(NETIF_DEBUG, ("XAxiEthernet detect_phy: PHY detected.\r\n"));
+			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG,
+										&phy_reg);
+			if (phy_reg != PHY_MARVELL_IDENTIFIER) {
+				xil_printf("WARNING: Not a Marvell Ethernet PHY. Please verify the initialization sequence\r\n");
+			}
 			return phy_addr;
 		}
 	}
