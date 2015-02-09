@@ -2092,6 +2092,11 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr)
 			break;
 		}
 
+		/* Only try maximum voltage swing once. */
+		if (LinkConfig->VsLevel == XDP_TX_MAXIMUM_VS_LEVEL) {
+			break;
+		}
+
 		/* Adjust the drive settings as requested by the RX device. */
 		Status = XDp_TxAdjVswingPreemp(InstancePtr);
 		if (Status != XST_SUCCESS) {
