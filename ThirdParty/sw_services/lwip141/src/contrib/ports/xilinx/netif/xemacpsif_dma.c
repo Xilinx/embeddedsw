@@ -414,16 +414,15 @@ void emacps_recv_handler(void *arg)
 				lwip_stats.link.drop++;
 #endif
 				pbuf_free(p);
-			} else {
-#if !NO_SYS
-				sys_sem_signal(&xemac->sem_rx_data_available);
-#endif
 			}
 			curbdptr = XEmacPs_BdRingNext( rxring, curbdptr);
 		}
 		/* free up the BD's */
 		XEmacPs_BdRingFree(rxring, bd_processed, rxbdset);
 		setup_rx_bds(xemacpsif, rxring);
+#if !NO_SYS
+		sys_sem_signal(&xemac->sem_rx_data_available);
+#endif
 	}
 
 #ifdef OS_IS_FREERTOS
