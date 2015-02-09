@@ -346,6 +346,10 @@ proc generate_lwip_opts {libhandle} {
 		if {$iptype == "xps_ethernetlite" || $iptype == "opb_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			set have_emaclite 1
 		}
+		if {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer" } {
+			set checksum_txoption [common::get_property CONFIG.C_TXCSUM $emac]
+			set checksum_rxoption [common::get_property CONFIG.C_RXCSUM $emac]
+		}
 	}
 
 	file delete $lwipopts_file
@@ -553,27 +557,75 @@ proc generate_lwip_opts {libhandle} {
 
 	if {$proctype != "ps7_cortexa9" || $use_axieth_on_zynq == 1} {
 		set tx_full_csum_temp [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
+		if {$tx_full_csum_temp == true} {
+			if {$checksum_txoption != 2} {
+				error "ERROR: Wrong Tx cheksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
+				"" "mdt_error"
+			} else {
+				set tx_full_csum [expr ![common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]]
+				puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP $tx_full_csum"
+				puts $lwipopts_fd "\#define CHECKSUM_GEN_UDP $tx_full_csum"
+				puts $lwipopts_fd "\#define CHECKSUM_GEN_IP $tx_full_csum"
+			}
+		}
 		set rx_full_csum_temp [common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
+		if {$rx_full_csum_temp == true} {
+			if {$checksum_rxoption != 2} {
+				error "ERROR: Wrong Rx cheksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
+				"" "mdt_error"
+			} else {
+				set rx_full_csum [expr ![common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]]
+				puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP $rx_full_csum"
+				puts $lwipopts_fd "\#define CHECKSUM_CHECK_UDP $rx_full_csum"
+				puts $lwipopts_fd "\#define CHECKSUM_CHECK_IP $rx_full_csum"
+			}
+		}
 
 		set tx_csum_temp [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
+		if {$tx_csum_temp == true} {
+			if {$checksum_txoption != 1} {
+				error "ERROR: Wrong Tx cheksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
+				"" "mdt_error"
+			} else {
+				set tx_csum [expr ![common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]]
+				puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP $tx_csum"
+			}
+		}
 		set rx_csum_temp [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
+		if {$rx_csum_temp == true} {
+			if {$checksum_rxoption != 1} {
+				error "ERROR: Wrong Rx cheksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
+				"" "mdt_error"
+			} else {
+				set rx_csum [expr ![common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]]
+				puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP $rx_csum"
+			}
+		}
 
-		if {$tx_csum_temp || $rx_csum_temp} {
-			set tx_csum [expr ![common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]]
-			puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP $tx_csum"
-			set rx_csum [expr ![common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]]
-			puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP $rx_csum"
+		if {$tx_full_csum_temp == false && $tx_csum_temp == false} {
+			puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP 	1"
+			puts $lwipopts_fd "\#define CHECKSUM_GEN_UDP 	1"
+			puts $lwipopts_fd "\#define CHECKSUM_GEN_IP  	1"
 		}
-		if {$tx_full_csum_temp || $rx_full_csum_temp} {
-			set tx_full_csum [expr ![common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]]
-			puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP $tx_full_csum"
-			puts $lwipopts_fd "\#define CHECKSUM_GEN_UDP $tx_full_csum"
-			puts $lwipopts_fd "\#define CHECKSUM_GEN_IP $tx_full_csum"
-			set rx_full_csum [expr ![common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]]
-			puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP $rx_full_csum"
-			puts $lwipopts_fd "\#define CHECKSUM_CHECK_UDP $rx_full_csum"
-			puts $lwipopts_fd "\#define CHECKSUM_CHECK_IP $rx_full_csum"
+
+		if {$rx_full_csum_temp == false && $rx_csum_temp == false} {
+			puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP  1"
+			puts $lwipopts_fd "\#define CHECKSUM_CHECK_UDP  1"
+			puts $lwipopts_fd "\#define CHECKSUM_CHECK_IP 	1"
 		}
+		if {$tx_full_csum_temp == true} {
+			puts $lwipopts_fd "\#define LWIP_FULL_CSUM_OFFLOAD_TX  1"
+		}
+		if {$rx_full_csum_temp == true} {
+			puts $lwipopts_fd "\#define LWIP_FULL_CSUM_OFFLOAD_RX  1"
+		}
+		if {$tx_csum_temp == true} {
+			puts $lwipopts_fd "\#define LWIP_PARTIAL_CSUM_OFFLOAD_TX  1"
+		}
+		if {$rx_csum_temp == true} {
+			puts $lwipopts_fd "\#define LWIP_PARTIAL_CSUM_OFFLOAD_RX  1"
+		}
+
 	} else {
 		if {$have_emaclite == 1} {
 			puts $lwipopts_fd "\#define CHECKSUM_GEN_TCP 	1"
@@ -589,8 +641,9 @@ proc generate_lwip_opts {libhandle} {
 			puts $lwipopts_fd "\#define CHECKSUM_CHECK_TCP  0"
 			puts $lwipopts_fd "\#define CHECKSUM_CHECK_UDP  0"
 			puts $lwipopts_fd "\#define CHECKSUM_CHECK_IP 	0"
+			puts $lwipopts_fd "\#define LWIP_FULL_CSUM_OFFLOAD_RX  1"
+			puts $lwipopts_fd "\#define LWIP_FULL_CSUM_OFFLOAD_TX  1"
 		}
-
 	}
 
 	puts $lwipopts_fd ""
