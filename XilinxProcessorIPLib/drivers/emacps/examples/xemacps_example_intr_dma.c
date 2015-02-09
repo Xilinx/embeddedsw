@@ -470,12 +470,12 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 		XEmacPs_BdSetAddressRx(&BdRxTerminate, (XEMACPS_RXBUF_NEW_MASK |
 						XEMACPS_RXBUF_WRAP_MASK));
 		XEmacPs_Out32((Config->BaseAddress + XEMACPS_RXQ1BASE_OFFSET),
-			       &BdRxTerminate);
+			       (UINTPTR)&BdRxTerminate);
 		XEmacPs_BdClear(&BdTxTerminate);
 		XEmacPs_BdSetStatus(&BdTxTerminate, (XEMACPS_TXBUF_USED_MASK |
 						XEMACPS_TXBUF_WRAP_MASK));
 		XEmacPs_Out32((Config->BaseAddress + XEMACPS_TXQBASE_OFFSET),
-			       &BdTxTerminate);
+			       (UINTPTR)&BdTxTerminate);
 	}
 
 	/*
