@@ -1972,13 +1972,12 @@ static u32 XDp_TxRunTraining(XDp *InstancePtr)
 			return XST_FAILURE;
 		}
 
-		if ((InstancePtr->TxInstance.TrainAdaptive == 0) &&
-			((TrainingState == XDP_TX_TS_ADJUST_LANE_COUNT) ||
-			(TrainingState == XDP_TX_TS_ADJUST_LINK_RATE))) {
-			return XST_FAILURE;
-		}
 		if ((TrainingState == XDP_TX_TS_ADJUST_LINK_RATE) ||
 			(TrainingState == XDP_TX_TS_ADJUST_LANE_COUNT)) {
+			if (InstancePtr->TxInstance.TrainAdaptive == 0) {
+				return XST_FAILURE;
+			}
+
 			Status = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_OFF);
 			if (Status != XST_SUCCESS) {
@@ -2732,13 +2731,13 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 	/* Make the adjustments to both the DisplayPort TX core and the RX
 	 * device. */
 	XDp_TxSetVswingPreemp(InstancePtr, &AuxData[1]);
+	/* Write the voltage swing and pre-emphasis levels for each lane to the
+	 * RX device. */
 	if  (Pattern == XDP_TX_TRAINING_PATTERN_SET_OFF) {
 		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 1,
 								AuxData);
 	}
 	else {
-		/* Write the voltage swing and pre-emphasis levels for each lane
-		 * to the RX device. */
 		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 5,
 								AuxData);
 	}
