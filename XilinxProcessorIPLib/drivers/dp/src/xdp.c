@@ -400,16 +400,16 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	/* Train main link. */
 	Status = XDp_TxRunTraining(InstancePtr);
 
-	/* Reenable main link after training if required. */
-	if (ReenableMainLink != 0) {
-		XDp_TxEnableMainLink(InstancePtr);
-	}
-
 	/* Turn off the training pattern and enable scrambler. */
 	Status2 = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_OFF);
 	if ((Status != XST_SUCCESS) || (Status2 != XST_SUCCESS)) {
 		return XST_FAILURE;
+	}
+
+	/* Reenable main link after training if required. */
+	if (ReenableMainLink) {
+		XDp_TxEnableMainLink(InstancePtr);
 	}
 
 	return XST_SUCCESS;
