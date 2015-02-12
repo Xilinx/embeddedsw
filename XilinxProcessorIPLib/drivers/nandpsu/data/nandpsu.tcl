@@ -29,14 +29,22 @@
 # this Software without prior written authorization from Xilinx.
 #
 ###############################################################################
-OPTION psf_version = 2.1;
+##############################################################################
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.00a nm   05/06/14 Created
+#
+##############################################################################
 
-BEGIN driver nandps8
+#uses "xillib.tcl"
 
-  OPTION supported_peripherals = (ps8_nand pss_nand);
-  OPTION driver_state = ACTIVE;
-  OPTION copyfiles = all;
-   OPTION VERSION = 2.0;
-  OPTION NAME = nandps8;
+proc generate {drv_handle} {
+    ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XNandPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
 
-END driver
+    ::hsi::utils::define_zynq_config_file $drv_handle "xnandps_g.c" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR"
+
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
+}

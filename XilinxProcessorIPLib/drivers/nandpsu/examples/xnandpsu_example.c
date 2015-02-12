@@ -43,9 +43,9 @@
 
 /******************************************************************************
 *
-* @file xnandps8_example.c
+* @file xnandpsu_example.c
 *
-* This file contains a design example using the NAND driver (XNandPs8).
+* This file contains a design example using the NAND driver (XNandPsu).
 * This example tests the erase, read and write features of the controller.
 * The flash is erased and written. The data is read back and compared
 * with the data written for correctness.
@@ -70,7 +70,7 @@
 #include <xil_types.h>
 #include <xil_printf.h>
 #include <xparameters.h>
-#include "xnandps8.h"
+#include "xnandpsu.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -92,8 +92,8 @@ s32 NandReadWriteExample(u16 NandDeviceId);
 
 /************************** Variable Definitions *****************************/
 
-XNandPs8 NandInstance;			/* XNand Instance */
-XNandPs8 *NandInstPtr = &NandInstance;
+XNandPsu NandInstance;			/* XNand Instance */
+XNandPsu *NandInstPtr = &NandInstance;
 
 /*
  * Buffers used during read and write transactions.
@@ -165,12 +165,12 @@ Out:
 s32 NandReadWriteExample(u16 NandDeviceId)
 {
 	s32 Status = XST_FAILURE;
-	XNandPs8_Config *Config;
+	XNandPsu_Config *Config;
 	u32 Index;
 	u64 Offset;
 	u32 Length;
 
-	Config = XNandPs8_LookupConfig(NandDeviceId);
+	Config = XNandPsu_LookupConfig(NandDeviceId);
 	if (Config == NULL) {
 		Status = XST_FAILURE;
 		goto Out;
@@ -178,13 +178,13 @@ s32 NandReadWriteExample(u16 NandDeviceId)
 	/*
 	 * Initialize the flash driver.
 	 */
-	Status = XNandPs8_CfgInitialize(NandInstPtr, Config,
+	Status = XNandPsu_CfgInitialize(NandInstPtr, Config,
 			Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
 
-	XNandPs8_EnableDmaMode(NandInstPtr);
+	XNandPsu_EnableDmaMode(NandInstPtr);
 
 	Offset = (u64)(TEST_PAGE_START * NandInstPtr->Geometry.BytesPerPage);
 	Length = TEST_BUF_SIZE;
@@ -198,14 +198,14 @@ s32 NandReadWriteExample(u16 NandDeviceId)
 	/*
 	 * Erase the flash
 	 */
-	Status = XNandPs8_Erase(NandInstPtr, (u64)Offset, (u64)Length);
+	Status = XNandPsu_Erase(NandInstPtr, (u64)Offset, (u64)Length);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
 	/*
 	 * Write to flash
 	 */
-	Status = XNandPs8_Write(NandInstPtr, (u64)Offset, (u64)Length,
+	Status = XNandPsu_Write(NandInstPtr, (u64)Offset, (u64)Length,
 						&WriteBuffer[0]);
 	if (Status != XST_SUCCESS) {
 		goto Out;
@@ -213,7 +213,7 @@ s32 NandReadWriteExample(u16 NandDeviceId)
 	/*
 	 * Read the flash after writing
 	 */
-	Status = XNandPs8_Read(NandInstPtr, (u64)Offset, (u64)Length,
+	Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
 						&ReadBuffer[0]);
 	if (Status != XST_SUCCESS) {
 		goto Out;

@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xnandps8_bbm.h
+* @file xnandpsu_bbm.h
 *
 * This file implements the Bad Block Management(BBM) functionality. This is
 * similar to the Bad Block Management which is a part of the MTD subsystem in
@@ -73,8 +73,8 @@
 * 0'b11 -> Good Block
 *
 * The user can check for the validity of the block using the API
-* XNandPs8_IsBlockBad and take the action based on the return value. Also user
-* can update the bad block table using XNandPs8_MarkBlockBad API.
+* XNandPsu_IsBlockBad and take the action based on the return value. Also user
+* can update the bad block table using XNandPsu_MarkBlockBad API.
 *
 * @note		None
 *
@@ -85,94 +85,94 @@
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
 * 2.0   sb     01/12/2015  Added support for writing BBT signature and version
-*			   in page section by enabling XNANDPS8_BBT_NO_OOB.
+*			   in page section by enabling XNANDPSU_BBT_NO_OOB.
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
 * </pre>
 *
 ******************************************************************************/
-#ifndef XNANDPS8_BBM_H		/* prevent circular inclusions */
-#define XNANDPS8_BBM_H		/* by using protection macros */
+#ifndef XNANDPSU_BBM_H		/* prevent circular inclusions */
+#define XNANDPSU_BBM_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xnandps8.h"
+#include "xnandpsu.h"
 
 /************************** Constant Definitions *****************************/
 /*
  * Block definitions for RAM based Bad Block Table (BBT)
  */
-#define XNANDPS8_BLOCK_GOOD			0x0U	/**< Block is good */
-#define XNANDPS8_BLOCK_BAD			0x1U	/**< Block is bad */
-#define XNANDPS8_BLOCK_RESERVED			0x2U	/**< Reserved block */
-#define XNANDPS8_BLOCK_FACTORY_BAD		0x3U	/**< Factory marked bad
+#define XNANDPSU_BLOCK_GOOD			0x0U	/**< Block is good */
+#define XNANDPSU_BLOCK_BAD			0x1U	/**< Block is bad */
+#define XNANDPSU_BLOCK_RESERVED			0x2U	/**< Reserved block */
+#define XNANDPSU_BLOCK_FACTORY_BAD		0x3U	/**< Factory marked bad
 							  block */
 /*
  * Block definitions for FLASH based Bad Block Table (BBT)
  */
-#define XNANDPS8_FLASH_BLOCK_GOOD		0x3U	/**< Block is good */
-#define XNANDPS8_FLASH_BLOCK_BAD		0x2U	/**< Block is bad */
-#define XNANDPS8_FLASH_BLOCK_RESERVED		0x1U	/**< Reserved block */
-#define XNANDPS8_FLASH_BLOCK_FAC_BAD	0x0U	/**< Factory marked bad
+#define XNANDPSU_FLASH_BLOCK_GOOD		0x3U	/**< Block is good */
+#define XNANDPSU_FLASH_BLOCK_BAD		0x2U	/**< Block is bad */
+#define XNANDPSU_FLASH_BLOCK_RESERVED		0x1U	/**< Reserved block */
+#define XNANDPSU_FLASH_BLOCK_FAC_BAD	0x0U	/**< Factory marked bad
 							  block */
 
-#define XNANDPS8_BBT_SCAN_2ND_PAGE		0x00000001U	/**< Scan the
+#define XNANDPSU_BBT_SCAN_2ND_PAGE		0x00000001U	/**< Scan the
 								  second page
 								  for bad block
 								  information
 								  */
-#define XNANDPS8_BBT_DESC_PAGE_OFFSET		0U	/**< Page offset of Bad
+#define XNANDPSU_BBT_DESC_PAGE_OFFSET		0U	/**< Page offset of Bad
 							  Block Table Desc */
-#define XNANDPS8_BBT_DESC_SIG_OFFSET		8U	/**< Bad Block Table
+#define XNANDPSU_BBT_DESC_SIG_OFFSET		8U	/**< Bad Block Table
 							  signature offset */
-#define XNANDPS8_BBT_DESC_VER_OFFSET		12U	/**< Bad block Table
+#define XNANDPSU_BBT_DESC_VER_OFFSET		12U	/**< Bad block Table
 							  version offset */
-#define XNANDPS8_NO_OOB_BBT_DESC_SIG_OFFSET	0U	/**< Bad Block Table
+#define XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET	0U	/**< Bad Block Table
 							  signature offset in
 							  page memory */
-#define XNANDPS8_NO_OOB_BBT_DESC_VER_OFFSET	4U	/**< Bad block Table
+#define XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET	4U	/**< Bad block Table
 							  version offset in
 							  page memory */
-#define XNANDPS8_BBT_DESC_SIG_LEN		4U	/**< Bad block Table
+#define XNANDPSU_BBT_DESC_SIG_LEN		4U	/**< Bad block Table
 							  signature length */
-#define XNANDPS8_BBT_DESC_MAX_BLOCKS		64U	/**< Bad block Table
+#define XNANDPSU_BBT_DESC_MAX_BLOCKS		64U	/**< Bad block Table
 							  max blocks */
 
-#define XNANDPS8_BBT_BLOCK_SHIFT		2U	/**< Block shift value
+#define XNANDPSU_BBT_BLOCK_SHIFT		2U	/**< Block shift value
 							  for a block in BBT */
-#define XNANDPS8_BBT_ENTRY_NUM_BLOCKS		4U	/**< Num of blocks in
+#define XNANDPSU_BBT_ENTRY_NUM_BLOCKS		4U	/**< Num of blocks in
 							  one BBT entry */
-#define XNANDPS8_BB_PTRN_OFF_SML_PAGE	5U	/**< Bad block pattern
+#define XNANDPSU_BB_PTRN_OFF_SML_PAGE	5U	/**< Bad block pattern
 							  offset in a page */
-#define XNANDPS8_BB_PTRN_LEN_SML_PAGE	1U	/**< Bad block pattern
+#define XNANDPSU_BB_PTRN_LEN_SML_PAGE	1U	/**< Bad block pattern
 							  length */
-#define XNANDPS8_BB_PTRN_OFF_LARGE_PAGE	0U	/**< Bad block pattern
+#define XNANDPSU_BB_PTRN_OFF_LARGE_PAGE	0U	/**< Bad block pattern
 							  offset in a large
 							  page */
-#define XNANDPS8_BB_PTRN_LEN_LARGE_PAGE	2U	/**< Bad block pattern
+#define XNANDPSU_BB_PTRN_LEN_LARGE_PAGE	2U	/**< Bad block pattern
 							  length */
-#define XNANDPS8_BB_PATTERN			0xFFU	/**< Bad block pattern
+#define XNANDPSU_BB_PATTERN			0xFFU	/**< Bad block pattern
 							  to search in a page
 							  */
-#define XNANDPS8_BLOCK_TYPE_MASK		0x03U	/**< Block type mask */
-#define XNANDPS8_BLOCK_SHIFT_MASK		0x06U	/**< Block shift mask
+#define XNANDPSU_BLOCK_TYPE_MASK		0x03U	/**< Block type mask */
+#define XNANDPSU_BLOCK_SHIFT_MASK		0x06U	/**< Block shift mask
 							  for a Bad Block Table
 							  entry byte */
 
-#define XNANDPS8_ONDIE_SIG_OFFSET		0x4U
-#define XNANDPS8_ONDIE_VER_OFFSET		0x14U
+#define XNANDPSU_ONDIE_SIG_OFFSET		0x4U
+#define XNANDPSU_ONDIE_VER_OFFSET		0x14U
 
-#define XNANDPS8_BBT_VERSION_LENGTH	1U
-#define XNANDPS8_BBT_SIG_LENGTH		4U
+#define XNANDPSU_BBT_VERSION_LENGTH	1U
+#define XNANDPSU_BBT_SIG_LENGTH		4U
 
-#define XNANDPS8_BBT_BUF_LENGTH		((XNANDPS8_MAX_BLOCKS >> 		\
-					 XNANDPS8_BBT_BLOCK_SHIFT) +	\
-					(XNANDPS8_BBT_DESC_SIG_OFFSET +	\
-					 XNANDPS8_BBT_SIG_LENGTH +	\
-					 XNANDPS8_BBT_VERSION_LENGTH))
+#define XNANDPSU_BBT_BUF_LENGTH		((XNANDPSU_MAX_BLOCKS >> 		\
+					 XNANDPSU_BBT_BLOCK_SHIFT) +	\
+					(XNANDPSU_BBT_DESC_SIG_OFFSET +	\
+					 XNANDPSU_BBT_SIG_LENGTH +	\
+					 XNANDPSU_BBT_VERSION_LENGTH))
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -189,20 +189,20 @@ extern "C" {
 * @note         None.
 *
 *****************************************************************************/
-#define XNandPs8_BbtBlockShift(Block) \
-			((u8)(((Block) * 2U) & XNANDPS8_BLOCK_SHIFT_MASK))
+#define XNandPsu_BbtBlockShift(Block) \
+			((u8)(((Block) * 2U) & XNANDPSU_BLOCK_SHIFT_MASK))
 
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
 
-void XNandPs8_InitBbtDesc(XNandPs8 *InstancePtr);
+void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr);
 
-s32 XNandPs8_ScanBbt(XNandPs8 *InstancePtr);
+s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr);
 
-s32 XNandPs8_IsBlockBad(XNandPs8 *InstancePtr, u32 Block);
+s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block);
 
-s32 XNandPs8_MarkBlockBad(XNandPs8 *InstancePtr, u32 Block);
+s32 XNandPsu_MarkBlockBad(XNandPsu *InstancePtr, u32 Block);
 
 #ifdef __cplusplus
 }

@@ -32,10 +32,11 @@
 /*****************************************************************************/
 /**
 *
-* @file xnandps8_sinit.c
+* @file xnandpsu_onfi.c
 *
-* The implementation of the XNandPs8 driver's static initialzation
-* functionality.
+* This file contains the implementation of ONFI specific functions.
+*
+* @note		None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,48 +48,65 @@
 *
 ******************************************************************************/
 
-/***************************** Include Files ********************************/
-#include "xstatus.h"
-#include "xparameters.h"
-#include "xnandps8.h"
-/************************** Constant Definitions ****************************/
-#define XPAR_XNANDPS8_NUM_INSTANCES	1U
+/***************************** Include Files *********************************/
+#include "xnandpsu_onfi.h"
+#include "xnandpsu.h"
 
-/**************************** Type Definitions ******************************/
+/************************** Constant Definitions *****************************/
 
-/***************** Macros (Inline Functions) Definitions ********************/
+/**************************** Type Definitions *******************************/
 
-/************************** Variable Definitions ****************************/
+/***************** Macros (Inline Functions) Definitions *********************/
 
-extern XNandPs8_Config XNandPs8_ConfigTable[];
+/************************** Function Prototypes ******************************/
 
-/************************** Function Prototypes *****************************/
-
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Looks up the controller configuration based on the unique controller ID. A
-* table contains the configuration info for each controller in the system.
+* This function calculates ONFI paramater page CRC.
 *
-* @param	DeviceID is the ID of the controller to look up the
-*		configuration for.
+* @param	Parambuf is a pointer to the ONFI paramater page buffer.
+* @param	StartOff is the starting offset in buffer to calculate CRC.
+* @param	Length is the number of bytes for which CRC is calculated.
 *
 * @return
-*		A pointer to the configuration found or NULL if the specified
-*		controller ID was not found.
+*		CRC value.
+* @note
+*		None.
 *
 ******************************************************************************/
-XNandPs8_Config *XNandPs8_LookupConfig(u16 DeviceID)
+u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)
 {
-	XNandPs8_Config *CfgPtr = NULL;
-	u32 Index;
+	const u32 CrcInit = 0x4F4EU;
+	const u32 Order = 16U;
+	const u32 Polynom = 0x8005U;
+	u32 i, j, c, Bit;
+	u32 Crc = CrcInit;
+	u32 DataIn;
+	u32 DataByteCount = 0U;
+	u32 CrcMask, CrcHighBit;
 
-	for (Index = 0U; Index < XPAR_XNANDPS8_NUM_INSTANCES; Index++) {
-		if (XNandPs8_ConfigTable[Index].DeviceId == DeviceID) {
-			CfgPtr = &XNandPs8_ConfigTable[Index];
-			break;
+	CrcMask = ((u32)(((u32)1 << (Order - (u32)1)) -(u32)1) << (u32)1) | (u32)1;
+	CrcHighBit = (u32)((u32)1 << (Order - (u32)1));
+	/*
+	 * CRC covers the data bytes between byte 0 and byte 253
+	 * (ONFI 1.0, section 5.4.1.36)
+	 */
+	for(i = StartOff; i < Length; i++) {
+		DataIn = ParamBuf[i];
+		c = (u32)DataIn;
+		DataByteCount++;
+		for(j = 0x80U; j; j >>= 1U) {
+			Bit = Crc & CrcHighBit;
+			Crc <<= 1U;
+			if ((c & j) != 0U) {
+				Bit ^= CrcHighBit;
+			}
+			if (Bit != 0U) {
+				Crc ^= Polynom;
+			}
 		}
+		Crc &= CrcMask;
 	}
-
-	return (XNandPs8_Config *)CfgPtr;
+	return Crc;
 }

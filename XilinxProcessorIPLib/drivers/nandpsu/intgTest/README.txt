@@ -1,4 +1,4 @@
-NandPs8 Integration test
+NandPsu Integration test
 
 - On R5 processors, you may get compilation error for bsp stating "undefined reference to `end'"
   Add end = .;  at the end of the linker script to remove this error

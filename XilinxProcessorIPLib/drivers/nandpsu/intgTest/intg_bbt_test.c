@@ -41,12 +41,11 @@
 /*****************************************************************************/
 /**
 *
-* @file intg_sparebytes_rw.c
+* @file intg_bbt_test.c
 *
-* This file contains the design example for using NAND driver (XNandPs8).
-* This example tests the erase, read and write feature of the controller
-* in the spare bytes region.The flash is erased and written. The data is
-* read back and compared with the data written for correctness.
+* This file contains the design example for using NAND driver (XNandPsu).
+* This example scans the Bbt on the flash. If found returns success else
+* Creates a new BBT and writes it on the flash.
 *
 * @note None.
 *
@@ -58,6 +57,7 @@
 * Ver   Who    Date	 Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   sb    11/28/2014 First release
+*
 *
 * </pre>
 *
@@ -76,13 +76,13 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr);
+s32 Bbt_Test(XNandPsu * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
 /**
 *
-* Entry point to call the Spare Bytes test.
+* Entry point to call the Bbt Scan test.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 * @param	TestLoops - Number of tests to execute.
@@ -92,17 +92,16 @@ s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr);
 * @note	 None.
 *
 *****************************************************************************/
-int Intg_SpareBytesRWTest(XNandPs8 * NandInstPtr, int TestLoops)
+int Intg_BbtTest(XNandPsu * NandInstPtr, int TestLoops)
 {
 
 	s32 Status = XST_FAILURE;
-	CT_TestReset("Module Spare Bytes Read Write test");
+	CT_TestReset("Module Bbt Scan test");
 
 	while(TestLoops--) {
-		Status = SpareBytes_RW_Test(NandInstPtr);
+		Status = Bbt_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
-			CT_LOG_FAILURE("Nand Spare Bytes Read Write Test Failed"
-					" with %d mismatches\r\n", MismatchCounter);
+			CT_LOG_FAILURE("Bbt Scan Test Failed\r\n");
 			break;
 		}
 		CT_NotifyNextPass();
@@ -117,102 +116,34 @@ int Intg_SpareBytesRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 * This function runs a test on the NAND flash device using the basic driver
 * functions in polled mode.
 * The function does the following tasks:
-*	- Erase the flash.
-*	- Write data to the spare byte section of flash.
-*	- Read back the data from the spare byte section of flash.
-*	- Compare the data read against the data Written.
+* Scan for Bad Block table.
+* If not found Create new and write it onto flash.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
 *
 * @note
 *		None
 *
 ****************************************************************************/
-s32 SpareBytes_RW_Test(XNandPs8 * NandInstPtr)
+s32 Bbt_Test(XNandPsu * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
-	u32 Index;
-	u64 Offset;
-	u32 SpareOffset;
-	u16 Length;
-	s32 i;
-	MismatchCounter = 0;
-
-	Offset = (u64)(TEST_PAGE_START * NandInstPtr->Geometry.BytesPerPage);
-	Length = NandInstPtr->Geometry.BytesPerPage;
 
 	/*
-	 * Offset to write in spare area
+	 * Enabling Ecc Mode
 	 */
-	SpareOffset = (u64)(TEST_PAGE_START);
+	XNandPsu_EnableEccMode(NandInstPtr);
 
 	/*
-	 * Repeat the test for 5 iterations
+	 * Scanning for Bbt
 	 */
-	for(i = 0; i< 5; i++){
-
-		/*
-		 * Erase the flash
-		 */
-		Status = XNandPs8_Erase(NandInstPtr, (u64)Offset, (u64)Length);
-		if (Status != XST_SUCCESS) {
-			goto Out;
-		}
-
-		Length = rand() % (NandInstPtr->Geometry.SpareBytesPerPage);
-		if(Length == 0U){
-			Length = NandInstPtr->Geometry.SpareBytesPerPage;
-		}
-
-		/*
-		 * Initialize the write buffer
-		 */
-		for (Index = 0; Index < Length;Index++) {
-			WriteBuffer[Index] = (u8) (rand() % 256);
-		}
-
-		/*
-		 * Disable the ECC mode
-		 */
-		XNandPs8_DisableEccMode(NandInstPtr);
-
-		/*
-		 * Write to flash Spare Bytes Section
-		 */
-		Status = XNandPs8_WriteSpareBytes(NandInstPtr, SpareOffset,
-				&WriteBuffer[0]);
-		if (Status != XST_SUCCESS) {
-			goto Out;
-		}
-
-		/*
-		 * Read from the flash Spare Bytes after writing
-		 */
-		Status = XNandPs8_ReadSpareBytes(NandInstPtr, SpareOffset,
-				&ReadBuffer[0]);
-		if (Status != XST_SUCCESS) {
-			goto Out;
-		}
-
-		/*
-		 * Enable the ECC mode
-		 */
-		XNandPs8_EnableEccMode(NandInstPtr);
-		/*
-		 * Compare the results
-		 */
-		for (Index = 0U; Index < Length;Index++) {
-			if (ReadBuffer[Index] != WriteBuffer[Index]) {
-				MismatchCounter++;
-				Status = XST_FAILURE;
-			}
-		}
+	Status = XNandPsu_ScanBbt(NandInstPtr);
+	if(Status != XST_SUCCESS) {
+		xil_printf("Bad Block table not found "
+				"New Bbt created\r\n");
 	}
 
-Out:
-	return Status;
+	return XST_SUCCESS;
 }

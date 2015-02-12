@@ -32,10 +32,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xnandps8_g.c
+* @file xnandpsu_g.c
 *
 * This file contains a configuration table where each entry is a configuration
-* structure for an XNandPs8 device in the system.
+* structure for an XNandPsu device in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -50,7 +50,7 @@
 
 /***************************** Include Files ********************************/
 #include "xparameters.h"
-#include "xnandps8.h"
+#include "xnandpsu.h"
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/
@@ -60,11 +60,11 @@
 /************************** Variable Definitions ****************************/
 
 /**
- * Each XNandPs8 device in the system has an entry in this table.
+ * Each XNandPsu device in the system has an entry in this table.
  */
-XNandPs8_Config XNandPs8_ConfigTable[] = {
+XNandPsu_Config XNandPsu_ConfigTable[] = {
 	{
 		0U,
-		XPAR_XNANDPS8_0_BASEADDR
+		XPAR_XNANDPSU_0_BASEADDR
 	}
 };

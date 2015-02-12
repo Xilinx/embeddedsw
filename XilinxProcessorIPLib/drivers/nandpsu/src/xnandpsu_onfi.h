@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xnandps8_onfi.h
+* @file xnandpsu_onfi.h
 *
 * This file defines all the ONFI 3.1 specific commands and values.
 *
@@ -47,8 +47,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XNANDPS8_ONFI_H		/* prevent circular inclusions */
-#define XNANDPS8_ONFI_H		/* by using protection macros */
+#ifndef XNANDPSU_ONFI_H		/* prevent circular inclusions */
+#define XNANDPSU_ONFI_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -331,10 +331,10 @@ extern const OnfiCmdFormat OnfiCmd[MAX_CMDS];
 
 /************************** Function Prototypes ******************************/
 
-u32 XNandPs8_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length);
+u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XNANDPS8_ONFI_H end of protection macro */
+#endif /* XNANDPSU_ONFI_H end of protection macro */

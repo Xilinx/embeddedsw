@@ -45,7 +45,7 @@
 *
 * DESCRIPTION:
 *
-* Provides integration test entry point for the XNandPs8 component.
+* Provides integration test entry point for the XNandPsu component.
 *
 * @note		None
 *
@@ -123,7 +123,7 @@ typedef enum TimingMode {
 	Mode3,
 	Mode4,
 	Mode5
-}NandPs8_TimingMode;
+}NandPsu_TimingMode;
 
 /*
  * Uncomment the following constant definition if UART16550 is standard output
@@ -162,8 +162,8 @@ u8 WriteBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));/**< write buffer */
 /**
  * Nand driver instance for the Nand device.
  */
-XNandPs8 NandInstance;
-XNandPs8 *NandInstPtr = &NandInstance;
+XNandPsu NandInstance;
+XNandPsu *NandInstPtr = &NandInstance;
 /************************** Function Prototypes ******************************/
 
 static unsigned int GetUserInput(char* Prompt, char* Response,
@@ -172,9 +172,9 @@ static unsigned int GetUserInput(char* Prompt, char* Response,
 static int  GetMainMenuCommand(char* CmdLine);
 static void RunTestMenu(char* CmdLine);
 static void RunUtilMenu(char* CmdLine);
-static int ChangeTimingMode(XNandPs8 *NandInstPtr,
-				XNandPs8_DataInterface NewIntf,
-				XNandPs8_TimingMode NewMode);
+static int ChangeTimingMode(XNandPsu *NandInstPtr,
+				XNandPsu_DataInterface NewIntf,
+				XNandPsu_TimingMode NewMode);
 
 extern char inbyte ();		/**< Inbyte returns the byte received by device. */
 s32 FlashInit(u16 NandDeviceId);
@@ -424,9 +424,9 @@ int CodeCoverage_Tests(int TestLoops)
 
 	xil_printf("\tRunning Code Coverage Tests Now\r\n");
 
-	XNandPs8_DisableDmaMode(NandInstPtr);
+	XNandPsu_DisableDmaMode(NandInstPtr);
 	failures += Automode_Tests(TestLoops);
-	XNandPs8_EnableDmaMode(NandInstPtr);
+	XNandPsu_EnableDmaMode(NandInstPtr);
 	failures += Intg_BbtTest(NandInstPtr, TestLoops);
 	failures += Intg_MarkBlockBadTest(NandInstPtr, TestLoops);
 	failures += Intg_CodeCoverageTest(NandInstPtr, TestLoops);
@@ -705,7 +705,7 @@ static void RunUtilMenu(char* CmdLine)
 							GetUserInput(0, CmdLine, 131);
 						}
 						if((u8)atoi(CmdLine) >= 0 && (u8)atoi(CmdLine) <= 5){
-							Status = ChangeTimingMode(NandInstPtr,NVDDR,(XNandPs8_TimingMode)atoi(CmdLine));
+							Status = ChangeTimingMode(NandInstPtr,NVDDR,(XNandPsu_TimingMode)atoi(CmdLine));
 							if (Status != XST_SUCCESS) {
 								printf("Data Interface / Timing Mode Change"
 										" failed\r\n");
@@ -816,9 +816,9 @@ int UART_RecvByte(u8 *Data)
 s32 FlashInit(u16 NandDeviceId){
 
 	s32 Status = XST_FAILURE;
-	XNandPs8_Config *Config;
+	XNandPsu_Config *Config;
 
-	Config = XNandPs8_LookupConfig(NandDeviceId);
+	Config = XNandPsu_LookupConfig(NandDeviceId);
 	if (Config == NULL) {
 		Status = XST_FAILURE;
 		goto Out;
@@ -827,7 +827,7 @@ s32 FlashInit(u16 NandDeviceId){
 	/*
 	 * Initialize the flash driver.
 	 */
-	Status = XNandPs8_CfgInitialize(NandInstPtr, Config,
+	Status = XNandPsu_CfgInitialize(NandInstPtr, Config,
 			Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto Out;
@@ -843,7 +843,7 @@ Out:
 *
 * This function changes the data interface and timing mode.
 *
-* @param	NandInstPtr is a pointer to the XNandPs8 instance.
+* @param	NandInstPtr is a pointer to the XNandPsu instance.
 * @param	NewIntf is the new data interface.
 * @param	NewMode is the new timing mode.
 *
@@ -854,9 +854,9 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static int ChangeTimingMode(XNandPs8 *NandInstPtr,
-				XNandPs8_DataInterface NewIntf,
-				XNandPs8_TimingMode NewMode){
+static int ChangeTimingMode(XNandPsu *NandInstPtr,
+				XNandPsu_DataInterface NewIntf,
+				XNandPsu_TimingMode NewMode){
 
 	s32 Status = XST_FAILURE;
 	u32 t_mode = NewMode;
@@ -870,7 +870,7 @@ static int ChangeTimingMode(XNandPs8 *NandInstPtr,
 		/*
 		 * Set Timing mode
 		 */
-		Status = XNandPs8_SetFeature(NandInstPtr, 0, 0x1, &t_mode);
+		Status = XNandPsu_SetFeature(NandInstPtr, 0, 0x1, &t_mode);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
@@ -887,7 +887,7 @@ static int ChangeTimingMode(XNandPs8 *NandInstPtr,
 		/*
 		 * Set Timing mode
 		 */
-		Status = XNandPs8_SetFeature(NandInstPtr, 0, 0x1, &ddr_mode[0]);
+		Status = XNandPsu_SetFeature(NandInstPtr, 0, 0x1, &ddr_mode[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
@@ -902,13 +902,13 @@ static int ChangeTimingMode(XNandPs8 *NandInstPtr,
 	 * Setting the Data Interface Register
 	 */
 	RegVal = ((NewMode % 6U) << ((NewIntf == NVDDR) ? 3U : 0U)) |
-			((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
-	XNandPs8_WriteReg(NandInstPtr->Config.BaseAddress,
-				XNANDPS8_DATA_INTF_OFFSET, RegVal);
+			((u32)NewIntf << XNANDPSU_DATA_INTF_DATA_INTF_SHIFT);
+	XNandPsu_WriteReg(NandInstPtr->Config.BaseAddress,
+				XNANDPSU_DATA_INTF_OFFSET, RegVal);
 	/*
 	 * Get the Timing mode
 	 */
-	Status = XNandPs8_GetFeature(NandInstPtr, 0, 0x1, &feature);
+	Status = XNandPsu_GetFeature(NandInstPtr, 0, 0x1, &feature);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}

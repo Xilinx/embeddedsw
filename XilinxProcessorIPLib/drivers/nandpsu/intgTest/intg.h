@@ -86,7 +86,7 @@
  * @{
  */
 #define INTG_XPAR_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define INTG_XPAR_DEVICE_INTR_VEC	XPAR_XNANDPS8_0_INTR
+#define INTG_XPAR_DEVICE_INTR_VEC	XPAR_XNANDPSU_0_INTR
 #define printf xil_printf
 /*@}*/
 #define NAND_DEVICE_ID		0U
@@ -116,8 +116,8 @@ extern u8 WriteBuffer[];	/**< write buffer */
 
 /************************** Variable Definitions ****************************/
 
-/**< XNandPs8 instance used throughout tests */
-extern XNandPs8* NandInstPtr;
+/**< XNandPsu instance used throughout tests */
+extern XNandPsu* NandInstPtr;
 s32 MismatchCounter;
 /************************** Function Prototypes *****************************/
 
@@ -131,46 +131,46 @@ int UART_RecvByte(u8 *Data);
 /*
  * Flash Erase Read test implemented in intg_erase_read.c
  */
-int Intg_EraseReadTest(XNandPs8 * NandInstPtr, int TestLoops);
+int Intg_EraseReadTest(XNandPsu * NandInstPtr, int TestLoops);
 
 /*
  * Flash Read Write test implemented in intg_flash_rw.c
  */
-int Intg_FlashRWTest(XNandPs8 * NandInstPtr, int TestLoops);
+int Intg_FlashRWTest(XNandPsu * NandInstPtr, int TestLoops);
 
 /*
  * Random Block Read Write test implemented in intg_random_rw.c
  */
-int Intg_RandomRWTest(XNandPs8 * NandInstPtr, int TestLoops);
+int Intg_RandomRWTest(XNandPsu * NandInstPtr, int TestLoops);
 
 /*
  * SpareBytes Read Write test implemented in intg_sparebytes_rw.c
  */
-int Intg_SpareBytesRWTest(XNandPs8 * NandInstPtr,int TestLoops);
+int Intg_SpareBytesRWTest(XNandPsu * NandInstPtr,int TestLoops);
 
 /*
  * Partial Page Read Write test implemented in intg_partialpage_rw.c
  */
-int Intg_PartialRWTest(XNandPs8 * NandInstPtr,int TestLoops);
+int Intg_PartialRWTest(XNandPsu * NandInstPtr,int TestLoops);
 
 /*
  * ECC error check tests implemented in intg_ecc_test.c
  */
-int Intg_EccTest(XNandPs8 * NandInstPtr,int TestLoops);
+int Intg_EccTest(XNandPsu * NandInstPtr,int TestLoops);
 
 /*
  * BBT Scan test implemented in intg_bbt_test.c
  */
-int Intg_BbtTest(XNandPs8 * NandInstPtr, int TestLoops);
+int Intg_BbtTest(XNandPsu * NandInstPtr, int TestLoops);
 
 /*
  * Mark Block Bad test implemented in intg_markblockbad_test.c
  */
-int Intg_MarkBlockBadTest(XNandPs8 * NandInstPtr, int TestLoops);
+int Intg_MarkBlockBadTest(XNandPsu * NandInstPtr, int TestLoops);
 
 /*
  * Code Coverage test implemented in intg_codecoverage_test.c
  */
-int Intg_CodeCoverageTest(XNandPs8 * NandInstPtr, int TestLoops);
+int Intg_CodeCoverageTest(XNandPsu * NandInstPtr, int TestLoops);
 
 #endif	/**< End of protection macro */

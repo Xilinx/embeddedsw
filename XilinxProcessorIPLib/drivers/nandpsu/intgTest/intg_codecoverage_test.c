@@ -43,7 +43,7 @@
 *
 * @file intg_codecoverage_test.c
 *
-* This file contains the design example for using NAND driver (XNandPs8).
+* This file contains the design example for using NAND driver (XNandPsu).
 * This example scans the Bbt on the flash. If found returns success else
 * Creates a new BBT and writes it on the flash.
 *
@@ -77,7 +77,7 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 CodeCoverage_Test(XNandPs8 * NandInstPtr);
+s32 CodeCoverage_Test(XNandPsu * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
@@ -93,7 +93,7 @@ s32 CodeCoverage_Test(XNandPs8 * NandInstPtr);
 * @note	 None.
 *
 *****************************************************************************/
-int Intg_CodeCoverageTest(XNandPs8 * NandInstPtr, int TestLoops)
+int Intg_CodeCoverageTest(XNandPsu * NandInstPtr, int TestLoops)
 {
 
 	s32 Status = XST_FAILURE;
@@ -118,8 +118,8 @@ int Intg_CodeCoverageTest(XNandPs8 * NandInstPtr, int TestLoops)
 * functions in polled mode.
 * The function does the following tasks:
 * 	- Performs Code Coverage for
-* 		-XNandPs8_WriteSpareBytes
-* 		-XNandPs8_LookupConfig
+* 		-XNandPsu_WriteSpareBytes
+* 		-XNandPsu_LookupConfig
 *
 * @param	NandInstPtr - Instance to the nand driver.
 *
@@ -129,7 +129,7 @@ int Intg_CodeCoverageTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 CodeCoverage_Test(XNandPs8 * NandInstPtr)
+s32 CodeCoverage_Test(XNandPsu * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Index;
@@ -149,18 +149,18 @@ s32 CodeCoverage_Test(XNandPs8 * NandInstPtr)
 
 	/*
 	 * Altering Ecc Address for covering code in
-	 * XNandPs8_WriteSpareBytes API
+	 * XNandPsu_WriteSpareBytes API
 	 */
 	NandInstPtr->EccCfg.EccAddr -= 8U;
 
 	/*
 	 * Enabling DMA Mode
 	 */
-	XNandPs8_EnableDmaMode(NandInstPtr);
+	XNandPsu_EnableDmaMode(NandInstPtr);
 	/*
 	 * Write to flash Spare Bytes Section
 	 */
-	Status = XNandPs8_WriteSpareBytes(NandInstPtr, (u32)Offset,
+	Status = XNandPsu_WriteSpareBytes(NandInstPtr, (u32)Offset,
 			&WriteBuffer[0]);
 	if (Status != XST_SUCCESS) {
 		Failures++;
@@ -173,7 +173,7 @@ s32 CodeCoverage_Test(XNandPs8 * NandInstPtr)
 	/*
 	 * Code Coverage for LookUp Config API
 	 */
-	Status = XNandPs8_LookupConfig(RANDOM_DEVICEID);
+	Status = XNandPsu_LookupConfig(RANDOM_DEVICEID);
 	if (Status != XST_SUCCESS){
 		Failures++;
 	}

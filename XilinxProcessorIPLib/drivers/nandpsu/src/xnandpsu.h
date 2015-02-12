@@ -32,17 +32,17 @@
 /*****************************************************************************/
 /**
 *
-* @file xnandps8.h
+* @file xnandpsu.h
 *
 * This file implements a driver to support Arasan NAND controller
 * present in Zynq Ultrascale Mp.
 *
 * <b>Driver Initialization</b>
 *
-* The function call XNandPs8_CfgInitialize() should be called by the application
+* The function call XNandPsu_CfgInitialize() should be called by the application
 * before any other function in the driver. The initialization function takes
 * device specific data (like device id, instance id, and base address) and
-* initializes the XNandPs8 instance with the device specific data.
+* initializes the XNandPsu instance with the device specific data.
 *
 * <b>Device Geometry</b>
 *
@@ -93,7 +93,8 @@
 * only after the erase operation is completed successfully or an error is
 * reported.
 *
-* @note
+* @note		Driver has been renamed to nandpsu after change in
+*		naming convention.
 *
 * This driver is intended to be RTOS and processor independent. It works with
 * physical addresses only. Any needs for dynamic memory management, threads,
@@ -108,46 +109,46 @@
 * 1.0   nm     05/06/2014  First release
 * 2.0   sb     01/12/2015  Removed Null checks for Buffer passed
 *			   as parameter to Read API's
-*			   - XNandPs8_Read()
-*			   - XNandPs8_ReadPage
+*			   - XNandPsu_Read()
+*			   - XNandPsu_ReadPage
 *			   Modified
-*			   - XNandPs8_SetFeature()
-*			   - XNandPs8_GetFeature()
+*			   - XNandPsu_SetFeature()
+*			   - XNandPsu_GetFeature()
 *			   and made them public.
 *			   Removed Failure Return for BCF Error check in
-*			   XNandPs8_ReadPage() and added BCH_Error counter
+*			   XNandPsu_ReadPage() and added BCH_Error counter
 *			   in the instance pointer structure.
-* 			   Added XNandPs8_Prepare_Cmd API
+* 			   Added XNandPsu_Prepare_Cmd API
 *			   Replaced
-*			   - XNandPs8_IntrStsEnable
-*			   - XNandPs8_IntrStsClear
-*			   - XNandPs8_IntrClear
-*			   - XNandPs8_SetProgramReg
-*			   with XNandPs8_WriteReg call
-*			   Modified xnandps8.c file API's with above changes.
+*			   - XNandPsu_IntrStsEnable
+*			   - XNandPsu_IntrStsClear
+*			   - XNandPsu_IntrClear
+*			   - XNandPsu_SetProgramReg
+*			   with XNandPsu_WriteReg call
+*			   Modified xnandpsu.c file API's with above changes.
 * 			   Corrected the program command for Set Feature API.
 *			   Modified
-*			   - XNandPs8_OnfiReadStatus
-*			   - XNandPs8_GetFeature
-*			   - XNandPs8_SetFeature
+*			   - XNandPsu_OnfiReadStatus
+*			   - XNandPsu_GetFeature
+*			   - XNandPsu_SetFeature
 *			   to add support for DDR mode.
 *			   Changed Convention for SLC/MLC
 *			   SLC --> HAMMING
 *			   MLC --> BCH
 *			   SlcMlc --> IsBCH
 *			   Added support for writing BBT signature and version
-*			   in page section by enabling XNANDPS8_BBT_NO_OOB.
+*			   in page section by enabling XNANDPSU_BBT_NO_OOB.
 *			   Removed extra DMA mode initialization from
-*			   the XNandPs8_CfgInitialize API.
+*			   the XNandPsu_CfgInitialize API.
 *			   Modified
-*			   - XNandPs8_SetEccAddrSize
+*			   - XNandPsu_SetEccAddrSize
 *			   ECC address now is calculated based upon the
 *			   size of spare area
 *			   Modified Block Erase API, removed clearing of
 *			   packet register before erase.
 *			   Clearing Data Interface Register before
-*			   XNandPs8_OnfiReset call.
-*			   Modified XNandPs8_ChangeTimingMode API supporting
+*			   XNandPsu_OnfiReset call.
+*			   Modified XNandPsu_ChangeTimingMode API supporting
 *			   SDR and NVDDR interface for timing modes 0 to 5.
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
@@ -155,8 +156,8 @@
 *
 ******************************************************************************/
 
-#ifndef XNANDPS8_H		/* prevent circular inclusions */
-#define XNANDPS8_H		/* by using protection macros */
+#ifndef XNANDPSU_H		/* prevent circular inclusions */
+#define XNANDPSU_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -167,131 +168,131 @@ extern "C" {
 #include <string.h>
 #include "xstatus.h"
 #include "xil_assert.h"
-#include "xnandps8_hw.h"
-#include "xnandps8_onfi.h"
+#include "xnandpsu_hw.h"
+#include "xnandpsu_onfi.h"
 #include "xil_cache.h"
 /************************** Constant Definitions *****************************/
 
-#define XNANDPS8_DEBUG
+#define XNANDPSU_DEBUG
 
-#define XNANDPS8_MAX_TARGETS		1U	/**< ce_n0, ce_n1 */
-#define XNANDPS8_MAX_PKT_SIZE		0x7FFU	/**< Max packet size */
-#define XNANDPS8_MAX_PKT_COUNT		0xFFFU	/**< Max packet count */
+#define XNANDPSU_MAX_TARGETS		1U	/**< ce_n0, ce_n1 */
+#define XNANDPSU_MAX_PKT_SIZE		0x7FFU	/**< Max packet size */
+#define XNANDPSU_MAX_PKT_COUNT		0xFFFU	/**< Max packet count */
 
-#define XNANDPS8_PAGE_SIZE_512		512U	/**< 512 bytes page */
-#define XNANDPS8_PAGE_SIZE_2K		2048U	/**< 2K bytes page */
-#define XNANDPS8_PAGE_SIZE_4K		4096U	/**< 4K bytes page */
-#define XNANDPS8_PAGE_SIZE_8K		8192U	/**< 8K bytes page */
-#define XNANDPS8_PAGE_SIZE_16K		16384U	/**< 16K bytes page */
-#define XNANDPS8_PAGE_SIZE_1K_16BIT	1024U	/**< 16-bit 2K bytes page */
-#define XNANDPS8_MAX_PAGE_SIZE		16384U	/**< Max page size supported */
+#define XNANDPSU_PAGE_SIZE_512		512U	/**< 512 bytes page */
+#define XNANDPSU_PAGE_SIZE_2K		2048U	/**< 2K bytes page */
+#define XNANDPSU_PAGE_SIZE_4K		4096U	/**< 4K bytes page */
+#define XNANDPSU_PAGE_SIZE_8K		8192U	/**< 8K bytes page */
+#define XNANDPSU_PAGE_SIZE_16K		16384U	/**< 16K bytes page */
+#define XNANDPSU_PAGE_SIZE_1K_16BIT	1024U	/**< 16-bit 2K bytes page */
+#define XNANDPSU_MAX_PAGE_SIZE		16384U	/**< Max page size supported */
 
-#define XNANDPS8_BUS_WIDTH_8		0U	/**< 8-bit bus width */
-#define XNANDPS8_BUS_WIDTH_16		1U	/**< 16-bit bus width */
+#define XNANDPSU_BUS_WIDTH_8		0U	/**< 8-bit bus width */
+#define XNANDPSU_BUS_WIDTH_16		1U	/**< 16-bit bus width */
 
-#define XNANDPS8_HAMMING		0x1U	/**< Hamming Flash */
-#define XNANDPS8_BCH			0x2U	/**< BCH Flash */
+#define XNANDPSU_HAMMING		0x1U	/**< Hamming Flash */
+#define XNANDPSU_BCH			0x2U	/**< BCH Flash */
 
-#define XNANDPS8_MAX_BLOCKS		32768U	/**< Max number of Blocks */
-#define XNANDPS8_MAX_SPARE_SIZE		0x800U	/**< Max spare bytes of a NAND
+#define XNANDPSU_MAX_BLOCKS		32768U	/**< Max number of Blocks */
+#define XNANDPSU_MAX_SPARE_SIZE		0x800U	/**< Max spare bytes of a NAND
 						  flash page of 16K */
 
-#define XNANDPS8_INTR_POLL_TIMEOUT	10000U
+#define XNANDPSU_INTR_POLL_TIMEOUT	10000U
 
-#define XNANDPS8_SDR_CLK		((u16)100U * (u16)1000U * (u16)1000U)
-#define XNANDPS8_NVDDR_CLK_0		((u16)20U * (u16)1000U * (u16)1000U)
-#define XNANDPS8_NVDDR_CLK_1		((u16)33U * (u16)1000U * (u16)1000U)
-#define XNANDPS8_NVDDR_CLK_2		((u16)50U * (u16)1000U * (u16)1000U)
-#define XNANDPS8_NVDDR_CLK_3		((u16)66U * (u16)1000U * (u16)1000U)
-#define XNANDPS8_NVDDR_CLK_4		((u16)83U * (u16)1000U * (u16)1000U)
-#define XNANDPS8_NVDDR_CLK_5		((u16)100U * (u16)1000U * (u16)1000U)
+#define XNANDPSU_SDR_CLK		((u16)100U * (u16)1000U * (u16)1000U)
+#define XNANDPSU_NVDDR_CLK_0		((u16)20U * (u16)1000U * (u16)1000U)
+#define XNANDPSU_NVDDR_CLK_1		((u16)33U * (u16)1000U * (u16)1000U)
+#define XNANDPSU_NVDDR_CLK_2		((u16)50U * (u16)1000U * (u16)1000U)
+#define XNANDPSU_NVDDR_CLK_3		((u16)66U * (u16)1000U * (u16)1000U)
+#define XNANDPSU_NVDDR_CLK_4		((u16)83U * (u16)1000U * (u16)1000U)
+#define XNANDPSU_NVDDR_CLK_5		((u16)100U * (u16)1000U * (u16)1000U)
 
 /**
- * The XNandPs8_Config structure contains configuration information for NAND
+ * The XNandPsu_Config structure contains configuration information for NAND
  * controller.
  */
 typedef struct {
 	u16 DeviceId;		/**< Instance ID of NAND flash controller */
 	u32 BaseAddress;	/**< Base address of NAND flash controller */
-} XNandPs8_Config;
+} XNandPsu_Config;
 
 /**
- * The XNandPs8_DataInterface enum contains flash operating mode.
+ * The XNandPsu_DataInterface enum contains flash operating mode.
  */
 typedef enum {
-	XNANDPS8_SDR = 0U,		/**< Single Data Rate */
-	XNANDPS8_NVDDR			/**< Double Data Rate */
-} XNandPs8_DataInterface;
+	XNANDPSU_SDR = 0U,		/**< Single Data Rate */
+	XNANDPSU_NVDDR			/**< Double Data Rate */
+} XNandPsu_DataInterface;
 
 /**
- * XNandPs8_TimingMode enum contains timing modes.
+ * XNandPsu_TimingMode enum contains timing modes.
  */
 typedef enum {
-	XNANDPS8_SDR0 = 0U,
-	XNANDPS8_SDR1,
-	XNANDPS8_SDR2,
-	XNANDPS8_SDR3,
-	XNANDPS8_SDR4,
-	XNANDPS8_SDR5,
-	XNANDPS8_NVDDR0,
-	XNANDPS8_NVDDR1,
-	XNANDPS8_NVDDR2,
-	XNANDPS8_NVDDR3,
-	XNANDPS8_NVDDR4,
-	XNANDPS8_NVDDR5
-} XNandPs8_TimingMode;
+	XNANDPSU_SDR0 = 0U,
+	XNANDPSU_SDR1,
+	XNANDPSU_SDR2,
+	XNANDPSU_SDR3,
+	XNANDPSU_SDR4,
+	XNANDPSU_SDR5,
+	XNANDPSU_NVDDR0,
+	XNANDPSU_NVDDR1,
+	XNANDPSU_NVDDR2,
+	XNANDPSU_NVDDR3,
+	XNANDPSU_NVDDR4,
+	XNANDPSU_NVDDR5
+} XNandPsu_TimingMode;
 
 /**
- * The XNandPs8_SWMode enum contains the driver operating mode.
+ * The XNandPsu_SWMode enum contains the driver operating mode.
  */
 typedef enum {
-	XNANDPS8_POLLING = 0,		/**< Polling */
-	XNANDPS8_INTERRUPT		/**< Interrupt */
-} XNandPs8_SWMode;
+	XNANDPSU_POLLING = 0,		/**< Polling */
+	XNANDPSU_INTERRUPT		/**< Interrupt */
+} XNandPsu_SWMode;
 
 /**
- * The XNandPs8_DmaMode enum contains the controller MDMA mode.
+ * The XNandPsu_DmaMode enum contains the controller MDMA mode.
  */
 typedef enum {
-	XNANDPS8_PIO = 0,		/**< PIO Mode */
-	XNANDPS8_SDMA,			/**< SDMA Mode */
-	XNANDPS8_MDMA			/**< MDMA Mode */
-} XNandPs8_DmaMode;
+	XNANDPSU_PIO = 0,		/**< PIO Mode */
+	XNANDPSU_SDMA,			/**< SDMA Mode */
+	XNANDPSU_MDMA			/**< MDMA Mode */
+} XNandPsu_DmaMode;
 
 /**
- * The XNandPs8_EccMode enum contains ECC functionality.
+ * The XNandPsu_EccMode enum contains ECC functionality.
  */
 typedef enum {
-	XNANDPS8_NONE = 0,
-	XNANDPS8_HWECC,
-	XNANDPS8_EZNAND,
-	XNANDPS8_ONDIE
-} XNandPs8_EccMode;
+	XNANDPSU_NONE = 0,
+	XNANDPSU_HWECC,
+	XNANDPSU_EZNAND,
+	XNANDPSU_ONDIE
+} XNandPsu_EccMode;
 
 /**
- * The XNandPs8_BbtOption enum contains the BBT storage option.
+ * The XNandPsu_BbtOption enum contains the BBT storage option.
  */
 typedef enum {
-	XNANDPS8_BBT_OOB = 0,		/**< OOB area */
-	XNANDPS8_BBT_NO_OOB,		/**< No OOB i.e page area */
-} XNandPs8_BbtOption;
+	XNANDPSU_BBT_OOB = 0,		/**< OOB area */
+	XNANDPSU_BBT_NO_OOB,		/**< No OOB i.e page area */
+} XNandPsu_BbtOption;
 
 /**
  * Bad block table descriptor
  */
 typedef struct {
-	u32 PageOffset[XNANDPS8_MAX_TARGETS];
+	u32 PageOffset[XNANDPSU_MAX_TARGETS];
 				/**< Page offset where BBT resides */
 	u32 SigOffset;		/**< Signature offset in Spare area */
 	u32 VerOffset;		/**< Offset of BBT version */
 	u32 SigLength;		/**< Length of the signature */
 	u32 MaxBlocks;		/**< Max blocks to search for BBT */
 	char Signature[4];	/**< BBT signature */
-	u8 Version[XNANDPS8_MAX_TARGETS];
+	u8 Version[XNANDPSU_MAX_TARGETS];
 				/**< BBT version */
 	u32 Valid;		/**< BBT descriptor is valid or not */
-	XNandPs8_BbtOption Option;	/**< BBT Oob option enabled/disabled */
-} XNandPs8_BbtDesc;
+	XNandPsu_BbtOption Option;	/**< BBT Oob option enabled/disabled */
+} XNandPsu_BbtDesc;
 
 /**
  * Bad block pattern
@@ -301,10 +302,10 @@ typedef struct {
 	u32 Offset;		/**< Offset to search for specified pattern */
 	u32 Length;		/**< Number of bytes to check the pattern */
 	u8 Pattern[2];		/**< Pattern format to search for */
-} XNandPs8_BadBlockPattern;
+} XNandPsu_BadBlockPattern;
 
 /**
- * The XNandPs8_Geometry structure contains the ONFI geometry information.
+ * The XNandPsu_Geometry structure contains the ONFI geometry information.
  */
 typedef struct {
 	/*
@@ -331,10 +332,10 @@ typedef struct {
 	u32 NumPages;		/**< Total number of pages */
 	u32 NumBlocks;		/**< Total number of blocks */
 	u64 DeviceSize;		/**< Total flash size in bytes */
-} XNandPs8_Geometry;
+} XNandPsu_Geometry;
 
 /**
- * The XNandPs8_Features structure contains the ONFI features information.
+ * The XNandPsu_Features structure contains the ONFI features information.
  */
 typedef struct {
 	u32 BusWidth;
@@ -342,10 +343,10 @@ typedef struct {
 	u32 EzNand;
 	u32 OnDie;
 	u32 ExtPrmPage;
-} XNandPs8_Features;
+} XNandPsu_Features;
 
 /**
- * The XNandPs8_EccMatrix structure contains ECC features information.
+ * The XNandPsu_EccMatrix structure contains ECC features information.
  */
 typedef struct {
 	u16 PageSize;
@@ -354,10 +355,10 @@ typedef struct {
 	u8 IsBCH;
 	u16 EccAddr;
 	u16 EccSize;
-} XNandPs8_EccMatrix;
+} XNandPsu_EccMatrix;
 
 /**
- * The XNandPs8_EccCfg structure contains ECC configuration.
+ * The XNandPsu_EccCfg structure contains ECC configuration.
  */
 typedef struct {
 	u16 EccAddr;
@@ -365,36 +366,36 @@ typedef struct {
 	u16 CodeWordSize;
 	u8 NumEccBits;
 	u8 IsBCH;
-} XNandPs8_EccCfg;
+} XNandPsu_EccCfg;
 
 /**
- * The XNandPs8 structure contains the driver instance data. The user is
+ * The XNandPsu structure contains the driver instance data. The user is
  * required to allocate a variable of this type for the NAND controller.
  * A pointer to a variable of this type is then passed to the driver API
  * functions.
  */
 typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
-	XNandPs8_Config Config;
+	XNandPsu_Config Config;
 	u16 Ecc_Stat_PerPage_flips;	/**< Ecc Correctable Error Counter for Current Page */
 	u32 Ecc_Stats_total_flips;     /**< Total Ecc Errors Corrected */
-	XNandPs8_DataInterface DataInterface;
-	XNandPs8_TimingMode TimingMode;
-	XNandPs8_SWMode Mode;		/**< Driver operating mode */
-	XNandPs8_DmaMode DmaMode;	/**< MDMA mode enabled/disabled */
-	XNandPs8_EccMode EccMode;	/**< ECC Mode */
-	XNandPs8_EccCfg EccCfg;		/**< ECC configuration */
-	XNandPs8_Geometry Geometry;	/**< Flash geometry */
-	XNandPs8_Features Features;	/**< ONFI features */
-	u8 PartialDataBuf[XNANDPS8_MAX_PAGE_SIZE] __attribute__ ((aligned(64)));
+	XNandPsu_DataInterface DataInterface;
+	XNandPsu_TimingMode TimingMode;
+	XNandPsu_SWMode Mode;		/**< Driver operating mode */
+	XNandPsu_DmaMode DmaMode;	/**< MDMA mode enabled/disabled */
+	XNandPsu_EccMode EccMode;	/**< ECC Mode */
+	XNandPsu_EccCfg EccCfg;		/**< ECC configuration */
+	XNandPsu_Geometry Geometry;	/**< Flash geometry */
+	XNandPsu_Features Features;	/**< ONFI features */
+	u8 PartialDataBuf[XNANDPSU_MAX_PAGE_SIZE] __attribute__ ((aligned(64)));
 					/**< Partial read/write buffer */
 	/* Bad block table definitions */
-	XNandPs8_BbtDesc BbtDesc;	/**< Bad block table descriptor */
-	XNandPs8_BbtDesc BbtMirrorDesc;	/**< Mirror BBT descriptor */
-	XNandPs8_BadBlockPattern BbPattern;	/**< Bad block pattern to
+	XNandPsu_BbtDesc BbtDesc;	/**< Bad block table descriptor */
+	XNandPsu_BbtDesc BbtMirrorDesc;	/**< Mirror BBT descriptor */
+	XNandPsu_BadBlockPattern BbPattern;	/**< Bad block pattern to
 						  search */
-	u8 Bbt[XNANDPS8_MAX_BLOCKS >> 2];	/**< Bad block table array */
-} XNandPs8;
+	u8 Bbt[XNANDPSU_MAX_BLOCKS >> 2];	/**< Bad block table array */
+} XNandPsu;
 
 /******************* Macro Definitions (Inline Functions) *******************/
 
@@ -402,112 +403,112 @@ typedef struct {
 /**
  * This macro sets the bitmask in the register.
  *
- * @param	InstancePtr is a pointer to the XNandPs8 instance of the
+ * @param	InstancePtr is a pointer to the XNandPsu instance of the
  *		controller.
  * @param	RegOffset is the register offset.
  * @param	BitMask is the bitmask.
  *
  * @note	C-style signature:
- *		void XNandPs8_SetBits(XNandPs8 *InstancePtr, u32 RegOffset,
+ *		void XNandPsu_SetBits(XNandPsu *InstancePtr, u32 RegOffset,
  *							u32 BitMask)
  *
  *****************************************************************************/
-#define XNandPs8_SetBits(InstancePtr, RegOffset, BitMask)		\
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,		\
+#define XNandPsu_SetBits(InstancePtr, RegOffset, BitMask)		\
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,		\
 		(RegOffset),						\
-	((u32)(XNandPs8_ReadReg((InstancePtr)->Config.BaseAddress,	\
+	((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,	\
 		(RegOffset)) | (BitMask))))
 
 /*****************************************************************************/
 /**
  * This macro clears the bitmask in the register.
  *
- * @param	InstancePtr is a pointer to the XNandPs8 instance of the
+ * @param	InstancePtr is a pointer to the XNandPsu instance of the
  *		controller.
  * @param	RegOffset is the register offset.
  * @param	BitMask is the bitmask.
  *
  * @note	C-style signature:
- *		void XNandPs8_ClrBits(XNandPs8 *InstancePtr, u32 RegOffset,
+ *		void XNandPsu_ClrBits(XNandPsu *InstancePtr, u32 RegOffset,
  *							u32 BitMask)
  *
  *****************************************************************************/
-#define XNandPs8_ClrBits(InstancePtr, RegOffset, BitMask)		\
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,		\
+#define XNandPsu_ClrBits(InstancePtr, RegOffset, BitMask)		\
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,		\
 		(RegOffset),						\
-	((u32)(XNandPs8_ReadReg((InstancePtr)->Config.BaseAddress,	\
+	((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,	\
 		(RegOffset)) & ~(BitMask))))
 
 /*****************************************************************************/
 /**
  * This macro clears and updates the bitmask in the register.
  *
- * @param	InstancePtr is a pointer to the XNandPs8 instance of the
+ * @param	InstancePtr is a pointer to the XNandPsu instance of the
  *		controller.
  * @param	RegOffset is the register offset.
  * @param	Mask is the bitmask.
  * @param	Value is the register value to write.
  *
  * @note	C-style signature:
- *		void XNandPs8_ReadModifyWrite(XNandPs8 *InstancePtr,
+ *		void XNandPsu_ReadModifyWrite(XNandPsu *InstancePtr,
  *					u32 RegOffset, u32 Mask, u32 Val)
  *
  *****************************************************************************/
-#define XNandPs8_ReadModifyWrite(InstancePtr, RegOffset, Mask, Value)	\
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,		\
+#define XNandPsu_ReadModifyWrite(InstancePtr, RegOffset, Mask, Value)	\
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,		\
 		(RegOffset),						\
-	((u32)((u32)(XNandPs8_ReadReg((InstancePtr)->Config.BaseAddress,\
+	((u32)((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,\
 		(u32)(RegOffset)) & (u32)(~(Mask))) | (u32)(Value))))
 
 /*****************************************************************************/
 /**
  * This macro enables bitmask in Interrupt Signal Enable register.
  *
- * @param	InstancePtr is a pointer to the XNandPs8 instance of the
+ * @param	InstancePtr is a pointer to the XNandPsu instance of the
  *		controller.
  * @param	Mask is the bitmask.
  *
  * @note	C-style signature:
- *		void XNandPs8_IntrSigEnable(XNandPs8 *InstancePtr, u32 Mask)
+ *		void XNandPsu_IntrSigEnable(XNandPsu *InstancePtr, u32 Mask)
  *
  *****************************************************************************/
-#define XNandPs8_IntrSigEnable(InstancePtr, Mask)			\
-		XNandPs8_SetBits((InstancePtr),				\
-			XNANDPS8_INTR_SIG_EN_OFFSET,			\
+#define XNandPsu_IntrSigEnable(InstancePtr, Mask)			\
+		XNandPsu_SetBits((InstancePtr),				\
+			XNANDPSU_INTR_SIG_EN_OFFSET,			\
 			(Mask))
 
 /*****************************************************************************/
 /**
  * This macro clears bitmask in Interrupt Signal Enable register.
  *
- * @param	InstancePtr is a pointer to the XNandPs8 instance of the
+ * @param	InstancePtr is a pointer to the XNandPsu instance of the
  *		controller.
  * @param	Mask is the bitmask.
  *
  * @note	C-style signature:
- *		void XNandPs8_IntrSigClear(XNandPs8 *InstancePtr, u32 Mask)
+ *		void XNandPsu_IntrSigClear(XNandPsu *InstancePtr, u32 Mask)
  *
  *****************************************************************************/
-#define XNandPs8_IntrSigClear(InstancePtr, Mask)			\
-		XNandPs8_ClrBits((InstancePtr),				\
-			XNANDPS8_INTR_SIG_EN_OFFSET,			\
+#define XNandPsu_IntrSigClear(InstancePtr, Mask)			\
+		XNandPsu_ClrBits((InstancePtr),				\
+			XNANDPSU_INTR_SIG_EN_OFFSET,			\
 			(Mask))
 
 /*****************************************************************************/
 /**
  * This macro enables bitmask in Interrupt Status Enable register.
  *
- * @param	InstancePtr is a pointer to the XNandPs8 instance of the
+ * @param	InstancePtr is a pointer to the XNandPsu instance of the
  *		controller.
  * @param	Mask is the bitmask.
  *
  * @note	C-style signature:
- *		void XNandPs8_IntrStsEnable(XNandPs8 *InstancePtr, u32 Mask)
+ *		void XNandPsu_IntrStsEnable(XNandPsu *InstancePtr, u32 Mask)
  *
  *****************************************************************************/
-#define XNandPs8_IntrStsEnable(InstancePtr, Mask)			\
-		XNandPs8_SetBits((InstancePtr),				\
-			XNANDPS8_INTR_STS_EN_OFFSET,			\
+#define XNandPsu_IntrStsEnable(InstancePtr, Mask)			\
+		XNandPsu_SetBits((InstancePtr),				\
+			XNANDPSU_INTR_STS_EN_OFFSET,			\
 			(Mask))
 
 /*****************************************************************************/
@@ -525,54 +526,54 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 
-s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
+s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 				u32 EffectiveAddr);
 
-s32 XNandPs8_Erase(XNandPs8 *InstancePtr, u64 Offset, u64 Length);
+s32 XNandPsu_Erase(XNandPsu *InstancePtr, u64 Offset, u64 Length);
 
-s32 XNandPs8_Write(XNandPs8 *InstancePtr, u64 Offset, u64 Length,
+s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length,
 							u8 *SrcBuf);
 
-s32 XNandPs8_Read(XNandPs8 *InstancePtr, u64 Offset, u64 Length,
+s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length,
 							u8 *DestBuf);
 
-s32 XNandPs8_EraseBlock(XNandPs8 *InstancePtr, u32 Target, u32 Block);
+s32 XNandPsu_EraseBlock(XNandPsu *InstancePtr, u32 Target, u32 Block);
 
-s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf);
+s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf);
 
-s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf);
+s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf);
 
-s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
-				XNandPs8_DataInterface NewIntf,
-				XNandPs8_TimingMode NewMode);
+s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
+				XNandPsu_DataInterface NewIntf,
+				XNandPsu_TimingMode NewMode);
 
-s32 XNandPs8_GetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
+s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf);
 
-s32 XNandPs8_SetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
+s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf);
-void XNandPs8_EnableDmaMode(XNandPs8 *InstancePtr);
+void XNandPsu_EnableDmaMode(XNandPsu *InstancePtr);
 
-void XNandPs8_DisableDmaMode(XNandPs8 *InstancePtr);
+void XNandPsu_DisableDmaMode(XNandPsu *InstancePtr);
 
-void XNandPs8_EnableEccMode(XNandPs8 *InstancePtr);
+void XNandPsu_EnableEccMode(XNandPsu *InstancePtr);
 
-void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr);
+void XNandPsu_DisableEccMode(XNandPsu *InstancePtr);
 
-void XNandPs8_Prepare_Cmd(XNandPs8 *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
+void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 			u8 DmaMode, u8 AddrCycles);
 
-void XNandPs8_EnableBbtOobMode(XNandPs8 *InstancePtr);
+void XNandPsu_EnableBbtOobMode(XNandPsu *InstancePtr);
 
-void XNandPs8_DisableBbtOobMode(XNandPs8 *InstancePtr);
+void XNandPsu_DisableBbtOobMode(XNandPsu *InstancePtr);
 /*
- * XNandPs8_LookupConfig in xnandps8_sinit.c
+ * XNandPsu_LookupConfig in xnandpsu_sinit.c
  */
-XNandPs8_Config *XNandPs8_LookupConfig(u16 DeviceID);
+XNandPsu_Config *XNandPsu_LookupConfig(u16 DeviceID);
 
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XNANDPS8_H end of protection macro */
+#endif /* XNANDPSU_H end of protection macro */

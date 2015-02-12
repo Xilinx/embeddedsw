@@ -41,13 +41,12 @@
 /*****************************************************************************/
 /**
 *
-* @file intg_random_rw.c
+* @file intg_sparebytes_rw.c
 *
-* This file contains the design example for using NAND driver (XNandPs8).
+* This file contains the design example for using NAND driver (XNandPsu).
 * This example tests the erase, read and write feature of the controller
-* to a complete block. The block is randomly selected.
-* The flash is erased and written. The data is read back and compared
-* with the data written for correctness.
+* in the spare bytes region.The flash is erased and written. The data is
+* read back and compared with the data written for correctness.
 *
 * @note None.
 *
@@ -59,7 +58,6 @@
 * Ver   Who    Date	 Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   sb    11/28/2014 First release
-*
 *
 * </pre>
 *
@@ -78,13 +76,13 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr);
+s32 SpareBytes_RW_Test(XNandPsu * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
 /**
 *
-* Entry point to call the Random Block Read Write test.
+* Entry point to call the Spare Bytes test.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 * @param	TestLoops - Number of tests to execute.
@@ -94,16 +92,16 @@ s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr);
 * @note	 None.
 *
 *****************************************************************************/
-int Intg_RandomRWTest(XNandPs8 * NandInstPtr, int TestLoops)
+int Intg_SpareBytesRWTest(XNandPsu * NandInstPtr, int TestLoops)
 {
 
 	s32 Status = XST_FAILURE;
-	CT_TestReset("Module Random Block Read Write test");
+	CT_TestReset("Module Spare Bytes Read Write test");
 
 	while(TestLoops--) {
-		Status = Random_Block_RW_Test(NandInstPtr);
+		Status = SpareBytes_RW_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
-			CT_LOG_FAILURE("Nand Random Block Read Write Test Failed"
+			CT_LOG_FAILURE("Nand Spare Bytes Read Write Test Failed"
 					" with %d mismatches\r\n", MismatchCounter);
 			break;
 		}
@@ -119,10 +117,9 @@ int Intg_RandomRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 * This function runs a test on the NAND flash device using the basic driver
 * functions in polled mode.
 * The function does the following tasks:
-*	- Initialize the driver.
 *	- Erase the flash.
-*	- Write data to the flash.
-*	- Read back the data from the flash.
+*	- Write data to the spare byte section of flash.
+*	- Read back the data from the spare byte section of flash.
 *	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
@@ -135,34 +132,41 @@ int Intg_RandomRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr)
+s32 SpareBytes_RW_Test(XNandPsu * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u64 Offset;
-	u32 Length;
-	s32 i = 0;
-	u32 BlockSize = NandInstPtr->Geometry.BlockSize;
+	u32 SpareOffset;
+	u16 Length;
+	s32 i;
+	MismatchCounter = 0;
 
-	Offset = (u64) ((rand()% 50) *
-					NandInstPtr->Geometry.BlockSize);
-
+	Offset = (u64)(TEST_PAGE_START * NandInstPtr->Geometry.BytesPerPage);
 	Length = NandInstPtr->Geometry.BytesPerPage;
 
 	/*
-	 * Erase the Block
+	 * Offset to write in spare area
 	 */
-	Status = XNandPs8_Erase(NandInstPtr, (u64)Offset, (u64)BlockSize);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
+	SpareOffset = (u64)(TEST_PAGE_START);
 
 	/*
-	 * Flash operation i.e. write and read for all the pages
-	 * of the block.
-	 * This test will take some time to execute. Please be patient.
+	 * Repeat the test for 5 iterations
 	 */
-	for (i = 0; i < NandInstPtr->Geometry.PagesPerBlock; i++){
+	for(i = 0; i< 5; i++){
+
+		/*
+		 * Erase the flash
+		 */
+		Status = XNandPsu_Erase(NandInstPtr, (u64)Offset, (u64)Length);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+
+		Length = rand() % (NandInstPtr->Geometry.SpareBytesPerPage);
+		if(Length == 0U){
+			Length = NandInstPtr->Geometry.SpareBytesPerPage;
+		}
 
 		/*
 		 * Initialize the write buffer
@@ -172,23 +176,32 @@ s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr)
 		}
 
 		/*
-		 * Write to flash
+		 * Disable the ECC mode
 		 */
-		Status = XNandPs8_Write(NandInstPtr, (u64)Offset, (u64)Length,
+		XNandPsu_DisableEccMode(NandInstPtr);
+
+		/*
+		 * Write to flash Spare Bytes Section
+		 */
+		Status = XNandPsu_WriteSpareBytes(NandInstPtr, SpareOffset,
 				&WriteBuffer[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 
 		/*
-		 * Read the flash after writing
+		 * Read from the flash Spare Bytes after writing
 		 */
-		Status = XNandPs8_Read(NandInstPtr, (u64)Offset, (u64)Length,
-						&ReadBuffer[0]);
+		Status = XNandPsu_ReadSpareBytes(NandInstPtr, SpareOffset,
+				&ReadBuffer[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 
+		/*
+		 * Enable the ECC mode
+		 */
+		XNandPsu_EnableEccMode(NandInstPtr);
 		/*
 		 * Compare the results
 		 */
@@ -198,7 +211,6 @@ s32 Random_Block_RW_Test(XNandPs8 * NandInstPtr)
 				Status = XST_FAILURE;
 			}
 		}
-		Offset = Offset + NandInstPtr->Geometry.BytesPerPage;
 	}
 
 Out:

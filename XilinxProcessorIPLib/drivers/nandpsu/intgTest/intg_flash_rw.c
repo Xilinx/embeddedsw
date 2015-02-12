@@ -41,9 +41,9 @@
 /*****************************************************************************/
 /**
 *
-* @file intg_markblockbad_test.c
+* @file intg_flash_rw.c
 *
-* This file contains the design example for using NAND driver (XNandPs8).
+* This file contains the design example for using NAND driver (XNandPsu).
 * This example tests the erase, read and write feature of the controller.
 * The flash is erased and written. The data is
 * read back and compared with the data written for correctness.
@@ -57,7 +57,7 @@
 *
 * Ver   Who    Date	 Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.0   sb    12/18/2014 First release
+* 1.0   sb    11/28/2014 First release
 *
 *
 * </pre>
@@ -77,13 +77,13 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 Mark_BlockBad_Test(XNandPs8 * NandInstPtr);
+s32 Flash_RW_Test(XNandPsu * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
 /**
 *
-* Entry point to call the Mark Block Bad R/W test.
+* Entry point to call the Flash R/W test.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 * @param	TestLoops - Number of tests to execute.
@@ -93,16 +93,16 @@ s32 Mark_BlockBad_Test(XNandPs8 * NandInstPtr);
 * @note	 None.
 *
 *****************************************************************************/
-int Intg_MarkBlockBadTest(XNandPs8 * NandInstPtr, int TestLoops)
+int Intg_FlashRWTest(XNandPsu * NandInstPtr, int TestLoops)
 {
 
 	s32 Status = XST_FAILURE;
-	CT_TestReset("Module Mark Block Bad test");
+	CT_TestReset("Module FLASH Read Write test");
 
 	while(TestLoops--) {
-		Status = Mark_BlockBad_Test(NandInstPtr);
+		Status = Flash_RW_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
-			CT_LOG_FAILURE("Mark Block Bad Test Failed"
+			CT_LOG_FAILURE("Nand Flash Read Write Test Failed"
 					" with %d mismatches\r\n", MismatchCounter);
 			break;
 		}
@@ -119,11 +119,11 @@ int Intg_MarkBlockBadTest(XNandPs8 * NandInstPtr, int TestLoops)
 * This function runs a test on the NAND flash device using the basic driver
 * functions in polled mode.
 * The function does the following tasks:
-*   - Marks Blocks bad.
-*   - Erase the blocks.
-*   - Write data to the blocks.
-*   - Read back the data from the blocks.
-*   - Compare the data read against the data Written.
+*	- Initialize the driver.
+*	- Erase the flash.
+*	- Write data to the flash.
+*	- Read back the data from the flash.
+*	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 *
@@ -135,85 +135,53 @@ int Intg_MarkBlockBadTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 Mark_BlockBad_Test(XNandPs8 * NandInstPtr)
+s32 Flash_RW_Test(XNandPsu * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
-	s32 BlockNo;
-	s32 i;
 	u32 Index;
-	u64 PageOff;
+	u64 Offset;
 	u32 Length;
-	u32 BlockSize = NandInstPtr->Geometry.BlockSize;
-	u64 BlockOff;
 	MismatchCounter = 0;
 
-	PageOff = (u64)(TEST_PAGE_START * NandInstPtr->Geometry.BytesPerPage);
+	Offset = (u64)(TEST_PAGE_START * NandInstPtr->Geometry.BytesPerPage);
 	Length = NandInstPtr->Geometry.BytesPerPage;
 
 	/*
 	 * Initialize the write buffer
 	 */
 	for (Index = 0; Index < Length;Index++) {
-		WriteBuffer[Index] = 2U;
-	}
-
-	/*
-	 * Marking blocks 1 & 3 as bad
-	 */
-	for (BlockNo = 0 ; BlockNo < 5 ; BlockNo++){
-		if(BlockNo%2 == 0){
-			continue;
-		}
-		Status = XNandPs8_MarkBlockBad(NandInstPtr,BlockNo);
-		if(Status != XST_SUCCESS){
-			goto Out;
-		}
+		WriteBuffer[Index] = (u8) (rand() % 256);
 	}
 	/*
-	 * Performing Block Erase Read Write on Block 1,2,3
+	 * Erase the Block
 	 */
-	for (BlockNo = TEST_BLOCK_START ; BlockNo < TEST_BLOCK_START + 3 ; BlockNo++ ){
-
-		BlockOff = BlockNo * BlockSize;
-
-		xil_printf("Erasing Block = %d \r\n", BlockNo);
-		/*
-		 * Erase the Block 1,2,3
-		 */
-		Status = XNandPs8_Erase(NandInstPtr, (u64)BlockOff, (u64)BlockSize);
-		if (Status != XST_SUCCESS) {
-			goto Out;
-		}
-
-		PageOff = BlockOff;
-
-		for (i = 0; i < NandInstPtr->Geometry.PagesPerBlock; i++){
-			/*
-			 * Write to page offset
-			 */
-			Status = XNandPs8_Write(NandInstPtr, (u64)PageOff, (u64)Length,
-					&WriteBuffer[0]);
-			if (Status != XST_SUCCESS) {
-				goto Out;
-			}
-			/*
-			 * Read from the page after writing
-			 */
-			Status = XNandPs8_Read(NandInstPtr, (u64)PageOff, (u64)Length,
-				&ReadBuffer[0]);
-			if (Status != XST_SUCCESS) {
-				goto Out;
-			}
-			/*
-			 * Compare the results
-			 */
-			for (Index = 0U; Index < Length;Index++) {
-				if (ReadBuffer[Index] != WriteBuffer[Index]) {
-					MismatchCounter++;
-					Status = XST_FAILURE;
-				}
-			}
-			PageOff = PageOff + NandInstPtr->Geometry.BytesPerPage;
+	Status = XNandPsu_Erase(NandInstPtr, (u64)Offset, (u64)Length);
+	if (Status != XST_SUCCESS) {
+		goto Out;
+	}
+	/*
+	 * Write to page offset
+	 */
+	Status = XNandPsu_Write(NandInstPtr, (u64)Offset, (u64)Length,
+						&WriteBuffer[0]);
+	if (Status != XST_SUCCESS) {
+		goto Out;
+	}
+	/*
+	 * Read from the page after writing
+	 */
+	Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
+						&ReadBuffer[0]);
+	if (Status != XST_SUCCESS) {
+		goto Out;
+	}
+	/*
+	 * Compare the results
+	 */
+	for (Index = 0U; Index < 10;Index++) {
+		if (ReadBuffer[Index] != WriteBuffer[Index]) {
+			MismatchCounter++;
+			Status = XST_FAILURE;
 		}
 	}
 

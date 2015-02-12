@@ -32,17 +32,18 @@
 /*****************************************************************************/
 /**
 *
-* @file xnandps8.c
+* @file xnandpsu.c
 *
 * This file contains the implementation of the interface functions for
-* XNandPs8 driver. Refer to the header file xnandps8.h for more detailed
+* XNandPsu driver. Refer to the header file xnandpsu.h for more detailed
 * information.
 *
 * This module supports for NAND flash memory devices that conform to the
 * "Open NAND Flash Interface" (ONFI) 3.0 Specification. This modules
 * implements basic flash operations like read, write and erase.
 *
-* @note		None
+* @note		Driver has been renamed to nandpsu after change in
+*		naming convention.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,44 +53,44 @@
 * 1.0   nm     05/06/2014  First release
 * 2.0   sb     01/12/2015  Removed Null checks for Buffer passed
 *			   as parameter to Read API's
-*			   - XNandPs8_Read()
-*			   - XNandPs8_ReadPage
+*			   - XNandPsu_Read()
+*			   - XNandPsu_ReadPage
 *			   Modified
-*			   - XNandPs8_SetFeature()
-*			   - XNandPs8_GetFeature()
+*			   - XNandPsu_SetFeature()
+*			   - XNandPsu_GetFeature()
 *			   and made them public.
 *			   Removed Failure Return for BCF Error check in
-*			   XNandPs8_ReadPage() and added BCH_Error counter
+*			   XNandPsu_ReadPage() and added BCH_Error counter
 *			   in the instance pointer structure.
-* 			   Added XNandPs8_Prepare_Cmd API
+* 			   Added XNandPsu_Prepare_Cmd API
 *			   Replaced
-*			   - XNandPs8_IntrStsEnable
-*			   - XNandPs8_IntrStsClear
-*			   - XNandPs8_IntrClear
-*			   - XNandPs8_SetProgramReg
-*			   with XNandPs8_WriteReg call
-*			   Modified xnandps8.c file API's with above changes.
+*			   - XNandPsu_IntrStsEnable
+*			   - XNandPsu_IntrStsClear
+*			   - XNandPsu_IntrClear
+*			   - XNandPsu_SetProgramReg
+*			   with XNandPsu_WriteReg call
+*			   Modified xnandpsu.c file API's with above changes.
 *  			   Corrected the program command for Set Feature API.
 *			   Modified
-*			   - XNandPs8_OnfiReadStatus
-*			   - XNandPs8_GetFeature
-*			   - XNandPs8_SetFeature
+*			   - XNandPsu_OnfiReadStatus
+*			   - XNandPsu_GetFeature
+*			   - XNandPsu_SetFeature
 *			   to add support for DDR mode.
 *			   Changed Convention for SLC/MLC
 *			   SLC --> HAMMING
 *			   MLC --> BCH
 *			   SlcMlc --> IsBCH
 *			   Removed extra DMA mode initialization from
-*			   the XNandPs8_CfgInitialize API.
+*			   the XNandPsu_CfgInitialize API.
 *			   Modified
-*			   - XNandPs8_SetEccAddrSize
+*			   - XNandPsu_SetEccAddrSize
 *			   ECC address now is calculated based upon the
 *			   size of spare area
 *			   Modified Block Erase API, removed clearing of
 *			   packet register before erase.
 *			   Clearing Data Interface Register before
-*			   XNandPs8_OnfiReset call.
-*			   Modified XNandPs8_ChangeTimingMode API supporting
+*			   XNandPsu_OnfiReset call.
+*			   Modified XNandPsu_ChangeTimingMode API supporting
 *			   SDR and NVDDR interface for timing modes 0 to 5.
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
@@ -98,49 +99,49 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xnandps8.h"
-#include "xnandps8_bbm.h"
+#include "xnandpsu.h"
+#include "xnandpsu_bbm.h"
 /************************** Constant Definitions *****************************/
 
-const XNandPs8_EccMatrix EccMatrix[] = {
+const XNandPsu_EccMatrix EccMatrix[] = {
 	/*
 	 * 512 byte page
 	 */
-	{XNANDPS8_PAGE_SIZE_512, 9U, 1U, XNANDPS8_HAMMING, 0x20DU, 0x3U},
-	{XNANDPS8_PAGE_SIZE_512, 9U, 4U, XNANDPS8_BCH, 0x209U, 0x7U},
-	{XNANDPS8_PAGE_SIZE_512, 9U, 8U, XNANDPS8_BCH, 0x203U, 0xDU},
+	{XNANDPSU_PAGE_SIZE_512, 9U, 1U, XNANDPSU_HAMMING, 0x20DU, 0x3U},
+	{XNANDPSU_PAGE_SIZE_512, 9U, 4U, XNANDPSU_BCH, 0x209U, 0x7U},
+	{XNANDPSU_PAGE_SIZE_512, 9U, 8U, XNANDPSU_BCH, 0x203U, 0xDU},
 	/*
 	 * 2K byte page
 	 */
-	{XNANDPS8_PAGE_SIZE_2K, 9U, 1U, XNANDPS8_HAMMING, 0x834U, 0xCU},
-	{XNANDPS8_PAGE_SIZE_2K, 9U, 4U, XNANDPS8_BCH, 0x826U, 0x1AU},
-	{XNANDPS8_PAGE_SIZE_2K, 9U, 8U, XNANDPS8_BCH, 0x80cU, 0x34U},
-	{XNANDPS8_PAGE_SIZE_2K, 9U, 12U, XNANDPS8_BCH, 0x822U, 0x4EU},
-	{XNANDPS8_PAGE_SIZE_2K, 10U, 24U, XNANDPS8_BCH, 0x81cU, 0x54U},
+	{XNANDPSU_PAGE_SIZE_2K, 9U, 1U, XNANDPSU_HAMMING, 0x834U, 0xCU},
+	{XNANDPSU_PAGE_SIZE_2K, 9U, 4U, XNANDPSU_BCH, 0x826U, 0x1AU},
+	{XNANDPSU_PAGE_SIZE_2K, 9U, 8U, XNANDPSU_BCH, 0x80cU, 0x34U},
+	{XNANDPSU_PAGE_SIZE_2K, 9U, 12U, XNANDPSU_BCH, 0x822U, 0x4EU},
+	{XNANDPSU_PAGE_SIZE_2K, 10U, 24U, XNANDPSU_BCH, 0x81cU, 0x54U},
 	/*
 	 * 4K byte page
 	 */
-	{XNANDPS8_PAGE_SIZE_4K, 9U, 1U, XNANDPS8_HAMMING, 0x1068U, 0x18U},
-	{XNANDPS8_PAGE_SIZE_4K, 9U, 4U, XNANDPS8_BCH, 0x104cU, 0x34U},
-	{XNANDPS8_PAGE_SIZE_4K, 9U, 8U, XNANDPS8_BCH, 0x1018U, 0x68U},
-	{XNANDPS8_PAGE_SIZE_4K, 9U, 12U, XNANDPS8_BCH, 0x1044U, 0x9CU},
-	{XNANDPS8_PAGE_SIZE_4K, 10U, 24U, XNANDPS8_BCH, 0x1038U, 0xA8U},
+	{XNANDPSU_PAGE_SIZE_4K, 9U, 1U, XNANDPSU_HAMMING, 0x1068U, 0x18U},
+	{XNANDPSU_PAGE_SIZE_4K, 9U, 4U, XNANDPSU_BCH, 0x104cU, 0x34U},
+	{XNANDPSU_PAGE_SIZE_4K, 9U, 8U, XNANDPSU_BCH, 0x1018U, 0x68U},
+	{XNANDPSU_PAGE_SIZE_4K, 9U, 12U, XNANDPSU_BCH, 0x1044U, 0x9CU},
+	{XNANDPSU_PAGE_SIZE_4K, 10U, 24U, XNANDPSU_BCH, 0x1038U, 0xA8U},
 	/*
 	 * 8K byte page
 	 */
-	{XNANDPS8_PAGE_SIZE_8K, 9U, 1U, XNANDPS8_HAMMING, 0x20d0U, 0x30U},
-	{XNANDPS8_PAGE_SIZE_8K, 9U, 4U, XNANDPS8_BCH, 0x2098U, 0x68U},
-	{XNANDPS8_PAGE_SIZE_8K, 9U, 8U, XNANDPS8_BCH, 0x2030U, 0xD0U},
-	{XNANDPS8_PAGE_SIZE_8K, 9U, 12U, XNANDPS8_BCH, 0x2088U, 0x138U},
-	{XNANDPS8_PAGE_SIZE_8K, 10U, 24U, XNANDPS8_BCH, 0x2070U, 0x150U},
+	{XNANDPSU_PAGE_SIZE_8K, 9U, 1U, XNANDPSU_HAMMING, 0x20d0U, 0x30U},
+	{XNANDPSU_PAGE_SIZE_8K, 9U, 4U, XNANDPSU_BCH, 0x2098U, 0x68U},
+	{XNANDPSU_PAGE_SIZE_8K, 9U, 8U, XNANDPSU_BCH, 0x2030U, 0xD0U},
+	{XNANDPSU_PAGE_SIZE_8K, 9U, 12U, XNANDPSU_BCH, 0x2088U, 0x138U},
+	{XNANDPSU_PAGE_SIZE_8K, 10U, 24U, XNANDPSU_BCH, 0x2070U, 0x150U},
 	/*
 	 * 16K byte page
 	 */
-	{XNANDPS8_PAGE_SIZE_16K, 9U, 1U, XNANDPS8_HAMMING, 0x4460U, 0x60U},
-	{XNANDPS8_PAGE_SIZE_16K, 9U, 4U, XNANDPS8_BCH, 0x43f0U, 0xD0U},
-	{XNANDPS8_PAGE_SIZE_16K, 9U, 8U, XNANDPS8_BCH, 0x4320U, 0x1A0U},
-	{XNANDPS8_PAGE_SIZE_16K, 9U, 12U, XNANDPS8_BCH, 0x4250U, 0x270U},
-	{XNANDPS8_PAGE_SIZE_16K, 10U, 24U, XNANDPS8_BCH, 0x4220U, 0x2A0U}
+	{XNANDPSU_PAGE_SIZE_16K, 9U, 1U, XNANDPSU_HAMMING, 0x4460U, 0x60U},
+	{XNANDPSU_PAGE_SIZE_16K, 9U, 4U, XNANDPSU_BCH, 0x43f0U, 0xD0U},
+	{XNANDPSU_PAGE_SIZE_16K, 9U, 8U, XNANDPSU_BCH, 0x4320U, 0x1A0U},
+	{XNANDPSU_PAGE_SIZE_16K, 9U, 12U, XNANDPSU_BCH, 0x4250U, 0x270U},
+	{XNANDPSU_PAGE_SIZE_16K, 10U, 24U, XNANDPSU_BCH, 0x4220U, 0x2A0U}
 };
 
 /**************************** Type Definitions *******************************/
@@ -149,77 +150,77 @@ static u8 isQemuPlatform = 0U;
 
 /************************** Function Prototypes ******************************/
 
-static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr);
+static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr);
 
-static void XNandPs8_InitGeometry(XNandPs8 *InstancePtr, OnfiParamPage *Param);
+static void XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param);
 
-static void XNandPs8_InitFeatures(XNandPs8 *InstancePtr, OnfiParamPage *Param);
+static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param);
 
-static s32 XNandPs8_PollRegTimeout(XNandPs8 *InstancePtr, u32 RegOffset,
+static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
 					u32 Mask, u32 Timeout);
 
-static void XNandPs8_SetPktSzCnt(XNandPs8 *InstancePtr, u32 PktSize,
+static void XNandPsu_SetPktSzCnt(XNandPsu *InstancePtr, u32 PktSize,
 						u32 PktCount);
 
-static void XNandPs8_SetPageColAddr(XNandPs8 *InstancePtr, u32 Page, u16 Col);
+static void XNandPsu_SetPageColAddr(XNandPsu *InstancePtr, u32 Page, u16 Col);
 
-static void XNandPs8_SetPageSize(XNandPs8 *InstancePtr);
+static void XNandPsu_SetPageSize(XNandPsu *InstancePtr);
 
-static void XNandPs8_SetBusWidth(XNandPs8 *InstancePtr);
+static void XNandPsu_SetBusWidth(XNandPsu *InstancePtr);
 
-static void XNandPs8_SelectChip(XNandPs8 *InstancePtr, u32 Target);
+static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target);
 
-static s32 XNandPs8_OnfiReset(XNandPs8 *InstancePtr, u32 Target);
+static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target);
 
-static s32 XNandPs8_OnfiReadStatus(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 							u16 *OnfiStatus);
 
-static s32 XNandPs8_OnfiReadId(XNandPs8 *InstancePtr, u32 Target, u8 IdAddr,
+static s32 XNandPsu_OnfiReadId(XNandPsu *InstancePtr, u32 Target, u8 IdAddr,
 							u32 IdLen, u8 *Buf);
 
-static s32 XNandPs8_OnfiReadParamPage(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 						u8 *Buf);
 
-static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
+static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 							u32 Col, u8 *Buf);
 
-static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
+static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 							u32 Col, u8 *Buf);
 
-static s32 XNandPs8_CheckOnDie(XNandPs8 *InstancePtr, OnfiParamPage *Param);
+static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr, OnfiParamPage *Param);
 
-static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr);
+static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr);
 
-static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 					u32 Col, u32 PktSize, u32 PktCount,
 					u8 *Buf);
 
-static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 					u32 Col, u32 PktSize, u32 PktCount,
 					u8 *Buf);
 
-static s32 XNandPs8_InitExtEcc(XNandPs8 *InstancePtr, OnfiExtPrmPage *ExtPrm);
+static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm);
 
 /*****************************************************************************/
 /**
 *
-* This function initializes a specific XNandPs8 instance. This function must
+* This function initializes a specific XNandPsu instance. This function must
 * be called prior to using the NAND flash device to read or write any data.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
-* @param	ConfigPtr points to XNandPs8 device configuration structure.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	ConfigPtr points to XNandPsu device configuration structure.
 * @param	EffectiveAddr is the base address of NAND flash controller.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *
-* @note		The user needs to first call the XNandPs8_LookupConfig() API
+* @note		The user needs to first call the XNandPsu_LookupConfig() API
 *		which returns the Configuration structure pointer which is
-*		passed as a parameter to the XNandPs8_CfgInitialize() API.
+*		passed as a parameter to the XNandPsu_CfgInitialize() API.
 *
 ******************************************************************************/
-s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
+s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status = XST_FAILURE;
@@ -238,11 +239,11 @@ s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
 	/*
 	 * Operate in Polling Mode
 	 */
-	InstancePtr->Mode = XNANDPS8_POLLING;
+	InstancePtr->Mode = XNANDPSU_POLLING;
 	/*
 	 * Enable MDMA mode by default
 	 */
-	InstancePtr->DmaMode = XNANDPS8_MDMA;
+	InstancePtr->DmaMode = XNANDPSU_MDMA;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/*
@@ -259,9 +260,9 @@ s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
 	/*
 	 * Initialize the NAND flash targets
 	 */
-	Status = XNandPs8_FlashInit(InstancePtr);
+	Status = XNandPsu_FlashInit(InstancePtr);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Flash init failed\r\n",__func__);
 #endif
 		goto Out;
@@ -270,15 +271,15 @@ s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
 	 * Set ECC mode
 	 */
 	if (InstancePtr->Features.EzNand != 0U) {
-		InstancePtr->EccMode = XNANDPS8_EZNAND;
+		InstancePtr->EccMode = XNANDPSU_EZNAND;
 	} else if (InstancePtr->Features.OnDie != 0U) {
-		InstancePtr->EccMode = XNANDPS8_ONDIE;
+		InstancePtr->EccMode = XNANDPSU_ONDIE;
 	} else {
-		InstancePtr->EccMode = XNANDPS8_HWECC;
+		InstancePtr->EccMode = XNANDPSU_HWECC;
 	}
 
 	if (isQemuPlatform != 0U) {
-		InstancePtr->EccMode = XNANDPS8_NONE;
+		InstancePtr->EccMode = XNANDPSU_NONE;
 		goto Out;
 	}
 
@@ -293,10 +294,10 @@ s32 XNandPs8_CfgInitialize(XNandPs8 *InstancePtr, XNandPs8_Config *ConfigPtr,
 	 * memory(RAM).  If bbt is not found, create bbt by scanning factory
 	 * marked bad blocks and store it in last good blocks of flash.
 	 */
-	XNandPs8_InitBbtDesc(InstancePtr);
-	Status = XNandPs8_ScanBbt(InstancePtr);
+	XNandPsu_InitBbtDesc(InstancePtr);
+	Status = XNandPsu_ScanBbt(InstancePtr);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: BBT scan failed\r\n",__func__);
 #endif
 		goto Out;
@@ -311,7 +312,7 @@ Out:
 *
 * This function initializes the NAND flash and gets the geometry information.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -320,7 +321,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
+static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 {
 	u32 Target;
 	u8 Id[ONFI_SIG_LEN] = {0U};
@@ -340,21 +341,21 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 	/*
 	 * Clear Data Interface Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_DATA_INTF_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_DATA_INTF_OFFSET, 0U);
 
-	for (Target = 0U; Target < XNANDPS8_MAX_TARGETS; Target++) {
+	for (Target = 0U; Target < XNANDPSU_MAX_TARGETS; Target++) {
 		/*
 		 * Reset the Target
 		 */
-		Status = XNandPs8_OnfiReset(InstancePtr, Target);
+		Status = XNandPsu_OnfiReset(InstancePtr, Target);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 		/*
 		 * Read ONFI ID
 		 */
-		Status = XNandPs8_OnfiReadId(InstancePtr, Target,
+		Status = XNandPsu_OnfiReadId(InstancePtr, Target,
 						ONFI_READ_ID_ADDR,
 						ONFI_SIG_LEN,
 						(u8 *)&Id[0]);
@@ -364,7 +365,7 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 
 		if (!IS_ONFI(Id)) {
 			if (Target == 0U) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 				xil_printf("%s: ONFI ID doesn't match\r\n",
 								__func__);
 #endif
@@ -376,12 +377,12 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 		/* Read Parameter Page */
 		for(Index = 0U; Index < ONFI_MND_PRM_PGS; Index++) {
 			if (Index == 0U) {
-				Status = XNandPs8_OnfiReadParamPage(InstancePtr,
+				Status = XNandPsu_OnfiReadParamPage(InstancePtr,
 							Target, (u8 *)&Param);
 			} else {
 				PrmPgOff = Index * ONFI_PRM_PG_LEN;
 				PrmPgLen = ONFI_PRM_PG_LEN;
-				Status = XNandPs8_ChangeReadColumn(InstancePtr,
+				Status = XNandPsu_ChangeReadColumn(InstancePtr,
 							Target,PrmPgOff,
 							ONFI_PRM_PG_LEN, 1U,
 							(u8 *) &Param);
@@ -390,10 +391,10 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 				goto Out;
 			}
 			/* Check CRC */
-			Crc = XNandPs8_OnfiParamPageCrc((u8*)&Param, 0U,
+			Crc = XNandPsu_OnfiParamPageCrc((u8*)&Param, 0U,
 								ONFI_CRC_LEN);
 			if (Crc != Param.Crc) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 				xil_printf("%s: ONFI parameter page (%d) crc check failed\r\n",
 							__func__, Index);
 #endif
@@ -408,10 +409,10 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 		}
 		/* Fill Geometry for the first target */
 		if (Target == 0U) {
-			XNandPs8_InitGeometry(InstancePtr, &Param);
-			XNandPs8_InitFeatures(InstancePtr, &Param);
+			XNandPsu_InitGeometry(InstancePtr, &Param);
+			XNandPsu_InitFeatures(InstancePtr, &Param);
 			if ((!InstancePtr->Features.EzNand) != 0U) {
-				Status =XNandPs8_CheckOnDie(InstancePtr,&Param);
+				Status =XNandPsu_CheckOnDie(InstancePtr,&Param);
 				if (Status != XST_SUCCESS) {
 					InstancePtr->Features.OnDie = 0U;
 				}
@@ -427,7 +428,7 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 					PrmPgOff = (u32)((u32)Param.NumOfParamPages *
 							ONFI_PRM_PG_LEN) +
 							(Index * (u32)PrmPgLen);
-					Status = XNandPs8_ChangeReadColumn(
+					Status = XNandPsu_ChangeReadColumn(
 							InstancePtr,
 							Target,
 							PrmPgOff,
@@ -439,12 +440,12 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 					/*
 					 * Check CRC
 					 */
-					Crc = XNandPs8_OnfiParamPageCrc(
+					Crc = XNandPsu_OnfiParamPageCrc(
 							(u8 *)&ExtParam,
 							2U,
 							PrmPgLen);
 					if (Crc != ExtParam.Crc) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 	xil_printf("%s: ONFI extended parameter page (%d) crc check failed\r\n",
 							__func__, Index);
 #endif
@@ -454,18 +455,18 @@ static s32 XNandPs8_FlashInit(XNandPs8 *InstancePtr)
 					/*
 					 * Initialize Extended ECC info
 					 */
-					Status = XNandPs8_InitExtEcc(
+					Status = XNandPsu_InitExtEcc(
 							InstancePtr,
 							&ExtParam);
 					if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 	xil_printf("%s: Init extended ecc failed\r\n",__func__);
 #endif
 						goto Out;
 				}
 			}
 			/* Configure ECC settings */
-			XNandPs8_SetEccAddrSize(InstancePtr);
+			XNandPsu_SetEccAddrSize(InstancePtr);
 		}
 		InstancePtr->Geometry.NumTargets++;
 	}
@@ -490,7 +491,7 @@ Out:
 *
 * This function initializes the geometry information from ONFI parameter page.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Param is pointer to the ONFI parameter page.
 *
 * @return
@@ -499,7 +500,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_InitGeometry(XNandPs8 *InstancePtr, OnfiParamPage *Param)
+static void XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
 	/*
 	 * Assert the input arguments.
@@ -528,7 +529,7 @@ static void XNandPs8_InitGeometry(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 						(u64)Param->BytesPerPage);
 	InstancePtr->Geometry.EccCodeWordSize = 9U; /* 2 power of 9 = 512 */
 
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 	xil_printf("Manufacturer: %s\r\n", Param->DeviceManufacturer);
 	xil_printf("Device Model: %s\r\n", Param->DeviceModel);
 	xil_printf("Jedec ID: 0x%x\r\n", Param->JedecManufacturerId);
@@ -554,7 +555,7 @@ static void XNandPs8_InitGeometry(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 *
 * This function initializes the feature list from ONFI parameter page.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Param is pointer to ONFI parameter page buffer.
 *
 * @return
@@ -563,7 +564,7 @@ static void XNandPs8_InitGeometry(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_InitFeatures(XNandPs8 *InstancePtr, OnfiParamPage *Param)
+static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
 	/*
 	 * Assert the input arguments.
@@ -571,8 +572,8 @@ static void XNandPs8_InitFeatures(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 	Xil_AssertVoid(Param != NULL);
 
 	InstancePtr->Features.BusWidth = ((Param->Features & (1U << 0U)) != 0U) ?
-						XNANDPS8_BUS_WIDTH_16 :
-						XNANDPS8_BUS_WIDTH_8;
+						XNANDPSU_BUS_WIDTH_16 :
+						XNANDPSU_BUS_WIDTH_8;
 	InstancePtr->Features.NvDdr = ((Param->Features & (1U << 5)) != 0U) ?
 								1U : 0U;
 	InstancePtr->Features.EzNand = ((Param->Features & (1U << 9)) != 0U) ?
@@ -586,7 +587,7 @@ static void XNandPs8_InitFeatures(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 *
 * This function checks if the flash supports on-die ECC.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Param is pointer to ONFI parameter page.
 *
 * @return
@@ -595,7 +596,7 @@ static void XNandPs8_InitFeatures(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_CheckOnDie(XNandPs8 *InstancePtr, OnfiParamPage *Param)
+static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
 	s32 Status = XST_FAILURE;
 	u8 JedecId[2] = {0U};
@@ -623,7 +624,7 @@ static s32 XNandPs8_CheckOnDie(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 	/*
 	 * Read JEDEC ID
 	 */
-	Status = XNandPs8_OnfiReadId(InstancePtr, 0U, 0x00U, 2U, &JedecId[0]);
+	Status = XNandPsu_OnfiReadId(InstancePtr, 0U, 0x00U, 2U, &JedecId[0]);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
@@ -656,17 +657,17 @@ static s32 XNandPs8_CheckOnDie(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 	(JedecId[1] == 0xB3U) ||
 	(JedecId[1] == 0xD3U) ||
 	(JedecId[1] == 0xC3U))) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Ondie flash detected, jedec id 0x%x 0x%x\r\n",
 					__func__, JedecId[0], JedecId[1]);
 #endif
 		/*
 		 * On-Die Set Feature
 		 */
-		Status = XNandPs8_SetFeature(InstancePtr, 0U, 0x90U,
+		Status = XNandPsu_SetFeature(InstancePtr, 0U, 0x90U,
 						&EccSetFeature[0]);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Ondie set_feature failed\r\n",
 								__func__);
 #endif
@@ -675,10 +676,10 @@ static s32 XNandPs8_CheckOnDie(XNandPs8 *InstancePtr, OnfiParamPage *Param)
 		/*
 		 * Check to see if ECC feature is set
 		 */
-		Status = XNandPs8_GetFeature(InstancePtr, 0U, 0x90U,
+		Status = XNandPsu_GetFeature(InstancePtr, 0U, 0x90U,
 						&EccGetFeature[0]);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Ondie get_feature failed\r\n",
 								__func__);
 #endif
@@ -703,7 +704,7 @@ Out:
 *
 * This function enables DMA mode of controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -711,7 +712,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-void XNandPs8_EnableDmaMode(XNandPs8 *InstancePtr)
+void XNandPsu_EnableDmaMode(XNandPsu *InstancePtr)
 {
 	/*
 	 * Assert the input arguments.
@@ -719,7 +720,7 @@ void XNandPs8_EnableDmaMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->DmaMode = XNANDPS8_MDMA;
+	InstancePtr->DmaMode = XNANDPSU_MDMA;
 }
 
 /*****************************************************************************/
@@ -727,7 +728,7 @@ void XNandPs8_EnableDmaMode(XNandPs8 *InstancePtr)
 *
 * This function disables DMA mode of driver/controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -735,7 +736,7 @@ void XNandPs8_EnableDmaMode(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-void XNandPs8_DisableDmaMode(XNandPs8 *InstancePtr)
+void XNandPsu_DisableDmaMode(XNandPsu *InstancePtr)
 {
 	/*
 	 * Assert the input arguments.
@@ -743,7 +744,7 @@ void XNandPs8_DisableDmaMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->DmaMode = XNANDPS8_PIO;
+	InstancePtr->DmaMode = XNANDPSU_PIO;
 }
 
 /*****************************************************************************/
@@ -751,7 +752,7 @@ void XNandPs8_DisableDmaMode(XNandPs8 *InstancePtr)
 *
 * This function enables ECC mode of driver/controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -759,7 +760,7 @@ void XNandPs8_DisableDmaMode(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-void XNandPs8_EnableEccMode(XNandPs8 *InstancePtr)
+void XNandPsu_EnableEccMode(XNandPsu *InstancePtr)
 {
 	/*
 	 * Assert the input arguments.
@@ -767,7 +768,7 @@ void XNandPs8_EnableEccMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->EccMode = XNANDPS8_HWECC;
+	InstancePtr->EccMode = XNANDPSU_HWECC;
 }
 
 /*****************************************************************************/
@@ -775,7 +776,7 @@ void XNandPs8_EnableEccMode(XNandPs8 *InstancePtr)
 *
 * This function disables ECC mode of driver/controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -783,7 +784,7 @@ void XNandPs8_EnableEccMode(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr)
+void XNandPsu_DisableEccMode(XNandPsu *InstancePtr)
 {
 	/*
 	 * Assert the input arguments.
@@ -791,7 +792,7 @@ void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->EccMode = XNANDPS8_NONE;
+	InstancePtr->EccMode = XNANDPSU_NONE;
 }
 
 /*****************************************************************************/
@@ -799,7 +800,7 @@ void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr)
 *
 * This function enables storing bbt version in oob area.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *			None
@@ -807,22 +808,22 @@ void XNandPs8_DisableEccMode(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-void XNandPs8_EnableBbtOobMode(XNandPs8 *InstancePtr)
+void XNandPsu_EnableBbtOobMode(XNandPsu *InstancePtr)
 {
 	/*
 	 * Assert the input arguments.
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_OOB;
-	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_OOB;
+	InstancePtr->BbtDesc.Option = XNANDPSU_BBT_OOB;
+	InstancePtr->BbtMirrorDesc.Option = XNANDPSU_BBT_OOB;
 	/*
 	 * Setting the Signature and Version Offset
 	 */
-	InstancePtr->BbtDesc.SigOffset = XNANDPS8_BBT_DESC_SIG_OFFSET;
-	InstancePtr->BbtMirrorDesc.SigOffset = XNANDPS8_BBT_DESC_SIG_OFFSET;
-	InstancePtr->BbtDesc.VerOffset = XNANDPS8_BBT_DESC_VER_OFFSET;
-	InstancePtr->BbtMirrorDesc.VerOffset = XNANDPS8_BBT_DESC_VER_OFFSET;
+	InstancePtr->BbtDesc.SigOffset = XNANDPSU_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtMirrorDesc.SigOffset = XNANDPSU_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtDesc.VerOffset = XNANDPSU_BBT_DESC_VER_OFFSET;
+	InstancePtr->BbtMirrorDesc.VerOffset = XNANDPSU_BBT_DESC_VER_OFFSET;
 }
 
 /*****************************************************************************/
@@ -830,7 +831,7 @@ void XNandPs8_EnableBbtOobMode(XNandPs8 *InstancePtr)
 *
 * This function enables storing bbt version in no oob area i.e. page memory.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *			None
@@ -838,24 +839,24 @@ void XNandPs8_EnableBbtOobMode(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-void XNandPs8_DisableBbtOobMode(XNandPs8 *InstancePtr)
+void XNandPsu_DisableBbtOobMode(XNandPsu *InstancePtr)
 {
 	/*
 	 * Assert the input arguments.
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	InstancePtr->BbtDesc.Option = XNANDPS8_BBT_NO_OOB;
-	InstancePtr->BbtMirrorDesc.Option = XNANDPS8_BBT_NO_OOB;
+	InstancePtr->BbtDesc.Option = XNANDPSU_BBT_NO_OOB;
+	InstancePtr->BbtMirrorDesc.Option = XNANDPSU_BBT_NO_OOB;
 	/*
 	 * Setting the Signature and Version Offset
 	 */
-	InstancePtr->BbtDesc.SigOffset = XNANDPS8_NO_OOB_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtDesc.SigOffset = XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET;
 	InstancePtr->BbtMirrorDesc.SigOffset =
-					XNANDPS8_NO_OOB_BBT_DESC_SIG_OFFSET;
-	InstancePtr->BbtDesc.VerOffset = XNANDPS8_NO_OOB_BBT_DESC_VER_OFFSET;
+					XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET;
+	InstancePtr->BbtDesc.VerOffset = XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET;
 	InstancePtr->BbtMirrorDesc.VerOffset =
-					XNANDPS8_NO_OOB_BBT_DESC_VER_OFFSET;
+					XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET;
 }
 
 /*****************************************************************************/
@@ -863,7 +864,7 @@ void XNandPs8_DisableBbtOobMode(XNandPs8 *InstancePtr)
 *
 * This function polls for a register bit set status till the timeout.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	RegOffset is the offset of register.
 * @param	Mask is the bitmask.
 * @param	Timeout is the timeout value.
@@ -875,7 +876,7 @@ void XNandPs8_DisableBbtOobMode(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_PollRegTimeout(XNandPs8 *InstancePtr, u32 RegOffset,
+static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
 					u32 Mask, u32 Timeout)
 {
 	s32 Status = XST_FAILURE;
@@ -883,7 +884,7 @@ static s32 XNandPs8_PollRegTimeout(XNandPs8 *InstancePtr, u32 RegOffset,
 	u32 TimeoutVar = Timeout;
 
 	while (TimeoutVar > 0U) {
-		RegVal = XNandPs8_ReadReg(InstancePtr->Config.BaseAddress,
+		RegVal = XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
 						RegOffset);
 		if ((RegVal & Mask) != 0U) {
 			break;
@@ -905,7 +906,7 @@ static s32 XNandPs8_PollRegTimeout(XNandPs8 *InstancePtr, u32 RegOffset,
 *
 * This function sets packet size and packet count values in packet register.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	PktSize is the packet size.
 * @param	PktCount is the packet count.
 *
@@ -915,24 +916,24 @@ static s32 XNandPs8_PollRegTimeout(XNandPs8 *InstancePtr, u32 RegOffset,
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_SetPktSzCnt(XNandPs8 *InstancePtr, u32 PktSize,
+static void XNandPsu_SetPktSzCnt(XNandPsu *InstancePtr, u32 PktSize,
 						u32 PktCount)
 {
 	/*
 	 * Assert the input arguments.
 	 */
-	Xil_AssertVoid(PktSize <= XNANDPS8_MAX_PKT_SIZE);
-	Xil_AssertVoid(PktCount <= XNANDPS8_MAX_PKT_COUNT);
+	Xil_AssertVoid(PktSize <= XNANDPSU_MAX_PKT_SIZE);
+	Xil_AssertVoid(PktCount <= XNANDPSU_MAX_PKT_COUNT);
 
 	/*
 	 * Update Packet Register with pkt size and count
 	 */
-	XNandPs8_ReadModifyWrite(InstancePtr, XNANDPS8_PKT_OFFSET,
-				((u32)XNANDPS8_PKT_PKT_SIZE_MASK |
-				(u32)XNANDPS8_PKT_PKT_CNT_MASK),
-				((PktSize & XNANDPS8_PKT_PKT_SIZE_MASK) |
-				((PktCount << XNANDPS8_PKT_PKT_CNT_SHIFT) &
-				XNANDPS8_PKT_PKT_CNT_MASK)));
+	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_PKT_OFFSET,
+				((u32)XNANDPSU_PKT_PKT_SIZE_MASK |
+				(u32)XNANDPSU_PKT_PKT_CNT_MASK),
+				((PktSize & XNANDPSU_PKT_PKT_SIZE_MASK) |
+				((PktCount << XNANDPSU_PKT_PKT_CNT_SHIFT) &
+				XNANDPSU_PKT_PKT_CNT_MASK)));
 }
 
 /*****************************************************************************/
@@ -940,7 +941,7 @@ static void XNandPs8_SetPktSzCnt(XNandPs8 *InstancePtr, u32 PktSize,
 *
 * This function sets Page and Column values in the Memory address registers.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Page is the page value.
 * @param	Col is the column value.
 *
@@ -950,23 +951,23 @@ static void XNandPs8_SetPktSzCnt(XNandPs8 *InstancePtr, u32 PktSize,
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_SetPageColAddr(XNandPs8 *InstancePtr, u32 Page, u16 Col)
+static void XNandPsu_SetPageColAddr(XNandPsu *InstancePtr, u32 Page, u16 Col)
 {
 	/*
 	 * Program Memory Address Register 1
 	 */
-	XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_MEM_ADDR1_OFFSET,
-				((Col & XNANDPS8_MEM_ADDR1_COL_ADDR_MASK) |
-				((Page << (u32)XNANDPS8_MEM_ADDR1_PG_ADDR_SHIFT) &
-				XNANDPS8_MEM_ADDR1_PG_ADDR_MASK)));
+	XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_MEM_ADDR1_OFFSET,
+				((Col & XNANDPSU_MEM_ADDR1_COL_ADDR_MASK) |
+				((Page << (u32)XNANDPSU_MEM_ADDR1_PG_ADDR_SHIFT) &
+				XNANDPSU_MEM_ADDR1_PG_ADDR_MASK)));
 	/*
 	 * Program Memory Address Register 2
 	 */
-	XNandPs8_ReadModifyWrite(InstancePtr, XNANDPS8_MEM_ADDR2_OFFSET,
-				XNANDPS8_MEM_ADDR2_MEM_ADDR_MASK,
-				((Page >> XNANDPS8_MEM_ADDR1_PG_ADDR_SHIFT) &
-				XNANDPS8_MEM_ADDR2_MEM_ADDR_MASK));
+	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_MEM_ADDR2_OFFSET,
+				XNANDPSU_MEM_ADDR2_MEM_ADDR_MASK,
+				((Page >> XNANDPSU_MEM_ADDR1_PG_ADDR_SHIFT) &
+				XNANDPSU_MEM_ADDR2_MEM_ADDR_MASK));
 }
 
 /*****************************************************************************/
@@ -974,7 +975,7 @@ static void XNandPs8_SetPageColAddr(XNandPs8 *InstancePtr, u32 Page, u16 Col)
 *
 * This function sets the size of page in Command Register.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -982,7 +983,7 @@ static void XNandPs8_SetPageColAddr(XNandPs8 *InstancePtr, u32 Page, u16 Col)
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_SetPageSize(XNandPs8 *InstancePtr)
+static void XNandPsu_SetPageSize(XNandPsu *InstancePtr)
 {
 	u32 PageSizeMask = 0;
 	u32 PageSize = InstancePtr->Geometry.BytesPerPage;
@@ -991,23 +992,23 @@ static void XNandPs8_SetPageSize(XNandPs8 *InstancePtr)
 	 * Calculate page size mask
 	 */
 	switch(PageSize) {
-		case XNANDPS8_PAGE_SIZE_512:
-			PageSizeMask = (0U << XNANDPS8_CMD_PG_SIZE_SHIFT);
+		case XNANDPSU_PAGE_SIZE_512:
+			PageSizeMask = (0U << XNANDPSU_CMD_PG_SIZE_SHIFT);
 			break;
-		case XNANDPS8_PAGE_SIZE_2K:
-			PageSizeMask = (1U << XNANDPS8_CMD_PG_SIZE_SHIFT);
+		case XNANDPSU_PAGE_SIZE_2K:
+			PageSizeMask = (1U << XNANDPSU_CMD_PG_SIZE_SHIFT);
 			break;
-		case XNANDPS8_PAGE_SIZE_4K:
-			PageSizeMask = (2U << XNANDPS8_CMD_PG_SIZE_SHIFT);
+		case XNANDPSU_PAGE_SIZE_4K:
+			PageSizeMask = (2U << XNANDPSU_CMD_PG_SIZE_SHIFT);
 			break;
-		case XNANDPS8_PAGE_SIZE_8K:
-			PageSizeMask = (3U << XNANDPS8_CMD_PG_SIZE_SHIFT);
+		case XNANDPSU_PAGE_SIZE_8K:
+			PageSizeMask = (3U << XNANDPSU_CMD_PG_SIZE_SHIFT);
 			break;
-		case XNANDPS8_PAGE_SIZE_16K:
-			PageSizeMask = (4U << XNANDPS8_CMD_PG_SIZE_SHIFT);
+		case XNANDPSU_PAGE_SIZE_16K:
+			PageSizeMask = (4U << XNANDPSU_CMD_PG_SIZE_SHIFT);
 			break;
-		case XNANDPS8_PAGE_SIZE_1K_16BIT:
-			PageSizeMask = (5U << XNANDPS8_CMD_PG_SIZE_SHIFT);
+		case XNANDPSU_PAGE_SIZE_1K_16BIT:
+			PageSizeMask = (5U << XNANDPSU_CMD_PG_SIZE_SHIFT);
 			break;
 		default:
 			/*
@@ -1018,8 +1019,8 @@ static void XNandPs8_SetPageSize(XNandPs8 *InstancePtr)
 	/*
 	 * Update Command Register
 	 */
-	XNandPs8_ReadModifyWrite(InstancePtr, XNANDPS8_CMD_OFFSET,
-				XNANDPS8_CMD_PG_SIZE_MASK, PageSizeMask);
+	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_CMD_OFFSET,
+				XNANDPSU_CMD_PG_SIZE_MASK, PageSizeMask);
 }
 
 /*****************************************************************************/
@@ -1027,7 +1028,7 @@ static void XNandPs8_SetPageSize(XNandPs8 *InstancePtr)
 *
 * This function setup the Ecc Register.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -1035,7 +1036,7 @@ static void XNandPs8_SetPageSize(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
+static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
 {
 	u32 PageSize = InstancePtr->Geometry.BytesPerPage;
 	u32 CodeWordSize = InstancePtr->Geometry.EccCodeWordSize;
@@ -1044,7 +1045,7 @@ static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
 	u32 Found = 0U;
 	u8 BchModeVal = 0U;
 
-	for (Index = 0U; Index < (sizeof(EccMatrix)/sizeof(XNandPs8_EccMatrix));
+	for (Index = 0U; Index < (sizeof(EccMatrix)/sizeof(XNandPsu_EccMatrix));
 						Index++) {
 		if ((EccMatrix[Index].PageSize == PageSize) &&
 			(EccMatrix[Index].CodeWordSize >= CodeWordSize)) {
@@ -1059,7 +1060,7 @@ static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
 	}
 
 	if (Found != 0U) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("ECC: addr 0x%x size 0x%x numbits %d codesz %d\r\n",
 			PageSize + (InstancePtr->Geometry.SpareBytesPerPage
 						- EccMatrix[Found].EccSize),
@@ -1075,7 +1076,7 @@ static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
 		InstancePtr->EccCfg.CodeWordSize =
 						EccMatrix[Found].CodeWordSize;
 
-		if (EccMatrix[Found].IsBCH == XNANDPS8_HAMMING) {
+		if (EccMatrix[Found].IsBCH == XNANDPSU_HAMMING) {
 			InstancePtr->EccCfg.IsBCH = 0U;
 		} else {
 			InstancePtr->EccCfg.IsBCH = 1U;
@@ -1083,13 +1084,13 @@ static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
 		/*
 		 * Write ECC register
 		 */
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				(u32)XNANDPS8_ECC_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				(u32)XNANDPSU_ECC_OFFSET,
 				((u32)InstancePtr->EccCfg.EccAddr |
 				((u32)InstancePtr->EccCfg.EccSize << (u32)16) |
 				((u32)InstancePtr->EccCfg.IsBCH << (u32)27)));
 
-		if (EccMatrix[Found].IsBCH == XNANDPS8_BCH) {
+		if (EccMatrix[Found].IsBCH == XNANDPSU_BCH) {
 			/*
 			 * Write memory address register 2
 			 */
@@ -1112,11 +1113,11 @@ static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
 				default:
 					BchModeVal = 0x0U;
 			}
-			XNandPs8_ReadModifyWrite(InstancePtr,
-				XNANDPS8_MEM_ADDR2_OFFSET,
-				XNANDPS8_MEM_ADDR2_NFC_BCH_MODE_MASK,
+			XNandPsu_ReadModifyWrite(InstancePtr,
+				XNANDPSU_MEM_ADDR2_OFFSET,
+				XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_MASK,
 				(BchModeVal <<
-				(u32)XNANDPS8_MEM_ADDR2_NFC_BCH_MODE_SHIFT));
+				(u32)XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_SHIFT));
 		}
 	}
 }
@@ -1126,7 +1127,7 @@ static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
 *
 * This function setup the Ecc Spare Command Register.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -1134,11 +1135,11 @@ static void XNandPs8_SetEccAddrSize(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_SetEccSpareCmd(XNandPs8 *InstancePtr, u16 SpareCmd,
+static void XNandPsu_SetEccSpareCmd(XNandPsu *InstancePtr, u16 SpareCmd,
 								u8 AddrCycles)
 {
-	XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				(u32)XNANDPS8_ECC_SPR_CMD_OFFSET,
+	XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				(u32)XNANDPSU_ECC_SPR_CMD_OFFSET,
 				(u32)SpareCmd | ((u32)AddrCycles << 28U));
 }
 
@@ -1147,7 +1148,7 @@ static void XNandPs8_SetEccSpareCmd(XNandPs8 *InstancePtr, u16 SpareCmd,
 *
 * This function sets the flash bus width in memory address2 register.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 *
 * @return
 *		None
@@ -1155,15 +1156,15 @@ static void XNandPs8_SetEccSpareCmd(XNandPs8 *InstancePtr, u16 SpareCmd,
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_SetBusWidth(XNandPs8 *InstancePtr)
+static void XNandPsu_SetBusWidth(XNandPsu *InstancePtr)
 {
 	/*
 	 * Update Memory Address2 register with bus width
 	 */
-	XNandPs8_ReadModifyWrite(InstancePtr, XNANDPS8_MEM_ADDR2_OFFSET,
-				XNANDPS8_MEM_ADDR2_BUS_WIDTH_MASK,
+	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_MEM_ADDR2_OFFSET,
+				XNANDPSU_MEM_ADDR2_BUS_WIDTH_MASK,
 				(InstancePtr->Features.BusWidth <<
-				XNANDPS8_MEM_ADDR2_BUS_WIDTH_SHIFT));
+				XNANDPSU_MEM_ADDR2_BUS_WIDTH_SHIFT));
 
 }
 
@@ -1172,7 +1173,7 @@ static void XNandPs8_SetBusWidth(XNandPs8 *InstancePtr)
 *
 * This function sets the chip select value in memory address2 register.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 *
 * @return
@@ -1181,15 +1182,15 @@ static void XNandPs8_SetBusWidth(XNandPs8 *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_SelectChip(XNandPs8 *InstancePtr, u32 Target)
+static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target)
 {
 	/*
 	 * Update Memory Address2 register with chip select
 	 */
-	XNandPs8_ReadModifyWrite(InstancePtr, XNANDPS8_MEM_ADDR2_OFFSET,
-			XNANDPS8_MEM_ADDR2_CHIP_SEL_MASK,
-			((Target << XNANDPS8_MEM_ADDR2_CHIP_SEL_SHIFT) &
-			XNANDPS8_MEM_ADDR2_CHIP_SEL_MASK));
+	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_MEM_ADDR2_OFFSET,
+			XNANDPSU_MEM_ADDR2_CHIP_SEL_MASK,
+			((Target << XNANDPSU_MEM_ADDR2_CHIP_SEL_SHIFT) &
+			XNANDPSU_MEM_ADDR2_CHIP_SEL_MASK));
 }
 
 /*****************************************************************************/
@@ -1197,7 +1198,7 @@ static void XNandPs8_SelectChip(XNandPs8 *InstancePtr, u32 Target)
 *
 * This function sends ONFI Reset command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 *
 * @return
@@ -1207,46 +1208,46 @@ static void XNandPs8_SelectChip(XNandPs8 *InstancePtr, u32 Target)
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_OnfiReset(XNandPs8 *InstancePtr, u32 Target)
+static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target)
 {
 	s32 Status = XST_FAILURE;
 
 	/*
 	 * Assert the input arguments.
 	 */
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 
 	/*
 	 * Enable Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET,
-		XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET,
+		XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 	/*
 	 * Program Command Register
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_RST, ONFI_CMD_INVALID, 0U,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_RST, ONFI_CMD_INVALID, 0U,
 			0U, 0U);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set Reset in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_PROG_OFFSET, XNANDPS8_PROG_RST_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_PROG_OFFSET, XNANDPSU_PROG_RST_MASK);
 
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -1256,14 +1257,14 @@ static s32 XNandPs8_OnfiReset(XNandPs8 *InstancePtr, u32 Target)
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		(XNANDPS8_INTR_STS_EN_OFFSET), 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		(XNANDPSU_INTR_STS_EN_OFFSET), 0U);
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -1274,7 +1275,7 @@ Out:
 *
 * This function sends ONFI Read Status command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	OnfiStatus is the ONFI status value to return.
 *
@@ -1285,7 +1286,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_OnfiReadStatus(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 							u16 *OnfiStatus)
 {
 	s32 Status = XST_FAILURE;
@@ -1293,48 +1294,48 @@ static s32 XNandPs8_OnfiReadStatus(XNandPs8 *InstancePtr, u32 Target,
 	/*
 	 * Assert the input arguments.
 	 */
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 	Xil_AssertNonvoid(OnfiStatus != NULL);
 	/*
 	 * Enable Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET,
-		XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET,
+		XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 	/*
 	 * Program Command Register
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_RD_STS, ONFI_CMD_INVALID,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_RD_STS, ONFI_CMD_INVALID,
 				0U, 0U, 0U);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	if(InstancePtr->DataInterface == XNANDPS8_SDR){
-		XNandPs8_SetPktSzCnt(InstancePtr, 1U, 1U);
+	if(InstancePtr->DataInterface == XNANDPSU_SDR){
+		XNandPsu_SetPktSzCnt(InstancePtr, 1U, 1U);
 	}
 	else{
-		XNandPs8_SetPktSzCnt(InstancePtr, 2U, 1U);
+		XNandPsu_SetPktSzCnt(InstancePtr, 2U, 1U);
 	}
 
 	/*
 	 * Set Read Status in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_STS_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_STS_MASK);
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -1344,19 +1345,19 @@ static s32 XNandPs8_OnfiReadStatus(XNandPs8 *InstancePtr, u32 Target,
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 	/*
 	 * Read Flash Status
 	 */
-	*OnfiStatus = (u8) XNandPs8_ReadReg(InstancePtr->Config.BaseAddress,
-						XNANDPS8_FLASH_STS_OFFSET);
+	*OnfiStatus = (u8) XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
+						XNANDPSU_FLASH_STS_OFFSET);
 
 Out:
 
@@ -1368,7 +1369,7 @@ Out:
 *
 * This function sends ONFI Read ID command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Buf is the ONFI ID value to return.
 *
@@ -1379,7 +1380,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_OnfiReadId(XNandPs8 *InstancePtr, u32 Target, u8 IdAddr,
+static s32 XNandPsu_OnfiReadId(XNandPsu *InstancePtr, u32 Target, u8 IdAddr,
 							u32 IdLen, u8 *Buf)
 {
 	s32 Status = XST_FAILURE;
@@ -1392,50 +1393,50 @@ static s32 XNandPs8_OnfiReadId(XNandPs8 *InstancePtr, u32 Target, u8 IdAddr,
 	/*
 	 * Assert the input arguments.
 	 */
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 	Xil_AssertNonvoid(Buf != NULL);
 
 	/*
 	 * Enable Buffer Read Ready Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET,
-		XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET,
+		XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 	/*
 	 * Program Command
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_RD_ID, ONFI_CMD_INVALID, 0U,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_RD_ID, ONFI_CMD_INVALID, 0U,
 					0U, ONFI_READ_ID_ADDR_CYCLES);
 
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, 0U, IdAddr);
+	XNandPsu_SetPageColAddr(InstancePtr, 0U, IdAddr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, IdLen, 1U);
+	XNandPsu_SetPktSzCnt(InstancePtr, IdLen, 1U);
 	/*
 	 * Set Read ID in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_ID_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_ID_MASK);
 
 	/*
 	 * Poll for Buffer Read Ready event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 		InstancePtr,
-		XNANDPS8_INTR_STS_OFFSET,
-		XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-		XNANDPS8_INTR_POLL_TIMEOUT);
+		XNANDPSU_INTR_STS_OFFSET,
+		XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
+		XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for buf read ready timeout\r\n",
 							__func__);
 #endif
@@ -1446,30 +1447,30 @@ static s32 XNandPs8_OnfiReadId(XNandPs8 *InstancePtr, u32 Target, u8 IdAddr,
 	 * Status Enable Register
 	 */
 
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET,
-		XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET,
+		XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 
 	/*
 	 * Clear Buffer Read Ready Interrupt in Interrupt Status
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 	/*
 	 * Read Packet Data from Data Port Register
 	 */
 	for (Index = 0U; Index < (IdLen/4); Index++) {
-		BufPtr[Index] = XNandPs8_ReadReg(
+		BufPtr[Index] = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
-					XNANDPS8_BUF_DATA_PORT_OFFSET);
+					XNANDPSU_BUF_DATA_PORT_OFFSET);
 	}
 	Rem = IdLen % 4;
 	if (Rem != 0U) {
-		RegVal = XNandPs8_ReadReg(
+		RegVal = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
-					XNANDPS8_BUF_DATA_PORT_OFFSET);
+					XNANDPSU_BUF_DATA_PORT_OFFSET);
 		for (RemIdx = 0U; RemIdx < Rem; RemIdx++) {
 			Buf[(Index * 4U) + RemIdx] = (u8) (RegVal >>
 						(RemIdx * 8U)) & 0xFFU;
@@ -1479,13 +1480,13 @@ static s32 XNandPs8_OnfiReadId(XNandPs8 *InstancePtr, u32 Target, u8 IdAddr,
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -1495,14 +1496,14 @@ static s32 XNandPs8_OnfiReadId(XNandPs8 *InstancePtr, u32 Target, u8 IdAddr,
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET,0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET,0U);
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -1513,7 +1514,7 @@ Out:
 *
 * This function sends the ONFI Read Parameter Page command to flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	PrmIndex is the index of parameter page.
 * @param	Buf is the parameter page information to return.
@@ -1525,7 +1526,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_OnfiReadParamPage(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 						u8 *Buf)
 {
 	s32 Status = XST_FAILURE;
@@ -1535,49 +1536,49 @@ static s32 XNandPs8_OnfiReadParamPage(XNandPs8 *InstancePtr, u32 Target,
 	/*
 	 * Assert the input arguments.
 	 */
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 	Xil_AssertNonvoid(Buf != NULL);
 
 	/*
 	 * Enable Buffer Read Ready Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET,
-		XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET,
+		XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 	/*
 	 * Program Command
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_RD_PRM_PG, ONFI_CMD_INVALID,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_RD_PRM_PG, ONFI_CMD_INVALID,
 					0U, 0U, ONFI_PRM_PG_ADDR_CYCLES);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, 0U, 0U);
+	XNandPsu_SetPageColAddr(InstancePtr, 0U, 0U);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, ONFI_PRM_PG_LEN, 1U);
+	XNandPsu_SetPktSzCnt(InstancePtr, ONFI_PRM_PG_LEN, 1U);
 	/*
 	 * Set Read Parameter Page in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_PRM_PG_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_PRM_PG_MASK);
 
 	/*
 	 * Poll for Buffer Read Ready event
 	 */
-	 Status = XNandPs8_PollRegTimeout(
+	 Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	 if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Poll for buf read ready timeout\r\n",
 							__func__);
 #endif
@@ -1589,35 +1590,35 @@ static s32 XNandPs8_OnfiReadParamPage(XNandPs8 *InstancePtr, u32 Target,
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XNANDPS8_INTR_STS_EN_OFFSET),
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XNANDPSU_INTR_STS_EN_OFFSET),
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 		/*
 		 * Clear Buffer Read Ready Interrupt in Interrupt Status
 		 * Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 		/*
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (ONFI_PRM_PG_LEN/4); Index++) {
-			BufPtr[Index] = XNandPs8_ReadReg(
+			BufPtr[Index] = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
-						XNANDPS8_BUF_DATA_PORT_OFFSET);
+						XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
 
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -1627,14 +1628,14 @@ static s32 XNandPs8_OnfiReadParamPage(XNandPs8 *InstancePtr, u32 Target,
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -1646,7 +1647,7 @@ Out:
 * This function returns the length including bad blocks from a given offset and
 * length.
 *
-* @param	InstancePtr is the pointer to the XNandPs8 instance.
+* @param	InstancePtr is the pointer to the XNandPsu instance.
 * @param	Offset is the flash data address to read from.
 * @param	Length is number of bytes to read.
 *
@@ -1656,7 +1657,7 @@ Out:
 * @note		None.
 *
 ******************************************************************************/
-static s32 XNandPs8_CalculateLength(XNandPs8 *InstancePtr, u64 Offset,
+static s32 XNandPsu_CalculateLength(XNandPsu *InstancePtr, u64 Offset,
 							u64 Length)
 {
 	s32 Status;
@@ -1674,7 +1675,7 @@ static s32 XNandPs8_CalculateLength(XNandPs8 *InstancePtr, u64 Offset,
 		/*
 		 * Check if the block is bad
 		 */
-		Status = XNandPs8_IsBlockBad(InstancePtr, Block);
+		Status = XNandPsu_IsBlockBad(InstancePtr, Block);
 		if (Status != XST_SUCCESS) {
 			/*
 			 * Good block
@@ -1698,7 +1699,7 @@ Out:
 *
 * This function writes to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Offset is the starting offset of flash to write.
 * @param	Length is the number of bytes to write.
 * @param	SrcBuf is the source data buffer to write.
@@ -1710,7 +1711,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_Write(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
+s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 {
 	s32 Status = XST_FAILURE;
 	u32 Page;
@@ -1740,7 +1741,7 @@ s32 XNandPs8_Write(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 	 * Check if write operation exceeds flash size when including
 	 * bad blocks.
 	 */
-	Status = XNandPs8_CalculateLength(InstancePtr, OffsetVar, LengthVar);
+	Status = XNandPsu_CalculateLength(InstancePtr, OffsetVar, LengthVar);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
@@ -1752,7 +1753,7 @@ s32 XNandPs8_Write(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 		 * For better results, always program the flash starting at
 		 * a block boundary.
 		 */
-		if (XNandPs8_IsBlockBad(InstancePtr, Block) == XST_SUCCESS) {
+		if (XNandPsu_IsBlockBad(InstancePtr, Block) == XST_SUCCESS) {
 			OffsetVar += (u64)InstancePtr->Geometry.BlockSize;
 			continue;
 		}
@@ -1799,7 +1800,7 @@ s32 XNandPs8_Write(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 		/*
 		 * Program page
 		 */
-		Status = XNandPs8_ProgramPage(InstancePtr, Target, Page, 0U,
+		Status = XNandPsu_ProgramPage(InstancePtr, Target, Page, 0U,
 								BufPtr);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -1808,7 +1809,7 @@ s32 XNandPs8_Write(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 		 * ONFI ReadStatus
 		 */
 		do {
-			Status = XNandPs8_OnfiReadStatus(InstancePtr, Target,
+			Status = XNandPsu_OnfiReadStatus(InstancePtr, Target,
 								&OnfiStatus);
 			if (Status != XST_SUCCESS) {
 				goto Out;
@@ -1836,7 +1837,7 @@ Out:
 *
 * This function reads from the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Offset is the starting offset of flash to read.
 * @param	Length is the number of bytes to read.
 * @param	DestBuf is the destination data buffer to fill in.
@@ -1848,7 +1849,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_Read(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
+s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 {
 	s32 Status = XST_FAILURE;
 	u32 Page;
@@ -1876,7 +1877,7 @@ s32 XNandPs8_Read(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 	 * Check if read operation exceeds flash size when including
 	 * bad blocks.
 	 */
-	Status = XNandPs8_CalculateLength(InstancePtr, OffsetVar, LengthVar);
+	Status = XNandPsu_CalculateLength(InstancePtr, OffsetVar, LengthVar);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
@@ -1888,7 +1889,7 @@ s32 XNandPs8_Read(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 		 * The flash programming utility must make sure to start
 		 * writing always at a block boundary and skip blocks if any.
 		 */
-		if (XNandPs8_IsBlockBad(InstancePtr, Block) == XST_SUCCESS) {
+		if (XNandPsu_IsBlockBad(InstancePtr, Block) == XST_SUCCESS) {
 			OffsetVar += (u64)InstancePtr->Geometry.BlockSize;
 			continue;
 		}
@@ -1931,7 +1932,7 @@ s32 XNandPs8_Read(XNandPs8 *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 		 * Read page
 		 */
 		Xil_AssertNonvoid(BufPtr != NULL);
-		Status = XNandPs8_ReadPage(InstancePtr, Target, Page, 0U,
+		Status = XNandPsu_ReadPage(InstancePtr, Target, Page, 0U,
 								BufPtr);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -1954,7 +1955,7 @@ Out:
 *
 * This function erases the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Offset is the starting offset of flash to erase.
 * @param	Length is the number of bytes to erase.
 *
@@ -1967,7 +1968,7 @@ Out:
 *		to get better results.
 *
 ******************************************************************************/
-s32 XNandPs8_Erase(XNandPs8 *InstancePtr, u64 Offset, u64 Length)
+s32 XNandPsu_Erase(XNandPsu *InstancePtr, u64 Offset, u64 Length)
 {
 	s32 Status = XST_FAILURE;
 	u32 Target = 0;
@@ -1994,7 +1995,7 @@ s32 XNandPs8_Erase(XNandPs8 *InstancePtr, u64 Offset, u64 Length)
 	 * Check if erase operation exceeds flash size when including
 	 * bad blocks.
 	 */
-	Status = XNandPs8_CalculateLength(InstancePtr, OffsetVar, LengthVar);
+	Status = XNandPsu_CalculateLength(InstancePtr, OffsetVar, LengthVar);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
@@ -2005,7 +2006,7 @@ s32 XNandPs8_Erase(XNandPs8 *InstancePtr, u64 Offset, u64 Length)
 
 	while (LengthVar > 0U) {
 		Block = (u32) (OffsetVar/InstancePtr->Geometry.BlockSize);
-		if (XNandPs8_IsBlockBad(InstancePtr, Block) ==
+		if (XNandPsu_IsBlockBad(InstancePtr, Block) ==
 							XST_SUCCESS) {
 			OffsetVar += (u64)InstancePtr->Geometry.BlockSize;
 			NumBlocks++;
@@ -2033,7 +2034,7 @@ s32 XNandPs8_Erase(XNandPs8 *InstancePtr, u64 Offset, u64 Length)
 	for (Block = StartBlock; Block < (StartBlock + NumBlocks); Block++) {
 		Target = Block/InstancePtr->Geometry.NumTargetBlocks;
 		Block %= InstancePtr->Geometry.NumTargetBlocks;
-		if (XNandPs8_IsBlockBad(InstancePtr, Block) ==
+		if (XNandPsu_IsBlockBad(InstancePtr, Block) ==
 							XST_SUCCESS) {
 			/*
 			 * Don't erase bad block
@@ -2043,7 +2044,7 @@ s32 XNandPs8_Erase(XNandPs8 *InstancePtr, u64 Offset, u64 Length)
 		/*
 		 * Block Erase
 		 */
-		Status = XNandPs8_EraseBlock(InstancePtr, Target, Block);
+		Status = XNandPsu_EraseBlock(InstancePtr, Target, Block);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
@@ -2051,7 +2052,7 @@ s32 XNandPs8_Erase(XNandPs8 *InstancePtr, u64 Offset, u64 Length)
 		 * ONFI ReadStatus
 		 */
 		do {
-			Status = XNandPs8_OnfiReadStatus(InstancePtr, Target,
+			Status = XNandPsu_OnfiReadStatus(InstancePtr, Target,
 								&OnfiStatus);
 			if (Status != XST_SUCCESS) {
 				goto Out;
@@ -2075,7 +2076,7 @@ Out:
 *
 * This function sends ONFI Program Page command to flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Page is the page address value to program.
 * @param	Col is the column address value to program.
@@ -2088,7 +2089,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
+static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 							u32 Col, u8 *Buf)
 {
 	u32 AddrCycles = InstancePtr->Geometry.RowAddrCycles +
@@ -2113,80 +2114,80 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	}
 	PktCount = InstancePtr->Geometry.BytesPerPage/PktSize;
 
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_PG_PROG1, ONFI_CMD_PG_PROG2,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_PG_PROG1, ONFI_CMD_PG_PROG2,
 					1U, 1U, (u8)AddrCycles);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-			XNANDPS8_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+			XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
 	} else {
 		/*
 		 * Enable Buffer Write Ready Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 	}
 	/*
 	 * Program Page Size
 	 */
-	XNandPs8_SetPageSize(InstancePtr);
+	XNandPsu_SetPageSize(InstancePtr);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Flush the Data Cache
 		 */
 		Xil_DCacheFlushRange(Buf, (PktSize * PktCount));
 
 #ifdef __aarch64__
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR1_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
 				(u32) (((INTPTR)Buf >> 32) & 0xFFFFFFFFU));
 #endif
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR0_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, Page, (u16)Col);
+	XNandPsu_SetPageColAddr(InstancePtr, Page, (u16)Col);
 	/*
 	 * Set Bus Width
 	 */
-	XNandPs8_SetBusWidth(InstancePtr);
+	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set ECC
 	 */
-	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
-		XNandPs8_SetEccSpareCmd(InstancePtr, ONFI_CMD_CHNG_WR_COL,
+	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
+		XNandPsu_SetEccSpareCmd(InstancePtr, ONFI_CMD_CHNG_WR_COL,
 					InstancePtr->Geometry.ColAddrCycles);
 	}
 	/*
 	 * Set Page Program in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_PG_PROG_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_PG_PROG_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		goto WriteDmaDone;
 	}
 
@@ -2194,13 +2195,13 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 		/*
 		 * Poll for Buffer Write Ready event
 		 */
-		Status = XNandPs8_PollRegTimeout(
+		Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Poll for buf write ready timeout\r\n",
 							__func__);
 #endif
@@ -2216,31 +2217,31 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 		} else {
 			/*
 			 * Clear Buffer Write Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 		}
 		/*
 		 * Clear Buffer Write Ready Interrupt in Interrupt Status
 		 * Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
 		/*
 		 * Write Packet Data to Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4U); Index++) {
-			XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-						XNANDPS8_BUF_DATA_PORT_OFFSET,
+			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+						XNANDPSU_BUF_DATA_PORT_OFFSET,
 						BufPtr[Index]);
 		}
 		BufPtr += (PktSize/4U);
@@ -2250,9 +2251,9 @@ static s32 XNandPs8_ProgramPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 			 * Enable Buffer Write Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 		} else {
 			break;
 		}
@@ -2261,13 +2262,13 @@ WriteDmaDone:
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -2277,15 +2278,15 @@ WriteDmaDone:
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -2296,7 +2297,7 @@ Out:
 *
 * This function sends ONFI Program Page command to flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Page is the page address value to program.
 * @param	Col is the column address value to program.
@@ -2309,7 +2310,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
+s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 {
 	u32 AddrCycles = InstancePtr->Geometry.RowAddrCycles +
 				InstancePtr->Geometry.ColAddrCycles;
@@ -2339,7 +2340,7 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 
 	PageVar %= InstancePtr->Geometry.NumTargetPages;
 
-	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
+	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
 		/*
 		 * Calculate ECC free positions before and after ECC code
 		 */
@@ -2379,23 +2380,23 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 		}
 	}
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Enable Transfer Complete Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 
 	} else {
 		/*
 		 * Enable Buffer Write Ready Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 
 	}
 	/*
@@ -2404,68 +2405,68 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 	if (PostWrite > 0U) {
 		Cmd.Command1 = 0x80U;
 		Cmd.Command2 = 0x00U;
-		XNandPs8_Prepare_Cmd(InstancePtr, Cmd.Command1, Cmd.Command2,
+		XNandPsu_Prepare_Cmd(InstancePtr, Cmd.Command1, Cmd.Command2,
 				0U , 1U, (u8)AddrCycles);
 
 	} else {
-		XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_PG_PROG1,
+		XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_PG_PROG1,
 				ONFI_CMD_PG_PROG2, 0U , 1U, (u8)AddrCycles);
 	}
 	/*
 	 * Program Page Size
 	 */
-	XNandPs8_SetPageSize(InstancePtr);
+	XNandPsu_SetPageSize(InstancePtr);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Flush the Data Cache
 		 */
 		Xil_DCacheFlushRange(BufPtr, (PktSize * PktCount));
 
 #ifdef __aarch64__
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR1_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
 				(u32) (((INTPTR)BufPtr >> 32) & 0xFFFFFFFFU));
 #endif
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR0_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)BufPtr & 0xFFFFFFFFU));
 
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_BUF_BND_OFFSET,
-				XNANDPS8_DMA_BUF_BND_512K);
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_BUF_BND_OFFSET,
+				XNANDPSU_DMA_BUF_BND_512K);
 	}
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, PageVar, (u16)Col);
+	XNandPsu_SetPageColAddr(InstancePtr, PageVar, (u16)Col);
 	/*
 	 * Set Bus Width
 	 */
-	XNandPs8_SetBusWidth(InstancePtr);
+	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set Page Program in Program Register
 	 */
 	if (PostWrite > 0U) {
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,((u32)XNANDPS8_PROG_PG_PROG_MASK |
-				(u32)XNANDPS8_PROG_CHNG_ROW_ADDR_MASK));
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,((u32)XNANDPSU_PROG_PG_PROG_MASK |
+				(u32)XNANDPSU_PROG_CHNG_ROW_ADDR_MASK));
 	} else {
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_PG_PROG_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_PG_PROG_MASK);
 	}
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		goto WriteDmaDone;
 	}
 
@@ -2473,13 +2474,13 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 		/*
 		 * Poll for Buffer Write Ready event
 		 */
-		Status = XNandPs8_PollRegTimeout(
+		Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Poll for buf write ready timeout\r\n",
 							__func__);
 #endif
@@ -2495,31 +2496,31 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 
 		} else {
 			/*
 			 * Clear Buffer Write Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 		}
 		/*
 		 * Clear Buffer Write Ready Interrupt in Interrupt Status
 		 * Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
 		/*
 		 * Write Packet Data to Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4U); Index++) {
-			XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-						XNANDPS8_BUF_DATA_PORT_OFFSET,
+			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+						XNANDPSU_BUF_DATA_PORT_OFFSET,
 						BufPtr[Index]);
 		}
 		BufPtr += (PktSize/4U);
@@ -2529,9 +2530,9 @@ s32 XNandPs8_WriteSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 			 * Enable Buffer Write Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 		} else {
 			break;
 		}
@@ -2540,13 +2541,13 @@ WriteDmaDone:
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -2556,20 +2557,20 @@ WriteDmaDone:
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
-	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
+	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
 		if (PostWrite > 0U) {
 			BufPtr = (u32 *)(void *)&Buf[PostEccSpareCol];
-			Status = XNandPs8_ChangeWriteColumn(InstancePtr,
+			Status = XNandPsu_ChangeWriteColumn(InstancePtr,
 					Target,
 					PostEccSpareCol, PostEccSpareWrCnt, 1U,
 					(u8 *)(void *)BufPtr);
@@ -2588,7 +2589,7 @@ Out:
 *
 * This function sends ONFI Read Page command to flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Page is the page address value to read.
 * @param	Col is the column address value to read.
@@ -2601,7 +2602,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
+static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 							u32 Col, u8 *Buf)
 {
 	u32 AddrCycles = InstancePtr->Geometry.RowAddrCycles +
@@ -2617,7 +2618,7 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	 * Assert the input arguments.
 	 */
 	Xil_AssertNonvoid(Page < InstancePtr->Geometry.NumPages);
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 
 	if (InstancePtr->EccCfg.CodeWordSize > 9U) {
 		PktSize = 1024U;
@@ -2626,85 +2627,85 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	}
 	PktCount = InstancePtr->Geometry.BytesPerPage/PktSize;
 
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_RD1, ONFI_CMD_RD2,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_RD1, ONFI_CMD_RD2,
 					1U, 1U, (u8)AddrCycles);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-			XNANDPS8_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+			XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
 
 	} else {
 		/*
 		 * Enable Buffer Read Ready Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 
 	}
 	/*
 	 * Enable Single bit error and Multi bit error
 	 */
-	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
+	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
 		/*
 		 * Interrupt Status Enable Register
 		 */
-		XNandPs8_IntrStsEnable(InstancePtr,
-			(XNANDPS8_INTR_STS_EN_MUL_BIT_ERR_STS_EN_MASK |
-			XNANDPS8_INTR_STS_EN_ERR_INTR_STS_EN_MASK));
+		XNandPsu_IntrStsEnable(InstancePtr,
+			(XNANDPSU_INTR_STS_EN_MUL_BIT_ERR_STS_EN_MASK |
+			XNANDPSU_INTR_STS_EN_ERR_INTR_STS_EN_MASK));
 	}
 	/*
 	 * Program Page Size
 	 */
-	XNandPs8_SetPageSize(InstancePtr);
+	XNandPsu_SetPageSize(InstancePtr);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, Page, (u16)Col);
+	XNandPsu_SetPageColAddr(InstancePtr, Page, (u16)Col);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Invalidate the Data Cache
 		 */
 		Xil_DCacheInvalidateRange(Buf, (PktSize * PktCount));
 
 #ifdef __aarch64__
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR1_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
 				(u32) (((INTPTR)(void *)Buf >> 32) &
 				0xFFFFFFFFU));
 #endif
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR0_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
 	/*
 	 * Set Bus Width
 	 */
-	XNandPs8_SetBusWidth(InstancePtr);
+	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set ECC
 	 */
-	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
-		XNandPs8_SetEccSpareCmd(InstancePtr,
+	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
+		XNandPsu_SetEccSpareCmd(InstancePtr,
 					(ONFI_CMD_CHNG_RD_COL1 |
 					(ONFI_CMD_CHNG_RD_COL2 << (u8)8U)),
 					InstancePtr->Geometry.ColAddrCycles);
@@ -2713,10 +2714,10 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 	/*
 	 * Set Read command in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		goto ReadDmaDone;
 	}
 
@@ -2724,13 +2725,13 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 		/*
 		 * Poll for Buffer Read Ready event
 		 */
-		Status = XNandPs8_PollRegTimeout(
+		Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Poll for buf read ready timeout\r\n",
 							__func__);
 #endif
@@ -2746,31 +2747,31 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 		} else {
 			/*
 			 * Clear Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-					XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+					XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 		}
 		/*
 		 * Clear Buffer Read Ready Interrupt in Interrupt Status
 		 * Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 		/*
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4); Index++) {
-			BufPtr[Index] = XNandPs8_ReadReg(
+			BufPtr[Index] = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
-					XNANDPS8_BUF_DATA_PORT_OFFSET);
+					XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
 		BufPtr += (PktSize/4);
 
@@ -2779,9 +2780,9 @@ static s32 XNandPs8_ReadPage(XNandPs8 *InstancePtr, u32 Target, u32 Page,
 			 * Enable Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 
 		} else {
 			break;
@@ -2791,13 +2792,13 @@ ReadDmaDone:
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -2807,40 +2808,40 @@ ReadDmaDone:
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 CheckEccError:
 	/*
 	 * Check ECC Errors
 	 */
-	if (InstancePtr->EccMode == XNANDPS8_HWECC) {
+	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
 		/*
 		 * Hamming Multi Bit Errors
 		 */
-		if (((u32)XNandPs8_ReadReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET) &
-			(u32)XNANDPS8_INTR_STS_MUL_BIT_ERR_STS_EN_MASK) != 0U) {
+		if (((u32)XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET) &
+			(u32)XNANDPSU_INTR_STS_MUL_BIT_ERR_STS_EN_MASK) != 0U) {
 
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_MUL_BIT_ERR_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_MUL_BIT_ERR_STS_EN_MASK);
 
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: ECC Hamming multi bit error\r\n",
 							__func__);
 #endif
 			InstancePtr->Ecc_Stat_PerPage_flips =
-					((XNandPs8_ReadReg(
+					((XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
-					XNANDPS8_ECC_ERR_CNT_OFFSET) &
+					XNANDPSU_ECC_ERR_CNT_OFFSET) &
 					0x1FF00U) >> 8U);
 			InstancePtr->Ecc_Stats_total_flips +=
 					InstancePtr->Ecc_Stat_PerPage_flips;
@@ -2849,19 +2850,19 @@ CheckEccError:
 		/*
 		 * Hamming Single Bit or BCH Errors
 		 */
-		if (((u32)XNandPs8_ReadReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET) &
-			(u32)XNANDPS8_INTR_STS_ERR_INTR_STS_EN_MASK) != 0U) {
+		if (((u32)XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET) &
+			(u32)XNANDPSU_INTR_STS_ERR_INTR_STS_EN_MASK) != 0U) {
 
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-					XNANDPS8_INTR_STS_OFFSET,
-					XNANDPS8_INTR_STS_ERR_INTR_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+					XNANDPSU_INTR_STS_OFFSET,
+					XNANDPSU_INTR_STS_ERR_INTR_STS_EN_MASK);
 
 			if (InstancePtr->EccCfg.IsBCH == 1U) {
 				InstancePtr->Ecc_Stat_PerPage_flips =
-						((XNandPs8_ReadReg(
+						((XNandPsu_ReadReg(
 						InstancePtr->Config.BaseAddress,
-						XNANDPS8_ECC_ERR_CNT_OFFSET)&
+						XNANDPSU_ECC_ERR_CNT_OFFSET)&
 						0x1FF00U) >> 8U);
 				InstancePtr->Ecc_Stats_total_flips +=
 					InstancePtr->Ecc_Stat_PerPage_flips;
@@ -2878,7 +2879,7 @@ Out:
 *
 * This function reads spare bytes from flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Page is the page address value to read.
 * @param	Buf is the data buffer to fill in.
@@ -2890,7 +2891,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
+s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 {
 	u32 AddrCycles = InstancePtr->Geometry.RowAddrCycles +
 				InstancePtr->Geometry.ColAddrCycles;
@@ -2914,74 +2915,74 @@ s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 
 	PageVar %= InstancePtr->Geometry.NumTargetPages;
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Enable Transfer Complete Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 	} else {
 		/*
 		 * Enable Buffer Read Ready Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 	}
 	/*
 	 * Program Command
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_RD1, ONFI_CMD_RD2, 0U,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_RD1, ONFI_CMD_RD2, 0U,
 						1U, (u8)AddrCycles);
 	/*
 	 * Program Page Size
 	 */
-	XNandPs8_SetPageSize(InstancePtr);
+	XNandPsu_SetPageSize(InstancePtr);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, PageVar, (u16)Col);
+	XNandPsu_SetPageColAddr(InstancePtr, PageVar, (u16)Col);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 
 		/*
 		 * Invalidate the Data Cache
 		 */
 		Xil_DCacheInvalidateRange(Buf, (PktSize * PktCount));
 #ifdef __aarch64__
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR1_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
 				(u32) (((INTPTR)(void *)Buf >> 32) &
 				0xFFFFFFFFU));
 #endif
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR0_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
 	/*
 	 * Set Bus Width
 	 */
-	XNandPs8_SetBusWidth(InstancePtr);
+	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set Read command in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		goto ReadDmaDone;
 	}
 
@@ -2989,13 +2990,13 @@ s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 		/*
 		 * Poll for Buffer Read Ready event
 		 */
-		Status = XNandPs8_PollRegTimeout(
+		Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Poll for buf read ready timeout\r\n",
 							__func__);
 #endif
@@ -3011,33 +3012,33 @@ s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 
 		} else {
 			/*
 			 * Clear Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-					XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+					XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 		}
 		/*
 		 * Clear Buffer Read Ready Interrupt in Interrupt Status
 		 * Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 		/*
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4); Index++) {
-			BufPtr[Index] = XNandPs8_ReadReg(
+			BufPtr[Index] = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
-					XNANDPS8_BUF_DATA_PORT_OFFSET);
+					XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
 		BufPtr += (PktSize/4);
 
@@ -3046,9 +3047,9 @@ s32 XNandPs8_ReadSpareBytes(XNandPs8 *InstancePtr, u32 Page, u8 *Buf)
 			 * Enable Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 		} else {
 			break;
 		}
@@ -3057,13 +3058,13 @@ ReadDmaDone:
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -3073,15 +3074,15 @@ ReadDmaDone:
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 Out:
 
 	return Status;
@@ -3092,7 +3093,7 @@ Out:
 *
 * This function sends ONFI block erase command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Block is the block to erase.
 *
@@ -3103,7 +3104,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_EraseBlock(XNandPs8 *InstancePtr, u32 Target, u32 Block)
+s32 XNandPsu_EraseBlock(XNandPsu *InstancePtr, u32 Target, u32 Block)
 {
 	s32 Status = XST_FAILURE;
 	u32 AddrCycles = InstancePtr->Geometry.RowAddrCycles;
@@ -3116,7 +3117,7 @@ s32 XNandPs8_EraseBlock(XNandPs8 *InstancePtr, u32 Target, u32 Block)
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumBlocks);
 
 	Page = Block * InstancePtr->Geometry.PagesPerBlock;
@@ -3127,38 +3128,38 @@ s32 XNandPs8_EraseBlock(XNandPs8 *InstancePtr, u32 Target, u32 Block)
 	 * Enable Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 
 	/*
 	 * Program Command
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_BLK_ERASE1,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_BLK_ERASE1,
 			ONFI_CMD_BLK_ERASE2, 0U , 0U, (u8)AddrCycles);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, ErasePage, (u16)EraseCol);
+	XNandPsu_SetPageColAddr(InstancePtr, ErasePage, (u16)EraseCol);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set Block Erase in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_BLK_ERASE_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_BLK_ERASE_MASK);
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -3168,15 +3169,15 @@ s32 XNandPs8_EraseBlock(XNandPs8 *InstancePtr, u32 Target, u32 Block)
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -3187,7 +3188,7 @@ Out:
 *
 * This function sends ONFI Get Feature command to flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Feature is the feature selector.
 * @param	Buf is the buffer to fill feature value.
@@ -3199,7 +3200,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_GetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
+s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf)
 {
 	s32 Status;
@@ -3213,7 +3214,7 @@ s32 XNandPs8_GetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 */
 	Xil_AssertNonvoid(Buf != NULL);
 
-	if (InstancePtr->DataInterface == XNANDPS8_NVDDR) {
+	if (InstancePtr->DataInterface == XNANDPSU_NVDDR) {
 		PktSize = 8U;
 	}
 
@@ -3221,41 +3222,41 @@ s32 XNandPs8_GetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 * Enable Buffer Read Ready Interrupt in Interrupt Status
 	 * Enable Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 	/*
 	 * Program Command
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_GET_FEATURES,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_GET_FEATURES,
 				ONFI_CMD_INVALID, 0U, 0U, 1U);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, 0x0U, Feature);
+	XNandPsu_SetPageColAddr(InstancePtr, 0x0U, Feature);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Set Read Parameter Page in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_GET_FEATURES_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_GET_FEATURES_MASK);
 	/*
 	 * Poll for Buffer Read Ready event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 		InstancePtr,
-		XNANDPS8_INTR_STS_OFFSET,
-		XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-		XNANDPS8_INTR_POLL_TIMEOUT);
+		XNANDPSU_INTR_STS_OFFSET,
+		XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
+		XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for buf read ready timeout\r\n",
 							__func__);
 #endif
@@ -3265,41 +3266,41 @@ s32 XNandPs8_GetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 * Clear Buffer Read Ready Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Buffer Read Ready Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 	/*
 	 * Enable Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 
 	/*
 	 * Read Data from Data Port Register
 	 */
 	for (Index = 0U; Index < (PktSize/4U); Index++) {
-		BufPtr[Index] = XNandPs8_ReadReg(
+		BufPtr[Index] = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
-					XNANDPS8_BUF_DATA_PORT_OFFSET);
+					XNANDPSU_BUF_DATA_PORT_OFFSET);
 	}
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -3309,15 +3310,15 @@ s32 XNandPs8_GetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -3328,7 +3329,7 @@ Out:
 *
 * This function sends ONFI Set Feature command to flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Feature is the feature selector.
 * @param	Buf is the feature value to send.
@@ -3340,7 +3341,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_SetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
+s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf)
 {
 	s32 Status;
@@ -3353,53 +3354,53 @@ s32 XNandPs8_SetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 * Assert the input arguments.
 	 */
 	Xil_AssertNonvoid(Buf != NULL);
-	if (InstancePtr->DataInterface == XNANDPS8_NVDDR) {
+	if (InstancePtr->DataInterface == XNANDPSU_NVDDR) {
 		PktSize = 8U;
 	}
 
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Enable Buffer Write Ready Interrupt in Interrupt Status
 	 * Enable Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET,
-			XNANDPS8_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET,
+			XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 
 	/*
 	 * Program Command
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_SET_FEATURES,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_SET_FEATURES,
 				ONFI_CMD_INVALID, 0U , 0U, 1U);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, 0x0U, Feature);
+	XNandPsu_SetPageColAddr(InstancePtr, 0x0U, Feature);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Set Read Parameter Page in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_SET_FEATURES_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_SET_FEATURES_MASK);
 	/*
 	 * Poll for Buffer Write Ready event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 		InstancePtr,
-		XNANDPS8_INTR_STS_OFFSET,
-		XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-		XNANDPS8_INTR_POLL_TIMEOUT);
+		XNANDPSU_INTR_STS_OFFSET,
+		XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
+		XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for buf write ready timeout\r\n",
 							__func__);
 #endif
@@ -3409,40 +3410,40 @@ s32 XNandPs8_SetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 * Clear Buffer Write Ready Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Buffer Write Ready Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
 	/*
 	 * Enable Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			(XNANDPS8_INTR_STS_EN_OFFSET),
-			XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			(XNANDPSU_INTR_STS_EN_OFFSET),
+			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 	/*
 	 * Write Data to Data Port Register
 	 */
 	for (Index = 0U; Index < (PktSize/4U); Index++) {
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-					XNANDPS8_BUF_DATA_PORT_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+					XNANDPSU_BUF_DATA_PORT_OFFSET,
 					BufPtr[Index]);
 	}
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -3452,15 +3453,15 @@ s32 XNandPs8_SetFeature(XNandPs8 *InstancePtr, u32 Target, u8 Feature,
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -3471,7 +3472,7 @@ Out:
 *
 * This function changes clock frequency of flash controller.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	ClockFreq is the clock frequency to change.
 *
 * @return
@@ -3480,7 +3481,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static void XNandPs8_ChangeClockFreq(XNandPs8 *InstancePtr, u32 ClockFreq)
+static void XNandPsu_ChangeClockFreq(XNandPsu *InstancePtr, u32 ClockFreq)
 {
 	/*
 	 * Not implemented
@@ -3491,7 +3492,7 @@ static void XNandPs8_ChangeClockFreq(XNandPs8 *InstancePtr, u32 ClockFreq)
 *
 * This function changes the data interface and timing mode.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	NewIntf is the new data interface.
 * @param	NewMode is the new timing mode.
 *
@@ -3502,9 +3503,9 @@ static void XNandPs8_ChangeClockFreq(XNandPs8 *InstancePtr, u32 ClockFreq)
 * @note		None
 *
 ******************************************************************************/
-s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
-				XNandPs8_DataInterface NewIntf,
-				XNandPs8_TimingMode NewMode)
+s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
+				XNandPsu_DataInterface NewIntf,
+				XNandPsu_TimingMode NewMode)
 {
 	s32 Status;
 	u32 Target;
@@ -3525,20 +3526,20 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	/*
 	 * Check for valid input arguments
 	 */
-	if((NewIntf != XNANDPS8_SDR && NewIntf != XNANDPS8_NVDDR) ||
+	if((NewIntf != XNANDPSU_SDR && NewIntf != XNANDPSU_NVDDR) ||
 			(NewModeVar > 5U)){
 		Status = XST_FAILURE;
 		goto Out;
 	}
 
-	if(NewIntf == XNANDPS8_NVDDR){
+	if(NewIntf == XNANDPSU_NVDDR){
 		NewModeVar = NewModeVar | 0x10U;
 	}
 	/*
 	 * Get current data interface type and timing mode
 	 */
-	XNandPs8_DataInterface CurIntf = InstancePtr->DataInterface;
-	XNandPs8_TimingMode CurMode = InstancePtr->TimingMode;
+	XNandPsu_DataInterface CurIntf = InstancePtr->DataInterface;
+	XNandPsu_TimingMode CurMode = InstancePtr->TimingMode;
 
 	/*
 	 * Check if the flash is in same mode
@@ -3548,26 +3549,26 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 		goto Out;
 	}
 
-	if ((CurIntf == XNANDPS8_NVDDR) && (NewIntf == XNANDPS8_SDR)) {
+	if ((CurIntf == XNANDPSU_NVDDR) && (NewIntf == XNANDPSU_SDR)) {
 
-		NewModeVar = XNANDPS8_SDR0;
+		NewModeVar = XNANDPSU_SDR0;
 
 		/*
 		 * Change the clock frequency
 		 */
-		XNandPs8_ChangeClockFreq(InstancePtr, XNANDPS8_SDR_CLK);
+		XNandPsu_ChangeClockFreq(InstancePtr, XNANDPSU_SDR_CLK);
 
 		/*
 		 * Update Data Interface Register
 		 */
-		RegVal = ((NewModeVar % 6U) << ((NewIntf == XNANDPS8_NVDDR) ? 3U : 0U)) |
-				((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-					XNANDPS8_DATA_INTF_OFFSET, RegVal);
+		RegVal = ((NewModeVar % 6U) << ((NewIntf == XNANDPSU_NVDDR) ? 3U : 0U)) |
+				((u32)NewIntf << XNANDPSU_DATA_INTF_DATA_INTF_SHIFT);
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+					XNANDPSU_DATA_INTF_OFFSET, RegVal);
 
 		for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 							Target++) {
-			Status = XNandPs8_OnfiReset(InstancePtr, Target);
+			Status = XNandPsu_OnfiReset(InstancePtr, Target);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
@@ -3578,7 +3579,7 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 		 */
 		for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 								Target++) {
-			Status = XNandPs8_SetFeature(InstancePtr, Target, 0x01U,
+			Status = XNandPsu_SetFeature(InstancePtr, Target, 0x01U,
 							(u8 *)&NewModeVar);
 			if (Status != XST_SUCCESS) {
 				goto Out;
@@ -3590,7 +3591,7 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 
 		for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 								Target++) {
-			Status = XNandPs8_GetFeature(InstancePtr, Target, 0x01U,
+			Status = XNandPsu_GetFeature(InstancePtr, Target, 0x01U,
 								&Buf[0]);
 			if (Status != XST_SUCCESS) {
 				goto Out;
@@ -3608,7 +3609,7 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	}
 
 	SetFeature = NewModeVar;
-	if(CurIntf == XNANDPS8_NVDDR && NewIntf == XNANDPS8_NVDDR){
+	if(CurIntf == XNANDPSU_NVDDR && NewIntf == XNANDPSU_NVDDR){
 		SetFeature |= SetFeature << 8U;
 	}
 	/*
@@ -3616,7 +3617,7 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	 */
 	for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 							Target++) {
-		Status = XNandPs8_SetFeature(InstancePtr, Target, 0x01U,
+		Status = XNandPsu_SetFeature(InstancePtr, Target, 0x01U,
 						(u8 *)&SetFeature);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -3628,17 +3629,17 @@ s32 XNandPs8_ChangeTimingMode(XNandPs8 *InstancePtr,
 	/*
 	 * Update Data Interface Register
 	 */
-	RegVal = ((NewMode % 6U) << ((NewIntf == XNANDPS8_NVDDR) ? 3U : 0U)) |
-			((u32)NewIntf << XNANDPS8_DATA_INTF_DATA_INTF_SHIFT);
-	XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DATA_INTF_OFFSET, RegVal);
+	RegVal = ((NewMode % 6U) << ((NewIntf == XNANDPSU_NVDDR) ? 3U : 0U)) |
+			((u32)NewIntf << XNANDPSU_DATA_INTF_DATA_INTF_SHIFT);
+	XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DATA_INTF_OFFSET, RegVal);
 
 	/*
 	 * Get Feature
 	 */
 	for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 							Target++) {
-		Status = XNandPs8_GetFeature(InstancePtr, Target, 0x01U,
+		Status = XNandPsu_GetFeature(InstancePtr, Target, 0x01U,
 							&Buf[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -3664,7 +3665,7 @@ Out:
 * This function issues change read column and reads the data into buffer
 * specified by user.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Col is the coulmn address.
 * @param	PktSize is the number of bytes to read.
@@ -3678,7 +3679,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 					u32 Col, u32 PktSize, u32 PktCount,
 					u8 *Buf)
 {
@@ -3691,76 +3692,76 @@ static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
 	/*
 	 * Assert the input arguments.
 	 */
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 	Xil_AssertNonvoid(Buf != NULL);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-				XNANDPS8_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+				XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
 	} else {
 		/*
 		 * Enable Buffer Read Ready Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 	}
 	/*
 	 * Program Command
 	 */
-	XNandPs8_Prepare_Cmd(InstancePtr, ONFI_CMD_CHNG_RD_COL1,
+	XNandPsu_Prepare_Cmd(InstancePtr, ONFI_CMD_CHNG_RD_COL1,
 			ONFI_CMD_CHNG_RD_COL2, 0U , 1U, (u8)AddrCycles);
 	/*
 	 * Program Page Size
 	 */
-	XNandPs8_SetPageSize(InstancePtr);
+	XNandPsu_SetPageSize(InstancePtr);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, 0U, (u16)Col);
+	XNandPsu_SetPageColAddr(InstancePtr, 0U, (u16)Col);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Invalidate the Data Cache
 		 */
 		Xil_DCacheInvalidateRange(Buf, (PktSize * PktCount));
 #ifdef __aarch64__
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR1_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
 				(u32) (((INTPTR)Buf >> 32) & 0xFFFFFFFFU));
 #endif
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR0_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
 	/*
 	 * Set Bus Width
 	 */
-	XNandPs8_SetBusWidth(InstancePtr);
+	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set Read command in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_RD_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		goto ReadDmaDone;
 	}
 
@@ -3768,13 +3769,13 @@ static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
 		/*
 		 * Poll for Buffer Read Ready event
 		 */
-		Status = XNandPs8_PollRegTimeout(
+		Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Poll for buf read ready timeout\r\n",
 							__func__);
 #endif
@@ -3790,32 +3791,32 @@ static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 		} else {
 			/*
 			 * Clear Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 		}
 		/*
 		 * Clear Buffer Read Ready Interrupt in Interrupt Status
 		 * Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 		/*
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4); Index++) {
-			BufPtr[Index] = XNandPs8_ReadReg(
+			BufPtr[Index] = XNandPsu_ReadReg(
 						InstancePtr->Config.BaseAddress,
-						XNANDPS8_BUF_DATA_PORT_OFFSET);
+						XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
 		BufPtr += (PktSize/4U);
 
@@ -3824,9 +3825,9 @@ static s32 XNandPs8_ChangeReadColumn(XNandPs8 *InstancePtr, u32 Target,
 			 * Enable Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
 		} else {
 			break;
 		}
@@ -3835,13 +3836,13 @@ ReadDmaDone:
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -3851,15 +3852,15 @@ ReadDmaDone:
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 Out:
 	return Status;
 }
@@ -3870,7 +3871,7 @@ Out:
 * This function issues change read column and reads the data into buffer
 * specified by user.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
 * @param	Col is the coulmn address.
 * @param	PktSize is the number of bytes to read.
@@ -3884,7 +3885,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
+static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 					u32 Col, u32 PktSize, u32 PktCount,
 					u8 *Buf)
 {
@@ -3898,79 +3899,79 @@ static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
 	/*
 	 * Assert the input arguments.
 	 */
-	Xil_AssertNonvoid(Target < XNANDPS8_MAX_TARGETS);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 	Xil_AssertNonvoid(Buf != NULL);
 
 	if (PktCount == 0U) {
 		return XST_SUCCESS;
 	}
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		/*
 		 * Enable DMA boundary Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-				XNANDPS8_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+				XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
 	} else {
 		/*
 		 * Enable Buffer Write Ready Interrupt in Interrupt Status
 		 * Enable Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 	}
 	/*
 	 * Change write column hack
 	 */
 	OnfiCommand.Command1 = 0x85U;
 	OnfiCommand.Command2 = 0x10U;
-	XNandPs8_Prepare_Cmd(InstancePtr, OnfiCommand.Command1,
+	XNandPsu_Prepare_Cmd(InstancePtr, OnfiCommand.Command1,
 				OnfiCommand.Command2, 0U , 0U, (u8)AddrCycles);
 
 	/*
 	 * Program Page Size
 	 */
-	XNandPs8_SetPageSize(InstancePtr);
+	XNandPsu_SetPageSize(InstancePtr);
 	/*
 	 * Program Column, Page, Block address
 	 */
-	XNandPs8_SetPageColAddr(InstancePtr, 0U, (u16)Col);
+	XNandPsu_SetPageColAddr(InstancePtr, 0U, (u16)Col);
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	XNandPs8_SetPktSzCnt(InstancePtr, PktSize, PktCount);
+	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
 	 * Program DMA system address and DMA buffer boundary
 	 */
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 #ifdef __aarch64__
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR1_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
 				(u32) (((INTPTR)Buf >> 32U) & 0xFFFFFFFFU));
 #endif
-		XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPS8_DMA_SYS_ADDR0_OFFSET,
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
 	/*
 	 * Set Bus Width
 	 */
-	XNandPs8_SetBusWidth(InstancePtr);
+	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
-	XNandPs8_SelectChip(InstancePtr, Target);
+	XNandPsu_SelectChip(InstancePtr, Target);
 	/*
 	 * Set Page Program in Program Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_PROG_OFFSET,XNANDPS8_PROG_CHNG_ROW_ADDR_END_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_CHNG_ROW_ADDR_END_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPS8_MDMA) {
+	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		goto WriteDmaDone;
 	}
 
@@ -3978,13 +3979,13 @@ static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
 		/*
 		 * Poll for Buffer Write Ready event
 		 */
-		Status = XNandPs8_PollRegTimeout(
+		Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 			xil_printf("%s: Poll for buf write ready timeout\r\n",
 							__func__);
 #endif
@@ -4000,30 +4001,30 @@ static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
 		} else {
 			/*
 			 * Clear Buffer Write Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 		}
 		/*
 		 * Clear Buffer Write Ready Interrupt in Interrupt Status
 		 * Register
 		 */
-		XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_OFFSET,
-				XNANDPS8_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET,
+				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
 		/*
 		 * Write Packet Data to Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4U); Index++) {
-			XNandPs8_WriteReg(InstancePtr->Config.BaseAddress,
-						XNANDPS8_BUF_DATA_PORT_OFFSET,
+			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+						XNANDPSU_BUF_DATA_PORT_OFFSET,
 						BufPtr[Index]);
 		}
 		BufPtr += (PktSize/4U);
@@ -4033,9 +4034,9 @@ static s32 XNandPs8_ChangeWriteColumn(XNandPs8 *InstancePtr, u32 Target,
 			 * Enable Buffer Write Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
-			XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPS8_INTR_STS_EN_OFFSET,
-				XNANDPS8_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 		} else {
 			break;
 		}
@@ -4044,13 +4045,13 @@ WriteDmaDone:
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPs8_PollRegTimeout(
+	Status = XNandPsu_PollRegTimeout(
 			InstancePtr,
-			XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPS8_INTR_POLL_TIMEOUT);
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Poll for xfer complete timeout\r\n",
 							__func__);
 #endif
@@ -4060,15 +4061,15 @@ WriteDmaDone:
 	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
 	 * Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_EN_OFFSET, 0U);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
 	/*
 	 * Clear Transfer Complete Interrupt in Interrupt Status Register
 	 */
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPS8_INTR_STS_OFFSET,
-			XNANDPS8_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
 
 Out:
 	return Status;
@@ -4079,7 +4080,7 @@ Out:
 *
 * This function initializes extended parameter page ECC information.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	ExtPrm is the Extended parameter page buffer.
 *
 * @return
@@ -4089,7 +4090,7 @@ Out:
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPs8_InitExtEcc(XNandPs8 *InstancePtr, OnfiExtPrmPage *ExtPrm)
+static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm)
 {
 	s32 Status = XST_FAILURE;
 	u32 Index;
@@ -4102,7 +4103,7 @@ static s32 XNandPs8_InitExtEcc(XNandPs8 *InstancePtr, OnfiExtPrmPage *ExtPrm)
 	if (ExtPrm->Section0Type != 0x2U) {
 		Offset += (u32)ExtPrm->Section0Len;
 		if (ExtPrm->Section1Type != 0x2U) {
-#ifdef XNANDPS8_DEBUG
+#ifdef XNANDPSU_DEBUG
 		xil_printf("%s: Extended ECC section not found\r\n",__func__);
 #endif
 			Status = XST_FAILURE;
@@ -4134,7 +4135,7 @@ static s32 XNandPs8_InitExtEcc(XNandPs8 *InstancePtr, OnfiExtPrmPage *ExtPrm)
 *
 * This function prepares command to be written into command register.
 *
-* @param	InstancePtr is a pointer to the XNandPs8 instance.
+* @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Cmd1 is the first Onfi Command.
 * @param	Cmd1 is the second Onfi Command.
 * @param	EccState is the flag to set Ecc State.
@@ -4146,29 +4147,29 @@ static s32 XNandPs8_InitExtEcc(XNandPs8 *InstancePtr, OnfiExtPrmPage *ExtPrm)
 * @note		None
 *
 ******************************************************************************/
-void XNandPs8_Prepare_Cmd(XNandPs8 *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
+void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 			u8 DmaMode, u8 AddrCycles)
 {
 	u32 RegValue = 0U;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	RegValue = (u32)Cmd1 | (((u32)Cmd2 << (u32)XNANDPS8_CMD_CMD2_SHIFT) &
-			(u32)XNANDPS8_CMD_CMD2_MASK);
+	RegValue = (u32)Cmd1 | (((u32)Cmd2 << (u32)XNANDPSU_CMD_CMD2_SHIFT) &
+			(u32)XNANDPSU_CMD_CMD2_MASK);
 
-	if ((EccState != 0U) && (InstancePtr->EccMode == XNANDPS8_HWECC)) {
-		RegValue |= 1U << XNANDPS8_CMD_ECC_ON_SHIFT;
+	if ((EccState != 0U) && (InstancePtr->EccMode == XNANDPSU_HWECC)) {
+		RegValue |= 1U << XNANDPSU_CMD_ECC_ON_SHIFT;
 	}
 
-	if ((DmaMode != 0U) && (InstancePtr->DmaMode == XNANDPS8_MDMA)) {
-		RegValue |= XNANDPS8_MDMA << XNANDPS8_CMD_DMA_EN_SHIFT;
+	if ((DmaMode != 0U) && (InstancePtr->DmaMode == XNANDPSU_MDMA)) {
+		RegValue |= XNANDPSU_MDMA << XNANDPSU_CMD_DMA_EN_SHIFT;
 	}
 
 	if (AddrCycles != 0U) {
 		RegValue |= (u32)AddrCycles <<
-				(u32)XNANDPS8_CMD_ADDR_CYCLES_SHIFT;
+				(u32)XNANDPSU_CMD_ADDR_CYCLES_SHIFT;
 	}
 
-	XNandPs8_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPS8_CMD_OFFSET, RegValue);
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_CMD_OFFSET, RegValue);
 }

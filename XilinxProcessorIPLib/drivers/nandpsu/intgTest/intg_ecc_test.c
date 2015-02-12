@@ -41,11 +41,11 @@
 /*****************************************************************************/
 /**
 *
-* @file intg_flash_rw.c
+* @file intg_ecc_test.c
 *
-* This file contains the design example for using NAND driver (XNandPs8).
-* This example tests the erase, read and write feature of the controller.
-* The flash is erased and written. The data is
+* This file contains the design example for using NAND driver (XNandPsu).
+* This example tests the erase, read and write feature of the controller
+* in the spare bytes region.The flash is erased and written. The data is
 * read back and compared with the data written for correctness.
 *
 * @note None.
@@ -77,13 +77,13 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 Flash_RW_Test(XNandPs8 * NandInstPtr);
+s32 Ecc_Test(XNandPsu * NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
 /**
 *
-* Entry point to call the Flash R/W test.
+* Entry point to call the ECC  R/W test.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 * @param	TestLoops - Number of tests to execute.
@@ -93,21 +93,20 @@ s32 Flash_RW_Test(XNandPs8 * NandInstPtr);
 * @note	 None.
 *
 *****************************************************************************/
-int Intg_FlashRWTest(XNandPs8 * NandInstPtr, int TestLoops)
+int Intg_EccTest(XNandPsu * NandInstPtr, int TestLoops)
 {
 
 	s32 Status = XST_FAILURE;
-	CT_TestReset("Module FLASH Read Write test");
+	CT_TestReset("Module Ecc Error Check test");
 
 	while(TestLoops--) {
-		Status = Flash_RW_Test(NandInstPtr);
+		Status = Ecc_Test(NandInstPtr);
 		if (Status != XST_SUCCESS) {
-			CT_LOG_FAILURE("Nand Flash Read Write Test Failed"
-					" with %d mismatches\r\n", MismatchCounter);
+			CT_LOG_FAILURE("Ecc Error Check Test Failed with "
+					"%d mismatches\r\n", MismatchCounter);
 			break;
 		}
 		CT_NotifyNextPass();
-
 	}
 
 	return(CT_GetTestFailures());
@@ -119,11 +118,13 @@ int Intg_FlashRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 * This function runs a test on the NAND flash device using the basic driver
 * functions in polled mode.
 * The function does the following tasks:
-*	- Initialize the driver.
 *	- Erase the flash.
 *	- Write data to the flash.
 *	- Read back the data from the flash.
 *	- Compare the data read against the data Written.
+*	- Corrupt data by writing random data to flash
+*	- Read back the data from the flash.
+*	- Compare the data read against the data Written before corruption.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 *
@@ -135,13 +136,15 @@ int Intg_FlashRWTest(XNandPs8 * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 Flash_RW_Test(XNandPs8 * NandInstPtr)
+s32 Ecc_Test(XNandPsu * NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u64 Offset;
 	u32 Length;
+	s32 i;
 	MismatchCounter = 0;
+	NandInstPtr->BCH_Error_Status = 0;
 
 	Offset = (u64)(TEST_PAGE_START * NandInstPtr->Geometry.BytesPerPage);
 	Length = NandInstPtr->Geometry.BytesPerPage;
@@ -150,40 +153,100 @@ s32 Flash_RW_Test(XNandPs8 * NandInstPtr)
 	 * Initialize the write buffer
 	 */
 	for (Index = 0; Index < Length;Index++) {
-		WriteBuffer[Index] = (u8) (rand() % 256);
+		WriteBuffer[Index] = (u8)0;
 	}
+
 	/*
-	 * Erase the Block
+	 * Enable ECC
 	 */
-	Status = XNandPs8_Erase(NandInstPtr, (u64)Offset, (u64)Length);
+	XNandPsu_EnableEccMode(NandInstPtr);
+
+	/*
+	 * Erase the flash
+	 */
+	Status = XNandPsu_Erase(NandInstPtr, (u64)Offset, (u64)Length);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
+
 	/*
-	 * Write to page offset
+	 * Write to flash
 	 */
-	Status = XNandPs8_Write(NandInstPtr, (u64)Offset, (u64)Length,
+	Status = XNandPsu_Write(NandInstPtr, (u64)Offset, (u64)Length,
 						&WriteBuffer[0]);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
+
 	/*
-	 * Read from the page after writing
+	 * Read the flash after writing
 	 */
-	Status = XNandPs8_Read(NandInstPtr, (u64)Offset, (u64)Length,
+	Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
 						&ReadBuffer[0]);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
+
 	/*
 	 * Compare the results
 	 */
-	for (Index = 0U; Index < 10;Index++) {
+	for (Index = 0U; Index < Length;Index++) {
 		if (ReadBuffer[Index] != WriteBuffer[Index]) {
 			MismatchCounter++;
 			Status = XST_FAILURE;
 		}
 	}
+
+	for (i = 0 ; i<24 ; i++){
+		/*
+		 * Disable ECC
+		 */
+		XNandPsu_DisableEccMode(NandInstPtr);
+
+		/*
+		 * Corrupting data in Write buffer
+		 */
+		WriteBuffer[i] = (u8)(i+1);
+
+		/*
+		 * Write to flash
+		 */
+		Status = XNandPsu_Write(NandInstPtr, (u64)Offset, (u64)Length,
+						&WriteBuffer[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+
+		/*
+		 * Correcting back data in Write buffer
+		 */
+		WriteBuffer[i] = (u8)0;
+
+		/*
+		 * Enable ECC check
+		 */
+		XNandPsu_EnableEccMode(NandInstPtr);
+
+		/*
+		 * Read the flash after writing
+		 */
+		Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
+						&ReadBuffer[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+
+		/*
+		 * Compare the results
+		 */
+		for (Index = 0U; Index < Length;Index++) {
+			if (ReadBuffer[Index] != WriteBuffer[Index]) {
+				MismatchCounter++;
+				Status = XST_FAILURE;
+			}
+		}
+	}
+	xil_printf("Total BCH ECC errors = %d\r\n",NandInstPtr->BCH_Error_Status);
 
 Out:
 	return Status;

@@ -32,11 +32,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xnandps8_onfi.c
+* @file xnandpsu_sinit.c
 *
-* This file contains the implementation of ONFI specific functions.
-*
-* @note		None
+* The implementation of the XNandPsu driver's static initialzation
+* functionality.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -48,65 +47,48 @@
 *
 ******************************************************************************/
 
-/***************************** Include Files *********************************/
-#include "xnandps8_onfi.h"
-#include "xnandps8.h"
+/***************************** Include Files ********************************/
+#include "xstatus.h"
+#include "xparameters.h"
+#include "xnandpsu.h"
+/************************** Constant Definitions ****************************/
+#define XPAR_XNANDPSU_NUM_INSTANCES	1U
 
-/************************** Constant Definitions *****************************/
+/**************************** Type Definitions ******************************/
 
-/**************************** Type Definitions *******************************/
+/***************** Macros (Inline Functions) Definitions ********************/
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/************************** Variable Definitions ****************************/
 
-/************************** Function Prototypes ******************************/
+extern XNandPsu_Config XNandPsu_ConfigTable[];
 
-/*****************************************************************************/
+/************************** Function Prototypes *****************************/
+
+/****************************************************************************/
 /**
 *
-* This function calculates ONFI paramater page CRC.
+* Looks up the controller configuration based on the unique controller ID. A
+* table contains the configuration info for each controller in the system.
 *
-* @param	Parambuf is a pointer to the ONFI paramater page buffer.
-* @param	StartOff is the starting offset in buffer to calculate CRC.
-* @param	Length is the number of bytes for which CRC is calculated.
+* @param	DeviceID is the ID of the controller to look up the
+*		configuration for.
 *
 * @return
-*		CRC value.
-* @note
-*		None.
+*		A pointer to the configuration found or NULL if the specified
+*		controller ID was not found.
 *
 ******************************************************************************/
-u32 XNandPs8_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)
+XNandPsu_Config *XNandPsu_LookupConfig(u16 DeviceID)
 {
-	const u32 CrcInit = 0x4F4EU;
-	const u32 Order = 16U;
-	const u32 Polynom = 0x8005U;
-	u32 i, j, c, Bit;
-	u32 Crc = CrcInit;
-	u32 DataIn;
-	u32 DataByteCount = 0U;
-	u32 CrcMask, CrcHighBit;
+	XNandPsu_Config *CfgPtr = NULL;
+	u32 Index;
 
-	CrcMask = ((u32)(((u32)1 << (Order - (u32)1)) -(u32)1) << (u32)1) | (u32)1;
-	CrcHighBit = (u32)((u32)1 << (Order - (u32)1));
-	/*
-	 * CRC covers the data bytes between byte 0 and byte 253
-	 * (ONFI 1.0, section 5.4.1.36)
-	 */
-	for(i = StartOff; i < Length; i++) {
-		DataIn = ParamBuf[i];
-		c = (u32)DataIn;
-		DataByteCount++;
-		for(j = 0x80U; j; j >>= 1U) {
-			Bit = Crc & CrcHighBit;
-			Crc <<= 1U;
-			if ((c & j) != 0U) {
-				Bit ^= CrcHighBit;
-			}
-			if (Bit != 0U) {
-				Crc ^= Polynom;
-			}
+	for (Index = 0U; Index < XPAR_XNANDPSU_NUM_INSTANCES; Index++) {
+		if (XNandPsu_ConfigTable[Index].DeviceId == DeviceID) {
+			CfgPtr = &XNandPsu_ConfigTable[Index];
+			break;
 		}
-		Crc &= CrcMask;
 	}
-	return Crc;
+
+	return (XNandPsu_Config *)CfgPtr;
 }

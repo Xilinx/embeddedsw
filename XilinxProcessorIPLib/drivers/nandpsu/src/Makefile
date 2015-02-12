@@ -68,7 +68,7 @@ libs: banner xuartps_libs clean
 	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
 
 banner:
-	echo "Compiling nandps8"
+	echo "Compiling nandpsu"
 
 xuartps_libs: ${OBJECTS}
 	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
