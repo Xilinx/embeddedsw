@@ -349,6 +349,9 @@ extern "C" {
  * @{
  */
 
+#ifndef XPAR_XSLCR_0_BASEADDR
+#define XPAR_XSLCR_0_BASEADDR 0xF8000000
+#endif
 #define SLCR_LOCK_MASK 0x767B /**< Write Protection Lock mask*/
 #define SLCR_UNLOCK_MASK 0xDF0D /**< SLCR Write Protection Unlock */
 #define LQSPI_RST_CTRL_MASK 0x3 /**< Quad SPI Software Reset Control */
