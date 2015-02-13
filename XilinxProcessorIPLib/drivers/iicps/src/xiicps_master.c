@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +56,8 @@
 * 2.3	sk	 10/06/14 Fill transmit fifo before address register when sending.
 * 					  Replaced XIICPS_DATA_INTR_DEPTH with XIICPS_FIFO_DEPTH.
 * 					  Repeated start feature removed.
-*			 12/06/14 Implemented Repeated start feature.
+* 3.0	sk	 12/06/14 Implemented Repeated start feature.
+*			 01/31/15 Modified the code according to MISRAC 2012 Compliant.
 *
 * </pre>
 *
