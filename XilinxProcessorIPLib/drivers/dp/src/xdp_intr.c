@@ -613,37 +613,21 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 	u8 HpdEventDetected;
 	u8 HpdPulseDetected;
 	u32 HpdDuration;
-	u32 IntrMask;
 
 	/* Determine what kind of interrupt occurred.
 	 * Note: XDP_TX_INTERRUPT_STATUS is an RC (read-clear) register. */
 	IntrStatus = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						XDP_TX_INTERRUPT_STATUS);
-	IntrStatus &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
-						XDP_TX_INTERRUPT_MASK);
-	IntrMask = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-						XDP_TX_INTERRUPT_MASK);
 
 	HpdEventDetected = IntrStatus & XDP_TX_INTERRUPT_STATUS_HPD_EVENT_MASK;
 	HpdPulseDetected = IntrStatus &
 				XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
 
 	if (HpdEventDetected) {
-		/* Mask interrupts while event handling is taking place. API
-		 * will error out in case of a disconnection event anyway. */
-		XDp_WriteReg(InstancePtr->Config.BaseAddr,
-			XDP_TX_INTERRUPT_MASK, IntrMask |
-			XDP_TX_INTERRUPT_MASK_HPD_EVENT_MASK);
-
 		InstancePtr->TxInstance.HpdEventHandler(
 				InstancePtr->TxInstance.HpdEventCallbackRef);
 	}
 	else if (HpdPulseDetected && XDp_TxIsConnected(InstancePtr)) {
-		/* Mask interrupts while event handling is taking place. */
-		XDp_WriteReg(InstancePtr->Config.BaseAddr,
-			XDP_TX_INTERRUPT_MASK, IntrMask |
-			XDP_TX_INTERRUPT_MASK_HPD_PULSE_DETECTED_MASK);
-
 		/* The source device must debounce the incoming HPD signal by
 		 * sampling the value at an interval greater than 0.500 ms. An
 		 * HPD pulse should be of width 0.5 ms - 1.0 ms. */
@@ -654,10 +638,6 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 				InstancePtr->TxInstance.HpdPulseCallbackRef);
 		}
 	}
-
-	/* Unmask previously masked interrupts once handling is done. */
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_INTERRUPT_MASK,
-								IntrMask);
 }
 
 /******************************************************************************/
