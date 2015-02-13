@@ -1,7 +1,7 @@
 /* $Id: xemacps_intr.c,v 1.1.2.1 2011/01/20 03:39:02 sadanan Exp $ */
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,7 @@
 *		      XEmacPs_IntrHandler.
 * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification
 *		       and 64-bit changes.
+* 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * </pre>
 ******************************************************************************/
 

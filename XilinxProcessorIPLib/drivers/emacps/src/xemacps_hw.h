@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,7 @@
 * 3.0   kvn  12/16/14 Changed name of XEMACPS_NWCFG_LENGTHERRDSCRD_MASK to
 *					  XEMACPS_NWCFG_LENERRDSCRD_MASK as it exceeds 31 characters.
 * 3.0  kpc   1/23/15  Corrected the extended descriptor macro values.
+* 3.0  kvn   02/13/15 Modified code for MISRA-C:2012 compliance.
 * </pre>
 *
 ******************************************************************************/
