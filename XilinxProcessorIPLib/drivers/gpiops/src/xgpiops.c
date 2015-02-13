@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 *		      relevant to Zynq device. The interrupts are disabled
 *		      for output pins on all banks during initialization.
 * 2.1   hk   04/29/14 Use Input data register DATA_RO for read. CR# 771667.
+* 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 *
 * </pre>
 *
