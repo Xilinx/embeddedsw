@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,9 +48,10 @@
 *                        and state the same in the comments. CR# 784254.
 *                        Fix for CR# 761060 - provision for repeated start.
 * 2.3	sk		10/07/14 Repeated start feature removed.
-* 2.4	sk		11/03/14 Modified TimeOut Register value to 0xFF
+* 3.0	sk		11/03/14 Modified TimeOut Register value to 0xFF
 * 						 in XIicPs_Reset.
 *				12/06/14 Implemented Repeated start feature.
+*				01/31/15 Modified the code according to MISRAC 2012 Compliant.
 *
 * </pre>
 *
