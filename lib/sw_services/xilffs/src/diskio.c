@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -65,11 +65,14 @@
 *                     condition for high speed support.
 *                     Include xil_types.h irrespective of xsdps.h. CR# 797086.
 * 2.2   hk   07/28/14 Make changes to enable use of data cache.
-* 2.3	sk	 12/04/14 Added support for micro SD without
+* 3.0	sk	 12/04/14 Added support for micro SD without
 * 					  WP/CD. CR# 810655.
 *					  Make changes for prototypes of disk_read and
 *					  disk_write according to latest version.
 *			 12/15/14 Modified the code according to MISRAC 2012 Compliant.
+*					  Updated the FatFs to R0.10b
+*					  Removed alignment for local buffers as CacheInvalidate
+*					  will take care of it.
 *
 * </pre>
 *
