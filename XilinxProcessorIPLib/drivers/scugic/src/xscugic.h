@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -132,6 +132,7 @@
 *                     xparameters.h. Fix for CR's 690505, 708928 & 719359.
 * 2.0   adk  12/10/13 Updated as per the New Tcl API's
 * 2.1   adk  25/04/14 Fixed the CR:789373 changes are made in the driver tcl file.
+* 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 *
 * </pre>
 *

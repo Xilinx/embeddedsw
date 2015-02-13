@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,7 @@
 * 1.04a hk   05/04/13 Fix for CR#705621. Moved functions
 *			  XScuGic_SetPriTrigTypeByDistAddr and
 *             XScuGic_GetPriTrigTypeByDistAddr here from xscugic.c
+* 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 *
 * </pre>
 *

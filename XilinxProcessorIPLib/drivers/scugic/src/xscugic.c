@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -69,6 +69,7 @@
 * 1.06a asa  16/11/13 Fix for CR#749178. Assignment for EffectiveAddr
 *			  in function XScuGic_CfgInitialize is removed as it was
 *		      a bug.
+* 3.00  kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
 *
 * </pre>
 *

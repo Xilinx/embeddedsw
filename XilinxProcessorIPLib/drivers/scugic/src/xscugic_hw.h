@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,7 @@
 *         	      XScuGic_GetPriTrigTypeByDistAddr here from xscugic.h
 * 3.0	pkp  12/09/14 changed XSCUGIC_MAX_NUM_INTR_INPUTS for
 *		      Zynq Ultrascale Mp
+* 3.0   kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
 * </pre>
 *
 ******************************************************************************/
