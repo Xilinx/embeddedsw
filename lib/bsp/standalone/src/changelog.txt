@@ -209,7 +209,8 @@
  * 4.2 pkp   09/11/14  modified translation table entries in cortexa9/iccarm/translation_table.s
  *		       and  cortexa9/armcc/translation_table.s to resolve compilation
  *		       error for solving CR#822897
- * 5.0 kvn   12/9/14   Support for Zync Ultrascale Mp.
+ * 5.0 kvn   12/9/14   Support for Zync Ultrascale Mp.Also modified code for
+ *                     MISRA-C:2012 compliance.
  * 5.0 pkp   12/15/14  Added APIs to get information about the platforms running the code by
  *		       adding src/common/xplatform_info.*s
  * 5.0 pkp   16/12/14  Modified boot code to enable scu after MMU is enabled and
