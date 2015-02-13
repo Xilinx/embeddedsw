@@ -1,10 +1,10 @@
 /* $Id: xemacps.c,v 1.1.2.3 2011/05/17 12:00:33 anirudh Exp $ */
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
+* of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
@@ -46,6 +46,7 @@
 * 1.00a wsy  01/10/10 First release
 * 2.1  srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification and
 *		      64-bit changes.
+* 3.00 kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 *
 * </pre>
 ******************************************************************************/
