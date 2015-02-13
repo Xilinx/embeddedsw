@@ -64,7 +64,7 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 	dsb();
 #if defined (__GNUC__) || defined (__ICCARM__)
 	asm volatile("mcr p14, 0, %0, c0, c5, 0"
-			: "=r" (Data));
+			: : "r" (Data));
 #else
 	{
 		volatile register u32 Reg __asm("cp14:0:c0:c5:0");
