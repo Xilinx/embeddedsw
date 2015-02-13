@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -83,7 +83,8 @@
 *						XWdtPs_GetExternalSignalLength
 *						Modified the Self Test to use the Reset Length mask
 *						for CR 658287
-* 3.0	pkp	   12/09/14 Added support for Zynq Ultrascale Mp
+* 3.0	pkp	   12/09/14 Added support for Zynq Ultrascale Mp.Also
+*			modified code for MISRA-C:2012 compliance.
 * </pre>
 *
 ******************************************************************************/
