@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -78,11 +78,13 @@
 * 1.00a ecm/jz 01/15/10 First release
 * 1.01a asa    02/15/12 Added tcl file to generate xparameters
 * 1.02a  sg    07/15/12 Removed code/APIs related to  External Signal
-*			Length functionality for CR 658287
-*			Removed APIs XWdtPs_SetExternalSignalLength,
-*			XWdtPs_GetExternalSignalLength
-*			Modified the Self Test to use the Reset Length mask
-*			for CR 658287
+*						Length functionality for CR 658287
+*						Removed APIs XWdtPs_SetExternalSignalLength,
+*						XWdtPs_GetExternalSignalLength
+*						Modified the Self Test to use the Reset Length mask
+*						for CR 658287
+* 3.0	pkp	   12/09/14 Added support for Zynq Ultrascale Mp.Also
+*			modified code for MISRA-C:2012 compliance.
 * </pre>
 *
 ******************************************************************************/
