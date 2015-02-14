@@ -1871,9 +1871,14 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/* Remove the reset from the PHY. */
+	/* Remove the reset from the PHY and configure to issue reset after
+	 * every training iteration, link rate change, and start of training
+	 * pattern. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_PHY_CONFIG,
-				XDP_RX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+			XDP_RX_PHY_CONFIG_PHY_RESET_ENABLE_MASK |
+			XDP_RX_PHY_CONFIG_RESET_AT_TRAIN_ITER_MASK |
+			XDP_RX_PHY_CONFIG_RESET_AT_LINK_RATE_CHANGE_MASK |
+			XDP_RX_PHY_CONFIG_RESET_AT_TP1_START_MASK);
 
 	/* Wait until the PHY has completed the reset cycle. */
 	if (InstancePtr->Config.MaxLaneCount > 2) {
