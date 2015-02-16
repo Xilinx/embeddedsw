@@ -672,8 +672,8 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	/**
 	 * Read Efuse bit and check Boot Header for Authentication
 	 */
-	EfuseCtrl = XFsbl_In32(EFUSE_RSA_CTRL);
-	if (((EfuseCtrl & EFUSE_RSA_CTRL_RSA_EN_MASK) != 0) ||
+	EfuseCtrl = XFsbl_In32(EFUSE_SEC_CTRL);
+	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0) ||
 	    ((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_RSA_MASK)
 		== XIH_BH_IMAGE_ATTRB_RSA_MASK))
 	{

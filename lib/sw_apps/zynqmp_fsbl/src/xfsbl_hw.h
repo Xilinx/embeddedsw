@@ -142,14 +142,8 @@ extern "C" {
 /**
  * Register: EFUSE_SEC_CTRL
  */
-#define EFUSE_SEC_CTRL    ( ( EFUSE_BASEADDR ) + 0X00001000U )
-
-/**
- * Register: EFUSE_RSA_CTRL
- */
-#define EFUSE_RSA_CTRL    ( ( EFUSE_BASEADDR ) + 0X00001060U )
-#define EFUSE_RSA_CTRL_RSA_EN_MASK    0X00000001U
-
+#define EFUSE_SEC_CTRL    ( ( EFUSE_BASEADDR ) + 0X00001058U )
+#define EFUSE_SEC_CTRL_RSA_EN_MASK    0X03000000U
 
 /* csudma */
 
@@ -422,14 +416,14 @@ extern "C" {
 /**
  * Definition for SD to be included
  */
-#if !defined(FSBL_SD_EXCLUDE) & defined( XPAR_XSDPS_0_DEVICE_ID)
+#if (!defined(FSBL_SD_EXCLUDE) && defined( XPAR_XSDPS_0_DEVICE_ID))
 #define XFSBL_SD
 #endif
 
 /**
  * Definition for QSPI to be included
  */
-#if !defined(FSBL_QSPI_EXCLUDE) & defined(XPAR_XQSPIPS_0_DEVICE_ID)
+#if (!defined(FSBL_QSPI_EXCLUDE) && defined(XPAR_XQSPIPS_0_DEVICE_ID))
 #define XFSBL_QSPI
 #define XFSBL_QSPI_BASEADDRESS	XPAR_XQSPIPS_0_BASEADDR
 #endif
@@ -437,7 +431,7 @@ extern "C" {
 /**
  * Definition for NAND to be included
  */
-#if !defined(FSBL_NAND_EXCLUDE) & defined(XPAR_XNANDPS8_0_DEVICE_ID)
+#if (!defined(FSBL_NAND_EXCLUDE) && defined(XPAR_XNANDPS8_0_DEVICE_ID))
 #define XFSBL_NAND
 #endif
 
