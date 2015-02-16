@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver qspipsu
 
-  OPTION supported_peripherals = (ps8_qspi pss_qspi psu_qspi);
+  OPTION supported_peripherals = (psu_qspi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
     OPTION VERSION = 1.0;
