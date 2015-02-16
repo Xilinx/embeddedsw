@@ -95,28 +95,19 @@ proc check_stdout_hw {} {
 }
 
 proc swapp_generate {} {
+    # generate/copy ps init files
+    ::hsi::utils::generate_psinit
 
     #delete unnecessary files (only pss_init.c & pss_init.h are needed for FSBL)
-    set file "pss_init.html"
-    if { [file exists $file] } {
-      file delete -force $file
-    }
 
-    set file "pss_init.tcl"
-    if { [file exists $file] } {
-      file delete -force $file
-    }
+    set files(0) "pss_init.html"
+    set files(1) "pss_init.tcl"
+    set files(2) "pss_init_gpl.c"
+    set files(3) "pss_init_gpl.h"
 
-    set file "pss_init_gpl.c"
-    if { [file exists $file] } {
-      file delete -force $file
+    foreach init_file [array get files] {
+        file delete -force $init_file
     }
-
-    set file "pss_init_gpl.h"
-    if { [file exists $file] } {
-      file delete -force $file
-    }
-
 }
 
 proc swapp_get_linker_constraints {} {
