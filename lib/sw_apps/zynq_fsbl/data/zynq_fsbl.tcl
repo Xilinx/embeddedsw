@@ -72,24 +72,14 @@ proc swapp_generate {} {
     ::hsi::utils::generate_psinit
 
     #delete unnecessary files (only ps7_init.c & ps7_init.h are needed for FSBL)
-    set file "ps7_init.html"
-    if { [file exists $file] } {
-      file delete -force $file
-    }
 
-    set file "ps7_init.tcl"
-    if { [file exists $file] } {
-      file delete -force $file
-    }
+    set files(0) "ps7_init.html"
+    set files(1) "ps7_init.tcl"
+    set files(2) "ps7_init_gpl.c"
+    set files(3) "ps7_init_gpl.h"
 
-    set file "ps7_init_gpl.c"
-    if { [file exists $file] } {
-      file delete -force $file
-    }
-
-    set file "ps7_init_gpl.h"
-    if { [file exists $file] } {
-      file delete -force $file
+    foreach init_file [array get files] {
+        file delete -force $init_file
     }
 
 }
