@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver scugic
 
-  OPTION supported_peripherals = (ps7_scugic ps8_scugic pss_scugic pss_acpu_gic pss_rcpu_gic);
+  OPTION supported_peripherals = (ps7_scugic psu_scugic psu_acpu_gic psu_rcpu_gic);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION NAME = scugic;
