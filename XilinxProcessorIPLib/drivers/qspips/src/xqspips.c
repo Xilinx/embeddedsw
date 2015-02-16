@@ -303,6 +303,7 @@ void XQspiPs_Reset(XQspiPs *InstancePtr)
 void XQspiPs_Abort(XQspiPs *InstancePtr)
 {
 	u32 ConfigReg;
+	u32 IsLock;
 
 	XQspiPs_Disable(InstancePtr);
 
@@ -318,13 +319,18 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 	/*
 	 * QSPI Software Reset
 	 */
-	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_UNLOCK,
-			SLCR_UNLOCK_MASK);
+	IsLock = XQspiPs_ReadReg(XPAR_XSLCR_0_BASEADDR, 0x0);
+	if (IsLock) {
+		XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_UNLOCK,
+				SLCR_UNLOCK_MASK);
+	}
 	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, LQSPI_RST_CTRL,
 			LQSPI_RST_CTRL_MASK);
 	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, LQSPI_RST_CTRL, 0x0);
-	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_LOCK,
-			SLCR_LOCK_MASK);
+	if (IsLock) {
+		XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_LOCK,
+				SLCR_LOCK_MASK);
+	}
 
 	/*
 	 * Set the RX and TX FIFO threshold to reset value (one)
