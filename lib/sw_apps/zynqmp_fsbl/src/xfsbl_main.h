@@ -115,10 +115,10 @@ typedef struct {
 #define XFSBL_JTAG_BOOT_MODE		(0x0U)
 #define XFSBL_QSPI24_BOOT_MODE		(0x1U)
 #define XFSBL_QSPI32_BOOT_MODE		(0x2U)
+#define XFSBL_SD_BOOT_MODE	        (0x3U)
 #define XFSBL_NAND_BOOT_MODE		(0x4U)
-#define XFSBL_SD_BOOT_MODE			(0x5U)
 #define XFSBL_EMMC_BOOT_MODE		(0x6U)
-#define XFSBL_USB_BOOT_MODE			(0x7U)
+#define XFSBL_USB_BOOT_MODE		(0x7U)
 
 /**
  * FSBL stages definition
