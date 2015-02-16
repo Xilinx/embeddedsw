@@ -472,15 +472,15 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 *******************************************************************************/
 void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
 {
-	xil_printf("\tColor Space Format:%s\r\n", \
+	xil_printf("\tColor Space Format:%s\r\n",
 				XVidC_GetColorFormatStr(Stream->ColorFormatId));
 	xil_printf("\tColor Depth:%d\r\n", Stream->ColorDepth);
 	xil_printf("\tPixels Per Clock:%d\r\n", Stream->PixPerClk);
 	xil_printf("\tFrame Rate:%s\r\n", XVidC_GetFrameRateStr(Stream->VmId));
-	xil_printf("\tMode:%s\r\n", \
+	xil_printf("\tMode:%s\r\n",
 			Stream->IsInterlaced ? "Interlaced" : "Progressive" );
 	xil_printf("\tResolution:%s\r\n", XVidC_GetVideoModeStr(Stream->VmId));
-	xil_printf("\tPixel Clock:%d\r\n", \
+	xil_printf("\tPixel Clock:%d\r\n",
 				XVidC_GetPixelClockHzByVmId(Stream->VmId));
 }
 
@@ -499,31 +499,31 @@ void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
 *******************************************************************************/
 void XVidC_ReportTiming(XVidC_VideoTiming *Timing, u8 IsInterlaced)
 {
-	xil_printf("\r\n\tHSYNC Timing: hav=%04d, hfp=%02d, hsw=%02d(hsp=%d), \
-			hbp=%03d, htot=%04d \n\r", Timing->HActive, \
-			Timing->HFrontPorch, Timing->HSyncWidth, \
-			Timing->HSyncPolarity, \
+	xil_printf("\r\n\tHSYNC Timing: hav=%04d, hfp=%02d, hsw=%02d(hsp=%d), "
+			"hbp=%03d, htot=%04d \n\r", Timing->HActive,
+			Timing->HFrontPorch, Timing->HSyncWidth,
+			Timing->HSyncPolarity,
 			Timing->HBackPorch, Timing->HTotal);
 
 	/* Interlaced */
 	if (IsInterlaced) {
-		xil_printf("\tVSYNC Timing (Field 0): vav=%04d, vfp=%02d, \
-			vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r", \
-			Timing->VActive, Timing->F0PVFrontPorch, \
-			Timing->F0PVSyncWidth, Timing->VSyncPolarity, \
+		xil_printf("\tVSYNC Timing (Field 0): vav=%04d, vfp=%02d, "
+			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r",
+			Timing->VActive, Timing->F0PVFrontPorch,
+			Timing->F0PVSyncWidth, Timing->VSyncPolarity,
 			Timing->F0PVBackPorch, Timing->F0PVTotal);
-	xil_printf("\tVSYNC Timing (Field 1): vav=%04d, vfp=%02d, \
-			vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r", \
-			Timing->VActive, Timing->F1VFrontPorch, \
-			Timing->F1VSyncWidth, Timing->VSyncPolarity, \
+	xil_printf("\tVSYNC Timing (Field 1): vav=%04d, vfp=%02d, "
+			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r",
+			Timing->VActive, Timing->F1VFrontPorch,
+			Timing->F1VSyncWidth, Timing->VSyncPolarity,
 			Timing->F1VBackPorch, Timing->F1VTotal);
 	}
 	/* Progressive */
 	else {
-		xil_printf("\tVSYNC Timing: vav=%04d, vfp=%02d, \
-			vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r", \
-			Timing->VActive, Timing->F0PVFrontPorch, \
-			Timing->F0PVSyncWidth, Timing->VSyncPolarity, \
+		xil_printf("\tVSYNC Timing: vav=%04d, vfp=%02d, "
+			"vsw=%02d(vsp=%d), vbp=%03d, vtot=%04d\n\r",
+			Timing->VActive, Timing->F0PVFrontPorch,
+			Timing->F0PVSyncWidth, Timing->VSyncPolarity,
 			Timing->F0PVBackPorch, Timing->F0PVTotal);
 	}
 }
