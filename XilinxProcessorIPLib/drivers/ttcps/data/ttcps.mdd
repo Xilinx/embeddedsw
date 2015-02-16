@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver ttcps
 
-  OPTION supported_peripherals = (ps7_ttc ps8_ttc pss_ttc);
+  OPTION supported_peripherals = (ps7_ttc psu_ttc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION NAME = ttcps; 
