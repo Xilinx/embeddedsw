@@ -35,7 +35,7 @@ BEGIN driver cpu_cortexa53
 
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
-OPTION supported_peripherals = (ps8_cortexa53 pss_cortexa53);
+OPTION supported_peripherals = (psu_cortexa53);
 OPTION default_os = "standalone_v5_0";
 OPTION VERSION = 1.0;
 OPTION NAME = cpu_cortexa53;
