@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver wdtps
 
-  OPTION supported_peripherals = (ps7_wdt ps8_wdt pss_wdt);
+  OPTION supported_peripherals = (ps7_wdt psu_wdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION NAME = wdtps;
