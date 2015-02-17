@@ -86,7 +86,7 @@ extern "C" {
 /** @name CSU Base address and CSU_DMA reset offset
  * @{
  */
-#define XCSU_BASEADDRESS	XPAR_PSS_CSU_0_S_AXI_BASEADDR
+#define XCSU_BASEADDRESS	0xFFCA0000
 						/**< CSU Base Address */
 #define XCSU_DMA_RESET_OFFSET	0x0000000CU	/**< CSU_DMA Reset offset */
 /*@}*/

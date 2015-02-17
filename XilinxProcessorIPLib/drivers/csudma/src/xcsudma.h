@@ -367,7 +367,7 @@ XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId);
 s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 			u32 EffectiveAddr);
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
-					u64 Addr, u32 Size, u8 EnDataLast);
+					UINTPTR Addr, u32 Size, u8 EnDataLast);
 void XCsuDma_LoopBackTransfer(XCsuDma *InstancePtr, u64 SrcAddr, u64 DstAddr,
 						u32 Size);
 u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel);
