@@ -64,7 +64,7 @@ proc generate {os_handle} {
     set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
     set mb_exceptions false
 
-    # proctype should be "microblaze" or pss_cortexa53 or pss_cortexr5 or ps7_cortexa9
+    # proctype should be "microblaze" or psu_cortexa53 or psu_cortexr5 or ps7_cortexa9
     set mbsrcdir "./src/microblaze"
     set cortexa53srcdir "./src/cortexa53"
     set cortexr5srcdir "./src/cortexr5"
@@ -87,7 +87,15 @@ proc generate {os_handle} {
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
-        "pss_cortexa53"  {
+	"psu_microblaze" {
+            foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+                # Copy over only files that are not related to exception handling. All such files have exception in their names
+                file copy -force $entry "./src/"
+            }
+            set need_config_file "true"
+            set mb_exceptions [mb_has_exceptions $hw_proc_handle]
+        }
+        "psu_cortexa53"  {
             set procdrv [hsi::get_sw_processor]
             set ccdir "./src/cortexa53/gcc"
             foreach entry [glob -nocomplain [file join $cortexa53srcdir *]] {
@@ -103,7 +111,7 @@ proc generate {os_handle} {
             puts $file_handle ""
             close $file_handle
         }
-        "pss_cortexr5"  {
+        "psu_cortexr5"  {
 	    set procdrv [hsi::get_sw_processor]
 	    set ccdir "./src/cortexr5/gcc"
 	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
@@ -157,12 +165,12 @@ proc generate {os_handle} {
     # Write the Config.make file
     set makeconfig [open "./src/config.make" w]
 #    print_generated_header_tcl $makeconfig "Configuration parameters for Standalone Makefile"
-    if { $proctype == "microblaze" } {
+    if { $proctype == "microblaze" || $proctype == "psu_microblaze" } {
         puts $makeconfig "LIBSOURCES = *.c *.S"
         puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
-    } elseif { $proctype == "pss_cortexr5" } {
+    } elseif { $proctype == "psu_cortexr5" } {
 	puts $makeconfig "LIBSOURCES = *.c *.S"
-    } elseif { $proctype == "pss_cortexa53" }  {
+    } elseif { $proctype == "psu_cortexa53" }  {
             puts $makeconfig "LIBSOURCES = *.c *.s *.S"
     } elseif { $proctype == "ps7_cortexa9" } {
         if {[string compare -nocase $compiler "armcc"] == 0} {
@@ -569,7 +577,7 @@ proc handle_profile { os_handle proctype } {
 
     set proc [hsi::get_sw_processor]
 
-    if {{$proctype == "pss_cortexa53"} | {$proctype == "pss_cortexr5"} | {$proctype == "ps7_cortexa9"}} {
+    if {{$proctype == "psu_cortexa53"} | {$proctype == "psu_cortexr5"} | {$proctype == "ps7_cortexa9"}} {
         set sw_proc_handle [hsi::get_sw_processor]
         set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
         set cpu_freq [common::get_property CONFIG.C_CPU_CLK_FREQ_HZ $hw_proc_handle]
@@ -598,7 +606,7 @@ proc handle_profile { os_handle proctype } {
     puts $config_file "#define SAMPLE_FREQ_HZ 100000"
     puts $config_file "#define TIMER_CLK_TICKS [expr $cpu_freq / 100000]"
 
-    # proctype should be "microblaze" or "pss_cortexa53"
+    # proctype should be "microblaze" or "psu_cortexa53"
     switch $proctype {
         "microblaze" {
             # Microblaze Processor.
@@ -612,7 +620,7 @@ proc handle_profile { os_handle proctype } {
             }
         }
 
-        "pss_cortexa53" {
+        "psu_cortexa53" {
             # Cortex A53 Processor.
 
             puts $config_file "#define PROC_CORTEXA53 1"
@@ -627,7 +635,7 @@ proc handle_profile { os_handle proctype } {
                 puts $config_file "#define SCUGIC_DIST_BASEADDR $scugic_dist_base"
             }
         }
-	"pss_cortexr5" {
+	"psu_cortexr5" {
             # Cortex R5 Processor.
 
             puts $config_file "#define PROC_CORTEXR5 1"
