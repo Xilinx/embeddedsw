@@ -29,6 +29,33 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xcoresightpsdcc.h
+*
+* CoreSight driver component.
+*
+* The coresight is a part of debug communication channel (DCC) group. Jtag UART
+* for ARM uses DCC. Each ARM core has its own DCC, so one need to select an
+* ARM target in XSDB console before running the jtag terminal command. Using the
+* coresight driver component, the output stream can be directed to a log file.
+*
+* @note 	None.
+*
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date		Changes
+* ----- -----  -------- -----------------------------------------------
+* 1.00  kvn    02/14/15 First release
+*
+* </pre>
+*
+******************************************************************************/
+
+/***************************** Include Files *********************************/
 
 #include <xil_types.h>
 

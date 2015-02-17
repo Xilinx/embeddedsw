@@ -29,6 +29,29 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xcoresightpsdcc.c
+*
+* Functions in this file are the minimum required functions for the
+* XCoreSightPs driver.
+*
+* @note 	None.
+*
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date		Changes
+* ----- -----  -------- -----------------------------------------------
+* 1.00  kvn    02/14/15 First release
+*
+* </pre>
+*
+******************************************************************************/
+
+/***************************** Include Files *********************************/
 
 #include <xil_types.h>
 #include <xpseudo_asm.h>
