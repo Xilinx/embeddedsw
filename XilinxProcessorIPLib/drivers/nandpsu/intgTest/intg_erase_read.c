@@ -118,8 +118,8 @@ int Intg_EraseReadTest(XNandPsu * NandInstPtr, int TestLoops)
 * This function runs a test on the NAND flash device using the basic driver
 * functions in polled mode.
 * The function does the following tasks:
-*	- Erase the flash.
-*	- Read back the data from the flash.
+*	- Erase the block.
+*	- Read back the data from the block.
 *	- Compare the data read against 0xFF.
 *
 * @param	NandInstPtr - Instance to the nand driver.
@@ -160,7 +160,7 @@ s32 Erase_Read_Test(XNandPsu * NandInstPtr)
 		XNandPsu_DisableEccMode(NandInstPtr);
 
 		/*
-		 * Read the flash after writing
+		 * Read the block.
 		 */
 		Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
 						&ReadBuffer[0]);

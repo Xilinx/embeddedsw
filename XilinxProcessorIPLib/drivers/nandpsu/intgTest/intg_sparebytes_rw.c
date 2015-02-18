@@ -117,9 +117,9 @@ int Intg_SpareBytesRWTest(XNandPsu * NandInstPtr, int TestLoops)
 * This function runs a test on the NAND flash device using the basic driver
 * functions in polled mode.
 * The function does the following tasks:
-*	- Erase the flash.
-*	- Write data to the spare byte section of flash.
-*	- Read back the data from the spare byte section of flash.
+*	- Erase the Block.
+*	- Write data to the spare byte section of page.
+*	- Read back the data from the spare byte section of page.
 *	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
@@ -148,7 +148,7 @@ s32 SpareBytes_RW_Test(XNandPsu * NandInstPtr)
 	/*
 	 * Offset to write in spare area
 	 */
-	SpareOffset = (u64)(TEST_PAGE_START);
+	SpareOffset = TEST_PAGE_START;
 
 	/*
 	 * Repeat the test for 5 iterations
@@ -156,16 +156,19 @@ s32 SpareBytes_RW_Test(XNandPsu * NandInstPtr)
 	for(i = 0; i< 5; i++){
 
 		/*
-		 * Erase the flash
+		 * Erase the Block
 		 */
 		Status = XNandPsu_Erase(NandInstPtr, (u64)Offset, (u64)Length);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 
+		/*
+		 * Select Random Length of data to be written in Spare Region.
+		 */
 		Length = rand() % (NandInstPtr->Geometry.SpareBytesPerPage);
 		if(Length == 0U){
-			Length = NandInstPtr->Geometry.SpareBytesPerPage;
+			Length = (NandInstPtr->Geometry.SpareBytesPerPage);
 		}
 
 		/*
@@ -181,7 +184,7 @@ s32 SpareBytes_RW_Test(XNandPsu * NandInstPtr)
 		XNandPsu_DisableEccMode(NandInstPtr);
 
 		/*
-		 * Write to flash Spare Bytes Section
+		 * Write to Spare Bytes Section of page.
 		 */
 		Status = XNandPsu_WriteSpareBytes(NandInstPtr, SpareOffset,
 				&WriteBuffer[0]);
@@ -190,7 +193,7 @@ s32 SpareBytes_RW_Test(XNandPsu * NandInstPtr)
 		}
 
 		/*
-		 * Read from the flash Spare Bytes after writing
+		 * Read from the Spare Bytes after writing
 		 */
 		Status = XNandPsu_ReadSpareBytes(NandInstPtr, SpareOffset,
 				&ReadBuffer[0]);

@@ -118,12 +118,12 @@ int Intg_EccTest(XNandPsu * NandInstPtr, int TestLoops)
 * This function runs a test on the NAND flash device using the basic driver
 * functions in polled mode.
 * The function does the following tasks:
-*	- Erase the flash.
-*	- Write data to the flash.
-*	- Read back the data from the flash.
+*	- Erase the block.
+*	- Write data to the page.
+*	- Read back the data from the page.
 *	- Compare the data read against the data Written.
-*	- Corrupt data by writing random data to flash
-*	- Read back the data from the flash.
+*	- Corrupt data by writing random data to page
+*	- Read back the data from the page.
 *	- Compare the data read against the data Written before corruption.
 *
 * @param	NandInstPtr - Instance to the nand driver.
@@ -141,12 +141,20 @@ s32 Ecc_Test(XNandPsu * NandInstPtr)
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u64 Offset;
+	u32 SpareOffset,ReadSpareOffset,WriteSpareOffset;
 	u32 Length;
-	s32 i;
+	s32 i,j;
 	MismatchCounter = 0;
-	NandInstPtr->BCH_Error_Status = 0;
+	u8 SpareBuffer[TEST_BUF_SIZE];
+	u32 BlockSize = NandInstPtr->Geometry.BlockSize;
+	NandInstPtr->Ecc_Stats_total_flips = 0;
 
 	Offset = (u64)(TEST_PAGE_START * NandInstPtr->Geometry.BytesPerPage);
+	/*
+	 * Offset to write in spare area
+	 */
+	SpareOffset = TEST_PAGE_START;
+
 	Length = NandInstPtr->Geometry.BytesPerPage;
 
 	/*
@@ -157,80 +165,86 @@ s32 Ecc_Test(XNandPsu * NandInstPtr)
 	}
 
 	/*
+	 * Erase the Block
+	 */
+	Status = XNandPsu_Erase(NandInstPtr, (u64)Offset, (u64)BlockSize);
+	if (Status != XST_SUCCESS) {
+		goto Out;
+	}
+
+	/*
 	 * Enable ECC
 	 */
 	XNandPsu_EnableEccMode(NandInstPtr);
 
 	/*
-	 * Erase the flash
+	 * Write first 30 pages of the block.
 	 */
-	Status = XNandPsu_Erase(NandInstPtr, (u64)Offset, (u64)Length);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
-
-	/*
-	 * Write to flash
-	 */
-	Status = XNandPsu_Write(NandInstPtr, (u64)Offset, (u64)Length,
-						&WriteBuffer[0]);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
-
-	/*
-	 * Read the flash after writing
-	 */
-	Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
-						&ReadBuffer[0]);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
-
-	/*
-	 * Compare the results
-	 */
-	for (Index = 0U; Index < Length;Index++) {
-		if (ReadBuffer[Index] != WriteBuffer[Index]) {
-			MismatchCounter++;
-			Status = XST_FAILURE;
-		}
-	}
-
-	for (i = 0 ; i<24 ; i++){
-		/*
-		 * Disable ECC
-		 */
-		XNandPsu_DisableEccMode(NandInstPtr);
-
-		/*
-		 * Corrupting data in Write buffer
-		 */
-		WriteBuffer[i] = (u8)(i+1);
-
+	for(i = 0 ; i < 24 ; i++){
 		/*
 		 * Write to flash
 		 */
 		Status = XNandPsu_Write(NandInstPtr, (u64)Offset, (u64)Length,
-						&WriteBuffer[0]);
+				&WriteBuffer[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+
+		Offset = Offset + NandInstPtr->Geometry.BytesPerPage;
+	}
+
+	ReadSpareOffset = SpareOffset;
+	WriteSpareOffset = Offset/(NandInstPtr->Geometry.BytesPerPage);
+
+	for(i = 0 ; i < 24 ; i++){
+		/*
+		 * Read the Spare Area
+		 */
+		Status = XNandPsu_ReadSpareBytes(NandInstPtr, ReadSpareOffset,
+						&SpareBuffer[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 
 		/*
-		 * Correcting back data in Write buffer
+		 * Disable the ecc mode
 		 */
-		WriteBuffer[i] = (u8)0;
+		XNandPsu_DisableEccMode(NandInstPtr);
+
 
 		/*
-		 * Enable ECC check
+		 * Corrupting the data in write buffer.
+		 */
+		for(j = 0; j<= i ; j++){
+			WriteBuffer[j] = (u8)1;
+		}
+
+		Status = XNandPsu_Write(NandInstPtr, Offset, Length, &WriteBuffer[0]);
+		if(Status != XST_SUCCESS){
+			goto Out;
+		}
+
+		/*
+		 * Write the Ecc Data into the spare area of next page.
+		 */
+		Status = XNandPsu_WriteSpareBytes(NandInstPtr, WriteSpareOffset,
+						&SpareBuffer[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+
+		for(j = 0; j<= i ; j++){
+			WriteBuffer[j] = (u8)0;
+		}
+		/*
+		 * Enable Ecc Mode
 		 */
 		XNandPsu_EnableEccMode(NandInstPtr);
 
 		/*
-		 * Read the flash after writing
+		 * Read the page after writing
 		 */
-		Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
+		Status = XNandPsu_Read(NandInstPtr, Offset, Length,
 						&ReadBuffer[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -244,10 +258,14 @@ s32 Ecc_Test(XNandPsu * NandInstPtr)
 				MismatchCounter++;
 				Status = XST_FAILURE;
 			}
-		}
-	}
-	xil_printf("Total BCH ECC errors = %d\r\n",NandInstPtr->BCH_Error_Status);
 
+		}
+		ReadSpareOffset++;
+		WriteSpareOffset++;
+		Offset = Offset + NandInstPtr->Geometry.BytesPerPage;
+	}
+	xil_printf("Total Ecc Error Flips = %d\r\n",
+				NandInstPtr->Ecc_Stats_total_flips);
 Out:
 	return Status;
 }

@@ -120,9 +120,9 @@ int Intg_RandomRWTest(XNandPsu * NandInstPtr, int TestLoops)
 * functions in polled mode.
 * The function does the following tasks:
 *	- Initialize the driver.
-*	- Erase the flash.
-*	- Write data to the flash.
-*	- Read back the data from the flash.
+*	- Erase the block.
+*	- Write data to the pages of block.
+*	- Read back the data from the pages of block.
 *	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
@@ -172,7 +172,7 @@ s32 Random_Block_RW_Test(XNandPsu * NandInstPtr)
 		}
 
 		/*
-		 * Write to flash
+		 * Write to page
 		 */
 		Status = XNandPsu_Write(NandInstPtr, (u64)Offset, (u64)Length,
 				&WriteBuffer[0]);
@@ -181,7 +181,7 @@ s32 Random_Block_RW_Test(XNandPsu * NandInstPtr)
 		}
 
 		/*
-		 * Read the flash after writing
+		 * Read the page after writing
 		 */
 		Status = XNandPsu_Read(NandInstPtr, (u64)Offset, (u64)Length,
 						&ReadBuffer[0]);

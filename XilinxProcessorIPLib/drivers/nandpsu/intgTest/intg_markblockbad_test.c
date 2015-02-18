@@ -41,7 +41,7 @@
 /*****************************************************************************/
 /**
 *
-* @file intg_markblockbad_test.c
+* @file intg_flash_rw.c
 *
 * This file contains the design example for using NAND driver (XNandPsu).
 * This example tests the erase, read and write feature of the controller.
@@ -120,10 +120,10 @@ int Intg_MarkBlockBadTest(XNandPsu * NandInstPtr, int TestLoops)
 * functions in polled mode.
 * The function does the following tasks:
 *   - Marks Blocks bad.
-*   - Erase the blocks.
-*   - Write data to the blocks.
-*   - Read back the data from the blocks.
-*   - Compare the data read against the data Written.
+*	- Erase the blocks.
+*	- Write data to the blocks.
+*	- Read back the data from the blocks.
+*	- Compare the data read against the data Written.
 *
 * @param	NandInstPtr - Instance to the nand driver.
 *
@@ -176,7 +176,6 @@ s32 Mark_BlockBad_Test(XNandPsu * NandInstPtr)
 
 		BlockOff = BlockNo * BlockSize;
 
-		xil_printf("Erasing Block = %d \r\n", BlockNo);
 		/*
 		 * Erase the Block 1,2,3
 		 */

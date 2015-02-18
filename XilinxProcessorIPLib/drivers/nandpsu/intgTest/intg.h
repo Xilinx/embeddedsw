@@ -41,21 +41,17 @@
 /*****************************************************************************/
 /**
 *
-* @file intg.h - defines integration test API for the can driver
+* @file intg.h - defines integration test API for the nandpsu driver
 *
-* @note
-* TEST_METHOD has to be defined whether you want
-*	- internal loopback (TEST_LOOPBACK) or
-*	- receive/send data from/to (TEST_EXTERNAL_CAN_ANALYSER) an
-*	  external Can Analyser.
+* @note		None
+*
 * <pre>
 *
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date	 Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.00a xd/sv  01/12/09 First release
-* 1.01  kvn	   26/03/14 First release for xilinx.
+* 1.0   sb    11/28/14 First release.
 *
 * </pre>
 *
@@ -66,7 +62,7 @@
 /***************************** Include Files ********************************/
 
 #include "xparameters.h"
-#include "xnandps8.h"
+#include "xnandpsu.h"
 #include "xscugic.h"
 #include "xstatus.h"
 #include <stdio.h>
@@ -91,7 +87,7 @@
 /*@}*/
 #define NAND_DEVICE_ID		0U
 #define TEST_BUF_SIZE		0x4000U
-#define TEST_PAGE_START		0x2U
+#define TEST_PAGE_START		0x0U
 #define TEST_BLOCK_START	0x1U
 
 /*
@@ -116,9 +112,9 @@ extern u8 WriteBuffer[];	/**< write buffer */
 
 /************************** Variable Definitions ****************************/
 
-/**< XNandPsu instance used throughout tests */
+/**< XNandPs instance used throughout tests */
 extern XNandPsu* NandInstPtr;
-s32 MismatchCounter;
+extern s32 MismatchCounter;
 /************************** Function Prototypes *****************************/
 
 /*

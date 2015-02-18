@@ -63,7 +63,6 @@
 /***************************** Include Files *********************************/
 
 #include "intg.h"
-#include <stdio.h>
 
 /************************** Constant Definitions *****************************/
 
@@ -112,7 +111,8 @@
  * @{
  */
 #define MENU_UTIL_DATA_INTERFACE		1
-#define MENU_UTIL_FLASH_DETAILS			2
+#define MENU_UTIL_OOB_MODE			2
+#define MENU_UTIL_DMA_MODE			3
 #define MENU_UTIL_EXIT				99
 /*@}*/
 
@@ -125,30 +125,7 @@ typedef enum TimingMode {
 	Mode5
 }NandPsu_TimingMode;
 
-/*
- * Uncomment the following constant definition if UART16550 is standard output
- * device. If UartLite is standard output device, comment the definition
- */
-//#define UART16550
 
-/*
- * Uncomment the following constant definition if UARTLITE is standard output
- * device. If UART16550 is standard output device, comment the definition
- */
-//#define UARTLITE
-
-#ifdef UART16550
-#include "xuartns550_l.h"
-#define UART_BASEADDR XPAR_RS232_UART_BASEADDR
-#elif UARTLITE
-#include "xuartlite_l.h"
-#define UART_BASEADDR XPAR_UARTLITE_BASEADDR
-#else
-#include "xuartps_hw.h"
-#define UART_BASEADDR XPS_UART1_BASEADDR	/**< UART-1 Base Address */
-#endif
-
-//#define printf xil_printf
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -164,6 +141,8 @@ u8 WriteBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));/**< write buffer */
  */
 XNandPsu NandInstance;
 XNandPsu *NandInstPtr = &NandInstance;
+
+s32 MismatchCounter;
 /************************** Function Prototypes ******************************/
 
 static unsigned int GetUserInput(char* Prompt, char* Response,
@@ -172,10 +151,6 @@ static unsigned int GetUserInput(char* Prompt, char* Response,
 static int  GetMainMenuCommand(char* CmdLine);
 static void RunTestMenu(char* CmdLine);
 static void RunUtilMenu(char* CmdLine);
-static int ChangeTimingMode(XNandPsu *NandInstPtr,
-				XNandPsu_DataInterface NewIntf,
-				XNandPsu_TimingMode NewMode);
-
 extern char inbyte ();		/**< Inbyte returns the byte received by device. */
 s32 FlashInit(u16 NandDeviceId);
 #ifdef AUTOMATIC_TEST_MODE
@@ -284,15 +259,15 @@ void Intg_Entry(void)
 #endif
 
 	/* print banner */
-	printf("\r\n\r\nNand Driver Integration Test\r\n");
-	printf("Created on %s\n\n\r", __DATE__);
+	printf("\r\n\r\nNand Driver Integration Test\r\n"
+			"Created on %s\n\n\r", __DATE__);
 	printf("=====================================================\r\n");
 
 	CT_Init();
 
 	Status = FlashInit(NAND_DEVICE_ID);
 	if(Status != XST_SUCCESS){
-		printf("Nand Flash Initialization Failed\r\n");
+		printf("Flash Initialization Failed\r\n");
 		goto Out;
 	}
 	printf("Flash initialization done\r\n");
@@ -309,12 +284,11 @@ void Intg_Entry(void)
 				break;
 
 			case MENU_MAIN_EXIT:
-				printf("\r\nByebye! Thanks for using Nand ");
-				printf("and Driver integration tests :)\r\n");
+				printf("\r\nByebye!\r\n");
 				return;
 
 			default:
-				printf("Invalid selections\r\n");
+				printf("Invalid selection\r\n");
 		}
 	}
 #else
@@ -325,18 +299,20 @@ void Intg_Entry(void)
 	/*
 	 * Setting Interface
 	 */
-	NandInstPtr->DataInterface = SDR;
+	NandInstPtr->DataInterface = XNANDPSU_SDR;
 
 	for (t_mode = Mode0; t_mode <= Mode5; t_mode++){
-		NandInstPtr->DataInterface = SDR;
+		NandInstPtr->DataInterface = XNANDPSU_SDR;
 
 		/*
 		 * Set Timing mode
 		 */
-		Status = ChangeTimingMode(NandInstPtr, SDR, t_mode);
+		Status = XNandPsu_ChangeTimingMode(NandInstPtr, XNANDPSU_SDR, t_mode);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
+		xil_printf("\n\tCurrent Interface is SDR and Timing Mode is %d\r\n",
+					t_mode);
 		/*
 		 * Run the test cases
 		 */
@@ -345,19 +321,34 @@ void Intg_Entry(void)
 
 	for (t_mode = Mode0; t_mode <= Mode5; t_mode++){
 
-		NandInstPtr->DataInterface = NVDDR;
+		NandInstPtr->DataInterface = XNANDPSU_NVDDR;
 		/*
 		 * Set Timing mode
 		 */
-		Status = ChangeTimingMode(NandInstPtr, NVDDR, t_mode);
+		Status = XNandPsu_ChangeTimingMode(NandInstPtr, XNANDPSU_NVDDR,
+					t_mode);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
+		xil_printf("\n\tCurrent Interface is NVDDR and Timing Mode is "
+				"%d\r\n", t_mode);
 		/*
 		 * Run the test cases
 		 */
 		TestFailures += Automode_Tests(TestLoops);
 	}
+
+	/*
+	 * Set No OOB Option and Run Test Cases
+	 */
+	XNandPsu_DisableBbtOobMode(NandInstPtr);
+	printf("NO OOB Mode selected..Scanning for BBT\r\n");
+	Status = XNandPsu_ScanBbt(NandInstPtr);
+	if(Status != XST_SUCCESS){
+		printf("Scan BBT Failed\r\n");
+		goto Out;
+	}
+	TestFailures += Automode_Tests(TestLoops);
 
 	/*
 	 * Run Code Coverage Tests
@@ -422,7 +413,7 @@ int CodeCoverage_Tests(int TestLoops)
 {
 	volatile int failures = 0;
 
-	xil_printf("\tRunning Code Coverage Tests Now\r\n");
+	printf("\tRunning Code Coverage Tests Now\r\n");
 
 	XNandPsu_DisableDmaMode(NandInstPtr);
 	failures += Automode_Tests(TestLoops);
@@ -451,8 +442,8 @@ int CodeCoverage_Tests(int TestLoops)
 static int GetMainMenuCommand(char* CmdLine)
 {
 	/* prompt user */
-	printf("\r\n\r\n\r\nMain Menu:\r\n");
-	printf("==========\r\n");
+	printf("\r\n\r\n\r\nMain Menu:\r\n"
+			"==========\r\n");
 	printf("%d  - Test menu\r\n", MENU_MAIN_TEST);
 	printf("%d  - Util menu\r\n", MENU_MAIN_UTIL);
 	printf("%d - Exit\r\n\r\n", MENU_MAIN_EXIT);
@@ -498,12 +489,13 @@ static void RunTestMenu(char* CmdLine)
 		TestFailures = 0;
 
 		/* prompt user */
-		printf("\r\n\r\n\r\nTest Menu:\r\n");
-		printf("==========\r\n");
+		printf("\r\n\r\n\r\nTest Menu:\r\n"
+				"==========\r\n");
 		printf("%d - Run all tests\r\n", MENU_TEST_ALL);
 		printf("%d - Flash Erase Read Test\r\n", MENU_TEST_ERASE_READ);
 		printf("%d - Flash Read Write Test \r\n", MENU_TEST_FLASH_RW);
-		printf("%d - Random Block Flash Read Write Test\r\n", MENU_TEST_RANDOM_RW);
+		printf("%d - Random Block Flash Read Write Test\r\n",
+				MENU_TEST_RANDOM_RW);
 		printf("%d - Spare Bytes Read Write Test \r\n",
 				MENU_TEST_SPAREBYTES_RW);
 		printf("%d - Partial Page Read Write Test\r\n",
@@ -512,8 +504,8 @@ static void RunTestMenu(char* CmdLine)
 		printf("%d - BBT Scan Test.\r\n", MENU_TEST_BBT);
 		printf("%d - Mark Block Bad Test.\r\n", MENU_TEST_MARK_BLOCK_BAD);
 		printf("%d - Exit to main menu\r\n\r\n", MENU_TEST_EXIT);
-		printf("More than one test can be specified\r\n");
-		printf("Adding l <number> sets the number of test loops\n\n");
+		printf("More than one test can be specified\r\n"
+				"Adding l <number> sets the number of test loops\n\n");
 
 		/* wait for input */
 		*CmdLine = '\n';
@@ -652,13 +644,14 @@ static void RunUtilMenu(char* CmdLine)
 
 	while(!QuitToMain) {
 		/* prompt user */
-		printf("\r\n\r\n\r\nUtil Menu:\r\n");
-		printf("==========\r\n");
-		printf("%d - Change Data Interface Timing mode- 0 for SDR, 1 for NVDDR"
+		printf("\r\n\r\n\r\nUtil Menu:\r\n"
+				"==========\r\n");
+		printf("%d - Set Data Interface Timing Mode"
 				"\r\n",MENU_UTIL_DATA_INTERFACE);
-		printf("%d - Print Flash Details\r\n",
-				MENU_UTIL_FLASH_DETAILS);
-
+		printf("%d - Set OOB MODE\r\n",
+						MENU_UTIL_OOB_MODE);
+		printf("%d - Set DMA MODE\r\n",
+						MENU_UTIL_DMA_MODE);
 		/* wait for input */
 		*CmdLine = '\n';
 		while(*CmdLine == '\n') {
@@ -669,7 +662,7 @@ static void RunUtilMenu(char* CmdLine)
 		/* execute selection */
 		switch(atoi(CmdLine)) {
 			case MENU_UTIL_DATA_INTERFACE:
-				printf("Type 0 for SDR, 1 for NVDDR\r\n");
+				printf(" 0. SDR \r\n 1. NVDDR\r\n");
 				/* wait for input */
 				*CmdLine = '\n';
 				while(*CmdLine == '\n') {
@@ -677,38 +670,25 @@ static void RunUtilMenu(char* CmdLine)
 					GetUserInput(0, CmdLine, 131);
 				}
 				switch(atoi(CmdLine)) {
-					case SDR:
-						printf("Enter Timing Mode : 0 - 5 for SDR Interface : ");
+					case XNANDPSU_SDR:
+						printf("Enter Timing Mode (0 - 5): ");
 						/* wait for input */
 						*CmdLine = '\n';
 						while(*CmdLine == '\n') {
 							GetUserInput(0, CmdLine, 131);
 						}
 						if((u8)atoi(CmdLine) >= 0 && (u8)atoi(CmdLine) <= 5){
-							Status = ChangeTimingMode(NandInstPtr,SDR,(u8)atoi(CmdLine));
+							Status = XNandPsu_ChangeTimingMode(NandInstPtr,
+									XNANDPSU_SDR,atoi(CmdLine));
 							if (Status != XST_SUCCESS) {
 								printf("Data Interface / Timing Mode Change"
 										" failed\r\n");
 							}
-
-						}
-						else{
-							printf("Invalid Input\n\r");
-						}
-						break;
-
-					case NVDDR:
-						printf("Enter Timing Mode : 0 - 5 for NVDDR Interface : ");
-						/* wait for input */
-						*CmdLine = '\n';
-						while(*CmdLine == '\n') {
-							GetUserInput(0, CmdLine, 131);
-						}
-						if((u8)atoi(CmdLine) >= 0 && (u8)atoi(CmdLine) <= 5){
-							Status = ChangeTimingMode(NandInstPtr,NVDDR,(XNandPsu_TimingMode)atoi(CmdLine));
-							if (Status != XST_SUCCESS) {
-								printf("Data Interface / Timing Mode Change"
-										" failed\r\n");
+							else{
+								printf("\tCurrent Interface type : %d, Timing "
+										"mode is %d\r\n\n",
+										NandInstPtr->DataInterface,
+										NandInstPtr->TimingMode);
 							}
 						}
 						else{
@@ -716,32 +696,86 @@ static void RunUtilMenu(char* CmdLine)
 						}
 						break;
 
+					case XNANDPSU_NVDDR:
+						printf("Enter Timing Mode (0 - 5) : ");
+						/* wait for input */
+						*CmdLine = '\n';
+						while(*CmdLine == '\n') {
+							GetUserInput(0, CmdLine, 131);
+						}
+						if((u8)atoi(CmdLine) >= 0 && (u8)atoi(CmdLine) <= 5){
+							Status = XNandPsu_ChangeTimingMode(NandInstPtr,
+									XNANDPSU_NVDDR,atoi(CmdLine));
+							if (Status != XST_SUCCESS) {
+								printf("Data Interface / Timing Mode Change"
+										" failed\r\n");
+							}
+							else{
+								printf("\tCurrent Interface type : %d, Timing "
+										"mode is %d\r\n\n",
+										NandInstPtr->DataInterface,
+										NandInstPtr->TimingMode - 16);
+							}
+						}
+						else{
+							printf("Invalid Input\n\r");
+						}
+						break;
 					default:
 						printf("Invalid selection\r\n");
 				}
 				break;
-
-			case MENU_UTIL_FLASH_DETAILS:
-				xil_printf("Bytes Per Page: 0x%x\r\n",
-						NandInstPtr->Geometry.BytesPerPage);
-				xil_printf("Spare Bytes Per Page: 0x%x\r\n",
-						NandInstPtr->Geometry.SpareBytesPerPage);
-				xil_printf("Pages Per Block: 0x%x\r\n",
-						NandInstPtr->Geometry.PagesPerBlock);
-				xil_printf("Blocks Per LUN: 0x%x\r\n",
-						NandInstPtr->Geometry.BlocksPerLun);
-				xil_printf("Number of LUNs: 0x%x\r\n",
-						NandInstPtr->Geometry.NumLuns);
-				xil_printf("Number of bits per cell: 0x%x\r\n",
-						NandInstPtr->Geometry.NumBitsPerCell);
-				xil_printf("Number of ECC bits: 0x%x\r\n",
-						NandInstPtr->Geometry.NumBitsECC);
-				xil_printf("Block Size: 0x%x\r\n",
-						NandInstPtr->Geometry.BlockSize);
-				xil_printf("Number of Target Blocks: 0x%x\r\n",
-						NandInstPtr->Geometry.NumTargetBlocks);
-				xil_printf("Number of Target Pages: 0x%x\r\n",
-						NandInstPtr->Geometry.NumTargetPages);
+			case MENU_UTIL_DMA_MODE:
+				printf("0. Disable DMA Mode\r\n"
+						"1. Enable DMA Mode\r\n");
+				/* wait for input */
+				*CmdLine = '\n';
+				while(*CmdLine == '\n') {
+					printf("Enter selection: ");
+					GetUserInput(0, CmdLine, 131);
+				}
+				switch(atoi(CmdLine)) {
+					case 0:
+						XNandPsu_DisableDmaMode(NandInstPtr);
+						printf("DMA Mode Disabled\r\n");
+						break;
+					case 1:
+						XNandPsu_EnableDmaMode(NandInstPtr);
+						printf("DMA Mode Enabled\r\n");
+						break;
+					default:
+						printf("Invalid selection\r\n");
+				}
+				break;
+			case MENU_UTIL_OOB_MODE:
+				printf("0. Enable OOB Mode\r\n"
+						"1. Disable OOB Mode\r\n");
+				/* wait for input */
+				*CmdLine = '\n';
+				while(*CmdLine == '\n') {
+					printf("Enter selection: ");
+					GetUserInput(0, CmdLine, 131);
+				}
+				switch(atoi(CmdLine)) {
+					case XNANDPSU_BBT_OOB:
+						XNandPsu_EnableBbtOobMode(NandInstPtr);
+						printf("OOB Mode selected..Scanning for BBT\r\n");
+						Status = XNandPsu_ScanBbt(NandInstPtr);
+						if(Status != XST_SUCCESS){
+							printf("Scan BBT Failed\r\n");
+						}
+						break;
+					case XNANDPSU_BBT_NO_OOB:
+						XNandPsu_DisableBbtOobMode(NandInstPtr);
+						printf("NO OOB Mode selected..Scanning for BBT\r\n");
+						Status = XNandPsu_ScanBbt(NandInstPtr);
+						if(Status != XST_SUCCESS){
+							printf("Scan BBT Failed\r\n");
+						}
+						break;
+					default:
+						printf("Invalid selection\r\n");
+				}
 				break;
 
 			case MENU_UTIL_EXIT:
@@ -754,48 +788,6 @@ static void RunUtilMenu(char* CmdLine)
 	}
 }
 
-/****************************************************************************/
-/**
-*
-* This functions receives a single byte using the UART. It is non-blocking in
-* that it returns if there is no data received.
-*
-* @param	Data will have the received data after this function returns
-*		XST_SUCCESS
-*
-* @return	XST_SUCCESS if received a byte, XST_FAILURE otherwise
-*
-* @note		None.
-*
-******************************************************************************/
-int UART_RecvByte(u8 *Data)
-{
-#ifdef UART16550
-	if (!XUartNs550_IsReceiveData(UART_BASEADDR)) {
-		return XST_FAILURE;
-	} else {
-		*Data = XUartNs550_ReadReg(UART_BASEADDR, XUN_RBR_OFFSET);
-		return XST_SUCCESS;
-	}
-
-#elif UARTLITE
-	if(XUartLite_IsReceiveEmpty(UART_BASEADDR)) {
-		return XST_FAILURE;
-	} else {
-		*Data = (u8)Xil_In32(UART_BASEADDR + XUL_RX_FIFO_OFFSET);
-		return XST_SUCCESS;
-	}
-#else
-	if(!XUartPs_IsReceiveData(UART_BASEADDR)) {
-		return XST_FAILURE;
-	} else {
-		*Data = (u8)XUartPs_ReadReg(UART_BASEADDR,
-				XUARTPS_FIFO_OFFSET);
-		return XST_SUCCESS;
-	}
-#endif
-	return XST_SUCCESS;
-}
 
 /****************************************************************************/
 /**
@@ -836,97 +828,6 @@ s32 FlashInit(u16 NandDeviceId){
 Out:
 	return Status;
 
-}
-
-/*****************************************************************************/
-/**
-*
-* This function changes the data interface and timing mode.
-*
-* @param	NandInstPtr is a pointer to the XNandPsu instance.
-* @param	NewIntf is the new data interface.
-* @param	NewMode is the new timing mode.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
-*
-******************************************************************************/
-static int ChangeTimingMode(XNandPsu *NandInstPtr,
-				XNandPsu_DataInterface NewIntf,
-				XNandPsu_TimingMode NewMode){
-
-	s32 Status = XST_FAILURE;
-	u32 t_mode = NewMode;
-	u32 RegVal = 0U;
-	u32 feature = 0U;
-	u32 ddr_mode[2] = {0U};
-
-	if (NewIntf == SDR){
-		NandInstPtr->DataInterface = SDR;
-
-		/*
-		 * Set Timing mode
-		 */
-		Status = XNandPsu_SetFeature(NandInstPtr, 0, 0x1, &t_mode);
-		if (Status != XST_SUCCESS) {
-			goto Out;
-		}
-
-		/*
-		 * Setting Interface and Timing Mode
-		 */
-		NandInstPtr->TimingMode = t_mode;
-	}
-	else{
-		NandInstPtr->DataInterface = NVDDR;
-		ddr_mode[0] = t_mode | 0x10;
-
-		/*
-		 * Set Timing mode
-		 */
-		Status = XNandPsu_SetFeature(NandInstPtr, 0, 0x1, &ddr_mode[0]);
-		if (Status != XST_SUCCESS) {
-			goto Out;
-		}
-
-		/*
-		 * Setting Interface and Timing Mode
-		 */
-		NandInstPtr->TimingMode = ddr_mode[0];
-	}
-
-	/*
-	 * Setting the Data Interface Register
-	 */
-	RegVal = ((NewMode % 6U) << ((NewIntf == NVDDR) ? 3U : 0U)) |
-			((u32)NewIntf << XNANDPSU_DATA_INTF_DATA_INTF_SHIFT);
-	XNandPsu_WriteReg(NandInstPtr->Config.BaseAddress,
-				XNANDPSU_DATA_INTF_OFFSET, RegVal);
-	/*
-	 * Get the Timing mode
-	 */
-	Status = XNandPsu_GetFeature(NandInstPtr, 0, 0x1, &feature);
-	if (Status != XST_SUCCESS) {
-		goto Out;
-	}
-	xil_printf("\tCurrent Interface type : %d, Timing mode is "
-			"%d\r\n\n",NandInstPtr->DataInterface,t_mode);
-
-	/*
-	 * Check if set_feature was successful
-	 */
-	if (feature != NandInstPtr->TimingMode) {
-		xil_printf("Interface / Mode Changed failed %x = %x\r\n",
-				feature,NandInstPtr->TimingMode);
-		Status = XST_FAILURE;
-		goto Out;
-	}
-
-Out:
-	return Status;
 }
 
 /*****************************************************************************/

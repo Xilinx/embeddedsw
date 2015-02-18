@@ -140,10 +140,6 @@ s32 Bbt_Test(XNandPsu * NandInstPtr)
 	 * Scanning for Bbt
 	 */
 	Status = XNandPsu_ScanBbt(NandInstPtr);
-	if(Status != XST_SUCCESS) {
-		xil_printf("Bad Block table not found "
-				"New Bbt created\r\n");
-	}
 
-	return XST_SUCCESS;
+	return Status;
 }
