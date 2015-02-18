@@ -103,7 +103,7 @@
 /*
  * The Starting address in the IIC EEPROM on which this test is performed.
  */
-#define EEPROM_START_ADDRESS	128
+#define EEPROM_START_ADDRESS	0
 
 /**************************** Type Definitions *******************************/
 

@@ -51,7 +51,7 @@
 *
 * The I2C controller does not indicate completion of a receive transfer if HOLD
 * bit is set. Due to this errata, repeated start cannot be used if a receive
-* transfer is followed by any other transfer.
+* transfer is followed by any other transfer on Zynq platform.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -152,7 +152,7 @@ int main(void)
 	/*
 	 * Run the Iic repeated start example.
 	 * Refer to note in the header - repeated start cannot be used
-	 * if read transfer is followed by any other transfer.
+	 * on zynq platform if read transfer is followed by any other transfer.
 	 */
 	Status = IicPsRepeatedStartExample();
 	if (Status != XST_SUCCESS) {
