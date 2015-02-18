@@ -338,6 +338,7 @@ extern "C" {
 #define SLCR_LOCK 0x00000004 /**< SLCR Write Protection Lock */
 #define SLCR_UNLOCK 0x00000008 /**< SLCR Write Protection Unlock */
 #define LQSPI_RST_CTRL 0x00000230 /**< Quad SPI Software Reset Control */
+#define SLCR_LOCKSTA 0x0000000C /**< SLCR Write Protection status */
 
 /* @} */
 
