@@ -76,7 +76,7 @@
 * @param	InstancePtr is a pointer to the XIicPs instance.
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
+* @param	FunctionPtr is the pointer to the callback function.
 *
 * @return	None.
 *

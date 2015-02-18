@@ -178,6 +178,8 @@
 * 					 in XIicPs_Reset.
 * 			12/06/14 Implemented Repeated start feature.
 *			01/31/15 Modified the code according to MISRAC 2012 Compliant.
+*			02/18/15 Implemented larger data transfer using repeated start
+*					  in Zynq UltraScale MP.
 *
 * </pre>
 *
@@ -196,6 +198,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xiicps_hw.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 
