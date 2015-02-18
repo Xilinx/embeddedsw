@@ -319,7 +319,7 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 	/*
 	 * QSPI Software Reset
 	 */
-	IsLock = XQspiPs_ReadReg(XPAR_XSLCR_0_BASEADDR, 0x0);
+	IsLock = XQspiPs_ReadReg(XPAR_XSLCR_0_BASEADDR, SLCR_LOCKSTA);
 	if (IsLock) {
 		XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_UNLOCK,
 				SLCR_UNLOCK_MASK);
