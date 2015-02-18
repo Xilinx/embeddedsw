@@ -57,8 +57,8 @@ CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 \
 		  -mcpu=cortex-r5 -mfloat-abi=softfp
 LSCRIPT := -Tlscript.ld
 EXEC := ron_r5_fsbl.elf
-INCLUDEPATH := -I$(BSP_DIR)/ps8_cortexr5_0/include -I.
-LIBPATH := $(BSP_DIR)/ps8_cortexr5_0/lib
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I.
+LIBPATH := $(BSP_DIR)/psu_cortexr5_0/lib
 LDFLAGS := -Wl,--start-group,-lxil,-lxilffs,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none
 endif
 
@@ -72,8 +72,8 @@ CFLAGS =  -Wall -O0 -g3 -fmessage-length=0 \
 		  -march=armv8-a -DXFSBL_A53
 LSCRIPT := -Tlscript_a53.ld
 EXEC := ron_a53_fsbl.elf
-INCLUDEPATH := -I$(BSP_DIR)/ps8_cortexa53_0/include -I.
-LIBPATH := $(BSP_DIR)/ps8_cortexa53_0/lib
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I.
+LIBPATH := $(BSP_DIR)/psu_cortexa53_0/lib
 LDFLAGS := -Wl,--start-group,-lxil,-lxilffs,-lgcc,-lc,--end-group -L$(LIBPATH) -L./ -Wl,--build-id=none
 endif
 

@@ -54,7 +54,7 @@
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
 #include "xfsbl_misc_drivers.h"
-#include "pss_init.h"
+#include "psu_init.h"
 
 #include "xfsbl_qspi.h"
 
@@ -121,11 +121,10 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	u32 Status = XFSBL_SUCCESS;
 
 	/**
-	 * Configure the system as in PS8
+	 * Configure the system as in PSU
 	 */
 	Status = XFsbl_SystemInit(FsblInstancePtr);
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -143,8 +142,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	 * Initialize the processor
 	 */
 	Status = XFsbl_ProcessorInit(FsblInstancePtr);
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -152,8 +150,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	 * Validate the reset reason
 	 */
 	Status = XFsbl_ResetValidation(FsblInstancePtr);
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -181,8 +178,7 @@ u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 	 * Configure the primary boot device
 	 */
 	Status = XFsbl_PrimaryBootDeviceInit(FsblInstancePtr);
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -190,8 +186,7 @@ u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 	 * Read and Validate the header
 	 */
 	Status = XFsbl_ValidateHeader(FsblInstancePtr);
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -205,11 +200,9 @@ u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 	 *  Configure the secondary boot device if required
 	 */
 	if (FsblInstancePtr->SecondaryBootDevice !=
-			FsblInstancePtr->PrimaryBootDevice)
-	{
+			FsblInstancePtr->PrimaryBootDevice) {
 		Status = XFsbl_SecondaryBootDeviceInit(FsblInstancePtr);
-		if (XFSBL_SUCCESS != Status)
-		{
+		if (XFSBL_SUCCESS != Status) {
 			goto END;
 		}
 	}
@@ -250,13 +243,11 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 
 	XFsbl_Printf(DEBUG_INFO,"Cluster ID 0x%0lx\n\r", ClusterId);
 
-	if (XFSBL_PLATFORM == XFSBL_PLATFORM_QEMU)
-	{
+	if (XFSBL_PLATFORM == XFSBL_PLATFORM_QEMU) {
 		/**
 		 * Remmaping for R5 in QEMU
 		 */
-		if (ClusterId == 0x80000004U)
-		{
+		if (ClusterId == 0x80000004U) {
 			ClusterId = 0xC0000100U;
 		}
 	}
@@ -265,15 +256,13 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	 * store the processor ID based on the cluster ID
 	 * Need a check for unsupported Cluster ID
 	 */
-	if ((ClusterId & XFSBL_CLUSTER_ID_MASK) == XFSBL_A53_PROCESSOR)
-	{
+	if ((ClusterId & XFSBL_CLUSTER_ID_MASK) == XFSBL_A53_PROCESSOR) {
 		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 Processor \n\r");
 		FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_A53_0;
 	} else {
 		RegValue = XFsbl_In32(RPU_RPU_GLBL_CNTL);
-		if ((RegValue & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK) == 0U)
-		{
+		if ((RegValue & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK) == 0U) {
 			XFsbl_Printf(DEBUG_GENERAL,
 				"Running on R5 Processor in Lockstep \n\r");
 			FsblInstancePtr->ProcessorID =
@@ -288,8 +277,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		/**
 		 * Update the Vector locations in R5 TCM
 		 */
-		while (Index<32U)
-		{
+		while (Index<32U) {
 			XFsbl_Out32(Index, 0U);
 			XFsbl_Out32(Index, XFSBL_R5_VECTOR_VALUE);
 			Index += 4;
@@ -341,8 +329,7 @@ static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 	/* WDT reset is missing in reset reason */
 	if (((ResetReasonValue & CRL_APB_RESET_REASON_FPD_SWDT_MASK)
 			== CRL_APB_RESET_REASON_FPD_SWDT_MASK) &&
-			(FsblErrorStatus == XFSBL_RUNNING))
-	{
+			(FsblErrorStatus == XFSBL_RUNNING)) {
 		/**
 		 * reset is due to System WDT.
 		 * Do a fallback
@@ -356,8 +343,7 @@ static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 	 * Mark FSBL running in error status register to
 	 * detect the WDT reset while FSBL execution
 	 */
-	if (FsblErrorStatus != XFSBL_RUNNING)
-	{
+	if (FsblErrorStatus != XFSBL_RUNNING) {
 		XFsbl_Out32(XFSBL_ERROR_STATUS_REGISTER_OFFSET,
 						  XFSBL_RUNNING);
 	}
@@ -374,7 +360,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function initializes the system using the ps8_init()
+ * This function initializes the system using the psu_init()
  *
  * @param	FsblInstancePtr is pointer to the XFsbl Instance
  *
@@ -387,17 +373,16 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	u32 Status =  XFSBL_SUCCESS;
 
 	/**
-	 * ps8 initialization
+	 * psu initialization
 	 */
-    Status = (u32 )pss_init();
-	if (XFSBL_SUCCESS != Status)
-	{
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_PS8_INIT_FAILED\n\r");
+    Status = (u32)psu_init();
+	if (XFSBL_SUCCESS != Status) {
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_PSU_INIT_FAILED\n\r");
 		/**
 		 * Need to check a way to communicate both FSBL code
-		 * and PS8 init error code
+		 * and PSU init error code
 		 */
-		Status = XFSBL_PS8_INIT_FAILED + Status;
+		Status = XFSBL_PSU_INIT_FAILED + Status;
 		goto END;
 	}
 
@@ -407,7 +392,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 
 
 	/**
-	 * Poweroff the unused blocks as per PS8
+	 * Poweroff the unused blocks as per PSU
 	 */
 
 END:
@@ -445,15 +430,13 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			(BootMode == XFSBL_QSPI32_BOOT_MODE) ||
 			(BootMode == XFSBL_NAND_BOOT_MODE) ||
 			(BootMode == XFSBL_SD_BOOT_MODE) ||
-			(BootMode == XFSBL_EMMC_BOOT_MODE) )
-	{
+			(BootMode == XFSBL_EMMC_BOOT_MODE) ) {
 		/**
 		 * Initialize the WDT and CSU drivers
 		 */
 #ifdef XFSBL_WDT_PRESENT
 		Status = XFsbl_InitWdt();
-		if (XFSBL_SUCCESS != Status)
-		{
+		if (XFSBL_SUCCESS != Status) {
 			XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
 			goto END;
 		}
@@ -595,8 +578,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	/**
 	 * In case of error or Jtag boot, goto end
 	 */
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -604,8 +586,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	 * Initialize the Device Driver
 	 */
 	Status = FsblInstancePtr->DeviceOps.DeviceInit();
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -650,8 +631,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
                     + XIH_BH_IMAGE_ATTRB_OFFSET,
                    (PTRSIZE ) &BootHdrAttrb, XIH_FIELD_LEN);
-        if (XFSBL_SUCCESS != Status)
-        {
+        if (XFSBL_SUCCESS != Status) {
                 XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
                 goto END;
         }
@@ -663,8 +643,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	Status = XFsbl_ReadImageHeader(&FsblInstancePtr->ImageHeader,
 					&FsblInstancePtr->DeviceOps,
 					FlashImageOffsetAddress);
-	if (XFSBL_SUCCESS != Status)
-	{
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -675,8 +654,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	EfuseCtrl = XFsbl_In32(EFUSE_SEC_CTRL);
 	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0) ||
 	    ((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_RSA_MASK)
-		== XIH_BH_IMAGE_ATTRB_RSA_MASK))
-	{
+		== XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
 
 		XFsbl_Printf(DEBUG_INFO,"Authentication Enabled\r\n");
 #ifdef XFSBL_RSA

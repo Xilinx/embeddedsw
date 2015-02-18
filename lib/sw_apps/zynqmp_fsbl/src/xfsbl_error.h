@@ -78,8 +78,8 @@ extern "C" {
  * 		   11 -> Error at stage 4
  * x4x5x6 -> Error source for next 10 bits
  * 			 000 -> FSBL error code
- * 		     001 -> ps8 init failure
- * 		     010 -> ps8 postconfig failure
+ * 		     001 -> psu init failure
+ * 		     010 -> psu postconfig failure
  * 		     011 -> Driver error code
  * x7x8 ->
  */
@@ -89,8 +89,8 @@ extern "C" {
 #define XFSBL_ERROR_STAGE_3		(0x4000U)
 #define XFSBL_ERROR_STAGE_4		(0x6000U)
 
-#define XFSBL_PS8_INIT_FAILED				(0x0800U)
-#define XFSBL_PS8_POSTCONFIG_FAILED			(0x1000U)
+#define XFSBL_PSU_INIT_FAILED				(0x0800U)
+#define XFSBL_PSU_POSTCONFIG_FAILED			(0x1000U)
 
 #define XFSBL_SUCCESS					(0x0U)
 #define XFSBL_STATUS_JTAG				(0x1U)

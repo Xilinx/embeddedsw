@@ -431,7 +431,7 @@ extern "C" {
 /**
  * Definition for NAND to be included
  */
-#if (!defined(FSBL_NAND_EXCLUDE) && defined(XPAR_XNANDPS8_0_DEVICE_ID))
+#if (!defined(FSBL_NAND_EXCLUDE) && defined(XPAR_XNANDPSU_0_DEVICE_ID))
 #define XFSBL_NAND
 #endif
 

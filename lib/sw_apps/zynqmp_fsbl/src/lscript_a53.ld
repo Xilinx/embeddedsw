@@ -47,8 +47,8 @@ _EL3_STACK_SIZE = DEFINED(_FIQ_STACK_SIZE) ? _FIQ_STACK_SIZE : 1024;
 
 MEMORY
 {
-   ps8_ocm_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x0002FF00
-   ps8_ocm_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFF0040, LENGTH = 0x0000FE00
+   psu_ocm_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x0002FF00
+   psu_ocm_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFF0040, LENGTH = 0x0000FE00
 }
 
 /* Specify the default entry point to the program */
@@ -72,27 +72,27 @@ SECTIONS
    *(.glue_7t)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .init (ALIGN(64)): {
    KEEP (*(.init))
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .fini (ALIGN(64)): {
    KEEP (*(.fini))
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .interp : {
    __interp_start = .;
    KEEP (*(.interp))
    __interp_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .note-ABI-tag : {
    __note-ABI-tag_start = .;
    KEEP (*(.note-ABI-tag))
    __note-ABI-tag_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .rodata (ALIGN(64)): {
    __rodata_start = .;
@@ -100,14 +100,14 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .rodata1 (ALIGN(64)): {
    __rodata1_start = .;
    *(.rodata1)
    *(.rodata1.*)
    __rodata1_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .sdata2 (ALIGN(64)): {
    __sdata2_start = .;
@@ -115,7 +115,7 @@ SECTIONS
    *(.sdata2.*)
    *(.gnu.linkonce.s2.*)
    __sdata2_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .sbss2 (ALIGN(64)): {
    __sbss2_start = .;
@@ -123,7 +123,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .data (ALIGN(64)): {
    __data_start = .;
@@ -134,26 +134,26 @@ SECTIONS
    *(.got)
    *(.got.plt)
    __data_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .data1 (ALIGN(64)): {
    __data1_start = .;
    *(.data1)
    *(.data1.*)
    __data1_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .got : {
    *(.got)
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .got1 : {
    *(.got1)
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .got2 : {
    *(.got2)
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .ctors (ALIGN(64)): {
    __CTOR_LIST__ = .;
@@ -164,7 +164,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .dtors (ALIGN(64)): {
    __DTOR_LIST__ = .;
@@ -175,79 +175,79 @@ SECTIONS
    KEEP (*(.dtors))
    __DTOR_END__ = .;
    ___DTORS_END___ = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .fixup : {
    __fixup_start = .;
    *(.fixup)
    __fixup_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .eh_frame : {
    *(.eh_frame)
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .eh_framehdr : {
    __eh_framehdr_start = .;
    *(.eh_framehdr)
    __eh_framehdr_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .mmu_tbl0 (ALIGN(4096)) : {
    __mmu_tbl0_start = .;
    *(.mmu_tbl0)
    __mmu_tbl0_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .mmu_tbl1 (ALIGN(4096)) : {
    __mmu_tbl1_start = .;
    *(.mmu_tbl1)
    __mmu_tbl1_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .mmu_tbl2 (ALIGN(4096)) : {
    __mmu_tbl2_start = .;
    *(.mmu_tbl2)
    __mmu_tbl2_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .ARM.exidx : {
    __exidx_start = .;
    *(.ARM.exidx*)
    *(.gnu.linkonce.armexidix.*.*)
    __exidx_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .preinit_array (ALIGN(64)): {
    __preinit_array_start = .;
    KEEP (*(SORT(.preinit_array.*)))
    KEEP (*(.preinit_array))
    __preinit_array_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .init_array (ALIGN(64)): {
    __init_array_start = .;
    KEEP (*(SORT(.init_array.*)))
    KEEP (*(.init_array))
    __init_array_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .fini_array (ALIGN(64)): {
    __fini_array_start = .;
    KEEP (*(SORT(.fini_array.*)))
    KEEP (*(.fini_array))
    __fini_array_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .ARM.attributes : {
    __ARM.attributes_start = .;
    *(.ARM.attributes)
    __ARM.attributes_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .sdata (ALIGN(64)): {
     __sdata_start = .;
@@ -255,7 +255,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .sbss (NOLOAD) : {
  . = ALIGN(64);
@@ -265,7 +265,7 @@ SECTIONS
    *(.gnu.linkonce.sb.*)
     . = ALIGN(64);
    __sbss_end = .;
-} > ps8_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_1_S_AXI_BASEADDR
 
 .tdata (ALIGN(64)): {
    __tdata_start = .;
@@ -273,7 +273,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > ps8_ocm_ram_0_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .tbss (ALIGN(64)): {
    __tbss_start = .;
@@ -281,7 +281,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > ps8_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_1_S_AXI_BASEADDR
 
 .bss (NOLOAD) : {
    . = ALIGN(64);
@@ -292,7 +292,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(64);
    __bss_end__ = .;
-} > ps8_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_1_S_AXI_BASEADDR
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -308,7 +308,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _HEAP_SIZE;
    _heap_end = .;
    HeapLimit = .;
-} > ps8_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_1_S_AXI_BASEADDR
 
 .stack (NOLOAD) : {
    . = ALIGN(64);
@@ -327,7 +327,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _EL0_STACK_SIZE;
    . = ALIGN(64);
    __el0_stack = .;
-} > ps8_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_1_S_AXI_BASEADDR
 
 _end = .;
 }

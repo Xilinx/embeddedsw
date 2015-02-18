@@ -76,7 +76,7 @@ proc swapp_is_supported_hw {} {
 
     set proc_type [common::get_property IP_NAME [get_cells $hw_processor]];
 
-    if { $proc_type != "pss_cortexr5" && $proc_type != "pss_cortexa53" } {
+    if { $proc_type != "psu_cortexr5" && $proc_type != "psu_cortexa53" } {
                 error "This application is supported only for CortexA53/CortexR5 processors.";
     }
 
@@ -91,19 +91,19 @@ proc get_stdout {} {
 }
 
 proc check_stdout_hw {} {
-    set ps_uarts [get_cells -filter "IP_NAME=pss_uart"];
+    set pu_uarts [get_cells -filter "IP_NAME=psu_uart"];
 }
 
 proc swapp_generate {} {
     # generate/copy ps init files
     ::hsi::utils::generate_psinit
 
-    #delete unnecessary files (only pss_init.c & pss_init.h are needed for FSBL)
+    #delete unnecessary files (only psu_init.c & psu_init.h are needed for FSBL)
 
-    set files(0) "pss_init.html"
-    set files(1) "pss_init.tcl"
-    set files(2) "pss_init_gpl.c"
-    set files(3) "pss_init_gpl.h"
+    set files(0) "psu_init.html"
+    set files(1) "psu_init.tcl"
+    set files(2) "psu_init_gpl.c"
+    set files(3) "psu_init_gpl.h"
 
     foreach init_file [array get files] {
         file delete -force $init_file

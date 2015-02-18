@@ -53,7 +53,7 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xil_cache.h"
-#include "pss_init.h"
+#include "psu_init.h"
 #include "xfsbl_main.h"
 #include "xfsbl_image_header.h"
 
@@ -651,10 +651,6 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 	u64 RunningCpuHandoffAddress=0U;
 	u32 RunningCpuExecState=0U;
 	s32 RunningCpuHandoffAddressPresent=FALSE;
-
-	/**
-	 * post config from ps8_init.c
-	 */
 
 	/**
 	 * if JTAG bootmode, be in while loop as of now

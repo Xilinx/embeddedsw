@@ -54,7 +54,7 @@
 
 #ifdef XFSBL_NAND
 
-#include "xnandps8.h"
+#include "xnandpsu.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -67,9 +67,9 @@
 
 
 /************************** Variable Definitions *****************************/
-XNandPs8_Config *Config;
-XNandPs8 NandInstance;                  /* XNand Instance */
-XNandPs8 *NandInstPtr = &NandInstance;
+XNandPsu_Config *Config;
+XNandPsu NandInstance;                  /* XNand Instance */
+XNandPsu *NandInstPtr = &NandInstance;
 
 
 /*****************************************************************************/
@@ -85,7 +85,7 @@ u32 XFsbl_NandInit(void )
 {
 	u32 Status = XFSBL_SUCCESS;
 
-	Config = XNandPs8_LookupConfig(NAND_DEVICE_ID);
+	Config = XNandPsu_LookupConfig(NAND_DEVICE_ID);
         if (Config == NULL) {
                 Status = XFSBL_ERROR_NAND_INIT;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_NAND_INIT\r\n");
@@ -94,7 +94,7 @@ u32 XFsbl_NandInit(void )
         /**
          * Initialize the NAND flash driver.
          */
-        Status = (u32 )XNandPs8_CfgInitialize(NandInstPtr, Config,
+        Status = (u32)XNandPsu_CfgInitialize(NandInstPtr, Config,
                         Config->BaseAddress);
         if (Status != XST_SUCCESS) {
                 Status = XFSBL_ERROR_NAND_INIT;
@@ -129,7 +129,7 @@ u32 XFsbl_NandCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 {
 	u32 Status = XFSBL_SUCCESS;
 
-	Status = (u32 )XNandPs8_Read(NandInstPtr, (u64)SrcAddress, (u64)Length,
+	Status = (u32)XNandPsu_Read(NandInstPtr, (u64)SrcAddress, (u64)Length,
                                                (u8 *) DestAddress);
 	if (Status != XST_SUCCESS) {
 		Status = XFSBL_ERROR_NAND_READ;

@@ -238,7 +238,7 @@ u32 XFsbl_Qspi24Init()
 	 * Configure the the qspi in IO mode
 	 */
 
-	switch (XPAR_PS8_QSPI_0_QSPI_MODE) {
+	switch (XPAR_PSU_QSPI_0_QSPI_MODE) {
 
 		case XQSPIPS_CONNECTION_MODE_SINGLE:
 		{
@@ -310,8 +310,8 @@ u32 XFsbl_Qspi24Init()
 	/**
 	 * add code: For a Stacked connection, read second Flash ID
 	 */
-	if ((XPAR_PS8_QSPI_0_QSPI_MODE == XQSPIPS_CONNECTION_MODE_PARALLEL) ||
-	(XPAR_PS8_QSPI_0_QSPI_MODE == XQSPIPS_CONNECTION_MODE_STACKED) ) {
+	if ((XPAR_PSU_QSPI_0_QSPI_MODE == XQSPIPS_CONNECTION_MODE_PARALLEL) ||
+	(XPAR_PSU_QSPI_0_QSPI_MODE == XQSPIPS_CONNECTION_MODE_STACKED)) {
 		QspiFlashSize = 2 * QspiFlashSize;
 	}
 
@@ -338,10 +338,10 @@ END:
 ******************************************************************************/
 static u32 XFsbl_GetQspiAddr(u32 Address )
 {
-	u32 LqspiCr=0;
-	u32 QspiAddr=0;
+	u32 LqspiCr = 0;
+	u32 QspiAddr = 0;
 
-	switch(XPAR_PS8_QSPI_0_QSPI_MODE) {
+	switch(XPAR_PSU_QSPI_0_QSPI_MODE) {
 
 	case XQSPIPS_CONNECTION_MODE_SINGLE:
 		QspiAddr = Address;

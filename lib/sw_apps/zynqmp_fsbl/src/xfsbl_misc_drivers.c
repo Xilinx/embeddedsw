@@ -177,7 +177,7 @@ u32 XFsbl_ConvertTime_WdtCounter(u32 seconds)
 		PrescalerValue = 4096;
 	}
 
-	time = (double)(PrescalerValue) / (double)XPAR_PS8_WDT_0_WDT_CLK_FREQ_HZ;
+	time = (double)(PrescalerValue) / (double)XPAR_PSU_WDT_0_WDT_CLK_FREQ_HZ;
 
 	CounterValue = seconds / time;
 
