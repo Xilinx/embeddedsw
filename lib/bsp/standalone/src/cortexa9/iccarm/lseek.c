@@ -52,9 +52,9 @@
 #include <stdio.h>
 #include <yfuns.h>
 #include "xil_types.h"
-sint32 __lseek(sint32 handle, sint32 offset, sint32 whence);
+LONG __lseek(sint32 handle, LONG offset, sint32 whence);
 
-sint32 __lseek(sint32 handle, sint32 offset, sint32 whence)
+LONG __lseek(sint32 handle, LONG offset, sint32 whence)
 {
   return (-1);
 }
