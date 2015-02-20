@@ -67,24 +67,33 @@ extern "C" {
 /**
  * @name FSBL Debug options
  *
- *  FSBL by default doesn't have any prints enabled. If user
- *  want to enable the prints, they can define the following
- *  options to have FSBL prints
+ *  FSBL supports an unconditional print
+ *     - FSBL_PRINT Used to print FSBL header and any mandatory prints
+ *       Hence FSBL_PRINT_VAL should always be 1
+ *  Further FSBL by default doesn't have any debug prints enabled. If user
+ *  want to enable the debug prints, they can define the following
+ *  options
  *  FSBL supports three types of debug levels.
- *     - FSBL_DEBUG Defining this will print the FSBL header and
- *       same basic information and error prints if any
- *     - FSBL_DEBUG_INFO Defining this will have prints enabled with
- *       in addition to the basic information
+ *     - FSBL_DEBUG Defining this will print basic information and
+ *       error prints if any
+ *     - FSBL_DEBUG_INFO Defining this will have prints enabled with format
+ *       specifiers in addition to the basic information
  *     - FSBL_DEBUG_DETAILED Defining this will print information with
  *       all data exchanged.
  */
-#define FSBL_DEBUG_VAL				(0U)
-#define FSBL_DEBUG_INFO_VAL			(1U)
-#define FSBL_DEBUG_DETAILED_VAL			(0U)
+#define FSBL_PRINT_VAL              (1U)
+#define FSBL_DEBUG_VAL              (0U)
+#define FSBL_DEBUG_INFO_VAL         (1U)
+#define FSBL_DEBUG_DETAILED_VAL     (0U)
 
 /**
  * FSBL Debug options
  */
+
+#if FSBL_PRINT_VAL
+#define FSBL_PRINT
+#endif
+
 #if FSBL_DEBUG_VAL
 #define FSBL_DEBUG
 #endif

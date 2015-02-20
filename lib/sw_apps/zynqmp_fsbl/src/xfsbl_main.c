@@ -283,9 +283,11 @@ void XFsbl_PrintFsblBanner(void )
 	/**
 	 * Print the FSBL Banner
 	 */
-	XFsbl_Printf(DEBUG_GENERAL,"Xilinx First Stage Boot Loader \n\r");
-	XFsbl_Printf(DEBUG_GENERAL,"Release SW Beta1 	%s-%s\r\n",
-			__DATE__,__TIME__);
+	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
+                 "Xilinx Zynq MP First Stage Boot Loader \n\r");
+	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
+                 "Release %d.%d SW Beta2   %s - %s\r\n",
+                 SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER,__DATE__,__TIME__);
 	/**
 	 * Print the platform
 	 */

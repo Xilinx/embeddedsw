@@ -74,16 +74,21 @@ extern "C" {
 /**
  * Debug levels for FSBL
  */
-#define DEBUG_GENERAL	(0x00000001U)    /* general debug  messages */
-#define DEBUG_INFO	(0x00000002U)    /* More debug information */
-#define DEBUG_DETAILED	(0x00000004U)    /* More debug information */
+#define DEBUG_PRINT_ALWAYS    (0x00000001U)    /* unconditional messages */
+#define DEBUG_GENERAL	      (0x00000002U)    /* general debug  messages */
+#define DEBUG_INFO	      (0x00000004U)    /* More debug information */
+#define DEBUG_DETAILED	      (0x00000008U)    /* More debug information */
 
 #if defined (FSBL_DEBUG_DETAILED)
-#define XFsblDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | (DEBUG_GENERAL))
+#define XFsblDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \
+         (DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (FSBL_DEBUG_INFO)
-#define XFsblDbgCurrentTypes ((DEBUG_INFO) | (DEBUG_GENERAL))
+#define XFsblDbgCurrentTypes ((DEBUG_INFO) | (DEBUG_GENERAL) | \
+         (DEBUG_PRINT_ALWAYS))
 #elif defined (FSBL_DEBUG)
-#define XFsblDbgCurrentTypes (DEBUG_GENERAL)
+#define XFsblDbgCurrentTypes ((DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
+#elif defined (FSBL_PRINT)
+#define XFsblDbgCurrentTypes (PRINT_ALWAYS)
 #else
 #define XFsblDbgCurrentTypes (0U)
 #endif

@@ -95,8 +95,10 @@ typedef struct {
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XFSBL_RELEASE_YEAR		2014
-#define XFSBL_RELEASE_VERSION		3
+
+/* SDK release version */
+#define SDK_RELEASE_YEAR	2015
+#define SDK_RELEASE_QUARTER	1
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
