@@ -762,6 +762,18 @@ typedef struct {
 							passed to the training
 							pattern 3 callback
 							function. */
+	XDp_IntrHandler IntrDownReqHandler;	/**< Callback function for down
+							request interrupts. */
+	void *IntrDownReqCallbackRef;		/**< A pointer to the user data
+							passed to the down
+							request callback
+							function. */
+	XDp_IntrHandler IntrDownReplyHandler;	/**< Callback function for down
+							reply interrupts. */
+	void *IntrDownReplyCallbackRef;		/**< A pointer to the user data
+							passed to the down
+							reply callback
+							function. */
 } XDp_Rx;
 
 /**
@@ -893,6 +905,10 @@ void XDp_RxSetIntrTp1Handler(XDp *InstancePtr,
 void XDp_RxSetIntrTp2Handler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetIntrTp3Handler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrDownReqHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrDownReplyHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling

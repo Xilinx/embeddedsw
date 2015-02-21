@@ -594,6 +594,62 @@ void XDp_RxSetIntrTp3Handler(XDp *InstancePtr,
 
 /******************************************************************************/
 /**
+ * This function installs a callback function for when a down request interrupt
+ * occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrDownReqHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrDownReqHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrDownReqCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a down reply interrupt
+ * occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrDownReplyHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrDownReplyHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrDownReplyCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
  * This function is the interrupt handler for the XDp driver operating in TX
  * mode.
  *
@@ -737,5 +793,11 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_EXT_PKT_MASK) {
 		InstancePtr->RxInstance.IntrExtPktHandler(
 			InstancePtr->RxInstance.IntrExtPktCallbackRef);
+	}
+
+	/* The TX has issued a down request; a sideband message is ready. */
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_DOWN_REQUEST_MASK) {
+		InstancePtr->RxInstance.IntrDownReqHandler(
+			InstancePtr->RxInstance.IntrDownReqCallbackRef);
 	}
 }
