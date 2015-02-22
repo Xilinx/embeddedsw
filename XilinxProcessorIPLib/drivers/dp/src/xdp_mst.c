@@ -156,7 +156,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
 static u32 XDp_TxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply);
 static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
-static u32 XDp_TxTransaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
+static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
 static u8 XDp_TxCrc4CalculateHeader(XDp_SidebandMsgHeader *Header);
 static u8 XDp_TxCrc8CalculateBody(XDp_SidebandMsgBody *Body);
 static u8 XDp_TxCrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
@@ -2706,7 +2706,7 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply)
 
 		/* Convert the reply transaction into XDp_SidebandReply
 		 * format. */
-		Status = XDp_TxTransaction2MsgFormat(AuxData, &Msg);
+		Status = XDp_Transaction2MsgFormat(AuxData, &Msg);
 		if (Status != XST_SUCCESS) {
 			/* The CRC of the header or the body did not match the
 			 * calculated value. */
@@ -2805,7 +2805,7 @@ static u32 XDp_TxWaitSbReply(XDp *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-static u32 XDp_TxTransaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg)
+static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg)
 {
 	XDp_SidebandMsgHeader *Header = &Msg->Header;
 	XDp_SidebandMsgBody *Body = &Msg->Body;
