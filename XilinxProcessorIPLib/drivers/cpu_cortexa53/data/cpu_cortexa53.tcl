@@ -68,7 +68,7 @@ proc xdefine_cortexa53_params {drvhandle} {
 	}
     }
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
-    set lprocs [hsi::get_cells -filter "IP_NAME==pss_cortexa53"]
+    set lprocs [hsi::get_cells -filter "IP_NAME==psu_cortexa53"]
     set lprocs [lsort $lprocs]
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
