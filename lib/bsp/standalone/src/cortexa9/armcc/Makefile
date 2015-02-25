@@ -70,14 +70,14 @@ boot_libs:
 ifeq ($(findstring boot.S,$(wildcard *.S)),boot.S)
 	${COMPILER} $(INCLUDES) -E -o boot_post.s boot.S
 endif
-	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o boot_post.o boot_post.s
+	${AS} --cpu=Cortex-A9 --fpu=VFPv3 -o boot_post.o boot_post.s
 	rm -f boot.S
 
 $(AOBJS1): $(ASOURCES1)
-	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o $@ $<
+	${AS} --cpu=Cortex-A9 --fpu=VFPv3 -o $@ $<
 
 $(AOBJS2): $(ASOURCES2)
-	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o $@ $<
+	${AS} --cpu=Cortex-A9 --fpu=VFPv3 -o $@ $<
 
 %.o: %.c
 	${COMPILER} -c $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<

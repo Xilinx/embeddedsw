@@ -217,4 +217,6 @@
  *		       removed incorrect initialization of TLB lockdown register to fix
  *		       CR#830580 in cortexa9/gcc/boot.S & cpu_init.S, armcc/boot.S
  *		       and iccarm/boot.s
+ * 5.0 pkp   25/02/15  Modified floating point flag to vfpv3 from vfpv3_d16 in BSP MakeFile
+ *		       for iccarm and armcc compiler of cortexA9
  *****************************************************************************************/
