@@ -455,6 +455,8 @@ extern "C" {
 #define XVTC_ENC_FPARITY_MASK	0x00000080	/**< Field Parity Mask  */
 #define XVTC_ENC_PROG_MASK	0x00000040	/**< Progressive/Interlaced
 						  *  Mask */
+#define XVTC_ENC_PROG_SHIFT	6			/**< Progressive/Interlaced
+						  *  Shift */
 #define XVTC_ENC_GACLS_MASK	0x00000001	/**< Generator Active Chroma
 						  *  Line Skip/parity Mask */
 /*@}*/
