@@ -651,8 +651,10 @@
 #define XDP_TX_PHY_CONFIG_TX_PHY_POLARITY_LANE3_MASK \
 				0x0100000	/**< Set TX_PHY_POLARITY for
 							lane 3. */
+#define XDP_TX_PHY_CONFIG_TX_PHY_8B10BEN_MASK \
+				0x0200000	/**< 8B10B encoding enable. */
 #define XDP_TX_PHY_CONFIG_GT_ALL_RESET_MASK \
-				0x0000003	/**< Rest GT and PHY. */
+				0x0000003	/**< Reset GT and PHY. */
 /* 0x234: PHY_CLOCK_SELECT */
 #define XDP_TX_PHY_CLOCK_SELECT_162GBPS	0x1	/**< 1.62 Gbps link. */
 #define XDP_TX_PHY_CLOCK_SELECT_270GBPS	0x3	/**< 2.70 Gbps link. */

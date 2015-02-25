@@ -1287,6 +1287,9 @@ void XDp_TxDisableMainLink(XDp *InstancePtr)
 *******************************************************************************/
 void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset)
 {
+	u32 PhyVal;
+	u32 RegVal;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1294,9 +1297,17 @@ void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset)
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, Reset);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG,
-				XDP_TX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+	/* Preserve the current PHY settings. */
+	PhyVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG);
+
+	/* Apply reset. */
+	RegVal = PhyVal | Reset;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
+
+	/* Remove reset. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, PhyVal);
+
+	/* Wait for the PHY to be ready. */
 	if (InstancePtr->Config.MaxLaneCount > 2) {
 		XDp_WaitPhyReady(InstancePtr,
 					XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK);
@@ -1740,12 +1751,16 @@ void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds)
 static u32 XDp_TxInitialize(XDp *InstancePtr)
 {
 	u32 Status;
+	u32 PhyVal;
 	u32 RegVal;
 	XDp_Config *ConfigPtr = &InstancePtr->Config;
 
+	/* Preserve the current PHY settings. */
+	PhyVal = XDp_ReadReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG);
+
 	/* Place the PHY (and GTTXRESET) into reset. */
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG,
-					XDP_TX_PHY_CONFIG_GT_ALL_RESET_MASK);
+	RegVal = PhyVal | XDP_TX_PHY_CONFIG_GT_ALL_RESET_MASK;
+	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
 
 	/* Reset the video streams and AUX logic. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_SOFT_RESET,
@@ -1780,8 +1795,8 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 	}
 
 	/* Bring the PHY (and GTTXRESET) out of reset. */
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG,
-				XDP_TX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+	RegVal = PhyVal & ~XDP_TX_PHY_CONFIG_GT_ALL_RESET_MASK;
+	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
 
 	/* Wait for the PHY to be ready. */
 	if (ConfigPtr->MaxLaneCount > 2) {
