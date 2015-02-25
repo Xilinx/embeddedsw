@@ -104,6 +104,7 @@ proc swapp_generate {} {
     set files(1) "psu_init.tcl"
     set files(2) "psu_init_gpl.c"
     set files(3) "psu_init_gpl.h"
+    set files(4) "psu_pmucfg.c"
 
     foreach init_file [array get files] {
         file delete -force $init_file
