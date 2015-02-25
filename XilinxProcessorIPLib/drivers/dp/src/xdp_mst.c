@@ -157,6 +157,7 @@ static u32 XDp_TxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply);
 static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
 static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
+static u32 XDp_RxWriteRawDownReply(XDp *InstancePtr, u8 *Data, u8 DataLength);
 static u8 XDp_TxCrc4CalculateHeader(XDp_SidebandMsgHeader *Header);
 static u8 XDp_TxCrc8CalculateBody(XDp_SidebandMsgBody *Body);
 static u8 XDp_TxCrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
@@ -2870,6 +2871,58 @@ static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg)
 	}
 
 	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function will write a new down reply message to be read by the upstream
+ * device.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Data is the raw message to be written as a down reply.
+ * @param	DataLength is the number of bytes in the down reply.
+ *
+ * @return
+ *		- XST_SUCCESS if the down reply message was read by the upstream
+ *		  device.
+ *		- XST_ERROR_COUNT_MAX if the RX times out waiting for it's new
+ *		  down reply bit to be cleared by the upstream device.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDp_RxWriteRawDownReply(XDp *InstancePtr, u8 *Data, u8 DataLength)
+{
+	u8 Index;
+	u16 TimeoutCount = 0;
+	u8 RegVal;
+
+	/* Write the down reply message. */
+	for (Index = 0; Index < DataLength; Index++) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_DOWN_REP + (Index * 4), Data[Index]);
+	}
+
+	/* Indicate and alert that a new down reply is ready. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_DEVICE_SERVICE_IRQ,
+				XDP_RX_DEVICE_SERVICE_IRQ_NEW_DOWN_REPLY_MASK);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_HPD_INTERRUPT,
+				XDP_RX_HPD_INTERRUPT_ASSERT_MASK);
+
+	/* Wait until the upstream device reads the new down reply. */
+	while (TimeoutCount < 5000) {
+		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_DEVICE_SERVICE_IRQ);
+		if (!(RegVal & XDP_RX_DEVICE_SERVICE_IRQ_NEW_DOWN_REPLY_MASK)) {
+			return XST_SUCCESS;
+		}
+		XDp_WaitUs(InstancePtr, 1000);
+		TimeoutCount++;
+	}
+
+	/* The upstream device hasn't cleared the new down reply bit to indicate
+	 * that the reply was read. */
+	return XST_ERROR_COUNT_MAX;
 }
 
 /******************************************************************************/
