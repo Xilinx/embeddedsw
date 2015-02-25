@@ -552,6 +552,11 @@ s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 
 s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf);
+
+s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr);
+
+s32 XNandPsu_MarkBlockBad(XNandPsu *InstancePtr, u32 Block);
+
 void XNandPsu_EnableDmaMode(XNandPsu *InstancePtr);
 
 void XNandPsu_DisableDmaMode(XNandPsu *InstancePtr);

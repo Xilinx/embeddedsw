@@ -2151,7 +2151,7 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		/*
 		 * Flush the Data Cache
 		 */
-		Xil_DCacheFlushRange(Buf, (PktSize * PktCount));
+		Xil_DCacheFlushRange((INTPTR)Buf, (PktSize * PktCount));
 
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -2427,7 +2427,7 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 		/*
 		 * Flush the Data Cache
 		 */
-		Xil_DCacheFlushRange(BufPtr, (PktSize * PktCount));
+		Xil_DCacheFlushRange((INTPTR)BufPtr, (PktSize * PktCount));
 
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -2681,7 +2681,7 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		/*
 		 * Invalidate the Data Cache
 		 */
-		Xil_DCacheInvalidateRange(Buf, (PktSize * PktCount));
+		Xil_DCacheInvalidateRange((INTPTR)Buf, (PktSize * PktCount));
 
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -2957,7 +2957,7 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 		/*
 		 * Invalidate the Data Cache
 		 */
-		Xil_DCacheInvalidateRange(Buf, (PktSize * PktCount));
+		Xil_DCacheInvalidateRange((INTPTR)Buf, (PktSize * PktCount));
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
@@ -3737,7 +3737,7 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 		/*
 		 * Invalidate the Data Cache
 		 */
-		Xil_DCacheInvalidateRange(Buf, (PktSize * PktCount));
+		Xil_DCacheInvalidateRange((INTPTR)Buf, (PktSize * PktCount));
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPSU_DMA_SYS_ADDR1_OFFSET,

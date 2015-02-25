@@ -52,7 +52,6 @@
 #include "xparameters.h"
 #include "xnandpsu.h"
 /************************** Constant Definitions ****************************/
-#define XPAR_XNANDPSU_NUM_INSTANCES	1U
 
 /**************************** Type Definitions ******************************/
 
