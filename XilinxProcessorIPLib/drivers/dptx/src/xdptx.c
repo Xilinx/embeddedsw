@@ -162,6 +162,7 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr);
 u32 XDptx_InitializeTx(XDptx *InstancePtr)
 {
 	u32 Status;
+	u32 PhyVal;
 	u32 RegVal;
 	XDptx_Config *Config = &InstancePtr->Config;
 
@@ -169,9 +170,12 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+	/* Preserve the current PHY settings. */
+	PhyVal = XDptx_ReadReg(Config->BaseAddr, XDPTX_PHY_CONFIG);
+
 	/* Place the PHY (and GTTXRESET) into reset. */
-	XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CONFIG,
-					XDPTX_PHY_CONFIG_GT_ALL_RESET_MASK);
+	RegVal = PhyVal | XDPTX_PHY_CONFIG_GT_ALL_RESET_MASK;
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CONFIG, RegVal);
 
 	/* Reset the video streams and AUX logic. */
 	XDptx_WriteReg(Config->BaseAddr, XDPTX_SOFT_RESET,
@@ -206,8 +210,8 @@ u32 XDptx_InitializeTx(XDptx *InstancePtr)
 	}
 
 	/* Bring the PHY (and GTTXRESET) out of reset. */
-	XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CONFIG,
-					XDPTX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+	RegVal = PhyVal & ~XDPTX_PHY_CONFIG_GT_ALL_RESET_MASK;
+	XDptx_WriteReg(Config->BaseAddr, XDPTX_PHY_CONFIG, RegVal);
 
 	/* Wait for the PHY to be ready. */
 	Status = XDptx_WaitPhyReady(InstancePtr);
@@ -1306,15 +1310,26 @@ void XDptx_DisableMainLink(XDptx *InstancePtr)
 *******************************************************************************/
 void XDptx_ResetPhy(XDptx *InstancePtr, u32 Reset)
 {
+	u32 PhyVal;
+	u32 RegVal;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_ENABLE, 0x0);
 
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_PHY_CONFIG, Reset);
-	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_PHY_CONFIG,
-					XDPTX_PHY_CONFIG_PHY_RESET_ENABLE_MASK);
+	/* Preserve the current PHY settings. */
+	PhyVal = XDptx_ReadReg(InstancePtr->Config.BaseAddr, XDPTX_PHY_CONFIG);
+
+	/* Apply reset. */
+	RegVal = PhyVal | Reset;
+	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_PHY_CONFIG, RegVal);
+
+	/* Remove the reset. */
+	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_PHY_CONFIG, PhyVal);
+
+	/* Wait for the PHY to be ready. */
 	XDptx_WaitPhyReady(InstancePtr);
 
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_ENABLE, 0x1);
