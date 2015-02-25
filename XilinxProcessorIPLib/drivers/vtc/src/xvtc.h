@@ -257,6 +257,10 @@
 * 6.1   adk    23/08/14 Implemented XVtc_SelfTest in
 *                       xvtc_selftest.c.
 *                       Modified prototype of XVtc_GetVersion API.
+* 7.0   vns    02/25/15 Added Interlaced field to XVtc_Signal structure,
+*                       Removed XVtc_RegUpdate as there are is one more API,
+*                       XVtc_RegUpdateEnable with same functionality but
+*                       provided backward compatability.
 *
 *                       Modifications from xvtc.c file are:
 *                       Modified HActiveVideo value to 1920 for
@@ -265,6 +269,10 @@
 *                       XVtc_GetVersion.
 *                       Modified return type of XVtc_GetVersion from
 *                       void to u32.
+*                       Added progressive and interlaced mode switching feature.
+*                       Modified XVtc_SetGenerator, XVtc_GetGenerator,
+*                       XVtc_GetDetector, XVtc_ConvTiming2Signal and
+*                       XVtc_ConvSignal2Timing APIs
 *
 *                       Modifications from xvtc_hw.h file are:
 *                       Removed XVTC_ERR_FIL_MASK macro because it is  not
@@ -444,6 +452,7 @@ typedef struct {
 				  *  Count (Field 1) */
 	u16 V1ChromaStart;	/**< Active Chroma Start Line Count
 				  *  (Field 1) */
+	u8 Interlaced;		/**< Interlaced / Progressive video */
 } XVtc_Signal;
 
 /**
@@ -624,26 +633,6 @@ typedef struct {
 	XVtc_WriteReg((InstancePtr)->Config.BaseAddress, (XVTC_CTL_OFFSET), \
 		XVtc_ReadReg((InstancePtr)->Config.BaseAddress, \
 			(XVTC_CTL_OFFSET)) | (XVTC_CTL_SE_MASK))
-
-/*****************************************************************************/
-/**
-*
-* This function macro enables updating timing registers at the end of each
-* Generator frame. (DEPRECATED - replaced with XVtc_RegUpdateEnable).
-*
-* @param	InstancePtr is a pointer to the VTC core instance to be
-*		worked on.
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XVtc_RegUpdate(XVtc *InstancePtr)
-*
-******************************************************************************/
-#define XVtc_RegUpdate(InstancePtr) \
-	XVtc_WriteReg((InstancePtr)->Config.BaseAddress, (XVTC_CTL_OFFSET), \
-		XVtc_ReadReg((InstancePtr)->Config.BaseAddress, \
-			(XVTC_CTL_OFFSET)) | (XVTC_CTL_RU_MASK))
 
 /*****************************************************************************/
 /**
@@ -861,6 +850,11 @@ typedef struct {
 ******************************************************************************/
 #define XVtc_Sync_Reset		XVtc_SyncReset
 
+/** @name Compatibility Macros
+ *  @{
+ */
+#define XVtc_RegUpdate		XVtc_RegUpdateEnable
+/*@}*/
 /************************** Function Prototypes ******************************/
 
 /* Initialization and control functions in xvtc.c */

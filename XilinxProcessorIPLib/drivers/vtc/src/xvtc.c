@@ -151,6 +151,10 @@
 *                       XVtc_GetVersion.
 *                       Modified return type of XVtc_GetVersion from
 *                       void to u32.
+* 7.0   vns    25/02/15 Added progressive and interlaced mode switching feature.
+*                       Modified XVtc_SetGenerator, XVtc_GetGenerator,
+*                       XVtc_GetDetector, XVtc_ConvTiming2Signal and
+*                       XVtc_ConvSignal2Timing APIs
 * </pre>
 *
 ******************************************************************************/
@@ -1360,6 +1364,11 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 		RegValue = (((SCPtr->V0ChromaStart - SCPtr->V0ActiveStart) <<
 						XVTC_ENC_CPARITY_SHIFT) &
 					XVTC_ENC_CPARITY_MASK) | RegValue;
+
+		RegValue &= ~XVTC_ENC_PROG_MASK;
+		RegValue |= (SCPtr->Interlaced << XVTC_ENC_PROG_SHIFT) &
+				XVTC_ENC_PROG_MASK;
+
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 						XVTC_GFENC_OFFSET, RegValue);
 
@@ -1432,6 +1441,11 @@ void XVtc_SetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 		RegValue = (((SCPtr->V0ChromaStart - SCPtr->V0ActiveStart) <<
 							XVTC_ENC_CPARITY_SHIFT)
 					& XVTC_ENC_CPARITY_MASK) | RegValue;
+
+		RegValue &= ~XVTC_ENC_PROG_MASK;
+		RegValue |= (SCPtr->Interlaced << XVTC_ENC_PROG_SHIFT) &
+						XVTC_ENC_PROG_MASK;
+
 		XVtc_WriteReg(InstancePtr->Config.BaseAddress,
 					XVTC_GFENC_OFFSET, RegValue);
 
@@ -1526,7 +1540,7 @@ void XVtc_GetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 	SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
 					XVTC_ENC_CPARITY_SHIFT) + (SCPtr->V1Total - r_vactive - 1)) & XVTC_SB_START_MASK;
 
-
+	SCPtr->Interlaced = (RegValue & XVTC_ENC_PROG_MASK) >> XVTC_ENC_PROG_SHIFT;
     SCPtr->HFrontPorchStart = 0;
     SCPtr->V0FrontPorchStart = 0;
   }
@@ -1577,7 +1591,7 @@ void XVtc_GetGenerator(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 				XVTC_ENC_CPARITY_SHIFT)) & XVTC_SB_START_MASK;
 		SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
 				XVTC_ENC_CPARITY_SHIFT)) & XVTC_SB_START_MASK;
-
+		SCPtr->Interlaced = (RegValue & XVTC_ENC_PROG_MASK) >> XVTC_ENC_PROG_SHIFT;
 
 		SCPtr->HActiveStart = 0;
 		SCPtr->V0ActiveStart = 0;
@@ -1679,6 +1693,7 @@ void XVtc_GetDetector(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 		SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
 						XVTC_ENC_CPARITY_SHIFT) +
 			(SCPtr->V1Total - r_vactive - 1)) & XVTC_SB_START_MASK;
+		SCPtr->Interlaced = (RegValue & XVTC_ENC_PROG_MASK) >> XVTC_ENC_PROG_SHIFT;
 
 		SCPtr->HFrontPorchStart = 0;
 		SCPtr->V0FrontPorchStart = 0;
@@ -1734,7 +1749,7 @@ void XVtc_GetDetector(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 
 		SCPtr->V1ChromaStart = (((RegValue & XVTC_ENC_CPARITY_MASK) >>
 				XVTC_ENC_CPARITY_SHIFT)) & XVTC_SB_START_MASK;
-
+		SCPtr->Interlaced = (RegValue & XVTC_ENC_PROG_MASK) >> XVTC_ENC_PROG_SHIFT;
 
 		SCPtr->HActiveStart = 0;
 		SCPtr->V0ActiveStart = 0;
@@ -2151,6 +2166,7 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 		SignalCfgPtr->V1Total           =
 					SignalCfgPtr->V1BackPorchStart +
 							TimingPtr->V1BackPorch;
+		SignalCfgPtr->Interlaced 		= 1;
 
 		/* Align to H blank */
 		HOffPtr->V1BlankHoriStart = SignalCfgPtr->HFrontPorchStart;
@@ -2174,6 +2190,7 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 		SignalCfgPtr->V1BackPorchStart  =
 					SignalCfgPtr->V0BackPorchStart;
 		SignalCfgPtr->V1Total           = SignalCfgPtr->V0Total;
+		SignalCfgPtr->Interlaced		= 0;
 
 		HOffPtr->V1BlankHoriStart = HOffPtr->V0BlankHoriStart;
 		HOffPtr->V1BlankHoriEnd   = HOffPtr->V0BlankHoriEnd;
@@ -2254,10 +2271,10 @@ void XVtc_ConvSignal2Timing(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr,
 					SignalCfgPtr->V1BackPorchStart;
 
 	/* Interlaced */
-	if ((SignalCfgPtr->V1Total != 0x0) &&
-			(SignalCfgPtr->V1Total != SignalCfgPtr->V0Total)) {
+	if (SignalCfgPtr->Interlaced == 1) {
 		TimingPtr->Interlaced  = 1;
 	}
+
 }
 
 /*****************************************************************************/
