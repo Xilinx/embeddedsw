@@ -44,7 +44,7 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-ECC_FLAGS	+= --cpu=Cortex-A9 --fpu=VFPv3_d16
+ECC_FLAGS	+= --cpu=Cortex-A9 --fpu=VFPv3
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
@@ -64,7 +64,7 @@ libs: banner $(LIBS) clean
 #	rm -f boot.S
 
 %.o: %.s
-	${AS} --cpu Cortex-A9 --fpu VFPv3_d16 $(INCLUDES) -o $@ $<
+	${AS} --cpu Cortex-A9 --fpu VFPv3 $(INCLUDES) -o $@ $<
 
 %.o: %.c
 	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
