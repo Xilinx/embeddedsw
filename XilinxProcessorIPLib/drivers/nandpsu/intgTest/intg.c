@@ -145,12 +145,14 @@ XNandPsu *NandInstPtr = &NandInstance;
 s32 MismatchCounter;
 /************************** Function Prototypes ******************************/
 
+#ifndef AUTOMATIC_TEST_MODE
 static unsigned int GetUserInput(char* Prompt, char* Response,
 				 unsigned int
 				 MaxChars);
 static int  GetMainMenuCommand(char* CmdLine);
 static void RunTestMenu(char* CmdLine);
 static void RunUtilMenu(char* CmdLine);
+#endif
 extern char inbyte ();		/**< Inbyte returns the byte received by device. */
 s32 FlashInit(u16 NandDeviceId);
 #ifdef AUTOMATIC_TEST_MODE
@@ -247,15 +249,13 @@ unsigned int GetUserInput(char* Prompt, char* Response, unsigned int MaxChars)
 ******************************************************************************/
 void Intg_Entry(void)
 {
-	char CmdLine[132];
 	s32 Status = XST_FAILURE;
 #ifdef AUTOMATIC_TEST_MODE
-        int   TestLoops;
-        int   TestFailures;
+	int   TestLoops;
+	int   TestFailures;
 	u32 t_mode = 0U;
-	u32 RegVal = 0U;
-	u32 feature;
-	u32 ddr_mode[2];
+#else
+	char CmdLine[132];
 #endif
 
 	/* print banner */
@@ -426,6 +426,7 @@ int CodeCoverage_Tests(int TestLoops)
 }
 #endif
 
+#ifndef AUTOMATIC_TEST_MODE
 /*****************************************************************************/
 /**
  *
@@ -787,7 +788,7 @@ static void RunUtilMenu(char* CmdLine)
 		}
 	}
 }
-
+#endif
 
 /****************************************************************************/
 /**

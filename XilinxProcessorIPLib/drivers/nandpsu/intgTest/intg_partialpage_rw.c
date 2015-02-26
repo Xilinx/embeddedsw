@@ -171,7 +171,7 @@ s32 PartialPage_RW_Test(XNandPsu * NandInstPtr)
 		 * Initialize the write buffer
 		 */
 		for (Index = 0U; Index < Length;Index++) {
-			WriteBuffer[Index] = ((u8)rand() % (u8)256);
+			WriteBuffer[Index] = ((u8)rand() % 256);
 		}
 
 		/*
