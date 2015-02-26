@@ -99,7 +99,7 @@
 
 static int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId,
 			   u16 GpioIntrId);
-static void IntrHandler(void *CallBackRef, int Bank, u32 Status);
+static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status);
 static int SetupInterruptSystem(XScuGic *Intc, XGpioPs *Gpio, u16 GpioIntrId);
 
 /************************** Variable Definitions *****************************/
@@ -242,7 +242,7 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 * @note		None.
 *
 ******************************************************************************/
-static void IntrHandler(void *CallBackRef, int Bank, u32 Status)
+static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status)
 {
 	XGpioPs *Gpio = (XGpioPs *)CallBackRef;
 	static u32 ButtonsChanged;
