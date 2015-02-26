@@ -88,9 +88,10 @@ u32 XFsbl_SdInit(void )
 	char buffer[32];
 	char *boot_file = buffer;
 	u32 MultiBootOffset=0U;
+	TCHAR *path = "0:/"; /* Logical drive number is 0 */
 
 	/* Register volume work area, initialize device */
-	rc = f_mount(0, &fatfs);
+	rc = f_mount(&fatfs, path, 0);
 	XFsbl_Printf(DEBUG_INFO,"SD: rc= %.8x\n\r", rc);
 
 	if (rc != FR_OK) {
