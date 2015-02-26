@@ -1,7 +1,7 @@
 /* $Id: xscuwdt.c,v 1.1.2.1 2011/01/20 04:04:40 sadanan Exp $ */
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- ---------------------------------------------
 * 1.00a sdm 01/15/10 First release
+* 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
 * </pre>
 *
 ******************************************************************************/
