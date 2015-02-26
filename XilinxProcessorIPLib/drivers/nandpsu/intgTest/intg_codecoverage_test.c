@@ -77,7 +77,7 @@
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-s32 CodeCoverage_Test(XNandPsu * NandInstPtr);
+s32 CodeCoverage_Test(XNandPsu *NandInstPtr);
 /************************** Function Definitions ****************************/
 
 /****************************************************************************/
@@ -93,7 +93,7 @@ s32 CodeCoverage_Test(XNandPsu * NandInstPtr);
 * @note	 None.
 *
 *****************************************************************************/
-int Intg_CodeCoverageTest(XNandPsu * NandInstPtr, int TestLoops)
+int Intg_CodeCoverageTest(XNandPsu *NandInstPtr, int TestLoops)
 {
 
 	s32 Status = XST_FAILURE;
@@ -129,9 +129,10 @@ int Intg_CodeCoverageTest(XNandPsu * NandInstPtr, int TestLoops)
 *		None
 *
 ****************************************************************************/
-s32 CodeCoverage_Test(XNandPsu * NandInstPtr)
+s32 CodeCoverage_Test(XNandPsu *NandInstPtr)
 {
 	s32 Status = XST_FAILURE;
+	XNandPsu_Config *StatusPtr = NULL;
 	u32 Index;
 	u64 Offset;
 	u16 Length;
@@ -173,12 +174,12 @@ s32 CodeCoverage_Test(XNandPsu * NandInstPtr)
 	/*
 	 * Code Coverage for LookUp Config API
 	 */
-	Status = XNandPsu_LookupConfig(RANDOM_DEVICEID);
-	if (Status != XST_SUCCESS){
+	StatusPtr = XNandPsu_LookupConfig(RANDOM_DEVICEID);
+	if (StatusPtr == NULL){
 		Failures++;
 	}
 
-	if(Failures != EXPECTED_FAILURES){
+	if(Failures == EXPECTED_FAILURES){
 		Status = XST_SUCCESS;
 	}
 
