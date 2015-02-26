@@ -177,9 +177,16 @@ u32 TxFrameLength;
 static XScuGic IntcInstance;
 #endif
 
+#ifdef __ICCARM__
+#pragma data_alignment = 64
+XEmacPs_Bd BdTxTerminate;
+XEmacPs_Bd BdRxTerminate;
+#pragma data_alignment = 4
+#else
 XEmacPs_Bd BdTxTerminate __attribute__ ((aligned(64)));
 
 XEmacPs_Bd BdRxTerminate __attribute__ ((aligned(64)));
+#endif
 
 u32 GemVersion;
 

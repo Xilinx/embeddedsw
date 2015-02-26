@@ -141,14 +141,27 @@ u8 UnicastMAC[]  = {0x00, 0x0A, 0x35, 0x01, 0x02, 0x09};
 /*
  * Aligned memory segments to be used for Rx buffer descriptors
  */
+#ifdef __ICCARM__
+#pragma data_alignment = XEMACPS_RX_BUF_ALIGNMENT
+u8 RxBuf[XEMACPS_IEEE1588_NO_OF_RX_DESCS][XEMACPS_PACKET_LEN + 2];
+#pragma data_alignment = 4
+#else
 u8 RxBuf[XEMACPS_IEEE1588_NO_OF_RX_DESCS][XEMACPS_PACKET_LEN + 2]
 		__attribute__ ((aligned(XEMACPS_RX_BUF_ALIGNMENT)));
+#endif
 
 #ifdef PEEP
+#ifdef __ICCARM__
+#pragma data_alignment = XEMACPS_BD_ALIGNMENT
+u8 TxRingPntrBase[TXBD_SPACE_BYTES];
+u8 RxRingPntrBase[RXBD_SPACE_BYTES];
+#pragma data_alignment = 4
+#else
 u8 TxRingPntrBase[TXBD_SPACE_BYTES]
 		__attribute__ ((aligned(XEMACPS_BD_ALIGNMENT)));
 u8 RxRingPntrBase[RXBD_SPACE_BYTES]
 		__attribute__ ((aligned(XEMACPS_BD_ALIGNMENT)));
+#endif
 #endif
 #ifdef IEEE1588_MASTER
 u8 SrcAddr[6] = {0x00,0x0A,0x35,0x01,0x02,0x03};
@@ -291,15 +304,15 @@ int main(void)
 	 */
 	Status = XEmacPs_SetHandler (EmacPsInstancePtr,
 				XEMACPS_HANDLER_DMARECV,
-				XEmacPs_PtpRxInterruptHandler,
+				(void *)XEmacPs_PtpRxInterruptHandler,
 				&IEEE1588ProtoHandler);
 	Status |= XEmacPs_SetHandler (EmacPsInstancePtr,
 				XEMACPS_HANDLER_DMASEND,
-				XEmacPs_PtpTxInterruptHandler,
+				(void *)XEmacPs_PtpTxInterruptHandler,
 				&IEEE1588ProtoHandler);
 	Status |= XEmacPs_SetHandler (EmacPsInstancePtr,
 				XEMACPS_HANDLER_ERROR,
-				XEmacPs_PtpErrorInterruptHandler,
+				(void *)XEmacPs_PtpErrorInterruptHandler,
 				&IEEE1588ProtoHandler);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -1839,15 +1852,15 @@ void XEmacPs_PtpErrorInterruptHandler (XEmacPs_Ieee1588 *InstancePtr,
 	 */
 	Status = XEmacPs_SetHandler (InstancePtr->EmacPsInstance,
 				XEMACPS_HANDLER_DMARECV,
-				XEmacPs_PtpRxInterruptHandler,
+				(void *)XEmacPs_PtpRxInterruptHandler,
 				&IEEE1588ProtoHandler);
 	Status |= XEmacPs_SetHandler (InstancePtr->EmacPsInstance,
 				XEMACPS_HANDLER_DMASEND,
-				XEmacPs_PtpTxInterruptHandler,
+				(void *)XEmacPs_PtpTxInterruptHandler,
 				&IEEE1588ProtoHandler);
 	Status |= XEmacPs_SetHandler (InstancePtr->EmacPsInstance,
 				XEMACPS_HANDLER_ERROR,
-				XEmacPs_PtpErrorInterruptHandler,
+				(void *)XEmacPs_PtpErrorInterruptHandler,
 				&IEEE1588ProtoHandler);
 	if (Status != XST_SUCCESS) {
 #ifdef DEBUG_XEMACPS_LEVEL1
