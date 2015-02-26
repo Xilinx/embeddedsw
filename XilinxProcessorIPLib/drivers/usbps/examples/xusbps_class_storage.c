@@ -72,6 +72,31 @@
 
 /* Pre-manufactured response to the SCSI Inquirey command.
  */
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+const static SCSI_INQUIRY scsiInquiry = {
+	0x00,
+	0x80,
+	0x00,
+	0x01,
+	0x1f,
+	0x00,
+	0x00,
+	0x00,
+	{"Xilinx  "},		/* Vendor ID:  must be  8 characters long. */
+	{"PS USB VirtDisk"},	/* Product ID: must be 16 characters long. */
+	{"1.00"}		/* Revision:   must be  4 characters long. */
+};
+static u8 MaxLUN = 0;
+/* Buffer for virtual flash disk space. */
+static u8 VirtFlash[VFLASH_SIZE];
+
+static USB_CBW lastCBW;
+
+/* Local transmit buffer for simple replies. */
+static u8 txBuffer[128];
+#pragma data_alignment = 4
+#else
 const static SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
 	0x00,
 	0x80,
@@ -93,6 +118,7 @@ static USB_CBW lastCBW ALIGNMENT_CACHELINE;
 
 /* Local transmit buffer for simple replies. */
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
+#endif
 
 /*****************************************************************************/
 /**
