@@ -178,9 +178,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScuWdt_IsWdtExpired(InstancePtr)				\
-	{((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
+	((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
 			  XSCUWDT_RST_STS_OFFSET) &			\
-	 XSCUWDT_RST_STS_RESET_FLAG_MASK) == XSCUWDT_RST_STS_RESET_FLAG_MASK);}
+	 XSCUWDT_RST_STS_RESET_FLAG_MASK) == XSCUWDT_RST_STS_RESET_FLAG_MASK)
 
 /****************************************************************************/
 /**
@@ -199,9 +199,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScuWdt_IsTimerExpired(InstancePtr)				\
-	{((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
+	((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
 			  XSCUWDT_ISR_OFFSET) &				\
-	 XSCUWDT_ISR_EVENT_FLAG_MASK) == XSCUWDT_ISR_EVENT_FLAG_MASK);}
+	 XSCUWDT_ISR_EVENT_FLAG_MASK) == XSCUWDT_ISR_EVENT_FLAG_MASK)
 
 /****************************************************************************/
 /**
