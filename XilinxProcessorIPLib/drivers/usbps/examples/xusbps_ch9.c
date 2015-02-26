@@ -86,7 +86,13 @@ static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 
 /************************** Variable Definitions *****************************/
 
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+static u8 Response;
+#pragma data_alignment = 4
+#else
 static u8 Response ALIGNMENT_CACHELINE;
+#endif
 
 /*****************************************************************************/
 /**
@@ -163,7 +169,13 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 	XUsbPs_Local	*UsbLocalPtr;
 
 	int ReplyLen;
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
+#pragma data_alignment = 4
+#else
 	static u8  	Reply[XUSBPS_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
+#endif
 
 	/* Check that the requested reply length is not bigger than our reply
 	 * buffer. This should never happen...
@@ -571,8 +583,14 @@ static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 	u32     BufferLen;
 	u32     Handle;
 	u32	Reg;
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+const static u8	Reply[8] = {0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
+#pragma data_alignment = 4
+#else
 	const static u8	Reply[8] ALIGNMENT_CACHELINE =
 							{0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
+#endif
 	u8	EpNum = 0;
 	int 	Status;
 	int 	Direction;

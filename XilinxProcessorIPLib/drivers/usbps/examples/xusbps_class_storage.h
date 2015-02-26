@@ -103,6 +103,9 @@ extern "C" {
  * the contents of those structures are not important in the context of this
  * example.
  */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u32 dCBWSignature;
 	u32 dCBWTag;
@@ -111,8 +114,16 @@ typedef struct {
 	u8  cCBWLUN;
 	u8  bCBWCBLength;
 	u8  CBWCB[16];
+#ifdef __ICCARM__
+} USB_CBW;
+#pragma pack(pop)
+#else
 } __attribute__((__packed__))USB_CBW;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef	struct {
 	u8 deviceType;
 	u8 rmb;
@@ -125,8 +136,16 @@ typedef	struct {
 	u8 vendorID[8];
 	u8 productID[16];
 	u8 revision[4];
+#ifdef __ICCARM__
+} SCSI_INQUIRY;
+#pragma pack(pop)
+#else
 } __attribute__((__packed__))SCSI_INQUIRY;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  reserved[3];
 	u8  listLength;
@@ -134,13 +153,29 @@ typedef struct {
 	u8  descCode;
 	u8  blockLengthMSB;
 	u16 blockLength;
+#ifdef __ICCARM__
+} SCSI_CAP_LIST;
+#pragma pack(pop)
+#else
 } __attribute__((__packed__))SCSI_CAP_LIST;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u32 numBlocks;
 	u32 blockSize;
+#ifdef __ICCARM__
+} SCSI_READ_CAPACITY;
+#pragma pack(pop)
+#else
 } __attribute__((__packed__))SCSI_READ_CAPACITY;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  opCode;
 	u8  reserved1;
@@ -148,8 +183,16 @@ typedef struct {
 	u8  reserved2;
 	u16 length;
 	u8  control;
+#ifdef __ICCARM__
+} SCSI_READ_WRITE;
+#pragma pack(pop)
+#else
 } __attribute__((__packed__))SCSI_READ_WRITE;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  opCode;
 	u8  immed;
@@ -157,7 +200,12 @@ typedef struct {
 	u8  reserved2;
 	u8  start;
 	u8  control;
+#ifdef __ICCARM__
+} SCSI_START_STOP;
+#pragma pack(pop)
+#else
 } __attribute__((__packed__))SCSI_START_STOP;
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

@@ -61,6 +61,9 @@
 
 /**************************** Type Definitions *******************************/
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  bLength;
 	u8  bDescriptorType;
@@ -76,8 +79,16 @@ typedef struct {
 	u8  iProduct;
 	u8  iSerialNumber;
 	u8  bNumConfigurations;
+#ifdef __ICCARM__
+}USB_STD_DEV_DESC;
+#pragma pack(pop)
+#else
 }__attribute__((__packed__))USB_STD_DEV_DESC;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  bLength;
 	u8  bDescriptorType;
@@ -87,8 +98,16 @@ typedef struct {
 	u8  iConfiguration;
 	u8  bmAttributes;
 	u8  bMaxPower;
+#ifdef __ICCARM__
+}USB_STD_CFG_DESC;
+#pragma pack(pop)
+#else
 }__attribute__((__packed__))USB_STD_CFG_DESC;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  bLength;
 	u8  bDescriptorType;
@@ -99,8 +118,16 @@ typedef struct {
 	u8  bInterfaceSubClass;
 	u8  bInterfaceProtocol;
 	u8  iInterface;
+#ifdef __ICCARM__
+}USB_STD_IF_DESC;
+#pragma pack(pop)
+#else
 }__attribute__((__packed__))USB_STD_IF_DESC;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  bLength;
 	u8  bDescriptorType;
@@ -108,20 +135,41 @@ typedef struct {
 	u8  bmAttributes;
 	u16 wMaxPacketSize;
 	u8  bInterval;
+#ifdef __ICCARM__
+}USB_STD_EP_DESC;
+#pragma pack(pop)
+#else
 }__attribute__((__packed__))USB_STD_EP_DESC;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u8  bLength;
 	u8  bDescriptorType;
 	u16 wLANGID[1];
+#ifdef __ICCARM__
+}USB_STD_STRING_DESC;
+#pragma pack(pop)
+#else
 }__attribute__((__packed__))USB_STD_STRING_DESC;
+#endif
 
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
 	USB_STD_IF_DESC ifCfg;
 	USB_STD_EP_DESC epCfg1;
 	USB_STD_EP_DESC epCfg2;
+#ifdef __ICCARM__
+}USB_CONFIG;
+#pragma pack(pop)
+#else
 }__attribute__((__packed__))USB_CONFIG;
+#endif
 
 /************************** Function Prototypes ******************************/
 

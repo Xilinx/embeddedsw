@@ -69,7 +69,13 @@
 
 /************************** Constant Definitions *****************************/
 #define MEMORY_SIZE (64 * 1024)
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+u8 Buffer[MEMORY_SIZE];
+#pragma data_alignment = 4
+#else
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
+#endif
 
 /**************************** Type Definitions *******************************/
 
