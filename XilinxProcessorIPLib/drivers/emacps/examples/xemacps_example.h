@@ -92,8 +92,14 @@
  * Define an aligned data type for an ethernet frame. This declaration is
  * specific to the GNU compiler
  */
+#ifdef __ICCARM__
+#pragma data_alignment = 64
+typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE];
+#pragma data_alignment = 4
+#else
 typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE]
 	__attribute__ ((aligned(64)));
+#endif
 
 /************************** Function Prototypes *****************************/
 
