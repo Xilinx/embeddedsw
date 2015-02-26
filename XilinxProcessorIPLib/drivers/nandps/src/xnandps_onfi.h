@@ -212,6 +212,9 @@ enum OnfiCommandsEnum {
  * Parameter page structure of ONFI 1.0 specification.
  * Enhanced this sturcture to include ONFI 2.3 information for EZ NAND support.
  */
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	/*
 	 * Revision information and features block
@@ -303,7 +306,12 @@ typedef struct {
 					  number */
 	u8 VendorSpecific[88];		/**< Vendor specific */
 	u16 Crc;			/**< Integrity CRC */
+#ifdef __ICCARM__
+} OnfiNand_Geometry;
+#pragma pack(pop)
+#else
 }__attribute__((packed))OnfiNand_Geometry;
+#endif
 
 /************************** Function Prototypes ******************************/
 
