@@ -107,7 +107,7 @@ typedef struct
  */
 typedef struct
 {
-	u8 MsgData[62];			/**< The raw body data of the sideband
+	u8 MsgData[256];		/**< The raw body data of the sideband
 						message. */
 	u8 MsgDataLength;		/**< The number of data bytes stored as
 						part of the sideband message
@@ -125,6 +125,12 @@ typedef struct
 						message. */
 	XDp_SidebandMsgBody Body;	/**< The body segment of the sideband
 						message. */
+	u8 FragmentNum;			/**< Larger sideband messages need to be
+						broken up into multiple
+						fragments. For RX, this number
+						indicates the fragment with
+						which the current header
+						corresponds to. */
 } XDp_SidebandMsg;
 
 /**
