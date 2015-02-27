@@ -159,7 +159,7 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(
 			XDp_TxSbMsgLinkAddressReplyDeviceInfo *FormatReply);
 static u32 XDp_TxGetFirstAvailableTs(XDp *InstancePtr, u8 *FirstTs);
 static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
-static u32 XDp_TxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply);
 static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
 static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
@@ -1530,6 +1530,8 @@ u32 XDp_TxSendSbMsgRemoteDpcdWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(BytesToWrite <= 0xFFFFF);
 	Xil_AssertNonvoid(WriteData != NULL);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
 	for (Index = 0; Index < (Msg.Header.LinkCountTotal - 1); Index++) {
@@ -1558,7 +1560,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
 	/* Submit the REMOTE_DPCD_WRITE transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -1621,6 +1623,8 @@ u32 XDp_TxSendSbMsgRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(BytesToRead <= 0xFFFFF);
 	Xil_AssertNonvoid(ReadData != NULL);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
 	for (Index = 0; Index < (Msg.Header.LinkCountTotal - 1); Index++) {
@@ -1646,7 +1650,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
 	/* Submit the REMOTE_DPCD_READ transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -1719,6 +1723,8 @@ u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(BytesToWrite <= 0xFF);
 	Xil_AssertNonvoid(WriteData != NULL);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
 	for (Index = 0; Index < (Msg.Header.LinkCountTotal - 1); Index++) {
@@ -1746,7 +1752,7 @@ u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
 	/* Submit the REMOTE_I2C_WRITE transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -1809,6 +1815,8 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(BytesToRead <= 0xFF);
 	Xil_AssertNonvoid(ReadData != NULL);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
 	for (Index = 0; Index < (Msg.Header.LinkCountTotal - 1); Index++) {
@@ -1837,7 +1845,7 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
 	/* Submit the REMOTE_I2C_READ transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -1912,6 +1920,8 @@ u32 XDp_TxSendSbMsgLinkAddress(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
 	Xil_AssertNonvoid(DeviceInfo != NULL);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal;
 	for (Index = 0; Index < (LinkCountTotal - 1); Index++) {
@@ -1932,7 +1942,7 @@ u32 XDp_TxSendSbMsgLinkAddress(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
 	/* Submit the LINK_ADDRESS transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -2003,6 +2013,8 @@ u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(AvailPbn != NULL);
 	Xil_AssertNonvoid(FullPbn != NULL);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
 	for (Index = 0; Index < (LinkCountTotal - 1); Index++) {
@@ -2024,8 +2036,8 @@ u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
-	/* Submit the LINK_ADDRESS transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	/* Submit the ENUM_PATH_RESOURCES transaction message request. */
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -2094,6 +2106,8 @@ u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(VcId > 0);
 	Xil_AssertNonvoid(Pbn > 0);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = LinkCountTotal - 1;
 	for (Index = 0; Index < (LinkCountTotal - 1); Index++) {
@@ -2119,7 +2133,7 @@ u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
 	/* Submit the ALLOCATE_PAYLOAD transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -2163,6 +2177,8 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
+	Msg.FragmentNum = 0;
+
 	/* Prepare the sideband message header. */
 	Msg.Header.LinkCountTotal = 1;
 	Msg.Header.LinkCountRemaining = 6;
@@ -2180,7 +2196,7 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
 
 	/* Submit the CLEAR_PAYLOAD_ID_TABLE transaction message request. */
-	Status = XDp_TxSendSbMsg(InstancePtr, &Msg);
+	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
 	if (Status != XST_SUCCESS) {
 		/* The AUX write transaction used to send the sideband message
 		 * failed. */
@@ -2605,7 +2621,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-static u32 XDp_TxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 {
 	u32 Status;
 	u8 AuxData[10+63];
