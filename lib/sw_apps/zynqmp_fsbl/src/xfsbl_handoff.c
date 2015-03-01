@@ -171,8 +171,9 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU0_RESET_MASK);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK);
+			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU0_RESET_MASK |
+					CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK |
+					CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK);
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
 			/**
@@ -199,8 +200,9 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU1_RESET_MASK);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK);
+			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU1_RESET_MASK |
+					CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK |
+					CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK);
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
 			/**
@@ -227,8 +229,10 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU2_RESET_MASK);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK);
+			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU2_RESET_MASK |
+					CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK |
+					CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK);
+
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
 			/**
@@ -255,8 +259,10 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU3_RESET_MASK);
-			RegValue &= ~(CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK);
+			RegValue &= ~(CRF_APB_RST_FPD_APU_ACPU3_RESET_MASK |
+					CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK |
+					CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK);
+
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
 			/**
