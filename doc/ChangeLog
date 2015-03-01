@@ -1,0 +1,102 @@
+Change Log for 2015.1
+=================================
+axidma: Changes
+Added the self test api - XAxiDma_Selftest which does a basic read/write register test , added support for the self test as a part of the Peripheral Tests
+
+axiethernet: Changes
+Fixed TCL errors when axiethernet is configured with the Axi Stream Fifo
+
+axivdma : Changes
+Added the self test api - XAxiVdma_Selftest which does a basic read/write register test , added support for the self test as a part of the Peripheral Tests
+
+canps: Changes
+Updated for MISRA-C:2012 compliance.
+
+coresightps_dcc:
+New driver for sending/receiving data on the coresight DCC
+
+cpu: Changes
+Removed -ffunction-sections & -fdata-sections flags from extra_compiler_flags  as there is some problem with the garbage collection in the tool chain
+
+dp: Changes
+New driver for the Display Port Tx and Display Port Rx
+
+emacps: Changes
+Don't include GiGE in peripheral test when  it is configured with PCS/PMA Core.
+Modified code for MISRA-C:2012 compliance.
+
+gpiops: Changes
+Modified code for MISRA-C:2012 compliance.
+
+iic: Changes
+When configured as a slave return the actual number of bytes have been received/sent by the Master to the user callback.
+
+iicps: Changes
+Modified TimeOut Register value to 0xFF in XIicPs_Reset.
+Implemented Repeated start feature.
+Updated for MISRAC 2012 Compliance.
+
+intc: Changes
+Added generation of C_HAS_ILR parameter to xparameters.h in the driver tcl file
+
+nandps: Changes
+Updated to use the address cycles defined in onfi parameter  page than hard coding this value to 5 for read and   write operations.
+
+qspips: changes
+Added SLCR reset in abort function as a workaround as the controller does not update FIFO status flags as expected when thresholds are used.
+
+scutimer: Changes
+Updated for MISRAC 2012 Compliance.
+
+scuwdt: Changes
+Updated for MISRAC 2012 Compliance.
+
+sdps: Changes
+Added support for micro SD without WP/CD. Checked for DAT Inhibit mask instead of CMD Inhibit mask in Cmd Transfer API.
+Added Support for SD Card v1.0
+
+spips: Changes
+Updated for MISRAC 2012 Compliance.
+
+ttcps: Changes
+Updated for MISRAC 2012 Compliance.
+
+uartps: Changes
+Updated for MISRAC 2012 Compliance.
+
+video_common:
+New driver for common video structure and apis
+
+wdtps: Changes
+Updated for MISRAC 2012 Compliance.
+
+standalone: Changes
+Updated for MISRA-C:2012 compliance.
+Modified boot code to enable scu after MMU is enabled and   removed incorrect initialization of TLB lockdown register.
+
+xilkernel: Changes
+Fix to the TCL so that Xilkernel builds.
+
+xilffs: changes
+Added support for micro SD without WP/CD.
+Updated the FatFs to R0.10b
+Make changes for prototypes of disk_read and  disk_write according to latest version.
+Updated the code for MISRAC 2012 compliance.
+Removed alignment for local buffers as CacheInvalidate will take care of it.
+
+xilisf: Changes
+Added check for flash interface for Winbond, Spansion and Micron flash family for PSQSPI
+
+FSBL: Changes
+Updated f_mount as per the new API in FatFs R0.10b .
+
+lwip141:
+New version of lwip library based on open source lwip version 1.4.1
+Changes in the adapter:
+Add support for 2 GigE for Zynq
+Removed support for lltemac.
+Made changes in axiethernet adapter files as part of general clean-up.
+Added support for 2 GigEs for GEM.
+Added support for non-Marvell PHY reporting.
+Made changes for axiethernet checksum validation logic that resulted
+in performance improvement.
