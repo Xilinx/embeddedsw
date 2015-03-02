@@ -217,17 +217,16 @@ u32 PmUpdateSlave(PmSlave* const slave)
 	u32 status = PM_RET_ERROR_NOTSUPPORTED;
 	u32 capsToSet = PmGetMaxCapabilities(slave);
 
-	if (capsToSet == slave->slvFsm->states[slave->node.currState]) {
-		/* Slave is already in right state */
-		status = PM_RET_SUCCESS;
-		goto done;
-	}
-
 	if (0U != capsToSet) {
 		for (s = 0U; s < fsm->statesCnt; s++) {
-			/* Find the first state with all required capabilities */
+			/* Find first state with all required capabilities */
 			if ((capsToSet & fsm->states[s]) == capsToSet) {
-				status = PmSlaveChangeState(slave, s);
+				if (s == slave->node.currState) {
+					/* Slave is already in right state */
+					status = PM_RET_SUCCESS;
+				} else {
+					status = PmSlaveChangeState(slave, s);
+				}
 				break;
 			}
 		}
@@ -235,13 +234,12 @@ u32 PmUpdateSlave(PmSlave* const slave)
 		/*
 		 * Set the lowest power state, no capabilities are required. This
 		 * check has to exist because some slaves have no state with 0
-		 * capabilities. Therefore, they are always placed in first, lowest
-		 * power state when their capabilities are not required.
+		 * capabilities. Therefore, they are always placed in first,
+		 * lowest power state when their capabilities are not required.
 		 */
 		status = PmSlaveChangeState(slave, 0U);
 	}
 
-done:
 	return status;
 }
 
