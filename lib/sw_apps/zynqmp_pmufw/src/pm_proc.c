@@ -50,6 +50,7 @@
 #include "pm_defs.h"
 #include "pm_proc.h"
 #include "pm_master.h"
+#include "crl_apb.h"
 #include "xpfw_rom_interface.h"
 
 /**
@@ -83,8 +84,20 @@ u32 PmProcSleep(PmNode* const nodePtr)
 	case NODE_APU_3:
 		ret = XpbrACPU3SleepHandler();
 		break;
+	case NODE_RPU_0:
+		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
+			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
+		ret = PM_RET_SUCCESS;
+		break;
+	case NODE_RPU_1:
+		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+		ret = PM_RET_SUCCESS;
+		break;
 	default:
-		ret = XST_SUCCESS;
+		ret = PM_RET_ERROR_INTERNAL;
 		break;
 	}
 
