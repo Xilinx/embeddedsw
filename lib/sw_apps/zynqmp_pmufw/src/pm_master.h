@@ -99,6 +99,9 @@ typedef struct PmMaster PmMaster;
  * @info        Contains information about master's request - a bit for
  *              encoding has master requested or released node, and a bit to
  *              encode has master requested a wake-up of this slave.
+ * @defaultReq  Default requirements of a master - requirements for slave
+ *              capabilities without which master's primary processor cannot
+ *              switch to active state.
  * @currReq     Currently holding requirements of a master for this slave
  * @nextReq     Requirements of a master to be configured when it changes the
  *              state (after it goes to sleep or before it gets awake)
@@ -107,6 +110,7 @@ typedef struct PmRequirement {
 	PmSlave* const slave;
 	PmMaster* const requestor;
 	u8 info;
+	const u32 defaultReq;
 	u32 currReq;
 	u32 nextReq;
 } PmRequirement;

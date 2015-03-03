@@ -49,6 +49,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm0_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -56,6 +57,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm1_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -63,6 +65,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm2_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -70,6 +73,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm3_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -77,6 +81,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveL2_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -84,6 +89,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveUsb0_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -91,6 +97,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveUsb1_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -98,6 +105,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveTtc0_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -105,6 +113,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.slave = &pmSlaveSata_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -116,6 +125,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm0_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -123,6 +133,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm1_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -130,6 +141,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm2_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -137,6 +149,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveOcm3_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -144,6 +157,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveTcm0A_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -151,6 +165,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveTcm0B_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -158,6 +173,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveTcm1A_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -165,6 +181,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveTcm1B_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
@@ -172,6 +189,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveUsb0_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -179,6 +197,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveUsb1_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -186,6 +205,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveTtc0_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -193,6 +213,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.slave = &pmSlaveSata_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
+		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
 	},
@@ -304,20 +325,24 @@ done:
 }
 
 /**
- * PmRequirementUpdateScheduled() - Triggers the setting for scheduled requirements
+ * PmRequirementUpdateScheduled() - Triggers the setting for scheduled
+ (                                  requirements
  * @master  Master which changed the state and whose scheduled requirements are
  *          triggered
- * @swap    Flag stating should current requirement be saved as next
+ * @swap    Flag stating should current/default requirements be saved as next
  *
  * a) swap=false
- * Set scheduled requirements of a master without swapping current and
- * next requirements - means the current requirements will be dropped.
- * Upon every self suspend, master has to explicitly re-request
- * slave requirements.
+ * Set scheduled requirements of a master without swapping current/default and
+ * next requirements - means the current requirements will be dropped and
+ * default requirements has no effect. Upon every self suspend, master has to
+ * explicitly re-request slave requirements.
  * b) swap=true
- * Set scheduled requirements of a master with swapping current and
- * next requirements (swapping means the current requirements will be
- * saved as next, and will be configured once master wakes-up)
+ * Set scheduled requirements of a master with swapping current/default and
+ * next requirements (swapping means the current/default requirements will be
+ * saved as next, and will be configured once master wakes-up). If the master
+ * has default requirements, default requirements are saved as next instead of
+ * current requirements. Default requirements has priority over current
+ * requirements.
  */
 static void PmRequirementUpdateScheduled(const PmMaster* const master,
 					 const bool swap)
@@ -332,8 +357,18 @@ static void PmRequirementUpdateScheduled(const PmMaster* const master,
 			u32 tmpReq = master->reqs[i].nextReq;
 
 			if (true == swap) {
-				/* Swap current and next requirements */
-				master->reqs[i].nextReq = master->reqs[i].currReq;
+				if (0U != master->reqs[i].defaultReq) {
+					/* Master has default requirements for
+					 * this slave, default has priority over
+					 * current requirements.
+					 */
+					master->reqs[i].nextReq =
+						master->reqs[i].defaultReq;
+				} else {
+					/* Save current requirements as next */
+					master->reqs[i].nextReq =
+						master->reqs[i].currReq;
+				}
 			}
 
 			master->reqs[i].currReq = tmpReq;
@@ -369,6 +404,29 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
 }
 
 /**
+ * PmRequirementRequestDefault() - Request default requirements for master
+ * @master      Master whose default requirements are requested
+ *
+ * When waking up from forced power down, master might have some default
+ * requirements to be configured before it enters active state (example TCM for
+ * RPU). This function loops all slaves, find those for which this master has
+ * default requirements and updates next requirements in master/slave
+ * requirement structure.
+ */
+static void PmRequirementRequestDefault(const PmMaster* const master)
+{
+	PmRequirementId i;
+
+	for (i = 0; i < master->reqsCnt; i++) {
+		if (0U != master->reqs[i].defaultReq) {
+			/* Set flag to state that master is using slave */
+			master->reqs[i].info |= PM_MASTER_USING_SLAVE_MASK;
+			master->reqs[i].nextReq = master->reqs[i].defaultReq;
+		}
+	}
+}
+
+/**
  * PmRequirementReleaseAll() - Called when master primary processor is forced to
  *                             power down, so all requirements of the processor
  *                             are automatically released.
@@ -380,14 +438,19 @@ static void PmRequirementReleaseAll(const PmMaster* const master)
 	PmRequirementId i;
 
 	for (i = 0; i < master->reqsCnt; i++) {
-		master->reqs[i].currReq = 0U;
-		master->reqs[i].nextReq = 0U;
-		/* Update slave setting */
-		status = PmUpdateSlave(master->reqs[i].slave);
-		/* if pmu rom works correctly, status should be always ok */
-		if (PM_RET_SUCCESS != status) {
-			PmDbg("ERROR setting slave node %s\n",
-			      PmStrNode(master->reqs[i].slave->node.nodeId));
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & master->reqs[i].info)) {
+			/* Clear flag - master is not using slave anymore */
+			master->reqs[i].info &= ~PM_MASTER_USING_SLAVE_MASK;
+			/* Release current and next requirements */
+			master->reqs[i].currReq = 0U;
+			master->reqs[i].nextReq = 0U;
+			/* Update slave setting */
+			status = PmUpdateSlave(master->reqs[i].slave);
+			/* if pmu rom works correctly, status should be always ok */
+			if (PM_RET_SUCCESS != status) {
+				PmDbg("ERROR setting slave node %s\n",
+				      PmStrNode(master->reqs[i].slave->node.nodeId));
+			}
 		}
 	}
 }
@@ -697,8 +760,14 @@ void PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		PmWakeUpCancelScheduled(master);
 		break;
 	case PM_PROC_EVENT_WAKE:
+		if (PM_PROC_STATE_SLEEP == master->procs->node.currState) {
+			PmWakeUpDisableAll(master);
+		} else if (PM_PROC_STATE_FORCEDOFF ==
+			   master->procs->node.currState) {
+			PmRequirementRequestDefault(master);
+		} else {
+		}
 		PmRequirementUpdateScheduled(master, false);
-		PmWakeUpDisableAll(master);
 		break;
 	case PM_PROC_EVENT_FORCE_PWRDN:
 		PmRequirementReleaseAll(master);

@@ -331,6 +331,15 @@ static u32 PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
 	PmDbg("FORCED_PWRDN->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 
+	if (true == proc->isPrimary) {
+		/*
+		 * Notify master to update slave capabilities according to the
+		 * scheduled requests. For waking-up from forced powerdown,
+		 * these requirements are always only default requirements.
+		 */
+		PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+	}
+
 	return PmProcWake(&proc->node);
 }
 
