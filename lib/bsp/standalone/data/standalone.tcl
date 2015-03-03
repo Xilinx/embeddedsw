@@ -35,7 +35,7 @@
 # We can obtain the scu timer/gic baseaddr from the xml, but other parameters
 # need to be hardcoded. hardcode everything..
 # ----------------------------------------------------------------------------
-#TODO these hardcoding parameters can be removed. It can directl come from PS7 IP
+#TODO these hardcoding parameters can be removed. It can directly come from PS7 IP
 set scutimer_baseaddr	0xF8F00600
 set scutimer_intr	29
 set scugic_cpu_base	0xF8F00100
@@ -87,7 +87,7 @@ proc generate {os_handle} {
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
-	"psu_microblaze" {
+        "psu_microblaze" {
             foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
                 file copy -force $entry "./src/"
@@ -104,8 +104,12 @@ proc generate {os_handle} {
             foreach entry [glob -nocomplain [file join $ccdir *]] {
                 file copy -force $entry "./src/"
             }
-                file delete -force "./src/gcc"
 
+            file delete -force "./src/gcc"
+            file delete -force "./src/profile"
+            if { $enable_sw_profile == "true" } {
+                error "ERROR: Profiling is not supported for A53"
+            }
             set file_handle [::hsi::utils::open_include_file "xparameters.h"]
             puts $file_handle "#include \"xparameters_ps.h\""
             puts $file_handle ""
@@ -120,8 +124,12 @@ proc generate {os_handle} {
 	    foreach entry [glob -nocomplain [file join $ccdir *]] {
 		file copy -force $entry "./src/"
 	    }
-	    file delete -force "./src/gcc"
 
+	    file delete -force "./src/gcc"
+	    file delete -force "./src/profile"
+            if { $enable_sw_profile == "true" } {
+                error "ERROR: Profiling is not supported for R5"
+            }
 	    set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
@@ -577,7 +585,7 @@ proc handle_profile { os_handle proctype } {
 
     set proc [hsi::get_sw_processor]
 
-    if {{$proctype == "psu_cortexa53"} | {$proctype == "psu_cortexr5"} | {$proctype == "ps7_cortexa9"}} {
+    if {$proctype == "ps7_cortexa9"} {
         set sw_proc_handle [hsi::get_sw_processor]
         set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
         set cpu_freq [common::get_property CONFIG.C_CPU_CLK_FREQ_HZ $hw_proc_handle]
@@ -606,7 +614,7 @@ proc handle_profile { os_handle proctype } {
     puts $config_file "#define SAMPLE_FREQ_HZ 100000"
     puts $config_file "#define TIMER_CLK_TICKS [expr $cpu_freq / 100000]"
 
-    # proctype should be "microblaze" or "psu_cortexa53"
+    # proctype should be "microblaze" or "psu_cortexa9"
     switch $proctype {
         "microblaze" {
             # Microblaze Processor.
@@ -619,38 +627,6 @@ proc handle_profile { os_handle proctype } {
                 handle_profile_opbtimer $config_file $timer_inst
             }
         }
-
-        "psu_cortexa53" {
-            # Cortex A53 Processor.
-
-            puts $config_file "#define PROC_CORTEXA53 1"
-            set timer_inst [common::get_property CONFIG.profile_timer $os_handle]
-            if { [string compare -nocase $timer_inst "none"] == 0 } {
-                # SCU Timer
-                puts $config_file "#define ENABLE_SCU_TIMER 1"
-                puts $config_file "#define ENABLE_SYS_INTR 1"
-                puts $config_file "#define PROFILE_TIMER_BASEADDR $scutimer_baseaddr"
-                puts $config_file "#define PROFILE_TIMER_INTR_ID $scutimer_intr"
-                puts $config_file "#define SCUGIC_CPU_BASEADDR $scugic_cpu_base"
-                puts $config_file "#define SCUGIC_DIST_BASEADDR $scugic_dist_base"
-            }
-        }
-	"psu_cortexr5" {
-            # Cortex R5 Processor.
-
-            puts $config_file "#define PROC_CORTEXR5 1"
-            set timer_inst [common::get_property CONFIG.profile_timer $os_handle]
-            if { [string compare -nocase $timer_inst "none"] == 0 } {
-                # SCU Timer
-                puts $config_file "#define ENABLE_SCU_TIMER 1"
-                puts $config_file "#define ENABLE_SYS_INTR 1"
-                puts $config_file "#define PROFILE_TIMER_BASEADDR $scutimer_baseaddr"
-                puts $config_file "#define PROFILE_TIMER_INTR_ID $scutimer_intr"
-                puts $config_file "#define SCUGIC_CPU_BASEADDR $scugic_cpu_base"
-                puts $config_file "#define SCUGIC_DIST_BASEADDR $scugic_dist_base"
-            }
-        }
-
         "ps7_cortexa9" {
 	            # Cortex A9 Processor.
 

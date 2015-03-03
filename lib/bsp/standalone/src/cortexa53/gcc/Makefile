@@ -64,18 +64,12 @@ standalone_libs: $(LIBSOURCES)
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
 	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
 
-profile_libs:
-	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" libs
-
 .PHONY: include
-include: standalone_includes profile_includes
+include: standalone_includes
 
 standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
-profile_includes:
-	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" include
-
 clean:
 	rm -rf ${OUTS}
-	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" clean
+	$(MAKE) -C COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" clean
