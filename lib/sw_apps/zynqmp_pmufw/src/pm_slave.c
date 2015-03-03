@@ -167,6 +167,9 @@ static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 	u32 t;
 	u32 status;
 	const PmSlaveFsm* fsm = slave->slvFsm;
+#ifdef DEBUG_PM
+	PmStateId oldState = slave->node.currState;
+#endif
 
 	if (0U == fsm->transCnt) {
 		/* Slave's FSM has no transitions when it has only one state */
@@ -199,6 +202,14 @@ static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 
 		break;
 	}
+#ifdef DEBUG_PM
+	if (PM_RET_SUCCESS == status) {
+		PmDbg("%s %d->%d\n", PmStrNode(slave->node.nodeId), oldState,
+		      slave->node.currState);
+	} else {
+		PmDbg("%s ERROR #%d\n", PmStrNode(slave->node.nodeId), status);
+	}
+#endif
 
 	return status;
 }
