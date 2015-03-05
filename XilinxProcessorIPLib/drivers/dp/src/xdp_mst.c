@@ -51,6 +51,9 @@
 
 /**************************** Constant Definitions ****************************/
 
+/* The maximum length of a sideband message. Longer messages must be split into
+ * multiple fragments. */
+#define XDP_MAX_LENGTH_SBMSG 48
 /* Error out if waiting for a sideband message reply or waiting for the payload
  * ID table to be updated takes more than 5000 AUX read iterations. */
 #define XDP_TX_MAX_SBMSG_REPLY_TIMEOUT_COUNT 5000
@@ -2624,34 +2627,37 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 {
 	u32 Status;
-	u8 AuxData[10+63];
+	u8 Data[XDP_MAX_LENGTH_SBMSG];
 	XDp_SidebandMsgHeader *Header = &Msg->Header;
 	XDp_SidebandMsgBody *Body = &Msg->Body;
+	u8 FragmentOffset;
 	u8 Index;
 
 	XDp_WaitUs(InstancePtr, InstancePtr->TxInstance.SbMsgDelayUs);
 
 	/* First, clear the DOWN_REP_MSG_RDY in case the RX device is in a weird
 	 * state. */
-	AuxData[0] = 0x10;
-	Status = XDp_TxAuxWrite(InstancePtr,
-			XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0, 1,
-			AuxData);
-	if (Status != XST_SUCCESS) {
-		return Status;
+	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
+		Data[0] = 0x10;
+		Status = XDp_TxAuxWrite(InstancePtr,
+				XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0, 1,
+				Data);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
 	}
 
 	/* Add the header to the sideband message transaction. */
 	Msg->Header.MsgHeaderLength = 0;
-	AuxData[Msg->Header.MsgHeaderLength++] =
-			(Msg->Header.LinkCountTotal << 4) |
-						Msg->Header.LinkCountRemaining;
+	Data[Msg->Header.MsgHeaderLength++] =
+					(Msg->Header.LinkCountTotal << 4) |
+					Msg->Header.LinkCountRemaining;
 	for (Index = 0; Index < (Header->LinkCountTotal - 1); Index += 2) {
-		AuxData[Header->MsgHeaderLength] =
+		Data[Header->MsgHeaderLength] =
 					(Header->RelativeAddress[Index] << 4);
 
 		if ((Index + 1) < (Header->LinkCountTotal - 1)) {
-			AuxData[Header->MsgHeaderLength] |=
+			Data[Header->MsgHeaderLength] |=
 					Header->RelativeAddress[Index + 1];
 		}
 		/* Else, the lower (4-bit) nibble is all zeros (for
@@ -2659,22 +2665,32 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
 		Header->MsgHeaderLength++;
 	}
-	AuxData[Header->MsgHeaderLength++] = (Header->BroadcastMsg << 7) |
+	Data[Header->MsgHeaderLength++] = (Header->BroadcastMsg << 7) |
 				(Header->PathMsg << 6) | Header->MsgBodyLength;
-	AuxData[Header->MsgHeaderLength++] = (Header->StartOfMsgTransaction <<
-				7) | (Header->EndOfMsgTransaction << 6) |
+	Data[Header->MsgHeaderLength++] = (Header->StartOfMsgTransaction << 7) |
+				(Header->EndOfMsgTransaction << 6) |
 				(Header->MsgSequenceNum << 4) | Header->Crc;
 
 	/* Add the body to the transaction. */
+	FragmentOffset = (Msg->FragmentNum * (XDP_MAX_LENGTH_SBMSG -
+					Msg->Header.MsgHeaderLength - 1));
 	for (Index = 0; Index < Body->MsgDataLength; Index++) {
-		AuxData[Index + Header->MsgHeaderLength] = Body->MsgData[Index];
+		Data[Index + Header->MsgHeaderLength] =
+					Body->MsgData[Index + FragmentOffset];
 	}
-	AuxData[Index + Header->MsgHeaderLength] = Body->Crc;
+	Data[Index + Header->MsgHeaderLength] = Body->Crc;
 
-	/* Submit the LINK_ADDRESS transaction message request. */
-	Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_DOWN_REQ,
+	/* Submit the message. */
+	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
+		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_DOWN_REQ,
 			Msg->Header.MsgHeaderLength + Msg->Header.MsgBodyLength,
-			AuxData);
+			Data);
+	}
+	else {
+		Status = XDp_RxWriteRawDownReply(InstancePtr, Data,
+						Msg->Header.MsgHeaderLength +
+						Msg->Header.MsgBodyLength);
+	}
 
 	return Status;
 }
