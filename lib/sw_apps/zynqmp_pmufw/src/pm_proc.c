@@ -264,6 +264,14 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 		 * scheduled requests for after primary processor goes to sleep.
 		 */
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_SLEEP);
+
+		if (true == PmIsRequestedToSuspend(proc->master)) {
+			/*
+			 * Acknowledge to the requestor of the suspend that
+			 * suspend is completed.
+			 */
+			status = PmMasterSuspendAck(proc->master, status);
+		}
 	}
 	DISABLE_WFI(proc->wfiEnableMask);
 	ENABLE_WAKE(proc->wakeEnableMask);
@@ -367,6 +375,11 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 	case PM_PROC_EVENT_ABORT_SUSPEND:
 		if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = PmProcTrSuspendToActive(proc);
+		} else if (PM_PROC_STATE_ACTIVE == currState) {
+			/* Processor aborting request to suspend */
+			status = PmMasterSuspendAck(proc->master,
+						    XST_PM_ABORT_SUSPEND);
+		} else {
 		}
 		break;
 	case PM_PROC_EVENT_SLEEP:

@@ -121,21 +121,48 @@ static void PmRequestSuspend(const PmMaster *const master,
 			     const u32 latency,
 			     const u32 state)
 {
-	PmProc* proc = PmGetProcOfOtherMaster(master, node);
+	int status;
+	PmProc* proc;
 
 	PmDbg("(%s, %s, %d, %d)\n", PmStrNode(node), PmStrAck(ack),
 	      latency, state);
 
-	if (NULL == proc) {
-		PmDbg("ERROR processor not found by node %d\n", node);
-		PmProcessAckRequest(ack, master, node, XST_INVALID_PARAM, 0);
+	if (REQUEST_ACK_BLOCKING == ack) {
+		PmDbg("ERROR: invalid acknowledge REQUEST_ACK_BLOCKING\n");
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PmInitSuspendCb(proc->master, node, 0, 0, 0, 0);
+	proc = PmGetProcOfOtherMaster(master, node);
+	if (NULL == proc) {
+		PmDbg("ERROR: irregular node %s\n", PmStrNode(node));
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (false == PmCanRequestSuspend(master, proc->master)) {
+		PmDbg("ERROR: %s not allowed to request suspend of %s\n",
+		      PmStrNode(master->procs->node.nodeId),
+		      PmStrNode(proc->node.nodeId));
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	PmInitSuspendCb(proc->master, node, SUSPEND_REASON_PU_REQ, latency,
+			state, MAX_LATENCY);
+	/*
+	 * Suspend has been successfully requested, but the requested PU now
+	 * needs to initiate its own self suspend. Remember to acknowledge to
+	 * the requestor when: 1. PU gets powered down, 2. PU aborts suspend,
+	 * 3. PU does not respond to the request (timeout).
+	 */
+	status = PmRememberSuspendRequest(master, proc->master, ack);
 
 done:
-	return;
+	if (XST_SUCCESS != status) {
+		/* Something went wrong, acknowledge immediatelly */
+		PmProcessAckRequest(ack, master, node, status, 0);
+	}
 }
 
 /**

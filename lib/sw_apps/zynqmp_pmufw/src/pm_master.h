@@ -85,6 +85,9 @@ typedef struct PmMaster PmMaster;
 #define PM_MASTER_WAKEUP_REQ_MASK   0x1U
 #define PM_MASTER_USING_SLAVE_MASK  0x2U
 
+/* Suspend request related */
+#define PM_REQUESTED_SUSPEND        0x1U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -141,6 +144,22 @@ typedef struct PmMaster {
 	const PmRequirementId reqsCnt;
 } PmMaster;
 
+/**
+ * PmSuspendRequest() - For tracking information about which master can/has
+ *                      requested which master to suspend.
+ * @reqMst      Master which is priviledged to request suspend of respMst
+ * @respMst     Master which is requested to suspend and which should initiate
+ *              its own self suspend
+ * @flags       Flags storing information about the actual request
+ * @ackReq      Acknowledge argument provided with the request suspend call
+ */
+typedef struct {
+	const PmMaster* reqMst;
+	const PmMaster* respMst;
+	u8 flags;
+	u32 ackReq;
+} PmSuspendRequest;
+
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
@@ -178,5 +197,17 @@ void PmEnableAllMasterIpis(void);
 
 /* Call when FPD goes down to enable GIC Proxy interrupts */
 void PmEnableProxyWake(PmMaster* const master);
+
+bool PmCanRequestSuspend(const PmMaster* const reqMaster,
+			 const PmMaster* const respMaster);
+bool PmIsRequestedToSuspend(const PmMaster* const master);
+
+int PmRememberSuspendRequest(const PmMaster* const reqMaster,
+				 const PmMaster* const respMaster,
+				 const u32 ack);
+
+int PmMasterSuspendAck(const PmMaster* const respMaster,
+			   const int response);
+
 
 #endif
