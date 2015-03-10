@@ -216,40 +216,73 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 }
 
 /**
+ * PmGetStateWithCaps() - Get id of the state with provided capabilities
+ * @slave       Slave whose states are searched
+ * @caps        Capabilities the state must have
+ * @state       Pointer to a PmStateId variable where the result is put if
+ *              state is found
+ *
+ * @return      Status of the operation
+ *              - XST_SUCCESS if state is found
+ *              - XST_NO_FEATURE if state with required capabilities does not
+ *                exist
+ *
+ * This function is to be called when state of a slave should be updated,
+ * to find the slave's state with required capabilities.
+ * Argument caps has included capabilities requested by all masters which
+ * currently use the slave. Although these separate capabilities are validated
+ * at the moment request is made, it could happen that there is no state that
+ * has capabilities requested by all masters. This conflict has to be resolved
+ * between the masters, so PM returns an error.
+ */
+static int PmGetStateWithCaps(const PmSlave* const slave, const u32 caps,
+				  PmStateId* const state)
+{
+	PmStateId i;
+	int status = XST_PM_CONFLICT;
+
+	for (i = 0; i < slave->slvFsm->statesCnt; i++) {
+		/* Find the first state that contains all capabilities */
+		if ((caps & slave->slvFsm->states[i]) == caps) {
+			status = XST_SUCCESS;
+			if (NULL != state) {
+				*state = i;
+			}
+			break;
+		}
+	}
+
+	return status;
+}
+
+/**
  * PmUpdateSlave() - Update the slave's state according to the current
  *                   requirements from all masters
  * @slave       Slave whose state is about to be updated
  *
- * @return      Status of operation
+ * @return      Status of operation of updating slave's state.
  */
 int PmUpdateSlave(PmSlave* const slave)
 {
-	PmStateId s;
-	const PmSlaveFsm* fsm = slave->slvFsm;
-	int status = XST_FAILURE;
+	PmStateId state;
+	int status = XST_SUCCESS;
 	u32 capsToSet = PmGetMaxCapabilities(slave);
 
-	if (0U != capsToSet) {
-		for (s = 0U; s < fsm->statesCnt; s++) {
-			/* Find first state with all required capabilities */
-			if ((capsToSet & fsm->states[s]) == capsToSet) {
-				if (s == slave->node.currState) {
-					/* Slave is already in right state */
-					status = XST_SUCCESS;
-				} else {
-					status = PmSlaveChangeState(slave, s);
-				}
-				break;
-			}
-		}
-	} else {
+	if (0U == capsToSet) {
 		/*
-		 * Set the lowest power state, no capabilities are required. This
-		 * check has to exist because some slaves have no state with 0
-		 * capabilities. Therefore, they are always placed in first,
-		 * lowest power state when their capabilities are not required.
+		 * Set the lowest power state as no capabilities are required.
+		 * This check has to exist because some slaves have no state
+		 * with 0 capabilities. Therefore, they are always placed in
+		 * first, lowest power state when their caps are not required.
 		 */
-		status = PmSlaveChangeState(slave, 0U);
+		state = 0U;
+	} else {
+		/* Get state that has all required capabilities */
+		status = PmGetStateWithCaps(slave, capsToSet, &state);
+	}
+
+	if ((XST_SUCCESS == status) && (state != slave->node.currState)) {
+		status = PmSlaveChangeState(slave, state);
 	}
 
 	return status;
