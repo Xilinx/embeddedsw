@@ -139,6 +139,7 @@ typedef struct {
 void XFsbl_PrintFsblBanner(void );
 void XFsbl_ErrorLockDown(u32 ErrorStatus);
 void XFsbl_FallBack(void );
+void XFsbl_UpdateMultiBoot(u32 MultiBootValue);
 
 /**
  * Functions defined in xfsbl_initialization.c

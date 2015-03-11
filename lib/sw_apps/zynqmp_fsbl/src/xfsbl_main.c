@@ -384,30 +384,58 @@ void XFsbl_ErrorLockDown(u32 ErrorStatus)
  *
  * @note We will not return from this function as it does soft reset
  *****************************************************************************/
-void XFsbl_FallBack(void )
+void XFsbl_FallBack(void)
 {
+	u32 RegValue;
 
-	/**
-	 * Increment the Multiboot register
-	 */
+	/* Hook before FSBL Fallback */
+	XFsbl_HookBeforeFallback();
 
-	/**
-	 * Hook before FSBL Fallback
-	 */
+	/* Read the Multiboot register */
+	RegValue = XFsbl_In32(CSU_CSU_MULTI_BOOT);
 
-	/**
-	 * dsb and isb to make sure every thing completes
-	 */
+	XFsbl_Printf(DEBUG_GENERAL,"Performing FSBL FallBack\n\r");
 
-	/**
-	 * Soft reset the system
-	 */
+	XFsbl_UpdateMultiBoot(RegValue+1);
 
-	/**
-	 * Fall back is not supported now, placing CPU in wfe state
-	 * Exit FSBL
-	 */
-	XFsbl_HandoffExit(0U, XFSBL_NO_HANDOFFEXIT);
+	return;
+}
 
-	return ;
+
+/*****************************************************************************/
+/**
+ * This is the function which actually updates the multiboot register and
+ * does the soft reset. This function is called in fallback case and
+ * in the cases where user would like to jump to a different image,
+ * corresponding to the multiboot value being passed to this function.
+ * The latter case is a generic one and need arise because of error scenario.
+ *
+ * @param MultiBootValue is the new value for the multiboot register
+ *
+ * @return none
+ *
+ * @note We will not return from this function as it does soft reset
+ *****************************************************************************/
+
+void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
+{
+	u32 RegValue;
+
+	XFsbl_Out32(CSU_CSU_MULTI_BOOT, MultiBootValue);
+
+	/* make sure every thing completes */
+	dsb();
+	isb();
+
+	/* Soft reset the system */
+	XFsbl_Printf(DEBUG_GENERAL,"Performing System Soft Reset\n\r");
+	RegValue = XFsbl_In32(CRL_APB_RESET_CTRL);
+	XFsbl_Out32(CRL_APB_RESET_CTRL,
+			RegValue|CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
+
+	/* wait here until reset happens */
+	while(1);
+
+	return;
+
 }

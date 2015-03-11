@@ -97,3 +97,25 @@ u32 XFsbl_HookBeforeHandoff(void )
 
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * This is a hook function where user can include the functionality to be run
+ * before FSBL fallback happens
+ *
+ * @param none
+ *
+ * @return error status based on implemented functionality (SUCCESS by default)
+ *
+  *****************************************************************************/
+
+u32 XFsbl_HookBeforeFallback(void)
+{
+	u32 Status = XFSBL_SUCCESS;
+
+	/**
+	 * Add the code here
+	 */
+
+	return Status;
+}
