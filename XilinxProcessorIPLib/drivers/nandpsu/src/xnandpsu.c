@@ -344,6 +344,10 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_DATA_INTF_OFFSET, 0U);
 
+	/* Clear DMA Buffer Boundary Register */
+	XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XNANDPSU_DMA_BUF_BND_OFFSET, 0U);
+
 	for (Target = 0U; Target < XNANDPSU_MAX_TARGETS; Target++) {
 		/*
 		 * Reset the Target
