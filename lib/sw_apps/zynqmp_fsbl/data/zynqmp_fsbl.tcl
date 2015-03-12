@@ -109,6 +109,14 @@ proc swapp_generate {} {
     foreach init_file [array get files] {
         file delete -force $init_file
     }
+
+    set proc_instance [get_sw_processor];
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set proc_type [common::get_property IP_NAME [get_cells $hw_processor]];
+
+    if { $proc_type == "psu_cortexr5" } {
+        set_property -name {APP_COMPILER_FLAGS} -value {-mcpu=cortex-r5} -objects [current_sw_design ]
+    }
 }
 
 proc swapp_get_linker_constraints {} {
