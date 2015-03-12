@@ -84,22 +84,22 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xsecure_hw.h"
-#include "../../../include/xcsudma.h"
+#include "xcsudma.h"
 #include "xil_assert.h"
 
 /************************** Constant Definitions ****************************/
 /**
 * CSU SHA3 Memory Map
 */
-#define XSECURE_CSU_SHA3_START_START        (1U << 0) /**< SHA Start Message */
+#define XSECURE_CSU_SHA3_START_START	(1U << 0) /**< SHA Start Message */
 
-#define XSECURE_CSU_SHA3_RESET_RESET        (1U << 0) /**< SHA Reset Value */
+#define XSECURE_CSU_SHA3_RESET_RESET	(1U << 0) /**< SHA Reset Value */
 
-#define XSECURE_CSU_SHA3_DONE_DONE          (1U << 0) /**< SHA Done */
+#define XSECURE_CSU_SHA3_DONE_DONE	(1U << 0) /**< SHA Done */
 
-#define XSECURE_SHA3_BLOCK_LEN 			    (104U) /**< SHA min block length */
+#define XSECURE_SHA3_BLOCK_LEN		(104U) /**< SHA min block length */
 
-#define	XSECURE_SHA3_LAST_PACKET			(0x1U) /**< Last Data Packet */
+#define XSECURE_SHA3_LAST_PACKET	(0x1U) /**< Last Data Packet */
 
 /***************************** Type Definitions******************************/
 
@@ -109,37 +109,25 @@ extern "C" {
  * instance.
  */
 typedef struct {
-    u32 BaseAddress;  /**< Device Base Address */
+	u32 BaseAddress;  /**< Device Base Address */
 	XCsuDma *CsuDmaPtr; /**< Pointer to CSU DMA Instance */
 	u32 Sha3Len; /**< SHA3 Input Length */
 } XSecure_Sha3;
 
 /***************************** Function Prototypes ***************************/
-/*
- *  Initialization
- */
-s32  XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr);
+/* Initialization */
+s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr);
 
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 
-/*
- * Data Transfer
- */
+/* Data Transfer */
 void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
-												   const u32 Size);
+						const u32 Size);
 void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
-/*
- * Complete SHA digest calculation
- */
+/* Complete SHA digest calculation */
 void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
-		                   const u32 Size, u8 *Out);
-
-/*
- * Utility Functions
- */
-void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen);
-void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
+						const u32 Size, u8 *Out);
 
 #ifdef __cplusplus
 extern "C" }

@@ -57,7 +57,7 @@
 * in the following way:
 *
 *   - XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
-*								   u32 KeySel, u32* Iv, u32* Key)
+*					u32 KeySel, u32* Iv, u32* Key)
 *
 * The key for decryption can be the device key or user provided key.
 * KeySel variable denotes the key to be used. In case the key is user
@@ -69,9 +69,9 @@
 *
 *
 * @note
-*		-The format of encrypted data(boot image) has to be exactly as
-*		 specified by the bootgen. Any encrypted data has to start with a
-*		 secure header first and then the data blocks.
+*	-The format of encrypted data(boot image) has to be exactly as
+*	 specified by the bootgen. Any encrypted data has to start with a
+*	 secure header first and then the data blocks.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -91,56 +91,68 @@
 /************************** Include Files ***********************************/
 
 #include "xsecure_hw.h"
-#include "../../../include/xcsudma.h"
+#include "xcsudma.h"
 #include "xstatus.h"
 #include "xil_io.h"
 
 /************************** Constant Definitions ****************************/
 
-#define XSECURE_CSU_AES_STS_AES_BUSY       	(1U << 0) /**< AES busy */
-#define XSECURE_CSU_AES_STS_AES_READY (1U << 1) /**< Ready to Receive Data */
-#define XSECURE_CSU_AES_STS_AES_DONE  (1U << 2) /**< Operation Complete */
-#define XSECURE_CSU_AES_STS_GCM_TAG_OK     	(1U << 3) /**< GCM Tag Passed */
-#define XSECURE_CSU_AES_STS_KEY_INIT_DONE   (1U << 4) /**< Key Initialized */
-#define XSECURE_CSU_AES_STS_AES_KEY_ZERO 	(1U << 8) /**< AES key zeroed */
-#define XSECURE_CSU_AES_STS_KUP_ZEROED 		(1U << 9) /**< KUP key Zeroed */
-#define XSECURE_CSU_AES_STS_BOOT_KEY_ZERO   (1U << 10) /**< Boot Key zeroed */
-#define XSECURE_CSU_AES_STS_OKR_ZERO (1U << 11) /**< Operational Key zeroed */
+#define XSECURE_CSU_AES_STS_AES_BUSY	(1U << 0) /**< AES busy */
+#define XSECURE_CSU_AES_STS_AES_READY	(1U << 1)
+					/**< Ready to Receive Data */
+#define XSECURE_CSU_AES_STS_AES_DONE	(1U << 2)
+					/**< Operation Complete */
+#define XSECURE_CSU_AES_STS_GCM_TAG_OK	(1U << 3) /**< GCM Tag Passed */
+#define XSECURE_CSU_AES_STS_KEY_INIT_DONE	(1U << 4)
+					/**< Key Initialize */
+#define XSECURE_CSU_AES_STS_AES_KEY_ZERO	(1U << 8)
+					/**< AES key zeroed */
+#define XSECURE_CSU_AES_STS_KUP_ZEROED	(1U << 9) /**< KUP key Zeroed */
+#define XSECURE_CSU_AES_STS_BOOT_KEY_ZERO	(1U << 10)
+					/**< Boot Key zeroed */
+#define XSECURE_CSU_AES_STS_OKR_ZERO 	(1U << 11)
+					/**< Operational Key zeroed */
 
-#define XSECURE_CSU_AES_KEY_SRC_KUP        	(0x0U) /**< KUP key source */
-#define XSECURE_CSU_AES_KEY_SRC_DEV        	(0x1U) /**< Device Key source */
+#define XSECURE_CSU_AES_KEY_SRC_KUP	(0x0U) /**< KUP key source */
+#define XSECURE_CSU_AES_KEY_SRC_DEV	(0x1U) /**< Device Key source */
 
-#define XSECURE_CSU_AES_KEY_LOAD     (1U << 0) /**< Load AES key from Source */
+#define XSECURE_CSU_AES_KEY_LOAD	(1U << 0)
+					/**< Load AES key from Source */
 
-#define XSECURE_CSU_AES_START_MSG    (1U << 0) /**< AES Start message */
+#define XSECURE_CSU_AES_START_MSG	(1U << 0) /**< AES Start message */
 
-#define XSECURE_CSU_AES_KUP_WR     (1U << 0) /**< Direct AES Output to KUP */
-#define XSECURE_CSU_AES_IV_WR      (1U << 1)
-									   /**< Direct AES Output to IV Reg */
+#define XSECURE_CSU_AES_KUP_WR		(1U << 0)
+					/**< Direct AES Output to KUP */
+#define XSECURE_CSU_AES_IV_WR		(1U << 1)
+					/**< Direct AES Output to IV Reg */
 
-#define XSECURE_CSU_AES_RESET        (1U << 0) /**< Reset Value */
+#define XSECURE_CSU_AES_RESET		(1U << 0) /**< Reset Value */
 
-#define XSECURE_CSU_AES_KEY_ZERO     (1U << 0) /**< set AES key to zero */
-#define XSECURE_CSU_AES_KUP_ZERO     (1U << 1) /**< Set KUP Reg. to zero */
+#define XSECURE_CSU_AES_KEY_ZERO	(1U << 0)
+					/**< set AES key to zero */
+#define XSECURE_CSU_AES_KUP_ZERO	(1U << 1)
+					/**< Set KUP Reg. to zero */
 
-#define XSECURE_CSU_AES_CFG_DEC      (0x0U) /**< AES mode Decrypt */
-#define XSECURE_CSU_AES_CFG_ENC      (0x1U) /**< AES Mode Encrypt */
+#define XSECURE_CSU_AES_CFG_DEC		(0x0U) /**< AES mode Decrypt */
+#define XSECURE_CSU_AES_CFG_ENC		(0x1U) /**< AES Mode Encrypt */
 
-#define XSECURE_CSU_KUP_WR           (1U << 0) /**< Direct output to KUP */
-#define XSECURE_CSU_IV_WR            (1U << 4) /**< image length mismatch */
+#define XSECURE_CSU_KUP_WR		(1U << 0)
+					/**< Direct output to KUP */
+#define XSECURE_CSU_IV_WR		(1U << 4)
+					/**< image length mismatch */
 
-/*
- * Error Codes and Statuses
- */
-#define XSECURE_CSU_AES_DECRYPTION_DONE		0U
-											/**< AES Decryption successful */
-#define XSECURE_CSU_AES_GCM_TAG_MISMATCH	1U /**< user provided GCM tag does
-												   not match calculated tag */
-#define XSECURE_CSU_AES_IMAGE_LEN_MISMATCH  2U /**< image length mismatch */
+/* Error Codes and Statuses */
+#define XSECURE_CSU_AES_DECRYPTION_DONE	(0U)
+					/**< AES Decryption successful */
+#define XSECURE_CSU_AES_GCM_TAG_MISMATCH	(1U)
+					/**< user provided GCM tag does
+						not match calculated tag */
+#define XSECURE_CSU_AES_IMAGE_LEN_MISMATCH	(2U)
+					/**< image length mismatch */
 
-#define XSECURE_SECURE_HDR_SIZE        	(48U)
-										/**< Secure Header Size in Bytes*/
-#define XSECURE_SECURE_GCM_TAG_SIZE    	(16U) /**< GCM Tag Size in Bytes */
+#define XSECURE_SECURE_HDR_SIZE		(48U)
+					/**< Secure Header Size in Bytes*/
+#define XSECURE_SECURE_GCM_TAG_SIZE	(16U) /**< GCM Tag Size in Bytes */
 
 /************************** Type Definitions ********************************/
 
@@ -159,35 +171,20 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
-/*
- * Initialization Functions
- */
+/* Initialization Functions */
 
 s32  XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
-								   u32 KeySel, u32* Iv,  u32* Key);
+				u32 KeySel, u32* Iv,  u32* Key);
 
-void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr);
-
-/*
- *  Decryption
- */
+/* Decryption */
 u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
-		                       u32 Length);
+				u32 Length);
 
-/*
- *  Encryption
- */
+/* Encryption */
 void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
-		                        u32 Len);
+				u32 Len);
 
-/*
- * Reset
- */
+/* Reset */
 void XSecure_AesReset(XSecure_Aes  *InstancePtr);
-
-/*
- *  Additional configuration
- */
-void XSecure_AesKeyZero(XSecure_Aes *InstancePtr) ;
 
 #endif /* XSECURE_AES_H_ */
