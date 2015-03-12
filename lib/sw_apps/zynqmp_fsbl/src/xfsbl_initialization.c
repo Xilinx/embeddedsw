@@ -515,8 +515,9 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		} break;
 
 		case XFSBL_SD_BOOT_MODE:
+		case XFSBL_EMMC_BOOT_MODE:
 		{
-			XFsbl_Printf(DEBUG_GENERAL,"SD Boot Mode \n\r");
+			XFsbl_Printf(DEBUG_GENERAL,"SD/eMMC Boot Mode \n\r");
 #ifdef XFSBL_SD
 			/**
 			 * Update the deviceops structure with necessary values
@@ -532,22 +533,6 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 				"XFSBL_ERROR_UNSUPPORTED_BOOT_MODE\n\r");
 			Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
 #endif
-		} break;
-
-		case XFSBL_EMMC_BOOT_MODE:
-		{
-			XFsbl_Printf(DEBUG_GENERAL,"eMMC Boot Mode \n\r");
-			/**
-			 * Update the deviceops structure with necessary values
-			 *
-			 */
-
-			/**
-			 * This bootmode is not supported in this release
-			 */
-			XFsbl_Printf(DEBUG_GENERAL,
-					"XFSBL_ERROR_UNSUPPORTED_BOOT_MODE\n\r");
-			Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
 		} break;
 
 		case XFSBL_USB_BOOT_MODE:
