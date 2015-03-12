@@ -678,53 +678,34 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
-	u8 IntrVmChange, IntrPowerState, IntrNoVideo, IntrVBlank,
-		IntrTrainingLost, IntrVideo, IntrInfoPkt, IntrExtPkt,
-		IntrTrainingDone, IntrBwChange, IntrTp1, IntrTp2, IntrTp3;
 
-	/* Determine what kind of interrupt(s) occurred.
-	 * Note: XDP_RX_INTERRUPT_CAUSE is an RC (read-clear) register. */
+	/* Determine what kind of interrupts have occurred.
+	 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
 	IntrStatus = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_RX_INTERRUPT_CAUSE);
-	IntrVmChange = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VM_CHANGE_MASK);
-	IntrPowerState = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_POWER_STATE_MASK);
-	IntrNoVideo = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_NO_VIDEO_MASK);
-	IntrVBlank = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VBLANK_MASK);
-	IntrTrainingLost = (IntrStatus &
-				XDP_RX_INTERRUPT_CAUSE_TRAINING_LOST_MASK);
-	IntrVideo = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK);
-
-	IntrInfoPkt = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_INFO_PKT_MASK);
-	IntrExtPkt = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_EXT_PKT_MASK);
-	IntrTrainingDone = (IntrStatus &
-				XDP_RX_INTERRUPT_CAUSE_TRAINING_DONE_MASK);
-	IntrBwChange = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_BW_CHANGE_MASK);
-	IntrTp1 = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK);
-	IntrTp2 = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP2_MASK);
-	IntrTp3 = (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP3_MASK);
 
 	/* Training pattern 1 has started. */
-	if (IntrTp1) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK) {
 		InstancePtr->RxInstance.IntrTp1Handler(
 			InstancePtr->RxInstance.IntrTp1CallbackRef);
 	}
 	/* Training pattern 2 has started. */
-	if (IntrTp2) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP2_MASK) {
 		InstancePtr->RxInstance.IntrTp2Handler(
 			InstancePtr->RxInstance.IntrTp2CallbackRef);
 	}
 	/* Training pattern 3 has started. */
-	if (IntrTp3) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP3_MASK) {
 		InstancePtr->RxInstance.IntrTp3Handler(
 			InstancePtr->RxInstance.IntrTp3CallbackRef);
 	}
 	/* Training lost - the link has been lost. */
-	if (IntrTrainingLost) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TRAINING_LOST_MASK) {
 		InstancePtr->RxInstance.IntrTrainingLostHandler(
 			InstancePtr->RxInstance.IntrTrainingLostCallbackRef);
 	}
 	/* The link has been trained. */
-	else if (IntrTrainingDone) {
+	else if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TRAINING_DONE_MASK) {
 		InstancePtr->RxInstance.IntrTrainingDoneHandler(
 			InstancePtr->RxInstance.IntrTrainingDoneCallbackRef);
 	}
@@ -733,47 +714,47 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	 * link as indicated by the main stream attributes (MSA) fields. The
 	 * horizontal and vertical resolution parameters are monitored for
 	 * changes. */
-	if (IntrVmChange) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VM_CHANGE_MASK) {
 		InstancePtr->RxInstance.IntrVmChangeHandler(
 			InstancePtr->RxInstance.IntrVmChangeCallbackRef);
 	}
 	/* The VerticalBlanking_Flag in the VB-ID field of the received stream
 	 * indicates the start of the vertical blanking interval. */
-	if (IntrVBlank) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VBLANK_MASK) {
 		InstancePtr->RxInstance.IntrVBlankHandler(
 			InstancePtr->RxInstance.IntrVBlankCallbackRef);
 	}
 	/* The receiver has detected the no-video flags in the VB-ID field after
 	 * active video has been received. */
-	if (IntrNoVideo) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_NO_VIDEO_MASK) {
 		InstancePtr->RxInstance.IntrNoVideoHandler(
 			InstancePtr->RxInstance.IntrNoVideoCallbackRef);
 	}
 	/* A valid video frame is detected on the main link. */
-	else if (IntrVideo) {
+	else if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK) {
 		InstancePtr->RxInstance.IntrVideoHandler(
 			InstancePtr->RxInstance.IntrVideoCallbackRef);
 	}
 
 	/* The transmitter has requested a change in the current power state of
 	 * the receiver core. */
-	if (IntrPowerState) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_POWER_STATE_MASK) {
 		InstancePtr->RxInstance.IntrPowerStateHandler(
 			InstancePtr->RxInstance.IntrPowerStateCallbackRef);
 	}
 	/* A change in the bandwidth has been detected. */
-	if (IntrBwChange) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_BW_CHANGE_MASK) {
 		InstancePtr->RxInstance.IntrBwChangeHandler(
 			InstancePtr->RxInstance.IntrBwChangeCallbackRef);
 	}
 
 	/* An audio info packet has been received. */
-	if (IntrInfoPkt) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_INFO_PKT_MASK) {
 		InstancePtr->RxInstance.IntrInfoPktHandler(
 			InstancePtr->RxInstance.IntrInfoPktCallbackRef);
 	}
 	/* An audio extension packet has been received. */
-	if (IntrExtPkt) {
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_EXT_PKT_MASK) {
 		InstancePtr->RxInstance.IntrExtPktHandler(
 			InstancePtr->RxInstance.IntrExtPktCallbackRef);
 	}
