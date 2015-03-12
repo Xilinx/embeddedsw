@@ -29,55 +29,40 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+#ifndef PM_PERIPH_H_
+#define PM_PERIPH_H_
 
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+#include "pm_slave.h"
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+/*********************************************************************
+ * Macros
+ ********************************************************************/
+/*
+ * Standard slave states (used for generic slaves with trivial on/off)
+ * These slaves have no machanisms for controlling their own state, and their
+ * off state is controlled by the power parent state.
+ */
+#define PM_STD_SLAVE_STATE_OFF  0U
+#define PM_STD_SLAVE_STATE_ON   1U
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+/* Always-on slaves, have only one state */
+#define PM_AON_SLAVE_STATE      0U
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+/*********************************************************************
+ * Structure definitions
+ ********************************************************************/
+typedef struct PmSlaveTtc {
+	PmSlave slv;
+} PmSlaveTtc;
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+typedef struct PmSlaveSata {
+	PmSlave slv;
+} PmSlaveSata;
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
+/*********************************************************************
+ * Global data declarations
+ ********************************************************************/
+extern PmSlaveTtc pmSlaveTtc0_g;
+extern PmSlaveSata pmSlaveSata_g;
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif

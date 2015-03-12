@@ -30,54 +30,26 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
+/*********************************************************************
+ * PM callbacks interface.
+ * Used by the power management to send a message to the PM master and
+ * generate interrupt using IPI.
+ *********************************************************************/
+
+#ifndef PM_CALLBACKS_H_
+#define PM_CALLBACKS_H_
+
+#include "pm_master.h"
 #include "xil_types.h"
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
+		     const u32 status, const u32 oppoint);
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
+		const u32 event, const u32 oppoint);
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+void PmInitSuspendCb(const PmMaster* const master, const PmNodeId nodeId,
+		     const u32 reason, const u32 latency, const u32 state,
+		     const u32 timeout);
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
-
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif

@@ -31,53 +31,73 @@
 ******************************************************************************/
 
 #include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+#include "xpfw_util.h"
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
-
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
-
-XStatus XPfw_Main(void)
+void XPfw_UtilRMW(u32 RegAddress, u32 Mask, u32 Value)
 {
-	XStatus Status;
+	u32 l_Val;
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+	l_Val = Xil_In32(RegAddress);
+	l_Val = (l_Val & (~Mask)) | (Mask & Value);
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
+	Xil_Out32(RegAddress, l_Val);
+}
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
+XStatus XPfw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
+{
+	u32 l_RegValue;
+	u32 TimeOut = TimeOutCount;
+	/**
+	 * Read the Register value
+	 */
+	l_RegValue = Xil_In32(RegAddress);
+	/**
+	 * Loop while the MAsk is not set or we timeout
+	 */
+	while(((l_RegValue & Mask) != Mask) && (TimeOut > 0U)){
+		/**
+		 * Latch up the Register value again
+		 */
+		l_RegValue = Xil_In32(RegAddress);
+		/**
+		 * Decrement the TimeOut Count
+		 */
+		TimeOut--;
 	}
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
+	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
 
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
+}
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
+XStatus XPfw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
+{
+	u32 l_RegValue;
+	u32 TimeOut = TimeOutCount;
+
+	l_RegValue = Xil_In32(RegAddress);
+	/**
+	 * Loop until all bits defined by mask are cleared
+	 * or we time out
+	 */
+	while (((l_RegValue & Mask) != 0U) && (TimeOut > 0U)) {
+		/**
+		 * Latch up the reg value again
+		 */
+		l_RegValue = Xil_In32(RegAddress);
+		/**
+		 * Decrement the timeout count
+		 */
+		TimeOut--;
 	}
 
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
+	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
+}
+
+void XPfw_UtilWait(u32 TimeOutCount)
+{
+	u32 TimeOut = TimeOutCount;
+	while (TimeOut > 0U) {
+		TimeOut--;
 	}
-	Done:
-	/* Control never comes here */
-	return Status;
 }

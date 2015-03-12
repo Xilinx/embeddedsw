@@ -30,54 +30,46 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+#ifndef XPFW_CORE_H_
+#define XPFW_CORE_H_
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+#include "xpfw_module.h"
+#include "xpfw_scheduler.h"
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+#define XPFW_MAX_MOD_COUNT 4U
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+#define XPFW_CORE_ERR_TASK_MISS
+#define XPFW_CORe_ERR_TASK_NULL
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
+typedef struct {
+	XPfw_Module_t ModList[XPFW_MAX_MOD_COUNT];
+	XPfw_Scheduler_t Scheduler;
+	u8 ModCount;
+	u32 IsReady;
+	u8 Mode;	/**< Mode - Safety Diagnostics Mode / Normal Mode */
+} XPfw_Core_t;
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
+XStatus XPfw_CoreInit(u32 Options);
+XStatus XPfw_CoreConfigure(void);
+XStatus XPfw_CoreDispatchEvent( u32 EventId);
+const XPfw_Module_t *XPfw_CoreCreateMod(void);
+XStatus XPfw_CoreScheduleTask(const XPfw_Module_t *ModPtr, u32 Interval, VoidFunction_t CallbackRef);
+XStatus XPfw_CoreStopScheduler(void);
+XStatus XPfw_CoreLoop(void);
+void XPfw_CorePrintStats(void);
+XStatus XPfw_CoreRegisterEvent(const XPfw_Module_t *ModPtr, u32 EventId);
+XStatus XPfw_CoreDeRegisterEvent(const XPfw_Module_t *ModPtr, u32 EventId);
 
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
+XStatus XPfw_CoreDispatchIpi(u32 IpiNum);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
+void XPfw_CoreTickHandler(void);
+XStatus XPfw_CoreIsReady(void);
 
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
+XStatus XPfw_CoreSetCfgHandler(const XPfw_Module_t *ModPtr, XPfwModCfgInitHandler_t CfgHandler);
+XStatus XPfw_CoreSetEventHandler(const XPfw_Module_t *ModPtr, XPfwModEventHandler_t EventHandler);
+XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t IpiHandler, u32 IpiId);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+
+#endif /* XPFW_CORE_H_ */

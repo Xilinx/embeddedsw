@@ -30,54 +30,25 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
+/*********************************************************************
+ * Contains the function to call for processing a PM API call.
+ * The function (PmProcessRequest) is called from interrupt handler
+ * stubs, implemented in pm_binding files. The request is further
+ * proccessed according to the master that initiated request and
+ * API call's payload read from master's IPI buffer.
+ ********************************************************************/
+
+#ifndef PM_CORE_H_
+#define PM_CORE_H_
+
+#include "pm_api.h"
+#include "pm_master.h"
 #include "xil_types.h"
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+/*********************************************************************
+ * Function declarations
+ ********************************************************************/
+void PmProcessRequest(const PmMaster *const master,
+		      const u32 payload[PAYLOAD_ELEM_CNT]);
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
-
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
-
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
-
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif

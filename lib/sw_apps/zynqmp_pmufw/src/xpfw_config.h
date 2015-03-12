@@ -30,54 +30,32 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+#ifndef XPFW_CONFIG_H_
+#define XPFW_CONFIG_H_
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+/************* User Configurable Options ***************/
+/* Define DEBUG_MODE to enable debug prints on PS_UART */
+#define DEBUG_MODE
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+/* Let the MB sleep when it is Idle in Main Loop */
+#define SLEEP_WHEN_IDLE
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+#ifndef ZYNQMP_XPFW_VERSION
+#define ZYNQMP_XPFW_VERSION "--LOCAL COPY--"
+#endif
+/* Directs the PMU FW to configure UART */
+#define CONFIG_UART
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+/* Enable Power Management Module */
+#define ENABLE_PM
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
+/*
+ * Disable all other mods
+ * User can enable Each of the Optional Modules if required
+ */
+#undef ENABLE_RTC_TEST
+#undef ENABLE_EM
+#undef ENABLE_SCHEDULER
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif /* XPFW_CONFIG_H_ */

@@ -30,54 +30,46 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
+#ifndef XPFW_UTIL_H_
+#define XPFW_UTIL_H_
+
+
 #include "xil_types.h"
+#include "xstatus.h"
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+/**
+ * Read Modify Write a register
+ */
+void XPfw_UtilRMW(u32 RegAddress, u32 Mask, u32 Value);
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+/**
+ * Poll for a set of bits to be set (represented by Mask)
+ * or until we TimeOut
+ * @param RegAddress is the Address of the Register to be polled
+ * @param Mask is the bit mask to poll for in the register value
+ * @param TimeOutCount is the value to count down before return failure
+ */
+XStatus XPfw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+/**
+ * Poll for a set of bits to be cleared (represented by Mask)
+ * or until we TimeOut
+ *
+ * @param RegAddress is the Address of the Register to be polled
+ * @param Mask is the bit mask to poll for in the register value
+ * @param TimeOutCount is the value to count down before return failure
+ */
+XStatus XPfw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
+/**
+ * Wait for a period represented by TimeOut
+ * FIXME: Make it more meaningful. Clock Cycles or MilliSeconds
+ *
+ * @param Timeout is the value to count before we return this function
+ */
+void XPfw_UtilWait(u32 TimeOutCount);
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
 
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif /* XPFW_UTIL_H_ */

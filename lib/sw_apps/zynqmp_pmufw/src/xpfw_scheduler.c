@@ -1,0 +1,192 @@
+/******************************************************************************
+*
+* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
+
+#include "xpfw_scheduler.h"
+
+/**
+ * PMU PIT Clock Frequency and Tick Calculation
+ * TODO: Replace with respective CLK_FREQ from xparameters.h
+ */
+#define PMU_PIT_CLK_FREQ	4000000U
+#define TICK_MILLISECONDS	10U
+#define COUNT_PER_TICK ((PMU_PIT_CLK_FREQ / 1000U)* TICK_MILLISECONDS )
+
+/**
+ * Microblaze IOModule PIT Register Offsets
+ * Used internally in this file
+ */
+#define PIT_PRELOAD_OFFSET  0U
+#define PIT_COUNTER_OFFSET	4U
+#define PIT_CONTROL_OFFSET  8U
+
+XStatus XPfw_SchedulerInit(XPfw_Scheduler_t *SchedPtr, u32 PitBaseAddr)
+{
+	u32 Idx;
+	XStatus Status;
+
+	if (SchedPtr != NULL) {
+		/* Disable all the tasks */
+		for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
+			SchedPtr->TaskList[Idx].Interval = 0U;
+			SchedPtr->TaskList[Idx].Callback = NULL;
+		}
+		SchedPtr->Enabled = FALSE;
+		SchedPtr->PitBaseAddr = PitBaseAddr;
+		SchedPtr->Tick = 0U;
+		XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 0U);
+		/* Successfully completed init */
+		Status = XST_SUCCESS;
+	} else {
+		/* Failed due to NULL pointer to Scheduler */
+		Status = XST_FAILURE;
+	}
+	return Status;
+
+}
+
+XStatus XPfw_SchedulerStart(XPfw_Scheduler_t *SchedPtr)
+{
+
+	XStatus Status;
+
+	if (SchedPtr != NULL) {
+		SchedPtr->Enabled = TRUE;
+
+		XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET,
+				COUNT_PER_TICK);
+		XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 3U);
+		Status = XST_SUCCESS;
+	} else {
+		Status = XST_FAILURE;
+	}
+	return Status;
+}
+
+
+XStatus XPfw_SchedulerStop(XPfw_Scheduler_t *SchedPtr)
+{
+	SchedPtr->Enabled =FALSE;
+
+	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET, 0U );
+	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 0U );
+
+	return XST_SUCCESS;
+}
+
+void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr)
+{
+	/* TODO: Add check to detect task misses */
+	SchedPtr->Tick++;
+}
+
+XStatus XPfw_SchedulerProcess(const XPfw_Scheduler_t *SchedPtr)
+{
+	u32 Idx;
+	XStatus Status;
+	u32 CallCount = 0U;
+	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
+		/* Check if it is valid event */
+		if ((0U != SchedPtr->TaskList[Idx].Interval)
+				&& (NULL != SchedPtr->TaskList[Idx].Callback)) {
+			/* Check if it has triggered */
+			if (0U == (SchedPtr->Tick % SchedPtr->TaskList[Idx].Interval)) {
+				/* Execute the Task */
+				SchedPtr->TaskList[Idx].Callback();
+				CallCount++;
+			}
+		}
+	}
+
+	//fw_printf("%s: %d Tasks were triggered\r\n", __func__, CallCount);
+
+	if (CallCount > 0U) {
+		Status = XST_SUCCESS;
+	} else {
+		/* Failed because non of the tasks were triggered */
+		Status = XST_FAILURE;
+	}
+	return Status;
+}
+
+
+
+XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t Callback)
+{
+	u32 Idx;
+	XStatus Status;
+	/* Get the Next Free Task Index */
+	for(Idx=0U;Idx < XPFW_SCHED_MAX_TASK;Idx++){
+		if(	0U == SchedPtr->TaskList[Idx].Interval){
+			break;
+		}
+	}
+	/* Check if we have reached Max Task limit */
+	if(XPFW_SCHED_MAX_TASK == Idx){
+		Status = XST_FAILURE;
+	}
+	else{
+		/* Add Interval as a factor of TICK_MILLISECONDS */
+		SchedPtr->TaskList[Idx].Interval = MilliSeconds/TICK_MILLISECONDS;
+		SchedPtr->TaskList[Idx].OwnerId = OwnerId;
+		SchedPtr->TaskList[Idx].Callback = Callback;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+
+XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t Callback)
+{
+	u32 Idx;
+	u32 TaskCount = 0;
+	/*Find the Task Index */
+
+	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
+
+		if ((Callback == SchedPtr->TaskList[Idx].Callback)
+				&& (SchedPtr->TaskList[Idx].OwnerId == OwnerId)) {
+			/* Disable task with given Milliseconds param or ALL if Milliseconds=0 */
+			if ((SchedPtr->TaskList[Idx].Interval == MilliSeconds)
+					|| (0U == MilliSeconds)) {
+				SchedPtr->TaskList[Idx].Interval = 0U;
+				SchedPtr->TaskList[Idx].OwnerId = 0U;
+				SchedPtr->TaskList[Idx].Callback = NULL;
+				TaskCount++;
+			}
+		}
+	}
+
+	fw_printf("$s: Removed %d tasks\r\n", __func__, TaskCount);
+
+	return ((TaskCount > 0) ? XST_SUCCESS : XST_FAILURE);
+}

@@ -29,55 +29,42 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+/*********************************************************************
+ * Function declarations to be used for integrating
+ * power management within PMU firmware.
+ *********************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
+#ifndef PM_BINDING_H_
+#define PM_BINDING_H_
+
 #include "xil_types.h"
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+/*********************************************************************
+ * Enum definitions
+ ********************************************************************/
+/* Return status for checking whether IPI interrupt is a PM API call */
+typedef enum {
+	XPFW_PM_IPI_NOT_PM_CALL,
+	XPFW_PM_IPI_IS_PM_CALL,
+	XPFW_PM_IPI_SRC_UNKNOWN,
+} XPfw_PmIpiStatus;
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+/*********************************************************************
+ * Function declarations
+ ********************************************************************/
+/* Initialize power management firmware */
+void XPfw_PmInit(void);
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+/* Check whether the ipi is power management related */
+XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal, u32* const apiId);
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+/* Call from IPI interrupt routine to handle PM API request */
+void XPfw_PmIpiHandler(const u32 isrMask, const u32 apiId);
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
+/* Call from GPI2 interrupt routine to handle processor sleep request */
+void XPfw_PmWfiHandler(const u32 srcMask);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
+/* Call from GPI1 interrupt routine to handle wake request */
+u32 XPfw_PmWakeHandler(const u32 srcMask);
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif

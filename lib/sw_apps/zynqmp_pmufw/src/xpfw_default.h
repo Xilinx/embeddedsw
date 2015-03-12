@@ -30,54 +30,83 @@
 *
 ******************************************************************************/
 
+
+#ifndef XPFW_DEFAULT_H_
+#define XPFW_DEFAULT_H_
+
+
+#include "xpfw_config.h"
+#include "xpfw_codes.h"
+#include "xpfw_util.h"
+
+/* BSP Headers */
 #include "xil_io.h"
-#include "xstatus.h"
 #include "xil_types.h"
+#include "mb_interface.h"
+#include "xstatus.h"
+/* REGDB Headers */
+#include "pmu_local.h"
+#include "pmu_iomodule.h"
+#include "pmu_global.h"
+#include "ipi.h"
+#include "uart0.h"
+#include "uart1.h"
+#include "crl_apb.h"
+#include "lpd_slcr.h"
+#include "rtc.h"
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+/* RAM address used for scrubbing */
+#define PARAM_RAM_LOW_ADDRESS		0Xffdc0000U
+#define PARAM_RAM_HIGH_ADDRESS		0Xffdcff00U
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+/* RAM base address for general usage */
+#define PMU_RAM_BASE_ADDR		0Xffdc0000U
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+/* Register Access Macros */
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
+#define XPfw_Write32(Addr, Value)  Xil_Out32((Addr), (Value))
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
+#define XPfw_Read32(Addr)  Xil_In32((Addr))
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
+#define XPfw_RMW32  XPfw_UtilRMW
 
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
+#define ARRAYSIZE(x)	(u32)(sizeof(x)/sizeof(x[0]))
+/* Custom Flags */
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
+#define MASK_ALL 	0XffffffffU
+#define ENABLE_ALL	0XffffffffU
+#define ALL_HIGH	0XffffffffU
+#define FLAG_ALL	0XffffffffU
 
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#define MASK32_ALL_HIGH	((u32)0xFFFFFFFFU)
+#define MASK32_ALL_LOW	((u32)0x0U)
+
+
+#define YES 0x01U
+#define NO 0x00U
+
+
+#define XPFW_ACCESS_ALLOWED 0x01U
+#define XPFW_ACCESS_DENIED	0x00U
+
+/* Handler Table Structure */
+typedef void (*VoidFunction_t)(void);
+struct HandlerTable{
+	u32 Mask;
+	VoidFunction_t Handler;
+};
+
+
+
+#ifdef DEBUG_MODE
+#define fw_printf xil_printf
+#define fw_print print
+#else
+#define fw_printf(MSG, ...)  {}
+#define fw_print(MSG)  {}
+#endif
+
+
+#endif /* XPFW_DEFAULT_H_ */

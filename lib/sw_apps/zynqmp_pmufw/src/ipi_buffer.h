@@ -30,54 +30,34 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+/*********************************************************************
+ * IPI buffer related definitions.
+ *********************************************************************/
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+#ifndef IPI_BUFFER_H_
+#define IPI_BUFFER_H_
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+#define IPI_BUFFER_BASEADDR     0xFF990000U
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+#define IPI_BUFFER_RPU_0_BASE   (IPI_BUFFER_BASEADDR + 0x0U)
+#define IPI_BUFFER_RPU_1_BASE   (IPI_BUFFER_BASEADDR + 0x200U)
+#define IPI_BUFFER_APU_BASE     (IPI_BUFFER_BASEADDR + 0x400U)
+#define IPI_BUFFER_PL_0_BASE    (IPI_BUFFER_BASEADDR + 0x600U)
+#define IPI_BUFFER_PL_1_BASE    (IPI_BUFFER_BASEADDR + 0x800U)
+#define IPI_BUFFER_PL_2_BASE    (IPI_BUFFER_BASEADDR + 0xA00U)
+#define IPI_BUFFER_PL_3_BASE    (IPI_BUFFER_BASEADDR + 0xC00U)
+#define IPI_BUFFER_PMU_BASE     (IPI_BUFFER_BASEADDR + 0xE00U)
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+#define IPI_BUFFER_TARGET_RPU_0_OFFSET  0x0U
+#define IPI_BUFFER_TARGET_RPU_1_OFFSET  0x40U
+#define IPI_BUFFER_TARGET_APU_OFFSET    0x80U
+#define IPI_BUFFER_TARGET_PL_0_OFFSET   0xC0U
+#define IPI_BUFFER_TARGET_PL_1_OFFSET   0x100U
+#define IPI_BUFFER_TARGET_PL_2_OFFSET   0x140U
+#define IPI_BUFFER_TARGET_PL_3_OFFSET   0x180U
+#define IPI_BUFFER_TARGET_PMU_OFFSET    0x1C0U
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
+#define IPI_BUFFER_REQ_OFFSET   0x0U
+#define IPI_BUFFER_RESP_OFFSET  0x20U
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif

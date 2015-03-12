@@ -30,54 +30,38 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+#ifndef XPFW_SCHEDULER_H_
+#define XPFW_SCHEDULER_H_
 
-#include "xpfw_version.h"
+
 #include "xpfw_default.h"
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+#define XPFW_SCHED_MAX_TASK	10U
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
+typedef void (*XPfw_Callback_t) (void);
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
+struct XPfw_Task_t{
+	u32 Interval;
+	u32 OwnerId;
+	XPfw_Callback_t Callback;
+};
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
+typedef struct {
+	struct XPfw_Task_t TaskList[XPFW_SCHED_MAX_TASK];
+	u32 TaskCount;
+	u32 PitBaseAddr;
+	u32 Tick;
+	u32 Enabled;
+} XPfw_Scheduler_t ;
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
 
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
+void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr);
+XStatus XPfw_SchedulerInit(XPfw_Scheduler_t *SchedPtr, u32 PitBaseAddr);
+XStatus XPfw_SchedulerStart(XPfw_Scheduler_t *SchedPtr);
+XStatus XPfw_SchedulerStop(XPfw_Scheduler_t *SchedPtr);
+XStatus XPfw_SchedulerProcess(const XPfw_Scheduler_t *SchedPtr);
+XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t Callback);
+XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t Callback);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif /* XPFW_SCHEDULER_H_ */

@@ -29,37 +29,67 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
 		.section .vectors.reset, "ax"
 		.align 2
 _vector_reset:
 		brai    XPfw_Init
+/* TBD: Implement SW Exception Handler and update the vector */
+		.section .vectors.sw_exception, "ax"
+		.align 2
 
-		/* FW StartUP Begins Here: Initialization of the Stack and Stack Protection. */
+_vector_sw_exception:
+	brai	XPfw_Exception
+
+		.section .vectors.interrupt, "ax"
+		.align 2
+_vector_interrupt:
+	brai	XPfw_InterruptHandler
+
+/* TBD: Implement HW Exception Handler and update the vector */
+		.section .vectors.hw_exception, "ax"
+		.align 2
+_vector_hw_exception:
+		brai	XPfw_Exception
+
+/* FW StartUP Begins Here: Initialization of the Stack and Stack Protection. */
 		.section .text
 		.globl XPfw_Init
 		.align 2
 		.ent XPfw_Init
 		.type XPfw_Init, @function
 XPfw_Init:
-		/* PMU Firmware does not reuse the ROM Stack. FW uses a separate stack of 4k (can be changed by user) */
+		/*
+		 *PMU Firmware does not reuse the ROM Stack. FW uses a speprate stack of 4k (can be changed by user)
+		 */
 
 		/* Stack Initialization */
-		addik	r1,     r0,     _stack      /* R1 is stack pointer, load Stack's highest address into SP. */
-		addik	r13,    r0,     _SDA_BASE_  /* The read-write small data anchor address */
-		addik	r2,     r0,     _SDA2_BASE_ /* The read-only small data anchor address */
+		addik	r1,		r0,		_stack		/* R1 is stack pointer, load Stack's highest address into SP. */
+		addik	r13,	r0,		_SDA_BASE_	/* The read-write small data anchor address */
+		addik	r2,		r0,		_SDA2_BASE_	/* The read-only small data anchor address */
 
 
 		/* Stack Protection */
-		addik   r11,    r0,     _stack     /* Load  Stack's highest address into temp R11 */
-		mts     rshr,   r11                 /* Store Stack's highest address into STACK_HIGH_REGISTER */
-		addik   r11,    r0,     _stack_end  /* Load  Stack's lowest address into temp R11 */
-		mts     rslr,   r11                 /* Store Stack's lowest address into STACK_LOW_REGISTER */
+		addik	r11,	r0,		_stack		/* Load  Stack's highest address into temp R11 */
+		mts		rshr,	r11					/* Store Stack's highest address into STACK_HIGH_REGISTER */
+		addik	r11,	r0,		_stack_end  /* Load  Stack's lowest address into temp R11 */
+		mts		rslr,	r11					/* Store Stack's lowest address into STACK_LOW_REGISTER */
 
-		/* Call Main */
+		/* Call Main*/
 		brlid	r15, XPfw_Main
 		nop
 		/* Control never comes here */
 		bri 0
 		nop
 		.end XPfw_Init
+
+/* Exception Handler */
+		.section .text
+		.globl XPfw_Exception
+		.align 2
+		.ent XPfw_Exception
+		.type XPfw_Exception, @function
+XPfw_Exception:
+/* For now, just keep looping here. Its easier to debug */
+		bri 0
+		nop
+		.end XPfw_Exception

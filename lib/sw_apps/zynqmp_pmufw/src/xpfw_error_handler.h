@@ -30,54 +30,37 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+#ifndef XPFW_ERROR_HANDLER_H_
+#define XPFW_ERROR_HANDLER_H_
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+void XPfw_ErrorHandlerInit(void);
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+void XPfw_ErrorHandlerOne(void);
+void XPfw_ErrorHandlerTwo(void);
 
-XStatus XPfw_Main(void)
-{
-	XStatus Status;
+void XPfw_ErrorEccDdr(void);
+void XPfw_ErrorEccOcm(void);
+void XPfw_ErrorRpu0(void);
+void XPfw_ErrorRpu1(void);
+void XPfw_ErrorLpdTemp(void);
+void XPfw_ErrorFpdTemp(void);
+void XPfw_ErrorRpuLockStep(void);
+void XPfw_ErrorRpuCcf(void);
+void XPfw_ErrorLpdSwdt(void);
+void XPfw_ErrorFpdSwdt(void);
+void XPfw_ErrorPowerSupply(void);
+void XPfw_ErrorXmpu(void);
+void XPfw_ErrorTimeOut(void);
+void XPfw_ErrorPL(void);
+void XPfw_ErrorPLL(void);
+void XPfw_ErrorCsu(void);
+void XPfw_ErrorPmuUncorrectable(void);
+void XPfw_ErrorPmuFw(void);
+void XPfw_ErrorPmuServiceMode(void);
+void XPfw_ErrorPmuPreBoot(void);
+void XPfw_ErrorCsuRom(void);
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
 
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
 
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
-	}
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
-}
+#endif /* XPFW_ERROR_HANDLER_H_ */

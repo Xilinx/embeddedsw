@@ -30,54 +30,60 @@
 *
 ******************************************************************************/
 
-#include "xil_io.h"
-#include "xstatus.h"
-#include "xil_types.h"
+/*********************************************************************
+ * Global array of all nodes, and GetbyId function
+ *********************************************************************/
 
-#include "xpfw_version.h"
-#include "xpfw_default.h"
+#include "pm_node.h"
+#include "pm_power.h"
+#include "pm_proc.h"
+#include "pm_slave.h"
+#include "pm_sram.h"
+#include "pm_usb.h"
+#include "pm_periph.h"
 
-#include "xpfw_core.h"
-#include "xpfw_user_startup.h"
-#include "xpfw_platform.h"
+static PmNode* const pmNodes[NODE_MAX] = {
+	&pmApuProcs_g[PM_PROC_APU_0].node,
+	&pmApuProcs_g[PM_PROC_APU_1].node,
+	&pmApuProcs_g[PM_PROC_APU_2].node,
+	&pmApuProcs_g[PM_PROC_APU_3].node,
+	&pmRpuProcs_g[PM_PROC_RPU_0].node,
+	&pmRpuProcs_g[PM_PROC_RPU_1].node,
+	&pmPowerIslandRpu_g.node,
+	&pmPowerIslandApu_g.node,
+	&pmPowerDomainFpd_g.node,
+	&pmSlaveL2_g.slv.node,
+	&pmSlaveOcm0_g.slv.node,
+	&pmSlaveOcm1_g.slv.node,
+	&pmSlaveOcm2_g.slv.node,
+	&pmSlaveOcm3_g.slv.node,
+	&pmSlaveTcm0A_g.slv.node,
+	&pmSlaveTcm0B_g.slv.node,
+	&pmSlaveTcm1A_g.slv.node,
+	&pmSlaveTcm1B_g.slv.node,
+	&pmSlaveUsb0_g.slv.node,
+	&pmSlaveUsb1_g.slv.node,
+	&pmSlaveTtc0_g.slv.node,
+	&pmSlaveSata_g.slv.node,
+};
 
-XStatus XPfw_Main(void)
+/**
+ * PmGetNodeById() - Find node that matches a given node ID
+ * @nodeId      ID of the node to find
+ *
+ * @returns     Pointer to PmNode structure (or NULL if not found)
+ */
+PmNode* PmGetNodeById(const u32 nodeId)
 {
-	XStatus Status;
+	u32 i;
+	PmNode* node = NULL;
 
-	/* Start the Init Routine */
-	XPfw_PlatformInit();
-	fw_printf("PMU Firmware %s\t%s   %s\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
-	/* TODO: Print ROM version */
-
-	/* Initialize the FW Core Object */
-	Status = XPfw_CoreInit(0U);
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
-		goto Done;
+	for (i=0; i < NODE_MAX; i++) {
+		if (pmNodes[i]->nodeId == nodeId) {
+			node = pmNodes[i];
+			break;
+		}
 	}
 
-	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
-	XPfw_UserStartUp();
-
-	/* Configure the Modules. Calls CfgInit Handlers of all modules */
-	Status = XPfw_CoreConfigure();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
-		goto Done;
-	}
-
-	/* Wait to Service the Requests */
-	Status = XPfw_CoreLoop();
-
-	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
-		goto Done;
-	}
-	Done:
-	/* Control never comes here */
-	return Status;
+	return node;
 }

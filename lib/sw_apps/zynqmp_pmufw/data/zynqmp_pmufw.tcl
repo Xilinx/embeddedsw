@@ -31,57 +31,57 @@
 #******************************************************************************/
 
 proc swapp_get_name {} {
-    return "ZynqMP PMU Firmware";
+	return "ZynqMP PMU Firmware";
 }
 
 proc swapp_get_description {} {
-    return "Platform Management Unit Firmware for ZynqMP.";
+	return "Platform Management Unit Firmware for ZynqMP.";
 }
 
 proc check_standalone_os {} {
-    set oslist [get_os];
+	set oslist [get_os];
 
-    if { [llength $oslist] != 1 } {
-        return 0;
-    }
-    set os [lindex $oslist 0];
+	if { [llength $oslist] != 1 } {
+		return 0;
+	}
+	set os [lindex $oslist 0];
 
-    if { $os != "standalone" } {
-        error "This application is supported only on the Standalone Board Support Package.";
-    }
+	if { $os != "standalone" } {
+		error "This application is supported only on the Standalone Board Support Package.";
+	}
 }
 
 proc swapp_is_supported_sw {} {
-     return 1;
+	return 1;
 }
 
 proc swapp_is_supported_hw {} {
+	# check processor type
+	set proc_instance [get_sw_processor];
+	set hw_processor [get_property HW_INSTANCE $proc_instance]
+	set proc_type [get_property IP_NAME [get_cells $hw_processor]];
 
-    # check processor type
-    set proc_instance [get_sw_processor];
-    set hw_processor [get_property HW_INSTANCE $proc_instance]
+	if {($proc_type != "psu_microblaze")} {
+		error "This application is supported only for PMU Microblaze processor (psu_microblaze).";
+	}
 
-    set proc_type [get_property IP_NAME [get_cells $hw_processor]];
-
-    if {($proc_type != "psu_microblaze") && ($proc_type != "microblaze")} {
-	error "This application is supported only for PMU Microblaze processor (psu_microblaze).";
-    }
-
-    return 1;
+	return 1;
 }
 
 proc get_stdout {} {
-    set os [get_os];
-    set stdout [get_property CONFIG.STDOUT $os];
-    return $stdout;
+	set os [get_os];
+	set stdout [get_property CONFIG.STDOUT $os];
+	return $stdout;
 }
 
 proc swapp_generate {} {
-	# Nothing to be done here for now
+	# PMU Firmware uses its own startup file. so set the -nostartfiles flag
+	set_property  -name APP_LINKER_FLAGS -value {-nostartfiles} -objects [current_sw_design]
+	# Set PMU Microblaze HW related compiler flags
+	set_property  -name APP_COMPILER_FLAGS -value {-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul} -objects [current_sw_design]
 }
 
 proc swapp_get_linker_constraints {} {
-
-    # don't generate a linker script. PMU Firmware has its own linker script
-    return "lscript no";
+	# don't generate a linker script. PMU Firmware has its own linker script
+	return "lscript no";
 }
