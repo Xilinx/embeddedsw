@@ -89,18 +89,18 @@ static u32 HeaderFsblLenOffset = 0x03C;
 
 #define	XSECURE_AUTH_CERT_USER_DATA			(64 - XSECURE_AUTH_HEADER_SIZE)
 
-#define XSECURE_AUTH_CERT_MIN_SIZE			 (XSECURE_AUTH_HEADER_SIZE 	\
-											+ XSECURE_AUTH_CERT_USER_DATA 	\
-											+ XSECURE_PPK_SIZE 			\
-											+ XSECURE_PPK_SIZE 			\
-											+ XSECURE_SPK_SIG_SIZE 		\
-											+ XSECURE_BHDR_SIG_SIZE 		\
-											+ XSECURE_FSBL_SIG_SIZE)
+#define XSECURE_AUTH_CERT_MIN_SIZE		(XSECURE_AUTH_HEADER_SIZE 	\
+						+ XSECURE_AUTH_CERT_USER_DATA 	\
+						+ XSECURE_PPK_SIZE 	\
+						+ XSECURE_PPK_SIZE 	\
+						+ XSECURE_SPK_SIG_SIZE 	\
+						+ XSECURE_BHDR_SIG_SIZE	\
+						+ XSECURE_FSBL_SIG_SIZE)
 
-#define XSECURE_AUTH_CERT_MAX_SIZE			(XSECURE_AUTH_CERT_MIN_SIZE + 60)
+#define XSECURE_AUTH_CERT_MAX_SIZE		(XSECURE_AUTH_CERT_MIN_SIZE + 60)
 
-#define XSECURE_PARTIAL_AC_SIZE				(XSECURE_AUTH_CERT_MIN_SIZE -  \
-											 XSECURE_FSBL_SIG_SIZE)
+#define XSECURE_PARTIAL_AC_SIZE			(XSECURE_AUTH_CERT_MIN_SIZE -  \
+						 XSECURE_FSBL_SIG_SIZE)
 
 #define XSECURE_IMAGE_VERIF_ERROR                (2)
 /**************************** Type Definitions *******************************/
@@ -131,7 +131,7 @@ u8 XSecure_RsaSha3Array[XSECURE_FSBL_SIG_SIZE];
 * @note		None
 *
 ******************************************************************************/
-/*int main(void)
+int main(void)
 {
 	u32 Status;
 
@@ -147,7 +147,7 @@ u8 XSecure_RsaSha3Array[XSECURE_FSBL_SIG_SIZE];
 	xil_printf(" \r\n ");
 
 	return XST_SUCCESS;
-}*/
+}
 
 /****************************************************************************/
 /**
@@ -186,10 +186,10 @@ u32 SecureRsaExample(void)
 	xil_printf(" \r\n ");
 
 	u32 TotalFsblLength = XSecure_In32((u32 *)(ImageOffset +
-									   HeaderFsblTotalLenOffset));
+					HeaderFsblTotalLenOffset));
 
 	u32 FsblLength = XSecure_In32((u32 *)(ImageOffset +
-										   HeaderFsblLenOffset));
+					HeaderFsblLenOffset));
 
 	u32 AcLocation = FsblLocation + TotalFsblLength - XSECURE_AUTH_CERT_MIN_SIZE;
 
@@ -254,7 +254,7 @@ u32 SecureRsaExample(void)
 	* Calculate FSBL Hash
 	*/
 	XSecure_Sha3Update(&Secure_Sha3, (u8 *)FsblLocation,
-								     FsblTotalLen);
+					FsblTotalLen);
 
 	XSecure_Sha3Finish(&Secure_Sha3, (u8 *)BIHash);
 
@@ -262,13 +262,14 @@ u32 SecureRsaExample(void)
 	 * Initialize the Rsa driver so that it's ready to use
 	 * Look up the configuration in the config table and then initialize it.
 	 */
-	XSecure_RsaInitialize(&Secure_Rsa, AcPtr, SpkModular, SpkModularEx,
-						  (u8 *)&SpkExp);
+	XSecure_RsaInitialize(&Secure_Rsa, SpkModular, SpkModularEx,
+					(u8 *)&SpkExp);
 
 	/*
 	 * Decrypt Boot Image Signature.
 	 */
-	if(XST_SUCCESS != XSecure_RsaDecrypt(&Secure_Rsa, XSecure_RsaSha3Array))
+	if(XST_SUCCESS != XSecure_RsaDecrypt(&Secure_Rsa, AcPtr,
+						XSecure_RsaSha3Array))
 	{
 		ErrorCode = XSECURE_IMAGE_VERIF_ERROR;
 		goto ENDF;
@@ -293,7 +294,7 @@ u32 SecureRsaExample(void)
 	/*
 	 * Authenticate FSBL Signature.
 	 */
-	if(XSecure_RsaCheckPadding(XSecure_RsaSha3Array, BIHash,
+	if(XSecure_RsaSignVerification(XSecure_RsaSha3Array, BIHash,
 			                   XSECURE_HASH_TYPE_SHA3) != 0)
 	{
 		ErrorCode = XSECURE_IMAGE_VERIF_ERROR;

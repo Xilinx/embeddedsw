@@ -100,14 +100,14 @@ XCsuDma CsuDma;
 * @note		None
 *
 ******************************************************************************/
-/*int main(void)
+int main(void)
 {
 	int Status;
 
 	Status = SecureHelloWorldExample();
 
 	return Status;
-}*/
+}
 
 /****************************************************************************/
 /**
