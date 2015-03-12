@@ -98,13 +98,15 @@ proc swapp_generate {} {
     # generate/copy ps init files
     ::hsi::utils::generate_psinit
 
-    #delete unnecessary files (only psu_init.c & psu_init.h are needed for FSBL)
+    #delete unnecessary files
 
     set files(0) "psu_init.html"
     set files(1) "psu_init.tcl"
     set files(2) "psu_init_gpl.c"
     set files(3) "psu_init_gpl.h"
     set files(4) "psu_pmucfg.c"
+    set files(5) "psu_clock_registers.log"
+    set files(6) "Makefile"
 
     foreach init_file [array get files] {
         file delete -force $init_file
@@ -114,8 +116,27 @@ proc swapp_generate {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [get_cells $hw_processor]];
 
+    # based on the CPU (A53 or R5),
+    # remove unnecesary linker script and retain just one: lscript.ld
+    # set the compiler flags
     if { $proc_type == "psu_cortexr5" } {
-        set_property -name {APP_COMPILER_FLAGS} -value {-mcpu=cortex-r5} -objects [current_sw_design ]
+        set ld_file_a53 "lscript_a53.ld"
+        file delete -force $ld_file_a53
+
+        set_property -name {APP_COMPILER_FLAGS} \
+        -value {-Wall -O0 -g3 -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp} \
+        -objects [current_sw_design ]
+    } else {
+        set ld_file "lscript.ld"
+        file delete -force $ld_file
+
+        set ld_file_a53 "lscript_a53.ld"
+        set ld_file_new "lscript.ld"
+        file rename -force $ld_file_a53 $ld_file_new
+
+        set_property -name {APP_COMPILER_FLAGS} \
+        -value {-Wall -O0 -g3 -fmessage-length=0 -DXFSBL_A53} \
+        -objects [current_sw_design ]
     }
 }
 
