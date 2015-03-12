@@ -66,9 +66,8 @@ proc execs_generate {libhandle} {
 
 proc xgen_opts_file {libhandle} {
 
-
 	# Copy the include files to the include directory
-	set srcdir [file join src include]
+	set srcdir src
 	set dstdir [file join .. .. include]
 
 	# Create dstdir if it does not exist
@@ -77,7 +76,7 @@ proc xgen_opts_file {libhandle} {
 	}
 
 	# Get list of files in the srcdir
-	set sources [file -join $srcdir *.h]
+	set sources [glob -join $srcdir *.h]
 
 	# Copy each of the files in the list to dstdir
 	foreach source $sources {
