@@ -43,7 +43,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
-*
+* 2.00  sg   12/03/15 Added GQSPI driver support
+*                     32Bit boot mode support
 * </pre>
 *
 * @note
@@ -70,26 +71,33 @@ extern "C" {
  * The following constants define the commands which may be sent to the FLASH
  * device.
  */
-#define FAST_READ_CMD		(0x0BU)
-#define DUAL_READ_CMD		(0x3BU)
-#define QUAD_READ_CMD		(0x6BU)
-#define READ_ID_CMD			(0x9FU)
+#define READ_ID_CMD				(0x9FU)
+#define FAST_READ_CMD_24BIT		(0x0BU)
+#define	DUAL_READ_CMD_24BIT		(0x3BU)
+#define QUAD_READ_CMD_24BIT		(0x6BU)
+#define FAST_READ_CMD_32BIT		(0x0CU)
+#define DUAL_READ_CMD_32BIT		(0x3CU)
+#define QUAD_READ_CMD_32BIT		(0x6CU)
+
 
 #define WRITE_ENABLE_CMD	(0x06U)
-#define BANK_REG_RD			(0x16U)
-#define BANK_REG_WR			(0x17U)
+#define BANK_REG_RD_CMD		(0x16U)
+#define BANK_REG_WR_CMD		(0x17U)
 /* Bank register is called Extended Address Reg in Micron */
-#define EXTADD_REG_RD		(0xC8U)
-#define EXTADD_REG_WR		(0xC5U)
+#define EXTADD_REG_RD_CMD	(0xC8U)
+#define EXTADD_REG_WR_CMD	(0xC5U)
 
 #define COMMAND_OFFSET		(0U) /* FLASH instruction */
 #define ADDRESS_1_OFFSET	(1U) /* MSB byte of address to read or write */
 #define ADDRESS_2_OFFSET	(2U) /* Middle byte of address to read or write */
-#define ADDRESS_3_OFFSET	(3U) /* LSB byte of address to read or write */
+#define ADDRESS_3_OFFSET	(3U) /* Middle byte of address to read or write */
+#define ADDRESS_4_OFFSET	(4U) /* LSB byte of address to read or write */
 #define DATA_OFFSET			(4U) /* Start of Data for Read/Write */
 #define DUMMY_OFFSET		(4U) /* Dummy byte offset for fast, dual and quad
 				     reads */
 #define DUMMY_SIZE			(1U) /* Number of dummy bytes for fast, dual and
+				     quad reads */
+#define DUMMY_CLOCKS		8 /* Number of dummy bytes for fast, dual and
 				     quad reads */
 #define RD_ID_SIZE			(4U) /* Read ID command + 3 bytes ID response */
 #define BANK_SEL_SIZE		(2U) /* BRWR or EARWR command + 1 byte bank value */
@@ -102,11 +110,9 @@ extern "C" {
 #define OVERHEAD_SIZE		(4U)
 
 /*
- * The following constants specify the max amount of data and the size of the
- * the buffer required to hold the data and overhead to transfer the data to
- * and from the FLASH.
+ * Max limit of single DMA transfer is 512MB
  */
-#define DATA_SIZE		(4096U)
+#define DMA_DATA_TRAN_SIZE		(0x20000000U)
 
 /*
  * The following defines are for dual flash interface.
@@ -120,7 +126,7 @@ extern "C" {
 
 #define DUAL_QSPI_PARALLEL_IO_CONFIG_QUAD_READ	\
 					(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | \
-					 XQSPIPS_LQSPI_CR_SEP_BUS_MASK | \
+					 XQspiPsu_LQSPI_CR_SEP_BUS_MASK | \
 					 LQSPI_CR_1_DUMMY_BYTE | \
 					 LQSPI_CR_FAST_QUAD_READ)
 
@@ -180,6 +186,9 @@ extern "C" {
 u32 XFsbl_Qspi24Init(void );
 u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_Qspi24Release(void );
+u32 XFsbl_Qspi32Init(void );
+u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
+u32 XFsbl_Qspi32Release(void );
 
 /************************** Variable Definitions *****************************/
 

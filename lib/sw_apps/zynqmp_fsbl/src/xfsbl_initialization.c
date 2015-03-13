@@ -43,6 +43,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
+* 2.00  sg   13/03/15 Added QSPI 32Bit bootmode
 *
 * </pre>
 *
@@ -457,8 +458,8 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 
 		case XFSBL_QSPI24_BOOT_MODE:
 		{
-#ifdef XFSBL_QSPI
 			XFsbl_Printf(DEBUG_GENERAL,"QSPI 24bit Boot Mode \n\r");
+#ifdef XFSBL_QSPI
 			/**
 			 * Update the deviceops structure with necessary values
 			 */
@@ -479,18 +480,24 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		case XFSBL_QSPI32_BOOT_MODE:
 		{
 			XFsbl_Printf(DEBUG_GENERAL,"QSPI 32 bit Boot Mode \n\r");
+#ifdef XFSBL_QSPI
 			/**
 			 * Update the deviceops structure with necessary values
 			 *
 			 */
-
+            FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_Qspi32Init;
+			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_Qspi32Copy;
+			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_Qspi32Release;
+#else
 			/**
 			 * This bootmode is not supported in this release
 			 */
 			XFsbl_Printf(DEBUG_GENERAL,
 					"XFSBL_ERROR_UNSUPPORTED_BOOT_MODE\n\r");
 			Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
-		}break;
+#endif
+        }
+        break;
 
 		case XFSBL_NAND_BOOT_MODE:
 		{
