@@ -83,6 +83,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.0   hk  08/21/14 First release
+*       sk  03/13/15 Added IO mode support.
 *
 * </pre>
 *
@@ -246,6 +247,7 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus);
 int XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options);
 int XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options);
 u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr);
+int XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode);
 
 #ifdef __cplusplus
 }

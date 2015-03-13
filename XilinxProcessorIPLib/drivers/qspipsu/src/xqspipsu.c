@@ -43,6 +43,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
+*       sk  03/13/15 Added IO mode support.
 *
 * </pre>
 *
@@ -72,6 +73,8 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr);
 static inline int XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, int Index);
 static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr);
+static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
+			XQspiPsu_Msg *Msg, int Size);
 
 /************************** Variable Definitions *****************************/
 
@@ -118,9 +121,7 @@ int XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		return XST_DEVICE_IS_STARTED;
 	}
 
-	/*
-	 * Set some default values.
-	 */
+	/* Set some default values. */
 	InstancePtr->IsBusy = FALSE;
 
 	InstancePtr->Config.BaseAddress = EffectiveAddr + XQSPIPSU_OFFSET;
@@ -175,14 +176,10 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/*
-	 * Abort any transfer that is in progress
-	 */
+	/* Abort any transfer that is in progress */
 	XQspiPsu_Abort(InstancePtr);
 
-	/*
-	 * Default value to config register
-	 */
+	/* Default value to config register */
 	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_CFG_OFFSET);
 
@@ -246,9 +243,7 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
 void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 {
 
-	/*
-	 * Clear and disable interrupts
-	 */
+	/* Clear and disable interrupts */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_ISR_OFFSET,
 		XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
@@ -256,18 +251,14 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_IDR_OFFSET, XQSPIPSU_IDR_ALL_MASK);
 
-	/*
-	 * Clear FIFO
-	 */
+	/* Clear FIFO */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_FIFO_CTRL_OFFSET,
 		XQSPIPSU_FIFO_CTRL_RST_RX_FIFO_MASK |
 		XQSPIPSU_FIFO_CTRL_RST_TX_FIFO_MASK |
 		XQSPIPSU_FIFO_CTRL_RST_GEN_FIFO_MASK);
 
-	/*
-	 * Disable QSPIPSU
-	 */
+	/* Disable QSPIPSU */
 	XQspiPsu_Disable(InstancePtr);
 
 	InstancePtr->TxBytes = 0;
@@ -304,16 +295,15 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	u32 QspiPsuStatusReg, DmaStatusReg;
 	u32 BaseAddress;
 	int Status;
+	u32 RxThr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	for(Index = 0; Index < NumMsg; Index++) {
+	for (Index = 0; Index < NumMsg; Index++) {
 		Xil_AssertNonvoid(Msg[Index].ByteCount > 0);
 	}
 
-	/*
-	 * Check whether there is another transfer in progress. Not thread-safe
-	 */
+	/* Check whether there is another transfer in progress. Not thread-safe */
 	if (InstancePtr->IsBusy) {
 		return XST_DEVICE_BUSY;
 	}
@@ -336,14 +326,14 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
 
 	/* list */
-	for(Index = 0; Index < NumMsg; Index++) {
+	for (Index = 0; Index < NumMsg; Index++) {
 
 		Status = XQspiPsu_GenFifoEntryData(InstancePtr, Msg, Index);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 
-		if(IsManualStart) {
+		if (IsManualStart) {
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 				XQspiPsu_ReadReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET) |
@@ -357,7 +347,7 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 						XQSPIPSU_ISR_OFFSET);
 
 			/* Transmit more data if left */
-			if((QspiPsuStatusReg & XQSPIPSU_ISR_TXNOT_FULL_MASK) &&
+			if ((QspiPsuStatusReg & XQSPIPSU_ISR_TXNOT_FULL_MASK) &&
 				(Msg[Index].TxBfrPtr != NULL) &&
 				(InstancePtr->TxBytes > 0)) {
 				XQspiPsu_FillTxFifo(InstancePtr, &Msg[Index],
@@ -365,8 +355,9 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			}
 
 			/* Check if DMA RX is complete and update RxBytes */
-			if(Msg[Index].RxBfrPtr != NULL) {
-				if(!(XQspiPsu_ReadReg(BaseAddress,
+			if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
+				(Msg[Index].RxBfrPtr != NULL)) {
+				if (!(XQspiPsu_ReadReg(BaseAddress,
 					XQSPIPSU_QSPIDMA_DST_STS_OFFSET) &
 					XQSPIPSU_QSPIDMA_DST_STS_BUSY_MASK)) {
 					XQspiPsu_WriteReg(BaseAddress,
@@ -376,36 +367,46 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 							XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK);
 					InstancePtr->RxBytes = 0;
 				}
+			} else if (Msg[Index].RxBfrPtr != NULL) {
+				/* Check if PIO RX is complete and update RxBytes */
+				RxThr = XQspiPsu_ReadReg(BaseAddress,
+						XQSPIPSU_RX_THRESHOLD_OFFSET);
+				if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK)
+								!= 0U) {
+					XQspiPsu_ReadRxFifo(InstancePtr,
+							&Msg[Index], RxThr);
+
+				} else if ((QspiPsuStatusReg &
+					XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0U) {
+					    XQspiPsu_ReadRxFifo(InstancePtr,
+						    &Msg[Index], InstancePtr->RxBytes);
+				}
 			}
-		} while((!(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK)) ||
+		} while (!(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) ||
 			(InstancePtr->TxBytes != 0) ||
-			(!(QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK)) ||
+			!(QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) ||
 			(InstancePtr->RxBytes != 0));
 	}
 
 	/* De-select slave */
 	XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 
-	if(IsManualStart) {
+	if (IsManualStart) {
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
 				XQSPIPSU_CFG_START_GEN_FIFO_MASK);
 	}
 
 	QspiPsuStatusReg = XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_ISR_OFFSET);
-	while(!(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK)) {
+	while (!(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK)) {
 		QspiPsuStatusReg = XQspiPsu_ReadReg(BaseAddress,
 						XQSPIPSU_ISR_OFFSET);
 	}
 
-	/*
-	 * Clear the busy flag.
-	 */
+	/* Clear the busy flag. */
 	InstancePtr->IsBusy = FALSE;
 
-	/*
-	 * Disable the device.
-	 */
+	/* Disable the device. */
 	XQspiPsu_Disable(InstancePtr);
 
 	return XST_SUCCESS;
@@ -442,13 +443,11 @@ int XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	for(Index = 0; Index < NumMsg; Index++) {
+	for (Index = 0; Index < NumMsg; Index++) {
 		Xil_AssertNonvoid(Msg[Index].ByteCount > 0);
 	}
 
-	/*
-	 * Check whether there is another transfer in progress. Not thread-safe
-	 */
+	/* Check whether there is another transfer in progress. Not thread-safe */
 	if (InstancePtr->IsBusy) {
 		return XST_DEVICE_BUSY;
 	}
@@ -477,11 +476,11 @@ int XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* This might not work if not manual start */
 	/* Put first message in FIFO along with the above slave select */
 	Status = XQspiPsu_GenFifoEntryData(InstancePtr, Msg, 0);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
-	if(IsManualStart) {
+	if (IsManualStart) {
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
 				XQSPIPSU_CFG_START_GEN_FIFO_MASK);
@@ -489,11 +488,13 @@ int XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	/* Enable interrupts */
 	XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IER_OFFSET,
-			XQSPIPSU_IER_TXNOT_FULL_MASK |
-			XQSPIPSU_IER_TXEMPTY_MASK |
-			XQSPIPSU_IER_GENFIFOEMPTY_MASK);
-	XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_QSPIDMA_DST_I_EN_OFFSET,
-			XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
+		XQSPIPSU_IER_TXNOT_FULL_MASK | XQSPIPSU_IER_TXEMPTY_MASK |
+		XQSPIPSU_IER_RXNEMPTY_MASK | XQSPIPSU_IER_GENFIFOEMPTY_MASK);
+
+	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_QSPIDMA_DST_I_EN_OFFSET,
+				XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
+	}
 
 	return XST_SUCCESS;
 }
@@ -521,6 +522,7 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	int NumMsg;
 	int MsgCnt;
 	u8 DeltaMsgCnt = 0;
+	u32 RxThr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -534,14 +536,15 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 
 	/* QSPIPSU Intr cleared on read */
 	QspiPsuStatusReg = XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_ISR_OFFSET);
-	/* DMA Intr write to clear */
-	DmaIntrStatusReg = XQspiPsu_ReadReg(BaseAddress,
+	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+		/* DMA Intr write to clear */
+		DmaIntrStatusReg = XQspiPsu_ReadReg(BaseAddress,
 					XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
 
-	XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET,
-			DmaIntrStatusReg);
-
-	if((QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) ||
+		XQspiPsu_WriteReg(BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrStatusReg);
+	}
+	if ((QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) ||
 		(DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK)) {
 		/* Call status handler to indicate error */
 		InstancePtr->StatusHandler(InstancePtr->StatusRef,
@@ -549,7 +552,7 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	}
 
 	/* Fill more data to be txed if required */
-	if((MsgCnt < NumMsg) && (Msg[MsgCnt].TxBfrPtr != NULL) &&
+	if ((MsgCnt < NumMsg) && (Msg[MsgCnt].TxBfrPtr != NULL) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_TXNOT_FULL_MASK) &&
 		(InstancePtr->TxBytes > 0)) {
 		XQspiPsu_FillTxFifo(InstancePtr, &Msg[MsgCnt],
@@ -560,7 +563,7 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	 * Check if the entry is ONLY TX and increase MsgCnt.
 	 * This is to allow TX and RX together in one entry - corner case.
 	 */
-	if((MsgCnt < NumMsg) && (Msg[MsgCnt].TxBfrPtr != NULL) &&
+	if ((MsgCnt < NumMsg) && (Msg[MsgCnt].TxBfrPtr != NULL) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) &&
 		(InstancePtr->TxBytes == 0) &&
@@ -569,11 +572,30 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		DeltaMsgCnt = 1;
 	}
 
-	if((MsgCnt < NumMsg) && (Msg[MsgCnt].RxBfrPtr != NULL) &&
-		(DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)) {
+	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA &&
+		(MsgCnt < NumMsg) && (Msg[MsgCnt].RxBfrPtr != NULL)) {
+		if ((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)) {
 		InstancePtr->RxBytes = 0;
 		MsgCnt += 1;
 		DeltaMsgCnt = 1;
+	} else if ((MsgCnt < NumMsg) && (Msg[MsgCnt].RxBfrPtr != NULL)) {
+		RxThr = XQspiPsu_ReadReg(BaseAddress,
+					XQSPIPSU_RX_THRESHOLD_OFFSET);
+		if (InstancePtr->RxBytes != 0) {
+			if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK)
+							!= 0) {
+				XQspiPsu_ReadRxFifo(InstancePtr, &Msg[MsgCnt],
+					RxThr);
+			} else if ((QspiPsuStatusReg &
+				XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0) {
+				XQspiPsu_ReadRxFifo(InstancePtr, &Msg[MsgCnt],
+					InstancePtr->RxBytes);
+			}
+			if (InstancePtr->RxBytes == 0) {
+				MsgCnt += 1;
+				DeltaMsgCnt = 1;
+			}
+		}
 	}
 
 	/*
@@ -582,7 +604,7 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	 * If one of the above conditions increased MsgCnt, then
 	 * the new message is yet to be placed in the FIFO; hence !DeltaMsgCnt.
 	 */
-	if((MsgCnt < NumMsg) && !DeltaMsgCnt &&
+	if ((MsgCnt < NumMsg) && !DeltaMsgCnt &&
 		(Msg[MsgCnt].RxBfrPtr == NULL) &&
 		(Msg[MsgCnt].TxBfrPtr == NULL) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK)) {
@@ -596,20 +618,20 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	 * while tx is still not empty or rx dma is not yet done.
 	 * MsgCnt > NumMsg indicates CS de-assert entry was also executed.
 	 */
-	if((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) &&
+	if ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) &&
 		(DeltaMsgCnt || (MsgCnt > NumMsg))) {
-		if(MsgCnt < NumMsg) {
+		if (MsgCnt < NumMsg) {
 			/* This might not work if not manual start */
 			XQspiPsu_GenFifoEntryData(InstancePtr, Msg, MsgCnt);
 
-			if(IsManualStart) {
+			if (IsManualStart) {
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET,
 					XQspiPsu_ReadReg(BaseAddress,
 						XQSPIPSU_CFG_OFFSET) |
 						XQSPIPSU_CFG_START_GEN_FIFO_MASK);
 			}
-		} else if(MsgCnt == NumMsg) {
+		} else if (MsgCnt == NumMsg) {
 			/* This is just to keep track of the de-assert entry */
 			MsgCnt += 1;
 			InstancePtr->MsgCnt = MsgCnt;
@@ -617,7 +639,7 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			/* De-select slave */
 			XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 
-			if(IsManualStart) {
+			if (IsManualStart) {
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET,
 					XQspiPsu_ReadReg(BaseAddress,
@@ -629,18 +651,18 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
 					XQSPIPSU_IER_TXNOT_FULL_MASK |
 					XQSPIPSU_IER_TXEMPTY_MASK |
+					XQSPIPSU_IER_RXNEMPTY_MASK |
 					XQSPIPSU_IER_GENFIFOEMPTY_MASK);
-			XQspiPsu_WriteReg(BaseAddress,
+			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_QSPIDMA_DST_I_DIS_OFFSET,
 					XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
-			/*
-			 * Clear the busy flag.
-			 */
+			}
+
+			/* Clear the busy flag. */
 			InstancePtr->IsBusy = FALSE;
 
-			/*
-			 * Disable the device.
-			 */
+			/* Disable the device. */
 			XQspiPsu_Disable(InstancePtr);
 
 			/* Call status handler to indicate completion */
@@ -740,7 +762,7 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 {
 	u32 Mask;
-	switch(SpiMode) {
+	switch (SpiMode) {
 		case XQSPIPSU_SELECT_MODE_DUALSPI:
 			Mask = XQSPIPSU_GENFIFO_MODE_DUALSPI;
 			break;
@@ -777,7 +799,7 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Transmit */
-	if((Msg->TxBfrPtr != NULL) && (Msg->RxBfrPtr == NULL)) {
+	if ((Msg->TxBfrPtr != NULL) && (Msg->RxBfrPtr == NULL)) {
 		/* Setup data to be TXed */
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_TX;
@@ -789,7 +811,7 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	}
 
 	/* Receive */
-	if((Msg->TxBfrPtr == NULL) && (Msg->RxBfrPtr != NULL)) {
+	if ((Msg->TxBfrPtr == NULL) && (Msg->RxBfrPtr != NULL)) {
 		/* TX auto fill */
 		*GenFifoEntry &= ~XQSPIPSU_GENFIFO_TX;
 		InstancePtr->TxBytes = 0;
@@ -797,11 +819,13 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
 		InstancePtr->RxBytes = Msg->ByteCount;
-		XQspiPsu_SetupRxDma(InstancePtr, Msg);
+		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+			XQspiPsu_SetupRxDma(InstancePtr, Msg);
+		}
 	}
 
 	/* If only dummy is requested as a separate entry */
-	if((Msg->TxBfrPtr == NULL) && (Msg->RxBfrPtr == NULL)) {
+	if ((Msg->TxBfrPtr == NULL) && (Msg->RxBfrPtr == NULL)) {
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
 		InstancePtr->TxBytes = 0;
@@ -809,14 +833,16 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	}
 
 	/* Dummy and cmd sent by upper layer to received data */
-	if((Msg->TxBfrPtr != NULL) && (Msg->RxBfrPtr != NULL)) {
+	if ((Msg->TxBfrPtr != NULL) && (Msg->RxBfrPtr != NULL)) {
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry |= (XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
 		InstancePtr->TxBytes = Msg->ByteCount;
 		InstancePtr->RxBytes = Msg->ByteCount;
 		XQspiPsu_FillTxFifo(InstancePtr, Msg, XQSPIPSU_TXD_DEPTH);
 		/* Add check for DMA or PIO here */
-		XQspiPsu_SetupRxDma(InstancePtr, Msg);
+		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+			XQspiPsu_SetupRxDma(InstancePtr, Msg);
+		}
 	}
 }
 
@@ -844,7 +870,7 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Msg->TxBfrPtr != NULL);
 
-	while((InstancePtr->TxBytes > 0) && (Count < Size)) {
+	while ((InstancePtr->TxBytes > 0) && (Count < Size)) {
 		Data = *((u32*)Msg->TxBfrPtr);
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_TXD_OFFSET, Data);
@@ -852,7 +878,7 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 		InstancePtr->TxBytes -= 4;
 		Count++;
 	}
-	if(InstancePtr->TxBytes < 0)
+	if (InstancePtr->TxBytes < 0)
 		InstancePtr->TxBytes = 0;
 }
 
@@ -879,14 +905,15 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Msg->RxBfrPtr != NULL);
 
-	AddrTemp = (u64)(Msg->RxBfrPtr) & XQSPIPSU_QSPIDMA_DST_ADDR_MASK;
+	AddrTemp = (u64)(INTPTR)(Msg->RxBfrPtr) &
+				XQSPIPSU_QSPIDMA_DST_ADDR_MASK;
 	/* Check for RXBfrPtr to be word aligned */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET,
 			(u32)AddrTemp);
 
 	AddrTemp = AddrTemp >> 32;
-	if(AddrTemp & 0xFFF) {
+	if (AddrTemp & 0xFFF) {
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 				(u32)AddrTemp &
@@ -895,7 +922,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 
 	Remainder = InstancePtr->RxBytes % 4;
 	DmaRxBytes = InstancePtr->RxBytes;
-	if(Remainder != 0) {
+	if (Remainder != 0) {
 		/* This is done to make Dma bytes aligned */
 		DmaRxBytes = InstancePtr->RxBytes + 4 - Remainder;
 		/* Handle remaining bytes with IO or DMA to local buffer */
@@ -960,6 +987,8 @@ static inline int XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 {
 	u32 GenFifoEntry;
 	u32 BaseAddress;
+	int TempCount;
+	int ImmData;
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
 
@@ -973,39 +1002,32 @@ static inline int XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 	GenFifoEntry |= InstancePtr->GenFifoBus;
 
 	/* Data */
-	if(Msg[Index].Flags & XQSPIPSU_MSG_FLAG_STRIPE)
+	if (Msg[Index].Flags & XQSPIPSU_MSG_FLAG_STRIPE)
 		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
 	else
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
 
 	XQspiPsu_TXRXSetup(InstancePtr, &Msg[Index], &GenFifoEntry);
 
-	if(Msg[Index].ByteCount < XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
+	if (Msg[Index].ByteCount < XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_IMM_DATA_MASK;
 		GenFifoEntry |= Msg[Index].ByteCount;
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_GEN_FIFO_OFFSET,
 				GenFifoEntry);
 	} else {
-		int TempCount = Msg[Index].ByteCount;
+		TempCount = Msg[Index].ByteCount;
 		u32 Exponent = 8;	/* 2^8 = 256 */
 
 		/* Check for ByteCount upper limit - 2^28 for DMA */
-		if(TempCount > XQSPIPSU_DMA_BYTES_MAX) {
+		if (TempCount > XQSPIPSU_DMA_BYTES_MAX) {
 			return XST_FAILURE;
 		}
 
-		/* Immediate entry */
-		if(TempCount & 0xFF) {
-			GenFifoEntry &= ~XQSPIPSU_GENFIFO_IMM_DATA_MASK;
-			GenFifoEntry |= TempCount & 0xFF;
-			XQspiPsu_WriteReg(BaseAddress,
-				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
-		}
-
+		ImmData = TempCount & 0xFF;
 		/* Exponent entries */
 		GenFifoEntry |= XQSPIPSU_GENFIFO_EXP;
-		while(TempCount != 0) {
-			if(TempCount & XQSPIPSU_GENFIFO_EXP_START) {
+		while (TempCount != 0) {
+			if (TempCount & XQSPIPSU_GENFIFO_EXP_START) {
 				GenFifoEntry &= ~XQSPIPSU_GENFIFO_IMM_DATA_MASK;
 				GenFifoEntry |= Exponent;
 				XQspiPsu_WriteReg(BaseAddress,
@@ -1014,6 +1036,15 @@ static inline int XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			}
 			TempCount = TempCount >> 1;
 			Exponent++;
+		}
+
+		/* Immediate entry */
+		GenFifoEntry &= ~XQSPIPSU_GENFIFO_EXP;
+		if (ImmData & 0xFF) {
+			GenFifoEntry &= ~XQSPIPSU_GENFIFO_IMM_DATA_MASK;
+			GenFifoEntry |= ImmData & 0xFF;
+			XQspiPsu_WriteReg(BaseAddress,
+				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 		}
 	}
 
@@ -1048,4 +1079,48 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
 
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+}
+
+/*****************************************************************************/
+/**
+*
+* Read the specified number of bytes from RX FIFO
+*
+* @param	InstancePtr is a pointer to the XQspiPsu instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+* @param	Size is the number of bytes to be read.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
+					XQspiPsu_Msg *Msg, int Size)
+{
+	int Count = 0;
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Msg != NULL);
+
+	while (InstancePtr->RxBytes != 0 && Count < Size) {
+		Data = XQspiPsu_ReadReg(InstancePtr->
+				Config.BaseAddress, XQSPIPSU_RXD_OFFSET);
+		if (InstancePtr->RxBytes >= 4) {
+			*(u32 *)Msg->RxBfrPtr = Data;
+			InstancePtr->RxBytes -= 4;
+			Msg->RxBfrPtr += 4;
+			Count += 4;
+		} else {
+			/* Read unaligned bytes (< 4 bytes) */
+			while (InstancePtr->RxBytes != 0) {
+				*Msg->RxBfrPtr = Data;
+				InstancePtr->RxBytes--;
+				Msg->RxBfrPtr++;
+				Count++;
+				Data >>= 8;
+			}
+		}
+	}
 }

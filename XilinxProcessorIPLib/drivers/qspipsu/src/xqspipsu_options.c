@@ -43,6 +43,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
+*       sk  03/13/15 Added IO mode support.
 *
 * </pre>
 *
@@ -240,9 +241,7 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 				      XQSPIPSU_CFG_OFFSET);
 
-	/*
-	 * Loop through the options table to grab options
-	 */
+	/* Loop through the options table to grab options */
 	for (Index = 0; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
 		if (ConfigReg & OptionsTable[Index].Mask) {
 			OptionsFlag |= OptionsTable[Index].Option;
@@ -334,7 +333,7 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 	 */
 
 	/* Choose slave select line */
-	switch(FlashCS) {
+	switch (FlashCS) {
 		case XQSPIPSU_SELECT_FLASH_CS_BOTH:
 			InstancePtr->GenFifoCS = XQSPIPSU_GENFIFO_CS_LOWER |
 						XQSPIPSU_GENFIFO_CS_UPPER;
@@ -348,7 +347,7 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 	}
 
 	/* Choose bus */
-	switch(FlashBus) {
+	switch (FlashBus) {
 		case XQSPIPSU_SELECT_FLASH_BUS_BOTH:
 			InstancePtr->GenFifoBus = XQSPIPSU_GENFIFO_BUS_LOWER |
 						XQSPIPSU_GENFIFO_BUS_UPPER;
@@ -360,4 +359,57 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 		default:
 			InstancePtr->GenFifoBus = XQSPIPSU_GENFIFO_BUS_LOWER;
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the Read mode for the QSPIPSU device driver.The device
+* must be idle rather than busy transferring data before setting Read mode
+* options.
+*
+* @param	InstancePtr is a pointer to the XQspiPsu instance.
+* @param	Mode contains the specified Mode to be set. See the
+* 		bit definitions named XQSPIPSU_READMODE_* in the file xqspipsu.h.
+*
+* @return
+*		- XST_SUCCESS if options are successfully set.
+*		- XST_DEVICE_BUSY if the device is currently transferring data.
+*		The transfer must complete or be aborted before setting Mode.
+*
+* @note
+* This function is not thread-safe.
+*
+******************************************************************************/
+int XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
+{
+	u32 ConfigReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/*
+	 * Do not allow to modify the Control Register while a transfer is in
+	 * progress. Not thread-safe.
+	 */
+	if (InstancePtr->IsBusy) {
+		return XST_DEVICE_BUSY;
+	}
+
+	InstancePtr->ReadMode = Mode;
+
+	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				      XQSPIPSU_CFG_OFFSET);
+
+	if (Mode == XQSPIPSU_READMODE_DMA) {
+		ConfigReg &= ~XQSPIPSU_CFG_MODE_EN_MASK;
+		ConfigReg |= XQSPIPSU_CFG_MODE_EN_DMA_MASK;
+	} else {
+		ConfigReg &= ~XQSPIPSU_CFG_MODE_EN_MASK;
+	}
+
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+			 ConfigReg);
+
+	return XST_SUCCESS;
 }
