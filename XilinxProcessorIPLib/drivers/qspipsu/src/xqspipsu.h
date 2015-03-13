@@ -165,6 +165,7 @@ typedef struct {
 	u32 GenFifoBus;
 	int NumMsg;
 	int MsgCnt;
+	int IsUnaligned;
 	XQspiPsu_Msg *Msg;
 	XQspiPsu_StatusHandler StatusHandler;
 	void *StatusRef;  	 /**< Callback reference for status handler */

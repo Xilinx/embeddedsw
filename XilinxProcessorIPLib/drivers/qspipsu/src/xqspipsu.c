@@ -138,6 +138,7 @@ int XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 	InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
 	InstancePtr->GenFifoCS = XQSPIPSU_GENFIFO_CS_LOWER;
 	InstancePtr->GenFifoBus = XQSPIPSU_GENFIFO_BUS_LOWER;
+	InstancePtr->IsUnaligned = 0;
 
 	/* Select QSPIPSU */
 	XQspiPsu_Select(InstancePtr);
@@ -328,6 +329,7 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* list */
 	for (Index = 0; Index < NumMsg; Index++) {
 
+GENFIFO:
 		Status = XQspiPsu_GenFifoEntryData(InstancePtr, Msg, Index);
 		if (Status != XST_SUCCESS) {
 			return Status;
@@ -365,6 +367,21 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 						XQspiPsu_ReadReg(BaseAddress,
 							XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET) |
 							XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK);
+					/* Read remaining bytes using IO mode */
+					if(InstancePtr->RxBytes % 4 != 0 ) {
+						XQspiPsu_WriteReg(BaseAddress,
+							XQSPIPSU_CFG_OFFSET,
+							(XQspiPsu_ReadReg(BaseAddress,
+							XQSPIPSU_CFG_OFFSET) &
+							~XQSPIPSU_CFG_MODE_EN_MASK));
+						InstancePtr->ReadMode = XQSPIPSU_READMODE_IO;
+						Msg[Index].ByteCount =
+							(InstancePtr->RxBytes % 4);
+						Msg[Index].RxBfrPtr += (InstancePtr->RxBytes -
+								(InstancePtr->RxBytes % 4));
+						InstancePtr->IsUnaligned = 1;
+						goto GENFIFO;
+					}
 					InstancePtr->RxBytes = 0;
 				}
 			} else if (Msg[Index].RxBfrPtr != NULL) {
@@ -386,6 +403,16 @@ int XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			(InstancePtr->TxBytes != 0) ||
 			!(QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) ||
 			(InstancePtr->RxBytes != 0));
+
+		if(InstancePtr->IsUnaligned) {
+			InstancePtr->IsUnaligned = 0;
+			XQspiPsu_WriteReg(BaseAddress,
+				XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
+				BaseAddress,
+				XQSPIPSU_CFG_OFFSET) |
+				XQSPIPSU_CFG_MODE_EN_DMA_MASK));
+			InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
+		}
 	}
 
 	/* De-select slave */
@@ -575,9 +602,33 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA &&
 		(MsgCnt < NumMsg) && (Msg[MsgCnt].RxBfrPtr != NULL)) {
 		if ((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)) {
-		InstancePtr->RxBytes = 0;
-		MsgCnt += 1;
-		DeltaMsgCnt = 1;
+				/* Read remaining bytes using IO mode */
+			if(InstancePtr->RxBytes % 4 != 0 ) {
+				XQspiPsu_WriteReg(BaseAddress,
+					XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
+					BaseAddress, XQSPIPSU_CFG_OFFSET) &
+					~XQSPIPSU_CFG_MODE_EN_MASK));
+				InstancePtr->ReadMode = XQSPIPSU_READMODE_IO;
+				Msg[MsgCnt].ByteCount = (InstancePtr->RxBytes % 4);
+				Msg[MsgCnt].RxBfrPtr += (InstancePtr->RxBytes -
+						(InstancePtr->RxBytes % 4));
+				InstancePtr->IsUnaligned = 1;
+				XQspiPsu_GenFifoEntryData(InstancePtr, Msg,
+						MsgCnt);
+				if(IsManualStart) {
+					XQspiPsu_WriteReg(BaseAddress,
+						XQSPIPSU_CFG_OFFSET,
+						XQspiPsu_ReadReg(BaseAddress,
+						XQSPIPSU_CFG_OFFSET) |
+						XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+				}
+			}
+			else {
+				InstancePtr->RxBytes = 0;
+				MsgCnt += 1;
+				DeltaMsgCnt = 1;
+			}
+		}
 	} else if ((MsgCnt < NumMsg) && (Msg[MsgCnt].RxBfrPtr != NULL)) {
 		RxThr = XQspiPsu_ReadReg(BaseAddress,
 					XQSPIPSU_RX_THRESHOLD_OFFSET);
@@ -621,6 +672,15 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	if ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) &&
 		(DeltaMsgCnt || (MsgCnt > NumMsg))) {
 		if (MsgCnt < NumMsg) {
+			if(InstancePtr->IsUnaligned) {
+				InstancePtr->IsUnaligned = 0;
+				XQspiPsu_WriteReg(InstancePtr->Config.
+					BaseAddress, XQSPIPSU_CFG_OFFSET,
+					(XQspiPsu_ReadReg(InstancePtr->Config.
+					BaseAddress, XQSPIPSU_CFG_OFFSET) |
+					XQSPIPSU_CFG_MODE_EN_DMA_MASK));
+				InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
+			}
 			/* This might not work if not manual start */
 			XQspiPsu_GenFifoEntryData(InstancePtr, Msg, MsgCnt);
 
@@ -924,8 +984,8 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 	DmaRxBytes = InstancePtr->RxBytes;
 	if (Remainder != 0) {
 		/* This is done to make Dma bytes aligned */
-		DmaRxBytes = InstancePtr->RxBytes + 4 - Remainder;
-		/* Handle remaining bytes with IO or DMA to local buffer */
+		DmaRxBytes = InstancePtr->RxBytes - Remainder;
+		Msg->ByteCount = DmaRxBytes;
 	}
 
 	/* Write no. of words to DMA DST SIZE */
