@@ -69,7 +69,7 @@
  */
 #define CSUDMA_DEVICE_ID  XPAR_XCSUDMA_0_DEVICE_ID /* CSU DMA device Id */
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define INTG_CSUDMA_INTR_DEVICE_ID 	102+32 /**< Interrupt device ID
+#define INTG_CSUDMA_INTR_DEVICE_ID 	XPAR_XCSUDMA_INTR /**< Interrupt device ID
 						 *  of CSU DMA device ID */
 
 #define CSU_SSS_CONFIG_OFFSET	0x008		/**< CSU SSS_CFG Offset */
