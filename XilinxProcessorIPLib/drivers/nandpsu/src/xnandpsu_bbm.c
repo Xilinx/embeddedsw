@@ -1031,7 +1031,7 @@ s32 XNandPsu_MarkBlockBad(XNandPsu *InstancePtr, u32 Block)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumBlocks);
 
-	Target = Block % InstancePtr->Geometry.NumTargetBlocks;
+	Target = Block / InstancePtr->Geometry.NumTargetBlocks;
 
 	BlockOffset = Block >> XNANDPSU_BBT_BLOCK_SHIFT;
 	BlockShift = XNandPsu_BbtBlockShift(Block);
