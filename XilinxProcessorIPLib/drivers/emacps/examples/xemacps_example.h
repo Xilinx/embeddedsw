@@ -51,6 +51,7 @@
 * 1.01a asa  02/27/12 Hash define added for EMACPS_SLCR_DIV_MASK.
 * 1.05a asa  09/22/13 The EthernetFrame is made cache line aligned (32 bytes).
 *					  Fix for CR #663885.
+* 3.0   hk   02/20/15 Increase array sizes to add support for jumbo frames.
 * </pre>
 *
 *****************************************************************************/
@@ -94,10 +95,10 @@
  */
 #ifdef __ICCARM__
 #pragma data_alignment = 64
-typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE];
+typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO];
 #pragma data_alignment = 4
 #else
-typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE]
+typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO]
 	__attribute__ ((aligned(64)));
 #endif
 

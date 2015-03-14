@@ -104,6 +104,7 @@
 * 2.1	srt 07/11/14 Implemented 64-bit changes and modified as per
 *		      Zynq Ultrascale Mp GEM specification
 * 3.0  kpc  01/23/14 Removed PEEP board related code
+* 3.0  hk   02/20/15 Added support for jumbo frames.
 *
 * </pre>
 *
@@ -160,7 +161,7 @@ EthernetFrame RxFrame;		/* Receive buffer */
  * uncached by setting the attributes appropriately in the MMU table.
  */
 #define RX_BD_LIST_START_ADDRESS	0x0FF00000
-#define TX_BD_LIST_START_ADDRESS	0x0FF10000
+#define TX_BD_LIST_START_ADDRESS	0x0FF70000
 
 #define FIRST_FRAGMENT_SIZE 64
 
@@ -314,6 +315,10 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
+	/* Enable jumbo frames for zynqmp */
+	if (GemVersion > 2) {
+		XEmacPs_SetOptions(EmacPsInstancePtr, XEMACPS_JUMBO_ENABLE_OPTION);
+	}
 
 	if (GemVersion == 2)
 	{
@@ -551,6 +556,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	LONG Status;
 	u32 PayloadSize = 1000;
 	u32 NumRxBuf = 0;
+	u32 RxFrLen;
 	XEmacPs_Bd *Bd1Ptr;
 	XEmacPs_Bd *BdRxPtr;
 
@@ -561,6 +567,9 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	FramesTx = 0;
 	DeviceErrors = 0;
 
+	if (GemVersion > 2) {
+		PayloadSize = (7168-14);
+	}
 	/*
 	 * Calculate the frame length (not including FCS)
 	 */
@@ -728,7 +737,13 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	 * receive lengthi against the transmitted length, then verify
 	 * the data.
 	 */
-	if ((XEmacPs_BdGetLength(BdRxPtr)) != TxFrameLength) {
+	if (GemVersion > 2) {
+		/* API to get correct RX frame size - jumbo or otherwise */
+		RxFrLen = XEmacPs_GetRxFrameSize(EmacPsInstancePtr, BdRxPtr);
+	} else {
+		RxFrLen = XEmacPs_BdGetLength(BdRxPtr);
+	}
+	if (RxFrLen != TxFrameLength) {
 		EmacPsUtilErrorTrap("Length mismatch");
 		return XST_FAILURE;
 	}
