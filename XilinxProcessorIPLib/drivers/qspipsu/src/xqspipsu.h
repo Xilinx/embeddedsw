@@ -40,7 +40,8 @@
 * pushed with appropriate configuration. The controller provides TX and RX
 * FIFO's and a DMA to be used for RX transfers. The controller executes each
 * GENFIFO entry noting the configuration and places data on the bus as required
-* The differen options in GENFIFO are as follows:
+*
+* The different options in GENFIFO are as follows:
 * IMM_DATA : Can be one byte of data to be transmitted, number of clocks or
 *            number of bytes in transfer.
 * DATA_XFER : Indicates that data/clocks need to be transmitted or received.
@@ -56,10 +57,11 @@
 * Poll : Polls response to match for to a set value (used along with POLL_CFG
 *        registers) and then proceeds to next GENFIFO entry.
 *        This feature is not currently used in the driver.
+*
 * GENFIFO has manual and auto start options.
 * All DMA requests need a 4-byte aligned destination address buffer and
 * size of transfer should also be a multiple of 4.
-* This driver currently only supports DMA RX and no IO RX.
+* This driver supports DMA RX and IO RX.
 *
 * Initialization:
 * This driver uses the GQSPI controller with RX DMA. It supports both

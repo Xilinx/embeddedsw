@@ -311,7 +311,8 @@ int XQspiPsu_SetClkPrescaler(XQspiPsu *InstancePtr, u8 Prescaler)
 * between communicating to different flahs devices/using different configs.
 *
 * @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Prescaler - clock prescaler to be set.
+* @param	FlashCS - Flash Chip Select.
+* @param	FlashBus - Flash Bus (Upper, Lower or Both).
 *
 * @return
 *		- XST_SUCCESS if successful.
