@@ -305,7 +305,7 @@
  *                    configured with PCS/PMA Core. Changes are made in the
  *		       test app tcl(CR:827686).
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
- * 3.0   hk   02/20/15 Added support for jumbo frames.
+ * 3.0   hk   02/20/15 Added support for jumbo frames. Increase AHB burst.
  * </pre>
  *
  ****************************************************************************/

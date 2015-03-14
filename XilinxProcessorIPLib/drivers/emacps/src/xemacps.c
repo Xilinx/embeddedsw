@@ -47,7 +47,7 @@
 * 2.1  srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification and
 *		      64-bit changes.
 * 3.00 kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
-* 3.0  hk   02/20/15 Added support for jumbo frames.
+* 3.0  hk   02/20/15 Added support for jumbo frames. Increase AHB burst.
 *
 * </pre>
 ******************************************************************************/
@@ -352,7 +352,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 #ifdef __aarch64__
 			(u32)XEMACPS_DMACR_ADDR_WIDTH_64 |
 #endif
-			(u32)XEMACPS_DMACR_INCR4_AHB_BURST));
+			(u32)XEMACPS_DMACR_INCR16_AHB_BURST));
 	}
 #if EXTENDED_DESC_MODE
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
