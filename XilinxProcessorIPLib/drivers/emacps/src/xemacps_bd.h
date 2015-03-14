@@ -65,6 +65,8 @@
  *		       changes.
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
  * 3.0   hk   02/20/15 Added support for jumbo frames.
+ *                     Disable extended mode. Perform all 64 bit changes under
+ *                     check for arch64.
  *
  * </pre>
  *
@@ -88,11 +90,9 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 #ifdef __aarch64__
-#define EXTENDED_DESC_MODE 1
 /* Minimum BD alignment */
 #define XEMACPS_DMABD_MINIMUM_ALIGNMENT  64U
 #else
-#define EXTENDED_DESC_MODE 0
 /* Minimum BD alignment */
 #define XEMACPS_DMABD_MINIMUM_ALIGNMENT  4U
 #endif
@@ -172,7 +172,7 @@ typedef UINTPTR XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
  *    void XEmacPs_BdSetAddressTx(XEmacPs_Bd* BdPtr, UINTPTR Addr)
  *
  *****************************************************************************/
-#if EXTENDED_DESC_MODE
+#ifdef __aarch64__
 #define XEmacPs_BdSetAddressTx(BdPtr, Addr)                        \
     XEmacPs_BdWrite((BdPtr), XEMACPS_BD_ADDR_OFFSET,		\
 			(u32)((Addr) & ULONG64_LO_MASK));		\
@@ -197,7 +197,7 @@ typedef UINTPTR XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
  *    void XEmacPs_BdSetAddressRx(XEmacPs_Bd* BdPtr, UINTPTR Addr)
  *
  *****************************************************************************/
-#if EXTENDED_DESC_MODE
+#ifdef __aarch64__
 #define XEmacPs_BdSetAddressRx(BdPtr, Addr)                        \
     XEmacPs_BdWrite((BdPtr), XEMACPS_BD_ADDR_OFFSET,              \
     ((XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET) &           \
@@ -258,7 +258,7 @@ typedef UINTPTR XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
  *    UINTPTR XEmacPs_BdGetBufAddr(XEmacPs_Bd* BdPtr)
  *
  *****************************************************************************/
-#if EXTENDED_DESC_MODE
+#ifdef __aarch64__
 #define XEmacPs_BdGetBufAddr(BdPtr)                               \
     (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET) |		  \
 	(XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_HI_OFFSET)) << 32U)

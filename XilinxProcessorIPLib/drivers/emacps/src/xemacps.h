@@ -306,6 +306,8 @@
  *		       test app tcl(CR:827686).
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
  * 3.0   hk   02/20/15 Added support for jumbo frames. Increase AHB burst.
+ *                     Disable extended mode. Perform all 64 bit changes under
+ *                     check for arch64.
  * </pre>
  *
  ****************************************************************************/

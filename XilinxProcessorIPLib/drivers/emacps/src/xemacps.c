@@ -48,6 +48,8 @@
 *		      64-bit changes.
 * 3.00 kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.0  hk   02/20/15 Added support for jumbo frames. Increase AHB burst.
+*                    Disable extended mode. Perform all 64 bit changes under
+*                    check for arch64.
 *
 * </pre>
 ******************************************************************************/
@@ -354,12 +356,6 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 #endif
 			(u32)XEMACPS_DMACR_INCR16_AHB_BURST));
 	}
-#if EXTENDED_DESC_MODE
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
-		(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET) |
-													XEMACPS_DMACR_TXEXTEND_MASK |
-													XEMACPS_DMACR_RXEXTEND_MASK));
-#endif
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XEMACPS_TXSR_OFFSET, 0x0U);
@@ -472,7 +468,7 @@ void XEmacPs_SetQueuePtr(XEmacPs *InstancePtr, UINTPTR QPtr, u8 QueueNum,
 			XEMACPS_TXQ1BASE_OFFSET,
 			(QPtr & ULONG64_LO_MASK));
 	}
-#if EXTENDED_DESC_MODE
+#ifdef __aarch64__
 	/* Set the MSB of Queue start address */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_MSBBUF_QBASE_OFFSET,
