@@ -1,4 +1,3 @@
-/* $Id: xemacps_control.c,v 1.1.2.1 2011/01/20 03:39:02 sadanan Exp $ */
 /******************************************************************************
 *
 * Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
