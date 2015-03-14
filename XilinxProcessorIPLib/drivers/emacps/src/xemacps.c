@@ -47,6 +47,7 @@
 * 2.1  srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification and
 *		      64-bit changes.
 * 3.00 kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.0  hk   02/20/15 Added support for jumbo frames.
 *
 * </pre>
 ******************************************************************************/
@@ -306,6 +307,14 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	InstancePtr->Version = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, 0xFC);
 
 	InstancePtr->Version = (InstancePtr->Version >> 16) & 0xFFF;
+
+	InstancePtr->MaxMtuSize = XEMACPS_MTU;
+	InstancePtr->MaxFrameSize = XEMACPS_MTU + XEMACPS_HDR_SIZE +
+					XEMACPS_TRL_SIZE;
+	InstancePtr->MaxVlanFrameSize = InstancePtr->MaxFrameSize +
+					XEMACPS_HDR_VLAN_SIZE;
+	InstancePtr->RxBufMask = XEMACPS_RXBUF_LEN_MASK;
+
 	/* Setup hardware with default values */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_NWCTRL_OFFSET,

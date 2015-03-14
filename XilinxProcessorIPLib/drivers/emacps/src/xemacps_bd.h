@@ -64,6 +64,7 @@
  * 2.1   srt  07/15/14 Add support for Ronaldo GEM specification and 64-bit
  *		       changes.
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+ * 3.0   hk   02/20/15 Added support for jumbo frames.
  *
  * </pre>
  *
@@ -329,6 +330,27 @@ typedef UINTPTR XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
     (XEmacPs_BdRead((BdPtr), XEMACPS_BD_STAT_OFFSET) &            \
     XEMACPS_RXBUF_LEN_MASK)
 
+/*****************************************************************************/
+/**
+ * Retrieve the RX frame size.
+ *
+ * The returned value is the size of the received packet.
+ * This API supports jumbo frame sizes if enabled.
+ *
+ * @param  BdPtr is the BD pointer to operate on
+ *
+ * @return Length field processed by hardware or set by
+ *         XEmacPs_BdSetLength().
+ *
+ * @note
+ * C-style signature:
+ *    UINTPTR XEmacPs_GetRxFrameSize(XEmacPs* InstancePtr, XEmacPs_Bd* BdPtr)
+ *    RxBufMask is dependent on whether jumbo is enabled or not.
+ *
+ *****************************************************************************/
+#define XEmacPs_GetRxFrameSize(InstancePtr, BdPtr)                   \
+    (XEmacPs_BdRead((BdPtr), XEMACPS_BD_STAT_OFFSET) &            \
+    (InstancePtr)->RxBufMask)
 
 /*****************************************************************************/
 /**

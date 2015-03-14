@@ -49,6 +49,7 @@
  *					   in DMACR register.
  * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp architecture.
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+ * 3.0   hk   02/20/15 Added support for jumbo frames.
  * </pre>
  *****************************************************************************/
 
@@ -521,6 +522,30 @@ LONG XEmacPs_SetOptions(XEmacPs *InstancePtr, u32 Options)
 		RegNewNetCfg |= XEMACPS_NWCFG_RXCHKSUMEN_MASK;
 	}
 
+	/* Enable jumbo frames */
+	if (((Options & XEMACPS_JUMBO_ENABLE_OPTION) != 0x00000000U) &&
+		(InstancePtr->Version > 2)) {
+		RegNewNetCfg |= XEMACPS_NWCFG_JUMBO_MASK;
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XEMACPS_JUMBOMAXLEN_OFFSET, XEMACPS_RX_BUF_SIZE_JUMBO);
+		Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+				      XEMACPS_DMACR_OFFSET);
+		Reg &= ~XEMACPS_DMACR_RXBUF_MASK;
+		Reg |= (((((u32)XEMACPS_RX_BUF_SIZE_JUMBO / (u32)XEMACPS_RX_BUF_UNIT) +
+			(((((u32)XEMACPS_RX_BUF_SIZE_JUMBO %
+			(u32)XEMACPS_RX_BUF_UNIT))!=(u32)0) ? 1U : 0U)) <<
+			(u32)(XEMACPS_DMACR_RXBUF_SHIFT)) &
+			(u32)(XEMACPS_DMACR_RXBUF_MASK));
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XEMACPS_DMACR_OFFSET, Reg);
+		InstancePtr->MaxMtuSize = XEMACPS_MTU_JUMBO;
+		InstancePtr->MaxFrameSize = XEMACPS_MTU_JUMBO +
+					XEMACPS_HDR_SIZE + XEMACPS_TRL_SIZE;
+		InstancePtr->MaxVlanFrameSize = InstancePtr->MaxFrameSize +
+					XEMACPS_HDR_VLAN_SIZE;
+		InstancePtr->RxBufMask = XEMACPS_RXBUF_LEN_JUMBO_MASK;
+	}
+
 	/* Officially change the NET_CONFIG registers if it needs to be
 	 * modified.
 	 */
@@ -656,6 +681,28 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
 	/* Disable RX checksum offload */
 		if ((Options & XEMACPS_RX_CHKSUM_ENABLE_OPTION) != 0x00000000U) {
 			RegNewNetCfg &= (u32)(~XEMACPS_NWCFG_RXCHKSUMEN_MASK);
+	}
+
+	/* Disable jumbo frames */
+	if (((Options & XEMACPS_JUMBO_ENABLE_OPTION) != 0x00000000U) &&
+		(InstancePtr->Version > 2)) {
+		RegNewNetCfg &= (u32)(~XEMACPS_NWCFG_JUMBO_MASK);
+		Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+				      XEMACPS_DMACR_OFFSET);
+		Reg &= ~XEMACPS_DMACR_RXBUF_MASK;
+		Reg |= (((((u32)XEMACPS_RX_BUF_SIZE / (u32)XEMACPS_RX_BUF_UNIT) +
+			(((((u32)XEMACPS_RX_BUF_SIZE %
+			(u32)XEMACPS_RX_BUF_UNIT))!=(u32)0) ? 1U : 0U)) <<
+			(u32)(XEMACPS_DMACR_RXBUF_SHIFT)) &
+			(u32)(XEMACPS_DMACR_RXBUF_MASK));
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XEMACPS_DMACR_OFFSET, Reg);
+		InstancePtr->MaxMtuSize = XEMACPS_MTU;
+		InstancePtr->MaxFrameSize = XEMACPS_MTU +
+					XEMACPS_HDR_SIZE + XEMACPS_TRL_SIZE;
+		InstancePtr->MaxVlanFrameSize = InstancePtr->MaxFrameSize +
+					XEMACPS_HDR_VLAN_SIZE;
+		InstancePtr->RxBufMask = XEMACPS_RXBUF_LEN_MASK;
 	}
 
 	/* Officially change the NET_CONFIG registers if it needs to be

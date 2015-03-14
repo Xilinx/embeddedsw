@@ -55,6 +55,7 @@
 *					  XEMACPS_NWCFG_LENERRDSCRD_MASK as it exceeds 31 characters.
 * 3.0  kpc   1/23/15  Corrected the extended descriptor macro values.
 * 3.0  kvn   02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.0  hk   02/20/15 Added support for jumbo frames.
 * </pre>
 *
 ******************************************************************************/
@@ -113,6 +114,8 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 
 #define XEMACPS_RX_BUF_SIZE 1536U /**< Specify the receive buffer size in
                                        bytes, 64, 128, ... 10240 */
+#define XEMACPS_RX_BUF_SIZE_JUMBO 10240U
+
 #define XEMACPS_RX_BUF_UNIT   64U /**< Number of receive buffer bytes as a
                                        unit, this is HW setup */
 
@@ -143,6 +146,8 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_PHYMNTNC_OFFSET      0x00000034U /**< Phy Maintaince reg */
 #define XEMACPS_RXPAUSE_OFFSET       0x00000038U /**< RX Pause Time reg */
 #define XEMACPS_TXPAUSE_OFFSET       0x0000003CU /**< TX Pause Time reg */
+
+#define XEMACPS_JUMBOMAXLEN_OFFSET   0x00000048U /**< Jumbo max length reg */
 
 #define XEMACPS_HASHL_OFFSET         0x00000080U /**< Hash Low address reg */
 #define XEMACPS_HASHH_OFFSET         0x00000084U /**< Hash High address reg */
@@ -572,6 +577,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_RXBUF_EOF_MASK       0x00008000U /**< End of frame. */
 #define XEMACPS_RXBUF_SOF_MASK       0x00004000U /**< Start of frame. */
 #define XEMACPS_RXBUF_LEN_MASK       0x00001FFFU /**< Mask for length field */
+#define XEMACPS_RXBUF_LEN_JUMBO_MASK 0x00003FFFU /**< Mask for jumbo length */
 
 #define XEMACPS_RXBUF_WRAP_MASK      0x00000002U /**< Wrap bit, last BD */
 #define XEMACPS_RXBUF_NEW_MASK       0x00000001U /**< Used bit.. */

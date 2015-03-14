@@ -305,6 +305,7 @@
  *                    configured with PCS/PMA Core. Changes are made in the
  *		       test app tcl(CR:827686).
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+ * 3.0   hk   02/20/15 Added support for jumbo frames.
  * </pre>
  *
  ****************************************************************************/
@@ -405,6 +406,7 @@ extern "C" {
 /**< Enable the TX checksum offload
  *   This option defaults to enabled (set) */
 
+#define XEMACPS_JUMBO_ENABLE_OPTION	0x00004000U
 
 #define XEMACPS_DEFAULT_OPTIONS                     \
     ((u32)XEMACPS_FLOW_CONTROL_OPTION |                  \
@@ -441,12 +443,15 @@ extern "C" {
 #define XEMACPS_MAC_ADDR_SIZE   6U	/* size of Ethernet header */
 
 #define XEMACPS_MTU             1500U	/* max MTU size of Ethernet frame */
+#define XEMACPS_MTU_JUMBO       10240U	/* max MTU size of jumbo frame */
 #define XEMACPS_HDR_SIZE        14U	/* size of Ethernet header */
 #define XEMACPS_HDR_VLAN_SIZE   18U	/* size of Ethernet header with VLAN */
 #define XEMACPS_TRL_SIZE        4U	/* size of Ethernet trailer (FCS) */
 #define XEMACPS_MAX_FRAME_SIZE       (XEMACPS_MTU + XEMACPS_HDR_SIZE + \
         XEMACPS_TRL_SIZE)
 #define XEMACPS_MAX_VLAN_FRAME_SIZE  (XEMACPS_MTU + XEMACPS_HDR_SIZE + \
+        XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
+#define XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO  (XEMACPS_MTU_JUMBO + XEMACPS_HDR_SIZE + \
         XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
 
 /* DMACR Bust length hash defines */
@@ -522,6 +527,10 @@ typedef struct XEmacPs_Instance {
 	XEmacPs_ErrHandler ErrorHandler;
 	void *ErrorRef;
 	u32 Version;
+	u32 RxBufMask;
+	u32 MaxMtuSize;
+	u32 MaxFrameSize;
+	u32 MaxVlanFrameSize;
 
 } XEmacPs;
 
