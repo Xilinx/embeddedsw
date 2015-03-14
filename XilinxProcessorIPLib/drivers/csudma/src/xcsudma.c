@@ -162,7 +162,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 		((u32)(XCSUDMA_ADDR_MSB_OFFSET) +
 			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
-		((Addr >> (u32)(XCSUDMA_MSB_ADDR_SHIFT)) &
+		(((u64)Addr >> (u32)(XCSUDMA_MSB_ADDR_SHIFT)) &
 					(u32)(XCSUDMA_MSB_ADDR_MASK)));
 
 	if (EnDataLast == (u8)(XCSUDMA_LAST_WORD_MASK)) {
