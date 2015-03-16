@@ -1935,7 +1935,6 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 		/*
 		 * Read page
 		 */
-		Xil_AssertNonvoid(BufPtr != NULL);
 		Status = XNandPsu_ReadPage(InstancePtr, Target, Page, 0U,
 								BufPtr);
 		if (Status != XST_SUCCESS) {
