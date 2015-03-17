@@ -43,6 +43,8 @@
 
 #include "platform.h"
 #include "xil_io.h"
+#include "xscugic.h"
+#include "xil_cache.h"
 /*--------------------------- Globals ---------------------------------- */
 struct hil_platform_ops proc_ops = {
 	.enable_interrupt	= _enable_interrupt,
@@ -52,6 +54,7 @@ struct hil_platform_ops proc_ops = {
 	.shutdown_cpu		= _shutdown_cpu,
 };
 
+unsigned int old_value = 0;
 
 int _enable_interrupt(struct proc_vring *vring_hw) {
 
@@ -116,4 +119,58 @@ void deinit_isr(int vect_id, void *data) {
 	if ((ipi_intr_status & chn_ipi_info->ipi_chn_mask)) {
 		Xil_Out32((chn_ipi_info->ipi_base_addr + IPI_ISR_OFFSET), chn_ipi_info->ipi_chn_mask);
 	}
+}
+
+
+void platform_interrupt_enable(u32 vector,u32 polarity, u32 priority) {
+	XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,vector);
+}
+
+void platform_interrupt_disable(unsigned int vector) {
+	XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,vector);
+}
+
+void platform_cache_all_flush_invalidate() {
+		Xil_DCacheFlush();
+		Xil_DCacheInvalidate();
+		Xil_ICacheInvalidate();
+}
+
+void platform_cache_disable() {
+		Xil_DCacheDisable();
+		Xil_ICacheDisable();
+}
+
+void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size,int is_mem_mapped,int cache_type) {
+	return;
+}
+
+unsigned long platform_vatopa(unsigned long addr) {
+	 return ((unsigned long)addr);
+ }
+
+void *platform_patova(unsigned long addr) {
+	return ((void *)addr);
+}
+
+void restore_global_interrupts() {
+
+	ARM_AR_INT_BITS_SET(old_value);
+
+}
+
+void disable_global_interrupts() {
+
+	unsigned int value = 0;
+
+	ARM_AR_INT_BITS_GET(&value);
+
+	if (value != old_value) {
+
+		ARM_AR_INT_BITS_SET(CORTEXR5_CPSR_INTERRUPTS_BITS);
+
+		old_value = value;
+
+	}
+
 }
