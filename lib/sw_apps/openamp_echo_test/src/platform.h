@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include "hil.h"
 #include "xil_cache.h"
+#include "xreg_cortexr5.h"
 /* ------------------------- Macros --------------------------*/
 
 /********************/
@@ -55,30 +56,9 @@ void _shutdown_cpu(int cpu_id);
 void platform_isr(int vect_id, void *data);
 void deinit_isr(int vect_id, void *data);
 
-/* define function macros for OpenAMP API */
-#define platform_cache_all_flush_invalidate() \
-	{ \
-		Xil_DCacheFlush(); \
-		Xil_DCacheInvalidate(); \
-		Xil_ICacheInvalidate(); \
-	}
-
-#define platform_cache_disable() \
-	{ \
-		Xil_DCacheDisable(); \
-		Xil_ICacheDisable(); \
-	}
-
 #define platform_dcache_all_flush() { Xil_DCacheFlush(); }
 
 #define platform_dcache_flush_range(addr, len) { Xil_DCacheFlushRange(addr, len); }
-
-#define platform_interrupt_enable(...) zynqMP_r5_gic_interrupt_enable(__VA_ARGS__)
-#define platform_interrupt_disable(...) zynqMP_r5_gic_interrupt_disable(__VA_ARGS__)
-#define platform_map_mem_region(...)
-
-#define platform_vatopa(addr) ((unsigned long)addr)
-#define platform_patova(addr) ((void *)addr)
 /* IPI REGs OFFSET */
 #define IPI_TRIG_OFFSET          0x00000000 /* IPI trigger register offset */
 #define IPI_OBS_OFFSET           0x00000004 /* IPI observation register offset */
@@ -96,5 +76,36 @@ void deinit_isr(int vect_id, void *data);
 #define VRING1_IPI_INTR_VECT              79
 #define MASTER_CPU_ID                     0
 #define REMOTE_CPU_ID                     1
+
+#define CORTEXR5_CPSR_INTERRUPTS_BITS (XREG_CPSR_IRQ_ENABLE | XREG_CPSR_FIQ_ENABLE)
+
+/* This macro writes the current program status register (CPSR - all fields) */
+#define ARM_AR_CPSR_CXSF_WRITE(cpsr_cxsf_value) \
+	{ \
+		asm volatile("    MSR     CPSR_cxsf, %0" \
+			: /* No outputs */ \
+			: "r" (cpsr_cxsf_value) ); \
+	}
+
+/* This macro sets the interrupt related bits in the status register / control
+ register to the specified value. */
+#define ARM_AR_INT_BITS_SET(set_bits) \
+	{ \
+		int     tmp_val; \
+		tmp_val = mfcpsr(); \
+		tmp_val &= ~((unsigned int)CORTEXR5_CPSR_INTERRUPTS_BITS); \
+		tmp_val |= set_bits; \
+		ARM_AR_CPSR_CXSF_WRITE(tmp_val); \
+	}
+
+/* This macro gets the interrupt related bits from the status register / control
+ register. */
+#define ARM_AR_INT_BITS_GET(get_bits_ptr) \
+	{ \
+		int     tmp_val; \
+		tmp_val = mfcpsr(); \
+		tmp_val &= CORTEXR5_CPSR_INTERRUPTS_BITS; \
+		*get_bits_ptr = tmp_val; \
+	}
 
 #endif /* PLATFORM_H_ */

@@ -113,14 +113,6 @@ int main() {
     /* Initialize HW system components */
     init_system();
 
-	/*
-	 * The data caches are disabled due to some unusual behavior
-	 * Upon running the application second time without rebooting,
-	 * communication channel is not being established. It is a known
-	 * issue and need to be fixed in future.
-	 */
-	Xil_DCacheDisable();
-
     rsc_info.rsc_tab = (struct resource_table *)&resources;
     rsc_info.size = sizeof(resources);
 
