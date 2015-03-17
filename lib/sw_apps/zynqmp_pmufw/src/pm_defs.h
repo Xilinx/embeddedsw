@@ -57,6 +57,10 @@
 #define MAX_LATENCY (~0U)
 #define MAX_QOS     100U
 
+/* System shutdown macros */
+#define PM_SHUTDOWN	0U
+#define PM_RESTART	1U
+
 /* PM API ids */
 #define PM_GET_API_VERSION          1U
 #define PM_SET_CONFIGURATION        2U

@@ -110,10 +110,17 @@ done:
 /**
  * PmRequestSuspend() - Requested suspend by a PU for another processor
  * @master  PU from which the request is initiated
- * @node    Processor or subsystem node to be suspended
+ * @node    PU/processor node to be suspended
  * @ack     Acknowledge request
  * @latency Desired wakeup latency - Not supported
- * @state   Desired power status   - Not supported
+ * @state   Desired power state   - Not supported
+ *
+ * If suspend has been successfully requested, the requested PU needs to
+ * initiate its own self suspend. Remember to acknowledge to the requestor
+ * after:
+ * 1. PU/processor gets powered down (after it has initiates self suspend),
+ * 2. PU/processor aborts suspend,
+ * 3. PU/processor does not respond to the request (timeout) - not supported
  */
 static void PmRequestSuspend(const PmMaster *const master,
 			     const u32 node,
@@ -123,6 +130,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 {
 	int status;
 	PmProc* proc;
+	PmMaster* target = NULL;
 
 	PmDbg("(%s, %s, %d, %d)\n", PmStrNode(node), PmStrAck(ack),
 	      latency, state);
@@ -134,29 +142,43 @@ static void PmRequestSuspend(const PmMaster *const master,
 	}
 
 	proc = PmGetProcOfOtherMaster(master, node);
-	if (NULL == proc) {
-		PmDbg("ERROR: irregular node %s\n", PmStrNode(node));
+	if (NULL != proc) {
+		/* Node is processor, request suspend to it's master */
+		target = proc->master;
+	} else {
+		/* Check whether the target is placeholder in PU */
+		target = PmMasterGetPlaceholder(node);
+	}
+
+	if (NULL == target) {
+		PmDbg("ERROR: invalid node argument\n");
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (false == PmCanRequestSuspend(master, proc->master)) {
-		PmDbg("ERROR: %s not allowed to request suspend of %s\n",
-		      PmStrNode(master->procs->node.nodeId),
-		      PmStrNode(proc->node.nodeId));
+	if (false == PmCanRequestSuspend(master, target)) {
+		PmDbg("ERROR: not allowed to request suspend of %s\n",
+		      PmStrNode(node));
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
 
-	PmInitSuspendCb(proc->master, node, SUSPEND_REASON_PU_REQ, latency,
-			state, MAX_LATENCY);
 	/*
-	 * Suspend has been successfully requested, but the requested PU now
-	 * needs to initiate its own self suspend. Remember to acknowledge to
-	 * the requestor when: 1. PU gets powered down, 2. PU aborts suspend,
+	 * Remember to acknowledge to the requestor when:
+	 * 1. PU gets powered down, 2. PU aborts suspend,
 	 * 3. PU does not respond to the request (timeout).
 	 */
-	status = PmRememberSuspendRequest(master, proc->master, ack);
+	if (REQUEST_ACK_NO != ack) {
+		status = PmRememberSuspendRequest(master, target, ack);
+	} else {
+		status = XST_SUCCESS;
+	}
+
+	if (XST_SUCCESS == status) {
+		/* Request is ok and saved (remembered to acknowledge) */
+		PmInitSuspendCb(target, node, SUSPEND_REASON_PU_REQ,
+				latency, state, MAX_LATENCY);
+	}
 
 done:
 	if (XST_SUCCESS != status) {
@@ -536,11 +558,27 @@ done:
 /**
  * PmSystemShutdown() - Request system shutdown or restart
  * @master  Master requesting system shutdown
- * @restart Flag, 0 is for shutdown, 1 for restart
+ * @restart Flag, 0 is for shutdown, 1 for restart (not-supported)
  */
 static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 {
-	PmDbg("(%d) not implemented\n", restart);
+	u32 i;
+
+	PmDbg("(%d)\n", restart);
+
+	if (PM_SHUTDOWN == restart) {
+		for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+			/* Master requesting shutdown will suspend on its own */
+			if ((master != pmAllMasters[i]) &&
+			    (PM_PROC_STATE_ACTIVE ==
+			     pmAllMasters[i]->procs->node.currState)) {
+				PmInitSuspendCb(pmAllMasters[i],
+						pmAllMasters[i]->nid,
+						SUSPEND_REASON_SYS_SHUTDOWN,
+						MAX_LATENCY, 0, MAX_LATENCY);
+			}
+		}
+	}
 }
 
 /**

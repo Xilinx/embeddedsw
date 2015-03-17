@@ -88,6 +88,9 @@ typedef struct PmMaster PmMaster;
 /* Suspend request related */
 #define PM_REQUESTED_SUSPEND        0x1U
 
+/* Maximum number of masters currently supported */
+#define PM_MASTER_MAX               3U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -135,6 +138,13 @@ typedef struct {
  * PmMaster - contains PM master related informations
  * @procs       Pointer to the array of processors within the master
  * @procsCnt    Number of processors within the master
+ * @nid         Placeholder nodeId - used to encode request suspend for group of
+ *              processors sharing the same communication channel. When PM
+ *              receives this nid as request suspend argument, it initiates
+ *              init suspend to the master. At the PU, in init_suspend_cb
+ *              implementation, the request is mappend to actual suspend of all
+ *              processors in the PU. In RPU case, this data could be
+ *              initialized from PCW, based on RPU configuration.
  * @ipiMask     Mask dedicated to the master in IPI registers
  * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
  * @buffer      IPI buffer address into which this master can write
@@ -148,6 +158,7 @@ typedef struct {
 typedef struct PmMaster {
 	PmProc* const procs;
 	const u8 procsCnt;
+	PmNodeId nid;
 	const u32 ipiMask;
 	const u32 pmuBuffer;
 	const u32 buffer;
@@ -162,6 +173,8 @@ typedef struct PmMaster {
 extern PmMaster pmMasterApu_g;
 extern PmMaster pmMasterRpu0_g;
 extern PmMaster pmMasterRpu1_g;
+
+extern PmMaster *const pmAllMasters[PM_MASTER_MAX];
 
 extern PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX];
 extern PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX];
@@ -205,5 +218,6 @@ int PmRememberSuspendRequest(const PmMaster* const reqMaster,
 int PmMasterSuspendAck(PmMaster* const respMaster,
 			   const int response);
 
+PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId);
 
 #endif

@@ -223,6 +223,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 PmMaster pmMasterApu_g = {
 	.procs = pmApuProcs_g,
 	.procsCnt = PM_PROC_APU_MAX,
+	.nid = NODE_APU,
 	.ipiMask = IPI_PMU_0_IER_APU_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_APU_OFFSET,
 	.buffer = IPI_BUFFER_APU_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
@@ -238,6 +239,7 @@ PmMaster pmMasterApu_g = {
 PmMaster pmMasterRpu0_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
 	.procsCnt = 1U,
+	.nid = NODE_RPU,
 	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_0_OFFSET,
 	.buffer = IPI_BUFFER_RPU_0_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
@@ -253,6 +255,7 @@ PmMaster pmMasterRpu0_g = {
 PmMaster pmMasterRpu1_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_1],
 	.procsCnt = 1U,
+	.nid = NODE_RPU_0, /* placeholder for request suspend, not used */
 	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_1_OFFSET,
 	.buffer = IPI_BUFFER_RPU_1_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
@@ -260,7 +263,7 @@ PmMaster pmMasterRpu1_g = {
 	.reqsCnt = 0U,
 };
 
-static const PmMaster *const pmAllMasters[] = {
+PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
 	&pmMasterApu_g,
 	&pmMasterRpu0_g,
 	&pmMasterRpu1_g,
@@ -806,10 +809,12 @@ int PmRememberSuspendRequest(const PmMaster* const reqMaster,
 	int status;
 
 	/*
-	 * Assume failure, which will be returned if reqMaster/respMaster pair
-	 * is not regular.
+	 * Assume that reqMaster/respMaster pair does not exist (reqMaster is
+	 * not allowed to request suspend of respMaster). If pair
+	 * reqMaster/respMaster is found, reqMaster is allowed to request
+	 * suspend and status will be changed
 	 */
-	status = XST_FAILURE;
+	status = XST_PM_NO_ACCESS;
 
 	if (reqMaster == respMaster->pmSuspRequests.reqMst) {
 		if ((REQUEST_ACK_CB_STANDARD == ack) ||
@@ -818,7 +823,7 @@ int PmRememberSuspendRequest(const PmMaster* const reqMaster,
 			respMaster->pmSuspRequests.flags |= PM_REQUESTED_SUSPEND;
 			status = XST_SUCCESS;
 		} else {
-			status = XST_PM_INTERNAL;
+			status = XST_INVALID_PARAM;
 		}
 	}
 
@@ -898,4 +903,26 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 	}
 
 	return status;
+}
+
+/**
+ * PmMasterGetPlaceholder() - Check whether there is a master which holds nodeId
+ * @nodeId      Id of the node whose placeholder should be found
+ *
+ * @return      Pointer to the master if such exist, otherwise NULL
+ */
+PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId)
+{
+	PmMaster* holder = NULL;
+	u32 i;
+
+	/* Find the master with the node placeholder */
+	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+		if (nodeId == pmAllMasters[i]->nid) {
+			holder = pmAllMasters[i];
+			break;
+		}
+	}
+
+	return holder;
 }
