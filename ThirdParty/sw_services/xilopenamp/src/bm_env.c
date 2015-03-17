@@ -47,10 +47,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "xil_exception.h"
-#include "xpseudo_asm.h"
-#include "bm_env.h"
-#include "xscugic.h"
 
 #if (defined(__CC_ARM))
 #define MEM_BARRIER()      __schedule_barrier()
@@ -59,8 +55,19 @@
 #else
 #define MEM_BARRIER()
 #endif
+
 static void acquire_spin_lock(void *plock);
 static void release_spin_lock(void *plock);
+
+extern void restore_global_interrupts();
+extern void disable_global_interrupts();
+extern void platform_interrupt_enable(unsigned int vector,unsigned int polarity, unsigned int priority);
+extern void platform_interrupt_disable(unsigned int vector);
+extern void platform_cache_all_flush_invalidate();
+extern void platform_cache_disable();
+extern void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size,int is_mem_mapped,int cache_type);
+extern unsigned long platform_vatopa(unsigned long addr);
+extern void *platform_patova(unsigned long addr);
 
 struct isr_info isr_table[ISR_COUNT];
 int Intr_Count = 0;
@@ -69,7 +76,6 @@ int Intr_Count = 0;
  */
 int Intr_Enable_Flag = 1;
 
-unsigned int old_value = 0;
 /**
  * env_init
  *
@@ -429,7 +435,7 @@ void env_enable_interrupt(unsigned int vector , unsigned int priority ,
         {
             isr_table[idx].priority = priority;
             isr_table[idx].type = polarity;
-            XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,vector);
+            platform_interrupt_enable(vector, polarity, priority);
             break;
         }
     }
@@ -447,7 +453,7 @@ void env_enable_interrupt(unsigned int vector , unsigned int priority ,
 
 void env_disable_interrupt(unsigned int vector)
 {
-    XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,vector);
+    platform_interrupt_disable(vector);
 }
 
 /**
@@ -465,22 +471,6 @@ void env_map_memory(unsigned int pa, unsigned int va, unsigned int size,
                 unsigned int flags) {
     int is_mem_mapped = 0;
     int cache_type = 0;
-
-    if ((flags & (0x0f << 4 )) == MEM_MAPPED)
-    {
-        is_mem_mapped = 1;
-    }
-
-    if ((flags & 0x0f) == WB_CACHE) {
-        cache_type = WRITEBACK;
-    }
-    else if((flags & 0x0f) == WT_CACHE) {
-        cache_type = WRITETHROUGH;
-    }
-    else {
-        cache_type = NOCACHE;
-    }
-
     platform_map_mem_region(va, pa, size, is_mem_mapped, cache_type);
 }
 
@@ -578,32 +568,4 @@ static void release_spin_lock(void *plock)
 	MEM_BARRIER();
 
 	xchg(plock, 1);
-}
-
-/*
- * restore global interrupts
- */
-void restore_global_interrupts() {
-
-	ARM_AR_INT_BITS_SET(old_value);
-
-}
-
-/*
- * disable global interrupts
- */
-void disable_global_interrupts() {
-
-	unsigned int value = 0;
-
-	ARM_AR_INT_BITS_GET(&value);
-
-	if (value != old_value) {
-
-		ARM_AR_INT_BITS_SET(CORTEXR5_CPSR_INTERRUPTS_BITS);
-
-		old_value = value;
-
-	}
-
 }
