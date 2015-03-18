@@ -55,7 +55,8 @@
 *					  XEMACPS_NWCFG_LENERRDSCRD_MASK as it exceeds 31 characters.
 * 3.0  kpc   1/23/15  Corrected the extended descriptor macro values.
 * 3.0  kvn   02/13/15 Modified code for MISRA-C:2012 compliance.
-* 3.0  hk   02/20/15 Added support for jumbo frames.
+* 3.0  hk   03/18/15 Added support for jumbo frames.
+*                    Remove "used bit set" from TX error interrupt masks.
 * </pre>
 *
 ******************************************************************************/
@@ -495,8 +496,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 
 #define XEMACPS_IXR_TX_ERR_MASK    ((u32)XEMACPS_IXR_TXEXH_MASK |         \
                                      (u32)XEMACPS_IXR_RETRY_MASK |         \
-                                     (u32)XEMACPS_IXR_URUN_MASK  |         \
-                                     (u32)XEMACPS_IXR_TXUSED_MASK)
+                                     (u32)XEMACPS_IXR_URUN_MASK)
 
 
 #define XEMACPS_IXR_RX_ERR_MASK    ((u32)XEMACPS_IXR_HRESPNOK_MASK |      \
