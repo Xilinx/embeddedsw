@@ -104,7 +104,8 @@
 * 2.1	srt 07/11/14 Implemented 64-bit changes and modified as per
 *		      Zynq Ultrascale Mp GEM specification
 * 3.0  kpc  01/23/14 Removed PEEP board related code
-* 3.0  hk   02/20/15 Added support for jumbo frames.
+* 3.0  hk   03/18/15 Added support for jumbo frames.
+*                    Add cache flush after BD terminate entries.
 *
 * </pre>
 *
@@ -488,6 +489,7 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 						XEMACPS_TXBUF_WRAP_MASK));
 		XEmacPs_Out32((Config->BaseAddress + XEMACPS_TXQBASE_OFFSET),
 			       (UINTPTR)&BdTxTerminate);
+		Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
 	}
 
 	/*
