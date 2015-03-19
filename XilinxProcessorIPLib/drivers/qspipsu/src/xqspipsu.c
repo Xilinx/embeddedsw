@@ -46,6 +46,7 @@
 *       sk  03/13/15 Added IO mode support.
 *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
 *                    Clear and disbale DMA interrupts/status in abort.
+*                    Use DMA DONE bit instead of BUSY as recommended.
 *
 * </pre>
 *
@@ -401,14 +402,13 @@ GENFIFO:
 			/* Check if DMA RX is complete and update RxBytes */
 			if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
 				(Msg[Index].RxBfrPtr != NULL)) {
-				if (!(XQspiPsu_ReadReg(BaseAddress,
-					XQSPIPSU_QSPIDMA_DST_STS_OFFSET) &
-					XQSPIPSU_QSPIDMA_DST_STS_BUSY_MASK)) {
+				u32 DmaIntrSts;
+				DmaIntrSts = XQspiPsu_ReadReg(BaseAddress,
+								XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
+				if (DmaIntrSts & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) {
 					XQspiPsu_WriteReg(BaseAddress,
 						XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET,
-						XQspiPsu_ReadReg(BaseAddress,
-							XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET) |
-							XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK);
+						DmaIntrSts);
 					/* Read remaining bytes using IO mode */
 					if(InstancePtr->RxBytes % 4 != 0 ) {
 						XQspiPsu_WriteReg(BaseAddress,

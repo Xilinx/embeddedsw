@@ -88,6 +88,7 @@
 *       sk  03/13/15 Added IO mode support.
 *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
 *                    Clear and disbale DMA interrupts/status in abort.
+*                    Use DMA DONE bit instead of BUSY as recommended.
 *
 * </pre>
 *
