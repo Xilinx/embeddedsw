@@ -44,6 +44,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
 *       sk  03/13/15 Added IO mode support.
+*       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
 *
 * </pre>
 *
@@ -244,6 +245,7 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
 void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 {
 
+	u32 ConfigReg;
 	/* Clear and disable interrupts */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_ISR_OFFSET,
@@ -253,11 +255,36 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 		XQSPIPSU_IDR_OFFSET, XQSPIPSU_IDR_ALL_MASK);
 
 	/* Clear FIFO */
-	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
-		XQSPIPSU_FIFO_CTRL_OFFSET,
-		XQSPIPSU_FIFO_CTRL_RST_RX_FIFO_MASK |
-		XQSPIPSU_FIFO_CTRL_RST_TX_FIFO_MASK |
-		XQSPIPSU_FIFO_CTRL_RST_GEN_FIFO_MASK);
+	if((XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_ISR_OFFSET) & XQSPIPSU_ISR_RXEMPTY_MASK)) {
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_FIFO_CTRL_OFFSET,
+			XQSPIPSU_FIFO_CTRL_RST_TX_FIFO_MASK |
+			XQSPIPSU_FIFO_CTRL_RST_GEN_FIFO_MASK);
+	}
+
+	/*
+	 * Switch to IO mode to Clear RX FIFO. This is becuase of DMA behaviour
+	 * where it waits on RX empty and goes busy assuming there is data
+	 * to be transfered even if there is no request.
+	 */
+	if ((IntrStatus & XQSPIPSU_ISR_RXEMPTY_MASK) != 0) {
+		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+					XQSPIPSU_CFG_OFFSET);
+		ConfigReg &= ~XQSPIPSU_CFG_MODE_EN_MASK;
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_CFG_OFFSET, ConfigReg);
+
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_FIFO_CTRL_OFFSET,
+				XQSPIPSU_FIFO_CTRL_RST_RX_FIFO_MASK);
+
+		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+			ConfigReg |= XQSPIPSU_CFG_MODE_EN_DMA_MASK;
+			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+					XQSPIPSU_CFG_OFFSET, ConfigReg);
+		}
+	}
 
 	/* Disable QSPIPSU */
 	XQspiPsu_Disable(InstancePtr);

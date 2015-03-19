@@ -86,6 +86,7 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   hk  08/21/14 First release
 *       sk  03/13/15 Added IO mode support.
+*       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
 *
 * </pre>
 *
