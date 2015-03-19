@@ -43,6 +43,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.0   hk  08/21/14 First release
+*       hk  03/18/15 Add DMA status register masks required.
 *
 * </pre>
 *
@@ -540,6 +541,8 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_STS_BUSY_WIDTH   1
 #define XQSPIPSU_QSPIDMA_DST_STS_BUSY_MASK    0X00000001
 
+#define XQSPIPSU_QSPIDMA_DST_STS_WTC	0xE000
+
 /**
  * Register: XQSPIPSU_QSPIDMA_DST_CTRL
  */
@@ -577,7 +580,7 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_MEM_WIDTH   1
 #define XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_MEM_MASK    0X00000001
 
-#define XQSPIPSU_QSPIDMA_DST_CTRL_RESET_VAL	0x403FFA00
+#define XQSPIPSU_QSPIDMA_DST_CTRL_RESET_VAL	0x803FFA00
 
 /**
  * Register: XQSPIPSU_QSPIDMA_DST_I_STS
@@ -613,6 +616,7 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK    0X00000002
 
 #define XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK    0X000000FC
+#define XQSPIPSU_QSPIDMA_DST_INTR_ALL_MASK    0X000000FE
 
 /**
  * Register: XQSPIPSU_QSPIDMA_DST_I_EN

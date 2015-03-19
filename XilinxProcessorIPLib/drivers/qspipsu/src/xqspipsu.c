@@ -45,6 +45,7 @@
 * 1.0   hk  08/21/14 First release
 *       sk  03/13/15 Added IO mode support.
 *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
+*                    Clear and disbale DMA interrupts/status in abort.
 *
 * </pre>
 *
@@ -245,14 +246,28 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
 void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 {
 
-	u32 ConfigReg;
+	u32 IntrStatus, ConfigReg;
+
+	IntrStatus = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+					XQSPIPSU_ISR_OFFSET);
+
 	/* Clear and disable interrupts */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
-		XQSPIPSU_ISR_OFFSET,
+		XQSPIPSU_ISR_OFFSET, IntrStatus | XQSPIPSU_ISR_WR_TO_CLR_MASK);
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET,
 		XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-		XQSPIPSU_ISR_OFFSET) | XQSPIPSU_ISR_WR_TO_CLR_MASK);
+				XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET));
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_STS_OFFSET,
+			XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_QSPIDMA_DST_STS_OFFSET) |
+				XQSPIPSU_QSPIDMA_DST_STS_WTC);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_IDR_OFFSET, XQSPIPSU_IDR_ALL_MASK);
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_I_DIS_OFFSET,
+			XQSPIPSU_QSPIDMA_DST_INTR_ALL_MASK);
 
 	/* Clear FIFO */
 	if((XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
