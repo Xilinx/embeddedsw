@@ -555,7 +555,9 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_TotalByteClear(InstancePtr) \
 	XZDma_WriteReg((InstancePtr)->Config.BaseAddress, \
-		(XZDMA_CH_TOTAL_BYTE_OFFSET), (XZDMA_WRITE_TO_CLEAR_MASK))
+		XZDMA_CH_TOTAL_BYTE_OFFSET, \
+	XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
+		XZDMA_CH_TOTAL_BYTE_OFFSET))
 
 /*****************************************************************************/
 /**
