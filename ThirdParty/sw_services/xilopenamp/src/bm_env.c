@@ -55,19 +55,8 @@
 #else
 #define MEM_BARRIER()
 #endif
-
 static void acquire_spin_lock(void *plock);
 static void release_spin_lock(void *plock);
-
-extern void restore_global_interrupts();
-extern void disable_global_interrupts();
-extern void platform_interrupt_enable(unsigned int vector,unsigned int polarity, unsigned int priority);
-extern void platform_interrupt_disable(unsigned int vector);
-extern void platform_cache_all_flush_invalidate();
-extern void platform_cache_disable();
-extern void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size,int is_mem_mapped,int cache_type);
-extern unsigned long platform_vatopa(unsigned long addr);
-extern void *platform_patova(unsigned long addr);
 
 struct isr_info isr_table[ISR_COUNT];
 int Intr_Count = 0;
@@ -469,9 +458,7 @@ void env_disable_interrupt(unsigned int vector)
 
 void env_map_memory(unsigned int pa, unsigned int va, unsigned int size,
                 unsigned int flags) {
-    int is_mem_mapped = 0;
-    int cache_type = 0;
-    platform_map_mem_region(va, pa, size, is_mem_mapped, cache_type);
+    platform_map_mem_region(va, pa, size, flags);
 }
 
 /**

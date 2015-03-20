@@ -1,6 +1,3 @@
-#ifndef _HIL_H_
-#define _HIL_H_
-
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
@@ -41,6 +38,8 @@
  *       interface is used by both RPMSG and remoteproc components.
  *
  ***************************************************************************/
+#ifndef _HIL_H_
+#define _HIL_H_
 
 #include "virtio.h"
 #include "config.h"

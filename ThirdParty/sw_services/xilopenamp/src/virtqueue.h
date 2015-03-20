@@ -1,8 +1,4 @@
-#ifndef VIRTQUEUE_H_
-#define VIRTQUEUE_H_
-
-/*-
- * Copyright (c) 2011, Bryan Venteicher <bryanv@FreeBSD.org>
+/* Copyright (c) 2011, Bryan Venteicher <bryanv@FreeBSD.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,6 +24,9 @@
  *
  * $FreeBSD$
  */
+
+#ifndef VIRTQUEUE_H_
+#define VIRTQUEUE_H_
 
 typedef         unsigned int                        uint_t;
 typedef         signed char                         int8_t;
