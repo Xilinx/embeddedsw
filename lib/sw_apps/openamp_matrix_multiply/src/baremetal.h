@@ -34,13 +34,58 @@
 
 #include "xil_types.h"
 #include "xparameters.h"
-
-void zynqMP_r5_map_mem_region(u32 addr, u32 size, u32 attrib);
-int zynqMP_r5_gic_initialize();
-void zynqMP_r5_irq_isr();
-
+#include "xil_cache.h"
+#include "xreg_cortexr5.h"
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
+#define platform_dcache_all_flush() { Xil_DCacheFlush(); }
+
+#define platform_dcache_flush_range(addr, len) { Xil_DCacheFlushRange(addr, len); }
+
+#define CORTEXR5_CPSR_INTERRUPTS_BITS (XREG_CPSR_IRQ_ENABLE | XREG_CPSR_FIQ_ENABLE)
+
+/* This macro writes the current program status register (CPSR - all fields) */
+#define ARM_AR_CPSR_CXSF_WRITE(cpsr_cxsf_value) \
+	{ \
+		asm volatile("    MSR     CPSR_cxsf, %0" \
+			: /* No outputs */ \
+			: "r" (cpsr_cxsf_value) ); \
+	}
+
+/* This macro sets the interrupt related bits in the status register / control
+ register to the specified value. */
+#define ARM_AR_INT_BITS_SET(set_bits) \
+	{ \
+		int     tmp_val; \
+		tmp_val = mfcpsr(); \
+		tmp_val &= ~((unsigned int)CORTEXR5_CPSR_INTERRUPTS_BITS); \
+		tmp_val |= set_bits; \
+		ARM_AR_CPSR_CXSF_WRITE(tmp_val); \
+	}
+
+/* This macro gets the interrupt related bits from the status register / control
+ register. */
+#define ARM_AR_INT_BITS_GET(get_bits_ptr) \
+	{ \
+		int     tmp_val; \
+		tmp_val = mfcpsr(); \
+		tmp_val &= CORTEXR5_CPSR_INTERRUPTS_BITS; \
+		*get_bits_ptr = tmp_val; \
+	}
+void zynqMP_r5_map_mem_region(u32 addr, u32 size, u32 attrib);
+
+int zynqMP_r5_gic_initialize();
+void zynqMP_r5_irq_isr();
+
+void restore_global_interrupts();
+void disable_global_interrupts();
+int platform_interrupt_enable(unsigned int vector,unsigned int polarity, unsigned int priority);
+int platform_interrupt_disable(unsigned int vector);
+void platform_cache_all_flush_invalidate();
+void platform_cache_disable();
+void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size, unsigned int flags);
+unsigned long platform_vatopa(void *addr);
+void *platform_patova(unsigned long addr);
 
 #endif /* _BAREMETAL_H */

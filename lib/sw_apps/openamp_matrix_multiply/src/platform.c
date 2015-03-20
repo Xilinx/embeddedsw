@@ -37,14 +37,13 @@
  * DESCRIPTION
  *
  *       This file is the Implementation of IPC hardware layer interface
- *       for Xilinx ZynqMP platform.
+ *       for Xilinx Zynq ZC702EVK platform.
  *
  **************************************************************************/
 
 #include "platform.h"
-#include "xil_io.h"
-#include "xscugic.h"
-#include "xil_cache.h"
+#include "baremetal.h"
+
 /*--------------------------- Globals ---------------------------------- */
 struct hil_platform_ops proc_ops = {
 	.enable_interrupt	= _enable_interrupt,
@@ -54,20 +53,32 @@ struct hil_platform_ops proc_ops = {
 	.shutdown_cpu		= _shutdown_cpu,
 };
 
-unsigned int old_value = 0;
+extern void ipi_enable_interrupt(unsigned int vector);
+extern void ipi_isr(int vect_id, void *data);
+
+extern void ipi_register_interrupt(unsigned long ipi_base_addr, unsigned int intr_mask, void *data, void *ipi_handler);
+
+void _ipi_handler (unsigned long ipi_base_addr, unsigned int intr_mask, void *data) {
+	struct proc_vring *vring_hw = (struct proc_vring *) data;
+	platform_dcache_all_flush();
+	hil_isr(vring_hw);
+}
+
+void _ipi_handler_deinit (unsigned long ipi_base_addr, unsigned int intr_mask, void *data) {
+	return;
+}
 
 int _enable_interrupt(struct proc_vring *vring_hw) {
 
+	struct ipi_info *chn_ipi_info = (struct ipi_info *)(vring_hw->intr_info.data);
+
 	if (vring_hw->intr_info.vect_id < 0)
 		return 0;
-
+	/* Register IPI handler */
+	ipi_register_handler(chn_ipi_info->ipi_base_addr, chn_ipi_info->ipi_chn_mask, vring_hw, _ipi_handler);
 	/* Register ISR*/
-	env_register_isr(vring_hw->intr_info.vect_id, vring_hw, platform_isr);
-
+	env_register_isr(vring_hw->intr_info.vect_id, &(chn_ipi_info->ipi_base_addr), ipi_isr);
 	/* Enable IPI interrupt */
-	struct ipi_info *chn_ipi_info = (struct ipi_info *)(vring_hw->intr_info.data);
-	Xil_Out32((chn_ipi_info->ipi_base_addr + IPI_IER_OFFSET), chn_ipi_info->ipi_chn_mask);
-	/* Enable the interrupts */
 	env_enable_interrupt(vring_hw->intr_info.vect_id,
 		vring_hw->intr_info.priority,
 		vring_hw->intr_info.trigger_type);
@@ -76,12 +87,9 @@ int _enable_interrupt(struct proc_vring *vring_hw) {
 
 void _reg_ipi_after_deinit(struct proc_vring *vring_hw) {
 	struct ipi_info *chn_ipi_info = (struct ipi_info *)(vring_hw->intr_info.data);
-
-	if (vring_hw->intr_info.vect_id < 0) {
-		return;
-	}
-	env_update_isr(vring_hw->intr_info.vect_id, chn_ipi_info, deinit_isr);
-
+	env_disable_interrupts();
+	ipi_register_handler(chn_ipi_info->ipi_base_addr, chn_ipi_info->ipi_chn_mask, 0, _ipi_handler_deinit);
+	env_restore_interrupts();
 }
 
 void _notify(int cpu_id, struct proc_intr *intr_info) {
@@ -91,7 +99,7 @@ void _notify(int cpu_id, struct proc_intr *intr_info) {
 		return;
 	platform_dcache_all_flush();
 	/* Trigger IPI */
-	Xil_Out32((chn_ipi_info->ipi_base_addr + IPI_TRIG_OFFSET), chn_ipi_info->ipi_chn_mask);
+	ipi_trigger(chn_ipi_info->ipi_base_addr, chn_ipi_info->ipi_chn_mask);
 }
 
 int _boot_cpu(int cpu_id, unsigned int load_addr) {
@@ -102,75 +110,3 @@ void _shutdown_cpu(int cpu_id) {
 	return;
 }
 
-void platform_isr(int vect_id, void *data) {
-	struct proc_vring *vring_hw = (struct proc_vring *) data;
-	struct ipi_info *chn_ipi_info = (struct ipi_info *)(vring_hw->intr_info.data);
-	unsigned int ipi_intr_status = (unsigned int)Xil_In32(chn_ipi_info->ipi_base_addr + IPI_ISR_OFFSET);
-	if ((ipi_intr_status & chn_ipi_info->ipi_chn_mask)) {
-		platform_dcache_all_flush();
-		hil_isr(vring_hw);
-		Xil_Out32((chn_ipi_info->ipi_base_addr + IPI_ISR_OFFSET), chn_ipi_info->ipi_chn_mask);
-	}
-}
-
-void deinit_isr(int vect_id, void *data) {
-	struct ipi_info *chn_ipi_info = (struct ipi_info *)data;
-	unsigned int ipi_intr_status = (unsigned int)Xil_In32(chn_ipi_info->ipi_base_addr + IPI_ISR_OFFSET);
-	if ((ipi_intr_status & chn_ipi_info->ipi_chn_mask)) {
-		Xil_Out32((chn_ipi_info->ipi_base_addr + IPI_ISR_OFFSET), chn_ipi_info->ipi_chn_mask);
-	}
-}
-
-
-void platform_interrupt_enable(u32 vector,u32 polarity, u32 priority) {
-	XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,vector);
-}
-
-void platform_interrupt_disable(unsigned int vector) {
-	XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR,vector);
-}
-
-void platform_cache_all_flush_invalidate() {
-		Xil_DCacheFlush();
-		Xil_DCacheInvalidate();
-		Xil_ICacheInvalidate();
-}
-
-void platform_cache_disable() {
-		Xil_DCacheDisable();
-		Xil_ICacheDisable();
-}
-
-void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size,int is_mem_mapped,int cache_type) {
-	return;
-}
-
-unsigned long platform_vatopa(unsigned long addr) {
-	 return ((unsigned long)addr);
- }
-
-void *platform_patova(unsigned long addr) {
-	return ((void *)addr);
-}
-
-void restore_global_interrupts() {
-
-	ARM_AR_INT_BITS_SET(old_value);
-
-}
-
-void disable_global_interrupts() {
-
-	unsigned int value = 0;
-
-	ARM_AR_INT_BITS_GET(&value);
-
-	if (value != old_value) {
-
-		ARM_AR_INT_BITS_SET(CORTEXR5_CPSR_INTERRUPTS_BITS);
-
-		old_value = value;
-
-	}
-
-}
