@@ -438,11 +438,15 @@ void XFsbl_EccInitialize(u32 Address, u32 Length)
 {
 	u32 Index=0U;
 
+	/* Disable cache to ensure proper ECC initialization */
+	Xil_DCacheDisable();
 	while (Index<Length)
 	{
 		XFsbl_Out32(Address+Index, 1U) ;
 		Index += 4U;
 	}
+	Xil_DCacheEnable();
+
 	XFsbl_Printf(DEBUG_INFO,
 	  "Address 0x%0lx, Length %0lx, ECC initialized \r\n",
 		Address, Length);
