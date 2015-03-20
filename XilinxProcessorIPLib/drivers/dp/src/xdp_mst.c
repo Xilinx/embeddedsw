@@ -167,6 +167,7 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply);
 static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
 static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
 static u32 XDp_RxWriteRawDownReply(XDp *InstancePtr, u8 *Data, u8 DataLength);
+static u32 XDp_RxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u8 XDp_Crc4CalculateHeader(XDp_SidebandMsgHeader *Header);
 static u8 XDp_Crc8CalculateBody(XDp_SidebandMsg *Msg);
 static u8 XDp_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
@@ -2962,6 +2963,75 @@ static u32 XDp_RxWriteRawDownReply(XDp *InstancePtr, u8 *Data, u8 DataLength)
 	/* The upstream device hasn't cleared the new down reply bit to indicate
 	 * that the reply was read. */
 	return XST_ERROR_COUNT_MAX;
+}
+
+/******************************************************************************/
+/**
+ * Given a sideband message structure, this function will issue a down reply
+ * sideband message. If the overall sideband message is too large to fit into
+ * the XDP_MAX_LENGTH_SBMSG byte maximum, it will split it up into multiple
+ * sideband message fragments.
+ * The header's Start/EndOfMsg bits, the header and body length, and CRC values
+ * will be calculated and set accordingly for each sideband message fragment.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Msg is a pointer to the message to be sent.
+ *
+ * @return
+ *		- XST_SUCCESS if the entire message was sent successfully.
+ *		- XST_DEVICE_NOT_FOUND if no device is connected.
+ *		- XST_ERROR_COUNT_MAX if sending one of the message fragments
+ *		  timed out.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDp_RxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	u32 Status;
+	u8 BodyMsgDataCount = Msg->Body.MsgDataLength;
+	u8 BodyMsgDataLeft = BodyMsgDataCount;
+
+	Msg->FragmentNum = 0;
+	while (BodyMsgDataLeft) {
+		if (BodyMsgDataLeft == BodyMsgDataCount) {
+			Msg->Header.StartOfMsgTransaction = 1;
+		}
+		else {
+			Msg->Header.StartOfMsgTransaction = 0;
+		}
+
+		if (BodyMsgDataLeft > (XDP_MAX_LENGTH_SBMSG -
+					Msg->Header.MsgHeaderLength - 1)) {
+			Msg->Body.MsgDataLength = XDP_MAX_LENGTH_SBMSG -
+					Msg->Header.MsgHeaderLength - 1;
+		}
+		else {
+			Msg->Body.MsgDataLength = BodyMsgDataLeft;
+		}
+		BodyMsgDataLeft -= Msg->Body.MsgDataLength;
+		Msg->Header.MsgBodyLength = Msg->Body.MsgDataLength + 1;
+
+		if (BodyMsgDataLeft) {
+			Msg->Header.EndOfMsgTransaction = 0;
+		}
+		else {
+			Msg->Header.EndOfMsgTransaction = 1;
+		}
+
+		Msg->Header.Crc = XDp_Crc4CalculateHeader(&Msg->Header);
+		Msg->Body.Crc = XDp_Crc8CalculateBody(Msg);
+
+		Status = XDp_SendSbMsgFragment(InstancePtr, Msg);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		Msg->FragmentNum++;
+	}
+
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
