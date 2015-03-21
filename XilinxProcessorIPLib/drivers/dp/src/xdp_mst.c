@@ -2608,18 +2608,20 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function will send a sideband message by creating a data array from the
- * supplied sideband message structure and submitting an AUX write transaction.
+ * Operating in TX mode, this function will send a sideband message by creating
+ * a data array from the supplied sideband message structure and submitting an
+ * AUX write transaction.
+ * In RX mode, the data array will be written as a down reply.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  * @param	Msg is a pointer to the sideband message structure that holds
  *		the contents of the data to be submitted.
  *
  * @return
- *		- XST_SUCCESS if the AUX write transaction used to transmit the
+ *		- XST_SUCCESS if the write transaction used to transmit the
  *		  sideband message was successful.
- *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
- *		- XST_ERROR_COUNT_MAX if the AUX write request timed out.
+ *		- XST_DEVICE_NOT_FOUND if no device is connected.
+ *		- XST_ERROR_COUNT_MAX if the request timed out.
  *		- XST_FAILURE otherwise.
  *
  * @note	None.
@@ -2636,9 +2638,9 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
 	XDp_WaitUs(InstancePtr, InstancePtr->TxInstance.SbMsgDelayUs);
 
-	/* First, clear the DOWN_REP_MSG_RDY in case the RX device is in a weird
-	 * state. */
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
+		/* First, clear the DOWN_REP_MSG_RDY in case the RX device is in
+		 * a weird state. */
 		Data[0] = 0x10;
 		Status = XDp_TxAuxWrite(InstancePtr,
 				XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0, 1,
