@@ -98,7 +98,9 @@
  * The page size determines how much data should be written at a time.
  * The write function should be called with this as a maximum byte count.
  */
-#define PAGE_SIZE		16
+#define MAX_SIZE		32
+#define PAGE_SIZE_16	16
+#define PAGE_SIZE_32	32
 
 /*
  * The Starting address in the IIC EEPROM on which this test is performed.
@@ -130,9 +132,9 @@ u32 Platform;
 /*
  * Write buffer for writing a page.
  */
-u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
+u8 WriteBuffer[sizeof(AddressType) + MAX_SIZE];
 
-u8 ReadBuffer[PAGE_SIZE];	/* Read buffer for reading a page. */
+u8 ReadBuffer[MAX_SIZE];	/* Read buffer for reading a page. */
 
 /************************** Function Definitions *****************************/
 
@@ -185,6 +187,7 @@ int IicPsEepromPolledExample(void)
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
 	AddressType Address = EEPROM_START_ADDRESS;
 	int WrBfrOffset;
+	int PageSize;
 
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
@@ -221,15 +224,17 @@ int IicPsEepromPolledExample(void)
 	 * Initialize the data to write and the read buffer.
 	 */
 	if (Platform == XPLAT_ZYNQ) {
+		PageSize = PAGE_SIZE_16;
 		WriteBuffer[0] = (u8) (Address);
 		WrBfrOffset = 1;
 	} else {
+		PageSize = PAGE_SIZE_32;
 		WriteBuffer[0] = (u8) (Address >> 8);
 		WriteBuffer[1] = (u8) (Address);
 		WrBfrOffset = 2;
 	}
 
-	for (Index = 0; Index < PAGE_SIZE; Index++) {
+	for (Index = 0; Index < PageSize; Index++) {
 		WriteBuffer[WrBfrOffset + Index] = 0xFF;
 		ReadBuffer[Index] = 0;
 	}
@@ -237,7 +242,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Write to the EEPROM.
 	 */
-	Status = EepromWriteData(WrBfrOffset + PAGE_SIZE);
+	Status = EepromWriteData(WrBfrOffset + PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -245,7 +250,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Read from the EEPROM.
 	 */
-	Status = EepromReadData(ReadBuffer, PAGE_SIZE);
+	Status = EepromReadData(ReadBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -253,7 +258,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Verify the data read against the data written.
 	 */
-	for (Index = 0; Index < PAGE_SIZE; Index++) {
+	for (Index = 0; Index < PageSize; Index++) {
 		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
 			return XST_FAILURE;
 		}
@@ -271,7 +276,7 @@ int IicPsEepromPolledExample(void)
 		WrBfrOffset = 2;
 	}
 
-	for (Index = 0; Index < PAGE_SIZE; Index++) {
+	for (Index = 0; Index < PageSize; Index++) {
 		WriteBuffer[WrBfrOffset + Index] = Index + 10;
 		ReadBuffer[Index] = 0;
 	}
@@ -279,7 +284,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Write to the EEPROM.
 	 */
-	Status = EepromWriteData(WrBfrOffset + PAGE_SIZE);
+	Status = EepromWriteData(WrBfrOffset + PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -287,7 +292,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Read from the EEPROM.
 	 */
-	Status = EepromReadData(ReadBuffer, PAGE_SIZE);
+	Status = EepromReadData(ReadBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -295,7 +300,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Verify the data read against the data written.
 	 */
-	for (Index = 0; Index < PAGE_SIZE; Index++) {
+	for (Index = 0; Index < PageSize; Index++) {
 		if (ReadBuffer[Index] != WriteBuffer[Index + WrBfrOffset]) {
 			return XST_FAILURE;
 		}
