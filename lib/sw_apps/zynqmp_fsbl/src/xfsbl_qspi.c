@@ -623,17 +623,13 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		if ((ReadCommand == FAST_READ_CMD_24BIT) || (ReadCommand == DUAL_READ_CMD_24BIT) ||
 		    (ReadCommand == QUAD_READ_CMD_24BIT)) {
 			/* Update Dummy cycles as per flash specs for QUAD IO */
-			if (ReadCommand == FAST_READ_CMD_24BIT) {
-				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			}
 
-			if (ReadCommand == DUAL_READ_CMD_24BIT) {
-				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
-			}
-
-			if (ReadCommand == QUAD_READ_CMD_24BIT){
-				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
-			}
+			/*
+			 * Silicon and REMUS do not care what the SPI mode is
+			 * for dummies, but QEMU expects it to match the address
+			 * phase. Make it so.
+			 */
+			FlashMsg[1].BusWidth = FlashMsg[0].BusWidth;
 
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = NULL;
