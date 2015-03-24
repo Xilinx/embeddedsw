@@ -1142,17 +1142,13 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	    (Command == QUAD_READ_CMD) || (Command == FAST_READ_CMD_4B) ||
 	    (Command == DUAL_READ_CMD_4B) || (Command == QUAD_READ_CMD_4B)) {
 		/* Update Dummy cycles as per flash specs for QUAD IO */
-		if ((Command == FAST_READ_CMD) || (Command == FAST_READ_CMD_4B)) {
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		}
 
-		if ((Command == DUAL_READ_CMD) || (Command == DUAL_READ_CMD_4B)) {
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
-		}
-
-		if ((Command == QUAD_READ_CMD) || (Command == QUAD_READ_CMD_4B)) {
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
-		}
+		/*
+		 * Silicon and REMUS do not care what the SPI mode is
+		 * for dummies, but QEMU expects it to match the address
+		 * phase. Make it so.
+		 */
+		FlashMsg[1].BusWidth = FlashMsg[0].BusWidth;
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = NULL;
