@@ -115,9 +115,12 @@ __inline u32 XFsbl_GetA53ExecState(
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_ValidateImageHeaderTable(
 		XFsblPs_ImageHeaderTable * ImageHeaderTable);
-static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId);
+static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId, u32 DevId);
+static void XFsbl_SetATFHandoffParameters(
+		XFsblPs_PartitionHeader *PartitionHeader, u32 EntryCount);
 
 /************************** Variable Definitions *****************************/
+XFsblPs_ATFHandoffParams ATFHandoffParams;
 
 /****************************************************************************/
 /**
@@ -289,6 +292,9 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 	u32 ImageHeaderTableAddressOffset=0U;
 	u32 PartitionHeaderAddress=0U;
 	u32 PartitionIndex=0U;
+	XFsblPs_PartitionHeader *CurrPartitionHdr;
+	u32 EntryCount = 0;
+	u32 DestnCPU;
 
 	/**
 	 * Read the Image Header Table offset from
@@ -378,6 +384,33 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 #endif
 
 		/**
+		 * Assumption: Next partition corresponds to ATF
+		 * The first partition of an application will have a non zero
+		 * execution address. All the remaining partitions of that
+		 * application will have 0 as execution address. Hence look for
+		 * the non zero execution address for partition which is not
+		 * the first one and ensure the CPU is A53
+		 */
+
+		CurrPartitionHdr = &ImageHeader->PartitionHeader[PartitionIndex];
+
+		DestnCPU = XFsbl_GetDestinationCpu(CurrPartitionHdr);
+
+		if ((PartitionIndex > 1) && (EntryCount < XFSBL_MAX_ENTRIES_FOR_ATF) &&
+				(CurrPartitionHdr->DestinationExecutionAddress != 0U) &&
+				(((DestnCPU >= XIH_PH_ATTRB_DEST_CPU_A53_0) &&
+						(DestnCPU <= XIH_PH_ATTRB_DEST_CPU_A53_3))))
+		{
+			/**
+			 *  Populate handoff parameters to ATF
+			 *  These correspond to the partition of application
+			 *  which ATF will be loading
+			 */
+			XFsbl_SetATFHandoffParameters(CurrPartitionHdr, EntryCount);
+			EntryCount++;
+		}
+
+		/**
 		 * Update the next partition present address
 		 */
 		PartitionHeaderAddress =
@@ -385,14 +418,32 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 			  * XIH_PARTITION_WORD_LENGTH;
 	}
 
+	/**
+	 * After setting handoff parameters of all partitions to ATF,
+	 * Store lower address of the structure at Persistent register 4
+	 * and higher address at Persistent register 5
+	 */
+	XFsbl_Out32(LPD_SLCR_PERSISTENT4,(u32)(((PTRSIZE)(&ATFHandoffParams)) & 0xFFFFFFFF));
+	XFsbl_Out32(LPD_SLCR_PERSISTENT5, (u32)(((PTRSIZE)(&ATFHandoffParams)) >> 32));
+
 END:
 	return Status;
 }
 
 
-static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId)
+static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId, u32 DevId)
 {
 	u32 Status = XFSBL_SUCCESS;
+
+	/* Check if Address is in the range of PMU RAM for PMU FW */
+	if (DevId == XIH_PH_ATTRB_DEST_DEVICE_PMU)
+	{
+		if ((Address >= XFSBL_PMU_RAM_START_ADDRESS) &&
+			(Address < XFSBL_PMU_RAM_END_ADDRESS) )
+		{
+			goto END;
+		}
+	}
 
 	/**
 	 * Check if Address is in the range of TCM for R5
@@ -471,7 +522,7 @@ u32 XFsbl_ValidatePartitionHeader(
 {
 	u32 Status = XFSBL_SUCCESS;
 	u32 DestinationCpu=0U;
-	/* u32 RpuGlobalCntl=0; */
+	u32 DestinationDevice=0;
 	s32 IsEncrypted=FALSE, IsAuthenticated=FALSE;
 
 
@@ -492,7 +543,7 @@ u32 XFsbl_ValidatePartitionHeader(
 
 
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
-
+	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 	/**
 	 * Partition fields Validation
 	 */
@@ -604,7 +655,7 @@ u32 XFsbl_ValidatePartitionHeader(
 	 */
 	Status = XFsbl_CheckValidMemoryAddress(
                         PartitionHeader->DestinationLoadAddress,
-                        DestinationCpu);
+                        DestinationCpu, DestinationDevice);
 	if (Status != XFSBL_SUCCESS)
 	{
 		goto END;
@@ -694,23 +745,6 @@ u32 XFsbl_ValidatePartitionHeader(
 	}
 
 	/**
-	 * Check for PMU address not in PMU RAM
-	 */
-	if (XFsbl_GetDestinationDevice(PartitionHeader) ==
-				XIH_PH_ATTRB_DEST_DEVICE_PMU)
-	{
-		if (PartitionHeader->DestinationLoadAddress !=
-				XFSBL_PMU_RAM_ADDRESS)
-		{
-			Status = XFSBL_ERROR_INVALID_LOAD_ADDRESS;
-			XFsbl_Printf(DEBUG_GENERAL,
-			    "XFSBL_ERROR_INVALID_LOAD_ADDRESS\n\r");
-			goto END;
-		}
-	}
-
-
-	/**
 	 * Print Partition Header Details
 	 */
 	XFsbl_Printf(DEBUG_INFO,"UnEncrypted data Length: 0x%0lx \n\r",
@@ -730,4 +764,55 @@ u32 XFsbl_ValidatePartitionHeader(
 
 END:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+* This function sets the handoff parameters to the ARM Trusted Firmware (ATF)
+* Some of the inputs for this are taken from FSBL partition header
+* A pointer to the structure containing these parameters is stored in
+* persistent register 5, which ATF reads
+*
+* @param PartitionHeader is pointer to the XFsblPs_PartitionHeader structure
+*
+* @return None
+*
+* @note
+*
+*****************************************************************************/
+static void XFsbl_SetATFHandoffParameters(
+		XFsblPs_PartitionHeader *PartitionHeader, u32 EntryCount)
+{
+	u32 PartitionAttributes;
+	u64 PartitionFlags;
+
+	PartitionAttributes = PartitionHeader->PartitionAttributes;
+
+	PartitionFlags =
+		(((PartitionAttributes & XIH_PH_ATTRB_A53_EXEC_ST_MASK)
+				>> XIH_ATTRB_A53_EXEC_ST_SHIFT_DIFF) |
+		((PartitionAttributes & XIH_PH_ATTRB_ENDIAN_MASK)
+				>> XIH_ATTRB_ENDIAN_SHIFT_DIFF) |
+		((PartitionAttributes & XIH_PH_ATTRB_TR_SECURE_MASK)
+				<< XIH_ATTRB_TR_SECURE_SHIFT_DIFF) |
+		((PartitionAttributes & XIH_PH_ATTRB_TARGET_EL_MASK)
+				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF) |
+		((PartitionAttributes & XIH_PH_ATTRB_DEST_CPU_A53_MASK)
+				>> XIH_ATTRB_DEST_CPU_A53_SHIFT_DIFF));
+
+	/* Insert magic string */
+	if (EntryCount == 0)
+	{
+		ATFHandoffParams.MagicValue[0] = 'X';
+		ATFHandoffParams.MagicValue[1] = 'L';
+		ATFHandoffParams.MagicValue[2] = 'N';
+		ATFHandoffParams.MagicValue[3] = 'X';
+	}
+
+	ATFHandoffParams.NumEntries = EntryCount + 1;
+
+	ATFHandoffParams.Entry[EntryCount].EntryPoint =
+			PartitionHeader->DestinationExecutionAddress;
+	ATFHandoffParams.Entry[EntryCount].PartitionFlags = PartitionFlags;
+
 }

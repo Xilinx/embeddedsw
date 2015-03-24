@@ -71,6 +71,7 @@ extern "C" {
  * Boot header field offset
  */
 #define XIH_BH_IH_OFFSET		(0x3CU)
+#define XIH_BH_TOTAL_PFW_LENGTH_OFFSET		(0x38U)
 #define XIH_BH_IMAGE_ATTRB_OFFSET	(0x44U)
 #define XIH_BH_IH_TABLE_OFFSET		(0x98U)
 #define XIH_BH_PH_TABLE_OFFSET		(0x9CU)
@@ -82,6 +83,7 @@ extern "C" {
  * Defines for length of the headers
  */
 #define XIH_FIELD_LEN				(4U)
+#define XIH_PFW_LEN_FIELD_LEN		(4U)
 #define XIH_IHT_LEN				(64U)
 #define XIH_PH_LEN				(64U)
 
@@ -127,6 +129,7 @@ extern "C" {
 /**
  * Partition Attribute fields
  */
+#define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
 #define XIH_PH_ATTRB_PART_OWNER_MASK		(0x30000U)
 #define XIH_PH_ATTRB_RSA_SIGNATURE_MASK		(0x8000U)
 #define XIH_PH_ATTRB_CHECKSUM_MASK		(0x7000U)
@@ -134,7 +137,9 @@ extern "C" {
 #define XIH_PH_ATTRB_ENCRYPTION_MASK		(0x0080U)
 #define XIH_PH_ATTRB_DEST_DEVICE_MASK		(0x0070U)
 #define XIH_PH_ATTRB_A53_EXEC_ST_MASK		(0x0008U)
-
+#define XIH_PH_ATTRB_TARGET_EL_MASK		(0x0006U)
+#define XIH_PH_ATTRB_TR_SECURE_MASK		(0x0001U)
+#define XIH_PH_ATTRB_DEST_CPU_A53_MASK		(0x0600U)
 
 /**
  * Partition Attribute Values
@@ -163,6 +168,30 @@ extern "C" {
 
 #define XIH_PH_ATTRB_A53_EXEC_ST_AA32	(0x0008U)
 #define XIH_PH_ATTRB_A53_EXEC_ST_AA64	(0x0000U)
+
+/**
+ * Below is the bit mapping of fields in the ATF Handoff parameters
+ * with that of Partition header. The number of bits shifted is
+ * is based on the difference between these two offsets
+ *
+ *                   ATFHandoffParams	PartitionHeader         Shift
+ *     Parameter     PartitionFlags     PartitionAttributes   difference
+ * ----------------------------------------------------------------------
+ *	Exec State            0			         3                  3 right
+ *	ENDIAN	              1	                 18                 17 right
+ *	SECURE                2                  0                  2 left
+ *	EL                    3:4                1:2                2 left
+ *	CPU_A53               5:6                9:10               4 right
+ */
+#define XIH_ATTRB_A53_EXEC_ST_SHIFT_DIFF    (3U)
+#define XIH_ATTRB_ENDIAN_SHIFT_DIFF         (17U)
+#define XIH_ATTRB_TR_SECURE_SHIFT_DIFF      (2U)
+#define XIH_ATTRB_TARGET_EL_SHIFT_DIFF      (2U)
+#define XIH_ATTRB_DEST_CPU_A53_SHIFT_DIFF   (4U)
+
+
+/* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
+#define XFSBL_MAX_ENTRIES_FOR_ATF	8
 
 /**************************** Type Definitions *******************************/
 
@@ -217,6 +246,24 @@ typedef struct {
 	XFsblPs_PartitionHeader PartitionHeader[XIH_MAX_PARTITIONS];
 		/**< Partition header */
 } XFsblPs_ImageHeader;
+
+/* Structure corresponding to each partition entry */
+typedef struct {
+	u64 EntryPoint;
+	/**< Entry point */
+	u64 PartitionFlags;
+	/**< Attributes of partition */
+} XFsblPs_PartitionEntry;
+
+/* Structure for handoff parameters to ARM Trusted Firmware (ATF) */
+typedef struct {
+	char8 MagicValue[4];
+		/**< 32 bit magic string */
+	u32 NumEntries;
+		/**< Number of Entries */
+	XFsblPs_PartitionEntry Entry[XFSBL_MAX_ENTRIES_FOR_ATF];
+	/**< Structure corresponding to each entry */
+} XFsblPs_ATFHandoffParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 __inline u32 XFsbl_GetPartitionOwner(

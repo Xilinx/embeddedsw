@@ -657,6 +657,9 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 	u64 RunningCpuHandoffAddress=0U;
 	u32 RunningCpuExecState=0U;
 	s32 RunningCpuHandoffAddressPresent=FALSE;
+	u32 NoOfPartitions;
+	u32 PartitionIndex;
+	u32 PartitionAttributes;
 
 	/**
 	 * if JTAG bootmode, be in while loop as of now
@@ -712,6 +715,29 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 		XFsbl_Printf(DEBUG_GENERAL,
 				"XFSBL_ERROR_HOOK_BEFORE_HANDOFF\r\n");
 		goto END;
+	}
+
+	/* If PMU FW is present then handoff it to PMU MicroBlaze */
+	NoOfPartitions =
+			FsblInstancePtr->ImageHeader.ImageHeaderTable.NoOfPartitions;
+	for (PartitionIndex = 0;
+			PartitionIndex < NoOfPartitions; PartitionIndex++)
+	{
+		PartitionAttributes = FsblInstancePtr->ImageHeader.
+				PartitionHeader[PartitionIndex].PartitionAttributes;
+		if ((PartitionAttributes & XIH_PH_ATTRB_DEST_DEVICE_MASK)
+				== XIH_PH_ATTRB_DEST_DEVICE_PMU)
+		{
+			/* Wakeup the processor */
+			XFsbl_Out32(PMU_GLOBAL_GLOBAL_CNTRL,
+				XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) | 0x1);
+
+			/* wait until done waking up */
+			while((XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) &
+					PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK) ==
+							PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK ) {;}
+		}
+
 	}
 
 	/**

@@ -277,6 +277,9 @@ extern "C" {
  */
 #define PMU_GLOBAL_BASEADDR      0XFFD80000U
 
+#define PMU_GLOBAL_GLOBAL_CNTRL    ( ( PMU_GLOBAL_BASEADDR ) + 0X00000000U )
+#define PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK    0X00010000U
+
 /* rpu */
 
 /**
@@ -371,6 +374,21 @@ extern "C" {
  */
 #define RSA_CORE_CTRL    ( ( RSA_CORE_BASEADDR ) + 0X00000010U )
 
+/* LPD_SLCR Base Address */
+#define LPD_SLCR_BASEADDR      0XFF410000U
+
+/* Register: LPD_SLCR_PERSISTENT4 */
+#define LPD_SLCR_PERSISTENT4    ( ( LPD_SLCR_BASEADDR ) + 0X00000030U )
+
+/* Register: LPD_SLCR_PERSISTENT5 */
+#define LPD_SLCR_PERSISTENT5    ( ( LPD_SLCR_BASEADDR ) + 0X00000034U )
+
+/* IPI Base Address */
+#define IPI_BASEADDR      0XFF300000U
+
+/* Register: IPI_PMU_0_TRIG */
+#define IPI_PMU_0_TRIG    ( ( IPI_BASEADDR ) + 0X00030000U )
+#define IPI_APU_TRIG_PMU_0_SHIFT    16U
 
 /**************************** Type Definitions *******************************/
 
@@ -382,7 +400,11 @@ extern "C" {
  * For error reporting PMU_GLOBAL_PERS_GLOB_GEN_STORAGE1 is used
  */
 #define XFSBL_ERROR_STATUS_REGISTER_OFFSET	(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE1)
-#define XFSBL_PMU_RAM_ADDRESS			(0xFFDC0000U)
+
+
+/* PMU RAM address for PMU FW */
+#define XFSBL_PMU_RAM_START_ADDRESS		(0xFFDC0000U)
+#define XFSBL_PMU_RAM_END_ADDRESS		(0xFFDDFFFFU)
 
 /**
  * ARM Processor defines

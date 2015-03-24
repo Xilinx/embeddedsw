@@ -737,9 +737,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	 * Copy the PL to temporary DDR Address
 	 * Copy the PS to Load Address
 	 * Copy the PMU firmware to PMU RAM
-	 * (It may be good if we copy to DDR instead of PMU RAM
-	 * And finish the PMU RAM copy at handoff so that PMU is
-	 * not in waiting state -  Need to check the exact working of PMU)
 	 */
 	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 	LoadAddress = PartitionHeader->DestinationLoadAddress;
@@ -833,6 +830,20 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		Length -= TcmSkipLength;
 	}
 #endif
+
+	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PMU)
+	{
+		/* Trigger PMU0 IPI in PMU IPI TRIG Reg */
+		XFsbl_Out32(IPI_PMU_0_TRIG, IPI_APU_TRIG_PMU_0_SHIFT);
+
+		/**
+		 * Wait until PMU Microblaze goes to sleep state,
+		 * before starting firmware download to PMU RAM
+		 */
+		while((XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) &
+				PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK) !=
+						PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK ) {;}
+	}
 
 	/**
 	 * Copy the partition to PS_DDR/PL_DDR/TCM
