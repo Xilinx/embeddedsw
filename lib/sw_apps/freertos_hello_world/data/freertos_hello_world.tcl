@@ -38,7 +38,7 @@ proc swapp_get_description {} {
     return " FreeRTOS R5 Hello World application";
 }
 
-proc check_standalone_os {} {
+proc check_freertos_os {} {
     set oslist [get_os];
 
     if { [llength $oslist] != 1 } {
@@ -52,7 +52,10 @@ proc check_standalone_os {} {
 }
 
 proc swapp_is_supported_sw {} {
-    return 0;
+
+    check_freertos_os
+
+    return 1;
 }
 
 proc swapp_is_supported_hw {} {
