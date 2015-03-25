@@ -122,6 +122,8 @@ extern const struct remote_resource_table resources;
 /* Application entry point */
 int main() {
 
+	int status = 0;
+
 	/* Initialize HW system components */
 	init_system();
 
@@ -129,8 +131,11 @@ int main() {
 	rsc_info.size = sizeof(resources);
 
 	/* Initialize RPMSG framework */
-	remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted,
+	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted,
 			rpmsg_read_cb ,&proc);
+	if (status < 0) {
+		return -1;
+	}
 
 	while (1) {
 		__asm__ ( "wfi\n\t" );

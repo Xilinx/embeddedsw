@@ -31,13 +31,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "xparameters.h"
-#include "baremetal.h"
 #include "xil_exception.h"
 #include "xscugic.h"
 #include "xil_cache.h"
 #include "xil_mmu.h"
 #include "baremetal.h"
-#include "platform.h"
 
 XScuGic InterruptController;
 
@@ -198,12 +196,12 @@ void ipi_isr(int vect_id, void *data) {
 	unsigned int ipi_intr_status = (unsigned int)Xil_In32(ipi_base_addr + IPI_ISR_OFFSET);
 	int i = 0;
 	do {
+		Xil_Out32((ipi_base_addr + IPI_ISR_OFFSET), ipi_intr_status);
 		for (i = 0; i < IPI_TOTAL; i++) {
 			if (ipi_base_addr != ipi_handler_table[i].ipi_base_addr)
 				continue;
 			if (!(ipi_intr_status && (ipi_handler_table[i].intr_mask)))
 				continue;
-			Xil_Out32((ipi_base_addr + IPI_ISR_OFFSET), ipi_handler_table[i].intr_mask);
 			ipi_handler_table[i].ipi_handler(ipi_base_addr, ipi_handler_table[i].intr_mask, ipi_handler_table[i].data);
 		}
 		ipi_intr_status = (unsigned int)Xil_In32(ipi_base_addr + IPI_ISR_OFFSET);
