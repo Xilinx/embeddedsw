@@ -550,44 +550,42 @@ void rpmsg_rx_callback(struct virtqueue *vq) {
 
     env_unlock_mutex(rdev->lock);
 
-    if (!rp_hdr) {
-        return;
-    }
+     while(rp_hdr) {
 
-    /* Get the channel node from the remote device channels list. */
-    node = rpmsg_rdev_get_endpoint_from_addr(rdev, rp_hdr->dst);
+        /* Get the channel node from the remote device channels list. */
+        node = rpmsg_rdev_get_endpoint_from_addr(rdev, rp_hdr->dst);
 
-    if (!node)
-        /* Fatal error no endpoint for the given dst addr. */
-        return;
+        if (!node)
+            /* Fatal error no endpoint for the given dst addr. */
+            return;
 
-    rp_ept = (struct rpmsg_endpoint *) node->data;
+        rp_ept = (struct rpmsg_endpoint *) node->data;
 
-    rp_chnl = rp_ept->rp_chnl;
+        rp_chnl = rp_ept->rp_chnl;
 
-    if ((rp_chnl) && (rp_chnl->state == RPMSG_CHNL_STATE_NS)) {
+        if ((rp_chnl) && (rp_chnl->state == RPMSG_CHNL_STATE_NS)) {
+            /* First message from RPMSG Master, update channel
+             * destination address and state */
+            rp_chnl->dst = rp_hdr->src;
+            rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
 
-        /* First message from RPMSG Master, update channel
-         * destination address and state */
-        rp_chnl->dst = rp_hdr->src;
-        rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
-
-        /* Notify channel creation to application */
-        if (rdev->channel_created) {
-            rdev->channel_created(rp_chnl);
+            /* Notify channel creation to application */
+            if (rdev->channel_created) {
+                rdev->channel_created(rp_chnl);
+            }
+        } else {
+            rp_ept->cb(rp_chnl, rp_hdr->data, rp_hdr->len, rp_ept->priv,
+                            rp_hdr->src);
         }
-    } else {
 
-        rp_ept->cb(rp_chnl, rp_hdr->data, rp_hdr->len, rp_ept->priv,
-                        rp_hdr->src);
+        env_lock_mutex(rdev->lock);
+
+        /* Return used buffers. */
+        rpmsg_return_buffer(rdev, rp_hdr, len, idx);
+
+        rp_hdr = (struct rpmsg_hdr *) rpmsg_get_rx_buffer(rdev, &len, &idx);
+        env_unlock_mutex(rdev->lock);
     }
-
-    env_lock_mutex(rdev->lock);
-
-    /* Return used buffers. */
-    rpmsg_return_buffer(rdev, rp_hdr, len, idx);
-
-    env_unlock_mutex(rdev->lock);
 }
 
 /**

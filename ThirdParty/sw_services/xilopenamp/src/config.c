@@ -58,13 +58,7 @@ extern unsigned char _binary_firmware2_end;
 
 #define FIRMWARE2_START  (void *)&_binary_firmware2_start
 #define FIRMWARE2_END    (void *)&_binary_firmware2_end
-/* IPI REGs OFFSET */
-#define IPI_TRIG_OFFSET          0x00000000 /* IPI trigger register offset */
-#define IPI_OBS_OFFSET           0x00000004 /* IPI observation register offset */
-#define IPI_ISR_OFFSET           0x00000010 /* IPI interrupt status register offset */
-#define IPI_IMR_OFFSET           0x00000014 /* IPI interrupt mask register offset */
-#define IPI_IER_OFFSET           0x00000018 /* IPI interrupt enable register offset */
-#define IPI_IDR_OFFSET           0x0000001C /* IPI interrupt disable register offset */
+
 /* Init firmware table */
 
 const struct firmware_info fw_table[] = { { "firmware1",

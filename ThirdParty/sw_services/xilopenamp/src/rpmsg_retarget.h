@@ -79,3 +79,4 @@ void debug_print(char* str, int len);
 /* API prototypes */
 int rpmsg_retarget_init(struct rpmsg_channel *rp_chnl, rpc_shutdown_cb cb);
 int rpmsg_retarget_deinit(struct rpmsg_channel *rp_chnl);
+int rpmsg_retarget_send(void *data, int len);

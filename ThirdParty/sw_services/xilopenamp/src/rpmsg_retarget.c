@@ -32,7 +32,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
-#include "sleep.h"
 
 
 
@@ -105,6 +104,10 @@ int rpmsg_retarget_deinit(struct rpmsg_channel *rp_chnl) {
 	env_free_memory(rpc_data);
 
 	return 0;
+}
+
+int rpmsg_retarget_send(void *data, int len) {
+	return send_rpc(data, len);
 }
 
 /*************************************************************************
