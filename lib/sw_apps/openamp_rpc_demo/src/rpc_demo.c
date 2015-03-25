@@ -116,6 +116,8 @@ extern const struct remote_resource_table resources;
 #define SHARED_MEMORY 	0x3ED00000
 #define SHARED_SIZE 	0x400000	/* size of the shared memory*/
 
+#define RPC_CHANNEL_READY_TO_CLOSE "rpc_channel_ready_to_close"
+
 /* Application entry point */
 int main() {
 	int fd, bytes_written, bytes_read;
@@ -126,6 +128,7 @@ int main() {
 	float fdata;
 	int idata;
 	int ret;
+	int status;
 
 	/* Initialize HW system components */
 	init_system();
@@ -134,8 +137,11 @@ int main() {
 	rsc_info.size = sizeof(resources);
 
 	/* Initialize RPMSG framework */
-	remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
-	rpmsg_channel_deleted, rpmsg_read_cb, &proc);
+	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
+					rpmsg_channel_deleted, rpmsg_read_cb, &proc);
+	if (status < 0) {
+		return -1;
+	}
 
 	while (!chnl_cb_flag) {
 		__asm__ ( "\
@@ -206,6 +212,8 @@ int main() {
 				printf("\r\nRemote>Invalid option. Starting again....\r\n");
 			} else if((!strcmp(ubuff,"no"))) {
 				printf("\r\nRemote>RPC retargetting quitting ...\r\n");
+				sprintf(wbuff, RPC_CHANNEL_READY_TO_CLOSE);
+				rpmsg_retarget_send(wbuff, sizeof(RPC_CHANNEL_READY_TO_CLOSE) + 1);
 				break;
 			}
 		}
