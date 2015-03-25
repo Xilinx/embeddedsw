@@ -39,6 +39,16 @@
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
+#define VRING1_IPI_INTR_VECT              65
+
+/* IPI REGs OFFSET */
+#define IPI_TRIG_OFFSET          0x00000000 /* IPI trigger register offset */
+#define IPI_OBS_OFFSET           0x00000004 /* IPI observation register offset */
+#define IPI_ISR_OFFSET           0x00000010 /* IPI interrupt status register offset */
+#define IPI_IMR_OFFSET           0x00000014 /* IPI interrupt mask register offset */
+#define IPI_IER_OFFSET           0x00000018 /* IPI interrupt enable register offset */
+#define IPI_IDR_OFFSET           0x0000001C /* IPI interrupt disable register offset */
+
 #define platform_dcache_all_flush() { Xil_DCacheFlush(); }
 
 #define platform_dcache_flush_range(addr, len) { Xil_DCacheFlushRange(addr, len); }

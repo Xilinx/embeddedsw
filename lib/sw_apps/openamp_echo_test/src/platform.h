@@ -1,8 +1,5 @@
 /*
- * Copyright (c) 2014, Mentor Graphics Corporation
- * All rights reserved.
- *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,14 +43,6 @@ struct ipi_info {
 	uint32_t ipi_base_addr;
 	uint32_t ipi_chn_mask;
 };
-
-/* IPI REGs OFFSET */
-#define IPI_TRIG_OFFSET          0x00000000 /* IPI trigger register offset */
-#define IPI_OBS_OFFSET           0x00000004 /* IPI observation register offset */
-#define IPI_ISR_OFFSET           0x00000010 /* IPI interrupt status register offset */
-#define IPI_IMR_OFFSET           0x00000014 /* IPI interrupt mask register offset */
-#define IPI_IER_OFFSET           0x00000018 /* IPI interrupt enable register offset */
-#define IPI_IDR_OFFSET           0x0000001C /* IPI interrupt disable register offset */
 
 /* IPC Device parameters */
 #define SHM_ADDR                          (void *)0x3ED08000
