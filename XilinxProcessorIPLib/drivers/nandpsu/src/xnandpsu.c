@@ -2619,7 +2619,7 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	u32 BufRdCnt = 0U;
 	u32 *BufPtr = (u32 *)(void *)Buf;
 	s32 Status = XST_FAILURE;
-	u32 Index;
+	u32 Index, RegVal;
 
 	/*
 	 * Assert the input arguments.
@@ -2754,24 +2754,35 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 			 * Enable Transfer Complete Interrupt in Interrupt
 			 * Status Enable Register
 			 */
+			RegVal = XNandPsu_ReadReg(
+					(InstancePtr)->Config.BaseAddress,
+					XNANDPSU_INTR_STS_EN_OFFSET);
+			RegVal &= ~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
+			RegVal |= XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
 			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+				XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 		} else {
 			/*
 			 * Clear Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
+			RegVal = XNandPsu_ReadReg(
+					(InstancePtr)->Config.BaseAddress,
+					XNANDPSU_INTR_STS_EN_OFFSET);
+			RegVal &= ~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
 			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-					XNANDPSU_INTR_STS_EN_OFFSET, 0U);
+					XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 		}
 		/*
 		 * Clear Buffer Read Ready Interrupt in Interrupt Status
 		 * Register
 		 */
+		RegVal = XNandPsu_ReadReg(
+				(InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET);
+		RegVal |= XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
 		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
+				XNANDPSU_INTR_STS_OFFSET, RegVal);
 		/*
 		 * Read Packet Data from Data Port Register
 		 */
@@ -2787,10 +2798,12 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 			 * Enable Buffer Read Ready Interrupt in Interrupt
 			 * Status Enable Register
 			 */
+			RegVal = XNandPsu_ReadReg(
+					(InstancePtr)->Config.BaseAddress,
+					XNANDPSU_INTR_STS_EN_OFFSET);
+			RegVal |= XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
 			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
-
+				XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 		} else {
 			break;
 		}
