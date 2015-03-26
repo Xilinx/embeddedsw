@@ -611,10 +611,18 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	XFsbl_Printf(DEBUG_INFO,"Multiboot Reg : 0x%0lx \n\r", MultiBootOffset);
 
 	/**
-	 * Calculate the Flash Offset Address
+	 *  Calculate the Flash Offset Address
+	 *  For file system based devices, Flash Offset Address should be 0 always
 	 */
-	FsblInstancePtr->ImageOffsetAddress =
-			MultiBootOffset * XFSBL_IMAGE_SEARCH_OFFSET;
+	if ((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD_BOOT_MODE) ||
+			(FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE))
+	{
+		FsblInstancePtr->ImageOffsetAddress = 0x0U;
+	} else {
+		FsblInstancePtr->ImageOffsetAddress =
+				MultiBootOffset * XFSBL_IMAGE_SEARCH_OFFSET;
+	}
+
 	FlashImageOffsetAddress = FsblInstancePtr->ImageOffsetAddress;
 
 	/**
