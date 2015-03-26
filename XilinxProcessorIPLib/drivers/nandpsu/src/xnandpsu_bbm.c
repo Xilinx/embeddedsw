@@ -673,7 +673,7 @@ static s32 XNandPsu_SearchBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 		if(Desc->Option == XNANDPSU_BBT_NO_OOB){
 			BlockOff = (u64)PageOff * (u64)InstancePtr->Geometry.BytesPerPage;
 			Status = XNandPsu_Read(InstancePtr, BlockOff,
-				Desc->SigLength + Desc->SigOffset , &Buf[0]);
+				Desc->VerOffset + XNANDPSU_BBT_VERSION_LENGTH, &Buf[0]);
 		}else{
 			Status = XNandPsu_ReadSpareBytes(InstancePtr, PageOff, &Buf[0]);
 		}
