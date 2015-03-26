@@ -106,16 +106,28 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 	/*
 	 * Initialize primary Bad Block Table(BBT)
 	 */
+	InstancePtr->BbtDesc.Option = XNANDPSU_BBT_OOB;
 	for (Index = 0U; Index < XNANDPSU_MAX_TARGETS; Index++) {
 		InstancePtr->BbtDesc.PageOffset[Index] =
 						XNANDPSU_BBT_DESC_PAGE_OFFSET;
 	}
-	if (InstancePtr->EccMode == XNANDPSU_ONDIE) {
-		InstancePtr->BbtDesc.SigOffset = XNANDPSU_ONDIE_SIG_OFFSET;
-		InstancePtr->BbtDesc.VerOffset = XNANDPSU_ONDIE_VER_OFFSET;
+	if(InstancePtr->BbtDesc.Option == XNANDPSU_BBT_OOB) {
+		if (InstancePtr->EccMode == XNANDPSU_ONDIE) {
+			InstancePtr->BbtDesc.SigOffset =
+						XNANDPSU_ONDIE_SIG_OFFSET;
+			InstancePtr->BbtDesc.VerOffset =
+						XNANDPSU_ONDIE_VER_OFFSET;
+		} else {
+			InstancePtr->BbtDesc.SigOffset =
+						XNANDPSU_BBT_DESC_SIG_OFFSET;
+			InstancePtr->BbtDesc.VerOffset =
+						XNANDPSU_BBT_DESC_VER_OFFSET;
+		}
 	} else {
-		InstancePtr->BbtDesc.SigOffset = XNANDPSU_BBT_DESC_SIG_OFFSET;
-		InstancePtr->BbtDesc.VerOffset = XNANDPSU_BBT_DESC_VER_OFFSET;
+		InstancePtr->BbtDesc.SigOffset =
+					XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET;
+		InstancePtr->BbtDesc.VerOffset =
+					XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET;
 	}
 	InstancePtr->BbtDesc.SigLength = XNANDPSU_BBT_DESC_SIG_LEN;
 	InstancePtr->BbtDesc.MaxBlocks = XNANDPSU_BBT_DESC_MAX_BLOCKS;
@@ -124,7 +136,6 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 		InstancePtr->BbtDesc.Version[Index] = 0U;
 	}
 	InstancePtr->BbtDesc.Valid = 0U;
-	InstancePtr->BbtDesc.Option = XNANDPSU_BBT_OOB;
 
 	/*
 	 * Assuming that the flash device will have at least 4 blocks.
@@ -137,20 +148,28 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 	/*
 	 * Initialize mirror Bad Block Table(BBT)
 	 */
+	InstancePtr->BbtMirrorDesc.Option = XNANDPSU_BBT_OOB;
 	for (Index = 0U; Index < XNANDPSU_MAX_TARGETS; Index++) {
 		InstancePtr->BbtMirrorDesc.PageOffset[Index] =
 						XNANDPSU_BBT_DESC_PAGE_OFFSET;
 	}
-	if (InstancePtr->EccMode == XNANDPSU_ONDIE) {
-		InstancePtr->BbtMirrorDesc.SigOffset =
+	if(InstancePtr->BbtMirrorDesc.Option == XNANDPSU_BBT_OOB) {
+		if (InstancePtr->EccMode == XNANDPSU_ONDIE) {
+			InstancePtr->BbtMirrorDesc.SigOffset =
 						XNANDPSU_ONDIE_SIG_OFFSET;
-		InstancePtr->BbtMirrorDesc.VerOffset =
+			InstancePtr->BbtMirrorDesc.VerOffset =
 						XNANDPSU_ONDIE_VER_OFFSET;
+		} else {
+			InstancePtr->BbtMirrorDesc.SigOffset =
+						XNANDPSU_BBT_DESC_SIG_OFFSET;
+			InstancePtr->BbtMirrorDesc.VerOffset =
+						XNANDPSU_BBT_DESC_VER_OFFSET;
+		}
 	} else {
 		InstancePtr->BbtMirrorDesc.SigOffset =
-						XNANDPSU_BBT_DESC_SIG_OFFSET;
+					XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET;
 		InstancePtr->BbtMirrorDesc.VerOffset =
-						XNANDPSU_BBT_DESC_VER_OFFSET;
+					XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET;
 	}
 	InstancePtr->BbtMirrorDesc.SigLength = XNANDPSU_BBT_DESC_SIG_LEN;
 	InstancePtr->BbtMirrorDesc.MaxBlocks = XNANDPSU_BBT_DESC_MAX_BLOCKS;
@@ -159,7 +178,6 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 		InstancePtr->BbtMirrorDesc.Version[Index] = 0U;
 	}
 	InstancePtr->BbtMirrorDesc.Valid = 0U;
-	InstancePtr->BbtMirrorDesc.Option = XNANDPSU_BBT_OOB;
 
 	/*
 	 * Assuming that the flash device will have at least 4 blocks.
