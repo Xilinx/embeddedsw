@@ -1064,22 +1064,26 @@ static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
 	}
 
 	if (Found != 0U) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("ECC: addr 0x%x size 0x%x numbits %d codesz %d\r\n",
-			PageSize + (InstancePtr->Geometry.SpareBytesPerPage
-						- EccMatrix[Found].EccSize),
-						EccMatrix[Found].EccSize,
-						EccMatrix[Found].NumEccBits,
-						EccMatrix[Found].CodeWordSize);
-#endif
-		InstancePtr->EccCfg.EccAddr = PageSize +
+		if(InstancePtr->Geometry.SpareBytesPerPage < 64U) {
+			InstancePtr->EccCfg.EccAddr = PageSize;
+		}
+		else {
+			InstancePtr->EccCfg.EccAddr = PageSize +
 				(InstancePtr->Geometry.SpareBytesPerPage
-					- EccMatrix[Found].EccSize);
+						- EccMatrix[Found].EccSize);
+		}
 		InstancePtr->EccCfg.EccSize = EccMatrix[Found].EccSize;
 		InstancePtr->EccCfg.NumEccBits = EccMatrix[Found].NumEccBits;
 		InstancePtr->EccCfg.CodeWordSize =
 						EccMatrix[Found].CodeWordSize;
-
+#ifdef XNANDPSU_DEBUG
+		xil_printf("ECC: addr 0x%x size 0x%x numbits %d "
+				   "codesz %d\r\n",
+				   InstancePtr->EccCfg.EccAddr,
+				   InstancePtr->EccCfg.EccSize,
+				   InstancePtr->EccCfg.NumEccBits,
+				   InstancePtr->EccCfg.CodeWordSize);
+#endif
 		if (EccMatrix[Found].IsBCH == XNANDPSU_HAMMING) {
 			InstancePtr->EccCfg.IsBCH = 0U;
 		} else {
