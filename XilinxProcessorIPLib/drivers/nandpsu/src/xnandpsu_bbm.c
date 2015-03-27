@@ -464,7 +464,11 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 
 	XNandPsu_BbtDesc *Desc = &InstancePtr->BbtDesc;
 	XNandPsu_BbtDesc *MirrorDesc = &InstancePtr->BbtMirrorDesc;
-	BufLen = XNANDPSU_BBT_BUF_LENGTH;
+	BufLen = InstancePtr->Geometry.NumBlocks >>
+			XNANDPSU_BBT_BLOCK_SHIFT;
+	if (Desc->Option == XNANDPSU_BBT_NO_OOB) {
+		BufLen += Desc->VerOffset + XNANDPSU_BBT_VERSION_LENGTH;
+	}
 	/*
 	 * Search the Bad Block Table(BBT) in flash
 	 */
@@ -728,7 +732,6 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 			InstancePtr->Geometry.NumTargetBlocks) - (u32)1;
 	u8 Buf[XNANDPSU_BBT_BUF_LENGTH]
 					 __attribute__ ((aligned(64))) = {0U};
-	u32 BufLen = XNANDPSU_BBT_BUF_LENGTH;
 	u8 SpareBuf[XNANDPSU_MAX_SPARE_SIZE] __attribute__ ((aligned(64))) = {0U};
 	u8 Mask[4] = {0x00U, 0x01U, 0x02U, 0x03U};
 	u8 Data;
@@ -740,6 +743,10 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	u8 BlockType;
 	u32 BbtLen = InstancePtr->Geometry.NumBlocks >>
 						XNANDPSU_BBT_BLOCK_SHIFT;
+	u32 BufLen = BbtLen;
+	if (Desc->Option == XNANDPSU_BBT_NO_OOB) {
+		BufLen += Desc->VerOffset + XNANDPSU_BBT_VERSION_LENGTH;
+	}
 	u8* BufPtr = Buf;
 	/*
 	 * Find a valid block to write the Bad Block Table(BBT)
