@@ -551,17 +551,6 @@ typedef struct {
  * when the driver is operating in multi-stream transport (MST) mode.
  */
 typedef struct {
-	u8 ReplyType;			/**< The reply type of the sideband
-						message. A value of 1 indicates
-						that the request wasn't
-						successful and the return data
-						will give the reason for a
-						negative-acknowledge (NACK). */
-	u8 RequestId;			/**< The request identifier of the
-						reply. This should correspond to
-						the request identifier for the
-						LINK_ADDRESS sideband message
-						request. */
 	u32 Guid[4];			/**< The global unique identifier (GUID)
 						of the branch device. */
 	u8 NumPorts;			/**< The number of ports associated with

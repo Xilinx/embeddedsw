@@ -2447,14 +2447,12 @@ static void XDp_TxAddSinkToList(XDp *InstancePtr,
 static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(XDp_SidebandReply
 		*SbReply, XDp_TxSbMsgLinkAddressReplyDeviceInfo *FormatReply)
 {
-	u8 ReplyIndex = 0;
+	u8 ReplyIndex = 1;
 	u8 Index, Index2;
 	XDp_TxSbMsgLinkAddressReplyPortDetail *PortDetails;
 
 	/* Determine the device information from the sideband message reply
 	 * structure. */
-	FormatReply->ReplyType = (SbReply->Data[ReplyIndex] >> 7);
-	FormatReply->RequestId = (SbReply->Data[ReplyIndex++] & 0x7F);
 
 	memset(FormatReply->Guid, 0, 16);
 	for (Index = 0; Index < 16; Index++) {
