@@ -152,14 +152,14 @@ static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDp_TxTopology *Topology,
 			u32 *Guid);
 static void XDp_TxAddBranchToList(XDp *InstancePtr,
-			XDp_TxSbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
+			XDp_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
 			u8 LinkCountTotal, u8 *RelativeAddress);
 static void XDp_TxAddSinkToList(XDp *InstancePtr,
-			XDp_TxSbMsgLinkAddressReplyPortDetail *SinkDevice,
+			XDp_SbMsgLinkAddressReplyPortDetail *SinkDevice,
 			u8 LinkCountTotal, u8 *RelativeAddress);
 static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(
 			XDp_SidebandReply *SbReply,
-			XDp_TxSbMsgLinkAddressReplyDeviceInfo *FormatReply);
+			XDp_SbMsgLinkAddressReplyDeviceInfo *FormatReply);
 static u32 XDp_TxGetFirstAvailableTs(XDp *InstancePtr, u8 *FirstTs);
 static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg);
@@ -641,8 +641,8 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 	u8 NumDownBranches = 0;
 	u8 OverallFailures = 0;
 	XDp_TxTopology *Topology;
-	XDp_TxSbMsgLinkAddressReplyPortDetail *PortDetails;
-	static XDp_TxSbMsgLinkAddressReplyDeviceInfo DeviceInfo;
+	XDp_SbMsgLinkAddressReplyPortDetail *PortDetails;
+	static XDp_SbMsgLinkAddressReplyDeviceInfo DeviceInfo;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1909,7 +1909,7 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
  *
 *******************************************************************************/
 u32 XDp_TxSendSbMsgLinkAddress(XDp *InstancePtr, u8 LinkCountTotal,
-	u8 *RelativeAddress, XDp_TxSbMsgLinkAddressReplyDeviceInfo *DeviceInfo)
+	u8 *RelativeAddress, XDp_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo)
 {
 	u32 Status;
 	XDp_SidebandMsg Msg;
@@ -2348,7 +2348,7 @@ static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
  *
 *******************************************************************************/
 static void XDp_TxAddBranchToList(XDp *InstancePtr,
-			XDp_TxSbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
+			XDp_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
 			u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u8 Index;
@@ -2393,7 +2393,7 @@ static void XDp_TxAddBranchToList(XDp *InstancePtr,
  *
 *******************************************************************************/
 static void XDp_TxAddSinkToList(XDp *InstancePtr,
-			XDp_TxSbMsgLinkAddressReplyPortDetail *SinkDevice,
+			XDp_SbMsgLinkAddressReplyPortDetail *SinkDevice,
 			u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u8 Index;
@@ -2445,11 +2445,11 @@ static void XDp_TxAddSinkToList(XDp *InstancePtr,
  *
 *******************************************************************************/
 static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(XDp_SidebandReply
-		*SbReply, XDp_TxSbMsgLinkAddressReplyDeviceInfo *FormatReply)
+		*SbReply, XDp_SbMsgLinkAddressReplyDeviceInfo *FormatReply)
 {
 	u8 ReplyIndex = 1;
 	u8 Index, Index2;
-	XDp_TxSbMsgLinkAddressReplyPortDetail *PortDetails;
+	XDp_SbMsgLinkAddressReplyPortDetail *PortDetails;
 
 	/* Determine the device information from the sideband message reply
 	 * structure. */

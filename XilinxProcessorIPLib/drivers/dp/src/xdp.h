@@ -544,7 +544,7 @@ typedef struct {
 						port can handle. */
 	u8 NumSdpStreamSinks;		/**< The number of SDP streams
 						associated with this port. */
-} XDp_TxSbMsgLinkAddressReplyPortDetail;
+} XDp_SbMsgLinkAddressReplyPortDetail;
 
 /**
  * This typedef describes a DisplayPort branch device. This structure is used
@@ -555,10 +555,10 @@ typedef struct {
 						of the branch device. */
 	u8 NumPorts;			/**< The number of ports associated with
 						this branch device. */
-	XDp_TxSbMsgLinkAddressReplyPortDetail PortDetails[16]; /**< An array
+	XDp_SbMsgLinkAddressReplyPortDetail PortDetails[16]; /**< An array
 						describing all ports attached to
 						this branch device. */
-} XDp_TxSbMsgLinkAddressReplyDeviceInfo;
+} XDp_SbMsgLinkAddressReplyDeviceInfo;
 
 /**
  * This typedef contains configuration information about the main link settings.
@@ -955,7 +955,7 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u8 IicDeviceId, u8 Offset, u8 BytesToRead,
 	u8 *ReadData);
 u32 XDp_TxSendSbMsgLinkAddress(XDp *InstancePtr, u8 LinkCountTotal,
-	u8 *RelativeAddress, XDp_TxSbMsgLinkAddressReplyDeviceInfo *DeviceInfo);
+	u8 *RelativeAddress, XDp_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo);
 u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn);
 u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
@@ -1039,5 +1039,10 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 
 #define XDPTX				XDP_TX
 #define XDPRX				XDP_RX
+
+#define XDp_TxSbMsgLinkAddressReplyDeviceInfo \
+					XDp_SbMsgLinkAddressReplyDeviceInfo
+#define XDp_TxSbMsgLinkAddressReplyPortDetail \
+					XDp_SbMsgLinkAddressReplyPortDetail
 
 #endif /* XDP_H_ */
