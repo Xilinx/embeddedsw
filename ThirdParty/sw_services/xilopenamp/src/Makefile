@@ -44,7 +44,7 @@ OPENAMP_DIR = .
 
 LIB_SRCS = $(OPENAMP_DIR)/config.c \
           $(OPENAMP_DIR)/bm_env.c \
-		  $(OPENAMP_DIR)/elf_loader.c \
+          $(OPENAMP_DIR)/elf_loader.c \
           $(OPENAMP_DIR)/hil.c \
           $(OPENAMP_DIR)/llist.c \
           $(OPENAMP_DIR)/remote_device.c \
@@ -52,7 +52,7 @@ LIB_SRCS = $(OPENAMP_DIR)/config.c \
           $(OPENAMP_DIR)/remoteproc_loader.c \
           $(OPENAMP_DIR)/rpmsg.c \
           $(OPENAMP_DIR)/rpmsg_core.c \
-		  $(OPENAMP_DIR)/rpmsg_retarget.c\
+          $(OPENAMP_DIR)/rpmsg_retarget.c\
           $(OPENAMP_DIR)/rsc_table_parser.c \
           $(OPENAMP_DIR)/sh_mem.c \
           $(OPENAMP_DIR)/virtio.c \
@@ -66,23 +66,7 @@ OPENAMP_SRCS = $(LIB_SRCS)
 OPENAMP_OBJS = $(OPENAMP_SRCS:%.c=%.o)
 
 
-EXPORT_INCLUDE_FILES = $(OPENAMP_DIR)/config.h \
-			$(OPENAMP_DIR)/bm_env.h \
-			$(OPENAMP_DIR)/elf_loader.h \
-			$(OPENAMP_DIR)/env.h \
-			$(OPENAMP_DIR)/hil.h \
-			$(OPENAMP_DIR)/llist.h \
-			$(OPENAMP_DIR)/open_amp.h \
-			$(OPENAMP_DIR)/remoteproc.h \
-			$(OPENAMP_DIR)/remoteproc_loader.h \
-			$(OPENAMP_DIR)/rpmsg_retarget.h \
-			$(OPENAMP_DIR)/rpmsg.h \
-			$(OPENAMP_DIR)/rpmsg_core.h \
-			$(OPENAMP_DIR)/rsc_table_parser.h \
-			$(OPENAMP_DIR)/sh_mem.h \
-			$(OPENAMP_DIR)/virtio.h \
-			$(OPENAMP_DIR)/virtio_ring.h\
-			$(OPENAMP_DIR)/virtqueue.h
+EXPORT_INCLUDE_FILES:=*.h
 
 
 libs: libxilopenamp.a
@@ -90,9 +74,7 @@ libs: libxilopenamp.a
 	make clean
 
 include:
-	@for i in $(EXPORT_INCLUDE_FILES); do \
-	${CP} -r $$i ${INCLUDEDIR}; \
-	done
+	${CP} ${EXPORT_INCLUDE_FILES} ${INCLUDEDIR}
 
 clean:
 	rm -rf obj/config.o obj/bm_env.o obj/rpmsg_retarget.o obj/elf_loader.o obj/hil.o obj/llist.o obj/remote_device.o obj/remoteproc.o obj/remoteproc_loader.o obj/rpmsg.o obj/rpmsg_core.o obj/rsc_table_parser.o obj/sh_mem.o obj/virtio.o obj/virtqueue.o
