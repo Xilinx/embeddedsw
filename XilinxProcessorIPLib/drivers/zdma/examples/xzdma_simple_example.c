@@ -35,7 +35,7 @@
 * @file xzdma_simple_example.c
 *
 * This file contains the example using XZDma driver to do simple data transfer
-* in Normal mode on ZDMA device for 1GB data transfer.
+* in Normal mode on ZDMA device for 1MB data transfer.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -73,7 +73,7 @@ static void DoneHandler(void *CallBackRef);
 					/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR	/**< ZDMA Interrupt Id */
 
-#define SIZE		1000000000 /**< Size of the data to be transferred */
+#define SIZE		1000000 /**< Size of the data to be transferred */
 #define TESTVALUE	0x1230 /**< For writing into source buffer */
 
 /**************************** Type Definitions *******************************/
