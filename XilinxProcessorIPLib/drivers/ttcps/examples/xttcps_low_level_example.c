@@ -70,7 +70,7 @@
 #define TTC_NUM_DEVICES		2
 
 #define TABLE_OFFSET		6
-#define MAX_LOOP_COUNT		0xFFFF
+#define MAX_LOOP_COUNT		0xFF
 
 /**************************** Type Definitions *******************************/
 
