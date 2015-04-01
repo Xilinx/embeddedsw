@@ -124,7 +124,7 @@ proc swapp_generate {} {
         file delete -force $ld_file_a53
 
         set_property -name {APP_COMPILER_FLAGS} \
-        -value {-Wall -O0 -g3 -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp} \
+        -value {-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp} \
         -objects [current_sw_design ]
     } else {
         set ld_file "lscript.ld"
@@ -135,7 +135,7 @@ proc swapp_generate {} {
         file rename -force $ld_file_a53 $ld_file_new
 
         set_property -name {APP_COMPILER_FLAGS} \
-        -value {-Wall -O0 -g3 -fmessage-length=0 -DXFSBL_A53} \
+        -value {-Wall -fmessage-length=0 -DXFSBL_A53} \
         -objects [current_sw_design ]
     }
 }
