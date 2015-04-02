@@ -570,6 +570,59 @@ typedef struct {
 						link. */
 } XDp_RxLinkConfig;
 
+/**
+ * This typedef represents one I2C map entry for a device. This is used to allow
+ * the user to define an I2C map for any port.
+ */
+typedef struct {
+	u8 IicAddress;			/**< The I2C address for the which to
+						link the data to. */
+	u8 WriteVal;			/**< The last value written to this I2C
+						address. This may be used when
+						the TX writes to this I2C
+						address in order to set a read
+						offset or set the segment
+						pointer. */
+	u8 ReadNumBytes;		/**< The total number of available data
+						bytes at this I2C address. */
+	u8 *ReadData;			/**< The data available at the specified
+						I2C address. User-defined by
+						setting the pointer to a
+						structure residing in the
+						application. */
+} XDp_RxIicMapEntry;
+
+/**
+ * This typedef contains information on the directly connected ports to the RX
+ * branch. Information contained in XDp_SbMsgLinkAddressReplyDeviceInfo is not
+ * duplicated here.
+ */
+typedef struct {
+	XDp_RxIicMapEntry IicMap[3];	/**< The I2C map of the internal sinks.
+						When the RX replies to a
+						REMOTE_I2C_READ sideband
+						message, it responds with the
+						associated I2C map for the
+						requested port. The driver
+						allows up to 3 I2C addresses per
+						port to be user-defined. */
+	u8 Exposed;			/**< When set to 1, the RX branch device
+						will expose the port in the
+						LINK_ADDRESS reply. */
+} XDp_RxPorts;
+
+/**
+ * This typedef contains topology information on directly connected sinks and of
+ * the RX branch itself.
+ */
+typedef struct {
+	XDp_SbMsgLinkAddressReplyDeviceInfo LinkAddressInfo; /**< Topology
+						information used by the RX to
+						form the LINK_ADDRESS reply. */
+	XDp_RxPorts Ports[16];		/**< Port information additional to that
+						contained in LinkAddressInfo. */
+} XDp_RxTopology;
+
 /******************************************************************************/
 /**
  * Callback type which represents a custom timer wait handler. This is only
@@ -661,6 +714,8 @@ typedef struct {
  * The XDp driver instance data representing the TX mode of operation.
  */
 typedef struct {
+	XDp_RxTopology Topology;		/**< Topology of connected sinks
+							to the RX. */
 	XDp_RxLinkConfig LinkConfig;		/**< Configuration structure for
 							the main link. */
 	XDp_IntrHandler IntrVmChangeHandler;	/**< Callback function for video
