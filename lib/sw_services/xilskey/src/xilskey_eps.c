@@ -44,6 +44,7 @@
 * 1.00a rpoolla 04/26/13 First release
 * 1.02a hk      10/28/13 Added API to read status register.PR# 735957
 * 2.00  hk      23/01/14 Changed PS efuse error codes for voltage out of range.
+* 2.1   sk      04/03/15 Initialized RSAKeyReadback with Zeros CR# 829723.
 *
 *
 *****************************************************************************/
@@ -316,12 +317,21 @@ u32 XilSKey_EfusePs_Read(XilSKey_EPs *InstancePtr)
 	u32 Status, RetValue;
 	u32 RefClk;
 	u32 ArmPllFDiv,ArmClkDivisor;
+	u32 Index;
 
 	RetValue = XST_SUCCESS;
 
 
 	if (NULL == InstancePtr) {
 		return XSK_EFUSEPS_ERROR_PS_STRUCT_NULL;
+	}
+
+	/* Initializing RSAKeyReadback to Zero since when reading
+	 * the key with XSK_EFUSEPS_ENABLE_RSA_KEY_HASH
+	 * as FALSE it will give all zeros.
+	 */
+	for(Index = 0; Index < XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES; Index++) {
+		InstancePtr->RsaKeyReadback[Index] = 0;
 	}
 
 	/**

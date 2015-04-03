@@ -50,6 +50,7 @@
 *			 Change in API:
 *			 u32 XilSKey_EfusePs_Read(XilSKey_EPs *PsInstancePtr)
 * 2.00  hk      23/01/14 Changed PS efuse error codes for voltage out of range
+* 2.1   sk      04/03/15 Initialized RSAKeyReadback with Zeros CR# 829723.
 *
 *
 *****************************************************************************/
