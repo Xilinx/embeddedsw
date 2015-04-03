@@ -63,9 +63,9 @@
 
 /************************** Constant Definitions ****************************/
 
-#define XCANPS_MAX_FRAME_SIZE_IN_WORDS (XCANPS_MAX_FRAME_SIZE / sizeof(u32))
+#define XCANPS_MAX_FRAME_SIZE_IN_WORDS ((XCANPS_MAX_FRAME_SIZE) / (sizeof(u32)))
 
-#define FRAME_DATA_LENGTH	8 /* Frame Data field length */
+#define FRAME_DATA_LENGTH	8U /* Frame Data field length */
 
 /**************************** Type Definitions ******************************/
 
@@ -111,11 +111,13 @@ static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
 * have a chance to check reason(s) causing the failure.
 *
 ******************************************************************************/
-int XCanPs_SelfTest(XCanPs *InstancePtr)
+s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 {
 	u8 *FramePtr;
-	u32 Status;
+	s32 Status;
 	u32 Index;
+	u8 GetModeResult;
+	u32 RxEmptyResult;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -128,7 +130,8 @@ int XCanPs_SelfTest(XCanPs *InstancePtr)
 	 * it is not Configuration Mode.
 	 */
 	if (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_CONFIG) {
-		return XST_FAILURE;
+		Status = XST_FAILURE;
+		return Status;
 	}
 
 	/*
@@ -137,64 +140,81 @@ int XCanPs_SelfTest(XCanPs *InstancePtr)
 	 * equal to 24MHz. For more information see the CAN 2.0A, CAN 2.0B,
 	 * ISO 11898-1 specifications.
 	 */
-	XCanPs_SetBaudRatePrescaler(InstancePtr, 29);
-	XCanPs_SetBitTiming(InstancePtr, 3, 2, 15);
+	(void)XCanPs_SetBaudRatePrescaler(InstancePtr, (u8)29U);
+	(void)XCanPs_SetBitTiming(InstancePtr, (u8)3U, (u8)2U, (u8)15U);
 
 	/*
 	 * Enter the loop back mode.
 	 */
 	XCanPs_EnterMode(InstancePtr, XCANPS_MODE_LOOPBACK);
-	while (XCanPs_GetMode(InstancePtr) != XCANPS_MODE_LOOPBACK);
+	GetModeResult = XCanPs_GetMode(InstancePtr);
+	while (GetModeResult != ((u8)XCANPS_MODE_LOOPBACK)) {
+		GetModeResult = XCanPs_GetMode(InstancePtr);
+	}
 
 	/*
 	 * Create a frame to send with known values so we can verify them
 	 * on receive.
 	 */
-	TxFrame[0] = (u32)XCanPs_CreateIdValue((u32)2000, 0, 0, 0, 0);
-	TxFrame[1] = (u32)XCanPs_CreateDlcValue((u32)8);
+	TxFrame[0] = (u32)XCanPs_CreateIdValue((u32)2000U, (u32)0U, (u32)0U, (u32)0U, (u32)0U);
+	TxFrame[1] = (u32)XCanPs_CreateDlcValue((u32)8U);
 
-	FramePtr = (u8 *) (&TxFrame[2]);
-	for (Index = 0; Index < 8; Index++) {
-		*FramePtr++ = (u8) Index;
+	FramePtr = (u8 *)((void *)(&TxFrame[2]));
+	for (Index = 0U; Index < 8U; Index++) {
+		if(*FramePtr != 0U) {
+			*FramePtr = (u8)Index;
+			*FramePtr++;
+		}
 	}
 
 	/*
 	 * Send the frame.
 	 */
 	Status = XCanPs_Send(InstancePtr, TxFrame);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (s32)XST_SUCCESS) {
+		Status = XST_FAILURE;
+		return Status;
 	}
 
 	/*
 	 * Wait until the frame arrives RX FIFO via internal loop back.
 	 */
-	while (XCanPs_IsRxEmpty(InstancePtr) == TRUE);
+	RxEmptyResult = XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr),
+			XCANPS_ISR_OFFSET) & XCANPS_IXR_RXNEMP_MASK;
+
+	while (RxEmptyResult == (u32)0U) {
+		RxEmptyResult = XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr),
+				XCANPS_ISR_OFFSET) & XCANPS_IXR_RXNEMP_MASK;
+	}
 
 	/*
 	 * Receive the frame.
 	 */
 	Status = XCanPs_Recv(InstancePtr, RxFrame);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != (s32)XST_SUCCESS) {
+		Status = XST_FAILURE;
+		return Status;
 	}
 
 	/*
 	 * Verify Identifier and Data Length Code.
 	 */
 	if (RxFrame[0] !=
-		(u32)XCanPs_CreateIdValue((u32)2000, 0, 0, 0, 0)) {
-		return XST_FAILURE;
+		(u32)XCanPs_CreateIdValue((u32)2000U, (u32)0U, (u32)0U, (u32)0U, (u32)0U)) {
+		Status = XST_FAILURE;
+		return Status;
 	}
 
 	if ((RxFrame[1] & ~XCANPS_DLCR_TIMESTAMP_MASK) != TxFrame[1]) {
-		return XST_FAILURE;
+		Status = XST_FAILURE;
+		return Status;
 	}
 
 
-	for (Index = 2; Index < XCANPS_MAX_FRAME_SIZE_IN_WORDS; Index++) {
+	for (Index = 2U; Index < (XCANPS_MAX_FRAME_SIZE_IN_WORDS); Index++) {
 		if (RxFrame[Index] != TxFrame[Index]) {
-			return XST_FAILURE;
+			Status = XST_FAILURE;
+			return Status;
 		}
 	}
 
@@ -203,7 +223,8 @@ int XCanPs_SelfTest(XCanPs *InstancePtr)
 	 */
 	XCanPs_Reset(InstancePtr);
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+	return Status;
 }
 
 

@@ -231,7 +231,7 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	u32 PendingIntr;
 	u32 EventIntr;
 	u32 ErrorStatus;
-	XCanPs *CanPtr = (XCanPs *) InstancePtr;
+	XCanPs *CanPtr = (XCanPs *) ((void *)InstancePtr);
 
 	Xil_AssertVoid(CanPtr != NULL);
 	Xil_AssertVoid(CanPtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -248,14 +248,15 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	/*
 	 * An error interrupt is occurring.
 	 */
-	if ((PendingIntr & XCANPS_IXR_ERROR_MASK)) {
-		ErrorStatus = XCanPs_GetBusErrorStatus(CanPtr);
-		CanPtr->ErrorHandler(CanPtr->ErrorRef, ErrorStatus);
-
+	if (((PendingIntr & XCANPS_IXR_ERROR_MASK) != (u32)0) &&
+		(CanPtr->ErrorHandler != NULL)) {
+			CanPtr->ErrorHandler(CanPtr->ErrorRef,
+					XCanPs_GetBusErrorStatus(CanPtr));
 		/*
 		 * Clear Error Status Register.
 		 */
-		XCanPs_ClearBusErrorStatus(CanPtr, ErrorStatus);
+		XCanPs_ClearBusErrorStatus(CanPtr,
+					XCanPs_GetBusErrorStatus(CanPtr));
 	}
 
 	/*
@@ -271,18 +272,18 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	 *
 	 * If so, call event callback provided by upper level.
 	 */
-	EventIntr = PendingIntr & (XCANPS_IXR_RXOFLW_MASK |
-				XCANPS_IXR_RXUFLW_MASK |
-				XCANPS_IXR_TXBFLL_MASK |
-				XCANPS_IXR_TXFLL_MASK |
-				XCANPS_IXR_WKUP_MASK |
-				XCANPS_IXR_SLP_MASK |
-				XCANPS_IXR_BSOFF_MASK |
-				XCANPS_IXR_ARBLST_MASK);
-	if (EventIntr) {
+	EventIntr = PendingIntr & ((u32)XCANPS_IXR_RXOFLW_MASK |
+				(u32)XCANPS_IXR_RXUFLW_MASK |
+				(u32)XCANPS_IXR_TXBFLL_MASK |
+				(u32)XCANPS_IXR_TXFLL_MASK |
+				(u32)XCANPS_IXR_WKUP_MASK |
+				(u32)XCANPS_IXR_SLP_MASK |
+				(u32)XCANPS_IXR_BSOFF_MASK |
+				(u32)XCANPS_IXR_ARBLST_MASK);
+	if ((EventIntr != (u32)0) && (CanPtr->EventHandler != NULL)) {
 		CanPtr->EventHandler(CanPtr->EventRef, EventIntr);
 
-		if ((EventIntr & XCANPS_IXR_BSOFF_MASK)) {
+		if ((EventIntr & XCANPS_IXR_BSOFF_MASK) != (u32)0) {
 			/*
 			 * Event callback should reset whole device if "Enter
 			 * Bus Off Status" interrupt occurred. All pending
@@ -290,12 +291,16 @@ void XCanPs_IntrHandler(void *InstancePtr)
 			 * handling of other interrupts is needed any more.
 			 */
 			return;
+		} else {
+			/*This else was made for misra-c compliance*/
+			;
 		}
 	}
 
 
-	if ((PendingIntr & (XCANPS_IXR_RXFWMFLL_MASK |
-			XCANPS_IXR_RXNEMP_MASK))) {
+	if (((PendingIntr & (XCANPS_IXR_RXFWMFLL_MASK |
+			XCANPS_IXR_RXNEMP_MASK)) != (u32)0) &&
+		(CanPtr->RecvHandler != NULL)) {
 
 		/*
 		 * This case happens when
@@ -317,7 +322,8 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	/*
 	 * A frame was transmitted successfully.
 	 */
-	if ((PendingIntr & XCANPS_IXR_TXOK_MASK)) {
+	if (((PendingIntr & XCANPS_IXR_TXOK_MASK) != (u32)0) &&
+		(CanPtr->SendHandler != NULL)) {
 		CanPtr->SendHandler(CanPtr->SendRef);
 	}
 }
@@ -365,39 +371,46 @@ void XCanPs_IntrHandler(void *InstancePtr)
 * it with the new handler.
 *
 ******************************************************************************/
-int XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
+s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 			void *CallBackFunc, void *CallBackRef)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	switch (HandlerType) {
-	case XCANPS_HANDLER_SEND:
-		InstancePtr->SendHandler =
-			(XCanPs_SendRecvHandler) CallBackFunc;
-		InstancePtr->SendRef = CallBackRef;
-		break;
+		case XCANPS_HANDLER_SEND:
+			InstancePtr->SendHandler =
+				(XCanPs_SendRecvHandler) CallBackFunc;
+			InstancePtr->SendRef = CallBackRef;
+			Status = XST_SUCCESS;
+			break;
 
-	case XCANPS_HANDLER_RECV:
-		InstancePtr->RecvHandler =
-			(XCanPs_SendRecvHandler) CallBackFunc;
-		InstancePtr->RecvRef = CallBackRef;
-		break;
+		case XCANPS_HANDLER_RECV:
+			InstancePtr->RecvHandler =
+				(XCanPs_SendRecvHandler) CallBackFunc;
+			InstancePtr->RecvRef = CallBackRef;
+			Status = XST_SUCCESS;
+			break;
 
-	case XCANPS_HANDLER_ERROR:
-		InstancePtr->ErrorHandler = (XCanPs_ErrorHandler) CallBackFunc;
-		InstancePtr->ErrorRef = CallBackRef;
-		break;
+		case XCANPS_HANDLER_ERROR:
+			InstancePtr->ErrorHandler =
+				(XCanPs_ErrorHandler) CallBackFunc;
+			InstancePtr->ErrorRef = CallBackRef;
+			Status = XST_SUCCESS;
+			break;
 
-	case XCANPS_HANDLER_EVENT:
-		InstancePtr->EventHandler = (XCanPs_EventHandler) CallBackFunc;
-		InstancePtr->EventRef = CallBackRef;
-		break;
+		case XCANPS_HANDLER_EVENT:
+			InstancePtr->EventHandler =
+				(XCanPs_EventHandler) CallBackFunc;
+			InstancePtr->EventRef = CallBackRef;
+			Status = XST_SUCCESS;
+			break;
 
-	default:
-		return (XST_INVALID_PARAM);
-
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
 	}
-	return (XST_SUCCESS);
+	return Status;
 }
 

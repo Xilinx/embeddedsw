@@ -48,8 +48,8 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xcanps_hw.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 

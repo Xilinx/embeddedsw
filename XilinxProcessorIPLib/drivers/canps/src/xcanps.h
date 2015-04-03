@@ -96,7 +96,7 @@
 *	Sleep mode or Wakes up from Sleep mode.
 *   - <b>Loop Back Mode</b>: In Loop Back mode, the CAN controller transmits a
 *	 recessive bit stream on to the CAN Bus. Any message that is transmitted
-*	 is looped back to the ‘Rx’ line and acknowledged. The CAN controller
+*	 is looped back to the ï¿½Rxï¿½ line and acknowledged. The CAN controller
 *	 thus receives any message that it transmits. It does not participate in
 *	 normal bus communication and does not receive any messages that are
 *	 transmitted by other CAN nodes. This mode is used for diagnostic
@@ -194,7 +194,8 @@
 *			XCANPS_TXBUF_DW1_OFFSET to XCANPS_TXHPB_DW1_OFFSET
 *			XCANPS_TXBUF_DW2_OFFSET to XCANPS_TXHPB_DW2_OFFSET
 * 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
-*						 SDK claims a 40kbps baud rate but it's not.
+*			SDK claims a 40kbps baud rate but it's not.
+* 3.0 adk     09/12/14  Added support for Zynq Ultrascale Mp.
 * </pre>
 *
 ******************************************************************************/
@@ -209,26 +210,27 @@ extern "C" {
 
 #include "xstatus.h"
 #include "xcanps_hw.h"
+#include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
 
 /** @name CAN operation modes
  *  @{
  */
-#define XCANPS_MODE_CONFIG	0x00000001 /**< Configuration mode */
-#define XCANPS_MODE_NORMAL	0x00000002 /**< Normal mode */
-#define XCANPS_MODE_LOOPBACK	0x00000004 /**< Loop Back mode */
-#define XCANPS_MODE_SLEEP	0x00000008 /**< Sleep mode */
-#define XCANPS_MODE_SNOOP	0x00000010 /**< Snoop mode */
+#define XCANPS_MODE_CONFIG	0x00000001U /**< Configuration mode */
+#define XCANPS_MODE_NORMAL	0x00000002U /**< Normal mode */
+#define XCANPS_MODE_LOOPBACK	0x00000004U /**< Loop Back mode */
+#define XCANPS_MODE_SLEEP	0x00000008U /**< Sleep mode */
+#define XCANPS_MODE_SNOOP	0x00000010U /**< Snoop mode */
 /* @} */
 
 /** @name Callback identifiers used as parameters to XCanPs_SetHandler()
  *  @{
  */
-#define XCANPS_HANDLER_SEND 1 /**< Handler type for frame sending interrupt */
-#define XCANPS_HANDLER_RECV 2 /**< Handler type for frame reception interrupt*/
-#define XCANPS_HANDLER_ERROR  3 /**< Handler type for error interrupt */
-#define XCANPS_HANDLER_EVENT  4 /**< Handler type for all other interrupts */
+#define XCANPS_HANDLER_SEND 1U /**< Handler type for frame sending interrupt */
+#define XCANPS_HANDLER_RECV 2U /**< Handler type for frame reception interrupt*/
+#define XCANPS_HANDLER_ERROR  3U /**< Handler type for error interrupt */
+#define XCANPS_HANDLER_EVENT  4U /**< Handler type for all other interrupts */
 /* @} */
 
 /**************************** Type Definitions *******************************/
@@ -328,12 +330,12 @@ typedef struct {
 *		- FALSE if the transmission is not done.
 *
 * @note		C-Style signature:
-*		int XCanPs_IsTxDone(XCanPs *InstancePtr);
+*		int XCanPs_IsTxDone(XCanPs *InstancePtr)
 *
 *******************************************************************************/
 #define XCanPs_IsTxDone(InstancePtr) \
-	((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr),		\
-		XCANPS_ISR_OFFSET) & XCANPS_IXR_TXOK_MASK) ? TRUE : FALSE)
+	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr),		\
+		XCANPS_ISR_OFFSET) & XCANPS_IXR_TXOK_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -348,12 +350,12 @@ typedef struct {
 *		- FALSE if the TX FIFO is NOT full.
 *
 * @note		C-Style signature:
-*		int XCanPs_IsTxFifoFull(XCanPs *InstancePtr);
+*		int XCanPs_IsTxFifoFull(XCanPs *InstancePtr)
 *
 *****************************************************************************/
 #define XCanPs_IsTxFifoFull(InstancePtr) \
-	((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_SR_OFFSET) & XCANPS_SR_TXFLL_MASK) ? TRUE : FALSE)
+	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
+		XCANPS_SR_OFFSET) & XCANPS_SR_TXFLL_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -368,12 +370,12 @@ typedef struct {
 *		- FALSE if the TX High Priority Buffer is NOT full.
 *
 * @note		C-Style signature:
-*		int XCanPs_IsHighPriorityBufFull(XCanPs *InstancePtr);
+*		int XCanPs_IsHighPriorityBufFull(XCanPs *InstancePtr)
 *
 *****************************************************************************/
 #define XCanPs_IsHighPriorityBufFull(InstancePtr) \
-	((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_SR_OFFSET) & XCANPS_SR_TXBFLL_MASK) ? TRUE : FALSE)
+	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
+		XCANPS_SR_OFFSET) & XCANPS_SR_TXBFLL_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -388,12 +390,12 @@ typedef struct {
 *		- FALSE if the RX FIFO is NOT empty.
 *
 * @note		C-Style signature:
-*		int XCanPs_IsRxEmpty(XCanPs *InstancePtr);
+*		int XCanPs_IsRxEmpty(XCanPs *InstancePtr)
 *
 *****************************************************************************/
 #define XCanPs_IsRxEmpty(InstancePtr) \
-	((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_ISR_OFFSET) & XCANPS_IXR_RXNEMP_MASK) ? FALSE : TRUE)
+	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
+		XCANPS_ISR_OFFSET) & XCANPS_IXR_RXNEMP_MASK) != (u32)0) ? FALSE : TRUE)
 
 
 /****************************************************************************/
@@ -418,12 +420,12 @@ typedef struct {
 *		AFMR.
 *
 * @note		C-Style signature:
-*		int XCanPs_IsAcceptFilterBusy(XCanPs *InstancePtr);
+*		int XCanPs_IsAcceptFilterBusy(XCanPs *InstancePtr)
 *
 *****************************************************************************/
 #define XCanPs_IsAcceptFilterBusy(InstancePtr) 		\
-	((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_SR_OFFSET) & XCANPS_SR_ACFBSY_MASK) ? TRUE : FALSE)
+	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
+		XCANPS_SR_OFFSET) & XCANPS_SR_ACFBSY_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -445,7 +447,7 @@ typedef struct {
 *		u32 XCanPs_CreateIdValue(u32 StandardId,
 *					u32 SubRemoteTransReq,
 *					u32 IdExtension, u32 ExtendedId,
-*					u32 RemoteTransReq);
+*					u32 RemoteTransReq)
 *
 *		Read the CAN specification for meaning of each parameter.
 *
@@ -470,7 +472,7 @@ typedef struct {
 * @return	Value that can be assigned to Data Length Code register.
 *
 * @note		C-Style signature:
-*		u32 XCanPs_CreateDlcValue(u32 DataLengCode);
+*		u32 XCanPs_CreateDlcValue(u32 DataLengCode)
 *
 *		Read the CAN specification for meaning of Data Length Code.
 *
@@ -489,7 +491,7 @@ typedef struct {
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XCanPs_ClearTimestamp(XCanPs *InstancePtr);
+*		void XCanPs_ClearTimestamp(XCanPs *InstancePtr)
 *
 *****************************************************************************/
 #define XCanPs_ClearTimestamp(InstancePtr) 			\
@@ -501,7 +503,7 @@ typedef struct {
 /*
  * Functions in xcanps.c
  */
-int XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
+s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 				u32 EffectiveAddr);
 
 void XCanPs_Reset(XCanPs *InstancePtr);
@@ -512,31 +514,33 @@ void XCanPs_GetBusErrorCounter(XCanPs *InstancePtr, u8 *RxErrorCount,
 				 u8 *TxErrorCount);
 u32 XCanPs_GetBusErrorStatus(XCanPs *InstancePtr);
 void XCanPs_ClearBusErrorStatus(XCanPs *InstancePtr, u32 Mask);
-int XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr);
-int XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr);
-int XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr);
+s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr);
+s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr);
+s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr);
 void XCanPs_AcceptFilterEnable(XCanPs *InstancePtr, u32 FilterIndexes);
 void XCanPs_AcceptFilterDisable(XCanPs *InstancePtr, u32 FilterIndexes);
 u32 XCanPs_AcceptFilterGetEnabled(XCanPs *InstancePtr);
-int XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
+s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 			 u32 MaskValue, u32 IdValue);
 void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 			  u32 *MaskValue, u32 *IdValue);
 
-int XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler);
+s32 XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler);
 u8 XCanPs_GetBaudRatePrescaler(XCanPs *InstancePtr);
-int XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
+s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 			  u8 TimeSegment2, u8 TimeSegment1);
 void XCanPs_GetBitTiming(XCanPs *InstancePtr, u8 *SyncJumpWidth,
 			   u8 *TimeSegment2, u8 *TimeSegment1);
 
-int XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold);
+s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold);
 u8 XCanPs_GetRxIntrWatermark(XCanPs *InstancePtr);
+s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold);
+u8 XCanPs_GetTxIntrWatermark(XCanPs *InstancePtr);
 
 /*
  * Diagnostic functions in xcanps_selftest.c
  */
-int XCanPs_SelfTest(XCanPs *InstancePtr);
+s32 XCanPs_SelfTest(XCanPs *InstancePtr);
 
 /*
  * Functions in xcanps_intr.c
@@ -547,7 +551,7 @@ u32 XCanPs_IntrGetEnabled(XCanPs *InstancePtr);
 u32 XCanPs_IntrGetStatus(XCanPs *InstancePtr);
 void XCanPs_IntrClear(XCanPs *InstancePtr, u32 Mask);
 void XCanPs_IntrHandler(void *InstancePtr);
-int XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
+s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 			void *CallBackFunc, void *CallBackRef);
 
 /*
@@ -560,4 +564,3 @@ XCanPs_Config *XCanPs_LookupConfig(u16 DeviceId);
 #endif
 
 #endif /* end of protection macro */
-
