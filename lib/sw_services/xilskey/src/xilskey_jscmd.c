@@ -48,6 +48,7 @@
 *                        int Bbram_ProgramKey(XilSKey_Bbram *InstancePtr)
 *                        int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 *                        void Bbram_DeInit(void)
+* 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 *
 * </pre>
 *
@@ -1101,16 +1102,21 @@ int JtagValidateMioPins(void)
 	/*
 	 * Make sure that each every MIO pin defined is valid
 	 */
-	if((g_mio_jtag_tdi < 0) || (g_mio_jtag_tdi > 53))
+	if (g_mio_jtag_tdi > 53) {
 		return 1;
-	if((g_mio_jtag_tdo < 0) || (g_mio_jtag_tdo > 53))
+	}
+	if (g_mio_jtag_tdo > 53) {
 		return 1;
-	if((g_mio_jtag_tck < 0) || (g_mio_jtag_tck > 53))
+	}
+	if (g_mio_jtag_tck > 53) {
 		return 1;
-	if((g_mio_jtag_tms < 0) || (g_mio_jtag_tms > 53))
+	}
+	if (g_mio_jtag_tms > 53) {
 		return 1;
-	if((g_mio_jtag_mux_sel < 0) || (g_mio_jtag_mux_sel > 53))
+	}
+	if (g_mio_jtag_mux_sel > 53) {
 		return 1;
+	}
 
 	/*
 	 *	Make sure that MIO pins defined for JTAG operation are unique among themselves

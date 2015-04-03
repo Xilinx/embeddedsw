@@ -44,7 +44,7 @@
 * 1.00a rpoolla 04/26/13 First release
 * 2.00  hk      22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX.
 *                        CR#768077
- *
+* 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -713,7 +713,7 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
  ****************************************************************************/
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 {
-	int i;
+	u32 i;
     /**
      * Make sure passed key is not NULL
      */

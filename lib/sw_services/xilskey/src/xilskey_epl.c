@@ -46,6 +46,7 @@
 * 1.02a hk      10/28/13 Added API's to read status bits and key.PR# 735957
 * 2.00  hk      22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX.
 *                        CR#768077
+* 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 *
 *
 ****************************************************************************/
@@ -498,8 +499,7 @@ u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 	/**
 	 * Check if the bit position is valid.
 	 */
-	if((Bit < XSK_EFUSEPL_ARRAY_FUSE_CNTRL_START_BIT) ||
-	   (Bit > XSK_EFUSEPL_ARRAY_ECC_END_BIT_IN_A_ROW)) {
+	if (Bit > XSK_EFUSEPL_ARRAY_ECC_END_BIT_IN_A_ROW) {
 		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
@@ -773,8 +773,7 @@ u8 XilSKey_EfusePl_ReadBit(u8 Row, u8 Bit, u8 MarginOption, u8 *BitData)
 	 *Check if the bit position is valid.
 	 */
 
-	if((Bit < XSK_EFUSEPL_ARRAY_FUSE_CNTRL_START_BIT) ||
-		(Bit > XSK_EFUSEPL_ARRAY_ECC_END_BIT_IN_A_ROW)) {
+	if (Bit > XSK_EFUSEPL_ARRAY_ECC_END_BIT_IN_A_ROW) {
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_BIT_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
