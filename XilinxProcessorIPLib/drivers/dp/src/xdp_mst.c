@@ -2297,6 +2297,40 @@ void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 
 /******************************************************************************/
 /**
+ * This function allows the user to select which ports will be exposed when
+ * replying to a LINK_ADDRESS sideband message. The number of ports will also
+ * be set.
+ * When an upstream device sends a LINK_ADDRESS sideband message, the RX will
+ * respond by forming a reply message containing port information for directly
+ * connected ports.
+ * If exposed, this information will be provided in the LINK_ADDRESS reply.
+ * Otherwise, the LINK_ADDRESS reply will not contain this information, hiding
+ * the port from the TX.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	PortNum is the port number to enable or disable exposure.
+ * @param	Expose will expose the port at the specified PortNum as part of
+ *		the LINK_ADDRESS reply when set to 1. Hidden otherwise.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose)
+{
+	InstancePtr->RxInstance.Topology.Ports[PortNum].Exposed = Expose;
+
+	if (Expose) {
+		InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts++;
+	}
+	else if (InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts) {
+		InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts--;
+	}
+}
+
+/******************************************************************************/
+/**
  * This function will check whether or not a DisplayPort device has a global
  * unique identifier (GUID). If it doesn't (the GUID is all zeros), then it will
  * issue one.
