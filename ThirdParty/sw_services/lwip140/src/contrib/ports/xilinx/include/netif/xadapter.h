@@ -56,7 +56,7 @@ struct xemac_s {
 	int  topology_index;
 	void *state;
 #if !NO_SYS
-        sys_sem_t sem_rx_data_available;
+    sys_sem_t sem_rx_data_available;
 #endif
 };
 
@@ -66,7 +66,7 @@ void 		xemacif_input_thread(struct netif *netif);
 struct netif *	xemac_add(struct netif *netif,
 	struct ip_addr *ipaddr, struct ip_addr *netmask, struct ip_addr *gw,
 	unsigned char *mac_ethernet_address,
-  	unsigned mac_baseaddr);
+	unsigned mac_baseaddr);
 #ifdef __arm__
 void xemacpsif_resetrx_on_no_rxdata(struct netif *netif);
 #endif

@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2014-9-12
+	* Created a new version lwip140_v2_4.
+	* It has CR fixes for 827638, 830976, 828866.
 2014-12-11
 	* Fixed the bug in the emaclite on zynq. Added the parameter
 	  use_emaclite_on_zynq to the mld file.

@@ -44,9 +44,6 @@
 #include "arch/cc.h"
 #include "lwip/sys.h"
 
-/*** IMPORTANT: Define PEEP in xemacpsif.h and sys_arch_raw.c
- *** to run it on a PEEP board
- ***/
 /*
  * This optional function does a "fast" critical region protection and returns
  * the previous protection level. This function is only called during very short
@@ -70,12 +67,8 @@ sys_arch_protect()
 	cur = mfmsr();
 	mtmsr(cur & ~XEXC_ALL);
 #elif __arm__
-#ifdef PEEP
-	EmacDisableIntr();
-#else
 	cur = mfcpsr();
 	mtcpsr(cur | 0xC0);
-#endif
 #endif
 	return cur;
 }
@@ -90,11 +83,7 @@ void
 sys_arch_unprotect(sys_prot_t lev)
 {
 #ifdef __arm__
-#ifdef PEEP
-	EmacEnableIntr();
-#else
 	mtcpsr(lev);
-#endif
 #else
 	mtmsr(lev);
 #endif

@@ -33,34 +33,42 @@
 #include "netif/xemacpsif.h"
 #include "lwipopts.h"
 
-/*** IMPORTANT: Define PEEP in xemacpsif.h and sys_arch_raw.c
- *** to run it on a PEEP board
- ***/
+#if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1 || \
+	XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
+#define PCM_PMA_CORE_PRESENT
+#else
+#undef PCM_PMA_CORE_PRESENT
+#endif
 
-unsigned int link_speed = 100;
+u32_t link_speed = 100;
+extern XEmacPs_Config XEmacPs_ConfigTable[];
+extern u32_t phymapemac0[32];
+extern u32_t phymapemac1[32];
 
 XEmacPs_Config *xemacps_lookup_config(unsigned mac_base)
 {
-	extern XEmacPs_Config XEmacPs_ConfigTable[];
-	XEmacPs_Config *CfgPtr = NULL;
-	int i;
+	XEmacPs_Config *cfgptr = NULL;
+	s32_t i;
 
 	for (i = 0; i < XPAR_XEMACPS_NUM_INSTANCES; i++) {
 		if (XEmacPs_ConfigTable[i].BaseAddress == mac_base) {
-			CfgPtr = &XEmacPs_ConfigTable[i];
+			cfgptr = &XEmacPs_ConfigTable[i];
 			break;
 		}
 	}
 
-	return (CfgPtr);
+	return (cfgptr);
 }
 
 void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 {
-	unsigned mac_address = (unsigned)(netif->state);
+	u32_t mac_address = (u32_t)(netif->state);
 	XEmacPs *xemacpsp;
 	XEmacPs_Config *mac_config;
-	int Status = XST_SUCCESS;
+	s32_t status = XST_SUCCESS;
+	u32_t i;
+	u32_t phyfoundforemac0 = FALSE;
+	u32_t phyfoundforemac1 = FALSE;
 
 	/* obtain config of this emac */
 	mac_config = (XEmacPs_Config *)xemacps_lookup_config(mac_address);
@@ -68,26 +76,68 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 	xemacpsp = &xemacps->emacps;
 
 	/* set mac address */
-	Status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
-	if (Status != XST_SUCCESS) {
+	status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
+	if (status != XST_SUCCESS) {
 		xil_printf("In %s:Emac Mac Address set failed...\r\n",__func__);
 	}
+
 	XEmacPs_SetMdioDivisor(xemacpsp, MDC_DIV_224);
-	link_speed = Phy_Setup(xemacpsp);
+
+/*  Please refer to file header comments for the file xemacpsif_physpeed.c
+ *  to know more about the PHY programming sequence.
+ *  For PCS PMA core, phy_setup is called with the predefined PHY address
+ *  exposed through xaparemeters.h
+ *  For RGMII case, assuming multiple PHYs can be present on the MDIO bus,
+ *  detect_phy is called to get the addresses of the PHY present on
+ *  a particular MDIO bus (emac0 or emac1). This address map is populated
+ *  in phymapemac0 or phymapemac1.
+ *  phy_setup is then called for each PHY present on the MDIO bus.
+ */
+#ifdef PCM_PMA_CORE_PRESENT
+#ifdef  XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
+	link_speed = phy_setup(xemacpsp, XPAR_PCSPMA_1000BASEX_PHYADDR);
+#elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
+	link_speed = phy_setup(xemacpsp, XPAR_PCSPMA_SGMII_PHYADDR);
+#endif
+#else
+	detect_phy(xemacpsp);
+	for (i = 31; i > 0; i--) {
+		if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR) {
+			if (phymapemac0[i] == TRUE) {
+				link_speed = phy_setup(xemacpsp, i);
+				phyfoundforemac0 = TRUE;
+			}
+		} else {
+			if (phymapemac1[i] == TRUE) {
+				link_speed = phy_setup(xemacpsp, i);
+				phyfoundforemac1 = TRUE;
+			}
+		}
+	}
+	/* If no PHY was detected, use broadcast PHY address of 0 */
+	if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR) {
+		if (phyfoundforemac0 == FALSE)
+			link_speed = phy_setup(xemacpsp, 0);
+	} else {
+		if (phyfoundforemac1 == FALSE)
+			link_speed = phy_setup(xemacpsp, 0);
+	}
+#endif
+
 	XEmacPs_SetOperatingSpeed(xemacpsp, link_speed);
 	/* Setting the operating speed of the MAC needs a delay. */
 	{
-		volatile int wait;
+		volatile s32_t wait;
 		for (wait=0; wait < 20000; wait++);
 	}
 }
 
 void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif)
 {
-	unsigned mac_address = (unsigned)(netif->state);
+	u32_t mac_address = (u32_t)(netif->state);
 	XEmacPs *xemacpsp;
 	XEmacPs_Config *mac_config;
-	int Status = XST_SUCCESS;
+	s32_t status = XST_SUCCESS;
 
 	/* obtain config of this emac */
 	mac_config = (XEmacPs_Config *)xemacps_lookup_config(mac_address);
@@ -95,8 +145,8 @@ void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif)
 	xemacpsp = &xemacps->emacps;
 
 	/* set mac address */
-	Status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
-	if (Status != XST_SUCCESS) {
+	status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
+	if (status != XST_SUCCESS) {
 		xil_printf("In %s:Emac Mac Address set failed...\r\n",__func__);
 	}
 
@@ -104,7 +154,7 @@ void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif)
 
 	/* Setting the operating speed of the MAC needs a delay. */
 	{
-		volatile int wait;
+		volatile s32_t wait;
 		for (wait=0; wait < 20000; wait++);
 	}
 }
@@ -133,11 +183,11 @@ void setup_isr (struct xemac_s *xemac)
 void start_emacps (xemacpsif_s *xemacps)
 {
 	/* start the temac */
-    	XEmacPs_Start(&xemacps->emacps);
+	XEmacPs_Start(&xemacps->emacps);
 }
 
 void restart_emacps_transmitter (xemacpsif_s *xemacps) {
-	u32 Reg;
+	u32_t Reg;
 	Reg = XEmacPs_ReadReg(xemacps->emacps.Config.BaseAddress,
 					XEMACPS_NWCTRL_OFFSET);
 	Reg = Reg & (~XEMACPS_NWCTRL_TXEN_MASK);
