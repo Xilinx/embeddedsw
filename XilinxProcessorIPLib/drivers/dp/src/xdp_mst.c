@@ -2331,6 +2331,99 @@ void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose)
 
 /******************************************************************************/
 /**
+ * This function sets the port information that is contained in the driver
+ * instance structure for the specified port number, to be copied from the
+ * supplied port details structure.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	PortNum is the port number to set the port details for.
+ * @param	PortDetails is a pointer to the user-defined port structure,
+ *		whose information is to be copied into the driver instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
+			XDp_SbMsgLinkAddressReplyPortDetail *PortDetails)
+{
+	XDp_SbMsgLinkAddressReplyPortDetail *Port;
+
+	Port = &InstancePtr->RxInstance.Topology.LinkAddressInfo.
+							PortDetails[PortNum];
+
+	Port->InputPort = PortDetails->InputPort;
+	Port->PeerDeviceType = PortDetails->PeerDeviceType;
+	Port->PortNum = PortDetails->PortNum;
+	Port->MsgCapStatus = PortDetails->MsgCapStatus;
+	Port->DpDevPlugStatus = PortDetails->DpDevPlugStatus;
+	Port->LegacyDevPlugStatus = PortDetails->LegacyDevPlugStatus;
+	Port->DpcdRev = PortDetails->DpcdRev;
+	Port->Guid[0] = PortDetails->Guid[0];
+	Port->Guid[1] = PortDetails->Guid[1];
+	Port->Guid[2] = PortDetails->Guid[2];
+	Port->Guid[3] = PortDetails->Guid[3];
+	Port->NumSdpStreams = PortDetails->NumSdpStreams;
+	Port->NumSdpStreamSinks = PortDetails->NumSdpStreamSinks;
+}
+
+/******************************************************************************/
+/**
+ * This function, for an input port, sets the port information that is contained
+ * in the driver instance structure for the specified port number.
+ * Some default values will be used if no port structure is supplied.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	PortNum is the port number to set the input port for.
+ * @param	PortOverride is a pointer to the user-defined port structure,
+ *		whose information is to be copied into the driver instance. If
+ *		set to NULL, default values for the input port will be used.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
+			XDp_SbMsgLinkAddressReplyPortDetail *PortOverride)
+{
+	XDp_SbMsgLinkAddressReplyDeviceInfo *Branch;
+	XDp_SbMsgLinkAddressReplyPortDetail *Port;
+
+	Branch = &InstancePtr->RxInstance.Topology.LinkAddressInfo;
+	Port = &Branch->PortDetails[PortNum];
+
+	if (!PortOverride) {
+		/* Use default values. */
+		Port->InputPort = 1;
+		Port->PeerDeviceType = 0x1;
+		Port->PortNum = PortNum;
+		Port->MsgCapStatus = 1;
+		Port->DpDevPlugStatus = 1;
+		Branch->Guid[0] = 0x78696C61;
+		Branch->Guid[1] = 0x6E647265;
+		Branch->Guid[2] = 0x696C7369;
+		Branch->Guid[3] = 0x6d696f6E;
+	}
+	else {
+		XDp_RxMstSetPort(InstancePtr, PortNum, PortOverride);
+		Branch->Guid[0] = PortOverride->Guid[0];
+		Branch->Guid[1] = PortOverride->Guid[1];
+		Branch->Guid[2] = PortOverride->Guid[2];
+		Branch->Guid[3] = PortOverride->Guid[3];
+	}
+
+	/* Make sure that the branch device is accounted for. */
+	if (InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts == 0) {
+		InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts = 1;
+	}
+
+	XDp_RxMstExposePort(InstancePtr, PortNum, 1);
+}
+
+/******************************************************************************/
+/**
  * This function will check whether or not a DisplayPort device has a global
  * unique identifier (GUID). If it doesn't (the GUID is all zeros), then it will
  * issue one.

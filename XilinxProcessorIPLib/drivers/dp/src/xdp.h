@@ -1023,6 +1023,10 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 *Guid);
 void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose);
+void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
+			XDp_SbMsgLinkAddressReplyPortDetail *PortDetails);
+void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
+			XDp_SbMsgLinkAddressReplyPortDetail *PortOverride);
 
 /* xdp_selftest.c: Self test function. */
 u32 XDp_SelfTest(XDp *InstancePtr);
