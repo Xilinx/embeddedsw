@@ -2291,6 +2291,10 @@
 #define XDP_TX_SBMSG_REMOTE_I2C_WRITE		0x23
 /* @} */
 
+#define XDP_RX_NUM_I2C_ENTRIES_PER_PORT		3 /**< The number of I2C user-
+							defined entries in the
+							I2C map of each port. */
+
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /** @name Register access macro definitions.

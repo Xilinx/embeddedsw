@@ -2297,6 +2297,89 @@ void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 
 /******************************************************************************/
 /**
+ * This function returns a pointer to the I2C map entry at the supplied I2C
+ * address for the specified port.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	PortNum is the port number for which to obtain the I2C map entry
+ *		for.
+ * @param	IicAddress is the I2C address of the map entry.
+ *
+ * @return
+ *		- NULL if no entry exists in the I2C map corresponding to the
+ *		  supplied I2C address for the given port.
+ *		- Otherwise, a pointer to the I2C map entry with the specified
+ *		  I2C address.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
+								u8 IicAddress)
+{
+	u8 Index;
+	XDp_RxIicMapEntry *IicMap;
+
+	IicMap = InstancePtr->RxInstance.Topology.Ports[PortNum].IicMap;
+
+	for (Index = 0; Index < XDP_RX_NUM_I2C_ENTRIES_PER_PORT; Index++) {
+		/* Return a pointer to the specified I2C address, or the first
+		 * empty slot. */
+		if ((IicMap[Index].IicAddress == IicAddress) ||
+					(IicMap[Index].IicAddress == 0)) {
+			return &IicMap[Index];
+		}
+	}
+
+	/* No entry with the specified I2C address has been found and there are
+	 * no empty slots. */
+	return NULL;
+}
+
+/******************************************************************************/
+/**
+ * This function adds an entry into the I2C map for a given port. The user
+ * provides a pointer to the data to be used for the specified I2C address.
+ * When an upstream device issues a REMOTE_I2C_READ sideband message, this I2C
+ * map will be searched for an entry matching the requested I2C address read.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	PortNum is the port number for which to set the I2C map entry.
+ * @param	IicAddress is the I2C address for which to set the data.
+ * @param	ReadNumBytes is number of bytes available for reading from the
+ *		associated IicAddress.
+ * @param	ReadData is a pointer to a user-defined data structure that will
+ *		be used as read data when an upstream device issues an I2C read.
+ *
+ * @return
+ *		- XST_SUCCESS if there is an available slot in the I2C map for a
+ *		  new entry and the I2C address isn't taken.
+ *		- XST_FAILURE, otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
+						u8 ReadNumBytes, u8 *ReadData)
+{
+	XDp_RxIicMapEntry *IicMapEntry;
+
+	IicMapEntry = XDp_RxGetIicMapEntry(InstancePtr, PortNum, IicAddress);
+	if (!IicMapEntry) {
+		return XST_FAILURE;
+	}
+
+	/* Definition at specified IicAddress exists. */
+	IicMapEntry->IicAddress = IicAddress;
+	IicMapEntry->WriteVal = 0;
+	IicMapEntry->ReadNumBytes = ReadNumBytes;
+	IicMapEntry->ReadData = ReadData;
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
  * This function allows the user to select which ports will be exposed when
  * replying to a LINK_ADDRESS sideband message. The number of ports will also
  * be set.

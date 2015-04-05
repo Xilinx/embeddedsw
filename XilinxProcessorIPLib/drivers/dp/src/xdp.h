@@ -598,14 +598,14 @@ typedef struct {
  * duplicated here.
  */
 typedef struct {
-	XDp_RxIicMapEntry IicMap[3];	/**< The I2C map of the internal sinks.
-						When the RX replies to a
-						REMOTE_I2C_READ sideband
-						message, it responds with the
-						associated I2C map for the
-						requested port. The driver
-						allows up to 3 I2C addresses per
-						port to be user-defined. */
+	XDp_RxIicMapEntry IicMap[XDP_RX_NUM_I2C_ENTRIES_PER_PORT]; /**< When the
+						RX replies to a REMOTE_I2C_READ
+						sideband message, it responds
+						with the associated I2C map for
+						the requested port. The driver
+						allows the user to define up to
+						XDP_RX_NUM_I2C_ENTRIES_PER_PORT
+						I2C addresses per port. */
 	u8 Exposed;			/**< When set to 1, the RX branch device
 						will expose the port in the
 						LINK_ADDRESS reply. */
@@ -1022,6 +1022,10 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 Guid[4]);
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 *Guid);
+XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
+								u8 IicAddress);
+u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
+						u8 ReadNumBytes, u8 *ReadData);
 void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose);
 void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 			XDp_SbMsgLinkAddressReplyPortDetail *PortDetails);
