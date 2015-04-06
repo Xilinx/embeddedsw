@@ -148,6 +148,7 @@
 *		     A new example has been added to read back the
 *		     configuration registers from the PL region.
 *		     xdevcfg_reg_readback_example.c
+* 3.3   sk  04/06/15 Modified XDcfg_ReadMultiBootConfig Macro CR# 851335.
 *
 * </pre>
 *
@@ -265,7 +266,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XDcfg_ReadMultiBootConfig(InstancePtr)			\
-	XDcfg_ReadReg((InstancePtr)->Config.BaseAddr + 		\
+	XDcfg_ReadReg((InstancePtr)->Config.BaseAddr,  		\
 			XDCFG_MULTIBOOT_ADDR_OFFSET)
 
 
