@@ -95,7 +95,7 @@
 *
 *****************************************************************************/
 #define XSpiPs_SendByte(BaseAddress, Data) \
-		XSpiPs_Out32((BaseAddress) + XSPIPS_TXD_OFFSET, (Data))
+        XSpiPs_Out32((BaseAddress) + (u32)XSPIPS_TXD_OFFSET, (u32)(Data))
 
 /****************************************************************************/
 /*
@@ -112,12 +112,12 @@
 *
 *****************************************************************************/
 #define XSpiPs_RecvByte(BaseAddress) \
-		(u8)XSpiPs_In32((BaseAddress) + XSPIPS_RXD_OFFSET)
+		XSpiPs_In32((u32)((BaseAddress) + (u32)XSPIPS_RXD_OFFSET))
 
 /************************** Function Prototypes ******************************/
 
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
-				unsigned ByteCount);
+				u32 ByteCount);
 
 /************************** Variable Definitions *****************************/
 
@@ -156,9 +156,10 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 * @note		None.
 *
 ******************************************************************************/
-int XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config *ConfigPtr,
+s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
+	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -169,31 +170,33 @@ int XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config *ConfigPtr,
 	 * initializing. This assumes the busy flag is cleared at startup.
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		return XST_DEVICE_IS_STARTED;
+		Status = (s32)XST_DEVICE_IS_STARTED;
+	} else {
+
+		/*
+		 * Set some default values.
+		 */
+		InstancePtr->IsBusy = FALSE;
+
+		InstancePtr->Config.BaseAddress = EffectiveAddr;
+		InstancePtr->StatusHandler = StubStatusHandler;
+
+		InstancePtr->SendBufferPtr = NULL;
+		InstancePtr->RecvBufferPtr = NULL;
+		InstancePtr->RequestedBytes = 0U;
+		InstancePtr->RemainingBytes = 0U;
+		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+		/*
+		 * Reset the SPI device to get it into its initial state. It is
+		 * expected that device configuration will take place after this
+		 * initialization is done, but before the device is started.
+		 */
+		XSpiPs_Reset(InstancePtr);
+		Status = (s32)XST_SUCCESS;
 	}
 
-	/*
-	 * Set some default values.
-	 */
-	InstancePtr->IsBusy = FALSE;
-
-	InstancePtr->Config.BaseAddress = EffectiveAddr;
-	InstancePtr->StatusHandler = StubStatusHandler;
-
-	InstancePtr->SendBufferPtr = NULL;
-	InstancePtr->RecvBufferPtr = NULL;
-	InstancePtr->RequestedBytes = 0;
-	InstancePtr->RemainingBytes = 0;
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
-	/*
-	 * Reset the SPI device to get it into its initial state. It is
-	 * expected that device configuration will take place after this
-	 * initialization is done, but before the device is started.
-	 */
-	XSpiPs_Reset(InstancePtr);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 
@@ -302,102 +305,104 @@ void XSpiPs_Reset(XSpiPs *InstancePtr)
 * no two threads are transferring data on the SPI bus at the same time.
 *
 ******************************************************************************/
-int XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
-			u8 *RecvBufPtr, unsigned ByteCount)
+s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
+			u8 *RecvBufPtr, u32 ByteCount)
 {
 	u32 ConfigReg;
-	u8 TransCount = 0;
+	u8 TransCount = 0U;
+	s32 StatusTransfer;
 
 	/*
 	 * The RecvBufPtr argument can be null
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(SendBufPtr != NULL);
-	Xil_AssertNonvoid(ByteCount > 0);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(ByteCount > 0U);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/*
 	 * Check whether there is another transfer in progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy) {
-		return XST_DEVICE_BUSY;
-	}
+	if (InstancePtr->IsBusy == TRUE) {
+		StatusTransfer = (s32)XST_DEVICE_BUSY;
+	} else {
 
-	/*
-	 * Set the busy flag, which will be cleared in the ISR when the
-	 * transfer is entirely done.
-	 */
-	InstancePtr->IsBusy = TRUE;
+		/*
+		 * Set the busy flag, which will be cleared in the ISR when the
+		 * transfer is entirely done.
+		 */
+		InstancePtr->IsBusy = TRUE;
 
-	/*
-	 * Set up buffer pointers.
-	 */
-	InstancePtr->SendBufferPtr = SendBufPtr;
-	InstancePtr->RecvBufferPtr = RecvBufPtr;
+		/*
+		 * Set up buffer pointers.
+		 */
+		InstancePtr->SendBufferPtr = SendBufPtr;
+		InstancePtr->RecvBufferPtr = RecvBufPtr;
 
-	InstancePtr->RequestedBytes = ByteCount;
-	InstancePtr->RemainingBytes = ByteCount;
+		InstancePtr->RequestedBytes = ByteCount;
+		InstancePtr->RemainingBytes = ByteCount;
 
 	/*
 	 * If manual chip select mode, initialize the slave select value.
 	 */
-	if (XSpiPs_IsManualChipSelect(InstancePtr)) {
+	if (XSpiPs_IsManualChipSelect(InstancePtr) != FALSE) {
 		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 					 XSPIPS_CR_OFFSET);
 		/*
 		 * Set the slave select value.
 		 */
-		ConfigReg &= ~XSPIPS_CR_SSCTRL_MASK;
+		ConfigReg &= (u32)(~XSPIPS_CR_SSCTRL_MASK);
 		ConfigReg |= InstancePtr->SlaveSelect;
 		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_CR_OFFSET, ConfigReg);
 	}
 
-	/*
-	 * Enable the device.
-	 */
-	XSpiPs_Enable(InstancePtr);
+		/*
+		 * Enable the device.
+		 */
+		XSpiPs_Enable(InstancePtr);
 
-	/*
-	 * Clear all the interrrupts.
-	 */
-	XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_SR_OFFSET,
-			XSPIPS_IXR_WR_TO_CLR_MASK);
+		/*
+		 * Clear all the interrrupts.
+		 */
+		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_SR_OFFSET,
+				XSPIPS_IXR_WR_TO_CLR_MASK);
 
-	/*
-	 * Fill the TXFIFO with as many bytes as it will take (or as many as
-	 * we have to send).
-	 */
-	while ((InstancePtr->RemainingBytes > 0) &&
-		(TransCount < XSPIPS_FIFO_DEPTH)) {
-		XSpiPs_SendByte(InstancePtr->Config.BaseAddress,
-			  *InstancePtr->SendBufferPtr);
-		InstancePtr->SendBufferPtr++;
-		InstancePtr->RemainingBytes--;
-		TransCount++;
-	}
+		/*
+		 * Fill the TXFIFO with as many bytes as it will take (or as many as
+		 * we have to send).
+		 */
+		while ((InstancePtr->RemainingBytes > 0U) &&
+			(TransCount < XSPIPS_FIFO_DEPTH)) {
+			XSpiPs_SendByte(InstancePtr->Config.BaseAddress,
+				  *InstancePtr->SendBufferPtr);
+                  InstancePtr->SendBufferPtr += 1;
+			InstancePtr->RemainingBytes--;
+			TransCount++;
+		}
 
-	/*
-	 * Enable interrupts (connecting to the interrupt controller and
-	 * enabling interrupts should have been done by the caller).
-	 */
-	XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XSPIPS_IER_OFFSET, XSPIPS_IXR_DFLT_MASK);
-
-	/*
-	 * If master mode and manual start mode, issue manual start command
-	 * to start the transfer.
-	 */
-	if (XSpiPs_IsManualStart(InstancePtr)
-		&& XSpiPs_IsMaster(InstancePtr)) {
-		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-					   XSPIPS_CR_OFFSET);
-			ConfigReg |= XSPIPS_CR_MANSTRT_MASK;
+		/*
+		 * Enable interrupts (connecting to the interrupt controller and
+		 * enabling interrupts should have been done by the caller).
+		 */
 		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				 XSPIPS_CR_OFFSET, ConfigReg);
-	}
+				XSPIPS_IER_OFFSET, XSPIPS_IXR_DFLT_MASK);
 
-	return XST_SUCCESS;
+		/*
+		 * If master mode and manual start mode, issue manual start command
+		 * to start the transfer.
+		 */
+	     if ((XSpiPs_IsManualStart(InstancePtr) == TRUE)
+		&& (XSpiPs_IsMaster(InstancePtr) == TRUE)) {
+			ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+						   XSPIPS_CR_OFFSET);
+				ConfigReg |= XSPIPS_CR_MANSTRT_MASK;
+			XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
+					 XSPIPS_CR_OFFSET, ConfigReg);
+		 }
+		StatusTransfer = (s32)XST_SUCCESS;
+	}
+	return StatusTransfer;
 }
 
 /*****************************************************************************/
@@ -454,157 +459,163 @@ int XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 * no two threads are transferring data on the SPI bus at the same time.
 *
 ******************************************************************************/
-int XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
-				u8 *RecvBufPtr, unsigned ByteCount)
+s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
+				u8 *RecvBufPtr, u32 ByteCount)
 {
 	u32 StatusReg;
 	u32 ConfigReg;
 	u32 TransCount;
+	u32 CheckTransfer;
+	s32 Status_Polled;
+	u8 TempData;
 
 	/*
 	 * The RecvBufPtr argument can be NULL.
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(SendBufPtr != NULL);
-	Xil_AssertNonvoid(ByteCount > 0);
+	Xil_AssertNonvoid(ByteCount > 0U);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
 	 * Check whether there is another transfer in progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy) {
-		return XST_DEVICE_BUSY;
-	}
-
-	/*
-	 * Set the busy flag, which will be cleared when the transfer is
-	 * entirely done.
-	 */
-	InstancePtr->IsBusy = TRUE;
-
-	/*
-	 * Set up buffer pointers.
-	 */
-	InstancePtr->SendBufferPtr = SendBufPtr;
-	InstancePtr->RecvBufferPtr = RecvBufPtr;
-
-	InstancePtr->RequestedBytes = ByteCount;
-	InstancePtr->RemainingBytes = ByteCount;
-
-	/*
-	 * If manual chip select mode, initialize the slave select value.
-	 */
-	if (XSpiPs_IsManualChipSelect(InstancePtr)) {
-		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-					 XSPIPS_CR_OFFSET);
-		/*
-		 * Set the slave select value.
-		 */
-		ConfigReg &= ~XSPIPS_CR_SSCTRL_MASK;
-		ConfigReg |= InstancePtr->SlaveSelect;
-		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				 XSPIPS_CR_OFFSET, ConfigReg);
-	}
-
-	/*
-	 * Enable the device.
-	 */
-	XSpiPs_Enable(InstancePtr);
-
-	while((InstancePtr->RemainingBytes > 0) ||
-		(InstancePtr->RequestedBytes > 0)) {
-		TransCount = 0;
-		/*
-		 * Fill the TXFIFO with as many bytes as it will take (or as
-		 * many as we have to send).
-		 */
-		while ((InstancePtr->RemainingBytes > 0) &&
-			(TransCount < XSPIPS_FIFO_DEPTH)) {
-			XSpiPs_SendByte(InstancePtr->Config.BaseAddress,
-					*InstancePtr->SendBufferPtr);
-			InstancePtr->SendBufferPtr++;
-			InstancePtr->RemainingBytes--;
-			++TransCount;
-		}
+	if (InstancePtr->IsBusy == TRUE) {
+		Status_Polled = (s32)XST_DEVICE_BUSY;
+	} else {
 
 		/*
-		 * If master mode and manual start mode, issue manual start
-		 * command to start the transfer.
+		 * Set the busy flag, which will be cleared when the transfer is
+		 * entirely done.
 		 */
-		if (XSpiPs_IsManualStart(InstancePtr)
-			&& XSpiPs_IsMaster(InstancePtr)) {
-			ConfigReg = XSpiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					 XSPIPS_CR_OFFSET);
-			ConfigReg |= XSPIPS_CR_MANSTRT_MASK;
+		InstancePtr->IsBusy = TRUE;
+
+		/*
+		 * Set up buffer pointers.
+		 */
+		InstancePtr->SendBufferPtr = SendBufPtr;
+		InstancePtr->RecvBufferPtr = RecvBufPtr;
+
+		InstancePtr->RequestedBytes = ByteCount;
+		InstancePtr->RemainingBytes = ByteCount;
+
+		/*
+		 * If manual chip select mode, initialize the slave select value.
+		 */
+	     if (XSpiPs_IsManualChipSelect(InstancePtr) == TRUE) {
+			ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+						 XSPIPS_CR_OFFSET);
+			/*
+			 * Set the slave select value.
+			 */
+			ConfigReg &= (u32)(~XSPIPS_CR_SSCTRL_MASK);
+			ConfigReg |= InstancePtr->SlaveSelect;
 			XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
 					 XSPIPS_CR_OFFSET, ConfigReg);
 		}
 
 		/*
-		 * Wait for the transfer to finish by polling Tx fifo status.
+		 * Enable the device.
 		 */
-		do {
-			StatusReg = XSpiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					XSPIPS_SR_OFFSET);
-			if ( StatusReg & XSPIPS_IXR_MODF_MASK )
-			{
-				/*
-				 * Clear the mode fail bit
-				 */
-				XSpiPs_WriteReg(
-					InstancePtr->Config.BaseAddress,
-					XSPIPS_SR_OFFSET,
-					XSPIPS_IXR_MODF_MASK);
-				return XST_SEND_ERROR;
+		XSpiPs_Enable(InstancePtr);
+
+		while((InstancePtr->RemainingBytes > (u32)0U) ||
+			(InstancePtr->RequestedBytes > (u32)0U)) {
+			TransCount = 0U;
+			/*
+			 * Fill the TXFIFO with as many bytes as it will take (or as
+			 * many as we have to send).
+			 */
+			while ((InstancePtr->RemainingBytes > (u32)0U) &&
+				((u32)TransCount < (u32)XSPIPS_FIFO_DEPTH)) {
+				XSpiPs_SendByte(InstancePtr->Config.BaseAddress,
+						*InstancePtr->SendBufferPtr);
+				InstancePtr->SendBufferPtr += 1;
+				InstancePtr->RemainingBytes--;
+				++TransCount;
 			}
-		} while ((StatusReg & XSPIPS_IXR_TXOW_MASK) == 0);
+
+			/*
+			 * If master mode and manual start mode, issue manual start
+			 * command to start the transfer.
+			 */
+			if ((XSpiPs_IsManualStart(InstancePtr) == TRUE)
+				&& (XSpiPs_IsMaster(InstancePtr) == TRUE)) {
+				ConfigReg = XSpiPs_ReadReg(
+						InstancePtr->Config.BaseAddress,
+						 XSPIPS_CR_OFFSET);
+				ConfigReg |= XSPIPS_CR_MANSTRT_MASK;
+				XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
+						 XSPIPS_CR_OFFSET, ConfigReg);
+			}
+
+			/*
+			 * Wait for the transfer to finish by polling Tx fifo status.
+			 */
+	        CheckTransfer = (u32)0U;
+	        while (CheckTransfer == 0U){
+			StatusReg = XSpiPs_ReadReg(
+					        InstancePtr->Config.BaseAddress,
+						        XSPIPS_SR_OFFSET);
+				if ( (StatusReg & XSPIPS_IXR_MODF_MASK) != 0U) {
+					/*
+					 * Clear the mode fail bit
+					 */
+					XSpiPs_WriteReg(
+						InstancePtr->Config.BaseAddress,
+						XSPIPS_SR_OFFSET,
+						XSPIPS_IXR_MODF_MASK);
+					return (s32)XST_SEND_ERROR;
+				}
+		        CheckTransfer = (StatusReg &
+							XSPIPS_IXR_TXOW_MASK);
+		    }
+
+			/*
+			 * A transmit has just completed. Process received data and
+			 * check for more data to transmit.
+			 * First get the data received as a result of the transmit
+			 * that just completed. Receive data based on the
+			 * count obtained while filling tx fifo. Always get the
+			 * received data, but only fill the receive buffer if it
+			 * points to something (the upper layer software may not
+			 * care to receive data).
+			 */
+			while (TransCount != (u32)0U) {
+				TempData = (u8)XSpiPs_RecvByte(
+					InstancePtr->Config.BaseAddress);
+				if (InstancePtr->RecvBufferPtr != NULL) {
+					*(InstancePtr->RecvBufferPtr) = TempData;
+					InstancePtr->RecvBufferPtr += 1;
+				}
+				InstancePtr->RequestedBytes--;
+				--TransCount;
+			}
+		}
 
 		/*
-		 * A transmit has just completed. Process received data and
-		 * check for more data to transmit.
-		 * First get the data received as a result of the transmit
-		 * that just completed. Receive data based on the
-		 * count obtained while filling tx fifo. Always get the
-		 * received data, but only fill the receive buffer if it
-		 * points to something (the upper layer software may not
-		 * care to receive data).
+		 * Clear the slave selects now, before terminating the transfer.
 		 */
-		while (TransCount) {
-			u8 TempData;
-			TempData = XSpiPs_RecvByte(
-				InstancePtr->Config.BaseAddress);
-			if (InstancePtr->RecvBufferPtr != NULL) {
-				*InstancePtr->RecvBufferPtr++ = (u8) TempData;
-			}
-			InstancePtr->RequestedBytes--;
-			--TransCount;
+		if (XSpiPs_IsManualChipSelect(InstancePtr) == TRUE) {
+			ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+						XSPIPS_CR_OFFSET);
+			ConfigReg |= XSPIPS_CR_SSCTRL_MASK;
+			XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
+					 XSPIPS_CR_OFFSET, ConfigReg);
 		}
+
+		/*
+		 * Clear the busy flag.
+		 */
+		InstancePtr->IsBusy = FALSE;
+
+		/*
+		 * Disable the device.
+		 */
+		XSpiPs_Disable(InstancePtr);
+		Status_Polled = (s32)XST_SUCCESS;
 	}
-
-	/*
-	 * Clear the slave selects now, before terminating the transfer.
-	 */
-	if (XSpiPs_IsManualChipSelect(InstancePtr)) {
-		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-					XSPIPS_CR_OFFSET);
-		ConfigReg |= XSPIPS_CR_SSCTRL_MASK;
-		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				 XSPIPS_CR_OFFSET, ConfigReg);
-	}
-
-	/*
-	 * Clear the busy flag.
-	 */
-	InstancePtr->IsBusy = FALSE;
-
-	/*
-	 * Disable the device.
-	 */
-	XSpiPs_Disable(InstancePtr);
-
-	return XST_SUCCESS;
+	return Status_Polled;
 }
 
 /*****************************************************************************/
@@ -641,10 +652,10 @@ int XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 * has no affect when the device is configured as a slave.
 *
 ******************************************************************************/
-int XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel)
+s32 XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel)
 {
 	u32 ConfigReg;
-
+	s32 Status_Slave;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(SlaveSel <= XSPIPS_CR_SSCTRL_MAXIMUM);
@@ -653,38 +664,39 @@ int XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel)
 	 * Do not allow the slave select to change while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy) {
-		return XST_DEVICE_BUSY;
-	}
-	/*
-	 * If decode slave select option is set,
-	 * then set slave select value directly.
-	 * Update the Instance structure member.
-	 */
-	if ( XSpiPs_IsDecodeSSelect( InstancePtr ) ) {
-		InstancePtr->SlaveSelect = SlaveSel << XSPIPS_CR_SSCTRL_SHIFT;
-	}
-	else {
-	/*
-	 * Set the bit position to low using SlaveSel. Update the Instance
-	 * structure member.
-	 */
-		InstancePtr->SlaveSelect = ((~(1 << SlaveSel)) & \
-			XSPIPS_CR_SSCTRL_MAXIMUM) << XSPIPS_CR_SSCTRL_SHIFT;
-	}
+	if (InstancePtr->IsBusy == TRUE) {
+		Status_Slave = (s32)XST_DEVICE_BUSY;
+	} else {
+		/*
+		 * If decode slave select option is set,
+		 * then set slave select value directly.
+		 * Update the Instance structure member.
+		 */
+		if ( XSpiPs_IsDecodeSSelect( InstancePtr ) == TRUE) {
+			InstancePtr->SlaveSelect = ((u32)SlaveSel) << XSPIPS_CR_SSCTRL_SHIFT;
+		}
+		else {
+		/*
+		 * Set the bit position to low using SlaveSel. Update the Instance
+		 * structure member.
+		 */
+			InstancePtr->SlaveSelect = ((~(1U << SlaveSel)) & \
+				XSPIPS_CR_SSCTRL_MAXIMUM) << XSPIPS_CR_SSCTRL_SHIFT;
+		}
 
-	/*
-	 * Read the config register, update the slave select value and write
-	 * back to config register.
-	 */
-	ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-			 XSPIPS_CR_OFFSET);
-	ConfigReg &= (~XSPIPS_CR_SSCTRL_MASK);
-	ConfigReg |= InstancePtr->SlaveSelect;
-	XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_CR_OFFSET,
-			 ConfigReg);
-
-	return XST_SUCCESS;
+		/*
+		 * Read the config register, update the slave select value and write
+		 * back to config register.
+		 */
+		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+				 XSPIPS_CR_OFFSET);
+		ConfigReg &= (u32)(~XSPIPS_CR_SSCTRL_MASK);
+		ConfigReg |= InstancePtr->SlaveSelect;
+		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_CR_OFFSET,
+				 ConfigReg);
+	    Status_Slave = (s32)XST_SUCCESS;
+	}
+	return Status_Slave;
 }
 
 /*****************************************************************************/
@@ -702,7 +714,7 @@ int XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel)
 u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 {
 	u32 ConfigReg;
-	u8 SlaveSel;
+	u32 SlaveSel;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -715,7 +727,7 @@ u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 	/*
 	 * If decode slave select option is set, then read value directly.
 	 */
-	if ( XSpiPs_IsDecodeSSelect( InstancePtr ) ) {
+	if ( XSpiPs_IsDecodeSSelect( InstancePtr ) == TRUE) {
 		SlaveSel = ConfigReg;
 	}
 	else {
@@ -723,11 +735,11 @@ u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 		/*
 		 * Get the slave select value
 		 */
-		if(ConfigReg == 0x0F) {
+		if(ConfigReg == 0x0FU) {
 			/*
 			 * No slave selected
 			 */
-			SlaveSel = 0xF;
+			SlaveSel = 0xFU;
 		}else {
 			/*
 			 * Get selected slave number (0,1 or 2)
@@ -735,7 +747,7 @@ u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 			SlaveSel = ((~ConfigReg) & XSPIPS_CR_SSCTRL_MAXIMUM)/2;
 		}
 	}
-	return SlaveSel;
+	return (u8)SlaveSel;
 }
 
 /*****************************************************************************/
@@ -772,7 +784,7 @@ u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 * @param	InstancePtr is a pointer to the XSpiPs instance.
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
+* @param	FunctionPtr is the pointer to the callback function.
 *
 * @return	None.
 *
@@ -783,13 +795,13 @@ u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 *
 ******************************************************************************/
 void XSpiPs_SetStatusHandler(XSpiPs *InstancePtr, void *CallBackRef,
-				XSpiPs_StatusHandler FuncPtr)
+				XSpiPs_StatusHandler FunctionPtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(FuncPtr != NULL);
+	Xil_AssertVoid(FunctionPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->StatusHandler = FuncPtr;
+	InstancePtr->StatusHandler = FunctionPtr;
 	InstancePtr->StatusRef = CallBackRef;
 }
 
@@ -810,7 +822,7 @@ void XSpiPs_SetStatusHandler(XSpiPs *InstancePtr, void *CallBackRef,
 *
 ******************************************************************************/
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
-				unsigned ByteCount)
+				u32 ByteCount)
 {
 	(void) CallBackRef;
 	(void) StatusEvent;
@@ -863,12 +875,12 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 * master since the hardware does not drive the slave select as a slave.
 *
 ******************************************************************************/
-void XSpiPs_InterruptHandler(void *InstancePtr)
+void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 {
-	XSpiPs *SpiPtr = (XSpiPs *)InstancePtr;
+	XSpiPs *SpiPtr = InstancePtr;
 	u32 IntrStatus;
 	u32 ConfigReg;
-	unsigned BytesDone; /* Number of bytes done so far. */
+	u32 BytesDone; /* Number of bytes done so far. */
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SpiPtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -892,7 +904,7 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 	 * before checking for progress of a transfer, since this error needs
 	 * to abort any operation in progress.
 	 */
-	if (XSPIPS_IXR_MODF_MASK == (IntrStatus & XSPIPS_IXR_MODF_MASK)) {
+	if ((u32)XSPIPS_IXR_MODF_MASK == (u32)(IntrStatus & XSPIPS_IXR_MODF_MASK)) {
 		BytesDone = SpiPtr->RequestedBytes - SpiPtr->RemainingBytes;
 
 		/*
@@ -912,7 +924,7 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 	}
 
 
-	if (IntrStatus & XSPIPS_IXR_TXOW_MASK) {
+	if ((IntrStatus & XSPIPS_IXR_TXOW_MASK) != 0U) {
 		u8 TempData;
 		u32 TransCount;
 		/*
@@ -927,10 +939,11 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 		 */
 		TransCount = SpiPtr->RequestedBytes - SpiPtr->RemainingBytes;
 
-		while (TransCount) {
-			TempData = XSpiPs_RecvByte(SpiPtr->Config.BaseAddress);
+		while (TransCount != 0U) {
+			TempData = (u8)XSpiPs_RecvByte(SpiPtr->Config.BaseAddress);
 			if (SpiPtr->RecvBufferPtr != NULL) {
-				*SpiPtr->RecvBufferPtr++ = (u8) TempData;
+				*SpiPtr->RecvBufferPtr = TempData;
+				SpiPtr->RecvBufferPtr += 1;
 			}
 			SpiPtr->RequestedBytes--;
 			--TransCount;
@@ -940,17 +953,17 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 		 * Fill the TXFIFO until data exists, otherwise fill upto
 		 * FIFO depth.
 		 */
-		while ((SpiPtr->RemainingBytes > 0) &&
+		while ((SpiPtr->RemainingBytes > 0U) &&
 			(TransCount < XSPIPS_FIFO_DEPTH)) {
 			XSpiPs_SendByte(SpiPtr->Config.BaseAddress,
 					 *SpiPtr->SendBufferPtr);
-			SpiPtr->SendBufferPtr++;
+			SpiPtr->SendBufferPtr += 1;
 			SpiPtr->RemainingBytes--;
 			++TransCount;
 		}
 
-		if ((SpiPtr->RemainingBytes == 0) &&
-			(SpiPtr->RequestedBytes == 0)) {
+		if ((SpiPtr->RemainingBytes == 0U) &&
+			(SpiPtr->RequestedBytes == 0U)) {
 			/*
 			 * No more data to send. Disable the interrupt and
 			 * inform the upper layer software that the transfer
@@ -964,7 +977,7 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 			 * Disable slave select lines as the transfer
 			 * is complete.
 			 */
-			if (XSpiPs_IsManualChipSelect(InstancePtr)) {
+			if (XSpiPs_IsManualChipSelect(InstancePtr) == TRUE) {
 				ConfigReg = XSpiPs_ReadReg(
 					SpiPtr->Config.BaseAddress,
 					 XSPIPS_CR_OFFSET);
@@ -1000,8 +1013,8 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 			 * Start the transfer by not inhibiting the transmitter
 			 * any longer.
 			 */
-			if (XSpiPs_IsManualStart(SpiPtr)
-				&& XSpiPs_IsMaster(SpiPtr)) {
+			if ((XSpiPs_IsManualStart(SpiPtr) == TRUE)
+				&& (XSpiPs_IsMaster(SpiPtr) == TRUE)) {
 				ConfigReg = XSpiPs_ReadReg(
 					SpiPtr->Config.BaseAddress,
 					 XSPIPS_CR_OFFSET);
@@ -1016,7 +1029,7 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 	/*
 	 * Check for overflow and underflow errors.
 	 */
-	if (IntrStatus & XSPIPS_IXR_RXOVR_MASK) {
+	if ((IntrStatus & XSPIPS_IXR_RXOVR_MASK) != 0U) {
 		BytesDone = SpiPtr->RequestedBytes - SpiPtr->RemainingBytes;
 		SpiPtr->IsBusy = FALSE;
 
@@ -1024,7 +1037,7 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 		 * The Slave select lines are being manually controlled.
 		 * Disable them because the transfer is complete.
 		 */
-		if (XSpiPs_IsManualChipSelect(SpiPtr)) {
+		if (XSpiPs_IsManualChipSelect(SpiPtr) == TRUE) {
 			ConfigReg = XSpiPs_ReadReg(
 				SpiPtr->Config.BaseAddress,
 				 XSPIPS_CR_OFFSET);
@@ -1038,7 +1051,7 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 			XST_SPI_RECEIVE_OVERRUN, BytesDone);
 	}
 
-	if (IntrStatus & XSPIPS_IXR_TXUF_MASK) {
+	if ((IntrStatus & XSPIPS_IXR_TXUF_MASK) != 0U) {
 		BytesDone = SpiPtr->RequestedBytes - SpiPtr->RemainingBytes;
 
 		SpiPtr->IsBusy = FALSE;
@@ -1046,7 +1059,7 @@ void XSpiPs_InterruptHandler(void *InstancePtr)
 		 * The Slave select lines are being manually controlled.
 		 * Disable them because the transfer is complete.
 		 */
-		if (XSpiPs_IsManualChipSelect(SpiPtr)) {
+		if (XSpiPs_IsManualChipSelect(SpiPtr) == TRUE) {
 			ConfigReg = XSpiPs_ReadReg(
 				SpiPtr->Config.BaseAddress,
 				 XSPIPS_CR_OFFSET);
@@ -1083,14 +1096,20 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 {
 
 	XSpiPs_Disable(InstancePtr);
+	u8 Temp;
+	u32 Check;
 
 	/*
 	 * Clear the RX FIFO and drop any data.
 	 */
-	while ((XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-		 XSPIPS_SR_OFFSET) & XSPIPS_IXR_RXNEMPTY_MASK) ==
-		XSPIPS_IXR_RXNEMPTY_MASK) {
-		(void) XSpiPs_RecvByte(InstancePtr->Config.BaseAddress);
+	Check = (XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+		XSPIPS_SR_OFFSET) & XSPIPS_IXR_RXNEMPTY_MASK);
+	while (Check != (u32)0U) {
+		Temp = (u8)XSpiPs_RecvByte(InstancePtr->Config.BaseAddress);
+		if(Temp != (u8)0U){
+		}
+		Check = (XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+		XSPIPS_SR_OFFSET) & XSPIPS_IXR_RXNEMPTY_MASK);
 	}
 
 	/*
@@ -1100,8 +1119,8 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 			XSPIPS_SR_OFFSET,
 			XSPIPS_IXR_MODF_MASK);
 
-	InstancePtr->RemainingBytes = 0;
-	InstancePtr->RequestedBytes = 0;
+	InstancePtr->RemainingBytes = 0U;
+	InstancePtr->RequestedBytes = 0U;
 	InstancePtr->IsBusy = FALSE;
 }
 

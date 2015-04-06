@@ -72,15 +72,15 @@
  */
 XSpiPs_Config XSpiPs_ConfigTable[XPAR_XSPIPS_NUM_INSTANCES] = {
 	{
-		XPAR_XSPIPS_0_DEVICE_ID, /* Device ID for instance */
-		XPAR_XSPIPS_0_BASEADDR,  /* Device base address */
-		XPAR_XSPIPS_0_CLOCK_HZ
+		(u16)XPAR_XSPIPS_0_DEVICE_ID, /* Device ID for instance */
+		(u32)XPAR_XSPIPS_0_BASEADDR,  /* Device base address */
+		(u32)XPAR_XSPIPS_0_SPI_CLK_FREQ_HZ
 	},
 #ifdef XPAR_XSPIPS_1_DEVICE_ID
 	{
-		XPAR_XSPIPS_1_DEVICE_ID, /* Device ID for instance */
-		XPAR_XSPIPS_1_BASEADDR,  /* Device base address */
-		XPAR_XSPIPS_1_CLOCK_HZ
+		(u16)XPAR_XSPIPS_1_DEVICE_ID, /* Device ID for instance */
+		(u32)XPAR_XSPIPS_1_BASEADDR,  /* Device base address */
+		(u32)XPAR_XSPIPS_1_SPI_CLK_FREQ_HZ
 	}
 #endif
 };

@@ -115,11 +115,12 @@ static OptionsMap OptionsTable[] = {
 * This function is not thread-safe.
 *
 ******************************************************************************/
-int XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
+s32 XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
 {
 	u32 ConfigReg;
-	unsigned int Index;
+	u32 Index;
 	u32 CurrentConfigReg;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -128,60 +129,62 @@ int XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
 	 * Do not allow the slave select to change while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy) {
-		return XST_DEVICE_BUSY;
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = (s32)XST_DEVICE_BUSY;
+	} else {
+
+		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+					 XSPIPS_CR_OFFSET);
+
+		CurrentConfigReg = ConfigReg;
+
+		/*
+		 * Loop through the options table, turning the option on or off
+		 * depending on whether the bit is set in the incoming options flag.
+		 */
+		for (Index = 0U; Index < XSPIPS_NUM_OPTIONS; Index++) {
+			if ((Options & OptionsTable[Index].Option) != (u32)0U) {
+				/* Turn it on */
+				ConfigReg |= OptionsTable[Index].Mask;
+			}
+			else {
+				/* Turn it off */
+				ConfigReg &= ~(OptionsTable[Index].Mask);
+			}
+		}
+
+
+		/*
+		 * If CPOL-CPHA bits are toggled from previous state,
+		 * disable before writing the configuration register and then enable.
+		 */
+		if( ((CurrentConfigReg & XSPIPS_CR_CPOL_MASK) !=
+			(ConfigReg & XSPIPS_CR_CPOL_MASK)) ||
+			((CurrentConfigReg & XSPIPS_CR_CPHA_MASK) !=
+			(ConfigReg & XSPIPS_CR_CPHA_MASK)) ) {
+				XSpiPs_Disable(InstancePtr);
+			}
+
+		/*
+		 * Now write the Config register. Leave it to the upper layers
+		 * to restart the device.
+		 */
+		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
+					XSPIPS_CR_OFFSET, ConfigReg);
+
+		/*
+		 * Enable
+		 */
+		if( ((CurrentConfigReg & XSPIPS_CR_CPOL_MASK) !=
+			(ConfigReg & XSPIPS_CR_CPOL_MASK)) ||
+			((CurrentConfigReg & XSPIPS_CR_CPHA_MASK) !=
+			(ConfigReg & XSPIPS_CR_CPHA_MASK)) ) {
+				XSpiPs_Enable(InstancePtr);
+			}
+
+		Status = (s32)XST_SUCCESS;
 	}
-
-	ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XSPIPS_CR_OFFSET);
-
-	CurrentConfigReg = ConfigReg;
-
-	/*
-	 * Loop through the options table, turning the option on or off
-	 * depending on whether the bit is set in the incoming options flag.
-	 */
-	for (Index = 0; Index < XSPIPS_NUM_OPTIONS; Index++) {
-		if (Options & OptionsTable[Index].Option) {
-			/* Turn it on */
-			ConfigReg |= OptionsTable[Index].Mask;
-		}
-		else {
-			/* Turn it off */
-			ConfigReg &= ~(OptionsTable[Index].Mask);
-		}
-	}
-
-
-	/*
-	 * If CPOL-CPHA bits are toggled from previous state,
-	 * disable before writing the configuration register and then enable.
-	 */
-	if( ((CurrentConfigReg & XSPIPS_CR_CPOL_MASK) !=
-		(ConfigReg & XSPIPS_CR_CPOL_MASK)) ||
-		((CurrentConfigReg & XSPIPS_CR_CPHA_MASK) !=
-		(ConfigReg & XSPIPS_CR_CPHA_MASK)) ) {
-			XSpiPs_Disable(InstancePtr);
-		}
-
-	/*
-	 * Now write the Config register. Leave it to the upper layers
-	 * to restart the device.
-	 */
-	XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XSPIPS_CR_OFFSET, ConfigReg);
-
-	/*
-	 * Enable
-	 */
-	if( ((CurrentConfigReg & XSPIPS_CR_CPOL_MASK) !=
-		(ConfigReg & XSPIPS_CR_CPOL_MASK)) ||
-		((CurrentConfigReg & XSPIPS_CR_CPHA_MASK) !=
-		(ConfigReg & XSPIPS_CR_CPHA_MASK)) ) {
-			XSpiPs_Enable(InstancePtr);
-		}
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -203,9 +206,9 @@ int XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
 ******************************************************************************/
 u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
 {
-	u32 OptionsFlag = 0;
+	u32 OptionsFlag = 0U;
 	u32 ConfigReg;
-	unsigned int Index;
+	u32 Index;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -250,39 +253,42 @@ u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
 * This function is not thread-safe.
 *
 ******************************************************************************/
-int XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler)
+s32 XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((Prescaler > 0) && (Prescaler <= XSPIPS_CR_PRESC_MAXIMUM));
+	Xil_AssertNonvoid((Prescaler > 0U) && (Prescaler <= XSPIPS_CR_PRESC_MAXIMUM));
 
 	/*
 	 * Do not allow the prescaler to be changed while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy) {
-		return XST_DEVICE_BUSY;
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = (s32)XST_DEVICE_BUSY;
+	} else {
+
+		/*
+		 * Read the Config register, mask out the interesting bits, and set
+		 * them with the shifted value passed into the function. Write the
+		 * results back to the Config register.
+		 */
+		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+					 XSPIPS_CR_OFFSET);
+
+		ConfigReg &= (u32)(~XSPIPS_CR_PRESC_MASK);
+		ConfigReg |= (u32) ((u32)Prescaler & (u32)XSPIPS_CR_PRESC_MAXIMUM) <<
+			XSPIPS_CR_PRESC_SHIFT;
+
+		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
+				XSPIPS_CR_OFFSET,
+				ConfigReg);
+
+		Status = (s32)XST_SUCCESS;
 	}
-
-	/*
-	 * Read the Config register, mask out the interesting bits, and set
-	 * them with the shifted value passed into the function. Write the
-	 * results back to the Config register.
-	 */
-	ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XSPIPS_CR_OFFSET);
-
-	ConfigReg &= ~XSPIPS_CR_PRESC_MASK;
-	ConfigReg |= (u32) (Prescaler & XSPIPS_CR_PRESC_MAXIMUM) <<
-		XSPIPS_CR_PRESC_SHIFT;
-
-	XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XSPIPS_CR_OFFSET,
-			ConfigReg);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -345,10 +351,11 @@ u8 XSpiPs_GetClkPrescaler(XSpiPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
+s32 XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 			 u8 DelayAfter, u8 DelayInit)
 {
 	u32 DelayRegister;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -357,20 +364,22 @@ int XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 	 * Do not allow the delays to change while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy) {
-		return XST_DEVICE_BUSY;
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = (s32)XST_DEVICE_BUSY;
+	} else {
+
+		/* Shift, Mask and OR the values to build the register settings */
+		DelayRegister = (u32) DelayNss << XSPIPS_DR_NSS_SHIFT;
+		DelayRegister |= (u32) DelayBtwn << XSPIPS_DR_BTWN_SHIFT;
+		DelayRegister |= (u32) DelayAfter << XSPIPS_DR_AFTER_SHIFT;
+		DelayRegister |= (u32) DelayInit;
+
+		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
+				XSPIPS_DR_OFFSET, DelayRegister);
+
+		Status = (s32)XST_SUCCESS;
 	}
-
-	/* Shift, Mask and OR the values to build the register settings */
-	DelayRegister = (u32) DelayNss << XSPIPS_DR_NSS_SHIFT;
-	DelayRegister |= (u32) DelayBtwn << XSPIPS_DR_BTWN_SHIFT;
-	DelayRegister |= (u32) DelayAfter << XSPIPS_DR_AFTER_SHIFT;
-	DelayRegister |= (u32) DelayInit;
-
-	XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XSPIPS_DR_OFFSET, DelayRegister);
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/

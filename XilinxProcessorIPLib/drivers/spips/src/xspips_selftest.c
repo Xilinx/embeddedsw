@@ -87,9 +87,9 @@
 * @note		None.
 *
 ******************************************************************************/
-int XSpiPs_SelfTest(XSpiPs *InstancePtr)
+s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 {
-	int Status;
+	s32 Status;
 	u32 Register;
 	u8 DelayTestNss;
 	u8 DelayTestBtwn;
@@ -110,19 +110,19 @@ int XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_CR_OFFSET);
 	if (Register != XSPIPS_CR_RESET_STATE) {
-		return XST_REGISTER_ERROR;
+		return (s32)XST_REGISTER_ERROR;
 	}
 
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_SR_OFFSET);
 	if (Register != XSPIPS_ISR_RESET_STATE) {
-		return XST_REGISTER_ERROR;
+		return (s32)XST_REGISTER_ERROR;
 	}
 
-	DelayTestNss = 0x5A;
-	DelayTestBtwn = 0xA5;
-	DelayTestAfter = 0xAA;
-	DelayTestInit = 0x55;
+	DelayTestNss = 0x5AU;
+	DelayTestBtwn = 0xA5U;
+	DelayTestAfter = 0xAAU;
+	DelayTestInit = 0x55U;
 
 	/*
 	 * Write and read the delay register, just to be sure there is some
@@ -130,19 +130,19 @@ int XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	 */
 	Status = XSpiPs_SetDelays(InstancePtr, DelayTestNss, DelayTestBtwn,
 				   DelayTestAfter, DelayTestInit);
-	if (Status != XST_SUCCESS) {
+	if (Status != (s32)XST_SUCCESS) {
 		return Status;
 	}
 
 	XSpiPs_GetDelays(InstancePtr, &DelayTestNss, &DelayTestBtwn,
 			&DelayTestAfter, &DelayTestInit);
-	if ((0x5A != DelayTestNss) || (0xA5 != DelayTestBtwn) ||
-		(0xAA != DelayTestAfter) || (0x55 != DelayTestInit)) {
-		return XST_REGISTER_ERROR;
+	if ((0x5AU != DelayTestNss) || (0xA5U != DelayTestBtwn) ||
+		(0xAAU != DelayTestAfter) || (0x55U != DelayTestInit)) {
+		return (s32)XST_REGISTER_ERROR;
 	}
 
-	Status = XSpiPs_SetDelays(InstancePtr, 0, 0, 0, 0);
-	if (Status != XST_SUCCESS) {
+	Status = XSpiPs_SetDelays(InstancePtr, 0U, 0U, 0U, 0U);
+	if (Status != (s32)XST_SUCCESS) {
 		return Status;
 	}
 
@@ -151,5 +151,5 @@ int XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	 */
 	XSpiPs_Reset(InstancePtr);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
