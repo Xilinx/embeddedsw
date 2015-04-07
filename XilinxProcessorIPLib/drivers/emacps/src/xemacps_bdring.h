@@ -44,6 +44,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a wsy  01/10/10 First release
+* 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp architecture.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -60,9 +62,9 @@ extern "C" {
 
 /** This is an internal structure used to maintain the DMA list */
 typedef struct {
-	u32 PhysBaseAddr;/**< Physical address of 1st BD in list */
-	u32 BaseBdAddr;	 /**< Virtual address of 1st BD in list */
-	u32 HighBdAddr;	 /**< Virtual address of last BD in the list */
+	UINTPTR PhysBaseAddr;/**< Physical address of 1st BD in list */
+	UINTPTR BaseBdAddr;	 /**< Virtual address of 1st BD in list */
+	UINTPTR HighBdAddr;	 /**< Virtual address of last BD in the list */
 	u32 Length;	 /**< Total size of ring in bytes */
 	u32 RunState;	 /**< Flag to indicate DMA is started */
 	u32 Separation;	 /**< Number of bytes between the starting address
@@ -76,11 +78,12 @@ typedef struct {
 			     /**< First BD in the post-work group */
 	XEmacPs_Bd *BdaRestart;
 			     /**< BDA to load when channel is started */
-	unsigned HwCnt;	     /**< Number of BDs in work group */
-	unsigned PreCnt;     /**< Number of BDs in pre-work group */
-	unsigned FreeCnt;    /**< Number of allocatable BDs in the free group */
-	unsigned PostCnt;    /**< Number of BDs in post-work group */
-	unsigned AllCnt;     /**< Total Number of BDs for channel */
+
+	u32 HwCnt;	     /**< Number of BDs in work group */
+	u32 PreCnt;     /**< Number of BDs in pre-work group */
+	u32 FreeCnt;    /**< Number of allocatable BDs in the free group */
+	u32 PostCnt;    /**< Number of BDs in post-work group */
+	u32 AllCnt;     /**< Total Number of BDs for channel */
 } XEmacPs_BdRing;
 
 
@@ -128,7 +131,7 @@ typedef struct {
 ******************************************************************************/
 #define XEmacPs_BdRingMemCalc(Alignment, NumBd)                    \
     (u32)((sizeof(XEmacPs_Bd) + ((Alignment)-1)) &              \
-    ~((Alignment)-1)) * (NumBd)
+    ~((Alignment)-1)) * ((NumBd))
 
 /****************************************************************************/
 /**
@@ -178,9 +181,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XEmacPs_BdRingNext(RingPtr, BdPtr)                           \
-    (((u32)(BdPtr) >= (RingPtr)->HighBdAddr) ?                     \
-    (XEmacPs_Bd*)(RingPtr)->BaseBdAddr :                              \
-    (XEmacPs_Bd*)((u32)(BdPtr) + (RingPtr)->Separation))
+    (((UINTPTR)((void *)(BdPtr)) >= (RingPtr)->HighBdAddr) ?                     \
+    (XEmacPs_Bd*)((void*)(RingPtr)->BaseBdAddr) :                              \
+    (XEmacPs_Bd*)((UINTPTR)((void *)(BdPtr)) + (RingPtr)->Separation))
 
 /****************************************************************************/
 /**
@@ -198,32 +201,33 @@ typedef struct {
 *
 *****************************************************************************/
 #define XEmacPs_BdRingPrev(RingPtr, BdPtr)                           \
-    (((u32)(BdPtr) <= (RingPtr)->BaseBdAddr) ?                     \
+    (((UINTPTR)(BdPtr) <= (RingPtr)->BaseBdAddr) ?                     \
     (XEmacPs_Bd*)(RingPtr)->HighBdAddr :                              \
-    (XEmacPs_Bd*)((u32)(BdPtr) - (RingPtr)->Separation))
+    (XEmacPs_Bd*)((UINTPTR)(BdPtr) - (RingPtr)->Separation))
 
 /************************** Function Prototypes ******************************/
 
 /*
  * Scatter gather DMA related functions in xemacps_bdring.c
  */
-int XEmacPs_BdRingCreate(XEmacPs_BdRing * RingPtr, u32 PhysAddr,
-			  u32 VirtAddr, u32 Alignment, unsigned BdCount);
-int XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
+LONG XEmacPs_BdRingCreate(XEmacPs_BdRing * RingPtr, UINTPTR PhysAddr,
+			  UINTPTR VirtAddr, u32 Alignment, u32 BdCount);
+LONG XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
 			 u8 Direction);
-int XEmacPs_BdRingAlloc(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingAlloc(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			 XEmacPs_Bd ** BdSetPtr);
-int XEmacPs_BdRingUnAlloc(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingUnAlloc(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			   XEmacPs_Bd * BdSetPtr);
-int XEmacPs_BdRingToHw(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingToHw(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			XEmacPs_Bd * BdSetPtr);
-int XEmacPs_BdRingFree(XEmacPs_BdRing * RingPtr, unsigned NumBd,
+LONG XEmacPs_BdRingFree(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			XEmacPs_Bd * BdSetPtr);
-unsigned XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
+u32 XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 				 XEmacPs_Bd ** BdSetPtr);
-unsigned XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, unsigned BdLimit,
+u32 XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 				 XEmacPs_Bd ** BdSetPtr);
-int XEmacPs_BdRingCheck(XEmacPs_BdRing * RingPtr, u8 Direction);
+LONG XEmacPs_BdRingCheck(XEmacPs_BdRing * RingPtr, u8 Direction);
+
 
 #ifdef __cplusplus
 }

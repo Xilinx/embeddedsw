@@ -93,7 +93,7 @@
  * specific to the GNU compiler
  */
 typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE]
-	__attribute__ ((aligned(32)));
+	__attribute__ ((aligned(64)));
 
 /************************** Function Prototypes *****************************/
 
@@ -105,11 +105,11 @@ typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE]
 void EmacPsUtilSetupUart(void);
 void EmacPsUtilFrameHdrFormatMAC(EthernetFrame * FramePtr, char *DestAddr);
 void EmacPsUtilFrameHdrFormatType(EthernetFrame * FramePtr, u16 FrameType);
-void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, int PayloadSize);
-int EmacPsUtilFrameVerify(EthernetFrame * CheckFrame,
+void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, u32 PayloadSize);
+LONG EmacPsUtilFrameVerify(EthernetFrame * CheckFrame,
 			   EthernetFrame * ActualFrame);
 void EmacPsUtilFrameMemClear(EthernetFrame * FramePtr);
-int EmacPsUtilEnterLoopback(XEmacPs * XEmacPsInstancePtr, int Speed);
+LONG EmacPsUtilEnterLoopback(XEmacPs * XEmacPsInstancePtr, u32 Speed);
 void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n);
 void EmacPsUtilErrorTrap(const char *Message);
 

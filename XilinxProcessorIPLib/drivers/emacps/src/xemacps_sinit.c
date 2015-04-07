@@ -50,14 +50,16 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xemacps.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
 
 /**************************** Type Definitions *******************************/
 
+/*************************** Variable Definitions *****************************/
+extern XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -78,16 +80,15 @@
 ******************************************************************************/
 XEmacPs_Config *XEmacPs_LookupConfig(u16 DeviceId)
 {
-	extern XEmacPs_Config XEmacPs_ConfigTable[];
 	XEmacPs_Config *CfgPtr = NULL;
-	int i;
+	u32 i;
 
-	for (i = 0; i < XPAR_XEMACPS_NUM_INSTANCES; i++) {
+	for (i = 0U; i < (u32)XPAR_XEMACPS_NUM_INSTANCES; i++) {
 		if (XEmacPs_ConfigTable[i].DeviceId == DeviceId) {
 			CfgPtr = &XEmacPs_ConfigTable[i];
 			break;
 		}
 	}
 
-	return (CfgPtr);
+	return (XEmacPs_Config *)(CfgPtr);
 }

@@ -53,6 +53,8 @@
 *		      bit 18 to flush a packet from Rx DPRAM immediately. The
 *		      changes for it are done in the function
 *		      XEmacPs_IntrHandler.
+* 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification
+*		       and 64-bit changes.
 * </pre>
 ******************************************************************************/
 
@@ -83,7 +85,7 @@
  * @param HandlerType indicates what interrupt handler type is.
  *        XEMACPS_HANDLER_DMASEND, XEMACPS_HANDLER_DMARECV and
  *        XEMACPS_HANDLER_ERROR.
- * @param FuncPtr is the pointer to the callback function
+ * @param FuncPointer is the pointer to the callback function
  * @param CallBackRef is the upper layer callback reference passed back when
  *        when the callback function is invoked.
  *
@@ -96,30 +98,35 @@
  * it is.
  *
  *****************************************************************************/
-int XEmacPs_SetHandler(XEmacPs *InstancePtr, u32 HandlerType,
-			void *FuncPtr, void *CallBackRef)
+LONG XEmacPs_SetHandler(XEmacPs *InstancePtr, u32 HandlerType,
+			void *FuncPointer, void *CallBackRef)
 {
+	LONG Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(FuncPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(FuncPointer != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	switch (HandlerType) {
 	case XEMACPS_HANDLER_DMASEND:
-		InstancePtr->SendHandler = (XEmacPs_Handler) FuncPtr;
+		Status = (LONG)(XST_SUCCESS);
+		InstancePtr->SendHandler = ((XEmacPs_Handler)(void *)FuncPointer);
 		InstancePtr->SendRef = CallBackRef;
 		break;
 	case XEMACPS_HANDLER_DMARECV:
-		InstancePtr->RecvHandler = (XEmacPs_Handler) FuncPtr;
+		Status = (LONG)(XST_SUCCESS);
+		InstancePtr->RecvHandler = ((XEmacPs_Handler)(void *)FuncPointer);
 		InstancePtr->RecvRef = CallBackRef;
 		break;
 	case XEMACPS_HANDLER_ERROR:
-		InstancePtr->ErrorHandler = (XEmacPs_ErrHandler) FuncPtr;
+		Status = (LONG)(XST_SUCCESS);
+		InstancePtr->ErrorHandler = ((XEmacPs_ErrHandler)(void *)FuncPointer);
 		InstancePtr->ErrorRef = CallBackRef;
 		break;
 	default:
-		return (XST_INVALID_PARAM);
+		Status = (LONG)(XST_INVALID_PARAM);
+		break;
 	}
-	return (XST_SUCCESS);
+	return Status;
 }
 
 /*****************************************************************************/
@@ -139,10 +146,11 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 	u32 RegISR;
 	u32 RegSR;
 	u32 RegCtrl;
+	u32 RegQ1ISR;
 	XEmacPs *InstancePtr = (XEmacPs *) XEmacPsPtr;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/* This ISR will try to handle as many interrupts as it can in a single
 	 * call. However, in most of the places where the user's error handler
@@ -152,34 +160,55 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 	RegISR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XEMACPS_ISR_OFFSET);
 
+	/* Read Transmit Q1 ISR */
+
+	if (InstancePtr->Version == 7)
+		RegQ1ISR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+				   XEMACPS_INTQ1_STS_OFFSET);
+
 	/* Clear the interrupt status register */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_ISR_OFFSET,
 			   RegISR);
 
 	/* Receive complete interrupt */
-	if (RegISR & (XEMACPS_IXR_FRAMERX_MASK)) {
+	if ((RegISR & XEMACPS_IXR_FRAMERX_MASK) != 0x00000000U) {
 		/* Clear RX status register RX complete indication but preserve
 		 * error bits if there is any */
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XEMACPS_RXSR_OFFSET,
-				   XEMACPS_RXSR_FRAMERX_MASK |
-				   XEMACPS_RXSR_BUFFNA_MASK);
+				   ((u32)XEMACPS_RXSR_FRAMERX_MASK |
+				   (u32)XEMACPS_RXSR_BUFFNA_MASK));
 		InstancePtr->RecvHandler(InstancePtr->RecvRef);
 	}
 
+	/* Transmit Q1 complete interrupt */
+	if ((InstancePtr->Version == 7) &&
+			((RegQ1ISR & XEMACPS_INTQ1SR_TXCOMPL_MASK) != 0x00000000U)) {
+		/* Clear TX status register TX complete indication but preserve
+		 * error bits if there is any */
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				   XEMACPS_INTQ1_STS_OFFSET,
+				   XEMACPS_INTQ1SR_TXCOMPL_MASK);
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				   XEMACPS_TXSR_OFFSET,
+				   ((u32)XEMACPS_TXSR_TXCOMPL_MASK |
+				   (u32)XEMACPS_TXSR_USEDREAD_MASK));
+		InstancePtr->SendHandler(InstancePtr->SendRef);
+	}
+
 	/* Transmit complete interrupt */
-	if (RegISR & (XEMACPS_IXR_TXCOMPL_MASK)) {
+	if ((RegISR & XEMACPS_IXR_TXCOMPL_MASK) != 0x00000000U) {
 		/* Clear TX status register TX complete indication but preserve
 		 * error bits if there is any */
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XEMACPS_TXSR_OFFSET,
-				   XEMACPS_TXSR_TXCOMPL_MASK |
-				   XEMACPS_TXSR_USEDREAD_MASK);
+				   ((u32)XEMACPS_TXSR_TXCOMPL_MASK |
+				   (u32)XEMACPS_TXSR_USEDREAD_MASK));
 		InstancePtr->SendHandler(InstancePtr->SendRef);
 	}
 
 	/* Receive error conditions interrupt */
-	if (RegISR & (XEMACPS_IXR_RX_ERR_MASK)) {
+	if ((RegISR & XEMACPS_IXR_RX_ERR_MASK) != 0x00000000U) {
 		/* Clear RX status register */
 		RegSR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 					  XEMACPS_RXSR_OFFSET);
@@ -189,11 +218,11 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 		/* Fix for CR # 692702. Write to bit 18 of net_ctrl
 		 * register to flush a packet out of Rx SRAM upon
 		 * an error for receive buffer not available. */
-		if (RegISR & XEMACPS_IXR_RXUSED_MASK) {
+		if ((RegISR & XEMACPS_IXR_RXUSED_MASK) != 0x00000000U) {
 			RegCtrl =
 			XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 						XEMACPS_NWCTRL_OFFSET);
-			RegCtrl |= XEMACPS_NWCTRL_FLUSH_DPRAM_MASK;
+			RegCtrl |= (u32)XEMACPS_NWCTRL_FLUSH_DPRAM_MASK;
 			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 					XEMACPS_NWCTRL_OFFSET, RegCtrl);
 		}
@@ -205,9 +234,20 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
          * will be asserted the same time.
          * Have to distinguish this bit to handle the real error condition.
          */
+	/* Transmit Q1 error conditions interrupt */
+        if ((InstancePtr->Version == 7) &&
+			((RegQ1ISR & XEMACPS_INTQ1SR_TXERR_MASK) != 0x00000000U) &&
+            ((RegQ1ISR & XEMACPS_INTQ1SR_TXCOMPL_MASK) != 0x00000000U)) {
+			/* Clear Interrupt Q1 status register */
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				   XEMACPS_INTQ1_STS_OFFSET, RegQ1ISR);
+			InstancePtr->ErrorHandler(InstancePtr->ErrorRef, XEMACPS_SEND,
+					  RegQ1ISR);
+	   }
+
 	/* Transmit error conditions interrupt */
-        if (RegISR & (XEMACPS_IXR_TX_ERR_MASK) &&
-            !(RegISR & (XEMACPS_IXR_TXCOMPL_MASK))) {
+        if (((RegISR & XEMACPS_IXR_TX_ERR_MASK) != 0x00000000U) &&
+            (!(RegISR & XEMACPS_IXR_TXCOMPL_MASK) != 0x00000000U)) {
 		/* Clear TX status register */
 		RegSR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 					  XEMACPS_TXSR_OFFSET);

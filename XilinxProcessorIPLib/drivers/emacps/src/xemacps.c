@@ -44,6 +44,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a wsy  01/10/10 First release
+* 2.1  srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification and
+*		      64-bit changes.
+*
 * </pre>
 ******************************************************************************/
 
@@ -88,8 +91,8 @@ void XEmacPs_StubHandler(void);	/* Default handler routine */
 * - XST_SUCCESS if initialization was successful
 *
 ******************************************************************************/
-int XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
-			   u32 EffectiveAddress)
+LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
+			   UINTPTR EffectiveAddress)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -100,15 +103,15 @@ int XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 
 	/* Set callbacks to an initial stub routine */
-	InstancePtr->SendHandler = (XEmacPs_Handler) XEmacPs_StubHandler;
-	InstancePtr->RecvHandler = (XEmacPs_Handler) XEmacPs_StubHandler;
-	InstancePtr->ErrorHandler = (XEmacPs_ErrHandler) XEmacPs_StubHandler;
+	InstancePtr->SendHandler = ((XEmacPs_Handler)((void*)XEmacPs_StubHandler));
+	InstancePtr->RecvHandler = ((XEmacPs_Handler)(void*)XEmacPs_StubHandler);
+	InstancePtr->ErrorHandler = ((XEmacPs_ErrHandler)(void*)XEmacPs_StubHandler);
 
 	/* Reset the hardware and set default options */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	XEmacPs_Reset(InstancePtr);
 
-	return (XST_SUCCESS);
+	return (LONG)(XST_SUCCESS);
 }
 
 
@@ -145,19 +148,15 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 
 	/* Assert bad arguments and conditions */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(InstancePtr->RxBdRing.BaseBdAddr != 0);
-	Xil_AssertVoid(InstancePtr->TxBdRing.BaseBdAddr != 0);
-
-        /* If already started, then there is nothing to do */
-        if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-                return;
-        }
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/* Start DMA */
 	/* When starting the DMA channels, both transmit and receive sides
 	 * need an initialized BD list.
 	 */
+	if (InstancePtr->Version == 2) {
+		Xil_AssertVoid(InstancePtr->RxBdRing.BaseBdAddr != 0);
+		Xil_AssertVoid(InstancePtr->TxBdRing.BaseBdAddr != 0);
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XEMACPS_RXQBASE_OFFSET,
 			   InstancePtr->RxBdRing.BaseBdAddr);
@@ -165,37 +164,42 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XEMACPS_TXQBASE_OFFSET,
 			   InstancePtr->TxBdRing.BaseBdAddr);
+	}
 
 	/* clear any existed int status */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_ISR_OFFSET,
 			   XEMACPS_IXR_ALL_MASK);
 
 	/* Enable transmitter if not already enabled */
-	if (InstancePtr->Options & XEMACPS_TRANSMITTER_ENABLE_OPTION) {
+	if ((InstancePtr->Options & (u32)XEMACPS_TRANSMITTER_ENABLE_OPTION)!=0x00000000U) {
 		Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XEMACPS_NWCTRL_OFFSET);
-		if (!(Reg & XEMACPS_NWCTRL_TXEN_MASK)) {
+		if ((!(Reg & XEMACPS_NWCTRL_TXEN_MASK))==TRUE) {
 			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 					   XEMACPS_NWCTRL_OFFSET,
-					   Reg | XEMACPS_NWCTRL_TXEN_MASK);
+				   Reg | (u32)XEMACPS_NWCTRL_TXEN_MASK);
 		}
 	}
 
 	/* Enable receiver if not already enabled */
-	if (InstancePtr->Options & XEMACPS_RECEIVER_ENABLE_OPTION) {
+	if ((InstancePtr->Options & XEMACPS_RECEIVER_ENABLE_OPTION) != 0x00000000U) {
 		Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XEMACPS_NWCTRL_OFFSET);
-		if (!(Reg & XEMACPS_NWCTRL_RXEN_MASK)) {
+		if ((!(Reg & XEMACPS_NWCTRL_RXEN_MASK))==TRUE) {
 			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 					   XEMACPS_NWCTRL_OFFSET,
-					   Reg | XEMACPS_NWCTRL_RXEN_MASK);
+				   Reg | (u32)XEMACPS_NWCTRL_RXEN_MASK);
 		}
 	}
 
         /* Enable TX and RX interrupts */
         XEmacPs_IntEnable(InstancePtr, (XEMACPS_IXR_TX_ERR_MASK |
-		XEMACPS_IXR_RX_ERR_MASK | XEMACPS_IXR_FRAMERX_MASK |
-		XEMACPS_IXR_TXCOMPL_MASK));
+	XEMACPS_IXR_RX_ERR_MASK | (u32)XEMACPS_IXR_FRAMERX_MASK |
+	(u32)XEMACPS_IXR_TXCOMPL_MASK));
+
+	/* Enable TX Q1 Interrupts */
+	if (InstancePtr->Version == 7)
+		XEmacPs_IntQ1Enable(InstancePtr, XEMACPS_INTQ1_IXR_ALL_MASK);
 
 	/* Mark as started */
 	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
@@ -234,7 +238,7 @@ void XEmacPs_Stop(XEmacPs *InstancePtr)
 	u32 Reg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/* Disable all interrupts */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_IDR_OFFSET,
@@ -243,13 +247,13 @@ void XEmacPs_Stop(XEmacPs *InstancePtr)
 	/* Disable the receiver & transmitter */
 	Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 				XEMACPS_NWCTRL_OFFSET);
-	Reg &= ~XEMACPS_NWCTRL_RXEN_MASK;
-	Reg &= ~XEMACPS_NWCTRL_TXEN_MASK;
+	Reg &= (u32)(~XEMACPS_NWCTRL_RXEN_MASK);
+	Reg &= (u32)(~XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XEMACPS_NWCTRL_OFFSET, Reg);
 
 	/* Mark as stopped */
-	InstancePtr->IsStarted = 0;
+	InstancePtr->IsStarted = 0U;
 }
 
 
@@ -289,49 +293,71 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 {
 	u32 Reg;
 	u8 i;
-	char EmacPs_zero_MAC[6] = { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
+	s8 EmacPs_zero_MAC[6] = { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/* Stop the device and reset hardware */
 	XEmacPs_Stop(InstancePtr);
 	InstancePtr->Options = XEMACPS_DEFAULT_OPTIONS;
 
+	InstancePtr->Version = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, 0xFC);
+
+	InstancePtr->Version = (InstancePtr->Version >> 16) & 0xFFF;
 	/* Setup hardware with default values */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_NWCTRL_OFFSET,
 			(XEMACPS_NWCTRL_STATCLR_MASK |
 			XEMACPS_NWCTRL_MDEN_MASK) &
-			~XEMACPS_NWCTRL_LOOPEN_MASK);
+			(u32)(~XEMACPS_NWCTRL_LOOPEN_MASK));
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 					XEMACPS_NWCFG_OFFSET,
-					XEMACPS_NWCFG_100_MASK |
-					XEMACPS_NWCFG_FDEN_MASK |
-					XEMACPS_NWCFG_UCASTHASHEN_MASK);
+					((u32)XEMACPS_NWCFG_100_MASK |
+					(u32)XEMACPS_NWCFG_FDEN_MASK |
+					(u32)XEMACPS_NWCFG_UCASTHASHEN_MASK));
+	if (InstancePtr->Version == 7) {
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET,
+			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET) |
+				XEMACPS_NWCFG_DWIDTH_64_MASK));
+	}
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_DMACR_OFFSET,
-			((((XEMACPS_RX_BUF_SIZE / XEMACPS_RX_BUF_UNIT) +
-				((XEMACPS_RX_BUF_SIZE %
-				XEMACPS_RX_BUF_UNIT) ? 1 : 0)) <<
-				XEMACPS_DMACR_RXBUF_SHIFT) &
-				XEMACPS_DMACR_RXBUF_MASK) |
-				XEMACPS_DMACR_RXSIZE_MASK |
-				XEMACPS_DMACR_TXSIZE_MASK);
+			(((((u32)XEMACPS_RX_BUF_SIZE / (u32)XEMACPS_RX_BUF_UNIT) +
+				(((((u32)XEMACPS_RX_BUF_SIZE %
+				(u32)XEMACPS_RX_BUF_UNIT))!=(u32)0) ? 1U : 0U)) <<
+				(u32)(XEMACPS_DMACR_RXBUF_SHIFT)) &
+				(u32)(XEMACPS_DMACR_RXBUF_MASK)) |
+				(u32)XEMACPS_DMACR_RXSIZE_MASK |
+				(u32)XEMACPS_DMACR_TXSIZE_MASK);
+
+
+	/* Single bursts */
+	/* FIXME: Why Single bursts? */
+	if (InstancePtr->Version == 7) {
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
+			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET) |
+			(u32)XEMACPS_DMACR_INCR4_AHB_BURST));
+	}
+#if EXTENDED_DESC_MODE
+	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
+		(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET) |
+													XEMACPS_DMACR_TXEXTEND_MASK |
+													XEMACPS_DMACR_RXEXTEND_MASK));
+#endif
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_TXSR_OFFSET, 0x0);
+			   XEMACPS_TXSR_OFFSET, 0x0U);
+
+	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_SEND);
+	if (InstancePtr->Version == 7)
+		XEmacPs_SetQueuePtr(InstancePtr, 0, 0x01U, (u16)XEMACPS_SEND);
+	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_RECV);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_RXQBASE_OFFSET, 0x0);
-
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_TXQBASE_OFFSET, 0x0);
-
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_RXSR_OFFSET, 0x0);
+			   XEMACPS_RXSR_OFFSET, 0x0U);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_IDR_OFFSET,
 			   XEMACPS_IXR_ALL_MASK);
@@ -342,26 +368,26 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 			   Reg);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_PHYMNTNC_OFFSET, 0x0);
+			   XEMACPS_PHYMNTNC_OFFSET, 0x0U);
 
 	XEmacPs_ClearHash(InstancePtr);
 
-	for (i = 1; i < 5; i++) {
-		XEmacPs_SetMacAddress(InstancePtr, EmacPs_zero_MAC, i);
-		XEmacPs_SetTypeIdCheck(InstancePtr, 0x0, i);
+	for (i = 1U; i < 5U; i++) {
+		(void)XEmacPs_SetMacAddress(InstancePtr, EmacPs_zero_MAC, i);
+		(void)XEmacPs_SetTypeIdCheck(InstancePtr, 0x00000000U, i);
 	}
 
 	/* clear all counters */
-	for (i = 0; i < (XEMACPS_LAST_OFFSET - XEMACPS_OCTTXL_OFFSET) / 4;
+	for (i = 0U; i < (u8)((XEMACPS_LAST_OFFSET - XEMACPS_OCTTXL_OFFSET) / 4U);
 	     i++) {
-		XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
-                                   XEMACPS_OCTTXL_OFFSET + i * 4);
+		(void)XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+                                   XEMACPS_OCTTXL_OFFSET + (u32)(((u32)i) * ((u32)4)));
 	}
 
 	/* Disable the receiver */
 	Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 				XEMACPS_NWCTRL_OFFSET);
-	Reg &= ~XEMACPS_NWCTRL_RXEN_MASK;
+	Reg &= (u32)(~XEMACPS_NWCTRL_RXEN_MASK);
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XEMACPS_NWCTRL_OFFSET, Reg);
 
@@ -370,11 +396,11 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	 * XEMACPS_TRANSMITTER_ENABLE_OPTION and
          * XEMACPS_RECEIVER_ENABLE_OPTION are set.
 	 */
-	XEmacPs_SetOptions(InstancePtr, InstancePtr->Options &
-			    ~(XEMACPS_TRANSMITTER_ENABLE_OPTION |
-			      XEMACPS_RECEIVER_ENABLE_OPTION));
+	(void)XEmacPs_SetOptions(InstancePtr, InstancePtr->Options &
+			    ~((u32)XEMACPS_TRANSMITTER_ENABLE_OPTION |
+			      (u32)XEMACPS_RECEIVER_ENABLE_OPTION));
 
-	XEmacPs_ClearOptions(InstancePtr, ~InstancePtr->Options);
+	(void)XEmacPs_ClearOptions(InstancePtr, ~InstancePtr->Options);
 }
 
 
@@ -389,4 +415,54 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 void XEmacPs_StubHandler(void)
 {
 	Xil_AssertVoidAlways();
+}
+
+/*****************************************************************************/
+/**
+* This function sets the start address of the transmit/receive buffer queue.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+* @QPtr		Address of the Queue to be written
+* @QueueNum	Buffer Queue Index
+* @Direction	Transmit/Recive
+*
+* @note
+* The buffer queue addresses has to be set before starting the transfer, so
+* this function has to be called in prior to XEmacPs_Start()
+*
+******************************************************************************/
+void XEmacPs_SetQueuePtr(XEmacPs *InstancePtr, UINTPTR QPtr, u8 QueueNum,
+			 u16 Direction)
+{
+	/* Assert bad arguments and conditions */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+        /* If already started, then there is nothing to do */
+        if (InstancePtr->IsStarted == (u32)XIL_COMPONENT_IS_STARTED) {
+                return;
+        }
+
+	if (QueueNum == 0x00U) {
+		if (Direction == XEMACPS_SEND) {
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				XEMACPS_TXQBASE_OFFSET,
+				(QPtr & ULONG64_LO_MASK));
+		} else {
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				XEMACPS_RXQBASE_OFFSET,
+				(QPtr & ULONG64_LO_MASK));
+		}
+	}
+	 else {
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XEMACPS_TXQ1BASE_OFFSET,
+			(QPtr & ULONG64_LO_MASK));
+	}
+#if EXTENDED_DESC_MODE
+	/* Set the MSB of Queue start address */
+	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XEMACPS_MSBBUF_QBASE_OFFSET,
+			(u32)((QPtr & (u32)ULONG64_HI_MASK) >> 32U));
+#endif
 }

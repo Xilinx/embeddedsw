@@ -85,7 +85,7 @@ void EmacPsUtilFrameHdrFormatMAC(EthernetFrame * FramePtr, char *DestAddr)
 {
 	char *Frame = (char *) FramePtr;
 	char *SourceAddress = EmacPsMAC;
-	int Index;
+	s32 Index;
 
 	/* Destination address */
 	for (Index = 0; Index < XEMACPS_MAC_ADDR_SIZE; Index++) {
@@ -147,9 +147,9 @@ void EmacPsUtilFrameHdrFormatType(EthernetFrame * FramePtr, u16 FrameType)
 * @note     None.
 *
 *****************************************************************************/
-void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, int PayloadSize)
+void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, u32 PayloadSize)
 {
-	unsigned BytesLeft = PayloadSize;
+	u32 BytesLeft = PayloadSize;
 	u8 *Frame;
 	u16 Counter = 0;
 
@@ -197,14 +197,14 @@ void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, int PayloadSize)
 *
 * @note     None.
 *****************************************************************************/
-int EmacPsUtilFrameVerify(EthernetFrame * CheckFrame,
+LONG EmacPsUtilFrameVerify(EthernetFrame * CheckFrame,
 			   EthernetFrame * ActualFrame)
 {
 	char *CheckPtr = (char *) CheckFrame;
 	char *ActualPtr = (char *) ActualFrame;
 	u16 BytesLeft;
 	u16 Counter;
-	int Index;
+	u32 Index;
 
 	/*
 	 * Compare the headers
@@ -348,7 +348,7 @@ void EmacPsUtilEnterLocalLoopback(XEmacPs * EmacPsInstancePtr)
 u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 {
 	u32 PhyAddr;
-	int Status;
+	u32 Status;
 	u16 PhyReg1;
 	u16 PhyReg2;
 
@@ -394,9 +394,9 @@ u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 #define PHY_R20_DFT_SPD_10   		0x0040
 #define PHY_R20_DFT_SPD_100  		0x0050
 #define PHY_R20_DFT_SPD_1000 		0x0060
-int EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, int Speed)
+LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
 {
-	int Status;
+	LONG Status;
 	u16 PhyReg0  = 0;
 	u16 PhyReg20 = 0;
 	u32 PhyAddr;
@@ -450,7 +450,8 @@ int EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, int Speed)
 	Status |= XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
 	Status  |= XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0,
 						(PhyReg0 | PHY_REG0_RESET));
-	sleep(1);
+	/* FIXME: Sleep doesn't seem to work */
+	//sleep(1);
 	Status |= XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error setup phy speed");
@@ -480,13 +481,15 @@ int EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, int Speed)
 #define PHY_REG21_100     0x2030
 #define PHY_REG21_1000    0x0070
 
-int EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, int Speed)
+LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
 {
-	int Status;
+	LONG Status;
 	u16 PhyReg0  = 0;
 	u16 PhyReg21  = 0;
 	u16 PhyReg22  = 0;
 	u32 PhyAddr;
+
+	u32 i =0;
 
 	/*
 	 * Detect the PHY address
@@ -581,7 +584,9 @@ int EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, int Speed)
 	/*
 	 * Delay loop
 	 */
-	sleep(1);
+	for(i=0;i<0xfffff;i++);
+	/* FIXME: Sleep doesn't seem to work */
+	//sleep(1);
 
 	return XST_SUCCESS;
 }
@@ -603,7 +608,7 @@ int EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, int Speed)
 *****************************************************************************/
 void EmacPsUtilErrorTrap(const char *Message)
 {
-	static int Count = 0;
+	static u32 Count = 0;
 
 	Count++;
 
