@@ -455,7 +455,7 @@ extern "C" {
 /**
  * Definition for QSPI to be included
  */
-#if (!defined(FSBL_QSPI_EXCLUDE) && defined(XPAR_XQSPIPS_0_DEVICE_ID))
+#if (!defined(FSBL_QSPI_EXCLUDE) && defined(XPAR_XQSPIPSU_0_DEVICE_ID))
 #define XFSBL_QSPI
 #define XFSBL_QSPI_BASEADDRESS	XPAR_XQSPIPS_0_BASEADDR
 #endif
