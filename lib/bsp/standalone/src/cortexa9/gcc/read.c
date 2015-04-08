@@ -33,12 +33,12 @@
 /* read.c -- read bytes from a input device.
  */
 
-#include "xparameters.h"
 #include "xil_printf.h"
+#include "xparameters.h"
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) int _read (int fd, char* buf, int nbytes);
+	__attribute__((weak)) s32 _read (s32 fd, char8* buf, s32 nbytes);
 }
 #endif
 
@@ -46,23 +46,30 @@ extern "C" {
  * read  -- read bytes from the serial port. Ignore fd, since
  *          we only have stdin.
  */
-__attribute__((weak)) int
-read (int fd, char* buf, int nbytes)
+__attribute__((weak)) s32
+read (s32 fd, char8* buf, s32 nbytes)
 {
 #ifdef STDIN_BASEADDRESS
-  int i = 0;
+  s32 i;
+  char8* LocalBuf = buf;
 
   (void)fd;
   for (i = 0; i < nbytes; i++) {
-    *(buf + i) = inbyte();
-    if ((*(buf + i) == '\n' || *(buf + i) == '\r'))
-    {
-        i++;
-        break;
-    }
+	if(LocalBuf != NULL) {
+		LocalBuf += i;
+	}
+	if(LocalBuf != NULL) {
+	    *LocalBuf = inbyte();
+	    if ((*LocalBuf == '\n' )|| (*LocalBuf == '\r')) {
+	        break;
+		}
+	}
+	if(LocalBuf != NULL) {
+	LocalBuf -= i;
+	}
   }
 
-  return (i);
+  return (i + 1);
 #else
   (void)fd;
   (void)buf;
@@ -71,23 +78,30 @@ read (int fd, char* buf, int nbytes)
 #endif
 }
 
-__attribute__((weak)) int
-_read (int fd, char* buf, int nbytes)
+__attribute__((weak)) s32
+_read (s32 fd, char8* buf, s32 nbytes)
 {
 #ifdef STDIN_BASEADDRESS
-  int i = 0;
+  s32 i;
+  char8* LocalBuf = buf;
 
   (void)fd;
   for (i = 0; i < nbytes; i++) {
-    *(buf + i) = inbyte();
-    if ((*(buf + i) == '\n' || *(buf + i) == '\r'))
-    {
-        i++;
-        break;
-    }
+	if(LocalBuf != NULL) {
+		LocalBuf += i;
+	}
+	if(LocalBuf != NULL) {
+	    *LocalBuf = inbyte();
+	    if ((*LocalBuf == '\n' )|| (*LocalBuf == '\r')) {
+	        break;
+		}
+	}
+	if(LocalBuf != NULL) {
+	LocalBuf -= i;
+	}
   }
 
-  return (i);
+  return (i + 1);
 #else
   (void)fd;
   (void)buf;

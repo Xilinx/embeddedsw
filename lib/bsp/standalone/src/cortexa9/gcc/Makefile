@@ -67,7 +67,7 @@ libs: $(LIBS)
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone"
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS} 
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
 
 profile_libs:
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" libs
@@ -84,4 +84,3 @@ profile_includes:
 clean:
 	rm -rf ${OUTS}
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" clean
-

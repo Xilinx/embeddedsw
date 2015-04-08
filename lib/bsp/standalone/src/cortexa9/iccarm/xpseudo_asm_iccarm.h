@@ -53,6 +53,7 @@
 
 /***************************** Include Files ********************************/
 
+#include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -87,7 +88,7 @@ extern "C" {
 			  : : "r" (v)\
 			)
 
-#define mfgpr(rn)	({unsigned int rval; \
+#define mfgpr(rn)	({u32 rval; \
 			  __asm volatile(\
 			    "mov %0,r" stringify(rn) "\n"\
 			    : "=r" (rval)\
@@ -108,7 +109,7 @@ extern "C" {
 
 
 /* Memory Operations */
-#define ldr(adr)	({unsigned long rval; \
+#define ldr(adr)	({u32 rval; \
 			  __asm volatile(\
 			    "ldr	%0,[%1]"\
 			    : "=r" (rval) : "r" (adr)\
@@ -116,7 +117,7 @@ extern "C" {
 			  rval;\
 			 })
 
-#define ldrb(adr)	({unsigned char rval; \
+#define ldrb(adr)	({u8 rval; \
 			  __asm volatile(\
 			    "ldrb	%0,[%1]"\
 			    : "=r" (rval) : "r" (adr)\
@@ -135,7 +136,7 @@ extern "C" {
 			)
 
 /* Count leading zeroes (clz) */
-#define clz(arg)	({unsigned char rval; \
+#define clz(arg)	({u8 rval; \
 			  __asm volatile(\
 			    "clz	%0,%1"\
 			    : "=r" (rval) : "r" (arg)\
@@ -149,7 +150,7 @@ extern "C" {
 			 : : "r" (v)\
 			);
 
-/*#define mfcp(rn)	({unsigned int rval; \
+/*#define mfcp(rn)	({u32 rval; \
 			 __asm volatile(\
 			   "mrc " rn "\n"\
 			   : "=r" (rval)\

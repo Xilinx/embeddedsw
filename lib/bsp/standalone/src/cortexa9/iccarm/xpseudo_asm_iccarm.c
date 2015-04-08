@@ -61,9 +61,9 @@
 /************************** Function Prototypes *****************************/
 
 /* embedded assembler instructions */
-int mfcpsr (void)
+s32 mfcpsr (void)
 {
-	int rval;
+	s32 rval;
 	asm("mrs %0, cpsr" : "=r"(rval));
 	return rval;
 }

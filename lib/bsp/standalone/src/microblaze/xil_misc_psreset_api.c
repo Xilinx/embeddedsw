@@ -1,32 +1,43 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2014 Xilinx, Inc. All rights reserved.
 *
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
+* This file contains confidential and proprietary information  of Xilinx, Inc.
+* and is protected under U.S. and  international copyright and other
+* intellectual property  laws.
 *
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
+* DISCLAIMER
+* This disclaimer is not a license and does not grant any  rights to the
+* materials distributed herewith. Except as  otherwise provided in a valid
+* license issued to you by  Xilinx, and to the maximum extent permitted by
+* applicable law:
+* (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND  WITH ALL FAULTS, AND
+* XILINX HEREBY DISCLAIMS ALL WARRANTIES  AND CONDITIONS, EXPRESS, IMPLIED,
+* OR STATUTORY, INCLUDING  BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+* NON-INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE
+* and
+* (2) Xilinx shall not be liable (whether in contract or tort,  including
+* negligence, or under any other theory of liability) for any loss or damage of
+* any kind or nature  related to, arising under or in connection with these
+* materials, including for any direct, or any indirect,  special, incidental,
+* or consequential loss or damage  (including loss of data, profits, goodwill,
+* or any type of  loss or damage suffered as a result of any action brought
+* by a third party) even if such damage or loss was  reasonably foreseeable
+* or Xilinx had been advised of the  possibility of the same.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
+* CRITICAL APPLICATIONS
+* Xilinx products are not designed or intended to be fail-safe, or for use in
+* any application requiring fail-safe  performance, such as life-support or
+* safety devices or  systems, Class III medical devices, nuclear facilities,
+* applications related to the deployment of airbags, or any  other applications
+* that could lead to death, personal  injury, or severe property or environmental
+* damage  (individually and collectively, "Critical  Applications").
+* Customer assumes the sole risk and liability of any use of Xilinx products in
+* Critical  Applications, subject only to applicable laws and  regulations
+* governing limitations on product liability.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE
+* AT ALL TIMES.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -76,15 +87,15 @@
 * @note     None.
 *
 ******************************************************************************/
-void XDdr_ResetHw()
+void XDdr_ResetHw(void)
 {
 	u32 RegVal;
 
- 	/* Unlock the slcr register access lock */
+	/* Unlock the slcr register access lock */
 	 Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert and deassert the ddr softreset bit */
      RegVal = 	Xil_In32(XDDRC_CTRL_BASEADDR);
-	 RegVal &= ~XDDRPS_CTRL_RESET_MASK;
+	 RegVal &= (u32)(~XDDRPS_CTRL_RESET_MASK);
 	 Xil_Out32(XDDRC_CTRL_BASEADDR,RegVal);
 	 RegVal |= XDDRPS_CTRL_RESET_MASK;
 	 Xil_Out32(XDDRC_CTRL_BASEADDR,RegVal);
@@ -102,7 +113,7 @@ void XDdr_ResetHw()
 * @note     None.
 *
 ******************************************************************************/
-void XOcm_Remap()
+void XOcm_Remap(void)
 {
 	u32 RegVal;
 
@@ -110,7 +121,7 @@ void XOcm_Remap()
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Map the ocm region to postbootrom state */
 	RegVal = Xil_In32(XSLCR_OCM_CFG_ADDR);
-	RegVal = (RegVal & ~XSLCR_OCM_CFG_HIADDR_MASK) | XSLCR_OCM_CFG_RESETVAL;
+	RegVal = (RegVal & (u32)(~XSLCR_OCM_CFG_HIADDR_MASK)) | (u32)XSLCR_OCM_CFG_RESETVAL;
 	Xil_Out32(XSLCR_OCM_CFG_ADDR, RegVal);
 }
 
@@ -131,11 +142,11 @@ void XSmc_ResetHw(u32 BaseAddress)
 
 	/* Clear the interuupts */
 	RegVal = Xil_In32(BaseAddress + XSMC_MEMC_CLR_CONFIG_OFFSET);
-	RegVal = RegVal | XSMC_MEMC_CLR_CONFIG_MASK;
+	RegVal |= XSMC_MEMC_CLR_CONFIG_MASK;
 	Xil_Out32(BaseAddress + XSMC_MEMC_CLR_CONFIG_OFFSET, RegVal);
 	/* Clear the idle counter registers */
-	Xil_Out32(BaseAddress + XSMC_REFRESH_PERIOD_0_OFFSET, 0x0);
-	Xil_Out32(BaseAddress + XSMC_REFRESH_PERIOD_1_OFFSET, 0x0);
+	Xil_Out32(BaseAddress + XSMC_REFRESH_PERIOD_0_OFFSET, 0x0U);
+	Xil_Out32(BaseAddress + XSMC_REFRESH_PERIOD_1_OFFSET, 0x0U);
 	/* Update the ecc registers with reset values */
 	Xil_Out32(BaseAddress + XSMC_ECC_MEMCFG1_OFFSET,
 							XSMC_ECC_MEMCFG1_RESET_VAL);
@@ -157,26 +168,26 @@ void XSmc_ResetHw(u32 BaseAddress)
 * @note     None.
 *
 ******************************************************************************/
-void XSlcr_MioWriteResetValues()
+void XSlcr_MioWriteResetValues(void)
 {
 	u32 i;
 
 	/* Unlock the slcr register access lock */
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Update all the MIO registers with reset values */
-    for (i=0; i<=1;i++);
+    for (i=0U; i<=1U;i++)
 	{
-		Xil_Out32((XSLCR_MIO_PIN_00_ADDR + (i * 4)),
+		Xil_Out32((XSLCR_MIO_PIN_00_ADDR + (i * 4U)),
 								XSLCR_MIO_PIN_00_RESET_VAL);
 	}
-	for (; i<=8;i++);
+	for (; i<=8U;i++)
 	{
-		Xil_Out32((XSLCR_MIO_PIN_00_ADDR + (i * 4)),
+		Xil_Out32((XSLCR_MIO_PIN_00_ADDR + (i * 4U)),
 								XSLCR_MIO_PIN_02_RESET_VAL);
 	}
-	for (; i<=53 ;i++);
+	for (; i<=53U ;i++)
 	{
-		Xil_Out32((XSLCR_MIO_PIN_00_ADDR + (i * 4)),
+		Xil_Out32((XSLCR_MIO_PIN_00_ADDR + (i * 4U)),
 								XSLCR_MIO_PIN_00_RESET_VAL);
 	}
 
@@ -194,7 +205,7 @@ void XSlcr_MioWriteResetValues()
 * @note     None.
 *
 ******************************************************************************/
-void XSlcr_PllWriteResetValues()
+void XSlcr_PllWriteResetValues(void)
 {
 
 	/* Unlock the slcr register access lock */
@@ -224,14 +235,14 @@ void XSlcr_PllWriteResetValues()
 * @note     None.
 *
 ******************************************************************************/
-void XSlcr_DisableLevelShifters()
+void XSlcr_DisableLevelShifters(void)
 {
 	u32 RegVal;
 	/* Unlock the slcr register access lock */
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Disable the level shifters */
 	RegVal = Xil_In32(XSLCR_LVL_SHFTR_EN_ADDR);
-	RegVal = RegVal & ~XSLCR_LVL_SHFTR_EN_MASK;
+	RegVal = RegVal & (u32)(~XSLCR_LVL_SHFTR_EN_MASK);
 	Xil_Out32(XSLCR_LVL_SHFTR_EN_ADDR, RegVal);
 
 }
@@ -254,11 +265,11 @@ void XSlcr_OcmReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_OCM_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_OCM_RST_CTRL_VAL;
+	RegVal |= XSLCR_OCM_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_OCM_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_OCM_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_OCM_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_OCM_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_OCM_RST_CTRL_ADDR, RegVal);
 }
 
@@ -280,11 +291,11 @@ void XSlcr_EmacPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_GEM_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_GEM_RST_CTRL_VAL;
+	RegVal |= XSLCR_GEM_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_GEM_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_GEM_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_GEM_RST_CTRL_VAL;
+	RegVal &= (u32)(~XSLCR_GEM_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_GEM_RST_CTRL_ADDR, RegVal);
 }
 
@@ -307,11 +318,11 @@ void XSlcr_UsbPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_USB_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_USB_RST_CTRL_VAL;
+	RegVal |= XSLCR_USB_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_USB_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_USB_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_USB_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_USB_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_USB_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -333,11 +344,11 @@ void XSlcr_QspiPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_LQSPI_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_QSPI_RST_CTRL_VAL;
+	RegVal |= XSLCR_QSPI_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_LQSPI_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_LQSPI_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_QSPI_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_QSPI_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_LQSPI_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -359,11 +370,11 @@ void XSlcr_SpiPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_SPI_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_SPI_RST_CTRL_VAL;
+	RegVal |= XSLCR_SPI_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_SPI_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_SPI_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_SPI_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_SPI_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_SPI_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -384,11 +395,11 @@ void XSlcr_I2cPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_I2C_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_I2C_RST_CTRL_VAL;
+	RegVal |= XSLCR_I2C_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_I2C_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_I2C_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_I2C_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_I2C_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_I2C_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -410,11 +421,11 @@ void XSlcr_UartPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_UART_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_UART_RST_CTRL_VAL;
+	RegVal |= XSLCR_UART_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_UART_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_UART_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_UART_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_UART_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_UART_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -436,11 +447,11 @@ void XSlcr_CanPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_CAN_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_CAN_RST_CTRL_VAL;
+	RegVal |= XSLCR_CAN_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_CAN_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_CAN_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_CAN_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_CAN_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_CAN_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -461,11 +472,11 @@ void XSlcr_SmcPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_SMC_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_SMC_RST_CTRL_VAL;
+	RegVal |= XSLCR_SMC_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_SMC_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_SMC_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_SMC_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_SMC_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_SMC_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -487,11 +498,11 @@ void XSlcr_DmaPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_DMAC_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_DMAC_RST_CTRL_VAL;
+	RegVal |= XSLCR_DMAC_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_DMAC_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_DMAC_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_DMAC_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_DMAC_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_DMAC_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -513,10 +524,10 @@ void XSlcr_GpioPsReset(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert the reset */
 	RegVal = Xil_In32(XSLCR_GPIO_RST_CTRL_ADDR);
-	RegVal = RegVal | XSLCR_GPIO_RST_CTRL_VAL;
+	RegVal |= XSLCR_GPIO_RST_CTRL_VAL;
 	Xil_Out32(XSLCR_GPIO_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_GPIO_RST_CTRL_ADDR);
-	RegVal = RegVal & ~XSLCR_GPIO_RST_CTRL_VAL;
+	RegVal = RegVal & (u32)(~XSLCR_GPIO_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_GPIO_RST_CTRL_ADDR, RegVal);
 }

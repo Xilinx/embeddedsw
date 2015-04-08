@@ -78,18 +78,18 @@
 *		all processors, when this function called by any one processor.
 *
 ****************************************************************************/
-void XTime_SetTime(XTime Xtime)
+void XTime_SetTime(XTime Xtime_Global)
 {
 	/* Disable Global Timer */
-	Xil_Out32(GLOBAL_TMR_BASEADDR + GTIMER_CONTROL_OFFSET, 0x0);
+	Xil_Out32((u32)GLOBAL_TMR_BASEADDR + (u32)GTIMER_CONTROL_OFFSET, (u32)0x0);
 
 	/* Updating Global Timer Counter Register */
-	Xil_Out32(GLOBAL_TMR_BASEADDR + GTIMER_COUNTER_LOWER_OFFSET, (u32)Xtime);
-	Xil_Out32(GLOBAL_TMR_BASEADDR + GTIMER_COUNTER_UPPER_OFFSET,
-		(u32)(Xtime>>32));
+	Xil_Out32((u32)GLOBAL_TMR_BASEADDR + (u32)GTIMER_COUNTER_LOWER_OFFSET, (u32)Xtime_Global);
+	Xil_Out32((u32)GLOBAL_TMR_BASEADDR + (u32)GTIMER_COUNTER_UPPER_OFFSET,
+		(u32)((u32)(Xtime_Global>>32U)));
 
 	/* Enable Global Timer */
-	Xil_Out32(GLOBAL_TMR_BASEADDR + GTIMER_CONTROL_OFFSET, 0x1);
+	Xil_Out32((u32)GLOBAL_TMR_BASEADDR + (u32)GTIMER_CONTROL_OFFSET, (u32)0x1);
 }
 
 /****************************************************************************
@@ -103,7 +103,7 @@ void XTime_SetTime(XTime Xtime)
 * @note		None.
 *
 ****************************************************************************/
-void XTime_GetTime(XTime *Xtime)
+void XTime_GetTime(XTime *Xtime_Global)
 {
 	u32 low;
 	u32 high;
@@ -115,6 +115,6 @@ void XTime_GetTime(XTime *Xtime)
 		low = Xil_In32(GLOBAL_TMR_BASEADDR + GTIMER_COUNTER_LOWER_OFFSET);
 	} while(Xil_In32(GLOBAL_TMR_BASEADDR + GTIMER_COUNTER_UPPER_OFFSET) != high);
 
-	*Xtime = (((XTime) high) << 32) | (XTime) low;
+	*Xtime_Global = (((XTime) high) << 32U) | (XTime) low;
 }
 

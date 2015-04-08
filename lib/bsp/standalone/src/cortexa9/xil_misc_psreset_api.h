@@ -58,137 +58,137 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
-#define XDDRC_CTRL_BASEADDR				0xF8006000
-#define XSLCR_BASEADDR					0xF8000000
+#define XDDRC_CTRL_BASEADDR				0xF8006000U
+#define XSLCR_BASEADDR					0xF8000000U
 /**< OCM configuration register */
-#define XSLCR_OCM_CFG_ADDR				(XSLCR_BASEADDR + 0x910)
+#define XSLCR_OCM_CFG_ADDR				(XSLCR_BASEADDR + 0x00000910U)
 /**< SLCR unlock register */
-#define XSLCR_UNLOCK_ADDR				(XSLCR_BASEADDR + 0x8)
+#define XSLCR_UNLOCK_ADDR				(XSLCR_BASEADDR + 0x00000008U)
 /**< SLCR GEM0 rx clock control register */
-#define XSLCR_GEM0_RCLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x138)
+#define XSLCR_GEM0_RCLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x00000138U)
 /**< SLCR GEM1 rx clock control register */
-#define XSLCR_GEM1_RCLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x13C)
+#define XSLCR_GEM1_RCLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x0000013CU)
 /**< SLCR GEM0 clock control register */
-#define XSLCR_GEM0_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x140)
+#define XSLCR_GEM0_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x00000140U)
 /**< SLCR GEM1 clock control register */
-#define XSLCR_GEM1_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x144)
+#define XSLCR_GEM1_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x00000144U)
 /**< SLCR SMC clock control register */
-#define XSLCR_SMC_CLK_CTRL_ADDR			(XSLCR_BASEADDR + 0x148)
+#define XSLCR_SMC_CLK_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000148U)
 /**< SLCR GEM reset control register */
-#define XSLCR_GEM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x214)
+#define XSLCR_GEM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000214U)
 /**< SLCR USB0 clock control register */
-#define XSLCR_USB0_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x130)
+#define XSLCR_USB0_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x00000130U)
 /**< SLCR USB1 clock control register */
-#define XSLCR_USB1_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x134)
+#define XSLCR_USB1_CLK_CTRL_ADDR		(XSLCR_BASEADDR + 0x00000134U)
 /**< SLCR USB1 reset control register */
-#define XSLCR_USB_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x210)
+#define XSLCR_USB_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000210U)
 /**< SLCR SMC reset control register */
-#define XSLCR_SMC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x234)
+#define XSLCR_SMC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000234U)
 /**< SLCR Level shifter enable register */
-#define XSLCR_LVL_SHFTR_EN_ADDR			(XSLCR_BASEADDR + 0x900)
+#define XSLCR_LVL_SHFTR_EN_ADDR			(XSLCR_BASEADDR + 0x00000900U)
 /**< SLCR ARM pll control register */
-#define XSLCR_ARM_PLL_CTRL_ADDR			(XSLCR_BASEADDR + 0x100)
+#define XSLCR_ARM_PLL_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000100U)
 /**< SLCR DDR pll control register */
-#define XSLCR_DDR_PLL_CTRL_ADDR			(XSLCR_BASEADDR + 0x104)
+#define XSLCR_DDR_PLL_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000104U)
 /**< SLCR IO pll control register */
-#define XSLCR_IO_PLL_CTRL_ADDR			(XSLCR_BASEADDR + 0x108)
+#define XSLCR_IO_PLL_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000108U)
 /**< SLCR ARM pll configuration register */
-#define XSLCR_ARM_PLL_CFG_ADDR			(XSLCR_BASEADDR + 0x110)
+#define XSLCR_ARM_PLL_CFG_ADDR			(XSLCR_BASEADDR + 0x00000110U)
 /**< SLCR DDR pll configuration register */
-#define XSLCR_DDR_PLL_CFG_ADDR			(XSLCR_BASEADDR + 0x114)
+#define XSLCR_DDR_PLL_CFG_ADDR			(XSLCR_BASEADDR + 0x00000114U)
 /**< SLCR IO pll configuration register */
-#define XSLCR_IO_PLL_CFG_ADDR			(XSLCR_BASEADDR + 0x118)
+#define XSLCR_IO_PLL_CFG_ADDR			(XSLCR_BASEADDR + 0x00000118U)
 /**< SLCR ARM clock control register */
-#define XSLCR_ARM_CLK_CTRL_ADDR			(XSLCR_BASEADDR + 0x120)
+#define XSLCR_ARM_CLK_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000120U)
 /**< SLCR DDR clock control register */
-#define XSLCR_DDR_CLK_CTRL_ADDR			(XSLCR_BASEADDR + 0x124)
+#define XSLCR_DDR_CLK_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000124U)
 /**< SLCR MIO pin address register */
-#define XSLCR_MIO_PIN_00_ADDR			(XSLCR_BASEADDR + 0x700)
+#define XSLCR_MIO_PIN_00_ADDR			(XSLCR_BASEADDR + 0x00000700U)
 /**< SLCR DMAC reset control address register */
-#define XSLCR_DMAC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x20C)
+#define XSLCR_DMAC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x0000020CU)
 /**< SLCR USB reset control address register */
-#define XSLCR_USB_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x210)
+/*#define XSLCR_USB_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000210U)*/
 /**< SLCR GEM reset control address register */
-#define XSLCR_GEM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x214)
+/*#define XSLCR_GEM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000214U)*/
 /**< SLCR SDIO reset control address register */
-#define XSLCR_SDIO_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x218)
+#define XSLCR_SDIO_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000218U)
 /**< SLCR SPI reset control address register */
-#define XSLCR_SPI_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x21C)
+#define XSLCR_SPI_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x0000021CU)
 /**< SLCR CAN reset control address register */
-#define XSLCR_CAN_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x220)
+#define XSLCR_CAN_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000220U)
 /**< SLCR I2C reset control address register */
-#define XSLCR_I2C_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x224)
+#define XSLCR_I2C_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000224U)
 /**< SLCR UART reset control address register */
-#define XSLCR_UART_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x228)
+#define XSLCR_UART_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000228U)
 /**< SLCR GPIO reset control address register */
-#define XSLCR_GPIO_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x22C)
+#define XSLCR_GPIO_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x0000022CU)
 /**< SLCR LQSPI reset control address register */
-#define XSLCR_LQSPI_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x230)
+#define XSLCR_LQSPI_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000230U)
 /**< SLCR SMC reset control address register */
-#define XSLCR_SMC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x234)
+/*#define XSLCR_SMC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000234U)*/
 /**< SLCR OCM reset control address register */
-#define XSLCR_OCM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x238)
+#define XSLCR_OCM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000238U)
 
 /**< SMC mem controller clear config register */
-#define XSMC_MEMC_CLR_CONFIG_OFFSET			0x0C
+#define XSMC_MEMC_CLR_CONFIG_OFFSET			0x0000000CU
 /**< SMC idlecount configuration register */
-#define XSMC_REFRESH_PERIOD_0_OFFSET		0x20
-#define XSMC_REFRESH_PERIOD_1_OFFSET		0x24
+#define XSMC_REFRESH_PERIOD_0_OFFSET		0x00000020U
+#define XSMC_REFRESH_PERIOD_1_OFFSET		0x00000024U
 /**< SMC ECC configuration register */
-#define XSMC_ECC_MEMCFG1_OFFSET				0x404
+#define XSMC_ECC_MEMCFG1_OFFSET				0x00000404U
 /**< SMC ECC command 1 register */
-#define XSMC_ECC_MEMCMD1_OFFSET				0x404
+#define XSMC_ECC_MEMCMD1_OFFSET				0x00000404U
 /**< SMC ECC command 2 register */
-#define XSMC_ECC_MEMCMD2_OFFSET				0x404
+#define XSMC_ECC_MEMCMD2_OFFSET				0x00000404U
 
 /**< SLCR unlock code */
-#define XSLCR_UNLOCK_CODE		0x0000DF0D
+#define XSLCR_UNLOCK_CODE		0x0000DF0DU
 
 /**< SMC mem clear configuration mask */
-#define XSMC_MEMC_CLR_CONFIG_MASK 	0x5F
+#define XSMC_MEMC_CLR_CONFIG_MASK 	0x000005FU
 /**< SMC ECC memconfig 1 reset value */
-#define XSMC_ECC_MEMCFG1_RESET_VAL 	0x43
+#define XSMC_ECC_MEMCFG1_RESET_VAL 	0x0000043U
 /**< SMC ECC memcommand 1 reset value */
-#define XSMC_ECC_MEMCMD1_RESET_VAL 	0x01300080
+#define XSMC_ECC_MEMCMD1_RESET_VAL 	0x01300080U
 /**< SMC ECC memcommand 2 reset value */
-#define XSMC_ECC_MEMCMD2_RESET_VAL 	0x01E00585
+#define XSMC_ECC_MEMCMD2_RESET_VAL 	0x01E00585U
 
 /**< DDR controller reset bit mask */
-#define XDDRPS_CTRL_RESET_MASK 		0x1
+#define XDDRPS_CTRL_RESET_MASK 		0x00000001U
 /**< SLCR OCM configuration reset value*/
-#define XSLCR_OCM_CFG_RESETVAL		0x8
+#define XSLCR_OCM_CFG_RESETVAL		0x00000008U
 /**< SLCR OCM bank selection mask*/
-#define XSLCR_OCM_CFG_HIADDR_MASK	0xF
+#define XSLCR_OCM_CFG_HIADDR_MASK	0x0000000FU
 /**< SLCR level shifter enable mask*/
-#define XSLCR_LVL_SHFTR_EN_MASK		0xF
+#define XSLCR_LVL_SHFTR_EN_MASK		0x0000000FU
 
 /**< SLCR PLL register reset values */
-#define XSLCR_ARM_PLL_CTRL_RESET_VAL	0x0001A008
-#define XSLCR_DDR_PLL_CTRL_RESET_VAL	0x0001A008
-#define XSLCR_IO_PLL_CTRL_RESET_VAL		0x0001A008
-#define XSLCR_ARM_PLL_CFG_RESET_VAL		0x00177EA0
-#define XSLCR_DDR_PLL_CFG_RESET_VAL		0x00177EA0
-#define XSLCR_IO_PLL_CFG_RESET_VAL		0x00177EA0
-#define XSLCR_ARM_CLK_CTRL_RESET_VAL	0x1F000400
-#define XSLCR_DDR_CLK_CTRL_RESET_VAL	0x18400003
+#define XSLCR_ARM_PLL_CTRL_RESET_VAL	0x0001A008U
+#define XSLCR_DDR_PLL_CTRL_RESET_VAL	0x0001A008U
+#define XSLCR_IO_PLL_CTRL_RESET_VAL		0x0001A008U
+#define XSLCR_ARM_PLL_CFG_RESET_VAL		0x00177EA0U
+#define XSLCR_DDR_PLL_CFG_RESET_VAL		0x00177EA0U
+#define XSLCR_IO_PLL_CFG_RESET_VAL		0x00177EA0U
+#define XSLCR_ARM_CLK_CTRL_RESET_VAL	0x1F000400U
+#define XSLCR_DDR_CLK_CTRL_RESET_VAL	0x18400003U
 
 /**< SLCR MIO register default values */
-#define XSLCR_MIO_PIN_00_RESET_VAL		0x00001601
-#define XSLCR_MIO_PIN_02_RESET_VAL		0x00000601
+#define XSLCR_MIO_PIN_00_RESET_VAL		0x00001601U
+#define XSLCR_MIO_PIN_02_RESET_VAL		0x00000601U
 
 /**< SLCR Reset control registers default values */
-#define XSLCR_DMAC_RST_CTRL_VAL			0x1
-#define XSLCR_GEM_RST_CTRL_VAL			0xF3
-#define XSLCR_USB_RST_CTRL_VAL			0x3
-#define XSLCR_I2C_RST_CTRL_VAL			0x3
-#define XSLCR_SPI_RST_CTRL_VAL			0xF
-#define XSLCR_UART_RST_CTRL_VAL			0xF
-#define XSLCR_QSPI_RST_CTRL_VAL			0x3
-#define XSLCR_GPIO_RST_CTRL_VAL			0x1
-#define XSLCR_SMC_RST_CTRL_VAL			0x3
-#define XSLCR_OCM_RST_CTRL_VAL			0x1
-#define XSLCR_SDIO_RST_CTRL_VAL			0x33
-#define XSLCR_CAN_RST_CTRL_VAL			0x3
+#define XSLCR_DMAC_RST_CTRL_VAL			0x00000001U
+#define XSLCR_GEM_RST_CTRL_VAL			0x000000F3U
+#define XSLCR_USB_RST_CTRL_VAL			0x00000003U
+#define XSLCR_I2C_RST_CTRL_VAL			0x00000003U
+#define XSLCR_SPI_RST_CTRL_VAL			0x0000000FU
+#define XSLCR_UART_RST_CTRL_VAL			0x0000000FU
+#define XSLCR_QSPI_RST_CTRL_VAL			0x00000003U
+#define XSLCR_GPIO_RST_CTRL_VAL			0x00000001U
+#define XSLCR_SMC_RST_CTRL_VAL			0x00000003U
+#define XSLCR_OCM_RST_CTRL_VAL			0x00000001U
+#define XSLCR_SDIO_RST_CTRL_VAL			0x00000033U
+#define XSLCR_CAN_RST_CTRL_VAL			0x00000003U
 /**************************** Type Definitions *******************************/
 
 /* the following data type is used to hold a null terminated version string
@@ -203,11 +203,11 @@ extern "C" {
 /*
  * Performs reset operation to the ddr interface
  */
-void XDdr_ResetHw();
+void XDdr_ResetHw(void);
 /*
  * Map the ocm region to post bootrom state
  */
-void XOcm_Remap();
+void XOcm_Remap(void);
 /*
  * Performs the smc interface reset
  */
@@ -215,15 +215,15 @@ void XSmc_ResetHw(u32 BaseAddress);
 /*
  * updates the MIO registers with reset values
  */
-void XSlcr_MioWriteResetValues();
+void XSlcr_MioWriteResetValues(void);
 /*
  * updates the PLL and clock registers with reset values
  */
-void XSlcr_PllWriteResetValues();
+void XSlcr_PllWriteResetValues(void);
 /*
  * Disables the level shifters
  */
-void XSlcr_DisableLevelShifters();
+void XSlcr_DisableLevelShifters(void);
 /*
  * provides softreset to the GPIO interface
  */

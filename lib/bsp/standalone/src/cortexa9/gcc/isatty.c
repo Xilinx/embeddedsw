@@ -30,10 +30,11 @@
 *
 ******************************************************************************/
 #include <unistd.h>
+#include "xil_types.h"
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) int _isatty(int fd);
+	__attribute__((weak)) sint32 _isatty(sint32 fd);
 }
 #endif
 
@@ -42,13 +43,13 @@ extern "C" {
  *           returns 0 if not. Since we're hooked up to a
  *           serial port, we'll say yes _AND return a 1.
  */
-__attribute__((weak)) int isatty(int fd)
+__attribute__((weak)) sint32 isatty(sint32 fd)
 {
   (void)fd;
   return (1);
 }
 
-__attribute__((weak)) int _isatty(int fd)
+__attribute__((weak)) sint32 _isatty(sint32 fd)
 {
   (void)fd;
   return (1);

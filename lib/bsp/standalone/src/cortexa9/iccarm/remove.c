@@ -38,11 +38,12 @@
  */
 
 #include <stdio.h>
+#include "xil_types.h"
 
+sint32 remove(const char8 * filename);
 
-int remove(const char * filename)
+sint32 remove(const char8 * filename)
 {
   return 0;
 }
-
 

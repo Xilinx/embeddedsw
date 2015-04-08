@@ -31,8 +31,9 @@
 ******************************************************************************/
 
 #include <yfuns.h>
+#include "xil_types.h"
 
-int __close(int fd)
+sint32 __close(sint32 fd)
 {
   (void)fd;
   return (0);

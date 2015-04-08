@@ -32,16 +32,17 @@
 
 #include <sys/types.h>
 #include <errno.h>
+#include "xil_types.h"
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) off_t _lseek(int fd, off_t offset, int whence);
+	__attribute__((weak)) off_t _lseek(s32 fd, off_t offset, s32 whence);
 }
 #endif
 /*
  * lseek --  Since a serial port is non-seekable, we return an error.
  */
-__attribute__((weak)) off_t lseek(int fd, off_t offset, int whence)
+__attribute__((weak)) off_t lseek(s32 fd, off_t offset, s32 whence)
 {
   (void)fd;
   (void)offset;
@@ -50,7 +51,7 @@ __attribute__((weak)) off_t lseek(int fd, off_t offset, int whence)
   return ((off_t)-1);
 }
 
-__attribute__((weak)) off_t _lseek(int fd, off_t offset, int whence)
+__attribute__((weak)) off_t _lseek(s32 fd, off_t offset, s32 whence)
 {
   (void)fd;
   (void)offset;

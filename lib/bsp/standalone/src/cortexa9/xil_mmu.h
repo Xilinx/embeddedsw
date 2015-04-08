@@ -72,7 +72,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-void Xil_SetTlbAttributes(u32 addr, u32 attrib);
+void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
 void Xil_EnableMMU(void);
 void Xil_DisableMMU(void);
 

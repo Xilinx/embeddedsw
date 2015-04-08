@@ -29,9 +29,10 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+#include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) int _close(int fd);
+	__attribute__((weak)) s32 _close(s32 fd);
 }
 #endif
 
@@ -39,7 +40,7 @@ extern "C" {
  * close -- We don't need to do anything, but pretend we did.
  */
 
-__attribute__((weak)) int _close(int fd)
+__attribute__((weak)) s32 _close(s32 fd)
 {
   (void)fd;
   return (0);

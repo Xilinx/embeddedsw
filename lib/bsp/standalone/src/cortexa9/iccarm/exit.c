@@ -32,8 +32,11 @@
 
 #include <stdlib.h>
 #include <yfuns.h>
+#include "xil_types.h"
 
-void exit(int arg)
+void exit(sint32 arg)
 {
-  while(1);
+  while(1) {
+	;
+  }
 }

@@ -98,7 +98,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_In16LE(Addr) Xil_In16(Addr)
+#define Xil_In16LE(Addr) Xil_In16((Addr))
 
 /*****************************************************************************/
 /**
@@ -119,7 +119,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_In32LE(Addr) Xil_In32(Addr)
+#define Xil_In32LE(Addr) Xil_In32((Addr))
 
 /*****************************************************************************/
 /**
@@ -139,7 +139,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_Out16LE(Addr, Value) Xil_Out16(Addr, Value)
+#define Xil_Out16LE(Addr, Value) Xil_Out16((Addr), (Value))
 
 /*****************************************************************************/
 /**
@@ -158,7 +158,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_Out32LE(Addr, Value) Xil_Out32(Addr, Value)
+#define Xil_Out32LE(Addr, Value) Xil_Out32((Addr), (Value))
 
 /*****************************************************************************/
 /**
@@ -172,7 +172,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_Htonl(Data) Xil_EndianSwap32(Data)
+#define Xil_Htonl(Data) Xil_EndianSwap32((Data))
 
 /*****************************************************************************/
 /**
@@ -186,7 +186,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_Htons(Data) Xil_EndianSwap16(Data)
+#define Xil_Htons(Data) Xil_EndianSwap16((Data))
 
 /*****************************************************************************/
 /**
@@ -200,7 +200,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_Ntohl(Data) Xil_EndianSwap32(Data)
+#define Xil_Ntohl(Data) Xil_EndianSwap32((Data))
 
 /*****************************************************************************/
 /**
@@ -214,7 +214,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-#define Xil_Ntohs(Data) Xil_EndianSwap16(Data)
+#define Xil_Ntohs(Data) Xil_EndianSwap16((Data))
 
 /************************** Function Prototypes ******************************/
 
@@ -222,18 +222,19 @@ extern "C" {
  * processors which may use memory mapped I/O or I/O which is mapped into a
  * seperate address space.
  */
-u8 Xil_In8(u32 Addr);
-u16 Xil_In16(u32 Addr);
-u32 Xil_In32(u32 Addr);
+u8 Xil_In8(INTPTR Addr);
+u16 Xil_In16(INTPTR Addr);
+u32 Xil_In32(INTPTR Addr);
 
-void Xil_Out8(u32 Addr, u8 Value);
-void Xil_Out16(u32 Addr, u16 Value);
-void Xil_Out32(u32 Addr, u32 Value);
+void Xil_Out8(INTPTR Addr, u8 Value);
+void Xil_Out16(INTPTR Addr, u16 Value);
+void Xil_Out32(INTPTR Addr, u32 Value);
 
-u16 Xil_In16BE(u32 Addr);
-u32 Xil_In32BE(u32 Addr);
-void Xil_Out16BE(u32 Addr, u16 Value);
-void Xil_Out32BE(u32 Addr, u32 Value);
+
+u16 Xil_In16BE(INTPTR Addr);
+u32 Xil_In32BE(INTPTR Addr);
+void Xil_Out16BE(INTPTR Addr, u16 Value);
+void Xil_Out32BE(INTPTR Addr, u32 Value);
 
 u16 Xil_EndianSwap16(u16 Data);
 u32 Xil_EndianSwap32(u32 Data);

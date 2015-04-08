@@ -41,8 +41,8 @@
 ; Ver	Who     Date	  Changes
 ; ----- ------- -------- ---------------------------------------------------
 ; 1.00a 		 Initial version
-; 4.2 	pkp 	06/27/14 Modified return addresses for interrupt 
-;			 handlers 
+; 4.2 	pkp 	06/27/14 Modified return addresses for interrupt
+;			 handlers
 ; </pre>
 ;
 ; @note
@@ -52,7 +52,7 @@
 ;****************************************************************************
 
         MODULE  ?asm_vectors
-  
+
         ;; Forward declaration of sections.
         SECTION IRQ_STACK:DATA:NOROOT(3)
         SECTION FIQ_STACK:DATA:NOROOT(3)
@@ -60,7 +60,7 @@
         SECTION ABT_STACK:DATA:NOROOT(3)
         SECTION UND_STACK:DATA:NOROOT(3)
         SECTION CSTACK:DATA:NOROOT(3)
-  
+
 #include "xparameters.h"
 ;#include "xtime_l.h"
 
@@ -72,9 +72,9 @@
 
 
         SECTION .intvec:CODE:NOROOT(2)
-    
+
         PUBLIC _vector_table
-  
+
 	IMPORT IRQInterrupt
 	IMPORT FIQInterrupt
 	IMPORT SWInterrupt
@@ -82,8 +82,8 @@
 	IMPORT PrefetchAbortInterrupt
 
 _vector_table
-        ARM 
-        
+        ARM
+
 	B	__iar_program_start
 	B	Undefined
 	B	SVCHandler
@@ -98,54 +98,54 @@ _vector_table
       REQUIRE _vector_table
 
         ARM
-IRQHandler					; IRQ vector handler 
-	
+IRQHandler					; IRQ vector handler
+
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
 	bl	IRQInterrupt			; IRQ vector
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #4			; adjust return 
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #4			; adjust return
 
 
-FIQHandler					; FIQ vector handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
+FIQHandler					; FIQ vector handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
 
 FIQLoop
-	bl	FIQInterrupt			; FIQ vector 
+	bl	FIQInterrupt			; FIQ vector
 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #4			; adjust return 
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #4			; adjust return
 
 
-Undefined					; Undefined handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	b	_prestart			
+Undefined					; Undefined handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	b	_prestart
 
 	movs	pc, lr
 
 
-SVCHandler					; SWI handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	tst	r0, #0x20			; check the T bit 
-	ldrneh	r0, [lr,#-2]			; Thumb mode 
-	bicne	r0, r0, #0xff00			; Thumb mode 
-	ldreq	r0, [lr,#-4]			; ARM mode 
-	biceq	r0, r0, #0xff000000		; ARM mode 
-	bl	SWInterrupt			; SWInterrupt: call C function here 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	movs	pc, lr				; adjust return 
+SVCHandler					; SWI handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	tst	r0, #0x20			; check the T bit
+	ldrneh	r0, [lr,#-2]			; Thumb mode
+	bicne	r0, r0, #0xff00			; Thumb mode
+	ldreq	r0, [lr,#-4]			; ARM mode
+	biceq	r0, r0, #0xff000000		; ARM mode
+	bl	SWInterrupt			; SWInterrupt: call C function here
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	movs	pc, lr				; adjust return
 
 
-DataAbortHandler				; Data Abort handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	bl	DataAbortInterrupt		;DataAbortInterrupt :call C function here 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #8			; adjust return 
+DataAbortHandler				; Data Abort handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	bl	DataAbortInterrupt		;DataAbortInterrupt :call C function here
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #8			; adjust return
 
-PrefetchAbortHandler				; Prefetch Abort handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	bl	PrefetchAbortInterrupt		; PrefetchAbortInterrupt: call C function here 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #4			; adjust return 
+PrefetchAbortHandler				; Prefetch Abort handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	bl	PrefetchAbortInterrupt		; PrefetchAbortInterrupt: call C function here
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #4			; adjust return
 
 	END

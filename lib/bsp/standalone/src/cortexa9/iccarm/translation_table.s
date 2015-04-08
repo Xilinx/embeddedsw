@@ -66,11 +66,11 @@ MMUTable
 	; Each entry covers a 1MB section.
 
 
-; 0x00000000 - 0x3ffffff (DDR Cacheable) 
+; 0x00000000 - 0x3ffffff (DDR Cacheable)
 count   SETA  0
 sect    SETA  0
   REPT  0x400
-  DCD	sect + 0x15de6		; S=1, TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 
+  DCD	sect + 0x15de6		; S=1, TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1
 sect    SETA  sect+0x100000
 count   SETA  count+1
   ENDR
@@ -94,7 +94,7 @@ count   SETA  count+1
 ; 0xc0000000 - 0xdfffffff (undef)
 count   SETA  0
    REPT 0x200
-   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 
+   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    ENDR
@@ -102,7 +102,7 @@ count   SETA  count+1
 ; 0xe0000000 - 0xe02fffff (IOP dev)
 count   SETA  0
    REPT 0x3
-   DCD	sect + 0xc06		; S=0, TEX=b010 AP=b11, Domain=b0, C=b0, B=b0 
+   DCD	sect + 0xc06		; S=0, TEX=b010 AP=b11, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    ENDR

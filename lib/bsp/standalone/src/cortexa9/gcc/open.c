@@ -31,19 +31,20 @@
 ******************************************************************************/
 
 #include <errno.h>
+#include "xil_types.h"
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) int open(const char *buf, int flags, int mode);
+	__attribute__((weak)) s32 open(char8 *buf, s32 flags, s32 mode);
 }
 #endif
 /*
  * open -- open a file descriptor. We don't have a filesystem, so
  *         we return an error.
  */
-__attribute__((weak)) int open(const char *buf, int flags, int mode)
+__attribute__((weak)) s32 open(char8 *buf, s32 flags, s32 mode)
 {
-  (void)buf;
+  (void *)buf;
   (void)flags;
   (void)mode;
   errno = EIO;

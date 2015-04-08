@@ -31,12 +31,13 @@
 ******************************************************************************/
 
 #include <stdio.h>
+#include "xil_types.h"
 
 /*
  * fcntl -- Manipulate a file descriptor.
  *          We don't have a filesystem, so we do nothing.
  */
-__attribute__((weak)) int fcntl (int fd, int cmd, long arg)
+__attribute__((weak)) sint32 fcntl (sint32 fd, sint32 cmd, long arg)
 {
   (void)fd;
   (void)cmd;

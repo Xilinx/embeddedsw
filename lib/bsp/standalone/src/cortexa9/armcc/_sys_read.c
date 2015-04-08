@@ -1,7 +1,7 @@
-
-// Stub for read() sys-call
-__weak int _sys_read(unsigned int fh, unsigned char *buf, unsigned int len, int mode)
+#include "xil_types.h"
+/* Stub for read() sys-call */
+__weak s32 _sys_read(u32 fh, u8 *buf, u32 len, s32 mode)
 {
-   // Return the number of character NOT read
+   /* Return the number of character NOT read */
    return len;
 }

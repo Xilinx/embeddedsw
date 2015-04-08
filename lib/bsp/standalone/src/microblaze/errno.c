@@ -4,9 +4,11 @@
 
 #include <errno.h>
 #include <reent.h>
+#include "xil_types.h"
+sint32 * __errno (void);
 
-int *
-__errno ()
+sint32 *
+__errno (void)
 {
   return &_REENT->_errno;
 }

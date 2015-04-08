@@ -33,12 +33,12 @@
 /* write.c -- write bytes to an output device.
  */
 
-#include "xparameters.h"
 #include "xil_printf.h"
+#include "xparameters.h"
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) int _write (int fd, char* buf, int nbytes);
+	__attribute__((weak)) sint32 _write (sint32 fd, char8* buf, sint32 nbytes);
 }
 #endif
 
@@ -47,19 +47,28 @@ extern "C" {
  *          stdout and stderr are the same. Since we have no filesystem,
  *          open will only return an error.
  */
-__attribute__((weak)) int
-write (int fd, char* buf, int nbytes)
+__attribute__((weak)) sint32
+write (sint32 fd, char8* buf, sint32 nbytes)
 
 {
 #ifdef STDOUT_BASEADDRESS
-  int i;
+  s32 i;
+  char8* LocalBuf = buf;
 
   (void)fd;
   for (i = 0; i < nbytes; i++) {
-    if (*(buf + i) == '\n') {
-      outbyte ('\r');
-    }
-    outbyte (*(buf + i));
+	if(LocalBuf != NULL) {
+		LocalBuf += i;
+	}
+	if(LocalBuf != NULL) {
+	    if (*LocalBuf == '\n') {
+	      outbyte ('\r');
+	    }
+	    outbyte (*LocalBuf);
+	}
+	if(LocalBuf != NULL) {
+		LocalBuf -= i;
+	}
   }
   return (nbytes);
 #else
@@ -70,18 +79,27 @@ write (int fd, char* buf, int nbytes)
 #endif
 }
 
-__attribute__((weak)) int
-_write (int fd, char* buf, int nbytes)
+__attribute__((weak)) sint32
+_write (sint32 fd, char8* buf, sint32 nbytes)
 {
 #ifdef STDOUT_BASEADDRESS
-  int i;
+  s32 i;
+  char8* LocalBuf = buf;
 
   (void)fd;
   for (i = 0; i < nbytes; i++) {
-    if (*(buf + i) == '\n') {
-      outbyte ('\r');
-    }
-    outbyte (*(buf + i));
+	if(LocalBuf != NULL) {
+		LocalBuf += i;
+	}
+	if(LocalBuf != NULL) {
+	    if (*LocalBuf == '\n') {
+	      outbyte ('\r');
+	    }
+	    outbyte (*LocalBuf);
+	}
+	if(LocalBuf != NULL) {
+		LocalBuf -= i;
+	}
   }
   return (nbytes);
 #else

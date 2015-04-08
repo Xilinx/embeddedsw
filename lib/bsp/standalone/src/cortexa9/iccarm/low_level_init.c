@@ -46,14 +46,15 @@
  * initialized.
  */
 
+#include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
-int __low_level_init(void);
+s32 __low_level_init(void);
 
-int __low_level_init(void)
+s32 __low_level_init(void)
 {
   /*==================================*/
   /*  Initialize hardware.            */

@@ -51,7 +51,7 @@
 #define XPSEUDO_ASM_RVCT_H  /* by using protection macros */
 
 /***************************** Include Files ********************************/
-
+#include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -67,7 +67,7 @@ extern "C" {
 #define tostring(s)	#s
 
 
-#define mtcpsr(v)	{ volatile register unsigned int Reg __asm("cpsr");\
+#define mtcpsr(v)	{ volatile register u32 Reg __asm("cpsr");\
 			  Reg = v; }
 
 /* general purpose register read/write */
@@ -76,7 +76,7 @@ extern "C" {
 			  val = Reg; \
 			  val;})*/
 
-#define mtgpr(rn, v)	{ volatile register unsigned int Reg __asm("r" stringify(rn));\
+#define mtgpr(rn, v)	{ volatile register u32 Reg __asm("r" stringify(rn));\
 			  Reg = v; }
 
 /* CP15 operations */
@@ -84,7 +84,7 @@ extern "C" {
 			  val = register unsigned int Reg __asm(rn); \
 			  val;})*/
 
-#define mtcp(rn, v)	{ volatile register unsigned int Reg __asm(rn); \
+#define mtcp(rn, v)	{ volatile register u32 Reg __asm(rn); \
 			  Reg = v; }
 
 /************************** Variable Definitions ****************************/
@@ -111,17 +111,17 @@ __asm void dsb(void);
 __asm void dmb(void);
 
 /* Memory Operations */
-__asm unsigned int ldr(unsigned int adr);
+__asm u32 ldr(u32 adr);
 
-__asm unsigned int ldrb(unsigned int adr);
+__asm u32 ldrb(u32 adr);
 
-__asm void str(unsigned int adr, unsigned int val);
+__asm void str(u32 adr, u32 val);
 
-__asm void strb(unsigned int adr, unsigned int val);
+__asm void strb(u32 adr, u32 val);
 
 /* Count leading zeroes (clz) */
-__asm unsigned int clz(unsigned int arg);
-__asm unsigned int mfcpsr(void);
+__asm u32 clz(u32 arg);
+__asm u32 mfcpsr(void);
 
 #ifdef __cplusplus
 }

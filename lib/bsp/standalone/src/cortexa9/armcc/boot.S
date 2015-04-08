@@ -1,4 +1,3 @@
-;* $Id: boot.S,v 1.1.4.1 2011/10/24 09:35:18 sadanan Exp $
 ;******************************************************************************
 ;
 ; Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
@@ -43,7 +42,7 @@
 ; ----- ------- -------- ---------------------------------------------------
 ; 1.00a ecm/sdm 10/20/09 Initial version
 ; 3.04a sdm	01/02/12 Updated to clear cp15 regs with unknown reset values
-; 3.06a sgd     05/15/12 Updated L2CC Auxiliary and Tag RAM Latency control 
+; 3.06a sgd     05/15/12 Updated L2CC Auxiliary and Tag RAM Latency control
 ;			 register settings.
 ; 3.06a asa 	06/17/12 Modified the TTBR settings and L2 Cache auxiliary
 ;		         register settings.
@@ -100,27 +99,27 @@ SLCRlockKey	EQU        	0x767B			/* SLCR lock key */
 SLCRUnlockKey	EQU        	0xDF0D			/* SLCR unlock key */
 SLCRL2cRamConfig EQU      	0x00020202      /* SLCR L2C ram configuration */
 
-CRValMmuCac		EQU	2_01000000000101	; Enable IDC, and MMU 
-CRValHiVectorAddr	EQU	2_10000000000000	; Set the Vector address to high, 0xFFFF0000 
+CRValMmuCac		EQU	2_01000000000101	; Enable IDC, and MMU
+CRValHiVectorAddr	EQU	2_10000000000000	; Set the Vector address to high, 0xFFFF0000
 
-L2CCAuxControl	EQU	0x72360000	; Enable all prefetching, Way Size (16 KB) and High Priority for SO and Dev Reads Enable 
-L2CCControl	EQU	0x01		; Enable L2CC 
-L2CCTAGLatency	EQU	0x0111		; 7 Cycles of latency for TAG RAM 
-L2CCDataLatency	EQU	0x0121		; 7 Cycles of latency for DATA RAM 
+L2CCAuxControl	EQU	0x72360000	; Enable all prefetching, Way Size (16 KB) and High Priority for SO and Dev Reads Enable
+L2CCControl	EQU	0x01		; Enable L2CC
+L2CCTAGLatency	EQU	0x0111		; 7 Cycles of latency for TAG RAM
+L2CCDataLatency	EQU	0x0121		; 7 Cycles of latency for DATA RAM
 
-FPEXC_EN	EQU	0x40000000	; FPU enable bit, (1 << 30) 
+FPEXC_EN	EQU	0x40000000	; FPU enable bit, (1 << 30)
 
 	AREA |.boot|, CODE
 	PRESERVE8
 
 
-; this initializes the various processor modes 
+; this initializes the various processor modes
 
 _prestart
 _boot
 
 #if XPAR_CPU_ID==0
-; only allow cp0 through 
+; only allow cp0 through
 	mrc	p15,0,r1,c0,c0,5
 	and	r1, r1, #0xf
 	cmp	r1, #0
@@ -130,7 +129,7 @@ EndlessLoop0
 	b	EndlessLoop0
 
 #elif XPAR_CPU_ID==1
-; only allow cp1 through 
+; only allow cp1 through
 	mrc	p15,0,r1,c0,c0,5
 	and	r1, r1, #0xf
 	cmp	r1, #1
@@ -142,24 +141,24 @@ EndlessLoop1
 
 OKToRun
 	mrc     p15, 0, r0, c0, c0, 0		/* Get the revision */
-	and     r5, r0, #0x00f00000 
+	and     r5, r0, #0x00f00000
 	and     r6, r0, #0x0000000f
 	orr     r6, r6, r5, lsr #20-4
-	
+
 #ifdef CONFIG_ARM_ERRATA_742230
 	cmp     r6, #0x22                       /* only present up to r2p2 */
 	mrcle   p15, 0, r10, c15, c0, 1         /* read diagnostic register */
 	orrle   r10, r10, #1 << 4               /* set bit #4 */
 	mcrle   p15, 0, r10, c15, c0, 1         /* write diagnostic register */
 #endif
-	
+
 #ifdef CONFIG_ARM_ERRATA_743622
 	teq     r5, #0x00200000                 /* only present in r2p* */
 	mrceq   p15, 0, r10, c15, c0, 1         /* read diagnostic register */
 	orreq   r10, r10, #1 << 6               /* set bit #6 */
 	mcreq   p15, 0, r10, c15, c0, 1         /* write diagnostic register */
 #endif
-	
+
 	/* set VBAR to the _vector_table address in scatter file */
 	ldr	r0, =_vector_table
 	mcr	p15, 0, r0, c12, c0, 0
@@ -175,18 +174,18 @@ OKToRun
 	ldr	r6, =0xffff
 	str	r6, [r7]
 
-	; Write to ACTLR 
+	; Write to ACTLR
 	mrc	p15, 0,r0, c1, c0, 1		; Read ACTLR
 	orr	r0, r0, #(0x01 << 6)		; SMP bit
-	orr	r0, r0, #(0x01 )		; Cache/TLB maintenance broadcast 
+	orr	r0, r0, #(0x01 )		; Cache/TLB maintenance broadcast
 	mcr	p15, 0,r0, c1, c0, 1		; Write ACTLR
 
-; Invalidate caches and TLBs 
-	mov	r0,#0				; r0 = 0  
-	mcr	p15, 0, r0, c8, c7, 0		; invalidate TLBs 
-	mcr	p15, 0, r0, c7, c5, 0		; invalidate icache 
-	mcr	p15, 0, r0, c7, c5, 6		; Invalidate branch predictor array 
-	bl	invalidate_dcache		; invalidate dcache 
+; Invalidate caches and TLBs
+	mov	r0,#0				; r0 = 0
+	mcr	p15, 0, r0, c8, c7, 0		; invalidate TLBs
+	mcr	p15, 0, r0, c7, c5, 0		; invalidate icache
+	mcr	p15, 0, r0, c7, c5, 6		; Invalidate branch predictor array
+	bl	invalidate_dcache		; invalidate dcache
 
 ; Invalidate L2c Cache
 ; For AMP, assume running on CPU1. Don't initialize L2 Cache (up to Linux)
@@ -216,21 +215,21 @@ OKToRun
 	ldr	r0,=L2CCSync			; need to poll 0x730, PSS_L2CC_CACHE_SYNC_OFFSET
 						; Load L2CC base address base + sync register
 	; poll for completion
-Sync	
+Sync
 	ldr	r1, [r0]
 	cmp	r1, #0
 	bne	Sync
 
 	ldr	r0,=L2CCIntRaw			; clear pending interrupts
 	ldr	r1,[r0]
-	ldr	r0,=L2CCIntClear	
+	ldr	r0,=L2CCIntClear
 	str	r1,[r0]
 #endif
 
-	; Disable MMU, if enabled 
-	mrc	p15, 0, r0, c1, c0, 0		; read CP15 register 1 
-	bic	r0, r0, #0x1			; clear bit 0 
-	mcr	p15, 0, r0, c1, c0, 0		; write value back 
+	; Disable MMU, if enabled
+	mrc	p15, 0, r0, c1, c0, 0		; read CP15 register 1
+	bic	r0, r0, #0x1			; clear bit 0
+	mcr	p15, 0, r0, c1, c0, 0		; write value back
 
 #ifdef SHAREABLE_DDR
 	; Mark the entire DDR memory as shareable
@@ -259,12 +258,12 @@ mmu_loop:
 	bge	mmu_loop			; loop till 512MB is covered
 #endif
 
-	mrs	r0, cpsr			; get the current PSR 
-	mvn	r1, #0x1f			; set up the irq stack pointer 
+	mrs	r0, cpsr			; get the current PSR
+	mvn	r1, #0x1f			; set up the irq stack pointer
 	and	r2, r1, r0
-	orr	r2, r2, #0x12			; IRQ mode 
+	orr	r2, r2, #0x12			; IRQ mode
 	msr	apsr, r2			; was cpsr, apsr is considered synonym
-	ldr	r13,=|Image$$IRQ_STACK$$ZI$$Limit|	; IRQ stack pointer 
+	ldr	r13,=|Image$$IRQ_STACK$$ZI$$Limit|	; IRQ stack pointer
 
 	mrs	r0, cpsr			; get the current PSR
 	mvn	r1, #0x1f			; set up the supervisor stack pointer
@@ -280,43 +279,43 @@ mmu_loop:
 	msr	apsr, r2			; was cpsr, apsr is considered synonym
 	ldr	r13,=|Image$$ABORT_STACK$$ZI$$Limit|	; Abort stack pointer
 
-	mrs	r0, cpsr			; get the current PSR 
-	mvn	r1, #0x1f			; set up the system stack pointer 
+	mrs	r0, cpsr			; get the current PSR
+	mvn	r1, #0x1f			; set up the system stack pointer
 	and	r2, r1, r0
-	orr	r2, r2, #0x1f			; SYS mode 
+	orr	r2, r2, #0x1f			; SYS mode
 	msr	apsr, r2			 ; was cpsr, apsr is considered synonym
-	ldr	r13,=|Image$$ARM_LIB_STACK$$ZI$$Limit|	; SYS stack pointer 
+	ldr	r13,=|Image$$ARM_LIB_STACK$$ZI$$Limit|	; SYS stack pointer
 
-	; enable MMU and cache 
+	; enable MMU and cache
 
-	ldr	r0,=MMUTable			; Load MMU translation table base 
-	orr	r0, r0, #0x5B			; Outer-cacheable, WB 
-	mcr	p15, 0, r0, c2, c0, 0		; TTB0 
-	
+	ldr	r0,=MMUTable			; Load MMU translation table base
+	orr	r0, r0, #0x5B			; Outer-cacheable, WB
+	mcr	p15, 0, r0, c2, c0, 0		; TTB0
+
 	mvn	r0,#0
 	mcr	p15,0,r0,c3,c0,0
 
 	; Enable mmu, icahce and dcache
 	ldr	r0,=CRValMmuCac
 
-	mcr	p15,0,r0,c1,c0,0		; Enable cache and MMU 
-	dsb					; dsb allow the MMU to start up 
-	isb					; isb flush prefetch buffer 
+	mcr	p15,0,r0,c1,c0,0		; Enable cache and MMU
+	dsb					; dsb allow the MMU to start up
+	isb					; isb flush prefetch buffer
 
 ; For AMP, assume running on CPU1. Don't initialize L2 Cache (up to Linux)
 #if USE_AMP!=1
 	ldr	r0,=SLCRUnlockReg		/* Load SLCR base address base + unlock register */
 	ldr	r1,=SLCRUnlockKey	    /* set unlock key */
 	str	r1, [r0]		    /* Unlock SLCR */
-	
+
 	ldr	r0,=SLCRL2cRamReg		/* Load SLCR base address base + l2c Ram Control register */
 	ldr	r1,=SLCRL2cRamConfig        /* set the configuration value */
 	str	r1, [r0]	        /* store the L2c Ram Control Register */
-	
+
 	ldr	r0,=SLCRlockReg         /* Load SLCR base address base + lock register */
 	ldr	r1,=SLCRlockKey	        /* set lock key */
 	str	r1, [r0]	        /* lock SLCR */
-	
+
 	ldr	r0,=L2CCCrtl			; Load L2CC base address base + control register
 	ldr	r1,[r0]				; read the register
 	mov	r2, #L2CCControl		; set the enable bit
@@ -325,28 +324,28 @@ mmu_loop:
 #endif
 
 	mov	r0, r0
-	mrc	p15, 0, r1, c1, c0, 2		; read cp access control register (CACR) into r1 
-	orr	r1, r1, #(0xf << 20)		; enable full access for p10 & p11 
-	mcr	p15, 0, r1, c1, c0, 2		; write back into CACR 
+	mrc	p15, 0, r1, c1, c0, 2		; read cp access control register (CACR) into r1
+	orr	r1, r1, #(0xf << 20)		; enable full access for p10 & p11
+	mcr	p15, 0, r1, c1, c0, 2		; write back into CACR
 
-	; enable vfp 
-	fmrx  r1, FPEXC				; read the exception register 
-	orr	r1,r1, #FPEXC_EN		; set VFP enable bit, leave the others in orig state 
-	fmxr  FPEXC, r1				; write back the exception register 
+	; enable vfp
+	fmrx  r1, FPEXC				; read the exception register
+	orr	r1,r1, #FPEXC_EN		; set VFP enable bit, leave the others in orig state
+	fmxr  FPEXC, r1				; write back the exception register
 
-	mrc	p15, 0, r0, c1, c0, 0		; flow prediction enable 
+	mrc	p15, 0, r0, c1, c0, 0		; flow prediction enable
 	orr	r0, r0, #(0x01 << 11)		; #0x8000
 	mcr	p15,0,r0,c1,c0,0
 
-	mrc	p15, 0, r0, c1, c0, 1		; read Auxiliary Control Register 
-	orr	r0, r0, #(0x1 << 2)		; enable Dside prefetch 
-	orr	r0, r0, #(0x1 << 1)		; enable L2 prefetch 
-	mcr	p15, 0, r0, c1, c0, 1		; write Auxiliary Control Register 
-	
+	mrc	p15, 0, r0, c1, c0, 1		; read Auxiliary Control Register
+	orr	r0, r0, #(0x1 << 2)		; enable Dside prefetch
+	orr	r0, r0, #(0x1 << 1)		; enable L2 prefetch
+	mcr	p15, 0, r0, c1, c0, 1		; write Auxiliary Control Register
+
 	mrs	r0, cpsr			/* get the current PSR */
 	bic	r0, r0, #0x100			/* enable asynchronous abort exception */
 	msr	cpsr_xsf, r0
-	
+
 ; Clear cp15 regs with unknown reset values
 	mov	r0, #0x0
 	mcr	p15, 0, r0, c5, c0, 0		; DFSR
@@ -358,19 +357,19 @@ mmu_loop:
 	mcr	p15, 0, r0, c13, c0, 3		; TPIDRURO
 	mcr	p15, 5, r0, c15, c5, 2		; Write Lockdown TLB VA
 
-; Reset and start Cycle Counter 
-	mov	r2, #0x80000000			; clear overflow 
+; Reset and start Cycle Counter
+	mov	r2, #0x80000000			; clear overflow
 	mcr	p15, 0, r2, c9, c12, 3
-	mov	r2, #0xd			; D, C, E 
+	mov	r2, #0xd			; D, C, E
 	mcr	p15, 0, r2, c9, c12, 0
-	mov	r2, #0x80000000			; enable cycle counter 
+	mov	r2, #0x80000000			; enable cycle counter
 	mcr	p15, 0, r2, c9, c12, 1
 
 ; Reset and start Global Timer
     mov	r0, #0x0
     mov	r1, #0x0
     bl XTime_SetTime
-    
+
 #ifdef PROFILING			/* defined in Makefile */
 	/* Setup profiling stuff */
 	bl	_profile_init
@@ -379,10 +378,10 @@ mmu_loop:
 ; make sure argc and argv are valid
 	mov r0, #0
 	mov r1, #0
-	b  __main				; jump to C startup code 
-	and	r0, r0, r0			; no op 
-	
-Ldone  b  Ldone					; Paranoia: we should never get here 
+	b  __main				; jump to C startup code
+	and	r0, r0, r0			; no op
+
+Ldone  b  Ldone					; Paranoia: we should never get here
 
 
 ; *************************************************************************
@@ -393,47 +392,47 @@ Ldone  b  Ldone					; Paranoia: we should never get here
 ; * the whole D-cache. Need to invalidate each line.
 ; *
 ; *************************************************************************
- 
+
 invalidate_dcache
-	mrc	p15, 1, r0, c0, c0, 1		; read CLIDR 
+	mrc	p15, 1, r0, c0, c0, 1		; read CLIDR
 	ands	r3, r0, #0x7000000
-	mov	r3, r3, lsr #23			; cache level value (naturally aligned) 
+	mov	r3, r3, lsr #23			; cache level value (naturally aligned)
 	beq	finished
-	mov	r10, #0				; start with level 0 
+	mov	r10, #0				; start with level 0
 loop1
-	add	r2, r10, r10, lsr #1		; work out 3xcachelevel 
-	mov	r1, r0, lsr r2			; bottom 3 bits are the Cache type for this level 
-	and	r1, r1, #7			; get those 3 bits alone 
+	add	r2, r10, r10, lsr #1		; work out 3xcachelevel
+	mov	r1, r0, lsr r2			; bottom 3 bits are the Cache type for this level
+	and	r1, r1, #7			; get those 3 bits alone
 	cmp	r1, #2
-	blt	skip				; no cache or only instruction cache at this level 
-	mcr	p15, 2, r10, c0, c0, 0		; write the Cache Size selection register 
-	isb					; isb to sync the change to the CacheSizeID reg 
-	mrc	p15, 1, r1, c0, c0, 0		; reads current Cache Size ID register 
-	and	r2, r1, #7			; extract the line length field 
-	add	r2, r2, #4			; add 4 for the line length offset (log2 16 bytes) 
+	blt	skip				; no cache or only instruction cache at this level
+	mcr	p15, 2, r10, c0, c0, 0		; write the Cache Size selection register
+	isb					; isb to sync the change to the CacheSizeID reg
+	mrc	p15, 1, r1, c0, c0, 0		; reads current Cache Size ID register
+	and	r2, r1, #7			; extract the line length field
+	add	r2, r2, #4			; add 4 for the line length offset (log2 16 bytes)
 	ldr	r4, =0x3ff
-	ands	r4, r4, r1, lsr #3		; r4 is the max number on the way size (right aligned) 
-	clz	r5, r4				; r5 is the bit position of the way size increment 
+	ands	r4, r4, r1, lsr #3		; r4 is the max number on the way size (right aligned)
+	clz	r5, r4				; r5 is the bit position of the way size increment
 	ldr	r7, =0x7fff
-	ands	r7, r7, r1, lsr #13		; r7 is the max number of the index size (right aligned) 
+	ands	r7, r7, r1, lsr #13		; r7 is the max number of the index size (right aligned)
 loop2
-	mov	r9, r4				; r9 working copy of the max way size (right aligned) 
+	mov	r9, r4				; r9 working copy of the max way size (right aligned)
 loop3
-	orr	r11, r10, r9, lsl r5		; factor in the way number and cache number into r11 
-	orr	r11, r11, r7, lsl r2		; factor in the index number 
-	mcr	p15, 0, r11, c7, c6, 2		; invalidate by set/way 
-	subs	r9, r9, #1			; decrement the way number 
+	orr	r11, r10, r9, lsl r5		; factor in the way number and cache number into r11
+	orr	r11, r11, r7, lsl r2		; factor in the index number
+	mcr	p15, 0, r11, c7, c6, 2		; invalidate by set/way
+	subs	r9, r9, #1			; decrement the way number
 	bge	loop3
-	subs	r7, r7, #1			; decrement the index 
+	subs	r7, r7, #1			; decrement the index
 	bge	loop2
 skip
-	add	r10, r10, #2			; increment the cache number 
+	add	r10, r10, #2			; increment the cache number
 	cmp	r3, r10
 	bgt	loop1
 
 finished
-	mov	r10, #0				; swith back to cache level 0 
-	mcr	p15, 2, r10, c0, c0, 0		; select current cache level in cssr 
+	mov	r10, #0				; swith back to cache level 0
+	mcr	p15, 2, r10, c0, c0, 0		; select current cache level in cssr
 	isb
 
 	bx lr

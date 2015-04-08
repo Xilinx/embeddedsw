@@ -97,7 +97,7 @@ extern "C" {
 
 /************************** Function Prototypes *****************************/
 
-void XL2cc_EventCtrInit(int Event0, int Event1);
+void XL2cc_EventCtrInit(s32 Event0, s32 Event1);
 void XL2cc_EventCtrStart(void);
 void XL2cc_EventCtrStop(u32 *EveCtr0, u32 *EveCtr1);
 

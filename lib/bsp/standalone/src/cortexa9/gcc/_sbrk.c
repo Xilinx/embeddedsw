@@ -31,31 +31,41 @@
 ******************************************************************************/
 
 #include <sys/types.h>
+#include "xil_types.h"
 
-extern int  _heap_start;
-extern int _heap_end;
+extern u8 _heap_start[];
+extern u8 _heap_end[];
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) caddr_t _sbrk ( int incr );
+	__attribute__((weak)) caddr_t _sbrk ( s32 incr );
 }
 #endif
 
-__attribute__((weak)) caddr_t _sbrk ( int incr )
+__attribute__((weak)) caddr_t _sbrk ( s32 incr )
 {
-  static unsigned char *heap = NULL;
-  unsigned char *prev_heap;
+  static u8 *heap = NULL;
+  u8 *prev_heap;
+  static u8 *HeapEndPtr = (u8 *)&_heap_end;
+  caddr_t Status;
 
   if (heap == NULL) {
-    heap = (unsigned char *)&_heap_start;
+    heap = (u8 *)&_heap_start;
   }
   prev_heap = heap;
 
   heap += incr;
 
-  if ((unsigned)heap > (unsigned)&_heap_end){
-		  return (caddr_t) -1;
+  if (heap > HeapEndPtr){
+	  Status = (caddr_t) -1;
   }
-  return (caddr_t) prev_heap;
+  else if (prev_heap != NULL) {
+	  Status = (caddr_t) ((void *)prev_heap);
+  }
+  else {
+	  Status = (caddr_t) -1;
+  }
+
+  return Status;
 }
 

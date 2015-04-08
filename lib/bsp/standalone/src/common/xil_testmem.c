@@ -1,32 +1,43 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2014 Xilinx, Inc. All rights reserved.
 *
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
+* This file contains confidential and proprietary information  of Xilinx, Inc.
+* and is protected under U.S. and  international copyright and other
+* intellectual property  laws.
 *
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
+* DISCLAIMER
+* This disclaimer is not a license and does not grant any  rights to the
+* materials distributed herewith. Except as  otherwise provided in a valid
+* license issued to you by  Xilinx, and to the maximum extent permitted by
+* applicable law:
+* (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND  WITH ALL FAULTS, AND
+* XILINX HEREBY DISCLAIMS ALL WARRANTIES  AND CONDITIONS, EXPRESS, IMPLIED,
+* OR STATUTORY, INCLUDING  BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+* NON-INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE
+* and
+* (2) Xilinx shall not be liable (whether in contract or tort,  including
+* negligence, or under any other theory of liability) for any loss or damage of
+* any kind or nature  related to, arising under or in connection with these
+* materials, including for any direct, or any indirect,  special, incidental,
+* or consequential loss or damage  (including loss of data, profits, goodwill,
+* or any type of  loss or damage suffered as a result of any action brought
+* by a third party) even if such damage or loss was  reasonably foreseeable
+* or Xilinx had been advised of the  possibility of the same.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
+* CRITICAL APPLICATIONS
+* Xilinx products are not designed or intended to be fail-safe, or for use in
+* any application requiring fail-safe  performance, such as life-support or
+* safety devices or  systems, Class III medical devices, nuclear facilities,
+* applications related to the deployment of airbags, or any  other applications
+* that could lead to death, personal  injury, or severe property or environmental
+* damage  (individually and collectively, "Critical  Applications").
+* Customer assumes the sole risk and liability of any use of Xilinx products in
+* Critical  Applications, subject only to applicable laws and  regulations
+* governing limitations on product liability.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE
+* AT ALL TIMES.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -92,16 +103,18 @@ static u32 RotateRight(u32 Input, u8 Width);
 * patterns used not to repeat over the region tested.
 *
 *****************************************************************************/
-int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
+s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 {
 	u32 I;
-	u32 J;
+	u32 j;
 	u32 Val;
 	u32 FirtVal;
-	u32 Word;
+	u32 WordMem32;
+	s32 Status = 0;
 
-	Xil_AssertNonvoid(Words != 0);
-	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
+	Xil_AssertNonvoid(Words != (u32)0);
+	Xil_AssertNonvoid(Subtest <= (u8)XIL_TESTMEM_MAXTEST);
+	Xil_AssertNonvoid(Addr != NULL);
 
 	/*
 	 * variable initialization
@@ -109,25 +122,14 @@ int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 	Val = XIL_TESTMEM_INIT_VALUE;
 	FirtVal = XIL_TESTMEM_INIT_VALUE;
 
-	/*
-	 * Select the proper Subtest
-	 */
-	switch (Subtest) {
 
-	case XIL_TESTMEM_ALLMEMTESTS:
-
-		/* this case executes all of the Subtests */
-
-		/* fall through case statement */
-
-	case XIL_TESTMEM_INCREMENT:
-
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_INCREMENT)) {
 		/*
 		 * Fill the memory with incrementing
 		 * values starting from 'FirtVal'
 		 */
-		for (I = 0L; I < Words; I++) {
-			Addr[I] = Val;
+		for (I = 0U; I < Words; I++) {
+			*(Addr+I) = Val;
 			Val++;
 		}
 
@@ -144,104 +146,90 @@ int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		 * Val
 		 */
 
-		for (I = 0L; I < Words; I++) {
-			Word = Addr[I];
+		for (I = 0U; I < Words; I++) {
+			WordMem32 = *(Addr+I);
 
-			if (Word != Val) {
-				return -1;
+			if (WordMem32 != Val) {
+				Status = -1;
+				goto End_Label;
 			}
 
 			Val++;
 		}
+	}
 
-
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-
-
-		/* end of case 1 */
-
-		/* fall through case statement */
-
-	case XIL_TESTMEM_WALKONES:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial
 		 * test Patterns for walking ones test
 		 */
 
-		for (J = 0L; J < 32; J++) {
+		for (j = 0U; j < (u32)32; j++) {
 			/*
 			 * Generate an initial value for walking ones test
 			 * to test for bad data bits
 			 */
 
-			Val = 1 << J;
+			Val = (1U << j);
 
 			/*
 			 * START walking ones test
 			 * Write a one to each data bit indifferent locations
 			 */
 
-			for (I = 0L; I < 32; I++) {
+			for (I = 0U; I < (u32)32; I++) {
 				/* write memory location */
-				Addr[I] = Val;
-				Val = (u32) RotateLeft(Val, 32);
+				*(Addr+I) = Val;
+				Val = (u32) RotateLeft(Val, 32U);
 			}
 
 			/*
 			 * Restore the reference 'val' to the
 			 * initial value
 			 */
-			Val = 1 << J;
+			Val = 1U << j;
 
 			/* Read the values from each location that was
 			 * written */
-			for (I = 0L; I < 32; I++) {
+			for (I = 0U; I < (u32)32; I++) {
 				/* read memory location */
 
-				Word = Addr[I];
+				WordMem32 = *(Addr+I);
 
-				if (Word != Val) {
-					return -1;
+				if (WordMem32 != Val) {
+					Status = -1;
+					goto End_Label;
 				}
 
-				Val = (u32)RotateLeft(Val, 32);
+				Val = (u32)RotateLeft(Val, 32U);
 			}
-
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-
-		/* end of case 2 */
-		/* fall through case statement */
-
-	case XIL_TESTMEM_WALKZEROS:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKZEROS)) {
 		/*
 		 * set up to cycle through all possible
 		 * initial test Patterns for walking zeros test
 		 */
 
-		for (J = 0L; J < 32; J++) {
+		for (j = 0U; j < (u32)32; j++) {
 
 			/*
 			 * Generate an initial value for walking ones test
 			 * to test for bad data bits
 			 */
 
-			Val = ~(1 << J);
+			Val = ~(1U << j);
 
 			/*
 			 * START walking zeros test
 			 * Write a one to each data bit indifferent locations
 			 */
 
-			for (I = 0L; I < 32; I++) {
+			for (I = 0U; I < (u32)32; I++) {
 				/* write memory location */
-				Addr[I] = Val;
-				Val = ~((u32)RotateLeft(~Val, 32));
+				*(Addr+I) = Val;
+				Val = ~((u32)RotateLeft(~Val, 32U));
 			}
 
 			/*
@@ -249,35 +237,29 @@ int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			 * initial value
 			 */
 
-			Val = ~(1 << J);
+			Val = ~(1U << j);
 
 			/* Read the values from each location that was
 			 * written */
-			for (I = 0L; I < 32; I++) {
+			for (I = 0U; I < (u32)32; I++) {
 				/* read memory location */
-				Word = Addr[I];
-				if (Word != Val) {
-					return -1;
+				WordMem32 = *(Addr+I);
+				if (WordMem32 != Val) {
+					Status = -1;
+					goto End_Label;
 				}
-				Val = ~((u32)RotateLeft(~Val, 32));
+				Val = ~((u32)RotateLeft(~Val, 32U));
 			}
 
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-
-		/* end of case 3 */
-
-		/* fall through case statement */
-
-	case XIL_TESTMEM_INVERSEADDR:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_INVERSEADDR)) {
 		/* Fill the memory with inverse of address */
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Val = (u32) (~((u32) (&Addr[I])));
-			Addr[I] = Val;
+			Val = (u32) (~((INTPTR) (&Addr[I])));
+			*(Addr+I) = Val;
 		}
 
 		/*
@@ -285,31 +267,26 @@ int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		 * of tested memory
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* Read the location */
-			Word = Addr[I];
-			Val = (u32) (~((u32) (&Addr[I])));
+			WordMem32 = *(Addr+I);
+			Val = (u32) (~((INTPTR) (&Addr[I])));
 
-			if ((Word ^ Val) != 0x00000000) {
-				return -1;
+			if ((WordMem32 ^ Val) != 0x00000000U) {
+				Status = -1;
+				goto End_Label;
 			}
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 4 */
-
-		/* fall through case statement */
-
-	case XIL_TESTMEM_FIXEDPATTERN:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_FIXEDPATTERN)) {
 		/*
 		 * Generate an initial value for
 		 * memory testing
 		 */
 
-		if (Pattern == 0) {
-			Val = 0xDEADBEEF;
+		if (Pattern == (u32)0) {
+			Val = 0xDEADBEEFU;
 		}
 		else {
 			Val = Pattern;
@@ -319,9 +296,9 @@ int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		 * Fill the memory with fixed Pattern
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Addr[I] = Val;
+			*(Addr+I) = Val;
 		}
 
 		/*
@@ -330,33 +307,20 @@ int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		 * with the fixed Pattern
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 
 			/* read memory location */
 
-			Word = Addr[I];
-			if (Word != Val) {
-				return -1;
+			WordMem32 = *(Addr+I);
+			if (WordMem32 != Val) {
+				Status = -1;
+				goto End_Label;
 			}
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 5 */
-
-		/* this break is for the prior fall through case statements */
-
-		break;
-
-	default:
-		return -1;
-
-	}			/* end of switch */
-
-	/* Successfully passed memory test ! */
-
-	return 0;
+End_Label:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -388,16 +352,18 @@ int Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 * patterns used not to repeat over the region tested.
 *
 *****************************************************************************/
-int Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
+s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 {
 	u32 I;
-	u32 J;
+	u32 j;
 	u16 Val;
 	u16 FirtVal;
-	u16 Word;
+	u16 WordMem16;
+	s32 Status = 0;
 
-	Xil_AssertNonvoid(Words != 0);
+	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
+	Xil_AssertNonvoid(Addr != NULL);
 
 	/*
 	 * variable initialization
@@ -409,22 +375,14 @@ int Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 	 * selectthe proper Subtest(s)
 	 */
 
-	switch (Subtest) {
-
-	case XIL_TESTMEM_ALLMEMTESTS:
-
-		/* this case executes all of the Subtests */
-
-		/* fall through case statement */
-
-	case XIL_TESTMEM_INCREMENT:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_INCREMENT)) {
 		/*
 		 * Fill the memory with incrementing
 		 * values starting from 'FirtVal'
 		 */
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Addr[I] = Val;
+			*(Addr+I) = Val;
 			Val++;
 		}
 		/*
@@ -439,145 +397,131 @@ int Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 		 * with the incrementing reference val
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* read memory location */
-			Word = Addr[I];
-			if (Word != Val) {
-				return -1;
+			WordMem16 = *(Addr+I);
+			if (WordMem16 != Val) {
+				Status = -1;
+				goto End_Label;
 			}
 			Val++;
 		}
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
+	}
 
-		/* end of case 1 */
-		/* fall through case statement */
-
-	case XIL_TESTMEM_WALKONES:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial test
 		 * Patterns for walking ones test
 		 */
 
-		for (J = 0L; J < 16; J++) {
+		for (j = 0U; j < (u32)16; j++) {
 			/*
 			 * Generate an initial value for walking ones test
 			 * to test for bad data bits
 			 */
 
-			Val = 1 << J;
+			Val = (u16)((u32)1 << j);
 			/*
 			 * START walking ones test
 			 * Write a one to each data bit indifferent locations
 			 */
 
-			for (I = 0L; I < 16; I++) {
+			for (I = 0U; I < (u32)16; I++) {
 				/* write memory location */
-				Addr[I] = Val;
-				Val = (u16)RotateLeft(Val, 16);
+				*(Addr+I) = Val;
+				Val = (u16)RotateLeft(Val, 16U);
 			}
 			/*
 			 * Restore the reference 'Val' to the
 			 * initial value
 			 */
-			Val = 1 << J;
+			Val = (u16)((u32)1 << j);
 			/* Read the values from each location that was written */
-			for (I = 0L; I < 16; I++) {
+			for (I = 0U; I < (u32)16; I++) {
 				/* read memory location */
-				Word = Addr[I];
-				if (Word != Val) {
-					return -1;
+				WordMem16 = *(Addr+I);
+				if (WordMem16 != Val) {
+					Status = -1;
+					goto End_Label;
 				}
-				Val = (u16)RotateLeft(Val, 16);
+				Val = (u16)RotateLeft(Val, 16U);
 			}
-
 		}
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 2 */
-		/* fall through case statement */
+	}
 
-	case XIL_TESTMEM_WALKZEROS:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKZEROS)) {
 		/*
 		 * set up to cycle through all possible initial
 		 * test Patterns for walking zeros test
 		 */
 
-		for (J = 0L; J < 16; J++) {
+		for (j = 0U; j < (u32)16; j++) {
 			/*
 			 * Generate an initial value for walking ones
 			 * test to test for bad
 			 * data bits
 			 */
 
-			Val = ~(1 << J);
+			Val = ~(1U << j);
 			/*
 			 * START walking zeros test
 			 * Write a one to each data bit indifferent locations
 			 */
 
-			for (I = 0L; I < 16; I++) {
+			for (I = 0U; I < (u32)16; I++) {
 				/* write memory location */
-				Addr[I] = Val;
-				Val = ~((u16)RotateLeft(~Val, 16));
+				*(Addr+I) = Val;
+				Val = ~((u16)RotateLeft(~Val, 16U));
 			}
 			/*
 			 * Restore the reference 'Val' to the
 			 * initial value
 			 */
-			Val = ~(1 << J);
+			Val = ~(1U << j);
 			/* Read the values from each location that was written */
-			for (I = 0L; I < 16; I++) {
+			for (I = 0U; I < (u32)16; I++) {
 				/* read memory location */
-				Word = Addr[I];
-				if (Word != Val) {
-					return -1;
+				WordMem16 = *(Addr+I);
+				if (WordMem16 != Val) {
+					Status = -1;
+					goto End_Label;
 				}
-				Val = ~((u16)RotateLeft(~Val, 16));
+				Val = ~((u16)RotateLeft(~Val, 16U));
 			}
 
 		}
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 3 */
-		/* fall through case statement */
+	}
 
-	case XIL_TESTMEM_INVERSEADDR:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_INVERSEADDR)) {
 		/* Fill the memory with inverse of address */
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Val = (u16) (~((u32) (&Addr[I])));
-			Addr[I] = Val;
+			Val = (u16) (~((INTPTR)(&Addr[I])));
+			*(Addr+I) = Val;
 		}
 		/*
 		 * Check every word within the words
 		 * of tested memory
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* read memory location */
-			Word = Addr[I];
-			Val = (u16) (~((u32) (&Addr[I])));
-			if ((Word ^ Val) != 0x0000) {
-				return -1;
+			WordMem16 = *(Addr+I);
+			Val = (u16) (~((INTPTR) (&Addr[I])));
+			if ((WordMem16 ^ Val) != 0x0000U) {
+				Status = -1;
+				goto End_Label;
 			}
 		}
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 4 */
-		/* fall through case statement */
+	}
 
-	case XIL_TESTMEM_FIXEDPATTERN:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_FIXEDPATTERN)) {
 		/*
 		 * Generate an initial value for
 		 * memory testing
 		 */
-		if (Pattern == 0) {
-			Val = 0xDEAD;
+		if (Pattern == (u16)0) {
+			Val = 0xDEADU;
 		}
 		else {
 			Val = Pattern;
@@ -587,9 +531,9 @@ int Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 		 * Fill the memory with fixed pattern
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Addr[I] = Val;
+			*(Addr+I) = Val;
 		}
 
 		/*
@@ -598,29 +542,18 @@ int Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 		 * with the fixed pattern
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* read memory location */
-			Word = Addr[I];
-			if (Word != Val) {
-				return -1;
+			WordMem16 = *(Addr+I);
+			if (WordMem16 != Val) {
+				Status = -1;
+				goto End_Label;
 			}
 		}
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 5 */
-		/* this break is for the prior fall through case statements */
+	}
 
-		break;
-
-	default:
-		return -1;
-
-	}			/* end of switch */
-
-	/* Successfully passed memory test ! */
-
-	return 0;
+End_Label:
+	return Status;
 }
 
 
@@ -653,16 +586,18 @@ int Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 * patterns used not to repeat over the region tested.
 *
 *****************************************************************************/
-int Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
+s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 {
 	u32 I;
-	u32 J;
+	u32 j;
 	u8 Val;
 	u8 FirtVal;
-	u8 Word;
+	u8 WordMem8;
+	s32 Status = 0;
 
-	Xil_AssertNonvoid(Words != 0);
+	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
+	Xil_AssertNonvoid(Addr != NULL);
 
 	/*
 	 * variable initialization
@@ -674,20 +609,14 @@ int Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 	 * select the proper Subtest(s)
 	 */
 
-	switch (Subtest) {
-
-	case XIL_TESTMEM_ALLMEMTESTS:
-		/* this case executes all of the Subtests */
-		/* fall through case statement */
-
-	case XIL_TESTMEM_INCREMENT:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_INCREMENT)) {
 		/*
 		 * Fill the memory with incrementing
 		 * values starting from 'FirtVal'
 		 */
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Addr[I] = Val;
+			*(Addr+I) = Val;
 			Val++;
 		}
 		/*
@@ -702,115 +631,102 @@ int Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		 * Val
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* read memory location */
-			Word = Addr[I];
-			if (Word != Val) {
-				return -1;
+			WordMem8 = *(Addr+I);
+			if (WordMem8 != Val) {
+				Status = -1;
+				goto End_Label;
 			}
 			Val++;
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 1 */
-
-		/* fall through case statement */
-
-	case XIL_TESTMEM_WALKONES:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial
 		 * test Patterns for walking ones test
 		 */
 
-		for (J = 0L; J < 8; J++) {
+		for (j = 0U; j < (u32)8; j++) {
 			/*
 			 * Generate an initial value for walking ones test
 			 * to test for bad data bits
 			 */
-			Val = 1 << J;
+			Val = (u8)((u32)1 << j);
 			/*
 			 * START walking ones test
 			 * Write a one to each data bit indifferent locations
 			 */
-			for (I = 0L; I < 8; I++) {
+			for (I = 0U; I < (u32)8; I++) {
 				/* write memory location */
-				Addr[I] = Val;
-				Val = (u8)RotateLeft(Val, 8);
+				*(Addr+I) = Val;
+				Val = (u8)RotateLeft(Val, 8U);
 			}
 			/*
 			 * Restore the reference 'Val' to the
 			 * initial value
 			 */
-			Val = 1 << J;
+			Val = (u8)((u32)1 << j);
 			/* Read the values from each location that was written */
-			for (I = 0L; I < 8; I++) {
+			for (I = 0U; I < (u32)8; I++) {
 				/* read memory location */
-				Word = Addr[I];
-				if (Word != Val) {
-					return -1;
+				WordMem8 = *(Addr+I);
+				if (WordMem8 != Val) {
+					Status = -1;
+					goto End_Label;
 				}
-				Val = (u8)RotateLeft(Val, 8);
+				Val = (u8)RotateLeft(Val, 8U);
 			}
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 2 */
-		/* fall through case statement */
-
-	case XIL_TESTMEM_WALKZEROS:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKZEROS)) {
 		/*
 		 * set up to cycle through all possible initial test
 		 * Patterns for walking zeros test
 		 */
 
-		for (J = 0L; J < 8; J++) {
+		for (j = 0U; j < (u32)8; j++) {
 			/*
 			 * Generate an initial value for walking ones test to test
 			 * for bad data bits
 			 */
-			Val = ~(1 << J);
+			Val = ~(1U << j);
 			/*
 			 * START walking zeros test
 			 * Write a one to each data bit indifferent locations
 			 */
-			for (I = 0L; I < 8; I++) {
+			for (I = 0U; I < (u32)8; I++) {
 				/* write memory location */
-				Addr[I] = Val;
-				Val = ~((u8)RotateLeft(~Val, 8));
+				*(Addr+I) = Val;
+				Val = ~((u8)RotateLeft(~Val, 8U));
 			}
 			/*
 			 * Restore the reference 'Val' to the
 			 * initial value
 			 */
-			Val = ~(1 << J);
+			Val = ~(1U << j);
 			/* Read the values from each location that was written */
-			for (I = 0L; I < 8; I++) {
+			for (I = 0U; I < (u32)8; I++) {
 				/* read memory location */
-				Word = Addr[I];
-				if (Word != Val) {
-					return -1;
+				WordMem8 = *(Addr+I);
+				if (WordMem8 != Val) {
+					Status = -1;
+					goto End_Label;
 				}
 
-				Val = ~((u8)RotateLeft(~Val, 8));
+				Val = ~((u8)RotateLeft(~Val, 8U));
 			}
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 3 */
-		/* fall through case statement */
-
-	case XIL_TESTMEM_INVERSEADDR:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_INVERSEADDR)) {
 		/* Fill the memory with inverse of address */
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Val = (u8) (~((u32) (&Addr[I])));
-			Addr[I] = Val;
+			Val = (u8) (~((INTPTR) (&Addr[I])));
+			*(Addr+I) = Val;
 		}
 
 		/*
@@ -818,28 +734,25 @@ int Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		 * of tested memory
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* read memory location */
-			Word = Addr[I];
-			Val = (u8) (~((u32) (&Addr[I])));
-			if ((Word ^ Val) != 0x00) {
-				return -1;
+			WordMem8 = *(Addr+I);
+			Val = (u8) (~((INTPTR) (&Addr[I])));
+			if ((WordMem8 ^ Val) != 0x00U) {
+				Status = -1;
+				goto End_Label;
 			}
 		}
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-		/* end of case 4 */
-		/* fall through case statement */
+	}
 
-	case XIL_TESTMEM_FIXEDPATTERN:
+	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_FIXEDPATTERN)) {
 		/*
 		 * Generate an initial value for
 		 * memory testing
 		 */
 
-		if (Pattern == 0) {
-			Val = 0xA5;
+		if (Pattern == (u8)0) {
+			Val = 0xA5U;
 		}
 		else {
 			Val = Pattern;
@@ -847,9 +760,9 @@ int Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		/*
 		 * Fill the memory with fixed Pattern
 		 */
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Addr[I] = Val;
+			*(Addr+I) = Val;
 		}
 		/*
 		 * Check every word within the words
@@ -857,32 +770,18 @@ int Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		 * with the fixed Pattern
 		 */
 
-		for (I = 0L; I < Words; I++) {
+		for (I = 0U; I < Words; I++) {
 			/* read memory location */
-			Word = Addr[I];
-			if (Word != Val) {
-				return -1;
+			WordMem8 = *(Addr+I);
+			if (WordMem8 != Val) {
+				Status = -1;
+				goto End_Label;
 			}
 		}
+	}
 
-		if (Subtest != XIL_TESTMEM_ALLMEMTESTS) {
-			return 0;
-		}
-
-		/* end of case 5 */
-
-		/* this break is for the prior fall through case statements */
-
-		break;
-
-	default:
-		return -1;
-
-	}	/* end of switch */
-
-	/* Successfully passed memory test ! */
-
-	return 0;
+End_Label:
+	return Status;
 }
 
 
@@ -909,27 +808,28 @@ static u32 RotateLeft(u32 Input, u8 Width)
 	u32 ReturnVal;
 	u32 WidthMask;
 	u32 MsbMask;
+	u32 LocalInput = Input;
 
 	/*
 	 * set up the WidthMask and the MsbMask
 	 */
 
-	MsbMask = 1 << (Width - 1);
+	MsbMask = 1U << (Width - 1U);
 
-	WidthMask = (MsbMask << 1) - 1;
+	WidthMask = (MsbMask << (u32)1) - (u32)1;
 
 	/*
 	 * set the Width of the Input to the correct width
 	 */
 
-	Input = Input & WidthMask;
+	LocalInput = LocalInput & WidthMask;
 
-	Msb = Input & MsbMask;
+	Msb = LocalInput & MsbMask;
 
-	ReturnVal = Input << 1;
+	ReturnVal = LocalInput << 1U;
 
-	if (Msb != 0x00000000) {
-		ReturnVal = ReturnVal | 0x00000001;
+	if (Msb != 0x00000000U) {
+		ReturnVal = ReturnVal | (u32)0x00000001;
 	}
 
 	ReturnVal = ReturnVal & WidthMask;
@@ -962,26 +862,26 @@ static u32 RotateRight(u32 Input, u8 Width)
 	u32 ReturnVal;
 	u32 WidthMask;
 	u32 MsbMask;
-
+	u32 LocalInput = Input;
 	/*
 	 * set up the WidthMask and the MsbMask
 	 */
 
-	MsbMask = 1 << (Width - 1);
+	MsbMask = 1U << (Width - 1U);
 
-	WidthMask = (MsbMask << 1) - 1;
+	WidthMask = (MsbMask << 1U) - 1U;
 
 	/*
 	 * set the width of the input to the correct width
 	 */
 
-	Input = Input & WidthMask;
+	LocalInput = LocalInput & WidthMask;
 
-	ReturnVal = Input >> 1;
+	ReturnVal = LocalInput >> 1U;
 
-	Lsb = Input & 0x00000001;
+	Lsb = LocalInput & 0x00000001U;
 
-	if (Lsb != 0x00000000) {
+	if (Lsb != 0x00000000U) {
 		ReturnVal = ReturnVal | MsbMask;
 	}
 

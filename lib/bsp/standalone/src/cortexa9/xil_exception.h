@@ -66,15 +66,15 @@ extern "C" {
 #define XIL_EXCEPTION_IRQ	XREG_CPSR_IRQ_ENABLE
 #define XIL_EXCEPTION_ALL	(XREG_CPSR_FIQ_ENABLE | XREG_CPSR_IRQ_ENABLE)
 
-#define XIL_EXCEPTION_ID_FIRST			0
-#define XIL_EXCEPTION_ID_RESET			0
-#define XIL_EXCEPTION_ID_UNDEFINED_INT		1
-#define XIL_EXCEPTION_ID_SWI_INT		2
-#define XIL_EXCEPTION_ID_PREFETCH_ABORT_INT	3
-#define XIL_EXCEPTION_ID_DATA_ABORT_INT		4
-#define XIL_EXCEPTION_ID_IRQ_INT		5
-#define XIL_EXCEPTION_ID_FIQ_INT		6
-#define XIL_EXCEPTION_ID_LAST			6
+#define XIL_EXCEPTION_ID_FIRST			0U
+#define XIL_EXCEPTION_ID_RESET			0U
+#define XIL_EXCEPTION_ID_UNDEFINED_INT		1U
+#define XIL_EXCEPTION_ID_SWI_INT		2U
+#define XIL_EXCEPTION_ID_PREFETCH_ABORT_INT	3U
+#define XIL_EXCEPTION_ID_DATA_ABORT_INT		4U
+#define XIL_EXCEPTION_ID_IRQ_INT		5U
+#define XIL_EXCEPTION_ID_FIQ_INT		6U
+#define XIL_EXCEPTION_ID_LAST			6U
 
 /*
  * XIL_EXCEPTION_ID_INT is defined for all Xilinx processors.
@@ -100,19 +100,21 @@ typedef void (*Xil_InterruptHandler)(void *data);
 * @return	None.
 *
 * @note		If bit is 0, exception is enabled.
-*		C-Style signature: void Xil_ExceptionEnableMask(Mask);
+*		C-Style signature: void Xil_ExceptionEnableMask(Mask)
 *
 ******************************************************************************/
 #ifdef __GNUC__
 #define Xil_ExceptionEnableMask(Mask)	\
-		mtcpsr(mfcpsr() & ~ (Mask & XIL_EXCEPTION_ALL))
+		mtcpsr(mfcpsr() & ~ ((Mask) & XIL_EXCEPTION_ALL))
 #elif defined (__ICCARM__)
 #define Xil_ExceptionEnableMask(Mask)	\
-		mtcpsr(mfcpsr() & ~ (Mask & XIL_EXCEPTION_ALL))
+		mtcpsr(mfcpsr() & ~ ((Mask) & XIL_EXCEPTION_ALL))
 #else
 #define Xil_ExceptionEnableMask(Mask)	\
-		{ register unsigned int Reg __asm("cpsr"); \
-		  mtcpsr(Reg & ~ (Mask & XIL_EXCEPTION_ALL)) }
+		{								\
+		  register u32 Reg __asm("cpsr"); \
+		  mtcpsr((Reg) & (~((Mask) & XIL_EXCEPTION_ALL))); \
+		}
 #endif
 
 /****************************************************************************/
@@ -136,19 +138,21 @@ typedef void (*Xil_InterruptHandler)(void *data);
 * @return	None.
 *
 * @note		If bit is 1, exception is disabled.
-*		C-Style signature: Xil_ExceptionDisableMask(Mask);
+*		C-Style signature: Xil_ExceptionDisableMask(Mask)
 *
 ******************************************************************************/
 #ifdef __GNUC__
 #define Xil_ExceptionDisableMask(Mask)	\
-		mtcpsr(mfcpsr() | (Mask & XIL_EXCEPTION_ALL))
+		mtcpsr(mfcpsr() | ((Mask) & XIL_EXCEPTION_ALL))
 #elif defined (__ICCARM__)
 #define Xil_ExceptionDisableMask(Mask)	\
 		mtcpsr(mfcpsr() | (Mask & XIL_EXCEPTION_ALL))
 #else
 #define Xil_ExceptionDisableMask(Mask)	\
-		{ register unsigned int Reg __asm("cpsr"); \
-		  mtcpsr(Reg | (Mask & XIL_EXCEPTION_ALL)) }
+		{									\
+		  register u32 Reg __asm("cpsr"); \
+		  mtcpsr((Reg) | ((Mask) & XIL_EXCEPTION_ALL)); \
+		}
 #endif
 
 /****************************************************************************/
@@ -213,11 +217,11 @@ typedef void (*Xil_InterruptHandler)(void *data);
 
 /************************** Function Prototypes *****************************/
 
-extern void Xil_ExceptionRegisterHandler(u32 id,
-					 Xil_ExceptionHandler handler,
-					 void *data);
+extern void Xil_ExceptionRegisterHandler(u32 Exception_id,
+					 Xil_ExceptionHandler Handler,
+					 void *Data);
 
-extern void Xil_ExceptionRemoveHandler(u32 id);
+extern void Xil_ExceptionRemoveHandler(u32 Exception_id);
 
 extern void Xil_ExceptionInit(void);
 extern void Xil_DataAbortHandler(void *CallBackRef);

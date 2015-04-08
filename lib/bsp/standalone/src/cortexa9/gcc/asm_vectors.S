@@ -44,7 +44,7 @@
 * 3.05a sdm	02/02/12 Save lr when profiling is enabled
 * 3.10a srt     04/18/13 Implemented ARM Erratas. Please refer to file
 *			 'xil_errata.h' for errata description
-* 4.00a pkp	22/01/14 Modified return addresses for interrupt 
+* 4.00a pkp	22/01/14 Modified return addresses for interrupt
 *			 handlers (DataAbortHandler and SVCHandler)
 *			 to fix CR#767251
 * </pre>
@@ -86,7 +86,7 @@ _vector_table:
 
 
 IRQHandler:					/* IRQ vector handler */
-	
+
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code*/
 #ifdef __ARM_NEON__
 	vpush {d0-d7}
@@ -104,7 +104,7 @@ IRQHandler:					/* IRQ vector handler */
 #endif
 
 	bl	IRQInterrupt			/* IRQ vector */
-	
+
 #ifdef __ARM_NEON__
 	pop 	{r1}
 	vmsr    FPEXC, r1
@@ -114,7 +114,7 @@ IRQHandler:					/* IRQ vector handler */
 	vpop    {d0-d7}
 #endif
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
-	
+
 
 	subs	pc, lr, #4			/* adjust return */
 
@@ -150,7 +150,7 @@ Undefined:					/* Undefined handler */
 
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 
-	b	_prestart			
+	b	_prestart
 
 	movs	pc, lr
 

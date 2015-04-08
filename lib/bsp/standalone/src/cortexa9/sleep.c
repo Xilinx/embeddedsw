@@ -64,12 +64,12 @@
 * @note		None.
 *
 ****************************************************************************/
-int sleep(unsigned int seconds)
+s32 sleep(u32 seconds)
 {
   XTime tEnd, tCur;
 
   XTime_GetTime(&tCur);
-  tEnd  = tCur + ((XTime) seconds) * COUNTS_PER_SECOND;
+  tEnd  = tCur + (((XTime) seconds) * COUNTS_PER_SECOND);
   do
   {
     XTime_GetTime(&tCur);

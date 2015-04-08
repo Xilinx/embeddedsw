@@ -1,34 +1,45 @@
-###############################################################################
+##############################################################################
 #
-# Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 Xilinx, Inc. All rights reserved.
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
+# This file contains confidential and proprietary information  of Xilinx, Inc.
+# and is protected under U.S. and  international copyright and other
+# intellectual property  laws.
 #
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
+# DISCLAIMER
+# This disclaimer is not a license and does not grant any  rights to the
+# materials distributed herewith. Except as  otherwise provided in a valid
+# license issued to you by  Xilinx, and to the maximum extent permitted by
+# applicable law:
+# (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND  WITH ALL FAULTS, AND
+# XILINX HEREBY DISCLAIMS ALL WARRANTIES  AND CONDITIONS, EXPRESS, IMPLIED,
+# OR STATUTORY, INCLUDING  BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+# NON-INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE;
+# and
+# (2) Xilinx shall not be liable (whether in contract or tort,  including
+# negligence, or under any other theory of liability) for any loss or damage of
+# any kind or nature  related to, arising under or in connection with these
+# materials, including for any direct, or any indirect,  special, incidental,
+# or consequential loss or damage  (including loss of data, profits, goodwill,
+# or any type of  loss or damage suffered as a result of any action brought
+# by a third party) even if such damage or loss was  reasonably foreseeable
+# or Xilinx had been advised of the  possibility of the same.
 #
-# Use of the Software is limited solely to applications:
-# (a) running on a Xilinx device, or
-# (b) that interact with a Xilinx device through a bus or interconnect.
+# CRITICAL APPLICATIONS
+# Xilinx products are not designed or intended to be fail-safe, or for use in
+# any application requiring fail-safe  performance, such as life-support or
+# safety devices or  systems, Class III medical devices, nuclear facilities,
+# applications related to the deployment of airbags, or any  other applications
+# that could lead to death, personal  injury, or severe property or environmental
+# damage  (individually and collectively, "Critical  Applications").
+# Customer assumes the sole risk and liability of any use of Xilinx products in
+# Critical  Applications, subject only to applicable laws and  regulations
+# governing limitations on product liability.
 #
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE
+# AT ALL TIMES.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
-#
-###############################################################################
+##############################################################################
 
 # ----------------------------------------------------------------------------
 # The following are hardcoded for Zynq.
@@ -64,9 +75,12 @@ proc generate {os_handle} {
     set enable_sw_profile [get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
     set mb_exceptions false
 
-    # proctype should be "microblaze" or ps7_cortexa9
+    # proctype should be "microblaze" or pss_cortexa53 or pss_cortexr5 or ps7_cortexa9
     set mbsrcdir "./src/microblaze"
+    set cortexa53srcdir "./src/cortexa53"
+    set cortexr5srcdir "./src/cortexr5"
     set cortexa9srcdir "./src/cortexa9"
+    set procdrv [get_sw_processor]
     set commonsrcdir "./src/common"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
@@ -76,13 +90,45 @@ proc generate {os_handle} {
     # Only processor specific file should be copied to specified standalone folder
     # write a API which needs compiler,
     switch $proctype {
-        "microblaze" { 
+        "microblaze" {
             foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
                 file copy -force $entry "./src/"
             }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
+        }
+        "pss_cortexa53"  {
+            set procdrv [get_sw_processor]
+            set ccdir "./src/cortexa53/gcc"
+            foreach entry [glob -nocomplain [file join $cortexa53srcdir *]] {
+                file copy -force $entry "./src/"
+            }
+            foreach entry [glob -nocomplain [file join $ccdir *]] {
+                file copy -force $entry "./src/"
+            }
+                file delete -force "./src/gcc"
+
+            set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+            puts $file_handle "#include \"xparameters_ps.h\""
+            puts $file_handle ""
+            close $file_handle
+        }
+        "pss_cortexr5"  {
+	    set procdrv [get_sw_processor]
+	    set ccdir "./src/cortexr5/gcc"
+	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
+		file copy -force $entry "./src/"
+	    }
+	    foreach entry [glob -nocomplain [file join $ccdir *]] {
+		file copy -force $entry "./src/"
+	    }
+	    file delete -force "./src/gcc"
+
+	    set file_handle [::hsm::utils::open_include_file "xparameters.h"]
+	    puts $file_handle "#include \"xparameters_ps.h\""
+	    puts $file_handle ""
+	    close $file_handle
         }
         "ps7_cortexa9"  {
             set procdrv [get_sw_processor]
@@ -125,6 +171,10 @@ proc generate {os_handle} {
     if { $proctype == "microblaze" } {
         puts $makeconfig "LIBSOURCES = *.c *.S"
         puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
+    } elseif { $proctype == "pss_cortexr5" } {
+	puts $makeconfig "LIBSOURCES = *.c *.S"
+    } elseif { $proctype == "pss_cortexa53" }  {
+            puts $makeconfig "LIBSOURCES = *.c *.s *.S"
     } elseif { $proctype == "ps7_cortexa9" } {
         if {[string compare -nocase $compiler "armcc"] == 0} {
             puts $makeconfig "LIBSOURCES = *.c *.s"
@@ -144,8 +194,10 @@ proc generate {os_handle} {
     }
     close $makeconfig
    
-    # Remove microblaze,  cortexa9 and common directories...
+    # Remove microblaze,  cortexr5, cortexa53 and common directories...
     file delete -force $mbsrcdir
+    file delete -force $cortexr5srcdir
+    file delete -force $cortexa53srcdir
     file delete -force $cortexa9srcdir
     file delete -force $commonsrcdir
 
@@ -528,7 +580,7 @@ proc handle_profile { os_handle proctype } {
 
     set proc [get_sw_processor]
 
-    if {$proctype == "ps7_cortexa9"} {
+    if {{$proctype == "pss_cortexa53"} | {$proctype == "pss_cortexr5"} | {$proctype == "ps7_cortexa9"}} {
         set sw_proc_handle [get_sw_processor]
         set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
         set cpu_freq [get_property CONFIG.C_CPU_CLK_FREQ_HZ $hw_proc_handle]
@@ -557,7 +609,7 @@ proc handle_profile { os_handle proctype } {
     puts $config_file "#define SAMPLE_FREQ_HZ 100000"
     puts $config_file "#define TIMER_CLK_TICKS [expr $cpu_freq / 100000]"
     
-    # proctype should be "microblaze" or "ps7_cortexa9"
+    # proctype should be "microblaze" or "pss_cortexa53"
     switch $proctype {
         "microblaze" { 
             # Microblaze Processor.
@@ -568,6 +620,37 @@ proc handle_profile { os_handle proctype } {
                 error "ERROR : Timer for Profiling NOT selected.\nS/W Intrusive Profiling on MicroBlaze requires an axi_timer." "" "mdt_error"
             } else {
                 handle_profile_opbtimer $config_file $timer_inst
+            }
+        }
+
+        "pss_cortexa53" {
+            # Cortex A53 Processor.
+
+            puts $config_file "#define PROC_CORTEXA53 1"
+            set timer_inst [get_property CONFIG.profile_timer $os_handle]
+            if { [string compare -nocase $timer_inst "none"] == 0 } {
+                # SCU Timer
+                puts $config_file "#define ENABLE_SCU_TIMER 1"
+                puts $config_file "#define ENABLE_SYS_INTR 1"
+                puts $config_file "#define PROFILE_TIMER_BASEADDR $scutimer_baseaddr"
+                puts $config_file "#define PROFILE_TIMER_INTR_ID $scutimer_intr"
+                puts $config_file "#define SCUGIC_CPU_BASEADDR $scugic_cpu_base"
+                puts $config_file "#define SCUGIC_DIST_BASEADDR $scugic_dist_base"
+            }
+        }
+	"pss_cortexr5" {
+            # Cortex R5 Processor.
+
+            puts $config_file "#define PROC_CORTEXR5 1"
+            set timer_inst [get_property CONFIG.profile_timer $os_handle]
+            if { [string compare -nocase $timer_inst "none"] == 0 } {
+                # SCU Timer
+                puts $config_file "#define ENABLE_SCU_TIMER 1"
+                puts $config_file "#define ENABLE_SYS_INTR 1"
+                puts $config_file "#define PROFILE_TIMER_BASEADDR $scutimer_baseaddr"
+                puts $config_file "#define PROFILE_TIMER_INTR_ID $scutimer_intr"
+                puts $config_file "#define SCUGIC_CPU_BASEADDR $scugic_cpu_base"
+                puts $config_file "#define SCUGIC_DIST_BASEADDR $scugic_dist_base"
             }
         }
 

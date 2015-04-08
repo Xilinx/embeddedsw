@@ -41,16 +41,16 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 1.00a ecm/sdm 10/20/09 Initial version
-* 3.06a sgd     05/15/12 Updated L2CC Auxiliary and Tag RAM Latency control 
+* 3.06a sgd     05/15/12 Updated L2CC Auxiliary and Tag RAM Latency control
 *			 register settings.
 * 3.06a asa 	06/17/12 Modified the TTBR settings and L2 Cache auxiliary
 *		         register settings.
 * 3.07a asa     07/16/12 Modified the L2 Cache controller settings to improve
 *			 performance. Changed the property of the ".boot"
 *			 section.
-* 3.07a sgd     08/21/12 Modified the L2 Cache controller and cp15 Aux Control 
+* 3.07a sgd     08/21/12 Modified the L2 Cache controller and cp15 Aux Control
 *               Register settings
-* 3.09a sgd     02/06/13 Updated SLCR l2c Ram Control register to a 
+* 3.09a sgd     02/06/13 Updated SLCR l2c Ram Control register to a
 *               value of 0x00020202. Fix for CR 697094 (SI#687034).
 * 3.10a srt     04/18/13 Implemented ARM Erratas. Please refer to file
 *			 'xil_errata.h' for errata description
@@ -99,13 +99,13 @@
 /* workaround for simulation not working when L1 D and I caches,MMU and  L2 cache enabled - DT568997 */
 .if SIM_MODE == 1
 .set CRValMmuCac,	0b00000000000000	/* Disable IDC, and MMU */
-.else 
+.else
 .set CRValMmuCac,	0b01000000000101	/* Enable IDC, and MMU */
 .endif
 
 .set CRValHiVectorAddr,	0b10000000000000	/* Set the Vector address to high, 0xFFFF0000 */
 
-.set L2CCAuxControl,	0x72360000		/* Enable all prefetching, Cache replacement policy, Parity enable, 
+.set L2CCAuxControl,	0x72360000		/* Enable all prefetching, Cache replacement policy, Parity enable,
                                         Event monitor bus enable and Way Size (64 KB) */
 .set L2CCControl,	0x01			/* Enable L2CC */
 .set L2CCTAGLatency,	0x0111			/* latency for TAG RAM */
@@ -158,7 +158,7 @@ EndlessLoop1:
 
 OKToRun:
 	mrc     p15, 0, r0, c0, c0, 0		/* Get the revision */
-	and     r5, r0, #0x00f00000 
+	and     r5, r0, #0x00f00000
 	and     r6, r0, #0x0000000f
 	orr     r6, r6, r5, lsr #20-4
 
@@ -183,7 +183,7 @@ OKToRun:
 	/*set scu enable bit in scu*/
 	ldr	r7, =0xf8f00000
 	ldr	r0, [r7]
-	orr	r0, r0, #0x1  
+	orr	r0, r0, #0x1
 	str	r0, [r7]
 
 	/*invalidate scu*/
@@ -194,7 +194,7 @@ OKToRun:
 	/* Write to ACTLR */
 	mrc	p15, 0, r0, c1, c0, 1		/* Read ACTLR*/
 	orr	r0, r0, #(0x01 << 6)		/* set SMP bit */
-	orr	r0, r0, #(0x01 )		/* */		
+	orr	r0, r0, #(0x01 )		/* */
 	mcr	p15, 0, r0, c1, c0, 1		/* Write ACTLR*/
 
 /* Invalidate caches and TLBs */
@@ -238,7 +238,7 @@ Sync:	ldr	r1, [r0]
 
 	ldr	r0,=L2CCIntRaw			/* clear pending interrupts */
 	ldr	r1,[r0]
-	ldr	r0,=L2CCIntClear	
+	ldr	r0,=L2CCIntClear
 	str	r1,[r0]
 #endif
 
@@ -321,8 +321,8 @@ mmu_loop:
 	ldr	r0,=TblBase			/* Load MMU translation table base */
 	orr	r0, r0, #0x5B			/* Outer-cacheable, WB */
 	mcr	15, 0, r0, c2, c0, 0		/* TTB0 */
-	
-	
+
+
 	mvn	r0,#0				/* Load MMU domains -- all ones=manager */
 	mcr	p15,0,r0,c3,c0,0
 
@@ -340,11 +340,11 @@ mmu_loop:
 	ldr	r1,=SLCRUnlockKey	    /* set unlock key */
 	str	r1, [r0]		    /* Unlock SLCR */
 
-   	ldr	r0,=SLCRL2cRamReg		/* Load SLCR base address base + l2c Ram Control register */
+	ldr	r0,=SLCRL2cRamReg		/* Load SLCR base address base + l2c Ram Control register */
 	ldr	r1,=SLCRL2cRamConfig        /* set the configuration value */
 	str	r1, [r0]	        /* store the L2c Ram Control Register */
 
-   	ldr	r0,=SLCRlockReg         /* Load SLCR base address base + lock register */
+	ldr	r0,=SLCRlockReg         /* Load SLCR base address base + lock register */
 	ldr	r1,=SLCRlockKey	        /* set lock key */
 	str	r1, [r0]	        /* lock SLCR */
 
@@ -366,7 +366,7 @@ mmu_loop:
 	fmxr	FPEXC, r1			/* write back the exception register */
 
 	mrc	p15,0,r0,c1,c0,0		/* flow prediction enable */
-	orr	r0, r0, #(0x01 << 11)		/* #0x8000 */		
+	orr	r0, r0, #(0x01 << 11)		/* #0x8000 */
 	mcr	p15,0,r0,c1,c0,0
 
 	mrc	p15,0,r0,c1,c0,1		/* read Auxiliary Control Register */
@@ -377,11 +377,11 @@ mmu_loop:
 	mrs	r0, cpsr			/* get the current PSR */
 	bic	r0, r0, #0x100			/* enable asynchronous abort exception */
 	msr	cpsr_xsf, r0
-	
-	
+
+
 	b	_start				/* jump to C startup code */
 	and	r0, r0, r0			/* no op */
-	
+
 .Ldone:	b	.Ldone				/* Paranoia: we should never get here */
 
 
@@ -441,5 +441,3 @@ finished:
 	bx	lr
 
 .end
-
-

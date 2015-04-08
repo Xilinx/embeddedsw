@@ -52,6 +52,7 @@
 
 /***************************** Include Files ********************************/
 
+#include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -67,7 +68,7 @@ extern "C" {
 #define tostring(s)	#s
 
 /* pseudo assembler instructions */
-#define mfcpsr()	({unsigned int rval; \
+#define mfcpsr()	({u32 rval; \
 			  __asm__ __volatile__(\
 			    "mrs	%0, cpsr\n"\
 			    : "=r" (rval)\
@@ -93,7 +94,7 @@ extern "C" {
 			  : : "r" (v)\
 			)
 
-#define mfgpr(rn)	({unsigned int rval; \
+#define mfgpr(rn)	({u32 rval; \
 			  __asm__ __volatile__(\
 			    "mov %0,r" stringify(rn) "\n"\
 			    : "=r" (rval)\
@@ -114,7 +115,7 @@ extern "C" {
 
 
 /* Memory Operations */
-#define ldr(adr)	({unsigned long rval; \
+#define ldr(adr)	({u32 rval; \
 			  __asm__ __volatile__(\
 			    "ldr	%0,[%1]"\
 			    : "=r" (rval) : "r" (adr)\
@@ -122,7 +123,7 @@ extern "C" {
 			  rval;\
 			 })
 
-#define ldrb(adr)	({unsigned char rval; \
+#define ldrb(adr)	({u8 rval; \
 			  __asm__ __volatile__(\
 			    "ldrb	%0,[%1]"\
 			    : "=r" (rval) : "r" (adr)\
@@ -141,7 +142,7 @@ extern "C" {
 			)
 
 /* Count leading zeroes (clz) */
-#define clz(arg)	({unsigned char rval; \
+#define clz(arg)	({u8 rval; \
 			  __asm__ __volatile__(\
 			    "clz	%0,%1"\
 			    : "=r" (rval) : "r" (arg)\
@@ -155,7 +156,7 @@ extern "C" {
 			 : : "r" (v)\
 			);
 
-#define mfcp(rn)	({unsigned int rval; \
+#define mfcp(rn)	({u32 rval; \
 			 __asm__ __volatile__(\
 			   "mrc " rn "\n"\
 			   : "=r" (rval)\

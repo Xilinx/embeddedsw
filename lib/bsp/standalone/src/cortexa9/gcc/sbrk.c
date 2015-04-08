@@ -31,37 +31,35 @@
 ******************************************************************************/
 
 #include <errno.h>
+#include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) char *sbrk (int nbytes);
+	__attribute__((weak)) char8 *sbrk (s32 nbytes);
 }
 #endif
 
-extern char _heap_start[];
-extern char _heap_end[];
-extern char HeapBase[];
-extern char HeapLimit[];
+extern u8 _heap_start[];
+extern u8 _heap_end[];
+extern char8 HeapBase[];
+extern char8 HeapLimit[];
 
-static char *heap_ptr;
 
-__attribute__((weak)) char *sbrk (int nbytes)
+
+__attribute__((weak)) char8 *sbrk (s32 nbytes)
 {
-  char *base;
-
-  if (!heap_ptr)
-    /*heap_ptr = (char *)&_heap_start;*/
-    heap_ptr = (char *)&HeapBase;
+  char8 *base;
+  static char8 *heap_ptr = HeapBase;
 
   base = heap_ptr;
-  heap_ptr += nbytes;
+  if(heap_ptr != NULL) {
+	heap_ptr += nbytes;
+  }
 
-/*  if (heap_ptr <= ((char *)&_heap_end + 1))*/
-  if (heap_ptr <= ((char *)&HeapLimit + 1))
+/*  if (heap_ptr <= ((char8 *)&_heap_end + 1)) */
+  if (heap_ptr <= ((char8 *)&HeapLimit + 1)) {
     return base;
-
-  else
-  {
+  }	else {
     errno = ENOMEM;
-    return ((char *)-1);
+    return ((char8 *)-1);
   }
 }

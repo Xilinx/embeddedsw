@@ -55,11 +55,12 @@
 #include "sleep.h"
 #include "xtime_l.h"
 #include "xparameters.h"
+#include "xil_types.h"
 #include "xpseudo_asm.h"
 #include "xreg_cortexa9.h"
 
 /* Global Timer is always clocked at half of the CPU frequency */
-#define COUNTS_PER_USECOND  (XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ / (2*1000000))
+#define COUNTS_PER_USECOND  (XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ / (2U*1000000U))
 
 /*****************************************************************************/
 /**
@@ -74,12 +75,12 @@
 * @note		None.
 *
 ****************************************************************************/
-int usleep(unsigned int useconds)
+s32 usleep(u32 useconds)
 {
 	XTime tEnd, tCur;
 
 	XTime_GetTime(&tCur);
-	tEnd = tCur + ((XTime) useconds) * COUNTS_PER_USECOND;
+	tEnd = tCur + (((XTime) useconds) * COUNTS_PER_USECOND);
 	do
 	{
 		XTime_GetTime(&tCur);

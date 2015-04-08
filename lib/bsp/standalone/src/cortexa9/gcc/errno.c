@@ -36,15 +36,16 @@
 
 #include <errno.h>
 #include <reent.h>
+#include "xil_types.h"
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) int * __errno ();
+	__attribute__((weak)) sint32 * __errno (void);
 }
 #endif
 
-__attribute__((weak)) int *
-__errno ()
+__attribute__((weak)) sint32 *
+__errno (void)
 {
   return &_REENT->_errno;
 }

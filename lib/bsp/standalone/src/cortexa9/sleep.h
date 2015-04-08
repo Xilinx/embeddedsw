@@ -29,6 +29,7 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+#include "xil_types.h"
 
 #ifndef SLEEP_H
 #define SLEEP_H
@@ -37,8 +38,8 @@
 extern "C" {
 #endif
 
-int usleep(unsigned int useconds);
-int sleep(unsigned int seconds);
+s32 usleep(u32 useconds);
+s32 sleep(u32 seconds);
 
 #ifdef __cplusplus
 }

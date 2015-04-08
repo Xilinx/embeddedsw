@@ -108,7 +108,7 @@ XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
 *****************************************************************************/
 static void Xil_ExceptionNullHandler(void *Data)
 {
-	(void)Data;
+	(void *)Data;
 DieLoop: goto DieLoop;
 }
 
@@ -154,12 +154,12 @@ void Xil_ExceptionInit(void)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_ExceptionRegisterHandler(u32 exception_id,
+void Xil_ExceptionRegisterHandler(u32 Exception_id,
 				    Xil_ExceptionHandler Handler,
 				    void *Data)
 {
-	XExc_VectorTable[exception_id].Handler = Handler;
-	XExc_VectorTable[exception_id].Data = Data;
+	XExc_VectorTable[Exception_id].Handler = Handler;
+	XExc_VectorTable[Exception_id].Data = Data;
 }
 
 /*****************************************************************************/
@@ -177,9 +177,9 @@ void Xil_ExceptionRegisterHandler(u32 exception_id,
 * @note		None.
 *
 ****************************************************************************/
-void Xil_ExceptionRemoveHandler(u32 exception_id)
+void Xil_ExceptionRemoveHandler(u32 Exception_id)
 {
-	Xil_ExceptionRegisterHandler(exception_id,
+	Xil_ExceptionRegisterHandler(Exception_id,
 				       Xil_ExceptionNullHandler,
 				       NULL);
 }
@@ -206,11 +206,13 @@ void Xil_DataAbortHandler(void *CallBackRef){
 	#elif defined (__ICCARM__)
 		mfcp(XREG_CP15_DATA_FAULT_STATUS,FaultStatus);
 	#else
-		{ volatile register unsigned int Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
+		{ volatile register u32 Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
 	  FaultStatus = Reg; }
 	#endif
 	xdbg_printf(XDBG_DEBUG_ERROR, "Data abort with Data Fault Status Register  %x\n",FaultStatus);
-	while(1);
+	while(1) {
+		;
+	}
 }
 
 /*****************************************************************************/
@@ -233,9 +235,11 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 	#elif defined (__ICCARM__)
 		mfcp(XREG_CP15_INST_FAULT_STATUS,FaultStatus);
 	#else
-		{ volatile register unsigned int Reg __asm(XREG_CP15_INST_FAULT_STATUS);
+		{ volatile register u32 Reg __asm(XREG_CP15_INST_FAULT_STATUS);
 	  FaultStatus = Reg; }
 	#endif
 	xdbg_printf(XDBG_DEBUG_ERROR, "Prefetch abort with Instruction Fault Status Register  %x\n",FaultStatus);
-	while(1);
+	while(1) {
+		;
+	}
 }

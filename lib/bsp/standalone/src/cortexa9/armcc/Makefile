@@ -67,15 +67,15 @@ OBJECTS = $(OBJS)
 libs: boot_libs banner $(LIBS)
 
 boot_libs:
-ifeq ($(findstring boot.S,$(wildcard *.S)),boot.S) 
+ifeq ($(findstring boot.S,$(wildcard *.S)),boot.S)
 	${COMPILER} $(INCLUDES) -E -o boot_post.s boot.S
 endif
 	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o boot_post.o boot_post.s
-	rm -f boot.S 
+	rm -f boot.S
 
 $(AOBJS1): $(ASOURCES1)
 	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o $@ $<
-	
+
 $(AOBJS2): $(ASOURCES2)
 	${AS} --cpu=Cortex-A9 --fpu=VFPv3_FP16 -o $@ $<
 

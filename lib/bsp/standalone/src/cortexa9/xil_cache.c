@@ -100,11 +100,11 @@
 
 /************************** Variable Definitions *****************************/
 
-#define IRQ_FIQ_MASK 0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
+#define IRQ_FIQ_MASK 0xC0U	/* Mask IRQ and FIQ interrupts in cpsr */
 
 #ifdef __GNUC__
-	extern int  _stack_end;
-	extern int  _stack;
+	extern s32  _stack_end;
+	extern s32  _stack;
 #endif
 
 /****************************************************************************
@@ -149,9 +149,9 @@ static void Xil_L2CacheSync(void)
 #endif
 {
 #ifdef CONFIG_PL310_ERRATA_753970
-	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_DUMMY_CACHE_SYNC_OFFSET, 0x0);
+	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_DUMMY_CACHE_SYNC_OFFSET, 0x0U);
 #else
-	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_SYNC_OFFSET, 0x0);
+	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_SYNC_OFFSET, 0x0U);
 #endif
 }
 
@@ -202,7 +202,7 @@ void Xil_DCacheDisable(void)
 ****************************************************************************/
 void Xil_DCacheInvalidate(void)
 {
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -228,9 +228,9 @@ void Xil_DCacheInvalidate(void)
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_DCacheInvalidateLine(unsigned int adr)
+void Xil_DCacheInvalidateLine(u32 adr)
 {
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -302,46 +302,46 @@ void Xil_DCacheInvalidateLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_DCacheInvalidateRange(unsigned int adr, unsigned len)
+void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	unsigned int tempadr = adr;
-	unsigned int tempend;
-	unsigned int currmask;
-	volatile u32 *L2CCOffset = (volatile u32 *) (XPS_L2CC_BASEADDR +
+	const u32 cacheline = 32U;
+	u32 end;
+	u32 tempadr = adr;
+	u32 tempend;
+	u32 currmask;
+	volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
 				    XPS_L2CC_CACHE_INVLD_PA_OFFSET);
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	if (len != 0) {
+	if (len != 0U) {
 		end = tempadr + len;
 		tempend = end;
 		/* Select L1 Data cache in CSSR */
-		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
+		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 
-		if (tempadr & (cacheline-1)) {
-			tempadr &= ~(cacheline - 1);
+		if ((tempadr & (cacheline-1U)) != 0U) {
+			tempadr &= (~(cacheline - 1U));
 
 			Xil_L1DCacheFlushLine(tempadr);
 			/* Disable Write-back and line fills */
-			Xil_L2WriteDebugCtrl(0x3);
+			Xil_L2WriteDebugCtrl(0x3U);
 			Xil_L2CacheFlushLine(tempadr);
 			/* Enable Write-back and line fills */
-			Xil_L2WriteDebugCtrl(0x0);
+			Xil_L2WriteDebugCtrl(0x0U);
 			Xil_L2CacheSync();
 			tempadr += cacheline;
 		}
-		if (tempend & (cacheline-1)) {
-			tempend &= ~(cacheline - 1);
+		if ((tempend & (cacheline-1U)) != 0U) {
+			tempend &= (~(cacheline - 1U));
 
 			Xil_L1DCacheFlushLine(tempend);
 			/* Disable Write-back and line fills */
-			Xil_L2WriteDebugCtrl(0x3);
+			Xil_L2WriteDebugCtrl(0x3U);
 			Xil_L2CacheFlushLine(tempend);
 			/* Enable Write-back and line fills */
-			Xil_L2WriteDebugCtrl(0x0);
+			Xil_L2WriteDebugCtrl(0x0U);
 			Xil_L2CacheSync();
 		}
 
@@ -357,7 +357,7 @@ void Xil_DCacheInvalidateRange(unsigned int adr, unsigned len)
 			__asm volatile ("mcr " \
 			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (tempadr));
 #else
-			{ volatile register unsigned int Reg
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);
 			  Reg = tempadr; }
 #endif
@@ -382,7 +382,7 @@ void Xil_DCacheInvalidateRange(unsigned int adr, unsigned len)
 ****************************************************************************/
 void Xil_DCacheFlush(void)
 {
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -407,21 +407,21 @@ void Xil_DCacheFlush(void)
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_DCacheFlushLine(unsigned int adr)
+void Xil_DCacheFlushLine(u32 adr)
 {
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 	Xil_L1DCacheFlushLine(adr);
 
 	/* Disable Write-back and line fills */
-	Xil_L2WriteDebugCtrl(0x3);
+	Xil_L2WriteDebugCtrl(0x3U);
 
 	Xil_L2CacheFlushLine(adr);
 
 	/* Enable Write-back and line fills */
-	Xil_L2WriteDebugCtrl(0x0);
+	Xil_L2WriteDebugCtrl(0x0U);
 	Xil_L2CacheSync();
 	mtcpsr(currmask);
 }
@@ -441,41 +441,42 @@ void Xil_DCacheFlushLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_DCacheFlushRange(unsigned int adr, unsigned len)
+void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	unsigned int currmask;
-	volatile u32 *L2CCOffset = (volatile u32 *) (XPS_L2CC_BASEADDR +
+	u32 LocalAddr = adr;
+	const u32 cacheline = 32U;
+	u32 end;
+	u32 currmask;
+	volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
 				    XPS_L2CC_CACHE_INV_CLN_PA_OFFSET);
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	if (len != 0) {
+	if (len != 0U) {
 		/* Back the starting address up to the start of a cache line
 		 * perform cache operations until adr+len
 		 */
-		end = adr + len;
-		adr &= ~(cacheline - 1);
+		end = LocalAddr + len;
+		LocalAddr &= ~(cacheline - 1U);
 
-		while (adr < end) {
+		while (LocalAddr < end) {
 #ifdef __GNUC__
 			/* Flush L1 Data cache line */
 			__asm__ __volatile__("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
 #elif defined (__ICCARM__)
 			__asm volatile ("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
 #else
-			{ volatile register unsigned int Reg
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC);
-			  Reg = adr; }
+			  Reg = LocalAddr; }
 #endif
 			/* Flush L2 cache line */
-			*L2CCOffset = adr;
+			*L2CCOffset = LocalAddr;
 			dsb();
-			adr += cacheline;
+			LocalAddr += cacheline;
 		}
 	}
 	dsb();
@@ -496,9 +497,9 @@ void Xil_DCacheFlushRange(unsigned int adr, unsigned len)
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_DCacheStoreLine(unsigned int adr)
+void Xil_DCacheStoreLine(u32 adr)
 {
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -555,7 +556,7 @@ void Xil_ICacheDisable(void)
 ****************************************************************************/
 void Xil_ICacheInvalidate(void)
 {
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -579,9 +580,9 @@ void Xil_ICacheInvalidate(void)
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_ICacheInvalidateLine(unsigned int adr)
+void Xil_ICacheInvalidateLine(u32 adr)
 {
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -606,45 +607,46 @@ void Xil_ICacheInvalidateLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_ICacheInvalidateRange(unsigned int adr, unsigned len)
+void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	volatile u32 *L2CCOffset = (volatile u32 *) (XPS_L2CC_BASEADDR +
+	u32 LocalAddr = adr;
+	const u32 cacheline = 32U;
+	u32 end;
+	volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
 				    XPS_L2CC_CACHE_INVLD_PA_OFFSET);
 
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
-	if (len != 0) {
+	if (len != 0U) {
 		/* Back the starting address up to the start of a cache line
 		 * perform cache operations until adr+len
 		 */
-		end = adr + len;
-		adr = adr & ~(cacheline - 1);
+		end = LocalAddr + len;
+		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
 		/* Select cache L0 I-cache in CSSR */
-		mtcp(XREG_CP15_CACHE_SIZE_SEL, 1);
+		mtcp(XREG_CP15_CACHE_SIZE_SEL, 1U);
 
-		while (adr < end) {
+		while (LocalAddr < end) {
 		/* Invalidate L2 cache line */
-		*L2CCOffset = adr;
+		*L2CCOffset = LocalAddr;
 		dsb();
 #ifdef __GNUC__
 			/* Invalidate L1 I-cache line */
 			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
+			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
 #elif defined (__ICCARM__)
 			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
+			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
 #else
-			{ volatile register unsigned int Reg
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_IC_LINE_MVA_POU);
-			  Reg = adr; }
+			  Reg = LocalAddr; }
 #endif
 
-			adr += cacheline;
+			LocalAddr += cacheline;
 		}
 	}
 
@@ -666,7 +668,7 @@ void Xil_ICacheInvalidateRange(unsigned int adr, unsigned len)
 ****************************************************************************/
 void Xil_L1DCacheEnable(void)
 {
-	register unsigned int CtrlReg;
+	register u32 CtrlReg;
 
 	/* enable caches only if they are disabled */
 #ifdef __GNUC__
@@ -674,10 +676,10 @@ void Xil_L1DCacheEnable(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
-	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
+	{ volatile register u32 Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
 #endif
-	if (CtrlReg & XREG_CP15_CONTROL_C_BIT) {
+	if ((CtrlReg & (XREG_CP15_CONTROL_C_BIT)) != 0U) {
 		return;
 	}
 
@@ -703,7 +705,7 @@ void Xil_L1DCacheEnable(void)
 ****************************************************************************/
 void Xil_L1DCacheDisable(void)
 {
-	register unsigned int CtrlReg;
+	register u32 CtrlReg;
 
 	/* clean and invalidate the Data cache */
 	Xil_L1DCacheFlush();
@@ -714,7 +716,7 @@ void Xil_L1DCacheDisable(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
-	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
+	{ volatile register u32 Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
 #endif
 
@@ -738,21 +740,21 @@ void Xil_L1DCacheDisable(void)
 ****************************************************************************/
 void Xil_L1DCacheInvalidate(void)
 {
-	register unsigned int CsidReg, C7Reg;
-	unsigned int CacheSize, LineSize, NumWays;
-	unsigned int Way, WayIndex, Set, SetIndex, NumSet;
-	unsigned int currmask;
+	register u32 CsidReg, C7Reg;
+	u32 CacheSize, LineSize, NumWays;
+	u32 Way, WayIndex, Set, SetIndex, NumSet;
+	u32 currmask;
 
 #ifdef __GNUC__
-	unsigned int stack_start,stack_end,stack_size;
+	u32 stack_start,stack_end,stack_size;
 #endif
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
 #ifdef __GNUC__
-	stack_end = (unsigned int )&_stack_end;
-	stack_start = (unsigned int )&_stack;
+	stack_end = (u32)&_stack_end;
+	stack_start = (u32)&_stack;
 	stack_size=stack_start-stack_end;
 
 	/*Flush stack memory to save return address*/
@@ -760,37 +762,37 @@ void Xil_L1DCacheInvalidate(void)
 #endif
 
 	/* Select cache level 0 and D cache in CSSR */
-	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
+	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 
 #ifdef __GNUC__
 	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_CACHE_SIZE_ID, CsidReg);
 #else
-	{ volatile register unsigned int Reg __asm(XREG_CP15_CACHE_SIZE_ID);
+	{ volatile register u32 Reg __asm(XREG_CP15_CACHE_SIZE_ID);
 	  CsidReg = Reg; }
 #endif
 	/* Determine Cache Size */
-	CacheSize = (CsidReg >> 13) & 0x1FF;
-	CacheSize +=1;
-	CacheSize *=128;    /* to get number of bytes */
+	CacheSize = (CsidReg >> 13U) & 0x1FFU;
+	CacheSize +=1U;
+	CacheSize *=128U;    /* to get number of bytes */
 
 	/* Number of Ways */
-	NumWays = (CsidReg & 0x3ff) >> 3;
-	NumWays += 1;
+	NumWays = (CsidReg & 0x3ffU) >> 3U;
+	NumWays += 1U;
 
 	/* Get the cacheline size, way size, index size from csidr */
-	LineSize = (CsidReg & 0x07) + 4;
+	LineSize = (CsidReg & 0x07U) + 4U;
 
 	NumSet = CacheSize/NumWays;
-	NumSet /= (1 << LineSize);
+	NumSet /= (0x00000001U << LineSize);
 
-	Way = 0UL;
-	Set = 0UL;
+	Way = 0U;
+	Set = 0U;
 
 	/* Invalidate all the cachelines */
-	for (WayIndex =0; WayIndex < NumWays; WayIndex++) {
-		for (SetIndex =0; SetIndex < NumSet; SetIndex++) {
+	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
+		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
 			C7Reg = Way | Set;
 #ifdef __GNUC__
 			/* Invalidate by Set/Way */
@@ -800,15 +802,15 @@ void Xil_L1DCacheInvalidate(void)
 			__asm volatile ("mcr " \
 			XREG_CP15_INVAL_DC_LINE_SW :: "r" (C7Reg));
 #else
-			//mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg);
-			{ volatile register unsigned int Reg
+			/*mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg), */
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_SW);
 			  Reg = C7Reg; }
 #endif
-			Set += (1 << LineSize);
+			Set += (0x00000001U << LineSize);
 		}
-		Set=0UL;
-		Way += 0x40000000;
+		Set=0U;
+		Way += 0x40000000U;
 	}
 
 	/* Wait for L1 invalidate to complete */
@@ -831,10 +833,10 @@ void Xil_L1DCacheInvalidate(void)
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_L1DCacheInvalidateLine(unsigned int adr)
+void Xil_L1DCacheInvalidateLine(u32 adr)
 {
-	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
-	mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC, (adr & (~0x1F)));
+	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
+	mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC, (adr & (~0x1FU)));
 
 	/* Wait for L1 invalidate to complete */
 	dsb();
@@ -856,38 +858,39 @@ void Xil_L1DCacheInvalidateLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_L1DCacheInvalidateRange(unsigned int adr, unsigned len)
+void Xil_L1DCacheInvalidateRange(u32 adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	unsigned int currmask;
+	u32 LocalAddr = adr;
+	const u32 cacheline = 32U;
+	u32 end;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	if (len != 0) {
+	if (len != 0U) {
 		/* Back the starting address up to the start of a cache line
 		 * perform cache operations until adr+len
 		 */
-		end = adr + len;
-		adr = adr & ~(cacheline - 1);
+		end = LocalAddr + len;
+		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
 		/* Select cache L0 D-cache in CSSR */
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
 
-		while (adr < end) {
+		while (LocalAddr < end) {
 #ifdef __GNUC__
 			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
 #elif defined (__ICCARM__)
 			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
 #else
-			{ volatile register unsigned int Reg
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);
-			  Reg = adr; }
+			  Reg = LocalAddr; }
 #endif
-			adr += cacheline;
+			LocalAddr += cacheline;
 		}
 	}
 
@@ -910,10 +913,11 @@ void Xil_L1DCacheInvalidateRange(unsigned int adr, unsigned len)
 ****************************************************************************/
 void Xil_L1DCacheFlush(void)
 {
-	register unsigned int CsidReg, C7Reg;
-	unsigned int CacheSize, LineSize, NumWays;
-	unsigned int Way, WayIndex, Set, SetIndex, NumSet;
-	unsigned int currmask;
+	register u32 CsidReg, C7Reg;
+	u32 CacheSize, LineSize, NumWays;
+	u32 Way;
+	u32 WayIndex, Set, SetIndex, NumSet;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -926,32 +930,32 @@ void Xil_L1DCacheFlush(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_CACHE_SIZE_ID, CsidReg);
 #else
-	{ volatile register unsigned int Reg __asm(XREG_CP15_CACHE_SIZE_ID);
+	{ volatile register u32 Reg __asm(XREG_CP15_CACHE_SIZE_ID);
 	  CsidReg = Reg; }
 #endif
 
 	/* Determine Cache Size */
 
-	CacheSize = (CsidReg >> 13) & 0x1FF;
-	CacheSize +=1;
-	CacheSize *=128;    /* to get number of bytes */
+	CacheSize = (CsidReg >> 13U) & 0x1FFU;
+	CacheSize +=1U;
+	CacheSize *=128U;    /* to get number of bytes */
 
 	/* Number of Ways */
-	NumWays = (CsidReg & 0x3ff) >> 3;
-	NumWays += 1;
+	NumWays = (CsidReg & 0x3ffU) >> 3U;
+	NumWays += 1U;
 
 	/* Get the cacheline size, way size, index size from csidr */
-	LineSize = (CsidReg & 0x07) + 4;
+	LineSize = (CsidReg & 0x07U) + 4U;
 
 	NumSet = CacheSize/NumWays;
-	NumSet /= (1 << LineSize);
+	NumSet /= (0x00000001U << LineSize);
 
-	Way = 0UL;
-	Set = 0UL;
+	Way = 0U;
+	Set = 0U;
 
 	/* Invalidate all the cachelines */
-	for (WayIndex =0; WayIndex < NumWays; WayIndex++) {
-		for (SetIndex =0; SetIndex < NumSet; SetIndex++) {
+	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
+		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
 			C7Reg = Way | Set;
 			/* Flush by Set/Way */
 #ifdef __GNUC__
@@ -961,14 +965,14 @@ void Xil_L1DCacheFlush(void)
 			__asm volatile ("mcr " \
 			XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (C7Reg));
 #else
-			{ volatile register unsigned int Reg
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_CLEAN_INVAL_DC_LINE_SW);
 			  Reg = C7Reg; }
 #endif
-			Set += (1 << LineSize);
+			Set += (0x00000001U << LineSize);
 		}
-		Set = 0UL;
-		Way += 0x40000000;
+		Set = 0U;
+		Way += 0x40000000U;
 	}
 
 	/* Wait for L1 flush to complete */
@@ -991,10 +995,10 @@ void Xil_L1DCacheFlush(void)
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_L1DCacheFlushLine(unsigned int adr)
+void Xil_L1DCacheFlushLine(u32 adr)
 {
-	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
-	mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC, (adr & (~0x1F)));
+	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
+	mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC, (adr & (~0x1FU)));
 
 	/* Wait for L1 flush to complete */
 	dsb();
@@ -1015,38 +1019,39 @@ void Xil_L1DCacheFlushLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_L1DCacheFlushRange(unsigned int adr, unsigned len)
+void Xil_L1DCacheFlushRange(u32 adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	unsigned int currmask;
+	u32 LocalAddr = adr;
+	const u32 cacheline = 32U;
+	u32 end;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	if (len != 0) {
+	if (len != 0U) {
 		/* Back the starting address up to the start of a cache line
 		 * perform cache operations until adr+len
 		 */
-		end = adr + len;
-		adr = adr & ~(cacheline - 1);
+		end = LocalAddr + len;
+		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
 		/* Select cache L0 D-cache in CSSR */
-		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
+		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 
-		while (adr < end) {
+		while (LocalAddr < end) {
 #ifdef __GNUC__
 			__asm__ __volatile__("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
 #elif defined (__ICCARM__)
 			__asm volatile ("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (adr));
+			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
 #else
-			{ volatile register unsigned int Reg
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC);
-			  Reg = adr; }
+			  Reg = LocalAddr; }
 #endif
-			adr += cacheline;
+			LocalAddr += cacheline;
 		}
 	}
 
@@ -1070,10 +1075,10 @@ void Xil_L1DCacheFlushRange(unsigned int adr, unsigned len)
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_L1DCacheStoreLine(unsigned int adr)
+void Xil_L1DCacheStoreLine(u32 adr)
 {
-	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
-	mtcp(XREG_CP15_CLEAN_DC_LINE_MVA_POC, (adr & (~0x1F)));
+	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
+	mtcp(XREG_CP15_CLEAN_DC_LINE_MVA_POC, (adr & (~0x1FU)));
 
 	/* Wait for L1 store to complete */
 	dsb();
@@ -1092,7 +1097,7 @@ void Xil_L1DCacheStoreLine(unsigned int adr)
 ****************************************************************************/
 void Xil_L1ICacheEnable(void)
 {
-	register unsigned int CtrlReg;
+	register u32 CtrlReg;
 
 	/* enable caches only if they are disabled */
 #ifdef __GNUC__
@@ -1100,15 +1105,15 @@ void Xil_L1ICacheEnable(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
-	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
+	{ volatile register u32 Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
 #endif
-	if (CtrlReg & XREG_CP15_CONTROL_I_BIT) {
+	if ((CtrlReg & (XREG_CP15_CONTROL_I_BIT)) != 0U) {
 		return;
 	}
 
 	/* invalidate the instruction cache */
-	mtcp(XREG_CP15_INVAL_IC_POU, 0);
+	mtcp(XREG_CP15_INVAL_IC_POU, 0U);
 
 	/* enable the instruction cache */
 	CtrlReg |= (XREG_CP15_CONTROL_I_BIT);
@@ -1129,12 +1134,12 @@ void Xil_L1ICacheEnable(void)
 ****************************************************************************/
 void Xil_L1ICacheDisable(void)
 {
-	register unsigned int CtrlReg;
+	register u32 CtrlReg;
 
 	dsb();
 
 	/* invalidate the instruction cache */
-	mtcp(XREG_CP15_INVAL_IC_POU, 0);
+	mtcp(XREG_CP15_INVAL_IC_POU, 0U);
 
 	/* disable the instruction cache */
 #ifdef __GNUC__
@@ -1142,7 +1147,7 @@ void Xil_L1ICacheDisable(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #else
-	{ volatile register unsigned int Reg __asm(XREG_CP15_SYS_CONTROL);
+	{ volatile register u32 Reg __asm(XREG_CP15_SYS_CONTROL);
 	  CtrlReg = Reg; }
 #endif
 	CtrlReg &= ~(XREG_CP15_CONTROL_I_BIT);
@@ -1163,9 +1168,9 @@ void Xil_L1ICacheDisable(void)
 ****************************************************************************/
 void Xil_L1ICacheInvalidate(void)
 {
-	mtcp(XREG_CP15_CACHE_SIZE_SEL, 1);
+	mtcp(XREG_CP15_CACHE_SIZE_SEL, 1U);
 	/* invalidate the instruction cache */
-	mtcp(XREG_CP15_INVAL_IC_POU, 0);
+	mtcp(XREG_CP15_INVAL_IC_POU, 0U);
 
 	/* Wait for L1 invalidate to complete */
 	dsb();
@@ -1184,10 +1189,10 @@ void Xil_L1ICacheInvalidate(void)
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_L1ICacheInvalidateLine(unsigned int adr)
+void Xil_L1ICacheInvalidateLine(u32 adr)
 {
-	mtcp(XREG_CP15_CACHE_SIZE_SEL, 1);
-	mtcp(XREG_CP15_INVAL_IC_LINE_MVA_POU, (adr & (~0x1F)));
+	mtcp(XREG_CP15_CACHE_SIZE_SEL, 1U);
+	mtcp(XREG_CP15_INVAL_IC_LINE_MVA_POU, (adr & (~0x1FU)));
 
 	/* Wait for L1 invalidate to complete */
 	dsb();
@@ -1209,38 +1214,39 @@ void Xil_L1ICacheInvalidateLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_L1ICacheInvalidateRange(unsigned int adr, unsigned len)
+void Xil_L1ICacheInvalidateRange(u32 adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	unsigned int currmask;
+	u32 LocalAddr = adr;
+	const u32 cacheline = 32U;
+	u32 end;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	if (len != 0) {
+	if (len != 0U) {
 		/* Back the starting address up to the start of a cache line
 		 * perform cache operations until adr+len
 		 */
-		end = adr + len;
-		adr = adr & ~(cacheline - 1);
+		end = LocalAddr + len;
+		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
 		/* Select cache L0 I-cache in CSSR */
-		mtcp(XREG_CP15_CACHE_SIZE_SEL, 1);
+		mtcp(XREG_CP15_CACHE_SIZE_SEL, 1U);
 
-		while (adr < end) {
+		while (LocalAddr < end) {
 #ifdef __GNUC__
 			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
+			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
 #elif defined (__ICCARM__)
 			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (adr));
+			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
 #else
-			{ volatile register unsigned int Reg
+			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_IC_LINE_MVA_POU);
-			  Reg = adr; }
+			  Reg = LocalAddr; }
 #endif
-			adr += cacheline;
+			LocalAddr += cacheline;
 		}
 	}
 
@@ -1262,12 +1268,12 @@ void Xil_L1ICacheInvalidateRange(unsigned int adr, unsigned len)
 ****************************************************************************/
 void Xil_L2CacheEnable(void)
 {
-	register unsigned int L2CCReg;
+	register u32 L2CCReg;
 
 	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
 
 	/* only enable if L2CC is currently disabled */
-	if ((L2CCReg & 0x01) == 0) {
+	if ((L2CCReg & 0x01U) == 0U) {
 		/* set up the way size and latencies */
 		L2CCReg = Xil_In32(XPS_L2CC_BASEADDR +
 				   XPS_L2CC_AUX_CNTRL_OFFSET);
@@ -1290,7 +1296,7 @@ void Xil_L2CacheEnable(void)
 		L2CCReg = Xil_In32(XPS_L2CC_BASEADDR +
 				   XPS_L2CC_CNTRL_OFFSET);
 		Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET,
-			  (L2CCReg | (0x01)));
+			  (L2CCReg | (0x01U)));
 
         Xil_L2CacheSync();
         /* synchronize the processor */
@@ -1312,19 +1318,19 @@ void Xil_L2CacheEnable(void)
 ****************************************************************************/
 void Xil_L2CacheDisable(void)
 {
-    register unsigned int L2CCReg;
+    register u32 L2CCReg;
 
 	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
 
-    if(L2CCReg & 0x1) {
+    if((L2CCReg & 0x1U) != 0U) {
 
         /* Clean and Invalidate L2 Cache */
         Xil_L2CacheFlush();
 
 	    /* Disable the L2CC */
-    	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
+	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
 	    Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET,
-		      (L2CCReg & (~0x01)));
+		      (L2CCReg & (~0x01U)));
 		/* Wait for the cache operations to complete */
 
 		dsb();
@@ -1348,11 +1354,16 @@ void Xil_L2CacheDisable(void)
 ****************************************************************************/
 void Xil_L2CacheInvalidate(void)
 {
+	u32 ResultDCache;
 	/* Invalidate the caches */
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_WAY_OFFSET,
-		  0x0000FFFF);
-	while((Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_WAY_OFFSET))
-																& 0x0000FFFF);
+		  0x0000FFFFU);
+	ResultDCache = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_WAY_OFFSET)
+							& 0x0000FFFFU;
+	while(ResultDCache != (u32)0U) {
+		ResultDCache = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_WAY_OFFSET)
+							& 0x0000FFFFU;
+	}
 
 	/* Wait for the invalidate to complete */
 	Xil_L2CacheSync();
@@ -1376,9 +1387,9 @@ void Xil_L2CacheInvalidate(void)
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_L2CacheInvalidateLine(unsigned int adr)
+void Xil_L2CacheInvalidateLine(u32 adr)
 {
-	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_PA_OFFSET, adr);
+	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_PA_OFFSET, (u32)adr);
 	/* synchronize the processor */
 	dsb();
 }
@@ -1399,35 +1410,36 @@ void Xil_L2CacheInvalidateLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_L2CacheInvalidateRange(unsigned int adr, unsigned len)
+void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	volatile u32 *L2CCOffset = (volatile u32 *) (XPS_L2CC_BASEADDR +
+	u32 LocalAddr = adr;
+	const u32 cacheline = 32U;
+	u32 end;
+	volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
 				    XPS_L2CC_CACHE_INVLD_PA_OFFSET);
 
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	if (len != 0) {
+	if (len != 0U) {
 		/* Back the starting address up to the start of a cache line
 		 * perform cache operations until adr+len
 		 */
-		end = adr + len;
-		adr = adr & ~(cacheline - 1);
+		end = LocalAddr + len;
+		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
 		/* Disable Write-back and line fills */
-		Xil_L2WriteDebugCtrl(0x3);
+		Xil_L2WriteDebugCtrl(0x3U);
 
-		while (adr < end) {
-			*L2CCOffset = adr;
-			adr += cacheline;
+		while (LocalAddr < end) {
+			*L2CCOffset = LocalAddr;
+			LocalAddr += cacheline;
 		}
 
 		/* Enable Write-back and line fills */
-		Xil_L2WriteDebugCtrl(0x0);
+		Xil_L2WriteDebugCtrl(0x0U);
 	}
 
 	/* synchronize the processor */
@@ -1452,21 +1464,27 @@ void Xil_L2CacheInvalidateRange(unsigned int adr, unsigned len)
 ****************************************************************************/
 void Xil_L2CacheFlush(void)
 {
+	u16 L2CCReg;
+	u32 ResultL2Cache;
 
 	/* Flush the caches */
 
 	/* Disable Write-back and line fills */
-	Xil_L2WriteDebugCtrl(0x3);
+	Xil_L2WriteDebugCtrl(0x3U);
 
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INV_CLN_WAY_OFFSET,
-		  0x0000FFFF);
+		  0x0000FFFFU);
+	ResultL2Cache = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INV_CLN_WAY_OFFSET)
+							& 0x0000FFFFU;
 
-	while((Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INV_CLN_WAY_OFFSET))
-															& 0x0000FFFF);
+	while(ResultL2Cache != (u32)0U) {
+		ResultL2Cache = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INV_CLN_WAY_OFFSET)
+									& 0x0000FFFFU;
+	}
 
 	Xil_L2CacheSync();
 	/* Enable Write-back and line fills */
-	Xil_L2WriteDebugCtrl(0x0);
+	Xil_L2WriteDebugCtrl(0x0U);
 
 	/* synchronize the processor */
 	dsb();
@@ -1487,7 +1505,7 @@ void Xil_L2CacheFlush(void)
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_L2CacheFlushLine(unsigned int adr)
+void Xil_L2CacheFlushLine(u32 adr)
 {
 #ifdef CONFIG_PL310_ERRATA_588369
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_CLEAN_PA_OFFSET, adr);
@@ -1514,35 +1532,36 @@ void Xil_L2CacheFlushLine(unsigned int adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_L2CacheFlushRange(unsigned int adr, unsigned len)
+void Xil_L2CacheFlushRange(u32 adr, u32 len)
 {
-	const unsigned cacheline = 32;
-	unsigned int end;
-	volatile u32 *L2CCOffset = (volatile u32 *) (XPS_L2CC_BASEADDR +
+	u32 LocalAddr = adr;
+	const u32 cacheline = 32U;
+	u32 end;
+	volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
 				    XPS_L2CC_CACHE_INV_CLN_PA_OFFSET);
 
-	unsigned int currmask;
+	u32 currmask;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
-	if (len != 0) {
+	if (len != 0U) {
 		/* Back the starting address up to the start of a cache line
 		 * perform cache operations until adr+len
 		 */
-		end = adr + len;
-		adr = adr & ~(cacheline - 1);
+		end = LocalAddr + len;
+		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
 		/* Disable Write-back and line fills */
-		Xil_L2WriteDebugCtrl(0x3);
+		Xil_L2WriteDebugCtrl(0x3U);
 
-		while (adr < end) {
-			*L2CCOffset = adr;
+		while (LocalAddr < end) {
+			*L2CCOffset = LocalAddr;
 			Xil_L2CacheSync();
-			adr += cacheline;
+			LocalAddr += cacheline;
 		}
 
 		/* Enable Write-back and line fills */
-		Xil_L2WriteDebugCtrl(0x0);
+		Xil_L2WriteDebugCtrl(0x0U);
 	}
 	/* synchronize the processor */
 	dsb();
@@ -1564,7 +1583,7 @@ void Xil_L2CacheFlushRange(unsigned int adr, unsigned len)
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-void Xil_L2CacheStoreLine(unsigned int adr)
+void Xil_L2CacheStoreLine(u32 adr)
 {
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_CLEAN_PA_OFFSET, adr);
 	/* synchronize the processor */

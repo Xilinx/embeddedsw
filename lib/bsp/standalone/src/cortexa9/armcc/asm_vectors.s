@@ -1,4 +1,3 @@
-;* $Id: asm_vectors.s,v 1.1.4.1 2011/10/24 09:35:17 sadanan Exp $
 ;******************************************************************************
 ;
 ; Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
@@ -43,8 +42,8 @@
 ; ----- ------- -------- ---------------------------------------------------
 ; 1.00a ecm/sdm 10/20/09 Initial version
 ; 3.11a asa	9/17/13	 Added support for neon.
-; 4.00  pkp	01/22/14 Modified return addresses for interrupt 
-;			 handlers 
+; 4.00  pkp	01/22/14 Modified return addresses for interrupt
+;			 handlers
 ;</pre>
 ;
 ; @note
@@ -79,8 +78,8 @@ _vector_table
 	B	FIQHandler
 
 
-IRQHandler					; IRQ vector handler 
-	
+IRQHandler					; IRQ vector handler
+
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
 	vpush {d0-d7}
 	vpush {d16-d31}
@@ -95,12 +94,12 @@ IRQHandler					; IRQ vector handler
 	vmsr    FPSCR, r1
 	vpop    {d16-d31}
 	vpop    {d0-d7}
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #4			; adjust return 
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #4			; adjust return
 
 
-FIQHandler					; FIQ vector handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
+FIQHandler					; FIQ vector handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
 	vpush {d0-d7}
 	vpush {d16-d31}
 	vmrs r1, FPSCR
@@ -108,48 +107,48 @@ FIQHandler					; FIQ vector handler
 	vmrs r1, FPEXC
 	push {r1}
 FIQLoop
-	bl	FIQInterrupt			; FIQ vector 
+	bl	FIQInterrupt			; FIQ vector
 	pop 	{r1}
 	vmsr    FPEXC, r1
 	pop 	{r1}
 	vmsr    FPSCR, r1
 	vpop    {d16-d31}
 	vpop    {d0-d7}
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #4			; adjust return 
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #4			; adjust return
 
 
-Undefined					; Undefined handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	b	_prestart			
+Undefined					; Undefined handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	b	_prestart
 
 	movs	pc, lr
 
 
-SVCHandler					; SWI handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	tst	r0, #0x20			; check the T bit 
-	ldrneh	r0, [lr,#-2]			; Thumb mode 
-	bicne	r0, r0, #0xff00			; Thumb mode 
-	ldreq	r0, [lr,#-4]			; ARM mode 
-	biceq	r0, r0, #0xff000000		; ARM mode 
-	bl	SWInterrupt			; SWInterrupt: call C function here 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	movs	pc, lr				; adjust return 
+SVCHandler					; SWI handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	tst	r0, #0x20			; check the T bit
+	ldrneh	r0, [lr,#-2]			; Thumb mode
+	bicne	r0, r0, #0xff00			; Thumb mode
+	ldreq	r0, [lr,#-4]			; ARM mode
+	biceq	r0, r0, #0xff000000		; ARM mode
+	bl	SWInterrupt			; SWInterrupt: call C function here
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	movs	pc, lr				; adjust return
 
 
-DataAbortHandler				; Data Abort handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	bl	DataAbortInterrupt		;DataAbortInterrupt :call C function here 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #8			; adjust return 
+DataAbortHandler				; Data Abort handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	bl	DataAbortInterrupt		;DataAbortInterrupt :call C function here
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #8			; adjust return
 
-PrefetchAbortHandler				; Prefetch Abort handler 
-	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code 
-	bl	PrefetchAbortInterrupt		; PrefetchAbortInterrupt: call C function here 
-	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code 
-	subs	pc, lr, #4			; adjust return 
+PrefetchAbortHandler				; Prefetch Abort handler
+	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	bl	PrefetchAbortInterrupt		; PrefetchAbortInterrupt: call C function here
+	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
+	subs	pc, lr, #4			; adjust return
 
 
 	END

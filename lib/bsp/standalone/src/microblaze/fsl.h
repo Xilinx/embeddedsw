@@ -1,5 +1,5 @@
-#ifndef _FSL_H
-#define _FSL_H
+#ifndef FSL_H
+#define FSL_H
 
 #include "mb_interface.h"       /* Legacy reasons. We just have to include this guy who defines the FSL stuff */
 
@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 /* Extended FSL macros. These now replace all of the previous FSL macros */
-#define FSL_DEFAULT                             
+#define FSL_DEFAULT
 #define FSL_NONBLOCKING                          n
 #define FSL_EXCEPTION                            e
 #define FSL_CONTROL                              c
@@ -44,5 +44,5 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* _FSL_H */
+#endif /* FSL_H */
 

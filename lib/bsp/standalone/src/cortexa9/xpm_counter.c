@@ -58,13 +58,103 @@
 
 /**************************** Type Definitions ******************************/
 
-typedef const u32 PmcrEventCfg[XPM_CTRCOUNT];
+typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT];
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions *****************************/
 
-static PmcrEventCfg PmcrEvents[] = {
+/************************** Function Prototypes ******************************/
+
+void Xpm_DisableEventCounters(void);
+void Xpm_EnableEventCounters (void);
+void Xpm_ResetEventCounters (void);
+
+/******************************************************************************/
+
+/****************************************************************************/
+/**
+*
+* This function disables the Cortex A9 event counters.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void Xpm_DisableEventCounters(void)
+{
+	/* Disable the event counters */
+	mtcp(XREG_CP15_COUNT_ENABLE_CLR, 0x3f);
+}
+
+/****************************************************************************/
+/**
+*
+* This function enables the Cortex A9 event counters.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void Xpm_EnableEventCounters(void)
+{
+	/* Enable the event counters */
+	mtcp(XREG_CP15_COUNT_ENABLE_SET, 0x3f);
+}
+
+/****************************************************************************/
+/**
+*
+* This function resets the Cortex A9 event counters.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void Xpm_ResetEventCounters(void)
+{
+	u32 Reg;
+#ifdef __GNUC__
+	Reg = mfcp(XREG_CP15_PERF_MONITOR_CTRL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
+#else
+	{ register uint32 C15Reg __asm(XREG_CP15_PERF_MONITOR_CTRL);
+	  Reg = C15Reg; }
+#endif
+	Reg |= (1U << 1U); /* reset event counters */
+	mtcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function configures the Cortex A9 event counters controller, with the
+* event codes, in a configuration selected by the user and enables the counters.
+*
+* @param	PmcrCfg is configuration value based on which the event counters
+*		are configured.
+*		Use XPM_CNTRCFG* values defined in xpm_counter.h.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void Xpm_SetEvents(s32 PmcrCfg)
+{
+	u32 Counter;
+	static PmcrEventCfg32 PmcrEvents[] = {
 	{
 		XPM_EVENT_SOFTINCR,
 		XPM_EVENT_INSRFETCH_CACHEREFILL,
@@ -153,109 +243,18 @@ static PmcrEventCfg PmcrEvents[] = {
 		XPM_EVENT_DATA_CACHEACCESS,
 		XPM_EVENT_DATA_TLBREFILL
 	},
-};
-
-/************************** Function Prototypes ******************************/
-
-void Xpm_DisableEventCounters(void);
-void Xpm_EnableEventCounters (void);
-void Xpm_ResetEventCounters (void);
-
-/******************************************************************************/
-
-/****************************************************************************/
-/**
-*
-* This function disables the Cortex A9 event counters.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-void Xpm_DisableEventCounters(void)
-{
-	/* Disable the event counters */
-	mtcp(XREG_CP15_COUNT_ENABLE_CLR, 0x3f);
-}
-
-/****************************************************************************/
-/**
-*
-* This function enables the Cortex A9 event counters.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-void Xpm_EnableEventCounters(void)
-{
-	/* Enable the event counters */
-	mtcp(XREG_CP15_COUNT_ENABLE_SET, 0x3f);
-}
-
-/****************************************************************************/
-/**
-*
-* This function resets the Cortex A9 event counters.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-void Xpm_ResetEventCounters(void)
-{
-	u32 Reg;
-
-#ifdef __GNUC__
-	Reg = mfcp(XREG_CP15_PERF_MONITOR_CTRL);
-#elif defined (__ICCARM__)
-	mfcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
-#else
-	{ register unsigned int C15Reg __asm(XREG_CP15_PERF_MONITOR_CTRL);
-	  Reg = C15Reg; }
-#endif
-	Reg |= (1 << 1); /* reset event counters */
-	mtcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
-}
-
-/****************************************************************************/
-/**
-*
-* This function configures the Cortex A9 event counters controller, with the
-* event codes, in a configuration selected by the user and enables the counters.
-*
-* @param	PmcrCfg is configuration value based on which the event counters
-*		are configured.
-*		Use XPM_CNTRCFG* values defined in xpm_counter.h.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-void Xpm_SetEvents(int PmcrCfg)
-{
-	u32 Counter;
-	const u32 *Ptr = PmcrEvents[PmcrCfg];
+	};
+	const u32 *ptr = PmcrEvents[PmcrCfg];
 
 	Xpm_DisableEventCounters();
 
-	for(Counter = 0; Counter < XPM_CTRCOUNT; Counter++) {
+	for(Counter = 0U; Counter < XPM_CTRCOUNT; Counter++) {
 
 		/* Selecet event counter */
 		mtcp(XREG_CP15_EVENT_CNTR_SEL, Counter);
 
 		/* Set the event */
-		mtcp(XREG_CP15_EVENT_TYPE_SEL, Ptr[Counter]);
+		mtcp(XREG_CP15_EVENT_TYPE_SEL, ptr[Counter]);
 	}
 
 	Xpm_ResetEventCounters();
@@ -282,7 +281,7 @@ void Xpm_GetEventCounters(u32 *PmCtrValue)
 
 	Xpm_DisableEventCounters();
 
-	for(Counter = 0; Counter < XPM_CTRCOUNT; Counter++) {
+	for(Counter = 0U; Counter < XPM_CTRCOUNT; Counter++) {
 
 		mtcp(XREG_CP15_EVENT_CNTR_SEL, Counter);
 #ifdef __GNUC__
@@ -290,7 +289,7 @@ void Xpm_GetEventCounters(u32 *PmCtrValue)
 #elif defined (__ICCARM__)
 		mfcp(XREG_CP15_PERF_MONITOR_COUNT, PmCtrValue[Counter]);
 #else
-		{ register unsigned int Cp15Reg __asm(XREG_CP15_PERF_MONITOR_COUNT);
+		{ register u32 Cp15Reg __asm(XREG_CP15_PERF_MONITOR_COUNT);
 		  PmCtrValue[Counter] = Cp15Reg; }
 #endif
 	}

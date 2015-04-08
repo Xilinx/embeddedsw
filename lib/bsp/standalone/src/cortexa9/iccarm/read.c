@@ -43,12 +43,13 @@
  */
 
 #include <yfuns.h>
+#include "xil_types.h"
 
+size_t __read(sint32 handle, u8 * buffer, size_t size);
 
-size_t __read(int handle, unsigned char * buffer, size_t size)
+size_t __read(sint32 handle, u8 * buffer, size_t size)
 {
 
 return size;
 }
-
 

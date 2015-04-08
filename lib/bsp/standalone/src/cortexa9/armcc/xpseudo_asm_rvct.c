@@ -109,38 +109,38 @@ __asm void dmb(void)
 }
 
 /* Memory Operations */
-__asm unsigned int ldr(unsigned int adr)
+__asm u32 ldr(u32 adr)
 {
 	ldr	r0, [r0]
 	bx	lr
 }
 
-__asm unsigned int ldrb(unsigned int adr)
+__asm u32 ldrb(u32 adr)
 {
 	ldrb	r0, [r0]
 	bx	lr
 }
 
-__asm void str(unsigned int adr, unsigned int val)
+__asm void str(u32 adr, u32 val)
 {
 	str	r1, [r0]
 	bx	lr
 }
 
-__asm void strb(unsigned int adr, unsigned int val)
+__asm void strb(u32 adr, u32 val)
 {
 	strb	r1, [r0]
 	bx	lr
 }
 
 /* Count leading zeroes (clz) */
-__asm unsigned int clz(unsigned int arg)
+__asm u32 clz(u32 arg)
 {
 	clz	r0, r0
 	bx	lr
 }
 
-__asm unsigned int mfcpsr(void)
+__asm u32 mfcpsr(void)
 {
 	mrs	r0, cpsr
 	bx lr

@@ -84,7 +84,7 @@
 * @note		None.
 *
 ******************************************************************************/
-u8 Xil_In8(u32 Addr)
+u8 Xil_In8(INTPTR Addr)
 {
 	return *(volatile u8 *) Addr;
 }
@@ -103,7 +103,7 @@ u8 Xil_In8(u32 Addr)
 * @note		None.
 *
 ******************************************************************************/
-u16 Xil_In16(u32 Addr)
+u16 Xil_In16(INTPTR Addr)
 {
 	return *(volatile u16 *) Addr;
 }
@@ -122,7 +122,7 @@ u16 Xil_In16(u32 Addr)
 * @note		None.
 *
 ******************************************************************************/
-u32 Xil_In32(u32 Addr)
+u32 Xil_In32(INTPTR Addr)
 {
 	return *(volatile u32 *) Addr;
 }
@@ -133,7 +133,7 @@ u32 Xil_In32(u32 Addr)
 * Performs an output operation for an 8-bit memory location by writing the
 * specified Value to the the specified address.
 *
-* @param	OutAddress contains the address to perform the output operation
+* @param	Addr contains the address to perform the output operation
 *		at.
 * @param	Value contains the Value to be output at the specified address.
 *
@@ -142,9 +142,10 @@ u32 Xil_In32(u32 Addr)
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out8(u32 OutAddress, u8 Value)
+void Xil_Out8(INTPTR Addr, u8 Value)
 {
-	*(volatile u8 *) OutAddress = Value;
+	u8 *LocalAddr = (u8 *)Addr;
+	*LocalAddr = Value;
 }
 
 /*****************************************************************************/
@@ -153,7 +154,7 @@ void Xil_Out8(u32 OutAddress, u8 Value)
 * Performs an output operation for a 16-bit memory location by writing the
 * specified Value to the the specified address.
 *
-* @param	OutAddress contains the address to perform the output operation
+* @param	Addr contains the address to perform the output operation
 *		at.
 * @param	Value contains the Value to be output at the specified address.
 *
@@ -162,9 +163,10 @@ void Xil_Out8(u32 OutAddress, u8 Value)
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out16(u32 OutAddress, u16 Value)
+void Xil_Out16(INTPTR Addr, u16 Value)
 {
-	*(volatile u16 *) OutAddress = Value;
+	u16 *LocalAddr = (u16 *)Addr;
+	*LocalAddr = Value;
 }
 
 /*****************************************************************************/
@@ -173,7 +175,7 @@ void Xil_Out16(u32 OutAddress, u16 Value)
 * Performs an output operation for a 32-bit memory location by writing the
 * specified Value to the the specified address.
 *
-* @param	OutAddress contains the address to perform the output operation
+* @param	Addr contains the address to perform the output operation
 *		at.
 * @param	Value contains the Value to be output at the specified address.
 *
@@ -182,9 +184,10 @@ void Xil_Out16(u32 OutAddress, u16 Value)
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out32(u32 OutAddress, u32 Value)
+void Xil_Out32(INTPTR Addr, u32 Value)
 {
-	*(volatile u32 *) OutAddress = Value;
+	u32 *LocalAddr = (u32 *)Addr;
+	*LocalAddr = Value;
 }
 
 /*****************************************************************************/
@@ -202,7 +205,7 @@ void Xil_Out32(u32 OutAddress, u32 Value)
 * @note		None.
 *
 ******************************************************************************/
-u16 Xil_In16BE(u32 Addr)
+u16 Xil_In16BE(INTPTR Addr)
 {
 	u16 temp;
 	u16 result;
@@ -229,7 +232,7 @@ u16 Xil_In16BE(u32 Addr)
 * @note		None.
 *
 ******************************************************************************/
-u32 Xil_In32BE(u32 Addr)
+u32 Xil_In32BE(INTPTR Addr)
 {
 	u32 temp;
 	u32 result;
@@ -248,7 +251,7 @@ u32 Xil_In32BE(u32 Addr)
 * specified Value to the the specified address. The Value is byte-swapped
 * before being written.
 *
-* @param	OutAddress contains the address to perform the output operation
+* @param	Addr contains the address to perform the output operation
 *		at.
 * @param	Value contains the Value to be output at the specified address.
 *
@@ -257,13 +260,13 @@ u32 Xil_In32BE(u32 Addr)
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out16BE(u32 OutAddress, u16 Value)
+void Xil_Out16BE(INTPTR Addr, u16 Value)
 {
 	u16 temp;
 
 	temp = Xil_EndianSwap16(Value);
 
-    Xil_Out16(OutAddress, temp);
+    Xil_Out16(Addr, temp);
 }
 
 /*****************************************************************************/
@@ -273,7 +276,7 @@ void Xil_Out16BE(u32 OutAddress, u16 Value)
 * specified Value to the the specified address. The Value is byte-swapped
 * before being written.
 *
-* @param	OutAddress contains the address to perform the output operation
+* @param	Addr contains the address to perform the output operation
 *		at.
 * @param	Value contains the Value to be output at the specified address.
 *
@@ -282,13 +285,13 @@ void Xil_Out16BE(u32 OutAddress, u16 Value)
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out32BE(u32 OutAddress, u32 Value)
+void Xil_Out32BE(INTPTR Addr, u32 Value)
 {
 	u32 temp;
 
 	temp = Xil_EndianSwap32(Value);
 
-    Xil_Out32(OutAddress, temp);
+    Xil_Out32(Addr, temp);
 }
 
 /*****************************************************************************/
@@ -305,7 +308,7 @@ void Xil_Out32BE(u32 OutAddress, u32 Value)
 ******************************************************************************/
 u16 Xil_EndianSwap16(u16 Data)
 {
-	return (u16) (((Data & 0xFF00) >> 8) | ((Data & 0x00FF) << 8));
+	return (u16) (((Data & 0xFF00U) >> 8U) | ((Data & 0x00FFU) << 8U));
 }
 
 /*****************************************************************************/
@@ -327,15 +330,15 @@ u32 Xil_EndianSwap32(u32 Data)
 
 	/* get each of the half words from the 32 bit word */
 
-	LoWord = (u16) (Data & 0x0000FFFF);
-	HiWord = (u16) ((Data & 0xFFFF0000) >> 16);
+	LoWord = (u16) (Data & 0x0000FFFFU);
+	HiWord = (u16) ((Data & 0xFFFF0000U) >> 16U);
 
 	/* byte swap each of the 16 bit half words */
 
-	LoWord = (((LoWord & 0xFF00) >> 8) | ((LoWord & 0x00FF) << 8));
-	HiWord = (((HiWord & 0xFF00) >> 8) | ((HiWord & 0x00FF) << 8));
+	LoWord = (((LoWord & 0xFF00U) >> 8U) | ((LoWord & 0x00FFU) << 8U));
+	HiWord = (((HiWord & 0xFF00U) >> 8U) | ((HiWord & 0x00FFU) << 8U));
 
 	/* swap the half words before returning the value */
 
-	return (u32) ((LoWord << 16) | HiWord);
+	return ((((u32)LoWord) << (u32)16U) | (u32)HiWord);
 }

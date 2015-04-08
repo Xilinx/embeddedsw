@@ -46,6 +46,9 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XPSEUDO_ASM_H
+#define XPSEUDO_ASM_H
+
 #include "xreg_cortexa9.h"
 #ifdef __GNUC__
  #include "xpseudo_asm_gcc.h"
@@ -54,3 +57,5 @@
 #else
  #include "xpseudo_asm_rvct.h"
 #endif
+
+#endif /* XPSEUDO_ASM_H */

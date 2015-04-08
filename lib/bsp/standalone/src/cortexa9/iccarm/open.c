@@ -44,11 +44,12 @@
  */
 
 #include <yfuns.h>
+#include "xil_types.h"
 
+sint32 __open(const char8 * filename, sint32 mode);
 
-int __open(const char * filename, int mode)
+sint32 __open(const char8 * filename, sint32 mode)
 {
 return 0;
 }
-
 

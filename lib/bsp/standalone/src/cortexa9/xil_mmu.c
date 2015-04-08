@@ -88,7 +88,7 @@ extern u32 MMUTable;
 * Set the memory attributes for a section, in the translation table. Each
 * section covers 1MB of memory.
 *
-* @param	addr is the address for which attributes are to be set.
+* @param	Addr is the address for which attributes are to be set.
 * @param	attrib specifies the attributes for that memory region.
 *
 * @return	None.
@@ -97,20 +97,23 @@ extern u32 MMUTable;
 *		translation table attribute.
 *
 ******************************************************************************/
-void Xil_SetTlbAttributes(u32 addr, u32 attrib)
+void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 {
 	u32 *ptr;
 	u32 section;
 
-	section = addr / 0x100000;
-	ptr = &MMUTable + section;
-	*ptr = (addr & 0xFFF00000) | attrib;
+	section = Addr / 0x100000U;
+	ptr = &MMUTable;
+	ptr += section;
+	if(ptr != NULL) {
+		*ptr = (Addr & 0xFFF00000U) | attrib;
+	}
 
 	Xil_DCacheFlush();
 
-	mtcp(XREG_CP15_INVAL_UTLB_UNLOCKED, 0);
+	mtcp(XREG_CP15_INVAL_UTLB_UNLOCKED, 0U);
 	/* Invalidate all branch predictors */
-	mtcp(XREG_CP15_INVAL_BRANCH_ARRAY, 0);
+	mtcp(XREG_CP15_INVAL_BRANCH_ARRAY, 0U);
 
 	dsb(); /* ensure completion of the BP and TLB invalidation */
     isb(); /* synchronize context on this processor */
@@ -135,10 +138,10 @@ void Xil_EnableMMU(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, Reg);
 #else
-	{ volatile register unsigned int Cp15Reg __asm(XREG_CP15_SYS_CONTROL);
+	{ volatile register u32 Cp15Reg __asm(XREG_CP15_SYS_CONTROL);
 	  Reg = Cp15Reg; }
 #endif
-	Reg |= 0x05;
+	Reg |= (u32)0x05U;
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);
 
 	dsb();
@@ -160,8 +163,8 @@ void Xil_DisableMMU(void)
 {
 	u32 Reg;
 
-	mtcp(XREG_CP15_INVAL_UTLB_UNLOCKED, 0);
-	mtcp(XREG_CP15_INVAL_BRANCH_ARRAY, 0);
+	mtcp(XREG_CP15_INVAL_UTLB_UNLOCKED, 0U);
+	mtcp(XREG_CP15_INVAL_BRANCH_ARRAY, 0U);
 	Xil_DCacheFlush();
 
 #ifdef __GNUC__
@@ -169,13 +172,13 @@ void Xil_DisableMMU(void)
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, Reg);
 #else
-	{ volatile register unsigned int Cp15Reg __asm(XREG_CP15_SYS_CONTROL);
+	{ volatile register u32 Cp15Reg __asm(XREG_CP15_SYS_CONTROL);
 	  Reg = Cp15Reg; }
 #endif
-	Reg &= ~0x05;
+	Reg &= (u32)(~0x05U);
 #ifdef CONFIG_ARM_ERRATA_794073
 	/* Disable Branch Prediction */
-	Reg &= ~0x800;
+	Reg &= (u32)(~0x800U);
 #endif
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);
 }

@@ -56,19 +56,21 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+
+#include "xil_types.h"
 #include "xparameters.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
 
-typedef unsigned long long XTime;
+typedef u64 XTime;
 
 /************************** Constant Definitions *****************************/
 #define GLOBAL_TMR_BASEADDR               XPAR_GLOBAL_TMR_BASEADDR
-#define GTIMER_COUNTER_LOWER_OFFSET       0x00
-#define GTIMER_COUNTER_UPPER_OFFSET       0x04
-#define GTIMER_CONTROL_OFFSET             0x08
+#define GTIMER_COUNTER_LOWER_OFFSET       0x00U
+#define GTIMER_COUNTER_UPPER_OFFSET       0x04U
+#define GTIMER_CONTROL_OFFSET             0x08U
 
 
 /* Global Timer is always clocked at half of the CPU frequency */
@@ -77,8 +79,8 @@ typedef unsigned long long XTime;
 
 /************************** Function Prototypes ******************************/
 
-void XTime_SetTime(XTime Xtime);
-void XTime_GetTime(XTime *Xtime);
+void XTime_SetTime(XTime Xtime_Global);
+void XTime_GetTime(XTime *Xtime_Global);
 
 #ifdef __cplusplus
 }

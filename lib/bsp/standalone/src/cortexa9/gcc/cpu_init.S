@@ -52,7 +52,7 @@
 
 	.text
 	.global __cpu_init
-	.align 2    
+	.align 2
 __cpu_init:
 
 /* Clear cp15 regs with unknown reset values */

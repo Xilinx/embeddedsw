@@ -1,4 +1,3 @@
-;* $Id: translation_table.s,v 1.1.4.1 2011/10/24 09:35:18 sadanan Exp $
 ;******************************************************************************
 ;
 ; Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
@@ -68,11 +67,11 @@ MMUTable
    GBLA count
    GBLA sect
 
-; 0x00000000 - 0x3ffffff (DDR Cacheable) 
+; 0x00000000 - 0x3ffffff (DDR Cacheable)
 count   SETA  0
 sect    SETA  0
    WHILE count<0x400
-   DCD	sect + 0x15de6		; S=1, TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 
+   DCD	sect + 0x15de6		; S=1, TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
@@ -96,7 +95,7 @@ count   SETA  count+1
 ; 0xc0000000 - 0xdfffffff (undef)
 count   SETA  0
    WHILE count<0x200
-   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 
+   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
@@ -104,7 +103,7 @@ count   SETA  count+1
 ; 0xe0000000 - 0xe02fffff (IOP dev)
 count   SETA  0
    WHILE count<0x3
-   DCD	sect + 0xc06		; S=0, TEX=b010 AP=b11, Domain=b0, C=b0, B=b0 
+   DCD	sect + 0xc06		; S=0, TEX=b010 AP=b11, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
@@ -112,7 +111,7 @@ count   SETA  count+1
 ; 0xe0300000 - 0xe0ffffff (undef/reserved)
 count   SETA  0
    WHILE count<0xD
-   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 
+   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
@@ -144,7 +143,7 @@ count   SETA  count+1
 ; 0xe6000000 - 0xf7ffffff  (reserved)
 count   SETA  0
    WHILE count<0x120
-   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 
+   DCD	sect 			; S=0, TEX=b000 AP=b00, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
