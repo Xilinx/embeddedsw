@@ -50,16 +50,16 @@
 # -----------------------------------------------------------------
 
 proc gen_include_files {swproj mhsinst} {
-     
+
     if {$swproj == 0} {
             return ""
     }
     if {$swproj == 1} {
             set inc_file_lines {xcanps.h canps_header.h}
-    }    
+    }
         return $inc_file_lines
 }
-    
+
 proc gen_src_files {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
@@ -80,30 +80,30 @@ proc gen_testfunc_def {swproj mhsinst} {
 }
 
 proc gen_init_code {swproj mhsinst} {
-    
+
     if {$swproj == 0} {
         return ""
     }
     if {$swproj == 1} {
-        
-      set ipname [get_property NAME $mhsinst]
+
+      set ipname [common::get_property NAME $mhsinst]
       set decl "   static XCanPs ${ipname};"
       set inc_file_lines $decl
       return $inc_file_lines
-      
+
     }
-    
+
 }
 
 proc gen_testfunc_call {swproj mhsinst} {
-    
+
     if {$swproj == 0} {
         return ""
     }
 
-    set ipname [get_property NAME $mhsinst] 
+    set ipname [common::get_property NAME $mhsinst]
     set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
@@ -111,7 +111,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
     set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
-       
+
     set testfunc_call ""
 
     if {${hasStdout} == 0} {
@@ -120,23 +120,23 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    {
       int Status;
-                        
+
       Status = CanPsPolledExample(${deviceid});
 
    }"
 	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
-	
+
       append testfunc_call "
-        
+
    {
       int Status;
       Status = CanPsIntrExample(&${intcvar}, &${ipname}, \\
                                  ${deviceid}, \\
                                  ${intr_id});
    }"
- 
+
    }
 
 
@@ -147,11 +147,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    {
       int Status;
-      
+
       print(\"\\r\\n Running CanPsPolledExample() for ${ipname}...\\r\\n\");
-      
+
       Status = CanPsPolledExample(${deviceid});
-      
+
       if (Status == 0) {
          print(\"CanPsPolledExample PASSED\\r\\n\");
       }
@@ -163,30 +163,29 @@ proc gen_testfunc_call {swproj mhsinst} {
 	if {$isintr ==1 } {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
-	
+
       append testfunc_call "
    {
       int Status;
 
       print(\"\\r\\n Running Interrupt Test  for ${ipname}...\\r\\n\");
-      
+
       Status = CanPsIntrExample(&${intcvar}, &${ipname}, \\
                                  ${deviceid}, \\
                                  ${intr_id});
-	
+
       if (Status == 0) {
          print(\"CanPsIntrExample PASSED\\r\\n\");
-      } 
+      }
       else {
          print(\"CanPsIntrExample FAILED\\r\\n\");
       }
 
    }"
- } 
+ }
 
 
   }
 
   return $testfunc_call
 }
-
