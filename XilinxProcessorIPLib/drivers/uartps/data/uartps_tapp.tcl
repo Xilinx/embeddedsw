@@ -50,16 +50,16 @@
 
 proc gen_include_files {swproj mhsinst} {
   if {$swproj == 0} {
-    return 
+    return
   }
   if {$swproj == 1} {
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
         set inc_file_lines { xuartps.h uartps_header.h }
-        return $inc_file_lines    
+        return $inc_file_lines
     }
-        
+
     return ""
   }
 }
@@ -69,7 +69,7 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-	set stdout [get_property CONFIG.STDOUT [get_os]]
+	set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
 	set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
             set inc_file_lines {examples/xuartps_intr_example.c examples/xuartps_polled_example.c data/uartps_header.h }
@@ -85,10 +85,10 @@ proc gen_testfunc_def {swproj mhsinst} {
 
 proc gen_init_code {swproj mhsinst} {
 
- 
- set stdout [get_property CONFIG.STDOUT [get_os]]
+
+ set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
  set isStdout [string match $stdout $mhsinst]
- set ipname [get_property NAME $mhsinst] 
+ set ipname [get_property NAME $mhsinst]
  if {${isStdout} == 0} {
     if {$swproj == 1} {
 		set decl "   static XUartPs ${ipname};"
@@ -97,7 +97,7 @@ proc gen_init_code {swproj mhsinst} {
     }
       return ""
   }
- 
+
 }
 
 proc gen_testfunc_call {swproj mhsinst} {
@@ -109,7 +109,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     return $testfunc_call
   }
 
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   set isStdout [string match $stdout $mhsinst]
   if {${isStdout} == 1} {
     append testfunc_call "
@@ -121,17 +121,17 @@ proc gen_testfunc_call {swproj mhsinst} {
     return $testfunc_call
   }
 
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
      set hasStdout 0
   } else {
      set hasStdout 1
   }
-  
-  set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+
+  set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
   set intcvar intc
-  
+
 
   if {${hasStdout} == 0} {
 
@@ -143,21 +143,21 @@ proc gen_testfunc_call {swproj mhsinst} {
       Status = UartPsPolledExample(${deviceid});
    }"
 
-	if {$isintr == 1} {      
+	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "
-        
+
    {
       int Status;
       Status = UartPsIntrExample(&${intcvar}, &${ipname}, \\
                                   ${deviceid}, \\
                                   ${intr_id});
    }"
-   
+
    }
-      
+
 
   } else {
 
@@ -176,33 +176,31 @@ proc gen_testfunc_call {swproj mhsinst} {
       }
    }"
 
-	if {$isintr == 1} {      
+	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
-	
+
 	  append testfunc_call "
    {
       int Status;
 
       print(\"\\r\\n Running Interrupt Test for ${ipname}...\\r\\n\");
-      
+
       Status = UartPsIntrExample(&${intcvar}, &${ipname}, \\
                                   ${deviceid}, \\
                                   ${intr_id});
-	
+
       if (Status == 0) {
          print(\"UartPsIntrExample PASSED\\r\\n\");
-      } 
+      }
       else {
          print(\"UartPsIntrExample FAILED\\r\\n\");
       }
 
    }"
-     
+
    }
-   
+
   }
   return $testfunc_call
 }
-
-
