@@ -46,7 +46,7 @@
 
 ## @BEGIN_CHANGELOG EDK_Im_SP2
 ##
-##  - Added Interrupt support 
+##  - Added Interrupt support
 ##
 ## @END_CHANGELOG
 
@@ -54,7 +54,7 @@
 ## @BEGIN_CHANGELOG EDK_I
 ##
 ##  - include header files
-##    
+##
 ## @END_CHANGELOG
 
 ## @BEGIN_CHANGELOG EDK_H
@@ -62,7 +62,7 @@
 ##  - Added support for generation of multiple applications.
 ##    All TCL procedures are now required to have a software
 ##    project type as its first argument
-##    
+##
 ## @END_CHANGELOG
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -82,19 +82,19 @@ proc gen_include_files {swproj mhsinst} {
     return "xuartns550_l.h"
   }
   if {$swproj == 1} {
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
-	set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+	set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifuartns550intr == 1} {
             set inc_file_lines {xuartns550_l.h uartns550_header.h xuartns550.h uartns550_intr_header.h}
         } else {
             set inc_file_lines {xuartns550_l.h uartns550_header.h}
-        } 
+        }
     } else {
         set inc_file_lines {xuartns550_l.h}
     }
-      
+
     return $inc_file_lines
   }
 }
@@ -104,10 +104,10 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
-        set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifuartns550intr == 1} {
             set inc_file_lines {examples/xuartns550_selftest_example.c examples/xuartns550_intr_example.c data/uartns550_header.h data/uartns550_intr_header.h}
         } else {
@@ -125,12 +125,12 @@ proc gen_testfunc_def {swproj mhsinst} {
 
 proc gen_init_code {swproj mhsinst} {
 
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
        if {$swproj == 1} {
 	    set ipname [get_property NAME  $mhsinst]
-	    set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+	    set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
 	    if {$ifuartns550intr == 1} {
 		set decl "   static XUartNs550 ${ipname}_UartNs550;"
 		set inc_file_lines $decl
@@ -142,8 +142,8 @@ proc gen_init_code {swproj mhsinst} {
        return ""
     }
 
-  set clockhz [::hsm::utils::get_driver_param_name "XUartNs550" "CLOCK_HZ"]
-  set baseaddr [::hsm::utils::get_ip_param_name $mhsinst "BASEADDR"]
+  set clockhz [::hsi::utils::get_driver_param_name "XUartNs550" "CLOCK_HZ"]
+  set baseaddr [::hsi::utils::get_ip_param_name $mhsinst "BASEADDR"]
   set ipname [get_property NAME  $mhsinst]
 
   append testfunc_call "
@@ -157,14 +157,14 @@ proc gen_init_code {swproj mhsinst} {
 proc gen_testfunc_call {swproj mhsinst} {
 
   set ipname [get_property NAME  $mhsinst]
-  set ifuartns550intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]  
+  set ifuartns550intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
   set testfunc_call ""
 
   if {$swproj == 0} {
     return $testfunc_call
   }
 
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   set isStdout [string match $stdout $mhsinst]
   if {${isStdout} == 1} {
     append testfunc_call "
@@ -176,18 +176,18 @@ proc gen_testfunc_call {swproj mhsinst} {
      return $testfunc_call
   }
 
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
        set hasStdout 1
   }
   if {$ifuartns550intr == 1} {
-      set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
-      set intcname [::hsm::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+      set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
+      set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
       set intcvar intc
-      set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
+      set proc [get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
   }
 
   if {${hasStdout} == 0} {
@@ -206,11 +206,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
 		set intr_id "XPAR_FABRIC_${ipname}_${intr_pin_name}_INTR"
-	}  
+	}
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "
-        
+
    {
       XStatus Status;
       Status = UartNs550IntrExample(&${intcvar}, &${ipname}_UartNs550, \\
@@ -246,20 +246,20 @@ proc gen_testfunc_call {swproj mhsinst} {
 		set intr_id "XPAR_FABRIC_${ipname}_${intr_pin_name}_INTR"
 	}
 	set intr_id [string toupper $intr_id]
-	
+
 	  append testfunc_call "
    {
       XStatus Status;
 
       print(\"\\r\\n Running Interrupt Test for ${ipname}...\\r\\n\");
-      
+
       Status = UartNs550IntrExample(&${intcvar}, &${ipname}_UartNs550, \\
                                   ${deviceid}, \\
                                   ${intr_id});
-	
+
       if (Status == 0) {
          print(\"UartNs550 Interrupt Test PASSED\\r\\n\");
-      } 
+      }
       else {
          print(\"UartNs550 Interrupt Test FAILED\\r\\n\");
       }
@@ -269,4 +269,3 @@ proc gen_testfunc_call {swproj mhsinst} {
   }
   return $testfunc_call
 }
-
