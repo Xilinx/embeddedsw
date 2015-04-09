@@ -30,7 +30,7 @@
 #
 ###############################################################################
 ##############################################################################
-## 
+##
 ## MODIFICATION HISTORY:
 ## Ver   Who  Date     Changes
 ## ----- ---- -------- ----------------------------------------------------
@@ -41,7 +41,7 @@
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
 # -----------------------------------------------------------------
 # Software Project Types (swproj):
-#   0 : MemoryTest - Calls basic  memorytest routines 
+#   0 : MemoryTest - Calls basic  memorytest routines
 #   1 : PeripheralTest - Calls any existing polled_example and/or selftest
 # -----------------------------------------------------------------
 
@@ -55,7 +55,7 @@ proc gen_include_files {swproj mhsinst} {
 	return ""
     }
     if {$swproj == 1} {
-        
+
         set inc_file_lines {xscugic.h xil_exception.h scugic_header.h}
 	return $inc_file_lines
     }
@@ -84,45 +84,45 @@ proc gen_testfunc_call {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
- 
-  set ipname [get_property NAME $mhsinst] 
+
+  set ipname [get_property NAME $mhsinst]
   set decl "   static XScuGic ${ipname};"
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
      set hasStdout 0
   } else {
      set hasStdout 1
   }
-  
+
   set intcvar intc
-  
+
   set testfunc_call ""
 
   if {${hasStdout} == 0} {
-      
+
       append testfunc_call "
 
    {
       int Status;
-                        
+
       Status = ScuGicSelfTestExample(${deviceid});
       Status = ScuGicInterruptSetup(&${intcvar}, ${deviceid});
 
    }"
-      
-      
+
+
   } else {
-      
+
       append testfunc_call "
 
    {
       int Status;
-      
+
       print(\"\\r\\n Running ScuGicSelfTestExample() for ${ipname}...\\r\\n\");
-      
+
       Status = ScuGicSelfTestExample(${deviceid});
-      
+
       if (Status == 0) {
          print(\"ScuGicSelfTestExample PASSED\\r\\n\");
       }
@@ -131,23 +131,22 @@ proc gen_testfunc_call {swproj mhsinst} {
       }
    }"
 
-          append testfunc_call " 
-	
+          append testfunc_call "
+
    {
        int Status;
 
        Status = ScuGicInterruptSetup(&${intcvar}, ${deviceid});
        if (Status == 0) {
           print(\"ScuGic Interrupt Setup PASSED\\r\\n\");
-       } 
+       }
        else {
          print(\"ScuGic Interrupt Setup FAILED\\r\\n\");
-      } 
+      }
    }"
-      
+
 
   }
   return $testfunc_call
-  
-}
 
+}
