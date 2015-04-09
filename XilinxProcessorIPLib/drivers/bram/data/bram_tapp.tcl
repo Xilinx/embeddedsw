@@ -133,7 +133,7 @@ proc gen_init_code {swproj mhsinst} {
   }
   if {$swproj == 1} {
     set bram_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
-    set ipname [get_property NAME $mhsinst]
+    set ipname [common::get_property NAME $mhsinst]
     if { ${bram_intr} == 1 } {
       set decl "   static XBram ${ipname}_Bram;"
       set inc_file_lines $decl
@@ -150,9 +150,9 @@ proc gen_testfunc_call {swproj mhsinst} {
       return ""
     }
 
-    set ipname [get_property NAME $mhsinst]
+    set ipname [common::get_property NAME $mhsinst]
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
@@ -161,10 +161,10 @@ proc gen_testfunc_call {swproj mhsinst} {
     set bram_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
 
     if { ${bram_intr} == 1 } {
-       set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
+       set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
        set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
        set intcvar intc
-       set proc [get_sw_processor]
+       set proc [hsi::get_sw_processor]
        set mbproc [string first "microblaze" $proc]
        set intr_port_name [get_intr_port_name $mhsinst]
        set intr_id "XPAR_${intcname}_${ipname}_${intr_port_name}_INTR"
@@ -336,7 +336,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 }
 
 proc has_ecc_support {mhsinst} {
-  set ecc [get_property CONFIG.C_ECC $mhsinst]
+  set ecc [common::get_property CONFIG.C_ECC $mhsinst]
 
   if {$ecc != 0} {
     return 1
@@ -345,12 +345,12 @@ proc has_ecc_support {mhsinst} {
 }
 
 proc get_intr_port_name {mhsinst} {
-    set ipname [get_property NAME $mhsinst]
-    set port_intr [get_pins -of_objects [get_cells $mhsinst] "Interrupt"]
+    set ipname [common::get_property NAME $mhsinst]
+    set port_intr [hsi::get_pins -of_objects [hsi::get_cells $mhsinst] "Interrupt"]
     if {$port_intr != ""} {
       return "INTERRUPT"
     }
-    set port_intr [get_pins -of_objects [get_cells $mhsinst] "ECC_Interrupt"]
+    set port_intr [hsi::get_pins -of_objects [hsi::get_cells $mhsinst] "ECC_Interrupt"]
     if {$port_intr != ""} {
       return "ECC_INTERRUPT"
     }
