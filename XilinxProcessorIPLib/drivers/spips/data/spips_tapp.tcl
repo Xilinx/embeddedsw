@@ -53,18 +53,18 @@ proc gen_include_files {swproj mhsinst} {
     }
     if {$swproj == 1} {
             set inc_file_lines {xspips.h spips_header.h}
-        }    
+        }
         return $inc_file_lines
 }
-    
+
 proc gen_src_files {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
   if {$swproj == 1} {
-            
+
       set inc_file_lines {examples/xspips_selftest_example.c data/spips_header.h}
-      
+
       return $inc_file_lines
   }
 }
@@ -74,31 +74,31 @@ proc gen_testfunc_def {swproj mhsinst} {
 }
 
 proc gen_init_code {swproj mhsinst} {
-    
+
     if {$swproj == 0} {
         return ""
     }
     if {$swproj == 1} {
         return ""
     }
-    
+
 }
 
 proc gen_testfunc_call {swproj mhsinst} {
-    
+
     if {$swproj == 0} {
         return ""
     }
 
-    set ipname [get_property NAME $mhsinst] 
-    set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set ipname [get_property NAME $mhsinst]
+    set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
        set hasStdout 1
     }
-  
+
     set testfunc_call ""
 
   if {${hasStdout} == 0} {
@@ -107,11 +107,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    {
       int Status;
-                        
+
       Status = SpiPsSelfTestExample(${deviceid});
 
    }"
-  
+
 
   } else {
 
@@ -119,11 +119,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    {
       int Status;
-      
+
       print(\"\\r\\n Running SpiPsSelfTestExample() for ${ipname}...\\r\\n\");
-      
+
       Status = SpiPsSelfTestExample(${deviceid});
-      
+
       if (Status == 0) {
          print(\"SpiPsSelfTestExample PASSED\\r\\n\");
       }
