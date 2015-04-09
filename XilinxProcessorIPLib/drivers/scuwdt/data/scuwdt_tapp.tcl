@@ -98,8 +98,13 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
 
     set ipname [get_property NAME $mhsinst] 
+<<<<<<< HEAD
     set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set stdout [get_property CONFIG.STDOUT [get_os]]
+=======
+    set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+    set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
+>>>>>>> scuwdt : added namespace for all HSI TCL commands.
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
