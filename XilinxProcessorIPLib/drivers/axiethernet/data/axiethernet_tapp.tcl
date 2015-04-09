@@ -32,7 +32,7 @@
 #
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
-#  1.00.a  asa    05/12/10 First Release 
+#  1.00.a  asa    05/12/10 First Release
 #  4.0     adk    10/12/13 Updated as per the New Tcl API's
 # 4.1 	   adk    21/4/14  Fixed the CR:780537 Modified the get_dma_info proc
 #		   	   logic as appropriate(In case of multiple dma's in the
@@ -117,7 +117,7 @@ proc gen_init_code {swproj mhsinst} {
    }
    if {$swproj == 1} {
 
-      set ipname [get_property NAME  $mhsinst]
+      set ipname [common::get_property NAME  $mhsinst]
       set ifintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
 
       if {$ifintr == 1} {
@@ -157,9 +157,9 @@ proc gen_testfunc_call {swproj mhsinst} {
     return ""
   }
 
-  set ipname [get_property NAME $mhsinst]
+  set ipname [common::get_property NAME $mhsinst]
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
@@ -170,15 +170,15 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   set fifo_deviceid [get_fifo_info $mhsinst "id"]
   set fifo_ipname   [get_fifo_info $mhsinst "name"]
-  
+
   set dma_deviceid [get_dma_info $mhsinst "id"]
   set dma_ipname   [get_dma_info $mhsinst "name"]
 
   if {$ifintr == 1} {
-	set intr_pin_name [get_pins -of_objects [get_cells $ipname] INTERRUPT]
+	set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname] INTERRUPT]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
 	set intcvar intc
-	set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
+	set proc [common::get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
   }
 
 
@@ -188,23 +188,23 @@ proc gen_testfunc_call {swproj mhsinst} {
   if { $dma == 3 } {
       set type "SgDma"
   }
-  
+
   set testfunc_call ""
 
    # BEGIN: FIFO
    if { $dma == 1 } {
       append testfunc_call "
-      
+
    {
       int Status;
 "
-      
+
       if {${hasStdout} == 1} {
          append testfunc_call "
       print(\"\\r\\n Running AxiEthernetPolledExample() for ${ipname}...\\r\\n\");
 "
       }
-      
+
       append testfunc_call "
       Status = AxiEthernetPolledExample( ${deviceid},
                                    ${fifo_deviceid} );
@@ -237,7 +237,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    # BEGIN: INTERRUPT
    if { ${ifintr} == 1 } {
-            
+
       # AXIETHERNET
         if {
            $proc == "microblaze"
@@ -249,7 +249,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       set intr_id   [string toupper $intr_id]
 
 
-      # BEGIN: FIFO & INTERRUPT 
+      # BEGIN: FIFO & INTERRUPT
       if {$dma == 1} {
          # AXIFIFO
 	  if {
@@ -259,7 +259,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 	} else {
 		set fifo_intr_id "XPAR_FABRIC_${fifo_ipname}_${intr_pin_name}_INTR"
 	}
-         
+
          set fifo_intr_id   [string toupper $fifo_intr_id]
 
          append testfunc_call "
@@ -286,7 +286,7 @@ proc gen_testfunc_call {swproj mhsinst} {
             append testfunc_call "
       if(Status == 0) {
          print(\"AxiEthernet Interrupt Test PASSED.\\r\\n\");
-      } 
+      }
       else {
          print(\"AxiEthernet Interrupt Test FAILED.\\r\\n\");
       }
@@ -331,7 +331,7 @@ proc gen_testfunc_call {swproj mhsinst} {
             append testfunc_call "
       if (Status == 0) {
          print(\"AxiEthernet Interrupt Test PASSED.\\r\\n\");
-      } 
+      }
       else {
          print(\"AxiEthernet Interrupt Test FAILED.\\r\\n\");
       }
@@ -350,11 +350,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 proc get_fifo_info {mhsHandle type} {
 
-   set ipinst_list [get_cells $mhsHandle "*"]
+   set ipinst_list [hsi::get_cells $mhsHandle "*"]
 
    foreach ipinst $ipinst_list {
-      set coreName [get_property IP_NAME $ipinst]
-      set instName [get_property NAME  $ipinst]
+      set coreName [common::get_property IP_NAME $ipinst]
+      set instName [common::get_property NAME  $ipinst]
 
       if {[string compare -nocase $coreName "axi_fifo_mm_s"] == 0} {
 
@@ -370,26 +370,26 @@ proc get_fifo_info {mhsHandle type} {
 }
 
 proc get_dma_info {mhsinst type} {
-    set ipinst_list [get_cells  $mhsinst "*"]
+    set ipinst_list [hsi::get_cells  $mhsinst "*"]
 
-    	set p2p_busifs_i [get_intf_pins -of_objects $mhsinst -filter "TYPE==INITIATOR"]
+	set p2p_busifs_i [hsi::get_intf_pins -of_objects $mhsinst -filter "TYPE==INITIATOR"]
 	# Add p2p periphs
         foreach p2p_busif $p2p_busifs_i {
-	    set busif_name [string toupper [get_property NAME  $p2p_busif]]
+	    set busif_name [string toupper [common::get_property NAME  $p2p_busif]]
             set conn_busif_handle [::hsi::utils::get_connected_intf $mhsinst $busif_name]
 	    if { [string compare -nocase $conn_busif_handle ""] == 0} {
                 continue
             } else {
-            	# if there is a single match, we know if it is FIFO or DMA
-            	# no need for further iterations
-            	set conn_busif_name [get_property NAME  $conn_busif_handle]
-            	set target_periph [get_cells -of_objects $conn_busif_handle]
-            	set target_periph_type [get_property IP_NAME $target_periph]
+		# if there is a single match, we know if it is FIFO or DMA
+		# no need for further iterations
+		set conn_busif_name [common::get_property NAME  $conn_busif_handle]
+		set target_periph [hsi::get_cells -of_objects $conn_busif_handle]
+		set target_periph_type [common::get_property IP_NAME $target_periph]
                 if { [string compare -nocase $target_periph_type "tri_mode_ethernet_mac"] == 0 } {
 			continue
 		}
-            	set target_periph_name [string toupper [get_property NAME $target_periph]]
-		set instName [get_property NAME  $target_periph]
+		set target_periph_name [string toupper [common::get_property NAME $target_periph]]
+		set instName [common::get_property NAME  $target_periph]
 		if {[string compare -nocase $target_periph_type "axi_dma"] == 0} {
 			if {[string compare -nocase $type "id"] == 0} {
 				set deviceid [::hsi::utils::get_ip_param_name $target_periph "DEVICE_ID"]
