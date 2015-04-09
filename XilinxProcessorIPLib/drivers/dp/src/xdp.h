@@ -619,6 +619,9 @@ typedef struct {
 	XDp_SbMsgLinkAddressReplyDeviceInfo LinkAddressInfo; /**< Topology
 						information used by the RX to
 						form the LINK_ADDRESS reply. */
+	u8 PayloadTable[64];		/**< The payload table of the RX
+						representing allocated bandwidth
+						per stream. */
 	XDp_RxPorts Ports[16];		/**< Port information additional to that
 						contained in LinkAddressInfo. */
 } XDp_RxTopology;
