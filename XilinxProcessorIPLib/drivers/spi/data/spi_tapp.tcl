@@ -81,7 +81,7 @@ proc gen_include_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-    set spi_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+    set spi_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
       if { ${spi_intr} == 1} {
           set inc_file_lines {xspi.h spi_header.h spi_intr_header.h}    
       } else {
@@ -97,7 +97,7 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-      set spi_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+      set spi_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
       if { ${spi_intr} == 1} {
           set inc_file_lines {examples/xspi_selftest_example.c examples/xspi_intr_example.c data/spi_header.h data/spi_intr_header.h}
       } else {
@@ -117,7 +117,7 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-        set spi_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+        set spi_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         set ipname [get_property NAME $mhsinst]
         
         if { ${spi_intr} == 1} {
@@ -137,20 +137,20 @@ proc gen_testfunc_call {swproj mhsinst} {
   }
 
   set ipname [get_property NAME $mhsinst] 
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set stdout [get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
        set hasStdout 1
   }
-  set spi_intr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+  set spi_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
   
   if { ${spi_intr} == 1} {
-      set intr_pin_name [get_pins -of_objects [get_cells $ipname]  -filter "TYPE==INTERRUPT"]
-      set intcname [::hsm::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+      set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
+      set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
       set intcvar intc
-      set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
+      set proc [get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
   }
 
   set testfunc_call ""
