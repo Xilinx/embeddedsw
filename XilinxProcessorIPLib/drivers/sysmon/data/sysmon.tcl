@@ -44,31 +44,31 @@ proc generate {drv_handle} {
 }
 
 proc xdefine_include_file {drv_handle file_name drv_string args} {
-    set args [::hsm::utils::get_exact_arg_list $args]
+    set args [::hsi::utils::get_exact_arg_list $args]
     # Open include file
-    set file_handle [::hsm::utils::open_include_file $file_name]
+    set file_handle [::hsi::utils::open_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [::hsm::utils::get_common_driver_ips $drv_handle] 
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-        puts $file_handle "/* Definitions for driver [string toupper [get_property name $drv_handle]] */"
+        puts $file_handle "/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
 
     # Check if it is a driver parameter
     lappend newargs 
     foreach arg $args {
-        set value [get_property CONFIG.$arg $drv_handle]
+        set value [common::get_property CONFIG.$arg $drv_handle]
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [::hsm::utils::get_driver_param_name $drv_string $arg] [get_property $arg $drv_handle]"
+            puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]"
         }
     }
     set args $newargs
@@ -77,13 +77,13 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
         puts $file_handle ""
-        puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
+        puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
         
-        set ipname [string tolower [get_property IP_NAME $periph]]
+        set ipname [string tolower [common::get_property IP_NAME $periph]]
         if {[string compare -nocase "system_management_wiz" $ipname] == 0} {
-        	puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph "IP_TYPE"] 1"	
+		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph "IP_TYPE"] 1"
         } else {
-        	puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph "IP_TYPE"] 0"
+		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph "IP_TYPE"] 0"
         }
         
         foreach arg $args {
@@ -91,16 +91,16 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 set value $device_id
                 incr device_id
             } else {
-                set value [get_property CONFIG.$arg $periph]
+                set value [common::get_property CONFIG.$arg $periph]
             }
             if {[llength $value] == 0} {
                 set value 0
             }
-            set value [::hsm::utils::format_addr_string $value $arg]
+            set value [::hsi::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
-                puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] \"$value\""
+                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
-                puts $file_handle "#define [::hsm::utils::get_ip_param_name $periph $arg] $value"
+                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
             }
         }
         puts $file_handle ""
@@ -110,16 +110,16 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 }
 
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
-    set args [::hsm::utils::get_exact_arg_list $args]
+    set args [::hsi::utils::get_exact_arg_list $args]
    # Open include file
-   set file_handle [::hsm::utils::open_include_file $file_name]
+   set file_handle [::hsi::utils::open_include_file $file_name]
 
    # Get all the peripherals connected to this driver
-   set periphs [::hsm::utils::get_common_driver_ips $drv_handle]
+   set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
    # Get the names of all the peripherals connected to this driver
    foreach periph $periphs {
-       set peripheral_name [string toupper [get_property NAME $periph]]
+       set peripheral_name [string toupper [common::get_property NAME $periph]]
        lappend peripherals $peripheral_name
    }
 
@@ -141,7 +141,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
    set i 0
    foreach periph $periphs {
-       set periph_name [string toupper [get_property NAME $periph]]
+       set periph_name [string toupper [common::get_property NAME $periph]]
 
        # Generate canonical definitions only for the peripherals whose
        # canonical name is not the same as hardware instance name
@@ -149,24 +149,24 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
            puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
            set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
 
-   	   set ipname [string tolower [get_property IP_NAME $periph]]
+	   set ipname [string tolower [common::get_property IP_NAME $periph]]
 	   if {[string compare -nocase "system_management_wiz" $ipname] == 0} {
-	   	puts $file_handle "#define [::hsm::utils::get_driver_param_name $canonical_name "IP_TYPE"] 1"	
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "IP_TYPE"] 1"
 	   } else {
-	   	puts $file_handle "#define [::hsm::utils::get_driver_param_name $canonical_name "IP_TYPE"] 0"
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "IP_TYPE"] 0"
            }
 
            foreach arg $args {
-               set lvalue [::hsm::utils::get_driver_param_name $canonical_name $arg]
+               set lvalue [::hsi::utils::get_driver_param_name $canonical_name $arg]
 
                # The commented out rvalue is the name of the instance-specific constant
-               # set rvalue [::hsm::utils::get_ip_param_name $periph $arg]
+               # set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
                # The rvalue set below is the actual value of the parameter
-               set rvalue [::hsm::utils::get_param_value $periph $arg]
+               set rvalue [::hsi::utils::get_param_value $periph $arg]
                if {[llength $rvalue] == 0} {
                    set rvalue 0
                }
-               set rvalue [::hsm::utils::format_addr_string $rvalue $arg]
+               set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
    
                puts $file_handle "#define $lvalue $rvalue"
 
