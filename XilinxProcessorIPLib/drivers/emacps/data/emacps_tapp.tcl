@@ -3,7 +3,7 @@
 # Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal 
+# of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
@@ -20,7 +20,7 @@
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 # XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 # OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
@@ -133,7 +133,7 @@ proc gen_init_code {swproj mhsinst} {
 	if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
-		set ipname [get_property NAME $mhsinst]
+		set ipname [common::get_property NAME $mhsinst]
 		set decl "   static XEmacPs ${ipname};"
 		set inc_file_lines $decl
 		return $inc_file_lines
@@ -150,9 +150,9 @@ proc gen_testfunc_call {swproj mhsinst} {
         return ""
     }
 
-    set ipname [get_property NAME $mhsinst]
+    set ipname [common::get_property NAME $mhsinst]
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [get_property CONFIG.STDOUT [get_os]]
+    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
@@ -171,9 +171,9 @@ proc gen_testfunc_call {swproj mhsinst} {
 	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
-	
+
       append testfunc_call "
-        
+
    {
       int Status;
       Status = EmacPsDmaIntrExample(&${intcvar}, &${ipname}, \\
@@ -190,20 +190,20 @@ proc gen_testfunc_call {swproj mhsinst} {
 	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
-	
+
       append testfunc_call "
    {
       int Status;
 
       print(\"\\r\\n Running Interrupt Test  for ${ipname}...\\r\\n\");
-      
+
       Status = EmacPsDmaIntrExample(&${intcvar}, &${ipname}, \\
                                  ${deviceid}, \\
                                  ${intr_id});
-	
+
       if (Status == 0) {
          print(\"EmacPsDmaIntrExample PASSED\\r\\n\");
-      } 
+      }
       else {
          print(\"EmacPsDmaIntrExample FAILED\\r\\n\");
       }
