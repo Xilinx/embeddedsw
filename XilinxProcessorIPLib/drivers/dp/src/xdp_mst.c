@@ -2436,9 +2436,12 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 	Port = &InstancePtr->RxInstance.Topology.LinkAddressInfo.
 							PortDetails[PortNum];
 
+	/* Keep internal port number the same as the index. */
+	Port->PortNum = PortNum;
+
+	/* Copy port details into the structure. */
 	Port->InputPort = PortDetails->InputPort;
 	Port->PeerDeviceType = PortDetails->PeerDeviceType;
-	Port->PortNum = PortDetails->PortNum;
 	Port->MsgCapStatus = PortDetails->MsgCapStatus;
 	Port->DpDevPlugStatus = PortDetails->DpDevPlugStatus;
 	Port->LegacyDevPlugStatus = PortDetails->LegacyDevPlugStatus;
