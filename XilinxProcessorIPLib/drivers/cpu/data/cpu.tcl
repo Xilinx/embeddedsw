@@ -33,7 +33,7 @@
 ##    Updated the Tcl to add the bus frequency to xparameters.h
 ## @END_CHANGELOG
 ## @BEGIN_CHANGELOG EDK_LS3
-##    Updated the Tcl to check for  Extended FPU for pulling in libm compiled 
+##    Updated the Tcl to check for  Extended FPU for pulling in libm compiled
 ##    with -mhard-float
 ## @END_CHANGELOG
 ## @BEGIN_CHANGELOG EDK_MS3
@@ -44,8 +44,8 @@
 ##
 ## Ver   Who  Date	 Changes
 ## ----- ---- -------- -------------------------------------------------------
-## 1.04a  asa  07/16/12 Updated the tcl to return 100 MHz for CR 668726 for an 
-##			IP integrator design when when cpu is directly connected 
+## 1.04a  asa  07/16/12 Updated the tcl to return 100 MHz for CR 668726 for an
+##			IP integrator design when when cpu is directly connected
 ##			to axi slave peripheral
 ## 2.0     adk 10/12/13 Updated as per the New Tcl API's
 ## 2.1     bss 04/14/14 Updated to copy libgloss.a and libgcc.a libraries
@@ -63,7 +63,7 @@ proc make_writable {osname filename} {
     if {[string first "win64" $osname] != -1  || [string first "win" $osname] != -1 } {
         file attributes $filename -readonly no
     } else {
-        file attributes $filename -permissions ugo+w 
+        file attributes $filename -permissions ugo+w
     }
 }
 
@@ -78,7 +78,7 @@ proc generate {drv_handle} {
     # 1. Copy libc, libm and libxil files..
     # 2. Generate the attribute interrupt_handler for the interrupting source...
     #---------------------------------------------------------------------------
-    set compiler [get_property CONFIG.compiler $drv_handle]
+    set compiler [common::get_property CONFIG.compiler $drv_handle]
     # preserve case
     set temp $compiler
     set compiler [string tolower $compiler]
@@ -119,12 +119,12 @@ proc generate {drv_handle} {
 
         set libc "libc"
         set libm "libm"
-        
-        set sw_proc_handle [get_sw_processor]
-        set periph [get_cells [get_property HW_INSTANCE $sw_proc_handle]]
-        set proctype [get_property IP_NAME $periph]
 
-        set endian [get_property CONFIG.C_ENDIANNESS $periph] 
+        set sw_proc_handle [hsi::get_sw_processor]
+        set periph [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+        set proctype [common::get_property IP_NAME $periph]
+
+        set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
         if {[string compare -nocase "1" $endian] == 0 } {
             set endian "_le"
                 set libxil_endian "le"
@@ -133,31 +133,31 @@ proc generate {drv_handle} {
                 set libxil_endian ""
             }
 
-        set shift [get_property CONFIG.C_USE_BARREL $periph] 
+        set shift [common::get_property CONFIG.C_USE_BARREL $periph]
         if {[string compare -nocase "1" $shift] == 0 } {
             set shifter "_bs"
                 set libxil_shifter "bs"
         }
-        
-        set hard_float [get_property CONFIG.C_USE_FPU $periph] 
+
+        set hard_float [common::get_property CONFIG.C_USE_FPU $periph]
         if {[string compare -nocase "1" $hard_float] == 0 || [string compare -nocase "2" $hard_float] == 0} {
             set fpu "_fpd"
         }
 
-        set pcmp [get_property CONFIG.C_USE_PCMP_INSTR $periph]
+        set pcmp [common::get_property CONFIG.C_USE_PCMP_INSTR $periph]
         if {[string compare -nocase "1" $pcmp] == 0 } {
             set pattern "_p"
         }
 
         #-------------------------------------------------
         # Check if MULTIPLIER PARAMETER is set in MSS file
-        # If so, then use it. Else find the C_FAMILY 
+        # If so, then use it. Else find the C_FAMILY
         # and set the multiplier accordingly
         #-------------------------------------------------
-        set multiply [get_property CONFIG.C_USE_HW_MUL $periph]
-        if {[string compare -nocase "" $multiply] == 0 } {	
-            set family [string tolower [get_property CONFIG.C_FAMILY $periph] 
-            if {[string first "virtex" $family] >= 0 } {		
+        set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
+        if {[string compare -nocase "" $multiply] == 0 } {
+            set family [string tolower [common::get_property CONFIG.C_FAMILY $periph]
+            if {[string first "virtex" $family] >= 0 } {
             if {[string compare -nocase "virtexe" $family] == 0 } {
                 set multiplier ""
                 set libxil_multiplier ""
@@ -173,14 +173,14 @@ proc generate {drv_handle} {
 	} elseif {[string compare -nocase "1" $multiply] == 0 } {
 	    set multiplier "_m"
             set libxil_multiplier "m"
-	} 
-	
+	}
+
 	set libc [format "%s%s%s%s%s%s" $libc $endian $multiplier $shifter $pattern ".a"]
 	set libm [format "%s%s%s%s%s%s%s" $libm $endian $multiplier $shifter $pattern $fpu ".a"]
 	set libxil "libgloss.a"
 	set libgcc "libgcc.a"
 	set targetdir "../../lib/"
-	
+
 	#------------------------------------------------------
 	# Copy libc, libm , libxil files...
         #
@@ -190,9 +190,9 @@ proc generate {drv_handle} {
 	#------------------------------------------------------
 	set libcfilename [format "%s%s" $targetdir "libc.a"]
 	set libmfilename [format "%s%s" $targetdir "libm.a"]
-	
+
     set library_dir [file join $compiler_root "microblaze/lib"]
-    
+
     if { ![file exists $library_dir] } {
         set library_dir [file join $compiler_root "microblaze-xilinx-elf/lib"]
          if { ![file exists $library_dir] } {
@@ -205,43 +205,43 @@ proc generate {drv_handle} {
         }
     }
 
-   
+
    file copy -force [file join $library_dir $libc] $libcfilename
    make_writable $osname $libcfilename
-    
-   file copy -force [file join $library_dir $libm] $libmfilename    
+
+   file copy -force [file join $library_dir $libm] $libmfilename
    make_writable $osname $libmfilename
- 
+
    set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
-   set symlink [file type $libxil_path] 
+   set symlink [file type $libxil_path]
    if { ![file exists $libxil_path] || $symlink == "link"} {
-   	# no libgloss.a in older SDK use libxil.a
-   	set libxil "libxil.a"
-   	set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
+	# no libgloss.a in older SDK use libxil.a
+	set libxil "libxil.a"
+	set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
    }
    set libgcc_path [file join $libgcc_dir $libxil_shifter $libxil_multiplier $libxil_endian $libgcc]
    if { ![file exists $libxil_path] } {
-    	set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
+	set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
    }
 
     file copy -force $libxil_path $targetdir
     make_writable $osname [file join $targetdir $libxil]
     file copy -force $libgcc_path $targetdir
     make_writable $osname [file join $targetdir $libgcc]
-    
+
     } else {
 	error  "ERROR: Wrong compiler type selected please use mb-gcc or mb-g++ or mb-c++"
 	return;
     }
-    
-  
+
+
 
     # End of mb-gcc specific processing...
-    
+
     #------------------------------------
     # Handle xmdstub generation
     #------------------------------------
-    set xmdstub_periph [get_property CONFIG.xmdstub_peripheral $drv_handle]
+    set xmdstub_periph [common::get_property CONFIG.xmdstub_peripheral $drv_handle]
     if {[string compare -nocase "none" $xmdstub_periph] != 0 } {
         set xmdstub_periph_handle [xget_hwhandle $xmdstub_periph]
         set targetdir "../../code"
@@ -283,7 +283,7 @@ proc generate {drv_handle} {
     }
 
     foreach bus_inst $bus_array {
-        set bhandle [get_intf_pins $bus_inst -of_objects $periph] 
+        set bhandle [hsi::get_intf_pins $bus_inst -of_objects $periph]
         if { $bhandle == "" } {
           continue;
         }
@@ -295,7 +295,7 @@ proc generate {drv_handle} {
     puts $file_handle "/* Canonical definitions for bus frequencies */"
     set bus_id 0
     foreach bus $bus_array {
-        set bhandle [get_intf_pins $bus_inst -of_objects $periph] 
+        set bhandle [hsi::get_intf_pins $bus_inst -of_objects $periph]
         if { $bhandle == "" } {
           continue;
         }
@@ -327,27 +327,27 @@ proc generate {drv_handle} {
     xdefine_addr_params_for_ext_intf $drv_handle "xparameters.h"
 }
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
-    set sw_proc_handle [get_sw_processor]
-    set hw_proc_handle [get_cells [get_property HW_INSTANCE $sw_proc_handle ]]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle ]]
 
  # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]
 
-   set mem_ranges [get_mem_ranges -of_objects $hw_proc_handle]
+   set mem_ranges [hsi::get_mem_ranges -of_objects $hw_proc_handle]
    foreach mem_range $mem_ranges {
-       set inst [get_property INSTANCE $mem_range]
+       set inst [common::get_property INSTANCE $mem_range]
        if {$inst != ""} {
             continue
-       }     
-        
-       set bparam_name [get_property BASE_NAME $mem_range]
-       set bparam_value [get_property BASE_VALUE $mem_range]
-       set hparam_name [get_property HIGH_NAME $mem_range]
-       set hparam_value [get_property HIGH_VALUE $mem_range]
+       }
+
+       set bparam_name [common::get_property BASE_NAME $mem_range]
+       set bparam_value [common::get_property BASE_VALUE $mem_range]
+       set hparam_name [common::get_property HIGH_NAME $mem_range]
+       set hparam_value [common::get_property HIGH_VALUE $mem_range]
 
        # Print all parameters for all peripherals
-           
-           set name [string toupper [get_property NAME $mem_range]]
+
+           set name [string toupper [common::get_property NAME $mem_range]]
 	   puts $file_handle ""
            puts $file_handle "/* Definitions for interface [string toupper $name] */"
            set name [format "XPAR_%s_" $name]
@@ -364,7 +364,7 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
                puts $file_handle "#define $name $value"
            }
 
-	   set name [string toupper [get_property NAME $mem_range]]
+	   set name [string toupper [common::get_property NAME $mem_range]]
            set name [format "XPAR_%s_" $name]
            if {$hparam_value != ""} {
                set value [::hsi::utils::format_addr_string $hparam_value $hparam_name]
@@ -378,9 +378,9 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
                puts $file_handle "#define $name $value"
            }
 
-           
+
            puts $file_handle ""
-      }		
+      }
 
     close $file_handle
 }
@@ -438,4 +438,3 @@ proc post_generate {drv_handle} {
 #       }
 #       return $bus_freq
 #}
-
