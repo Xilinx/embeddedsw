@@ -95,8 +95,8 @@ proc gen_testfunc_call {swproj mhsinst} {
     return ""
   }
   
-  set ipname [get_property NAME $mhsinst]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set ipname [common::get_property NAME $mhsinst]
+  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
@@ -105,10 +105,10 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   set testfunc_call ""
 
-  set prog_memranges [get_mem_ranges -filter "IS_INSTRUCTION==1" $mhsinst]
+  set prog_memranges [hsi::get_mem_ranges -filter "IS_INSTRUCTION==1" $mhsinst]
   if {[string compare ${prog_memranges} ""] != 0} {
     foreach progmem $prog_memranges {
-      set baseaddrval [get_property CONFIG.${progmem} $mhsinst]
+      set baseaddrval [common::get_property CONFIG.${progmem} $mhsinst]
       append testfunc_call "
    /* 
     * MemoryTest routine will not be run for the memory at 
@@ -119,10 +119,10 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
   }
 
-  set romemranges [get_mem_ranges $mhsinst]
+  set romemranges [hsi::get_mem_ranges $mhsinst]
   if {[string compare ${romemranges} ""] != 0} {
     foreach romem $romemranges {
-      set baseaddrval [get_property CONFIG.${romem} $mhsinst]
+      set baseaddrval [common::get_property CONFIG.${romem} $mhsinst]
       append testfunc_call "
    /* 
     * MemoryTest routine will not be run for the memory at 
@@ -133,7 +133,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
   }
 
-  set baseaddrs [get_mem_ranges $mhsinst]
+  set baseaddrs [hsi::get_mem_ranges $mhsinst]
   if {[string compare ${baseaddrs} ""] == 0} {
      return $testfunc_call
   }
