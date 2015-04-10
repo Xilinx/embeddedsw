@@ -88,9 +88,9 @@ proc gen_testfunc_call {swproj mhsinst} {
     return ""
   }
  
-  set ipname [get_property NAME  $mhsinst] 
-  set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-  set stdout [get_property CONFIG.STDOUT [get_os]]
+  set ipname [common::get_property NAME  $mhsinst]
+  set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
+  set stdout [common::get_property CONFIG.STDOUT [get_os]]
   if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
   } else {
