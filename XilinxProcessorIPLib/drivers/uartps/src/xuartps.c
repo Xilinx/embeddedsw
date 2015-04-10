@@ -46,6 +46,7 @@
 * 2.2   hk     06/23/14 SW reset of RX and TX should be done when changing
 *                       baud rate. CR# 804281.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 * </pre>
 *
 *****************************************************************************/
@@ -156,6 +157,9 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	InstancePtr->ReceiveBuffer.NextBytePtr = NULL;
 	InstancePtr->ReceiveBuffer.RemainingBytes = 0U;
 	InstancePtr->ReceiveBuffer.RequestedBytes = 0U;
+
+	/* Initialize the platform data */
+	InstancePtr->Platform = XGetPlatform_Info();
 
 	/*
 	 * Flag that the driver instance is ready to use

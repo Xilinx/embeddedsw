@@ -154,6 +154,8 @@
 *                       baud rate. CR# 804281.
 * 3.0   vm     12/09/14 Modified source code according to misrac guideline.
 *			Support for Zynq Ultrascale Mp added.
+* 3.1	kvn    04/10/15 Modified code for latest RTL changes. Also added
+*						platform variable in driver instance structure.
 *
 * </pre>
 *
@@ -172,6 +174,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xuartps_hw.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -253,11 +256,14 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPS_EVENT_RECV_DATA		1U /**< Data receiving done */
-#define XUARTPS_EVENT_RECV_TOUT		2U /**< A receive timeout occurred */
-#define XUARTPS_EVENT_SENT_DATA		3U /**< Data transmission done */
-#define XUARTPS_EVENT_RECV_ERROR	4U /**< A receive error detected */
-#define XUARTPS_EVENT_MODEM			5U /**< Modem status changed */
+#define XUARTPS_EVENT_RECV_DATA			1U /**< Data receiving done */
+#define XUARTPS_EVENT_RECV_TOUT			2U /**< A receive timeout occurred */
+#define XUARTPS_EVENT_SENT_DATA			3U /**< Data transmission done */
+#define XUARTPS_EVENT_RECV_ERROR		4U /**< A receive error detected */
+#define XUARTPS_EVENT_MODEM				5U /**< Modem status changed */
+#define XUARTPS_EVENT_PARE_FRAME_BRKE	6U /**< A receive parity, frame, break
+											 *	error detected */
+#define XUARTPS_EVENT_RECV_ORERR		7U /**< A receive overrun error detected */
 /*@}*/
 
 
@@ -328,6 +334,7 @@ typedef struct {
 
 	XUartPs_Handler Handler;
 	void *CallBackRef;	/* Callback reference for event handler */
+	u32 Platform;
 } XUartPs;
 
 

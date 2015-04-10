@@ -52,6 +52,7 @@
 * 1.05a hk     08/22/13 Added prototype for uart reset and related
 *			constant definitions.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 *
 * </pre>
 *
@@ -92,6 +93,7 @@ extern "C" {
 #define XUARTPS_BAUDDIV_OFFSET	0x0034U  /**< Baud Rate Divider [7:0] */
 #define XUARTPS_FLOWDEL_OFFSET	0x0038U  /**< Flow Delay [5:0] */
 #define XUARTPS_TXWM_OFFSET		0x0044U  /**< TX FIFO Trigger Level [5:0] */
+#define XUARTPS_RXBS_OFFSET		0x0048U  /**< RX FIFO Byte Status [11:0] */
 /* @} */
 
 /** @name Control Register
@@ -165,6 +167,7 @@ extern "C" {
  *
  * @{
  */
+#define XUARTPS_IXR_RBRK	0x00002000U /**< Rx FIFO break detect interrupt */
 #define XUARTPS_IXR_TOVR	0x00001000U /**< Tx FIFO Overflow interrupt */
 #define XUARTPS_IXR_TNFUL	0x00000800U /**< Tx FIFO Nearly Full interrupt */
 #define XUARTPS_IXR_TTRIG	0x00000400U /**< Tx Trig interrupt */
@@ -320,6 +323,30 @@ extern "C" {
 #define XUARTPS_FLOWDEL_MASK	XUARTPS_RXWM_MASK	/**< Valid bit mask */
 /* @} */
 
+/** @name Receiver FIFO Byte Status Register
+ *
+ * The Receiver FIFO Status register is used to have a continuous
+ * monitoring of the raw unmasked byte status information. The register
+ * contains frame, parity and break status information for the top
+ * four bytes in the RX FIFO.
+ *
+ * Receiver FIFO Byte Status Register Bit Definition
+ * @{
+ */
+#define XUARTPS_RXBS_BYTE3_BRKE		0x00000800U /**< Byte3 Break Error */
+#define XUARTPS_RXBS_BYTE3_FRME		0x00000400U /**< Byte3 Frame Error */
+#define XUARTPS_RXBS_BYTE3_PARE		0x00000200U /**< Byte3 Parity Error */
+#define XUARTPS_RXBS_BYTE2_BRKE		0x00000100U /**< Byte2 Break Error */
+#define XUARTPS_RXBS_BYTE2_FRME		0x00000080U /**< Byte2 Frame Error */
+#define XUARTPS_RXBS_BYTE2_PARE		0x00000040U /**< Byte2 Parity Error */
+#define XUARTPS_RXBS_BYTE1_BRKE		0x00000020U /**< Byte1 Break Error */
+#define XUARTPS_RXBS_BYTE1_FRME		0x00000010U /**< Byte1 Frame Error */
+#define XUARTPS_RXBS_BYTE1_PARE		0x00000008U /**< Byte1 Parity Error */
+#define XUARTPS_RXBS_BYTE0_BRKE		0x00000004U /**< Byte0 Break Error */
+#define XUARTPS_RXBS_BYTE0_FRME		0x00000002U /**< Byte0 Frame Error */
+#define XUARTPS_RXBS_BYTE0_PARE		0x00000001U /**< Byte0 Parity Error */
+#define XUARTPS_RXBS_MASK			0x00000FFFU	/**< 24 bit RX byte status mask */
+/* @} */
 
 
 /*
