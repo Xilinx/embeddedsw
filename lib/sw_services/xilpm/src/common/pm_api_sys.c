@@ -415,6 +415,83 @@ enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 	return pm_ipi_send(primary_master, payload);
 }
 
+/* Callback API functions */
+struct pm_init_suspend pm_susp = {
+	.received = false,
+/* initialization of other fields is irrelevant while 'received' is false */
+};
+
+struct pm_acknowledge pm_ack = {
+	.received = false,
+/* initialization of other fields is irrelevant while 'received' is false */
+};
+
+/**
+ * XPm_InitSuspendCb() - callback to handle request made by PMU for initiating
+ *			  suspend of this PU. If PU does not suspend itself
+ *			  within given timeout, PMU might force it to power down.
+ * @reason	Suspend reason
+ * @latency	Maximum allowed latency for waking up (determines lowest state)
+ * @state	State to which the PU should suspend
+ * @timeout	How much time this PU have to suspend itself
+ *
+ * This function executes in interrupt context. The function itself should never
+ * invoke PM API calls that could block (because of performance reasons) or
+ * execution of wfi (impossible). Therefore, this function should schedule
+ * suspend procedure to be done out of the interrupt context. In this case,
+ * it is simply done by filling the structure with arguments of the call and
+ * marking that the init suspend request is received.
+ */
+void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
+		       const u32 latency,
+		       const u32 state,
+		       const u32 timeout)
+{
+	if (true == pm_susp.received) {
+		pm_dbg("WARNING: dropping unhandled init suspend request!\n");
+		pm_dbg("Dropped %s (%d, %d, %d, %d)\n", __func__, pm_susp.reason,
+			pm_susp.latency, pm_susp.state, pm_susp.timeout);
+	}
+	pm_dbg("%s (%d, %d, %d, %d)\n", __func__, reason, latency, state, timeout);
+
+	pm_susp.reason = reason;
+	pm_susp.latency = latency;
+	pm_susp.state = state;
+	pm_susp.timeout = timeout;
+	pm_susp.received = true;
+}
+
+/**
+ * XPm_AcknowledgeCb() - callback to handle acknowledge from PMU
+ * @node	Node about which the acknowledge is about
+ * @status	Acknowledged status
+ * @oppoint	Operating point of the node in question
+ */
+void XPm_AcknowledgeCb(const enum XPmNodeId node,
+		       const enum XPmStatus status,
+		       const u32 oppoint)
+{
+	if (true == pm_ack.received) {
+		pm_dbg("WARNING: dropping unhandled acknowledge!\n");
+		pm_dbg("Dropped %s (%d, %d, %d)\n", __func__, pm_ack.node,
+			pm_ack.status, pm_ack.opp);
+	}
+	pm_dbg("%s (%d, %d, %d)\n", __func__, node, status, oppoint);
+
+	pm_ack.node = node;
+	pm_ack.status = status;
+	pm_ack.opp = oppoint;
+	pm_ack.received = true;
+}
+
+void XPm_NotifyCb(const enum XPmNodeId node,
+		  const u32 event,
+		  const u32 oppoint)
+{
+	pm_dbg("WARNING: %s (%d, %d, %d) - NO CUSTOM HANDLING\n", __func__,
+		node, event, oppoint);
+}
+
 /* Miscellaneous API functions */
 
 /**

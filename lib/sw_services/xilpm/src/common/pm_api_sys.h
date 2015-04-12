@@ -34,6 +34,7 @@
 #define _PM_API_SYS_H_
 
 #include "pm_defs.h"
+#include "pm_common.h"
 
 enum XPmBootStatus XPm_GetBootStatus();
 
@@ -60,6 +61,49 @@ enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 					const u8 enable);
 
 enum XPmStatus XPm_SystemShutdown(const u8 restart);
+
+/* Callback API function */
+/**
+ * pm_init_suspend - Init suspend callback arguments (save for custom handling)
+ * @received	Has init suspend callback been received/handled
+ * @reason	Reason of initializing suspend
+ * @latency	Maximum allowed latency
+ * @timeout	Period of time the client has to response
+ */
+struct pm_init_suspend {
+	volatile bool received;
+	enum XPmSuspendReason reason;
+	u32 latency;
+	u32 state;
+	u32 timeout;
+};
+
+/**
+ * pm_acknowledge - Acknowledge callback arguments (save for custom handling)
+ * @received	Has acknowledge argument been received
+ * @node	Node argument about which the acknowledge is
+ * @status	Acknowledged status
+ * @opp		Operating point of node in question
+ */
+struct pm_acknowledge {
+	volatile bool received;
+	enum XPmNodeId node;
+	enum XPmStatus status;
+	u32 opp;
+};
+
+void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
+		       const u32 latency,
+		       const u32 state,
+		       const u32 timeout);
+
+void XPm_AcknowledgeCb(const enum XPmNodeId node,
+		       const enum XPmStatus status,
+		       const u32 oppoint);
+
+void XPm_NotifyCb(const enum XPmNodeId node,
+		  const u32 event,
+		  const u32 oppoint);
 
 /* API functions for managing PM Slaves */
 enum XPmStatus XPm_RequestNode(const enum XPmNodeId node,
