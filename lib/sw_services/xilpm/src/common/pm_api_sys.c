@@ -453,3 +453,52 @@ enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node)
 	PACK_PAYLOAD(payload, PM_GET_NODE_STATUS, node, 0, 0, 0);
 	return pm_ipi_send(primary_master, payload);
 }
+
+/**
+ * XPm_MmioWrite() - Perform write to protected mmio
+ * @address	Address to write to
+ * @mask	Mask to apply
+ * @value	Value to write
+ *
+ * This function provides access to PM-related control registers
+ * that may not be directly accessible by a particular PU.
+ *
+ * @return	Returns status, either success or error+reason
+ */
+enum XPmStatus XPm_MmioWrite(const u32 address, const u32 mask,
+			     const u32 value)
+{
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD(payload, PM_MMIO_WRITE, address, mask, value, 0);
+	return pm_ipi_send(primary_master, payload);
+}
+
+/**
+ * XPm_MmioRead() - Read value from protected mmio
+ * @address	Address to write to
+ * @mask	Mask to apply
+ * @value	Value to write
+ *
+ * This function provides access to PM-related control registers
+ * that may not be directly accessible by a particular PU.
+ *
+ * @return	Returns status, either success or error+reason
+ */
+enum XPmStatus XPm_MmioRead(const u32 address, const u32 mask,
+			    u32 *const value)
+{
+	enum XPmStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD(payload, PM_MMIO_READ, address, mask, 0, 0);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (PM_RET_SUCCESS != status)
+		return status;
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, value);
+}

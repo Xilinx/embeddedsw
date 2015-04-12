@@ -80,4 +80,11 @@ enum XPmStatus XPm_GetApiVersion(u32 *version);
 
 enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node);
 
+/* Direct-Control API functions */
+enum XPmStatus XPm_MmioWrite(const u32 address, const u32 mask,
+			     const u32 value);
+
+enum XPmStatus XPm_MmioRead(const u32 address, const u32 mask,
+			    u32 *const value);
+
 #endif /* _PM_API_SYS_H_ */
