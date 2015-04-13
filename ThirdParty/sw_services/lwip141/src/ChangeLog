@@ -1,5 +1,13 @@
 Change Log for lwip
 =================================
+2015-02-09
+	* Removed support for lltemac.
+	* Made changes in axiethernet adapter files as part of general
+	cleanup.
+	* Added support for 2 GigEs for GEM.
+	* Added support for non-Marvell PHY reporting.
+	* Made changes for axiethernet checksum validation logic that resulted
+	in performance improvement.
 2015-01-23
 	* Added support for the lwip141 stack.
 	* Created a New version of lwip141_v1_0.
