@@ -69,7 +69,7 @@ extern void *_vector_table;
 	#define CONTEXT_MEM_BASE	0xFFFC0000U
 #else
 	/* Use TCM for saving context */
-	#define CONTEXT_MEM_BASE	0x20000U
+	#define CONTEXT_MEM_BASE	0x8000U
 #endif
 
 /* The below sections will be saved during suspend */
