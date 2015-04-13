@@ -74,4 +74,41 @@ const enum XPmNodeId pm_get_subsystem_node(void);
 const struct XPm_Master *pm_get_master(const uint32_t cpuid);
 const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 
+#define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	0x00000001U
+#define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	0x00000002U
+#define APU_2_PWRCTL_CPUPWRDWNREQ_MASK	0x00000004U
+#define APU_3_PWRCTL_CPUPWRDWNREQ_MASK	0x00000008U
+#define IPI_RPU_MASK			0x00000100U
+
+#define UNDEFINED_CPUID		(~0)
+
+#define pm_read(addr)		Xil_In32(addr)
+#define pm_write(addr, value)	Xil_Out32(addr, value)
+#define pm_enable_int()		Xil_ExceptionEnable()
+#define pm_disable_int()	Xil_ExceptionDisable()
+
+/* Conditional debugging prints */
+#ifdef DEBUG_MODE
+	#define pm_dbg(MSG, ...) \
+		do { \
+			pm_print(MSG,##__VA_ARGS__); \
+		} while (0)
+#else
+	#define pm_dbg(MSG, ...)	{}
+#endif
+
+#ifndef bool
+	#define bool	uint8_t
+	#define true	1U
+	#define false	0U
+#endif
+
+void XPm_ClientSuspend(const struct XPm_Master *const master);
+void XPm_ClientAbortSuspend(void);
+void XPm_ClientWakeup(const struct XPm_Master *const master);
+
+/* Do not modify below this line */
+extern const enum XPmNodeId subsystem_node;
+extern const struct XPm_Master *primary_master;
+
 #endif /* _PM_COMMON_H_ */
