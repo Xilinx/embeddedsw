@@ -93,6 +93,11 @@ XStatus XPfw_CoreConfigure(void)
 		/* FIXME: Enable IPI0 for PM-> Do it elsewhere */
 		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_IPI0_MASK);
 		XPfw_InterruptStart();
+#ifdef ENABLE_PM /* ENABLE_PM */
+		/* Set the FW_IS_PRESENT bit to enable PMUFW discovery by ATF*/
+		XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL, PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
+			PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
+#endif /* ENABLE_PM */
 		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;

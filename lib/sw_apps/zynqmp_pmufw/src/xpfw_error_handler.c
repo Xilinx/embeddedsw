@@ -81,9 +81,6 @@ void XPfw_ErrorHandlerOne(void)
 	/* Latch the Error Flags */
 	l_ErrorOneReg = XPfw_Read32(PMU_GLOBAL_ERROR_STATUS_1);
 
-	/* Clear Error Register so that new errors can trigger an Interrupt */
-	XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_1,l_ErrorOneReg);
-
 	if( (l_ErrorOneReg & PMU_GLOBAL_ERROR_STATUS_1_DDR_ECC_MASK) != 0x00000000U) {
 		XPfw_ErrorEccDdr();
 	}
@@ -121,8 +118,7 @@ void XPfw_ErrorHandlerOne(void)
 		XPfw_ErrorXmpu();
 	}
 
-	/* Clear Error Register so that new errors can trigger an Interrupt */
-
+	/* Clear Error Register */
 	XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_1,l_ErrorOneReg);
 
 }
@@ -134,9 +130,6 @@ void XPfw_ErrorHandlerTwo(void)
 
 	/* Latch the Error Flags */
 	l_ErrorTwoReg = XPfw_Read32(PMU_GLOBAL_ERROR_STATUS_2);
-
-	/* Clear Error Register so that new errors can trigger an Interrupt */
-	XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2,l_ErrorTwoReg);
 
 	if( (l_ErrorTwoReg & PMU_GLOBAL_ERROR_STATUS_2_TO_MASK) != 0x00000000U) {
 		XPfw_ErrorTimeOut();
@@ -166,9 +159,8 @@ void XPfw_ErrorHandlerTwo(void)
 		XPfw_ErrorCsuRom();
 	}
 
-
-
-
+	/* Clear Error Register */
+	XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2,l_ErrorTwoReg);
 }
 
 

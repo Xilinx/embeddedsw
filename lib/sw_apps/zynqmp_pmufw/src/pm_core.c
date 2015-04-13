@@ -1,34 +1,32 @@
-/******************************************************************************
-*
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
+/*
+ * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
+ */
 
 /*********************************************************************
  * This file contains implementation of the PM API functions, which
@@ -551,38 +549,6 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 }
 
 /**
- * PmClockRequest() - Request the clock at some frequency
- * @master  Initiator of the request
- * @clock   The clock in question
- * @rate    Frequency to be set
- */
-static void PmClockRequest(const PmMaster *const master, const u32 clock,
-			   const u32 rate)
-{
-	PmDbg("%s(%d, %d) not implemented\n", __func__, clock, rate);
-}
-
-/**
- * PmClockRelease() - Release the clock
- * @master  Initiator of the request
- * @clock   The clock in question
- */
-static void PmClockRelease(const PmMaster *const master, const u32 clock)
-{
-	PmDbg("%s(%d) not implemented\n", __func__, clock);
-}
-
-/**
- * PmGetClockRate() - Get current frequency of the clock
- * @master  Initiator of the request
- * @clock   Clock whose frequency should be returned
- */
-static void PmGetClockRate(const PmMaster *const master, const u32 clock)
-{
-	PmDbg("%s(%d) not implemented\n", __func__, clock);
-}
-
-/**
  * PmResetAssert() - Request setting of reset (1 - assert, 0 - release)
  * @master      Initiator of the request
  * @reset       Reset to be configured
@@ -663,15 +629,6 @@ void PmProcessApiCall(const PmMaster *const master,
 		break;
 	case PM_REGISTER_NOTIFIER:
 		PmRegisterNotifier(master, pload[1], pload[2], pload[3], pload[4]);
-		break;
-	case PM_CLOCK_REQUEST:
-		PmClockRequest(master, pload[1], pload[2]);
-		break;
-	case PM_CLOCK_RELEASE:
-		PmClockRelease(master, pload[1]);
-		break;
-	case PM_CLOCK_GET_RATE:
-		PmGetClockRate(master, pload[1]);
 		break;
 	case PM_RESET_ASSERT:
 		PmResetAssert(master, pload[1], pload[2]);

@@ -1,34 +1,32 @@
-/******************************************************************************
-*
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
+/*
+ * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
+ */
 
 /*********************************************************************
  * Master related data and function definitions:
@@ -47,196 +45,196 @@
 
 /* Requirement of APU master */
 PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
-    [PM_MASTER_APU_SLAVE_OCM0] = {
-        .slave = &pmSlaveOcm0_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_APU_SLAVE_OCM1] = {
-        .slave = &pmSlaveOcm1_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_APU_SLAVE_OCM2] = {
-        .slave = &pmSlaveOcm2_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_APU_SLAVE_OCM3] = {
-        .slave = &pmSlaveOcm3_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_APU_SLAVE_L2] = {
-        .slave = &pmSlaveL2_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_APU_SLAVE_USB0] = {
-        .slave = &pmSlaveUsb0_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_APU_SLAVE_USB1] = {
-        .slave = &pmSlaveUsb1_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_APU_SLAVE_TTC0] = {
-        .slave = &pmSlaveTtc0_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_APU_SLAVE_SATA] = {
-        .slave = &pmSlaveSata_g.slv,
-        .requestor = &pmMasterApu_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
+	[PM_MASTER_APU_SLAVE_OCM0] = {
+		.slave = &pmSlaveOcm0_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_APU_SLAVE_OCM1] = {
+		.slave = &pmSlaveOcm1_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_APU_SLAVE_OCM2] = {
+		.slave = &pmSlaveOcm2_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_APU_SLAVE_OCM3] = {
+		.slave = &pmSlaveOcm3_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_APU_SLAVE_L2] = {
+		.slave = &pmSlaveL2_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_APU_SLAVE_USB0] = {
+		.slave = &pmSlaveUsb0_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_USB1] = {
+		.slave = &pmSlaveUsb1_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_TTC0] = {
+		.slave = &pmSlaveTtc0_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_SATA] = {
+		.slave = &pmSlaveSata_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
 };
 
 /* Requirement of RPU_0 master */
 PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
-    [PM_MASTER_RPU_0_SLAVE_OCM0] = {
-        .slave = &pmSlaveOcm0_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_RPU_0_SLAVE_OCM1] = {
-        .slave = &pmSlaveOcm1_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_RPU_0_SLAVE_OCM2] = {
-        .slave = &pmSlaveOcm2_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_RPU_0_SLAVE_OCM3] = {
-        .slave = &pmSlaveOcm3_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_RPU_0_SLAVE_TCM0A] = {
-        .slave = &pmSlaveTcm0A_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_RPU_0_SLAVE_TCM0B] = {
-        .slave = &pmSlaveTcm0B_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_RPU_0_SLAVE_TCM1A] = {
-        .slave = &pmSlaveTcm1A_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_RPU_0_SLAVE_TCM1B] = {
-        .slave = &pmSlaveTcm1B_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = PM_MASTER_USING_SLAVE_MASK,
-        .currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-        .nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-    },
-    [PM_MASTER_APU_SLAVE_USB0] = {
-        .slave = &pmSlaveUsb0_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_APU_SLAVE_USB1] = {
-        .slave = &pmSlaveUsb1_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_RPU_0_SLAVE_TTC0] = {
-        .slave = &pmSlaveTtc0_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
-    [PM_MASTER_RPU_0_SLAVE_SATA] = {
-        .slave = &pmSlaveSata_g.slv,
-        .requestor = &pmMasterRpu0_g,
-        .info = 0U,
-        .currReq = 0U,
-        .nextReq = 0U,
-    },
+	[PM_MASTER_RPU_0_SLAVE_OCM0] = {
+		.slave = &pmSlaveOcm0_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_OCM1] = {
+		.slave = &pmSlaveOcm1_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_OCM2] = {
+		.slave = &pmSlaveOcm2_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_OCM3] = {
+		.slave = &pmSlaveOcm3_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_RPU_0_SLAVE_TCM0A] = {
+		.slave = &pmSlaveTcm0A_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_RPU_0_SLAVE_TCM0B] = {
+		.slave = &pmSlaveTcm0B_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_RPU_0_SLAVE_TCM1A] = {
+		.slave = &pmSlaveTcm1A_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_RPU_0_SLAVE_TCM1B] = {
+		.slave = &pmSlaveTcm1B_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	},
+	[PM_MASTER_RPU_0_SLAVE_USB0] = {
+		.slave = &pmSlaveUsb0_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_USB1] = {
+		.slave = &pmSlaveUsb1_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_TTC0] = {
+		.slave = &pmSlaveTtc0_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_SATA] = {
+		.slave = &pmSlaveSata_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
 };
 
 PmMaster pmMasterApu_g = {
-    .procs = pmApuProcs_g,
-    .procsCnt = PM_PROC_APU_MAX,
-    .ipiMask = IPI_PMU_0_IER_APU_MASK,
-    .ipiTrigMask = IPI_PMU_0_TRIG_APU_MASK,
-    .pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_APU_OFFSET,
-    .buffer = IPI_BUFFER_APU_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
-    .reqs = pmApuReq_g,
-    .reqsCnt = ARRAY_SIZE(pmApuReq_g),
+	.procs = pmApuProcs_g,
+	.procsCnt = PM_PROC_APU_MAX,
+	.ipiMask = IPI_PMU_0_IER_APU_MASK,
+	.ipiTrigMask = IPI_PMU_0_TRIG_APU_MASK,
+	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_APU_OFFSET,
+	.buffer = IPI_BUFFER_APU_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
+	.reqs = pmApuReq_g,
+	.reqsCnt = ARRAY_SIZE(pmApuReq_g),
 };
 
 PmMaster pmMasterRpu0_g = {
-    .procs = &pmRpuProcs_g[PM_PROC_RPU_0],
-    .procsCnt = 1,
-    .ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
-    .ipiTrigMask = IPI_PMU_0_TRIG_RPU_0_MASK,
-    .pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_0_OFFSET,
-    .buffer = IPI_BUFFER_RPU_0_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
-    .reqs = pmRpu0Req_g,
-    .reqsCnt = ARRAY_SIZE(pmRpu0Req_g),
+	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
+	.procsCnt = 1,
+	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
+	.ipiTrigMask = IPI_PMU_0_TRIG_RPU_0_MASK,
+	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_0_OFFSET,
+	.buffer = IPI_BUFFER_RPU_0_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
+	.reqs = pmRpu0Req_g,
+	.reqsCnt = ARRAY_SIZE(pmRpu0Req_g),
 };
 
 PmMaster pmMasterRpu1_g = {
-    .procs = &pmRpuProcs_g[PM_PROC_RPU_1],
-    .procsCnt = 1,
-    .ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
-    .ipiTrigMask = IPI_PMU_0_TRIG_RPU_1_MASK,
-    .pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_1_OFFSET,
-    .buffer = IPI_BUFFER_RPU_1_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
-    .reqs = NULL,   /* lockstep mode is assumed for now */
-    .reqsCnt = 0,
+	.procs = &pmRpuProcs_g[PM_PROC_RPU_1],
+	.procsCnt = 1,
+	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
+	.ipiTrigMask = IPI_PMU_0_TRIG_RPU_1_MASK,
+	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_1_OFFSET,
+	.buffer = IPI_BUFFER_RPU_1_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
+	.reqs = NULL,   /* lockstep mode is assumed for now */
+	.reqsCnt = 0,
 };
 
 static const PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
-    [PM_MASTER_APU] = &pmMasterApu_g,
-    [PM_MASTER_RPU_0] = &pmMasterRpu0_g,
-    [PM_MASTER_RPU_1] = &pmMasterRpu1_g,
+	[PM_MASTER_APU] = &pmMasterApu_g,
+	[PM_MASTER_RPU_0] = &pmMasterRpu0_g,
+	[PM_MASTER_RPU_1] = &pmMasterRpu1_g,
 };
 
 /**
@@ -251,20 +249,20 @@ static const PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
  */
 u32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
 {
-    u32 status;
+	u32 status;
 
-    /* Check if slave has a state with requested capabilities */
-    status = PmCheckCapabilities(masterReq->slave, caps);
-    if (PM_RET_SUCCESS != status) {
-        status = PM_RET_ERROR_NOTSUPPORTED;
-        goto done;
-    }
+	/* Check if slave has a state with requested capabilities */
+	status = PmCheckCapabilities(masterReq->slave, caps);
+	if (PM_RET_SUCCESS != status) {
+		status = PM_RET_ERROR_NOTSUPPORTED;
+		goto done;
+	}
 
-    /* Schedule setting of the requirement for later */
-    masterReq->nextReq = caps;
+	/* Schedule setting of the requirement for later */
+	masterReq->nextReq = caps;
 
 done:
-    return status;
+	return status;
 }
 
 /**
@@ -278,35 +276,35 @@ done:
  */
 u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 {
-    u32 status;
-    u32 tmpCaps;
+	u32 status;
+	u32 tmpCaps;
 
-    PmDbg("%s\n", __func__);
-    /* Check if slave has a state with requested capabilities */
-    status = PmCheckCapabilities(masterReq->slave, caps);
+	PmDbg("%s\n", __func__);
+	/* Check if slave has a state with requested capabilities */
+	status = PmCheckCapabilities(masterReq->slave, caps);
 
-    PmDbg("PmCheckCapabilities status=%d\n", status);
-    if (PM_RET_SUCCESS != status) {
-	    goto done;
-    }
+	PmDbg("PmCheckCapabilities status=%d\n", status);
+	if (PM_RET_SUCCESS != status) {
+		goto done;
+	}
 
-    /* Configure requested capabilities */
-    tmpCaps = masterReq->currReq;
-    masterReq->currReq = caps;
-    status = PmUpdateSlave(masterReq->slave);
+	/* Configure requested capabilities */
+	tmpCaps = masterReq->currReq;
+	masterReq->currReq = caps;
+	status = PmUpdateSlave(masterReq->slave);
 
-    PmDbg("PmUpdateSlave status=%d\n", status);
+	PmDbg("PmUpdateSlave status=%d\n", status);
 
-    if (PM_RET_SUCCESS == status) {
-        /* All capabilities requested in active state are constant */
-        masterReq->nextReq = masterReq->currReq;
-    } else {
-        /* Remember the last setting, will report an error */
-        masterReq->currReq = tmpCaps;
-    }
+	if (PM_RET_SUCCESS == status) {
+		/* All capabilities requested in active state are constant */
+		masterReq->nextReq = masterReq->currReq;
+	} else {
+		/* Remember the last setting, will report an error */
+		masterReq->currReq = tmpCaps;
+	}
 
 done:
-    return status;
+	return status;
 }
 
 /**
@@ -327,31 +325,32 @@ done:
  */
 void PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 {
-    u32 status;
-    PmRequirementId i;
+	u32 status;
+	PmRequirementId i;
 
-    PmDbg("%s master %s\n", __func__, PmStrNode(master->procs[0].node.nodeId));
+	PmDbg("%s master %s\n", __func__, PmStrNode(master->procs[0].node.nodeId));
 
-    for (i = 0; i < master->reqsCnt; i++) {
-        if (master->reqs[i].currReq != master->reqs[i].nextReq) {
-            u32 tmpReq = master->reqs[i].nextReq;
+	for (i = 0; i < master->reqsCnt; i++) {
+		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
+			u32 tmpReq = master->reqs[i].nextReq;
 
-            if (true == swap) {
-                /* Swap current and next requirements */
-                master->reqs[i].nextReq = master->reqs[i].currReq;
-            }
+			if (true == swap) {
+				/* Swap current and next requirements */
+				master->reqs[i].nextReq = master->reqs[i].currReq;
+			}
 
-            master->reqs[i].currReq = tmpReq;
+			master->reqs[i].currReq = tmpReq;
 
-            /* Update slave setting */
-            status = PmUpdateSlave(master->reqs[i].slave);
-            /* if rom works correctly, status should be always ok */
-            if (PM_RET_SUCCESS != status) {
-                PmDbg("%s ERROR setting slave node %s\n",
-                      __func__, PmStrNode(master->reqs[i].slave->node.nodeId));
-            }
-        }
-    }
+			/* Update slave setting */
+			status = PmUpdateSlave(master->reqs[i].slave);
+			/* if rom works correctly, status should be always ok */
+			if (PM_RET_SUCCESS != status) {
+				PmDbg("%s ERROR setting slave node %s\n",
+				      __func__,
+				      PmStrNode(master->reqs[i].slave->node.nodeId));
+			}
+		}
+	}
 }
 
 /**
@@ -361,16 +360,16 @@ void PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
  */
 void PmRequirementCancelScheduled(const PmMaster* const master)
 {
-    PmRequirementId i;
+	PmRequirementId i;
 
-    for (i = 0; i < master->reqsCnt; i++) {
-        if (master->reqs[i].currReq != master->reqs[i].nextReq) {
-            /* Drop the scheduled request by making it constant */
-            PmDbg("%s %s\n",
-                  __func__, PmStrNode(master->reqs[i].slave->node.nodeId));
-            master->reqs[i].nextReq = master->reqs[i].currReq;
-        }
-    }
+	for (i = 0; i < master->reqsCnt; i++) {
+		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
+			/* Drop the scheduled request by making it constant */
+			PmDbg("%s %s\n", __func__,
+			      PmStrNode(master->reqs[i].slave->node.nodeId));
+			master->reqs[i].nextReq = master->reqs[i].currReq;
+		}
+	}
 }
 
 /**
@@ -381,20 +380,20 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
  */
 void PmRequirementReleaseAll(const PmMaster* const master)
 {
-    u32 status;
-    PmRequirementId i;
+	u32 status;
+	PmRequirementId i;
 
-    for (i = 0; i < master->reqsCnt; i++) {
-        master->reqs[i].currReq = 0U;
-        master->reqs[i].nextReq = 0U;
-        /* Update slave setting */
-        status = PmUpdateSlave(master->reqs[i].slave);
-        /* if pmu rom works correctly, status should be always ok */
-        if (PM_RET_SUCCESS != status) {
-            PmDbg("%s ERROR setting slave node %s\n",
-                  __func__, PmStrNode(master->reqs[i].slave->node.nodeId));
-        }
-    }
+	for (i = 0; i < master->reqsCnt; i++) {
+		master->reqs[i].currReq = 0U;
+		master->reqs[i].nextReq = 0U;
+		/* Update slave setting */
+		status = PmUpdateSlave(master->reqs[i].slave);
+		/* if pmu rom works correctly, status should be always ok */
+		if (PM_RET_SUCCESS != status) {
+			PmDbg("%s ERROR setting slave node %s\n", __func__,
+			      PmStrNode(master->reqs[i].slave->node.nodeId));
+		}
+	}
 }
 
 /**
@@ -408,19 +407,19 @@ void PmRequirementReleaseAll(const PmMaster* const master)
  *          not allowed to use the slave.
  */
 PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
-                                    const PmNodeId nodeId)
+					const PmNodeId nodeId)
 {
-    u32 i;
-    PmRequirement *req = NULL;
+	u32 i;
+	PmRequirement *req = NULL;
 
-    for (i = 0; i < master->reqsCnt; i++) {
-        if (master->reqs[i].slave->node.nodeId == nodeId) {
-            req = &master->reqs[i];
-            break;
-        }
-    }
+	for (i = 0; i < master->reqsCnt; i++) {
+		if (master->reqs[i].slave->node.nodeId == nodeId) {
+			req = &master->reqs[i];
+			break;
+		}
+	}
 
-    return req;
+	return req;
 }
 
 /**
@@ -429,13 +428,13 @@ PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
  */
 void PmEnableAllMasterIpis(void)
 {
-    u8 i;
+	u8 i;
 
-    for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-        XPfw_RMW32(IPI_PMU_0_IER,
-                   pmAllMasters[i]->ipiMask,
-                   pmAllMasters[i]->ipiMask);
-    }
+	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+		XPfw_RMW32(IPI_PMU_0_IER,
+			   pmAllMasters[i]->ipiMask,
+			   pmAllMasters[i]->ipiMask);
+	}
 }
 
 /**
@@ -446,17 +445,17 @@ void PmEnableAllMasterIpis(void)
  */
 const PmMaster* PmGetMasterByIpiMask(const u32 mask)
 {
-    u32 i;
-    const PmMaster *mst = NULL;
+	u32 i;
+	const PmMaster *mst = NULL;
 
-    for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-        if (mask == pmAllMasters[i]->ipiMask) {
-            mst = pmAllMasters[i];
-            break;
-        }
-    }
+	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+		if (mask == pmAllMasters[i]->ipiMask) {
+			mst = pmAllMasters[i];
+			break;
+		}
+	}
 
-    return mst;
+	return mst;
 }
 
 /**
@@ -469,18 +468,18 @@ const PmMaster* PmGetMasterByIpiMask(const u32 mask)
  *          master), or NULL if such processor is not found.
  */
 PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
-                              const PmNodeId nodeId)
+			      const PmNodeId nodeId)
 {
-    u32 i;
-    PmProc *proc = NULL;
+	u32 i;
+	PmProc *proc = NULL;
 
-    for (i = 0U; i < master->procsCnt; i++) {
-        if (nodeId == master->procs[i].node.nodeId) {
-            proc = &master->procs[i];
-        }
-    }
+	for (i = 0U; i < master->procsCnt; i++) {
+		if (nodeId == master->procs[i].node.nodeId) {
+			proc = &master->procs[i];
+		}
+	}
 
-    return proc;
+	return proc;
 }
 
 /**
@@ -493,28 +492,28 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
  *          given node id, or NULL if such processor is not found
  */
 PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
-                               const PmNodeId nodeId)
+			       const PmNodeId nodeId)
 {
-    u32 i;
-    PmProc *proc = NULL;
+	u32 i;
+	PmProc *proc = NULL;
 
-    for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-        u32 p;
+	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+		u32 p;
 
-        if (master == pmAllMasters[i]) {
-            continue;
-        }
+		if (master == pmAllMasters[i]) {
+			continue;
+		}
 
-        for (p = 0; p < pmAllMasters[i]->procsCnt; p++) {
-            if (nodeId == pmAllMasters[i]->procs[p].node.nodeId) {
-                proc = &pmAllMasters[i]->procs[p];
-                goto done;
-            }
-        }
-    }
+		for (p = 0; p < pmAllMasters[i]->procsCnt; p++) {
+			if (nodeId == pmAllMasters[i]->procs[p].node.nodeId) {
+				proc = &pmAllMasters[i]->procs[p];
+				goto done;
+			}
+		}
+	}
 
 done:
-    return proc;
+	return proc;
 }
 
 /**
@@ -526,21 +525,22 @@ done:
  */
 PmProc* PmGetProcByNodeId(const PmNodeId nodeId)
 {
-    u32 i;
-    PmProc *proc = NULL;
+	u32 i;
+	PmProc *proc = NULL;
 
-    for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-        u32 p;
-        for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-            if (nodeId == pmAllMasters[i]->procs[p].node.nodeId) {
-                proc = &pmAllMasters[i]->procs[p];
-                goto done;
-            }
-        }
-    }
+	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+		u32 p;
+
+		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
+			if (nodeId == pmAllMasters[i]->procs[p].node.nodeId) {
+				proc = &pmAllMasters[i]->procs[p];
+				goto done;
+			}
+		}
+	}
 
 done:
-    return proc;
+	return proc;
 }
 
 /**
@@ -552,22 +552,22 @@ done:
  */
 PmProc* PmGetProcByWfiStatus(const u32 mask)
 {
-    u32 i;
-    PmProc *proc = NULL;
+	u32 i;
+	PmProc *proc = NULL;
 
-    for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-        u32 p;
+	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+		u32 p;
 
-        for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-            if (mask & pmAllMasters[i]->procs[p].wfiStatusMask) {
-                proc = &pmAllMasters[i]->procs[p];
-                goto done;
-            }
-        }
-    }
+		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
+			if (mask & pmAllMasters[i]->procs[p].wfiStatusMask) {
+				proc = &pmAllMasters[i]->procs[p];
+				goto done;
+			}
+		}
+	}
 
 done:
-    return proc;
+	return proc;
 }
 
 /**
@@ -578,22 +578,22 @@ done:
  */
 PmProc* PmGetProcByWakeStatus(const u32 mask)
 {
-    u32 i;
-    PmProc *proc = NULL;
+	u32 i;
+	PmProc *proc = NULL;
 
-    for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-        u32 p;
+	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+		u32 p;
 
-        for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-            if (mask & pmAllMasters[i]->procs[p].wakeStatusMask) {
-                proc = &pmAllMasters[i]->procs[p];
-                goto done;
-            }
-        }
-    }
+		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
+			if (mask & pmAllMasters[i]->procs[p].wakeStatusMask) {
+				proc = &pmAllMasters[i]->procs[p];
+				goto done;
+			}
+		}
+	}
 
 done:
-    return proc;
+	return proc;
 }
 
 /**
@@ -606,16 +606,16 @@ done:
  */
 u32 PmMasterGetAwakeProcCnt(const PmMaster* const master)
 {
-    u32 i;
-    u32 activeCnt = 0U;
+	u32 i;
+	u32 activeCnt = 0U;
 
-    for (i = 0U; i < master->procsCnt; i++) {
-        if (PM_PROC_STATE_ACTIVE == master->procs[i].node.currState) {
-            activeCnt++;
-        }
-    }
+	for (i = 0U; i < master->procsCnt; i++) {
+		if (PM_PROC_STATE_ACTIVE == master->procs[i].node.currState) {
+			activeCnt++;
+		}
+	}
 
-    return activeCnt;
+	return activeCnt;
 }
 
 /**
@@ -626,15 +626,15 @@ u32 PmMasterGetAwakeProcCnt(const PmMaster* const master)
  */
 void PmEnableProxyWake(PmMaster* const master)
 {
-    u32 i;
+	u32 i;
 
-    PmDbg("%s %s\n", __func__, PmStrNode(master->procs->node.nodeId));
+	PmDbg("%s %s\n", __func__, PmStrNode(master->procs->node.nodeId));
 
-    for (i = 0; i < master->reqsCnt; i++) {
-        if (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK) {
-            PmSlaveWakeEnable(master->reqs[i].slave);
-        }
-    }
+	for (i = 0; i < master->reqsCnt; i++) {
+		if (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK) {
+			PmSlaveWakeEnable(master->reqs[i].slave);
+		}
+	}
 }
 
 /**
@@ -644,13 +644,13 @@ void PmEnableProxyWake(PmMaster* const master)
  */
 static void PmWakeUpCancelScheduled(PmMaster* const master)
 {
-    u32 i;
+	u32 i;
 
-    PmDbg("%s %s\n", __func__, PmStrNode(master->procs->node.nodeId));
+	PmDbg("%s %s\n", __func__, PmStrNode(master->procs->node.nodeId));
 
-    for (i = 0; i < master->reqsCnt; i++) {
-        master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-    }
+	for (i = 0; i < master->reqsCnt; i++) {
+		master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+	}
 }
 
 /**
@@ -659,33 +659,33 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
  */
 static void PmWakeUpDisableAll(PmMaster* const master)
 {
-    u32 i;
+	u32 i;
 
-    PmDbg("%s for %s\n", __func__, PmStrNode(master->procs->node.nodeId));
+	PmDbg("%s for %s\n", __func__, PmStrNode(master->procs->node.nodeId));
 
-    for (i = 0; i < master->reqsCnt; i++) {
-        PmMasterId r;
-        bool hasOtherReq = false;
+	for (i = 0; i < master->reqsCnt; i++) {
+		PmMasterId r;
+		bool hasOtherReq = false;
 
-        if (0U == (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK)) {
-            continue;
-        }
+		if (0U == (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK)) {
+			continue;
+		}
 
-        master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-        /* Check if there are other masters waiting for slave's wake-up */
-        for (r = 0U; r < master->reqs[i].slave->reqsCnt; r++) {
-            if (0U != (master->reqs[i].slave->reqs[r]->info &
-                       PM_MASTER_WAKEUP_REQ_MASK)) {
-                hasOtherReq = true;
-                break;
-            }
-        }
+		master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+		/* Check if there are other masters waiting for slave's wake-up */
+		for (r = 0U; r < master->reqs[i].slave->reqsCnt; r++) {
+			if (0U != (master->reqs[i].slave->reqs[r]->info &
+				   PM_MASTER_WAKEUP_REQ_MASK)) {
+				hasOtherReq = true;
+				break;
+			}
+		}
 
-        if (false == hasOtherReq) {
-            /* No other masters waiting for wake, disable wake event */
-            PmSlaveWakeDisable(master->reqs[i].slave);
-        }
-    }
+		if (false == hasOtherReq) {
+			/* No other masters waiting for wake, disable wake event */
+			PmSlaveWakeDisable(master->reqs[i].slave);
+		}
+	}
 }
 
 /**
@@ -698,24 +698,24 @@ static void PmWakeUpDisableAll(PmMaster* const master)
  */
 void PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 {
-    switch (event) {
-    case PM_PROC_EVENT_SLEEP:
-        PmRequirementUpdateScheduled(master, true);
-        break;
-    case PM_PROC_EVENT_ABORT_SUSPEND:
-        PmRequirementCancelScheduled(master);
-        PmWakeUpCancelScheduled(master);
-        break;
-    case PM_PROC_EVENT_WAKE:
-        PmRequirementUpdateScheduled(master, false);
-        PmWakeUpDisableAll(master);
-        break;
-    case PM_PROC_EVENT_FORCE_PWRDN:
-        PmRequirementReleaseAll(master);
-        PmWakeUpCancelScheduled(master);
-        break;
-    default:
-        PmDbg("%s undefined event #%d\n", __func__, event);
-        break;
-    }
+	switch (event) {
+	case PM_PROC_EVENT_SLEEP:
+		PmRequirementUpdateScheduled(master, true);
+		break;
+	case PM_PROC_EVENT_ABORT_SUSPEND:
+		PmRequirementCancelScheduled(master);
+		PmWakeUpCancelScheduled(master);
+		break;
+	case PM_PROC_EVENT_WAKE:
+		PmRequirementUpdateScheduled(master, false);
+		PmWakeUpDisableAll(master);
+		break;
+	case PM_PROC_EVENT_FORCE_PWRDN:
+		PmRequirementReleaseAll(master);
+		PmWakeUpCancelScheduled(master);
+		break;
+	default:
+		PmDbg("%s undefined event #%d\n", __func__, event);
+		break;
+	}
 }

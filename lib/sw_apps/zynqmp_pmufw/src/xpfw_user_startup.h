@@ -1,6 +1,5 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,9 +26,7 @@
 * Except as contained in this notice, the name of the Xilinx shall not be used
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
-*
 ******************************************************************************/
-
 
 #ifndef XPFW_USER_STARTUP_H_
 #define XPFW_USER_STARTUP_H_

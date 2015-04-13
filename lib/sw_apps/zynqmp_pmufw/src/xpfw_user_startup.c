@@ -1,6 +1,5 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,9 +26,7 @@
 * Except as contained in this notice, the name of the Xilinx shall not be used
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
-*
 ******************************************************************************/
-
 
 #include "xpfw_config.h"
 
@@ -46,29 +43,13 @@
 #include "ipi_buffer.h"
 #include "pm_defs.h"
 
-
-#ifdef ENABLE_SCHEDULER
-void PrintMsg1(void)
-{
-	fw_printf("Task#1\r\n");
-}
-void PrintMsg2(void)
-{
-	fw_printf("Task#2\r\n");
-}
-#endif
-
-
 #ifdef ENABLE_PM
 static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 {
-
-
 	u32 isrVal, apiId;
 	XPfw_PmIpiStatus ipiStatus;
 
-	switch(IpiNum) {
-
+	switch (IpiNum) {
 	case 0:
 		isrVal = XPfw_Read32(IPI_PMU_0_ISR);
 		fw_printf("Received IPI Mask:0x%08x\r\n", isrVal);
@@ -76,11 +57,11 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 		if (XPFW_PM_IPI_IS_PM_CALL == ipiStatus) {
 			/* Power management API processing */
 			XPfw_PmIpiHandler(isrVal, apiId);
-		}
-		else {
+		} else {
 			fw_printf("MOD-%d: Non-PM IPI-%d call received\r\n", ModPtr->ModId, IpiNum);
 		}
-			XPfw_Write32(IPI_PMU_0_ISR, isrVal);
+
+		XPfw_Write32(IPI_PMU_0_ISR, isrVal);
 		break;
 
 	case 1:
@@ -100,34 +81,30 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 
 	default:
 		fw_printf("ERROR: Invalid IPI Number: %d\r\n", IpiNum);
-
 	}
-
-
 }
 
-void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
+static void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
 	u32 EvType, RegValue;
 	EvType = XPfw_EventGetType(EventId);
 
 	switch (EvType) {
-		case XPFW_EV_TYPE_GPI1:
-			RegValue = XPfw_EventGetRegMask(EventId);
-			XPfw_PmWakeHandler(RegValue);
-			break;
-		case XPFW_EV_TYPE_GPI2:
-			RegValue = XPfw_EventGetRegMask(EventId);
-			XPfw_PmWfiHandler(RegValue);
-			break;
-		default:
-			fw_printf("Unhandled PM Event: %d\r\n", EventId);
+	case XPFW_EV_TYPE_GPI1:
+		RegValue = XPfw_EventGetRegMask(EventId);
+		XPfw_PmWakeHandler(RegValue);
+		break;
+	case XPFW_EV_TYPE_GPI2:
+		RegValue = XPfw_EventGetRegMask(EventId);
+		XPfw_PmWfiHandler(RegValue);
+		break;
+	default:
+		fw_printf("Unhandled PM Event: %d\r\n", EventId);
 		break;
 	}
-
 }
 
-void PmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+static void PmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	/* Add Event Handlers for PM */
 	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_0_WAKE);
@@ -163,10 +140,20 @@ void PmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
  */
 	XPfw_PmInit();
 }
-#endif
+static void ModPmInit(void)
+{
+	const XPfw_Module_t *PmModPtr = XPfw_CoreCreateMod();
+
+	(void)XPfw_CoreSetCfgHandler(PmModPtr, PmCfgInit);
+	(void)XPfw_CoreSetEventHandler(PmModPtr, PmEventHandler);
+	(void)XPfw_CoreSetIpiHandler(PmModPtr, PmIpiHandler, 0U);
+}
+#else /* ENABLE_PM */
+static void ModPmInit(void) { }
+#endif /* ENABLE_PM */
 
 #ifdef ENABLE_EM
-void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
+static void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
 	switch (EventId) {
 	case XPFW_EV_ERROR_1:
@@ -179,104 +166,91 @@ void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		fw_printf("EM:Unhandled Event(ID:%d)\r\n", EventId);
 		break;
 	}
-
 }
 
-void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 
-	(void)XPfw_CoreRegisterEvent(ModPtr,XPFW_EV_ERROR_1);
-	(void)XPfw_CoreRegisterEvent(ModPtr,XPFW_EV_ERROR_2);
+	(void)XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_1);
+	(void)XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_2);
 	XPfw_ErrorHandlerInit();
 	fw_printf("EM (MOD-%d): Initialized.\r\n", ModPtr->ModId);
 }
 
-#endif
+static void ModEmInit(void)
+{
+	const XPfw_Module_t *EmModPtr = XPfw_CoreCreateMod();
+
+	(void)XPfw_CoreSetCfgHandler(EmModPtr, EmCfgInit);
+	(void)XPfw_CoreSetEventHandler(EmModPtr, EmEventHandler);
+}
+#else /* ENABLE_EM */
+static void ModEmInit(void) { }
+#endif /* ENABLE_EM */
 
 #ifdef ENABLE_RTC_TEST
-
-void RtcEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
+static void RtcEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
-
 	fw_printf("MOD%d:EVENTID: %d\r\n", ModPtr->ModId, EventId);
 	//XPfw_CorePrintStats();
-	if(XPFW_EV_RTC_SECONDS == EventId){
+	if (XPFW_EV_RTC_SECONDS == EventId) {
 			/* Ack the Int in RTC Module */
-			Xil_Out32(RTC_RTC_INT_STATUS,1U);
+			Xil_Out32(RTC_RTC_INT_STATUS, 1U);
 			fw_printf("RTC: %d \r\n", Xil_In32(RTC_CURRENT_TIME));
-
 	}
 }
 
-
-
-void RtcCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+static void RtcCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
-	XPfw_CoreRegisterEvent(ModPtr,XPFW_EV_RTC_SECONDS);
+	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_RTC_SECONDS);
 	/* Enable Seconds Alarm */
-	Xil_Out32(RTC_RTC_INT_EN,1U);
-	Xil_Out32(RTC_RTC_INT_STATUS,1U);
+	Xil_Out32(RTC_RTC_INT_EN, 1U);
+	Xil_Out32(RTC_RTC_INT_STATUS, 1U);
 	fw_printf("RTC (MOD-%d): Initialized.\r\n", ModPtr->ModId);
 }
+static void ModRtcInit(void)
+{
+	const XPfw_Module_t *RtcModPtr = XPfw_CoreCreateMod();
 
-#endif
+	(void)XPfw_CoreSetCfgHandler(RtcModPtr, RtcCfgInit);
+	(void)XPfw_CoreSetEventHandler(RtcModPtr, RtcEventHandler);
+}
+#else /* ENABLE_RTC_TEST */
+static void ModRtcInit(void) { }
+#endif /* ENABLE_RTC_TEST */
 
 #ifdef ENABLE_SCHEDULER
-void SchCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+static void PrintMsg1(void)
+{
+	fw_printf("Task#1\r\n");
+}
+static void PrintMsg2(void)
+{
+	fw_printf("Task#2\r\n");
+}
+
+static void SchCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	/* Task every 5 seconds - For our convenience in manual testing */
-	fw_printf("Adding Task1 - Status: %d\n", XPfw_CoreScheduleTask(ModPtr,5000U, PrintMsg1));
+	fw_printf("Adding Task1 - Status: %d\n", XPfw_CoreScheduleTask(ModPtr, 5000U, PrintMsg1));
 	/* Every 10 seconds */
-	fw_printf("Adding Task2 - Status:%d\n", XPfw_CoreScheduleTask(ModPtr,10000U, PrintMsg2));
+	fw_printf("Adding Task2 - Status:%d\n", XPfw_CoreScheduleTask(ModPtr, 10000U, PrintMsg2));
 }
-#endif
 
+static XStatus ModSchInit(void)
+{
+	const XPfw_Module_t *SchModPtr = XPfw_CoreCreateMod();
+
+	return XPfw_CoreSetCfgHandler(SchModPtr, SchCfgInit);
+}
+#else /* ENABLE_SCHEDULER */
+static void ModSchInit(void) { }
+#endif /* ENABLE_SCHEDULER */
 
 void XPfw_UserStartUp(void)
 {
-#ifdef ENABLE_PM
-	const XPfw_Module_t *PmModPtr;
-#endif
-
-#ifdef ENABLE_RTC_TEST
-	const XPfw_Module_t *RtcModPtr;
-#endif
-
-#ifdef ENABLE_EM
-	const XPfw_Module_t *EmModPtr;
-#endif
-
-#ifdef ENABLE_SCHEDULER
-	const XPfw_Module_t *SchModPtr;
-#endif
-
-#ifdef ENABLE_RTC_TEST
-	RtcModPtr = XPfw_CoreCreateMod();
-	(void)XPfw_CoreSetCfgHandler(RtcModPtr,RtcCfgInit);
-	(void)XPfw_CoreSetEventHandler(RtcModPtr,RtcEventHandler);
-#endif
-
-#ifdef ENABLE_EM
-	EmModPtr = XPfw_CoreCreateMod();
-	(void)XPfw_CoreSetCfgHandler(EmModPtr,EmCfgInit);
-	(void)XPfw_CoreSetEventHandler(EmModPtr,EmEventHandler);
-#endif
-
-#ifdef ENABLE_PM
-	PmModPtr = XPfw_CoreCreateMod();
-	(void)XPfw_CoreSetCfgHandler(PmModPtr,PmCfgInit);
-	(void)XPfw_CoreSetEventHandler(PmModPtr,PmEventHandler);
-	(void)XPfw_CoreSetIpiHandler(PmModPtr,PmIpiHandler,0U);
-
-#endif
-
-
-
-
-#ifdef ENABLE_SCHEDULER
-	SchModPtr = XPfw_CoreCreateMod();
-	(void)XPfw_CoreSetCfgHandler(SchModPtr,SchCfgInit);
-#endif
-
-
+	ModRtcInit();
+	ModEmInit();
+	ModPmInit();
+	(void)ModSchInit();
 }

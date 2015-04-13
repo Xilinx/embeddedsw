@@ -40,22 +40,17 @@
 /* Let the MB sleep when it is Idle in Main Loop */
 #define SLEEP_WHEN_IDLE
 
-#ifndef ZYNQMP_XPFW_VERSION
-#define ZYNQMP_XPFW_VERSION "--LOCAL COPY--"
-#endif
 /* Directs the PMU FW to configure UART */
 #define CONFIG_UART
 
-/* Enable Power Management Module */
+/* Enable Power Management and Error Management Modules */
 #define ENABLE_PM
-
+#define ENABLE_EM
 /*
  * Disable all other mods
  * User can enable Each of the Optional Modules if required
  */
 #undef ENABLE_RTC_TEST
-#undef ENABLE_EM
 #undef ENABLE_SCHEDULER
-
 
 #endif /* XPFW_CONFIG_H_ */

@@ -35,15 +35,10 @@
 
 #include "xpfw_default.h"
 
-
 void XPfw_InterruptHandler(void) __attribute__ ((interrupt_handler));
-
 void XPfw_InterruptDisable(u32 Mask);
-
 void XPfw_InterruptEnable(u32 Mask);
-
 void XPfw_InterruptStart(void);
-
 void XPfw_InterruptInit(void);
 
 #endif /* XPFW_INTERRUPTS_H_ */
