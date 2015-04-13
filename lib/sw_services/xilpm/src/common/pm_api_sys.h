@@ -33,7 +33,6 @@
 #ifndef _PM_API_SYS_H_
 #define _PM_API_SYS_H_
 
-#include <stdint.h>
 #include "pm_defs.h"
 
 enum XPmBootStatus XPm_GetBootStatus();
@@ -41,12 +40,12 @@ enum XPmBootStatus XPm_GetBootStatus();
 /* System-level API function declarations */
 enum XPmStatus XPm_ReqSuspend(const enum XPmNodeId node,
 				  const enum XPmRequestAck ack,
-				  const uint32_t latency,
-				  const uint8_t state);
+				  const u32 latency,
+				  const u8 state);
 
 enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId node,
-				   const uint32_t latency,
-				   const uint8_t state);
+				   const u32 latency,
+				   const u8 state);
 
 enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId node,
 				      const enum XPmRequestAck ack);
@@ -58,26 +57,26 @@ enum XPmStatus XPm_ReqWakeUp(const enum XPmNodeId node,
 
 enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 					const enum XPmNodeId wkup_node,
-					const uint8_t enable);
+					const u8 enable);
 
-enum XPmStatus XPm_SystemShutdown(const uint8_t restart);
+enum XPmStatus XPm_SystemShutdown(const u8 restart);
 
 /* API functions for managing PM Slaves */
 enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
-			       const uint32_t capabilities,
-			       const uint32_t qos,
+			       const u32 capabilities,
+			       const u32 qos,
 			       const enum XPmRequestAck ack);
 enum XPmStatus XPm_ReleaseNode(const enum XPmNodeId node,
-				   const uint32_t latency);
+				   const u32 latency);
 enum XPmStatus XPm_SetRequirement(const enum XPmNodeId node,
-				      const uint32_t capabilities,
-				      const uint32_t qos,
+				      const u32 capabilities,
+				      const u32 qos,
 				      const enum XPmRequestAck ack);
 enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
-				      const uint32_t latency);
+				      const u32 latency);
 
 /* Miscellaneous API functions */
-enum XPmStatus XPm_GetApiVersion(uint32_t *version);
+enum XPmStatus XPm_GetApiVersion(u32 *version);
 
 enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node);
 

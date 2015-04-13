@@ -46,10 +46,10 @@
 
 #define TIMER_PERIOD		3
 
-int32_t TimerInit(uint32_t timeout);
+s32 TimerInit(u32 timeout);
 
-int32_t TimerConfigure(uint32_t timer_period);
+s32 TimerConfigure(u32 timer_period);
 
-extern volatile uint32_t TickCount;
+extern volatile u32 TickCount;
 
 #endif /* _TIMER_H_ */

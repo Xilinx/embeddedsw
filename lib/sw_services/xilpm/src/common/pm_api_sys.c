@@ -41,11 +41,11 @@
  * final version.
  */
 #define PACK_PAYLOAD(pl, arg0, arg1, arg2, arg3, arg4)			\
-	pl[0] = (uint32_t)arg0;						\
-	pl[1] = (uint32_t)arg1;						\
-	pl[2] = (uint32_t)arg2;						\
-	pl[3] = (uint32_t)arg3;						\
-	pl[4] = (uint32_t)arg4;						\
+	pl[0] = (u32)arg0;						\
+	pl[1] = (u32)arg1;						\
+	pl[2] = (u32)arg2;						\
+	pl[3] = (u32)arg3;						\
+	pl[4] = (u32)arg4;						\
 	pm_dbg("%s(%d, %d, %d, %d)\n", __func__, arg1, arg2, arg3, arg4);
 
 /**
@@ -59,7 +59,7 @@
  */
 enum XPmBootStatus XPm_GetBootStatus()
 {
-	uint32_t pwrdn_req = pm_read(MASTER_PWRCTL);
+	u32 pwrdn_req = pm_read(MASTER_PWRCTL);
 	if (0 != (pwrdn_req & primary_master->pwrdn_mask)) {
 		pm_write(MASTER_PWRCTL, pwrdn_req & (~primary_master->pwrdn_mask));
 		return PM_RESUME;
@@ -74,7 +74,7 @@ enum XPmBootStatus XPm_GetBootStatus()
  */
 static enum XPmStatus pm_ipi_wait(const struct XPm_Master *const master)
 {
-	volatile uint32_t status = 1;
+	volatile u32 status = 1;
 
 	/* Wait until previous interrupt is handled by PMU */
 	while (status) {
@@ -94,11 +94,11 @@ static enum XPmStatus pm_ipi_wait(const struct XPm_Master *const master)
  * @return	Returns status, either success or error+reason
  */
 static enum XPmStatus pm_ipi_send(const struct XPm_Master *const master,
-				      uint32_t payload[PAYLOAD_ARG_CNT])
+				      u32 payload[PAYLOAD_ARG_CNT])
 {
-	uint32_t i;
-	uint32_t offset = 0;
-	uint32_t buffer_base = master->ipi->buffer_base
+	u32 i;
+	u32 offset = 0;
+	u32 buffer_base = master->ipi->buffer_base
 		+ IPI_BUFFER_TARGET_PMU_OFFSET
 		+ IPI_BUFFER_REQ_OFFSET;
 
@@ -122,12 +122,12 @@ static enum XPmStatus pm_ipi_send(const struct XPm_Master *const master,
  * @return	Returns status, either success or error+reason
  */
 static enum XPmStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
-					     uint32_t *value)
+					     u32 *value)
 {
-	uint32_t buffer_base = master->ipi->buffer_base
+	u32 buffer_base = master->ipi->buffer_base
 		+ IPI_BUFFER_TARGET_PMU_OFFSET
 		+ IPI_BUFFER_RESP_OFFSET;
-	volatile uint32_t status = 1;
+	volatile u32 status = 1;
 
 	/* Wait until current IPI interrupt is handled by PMU */
 	while (status) {
@@ -160,11 +160,11 @@ static enum XPmStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
  * @return	Returns status, either success or error+reason
  */
 enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId nid,
-				   const uint32_t latency,
-				   const uint8_t state)
+				   const u32 latency,
+				   const u8 state)
 {
 	enum XPmStatus ret;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 
 	const struct XPm_Master *master = pm_get_master_by_node(nid);
 	if (NULL == master) {
@@ -205,10 +205,10 @@ enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId nid,
  */
 enum XPmStatus XPm_ReqSuspend(const enum XPmNodeId target,
 				  const enum XPmRequestAck ack,
-				  const uint32_t latency, const uint8_t state)
+				  const u32 latency, const u8 state)
 {
 	enum XPmStatus ret;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD(payload, PM_REQ_SUSPEND, target, ack, latency, state);
@@ -231,7 +231,7 @@ enum XPmStatus XPm_ReqWakeUp(const enum XPmNodeId target,
 				 const enum XPmRequestAck ack)
 {
 	enum XPmStatus ret;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 	const struct XPm_Master *master = pm_get_master_by_node(target);
 
 	XPm_ClientWakeup(master);
@@ -257,7 +257,7 @@ enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 				      const enum XPmRequestAck ack)
 {
 	enum XPmStatus ret;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD(payload, PM_FORCE_POWERDOWN, target, ack, 0, 0);
@@ -282,7 +282,7 @@ enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 {
 	enum XPmStatus status;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 
 	/*
 	 * Do client specific abort suspend operations
@@ -308,9 +308,9 @@ enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
  */
 enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 					const enum XPmNodeId wkup_node,
-					const uint8_t enable)
+					const u8 enable)
 {
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 	PACK_PAYLOAD(payload, PM_SET_WAKEUP_SOURCE, target, wkup_node, enable, 0);
 	return pm_ipi_send(primary_master, payload);
 }
@@ -321,9 +321,9 @@ enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
  *
  * @return	Returns status, either success or error+reason
  */
-enum XPmStatus XPm_SystemShutdown(const uint8_t restart)
+enum XPmStatus XPm_SystemShutdown(const u8 restart)
 {
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 	PACK_PAYLOAD(payload, PM_SYSTEM_SHUTDOWN, restart, 0, 0, 0);
 	return pm_ipi_send(primary_master, payload);
 }
@@ -340,12 +340,12 @@ enum XPmStatus XPm_SystemShutdown(const uint8_t restart)
  * @return	Returns status, either success or error+reason
  */
 enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
-			       const uint32_t capabilities,
-			       const uint32_t qos,
+			       const u32 capabilities,
+			       const u32 qos,
 			       const enum XPmRequestAck ack)
 {
 	enum XPmStatus ret;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD(payload, PM_REQ_NODE, node, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
@@ -368,12 +368,12 @@ enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
  * @return	Returns status, either success or error+reason
  */
 enum XPmStatus XPm_SetRequirement(const enum XPmNodeId nid,
-				      const uint32_t capabilities,
-				      const uint32_t qos,
+				      const u32 capabilities,
+				      const u32 qos,
 				      const enum XPmRequestAck ack)
 {
 	enum XPmStatus ret;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 	PACK_PAYLOAD(payload, PM_SET_REQUIREMENT, nid, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
@@ -391,9 +391,9 @@ enum XPmStatus XPm_SetRequirement(const enum XPmNodeId nid,
  * @return	Returns status, either success or error+reason
  */
 enum XPmStatus XPm_ReleaseNode(const enum XPmNodeId node,
-				   const uint32_t latency)
+				   const u32 latency)
 {
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 	PACK_PAYLOAD(payload, PM_RELEASE_NODE, node, latency, 0, 0);
 	return pm_ipi_send(primary_master, payload);
 }
@@ -406,9 +406,9 @@ enum XPmStatus XPm_ReleaseNode(const enum XPmNodeId node,
  * @return	Returns status, either success or error+reason
  */
 enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
-				      const uint32_t latency)
+				      const u32 latency)
 {
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD(payload, PM_SET_MAX_LATENCY, node, latency, 0, 0);
@@ -423,10 +423,10 @@ enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
  *
  * @return	Returns status, either success or error+reason
  */
-enum XPmStatus XPm_GetApiVersion(uint32_t *version)
+enum XPmStatus XPm_GetApiVersion(u32 *version)
 {
 	enum XPmStatus ret;
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD(payload, PM_GET_API_VERSION, 0, 0, 0, 0);
@@ -449,7 +449,7 @@ enum XPmStatus XPm_GetApiVersion(uint32_t *version)
 enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node)
 {
 	/* TODO: Add power state argument!! */
-	uint32_t payload[PAYLOAD_ARG_CNT];
+	u32 payload[PAYLOAD_ARG_CNT];
 	PACK_PAYLOAD(payload, PM_GET_NODE_STATUS, node, 0, 0, 0);
 	return pm_ipi_send(primary_master, payload);
 }

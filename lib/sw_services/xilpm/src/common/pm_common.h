@@ -59,19 +59,19 @@
 #endif
 
 struct XPm_Ipi {
-	const uint32_t mask;
-	const uint32_t base;
-	const uint32_t buffer_base;
+	const u32 mask;
+	const u32 base;
+	const u32 buffer_base;
 };
 
 struct XPm_Master {
 	const enum XPmNodeId node_id;
-	const uint32_t pwrdn_mask;
+	const u32 pwrdn_mask;
 	const struct XPm_Ipi *const ipi;
 };
 
 const enum XPmNodeId pm_get_subsystem_node(void);
-const struct XPm_Master *pm_get_master(const uint32_t cpuid);
+const struct XPm_Master *pm_get_master(const u32 cpuid);
 const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 
 #define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	0x00000001U
@@ -98,7 +98,7 @@ const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 #endif
 
 #ifndef bool
-	#define bool	uint8_t
+	#define bool	u8
 	#define true	1U
 	#define false	0U
 #endif

@@ -72,18 +72,18 @@ extern void *_vector_table;
 #endif
 
 /* The below sections will be saved during suspend */
-extern uint8_t __data_start;
-extern uint8_t __bss_start__;
-extern uint8_t __data_end;
-extern uint8_t __bss_end__;
+extern u8 __data_start;
+extern u8 __bss_start__;
+extern u8 __data_end;
+extern u8 __bss_end__;
 
 /**
  * SaveContext() - called to save context of bss and data sections in OCM
  */
 static void SaveContext(void)
 {
-	uint8_t *MemPtr;
-	uint8_t *ContextMemPtr = (uint8_t *)CONTEXT_MEM_BASE;
+	u8 *MemPtr;
+	u8 *ContextMemPtr = (u8 *)CONTEXT_MEM_BASE;
 
 	for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
 		*ContextMemPtr = *MemPtr;
@@ -101,8 +101,8 @@ static void SaveContext(void)
  */
 static void RestoreContext(void)
 {
-	uint8_t *MemPtr;
-	uint8_t *ContextMemPtr = (uint8_t *)CONTEXT_MEM_BASE;
+	u8 *MemPtr;
+	u8 *ContextMemPtr = (u8 *)CONTEXT_MEM_BASE;
 
 	for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
 		*MemPtr = *ContextMemPtr;
@@ -115,7 +115,7 @@ static void RestoreContext(void)
 	pm_dbg("Restored context (tick_count = %d)\n", TickCount);
 }
 
-static uint32_t GetCpuId(void)
+static u32 GetCpuId(void)
 {
 #ifdef __aarch64__
 	u64 id;
@@ -205,7 +205,7 @@ static void PrepareSuspend(void)
 /**
  * InitApp() - initialize interrupts and context
  */
-static uint32_t InitApp(void)
+static u32 InitApp(void)
 {
 	enum XPmBootStatus status = XPm_GetBootStatus();
 
@@ -232,7 +232,7 @@ static uint32_t InitApp(void)
 int main(void)
 {
 	Xil_DCacheDisable();
-	uint32_t Status = InitApp();
+	u32 Status = InitApp();
 
 	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;

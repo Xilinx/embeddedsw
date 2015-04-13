@@ -44,9 +44,9 @@ XScuGic GicInst;
  *
  * @return	Status of operation success (XST_* from xstatus.h)
  */
-int32_t GicInit(void)
+s32 GicInit(void)
 {
-	int32_t Status;
+	s32 Status;
 	XScuGic_Config *GicCfgPtr = XScuGic_LookupConfig(INTC_DEVICE_ID);
 
 	if (NULL == GicCfgPtr)
@@ -78,10 +78,10 @@ int32_t GicInit(void)
  *
  * @return:	status of operation success (XST_* from xstatus.h)
  */
-int32_t GicSetupInterruptSystem(uint32_t IntId,
+s32 GicSetupInterruptSystem(u32 IntId,
 		void *PeriphInstPtr, Xil_ExceptionHandler Handler)
 {
-	int32_t Status;
+	s32 Status;
 
 	Status = GicInit();
 	if(XST_SUCCESS != Status)

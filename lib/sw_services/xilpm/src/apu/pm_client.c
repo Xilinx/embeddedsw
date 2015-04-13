@@ -83,7 +83,7 @@ static const struct XPm_Master *const pm_masters_all[] = {
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */
-const struct XPm_Master *pm_get_master(const uint32_t cpuid)
+const struct XPm_Master *pm_get_master(const u32 cpuid)
 {
 	if (cpuid >=0 && PM_ARRAY_SIZE(pm_masters_all)) {
 		return pm_masters_all[cpuid];
@@ -100,7 +100,7 @@ const struct XPm_Master *pm_get_master(const uint32_t cpuid)
  */
 const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
-	uint8_t i;
+	u8 i;
 
 	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (nid == pm_masters_all[i]->node_id) {
@@ -111,9 +111,9 @@ const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 	return NULL;
 }
 
-static uint32_t pm_get_cpuid(const enum XPmNodeId node)
+static u32 pm_get_cpuid(const enum XPmNodeId node)
 {
-	uint32_t i;
+	u32 i;
 
 	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (pm_masters_all[i]->node_id == node) {
@@ -145,10 +145,10 @@ void XPm_ClientAbortSuspend(void)
 
 void XPm_ClientWakeup(const struct XPm_Master *const master)
 {
-	uint32_t cpuid = pm_get_cpuid(master->node_id);
+	u32 cpuid = pm_get_cpuid(master->node_id);
 
 	if (UNDEFINED_CPUID != cpuid) {
-		uint32_t val = pm_read(MASTER_PWRCTL);
+		u32 val = pm_read(MASTER_PWRCTL);
 		val &= ~(master->pwrdn_mask);
 		pm_write(MASTER_PWRCTL, val);
 	}

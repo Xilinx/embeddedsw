@@ -44,7 +44,7 @@
 #include "gic_setup.h"
 #include "pm_client.h"
 
-volatile uint32_t TickCount = 0;
+volatile u32 TickCount = 0;
 static XTtcPs timer0_inst;
 
 /**
@@ -53,7 +53,7 @@ static XTtcPs timer0_inst;
  */
 static void TickHandler(XTtcPs *timer_inst)
 {
-	uint32_t int_status = XTtcPs_GetInterruptStatus(timer_inst);
+	u32 int_status = XTtcPs_GetInterruptStatus(timer_inst);
 
 	int_status &= XTtcPs_ReadReg(timer_inst->Config.BaseAddress, XTTCPS_IER_OFFSET);
 	XTtcPs_ClearInterruptStatus(timer_inst, int_status);
@@ -66,7 +66,7 @@ static void TickHandler(XTtcPs *timer_inst)
  * @timer_inst	pointer to the timer instance
  * @sec		interval timeout in seconds
  */
-static void TimerSetIntervalMode(XTtcPs *TimerInstPtr, uint32_t PeriodInSec)
+static void TimerSetIntervalMode(XTtcPs *TimerInstPtr, u32 PeriodInSec)
 {
 	/* Stop the timer */
 	XTtcPs_Stop(TimerInstPtr);
@@ -83,9 +83,9 @@ static void TimerSetIntervalMode(XTtcPs *TimerInstPtr, uint32_t PeriodInSec)
  * TimerInit() - initializes timer0 device
  * @timeout	period for the interval timer interrupt generation
  */
-int32_t TimerInit(uint32_t PeriodInSec)
+s32 TimerInit(u32 PeriodInSec)
 {
-	int32_t status;
+	s32 status;
 	XTtcPs_Config *timer_config = XTtcPs_LookupConfig(TTC0_0_DEVICE_ID);
 
 	if (NULL == timer_config) {
@@ -113,9 +113,9 @@ int32_t TimerInit(uint32_t PeriodInSec)
  *
  * @return		Status of configuration success
  */
-int32_t TimerConfigure(uint32_t Period)
+s32 TimerConfigure(u32 Period)
 {
-	int32_t ret_status = TimerInit(Period);
+	s32 ret_status = TimerInit(Period);
 
 	switch (ret_status) {
 	case XST_SUCCESS:
