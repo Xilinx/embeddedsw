@@ -90,7 +90,8 @@ XStatus XPfw_CoreConfigure(void)
 
 		/* We are ready to take interrupts now */
 		CorePtr->IsReady = CORE_IS_READY;
-		/* FIXME: Enable IPI0 for PM-> Do it elsewhere */
+		/* FIXME: Clear IPI0 status and Enable IPI0 for PM-> Do it elsewhere */
+		XPfw_Write32(IPI_PMU_0_ISR, MASK32_ALL_HIGH);
 		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_IPI0_MASK);
 		XPfw_InterruptStart();
 #ifdef ENABLE_PM /* ENABLE_PM */
