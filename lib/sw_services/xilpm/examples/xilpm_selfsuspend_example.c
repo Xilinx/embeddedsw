@@ -118,11 +118,15 @@ static uint32_t GetCpuId(void)
 	__asm__ volatile("mrs	%0, MPIDR_EL1\n"
 			: "=r"(id)
 	);
+#else
+	u32 id;
+
+	__asm__ volatile("mrc	p15, 0, %0, c0, c0, 5\n"
+			: "=r"(id)
+	);
+#endif
 
 	return id & 0xff;
-#else
-	return XST_FAILURE;
-#endif
 }
 
 /**
@@ -158,6 +162,9 @@ static void PrepareSuspend(void)
 	rvbar += 4;
 	Xil_Out32(rvbar, vector_base >> 32);
 #else
+	u32 reg, rpuctrl;
+	u32 vector_base = (u32)&_vector_table;
+
 	/* RPU */
 	XPm_SelfSuspend(NODE_RPU_0, MAX_LATENCY, 0);
 	usleep(100000);
@@ -169,6 +176,24 @@ static void PrepareSuspend(void)
 	usleep(100000);
 	XPm_SetRequirement(NODE_TCM_1_B, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
 	usleep(100000);
+
+	/*
+	 * Set VINITH to ensure we resume at the expected address
+	 * FIXME: This should be communicated to FW which has to set this.
+	 */
+	if (GetCpuId() == 0U) {
+		rpuctrl = RPU_RPU_0_CFG;
+	} else {
+		rpuctrl = RPU_RPU_1_CFG;
+	}
+
+	reg = Xil_In32(rpuctrl);
+	if (vector_base == 0) {
+		reg &= ~RPU_RPU_0_CFG_VINITHI_MASK;
+	} else {
+		reg |= RPU_RPU_0_CFG_VINITHI_MASK;
+	}
+	Xil_Out32(rpuctrl, reg);
 #endif /* __aarch64__ */
 }
 
