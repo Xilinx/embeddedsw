@@ -38,27 +38,7 @@
 #include "gic_setup.h"
 
 XScuGic GicInst;
-/**
- * GicSetupHandler() - Connect interrupt Handler to the specified interrupt number
- * @IntId	Interrupt id
- * @PeriphInstPtr	Pointer to the peripheral driver
- * @Handler	Interrupt Handler that for the specified peripheral
- *
- * @return	Status of operation success (XST_* from xstatus.h)
- */
-int32_t GicSetupHandler(uint32_t IntId, void *PeriphInstPtr, Xil_ExceptionHandler Handler)
-{
-	int32_t status;
 
-	/*
-	 * Connect a device driver Handler that will be called when an
-	 * interrupt for the device occurs, the device driver Handler
-	 * performs the specific interrupt processing for the device
-	 */
-	status = XScuGic_Connect(&GicInst, IntId, Handler, PeriphInstPtr);
-
-	return status;
-}
 /**
  * GicEnableInterrupt() - Enable interrupt in gic
  */
@@ -115,7 +95,7 @@ int32_t GicSetupInterruptSystem(uint32_t IntId,
 	if(XST_SUCCESS != Status)
 		return Status;
 
-	Status = GicSetupHandler(IntId, PeriphInstPtr, Handler);
+	Status = XScuGic_Connect(&GicInst, IntId, Handler, PeriphInstPtr);
 	if(XST_SUCCESS != Status)
 		return Status;
 

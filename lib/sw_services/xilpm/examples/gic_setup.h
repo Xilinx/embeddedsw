@@ -39,8 +39,6 @@
 
 extern XScuGic GicInst;
 
-int32_t GicSetupHandler(uint32_t IntId, void *PeriphInstPtr, Xil_ExceptionHandler Handler);
-
 void GicEnableInterrupt(uint32_t IntId);
 
 int32_t GicSetupInterruptSystem(uint32_t IntId,
