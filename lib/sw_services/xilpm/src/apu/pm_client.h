@@ -55,6 +55,5 @@
 #define IPI_OBS_OFFSET		0x00000004
 
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
-#define pm_this_cpuid()		0U
 
 #endif /* _PM_CLIENT_H_ */
