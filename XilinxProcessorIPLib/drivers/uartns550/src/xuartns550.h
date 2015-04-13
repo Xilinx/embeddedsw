@@ -159,6 +159,7 @@
 * 3.2   adk  15/10/14 Fixed CR:824444 changes are made in the example file
 *		      xuartns550_intr_example.c.
 * 3.2   adk 15/10/14  Fixed CR:826435 changes are made in the driver tcl file.
+* 3.3	nsk  04/13/15 Fixed CR:857013 changes are made in xuartns550.c
 * </pre>
 *
 *****************************************************************************/

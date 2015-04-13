@@ -50,6 +50,7 @@
 * 2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
 *		      Updated to use HAL Processor APIs. _m is removed from the
 *		      name of all the macro definitions.
+* 3.3   nsk  04/13/15 Fixed CR:857013 changes are made in xuartns550_l.c
 * </pre>
 *
 ******************************************************************************/

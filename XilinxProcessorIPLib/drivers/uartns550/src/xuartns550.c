@@ -62,6 +62,13 @@
 *                     XUartNs550_CfgInitialize function. Removed compiler
 *		      warnings for unused variables in the
 *		      XUartNs550_StubHandler.
+* 3.3	nsk  04/13/15 Clock Divisor Enhancement. i.e when odd clock given
+*		      as input clock, say 31.725MHz and Baud as 1000000
+*		      then divisor = (31725000) / (1000000 * 16), This returns
+*		      1.9828, since this is integer math, it becomes 1.
+*		      Which is almost half of the necessary value. so
+*		      we are truncating it to nearest integer. in our
+*		      case 1.9828 rounded to 2.
 * </pre>
 *
 *****************************************************************************/
@@ -648,16 +655,19 @@ int XUartNs550_SetBaudRate(XUartNs550 *InstancePtr, u32 BaudRate)
 	 * rater based upon the input clock frequency and a baud clock prescaler
 	 * of 16
 	 */
-	Divisor = InstancePtr->InputClockHz / (BaudRate * 16UL);
-
+	Divisor = ((InstancePtr->InputClockHz +((BaudRate * 16UL)/2)) /
+			(BaudRate * 16UL));
 	/*
 	 * check for too much error between the baud rate that will be generated
 	 * using the divisor and the expected baud rate, integer division also
 	 * truncates always positive
 	 */
 	TargetRate = Divisor * BaudRate * 16UL;
-	Error = InstancePtr->InputClockHz - TargetRate;
-
+	if (TargetRate < InstancePtr->InputClockHz) {
+		Error = InstancePtr->InputClockHz - TargetRate;
+	} else {
+		Error = TargetRate - InstancePtr->InputClockHz;
+	}
 	/*
 	 * Error has total error now compute the percentage multiplied by 100 to
 	 * avoid floating point calculations, should be less than 3% as per
