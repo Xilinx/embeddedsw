@@ -62,6 +62,8 @@
 #include "timer.h"
 #include "pm_client.h"
 
+extern void *_vector_table;
+
 #ifdef __aarch64__
 	/* Use OCM for saving context */
 	#define CONTEXT_MEM_BASE	0xFFFC0000U
@@ -108,6 +110,21 @@ static void RestoreContext(void)
 	pm_dbg("Restored context (tick_count = %d)\n", TickCount);
 }
 
+static uint32_t GetCpuId(void)
+{
+#ifdef __aarch64__
+	u64 id;
+
+	__asm__ volatile("mrs	%0, MPIDR_EL1\n"
+			: "=r"(id)
+	);
+
+	return id & 0xff;
+#else
+	return XST_FAILURE;
+#endif
+}
+
 /**
  * PrepareSuspend() - save context and request suspend
  */
@@ -116,6 +133,9 @@ static void PrepareSuspend(void)
 	SaveContext();
 /* usleep is used to prevents UART prints from overlapping */
 #ifdef __aarch64__
+	u64 rvbar;
+	u64 vector_base = (u64)&_vector_table;
+
 	/* APU */
 	XPm_SelfSuspend(NODE_APU_0, MAX_LATENCY, 0);
 	usleep(100000);
@@ -127,6 +147,16 @@ static void PrepareSuspend(void)
 	usleep(100000);
 	XPm_SetRequirement(NODE_OCM_BANK_3, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
 	usleep(100000);
+
+	/*
+	 * Set RVBAR to ensure we resume at the expected address
+	 * FIXME: This should be communicated to FW which has to set this.
+	 */
+	rvbar = APU_RVBARADDR0L;
+	rvbar += 8 * GetCpuId();
+	Xil_Out32(rvbar, vector_base & 0xffffffff);
+	rvbar += 4;
+	Xil_Out32(rvbar, vector_base >> 32);
 #else
 	/* RPU */
 	XPm_SelfSuspend(NODE_RPU_0, MAX_LATENCY, 0);
