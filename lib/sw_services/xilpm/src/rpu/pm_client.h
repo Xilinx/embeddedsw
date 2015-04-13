@@ -30,13 +30,13 @@
 *
 ******************************************************************************/
 
-/*********************************************************************
+/*
  * CONTENT
  * File is specific for each PU instance and must exist in order to
  * port Power Management code for some new PU.
  * Contains PU specific macros and macros to be defined depending on
  * the execution environment.
- *********************************************************************/
+ */
 
 #ifndef _PM_CLIENT_H_
 #define _PM_CLIENT_H_
@@ -80,7 +80,7 @@
 #endif
 
 void XPm_ClientSuspend(const struct XPm_Master *const master);
-void XPm_ClientAbortSuspend();
+void XPm_ClientAbortSuspend(void);
 void XPm_ClientWakeup(const struct XPm_Master *const master);
 
 /* Do not modify below this line */

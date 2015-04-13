@@ -38,9 +38,7 @@
 
 enum XPmBootStatus XPm_GetBootStatus();
 
-/**********************************************************
- * System-level API function declarations
- **********************************************************/
+/* System-level API function declarations */
 enum XPmStatus XPm_ReqSuspend(const enum XPmNodeId node,
 				  const enum XPmRequestAck ack,
 				  const uint32_t latency,
@@ -64,8 +62,6 @@ enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 
 enum XPmStatus XPm_SystemShutdown(const uint8_t restart);
 
-
-
 /* API functions for managing PM Slaves */
 enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
 			       const uint32_t capabilities,
@@ -84,8 +80,5 @@ enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 enum XPmStatus XPm_GetApiVersion(uint32_t *version);
 
 enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node);
-
-
-
 
 #endif /* _PM_API_SYS_H_ */

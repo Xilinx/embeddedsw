@@ -33,14 +33,6 @@
 #ifndef PM_DEFS_H_
 #define PM_DEFS_H_
 
-/*********************************************************************
- * Macro definitions
- ********************************************************************/
-
-/*
- * Version number is a 32bit value, like:
- * (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR
- */
 #define PM_VERSION_MAJOR	0
 #define PM_VERSION_MINOR	1
 
@@ -52,10 +44,6 @@
 
 #define MAX_LATENCY	(~0U)
 #define MAX_QOS		100U
-
-/*********************************************************************
- * Enum definitions
- ********************************************************************/
 
 enum XPmApiId {
 	/* Miscellaneous API functions: */

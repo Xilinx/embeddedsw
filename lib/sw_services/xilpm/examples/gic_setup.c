@@ -30,10 +30,10 @@
 *
 ******************************************************************************/
 
-/*********************************************************************
+/*
  * CONTENT
  * Generic functions for gic initialization and interrupt enabling
- *********************************************************************/
+ */
 
 #include "gic_setup.h"
 
@@ -49,14 +49,14 @@ XScuGic GicInst;
 int32_t GicSetupHandler(uint32_t IntId, void *PeriphInstPtr, Xil_ExceptionHandler Handler)
 {
 	int32_t status;
+
 	/*
 	 * Connect a device driver Handler that will be called when an
 	 * interrupt for the device occurs, the device driver Handler
 	 * performs the specific interrupt processing for the device
 	 */
-	status = XScuGic_Connect(&GicInst, IntId,
-				Handler,
-				PeriphInstPtr);
+	status = XScuGic_Connect(&GicInst, IntId, Handler, PeriphInstPtr);
+
 	return status;
 }
 /**
@@ -72,12 +72,11 @@ void GicEnableInterrupt(uint32_t IntId)
  *
  * @return	Status of operation success (XST_* from xstatus.h)
  */
-int32_t GicInit()
+int32_t GicInit(void)
 {
 	int32_t Status;
-	XScuGic_Config *GicCfgPtr;
-	/* Initialize the interrupt controller driver */
-	GicCfgPtr = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	XScuGic_Config *GicCfgPtr = XScuGic_LookupConfig(INTC_DEVICE_ID);
+
 	if (NULL == GicCfgPtr)
 		return XST_FAILURE;
 
@@ -85,7 +84,7 @@ int32_t GicInit()
 	if (XST_SUCCESS != Status)
 		return Status;
 
-		/*
+	/*
 	 * Connect the interrupt controller interrupt Handler to the
 	 * hardware interrupt handling logic in the processor.
 	 */

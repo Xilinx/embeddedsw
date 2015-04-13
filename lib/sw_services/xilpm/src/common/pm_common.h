@@ -30,11 +30,11 @@
 *
 ******************************************************************************/
 
-/**********************************************************************
+/*
  * CONTENT
  * Definitions of commonly used macros and data types needed for
  * PU Power Management. This file should be common for all PU's.
- *********************************************************************/
+ */
 
 #ifndef _PM_COMMON_H_
 #define _PM_COMMON_H_
@@ -73,6 +73,5 @@ struct XPm_Master {
 const enum XPmNodeId pm_get_subsystem_node(void);
 const struct XPm_Master *pm_get_master(const uint32_t cpuid);
 const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
-
 
 #endif /* _PM_COMMON_H_ */

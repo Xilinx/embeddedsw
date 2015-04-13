@@ -30,11 +30,11 @@
 *
 ******************************************************************************/
 
-/*********************************************************************
+/*
  * CONTENT
  * Timer peripheral driver. Code is mostly reused from
  * hello_ttc0_interrupt application.
- *********************************************************************/
+ */
 
 #include <xil_exception.h>
 #include <xil_printf.h>
@@ -54,6 +54,7 @@ static XTtcPs timer0_inst;
 static void TickHandler(XTtcPs *timer_inst)
 {
 	uint32_t int_status = XTtcPs_GetInterruptStatus(timer_inst);
+
 	int_status &= XTtcPs_ReadReg(timer_inst->Config.BaseAddress, XTTCPS_IER_OFFSET);
 	XTtcPs_ClearInterruptStatus(timer_inst, int_status);
 	TickCount++;
@@ -85,24 +86,24 @@ static void TimerSetIntervalMode(XTtcPs *TimerInstPtr, uint32_t PeriodInSec)
 int32_t TimerInit(uint32_t PeriodInSec)
 {
 	int32_t status;
-	XTtcPs_Config *timer_config;
-	/* Look up the configuration based on the device identifier */
-	timer_config = XTtcPs_LookupConfig(TTC0_0_DEVICE_ID);
+	XTtcPs_Config *timer_config = XTtcPs_LookupConfig(TTC0_0_DEVICE_ID);
+
 	if (NULL == timer_config) {
 		return XST_FAILURE;
 	}
-	/* Initialize the device */
+
 	status = XTtcPs_CfgInitialize(&timer0_inst, timer_config, timer_config->BaseAddress);
 	if (XST_SUCCESS != status) {
 		return status;
 	}
-	/* Setup interrupts */
+
 	status = GicSetupInterruptSystem(TTC_INT_ID0,
 		&timer0_inst, (Xil_ExceptionHandler) TickHandler);
 	if (XST_SUCCESS == status) {
 		TimerSetIntervalMode(&timer0_inst, PeriodInSec);
 		XTtcPs_Start(&timer0_inst);
 	}
+
 	return status;
 }
 
@@ -115,6 +116,7 @@ int32_t TimerInit(uint32_t PeriodInSec)
 int32_t TimerConfigure(uint32_t Period)
 {
 	int32_t ret_status = TimerInit(Period);
+
 	switch (ret_status) {
 	case XST_SUCCESS:
 		pm_dbg("OK, configured timer\n");
@@ -129,5 +131,6 @@ int32_t TimerConfigure(uint32_t Period)
 		pm_dbg("??? unhandled status %d\n", ret_status);
 		break;
 	}
+
 	return ret_status;
 }

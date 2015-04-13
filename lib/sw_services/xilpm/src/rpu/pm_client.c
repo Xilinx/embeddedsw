@@ -30,12 +30,12 @@
 *
 ******************************************************************************/
 
-/*********************************************************************
+/*
  * CONTENT
  * Each PU client in the system have such file with definitions of
  * masters in the subsystem and functions for getting informations
  * about the master.
- *********************************************************************/
+ */
 
 #include "pm_client.h"
 
@@ -59,9 +59,7 @@ static const struct XPm_Master pm_rpu_1_master = {
 };
 #endif
 
-/*
- * Order in pm_master_all array must match cpu ids
- */
+/* Order in pm_master_all array must match cpu ids */
 static const struct XPm_Master *const pm_masters_all[] = {
 	&pm_rpu_0_master,
 #if 0
@@ -92,22 +90,26 @@ const struct XPm_Master *pm_get_master(const uint32_t cpuid)
 const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
 	uint8_t i;
+
 	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (nid == pm_masters_all[i]->node_id) {
 			return pm_masters_all[i];
 		}
 	}
+
 	return NULL;
 }
 
 static uint32_t pm_get_cpuid(const enum XPmNodeId node)
 {
 	uint32_t i;
+
 	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (pm_masters_all[i]->node_id == node) {
 			return i;
 		}
 	}
+
 	return UNDEFINED_CPUID;
 }
 
@@ -122,7 +124,7 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 	pm_write(MASTER_PWRCTL, pm_read(MASTER_PWRCTL) | master->pwrdn_mask);
 }
 
-void XPm_ClientAbortSuspend()
+void XPm_ClientAbortSuspend(void)
 {
 	/* Enable interrupts at processor level */
 	pm_enable_int();

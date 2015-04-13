@@ -49,7 +49,7 @@
 	pm_dbg("%s(%d, %d, %d, %d)\n", __func__, arg1, arg2, arg3, arg4);
 
 /**
- * pm_get_boot_status() - checks for reason of boot
+ * XPm_GetBootStatus() - checks for reason of boot
  *
  * Function returns information about the boot reason.
  * If the boot is not a system startup but a resume,
@@ -150,7 +150,7 @@ static enum XPmStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
 }
 
 /**
- * pm_self_suspend() - PM call for master to suspend itself
+ * XPm_SelfSuspend() - PM call for master to suspend itself
  * @node	Node id of the master or subsystem
  * @latency	Requested maximum wakeup latency (not supported)
  * @state	Requested state (not supported)
@@ -194,7 +194,7 @@ enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 }
 
 /**
- * pm_req_suspend() - PM call to request for another PU or subsystem to
+ * XPm_ReqSuspend() - PM call to request for another PU or subsystem to
  *		      be suspended gracefully.
  * @target	Node id of the targeted PU or subsystem
  * @ack		Flag to specify whether acknowledge is requested
@@ -221,7 +221,7 @@ enum XPmStatus XPm_ReqSuspend(const enum XPmNodeId target,
 }
 
 /**
- * pm_req_wakeup() - PM call for master to wake up selected master or subsystem
+ * XPm_ReqWakeUp() - PM call for master to wake up selected master or subsystem
  * @node	Node id of the master or subsystem
  * @ack		Flag to specify whether acknowledge requested
  *
@@ -246,7 +246,7 @@ enum XPmStatus XPm_ReqWakeUp(const enum XPmNodeId target,
 }
 
 /**
- * pm_force_powerdown() - PM call to request for another PU or subsystem to
+ * XPm_ForcePowerDown() - PM call to request for another PU or subsystem to
  *			  be powered down forcefully
  * @target	Node id of the targeted PU or subsystem
  * @ack		Flag to specify whether acknowledge is requested
@@ -270,7 +270,7 @@ enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 }
 
 /**
- * pm_abort_suspend() - PM call to announce that a prior suspend request
+ * XPm_AbortSuspend() - PM call to announce that a prior suspend request
  *			is to be aborted.
  * @reason	Reason for the abort
  *
@@ -299,7 +299,7 @@ enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 }
 
 /**
- * pm_set_wakeup_source() - PM call to specify the wakeup source while suspended
+ * XPm_SetWakeUpSource() - PM call to specify the wakeup source while suspended
  * @target	Node id of the targeted PU or subsystem
  * @wkup_node	Node id of the wakeup peripheral
  * @enable	Enable or disable the specified peripheral as wake source
@@ -316,7 +316,7 @@ enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 }
 
 /**
- * pm_system_shutdown() - PM call to request a system shutdown or restart
+ * XPm_SystemShutdown() - PM call to request a system shutdown or restart
  * @restart	Shutdown or restart? 0 for shutdown, 1 for restart
  *
  * @return	Returns status, either success or error+reason
@@ -331,7 +331,7 @@ enum XPmStatus XPm_SystemShutdown(const uint8_t restart)
 /* APIs for managing PM slaves: */
 
 /**
- * pm_req_node() - PM call to request a node with specifc capabilities
+ * XPm_ReqNode() - PM call to request a node with specifc capabilities
  * @node	Node id of the slave
  * @capabilities Requested capabilities of the slave
  * @qos		Quality of service (not supported)
@@ -357,7 +357,7 @@ enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
 }
 
 /**
- * pm_set_requirement() - PM call to set requirement for PM slaves
+ * XPm_SetRequirement() - PM call to set requirement for PM slaves
  * @node	Node id of the slave
  * @capabilities Requested capabilities of the slave
  * @qos		Quality of service (not supported)
@@ -384,7 +384,7 @@ enum XPmStatus XPm_SetRequirement(const enum XPmNodeId nid,
 }
 
 /**
- * pm_release_node() - PM call to release a node
+ * XPm_ReleaseNode() - PM call to release a node
  * @node	Node id of the slave
  * @latency	Requested maximum wakeup latency
  *
@@ -399,7 +399,7 @@ enum XPmStatus XPm_ReleaseNode(const enum XPmNodeId node,
 }
 
 /**
- * pm_set_max_latency() - PM call to set wakeup latency requirements
+ * XPm_SetMaxLatency() - PM call to set wakeup latency requirements
  * @node	Node id of the slave
  * @latency	Requested maximum wakeup latency
  *
@@ -418,7 +418,7 @@ enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 /* Miscellaneous API functions */
 
 /**
- * pm_get_api_version() - Get version number of PMU PM firmware
+ * XPm_GetApiVersion() - Get version number of PMU PM firmware
  * @version	Returns 32-bit version number of PMU Power Management Firmware
  *
  * @return	Returns status, either success or error+reason
@@ -441,7 +441,7 @@ enum XPmStatus XPm_GetApiVersion(uint32_t *version)
 
 
 /**
- * pm_get_node_status() - PM call to request a node's current power state
+ * XPm_GetNodeStatus() - PM call to request a node's current power state
  * @node	Node id of the slave
  *
  * @return	Returns status, either success or error+reason

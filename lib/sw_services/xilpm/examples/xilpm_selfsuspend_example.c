@@ -30,8 +30,7 @@
 *
 ******************************************************************************/
 
-
-/*********************************************************************
+/*
  *
  * CONTENT
  * Assumptions: only PROCESSOR core is executing this code,
@@ -50,7 +49,7 @@
  *    level (CPSR) and handle timer interrupt that caused wake-up.
  * 5) PROCESSOR waits for few more timer interrupts and repeats the suspend
  *    procedure.
- *********************************************************************/
+ */
 
 #include <xil_exception.h>
 #include <xil_printf.h>
@@ -85,12 +84,15 @@ static void SaveContext(void)
 {
 	uint8_t *MemPtr;
 	uint8_t *ContextMemPtr = (uint8_t *)CONTEXT_MEM_BASE;
+
 	for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
 		*ContextMemPtr = *MemPtr;
 	}
+
 	for (MemPtr = &__bss_start__; MemPtr < &__bss_end__; MemPtr++, ContextMemPtr++) {
 		*ContextMemPtr = *MemPtr;
 	}
+
 	pm_dbg("Saved context (tick_count = %d)\n", TickCount);
 }
 
@@ -101,12 +103,15 @@ static void RestoreContext(void)
 {
 	uint8_t *MemPtr;
 	uint8_t *ContextMemPtr = (uint8_t *)CONTEXT_MEM_BASE;
+
 	for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
 		*MemPtr = *ContextMemPtr;
 	}
+
 	for (MemPtr = &__bss_start__; MemPtr < &__bss_end__; MemPtr++, ContextMemPtr++) {
 		*MemPtr = *ContextMemPtr;
 	}
+
 	pm_dbg("Restored context (tick_count = %d)\n", TickCount);
 }
 
@@ -202,10 +207,9 @@ static void PrepareSuspend(void)
  */
 static uint32_t InitApp(void)
 {
-	enum XPmBootStatus status;
+	enum XPmBootStatus status = XPm_GetBootStatus();
+
 	pm_dbg("Main\n");
-	/* Get boot status for APU core #0 */
-	status = XPm_GetBootStatus();
 	if (PM_INITIAL_BOOT == status) {
 		pm_dbg("INITIAL BOOT\n");
 		/* Configure timer, if configuration fails return from main */
@@ -221,6 +225,7 @@ static uint32_t InitApp(void)
 	} else {
 		pm_dbg("ERROR cannot identify boot reason\n");
 	}
+
 	return XST_SUCCESS;
 }
 
@@ -228,6 +233,7 @@ int main(void)
 {
 	Xil_DCacheDisable();
 	uint32_t Status = InitApp();
+
 	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
 	}
@@ -239,10 +245,12 @@ int main(void)
 	PrepareSuspend();
 	pm_dbg("Going to WFI...\n");
 	__asm__("wfi");
+
 	/*
 	 * Can execute code below only if interrupt is generated between calling
 	 * the PrepareSuspend and executing wfi. Shouldn't happen.
 	 */
 	pm_dbg("Error! WFI exit...\n");
+
 	return XST_FAILURE;
 }
