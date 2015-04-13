@@ -72,6 +72,8 @@
 * 8.00a kc  2/20/14		Fix for CR#775631 - FSBL: FsblGetGlobalTimer() 
 *						is not proper
 * 10.00a kc 07/24/14    Fix for CR#809336 - Minor code cleanup
+* 13.00a ssc 04/10/15   Fix for CR#846899 - Corrected logic to clear
+*                                           DMA done count
 * </pre>
 *
 * @note
@@ -566,7 +568,7 @@ u32 ClearPcapStatus(void)
 	}
 
 	if ((StatusReg & XDCFG_STATUS_DMA_DONE_CNT_MASK) != 0) {
-		XDcfg_IntrClear(DcfgInstPtr, StatusReg &
+		XDcfg_SetStatusRegister(DcfgInstPtr, StatusReg |
 				XDCFG_STATUS_DMA_DONE_CNT_MASK);
 	}
 
