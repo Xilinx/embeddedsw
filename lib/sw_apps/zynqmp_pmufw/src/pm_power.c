@@ -128,8 +128,17 @@ static u32 PmPwrUpHandler(PmNode* const nodePtr)
 		ret = XST_SUCCESS;
 		break;
 	case NODE_RPU:
+	{
+		u32 reg;
+
 		ret = XpbrPwrUpRpuHandler();
+
+		/* release RPU island reset */
+		reg = Xil_In32(CRL_APB_RST_LPD_TOP);
+		reg &= ~CRL_APB_RST_LPD_TOP_RPU_PGE_RESET_MASK;
+		Xil_Out32(CRL_APB_RST_LPD_TOP, reg);
 		break;
+	}
 	default:
 		PmDbg("%s ERROR - unsupported node %s(%d)\n", __func__,
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
