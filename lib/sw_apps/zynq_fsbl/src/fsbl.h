@@ -223,6 +223,11 @@
 *                       from build 2015.1_1210_1, causing compilation error.
 *						Resolution: Arguments for f_mount in InitSD() are
 *						changed as per new signature.
+* 13.00a ssc 04/10/15	846899 - FSBL -In the file pcap.c, to clear DMA done
+*                       count, devcfg.INT_STS register is written to, which is
+*                       not correct.
+*                       Resolution: Corresponding fields in the devcfg.STATUS
+*                       register are written to, for clearing DMA done count.
 *
 * </pre>
 *
