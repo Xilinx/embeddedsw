@@ -40,14 +40,6 @@
 XScuGic GicInst;
 
 /**
- * GicEnableInterrupt() - Enable interrupt in gic
- */
-void GicEnableInterrupt(uint32_t IntId)
-{
-	XScuGic_Enable(&GicInst, IntId);
-}
-
-/**
  * GicInit() - Initialize gic
  *
  * @return	Status of operation success (XST_* from xstatus.h)
@@ -99,7 +91,7 @@ int32_t GicSetupInterruptSystem(uint32_t IntId,
 	if(XST_SUCCESS != Status)
 		return Status;
 
-	GicEnableInterrupt(IntId);
+	XScuGic_Enable(&GicInst, IntId);
 
 	Xil_ExceptionEnable();
 
