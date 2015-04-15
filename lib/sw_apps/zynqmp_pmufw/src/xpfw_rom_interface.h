@@ -49,6 +49,9 @@
  * @note: These Identifiers are also used to identify the service mode
  *        error.
  */
+
+#include "xil_types.h"
+
 enum xpbr_serv_ext_id {
         XPBR_SERV_EXT_TBL_BASE                    = 0U,
         /*       RESERVED                           1U   */
@@ -312,6 +315,7 @@ enum xpbr_serv_ext_id {
 typedef u32 (*XpbrServHndlr_t) (void);
 
 extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
+extern XpbrServHndlr_t XpbrServExtTbl[XPBR_SERV_EXT_TBL_MAX];
 
 static inline u32 XpbrACPU0SleepHandler(void)
 {
