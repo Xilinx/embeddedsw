@@ -1557,8 +1557,6 @@ void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_LINK_BW_SET,
 								LinkRate);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LOCAL_EDID_VIDEO,
-									0x1);
 }
 
 /******************************************************************************/
