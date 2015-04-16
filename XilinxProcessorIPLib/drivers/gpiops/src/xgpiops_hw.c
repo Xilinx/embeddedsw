@@ -43,6 +43,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.02a hk   08/22/13 First Release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 *
 * </pre>
 *
@@ -80,11 +81,18 @@
 void XGpioPs_ResetHw(u32 BaseAddress)
 {
 	u32 BankCount;
+	u32 Platform,MaxBanks;
 
+	Platform = XGetPlatform_Info();
+	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
+		MaxBanks = (u32)6;
+	} else {
+		MaxBanks = (u32)4;
+	}
 	/*
 	 * Write reset values to all mask data registers
 	 */
-	for(BankCount = 2U; BankCount < (u32)XGPIOPS_MAX_BANKS; BankCount++) {
+	for(BankCount = 2U; BankCount < (u32)MaxBanks; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_DATA_MASK_OFFSET) +
@@ -96,7 +104,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 	/*
 	 * Write reset values to all output data registers
 	 */
-	for(BankCount = 2U; BankCount < (u32)XGPIOPS_MAX_BANKS; BankCount++) {
+	for(BankCount = 2U; BankCount < (u32)MaxBanks; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_DATA_BANK_OFFSET) +
@@ -104,9 +112,9 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 	}
 
 	/*
-	 * Reset all registers of all 4 banks
+	 * Reset all registers of all GPIO banks
 	 */
-	for(BankCount = 0U; BankCount < (u32)XGPIOPS_MAX_BANKS; BankCount++) {
+	for(BankCount = 0U; BankCount < (u32)MaxBanks; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
 				((BankCount * XGPIOPS_REG_MASK_OFFSET) +
@@ -157,19 +165,20 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 	XGpioPs_WriteReg(BaseAddress,
 			(((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK3_RESET);
-#ifdef XPAR_PSU_GPIO_0_BASEADDR
-	/*
-	 * Bank 4 Int type
-	 */
-	XGpioPs_WriteReg(BaseAddress,
-			(((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
-			XGPIOPS_INTTYPE_BANK4_RESET);
-	/*
-	 * Bank 5 Int type
-	 */
-	XGpioPs_WriteReg(BaseAddress,
-			(((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
-			XGPIOPS_INTTYPE_BANK5_RESET);
-#endif
+
+	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
+		/*
+		 * Bank 4 Int type
+		 */
+		XGpioPs_WriteReg(BaseAddress,
+				(((u32)4 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+				XGPIOPS_INTTYPE_BANK4_RESET);
+		/*
+		 * Bank 5 Int type
+		 */
+		XGpioPs_WriteReg(BaseAddress,
+				(((u32)5 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+				XGPIOPS_INTTYPE_BANK5_RESET);
+	}
 
 }

@@ -45,6 +45,7 @@
 * 2.2	sk	 10/13/14 Used Pin number in Bank instead of pin number
 * 					  passed to API's. CR# 822636
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 * </pre>
 *
 ******************************************************************************/
@@ -73,7 +74,7 @@ void StubHandler(void *CallBackRef, u32 Bank, u32 Status);
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	Mask is the bit mask of the pins for which interrupts are to
 *		be enabled. Bit positions of 1 will be enabled. Bit positions
 *		of 0 will keep the previous setting.
@@ -87,7 +88,7 @@ void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -101,7 +102,7 @@ void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the interrupt is to be enabled.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return	None.
 *
@@ -116,7 +117,7 @@ void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -137,7 +138,7 @@ void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	Mask is the bit mask of the pins for which interrupts are
 *		to be disabled. Bit positions of 1 will be disabled. Bit
 *		positions of 0 will keep the previous setting.
@@ -151,7 +152,7 @@ void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -165,7 +166,7 @@ void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the interrupt is to be disabled.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return	None.
 *
@@ -180,7 +181,7 @@ void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -200,7 +201,7 @@ void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * @return	Enabled interrupt(s) in a 32-bit format. Bit positions with 1
 *		indicate that the interrupt for that pin is enabled, bit
@@ -216,7 +217,7 @@ u32 XGpioPs_IntrGetEnabled(XGpioPs *InstancePtr, u8 Bank)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 
 	IntrMask = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				    ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -232,7 +233,7 @@ u32 XGpioPs_IntrGetEnabled(XGpioPs *InstancePtr, u8 Bank)
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the interrupt enable status
 *		is to be known.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return
 *		- TRUE if the interrupt is enabled.
@@ -249,7 +250,7 @@ u32 XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -270,7 +271,7 @@ u32 XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * @return	The value read from Interrupt Status Register.
 *
@@ -281,7 +282,7 @@ u32 XGpioPs_IntrGetStatus(XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -296,7 +297,7 @@ u32 XGpioPs_IntrGetStatus(XGpioPs *InstancePtr, u8 Bank)
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the interrupt enable status
 *		is to be known.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return
 *		- TRUE if the interrupt has occurred.
@@ -313,7 +314,7 @@ u32 XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -336,7 +337,7 @@ u32 XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	Mask is the mask of the interrupts to be cleared. Bit positions
 *		of 1 will be cleared. Bit positions of 0 will not change the
 *		previous interrupt status.
@@ -348,7 +349,7 @@ void XGpioPs_IntrClear(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	/*
 	 * Clear the currently pending interrupts.
@@ -366,7 +367,7 @@ void XGpioPs_IntrClear(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the interrupt status is to be
-*		cleared. Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		cleared. Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @note		None.
 *
@@ -379,7 +380,7 @@ void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -407,7 +408,7 @@ void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to an XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	IntrType is the 32 bit mask of the interrupt type.
 *		0 means Level Sensitive and 1 means Edge Sensitive.
 * @param	IntrPolarity is the 32 bit mask of the interrupt polarity.
@@ -432,7 +433,7 @@ void XGpioPs_SetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -455,7 +456,7 @@ void XGpioPs_SetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 *
 * @param	InstancePtr is a pointer to an XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	IntrType returns the 32 bit mask of the interrupt type.
 *		0 means Level Sensitive and 1 means Edge Sensitive.
 * @param	IntrPolarity returns the 32 bit mask of the interrupt
@@ -477,7 +478,7 @@ void XGpioPs_GetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	*IntrType = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				     ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -499,7 +500,7 @@ void XGpioPs_GetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 *
 * @param	InstancePtr is a pointer to an XGpioPs instance.
 * @param	Pin is the pin number whose IRQ type is to be set.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 * @param	IrqType is the IRQ type for GPIO Pin. Use XGPIOPS_IRQ_TYPE_*
 *		defined in xgpiops.h to specify the IRQ type.
 *
@@ -518,7 +519,7 @@ void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 	Xil_AssertVoid(IrqType <= XGPIOPS_IRQ_TYPE_LEVEL_LOW);
 
 	/*
@@ -586,7 +587,7 @@ void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 *
 * @param	InstancePtr is a pointer to an XGpioPs instance.
 * @param	Pin is the pin number whose IRQ type is to be obtained.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return	None.
 *
@@ -605,7 +606,7 @@ u8 XGpioPs_GetIntrTypePin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -706,7 +707,7 @@ void XGpioPs_IntrHandler(XGpioPs *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	for (Bank = 0U; Bank < XGPIOPS_MAX_BANKS; Bank++) {
+	for (Bank = 0U; Bank < InstancePtr->MaxBanks; Bank++) {
 		IntrStatus = XGpioPs_IntrGetStatus(InstancePtr, Bank);
 		if (IntrStatus != (u32)0) {
 			IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr,

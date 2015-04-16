@@ -49,6 +49,7 @@
 *		      for output pins on all banks during initialization.
 * 2.1   hk   04/29/14 Use Input data register DATA_RO for read. CR# 771667.
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 *
 * </pre>
 *
@@ -95,6 +96,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status = XST_SUCCESS;
+	u8 i;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 	Xil_AssertNonvoid(EffectiveAddr != (u32)0);
@@ -106,25 +108,42 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 	InstancePtr->GpioConfig.BaseAddr = EffectiveAddr;
 	InstancePtr->GpioConfig.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Handler = StubHandler;
+	InstancePtr->Platform = XGetPlatform_Info();
+
+	/* Initialize the Bank data based on platform */
+	if (InstancePtr->Platform == XPLAT_ZYNQ_ULTRA_MP) {
+		/*
+		 *	Max pins in the ZynqMP GPIO device
+		 *	0 - 25,  Bank 0
+		 *	26 - 51, Bank 1
+		 *	52 - 77, Bank 2
+		 *	78 - 109, Bank 3
+		 *	110 - 141, Bank 4
+		 *	142 - 173, Bank 5
+		 */
+		InstancePtr->MaxPinNum = (u32)174;
+		InstancePtr->MaxBanks = (u8)6;
+	} else {
+		/*
+		 *	Max pins in the GPIO device
+		 *	0 - 31,  Bank 0
+		 *	32 - 53, Bank 1
+		 *	54 - 85, Bank 2
+		 *	86 - 117, Bank 3
+		 */
+		InstancePtr->MaxPinNum = (u32)118;
+		InstancePtr->MaxBanks = (u8)4;
+	}
 
 	/*
 	 * By default, interrupts are not masked in GPIO. Disable
 	 * interrupts for all pins in all the 4 banks.
 	 */
-	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
-
-	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((u32)(1) * XGPIOPS_REG_MASK_OFFSET) +
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
-
-	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((u32)(2) * XGPIOPS_REG_MASK_OFFSET) +
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
-
-	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
-			  ((u32)(3) * XGPIOPS_REG_MASK_OFFSET) +
-			  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
+	for (i=0;i<InstancePtr->MaxBanks;i++) {
+		XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
+					  ((u32)(i) * XGPIOPS_REG_MASK_OFFSET) +
+					  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
+	}
 
 	/*
 	 * Indicate the component is now ready to use.
@@ -141,7 +160,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * @return	Current value of the Data register.
 *
@@ -153,7 +172,7 @@ u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				 ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
@@ -167,7 +186,7 @@ u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the data has to be read.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *		See xgpiops.h for the mapping of the pin numbers in the banks.
 *
 * @return	Current value of the Pin (0 or 1).
@@ -183,7 +202,7 @@ u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -203,7 +222,7 @@ u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	Data is the value to be written to the Data register.
 *
 * @return	None.
@@ -216,7 +235,7 @@ void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
@@ -230,7 +249,7 @@ void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number to which the Data is to be written.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 * @param	Data is the data to be written to the specified pin (0 or 1).
 *
 * @return	None.
@@ -250,7 +269,7 @@ void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -287,7 +306,7 @@ void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	Direction is the 32 bit mask of the Pin direction to be set for
 *		all the pins in the Bank. Bits with 0 are set to Input mode,
 *		bits with 1 are	set to Output Mode.
@@ -303,7 +322,7 @@ void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -317,7 +336,7 @@ void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number to which the Data is to be written.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 * @param	Direction is the direction to be set for the specified pin.
 *		Valid values are 0 for Input Direction, 1 for Output Direction.
 *
@@ -332,7 +351,7 @@ void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 	Xil_AssertVoid(Direction <= (u32)1);
 
 	/*
@@ -362,7 +381,7 @@ void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * return	Returns a 32 bit mask of the Direction register. Bits with 0 are
 *		in Input mode, bits with 1 are in Output Mode.
@@ -374,7 +393,7 @@ u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -389,7 +408,7 @@ u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank)
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the Direction is to be
 *		retrieved.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return	Direction of the specified pin.
 *		- 0 for Input Direction
@@ -405,7 +424,7 @@ u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -424,7 +443,7 @@ u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	OpEnable is the 32 bit mask of the Output Enables to be set for
 *		all the pins in the Bank. The Output Enable of bits with 0 are
 *		disabled, the Output Enable of bits with 1 are enabled.
@@ -440,7 +459,7 @@ void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -454,7 +473,7 @@ void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number to which the Data is to be written.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 * @param	OpEnable specifies whether the Output Enable for the specified
 *		pin should be enabled.
 *		Valid values are 0 for Disabling Output Enable,
@@ -473,7 +492,7 @@ void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 	Xil_AssertVoid(OpEnable <= (u32)1);
 
 	/*
@@ -502,7 +521,7 @@ void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * return	Returns a a 32 bit mask of the Output Enable register.
 *		Bits with 0 are in Disabled state, bits with 1 are in
@@ -515,7 +534,7 @@ u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < XGPIOPS_MAX_BANKS);
+	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -530,7 +549,7 @@ u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank)
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the Output Enable status is to
 *		be retrieved.
-*		Valid values are 0 to XGPIOPS_DEVICE_MAX_PIN_NUM - 1.
+*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return	Output Enable of the specified pin.
 *		- 0 if Output Enable is disabled for this pin
@@ -546,7 +565,7 @@ u32 XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Pin < XGPIOPS_DEVICE_MAX_PIN_NUM);
+	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/*
 	 * Get the Bank number and Pin number within the bank.
@@ -576,41 +595,43 @@ u32 XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin)
 *****************************************************************************/
 void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 {
-	/*
-	 * This structure defines the mapping of the pin numbers to the banks when
-	 * the driver APIs are used for working on the individual pins.
-	 */
-#ifdef XPAR_PSU_GPIO_0_BASEADDR
-	u32 XGpioPsPinTable[] = {
-					(u32)25, /* 0 - 25, Bank 0 */
-					(u32)51, /* 26 - 51, Bank 1 */
-					(u32)77, /* 52 - 77, Bank 2 */
-					(u32)109, /* 78 - 109, Bank 3 */
-					(u32)141, /* 110 - 141, Bank 4 */
-					(u32)173 /* 142 - 173 Bank 5 */
-				};
-			*BankNumber = 0U;
-			while (*BankNumber < 6U) {
-				if (PinNumber <= XGpioPsPinTable[*BankNumber]) {
-					break;
-				}
-				(*BankNumber)++;
+	u32 XGpioPsPinTable[6] = {0};
+	u32 Platform = XGetPlatform_Info();
+
+	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
+		/*
+		 * This structure defines the mapping of the pin numbers to the banks when
+		 * the driver APIs are used for working on the individual pins.
+		 */
+
+		XGpioPsPinTable[0] = (u32)25; /* 0 - 25, Bank 0 */
+		XGpioPsPinTable[1] = (u32)51; /* 26 - 51, Bank 1 */
+		XGpioPsPinTable[2] = (u32)77; /* 52 - 77, Bank 2 */
+		XGpioPsPinTable[3] = (u32)109; /* 78 - 109, Bank 3 */
+		XGpioPsPinTable[4] = (u32)141; /* 110 - 141, Bank 4 */
+		XGpioPsPinTable[5] = (u32)173; /* 142 - 173 Bank 5 */
+
+		*BankNumber = 0U;
+		while (*BankNumber < 6U) {
+			if (PinNumber <= XGpioPsPinTable[*BankNumber]) {
+				break;
 			}
-#else
-	u32 XGpioPsPinTable[] = {
-		(u32)31, /* 0 - 31, Bank 0 */
-		(u32)53, /* 32 - 53, Bank 1 */
-		(u32)85, /* 54 - 85, Bank 2 */
-		(u32)117 /* 86 - 117 Bank 3 */
-	};
-	*BankNumber = 0U;
-	while (*BankNumber < 4U) {
-		if (PinNumber <= XGpioPsPinTable[*BankNumber]) {
-			break;
+			(*BankNumber)++;
 		}
-		(*BankNumber)++;
-    }
-#endif
+	} else {
+		XGpioPsPinTable[0] = (u32)31; /* 0 - 31, Bank 0 */
+		XGpioPsPinTable[1] = (u32)53; /* 32 - 53, Bank 1 */
+		XGpioPsPinTable[2] = (u32)85; /* 54 - 85, Bank 2 */
+		XGpioPsPinTable[3] = (u32)117; /* 86 - 117 Bank 3 */
+
+		*BankNumber = 0U;
+		while (*BankNumber < 4U) {
+			if (PinNumber <= XGpioPsPinTable[*BankNumber]) {
+				break;
+			}
+			(*BankNumber)++;
+		}
+	}
 	if (*BankNumber == (u8)0) {
 		*PinNumberInBank = PinNumber;
 	} else {

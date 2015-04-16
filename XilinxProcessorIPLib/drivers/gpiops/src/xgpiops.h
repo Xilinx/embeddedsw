@@ -93,6 +93,7 @@
 * 2.2	sk	 10/13/14 Used Pin number in Bank instead of pin number
 * 					  passed to APIs. CR# 822636
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 *
 * </pre>
 *
@@ -108,6 +109,7 @@ extern "C" {
 
 #include "xstatus.h"
 #include "xgpiops_hw.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -123,6 +125,7 @@ extern "C" {
 #define XGPIOPS_IRQ_TYPE_LEVEL_LOW	0x04U  /**< Interrupt on low level */
 /*@}*/
 
+#define XGPIOPS_BANK_MAX_PINS		(u32)32 /**< Max pins in a GPIO bank */
 #define XGPIOPS_BANK0			0x00U  /**< GPIO Bank 0 */
 #define XGPIOPS_BANK1			0x01U  /**< GPIO Bank 1 */
 #define XGPIOPS_BANK2			0x02U  /**< GPIO Bank 2 */
@@ -131,11 +134,15 @@ extern "C" {
 #ifdef XPAR_PSU_GPIO_0_BASEADDR
 #define XGPIOPS_BANK4			0x04U  /**< GPIO Bank 4 */
 #define XGPIOPS_BANK5			0x05U  /**< GPIO Bank 5 */
+#endif
 
-#define XGPIOPS_MAX_BANKS		0x06U  /**< Max banks in a GPIO device */
-#define XGPIOPS_BANK_MAX_PINS		(u32)32 /**< Max pins in a GPIO bank */
+#define XGPIOPS_MAX_BANKS_ZYNQMP		0x06U  /**< Max banks in a
+										*	Zynq Ultrascale+ MP GPIO device
+										*/
+#define XGPIOPS_MAX_BANKS		0x04U  /**< Max banks in a Zynq GPIO device */
 
-#define XGPIOPS_DEVICE_MAX_PIN_NUM	(u32)174 /*< Max pins in the ZynqMP GPIO device
+#define XGPIOPS_DEVICE_MAX_PIN_NUM_ZYNQMP	(u32)174 /**< Max pins in the
+						  *	Zynq Ultrascale+ MP GPIO device
 					      * 0 - 25,  Bank 0
 					      * 26 - 51, Bank 1
 					      *	52 - 77, Bank 2
@@ -143,20 +150,13 @@ extern "C" {
 					      *	110 - 141, Bank 4
 					      *	142 - 173, Bank 5
 					      */
-#else
-
-#define XGPIOPS_MAX_BANKS		0x04U  /**< Max banks in a GPIO device */
-#define XGPIOPS_BANK_MAX_PINS		(u32)32 /**< Max pins in a GPIO bank */
-
-#define XGPIOPS_DEVICE_MAX_PIN_NUM	(u32)118 /*< Max pins in the GPIO device
+#define XGPIOPS_DEVICE_MAX_PIN_NUM	(u32)118 /**< Max pins in the Zynq GPIO device
 					      * 0 - 31,  Bank 0
 					      * 32 - 53, Bank 1
 					      *	54 - 85, Bank 2
 					      *	86 - 117, Bank 3
 					      */
 
-
-#endif
 /**************************** Type Definitions *******************************/
 
 /****************************************************************************/
@@ -196,6 +196,9 @@ typedef struct {
 	u32 IsReady;			/**< Device is initialized and ready */
 	XGpioPs_Handler Handler;	/**< Status handlers for all banks */
 	void *CallBackRef; 		/**< Callback ref for bank handlers */
+	u32 Platform;			/**< Platform data */
+	u32 MaxPinNum;			/**< Max pins in the GPIO device */
+	u8 MaxBanks;			/**< Max banks in a GPIO device */
 } XGpioPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
