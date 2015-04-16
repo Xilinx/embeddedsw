@@ -47,6 +47,7 @@
 * 1.02a hk   08/22/13 Added low level reset API function prototype and
 *                     related constant definitions
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1	kvn  04/13/15 Corrected reset values of banks.
 * </pre>
 *
 ******************************************************************************/
@@ -98,19 +99,18 @@ extern "C" {
  *  @{
  */
 #ifdef XPAR_PSU_GPIO_0_BASEADDR
-#define XGPIOPS_INTTYPE_BANK0_RESET  0x3FFFFFFFU
-#define XGPIOPS_INTTYPE_BANK1_RESET  0x3FFFFFFFU
-#define XGPIOPS_INTTYPE_BANK2_RESET  0x3FFFFFFFU
-#define XGPIOPS_INTTYPE_BANK3_RESET  0xFFFFFFFFU
-#define XGPIOPS_INTTYPE_BANK4_RESET  0xFFFFFFFFU
-#define XGPIOPS_INTTYPE_BANK5_RESET  0xFFFFFFFFU
+#define XGPIOPS_INTTYPE_BANK0_RESET  0x03FFFFFFU  /* Resets specific to Zynq Ultrascale+ MP */
+#define XGPIOPS_INTTYPE_BANK1_RESET  0x03FFFFFFU
+#define XGPIOPS_INTTYPE_BANK2_RESET  0x03FFFFFFU
 #else
-
-#define XGPIOPS_INTTYPE_BANK0_RESET  0xFFFFFFFFU
-#define XGPIOPS_INTTYPE_BANK1_RESET  0x3FFFFFFFU
+#define XGPIOPS_INTTYPE_BANK0_RESET  0xFFFFFFFFU  /* Resets specific to Zynq */
+#define XGPIOPS_INTTYPE_BANK1_RESET  0x003FFFFFU
 #define XGPIOPS_INTTYPE_BANK2_RESET  0xFFFFFFFFU
-#define XGPIOPS_INTTYPE_BANK3_RESET  0xFFFFFFFFU
 #endif
+
+#define XGPIOPS_INTTYPE_BANK3_RESET  0xFFFFFFFFU  /* Reset common to both platforms */
+#define XGPIOPS_INTTYPE_BANK4_RESET  0xFFFFFFFFU  /* Resets specific to Zynq Ultrascale+ MP */
+#define XGPIOPS_INTTYPE_BANK5_RESET  0xFFFFFFFFU
 /* @} */
 
 /**************************** Type Definitions *******************************/
