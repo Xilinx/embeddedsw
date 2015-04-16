@@ -2444,10 +2444,6 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)BufPtr & 0xFFFFFFFFU));
-
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_BUF_BND_OFFSET,
-				XNANDPSU_DMA_BUF_BND_512K);
 	}
 	/*
 	 * Program Column, Page, Block address
