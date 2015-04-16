@@ -1672,14 +1672,18 @@ static s32 XNandPsu_CalculateLength(XNandPsu *InstancePtr, u64 Offset,
 	u32 BlockSize;
 	u32 BlockLen;
 	u32 Block;
-	u32 TempLen = 0;
+	u64 TempLen = 0;
 	u64 OffsetVar = Offset;
 
 	BlockSize = InstancePtr->Geometry.BlockSize;
 
 	while (TempLen < Length) {
-		Block = (u32) ((u32)OffsetVar/BlockSize);
-		BlockLen = BlockSize - ((u32)OffsetVar % BlockSize);
+		Block = (u32)(OffsetVar/BlockSize);
+		BlockLen = BlockSize - (OffsetVar % BlockSize);
+		if (OffsetVar >= InstancePtr->Geometry.DeviceSize) {
+			Status = XST_FAILURE;
+			goto Out;
+		}
 		/*
 		 * Check if the block is bad
 		 */
@@ -1689,10 +1693,6 @@ static s32 XNandPsu_CalculateLength(XNandPsu *InstancePtr, u64 Offset,
 			 * Good block
 			 */
 			TempLen += BlockLen;
-		}
-		if (OffsetVar >= InstancePtr->Geometry.DeviceSize) {
-			Status = XST_FAILURE;
-			goto Out;
 		}
 		OffsetVar += BlockLen;
 	}
