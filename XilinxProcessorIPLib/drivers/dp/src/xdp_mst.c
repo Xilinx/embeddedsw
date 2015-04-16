@@ -2410,6 +2410,9 @@ void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose)
 	else if (InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts) {
 		InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts--;
 	}
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_SINK_COUNT,
+		InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts);
 }
 
 /******************************************************************************/
@@ -2498,11 +2501,6 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 		Branch->Guid[1] = PortOverride->Guid[1];
 		Branch->Guid[2] = PortOverride->Guid[2];
 		Branch->Guid[3] = PortOverride->Guid[3];
-	}
-
-	/* Make sure that the branch device is accounted for. */
-	if (InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts == 0) {
-		InstancePtr->RxInstance.Topology.LinkAddressInfo.NumPorts = 1;
 	}
 
 	XDp_RxMstExposePort(InstancePtr, PortNum, 1);
