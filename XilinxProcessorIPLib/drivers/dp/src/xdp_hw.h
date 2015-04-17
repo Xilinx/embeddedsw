@@ -826,6 +826,10 @@
 							generator (DTG). */
 #define XDP_RX_FAST_I2C_DIVIDER		0x060	/**< Fast I2C mode clock divider
 							value. */
+#define XDP_RX_MST_ALLOC		0x06C	/**< Represents the content from
+							the DPCD registers
+							related to payload
+							allocation. */
 /* @} */
 
 /** @name DPRX core registers: DPCD fields.
@@ -1455,6 +1459,26 @@
 							porch). */
 #define XDP_RX_HSYNC_WIDTH_FRONT_PORCH_SHIFT 8	/**< Shift bits for the front
 							porch. */
+/* 0x06C: MST_ALLOC */
+#define XDP_RX_MST_ALLOC_VCP_ID_MASK   0x00003F	/**< The virtual channel payload
+							ID that was issued as
+							part of the most recent
+							ALLOCATE_PAYLOAD down
+							request. */
+#define XDP_RX_MST_ALLOC_START_TS_MASK 0x003F00	/**< The starting time slot that
+							was issued as part of
+							the most recent
+							ALLOCATE_PAYLOAD down
+							request. */
+#define XDP_RX_MST_ALLOC_START_TS_SHIFT	8	/**< Shift bits for the starting
+							time slot. */
+#define XDP_RX_MST_ALLOC_COUNT_TS_MASK 0x3F0000	/**< The time slot count that
+							was issued as part of
+							part of the most recent
+							ALLOCATE_PAYLOAD down
+							request. */
+#define XDP_RX_MST_ALLOC_COUNT_TS_SHIFT	16	/**< Shift bits for the time
+							slot count. */
 /* 0x090: DEVICE_SERVICE_IRQ */
 #define XDP_RX_DEVICE_SERVICE_IRQ_NEW_REMOTE_CMD_MASK \
 					0x01	/**< Indicates that a new
@@ -1530,6 +1554,31 @@
 #define XDP_RX_OVER_TRAINING_LANEX_SET_MAX_PE_MASK \
 					0x20	/**< Maximum pre-emphasis
 							override. */
+/* 0x0D0 : MST_CAP */
+#define XDP_RX_MST_CAP_ENABLE_MASK	0x001	/**< When set to 1, enables MST
+							mode in the RX, or
+							disables it when 0. */
+#define XDP_RX_MST_CAP_SOFT_VCP_MASK	0x002	/**< When set to 1, enables
+							software control over
+							the virtual channel
+							payload table. */
+#define XDP_RX_MST_CAP_OVER_ACT_MASK	0x004	/**< When set to 1, overrides
+							the ACT trigger. This
+							is used when software
+							controls the virtual
+							channel payload
+							table. */
+#define XDP_RX_MST_CAP_VCP_UPDATE_MASK	0x010	/**< When set to 1, indicates to
+							the upstream device that
+							the virtual channel
+							payload table has been
+							updated. This is used
+							when software controls
+							the virtual channel
+							payload table. */
+#define XDP_RX_MST_CAP_VCP_CLEAR_MASK	0x100	/**< When set to 1, clears the
+							virtual channel payload
+							table. */
 /* 0x0F8 : VERSION_REGISTER */
 #define XDP_RX_VERSION_INTER_REV_MASK \
 				0x0000000F	/**< Internal revision. */
