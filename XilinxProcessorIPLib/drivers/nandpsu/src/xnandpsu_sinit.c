@@ -77,13 +77,13 @@ extern XNandPsu_Config XNandPsu_ConfigTable[];
 *		controller ID was not found.
 *
 ******************************************************************************/
-XNandPsu_Config *XNandPsu_LookupConfig(u16 DeviceID)
+XNandPsu_Config *XNandPsu_LookupConfig(u16 DevID)
 {
 	XNandPsu_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0U; Index < XPAR_XNANDPSU_NUM_INSTANCES; Index++) {
-		if (XNandPsu_ConfigTable[Index].DeviceId == DeviceID) {
+	for (Index = 0U; Index < (u32)XPAR_XNANDPSU_NUM_INSTANCES; Index++) {
+		if (XNandPsu_ConfigTable[Index].DeviceId == DevID) {
 			CfgPtr = &XNandPsu_ConfigTable[Index];
 			break;
 		}

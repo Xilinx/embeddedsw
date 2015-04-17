@@ -315,7 +315,7 @@ typedef struct {
  * Driver extended parameter page information.
  */
 typedef struct {
-	u8 NumBitsEcc;
+	u8 NumEccBits;
 	u8 CodeWordSize;
 	u16 MaxBadBlocks;
 	u16 BlockEndurance;

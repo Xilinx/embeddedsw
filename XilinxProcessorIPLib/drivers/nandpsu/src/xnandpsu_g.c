@@ -65,6 +65,6 @@
 XNandPsu_Config XNandPsu_ConfigTable[] = {
 	{
 		0U,
-		XPAR_XNANDPSU_0_BASEADDR
+		(u32)XPAR_XNANDPSU_0_BASEADDR
 	}
 };

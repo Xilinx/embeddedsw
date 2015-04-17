@@ -320,7 +320,7 @@ s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr)
 	 */
 	BbtLen = InstancePtr->Geometry.NumBlocks >>
 					XNANDPSU_BBT_BLOCK_SHIFT;
-	memset(&InstancePtr->Bbt[0], 0, BbtLen);
+	(void)memset(&InstancePtr->Bbt[0], 0, BbtLen);
 
 	for (Index = 0U; Index < InstancePtr->Geometry.NumTargets; Index++) {
 
@@ -795,7 +795,7 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	/*
 	 * Convert the memory based BBT to flash based table
 	 */
-	memset(Buf, 0xff, BufLen);
+	(void)memset(Buf, 0xff, BufLen);
 
 	if(Desc->Option == XNANDPSU_BBT_NO_OOB){
 		BufPtr = BufPtr + Desc->VerOffset + XNANDPSU_BBT_VERSION_LENGTH;
@@ -829,9 +829,9 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 		/*
 		 * Copy the signature and version to the Buffer
 		 */
-		memcpy(Buf + Desc->SigOffset, &Desc->Signature[0],
+		(void)memcpy(Buf + Desc->SigOffset, &Desc->Signature[0],
 							Desc->SigLength);
-		memcpy(Buf + Desc->VerOffset, &Desc->Version[Target], 1U);
+		(void)memcpy(Buf + Desc->VerOffset, &Desc->Version[Target], 1U);
 		/*
 		 * Write the Buffer to page offset
 		 */
@@ -854,16 +854,16 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 		/*
 		 * Write the signature and version in the spare data area
 		 */
-		memset(SpareBuf, 0xff, InstancePtr->Geometry.SpareBytesPerPage);
+		(void)memset(SpareBuf, 0xff, InstancePtr->Geometry.SpareBytesPerPage);
 		Status = XNandPsu_ReadSpareBytes(InstancePtr, Desc->PageOffset[Target],
 				&SpareBuf[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 
-		memcpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
+		(void)memcpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
 							Desc->SigLength);
-		memcpy(SpareBuf + Desc->VerOffset, &Desc->Version[Target], 1U);
+		(void)memcpy(SpareBuf + Desc->VerOffset, &Desc->Version[Target], 1U);
 
 		Status = XNandPsu_WriteSpareBytes(InstancePtr,
 				Desc->PageOffset[Target], &SpareBuf[0]);

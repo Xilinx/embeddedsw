@@ -93,10 +93,11 @@ u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)
 	 * (ONFI 1.0, section 5.4.1.36)
 	 */
 	for(i = StartOff; i < Length; i++) {
-		DataIn = ParamBuf[i];
+		DataIn = *(ParamBuf + i);
 		c = (u32)DataIn;
 		DataByteCount++;
-		for(j = 0x80U; j; j >>= 1U) {
+		j = 0x80U;
+		while(j != 0U) {
 			Bit = Crc & CrcHighBit;
 			Crc <<= 1U;
 			if ((c & j) != 0U) {
@@ -105,6 +106,7 @@ u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)
 			if (Bit != 0U) {
 				Crc ^= Polynom;
 			}
+			j >>= 1U;
 		}
 		Crc &= CrcMask;
 	}

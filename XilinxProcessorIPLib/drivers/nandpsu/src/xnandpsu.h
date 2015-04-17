@@ -377,7 +377,7 @@ typedef struct {
 typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	XNandPsu_Config Config;
-	u16 Ecc_Stat_PerPage_flips;	/**< Ecc Correctable Error Counter for Current Page */
+	u32 Ecc_Stat_PerPage_flips;	/**< Ecc Correctable Error Counter for Current Page */
 	u32 Ecc_Stats_total_flips;     /**< Total Ecc Errors Corrected */
 	XNandPsu_DataInterface DataInterface;
 	XNandPsu_TimingMode TimingMode;
@@ -521,8 +521,8 @@ typedef struct {
  *
  *****************************************************************************/
 #define IS_ONFI(Buff)					\
-	(Buff[0] == (u8)'O') && (Buff[1] == (u8)'N') &&	\
-	(Buff[2] == (u8)'F') && (Buff[3] == (u8)'I')
+	((Buff)[0] == (u8)'O') && ((Buff)[1] == (u8)'N') &&	\
+	((Buff)[2] == (u8)'F') && ((Buff)[3] == (u8)'I')
 
 /************************** Function Prototypes *****************************/
 
@@ -574,7 +574,7 @@ void XNandPsu_DisableBbtOobMode(XNandPsu *InstancePtr);
 /*
  * XNandPsu_LookupConfig in xnandpsu_sinit.c
  */
-XNandPsu_Config *XNandPsu_LookupConfig(u16 DeviceID);
+XNandPsu_Config *XNandPsu_LookupConfig(u16 DevID);
 
 
 #ifdef __cplusplus

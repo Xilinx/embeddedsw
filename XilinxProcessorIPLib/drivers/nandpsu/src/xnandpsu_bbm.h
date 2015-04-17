@@ -190,7 +190,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XNandPsu_BbtBlockShift(Block) \
-			((u8)(((Block) * 2U) & XNANDPSU_BLOCK_SHIFT_MASK))
+			(u8)(((Block) * 2U) & XNANDPSU_BLOCK_SHIFT_MASK)
 
 /************************** Variable Definitions *****************************/
 
@@ -198,11 +198,7 @@ extern "C" {
 
 void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr);
 
-s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr);
-
 s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block);
-
-s32 XNandPsu_MarkBlockBad(XNandPsu *InstancePtr, u32 Block);
 
 #ifdef __cplusplus
 }

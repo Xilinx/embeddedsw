@@ -103,7 +103,7 @@
 #include "xnandpsu_bbm.h"
 /************************** Constant Definitions *****************************/
 
-const XNandPsu_EccMatrix EccMatrix[] = {
+const static XNandPsu_EccMatrix EccMatrix[] = {
 	/*
 	 * 512 byte page
 	 */
@@ -889,8 +889,8 @@ static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
 
 	while (TimeoutVar > 0U) {
 		RegVal = XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
-						RegOffset);
-		if ((RegVal & Mask) != 0U) {
+						RegOffset) & Mask;
+		if (RegVal != 0U) {
 			break;
 		}
 		TimeoutVar--;
@@ -962,7 +962,7 @@ static void XNandPsu_SetPageColAddr(XNandPsu *InstancePtr, u32 Page, u16 Col)
 	 */
 	XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPSU_MEM_ADDR1_OFFSET,
-				((Col & XNANDPSU_MEM_ADDR1_COL_ADDR_MASK) |
+				(((u32)Col & XNANDPSU_MEM_ADDR1_COL_ADDR_MASK) |
 				((Page << (u32)XNANDPSU_MEM_ADDR1_PG_ADDR_SHIFT) &
 				XNANDPSU_MEM_ADDR1_PG_ADDR_MASK)));
 	/*
@@ -1047,7 +1047,7 @@ static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
 	u32 NumEccBits = InstancePtr->Geometry.NumBitsECC;
 	u32 Index;
 	u32 Found = 0U;
-	u8 BchModeVal = 0U;
+	u8 BchModeVal;
 
 	for (Index = 0U; Index < (sizeof(EccMatrix)/sizeof(XNandPsu_EccMatrix));
 						Index++) {
@@ -1065,12 +1065,12 @@ static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
 
 	if (Found != 0U) {
 		if(InstancePtr->Geometry.SpareBytesPerPage < 64U) {
-			InstancePtr->EccCfg.EccAddr = PageSize;
+			InstancePtr->EccCfg.EccAddr = (u16)PageSize;
 		}
 		else {
-			InstancePtr->EccCfg.EccAddr = PageSize +
+			InstancePtr->EccCfg.EccAddr = ((u16)PageSize +
 				(InstancePtr->Geometry.SpareBytesPerPage
-						- EccMatrix[Found].EccSize);
+						- EccMatrix[Found].EccSize));
 		}
 		InstancePtr->EccCfg.EccSize = EccMatrix[Found].EccSize;
 		InstancePtr->EccCfg.NumEccBits = EccMatrix[Found].NumEccBits;
@@ -1120,11 +1120,12 @@ static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
 					break;
 				default:
 					BchModeVal = 0x0U;
+					break;
 			}
 			XNandPsu_ReadModifyWrite(InstancePtr,
 				XNANDPSU_MEM_ADDR2_OFFSET,
 				XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_MASK,
-				(BchModeVal <<
+				((u32)BchModeVal <<
 				(u32)XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_SHIFT));
 		}
 	}
@@ -1364,7 +1365,7 @@ static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 	/*
 	 * Read Flash Status
 	 */
-	*OnfiStatus = (u8) XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
+	*OnfiStatus = (u16) XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
 						XNANDPSU_FLASH_STS_OFFSET);
 
 Out:
@@ -1470,7 +1471,7 @@ static s32 XNandPsu_OnfiReadId(XNandPsu *InstancePtr, u32 Target, u8 IdAddr,
 	 * Read Packet Data from Data Port Register
 	 */
 	for (Index = 0U; Index < (IdLen/4); Index++) {
-		BufPtr[Index] = XNandPsu_ReadReg(
+		*(BufPtr+Index) = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
 					XNANDPSU_BUF_DATA_PORT_OFFSET);
 	}
@@ -1480,7 +1481,7 @@ static s32 XNandPsu_OnfiReadId(XNandPsu *InstancePtr, u32 Target, u8 IdAddr,
 					InstancePtr->Config.BaseAddress,
 					XNANDPSU_BUF_DATA_PORT_OFFSET);
 		for (RemIdx = 0U; RemIdx < Rem; RemIdx++) {
-			Buf[(Index * 4U) + RemIdx] = (u8) (RegVal >>
+			*(Buf + (Index * 4U) + RemIdx) = (u8) (RegVal >>
 						(RemIdx * 8U)) & 0xFFU;
 		}
 	}
@@ -1612,7 +1613,7 @@ static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (ONFI_PRM_PG_LEN/4); Index++) {
-			BufPtr[Index] = XNandPsu_ReadReg(
+			*(BufPtr + Index) = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
 						XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
@@ -1679,7 +1680,7 @@ static s32 XNandPsu_CalculateLength(XNandPsu *InstancePtr, u64 Offset,
 
 	while (TempLen < Length) {
 		Block = (u32)(OffsetVar/BlockSize);
-		BlockLen = BlockSize - (OffsetVar % BlockSize);
+		BlockLen = BlockSize - (u32)(OffsetVar % BlockSize);
 		if (OffsetVar >= InstancePtr->Geometry.DeviceSize) {
 			Status = XST_FAILURE;
 			goto Out;
@@ -1730,7 +1731,7 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 	u32 NumBytes;
 	u32 RemLen;
 	u8 *BufPtr;
-	u8 *Ptr = (u8 *)SrcBuf;
+	u8 *SrcBufPtr = (u8 *)SrcBuf;
 	u16 OnfiStatus;
 	u64 OffsetVar = Offset;
 	u64 LengthVar = Length;
@@ -1742,7 +1743,7 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(SrcBuf != NULL);
 	Xil_AssertNonvoid(LengthVar != 0U);
-	Xil_AssertNonvoid((OffsetVar + LengthVar) <
+	Xil_AssertNonvoid((OffsetVar + LengthVar) <=
 				InstancePtr->Geometry.DeviceSize);
 
 	/*
@@ -1793,13 +1794,13 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 		 */
 		if (PartialBytes > 0U) {
 			BufPtr = &InstancePtr->PartialDataBuf[0];
-			memset(BufPtr, 0xFF,
+			(void)memset(BufPtr, 0xFF,
 					InstancePtr->Geometry.BytesPerPage);
-			memcpy(BufPtr + Col, Ptr, PartialBytes);
+			(void)memcpy(BufPtr + Col, SrcBufPtr, PartialBytes);
 
 			NumBytes = PartialBytes;
 		} else {
-			BufPtr = (u8 *)Ptr;
+			BufPtr = (u8 *)SrcBufPtr;
 			NumBytes = (InstancePtr->Geometry.BytesPerPage <
 					(u32)LengthVar) ?
 					InstancePtr->Geometry.BytesPerPage :
@@ -1830,7 +1831,7 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 			}
 		} while (((OnfiStatus >> 6U) & 0x1U) == 0U);
 
-		Ptr += NumBytes;
+		SrcBufPtr += NumBytes;
 		OffsetVar += NumBytes;
 		LengthVar -= NumBytes;
 	}
@@ -1868,7 +1869,7 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 	u32 RemLen;
 	u32 NumBytes;
 	u8 *BufPtr;
-	u8 *Ptr = (u8 *)DestBuf;
+	u8 *DestBufPtr = (u8 *)DestBuf;
 	u64 OffsetVar = Offset;
 	u64 LengthVar = Length;
 
@@ -1878,7 +1879,7 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(LengthVar != 0U);
-	Xil_AssertNonvoid((OffsetVar + LengthVar) <
+	Xil_AssertNonvoid((OffsetVar + LengthVar) <=
 				InstancePtr->Geometry.DeviceSize);
 
 	/*
@@ -1891,7 +1892,7 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 	}
 
 	while (LengthVar > 0U) {
-		Block = (u32) (OffsetVar/InstancePtr->Geometry.BlockSize);
+		Block = (u32)(OffsetVar/InstancePtr->Geometry.BlockSize);
 		/*
 		 * Skip the bad block. Increment the offset by block size.
 		 * The flash programming utility must make sure to start
@@ -1930,7 +1931,7 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 			BufPtr = &InstancePtr->PartialDataBuf[0];
 			NumBytes = PartialBytes;
 		} else {
-			BufPtr = Ptr;
+			BufPtr = DestBufPtr;
 			NumBytes = (InstancePtr->Geometry.BytesPerPage <
 					(u32)LengthVar) ?
 					InstancePtr->Geometry.BytesPerPage :
@@ -1945,9 +1946,9 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 			goto Out;
 		}
 		if (PartialBytes > 0U) {
-			memcpy(Ptr, BufPtr + Col, NumBytes);
+			(void)memcpy(DestBufPtr, BufPtr + Col, NumBytes);
 		}
-		Ptr += NumBytes;
+		DestBufPtr += NumBytes;
 		OffsetVar += NumBytes;
 		LengthVar -= NumBytes;
 	}
@@ -1995,7 +1996,7 @@ s32 XNandPsu_Erase(XNandPsu *InstancePtr, u64 Offset, u64 Length)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(LengthVar != 0U);
-	Xil_AssertNonvoid((OffsetVar + LengthVar) <
+	Xil_AssertNonvoid((OffsetVar + LengthVar) <=
 			InstancePtr->Geometry.DeviceSize);
 
 	/*
@@ -2132,8 +2133,8 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		 */
 		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_INTR_STS_EN_OFFSET,
-			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-			XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+			(u32)XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+			(u32)XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
 	} else {
 		/*
 		 * Enable Buffer Write Ready Interrupt in Interrupt Status
@@ -2141,7 +2142,7 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		 */
 		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_INTR_STS_EN_OFFSET,
-			XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+			(u32)XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
 	}
 	/*
 	 * Program Page Size
@@ -2158,7 +2159,7 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		/*
 		 * Flush the Data Cache
 		 */
-		Xil_DCacheFlushRange((INTPTR)Buf, (PktSize * PktCount));
+		Xil_DCacheFlushRange((INTPTR)(void *)Buf, (PktSize * PktCount));
 
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -2249,7 +2250,7 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		for (Index = 0U; Index < (PktSize/4U); Index++) {
 			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 						XNANDPSU_BUF_DATA_PORT_OFFSET,
-						BufPtr[Index]);
+						(u32)(*(BufPtr +Index)));
 		}
 		BufPtr += (PktSize/4U);
 
@@ -2377,7 +2378,7 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 			PktCount = 1U;
 			Col = InstancePtr->Geometry.BytesPerPage +
 							PostEccSpareCol;
-			BufPtr = (u32 *)(void *)&Buf[Col];
+			BufPtr = (u32 *)(Buf + Col);
 		} else {
 			/*
 			 * No free spare bytes available for writing
@@ -2434,7 +2435,7 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 		/*
 		 * Flush the Data Cache
 		 */
-		Xil_DCacheFlushRange((INTPTR)BufPtr, (PktSize * PktCount));
+		Xil_DCacheFlushRange((INTPTR)(void *)BufPtr, (PktSize * PktCount));
 
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -2524,7 +2525,7 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 		for (Index = 0U; Index < (PktSize/4U); Index++) {
 			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 						XNANDPSU_BUF_DATA_PORT_OFFSET,
-						BufPtr[Index]);
+						(u32)(*(BufPtr + Index)));
 		}
 		BufPtr += (PktSize/4U);
 
@@ -2572,7 +2573,7 @@ WriteDmaDone:
 
 	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
 		if (PostWrite > 0U) {
-			BufPtr = (u32 *)(void *)&Buf[PostEccSpareCol];
+			BufPtr = (u32 *)(Buf + PostEccSpareCol);
 			Status = XNandPsu_ChangeWriteColumn(InstancePtr,
 					Target,
 					PostEccSpareCol, PostEccSpareWrCnt, 1U,
@@ -2684,7 +2685,7 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		/*
 		 * Invalidate the Data Cache
 		 */
-		Xil_DCacheInvalidateRange((INTPTR)Buf, (PktSize * PktCount));
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
 
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -2753,7 +2754,7 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 			RegVal = XNandPsu_ReadReg(
 					(InstancePtr)->Config.BaseAddress,
 					XNANDPSU_INTR_STS_EN_OFFSET);
-			RegVal &= ~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
+			RegVal &= (u32)(~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 			RegVal |= XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
 			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 				XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
@@ -2765,7 +2766,7 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 			RegVal = XNandPsu_ReadReg(
 					(InstancePtr)->Config.BaseAddress,
 					XNANDPSU_INTR_STS_EN_OFFSET);
-			RegVal &= ~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
+			RegVal &= (u32)(~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
 			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 					XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 		}
@@ -2783,7 +2784,7 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4); Index++) {
-			BufPtr[Index] = XNandPsu_ReadReg(
+			*(BufPtr + Index) = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
 					XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
@@ -2973,7 +2974,7 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 		/*
 		 * Invalidate the Data Cache
 		 */
-		Xil_DCacheInvalidateRange((INTPTR)Buf, (PktSize * PktCount));
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
@@ -3052,7 +3053,7 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4); Index++) {
-			BufPtr[Index] = XNandPsu_ReadReg(
+			*(BufPtr + Index) = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
 					XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
@@ -3303,7 +3304,7 @@ s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 	 * Read Data from Data Port Register
 	 */
 	for (Index = 0U; Index < (PktSize/4U); Index++) {
-		BufPtr[Index] = XNandPsu_ReadReg(
+		*(BufPtr + Index) = XNandPsu_ReadReg(
 					InstancePtr->Config.BaseAddress,
 					XNANDPSU_BUF_DATA_PORT_OFFSET);
 	}
@@ -3448,7 +3449,7 @@ s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 	for (Index = 0U; Index < (PktSize/4U); Index++) {
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 					XNANDPSU_BUF_DATA_PORT_OFFSET,
-					BufPtr[Index]);
+					(u32)(*(BufPtr + Index)));
 	}
 	/*
 	 * Poll for Transfer Complete event
@@ -3523,15 +3524,14 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 				XNandPsu_DataInterface NewIntf,
 				XNandPsu_TimingMode NewMode)
 {
-	s32 Status;
+	s32 Status = XST_SUCCESS;
 	u32 Target;
 	u32 Index;
-	u32 Found = 0U;
 	u32 RegVal;
 	u8 Buf[4] = {0U};
 	u32 *Feature = (u32 *)(void *)&Buf[0];
 	u32 SetFeature = 0U;
-	u32 NewModeVar = NewMode;
+	u32 NewModeVar = (u32)NewMode;
 
 	/*
 	 * Assert the input arguments.
@@ -3542,14 +3542,14 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 	/*
 	 * Check for valid input arguments
 	 */
-	if((NewIntf != XNANDPSU_SDR && NewIntf != XNANDPSU_NVDDR) ||
+	if(((NewIntf != XNANDPSU_SDR) && (NewIntf != XNANDPSU_NVDDR)) ||
 			(NewModeVar > 5U)){
 		Status = XST_FAILURE;
 		goto Out;
 	}
 
 	if(NewIntf == XNANDPSU_NVDDR){
-		NewModeVar = NewModeVar | 0x10U;
+		NewModeVar = NewModeVar | (u32)0x10;
 	}
 	/*
 	 * Get current data interface type and timing mode
@@ -3596,7 +3596,7 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 		for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 								Target++) {
 			Status = XNandPsu_SetFeature(InstancePtr, Target, 0x01U,
-							(u8 *)&NewModeVar);
+							(u8 *)(void *)&NewModeVar);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
@@ -3615,7 +3615,7 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 			/*
 			 * Check if set_feature was successful
 			 */
-			if ((u32)*Feature != (u32)NewModeVar) {
+			if (*Feature != NewModeVar) {
 				Status = XST_FAILURE;
 				goto Out;
 			}
@@ -3625,7 +3625,7 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 	}
 
 	SetFeature = NewModeVar;
-	if(CurIntf == XNANDPSU_NVDDR && NewIntf == XNANDPSU_NVDDR){
+	if((CurIntf == XNANDPSU_NVDDR) && (NewIntf == XNANDPSU_NVDDR)){
 		SetFeature |= SetFeature << 8U;
 	}
 	/*
@@ -3634,7 +3634,7 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 	for (Target = 0U; Target < InstancePtr->Geometry.NumTargets;
 							Target++) {
 		Status = XNandPsu_SetFeature(InstancePtr, Target, 0x01U,
-						(u8 *)&SetFeature);
+						(u8 *)(void *)&SetFeature);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
@@ -3670,7 +3670,6 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 		}
 	}
 
-	Status = XST_SUCCESS;
 Out:
 	return Status;
 }
@@ -3753,7 +3752,7 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 		/*
 		 * Invalidate the Data Cache
 		 */
-		Xil_DCacheInvalidateRange((INTPTR)Buf, (PktSize * PktCount));
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
 #ifdef __aarch64__
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
@@ -3830,7 +3829,7 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 		 * Read Packet Data from Data Port Register
 		 */
 		for (Index = 0U; Index < (PktSize/4); Index++) {
-			BufPtr[Index] = XNandPsu_ReadReg(
+			*(BufPtr + Index) = XNandPsu_ReadReg(
 						InstancePtr->Config.BaseAddress,
 						XNANDPSU_BUF_DATA_PORT_OFFSET);
 		}
@@ -4041,7 +4040,7 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 		for (Index = 0U; Index < (PktSize/4U); Index++) {
 			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 						XNANDPSU_BUF_DATA_PORT_OFFSET,
-						BufPtr[Index]);
+						(u32)(*(BufPtr + Index)));
 		}
 		BufPtr += (PktSize/4U);
 
@@ -4137,7 +4136,7 @@ static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm)
 			Status = XST_FAILURE;
 		} else {
 			InstancePtr->Geometry.NumBitsECC =
-						EccBlock->NumBitsEcc;
+						EccBlock->NumEccBits;
 			InstancePtr->Geometry.EccCodeWordSize =
 						(u32)EccBlock->CodeWordSize;
 			Status = XST_SUCCESS;
