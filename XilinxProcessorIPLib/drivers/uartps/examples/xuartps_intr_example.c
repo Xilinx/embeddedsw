@@ -55,7 +55,7 @@
 *			and increased the receive timeout to 8
 *			Removed the printf at the start of the main
 *			Put the device normal mode at the end of the example
-*
+* 3.1	kvn		04/10/15 Added code to support Zynq Ultrascale+ MP.
 *
 * </pre>
 ****************************************************************************/
@@ -63,6 +63,7 @@
 /***************************** Include Files *******************************/
 
 #include "xparameters.h"
+#include "xplatform_info.h"
 #include "xuartps.h"
 #include "xscugic.h"
 #include "xil_exception.h"
@@ -191,6 +192,12 @@ int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 	u32 IntrMask;
 	int BadByteCount = 0;
 
+	if (XGetPlatform_Info() == XPLAT_ZYNQ_ULTRA_MP) {
+#ifdef XPAR_XUARTPS_1_DEVICE_ID
+		DeviceId = XPAR_XUARTPS_1_DEVICE_ID;
+#endif
+	}
+
 	/*
 	 * Initialize the UART driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
@@ -238,6 +245,11 @@ int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 		XUARTPS_IXR_TOUT | XUARTPS_IXR_PARITY | XUARTPS_IXR_FRAMING |
 		XUARTPS_IXR_OVER | XUARTPS_IXR_TXEMPTY | XUARTPS_IXR_RXFULL |
 		XUARTPS_IXR_RXOVR;
+
+	if (UartInstPtr->Platform == XPLAT_ZYNQ_ULTRA_MP) {
+		IntrMask |= XUARTPS_IXR_RBRK;
+	}
+
 	XUartPs_SetInterruptMask(UartInstPtr, IntrMask);
 
 	XUartPs_SetOperMode(UartInstPtr, XUARTPS_OPER_MODE_LOCAL_LOOP);
@@ -368,6 +380,25 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 	 * what kind of errors occurred
 	 */
 	if (Event == XUARTPS_EVENT_RECV_ERROR) {
+		TotalReceivedCount = EventData;
+		TotalErrorCount++;
+	}
+
+	/*
+	 * Data was received with an parity or frame or break error, keep the data
+	 * but determine what kind of errors occurred. Specific to Zynq Ultrascale+
+	 * MP.
+	 */
+	if (Event == XUARTPS_EVENT_PARE_FRAME_BRKE) {
+		TotalReceivedCount = EventData;
+		TotalErrorCount++;
+	}
+
+	/*
+	 * Data was received with an overrun error, keep the data but determine
+	 * what kind of errors occurred. Specific to Zynq Ultrascale+ MP.
+	 */
+	if (Event == XUARTPS_EVENT_RECV_ORERR) {
 		TotalReceivedCount = EventData;
 		TotalErrorCount++;
 	}
