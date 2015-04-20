@@ -308,8 +308,8 @@ int FlashRegisterRead(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *ReadB
 int FlashRegisterWrite(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command,
 					u8 *WriteBfrPtr, u8 WrEn);
 /************************** Variable Definitions *****************************/
-u8 TxBfrPtr __attribute__ ((aligned(32)));
-u8 ReadBfrPtr[4] __attribute__ ((aligned(32)));
+u8 TxBfrPtr __attribute__ ((aligned(64)));
+u8 ReadBfrPtr[4] __attribute__ ((aligned(64)));
 FlashInfo Flash_Config_Table[24] = {
 		/* Spansion */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
@@ -392,9 +392,9 @@ int Test = 1;
  * for each bank separate read will be performed leading to that many
  * (overhead+dummy) bytes
  */
-u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8] __attribute__ ((aligned(32)));
-u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + DATA_OFFSET] __attribute__ ((aligned(32)));
-u8 CmdBfr[8] __attribute__ ((aligned(32)));
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8] __attribute__ ((aligned(64)));
+u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + DATA_OFFSET] __attribute__ ((aligned(64)));
+u8 CmdBfr[8] __attribute__ ((aligned(64)));
 
 /*
  * The following constants specify the max amount of data and the size of the
@@ -456,8 +456,6 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuDeviceId)
 	int Page;
 	XQspiPsu_Config *QspiPsuConfig;
 	int ReadBfrSize;
-
-	Xil_DCacheDisable();
 
 	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE) +
 			(DATA_OFFSET + DUMMY_SIZE)*8;
@@ -752,10 +750,10 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 				u8 *WriteBfrPtr)
 {
-	u8 WriteEnableCmd __attribute__ ((aligned(32)));
-	u8 ReadStatusCmd __attribute__ ((aligned(32)));
-	u8 FlashStatus[4] __attribute__ ((aligned(32)));
-	u8 WriteCmd[5] __attribute__ ((aligned(32)));
+	u8 WriteEnableCmd __attribute__ ((aligned(64)));
+	u8 ReadStatusCmd __attribute__ ((aligned(64)));
+	u8 FlashStatus[4] __attribute__ ((aligned(64)));
+	u8 WriteCmd[5] __attribute__ ((aligned(64)));
 	u32 RealAddr;
 	u32 CmdByteCount;
 	int Status;
@@ -891,9 +889,9 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		u8 *WriteBfrPtr)
 {
-	u8 WriteEnableCmd __attribute__ ((aligned(32)));
-	u8 ReadStatusCmd __attribute__ ((aligned(32)));
-	u8 FlashStatus[4] __attribute__ ((aligned(32)));
+	u8 WriteEnableCmd __attribute__ ((aligned(64)));
+	u8 ReadStatusCmd __attribute__ ((aligned(64)));
+	u8 FlashStatus[4] __attribute__ ((aligned(64)));
 	int Sector;
 	u32 RealAddr;
 	u32 NumSect;
@@ -1206,9 +1204,9 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 int FlashRegisterWrite(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command,
 					u8 *WriteBfrPtr, u8 WrEn)
 {
-	u8 WriteEnableCmd __attribute__ ((aligned(32)));
-	u8 ReadStatusCmd __attribute__ ((aligned(32)));
-	u8 FlashStatus[4] __attribute__ ((aligned(32)));
+	u8 WriteEnableCmd __attribute__ ((aligned(64)));
+	u8 ReadStatusCmd __attribute__ ((aligned(64)));
+	u8 FlashStatus[4] __attribute__ ((aligned(64)));
 	int Status;
 
 	if(WrEn) {
@@ -1301,7 +1299,7 @@ int FlashRegisterWrite(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command,
 ******************************************************************************/
 int FlashRegisterRead(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *ReadBfrPtr)
 {
-	u8 WriteCmd __attribute__ ((aligned(32)));
+	u8 WriteCmd __attribute__ ((aligned(64)));
 	int Status;
 
 	WriteCmd = Command;
@@ -1342,9 +1340,9 @@ int FlashRegisterRead(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *ReadB
 ******************************************************************************/
 int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 {
-	u8 WriteEnableCmd __attribute__ ((aligned(32)));
-	u8 ReadStatusCmd __attribute__ ((aligned(32)));
-	u8 FlashStatus[4] __attribute__ ((aligned(32)));
+	u8 WriteEnableCmd __attribute__ ((aligned(64)));
+	u8 ReadStatusCmd __attribute__ ((aligned(64)));
+	u8 FlashStatus[4] __attribute__ ((aligned(64)));
 	int Status;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
@@ -1440,10 +1438,10 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 ******************************************************************************/
 int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 {
-	u8 WriteEnableCmd __attribute__ ((aligned(32)));
+	u8 WriteEnableCmd __attribute__ ((aligned(64)));
 	u8 DieCnt;
-	u8 ReadStatusCmd __attribute__ ((aligned(32)));
-	u8 FlashStatus[4] __attribute__ ((aligned(32)));
+	u8 ReadStatusCmd __attribute__ ((aligned(64)));
+	u8 FlashStatus[4] __attribute__ ((aligned(64)));
 	int Status;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
