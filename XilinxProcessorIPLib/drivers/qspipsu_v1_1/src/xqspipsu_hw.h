@@ -328,7 +328,7 @@ extern "C" {
 #define XQSPIPSU_TXD_WIDTH   32
 #define XQSPIPSU_TXD_MASK    0XFFFFFFFF
 
-#define XQSPIPSU_TXD_DEPTH    32
+#define XQSPIPSU_TXD_DEPTH    64
 
 /**
  * Register: XQSPIPSU_RXD

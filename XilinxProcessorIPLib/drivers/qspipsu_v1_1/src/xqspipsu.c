@@ -433,7 +433,7 @@ GENFIFO:
 				if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK)
 								!= 0U) {
 					XQspiPsu_ReadRxFifo(InstancePtr,
-							&Msg[Index], RxThr);
+							&Msg[Index], RxThr*4);
 
 				} else if ((QspiPsuStatusReg &
 					XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0U) {
@@ -558,7 +558,8 @@ int XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* Enable interrupts */
 	XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IER_OFFSET,
 		XQSPIPSU_IER_TXNOT_FULL_MASK | XQSPIPSU_IER_TXEMPTY_MASK |
-		XQSPIPSU_IER_RXNEMPTY_MASK | XQSPIPSU_IER_GENFIFOEMPTY_MASK);
+		XQSPIPSU_IER_RXNEMPTY_MASK | XQSPIPSU_IER_GENFIFOEMPTY_MASK |
+		XQSPIPSU_IER_RXEMPTY_MASK);
 
 	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_QSPIDMA_DST_I_EN_OFFSET,
@@ -588,6 +589,8 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	u32 QspiPsuStatusReg, DmaIntrStatusReg;
 	u32 BaseAddress;
 	XQspiPsu_Msg *Msg;
+	u8 *RecvBuffer = InstancePtr->RecvBufferPtr;
+	u8 *SendBuffer	= InstancePtr->SendBufferPtr;
 	int NumMsg;
 	int MsgCnt;
 	u8 DeltaMsgCnt = 0;
@@ -621,7 +624,7 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	}
 
 	/* Fill more data to be txed if required */
-	if ((MsgCnt < NumMsg) && (Msg[MsgCnt].TxBfrPtr != NULL) &&
+	if ((MsgCnt < NumMsg) && (SendBuffer != NULL) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_TXNOT_FULL_MASK) &&
 		(InstancePtr->TxBytes > 0)) {
 		XQspiPsu_FillTxFifo(InstancePtr, &Msg[MsgCnt],
@@ -632,17 +635,17 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	 * Check if the entry is ONLY TX and increase MsgCnt.
 	 * This is to allow TX and RX together in one entry - corner case.
 	 */
-	if ((MsgCnt < NumMsg) && (Msg[MsgCnt].TxBfrPtr != NULL) &&
+	if ((MsgCnt < NumMsg) && (SendBuffer != NULL) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) &&
 		(InstancePtr->TxBytes == 0) &&
-		(Msg[MsgCnt].RxBfrPtr == NULL)) {
+		(RecvBuffer == NULL)) {
 		MsgCnt += 1;
 		DeltaMsgCnt = 1;
 	}
 
 	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA &&
-		(MsgCnt < NumMsg) && (Msg[MsgCnt].RxBfrPtr != NULL)) {
+		(MsgCnt < NumMsg) && (RecvBuffer != NULL)) {
 		if ((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)) {
 				/* Read remaining bytes using IO mode */
 			if(InstancePtr->RxBytes % 4 != 0 ) {
@@ -671,16 +674,16 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 				DeltaMsgCnt = 1;
 			}
 		}
-	} else if ((MsgCnt < NumMsg) && (Msg[MsgCnt].RxBfrPtr != NULL)) {
-		RxThr = XQspiPsu_ReadReg(BaseAddress,
-					XQSPIPSU_RX_THRESHOLD_OFFSET);
+	} else if ((MsgCnt < NumMsg) && (RecvBuffer != NULL)) {
 		if (InstancePtr->RxBytes != 0) {
 			if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK)
 							!= 0) {
+				RxThr = XQspiPsu_ReadReg(BaseAddress,
+							XQSPIPSU_RX_THRESHOLD_OFFSET);
 				XQspiPsu_ReadRxFifo(InstancePtr, &Msg[MsgCnt],
-					RxThr);
-			} else if ((QspiPsuStatusReg &
-				XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0) {
+					RxThr*4);
+			} else if ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) &&
+				(!(QspiPsuStatusReg & XQSPIPSU_ISR_RXEMPTY_MASK))) {
 				XQspiPsu_ReadRxFifo(InstancePtr, &Msg[MsgCnt],
 					InstancePtr->RxBytes);
 			}
@@ -698,8 +701,8 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	 * the new message is yet to be placed in the FIFO; hence !DeltaMsgCnt.
 	 */
 	if ((MsgCnt < NumMsg) && !DeltaMsgCnt &&
-		(Msg[MsgCnt].RxBfrPtr == NULL) &&
-		(Msg[MsgCnt].TxBfrPtr == NULL) &&
+		(RecvBuffer == NULL) &&
+		(SendBuffer == NULL) &&
 		(QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK)) {
 		MsgCnt += 1;
 		DeltaMsgCnt = 1;
@@ -754,7 +757,8 @@ int XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 					XQSPIPSU_IER_TXNOT_FULL_MASK |
 					XQSPIPSU_IER_TXEMPTY_MASK |
 					XQSPIPSU_IER_RXNEMPTY_MASK |
-					XQSPIPSU_IER_GENFIFOEMPTY_MASK);
+					XQSPIPSU_IER_GENFIFOEMPTY_MASK |
+					XQSPIPSU_IER_RXEMPTY_MASK);
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_QSPIDMA_DST_I_DIS_OFFSET,
@@ -906,6 +910,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_TX;
 		InstancePtr->TxBytes = Msg->ByteCount;
+		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
+		InstancePtr->RecvBufferPtr = NULL;
 		XQspiPsu_FillTxFifo(InstancePtr, Msg, XQSPIPSU_TXD_DEPTH);
 		/* Discard RX data */
 		*GenFifoEntry &= ~XQSPIPSU_GENFIFO_RX;
@@ -921,6 +927,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
 		InstancePtr->RxBytes = Msg->ByteCount;
+		InstancePtr->SendBufferPtr = NULL;
+		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 			XQspiPsu_SetupRxDma(InstancePtr, Msg);
 		}
@@ -932,6 +940,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
 		InstancePtr->TxBytes = 0;
 		InstancePtr->RxBytes = 0;
+		InstancePtr->SendBufferPtr = NULL;
+		InstancePtr->RecvBufferPtr = NULL;
 	}
 
 	/* Dummy and cmd sent by upper layer to received data */
@@ -940,6 +950,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= (XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
 		InstancePtr->TxBytes = Msg->ByteCount;
 		InstancePtr->RxBytes = Msg->ByteCount;
+		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
+		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 		XQspiPsu_FillTxFifo(InstancePtr, Msg, XQSPIPSU_TXD_DEPTH);
 		/* Add check for DMA or PIO here */
 		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
@@ -1029,6 +1041,8 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 		DmaRxBytes = InstancePtr->RxBytes - Remainder;
 		Msg->ByteCount = DmaRxBytes;
 	}
+
+	Xil_DCacheInvalidateRange(InstancePtr->RecvBufferPtr, Msg->ByteCount);
 
 	/* Write no. of words to DMA DST SIZE */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
