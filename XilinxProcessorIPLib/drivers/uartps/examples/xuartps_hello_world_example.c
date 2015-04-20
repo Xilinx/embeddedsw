@@ -153,9 +153,7 @@ int UartPsHelloWorldExample(u16 DeviceId)
 	XUartPs_SetBaudRate(&Uart_Ps, 115200);
 
 	while (SentCount < (sizeof(HelloWorld) - 1)) {
-		/*
-		 * Transmit the data
-		 */
+		/* Transmit the data */
 		SentCount += XUartPs_Send(&Uart_Ps,
 					   &HelloWorld[SentCount], 1);
 	}

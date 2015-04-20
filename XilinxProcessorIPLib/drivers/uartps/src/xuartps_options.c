@@ -119,9 +119,7 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 	u32 Register;
 	u32 Index;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -174,9 +172,7 @@ void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 	u32 Index;
 	u32 Register;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -234,9 +230,7 @@ u8 XUartPs_GetFifoThreshold(XUartPs *InstancePtr)
 {
 	u8 RtrigRegister;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -272,9 +266,7 @@ void XUartPs_SetFifoThreshold(XUartPs *InstancePtr, u8 TriggerLevel)
 {
 	u32 RtrigRegister;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPS_RXWM_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -316,9 +308,7 @@ u16 XUartPs_GetModemStatus(XUartPs *InstancePtr)
 {
 	u32 ModemStatusRegister;
 	u16 TmpRegister;
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -351,9 +341,7 @@ u32 XUartPs_IsSending(XUartPs *InstancePtr)
 	u32 ActiveResult;
 	u32 EmptyResult;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -398,23 +386,17 @@ u8 XUartPs_GetOperMode(XUartPs *InstancePtr)
 	u32 ModeRegister;
 	u8 OperMode;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Read the Mode register.
-	 */
+	/* Read the Mode register. */
 	ModeRegister =
 		XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XUARTPS_MR_OFFSET);
 
 	ModeRegister &= (u32)XUARTPS_MR_CHMODE_MASK;
-	/*
-	 * Return the constant
-	 */
+	/* Return the constant */
 	switch (ModeRegister) {
 	case XUARTPS_MR_CHMODE_NORM:
 		OperMode = XUARTPS_OPER_MODE_NORMAL;
@@ -456,23 +438,17 @@ void XUartPs_SetOperMode(XUartPs *InstancePtr, u8 OperationMode)
 {
 	u32 ModeRegister;
 
-	/*
-	 * Assert validates the input arguments.
-	 */
+	/* Assert validates the input arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(OperationMode <= XUARTPS_OPER_MODE_REMOTE_LOOP);
 
-	/*
-	 * Read the Mode register.
-	 */
+	/* Read the Mode register. */
 	ModeRegister =
 		XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XUARTPS_MR_OFFSET);
 
-	/*
-	 * Set the correct value by masking the bits, then ORing the const.
-	 */
+	/* Set the correct value by masking the bits, then ORing the const. */
 	ModeRegister &= (u32)(~XUARTPS_MR_CHMODE_MASK);
 
 	switch (OperationMode) {
@@ -520,21 +496,15 @@ u8 XUartPs_GetFlowDelay(XUartPs *InstancePtr)
 {
 	u32 FdelTmpRegister;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Read the Mode register.
-	 */
+	/* Read the Mode register. */
 	FdelTmpRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 					 XUARTPS_FLOWDEL_OFFSET);
 
-	/*
-	 * Return the contents of the flow delay register
-	 */
+	/* Return the contents of the flow delay register */
 	FdelTmpRegister = (u8)(FdelTmpRegister & (u32)XUARTPS_FLOWDEL_MASK);
 	return  FdelTmpRegister;
 }
@@ -559,9 +529,7 @@ void XUartPs_SetFlowDelay(XUartPs *InstancePtr, u8 FlowDelayValue)
 {
 	u32 FdelRegister;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(FlowDelayValue > (u8)XUARTPS_FLOWDEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -594,21 +562,15 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 	u32 RtoRegister;
 	u8 RtoRTmpRegister;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Read the Receive Timeout register.
-	 */
+	/* Read the Receive Timeout register. */
 	RtoRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPS_RXTOUT_OFFSET);
 
-	/*
-	 * Return the contents of the mode register shifted appropriately
-	 */
+	/* Return the contents of the mode register shifted appropriately */
 	RtoRTmpRegister = (u8)(RtoRegister & (u32)XUARTPS_RXTOUT_MASK);
 	return RtoRTmpRegister;
 }
@@ -633,23 +595,17 @@ void XUartPs_SetRecvTimeout(XUartPs *InstancePtr, u8 RecvTimeout)
 {
 	u32 RtoRegister;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Set the correct value by masking the bits
-	 */
+	/* Set the correct value by masking the bits */
 	RtoRegister = ((u32)RecvTimeout & (u32)XUARTPS_RXTOUT_MASK);
 
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XUARTPS_RXTOUT_OFFSET, RtoRegister);
 
-	/*
-	 * Configure CR to restart the receiver timeout counter
-	 */
+	/* Configure CR to restart the receiver timeout counter */
 	RtoRegister =
 		XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XUARTPS_CR_OFFSET);
@@ -695,9 +651,7 @@ s32 XUartPs_SetDataFormat(XUartPs *InstancePtr,
 	Xil_AssertNonvoid(FormatPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Verify the inputs specified are valid
-	 */
+	/* Verify the inputs specified are valid */
 	if ((FormatPtr->DataBits > ((u32)XUARTPS_FORMAT_6_BITS)) ||
 		(FormatPtr->StopBits > ((u8)XUARTPS_FORMAT_2_STOP_BIT)) ||
 		(FormatPtr->Parity > ((u32)XUARTPS_FORMAT_NO_PARITY))) {
@@ -741,9 +695,7 @@ s32 XUartPs_SetDataFormat(XUartPs *InstancePtr,
 			ModeRegister &= (u32)(~XUARTPS_MR_PARITY_MASK);
 			ModeRegister |= (FormatPtr->Parity << XUARTPS_MR_PARITY_SHIFT);
 
-			/*
-			 * Update the mode register
-			 */
+			/* Update the mode register */
 			XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
 					   ModeRegister);
 
@@ -774,9 +726,7 @@ void XUartPs_GetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr)
 	u32 ModeRegister;
 
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(FormatPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -791,23 +741,17 @@ void XUartPs_GetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr)
 	ModeRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				  XUARTPS_MR_OFFSET);
 
-	/*
-	 * Get the length of data (8,7,6,5)
-	 */
+	/* Get the length of data (8,7,6,5) */
 	FormatPtr->DataBits =
 		((ModeRegister & (u32)XUARTPS_MR_CHARLEN_MASK) >>
 		XUARTPS_MR_CHARLEN_SHIFT);
 
-	/*
-	 * Get the number of stop bits
-	 */
+	/* Get the number of stop bits */
 	FormatPtr->StopBits =
 		(u8)((ModeRegister & (u32)XUARTPS_MR_STOPMODE_MASK) >>
 		XUARTPS_MR_STOPMODE_SHIFT);
 
-	/*
-	 * Determine what parity is
-	 */
+	/* Determine what parity is */
 	FormatPtr->Parity =
 		(u32)((ModeRegister & (u32)XUARTPS_MR_PARITY_MASK) >>
 		XUARTPS_MR_PARITY_SHIFT);

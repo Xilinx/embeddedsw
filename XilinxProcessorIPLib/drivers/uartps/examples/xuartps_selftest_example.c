@@ -97,9 +97,7 @@ int main(void)
 {
 	int Status;
 
-	/*
-	 *  Run the selftest example
-	 */
+	/* Run the selftest example */
 	Status = UartPsSelfTestExample(UART_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("UART Selftest Example Failed\r\n");
@@ -144,9 +142,7 @@ int UartPsSelfTestExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Perform a self-test to check hardware build.
-	 */
+	/* Perform a self-test to check hardware build. */
 	Status = XUartPs_SelfTest(&Uart_Ps);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;

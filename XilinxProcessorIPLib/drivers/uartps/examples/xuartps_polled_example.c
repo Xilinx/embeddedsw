@@ -167,17 +167,13 @@ int UartPsPolledExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Check hardware build.
-	 */
+	/* Check hardware build. */
 	Status = XUartPs_SelfTest(&Uart_PS);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Use local loopback mode.
-	 */
+	/* Use local loopback mode. */
 	XUartPs_SetOperMode(&Uart_PS, XUARTPS_OPER_MODE_LOCAL_LOOP);
 
 	/*
@@ -189,9 +185,7 @@ int UartPsPolledExample(u16 DeviceId)
 		RecvBuffer[Index] = 0;
 	}
 
-	/*
-	 * Block sending the buffer.
-	 */
+	/* Block sending the buffer. */
 	SentCount = XUartPs_Send(&Uart_PS, SendBuffer, TEST_BUFFER_SIZE);
 	if (SentCount != TEST_BUFFER_SIZE) {
 		return XST_FAILURE;
@@ -206,9 +200,7 @@ int UartPsPolledExample(u16 DeviceId)
 		LoopCount++;
 	}
 
-	/*
-	 * Block receiving the buffer.
-	 */
+	/* Block receiving the buffer. */
 	ReceivedCount = 0;
 	while (ReceivedCount < TEST_BUFFER_SIZE) {
 		ReceivedCount +=
@@ -226,9 +218,7 @@ int UartPsPolledExample(u16 DeviceId)
 		}
 	}
 
-	/*
-	 * Restore to normal mode.
-	 */
+	/* Restore to normal mode. */
 	XUartPs_SetOperMode(&Uart_PS, XUARTPS_OPER_MODE_NORMAL);
 
 	return XST_SUCCESS;

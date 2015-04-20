@@ -77,16 +77,12 @@
 *****************************************************************************/
 void XUartPs_SendByte(u32 BaseAddress, u8 Data)
 {
-	/*
-	 * Wait until there is space in TX FIFO
-	 */
+	/* Wait until there is space in TX FIFO */
 	while (XUartPs_IsTransmitFull(BaseAddress)) {
 		;
 	}
 
-	/*
-	 * Write the byte into the TX FIFO
-	 */
+	/* Write the byte into the TX FIFO */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_FIFO_OFFSET, (u32)Data);
 }
 
@@ -106,16 +102,12 @@ void XUartPs_SendByte(u32 BaseAddress, u8 Data)
 u8 XUartPs_RecvByte(u32 BaseAddress)
 {
 	u32 RecievedByte;
-	/*
-	 * Wait until there is data
-	 */
+	/* Wait until there is data */
 	while (!XUartPs_IsReceiveData(BaseAddress)) {
 		;
 	}
 	RecievedByte = XUartPs_ReadReg(BaseAddress, XUARTPS_FIFO_OFFSET);
-	/*
-	 * Return the byte received
-	 */
+	/* Return the byte received */
 	return (u8)RecievedByte;
 }
 
@@ -134,14 +126,10 @@ u8 XUartPs_RecvByte(u32 BaseAddress)
 void XUartPs_ResetHw(u32 BaseAddress)
 {
 
-	/*
-	 * Disable interrupts
-	 */
+	/* Disable interrupts */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_IDR_OFFSET, XUARTPS_IXR_MASK);
 
-	/*
-	 * Disable receive and transmit
-	 */
+	/* Disable receive and transmit */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_CR_OFFSET,
 				((u32)XUARTPS_CR_RX_DIS | (u32)XUARTPS_CR_TX_DIS));
 
@@ -152,9 +140,7 @@ void XUartPs_ResetHw(u32 BaseAddress)
 	XUartPs_WriteReg(BaseAddress, XUARTPS_CR_OFFSET,
 				((u32)XUARTPS_CR_TXRST | (u32)XUARTPS_CR_RXRST));
 
-	/*
-	 * Clear status flags - SW reset wont clear sticky flags.
-	 */
+	/* Clear status flags - SW reset wont clear sticky flags. */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_ISR_OFFSET, XUARTPS_IXR_MASK);
 
 	/*
@@ -164,23 +150,17 @@ void XUartPs_ResetHw(u32 BaseAddress)
 	XUartPs_WriteReg(BaseAddress, XUARTPS_MR_OFFSET,
 				XUARTPS_MR_CHMODE_NORM);
 
-	/*
-	 * Rx and TX trigger register reset values
-	 */
+	/* Rx and TX trigger register reset values */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_RXWM_OFFSET,
 				XUARTPS_RXWM_RESET_VAL);
 	XUartPs_WriteReg(BaseAddress, XUARTPS_TXWM_OFFSET,
 				XUARTPS_TXWM_RESET_VAL);
 
-	/*
-	 * Rx timeout disabled by default
-	 */
+	/* Rx timeout disabled by default */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_RXTOUT_OFFSET,
 				XUARTPS_RXTOUT_DISABLE);
 
-	/*
-	 * Baud rate generator and dividor reset values
-	 */
+	/* Baud rate generator and dividor reset values */
 	XUartPs_WriteReg(BaseAddress, XUARTPS_BAUDGEN_OFFSET,
 				XUARTPS_BAUDGEN_RESET_VAL);
 	XUartPs_WriteReg(BaseAddress, XUARTPS_BAUDDIV_OFFSET,

@@ -140,9 +140,7 @@ int main(void)
 {
 	int Status;
 
-	/*
-	 * Run the UartPs Interrupt example, specify the the Device ID
-	 */
+	/* Run the UartPs Interrupt example, specify the the Device ID */
 	Status = UartPsIntrExample(&InterruptController, &UartPs,
 				UART_DEVICE_ID, UART_INT_IRQ_ID);
 	if (Status != XST_SUCCESS) {
@@ -212,9 +210,7 @@ int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Check hardware build
-	 */
+	/* Check hardware build */
 	Status = XUartPs_SelfTest(UartInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -303,9 +299,7 @@ int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 		}
 	}
 
-	/*
-	 * Verify the entire receive buffer was successfully received
-	 */
+	/* Verify the entire receive buffer was successfully received */
 	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
 		if (RecvBuffer[Index] != SendBuffer[Index]) {
 			BadByteCount++;
@@ -314,15 +308,11 @@ int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 
 
 
-	/*
-	 * Set the UART in Normal Mode
-	 */
+	/* Set the UART in Normal Mode */
 	XUartPs_SetOperMode(UartInstPtr, XUARTPS_OPER_MODE_NORMAL);
 
 
-	/*
-	 * If any bytes were not correct, return an error
-	 */
+	/* If any bytes were not correct, return an error */
 	if (BadByteCount != 0) {
 		return XST_FAILURE;
 	}
@@ -353,16 +343,12 @@ int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 ***************************************************************************/
 void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 {
-	/*
-	 * All of the data has been sent
-	 */
+	/* All of the data has been sent */
 	if (Event == XUARTPS_EVENT_SENT_DATA) {
 		TotalSentCount = EventData;
 	}
 
-	/*
-	 * All of the data has been received
-	 */
+	/* All of the data has been received */
 	if (Event == XUARTPS_EVENT_RECV_DATA) {
 		TotalReceivedCount = EventData;
 	}
@@ -433,9 +419,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 #ifndef TESTAPP_GEN
 	XScuGic_Config *IntcConfig; /* Config for interrupt controller */
 
-	/*
-	 * Initialize the interrupt controller driver
-	 */
+	/* Initialize the interrupt controller driver */
 	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
 	if (NULL == IntcConfig) {
 		return XST_FAILURE;
@@ -468,16 +452,12 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Enable the interrupt for the device
-	 */
+	/* Enable the interrupt for the device */
 	XScuGic_Enable(IntcInstancePtr, UartIntrId);
 
 
 #ifndef TESTAPP_GEN
-	/*
-	 * Enable interrupts
-	 */
+	/* Enable interrupts */
 	 Xil_ExceptionEnable();
 #endif
 

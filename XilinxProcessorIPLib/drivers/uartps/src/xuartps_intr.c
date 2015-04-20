@@ -91,14 +91,10 @@ typedef void (*Handler)(XUartPs *InstancePtr);
 *****************************************************************************/
 u32 XUartPs_GetInterruptMask(XUartPs *InstancePtr)
 {
-	/*
-	 * Assert validates the input argument
-	 */
+	/* Assert validates the input argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/*
-	 * Read the Interrupt Mask register
-	 */
+	/* Read the Interrupt Mask register */
 	return (XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 			 XUARTPS_IMR_OFFSET));
 }
@@ -120,22 +116,16 @@ u32 XUartPs_GetInterruptMask(XUartPs *InstancePtr)
 void XUartPs_SetInterruptMask(XUartPs *InstancePtr, u32 Mask)
 {
 	u32 TempMask = Mask;
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	TempMask &= (u32)XUARTPS_IXR_MASK;
 
-	/*
-	 * Write the mask to the IER Register
-	 */
+	/* Write the mask to the IER Register */
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 		 XUARTPS_IER_OFFSET, TempMask);
 
-	/*
-	 * Write the inverse of the Mask to the IDR register
-	 */
+	/* Write the inverse of the Mask to the IDR register */
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 		 XUARTPS_IDR_OFFSET, (~TempMask));
 
@@ -206,9 +196,7 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr)
 	IsrStatus &= XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_ISR_OFFSET);
 
-	/*
-	 * Dispatch an appropriate handler.
-	 */
+	/* Dispatch an appropriate handler. */
 	if((IsrStatus & ((u32)XUARTPS_IXR_RXOVR | (u32)XUARTPS_IXR_RXEMPTY |
 			(u32)XUARTPS_IXR_RXFULL)) != (u32)0) {
 		/* Received data interrupt */
@@ -238,9 +226,7 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr)
 		ModemHandler(InstancePtr);
 	}
 
-	/*
-	 * Clear the interrupt status.
-	 */
+	/* Clear the interrupt status. */
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_ISR_OFFSET,
 		IsrStatus);
 
@@ -428,9 +414,7 @@ static void SendDataHandler(XUartPs *InstancePtr, u32 IsrStatus)
 					InstancePtr->SendBuffer.RemainingBytes);
 	}
 
-	/*
-	 * If TX FIFO is empty, send more.
-	 */
+	/* If TX FIFO is empty, send more. */
 	else if((IsrStatus & ((u32)XUARTPS_IXR_TXEMPTY)) != (u32)0) {
 		(void)XUartPs_SendBuffer(InstancePtr);
 	}

@@ -280,9 +280,7 @@ typedef struct {
 				 *  to MIO or FMIO */
 } XUartPs_Config;
 
-/*
- * Keep track of state information about a data buffer in the interrupt mode.
- */
+/* Keep track of state information about a data buffer in the interrupt mode. */
 typedef struct {
 	u8 *NextBytePtr;
 	u32 RequestedBytes;
@@ -442,14 +440,10 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 
-/*
- * Static lookup function implemented in xuartps_sinit.c
- */
+/* Static lookup function implemented in xuartps_sinit.c */
 XUartPs_Config *XUartPs_LookupConfig(u16 DeviceId);
 
-/*
- * Interface functions implemented in xuartps.c
- */
+/* Interface functions implemented in xuartps.c */
 s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 				  XUartPs_Config * Config, u32 EffectiveAddr);
 
@@ -461,9 +455,7 @@ u32 XUartPs_Recv(XUartPs *InstancePtr,u8 *BufferPtr,
 
 s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate);
 
-/*
- * Options functions in xuartps_options.c
- */
+/* Options functions in xuartps_options.c */
 void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options);
 
 u16 XUartPs_GetOptions(XUartPs *InstancePtr);
@@ -492,9 +484,7 @@ s32 XUartPs_SetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr);
 
 void XUartPs_GetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr);
 
-/*
- * interrupt functions in xuartps_intr.c
- */
+/* interrupt functions in xuartps_intr.c */
 u32 XUartPs_GetInterruptMask(XUartPs *InstancePtr);
 
 void XUartPs_SetInterruptMask(XUartPs *InstancePtr, u32 Mask);
@@ -504,9 +494,7 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr);
 void XUartPs_SetHandler(XUartPs *InstancePtr, XUartPs_Handler FuncPtr,
 			 void *CallBackRef);
 
-/*
- * self-test functions in xuartps_selftest.c
- */
+/* self-test functions in xuartps_selftest.c */
 s32 XUartPs_SelfTest(XUartPs *InstancePtr);
 
 #ifdef __cplusplus

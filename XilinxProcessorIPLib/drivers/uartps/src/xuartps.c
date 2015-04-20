@@ -132,22 +132,16 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	u32 ModeRegister;
 	u32 BaudRate;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Config != NULL);
 
-	/*
-	 * Setup the driver instance using passed in parameters
-	 */
+	/* Setup the driver instance using passed in parameters */
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = Config->InputClockHz;
 	InstancePtr->Config.ModemPinsConnected = Config->ModemPinsConnected;
 
-	/*
-	 * Initialize other instance data to default values
-	 */
+	/* Initialize other instance data to default values */
 	InstancePtr->Handler = XUartPs_StubHandler;
 
 	InstancePtr->SendBuffer.NextBytePtr = NULL;
@@ -161,9 +155,7 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	/* Initialize the platform data */
 	InstancePtr->Platform = XGetPlatform_Info();
 
-	/*
-	 * Flag that the driver instance is ready to use
-	 */
+	/* Flag that the driver instance is ready to use */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/*
@@ -183,41 +175,29 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 		ModeRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 					  XUARTPS_MR_OFFSET);
 
-		/*
-		 * Mask off what's already there
-		 */
+		/* Mask off what's already there */
 		ModeRegister &= (~((u32)XUARTPS_MR_CHARLEN_MASK |
 						 (u32)XUARTPS_MR_STOPMODE_MASK |
 						 (u32)XUARTPS_MR_PARITY_MASK));
 
-		/*
-		 * Set the register value to the desired data format
-		 */
+		/* Set the register value to the desired data format */
 		ModeRegister |=	((u32)XUARTPS_MR_CHARLEN_8_BIT |
 						 (u32)XUARTPS_MR_STOPMODE_1_BIT |
 						 (u32)XUARTPS_MR_PARITY_NONE);
 
-		/*
-		 * Write the mode register out
-		 */
+		/* Write the mode register out */
 		XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
 				   ModeRegister);
 
-		/*
-		 * Set the RX FIFO trigger at 8 data bytes.
-		 */
+		/* Set the RX FIFO trigger at 8 data bytes. */
 		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_RXWM_OFFSET, 0x08U);
 
-		/*
-		 * Set the RX timeout to 1, which will be 4 character time
-		 */
+		/* Set the RX timeout to 1, which will be 4 character time */
 		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_RXTOUT_OFFSET, 0x01U);
 
-		/*
-		 * Disable all interrupts, polled mode is the default
-		 */
+		/* Disable all interrupts, polled mode is the default */
 		XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_IDR_OFFSET,
 				   XUARTPS_IXR_MASK);
 
@@ -265,9 +245,7 @@ u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 {
 	u32 BytesSent;
 
-	/*
-	 * Asserts validate the input arguments
-	 */
+	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -279,9 +257,7 @@ u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_IDR_OFFSET,
 					  (XUARTPS_IXR_TXEMPTY | XUARTPS_IXR_TXFULL));
 
-	/*
-	 * Setup the buffer parameters
-	 */
+	/* Setup the buffer parameters */
 	InstancePtr->SendBuffer.RequestedBytes = NumBytes;
 	InstancePtr->SendBuffer.RemainingBytes = NumBytes;
 	InstancePtr->SendBuffer.NextBytePtr = BufferPtr;
@@ -332,9 +308,7 @@ u32 XUartPs_Recv(XUartPs *InstancePtr,
 	u32 ReceivedCount;
 	u32 ImrRegister;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -348,21 +322,15 @@ u32 XUartPs_Recv(XUartPs *InstancePtr,
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_IDR_OFFSET,
 		XUARTPS_IXR_MASK);
 
-	/*
-	 * Setup the buffer parameters
-	 */
+	/* Setup the buffer parameters */
 	InstancePtr->ReceiveBuffer.RequestedBytes = NumBytes;
 	InstancePtr->ReceiveBuffer.RemainingBytes = NumBytes;
 	InstancePtr->ReceiveBuffer.NextBytePtr = BufferPtr;
 
-	/*
-	 * Receive the data from the device
-	 */
+	/* Receive the data from the device */
 	ReceivedCount = XUartPs_ReceiveBuffer(InstancePtr);
 
-	/*
-	 * Restore the interrupt state
-	 */
+	/* Restore the interrupt state */
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_IER_OFFSET,
 		ImrRegister);
 
@@ -410,23 +378,17 @@ u32 XUartPs_SendBuffer(XUartPs *InstancePtr)
 	while ((!XUartPs_IsTransmitFull(InstancePtr->Config.BaseAddress)) &&
 		   (InstancePtr->SendBuffer.RemainingBytes > SentCount)) {
 
-		/*
-		 * Fill the FIFO from the buffer
-		 */
+		/* Fill the FIFO from the buffer */
 		XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_FIFO_OFFSET,
 				   ((u32)InstancePtr->SendBuffer.
 				   NextBytePtr[SentCount]));
 
-		/*
-		 * Increment the send count.
-		 */
+		/* Increment the send count. */
 		SentCount++;
 	}
 
-	/*
-	 * Update the buffer to reflect the bytes that were sent from it
-	 */
+	/* Update the buffer to reflect the bytes that were sent from it */
 	InstancePtr->SendBuffer.NextBytePtr += SentCount;
 	InstancePtr->SendBuffer.RemainingBytes -= SentCount;
 
@@ -553,9 +515,7 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 	u32 ModeReg;
 	u32 InputClk;
 
-	/*
-	 * Asserts validate the input arguments
-	 */
+	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(BaudRate <= (u32)XUARTPS_MAX_RATE);
@@ -568,9 +528,7 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 	if ((BaudRate * 2) > InstancePtr->Config.InputClockHz) {
 		return XST_UART_BAUD_ERROR;
 	}
-	/*
-	 * Check whether the input clock is divided by 8
-	 */
+	/* Check whether the input clock is divided by 8 */
 	ModeReg = XUartPs_ReadReg( InstancePtr->Config.BaseAddress,
 				 XUARTPS_MR_OFFSET);
 
@@ -585,19 +543,13 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 	 */
 	for (IterBAUDDIV = 4; IterBAUDDIV < 255; IterBAUDDIV++) {
 
-		/*
-		 * Calculate the value for BRGR register
-		 */
+		/* Calculate the value for BRGR register */
 		BRGR_Value = InputClk / (BaudRate * (IterBAUDDIV + 1));
 
-		/*
-		 * Calculate the baud rate from the BRGR value
-		 */
+		/* Calculate the baud rate from the BRGR value */
 		CalcBaudRate = InputClk/ (BRGR_Value * (IterBAUDDIV + 1));
 
-		/*
-		 * Avoid unsigned integer underflow
-		 */
+		/* Avoid unsigned integer underflow */
 		if (BaudRate > CalcBaudRate) {
 			BaudError = BaudRate - CalcBaudRate;
 		}
@@ -605,9 +557,7 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 			BaudError = CalcBaudRate - BaudRate;
 		}
 
-		/*
-		 * Find the calculated baud rate closest to requested baud rate.
-		 */
+		/* Find the calculated baud rate closest to requested baud rate. */
 		if (Best_Error > BaudError) {
 
 			Best_BRGR = BRGR_Value;
@@ -616,17 +566,13 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 		}
 	}
 
-	/*
-	 * Make sure the best error is not too large.
-	 */
+	/* Make sure the best error is not too large. */
 	PercentError = (Best_Error * 100) / BaudRate;
 	if (XUARTPS_MAX_BAUD_ERROR_RATE < PercentError) {
 		return XST_UART_BAUD_ERROR;
 	}
 
-	/*
-	 * Disable TX and RX to avoid glitches when setting the baud rate.
-	 */
+	/* Disable TX and RX to avoid glitches when setting the baud rate. */
 	XUartPs_DisableUart(InstancePtr);
 
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
@@ -634,15 +580,11 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XUARTPS_BAUDDIV_OFFSET, Best_BAUDDIV);
 
-	/*
-	 * RX and TX SW reset
-	 */
+	/* RX and TX SW reset */
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_CR_OFFSET,
 				XUARTPS_CR_TXRST | XUARTPS_CR_RXRST);
 
-	/*
-	 * Enable device
-	 */
+	/* Enable device */
 	XUartPs_EnableUart(InstancePtr);
 
 	InstancePtr->BaudRate = BaudRate;
@@ -673,8 +615,6 @@ static void XUartPs_StubHandler(void *CallBackRef, u32 Event,
 	(void *) CallBackRef;
 	(void) Event;
 	(void) ByteCount;
-	/*
-	 * Assert occurs always since this is a stub and should never be called
-	 */
+	/* Assert occurs always since this is a stub and should never be called */
 	Xil_AssertVoidAlways();
 }

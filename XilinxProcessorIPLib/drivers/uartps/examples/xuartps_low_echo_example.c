@@ -153,9 +153,7 @@ int UartPsEchoExample(u32 UartBaseAddress)
 
 	CntrlRegister = XUartPs_ReadReg(UartBaseAddress, XUARTPS_CR_OFFSET);
 
-	/*
-	 * Enable TX and RX for the device
-	 */
+	/* Enable TX and RX for the device */
 	XUartPs_WriteReg(UartBaseAddress, XUARTPS_CR_OFFSET,
 			  ((CntrlRegister & ~XUARTPS_CR_EN_DIS_MASK) |
 			   XUARTPS_CR_TX_EN | XUARTPS_CR_RX_EN));
@@ -167,27 +165,19 @@ int UartPsEchoExample(u32 UartBaseAddress)
 		SendBuffer[Index] = Index + '0';
 	}
 
-	/*
-	 * Send the entire transmit buffer.
-	 */
+	/* Send the entire transmit buffer. */
 	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		/*
-		 * Wait until there is space in TX FIFO
-		 */
+		/* Wait until there is space in TX FIFO */
 		 while (XUartPs_IsTransmitFull(UartBaseAddress));
 
-		/*
-		 * Write the byte into the TX FIFO
-		 */
+		/* Write the byte into the TX FIFO */
 		XUartPs_WriteReg(UartBaseAddress, XUARTPS_FIFO_OFFSET,
 				  SendBuffer[Index]);
 	}
 
 	Running = TRUE;
 	while (Running) {
-		 /*
-		  * Wait until there is data
-		  */
+		 /* Wait until there is data */
 		while (!XUartPs_IsReceiveData(UartBaseAddress));
 
 		RecvChar = XUartPs_ReadReg(UartBaseAddress,

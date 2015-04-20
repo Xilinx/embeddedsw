@@ -100,32 +100,24 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr)
 	u8 Index;
 	u32 ReceiveDataResult;
 
-	/*
-	 * Assert validates the input arguments
-	 */
+	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Disable all interrupts in the interrupt disable register
-	 */
+	/* Disable all interrupts in the interrupt disable register */
 	IntrRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_IMR_OFFSET);
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_IDR_OFFSET,
 		XUARTPS_IXR_MASK);
 
-	/*
-	 * Setup for local loopback
-	 */
+	/* Setup for local loopback */
 	ModeRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XUARTPS_MR_OFFSET);
 	XUartPs_WriteReg(InstancePtr->Config.BaseAddress, XUARTPS_MR_OFFSET,
 			   ((ModeRegister & (u32)(~XUARTPS_MR_CHMODE_MASK)) |
 				(u32)XUARTPS_MR_CHMODE_L_LOOP));
 
-	/*
-	 * Send a number of bytes and receive them, one at a time.
-	 */
+	/* Send a number of bytes and receive them, one at a time. */
 	for (Index = 0U; Index < XUARTPS_TOTAL_BYTES; Index++) {
 		/*
 		 * Send out the byte and if it was not sent then the failure
@@ -144,9 +136,7 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr)
 					XUARTPS_SR_RXEMPTY;
 		}
 
-		/*
-		 * Receive the byte
-		 */
+		/* Receive the byte */
 		(void)XUartPs_Recv(InstancePtr, &ReturnString[Index], 1U);
 	}
 
