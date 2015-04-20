@@ -119,9 +119,7 @@ void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	IntrReg = ((u32)1 << (u32)PinNumber);
@@ -183,9 +181,7 @@ void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	IntrReg =  ((u32)1 << (u32)PinNumber);
@@ -252,9 +248,7 @@ u32 XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	IntrReg  = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
@@ -316,9 +310,7 @@ u32 XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	IntrReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
@@ -351,9 +343,7 @@ void XGpioPs_IntrClear(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 
-	/*
-	 * Clear the currently pending interrupts.
-	 */
+	/* Clear the currently pending interrupts. */
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_INTSTS_OFFSET, Mask);
@@ -382,14 +372,10 @@ void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
-	/*
-	 * Clear the specified pending interrupts.
-	 */
+	/* Clear the specified pending interrupts. */
 	IntrReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				   ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				   XGPIOPS_INTSTS_OFFSET);
@@ -522,9 +508,7 @@ void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 	Xil_AssertVoid(IrqType <= XGPIOPS_IRQ_TYPE_LEVEL_LOW);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	IntrTypeReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
@@ -608,9 +592,7 @@ u8 XGpioPs_GetIntrTypePin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	IntrType = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,

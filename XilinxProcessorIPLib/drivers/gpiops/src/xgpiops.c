@@ -145,9 +145,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 					  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
 	}
 
-	/*
-	 * Indicate the component is now ready to use.
-	 */
+	/* Indicate the component is now ready to use. */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return Status;
@@ -204,9 +202,7 @@ u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
@@ -271,15 +267,11 @@ void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	if (PinNumber > 15U) {
-		/*
-		 * There are only 16 data bits in bit maskable register.
-		 */
+		/* There are only 16 data bits in bit maskable register. */
 		PinNumber -= (u8)16;
 		RegOffset = XGPIOPS_DATA_MSW_OFFSET;
 	} else {
@@ -354,9 +346,7 @@ void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 	Xil_AssertVoid(Direction <= (u32)1);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	DirModeReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
@@ -426,9 +416,7 @@ u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
@@ -495,9 +483,7 @@ void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 	Xil_AssertVoid(OpEnable <= (u32)1);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	OpEnableReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
@@ -567,9 +553,7 @@ u32 XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
-	/*
-	 * Get the Bank number and Pin number within the bank.
-	 */
+	/* Get the Bank number and Pin number within the bank. */
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,

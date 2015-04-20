@@ -91,9 +91,7 @@
  */
 #define LED_DELAY		10000000
 
-/*
- * Following constant define the Input and Output pins.
- */
+/* Following constant define the Input and Output pins. */
 #define OUTPUT_PIN		10	/* Pin connected to LED/Output */
 #define INPUT_PIN		14	/* Pin connected to Switch/Input */
 
@@ -173,9 +171,7 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 	int Status;
 	XGpioPs_Config *ConfigPtr;
 
-	/*
-	 * Initialize the GPIO driver.
-	 */
+	/* Initialize the GPIO driver. */
 	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,
 					ConfigPtr->BaseAddr);
@@ -183,17 +179,13 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Run the Output Example.
-	 */
+	/* Run the Output Example. */
 	Status = GpioOutputExample();
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Run the Input Example.
-	 */
+	/* Run the Input Example. */
 	Status = GpioInputExample(DataRead);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -228,9 +220,7 @@ static int GpioOutputExample(void)
 	XGpioPs_SetDirectionPin(&Gpio, OUTPUT_PIN, 1);
 	XGpioPs_SetOutputEnablePin(&Gpio, OUTPUT_PIN, 1);
 
-	/*
-	 * Set the GPIO output to be low.
-	 */
+	/* Set the GPIO output to be low. */
 	XGpioPs_WritePin(&Gpio, OUTPUT_PIN, 0x0);
 
 
@@ -238,15 +228,11 @@ static int GpioOutputExample(void)
 
 
 #ifndef __SIM__
-		/*
-		 * Wait a small amount of time so the LED is visible.
-		 */
+		/* Wait a small amount of time so the LED is visible. */
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 
 #endif
-		/*
-		 * Set the GPIO Output to High.
-		 */
+		/* Set the GPIO Output to High. */
 		XGpioPs_WritePin(&Gpio, OUTPUT_PIN, 0x1);
 
 		/*
@@ -260,16 +246,12 @@ static int GpioOutputExample(void)
 		}
 
 #ifndef __SIM__
-		/*
-		 * Wait a small amount of time so the LED is visible.
-		 */
+		/* Wait a small amount of time so the LED is visible. */
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 
 #endif
 
-		/*
-		 * Clear the GPIO Output.
-		 */
+		/* Clear the GPIO Output. */
 		XGpioPs_WritePin(&Gpio, OUTPUT_PIN, 0x0);
 
 		/*
@@ -303,14 +285,10 @@ static int GpioOutputExample(void)
 static int GpioInputExample(u32 *DataRead)
 {
 
-	/*
-	 * Set the direction for the specified pin to be input.
-	 */
+	/* Set the direction for the specified pin to be input. */
 	XGpioPs_SetDirectionPin(&Gpio, INPUT_PIN, 0x0);
 
-	/*
-	 * Read the state of the data so that it can be  verified.
-	 */
+	/* Read the state of the data so that it can be  verified. */
 	*DataRead = XGpioPs_ReadPin(&Gpio, INPUT_PIN);
 
 	return XST_SUCCESS;

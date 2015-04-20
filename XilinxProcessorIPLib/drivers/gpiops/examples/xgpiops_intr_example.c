@@ -72,15 +72,11 @@
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define GPIO_INTERRUPT_ID	XPAR_XGPIOPS_0_INTR
 
-/*
- * The following constants define the GPIO banks that are used.
- */
+/* The following constants define the GPIO banks that are used. */
 #define INPUT_BANK	XGPIOPS_BANK0  /* Bank 0 of the GPIO Device */
 #define OUTPUT_BANK	XGPIOPS_BANK1  /* Bank 1 of the GPIO Device */
 
-/*
- * The following constants define the positions of the buttons of the GPIO.
- */
+/* The following constants define the positions of the buttons of the GPIO. */
 #define GPIO_ALL_BUTTONS	0xFFFF
 
 /*
@@ -174,18 +170,14 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 	XGpioPs_Config *ConfigPtr;
 	int Status;
 
-	/*
-	 * Initialize the Gpio driver.
-	 */
+	/* Initialize the Gpio driver. */
 	ConfigPtr = XGpioPs_LookupConfig(DeviceId);
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
 	XGpioPs_CfgInitialize(Gpio, ConfigPtr, ConfigPtr->BaseAddr);
 
-	/*
-	 * Run a self-test on the GPIO device.
-	 */
+	/* Run a self-test on the GPIO device. */
 	Status = XGpioPs_SelfTest(Gpio);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -247,24 +239,18 @@ static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status)
 	XGpioPs *Gpio = (XGpioPs *)CallBackRef;
 	static u32 ButtonsChanged;
 
-	/*
-	 * Do nothing if the intr is generated for a different bank.
-	 */
+	/* Do nothing if the intr is generated for a different bank. */
 	if (Bank != INPUT_BANK) {
 		return;
 	}
 
 	ButtonsChanged |= Status;
 
-	/*
-	 * Set the LEDs.
-	 */
+	/* Set the LEDs. */
 	XGpioPs_Write(Gpio, OUTPUT_BANK, ButtonsChanged);
 
 	if (ButtonsChanged == GPIO_EXIT_CONTROL_VALUE) {
-		/*
-		 * Five buttons are pressed to mark the completion of the test.
-		 */
+		/* Five buttons are pressed to mark the completion of the test. */
 		AllButtonsPressed = TRUE;
 		ButtonsChanged = 0;
 	}
@@ -335,32 +321,22 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 		return Status;
 	}
 
-	/*
-	 * Enable falling edge interrupts for all the pins in bank 0.
-	 */
+	/* Enable falling edge interrupts for all the pins in bank 0. */
 	XGpioPs_SetIntrType(Gpio, INPUT_BANK, 0x00, 0x00, 0x00);
 
-	/*
-	 * Set the handler for gpio interrupts.
-	 */
+	/* Set the handler for gpio interrupts. */
 	XGpioPs_SetCallbackHandler(Gpio, (void *)Gpio, IntrHandler);
 
 
-	/*
-	 * Enable the GPIO interrupts of Bank 0.
-	 */
+	/* Enable the GPIO interrupts of Bank 0. */
 	XGpioPs_IntrEnable(Gpio, INPUT_BANK, 0xFFFFFFFF);
 
 
-	/*
-	 * Enable the interrupt for the GPIO device.
-	 */
+	/* Enable the interrupt for the GPIO device. */
 	XScuGic_Enable(GicInstancePtr, GpioIntrId);
 
 
-	/*
-	 * Enable interrupts in the Processor.
-	 */
+	/* Enable interrupts in the Processor. */
 	Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ);
 
 	return XST_SUCCESS;

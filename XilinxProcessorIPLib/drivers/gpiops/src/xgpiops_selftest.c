@@ -94,9 +94,7 @@ s32 XGpioPs_SelfTest(XGpioPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Disable the Interrupts for Bank 0 .
-	 */
+	/* Disable the Interrupts for Bank 0 . */
 	IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr, XGPIOPS_BANK0);
 	XGpioPs_IntrDisable(InstancePtr, XGPIOPS_BANK0, IntrEnabled);
 

@@ -89,9 +89,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 	} else {
 		MaxBanks = (u32)4;
 	}
-	/*
-	 * Write reset values to all mask data registers
-	 */
+	/* Write reset values to all mask data registers */
 	for(BankCount = 2U; BankCount < (u32)MaxBanks; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
@@ -101,9 +99,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 				((BankCount * XGPIOPS_DATA_MASK_OFFSET) +
 				 XGPIOPS_DATA_MSW_OFFSET), 0x0U);
 	}
-	/*
-	 * Write reset values to all output data registers
-	 */
+	/* Write reset values to all output data registers */
 	for(BankCount = 2U; BankCount < (u32)MaxBanks; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
@@ -111,9 +107,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 				 XGPIOPS_DATA_OFFSET), 0x0U);
 	}
 
-	/*
-	 * Reset all registers of all GPIO banks
-	 */
+	/* Reset all registers of all GPIO banks */
 	for(BankCount = 0U; BankCount < (u32)MaxBanks; BankCount++) {
 
 		XGpioPs_WriteReg(BaseAddress,
@@ -142,40 +136,28 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 				 XGPIOPS_INTANY_OFFSET), 0x0U);
 	}
 
-	/*
-	 * Bank 0 Int type
-	 */
+	/* Bank 0 Int type */
 	XGpioPs_WriteReg(BaseAddress, XGPIOPS_INTTYPE_OFFSET,
 			XGPIOPS_INTTYPE_BANK0_RESET);
-	/*
-	 * Bank 1 Int type
-	 */
+	/* Bank 1 Int type */
 	XGpioPs_WriteReg(BaseAddress,
 			((u32)XGPIOPS_REG_MASK_OFFSET + (u32)XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK1_RESET);
-	/*
-	 * Bank 2 Int type
-	 */
+	/* Bank 2 Int type */
 	XGpioPs_WriteReg(BaseAddress,
 			(((u32)2 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK2_RESET);
-	/*
-	 * Bank 3 Int type
-	 */
+	/* Bank 3 Int type */
 	XGpioPs_WriteReg(BaseAddress,
 			(((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK3_RESET);
 
 	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
-		/*
-		 * Bank 4 Int type
-		 */
+		/* Bank 4 Int type */
 		XGpioPs_WriteReg(BaseAddress,
 				(((u32)4 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 				XGPIOPS_INTTYPE_BANK4_RESET);
-		/*
-		 * Bank 5 Int type
-		 */
+		/* Bank 5 Int type */
 		XGpioPs_WriteReg(BaseAddress,
 				(((u32)5 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 				XGPIOPS_INTTYPE_BANK5_RESET);
