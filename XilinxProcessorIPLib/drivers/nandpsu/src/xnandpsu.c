@@ -145,7 +145,7 @@ const XNandPsu_EccMatrix EccMatrix[] = {
 };
 
 /**************************** Type Definitions *******************************/
-
+static u8 isQemuPlatform = 0U;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -247,6 +247,17 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/*
+	 * Temporary hack for disabling the ecc on qemu as currently there
+	 * is no support in the utility for writing images with ecc enabled.
+	 */
+	#define CSU_VER_REG 0xFFCA0044U
+	#define CSU_VER_PLATFORM_MASK 0xF000U
+	#define CSU_VER_PLATFORM_QEMU_VAL 0x3000U
+	if ((*(u32 *)CSU_VER_REG & CSU_VER_PLATFORM_MASK) ==
+					CSU_VER_PLATFORM_QEMU_VAL) {
+		isQemuPlatform = 1U;
+	}
+	/*
 	 * Initialize the NAND flash targets
 	 */
 	Status = XNandPsu_FlashInit(InstancePtr);
@@ -265,6 +276,11 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 		InstancePtr->EccMode = XNANDPSU_ONDIE;
 	} else {
 		InstancePtr->EccMode = XNANDPSU_HWECC;
+	}
+
+	if (isQemuPlatform != 0U) {
+		InstancePtr->EccMode = XNANDPSU_NONE;
+		goto Out;
 	}
 
 	/*
@@ -404,6 +420,10 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 				if (Status != XST_SUCCESS) {
 					InstancePtr->Features.OnDie = 0U;
 				}
+			}
+			if (isQemuPlatform != 0U) {
+				InstancePtr->Geometry.NumTargets++;
+				break;
 			}
 			if ((InstancePtr->Geometry.NumBitsECC == 0xFFU) &&
 				(InstancePtr->Features.ExtPrmPage != 0U)) {
