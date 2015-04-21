@@ -423,8 +423,12 @@ static int MCapReadDataRegisters(struct mcap_dev *mdev, u32 *data)
 	MCapRegWrite(mdev, MCAP_CONTROL, set);
 	read_cnt = GetRegReadCount(mdev);
 
-	if (IsErrSet(mdev) || IsFifoOverflow(mdev) ||
-		!(read_cnt) || !(IsRegReadComplete(mdev))) {
+	if (!(read_cnt) || !(IsRegReadComplete(mdev))) {
+		MCapRegWrite(mdev, MCAP_CONTROL, restore);
+		return EMCAPREAD;
+	}
+
+	if (IsErrSet(mdev) || IsFifoOverflow(mdev)) {
 		pr_err("Read Register Set Configuration Failed\n");
 		MCapRegWrite(mdev, MCAP_CONTROL, restore);
 		return -EMCAPREAD;
@@ -454,11 +458,16 @@ static int MCapReadDataRegisters(struct mcap_dev *mdev, u32 *data)
 void MCapDumpReadRegs(struct mcap_dev *mdev)
 {
 	u32 data[4];
+	u32 status;
 
-	if (MCapReadDataRegisters(mdev, data)) {
+	status = MCapReadDataRegisters(mdev, data);
+	if (status == EMCAPREAD)
+		return;
+
+	if (status) {
 		pr_err("Failed Reading Registers.. This may be");
-		pr_err("due to inappropriate FPGA configuration.");
-		pr_err("Make sure you downloaded the correct bitstream\n");
+		pr_err(" due to inappropriate FPGA configuration.");
+		pr_err(" Make sure you downloaded the correct bitstream\n");
 		return;
 	}
 	pr_info("Register Read Data 0:\t0x%08x\n", data[0]);
