@@ -68,7 +68,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define CAN_DEVICE_ID	XPAR_CAN_0_DEVICE_ID
+#define CANFD_DEVICE_ID	XPAR_CANFD_0_DEVICE_ID
 
 /* Maximum CAN frame length in Bytes */
 #define XCANFD_MAX_FRAME_SIZE_IN_BYTES 72
@@ -112,7 +112,7 @@
 
 /************************** Function Prototypes ******************************/
 
-int XCanPolledExample(u16 DeviceId);
+int XCanFdPolledExample(u16 DeviceId);
 static int SendFrame(XCanFd  *InstancePtr);
 static int RecvFrame(XCanFd  *InstancePtr);
 
@@ -152,7 +152,7 @@ int main(void)
 	 * in xparameters.h .
 	 */
 
-	if (XCanPolledExample(CAN_DEVICE_ID)) {
+	if (XCanFdPolledExample(CANFD_DEVICE_ID)) {
 		xil_printf("XCanFd Polled Mode example Failed\n\r");
 		return XST_FAILURE;
 	}
@@ -182,7 +182,7 @@ int main(void)
 * loop and will never return to the caller.
 *
 ******************************************************************************/
-int XCanPolledExample(u16 DeviceId)
+int XCanFdPolledExample(u16 DeviceId)
 {
 	int Status;
 	XCanFd *CanFdInstPtr = &CanFd;

@@ -82,7 +82,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define CAN_DEVICE_ID		XPAR_CAN_0_DEVICE_ID
+#define CANFD_DEVICE_ID		XPAR_CANFD_0_DEVICE_ID
 #define CAN_INTR_VEC_ID		XPAR_INTC_0_CANFD_0_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -142,7 +142,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static int XCanIntrExample(u16 DeviceId);
+static int XCanFdIntrExample(u16 DeviceId);
 static void Config(XCanFd  *InstancePtr);
 void Create_CanFD_Frame();
 static int SendFrame(XCanFd  *InstancePtr);
@@ -189,7 +189,7 @@ volatile static int SendDone;
 int main()
 {
 	/* Run the Can interrupt example */
-	if (XCanIntrExample(CAN_DEVICE_ID)) {
+	if (XCanFdIntrExample(CANFD_DEVICE_ID)) {
 		xil_printf("XCanFd Interrupt Mode example Failed\n\r");
 		return XST_FAILURE;
 	}
@@ -212,7 +212,7 @@ int main()
 *		an infinite loop and will never return to the caller.
 *
 ******************************************************************************/
-static int XCanIntrExample(u16 DeviceId)
+static int XCanFdIntrExample(u16 DeviceId)
 {
 	int Status;
 	XCanFd *CanFdInstPtr = &CanFd;

@@ -1156,7 +1156,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_Assertvoid(FilterIndex < XCANFD_NOOF_AFR);
+	Xil_AssertVoid(FilterIndex < XCANFD_NOOF_AFR);
 
 	*MaskValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_AFMR_OFFSET(FilterIndex));
@@ -1488,8 +1488,8 @@ void XCanFd_Enable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr)
 {
 	u32 RegValue = 0;
 
-	Xil_Assertvoid(InstancePtr != NULL);
-	Xil_Assertvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_F_BRPR_OFFSET);
@@ -1520,8 +1520,8 @@ void XCanFd_Set_Tranceiver_Delay_Compensation(XCanFd *InstancePtr,
 
 	u32 RegValue=0;
 
-	Xil_Assertvoid(InstancePtr != NULL);
-	Xil_Assertvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (TdcOffset <= 32) {
 
@@ -1553,8 +1553,8 @@ void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr)
 {
 	u32 RegValue=0;
 
-	Xil_Assertvoid(InstancePtr != NULL);
-	Xil_Assertvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_F_BRPR_OFFSET);
