@@ -34,7 +34,7 @@
  *
  * @file xfsbl_csu_dma.c
  *
- * This contains code for the CSU DMA driver.
+ * Contains code for the CSU DMA intialization
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -50,6 +50,7 @@
  ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xcsudma.h"
 #include "xfsbl_csu_dma.h"
 /************************** Constant Definitions *****************************/
 
@@ -60,123 +61,37 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-
+XCsuDma CsuDma;
 
 /*****************************************************************************/
 /**
- *
- * This function will configure dst/src DMA address
- * and size and also start the CSU DMA.
+ * This function is used to initialize the DMA driver
  *
  * @param	None
  *
- * @return	None
+ * @return	returns the error codes described in xfsbl_error.h on any error
+ * 		returns XFSBL_SUCCESS on success
  *
- ******************************************************************************/
-void XFsbl_CsuDmaStart(XFSBL_CSU_DMA_CHANNEL Channel, u32 Addr, u32 Size)
+ *****************************************************************************/
+u32 XFsbl_CsuDmaInit()
 {
-	XASSERT_VOID((Addr & 3) == 0);
+	u32 Status = XFSBL_SUCCESS;
+	XCsuDma_Config * CsuDmaConfig;
 
-	if(XFSBL_CSU_DMA_SRC == Channel)
-	{
-		XASSERT_VOID((Size & 2) == 0);
-	}
-	else
-	{
-		XASSERT_VOID((Size & 3) == 0);
-	}
-
-	XFsbl_Out32(CSUDMA_BASEADDR + Channel + XFSBL_CSU_DMA_ADDR_REG, Addr);
-
-	/**
-	 *  Writes to SIZE to start the channel, this starts
-	 *  the DMA.
-	 */
-	/** ASM Code */
-	mb();
-	XFsbl_Out32(CSUDMA_BASEADDR + Channel + XFSBL_CSU_DMA_SIZE_REG, Size);
-}
-
-/*****************************************************************************/
-/**
- *
- * This function will stop/pause the CSU DMA.
- *
- * @param	None
- *
- * @return	None
- *
- ******************************************************************************/
-void XFsbl_CsuDmaStop(u32 Flags)
-{
-	/**
-	 * This function is TBD.
-	 */
-
-}
-
-/*****************************************************************************/
-/**
- *
- * This function will wait for CSU DMA done.
- *
- * @param	None
- *
- * @return	None
- *
- ******************************************************************************/
-void XFsbl_CsuDmaWaitForDone(XFSBL_CSU_DMA_CHANNEL Channel)
-{
-	volatile u32 Status = 0;
-
-	/** ASM Code */
-	mb();
-	/* Busy wait for the DMA.  */
-	/**
-	 * TBD: May need to have some timeout for this loop.
-	 */
-	do
-	{
-		Status = XFsbl_In32(CSUDMA_BASEADDR + Channel +
-				XFSBL_CSU_DMA_STATUS_REG);
-
-	} while (Status & XFSBL_CSU_DMA_STATUS_BUSY);
-
-}
-
-/*****************************************************************************/
-/**
- *
- * This function will start the dma transfer
- * and wait for DST DMA done.
- *
- * @param       None
- *
- * @return      None
- *
- ******************************************************************************/
-void XFsbl_CsuDmaXfer(u32 SrcAddr, u32 DestAddr, u32 ImgLen)
-{
-	XFsbl_Printf(DEBUG_INFO,"In XCbr_CsuDmaXfer: SrcAddr:0x%x "
-		"DestAddr:0x%x  ImgLen:0x%x\r\n",SrcAddr,DestAddr,ImgLen);
-
-	XFsbl_CsuDmaStart(XFSBL_CSU_DMA_DST, DestAddr, ((ImgLen/4) << 2) );
-
-	/**
-	 * In case of PSTP, the Src DMA channel is not used.
-	 * For this function SrcAddr == 0 means we are calling
-	 * this function for PS_TEST boot mode
-	 */
-	if(0 != SrcAddr)
-	{
-		XFsbl_CsuDmaStart(XFSBL_CSU_DMA_SRC, SrcAddr, (ImgLen/4) << 2);
-		XFsbl_CsuDmaWaitForDone(XFSBL_CSU_DMA_SRC);
+	CsuDmaConfig = XCsuDma_LookupConfig(0);
+	if (NULL == CsuDmaConfig) {
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_CSUDMA_INIT_FAIL \n\r");
+		Status = XFSBL_ERROR_CSUDMA_INIT_FAIL;
+		goto END;
 	}
 
-	/**
-	 * TBD: Need to enhance this to return
-	 * timeout error
-	 */
-	XFsbl_CsuDmaWaitForDone(XFSBL_CSU_DMA_DST);
-
+	Status = XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
+			CsuDmaConfig->BaseAddress);
+	if (Status != XFSBL_SUCCESS) {
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_CSUDMA_INIT_FAIL \n\r");
+		Status = XFSBL_ERROR_CSUDMA_INIT_FAIL;
+		goto END;
+	}
+END:
+	return Status;
 }

@@ -50,7 +50,19 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
-
+#include "xfsbl_main.h"
+#ifdef XFSBL_RSA
+#include "xsecure_sha.h"
+#include "xsecure_rsa.h"
+#endif
+#ifdef XFSBL_AES
+#include "xsecure_aes.h"
+#endif
+#include "xcsudma.h"
+#include "xparameters.h"
+#ifdef XFSBL_SHA2
+#include "xilrsa.h"
+#endif
 /***************************** Type defines *********************************/
 #define XFSBL_HASH_TYPE_SHA3					(48U)
 #define XFSBL_HASH_TYPE_SHA2					(32U)
@@ -78,7 +90,7 @@ extern "C" {
 
 #define XFSBL_AUTH_CERT_MAX_SIZE	(XFSBL_AUTH_CERT_MIN_SIZE + 60)
 
-#define XFSBL_PARTIAL_AC_SIZE	(XFSBL_AUTH_CERT_MIN_SIZE - XFSBL_FSBL_SIG_SIZE)
+#define XFSBL_PARTIAL_AC_SIZE  (XFSBL_AUTH_CERT_MIN_SIZE - XFSBL_FSBL_SIG_SIZE)
 
 /**
 * CSU RSA Register Map
@@ -90,7 +102,8 @@ extern "C" {
 #define XFSBL_CSU_RSA_CONTROL_NOP         (0x00U)
 #define XFSBL_CSU_RSA_CONTROL_EXP         (0x01U)
 #define XFSBL_CSU_RSA_CONTROL_EXP_PRE     (0x05U)
-#define XFSBL_CSU_RSA_CONTROL_MASK		 (XFSBL_CSU_RSA_CONTROL_4096 + XFSBL_CSU_RSA_CONTROL_EXP_PRE)
+#define XFSBL_CSU_RSA_CONTROL_MASK		 (XFSBL_CSU_RSA_CONTROL_4096 \
+											+ XFSBL_CSU_RSA_CONTROL_EXP_PRE)
 
 #define XFSBL_CSU_RSA_RAM_EXPO			 (0)
 #define XFSBL_CSU_RSA_RAM_MOD			 (1)
@@ -109,21 +122,23 @@ extern "C" {
 
 #define	XFSBL_SHA3_LAST_PACKET			 (0x1)
 
-u32 XFsbl_Authentication(u64 PartitionOffset, u32 PartitionLen,
-        u64 AcOffset, u32 HashLen);
+#ifdef XFSBL_RSA
+u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
+						u32 PartitionLen, u64 AcOffset, u32 HashLen);
 u32 XFsbl_PartitionSignVer(u64 PartitionOffset, u32 PartitionLen,
-	u64 AcOffset, u32 HashLen);
+							    u64 AcOffset, u32 HashLen);
 u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
-//u32 XFsbl_IntegrityCheck(XCbrBootRom *InstancePtr);
+
 u32 XFsbl_CheckPadding(u8 *Signature, u8 *Hash, u32 HashLen);
 
-u32 XFsbl_RsaDecrypt(u8* EncText, u8* Mod, u8* ModExt, u8* ModExpo, u8* Result, u8 Reuse);
 void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
-void XFsbl_ShaStart( void * Ctx, u32 HashLen);
+void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);
+#endif
 
-extern u8 XFsbl_RsaSha3Array[512];
+extern XCsuDma CsuDma;  /* CSU DMA instance */
+
 #ifdef __cplusplus
 extern "C" }
 #endif

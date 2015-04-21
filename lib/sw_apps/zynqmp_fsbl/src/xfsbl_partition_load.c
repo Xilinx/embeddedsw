@@ -92,6 +92,9 @@ static int IsR5LTcmEccInitialized = FALSE;
 u8 TcmVectorArray[32];
 u32 TcmSkipLength=0U;
 PTRSIZE TcmSkipAddress=0U;
+#ifdef XFSBL_AES
+static XSecure_Aes SecureAes;
+#endif
 /*****************************************************************************/
 /**
  * This function loads the partition
@@ -882,12 +885,16 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 DestinationCpu=0U;
 	u32 ExecState=0U;
 	u32 CpuNo=0U;
+	u32 ImageOffset = 0U;
 #ifdef XFSBL_RSA
 	u32 Length=0U;
 	u32 HashLen=0U;
-	u64 LoadAddress=0U;
 #endif
+	u64 LoadAddress=0U;
 	XFsblPs_PartitionHeader * PartitionHeader;
+	u32 FsblIv[XIH_BH_IV_LENGTH / 4U];
+	u32 UnencryptedLength;
+	u32 IvLocation;
 
 	/**
 	 * Update the variables
@@ -903,6 +910,25 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			XIH_PH_ATTRB_ENCRYPTION )
 	{
 		IsEncryptionEnabled = TRUE;
+
+#ifdef XFSBL_AES
+		/* Copy the Iv from Flash into local memory */
+		IvLocation = ImageOffset + XIH_BH_IV_OFFSET;
+
+		Status = FsblInstancePtr->DeviceOps.DeviceCopy(IvLocation,
+				(PTRSIZE) FsblIv, XIH_BH_IV_LENGTH);
+
+		if (Status != XFSBL_SUCCESS) {
+			XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_DECRYPTION_IV_COPY_FAIL \r\n");
+			Status = XFSBL_ERROR_DECRYPTION_IV_COPY_FAIL;
+			goto END;
+		}
+#else
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_AES_NOT_ENABLED \r\n");
+		Status = XFSBL_ERROR_AES_NOT_ENABLED;
+		goto END;
+#endif
 	}
 
 	/**
@@ -979,19 +1005,16 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		/**
 		 * Do the authentication validation
 		 */
-		Status = XFsbl_Authentication( LoadAddress, Length,
+		Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress, Length,
 			(LoadAddress + Length) - XFSBL_AUTH_CERT_MIN_SIZE,
 			HashLen);
-
-		/* cache enable can be removed */
-		Xil_DCacheEnable();
 
 		if (Status != XFSBL_SUCCESS)
                 {
                         goto END;
                 }
 #else
-		XFsbl_Printf(DEBUG_GENERAL,"Rsa code not Enabled\r\n");
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_RSA_NOT_ENABLED \r\n");
 		Status = XFSBL_ERROR_RSA_NOT_ENABLED;
 		goto END;
 #endif
@@ -1004,13 +1027,37 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	    (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PMU)) &&
 	    (IsEncryptionEnabled == TRUE))
 	{
-		/**
-		 * configure SSS
-		 */
+		XFsbl_Printf(DEBUG_INFO, "Decryption Enabled\r\n");
+#ifdef XFSBL_AES
 
-		/**
-		 * Use CSU DMA and decrypt the image
-		 */
+		/* AES expects IV in big endian form */
+		FsblIv[0] = Xil_Htonl(FsblIv[0]);
+		FsblIv[1] = Xil_Htonl(FsblIv[1]);
+		FsblIv[2] = Xil_Htonl(FsblIv[2]);
+
+		/* Initialize the Aes Instance so that it's ready to use */
+		XSecure_AesInitialize(&SecureAes, &CsuDma,
+		 XSECURE_CSU_AES_KEY_SRC_DEV, FsblIv, NULL);
+
+		XFsbl_Printf(DEBUG_INFO, " Aes initialized \r\n");
+
+		UnencryptedLength = PartitionHeader->UnEncryptedDataWordLength * 4U;
+
+		Status = XSecure_AesDecrypt(&SecureAes, (u8 *) LoadAddress,
+				(u8 *) LoadAddress, UnencryptedLength);
+
+		if (Status != XFSBL_SUCCESS) {
+			Status = XFSBL_ERROR_DECRYPTION_FAILED;
+			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_DECRYPTION_FAILED\r\n");
+			goto END;
+		} else {
+			XFsbl_Printf(DEBUG_GENERAL, "Decryption Successful\r\n");
+		}
+#else
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_AES_NOT_ENABLED \r\n");
+		Status = XFSBL_ERROR_AES_NOT_ENABLED;
+		goto END;
+#endif
 	}
 
 	/**

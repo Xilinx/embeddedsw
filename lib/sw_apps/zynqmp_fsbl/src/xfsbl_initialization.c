@@ -56,8 +56,8 @@
 #include "xfsbl_main.h"
 #include "xfsbl_misc_drivers.h"
 #include "psu_init.h"
-
 #include "xfsbl_qspi.h"
+#include "xfsbl_csu_dma.h"
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_R5_VECTOR_VALUE 	0xEAFEFFFEU
@@ -86,6 +86,7 @@ void XFsbl_RegisterHandlers(void);
 
 
 /************************** Variable Definitions *****************************/
+
 
 /****************************************************************************/
 /**
@@ -442,6 +443,12 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			goto END;
 		}
 #endif
+
+		/* Initialize CSUDMA driver */
+		Status = XFsbl_CsuDmaInit();
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
 	}
 
 	switch(BootMode)

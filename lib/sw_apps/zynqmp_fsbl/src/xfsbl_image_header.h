@@ -78,6 +78,8 @@ extern "C" {
 
 #define XIH_BH_IMAGE_ATTRB_RSA_MASK	(0xC000U)
 #define XIH_BH_IMAGE_ATTRB_SHA2_MASK	(0x3000U)
+#define XIH_BH_IV_OFFSET       		(0xA0U)
+#define XIH_BH_IV_LENGTH   			(0x10U)
 
 /**
  * Defines for length of the headers

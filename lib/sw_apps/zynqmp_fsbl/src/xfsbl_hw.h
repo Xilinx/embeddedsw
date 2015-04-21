@@ -474,6 +474,19 @@ extern "C" {
 #define XFSBL_RSA
 #endif
 
+/**
+ * Definition for AES to be included
+ */
+#if !defined(FSBL_AES_EXCLUDE)
+#define XFSBL_AES
+#endif
+
+/**
+ * Definition for SHA2 to be included
+ */
+#if !defined(FSBL_SHA2_EXCLUDE)
+#define XFSBL_SHA2
+#endif
 
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_END		(0xDFFFFFFFU)

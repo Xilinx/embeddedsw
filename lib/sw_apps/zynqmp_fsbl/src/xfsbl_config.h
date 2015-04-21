@@ -116,12 +116,15 @@ extern "C" {
  *     - FSBL_NAND_EXCLUDE NAND code will be excluded
  *     - FSBL_QSPI_EXCLUDE QSPI code will be excluded
  *     - FSBL_SD_EXCLUDE SD code will be excluded
- *     - FSBL_RSA_EXCLUDE RSA code will be excluded
+ *     - FSBL_RSA_EXCLUDE RSA (authentication) code will be excluded
+ *     - FSBL_AES_EXCLUDE AES (decryption) code will be excluded
+ *     - FSBL_SHA2_EXCLUDE SHA2 code will be excluded
  */
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
 #define FSBL_QSPI_EXCLUDE_VAL			(0U)
 #define FSBL_SD_EXCLUDE_VAL			(0U)
 #define FSBL_RSA_EXCLUDE_VAL			(0U)
+#define FSBL_AES_EXCLUDE_VAL			(0U)
 #define FSBL_SHA2_EXCLUDE_VAL			(1U)
 
 #if FSBL_NAND_EXCLUDE_VAL
@@ -138,6 +141,10 @@ extern "C" {
 
 #if FSBL_RSA_EXCLUDE_VAL
 #define FSBL_RSA_EXCLUDE
+#endif
+
+#if FSBL_AES_EXCLUDE_VAL
+#define FSBL_AES_EXCLUDE
 #endif
 
 #if FSBL_SHA2_EXCLUDE_VAL
