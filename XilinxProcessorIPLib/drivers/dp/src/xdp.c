@@ -1895,26 +1895,46 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 		return XST_FAILURE;
 	}
 
+	/* Set the interrupt masks. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK, 0x0);
+
+	if (InstancePtr->Config.MstSupport) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP,
+						XDP_RX_MST_CAP_ENABLE_MASK |
+						XDP_RX_MST_CAP_SOFT_VCP_MASK |
+						XDP_RX_MST_CAP_OVER_ACT_MASK);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_INTERRUPT_MASK_1, 0x0);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_LOCAL_EDID_VIDEO, 0x0);
+		/* Sink count is set when exposing ports. */
+	}
+	else {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_MST_CAP, 0x0);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_LOCAL_EDID_VIDEO, 0x1);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_SINK_COUNT, 0x1);
+	}
+
 	/* Enable the RX core. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x1);
 
 	/* Set other user parameters. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MIN_VOLTAGE_SWING,
 									0x01);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_SINK_COUNT, 0x01);
 	/* Set the AUX training interval. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
-		(2 << XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
+			(XDP_DPCD_TRAIN_AUX_RD_INT_4MS <<
+			XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 	/* Set the link configuration.*/
 	XDp_RxSetLinkRate(InstancePtr,
 				InstancePtr->RxInstance.LinkConfig.LinkRate);
 	XDp_RxSetLaneCount(InstancePtr,
 				InstancePtr->RxInstance.LinkConfig.LaneCount);
-	/* Set the interrupt masks. */
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
-					~XDP_RX_INTERRUPT_MASK_ALL_MASK);
 
 	/* Enable the display timing generator. */
 	XDp_RxDtgEn(InstancePtr);
