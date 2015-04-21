@@ -53,6 +53,9 @@ static char help_msg[] =
 "\t-v\t\tVerbose information of MCAP Device\n"
 "\t-h/H\t\tHelp\n"
 "\t-c <address> [type [data]]  Access Device Configuration Space\n"
+"\t\t      here type[data] - b for byte data [8 bits]\n"
+"\t\t      here type[data] - h for half word data [16 bits]\n"
+"\t\t      here type[data] - w for word data [32 bits]\n"
 "\n"
 ;
 
