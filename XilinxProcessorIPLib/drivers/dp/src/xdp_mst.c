@@ -148,6 +148,8 @@ typedef struct
 
 /**************************** Function Prototypes *****************************/
 
+static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg);
+static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDp_TxTopology *Topology,
 			u32 *Guid);
@@ -2504,6 +2506,68 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 	}
 
 	XDp_RxMstExposePort(InstancePtr, PortNum, 1);
+}
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * to a CLEAR_PAYLOAD down request.
+ *
+ * @param	Msg is a pointer to the message to be formatted.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg)
+{
+	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountRemaining = 0;
+	Msg->Header.BroadcastMsg = 1;
+	Msg->Header.PathMsg = 1;
+	Msg->Header.MsgBodyLength = 2;
+	Msg->Header.MsgHeaderLength = 3;
+
+	Msg->Body.MsgData[0] = XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE;
+	Msg->Body.MsgDataLength = 1;
+}
+
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * to an ALLOCATE_PAYLOAD down request.
+ *
+ * @param	Msg is a pointer to the message to be formatted.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg)
+{
+	u8 ReplyIndex = 0;
+	u8 PortNum;
+	u8 VcId;
+	u16 Pbn;
+
+	PortNum = Msg->Body.MsgData[1] >> 4;
+	VcId = Msg->Body.MsgData[2];
+	Pbn = (Msg->Body.MsgData[3] << 8) | Msg->Body.MsgData[4];
+
+	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountRemaining = 0;
+	Msg->Header.BroadcastMsg = 0;
+	Msg->Header.PathMsg = 0;
+	Msg->Header.MsgHeaderLength = 3;
+
+	Msg->Body.MsgData[ReplyIndex++] = XDP_TX_SBMSG_ALLOCATE_PAYLOAD;
+	Msg->Body.MsgData[ReplyIndex++] = PortNum << 4;
+	Msg->Body.MsgData[ReplyIndex++] = VcId;
+	Msg->Body.MsgData[ReplyIndex++] = Pbn >> 8;
+	Msg->Body.MsgData[ReplyIndex++] = Pbn & 0xFF;
+
+	Msg->Body.MsgDataLength = ReplyIndex;
 }
 
 /******************************************************************************/
