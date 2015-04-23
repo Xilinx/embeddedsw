@@ -593,6 +593,17 @@ typedef struct {
 } XDp_RxIicMapEntry;
 
 /**
+ * This typedef represents the DPCD address map for a device. This is used to
+ * allow the user to define a DPCD map for any sink connected to one of the RX's
+ * ports.
+ */
+typedef struct {
+	u8 *DataPtr;
+	u32 NumBytes;
+	u32 StartAddr;
+} XDp_RxDpcdMap;
+
+/**
  * This typedef contains information on the directly connected ports to the RX
  * branch. Information contained in XDp_SbMsgLinkAddressReplyDeviceInfo is not
  * duplicated here.
@@ -606,6 +617,11 @@ typedef struct {
 						allows the user to define up to
 						XDP_RX_NUM_I2C_ENTRIES_PER_PORT
 						I2C addresses per port. */
+	XDp_RxDpcdMap DpcdMap;		/**< When the RX replies to a
+						REMOTE_DPCD_READ sideband
+						message, it responds with the
+						associated DPCD map for the
+						requested port. */
 	u8 Exposed;			/**< When set to 1, the RX branch device
 						will expose the port in the
 						LINK_ADDRESS reply. */

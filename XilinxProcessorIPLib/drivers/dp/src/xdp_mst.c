@@ -150,6 +150,7 @@ typedef struct
 
 static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg);
 static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
+static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDp_TxTopology *Topology,
 			u32 *Guid);
@@ -2568,6 +2569,74 @@ static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg)
 	Msg->Body.MsgData[ReplyIndex++] = Pbn & 0xFF;
 
 	Msg->Body.MsgDataLength = ReplyIndex;
+}
+
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * to a REMOTE_DPCD_READ down request.
+ *
+ * @param	Msg is a pointer to the message to be formatted.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	u8 NumReadBytes;
+	u8 ReplyIndex = 0;
+	u8 Index;
+	u32 DpcdReadIndex;
+	u8 PortNum;
+	u32 DpcdReadAddress;
+	XDp_RxDpcdMap *DpcdMap;
+	u32 DpcdMapEndAddr;
+
+	PortNum = Msg->Body.MsgData[1] >> 4;
+	DpcdReadAddress = ((Msg->Body.MsgData[1] & 0xF) << 16) |
+			(Msg->Body.MsgData[2] << 8) | Msg->Body.MsgData[3];
+	NumReadBytes = Msg->Body.MsgData[4];
+
+	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountRemaining = 0;
+	Msg->Header.BroadcastMsg = 0;
+	Msg->Header.PathMsg = 0;
+	Msg->Header.MsgHeaderLength = 3;
+
+	Msg->Body.MsgData[ReplyIndex++] = XDP_TX_SBMSG_REMOTE_DPCD_READ;
+	Msg->Body.MsgData[ReplyIndex++] = PortNum;
+	Msg->Body.MsgData[ReplyIndex++] = NumReadBytes;
+
+	DpcdMap = &InstancePtr->RxInstance.Topology.Ports[PortNum].DpcdMap;
+
+	if (!DpcdMap->DataPtr) {
+		/* Supply garbage data if the targeted port has no associated
+		 * DPCD map. */
+		memset(&Msg->Body.MsgData[ReplyIndex], 0x00, NumReadBytes);
+			Msg->Body.MsgDataLength = ReplyIndex + NumReadBytes;
+		return XST_FAILURE;
+	}
+	DpcdMapEndAddr = (DpcdMap->StartAddr + DpcdMap->NumBytes - 1);
+
+	for (Index = 0; Index < NumReadBytes; Index++) {
+		DpcdReadIndex = DpcdReadAddress + Index;
+
+		if ((DpcdReadIndex >= DpcdMap->StartAddr) &&
+					(DpcdReadIndex <= DpcdMapEndAddr)) {
+			Msg->Body.MsgData[ReplyIndex++] = DpcdMap->DataPtr[
+					DpcdReadIndex - DpcdMap->StartAddr];
+		}
+		else {
+			/* Supply garbage data if the read is out of range. */
+			Msg->Body.MsgData[ReplyIndex++] = 0x00;
+		}
+	}
+
+	Msg->Body.MsgDataLength = ReplyIndex;
+
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
