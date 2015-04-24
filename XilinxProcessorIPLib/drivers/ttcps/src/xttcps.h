@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -86,7 +86,8 @@
 * ----- ------ -------- -----------------------------------------------------
 * 1.00a drg/jz 01/20/10 First release..
 * 2.0   adk    12/10/13 Updated as per the New Tcl API's
-*
+* 3.0	pkp    12/09/14 Added support for Zynq Ultrascale Mp.Also code
+*			modified for MISRA-C:2012 compliance.
 * </pre>
 *
 ******************************************************************************/
