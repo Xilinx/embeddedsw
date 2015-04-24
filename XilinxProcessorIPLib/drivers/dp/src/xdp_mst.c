@@ -151,6 +151,7 @@ typedef struct
 static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg);
 static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDp_TxTopology *Topology,
 			u32 *Guid);
@@ -2635,6 +2636,91 @@ static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	}
 
 	Msg->Body.MsgDataLength = ReplyIndex;
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * to a REMOTE_I2C_READ down request.
+ *
+ * @param	Msg is a pointer to the message to be formatted.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	u8 Index;
+	u8 RequestIndex;
+	u8 PortNum;
+	u8 ReadIicAddr;
+	u8 ReadNumBytes;
+	u8 WriteIicAddr;
+	u8 WriteNumBytes;
+	u8 NumIicWriteTransactions;
+	XDp_RxIicMapEntry *MyIicMapEntry;
+
+	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountRemaining = 0;
+	Msg->Header.BroadcastMsg = 0;
+	Msg->Header.PathMsg = 0;
+	Msg->Header.MsgHeaderLength = 3;
+
+	NumIicWriteTransactions = Msg->Body.MsgData[1] & 0x03;
+
+	RequestIndex = 1;
+	PortNum = Msg->Body.MsgData[RequestIndex++] >> 4;
+
+	for (Index = 0; Index < NumIicWriteTransactions; Index++) {
+		WriteIicAddr = Msg->Body.MsgData[RequestIndex++] & 0x7F;
+		WriteNumBytes = Msg->Body.MsgData[RequestIndex++];
+
+		MyIicMapEntry = XDp_RxGetIicMapEntry(InstancePtr, PortNum,
+								WriteIicAddr);
+		if (!MyIicMapEntry || !MyIicMapEntry->IicAddress) {
+			/* There is no I2C entry defined with the specified I2C
+			 * address in the port's I2C map. */
+			return XST_FAILURE;
+		}
+		else if (WriteNumBytes == 1) {
+			/* The driver only supports 1 byte writes to an I2C
+			 * address. Otherwise, ignore the write. */
+			MyIicMapEntry->WriteVal =
+						Msg->Body.MsgData[RequestIndex];
+		}
+		RequestIndex += WriteNumBytes + 1;
+	}
+
+	ReadIicAddr = Msg->Body.MsgData[RequestIndex++];
+	ReadNumBytes = Msg->Body.MsgData[RequestIndex];
+
+	MyIicMapEntry = XDp_RxGetIicMapEntry(InstancePtr, PortNum, ReadIicAddr);
+	if (!MyIicMapEntry || !MyIicMapEntry->IicAddress) {
+		/* There is no I2C entry defined with the specified I2C address
+		 * in the port's I2C map. */
+		return XST_FAILURE;
+	}
+
+	Msg->Body.MsgData[0] = XDP_TX_SBMSG_REMOTE_I2C_READ;
+	Msg->Body.MsgData[1] = PortNum;
+	Msg->Body.MsgData[2] = ReadNumBytes;
+	for (Index = 0; Index < ReadNumBytes; Index++) {
+		if ((Index + MyIicMapEntry->WriteVal) <
+						MyIicMapEntry->ReadNumBytes) {
+			Msg->Body.MsgData[3 + Index] = MyIicMapEntry->ReadData[
+					Index + MyIicMapEntry->WriteVal];
+		}
+		else {
+			/* Supply garbage data if the read is out of range. */
+			Msg->Body.MsgData[3 + Index] = 0x00;
+		}
+	}
+	Msg->Body.MsgDataLength = 3 + Index;
+	Msg->Header.MsgBodyLength = Msg->Body.MsgDataLength + 1;
 
 	return XST_SUCCESS;
 }
