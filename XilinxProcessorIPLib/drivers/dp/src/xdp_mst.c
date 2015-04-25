@@ -148,10 +148,12 @@ typedef struct
 
 /**************************** Function Prototypes *****************************/
 
+static void XDp_RxSetLinkAddressReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg);
 static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDp_TxTopology *Topology,
 			u32 *Guid);
@@ -2509,6 +2511,30 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 
 	XDp_RxMstExposePort(InstancePtr, PortNum, 1);
 }
+
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * to a LINK_ADDRESS down request.
+ *
+ * @param	Msg is a pointer to the message to be formatted.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDp_RxSetLinkAddressReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountRemaining = 0;
+	Msg->Header.BroadcastMsg = 0;
+	Msg->Header.PathMsg = 0;
+	Msg->Header.MsgHeaderLength = 3;
+
+	XDp_RxDeviceInfoToRawData(InstancePtr, Msg);
+}
+
 /******************************************************************************/
 /**
  * This function will set and format a sideband message structure for replying
@@ -2723,6 +2749,87 @@ static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	Msg->Header.MsgBodyLength = Msg->Body.MsgDataLength + 1;
 
 	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * to a REMOTE_I2C_READ down request.
+ *
+ * @param	Msg is a pointer to the message to be formatted.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	u8 ReplyIndex = 0;
+	u8 PortIndex;
+	u8 GuidIndex;
+	XDp_RxTopology *Topology;
+	XDp_SbMsgLinkAddressReplyPortDetail *PortDetails;
+
+	Topology = &InstancePtr->RxInstance.Topology;
+
+	/* Determine the device information from the sideband message reply
+	* structure. */
+
+	Msg->Body.MsgData[ReplyIndex] = XDP_TX_SBMSG_LINK_ADDRESS;
+	ReplyIndex++;
+
+	for (GuidIndex = 0; GuidIndex < 16; GuidIndex++) {
+		Msg->Body.MsgData[ReplyIndex++] = (0xFF &
+			(Topology->LinkAddressInfo.Guid[GuidIndex / 4] >>
+			(8 * (3 - (GuidIndex % 4)))));
+	}
+
+	Msg->Body.MsgData[ReplyIndex++] = Topology->LinkAddressInfo.NumPorts;
+
+	/* For each port of the current device, obtain the details. */
+	for (PortIndex = 0; PortIndex < 16; PortIndex++) {
+		if (!Topology->Ports[PortIndex].Exposed) {
+			/* Current port is not exposed. */
+			continue;
+		}
+
+		PortDetails = &Topology->LinkAddressInfo.PortDetails[PortIndex];
+
+		Msg->Body.MsgData[ReplyIndex] = (PortDetails->InputPort << 7);
+		Msg->Body.MsgData[ReplyIndex] |=
+				((PortDetails->PeerDeviceType & 0x07) << 4);
+		Msg->Body.MsgData[ReplyIndex++] |=
+				(PortDetails->PortNum & 0x0F);
+		Msg->Body.MsgData[ReplyIndex] =
+				(PortDetails->MsgCapStatus << 7);
+		Msg->Body.MsgData[ReplyIndex] |=
+				((PortDetails->DpDevPlugStatus & 0x01) << 6);
+
+		if (PortDetails->InputPort) {
+			/* Input port does not carry more information. */
+			ReplyIndex++;
+			continue;
+		}
+
+		/* Get the port details of the downstream device. */
+		Msg->Body.MsgData[ReplyIndex++] |=
+			((PortDetails->LegacyDevPlugStatus & 0x01) << 5);
+		Msg->Body.MsgData[ReplyIndex++] = PortDetails->DpcdRev;
+
+		for (GuidIndex = 0; GuidIndex < 16; GuidIndex++) {
+			Msg->Body.MsgData[ReplyIndex++] =
+				(0xFF & (PortDetails->Guid[GuidIndex / 4] >>
+				(8 * (3 - (GuidIndex % 4)))));
+		}
+
+		Msg->Body.MsgData[ReplyIndex] =
+					(PortDetails->NumSdpStreams << 4);
+		Msg->Body.MsgData[ReplyIndex++] |=
+					(PortDetails->NumSdpStreamSinks & 0x0F);
+	}
+
+	Msg->Body.MsgDataLength = ReplyIndex;
 }
 
 /******************************************************************************/
