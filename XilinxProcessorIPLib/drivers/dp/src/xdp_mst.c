@@ -154,6 +154,7 @@ static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDp_TxTopology *Topology,
 			u32 *Guid);
@@ -2830,6 +2831,69 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	}
 
 	Msg->Body.MsgDataLength = ReplyIndex;
+}
+
+/******************************************************************************/
+/**
+ * This function will set the virtual channel payload table both in software and
+ * in the DisplayPort RX core's hardware registers based on the MST allocation
+ * values from ALLOCATE_PAYLOAD and CLEAR_PAYLOAD sideband message requests.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Msg is a pointer to the structure holding the ALLOCATE_PAYLOAD
+ *		sideband message. This is not required for CLEAR_PAYLOAD.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	u8 Index;
+	u8 *PayloadTable;
+	u32 RegVal;
+	u8 StreamId;
+	u8 StartTs;
+	u8 NumTs;
+	u8 PbnReq;
+
+	PayloadTable = &InstancePtr->RxInstance.Topology.PayloadTable[0];
+
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
+	StreamId = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
+	StartTs = (RegVal & XDP_RX_MST_ALLOC_START_TS_MASK) >>
+						XDP_RX_MST_ALLOC_START_TS_SHIFT;
+	NumTs = (RegVal & XDP_RX_MST_ALLOC_COUNT_TS_MASK) >>
+						XDP_RX_MST_ALLOC_COUNT_TS_SHIFT;
+	/* Set the virtual channel payload table in software using the MST
+	 * allocation values. */
+	memset(&PayloadTable[StartTs], StreamId, NumTs);
+
+	if (Msg->Body.MsgData[0] == XDP_TX_SBMSG_ALLOCATE_PAYLOAD) {
+		/* For ALLOCATE_PAYLOAD sideband messages, check the requested
+		 * PBN value for possible deletion requests. */
+		PbnReq = (Msg->Body.MsgData[3] << 8) | Msg->Body.MsgData[4];
+	}
+
+	for (Index = 0; Index < 64; Index++) {
+		if ((Msg->Body.MsgData[0] == XDP_TX_SBMSG_ALLOCATE_PAYLOAD) &&
+				!PbnReq && (PayloadTable[Index] == StreamId)) {
+			/* If the PBN value of the ALLOCATE_PAYLOAD sideband
+			 * message equals 0, delete the virtual channel. */
+			PayloadTable[Index] = 0;
+		}
+
+		/* Write payload table as configured in software to hardware. */
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+					XDP_RX_VC_PAYLOAD_TABLE + (Index * 4),
+					PayloadTable[Index]);
+	}
+
+	/* Indicate that the virtual channel payload table has been updated. */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP, RegVal |
+						XDP_RX_MST_CAP_VCP_UPDATE_MASK);
 }
 
 /******************************************************************************/
