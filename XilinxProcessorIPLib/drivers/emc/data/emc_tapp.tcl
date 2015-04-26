@@ -149,7 +149,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   # Get XPAR_ macro for each baseaddr param
   foreach baseaddr $baseaddrs {
-    lappend baseaddr_macros [::hsm::utils::get_ip_param_name $mhsinst $baseaddr]
+    lappend baseaddr_macros [::hsi::utils::get_ip_param_name $mhsinst $baseaddr]
   }
 
   foreach baseaddr $baseaddr_macros {
