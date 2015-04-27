@@ -129,7 +129,7 @@ u32 XFsbl_PartitionSignVer(u64 PartitionOffset, u32 PartitionLen,
 							    u64 AcOffset, u32 HashLen);
 u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
 
-u32 XFsbl_CheckPadding(u8 *Signature, u8 *Hash, u32 HashLen);
+u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
 
 void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 void XFsbl_ShaStart(void * Ctx, u32 HashLen);

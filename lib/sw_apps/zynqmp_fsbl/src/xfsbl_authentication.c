@@ -113,13 +113,13 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	/* Set SPK Signature pointer */
 	AcPtr += XFSBL_SPK_SIZE;
 
-	XSecure_RsaInitialize(&SecureRsa, AcPtr, PpkModular,
+	XSecure_RsaInitialize(&SecureRsa, PpkModular,
 			              PpkModularEx, (u8 *)&PpkExp);
 
 	/* Decrypt SPK Signature */
 
 	if(XFSBL_SUCCESS !=
-		XSecure_RsaDecrypt(&SecureRsa, XFsbl_RsaSha3Array))
+		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
 	{
 		XFsbl_Printf(DEBUG_GENERAL,
 			"XFsbl_SpkVer: XFSBL_ERROR_SPK_RSA_DECRYPT\r\n");
@@ -128,7 +128,7 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	}
 
 	/* Authenticate SPK Signature */
-	if(XFSBL_SUCCESS != XSecure_RsaCheckPadding(XFsbl_RsaSha3Array,
+	if(XFSBL_SUCCESS != XSecure_RsaSignVerification(XFsbl_RsaSha3Array,
 					                            SpkHash, HashLen))
 	{
 		XFsbl_PrintArray(DEBUG_INFO, SpkHash,
@@ -206,11 +206,11 @@ u32 XFsbl_PartitionSignVer(u64 PartitionOffset, u32 PartitionLen,
 	XFsbl_Printf(DEBUG_INFO,
 			"Partition Verification done \r\n");
 
-	XSecure_RsaInitialize(&SecureRsa, AcPtr, SpkModular,
+	XSecure_RsaInitialize(&SecureRsa, SpkModular,
 			              SpkModularEx, (u8 *)&SpkExp);
 	/* Decrypt Partition Signature. */
 	if(XFSBL_SUCCESS !=
-		XSecure_RsaDecrypt(&SecureRsa, XFsbl_RsaSha3Array))
+		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
 	{
 		XFsbl_Printf(DEBUG_GENERAL,
                         "XFsbl_SpkVer: XFSBL_ERROR_PART_RSA_DECRYPT\r\n");
@@ -219,7 +219,7 @@ u32 XFsbl_PartitionSignVer(u64 PartitionOffset, u32 PartitionLen,
 	}
 
 	/* Authenticate Partition Signature */
-	if(XFSBL_SUCCESS != XSecure_RsaCheckPadding(XFsbl_RsaSha3Array,
+	if(XFSBL_SUCCESS != XSecure_RsaSignVerification(XFsbl_RsaSha3Array,
 				PartitionHash, HashLen))
 	{
 		XFsbl_PrintArray(DEBUG_INFO, PartitionHash,
