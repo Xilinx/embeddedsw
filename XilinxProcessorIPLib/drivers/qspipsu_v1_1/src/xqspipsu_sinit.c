@@ -63,7 +63,7 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XQspiPsu_Config XQspiPsu_ConfigTable[];
+extern XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -85,7 +85,7 @@ extern XQspiPsu_Config XQspiPsu_ConfigTable[];
 XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId)
 {
 	XQspiPsu_Config *CfgPtr = NULL;
-	int Index;
+	s32 Index;
 
 	for (Index = 0; Index < XPAR_XQSPIPSU_NUM_INSTANCES; Index++) {
 		if (XQspiPsu_ConfigTable[Index].DeviceId == DeviceId) {
@@ -93,5 +93,5 @@ XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId)
 			break;
 		}
 	}
-	return CfgPtr;
+	return (XQspiPsu_Config *)CfgPtr;
 }
