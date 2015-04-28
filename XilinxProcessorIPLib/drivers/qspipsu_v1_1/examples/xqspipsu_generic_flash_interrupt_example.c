@@ -535,7 +535,10 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 	 * performing proceeding to any operation, including
 	 * preparing the WriteBuffer
 	 */
-	FlashReadID(QspiPsuInstancePtr);
+	Status = FlashReadID(QspiPsuInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	xil_printf("Flash connection mode : %d \n\r",
 			QspiPsuConfig->ConnectionMode);
@@ -589,16 +592,25 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 		ReadBuffer[Count] = 0;
 	}
 
-	FlashErase(QspiPsuInstancePtr, TEST_ADDRESS, MaxData, CmdBfr);
-
-	for (Page = 0; Page < PAGE_COUNT; Page++) {
-		FlashWrite(QspiPsuInstancePtr,
-			(Page * Flash_Config_Table[FCTIndex].PageSize) + TEST_ADDRESS,
-			Flash_Config_Table[FCTIndex].PageSize, WriteCmd, WriteBuffer);
+	Status = FlashErase(QspiPsuInstancePtr, TEST_ADDRESS, MaxData, CmdBfr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
-	FlashRead(QspiPsuInstancePtr, TEST_ADDRESS, MaxData, ReadCmd,
+	for (Page = 0; Page < PAGE_COUNT; Page++) {
+		Status = FlashWrite(QspiPsuInstancePtr,
+					(Page * Flash_Config_Table[FCTIndex].PageSize) + TEST_ADDRESS,
+					Flash_Config_Table[FCTIndex].PageSize, WriteCmd, WriteBuffer);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
+	Status = FlashRead(QspiPsuInstancePtr, TEST_ADDRESS, MaxData, ReadCmd,
 				CmdBfr, ReadBuffer);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 	/*
 	 * Setup a pointer to the start of the data that was read into the read
 	 * buffer and verify the data read is the data that was written
