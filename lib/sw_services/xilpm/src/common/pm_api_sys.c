@@ -100,7 +100,7 @@ static enum XPmStatus pm_ipi_send(const struct XPm_Master *const master,
 	u32 offset = 0;
 	u32 buffer_base = master->ipi->buffer_base
 		+ IPI_BUFFER_TARGET_PMU_OFFSET
-		+ IPI_BUFFER_REQ_OFFSET;
+		+ IPI_BUFFER_REQUEST_OFFSET;
 
 	/* Wait until previous interrupt is handled by PMU */
 	pm_ipi_wait(master);
@@ -194,7 +194,7 @@ enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 }
 
 /**
- * XPm_ReqSuspend() - PM call to request for another PU or subsystem to
+ * XPm_RequestSuspend() - PM call to request for another PU or subsystem to
  *		      be suspended gracefully.
  * @target	Node id of the targeted PU or subsystem
  * @ack		Flag to specify whether acknowledge is requested
@@ -203,7 +203,7 @@ enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId nid,
  *
  * @return	Returns status, either success or error+reason
  */
-enum XPmStatus XPm_ReqSuspend(const enum XPmNodeId target,
+enum XPmStatus XPm_RequestSuspend(const enum XPmNodeId target,
 				  const enum XPmRequestAck ack,
 				  const u32 latency, const u8 state)
 {
@@ -211,23 +211,23 @@ enum XPmStatus XPm_ReqSuspend(const enum XPmNodeId target,
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_REQ_SUSPEND, target, ack, latency, state);
+	PACK_PAYLOAD(payload, PM_REQUEST_SUSPEND, target, ack, latency, state);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((PM_RET_SUCCESS == ret) && (REQ_ACK_BLOCKING == ack))
+	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
 		return pm_ipi_buff_read32(primary_master, NULL);
 	else
 		return ret;
 }
 
 /**
- * XPm_ReqWakeUp() - PM call for master to wake up selected master or subsystem
+ * XPm_RequestWakeUp() - PM call for master to wake up selected master or subsystem
  * @node	Node id of the master or subsystem
  * @ack		Flag to specify whether acknowledge requested
  *
  * @return	Returns status, either success or error+reason
  */
-enum XPmStatus XPm_ReqWakeUp(const enum XPmNodeId target,
+enum XPmStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 				 const enum XPmRequestAck ack)
 {
 	enum XPmStatus ret;
@@ -236,10 +236,10 @@ enum XPmStatus XPm_ReqWakeUp(const enum XPmNodeId target,
 
 	XPm_ClientWakeup(master);
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_REQ_WAKEUP, target, ack, 0, 0);
+	PACK_PAYLOAD(payload, PM_REQUEST_WAKEUP, target, ack, 0, 0);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((PM_RET_SUCCESS == ret) && (REQ_ACK_BLOCKING == ack))
+	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
 		return pm_ipi_buff_read32(primary_master, NULL);
 	else
 		return ret;
@@ -263,7 +263,7 @@ enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 	PACK_PAYLOAD(payload, PM_FORCE_POWERDOWN, target, ack, 0, 0);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((PM_RET_SUCCESS == ret) && (REQ_ACK_BLOCKING == ack))
+	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
 		return pm_ipi_buff_read32(primary_master, NULL);
 	else
 		return ret;
@@ -331,7 +331,7 @@ enum XPmStatus XPm_SystemShutdown(const u8 restart)
 /* APIs for managing PM slaves: */
 
 /**
- * XPm_ReqNode() - PM call to request a node with specifc capabilities
+ * XPm_RequestNode() - PM call to request a node with specifc capabilities
  * @node	Node id of the slave
  * @capabilities Requested capabilities of the slave
  * @qos		Quality of service (not supported)
@@ -339,7 +339,7 @@ enum XPmStatus XPm_SystemShutdown(const u8 restart)
  *
  * @return	Returns status, either success or error+reason
  */
-enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
+enum XPmStatus XPm_RequestNode(const enum XPmNodeId node,
 			       const u32 capabilities,
 			       const u32 qos,
 			       const enum XPmRequestAck ack)
@@ -347,10 +347,10 @@ enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
 	enum XPmStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD(payload, PM_REQ_NODE, node, capabilities, qos, ack);
+	PACK_PAYLOAD(payload, PM_REQUEST_NODE, node, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((PM_RET_SUCCESS == ret) && (REQ_ACK_BLOCKING == ack))
+	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
 		return pm_ipi_buff_read32(primary_master, NULL);
 	else
 		return ret;
@@ -377,7 +377,7 @@ enum XPmStatus XPm_SetRequirement(const enum XPmNodeId nid,
 	PACK_PAYLOAD(payload, PM_SET_REQUIREMENT, nid, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((PM_RET_SUCCESS == ret) && (REQ_ACK_BLOCKING == ack))
+	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
 		return pm_ipi_buff_read32(primary_master, NULL);
 	else
 		return ret;

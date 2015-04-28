@@ -38,7 +38,7 @@
 enum XPmBootStatus XPm_GetBootStatus();
 
 /* System-level API function declarations */
-enum XPmStatus XPm_ReqSuspend(const enum XPmNodeId node,
+enum XPmStatus XPm_RequestSuspend(const enum XPmNodeId node,
 				  const enum XPmRequestAck ack,
 				  const u32 latency,
 				  const u8 state);
@@ -52,7 +52,7 @@ enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId node,
 
 enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason);
 
-enum XPmStatus XPm_ReqWakeUp(const enum XPmNodeId node,
+enum XPmStatus XPm_RequestWakeUp(const enum XPmNodeId node,
 				 const enum XPmRequestAck ack);
 
 enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
@@ -62,7 +62,7 @@ enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 enum XPmStatus XPm_SystemShutdown(const u8 restart);
 
 /* API functions for managing PM Slaves */
-enum XPmStatus XPm_ReqNode(const enum XPmNodeId node,
+enum XPmStatus XPm_RequestNode(const enum XPmNodeId node,
 			       const u32 capabilities,
 			       const u32 qos,
 			       const enum XPmRequestAck ack);

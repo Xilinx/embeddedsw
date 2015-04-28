@@ -148,13 +148,13 @@ static void PrepareSuspend(void)
 	/* APU */
 	XPm_SelfSuspend(NODE_APU_0, MAX_LATENCY, 0);
 	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_0, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_OCM_BANK_0, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_1, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_OCM_BANK_1, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_2, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_OCM_BANK_2, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_3, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_OCM_BANK_3, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
 
 	/*
@@ -173,13 +173,13 @@ static void PrepareSuspend(void)
 	/* RPU */
 	XPm_SelfSuspend(NODE_RPU_0, MAX_LATENCY, 0);
 	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_0_A, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_TCM_0_A, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_0_B, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_TCM_0_B, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_1_A, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_TCM_1_A, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_1_B, PM_CAP_CONTEXT, 0, REQ_ACK_NO);
+	XPm_SetRequirement(NODE_TCM_1_B, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
 
 	/*
