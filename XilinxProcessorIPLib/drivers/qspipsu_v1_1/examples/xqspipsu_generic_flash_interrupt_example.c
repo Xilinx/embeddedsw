@@ -1236,9 +1236,8 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		/* Update Dummy cycles as per flash specs for QUAD IO */
 
 		/*
-		 * Silicon and REMUS do not care what the SPI mode is
-		 * for dummies, but QEMU expects it to match the address
-		 * phase. Make it so.
+		 * Bus width of dummy phase is recommended to be the same as
+		 * address phase
 		 */
 		FlashMsg[1].BusWidth = FlashMsg[0].BusWidth;
 
