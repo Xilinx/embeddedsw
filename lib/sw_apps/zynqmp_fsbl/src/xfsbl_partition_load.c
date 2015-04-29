@@ -885,16 +885,20 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 DestinationCpu=0U;
 	u32 ExecState=0U;
 	u32 CpuNo=0U;
-	u32 ImageOffset = 0U;
-#ifdef XFSBL_RSA
-	u32 Length=0U;
+	XFsblPs_PartitionHeader * PartitionHeader;
+#if defined(XFSBL_RSA)
 	u32 HashLen=0U;
 #endif
-	u64 LoadAddress=0U;
-	XFsblPs_PartitionHeader * PartitionHeader;
+#if defined(XFSBL_AES)
+	u32 ImageOffset = 0U;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U];
 	u32 UnencryptedLength;
 	u32 IvLocation;
+#endif
+#if defined(XFSBL_RSA) || defined(XFSBL_AES)
+	u32 Length=0U;
+	u64 LoadAddress=0U;
+#endif
 
 	/**
 	 * Update the variables
@@ -967,6 +971,20 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 */
 	}
 
+#if defined(XFSBL_RSA) || defined(XFSBL_AES)
+	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE))
+	{
+		LoadAddress = PartitionHeader->DestinationLoadAddress;
+		Length = PartitionHeader->TotalDataWordLength * 4U;
+		Status = XFsbl_GetLoadAddress(DestinationCpu,
+				&LoadAddress, Length);
+		if (XFSBL_SUCCESS != Status)
+		{
+			goto END;
+		}
+	}
+#endif
+
 	/**
 	 * Authentication Check
 	 */
@@ -985,15 +1003,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			HashLen = XFSBL_HASH_TYPE_SHA2;
 		} else {
 			HashLen = XFSBL_HASH_TYPE_SHA3;
-		}
-
-		LoadAddress = PartitionHeader->DestinationLoadAddress;
-		Length = PartitionHeader->TotalDataWordLength * 4U;
-		Status = XFsbl_GetLoadAddress(DestinationCpu,
-				&LoadAddress, Length);
-		if (XFSBL_SUCCESS != Status)
-		{
-			goto END;
 		}
 
 		/**
