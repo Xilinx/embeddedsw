@@ -151,6 +151,7 @@ typedef struct
 static void XDp_RxSetLinkAddressReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg);
 static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
+static void XDp_RxSetEnumPathResReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
@@ -2619,6 +2620,44 @@ static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg)
 	Msg->Body.MsgData[ReplyIndex++] = Pbn & 0xFF;
 
 	Msg->Body.MsgDataLength = ReplyIndex;
+}
+
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * to an ENUMERATE_PATH_RESOURCES down request.
+ *
+ * @param       Msg is a pointer to the message to be formatted.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+static void XDp_RxSetEnumPathResReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+        u8 ReplyIndex = 0;
+        u8 PortNum;
+
+        Msg->Header.LinkCountTotal = 1;
+        Msg->Header.LinkCountRemaining = 0;
+        Msg->Header.BroadcastMsg = 0;
+        Msg->Header.PathMsg = 0;
+        Msg->Header.MsgHeaderLength = 3;
+
+        Msg->Body.MsgData[ReplyIndex++] = XDP_TX_SBMSG_ENUM_PATH_RESOURCES;
+
+	PortNum = Msg->Body.MsgData[ReplyIndex++] >> 4;
+        Msg->Body.MsgData[ReplyIndex++] =
+                InstancePtr->RxInstance.Topology.Ports[PortNum].FullPbn >> 8;
+        Msg->Body.MsgData[ReplyIndex++] =
+                InstancePtr->RxInstance.Topology.Ports[PortNum].FullPbn & 0xFF;
+        Msg->Body.MsgData[ReplyIndex++] =
+                InstancePtr->RxInstance.Topology.Ports[PortNum].AvailPbn >> 8;
+        Msg->Body.MsgData[ReplyIndex++] =
+                InstancePtr->RxInstance.Topology.Ports[PortNum].AvailPbn & 0xFF;
+
+        Msg->Body.MsgDataLength = ReplyIndex;
 }
 
 /******************************************************************************/
