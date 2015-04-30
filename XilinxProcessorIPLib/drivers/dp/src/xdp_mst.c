@@ -155,6 +155,7 @@ static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 			u8 *RelativeAddress, XDp_TxTopology *Topology,
 			u32 *Guid);
@@ -2515,6 +2516,27 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 
 /******************************************************************************/
 /**
+ * This function will set the available payload bandwidth number (PBN) of the
+ * specified port that is available for allocation, and the full PBN that the
+ * port is capable of using.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	PortNum is the port number to set the PBN values for.
+ * @param	PbnVal is the value to set the port's available and full PBN to.
+ *
+ * @return	None.
+ *
+ * @note	The available PBN is set to 100% of the full PBN.
+ *
+*******************************************************************************/
+void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal)
+{
+	InstancePtr->RxInstance.Topology.Ports[PortNum].FullPbn = PbnVal;
+	InstancePtr->RxInstance.Topology.Ports[PortNum].AvailPbn = PbnVal;
+}
+
+/******************************************************************************/
+/**
  * This function will set and format a sideband message structure for replying
  * to a LINK_ADDRESS down request.
  *
@@ -2894,6 +2916,49 @@ static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP, RegVal |
 						XDP_RX_MST_CAP_VCP_UPDATE_MASK);
+}
+
+/******************************************************************************/
+/**
+ * This function will set the available and full payload bandwidth numbers (PBN)
+ * based on CLEAR_PAYLOAD and ALLOCATE_PAYLOAD sideband messages.
+ *
+ * @param       InstancePtr is a pointer to the XDp instance.
+ * @param       Msg is a pointer to the structure holding the CLEAR_PAYLOAD or
+ *              ALLOCATE_PAYLOAD sideband message.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+        u8 Index;
+        u8 PortNum;
+        u16 PbnReq;
+        XDp_RxTopology *Topology;
+
+        Topology = &InstancePtr->RxInstance.Topology;
+
+        if (Msg->Body.MsgData[0] == XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE) {
+                for (Index = 0; Index < 16; Index++) {
+                        Topology->Ports[Index].AvailPbn =
+                                                Topology->Ports[Index].FullPbn;
+                }
+        }
+        else if (Msg->Body.MsgData[0] == XDP_TX_SBMSG_ALLOCATE_PAYLOAD) {
+                PortNum = Msg->Body.MsgData[1] >> 4;
+                PbnReq = (Msg->Body.MsgData[3] << 8) | Msg->Body.MsgData[4];
+
+                if (PbnReq) {
+                        Topology->Ports[PortNum].AvailPbn = 0;
+                }
+                else {
+                        Topology->Ports[PortNum].AvailPbn =
+                                        Topology->Ports[PortNum].FullPbn;
+                }
+        }
 }
 
 /******************************************************************************/

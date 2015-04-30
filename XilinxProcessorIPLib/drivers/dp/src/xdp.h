@@ -622,6 +622,11 @@ typedef struct {
 						message, it responds with the
 						associated DPCD map for the
 						requested port. */
+	u16 FullPbn;			/**< The payload bandwidth number (PBN)
+						associated with the sink
+						connected to this port. */
+	u16 AvailPbn;			/**< The available PBN of the sink
+						connected to this port. */
 	u8 Exposed;			/**< When set to 1, the RX branch device
 						will expose the port in the
 						LINK_ADDRESS reply. */
@@ -1050,6 +1055,7 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 			XDp_SbMsgLinkAddressReplyPortDetail *PortDetails);
 void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 			XDp_SbMsgLinkAddressReplyPortDetail *PortOverride);
+void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal);
 
 /* xdp_selftest.c: Self test function. */
 u32 XDp_SelfTest(XDp *InstancePtr);
