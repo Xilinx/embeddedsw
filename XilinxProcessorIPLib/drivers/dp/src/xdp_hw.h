@@ -1258,7 +1258,30 @@
 #define XDP_RX_INTERRUPT_MASK_TP3_MASK	0x40000 /**< Mask the interrupt
 							assertion for start of
 							training pattern 3. */
-#define XDP_RX_INTERRUPT_MASK_ALL_MASK	0x7FFFF /**< Mask all interrupts. */
+#define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
+					0x8000000 /**< Mask the interrupt
+							assertion caused for an
+							audio packet
+							overflow. */
+#define XDP_RX_INTERRUPT_MASK_PAYLOAD_ALLOC_MASK \
+					0x10000000 /**< Mask the interrupt
+							assertion for the RX's
+							DPCD payload allocation
+							registers that have been
+							updated as part of
+							(de-)allocation or
+							partial deletion. */
+#define XDP_RX_INTERRUPT_MASK_ACT_RX_MASK \
+					0x20000000 /**< Mask the interrupt
+							assertion for the ACT
+							sequence being
+							received. */
+#define XDP_RX_INTERRUPT_MASK_CRC_TEST_MASK \
+					0x40000000 /**< Mask the interrupt
+							assertion for the start
+							of a CRC test. */
+
+#define XDP_RX_INTERRUPT_MASK_ALL_MASK	0x7807FFFF /**< Mask all interrupts. */
 /* 0x018: MISC_CTRL */
 #define XDP_RX_MISC_CTRL_USE_FILT_MSA_MASK \
 					0x1	/**< When set, two matching
@@ -1365,6 +1388,24 @@
 		XDP_RX_INTERRUPT_MASK_TP3_MASK	/**< Interrupt caused by the
 							start of training
 							pattern 3. */
+#define XDP_RX_INTERRUPT_CAUSE_AUDIO_OVER_MASK \
+	XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK	/**< Interrupt caused by an
+							audio packet
+							overflow. */
+#define XDP_RX_INTERRUPT_CAUSE_PAYLOAD_ALLOC_MASK \
+	XDP_RX_INTERRUPT_MASK_PAYLOAD_ALLOC_MASK /**< Interrupt caused by the
+							RX's DPCD payload
+							allocation registers has
+							been updated as part of
+							(de-)allocation or
+							partial deletion. */
+#define XDP_RX_INTERRUPT_CAUSE_ACT_RX_MASK \
+	XDP_RX_INTERRUPT_MASK_ACT_RX_MASK	/**< Interrupt caused by the
+							ACT sequence being
+							received. */
+#define XDP_RX_INTERRUPT_CAUSE_CRC_TEST_MASK \
+	XDP_RX_INTERRUPT_MASK_CRC_TEST_MASK	/**< Interrupt caused by the
+							start of a CRC test. */
 /* 0x044: INTERRUPT_MASK_1 */
 #define XDP_RX_INTERRUPT_MASK_1_EXT_PKT_STREAM234_MASK(Stream) \
 		(0x00001 << ((Stream - 2) * 6))	/**< Mask the interrupt
