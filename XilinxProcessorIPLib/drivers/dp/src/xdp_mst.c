@@ -172,6 +172,7 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(
 static u32 XDp_TxGetFirstAvailableTs(XDp *InstancePtr, u8 *FirstTs);
 static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply);
 static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
 static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
@@ -2306,6 +2307,67 @@ void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 
 /******************************************************************************/
 /**
+ * This function will handle incoming sideband messages. It will
+ * 1) Read the contents of the down request registers,
+ * 2) Delegate control depending on the request type, and
+ * 3) Send a down reply.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the entire message was sent successfully.
+ *		- XST_DEVICE_NOT_FOUND if no device is connected.
+ *		- XST_ERROR_COUNT_MAX if sending one of the message fragments
+ *		  timed out.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_RxHandleDownReq(XDp *InstancePtr)
+{
+	XDp_SidebandMsg Msg;
+
+	XDp_RxReadDownReq(InstancePtr, &Msg);
+
+	switch (Msg.Body.MsgData[0]) {
+	case XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE:
+		XDp_RxAllocatePayload(InstancePtr, &Msg);
+		XDp_RxSetClearPayloadIdReply(&Msg);
+		XDp_RxSetAvailPbn(InstancePtr, &Msg);
+		break;
+
+	case XDP_TX_SBMSG_LINK_ADDRESS:
+		XDp_RxSetLinkAddressReply(InstancePtr, &Msg);
+		break;
+
+	case XDP_TX_SBMSG_REMOTE_I2C_READ:
+		XDp_RxSetRemoteIicReadReply(InstancePtr, &Msg);
+		break;
+
+	case XDP_TX_SBMSG_REMOTE_DPCD_READ:
+		XDp_RxSetRemoteDpcdReadReply(InstancePtr, &Msg);
+		break;
+
+	case XDP_TX_SBMSG_ENUM_PATH_RESOURCES:
+		XDp_RxSetEnumPathResReply(InstancePtr, &Msg);
+		break;
+
+	case XDP_TX_SBMSG_ALLOCATE_PAYLOAD:
+		XDp_RxAllocatePayload(InstancePtr, &Msg);
+		XDp_RxSetAllocPayloadReply(&Msg);
+		XDp_RxSetAvailPbn(InstancePtr, &Msg);
+		break;
+
+	default:
+		break;
+	}
+
+	return XDp_RxSendSbMsg(InstancePtr, &Msg);
+}
+
+/******************************************************************************/
+/**
  * This function returns a pointer to the I2C map entry at the supplied I2C
  * address for the specified port.
  *
@@ -3399,6 +3461,34 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	}
 
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function will read the raw sideband message down request and format it
+ * into the message structure.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Msg is a pointer to the message structure to be filled with the
+ *		read data.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	u8 Data[XDP_MAX_LENGTH_SBMSG];
+	u8 Index;
+
+	for (Index = 0; Index < XDP_MAX_LENGTH_SBMSG; Index++) {
+		Data[Index] = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_DOWN_REQ + (Index * 4));
+	}
+
+	Msg->FragmentNum = 0;
+	XDp_Transaction2MsgFormat(Data, Msg);
 }
 
 /******************************************************************************/

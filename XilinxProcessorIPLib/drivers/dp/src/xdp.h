@@ -1046,6 +1046,7 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 Guid[4]);
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u32 *Guid);
+u32 XDp_RxHandleDownReq(XDp *InstancePtr);
 XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 								u8 IicAddress);
 u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
