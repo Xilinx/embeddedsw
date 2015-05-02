@@ -650,6 +650,119 @@ void XDp_RxSetIntrDownReplyHandler(XDp *InstancePtr,
 
 /******************************************************************************/
 /**
+ * This function installs a callback function for when an audio packet overflow
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrAudioOverHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrAudioOverHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrAudioOverCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when the RX's DPCD payload
+ * allocation registers have been written for allocation, de-allocation, or
+ * partial deletion.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrPayloadAllocHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrPayloadAllocHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrPayloadAllocCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when an ACT received interrupt
+ * occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrActRxHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrActRxHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrActRxCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a CRC test start
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrCrcTestHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrCrcTestHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrCrcTestCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
  * This function is the interrupt handler for the XDp driver operating in TX
  * mode.
  *
@@ -799,5 +912,36 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_DOWN_REQUEST_MASK) {
 		InstancePtr->RxInstance.IntrDownReqHandler(
 			InstancePtr->RxInstance.IntrDownReqCallbackRef);
+	}
+
+	/* The RX has issued a down reply. */
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_DOWN_REPLY_MASK) {
+		InstancePtr->RxInstance.IntrDownReplyHandler(
+			InstancePtr->RxInstance.IntrDownReplyCallbackRef);
+	}
+
+	/* An audio packet overflow has occurred. */
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_AUDIO_OVER_MASK) {
+		InstancePtr->RxInstance.IntrAudioOverHandler(
+			InstancePtr->RxInstance.IntrAudioOverCallbackRef);
+	}
+
+	/* The RX's DPCD payload allocation registers have been written for
+	 * allocation, de-allocation, or partial deletion. */
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_PAYLOAD_ALLOC_MASK) {
+		InstancePtr->RxInstance.IntrPayloadAllocHandler(
+			InstancePtr->RxInstance.IntrPayloadAllocCallbackRef);
+	}
+
+	/* The ACT sequence has been received. */
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_ACT_RX_MASK) {
+		InstancePtr->RxInstance.IntrActRxHandler(
+			InstancePtr->RxInstance.IntrActRxCallbackRef);
+	}
+
+	/* The CRC test has started. */
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_CRC_TEST_MASK) {
+		InstancePtr->RxInstance.IntrCrcTestHandler(
+			InstancePtr->RxInstance.IntrCrcTestCallbackRef);
 	}
 }

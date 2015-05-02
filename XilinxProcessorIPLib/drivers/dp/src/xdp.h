@@ -842,6 +842,34 @@ typedef struct {
 							passed to the down
 							reply callback
 							function. */
+	XDp_IntrHandler IntrAudioOverHandler;	/**< Callback function for audio
+							packet overflow
+							interrupts. */
+	void *IntrAudioOverCallbackRef;		/**< A pointer to the user data
+							passed to the audio
+							packet overflow callback
+							function. */
+	XDp_IntrHandler IntrPayloadAllocHandler; /**< Callback function for
+							payload allocation
+							interrupts. */
+	void *IntrPayloadAllocCallbackRef;	/**< A pointer to the user data
+							passed to the payload
+							allocation callback
+							function. */
+	XDp_IntrHandler IntrActRxHandler;	/**< Callback function for ACT
+							sequence received
+							interrupts. */
+	void *IntrActRxCallbackRef;		/**< A pointer to the user data
+							passed to the ACT
+							sequence received
+							callback function. */
+	XDp_IntrHandler IntrCrcTestHandler;	/**< Callback function for CRC
+							test start
+							interrupts. */
+	void *IntrCrcTestCallbackRef;		/**< A pointer to the user data
+							passed to the CRC test
+							start callback
+							function. */
 } XDp_Rx;
 
 /**
@@ -977,6 +1005,14 @@ void XDp_RxSetIntrTp3Handler(XDp *InstancePtr,
 void XDp_RxSetIntrDownReqHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetIntrDownReplyHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrAudioOverHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrPayloadAllocHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrActRxHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrCrcTestHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
