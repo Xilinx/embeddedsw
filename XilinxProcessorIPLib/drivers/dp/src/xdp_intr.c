@@ -827,6 +827,7 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
+	u32 RegVal;
 
 	/* Determine what kind of interrupts have occurred.
 	 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
@@ -929,6 +930,12 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	/* The RX's DPCD payload allocation registers have been written for
 	 * allocation, de-allocation, or partial deletion. */
 	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_PAYLOAD_ALLOC_MASK) {
+		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+								XDP_RX_MST_CAP);
+		RegVal |= XDP_RX_MST_CAP_VCP_UPDATE_MASK;
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP,
+									RegVal);
+
 		InstancePtr->RxInstance.IntrPayloadAllocHandler(
 			InstancePtr->RxInstance.IntrPayloadAllocCallbackRef);
 	}
