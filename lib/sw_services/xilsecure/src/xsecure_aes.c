@@ -363,6 +363,10 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
+
 	/* Enable CSU DMA Src channel for byte swapping.*/
 	XCsuDma_Configure ConfigurValues = {0};
 
@@ -395,6 +399,12 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 		/* Wait for the Dst DMA completion. */
 		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+
+		/* Acknowledge the transfers has completed */
+		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+							XCSUDMA_IXR_DONE_MASK);
+		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+							XCSUDMA_IXR_DONE_MASK);
 
 		/* Disble CSU DMA Dst channel for byte swapping. */
 
@@ -435,6 +445,10 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	/* Wait for the Src DMA completion. */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
+
 	/* Restore Key write register to 0. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0);
@@ -445,6 +459,10 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 	/* Wait for the Src DMA completion. */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
 
 	/* Disable CSU DMA Src channel for byte swapping. */
 

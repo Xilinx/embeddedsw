@@ -215,7 +215,7 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 
 	u32 Index = 0U;
 	u32 DataOffset = 0U;
-	u32 TmpIndex = 0;
+	s32 TmpIndex = 0;
 
 	/* Each of this loop will write 192 bits of data */
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
