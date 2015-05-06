@@ -144,6 +144,10 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				 ConfigReg);
 
+		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
+			InstancePtr->IsManualstart = TRUE;
+		}
+
 		Status = XST_SUCCESS;
 	}
 
@@ -211,6 +215,10 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 		 */
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				 ConfigReg);
+
+		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
+			InstancePtr->IsManualstart = FALSE;
+		}
 
 		Status = XST_SUCCESS;
 	}

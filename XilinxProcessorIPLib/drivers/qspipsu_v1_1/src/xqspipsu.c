@@ -144,6 +144,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		InstancePtr->GenFifoCS = XQSPIPSU_GENFIFO_CS_LOWER;
 		InstancePtr->GenFifoBus = XQSPIPSU_GENFIFO_BUS_LOWER;
 		InstancePtr->IsUnaligned = 0;
+		InstancePtr->IsManualstart = TRUE;
 
 		/* Select QSPIPSU */
 		XQspiPsu_Select(InstancePtr);
@@ -340,11 +341,11 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	u32 StatusReg;
 	u32 ConfigReg;
 	s32 Index;
-	u8 IsManualStart;
 	u32 QspiPsuStatusReg, DmaStatusReg;
 	u32 BaseAddress;
 	s32 Status;
 	s32 RxThr;
+	u32 IOPending = (u32)FALSE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -373,9 +374,6 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
 
-	/* Start if manual start */
-	IsManualStart = XQspiPsu_IsManualStart(InstancePtr);
-
 	/* Enable */
 	XQspiPsu_Enable(InstancePtr);
 
@@ -383,12 +381,11 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
 
 	/* list */
-	for (Index = 0; Index < (s32)NumMsg; Index++) {
-
-GENFIFO:
+	Index = 0;
+	while (Index < (s32)NumMsg) {
 		XQspiPsu_GenFifoEntryData(InstancePtr, Msg, Index);
 
-		if (IsManualStart == TRUE) {
+		if (InstancePtr->IsManualstart == TRUE) {
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 				XQspiPsu_ReadReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET) |
@@ -432,7 +429,8 @@ GENFIFO:
 						Msg[Index].RxBfrPtr += (InstancePtr->RxBytes -
 								(InstancePtr->RxBytes % 4));
 						InstancePtr->IsUnaligned = 1;
-						goto GENFIFO;
+						IOPending = (u32)TRUE;
+						break;
 					}
 					InstancePtr->RxBytes = 0;
 				}
@@ -460,7 +458,7 @@ GENFIFO:
 			((QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) == FALSE) ||
 			(InstancePtr->RxBytes != 0));
 
-		if(InstancePtr->IsUnaligned != 0) {
+		if((InstancePtr->IsUnaligned != 0) && (IOPending == (u32)FALSE)) {
 			InstancePtr->IsUnaligned = 0;
 			XQspiPsu_WriteReg(BaseAddress,
 				XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
@@ -469,12 +467,18 @@ GENFIFO:
 				XQSPIPSU_CFG_MODE_EN_DMA_MASK));
 			InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
 		}
+
+		if (IOPending == (u32)TRUE) {
+			IOPending = (u32)FALSE;
+		} else {
+			Index++;
+		}
 	}
 
 	/* De-select slave */
 	XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 
-	if (IsManualStart == TRUE) {
+	if (InstancePtr->IsManualstart == TRUE) {
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
 				XQSPIPSU_CFG_START_GEN_FIFO_MASK);
@@ -520,7 +524,6 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	u32 StatusReg;
 	u32 ConfigReg;
 	s32 Index;
-	u8 IsManualStart;
 	u32 BaseAddress;
 	s32 Status;
 
@@ -551,9 +554,6 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
 
-	/* Start if manual start */
-	IsManualStart = XQspiPsu_IsManualStart(InstancePtr);
-
 	InstancePtr->Msg = Msg;
 	InstancePtr->NumMsg = (s32)NumMsg;
 	InstancePtr->MsgCnt = 0;
@@ -568,7 +568,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* Put first message in FIFO along with the above slave select */
 	XQspiPsu_GenFifoEntryData(InstancePtr, Msg, 0);
 
-	if (IsManualStart == TRUE) {
+	if (InstancePtr->IsManualstart == TRUE) {
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
 				XQSPIPSU_CFG_START_GEN_FIFO_MASK);
@@ -604,7 +604,6 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 ******************************************************************************/
 s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 {
-	u8 IsManualStart;
 	u32 QspiPsuStatusReg, DmaIntrStatusReg = 0;
 	u32 BaseAddress;
 	XQspiPsu_Msg *Msg;
@@ -621,9 +620,6 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	Msg = InstancePtr->Msg;
 	NumMsg = InstancePtr->NumMsg;
 	MsgCnt = InstancePtr->MsgCnt;
-
-	/* Start if manual start */
-	IsManualStart = XQspiPsu_IsManualStart(InstancePtr);
 
 	/* QSPIPSU Intr cleared on read */
 	QspiPsuStatusReg = XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_ISR_OFFSET);
@@ -679,7 +675,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 				InstancePtr->IsUnaligned = 1;
 				XQspiPsu_GenFifoEntryData(InstancePtr, Msg,
 						MsgCnt);
-				if(IsManualStart == TRUE) {
+				if(InstancePtr->IsManualstart == TRUE) {
 					XQspiPsu_WriteReg(BaseAddress,
 						XQSPIPSU_CFG_OFFSET,
 						XQspiPsu_ReadReg(BaseAddress,
@@ -752,7 +748,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			/* This might not work if not manual start */
 			XQspiPsu_GenFifoEntryData(InstancePtr, Msg, MsgCnt);
 
-			if (IsManualStart == TRUE) {
+			if (InstancePtr->IsManualstart == TRUE) {
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET,
 					XQspiPsu_ReadReg(BaseAddress,
@@ -767,7 +763,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			/* De-select slave */
 			XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 
-			if (IsManualStart == TRUE) {
+			if (InstancePtr->IsManualstart == TRUE) {
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET,
 					XQspiPsu_ReadReg(BaseAddress,
@@ -1011,7 +1007,7 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 	Xil_AssertVoid(Msg->TxBfrPtr != NULL);
 
 	while ((InstancePtr->TxBytes > 0) && (Count < Size)) {
-		Data = *((u32*)(Msg->TxBfrPtr));
+		Data = *((u32 *)((void *)(Msg->TxBfrPtr)));
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_TXD_OFFSET, Data);
 		Msg->TxBfrPtr += 4;
@@ -1245,19 +1241,16 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 		Data = XQspiPsu_ReadReg(InstancePtr->
 				Config.BaseAddress, XQSPIPSU_RXD_OFFSET);
 		if (InstancePtr->RxBytes >= 4) {
-			*(u32 *)Msg->RxBfrPtr = Data;
+			(void)memcpy(Msg->RxBfrPtr, &Data, 4);
 			InstancePtr->RxBytes -= 4;
 			Msg->RxBfrPtr += 4;
 			Count += 4;
 		} else {
 			/* Read unaligned bytes (< 4 bytes) */
-			while (InstancePtr->RxBytes != 0) {
-				*Msg->RxBfrPtr = (u8)Data;
-				InstancePtr->RxBytes--;
-				Msg->RxBfrPtr += 1;
-				Count++;
-				Data >>= (u32)8;
-			}
+			(void)memcpy(Msg->RxBfrPtr, &Data, InstancePtr->RxBytes);
+			Msg->RxBfrPtr += InstancePtr->RxBytes;
+			Count += InstancePtr->RxBytes;
+			InstancePtr->RxBytes = 0;
 		}
 	}
 }

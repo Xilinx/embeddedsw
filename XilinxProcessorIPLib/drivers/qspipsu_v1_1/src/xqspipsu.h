@@ -127,7 +127,7 @@ extern "C" {
  *		requested if the status event indicates an error.
  */
 typedef void (*XQspiPsu_StatusHandler) (void *CallBackRef, u32 StatusEvent,
-					unsigned ByteCount);
+					u32 ByteCount);
 
 /**
  * This typedef contains configuration information for a flash message.
@@ -173,6 +173,7 @@ typedef struct {
 	s32 NumMsg;
 	s32 MsgCnt;
 	s32 IsUnaligned;
+	u8 IsManualstart;
 	XQspiPsu_Msg *Msg;
 	XQspiPsu_StatusHandler StatusHandler;
 	void *StatusRef;  	 /**< Callback reference for status handler */
@@ -228,8 +229,6 @@ typedef struct {
 #define XQspiPsu_Enable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK)
 
 #define XQspiPsu_Disable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, 0x0U)
-
-#define XQspiPsu_IsManualStart(InstancePtr) (((XQspiPsu_GetOptions(InstancePtr) & XQSPIPSU_MANUAL_START_OPTION) != FALSE) ? TRUE : FALSE)
 
 /************************** Function Prototypes ******************************/
 
