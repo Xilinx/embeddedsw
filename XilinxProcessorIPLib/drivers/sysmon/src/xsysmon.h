@@ -199,7 +199,8 @@
 *			and XSysMon_GetAlarmThreshold in xsysmon.c.
 *			Modified driver tcl to generate XPAR_SYSMON_0_IP_TYPE
 *			parameter.
-*
+* 7.1	bss  05/06/15 Modified temperature transfer function for
+* 					  for Ultrascale CR#859369
 * </pre>
 *
 *****************************************************************************/
@@ -460,9 +461,17 @@ typedef struct {
 *		float XSysMon_RawToTemperature(u32 AdcData);
 *
 *****************************************************************************/
+#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+
+#define XSysMon_RawToTemperature(AdcData)				\
+	((((float)(AdcData)/1024.0f)/0.00199451786f ) - 273.67f)
+
+#else
+
 #define XSysMon_RawToTemperature(AdcData)				\
 	((((float)(AdcData)/65536.0f)/0.00198421639f ) - 273.15f)
 
+#endif
 /****************************************************************************/
 /**
 *
@@ -493,9 +502,17 @@ typedef struct {
 *		int XSysMon_TemperatureToRaw(float Temperature);
 *
 *****************************************************************************/
+#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+
+#define XSysMon_TemperatureToRaw(Temperature)				\
+	((int)(((Temperature) + 273.67f)*1024.0f*0.00199451786f))
+
+#else
+
 #define XSysMon_TemperatureToRaw(Temperature)				\
 	((int)(((Temperature) + 273.15f)*65536.0f*0.00198421639f))
 
+#endif
 /****************************************************************************/
 /**
 *
