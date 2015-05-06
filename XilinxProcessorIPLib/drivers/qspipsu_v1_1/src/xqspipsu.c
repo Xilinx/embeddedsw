@@ -132,6 +132,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		InstancePtr->Config.BaseAddress = EffectiveAddr + XQSPIPSU_OFFSET;
 		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
 		InstancePtr->StatusHandler = StubStatusHandler;
+		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
