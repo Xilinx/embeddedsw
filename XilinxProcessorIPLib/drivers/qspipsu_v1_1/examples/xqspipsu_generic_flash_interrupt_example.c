@@ -313,7 +313,7 @@ static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiPsuIntrId
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
-u8 ReadBfrPtr[4];
+u8 ReadBfrPtr[3];
 FlashInfo Flash_Config_Table[24] = {
 		/* Spansion */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
@@ -682,7 +682,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 
 	FlashMsg[1].TxBfrPtr = NULL;
 	FlashMsg[1].RxBfrPtr = ReadBfrPtr;
-	FlashMsg[1].ByteCount = 4;
+	FlashMsg[1].ByteCount = 3;
 	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[1].Flags = 0;
 
@@ -831,7 +831,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 {
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
-	u8 FlashStatus[4];
+	u8 FlashStatus[2];
 	u8 WriteCmd[5];
 	u32 RealAddr;
 	u32 CmdByteCount;
@@ -922,7 +922,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 4;
+		FlashMsg[1].ByteCount = 2;
 		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[1].Flags = 0;
 		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
@@ -938,18 +938,18 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 
 		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
 			if(FSRFlag) {
-				FlashStatus[3] &= FlashStatus[2];
+				FlashStatus[1] &= FlashStatus[0];
 			} else {
-				FlashStatus[3] |= FlashStatus[2];
+				FlashStatus[1] |= FlashStatus[0];
 			}
 		}
 
 		if(FSRFlag) {
-			if ((FlashStatus[3] & 0x80) != 0) {
+			if ((FlashStatus[1] & 0x80) != 0) {
 				break;
 			}
 		} else {
-			if ((FlashStatus[3] & 0x01) == 0) {
+			if ((FlashStatus[1] & 0x01) == 0) {
 				break;
 			}
 		}
@@ -979,7 +979,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 {
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
-	u8 FlashStatus[4];
+	u8 FlashStatus[2];
 	int Sector;
 	u32 RealAddr;
 	u32 NumSect;
@@ -1132,7 +1132,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = FlashStatus;
-			FlashMsg[1].ByteCount = 4;
+			FlashMsg[1].ByteCount = 2;
 			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			FlashMsg[1].Flags = 0;
 			if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
@@ -1148,18 +1148,18 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 
 			if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
 				if(FSRFlag) {
-					FlashStatus[3] &= FlashStatus[2];
+					FlashStatus[1] &= FlashStatus[0];
 				} else {
-					FlashStatus[3] |= FlashStatus[2];
+					FlashStatus[1] |= FlashStatus[0];
 				}
 			}
 
 			if(FSRFlag) {
-				if ((FlashStatus[3] & 0x80) != 0) {
+				if ((FlashStatus[1] & 0x80) != 0) {
 					break;
 				}
 			} else {
-				if ((FlashStatus[3] & 0x01) == 0) {
+				if ((FlashStatus[1] & 0x01) == 0) {
 					break;
 				}
 			}
@@ -1298,7 +1298,7 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 {
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
-	u8 FlashStatus[4];
+	u8 FlashStatus[2];
 	int Status;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
@@ -1348,7 +1348,7 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 4;
+		FlashMsg[1].ByteCount = 2;
 		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[1].Flags = 0;
 		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
@@ -1364,18 +1364,18 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 
 		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
 			if(FSRFlag) {
-				FlashStatus[3] &= FlashStatus[2];
+				FlashStatus[1] &= FlashStatus[0];
 			} else {
-				FlashStatus[3] |= FlashStatus[2];
+				FlashStatus[1] |= FlashStatus[0];
 			}
 		}
 
 		if(FSRFlag) {
-			if ((FlashStatus[3] & 0x80) != 0) {
+			if ((FlashStatus[1] & 0x80) != 0) {
 				break;
 			}
 		} else {
-			if ((FlashStatus[3] & 0x01) == 0) {
+			if ((FlashStatus[1] & 0x01) == 0) {
 				break;
 			}
 		}
@@ -1403,7 +1403,7 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	u8 WriteEnableCmd;
 	u8 DieCnt;
 	u8 ReadStatusCmd;
-	u8 FlashStatus[4];
+	u8 FlashStatus[2];
 	int Status;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
@@ -1459,7 +1459,7 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = FlashStatus;
-			FlashMsg[1].ByteCount = 4;
+			FlashMsg[1].ByteCount = 2;
 			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			FlashMsg[1].Flags = 0;
 			if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
@@ -1475,18 +1475,18 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 
 			if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
 				if(FSRFlag) {
-					FlashStatus[3] &= FlashStatus[2];
+					FlashStatus[1] &= FlashStatus[0];
 				} else {
-				FlashStatus[3] |= FlashStatus[2];
+				FlashStatus[1] |= FlashStatus[0];
 				}
 			}
 
 			if(FSRFlag) {
-				if ((FlashStatus[3] & 0x80) != 0) {
+				if ((FlashStatus[1] & 0x80) != 0) {
 					break;
 				}
 			} else {
-				if ((FlashStatus[3] & 0x01) == 0) {
+				if ((FlashStatus[1] & 0x01) == 0) {
 					break;
 				}
 			}
