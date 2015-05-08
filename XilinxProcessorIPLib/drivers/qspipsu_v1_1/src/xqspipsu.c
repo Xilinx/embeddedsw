@@ -1008,12 +1008,20 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 	Xil_AssertVoid(Msg->TxBfrPtr != NULL);
 
 	while ((InstancePtr->TxBytes > 0) && (Count < Size)) {
-		Data = *((u32 *)((void *)(Msg->TxBfrPtr)));
+		if (InstancePtr->TxBytes >= 4) {
+			(void)memcpy(&Data, Msg->TxBfrPtr, 4);
+			Msg->TxBfrPtr += 4;
+			InstancePtr->TxBytes -= 4;
+			Count += 4;
+		} else {
+			(void)memcpy(&Data, Msg->TxBfrPtr, InstancePtr->TxBytes);
+			Msg->TxBfrPtr += InstancePtr->TxBytes;
+			Count += InstancePtr->TxBytes;
+			InstancePtr->TxBytes = 0;
+		}
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_TXD_OFFSET, Data);
-		Msg->TxBfrPtr += 4;
-		InstancePtr->TxBytes -= 4;
-		Count++;
+
 	}
 	if (InstancePtr->TxBytes < 0) {
 		InstancePtr->TxBytes = 0;
@@ -1148,6 +1156,16 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
 	}
 
+	/* If Byte Count is less than 8 bytes do the transfer in IO mode */
+	if ((Msg[Index].ByteCount < 8U) &&
+		(InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA)) {
+			InstancePtr->ReadMode = XQSPIPSU_READMODE_IO;
+			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
+				(XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) &
+						~XQSPIPSU_CFG_MODE_EN_MASK));
+			InstancePtr->IsUnaligned = 1;
+	}
+
 	XQspiPsu_TXRXSetup(InstancePtr, &Msg[Index], &GenFifoEntry);
 
 	if (Msg[Index].ByteCount < XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
@@ -1182,6 +1200,14 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			XQspiPsu_WriteReg(BaseAddress,
 				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 		}
+	}
+
+	/* One dummy GenFifo entry in case of IO mode */
+	if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_IO) &&
+			(InstancePtr->RecvBufferPtr != NULL)) {
+		GenFifoEntry = 0x0U;
+		XQspiPsu_WriteReg(BaseAddress,
+				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 	}
 }
 
