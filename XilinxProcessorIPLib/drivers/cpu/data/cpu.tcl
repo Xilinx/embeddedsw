@@ -272,6 +272,36 @@ proc generate {drv_handle} {
 	# We dont need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
 	if {[string compare "psu_microblaze" $proctype] == 0} {
+
+		# Setup the compiler flags as per HW Params
+		set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
+		set shift [common::get_property CONFIG.C_USE_BARREL $periph]
+		set pcmp [common::get_property CONFIG.C_USE_PCMP_INSTR $periph]
+		set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
+
+		set vlnv_string [common::get_property VLNV $periph]
+		set cpu_version [lindex [lreverse [split $vlnv_string :]] 0]
+
+		set compiler_flags ""
+
+		if {[string compare -nocase "1" $endian] == 0 } {
+			append compiler_flags " -mlittle-endian"
+		}
+		if {[string compare -nocase "1" $shift] == 0 } {
+			append compiler_flags " -mxl-barrel-shift"
+		}
+		if {[string compare -nocase "1" $pcmp] == 0 } {
+			append compiler_flags " -mxl-pattern-compare"
+		}
+		if {[string compare -nocase "0" $multiply] == 0 } {
+			append compiler_flags " -mxl-soft-mul"
+		}
+
+		append compiler_flags " -mcpu=v" $cpu_version
+
+		common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
+
+		# Generate the Parameters
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
 		puts $file_handle "#define XPARAMETERS_H   /* by using protection macros */"
