@@ -267,6 +267,47 @@ proc generate {drv_handle} {
         }
         cd $pwd
     }
+	#------------------------------------------------------------------------------
+	# If the processor is PMU Microblaze, then generate required params and return
+	# We dont need the Parameters being generated after this code block
+	#------------------------------------------------------------------------------
+	if {[string compare "psu_microblaze" $proctype] == 0} {
+		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
+		puts $file_handle "#define XPARAMETERS_H   /* by using protection macros */"
+		puts $file_handle ""
+		set params [list]
+		lappend reserved_param_list "C_DEVICE" "C_PACKAGE" "C_SPEEDGRADE" "C_FAMILY" "C_INSTANCE" "C_KIND_OF_EDGE" "C_KIND_OF_LVL" "C_KIND_OF_INTR" "C_NUM_INTR_INPUTS" "C_MASK" "C_NUM_MASTERS" "C_NUM_SLAVES" "C_LMB_AWIDTH" "C_LMB_DWIDTH" "C_LMB_MASK" "C_LMB_NUM_SLAVES" "INSTANCE" "HW_VER"
+		# Print all parameters for psu_microblaze with XPAR_MICROBLAZE prefix
+		puts $file_handle ""
+		puts $file_handle "/* Definitions for PMU Microblaze */"
+		set params ""
+		set params [common::list_property $periph CONFIG.*]
+		foreach param $params {
+			set param_name [string range $param [string length "CONFIG."] [string length $param]]
+			set posn [lsearch -exact $reserved_param_list $param_name]
+			if {$posn == -1 } {
+				set param_value [common::get_property $param $periph]
+				if {$param_value != ""} {
+					set param_value [::hsi::utils::format_addr_string $param_value $param_name]
+					set name "XPAR_MICROBLAZE_"
+					if {[string match C_* $param_name]} {
+						set name [format "%s%s" $name [string range $param_name 2 end]]
+					} else {
+						set name [format "%s%s" $name $param_name]
+					}
+					puts $file_handle "#define [string toupper $name] $param_value"
+				}
+			}
+		}
+		# Define the Clock Param
+		puts $file_handle "\n/******************************************************************/\n"
+		puts $file_handle "#define XPAR_CPU_CORE_CLOCK_FREQ_HZ XPAR_MICROBLAZE_FREQ"
+		puts $file_handle "\n/******************************************************************/\n"
+		close $file_handle
+		# We have generated all the params required for PMU MICROBLAZE. So just return
+		return
+	}
 
     #--------------------------
     # Handle the Bus Frequency
