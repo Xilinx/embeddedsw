@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,8 @@
 *			  Changed API:
 *				WriteData()
 *				XIsf_Write()
+* 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
+* 						  which supports 4 byte addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -236,10 +238,10 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(WriteParamPtr != NULL);
 			Status = WriteData(InstancePtr,
-					XISF_CMD_PAGEPROG_WRITE,
-					WriteParamPtr->Address,
-					WriteParamPtr->WritePtr,
-					WriteParamPtr->NumBytes);
+				XISF_CMD_PAGEPROG_WRITE,
+				WriteParamPtr->Address,
+				WriteParamPtr->WritePtr,
+				WriteParamPtr->NumBytes);
 			break;
 
 		case XISF_AUTO_PAGE_WRITE:
@@ -348,9 +350,6 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			break;
 	}
 
-	/*
-	 * Get the Transfer Mode
-	 */
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
 	if(Mode == XISF_INTERRUPT_MODE){
@@ -448,17 +447,34 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 		XIsf_SetTransferMode(InstancePtr, Mode);
 	}
 #endif
-
-	InstancePtr->WriteBufPtr[BYTE1] = Command;
-	InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
-	InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
-	InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
-
-	for(Index = 4U; Index < (ByteCount + XISF_CMD_SEND_EXTRA_BYTES);
-								Index++) {
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		InstancePtr->WriteBufPtr[BYTE1] = Command;
+		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT24);
+		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		InstancePtr->WriteBufPtr[BYTE5] = (u8) (RealAddr);
+		for(Index = 5U; Index < (ByteCount + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
+													Index++) {
 			InstancePtr->WriteBufPtr[Index] = *LocalBufPtr;
 			LocalBufPtr += 1;
+		}
+	} else {
+#endif
+		InstancePtr->WriteBufPtr[BYTE1] = Command;
+		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
+		for(Index = 4U; Index < (ByteCount + XISF_CMD_SEND_EXTRA_BYTES);
+										Index++) {
+			InstancePtr->WriteBufPtr[Index] = *LocalBufPtr;
+			LocalBufPtr += 1;
+		}
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	}
+#endif
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	/*
@@ -466,11 +482,13 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	 */
 	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
 #endif
-	/*
-	 * Initiate the Transfer.
-	 */
-	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULLPtr,
-				(ByteCount + XISF_CMD_SEND_EXTRA_BYTES));
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULLPtr,
+							(ByteCount + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE));
+	} else {
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULLPtr,
+					(ByteCount + XISF_CMD_SEND_EXTRA_BYTES));
+	}
 	if (Status != (int)XST_SUCCESS) {
 		return (int)XST_FAILURE;
 	}

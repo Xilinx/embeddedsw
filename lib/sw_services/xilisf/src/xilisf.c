@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -89,6 +89,9 @@
 *				- XIsf_Ioctl()
 * 5.1   sb	 12/23/14 Added check for flash interface for Winbond, Spansion
 *			  and Micron flash family for PSQSPI.
+* 5.2   asa  05/12/15 Added APIs to support 4 byte addressing for Micron flash.
+*                     2 APIs were added, one to enter into 4 byte mode and the other
+*                     to exit from the same.
 *
 * </pre>
 *
@@ -187,9 +190,7 @@ int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
-    (XPAR_XISF_FLASH_FAMILY == SST) || (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-    (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+#if (((XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 #endif /* (((XPAR_XISF_FLASH_FAMILY == INTEL) ||	\
@@ -388,6 +389,10 @@ static const IntelStmDeviceGeometry IntelStmDevices[] = {
 	{XISF_MANUFACTURER_ID_SST, XISF_SST_DEV_SST25WF080,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS256},
+
+	{XISF_MANUFACTURER_ID_MICRON, XISF_MIC_DEV_N25Q256_3V0,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS512},
 
 };
 #endif /* (((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
@@ -598,6 +603,7 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 	if (Status != (int)(XST_SUCCESS)) {
 		return (int)(XST_FAILURE);
 	}
+
 #endif
 
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
@@ -1322,11 +1328,113 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 }
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST) || \
-	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+#if (((XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+/*****************************************************************************/
+/**
+*
+* This function enters the Micron flash device into 4 bytes addressing mode.
+* As per the Micron spec, before issuing the command to enter into 4 byte addr
+* mode, a write enable command is issued.
+*
+* @param	InstancePtr is a pointer to the XIsf instance.
+*
+* @return	- XST_SUCCESS
+*		    - XST_FAILURE
+*
+* @note		Applicable only for Micron flash devices
+*
+******************************************************************************/
+int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
+{
+	int Status;
+	u8* NULLPtr = NULL;
+	u8 Mode;
+
+	if (InstancePtr == NULL) {
+		return (int)(XST_FAILURE);
+	}
+
+	if (InstancePtr->IsReady != TRUE) {
+		return (int)(XST_FAILURE);
+	}
+
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		return (int)(XST_SUCCESS);
+	}
+
+	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_ENTER_4BYTE_ADDR_MODE;
+
+	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+			NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
+
+	Mode = XIsf_GetTransferMode(InstancePtr);
+
+	if(Mode == XISF_INTERRUPT_MODE){
+			InstancePtr->StatusHandler(InstancePtr,
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+	}
+
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
+	}
+
+	InstancePtr->FourByteAddrMode = TRUE;
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function exits the Micron flash device from 4 bytes addressing mode.
+* As per the Micron spec, before issuing this command a write enable command is
+* first issued.
+*
+* @param	InstancePtr is a pointer to the XIsf instance.
+*
+* @return	- XST_SUCCESS
+*		    - XST_FAILURE
+*
+* @note		Applicable only for Micron flash devices
+*
+******************************************************************************/
+int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
+{
+	int Status;
+	u8* NULLPtr = NULL;
+	u8 Mode;
+
+	if (InstancePtr == NULL) {
+		return (int)(XST_FAILURE);
+	}
+
+	if (InstancePtr->IsReady != TRUE) {
+		return (int)(XST_FAILURE);
+	}
+
+	if (InstancePtr->FourByteAddrMode == FALSE) {
+		return (int)(XST_SUCCESS);
+	}
+
+	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE;
+
+	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+			NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
+
+	Mode = XIsf_GetTransferMode(InstancePtr);
+
+	if(Mode == XISF_INTERRUPT_MODE){
+			InstancePtr->StatusHandler(InstancePtr,
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+	}
+
+	if (Status != (int)(XST_SUCCESS)) {
+		return (int)(XST_FAILURE);
+	}
+	InstancePtr->FourByteAddrMode = FALSE;
+	return Status;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -1378,6 +1486,7 @@ static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 			IntelStmDevices[Index].DeviceCode) &&
 			(ManufacturerID ==
 			IntelStmDevices[Index].ManufacturerID)) {
+			InstancePtr->ManufacturerID = IntelStmDevices[Index].ManufacturerID;
 			InstancePtr->BytesPerPage =
 				IntelStmDevices[Index].BytesPerPage;
 

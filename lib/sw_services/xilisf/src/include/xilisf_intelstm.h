@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,7 @@
 *			  Added support to SST flash on SPI PS interface.
 * 3.02a srt	 04/26/13 Modified SECTOR and BLOCK Erase commands for
 *			  SST flash (CR 703816).
+* 5.2   asa  05/12/15 Added macros for 4 byte commands.
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +117,8 @@ extern "C" {
 #define XISF_NM_DEV_N25Q64		0xBA17	/**< Device ID for N25Q64 */
 #define XISF_NM_DEV_N25Q128		0xBA18	/**< Device ID for N25Q128 */
 #define XISF_MIC_DEV_N25Q128		0xBB18	/**< Device ID for N25Q128 */
+#define XISF_MIC_DEV_N25Q256_3V0	0xBA19
+#define XISF_MIC_DEV_N25Q256_1V8	0xBB19
 
 /**
  * The following definitions specify the Device Id for the different
@@ -161,19 +164,26 @@ extern "C" {
  * Definitions of Read commands.
  */
 #define XISF_CMD_RANDOM_READ		0x03	/**< Random Read command  */
+#define XISF_CMD_RANDOM_READ_4BYTE  0x13    /**< Random 4 byte Read command  */
 #define XISF_CMD_FAST_READ		0x0B	/**< Fast Read command */
+#define XISF_CMD_FAST_READ_4BYTE	0x0C /**< 4 byte Fast Read command */
 #define XISF_CMD_ISFINFO_READ		0x9F	/**< Device Info command */
 #define XISF_CMD_STATUSREG_READ		0x05	/**< Status Reg Read command */
 #define XISF_CMD_STATUSREG2_READ	0x35	/**< Status Reg2 Read command */
 #define XISF_CMD_DUAL_OP_FAST_READ	0x3B	/**< Dual output fast read */
+#define XISF_CMD_DUAL_OP_FAST_READ_4B	0x3C /**< 4 byte Dual output fast read */
 #define XISF_CMD_DUAL_IO_FAST_READ	0xBB	/**< Dual i/o fast read */
+#define XISF_CMD_DUAL_IO_FAST_READ_4B	0xBC /**< 4 byte Dual i/o fast read */
 #define XISF_CMD_QUAD_OP_FAST_READ	0x6B	/**< Quad output fast read */
+#define XISF_CMD_QUAD_OP_FAST_READ_4B	0x6C /**< 4 byte Quad output fast read */
 #define XISF_CMD_QUAD_IO_FAST_READ	0xEB	/**< Quad i/o fast read */
+#define XISF_CMD_QUAD_IO_FAST_READ_4B	0xEC /**< 4 byte Quad i/o fast read */
 
 /**
  * Definitions of Write commands.
  */
 #define XISF_CMD_PAGEPROG_WRITE		0x02	/**< Page Program command */
+#define XISF_CMD_PAGEPROG_WRITE_4BYTE	0x12	/**< 4 byte Page Program command */
 #define XISF_CMD_STATUSREG_WRITE	0x01	/**< Status Reg Write Command */
 #define XISF_CMD_DUAL_IP_PAGE_WRITE	0xA2	/**< Dual input fast page write
 						  */
@@ -195,6 +205,7 @@ extern "C" {
 #define XISF_CMD_SECTOR_ERASE		0xD8	/**< Sector Erase command */
 #define XISF_CMD_SUB_SECTOR_ERASE	0x20	/**< Sub-sector Erase command.
 						  *  only for N25QXX */
+#define XISF_CMD_4BYTE_SECTOR_ERASE 0xDC
 #endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL)||(XPAR_XISF_FLASH_FAMILY == STM) ||
 	   (XPAR_XISF_FLASH_FAMILY == SPANSION)) */
 
@@ -207,6 +218,7 @@ extern "C" {
  * Definitions of commands used for
  *  - Write Enable/Disable.
  *  - Deep Power Down mode Enter/Release.
+ *  - Switch to 4 byte addressing
  */
 #define XISF_CMD_ENABLE_WRITE		0x06	/**< Write enable command */
 #define XISF_CMD_DISABLE_WRITE		0x04	/**< Write disable command */
@@ -216,6 +228,10 @@ extern "C" {
 #define XISF_CMD_ENABLE_HPM		0xA3	/**< Enable high performance
 						  *  mode */
 
+#if (XPAR_XISF_FLASH_FAMILY == SPANSION)
+#define XISF_CMD_ENTER_4BYTE_ADDR_MODE	0xB7
+#define XISF_CMD_EXIT_4BYTE_ADDR_MODE	0xE9
+#endif
 #if (XPAR_XISF_FLASH_FAMILY == INTEL)
 /**
  * Definitions of commands which are only supported in Intel Serial Flash.
@@ -274,12 +290,27 @@ extern "C" {
 						     *  command extra bytes */
 
 /**
+ * This definition specifies the extra bytes in 4 byte addr mode enter and exit
+ * commands. This count refers to the Command byte.
+ */
+#define XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES	1 /**< Four byte addr mode
+							 *  command extra bytes */
+/**
  * This definition specifies the extra bytes in each of the Write/Read/Erase
  * commands, commands operating on SPR, auto page write, page to
  * buffer and buffer to page transfer commands. This count includes
  * Command byte, Address bytes and any don't care bytes needed.
  */
 #define XISF_CMD_SEND_EXTRA_BYTES	4	/**< Command extra bytes */
+
+/**
+ * This definition specifies the extra bytes in each of the Write/Read/Erase
+ * commands, commands operating on SPR, auto page write, page to
+ * buffer and buffer to page transfer commands in 4 bytes addressing mode.
+ * This count includes Command byte, Address bytes and any
+ * don't care bytes needed.
+ */
+#define XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE	5 /**< Command extra bytes */
 
 /**
  * This definition specifies the extra bytes in Fast Read and Fast Buffer Read
@@ -308,6 +339,7 @@ extern "C" {
 /**
  * Address Shift Masks.
  */
+#define XISF_ADDR_SHIFT24		24 /**< 24 bit Shift */
 #define XISF_ADDR_SHIFT16		16 /**< 16 bit Shift */
 #define XISF_ADDR_SHIFT8		8  /**< 8 bit Shift */
 

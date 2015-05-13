@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,8 @@
 *			  Changed API:
 *				SectorErase()
 *				BulkErase()
+* 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
+* 						  which supports 4 byte addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -75,7 +77,6 @@
 extern int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8* ReadPtr,
 				u32 ByteCount);
 extern u32 GetRealAddr(XIsf_Iface *QspiPtr, u32 Address);
-
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
@@ -304,6 +305,8 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 	u32 FlashMake = InstancePtr->ManufacturerID;
 #endif
 
+	Xil_AssertNonvoid(NULLPtr == NULL);
+
 	/*
 	 * Translate address based on type of connection
 	 * If stacked assert the slave select based on address
@@ -346,11 +349,24 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 		}
 	}
 #endif
-
-	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
-	InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
-	InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
-	InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
+		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT24);
+		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		InstancePtr->WriteBufPtr[BYTE5] = (u8) (RealAddr);
+	} else {
+#endif
+		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
+		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	}
+#endif
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	/*
@@ -361,14 +377,13 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 		return (int)XST_FAILURE;
 	}
 #endif
-	Xil_AssertNonvoid(NULLPtr == NULL);
-
-	/*
-	 * Initiate the Transfer.
-	 */
-	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+			NULLPtr, XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
+	} else {
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
 				NULLPtr, XISF_CMD_SEND_EXTRA_BYTES);
-
+	}
 	if (Status != (int)XST_SUCCESS) {
 		return (int)XST_FAILURE;
 	}

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -140,7 +140,7 @@
 * Read/Write Volatile/Non-volatile configuration register.
 *
 * The following Numonyx flash memories are supported by this library.
-* N25Q32		N25Q64			N25Q128
+* N25Q32		N25Q64			N25Q128   N25Q256A
 *
 * - Spansion S25FL
 * The Spansion S25FL Serial Flash is divided into sectors of 64 KB and
@@ -489,6 +489,11 @@
 *				XIsf_IfaceHandler()
 * 5.1   sb	 12/23/14 Added check for flash interface for Winbond, Spansion
 *			  and Micron flash family for PSQSPI.
+* 5.2   asa  5/12/15 Added support for Micron N25Q256A (>16MB) flash devices.
+*               This meant adding necessary support for 4 byte addressing mode.
+*               APIs were added to enter and exit from 4 byte mode. Changes were
+*               made in read, erase and write APIs to support 4 byte mode.
+*               These were done to fix CR#858950.
 *
 * </pre>
 *
@@ -787,8 +792,8 @@ typedef struct {
 	u8 NumDie;		/**< No. of die forming a single flash */
 	u32 SectorSize;		/**< Size of the Sector */
 	u32 NumSectors;		/**< No. of sectors */
-	u32 ManufacturerID;	/**< Serial Flash Manufacturer ID */
 #endif
+	u32 ManufacturerID;	/**< Serial Flash Manufacturer ID */
 	XIsf_Iface *SpiInstPtr;	/**< SPI Device Instance pointer */
 	u32 SpiSlaveSelect;	/**< SPI Slave select for the Serial Flash */
 	u8 *WriteBufPtr; 	/**< Pointer to Write Buffer */
@@ -797,6 +802,7 @@ typedef struct {
 				  *  devices */
 	u8 RegDone;		/**< Registration Done flag */
 	u8 IntrMode;		/**< Operating Mode flag Interrupt/Polling */
+	u8 FourByteAddrMode; /**< In four byte address mode flag */
 	int (*XIsf_Iface_SetOptions)
 		(XIsf_Iface *InstancePtr, u32 Options);
 #ifndef XPAR_XISF_INTERFACE_PSQSPI
@@ -977,6 +983,21 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
  */
 int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address);
 
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
+	|| (XPAR_XISF_FLASH_FAMILY == SST) || \
+	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+/*
+ * Function for entering into 4 byte mode for Micron flash.
+ */
+int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr);
+
+/*
+ * Function for exiting from 4 byte mode for Micron flash.
+ */
+int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr);
+#endif
 /*
  * Function related to Sector protection.
  */

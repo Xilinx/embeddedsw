@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,7 @@
 * 2.00a ktn  11/22/09 Updated to use HAL processor APIs.
 * 5.0   sb   08/05/14 Registering to Xilisf Interrupt handler
 *		      instead of driver handler.
+* 5.2   asa  05/12/15 Added support for Micron N25Q256A flash.
 *
 * </pre>
 *
@@ -145,12 +146,12 @@ static int ErrorCount;		/* Errors occurred during Spi transfers */
  * The size of this buffer should be equal to XISF_CMD_MAX_EXTRA_BYTES, if the
  * application only reads from the Serial Flash (no write operations).
  */
-u8 IsfWriteBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES];
+u8 IsfWriteBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES + 1];
 
 /*
  * Buffers used during Read/Write transactions.
  */
-u8 ReadBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES]; /* Read Buffer */
+u8 ReadBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES + 1]; /* Read Buffer */
 u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 
 /************************** Function Definitions ******************************/
@@ -225,80 +226,84 @@ int main()
 	 */
 	Address = ISF_TEST_ADDRESS;
 
-	/*
-	 * The following code Erases a Sector in the STM Serial Flash.
-	 */
-
-	/*
-	 * Perform the Write Enable operation.
-	 */
 	TransferInProgress = TRUE;
 	Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Transfer is complete and check for errors.
-	 */
 	while(TransferInProgress);
 	if(ErrorCount != 0) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/*
-	 * Perform the Sector Erase operation.
+	 * Check is the flash part is micron in which case, switch to 4 byte
+	 * addressing mode.
 	 */
+	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+		TransferInProgress = TRUE;
+		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		while(TransferInProgress);
+		if(ErrorCount != 0) {
+			return XST_FAILURE;
+		}
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		TransferInProgress = TRUE;
+		XIsf_MicronFlashEnter4BAddMode(&Isf);
+
+		while(TransferInProgress);
+		if(ErrorCount != 0) {
+			return XST_FAILURE;
+		}
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
 	TransferInProgress = TRUE;
 	Status = XIsf_Erase(&Isf, XISF_SECTOR_ERASE, Address);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Transfer is complete and check for errors.
-	 */
 	while(TransferInProgress);
 	if(ErrorCount != 0) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Perform the Write Enable operation.
-	 */
 	TransferInProgress = TRUE;
 	Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Transfer is complete and check for errors.
-	 */
 	while(TransferInProgress);
 	if(ErrorCount != 0) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -323,26 +328,17 @@ int main()
 		WriteParam.WritePtr[Index] = Index + ISF_TEST_BYTE;
 	}
 
-	/*
-	 * Perform the Write operation.
-	 */
 	TransferInProgress = TRUE;
 	Status = XIsf_Write(&Isf, XISF_WRITE, (void*) &WriteParam);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Transfer is complete and check for errors.
-	 */
 	while(TransferInProgress);
 	if(ErrorCount != 0) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -358,18 +354,12 @@ int main()
 	ReadParam.NumBytes = ISF_PAGE_SIZE;
 	ReadParam.ReadPtr = ReadBuffer;
 
-	/*
-	 * Perform the read operation.
-	 */
 	TransferInProgress = TRUE;
 	Status = XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Transfer is complete and check for errors.
-	 */
 	while(TransferInProgress);
 	if(ErrorCount != 0) {
 		return XST_FAILURE;
@@ -378,11 +368,50 @@ int main()
 	/*
 	 * Compare the data read against the data Written.
 	 */
-	for(Index = 0; Index < ISF_PAGE_SIZE; Index++) {
-		if(ReadBuffer[Index + XISF_CMD_SEND_EXTRA_BYTES] !=
-					(u8)(Index + ISF_TEST_BYTE)) {
+	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+		for(Index = 0; Index < ISF_PAGE_SIZE; Index++) {
+			if(ReadBuffer[Index + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE] !=
+						(u8)(Index + ISF_TEST_BYTE)) {
+				return XST_FAILURE;
+			}
+		}
+	} else {
+		for(Index = 0; Index < ISF_PAGE_SIZE; Index++) {
+			if(ReadBuffer[Index + XISF_CMD_SEND_EXTRA_BYTES] !=
+						(u8)(Index + ISF_TEST_BYTE)) {
+				return XST_FAILURE;
+			}
+		}
+	}
+
+	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+		TransferInProgress = TRUE;
+		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
+
+		while(TransferInProgress);
+		if(ErrorCount != 0) {
+			return XST_FAILURE;
+		}
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		TransferInProgress = TRUE;
+		XIsf_MicronFlashExit4BAddMode(&Isf);
+
+		while(TransferInProgress);
+		if(ErrorCount != 0) {
+			return XST_FAILURE;
+		}
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;

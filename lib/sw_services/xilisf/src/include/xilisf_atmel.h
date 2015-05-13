@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -203,6 +203,15 @@ extern "C" {
  * Command byte, address bytes and any don't care bytes needed.
  */
 #define XISF_CMD_SEND_EXTRA_BYTES	4 	/**< Command extra bytes */
+
+/**
+ * This definition specifies the extra bytes in each of the Write/Read/Erase
+ * commands, commands operating on SPR, auto page write, page to
+ * buffer and buffer to page transfer commands in 4 bytes addressing mode.
+ * This count includes Command byte, Address bytes and any
+ * don't care bytes needed.
+ */
+#define XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE	5 /**< Command extra bytes */
 
 /**
  * This definitions specify the extra bytes in Fast read Fast buffer read

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,8 @@
 * - Reads back the Page that is written and compares the data.
 *
 * This example has been tested with a STM (Numonyx) M25P16 device on a Xilinx
-* Spartan-3A Starter Kit board.
+* Spartan-3A Starter Kit board and AC701 board with a Micron flash N25Q256A
+* (32MB, supporting 4 Byte addressing mode).
 *
 *
 * @note
@@ -59,6 +60,8 @@
 * 1.00a sdm 04/02/08 First release
 * 2.00a ktn 11/22/09 The Spi Driver APIs have changed. Replaced the call
 *		     to XSpi_mIntrGlobalDisable with XSpi_IntrGlobalDisable.
+* 5.2   asa 05/12/15 Added support for Micron N25Q256A flash part which
+*                    supports 4 byte addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -129,13 +132,15 @@ static XSpi Spi;
  * to the Serial Flash, through a single Write operation.
  * The size of this buffer should be equal to XISF_CMD_MAX_EXTRA_BYTES, if the
  * application only reads from the Serial Flash (no write operations).
+ * For 4 byte addressing mode support, to account for the extra address bye
+ * the buffer size is incremented by 1.
  */
-u8 IsfWriteBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES];
+u8 IsfWriteBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES + 1];
 
 /*
  * Buffers used during Read/Write transactions.
  */
-u8 ReadBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES]; /* Read Buffer */
+u8 ReadBuffer[ISF_PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES + 1]; /* Read Buffer */
 u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 
 /************************** Function Definitions ******************************/
@@ -181,9 +186,6 @@ int main()
 	 */
 	XSpi_IntrGlobalDisable(&Spi);
 
-	/*
-	 * Initialize the Serial Flash Library.
-	 */
 	Status = XIsf_Initialize(&Isf, &Spi, ISF_SPI_SELECT, IsfWriteBuffer);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -196,52 +198,53 @@ int main()
 	Address = ISF_TEST_ADDRESS;
 
 	/*
-	 * The following code Erases a Sector in the STM Serial Flash.
+	 * Check is the flash part is micron in which case, switch to 4 byte
+	 * addressing mode.
 	 */
+	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 
-	/*
-	 * Perform the Write Enable operation.
-	 */
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		XIsf_MicronFlashEnter4BAddMode(&Isf);
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
 	Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Perform the Sector Erase operation.
-	 */
 	Status = XIsf_Erase(&Isf, XISF_SECTOR_ERASE, Address);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Perform the Write Enable operation.
-	 */
 	Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -266,17 +269,11 @@ int main()
 		WriteParam.WritePtr[Index] = Index + ISF_TEST_BYTE;
 	}
 
-	/*
-	 * Perform the Write operation.
-	 */
 	Status = XIsf_Write(&Isf, XISF_WRITE, (void*) &WriteParam);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Wait till the Flash is not Busy.
-	 */
 	Status = IsfWaitForFlashNotBusy();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -292,20 +289,51 @@ int main()
 	ReadParam.NumBytes = ISF_PAGE_SIZE;
 	ReadParam.ReadPtr = ReadBuffer;
 
-	/*
-	 * Perform the read operation.
-	 */
 	Status = XIsf_Read(&Isf, XISF_READ, (void*) &ReadParam);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/*
-	 * Compare the data read against the data Written.
+	 * Compare the data read against the data Written. For Micron flash
+	 * which supports 4 Byte mode, comparison should take care of the extra
+	 * address byte.
 	 */
-	for(Index = 0; Index < ISF_PAGE_SIZE; Index++) {
-		if(ReadBuffer[Index + XISF_CMD_SEND_EXTRA_BYTES] !=
-					(u8)(Index + ISF_TEST_BYTE)) {
+	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+		for(Index = 0; Index < ISF_PAGE_SIZE; Index++) {
+			if(ReadBuffer[Index + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE] !=
+						(u8)(Index + ISF_TEST_BYTE)) {
+				return XST_FAILURE;
+			}
+		}
+	} else {
+		for(Index = 0; Index < ISF_PAGE_SIZE; Index++) {
+			if(ReadBuffer[Index + XISF_CMD_SEND_EXTRA_BYTES] !=
+						(u8)(Index + ISF_TEST_BYTE)) {
+				return XST_FAILURE;
+			}
+		}
+	}
+
+	/*
+	 * For micron flash part supporting 4 byte ddressing mode, exit from
+	 * 4 Byte mode.
+	 */
+	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		XIsf_MicronFlashExit4BAddMode(&Isf);
+
+		Status = IsfWaitForFlashNotBusy();
+		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}

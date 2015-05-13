@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,9 @@
 *			  Changed API:
 *				ReadData()
 *				FastReadData()
+*
+* 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
+* 						  which supports 4 byte addressing.
 * </pre>
 *
 ******************************************************************************/
@@ -267,7 +270,7 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_DUAL_OP_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
-			Status = FastReadData(InstancePtr,
+				Status = FastReadData(InstancePtr,
 					XISF_CMD_DUAL_OP_FAST_READ,
 					ReadParamPtr->Address,
 					ReadParamPtr->ReadPtr,
@@ -278,7 +281,7 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_DUAL_IO_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
-			Status = FastReadData(InstancePtr,
+				Status = FastReadData(InstancePtr,
 					XISF_CMD_DUAL_IO_FAST_READ,
 					ReadParamPtr->Address,
 					ReadParamPtr->ReadPtr,
@@ -289,7 +292,7 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_QUAD_OP_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
-			Status = FastReadData(InstancePtr,
+				Status = FastReadData(InstancePtr,
 					XISF_CMD_QUAD_OP_FAST_READ,
 					ReadParamPtr->Address,
 					ReadParamPtr->ReadPtr,
@@ -300,7 +303,7 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_QUAD_IO_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
-			Status = FastReadData(InstancePtr,
+				Status = FastReadData(InstancePtr,
 					XISF_CMD_QUAD_IO_FAST_READ,
 					ReadParamPtr->Address,
 					ReadParamPtr->ReadPtr,
@@ -364,7 +367,7 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	u32 TotalByteCnt = ByteCount;
 	u32 LocalByteCnt = ByteCount;
 	u32 LocalAddress = Address;
-	u8 WriteBuffer[5] = {0};
+	u8 WriteBuffer[10] = {0};
 	if (LocalByteCnt <= 0 ) {
 		return (int)XST_FAILURE;
 	}
@@ -420,15 +423,33 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	}
 #endif
-
-	WriteBuffer[BYTE1] = XISF_CMD_RANDOM_READ;
-	WriteBuffer[BYTE2] = (u8)((RealAddr & 0xFF0000) >> XISF_ADDR_SHIFT16);
-	WriteBuffer[BYTE3] = (u8)((RealAddr & 0xFF00) >> XISF_ADDR_SHIFT8);
-	WriteBuffer[BYTE4] = (u8)(RealAddr & 0xFF);
-
-	Status = XIsf_Transfer(InstancePtr, WriteBuffer,
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		WriteBuffer[BYTE1] = XISF_CMD_RANDOM_READ_4BYTE;
+		WriteBuffer[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT24);
+		WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		WriteBuffer[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		WriteBuffer[BYTE5] = (u8) (RealAddr);
+	} else {
+#endif
+		WriteBuffer[BYTE1] = XISF_CMD_RANDOM_READ;
+		WriteBuffer[BYTE2] = (u8)((RealAddr & 0xFF0000) >> XISF_ADDR_SHIFT16);
+		WriteBuffer[BYTE3] = (u8)((RealAddr & 0xFF00) >> XISF_ADDR_SHIFT8);
+		WriteBuffer[BYTE4] = (u8)(RealAddr & 0xFF);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	}
+#endif
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		Status = XIsf_Transfer(InstancePtr, WriteBuffer,
+			&(ReadPtr[TotalByteCnt - LocalByteCnt]),
+			RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
+	} else {
+		Status = XIsf_Transfer(InstancePtr, WriteBuffer,
 				&(ReadPtr[TotalByteCnt - LocalByteCnt]),
 				RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES);
+	}
 	if (Status != (int)(XST_SUCCESS)) {
 		return (int)XST_FAILURE;
 	}
@@ -567,24 +588,42 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	}
 #endif
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		WriteBuffer[BYTE1] = Command;
+		WriteBuffer[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT24);
+		WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		WriteBuffer[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		WriteBuffer[BYTE5] = (u8) RealAddr;
 
-	WriteBuffer[BYTE1] = Command;
-	WriteBuffer[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
-	WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
-	WriteBuffer[BYTE4] = (u8) RealAddr;
+		for (Index = 0; Index < NumDummyBytes; Index++) {
+			WriteBuffer[Index + BYTE5 + 1] = (u8) (XISF_DUMMYBYTE);
+		}
+	} else {
+#endif
+		WriteBuffer[BYTE1] = Command;
+		WriteBuffer[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
+		WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
+		WriteBuffer[BYTE4] = (u8) RealAddr;
 
-	for (Index = 0; Index < NumDummyBytes; Index++) {
-		WriteBuffer[Index + BYTE5] = (u8) (XISF_DUMMYBYTE);
+		for (Index = 0; Index < NumDummyBytes; Index++) {
+			WriteBuffer[Index + BYTE5] = (u8) (XISF_DUMMYBYTE);
+		}
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	}
-
+#endif
 	RealByteCnt += NumDummyBytes;
-
-	/*
-	 * Initiate the Transfer.
-	 */
-	Status = (int)XIsf_Transfer(InstancePtr, WriteBuffer,
+	if (InstancePtr->FourByteAddrMode == TRUE) {
+		Status = (int)XIsf_Transfer(InstancePtr, WriteBuffer,
+			&(ReadPtr[TotalByteCnt - LocalByteCnt]),
+			RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
+	} else {
+		Status = (int)XIsf_Transfer(InstancePtr, WriteBuffer,
 			&(ReadPtr[TotalByteCnt - LocalByteCnt]),
 			RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES);
+	}
 	if (Status != (int)(XST_SUCCESS)) {
 		return (int)(XST_FAILURE);
 	}
