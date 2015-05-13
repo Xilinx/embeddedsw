@@ -50,6 +50,8 @@
 *						  DataAbortHandler and PrefetchAbortHandler respectively
 *						  Both handlers are registers in vector table entries
 *						  using XExc_VectorTable
+* 5.1	pkp		 05/13/15 Added debugging message to print address of instruction
+*						  causing data abort and prefetch abort
 * </pre>
 *
 *****************************************************************************/
@@ -88,6 +90,9 @@ XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
 	{Xil_ExceptionNullHandler, NULL},
 	{Xil_ExceptionNullHandler, NULL},
 };
+
+u32 DataAbortAddr;       /* Address of instruction causing data abort */
+u32 PrefetchAbortAddr;   /* Address of instruction causing prefetch abort */
 
 /*****************************************************************************/
 
@@ -209,7 +214,8 @@ void Xil_DataAbortHandler(void *CallBackRef){
 		{ volatile register u32 Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
 	  FaultStatus = Reg; }
 	#endif
-	xdbg_printf(XDBG_DEBUG_ERROR, "Data abort with Data Fault Status Register  %x\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Data abort with Data Fault Status Register  %x\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instrcution causing Data abort %x\n",DataAbortAddr);
 	while(1) {
 		;
 	}
@@ -238,7 +244,8 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 		{ volatile register u32 Reg __asm(XREG_CP15_INST_FAULT_STATUS);
 	  FaultStatus = Reg; }
 	#endif
-	xdbg_printf(XDBG_DEBUG_ERROR, "Prefetch abort with Instruction Fault Status Register  %x\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Prefetch abort with Instruction Fault Status Register  %x\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instrcution causing Prefetch abort %x\n",PrefetchAbortAddr);
 	while(1) {
 		;
 	}

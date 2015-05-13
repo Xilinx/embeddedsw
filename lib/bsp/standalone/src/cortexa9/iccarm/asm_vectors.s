@@ -43,6 +43,9 @@
 ; 1.00a 		 Initial version
 ; 4.2 	pkp 	06/27/14 Modified return addresses for interrupt
 ;			 handlers
+; 5.1	pkp	05/13/15 Saved the addresses of instruction causing data
+;			 abort and prefetch abort into DataAbortAddr and
+;			 PrefetchAbortAddr for further use to fix CR#854523
 ; </pre>
 ;
 ; @note
@@ -80,6 +83,8 @@
 	IMPORT SWInterrupt
 	IMPORT DataAbortInterrupt
 	IMPORT PrefetchAbortInterrupt
+	IMPORT DataAbortAddr
+	IMPORT PrefetchAbortAddr
 
 _vector_table
         ARM
@@ -135,15 +140,20 @@ SVCHandler					; SWI handler
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
 	movs	pc, lr				; adjust return
 
-
 DataAbortHandler				; Data Abort handler
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	ldr     r0, =DataAbortAddr
+	sub     r1, lr,#8
+	str     r1, [r0]			;Address of instruction causing data abort
 	bl	DataAbortInterrupt		;DataAbortInterrupt :call C function here
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
 	subs	pc, lr, #8			; adjust return
 
 PrefetchAbortHandler				; Prefetch Abort handler
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	ldr     r0, =PrefetchAbortAddr
+	sub     r1, lr,#4
+	str     r1, [r0]			;Address of instruction causing prefetch abort
 	bl	PrefetchAbortInterrupt		; PrefetchAbortInterrupt: call C function here
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
 	subs	pc, lr, #4			; adjust return

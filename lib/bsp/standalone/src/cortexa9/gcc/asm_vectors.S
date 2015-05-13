@@ -47,6 +47,9 @@
 * 4.00a pkp	22/01/14 Modified return addresses for interrupt
 *			 handlers (DataAbortHandler and SVCHandler)
 *			 to fix CR#767251
+* 5.1	pkp	05/13/15 Saved the addresses of instruction causing data
+*			 abort and prefetch abort into DataAbortAddr and
+*			 PrefetchAbortAddr for further use to fix CR#854523
 * </pre>
 *
 * @note
@@ -61,17 +64,7 @@
 .org 0
 .text
 
-.globl _boot
 .globl _vector_table
-
-.globl FIQInterrupt
-.globl IRQInterrupt
-.globl SWInterrupt
-.globl DataAbortInterrupt
-.globl PrefetchAbortInterrupt
-
-.globl IRQHandler
-.globl prof_pc
 
 .section .vectors
 _vector_table:
@@ -176,6 +169,9 @@ DataAbortHandler:				/* Data Abort handler */
 	dsb
 #endif
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =DataAbortAddr
+	sub     r1, lr, #8
+	str     r1, [r0]            		/* Stores instruction causing data abort */
 
 	bl	DataAbortInterrupt		/*DataAbortInterrupt :call C function here */
 
@@ -188,12 +184,14 @@ PrefetchAbortHandler:				/* Prefetch Abort handler */
 	dsb
 #endif
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =PrefetchAbortAddr
+	sub     r1, lr, #4
+	str     r1, [r0]            		/* Stores instruction causing prefetch abort */
 
 	bl	PrefetchAbortInterrupt		/* PrefetchAbortInterrupt: call C function here */
 
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 
 	subs	pc, lr, #4			/* points to the instruction that caused the Prefetch Abort exception */
-
 
 .end

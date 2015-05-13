@@ -44,6 +44,9 @@
 ; 3.11a asa	9/17/13	 Added support for neon.
 ; 4.00  pkp	01/22/14 Modified return addresses for interrupt
 ;			 handlers
+; 5.1	pkp	05/13/15 Saved the addresses of instruction causing data
+;			 abort and prefetch abort into DataAbortAddr and
+;			 PrefetchAbortAddr for further use to fix CR#854523
 ;</pre>
 ;
 ; @note
@@ -62,6 +65,8 @@
 	IMPORT SWInterrupt
 	IMPORT DataAbortInterrupt
 	IMPORT PrefetchAbortInterrupt
+	IMPORT DataAbortAddr
+	IMPORT PrefetchAbortAddr
 
 	AREA |.vectors|, CODE
 	REQUIRE8     {TRUE}
@@ -137,18 +142,22 @@ SVCHandler					; SWI handler
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
 	movs	pc, lr				; adjust return
 
-
 DataAbortHandler				; Data Abort handler
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	ldr     r0, =DataAbortAddr
+	sub     r1, lr,#8
+	str     r1, [r0]			;Address of instruction causing data abort
 	bl	DataAbortInterrupt		;DataAbortInterrupt :call C function here
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
 	subs	pc, lr, #8			; adjust return
 
 PrefetchAbortHandler				; Prefetch Abort handler
 	stmdb	sp!,{r0-r3,r12,lr}		; state save from compiled code
+	ldr     r0, =PrefetchAbortAddr
+	sub     r1, lr,#4
+	str     r1, [r0]			;Address of instruction causing prefetch abort
 	bl	PrefetchAbortInterrupt		; PrefetchAbortInterrupt: call C function here
 	ldmia	sp!,{r0-r3,r12,lr}		; state restore from compiled code
 	subs	pc, lr, #4			; adjust return
-
 
 	END
