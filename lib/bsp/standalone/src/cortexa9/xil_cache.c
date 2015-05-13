@@ -82,6 +82,14 @@
 * 5.00   kvn 12/15/14 Xil_L2CacheInvalidate was modified to fix CR# 838835. L2 Cache
 *					  has stack memory which has return address. Before invalidating
 *					  cache, stack memory was flushed first and L2 Cache is invalidated.
+* 5.01	 pkp 05/12/15 Xil_DCacheInvalidateRange and Xil_DCacheFlushRange is modified
+*					  to remove unnecessary dsb in the APIs. Instead of using dsb
+*					  for L2 Cache, L2CacheSync has been used for each L2 cache line
+*					  and single dsb has been used for L1 cache. Also L2CacheSync is
+*					  added into Xil_L2CacheInvalidateRange API. Xil_L1DCacheInvalidate
+*					  and Xil_L2CacheInvalidate APIs are modified to flush the complete
+*					  stack instead of just System Stack
+*
 * </pre>
 *
 ******************************************************************************/
@@ -106,7 +114,7 @@
 
 #ifdef __GNUC__
 	extern s32  _stack_end;
-	extern s32  _stack;
+	extern s32  __undef_stack;
 #endif
 
 /****************************************************************************
@@ -350,7 +358,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 		while (tempadr < tempend) {
 			/* Invalidate L2 cache line */
 			*L2CCOffset = tempadr;
-			dsb();
+			Xil_L2CacheSync();
 #ifdef __GNUC__
 			/* Invalidate L1 Data cache line */
 			__asm__ __volatile__("mcr " \
@@ -477,7 +485,7 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 #endif
 			/* Flush L2 cache line */
 			*L2CCOffset = LocalAddr;
-			dsb();
+			Xil_L2CacheSync();
 			LocalAddr += cacheline;
 		}
 	}
@@ -756,7 +764,7 @@ void Xil_L1DCacheInvalidate(void)
 
 #ifdef __GNUC__
 	stack_end = (u32)&_stack_end;
-	stack_start = (u32)&_stack;
+	stack_start = (u32)&__undef_stack;
 	stack_size=stack_start-stack_end;
 
 	/*Flush stack memory to save return address*/
@@ -1359,7 +1367,7 @@ void Xil_L2CacheInvalidate(void)
 	#ifdef __GNUC__
 	u32 stack_start,stack_end,stack_size;
 	stack_end = (u32)&_stack_end;
-	stack_start = (u32)&_stack;
+	stack_start = (u32)&__undef_stack;
 	stack_size=stack_start-stack_end;
 
 	/*Flush stack memory to save return address*/
@@ -1446,6 +1454,7 @@ void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 
 		while (LocalAddr < end) {
 			*L2CCOffset = LocalAddr;
+			Xil_L2CacheSync();
 			LocalAddr += cacheline;
 		}
 

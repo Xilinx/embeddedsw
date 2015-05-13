@@ -223,4 +223,10 @@
  *		       and armcc/boot.s so to first invalidate caches and TLB, enable MMU and
  *		       caches, then enable SMP bit in ACTLR. L2Cache invalidation and enabling
  *		       of L2Cache is done later.
+ * 5.1 pkp   12/05/15  Modified cortexa9/xil_cache.c to modify Xil_DCacheInvalidateRange and
+ *		       Xil_DCacheFlushRange to remove unnecessary dsb which is unnecessarily
+ *		       taking long time to fix CR#853097. L2CacheSync is added into
+ *		       Xil_L2CacheInvalidateRange API. Xil_L1DCacheInvalidate and
+ *		       Xil_L2CacheInvalidate APIs are modified to flush the complete stack
+ *		       instead of just System Stack
  *****************************************************************************************/
