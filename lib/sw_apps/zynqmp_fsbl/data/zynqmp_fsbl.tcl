@@ -58,13 +58,16 @@ proc swapp_is_supported_sw {} {
     # make sure we are using standalone OS
     check_standalone_os;
 
-	# make sure xilffs is available
-    set librarylist [get_libs -filter "NAME==xilffs"];
+    # make sure xilffs and xilrsa are available
+    set librarylist_1 [get_libs -filter "NAME==xilffs"];
+    set librarylist_2 [get_libs -filter "NAME==xilsecure"];
 
-	if { [llength $librarylist] == 0 } {
+    if { [llength $librarylist_1] == 0 && [llength $librarylist_2] == 0 } {
+        error "This application requires xilffs and xilsecure libraries in the Board Support Package.";
+    } elseif { [llength $librarylist_1] == 0 } {
         error "This application requires xilffs library in the Board Support Package.";
-    } elseif { [llength $librarylist] > 1} {
-        error "Multiple xilffs libraries present in the Board Support Package."
+    } elseif { [llength $librarylist_2] == 0 } {
+        error "This application requires xilsecure library in the Board Support Package.";
     }
 }
 
