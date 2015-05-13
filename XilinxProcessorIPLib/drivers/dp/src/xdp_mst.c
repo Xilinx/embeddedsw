@@ -152,6 +152,7 @@ static void XDp_RxSetLinkAddressReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg);
 static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg);
 static void XDp_RxSetEnumPathResReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static void XDp_RxSetGenericNackReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
@@ -2360,6 +2361,7 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 		break;
 
 	default:
+		XDp_RxSetGenericNackReply(InstancePtr, &Msg);
 		break;
 	}
 
@@ -2873,6 +2875,46 @@ static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	Msg->Header.MsgBodyLength = Msg->Body.MsgDataLength + 1;
 
 	return XST_SUCCESS;
+}
+
+
+/******************************************************************************/
+/**
+ * This function will set and format a sideband message structure for replying
+ * with a NAK
+ *
+ * @param       Msg is a pointer to the message to be formatted.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+static void XDp_RxSetGenericNackReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+{
+	u8 ReplyIndex = 0;
+	u8 GuidIndex;
+
+	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountRemaining = 0;
+	Msg->Header.BroadcastMsg = 0;
+	Msg->Header.PathMsg = 0;
+	Msg->Header.MsgHeaderLength = 3;
+
+	/* Reply type for NACK. */
+	Msg->Body.MsgData[ReplyIndex++] |= (1 << 7);
+	/* 16 bytes of GUID. */
+	for (GuidIndex = 0; GuidIndex < 16; GuidIndex++) {
+		Msg->Body.MsgData[ReplyIndex++] = (0xFF &
+			(InstancePtr->RxInstance.Topology.LinkAddressInfo.Guid[
+				GuidIndex / 4] >> (8 * (3 - (GuidIndex % 4)))));
+	}
+	/* Reason for NACK. */
+	Msg->Body.MsgData[ReplyIndex++] = XDP_SBMSG_NAK_REASON_WRITE_FAILURE;
+	/* NACK Data */
+	Msg->Body.MsgData[ReplyIndex++] = 0x00;
+
+	Msg->Body.MsgDataLength = ReplyIndex;
 }
 
 /******************************************************************************/

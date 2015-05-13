@@ -2388,6 +2388,21 @@
 #define XDP_SBMSG_QUERY_STREAM_ENCRYPT_STATUS	0x38
 /* @} */
 
+/** @name Sideband message codes when the driver is in MST mode.
+  * @{
+  */
+#define XDP_SBMSG_NAK_REASON_WRITE_FAILURE	0x01
+#define XDP_SBMSG_NAK_REASON_INVALID_RAD	0x02
+#define XDP_SBMSG_NAK_REASON_CRC_FAILURE	0x03
+#define XDP_SBMSG_NAK_REASON_BAD_PARAM		0x04
+#define XDP_SBMSG_NAK_REASON_DEFER		0x05
+#define XDP_SBMSG_NAK_REASON_LINK_FAILURE	0x06
+#define XDP_SBMSG_NAK_REASON_NO_RESOURCES	0x07
+#define XDP_SBMSG_NAK_REASON_DPCD_FAIL		0x08
+#define XDP_SBMSG_NAK_REASON_I2C_NAK		0x09
+#define XDP_SBMSG_NAK_REASON_ALLOCATE_FAIL	0x0A
+/* @} */
+
 #define XDP_RX_NUM_I2C_ENTRIES_PER_PORT		3 /**< The number of I2C user-
 							defined entries in the
 							I2C map of each port. */
