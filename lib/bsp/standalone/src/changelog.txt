@@ -219,4 +219,8 @@
  *		       and iccarm/boot.s
  * 5.0 pkp   25/02/15  Modified floating point flag to vfpv3 from vfpv3_d16 in BSP MakeFile
  *		       for iccarm and armcc compiler of cortexA9
+ * 5.1 pkp   05/13/15  Changed the initialization order in cortexa9/gcc/boot.S, iccarm/boot.s
+ *		       and armcc/boot.s so to first invalidate caches and TLB, enable MMU and
+ *		       caches, then enable SMP bit in ACTLR. L2Cache invalidation and enabling
+ *		       of L2Cache is done later.
  *****************************************************************************************/

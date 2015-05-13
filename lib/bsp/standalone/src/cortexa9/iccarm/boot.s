@@ -46,6 +46,10 @@
 ; 5.0	pkp	16/12/14 Modified initialization code to enable scu after
 ;			 MMU is enabled and removed incorrect initialization
 ;			 of TLB lockdown register to fix CR#830580
+; 5.1  pkp	05/13/15 Changed the initialization order so to first invalidate
+;			 caches and TLB, enable MMU and caches, then enable SMP
+;			 bit in ACTLR. L2Cache invalidation and enabling of L2Cache
+;			 is done later.
 ; </pre>
 ;
 ; @note
@@ -170,57 +174,18 @@ OKToRun
 	ldr	r0, =vector_base
 	mcr	p15, 0, r0, c12, c0, 0
 
-	; Write to ACTLR
-	mrc	p15, 0,r0, c1, c0, 1		; Read ACTLR
-	orr	r0, r0, #(0x01 << 6)		; SMP bit
-	orr	r0, r0, #(0x01 )		; Cache/TLB maintenance broadcast
-	mcr	p15, 0,r0, c1, c0, 1		; Write ACTLR
+	;invalidate scu
+	ldr	r7, =0xf8f0000c
+	ldr	r6, =0xffff
+	str	r6, [r7]
 
-; Invalidate caches and TLBs
+	;Invalidate caches and TLBs
 	mov	r0,#0				; r0 = 0
 	mcr	p15, 0, r0, c8, c7, 0		; invalidate TLBs
 	mcr	p15, 0, r0, c7, c5, 0		; invalidate icache
 	mcr	p15, 0, r0, c7, c5, 6		; Invalidate branch predictor array
 	bl	invalidate_dcache		; invalidate dcache
 
-; Invalidate L2c Cache
-; For AMP, assume running on CPU1. Don't initialize L2 Cache (up to Linux)
-#if USE_AMP!=1
-	ldr	r0,=L2CCCrtl			; Load L2CC base address base + control register
-	mov	r1, #0				; force the disable bit
-	str	r1, [r0]			; disable the L2 Caches
-
-	ldr	r0,=L2CCAuxCrtl			; Load L2CC base address base + Aux control register
-	ldr	r1,[r0]				; read the register
-	ldr	r2,=L2CCAuxControl		; set the default bits
-	orr	r1,r1,r2
-	str	r1, [r0]			; store the Aux Control Register
-
-	ldr	r0,=L2CCTAGLatReg		; Load L2CC base address base + TAG Latency address
-	ldr	r1,=L2CCTAGLatency		; set the latencies for the TAG
-	str	r1, [r0]			; store the TAG Latency register Register
-
-	ldr	r0,=L2CCDataLatReg		; Load L2CC base address base + Data Latency address
-	ldr	r1,=L2CCDataLatency		; set the latencies for the Data
-	str	r1, [r0]			; store the Data Latency register Register
-
-	ldr	r0,=L2CCWay			; Load L2CC base address base + way register
-	ldr	r2, =0xFFFF
-	str	r2, [r0]			; force invalidate
-
-	ldr	r0,=L2CCSync			; need to poll 0x730, PSS_L2CC_CACHE_SYNC_OFFSET
-						; Load L2CC base address base + sync register
-	; poll for completion
-Sync
-	ldr	r1, [r0]
-	cmp	r1, #0
-	bne	Sync
-
-	ldr	r0,=L2CCIntRaw			; clear pending interrupts
-	ldr	r1,[r0]
-	ldr	r0,=L2CCIntClear
-	str	r1,[r0]
-#endif
 
 	; Disable MMU, if enabled
 	mrc	p15, 0, r0, c1, c0, 0		; read CP15 register 1
@@ -296,6 +261,12 @@ mmu_loop
 	msr	cpsr, r2			; was cpsr, apsr is considered synonym
         ldr	r13,=SFE(CSTACK)                ; SYS stack pointer
 
+	;set scu enable bit in scu
+	ldr	r7, =0xf8f00000
+	ldr	r0, [r7]
+	orr	r0, r0, #0x1
+	str	r0, [r7]
+
 	; enable MMU and cache
 
 	ldr	r0,=TblBase			; Load MMU translation table base
@@ -312,24 +283,56 @@ mmu_loop
 	dsb					; dsb allow the MMU to start up
 	isb					; isb flush prefetch buffer
 
-	;set scu enable bit in scu
-	ldr	r7, =0xf8f00000
-	ldr	r0, [r7]
-	orr	r0, r0, #0x1
-	str	r0, [r7]
+	; Write to ACTLR
+	mrc	p15, 0,r0, c1, c0, 1		; Read ACTLR
+	orr	r0, r0, #(0x01 << 6)		; SMP bit
+	orr	r0, r0, #(0x01 )		; Cache/TLB maintenance broadcast
+	mcr	p15, 0,r0, c1, c0, 1		; Write ACTLR
 
-	;invalidate scu
-	ldr	r7, =0xf8f0000c
-	ldr	r6, =0xffff
-	str	r6, [r7]
-
+; Invalidate L2 Cache and initialize L2 Cache
 ; For AMP, assume running on CPU1. Don't initialize L2 Cache (up to Linux)
 #if USE_AMP!=1
+	ldr	r0,=L2CCCrtl			; Load L2CC base address base + control register
+	mov	r1, #0				; force the disable bit
+	str	r1, [r0]			; disable the L2 Caches
+
+	ldr	r0,=L2CCAuxCrtl			; Load L2CC base address base + Aux control register
+	ldr	r1,[r0]				; read the register
+	ldr	r2,=L2CCAuxControl		; set the default bits
+	orr	r1,r1,r2
+	str	r1, [r0]			; store the Aux Control Register
+
+	ldr	r0,=L2CCTAGLatReg		; Load L2CC base address base + TAG Latency address
+	ldr	r1,=L2CCTAGLatency		; set the latencies for the TAG
+	str	r1, [r0]			; store the TAG Latency register Register
+
+	ldr	r0,=L2CCDataLatReg		; Load L2CC base address base + Data Latency address
+	ldr	r1,=L2CCDataLatency		; set the latencies for the Data
+	str	r1, [r0]			; store the Data Latency register Register
+
+	ldr	r0,=L2CCWay			; Load L2CC base address base + way register
+	ldr	r2, =0xFFFF
+	str	r2, [r0]			; force invalidate
+
+	ldr	r0,=L2CCSync			; need to poll 0x730, PSS_L2CC_CACHE_SYNC_OFFSET
+						; Load L2CC base address base + sync register
+	; poll for completion
+Sync
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	Sync
+
+	ldr	r0,=L2CCIntRaw			; clear pending interrupts
+	ldr	r1,[r0]
+	ldr	r0,=L2CCIntClear
+	str	r1,[r0]
+
 	ldr	r0,=SLCRUnlockReg		; Load SLCR base address base + unlock register
 	ldr	r1,=SLCRUnlockKey	    	; set unlock key
 	str	r1, [r0]		    	; Unlock SLCR
 
-	ldr	r0,=SLCRL2cRamReg		; Load SLCR base address base + l2c Ram Control register 	ldr	r1,=SLCRL2cRamConfig        	; set the configuration value */
+	ldr	r0,=SLCRL2cRamReg		; Load SLCR base address base + l2c Ram Control register
+	ldr	r1,=SLCRL2cRamConfig        	; set the configuration value
 	str	r1, [r0]	        	; store the L2c Ram Control Register
 
 	ldr	r0,=SLCRlockReg         	; Load SLCR base address base + lock register
