@@ -74,6 +74,7 @@
 *					  Removed alignment for local buffers as CacheInvalidate
 *					  will take care of it.
 *		sg   03/03/15 Added card detection check logic
+*		     04/28/15 Card detection only in case of card detection signal
 *
 * </pre>
 *
@@ -212,6 +213,7 @@ DSTATUS disk_initialize (
 
 	XSdPs_Config *SdConfig;
 
+#if XPAR_XSDPS_0_HAS_CD
     /*
      * Card detection check
      * If the HC detects the No Card State, power will be cleared
@@ -223,6 +225,7 @@ DSTATUS disk_initialize (
            (XSDPS_PSR_CARD_DPL_MASK |
             XSDPS_PSR_CARD_STABLE_MASK |
             XSDPS_PSR_CARD_INSRT_MASK))));
+#endif
 
 	/*
 	 * Check if card is in the socket
