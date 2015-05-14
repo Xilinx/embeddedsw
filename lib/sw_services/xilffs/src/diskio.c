@@ -73,6 +73,7 @@
 *					  Updated the FatFs to R0.10b
 *					  Removed alignment for local buffers as CacheInvalidate
 *					  will take care of it.
+*		sg   03/03/15 Added card detection check logic
 *
 * </pre>
 *
@@ -210,6 +211,18 @@ DSTATUS disk_initialize (
 #ifdef FILE_SYSTEM_INTERFACE_SD
 
 	XSdPs_Config *SdConfig;
+
+    /*
+     * Card detection check
+     * If the HC detects the No Card State, power will be cleared
+     */
+    while(!((XSDPS_PSR_CARD_DPL_MASK |
+            XSDPS_PSR_CARD_STABLE_MASK |
+            XSDPS_PSR_CARD_INSRT_MASK) ==
+          ( XSdPs_GetPresentStatusReg((u32)XPAR_XSDPS_0_BASEADDR) &
+           (XSDPS_PSR_CARD_DPL_MASK |
+            XSDPS_PSR_CARD_STABLE_MASK |
+            XSDPS_PSR_CARD_INSRT_MASK))));
 
 	/*
 	 * Check if card is in the socket
