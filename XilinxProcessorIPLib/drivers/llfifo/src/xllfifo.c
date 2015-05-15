@@ -405,7 +405,11 @@ int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
 *****************************************************************************/
 u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 {
-	return XLlFifo_ReadReg((InstancePtr)->Axi4BaseAddress,
+	if (InstancePtr->Datainterface)
+		return XLlFifo_ReadReg((InstancePtr)->Axi4BaseAddress,
+				XLLF_AXI4_RDFD_OFFSET);
+	else
+		return XLlFifo_ReadReg((InstancePtr)->Axi4BaseAddress,
 				XLLF_RDFD_OFFSET);
 }
 
@@ -426,9 +430,12 @@ u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 *****************************************************************************/
 void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)
 {
-
-	XLlFifo_WriteReg((InstancePtr)->Axi4BaseAddress,
-				XLLF_TDFD_OFFSET, (Word));
+	if (InstancePtr->Datainterface)
+		XLlFifo_WriteReg((InstancePtr)->Axi4BaseAddress,
+					XLLF_AXI4_TDFD_OFFSET, (Word));
+	else
+		XLlFifo_WriteReg((InstancePtr)->Axi4BaseAddress,
+					XLLF_TDFD_OFFSET, (Word));
 
 }
 
