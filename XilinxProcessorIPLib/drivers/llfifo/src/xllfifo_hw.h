@@ -83,11 +83,13 @@ extern "C" {
 #define XLLF_TDFR_OFFSET 0x00000008  /**< Transmit Reset */
 #define XLLF_TDFV_OFFSET 0x0000000c  /**< Transmit Vacancy */
 #define XLLF_TDFD_OFFSET 0x00000010  /**< Transmit Data */
+#define XLLF_AXI4_TDFD_OFFSET   0x00000000  /**< Axi4 Transmit Data */
 #define XLLF_TLF_OFFSET  0x00000014  /**< Transmit Length */
 
 #define XLLF_RDFR_OFFSET 0x00000018  /**< Receive Reset */
 #define XLLF_RDFO_OFFSET 0x0000001c  /**< Receive Occupancy */
 #define XLLF_RDFD_OFFSET 0x00000020  /**< Receive Data */
+#define XLLF_AXI4_RDFD_OFFSET 	0x00001000  /**< Axi4 Receive Data */
 #define XLLF_RLF_OFFSET  0x00000024  /**< Receive Length */
 #define XLLF_LLR_OFFSET  0x00000028  /**< Local Link Reset */
 #define XLLF_TDR_OFFSET  0x0000002C  /**< Transmit Destination  */

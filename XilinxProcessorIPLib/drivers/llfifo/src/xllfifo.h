@@ -162,6 +162,8 @@
  *		      XLlFifo_Initialize is still used to make the driver
  *		      backward compatible.
  * 4.0   adk  19/12/13 Updated as per the New Tcl API's
+ * 5.0   adk  15/05/15 Updated the register offsets in the AXI4 data path
+ *		       as per latest IP version(v4.1)(CR:860254).
  *
  * </pre>
  *
