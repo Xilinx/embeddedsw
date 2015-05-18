@@ -138,7 +138,7 @@
 #define IEEE_CTRL_ISOLATE_DISABLE               0xFBFF
 #endif
 
-static void AxiEthernetUtilPhyDelay(unsigned int Seconds);
+static void __attribute__ ((noinline)) AxiEthernetUtilPhyDelay(unsigned int Seconds);
 
 static int detect_phy(XAxiEthernet *xaxiemacp)
 {
@@ -574,7 +574,7 @@ unsigned Phy_Setup (XAxiEthernet *xaxiemacp)
 	return link_speed;
 }
 
-static void AxiEthernetUtilPhyDelay(unsigned int Seconds)
+static void __attribute__ ((noinline)) AxiEthernetUtilPhyDelay(unsigned int Seconds)
 {
 #if defined (__MICROBLAZE__) || defined(__PPC__)
 	static int WarningFlag = 0;
