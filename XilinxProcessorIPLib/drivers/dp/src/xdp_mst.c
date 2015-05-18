@@ -159,8 +159,7 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
-			u8 *RelativeAddress, XDp_TxTopology *Topology,
-			u32 *Guid);
+		u8 *RelativeAddress, XDp_TxTopology *Topology, u8 *Guid);
 static void XDp_TxAddBranchToList(XDp *InstancePtr,
 			XDp_SbMsgLinkAddressReplyDeviceInfo *DeviceInfo,
 			u8 LinkCountTotal, u8 *RelativeAddress);
@@ -191,23 +190,39 @@ static u32 XDp_TxIsSameTileDisplay(u8 *DispIdSecTile0, u8 *DispIdSecTile1);
  * issued when exploring the topology using the algorithm in the
  * XDp_TxFindAccessibleDpDevices function.
  */
-u32 GuidTable[16][4] = {
-	{0x12341234, 0x43214321, 0x56785678, 0x87658765},
-	{0xDEADBEEF, 0xBEEFDEAD, 0x10011001, 0xDADADADA},
-	{0xDABADABA, 0x10011001, 0xBADABADA, 0x5AD5AD5A},
-	{0x12345678, 0x43214321, 0xABCDEF98, 0x87658765},
-	{0x12141214, 0x41214121, 0x56785678, 0x87658765},
-	{0xD1CDB11F, 0xB11FD1CD, 0xFEBCDA90, 0xDCDCDCDC},
-	{0xDCBCDCBC, 0xE000E000, 0xBCDCBCDC, 0x5CD5CD5C},
-	{0x11111111, 0x11111111, 0x11111111, 0x11111111},
-	{0x22222222, 0x22222222, 0x22222222, 0x22222222},
-	{0x33333333, 0x33333333, 0x33333333, 0x33333333},
-	{0xAAAAAAAA, 0xFFFFFFFF, 0xFEBCDA90, 0xDCDCDCDC},
-	{0xBBBBBBBB, 0xE000E000, 0xFFFFFFFF, 0x5CD5CD5C},
-	{0xCCCCCCCC, 0x11111111, 0x11111111, 0xFFFFFFFF},
-	{0xDDDDDDDD, 0x22222222, 0xFFFFFFFF, 0x22222222},
-	{0xEEEEEEEE, 0xFFFFFFFF, 0x33333333, 0x33333333},
-	{0x12145678, 0x41214121, 0xCBCD1F98, 0x87658765}
+u8 GuidTable[16][XDP_GUID_NBYTES] = {
+	{0x78, 0x69, 0x6C, 0x61, 0x6E, 0x64, 0x72, 0x65,
+				0x69, 0x6C, 0x73, 0x69, 0x6D, 0x69, 0x6F, 0x6E},
+	{0x12, 0x34, 0x12, 0x34, 0x43, 0x21, 0x43, 0x21,
+				0x56, 0x78, 0x56, 0x78, 0x87, 0x65, 0x87, 0x65},
+	{0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0xEF, 0xDE, 0xAD,
+				0x10, 0x01, 0x10, 0x01, 0xDA, 0xDA, 0xDA, 0xDA},
+	{0xDA, 0xBA, 0xDA, 0xBA, 0x10, 0x01, 0x10, 0x01,
+				0xBA, 0xDA, 0xBA, 0xDA, 0x5A, 0xD5, 0xAD, 0x5A},
+	{0x12, 0x34, 0x56, 0x78, 0x43, 0x21, 0x43, 0x21,
+				0xAB, 0xCD, 0xEF, 0x98, 0x87, 0x65, 0x87, 0x65},
+	{0x12, 0x14, 0x12, 0x14, 0x41, 0x21, 0x41, 0x21,
+				0x56, 0x78, 0x56, 0x78, 0x87, 0x65, 0x87, 0x65},
+	{0xD1, 0xCD, 0xB1, 0x1F, 0xB1, 0x1F, 0xD1, 0xCD,
+				0xFE, 0xBC, 0xDA, 0x90, 0xDC, 0xDC, 0xDC, 0xDC},
+	{0xDC, 0xBC, 0xDC, 0xBC, 0xE0, 0x00, 0xE0, 0x00,
+				0xBC, 0xDC, 0xBC, 0xDC, 0x5C, 0xD5, 0xCD, 0x5C},
+	{0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
+				0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11},
+	{0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
+				0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22},
+	{0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33,
+				0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33},
+	{0xAA, 0xAA, 0xAA, 0xAA, 0xFF, 0xFF, 0xFF, 0xFF,
+				0xFE, 0xBC, 0xDA, 0x90, 0xDC, 0xDC, 0xDC, 0xDC},
+	{0xBB, 0xBB, 0xBB, 0xBB, 0xE0, 0x00, 0xE0, 0x00,
+				0xFF, 0xFF, 0xFF, 0xFF, 0x5C, 0xD5, 0xCD, 0x5C},
+	{0xCC, 0xCC, 0xCC, 0xCC, 0x11, 0x11, 0x11, 0x11,
+				0x11, 0x11, 0x11, 0x11, 0xFF, 0xFF, 0xFF, 0xFF},
+	{0xDD, 0xDD, 0xDD, 0xDD, 0x22, 0x22, 0x22, 0x22,
+				0xFF, 0xFF, 0xFF, 0xFF, 0x22, 0x22, 0x22, 0x22},
+	{0xEE, 0xEE, 0xEE, 0xEE, 0xFF, 0xFF, 0xFF, 0xFF,
+				0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33}
 };
 
 /**************************** Function Definitions ****************************/
@@ -2232,7 +2247,7 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
  *		DisplayPort source to the target device.
  * @param	RelativeAddress is the relative address from the DisplayPort
  *		source to the target device.
- * @param	Guid is a the GUID to write to the target device.
+ * @param	Guid is a pointer to the GUID to write to the target device.
  *
  * @return	None.
  *
@@ -2240,9 +2255,9 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
  *
 *******************************************************************************/
 void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 Guid[4])
+								u8 *Guid)
 {
-	u8 AuxData[16];
+	u8 AuxData[XDP_GUID_NBYTES];
 	u8 Index;
 
 	/* Verify arguments. */
@@ -2251,17 +2266,15 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid(LinkCountTotal > 0);
 	Xil_AssertVoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
-	Xil_AssertVoid((Guid[0] != 0) || (Guid[1] != 0) || (Guid[2] != 0) ||
-								(Guid[3] != 0));
+	Xil_AssertVoid(Guid != NULL);
 
-	memset(AuxData, 0, 16);
-	for (Index = 0; Index < 16; Index++) {
-		AuxData[Index] = (Guid[Index / 4] >> ((3 - (Index % 4)) * 8)) &
-									0xFF;
+	memset(AuxData, 0, XDP_GUID_NBYTES);
+	for (Index = 0; Index < XDP_GUID_NBYTES; Index++) {
+		AuxData[Index] = Guid[Index];
 	}
 
 	XDp_TxRemoteDpcdWrite(InstancePtr, LinkCountTotal, RelativeAddress,
-						XDP_DPCD_GUID, 16, AuxData);
+				XDP_DPCD_GUID, XDP_GUID_NBYTES, AuxData);
 }
 
 /******************************************************************************/
@@ -2283,10 +2296,10 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
  *
 *******************************************************************************/
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 *Guid)
+								u8 *Guid)
 {
 	u8 Index;
-	u8 Data[16];
+	u8 Data[XDP_GUID_NBYTES];
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2297,12 +2310,11 @@ void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 	Xil_AssertVoid(Guid != NULL);
 
 	XDp_TxRemoteDpcdRead(InstancePtr, LinkCountTotal, RelativeAddress,
-						XDP_DPCD_GUID, 16, Data);
+					XDP_DPCD_GUID, XDP_GUID_NBYTES, Data);
 
-	memset(Guid, 0, 16);
-	for (Index = 0; Index < 16; Index++) {
-		Guid[Index / 4] <<= 8;
-		Guid[Index / 4] |= Data[Index];
+	memset(Guid, 0, XDP_GUID_NBYTES);
+	for (Index = 0; Index < XDP_GUID_NBYTES; Index++) {
+		Guid[Index] = Data[Index];
 	}
 }
 
@@ -2508,6 +2520,7 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 			XDp_SbMsgLinkAddressReplyPortDetail *PortDetails)
 {
 	XDp_SbMsgLinkAddressReplyPortDetail *Port;
+	u8 GuidIndex;
 
 	Port = &InstancePtr->RxInstance.Topology.LinkAddressInfo.
 							PortDetails[PortNum];
@@ -2522,10 +2535,9 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 	Port->DpDevPlugStatus = PortDetails->DpDevPlugStatus;
 	Port->LegacyDevPlugStatus = PortDetails->LegacyDevPlugStatus;
 	Port->DpcdRev = PortDetails->DpcdRev;
-	Port->Guid[0] = PortDetails->Guid[0];
-	Port->Guid[1] = PortDetails->Guid[1];
-	Port->Guid[2] = PortDetails->Guid[2];
-	Port->Guid[3] = PortDetails->Guid[3];
+	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
+		Port->Guid[GuidIndex] = PortDetails->Guid[GuidIndex];
+	}
 	Port->NumSdpStreams = PortDetails->NumSdpStreams;
 	Port->NumSdpStreamSinks = PortDetails->NumSdpStreamSinks;
 }
@@ -2552,6 +2564,7 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 {
 	XDp_SbMsgLinkAddressReplyDeviceInfo *Branch;
 	XDp_SbMsgLinkAddressReplyPortDetail *Port;
+	u8 GuidIndex;
 
 	Branch = &InstancePtr->RxInstance.Topology.LinkAddressInfo;
 	Port = &Branch->PortDetails[PortNum];
@@ -2563,17 +2576,15 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 		Port->PortNum = PortNum;
 		Port->MsgCapStatus = 1;
 		Port->DpDevPlugStatus = 1;
-		Branch->Guid[0] = 0x78696C61;
-		Branch->Guid[1] = 0x6E647265;
-		Branch->Guid[2] = 0x696C7369;
-		Branch->Guid[3] = 0x6d696f6E;
+		for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
+			Branch->Guid[GuidIndex] = GuidTable[0][GuidIndex];
+		}
 	}
 	else {
 		XDp_RxMstSetPort(InstancePtr, PortNum, PortOverride);
-		Branch->Guid[0] = PortOverride->Guid[0];
-		Branch->Guid[1] = PortOverride->Guid[1];
-		Branch->Guid[2] = PortOverride->Guid[2];
-		Branch->Guid[3] = PortOverride->Guid[3];
+		for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
+			Branch->Guid[GuidIndex] = PortOverride->Guid[GuidIndex];
+		}
 	}
 
 	XDp_RxMstExposePort(InstancePtr, PortNum, 1);
@@ -2904,10 +2915,9 @@ static void XDp_RxSetGenericNackReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	/* Reply type for NACK. */
 	Msg->Body.MsgData[ReplyIndex++] |= (1 << 7);
 	/* 16 bytes of GUID. */
-	for (GuidIndex = 0; GuidIndex < 16; GuidIndex++) {
-		Msg->Body.MsgData[ReplyIndex++] = (0xFF &
-			(InstancePtr->RxInstance.Topology.LinkAddressInfo.Guid[
-				GuidIndex / 4] >> (8 * (3 - (GuidIndex % 4)))));
+	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
+		Msg->Body.MsgData[ReplyIndex++] = InstancePtr->RxInstance.
+				Topology.LinkAddressInfo.Guid[GuidIndex];
 	}
 	/* Reason for NACK. */
 	Msg->Body.MsgData[ReplyIndex++] = XDP_SBMSG_NAK_REASON_WRITE_FAILURE;
@@ -2945,10 +2955,9 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	Msg->Body.MsgData[ReplyIndex] = XDP_SBMSG_LINK_ADDRESS;
 	ReplyIndex++;
 
-	for (GuidIndex = 0; GuidIndex < 16; GuidIndex++) {
-		Msg->Body.MsgData[ReplyIndex++] = (0xFF &
-			(Topology->LinkAddressInfo.Guid[GuidIndex / 4] >>
-			(8 * (3 - (GuidIndex % 4)))));
+	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
+		Msg->Body.MsgData[ReplyIndex++] =
+				Topology->LinkAddressInfo.Guid[GuidIndex];
 	}
 
 	Msg->Body.MsgData[ReplyIndex++] = Topology->LinkAddressInfo.NumPorts;
@@ -2983,10 +2992,9 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 			((PortDetails->LegacyDevPlugStatus & 0x01) << 5);
 		Msg->Body.MsgData[ReplyIndex++] = PortDetails->DpcdRev;
 
-		for (GuidIndex = 0; GuidIndex < 16; GuidIndex++) {
+		for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
 			Msg->Body.MsgData[ReplyIndex++] =
-				(0xFF & (PortDetails->Guid[GuidIndex / 4] >>
-				(8 * (3 - (GuidIndex % 4)))));
+						PortDetails->Guid[GuidIndex];
 		}
 
 		Msg->Body.MsgData[ReplyIndex] =
@@ -3125,17 +3133,20 @@ static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg)
  *
 *******************************************************************************/
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
-		u8 *RelativeAddress, XDp_TxTopology *Topology, u32 *Guid)
+		u8 *RelativeAddress, XDp_TxTopology *Topology, u8 *Guid)
 {
 	XDp_TxGetGuid(InstancePtr, LinkCountTotal, RelativeAddress, Guid);
-	if ((Guid[0] == 0) && (Guid[1] == 0) && (Guid[2] == 0) &&
-							(Guid[3] == 0)) {
-		XDp_TxWriteGuid(InstancePtr, LinkCountTotal, RelativeAddress,
-						GuidTable[Topology->NodeTotal]);
+	u8 GuidIndex;
 
-		XDp_TxGetGuid(InstancePtr, LinkCountTotal, RelativeAddress,
-									Guid);
+	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
+		if (Guid[GuidIndex]) {
+			return;
+		}
 	}
+	/* The current GUID is all 0's; issue a GUID to the device. */
+	XDp_TxWriteGuid(InstancePtr, LinkCountTotal, RelativeAddress,
+						GuidTable[Topology->NodeTotal]);
+	XDp_TxGetGuid(InstancePtr, LinkCountTotal, RelativeAddress, Guid);
 }
 
 /******************************************************************************/
@@ -3167,7 +3178,7 @@ static void XDp_TxAddBranchToList(XDp *InstancePtr,
 	TopologyNode = &InstancePtr->TxInstance.Topology.NodeTable[
 				InstancePtr->TxInstance.Topology.NodeTotal];
 
-	for (Index = 0; Index < 4; Index++) {
+	for (Index = 0; Index < XDP_GUID_NBYTES; Index++) {
 		TopologyNode->Guid[Index] = DeviceInfo->Guid[Index];
 	}
 	for (Index = 0; Index < (LinkCountTotal - 1); Index++) {
@@ -3214,7 +3225,7 @@ static void XDp_TxAddSinkToList(XDp *InstancePtr,
 
 	/* Copy the GUID of the sink for the new entry in the topology node
 	 * table. */
-	for (Index = 0; Index < 4; Index++) {
+	for (Index = 0; Index < XDP_GUID_NBYTES; Index++) {
 		TopologyNode->Guid[Index] = SinkDevice->Guid[Index];
 	}
 	/* Copy the RAD of the sink for the new entry in the topology node
@@ -3263,10 +3274,9 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(XDp_SidebandReply
 	/* Determine the device information from the sideband message reply
 	 * structure. */
 
-	memset(FormatReply->Guid, 0, 16);
-	for (Index = 0; Index < 16; Index++) {
-		FormatReply->Guid[Index / 4] <<= 8;
-		FormatReply->Guid[Index / 4] |= SbReply->Data[ReplyIndex++];
+	memset(FormatReply->Guid, 0, XDP_GUID_NBYTES);
+	for (Index = 0; Index < XDP_GUID_NBYTES; Index++) {
+		FormatReply->Guid[Index] = SbReply->Data[ReplyIndex++];
 	}
 
 	FormatReply->NumPorts = SbReply->Data[ReplyIndex++];
@@ -3289,10 +3299,9 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(XDp_SidebandReply
 				((SbReply->Data[ReplyIndex++] & 0x20) >> 5);
 			PortDetails->DpcdRev = (SbReply->Data[ReplyIndex++]);
 
-			memset(PortDetails->Guid, 0, 16);
-			for (Index2 = 0; Index2 < 16; Index2++) {
-				PortDetails->Guid[Index2 / 4] <<= 8;
-				PortDetails->Guid[Index2 / 4] |=
+			memset(PortDetails->Guid, 0, XDP_GUID_NBYTES);
+			for (Index2 = 0; Index2 < XDP_GUID_NBYTES; Index2++) {
+				PortDetails->Guid[Index] =
 						SbReply->Data[ReplyIndex++];
 			}
 

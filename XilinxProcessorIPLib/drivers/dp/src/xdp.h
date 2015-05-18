@@ -475,7 +475,7 @@ typedef struct {
  * running in multi-stream transport (MST) mode.
  */
 typedef struct {
-	u32 Guid[4];			/**< The global unique identifier (GUID)
+	u8 Guid[XDP_GUID_NBYTES];	/**< The global unique identifier (GUID)
 						of the device. */
 	u8 RelativeAddress[15];		/**< The relative address from the
 						DisplayPort TX to this
@@ -536,7 +536,7 @@ typedef struct {
 	u8 DpcdRev;			/**< The DisplayPort Configuration Data
 						(DPCD) revision of the device
 						connected to this port. */
-	u32 Guid[4];			/**< The global unique identifier (GUID)
+	u8 Guid[XDP_GUID_NBYTES];	/**< The global unique identifier (GUID)
 						of the device connected to this
 						port. */
 	u8 NumSdpStreams;		/**< The total number of Secondary-Data
@@ -551,7 +551,7 @@ typedef struct {
  * when the driver is operating in multi-stream transport (MST) mode.
  */
 typedef struct {
-	u32 Guid[4];			/**< The global unique identifier (GUID)
+	u8 Guid[XDP_GUID_NBYTES];	/**< The global unique identifier (GUID)
 						of the branch device. */
 	u8 NumPorts;			/**< The number of ports associated with
 						this branch device. */
@@ -1079,9 +1079,9 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr);
 
 /* xdp_mst.c: Multi-stream transport (MST) utility functions. */
 void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 Guid[4]);
+								u8 *Guid);
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
-								u32 *Guid);
+								u8 *Guid);
 u32 XDp_RxHandleDownReq(XDp *InstancePtr);
 XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 								u8 IicAddress);
