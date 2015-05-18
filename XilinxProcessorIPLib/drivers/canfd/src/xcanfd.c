@@ -42,7 +42,10 @@
 *
 * Ver   Who  Date	Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a nsk  06/04/15 First release
+* 1.0   nsk  06/04/15 First release
+* 1.0   nsk  15/05/15 Updated Correct AFRID and AFRMSK Registers.
+*		      Modified DataSwaping when EDL is Zero.
+*		      (CR 861772)
 *
 * </pre>
 ******************************************************************************/
@@ -114,6 +117,7 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 	InstancePtr->CanFdConfig.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->CanFdConfig.Rx_Mode = ConfigPtr->Rx_Mode;
 	InstancePtr->CanFdConfig.NumofRxMbBuf = ConfigPtr->NumofRxMbBuf;
+	InstancePtr->CanFdConfig.NumofTxBuf = ConfigPtr->NumofTxBuf;
 
 	/*
 	 * Set all handlers to stub values, let user configure this data later.
@@ -135,7 +139,7 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 /**
 *
 * This function returns enabled acceptance filters. Use XCANFD_AFR_UAF*_MASK
-* defined in xcanfd_l.h to interpret the returned value. If no acceptance
+* defined in xcanfd_hw.h to interpret the returned value. If no acceptance
 * filters are enabled then all received frames are stored in the RX FIFO.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
@@ -549,11 +553,13 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 			/* Legacy CAN Frames */
 			for (Len = 0;Len < Dlc;Len += 4) {
+				OutValue = Xil_EndianSwap32(
+						FramePtr[2+DwIndex]);
 				XCanFd_WriteReg(
 					InstancePtr->CanFdConfig.BaseAddress,
 						(XCANFD_TXDW_OFFSET(
 						FreeTxBuffer)+(Len)),
-						FramePtr[2+DwIndex]);
+						OutValue);
 				DwIndex++;
 			}
 		}
@@ -692,6 +698,7 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 	u32 Dlc;
 	u32 Len;
 	u32 NofRcsReg=0;
+	u32 Mask;
 	/*
 	 * Core status bit in Receive Control Status Register starts from 16
 	 * th bit Location.
@@ -757,8 +764,10 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 						DwIndex++;
 					}
 				}
-				Result ^= (1 << CoreStatusBit);
-				XCanFd_WriteReg(InstancePtr->CanFdConfig.
+			Mask = Result & 0xFFFF;
+			Result &= 1<<CoreStatusBit;
+			Result |= Mask;
+			XCanFd_WriteReg(InstancePtr->CanFdConfig.
 				BaseAddress,
 				XCANFD_RCS_OFFSET(NoCtrlStatus),Result);
 				return XST_SUCCESS;
@@ -1072,7 +1081,7 @@ void XCanFd_AcceptFilterDisable(XCanFd *InstancePtr, u32 FilterIndexMask)
 *
 * This function sets values to the Acceptance Filter Mask Register (AFMR) and
 * Acceptance Filter ID Register (AFIR) for the specified Acceptance Filter.
-* Use XCANFD_IDR_* defined in xcanfd_l.h to create the values to set the filter.
+* Use XCANFD_IDR_* defined in xcanfd_hw.h to create the values to set the filter.
 * Read xcanfd.h and device specification for details.
 *
 * This function should be called only after:
@@ -1082,8 +1091,8 @@ void XCanFd_AcceptFilterDisable(XCanFd *InstancePtr, u32 FilterIndexMask)
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 * @param	FilterIndex defines which Acceptance Filter Mask and ID Register
-*		to set. Use any single XCANFD_AFR_UAF*_MASK value.ranges from 0
-*		- 31
+*		to set. Use any single XCANFD_AFR_UAF*_MASK value.ranges from 1
+*		- 32
 * @param	MaskValue is the value to write to the chosen Acceptance Filter
 *		Mask Register.
 * @param	IdValue is the value to write to the chosen Acceptance Filter
@@ -1117,12 +1126,12 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 	if ((EnabledFilters & FilterIndex) == FilterIndex) {
 		return XST_FAILURE;
 	}
+	FilterIndex--;
+	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+			XCANFD_AFMR_OFFSET(FilterIndex),MaskValue);
 
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
-			XCANFD_AFMR_OFFSET(FilterIndex-1),MaskValue);
-
-	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
-			XCANFD_AFIDR_OFFSET(FilterIndex-1),IdValue);
+			XCANFD_AFIDR_OFFSET(FilterIndex),IdValue);
 
 
 	return XST_SUCCESS;
@@ -1132,7 +1141,7 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 /**
 *
 * This function reads the values of the Acceptance Filter Mask and ID Register
-* for the specified Acceptance Filter. Use XCANFD_IDR_* defined in xcanfd_l.h to
+* for the specified Acceptance Filter. Use XCANFD_IDR_* defined in xcanfd_hw.h to
 * interpret the values. Read xcanfd.h and device specification for details.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
@@ -1157,7 +1166,9 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(FilterIndex < XCANFD_NOOF_AFR);
+	Xil_AssertVoid((FilterIndex > 0) ||(FilterIndex <= 32));
 
+	FilterIndex--;
 	*MaskValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_AFMR_OFFSET(FilterIndex));
 
@@ -1357,7 +1368,8 @@ int XCanFd_GetFreeBuffer(XCanFd *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	for (AvailBuffer = 0;AvailBuffer <= 31;AvailBuffer++) {
+	for (AvailBuffer = 0;AvailBuffer <= InstancePtr->CanFdConfig.NumofTxBuf;
+		AvailBuffer++) {
 
 		if (InstancePtr->FreeBuffStatus[AvailBuffer]!= 1) {
 			return AvailBuffer;

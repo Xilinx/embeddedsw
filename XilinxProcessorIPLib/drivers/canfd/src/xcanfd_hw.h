@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xcanfd_l.h
+* @file xcanfd_hw.h
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
@@ -43,15 +43,16 @@
 *
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -----------------------------------------------
-* 1.00a nsk  06/04/2015 First release
-*
+* 1.0   nsk  06/04/2015 First release
+* 1.0   nsk  15/05/2015 Modified XCANFD_BTR_TS1_MASK
+*		 	(CR 861772).
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XCANFD_L_H		/* prevent circular inclusions */
-#define XCANFD_L_H		/* by using protection macros */
+#ifndef XCANFD_HW_H		/* prevent circular inclusions */
+#define XCANFD_HW_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -690,7 +691,7 @@ extern "C" {
 #define XCANFD_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
 #define XCANFD_BTR_TS2_MASK	0x00001F00  /**< Time Segment 2 Mask */
 #define XCANFD_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
-#define XCANFD_BTR_TS1_MASK	0x0000001F  /**< Time Segment 1 Mask */
+#define XCANFD_BTR_TS1_MASK	0x0000003F  /**< Time Segment 1 Mask */
 #define XCANFD_F_BRPR_TDCMASK	0x00001F00	/**< Tranceiver Delay
 						compensation Offset Mask */
 #define XCANFD_F_BRPR_TDC_ENABLE_MASK	0x00010000	/**< Tranceiver Delay

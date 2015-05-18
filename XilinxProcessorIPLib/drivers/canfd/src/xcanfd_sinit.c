@@ -54,7 +54,7 @@
 *
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.00a nsk    06/03/15 First release
+* 1.0   nsk    06/03/15 First release
 *
 *
 * </pre>

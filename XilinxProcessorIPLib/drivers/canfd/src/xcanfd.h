@@ -173,7 +173,7 @@ exclusion
 *
 * <b>Building the driver</b>
 *
-* The XCanFd driver is composed of several source files. This allows the user to
+* The XCanFd driver is composed of several source files.This allows the user to
 * build and link only those parts of the driver that are necessary.
 * <br><br>
 *
@@ -183,8 +183,15 @@ exclusion
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a nsk  06/04/15 First release
-*
+* 1.0   nsk  06/04/15 First release
+* 1.0   nsk  15/05/15 Updated xcanfd.c for correct AFRID and AFRMSK Registers
+* 		      Updated xcanfd.c and xcanfd.h to get configurable
+*		      TxBuffers in XCanFd_Config Struct and
+*		      XCanFd_GetFreeBuffer().
+*		      Modified XCANFD_BTR_TS1_MASK in xcanfd_hw.h.
+*		      Updated xcanfd.c while sending data when EDL is Zero.
+*		      Updated driver tcl file to get configurable TxBuffers.
+*		      (CR 861772).
 * </pre>
 *
 ******************************************************************************/
@@ -199,7 +206,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xstatus.h"
-#include "xcanfd_l.h"
+#include "xcanfd_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -234,6 +241,7 @@ typedef struct {
 	u32 BaseAddress;	/**< Register base address */
 	u32 Rx_Mode;			/**< 1-Mailbox 0-sequential */
 	u32 NumofRxMbBuf;	/**< Number of RxBuffers */
+	u32 NumofTxBuf;         /**< Number of TxBuffers */
 } XCanFd_Config;
 
 /*****************************************************************************/
@@ -269,7 +277,7 @@ typedef void (*XCanFd_ErrorHandler) (void *CallBackRef, u32 ErrorMask);
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
 * @param	Mask is a bit mask indicating the pending interrupts. Its value
-*		equals 'OR'ing one or more XCANFD_IXR_* defined in xcanfd_l.h
+*		equals 'OR'ing one or more XCANFD_IXR_* defined in xcanfd_hw.h
 ******************************************************************************/
 typedef void (*XCanFd_EventHandler) (void *CallBackRef, u32 Mask);
 
@@ -637,7 +645,7 @@ typedef struct {
 /**
 *
 * This function reads Error Status value from Error Status Register (ESR). Use
-* the XCANFD_ESR_* constants defined in xcanfd_l.h to interpret the returned value.
+* the XCANFD_ESR_* constants defined in xcanfd_hw.h to interpret the returned value.
 *
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
@@ -654,7 +662,7 @@ typedef struct {
 /**
 *
 * This function returns Status value from Status Register (SR). Use the
-* XCANFD_SR_* constants defined in xcanfd_l.h to interpret the returned value.
+* XCANFD_SR_* constants defined in xcanfd_hw.h to interpret the returned value.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
@@ -670,7 +678,7 @@ typedef struct {
 /**
 *
 * This function clears Error Status bit(s) previously set in Error
-* Status Register (ESR). Use the XCANFD_ESR_* constants defined in xcanfd_l.h to
+* Status Register (ESR). Use the XCANFD_ESR_* constants defined in xcanfd_hw.h to
 * create the value to pass in. If a bit was cleared in Error Status Register
 * before this function is called, it will not be touched.
 *
@@ -780,7 +788,7 @@ typedef struct {
 /**
 *
 * This routine returns enabled interrupt(s). Use the XCANFD_IXR_* constants
-* defined in xcanfd_l.h to interpret the returned value.
+* defined in xcanfd_hw.h to interpret the returned value.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
@@ -796,7 +804,7 @@ typedef struct {
 /**
 *
 * This routine returns interrupt status read from Interrupt Status Register.
-* Use the XCANFD_IXR_* constants defined in xcanfd_l.h to interpret the returned
+* Use the XCANFD_IXR_* constants defined in xcanfd_hw.h to interpret the returned
 * value.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.

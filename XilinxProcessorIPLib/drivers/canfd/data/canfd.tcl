@@ -29,11 +29,21 @@
 # this Software without prior written authorization from Xilinx.
 #
 ###############################################################################
+#
+# MODIFICATION HISTORY:
+#
+# Ver	Who	Date	 Changes
+# ----	-----	-------	 -----------------------------
+# 1.0	nsk	15/05/15 Updated as per RTL. TxBuffer
+#			 Can be configurable(8,16,32).
+#
+###############################################################################
+
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XCanfd" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF"
-    xdefine_config_file $drv_handle "xcanfd_g.c" "XCanFd" "DEVICE_ID" "C_BASEADDR" "RX_MODE" "NUM_OF_RX_MB_BUF"
+    xdefine_include_file $drv_handle "xparameters.h" "XCanfd" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF"
+    xdefine_config_file $drv_handle "xcanfd_g.c" "XCanFd" "DEVICE_ID" "C_BASEADDR" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "Canfd" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "Canfd" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CAN_RX_DPTH" "C_CAN_TX_DPTH" "RX_MODE" "NUM_OF_RX_MB_BUF" "NUM_OF_TX_BUF"
 }
