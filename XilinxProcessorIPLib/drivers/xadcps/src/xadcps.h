@@ -165,6 +165,9 @@
 *			functions.
 *			Modified Assert for XAdcPs_SetSingleChParams in
 *			xadcps.c to fix CR #807563.
+* 2.1   bss    04/27/14 Modified to use correct Device Config base address in
+*						xadcps.c (CR#854437).
+*
 *
 * </pre>
 *
