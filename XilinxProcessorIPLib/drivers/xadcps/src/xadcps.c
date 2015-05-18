@@ -53,6 +53,8 @@
 *			to fix CR #693371
 * 2.1   bss    08/05/14	Modified Assert for XAdcPs_SetSingleChParams to fix
 *			CR #807563.
+* 2.1	bss	   04/27/14 Modified to use correct Device Config base address
+*						(CR#854437).
 * </pre>
 *
 *****************************************************************************/
@@ -117,7 +119,7 @@ int XAdcPs_CfgInitialize(XAdcPs *InstancePtr, XAdcPs_Config *ConfigPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	/* Write Unlock value to Device Config Unlock register */
-	XAdcPs_WriteReg((InstancePtr)->Config.BaseAddress,
+	XAdcPs_WriteReg(XPAR_XDCFG_0_BASEADDR,
 				XADCPS_UNLK_OFFSET, XADCPS_UNLK_VALUE);
 
 	/* Enable the PS access of xadc and set FIFO thresholds */
