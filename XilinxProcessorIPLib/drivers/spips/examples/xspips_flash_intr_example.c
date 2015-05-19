@@ -59,6 +59,7 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"	/* SDK generated parameters */
+#include "xplatform_info.h"
 #include "xspips.h"		/* SPI device driver */
 #include "xscugic.h"		/* Interrupt controller device driver */
 #include "xil_exception.h"
@@ -127,7 +128,8 @@
  * to select the flash device on the SPI bus, this signal is typically
  * connected to the chip select of the device
  */
-#define FLASH_SPI_SELECT	0x01
+#define FLASH_SPI_SELECT_1	0x01
+#define FLASH_SPI_SELECT_0	0x00
 
 /**************************** Type Definitions *******************************/
 
@@ -256,7 +258,15 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	u8 *BufferPtr;
 	u8 UniqueValue;
 	u32 Count;
+	u32 MaxSize = MAX_DATA;
+	u32 ChipSelect = FLASH_SPI_SELECT_1;
 	XSpiPs_Config *SpiConfig;
+
+	if (XGetPlatform_Info() == XPLAT_ZYNQ_ULTRA_MP) {
+		MaxSize = 1024 * 10;
+		ChipSelect = FLASH_SPI_SELECT_0;	/* Device is on CS 0 */
+		SpiIntrId = XPAR_XSPIPS_0_INTR;
+	}
 
 	/*
 	 * Initialize the SPI driver so that it's ready to use
@@ -320,7 +330,7 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	 * test value that is added to the unique value allows the value to be
 	 * changed in a debug environment to guarantee
 	 */
-	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
+	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
 	     Count++, UniqueValue++) {
 		WriteBuffer[DATA_OFFSET + Count] = (u8)(UniqueValue);
 	}
@@ -328,7 +338,7 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	/*
 	 * Assert the flash chip select
 	 */
-	XSpiPs_SetSlaveSelect(SpiInstancePtr, FLASH_SPI_SELECT);
+	XSpiPs_SetSlaveSelect(SpiInstancePtr, ChipSelect);
 
 	/*
 	 * Read the flash ID
@@ -347,20 +357,20 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	/*
 	 * Write the data in the write buffer to TestAddress in serial flash
 	 */
-	FlashWrite(SpiInstancePtr, TestAddress, MAX_DATA, WRITE_CMD);
+	FlashWrite(SpiInstancePtr, TestAddress, MaxSize, WRITE_CMD);
 
 	/*
 	 * Read the contents of the flash from TestAddress of size MAX_DATA
 	 * using Normal Read command
 	 */
-	FlashRead(SpiInstancePtr, TestAddress, MAX_DATA, READ_CMD);
+	FlashRead(SpiInstancePtr, TestAddress, MaxSize, READ_CMD);
 
 	/*
 	 * Setup a pointer to the start of the data that was read into the read
 	 * buffer and verify the data read is the data that was written
 	 */
 	BufferPtr = &ReadBuffer[DATA_OFFSET];
-	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
+	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
 			 Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
 			return XST_FAILURE;
@@ -383,7 +393,7 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	 * test value that is added to the unique value allows the value to be
 	 * changed in a debug environment to guarantee
 	 */
-	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
+	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
 	     Count++, UniqueValue++) {
 		WriteBuffer[DATA_OFFSET + Count] = (u8)(UniqueValue);
 	}
@@ -396,20 +406,20 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	/*
 	 * Write the data in the write buffer to TestAddress in serial flash
 	 */
-	FlashWrite(SpiInstancePtr, TestAddress, MAX_DATA, WRITE_CMD);
+	FlashWrite(SpiInstancePtr, TestAddress, MaxSize, WRITE_CMD);
 
 	/*
 	 * Read the contents of the flash from TestAddress of size MAX_DATA
 	 * using Normal Read command
 	 */
-	FlashRead(SpiInstancePtr, TestAddress, MAX_DATA, READ_CMD);
+	FlashRead(SpiInstancePtr, TestAddress, MaxSize, READ_CMD);
 
 	/*
 	 * Setup a pointer to the start of the data that was read into the read
 	 * buffer and verify the data read is the data that was written
 	 */
 	BufferPtr = &ReadBuffer[DATA_OFFSET];
-	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
+	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
 			 Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
 			return XST_FAILURE;
