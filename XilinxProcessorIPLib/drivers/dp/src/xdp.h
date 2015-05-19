@@ -1087,6 +1087,8 @@ XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 								u8 IicAddress);
 u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
 						u8 ReadNumBytes, u8 *ReadData);
+void XDp_RxSetDpcdMap(XDp *InstancePtr, u8 PortNum, u32 StartAddr, u32 NumBytes,
+								u8 *DpcdMap);
 void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose);
 void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 			XDp_SbMsgLinkAddressReplyPortDetail *PortDetails);

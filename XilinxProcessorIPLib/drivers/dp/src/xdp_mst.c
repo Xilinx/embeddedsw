@@ -2465,6 +2465,36 @@ u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
 
 /******************************************************************************/
 /**
+ * This function specified the DPCD address space for a given port. The user
+ * provides a pointer to the data to be used. When an upstream device issues a
+ * REMOTE_DPCD_READ sideband message, the contents of this DPCD structure will
+ * be used as the reply's data.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	PortNum is the port number for which to set the DPCD.
+ * @param	StartAddr is the starting address for which to define the DPCD.
+ * @param	NumBytes is the total number of bytes defined by the DPCD.
+ * @param	DpcdMap is a pointer to a user-defined data structure that will
+ *		be used as read data when an upstream device issues a DPCD read.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetDpcdMap(XDp *InstancePtr, u8 PortNum, u32 StartAddr, u32 NumBytes,
+								u8 *DpcdMap)
+{
+	InstancePtr->RxInstance.Topology.Ports[PortNum].DpcdMap.DataPtr =
+								DpcdMap;
+	InstancePtr->RxInstance.Topology.Ports[PortNum].DpcdMap.NumBytes =
+								NumBytes;
+	InstancePtr->RxInstance.Topology.Ports[PortNum].DpcdMap.StartAddr =
+								StartAddr;
+}
+
+/******************************************************************************/
+/**
  * This function allows the user to select which ports will be exposed when
  * replying to a LINK_ADDRESS sideband message. The number of ports will also
  * be set.
