@@ -59,7 +59,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 		     status);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 3 * PAYLOAD_ELEM_SIZE,
 		     oppoint);
-	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiTrigMask);
+	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }
 
 /**
@@ -78,7 +78,7 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		     event);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 3 * PAYLOAD_ELEM_SIZE,
 		     oppoint);
-	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiTrigMask);
+	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }
 
 /**
@@ -107,5 +107,5 @@ void PmInitSuspendCb(const PmMaster* const master, const PmNodeId nodeId,
 		     state);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 5 * PAYLOAD_ELEM_SIZE,
 		     timeout);
-	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiTrigMask);
+	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }

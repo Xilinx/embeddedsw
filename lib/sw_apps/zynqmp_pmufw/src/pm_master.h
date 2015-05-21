@@ -136,7 +136,6 @@ typedef struct {
  * @procs       Pointer to the array of processors within the master
  * @procsCnt    Number of processors within the master
  * @ipiMask     Mask dedicated to the master in IPI registers
- * @ipiTrigMask Trigger mask dedicated to the master in IPI registers
  * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
  * @buffer      IPI buffer address into which this master can write
  *              (master's buffer)
@@ -150,7 +149,6 @@ typedef struct PmMaster {
 	PmProc* const procs;
 	const u8 procsCnt;
 	const u32 ipiMask;
-	const u32 ipiTrigMask;
 	const u32 pmuBuffer;
 	const u32 buffer;
 	PmRequirement* const reqs;
