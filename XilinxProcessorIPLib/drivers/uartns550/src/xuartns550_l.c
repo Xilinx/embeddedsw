@@ -49,13 +49,8 @@
 * 2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
 *		      Updated to use HAL Processor APIs. _m is removed from the
 *		      name of all the macro definitions.
-* 3.3	nsk  04/13/15 Clock Divisor Enhancement. i.e when odd clock given
-*		      as inputclock, say 31.725MHz and Baud as 1000000
-*		      then divisor = (31725000) / (1000000 * 16), This returns
-*		      1.9828, since this is integer math, it becomes 1.
-*		      Which is almost half of the necessary value. so
-*		      we are truncating it to nearest integer. in our
-*		      case 1.9828 rounded to 2.
+* 3.3	nsk  04/13/15 Fixed Clock Divisor Enhancement.
+*		      (CR 857013)
 * </pre>
 *
 ******************************************************************************/
