@@ -1,102 +1,53 @@
-Change Log for 2015.1
+Change Log for 2015.2
 =================================
-axidma_v8_1: Changes
-Added the self test api - XAxiDma_Selftest which does a basic read/write register test , added support for the self test as a part of the Peripheral Tests
+standalone_v5_1: Changes
+New minor version upgrade with following changes:
+The initialization order in cortexa9/gcc/boot.S, iccarm/boot.s and armcc/boot.s are changed
+to first invalidate caches and TLB, enable MMU and caches, then enable SMP bit in ACTLR.
+L2Cache invalidation and enabling of L2Cache is done later.
+Modifies cortexa9/xil_cache.c to modify Xil_DCacheInvalidateRange and Xil_DCacheFlushRange
+to remove unnecessary "dsb" to improve performance. L2CacheSync is added into
+Xil_L2CacheInvalidateRange API. Xil_L1DCacheInvalidate and Xil_L2CacheInvalidate APIs are
+modified to flush the complete stack instead of just System Stack.
+Modifies cortexa9/gcc/Makefile to keep a correct check of a compiler to update ECC_FLAGS
+and also take the compiler and archiver as specified in settings instead of hardcoding it.
 
-axiethernet_v4_4: Changes
-Fixed TCL errors when axiethernet is configured with the Axi Stream Fifo
+xilisf_v5_2: Changes
+New minor version that adds support for Micron N25Q256A (>16MB) flash devices.
+Adds necessary support for 4 byte addressing mode. APIs are added to enter and exit from 4 byte mode.
+Changes are made in read, erase and write APIs to support 4 byte mode.
 
-axivdma_v5_1 : Changes
-Added the self test api - XAxiVdma_Selftest which does a basic read/write register test , added support for the self test as a part of the Peripheral Tests
+xilskey_v2_1: Changes
+New minor version upgrade that initializes RSAKeyReadback with zeros.
 
-canps_v3_0: Changes
-Updated for MISRA-C:2012 compliance.
+lwip141_v1_1: Changes
+New minor version upgrade that fixes the AC701 RGMII autonegotiation issue. The AxiEthernetUtilPhyDelay
+routine is added with an attribute to avoid inlining of this function by toolchain.
 
-coresightps_dcc_v1_0:
-New driver for sending/receiving data on the coresight DCC
+zynq_fsbl: Changes
+In the file pcap.c, changes done to write to devcfg.STATUS register to clear the DMA done count.
 
-cpu_v2_3: Changes
-Removed -ffunction-sections & -fdata-sections flags from extra_compiler_flags  as there is some problem with the garbage collection in the tool chain
+devcfg_v3_3: Changes
+Minor driver version upgrade that fixes the XDcfg_ReadMultiBootConfig macro which was passing wrong number of arguments
 
-dp_v1_0: Changes
-New driver for the Display Port Tx and Display Port Rx
+llfifo_v5_0: Changes
+Major driver version that updates the register offsets in the AXI4 data path as per latest IP version(v4.1)
 
-emacps_v3_0: Changes
-Don't include GiGE in peripheral test when  it is configured with PCS/PMA Core.
-Modified code for MISRA-C:2012 compliance.
+sysmon_v7_1:
+Minor driver version upgrade that modifies temperature transfer function for for Ultrascale.
 
-gpiops_v3_0: Changes
-Modified code for MISRA-C:2012 compliance.
+vtc_v7_0: Changes
+Major driver version upgrade that makes the following changes:
+Adds interlaced field to XVtc_Signal structure. Removes XVtc_RegUpdate as there are is one more API
+XVtc_RegUpdateEnable present with same functionality.
+Modifies HActiveVideo value to 1920 for XVTC_VMODE_1080I mode.
+Removes Major, Minor and Revision parameters from XVtc_GetVersion.
+Modifies return type of XVtc_GetVersion from void to u32.
+Adds progressive and interlaced mode switching feature.
+Modifies XVtc_SetGenerator, XVtc_GetGenerator, XVtc_GetDetector, XVtc_ConvTiming2Signal and XVtc_ConvSignal2Timing APIs.
+Removes XVTC_ERR_FIL_MASK macro because it is  not present in latest product guide.
+Modifies register offsets from XVTC_* to XVTC_*_OFFSET for consistency.
+Adds new file xvtc_selftest.c.
 
-iic_v3_1: Changes
-When configured as a slave return the actual number of bytes have been received/sent by the Master to the user callback.
-
-iicps_v3_0: Changes
-Modified TimeOut Register value to 0xFF in XIicPs_Reset.
-Implemented Repeated start feature.
-Updated for MISRAC 2012 Compliance.
-
-intc_v3_3: Changes
-Added generation of C_HAS_ILR parameter to xparameters.h in the driver tcl file
-
-nandps_v2_2: Changes
-Updated to use the address cycles defined in onfi parameter  page than hard coding this value to 5 for read and   write operations.
-
-qspips_v3_2: changes
-Added SLCR reset in abort function as a workaround as the controller does not update FIFO status flags as expected when thresholds are used.
-
-scutimer_v2_1: Changes
-Updated for MISRAC 2012 Compliance.
-
-scuwdt_v2_1: Changes
-Updated for MISRAC 2012 Compliance.
-
-sdps_v2_4: Changes
-Added support for micro SD without WP/CD. Checked for DAT Inhibit mask instead of CMD Inhibit mask in Cmd Transfer API.
-Added Support for SD Card v1.0
-
-spips_v3_0: Changes
-Updated for MISRAC 2012 Compliance.
-
-ttcps_v3_0: Changes
-Updated for MISRAC 2012 Compliance.
-
-uartps_v3_0: Changes
-Updated for MISRAC 2012 Compliance.
-
-video_common_v1_0:
-New driver for common video structure and apis
-
-wdtps_v3_0: Changes
-Updated for MISRAC 2012 Compliance.
-
-standalone_v5_0: Changes
-Updated for MISRA-C:2012 compliance.
-Modified boot code to enable scu after MMU is enabled and   removed incorrect initialization of TLB lockdown register.
-
-xilkernel_v6_2: Changes
-Fix to the TCL so that Xilkernel builds.
-
-xilffs_v3_0: changes
-Added support for micro SD without WP/CD.
-Updated the FatFs to R0.10b
-Make changes for prototypes of disk_read and  disk_write according to latest version.
-Updated the code for MISRAC 2012 compliance.
-Removed alignment for local buffers as CacheInvalidate will take care of it.
-
-xilisf_v5_1: Changes
-Added check for flash interface for Winbond, Spansion and Micron flash family for PSQSPI
-
-FSBL: Changes
-Updated f_mount as per the new API in FatFs R0.10b .
-
-lwip141_v1_0:
-New version of lwip library based on open source lwip version 1.4.1
-Changes in the adapter:
-Add support for 2 GigE for Zynq
-Removed support for lltemac.
-Made changes in axiethernet adapter files as part of general clean-up.
-Added support for 2 GigEs for GEM.
-Added support for non-Marvell PHY reporting.
-Made changes for axiethernet checksum validation logic that resulted
-in performance improvement.
+xadcps_v2_2: Changes
+Minor driver version upgrade that uses correct Device Config base address in xadcps.c.
