@@ -332,7 +332,6 @@ Sync
 	str	r1, [r0]		    	; Unlock SLCR
 
 	ldr	r0,=SLCRL2cRamReg		; Load SLCR base address base + l2c Ram Control register
-	ldr	r1,=SLCRL2cRamConfig        	; set the configuration value
 	str	r1, [r0]	        	; store the L2c Ram Control Register
 
 	ldr	r0,=SLCRlockReg         	; Load SLCR base address base + lock register
