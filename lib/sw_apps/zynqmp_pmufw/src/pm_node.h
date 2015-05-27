@@ -43,7 +43,6 @@ typedef u8 PmNodeId;
 typedef u8 PmStateId;
 typedef u8 PmTransitionId;
 typedef u8 PmNodeTypeId;
-typedef u8 PmWakeEventId;
 
 /* Forward declaration */
 typedef struct PmPower PmPower;
@@ -77,17 +76,6 @@ typedef u32 (*const PmNodeTranHandler)(PmNode* const nodePtr);
 
 #define HAS_SLEEP(opsPtr)   ((NULL != opsPtr) && (NULL != (opsPtr)->sleep))
 
-/* Wake events */
-#define PM_WAKE_EVENT_GPI1_APU0_GIC 0U
-#define PM_WAKE_EVENT_GPI1_APU1_GIC 1U
-#define PM_WAKE_EVENT_GPI1_APU2_GIC 2U
-#define PM_WAKE_EVENT_GPI1_APU3_GIC 3U
-#define PM_WAKE_EVENT_GPI1_RPU0_GIC 4U
-#define PM_WAKE_EVENT_GPI1_RPU1_GIC 5U
-#define PM_WAKE_EVENT_GPI1_USB0     6U
-#define PM_WAKE_EVENT_GPI1_USB1     7U
-#define PM_WAKE_EVENT_GPI1_FPD_PROX 8U
-#define PM_WAKE_EVENT_GPI1_MAX      9U
 
 /*********************************************************************
  * Structure definitions
@@ -109,10 +97,7 @@ typedef struct PmNodeOps {
  * @typeId      Type id, used to distinguish the nodes
  * @parent      Pointer to power parent node
  * @currState   Id of the node's current state. Interpretation depends on type
- *              of the node, bit 0 value is reserved for on/off states where
- *              0=off and 1=on, so for any other on-state bit 0 must also be 1
- *              and any other off-state bit 0 must be 0
- *              (e.g. 0x2 for off with retention/saved context)
+ *              of the node, bit 0 value is reserved for off states
  * @ops         Pointer to the operations structure
  */
 typedef struct PmNode {

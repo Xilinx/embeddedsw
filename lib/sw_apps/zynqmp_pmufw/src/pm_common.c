@@ -30,7 +30,8 @@
 
 /*********************************************************************
  * Definitions of commonly used functions for debugging PMU Power
- * Management (PM).
+ * Management (PM). Conditionaly compiled code for debugging is not
+ * intended to be MISRA compliant.
  *********************************************************************/
 
 #include "pm_common.h"
@@ -38,20 +39,13 @@
 #include "pm_master.h"
 
 #ifdef DEBUG_PM
-const char* PmStrMaster(const u32 master)
-{
-	switch (master) {
-	case PM_MASTER_APU:
-		return "MASTER_APU";
-	case PM_MASTER_RPU_0:
-		return "MASTER_RPU0";
-	case PM_MASTER_RPU_1:
-		return "MASTER_RPU1";
-	default:
-		return "ERROR_MASTER";
-	}
-}
 
+/**
+ * PmStrNode() - Converts integer node id into node string
+ * @node        Node id to be converted to string
+ *
+ * @return      String name of given node id
+ */
 const char* PmStrNode(const u32 node)
 {
 	switch (node) {
@@ -110,6 +104,12 @@ const char* PmStrNode(const u32 node)
 	}
 }
 
+/**
+ * PmStrAck() - Converts integer acknowledge into matching string
+ * @ack        Acknowlegde integer id to be converted to string
+ *
+ * @return     String name of given acknowledge id
+ */
 const char* PmStrAck(const u32 ack)
 {
 	switch (ack) {
@@ -126,6 +126,12 @@ const char* PmStrAck(const u32 ack)
 	}
 }
 
+/**
+ * PmStrReason() - Converts integer reason id into matching string
+ * @reason      Integer reason id to be converted
+ *
+ * @return      String name of given reason integer
+ */
 const char* PmStrReason(const u32 reason)
 {
 	switch (reason) {

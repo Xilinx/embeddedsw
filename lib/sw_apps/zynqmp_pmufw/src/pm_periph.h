@@ -40,19 +40,27 @@
  * These slaves have no machanisms for controlling their own state, and their
  * off state is controlled by the power parent state.
  */
-#define PM_STD_SLAVE_STATE_OFF  0U
-#define PM_STD_SLAVE_STATE_ON   1U
+#define PM_STD_SLAVE_STATE_OFF	0U
+#define PM_STD_SLAVE_STATE_ON	1U
 
 /* Always-on slaves, have only one state */
-#define PM_AON_SLAVE_STATE      0U
+#define PM_AON_SLAVE_STATE	0U
 
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
+/**
+ * PmSlaveTtc - Structure used for timer peripheral
+ * @slv Base slave structure
+ */
 typedef struct PmSlaveTtc {
 	PmSlave slv;
 } PmSlaveTtc;
 
+/**
+ * PmSlaveSata - Structure used for Sata peripheral
+ * @slv Base slave structure
+ */
 typedef struct PmSlaveSata {
 	PmSlave slv;
 } PmSlaveSata;

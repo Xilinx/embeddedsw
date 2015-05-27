@@ -120,8 +120,8 @@ static void PmRequestSuspend(const PmMaster *const master,
 {
 	PmProc* proc = PmGetProcOfOtherMaster(master, node);
 
-	PmDbg("(%s, %s, %d, %d)\n",
-	      PmStrNode(node), PmStrAck(ack), latency, state);
+	PmDbg("(%s, %s, %d, %d)\n", PmStrNode(node), PmStrAck(ack),
+	      latency, state);
 
 	if (NULL == proc) {
 		PmDbg("ERROR processor not found by node %d\n", node);
@@ -257,6 +257,7 @@ static void PmReleaseNode(const PmMaster *master,
 			  const u32 latency)
 {
 	u32 status;
+	/* Get static requirements structure for this master/slave pair */
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
 	if (NULL == masterReq) {
@@ -270,8 +271,7 @@ static void PmReleaseNode(const PmMaster *master,
 	masterReq->info &= ~PM_MASTER_USING_SLAVE_MASK;
 
 	if (PM_RET_SUCCESS != status) {
-		PmDbg("ERROR PmRequirementUpdate status = %d (should be 0!!)\n",
-		      status);
+		PmDbg("ERROR PmRequirementUpdate status = %d\n", status);
 		goto done;
 	}
 
@@ -283,6 +283,7 @@ static void PmReleaseNode(const PmMaster *master,
 
 done:
 	PmDbg("(%s, %d)\n", PmStrNode(node), latency);
+	return;
 }
 
 /**
@@ -301,6 +302,11 @@ static void PmRequestNode(const PmMaster *master,
 {
 	u32 status;
 	u32 oppoint = 0U;
+	/*
+	 * Each legal master/slave pair will have one static PmRequirement data
+	 * structure. Retrieve the pointer to the structure in order to set the
+	 * requested capabilities and mark slave as used by this master.
+	 */
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
 	PmDbg("(%s, %d, %d, %s)\n", PmStrNode(node), capabilities,
@@ -318,12 +324,6 @@ static void PmRequestNode(const PmMaster *master,
 		goto done;
 	}
 
-	if (PM_PROC_STATE_ACTIVE != master->procs->node.currState) {
-		PmDbg("ERROR Master isn't active!\n");
-		status = PM_RET_ERROR_ACCESS;
-		goto done;
-	}
-
 	/* Set requested capabilities if they are valid */
 	masterReq->info |= PM_MASTER_USING_SLAVE_MASK;
 	status = PmRequirementUpdate(masterReq, capabilities);
@@ -337,13 +337,13 @@ done:
  * @master          Master who initiated the request
  * @node            Node whose requirements setting is requested
  * @capabilities    Requested capabilities
- * @qos             Not supported
+ * @qos             Requested quality of service - Not supported
  * @ack             Acknowledge request
  *
  * @note            If processor which initiated request is in suspending state,
  *                  requirement will be set once PMU handles processor's WFI
  *                  interrupt. If processor is active, setting is done
- *                  immidiately (if possible).
+ *                  immediately (if possible).
  */
 static void PmSetRequirement(const PmMaster *master,
 			     const u32 node,
@@ -674,7 +674,8 @@ void PmProcessRequest(const PmMaster *const master,
 		if (PM_PAYLOAD_ERR_API_ID != status) {
 			u32 ack = PmRequestAcknowledge(pload);
 			if (REQUEST_ACK_NO != ack) {
-				PmAcknowledgeCb(master, NODE_UNKNOWN, PM_RET_ERROR_API_ID, 0);
+				PmAcknowledgeCb(master, NODE_UNKNOWN,
+						PM_RET_ERROR_API_ID, 0);
 			}
 		}
 	}

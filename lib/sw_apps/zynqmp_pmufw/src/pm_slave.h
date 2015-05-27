@@ -128,7 +128,7 @@ typedef struct {
 } PmGicProxyProperties;
 
 /**
- * PmWakeEvent - Wake-up event
+ * PmWakeProperties - Wake-up event properties
  * @proxyIrqMask    As most of the interrupt routes go through FPD GIC Proxy,
  *                  this is the interrupt mask in GIC Proxy registers.
  * @proxyGroup      Group in FPD GIC Proxy
@@ -141,12 +141,11 @@ typedef struct {
 /**
  * PmSlave - Slave structure used for managing slave's states
  * @node        Pointer to the node structure of this slave
- * @classId     Class of the slave. Slaves of the same class have the same state
- *              definitions
  * @instId      Index into array of all instances of slave's class
  * @reqs        Pointer to array of master requirements related to this slave
  * @reqsCnt     Size of masterReq array
  * @wake        Wake event this slave can generate
+ * @slvFsm      Slave finite state machine
  */
 typedef struct PmSlave {
 	PmNode node;

@@ -105,6 +105,7 @@ typedef u8 PmProcEvent;
  * Structure definitions
  ********************************************************************/
 typedef struct PmMaster PmMaster;
+
 /**
  * PmProc - Processor node's structure
  * @node            Processor's node structure

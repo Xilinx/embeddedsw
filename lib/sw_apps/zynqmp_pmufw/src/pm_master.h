@@ -54,29 +54,6 @@ typedef struct PmMaster PmMaster;
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* Supported masters (macros are used as indexes in array of all masters) */
-#define PM_MASTER_APU   0U
-#define PM_MASTER_RPU_0 1U
-#define PM_MASTER_RPU_1 2U
-#define PM_MASTER_MAX   3U
-
-/* Master states */
-/* All processors within the master are sleeping */
-#define PM_MASTER_STATE_SLEEP   0U
-
-/* At least one processor within master is not sleeping */
-#define PM_MASTER_STATE_ACTIVE  1U
-
-/* Master FSM events */
-/* Triggered after a processor within the master goes to sleep */
-#define PM_MASTER_EVENT_SLEEP       1U
-
-/* Triggered before a processor within the master wakes-up */
-#define PM_MASTER_EVENT_WAKE        2U
-
-/* Triggered by abort suspend */
-#define PM_MASTER_EVENT_ABORT       3U
-
 /* Apu slaves */
 #define PM_MASTER_APU_SLAVE_OCM0    0U
 #define PM_MASTER_APU_SLAVE_OCM1    1U
@@ -116,13 +93,12 @@ typedef struct PmMaster PmMaster;
  *              setting. One structure should be statically assigned for each
  *              possible combination of master/slave, because dynamic memory
  *              allocation cannot be used.
- * @info        Contains information about master's request - a bit for
- *              encoding has master requested or released node, other bits
- *              are used to encode master index in array of all masters.
- *              PM_MASTER_USING_SLAVE_MASK - extracts a bitfield for usage flag
  * @slave       Pointer to the slave structure
- * @master      Pointer to the master structure. Can be removed if need to
+ * @requestor   Pointer to the master structure. Can be removed if need to
  *              optimize for space instead performance
+ * @info        Contains information about master's request - a bit for
+ *              encoding has master requested or released node, and a bit to
+ *              encode has master requested a wake-up of this slave.
  * @currReq     Currently holding requirements of a master for this slave
  * @nextReq     Requirements of a master to be configured when it changes the
  *              state (after it goes to sleep or before it gets awake)
@@ -145,7 +121,8 @@ typedef struct PmRequirement {
  * @buffer      IPI buffer address into which this master can write
  *              (master's buffer)
  * @reqs        Pointer to the masters array of requirements for slave
- *              capabilities
+ *              capabilities. For every slave the master can use, there has to
+ *              be a statically initialized structure for that master/slave pair
  * @reqsCnt     Number of requirement elements (= worst case for number of
  *              used slaves)
  */
@@ -175,6 +152,7 @@ extern PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX];
  ********************************************************************/
 /* Get functions */
 const PmMaster* PmGetMasterByIpiMask(const u32 mask);
+
 PmProc* PmGetProcByWfiStatus(const u32 mask);
 PmProc* PmGetProcByWakeStatus(const u32 mask);
 PmProc* PmGetProcByNodeId(const PmNodeId nodeId);
@@ -183,18 +161,19 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 			       const PmNodeId nodeId);
 PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
-					const PmNodeId nodeId);
-u32 PmMasterGetAwakeProcCnt(const PmMaster* const master);
+			      const PmNodeId nodeId);
 
 /* Requirements related functions */
 u32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
 u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
-void PmRequirementUpdateScheduled(const PmMaster* const master,
-				  const bool swap);
-void PmRequirementCancelScheduled(const PmMaster* const master);
 
+/* Call at initialization to enable all masters' IPI interrupts */
 void PmEnableAllMasterIpis(void);
+
+/* Notify master by a primary core when changing state */
 void PmMasterNotify(PmMaster* const master, const PmProcEvent event);
+
+/* Call when FPD goes down to enable GIC Proxy interrupts */
 void PmEnableProxyWake(PmMaster* const master);
 
 #endif

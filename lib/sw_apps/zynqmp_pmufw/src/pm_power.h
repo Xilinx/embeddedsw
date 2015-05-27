@@ -52,9 +52,9 @@
 /**
  * PmPower - Structure for power related nodes
  *           Basically an abstraction of power islands and power domains.
- *           Not all power entities in the system have this struct. If a node has
- *           its own power, which does not depend to other nodes, its power is
- *           controlled within its transition actions. Otherwise, this power
+ *           Not all power entities in the system have this struct. If a node
+ *           has its own power, which does not depend to other nodes, its power
+ *           is controlled within its transition actions. Otherwise, this power
  *           structure must exist.
  * @node     Node structure of this power entity
  * @children Pointer to the array of children

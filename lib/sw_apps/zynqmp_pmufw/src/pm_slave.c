@@ -99,7 +99,7 @@ bool PmSlaveHasCapRequests(const PmSlave* const slave)
 
 	for (i = 0U; i < slave->reqsCnt; i++) {
 		if ((0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) &&
-			(0U != slave->reqs[i]->currReq)) {
+		    (0U != slave->reqs[i]->currReq)) {
 			/* Slave is used by this master and has current request for caps */
 			hasReq = true;
 			break;
@@ -146,7 +146,8 @@ u32 PmCheckCapabilities(PmSlave* const slave, const u32 cap)
 	for (i = 0; i < slave->slvFsm->statesCnt; i++) {
 		/* Find the first state that contains all capabilities */
 		if ((cap & slave->slvFsm->states[i]) == cap) {
-			return PM_RET_SUCCESS;
+			status = PM_RET_SUCCESS;
+			break;
 		}
 	}
 
@@ -161,7 +162,7 @@ u32 PmCheckCapabilities(PmSlave* const slave, const u32 cap)
  * @return      PM_RET_SUCCESS if transition was performed successfully
  *              error otherwise
  */
-u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
+static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 {
 	u32 t;
 	u32 status = PM_RET_ERROR_FAILURE;
@@ -256,11 +257,10 @@ static void PmSlaveWakeMasters(PmSlave* const slave)
 		if (slave->reqs[i]->info & PM_MASTER_WAKEUP_REQ_MASK) {
 			slave->reqs[i]->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 			PmDbg("%s->%s\n", PmStrNode(slave->node.nodeId),
-				  PmStrNode(slave->reqs[i]->requestor->procs->node.nodeId));
+			      PmStrNode(slave->reqs[i]->requestor->procs->node.nodeId));
 			PmProcFsm(slave->reqs[i]->requestor->procs, PM_PROC_EVENT_WAKE);
 		}
 	}
-
 	PmSlaveWakeDisable(slave);
 }
 

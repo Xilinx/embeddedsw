@@ -279,11 +279,9 @@ u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 	u32 status;
 	u32 tmpCaps;
 
-	PmDbg("\n");
 	/* Check if slave has a state with requested capabilities */
 	status = PmCheckCapabilities(masterReq->slave, caps);
 
-	PmDbg("PmCheckCapabilities status=%d\n", status);
 	if (PM_RET_SUCCESS != status) {
 		goto done;
 	}
@@ -292,8 +290,6 @@ u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 	tmpCaps = masterReq->currReq;
 	masterReq->currReq = caps;
 	status = PmUpdateSlave(masterReq->slave);
-
-	PmDbg("PmUpdateSlave status=%d\n", status);
 
 	if (PM_RET_SUCCESS == status) {
 		/* All capabilities requested in active state are constant */
@@ -323,12 +319,13 @@ done:
  * next requirements (swapping means the current requirements will be
  * saved as next, and will be configured once master wakes-up)
  */
-void PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
+static void PmRequirementUpdateScheduled(const PmMaster* const master,
+					 const bool swap)
 {
 	u32 status;
 	PmRequirementId i;
 
-	PmDbg("master %s\n", PmStrNode(master->procs[0].node.nodeId));
+	PmDbg("%s\n", PmStrNode(master->procs[0].node.nodeId));
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
@@ -692,7 +689,7 @@ void PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		PmWakeUpCancelScheduled(master);
 		break;
 	default:
-		PmDbg("undefined event #%d\n", event);
+		PmDbg("ERROR: undefined event #%d\n", event);
 		break;
 	}
 }

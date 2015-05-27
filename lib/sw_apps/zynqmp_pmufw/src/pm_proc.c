@@ -329,13 +329,9 @@ static u32 PmProcTrSleepToActive(PmProc* const proc)
  */
 static u32 PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
-	u32 status;
-
 	PmDbg("FORCED_PWRDN->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 
-	status = PmProcWake(&proc->node);
-
-	return status;
+	return PmProcWake(&proc->node);
 }
 
 /**
@@ -356,7 +352,8 @@ u32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		if (PM_PROC_STATE_ACTIVE == currState) {
 			status = PmProcTrActiveToSuspend(proc);
 		} else {
-			PmDbg("illegal state %d for SUSPND event\n", currState);
+			PmDbg("ERROR: illegal state %d for SUSPEND event\n",
+			      currState);
 			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
@@ -370,7 +367,8 @@ u32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = PmProcTrSuspendToActive(proc);
 		} else {
-			PmDbg("illegal state %d for ABORT event\n", currState);
+			PmDbg("ERROR: illegal state %d for ABORT event\n",
+			      currState);
 			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
@@ -378,7 +376,8 @@ u32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = PmProcTrSuspendToSleep(proc);
 		} else {
-			PmDbg("illegal state %d for SLEEP event\n", currState);
+			PmDbg("ERROR: illegal state %d for SLEEP event\n",
+			      currState);
 			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
@@ -388,12 +387,13 @@ u32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else if (PM_PROC_STATE_FORCEDOFF == currState) {
 			status = PmProcTrForcePwrdnToActive(proc);
 		} else {
-			PmDbg("illegal state %d for WAKE event\n", currState);
+			PmDbg("ERROR: illegal state %d for WAKE event\n",
+			      currState);
 			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
 	default:
-		PmDbg("unrecognized event\n", event);
+		PmDbg("ERROR: unrecognized event %d\n", event);
 		status = PM_RET_ERROR_INTERNAL;
 		break;
 	}
