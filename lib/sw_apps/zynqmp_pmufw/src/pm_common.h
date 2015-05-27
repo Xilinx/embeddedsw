@@ -70,7 +70,7 @@ typedef u32 (*const PmTranHandler)(void);
  * has enabled debug prints, power management prints should be configurable.
  */
 #ifdef DEBUG_PM
-	#define PmDbg(MSG, ...) fw_printf("PMU-PM: " MSG, ##__VA_ARGS__)
+	#define PmDbg(MSG, ...)	fw_printf("PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
 #else
 	#define PmDbg(MSG, ...) {}
 #endif

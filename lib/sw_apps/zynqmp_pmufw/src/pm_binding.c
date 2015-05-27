@@ -90,7 +90,7 @@ void XPfw_PmIpiHandler(const u32 isrMask,
 
 	if (NULL == master) {
 		/* Never happens if IPI interrupt routine is implemented correctly */
-		PmDbg("%s ERROR: IPI source not supported %d\n", __func__, isrMask);
+		PmDbg("ERROR: IPI source not supported %d\n", isrMask);
 		goto done;
 	}
 
@@ -120,7 +120,7 @@ void XPfw_PmWfiHandler(const u32 srcMask)
 	PmProc *proc = PmGetProcByWfiStatus(srcMask);
 
 	if (NULL == proc) {
-		PmDbg("%s ERROR: Unknown processor %d\n", __func__, srcMask);
+		PmDbg("ERROR: Unknown processor %d\n", srcMask);
 		goto done;
 	}
 

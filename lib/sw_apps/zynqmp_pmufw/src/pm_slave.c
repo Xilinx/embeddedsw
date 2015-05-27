@@ -255,7 +255,7 @@ static void PmSlaveWakeMasters(PmSlave* const slave)
 	for (i = 0U; i < slave->reqsCnt; i++) {
 		if (slave->reqs[i]->info & PM_MASTER_WAKEUP_REQ_MASK) {
 			slave->reqs[i]->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-			PmDbg("%s %s->%s\n", __func__, PmStrNode(slave->node.nodeId),
+			PmDbg("%s->%s\n", PmStrNode(slave->node.nodeId),
 				  PmStrNode(slave->reqs[i]->requestor->procs->node.nodeId));
 			PmProcFsm(slave->reqs[i]->requestor->procs, PM_PROC_EVENT_WAKE);
 		}
@@ -331,7 +331,7 @@ static bool PmWaitingForGicProxyWake(void)
  */
 void PmSlaveWakeEnable(PmSlave* const slave)
 {
-	PmDbg("%s %s\n", __func__, PmStrNode(slave->node.nodeId));
+	PmDbg("%s\n", PmStrNode(slave->node.nodeId));
 
 	if (NULL == slave->wake) {
 		goto done;
@@ -356,7 +356,7 @@ done:
  */
 void PmSlaveWakeDisable(PmSlave* const slave)
 {
-	PmDbg("%s %s\n", __func__, PmStrNode(slave->node.nodeId));
+	PmDbg("%s\n", PmStrNode(slave->node.nodeId));
 
 	if (NULL == slave->wake) {
 		goto done;

@@ -93,8 +93,8 @@ void PmInitSuspendCb(const PmMaster* const master, const PmNodeId nodeId,
 		     const u32 reason, const u32 latency, const u32 state,
 		     const u32 timeout)
 {
-	PmDbg("%s(%s, %d, %d, %d, %d)\n", __func__, PmStrNode(nodeId), reason,
-	      latency, state, timeout);
+	PmDbg("of %s (%d, %d, %d, %d)\n", PmStrNode(nodeId), reason, latency,
+	      state, timeout);
 
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_INIT_SUSPEND_CB);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,

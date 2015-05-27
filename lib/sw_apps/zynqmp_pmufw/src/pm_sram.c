@@ -46,7 +46,7 @@ static u32 PmOcm0RetEntry(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK,
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -57,7 +57,7 @@ static u32 PmOcm0RetExit(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK,
 		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -69,7 +69,7 @@ static u32 PmOcm1RetEntry(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK,
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -80,7 +80,7 @@ static u32 PmOcm1RetExit(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK,
 		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -92,7 +92,7 @@ static u32 PmOcm2RetEntry(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK,
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -103,7 +103,7 @@ static u32 PmOcm2RetExit(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK,
 		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -115,7 +115,7 @@ static u32 PmOcm3RetEntry(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK,
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -126,7 +126,7 @@ static u32 PmOcm3RetExit(void)
 		   PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK,
 		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -137,7 +137,7 @@ static u32 PmTcm0ARetEntry(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK,
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -148,7 +148,7 @@ static u32 PmTcm0ARetExit(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK,
 		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -159,7 +159,7 @@ static u32 PmTcm0BRetEntry(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK,
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -170,7 +170,7 @@ static u32 PmTcm0BRetExit(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK,
 		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -181,7 +181,7 @@ static u32 PmTcm1ARetEntry(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK,
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -192,7 +192,7 @@ static u32 PmTcm1ARetExit(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK,
 		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -203,7 +203,7 @@ static u32 PmTcm1BRetEntry(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK,
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -214,7 +214,7 @@ static u32 PmTcm1BRetExit(void)
 		   PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK,
 		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -225,7 +225,7 @@ static u32 PmL2RetEntry(void)
 		   PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK,
 		   PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }
@@ -236,7 +236,7 @@ static u32 PmL2RetExit(void)
 		   PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK,
 		   ~PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK);
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 
 	return XST_SUCCESS;
 }

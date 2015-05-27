@@ -279,7 +279,7 @@ u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 	u32 status;
 	u32 tmpCaps;
 
-	PmDbg("%s\n", __func__);
+	PmDbg("\n");
 	/* Check if slave has a state with requested capabilities */
 	status = PmCheckCapabilities(masterReq->slave, caps);
 
@@ -328,7 +328,7 @@ void PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 	u32 status;
 	PmRequirementId i;
 
-	PmDbg("%s master %s\n", __func__, PmStrNode(master->procs[0].node.nodeId));
+	PmDbg("master %s\n", PmStrNode(master->procs[0].node.nodeId));
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
@@ -345,8 +345,7 @@ void PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 			status = PmUpdateSlave(master->reqs[i].slave);
 			/* if rom works correctly, status should be always ok */
 			if (PM_RET_SUCCESS != status) {
-				PmDbg("%s ERROR setting slave node %s\n",
-				      __func__,
+				PmDbg("ERROR setting slave node %s\n",
 				      PmStrNode(master->reqs[i].slave->node.nodeId));
 			}
 		}
@@ -365,7 +364,7 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
 			/* Drop the scheduled request by making it constant */
-			PmDbg("%s %s\n", __func__,
+			PmDbg("%s\n",
 			      PmStrNode(master->reqs[i].slave->node.nodeId));
 			master->reqs[i].nextReq = master->reqs[i].currReq;
 		}
@@ -390,7 +389,7 @@ void PmRequirementReleaseAll(const PmMaster* const master)
 		status = PmUpdateSlave(master->reqs[i].slave);
 		/* if pmu rom works correctly, status should be always ok */
 		if (PM_RET_SUCCESS != status) {
-			PmDbg("%s ERROR setting slave node %s\n", __func__,
+			PmDbg("ERROR setting slave node %s\n",
 			      PmStrNode(master->reqs[i].slave->node.nodeId));
 		}
 	}
@@ -628,7 +627,7 @@ void PmEnableProxyWake(PmMaster* const master)
 {
 	u32 i;
 
-	PmDbg("%s %s\n", __func__, PmStrNode(master->procs->node.nodeId));
+	PmDbg("%s\n", PmStrNode(master->procs->node.nodeId));
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK) {
@@ -646,7 +645,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 {
 	u32 i;
 
-	PmDbg("%s %s\n", __func__, PmStrNode(master->procs->node.nodeId));
+	PmDbg("%s\n", PmStrNode(master->procs->node.nodeId));
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
@@ -661,7 +660,7 @@ static void PmWakeUpDisableAll(PmMaster* const master)
 {
 	u32 i;
 
-	PmDbg("%s for %s\n", __func__, PmStrNode(master->procs->node.nodeId));
+	PmDbg("for %s\n", PmStrNode(master->procs->node.nodeId));
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		PmMasterId r;
@@ -715,7 +714,7 @@ void PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		PmWakeUpCancelScheduled(master);
 		break;
 	default:
-		PmDbg("%s undefined event #%d\n", __func__, event);
+		PmDbg("undefined event #%d\n", event);
 		break;
 	}
 }

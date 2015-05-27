@@ -79,7 +79,7 @@ static u32 PmPwrDnHandler(PmNode* const nodePtr)
 		ret = XpbrPwrDnRpuHandler();
 		break;
 	default:
-		PmDbg("%s - unsupported node %s(%d)\n", __func__,
+		PmDbg("unsupported node %s(%d)\n",
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
 		break;
 	}
@@ -93,7 +93,7 @@ static u32 PmPwrDnHandler(PmNode* const nodePtr)
 	ret = PM_RET_SUCCESS;
 
 done:
-	PmDbg("%s %s\n", __func__, PmStrNode(nodePtr->nodeId));
+	PmDbg("%s\n", PmStrNode(nodePtr->nodeId));
 	return ret;
 }
 
@@ -109,7 +109,7 @@ static u32 PmPwrUpHandler(PmNode* const nodePtr)
 {
 	u32 ret = PM_RET_ERROR_FAILURE;
 
-	PmDbg("%s %s\n", __func__, PmStrNode(nodePtr->nodeId));
+	PmDbg("%s\n", PmStrNode(nodePtr->nodeId));
 
 	if (NULL == nodePtr) {
 		goto done;
@@ -119,9 +119,9 @@ static u32 PmPwrUpHandler(PmNode* const nodePtr)
 	switch (nodePtr->nodeId) {
 	case NODE_FPD:
 		ret = XpbrPwrUpFpdHandler();
-		PmDbg("%s XpbrPwrUpFpdHandler return code #%d\n", __func__, ret);
+		PmDbg("XpbrPwrUpFpdHandler return code #%d\n", ret);
 		/* FIXME workaround for old version of pmu-rom */
-		PmDbg("%s ignoring error\n", __func__);
+		PmDbg("ignoring error\n");
 		ret = XST_SUCCESS;
 		break;
 	case NODE_APU:
@@ -140,13 +140,13 @@ static u32 PmPwrUpHandler(PmNode* const nodePtr)
 		break;
 	}
 	default:
-		PmDbg("%s ERROR - unsupported node %s(%d)\n", __func__,
+		PmDbg("ERROR - unsupported node %s(%d)\n",
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
 		break;
 	}
 
 	if (XST_SUCCESS != ret) {
-		PmDbg("%s failed to power up %s PBR ERROR #%d\n", __func__,
+		PmDbg("failed to power up %s PBR ERROR #%d\n",
 		      PmStrNode(nodePtr->nodeId), ret);
 		ret = PM_RET_ERROR_FAILURE;
 		goto done;
@@ -290,8 +290,7 @@ static bool PmHasAwakeChild(const PmPower* const power)
 	for (i = 0U; i < power->childCnt; i++) {
 		if (false == PmChildIsInLowestPowerState(power->children[i])) {
 			hasAwakeChild = true;
-			PmDbg("%s %s\n", __func__,
-			      PmStrNode(power->children[i]->nodeId));
+			PmDbg("%s\n", PmStrNode(power->children[i]->nodeId));
 			break;
 		}
 	}
@@ -397,7 +396,7 @@ u32 PmTriggerPowerUp(PmPower* const power)
 
 done:
 	if (PM_RET_SUCCESS != status) {
-		PmDbg("%s failed to power up: ERROR #%d\n", __func__, status);
+		PmDbg("failed to power up: ERROR #%d\n", status);
 	}
 
 	return status;

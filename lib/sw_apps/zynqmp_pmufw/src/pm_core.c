@@ -90,11 +90,11 @@ static void PmSelfSuspend(const PmMaster *const master,
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
-	PmDbg("%s(%s, %d, %d)\n", __func__, PmStrNode(node), latency, state);
+	PmDbg("(%s, %d, %d)\n", PmStrNode(node), latency, state);
 
 	if (NULL == proc) {
-		PmDbg("%s ERROR node ID %s(=%d) does not refer to a processor of this master channel\n",
-		      __func__, PmStrNode(node), node);
+		PmDbg("ERROR node ID %s(=%d) does not refer to a processor of "
+		      "this master channel\n", PmStrNode(node), node);
 		goto done;
 	}
 
@@ -120,11 +120,11 @@ static void PmRequestSuspend(const PmMaster *const master,
 {
 	PmProc* proc = PmGetProcOfOtherMaster(master, node);
 
-	PmDbg("%s(%s, %s, %d, %d)\n", __func__, PmStrNode(node), PmStrAck(ack),
-	      latency, state);
+	PmDbg("(%s, %s, %d, %d)\n",
+	      PmStrNode(node), PmStrAck(ack), latency, state);
 
 	if (NULL == proc) {
-		PmDbg("%s ERROR processor not found by node %d\n", __func__, node);
+		PmDbg("ERROR processor not found by node %d\n", node);
 		PmProcessAckRequest(ack, master, node, PM_RET_ERROR_ARGS, 0);
 		goto done;
 	}
@@ -155,7 +155,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 	u32 oppoint = 0;
 	PmNode* nodePtr = PmGetNodeById(node);
 
-	PmDbg("%s(%s, %s)\n", __func__, PmStrNode(node), PmStrAck(ack));
+	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrAck(ack));
 
 	if (NULL == nodePtr) {
 		status = PM_RET_ERROR_ARGS;
@@ -204,11 +204,11 @@ static void PmAbortSuspend(const PmMaster *const master,
 {
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
-	PmDbg("%s(%s, %s)\n", __func__, PmStrNode(node), PmStrReason(reason));
+	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrReason(reason));
 
 	if (NULL == proc) {
-		PmDbg("%s ERROR processor access for node #%d not allowed\n",
-		      __func__, node);
+		PmDbg("ERROR processor access for node %s not allowed\n",
+		      PmStrNode(node));
 		goto done;
 	}
 
@@ -231,7 +231,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	u32 oppoint = 0;
 	PmProc* proc = PmGetProcByNodeId(node);
 
-	PmDbg("%s(%s, %s)\n", __func__, PmStrNode(node), PmStrAck(ack));
+	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrAck(ack));
 
 	if (NULL == proc) {
 		status = PM_RET_ERROR_PROC;
@@ -268,9 +268,10 @@ static void PmReleaseNode(const PmMaster *master,
 	/* Release requirements */
 	status = PmRequirementUpdate(masterReq, 0);
 	masterReq->info &= ~PM_MASTER_USING_SLAVE_MASK;
+
 	if (PM_RET_SUCCESS != status) {
-		PmDbg("%s: ERROR PmRequirementUpdate status = %d (should be 0!!)\n",
-		      __func__, status);
+		PmDbg("ERROR PmRequirementUpdate status = %d (should be 0!!)\n",
+		      status);
 		goto done;
 	}
 
@@ -281,7 +282,7 @@ static void PmReleaseNode(const PmMaster *master,
 	}
 
 done:
-	PmDbg("%s (%s, %d)\n", __func__, PmStrNode(node), latency);
+	PmDbg("(%s, %d)\n", PmStrNode(node), latency);
 }
 
 /**
@@ -302,7 +303,7 @@ static void PmRequestNode(const PmMaster *master,
 	u32 oppoint = 0;
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
-	PmDbg("%s(%s, %d, %d, %s)\n", __func__, PmStrNode(node), capabilities,
+	PmDbg("(%s, %d, %d, %s)\n", PmStrNode(node), capabilities,
 	      qos, PmStrAck(ack));
 
 	if (NULL == masterReq) {
@@ -354,7 +355,7 @@ static void PmSetRequirement(const PmMaster *master,
 	u32 oppoint = 0;
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
-	PmDbg("%s(%s, %d, %d, %s)\n", __func__, PmStrNode(node), capabilities,
+	PmDbg("(%s, %d, %d, %s)\n", PmStrNode(node), capabilities,
 	      qos, PmStrAck(ack));
 
 	/* Is there a provision for the master to use the given slave node */
@@ -397,7 +398,7 @@ static void PmGetApiVersion(const PmMaster *const master)
 {
 	u32 version = (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR;
 
-	PmDbg("%s version %d.%d\n", __func__, PM_VERSION_MAJOR, PM_VERSION_MINOR);
+	PmDbg("version %d.%d\n", PM_VERSION_MAJOR, PM_VERSION_MINOR);
 
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_RET_SUCCESS);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
@@ -417,7 +418,7 @@ static void PmGetApiVersion(const PmMaster *const master)
 static void PmMmioWrite(const PmMaster *const master, const u32 address,
 			const u32 mask, const u32 value)
 {
-	PmDbg("%s (0x%x, 0x%x, 0x%x)\n", __func__, address, mask, value);
+	PmDbg("(0x%x, 0x%x, 0x%x)\n", address, mask, value);
 
 	XPfw_Write32(address, mask & value);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_RET_SUCCESS);
@@ -437,7 +438,7 @@ static void PmMmioRead(const PmMaster *const master, const u32 address,
 {
 	u32 value;
 
-	PmDbg("%s addr=0x%x, mask=0x%x\n", __func__, address, mask);
+	PmDbg("addr=0x%x, mask=0x%x\n", address, mask);
 
 	value = XPfw_Read32(address) & mask;
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_RET_SUCCESS);
@@ -473,8 +474,8 @@ static void PmSetWakeupSource(const PmMaster *const master,
 	}
 
 done:
-	PmDbg("%s(%s, %s, %d)\n", __func__, PmStrNode(master->procs->node.nodeId),
-		  PmStrNode(sourceNode), enable);
+	PmDbg("(%s, %s, %d)\n", PmStrNode(master->procs->node.nodeId),
+	      PmStrNode(sourceNode), enable);
 }
 
 /**
@@ -484,7 +485,7 @@ done:
  */
 static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 {
-	PmDbg("%s(%d) not implemented\n", __func__, restart);
+	PmDbg("(%d) not implemented\n", restart);
 }
 
 /**
@@ -497,7 +498,7 @@ static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 			    const u32 latency)
 {
-	PmDbg("%s(%s, %d) not implemented\n", __func__, PmStrNode(node), latency);
+	PmDbg("(%s, %d) not implemented\n", PmStrNode(node), latency);
 }
 
 /**
@@ -507,7 +508,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
  */
 static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 {
-	PmDbg("%s(0x%x) not implemented\n", __func__, address);
+	PmDbg("(0x%x) not implemented\n", address);
 }
 
 /**
@@ -517,7 +518,7 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
  */
 static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 {
-	PmDbg("%s(%s) not implemented\n", __func__, PmStrNode(node));
+	PmDbg("(%s) not implemented\n", PmStrNode(node));
 }
 
 /**
@@ -529,7 +530,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 				   const u32 type)
 {
-	PmDbg("%s(%s, %d) not implemented\n", __func__, PmStrNode(node), type);
+	PmDbg("(%s, %d) not implemented\n", PmStrNode(node), type);
 }
 
 /**
@@ -544,7 +545,7 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 			       const u32 event, const u32 wake,
 			       const u32 enable)
 {
-	PmDbg("%s(%s, %d, %d, %d) not implemented\n", __func__, PmStrNode(node),
+	PmDbg("(%s, %d, %d, %d) not implemented\n", PmStrNode(node),
 	      event, wake, enable);
 }
 
@@ -567,7 +568,7 @@ static void PmResetAssert(const PmMaster *const master, const u32 reset,
  */
 static void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 {
-	PmDbg("%s(%d) not implemented\n", __func__, reset);
+	PmDbg("(%d) not implemented\n", reset);
 }
 
 /**
@@ -643,7 +644,7 @@ void PmProcessApiCall(const PmMaster *const master,
 		PmMmioRead(master, pload[1], pload[2]);
 		break;
 	default:
-		PmDbg("%s ERROR unsupported PM API #%d\n", __func__, pload[0]);
+		PmDbg("ERROR unsupported PM API #%d\n", pload[0]);
 		PmProcessAckRequest(PmRequestAcknowledge(pload), master,
 				    NODE_UNKNOWN, PM_RET_ERROR_NOTSUPPORTED, 0);
 		break;
@@ -667,7 +668,7 @@ void PmProcessRequest(const PmMaster *const master,
 	if (PM_PAYLOAD_OK == status) {
 		PmProcessApiCall(master, pload);
 	} else {
-		PmDbg("%s ERROR invalid payload, status #%d\n", __func__, status);
+		PmDbg("ERROR invalid payload, status #%d\n", status);
 		/* Acknowledge if possible */
 		if (PM_PAYLOAD_ERR_API_ID != status) {
 			u32 ack = PmRequestAcknowledge(pload);
