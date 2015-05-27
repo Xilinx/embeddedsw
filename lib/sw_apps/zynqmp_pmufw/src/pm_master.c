@@ -596,11 +596,22 @@ done:
  * PmEnableProxyWake() - Enable scheduled wake-up sources in GIC Proxy
  * @master  Pointer to master whose scheduled wake-up sources should be enabled
  *
- * When FPD is powered down, wake-up sources are enabled in GIC Proxy
+ * When FPD is powered down, wake-up sources should be enabled in GIC Proxy,
+ * if APU's primary processor is gently put into a sleep. If APU is forced to
+ * power down, this function will return without enabling GIC Proxy, because
+ * after forced power down the processor can only be woken-up by an explicit
+ * wake-up request through PM API. The check whether the processor is in sleep
+ * state is performed in this function and not in pm_power from where this
+ * function is called in order to keep pm_power independent from (not-aware of)
+ * processor states.
  */
 void PmEnableProxyWake(PmMaster* const master)
 {
 	u32 i;
+
+	if (master->procs->node.currState != PM_PROC_STATE_SLEEP) {
+		goto done;
+	}
 
 	PmDbg("%s\n", PmStrNode(master->procs->node.nodeId));
 
@@ -609,6 +620,9 @@ void PmEnableProxyWake(PmMaster* const master)
 			PmSlaveWakeEnable(master->reqs[i].slave);
 		}
 	}
+
+done:
+	return;
 }
 
 /**
