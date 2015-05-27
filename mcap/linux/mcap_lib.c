@@ -276,6 +276,13 @@ static int MCapWritePartialBitStream(struct mcap_dev *mdev, u32 *data,
 		return -EMCAPWRITE;
 	}
 
+	if (!mdev->is_multiplebit) {
+		pr_info("Info: A partial reconfiguration clear file (-C) was");
+		pr_info(" loaded without a partial reconfiguration file (-p)");
+		pr_info(" as result the MCAP Control register was not restored");
+		pr_info(" to its original value\n\r");
+	}
+
 	return 0;
 }
 
@@ -301,16 +308,18 @@ static int MCapWriteBitStream(struct mcap_dev *mdev, u32 *data,
 		return -EMCAPWRITE;
 	}
 
-	/* Set 'Mode', 'In Use by PCIe' and 'Data Reg Protect' bits */
-	set = MCapRegRead(mdev, MCAP_CONTROL);
-	set |= MCAP_CTRL_MODE_MASK | MCAP_CTRL_IN_USE_MASK |
-		MCAP_CTRL_DATA_REG_PROT_MASK;
+	if (!mdev->is_multiplebit) {
+		/* Set 'Mode', 'In Use by PCIe' and 'Data Reg Protect' bits */
+		set = MCapRegRead(mdev, MCAP_CONTROL);
+		set |= MCAP_CTRL_MODE_MASK | MCAP_CTRL_IN_USE_MASK |
+			MCAP_CTRL_DATA_REG_PROT_MASK;
 
-	/* Clear 'Reset', 'Module Reset' and 'Register Read' bits */
-	set &= ~(MCAP_CTRL_RESET_MASK | MCAP_CTRL_MOD_RESET_MASK |
-		 MCAP_CTRL_REG_READ_MASK | MCAP_CTRL_DESIGN_SWITCH_MASK);
+		/* Clear 'Reset', 'Module Reset' and 'Register Read' bits */
+		set &= ~(MCAP_CTRL_RESET_MASK | MCAP_CTRL_MOD_RESET_MASK |
+			 MCAP_CTRL_REG_READ_MASK | MCAP_CTRL_DESIGN_SWITCH_MASK);
 
-	MCapRegWrite(mdev, MCAP_CONTROL, set);
+		MCapRegWrite(mdev, MCAP_CONTROL, set);
+	}
 
 	/* Write Data */
 	if (!bswap) {
@@ -360,6 +369,8 @@ struct mcap_dev *MCapLibInit(int device_id)
 
 	/* Get the pci_access structure */
 	mdev->pacc = pci_alloc();
+
+	mdev->is_multiplebit = 0;
 
 	/* Initialize the PCI library */
 	pci_init(mdev->pacc);
