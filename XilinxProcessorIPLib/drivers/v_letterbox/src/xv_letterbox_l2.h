@@ -1,0 +1,140 @@
+/******************************************************************************
+ *
+ * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * Use of the Software is limited solely to applications:
+ * (a) running on a Xilinx device, or
+ * (b) that interact with a Xilinx device through a bus or interconnect.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
+ *
+******************************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xv_letterbox_l2.h
+*
+* This header file contains layer 2 API's of the letter box sub-core driver.
+* The functions contained herein provides a high level implementation of
+* features provided by the IP, abstracting away the register level details from
+* the user
+*
+* <b>Letter Box IP Features </b>
+*
+* This Letterbox IP supports following features
+* 	- Apply black bars (horizontal or vertical) on input stream
+* 	- Programmable background colors
+* 	- up to 16bits color depth
+*	- 1, 2 or 4 pixel per clock processing
+*	- Input stream up to 4k2k 60Hz
+*
+* <b>Dependency</b>
+*
+* This driver makes use of the video enumerations and data types defined in the
+* Xilinx Video Common Driver (video_common_vX.x) and as such the common driver
+* must be included as dependency to compile this driver
+
+* <b>Initialization & Configuration</b>
+*
+* The device driver enables higher layer software (e.g., an application) to
+* communicate to the lbox core.
+*
+* Before using the layer-2 API's user must initialize the core by calling
+* Layer-1 API XV_letterbox_Initialize(). This function will look for a
+* configuration structure for the device and initialize it to defined HW
+* settings. After initialization Layer-2 API's can be used to configure
+* the core. It is recommended user always make use of Layer-2 API to
+* interact with this core.
+* Advanced users always have the capability to directly interact with the IP
+* core using Layer-1 API's that perform low level register peek/poke.
+*
+* <b> Interrupts </b>
+*
+* This driver does not have any interrupts
+*
+* <b> Virtual Memory </b>
+*
+* This driver supports Virtual Memory. The RTOS is responsible for calculating
+* the correct device base address in Virtual Memory space.
+*
+* <b> Threads </b>
+*
+* This driver is not thread safe. Any needs for threads or thread mutual
+* exclusion must be satisfied by the layer above this driver.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.00  rc   05/01/15   Initial Release
+
+* </pre>
+*
+******************************************************************************/
+#ifndef XV_LETTERBOX_L2_H		 /* prevent circular inclusions */
+#define XV_LETTERBOX_L2_H		 /* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "xvidc.h"
+#include "xv_letterbox.h"
+
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+/**
+ * This typedef contains the different background colors available
+ */
+typedef enum
+{
+  XLBOX_BKGND_BLACK = 0,
+  XLBOX_BKGND_WHITE,
+  XLBOX_BKGND_RED,
+  XLBOX_BKGND_GREEN,
+  XLBOX_BKGND_BLUE,
+  XLBOX_BKGND_LAST
+}XLboxColorId;
+
+/************************** Function Prototypes ******************************/
+void XV_LBoxStart(XV_letterbox *InstancePtr);
+void XV_LBoxStop(XV_letterbox *InstancePtr);
+
+void XV_LBoxSetActiveWin(XV_letterbox *InstancePtr,
+                         XVidC_VideoWindow *ActiveWindow,
+                         u32 FrameWidth,
+                         u32 FrameHeight);
+
+void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
+                               XLboxColorId      ColorId,
+                               XVidC_ColorFormat cfmt,
+                               XVidC_ColorDepth  bpc);
+
+void XV_LBoxDbgReportStatus(XV_letterbox *InstancePtr);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
