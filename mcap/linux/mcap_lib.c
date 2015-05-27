@@ -224,6 +224,61 @@ static int Checkforcompletion(struct mcap_dev *mdev)
 	return 0;
 }
 
+static int MCapWritePartialBitStream(struct mcap_dev *mdev, u32 *data,
+					int len, u8 bswap)
+{
+	u32 set, restore;
+	int err, count = 0, i;
+
+	if (!data || !len) {
+		pr_err("Invalid Arguments\n");
+		return -EMCAPWRITE;
+	}
+
+	err = MCapClearRequestByConfigure(mdev, &restore);
+	if (err)
+		return err;
+
+	if (IsErrSet(mdev) || IsRegReadComplete(mdev) ||
+		IsFifoOverflow(mdev)) {
+		pr_err("Failed to initialize configuring FPGA\n");
+		MCapRegWrite(mdev, MCAP_CONTROL, restore);
+		return -EMCAPWRITE;
+	}
+
+	/* Set 'Mode', 'In Use by PCIe' and 'Data Reg Protect' bits */
+	set = MCapRegRead(mdev, MCAP_CONTROL);
+	set |= MCAP_CTRL_MODE_MASK | MCAP_CTRL_IN_USE_MASK |
+		MCAP_CTRL_DATA_REG_PROT_MASK;
+
+	/* Clear 'Reset', 'Module Reset' and 'Register Read' bits */
+	set &= ~(MCAP_CTRL_RESET_MASK | MCAP_CTRL_MOD_RESET_MASK |
+		 MCAP_CTRL_REG_READ_MASK | MCAP_CTRL_DESIGN_SWITCH_MASK);
+
+	MCapRegWrite(mdev, MCAP_CONTROL, set);
+
+	/* Write Data */
+	if (!bswap) {
+		for (count = 0; count < len; count++)
+			MCapRegWrite(mdev, MCAP_DATA, data[count]);
+	} else {
+		for (count = 0; count < len; count++)
+			MCapRegWrite(mdev, MCAP_DATA, __bswap_32(data[count]));
+	}
+
+	for (i = 0 ; i < EMCAP_EOS_LOOP_COUNT; i++) {
+		MCapRegWrite(mdev, MCAP_DATA, EMCAP_NOOP_VAL);
+	}
+
+	if (IsErrSet(mdev) || IsFifoOverflow(mdev)) {
+		pr_err("Failed to Write Bitstream\n");
+		MCapRegWrite(mdev, MCAP_CONTROL, restore);
+		return -EMCAPWRITE;
+	}
+
+	return 0;
+}
+
 static int MCapWriteBitStream(struct mcap_dev *mdev, u32 *data,
 			      int len, u8 bswap)
 {
@@ -525,7 +580,7 @@ void MCapDumpRegs(struct mcap_dev *mdev)
 	MCapDumpReadRegs(mdev);
 }
 
-int MCapConfigureFPGA(struct mcap_dev *mdev, char *file_path)
+int MCapConfigureFPGA(struct mcap_dev *mdev, char *file_path, u32 bitfile_type)
 {
 	FILE *fptr;
 	u32 *data;
@@ -570,11 +625,17 @@ int MCapConfigureFPGA(struct mcap_dev *mdev, char *file_path)
 	}
 
 	/* Program FPGA */
-	err = MCapWriteBitStream(mdev, data, wrdatasz, bswap);
-	if (err)
-		return -EMCAPCFG;
-
-	pr_info("FPGA Configuration Done!!\n");
+	if (bitfile_type == EMCAP_PARTIALCONFIG_FILE) {
+		err = MCapWritePartialBitStream(mdev, data, wrdatasz, bswap);
+		if (err)
+			return -EMCAPCFG;
+		pr_info("FPGA Partial Configuration Done!!\n");
+	} else if (bitfile_type == EMCAP_CONFIG_FILE) {
+		err = MCapWriteBitStream(mdev, data, wrdatasz, bswap);
+		if (err)
+			return -EMCAPCFG;
+		pr_info("FPGA Configuration Done!!\n");
+	}
 
 free_resources:
 	if (data)

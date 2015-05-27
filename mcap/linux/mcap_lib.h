@@ -96,6 +96,9 @@
 #define EMCAP_EOS_LOOP_COUNT 100
 #define EMCAP_NOOP_VAL	0x2000000
 
+/* Bitfile Type */
+#define EMCAP_CONFIG_FILE	 0
+#define EMCAP_PARTIALCONFIG_FILE 1
 #undef DEBUG
 
 #ifndef DEBUG
@@ -157,6 +160,6 @@ int MCapReset(struct mcap_dev *mdev);
 int MCapModuleReset(struct mcap_dev *mdev);
 int MCapFullReset(struct mcap_dev *mdev);
 int MCapShowDevice(struct mcap_dev *mdev, int verbose);
-int MCapConfigureFPGA(struct mcap_dev *mdev, char *file_path);
+int MCapConfigureFPGA(struct mcap_dev *mdev, char *file_path, u32 bitfile_type);
 int MCapReadRegisters(struct mcap_dev *mdev, u32 *data);
 int MCapAccessConfigSpace(struct mcap_dev *mdev, int argc, char **argv);
