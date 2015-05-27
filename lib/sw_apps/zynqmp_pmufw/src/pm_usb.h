@@ -40,26 +40,24 @@
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* Instances of USB */
-#define PM_USB_0        0U
-#define PM_USB_1        1U
-#define PM_USB_INST_MAX 2U
-
 /* Power states of USB */
 #define PM_USB_STATE_OFF   0U
 #define PM_USB_STATE_ON    1U
 #define PM_USB_STATE_MAX   2U
 
-/* Transitions of USB */
-#define PM_USB_TR_ON_TO_OFF    0U
-#define PM_USB_TR_OFF_TO_ON    1U
-#define PM_USB_TR_MAX          2U
-
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
+/**
+ * PmSlaveUsb - Structure used for Usb
+ * @slv         Base slave structure
+ * @PwrDn   Pointer to a power down pmu-rom handler
+ * @PwrUp   Pointer to a power up pmu-rom handler
+ */
 typedef struct PmSlaveUsb {
 	PmSlave slv;
+	PmTranHandler PwrDn;
+	PmTranHandler PwrUp;
 } PmSlaveUsb;
 
 /*********************************************************************

@@ -47,7 +47,7 @@ static const PmSlaveFsm slaveAonFsm = {
 	.statesCnt = ARRAY_SIZE(pmAonFsmStates),
 	.trans = NULL,
 	.transCnt = 0U,
-	.actions = NULL,
+	.enterState = NULL,
 };
 
 static PmWakeProperties pmTtc0Wake = {
@@ -70,7 +70,6 @@ PmSlaveTtc pmSlaveTtc0_g = {
 			.currState = PM_AON_SLAVE_STATE,
 			.ops = NULL,
 		},
-		.instId = 0U,
 		.reqs = pmTtc0Reqs,
 		.reqsCnt = ARRAY_SIZE(pmTtc0Reqs),
 		.wake = &pmTtc0Wake,
@@ -103,7 +102,7 @@ static const PmSlaveFsm slaveStdFsm = {
 	.statesCnt = ARRAY_SIZE(pmStdStates),
 	.trans = pmStdTransitions,
 	.transCnt = ARRAY_SIZE(pmStdTransitions),
-	.actions = NULL,
+	.enterState = NULL,
 };
 
 static PmWakeProperties pmSataWake = {
@@ -126,7 +125,6 @@ PmSlaveSata pmSlaveSata_g = {
 			.currState = PM_STD_SLAVE_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = 0U,
 		.reqs = pmSataReqs,
 		.reqsCnt = ARRAY_SIZE(pmSataReqs),
 		.wake = &pmSataWake,

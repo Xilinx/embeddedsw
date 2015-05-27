@@ -37,257 +37,6 @@
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
 
-#define DEFTR(INST, TRAN) ((INST * PM_SRAM_TR_MAX) + TRAN)
-
-/* Ocm bank 0 */
-static u32 PmOcm0RetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmOcm0RetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK,
-		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-/* Ocm bank 1 */
-static u32 PmOcm1RetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmOcm1RetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK,
-		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-/* Ocm bank 2 */
-static u32 PmOcm2RetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmOcm2RetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK,
-		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-/* Ocm bank 3 */
-static u32 PmOcm3RetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmOcm3RetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_OCM_RET_CNTRL,
-		   PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK,
-		   ~PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm0ARetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm0ARetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK,
-		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm0BRetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm0BRetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK,
-		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm1ARetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm1ARetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK,
-		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm1BRetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmTcm1BRetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_TCM_RET_CNTRL,
-		   PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK,
-		   ~PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmL2RetEntry(void)
-{
-	XPfw_RMW32(PMU_LOCAL_L2_RET_CNTRL,
-		   PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK,
-		   PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static u32 PmL2RetExit(void)
-{
-	XPfw_RMW32(PMU_LOCAL_L2_RET_CNTRL,
-		   PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK,
-		   ~PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK);
-
-	PmDbg("\n");
-
-	return XST_SUCCESS;
-}
-
-static const PmTranHandler pmSramActions[PM_SRAM_INST_MAX * PM_SRAM_TR_MAX] = {
-	[ DEFTR(PM_SRAM_OCM0, PM_SRAM_TR_ON_TO_RET) ] = PmOcm0RetEntry,
-	[ DEFTR(PM_SRAM_OCM0, PM_SRAM_TR_RET_TO_ON) ] = PmOcm0RetExit,
-	[ DEFTR(PM_SRAM_OCM0, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnOcmBank0Handler,
-	[ DEFTR(PM_SRAM_OCM0, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpOcmBank0Handler,
-
-	[ DEFTR(PM_SRAM_OCM1, PM_SRAM_TR_ON_TO_RET) ] = PmOcm1RetEntry,
-	[ DEFTR(PM_SRAM_OCM1, PM_SRAM_TR_RET_TO_ON) ] = PmOcm1RetExit,
-	[ DEFTR(PM_SRAM_OCM1, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnOcmBank1Handler,
-	[ DEFTR(PM_SRAM_OCM1, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpOcmBank1Handler,
-
-	[ DEFTR(PM_SRAM_OCM2, PM_SRAM_TR_ON_TO_RET) ] = PmOcm2RetEntry,
-	[ DEFTR(PM_SRAM_OCM2, PM_SRAM_TR_RET_TO_ON) ] = PmOcm2RetExit,
-	[ DEFTR(PM_SRAM_OCM2, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnOcmBank2Handler,
-	[ DEFTR(PM_SRAM_OCM2, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpOcmBank2Handler,
-
-	[ DEFTR(PM_SRAM_OCM3, PM_SRAM_TR_ON_TO_RET) ] = PmOcm3RetEntry,
-	[ DEFTR(PM_SRAM_OCM3, PM_SRAM_TR_RET_TO_ON) ] = PmOcm3RetExit,
-	[ DEFTR(PM_SRAM_OCM3, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnOcmBank3Handler,
-	[ DEFTR(PM_SRAM_OCM3, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpOcmBank3Handler,
-
-	[ DEFTR(PM_SRAM_TCM0A, PM_SRAM_TR_ON_TO_RET) ] = PmTcm0ARetEntry,
-	[ DEFTR(PM_SRAM_TCM0A, PM_SRAM_TR_RET_TO_ON) ] = PmTcm0ARetExit,
-	[ DEFTR(PM_SRAM_TCM0A, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnTcm0AHandler,
-	[ DEFTR(PM_SRAM_TCM0A, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpTcm0AHandler,
-
-	[ DEFTR(PM_SRAM_TCM0B, PM_SRAM_TR_ON_TO_RET) ] = PmTcm0BRetEntry,
-	[ DEFTR(PM_SRAM_TCM0B, PM_SRAM_TR_RET_TO_ON) ] = PmTcm0BRetExit,
-	[ DEFTR(PM_SRAM_TCM0B, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnTcm0BHandler,
-	[ DEFTR(PM_SRAM_TCM0B, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpTcm0BHandler,
-
-	[ DEFTR(PM_SRAM_TCM1A, PM_SRAM_TR_ON_TO_RET) ] = PmTcm1ARetEntry,
-	[ DEFTR(PM_SRAM_TCM1A, PM_SRAM_TR_RET_TO_ON) ] = PmTcm1ARetExit,
-	[ DEFTR(PM_SRAM_TCM1A, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnTcm1AHandler,
-	[ DEFTR(PM_SRAM_TCM1A, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpTcm1AHandler,
-
-	[ DEFTR(PM_SRAM_TCM1B, PM_SRAM_TR_ON_TO_RET) ] = PmTcm1BRetEntry,
-	[ DEFTR(PM_SRAM_TCM1B, PM_SRAM_TR_RET_TO_ON) ] = PmTcm1BRetExit,
-	[ DEFTR(PM_SRAM_TCM1B, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnTcm1BHandler,
-	[ DEFTR(PM_SRAM_TCM1B, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpTcm1BHandler,
-
-	[ DEFTR(PM_SRAM_L2, PM_SRAM_TR_ON_TO_RET) ] = PmL2RetEntry,
-	[ DEFTR(PM_SRAM_L2, PM_SRAM_TR_RET_TO_ON) ] = PmL2RetExit,
-	[ DEFTR(PM_SRAM_L2, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnL2Bank0Handler,
-	[ DEFTR(PM_SRAM_L2, PM_SRAM_TR_OFF_TO_ON) ] = XpbrPwrUpL2Bank0Handler,
-};
-
 /* Sram states */
 static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_OFF] = 0U,
@@ -296,32 +45,85 @@ static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 };
 
 /* Sram transition table (from which to which state sram can transit) */
-static const PmStateTran pmSramTransitions[PM_SRAM_TR_MAX] = {
-	[PM_SRAM_TR_ON_TO_RET] = {
+static const PmStateTran pmSramTransitions[] = {
+	{
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_RET,
-	},
-	[PM_SRAM_TR_RET_TO_ON] = {
+	}, {
 		.fromState = PM_SRAM_STATE_RET,
 		.toState = PM_SRAM_STATE_ON,
-	},
-	[PM_SRAM_TR_ON_TO_OFF] = {
+	}, {
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_OFF,
-	},
-	[PM_SRAM_TR_OFF_TO_ON] = {
+	}, {
 		.fromState = PM_SRAM_STATE_OFF,
 		.toState = PM_SRAM_STATE_ON,
 	},
 };
+
+/**
+ * PmSramFsmHandler() - Sram FSM handler, performs transition actions
+ * @slave       Slave whose state should be changed
+ * @nextState   State the slave should enter
+ *
+ * @return      Status of performing transition action
+ */
+static u32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
+{
+	u32 status = PM_RET_ERROR_INTERNAL;
+	PmSlaveSram* sram = (PmSlaveSram*)slave->node.derived;
+
+	switch (slave->node.currState) {
+	case PM_SRAM_STATE_ON:
+		if (PM_SRAM_STATE_RET == nextState) {
+			/* ON -> RET */
+			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
+				   sram->retCtrlMask);
+			status = XST_SUCCESS;
+		} else if (PM_SRAM_STATE_OFF == nextState) {
+			/* ON -> OFF*/
+			status = sram->PwrDn();
+		} else {
+		}
+		break;
+	case PM_SRAM_STATE_RET:
+		if (PM_SRAM_STATE_ON == nextState) {
+			/* RET -> ON */
+			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
+				   ~sram->retCtrlMask);
+			status = XST_SUCCESS;
+		} else if (PM_SRAM_STATE_OFF == nextState) {
+			/* RET -> OFF */
+			status = sram->PwrDn();
+		} else {
+		}
+		break;
+	case PM_SRAM_STATE_OFF:
+		if (PM_SRAM_STATE_ON == nextState) {
+			/* OFF -> ON */
+			status = sram->PwrUp();
+		}
+		break;
+	default:
+		break;
+	}
+
+	if (status == XST_SUCCESS) {
+		slave->node.currState = nextState;
+		status = PM_RET_SUCCESS;
+	} else {
+		status = PM_RET_ERROR_FAILURE;
+	}
+	return status;
+}
 
 /* Sram FSM */
 static const PmSlaveFsm slaveSramFsm = {
 	.states = pmSramStates,
 	.statesCnt = PM_SRAM_STATE_MAX,
 	.trans = pmSramTransitions,
-	.transCnt = PM_SRAM_TR_MAX,
-	.actions = pmSramActions,
+	.transCnt = ARRAY_SIZE(pmSramTransitions),
+	.enterState = PmSramFsmHandler,
 };
 
 static PmRequirement* const pmL2Reqs[] = {
@@ -338,12 +140,15 @@ PmSlaveSram pmSlaveL2_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_L2,
 		.reqs = pmL2Reqs,
 		.reqsCnt = ARRAY_SIZE(pmL2Reqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnL2Bank0Handler,
+	.PwrUp = XpbrPwrUpL2Bank0Handler,
+	.retCtrlAddr = PMU_LOCAL_L2_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK,
 };
 
 static PmRequirement* const pmOcm0Reqs[] = {
@@ -361,12 +166,15 @@ PmSlaveSram pmSlaveOcm0_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_OCM0,
 		.reqs = pmOcm0Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm0Reqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnOcmBank0Handler,
+	.PwrUp = XpbrPwrUpOcmBank0Handler,
+	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK,
 };
 
 static PmRequirement* const pmOcm1Reqs[] = {
@@ -384,12 +192,15 @@ PmSlaveSram pmSlaveOcm1_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_OCM1,
 		.reqs = pmOcm1Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm1Reqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnOcmBank1Handler,
+	.PwrUp = XpbrPwrUpOcmBank1Handler,
+	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK,
 };
 
 static PmRequirement* const pmOcm2Reqs[] = {
@@ -407,12 +218,15 @@ PmSlaveSram pmSlaveOcm2_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_OCM2,
 		.reqs = pmOcm2Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm2Reqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnOcmBank2Handler,
+	.PwrUp = XpbrPwrUpOcmBank2Handler,
+	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK,
 };
 
 static PmRequirement* const pmOcm3Reqs[] = {
@@ -430,12 +244,15 @@ PmSlaveSram pmSlaveOcm3_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_OCM3,
 		.reqs = pmOcm3Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm3Reqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnOcmBank3Handler,
+	.PwrUp = XpbrPwrUpOcmBank3Handler,
+	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK,
 };
 
 static PmRequirement* const pmTcm0AReqs[] = {
@@ -452,12 +269,15 @@ PmSlaveSram pmSlaveTcm0A_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_TCM0A,
 		.reqs = pmTcm0AReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm0AReqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnTcm0AHandler,
+	.PwrUp = XpbrPwrUpTcm0AHandler,
+	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK,
 };
 
 static PmRequirement* const pmTcm0BReqs[] = {
@@ -474,12 +294,15 @@ PmSlaveSram pmSlaveTcm0B_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_TCM0B,
 		.reqs = pmTcm0BReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm0BReqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnTcm0BHandler,
+	.PwrUp = XpbrPwrUpTcm0BHandler,
+	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK,
 };
 
 static PmRequirement* const pmTcm1AReqs[] = {
@@ -496,12 +319,15 @@ PmSlaveSram pmSlaveTcm1A_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_TCM1A,
 		.reqs = pmTcm1AReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm1AReqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnTcm1AHandler,
+	.PwrUp = XpbrPwrUpTcm1AHandler,
+	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK,
 };
 
 static PmRequirement* const pmTcm1BReqs[] = {
@@ -518,10 +344,13 @@ PmSlaveSram pmSlaveTcm1B_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.ops = NULL,
 		},
-		.instId = PM_SRAM_TCM1B,
 		.reqs = pmTcm1BReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm1BReqs),
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
+	.PwrDn = XpbrPwrDnTcm1BHandler,
+	.PwrUp = XpbrPwrUpTcm1BHandler,
+	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
+	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK,
 };

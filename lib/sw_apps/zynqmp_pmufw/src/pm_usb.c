@@ -37,16 +37,6 @@
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
 
-#define DEFTR(INST, TRAN) ((INST * PM_USB_TR_MAX) + TRAN)
-
-static const PmTranHandler pmUsbActions[PM_USB_INST_MAX * PM_USB_TR_MAX] = {
-	[ DEFTR(PM_USB_0, PM_USB_TR_ON_TO_OFF) ] = XpbrPwrDnUsb0Handler,
-	[ DEFTR(PM_USB_0, PM_USB_TR_OFF_TO_ON) ] = XpbrPwrUpUsb0Handler,
-
-	[ DEFTR(PM_USB_1, PM_USB_TR_ON_TO_OFF) ] = XpbrPwrDnUsb1Handler,
-	[ DEFTR(PM_USB_1, PM_USB_TR_OFF_TO_ON) ] = XpbrPwrUpUsb1Handler,
-};
-
 /* USB states */
 static const u32 pmUsbStates[PM_USB_STATE_MAX] = {
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP,
@@ -54,24 +44,59 @@ static const u32 pmUsbStates[PM_USB_STATE_MAX] = {
 };
 
 /* USB transition table (from which to which state USB can transit) */
-static const PmStateTran pmUsbTransitions[PM_USB_TR_MAX] = {
-	[PM_USB_TR_ON_TO_OFF] = {
+static const PmStateTran pmUsbTransitions[] = {
+	{
 		.fromState = PM_USB_STATE_ON,
 		.toState = PM_USB_STATE_OFF,
-	},
-	[PM_USB_TR_OFF_TO_ON] = {
+	}, {
 		.fromState = PM_USB_STATE_OFF,
 		.toState = PM_USB_STATE_ON,
 	},
 };
 
+/**
+ * PmUsbFsmHandler() - Usb FSM handler, performs transition actions
+ * @slave       Slave whose state should be changed
+ * @nextState   State the slave should enter
+ *
+ * @return      Status of performing transition action
+ */
+static u32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
+{
+	u32 status = PM_RET_ERROR_INTERNAL;
+	PmSlaveUsb* usb = (PmSlaveUsb*)slave->node.derived;
+	switch (slave->node.currState) {
+	case PM_USB_STATE_ON:
+		if (PM_USB_STATE_OFF == nextState) {
+			/* ON -> OFF*/
+			status = usb->PwrDn();
+		}
+		break;
+	case PM_USB_STATE_OFF:
+		if (PM_USB_STATE_ON == nextState) {
+			/* OFF -> ON */
+			status = usb->PwrUp();
+		}
+		break;
+	default:
+		break;
+	}
+	if (status == XST_SUCCESS) {
+		slave->node.currState = nextState;
+		status = PM_RET_SUCCESS;
+	} else {
+		status = PM_RET_ERROR_FAILURE;
+	}
+	return status;
+}
+
 /* USB FSM */
 static const PmSlaveFsm slaveUsbFsm = {
 	.states = pmUsbStates,
-	.statesCnt = PM_USB_STATE_MAX,
+	.statesCnt = ARRAY_SIZE(pmUsbStates),
 	.trans = pmUsbTransitions,
-	.transCnt = PM_USB_TR_MAX,
-	.actions = pmUsbActions,
+	.transCnt = ARRAY_SIZE(pmUsbTransitions),
+	.enterState = PmUsbFsmHandler,
 };
 
 static PmRequirement* const pmUsb0Reqs[] = {
@@ -93,12 +118,13 @@ PmSlaveUsb pmSlaveUsb0_g = {
 			.derived = &pmSlaveUsb0_g,
 			.ops = NULL,
 		},
-		.instId = PM_USB_0,
 		.reqs = pmUsb0Reqs,
 		.reqsCnt = ARRAY_SIZE(pmUsb0Reqs),
 		.wake = &pmUsb0Wake,
 		.slvFsm = &slaveUsbFsm,
 	},
+	.PwrDn = XpbrPwrDnUsb0Handler,
+	.PwrUp = XpbrPwrUpUsb0Handler,
 };
 
 static PmRequirement* const pmUsb1Reqs[] = {
@@ -120,10 +146,11 @@ PmSlaveUsb pmSlaveUsb1_g = {
 			.derived = &pmSlaveUsb1_g,
 			.ops = NULL,
 		},
-		.instId = PM_USB_1,
 		.reqs = pmUsb1Reqs,
 		.reqsCnt = ARRAY_SIZE(pmUsb1Reqs),
 		.wake = &pmUsb1Wake,
 		.slvFsm = &slaveUsbFsm,
 	},
+	.PwrDn = XpbrPwrDnUsb1Handler,
+	.PwrUp = XpbrPwrUpUsb1Handler,
 };

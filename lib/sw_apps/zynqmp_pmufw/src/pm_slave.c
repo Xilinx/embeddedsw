@@ -165,8 +165,19 @@ u32 PmCheckCapabilities(PmSlave* const slave, const u32 cap)
 static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 {
 	u32 t;
-	u32 status = PM_RET_ERROR_FAILURE;
+	u32 status;
 	const PmSlaveFsm* fsm = slave->slvFsm;
+
+	if (0U == fsm->transCnt) {
+		/* Slave's FSM has no transitions when it has only one state */
+		status = PM_RET_SUCCESS;
+	} else {
+		/*
+		 * Slave has transitions to change the state. Assume the failure
+		 * and change status if state is changed correctly.
+		 */
+		status = PM_RET_ERROR_FAILURE;
+	}
 
 	for (t = 0U; t < fsm->transCnt; t++) {
 		/* Find transition from current state to state to be set */
@@ -175,17 +186,9 @@ static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 			continue;
 		}
 
-		if (NULL != fsm->actions) {
-			/* Execute transition action */
-			u32 ret = fsm->actions[(slave->instId * fsm->transCnt) + t]();
-
-			/* Check the status of transition handler */
-			if (ret == XST_SUCCESS) {
-				slave->node.currState = state;
-				status = PM_RET_SUCCESS;
-			} else {
-				status = PM_RET_ERROR_FAILURE;
-			}
+		if (NULL != slave->slvFsm->enterState) {
+			/* Execute transition action of slave's FSM */
+			status = slave->slvFsm->enterState(slave, state);
 		} else {
 			/*
 			 * Slave's FSM has no actions, because it has no private
@@ -196,6 +199,7 @@ static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 
 		break;
 	}
+
 	return status;
 }
 

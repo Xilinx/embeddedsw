@@ -40,36 +40,29 @@
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* Instances of SRAM */
-#define PM_SRAM_OCM0        0U
-#define PM_SRAM_OCM1        1U
-#define PM_SRAM_OCM2        2U
-#define PM_SRAM_OCM3        3U
-#define PM_SRAM_TCM0A       4U
-#define PM_SRAM_TCM0B       5U
-#define PM_SRAM_TCM1A       6U
-#define PM_SRAM_TCM1B       7U
-#define PM_SRAM_L2          8U
-#define PM_SRAM_INST_MAX    9U
-
 /* Power states of SRAM */
-#define PM_SRAM_STATE_OFF   0U
-#define PM_SRAM_STATE_RET   1U
-#define PM_SRAM_STATE_ON    2U
-#define PM_SRAM_STATE_MAX   3U
-
-/* Transitions of sram */
-#define PM_SRAM_TR_ON_TO_RET    0U
-#define PM_SRAM_TR_RET_TO_ON    1U
-#define PM_SRAM_TR_ON_TO_OFF    2U
-#define PM_SRAM_TR_OFF_TO_ON    3U
-#define PM_SRAM_TR_MAX          4U
+#define PM_SRAM_STATE_OFF	0U
+#define PM_SRAM_STATE_RET	1U
+#define PM_SRAM_STATE_ON	2U
+#define PM_SRAM_STATE_MAX	3U
 
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
+/**
+ * PmSlaveSram - Structure of a sram object, derived from slave
+ * @slv         Base slave structure
+ * @PwrDn   Pointer to a power down pmu-rom handler
+ * @PwrUp   Pointer to a power up pmu-rom handler
+ * @retCtrlAddr Address of the retention control register
+ * @retCtrlMask Mask of the retention bits in control register
+ */
 typedef struct PmSlaveSram {
 	PmSlave slv;
+	PmTranHandler PwrDn;
+	PmTranHandler PwrUp;
+	const u32 retCtrlAddr;
+	const u32 retCtrlMask;
 } PmSlaveSram;
 
 /*********************************************************************

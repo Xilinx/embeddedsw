@@ -650,28 +650,30 @@ static void PmWakeUpDisableAll(PmMaster* const master)
 	u32 i;
 
 	PmDbg("for %s\n", PmStrNode(master->procs->node.nodeId));
-
 	for (i = 0; i < master->reqsCnt; i++) {
-		PmMasterId r;
-		bool hasOtherReq = false;
+		if (0U != (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK)) {
+			PmMasterId r;
+			bool hasOtherReq = false;
 
-		if (0U == (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK)) {
-			continue;
-		}
-
-		master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-		/* Check if there are other masters waiting for slave's wake-up */
-		for (r = 0U; r < master->reqs[i].slave->reqsCnt; r++) {
-			if (0U != (master->reqs[i].slave->reqs[r]->info &
-				   PM_MASTER_WAKEUP_REQ_MASK)) {
-				hasOtherReq = true;
-				break;
+			master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+			/*
+			 * Check if there are other masters waiting for slave's
+			 * wake-up.
+			 */
+			for (r = 0U; r < master->reqs[i].slave->reqsCnt; r++) {
+				if (0U != (master->reqs[i].slave->reqs[r]->info &
+					   PM_MASTER_WAKEUP_REQ_MASK)) {
+					hasOtherReq = true;
+					break;
+				}
 			}
-		}
-
-		if (false == hasOtherReq) {
-			/* No other masters waiting for wake, disable wake event */
-			PmSlaveWakeDisable(master->reqs[i].slave);
+			if (false == hasOtherReq) {
+				/*
+				 * No other masters waiting for wake, disable
+				 * wake event.
+				 */
+				PmSlaveWakeDisable(master->reqs[i].slave);
+			}
 		}
 	}
 }

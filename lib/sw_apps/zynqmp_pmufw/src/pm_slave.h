@@ -40,9 +40,13 @@
 #include "pm_common.h"
 #include "pm_node.h"
 
-typedef u8 PmSlaveInstanceId;
+/* Forward declarations */
 typedef struct PmMaster PmMaster;
 typedef struct PmRequirement PmRequirement;
+typedef struct PmSlave PmSlave;
+
+typedef u32 (*const PmSlaveFsmHandler)(PmSlave* const slave,
+				       const PmStateId nextState);
 
 /*********************************************************************
  * Macros
@@ -108,15 +112,14 @@ typedef struct {
  * @statesCnt   Number of states in state array
  * @trans       Pointer to array of transitions of the FSM
  * @transCnt    Number of elements in transition array
- * @actions     Array of transition actions (function pointers) for all
- *              instances of this class
+ * @enterState  Pointer to a function that executes FSM actions to enter a state
  */
 typedef struct {
 	const u32* const states;
 	const PmStateId statesCnt;
 	const PmStateTran* const trans;
-	const PmTransitionId transCnt;
-	const PmTranHandler* const actions;
+	const u8 transCnt;
+	PmSlaveFsmHandler enterState;
 } PmSlaveFsm;
 
 /**
@@ -141,7 +144,6 @@ typedef struct {
 /**
  * PmSlave - Slave structure used for managing slave's states
  * @node        Pointer to the node structure of this slave
- * @instId      Index into array of all instances of slave's class
  * @reqs        Pointer to array of master requirements related to this slave
  * @reqsCnt     Size of masterReq array
  * @wake        Wake event this slave can generate
@@ -149,7 +151,6 @@ typedef struct {
  */
 typedef struct PmSlave {
 	PmNode node;
-	const PmSlaveInstanceId instId;
 	PmRequirement* const* reqs;
 	u8 reqsCnt;
 	const PmWakeProperties* wake;
