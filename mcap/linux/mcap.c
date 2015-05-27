@@ -151,12 +151,20 @@ int main(int argc, char **argv)
 	}
 
 	if (programconfigfile) {
+		if (argc > 6)
+			mdev->is_multiplebit = 1;
+
 		MCapConfigureFPGA(mdev, argv[4], EMCAP_PARTIALCONFIG_FILE);
-		goto free;
+
+		if(!mdev->is_multiplebit)
+			goto free;
 	}
 
 	if (program) {
-		MCapConfigureFPGA(mdev, argv[4], EMCAP_CONFIG_FILE);
+		if (argc > 6)
+			MCapConfigureFPGA(mdev, argv[6], EMCAP_CONFIG_FILE);
+		else
+			MCapConfigureFPGA(mdev, argv[4], EMCAP_CONFIG_FILE);
 		goto free;
 	}
 

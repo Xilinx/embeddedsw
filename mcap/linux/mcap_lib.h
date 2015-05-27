@@ -115,6 +115,7 @@ struct mcap_dev {
 	struct pci_dev *pdev;
 	struct pci_access *pacc;
 	unsigned int reg_base;
+	u32 is_multiplebit;
 };
 
 #define MCapRegWrite(mdev, offset, value) \
