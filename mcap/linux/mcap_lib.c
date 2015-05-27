@@ -200,6 +200,30 @@ static int MCapClearRequestByConfigure(struct mcap_dev *mdev, u32 *restore)
 	return 0;
 }
 
+static int Checkforcompletion(struct mcap_dev *mdev)
+{
+	unsigned long retry_count = 0;
+	u32 delay;
+	int sr, i;
+
+	sr = MCapRegRead(mdev, MCAP_STATUS);
+	while (!(sr & MCAP_STS_EOS_MASK)) {
+
+		usleep(2);
+		for (i=0 ; i < EMCAP_EOS_LOOP_COUNT; i++) {
+			MCapRegWrite(mdev, MCAP_DATA, EMCAP_NOOP_VAL);
+		}
+		sr = MCapRegRead(mdev, MCAP_STATUS);
+		retry_count++;
+		if (retry_count > EMCAP_EOS_RETRY_COUNT) {
+			pr_err("Error: The MCAP EOS bit did not assert after");
+			pr_err(" programming the specified programming file\n");
+			return -EMCAPREQ;
+		}
+	}
+	return 0;
+}
+
 static int MCapWriteBitStream(struct mcap_dev *mdev, u32 *data,
 			      int len, u8 bswap)
 {
@@ -241,6 +265,11 @@ static int MCapWriteBitStream(struct mcap_dev *mdev, u32 *data,
 		for (count = 0; count < len; count++)
 			MCapRegWrite(mdev, MCAP_DATA, __bswap_32(data[count]));
 	}
+
+	/* Check for Completion */
+	err = Checkforcompletion(mdev);
+	if (err)
+		return -EMCAPCFG;
 
 	if (IsErrSet(mdev) || IsFifoOverflow(mdev)) {
 		pr_err("Failed to Write Bitstream\n");
