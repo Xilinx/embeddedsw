@@ -43,7 +43,7 @@
 
 #define MCAP_LOOP_COUNT	1000000
 
-#define MCAP_SYNC_DWORD	0xaa995566
+#define MCAP_SYNC_DWORD	0xFFFFFFFF
 #define MCAP_SYNC_BYTE0 ((MCAP_SYNC_DWORD & 0xFF000000) >> 24)
 #define MCAP_SYNC_BYTE1 ((MCAP_SYNC_DWORD & 0x00FF0000) >> 16)
 #define MCAP_SYNC_BYTE2 ((MCAP_SYNC_DWORD & 0x0000FF00) >> 8)
@@ -79,7 +79,7 @@ static u32 MCapProcessRBT(FILE *fptr, u32 *buf)
 	u32 count = 0, len = 0, result = 0;
 
 	while ((read = getline(&raw, &linelen, fptr)) != -1) {
-		if (raw[0] == '/' && raw[1] == '/')
+		if (raw[0] != '1' && raw[1] != '0')
 			continue;
 
 		for (i = 0; i < read - 1; i++) {
@@ -88,7 +88,7 @@ static u32 MCapProcessRBT(FILE *fptr, u32 *buf)
 				count++;
 				if (count == 32) {
 					*buf++ = result;
-					len += 4;
+					len ++;
 					result = count = 0;
 					break;
 				}
@@ -96,7 +96,7 @@ static u32 MCapProcessRBT(FILE *fptr, u32 *buf)
 		}
 	}
 
-	return len/4;
+	return len;
 }
 
 static u32 MCapProcessBIT(FILE *fptr, u32 *buf, int sz)
@@ -110,14 +110,17 @@ static u32 MCapProcessBIT(FILE *fptr, u32 *buf, int sz)
 	 * we need to check every byte here.
 	 */
 	while ((err = fread(&value, 1, 1, fptr)) == 1) {
-		if (value == MCAP_SYNC_BYTE0)
-		  if ((err = fread(&value, 1, 1, fptr)) == 1)
-		    if (value == MCAP_SYNC_BYTE1)
-		      if ((err = fread(&value, 1, 1, fptr)) == 1)
-		        if (value == MCAP_SYNC_BYTE2)
-			  if ((err = fread(&value, 1, 1, fptr)) == 1)
-			    if (value == MCAP_SYNC_BYTE3)
-				break;
+		len++; if (value == MCAP_SYNC_BYTE0)
+		  if ((err = fread(&value, 1, 1, fptr)) == 1) {
+		    len++; if (value == MCAP_SYNC_BYTE1)
+		      if ((err = fread(&value, 1, 1, fptr)) == 1) {
+			len++; if (value == MCAP_SYNC_BYTE2)
+			  if ((err = fread(&value, 1, 1, fptr)) == 1) {
+				len++; if (value == MCAP_SYNC_BYTE3)
+					break;
+			  }
+		      }
+		}
 	}
 
 	if (err != 1 && !feof(fptr)) {
@@ -131,7 +134,6 @@ static u32 MCapProcessBIT(FILE *fptr, u32 *buf, int sz)
 	}
 
 	*buf++ = __bswap_32(MCAP_SYNC_DWORD);
-	len += 4;
 
 	while ((err = fread(buf, sz - len, 1, fptr)) == 1)
 		;
@@ -141,7 +143,7 @@ static u32 MCapProcessBIT(FILE *fptr, u32 *buf, int sz)
 		return 0;
 	}
 
-	return (sz - len)/4;
+	return (sz - len)/4 + 1;
 }
 
 static u32 MCapProcessBIN(FILE *fptr, u32 *buf, int sz)
