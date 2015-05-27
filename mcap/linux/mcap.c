@@ -38,13 +38,14 @@
 
 #include "mcap_lib.h"
 
-static const char options[] = "x:p:rmfdvHhDc::";
+static const char options[] = "x:pC:rmfdvHhDc::";
 static char help_msg[] =
 "Usage: mcap [options]\n"
 "\n"
 "Options:\n"
 "\t-x\t\tSpecify MCAP Device Id in hex (MANDATORY)\n"
 "\t-p    <file>\tProgram Bitstream (.bin/.bit/.rbt)\n"
+"\t-C    <file>\tPartial Reconfiguration Clear File(.bin/.bit/.rbt)\n"
 "\t-r\t\tPerforms Simple Reset\n"
 "\t-m\t\tPerforms Module Reset\n"
 "\t-f\t\tPerforms Full Reset\n"
@@ -65,6 +66,7 @@ int main(int argc, char **argv)
 	int i, modreset = 0, fullreset = 0, reset = 0;
 	int program = 0, verbose = 0, device_id = 0;
 	int data_regs = 0, dump_regs = 0, access_config = 0;
+	int programconfigfile = 0;
 
 	while ((i = getopt(argc, argv, options)) != -1) {
 		switch (i) {
@@ -90,6 +92,9 @@ int main(int argc, char **argv)
 		case 'H':
 			printf("%s", help_msg);
 			return 1;
+		case 'C':
+			programconfigfile = 1;
+			break;
 		case 'p':
 			program = 1;
 			break;
@@ -145,8 +150,13 @@ int main(int argc, char **argv)
 		goto free;
 	}
 
+	if (programconfigfile) {
+		MCapConfigureFPGA(mdev, argv[4], EMCAP_PARTIALCONFIG_FILE);
+		goto free;
+	}
+
 	if (program) {
-		MCapConfigureFPGA(mdev, argv[4]);
+		MCapConfigureFPGA(mdev, argv[4], EMCAP_CONFIG_FILE);
 		goto free;
 	}
 
