@@ -217,7 +217,12 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 			break;
 		}
 		else if (Width < HActive) {
-			High = Mid - 1;
+			if (Mid == 0) {
+				break;
+			}
+			else {
+				High = Mid - 1;
+			}
 		}
 		else {
 			Low = Mid + 1;
