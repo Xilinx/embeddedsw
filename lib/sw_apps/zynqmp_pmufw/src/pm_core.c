@@ -152,7 +152,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 			     const u32 ack)
 {
 	u32 status;
-	u32 oppoint = 0;
+	u32 oppoint = 0U;
 	PmNode* nodePtr = PmGetNodeById(node);
 
 	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrAck(ack));
@@ -228,7 +228,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 			    const u32 ack)
 {
 	u32 status;
-	u32 oppoint = 0;
+	u32 oppoint = 0U;
 	PmProc* proc = PmGetProcByNodeId(node);
 
 	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrAck(ack));
@@ -266,7 +266,7 @@ static void PmReleaseNode(const PmMaster *master,
 	}
 
 	/* Release requirements */
-	status = PmRequirementUpdate(masterReq, 0);
+	status = PmRequirementUpdate(masterReq, 0U);
 	masterReq->info &= ~PM_MASTER_USING_SLAVE_MASK;
 
 	if (PM_RET_SUCCESS != status) {
@@ -300,7 +300,7 @@ static void PmRequestNode(const PmMaster *master,
 			  const u32 ack)
 {
 	u32 status;
-	u32 oppoint = 0;
+	u32 oppoint = 0U;
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
 	PmDbg("(%s, %d, %d, %s)\n", PmStrNode(node), capabilities,
@@ -352,7 +352,7 @@ static void PmSetRequirement(const PmMaster *master,
 			     const u32 ack)
 {
 	u32 status;
-	u32 oppoint = 0;
+	u32 oppoint = 0U;
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
 	PmDbg("(%s, %d, %d, %s)\n", PmStrNode(node), capabilities,
@@ -365,14 +365,14 @@ static void PmSetRequirement(const PmMaster *master,
 	}
 
 	/* Does master have the privilege to request settings for the node? */
-	if (!(PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
+	if (0U == (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
 		status = PM_RET_ERROR_ACCESS;
 		goto done;
 	}
 
 	/* Master is using slave (previously has requested node) */
 	switch (master->procs->node.currState) {
-	case (PM_PROC_STATE_SUSPENDING):
+	case PM_PROC_STATE_SUSPENDING:
 		/* Schedule setting the requirement */
 		status = PmRequirementSchedule(masterReq, capabilities);
 		break;
@@ -385,6 +385,7 @@ static void PmSetRequirement(const PmMaster *master,
 		status = PM_RET_ERROR_COMMUNIC;
 		break;
 	}
+	oppoint = masterReq->slave->node.currState;
 
 done:
 	PmProcessAckRequest(ack, master, node, status, oppoint);

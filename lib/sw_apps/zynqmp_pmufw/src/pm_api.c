@@ -154,12 +154,12 @@ static PmPayloadStatus PmCheckArgument(const u8 argType,
 		}
 		break;
 	case ARG_WAKE:
-		if (arg != 1 && arg != 0) {
+		if (arg != 1U && arg != 0U) {
 			status = PM_PAYLOAD_ERR_WAKE;
 		}
 		break;
 	case ARG_ENABLE:
-		if (arg != 1 && arg != 0) {
+		if (arg != 1U && arg != 0U) {
 			status = PM_PAYLOAD_ERR_ENABLE;
 		}
 		break;

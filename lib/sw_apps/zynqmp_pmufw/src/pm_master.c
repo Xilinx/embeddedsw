@@ -211,7 +211,7 @@ PmMaster pmMasterApu_g = {
 
 PmMaster pmMasterRpu0_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
-	.procsCnt = 1,
+	.procsCnt = 1U,
 	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
 	.ipiTrigMask = IPI_PMU_0_TRIG_RPU_0_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_0_OFFSET,
@@ -222,19 +222,19 @@ PmMaster pmMasterRpu0_g = {
 
 PmMaster pmMasterRpu1_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_1],
-	.procsCnt = 1,
+	.procsCnt = 1U,
 	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
 	.ipiTrigMask = IPI_PMU_0_TRIG_RPU_1_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_1_OFFSET,
 	.buffer = IPI_BUFFER_RPU_1_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = NULL,   /* lockstep mode is assumed for now */
-	.reqsCnt = 0,
+	.reqsCnt = 0U,
 };
 
-static const PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
-	[PM_MASTER_APU] = &pmMasterApu_g,
-	[PM_MASTER_RPU_0] = &pmMasterRpu0_g,
-	[PM_MASTER_RPU_1] = &pmMasterRpu1_g,
+static const PmMaster *const pmAllMasters[] = {
+	&pmMasterApu_g,
+	&pmMasterRpu0_g,
+	&pmMasterRpu1_g,
 };
 
 /**
@@ -377,7 +377,7 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
  *                             are automatically released.
  * @master  Master whose primary processor was forced to power down
  */
-void PmRequirementReleaseAll(const PmMaster* const master)
+static void PmRequirementReleaseAll(const PmMaster* const master)
 {
 	u32 status;
 	PmRequirementId i;
@@ -593,28 +593,6 @@ PmProc* PmGetProcByWakeStatus(const u32 mask)
 
 done:
 	return proc;
-}
-
-/**
- * PmMasterGetAwakeProcCnt() - count how many processors within master are not
- *          in sleep state
- *          processor
- * @master  Pointer to the master whose awake processors are to be counted
- *
- * @return  Number of awake processors within a master
- */
-u32 PmMasterGetAwakeProcCnt(const PmMaster* const master)
-{
-	u32 i;
-	u32 activeCnt = 0U;
-
-	for (i = 0U; i < master->procsCnt; i++) {
-		if (PM_PROC_STATE_ACTIVE == master->procs[i].node.currState) {
-			activeCnt++;
-		}
-	}
-
-	return activeCnt;
 }
 
 /**
