@@ -267,15 +267,17 @@ static const PmMaster *const pmAllMasters[] = {
  *              goes to sleep.
  *
  * @return      Status of the operation
+ *              - XST_SUCCESS if requirement is successfully scheduled
+ *              - XST_NO_FEATURE if there is no state with requested
+ *                capabilities
  */
-u32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
+int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
 {
-	u32 status;
+	int status;
 
 	/* Check if slave has a state with requested capabilities */
 	status = PmCheckCapabilities(masterReq->slave, caps);
-	if (PM_RET_SUCCESS != status) {
-		status = PM_RET_ERROR_NOTSUPPORTED;
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 
@@ -295,15 +297,15 @@ done:
  *
  * @return      Status of the operation
  */
-u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
+int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 {
-	u32 status;
+	int status;
 	u32 tmpCaps;
 
 	/* Check if slave has a state with requested capabilities */
 	status = PmCheckCapabilities(masterReq->slave, caps);
 
-	if (PM_RET_SUCCESS != status) {
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 
@@ -312,7 +314,7 @@ u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 	masterReq->currReq = caps;
 	status = PmUpdateSlave(masterReq->slave);
 
-	if (PM_RET_SUCCESS == status) {
+	if (XST_SUCCESS == status) {
 		/* All capabilities requested in active state are constant */
 		masterReq->nextReq = masterReq->currReq;
 	} else {
@@ -344,10 +346,10 @@ done:
  * current requirements. Default requirements has priority over current
  * requirements.
  */
-static void PmRequirementUpdateScheduled(const PmMaster* const master,
-					 const bool swap)
+static int PmRequirementUpdateScheduled(const PmMaster* const master,
+					    const bool swap)
 {
-	u32 status;
+	int status;
 	PmRequirementId i;
 
 	PmDbg("%s\n", PmStrNode(master->procs[0].node.nodeId));
@@ -376,12 +378,15 @@ static void PmRequirementUpdateScheduled(const PmMaster* const master,
 			/* Update slave setting */
 			status = PmUpdateSlave(master->reqs[i].slave);
 			/* if rom works correctly, status should be always ok */
-			if (PM_RET_SUCCESS != status) {
+			if (XST_SUCCESS != status) {
 				PmDbg("ERROR setting slave node %s\n",
 				      PmStrNode(master->reqs[i].slave->node.nodeId));
+				break;
 			}
 		}
 	}
+
+	return status;
 }
 
 /**
@@ -431,10 +436,13 @@ static void PmRequirementRequestDefault(const PmMaster* const master)
  *                             power down, so all requirements of the processor
  *                             are automatically released.
  * @master  Master whose primary processor was forced to power down
+ *
+ * @return  Status of the operation of releasing all slaves used by the master
+ *          and changing their state to the lowest possible.
  */
-static void PmRequirementReleaseAll(const PmMaster* const master)
+static int PmRequirementReleaseAll(const PmMaster* const master)
 {
-	u32 status;
+	int status;
 	PmRequirementId i;
 
 	for (i = 0; i < master->reqsCnt; i++) {
@@ -447,12 +455,15 @@ static void PmRequirementReleaseAll(const PmMaster* const master)
 			/* Update slave setting */
 			status = PmUpdateSlave(master->reqs[i].slave);
 			/* if pmu rom works correctly, status should be always ok */
-			if (PM_RET_SUCCESS != status) {
+			if (XST_SUCCESS != status) {
 				PmDbg("ERROR setting slave node %s\n",
 				      PmStrNode(master->reqs[i].slave->node.nodeId));
+				break;
 			}
 		}
 	}
+
+	return status;
 }
 
 /**
@@ -746,14 +757,18 @@ static void PmWakeUpDisableAll(PmMaster* const master)
  * @master      Pointer to master object which needs to be notified
  * @event       Processor Event to notify the master about
  *
+ * @return      Status of potential changing of slave states or success.
+ *
  * Primary processor has changed its state, notify master to update its requirements
  * accordingly.
  */
-void PmMasterNotify(PmMaster* const master, const PmProcEvent event)
+int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 {
+	int status = XST_SUCCESS;
+
 	switch (event) {
 	case PM_PROC_EVENT_SLEEP:
-		PmRequirementUpdateScheduled(master, true);
+		status = PmRequirementUpdateScheduled(master, true);
 		break;
 	case PM_PROC_EVENT_ABORT_SUSPEND:
 		PmRequirementCancelScheduled(master);
@@ -767,14 +782,17 @@ void PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 			PmRequirementRequestDefault(master);
 		} else {
 		}
-		PmRequirementUpdateScheduled(master, false);
+		status = PmRequirementUpdateScheduled(master, false);
 		break;
 	case PM_PROC_EVENT_FORCE_PWRDN:
-		PmRequirementReleaseAll(master);
+		status = PmRequirementReleaseAll(master);
 		PmWakeUpCancelScheduled(master);
 		break;
 	default:
+		status = XST_PM_INTERNAL;
 		PmDbg("ERROR: undefined event #%d\n", event);
 		break;
 	}
+
+	return status;
 }

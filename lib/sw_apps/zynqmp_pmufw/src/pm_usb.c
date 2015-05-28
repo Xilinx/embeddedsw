@@ -61,32 +61,37 @@ static const PmStateTran pmUsbTransitions[] = {
  *
  * @return      Status of performing transition action
  */
-static u32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	u32 status = PM_RET_ERROR_INTERNAL;
+	int status = XST_PM_INTERNAL;
 	PmSlaveUsb* usb = (PmSlaveUsb*)slave->node.derived;
+
 	switch (slave->node.currState) {
 	case PM_USB_STATE_ON:
 		if (PM_USB_STATE_OFF == nextState) {
 			/* ON -> OFF*/
 			status = usb->PwrDn();
+		} else {
+			status = XST_NO_FEATURE;
 		}
 		break;
 	case PM_USB_STATE_OFF:
 		if (PM_USB_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = usb->PwrUp();
+		} else {
+			status = XST_NO_FEATURE;
 		}
 		break;
 	default:
+		status = XST_PM_INTERNAL;
+		PmDbg("ERROR: Unknown USB state #%d\n", slave->node.currState);
 		break;
 	}
-	if (status == XST_SUCCESS) {
+	if (XST_SUCCESS == status) {
 		slave->node.currState = nextState;
-		status = PM_RET_SUCCESS;
-	} else {
-		status = PM_RET_ERROR_FAILURE;
 	}
+
 	return status;
 }
 

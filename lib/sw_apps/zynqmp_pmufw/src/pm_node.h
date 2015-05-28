@@ -38,6 +38,7 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "xil_types.h"
+#include "xstatus.h"
 
 typedef u8 PmNodeId;
 typedef u8 PmStateId;
@@ -49,7 +50,7 @@ typedef struct PmPower PmPower;
 typedef struct PmNode PmNode;
 
 /* Function pointer for wake/sleep transition functions */
-typedef u32 (*const PmNodeTranHandler)(PmNode* const nodePtr);
+typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 
 /*********************************************************************
  * Macros

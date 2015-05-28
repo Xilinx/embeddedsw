@@ -58,59 +58,54 @@
  * @nodePtr Pointer to node-structure of processor to be put to sleep
  *
  * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
+ *          - XST_PM_INTERNAL if processor cannot be identified
+ *          - XST_SUCCESS if processor has no sleep handler (example Rpu0)
+ *          - Returned status by pmu-rom if processor sleep handler is called
  */
-u32 PmProcSleep(PmNode* const nodePtr)
+int PmProcSleep(PmNode* const nodePtr)
 {
-	u32 ret;
+	int status = XST_PM_INTERNAL;
 
 	if (NULL == nodePtr) {
-		ret = PM_RET_ERROR_FAILURE;
 		goto done;
 	}
 
 	/* Call proper PMU-ROM handler as needed */
 	switch (nodePtr->nodeId) {
 	case NODE_APU_0:
-		ret = XpbrACPU0SleepHandler();
+		status = XpbrACPU0SleepHandler();
 		break;
 	case NODE_APU_1:
-		ret = XpbrACPU1SleepHandler();
+		status = XpbrACPU1SleepHandler();
 		break;
 	case NODE_APU_2:
-		ret = XpbrACPU2SleepHandler();
+		status = XpbrACPU2SleepHandler();
 		break;
 	case NODE_APU_3:
-		ret = XpbrACPU3SleepHandler();
+		status = XpbrACPU3SleepHandler();
 		break;
 	case NODE_RPU_0:
 		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
-		ret = PM_RET_SUCCESS;
+		status = XST_SUCCESS;
 		break;
 	case NODE_RPU_1:
 		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
-		ret = PM_RET_SUCCESS;
+		status = XST_SUCCESS;
 		break;
 	default:
-		ret = PM_RET_ERROR_INTERNAL;
 		break;
 	}
 
-	if (XST_SUCCESS != ret) {
-		ret = PM_RET_ERROR_FAILURE;
-		goto done;
+	if (XST_SUCCESS == status) {
+		nodePtr->currState = PM_PROC_STATE_SLEEP;
 	}
 
-	nodePtr->currState = PM_PROC_STATE_SLEEP;
-	ret = PM_RET_SUCCESS;
-
 done:
-	return ret;
+	return status;
 }
 
 /**
@@ -118,62 +113,59 @@ done:
  * @nodePtr Pointer to node-structure of processor to be woken-up
  *
  * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
+ *          - XST_PM_INTERNAL if processor cannot be identified
+ *          - Returned status of power up function if something goes wrong
+ *          - Returned status by pmu-rom if processor wake handler is called
  */
-u32 PmProcWake(PmNode* const nodePtr)
+int PmProcWake(PmNode* const nodePtr)
 {
-	u32 ret = PM_RET_SUCCESS;
+	int status = XST_SUCCESS;
 
 	if (NULL == nodePtr) {
-		ret = PM_RET_ERROR_INTERNAL;
+		status = XST_PM_INTERNAL;
 		goto done;
 	}
 
 	if (PM_PWR_STATE_OFF == nodePtr->parent->node.currState) {
 		/* Power parent is down, trigger its powering up */
-		ret = PmTriggerPowerUp(nodePtr->parent);
+		status = PmTriggerPowerUp(nodePtr->parent);
 	}
 
-	if (PM_RET_SUCCESS != ret) {
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 
 	/* Call proper PMU-ROM handler as needed */
 	switch (nodePtr->nodeId) {
 	case NODE_APU_0:
-		ret = XpbrACPU0WakeHandler();
+		status = XpbrACPU0WakeHandler();
 		break;
 	case NODE_APU_1:
-		ret = XpbrACPU1WakeHandler();
+		status = XpbrACPU1WakeHandler();
 		break;
 	case NODE_APU_2:
-		ret = XpbrACPU2WakeHandler();
+		status = XpbrACPU2WakeHandler();
 		break;
 	case NODE_APU_3:
-		ret = XpbrACPU3WakeHandler();
+		status = XpbrACPU3WakeHandler();
 		break;
 	case NODE_RPU_0:
-		ret = XpbrRstR50Handler();
+		status = XpbrRstR50Handler();
 		break;
 	case NODE_RPU_1:
-		ret = XpbrRstR51Handler();
+		status = XpbrRstR51Handler();
 		break;
 	default:
-		ret = XST_SUCCESS;
+		status = XST_PM_INTERNAL;
 		break;
 	}
 
-	if (XST_SUCCESS != ret) {
-		ret = PM_RET_ERROR_FAILURE;
-		goto done;
+	if (XST_SUCCESS == status) {
+		nodePtr->currState = PM_PROC_STATE_ACTIVE;
 	}
 
-	nodePtr->currState = PM_PROC_STATE_ACTIVE;
-	ret = PM_RET_SUCCESS;
-
 done:
-	return ret;
+	return status;
 }
 
 /**
@@ -181,18 +173,18 @@ done:
  * @proc    Pointer to processor whose FSM is changing state
  *
  * @return  Operation status
- *          - PM_RET_SUCCESS is always returned as this transition cannot fail
+ *          - XST_SUCCESS is always returned as this transition cannot fail
  *
  * @note    Executes when processor's request for self suspend gets processed.
  */
-static u32 PmProcTrActiveToSuspend(PmProc* const proc)
+static int PmProcTrActiveToSuspend(PmProc* const proc)
 {
 	PmDbg("ACTIVE->SUSPENDING %s\n", PmStrNode(proc->node.nodeId));
 
 	ENABLE_WFI(proc->wfiEnableMask);
 	proc->node.currState = PM_PROC_STATE_SUSPENDING;
 
-	return PM_RET_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /**
@@ -201,10 +193,6 @@ static u32 PmProcTrActiveToSuspend(PmProc* const proc)
  * @proc    Pointer to processor whose FSM is changing state
  *
  * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
- *          - PM_RET_ERROR_INTERNAL if processor structures are incorrectly
- *                                  initialized
  *
  * @note    Executes when some other processor authorized to do so requests
  *          through PM API the PMU to powered down this processor. This
@@ -213,7 +201,7 @@ static u32 PmProcTrActiveToSuspend(PmProc* const proc)
  *          no implemented sleep function it will continue executing
  *          instructions.
  */
-static u32 PmProcTrToForcedOff(PmProc* const proc)
+static int PmProcTrToForcedOff(PmProc* const proc)
 {
 	u32 status;
 
@@ -222,9 +210,9 @@ static u32 PmProcTrToForcedOff(PmProc* const proc)
 	status = PmProcSleep(&proc->node);
 	/* Override the state set in PmProcSleep to indicate FORCED OFF */
 	proc->node.currState = PM_PROC_STATE_FORCEDOFF;
-	if (true == proc->isPrimary) {
+	if ((true == proc->isPrimary) && (XST_SUCCESS == status)) {
 		/* Notify master to release all requirements of this processor */
-		PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
+		status = PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
 	}
 
 	return status;
@@ -234,23 +222,24 @@ static u32 PmProcTrToForcedOff(PmProc* const proc)
  * PmProcTrSuspendToActive() - FSM transition from suspend to active state
  * @proc    Pointer to processor whose FSM is changing state
  *
- * @return  Operation status
- *          - PM_RET_SUCCESS is always returned as this transition cannot fail
+ * @return  Operation status (should be always success)
  *
  * @note    Executes when processor requests abort suspend through PM API.
  */
-static u32 PmProcTrSuspendToActive(PmProc* const proc)
+static int PmProcTrSuspendToActive(PmProc* const proc)
 {
+	int status;
+
 	PmDbg("SUSPENDING->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 
 	DISABLE_WFI(proc->wfiEnableMask);
 	DISABLE_WAKE(proc->wakeEnableMask);
 
 	/* Notify master to cancel scheduled requests */
-	PmMasterNotify(proc->master, PM_PROC_EVENT_ABORT_SUSPEND);
+	status = PmMasterNotify(proc->master, PM_PROC_EVENT_ABORT_SUSPEND);
 	proc->node.currState = PM_PROC_STATE_ACTIVE;
 
-	return PM_RET_SUCCESS;
+	return status;
 }
 
 /**
@@ -258,27 +247,23 @@ static u32 PmProcTrSuspendToActive(PmProc* const proc)
  * @proc    Pointer to processor whose FSM is changing state
  *
  * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
- *          - PM_RET_ERROR_INTERNAL if processor structures are incorrectly
- *                                  initialized
  *
  * @note    Processor had previously called self suspend and now PMU has
  *          received processor's wfi interrupt.
  */
-static u32 PmProcTrSuspendToSleep(PmProc* const proc)
+static int PmProcTrSuspendToSleep(PmProc* const proc)
 {
-	u32 status;
+	int status;
 
 	PmDbg("SUSPENDING->SLEEP %s\n", PmStrNode(proc->node.nodeId));
 
 	status = PmProcSleep(&proc->node);
-	if (true == proc->isPrimary) {
+	if ((true == proc->isPrimary) && (XST_SUCCESS == status)) {
 		/*
 		 * Notify master to update slave capabilities according to the
 		 * scheduled requests for after primary processor goes to sleep.
 		 */
-		PmMasterNotify(proc->master, PM_PROC_EVENT_SLEEP);
+		status = PmMasterNotify(proc->master, PM_PROC_EVENT_SLEEP);
 	}
 	DISABLE_WFI(proc->wfiEnableMask);
 	ENABLE_WAKE(proc->wakeEnableMask);
@@ -291,36 +276,31 @@ static u32 PmProcTrSuspendToSleep(PmProc* const proc)
  * @proc    Pointer to processor whose FSM is changing state
  *
  * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
- *          - PM_RET_ERROR_INTERNAL if processor structures are incorrectly
- *                                  initialized
  *
  * @note    Processor had previously called self suspend and before it had
  *          executed wfi PMU has received PM API request to force power down
  *          of this processor. Therefore, PMU does not wait for wfi interrupt
  *          from this processor to come, but puts it to sleep.
  */
-static u32 PmProcTrSleepToActive(PmProc* const proc)
+static int PmProcTrSleepToActive(PmProc* const proc)
 {
-	u32 status;
+	int status = XST_SUCCESS;
 
 	if (true == proc->isPrimary) {
 		/*
 		 * Notify master to update slave capabilities according to the
-		 * scheduled requests for before the primary processor
-		 * gets woken-up.
+		 * scheduled requests for before the primary processor gets
+		 * woken-up.
 		 */
-		PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+		status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
 	}
-
-	PmDbg("SLEEP->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
-
-	status = PmProcWake(&proc->node);
-
-	/* Keep wfi interrupt disabled while processor is active */
-	DISABLE_WFI(proc->wfiEnableMask);
-	DISABLE_WAKE(proc->wakeEnableMask);
+	if (XST_SUCCESS == status) {
+		PmDbg("SLEEP->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
+		status = PmProcWake(&proc->node);
+		/* Keep wfi interrupt disabled while processor is active */
+		DISABLE_WFI(proc->wfiEnableMask);
+		DISABLE_WAKE(proc->wakeEnableMask);
+	}
 
 	return status;
 }
@@ -331,17 +311,15 @@ static u32 PmProcTrSleepToActive(PmProc* const proc)
  * @proc    Pointer to processor whose FSM is changing state
  *
  * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
- *          - PM_RET_ERROR_INTERNAL if processor does not have wake function
  *
  * @note    Processor had previously called self suspend and before it had
  *          executed wfi PMU has received PM API request to force power down
  *          of this processor. Therefore, PMU does not wait for wfi interrupt
  *          from this processor to come, but puts it to sleep.
  */
-static u32 PmProcTrForcePwrdnToActive(PmProc* const proc)
+static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
+	int status = XST_SUCCESS;
 	PmDbg("FORCED_PWRDN->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 
 	if (true == proc->isPrimary) {
@@ -350,10 +328,13 @@ static u32 PmProcTrForcePwrdnToActive(PmProc* const proc)
 		 * scheduled requests. For waking-up from forced powerdown,
 		 * these requirements are always only default requirements.
 		 */
-		PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+		status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+	}
+	if (XST_SUCCESS == status) {
+		status = PmProcWake(&proc->node);
 	}
 
-	return PmProcWake(&proc->node);
+	return status;
 }
 
 /**
@@ -361,22 +342,20 @@ static u32 PmProcTrForcePwrdnToActive(PmProc* const proc)
  * @proc    Pointer to the processor the event is for
  * @event   Processor-specific event to act upon
  *
+ * @return  Status of the processor state change operation
+ *
  * @note    This FSM coordinates the state transitions for an individual
  *          processor.
  */
-u32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
+int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 {
-	u32 status = PM_RET_SUCCESS;
-	u32 currState = proc->node.currState;
+	int status = XST_PM_INTERNAL;
+	PmStateId currState = proc->node.currState;
 
 	switch (event) {
 	case PM_PROC_EVENT_SELF_SUSPEND:
 		if (PM_PROC_STATE_ACTIVE == currState) {
 			status = PmProcTrActiveToSuspend(proc);
-		} else {
-			PmDbg("ERROR: illegal state %d for SUSPEND event\n",
-			      currState);
-			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
 	case PM_PROC_EVENT_FORCE_PWRDN:
@@ -388,19 +367,11 @@ u32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 	case PM_PROC_EVENT_ABORT_SUSPEND:
 		if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = PmProcTrSuspendToActive(proc);
-		} else {
-			PmDbg("ERROR: illegal state %d for ABORT event\n",
-			      currState);
-			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
 	case PM_PROC_EVENT_SLEEP:
 		if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = PmProcTrSuspendToSleep(proc);
-		} else {
-			PmDbg("ERROR: illegal state %d for SLEEP event\n",
-			      currState);
-			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
 	case PM_PROC_EVENT_WAKE:
@@ -409,16 +380,17 @@ u32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else if (PM_PROC_STATE_FORCEDOFF == currState) {
 			status = PmProcTrForcePwrdnToActive(proc);
 		} else {
-			PmDbg("ERROR: illegal state %d for WAKE event\n",
-			      currState);
-			status = PM_RET_ERROR_INTERNAL;
 		}
 		break;
 	default:
 		PmDbg("ERROR: unrecognized event %d\n", event);
-		status = PM_RET_ERROR_INTERNAL;
 		break;
 	}
+#ifdef DEBUG_PM
+	if (status == XST_PM_INTERNAL) {
+		PmDbg("ERROR: state #%d event #%d\n", currState, event);
+	}
+#endif
 
 	return status;
 }

@@ -67,6 +67,13 @@ void XPfw_PmInit(void)
  * @apiId   PM API id that was read from master's IPI buffer and validated as
  *          existing
  *
+ * @return  Status of the processing IPI
+ *          - XST_INVALID_PARAM if isrMask parameter has invalid value
+ *          - XST_SUCCESS otherwise
+ *          - Note that if request is processed, firmware is not receiving any
+ *            status of processing information. Processing status is returned to
+ *            the master which initiated communication through IPI.
+ *
  * @note    Call from IPI#0 interrupt routine. IPI's #0 interrupt can be used
  *          for some other purposes, not only for PM, and in #0 interrupt
  *          routine must :
@@ -79,9 +86,10 @@ void XPfw_PmInit(void)
  *             be cleared after this function returns to make PM API call
  *             atomic.
  */
-void XPfw_PmIpiHandler(const u32 isrMask,
-		       const u32 apiId)
+int XPfw_PmIpiHandler(const u32 isrMask,
+			  const u32 apiId)
 {
+	int status = XST_SUCCESS;
 	u32 i;
 	u32 payload[PAYLOAD_ELEM_CNT];
 	u32 bufferBase;
@@ -91,6 +99,7 @@ void XPfw_PmIpiHandler(const u32 isrMask,
 	if (NULL == master) {
 		/* Never happens if IPI interrupt routine is implemented correctly */
 		PmDbg("ERROR: IPI source not supported %d\n", isrMask);
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -105,7 +114,7 @@ void XPfw_PmIpiHandler(const u32 isrMask,
 	PmProcessRequest(master, payload);
 
 done:
-	return;
+	return status;
 }
 
 /**
@@ -115,17 +124,20 @@ done:
  * @note    Call from GPI2 interrupt routine to process sleep request. Must not
  *          clear GPI2 interrupt before this function returns.
  */
-void XPfw_PmWfiHandler(const u32 srcMask)
+int XPfw_PmWfiHandler(const u32 srcMask)
 {
+	int status;
 	PmProc *proc = PmGetProcByWfiStatus(srcMask);
 
 	if (NULL == proc) {
 		PmDbg("ERROR: Unknown processor %d\n", srcMask);
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PmProcFsm(proc, PM_PROC_EVENT_SLEEP);
-	if ((true == proc->isPrimary) && (true == IS_OFF(&proc->node))) {
+	status = PmProcFsm(proc, PM_PROC_EVENT_SLEEP);
+	if ((XST_SUCCESS == status) && (true == proc->isPrimary) &&
+	    (true == IS_OFF(&proc->node))) {
 		/*
 		 * We've just powered down a primary processor, now use opportunistic
 		 * suspend to power down its parent(s)
@@ -134,7 +146,7 @@ void XPfw_PmWfiHandler(const u32 srcMask)
 	}
 
 done:
-	return;
+	return status;
 }
 
 /**
@@ -153,21 +165,21 @@ done:
  *          slave it is determined which processor should be woken-up (always
  *          wake the primary processor, owner of the master channel).
  */
-u32 XPfw_PmWakeHandler(const u32 srcMask)
+int XPfw_PmWakeHandler(const u32 srcMask)
 {
-	u32 status = PM_RET_SUCCESS;
+	int status = XST_SUCCESS;
 
 	if (PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK & srcMask) {
 		/* Processor GIC wake */
 		PmProc* proc = PmGetProcByWakeStatus(srcMask);
 		if (NULL != proc) {
-			PmProcFsm(proc, PM_PROC_EVENT_WAKE);
+			status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
 		} else {
-			status = PM_RET_ERROR_PROC;
+			status = XST_INVALID_PARAM;
 		}
 	} else {
 		/* Slave wake */
-		PmSlaveProcessWake(srcMask);
+		status = PmSlaveProcessWake(srcMask);
 	}
 
 	return status;
@@ -188,7 +200,7 @@ u32 XPfw_PmWakeHandler(const u32 srcMask)
 XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal,
 					u32* const apiId)
 {
-	u32 status;
+	XPfw_PmIpiStatus status;
 	bool isValid;
 	const PmMaster *master = PmGetMasterByIpiMask(isrVal);
 

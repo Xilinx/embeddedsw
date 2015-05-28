@@ -151,18 +151,11 @@
 #define PM_OPCHAR_TYPE_ENERGY   2U
 #define PM_OPCHAR_TYPE_TEMP     3U
 
-/* PM API call return status */
-#define PM_RET_SUCCESS          0U
-#define PM_RET_ERROR_ARGS       1U
-#define PM_RET_ERROR_ACCESS     2U
-#define PM_RET_ERROR_TIMEOUT    3U
-#define PM_RET_ERROR_NOTSUPPORTED   4U
-#define PM_RET_ERROR_PROC       5U
-#define PM_RET_ERROR_API_ID     6U
-#define PM_RET_ERROR_FAILURE    7U
-#define PM_RET_ERROR_COMMUNIC   8U
-#define PM_RET_ERROR_DOUBLEREQ  9U
-#define PM_RET_ERROR_INTERNAL   24U
-#define PM_RET_ERROR_OTHER      25U
+/* Power management specific return error statuses */
+#define XST_PM_INTERNAL		2000L
+#define XST_PM_CONFLICT		2001L
+#define XST_PM_NO_ACCESS	2002L
+#define XST_PM_INVALID_NODE	2003L
+#define XST_PM_DOUBLE_REQ	2004L
 
 #endif

@@ -36,6 +36,7 @@
 #define PM_BINDING_H_
 
 #include "xil_types.h"
+#include "xstatus.h"
 
 /*********************************************************************
  * Enum definitions
@@ -57,12 +58,12 @@ void XPfw_PmInit(void);
 XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal, u32* const apiId);
 
 /* Call from IPI interrupt routine to handle PM API request */
-void XPfw_PmIpiHandler(const u32 isrMask, const u32 apiId);
+int XPfw_PmIpiHandler(const u32 isrMask, const u32 apiId);
 
 /* Call from GPI2 interrupt routine to handle processor sleep request */
-void XPfw_PmWfiHandler(const u32 srcMask);
+int XPfw_PmWfiHandler(const u32 srcMask);
 
 /* Call from GPI1 interrupt routine to handle wake request */
-u32 XPfw_PmWakeHandler(const u32 srcMask);
+int XPfw_PmWakeHandler(const u32 srcMask);
 
 #endif

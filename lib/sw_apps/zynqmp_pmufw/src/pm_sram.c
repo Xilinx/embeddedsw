@@ -68,9 +68,9 @@ static const PmStateTran pmSramTransitions[] = {
  *
  * @return      Status of performing transition action
  */
-static u32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	u32 status = PM_RET_ERROR_INTERNAL;
+	int status = XST_PM_INTERNAL;
 	PmSlaveSram* sram = (PmSlaveSram*)slave->node.derived;
 
 	switch (slave->node.currState) {
@@ -84,6 +84,7 @@ static u32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 			/* ON -> OFF*/
 			status = sram->PwrDn();
 		} else {
+			status = XST_NO_FEATURE;
 		}
 		break;
 	case PM_SRAM_STATE_RET:
@@ -96,24 +97,27 @@ static u32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 			/* RET -> OFF */
 			status = sram->PwrDn();
 		} else {
+			status = XST_NO_FEATURE;
 		}
 		break;
 	case PM_SRAM_STATE_OFF:
 		if (PM_SRAM_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = sram->PwrUp();
+		} else {
+			status = XST_NO_FEATURE;
 		}
 		break;
 	default:
+		status = XST_PM_INTERNAL;
+		PmDbg("ERROR: Unknown SRAM state #%d\n", slave->node.currState);
 		break;
 	}
 
-	if (status == XST_SUCCESS) {
+	if (XST_SUCCESS == status) {
 		slave->node.currState = nextState;
-		status = PM_RET_SUCCESS;
-	} else {
-		status = PM_RET_ERROR_FAILURE;
 	}
+
 	return status;
 }
 

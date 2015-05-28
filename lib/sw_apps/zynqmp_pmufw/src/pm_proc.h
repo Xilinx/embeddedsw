@@ -135,6 +135,6 @@ extern PmProc pmRpuProcs_g[PM_PROC_RPU_MAX];
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-u32 PmProcFsm(PmProc* const proc, const PmProcEvent event);
+int PmProcFsm(PmProc* const proc, const PmProcEvent event);
 
 #endif

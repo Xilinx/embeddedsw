@@ -168,14 +168,13 @@ PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
 			      const PmNodeId nodeId);
 
 /* Requirements related functions */
-u32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
-u32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
+int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
+int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
+/* Notify master by a primary core when changing state */
+int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 
 /* Call at initialization to enable all masters' IPI interrupts */
 void PmEnableAllMasterIpis(void);
-
-/* Notify master by a primary core when changing state */
-void PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 
 /* Call when FPD goes down to enable GIC Proxy interrupts */
 void PmEnableProxyWake(PmMaster* const master);

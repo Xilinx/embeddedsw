@@ -42,41 +42,51 @@
 #include "xpfw_rom_interface.h"
 
 /**
+ * PmPowerDownFpd() - Power down FPD domain
+ *
+ * @return      Status of the pmu-rom operations
+ */
+static int PmPowerDownFpd(void)
+{
+	int status = XpbrRstFpdHandler();
+
+	if (XST_SUCCESS == status) {
+		status = XpbrPwrDnFpdHandler();
+		/*
+		 * When FPD is powered off, the APU-GIC will be affected too.
+		 * GIC Proxy has to take over for all wake-up sources for
+		 * the APU.
+		 */
+		PmEnableProxyWake(&pmMasterApu_g);
+	}
+
+	return status;
+}
+
+/**
  * PmPwrDnHandler() - Power down island/domain
  * @nodePtr Pointer to node-structure of power island/dom to be powered off
  *
- * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
+ * @return  Operation status of power down procedure (done by pmu-rom)
  */
-static u32 PmPwrDnHandler(PmNode* const nodePtr)
+static int PmPwrDnHandler(PmNode* const nodePtr)
 {
-	u32 ret = PM_RET_ERROR_FAILURE;
+	int status = XST_PM_INTERNAL;
 
 	if (NULL == nodePtr) {
-		ret = PM_RET_ERROR_FAILURE;
 		goto done;
 	}
 
 	/* Call proper PMU-ROM handler as needed */
 	switch (nodePtr->nodeId) {
 	case NODE_FPD:
-		ret = XpbrRstFpdHandler();
-		if (ret == XST_SUCCESS) {
-			ret = XpbrPwrDnFpdHandler();
-			/*
-			 * When FPD is powered off, the APU-GIC will be affected too.
-			 * GIC Proxy has to take over for all wake-up sources for
-			 * the APU.
-			 */
-			PmEnableProxyWake(&pmMasterApu_g);
-		}
+		status = PmPowerDownFpd();
 		break;
 	case NODE_APU:
-		ret = XST_SUCCESS;
+		status = XST_SUCCESS;
 		break;
 	case NODE_RPU:
-		ret = XpbrPwrDnRpuHandler();
+		status = XpbrPwrDnRpuHandler();
 		break;
 	default:
 		PmDbg("unsupported node %s(%d)\n",
@@ -84,30 +94,24 @@ static u32 PmPwrDnHandler(PmNode* const nodePtr)
 		break;
 	}
 
-	if (XST_SUCCESS != ret) {
-		ret = PM_RET_ERROR_FAILURE;
-		goto done;
+	if (XST_SUCCESS == status) {
+		nodePtr->currState = PM_PWR_STATE_OFF;
 	}
-
-	nodePtr->currState = PM_PWR_STATE_OFF;
-	ret = PM_RET_SUCCESS;
 
 done:
 	PmDbg("%s\n", PmStrNode(nodePtr->nodeId));
-	return ret;
+	return status;
 }
 
 /**
  * PmPwrUpHandler() - Power up island/domain
  * @nodePtr Pointer to node-structure of power island/dom to be powered on
  *
- * @return  Operation status
- *          - PM_RET_SUCCESS if transition succeeded
- *          - PM_RET_ERROR_FAILURE if pmu rom failed to set the state
+ * @return  Operation status of power up procedure (done by pmu-rom)
  */
-static u32 PmPwrUpHandler(PmNode* const nodePtr)
+static int PmPwrUpHandler(PmNode* const nodePtr)
 {
-	u32 ret = PM_RET_ERROR_FAILURE;
+	int status = XST_PM_INTERNAL;
 
 	PmDbg("%s\n", PmStrNode(nodePtr->nodeId));
 
@@ -118,20 +122,24 @@ static u32 PmPwrUpHandler(PmNode* const nodePtr)
 	/* Call proper PMU-ROM handler as needed */
 	switch (nodePtr->nodeId) {
 	case NODE_FPD:
-		ret = XpbrPwrUpFpdHandler();
-		PmDbg("XpbrPwrUpFpdHandler return code #%d\n", ret);
+		status = XpbrPwrUpFpdHandler();
+#ifdef DEBUG_PM
 		/* FIXME workaround for old version of pmu-rom */
-		PmDbg("ignoring error\n");
-		ret = XST_SUCCESS;
+		if (XST_SUCCESS != status) {
+			PmDbg("XpbrPwrUpFpdHandler returned #%d."
+			      "Ignoring error\n", status);
+			status = XST_SUCCESS;
+		}
+#endif
 		break;
 	case NODE_APU:
-		ret = XST_SUCCESS;
+		status = XST_SUCCESS;
 		break;
 	case NODE_RPU:
 	{
 		u32 reg;
 
-		ret = XpbrPwrUpRpuHandler();
+		status = XpbrPwrUpRpuHandler();
 
 		/* release RPU island reset */
 		reg = Xil_In32(CRL_APB_RST_LPD_TOP);
@@ -144,19 +152,12 @@ static u32 PmPwrUpHandler(PmNode* const nodePtr)
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
 		break;
 	}
-
-	if (XST_SUCCESS != ret) {
-		PmDbg("failed to power up %s PBR ERROR #%d\n",
-		      PmStrNode(nodePtr->nodeId), ret);
-		ret = PM_RET_ERROR_FAILURE;
-		goto done;
+	if (XST_SUCCESS == status) {
+		nodePtr->currState = PM_PWR_STATE_ON;
 	}
 
-	nodePtr->currState = PM_PWR_STATE_ON;
-	ret = PM_RET_SUCCESS;
-
 done:
-	return ret;
+	return status;
 }
 
 /* Children array definitions */
@@ -334,8 +335,8 @@ done:
  * PmPowerUpTopParent() - Power up top parent in hierarchy that's currently off
  * @powerChild  Power child whose power parent has to be powered up
  *
- * @return      Status of the power up operation (always PM_RET_SUCCESS if all
- *              power parents are already powered on)
+ * @return      Status of the power up operation (XST_SUCCESS if all power
+ *              parents are already powered on)
  *
  * This function turns on exactly one power parent, starting with the highest
  * level parent that's currently off. If all power parents are on, it will
@@ -345,13 +346,13 @@ done:
  * PmTriggerPowerUp that calls this function iteratively until all power
  * nodes in the hierarchy are powered up.
  */
-static u32 PmPowerUpTopParent(PmPower* const powerChild)
+static int PmPowerUpTopParent(PmPower* const powerChild)
 {
-	u32 status = PM_RET_SUCCESS;
+	int status = XST_SUCCESS;
 	PmPower* powerParent = powerChild;
 
 	if (NULL == powerParent) {
-		status = PM_RET_ERROR_INTERNAL;
+		status = XST_PM_INTERNAL;
 		goto done;
 	}
 
@@ -377,9 +378,9 @@ done:
  *
  * @return      Status of the power up operation.
  */
-u32 PmTriggerPowerUp(PmPower* const power)
+int PmTriggerPowerUp(PmPower* const power)
 {
-	u32 status = PM_RET_SUCCESS;
+	int status = XST_SUCCESS;
 
 	if (NULL == power) {
 		goto done;
@@ -390,14 +391,16 @@ u32 PmTriggerPowerUp(PmPower* const power)
 	 * turned on (always top-down).
 	 * Use iterative approach for MISRA-C compliance
 	 */
-	while ((true == IS_OFF(&power->node)) && (PM_RET_SUCCESS == status)) {
+	while ((true == IS_OFF(&power->node)) && (XST_SUCCESS == status)) {
 		status = PmPowerUpTopParent(power);
 	}
 
 done:
-	if (PM_RET_SUCCESS != status) {
-		PmDbg("failed to power up: ERROR #%d\n", status);
+#ifdef DEBUG_PM
+	if (XST_SUCCESS != status) {
+		PmDbg("ERROR #%d failed to power up\n", status);
 	}
+#endif
 
 	return status;
 }
@@ -485,16 +488,18 @@ static void PmForcePowerDownChildren(const PmPower* const parent)
  * PmForceDownTree() - Force power down node and all its children
  * @root        power node (island/domain) to turn off
  *
+ * @return      Operation status of power down procedure
+ *
  * This is a power island or power domain, power it off from the bottom up:
  * find out if this parent has children which themselves have children.
  * Note: using iterative algorithm for MISRA-C compliance
  * (instead of recursion)
  *
  */
-u32 PmForceDownTree(PmPower* const root)
+int PmForceDownTree(PmPower* const root)
 {
+	int status = XST_PM_INTERNAL;
 	PmPower* lowestParent;
-	u32 status = PM_RET_SUCCESS;
 
 	if (NULL == root) {
 		goto done;
@@ -506,7 +511,7 @@ u32 PmForceDownTree(PmPower* const root)
 		if (true == HAS_SLEEP(lowestParent->node.ops)) {
 			status = lowestParent->node.ops->sleep(&lowestParent->node);
 		}
-	} while ((lowestParent != root) && (status == PM_RET_SUCCESS));
+	} while ((lowestParent != root) && (XST_SUCCESS == status));
 
 done:
 	return status;

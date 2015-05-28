@@ -45,8 +45,8 @@ typedef struct PmMaster PmMaster;
 typedef struct PmRequirement PmRequirement;
 typedef struct PmSlave PmSlave;
 
-typedef u32 (*const PmSlaveFsmHandler)(PmSlave* const slave,
-				       const PmStateId nextState);
+typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
+					   const PmStateId nextState);
 
 /*********************************************************************
  * Macros
@@ -165,12 +165,12 @@ extern PmGicProxyProperties gicProxyGroups_g[FPD_GICP_GROUP_MAX];
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-u32 PmUpdateSlave(PmSlave* const slave);
-u32 PmCheckCapabilities(PmSlave* const slave, const u32 capabilities);
+int PmUpdateSlave(PmSlave* const slave);
+int PmCheckCapabilities(PmSlave* const slave, const u32 capabilities);
 
 bool PmSlaveHasCapRequests(const PmSlave* const slave);
 
-void PmSlaveProcessWake(const u32 wakeMask);
+int PmSlaveProcessWake(const u32 wakeMask);
 void PmSlaveWakeEnable(PmSlave* const slave);
 void PmSlaveWakeDisable(PmSlave* const slave);
 

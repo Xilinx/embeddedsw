@@ -55,15 +55,16 @@ static void PmProcessAckRequest(const u32 ack,
 				const u32 status,
 				const u32 oppoint)
 {
-	if (status != PM_RET_SUCCESS) {
+#ifdef DEBUG_PM
+	if (status != XST_SUCCESS) {
 		PmDbg("ERROR PM operation failed - code %d\n", status);
 	}
-
+#endif
 	if (REQUEST_ACK_BLOCKING == ack) {
 		/* Return status immediately */
 		XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 	} else if ((REQUEST_ACK_CB_STANDARD == ack) ||
-		   ((REQUEST_ACK_CB_ERROR == ack) && (PM_RET_SUCCESS != status))) {
+		   ((REQUEST_ACK_CB_ERROR == ack) && (XST_SUCCESS != status))) {
 		/* Return acknowledge through callback */
 		PmAcknowledgeCb(master, nodeId, status, oppoint);
 	} else {
@@ -87,6 +88,7 @@ static void PmSelfSuspend(const PmMaster *const master,
 			  const u32 latency,
 			  const u32 state)
 {
+	int status;
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
@@ -95,13 +97,14 @@ static void PmSelfSuspend(const PmMaster *const master,
 	if (NULL == proc) {
 		PmDbg("ERROR node ID %s(=%d) does not refer to a processor of "
 		      "this master channel\n", PmStrNode(node), node);
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	PmProcFsm(proc, PM_PROC_EVENT_SELF_SUSPEND);
+	status = PmProcFsm(proc, PM_PROC_EVENT_SELF_SUSPEND);
 
 done:
-	return;
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
@@ -125,7 +128,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 
 	if (NULL == proc) {
 		PmDbg("ERROR processor not found by node %d\n", node);
-		PmProcessAckRequest(ack, master, node, PM_RET_ERROR_ARGS, 0);
+		PmProcessAckRequest(ack, master, node, XST_INVALID_PARAM, 0);
 		goto done;
 	}
 
@@ -151,27 +154,28 @@ static void PmForcePowerdown(const PmMaster *const master,
 			     const u32 node,
 			     const u32 ack)
 {
-	u32 status;
+	int status;
 	u32 oppoint = 0U;
 	PmNode* nodePtr = PmGetNodeById(node);
 
 	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrAck(ack));
 
 	if (NULL == nodePtr) {
-		status = PM_RET_ERROR_ARGS;
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	switch (nodePtr->typeId) {
 	case PM_TYPE_PROC:
-		status = PmProcFsm((PmProc*)nodePtr->derived, PM_PROC_EVENT_FORCE_PWRDN);
+		status = PmProcFsm((PmProc*)nodePtr->derived,
+				   PM_PROC_EVENT_FORCE_PWRDN);
 		break;
 	case PM_TYPE_PWR_ISLAND:
 	case PM_TYPE_PWR_DOMAIN:
 		status = PmForceDownTree((PmPower*)nodePtr->derived);
 		break;
 	default:
-		status = PM_RET_ERROR_OTHER;
+		status = XST_INVALID_PARAM;
 		break;
 	}
 
@@ -181,7 +185,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 	 * Successfully powered down a node, now trigger opportunistic
 	 * suspend to power down its parent(s) if possible
 	 */
-	if (PM_RET_SUCCESS == status && NULL != nodePtr->parent) {
+	if ((XST_SUCCESS == status) && (NULL != nodePtr->parent)) {
 		PmOpportunisticSuspend(nodePtr->parent);
 	}
 
@@ -202,6 +206,7 @@ static void PmAbortSuspend(const PmMaster *const master,
 			   const u32 reason,
 			   const u32 node)
 {
+	int status;
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
 	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrReason(reason));
@@ -209,13 +214,14 @@ static void PmAbortSuspend(const PmMaster *const master,
 	if (NULL == proc) {
 		PmDbg("ERROR processor access for node %s not allowed\n",
 		      PmStrNode(node));
+		status = XST_PM_INVALID_NODE;
 		goto done;
 	}
 
-	PmProcFsm(proc, PM_PROC_EVENT_ABORT_SUSPEND);
+	status = PmProcFsm(proc, PM_PROC_EVENT_ABORT_SUSPEND);
 
 done:
-	return;
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
@@ -227,14 +233,14 @@ done:
 static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 			    const u32 ack)
 {
-	u32 status;
+	int status;
 	u32 oppoint = 0U;
 	PmProc* proc = PmGetProcByNodeId(node);
 
 	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrAck(ack));
 
 	if (NULL == proc) {
-		status = PM_RET_ERROR_PROC;
+		status = XST_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -256,13 +262,22 @@ static void PmReleaseNode(const PmMaster *master,
 			  const u32 node,
 			  const u32 latency)
 {
-	u32 status;
+	int status;
 	/* Get static requirements structure for this master/slave pair */
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
 	if (NULL == masterReq) {
+		status = XST_PM_NO_ACCESS;
 		PmDbg("ERROR Can't find requirement for slave %s of master %s\n",
 		      PmStrNode(node), PmStrNode(master->procs[0].node.nodeId));
+		goto done;
+	}
+
+	if (0U == (masterReq->info & PM_MASTER_USING_SLAVE_MASK)) {
+		status = XST_FAILURE;
+		PmDbg("WARNING %s attempt to release %s without previous "
+		      "request\n", PmStrNode(master->procs[0].node.nodeId),
+		      PmStrNode(node));
 		goto done;
 	}
 
@@ -270,7 +285,7 @@ static void PmReleaseNode(const PmMaster *master,
 	status = PmRequirementUpdate(masterReq, 0U);
 	masterReq->info &= ~PM_MASTER_USING_SLAVE_MASK;
 
-	if (PM_RET_SUCCESS != status) {
+	if (XST_SUCCESS != status) {
 		PmDbg("ERROR PmRequirementUpdate status = %d\n", status);
 		goto done;
 	}
@@ -283,7 +298,7 @@ static void PmReleaseNode(const PmMaster *master,
 
 done:
 	PmDbg("(%s, %d)\n", PmStrNode(node), latency);
-	return;
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
@@ -300,7 +315,7 @@ static void PmRequestNode(const PmMaster *master,
 			  const u32 qos,
 			  const u32 ack)
 {
-	u32 status;
+	int status;
 	u32 oppoint = 0U;
 	/*
 	 * Each legal master/slave pair will have one static PmRequirement data
@@ -315,12 +330,12 @@ static void PmRequestNode(const PmMaster *master,
 	if (NULL == masterReq) {
 		/* Master is not allowed to use the slave with given node */
 		PmDbg("ERROR Master can't use the slave\n");
-		status = PM_RET_ERROR_ACCESS;
+		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
 
 	if (PM_MASTER_USING_SLAVE_MASK & masterReq->info) {
-		status = PM_RET_ERROR_DOUBLEREQ;
+		status = XST_PM_DOUBLE_REQ;
 		goto done;
 	}
 
@@ -351,7 +366,7 @@ static void PmSetRequirement(const PmMaster *master,
 			     const u32 qos,
 			     const u32 ack)
 {
-	u32 status;
+	int status;
 	u32 oppoint = 0U;
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
@@ -360,13 +375,13 @@ static void PmSetRequirement(const PmMaster *master,
 
 	/* Is there a provision for the master to use the given slave node */
 	if (NULL == masterReq) {
-		status = PM_RET_ERROR_ACCESS;
+		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
 
-	/* Does master have the privilege to request settings for the node? */
+	/* Check if master has previously requested the node */
 	if (0U == (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
-		status = PM_RET_ERROR_ACCESS;
+		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -381,8 +396,11 @@ static void PmSetRequirement(const PmMaster *master,
 		status = PmRequirementUpdate(masterReq, capabilities);
 		break;
 	default:
-		/* Should never happen */
-		status = PM_RET_ERROR_COMMUNIC;
+		/*
+		 * Should never happen as processor cannot call this API while
+		 * powered down.
+		 */
+		status = XST_FAILURE;
 		break;
 	}
 	oppoint = masterReq->slave->node.currState;
@@ -401,7 +419,7 @@ static void PmGetApiVersion(const PmMaster *const master)
 
 	PmDbg("version %d.%d\n", PM_VERSION_MAJOR, PM_VERSION_MINOR);
 
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_RET_SUCCESS);
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, XST_SUCCESS);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
 		     version);
 }
@@ -422,7 +440,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	PmDbg("(0x%x, 0x%x, 0x%x)\n", address, mask, value);
 
 	XPfw_Write32(address, mask & value);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_RET_SUCCESS);
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, XST_SUCCESS);
 }
 
 /**
@@ -442,7 +460,7 @@ static void PmMmioRead(const PmMaster *const master, const u32 address,
 	PmDbg("addr=0x%x, mask=0x%x\n", address, mask);
 
 	value = XPfw_Read32(address) & mask;
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_RET_SUCCESS);
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, XST_SUCCESS);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
 		     value);
 }
@@ -462,9 +480,16 @@ static void PmSetWakeupSource(const PmMaster *const master,
 			      const u32 sourceNode,
 			      const u32 enable)
 {
+	int status = XST_SUCCESS;
 	PmRequirement* req = PmGetRequirementForSlave(master, sourceNode);
 
-	if ((NULL == req) || (NULL == req->slave->wake)) {
+	if (NULL == req) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	if (NULL == req->slave->wake) {
+		status = XST_NO_FEATURE;
 		goto done;
 	}
 
@@ -477,6 +502,8 @@ static void PmSetWakeupSource(const PmMaster *const master,
 done:
 	PmDbg("(%s, %s, %d)\n", PmStrNode(master->procs->node.nodeId),
 	      PmStrNode(sourceNode), enable);
+
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
@@ -647,7 +674,7 @@ void PmProcessApiCall(const PmMaster *const master,
 	default:
 		PmDbg("ERROR unsupported PM API #%d\n", pload[0]);
 		PmProcessAckRequest(PmRequestAcknowledge(pload), master,
-				    NODE_UNKNOWN, PM_RET_ERROR_NOTSUPPORTED, 0);
+				    NODE_UNKNOWN, XST_INVALID_VERSION, 0);
 		break;
 	}
 }
@@ -675,7 +702,7 @@ void PmProcessRequest(const PmMaster *const master,
 			u32 ack = PmRequestAcknowledge(pload);
 			if (REQUEST_ACK_NO != ack) {
 				PmAcknowledgeCb(master, NODE_UNKNOWN,
-						PM_RET_ERROR_API_ID, 0);
+						XST_INVALID_PARAM, 0);
 			}
 		}
 	}

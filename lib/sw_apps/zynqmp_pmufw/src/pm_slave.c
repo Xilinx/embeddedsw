@@ -130,23 +130,24 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
 }
 
 /**
- * PmCheckCapabilities() - Check whether the slave has given capabilities
+ * PmCheckCapabilities() - Check whether the slave has state with specified
+ *                         capabilities
  * @slave   Slave pointer whose capabilities/states should be checked
  * @cap     Check for these capabilities
  *
- * @return  Status does slave have a state with given capabilities.
- *          - PM_RET_SUCCESS - slave has state with given capabilities
- *          - PM_RET_ERROR_NOTSUPPORTED - slave does not have such state
+ * @return  Status wheter slave has a state with given capabilities
+ *          - XST_SUCCESS if slave has state with given capabilities
+ *          - XST_NO_FEATURE if slave does not have such state
  */
-u32 PmCheckCapabilities(PmSlave* const slave, const u32 cap)
+int PmCheckCapabilities(PmSlave* const slave, const u32 cap)
 {
 	PmStateId i;
-	u32 status = PM_RET_ERROR_NOTSUPPORTED;
+	int status = XST_NO_FEATURE;
 
 	for (i = 0; i < slave->slvFsm->statesCnt; i++) {
 		/* Find the first state that contains all capabilities */
 		if ((cap & slave->slvFsm->states[i]) == cap) {
-			status = PM_RET_SUCCESS;
+			status = XST_SUCCESS;
 			break;
 		}
 	}
@@ -159,13 +160,13 @@ u32 PmCheckCapabilities(PmSlave* const slave, const u32 cap)
  * @slave       Slave pointer whose state should be changed
  * @state       New state
  *
- * @return      PM_RET_SUCCESS if transition was performed successfully
- *              error otherwise
+ * @return      XST_SUCCESS if transition was performed successfully.
+ *              Error otherwise.
  */
-static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
+static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 {
 	u32 t;
-	u32 status;
+	int status;
 	const PmSlaveFsm* fsm = slave->slvFsm;
 #ifdef DEBUG_PM
 	PmStateId oldState = slave->node.currState;
@@ -173,13 +174,13 @@ static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 
 	if (0U == fsm->transCnt) {
 		/* Slave's FSM has no transitions when it has only one state */
-		status = PM_RET_SUCCESS;
+		status = XST_SUCCESS;
 	} else {
 		/*
 		 * Slave has transitions to change the state. Assume the failure
 		 * and change status if state is changed correctly.
 		 */
-		status = PM_RET_ERROR_FAILURE;
+		status = XST_FAILURE;
 	}
 
 	for (t = 0U; t < fsm->transCnt; t++) {
@@ -197,13 +198,13 @@ static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 			 * Slave's FSM has no actions, because it has no private
 			 * properties to be controlled here.
 			 */
-			status = PM_RET_SUCCESS;
+			status = XST_SUCCESS;
 		}
 
 		break;
 	}
 #ifdef DEBUG_PM
-	if (PM_RET_SUCCESS == status) {
+	if (XST_SUCCESS == status) {
 		PmDbg("%s %d->%d\n", PmStrNode(slave->node.nodeId), oldState,
 		      slave->node.currState);
 	} else {
@@ -221,11 +222,11 @@ static u32 PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
  *
  * @return      Status of operation
  */
-u32 PmUpdateSlave(PmSlave* const slave)
+int PmUpdateSlave(PmSlave* const slave)
 {
 	PmStateId s;
 	const PmSlaveFsm* fsm = slave->slvFsm;
-	u32 status = PM_RET_ERROR_NOTSUPPORTED;
+	int status = XST_FAILURE;
 	u32 capsToSet = PmGetMaxCapabilities(slave);
 
 	if (0U != capsToSet) {
@@ -234,7 +235,7 @@ u32 PmUpdateSlave(PmSlave* const slave)
 			if ((capsToSet & fsm->states[s]) == capsToSet) {
 				if (s == slave->node.currState) {
 					/* Slave is already in right state */
-					status = PM_RET_SUCCESS;
+					status = XST_SUCCESS;
 				} else {
 					status = PmSlaveChangeState(slave, s);
 				}
@@ -259,22 +260,37 @@ u32 PmUpdateSlave(PmSlave* const slave)
  * @slave   Pointer to a slave whose masters has to be woken-up (if master has
  *          requested this slave as wake-up source before going to sleep)
  *
+ * @return  Return status of waking up processors
+ *
  * @note:   Wake event of this slave is disabled together with all other slaves
  *          as part of the wake-up sequence.
  */
-static void PmSlaveWakeMasters(PmSlave* const slave)
+static int PmSlaveWakeMasters(PmSlave* const slave)
 {
 	PmMasterId i;
+	int status;
+	int totalSt = XST_SUCCESS;
 
 	for (i = 0U; i < slave->reqsCnt; i++) {
 		if (slave->reqs[i]->info & PM_MASTER_WAKEUP_REQ_MASK) {
-			slave->reqs[i]->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 			PmDbg("%s->%s\n", PmStrNode(slave->node.nodeId),
 			      PmStrNode(slave->reqs[i]->requestor->procs->node.nodeId));
-			PmProcFsm(slave->reqs[i]->requestor->procs, PM_PROC_EVENT_WAKE);
+
+			slave->reqs[i]->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+			status = PmProcFsm(slave->reqs[i]->requestor->procs,
+					   PM_PROC_EVENT_WAKE);
+			if (XST_SUCCESS != status) {
+				/*
+				 * Failed waking up processor, remember
+				 * failure and try to wake-up others
+				 */
+				totalSt = status;
+			}
 		}
 	}
 	PmSlaveWakeDisable(slave);
+
+	return totalSt;
 }
 
 /**
@@ -290,9 +306,10 @@ static void PmSlaveWakeMasters(PmSlave* const slave)
  *              clears the interrupt, meaning that there could be up to 31 irqs
  *              that would be lost if not handled immediately.
  */
-void PmSlaveProcessWake(const u32 wakeMask)
+int PmSlaveProcessWake(const u32 wakeMask)
 {
-	u32 g;
+	int status = XST_SUCCESS;
+	u32 g, s, irqStatus;
 
 	if (!(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & wakeMask)) {
 		goto done;
@@ -300,21 +317,21 @@ void PmSlaveProcessWake(const u32 wakeMask)
 
 	for (g = 0U; g < ARRAY_SIZE(gicProxyGroups_g); g++) {
 		/* Reading status register clears interrupts */
-		u32 s;
-		u32 irqStatus = XPfw_Read32(gicProxyGroups_g[g].baseAddr +
-									FPD_GICP_STATUS_OFFSET);
+		irqStatus = XPfw_Read32(gicProxyGroups_g[g].baseAddr +
+					FPD_GICP_STATUS_OFFSET);
 
 		for (s = 0U; (0U != irqStatus) && (s < ARRAY_SIZE(pmSlaves)); s++) {
 			if ((NULL != pmSlaves[s]->wake) &&
 				(pmSlaves[s]->wake->proxyIrqMask & irqStatus)) {
-				PmSlaveWakeMasters(pmSlaves[s]);
+				status = PmSlaveWakeMasters(pmSlaves[s]);
 				irqStatus &= ~pmSlaves[s]->wake->proxyIrqMask;
+
 			}
 		}
 	}
 
 done:
-	return;
+	return status;
 }
 
 /**
