@@ -34,7 +34,7 @@ Steps to Run
 	-d		Dump all the MCAP Registers
 	-v		Verbose information of MCAP Device
 	-h/H		Help
-	-c <address> [type [data]]  Access Device Configuration Space
+	-a <address> [type [data]]  Access Device Configuration Space
 		      here type[data] - b for byte data [8 bits]
 		      here type[data] - h for half word data [16 bits]
 		      here type[data] - w for word data [32 bits]
@@ -54,7 +54,7 @@ NOTES
   be either b/h/w (byte/half-word/word). For example,
 
   -> Reading a byte
-     ./mcap -x 0x8011 -c 0x354 b
+     ./mcap -x 0x8011 -a 0x354 b
 
   -> Writing a word
-     ./mcap -x 0x8011 -c 0x354 w 0x3
+     ./mcap -x 0x8011 -a 0x354 w 0x3
