@@ -119,6 +119,7 @@ proc generate {os_handle} {
         }
         "psu_cortexr5"  {
 	    set procdrv [hsi::get_sw_processor]
+	    set includedir "./src/cortexa53/includes_ps"
 	    set ccdir "./src/cortexr5/gcc"
 	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
 		file copy -force $entry "./src/"
@@ -126,7 +127,7 @@ proc generate {os_handle} {
 	    foreach entry [glob -nocomplain [file join $ccdir *]] {
 		file copy -force $entry "./src/"
 	    }
-
+	    file copy -force $includedir "./src/"
 	    file delete -force "./src/gcc"
 	    file delete -force "./src/profile"
             if { $enable_sw_profile == "true" } {
