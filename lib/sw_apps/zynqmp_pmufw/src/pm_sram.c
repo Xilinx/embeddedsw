@@ -241,7 +241,7 @@ static u32 PmL2RetExit(void)
 	return XST_SUCCESS;
 }
 
-static const PmTranHandler pmSramActions_g[PM_SRAM_INST_MAX * PM_SRAM_TR_MAX] = {
+static const PmTranHandler pmSramActions[PM_SRAM_INST_MAX * PM_SRAM_TR_MAX] = {
 	[ DEFTR(PM_SRAM_OCM0, PM_SRAM_TR_ON_TO_RET) ] = PmOcm0RetEntry,
 	[ DEFTR(PM_SRAM_OCM0, PM_SRAM_TR_RET_TO_ON) ] = PmOcm0RetExit,
 	[ DEFTR(PM_SRAM_OCM0, PM_SRAM_TR_ON_TO_OFF) ] = XpbrPwrDnOcmBank0Handler,
@@ -289,14 +289,14 @@ static const PmTranHandler pmSramActions_g[PM_SRAM_INST_MAX * PM_SRAM_TR_MAX] = 
 };
 
 /* Sram states */
-static const u32 pmSramStates_g[PM_SRAM_STATE_MAX] = {
+static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_OFF] = 0U,
 	[PM_SRAM_STATE_RET] = PM_CAP_CONTEXT,
 	[PM_SRAM_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
 /* Sram transition table (from which to which state sram can transit) */
-static const PmStateTran pmSramTransitions_g[PM_SRAM_TR_MAX] = {
+static const PmStateTran pmSramTransitions[PM_SRAM_TR_MAX] = {
 	[PM_SRAM_TR_ON_TO_RET] = {
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_RET,
@@ -317,11 +317,11 @@ static const PmStateTran pmSramTransitions_g[PM_SRAM_TR_MAX] = {
 
 /* Sram FSM */
 static const PmSlaveFsm slaveSramFsm = {
-	.states = pmSramStates_g,
+	.states = pmSramStates,
 	.statesCnt = PM_SRAM_STATE_MAX,
-	.trans = pmSramTransitions_g,
+	.trans = pmSramTransitions,
 	.transCnt = PM_SRAM_TR_MAX,
-	.actions = pmSramActions_g,
+	.actions = pmSramActions,
 };
 
 static PmRequirement* const pmL2Reqs[] = {

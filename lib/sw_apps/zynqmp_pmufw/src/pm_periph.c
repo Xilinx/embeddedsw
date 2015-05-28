@@ -38,7 +38,7 @@
  * It is in LPD, which is never turned off, does not sit in power island,
  * therefore has no off state.
  */
-const u32 pmAonFsmStates[] = {
+static const u32 pmAonFsmStates[] = {
 	[PM_AON_SLAVE_STATE] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
@@ -82,13 +82,13 @@ PmSlaveTtc pmSlaveTtc0_g = {
  * Standard slave with no private PM properties to be controlled.
  * It can be powered down with the power parent.
  */
-const u32 pmStdStates_g[] = {
+static const u32 pmStdStates[] = {
 	[PM_STD_SLAVE_STATE_OFF] = 0U,
 	[PM_STD_SLAVE_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
 /* Standard slave transitions (from which to which state Std slave transits) */
-const PmStateTran pmStdTransitions_g[] = {
+static const PmStateTran pmStdTransitions[] = {
 	{
 		.fromState = PM_STD_SLAVE_STATE_ON,
 		.toState = PM_STD_SLAVE_STATE_OFF,
@@ -99,10 +99,10 @@ const PmStateTran pmStdTransitions_g[] = {
 };
 
 static const PmSlaveFsm slaveStdFsm = {
-	.states = pmStdStates_g,
-	.statesCnt = ARRAY_SIZE(pmStdStates_g),
-	.trans = pmStdTransitions_g,
-	.transCnt = ARRAY_SIZE(pmStdTransitions_g),
+	.states = pmStdStates,
+	.statesCnt = ARRAY_SIZE(pmStdStates),
+	.trans = pmStdTransitions,
+	.transCnt = ARRAY_SIZE(pmStdTransitions),
 	.actions = NULL,
 };
 

@@ -39,7 +39,7 @@
 
 #define DEFTR(INST, TRAN) ((INST * PM_USB_TR_MAX) + TRAN)
 
-static const PmTranHandler pmUsbActions_g[PM_USB_INST_MAX * PM_USB_TR_MAX] = {
+static const PmTranHandler pmUsbActions[PM_USB_INST_MAX * PM_USB_TR_MAX] = {
 	[ DEFTR(PM_USB_0, PM_USB_TR_ON_TO_OFF) ] = XpbrPwrDnUsb0Handler,
 	[ DEFTR(PM_USB_0, PM_USB_TR_OFF_TO_ON) ] = XpbrPwrUpUsb0Handler,
 
@@ -48,13 +48,13 @@ static const PmTranHandler pmUsbActions_g[PM_USB_INST_MAX * PM_USB_TR_MAX] = {
 };
 
 /* USB states */
-static const u32 pmUsbStates_g[PM_USB_STATE_MAX] = {
+static const u32 pmUsbStates[PM_USB_STATE_MAX] = {
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP,
 	[PM_USB_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
 /* USB transition table (from which to which state USB can transit) */
-static const PmStateTran pmUsbTransitions_g[PM_USB_TR_MAX] = {
+static const PmStateTran pmUsbTransitions[PM_USB_TR_MAX] = {
 	[PM_USB_TR_ON_TO_OFF] = {
 		.fromState = PM_USB_STATE_ON,
 		.toState = PM_USB_STATE_OFF,
@@ -67,11 +67,11 @@ static const PmStateTran pmUsbTransitions_g[PM_USB_TR_MAX] = {
 
 /* USB FSM */
 static const PmSlaveFsm slaveUsbFsm = {
-	.states = pmUsbStates_g,
+	.states = pmUsbStates,
 	.statesCnt = PM_USB_STATE_MAX,
-	.trans = pmUsbTransitions_g,
+	.trans = pmUsbTransitions,
 	.transCnt = PM_USB_TR_MAX,
-	.actions = pmUsbActions_g,
+	.actions = pmUsbActions,
 };
 
 static PmRequirement* const pmUsb0Reqs[] = {
