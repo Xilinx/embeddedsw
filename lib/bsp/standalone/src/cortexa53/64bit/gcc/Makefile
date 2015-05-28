@@ -56,7 +56,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 OUTS = *.o
 
 INCLUDEFILES=*.h
-
+INCLUDEFILES+=includes_ps/*.h
 libs: $(LIBS)
 
 standalone_libs: $(LIBSOURCES)

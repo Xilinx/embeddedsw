@@ -96,14 +96,17 @@ proc generate {os_handle} {
         }
         "psu_cortexa53"  {
             set procdrv [hsi::get_sw_processor]
-            set ccdir "./src/cortexa53/gcc"
-            foreach entry [glob -nocomplain [file join $cortexa53srcdir *]] {
+            set ccdir "./src/cortexa53/64bit/gcc"
+	    set includedir "./src/cortexa53/includes_ps"
+	    set cortexa53srcdir64 "./src/cortexa53/64bit"
+            foreach entry [glob -nocomplain [file join $cortexa53srcdir64 *]] {
                 file copy -force $entry "./src/"
             }
             foreach entry [glob -nocomplain [file join $ccdir *]] {
                 file copy -force $entry "./src/"
             }
 
+	    file copy -force $includedir "./src/"
             file delete -force "./src/gcc"
             file delete -force "./src/profile"
             if { $enable_sw_profile == "true" } {
