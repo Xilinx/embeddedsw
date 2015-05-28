@@ -229,6 +229,11 @@ PmMaster pmMasterApu_g = {
 	.buffer = IPI_BUFFER_APU_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = pmApuReq_g,
 	.reqsCnt = ARRAY_SIZE(pmApuReq_g),
+	.pmSuspRequests = {
+		.reqMst = &pmMasterRpu0_g,
+		.flags = 0U,
+		.ackReq = 0U,
+	},
 };
 
 PmMaster pmMasterRpu0_g = {
@@ -240,6 +245,11 @@ PmMaster pmMasterRpu0_g = {
 	.buffer = IPI_BUFFER_RPU_0_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = pmRpu0Req_g,
 	.reqsCnt = ARRAY_SIZE(pmRpu0Req_g),
+	.pmSuspRequests = {
+		.reqMst = &pmMasterApu_g,
+		.flags = 0U,
+		.ackReq = 0U,
+	},
 };
 
 PmMaster pmMasterRpu1_g = {
@@ -257,27 +267,6 @@ static const PmMaster *const pmAllMasters[] = {
 	&pmMasterApu_g,
 	&pmMasterRpu0_g,
 	&pmMasterRpu1_g,
-};
-
-/*
- * Content of the array should be filled with information from PCW.
- * If a master has a priviledge to request some other master's suspend, the
- * reqMst/respMst pair has to be defined in array below. If the pair does not
- * exist, it will be considered that the requestor is not allowed to initiate
- * suspend of the target master.
- */
-static PmSuspendRequest pmSuspRequests[] = {
-	{
-		.reqMst = &pmMasterApu_g,
-		.respMst = &pmMasterRpu0_g,
-		.flags = 0U,
-		.ackReq = 0U,
-	}, {
-		.reqMst = &pmMasterRpu0_g,
-		.respMst = &pmMasterApu_g,
-		.flags = 0U,
-		.ackReq = 0U,
-	},
 };
 
 /**
@@ -788,18 +777,7 @@ static void PmWakeUpDisableAll(PmMaster* const master)
 bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster)
 {
-	u32 i;
-	bool hasPrivilege = false;
-
-	for (i = 0U; i < ARRAY_SIZE(pmSuspRequests); i++) {
-		if ((reqMaster == pmSuspRequests[i].reqMst) &&
-		    (respMaster == pmSuspRequests[i].respMst)) {
-			hasPrivilege = true;
-			break;
-		}
-	}
-
-	return hasPrivilege;
+	return reqMaster == respMaster->pmSuspRequests.reqMst;
 }
 
 /**
@@ -813,18 +791,7 @@ bool PmCanRequestSuspend(const PmMaster* const reqMaster,
  */
 bool PmIsRequestedToSuspend(const PmMaster* const master)
 {
-	u32 i;
-	bool requested = false;
-
-	for (i = 0U; i < ARRAY_SIZE(pmSuspRequests); i++) {
-		if ((master == pmSuspRequests[i].respMst) &&
-		    (0U != (PM_REQUESTED_SUSPEND & pmSuspRequests[i].flags))) {
-			requested = true;
-			break;
-		}
-	}
-
-	return requested;
+	return 0U != (PM_REQUESTED_SUSPEND & master->pmSuspRequests.flags);
 }
 
 /**
@@ -836,10 +803,9 @@ bool PmIsRequestedToSuspend(const PmMaster* const master)
  * @return      Status of the operation of remembering the requested acknowledge
  */
 int PmRememberSuspendRequest(const PmMaster* const reqMaster,
-				 const PmMaster* const respMaster,
+				 PmMaster* const respMaster,
 				 const u32 ack)
 {
-	u32 i;
 	int status;
 
 	/*
@@ -848,18 +814,14 @@ int PmRememberSuspendRequest(const PmMaster* const reqMaster,
 	 */
 	status = XST_FAILURE;
 
-	for (i = 0U; i < ARRAY_SIZE(pmSuspRequests); i++) {
-		if ((reqMaster == pmSuspRequests[i].reqMst) &&
-		    (respMaster == pmSuspRequests[i].respMst)) {
-			if ((REQUEST_ACK_CB_STANDARD == ack) ||
-			    (REQUEST_ACK_CB_ERROR == ack)) {
-				pmSuspRequests[i].ackReq = ack;
-				pmSuspRequests[i].flags |= PM_REQUESTED_SUSPEND;
-				status = XST_SUCCESS;
-			} else {
-				status = XST_PM_INTERNAL;
-			}
-			break;
+	if (reqMaster == respMaster->pmSuspRequests.reqMst) {
+		if ((REQUEST_ACK_CB_STANDARD == ack) ||
+		    (REQUEST_ACK_CB_ERROR == ack)) {
+			respMaster->pmSuspRequests.ackReq = ack;
+			respMaster->pmSuspRequests.flags |= PM_REQUESTED_SUSPEND;
+			status = XST_SUCCESS;
+		} else {
+			status = XST_PM_INTERNAL;
 		}
 	}
 
@@ -872,10 +834,8 @@ int PmRememberSuspendRequest(const PmMaster* const reqMaster,
  * @respMaster	Master which is responding to the suspend request
  * @response	FIXME: Missing doc
  */
-int PmMasterSuspendAck(const PmMaster* const respMaster,
-			   const int response)
+int PmMasterSuspendAck(PmMaster* const respMaster, const int response)
 {
-	u32 i;
 	int status;
 
 	/*
@@ -884,19 +844,15 @@ int PmMasterSuspendAck(const PmMaster* const respMaster,
 	 */
 	status = XST_FAILURE;
 
-	for (i = 0U; i < ARRAY_SIZE(pmSuspRequests); i++) {
-		if ((respMaster == pmSuspRequests[i].respMst) &&
-		    (0U != (PM_REQUESTED_SUSPEND & pmSuspRequests[i].flags))) {
-			if (TO_ACK_CB(pmSuspRequests[i].ackReq, response)) {
-				PmAcknowledgeCb(pmSuspRequests[i].reqMst,
-				pmSuspRequests[i].respMst->procs->node.nodeId,
-				response,
-				pmSuspRequests[i].respMst->procs->node.currState);
-			}
-			pmSuspRequests[i].flags &= ~PM_REQUESTED_SUSPEND;
-			pmSuspRequests[i].ackReq = 0U;
-			status = XST_SUCCESS;
+	if (0U != (PM_REQUESTED_SUSPEND & respMaster->pmSuspRequests.flags)) {
+		if (TO_ACK_CB(respMaster->pmSuspRequests.ackReq, response)) {
+			PmAcknowledgeCb(respMaster->pmSuspRequests.reqMst,
+			respMaster->procs->node.nodeId, response,
+			respMaster->procs->node.currState);
 		}
+		respMaster->pmSuspRequests.flags &= ~PM_REQUESTED_SUSPEND;
+		respMaster->pmSuspRequests.ackReq = 0U;
+		status = XST_SUCCESS;
 	}
 
 	return status;

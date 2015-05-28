@@ -119,6 +119,19 @@ typedef struct PmRequirement {
 } PmRequirement;
 
 /**
+ * PmSuspendRequest() - For tracking information about which master can/has
+ *                      requested which master to suspend.
+ * @reqMst      Master which is priviledged to request suspend of respMst
+ * @flags       Flags storing information about the actual request
+ * @ackReq      Acknowledge argument provided with the request suspend call
+ */
+typedef struct {
+	const PmMaster* reqMst;
+	u8 flags;
+	u32 ackReq;
+} PmSuspendRequest;
+
+/**
  * PmMaster - contains PM master related informations
  * @procs       Pointer to the array of processors within the master
  * @procsCnt    Number of processors within the master
@@ -141,24 +154,9 @@ typedef struct PmMaster {
 	const u32 pmuBuffer;
 	const u32 buffer;
 	PmRequirement* const reqs;
+	PmSuspendRequest pmSuspRequests;
 	const PmRequirementId reqsCnt;
 } PmMaster;
-
-/**
- * PmSuspendRequest() - For tracking information about which master can/has
- *                      requested which master to suspend.
- * @reqMst      Master which is priviledged to request suspend of respMst
- * @respMst     Master which is requested to suspend and which should initiate
- *              its own self suspend
- * @flags       Flags storing information about the actual request
- * @ackReq      Acknowledge argument provided with the request suspend call
- */
-typedef struct {
-	const PmMaster* reqMst;
-	const PmMaster* respMst;
-	u8 flags;
-	u32 ackReq;
-} PmSuspendRequest;
 
 /*********************************************************************
  * Global data declarations
@@ -203,10 +201,10 @@ bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 bool PmIsRequestedToSuspend(const PmMaster* const master);
 
 int PmRememberSuspendRequest(const PmMaster* const reqMaster,
-				 const PmMaster* const respMaster,
+				 PmMaster* const respMaster,
 				 const u32 ack);
 
-int PmMasterSuspendAck(const PmMaster* const respMaster,
+int PmMasterSuspendAck(PmMaster* const respMaster,
 			   const int response);
 
 
