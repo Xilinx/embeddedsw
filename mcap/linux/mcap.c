@@ -38,7 +38,7 @@
 
 #include "mcap_lib.h"
 
-static const char options[] = "x:pC:rmfdvHhDc::";
+static const char options[] = "x:pC:rmfdvHhDa::";
 static char help_msg[] =
 "Usage: mcap [options]\n"
 "\n"
@@ -53,7 +53,7 @@ static char help_msg[] =
 "\t-d\t\tDump all the MCAP Registers\n"
 "\t-v\t\tVerbose information of MCAP Device\n"
 "\t-h/H\t\tHelp\n"
-"\t-c <address> [type [data]]  Access Device Configuration Space\n"
+"\t-a <address> [type [data]]  Access Device Configuration Space\n"
 "\t\t      here type[data] - b for byte data [8 bits]\n"
 "\t\t      here type[data] - h for half word data [16 bits]\n"
 "\t\t      here type[data] - w for word data [32 bits]\n"
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 
 	while ((i = getopt(argc, argv, options)) != -1) {
 		switch (i) {
-		case 'c':
+		case 'a':
 			access_config = 1;
 			break;
 		case 'd':
