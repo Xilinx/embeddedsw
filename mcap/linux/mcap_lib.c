@@ -275,6 +275,7 @@ static int MCapWritePartialBitStream(struct mcap_dev *mdev, u32 *data,
 	if (IsErrSet(mdev) || IsFifoOverflow(mdev)) {
 		pr_err("Failed to Write Bitstream\n");
 		MCapRegWrite(mdev, MCAP_CONTROL, restore);
+		MCapFullReset(mdev);
 		return -EMCAPWRITE;
 	}
 
@@ -340,6 +341,7 @@ static int MCapWriteBitStream(struct mcap_dev *mdev, u32 *data,
 	if (IsErrSet(mdev) || IsFifoOverflow(mdev)) {
 		pr_err("Failed to Write Bitstream\n");
 		MCapRegWrite(mdev, MCAP_CONTROL, restore);
+		MCapFullReset(mdev);
 		return -EMCAPWRITE;
 	}
 
