@@ -494,6 +494,8 @@
 *               APIs were added to enter and exit from 4 byte mode. Changes were
 *               made in read, erase and write APIs to support 4 byte mode.
 *               These were done to fix CR#858950.
+* 5.3  sk    06/01/15 Used Half of Actual byte count for calculating
+*                     Real Byte count in parallel mode. CR# 859979.
 *
 * </pre>
 *

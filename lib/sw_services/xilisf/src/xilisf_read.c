@@ -55,6 +55,8 @@
 *
 * 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
 * 						  which supports 4 byte addressing.
+* 5.3  sk        06/01/15 Used Half of Actual byte count for calculating
+*                         Real Byte count in parallel mode. CR# 859979.
 * </pre>
 *
 ******************************************************************************/
@@ -367,6 +369,7 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	u32 TotalByteCnt = ByteCount;
 	u32 LocalByteCnt = ByteCount;
 	u32 LocalAddress = Address;
+	u32 TempByteCnt = LocalByteCnt;
 	u8 WriteBuffer[10] = {0};
 	if (LocalByteCnt <= 0 ) {
 		return (int)XST_FAILURE;
@@ -408,12 +411,17 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 		XIsf_SetTransferMode(InstancePtr, Mode);
 	}
 
+	if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+			XQSPIPS_CONNECTION_MODE_PARALLEL) {
+		TempByteCnt = LocalByteCnt/2;
+	}
+
 	/*
 	 * If data to be read spans beyond the current bank, then
 	 * calculate RealByteCnt in current bank. Else
 	 * RealByteCnt is the same as ByteCount
 	 */
-	if((RealAddr & BANKMASK) != ((RealAddr+LocalByteCnt) & BANKMASK)) {
+	if((RealAddr & BANKMASK) != ((RealAddr+TempByteCnt) & BANKMASK)) {
 		RealByteCnt = ((RealAddr & BANKMASK) + SIXTEENMB) - RealAddr;
 	}
 	else {
@@ -528,6 +536,7 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u32 TotalByteCnt = ByteCount;
 	u32 LocalByteCnt = ByteCount;
 	u32 LocalAddress = Address;
+	u32 TempByteCnt = LocalByteCnt;
 	u8 WriteBuffer[5]= {0};
 
 	if (LocalByteCnt <= 0 ) {
@@ -573,12 +582,16 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 		XIsf_SetTransferMode(InstancePtr, Mode);
 	}
 
+	if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+			XQSPIPS_CONNECTION_MODE_PARALLEL) {
+		TempByteCnt = LocalByteCnt/2;
+	}
 	/*
 	 * If data to be read spans beyond the current bank, then
 	 * calculate RealByteCnt in current bank. Else
 	 * RealByteCnt is the same as ByteCount
 	 */
-	if((RealAddr & BANKMASK) != ((RealAddr+LocalByteCnt) & BANKMASK)) {
+	if((RealAddr & BANKMASK) != ((RealAddr+TempByteCnt) & BANKMASK)) {
 		RealByteCnt = ((RealAddr & BANKMASK) + SIXTEENMB) - RealAddr;
 	}
 	else {
