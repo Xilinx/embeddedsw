@@ -35,8 +35,7 @@ _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 /* Define Memories in the system */
 MEMORY
 {
-	/* This setting considers entire RAM. ROM entities are not considered */
-	PMU_RAM : ORIGIN = 0xFFDC0000, LENGTH = 0x0001FF00 /* 128KB - _PERSISTENT256 */
+	PMU_RAM : ORIGIN = 0xFFDC0000, LENGTH = 0x20000	/* 128 k */
 }
 
 /* Specify the default entry point to the program */
