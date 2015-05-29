@@ -33,7 +33,6 @@
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 
 /* Define Memories in the system */
-
 MEMORY
 {
 	/* This setting considers entire RAM. ROM entities are not considered */
@@ -41,7 +40,6 @@ MEMORY
 }
 
 /* Specify the default entry point to the program */
-
 ENTRY(XPfw_Init)
 
 /* Define the sections, and where they are mapped in memory */
@@ -66,7 +64,6 @@ SECTIONS
 } > PMU_RAM
 
 .text 0xFFDC0050: {
-
    *(.text)
    *(.text.*)
    *(.gnu.linkonce.t.*)
@@ -158,7 +155,6 @@ _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
 /* Generate Stack definitions */
-
 .stack (NOLOAD) : {
    _stack_end = .;
    . += _STACK_SIZE;
