@@ -191,6 +191,16 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 			continue;
 		}
 
+		if ((0U != (slave->slvFsm->states[state] & PM_CAP_POWER)) &&
+		    (NULL != slave->node.parent) &&
+		    (true == IS_OFF(&slave->node.parent->node))) {
+			/* Next state requires powering up power parent */
+			status = PmTriggerPowerUp(slave->node.parent);
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		}
+
 		if (NULL != slave->slvFsm->enterState) {
 			/* Execute transition action of slave's FSM */
 			status = slave->slvFsm->enterState(slave, state);
@@ -213,6 +223,7 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 	}
 #endif
 
+done:
 	return status;
 }
 

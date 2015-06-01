@@ -114,6 +114,9 @@ typedef u32 (*const PmTranHandler)(void);
 #define ENABLE_WAKE(mask)   XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, mask, mask);
 #define DISABLE_WAKE(mask)  XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, mask, ~(mask));
 
+/* PMU internal capabilities used in definition of slaves' states */
+#define PM_CAP_POWER        0x8U
+
 /*********************************************************************
  * Function declarations
  ********************************************************************/

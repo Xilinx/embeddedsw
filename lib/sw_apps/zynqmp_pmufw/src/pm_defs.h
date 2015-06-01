@@ -49,7 +49,10 @@
 
 #define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 
-/* Capabilities common for all slave nodes */
+/*
+ * Capabilities common for all slave nodes (common capabilities should take
+ * lower 16 bits, specific capabilities of each slave take higher 16 bits)
+ */
 #define PM_CAP_ACCESS       0x1U
 #define PM_CAP_CONTEXT      0x2U
 #define PM_CAP_WAKEUP       0x4U

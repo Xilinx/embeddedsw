@@ -83,7 +83,8 @@ PmSlaveTtc pmSlaveTtc0_g = {
  */
 static const u32 pmStdStates[] = {
 	[PM_STD_SLAVE_STATE_OFF] = 0U,
-	[PM_STD_SLAVE_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	[PM_STD_SLAVE_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS |
+				  PM_CAP_CONTEXT | PM_CAP_POWER,
 };
 
 /* Standard slave transitions (from which to which state Std slave transits) */
