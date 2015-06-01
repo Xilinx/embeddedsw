@@ -44,7 +44,7 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   hk  08/21/14 First release
 *       hk  03/18/15 Add DMA status register masks required.
-* 1.1   sk  04/24/15 Modified the code according to MISRAC-2012.
+*       sk  04/24/15 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *

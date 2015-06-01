@@ -29,14 +29,24 @@
 # this Software without prior written authorization from Xilinx.
 #
 ###############################################################################
-OPTION psf_version = 2.1;
+##############################################################################
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.0   hk  08/21/14 First release
+#       sk  05/06/15 Imported Bus Width Parameter.
+#
+##############################################################################
 
-BEGIN driver qspipsu
+#uses "xillib.tcl"
 
-  OPTION supported_peripherals = (psu_qspi);
-  OPTION driver_state = ACTIVE;
-  OPTION copyfiles = all;
-    OPTION VERSION = 1.1;
-  OPTION NAME = qspipsu;
+proc generate {drv_handle} {
+    ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XQspiPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH"
 
-END driver
+    ::hsi::utils::define_zynq_config_file $drv_handle "xqspipsu_g.c" "XQspiPsu"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH"
+
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XQspiPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH"
+
+}

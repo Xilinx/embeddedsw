@@ -47,7 +47,7 @@
 *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
 *                    Clear and disbale DMA interrupts/status in abort.
 *                    Use DMA DONE bit instead of BUSY as recommended.
-* 1.1   sk  04/24/15 Modified the code according to MISRAC-2012.
+*       sk  04/24/15 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *

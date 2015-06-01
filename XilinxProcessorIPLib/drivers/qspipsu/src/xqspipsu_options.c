@@ -44,7 +44,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
 *       sk  03/13/15 Added IO mode support.
-* 1.1   sk  04/24/15 Modified the code according to MISRAC-2012.
+*       sk  04/24/15 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *
