@@ -180,14 +180,6 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 	switch (nodePtr->nodeId) {
 	case NODE_FPD:
 		status = XpbrPwrUpFpdHandler();
-#ifdef DEBUG_PM
-		/* FIXME workaround for old version of pmu-rom */
-		if (XST_SUCCESS != status) {
-			PmDbg("XpbrPwrUpFpdHandler returned #%d."
-			      "Ignoring error\n", status);
-			status = XST_SUCCESS;
-		}
-#endif
 		if (XST_SUCCESS == status) {
 			PmCrfRestoreContext();
 		}
