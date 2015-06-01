@@ -39,6 +39,7 @@
 #include "pm_sram.h"
 #include "pm_usb.h"
 #include "pm_periph.h"
+#include "pm_pll.h"
 
 static PmNode* const pmNodes[NODE_MAX] = {
 	&pmApuProcs_g[PM_PROC_APU_0].node,
@@ -63,6 +64,11 @@ static PmNode* const pmNodes[NODE_MAX] = {
 	&pmSlaveUsb1_g.slv.node,
 	&pmSlaveTtc0_g.slv.node,
 	&pmSlaveSata_g.slv.node,
+	&pmSlaveApll_g.slv.node,
+	&pmSlaveVpll_g.slv.node,
+	&pmSlaveDpll_g.slv.node,
+	&pmSlaveRpll_g.slv.node,
+	&pmSlaveIOpll_g.slv.node,
 };
 
 /**

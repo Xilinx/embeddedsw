@@ -39,6 +39,7 @@
 #include "pm_master.h"
 #include "pm_sram.h"
 #include "pm_periph.h"
+#include "pm_pll.h"
 #include "xpfw_rom_interface.h"
 #include "crf_apb.h"
 
@@ -105,6 +106,7 @@ static int PmPowerDownFpd(void)
 	int status = XpbrRstFpdHandler();
 
 	if (XST_SUCCESS == status) {
+		PmPllSuspendAll(&pmPowerDomainFpd_g);
 		PmCrfSaveContext();
 		status = XpbrPwrDnFpdHandler();
 		/*
@@ -235,6 +237,9 @@ static PmNode* pmFpdChildren[] = {
 	&pmPowerIslandApu_g.node,
 	&pmSlaveL2_g.slv.node,
 	&pmSlaveSata_g.slv.node,
+	&pmSlaveApll_g.slv.node,
+	&pmSlaveVpll_g.slv.node,
+	&pmSlaveDpll_g.slv.node,
 };
 
 /* Operations for the Rpu power island */

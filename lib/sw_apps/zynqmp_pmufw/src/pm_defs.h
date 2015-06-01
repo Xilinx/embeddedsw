@@ -124,9 +124,14 @@
 #define NODE_USB_1      23U
 #define NODE_TTC_0      24U
 #define NODE_SATA       25U
+#define NODE_APLL       26U
+#define NODE_VPLL       27U
+#define NODE_DPLL       28U
+#define NODE_RPLL       29U
+#define NODE_IOPLL      30U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_SATA
+#define NODE_MAX        NODE_IOPLL
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U

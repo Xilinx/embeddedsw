@@ -40,6 +40,7 @@
 #include "pm_defs.h"
 #include "pm_sram.h"
 #include "pm_usb.h"
+#include "pm_pll.h"
 #include "pm_periph.h"
 #include "pm_callbacks.h"
 #include "ipi_buffer.h"
@@ -112,6 +113,46 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 	},
 	[PM_MASTER_APU_SLAVE_SATA] = {
 		.slave = &pmSlaveSata_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_APLL] = {
+		.slave = &pmSlaveApll_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_VPLL] = {
+		.slave = &pmSlaveVpll_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_DPLL] = {
+		.slave = &pmSlaveDpll_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_RPLL] = {
+		.slave = &pmSlaveRpll_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_APU_SLAVE_IOPLL] = {
+		.slave = &pmSlaveIOpll_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = 0U,
 		.defaultReq = 0U,
@@ -212,6 +253,46 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 	},
 	[PM_MASTER_RPU_0_SLAVE_SATA] = {
 		.slave = &pmSlaveSata_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_APLL] = {
+		.slave = &pmSlaveApll_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_VPLL] = {
+		.slave = &pmSlaveVpll_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_DPLL] = {
+		.slave = &pmSlaveDpll_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_RPLL] = {
+		.slave = &pmSlaveRpll_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+	},
+	[PM_MASTER_RPU_0_SLAVE_IOPLL] = {
+		.slave = &pmSlaveIOpll_g.slv,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
 		.defaultReq = 0U,

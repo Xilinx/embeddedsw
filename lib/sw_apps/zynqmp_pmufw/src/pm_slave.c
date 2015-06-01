@@ -40,6 +40,7 @@
 #include "pm_sram.h"
 #include "pm_usb.h"
 #include "pm_periph.h"
+#include "pm_pll.h"
 #include "pm_power.h"
 #include "lpd_slcr.h"
 
@@ -82,6 +83,11 @@ static PmSlave* const pmSlaves[] = {
 	&pmSlaveUsb1_g.slv,
 	&pmSlaveTtc0_g.slv,
 	&pmSlaveSata_g.slv,
+	&pmSlaveApll_g.slv,
+	&pmSlaveVpll_g.slv,
+	&pmSlaveDpll_g.slv,
+	&pmSlaveRpll_g.slv,
+	&pmSlaveIOpll_g.slv,
 };
 
 /**

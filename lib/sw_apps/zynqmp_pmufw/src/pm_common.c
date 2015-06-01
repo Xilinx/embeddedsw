@@ -99,6 +99,16 @@ const char* PmStrNode(const u32 node)
 		return "NODE_TTC_0";
 	case NODE_SATA:
 		return "NODE_SATA";
+	case NODE_APLL:
+		return "NODE_APLL";
+	case NODE_VPLL:
+		return "NODE_VPLL";
+	case NODE_DPLL:
+		return "NODE_DPLL";
+	case NODE_RPLL:
+		return "NODE_RPLL";
+	case NODE_IOPLL:
+		return "NODE_IOPLL";
 	default:
 		return "ERROR_NODE";
 	}

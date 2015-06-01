@@ -65,6 +65,7 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define PM_TYPE_GPU_PP          (PM_TYPE_SLAVE + 2U)
 #define PM_TYPE_TTC             (PM_TYPE_SLAVE + 3U)
 #define PM_TYPE_SATA            (PM_TYPE_SLAVE + 4U)
+#define PM_TYPE_PLL             (PM_TYPE_SLAVE + 5U)
 
 #define IS_PROC(type)       (PM_TYPE_PROC == type)
 
