@@ -46,8 +46,9 @@
 #ifdef ENABLE_PM
 static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 {
-	u32 isrVal, apiId;
+	u32 isrVal, isrClr, apiId;
 	XPfw_PmIpiStatus ipiStatus;
+	XStatus status;
 
 	switch (IpiNum) {
 	case 0:
@@ -56,12 +57,24 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 		ipiStatus = XPfw_PmCheckIpiRequest(isrVal, &apiId);
 		if (XPFW_PM_IPI_IS_PM_CALL == ipiStatus) {
 			/* Power management API processing */
-			XPfw_PmIpiHandler(isrVal, apiId);
+			status = XPfw_PmIpiHandler(isrVal, apiId, &isrClr);
+			if (XST_SUCCESS == status) {
+				/* Clear only irq for handled PM request */
+				XPfw_Write32(IPI_PMU_0_ISR, isrClr);
+			}
 		} else {
+			status = XST_NO_FEATURE;
 			fw_printf("MOD-%d: Non-PM IPI-%d call received\r\n", ModPtr->ModId, IpiNum);
 		}
 
-		XPfw_Write32(IPI_PMU_0_ISR, isrVal);
+		if (XST_SUCCESS != status) {
+			/*
+			 * Clear all irqs if something went wrong, to avoid
+			 * system looping in interrupt handler because of error
+			 */
+			XPfw_Write32(IPI_PMU_0_ISR, isrVal);
+			fw_printf("ERROR #%d : IPI-%d\r\n", status, IpiNum);
+		}
 		break;
 
 	case 1:

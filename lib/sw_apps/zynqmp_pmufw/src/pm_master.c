@@ -530,7 +530,7 @@ const PmMaster* PmGetMasterByIpiMask(const u32 mask)
 	const PmMaster *mst = NULL;
 
 	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		if (mask == pmAllMasters[i]->ipiMask) {
+		if (mask & pmAllMasters[i]->ipiMask) {
 			mst = pmAllMasters[i];
 			break;
 		}

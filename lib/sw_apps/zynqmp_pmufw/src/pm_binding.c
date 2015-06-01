@@ -64,6 +64,9 @@ void XPfw_PmInit(void)
  * XPfw_PmIpiHandler() - Call from IPI interrupt handler to process PM API call
  * @isrMask IPI's ISR register value. Needed to determine buffer holding the
  *          payload
+ * @isrClr  Pointer to a variable in which PM returns an ISR mask of the master
+ *          whose request is handled (mask to write in ISR register to clear
+ *          interrupt)
  * @apiId   PM API id that was read from master's IPI buffer and validated as
  *          existing
  *
@@ -86,8 +89,7 @@ void XPfw_PmInit(void)
  *             be cleared after this function returns to make PM API call
  *             atomic.
  */
-int XPfw_PmIpiHandler(const u32 isrMask,
-			  const u32 apiId)
+int XPfw_PmIpiHandler(const u32 isrMask, const u32 apiId, u32* const isrClr)
 {
 	int status = XST_SUCCESS;
 	u32 i;
@@ -96,8 +98,8 @@ int XPfw_PmIpiHandler(const u32 isrMask,
 	u32 offset = 0U;
 	const PmMaster* master = PmGetMasterByIpiMask(isrMask);
 
-	if (NULL == master) {
-		/* Never happens if IPI interrupt routine is implemented correctly */
+	if ((NULL == isrClr) || (NULL == master)) {
+		/* Never happens if IPI irq handler is implemented correctly */
 		PmDbg("ERROR: IPI source not supported %d\n", isrMask);
 		status = XST_INVALID_PARAM;
 		goto done;
@@ -112,6 +114,12 @@ int XPfw_PmIpiHandler(const u32 isrMask,
 	}
 
 	PmProcessRequest(master, payload);
+
+	/*
+	 * Master's bitfield in isr register will be cleared based on isrClr
+	 * variable value (master's request is handled)
+	 */
+	*isrClr = master->ipiMask;
 
 done:
 	return status;
