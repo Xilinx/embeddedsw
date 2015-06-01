@@ -64,10 +64,6 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 #define FPD_GICP_IRQ_ENABLE_OFFSET  0x8U
 #define FPD_GICP_IRQ_DISABLE_OFFSET 0xCU
 
-/* FPD GIC Proxy pmu registers */
-#define FPD_GICP_PMU_IRQ_ENABLE     0xFF4180A8U
-#define FPD_GICP_PMU_IRQ_DISABLE    0xFF4180ACU
-
 /* FPD GIC Proxy group indentifiers */
 #define FPD_GICP_GROUP0     0U
 #define FPD_GICP_GROUP1     1U

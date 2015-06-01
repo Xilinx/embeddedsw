@@ -41,6 +41,7 @@
 #include "pm_usb.h"
 #include "pm_periph.h"
 #include "pm_power.h"
+#include "lpd_slcr.h"
 
 /* Used for tracking number of enabled interrupts in each GIC Proxy group */
 PmGicProxyProperties gicProxyGroups_g[FPD_GICP_GROUP_MAX] = {
@@ -401,11 +402,11 @@ void PmSlaveWakeEnable(PmSlave* const slave)
 	}
 
 	/* Enable GIC Proxy IRQ */
-	XPfw_Write32(slave->wake->proxyGroup->baseAddr + FPD_GICP_IRQ_ENABLE_OFFSET,
-		     slave->wake->proxyIrqMask);
+	XPfw_Write32(slave->wake->proxyGroup->baseAddr +
+		     FPD_GICP_IRQ_ENABLE_OFFSET, slave->wake->proxyIrqMask);
 	/* Enable GIC Proxy group */
-	XPfw_Write32(FPD_GICP_PMU_IRQ_ENABLE, slave->wake->proxyGroup->pmuIrqBit);
-
+	XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_ENABLE,
+		     slave->wake->proxyGroup->pmuIrqBit);
 	/* Enable GPI1 FPD GIC Proxy wake event */
 	ENABLE_WAKE(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK);
 
@@ -428,9 +429,9 @@ void PmSlaveWakeDisable(PmSlave* const slave)
 	XPfw_Write32(slave->wake->proxyGroup->baseAddr + FPD_GICP_IRQ_DISABLE_OFFSET,
 		     slave->wake->proxyIrqMask);
 	if (FPD_GICP_ALL_IRQ_MASKED_IN_GROUP ==
-		XPfw_Read32(slave->wake->proxyGroup->baseAddr + FPD_GICP_MASK_OFFSET)) {
+	    XPfw_Read32(slave->wake->proxyGroup->baseAddr + FPD_GICP_MASK_OFFSET)) {
 		/* Disable group */
-		XPfw_Write32(FPD_GICP_PMU_IRQ_DISABLE, slave->wake->proxyGroup->pmuIrqBit);
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_DISABLE, slave->wake->proxyGroup->pmuIrqBit);
 		if (false == PmWaitingForGicProxyWake()) {
 			/* Disable FPD GPI1 wake event */
 			DISABLE_WAKE(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK);
