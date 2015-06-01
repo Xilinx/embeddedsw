@@ -118,6 +118,20 @@ typedef u32 (*const PmTranHandler)(void);
 #define PM_CAP_POWER        0x8U
 
 /*********************************************************************
+ * Structure definitions
+ ********************************************************************/
+/**
+ * PmRegisterContext - A pair of address/value used for saving/restoring context
+ *                     of a register
+ * @addr        Address of a register
+ * @value       Variable to store register content
+ */
+typedef struct PmRegisterContext {
+	const u32 addr;
+	u32 value;
+} PmRegisterContext;
+
+/*********************************************************************
  * Function declarations
  ********************************************************************/
 #ifdef DEBUG_PM

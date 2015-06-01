@@ -40,6 +40,60 @@
 #include "pm_sram.h"
 #include "pm_periph.h"
 #include "xpfw_rom_interface.h"
+#include "crf_apb.h"
+
+/*
+ * Note: PLL registers will never be saved/restored as part of CRF_APB module
+ * context. PLLs have separate logic, which is part of PmSlavePll (pm_pll.h/c)
+ */
+static PmRegisterContext pmCrfContext[] = {
+	{ .addr = CRF_APB_ERR_CTRL },
+	{ .addr = CRF_APB_CRF_WPROT },
+	{ .addr = CRF_APB_ACPU_CTRL, },
+	{ .addr = CRF_APB_DBG_TRACE_CTRL },
+	{ .addr = CRF_APB_DBG_FPD_CTRL },
+	{ .addr = CRF_APB_DP_VIDEO_REF_CTRL },
+	{ .addr = CRF_APB_DP_AUDIO_REF_CTRL },
+	{ .addr = CRF_APB_DP_STC_REF_CTRL },
+	{ .addr = CRF_APB_DDR_CTRL },
+	{ .addr = CRF_APB_GPU_REF_CTRL },
+	{ .addr = CRF_APB_SATA_REF_CTRL },
+	{ .addr = CRF_APB_PCIE_REF_CTRL },
+	{ .addr = CRF_APB_GDMA_REF_CTRL },
+	{ .addr = CRF_APB_DPDMA_REF_CTRL },
+	{ .addr = CRF_APB_TOPSW_MAIN_CTRL },
+	{ .addr = CRF_APB_TOPSW_LSBUS_CTRL },
+	{ .addr = CRF_APB_GTGREF0_REF_CTRL },
+	{ .addr = CRF_APB_DBG_TSTMP_CTRL },
+	{ .addr = CRF_APB_RST_FPD_TOP },
+	{ .addr = CRF_APB_RST_FPD_APU },
+	{ .addr = CRF_APB_RST_DDR_SS },
+};
+
+/**
+ * PmCrfSaveContext() - Save context of CRF_APB module due to powering down FPD
+ */
+static void PmCrfSaveContext(void)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmCrfContext); i++) {
+		pmCrfContext[i].value = XPfw_Read32(pmCrfContext[i].addr);
+	}
+}
+
+/**
+ * PmCrfRestoreContext() - Restore context of CRF_APB module (FPD has been
+ *                         powered up)
+ */
+static void PmCrfRestoreContext(void)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmCrfContext); i++) {
+		XPfw_Write32(pmCrfContext[i].addr, pmCrfContext[i].value);
+	}
+}
 
 /**
  * PmPowerDownFpd() - Power down FPD domain
@@ -51,6 +105,7 @@ static int PmPowerDownFpd(void)
 	int status = XpbrRstFpdHandler();
 
 	if (XST_SUCCESS == status) {
+		PmCrfSaveContext();
 		status = XpbrPwrDnFpdHandler();
 		/*
 		 * When FPD is powered off, the APU-GIC will be affected too.
@@ -131,6 +186,9 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 			status = XST_SUCCESS;
 		}
 #endif
+		if (XST_SUCCESS == status) {
+			PmCrfRestoreContext();
+		}
 		break;
 	case NODE_APU:
 		status = XST_SUCCESS;
