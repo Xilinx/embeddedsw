@@ -41,6 +41,7 @@
 /* Capabilities for RAM */
 #define PM_CAP_ACCESS	0x1U
 #define PM_CAP_CONTEXT	0x2U
+#define PM_CAP_WAKEUP	0x4U
 
 #define MAX_LATENCY	(~0U)
 #define MAX_QOS		100U
