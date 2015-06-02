@@ -286,7 +286,7 @@ void XPfw_CorePrintStats(void)
 	fw_printf("######################################################\r\n");
 	fw_printf("Module Count: %d (%d)\r\n", CorePtr->ModCount, XPFW_MAX_MOD_COUNT);
 	fw_printf("Scheduler State: %s\r\n",((CorePtr->Scheduler.Enabled == TRUE)?"ENABLED":"DISABLED"));
-	fw_printf("Scheduler Ticks: %d\r\n",CorePtr->Scheduler.Tick);
+	fw_printf("Scheduler Ticks: %lu\r\n",CorePtr->Scheduler.Tick);
 	fw_printf("######################################################\r\n");
 	}
 }

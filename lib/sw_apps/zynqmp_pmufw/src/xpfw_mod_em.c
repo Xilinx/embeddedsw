@@ -82,7 +82,7 @@ static void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		XPfw_EmProcessError(EM_ERR_TYPE_2);
 		break;
 	default:
-		fw_printf("EM:Unhandled Event(ID:%d)\r\n", EventId);
+		fw_printf("EM:Unhandled Event(ID:%lu)\r\n", EventId);
 		break;
 	}
 }

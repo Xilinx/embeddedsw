@@ -62,7 +62,7 @@ static void PmProcessAckRequest(const u32 ack,
 {
 #ifdef DEBUG_PM
 	if (status != XST_SUCCESS) {
-		PmDbg("ERROR PM operation failed - code %d\n", status);
+		PmDbg("ERROR PM operation failed - code %lu\n", status);
 	}
 #endif
 	if (REQUEST_ACK_BLOCKING == ack) {
@@ -98,10 +98,10 @@ static void PmSelfSuspend(const PmMaster *const master,
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
-	PmDbg("(%s, %d, %d)\n", PmStrNode(node), latency, state);
+	PmDbg("(%s, %lu, %lu)\n", PmStrNode(node), latency, state);
 
 	if (NULL == proc) {
-		PmDbg("ERROR node ID %s(=%d) does not refer to a processor of "
+		PmDbg("ERROR node ID %s(=%lu) does not refer to a processor of "
 		      "this master channel\n", PmStrNode(node), node);
 		status = XST_INVALID_PARAM;
 		goto done;
@@ -152,7 +152,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 	int status = XST_SUCCESS;
 	PmMaster* target = NULL;
 
-	PmDbg("(%s, %s, %d, %d)\n", PmStrNode(node), PmStrAck(ack),
+	PmDbg("(%s, %s, %lu, %lu)\n", PmStrNode(node), PmStrAck(ack),
 	      latency, state);
 
 	if (REQUEST_ACK_BLOCKING == ack) {
@@ -371,7 +371,7 @@ static void PmReleaseNode(const PmMaster *master,
 	}
 
 done:
-	PmDbg("(%s, %d)\n", PmStrNode(node), latency);
+	PmDbg("(%s, %lu)\n", PmStrNode(node), latency);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
@@ -398,7 +398,7 @@ static void PmRequestNode(const PmMaster *master,
 	 */
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
-	PmDbg("(%s, %d, %d, %s)\n", PmStrNode(node), capabilities,
+	PmDbg("(%s, %lu, %lu, %s)\n", PmStrNode(node), capabilities,
 	      qos, PmStrAck(ack));
 
 	if (NULL == masterReq) {
@@ -444,7 +444,7 @@ static void PmSetRequirement(const PmMaster *master,
 	u32 oppoint = 0U;
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
-	PmDbg("(%s, %d, %d, %s)\n", PmStrNode(node), capabilities,
+	PmDbg("(%s, %lu, %lu, %s)\n", PmStrNode(node), capabilities,
 	      qos, PmStrAck(ack));
 
 	/* Is there a provision for the master to use the given slave node */
@@ -600,7 +600,7 @@ static void PmSetWakeupSource(const PmMaster *const master,
 	}
 
 done:
-	PmDbg("(%s, %s, %d)\n", PmStrNode(master->procs->node.nodeId),
+	PmDbg("(%s, %s, %lu)\n", PmStrNode(master->procs->node.nodeId),
 	      PmStrNode(sourceNode), enable);
 
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
@@ -615,7 +615,7 @@ static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 {
 	int status;
 
-	PmDbg("(%d)\n", restart);
+	PmDbg("(%lu)\n", restart);
 
 	/* Check whether the master is allowed to trigger system level action */
 	if (true == PmSystemRequestNotAllowed(master)) {
@@ -682,7 +682,7 @@ done:
  */
 static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 {
-	PmDbg("(0x%x) not implemented\n", address);
+	PmDbg("(0x%lx) not implemented\n", address);
 }
 
 /**
@@ -704,7 +704,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 				   const u32 type)
 {
-	PmDbg("(%s, %d) not implemented\n", PmStrNode(node), type);
+	PmDbg("(%s, %lu) not implemented\n", PmStrNode(node), type);
 }
 
 /**
@@ -822,7 +822,7 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 		PmMmioRead(master, pload[1]);
 		break;
 	default:
-		PmDbg("ERROR unsupported PM API #%d\n", pload[0]);
+		PmDbg("ERROR unsupported PM API #%lu\n", pload[0]);
 		PmProcessAckRequest(PmRequestAcknowledge(pload), master,
 				    NODE_UNKNOWN, XST_INVALID_VERSION, 0);
 		break;

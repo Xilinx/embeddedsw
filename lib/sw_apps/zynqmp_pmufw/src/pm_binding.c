@@ -129,7 +129,7 @@ int XPfw_PmIpiHandler(const u32 isrMask, const u32 apiId, u32* const isrClr)
 
 	if ((NULL == isrClr) || (NULL == master)) {
 		/* Never happens if IPI irq handler is implemented correctly */
-		PmDbg("ERROR: IPI source not supported %d\n", isrMask);
+		PmDbg("ERROR: IPI source not supported %lu\n", isrMask);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -171,7 +171,7 @@ int XPfw_PmWfiHandler(const u32 srcMask)
 	PmProc *proc = PmGetProcByWfiStatus(srcMask);
 
 	if (NULL == proc) {
-		PmDbg("ERROR: Unknown processor %d\n", srcMask);
+		PmDbg("ERROR: Unknown processor %lu\n", srcMask);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}

@@ -190,7 +190,7 @@ static void XPfw_InterruptGpi1Handler(void)
 			XStatus Status = XPfw_CoreDispatchEvent(Gpi1EventIdList[Index]);
 
 			if (XST_SUCCESS != Status) {
-				fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
+				fw_printf("Warning: Failed to dispatch Event ID: %lu\r\n",
 						Gpi1EventIdList[Index]);
 			}
 		}
@@ -210,7 +210,7 @@ static void XPfw_InterruptGpi2Handler(void)
 			XStatus Status = XPfw_CoreDispatchEvent(Gpi2EventIdList[Index]);
 
 			if (XST_SUCCESS != Status) {
-				fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
+				fw_printf("Warning: Failed to dispatch Event ID: %lu\r\n",
 						Gpi2EventIdList[Index]);
 			}
 		}
@@ -230,7 +230,7 @@ static void XPfw_InterruptGpi3Handler(void)
 			XStatus Status = XPfw_CoreDispatchEvent(Gpi3EventIdList[Index]);
 
 			if (XST_SUCCESS != Status) {
-				fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
+				fw_printf("Warning: Failed to dispatch Event ID: %lu\r\n",
 						Gpi3EventIdList[Index]);
 			}
 		}

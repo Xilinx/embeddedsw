@@ -55,7 +55,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 	switch (IpiNum) {
 	case 0:
 		isrVal = XPfw_Read32(IPI_PMU_0_ISR);
-		fw_printf("Received IPI Mask:0x%08x\r\n", isrVal);
+		fw_printf("Received IPI Mask:0x%08lx\r\n", isrVal);
 		ipiStatus = XPfw_PmCheckIpiRequest(isrVal, &apiId);
 		if (XPFW_PM_IPI_IS_PM_CALL == ipiStatus) {
 			/* Power management API processing */
@@ -66,7 +66,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 			}
 		} else {
 			status = XST_NO_FEATURE;
-			fw_printf("MOD-%d: Non-PM IPI-%d call received\r\n", ModPtr->ModId, IpiNum);
+			fw_printf("MOD-%d: Non-PM IPI-%lu call received\r\n", ModPtr->ModId, IpiNum);
 		}
 
 		if (XST_SUCCESS != status) {
@@ -75,7 +75,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 			 * system looping in interrupt handler because of error
 			 */
 			XPfw_Write32(IPI_PMU_0_ISR, isrVal);
-			fw_printf("ERROR #%d : IPI-%d\r\n", status, IpiNum);
+			fw_printf("ERROR #%ld : IPI-%lu\r\n", status, IpiNum);
 		}
 		break;
 
@@ -95,7 +95,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 		break;
 
 	default:
-		fw_printf("ERROR: Invalid IPI Number: %d\r\n", IpiNum);
+		fw_printf("ERROR: Invalid IPI Number: %lu\r\n", IpiNum);
 	}
 }
 
@@ -114,7 +114,7 @@ static void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		XPfw_PmWfiHandler(RegValue);
 		break;
 	default:
-		fw_printf("Unhandled PM Event: %d\r\n", EventId);
+		fw_printf("Unhandled PM Event: %lu\r\n", EventId);
 		break;
 	}
 }
