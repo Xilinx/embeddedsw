@@ -46,6 +46,10 @@
 #define MAX_LATENCY	(~0U)
 #define MAX_QOS		100U
 
+/* System shutdown macros */
+#define PM_SHUTDOWN	0U
+#define PM_RESTART	1U
+
 enum XPmApiId {
 	/* Miscellaneous API functions: */
 	PM_GET_API_VERSION = 1, /* Do not change or move */
