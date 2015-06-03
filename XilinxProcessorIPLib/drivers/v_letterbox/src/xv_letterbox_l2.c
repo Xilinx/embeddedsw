@@ -169,6 +169,8 @@ void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid((bpc >= XVIDC_BPC_8) &&
+                 (bpc <= InstancePtr->Config.MaxDataWidth))
 
   if(cfmt == XVIDC_CSF_RGB)
   {
@@ -179,10 +181,10 @@ void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
   }
   else //YUV
   {
-    scale = (((bpc>=8) && (bpc<=16)) ? (bpc-8) : 8);
-    y_r_val  = bkgndColorYUV[ColorId][0]<<scale;
-    Cb_g_val = bkgndColorYUV[ColorId][1]<<scale;
-    Cr_b_val = bkgndColorYUV[ColorId][2]<<scale;
+    scale =  (1<<(bpc-XVIDC_BPC_8));
+    y_r_val  = bkgndColorYUV[ColorId][0] * scale;
+    Cb_g_val = bkgndColorYUV[ColorId][1] * scale;
+    Cr_b_val = bkgndColorYUV[ColorId][2] * scale;
   }
 
   //Set Background (outside window) to be Black
