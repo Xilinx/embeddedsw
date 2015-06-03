@@ -75,11 +75,11 @@ static float NormCoeffs[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
 /************************** Function Prototypes ******************************/
 static float hamming( int x, int taps);
 static float sinc(float x);
-static void XV_VScalerGetCoeff(XV_vscaler *InstancePtr,
+static void XV_VScalerGetCoeff(XV_vscaler *pVsc,
                                XV_vscaler_l2 *pVscL2Data,
                                u32 HeightIn,
                                u32 HeightOut);
-static void XV_VScalerSetCoeff(XV_vscaler *InstancePtr,
+static void XV_VScalerSetCoeff(XV_vscaler *pVsc,
                                XV_vscaler_l2 *pVscL2Data);
 
 /*****************************************************************************/
@@ -159,30 +159,30 @@ static float sinc(float x)
 ******************************************************************************/
 void XV_VscalerLoadUsrCoeffients(XV_vscaler *InstancePtr,
                                  XV_vscaler_l2 *pVscL2Data,
-                                 const short VCoeff[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS])
+                                 u16 num_phases,
+                                 u16 num_taps,
+                                 const short *Coeff)
 {
-  int i,j,k, pad, offset;
-  int num_phases = XV_VSCALER_MAX_V_PHASES;
-  int num_taps   = pVscL2Data->EffectiveTaps;
+  int i,j, pad, offset;
 
   /*
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(pVscL2Data != NULL);
-  Xil_AssertVoid((pVscL2Data->EffectiveTaps > 0) &&
-                 (pVscL2Data->EffectiveTaps <= XV_VSCALER_MAX_V_TAPS));
+  Xil_AssertVoid(num_taps <= InstancePtr->Config.NumTaps);
+  Xil_AssertVoid(num_phases <= (1<<InstancePtr->Config.PhaseShift));
 
   //determine if coefficient needs padding (effective vs. max taps)
-  pad = XV_VSCALER_MAX_V_TAPS - num_taps;
+  pad = XV_VSCALER_MAX_V_TAPS - InstancePtr->Config.NumTaps;
   offset = ((pad) ? (pad>>1) : 0);
 
   //Load User defined coefficients into scaler coefficient table
   for (i = 0; i < num_phases; i++)
   {
-    for (k=0,j=offset; j<num_taps; ++j,++k)
+    for (j=0; j<num_taps; ++j)
     {
-      pVscL2Data->coeff[i][j] = VCoeff[i][k];
+      pVscL2Data->coeff[i][j+offset] = Coeff[i*num_taps+j];
     }
   }
 
@@ -202,6 +202,9 @@ void XV_VscalerLoadUsrCoeffients(XV_vscaler *InstancePtr,
       }
     }
   }
+
+  /* Enable use of external coefficients */
+  pVscL2Data->UseExtCoeff = TRUE;
 }
 
 /*****************************************************************************/
@@ -217,24 +220,18 @@ void XV_VscalerLoadUsrCoeffients(XV_vscaler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-static void XV_VScalerGetCoeff(XV_vscaler    *InstancePtr,
+static void XV_VScalerGetCoeff(XV_vscaler    *pVsc,
                                XV_vscaler_l2 *pVscL2Data,
                                u32            HeightIn,
                                u32            HeightOut)
 {
-  int num_phases = XV_VSCALER_MAX_V_PHASES;
-  int num_taps   = pVscL2Data->EffectiveTaps;
+  int num_phases = (1<<pVsc->Config.PhaseShift);
+  int num_taps   = pVsc->Config.NumTaps;
   int center_tap = num_taps/2;
   int i,j, pad, offset;
   float x, fc;
   float sum[XV_VSCALER_MAX_V_PHASES];
   float cos_win[XV_VSCALER_MAX_V_TAPS];
-
-  /*
-   * Assert validates the input arguments
-   */
-  Xil_AssertVoid((pVscL2Data->EffectiveTaps > 0) &&
-                 (pVscL2Data->EffectiveTaps <= XV_VSCALER_MAX_V_TAPS));
 
   if(HeightIn < HeightOut)
   {
@@ -304,10 +301,10 @@ static void XV_VScalerGetCoeff(XV_vscaler    *InstancePtr,
 
   for (i = 0; i < num_phases; i++)
   {
-    for (j = offset; j < num_taps; j++)
+    for (j = 0; j < num_taps; j++)
     {
       NormCoeffs[i][j] = WinCoeffs[i][j]/sum[i];
-      pVscL2Data->coeff[i][j] = (short) ((NormCoeffs[i][j] * COEFF_QUANT) + 0.5);
+      pVscL2Data->coeff[i][j+offset] = (short) ((NormCoeffs[i][j] * COEFF_QUANT) + 0.5);
     }
   }
 
@@ -347,20 +344,22 @@ static void XV_VScalerGetCoeff(XV_vscaler    *InstancePtr,
 *        maintain the sw latency for driver version which would eventually use
 *        computed coefficients
 ******************************************************************************/
-static void XV_VScalerSetCoeff(XV_vscaler *InstancePtr,
+static void XV_VScalerSetCoeff(XV_vscaler *pVsc,
                                XV_vscaler_l2 *pVscL2Data)
 {
-  int num_phases = XV_VSCALER_MAX_V_PHASES;
-  int num_taps   = XV_VSCALER_MAX_V_TAPS/2;
-  int val,i,j;
+  int num_phases = 1<<pVsc->Config.PhaseShift;
+  int num_taps   = pVsc->Config.NumTaps/2;
+  int val,i,j,offset,rdIndx;
   u32 baseAddr;
 
-  baseAddr = XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(InstancePtr);
+  offset = (XV_VSCALER_MAX_V_TAPS - pVsc->Config.NumTaps)/2;
+  baseAddr = XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(pVsc);
   for (i=0; i < num_phases; i++)
   {
     for(j=0; j < num_taps; j++)
     {
-       val = (pVscL2Data->coeff[i][(j*2)+1] << 16) | (pVscL2Data->coeff[i][j*2] & XMASK_LOW_16BITS);
+       rdIndx = j*2+offset;
+       val = (pVscL2Data->coeff[i][rdIndx+1] << 16) | (pVscL2Data->coeff[i][rdIndx] & XMASK_LOW_16BITS);
        Xil_Out32(baseAddr+((i*num_taps+j)*4), val);
     }
   }
@@ -393,10 +392,16 @@ void XV_VScalerSetup(XV_vscaler  *InstancePtr,
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(pVscL2Data != NULL);
 
-  if(pVscL2Data->ScalerType == XV_VSCALER_POLYPHASE)
+  if(InstancePtr->Config.ScalerType == XV_VSCALER_POLYPHASE)
   {
     if(!pVscL2Data->UseExtCoeff) //No predefined coefficients
     {
+      /* If user has not selected any filter set default */
+      if(pVscL2Data->FilterSel == 0)
+      {
+        XV_VScalerSetFilterType(pVscL2Data, XV_VFILT_LANCZOS);
+      }
+
       /* Generate coefficients for vertical scaling ratio */
       XV_VScalerGetCoeff(InstancePtr,
                          pVscL2Data,
@@ -431,7 +436,6 @@ void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr)
   XV_vscaler *pVsc = InstancePtr;
   u32 done, idle, ready, ctrl;
   u32 widthin, heightin, heightout, linerate;
-  u32 type = 3; //hard-coded to polyphase for now
   u32 baseAddr, taps, phases;
   int val,i,j;
 
@@ -450,26 +454,25 @@ void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr)
   heightin  = XV_vscaler_Get_HwReg_HeightIn(pVsc);
   widthin   = XV_vscaler_Get_HwReg_Width(pVsc);
   heightout = XV_vscaler_Get_HwReg_HeightOut(pVsc);
-//  type      = XV_vscaler_GetHwreg_scaletype(pVsc);
   linerate  = XV_vscaler_Get_HwReg_LineRate(pVsc);
 
-  taps   = XV_VSCALER_MAX_V_TAPS/2;
-  phases = XV_VSCALER_MAX_V_PHASES;
+  taps   = pVsc->Config.NumTaps/2;
+  phases = (1<<pVsc->Config.PhaseShift);
 
   xil_printf("IsDone:  %d\r\n", done);
   xil_printf("IsIdle:  %d\r\n", idle);
   xil_printf("IsReady: %d\r\n", ready);
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
+  xil_printf("Scaler Type:     %d\r\n",pVsc->Config.ScalerType);
   xil_printf("Input Width:     %d\r\n",widthin);
   xil_printf("Input Height:    %d\r\n",heightin);
   xil_printf("Output Height:   %d\r\n",heightout);
-//  xil_printf("Scaler Type:     %d\r\n",type);
   xil_printf("Line Rate:       %d\r\n",linerate);
   xil_printf("Num Phases:      %d\r\n",phases);
   xil_printf("Num Taps:        %d\r\n",taps*2);
 
-  if(type == 3)
+  if(pVsc->Config.ScalerType == XV_VSCALER_POLYPHASE)
   {
     short lsb, msb;
 

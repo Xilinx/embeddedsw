@@ -7,12 +7,18 @@
 
 /***************************** Include Files *********************************/
 #include "xv_vscaler.h"
+#include "string.h"
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
 int XV_vscaler_CfgInitialize(XV_vscaler *InstancePtr, XV_vscaler_Config *ConfigPtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	/* Setup the instance */
+	(void)memset((void *)InstancePtr, 0, sizeof(XV_vscaler));
+	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+					sizeof(XV_vscaler_Config));
 
     InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;

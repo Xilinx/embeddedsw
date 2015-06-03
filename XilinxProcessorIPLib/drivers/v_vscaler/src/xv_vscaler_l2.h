@@ -107,7 +107,6 @@
 extern "C" {
 #endif
 
-#include "xvidc.h"
 #include "xv_vscaler.h"
 
 /************************** Constant Definitions *****************************/
@@ -121,7 +120,7 @@ extern "C" {
   * accessible via instance pointer
   *
   */
- #define XV_VSCALER_MAX_V_TAPS           (6)
+ #define XV_VSCALER_MAX_V_TAPS           (10)
  #define XV_VSCALER_MAX_V_PHASES         (64)
 
 /**************************** Type Definitions *******************************/
@@ -152,20 +151,34 @@ typedef enum
  */
 typedef struct
 {
-  u8 EffectiveTaps;
   u8 UseExtCoeff;
   XV_VFILTER_ID FilterSel;
-  XV_VSCALER_TYPE ScalerType;
-  u8 Gain;
   short coeff[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
 }XV_vscaler_l2;
+
+/************************** Macros Definitions *******************************/
+/*****************************************************************************/
+/**
+ * This macro selects the filter used for generating coefficients.
+ * Applicable only for Ployphase Scaler Type
+ *
+ * @param  pVscL2Data is pointer to the V Scaler Layer 2 structure instance
+ * @param  value is the filter type
+ *
+ * @return None
+ *
+ *****************************************************************************/
+#define XV_VScalerSetFilterType(pVscL2Data, value)  \
+                         ((pVscL2Data)->FilterSel = value)
 
 /************************** Function Prototypes ******************************/
 void XV_VScalerStart(XV_vscaler *InstancePtr);
 void XV_VScalerStop(XV_vscaler *InstancePtr);
 void XV_VscalerLoadUsrCoeffients(XV_vscaler *InstancePtr,
                                  XV_vscaler_l2 *pVscL2Data,
-                                 const short VCoeff[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS]);
+                                 u16 num_phases,
+                                 u16 num_taps,
+                                 const short *Coeff);
 void XV_VScalerSetup(XV_vscaler *InstancePtr,
                      XV_vscaler_l2 *pVscL2Data,
                      u32 WidthIn,
