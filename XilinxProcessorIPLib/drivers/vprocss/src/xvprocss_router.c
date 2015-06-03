@@ -639,7 +639,6 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
                             hsc_HeightIn,
                             hsc_WidthIn,
                             hsc_WidthOut,
-                            pVprocss->Config.PixPerClock,
                             pVprocss->idata.strmCformat);
             pStartCore[XVPROCSS_RTR_SCALER_H] = TRUE;
           }
