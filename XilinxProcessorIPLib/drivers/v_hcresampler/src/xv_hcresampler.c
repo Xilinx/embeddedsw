@@ -7,12 +7,18 @@
 
 /***************************** Include Files *********************************/
 #include "xv_hcresampler.h"
+#include "string.h"
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
 int XV_hcresampler_CfgInitialize(XV_hcresampler *InstancePtr, XV_hcresampler_Config *ConfigPtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	/* Setup the instance */
+	(void)memset((void *)InstancePtr, 0, sizeof(XV_hcresampler));
+	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+					sizeof(XV_hcresampler_Config));
 
     InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
