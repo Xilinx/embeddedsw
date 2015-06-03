@@ -10,14 +10,33 @@ proc generate {drv_handle} {
         "NUM_INSTANCES" \
         "DEVICE_ID" \
         "C_S_AXI_CTRL_BASEADDR" \
-        "C_S_AXI_CTRL_HIGHADDR"
+        "C_S_AXI_CTRL_HIGHADDR" \
+		"SAMPLES_PER_CLOCK" \
+		"MAX_COLS" \
+		"MAX_ROWS" \
+		"MAX_DATA_WIDTH" \
+		"CONVERT_TYPE" \
+		"NUM_V_TAPS"
 
     xdefine_config_file $drv_handle "xv_vcresampler_g.c" "XV_vcresampler" \
         "DEVICE_ID" \
-        "C_S_AXI_CTRL_BASEADDR"
+        "C_S_AXI_CTRL_BASEADDR" \
+		"SAMPLES_PER_CLOCK" \
+		"MAX_COLS" \
+		"MAX_ROWS" \
+		"MAX_DATA_WIDTH" \
+		"CONVERT_TYPE" \
+		"NUM_V_TAPS"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_vcresampler" \
         "DEVICE_ID" \
         "C_S_AXI_CTRL_BASEADDR" \
-        "C_S_AXI_CTRL_HIGHADDR"
+        "C_S_AXI_CTRL_HIGHADDR" \
+		"SAMPLES_PER_CLOCK" \
+		"MAX_COLS" \
+		"MAX_ROWS" \
+		"MAX_DATA_WIDTH" \
+		"CONVERT_TYPE" \
+		"NUM_V_TAPS"
 }
+
