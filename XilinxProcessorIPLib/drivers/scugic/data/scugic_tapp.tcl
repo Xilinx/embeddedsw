@@ -89,64 +89,74 @@ proc gen_testfunc_call {swproj mhsinst} {
   set decl "   static XScuGic ${ipname};"
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
-  if { $stdout == "" || $stdout == "none" } {
-     set hasStdout 0
-  } else {
-     set hasStdout 1
-  }
+  set sw_proc_handle [hsi::get_sw_processor]
+  set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+  set proctype [common::get_property IP_NAME $hw_proc_handle]
+  if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $ipname "psu_acpu_gic"] == 0))||
+	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $ipname "psu_rcpu_gic"] == 0))} {
 
-  set intcvar intc
+	 if { $stdout == "" || $stdout == "none" } {
+	     set hasStdout 0
+	  } else {
+	     set hasStdout 1
+	  }
 
-  set testfunc_call ""
+	  set intcvar intc
 
-  if {${hasStdout} == 0} {
+	  set testfunc_call ""
 
-      append testfunc_call "
+	  if {${hasStdout} == 0} {
 
-   {
-      int Status;
+	      append testfunc_call "
 
-      Status = ScuGicSelfTestExample(${deviceid});
-      Status = ScuGicInterruptSetup(&${intcvar}, ${deviceid});
+	   {
+	      int Status;
 
-   }"
+	      Status = ScuGicSelfTestExample(${deviceid});
+	      Status = ScuGicInterruptSetup(&${intcvar}, ${deviceid});
 
-
-  } else {
-
-      append testfunc_call "
-
-   {
-      int Status;
-
-      print(\"\\r\\n Running ScuGicSelfTestExample() for ${ipname}...\\r\\n\");
-
-      Status = ScuGicSelfTestExample(${deviceid});
-
-      if (Status == 0) {
-         print(\"ScuGicSelfTestExample PASSED\\r\\n\");
-      }
-      else {
-         print(\"ScuGicSelfTestExample FAILED\\r\\n\");
-      }
-   }"
-
-          append testfunc_call "
-
-   {
-       int Status;
-
-       Status = ScuGicInterruptSetup(&${intcvar}, ${deviceid});
-       if (Status == 0) {
-          print(\"ScuGic Interrupt Setup PASSED\\r\\n\");
-       }
-       else {
-         print(\"ScuGic Interrupt Setup FAILED\\r\\n\");
-      }
-   }"
+	   }"
 
 
-  }
+	  } else {
+
+	      append testfunc_call "
+
+	   {
+	      int Status;
+
+	      print(\"\\r\\n Running ScuGicSelfTestExample() for ${ipname}...\\r\\n\");
+
+	      Status = ScuGicSelfTestExample(${deviceid});
+
+	      if (Status == 0) {
+	         print(\"ScuGicSelfTestExample PASSED\\r\\n\");
+	      }
+	      else {
+	         print(\"ScuGicSelfTestExample FAILED\\r\\n\");
+	      }
+	   }"
+
+	          append testfunc_call "
+
+	   {
+	       int Status;
+
+	       Status = ScuGicInterruptSetup(&${intcvar}, ${deviceid});
+	       if (Status == 0) {
+	          print(\"ScuGic Interrupt Setup PASSED\\r\\n\");
+	       }
+	       else {
+	         print(\"ScuGic Interrupt Setup FAILED\\r\\n\");
+	      }
+	   }"
+
+
+	  }
   return $testfunc_call
+
+  }
+
 
 }
