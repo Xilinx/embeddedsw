@@ -11,6 +11,7 @@ BEGIN driver v_csc
 
  OPTION supported_peripherals = (v_csc_v1_0 );
  OPTION driver_state = ACTIVE;
+ OPTION DEPENDS = (video_common_v1_1);
  OPTION copyfiles = all;
  OPTION name = v_csc;
  OPTION version = 1.0;

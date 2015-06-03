@@ -7,12 +7,18 @@
 
 /***************************** Include Files *********************************/
 #include "xv_csc.h"
+#include "string.h"
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
 int XV_csc_CfgInitialize(XV_csc *InstancePtr, XV_csc_Config *ConfigPtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	/* Setup the instance */
+	(void)memset((void *)InstancePtr, 0, sizeof(XV_csc));
+	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+					sizeof(XV_csc_Config));
 
     InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
