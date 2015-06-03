@@ -38,15 +38,31 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 #else
+/**
+* This typedef contains configuration information for the horizontal scaler
+* core. Each core instance should have a configuration structure
+* associated.
+*/
 typedef struct {
-    u16 DeviceId;
-    u32 Ctrl_BaseAddress;
+    u16 DeviceId;          /**< Unique ID  of device */
+    u32 Ctrl_BaseAddress;  /**< The base address of the core instance. */
+    int PixPerClk;         /**< Samples Per Clock supported by core instance */
+    u16 MaxWidth;          /**< Maximum columns supported by core instance */
+    u16 MaxHeight;         /**< Maximum rows supported by core instance */
+    int MaxDataWidth;      /**< Maximum Data width of each channel */
+    u16 PhaseShift;        /**< Max num of phases (2^PhaseShift) */
+    int ScalerType;        /**< Scaling Algorithm Selected */
+    int NumTaps;           /**< Number of taps */
 } XV_hscaler_Config;
 #endif
 
+/**
+* Driver instance data. An instance must be allocated for each core in use.
+*/
 typedef struct {
-    u32 Ctrl_BaseAddress;
-    u32 IsReady;
+    XV_hscaler_Config Config; /**< Hardware Configuration */
+    u32 Ctrl_BaseAddress;     /**< The base address of the core instance. */
+    u32 IsReady;              /**< Device is initialized and ready */
 } XV_hscaler;
 
 /***************** Macros (Inline Functions) Definitions *********************/

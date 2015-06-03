@@ -108,7 +108,6 @@
 extern "C" {
 #endif
 
-#include "xvidc.h"
 #include "xv_hscaler.h"
 
 /************************** Constant Definitions *****************************/
@@ -122,8 +121,9 @@ extern "C" {
  * accessible via instance pointer
  *
  */
-#define XV_HSCALER_MAX_H_TAPS           (6)
+#define XV_HSCALER_MAX_H_TAPS           (10)
 #define XV_HSCALER_MAX_H_PHASES         (64)
+#define XV_HSCALER_MAX_LINE_WIDTH       (4096)
 
 /**************************** Type Definitions *******************************/
 /**
@@ -152,28 +152,40 @@ typedef enum
  */
 typedef struct
 {
-  u8 EffectiveTaps;
   u8 UseExtCoeff;
   XV_HFILTER_ID FilterSel;
-  XV_HSCALER_TYPE ScalerType;
-  u8 Gain;
   short coeff[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS];
-  u32 phasesH[4096];
+  u32 phasesH[XV_HSCALER_MAX_LINE_WIDTH];
 }XV_hscaler_l2;
 
+/************************** Macros Definitions *******************************/
+/*****************************************************************************/
+/**
+ * This macro selects the filter used for generating coefficients.
+ * Applicable only for Ployphase Scaler Type
+ *
+ * @param  pHscL2Data is pointer to the H Scaler Layer 2 structure instance
+ * @param  value is the filter type
+ *
+ * @return None
+ *
+ *****************************************************************************/
+#define XV_HScalerSetFilterType(pHscL2Data, value)  \
+                         ((pHscL2Data)->FilterSel = value)
 
 /************************** Function Prototypes ******************************/
 void XV_HScalerStart(XV_hscaler *InstancePtr);
 void XV_HScalerStop(XV_hscaler *InstancePtr);
 void XV_HscalerLoadUsrCoeffients(XV_hscaler *InstancePtr,
                                  XV_hscaler_l2 *pHscL2Data,
-                                 const short HCoeff[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS]);
+                                 u16 num_phases,
+                                 u16 num_taps,
+                                 const short *Coeff);
 void XV_HScalerSetup(XV_hscaler  *InstancePtr,
                      XV_hscaler_l2 *pHscL2Data,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
-                     u32 PixPerClk,
                      u32 cformat);
 
 void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr);

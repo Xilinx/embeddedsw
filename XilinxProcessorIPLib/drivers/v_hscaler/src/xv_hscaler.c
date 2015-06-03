@@ -7,12 +7,18 @@
 
 /***************************** Include Files *********************************/
 #include "xv_hscaler.h"
+#include "string.h"
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
 int XV_hscaler_CfgInitialize(XV_hscaler *InstancePtr, XV_hscaler_Config *ConfigPtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	/* Setup the instance */
+	(void)memset((void *)InstancePtr, 0, sizeof(XV_hscaler));
+	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+					sizeof(XV_hscaler_Config));
 
     InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;

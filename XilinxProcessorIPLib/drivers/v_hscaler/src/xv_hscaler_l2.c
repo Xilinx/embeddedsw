@@ -73,24 +73,21 @@ static float TempCoeffs[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS];
 static float WinCoeffs[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS];
 static float NormCoeffs[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS];
 
-int HSC_SAMPLES_PER_CLOCK = 2;
-int HSC_MAX_WIDTH = 4096;
-int STEP_PRECISION_SHIFT = 16;
-int HSC_PHASE_SHIFT = 6;
+const int STEP_PRECISION_SHIFT = 16;
 
 /************************** Function Prototypes ******************************/
 static float hamming( int x, int taps);
 static float sinc(float x);
-static void CalculatePhases(XV_hscaler_l2 *pHscL2Data,
+static void CalculatePhases(XV_hscaler *pHsc,
+                            XV_hscaler_l2 *pHscL2Data,
                             u32 WidthIn,
                             u32 WidthOut,
                             u32 PixelRate);
-static void XV_HScalerGetCoeff(XV_hscaler *InstancePtr,
+static void XV_HScalerGetCoeff(XV_hscaler *pHsc,
                                XV_hscaler_l2 *pHscL2Data,
                                u32 WidthIn,
-                               u32 WidthOut,
-                               u32 PixPerClk);
-static void XV_HScalerSetCoeff(XV_hscaler *InstancePtr,
+                               u32 WidthOut);
+static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
                                XV_hscaler_l2 *pHscL2Data);
 
 /*****************************************************************************/
@@ -171,15 +168,14 @@ static float sinc(float x)
 * @return None
 *
 ******************************************************************************/
-static void CalculatePhases(XV_hscaler_l2 *pHscL2Data,
+static void CalculatePhases(XV_hscaler *pHsc,
+                            XV_hscaler_l2 *pHscL2Data,
                             u32 WidthIn,
                             u32 WidthOut,
                             u32 PixelRate)
 {
     int loopWidth;
-    loopWidth = ((WidthIn > WidthOut) ? WidthIn +(HSC_SAMPLES_PER_CLOCK-1) : WidthOut  +(HSC_SAMPLES_PER_CLOCK-1))/HSC_SAMPLES_PER_CLOCK;
-
-    int x, s;
+    int x,s;
     int offset = 0;
     int xWritePos = 0;
     int OutputWriteEn;
@@ -189,15 +185,19 @@ static void CalculatePhases(XV_hscaler_l2 *pHscL2Data,
     int xReadPos = 0;
     int nrRds = 0;
     int nrRdsClck = 0;
+    int MaxPhases = (1<<pHsc->Config.PhaseShift);
+    loopWidth = ((WidthIn > WidthOut) ? WidthIn + (pHsc->Config.PixPerClk-1)
+                                      : WidthOut  +(pHsc->Config.PixPerClk-1))/pHsc->Config.PixPerClk;
+
 
     arrayIdx = 0;
     for (x=0; x<loopWidth; x++)
     {
         pHscL2Data->phasesH[x] = 0;
         nrRdsClck = 0;
-        for (s=0; s<HSC_SAMPLES_PER_CLOCK; s++)
+        for (s=0; s<pHsc->Config.PixPerClk; s++)
         {
-            PhaseH = (offset>>(STEP_PRECISION_SHIFT-HSC_PHASE_SHIFT)) & (XV_HSCALER_MAX_H_PHASES-1);//(HSC_PHASES-1);
+            PhaseH = (offset>>(STEP_PRECISION_SHIFT-pHsc->Config.PhaseShift)) & (MaxPhases-1);//(HSC_PHASES-1);
             GetNewPix = 0;
             OutputWriteEn = 0;
             if ((offset >> STEP_PRECISION_SHIFT) != 0)
@@ -217,21 +217,19 @@ static void CalculatePhases(XV_hscaler_l2 *pHscL2Data,
                 OutputWriteEn = 1;
                 xWritePos++;
             }
-            //printf("x %5d, offset %5d, phase %5d, arrayIdx %5d, readpos %5d writepos %5d  rden %3d wren %3d\n", (int)x*HSC_SAMPLES_PER_CLOCK+s, offset, (int)PhaseH, (int)arrayIdx, (int)xReadPos, xWritePos, GetNewPix, OutputWriteEn);
             pHscL2Data->phasesH[x] = pHscL2Data->phasesH[x] | (PhaseH << (s*9));
             pHscL2Data->phasesH[x] = pHscL2Data->phasesH[x] | (arrayIdx << (6 + (s*9)));
             pHscL2Data->phasesH[x] = pHscL2Data->phasesH[x] | (OutputWriteEn << (8 + (s*9)));
 
             if (GetNewPix) nrRdsClck++;
         }
-        if (arrayIdx>=HSC_SAMPLES_PER_CLOCK) arrayIdx &= (HSC_SAMPLES_PER_CLOCK-1);
+        if (arrayIdx>=pHsc->Config.PixPerClk)
+            arrayIdx &= (pHsc->Config.PixPerClk-1);
 
-        //printf("%d nrRds per clock %d left hanging\n", nrRdsClck, nrRds);
         nrRds += nrRdsClck;
-        if (nrRds>=HSC_SAMPLES_PER_CLOCK)
+        if (nrRds>=pHsc->Config.PixPerClk)
         {
-            nrRds -= HSC_SAMPLES_PER_CLOCK;
-            //printf("getting %d new samples\n", HSC_SAMPLES_PER_CLOCK);
+            nrRds -= pHsc->Config.PixPerClk;
         }
     }
 }
@@ -247,30 +245,30 @@ static void CalculatePhases(XV_hscaler_l2 *pHscL2Data,
 ******************************************************************************/
 void XV_HscalerLoadUsrCoeffients(XV_hscaler *InstancePtr,
                                  XV_hscaler_l2 *pHscL2Data,
-                                 const short HCoeff[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS])
+                                 u16 num_phases,
+                                 u16 num_taps,
+                                 const short *Coeff)
 {
-  int i,j,k, pad, offset;
-  int num_phases = XV_HSCALER_MAX_H_PHASES;
-  int num_taps   = pHscL2Data->EffectiveTaps;
+  int i,j, pad, offset;
 
   /*
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(pHscL2Data != NULL);
-  Xil_AssertVoid((pHscL2Data->EffectiveTaps > 0) &&
-                 (pHscL2Data->EffectiveTaps <= XV_HSCALER_MAX_H_TAPS));
+  Xil_AssertVoid(num_taps <= InstancePtr->Config.NumTaps);
+  Xil_AssertVoid(num_phases <= (1<<InstancePtr->Config.PhaseShift));
 
   //determine if coefficient needs padding (effective vs. max taps)
-  pad = XV_HSCALER_MAX_H_TAPS - num_taps;
+  pad = XV_HSCALER_MAX_H_TAPS - InstancePtr->Config.NumTaps;
   offset = ((pad) ? (pad>>1) : 0);
 
   //Load User defined coefficients into scaler coefficient table
   for (i = 0; i < num_phases; i++)
   {
-    for (k=0,j=offset; j<num_taps; ++j,++k)
+    for (j=0; j<num_taps; ++j)
     {
-      pHscL2Data->coeff[i][j] = HCoeff[i][k];
+      pHscL2Data->coeff[i][j+offset] = Coeff[i*num_taps+j];
     }
   }
 
@@ -290,6 +288,9 @@ void XV_HscalerLoadUsrCoeffients(XV_hscaler *InstancePtr,
       }
     }
   }
+
+  /* Enable use of external coefficients */
+  pHscL2Data->UseExtCoeff = TRUE;
 }
 
 /*****************************************************************************/
@@ -305,25 +306,18 @@ void XV_HscalerLoadUsrCoeffients(XV_hscaler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-static void XV_HScalerGetCoeff(XV_hscaler *InstancePtr,
+static void XV_HScalerGetCoeff(XV_hscaler *pHsc,
                                XV_hscaler_l2 *pHscL2Data,
                                u32 WidthIn,
-                               u32 WidthOut,
-                               u32 PixPerClk)
+                               u32 WidthOut)
 {
-  int num_phases = XV_HSCALER_MAX_H_PHASES;
-  int num_taps   = pHscL2Data->EffectiveTaps;
+  int num_phases = (1<<pHsc->Config.PhaseShift);
+  int num_taps   = pHsc->Config.NumTaps;
   int center_tap = num_taps/2;
   int i,j, pad, offset;
   float x, fc;
   float sum[XV_HSCALER_MAX_H_PHASES];
   float cos_win[XV_HSCALER_MAX_H_TAPS];
-
-  /*
-   * Assert validates the input arguments
-   */
-  Xil_AssertVoid((pHscL2Data->EffectiveTaps > 0) &&
-                  (pHscL2Data->EffectiveTaps <= XV_HSCALER_MAX_H_TAPS));
 
   if(WidthIn < WidthOut)
   {
@@ -393,10 +387,10 @@ static void XV_HScalerGetCoeff(XV_hscaler *InstancePtr,
 
   for (i = 0; i < num_phases; i++)
   {
-    for (j = offset; j < num_taps; j++)
+    for (j = 0; j < num_taps; j++)
     {
       NormCoeffs[i][j] = WinCoeffs[i][j]/sum[i];
-      pHscL2Data->coeff[i][j] = (short) ((NormCoeffs[i][j] * COEFF_QUANT) + 0.5);
+      pHscL2Data->coeff[i][j+offset] = (short) ((NormCoeffs[i][j] * COEFF_QUANT) + 0.5);
     }
   }
 
@@ -435,27 +429,29 @@ static void XV_HScalerGetCoeff(XV_hscaler *InstancePtr,
 *        maintain the sw latency for driver version which would eventually use
 *        computed coefficients
 ******************************************************************************/
-static void XV_HScalerSetCoeff(XV_hscaler *InstancePtr,
+static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
                                XV_hscaler_l2 *pHscL2Data)
 {
-  int num_phases = XV_HSCALER_MAX_H_PHASES;
-  int num_taps   = XV_HSCALER_MAX_H_TAPS/2;
-  int val,i,j;
+  int num_phases = 1<<pHsc->Config.PhaseShift;
+  int num_taps   = pHsc->Config.NumTaps/2;
+  int val,i,j,offset,rdIndx;
   u32 baseAddr;
 
-  baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(InstancePtr);
+  offset = (XV_HSCALER_MAX_H_TAPS - pHsc->Config.NumTaps)/2;
+  baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(pHsc);
   for (i = 0; i < num_phases; i++)
   {
-    for(j=0; j< num_taps; j++)
+    for(j=0; j < num_taps; j++)
     {
-       val = (pHscL2Data->coeff[i][(j*2)+1] << 16) | (pHscL2Data->coeff[i][j*2] & XMASK_LOW_16BITS);
+       rdIndx = j*2+offset;
+       val = (pHscL2Data->coeff[i][rdIndx+1] << 16) | (pHscL2Data->coeff[i][rdIndx] & XMASK_LOW_16BITS);
        Xil_Out32(baseAddr+((i*num_taps+j)*4), val);
     }
   }
 
   //program phases
-  baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(InstancePtr);
-  for (i = 0; i < (HSC_MAX_WIDTH/HSC_SAMPLES_PER_CLOCK); i++)
+  baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(pHsc);
+  for (i = 0; i < (pHsc->Config.MaxWidth/pHsc->Config.PixPerClk); i++)
   {
      Xil_Out32(baseAddr+(i*4), pHscL2Data->phasesH[i]);
   }
@@ -480,7 +476,6 @@ void XV_HScalerSetup(XV_hscaler  *InstancePtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
-                     u32 PixPerClk,
                      u32 cformat)
 {
   u32 PixelRate;
@@ -493,19 +488,24 @@ void XV_HScalerSetup(XV_hscaler  *InstancePtr,
 
   PixelRate = (u32) ((float)((WidthIn * STEP_PRECISION) + (WidthOut/2))/(float)WidthOut);
 
-  /* Compute Phase for 1 line */
-  CalculatePhases(pHscL2Data, WidthIn, WidthOut, PixelRate);
-
-  if(pHscL2Data->ScalerType == XV_HSCALER_POLYPHASE)
+  if(InstancePtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
   {
+    /* Compute Phase for 1 line */
+    CalculatePhases(InstancePtr, pHscL2Data, WidthIn, WidthOut, PixelRate);
+
     if(!pHscL2Data->UseExtCoeff)  //No predefined coefficients
     {
+      /* If user has not selected any filter set default */
+      if(pHscL2Data->FilterSel == 0)
+      {
+        XV_HScalerSetFilterType(pHscL2Data, XV_HFILT_LANCZOS);
+      }
+
       /* Generate coefficients for horizontal scaling ratio */
       XV_HScalerGetCoeff(InstancePtr,
                          pHscL2Data,
                          WidthIn,
-                         WidthOut,
-                         PixPerClk);
+                         WidthOut);
     }
 
     /* Program generated coefficients into the IP register bank */
@@ -535,7 +535,6 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
   XV_hscaler *pHsc = InstancePtr;
   u32 done, idle, ready, ctrl;
   u32 widthin, widthout, heightin, pixrate, cformat;
-  u32 type = 3;  //hard-coded to polyphase for now
   u32 baseAddr, taps, phases;
   int val,i,j;
 
@@ -553,27 +552,26 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
   heightin = XV_hscaler_Get_HwReg_Height(pHsc);
   widthin  = XV_hscaler_Get_HwReg_WidthIn(pHsc);
   widthout = XV_hscaler_Get_HwReg_WidthOut(pHsc);
-// type     = XV_hscaler_Get_Hwreg_scaletype_v(pHsc);
   cformat  = XV_hscaler_Get_HwReg_ColorMode(pHsc);
   pixrate  = XV_hscaler_Get_HwReg_PixelRate(pHsc);
 
-  taps   = XV_HSCALER_MAX_H_TAPS/2;
-  phases = XV_HSCALER_MAX_H_PHASES;
+  taps   = pHsc->Config.NumTaps/2;
+  phases = (1<<pHsc->Config.PhaseShift);
   xil_printf("IsDone:  %d\r\n", done);
   xil_printf("IsIdle:  %d\r\n", idle);
   xil_printf("IsReady: %d\r\n", ready);
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
+  xil_printf("Scaler Type:     %d\r\n",pHsc->Config.ScalerType);
   xil_printf("Input Height:    %d\r\n",heightin);
   xil_printf("Input Width:     %d\r\n",widthin);
   xil_printf("Output Width:    %d\r\n",widthout);
-// xil_printf("Scaler Type:     %d\r\n",type);
   xil_printf("Color Format:    %d\r\n",cformat);
   xil_printf("Pixel Rate:      %d\r\n",pixrate);
   xil_printf("Num Phases:      %d\r\n",phases);
   xil_printf("Num Taps:        %d\r\n",taps*2);
 
-  if(type == 3)
+  if(pHsc->Config.ScalerType == XV_HSCALER_POLYPHASE)
   {
     short lsb, msb;
 
