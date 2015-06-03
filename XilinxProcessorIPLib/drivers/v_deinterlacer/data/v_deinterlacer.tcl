@@ -10,14 +10,18 @@ proc generate {drv_handle} {
         "NUM_INSTANCES" \
         "DEVICE_ID" \
         "C_S_AXI_AXILITES_BASEADDR" \
-        "C_S_AXI_AXILITES_HIGHADDR"
+        "C_S_AXI_AXILITES_HIGHADDR" \
+		"MAX_DATA_WIDTH"
 
     xdefine_config_file $drv_handle "xv_deinterlacer_g.c" "XV_deinterlacer" \
         "DEVICE_ID" \
-        "C_S_AXI_AXILITES_BASEADDR"
+        "C_S_AXI_AXILITES_BASEADDR" \
+		"MAX_DATA_WIDTH"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_deinterlacer" \
         "DEVICE_ID" \
         "C_S_AXI_AXILITES_BASEADDR" \
-        "C_S_AXI_AXILITES_HIGHADDR"
+        "C_S_AXI_AXILITES_HIGHADDR" \
+		"MAX_DATA_WIDTH"
 }
+

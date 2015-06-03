@@ -38,15 +38,25 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 #else
+/**
+* This typedef contains configuration information for the DEINT core.
+* Each core instance should have a configuration structure
+* associated.
+*/
 typedef struct {
-    u16 DeviceId;
-    u32 Axilites_BaseAddress;
+    u16 DeviceId;              /**< Unique ID  of device */
+    u32 Axilites_BaseAddress;  /**< The base address of the core instance. */
+    int MaxDataWidth;          /**< Maximum Data width of each channel */
 } XV_deinterlacer_Config;
 #endif
 
+/**
+* Driver instance data. An instance must be allocated for each core in use.
+*/
 typedef struct {
-    u32 Axilites_BaseAddress;
-    u32 IsReady;
+    XV_deinterlacer_Config Config; /**< Hardware Configuration */
+    u32 Axilites_BaseAddress;      /**< The base address of the core instance. */
+    u32 IsReady;                   /**< Device is initialized and ready */
 } XV_deinterlacer;
 
 /***************** Macros (Inline Functions) Definitions *********************/

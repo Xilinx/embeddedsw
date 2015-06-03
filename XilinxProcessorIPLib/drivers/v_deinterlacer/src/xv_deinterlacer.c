@@ -7,12 +7,18 @@
 
 /***************************** Include Files *********************************/
 #include "xv_deinterlacer.h"
+#include "string.h"
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
 int XV_deinterlacer_CfgInitialize(XV_deinterlacer *InstancePtr, XV_deinterlacer_Config *ConfigPtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	/* Setup the instance */
+	(void)memset((void *)InstancePtr, 0, sizeof(XV_deinterlacer));
+	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+					sizeof(XV_deinterlacer_Config));
 
     InstancePtr->Axilites_BaseAddress = ConfigPtr->Axilites_BaseAddress;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
