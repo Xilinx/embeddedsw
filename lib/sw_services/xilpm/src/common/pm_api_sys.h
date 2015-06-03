@@ -92,6 +92,12 @@ struct pm_acknowledge {
 	u32 opp;
 };
 
+/*********************************************************************
+ * Global data declarations
+ ********************************************************************/
+extern struct pm_init_suspend pm_susp;
+extern struct pm_acknowledge pm_ack;
+
 void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
 		       const u32 latency,
 		       const u32 state,
