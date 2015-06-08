@@ -335,7 +335,7 @@
  *                         DownReq, DownReply, AudioOver, PayloadAlloc, ActRx,
  *                         CrcTest
  *                     Added new data structures related to RX MST topology:
- *                         XDp_RxIicMapEntry, XDp_RxDpcdMap, XDp_RxPorts,
+ *                         XDp_RxIicMapEntry, XDp_RxDpcdMap, XDp_RxPort,
  *                         XDp_RxTopology
  *                     Renamed XDp_Tx* to XDp_* to reflect commonality with RX
  *                     for:
@@ -702,7 +702,7 @@ typedef struct {
 	u8 Exposed;			/**< When set to 1, the RX branch device
 						will expose the port in the
 						LINK_ADDRESS reply. */
-} XDp_RxPorts;
+} XDp_RxPort;
 
 /**
  * This typedef contains topology information on directly connected sinks and of
@@ -715,7 +715,7 @@ typedef struct {
 	u8 PayloadTable[64];		/**< The payload table of the RX
 						representing allocated bandwidth
 						per stream. */
-	XDp_RxPorts Ports[16];		/**< Port information additional to that
+	XDp_RxPort Ports[16];		/**< Port information additional to that
 						contained in LinkAddressInfo. */
 } XDp_RxTopology;
 
