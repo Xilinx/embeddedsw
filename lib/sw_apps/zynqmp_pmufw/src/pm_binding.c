@@ -129,6 +129,10 @@ done:
  * XPfw_PmWfiHandler() - Call from GPI2 interrupt handler to process sleep req
  * @srcMask Value read from GPI2 register which determines master requestor
  *
+ * @return  Status of triggering sleep for a processor (XST_INVALID_PARAM if
+ *          processor cannot be determined by srcMask, status of performing
+ *          sleep operation otherwise)
+ *
  * @note    Call from GPI2 interrupt routine to process sleep request. Must not
  *          clear GPI2 interrupt before this function returns.
  */
@@ -160,6 +164,10 @@ done:
 /**
  * XPfw_PmWakeHandler() - Call from GPI1 interrupt to process wake request
  * @srcMask     Value read from GPI1 register which determines interrupt source
+ *
+ * @return      Status of performing wake-up (XST_INVALID_PARAM if wake is a
+ *              processor wake event but processor is not found, status of
+ *              performing wake otherwise)
  *
  * @note    Call from GPI1 interrupt routine to process wake request. Must not
  *          clear GPI1 interrupt before this function returns.

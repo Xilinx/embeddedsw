@@ -420,7 +420,7 @@ done:
 
 /**
  * PmRequirementUpdateScheduled() - Triggers the setting for scheduled
- (                                  requirements
+ *                                  requirements
  * @master  Master which changed the state and whose scheduled requirements are
  *          triggered
  * @swap    Flag stating should current/default requirements be saved as next
@@ -879,7 +879,7 @@ bool PmIsRequestedToSuspend(const PmMaster* const master)
  * PmRememberSuspendRequest() - Remembers the request suspend to acknowledge
  * @reqMaster   Master which requested suspend
  * @respMaster  Master whose suspend is requested and which should answer
- * @ack		FIXME: missing coumentation
+ * @ack         Acknowledge flag received with the request suspend call
  *
  * @return      Status of the operation of remembering the requested acknowledge
  */
@@ -912,10 +912,11 @@ int PmRememberSuspendRequest(const PmMaster* const reqMaster,
 }
 
 /**
- * PmMasterSuspendAck() - Acknowledge to the suspend request of another
- *                               master
+ * PmMasterSuspendAck() - Acknowledge to the suspend request of another master
  * @respMaster	Master which is responding to the suspend request
- * @response	FIXME: Missing doc
+ * @response	Status which is acknowledged as a response (whether the suspend
+ *		operation is performed successfully)
+ * @return	Status of the operation of sending acknowledge
  */
 int PmMasterSuspendAck(PmMaster* const respMaster, const int response)
 {

@@ -532,16 +532,19 @@ static void PmSetWakeupSource(const PmMaster *const master,
 	int status = XST_SUCCESS;
 	PmRequirement* req = PmGetRequirementForSlave(master, sourceNode);
 
+	/* Is master allowed to use resource (slave)? */
 	if (NULL == req) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
 
+	/* Does slave have wake-up capability */
 	if (NULL == req->slave->wake) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
 
+	/* Set/clear request info according to the enable flag */
 	if (0U == enable) {
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 	} else {
@@ -765,7 +768,9 @@ void PmProcessRequest(const PmMaster *const master,
 		/* Acknowledge if possible */
 		if (PM_PAYLOAD_ERR_API_ID != status) {
 			u32 ack = PmRequestAcknowledge(pload);
+			/* If api does receive acknowledge */
 			if (REQUEST_ACK_NO != ack) {
+				/* Acknowledge that parameters are invalid */
 				PmAcknowledgeCb(master, NODE_UNKNOWN,
 						XST_INVALID_PARAM, 0);
 			}

@@ -120,6 +120,8 @@ typedef struct {
 
 /**
  * PmGicProxyProperties - Information about FPD GIC Proxy groups
+ * @baseAddr    Base address of the group
+ * @pmuIrqBit   Bit (mask) of the interrupt which the group generates to the PMU
  */
 typedef struct {
 	const u32 baseAddr;

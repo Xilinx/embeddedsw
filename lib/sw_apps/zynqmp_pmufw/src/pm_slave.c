@@ -95,7 +95,7 @@ static PmSlave* const pmSlaves[] = {
  *                           capability
  * @slave   Pointer to a slave whose requests are to be checked
  *
- * @note    Check all master requests and return :
+ * @return  Based on checking all masters' requests function returns :
  *          - true if there is at least one master requesting a capability
  *          - false if no master is requesting anything from this slave
  */
@@ -300,6 +300,10 @@ int PmUpdateSlave(PmSlave* const slave)
 	}
 
 	if ((XST_SUCCESS == status) && (state != slave->node.currState)) {
+		/*
+		 * Change state of a slave if state with required capabilities
+		 * exists and slave is not already in that state.
+		 */
 		status = PmSlaveChangeState(slave, state);
 	}
 
@@ -350,6 +354,8 @@ static int PmSlaveWakeMasters(PmSlave* const slave)
  * @wakeMask    Mask read from GPI1 register, based on which slave source that
  *              generated interrupt will be determined. Master targets are
  *              determined based on requirements for slave's wake-up capability.
+ *
+ * @return      Status of performing wake-up.
  *
  * @note        If multiple slaves has simultaneously generated interrupts (wake
  *              events), they will be all processed in this function). For FPD

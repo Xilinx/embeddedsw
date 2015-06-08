@@ -64,6 +64,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 
 /**
  * PmNotifyCb() - notifies a master about an event occurance
+ * @master      Master to be notified about the event
  * @nodeId      Node id regarding which the event is triggered
  * @event       Event to informa master about
  * @oppoint     Optionally event is related to some operating point change
@@ -83,6 +84,7 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 
 /**
  * PmInitSuspendCb() - request a master to suspend itself
+ * @master      Master to be asked to suspend
  * @nodeId      Node within the master to be suspended
  * @reason      The reason of initiating the suspend
  * @latency     Not supported
