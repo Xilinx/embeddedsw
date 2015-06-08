@@ -232,4 +232,7 @@
  * 5.1 pkp   14/05/15  Modified cortexa9/gcc/Makefile to keep a correct check of a compiler
  *		       to update ECC_FLAGS and also take the compiler and archiver as specified
  *		       in settings instead of hardcoding it.
+ * 5.2 pkp   06/08/15  Modified cortexa9/gcc/translation_table.S to put a check for
+ *		       XPAR_PS7_DDR_0_S_AXI_BASEADDR to confirm if DDR is present or not and
+ *		       accordingly generate the	translation table
  *****************************************************************************************/

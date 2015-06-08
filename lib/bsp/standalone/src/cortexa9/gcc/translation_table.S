@@ -51,6 +51,9 @@
 *			0xe0000000 - 0xe02fffff (memory mapped devides)
 *			0xe0300000 - 0xe0ffffff (reserved) and
 *			0xe1000000 - 0xe1ffffff (NAND)
+* 5.2	pkp  06/08/2015 put a check for XPAR_PS7_DDR_0_S_AXI_BASEADDR to confirm
+*			if DDR is present or not and accordingly generate the
+*			translation table
 * </pre>
 *
 * @note
@@ -69,13 +72,19 @@ MMUTable:
 	 * Each entry covers a 1MB section.
 	 */
 .set SECT, 0
+
+#ifdef XPAR_PS7_DDR_0_S_AXI_BASEADDR
 .set DDR_START, XPAR_PS7_DDR_0_S_AXI_BASEADDR
 .set DDR_END, XPAR_PS7_DDR_0_S_AXI_HIGHADDR
 .set DDR_SIZE, (DDR_END - DDR_START)+1
 .set DDR_REG, DDR_SIZE/0x100000
+#else
+.set DDR_REG, 0
+#endif
+
 .set UNDEF_REG, 0x3FF - DDR_REG
 
-							/*0x00000000 - 0x00100000 (cacheable )*/
+				/*0x00000000 - 0x00100000 (cacheable )*/
 .word	SECT + 0x15de6		/* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 
