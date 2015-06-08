@@ -271,6 +271,30 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
+ * 2.0   als  06/08/15 Added MST functionality to RX. New APIs:
+ *                         XDp_RxHandleDownReq, XDp_RxGetIicMapEntry,
+ *                         XDp_RxSetIicMapEntry, XDp_RxSetDpcdMap,
+ *                         XDp_RxMstExposePort, XDp_RxMstSetPort,
+ *                         XDp_RxMstSetInputPort, XDp_RxMstSetPbn,
+ *                         XDp_RxSetIntrDownReqHandler,
+ *                         XDp_RxSetIntrDownReplyHandler,
+ *                         XDp_RxSetIntrAudioOverHandler,
+ *                         XDp_RxSetIntrPayloadAllocHandler,
+ *                         XDp_RxSetIntrActRxHandler,
+ *                         XDp_RxSetIntrCrcTestHandler
+ *                     Added Intr*Handler and Intr*CallbackRef interrupt-related
+ *                     members to XDp_Rx structure for:
+ *                         DownReq, DownReply, AudioOver, PayloadAlloc, ActRx,
+ *                         CrcTest
+ *                     Added new data structures related to RX MST topology:
+ *                         XDp_RxIicMapEntry, XDp_RxDpcdMap, XDp_RxPorts,
+ *                         XDp_RxTopology
+ *                     Renamed XDp_Tx* to XDp_* to reflect commonality with RX
+ *                     for:
+ *                         XDp_TxSbMsgLinkAddressReplyPortDetail
+ *                         XDp_TxSbMsgLinkAddressReplyDeviceInfo
+ *                     GUID type change for ease of use:
+ *                         'u32 Guid[4]' changed to 'u8 Guid[16]'
  * </pre>
  *
 *******************************************************************************/

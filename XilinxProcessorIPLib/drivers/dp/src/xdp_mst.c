@@ -40,6 +40,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
+ * 2.0   als  06/08/15 Added MST functionality to RX.
  * </pre>
  *
 *******************************************************************************/
