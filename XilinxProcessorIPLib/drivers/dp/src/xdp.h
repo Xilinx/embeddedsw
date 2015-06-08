@@ -145,7 +145,7 @@
  *
  * Link training is done automatically by the hardware.
  *
- * <b>Interrupt processing: TX mode of operation</b>
+ * <b>Interrupt processing</b>
  *
  * For the driver to process interrupts, the application must set up the
  * system's interrupt controller and connect the XDp_InterruptHandler function
@@ -205,9 +205,6 @@
  *
  * <b>Multi-stream transport (MST) mode: TX mode of operation</b>
  *
- * The current version of this driver doesn't support MST functionality when the
- * core is configured do run in the RX mode of operation.
- *
  * The driver handles MST mode functionality in TX mode of operation, including
  * sideband messaging, topology discovery, virtual channel payload ID table
  * management, and directing streams to different sinks.
@@ -222,6 +219,53 @@
  * - Resolutions (60Hz): 640x480, 800x600, 1024x768, 1280x800, 1280x1024,
  *   1360x768, 1400x1050, 1680x1050, 1920x1080, 1920x2160, and 3840x2160.
  * - Color depths: 18, 24, 30, 36, and 48 bits per pixel.
+ *
+ * <b>Multi-stream transport (MST) mode: RX mode of operation</b>
+ *
+ * The driver handles MST mode functionality in RX mode of operation. The API
+ * function, XDp_RxHandleDownReq, will read a sideband message from the down
+ * request registers in the DisplayPort RX core, parse it, arbitrate control for
+ * the sideband message type that was requested, format a reply, and send the
+ * reply.
+ *
+ * The current version of the driver only supports a software representation of
+ * a shallow topology - meaning virtual sinks are defined in the user
+ * application and assigned to port numbers. The RX acts as a branch connected
+ * to multiple sinks, but is not connected to another branch. Sideband messages
+ * will then be handled for the targeted downstream sink.
+ *
+ * The user application creates the topology using the driver's API functions:
+ * - XDp_RxSetIicMapEntry : Used to specify the I2C contents of a virtual sink.
+ * - XDp_RxSetDpcdMap : Used to specify the DPCD of a virtual sink.
+ * - XDp_RxMstSetPbn : Used to specify the available PBN of a virtual sink.
+ * - XDp_RxMstSetPort : Used to specify how the sink will appear when the an
+ *	upstream device sends a LINK_ADDRESS sideband request to the RX branch.
+ * - XDp_RxMstSetInputPort : Used to specify the input port.
+ * - XDp_RxMstExposePort : Used to enable the port by exposing it to incoming
+ *	LINK_ADDRESS sideband requests.
+ *
+ * The driver will keep track of the topology in the structures:
+ * - XDp_RxTopology : Stores topology information as a reply to LINK_ADDRESS
+ *	requests, the virtual channel payload table, and port representations
+ *	(XDp_RxPort[] type).
+ * - XDp_RxPort : Stores the I2C map (XDp_RxIicMapEntry[] type), DPCD address
+ *	space (XDp_RxDpcdMap type), PBN information, and whether or not the
+ *	represented sink is exposed to upstream devices.
+ * - XDp_RxIicMapEntry : Represents data stored at an associated I2C address.
+ * - XDp_RxDpcdMap : Represents the DPCD of an associated port's sink.
+ *
+ * Note that the driver uses the topology's XDp_RxPort[] array such that the
+ * indices match the port number that attaches the virtual sink to the RX
+ * branch.
+ *
+ * The following sideband messages are supported:
+ * - CLEAR_PAYLOAD_ID_TABLE
+ * - LINK_ADDRESS
+ * - REMOTE_I2C_READ
+ * - REMOTE_DPCD_READ
+ * - ENUM_PATH_RESOURCES
+ * - ALLOCATE_PAYLOAD
+ * Other sideband messages are replied to with NACK.
  *
  * <b>Audio</b>
  *
@@ -261,6 +305,10 @@
  *   sideband message.
  * - The driver does not handle audio. See the audio example in the driver
  *   examples directory for the required sequence for enabling audio.
+ *
+ * <b>Limitations: RX mode of operation</b>
+ *
+ * - Sideband messages that aren't supported as specified above will be NACK'ed.
  *
  * @note	For a 5.4Gbps link rate, a high performance 7 series FPGA is
  *		required with a speed grade of -2 or -3.
