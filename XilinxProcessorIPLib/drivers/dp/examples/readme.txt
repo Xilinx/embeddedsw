@@ -1,4 +1,4 @@
-There is 1 DisplayPort RX example included in this directory:
+There are 2 DisplayPort RX examples included in this directory:
 1) xdp_rx_intr_timer_example.c : This interrupt with timer example shows how to
    set up both the interrupt system with interrupt handlers and how to override
    the default sleep/delay functionality for MicroBlaze. A timer needs to exist
@@ -8,6 +8,10 @@ There is 1 DisplayPort RX example included in this directory:
    accuracy. For ARM/Zynq SoC systems, the supplied callback function will be
    ignored - the usleep function will be called since the SoC has a timer
    built-in.
+2) xdp_rx_mst_example.c : This multi-stream transport (MST) example uses
+   interrupts to detect events coming from the TX. The example sets up a
+   topology that the RX will respond with, including LINK_ADDRESS reply and I2C
+   and DPCD address spaces for the downstream ports.
 
 Note: All example functions start with Dprx_*, while all driver functions start
 with XDp_*.
