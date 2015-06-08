@@ -2341,6 +2341,11 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 {
 	XDp_SidebandMsg Msg;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
 	XDp_RxReadDownReq(InstancePtr, &Msg);
 
 	switch (Msg.Body.MsgData[0]) {
@@ -2405,6 +2410,12 @@ XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 	u8 Index;
 	XDp_RxIicMapEntry *IicMap;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertNonvoid(PortNum <= 15);
+
 	IicMap = InstancePtr->RxInstance.Topology.Ports[PortNum].IicMap;
 
 	for (Index = 0; Index < XDP_RX_NUM_I2C_ENTRIES_PER_PORT; Index++) {
@@ -2449,6 +2460,13 @@ u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
 {
 	XDp_RxIicMapEntry *IicMapEntry;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertNonvoid(PortNum <= 15);
+	Xil_AssertNonvoid(ReadData != NULL);
+
 	IicMapEntry = XDp_RxGetIicMapEntry(InstancePtr, PortNum, IicAddress);
 	if (!IicMapEntry) {
 		return XST_FAILURE;
@@ -2485,6 +2503,13 @@ u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
 void XDp_RxSetDpcdMap(XDp *InstancePtr, u8 PortNum, u32 StartAddr, u32 NumBytes,
 								u8 *DpcdMap)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid(DpcdMap != NULL);
+
 	InstancePtr->RxInstance.Topology.Ports[PortNum].DpcdMap.DataPtr =
 								DpcdMap;
 	InstancePtr->RxInstance.Topology.Ports[PortNum].DpcdMap.NumBytes =
@@ -2517,6 +2542,13 @@ void XDp_RxSetDpcdMap(XDp *InstancePtr, u8 PortNum, u32 StartAddr, u32 NumBytes,
 *******************************************************************************/
 void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid((Expose == 0) || (Expose == 1));
+
 	InstancePtr->RxInstance.Topology.Ports[PortNum].Exposed = Expose;
 
 	if (Expose) {
@@ -2551,6 +2583,13 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 {
 	XDp_SbMsgLinkAddressReplyPortDetail *Port;
 	u8 GuidIndex;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid(PortDetails != NULL);
 
 	Port = &InstancePtr->RxInstance.Topology.LinkAddressInfo.
 							PortDetails[PortNum];
@@ -2596,6 +2635,12 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 	XDp_SbMsgLinkAddressReplyPortDetail *Port;
 	u8 GuidIndex;
 
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(PortNum <= 15);
+
 	Branch = &InstancePtr->RxInstance.Topology.LinkAddressInfo;
 	Port = &Branch->PortDetails[PortNum];
 
@@ -2637,6 +2682,12 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 *******************************************************************************/
 void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal)
 {
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(PortNum <= 15);
+
 	InstancePtr->RxInstance.Topology.Ports[PortNum].FullPbn = PbnVal;
 	InstancePtr->RxInstance.Topology.Ports[PortNum].AvailPbn = PbnVal;
 }
