@@ -275,6 +275,7 @@ void xil_printf( const char8 *ctrl1, ...)
                 Check = 0;
                 break;
 
+            case 'i':
             case 'd':
                 if ((long_flag != 0) || (ch == 'D')) {
                     outnum( va_arg(argp, s32), 10L, &par);
