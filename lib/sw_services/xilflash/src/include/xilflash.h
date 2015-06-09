@@ -207,6 +207,7 @@
 * 4.1	nsk  06/06/12 Updated WriteBuffer programming for spansion
 *		      in xilflash_amd.c and added new definitions
 *		      as per AMD Spec in xilflash_amd.h (CR 781697).
+* 4.1	nsk  08/06/15 Fixed CR 835008 Modified xilflash_intel.c.
 *
 * </pre>
 *

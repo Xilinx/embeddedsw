@@ -96,6 +96,7 @@
 * 3.03a srt  11/04/12 Fixed CR 679937 -
 *		      Description: Non-word aligned data write to flash fails
 *		      with AXI interface.
+* 4.1	nsk  08/06/15 Fixed CR 835008.
 * </pre>
 *
 ******************************************************************************/
@@ -1939,7 +1940,261 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 * If hardware is failing, then this routine could get stuck in an endless loop.
 *
 ******************************************************************************/
-static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
+static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
+			 void *SrcPtr, u32 Bytes)
+{
+	XFlashVendorData_Intel *DevDataPtr;
+	u16 *SrcWordPtr = (u16*)SrcPtr;
+	u16 *DestWordPtr = (u16*)DestPtr;
+	u16 StatusReg;
+	u16 ReadyMask;
+	u32 BaseAddress;
+	u32 BytesLeft = Bytes;
+	u32 PartialBytes;
+	u32 Count;
+	int Status = XST_SUCCESS;
+	int Index;
+
+	DevDataPtr = GET_PARTDATA(InstancePtr);
+	BaseAddress = InstancePtr->Geometry.BaseAddress;
+	ReadyMask = DevDataPtr->SR_WsmReady.Mask16;
+
+	/*
+	 * Make sure DestPtr and SrcPtr are aligned to a 16-bit word.
+	 */
+	if (((int) SrcWordPtr & 1) || ((int) DestWordPtr & 1)) {
+		return (XFLASH_ALIGNMENT_ERROR);
+	}
+
+	/*
+	 * Determine if a partial first buffer must be programmed.
+	 */
+	PartialBytes = (u32) DestWordPtr &
+		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
+
+	/*
+	 * This write cycle programs the first partial write buffer.
+	 */
+	if (PartialBytes) {
+		/*
+		 * Backup DestWord to the beginning of a buffer alignment area
+		 * Count is the number of write cycles left after pre-filling
+		 * the write buffer with 0xFFFF.
+		 */
+		DestWordPtr = (u16*)((u32) DestWordPtr - PartialBytes);
+		Count = InstancePtr->Properties.ProgCap.WriteBufferSize >> 1;
+
+		/*
+		 * Send command to write buffer. Write number of words to
+		 * be written (always the maximum).
+		 */
+		WRITE_FLASH_16(DestWordPtr,
+			InstancePtr->Command.WriteBufferCommand);
+
+		WRITE_FLASH_16(DestWordPtr, DevDataPtr->WriteBufferWordCount);
+
+		/*
+		 * Write 0xFFFF padding until we get to the start of the
+		 * original DestWord.
+		 */
+		while (PartialBytes > 1) {
+			WRITE_FLASH_16(DestWordPtr++, 0xFFFF);
+			PartialBytes -= 2;
+			Count--;
+		}
+
+		/*
+		 * Write the remainder of this write buffer.
+		 */
+		Index = 0;
+		while (Count--) {
+			/* Full word */
+			if (BytesLeft > 1) {
+				WRITE_FLASH_16(&DestWordPtr[Index],
+						SrcWordPtr[Index]);
+				BytesLeft -= 2;
+			}
+
+			/* End of SrcWords */
+			else if (BytesLeft == 0) {
+				WRITE_FLASH_16(&DestWordPtr[Index], 0xFFFF);
+			}
+
+			/* Partial word */
+			else {	/* BytesLeft == 1 */
+				#ifdef XPAR_AXI_EMC
+				WRITE_FLASH_16(&DestWordPtr[Index],
+					       0xFF00 | SrcWordPtr[Index]);
+				#else
+				WRITE_FLASH_16(&DestWordPtr[Index],
+					       0x00FF | SrcWordPtr[Index]);
+				#endif
+				BytesLeft--;
+			}
+			Index++;
+		}
+
+		/*
+		 * Buffer write completed. Send confirmation command and wait
+		 * for completion.
+		 */
+		WRITE_FLASH_16(DestWordPtr, XFL_INTEL_CMD_CONFIRM);
+		Status = PollSR16(InstancePtr,
+				  ((u32)DestWordPtr) - BaseAddress);
+		if (Status != XFLASH_READY) {
+			return (Status);
+		}
+
+		/*
+		 * Increment source and destination to next buffer
+		 */
+		SrcWordPtr += Index;
+		DestWordPtr += Index;
+	}
+
+	/*
+	 * At this point DestWordPtr and SrcWordPtr are aligned to a write
+	 * buffer boundary. The next batch of writes utilize write cycles full
+	 * of SrcData.
+	 */
+	Count = InstancePtr->Properties.ProgCap.WriteBufferSize >> 1;
+	while (BytesLeft > InstancePtr->Properties.ProgCap.WriteBufferSize) {
+
+		/*
+		 * Send command to write buffer.Write number of words to
+		 * be written (always the maximum).
+		 */
+		WRITE_FLASH_16(DestWordPtr,
+			InstancePtr->Command.WriteBufferCommand);
+
+		WRITE_FLASH_16(DestWordPtr, DevDataPtr->WriteBufferWordCount);
+
+		/*
+		 * Fill the buffer
+		 */
+		for (Index = 0; Index < Count; Index++) {
+			WRITE_FLASH_16(&DestWordPtr[Index], SrcWordPtr[Index]);
+			BytesLeft -= 2;
+		}
+
+		/*
+		 * Send confirmation and wait for status
+		 */
+		WRITE_FLASH_16(DestWordPtr, XFL_INTEL_CMD_CONFIRM);
+		Status = PollSR16(InstancePtr,
+				  ((u32)DestWordPtr) - BaseAddress);
+		if (Status != XFLASH_READY) {
+			return (Status);
+		}
+
+		/*
+		 * Increment source and destination.
+		 */
+		SrcWordPtr += Count;
+		DestWordPtr += Count;
+	}
+
+	/*
+	 * The last phase is to write a partial last buffer.
+	 */
+	if (BytesLeft) {
+
+		/*
+		 * Send command to write buffer.Write number of words to
+		 * be written (always the maximum).
+		 */
+		WRITE_FLASH_16(DestWordPtr,
+			InstancePtr->Command.WriteBufferCommand);
+
+		WRITE_FLASH_16(DestWordPtr, DevDataPtr->WriteBufferWordCount);
+
+		/*
+		 * Fill the buffer
+		 */
+		Index = 0;
+		while (Count--) {
+			/*
+			 * Full word.
+			 */
+			if (BytesLeft > 1) {
+				WRITE_FLASH_16(&DestWordPtr[Index],
+							SrcWordPtr[Index]);
+				BytesLeft -= 2;
+			}
+
+			/* End of SrcWords */
+			else if (BytesLeft == 0) {
+				WRITE_FLASH_16(&DestWordPtr[Index], 0xFFFF);
+			}
+			/* Partial word */
+			else {	/* BytesLeft == 1 */
+
+				#ifdef XPAR_AXI_EMC
+				WRITE_FLASH_16(&DestWordPtr[Index],
+					       0xFF00 | SrcWordPtr[Index]);
+				#else
+				WRITE_FLASH_16(&DestWordPtr[Index],
+					       0x00FF | SrcWordPtr[Index]);
+				#endif
+				BytesLeft--;
+			}
+			Index++;
+		}
+
+		/*
+		 * Buffer write completed. Send confirmation command and wait
+		 * for completion.
+		 */
+		WRITE_FLASH_16(DestWordPtr, XFL_INTEL_CMD_CONFIRM);
+		Status = PollSR16(InstancePtr,
+				  ((u32)DestWordPtr) - BaseAddress);
+		if (Status != XFLASH_READY) {
+			return (Status);
+		}
+	}
+
+	return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* Program the device(s) using the faster write to buffer mechanism. The
+* device(s) are programmed in parallel.
+*
+* @param	InstancePtr is the instance to work on
+* @param	DestPtr is the physical destination address in flash memory
+*		space
+* @param	SrcPtr is the source data
+* @param	Bytes is the number of bytes to program
+*
+* @return
+*
+*		- XST_SUCCESS if successful.
+*		- XFLASH_ERROR if a write error occurred. This error is
+*		  usually device specific. Use XFlash_DeviceControl() to
+*		  retrieve specific error conditions. When this error is
+*		  returned, it is possible that the target address range was
+*		  only partially programmed.
+*		- XFLASH_ALIGNMENT_ERROR if the source and destination pointers
+*		  are not aligned to a 16-bit word.
+* @note
+*
+* This algorithm programs only full buffers at a time and must take care
+* of the following situations:
+*	- Partial first buffer programming with pre and/or post padding
+*	  required.
+*	- Multiple full buffer programming.
+*	- Partial last buffer programming with post padding.
+* <br><br>
+* When padding, 0xFF is written to each byte to be padded. This in effect does
+* nothing to the current contents of the flash memory and saves us from having
+* to merge real flash data with user data on partial buffer writes.
+* <br><br>
+* If hardware is failing, then this routine could get stuck in an endless loop.
+*
+******************************************************************************/
+static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 			 void *SrcPtr, u32 Bytes)
 {
 	XFlashVendorData_Intel *DevDataPtr;
@@ -2170,6 +2425,45 @@ static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
 	}
 
 	return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* Program the device(s) using the faster write to buffer mechanism. The
+* device(s) are programmed in parallel.
+*
+* @param	InstancePtr is the instance to work on
+* @param	DestPtr is the physical destination address in flash memory
+*		space
+* @param	SrcPtr is the source data
+* @param	Bytes is the number of bytes to program
+*
+* @return
+*
+*		- XST_SUCCESS if successful.
+*		- XFLASH_ERROR if a write error occurred. This error is
+*		  usually device specific. Use XFlash_DeviceControl() to
+*		  retrieve specific error conditions. When this error is
+*		  returned, it is possible that the target address range was
+*		  only partially programmed.
+*		- XFLASH_ALIGNMENT_ERROR if the source and destination pointers
+*		  are not aligned to a 16-bit word.
+* @note
+*
+******************************************************************************/
+static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
+			 void *SrcPtr, u32 Bytes)
+{
+	u32 Status;
+	if (InstancePtr->Properties.PartID.DeviceID == 0x01) {
+		Status = WriteBufferStrataFlashDevice(InstancePtr, DestPtr,
+							SrcPtr, Bytes);
+	} else {
+		Status = WriteBufferIntelFlashDevice(InstancePtr, DestPtr,
+							SrcPtr, Bytes);
+	}
+	return Status;
 }
 
 /*****************************************************************************/
