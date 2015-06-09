@@ -274,6 +274,7 @@ void xil_printf( const char8 *ctrl1, ...)
                 }
 				Check = 1;
                 break;
+            case 'p':
             case 'X':
             case 'x':
                 outnum((s32)va_arg(argp, s32), 16L, &par);
