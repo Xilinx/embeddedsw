@@ -24,6 +24,7 @@ typedef struct params_s {
     char8 pad_character;
     s32 do_padding;
     s32 left_flag;
+    s32 unsigned_flag;
 } params_t;
 
 
@@ -104,7 +105,7 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
     }
 
     /* Check if number is negative                   */
-    if ((base == 10) && (n < 0L)) {
+    if ((par->unsigned_flag == 0) && (base == 10) && (n < 0L)) {
         negative = 1;
 		num =(-(n));
     }
@@ -215,6 +216,7 @@ void xil_printf( const char8 *ctrl1, ...)
         /* initialize all the flags for this format.   */
         dot_flag = 0;
 		long_flag = 0;
+        par.unsigned_flag = 0;
 		par.left_flag = 0;
 		par.do_padding = 0;
         par.pad_character = ' ';
@@ -275,6 +277,9 @@ void xil_printf( const char8 *ctrl1, ...)
                 Check = 0;
                 break;
 
+            case 'u':
+                par.unsigned_flag = 1;
+                /* fall through */
             case 'i':
             case 'd':
                 if ((long_flag != 0) || (ch == 'D')) {
@@ -288,6 +293,7 @@ void xil_printf( const char8 *ctrl1, ...)
             case 'p':
             case 'X':
             case 'x':
+                par.unsigned_flag = 1;
                 outnum((s32)va_arg(argp, s32), 16L, &par);
                 Check = 1;
                 break;
