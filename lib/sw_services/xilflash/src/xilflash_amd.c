@@ -282,7 +282,7 @@ int XFlashAmd_Initialize(XFlash * InstancePtr)
 	/*
 	 * Setup alignment of the write buffer.
 	 */
-	if (InstancePtr->Properties.ProgCap.WriteBufferSize != NULL) {
+	if (InstancePtr->Properties.ProgCap.WriteBufferSize != 0) {
 		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask =
 			InstancePtr->Properties.ProgCap.WriteBufferSize - 1;
 	}
@@ -481,7 +481,7 @@ int XFlashAmd_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 		return (XST_FAILURE);
 	}
 
-	if(Bytes == NULL) {
+	if(Bytes == 0) {
 		return (XST_FAILURE);
 	}
 
@@ -929,7 +929,7 @@ int XFlashAmd_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 		(void) XFlashGeometry_ToAbsolute(GeomPtr, Region, Block, 0,
 						 &GroupAddress);
 
-		if (XFlashAmd_Lock(InstancePtr, GroupAddress, NULL) !=
+		if (XFlashAmd_Lock(InstancePtr, GroupAddress, 0) !=
 			XST_SUCCESS ) {
 			return XST_FAILURE;
 		}
@@ -1118,7 +1118,7 @@ int XFlashAmd_EraseChip(XFlash * InstancePtr)
 	/*
 	 * Wait until Program/Erase Controller starts.
 	 */
-	Status = DevDataPtr->PollSR(GeomPtr->BaseAddress, NULL);
+	Status = DevDataPtr->PollSR(GeomPtr->BaseAddress, 0);
 	(void) XFlashAmd_Reset(InstancePtr);
 	if (Status != XFLASH_READY) {
 		return (Status);
@@ -1565,9 +1565,9 @@ static int WriteBuffer8(XFlash * InstancePtr, void *DestPtr,
 				XFL_AMD_CMD_UNLOCK_BYPASS);
 
 	Index = 0;
-	while (Bytes != NULL) {
+	while (Bytes != 0) {
 		DevDataPtr->WriteFlash(BaseAddress,
-			NULL, XFL_AMD_CMD_PROGRAM);
+			0, XFL_AMD_CMD_PROGRAM);
 
 		DevDataPtr->WriteFlash(BaseAddress,
 			(u32)DestinationPtr, SourcePtr[Index]);
@@ -1587,9 +1587,9 @@ static int WriteBuffer8(XFlash * InstancePtr, void *DestPtr,
 	/*
 	 * Unlock Bypass Reset.
 	 */
-	DevDataPtr->WriteFlash(BaseAddress, NULL,
+	DevDataPtr->WriteFlash(BaseAddress, 0,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET1);
-	DevDataPtr->WriteFlash(BaseAddress,NULL,
+	DevDataPtr->WriteFlash(BaseAddress,0,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET2);
 
 	return (XST_SUCCESS);
@@ -1671,7 +1671,7 @@ static int WriteBufferSpansion(XFlash * InstancePtr, void *DestPtr,
        XFlashVendorData_Amd *DevDataPtr = GET_PARTDATA(InstancePtr);
        u32 BufferSize = InstancePtr->Properties.ProgCap.WriteBufferSize;
 
-	while (Bytes != NULL)
+	while (Bytes != 0)
 	{
 		/* Bytes to write should not exceed the buffer size. */
 		if (Bytes > BufferSize)
@@ -1738,9 +1738,9 @@ static int WriteBufferAmd(XFlash * InstancePtr, void *DestPtr,
 				XFL_AMD_CMD_UNLOCK_BYPASS);
 
 	Index = 0;
-	while (Bytes != NULL) {
+	while (Bytes != 0) {
 		DevDataPtr->WriteFlash(BaseAddress,
-			NULL, XFL_AMD_CMD_PROGRAM);
+			0, XFL_AMD_CMD_PROGRAM);
 
 		DevDataPtr->WriteFlash(BaseAddress,
 			(u32)DestinationPtr, SourcePtr[Index]);
@@ -1758,9 +1758,9 @@ static int WriteBufferAmd(XFlash * InstancePtr, void *DestPtr,
 	}
 
 	/* Unlock Bypass Reset. */
-	DevDataPtr->WriteFlash(BaseAddress, NULL,
+	DevDataPtr->WriteFlash(BaseAddress, 0,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET1);
-	DevDataPtr->WriteFlash(BaseAddress, NULL,
+	DevDataPtr->WriteFlash(BaseAddress, 0,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET2);
 
 	return (XST_SUCCESS);
@@ -1835,7 +1835,7 @@ int WriteSingleBuffer(XFlash * InstancePtr, void *DestPtr,
 	Index = 0;
 
 	/* Write Data to Buffer. */
-	while (WordCount != NULL) {
+	while (WordCount != 0) {
 		DevDataPtr->WriteFlash(BaseAddress,
 				(u32)DestinationPtr, SourcePtr[Index]);
 		DestinationPtr++;
@@ -1909,9 +1909,9 @@ static int WriteBuffer32(XFlash * InstancePtr, void *DestPtr,
 				XFL_AMD_CMD1_ADDR,
 				XFL_AMD_CMD_UNLOCK_BYPASS);
 	Index = 0;
-	while (Bytes != NULL) {
+	while (Bytes != 0) {
 		DevDataPtr->WriteFlash(BaseAddress,
-			NULL, XFL_AMD_CMD_PROGRAM);
+			0, XFL_AMD_CMD_PROGRAM);
 
 		DevDataPtr->WriteFlash(BaseAddress,
 			(u32)DestinationPtr, SourcePtr[Index]);
@@ -1931,9 +1931,9 @@ static int WriteBuffer32(XFlash * InstancePtr, void *DestPtr,
 	/*
 	 * Unlock Bypass Reset.
 	 */
-	DevDataPtr->WriteFlash(BaseAddress, NULL,
+	DevDataPtr->WriteFlash(BaseAddress, 0,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET1);
-	DevDataPtr->WriteFlash(BaseAddress,NULL,
+	DevDataPtr->WriteFlash(BaseAddress,0,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET2);
 
 	return (XST_SUCCESS);
@@ -2527,7 +2527,7 @@ static void ExitExtendedBlockMode(XFlash * InstancePtr)
 			XFL_AMD_CMD1_ADDR, XFL_AMD_CMD_EXIT_EXT_MODE);
 
 	DevDataPtr->WriteFlash(InstancePtr->Geometry.BaseAddress,
-				NULL, NULL);
+				0, 0);
 }
 
 /*****************************************************************************/

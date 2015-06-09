@@ -264,7 +264,7 @@ int XFlashIntel_Initialize(XFlash *InstancePtr)
 	/*
 	 * Setup alignment of the write buffer.
 	 */
-	if (InstancePtr->Properties.ProgCap.WriteBufferSize != NULL) {
+	if (InstancePtr->Properties.ProgCap.WriteBufferSize != 0) {
 		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask =
 			InstancePtr->Properties.ProgCap.WriteBufferSize - 1;
 	}
