@@ -462,12 +462,7 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 {
 
 	/**
-	 * Flush the L1 data cache and L2 cache
-	 */
-	Xil_DCacheFlush();
-
-	/**
-	 * Disable Data Cache
+	 * Flush the L1 data cache and L2 cache, Disable Data Cache
 	 */
 	Xil_DCacheDisable();
 
@@ -677,12 +672,7 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 		if (XFSBL_PLATFORM == XFSBL_PLATFORM_VELOCE)
 		{
 			/**
-			 * Flush the L1 data cache and L2 cache
-			 */
-			Xil_DCacheFlush();
-
-			/**
-			 * Disable Data Cache
+			 * Flush the L1 data cache and L2 cache, Disable Data Cache
 			 */
 			Xil_DCacheDisable();
 			XFsbl_Printf(DEBUG_GENERAL,"VeloceExit from FSBL \n\r");
@@ -739,11 +729,6 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 		}
 
 	}
-
-	/**
-	 * Flush the L1 data cache and L2 cache
-	 */
-	Xil_DCacheFlush();
 
 	/**
 	 * Disable Data Cache to have smooth data

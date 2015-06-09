@@ -1008,7 +1008,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		/**
 		 * cache disbale can be removed
 		 */
-		Xil_DCacheFlush();
 		Xil_DCacheDisable();
 
 		/**
