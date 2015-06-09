@@ -204,6 +204,9 @@
 *		      Description: Non-word aligned data write to flash fails
 *		      with AXI interface.
 * 3.04a srt  02/18/13 Fixed CR 700553.
+* 4.1	nsk  06/06/12 Updated WriteBuffer programming for spansion
+*		      in xilflash_amd.c and added new definitions
+*		      as per AMD Spec in xilflash_amd.h (CR 781697).
 *
 * </pre>
 *

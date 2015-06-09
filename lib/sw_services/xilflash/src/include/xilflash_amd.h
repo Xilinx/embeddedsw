@@ -46,6 +46,8 @@
 * 2.01a ktn  03/31/10 Updated the AMD code to support uniform sector WP modes.
 *		      Addded the new definitions XFL_AMD_TOP_WP_UNIFORM and
 *		      XFL_AMD_BOTTOM_WP_UNIFORM.
+* 4.1	nsk  06/06/12 Added New definitions as per AMD spec.
+*		      (CR 781697).
 * </pre>
 *
 ******************************************************************************/
@@ -89,6 +91,9 @@ extern "C" {
 #define XFL_AMD_CMD_ERASE_BLOCK		(0x0030) /* Erase 2 command */
 #define XFL_AMD_CMD_UNLOCK_BYPASS	(0x0020) /* Unlock bypass command */
 #define XFL_AMD_CMD_PROGRAM		(0x00A0) /* Program command */
+#define XFL_AMD_CMD_WRITE_BUFFER	(0x0025) /* Write to Buffer command */
+#define XFL_AMD_CMD_PROGRAM_BUFFER	(0x0029) /* Program Buffer to Flash
+							command */
 #define XFL_AMD_CMD_UNLOCK_BYPASS_RESET1 (0x0090) /* Unlock bypass 1 command */
 #define XFL_AMD_CMD_UNLOCK_BYPASS_RESET2 (0x0000) /* Unlock bypass 1 command */
 #define XFL_AMD_CMD_ERASE_CHIP		(0x0010) /* Chip erase command */
@@ -96,6 +101,23 @@ extern "C" {
 #define XFL_AMD_CMD_EXIT_EXT_MODE	(0x0090) /* Enter extended mode */
 #define XFL_AMD_CMD_GROUP_PROTECT1	(0x0060) /* Group protect command */
 #define XFL_AMD_CMD_GROUP_PROTECT2	(0x0040) /* Group protect command */
+#define XFL_AMD_CMD_STATUS_REG_READ	(0x0070) /* Status Register Read
+							Command */
+#define XFL_AMD_CMD_STATUS_REG_CLEAR 	(0x0071) /* Status Register Clear Command
+						*/
+
+/*
+ * The following constant defines Status Register Bits.
+ */
+#define XFL_AMD_DEVICE_READY_MASK		0x80	/* Device Ready */
+#define XFL_AMD_DEVICE_ERASE_INSUSPEND_MASK	0x40	/* Erase in suspend */
+#define XFL_AMD_DEVICE_ERASE_FAIL_MASK		0x20	/* Erase in Fail */
+#define XFL_AMD_DEVICE_PROGRAM_FAIL_MASK	0x10	/* Program Write Fail */
+#define XFL_AMD_DEVICE_PROGRAM_ABORT_MASK	0x08	/* Program aborted */
+#define XFL_AMD_DEVICE_PROGRAM_SUSPEND_MASK	0x04	/* Program in Suspend */
+#define XFL_AMD_DEVICE_SECTOR_LOCKED_ERR_MASK	0x02	/* Sector was locked */
+#define XFL_AMD_DEVICE_STATUS_REG_MASK		0xFF	/* Status Register Mask
+							 */
 
 /*
  * The following constant defines command set of AMD flash family.

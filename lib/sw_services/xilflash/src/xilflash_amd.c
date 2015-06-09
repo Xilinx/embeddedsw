@@ -78,6 +78,8 @@
 * 2.02a sdm  07/07/10 Updated XFlashAmd_Initialize() to NOT change the erase
 *		      region information of a top boot device, when the number
 *		      of erase regions is not more than 1.
+* 4.1	nsk  06/06/12 Updated Spansion WriteBuffer programming.
+*		      (CR 781697).
 * </pre>
 *
 ******************************************************************************/
@@ -189,9 +191,48 @@ extern int XFlashGeometry_ToAbsolute(XFlashGeometry * InstancePtr,
 				u16 Region,
 				u16 Block,
 				u32 BlockOffset, u32 *AbsoluteOffsetPtr);
+int WriteSingleBuffer(XFlash * InstancePtr, void *DestPtr,
+			 void *SrcPtr, u32 Bytes);
+static int WriteBufferAmd(XFlash * InstancePtr, void *DestPtr,
+                         void *SrcPtr, u32 Bytes);
+static int WriteBufferSpansion(XFlash * InstancePtr, void *DestPtr,
+                         void *SrcPtr, u32 Bytes);
+void AmdDevice_is_Ready(XFlash * InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
+/*****************************************************************************/
+/**
+*
+* Check the device is ready or not.
+*
+* @param	InstancePtr is a pointer to the XFlash instance.
+*
+* @return
+* 		This API waits until the device ready.
+*
+* @note		None.
+*
+******************************************************************************/
+void AmdDevice_is_Ready(XFlash * InstancePtr)
+{
+	u32 FlashStatus;
+	XFlashGeometry *GeomPtr;
+	GeomPtr = &InstancePtr->Geometry;
+	XFlashVendorData_Amd *DevDataPtr;
+
+	DevDataPtr = GET_PARTDATA(InstancePtr);
+
+	while (1) {
+		/* Send Status Register Read Command. */
+		DevDataPtr->SendCmd(GeomPtr->BaseAddress,XFL_AMD_CMD1_ADDR,
+				XFL_AMD_CMD_STATUS_REG_READ);
+		FlashStatus = DevDataPtr->GetStatus(GeomPtr->BaseAddress,0);
+                if (FlashStatus & XFL_AMD_DEVICE_READY_MASK)
+			break;
+	}
+
+}
 /*****************************************************************************/
 /**
 *
@@ -425,10 +466,13 @@ int XFlashAmd_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 	u16 *Src16BitPtr;
 	u32  PartMode;
 	u32 Index;
+	u32 Startoffset;
+	u32 EndOffset;
+	XFlashGeometry *GeomPtr;
+	XFlashVendorData_Amd *DevDataPtr;
+	volatile u16 FlashStatus;
 
-	/*
-	 * Verify inputs are valid.
-	 */
+	/* Verify inputs are valid. */
 	if(InstancePtr == NULL) {
 		return (XST_FAILURE);
 	}
@@ -441,20 +485,33 @@ int XFlashAmd_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 		return (XST_FAILURE);
 	}
 
+	GeomPtr = &InstancePtr->Geometry;
+	DevDataPtr = GET_PARTDATA(InstancePtr);
+
+	if (InstancePtr->Geometry.MemoryLayout == XFL_LAYOUT_X16_X16_X1) {
+		Startoffset = Offset >> 1;
+		EndOffset = Offset + Bytes - 1;
+		EndOffset = EndOffset >> 1;
+	}
+	else {
+		Startoffset = Offset;
+	}
 	PartMode = (InstancePtr->Geometry.MemoryLayout &
 			XFL_LAYOUT_PART_MODE_MASK);
 
 	/*
 	 * Check to make sure start address is within the device.
 	 */
-	if (!XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry, Offset)) {
+	if (!XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry,
+		Startoffset)) {
 		return (XFLASH_ADDRESS_ERROR);
 	}
 
 	/*
 	 * Reset the bank(s) so that it returns to the read mode.
 	 */
-	if (XFlashAmd_ResetBank(InstancePtr, Offset, Bytes) != XST_SUCCESS) {
+	if (XFlashAmd_ResetBank(InstancePtr, Startoffset, Bytes)
+		!= XST_SUCCESS) {
 		return (XST_FAILURE);
 	}
 
@@ -475,18 +532,21 @@ int XFlashAmd_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 
 	}
 	else if (PartMode == XFL_LAYOUT_PART_MODE_16) {
-		/*
-		 * Perform copy to the user buffer from the buffer.
-		 */
-		Src16BitPtr = (u16*) (((volatile u16*) InstancePtr->Geometry.
-				       BaseAddress) + Offset);
-		Dest16BitPtr = (u16*) DestPtr;
 
+		/* Wait until device is ready. */
+		AmdDevice_is_Ready(InstancePtr);
+
+		/* Send Status Register Clear Command. */
+		DevDataPtr->SendCmd(GeomPtr->BaseAddress,XFL_AMD_CMD1_ADDR,
+						XFL_AMD_CMD_STATUS_REG_CLEAR);
+		/* Perform copy to the user buffer from the buffer. */
+		Src16BitPtr = (u16*) (((volatile u16*) InstancePtr->Geometry.
+				       BaseAddress) + Startoffset);
+		Dest16BitPtr = (u16*) DestPtr;
 		for (Index = 0; Index < (Bytes/2); Index++) {
 			Dest16BitPtr[Index] = Src16BitPtr[Index];
 		}
-	}
-	else {
+	} else {
 		return (XFLASH_PART_NOT_SUPPORTED);
 	}
 
@@ -519,11 +579,11 @@ int XFlashAmd_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 int XFlashAmd_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 {
 	int Status;
+	u32 StartOffset;
+	u32 EndOffset;
 	XFlashVendorData_Amd *DevDataPtr;
 
-	/*
-	 * Verify inputs are valid.
-	 */
+	/* Verify inputs are valid. */
 	if(InstancePtr == NULL) {
 		return (XST_FAILURE);
 	}
@@ -532,32 +592,34 @@ int XFlashAmd_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 		return (XST_FAILURE);
 	}
 
-	/*
-	 * Nothing specified to be programmed.
-	 */
+	/* Nothing specified to be programmed. */
 	if (Bytes == 0) {
 		return (XST_SUCCESS);
 	}
 
-	/*
-	 * Verify the address range is within the part.
-	 */
-	if (!XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry, Offset) ||
-		!XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry,
-					    Offset + Bytes - 1)) {
+	if (InstancePtr->Geometry.MemoryLayout == XFL_LAYOUT_X16_X16_X1){
+		StartOffset = Offset >> 1;
+		EndOffset = Offset + Bytes -1;
+		EndOffset = EndOffset >> 1;
+	}
+	else {
+		StartOffset = Offset ;
+		EndOffset = Offset + Bytes -1;
+	}
+
+	/* Verify the address range is within the part. */
+	if (!XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry, StartOffset)
+		 || !XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry,
+			EndOffset)) {
 		return (XFLASH_ADDRESS_ERROR);
 	}
 
-	/*
-	 * Call the proper write buffer function.
-	 */
+	/* Call the proper write buffer function. */
 	DevDataPtr = GET_PARTDATA(InstancePtr);
 	Status = DevDataPtr->WriteBuffer(InstancePtr, (void *)Offset, SrcPtr,
-					Bytes);
+					(Bytes));
 
-	/*
-	 * Reset the bank(s) so that it returns to the read mode.
-	 */
+	/* Reset the bank(s) so that it returns to the read mode. */
 	(void) XFlashAmd_ResetBank(InstancePtr, Offset, Bytes);
 
 	return (Status);
@@ -593,31 +655,38 @@ int XFlashAmd_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 	u16 BlocksLeft;
 	u16 BlocksQueued;
 	u32 Dummy;
+	u32 StartOffset;
+	u32 EndOffset;
 	int Status;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Amd *DevDataPtr;
 
-	/*
-	 * Verify inputs are valid.
-	 */
-	if(InstancePtr == NULL) {
+	/* Verify inputs are valid. */
+	if (InstancePtr == NULL) {
 		return (XST_FAILURE);
 	}
 
 	GeomPtr = &InstancePtr->Geometry;
 
-	/*
-	 * Handle case when zero bytes is provided.
-	 */
+	/* Handle case when zero bytes is provided. */
 	if (Bytes == 0) {
 		return (XST_SUCCESS);
 	}
 
+	if (InstancePtr->Geometry.MemoryLayout == XFL_LAYOUT_X16_X16_X1) {
+		StartOffset = Offset >> 1;
+		EndOffset = Offset + Bytes - 1;
+		EndOffset = EndOffset >> 1;
+	}
+	else {
+		StartOffset = Offset;
+		EndOffset = Offset + Bytes - 1;
+	}
 	/*
 	 * Convert the starting address to block coordinates. This also verifies
 	 * the starting address is within the instance's address space.
 	 */
-	Status = XFlashGeometry_ToBlock(GeomPtr, Offset, &StartRegion,
+	Status = XFlashGeometry_ToBlock(GeomPtr, StartOffset, &StartRegion,
 							&StartBlock, &Dummy);
 	if (Status != XST_SUCCESS) {
 		return (XFLASH_ADDRESS_ERROR);
@@ -627,8 +696,8 @@ int XFlashAmd_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 	 * Convert the ending address to block coordinates. This also verifies
 	 * the ending address is within the instance's address space.
 	 */
-	Status = XFlashGeometry_ToBlock(GeomPtr, Offset + Bytes - 1, &
-						EndRegion, &EndBlock, &Dummy);
+	Status = XFlashGeometry_ToBlock(GeomPtr, EndOffset,
+					&EndRegion, &EndBlock, &Dummy);
 	if (Status != XST_SUCCESS) {
 		return (XFLASH_ADDRESS_ERROR);
 	}
@@ -644,17 +713,16 @@ int XFlashAmd_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 		BlocksQueued = EnqueueEraseBlocks(InstancePtr, &StartRegion,
 						  &StartBlock, BlocksLeft);
 		BlocksLeft -= BlocksQueued;
-		Status = DevDataPtr->PollSR(GeomPtr->BaseAddress, Offset);
+		Status = DevDataPtr->PollSR(GeomPtr->BaseAddress, StartOffset);
 		if (Status != XFLASH_READY) {
-			(void) XFlashAmd_ResetBank(InstancePtr, Offset, Bytes);
+			(void) XFlashAmd_ResetBank(InstancePtr, StartOffset,
+				Bytes);
 			return (Status);
 		}
 	}
 
-	/*
-	 * Reset the bank(s) so that it returns to the read mode.
-	 */
-	(void) XFlashAmd_ResetBank(InstancePtr, Offset, Bytes);
+	/* Reset the bank(s) so that it returns to the read mode. */
+	(void) XFlashAmd_ResetBank(InstancePtr, StartOffset, Bytes);
 
 	return (XST_SUCCESS);
 }
@@ -1153,13 +1221,9 @@ static int XFlashAmd_ResetBank(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 		(Offset + Bytes - 1)) &&
 		(Region < InstancePtr->Geometry.NumEraseRegions)) {
 		/*
-		 * Send the clear status register command. Use the max write
+		 * Send the Command Reset. Use the max write
 		 * width to notify parts of all layouts.
 		 */
-		DevDataPtr->SendCmdSeq(InstancePtr->Geometry.BaseAddress,
-					XFL_AMD_CMD1_ADDR, XFL_AMD_CMD2_ADDR,
-					XFL_AMD_CMD1_DATA, XFL_AMD_CMD2_DATA);
-
 		DevDataPtr->WriteFlash(InstancePtr->Geometry.BaseAddress,
 					InstancePtr->Geometry.EraseRegion
 					[Region].AbsoluteOffset,
@@ -1555,19 +1619,116 @@ static int WriteBuffer8(XFlash * InstancePtr, void *DestPtr,
 static int WriteBuffer16(XFlash * InstancePtr, void *DestPtr,
 			 void *SrcPtr, u32 Bytes)
 {
-	u16 *SourcePtr = (u16*)SrcPtr;
-	u32 DestinationPtr = (u32)DestPtr;
-	u32 BaseAddress;
-	u32 Index = 0;
-	int Status = XST_SUCCESS;
-	XFlashVendorData_Amd *DevDataPtr;
-
-	DevDataPtr = GET_PARTDATA(InstancePtr);
-	BaseAddress = InstancePtr->Geometry.BaseAddress;
+	u32 Status;
+	u16 *SrcWordPtr = (u16*)SrcPtr;
+	u16 *DestWordPtr = (u16*)DestPtr;
 
 	/*
-	 * Send the Unlock Bypass command.
+	 * Make sure DestPtr and SrcPtr are aligned to a 16-bit word.
 	 */
+	if (((int) SrcWordPtr & 1) || ((int) DestWordPtr & 1)) {
+		return (XFLASH_ALIGNMENT_ERROR);
+	}
+
+	if (InstancePtr->Properties.PartID.ManufacturerID == 0x01)
+		Status = WriteBufferSpansion(InstancePtr,DestPtr,SrcPtr,Bytes);
+	else
+		Status = WriteBufferAmd(InstancePtr,DestPtr,SrcPtr,Bytes);
+
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function is used to program Spansion devices. It does not erase
+* the flash first and will fail if the block(s) are not erased first. The
+* device(s) are programmed in parallel.
+*
+* @param	InstancePtr is the instance to work on.
+* @param	DestPtr is the physical destination address in flash memory
+*		space.
+* @param	SrcPtr is the source data.
+* @param	Bytes is the number of bytes to program.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XFLASH_ERROR if a write error occurred. This error is
+*		  usually device specific.
+*
+* @note		None.
+*
+******************************************************************************/
+static int WriteBufferSpansion(XFlash * InstancePtr, void *DestPtr,
+                         void *SrcPtr, u32 Bytes)
+{
+       u32 DestinationPtr = (u32)DestPtr;
+       u32 BaseAddress= InstancePtr->Geometry.BaseAddress;
+       u16* Tempsrcptr = (u16 *)SrcPtr;
+       u32 Index = 0;
+       int Status = XST_SUCCESS;
+       XFlashVendorData_Amd *DevDataPtr = GET_PARTDATA(InstancePtr);
+       u32 BufferSize = InstancePtr->Properties.ProgCap.WriteBufferSize;
+
+	while (Bytes != NULL)
+	{
+		/* Bytes to write should not exceed the buffer size. */
+		if (Bytes > BufferSize)
+		{
+			Status = WriteSingleBuffer(InstancePtr, DestPtr,
+						Tempsrcptr, BufferSize);
+			Bytes = Bytes - BufferSize;
+			DestPtr = DestPtr + BufferSize;
+			Tempsrcptr = Tempsrcptr + BufferSize/2;
+		}
+		else
+		{
+			Status = WriteSingleBuffer(InstancePtr, DestPtr,
+						Tempsrcptr, Bytes);
+			Bytes = 0;
+		}
+		if (Status != XST_SUCCESS)
+		{
+			return Status;
+		}
+	}
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function is used to program Amd devices. It does not erase
+* the flash first and will fail if the block(s) are not erased first. The
+* device(s) are programmed in parallel.
+*
+* @param	InstancePtr is the instance to work on.
+* @param	DestPtr is the physical destination address in flash memory
+*		space.
+* @param	SrcPtr is the source data.
+* @param	Bytes is the number of bytes to program.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XFLASH_ERROR if a write error occurred. This error is
+*		  usually device specific.
+*
+* @note		None.
+*
+******************************************************************************/
+static int WriteBufferAmd(XFlash * InstancePtr, void *DestPtr,
+                         void *SrcPtr, u32 Bytes)
+{
+	u16 *SourcePtr = (u16*)SrcPtr;
+	u32 DestinationPtr = (u32)DestPtr;
+	u32 BaseAddress = InstancePtr->Geometry.BaseAddress;
+	u32 Index = 0;
+	int Status = XST_SUCCESS;
+	XFlashVendorData_Amd *DevDataPtr = GET_PARTDATA(InstancePtr);
+
+	/* Send the Unlock Bypass command. */
 	DevDataPtr->SendCmdSeq(BaseAddress,
 				XFL_AMD_CMD1_ADDR, XFL_AMD_CMD2_ADDR,
 				XFL_AMD_CMD1_DATA, XFL_AMD_CMD2_DATA);
@@ -1596,15 +1757,102 @@ static int WriteBuffer16(XFlash * InstancePtr, void *DestPtr,
 		Bytes -= 2;
 	}
 
-	/*
-	 * Unlock Bypass Reset.
-	 */
+	/* Unlock Bypass Reset. */
 	DevDataPtr->WriteFlash(BaseAddress, NULL,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET1);
 	DevDataPtr->WriteFlash(BaseAddress, NULL,
 		XFL_AMD_CMD_UNLOCK_BYPASS_RESET2);
 
 	return (XST_SUCCESS);
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to program Buffer sized data. It does not erase
+* the flash first and will fail if the block(s) are not erased first. The
+* device(s) are programmed in parallel.
+*
+* @param	InstancePtr is the instance to work on.
+* @param	DestPtr is the physical destination address in flash memory
+*		space.
+* @param	SrcPtr is the source data.
+* @param	Bytes is the number of bytes to program.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XFLASH_ERROR if a write error occurred. This error is
+*		  usually device specific.
+*
+* @note		None.
+*
+******************************************************************************/
+int WriteSingleBuffer(XFlash * InstancePtr, void *DestPtr,
+			 void *SrcPtr, u32 Bytes)
+{
+	u16 *SourcePtr = (u16*)SrcPtr;
+	u32 DestinationPtr = (u32)DestPtr;
+	u32 BaseAddress;
+	u32 Index = 0;
+	int Status = XST_SUCCESS;
+	XFlashVendorData_Amd *DevDataPtr;
+	u32 SectorAddress;
+	u32 WordCount = Bytes/2;
+	u16 StartRegion;
+	u16 EndRegion;
+	u16 StartBlock;
+	u16 EndBlock;
+	u32 Dummy;
+	u32 BlockAddress;
+	volatile u16 FlashStatus;
+	XFlashGeometry *GeomPtr;
+
+	GeomPtr = &InstancePtr->Geometry;
+	Status = XFlashGeometry_ToBlock(GeomPtr, (u32)DestPtr/2, &StartRegion,
+					&StartBlock, &Dummy);
+	(void) XFlashGeometry_ToAbsolute(GeomPtr, StartRegion, StartBlock, 0,
+						 &BlockAddress);
+	SectorAddress = BlockAddress *2;
+	DevDataPtr = GET_PARTDATA(InstancePtr);
+	BaseAddress = InstancePtr->Geometry.BaseAddress;
+	DestinationPtr = DestinationPtr/2;
+
+	/* Wait until device is ready. */
+	AmdDevice_is_Ready(InstancePtr);
+
+	/* Send Status Register Clear Command. */
+	DevDataPtr->SendCmd(BaseAddress,XFL_AMD_CMD1_ADDR,
+				XFL_AMD_CMD_STATUS_REG_CLEAR);
+	/* Send two Unlock cycles Commands. */
+	DevDataPtr->SendCmdSeq(BaseAddress,
+				XFL_AMD_CMD1_ADDR, XFL_AMD_CMD2_ADDR,
+				XFL_AMD_CMD1_DATA, XFL_AMD_CMD2_DATA);
+	/* Send Write to Buffer Command. */
+	DevDataPtr->SendCmd(BaseAddress,(SectorAddress/2),
+				XFL_AMD_CMD_WRITE_BUFFER);
+	/* Issue Number of words to Write at sector address. */
+	DevDataPtr->SendCmd(BaseAddress,(SectorAddress/2),
+				(WordCount -  1));
+	Index = 0;
+
+	/* Write Data to Buffer. */
+	while (WordCount != NULL) {
+		DevDataPtr->WriteFlash(BaseAddress,
+				(u32)DestinationPtr, SourcePtr[Index]);
+		DestinationPtr++;
+		Index++;
+		WordCount -= 1;
+	}
+
+	/* Send Write buffer program confirm command. */
+	DevDataPtr->WriteFlash(BaseAddress,(SectorAddress/2),
+				XFL_AMD_CMD_PROGRAM_BUFFER);
+	Status = DevDataPtr->PollSR(BaseAddress,(u32)(DestinationPtr * 2));
+	if (Status != XFLASH_READY) {
+		(void) XFlashAmd_ResetBank(InstancePtr, (u32)DestPtr,
+					Bytes);
+		return Status;
+	}
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -1639,6 +1887,13 @@ static int WriteBuffer32(XFlash * InstancePtr, void *DestPtr,
 	u32 Index = 0;
 	int Status = XST_SUCCESS;
 	XFlashVendorData_Amd *DevDataPtr;
+
+	/*
+	 * Make sure DestPtr and SrcPtr are aligned to a 16-bit word.
+	 */
+	if (((int) SourcePtr & 3) || ((int) DestinationPtr & 3)) {
+		return (XFLASH_ALIGNMENT_ERROR);
+	}
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
 	BaseAddress = InstancePtr->Geometry.BaseAddress;
@@ -1851,19 +2106,15 @@ static int PollSR8(u32 BaseAddr, u32 BlockAddr)
 ******************************************************************************/
 static int PollSR16(u32 BaseAddr, u32 BlockAddr)
 {
-	u16 StatusReg1;
-	u16 StatusReg2;
+	volatile u16 StatusReg1;
+	volatile u16 StatusReg2;
 
 	while(TRUE) {
-		/*
-		 * Read DQ5 and DQ6 (into word).
-		 */
+		/* Read DQ5 and DQ6 (into word). */
 		StatusReg1 = READ_FLASH_16(((volatile u16*)BaseAddr) +
 				BlockAddr);
 
-		/*
-		 * Read DQ6 (into another word).
-		 */
+		/* Read DQ6 (into another word). */
 		StatusReg2 = READ_FLASH_16(((volatile u16*)BaseAddr) +
 				BlockAddr);
 
@@ -1873,23 +2124,17 @@ static int PollSR16(u32 BaseAddr, u32 BlockAddr)
 		 */
 		if((StatusReg1 & XFL_AMD_SR_ERASE_COMPL_MASK) ==
 			(StatusReg2 & XFL_AMD_SR_ERASE_COMPL_MASK)) {
-			/*
-			 * DQ6 == NO Toggle.
-			 */
+			/* DQ6 == NO Toggle. */
 			return (XFLASH_READY);
 		}
 
-		/*
-		 * If DQ5 is zero then operation is not yet complete.
-		 */
+		/* If DQ5 is zero then operation is not yet complete. */
 		if((StatusReg2 & XFL_AMD_SR_ERASE_ERROR_MASK) !=
 			XFL_AMD_SR_ERASE_ERROR_MASK) {
 			continue;
 		}
 
-		/*
-		 * Else (DQ5 == 1), read DQ6 twice.
-		 */
+		/* Else (DQ5 == 1), read DQ6 twice. */
 		StatusReg1 = READ_FLASH_16(((volatile u16*)BaseAddr) +
 				BlockAddr);
 		StatusReg2 = READ_FLASH_16(((volatile u16*)BaseAddr) +
@@ -1901,9 +2146,7 @@ static int PollSR16(u32 BaseAddr, u32 BlockAddr)
 		 */
 		if((StatusReg1 & XFL_AMD_SR_ERASE_COMPL_MASK) ==
 			(StatusReg2 & XFL_AMD_SR_ERASE_COMPL_MASK)) {
-			/*
-			 * DQ6 == NO Toggle.
-			 */
+			/* DQ6 == NO Toggle. */
 			return (XFLASH_READY);
 		}
 		else {
@@ -2082,6 +2325,7 @@ static u16 EnqueueEraseBlocks(XFlash * InstancePtr, u16 *Region,
 	u32 BlockAddress;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Amd *DevDataPtr;
+	volatile u16 FlashStatus;
 
 	/*
 	 * If for some reason the maximum number of blocks to enqueue is
@@ -2100,9 +2344,11 @@ static u16 EnqueueEraseBlocks(XFlash * InstancePtr, u16 *Region,
 	(void) XFlashGeometry_ToAbsolute(GeomPtr, *Region, *Block, 0,
 					 &BlockAddress);
 
-	/*
-	 * Write Block Erase command.
-	 */
+	/* Send Status register clear command. */
+	DevDataPtr->SendCmd(GeomPtr->BaseAddress,XFL_AMD_CMD1_ADDR,
+				XFL_AMD_CMD_STATUS_REG_CLEAR);
+
+	/* Write Block Erase command. */
 	DevDataPtr->SendCmdSeq(GeomPtr->BaseAddress,
 			XFL_AMD_CMD1_ADDR, XFL_AMD_CMD2_ADDR,
 			XFL_AMD_CMD1_DATA, XFL_AMD_CMD2_DATA);
@@ -2115,20 +2361,10 @@ static u16 EnqueueEraseBlocks(XFlash * InstancePtr, u16 *Region,
 	DevDataPtr->WriteFlash(GeomPtr->BaseAddress, BlockAddress,
 			XFL_AMD_CMD_ERASE_BLOCK);
 
-	/*
-	 * Wait until Program/Erase Controller starts.
-	 */
-	while (((DevDataPtr->GetStatus(GeomPtr->BaseAddress,BlockAddress)) &
-		(XFL_AMD_SR_ERASE_START_MASK)) == NULL);
-
-	/*
-	 * Increment Region/Block.
-	 */
+	/* Increment Region/Block. */
 	XFL_GEOMETRY_INCREMENT(GeomPtr, *Region, *Block);
 
-	/*
-	 * Return the number of blocks enqueued.
-	 */
+	/* Return the number of blocks enqueued. */
 	return (1);
 }
 
