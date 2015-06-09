@@ -484,6 +484,4 @@ void XFsbl_RegisterHandlers(void)
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_FIQ_INT,
 		(Xil_ExceptionHandler)XFsbl_FiqHandler,(void *) 0);
 #endif
-
-	Xil_ExceptionEnable();
 }

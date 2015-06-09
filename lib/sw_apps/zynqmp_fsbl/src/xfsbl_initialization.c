@@ -288,12 +288,9 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	}
 
 	/**
-	 * Enable the exceptions
 	 * Register the exception handlers
 	 */
-#ifndef XFSBL_A53
 	XFsbl_RegisterHandlers();
-#endif
 	return Status;
 }
 
