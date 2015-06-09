@@ -1,0 +1,70 @@
+###############################################################################
+#
+# Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# Use of the Software is limited solely to applications:
+# (a) running on a Xilinx device, or
+# (b) that interact with a Xilinx device through a bus or interconnect.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# Except as contained in this notice, the name of the Xilinx shall not be used
+# in advertising or otherwise to promote the sale, use or other dealings in
+# this Software without prior written authorization from Xilinx.
+#
+###############################################################################
+## @BEGIN_CHANGELOG EDK_LS3
+## Added platfrom_flash paramter to select whether a Xilinx Platform Flash XL
+## device is present in the system and is to be used.
+##
+## @END_CHANGELOG
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 3.00a sdm  03/03/11 Removed static flash parameters in the library
+# 3.00a sdm  03/23/11 Added new parameters to enable support for flash families
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN LIBRARY xilflash
+  OPTION drc = flash_drc;
+  OPTION copyfiles = all;
+  OPTION REQUIRES_OS = (standalone xilkernel);
+  OPTION REQUIRES_INTERFACE = (xilflash);
+  OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
+  OPTION APP_LINKER_FLAGS = "-lxilflash";
+  OPTION desc = "Xilinx Flash library for Intel/AMD CFI compliant parallel flash";
+  OPTION VERSION = 4.1;
+  OPTION NAME = xilflash;
+  PARAM name = enable_intel, desc = "Enables support for Intel family devices", type = bool, default = true;
+  PARAM name = enable_amd, desc = "Enables support for AMD family devices", type = bool, default = false;
+
+  #deprecated parameters
+  PARAM name = part_mode, state = DEPRECATED, desc = "Operational mode of each part in bytes. Indicates the data bus width of the Flash part actually used.", type = int, default = 2;
+  PARAM name = num_parts, state = DEPRECATED, desc = "Number of flash device parts in the array that forms the Flash Memory", type = int, default = 2;
+  PARAM name = part_width, state = DEPRECATED, desc = "Width of each part in bytes. Indicates the data bus width supported by the Flash part", type = int, default = 2;
+  PARAM name = base_address, state = DEPRECATED, desc = "Flash Base Address in Hex", type = int, default = 0x0;
+  PARAM name = flash_family, state = DEPRECATED, desc = "Indicates the flash family type. Enter 1 for INTEL and 2 for AMD.", type = int, default = 1;
+  PARAM name = platform_flash, state = DEPRECATED, desc = "Indicates the flash device type. Enter 1 for Platfrom flash and 0 for others.", type = int, default = 0;
+
+END LIBRARY
