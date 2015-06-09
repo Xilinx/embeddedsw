@@ -38,7 +38,7 @@
 extern "C" {
 #endif
 
-void xil_printf(const char8 *ctrl1, ...);
+void xil_printf(const char8 *ctrl1, ...) __attribute__((format(printf, 1, 2)));
 void print(char *ptr);
 
 #ifdef __cplusplus
