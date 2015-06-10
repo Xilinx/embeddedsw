@@ -198,6 +198,11 @@ OKToRun:
         msr     TCR_EL3, x1
         isb
 
+	/* Enable SError Exception for asynchronous abort */
+	mrs 	x1,DAIF
+        bic	x1,x1,#(0x1<<8)
+        msr	DAIF,x1
+
 	/* Configure SCTLR_EL3 */
 	mov      x1, #0                //Most of the SCTLR_EL3 bits are unknown at reset
 	orr      x1, x1, #(1 << 12)	//Enable I cache
