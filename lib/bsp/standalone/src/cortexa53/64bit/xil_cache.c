@@ -265,12 +265,12 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_DCacheInvalidateRange(INTPTR  adr, u32 len)
+void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 {
 	const u32 cacheline = 64U;
-	u32 end;
-	u32 tempadr = adr;
-	u32 tempend;
+	INTPTR end;
+	INTPTR tempadr = adr;
+	INTPTR tempend;
 	u32 currmask;
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -456,12 +456,12 @@ void Xil_DCacheFlushLine(INTPTR  adr)
 *
 ****************************************************************************/
 
-void Xil_DCacheFlushRange(INTPTR  adr, u32 len)
+void Xil_DCacheFlushRange(INTPTR  adr, INTPTR len)
 {
 	const u32 cacheline = 64U;
-	u32 end;
-	u32 tempadr = adr;
-	u32 tempend;
+	INTPTR end;
+	INTPTR tempadr = adr;
+	INTPTR tempend;
 	u32 currmask;
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -618,12 +618,12 @@ void Xil_ICacheInvalidateLine(INTPTR  adr)
 * @note		None.
 *
 ****************************************************************************/
-void Xil_ICacheInvalidateRange(INTPTR  adr, u32 len)
+void Xil_ICacheInvalidateRange(INTPTR  adr, INTPTR len)
 {
 	const u32 cacheline = 64U;
-	u32 end;
-	u32 tempadr = adr;
-	u32 tempend;
+	INTPTR end;
+	INTPTR tempadr = adr;
+	INTPTR tempend;
 	u32 currmask;
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
