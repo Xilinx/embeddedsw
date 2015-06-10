@@ -98,9 +98,6 @@ _startup:
 
 .Lenclbss:
 
-	bl 	Init_Uart		/* Initialize UART */
-
-
 	/* make sure argc and argv are valid */
 	mov	x0, #0
 	mov	x1, #0

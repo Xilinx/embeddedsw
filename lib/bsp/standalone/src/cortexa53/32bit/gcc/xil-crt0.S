@@ -97,7 +97,6 @@ _startup:
 .Lenclbss:
 	/* set stack pointer */
 	ldr	r13,.Lstack		/* stack address */
-	bl 	Init_Uart		/* Initialize UART */
 
 	bl	main			/* Jump to main C code */
 
