@@ -101,13 +101,6 @@ _startup:
 	/* set stack pointer */
 	ldr	r13,.Lstack		/* stack address */
 
-/*
- * Uart is not initialized for OpenAMP applications
- * as master processor would be controlling and using the Uart
- */
-#if USEAMP != 1
-	bl 	Init_Uart		/* Initialize UART */
-#endif
 	bl	main			/* Jump to main C code */
 
 	bl	_exit
