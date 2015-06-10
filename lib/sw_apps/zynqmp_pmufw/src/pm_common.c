@@ -97,6 +97,12 @@ const char* PmStrNode(const u32 node)
 		return "NODE_USB_1";
 	case NODE_TTC_0:
 		return "NODE_TTC_0";
+	case NODE_TTC_1:
+		return "NODE_TTC_1";
+	case NODE_TTC_2:
+		return "NODE_TTC_2";
+	case NODE_TTC_3:
+		return "NODE_TTC_3";
 	case NODE_SATA:
 		return "NODE_SATA";
 	case NODE_APLL:
@@ -109,6 +115,48 @@ const char* PmStrNode(const u32 node)
 		return "NODE_RPLL";
 	case NODE_IOPLL:
 		return "NODE_IOPLL";
+	case NODE_UART_0:
+		return "NODE_UART_0";
+	case NODE_UART_1:
+		return "NODE_UART_1";
+	case NODE_SPI_0:
+		return "NODE_SPI_0";
+	case NODE_SPI_1:
+		return "NODE_SPI_1";
+	case NODE_I2C_0:
+		return "NODE_I2C_0";
+	case NODE_I2C_1:
+		return "NODE_I2C_1";
+	case NODE_SD_0:
+		return "NODE_SD_0";
+	case NODE_SD_1:
+		return "NODE_SD_1";
+	case NODE_CAN_0:
+		return "NODE_CAN_0";
+	case NODE_CAN_1:
+		return "NODE_CAN_1";
+	case NODE_ETH_0:
+		return "NODE_ETH_0";
+	case NODE_ETH_1:
+		return "NODE_ETH_1";
+	case NODE_ETH_2:
+		return "NODE_ETH_2";
+	case NODE_ETH_3:
+		return "NODE_ETH_3";
+	case NODE_ADMA:
+		return "NODE_ADMA";
+	case NODE_GDMA:
+		return "NODE_GDMA";
+	case NODE_DP:
+		return "NODE_DP";
+	case NODE_NAND:
+		return "NODE_NAND";
+	case NODE_QSPI:
+		return "NODE_QSPI";
+	case NODE_GPIO:
+		return "NODE_GPIO";
+	case NODE_AFI:
+		return "NODE_AFI";
 	default:
 		return "ERROR_NODE";
 	}

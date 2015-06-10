@@ -69,6 +69,32 @@ typedef struct PmSlaveSata {
  * Global data declarations
  ********************************************************************/
 extern PmSlaveTtc pmSlaveTtc0_g;
+extern PmSlaveTtc pmSlaveTtc1_g;
+extern PmSlaveTtc pmSlaveTtc2_g;
+extern PmSlaveTtc pmSlaveTtc3_g;
 extern PmSlaveSata pmSlaveSata_g;
+extern PmSlave pmSlaveGpuPP0_g;
+extern PmSlave pmSlaveGpuPP1_g;
+extern PmSlave pmSlaveUart0_g;
+extern PmSlave pmSlaveUart1_g;
+extern PmSlave pmSlaveSpi0_g;
+extern PmSlave pmSlaveSpi1_g;
+extern PmSlave pmSlaveI2C0_g;
+extern PmSlave pmSlaveI2C1_g;
+extern PmSlave pmSlaveSD0_g;
+extern PmSlave pmSlaveSD1_g;
+extern PmSlave pmSlaveCan0_g;
+extern PmSlave pmSlaveCan1_g;
+extern PmSlave pmSlaveEth0_g;
+extern PmSlave pmSlaveEth1_g;
+extern PmSlave pmSlaveEth2_g;
+extern PmSlave pmSlaveEth3_g;
+extern PmSlave pmSlaveAdma_g;
+extern PmSlave pmSlaveGdma_g;
+extern PmSlave pmSlaveDP_g;
+extern PmSlave pmSlaveNand_g;
+extern PmSlave pmSlaveQSpi_g;
+extern PmSlave pmSlaveGpio_g;
+extern PmSlave pmSlaveAFI_g;
 
 #endif

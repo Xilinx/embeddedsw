@@ -77,6 +77,511 @@ PmSlaveTtc pmSlaveTtc0_g = {
 	},
 };
 
+static PmWakeProperties pmTtc1Wake = {
+	.proxyIrqMask = FPD_GICP_TTC1_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmTtc1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_TTC1],
+};
+
+PmSlaveTtc pmSlaveTtc1_g = {
+	.slv = {
+		.node = {
+			.derived = &pmSlaveTtc1_g,
+			.nodeId = NODE_TTC_1,
+			.typeId = PM_TYPE_TTC,
+			.parent = NULL,
+			.currState = PM_AON_SLAVE_STATE,
+			.ops = NULL,
+		},
+		.reqs = pmTtc1Reqs,
+		.reqsCnt = ARRAY_SIZE(pmTtc1Reqs),
+		.wake = &pmTtc1Wake,
+		.slvFsm = &slaveAonFsm,
+	},
+};
+
+static PmWakeProperties pmTtc2Wake = {
+	.proxyIrqMask = FPD_GICP_TTC2_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmTtc2Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_TTC2],
+};
+
+PmSlaveTtc pmSlaveTtc2_g = {
+	.slv = {
+		.node = {
+			.derived = &pmSlaveTtc2_g,
+			.nodeId = NODE_TTC_2,
+			.typeId = PM_TYPE_TTC,
+			.parent = NULL,
+			.currState = PM_AON_SLAVE_STATE,
+			.ops = NULL,
+		},
+		.reqs = pmTtc2Reqs,
+		.reqsCnt = ARRAY_SIZE(pmTtc2Reqs),
+		.wake = &pmTtc2Wake,
+		.slvFsm = &slaveAonFsm,
+	},
+};
+
+static PmWakeProperties pmTtc3Wake = {
+	.proxyIrqMask = FPD_GICP_TTC3_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmTtc3Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_TTC3],
+};
+
+PmSlaveTtc pmSlaveTtc3_g = {
+	.slv = {
+		.node = {
+			.derived = &pmSlaveTtc3_g,
+			.nodeId = NODE_TTC_3,
+			.typeId = PM_TYPE_TTC,
+			.parent = NULL,
+			.currState = PM_AON_SLAVE_STATE,
+			.ops = NULL,
+		},
+		.reqs = pmTtc3Reqs,
+		.reqsCnt = ARRAY_SIZE(pmTtc3Reqs),
+		.wake = &pmTtc3Wake,
+		.slvFsm = &slaveAonFsm,
+	},
+};
+
+static PmWakeProperties pmUart0Wake = {
+	.proxyIrqMask = FPD_GICP_UART0_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmUart0Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_UART0],
+};
+
+PmSlave pmSlaveUart0_g = {
+	.node = {
+		.derived = &pmSlaveUart0_g,
+		.nodeId = NODE_UART_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmUart0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmUart0Reqs),
+	.wake = &pmUart0Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmUart1Wake = {
+	.proxyIrqMask = FPD_GICP_UART1_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmUart1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_UART1],
+};
+
+PmSlave pmSlaveUart1_g = {
+	.node = {
+		.derived = &pmSlaveUart1_g,
+		.nodeId = NODE_UART_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmUart1Reqs,
+	.reqsCnt = ARRAY_SIZE(pmUart1Reqs),
+	.wake = &pmUart1Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmSpi0Wake = {
+	.proxyIrqMask = FPD_GICP_SPI0_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmSpi0Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_SPI0],
+};
+
+PmSlave pmSlaveSpi0_g = {
+	.node = {
+		.derived = &pmSlaveSpi0_g,
+		.nodeId = NODE_SPI_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmSpi0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmSpi0Reqs),
+	.wake = &pmSpi0Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmSpi1Wake = {
+	.proxyIrqMask = FPD_GICP_SPI1_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmSpi1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_SPI1],
+};
+
+PmSlave pmSlaveSpi1_g = {
+	.node = {
+		.derived = &pmSlaveSpi1_g,
+		.nodeId = NODE_SPI_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmSpi1Reqs,
+	.reqsCnt = ARRAY_SIZE(pmSpi1Reqs),
+	.wake = &pmSpi1Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmI2C0Wake = {
+	.proxyIrqMask = FPD_GICP_I2C0_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmI2C0Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_I2C0],
+};
+
+PmSlave pmSlaveI2C0_g = {
+	.node = {
+		.derived = &pmSlaveI2C0_g,
+		.nodeId = NODE_I2C_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmI2C0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmI2C0Reqs),
+	.wake = &pmI2C0Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmI2C1Wake = {
+	.proxyIrqMask = FPD_GICP_I2C1_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmI2C1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_I2C1],
+};
+
+PmSlave pmSlaveI2C1_g = {
+	.node = {
+		.derived = &pmSlaveI2C1_g,
+		.nodeId = NODE_I2C_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmI2C1Reqs,
+	.reqsCnt = ARRAY_SIZE(pmI2C1Reqs),
+	.wake = &pmI2C1Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmSD0Wake = {
+	.proxyIrqMask = FPD_GICP_SD0_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmSD0Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_SD0],
+};
+
+PmSlave pmSlaveSD0_g = {
+	.node = {
+		.derived = &pmSlaveSD0_g,
+		.nodeId = NODE_SD_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmSD0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmSD0Reqs),
+	.wake = &pmSD0Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmSD1Wake = {
+	.proxyIrqMask = FPD_GICP_SD1_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmSD1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_SD1],
+};
+
+PmSlave pmSlaveSD1_g = {
+	.node = {
+		.derived = &pmSlaveSD1_g,
+		.nodeId = NODE_SD_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmSD1Reqs,
+	.reqsCnt = ARRAY_SIZE(pmSD1Reqs),
+	.wake = &pmSD1Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmCan0Wake = {
+	.proxyIrqMask = FPD_GICP_CAN0_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmCan0Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_CAN0],
+};
+
+PmSlave pmSlaveCan0_g = {
+	.node = {
+		.derived = &pmSlaveCan0_g,
+		.nodeId = NODE_CAN_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmCan0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmCan0Reqs),
+	.wake = &pmCan0Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmCan1Wake = {
+	.proxyIrqMask = FPD_GICP_CAN1_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmCan1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_CAN1],
+};
+
+PmSlave pmSlaveCan1_g = {
+	.node = {
+		.derived = &pmSlaveCan1_g,
+		.nodeId = NODE_CAN_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmCan1Reqs,
+	.reqsCnt = ARRAY_SIZE(pmCan1Reqs),
+	.wake = &pmCan1Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmEth0Wake = {
+	.proxyIrqMask = FPD_GICP_ETH0_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmEth0Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH0],
+};
+
+PmSlave pmSlaveEth0_g = {
+	.node = {
+		.derived = &pmSlaveEth0_g,
+		.nodeId = NODE_ETH_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmEth0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmEth0Reqs),
+	.wake = &pmEth0Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmEth1Wake = {
+	.proxyIrqMask = FPD_GICP_ETH1_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmEth1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH1],
+};
+
+PmSlave pmSlaveEth1_g = {
+	.node = {
+		.derived = &pmSlaveEth1_g,
+		.nodeId = NODE_ETH_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmEth1Reqs,
+	.reqsCnt = ARRAY_SIZE(pmEth1Reqs),
+	.wake = &pmEth1Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmEth2Wake = {
+	.proxyIrqMask = FPD_GICP_ETH2_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmEth2Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH2],
+};
+
+PmSlave pmSlaveEth2_g = {
+	.node = {
+		.derived = &pmSlaveEth2_g,
+		.nodeId = NODE_ETH_2,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmEth2Reqs,
+	.reqsCnt = ARRAY_SIZE(pmEth2Reqs),
+	.wake = &pmEth2Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmEth3Wake = {
+	.proxyIrqMask = FPD_GICP_ETH3_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+static PmRequirement* const pmEth3Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH3],
+};
+
+PmSlave pmSlaveEth3_g = {
+	.node = {
+		.derived = &pmSlaveEth3_g,
+		.nodeId = NODE_ETH_3,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmEth3Reqs,
+	.reqsCnt = ARRAY_SIZE(pmEth3Reqs),
+	.wake = &pmEth3Wake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmRequirement* const pmAdmaReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_ADMA],
+};
+
+PmSlave pmSlaveAdma_g = {
+	.node = {
+		.derived = &pmSlaveAdma_g,
+		.nodeId = NODE_ADMA,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmAdmaReqs,
+	.reqsCnt = ARRAY_SIZE(pmAdmaReqs),
+	.wake = NULL,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmNandWake = {
+	.proxyIrqMask = FPD_GICP_NAND_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmNandReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_NAND],
+};
+
+PmSlave pmSlaveNand_g = {
+	.node = {
+		.derived = &pmSlaveNand_g,
+		.nodeId = NODE_NAND,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmNandReqs,
+	.reqsCnt = ARRAY_SIZE(pmNandReqs),
+	.wake = &pmNandWake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmQSpiWake = {
+	.proxyIrqMask = FPD_GICP_SPI_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmQSpiReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_QSPI],
+};
+
+PmSlave pmSlaveQSpi_g = {
+	.node = {
+		.derived = &pmSlaveQSpi_g,
+		.nodeId = NODE_QSPI,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmQSpiReqs,
+	.reqsCnt = ARRAY_SIZE(pmQSpiReqs),
+	.wake = &pmQSpiWake,
+	.slvFsm = &slaveAonFsm,
+};
+
+static PmWakeProperties pmGpioWake = {
+	.proxyIrqMask = FPD_GICP_GPIO_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+};
+
+static PmRequirement* const pmGpioReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPIO],
+};
+
+PmSlave pmSlaveGpio_g = {
+	.node = {
+		.derived = &pmSlaveGpio_g,
+		.nodeId = NODE_GPIO,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.ops = NULL,
+	},
+	.reqs = pmGpioReqs,
+	.reqsCnt = ARRAY_SIZE(pmGpioReqs),
+	.wake = &pmGpioWake,
+	.slvFsm = &slaveAonFsm,
+};
+
 /*
  * Standard slave with no private PM properties to be controlled.
  * It can be powered down with the power parent.
@@ -131,4 +636,99 @@ PmSlaveSata pmSlaveSata_g = {
 		.wake = &pmSataWake,
 		.slvFsm = &slaveStdFsm,
 	},
+};
+
+static PmRequirement* const pmGpuPP0Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPUPP0],
+};
+
+PmSlave pmSlaveGpuPP0_g = {
+	.node = {
+		.derived = &pmSlaveGpuPP0_g,
+		.nodeId = NODE_GPU_PP_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_STD_SLAVE_STATE_ON,
+		.ops = NULL,
+	},
+	.reqs = pmGpuPP0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmGpuPP0Reqs),
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
+};
+
+static PmRequirement* const pmGpuPP1Reqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPUPP1],
+};
+
+PmSlave pmSlaveGpuPP1_g = {
+	.node = {
+		.derived = &pmSlaveGpuPP1_g,
+		.nodeId = NODE_GPU_PP_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_STD_SLAVE_STATE_ON,
+		.ops = NULL,
+	},
+	.reqs = pmGpuPP1Reqs,
+	.reqsCnt = ARRAY_SIZE(pmGpuPP1Reqs),
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
+};
+
+static PmRequirement* const pmGdmaReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_GDMA],
+};
+
+PmSlave pmSlaveGdma_g = {
+	.node = {
+		.derived = &pmSlaveGdma_g,
+		.nodeId = NODE_GDMA,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_STD_SLAVE_STATE_ON,
+		.ops = NULL,
+	},
+	.reqs = pmGdmaReqs,
+	.reqsCnt = ARRAY_SIZE(pmGdmaReqs),
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
+};
+
+static PmRequirement* const pmDPReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_DP],
+};
+
+PmSlave pmSlaveDP_g = {
+	.node = {
+		.derived = &pmSlaveDP_g,
+		.nodeId = NODE_DP,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_STD_SLAVE_STATE_ON,
+		.ops = NULL,
+	},
+	.reqs = pmDPReqs,
+	.reqsCnt = ARRAY_SIZE(pmDPReqs),
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
+};
+
+static PmRequirement* const pmAFIReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_AFI],
+};
+
+PmSlave pmSlaveAFI_g = {
+	.node = {
+		.derived = &pmSlaveAFI_g,
+		.nodeId = NODE_AFI,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_STD_SLAVE_STATE_ON,
+		.ops = NULL,
+	},
+	.reqs = pmAFIReqs,
+	.reqsCnt = ARRAY_SIZE(pmAFIReqs),
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
 };
