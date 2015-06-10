@@ -196,6 +196,12 @@ OKToRun:
 	and	r0, r0, r1
 	mcr	p15, 0, r0, c1, c0, 0
 #endif
+
+/* enable asynchronous abort exception */
+	mrs	r0, cpsr
+	bic	r0, r0, #0x100
+	msr	cpsr_xsf, r0
+
         b 	_startup                       /* jump to C startup code */
 
 
