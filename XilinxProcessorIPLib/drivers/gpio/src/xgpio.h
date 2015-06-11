@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xgpio.h
+* @addtogroup gpio_v4_0
+* @{
+* @details
 *
 * This file contains the software API definition of the Xilinx General Purpose
 * I/O (XGpio) device driver.
@@ -193,3 +196,4 @@ u32 XGpio_InterruptGetStatus(XGpio *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

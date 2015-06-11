@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550.h
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * This driver supports the following features in the Xilinx 16450/16550
 * compatible UART.
@@ -455,3 +458,4 @@ int XUartNs550_SelfTest(XUartNs550 *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

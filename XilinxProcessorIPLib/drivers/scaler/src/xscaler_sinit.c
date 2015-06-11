@@ -32,6 +32,9 @@
 /**
  *
  * @file xscaler_sinit.c
+* @addtogroup scaler_v7_0
+* @{
+* @details
  *
  * This file contains static initialization methods for Xilinx MVI Video Scaler
  * device driver.
@@ -93,3 +96,4 @@ XScaler_Config *XScaler_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+/** @} */

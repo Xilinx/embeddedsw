@@ -33,6 +33,9 @@
 /**
 *
 * @file xttcps.h
+* @addtogroup ttcps_v3_0
+* @{
+* @details
 *
 * This is the driver for one 16-bit timer counter in the Triple Timer Counter
 * (TTC) module in the Ps block.
@@ -406,3 +409,4 @@ s32 XTtcPs_SelfTest(XTtcPs *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

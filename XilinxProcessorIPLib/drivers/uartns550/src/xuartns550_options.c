@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550_options.c
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * The implementation of the options functions for the XUartNs550 driver.
 *
@@ -523,3 +526,4 @@ static u32 ReadFcrRegister(u32 BaseAddress)
 
 	return FcrRegister;
 }
+/** @} */

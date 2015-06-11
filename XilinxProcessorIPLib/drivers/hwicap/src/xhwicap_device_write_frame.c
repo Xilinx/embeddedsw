@@ -33,6 +33,9 @@
 /**
 *
 * @file xhwicap_device_write_frame.c
+* @addtogroup hwicap_v10_0
+* @{
+* @details
 *
 * This file contains the function that writes the frame stored in the
 * memory to the device (ICAP).
@@ -269,3 +272,4 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 };
 
 
+/** @} */

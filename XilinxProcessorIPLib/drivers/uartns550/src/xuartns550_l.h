@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550_l.h
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the device. The user should refer to the
@@ -343,3 +346,4 @@ void XUartNs550_SetBaud(u32 BaseAddress, u32 InputClockHz, u32 BaudRate);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

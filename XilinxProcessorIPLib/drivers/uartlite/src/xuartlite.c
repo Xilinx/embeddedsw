@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartlite.c
+* @addtogroup uartlite_v3_0
+* @{
+* @details
 *
 * Contains required functions for the XUartLite driver. See the xuartlite.h
 * header file for more details on this driver.
@@ -644,3 +647,4 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 
 
 
+/** @} */

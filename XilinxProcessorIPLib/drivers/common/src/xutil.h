@@ -33,6 +33,9 @@
 /**
 *
 * @file xutil.h
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * This file contains utility functions such as memory test functions.
 *
@@ -162,3 +165,4 @@ int XUtil_MemoryTest8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

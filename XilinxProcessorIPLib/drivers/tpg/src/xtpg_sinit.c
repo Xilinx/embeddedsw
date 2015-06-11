@@ -33,6 +33,9 @@
 /**
 *
 * @file xtpg_sinit.c
+* @addtogroup tpg_v3_0
+* @{
+* @details
 *
 * This file contains static initialization methods for Xilinx TPG core
 * driver.
@@ -106,3 +109,4 @@ XTpg_Config *XTpg_LookupConfig(u16 DeviceId)
 
 	return (XTpg_Config *)CfgPtr;
 }
+/** @} */

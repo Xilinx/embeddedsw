@@ -33,6 +33,9 @@
 /**
 *
 * @file xemacps_hw.c
+* @addtogroup emacps_v3_0
+* @{
+* @details
 *
 * This file contains the implementation of the ethernet interface reset sequence
 *
@@ -118,3 +121,4 @@ void XEmacPs_ResetHw(u32 BaseAddr)
 	XEmacPs_WriteReg(BaseAddr,XEMACPS_HASHL_OFFSET,0x0U);
 	XEmacPs_WriteReg(BaseAddr,XEMACPS_HASHH_OFFSET,0x0U);
 }
+/** @} */

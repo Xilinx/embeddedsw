@@ -33,6 +33,9 @@
 /**
 *
 * @file xio.h
+* @addtogroup cpu_v2_3
+* @{
+* @details
 *
 * This file contains the interface for the XIo component, which encapsulates
 * the Input/Output functions for processors that do not require any special
@@ -264,3 +267,4 @@ void XIo_OutSwap32(XIo_Address OutAddress, u32 Value);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

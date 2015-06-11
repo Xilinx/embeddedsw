@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxivdma.h
+* @addtogroup axivdma_v5_1
+* @{
+* @details
 *
 * This is the Xilinx MVI AXI Video DMA device driver. The DMA engine transfers
 * frames from the AXI Bus or to the AXI Bus. It is in the chain of video
@@ -592,3 +595,4 @@ int XAxiVdma_Selftest(XAxiVdma * InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

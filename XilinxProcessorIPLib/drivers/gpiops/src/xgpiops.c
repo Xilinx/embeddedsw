@@ -33,6 +33,9 @@
 /**
 *
 * @file xgpiops.c
+* @addtogroup gpiops_v3_1
+* @{
+* @details
 *
 * The XGpioPs driver. Functions in this file are the minimum required functions
 * for this driver. See xgpiops.h for a detailed description of the driver.
@@ -623,3 +626,4 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 					(XGpioPsPinTable[*BankNumber - (u8)1] + (u32)1));
 	}
 }
+/** @} */

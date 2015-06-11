@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xbram_selftest.c
+* @addtogroup bram_v4_0
+* @{
+* @details
 *
 * The implementation of the XBram driver's self test function. This SelfTest
 * is only applicable if ECC is enabled.
@@ -554,3 +557,4 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 	return (XST_SUCCESS);
 }
 
+/** @} */

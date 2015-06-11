@@ -33,6 +33,9 @@
 /**
 *
 * @file xscutimer.h
+* @addtogroup scutimer_v2_1
+* @{
+* @details
 *
 * The timer driver supports the Cortex A9 private timer.
 *
@@ -360,3 +363,4 @@ u8 XScuTimer_GetPrescaler(XScuTimer *InstancePtr);
 #endif
 
 #endif	/* end of protection macro */
+/** @} */

@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma.h
+* @addtogroup axicdma_v3_0
+* @{
+* @details
  *
  * This is the driver API for the AXI CDMA engine.
  *
@@ -560,3 +563,4 @@ void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr);
 #endif
 
 #endif    /* prevent circular inclusions */
+/** @} */

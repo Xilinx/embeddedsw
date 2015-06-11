@@ -33,6 +33,9 @@
 /**
 *
 * @file xiicps_master.c
+* @addtogroup iicps_v3_0
+* @{
+* @details
 *
 * Handles master mode transfers.
 *
@@ -983,3 +986,4 @@ static void MasterSendData(XIicPs *InstancePtr)
 
 	return;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xcfa.c
+* @addtogroup cfa_v7_0
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for CFA
 * core. Refer to the header file xcfa.h for more detailed information.
@@ -643,3 +646,4 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 	Xil_AssertVoid(ErrorMask != ((u32)0x0));
 	Xil_AssertVoidAlways();
 }
+/** @} */

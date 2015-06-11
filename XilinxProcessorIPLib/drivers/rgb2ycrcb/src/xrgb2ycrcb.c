@@ -33,6 +33,9 @@
 /**
 *
 * @file xrgb2ycrcb.c
+* @addtogroup rgb2ycrcb_v7_0
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for
 * RGB2YCRCB driver. Refer to the header file xrgb2ycrcb.h for more detailed
@@ -1435,3 +1438,4 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 	Xil_AssertVoidAlways();
 }
 
+/** @} */

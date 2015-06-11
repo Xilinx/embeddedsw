@@ -33,6 +33,9 @@
 /**
 *
 * @file xenhance.c
+* @addtogroup enhance_v7_0
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for
 * Enhance core. Refer to the header file xenhance.h for more detailed
@@ -747,3 +750,4 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 	Xil_AssertVoid(CallBackRef != NULL);
 	Xil_AssertVoidAlways();
 }
+/** @} */

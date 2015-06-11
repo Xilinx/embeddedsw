@@ -33,6 +33,9 @@
 /**
 *
 * @file xtpg_intr.c
+* @addtogroup tpg_v3_0
+* @{
+* @details
 *
 * This file contains interrupt related functions of the TPG core.
 * Please see xtpg.h for more details of the driver.
@@ -205,3 +208,4 @@ int XTpg_SetCallBack(XTpg *InstancePtr, u32 HandlerType,
 
 	return Status;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
  *
  * @file xvidc_timings_table.c
+* @addtogroup video_common_v1_1
+* @{
+* @details
  *
  * Contains video timings for various standard resolutions.
  *
@@ -379,3 +382,4 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 		{3840, 176, 88, 296, 4400, 1,
 		2160, 20, 10, 60, 2250, 0, 0, 0, 0, 1} }
 };
+/** @} */

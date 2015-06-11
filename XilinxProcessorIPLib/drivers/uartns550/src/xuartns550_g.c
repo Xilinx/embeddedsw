@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550_g.c
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * NS16550 devices in the system.
@@ -80,3 +83,4 @@ XUartNs550_Config XUartNs550_ConfigTable[] =
 		XPAR_UARTNS550_0_CLOCK_HZ
 	}
 };
+/** @} */

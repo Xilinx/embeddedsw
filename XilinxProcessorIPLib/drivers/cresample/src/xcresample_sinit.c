@@ -33,6 +33,9 @@
 /**
 *
 * @file xcresample_sinit.c
+* @addtogroup cresample_v4_0
+* @{
+* @details
 *
 * This file contains initialization methods for Xilinx Chroma Resampler core.
 *
@@ -111,3 +114,4 @@ XCresample_Config *XCresample_LookupConfig(u16 DeviceId)
 
 	return (XCresample_Config *)CfgPtr;
 }
+/** @} */

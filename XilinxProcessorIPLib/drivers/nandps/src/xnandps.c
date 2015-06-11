@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandps.c
+* @addtogroup nandps_v2_2
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for
 * XNandPs driver. Refer to the header file xnandps.h for more detailed
@@ -1973,3 +1976,4 @@ static void XNandPs_WriteBuf(XNandPs *InstancePtr, u8 *Buf, u32 Length)
 		XNandPs_WriteReg(InstancePtr->DataPhaseAddr, Ptr[Index]);
 	}
 }
+/** @} */

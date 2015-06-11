@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx_spm.c
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * This file contains the stream policy maker functions for the XDptx driver.
  * These functions set up the DisplayPort TX core's main stream attributes that
@@ -899,3 +902,4 @@ static void XDptx_CalculateTs(XDptx *InstancePtr, u8 Stream, u8 BitsPerPixel)
 			MsaConfig->TransferUnitSize *
 			(LinkConfig->LaneCount * LinkConfig->LinkRate / 2);
 }
+/** @} */

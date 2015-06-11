@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_i.h
+* @addtogroup axicdma_v3_0
+* @{
+* @details
  *
  * Header file for utility functions shared by driver files.
  *
@@ -71,3 +74,4 @@ int XAxiCdma_BdRingStartTransfer(XAxiCdma *InstancePtr);
 #endif
 
 #endif    /* prevent circular inclusions */
+/** @} */

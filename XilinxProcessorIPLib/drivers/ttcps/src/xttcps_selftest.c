@@ -33,6 +33,9 @@
 /**
 *
 * @file xttcps_selftest.c
+* @addtogroup ttcps_v3_0
+* @{
+* @details
 *
 * This file contains the implementation of self test function for the
 * XTtcPs driver.
@@ -104,3 +107,4 @@ s32 XTtcPs_SelfTest(XTtcPs *InstancePtr)
 	}
 	return Status;
 }
+/** @} */

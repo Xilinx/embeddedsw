@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550_i.h
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * This header file contains internal identifiers, which are those shared
 * between the files of the driver. It is intended for internal use only.
@@ -131,3 +134,4 @@ extern XUartNs550_Config XUartNs550_ConfigTable[];
 #endif
 
 #endif /* end of protection macro */
+/** @} */

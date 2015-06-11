@@ -33,6 +33,9 @@
 /**
 *
 * @file xtmrctr.c
+* @addtogroup tmrctr_v3_0
+* @{
+* @details
 *
 * Contains required functions for the XTmrCtr driver.
 *
@@ -520,3 +523,4 @@ XTmrCtr_Config *XTmrCtr_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

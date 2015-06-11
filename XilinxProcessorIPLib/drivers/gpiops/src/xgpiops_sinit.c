@@ -33,6 +33,9 @@
 /**
 *
 * @file xgpiops_sinit.c
+* @addtogroup gpiops_v3_1
+* @{
+* @details
 *
 * This file contains the implementation of the XGpioPs driver's static
 * initialization functionality.
@@ -96,3 +99,4 @@ XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId)
 
 	return (XGpioPs_Config *)CfgPtr;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xycrcb2rgb_sinit.c
+* @addtogroup ycrcb2rgb_v7_0
+* @{
+* @details
 *
 * This file contains static initialization methods for Xilinx YCRCB2RGB core.
 *
@@ -108,3 +111,4 @@ XYCrCb2Rgb_Config *XYCrCb2Rgb_LookupConfig(u16 DeviceId)
 
 	return (XYCrCb2Rgb_Config *)CfgPtr;
 }
+/** @} */

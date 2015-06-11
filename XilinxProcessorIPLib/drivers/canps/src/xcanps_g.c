@@ -33,6 +33,9 @@
 /**
 *
 * @file xcanps_g.c
+* @addtogroup canps_v3_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of CAN devices in the system.
@@ -84,3 +87,4 @@ XCanPs_Config XCanPs_ConfigTable[XPAR_XCANPS_NUM_INSTANCES] = {
 	}
 #endif
 };
+/** @} */

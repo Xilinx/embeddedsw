@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_stats.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * Contains statistics functions for the XIic component.
 *
@@ -131,3 +134,4 @@ void XIic_ClearStats(XIic *InstancePtr)
 	}
 
 }
+/** @} */

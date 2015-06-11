@@ -34,6 +34,9 @@
 /**
 *
 * @file xcsudma_sinit.c
+* @addtogroup csudma_v1_0
+* @{
+* @details
 *
 * This file contains static initialization methods for Xilinx CSU_DMA core.
 *
@@ -102,3 +105,4 @@ XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId)
 
 	return (XCsuDma_Config *)CfgPtr;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xhwicap_intr.c
+* @addtogroup hwicap_v10_0
+* @{
+* @details
 *
 * This file contains interrupt handling API functions of the HwIcap device.
 *
@@ -192,3 +195,4 @@ void XHwIcap_IntrHandler(void *InstancePtr)
 
 }
 
+/** @} */

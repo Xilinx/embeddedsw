@@ -33,6 +33,9 @@
 /**
 *
 * @file xemacps_g.c
+* @addtogroup emacps_v3_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * ethernet devices in the system.
@@ -88,3 +91,4 @@ XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES] = {
 	}
 #endif
 };
+/** @} */

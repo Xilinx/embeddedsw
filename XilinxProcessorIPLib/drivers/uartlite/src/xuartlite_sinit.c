@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartlite_sinit.c
+* @addtogroup uartlite_v3_0
+* @{
+* @details
 *
 * The implementation of the XUartLite component's static initialzation
 * functionality.
@@ -143,3 +146,4 @@ int XUartLite_Initialize(XUartLite *InstancePtr, u16 DeviceId)
 					ConfigPtr->RegBaseAddr);
 }
 
+/** @} */

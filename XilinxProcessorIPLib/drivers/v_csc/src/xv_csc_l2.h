@@ -33,6 +33,9 @@
 /**
 *
 * @file xv_csc_l2.h
+* @addtogroup v_csc_v1_0
+* @{
+* @details
 *
 * This header file contains layer 2 API's of the csc sub-core driver.
 * The functions contained herein provides a high level implementation of features
@@ -395,3 +398,4 @@ void XV_CscDbgReportStatus(XV_csc *InstancePtr);
 }
 #endif
 #endif
+/** @} */

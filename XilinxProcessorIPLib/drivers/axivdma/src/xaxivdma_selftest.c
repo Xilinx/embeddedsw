@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxivdma_selftest.c
+* @addtogroup axivdma_v5_1
+* @{
+* @details
 *
 * Contains diagnostic/self-test functions for the XAxiVdma component.
 *
@@ -129,3 +132,4 @@ int XAxiVdma_Selftest(XAxiVdma * InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */

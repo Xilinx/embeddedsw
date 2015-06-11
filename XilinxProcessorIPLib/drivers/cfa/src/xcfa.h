@@ -33,6 +33,9 @@
 /**
 *
 * @file xcfa.h
+* @addtogroup cfa_v7_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros), range macros, structure typedefs that can be used to access the
@@ -599,3 +602,4 @@ int XCfa_SetCallBack(XCfa *InstancePtr, u32 HandlerType,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

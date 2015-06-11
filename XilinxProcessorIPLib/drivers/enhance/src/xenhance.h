@@ -33,6 +33,9 @@
 /**
 *
 * @file xenhance.h
+* @addtogroup enhance_v7_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
@@ -641,3 +644,4 @@ int XEnhance_SetCallBack(XEnhance *InstancePtr, u32 HandlerType,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

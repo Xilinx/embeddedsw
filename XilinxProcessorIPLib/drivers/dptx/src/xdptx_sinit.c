@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx_sinit.c
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * This file contains static initialization methods for the XDptx driver.
  *
@@ -91,3 +94,4 @@ XDptx_Config *XDptx_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

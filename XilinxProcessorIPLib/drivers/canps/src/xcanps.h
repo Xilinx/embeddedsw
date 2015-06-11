@@ -33,6 +33,9 @@
 /**
 *
 * @file xcanps.h
+* @addtogroup canps_v3_0
+* @{
+* @details
 *
 * The Xilinx CAN driver component.  This component supports the Xilinx
 * CAN Controller.
@@ -565,3 +568,4 @@ XCanPs_Config *XCanPs_LookupConfig(u16 DeviceId);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

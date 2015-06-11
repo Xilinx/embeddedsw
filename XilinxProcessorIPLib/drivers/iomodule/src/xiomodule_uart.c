@@ -34,6 +34,9 @@
 /**
 *
 * @file xiomodule_uart.c
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * Contains required functions for the XIOModule UART driver. See the
 * xiomodule.h header file for more details on this driver.
@@ -254,3 +257,4 @@ static void StubHandler(void *CallBackRef, unsigned int ByteCount)
 	 */
 	Xil_AssertVoidAlways();
 }
+/** @} */

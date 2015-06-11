@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_sinit.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * The implementation of the Xiic component's static initialzation functionality.
 *
@@ -161,3 +164,4 @@ int XIic_Initialize(XIic *InstancePtr, u16 DeviceId)
 	return XIic_CfgInitialize(InstancePtr, ConfigPtr,
 				  ConfigPtr->BaseAddress);
 }
+/** @} */

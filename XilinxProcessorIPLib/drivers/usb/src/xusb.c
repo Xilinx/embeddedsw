@@ -42,6 +42,9 @@
 /*****************************************************************************/
 /**
  * @file xusb.c
+* @addtogroup usb_v5_0
+* @{
+* @details
  *
  * The XUsb driver. Functions in this file are the minimum required functions
  * for this driver. See xusb.h for a detailed description of the driver.
@@ -639,3 +642,4 @@ void XUsb_SieReset(XUsb *InstancePtr)
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress, XUSB_CONTROL_OFFSET,
 				RegData & (~(XUSB_CONTROL_SIE_RESET_MASK)));
 }
+/** @} */

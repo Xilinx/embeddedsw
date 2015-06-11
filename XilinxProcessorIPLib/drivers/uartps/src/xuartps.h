@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartps.h
+* @addtogroup uartps_v3_1
+* @{
+* @details
 *
 * This driver supports the following features:
 *
@@ -502,3 +505,4 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

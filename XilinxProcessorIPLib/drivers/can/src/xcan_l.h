@@ -33,6 +33,9 @@
 /**
 *
 * @file xcan_l.h
+* @addtogroup can_v3_0
+* @{
+* @details
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
@@ -314,3 +317,4 @@ Mask/Acceptance Filter ID)
 
 #endif /* end of protection macro */
 
+/** @} */

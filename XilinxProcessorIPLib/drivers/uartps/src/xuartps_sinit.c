@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartps_sinit.c
+* @addtogroup uartps_v3_1
+* @{
+* @details
 *
 * The implementation of the XUartPs driver's static initialzation
 * functionality.
@@ -94,3 +97,4 @@ XUartPs_Config *XUartPs_LookupConfig(u16 DeviceId)
 
 	return (XUartPs_Config *)CfgPtr;
 }
+/** @} */

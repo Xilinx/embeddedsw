@@ -33,6 +33,9 @@
 /**
 *
 * @file xtrafgen_sinit.c
+* @addtogroup llfifo_v5_0
+* @{
+* @details
 *
 * This file contains static initialzation functionality for Axi Streaming FIFO
 * driver.
@@ -83,3 +86,4 @@ XLlFifo_Config *XLlFfio_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

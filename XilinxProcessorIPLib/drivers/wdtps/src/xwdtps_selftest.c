@@ -33,6 +33,9 @@
 /**
 *
 * @file xwdtps_selftest.c
+* @addtogroup wdtps_v3_0
+* @{
+* @details
 *
 * Contains diagnostic self-test functions for the XWdtPs driver.
 *
@@ -168,3 +171,4 @@ s32 XWdtPs_SelfTest(XWdtPs *InstancePtr)
 	}
 	return Status;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xtft.h
+* @addtogroup tft_v5_0
+* @{
+* @details
 *
 * This header file contains the definitions and declarations for the
 * high level driver to access the Xilinx TFT Controller Device.
@@ -227,3 +230,4 @@ int XTft_GetVsyncStatus(XTft* InstancePtr);
 
 #endif /* XTFT_H */
 
+/** @} */

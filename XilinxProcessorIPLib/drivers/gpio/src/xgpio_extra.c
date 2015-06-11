@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xgpio_extra.c
+* @addtogroup gpio_v4_0
+* @{
+* @details
 *
 * The implementation of the XGpio driver's advanced discrete functions.
 * See xgpio.h for more information about the driver.
@@ -163,3 +166,4 @@ void XGpio_DiscreteClear(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 	Current &= ~Mask;
 	XGpio_WriteReg(InstancePtr->BaseAddress, DataOffset, Current);
 }
+/** @} */

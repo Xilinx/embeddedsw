@@ -33,6 +33,9 @@
 /**
 *
 * @file xspi_stats.c
+* @addtogroup spi_v4_1
+* @{
+* @details
 *
 * This component contains the implementation of statistics functions for the
 * XSpi driver component.
@@ -126,3 +129,4 @@ void XSpi_ClearStats(XSpi *InstancePtr)
 	InstancePtr->Stats.NumInterrupts = 0;
 
 }
+/** @} */

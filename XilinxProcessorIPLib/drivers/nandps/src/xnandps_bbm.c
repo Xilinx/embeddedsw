@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandps_bbm.c
+* @addtogroup nandps_v2_2
+* @{
+* @details
 * This file implements the Bad Block Management (BBM) functionality.
 * See xnandps_bbm.h for more details.
 *
@@ -867,3 +870,4 @@ int XNandPs_MarkBlockBad(XNandPs *InstancePtr, u32 Block)
 	}
 	return XST_SUCCESS;
 }
+/** @} */

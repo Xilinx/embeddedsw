@@ -32,6 +32,9 @@
 /**
 *
 * @file xscaler_coefs.c
+* @addtogroup scaler_v7_0
+* @{
+* @details
 *
 * This file contains Lanczos coefficient generation for use in the Xilinx Video Scaler.
 *
@@ -271,3 +274,4 @@ s16 *XScaler_GenCoefTable(u32 Tap, u32 Phase)
 	return (XScaler_coef_table);
 
 }
+/** @} */

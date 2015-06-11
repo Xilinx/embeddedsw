@@ -33,6 +33,9 @@
 /**
 *
 * @file xvprocss_dma.c
+* @addtogroup vprocss_v1_0
+* @{
+* @details
 
 * Video buffer management routine.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -572,3 +575,4 @@ void XVprocss_SetVdmaWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
     }
   }
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xscutimer_g.c
+* @addtogroup scutimer_v2_1
+* @{
+* @details
 *
 * This file contains a table that specifies the configuration of the SCU
 * Timer in the system.
@@ -73,3 +76,4 @@ XScuTimer_Config XScuTimer_ConfigTable[XPAR_XSCUTIMER_NUM_INSTANCES] = {
 		(u32)XPAR_XSCUTIMER_0_BASEADDR
 	}
 };
+/** @} */

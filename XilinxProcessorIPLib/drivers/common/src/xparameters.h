@@ -33,6 +33,9 @@
 /**
 *
 * @file xparameters.h
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * This file contains system parameters for the Xilinx device driver environment.
 * It is a representation of the system in that it contains the number of each
@@ -726,3 +729,4 @@ deleted XPAR_INTC_0_MAX_ID, XPAR_INTC_1_MAX_ID
 #endif              /* end of protection macro */
 
 
+/** @} */

@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xversion.h
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * This file contains the interface for the XVersion component. This
 * component represents a version ID.  It is encapsulated within a component
@@ -106,3 +109,4 @@ void XVersion_Copy(XVersion *InstancePtr, XVersion *VersionPtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

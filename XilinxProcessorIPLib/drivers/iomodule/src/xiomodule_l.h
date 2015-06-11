@@ -33,6 +33,9 @@
 /**
 *
 * @file xiomodule_l.h
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the device.  The user should refer to the
@@ -433,3 +436,4 @@ void XIOModule_RegisterHandler(u32 BaseAddress,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

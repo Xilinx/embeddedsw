@@ -33,6 +33,9 @@
 /**
 *
 * @file xenhance_sinit.c
+* @addtogroup enhance_v7_0
+* @{
+* @details
 *
 * This file contains static initialization methods for Xilinx Enhance core.
 *
@@ -108,3 +111,4 @@ XEnhance_Config *XEnhance_LookupConfig(u16 DeviceId)
 
 	return (XEnhance_Config *)CfgPtr;
 }
+/** @} */

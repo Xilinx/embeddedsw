@@ -33,6 +33,9 @@
 /**
 *
 * @file xcan.h
+* @addtogroup can_v3_0
+* @{
+* @details
 *
 * The Xilinx CAN driver.  This driver supports the Xilinx CAN Controller.
 *
@@ -526,3 +529,4 @@ int XCan_SetHandler(XCan *InstancePtr, u32 HandlerType,
 
 #endif /* end of protection macro */
 
+/** @} */

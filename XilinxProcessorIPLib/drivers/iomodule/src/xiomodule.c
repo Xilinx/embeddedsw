@@ -33,6 +33,9 @@
 /**
 *
 * @file xiomodule.c
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * Contains required functions for the XIomodule driver for the Xilinx
 * IO Module Interrupt Controller. See xiomodule.h for a detailed
@@ -1306,3 +1309,4 @@ void XIOModule_IoWriteByte(XIOModule * InstancePtr,
 
 	XIomodule_Out8((InstancePtr->IoBaseAddress + ByteOffset), Data);
 }
+/** @} */

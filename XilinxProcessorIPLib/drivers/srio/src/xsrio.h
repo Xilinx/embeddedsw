@@ -33,6 +33,9 @@
 /**
 *
 * @file xsrio.h
+* @addtogroup srio_v1_0
+* @{
+* @details
 * 
 * This file contains the implementation of the SRIO Gen2 driver.
 * User documentation for the driver functions is contained in this file in the 
@@ -1543,3 +1546,4 @@ void XSrio_GetWaterMark(XSrio *InstancePtr, u8 *WaterMark0, u8 *WaterMark1,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

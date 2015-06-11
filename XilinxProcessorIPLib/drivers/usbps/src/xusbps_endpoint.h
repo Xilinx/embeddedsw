@@ -33,6 +33,9 @@
 /**
  *
  * @file xusbps_endpoint.h
+* @addtogroup usbps_v2_2
+* @{
+* @details
  *
  * This is an internal file containung the definitions for endpoints. It is
  * included by the xusbps_endpoint.c which is implementing the endpoint
@@ -510,3 +513,4 @@ extern "C" {
 #endif
 
 #endif /* XUSBPS_ENDPOINT_H */
+/** @} */

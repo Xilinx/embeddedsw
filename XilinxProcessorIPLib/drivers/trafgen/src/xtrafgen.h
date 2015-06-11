@@ -33,6 +33,9 @@
 /**
 *
 * @file xtrafgen.h
+* @addtogroup trafgen_v3_2
+* @{
+* @details
 *
 * This file contains the implementation of the AXI Traffic Generator driver.
 * User documentation for the driver functions is contained in this file in the 
@@ -1200,3 +1203,4 @@ int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

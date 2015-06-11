@@ -33,6 +33,9 @@
 /**
 *
 * @file xzdma_selftest.c
+* @addtogroup zdma_v1_0
+* @{
+* @details
 *
 * This file contains the self-test function for the ZDMA core.
 *
@@ -114,3 +117,4 @@ s32 XZDma_SelfTest(XZDma *InstancePtr)
 	return Status;
 
 }
+/** @} */

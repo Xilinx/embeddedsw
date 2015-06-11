@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_l.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * This file contains low-level driver functions that can be used to access the
 * device in normal and dynamic controller mode. The user should refer to the
@@ -1008,3 +1011,4 @@ int XIic_DynInit(u32 BaseAddress)
 
 	return XST_FAILURE;
 }
+/** @} */

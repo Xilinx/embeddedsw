@@ -33,6 +33,9 @@
 /**
 *
 * @file xqspipsu_sinit.c
+* @addtogroup qspipsu_v1_0
+* @{
+* @details
 *
 * The implementation of the XQspiPsu component's static initialization
 * functionality.
@@ -95,3 +98,4 @@ XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId)
 	}
 	return (XQspiPsu_Config *)CfgPtr;
 }
+/** @} */

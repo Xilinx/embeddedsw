@@ -33,6 +33,9 @@
 /**
 *
 * @file xcanfd_config.c
+* @addtogroup canfd_v1_0
+* @{
+* @details
 *
 * Functions in this file are CAN Configuration Register access related.
 *
@@ -468,3 +471,4 @@ void XCanFd_SetBitRateSwitch_DisableNominal(XCanFd *InstancePtr)
 	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_MSR_OFFSET);
 }
+/** @} */

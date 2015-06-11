@@ -33,6 +33,9 @@
 /**
 *
 * @file xosd.c
+* @addtogroup osd_v4_0
+* @{
+* @details
 *
 * This file is main code of Xilinx Video On-Screen-Display (OSD) core.
 * Please see xosd.h for more details of the driver.
@@ -1410,3 +1413,4 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 	(void)ErrorMask;
 	Xil_AssertVoidAlways();
 }
+/** @} */

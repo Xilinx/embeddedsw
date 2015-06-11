@@ -33,6 +33,9 @@
 /**
 *
 * @file xhwicap_device_read_frame.c
+* @addtogroup hwicap_v10_0
+* @{
+* @details
 *
 * This file contains the function that reads a specified frame from the
 * device (ICAP) and stores it in the memory specified by the user.
@@ -196,3 +199,4 @@ int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
 
 	return XST_SUCCESS;
 };
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xmutex.c
+* @addtogroup mutex_v4_0
+* @{
+* @details
 *
 * Contains required functions for the XMutex driver.
 *
@@ -380,3 +383,4 @@ int XMutex_SetUser(XMutex *InstancePtr, u8 MutexNumber, u32 User)
 
 	return XST_SUCCESS;
 }
+/** @} */

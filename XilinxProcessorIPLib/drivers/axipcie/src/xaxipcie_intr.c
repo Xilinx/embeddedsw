@@ -32,6 +32,9 @@
 /*****************************************************************************
 **
 * @file xaxipcie_intr.c
+* @addtogroup axipcie_v3_0
+* @{
+* @details
 *
 * This file implements interrupt functions for the XAxiPcie IP
 *
@@ -252,3 +255,4 @@ void XAxiPcie_ClearPendingInterrupts(XAxiPcie *InstancePtr, u32 ClearMask)
 			XAxiPcie_ReadReg((InstancePtr->Config.BaseAddress),
 				XAXIPCIE_ID_OFFSET) & (ClearMask));
 }
+/** @} */

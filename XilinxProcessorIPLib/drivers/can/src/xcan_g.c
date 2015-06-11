@@ -33,6 +33,9 @@
 /**
 *
 * @file xcan_g.c
+* @addtogroup can_v3_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of CAN devices in the system.
@@ -78,3 +81,4 @@ XCan_Config XCan_ConfigTable[XPAR_XCAN_NUM_INSTANCES] = {
 		XPAR_OPB_CAN_0_CAN_NUM_ACF  /* Number of acceptance filters */
 	 }
 };
+/** @} */

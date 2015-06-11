@@ -33,6 +33,9 @@
 /**
 *
 * @file xdevcfg_g.c
+* @addtogroup devcfg_v3_3
+* @{
+* @details
 *
 * This file contains a table that specifies the configuration of the Device
 * Configuration Interface device in the system. Each device should have an entry
@@ -73,3 +76,4 @@ XDcfg_Config XDcfg_ConfigTable[1] = {
 		XPAR_XDCFG_0_BASEADDR,
 	}
 };
+/** @} */

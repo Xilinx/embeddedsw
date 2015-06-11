@@ -33,6 +33,9 @@
 /**
 *
 * @file xadcps_intr.c
+* @addtogroup xadcps_v2_2
+* @{
+* @details
 *
 * This file contains interrupt handling API functions of the XADC
 * device.
@@ -245,3 +248,4 @@ void XAdcPs_IntrClear(XAdcPs *InstancePtr, u32 Mask)
 			  RegValue);
 
 }
+/** @} */

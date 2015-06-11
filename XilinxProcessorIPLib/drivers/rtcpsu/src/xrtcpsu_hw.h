@@ -33,6 +33,9 @@
 /**
 *
 * @file xrtcpsu_hw.h
+* @addtogroup rtcpsu_v1_0
+* @{
+* @details
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
@@ -355,3 +358,4 @@ extern "C" {
 #endif
 
 #endif /* XRTC_HW_H_ */
+/** @} */

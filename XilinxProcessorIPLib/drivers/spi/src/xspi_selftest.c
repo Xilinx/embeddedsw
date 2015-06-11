@@ -33,6 +33,9 @@
 /**
 *
 * @file xspi_selftest.c
+* @addtogroup spi_v4_1
+* @{
+* @details
 *
 * This component contains the implementation of selftest functions for the
 * XSpi driver component.
@@ -358,3 +361,4 @@ static int LoopbackTest(XSpi *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandps_onfi.c
+* @addtogroup nandps_v2_2
+* @{
+* @details
 *
 * This module implements the ONFI specific commands.
 * See xnandps_onfi.h for more information.
@@ -652,3 +655,4 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */

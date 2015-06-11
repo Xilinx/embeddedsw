@@ -33,6 +33,9 @@
 /**
 *
 * @file xdeint.h
+* @addtogroup deinterlacer_v3_2
+* @{
+* @details
 *
 * This is the main header file of Xilinx Video Deinterlacer core.
 *
@@ -539,3 +542,4 @@ int XDeint_Selftest(XDeint *InstancePtr);
 #endif
 
 #endif	/* End of protection macro */
+/** @} */

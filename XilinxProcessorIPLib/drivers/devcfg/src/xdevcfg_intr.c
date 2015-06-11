@@ -33,6 +33,9 @@
 /**
 *
 * @file xdevcfg_intr.c
+* @addtogroup devcfg_v3_3
+* @{
+* @details
 *
 * Contains the implementation of interrupt related functions of the XDcfg
 * driver.
@@ -305,3 +308,4 @@ void XDcfg_SetHandler(XDcfg *InstancePtr, void *CallBackFunc,
 	InstancePtr->StatusHandler = (XDcfg_IntrHandler) CallBackFunc;
 	InstancePtr->CallBackRef = CallBackRef;
 }
+/** @} */

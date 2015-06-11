@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartlite_intr.c
+* @addtogroup uartlite_v3_0
+* @{
+* @details
 *
 * This file contains interrupt-related functions for the UART Lite component
 * (XUartLite).
@@ -330,3 +333,4 @@ void XUartLite_EnableInterrupt(XUartLite *InstancePtr)
 				XUL_CONTROL_REG_OFFSET, XUL_CR_ENABLE_INTR);
 }
 
+/** @} */

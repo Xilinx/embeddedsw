@@ -33,6 +33,9 @@
 /**
 *
 * @file xccm_intr.c
+* @addtogroup ccm_v6_0
+* @{
+* @details
 *
 * This file contains interrupt related functions of Xilinx CCM core.
 * Please see xccm.h for more details of the driver.
@@ -209,3 +212,4 @@ int XCcm_SetCallBack(XCcm *InstancePtr, u32 HandlerType,
 
 	return Status;
 }
+/** @} */

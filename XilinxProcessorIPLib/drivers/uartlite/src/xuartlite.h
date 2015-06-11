@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartlite.h
+* @addtogroup uartlite_v3_0
+* @{
+* @details
 *
 * This component contains the implementation of the XUartLite component which is
 * the driver for the Xilinx UART Lite device. This UART is a minimal hardware
@@ -276,3 +279,4 @@ void XUartLite_InterruptHandler(XUartLite *InstancePtr);
 
 #endif			/* end of protection macro */
 
+/** @} */

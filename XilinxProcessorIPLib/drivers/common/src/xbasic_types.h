@@ -33,6 +33,9 @@
 /**
 *
 * @file xbasic_types.h
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * This file contains basic types for Xilinx software IP.  These types do not
 * follow the standard naming convention with respect to using the component
@@ -308,3 +311,4 @@ void XNullHandler(void *NullParameter);
 #endif
 
 #endif	/* end of protection macro */
+/** @} */

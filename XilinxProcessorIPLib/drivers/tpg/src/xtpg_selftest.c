@@ -33,6 +33,9 @@
 /**
 *
 * @file xtpg_selftest.c
+* @addtogroup tpg_v3_0
+* @{
+* @details
 *
 * This file contains the self-test functions for the TPG driver.
 * The self test function reads the Version Register.
@@ -107,3 +110,4 @@ int XTpg_SelfTest(XTpg *InstancePtr)
 
 	return Status;
 }
+/** @} */

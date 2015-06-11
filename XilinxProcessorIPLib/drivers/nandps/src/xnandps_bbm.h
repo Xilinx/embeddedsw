@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandps_bbm.h
+* @addtogroup nandps_v2_2
+* @{
+* @details
 *
 * This file implements the Bad Block Management(BBM) functionality. This is
 * similar to the Bad Block Management which is a part of the MTD subsystem in
@@ -183,3 +186,4 @@ int XNandPs_MarkBlockBad(XNandPs *InstancePtr, u32 Block);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -32,6 +32,9 @@
 
 /**
 * @file xbram.c
+* @addtogroup bram_v4_0
+* @{
+* @details
 *
 * The implementation of the XBram driver's basic functionality.
 * See xbram.h for more information about the driver.
@@ -142,3 +145,4 @@ int XBram_CfgInitialize(XBram *InstancePtr,
 	return (XST_SUCCESS);
 }
 
+/** @} */

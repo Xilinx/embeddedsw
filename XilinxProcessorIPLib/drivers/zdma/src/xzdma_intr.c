@@ -33,6 +33,9 @@
 /**
 *
 * @file xzdma_intr.c
+* @addtogroup zdma_v1_0
+* @{
+* @details
 *
 * This file contains interrupt related functions of Xilinx ZDMA core.
 * Please see xzdma.h for more details of the driver.
@@ -200,3 +203,4 @@ s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 
 	return Status;
 }
+/** @} */

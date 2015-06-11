@@ -33,6 +33,9 @@
 /**
 *
 * @file xv_vscaler_l2.c
+* @addtogroup v_vscaler_v1_0
+* @{
+* @details
 *
 * The Vertical Scaler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -495,3 +498,4 @@ void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr)
     }
   }
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xspips_selftest.c
+* @addtogroup spips_v3_0
+* @{
+* @details
 *
 * This component contains the implementation of selftest functions for an SPI
 * device.
@@ -154,3 +157,4 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 
 	return (s32)XST_SUCCESS;
 }
+/** @} */

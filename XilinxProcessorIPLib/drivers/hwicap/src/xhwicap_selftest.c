@@ -33,6 +33,9 @@
 /**
 *
 * @file xhwicap_selftest.c
+* @addtogroup hwicap_v10_0
+* @{
+* @details
 *
 * This file contains a diagnostic self test function for the XHwIcap driver.
 * The self test functions writes to the Interrupt Enable Register and reads it
@@ -152,3 +155,4 @@ int XHwIcap_SelfTest(XHwIcap *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */

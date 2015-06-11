@@ -33,6 +33,9 @@
 /**
 *
 * @file xvtc.h
+* @addtogroup vtc_v7_0
+* @{
+* @details
 *
 * This is the main header file of Xilinx MVI Video Timing Controller (VTC)
 * device driver. The VTC device detects video signals, independently
@@ -952,3 +955,4 @@ int XVtc_SelfTest(XVtc *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -33,6 +33,9 @@
 /**
  *
  * @file xllfifo.c
+* @addtogroup llfifo_v5_0
+* @{
+* @details
  *
  * The Xilinx local link FIFO driver component. This driver supports the
  * Xilinx xps_ll_fifo core.
@@ -493,3 +496,4 @@ void XLlFifo_Initialize(XLlFifo *InstancePtr, u32 BaseAddress)
 			(XStrm_SetLenFnType)XLlFifo_iTxSetLen,
 			(XStrm_GetVacancyFnType)XLlFifo_iTxVacancy);
 }
+/** @} */

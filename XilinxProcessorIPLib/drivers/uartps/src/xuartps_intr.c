@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartps_intr.c
+* @addtogroup uartps_v3_1
+* @{
+* @details
 *
 * This file contains the functions for interrupt handling
 *
@@ -457,3 +460,4 @@ static void ModemHandler(XUartPs *InstancePtr)
 				  MsrRegister);
 
 }
+/** @} */

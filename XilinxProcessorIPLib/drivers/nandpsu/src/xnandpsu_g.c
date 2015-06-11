@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandpsu_g.c
+* @addtogroup nandpsu_v1_0
+* @{
+* @details
 *
 * This file contains a configuration table where each entry is a configuration
 * structure for an XNandPsu device in the system.
@@ -68,3 +71,4 @@ XNandPsu_Config XNandPsu_ConfigTable[] = {
 		(u32)XPAR_XNANDPSU_0_BASEADDR
 	}
 };
+/** @} */

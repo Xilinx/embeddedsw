@@ -32,6 +32,9 @@
 /**
 *
 * @file xscaler.c
+* @addtogroup scaler_v7_0
+* @{
+* @details
 *
 * This is main code of Xilinx MVI Video Scaler device driver. The Scaler device
 * converts a specified rectangular area of an input digital video image from
@@ -946,3 +949,4 @@ static void StubCallBack(void *CallBackRef)
 	(void)CallBackRef;
 	Xil_AssertVoidAlways();
 }
+/** @} */

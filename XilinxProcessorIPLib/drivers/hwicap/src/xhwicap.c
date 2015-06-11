@@ -33,6 +33,9 @@
 /**
 *
 * @file xhwicap.c
+* @addtogroup hwicap_v10_0
+* @{
+* @details
 *
 * This file contains the functions of the XHwIcap driver. See xhwicap.h for a
 * detailed description of the driver.
@@ -752,3 +755,4 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 
 	Xil_AssertVoidAlways();
 }
+/** @} */

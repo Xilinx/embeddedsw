@@ -33,6 +33,9 @@
 /**
 *
 * @file xzdma_sinit.c
+* @addtogroup zdma_v1_0
+* @{
+* @details
 *
 * This file contains static initialization methods for Xilinx ZDMA core.
 *
@@ -101,3 +104,4 @@ XZDma_Config *XZDma_LookupConfig(u16 DeviceId)
 
 	return (XZDma_Config *)CfgPtr;
 }
+/** @} */

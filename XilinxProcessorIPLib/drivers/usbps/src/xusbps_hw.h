@@ -33,6 +33,9 @@
 /**
  *
  * @file xusbps_hw.h
+* @addtogroup usbps_v2_2
+* @{
+* @details
  *
  * This header file contains identifiers and low-level driver functions (or
  * macros) that can be used to access the device. High-level driver functions
@@ -521,3 +524,4 @@ void XUsbPs_ResetHw(u32 BaseAddress);
 #endif
 
 #endif /* XUSBPS_L_H */
+/** @} */

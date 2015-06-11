@@ -33,6 +33,9 @@
 /**
 *
 * @file xwdttb_selftest.c
+* @addtogroup wdttb_v3_0
+* @{
+* @details
 *
 * Contains diagnostic self-test functions for the XWdtTb component.
 *
@@ -130,3 +133,4 @@ int XWdtTb_SelfTest(XWdtTb *InstancePtr)
 		return XST_WDTTB_TIMER_FAILED;
 	}
 }
+/** @} */

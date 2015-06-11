@@ -33,6 +33,9 @@
 /**
 *
 * @file xcanfd.h
+* @addtogroup canfd_v1_0
+* @{
+* @details
 *
 * The Xilinx CANFD driver.  This driver supports the Xilinx CANFD Controller.
 *
@@ -934,3 +937,4 @@ XCanFd_Config *XCanFd_LookupConfig(u16 Deviceid);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

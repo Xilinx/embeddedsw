@@ -33,6 +33,9 @@
 /**
 *
 * @file xspi_g.c
+* @addtogroup spi_v4_1
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * SPI devices in the system.
@@ -102,3 +105,4 @@ XSpi_Config XSpi_ConfigTable[XPAR_XSPI_NUM_INSTANCES] = {
 	 XPAR_SPI_0_USE_STARTUP		/* Startup Parameter */
 	}
 };
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xtft.c
+* @addtogroup tft_v5_0
+* @{
+* @details
 *
 * This file defines all the functions for the XTft driver. See the xtft.h
 * header file for more details on this driver.
@@ -1005,3 +1008,4 @@ int XTft_GetVsyncStatus(XTft* InstancePtr)
 	return((XTft_ReadReg(InstancePtr, XTFT_IESR_OFFSET) &
 		XTFT_IESR_VADDRLATCH_STATUS_MASK)? TRUE : FALSE);
 }
+/** @} */

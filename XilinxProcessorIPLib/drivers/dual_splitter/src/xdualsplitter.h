@@ -33,6 +33,9 @@
 /**
 *
 * @file xdualsplitter.h
+* @addtogroup dual_splitter_v1_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros), range macros, structure typedefs that can be used to access the
@@ -398,3 +401,4 @@ void XDualSplitter_SetCallback(XDualSplitter *InstancePtr,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

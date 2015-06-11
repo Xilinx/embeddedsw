@@ -33,6 +33,9 @@
 /**
 *
 * @file xadcps_g.c
+* @addtogroup xadcps_v2_2
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of XADC devices in the system when accessing through the Device Config
@@ -80,3 +83,4 @@ XAdcPs_Config XAdcPs_ConfigTable[XPAR_XADCPS_NUM_INSTANCES] =
 		XPAR_XADCPS_0_BASEADDR		/**< Base address of device */
 	}
 };
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xcresample_hw.h
+* @addtogroup cresample_v4_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions
 * (or macros) that can be used to access the Xilinx Chroma Resampler core.
@@ -550,3 +553,4 @@ extern "C" {
 
 #endif
 #endif /* End of protection macro */
+/** @} */

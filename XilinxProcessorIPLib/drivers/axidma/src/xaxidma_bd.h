@@ -33,6 +33,9 @@
 /**
  *
  * @file xaxidma_bd.h
+* @addtogroup axidma_v8_1
+* @{
+* @details
  *
  * Buffer descriptor (BD) management API.
  *
@@ -669,3 +672,4 @@ void XAxiDma_DumpBd(XAxiDma_Bd* BdPtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

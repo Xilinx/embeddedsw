@@ -33,6 +33,9 @@
 /**
 *
 * @file xdeint_hw.h
+* @addtogroup deinterlacer_v3_2
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx Video Deinterlacer core.
@@ -365,3 +368,4 @@ extern "C" {
 #endif
 
 #endif	/* End of protection macro */
+/** @} */

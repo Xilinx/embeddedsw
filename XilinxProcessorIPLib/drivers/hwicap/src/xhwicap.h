@@ -33,6 +33,9 @@
 /**
 *
 * @file xhwicap.h
+* @addtogroup hwicap_v10_0
+* @{
+* @details
 *
 * The Xilinx XHwIcap driver supports the Xilinx Hardware Internal Configuration
 * Access Port (HWICAP) device.
@@ -722,3 +725,4 @@ int XHwIcap_GetClbBits(XHwIcap *InstancePtr, long Row, long Col,
 
 #endif
 
+/** @} */

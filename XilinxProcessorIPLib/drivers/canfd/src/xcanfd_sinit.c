@@ -42,6 +42,9 @@
 /**
 *
 * @file xcanFd_sinit.c
+* @addtogroup canfd_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of the XCanFd driver's static
 * initialization functionality.
@@ -106,3 +109,4 @@ XCanFd_Config *XCanFd_LookupConfig(u16 DeviceId)
 
 	return (XCanFd_Config *)CfgPtr;
 }
+/** @} */

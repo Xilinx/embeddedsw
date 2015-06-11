@@ -33,6 +33,9 @@
 /**
 *
 * @file xscutimer_selftest.c
+* @addtogroup scutimer_v2_1
+* @{
+* @details
 *
 * Contains diagnostic self-test functions for the XScuTimer driver.
 *
@@ -134,3 +137,4 @@ s32 XScuTimer_SelfTest(XScuTimer *InstancePtr)
 
 	return Status;
 }
+/** @} */

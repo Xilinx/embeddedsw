@@ -33,6 +33,9 @@
 /**
 *
 * @file xiomodule_g.c
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * interrupt controller devices in the system.
@@ -126,3 +129,4 @@ XIOModule_Config XIOModule_ConfigTable[XPAR_XIOMODULE_NUM_INSTANCES] = {
 	 {0, 0, 0, 0}			    /* GPO initial value */
 	 }
 };
+/** @} */

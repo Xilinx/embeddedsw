@@ -33,6 +33,9 @@
 /**
 *
 * @file xdevcfg.c
+* @addtogroup devcfg_v3_3
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for XDcfg
 * driver. Refer to the header file xdevcfg.h for more detailed information.
@@ -940,3 +943,4 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 
 	return XST_SUCCESS;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
  *
  * @file xvidc.h
+* @addtogroup video_common_v1_1
+* @{
+* @details
  *
  * Contains common structures, definitions, macros, and utility functions that
  * are typically used by video-related drivers and applications.
@@ -388,3 +391,4 @@ void XVidC_ReportTiming(XVidC_VideoTiming *Timing, u8 IsInterlaced);
 const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED];
 
 #endif /* XVIDC_H_ */
+/** @} */

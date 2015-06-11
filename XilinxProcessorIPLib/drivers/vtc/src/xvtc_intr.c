@@ -33,6 +33,9 @@
 /**
 *
 * @file xvtc_intr.c
+* @addtogroup vtc_v7_0
+* @{
+* @details
 *
 * This file contains interrupt related functions of Xilinx VTC core.
 * Please see xvtc.h for more details of the core.
@@ -293,3 +296,4 @@ int XVtc_SetCallBack(XVtc *InstancePtr, u32 HandlerType,
 	}
 	return XST_SUCCESS;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xsysmon_g.c
+* @addtogroup sysmon_v7_1
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of System Monitor/ADC devices in the system.
@@ -80,3 +83,4 @@ XSysMon_Config XSysMon_ConfigTable[XPAR_XSYSMON_NUM_INSTANCES] =
 		XPAR_SYSMON_0_INCLUDE_INTR	/**< Include interrupt module */
 	}
 };
+/** @} */

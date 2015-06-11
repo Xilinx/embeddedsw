@@ -33,6 +33,9 @@
 /**
 *
 * @file xsrio_g.c
+* @addtogroup srio_v1_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * SRIO devices in the system. Each SRIO device in the system should have an entry
@@ -66,3 +69,4 @@ XSrio_Config XSrio_ConfigTable[] =
 		XPAR_SRIO_0_PE_BRIDGE
 	}
 };
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandpsu_bbm.c
+* @addtogroup nandpsu_v1_0
+* @{
+* @details
 *
 * This file implements the Bad Block Management (BBM) functionality.
 * See xnandpsu_bbm.h for more details.
@@ -1085,3 +1088,4 @@ s32 XNandPsu_MarkBlockBad(XNandPsu *InstancePtr, u32 Block)
 Out:
 	return Status;
 }
+/** @} */

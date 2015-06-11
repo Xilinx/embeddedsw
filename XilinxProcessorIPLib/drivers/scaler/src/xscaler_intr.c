@@ -32,6 +32,9 @@
 /**
 *
 * @file xscaler_intr.c
+* @addtogroup scaler_v7_0
+* @{
+* @details
 *
 * This code contains interrupt related functions of Xilinx MVI Video Scaler
 * device driver. The Scaler device converts a specified rectangular area of an
@@ -120,3 +123,4 @@ void XScaler_SetCallBack(XScaler *InstancePtr,
 	InstancePtr->CallBackRef = CallBackRef;
 
 }
+/** @} */

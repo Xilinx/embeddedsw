@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  *  @file xaxivdma_i.h
+* @addtogroup axivdma_v5_1
+* @{
+* @details
  *
  * Internal API definitions shared by driver files.
  *
@@ -176,3 +179,4 @@ void XAxiVdma_ClearChannelErrors(XAxiVdma_Channel *Channel, u32 ErrorMask);
 #endif
 
 #endif
+/** @} */

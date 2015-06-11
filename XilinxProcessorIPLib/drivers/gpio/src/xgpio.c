@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xgpio.c
+* @addtogroup gpio_v4_0
+* @{
+* @details
 *
 * The implementation of the XGpio driver's basic functionality. See xgpio.h
 * for more information about the driver.
@@ -253,3 +256,4 @@ void XGpio_DiscreteWrite(XGpio * InstancePtr, unsigned Channel, u32 Data)
 			((Channel - 1) * XGPIO_CHAN_OFFSET) + XGPIO_DATA_OFFSET,
 			Data);
 }
+/** @} */

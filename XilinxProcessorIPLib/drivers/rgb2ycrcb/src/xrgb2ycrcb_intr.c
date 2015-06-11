@@ -33,6 +33,9 @@
 /**
 *
 * @file xrgb2ycrcb_intr.c
+* @addtogroup rgb2ycrcb_v7_0
+* @{
+* @details
 *
 * This file contains interrupt related functions for the RGB2YCRCB core.
 * Please see xrgb2crcb.h for more details of the driver.
@@ -200,3 +203,4 @@ int XRgb2YCrCb_SetCallBack(XRgb2YCrCb *InstancePtr, u32 HandlerType,
 
 	return Status;
 }
+/** @} */

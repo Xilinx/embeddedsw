@@ -33,6 +33,9 @@
 /**
 *
 * @file XDeint_g.c
+* @addtogroup deinterlacer_v3_2
+* @{
+* @details
 *
 * This file contains a template for configuration table of Xilinx Video
 * Deinterlacer For a real hardware system, Xilinx Platform Studio (XPS) will
@@ -66,3 +69,4 @@ XDeint_Config XDeint_ConfigTable[] = {
 		XPAR_FMC_SENSOR_INPUT_V_DEINTERLACER_1__BASEADDR
 	}
 };
+/** @} */

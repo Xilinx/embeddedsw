@@ -33,6 +33,9 @@
 /**
 *
 * @file xtft_g.c
+* @addtogroup tft_v5_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the parameters of
 * TFT devices.
@@ -77,3 +80,4 @@ XTft_Config XTft_ConfigTable[] =
 };
 
 /************************** Function Definitions ****************************/
+/** @} */

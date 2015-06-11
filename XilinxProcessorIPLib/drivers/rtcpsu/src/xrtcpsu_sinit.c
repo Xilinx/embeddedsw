@@ -33,6 +33,9 @@
 /**
 *
 * @file xrtcpsu_sinit.c
+* @addtogroup rtcpsu_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of the XRtcPsu driver's static
 * initialization functionality.
@@ -97,3 +100,4 @@ XRtcPsu_Config *XRtcPsu_LookupConfig(u16 DeviceId)
 
 	return (XRtcPsu_Config *)CfgPtr;
 }
+/** @} */

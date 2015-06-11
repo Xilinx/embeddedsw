@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_bdring.c
+* @addtogroup axicdma_v3_0
+* @{
+* @details
  *
  * Implementation for support on Scatter Gather (SG) transfers.
  * It includes the implementation of the BD ring API. There is only one BD ring
@@ -1052,3 +1055,4 @@ int XAxiCdma_BdRingStartTransfer(XAxiCdma *InstancePtr)
 	return XST_SUCCESS;
 }
 
+/** @} */

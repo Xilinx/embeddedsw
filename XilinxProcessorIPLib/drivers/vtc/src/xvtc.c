@@ -33,6 +33,9 @@
 /**
 *
 * @file xvtc.c
+* @addtogroup vtc_v7_0
+* @{
+* @details
 *
 * This is main code of Xilinx MVI Video Timing Controller (VTC) device driver.
 * The VTC device detects and generates video sync signals to Video IP cores
@@ -2611,3 +2614,4 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 	(void)ErrorMask;
 	Xil_AssertVoidAlways();
 }
+/** @} */

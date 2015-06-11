@@ -33,6 +33,9 @@
 /**
 *
 * @file xenv_none.h
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * This is a legacy file kept for backwards compatibility.
 *
@@ -50,3 +53,4 @@
 
 #include "xenv_standalone.h"
 
+/** @} */

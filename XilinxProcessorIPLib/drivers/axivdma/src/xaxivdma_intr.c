@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxivdma_intr.c
+* @addtogroup axivdma_v5_1
+* @{
+* @details
 *
 * Implementation of interrupt related functions.
 *
@@ -405,3 +408,4 @@ int XAxiVdma_SetCallBack(XAxiVdma * InstancePtr, u32 HandlerType,
 
 	return XST_SUCCESS;
 }
+/** @} */

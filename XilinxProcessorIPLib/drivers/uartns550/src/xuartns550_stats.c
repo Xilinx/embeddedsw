@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550_stats.c
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * This file contains the statistics functions for the 16450/16550 UART driver.
 *
@@ -138,3 +141,4 @@ void XUartNs550_ClearStats(XUartNs550 *InstancePtr)
 	InstancePtr->Stats.ReceiveParityErrors = 0;
 	InstancePtr->Stats.ReceiveBreakDetected = 0;
 }
+/** @} */

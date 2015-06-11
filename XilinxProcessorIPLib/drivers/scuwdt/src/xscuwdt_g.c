@@ -33,6 +33,9 @@
 /**
 *
 * @file xscuwdt_g.c
+* @addtogroup scuwdt_v2_1
+* @{
+* @details
 *
 * This file contains a table that specifies the configuration of the SCU
 * watchdog timer devices in the system. Each device should have an entry
@@ -74,3 +77,4 @@ XScuWdt_Config XScuWdt_ConfigTable[XPAR_XSCUWDT_NUM_INSTANCES] = {
 		(u32)XPAR_SCUWDT_0_BASEADDR
 	}
 };
+/** @} */

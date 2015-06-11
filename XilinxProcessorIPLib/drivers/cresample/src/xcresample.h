@@ -33,6 +33,9 @@
 /**
 *
 * @file xcresample.h
+* @addtogroup cresample_v4_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions
 * (or macros), that can be used to access the Xilinx Chroma Resampler
@@ -712,3 +715,4 @@ void XCresample_Clear_VCoef_Values (XCresample *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

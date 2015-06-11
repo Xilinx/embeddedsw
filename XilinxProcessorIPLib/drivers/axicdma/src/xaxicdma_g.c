@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxicdma_g.c
+* @addtogroup axicdma_v3_0
+* @{
+* @details
 *
 * Provide a template for user to define their own hardware settings.
 *
@@ -64,3 +67,4 @@ XAxiCdma_Config XAxiCdma_ConfigTable[] =
 		XPAR_AXICDMA_0_M_AXI_DATA_WIDTH
 	}
 };
+/** @} */

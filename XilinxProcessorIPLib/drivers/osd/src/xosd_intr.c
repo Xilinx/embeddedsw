@@ -33,6 +33,9 @@
 /**
 *
 * @file xosd_intr.c
+* @addtogroup osd_v4_0
+* @{
+* @details
 *
 * This code contains interrupt related functions of Xilinx Video
 * On-Screen-Display core. Please see xosd.h for more details of
@@ -207,3 +210,4 @@ int XOsd_SetCallBack(XOsd *InstancePtr, u32 HandlerType,
 
 	return Status;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxidma.c
+* @addtogroup axidma_v8_1
+* @{
+* @details
 *
 * This file implements DMA engine-wise initialization and control functions.
 * For more information on the implementation of this driver, see xaxidma.h.
@@ -951,3 +954,4 @@ int XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, u32 BuffAddr, u32 Length,
 
 	return XST_SUCCESS;
 }
+/** @} */

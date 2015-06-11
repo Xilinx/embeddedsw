@@ -33,6 +33,9 @@
 /**
 *
 * @file xtft_hw.h
+* @addtogroup tft_v5_0
+* @{
+* @details
 *
 * This file defines the macros and definitions for the Xilinx TFT Controller
 * device.
@@ -125,3 +128,4 @@ extern "C" {
 #endif
 
 #endif /* XTFT_HW_H */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xwdttb.c
+* @addtogroup wdttb_v3_0
+* @{
+* @details
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
 * description of the driver.
@@ -380,3 +383,4 @@ XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

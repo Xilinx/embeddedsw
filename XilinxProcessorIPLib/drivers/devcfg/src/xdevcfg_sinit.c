@@ -33,6 +33,9 @@
 /**
 *
 * @file xdevcfg_sinit.c
+* @addtogroup devcfg_v3_3
+* @{
+* @details
 *
 * This file contains method for static initialization (compile-time) of the
 * driver.
@@ -88,3 +91,4 @@ XDcfg_Config *XDcfg_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+/** @} */

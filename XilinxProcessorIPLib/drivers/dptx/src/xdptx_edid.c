@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx_edid.c
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * This file contains functions related to accessing the Extended Display
  * Identification Data (EDID) of a specified sink using the XDptx driver.
@@ -379,3 +382,4 @@ u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
 
 	return XST_SUCCESS;
 }
+/** @} */

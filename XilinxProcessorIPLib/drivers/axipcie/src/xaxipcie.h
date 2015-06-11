@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxipcie.h
+* @addtogroup axipcie_v3_0
+* @{
+* @details
 *
 * This file contains the software API definition of the Xilinx AXI PCIe IP
 * (XAxiPcie). This driver provides "C" function interface to application/upper
@@ -323,3 +326,4 @@ void XAxiPcie_ClearPendingInterrupts(XAxiPcie *InstancePtr, u32 ClearMask);
 
 #endif /* end of protection macro */
 
+/** @} */

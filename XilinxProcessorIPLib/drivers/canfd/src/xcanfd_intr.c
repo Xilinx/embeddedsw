@@ -33,6 +33,9 @@
 /**
 *
 * @file xcanfd_intr.c
+* @addtogroup canfd_v1_0
+* @{
+* @details
 *
 * This file contains functions related to CAN interrupt handling.
 *
@@ -598,3 +601,4 @@ int XCanFd_SetHandler(XCanFd *InstancePtr, u32 HandlerType,
 	}
 	return (XST_SUCCESS);
 }
+/** @} */

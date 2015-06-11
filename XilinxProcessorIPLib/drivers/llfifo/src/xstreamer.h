@@ -32,6 +32,9 @@
 /*
  *
  * @file xstreamer.h
+* @addtogroup llfifo_v5_0
+* @{
+* @details
  *
  * The Xilinx byte streamer for packet FIFOs.
  *
@@ -328,3 +331,4 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 }
 #endif
 #endif				/* XSTREAMER_H  end of preprocessor protection symbols */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xllfifo_hw.h
+* @addtogroup llfifo_v5_0
+* @{
+* @details
 *
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the xps_ll_fifo core.
@@ -237,3 +240,4 @@ extern u32 _xllfifo_rr_value;
 }
 #endif
 #endif				/* XLLFIFO_HW_H  end of protection macro */
+/** @} */

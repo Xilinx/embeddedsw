@@ -33,6 +33,9 @@
 /**
 *
 * @file xcan_config.c
+* @addtogroup can_v3_0
+* @{
+* @details
 *
 * Functions in this file are CAN Configuration Register access related.
 *
@@ -228,3 +231,4 @@ void XCan_GetBitTiming(XCan *InstancePtr, u8 *SyncJumpWidth,
 }
 
 
+/** @} */

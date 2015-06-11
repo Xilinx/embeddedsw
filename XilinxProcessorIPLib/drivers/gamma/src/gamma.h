@@ -33,6 +33,9 @@
 /**
 *
 * @file gamma.h
+* @addtogroup gamma_v6_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx Gamma Correction (GAMMA) instance.
@@ -378,3 +381,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

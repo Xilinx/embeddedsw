@@ -33,6 +33,9 @@
 /**
 *
 * @file xycrcb2rgb.c
+* @addtogroup ycrcb2rgb_v7_0
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for
 * YCRCB2RGB core. Refer to the header file xycrcb2rgb.h for more detailed
@@ -1284,3 +1287,4 @@ static double XYCrCb2Rgb_Pow2(u32 Num)
 
 	return Power;
 }
+/** @} */

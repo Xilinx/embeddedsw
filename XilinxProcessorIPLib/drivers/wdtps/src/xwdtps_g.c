@@ -33,6 +33,9 @@
 /**
 *
 * @file xwdtps_g.c
+* @addtogroup wdtps_v3_0
+* @{
+* @details
 *
 * This file contains a table that specifies the configuration of the watchdog
 * timer devices in the system. Each device should have an entry in the table.
@@ -81,3 +84,4 @@ XWdtPs_Config XWdtPs_ConfigTable[XPAR_XWDTPS_NUM_INSTANCES] = {
 		(u32)XPAR_XWDTPS_1_BASEADDR
 	}
 };
+/** @} */

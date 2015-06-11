@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma.c
+* @addtogroup axicdma_v3_0
+* @{
+* @details
  *
  * The implementation of the API of Xilinx CDMA engine.
  *
@@ -685,3 +688,4 @@ void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr)
 
 	return;
 }
+/** @} */

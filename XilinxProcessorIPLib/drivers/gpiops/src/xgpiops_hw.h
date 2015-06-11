@@ -33,6 +33,9 @@
 /**
 *
 * @file xgpiops_hw.h
+* @addtogroup gpiops_v3_1
+* @{
+* @details
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
@@ -159,3 +162,4 @@ void XGpioPs_ResetHw(u32 BaseAddress);
 #endif /* __cplusplus */
 
 #endif /* XGPIOPS_HW_H */
+/** @} */

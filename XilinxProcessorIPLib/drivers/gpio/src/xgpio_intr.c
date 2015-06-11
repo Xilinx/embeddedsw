@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr.c
+* @addtogroup gpio_v4_0
+* @{
+* @details
 *
 * Implements GPIO interrupt processing functions for the XGpio driver.
 * See xgpio.h for more information about the driver.
@@ -289,3 +292,4 @@ u32 XGpio_InterruptGetStatus(XGpio * InstancePtr)
 
 	return XGpio_ReadReg(InstancePtr->BaseAddress, XGPIO_ISR_OFFSET);
 }
+/** @} */

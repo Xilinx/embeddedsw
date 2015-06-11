@@ -33,6 +33,9 @@
 /**
 *
 * @file xtmrctr.h
+* @addtogroup tmrctr_v3_0
+* @{
+* @details
 *
 * The Xilinx timer/counter component. This component supports the Xilinx
 * timer/counter. More detailed description of the driver operation can
@@ -299,3 +302,4 @@ void XTmrCtr_InterruptHandler(void *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

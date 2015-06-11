@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandps.h
+* @addtogroup nandps_v2_2
+* @{
+* @details
 *
 * This file implements a driver for the NAND flash controller.
 *
@@ -448,3 +451,4 @@ int XNandPs_EraseBlock(XNandPs *InstancePtr, u32 BlockNum);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xsysmon.c
+* @addtogroup sysmon_v7_1
+* @{
+* @details
 *
 * This file contains the driver API functions that can be used to access
 * the System Monitor/ADC device.
@@ -1892,3 +1895,4 @@ void XSysMon_SetTempWaitCycles(XSysMon *InstancePtr, u16 WaitCycles)
 	/* Store the written value in Mask */
 	InstancePtr->Mask = RegVal;
 }
+/** @} */

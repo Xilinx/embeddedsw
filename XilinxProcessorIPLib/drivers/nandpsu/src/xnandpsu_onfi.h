@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandpsu_onfi.h
+* @addtogroup nandpsu_v1_0
+* @{
+* @details
 *
 * This file defines all the ONFI 3.1 specific commands and values.
 *
@@ -338,3 +341,4 @@ u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length);
 #endif
 
 #endif /* XNANDPSU_ONFI_H end of protection macro */
+/** @} */

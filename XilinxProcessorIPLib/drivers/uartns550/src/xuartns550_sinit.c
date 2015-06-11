@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550_sinit.c
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * The implementation of the XUartNs550 component's static initialzation
 * functionality.
@@ -154,3 +157,4 @@ int XUartNs550_Initialize(XUartNs550 *InstancePtr, u16 DeviceId)
 	return XUartNs550_CfgInitialize(InstancePtr, ConfigPtr,
 					ConfigPtr->BaseAddress);
 }
+/** @} */

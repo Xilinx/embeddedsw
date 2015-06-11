@@ -33,6 +33,9 @@
 /**
 *
 * @file xspi_i.h
+* @addtogroup spi_v4_1
+* @{
+* @details
 *
 * This header file contains internal identifiers. It is intended for internal
 * use only.
@@ -86,3 +89,4 @@ extern XSpi_Config XSpi_ConfigTable[];
 #endif
 
 #endif /* end of protection macro */
+/** @} */

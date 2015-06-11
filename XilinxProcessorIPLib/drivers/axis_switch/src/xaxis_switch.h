@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxis_switch.h
+* @addtogroup axis_switch_v1_0
+* @{
+* @details
 *
 * This is the main header file for Xilinx AXI4-Stream Switch Control Router
 * core. It is used for routing streams where masters in the system do not know
@@ -202,3 +205,4 @@ s32 XAxisScr_SelfTest(XAxis_Switch *InstancePtr);
 #endif
 
 #endif /* End of protection macro */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandpsu_sinit.c
+* @addtogroup nandpsu_v1_0
+* @{
+* @details
 *
 * The implementation of the XNandPsu driver's static initialzation
 * functionality.
@@ -91,3 +94,4 @@ XNandPsu_Config *XNandPsu_LookupConfig(u16 DevID)
 
 	return (XNandPsu_Config *)CfgPtr;
 }
+/** @} */

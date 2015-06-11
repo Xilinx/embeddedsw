@@ -32,6 +32,9 @@
 /**
 *
 * @file xscaler_hw.h
+* @addtogroup scaler_v7_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx MVI Video Scaler device.
@@ -416,3 +419,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

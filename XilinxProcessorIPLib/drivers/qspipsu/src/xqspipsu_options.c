@@ -33,6 +33,9 @@
 /**
 *
 * @file xqspipsu_options.c
+* @addtogroup qspipsu_v1_0
+* @{
+* @details
 *
 * This file implements funcitons to configure the QSPIPSU component,
 * specifically some optional settings, clock and flash related information.
@@ -444,3 +447,4 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 	}
 	return Status;
 }
+/** @} */

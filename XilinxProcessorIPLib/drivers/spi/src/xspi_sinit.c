@@ -33,6 +33,9 @@
 /**
 *
 * @file xspi_sinit.c
+* @addtogroup spi_v4_1
+* @{
+* @details
 *
 * The implementation of the XSpi component's static initialization
 * functionality.
@@ -148,3 +151,4 @@ int XSpi_Initialize(XSpi *InstancePtr, u16 DeviceId)
 				  ConfigPtr->BaseAddress);
 
 }
+/** @} */

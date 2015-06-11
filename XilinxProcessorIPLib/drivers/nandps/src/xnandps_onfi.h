@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandps_onfi.h
+* @addtogroup nandps_v2_2
+* @{
+* @details
 *
 * This file implements ONFI specific commands which are used to get the
 * parameter page information.
@@ -320,3 +323,4 @@ typedef struct {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

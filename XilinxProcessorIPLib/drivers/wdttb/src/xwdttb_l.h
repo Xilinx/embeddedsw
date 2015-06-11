@@ -33,6 +33,9 @@
 /**
 *
 * @file xwdttb_l.h
+* @addtogroup wdttb_v3_0
+* @{
+* @details
 *
 * This header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the device.
@@ -151,3 +154,4 @@ extern "C" {
 #endif
 
 #endif
+/** @} */

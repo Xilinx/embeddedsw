@@ -33,6 +33,9 @@
 /**
 *
 * @file xosd.h
+* @addtogroup osd_v4_0
+* @{
+* @details
 *
 * This is main header file of the Xilinx On-Screen-Display (OSD) core.
 *
@@ -900,3 +903,4 @@ int XOsd_SelfTest(XOsd *InstancePtr);
 #endif
 
 #endif /* End of protection macro */
+/** @} */

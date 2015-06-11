@@ -33,6 +33,9 @@
 /**
 *
 * @file xmutex_selftest.c
+* @addtogroup mutex_v4_0
+* @{
+* @details
 *
 * Contains XMutex driver selftest code.
 *
@@ -131,3 +134,4 @@ int XMutex_SelfTest(XMutex *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */

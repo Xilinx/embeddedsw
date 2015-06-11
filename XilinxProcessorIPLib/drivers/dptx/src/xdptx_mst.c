@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx_mst.c
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -2974,3 +2977,4 @@ static u32 XDptx_IsSameTileDisplay(u8 *TileDisp0, u8 *TileDisp1)
 
 	return 1;
 }
+/** @} */

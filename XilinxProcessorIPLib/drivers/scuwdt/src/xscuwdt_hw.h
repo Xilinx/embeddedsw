@@ -33,6 +33,9 @@
 /**
 *
 * @file xscuwdt_hw.h
+* @addtogroup scuwdt_v2_1
+* @{
+* @details
 *
 * This file contains the hardware interface to the Xilinx SCU private Watch Dog
 * Timer (XSCUWDT).
@@ -177,3 +180,4 @@ extern "C" {
 #endif
 
 #endif	/* end of protection macro */
+/** @} */

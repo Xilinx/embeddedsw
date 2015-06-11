@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550.c
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * This file contains the required functions for the 16450/16550 UART driver.
 * Refer to the header file xuartns550.h for more detailed information.
@@ -745,3 +748,4 @@ static void XUartNs550_StubHandler(void *CallBackRef, u32 Event,
 	 */
 	Xil_AssertVoidAlways();
 }
+/** @} */

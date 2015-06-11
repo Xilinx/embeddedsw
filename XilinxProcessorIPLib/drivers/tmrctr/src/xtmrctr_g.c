@@ -33,6 +33,9 @@
 /**
 *
 * @file xtmrctr_g.c
+* @addtogroup tmrctr_v3_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * timer/counter devices in the system. Each timer/counter device should have
@@ -79,3 +82,4 @@ XTmrCtr_Config XTmrCtr_ConfigTable[XPAR_XTMRCTR_NUM_INSTANCES] = {
 	 XPAR_TMRCTR_0_BASEADDR	/* Device base address */
 	 }
 };
+/** @} */

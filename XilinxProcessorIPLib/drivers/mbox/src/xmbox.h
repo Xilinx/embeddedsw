@@ -33,6 +33,9 @@
 /**
 *
 * @file xmbox.h
+* @addtogroup mbox_v4_0
+* @{
+* @details
 *
 * The Xilinx mailbox driver. This driver supports the Xilinx
 * Mailbox device. More detailed description of the driver operation can
@@ -225,3 +228,4 @@ XMbox_Config *XMbox_LookupConfig(u16 DeviceId);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

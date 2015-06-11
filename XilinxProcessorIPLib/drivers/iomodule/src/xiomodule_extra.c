@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xiomodule_extra.c
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * The implementation of the XIOModule component's advanced discrete
 * functions. See xiomodule.h for more information about the component.
@@ -148,3 +151,4 @@ void XIOModule_DiscreteClear(XIOModule * InstancePtr,
 	XIOModule_WriteReg(InstancePtr->BaseAddress, DataOffset, Current);
 	InstancePtr->GpoValue[Channel - 1] = Current;
 }
+/** @} */

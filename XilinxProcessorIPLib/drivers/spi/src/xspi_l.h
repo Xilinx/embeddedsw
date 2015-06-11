@@ -33,6 +33,9 @@
 /**
 *
 * @file xspi_l.h
+* @addtogroup spi_v4_1
+* @{
+* @details
 *
 * This header file contains identifiers, Register Definitions and  basic driver
 * functions (or macros) that can be used to access the device.
@@ -361,3 +364,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

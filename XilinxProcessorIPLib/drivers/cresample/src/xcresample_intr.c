@@ -33,6 +33,9 @@
 /**
 *
 * @file xcresample_intr.c
+* @addtogroup cresample_v4_0
+* @{
+* @details
 *
 * This file contains interrupt related functions of Chroma Resampler core
 * Please see xcresample.h for more details of the core.
@@ -210,3 +213,4 @@ int XCresample_SetCallBack(XCresample *InstancePtr, u32 HandlerType,
 
 	return Status;
 }
+/** @} */

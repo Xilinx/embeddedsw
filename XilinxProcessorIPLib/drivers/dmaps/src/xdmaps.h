@@ -33,6 +33,9 @@
 /**
 *
 * @file xdmaps.h
+* @addtogroup dmaps_v2_1
+* @{
+* @details
 *
 *
 * <pre>
@@ -315,3 +318,4 @@ int XDmaPs_SelfTest(XDmaPs *InstPtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

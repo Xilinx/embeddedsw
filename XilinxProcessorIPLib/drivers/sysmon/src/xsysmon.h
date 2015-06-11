@@ -33,6 +33,9 @@
 /**
 *
 * @file xsysmon.h
+* @addtogroup sysmon_v7_1
+* @{
+* @details
 *
 * The XSysMon driver supports the Xilinx System Monitor/ADC device.
 *
@@ -632,3 +635,4 @@ void XSysMon_IntrClear(XSysMon *InstancePtr, u32 Mask);
 #endif
 
 #endif  /* End of protection macro. */
+/** @} */

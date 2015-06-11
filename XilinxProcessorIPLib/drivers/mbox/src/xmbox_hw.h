@@ -33,6 +33,9 @@
 /**
 *
 * @file xmbox_hw.h
+* @addtogroup mbox_v4_0
+* @{
+* @details
 *
 * This header file contains identifiers and driver macros that can be used to
 * access the device. The user should refer to the hardware device specification
@@ -352,3 +355,4 @@ Full;					\
 #endif
 
 #endif /* end of protection macro */
+/** @} */

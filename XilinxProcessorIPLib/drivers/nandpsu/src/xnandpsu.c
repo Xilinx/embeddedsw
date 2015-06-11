@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandpsu.c
+* @addtogroup nandpsu_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for
 * XNandPsu driver. Refer to the header file xnandpsu.h for more detailed
@@ -4188,3 +4191,4 @@ void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_CMD_OFFSET, RegValue);
 }
+/** @} */

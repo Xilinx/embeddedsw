@@ -33,6 +33,9 @@
 /**
 *
 * @file xycrcb2rgb_selftest.c
+* @addtogroup ycrcb2rgb_v7_0
+* @{
+* @details
 *
 * This file contains the self-test function for the YCRCB2RGB core.
 *
@@ -105,3 +108,4 @@ int XYCrCb2Rgb_SelfTest(XYCrCb2Rgb *InstancePtr)
 
 	return Status;
 }
+/** @} */

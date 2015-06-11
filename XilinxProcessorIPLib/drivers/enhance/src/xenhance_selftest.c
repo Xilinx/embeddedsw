@@ -33,6 +33,9 @@
 /**
 *
 * @file xenhance_selftest.c
+* @addtogroup enhance_v7_0
+* @{
+* @details
 *
 * This file contains the self-test functions for the Enhance driver.
 * The self test function reads the Version register.
@@ -109,3 +112,4 @@ int XEnhance_SelfTest(XEnhance *InstancePtr)
 
 	return Status;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xrtcpsu_g.c
+* @addtogroup rtcpsu_v1_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of CAN devices in the system.
@@ -76,3 +79,4 @@ XRtcPsu_Config XRtcPsu_ConfigTable[XPAR_XRTCPSU_NUM_INSTANCES] = {
 		(u32)XPAR_XRTCPSU_0_BASEADDR	/* Base address of device */
 	}
 };
+/** @} */

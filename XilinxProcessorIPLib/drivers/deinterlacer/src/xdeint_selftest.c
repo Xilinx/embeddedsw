@@ -33,6 +33,9 @@
 /**
 *
 * @file xdeint_selftest.c
+* @addtogroup deinterlacer_v3_2
+* @{
+* @details
 *
 * This file contains the self-test functions for the XCfa driver.
 *
@@ -103,3 +106,4 @@ int XDeint_Selftest(XDeint *InstancePtr)
 
 	return Status;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xmbox.c
+* @addtogroup mbox_v4_0
+* @{
+* @details
 *
 * Contains required functions for the XMbox driver.
 *
@@ -664,3 +667,4 @@ u32 XMbox_GetStatus(XMbox *InstancePtr)
 	return Value;
 
 }
+/** @} */

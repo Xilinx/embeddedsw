@@ -34,6 +34,9 @@
 /**
 *
 * @file xiomodule_uart_intr.c
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * Contains required functions for the XIOModule UART driver interrupt mode.
 * See the xiomodule.h header file for more details on this driver.
@@ -742,3 +745,4 @@ void XIOModule_Uart_EnableInterrupt(XIOModule *InstancePtr)
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET, NewIER);
 	InstancePtr->CurrentIER = NewIER;
 }
+/** @} */

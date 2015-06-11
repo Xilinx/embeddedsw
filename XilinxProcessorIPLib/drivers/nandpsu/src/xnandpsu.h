@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandpsu.h
+* @addtogroup nandpsu_v1_0
+* @{
+* @details
 *
 * This file implements a driver to support Arasan NAND controller
 * present in Zynq Ultrascale Mp.
@@ -582,3 +585,4 @@ XNandPsu_Config *XNandPsu_LookupConfig(u16 DevID);
 #endif
 
 #endif /* XNANDPSU_H end of protection macro */
+/** @} */

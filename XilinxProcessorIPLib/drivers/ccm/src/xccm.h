@@ -33,6 +33,9 @@
 /**
 *
 * @file xccm.h
+* @addtogroup ccm_v6_0
+* @{
+* @details
 * 
 * This header file contains identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
@@ -662,3 +665,4 @@ int XCcm_SetCallBack(XCcm *InstancePtr, u32 HandlerType,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

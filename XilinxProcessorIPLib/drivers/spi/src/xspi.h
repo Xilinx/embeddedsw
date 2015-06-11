@@ -33,6 +33,9 @@
 /**
 *
 * @file xspi.h
+* @addtogroup spi_v4_1
+* @{
+* @details
 *
 * This component contains the implementation of the XSpi component. It is the
 * driver for an SPI master or slave device. It supports 8-bit, 16-bit and 32-bit
@@ -837,3 +840,4 @@ u32 XSpi_GetOptions(XSpi *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

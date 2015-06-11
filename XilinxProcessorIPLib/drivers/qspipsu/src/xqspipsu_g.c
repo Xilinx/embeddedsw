@@ -33,6 +33,9 @@
 /**
 *
 * @file xqspipsu_g.c
+* @addtogroup qspipsu_v1_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * QSPIPSU devices in the system.
@@ -80,3 +83,4 @@ XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES] = {
 		XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH
 	},
 };
+/** @} */

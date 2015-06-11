@@ -33,6 +33,9 @@
 /**
 *
 * @file xcanps_intr.c
+* @addtogroup canps_v3_0
+* @{
+* @details
 *
 * This file contains functions related to CAN interrupt handling.
 *
@@ -414,3 +417,4 @@ s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 	return Status;
 }
 
+/** @} */

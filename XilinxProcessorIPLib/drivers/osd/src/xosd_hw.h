@@ -33,6 +33,9 @@
 /**
 *
 * @file xosd_hw.h
+* @addtogroup osd_v4_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx Video On-Screen-Display
@@ -718,3 +721,4 @@ extern "C" {
 #endif
 
 #endif /* End of protection macro */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xhwicap_sinit.c
+* @addtogroup hwicap_v10_0
+* @{
+* @details
 *
 * This file contains the implementation of the XHwicap driver's static
 * initialization functionality.
@@ -99,3 +102,4 @@ XHwIcap_Config *XHwIcap_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 
+/** @} */

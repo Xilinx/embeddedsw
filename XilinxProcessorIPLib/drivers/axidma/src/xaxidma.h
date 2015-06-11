@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxidma.h
+* @addtogroup axidma_v8_1
+* @{
+* @details
 *
 * This is the driver API for the AXI DMA engine.
 *
@@ -730,3 +733,4 @@ int XAxiDma_Selftest(XAxiDma * InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

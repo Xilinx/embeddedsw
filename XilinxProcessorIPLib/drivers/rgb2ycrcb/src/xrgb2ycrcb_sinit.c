@@ -33,6 +33,9 @@
 /**
 *
 * @file xrgb2ycrcb_sinit.c
+* @addtogroup rgb2ycrcb_v7_0
+* @{
+* @details
 *
 * This file contains static initialization function for RGB2YCRCB core.
 *
@@ -108,3 +111,4 @@ XRgb2YCrCb_Config *XRgb2YCrCb_LookupConfig(u16 DeviceId)
 
 	return (XRgb2YCrCb_Config *)CfgPtr;
 }
+/** @} */

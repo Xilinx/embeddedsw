@@ -33,6 +33,9 @@
 /**
 *
 * @file xgpio_g.c
+* @addtogroup gpio_v4_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of GPIO devices in the system.
@@ -79,3 +82,4 @@ XGpio_Config XGpio_ConfigTable[] = {
 	 XPAR_GPIO_0_INTERRUPT_PRESENT,
 	 XPAR_GPIO_0_IS_DUAL}
 };
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xiomodule.h
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * The Xilinx IO Module driver component. This component supports the
 * IO Module. The IO Module provides:
@@ -572,3 +575,4 @@ void XIOModule_IoWriteByte(XIOModule *InstancePtr, u32 ByteOffset, u8 Data);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xbram_sinit.c
+* @addtogroup bram_v4_0
+* @{
+* @details
 *
 * The implementation of the XBram driver's static initialzation
 * functionality.
@@ -99,3 +102,4 @@ XBram_Config *XBram_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

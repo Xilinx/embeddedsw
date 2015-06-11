@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx.h
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * The Xilinx DisplayPort transmitter (DPTX) driver. This driver supports the
  * Xilinx DisplayPort soft IP core in source (TX) mode. This driver follows the
@@ -771,3 +774,4 @@ u32 XDptx_GetRemoteTiledDisplayDb(XDptx *InstancePtr, u8 *EdidExt,
 		u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr);
 
 #endif /* XDPTX_H_ */
+/** @} */

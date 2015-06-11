@@ -33,6 +33,9 @@
 /**
 *
 * @file xqspipsu.h
+* @addtogroup qspipsu_v1_0
+* @{
+* @details
 *
 * This is the header file for the implementation of QSPIPSU driver.
 * Generic QSPI interface allows for communication to any QSPI slave device.
@@ -262,3 +265,4 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode);
 
 
 #endif /* XQSPIPSU_H_ */
+/** @} */

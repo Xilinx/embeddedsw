@@ -33,6 +33,9 @@
 /**
  *
  * @file xusbps_hw.c
+* @addtogroup usbps_v2_2
+* @{
+* @details
  *
  * The implementation of the XUsbPs interface reset functionality
  *
@@ -117,3 +120,4 @@ void XUsbPs_ResetHw(u32 BaseAddress)
 
 
 
+/** @} */

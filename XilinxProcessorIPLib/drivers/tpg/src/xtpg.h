@@ -33,6 +33,9 @@
 /**
 *
 * @file xtpg.h
+* @addtogroup tpg_v3_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx Test Pattern Generator
@@ -721,3 +724,4 @@ int XTpg_SetCallBack(XTpg *InstancePtr, u32 HandlerType, void *CallBackFunc,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

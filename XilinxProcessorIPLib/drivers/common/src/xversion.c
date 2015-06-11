@@ -33,6 +33,9 @@
 /**
 *
 * @file xversion.c
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * This file contains the implementation of the XVersion component. This
 * component represents a version ID.  It is encapsulated within a component
@@ -352,3 +355,4 @@ static int IsVersionStringValid(char *StringPtr)
 
 	return TRUE;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xdeint_i.h
+* @addtogroup deinterlacer_v3_2
+* @{
+* @details
 *
 * This code contains internal functions of the Xilinx Video Deinterlacer core.
 * The application should not need the functions in this code to control
@@ -78,3 +81,4 @@ extern "C" {
 #endif
 
 #endif	/* End of protection macro */
+/** @} */

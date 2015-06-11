@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xgpio_sinit.c
+* @addtogroup gpio_v4_0
+* @{
+* @details
 *
 * The implementation of the XGpio driver's static initialzation
 * functionality.
@@ -148,3 +151,4 @@ int XGpio_Initialize(XGpio * InstancePtr, u16 DeviceId)
 	return XGpio_CfgInitialize(InstancePtr, ConfigPtr,
 				   ConfigPtr->BaseAddress);
 }
+/** @} */

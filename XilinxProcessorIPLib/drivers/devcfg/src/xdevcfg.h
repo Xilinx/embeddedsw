@@ -33,6 +33,9 @@
 /**
 *
 * @file xdevcfg.h
+* @addtogroup devcfg_v3_3
+* @{
+* @details
 *
 * The is the main header file for the Device Configuration Interface of the Zynq
 * device. The device configuration interface has three main functionality.
@@ -391,3 +394,4 @@ void XDcfg_SetHandler(XDcfg *InstancePtr, void *CallBackFunc,
 #endif
 
 #endif	/* end of protection macro */
+/** @} */

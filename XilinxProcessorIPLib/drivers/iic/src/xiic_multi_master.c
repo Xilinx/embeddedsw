@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_multi_master.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * Contains multi-master functions for the XIic component. This file is
 * necessary if multiple masters are on the IIC bus such that arbitration can
@@ -233,3 +236,4 @@ static void ArbitrationLostHandler(XIic *InstancePtr)
 	InstancePtr->StatusHandler(InstancePtr->StatusCallBackRef,
 				   XII_ARB_LOST_EVENT);
 }
+/** @} */

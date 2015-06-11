@@ -33,6 +33,9 @@
 /**
 *
 * @file xcfa_hw.h
+* @addtogroup cfa_v7_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx Color Filter Array
@@ -258,3 +261,4 @@ extern "C" {
 #endif
 
 #endif /* End of protection macro */
+/** @} */

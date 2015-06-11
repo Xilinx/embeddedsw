@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * Contains required functions for the XIic component. See xiic.h for more
 * information on the driver.
@@ -765,3 +768,4 @@ u32 XIic_IsIicBusy(XIic *InstancePtr)
 		return FALSE;
 	}
 }
+/** @} */

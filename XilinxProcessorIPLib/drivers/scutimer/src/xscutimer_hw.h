@@ -33,6 +33,9 @@
 /**
 *
 * @file xscutimer_hw.h
+* @addtogroup scutimer_v2_1
+* @{
+* @details
 *
 * This file contains the hardware interface to the Timer.
 *
@@ -282,3 +285,4 @@ extern "C" {
 #endif
 
 #endif	/* end of protection macro */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxivdma.c
+* @addtogroup axivdma_v5_1
+* @{
+* @details
 *
 * Implementation of the driver API functions for the AXI Video DMA engine.
 *
@@ -1386,3 +1389,4 @@ int XAxiVdma_ClearDmaChannelErrors(XAxiVdma *InstancePtr, u16 Direction,
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
+/** @} */

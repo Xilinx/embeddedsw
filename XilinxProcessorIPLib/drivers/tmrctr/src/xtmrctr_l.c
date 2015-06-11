@@ -33,6 +33,9 @@
 /**
 *
 * @file xtmrctr_l.c
+* @addtogroup tmrctr_v3_0
+* @{
+* @details
 *
 * This file contains low-level driver functions that can be used to access the
 * device.  The user should refer to the hardware device specification for more
@@ -74,3 +77,4 @@
  * timer counters and the functions specify which one to operate on.
  */
 u8 XTmrCtr_Offsets[] = { 0, XTC_TIMER_COUNTER_OFFSET };
+/** @} */

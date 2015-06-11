@@ -33,6 +33,9 @@
 /**
 *
 * @file xsysmon_sinit.c
+* @addtogroup sysmon_v7_1
+* @{
+* @details
 *
 * This file contains the implementation of the XSysMon driver's static
 * initialization functionality.
@@ -98,3 +101,4 @@ XSysMon_Config *XSysMon_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

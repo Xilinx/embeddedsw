@@ -33,6 +33,9 @@
 /**
 *
 * @file xwdttb.h
+* @addtogroup wdttb_v3_0
+* @{
+* @details
 *
 * The Xilinx watchdog timer/timebase component supports the Xilinx watchdog
 * timer/timebase hardware. More detailed description of the driver operation
@@ -173,3 +176,4 @@ int XWdtTb_SelfTest(XWdtTb *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

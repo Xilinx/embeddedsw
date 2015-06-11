@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic.h
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * XIic is the driver for an IIC master or slave device.
 *
@@ -574,3 +577,4 @@ void XIic_MultiMasterInclude(void);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xenv_vxworks.h
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * Defines common services specified by xenv.h.
 *
@@ -267,3 +270,4 @@ typedef struct
 
 #endif	/* #ifdef XENV_VXWORKS_H */
 
+/** @} */

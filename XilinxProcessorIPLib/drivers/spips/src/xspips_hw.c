@@ -33,6 +33,9 @@
 /**
 *
 * @file xspips_hw.c
+* @addtogroup spips_v3_0
+* @{
+* @details
 *
 * Contains the reset and post boot rom state initialization.
 * Function prototypes in xspips_hw.h
@@ -127,3 +130,4 @@ void XSpiPs_ResetHw(u32 BaseAddress)
 				XSPIPS_CR_SSCTRL_MASK);
 
 }
+/** @} */

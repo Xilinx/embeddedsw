@@ -33,6 +33,9 @@
 /**
 *
 * @file xcanps.c
+* @addtogroup canps_v3_0
+* @{
+* @details
 *
 * Functions in this file are the minimum required functions for the XCanPs
 * driver. See xcanps.h for a detailed description of the driver.
@@ -1200,3 +1203,4 @@ static void StubHandler(void)
 {
 	Xil_AssertVoidAlways();
 }
+/** @} */

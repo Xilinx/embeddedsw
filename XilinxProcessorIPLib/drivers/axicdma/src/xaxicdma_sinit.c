@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxicdma_sinit.c
+* @addtogroup axicdma_v3_0
+* @{
+* @details
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xaxivdma_g.c, generated automatically by XPS or
@@ -83,3 +86,4 @@ XAxiCdma_Config *XAxiCdma_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

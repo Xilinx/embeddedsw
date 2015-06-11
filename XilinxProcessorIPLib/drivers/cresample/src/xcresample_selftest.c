@@ -33,6 +33,9 @@
 /**
 *
 * @file xcresample_selftest.c
+* @addtogroup cresample_v4_0
+* @{
+* @details
 *
 * This file contains the self-test functions for the Chroma Resampler core.
 *
@@ -106,3 +109,4 @@ int XCresample_SelfTest(XCresample *InstancePtr)
 
 	return Status;
 }
+/** @} */

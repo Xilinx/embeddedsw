@@ -32,6 +32,9 @@
 /****************************************************************************/
 /**
 * @file xaxipcie_g.c
+* @addtogroup axipcie_v3_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of AXI PCIe devices in the system.
@@ -80,3 +83,4 @@ XAxiPcie_Config XAxiPcie_ConfigTable[] = {
 	}
 };
 
+/** @} */

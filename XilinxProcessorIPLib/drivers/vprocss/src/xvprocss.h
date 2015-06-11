@@ -33,6 +33,9 @@
 /**
 *
 * @file xvprocss.h
+* @addtogroup vprocss_v1_0
+* @{
+* @details
 *
 * This is main header file of the Xilinx Video Processing Subsystem driver
 *
@@ -489,3 +492,4 @@ void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

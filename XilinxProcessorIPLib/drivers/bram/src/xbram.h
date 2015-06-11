@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xbram.h
+* @addtogroup bram_v4_0
+* @{
+* @details
 *
 * If ECC is not enabled, this driver exists only to allow the tools to
 * create a memory test application and to populate xparameters.h with memory
@@ -208,3 +211,4 @@ u32 XBram_InterruptGetStatus(XBram *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

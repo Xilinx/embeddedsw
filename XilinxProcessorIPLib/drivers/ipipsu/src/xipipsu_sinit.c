@@ -32,6 +32,9 @@
 /**
 *
 * @file xipipsu_sinit.c
+* @addtogroup ipipsu_v1_0
+* @{
+* @details
 *
 * The implementation of the XIpiPsu component's static initialization
 * functionality.
@@ -85,3 +88,4 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

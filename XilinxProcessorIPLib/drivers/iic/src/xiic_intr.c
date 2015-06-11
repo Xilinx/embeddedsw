@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_intr.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * Contains interrupt functions of the XIic driver.  This file is required
 * for the driver.
@@ -441,3 +444,4 @@ static void StubFunction(XIic *InstancePtr)
 	(void )InstancePtr;
 	Xil_AssertVoidAlways();
 }
+/** @} */

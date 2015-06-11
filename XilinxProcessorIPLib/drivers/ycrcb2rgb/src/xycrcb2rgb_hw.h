@@ -33,6 +33,9 @@
 /**
 *
 * @file xycrcb2rgb_hw.h
+* @addtogroup ycrcb2rgb_v7_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx YCrCb to RGB Color Space
@@ -338,3 +341,4 @@ extern "C" {
 #endif
 
 #endif	/* End of protection macro */
+/** @} */

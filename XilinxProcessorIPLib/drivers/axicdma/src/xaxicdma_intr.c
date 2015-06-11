@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_intr.c
+* @addtogroup axicdma_v3_0
+* @{
+* @details
  *
  * The implementation of the interrupt related API. The interrupt handler is
  * also implemented here.
@@ -254,3 +257,4 @@ void XAxiCdma_IntrHandler(void *HandlerRef)
 
 	return;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xdualsplitter_sinit.c
+* @addtogroup dual_splitter_v1_0
+* @{
+* @details
 *
 * This file contains static initialization function for Xilinx Dual Splitter
 * core.
@@ -109,3 +112,4 @@ XDualSplitter_Config *XDualSplitter_LookupConfig(u16 DeviceId)
 
 	return (XDualSplitter_Config *)CfgPtr;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxis_switch_sinit.c
+* @addtogroup axis_switch_v1_0
+* @{
+* @details
 *
 * This file contains static initialization method for Xilinx AXI4-Stream
 * Source Control Router core.
@@ -108,3 +111,4 @@ XAxis_Switch_Config *XAxisScr_LookupConfig(u16 DeviceId)
 
 	return (XAxis_Switch_Config *)CfgPtr;
 }
+/** @} */

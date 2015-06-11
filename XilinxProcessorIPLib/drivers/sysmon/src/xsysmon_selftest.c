@@ -33,6 +33,9 @@
 /**
 *
 * @file xsysmon_selftest.c
+* @addtogroup sysmon_v7_1
+* @{
+* @details
 *
 * This file contains a diagnostic self test function for the XSysMon driver.
 * The self test function does a simple read/write test of the Alarm Threshold
@@ -139,3 +142,4 @@ int XSysMon_SelfTest(XSysMon *InstancePtr)
 	 */
 	return Status;
 }
+/** @} */

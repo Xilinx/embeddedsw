@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
+* @addtogroup ipipsu_v1_0
+* @{
+* @details
  *
  * This is the header file for implementation of IPIPSU driver.
  * Inter Processor Interrupt (IPI) is used for communication between
@@ -275,3 +278,4 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufType);
 
 #endif /* XIPIPSU_H_ */
+/** @} */

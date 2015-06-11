@@ -33,6 +33,9 @@
 /**
 *
 * @file xtmrctr_selftest.c
+* @addtogroup tmrctr_v3_0
+* @{
+* @details
 *
 * Contains diagnostic/self-test functions for the XTmrCtr component.
 *
@@ -161,3 +164,4 @@ int XTmrCtr_SelfTest(XTmrCtr * InstancePtr, u8 TmrCtrNumber)
 		return XST_SUCCESS;
 	}
 }
+/** @} */

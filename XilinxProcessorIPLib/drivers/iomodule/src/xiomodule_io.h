@@ -33,6 +33,9 @@
 /**
 *
 * @file xiomodule_io.h
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the device.  The user should refer to the
@@ -74,3 +77,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

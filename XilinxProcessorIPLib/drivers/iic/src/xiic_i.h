@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_i.h
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * This header file contains internal identifiers, which are those shared
 * between XIic components.  The identifiers in this file are not intended for
@@ -390,3 +393,4 @@ void XIic_TransmitFifoFill(XIic *InstancePtr, int Role);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

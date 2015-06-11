@@ -33,6 +33,9 @@
 /**
 *
 * @file xtpg.c
+* @addtogroup tpg_v3_0
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for
 * Test Pattern Generator (TPG) driver. Refer to the header file xtpg.h for more
@@ -1500,3 +1503,4 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 	Xil_AssertVoidAlways();
 }
 
+/** @} */

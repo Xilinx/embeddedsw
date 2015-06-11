@@ -33,6 +33,9 @@
 /**
 *
 * @file xspips.h
+* @addtogroup spips_v3_0
+* @{
+* @details
 *
 * This file contains the implementation of the XSpiPs driver. It works for
 * both the master and slave mode. User documentation for the driver functions
@@ -689,3 +692,4 @@ void XSpiPs_GetDelays(XSpiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

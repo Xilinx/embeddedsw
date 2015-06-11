@@ -33,6 +33,9 @@
 /**
 *
 * @file xdevcfg_hw.h
+* @addtogroup devcfg_v3_3
+* @{
+* @details
 *
 * This file contains the hardware interface to the Device Config Interface.
 *
@@ -390,3 +393,4 @@ void XDcfg_ResetHw(u32 BaseAddr);
 #endif
 
 #endif	/* end of protection macro */
+/** @} */

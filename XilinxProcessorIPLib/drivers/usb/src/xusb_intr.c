@@ -42,6 +42,9 @@
 /******************************************************************************/
 /**
  * @file xusb_intr.c
+* @addtogroup usb_v5_0
+* @{
+* @details
  *
  * This file contains the functions that are related to interrupt processing
  * for the USB device.
@@ -477,3 +480,4 @@ void XUsb_UlpiIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 	InstancePtr->UlpiHandlerRef = CallBackRef;
 
 }
+/** @} */

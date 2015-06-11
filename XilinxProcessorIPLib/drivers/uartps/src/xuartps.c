@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartps.c
+* @addtogroup uartps_v3_1
+* @{
+* @details
 *
 * This file contains the implementation of the interface functions for XUartPs
 * driver. Refer to the header file xuartps.h for more detailed information.
@@ -618,3 +621,4 @@ static void XUartPs_StubHandler(void *CallBackRef, u32 Event,
 	/* Assert occurs always since this is a stub and should never be called */
 	Xil_AssertVoidAlways();
 }
+/** @} */

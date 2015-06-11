@@ -33,6 +33,9 @@
 /**
 *
 * @file xiomodule_options.c
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * Contains option functions for the XIOModule driver. These functions allow the
 * user to configure an instance of the XIOModule driver.  This file requires
@@ -271,3 +274,4 @@ u32 XIOModel_Timer_GetOptions(XIOModule * InstancePtr, u8 TimerNumber)
 
 	return Options;
 }
+/** @} */

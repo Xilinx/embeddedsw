@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandps_g.c
+* @addtogroup nandps_v2_2
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of NAND flash devices in the system.
@@ -82,3 +85,4 @@ XNandPs_Config XNandPs_ConfigTable[XPAR_XNANDPS_NUM_INSTANCES] =
 		XPAR_XNANDPS_0_FLASH_WIDTH	/**< Flash data width */
 	}
 };
+/** @} */

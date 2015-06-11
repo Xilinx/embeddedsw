@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxidma_bdring.c
+* @addtogroup axidma_v8_1
+* @{
+* @details
 *
 * This file implements buffer descriptor ring related functions. For more
 * information on how to manage the BD ring, please see xaxidma.h.
@@ -1531,3 +1534,4 @@ void XAxiDma_BdRingDumpRegs(XAxiDma_BdRing *RingPtr) {
 
 	xil_printf("\r\n");
 }
+/** @} */

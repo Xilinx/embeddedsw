@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartlite_g.c
+* @addtogroup uartlite_v3_0
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * UART Lite devices in the system. Each device in the system should have an
@@ -84,3 +87,4 @@ XUartLite_Config XUartLite_ConfigTable[XPAR_XUARTLITE_NUM_INSTANCES] =
 };
 
 
+/** @} */

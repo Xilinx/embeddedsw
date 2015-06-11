@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_options.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * Contains options functions for the XIic component. This file is not required
 * unless the functions in this file are called.
@@ -171,3 +174,4 @@ u32 XIic_GetOptions(XIic *InstancePtr)
 
 	return InstancePtr->Options;
 }
+/** @} */

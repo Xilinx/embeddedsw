@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartlite_l.c
+* @addtogroup uartlite_v3_0
+* @{
+* @details
 *
 * This file contains low-level driver functions that can be used to access the
 * device.  The user should refer to the hardware device specification for more
@@ -113,3 +116,4 @@ u8 XUartLite_RecvByte(u32 BaseAddress)
 	return (u8)XUartLite_ReadReg(BaseAddress, XUL_RX_FIFO_OFFSET);
 }
 
+/** @} */

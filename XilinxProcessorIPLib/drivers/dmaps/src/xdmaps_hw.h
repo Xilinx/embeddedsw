@@ -33,6 +33,9 @@
 /**
 *
 * @file xdmaps_hw.h
+* @addtogroup dmaps_v2_1
+* @{
+* @details
 *
 * This header file contains the hardware interface of an XDmaPs device.
 *
@@ -288,3 +291,4 @@ void XDmaPs_ResetHw(u32 BaseAddr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xaxidma_g.c
+* @addtogroup axidma_v8_1
+* @{
+* @details
 *
 * Provide a template for user to define their own hardware settings.
 *
@@ -81,3 +84,4 @@ XAxiDma_Config XAxiDma_ConfigTable[] =
 		XPAR_AXIDMA_0_NUM_S2MM_CHANNELS
 	}
 };
+/** @} */

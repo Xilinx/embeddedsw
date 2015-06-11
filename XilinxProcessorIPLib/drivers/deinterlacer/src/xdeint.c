@@ -33,6 +33,9 @@
 /**
 *
 * @file xdeint.c
+* @addtogroup deinterlacer_v3_2
+* @{
+* @details
 *
 * This is main code of Xilinx Vide Deinterlacer core.
 * Please see xdeint.h for more details of the driver.
@@ -557,3 +560,4 @@ void XDeint_GetFramestore(XDeint *InstancePtr,
 						(XDEINT_BUFSIZE_OFFSET));
 }
 
+/** @} */

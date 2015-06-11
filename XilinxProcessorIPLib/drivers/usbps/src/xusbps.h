@@ -33,6 +33,9 @@
 /**
  *
  * @file xusbps.h
+* @addtogroup usbps_v2_2
+* @{
+* @details
  *
  * This file contains the implementation of the XUsbPs driver. It is the
  * driver for an USB controller in DEVICE or HOST mode.
@@ -1084,3 +1087,4 @@ XUsbPs_Config *XUsbPs_LookupConfig(u16 DeviceId);
 #endif
 
 #endif /* XUSBPS_H */
+/** @} */

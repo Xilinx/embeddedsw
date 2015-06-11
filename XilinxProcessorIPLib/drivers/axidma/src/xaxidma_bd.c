@@ -33,6 +33,9 @@
 /**
  *
  * @file xaxidma_bd.c
+* @addtogroup axidma_v8_1
+* @{
+* @details
  *
  * Buffer descriptor (BD) management API implementation.
  *
@@ -337,3 +340,4 @@ void XAxiDma_DumpBd(XAxiDma_Bd* BdPtr)
 
 	xil_printf("\r\n");
 }
+/** @} */

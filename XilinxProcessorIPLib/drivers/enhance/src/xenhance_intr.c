@@ -33,6 +33,9 @@
 /**
 *
 * @file xenhance_intr.c
+* @addtogroup enhance_v7_0
+* @{
+* @details
 *
 * This code contains interrupt related functions of Xilinx Enhance core.
 * Please see xenhance.h for more details of the core.
@@ -206,3 +209,4 @@ int XEnhance_SetCallBack(XEnhance *InstancePtr, u32 HandlerType,
 
 	return Status;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartns550_l.c
+* @addtogroup uartns550_v3_3
+* @{
+* @details
 *
 * This file contains low-level driver functions that can be used to access the
 * device.  The user should refer to the hardware device specification for more
@@ -192,3 +195,4 @@ void XUartNs550_SetBaud(u32 BaseAddress, u32 InputClockHz, u32 BaudRate)
 	 */
 	XUartNs550_SetLineControlReg(BaseAddress, LcrRegister);
 }
+/** @} */

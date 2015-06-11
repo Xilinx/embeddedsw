@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xiicps_slave.c
+* @addtogroup iicps_v3_0
+* @{
+* @details
 *
 * Handles slave transfers
 *
@@ -585,3 +588,4 @@ static s32 SlaveRecvData(XIicPs *InstancePtr)
 
 	return InstancePtr->RecvByteCount;
 }
+/** @} */

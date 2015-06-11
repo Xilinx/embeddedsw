@@ -33,6 +33,9 @@
 /**
  *
  * @file xllfifo.h
+* @addtogroup llfifo_v5_0
+* @{
+* @details
  *
  * The Xilinx Dual Channel Fifo driver component. This driver supports the
  * Virtex-5(TM) and Virtex-4(TM) XPS_ll_Fifo and the AxiFifo.
@@ -709,3 +712,4 @@ void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word);
 }
 #endif
 #endif				/* XLLFIFO_H  end of preprocessor protection symbols */
+/** @} */

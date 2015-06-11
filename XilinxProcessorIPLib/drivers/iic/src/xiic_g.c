@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_g.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * IIC devices in the system. Each IIC device should have an entry in this table.
@@ -87,3 +90,4 @@ XIic_Config XIic_ConfigTable[XPAR_XIIC_NUM_INSTANCES] = {
 	 XPAR_IIC_1_GPO_WIDTH,	/* Number of bits in GPO register */
 	}
 };
+/** @} */

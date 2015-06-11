@@ -32,6 +32,9 @@
 /**
 *
 * @file xscaler.h
+* @addtogroup scaler_v7_0
+* @{
+* @details
 *
 * This is the main header file of the Xilinx MVI Video Scaler device driver.
 * The Scaler device converts a specified rectangular area of an input digital
@@ -713,3 +716,4 @@ void XScaler_SetCallBack(XScaler *InstancePtr,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

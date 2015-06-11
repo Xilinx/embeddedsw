@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartps_g.c
+* @addtogroup uartps_v3_1
+* @{
+* @details
 *
 * This file contains a configuration table where each entry is a configuration
 * structure for an XUartPs device in the system.
@@ -87,3 +90,4 @@ XUartPs_Config XUartPs_ConfigTable[XPAR_XUARTPS_NUM_INSTANCES] = {
 		(s32)0
 	}
 };
+/** @} */

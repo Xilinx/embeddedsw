@@ -33,6 +33,9 @@
 /**
 *
 * @file xgpiops_selftest.c
+* @addtogroup gpiops_v3_1
+* @{
+* @details
 *
 * This file contains a diagnostic self-test function for the XGpioPs driver.
 *
@@ -128,3 +131,4 @@ s32 XGpioPs_SelfTest(XGpioPs *InstancePtr)
 
 	return Status;
 }
+/** @} */

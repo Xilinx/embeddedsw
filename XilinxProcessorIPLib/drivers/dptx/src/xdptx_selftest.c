@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx_selftest.c
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * This file contains a diagnostic self-test function for the XDptx driver. It
  * will check many of the DisplayPort TX's register values against the default
@@ -211,3 +214,4 @@ u32 XDptx_SelfTest(XDptx *InstancePtr)
 	/* All tested registers hold their default reset values. */
 	return XST_SUCCESS;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xscuwdt_sinit.c
+* @addtogroup scuwdt_v2_1
+* @{
+* @details
 *
 * This file contains method for static initialization (compile-time) of the
 * driver.
@@ -91,3 +94,4 @@ XScuWdt_Config *XScuWdt_LookupConfig(u16 DeviceId)
 
 	return (XScuWdt_Config *)CfgPtr;
 }
+/** @} */

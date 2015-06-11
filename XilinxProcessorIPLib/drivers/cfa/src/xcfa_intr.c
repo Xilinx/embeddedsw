@@ -33,6 +33,9 @@
 /**
 *
 * @file xcfa_intr.c
+* @addtogroup cfa_v7_0
+* @{
+* @details
 *
 * This file contains interrupt related functions of the CFA core.
 * Please see xcfa.h for more details of the core.
@@ -206,3 +209,4 @@ int XCfa_SetCallBack(XCfa *InstancePtr, u32 HandlerType,
 
 	return Status;
 }
+/** @} */

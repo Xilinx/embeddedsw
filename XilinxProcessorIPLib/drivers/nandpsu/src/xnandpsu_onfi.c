@@ -33,6 +33,9 @@
 /**
 *
 * @file xnandpsu_onfi.c
+* @addtogroup nandpsu_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of ONFI specific functions.
 *
@@ -112,3 +115,4 @@ u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)
 	}
 	return Crc;
 }
+/** @} */

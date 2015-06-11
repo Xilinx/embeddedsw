@@ -33,6 +33,9 @@
 /**
 *
 * @file xuartlite_selftest.c
+* @addtogroup uartlite_v3_0
+* @{
+* @details
 *
 * This file contains the self-test functions for the UART Lite component
 * (XUartLite).
@@ -135,3 +138,4 @@ int XUartLite_SelfTest(XUartLite *InstancePtr)
 }
 
 
+/** @} */

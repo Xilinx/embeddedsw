@@ -33,6 +33,9 @@
 /**
 *
 * @file xutil_memtest.c
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * Contains the memory test utility functions.
 *
@@ -1181,3 +1184,4 @@ static u32 RotateRight(u32 Input, u8 Width)
 
 }
 #endif /* ROTATE_RIGHT */
+/** @} */

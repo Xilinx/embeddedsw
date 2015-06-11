@@ -33,6 +33,9 @@
 /**
 *
 * @file xdualsplitter_selftest.c
+* @addtogroup dual_splitter_v1_0
+* @{
+* @details
 *
 * This file contains self test function for the Dual Splitter core.
 *
@@ -102,3 +105,4 @@ s32 XDualSplitter_SelfTest(XDualSplitter *InstancePtr)
 
 	return Status;
 }
+/** @} */

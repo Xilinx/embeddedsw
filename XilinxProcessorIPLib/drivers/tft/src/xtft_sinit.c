@@ -33,6 +33,9 @@
 /**
 *
 * @file xtft_sinit.c
+* @addtogroup tft_v5_0
+* @{
+* @details
 *
 * This file defines the implementation of Tft device static initialization
 * functionality.
@@ -96,3 +99,4 @@ XTft_Config *XTft_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 
+/** @} */

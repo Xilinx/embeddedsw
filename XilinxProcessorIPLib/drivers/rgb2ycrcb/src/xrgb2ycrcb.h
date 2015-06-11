@@ -33,6 +33,9 @@
 /**
 *
 * @file xrgb2ycrcb.h
+* @addtogroup rgb2ycrcb_v7_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
@@ -838,3 +841,4 @@ int XRgb2YCrCb_SetCallBack(XRgb2YCrCb *InstancePtr, u32 HandlerType,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

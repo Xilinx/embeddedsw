@@ -33,6 +33,9 @@
 /**
 *
 * @file xiomodule_stats.c
+* @addtogroup iomodule_v2_1
+* @{
+* @details
 *
 * This file contains the statistics functions for the UART module
 *
@@ -137,3 +140,4 @@ void XIOModule_ClearStats(XIOModule *InstancePtr)
 	InstancePtr->Uart_Stats.ReceiveParityErrors = 0;
 	InstancePtr->Uart_Stats.ReceiveFramingErrors = 0;
 }
+/** @} */

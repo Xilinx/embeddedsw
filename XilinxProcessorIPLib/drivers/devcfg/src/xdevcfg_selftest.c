@@ -33,6 +33,9 @@
 /**
 *
 * @file xdevcfg_selftest.c
+* @addtogroup devcfg_v3_3
+* @{
+* @details
 *
 * Contains diagnostic self-test functions for the XDcfg driver.
 *
@@ -109,3 +112,4 @@ int XDcfg_SelfTest(XDcfg *InstancePtr)
 
 	return Status;
 }
+/** @} */

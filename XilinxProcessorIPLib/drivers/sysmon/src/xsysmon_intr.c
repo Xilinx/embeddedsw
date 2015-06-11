@@ -33,6 +33,9 @@
 /**
 *
 * @file xsysmon_intr.c
+* @addtogroup sysmon_v7_1
+* @{
+* @details
 *
 * This file contains interrupt handling API functions of the System Monitor/ADC
 * device.
@@ -316,3 +319,4 @@ void XSysMon_IntrClear(XSysMon *InstancePtr, u32 Mask)
 			  RegValue);
 
 }
+/** @} */

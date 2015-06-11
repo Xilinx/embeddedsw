@@ -33,6 +33,9 @@
 /**
 *
 * @file xmutex.h
+* @addtogroup mutex_v4_0
+* @{
+* @details
 *
 * The Xilinx Mutex driver. This driver supports the Xilinx Mutex Core. More
 * detailed description of the driver operation can be found in the xmutex.c
@@ -177,3 +180,4 @@ int XMutex_SelfTest(XMutex *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

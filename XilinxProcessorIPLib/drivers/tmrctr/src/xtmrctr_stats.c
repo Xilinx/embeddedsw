@@ -33,6 +33,9 @@
 /**
 *
 * @file xtmrctr_stats.c
+* @addtogroup tmrctr_v3_0
+* @{
+* @details
 *
 * Contains function to get and clear statistics for the XTmrCtr component.
 *
@@ -110,3 +113,4 @@ void XTmrCtr_ClearStats(XTmrCtr * InstancePtr)
 
 	InstancePtr->Stats.Interrupts = 0;
 }
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xtrafgen.c
+* @addtogroup trafgen_v3_2
+* @{
+* @details
 *
 * This file implements AXI Traffic Generator device-wise initialization and 
 * control functions.
@@ -686,3 +689,4 @@ void XTrafGen_PrintCmds(XTrafGen *InstancePtr)
 		xil_printf("0x%08x\n\r", CmdInfo->CmdEntry[0][Index1].ParamWord);
 	}
 }
+/** @} */

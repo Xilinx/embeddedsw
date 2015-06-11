@@ -33,6 +33,9 @@
 /**
 *
 * @file xv_hscaler_l2.c
+* @addtogroup v_hscaler_v1_0
+* @{
+* @details
 *
 * The Horizontal Scaler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -594,3 +597,4 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
     }
   }
 }
+/** @} */

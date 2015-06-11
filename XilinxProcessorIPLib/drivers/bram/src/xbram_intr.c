@@ -33,6 +33,9 @@
 /*****************************************************************************/
 /**
 * @file xbram_intr.c
+* @addtogroup bram_v4_0
+* @{
+* @details
 *
 * Implements BRAM interrupt processing functions for the
 * XBram driver. See xbram.h for more information
@@ -233,3 +236,4 @@ u32 XBram_InterruptGetStatus(XBram * InstancePtr)
 	return XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress,
 				XBRAM_ECC_EN_IRQ_OFFSET);
 }
+/** @} */

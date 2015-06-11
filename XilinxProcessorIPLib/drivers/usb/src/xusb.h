@@ -43,6 +43,9 @@
 /**
 *
 * @file xusb.h
+* @addtogroup usb_v5_0
+* @{
+* @details
 *
 * This file contains the implementation of the XUsb component. It is the
 * driver for the USB device controller.
@@ -484,3 +487,4 @@ XUsb_Config *XUsb_LookupConfig(u16 DeviceId);
 #endif
 
 #endif /* XUSB_H */
+/** @} */

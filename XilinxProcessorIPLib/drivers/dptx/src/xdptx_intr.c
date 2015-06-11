@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx_intr.c
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * This file contains functions related to XDptx interrupt handling.
  *
@@ -178,3 +181,4 @@ void XDptx_HpdInterruptHandler(XDptx *InstancePtr)
 	XDptx_WriteReg(InstancePtr->Config.BaseAddr, XDPTX_INTERRUPT_MASK,
 								IntrMask);
 }
+/** @} */

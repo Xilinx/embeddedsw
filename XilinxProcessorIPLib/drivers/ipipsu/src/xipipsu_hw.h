@@ -32,6 +32,9 @@
 /**
 *
 * @file xipipsu_hw.h
+* @addtogroup ipipsu_v1_0
+* @{
+* @details
 *
 * This file contains macro definitions for low level HW related params
 *
@@ -74,3 +77,4 @@
 #define XIPIPSU_ALL_MASK	0x0F0F0301U
 
 #endif /* XIPIPSU_HW_H_ */
+/** @} */

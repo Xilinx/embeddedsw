@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
  *  @file xaxidma_hw.h
+* @addtogroup axidma_v8_1
+* @{
+* @details
  *
  * Hardware definition file. It defines the register interface and Buffer
  * Descriptor (BD) definitions.
@@ -329,3 +332,4 @@ extern "C" {
 #endif
 
 #endif
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xiic_selftest.c
+* @addtogroup iic_v3_1
+* @{
+* @details
 *
 * Contains selftest functions for the XIic component.
 *
@@ -156,3 +159,4 @@ int XIic_SelfTest(XIic *InstancePtr)
 
 	return Status;
 }
+/** @} */

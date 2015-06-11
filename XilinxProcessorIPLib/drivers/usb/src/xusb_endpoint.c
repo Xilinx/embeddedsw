@@ -42,6 +42,9 @@
 /******************************************************************************/
 /**
  * @file xusb_endpoint.c
+* @addtogroup usb_v5_0
+* @{
+* @details
  *
  * This file contains the USB end point related function definitions.
  *
@@ -623,3 +626,4 @@ void XUsb_EpIsoTransferConfigure(XUsb *InstancePtr, u8 EpNum,
 			InstancePtr->EndPointOffset[EpNum], EpConfigReg);
 
 }
+/** @} */

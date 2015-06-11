@@ -33,6 +33,9 @@
 /**
 *
 * @file xsrio.c
+* @addtogroup srio_v1_0
+* @{
+* @details
 * This file contains the required functions for the XSrio driver. See the 
 * xsrio.h header file for more details on this driver.
 *
@@ -316,3 +319,4 @@ void XSrio_GetWaterMark(XSrio *InstancePtr, u8 *WaterMark0, u8 *WaterMark1,
 			XSRIO_IMP_WCSR_WM2_SHIFT);
 
 }
+/** @} */

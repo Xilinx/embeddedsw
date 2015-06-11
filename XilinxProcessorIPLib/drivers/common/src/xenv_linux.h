@@ -33,6 +33,9 @@
 /**
 *
 * @file xenv_linux.h
+* @addtogroup common_v1_00_a
+* @{
+* @details
 *
 * Defines common services specified by xenv.h.
 *
@@ -250,3 +253,4 @@ typedef int XENV_TIME_STAMP;
 
 #endif            /* end of protection macro */
 
+/** @} */

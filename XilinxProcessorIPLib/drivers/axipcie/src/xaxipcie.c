@@ -32,6 +32,9 @@
 /*****************************************************************************
 **
 * @file xaxipcie.c
+* @addtogroup axipcie_v3_0
+* @{
+* @details
 *
 * Implements all of functions for XAxiPcie IP driver except interrupts and
 * initialization.
@@ -885,3 +888,4 @@ void XAxiPcie_WriteRemoteConfigSpace(XAxiPcie *InstancePtr, u8 Bus, u8 Device,
 	}
 }
 
+/** @} */

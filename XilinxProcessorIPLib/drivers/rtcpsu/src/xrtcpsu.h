@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xrtcpsu.h
+* @addtogroup rtcpsu_v1_0
+* @{
+* @details
 *
 * The Xilinx RTC driver component.  This component supports the Xilinx
 * RTC Controller. RTC Core and RTC controller are the two main important sub-
@@ -379,3 +382,4 @@ XRtcPsu_Config *XRtcPsu_LookupConfig(u16 DeviceId);
 
 
 #endif /* XRTC_H_ */
+/** @} */

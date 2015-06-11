@@ -33,6 +33,9 @@
 /**
  *
  * @file xdptx.c
+* @addtogroup dptx_v3_0
+* @{
+* @details
  *
  * Contains a minimal set of functions for the XDptx driver that allow access
  * to all of the DisplayPort TX core's functionality. See xdptx.h for a detailed
@@ -2677,3 +2680,4 @@ static u32 XDptx_WaitPhyReady(XDptx *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */
