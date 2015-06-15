@@ -717,7 +717,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	 * If valid flash ID, then check connection mode & size and
 	 * assign corresponding index in the Flash configuration table
 	 */
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake = SPANSION_ID_BYTE0)||
+	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)||
 			(FlashMake == WINBOND_ID_BYTE0)) &&
 			(ReadBfrPtr[2] == MICRON_ID_BYTE2_128)) {
 
@@ -738,7 +738,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 		}
 	}
 	/* 256 and 512Mbit supported only for Micron and Spansion, not Winbond */
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake = SPANSION_ID_BYTE0)) &&
+	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
 			(ReadBfrPtr[2] == MICRON_ID_BYTE2_256)) {
 
 		switch(QspiPsuPtr->Config.ConnectionMode)
@@ -757,7 +757,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				break;
 		}
 	}
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake = SPANSION_ID_BYTE0)) &&
+	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
 			(ReadBfrPtr[2] == MICRON_ID_BYTE2_512)) {
 
 		switch(QspiPsuPtr->Config.ConnectionMode)
