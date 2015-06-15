@@ -575,6 +575,10 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	/* Clear AES contents by reseting it. */
 	XSecure_AesReset(InstancePtr);
 
+	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
+
 	if(InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV)
 	{
 		XSecure_AesKeySelNLoad(InstancePtr);
