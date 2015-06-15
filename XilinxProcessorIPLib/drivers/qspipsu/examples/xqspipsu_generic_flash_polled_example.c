@@ -1154,10 +1154,20 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		/* Update Dummy cycles as per flash specs for QUAD IO */
 
 		/*
-		 * Bus width of dummy phase is recommended to be the same as
-		 * address phase
+		 * It is recommended that Bus width value during dummy
+		 * phase should be same as data phase
 		 */
-		FlashMsg[1].BusWidth = FlashMsg[0].BusWidth;
+		if ((Command == FAST_READ_CMD) || (Command == FAST_READ_CMD_4B)) {
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		}
+
+		if ((Command == DUAL_READ_CMD) || (Command == DUAL_READ_CMD_4B)) {
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
+		}
+
+		if ((Command == QUAD_READ_CMD) || (Command == QUAD_READ_CMD_4B)) {
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
+		}
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = NULL;
