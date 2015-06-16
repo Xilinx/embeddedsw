@@ -49,6 +49,7 @@
 * Ver   Who    Date		Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00  kvn    02/14/15 First release
+* 1.1   kvn    06/12/15 Add support for Zynq Ultrascale+ MP.
 *
 * </pre>
 *
@@ -88,7 +89,9 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 	(void) BaseAddress;
 	while (XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_TX)
 	dsb();
-#if defined (__GNUC__) || defined (__ICCARM__)
+#ifdef __aarch64__
+	asm volatile ("msr dbgdtrtx_el0, %0" : : "r" (Data));
+#elif defined (__GNUC__) || defined (__ICCARM__)
 	asm volatile("mcr p14, 0, %0, c0, c5, 0"
 			: : "r" (Data));
 #else
@@ -124,7 +127,9 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 	while (!(XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_RX))
 		dsb();
 
-#if defined (__GNUC__) || defined (__ICCARM__)
+#ifdef __aarch64__
+	asm volatile ("mrs %0, dbgdtrrx_el0" : "=r" (Data));
+#elif defined (__GNUC__) || defined (__ICCARM__)
 	asm volatile("mrc p14, 0, %0, c0, c5, 0"
 			: "=r" (Data));
 #else
@@ -154,7 +159,10 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 static INLINE u32 XCoresightPs_DccGetStatus(void)
 {
 	u32 Status;
-#if defined (__GNUC__) || defined (__ICCARM__)
+
+#ifdef __aarch64__
+	asm volatile ("mrs %0, mdccsr_el0" : "=r" (Status));
+#elif defined (__GNUC__) || defined (__ICCARM__)
 	asm volatile("mrc p14, 0, %0, c0, c1, 0"
 			: "=r" (Status) : : "cc");
 #else

@@ -53,6 +53,7 @@
 * Ver   Who    Date		Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00  kvn    02/14/15 First release
+* 1.1   kvn    06/12/15 Add support for Zynq Ultrascale+ MP.
 *
 * </pre>
 *

@@ -8,6 +8,10 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
+ifeq ($(notdir $(COMPILER)), arm-none-eabi-gcc)
+ECC_FLAGS	+= -mcpu=cortex-r5
+endif
+
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
