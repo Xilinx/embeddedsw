@@ -81,9 +81,9 @@ libs: libxilsecure.a
 	make clean
 
 include:
-	@for i in $(EXPORT_INCLUDE_FILES); do \
+	$(@for i in $(EXPORT_INCLUDE_FILES); do \
 	${CP} -r $$i ${INCLUDEDIR}; \
-	done
+	done)
 
 clean:
 	rm -rf obj/xsecure_rsa.o obj/xsecure_sha.o obj/xsecure_aes.o
