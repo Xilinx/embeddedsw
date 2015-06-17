@@ -178,6 +178,8 @@
 #define WINBOND_ID_BYTE0		0xEF
 #define WINBOND_ID_BYTE2_128	0x18
 
+#define MACRONIX_ID_BYTE0		0xC2
+#define MACRONIX_ID_BYTE2_512	0x3A
 
 /*
  * The index for Flash config table
@@ -214,6 +216,12 @@
 #define FLASH_CFG_TBL_SINGLE_128_WB		WINBOND_INDEX_START
 #define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
+
+/* Macronix */
+#define MACRONIX_INDEX_START			(FLASH_CFG_TBL_PARALLEL_128_WB + 1 - 6)
+#define FLASH_CFG_TBL_SINGLE_512_MX		MACRONIX_INDEX_START
+#define FLASH_CFG_TBL_STACKED_512_MX	(MACRONIX_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_512_MX	(MACRONIX_INDEX_START + 2)
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -301,7 +309,7 @@ u32 GetRealAddr(XQspiPs *QspiPtr, u32 Address);
 
 /************************** Variable Definitions *****************************/
 
-FlashInfo Flash_Config_Table[24] = {
+FlashInfo Flash_Config_Table[27] = {
 		/* Spansion */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
@@ -353,8 +361,15 @@ FlashInfo Flash_Config_Table[24] = {
 		{0x10000, 0x200, 256, 0x20000, 0x1000000,
 				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFF0000, 1},
 		{0x20000, 0x100, 512, 0x10000, 0x1000000,
-				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFE0000, 1}
-};
+				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFE0000, 1},
+		/* Macronix */
+		{0x10000, 0x400, 256, 0x40000, 0x4000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_512, 0xFFFF0000, 1},
+		{0x10000, 0x800, 256, 0x80000, 0x4000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_512, 0xFFFF0000, 1},
+		{0x20000, 0x400, 512, 0x40000, 0x4000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_512, 0xFFFE0000, 1}
+};				/**< Flash Config Table */
 
 u32 FlashMake;
 u32 FCTIndex;	/* Flash configuration table index */
@@ -725,7 +740,7 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 		}
 	}
 
-	if((Flash_Config_Table[FCTIndex].NumDie > 1) &&
+		if((Flash_Config_Table[FCTIndex].NumDie > 1) &&
 			(FlashMake == MICRON_ID_BYTE0)) {
 		XQspiPs_PolledTransfer(QspiPtr, ReadFlagSRCmd, FlagStatus,
 					sizeof(ReadFlagSRCmd));
@@ -1022,6 +1037,9 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 	}else if(ReadBfrPtr[1] == WINBOND_ID_BYTE0) {
 		FlashMake = WINBOND_ID_BYTE0;
 		StartIndex = WINBOND_INDEX_START;
+	} else if(ReadBfrPtr[1] == MACRONIX_ID_BYTE0) {
+		FlashMake = MACRONIX_ID_BYTE0;
+		StartIndex = MACRONIX_INDEX_START;
 	}
 
 
@@ -1029,7 +1047,7 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 	 * If valid flash ID, then check connection mode & size and
 	 * assign corresponding index in the Flash configuration table
 	 */
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake = SPANSION_ID_BYTE0)||
+	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)||
 			(FlashMake == WINBOND_ID_BYTE0)) &&
 			(ReadBfrPtr[3] == MICRON_ID_BYTE2_128)) {
 
@@ -1050,7 +1068,7 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 		}
 	}
 	/* 256 and 512Mbit supported only for Micron and Spansion, not Winbond */
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake = SPANSION_ID_BYTE0)) &&
+	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
 			(ReadBfrPtr[3] == MICRON_ID_BYTE2_256)) {
 
 		switch(QspiPtr->Config.ConnectionMode)
@@ -1069,8 +1087,9 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 				break;
 		}
 	}
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake = SPANSION_ID_BYTE0)) &&
-			(ReadBfrPtr[3] == MICRON_ID_BYTE2_512)) {
+	if ((((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
+			(ReadBfrPtr[3] == MICRON_ID_BYTE2_512)) || ((FlashMake ==
+			MACRONIX_ID_BYTE0) && (ReadBfrPtr[3] == MACRONIX_ID_BYTE2_512))) {
 
 		switch(QspiPtr->Config.ConnectionMode)
 		{
