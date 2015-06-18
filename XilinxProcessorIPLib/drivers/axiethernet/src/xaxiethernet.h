@@ -460,6 +460,7 @@
 * 4.4  adk  8/1/15 -  Fixed TCL errors when axiethernet is configured with the
 *		      Axi stream fifo (CR 835605). Changes are made in the
 *		      driver tcl file.
+* 5.0  adk 13/06/15 - Updated the driver tcl for Hier IP(To support User parameters).
 * </pre>
 *
 ******************************************************************************/

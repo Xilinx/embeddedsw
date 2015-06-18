@@ -45,6 +45,7 @@
 #	       When IP is configured with the PCS/PMA core (CR 828796)
 # 8/1/15   adk Fixed TCL errors when axiethernet is configured with the
 #	       Axi stream fifo (CR 835605).
+# 13/06/15 adk Updated the driver tcl for Hier IP(To support User parameters).
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -115,26 +116,22 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
     # Now print all useful parameters for all peripherals
     set device_id 0
     foreach periph $periphs {
-        #puts $file_handle ""
+	set file_handle [::hsi::utils::open_include_file $file_name]
 
-	    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XAxiEthernet" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TYPE" "C_TXCSUM" "C_RXCSUM" "C_PHY_TYPE" "C_TXVLAN_TRAN" "C_RXVLAN_TRAN" "C_TXVLAN_TAG" "C_RXVLAN_TAG" "C_TXVLAN_STRP" "C_RXVLAN_STRP" "C_MCAST_EXTEND" "C_STATS" "C_AVB" "C_PHYADDR"
+	xdefine_temac_params_include_file $file_handle $periph $device_id
 
-	    set file_handle [::hsi::utils::open_include_file $file_name]
-	    # Create canonical definitions
-            xdefine_temac_params_canonical $file_handle $periph $device_id
+	# Create canonical definitions
+	xdefine_temac_params_canonical $file_handle $periph $device_id
+	# Interrupt ID (canonical)
+	xdefine_temac_interrupt $file_handle $periph $device_id
+	generate_sgmii_params $drv_handle "xparameters.h"
+	display_avb_warning_if_applicable $periph
 
-	     # Interrupt ID (canonical)
-            xdefine_temac_interrupt $file_handle $periph $device_id
+	incr device_id
+	puts $file_handle "\n"
+	close $file_handle
+   }
 
-		   generate_sgmii_params $drv_handle "xparameters.h"
-
-			display_avb_warning_if_applicable $periph
-
-            incr device_id
-            puts $file_handle "\n"
-	    close $file_handle
-
-    }
      # -------------------------------------------------------
     # PART 2 -- AXIFIFO/AXIDMA Connection related parameters
     # -------------------------------------------------------
@@ -275,6 +272,74 @@ proc xdefine_axi_target_params {periphs file_handle} {
       }
    }
 }
+
+proc xdefine_temac_params_include_file {file_handle periph device_id} {
+	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]"
+
+	set value [common::get_property CONFIG.PHY_TYPE $periph]
+	set value [get_mactype $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TYPE"] $value"
+
+	set value [common::get_property CONFIG.TXCSUM $periph]
+	set value [get_checksum $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXCSUM"] $value"
+
+	set value [common::get_property CONFIG.RXCSUM $periph]
+	set value [get_checksum $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXCSUM"] $value"
+
+	set value [common::get_property CONFIG.PHY_TYPE $periph]
+	set value [get_phytype $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "PHY_TYPE"] $value"
+
+	set value [common::get_property CONFIG.TXVLAN_TRAN $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_TRAN"] $value"
+
+	set value [common::get_property CONFIG.RXVLAN_TRAN $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_TRAN"] $value"
+
+	set value [common::get_property CONFIG.TXVLAN_TAG $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_TAG"] $value"
+
+	set value [common::get_property CONFIG.RXVLAN_TAG $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_TAG"] $value"
+
+	set value [common::get_property CONFIG.TXVLAN_STRP $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_STRP"] $value"
+
+	set value [common::get_property CONFIG.RXVLAN_STRP $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_STRP"] $value"
+
+	set value [common::get_property CONFIG.MCAST_EXTEND $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MCAST_EXTEND"] $value"
+
+	set value [common::get_property CONFIG.Statistics_Counters $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "STATS"] $value"
+
+	set value [common::get_property CONFIG.AVB $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AVB"] $value"
+
+	set phyaddr [common::get_property CONFIG.PHYADDR $periph]
+	set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
+	if {[llength $value] == 0} {
+		set value 0
+	}
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "PHYADDR"] $value"
+}
+
 # ------------------------------------------------------------------
 # This procedure creates XPARs that are canonical/normalized for the
 # hardware design parameters.  It also adds these to the Config table.
@@ -300,117 +365,91 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]"
 
     set canonical_name  [format "%s_TEMAC_TYPE" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_TYPE]
-    if {[llength $value] == 0} {
-        set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph PHY_TYPE]
+    set value [get_mactype $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXCSUM" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_TXCSUM]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph TXCSUM]
+    set value [get_checksum $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXCSUM" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_RXCSUM]
-    if {[llength $value] == 0} {
-        set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph RXCSUM]
+    set value [get_checksum $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_PHY_TYPE" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_PHY_TYPE]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph PHY_TYPE]
+    set value [get_phytype $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_TRAN" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_TXVLAN_TRAN]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph TXVLAN_TRAN]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_TRAN" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_RXVLAN_TRAN]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph RXVLAN_TRAN]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_TAG" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_TXVLAN_TAG]
-    if {[llength $value] == 0} {
-        set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph TXVLAN_TAG]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_TAG" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_RXVLAN_TAG]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph RXVLAN_TAG]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_STRP" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_TXVLAN_STRP]
-    if {[llength $value] == 0} {
-        set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph TXVLAN_STRP]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_STRP" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_RXVLAN_STRP]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph RXVLAN_STRP]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_MCAST_EXTEND" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_MCAST_EXTEND]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph MCAST_EXTEND]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_STATS" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_STATS]
-    if {[llength $value] == 0} {
-	set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph Statistics_Counters]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_AVB" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_AVB]
-    if {[llength $value] == 0} {
-        set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph ENABLE_AVB]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
+
     set canonical_name  [format "%s_ENABLE_SGMII_OVER_LVDS" $canonical_tag]
-    set value [::hsi::utils::get_param_value $periph C_ENABLE_LVDS]
-    if {[llength $value] == 0} {
-       set value 0
-    }
+    set value [::hsi::utils::get_param_value $periph ENABLE_LVDS]
+    set value [is_property_set $value]
     puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
+
     set canonical_name  [format "%s_PHYADDR" $canonical_tag]
-    set phyaddr [::hsi::utils::get_param_value $periph C_PHYADDR]
+    set phyaddr [::hsi::utils::get_param_value $periph PHYADDR]
     set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
     if {[llength $value] == 0} {
         set value 0
@@ -630,71 +669,72 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
 
 proc generate_sgmii_params {drv_handle file_name} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
-	set ips [get_cells "*"]
-
-	foreach ip $ips {
-		set periph [get_property IP_NAME  $ip]
-		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
-				set PhyStandard [get_property CONFIG.Standard $ip]
-		}
+	set phy_type [common::get_property CONFIG.PHY_TYPE [get_cells $drv_handle]]
+	set phyaddr [common::get_property CONFIG.PHYADDR [get_cells $drv_handle]]
+	set phyaddr [::hsi::utils::convert_binary_to_decimal $phyaddr]
+	if {[llength $phyaddr] == 0} {
+	set phyaddr 0
 	}
 
-	foreach ip $ips {
-		set periph [get_property IP_NAME  $ip]
-		if { [string compare -nocase $periph "axi_ethernet_buffer"] == 0} {
-			set phya [is_gige_pcs_pma_ip_present $ip]
-			if { $phya == 0} {
-				close $file_handle
-				return 0
-			}
-			if { $PhyStandard == "1000BASEX" } {
-				puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT 1"
-				puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya"
-				puts $file_handle "\n/******************************************************************/\n"
-			} else {
-				puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
-				puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
-				puts $file_handle "\n/******************************************************************/\n"
-
-			}
-		}
+	set phya [::hsi::utils::convert_binary_to_decimal $phyaddr]
+	if {[string compare -nocase $phy_type "SGMII"] == 0} {
+		puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
+		puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
+		puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
+		puts $file_handle "\n/******************************************************************/\n"
+	} elseif {[string compare -nocase $phy_type "1000BaseX"] == 0} {
+		puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
+		puts $file_handle "\#define XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT 1"
+		puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya"
+		puts $file_handle "\n/******************************************************************/\n"
 	}
 	close $file_handle
 }
 
-proc is_gige_pcs_pma_ip_present {slave} {
-	set port_value 0
-	set phy_addr 0
-	set ipconv 0
-
-	set ips [get_cells "*"]
-	set enetipinstance_name [get_property IP_NAME  $slave]
-
-	foreach ip $ips {
-		set periph [get_property IP_NAME $ip]
-		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
-				set sgmii_param [get_property CONFIG.c_is_sgmii $ip]
-				set PhyStandarrd [get_property CONFIG.Standard $ip]
-				if {$sgmii_param == true || $PhyStandarrd == "1000BASEX"} {
-					set ipconv $ip
-				}
-				break
-		}
+proc is_property_set {value} {
+	if {[string compare -nocase $value "true"] == 0} {
+		set value 1
+	} else {
+		set value 0
 	}
 
-	if { $ipconv != 0 }  {
-		set port_value [get_pins -of_objects [get_nets -of_objects [get_pins -of_objects $ipconv gmii_txd]]]
-		if { $port_value != 0 } {
-				if { [string compare -nocase $enetipinstance_name "axi_ethernet_buffer"] == 0} {
-					set phyaddr [::hsi::utils::get_param_value $ipconv C_PHYADDR]
-					set phy_addr [::hsi::utils::convert_binary_to_decimal $phyaddr]
-					if {[llength $phy_addr] == 0} {
-						set phy_addr 0
-					}
-				}
-		}
+	return $value
+}
+
+proc get_checksum {value} {
+	if {[string compare -nocase $value "None"] == 0} {
+		set value 0
+	} elseif {[string compare -nocase $value "Partial"] == 0} {
+		set value 1
+	} else {
+		set value 2
 	}
-	return $phy_addr
+
+	return $value
+}
+
+proc get_phytype {value} {
+	if {[string compare -nocase $value "MII"] == 0} {
+		set value 0
+	} elseif {[string compare -nocase $value "GMII"] == 0} {
+		set value 1
+	} elseif {[string compare -nocase $value "RGMII"] == 0} {
+		set value 3
+	} elseif {[string compare -nocase $value "SGMII"] == 0} {
+		set value 4
+	} else {
+		set value 5
+	}
+
+	return $value
+}
+
+proc get_mactype {value} {
+	if {[string compare -nocase $value "MII"] == 0} {
+		set value 0
+	} else {
+		set value 1
+	}
+
+	return $value
 }
