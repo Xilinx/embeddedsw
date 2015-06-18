@@ -43,9 +43,12 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date      Changes
-* ----- ---- --------- -----------------------------------------------
+* ----- ---- --------- -------------------------------------------------------
 * 1.0   nsk  06/04/15  First release
-*
+* 1.0	nsk  16/06/15  Updated XCanFd_IntrHandler() since RTL has
+*		       changed. RTL Changes,Added new bits to MSR,SR,ISR,
+*		       IER,ICR Registers and modified TS2 bits in
+*		       BTR and F_SJW bits in F_BTR Registers.
 * </pre>
 *
 ******************************************************************************/
@@ -474,6 +477,7 @@ void XCanFd_IntrHandler(void *InstancePtr)
 	 *      - Enter sleep mode
 	 *      - Enter Bus off status
 	 *      - Arbitration is lost
+	 *	- Protocol Exception Event
 	 *
 	 * If so, call event callback provided by upper level.
 	 */
@@ -484,21 +488,12 @@ void XCanFd_IntrHandler(void *InstancePtr)
 			XCANFD_IXR_WKUP_MASK |
 			XCANFD_IXR_SLP_MASK | XCANFD_IXR_BSOFF_MASK |
 			XCANFD_IXR_RXFOFLW_MASK | XCANFD_IXR_ARBLST_MASK |
-			XCANFD_IXR_RXRBF_MASK);
+			XCANFD_IXR_RXRBF_MASK |
+			XCANFD_IXR_PEE_MASK |
+			XCANFD_IXR_BSRD_MASK);
 	if (EventIntr) {
 
 		CanPtr->EventHandler(CanPtr->EventRef, EventIntr);
-
-		if ((EventIntr & XCANFD_IXR_BSOFF_MASK)) {
-
-			/*
-			 * Event callback should reset whole device if "Enter
-			 * Bus Off Status" interrupt occurred. All pending
-			 * interrupts are cleared and no further checking and
-			 * handling of other interrupts is needed any more.
-			 */
-			return;
-		}
 	}
 
 	/*

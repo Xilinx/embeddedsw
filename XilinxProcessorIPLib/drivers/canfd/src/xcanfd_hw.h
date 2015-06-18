@@ -45,10 +45,14 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date       Changes
-* ----- ---- ---------- -----------------------------------------------
+* ----- ---- ---------- -------------------------------------------------------
 * 1.0   nsk  06/04/2015 First release
 * 1.0   nsk  15/05/2015 Modified XCANFD_BTR_TS1_MASK
 *		 	(CR 861772).
+* 1.0	nsk  16/06/2015 Added New definitions for Register
+*			bits since RTL has changed.RTL Changes,Added
+*		        new bits to MSR,SR,ISR,IER,ICR Registers and modified
+*		        TS2 bits in BTR and F_SJW bits in F_BTR Registers.
 *
 * </pre>
 *
@@ -110,6 +114,8 @@ extern "C" {
 					 */
 #define XCANFD_RCS2_OFFSET	0x0B8  /**< Rx Buffer Control Status 2 Register
 					 */
+#define XCANFD_RCS_HCB_MASK	0xFFFF /**< Rx Buffer Control Status Register
+					 Host Control Bit Mask */
 #define XCANFD_RXBFLL1_OFFSET	0x0C0  /**< Rx Buffer Full Interrupt Enable
 					Register */
 #define XCANFD_RXBFLL2_OFFSET 	0x0C4  /**< Rx Buffer Full Interrupt Enable
@@ -679,6 +685,11 @@ extern "C" {
 #define XCANFD_MSR_DAR_MASK	0x00000010  /**< Disable Auto-Retransmission
 						 Select Mask */
 #define XCANFD_MSR_SNOOP_MASK	0x00000004  /**< Snoop Mode Select Mask */
+#define XCANFD_MSR_DPEE_MASK	0x00000020  /**< Protocol Exception Event
+						 Mask */
+#define XCANFD_MSR_SBR_MASK	0x00000040  /**< Start Bus-Off Recovery Mask */
+#define XCANFD_MSR_ABR_MASK     0x00000080  /**< Auto Bus-Off Recovery Mask */
+#define XCANFD_MSR_CONFIG_MASK	0x000000F8  /**< Configuration Mode Mask */
 /* @} */
 
 /** @name Baud Rate Prescaler register
@@ -692,7 +703,7 @@ extern "C" {
  */
 #define XCANFD_BTR_SJW_MASK	0x000F0000  /**< Sync Jump Width Mask */
 #define XCANFD_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
-#define XCANFD_BTR_TS2_MASK	0x00001F00  /**< Time Segment 2 Mask */
+#define XCANFD_BTR_TS2_MASK	0x00000F00  /**< Time Segment 2 Mask */
 #define XCANFD_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
 #define XCANFD_BTR_TS1_MASK	0x0000003F  /**< Time Segment 1 Mask */
 #define XCANFD_F_BRPR_TDCMASK	0x00001F00	/**< Tranceiver Delay
@@ -705,7 +716,7 @@ extern "C" {
 /** @name Fast Bit Timing Register
  *  @{
  */
-#define XCANFD_F_BTR_SJW_MASK	0x00030000  /**< Sync Jump Width Mask */
+#define XCANFD_F_BTR_SJW_MASK	0x00070000  /**< Sync Jump Width Mask */
 #define XCANFD_F_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
 #define XCANFD_F_BTR_TS2_MASK	0x00000700  /**< Time Segment 2 Mask */
 #define XCANFD_F_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
@@ -749,13 +760,23 @@ extern "C" {
 #define XCANFD_SR_SLEEP_MASK	0x00000004  /**< Sleep Mode Mask */
 #define XCANFD_SR_LBACK_MASK	0x00000002  /**< Loop Back Mode Mask */
 #define XCANFD_SR_CONFIG_MASK	0x00000001  /**< Configuration Mode Mask */
+#define XCANFD_SR_PEE_CONFIG_MASK 0x00000200 /**< Protocol Exception Mode
+						  Indicator Mask */
+#define XCANFD_SR_BSFR_CONFIG_MASK 0x00000400 /**< Bus-Off recovery Mode
+						   Indicator Mask */
+#define XCANFD_SR_NISO_MASK	0x00000800 /**< Non-ISO Core Mask */
 /* @} */
 
 /** @name Interrupt Status/Enable/Clear Register
  *  @{
  */
 #define XCANFD_IXR_RXBOFLW_BI_MASK 0x3F000000 /**< Rx Buffer index for Overflow
-						 Intr Mask (Mailbox Mode))*/
+						   (Mailbox Mode) */
+#define XCANFD_IXR_RXLRM_BI_MASK   0x00FC0000 /**< Rx Buffer index for Last
+						   Received Message (Mailbox
+						    Mode) */
+#define XCANFD_RXLRM_BI_SHIFT	18	/**< Rx Buffer Index Shift Value */
+#define XCANFD_CSB_SHIFT	16	/**< Core Status Bit Shift Value */
 #define XCANFD_IXR_RXMNF_MASK	 0x00020000 /**< Rx Match Not Finished Intr
 						Mask */
 #define XCANFD_IXR_RXBOFLW_MASK	 0x00010000 /**< Rx Buffer Overflow interrupt
@@ -778,7 +799,11 @@ extern "C" {
 #define XCANFD_IXR_TXOK_MASK	0x00000002  /**< TX Successful Interrupt Mask
 						*/
 #define XCANFD_IXR_ARBLST_MASK	0x00000001  /**< Arbitration Lost Intr Mask */
-#define XCANFD_IXR_ALL		(XCANFD_IXR_RXBOFLW_BI_MASK 	| \
+#define XCANFD_IXR_PEE_MASK	0x00000004  /**< Protocol Exception Intr Mask */
+#define XCANFD_IXR_BSRD_MASK	0x00000008  /**< Bus-Off recovery done Intr
+						 Mask */
+#define XCANFD_IXR_ALL		(XCANFD_IXR_PEE_MASK	 	| \
+				XCANFD_IXR_BSRD_MASK		| \
 				XCANFD_IXR_RXMNF_MASK 		| \
 				XCANFD_IXR_RXBOFLW_MASK 	| \
 				XCANFD_IXR_RXRBF_MASK 		| \

@@ -55,7 +55,7 @@
 *   - Readable Error Counters.
 *   - External PHY chip required.
 *   - Backward compatiable for Legacy CAN.
-*   - Supports reception in Milibox and Sequential Mode
+*   - Supports reception in Mailbox and Sequential Mode
 *
 * The device driver supports all the features listed above, if applicable.
 *
@@ -195,6 +195,13 @@ exclusion
 *		      Updated xcanfd.c while sending data when EDL is Zero.
 *		      Updated driver tcl file to get configurable TxBuffers.
 *		      (CR 861772).
+* 1.0	nsk  16/06/15 Updated XCanFd_Recv_Mailbox(), XCanFd_EnterMode()
+*		      XCanFd_GetMode() in xcanfd.c and Added new definition
+*		      for Register bits in xcanfd_hw.h and updated
+*		      XCanFd_IntrHandler() in xcanfd_intr.c as per new RTL.
+*		      Changes in RTL, Added new bits to MSR,SR,ISR,IER,ICR
+*		      Registers and modified TS2 bits in BTR and F_SJW bits
+*		      in F_BTR Registers.
 * </pre>
 *
 ******************************************************************************/
@@ -219,8 +226,14 @@ extern "C" {
 #define XCANFD_MODE_CONFIG	0x00000001 /**< Configuration mode */
 #define XCANFD_MODE_NORMAL	0x00000002 /**< Normal mode */
 #define XCANFD_MODE_LOOPBACK	0x00000004 /**< Loop Back mode */
-#define XCANFD_MODE_SLEEP		0x00000008 /**< Sleep mode */
-#define XCANFD_MODE_SNOOP		0x00000010
+#define XCANFD_MODE_SLEEP	0x00000008 /**< Sleep mode */
+#define XCANFD_MODE_SNOOP	0x00000010 /**< Snoop mode */
+#define XCANFD_MODE_ABR		0x00000020 /**< Auto Bus-Off Recovery */
+#define XCANFD_MODE_SBR		0x00000040 /**< Starut Bus-Off Recovery */
+#define XCANFD_MODE_PEE		0x00000080 /**< Protocol Exception mode */
+#define XCANFD_MODE_DAR		0x0000000A /**< Disable Auto Retransmission
+						mode */
+#define XCANFD_MODE_BR		0x0000000B /**< Bus-Off Recovery Mode */
 /* @} */
 
 /** @name Callback identifiers used as parameters to XCanFd_SetHandler()
@@ -237,6 +250,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
+ * @struct
  * This typedef contains configuration information for a device.
  */
 typedef struct {
@@ -286,6 +300,7 @@ typedef void (*XCanFd_EventHandler) (void *CallBackRef, u32 Mask);
 
 /*****************************************************************************/
 /**
+ * @struct
  * The XCanFd driver instance data. The user is required to allocate a
  * variable of this type for every CAN device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
@@ -751,24 +766,6 @@ typedef struct {
 #define XCanFd_GetTImeStamp_Count(InstancePtr)	\
 	(XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,\
 			XCANFD_TIMESTAMPR_OFFSET) >> 16)
-
-/*****************************************************************************/
-/**
-*
-* This function Disables the Auto retransmissions.
-*
-* @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
-*
-* @return	TimeStampCount
-*
-*
-* @note		None.
-*
-******************************************************************************/
-#define  XCanFd_DisableAuto_Retransmission(InstancePtr)	\
-	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_MSR_OFFSET, \
-	 (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_MSR_OFFSET) \
-				| XCANFD_DAR_MASK));
 
 /****************************************************************************/
 /**
