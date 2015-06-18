@@ -1,0 +1,5 @@
+xaxiethernet_example_polled.c=xemacps_example_util.c,xaxiethernet_example_util.c,xaxiethernet_example.h
+xaxiethernet_example_intr_sgdma.c=xemacps_example_util.c,xaxiethernet_example_util.c,xaxiethernet_example.h
+xaxiethernet_example_intr_fifo.c=xemacps_example_util.c,xaxiethernet_example_util.c,xaxiethernet_example.h
+xaxiethernet_example_extmulticast.c=xemacps_example_util.c,xaxiethernet_example_util.c,xaxiethernet_example.h
+xaxiethernet_example_extvlan.c=xemacps_example_util.c,xaxiethernet_example_util.c,xaxiethernet_example.h
