@@ -93,6 +93,8 @@
 *                    Clear and disbale DMA interrupts/status in abort.
 *                    Use DMA DONE bit instead of BUSY as recommended.
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
+*       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
+*                    writing/reading from 0x0 location is permitted.
 *
 * </pre>
 *
@@ -226,6 +228,8 @@ typedef struct {
 
 /* Add more flags as required */
 #define XQSPIPSU_MSG_FLAG_STRIPE	0x1U
+#define XQSPIPSU_MSG_FLAG_RX		0x2U
+#define XQSPIPSU_MSG_FLAG_TX		0x4U
 
 #define XQspiPsu_Select(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_SEL_OFFSET, XQSPIPSU_SEL_MASK)
 
