@@ -155,6 +155,8 @@
 *			   SDR and NVDDR interface for timing modes 0 to 5.
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
+* 1.0   kpc    17/06/2015  Increased the timeout for complete event to avoid
+*			   timeout errors for erase operation on slower devices.
 * </pre>
 *
 ******************************************************************************/
@@ -200,7 +202,7 @@ extern "C" {
 #define XNANDPSU_MAX_SPARE_SIZE		0x800U	/**< Max spare bytes of a NAND
 						  flash page of 16K */
 
-#define XNANDPSU_INTR_POLL_TIMEOUT	10000U
+#define XNANDPSU_INTR_POLL_TIMEOUT	0xF000000U
 
 #define XNANDPSU_SDR_CLK		((u16)100U * (u16)1000U * (u16)1000U)
 #define XNANDPSU_NVDDR_CLK_0		((u16)20U * (u16)1000U * (u16)1000U)

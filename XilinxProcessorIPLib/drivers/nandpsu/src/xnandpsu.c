@@ -97,6 +97,7 @@
 *			   SDR and NVDDR interface for timing modes 0 to 5.
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
+* 1.0   kpc    17/6/2015   Added timer based timeout intsead of sw counter.
 * </pre>
 *
 ******************************************************************************/
@@ -897,6 +898,7 @@ static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
 			break;
 		}
 		TimeoutVar--;
+		usleep(1);
 	}
 
 	if (TimeoutVar <= 0U) {
