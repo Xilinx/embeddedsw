@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2015-06-15
+	* Update the lwip tcl for Hier IP(To support User parameters).
 2015-05-15
 	* Don't inline the functions with the Toolchain. Fix RGMII Ethernet
 	  Not working on Artix devices (CR#861391).

@@ -122,7 +122,7 @@ proc lwip_temac_hw_drc {libhandle emac} {
 #	- if fifo, fifo intr (not verified)
 proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 
-	set emacname [common::get_property NAME $emac]
+	set emacname $emac
 	set mhs_handle [hsi::get_cells $emac]
 
 	set intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] INTERRUPT]
@@ -133,12 +133,7 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 	}
 
 	# find out what is connected to AXI
-	set connected_bus [xget_hw_busif_handle $emac "S_AXI"]
-	if {[string compare -nocase $connected_bus ""] == 0} {
-                error "ERROR: axi_ethernet core $emacname does not have its AXI port (S_AXI) connected" \
-                    "" "MDT_ERROR"
-	}
-
+	set target_periph_type [axieth_target_periph $emac]
 	set tx_csum [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
 	set rx_csum [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
 
@@ -153,19 +148,12 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 		error "ERROR: Both partial and full checksums on Rx path can not be enabled at the same time" "" "MDT_ERROR"
 	}
 
-	# Find the AXI FIFO or AXI DMA that this emac is connected to.
-	set connected_bus [xget_hw_busif_handle $emac "AXI_STR_RXD"]
-	set connected_bus_name [common::get_property NAME $connected_bus]
-	set target_handle [xget_hw_connected_busifs_handle $mhs_handle $connected_bus_name "TARGET"]
-	set parent_handle [hsi::get_cells -of_objects $port $target_handle]
-	set parent_name [common::get_property NAME $parent_handle]
-
 	# check checksum parameters
 	if {$tx_csum || $tx_full_csum} {
-		if {$parent_name == "axi_fifo_mm_s"} {
+		if {$target_periph_type == "axi_fifo_mm_s"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_tx_csum [common::get_property CONFIG.C_TXCSUM $emac]
+		set hw_tx_csum [common::get_property CONFIG.TXCSUM $emac]
 		if {$hw_tx_csum == "1" &&  $tx_full_csum } {
 			error "ERROR: lwIP cannot offload full TX checksum calculation since hardware \
 				supports partial TX checksum offload" "" "MDT_ERROR"
@@ -185,10 +173,10 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 	}
 
 	if {$rx_csum || $rx_full_csum} {
-		if {$parent_name == "axi_fifo_mm_s"} {
+		if {$target_periph_type == "axi_fifo_mm_s"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_rx_csum [common::get_property CONFIG.C_RXCSUM $emac]
+		set hw_rx_csum [common::get_property CONFIG.RXCSUM $emac]
 		if {$hw_rx_csum == "1" &&  $rx_full_csum } {
 			error "ERROR: lwIP cannot offload full RX checksum calculation since hardware \
 				supports partial RX checksum offload" "" "MDT_ERROR"
@@ -216,7 +204,7 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 #--
 proc lwip_hw_drc {libhandle emacs_list} {
 	foreach ip $emacs_list {
-		set iptype [common::get_property NAME $ip]
+		set iptype [common::get_property IP_NAME [get_cells $ip]]
 		if {$iptype == "xps_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			lwip_elite_hw_drc $libhandle $ip
 		} elseif {$iptype == "xps_ll_temac"} {
@@ -300,7 +288,7 @@ proc get_emac_periphs {processor} {
 # all components to run lwIP are available.
 #---------------------------------------------
 proc lwip_drc {libhandle} {
-	#puts "Runnning DRC for lwIP library... \n"
+	puts "Runnning DRC for lwIP library... \n"
 
 	# find the list of xps_ethernetlite, xps_ll_temac, or axi_ethernet cores
 	set sw_processor [hsi::get_sw_processor]
@@ -314,21 +302,17 @@ proc lwip_drc {libhandle} {
 			lwIP requires atleast one EMAC (xps_ethernetlite | xps_ll_temac | axi_ethernet | axi_ethernet_buffer | axi_ethernetlite | ps7_ethernet) core \
 			with its interrupt pin connected to the interrupt controller.\n" "" "MDT_ERROR"
 		return
-	} else {
-		set emac_names_list {}
+	}
 
-		foreach emac $emac_periphs_list {
-			lappend emac_names_list [common::get_property NAME $emac]
-		}
-		#puts "lwIP can be used with the following EMAC peripherals found in your system: $emac_names_list"
+	foreach emac $emac_periphs_list {
+		lappend emac_names_list [common::get_property NAME $emac]
 	}
 
 	#----
 	# check each MAC for correctness conditions
 	#----
-
-	lwip_hw_drc $libhandle $emac_periphs_list
-	lwip_sw_drc $libhandle $emac_periphs_list
+	lwip_hw_drc $libhandle $emac_names_list
+	lwip_sw_drc $libhandle $emac_names_list
 }
 
 proc generate_lwip_opts {libhandle} {
@@ -1034,10 +1018,8 @@ proc generate_adapterconfig_makefile {libhandle} {
 		} elseif {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer"} {
 			set have_axi_ethernet 1
 			# Find the AXI FIFO or AXI DMA that this emac is connected to.
-			set connected_bus_name [::hsm::utils::get_connected_intf $emac AXI_STR_RXD]
-			set parent_handle [hsi::get_cells -of_objects $connected_bus_name]
-			set parent_name [common::get_property IP_NAME $parent_handle]
-			if {$parent_name == "axi_fifo_mm_s"} {
+			set target_periph_type [axieth_target_periph $emac]
+			if {$target_periph_type == "axi_fifo_mm_s"} {
 				set have_axi_ethernet_fifo 1
 			} else {
 				set have_axi_ethernet_dma 1
@@ -1151,10 +1133,8 @@ proc generate_adapterconfig_include {libhandle} {
 			set have_temac 1
 		} elseif {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer"} {
 			# Find the AXI FIFO or AXI DMA that this emac is connected to.
-			set connected_bus_name [::hsm::utils::get_connected_intf $emac AXI_STR_RXD]
-			set parent_handle [hsi::get_cells -of_objects $connected_bus_name]
-			set parent_name [common::get_property IP_NAME $parent_handle]
-			if {$parent_name == "axi_fifo_mm_s"} {
+			set target_periph_type [axieth_target_periph $emac]
+			if {$target_periph_type == "axi_fifo_mm_s"} {
 				set have_axi_ethernet_fifo 1
 			} else {
 				set have_axi_ethernet_dma 1
@@ -1237,6 +1217,29 @@ proc generate_adapterconfig_include {libhandle} {
 	puts $fd "\#endif"
 
 	close $fd
+}
+
+proc axieth_target_periph {emac} {
+	set p2p_busifs_i [get_intf_pins -of_objects [get_cells $emac] -filter "TYPE==INITIATOR"]
+	foreach p2p_busif $p2p_busifs_i {
+		set busif_name [string toupper [get_property NAME  $p2p_busif]]
+		set conn_busif_handle [::hsi::utils::get_connected_intf $emac $busif_name]
+		if { [string compare -nocase $conn_busif_handle ""] == 0} {
+			continue
+		} else {
+		# if there is a single match, we know if it is FIFO or DMA
+		set conn_busif_name [get_property NAME  $conn_busif_handle]
+		set target_periph [get_cells -of_objects $conn_busif_handle]
+		set target_periph_type [get_property IP_NAME $target_periph]
+		if { [string compare -nocase $target_periph_type "tri_mode_ethernet_mac"] == 0 } {
+			continue
+		}
+		set target_periph_name [string toupper [get_property NAME $target_periph]]
+		break
+		}
+	}
+
+	return $target_periph_type
 }
 
 #-------
