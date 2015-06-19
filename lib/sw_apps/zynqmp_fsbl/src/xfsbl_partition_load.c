@@ -57,6 +57,7 @@
 #include "xfsbl_image_header.h"
 #include "xfsbl_hooks.h"
 #include "xfsbl_authentication.h"
+#include "xfsbl_bs.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -746,14 +747,17 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
-		/**
-		 *
-		 * Need to check when bitstream support is added
-		 */
+#ifdef XFSBL_BS
+
 		if (LoadAddress == 0U)
 		{
 			LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
 		}
+#else
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_PL_NOT_ENABLED \r\n");
+		Status = XFSBL_ERROR_PL_NOT_ENABLED;
+		goto END;
+#endif
 	}
 
 	/**
@@ -892,12 +896,17 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #if defined(XFSBL_AES)
 	u32 ImageOffset = 0U;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U];
-	u32 UnencryptedLength;
+	u32 UnencryptedLength = 0;
 	u32 IvLocation;
 #endif
 #if defined(XFSBL_RSA) || defined(XFSBL_AES)
 	u32 Length=0U;
+#endif
+#if defined(XFSBL_RSA) || defined(XFSBL_AES) || defined(XFSBL_BS)
 	u64 LoadAddress=0U;
+#endif
+#if defined(XFSBL_BS)
+	u32 BitstreamWordSize = 0;
 #endif
 
 	/**
@@ -985,6 +994,14 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	}
 #endif
 
+#ifdef XFSBL_BS
+	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
+			(LoadAddress == 0U))
+	{
+		LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
+	}
+#endif
+
 	/**
 	 * Authentication Check
 	 */
@@ -1029,12 +1046,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	}
 
 	/**
-	 * Decrypt image for PS and PMU through CSU DMA
+	 * Decrypt image through CSU DMA
 	 */
-	if ( ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PS) ||
-	    (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PMU)) &&
-	    (IsEncryptionEnabled == TRUE))
-	{
+	if (IsEncryptionEnabled == TRUE) {
 		XFsbl_Printf(DEBUG_INFO, "Decryption Enabled\r\n");
 #ifdef XFSBL_AES
 
@@ -1051,15 +1065,18 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 		UnencryptedLength = PartitionHeader->UnEncryptedDataWordLength * 4U;
 
-		Status = XSecure_AesDecrypt(&SecureAes, (u8 *) LoadAddress,
-				(u8 *) LoadAddress, UnencryptedLength);
 
-		if (Status != XFSBL_SUCCESS) {
-			Status = XFSBL_ERROR_DECRYPTION_FAILED;
-			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_DECRYPTION_FAILED\r\n");
-			goto END;
-		} else {
-			XFsbl_Printf(DEBUG_GENERAL, "Decryption Successful\r\n");
+		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) {
+			Status = XSecure_AesDecrypt(&SecureAes, (u8 *) LoadAddress,
+					(u8 *) LoadAddress, UnencryptedLength);
+
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_DECRYPTION_FAIL;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_DECRYPTION_FAIL\r\n");
+				goto END;
+			} else {
+				XFsbl_Printf(DEBUG_GENERAL, "Decryption Successful\r\n");
+			}
 		}
 #else
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_AES_NOT_ENABLED \r\n");
@@ -1068,6 +1085,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 	}
 
+#ifdef XFSBL_BS
 	/**
 	 * for PL image use CSU DMA to route to PL
 	 */
@@ -1085,14 +1103,52 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 
-		/**
-		 * Configure SSS
-		 */
+		XFsbl_Printf(DEBUG_GENERAL, "Bitstream download to start now\r\n");
 
-		/**
-		 * Use CSU DMA to load Bit stream to PL
-		 * Decrypt the PL if it is encrypted
-		 */
+		Status = XFsbl_PcapInit();
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
+
+		if (IsEncryptionEnabled == TRUE) {
+#ifdef XFSBL_AES
+			/*
+			 * The secure bitstream would be sent through CSU DMA to AES
+			 * and the decrypted bitstream is sent directly to PCAP
+			 * by configuring SSS appropriately
+			 */
+			Status = XSecure_AesDecrypt(&SecureAes,
+					(u8 *) XFSBL_DESTINATION_PCAP_ADDR,
+					(u8 *) LoadAddress, UnencryptedLength);
+
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL;
+				XFsbl_Printf(DEBUG_GENERAL,
+						"XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL\r\n");
+				/* Reset PL */
+				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
+				goto END;
+			} else {
+				XFsbl_Printf(DEBUG_GENERAL,
+						"Bitstream decryption Successful\r\n");
+			}
+#endif
+		}
+		else {
+
+			/* Use CSU DMA to load Bit stream to PL */
+			BitstreamWordSize = PartitionHeader->UnEncryptedDataWordLength;
+
+			Status = XFsbl_WriteToPcap(BitstreamWordSize, (u8 *) LoadAddress);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+			}
+		}
+
+		Status = XFsbl_PLWaitForDone();
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
 
 		/**
 		 * Fsbl hook after bit stream download
@@ -1106,19 +1162,23 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 	}
+#endif
 
 	/**
 	 * Update the handoff details
 	 */
-	CpuNo = FsblInstancePtr->HandoffCpuNo;
-	if (XFsbl_CheckHandoffCpu(FsblInstancePtr,
-	          DestinationCpu) == XFSBL_SUCCESS)
+	if(DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
-		FsblInstancePtr->HandoffValues[CpuNo].CpuSettings =
-				DestinationCpu | ExecState;
-		FsblInstancePtr->HandoffValues[CpuNo].HandoffAddress =
-				PartitionHeader->DestinationExecutionAddress;
-		FsblInstancePtr->HandoffCpuNo += 1U;
+		CpuNo = FsblInstancePtr->HandoffCpuNo;
+		if (XFsbl_CheckHandoffCpu(FsblInstancePtr,
+				DestinationCpu) == XFSBL_SUCCESS)
+		{
+			FsblInstancePtr->HandoffValues[CpuNo].CpuSettings =
+					DestinationCpu | ExecState;
+			FsblInstancePtr->HandoffValues[CpuNo].HandoffAddress =
+					PartitionHeader->DestinationExecutionAddress;
+			FsblInstancePtr->HandoffCpuNo += 1U;
+		}
 	}
 
 END:

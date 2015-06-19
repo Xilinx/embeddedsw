@@ -28,94 +28,67 @@
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
 *
-******************************************************************************/
-
+*
+*******************************************************************************/
 /*****************************************************************************/
 /**
 *
-* @file xfsbl_hooks.c
+* @file xfsbl_bs.h
 *
-* This is the file which contains FSBL hook functions.
+* This is the header file which contains definitions for the PCAP hardware
+* registers and declarations of bitstream download functions
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   04/21/14 Initial release
+* 1.00  ba   11/17/14 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
+
+#ifndef XFSBL_BS_H
+#define XFSBL_BS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***************************** Include Files *********************************/
+
+#include "xfsbl_main.h"
+#include "xfsbl_csu_dma.h"
 #include "xfsbl_hw.h"
-#include "xfsbl_hooks.h"
+#include "xcsudma.h"
 /************************** Constant Definitions *****************************/
+
+#define PL_DONE_POLL_COUNT  10000U
+#define PL_RESET_PERIOD_IN_US  1U
+
+/* Dummy address to indicate that destination is PCAP */
+#define XFSBL_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+u32 XFsbl_BitstreamLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum, PTRSIZE LoadAddress);
+u32 XFsbl_PcapInit(void);
+u32 XFsbl_PLWaitForDone(void);
+u32 XFsbl_WriteToPcap(u32 WrSize, u8 *WrAddr);
 
 /************************** Variable Definitions *****************************/
-#ifdef XFSBL_BS
-u32 XFsbl_HookBeforeBSDownload(void )
-{
-	u32 Status = XFSBL_SUCCESS;
 
-	/**
-	 * Add the code here
-	 */
+extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 
-	return Status;
-}
-
-
-u32 XFsbl_HookAfterBSDownload(void )
-{
-	u32 Status = XFSBL_SUCCESS;
-
-	/**
-	 * Add the code here
-	 */
-
-	return Status;
+#ifdef __cplusplus
 }
 #endif
 
-u32 XFsbl_HookBeforeHandoff(void )
-{
-	u32 Status = XFSBL_SUCCESS;
-
-	/**
-	 * Add the code here
-	 */
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * This is a hook function where user can include the functionality to be run
- * before FSBL fallback happens
- *
- * @param none
- *
- * @return error status based on implemented functionality (SUCCESS by default)
- *
-  *****************************************************************************/
-
-u32 XFsbl_HookBeforeFallback(void)
-{
-	u32 Status = XFSBL_SUCCESS;
-
-	/**
-	 * Add the code here
-	 */
-
-	return Status;
-}
+#endif  /* XFSBL_BS_H */
