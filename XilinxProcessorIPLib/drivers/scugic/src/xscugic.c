@@ -70,6 +70,8 @@
 *			  in function XScuGic_CfgInitialize is removed as it was
 *		      a bug.
 * 3.00  kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
+* 3.01	pkp	 06/19/15 Added XScuGic_InterruptMaptoCpu API for an interrupt
+*			  target CPU mapping
 *
 * </pre>
 *
@@ -709,4 +711,32 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	RegValue = RegValue >> ((Int_Id%16U)*2U);
 
 	*Trigger = (u8)(RegValue & XSCUGIC_INT_CFG_MASK);
+}
+/****************************************************************************/
+/**
+* Sets the target CPU for the interrupt of a peripheral
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	Cpu_Id is a CPU number for which the interrupt has to be targeted
+* @param	Int_Id is the IRQ source number to modify
+*
+* @return	None.
+*
+* @note		None
+*
+*****************************************************************************/
+void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
+{
+	u32 RegValue, Offset;
+	RegValue = XScuGic_DistReadReg(InstancePtr,
+			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+
+	Offset =  (Int_Id & 0x3);
+
+	RegValue = (RegValue | (~(0xFF << (Offset*8))) );
+	RegValue |= ((Cpu_Id) << (Offset*8));
+
+	XScuGic_DistWriteReg(InstancePtr,
+						 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
+						 RegValue);
 }
