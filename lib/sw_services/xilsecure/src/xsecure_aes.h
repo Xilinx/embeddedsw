@@ -154,6 +154,9 @@
 					/**< Secure Header Size in Bytes*/
 #define XSECURE_SECURE_GCM_TAG_SIZE	(16U) /**< GCM Tag Size in Bytes */
 
+#define XSECURE_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
+
+
 /************************** Type Definitions ********************************/
 
 /**

@@ -385,37 +385,52 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 		 * Enable CSU DMA Dst channel for byte swapping.
 		 */
 
-		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+		if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
+		{
+			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 					&ConfigurValues);
-		ConfigurValues.EndianType = 1U;
+			ConfigurValues.EndianType = 1U;
 
-		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 					&ConfigurValues);
-		/* Configure the CSU DMA Tx/Rx for the incoming Block. */
-		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-						(u64)Dst, Len/4U, 0);
+			/* Configure the CSU DMA Tx/Rx for the incoming Block. */
+			XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+					(u64)Dst, Len/4U, 0);
+		}
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 						(u64)Src, Len/4U, 0);
 
-		/* Wait for the Dst DMA completion. */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+		if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
+		{
+			/* Wait for the Dst DMA completion. */
+			XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+		}
+		else
+		{
+			/* Wait for the Src DMA completion. */
+			XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+			XSecure_PcapWaitForDone();
+		}
 
 		/* Acknowledge the transfers has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 							XCSUDMA_IXR_DONE_MASK);
-		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-							XCSUDMA_IXR_DONE_MASK);
 
-		/* Disble CSU DMA Dst channel for byte swapping. */
+		if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
+		{
+			XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+					XCSUDMA_IXR_DONE_MASK);
 
-		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-							&ConfigurValues);
+			/* Disble CSU DMA Dst channel for byte swapping. */
 
-		ConfigurValues.EndianType = 0U;
+			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+					&ConfigurValues);
 
-		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-							&ConfigurValues);
+			ConfigurValues.EndianType = 0U;
 
+			XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+					&ConfigurValues);
+		}
 		/*
 		 * Configure AES engine to push decrypted Key and IV in the
 		 * block to the CSU KEY and IV registers.
@@ -553,12 +568,23 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u8 *GcmTagAddr = 0x0U;
 	u32 BlockCnt = 0x0U;
 	u32 ImageLen = 0x0U;
+	u32 SssPcap = 0x0U;
+	u32 SssDma = 0x0U;
+	u32 SssAes = 0x0U;
 
 	/* Configure the SSS for AES. */
-	u32 SssDma = XSecure_SssInputDstDma(XSECURE_CSU_SSS_SRC_AES);
-	u32 SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
+	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
 
-	SssCfg = SssDma|SssAes ;
+	if (Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
+	{
+		SssPcap = XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
+		SssCfg =  SssPcap|SssAes;
+	}
+	else
+	{
+		SssDma = XSecure_SssInputDstDma(XSECURE_CSU_SSS_SRC_AES);
+		SssCfg = SssDma|SssAes ;
+	}
 
 	XSecure_SssSetup(SssCfg);
 
@@ -615,7 +641,6 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		/* If decryption failed then return error. */
 		if(0U == (u32)Status)
 		{
-			ErrorCode= XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 			goto ENDF;
 		}
 
@@ -663,7 +688,10 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		if(BlockCnt > 0U)
 		{
 			/* Update DestAddr and SrcAddr for next Block decryption. */
-			DestAddr += PrevBlkLen;
+			if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
+			{
+				DestAddr += PrevBlkLen;
+			}
 			SrcAddr = (GcmTagAddr + XSECURE_SECURE_GCM_TAG_SIZE);
 			/*
 			 * This means we are done with Secure header and Block 0

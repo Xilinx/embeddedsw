@@ -92,7 +92,10 @@ extern "C" {
 					/**< CSU AES base address */
 #define XSECURE_CSU_RSA_BASE	(0xFFCE0000U)
 					/**< RSA reg. base address */
-
+#define XSECURE_CSU_PCAP_STATUS (XSECURE_CSU_REG_BASE_ADDR + 0X00003010U)
+					/**< CSU PCAP Status reg. */
+#define XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK    (0X00000001U)
+					/**< PCAP Write Idle */
 
 /** @name Register Map
  *
@@ -185,6 +188,7 @@ extern "C" {
 #define XSECURE_CSU_RSA_RD_DATA_5_OFFSET	(0x5cU) /**< Read Data 5 */
 #define XSECURE_CSU_RSA_RD_ADDR_OFFSET		(0x60U)
 						/**< Read address in RSA RAM */
+
 /* @} */
 
 /**************************** Type Definitions *******************************/
@@ -262,6 +266,12 @@ typedef enum
 * Definition for SSS inline functions
 */
 
+static inline u32 XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC Src)
+{
+    Src &= XSECURE_CSU_SSS_SRC_MASK;
+    return (Src << XSECURE_CSU_SSS_PCAP_SHIFT);
+}
+
 /***************************************************************************/
 /**
 * Set the SSS configuration mask for a data transfer to DMA device
@@ -332,6 +342,25 @@ static inline u32 XSecure_SssInputSha3(XSECURE_CSU_SSS_SRC Src)
 static inline void XSecure_SssSetup(u32 Cfg)
 {
 	XSecure_Out32(XSECURE_CSU_SSS_BASE, Cfg);
+}
+
+/***************************************************************************/
+/**
+* Wait for writes to PL and hence PCAP write cycle to complete
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		C-Style signature:
+*			void XSecure_PcapWaitForDone(void)
+*
+******************************************************************************/
+static inline void XSecure_PcapWaitForDone()
+{
+	while ((Xil_In32(XSECURE_CSU_PCAP_STATUS) &
+			XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK) !=
+			XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK);
 }
 
 /************************** Function Prototypes ******************************/
