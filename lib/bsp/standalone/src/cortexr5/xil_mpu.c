@@ -65,6 +65,40 @@
 
 /************************** Variable Definitions *****************************/
 
+static const struct {
+	u64 size;
+	unsigned int encoding;
+}region_size[] = {
+	{ 0x20, REGION_32B },
+	{ 0x40, REGION_64B },
+	{ 0x80, REGION_128B },
+	{ 0x100, REGION_256B },
+	{ 0x200, REGION_512B },
+	{ 0x400, REGION_1K },
+	{ 0x800, REGION_2K },
+	{ 0x1000, REGION_4K },
+	{ 0x2000, REGION_8K },
+	{ 0x4000, REGION_16K },
+	{ 0x8000, REGION_32K },
+	{ 0x10000, REGION_64K },
+	{ 0x20000, REGION_128K },
+	{ 0x40000, REGION_256K },
+	{ 0x80000, REGION_512K },
+	{ 0x100000, REGION_1M },
+	{ 0x200000, REGION_2M },
+	{ 0x400000, REGION_4M },
+	{ 0x800000, REGION_8M },
+	{ 0x1000000, REGION_16M },
+	{ 0x2000000, REGION_32M },
+	{ 0x4000000, REGION_64M },
+	{ 0x8000000, REGION_128M },
+	{ 0x10000000, REGION_256M },
+	{ 0x20000000, REGION_512M },
+	{ 0x40000000, REGION_1G },
+	{ 0x80000000, REGION_2G },
+	{ 0x100000000, REGION_4G },
+};
+
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************
@@ -80,32 +114,61 @@
 ******************************************************************************/
 void Xil_SetTlbAttributes(INTPTR addr, u32 attrib)
 {
-	u32 Regionsize;
+	INTPTR Localaddr = addr;
+	Localaddr &= (~(0xFFFFFU));
+	/* Setting the MPU region with given attribute with 1MB size */
+	Xil_SetMPURegion(Localaddr, 0x100000, attrib);
+}
+
+/*****************************************************************************
+*
+* Set the memory attributes for a section of memory with starting address addr
+* of the region size size and having attributes attrib
+*
+* @param	addr is the address for which attributes are to be set.
+* @param	size is the size of the region.
+* @param	attrib specifies the attributes for that memory region.
+* @return	None.
+*
+*
+******************************************************************************/
+void Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
+{
+	u32 Regionsize = 0;
 	INTPTR Localaddr = addr;
 	u32 NextAvailableMemRegion;
+	unsigned int i;
 
-	Localaddr &= (~(0xFFFFFU));
 	Xil_DCacheFlush();
 	Xil_ICacheInvalidate();
 	NextAvailableMemRegion = mfcp(XREG_CP15_MPU_MEMORY_REG_NUMBER);
 	NextAvailableMemRegion++;
 	if (NextAvailableMemRegion > 16) {
 		xdbg_printf(DEBUG, "No regions available\r\n");
+		return;
 	}
 	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,NextAvailableMemRegion);
 	isb();
-	Regionsize = REGION_1M<<1;			/* region size is hardcoded to 1MB */
+
+	/* Lookup the size.  */
+	for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
+		if (size <= region_size[i].size) {
+			Regionsize = region_size[i].encoding;
+			break;
+		}
+	}
+
+	Localaddr &= ~(region_size[i].size - 1);
+
+	Regionsize <<= 1;
 	Regionsize |= REGION_EN;
 	dsb();
-	mtcp(XREG_CP15_MPU_REG_BASEADDR,Localaddr); 			/* Set base address of a region */
-	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL,attrib); 	/* Set the control attribute */
-	mtcp(XREG_CP15_MPU_REG_SIZE_EN,Regionsize); 		/* set the region size and enable it*/
+	mtcp(XREG_CP15_MPU_REG_BASEADDR, Localaddr);	/* Set base address of a region */
+	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL, attrib);	/* Set the control attribute */
+	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Regionsize);	/* set the region size and enable it*/
 	dsb();
 	isb();
-
-
 }
-
 /*****************************************************************************
 *
 * Enable MPU for Cortex R5 processor. This function invalidates I cache and
