@@ -985,11 +985,8 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
  */
 int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address);
 
-#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) \
-	|| (XPAR_XISF_FLASH_FAMILY == SST) || \
-	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
-	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	defined(XPAR_XISF_INTERFACE_AXISPI))
 /*
  * Function for entering into 4 byte mode for Micron flash.
  */

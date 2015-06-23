@@ -190,7 +190,9 @@ int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if (((XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
+    (XPAR_XISF_FLASH_FAMILY == SST) || (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+    (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 #endif /* (((XPAR_XISF_FLASH_FAMILY == INTEL) ||	\
@@ -1328,8 +1330,8 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 }
 #endif /* (XPAR_XISF_FLASH_FAMILY == ATMEL) */
 
-#if (((XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
-	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	defined(XPAR_XISF_INTERFACE_AXISPI))
 /*****************************************************************************/
 /**
 *
@@ -1434,7 +1436,13 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 	InstancePtr->FourByteAddrMode = FALSE;
 	return Status;
 }
+#endif /* ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	defined(XPAR_XISF_INTERFACE_AXISPI)) */
 
+#if (((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
+    (XPAR_XISF_FLASH_FAMILY == SST) || (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+    (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 /*****************************************************************************/
 /**
 *
