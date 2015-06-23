@@ -63,8 +63,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00a wsy  01/10/10 First release
- * 2.1   srt  07/15/14 Add support for Ronaldo GEM specification and 64-bit
- *		       changes.
+ * 2.1   srt  07/15/14 Add support for Zynq Ultrascale MP GEM specification
+ *                     and 64-bit changes.
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
  * 3.0   hk   02/20/15 Added support for jumbo frames.
  *                     Disable extended mode. Perform all 64 bit changes under
