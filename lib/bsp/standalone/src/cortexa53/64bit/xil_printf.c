@@ -86,15 +86,15 @@ static void outs(const charptr lp, params_t *par)
 /* as directed by the padding and positioning flags. */
 /*                                                   */
 
-static void outnum( const s32 n, const s32 base, params_t *par)
+static void outnum( const s64 n, const s32 base, params_t *par)
 {
     charptr cp;
     s32 negative;
 	s32 i;
-    char8 outbuf[32];
+    char8 outbuf[64];
     const char8 digits[] = "0123456789ABCDEF";
-    u32 num;
-    for(i = 0; i<32; i++) {
+    u64 num;
+    for(i = 0; i < 64; i++) {
 	outbuf[i] = '0';
     }
 
@@ -282,7 +282,7 @@ void xil_printf( const char8 *ctrl1, ...)
             case 'X':
             case 'x':
                 par.unsigned_flag = 1;
-                outnum((s32)va_arg(argp, s32), 16L, &par);
+                outnum((s64)va_arg(argp, s64), 16L, &par);
                 Check = 1;
                 break;
 
