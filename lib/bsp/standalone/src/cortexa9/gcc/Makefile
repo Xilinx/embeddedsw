@@ -32,28 +32,26 @@
 
 include config.make
 
-AS=arm-xilinx-eabi-as
-CC=arm-xilinx-eabi-gcc
-AR=arm-xilinx-eabi-ar
+CC=$(COMPILER)
+AR=$(ARCHIVER)
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
-LIB=libxil.a
-
 CC_FLAGS = $(subst -pg, -DPROFILING, $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, -DPROFILING, $(EXTRA_COMPILER_FLAGS))
 
-ifeq ($(COMPILER) , arm-eabi-gcc)
- ECC_FLAGS	=	+= -nostartfiles
-endif
-
-#The following flags are required for PEEP. We can remove them later
-ECC_FLAGS	+= -march=armv7-a \
+ifeq ($(notdir $(CC)) , arm-xilinx-eabi-gcc)
+ECC_FLAGS	+= -nostartfiles\
+		  -march=armv7-a \
 		  -mfloat-abi=soft \
 		  -mfpu=neon
 
+endif
+
+#The following flags are required for PEEP. We can remove them later
+ECC_FLAGS	+=
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
@@ -67,10 +65,10 @@ libs: $(LIBS)
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone"
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
+	$(AR) -r ${RELEASEDIR}/${LIB} ${OUTS}
 
 profile_libs:
-	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" libs
+	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" libs
 
 .PHONY: include
 include: standalone_includes profile_includes
@@ -79,8 +77,8 @@ standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 profile_includes:
-	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" include
+	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" include
 
 clean:
 	rm -rf ${OUTS}
-	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" clean
+	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" clean
