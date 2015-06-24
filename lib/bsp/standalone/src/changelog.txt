@@ -39,7 +39,7 @@
  *                     driver tcl in xparameters.h. Update the gcc/translationtable.s
  *                     for the QSPI complete address range - DT644567
  *                     Removed profile directory for armcc compiler and changed
- *                     profiling setting to false in standalone_0.tcl file
+ *                     profiling setting to false in standalone_v2_1_0.tcl file
  *                     Deleting boot.S file after preprocessing for armcc compiler
  * 3.05a asa  03/11/12 Updated the function Xil_EnableMMU in file xil_mmu.c to
  *		       invalidate the caches before enabling back the MMU and
@@ -229,4 +229,7 @@
  *		       Xil_L2CacheInvalidateRange API. Xil_L1DCacheInvalidate and
  *		       Xil_L2CacheInvalidate APIs are modified to flush the complete stack
  *		       instead of just System Stack
+ * 5.1 pkp   14/05/15  Modified cortexa9/gcc/Makefile to keep a correct check of a compiler
+ *		       to update ECC_FLAGS and also take the compiler and archiver as specified
+ *		       in settings instead of hardcoding it.
  *****************************************************************************************/

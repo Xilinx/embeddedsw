@@ -201,7 +201,6 @@ OKToRun:
 	orr      x1, x1, #(1 << 12)	//Enable I cache
 	orr      x1, x1, #(1 << 3)	//Enable SP alignment check
 	orr      x1, x1, #(1 << 2)	//Enable caches
-	orr      x1, x1, #(1 << 1)	//Enable alignment
 	orr      x1, x1, #(1 << 0)	//Enable MMU
 	msr      SCTLR_EL3, x1
 	dsb	 sy

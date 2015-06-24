@@ -30,6 +30,10 @@
 *
 ******************************************************************************/
 
+/* Use toolchain function for openamp applications*/
+
+#ifndef USEAMP
+
 #include <errno.h>
 #include "xil_types.h"
 
@@ -50,3 +54,4 @@ __attribute__((weak)) s32 open(char8 *buf, s32 flags, s32 mode)
   errno = EIO;
   return (-1);
 }
+#endif

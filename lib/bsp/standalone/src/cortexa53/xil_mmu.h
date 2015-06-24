@@ -71,8 +71,6 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void Xil_SetTlbAttributes(INTPTR Addr, u64 attrib);
-void Xil_EnableMMU(void);
-void Xil_DisableMMU(void);
 
 #ifdef __cplusplus
 }

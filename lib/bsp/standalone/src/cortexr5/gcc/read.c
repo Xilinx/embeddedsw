@@ -29,6 +29,9 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+/* Use toolchain function for openamp applications*/
+
+#ifndef USEAMP
 
 /* read.c -- read bytes from a input device.
  */
@@ -109,3 +112,4 @@ _read (s32 fd, char8* buf, s32 nbytes)
   return 0;
 #endif
 }
+#endif

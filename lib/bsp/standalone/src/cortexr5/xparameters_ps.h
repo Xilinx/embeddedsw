@@ -116,7 +116,28 @@ extern "C" {
 #define XPAR_XDMAPS_0_DONE_INTR_5	XPS_DMA5_INT_ID
 #define XPAR_XDMAPS_0_DONE_INTR_6	XPS_DMA6_INT_ID
 #define XPAR_XDMAPS_0_DONE_INTR_7	XPS_DMA7_INT_ID
-#define XPAR_XNANDPS8_0_INTR        XPS_NAND_INT_ID
+#define XPAR_XNANDPS8_0_INTR	        XPS_NAND_INT_ID
+#define XPAR_XADMAPS_0_INTR 		XPS_ADMA_CH0_INT_ID
+#define XPAR_XADMAPS_1_INTR 		XPS_ADMA_CH1_INT_ID
+#define XPAR_XADMAPS_2_INTR		XPS_ADMA_CH2_INT_ID
+#define XPAR_XADMAPS_3_INTR 		XPS_ADMA_CH3_INT_ID
+#define XPAR_XADMAPS_4_INTR		XPS_ADMA_CH4_INT_ID
+#define XPAR_XADMAPS_5_INTR 		XPS_ADMA_CH5_INT_ID
+#define XPAR_XADMAPS_6_INTR 		XPS_ADMA_CH6_INT_ID
+#define XPAR_XADMAPS_7_INTR 		XPS_ADMA_CH7_INT_ID
+#define XPAR_XCSUDMA_INTR 		XPS_CSU_DMA_INT_ID
+#define XPAR_XMPU_LPD_INTR 		XPS_XMPU_LPD_INT_ID
+#define XPAR_XZDMAPS_0_INTR		XPS_ZDMA_CH0_INT_ID
+#define XPAR_XZDMAPS_1_INTR		XPS_ZDMA_CH1_INT_ID
+#define XPAR_XZDMAPS_2_INTR 		XPS_ZDMA_CH2_INT_ID
+#define XPAR_XZDMAPS_3_INTR 		XPS_ZDMA_CH3_INT_ID
+#define XPAR_XZDMAPS_4_INTR		XPS_ZDMA_CH4_INT_ID
+#define XPAR_XZDMAPS_5_INTR 		XPS_ZDMA_CH5_INT_ID
+#define XPAR_XZDMAPS_6_INTR 		XPS_ZDMA_CH6_INT_ID
+#define XPAR_XZDMAPS_7_INTR 		XPS_ZDMA_CH7_INT_ID
+#define XPAR_XMPU_FPD_INTR 		XPS_XMPU_FPD_INT_ID
+#define XPAR_XCCI_FPD_INTR 		XPS_FPD_CCI_INT_ID
+#define XPAR_XSMMU_FPD_INTR 		XPS_FPD_SMMU_INT_ID
 
 /* Canonical definitions for SCU GIC */
 #define XPAR_SCUGIC_NUM_INSTANCES	1U
@@ -138,13 +159,11 @@ extern "C" {
 
 
 /* Shared Peripheral Interrupts (SPI) */
-/* Shared Peripheral Interrupts (SPI) */
 
+/* FIXME */
+/*#define XPS_FPGA0_INT_ID		100U */
 #define XPS_USB1_INT_ID			76U
 #define XPS_USB0_INT_ID			53U
-
-#define XPS_NAND_INT_ID        (32U + 32U)
-
 #define XPS_FPGA1_INT_ID		62U
 #define XPS_FPGA2_INT_ID		63U
 #define XPS_FPGA3_INT_ID		64U
@@ -165,46 +184,65 @@ extern "C" {
 #define XPS_FPGA14_INT_ID		90U
 #define XPS_FPGA15_INT_ID		91U
 
+/* Updated Interrupt-IDs */
+#define XPS_OCMINTR_INT_ID		(10U + 32U)
+#define XPS_NAND_INT_ID        (14U + 32U)
+#define XPS_QSPI_INT_ID			(15U + 32U)
+#define XPS_GPIO_INT_ID			(16U + 32U)
+#define XPS_I2C0_INT_ID			(17U + 32U)
+#define XPS_I2C1_INT_ID			(18U + 32U)
+#define XPS_SPI0_INT_ID			(19U + 32U)
+#define XPS_SPI1_INT_ID			(20U + 32U)
+#define XPS_UART0_INT_ID		(21U + 32U)
+#define XPS_UART1_INT_ID		(22U + 32U)
+#define XPS_CAN0_INT_ID			(23U + 32U)
+#define XPS_CAN1_INT_ID			(24U + 32U)
+#define XPS_WDT_INT_ID			(113U + 32U)
+#define XPS_LP_WDT_INT_ID			(52U + 32U)
+#define XPS_TTC0_0_INT_ID		(36U + 32U)
+#define XPS_TTC0_1_INT_ID		(37U + 32U)
+#define XPS_TTC0_2_INT_ID 		(38U + 32U)
+#define XPS_TTC1_0_INT_ID		(39U + 32U)
+#define XPS_TTC1_1_INT_ID		(40U + 32U)
+#define XPS_TTC1_2_INT_ID		(41U + 32U)
+#define XPS_TTC2_0_INT_ID		(42U + 32U)
+#define XPS_TTC2_1_INT_ID		(43U + 32U)
+#define XPS_TTC2_2_INT_ID		(44U + 32U)
+#define XPS_TTC3_0_INT_ID		(45U + 32U)
+#define XPS_TTC3_1_INT_ID		(46U + 32U)
+#define XPS_TTC3_2_INT_ID		(47U + 32U)
+#define XPS_SDIO0_INT_ID		(48U + 32U)
+#define XPS_SDIO1_INT_ID		(49U + 32U)
+#define XPS_GEM0_INT_ID			(57U + 32U)
+#define XPS_GEM0_WAKE_INT_ID		(58U + 32U)
+#define XPS_GEM1_INT_ID			(59U + 32U)
+#define XPS_GEM1_WAKE_INT_ID		(60U + 32U)
+#define XPS_GEM2_INT_ID			(61U + 32U)
+#define XPS_GEM2_WAKE_INT_ID		(62U + 32U)
+#define XPS_GEM3_INT_ID			(63U + 32U)
+#define XPS_GEM3_WAKE_INT_ID		(64U + 32U)
+#define XPS_ADMA_CH0_INT_ID		(77U + 32U)
+#define XPS_ADMA_CH1_INT_ID		(78U + 32U)
+#define XPS_ADMA_CH2_INT_ID		(79U + 32U)
+#define XPS_ADMA_CH3_INT_ID		(80U + 32U)
+#define XPS_ADMA_CH4_INT_ID		(81U + 32U)
+#define XPS_ADMA_CH5_INT_ID		(82U + 32U)
+#define XPS_ADMA_CH6_INT_ID		(83U + 32U)
+#define XPS_ADMA_CH7_INT_ID		(84U + 32U)
+#define XPS_CSU_DMA_INT_ID		(86U + 32U)
+#define XPS_XMPU_LPD_INT_ID		(88U + 32U)
+#define XPS_ZDMA_CH0_INT_ID		(124U + 32U)
+#define XPS_ZDMA_CH1_INT_ID		(125U + 32U)
+#define XPS_ZDMA_CH2_INT_ID		(126U + 32U)
+#define XPS_ZDMA_CH3_INT_ID		(127U + 32U)
+#define XPS_ZDMA_CH4_INT_ID		(128U + 32U)
+#define XPS_ZDMA_CH5_INT_ID		(129U + 32U)
+#define XPS_ZDMA_CH6_INT_ID		(130U + 32U)
+#define XPS_ZDMA_CH7_INT_ID		(131U + 32U)
+#define XPS_XMPU_FPD_INT_ID		(134U + 32U)
+#define XPS_FPD_CCI_INT_ID		(154U + 32U)
+#define XPS_FPD_SMMU_INT_ID		(155U + 32U)
 
-#define XPS_OCMINTR_INT_ID		(28U + 32U)
-#define XPS_QSPI_INT_ID			(33U + 32U)
-#define XPS_GPIO_INT_ID			(34U + 32U)
-#define XPS_WDT_INT_ID			(106U + 32U)
-#define XPS_LP_WDT_INT_ID			(69U + 32U)
-#define XPS_TTC0_0_INT_ID		(53U + 32U)
-#define XPS_TTC0_1_INT_ID		(54U + 32U)
-#define XPS_TTC0_2_INT_ID 		(55U + 32U)
-#define XPS_SDIO0_INT_ID		(65U + 32U)
-#define XPS_I2C0_INT_ID			(35U + 32U)
-#define XPS_SPI0_INT_ID			(37U + 32U)
-#define XPS_UART0_INT_ID		(39U + 32U)
-#define XPS_CAN0_INT_ID			(41U + 32U)
-
-/* FIXME */
-//#define XPS_FPGA0_INT_ID		100
-
-#define XPS_TTC1_0_INT_ID		(56U + 32U)
-#define XPS_TTC1_1_INT_ID		(57U + 32U)
-#define XPS_TTC1_2_INT_ID		(58U + 32U)
-#define XPS_TTC2_0_INT_ID		(59U + 32U)
-#define XPS_TTC2_1_INT_ID		(60U + 32U)
-#define XPS_TTC2_2_INT_ID		(61U + 32U)
-#define XPS_TTC3_0_INT_ID		(62U + 32U)
-#define XPS_TTC3_1_INT_ID		(63U + 32U)
-#define XPS_TTC3_2_INT_ID		(64U + 32U)
-#define XPS_SDIO1_INT_ID		(66U + 32U)
-#define XPS_I2C1_INT_ID			(36U + 32U)
-#define XPS_SPI1_INT_ID			(38U + 32U)
-#define XPS_UART1_INT_ID		(40U + 32U)
-#define XPS_CAN1_INT_ID			(42U + 32U)
-#define XPS_GEM0_INT_ID			(73U + 32U)
-#define XPS_GEM0_WAKE_INT_ID		(74U + 32U)
-#define XPS_GEM1_INT_ID			(75U + 32U)
-#define XPS_GEM1_WAKE_INT_ID		(76U + 32U)
-#define XPS_GEM2_INT_ID			(77U + 32U)
-#define XPS_GEM2_WAKE_INT_ID		(78U + 32U)
-#define XPS_GEM3_INT_ID			(79U + 32U)
-#define XPS_GEM3_WAKE_INT_ID		(80U + 32U)
 
 /* Private Peripheral Interrupts (PPI) */
 /*#define XPS_GLOBAL_TMR_INT_ID		27	 SCU Global Timer interrupt */

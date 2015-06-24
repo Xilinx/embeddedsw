@@ -468,13 +468,13 @@ void Xil_DCacheFlushRange(INTPTR  adr, u32 len)
 	if (len != 0x00000000U) {
 		end = tempadr + len;
 		tempend = end;
-		if (tempadr & (cacheline - 0x00000001U) != 0x00000000U) {
-			tempadr &= ~(cacheline - 0x00000001U);
+		if ((tempadr & (0x3F)) != 0) {
+			tempadr &= ~(0x3F);
 			Xil_DCacheFlushLine(tempadr);
 			tempadr += cacheline;
 		}
-		if (tempend & (cacheline-0x00000001U) != 0x00000000U) {
-			tempend &= ~(cacheline - 0x00000001U);
+		if ((tempend & (0x3F)) != 0) {
+			tempend &= ~(0x3F);
 			Xil_DCacheFlushLine(tempend);
 		}
 

@@ -48,10 +48,6 @@
 #ifndef XPSEUDO_ASM_H
 #define XPSEUDO_ASM_H
 #include "xreg_cortexa53.h"
-#ifdef __GNUC__
- #include "xpseudo_asm_gcc.h"
-#else
- #include "xpseudo_asm_rvct.h"
-#endif
+#include "xpseudo_asm_gcc.h"
 
 #endif /* XPSEUDO_ASM_H */

@@ -58,89 +58,56 @@ extern "C" {
 
 
 /* GPRs */
-#define XREG_GPR0				r0
-#define XREG_GPR1				r1
-#define XREG_GPR2				r2
-#define XREG_GPR3				r3
-#define XREG_GPR4				r4
-#define XREG_GPR5				r5
-#define XREG_GPR6				r6
-#define XREG_GPR7				r7
-#define XREG_GPR8				r8
-#define XREG_GPR9				r9
-#define XREG_GPR10				r10
-#define XREG_GPR11				r11
-#define XREG_GPR12				r12
-#define XREG_GPR13				r13
-#define XREG_GPR14				r14
-#define XREG_GPR15				r15
+#define XREG_GPR0				x0
+#define XREG_GPR1				x1
+#define XREG_GPR2				x2
+#define XREG_GPR3				x3
+#define XREG_GPR4				x4
+#define XREG_GPR5				x5
+#define XREG_GPR6				x6
+#define XREG_GPR7				x7
+#define XREG_GPR8				x8
+#define XREG_GPR9				x9
+#define XREG_GPR10				x10
+#define XREG_GPR11				x11
+#define XREG_GPR12				x12
+#define XREG_GPR13				x13
+#define XREG_GPR14				x14
+#define XREG_GPR15				x15
+#define XREG_GPR16				x16
+#define XREG_GPR17				x17
+#define XREG_GPR18				x18
+#define XREG_GPR19				x19
+#define XREG_GPR20				x20
+#define XREG_GPR21				x21
+#define XREG_GPR22				x22
+#define XREG_GPR23				x23
+#define XREG_GPR24				x24
+#define XREG_GPR25				x25
+#define XREG_GPR26				x26
+#define XREG_GPR27				x27
+#define XREG_GPR28				x28
+#define XREG_GPR29				x29
+#define XREG_GPR30				x30
 #define XREG_CPSR				cpsr
 
-/* Coprocessor number defines */
-#define XREG_CP0				0
-#define XREG_CP1				1
-#define XREG_CP2				2
-#define XREG_CP3				3
-#define XREG_CP4				4
-#define XREG_CP5				5
-#define XREG_CP6				6
-#define XREG_CP7				7
-#define XREG_CP8				8
-#define XREG_CP9				9
-#define XREG_CP10				10
-#define XREG_CP11				11
-#define XREG_CP12				12
-#define XREG_CP13				13
-#define XREG_CP14				14
-#define XREG_CP15				15
-
-/* Coprocessor control register defines */
-#define XREG_CR0				cr0
-#define XREG_CR1				cr1
-#define XREG_CR2				cr2
-#define XREG_CR3				cr3
-#define XREG_CR4				cr4
-#define XREG_CR5				cr5
-#define XREG_CR6				cr6
-#define XREG_CR7				cr7
-#define XREG_CR8				cr8
-#define XREG_CR9				cr9
-#define XREG_CR10				cr10
-#define XREG_CR11				cr11
-#define XREG_CR12				cr12
-#define XREG_CR13				cr13
-#define XREG_CR14				cr14
-#define XREG_CR15				cr15
-
 /* Current Processor Status Register (CPSR) Bits */
-#define XREG_CPSR_THUMB_MODE			0x20
 #define XREG_CPSR_MODE_BITS			0x1F
-#define XREG_CPSR_SYSTEM_MODE			0x1F
-#define XREG_CPSR_UNDEFINED_MODE		0x1B
-#define XREG_CPSR_DATA_ABORT_MODE		0x17
-#define XREG_CPSR_SVC_MODE			0x13
-#define XREG_CPSR_IRQ_MODE			0x12
-#define XREG_CPSR_FIQ_MODE			0x11
-#define XREG_CPSR_USER_MODE			0x10
+#define XREG_CPSR_EL3h_MODE			0xD
+#define XREG_CPSR_EL3t_MODE			0xC
+#define XREG_CPSR_EL2h_MODE			0x9
+#define XREG_CPSR_EL2t_MODE			0x8
+#define XREG_CPSR_EL1h_MODE			0x5
+#define XREG_CPSR_EL1t_MODE			0x4
+#define XREG_CPSR_EL0t_MODE			0x0
 
-#define XREG_CPSR_IRQ_ENABLE			0x80
-#define XREG_CPSR_FIQ_ENABLE			0x40
+#define XREG_CPSR_IRQ_ENABLE		0x80
+#define XREG_CPSR_FIQ_ENABLE		0x40
 
 #define XREG_CPSR_N_BIT				0x80000000U
 #define XREG_CPSR_Z_BIT				0x40000000U
 #define XREG_CPSR_C_BIT				0x20000000U
 #define XREG_CPSR_V_BIT				0x10000000U
-
-
-
-/* MPE register definitions */
-#define XREG_FPSID				c0
-#define XREG_FPSCR				c1
-#define XREG_MVFR1				c6
-#define XREG_MVFR0				c7
-#define XREG_FPEXC				c8
-#define XREG_FPINST				c9
-#define XREG_FPINST2				c10
 
 /* FPSID bits */
 #define XREG_FPSID_IMPLEMENTER_BIT	(24U)

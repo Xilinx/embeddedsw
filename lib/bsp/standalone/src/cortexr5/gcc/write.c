@@ -30,6 +30,10 @@
 *
 ******************************************************************************/
 
+/* Use toolchain function for openamp applications*/
+
+#ifndef USEAMP
+
 /* write.c -- write bytes to an output device.
  */
 
@@ -109,3 +113,4 @@ _write (s32 fd, char8* buf, s32 nbytes)
   return 0;
 #endif
 }
+#endif

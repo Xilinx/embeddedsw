@@ -162,12 +162,19 @@ OKToRun:
 
 	bl 	Init_MPU		/* Initialize MPU */
 
+/*
+ * Currently OpenAMP is supported only with HIVEC
+ * exception vectors are set to LOVEC if BSP is not built
+ * for OpenAMP as the default state is HIVEC
+ */
+
+#if USEAMP != 1
 /*set exception vector to LOVEC */
 	mrc	p15, 0, r0, c1, c0, 0
 	mvn	r1, #0x2000
 	and	r0, r0, r1
 	mcr	p15, 0, r0, c1, c0, 0
-
+#endif
 
 /* Enable icahce and dcache */
 	mrc 	p15,0,r1,c1,c0,0

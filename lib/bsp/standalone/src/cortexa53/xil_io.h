@@ -67,15 +67,10 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#if defined __GNUC__
 #  define SYNCHRONIZE_IO	dmb()
 #  define INST_SYNC		isb()
 #  define DATA_SYNC		dsb()
-#else
-#  define SYNCHRONIZE_IO
-#  define INST_SYNC
-#  define DATA_SYNC
-#endif /* __GNUC__ */
+
 
 /*****************************************************************************/
 /**
