@@ -49,24 +49,24 @@
 # -----------------------------------------------------------------
 
 proc gen_include_files {swproj mhsinst} {
-     
+
     if {$swproj == 0} {
             return ""
     }
     if {$swproj == 1} {
             set inc_file_lines {xscuwdt.h scuwdt_header.h}
-    }    
+    }
         return $inc_file_lines
 }
-    
+
 proc gen_src_files {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
   if {$swproj == 1} {
-            
+
       set inc_file_lines {examples/xscuwdt_intr_example.c data/scuwdt_header.h}
-      
+
       return $inc_file_lines
   }
 }
@@ -76,50 +76,50 @@ proc gen_testfunc_def {swproj mhsinst} {
 }
 
 proc gen_init_code {swproj mhsinst} {
-    
+
     if {$swproj == 0} {
         return ""
     }
     if {$swproj == 1} {
-        
-      set ipname [common::get_property NAME $mhsinst]
+
+      set ipname [get_property NAME $mhsinst]
       set decl "   static XScuWdt ${ipname};"
       set inc_file_lines $decl
       return $inc_file_lines
-      
+
     }
-    
+
 }
 
 proc gen_testfunc_call {swproj mhsinst} {
-    
+
     if {$swproj == 0} {
         return ""
     }
 
-    set ipname [common::get_property NAME $mhsinst]
+    set ipname [get_property NAME $mhsinst]
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
+    set stdout [get_property CONFIG.STDOUT [get_os]]
     if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
     } else {
        set hasStdout 1
     }
-    
+
     set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
-    
-    
+
+
     set testfunc_call ""
 
   if {${hasStdout} == 0} {
 
-  	if {$isintr == 1} {
+	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
-	
+
       append testfunc_call "
-        
+
    {
       int Status;
       Status = ScuWdtIntrExample(&${intcvar}, &${ipname}, \\
@@ -131,32 +131,32 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 
   } else {
-	
+
 	if {$isintr == 1} {
         set intr_id "XPAR_${ipname}_INTR"
 	set intr_id [string toupper $intr_id]
-	
+
       append testfunc_call "
    {
       int Status;
 
       print(\"\\r\\n Running Interrupt Test  for ${ipname}...\\r\\n\");
-      
+
       Status = ScuWdtIntrExample(&${intcvar}, &${ipname}, \\
                                  ${deviceid}, \\
                                  ${intr_id});
-	
+
       if (Status == 0) {
          print(\"ScuWdtIntrExample PASSED\\r\\n\");
-      } 
+      }
       else {
          print(\"ScuWdtIntrExample FAILED\\r\\n\");
       }
 
    }"
-   
+
    }
-    
+
 
 
   }

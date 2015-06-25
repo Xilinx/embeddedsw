@@ -37,7 +37,7 @@
 ## @BEGIN_CHANGELOG EDK_I
 ##
 ##  - include header files
-##    
+##
 ## @END_CHANGELOG
 
 ## @BEGIN_CHANGELOG EDK_H
@@ -45,7 +45,7 @@
 ##  - Added support for generation of multiple applications.
 ##    All TCL procedures are now required to have a software
 ##    project type as its first argument
-##    
+##
 ## @END_CHANGELOG
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -93,10 +93,10 @@ proc gen_testfunc_call {swproj mhsinst} {
   if {$swproj == 0} {
     return ""
   }
- 
-  set ipname [common::get_property NAME $mhsinst]
+
+  set ipname [get_property NAME $mhsinst]
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-   set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
+   set stdout [get_property CONFIG.STDOUT [get_os]]
    if { $stdout == "" || $stdout == "none" } {
        set hasStdout 0
    } else {
@@ -111,7 +111,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    {
       int status;
-                        
+
       status = IicSelfTestExample(${deviceid});
 
    }"
@@ -121,12 +121,12 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    {
       int status;
-            
-      
+
+
       print(\"\\r\\n Running IicSelfTestExample() for ${ipname}...\\r\\n\");
-      
+
       status = IicSelfTestExample(${deviceid});
-      
+
       if (status == 0) {
          print(\"IicSelfTestExample PASSED\\r\\n\");
       }
@@ -138,4 +138,3 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   return $testfunc_call
 }
-

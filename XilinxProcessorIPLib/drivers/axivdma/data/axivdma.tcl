@@ -46,7 +46,7 @@
 # 4.05a srt  05/01/3  Merged v4.03a driver with v4.04a driver.
 #		         Driver v4.03a - Supports VDMA IPv5.04a XPS release
 #		         Driver v4.04a - Supports VDMA IPv6.00a IPI release
-#	              The parameters C_ENABLE_DEBUG_* are only available in 
+#	              The parameters C_ENABLE_DEBUG_* are only available in
 #		      VDMA IPv6.00a. These parameters should be set to '1'
 #		      for older versions of IP (XPS) and added this logic in
 #		      this file.
@@ -76,7 +76,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-        puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
+        puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
         puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
@@ -85,11 +85,11 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
 
     lappend newargs
     foreach arg $args {
-        set value [common::get_property CONFIG.$arg $drv_handle]
+        set value [get_property CONFIG.$arg $drv_handle]
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]"
+            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
         }
     }
     set args $newargs
@@ -98,7 +98,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
         puts $file_handle ""
-        puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+        puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
         foreach arg $args {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
                 set value $device_id
@@ -110,11 +110,11 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
                 set value 0
             }
 	    # Check for *_ENABLE_DEBUG_* parameters.  These parameters are applicable
- 	    # to VDMA IPv6.00a (IPI release). For all the previous versions these
+	    # to VDMA IPv6.00a (IPI release). For all the previous versions these
             # parameters should be set.
             if {[string first "ENABLE_DEBUG" $arg] >= 0} {
 		set foundparam [::hsi::utils::get_param_value $periph $arg]
-        	if {[llength $foundparam] == 0} {
+		if {[llength $foundparam] == 0} {
 		    set value 1
 		}
 	    }
@@ -140,7 +140,7 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [common::get_property NAME $periph]]
+        set peripheral_name [string toupper [get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -162,7 +162,7 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        set periph_name [string toupper [common::get_property NAME $periph]]
+        set periph_name [string toupper [get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
@@ -181,11 +181,11 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
                     set rvalue 0
                 }
 		# Check for *_ENABLE_DEBUG_* parameters.  These parameters are applicable
- 		# to VDMA IPv6.00a (IPI release).  For all the previous versions these
+		# to VDMA IPv6.00a (IPI release).  For all the previous versions these
 		# parameters should be set.
                 if {[string first "ENABLE_DEBUG" $arg] >= 0} {
 		    set foundparam [::hsi::utils::get_param_value $periph $arg]
-        	    if {[llength $foundparam] == 0} {
+		    if {[llength $foundparam] == 0} {
 		        set rvalue 1
 		    }
 	        }

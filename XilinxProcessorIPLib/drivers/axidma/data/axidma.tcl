@@ -56,26 +56,26 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
     set file_handle [xopen_include_file $file_name]
 
     # Get all peripherals connected to this driver
-    set periphs [xget_sw_iplist_for_driver $drv_handle] 
+    set periphs [xget_sw_iplist_for_driver $drv_handle]
 
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
+	puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
 	# Define NUM_INSTANCES
 	puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
 	set args [lreplace $args $posn $posn]
     }
     # Check if it is a driver parameter
 
-    lappend newargs 
+    lappend newargs
     foreach arg $args {
-	set value [common::get_property CONFIG.$arg $drv_handle]
+	set value [get_property CONFIG.$arg $drv_handle]
 	if {[llength $value] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [xget_dname $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]"
+	    puts $file_handle "#define [xget_dname $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
 	}
     }
     set args $newargs
@@ -84,7 +84,7 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
     set device_id 0
     foreach periph $periphs {
 	puts $file_handle ""
-	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+	puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
 	foreach arg $args {
 	    if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
 		set value $device_id
@@ -92,7 +92,7 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
 	    } else {
 		set value [xget_param_value $periph $arg]
 		if {[string compare -nocase $arg "C_INCLUDE_SG"] == 0} {
-		    	if {[llength $value] == 0} {
+			if {[llength $value] == 0} {
 				set value 1
 			}
 		} else {
@@ -101,7 +101,7 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
 	                }
 	        }
 		if {[string compare -nocase $arg "C_MICRO_DMA"] == 0} {
-		    	if {[llength $value] == 0} {
+			if {[llength $value] == 0} {
 				set value 1
 			}
 		} else {
@@ -119,7 +119,7 @@ proc xdefine_dma_include_file {drv_handle file_name drv_string args} {
             }
 	}
 	puts $file_handle ""
-    }		
+    }
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
 }
@@ -138,7 +138,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
 
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
-        set peripheral_name [string toupper [common::get_property NAME $periph]]
+        set peripheral_name [string toupper [get_property NAME $periph]]
         lappend peripherals $peripheral_name
     }
 
@@ -148,7 +148,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
     foreach periph $periphs {
         set canonical_name [string toupper [format "%s_%s" $drv_string $device_id]]
         lappend canonicals $canonical_name
-        
+
         # Create a list of IDs of the peripherals whose hardware instance name
         # doesn't match the canonical name. These IDs can be used later to
         # generate canonical definitions
@@ -160,7 +160,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
 
     set i 0
     foreach periph $periphs {
-        set periph_name [string toupper [common::get_property NAME $periph]]
+        set periph_name [string toupper [get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
         # canonical name is not the same as hardware instance name
@@ -176,7 +176,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
                 set rvalue [xget_param_value $periph $arg]
 
 		if {[string compare -nocase $arg "C_INCLUDE_SG"] == 0} {
-		    	if {[llength $rvalue] == 0} {
+			if {[llength $rvalue] == 0} {
 				set rvalue 1
 			}
 		} else {
@@ -185,7 +185,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
 	                }
 	        }
 		if {[string compare -nocase $arg "C_MICRO_DMA"] == 0} {
-		    	if {[llength $rvalue] == 0} {
+			if {[llength $rvalue] == 0} {
 				set rvalue 1
 			}
 		} else {
@@ -194,7 +194,7 @@ proc xdefine_axidma_canonical_xpars {drv_handle file_name drv_string args} {
 	                }
 	        }
                 set rvalue [xformat_addr_string $rvalue $arg]
-    
+
                 puts $file_handle "#define $lvalue $rvalue"
 
             }
