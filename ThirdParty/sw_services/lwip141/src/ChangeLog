@@ -1,7 +1,7 @@
 Change Log for lwip
 =================================
 2015-05-15
-	* Don't align the functions with the Toolchain. Fix RGMII Ethernet
+	* Don't inline the functions with the Toolchain. Fix RGMII Ethernet
 	  Not working on Artix devices (CR#861391).
 2015-03-12
 	* Fix compilation Errors during generation of LWIP Echo server

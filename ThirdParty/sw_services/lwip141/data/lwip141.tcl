@@ -874,28 +874,17 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 
 	# find intc to which the interrupt line is connected
 	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] INTERRUPT]
-	set intr_ports [::hsm::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $emac] INTERRUPT]]
-	set intr_cnt 0
-	foreach intr_sink $intr_ports {
-		set phandle [hsi::get_cells -of_objects $intr_sink]
-                set pname_type [common::get_property NAME $phandle]
-                if {$pname_type != "chipscope_ila"} {
-			incr intr_cnt
-			set intc_handle [hsi::get_cells -of_objects $intr_sink]
-			set intc_periph_type [common::get_property IP_NAME $intc_handle]
-			set intc_name [common::get_property NAME $intc_handle]
-			# can we address this intc from the processor?
-			set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
-			if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
-				set proc_name [common::get_property NAME $processor]
-				error "ERROR: $intc_name to which axi_ethernet interrupt is connected is not addressable \
-					from processor $proc_name" "" "mdt_error"
-			}
-                }
+    set intc_handle [::hsi::utils::get_connected_intr_cntrl $emac $emac_intr_port]
+    set intc_periph_type [common::get_property IP_NAME $intc_handle]
+    set intc_name [common::get_property NAME $intc_handle]
+    set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
+    if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
+	set proc_name [common::get_property NAME $processor]
+	error "ERROR: $intc_name to which axi_ethernet interrupt is connected is not addressable \
+		from processor $proc_name" "" "mdt_error"
+    }
 
-        }
-
-	if { $intr_cnt != 1 } {
+	if { [llength $intc_handle] != 1 } {
 		set emac_name [common::get_property NAME $emac]
 		error "ERROR: axi_ethernet ($emac_name) interrupt port connected to more than one IP.\
 			lwIP requires that the interrupt line be connected only to the interrupt controller"
