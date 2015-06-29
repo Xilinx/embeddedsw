@@ -313,9 +313,10 @@ enum xpbr_serv_ext_id {
 };
 
 typedef u32 (*XpbrServHndlr_t) (void);
+typedef u32 (*XpbrServExtHndlr_t) (XpbrServHndlr_t RomHandler);
 
 extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
-extern XpbrServHndlr_t XpbrServExtTbl[XPBR_SERV_EXT_TBL_MAX];
+extern XpbrServExtHndlr_t XpbrServExtTbl[XPBR_SERV_EXT_TBL_MAX];
 
 static inline u32 XpbrACPU0SleepHandler(void)
 {
