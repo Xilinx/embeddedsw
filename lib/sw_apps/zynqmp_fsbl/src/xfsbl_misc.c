@@ -55,6 +55,8 @@
 #include "xil_exception.h"
 
 /************************** Constant Definitions *****************************/
+#define XFSBL_BASE_FILE_NAME_LEN 8
+#define XFSBL_NUM_DIGITS_IN_FILE_NAME 4
 
 /**************************** Type Definitions *******************************/
 
@@ -90,8 +92,6 @@ static void XFsbl_FiqHandler (void);
 extern void XFsbl_ErrorLockDown(u32 ErrorStatus);
 
 /************************** Variable Definitions *****************************/
-static char ItoaBuf[20];
-static const char *ItoaStringPtr = "0123456789abcdef";
 
 /****************************************************************************/
 /**
@@ -130,32 +130,6 @@ void XFsbl_PrintArray (u32 DebugType, const u8 Buf[], u32 Len, const char *Str)
 		XFsbl_Printf(DebugType,"\r\n%s END\r\n",Str);
 	}
 	return;
-}
-
-/*****************************************************************************/
-/**
- *
- *
- *
- * @param	None
- *
- * @return	None
- *
- ******************************************************************************/
-static char * XFsbl_Itoa(u32 Val, u32 Base)
-{
-	u32 Count = 0;
-
-	ItoaBuf[17] = '\0';
-	ItoaBuf[18] = '\0';
-
-	for(Count=16U; ((0U < Val) && (0U < Count)) ; Count--)
-	{
-		ItoaBuf[Count] = ItoaStringPtr[Val % Base];
-		Val /= Base;
-	}
-
-	return (char *)(&ItoaBuf[Count+1]);
 }
 
 
@@ -327,13 +301,35 @@ u32 XFsbl_Htonl(u32 Value1)
 void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName, u32 MultibootReg)
 {
 
-	XFsbl_MemSet((void *)XFsbl_SdEmmcFileName, '\0', 32);
-	(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT");
+	u32 Index;
+	u32 Value;
+	u32 MultiBootNum = MultibootReg;
 
-	(void)XFsbl_Strcat((char *)XFsbl_SdEmmcFileName,
-			(char*)XFsbl_Itoa(MultibootReg, 10));
+	if (0x0U == MultiBootNum)
+	{
+		/* SD file name is BOOT.BIN when Multiboot register value is 0 */
+		(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT.BIN");
+	}
+	else
+	{
+		/* set default SD file name as BOOT0000.BIN */
+		(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT0000.BIN");
 
-	(void)XFsbl_Strcat((char *)XFsbl_SdEmmcFileName, ".BIN");
+		/* Update file name (to BOOTXXXX.BIN) based on Multiboot register value */
+		for(Index = XFSBL_BASE_FILE_NAME_LEN - 1;
+				Index >= XFSBL_BASE_FILE_NAME_LEN - XFSBL_NUM_DIGITS_IN_FILE_NAME;
+				Index--)
+		{
+			Value = MultiBootNum % 10;
+			MultiBootNum = MultiBootNum / 10;
+			XFsbl_SdEmmcFileName[Index] += (s8)Value;
+			if (MultiBootNum == 0)
+			{
+				break;
+			}
+		}
+	}
+
 	XFsbl_Printf(DEBUG_INFO,
 			"File name is %s\r\n",XFsbl_SdEmmcFileName);
 }
