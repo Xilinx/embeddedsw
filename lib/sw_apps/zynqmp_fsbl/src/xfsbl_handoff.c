@@ -168,6 +168,14 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			}
 
 			/**
+			 *  Enable the clock
+			 */
+			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
+			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
+			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
+			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
+
+			/**
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
@@ -176,13 +184,6 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 					CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK);
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
-			/**
-			 *  Enable the clock
-			 */
-			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
-			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
-			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
-			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_A53_1:
@@ -197,6 +198,14 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			}
 
 			/**
+			 *  Enable the clock
+			 */
+			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
+			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
+			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
+			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
+
+			/**
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
@@ -205,13 +214,6 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 					CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK);
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
-			/**
-			 *  Enable the clock
-			 */
-			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
-			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
-			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
-			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_A53_2:
@@ -226,6 +228,14 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			}
 
 			/**
+			 *  Enable the clock
+			 */
+			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
+			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
+			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
+			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
+
+			/**
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
@@ -235,13 +245,6 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
-			/**
-			 *  Enable the clock
-			 */
-			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
-			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
-			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
-			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_A53_3:
@@ -256,6 +259,14 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			}
 
 			/**
+			 *  Enable the clock
+			 */
+			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
+			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
+			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
+			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
+
+			/**
 			 * Release reset
 			 */
 			RegValue = XFsbl_In32(CRF_APB_RST_FPD_APU);
@@ -265,13 +276,6 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			XFsbl_Out32(CRF_APB_RST_FPD_APU, RegValue);
 
-			/**
-			 *  Enable the clock
-			 */
-			RegValue = XFsbl_In32(CRF_APB_ACPU_CTRL);
-			RegValue |= (CRF_APB_ACPU_CTRL_CLKACT_FULL_MASK |
-			             CRF_APB_ACPU_CTRL_CLKACT_HALF_MASK);
-			XFsbl_Out32(CRF_APB_ACPU_CTRL, RegValue);
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_R5_0:
