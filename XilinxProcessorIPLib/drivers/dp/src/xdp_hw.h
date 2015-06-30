@@ -122,14 +122,14 @@
 #define XDP_TX_USER_FIFO_OVERFLOW	0x110	/**< Indicates an overflow in
 							user FIFO. */
 #define XDP_TX_INTERRUPT_SIG_STATE	0x130	/**< The raw signal values for
-							interupt events. */
+							interrupt events. */
 #define XDP_TX_AUX_REPLY_DATA		0x134	/**< Reply data received during
 							the AUX reply. */
 #define XDP_TX_AUX_REPLY_CODE		0x138	/**< Reply code received from
 							the most recent AUX
 							command. */
 #define XDP_TX_AUX_REPLY_COUNT		0x13C	/**< Number of reply
-							transactions receieved
+							transactions received
 							over AUX. */
 #define XDP_TX_INTERRUPT_STATUS		0x140	/**< Status for interrupt
 							events. */
@@ -265,7 +265,7 @@
 #define XDP_TX_PHY_POSTCURSOR_LANE_3	0x258	/**< Controls the post-cursor
 							level. */
 #define XDP_TX_PHY_STATUS		0x280	/**< Current PHY status. */
-#define XDP_TX_GT_DRP_COMMAND		0x2A0	/**< Provides acces to the GT
+#define XDP_TX_GT_DRP_COMMAND		0x2A0	/**< Provides access to the GT
 							DRP ports. */
 #define XDP_TX_GT_DRP_READ_DATA		0x2A4	/**< Provides access to GT DRP
 							read data. */
@@ -1292,7 +1292,7 @@
 							updated internally. */
 #define XDP_RX_MISC_CTRL_LONG_I2C_USE_DEFER_MASK \
 					0x2	/**< When set, the long I2C
-							write data transfwers
+							write data transfers
 							are responded to using
 							DEFER instead of partial
 							ACKs. */
@@ -1749,7 +1749,7 @@
 				0x40000000	/**< Configure RX_PHY_POLARITY
 							for lane 3. */
 #define XDP_RX_PHY_CONFIG_GT_ALL_RESET_MASK \
-				0x00000003	/**< Rest GT and PHY. */
+				0x00000003	/**< Reset GT and PHY. */
 /* 0x208: PHY_STATUS */
 #define XDP_RX_PHY_STATUS_RESET_LANE_0_1_DONE_MASK \
 				0x00000003	/**< Reset done for lanes
@@ -1792,17 +1792,17 @@
 				0x00008000	/**< RX voltage low on lane
 							3. */
 #define XDP_RX_PHY_STATUS_LANE_ALIGN_LANE_0_MASK \
-				0x00010000	/**< Lane aligment status for
-							lane 0. */
+				0x00010000	/**< Lane alignment status
+							for lane 0. */
 #define XDP_RX_PHY_STATUS_LANE_ALIGN_LANE_1_MASK \
-				0x00020000	/**< Lane aligment status for
-							lane 1. */
+				0x00020000	/**< Lane alignment status
+							for lane 1. */
 #define XDP_RX_PHY_STATUS_LANE_ALIGN_LANE_2_MASK \
-				0x00040000	/**< Lane aligment status for
-							lane 2. */
+				0x00040000	/**< Lane alignment status
+							for lane 2. */
 #define XDP_RX_PHY_STATUS_LANE_ALIGN_LANE_3_MASK \
-				0x00080000	/**< Lane aligment status for
-							lane 3. */
+				0x00080000	/**< Lane alignment status
+							for lane 3. */
 #define XDP_RX_PHY_STATUS_SYM_LOCK_LANE_0_MASK \
 				0x00100000	/**< Symbol lock status for
 							lane 0. */

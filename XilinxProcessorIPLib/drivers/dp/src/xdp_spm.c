@@ -886,7 +886,7 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 						((double)BitsPerPixel / 8);
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 
-	/* Calculate the payload bandiwdth number (PBN).  */
+	/* Calculate the payload bandwidth number (PBN).  */
 	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn =
 					1.006 * PeakPixelBw * ((double)64 / 54);
 	/* Ceil - round up if required, avoiding overhead of math.h. */

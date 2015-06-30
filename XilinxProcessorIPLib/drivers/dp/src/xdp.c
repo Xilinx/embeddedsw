@@ -407,7 +407,7 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/* Reenable main link after training if required. */
+	/* Re-enable main link after training if required. */
 	if (ReenableMainLink) {
 		XDp_TxEnableMainLink(InstancePtr);
 	}
@@ -417,8 +417,8 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function checks if the reciever's DisplayPort Configuration Data (DPCD)
- * indicates the reciever has achieved and maintained clock recovery, channel
+ * This function checks if the receiver's DisplayPort Configuration Data (DPCD)
+ * indicates the receiver has achieved and maintained clock recovery, channel
  * equalization, symbol lock, and interlane alignment for all lanes currently in
  * use.
  *
@@ -1424,7 +1424,7 @@ void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity)
 
 /******************************************************************************/
 /**
- * This function checks if the reciever's internal registers indicate that link
+ * This function checks if the receiver's internal registers indicate that link
  * training has complete. That is, training has achieved channel equalization,
  * symbol lock, and interlane alignment for all lanes currently in use.
  *
@@ -2047,7 +2047,7 @@ static u32 XDp_TxRunTraining(XDp *InstancePtr)
  *		- XDP_TX_TS_CHANNEL_EQUALIZATION if the clock recovery sequence
  *		  completed successfully.
  *		- XDP_TX_TS_FAILURE if writing the drive settings to the RX
- *		  device was unsuccesful.
+ *		  device was unsuccessful.
  *		- XDP_TX_TS_ADJUST_LINK_RATE if the clock recovery sequence
  *		  did not complete successfully.
  *
@@ -2158,7 +2158,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr)
  * @return	The next training state:
  *		- XDP_TX_TS_SUCCESS if training succeeded.
  *		- XDP_TX_TS_FAILURE if writing the drive settings to the RX
- *		  device was unsuccesful.
+ *		  device was unsuccessful.
  *		- XDP_TX_TS_ADJUST_LINK_RATE if, after 5 loop iterations, the
  *		  channel equalization sequence did not complete successfully.
  *
@@ -2214,8 +2214,8 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 			break;
 		}
 
-		/* Check that all lanes stihave accomplished channel
-		 * equalization, symbol lock, and interlane alignment. */
+		/* Check if all lanes have accomplished channel equalization,
+		 * symbol lock, and interlane alignment. */
 		Status = XDp_TxCheckChannelEqualization(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
 		if (Status == XST_SUCCESS) {
@@ -2232,8 +2232,8 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 		IterationCount++;
 	}
 
-	/* Tried MaxIteration times with no success. Try a reduced bitrate
-	 * first, then reduce the number of lanes. */
+	/* Tried 5 times with no success. Try a reduced bitrate first, then
+	 * reduce the number of lanes. */
 	return XDP_TX_TS_ADJUST_LINK_RATE;
 }
 
@@ -2673,7 +2673,7 @@ static u32 XDp_TxAdjVswingPreemp(XDp *InstancePtr)
 
 	/* Verify that the voltage swing and pre-emphasis combination is
 	 * allowed. Some combinations will result in a differential peak-to-peak
-	 * voltage that is outside the permissable range. See the VESA
+	 * voltage that is outside the permissible range. See the VESA
 	 * DisplayPort v1.2 Specification, section 3.1.5.2.
 	 * The valid combinations are:
 	 *      PE=0    PE=1    PE=2    PE=3

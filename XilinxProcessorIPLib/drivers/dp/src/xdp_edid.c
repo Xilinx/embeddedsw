@@ -323,7 +323,7 @@ u32 XDp_TxGetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 	for (Index = XDP_TX_DISPID_PAYLOAD_START; Index < DispIdSize; Index++) {
 		DataBlock = &DisplayIdRaw[Index];
 
-		/* Check if the tag mataches the current section data block. */
+		/* Check if the tag matches the current section data block. */
 		if (DataBlock[XDP_TX_DISPID_DB_SEC_TAG] == SectionTag) {
 			*DataBlockPtr = DataBlock;
 			return XST_SUCCESS;

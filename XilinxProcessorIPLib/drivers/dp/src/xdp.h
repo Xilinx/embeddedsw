@@ -168,7 +168,7 @@
  * depending on whether a an HPD event on an HPD pulse event occurred.
  *
  * The DisplayPort TX's XDP_TX_INTERRUPT_STATUS register indicates the type of
- * interrupt that has occured, and the XDp_TxInterruptHandler will use this
+ * interrupt that has occurred, and the XDp_TxInterruptHandler will use this
  * information to decide which handler to call. An HPD event is identified if
  * bit XDP_TX_INTERRUPT_STATUS_HPD_EVENT_MASK is set, and an HPD pulse is
  * identified from the XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK bit.

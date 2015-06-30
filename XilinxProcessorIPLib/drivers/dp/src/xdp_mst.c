@@ -94,7 +94,7 @@ typedef struct
 						message in the transaction. */
 	u8 EndOfMsgTransaction;		/**< This message is the last sideband
 						message in the transaction. */
-	u8 MsgSequenceNum;		/**< Identifies invidiual message
+	u8 MsgSequenceNum;		/**< Identifies individual message
 						transactions to a given
 						DisplayPort device. */
 	u8 Crc;				/**< The cyclic-redundancy check (CRC)
@@ -2892,7 +2892,7 @@ static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 /******************************************************************************/
 /**
  * This function will set and format a sideband message structure for replying
- * with a NAK
+ * with a NACK.
  *
  * @param       Msg is a pointer to the message to be formatted.
  *
