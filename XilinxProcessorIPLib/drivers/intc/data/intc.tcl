@@ -18,8 +18,8 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 # OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
@@ -293,6 +293,15 @@ proc intc_define_vector_table {periph config_inc config_file} {
     set comma "\n"
 
     for {set i 0} {$i < $total_source_intrs} {incr i} {
+        set source_ip $source_name($i)
+        if { [llength $source_ip] != 0 && [llength [hsi::get_cells $source_ip]] != 0} {
+          report_property [hsi::get_cells $source_ip]
+           set ip_name [common::get_property IP_NAME [hsi::get_cells $source_ip]]
+           if { [string compare -nocase $ip_name "xlconstant"] == 0 } {
+              #do no generate interrupt handler entries for xlconstant
+              continue
+           }
+        }
         puts $config_file [format "%s\t\t\t\{" $comma ]
         puts $config_file [format "\t\t\t\t%s," $source_interrupt_handler($i) ]
         if {[llength $source_name($i)] == 0} {
