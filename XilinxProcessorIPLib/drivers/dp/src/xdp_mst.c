@@ -1561,7 +1561,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_REMOTE_DPCD_WRITE;
+	Msg.Body.MsgData[0] = XDP_SBMSG_REMOTE_DPCD_WRITE;
 	Msg.Body.MsgData[1] = (RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
 						4) | (DpcdAddress >> 16);
 	Msg.Body.MsgData[2] = (DpcdAddress & 0x0000FF00) >> 8;
@@ -1654,7 +1654,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_REMOTE_DPCD_READ;
+	Msg.Body.MsgData[0] = XDP_SBMSG_REMOTE_DPCD_READ;
 	Msg.Body.MsgData[1] = (RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
 						4) | (DpcdAddress >> 16);
 	Msg.Body.MsgData[2] = (DpcdAddress & 0x0000FF00) >> 8;
@@ -1754,7 +1754,7 @@ u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_REMOTE_I2C_WRITE;
+	Msg.Body.MsgData[0] = XDP_SBMSG_REMOTE_I2C_WRITE;
 	Msg.Body.MsgData[1] = RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
 									4;
 	Msg.Body.MsgData[2] = IicDeviceId; /* Write I2C device ID. */
@@ -1846,7 +1846,7 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_REMOTE_I2C_READ;
+	Msg.Body.MsgData[0] = XDP_SBMSG_REMOTE_I2C_READ;
 	Msg.Body.MsgData[1] = (RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
 									4) | 1;
 	Msg.Body.MsgData[2] = IicDeviceId; /* Write I2C device ID. */
@@ -1951,7 +1951,7 @@ u32 XDp_TxSendSbMsgLinkAddress(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_LINK_ADDRESS;
+	Msg.Body.MsgData[0] = XDP_SBMSG_LINK_ADDRESS;
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
 	Msg.Body.Crc = XDp_Crc8CalculateBody(&Msg);
 
@@ -2044,7 +2044,7 @@ u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_ENUM_PATH_RESOURCES;
+	Msg.Body.MsgData[0] = XDP_SBMSG_ENUM_PATH_RESOURCES;
 	Msg.Body.MsgData[1] = (RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
 									4);
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
@@ -2137,7 +2137,7 @@ u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_ALLOCATE_PAYLOAD;
+	Msg.Body.MsgData[0] = XDP_SBMSG_ALLOCATE_PAYLOAD;
 	Msg.Body.MsgData[1] = (RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
 									4);
 	Msg.Body.MsgData[2] = VcId;
@@ -2205,7 +2205,7 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 	Msg.Header.Crc = XDp_Crc4CalculateHeader(&Msg.Header);
 
 	/* Prepare the sideband message body. */
-	Msg.Body.MsgData[0] = XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE;
+	Msg.Body.MsgData[0] = XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE;
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
 	Msg.Body.Crc = XDp_Crc8CalculateBody(&Msg);
 
@@ -2331,29 +2331,29 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 	XDp_RxReadDownReq(InstancePtr, &Msg);
 
 	switch (Msg.Body.MsgData[0]) {
-	case XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE:
+	case XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE:
 		XDp_RxAllocatePayload(InstancePtr, &Msg);
 		XDp_RxSetClearPayloadIdReply(&Msg);
 		XDp_RxSetAvailPbn(InstancePtr, &Msg);
 		break;
 
-	case XDP_TX_SBMSG_LINK_ADDRESS:
+	case XDP_SBMSG_LINK_ADDRESS:
 		XDp_RxSetLinkAddressReply(InstancePtr, &Msg);
 		break;
 
-	case XDP_TX_SBMSG_REMOTE_I2C_READ:
+	case XDP_SBMSG_REMOTE_I2C_READ:
 		XDp_RxSetRemoteIicReadReply(InstancePtr, &Msg);
 		break;
 
-	case XDP_TX_SBMSG_REMOTE_DPCD_READ:
+	case XDP_SBMSG_REMOTE_DPCD_READ:
 		XDp_RxSetRemoteDpcdReadReply(InstancePtr, &Msg);
 		break;
 
-	case XDP_TX_SBMSG_ENUM_PATH_RESOURCES:
+	case XDP_SBMSG_ENUM_PATH_RESOURCES:
 		XDp_RxSetEnumPathResReply(InstancePtr, &Msg);
 		break;
 
-	case XDP_TX_SBMSG_ALLOCATE_PAYLOAD:
+	case XDP_SBMSG_ALLOCATE_PAYLOAD:
 		XDp_RxAllocatePayload(InstancePtr, &Msg);
 		XDp_RxSetAllocPayloadReply(&Msg);
 		XDp_RxSetAvailPbn(InstancePtr, &Msg);
@@ -2642,7 +2642,7 @@ static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg)
 	Msg->Header.MsgBodyLength = 2;
 	Msg->Header.MsgHeaderLength = 3;
 
-	Msg->Body.MsgData[0] = XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE;
+	Msg->Body.MsgData[0] = XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE;
 	Msg->Body.MsgDataLength = 1;
 }
 
@@ -2675,7 +2675,7 @@ static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg)
 	Msg->Header.PathMsg = 0;
 	Msg->Header.MsgHeaderLength = 3;
 
-	Msg->Body.MsgData[ReplyIndex++] = XDP_TX_SBMSG_ALLOCATE_PAYLOAD;
+	Msg->Body.MsgData[ReplyIndex++] = XDP_SBMSG_ALLOCATE_PAYLOAD;
 	Msg->Body.MsgData[ReplyIndex++] = PortNum << 4;
 	Msg->Body.MsgData[ReplyIndex++] = VcId;
 	Msg->Body.MsgData[ReplyIndex++] = Pbn >> 8;
@@ -2707,7 +2707,7 @@ static void XDp_RxSetEnumPathResReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
         Msg->Header.PathMsg = 0;
         Msg->Header.MsgHeaderLength = 3;
 
-        Msg->Body.MsgData[ReplyIndex++] = XDP_TX_SBMSG_ENUM_PATH_RESOURCES;
+        Msg->Body.MsgData[ReplyIndex++] = XDP_SBMSG_ENUM_PATH_RESOURCES;
 
 	PortNum = Msg->Body.MsgData[ReplyIndex++] >> 4;
         Msg->Body.MsgData[ReplyIndex++] =
@@ -2756,7 +2756,7 @@ static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	Msg->Header.PathMsg = 0;
 	Msg->Header.MsgHeaderLength = 3;
 
-	Msg->Body.MsgData[ReplyIndex++] = XDP_TX_SBMSG_REMOTE_DPCD_READ;
+	Msg->Body.MsgData[ReplyIndex++] = XDP_SBMSG_REMOTE_DPCD_READ;
 	Msg->Body.MsgData[ReplyIndex++] = PortNum;
 	Msg->Body.MsgData[ReplyIndex++] = NumReadBytes;
 
@@ -2855,7 +2855,7 @@ static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 		return XST_FAILURE;
 	}
 
-	Msg->Body.MsgData[0] = XDP_TX_SBMSG_REMOTE_I2C_READ;
+	Msg->Body.MsgData[0] = XDP_SBMSG_REMOTE_I2C_READ;
 	Msg->Body.MsgData[1] = PortNum;
 	Msg->Body.MsgData[2] = ReadNumBytes;
 	for (Index = 0; Index < ReadNumBytes; Index++) {
@@ -2900,7 +2900,7 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	/* Determine the device information from the sideband message reply
 	* structure. */
 
-	Msg->Body.MsgData[ReplyIndex] = XDP_TX_SBMSG_LINK_ADDRESS;
+	Msg->Body.MsgData[ReplyIndex] = XDP_SBMSG_LINK_ADDRESS;
 	ReplyIndex++;
 
 	for (GuidIndex = 0; GuidIndex < 16; GuidIndex++) {
@@ -2993,14 +2993,14 @@ static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	 * allocation values. */
 	memset(&PayloadTable[StartTs], StreamId, NumTs);
 
-	if (Msg->Body.MsgData[0] == XDP_TX_SBMSG_ALLOCATE_PAYLOAD) {
+	if (Msg->Body.MsgData[0] == XDP_SBMSG_ALLOCATE_PAYLOAD) {
 		/* For ALLOCATE_PAYLOAD sideband messages, check the requested
 		 * PBN value for possible deletion requests. */
 		PbnReq = (Msg->Body.MsgData[3] << 8) | Msg->Body.MsgData[4];
 	}
 
 	for (Index = 0; Index < 64; Index++) {
-		if ((Msg->Body.MsgData[0] == XDP_TX_SBMSG_ALLOCATE_PAYLOAD) &&
+		if ((Msg->Body.MsgData[0] == XDP_SBMSG_ALLOCATE_PAYLOAD) &&
 				!PbnReq && (PayloadTable[Index] == StreamId)) {
 			/* If the PBN value of the ALLOCATE_PAYLOAD sideband
 			 * message equals 0, delete the virtual channel. */
@@ -3042,13 +3042,13 @@ static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
         Topology = &InstancePtr->RxInstance.Topology;
 
-        if (Msg->Body.MsgData[0] == XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE) {
+        if (Msg->Body.MsgData[0] == XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE) {
                 for (Index = 0; Index < 16; Index++) {
                         Topology->Ports[Index].AvailPbn =
                                                 Topology->Ports[Index].FullPbn;
                 }
         }
-        else if (Msg->Body.MsgData[0] == XDP_TX_SBMSG_ALLOCATE_PAYLOAD) {
+        else if (Msg->Body.MsgData[0] == XDP_SBMSG_ALLOCATE_PAYLOAD) {
                 PortNum = Msg->Body.MsgData[1] >> 4;
                 PbnReq = (Msg->Body.MsgData[3] << 8) | Msg->Body.MsgData[4];
 
