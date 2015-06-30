@@ -1178,31 +1178,31 @@
 #define XDP_RX_USER_PIXEL_WIDTH_4	0x4	/**< Quad pixel output mode. */
 /* 0x014: INTERRUPT_MASK */
 #define XDP_RX_INTERRUPT_MASK_VM_CHANGE_MASK \
-					0x00001	/**< Mask the interrupt
+					0x00000001 /**< Mask the interrupt
 							assertion for a
 							resolution change, as
 							detected from the MSA
 							fields. */
 #define XDP_RX_INTERRUPT_MASK_POWER_STATE_MASK \
-					0x00002 /**< Mask the interrupt
+					0x00000002 /**< Mask the interrupt
 							assertion for a power
 							state change. */
 #define XDP_RX_INTERRUPT_MASK_NO_VIDEO_MASK \
-					0x00004 /**< Mask the interrupt
+					0x00000004 /**< Mask the interrupt
 							assertion for the
 							no-video condition being
 							detected after active
 							video received. */
 #define XDP_RX_INTERRUPT_MASK_VBLANK_MASK \
-					0x00008 /**< Mask the interrupt
+					0x00000008 /**< Mask the interrupt
 							assertion for the start
 							of the blanking
 							interval. */
 #define XDP_RX_INTERRUPT_MASK_TRAINING_LOST_MASK \
-					0x00010 /**< Mask the interrupt
+					0x00000010 /**< Mask the interrupt
 							assertion for training
 							loss on active lanes. */
-#define XDP_RX_INTERRUPT_MASK_VIDEO_MASK 0x00040 /**< Mask the interrupt
+#define XDP_RX_INTERRUPT_MASK_VIDEO_MASK 0x00000040 /**< Mask the interrupt
 							assertion for a valid
 							video frame being
 							detected on the main
@@ -1212,54 +1212,54 @@
 							valid scrambler reset
 							character. */
 #define XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK \
-					0x00100 /**< Mask the interrupt
+					0x00000100 /**< Mask the interrupt
 							assertion for an audio
 							info packet being
 							received. */
 #define XDP_RX_INTERRUPT_MASK_EXT_PKT_MASK \
-					0x00200 /**< Mask the interrupt
+					0x00000200 /**< Mask the interrupt
 							assertion for an audio
 							extension packet being
 							received. */
 #define XDP_RX_INTERRUPT_MASK_VCP_ALLOC_MASK \
-					0x00400 /**< Mask the interrupt
+					0x00000400 /**< Mask the interrupt
 							assertion for a virtual
 							channel payload being
 							allocated. */
 #define XDP_RX_INTERRUPT_MASK_VCP_DEALLOC_MASK \
-					0x00800 /**< Mask the interrupt
+					0x00000800 /**< Mask the interrupt
 							assertion for a virtual
 							channel payload being
 							allocated. */
 #define XDP_RX_INTERRUPT_MASK_DOWN_REPLY_MASK \
-					0x01000 /**< Mask the interrupt
+					0x00001000 /**< Mask the interrupt
 							assertion for a
 							downstream reply being
 							ready. */
 #define XDP_RX_INTERRUPT_MASK_DOWN_REQUEST_MASK \
-					0x02000 /**< Mask the interrupt
+					0x00002000 /**< Mask the interrupt
 							assertion for a
 							downstream request being
 							ready. */
 #define XDP_RX_INTERRUPT_MASK_TRAINING_DONE_MASK \
-					0x04000 /**< Mask the interrupt
+					0x00004000 /**< Mask the interrupt
 							assertion for link
 							training completion. */
 #define XDP_RX_INTERRUPT_MASK_BW_CHANGE_MASK \
-					0x08000 /**< Mask the interrupt
+					0x00008000 /**< Mask the interrupt
 							assertion for a change
 							in bandwidth. */
-#define XDP_RX_INTERRUPT_MASK_TP1_MASK	0x10000 /**< Mask the interrupt
+#define XDP_RX_INTERRUPT_MASK_TP1_MASK	0x00010000 /**< Mask the interrupt
 							assertion for start of
 							training pattern 1. */
-#define XDP_RX_INTERRUPT_MASK_TP2_MASK	0x20000 /**< Mask the interrupt
+#define XDP_RX_INTERRUPT_MASK_TP2_MASK	0x00020000 /**< Mask the interrupt
 							assertion for start of
 							training pattern 2. */
-#define XDP_RX_INTERRUPT_MASK_TP3_MASK	0x40000 /**< Mask the interrupt
+#define XDP_RX_INTERRUPT_MASK_TP3_MASK	0x00040000 /**< Mask the interrupt
 							assertion for start of
 							training pattern 3. */
 #define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
-					0x8000000 /**< Mask the interrupt
+					0x08000000 /**< Mask the interrupt
 							assertion caused for an
 							audio packet
 							overflow. */
@@ -1377,15 +1377,15 @@
 	XDP_RX_INTERRUPT_MASK_BW_CHANGE_MASK	/**< Interrupt caused by a
 							change in bandwidth. */
 #define XDP_RX_INTERRUPT_CAUSE_TP1_MASK \
-		XDP_RX_INTERRUPT_MASK_TP1_MASK	/**< Interrupt caused by the
+	XDP_RX_INTERRUPT_MASK_TP1_MASK		/**< Interrupt caused by the
 							start of training
 							pattern 1. */
 #define XDP_RX_INTERRUPT_CAUSE_TP2_MASK \
-		XDP_RX_INTERRUPT_MASK_TP2_MASK	/**< Interrupt caused by the
+	XDP_RX_INTERRUPT_MASK_TP2_MASK		/**< Interrupt caused by the
 							start of training
 							pattern 2. */
 #define XDP_RX_INTERRUPT_CAUSE_TP3_MASK \
-		XDP_RX_INTERRUPT_MASK_TP3_MASK	/**< Interrupt caused by the
+	XDP_RX_INTERRUPT_MASK_TP3_MASK		/**< Interrupt caused by the
 							start of training
 							pattern 3. */
 #define XDP_RX_INTERRUPT_CAUSE_AUDIO_OVER_MASK \
