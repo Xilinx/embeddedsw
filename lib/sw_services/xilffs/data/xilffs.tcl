@@ -108,6 +108,7 @@ proc xgen_opts_file {libhandle} {
 	puts $file_handle "/* Xilinx FAT File System Library (XilFFs) User Settings */"
 	set fs_interface [common::get_property CONFIG.fs_interface $libhandle]
 	set enable_mmc [common::get_property CONFIG.enable_mmc $libhandle]
+	set read_only [common::get_property CONFIG.read_only $libhandle]
 
 	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
@@ -118,6 +119,9 @@ proc xgen_opts_file {libhandle} {
 		if {$periph == "ps7_sdio" || $periph == "psu_sd"} {
 			if {$fs_interface == 1} {
 				puts $file_handle "\#define FILE_SYSTEM_INTERFACE_SD"
+				if {$read_only == true} {
+					puts $file_handle "\#define FILE_SYSTEM_READ_ONLY"
+				}
 			} else {
 				error  "ERROR: Invalid interface selected \n"
 			}
