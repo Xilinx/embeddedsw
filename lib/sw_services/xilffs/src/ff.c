@@ -1658,13 +1658,13 @@ FRESULT dir_find (
 						dp->lfn_idx = dp->index;	/* Start index of LFN */
 					}
 					/* Check validity of the LFN entry and compare it with given name */
-					ord = (c == ord && sum == directory[LDIR_Chksum] && cmp_lfn(dp->lfn, dir)) ? ord - 1 : 0xFF;
+					ord = (c == ord && sum == directory[LDIR_Chksum] && cmp_lfn(dp->lfn, directory)) ? ord - 1 : 0xFF;
 				}
 			} else {					/* An SFN entry is found */
 				if (!ord && sum == sum_sfn(directory)) {
 					break;	/* LFN matched? */
 				}
-				if (!(dp->fn[NS] & NS_LOSS) && !mem_cmp(dir, dp->fn, 11)) {
+				if (!(dp->fn[NS] & NS_LOSS) && !mem_cmp(directory, dp->fn, 11)) {
 					break;	/* SFN matched? */
 				}
 				ord = 0xFF; dp->lfn_idx = 0xFFFF;	/* Reset LFN sequence */
@@ -3516,8 +3516,9 @@ FRESULT f_lseek (
 						if (clst == 0U) {				/* When disk gets full, clip file size */
 							LocOfs = bcs; break;
 						}
-					} else {
+					} else
 #endif
+					{
 						clst = get_fat(fp->fs, clst);	/* Follow cluster chain if not in write mode */
 					}
 					if (clst == 0xFFFFFFFFU) {
@@ -5128,7 +5129,6 @@ int f_printf (
 		}
 		if (c != '%') {				/* Non escape character */
 			putc_bfd(&pb, c);
-		}
 			continue;
 		}
 		w = f = 0;

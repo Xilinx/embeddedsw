@@ -272,7 +272,7 @@ FRESULT f_fdisk (BYTE pdrv, const DWORD szt[], void* work);			/* Divide a physic
 #endif
 #endif
 #if _USE_STRFUNC
-TCHAR* f_gets (TCHAR* buff, int len, FIL* fp);						/* Get a string from the file */
+TCHAR* f_gets (TCHAR* buff, s32 len, FIL* fp);						/* Get a string from the file */
 #if !_FS_READONLY
 int f_putc (TCHAR c, FIL* fp);										/* Put a character to the file */
 int f_puts (const TCHAR* str, FIL* cp);								/* Put a string to the file */

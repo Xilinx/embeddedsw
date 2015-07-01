@@ -5,6 +5,11 @@
 #ifndef _FFCONF
 #define _FFCONF 8051	/* Revision ID */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "xparameters.h"
 
 /*---------------------------------------------------------------------------/
 / Functions and Buffer Configurations
@@ -16,8 +21,11 @@
 /  the file system object (FATFS) instead of private sector buffer eliminated
 /  from the file object (FIL). */
 
-
-#define _FS_READONLY	0	/* 0:Read/Write or 1:Read only */
+#ifdef FILE_SYSTEM_READ_ONLY
+#define _FS_READONLY	1	/* 1:Read only */
+#else
+#define _FS_READONLY	0	/* 0:Read/Write */
+#endif
 /* Setting _FS_READONLY to 1 defines read only configuration. This removes
 /  writing functions, f_write(), f_sync(), f_unlink(), f_mkdir(), f_chmod(),
 /  f_rename(), f_truncate() and useless f_getfree(). */
@@ -224,5 +232,8 @@
 /   PIC32       0           H8/300H     0           x86         0/1
 */
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _FFCONF */
