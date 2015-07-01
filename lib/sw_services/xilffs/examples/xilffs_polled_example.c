@@ -37,6 +37,7 @@
 *
 * @note This example uses file system with SD to write to and read from
 * an SD card using ADMA2 in polled mode.
+* To test this example File System should not be in Read Only mode.
 *
 * This example was tested using SD2.0 card and eMMC (using eMMC to SD adaptor).
 *
@@ -160,6 +161,8 @@ int FfsSdPolledExample(void)
 	/*
 	 * Open file with required permissions.
 	 * Here - Creating new file with read/write permissions. .
+	 * To open file with write permissions, file system should not
+	 * be in Read Only mode.
 	 */
 	SD_File = (char *)FileName;
 
