@@ -489,7 +489,7 @@ static void Dprx_SetupDownTopology(XDp *InstancePtr)
 	u8 GuidIndex;
 
 	/* Ensure that all ports are not exposed in the link address. */
-	for (PortIndex = 0; PortIndex < 16; PortIndex++) {
+	for (PortIndex = 0; PortIndex < XDP_MAX_NPORTS; PortIndex++) {
 		XDp_RxMstExposePort(InstancePtr, PortIndex, 0);
 	}
 
@@ -505,7 +505,7 @@ static void Dprx_SetupDownTopology(XDp *InstancePtr)
 
 	/* Configure the unique port number and GUID for all possible downstream
 	 * sinks. */
-	for (PortIndex = 1; PortIndex < 16; PortIndex++) {
+	for (PortIndex = 1; PortIndex < XDP_MAX_NPORTS; PortIndex++) {
 		/* Set the GUID to a repeating pattern of the port number. */
 		for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
 			Port.Guid[GuidIndex] = PortIndex;

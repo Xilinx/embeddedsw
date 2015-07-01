@@ -627,9 +627,10 @@ typedef struct {
 						of the branch device. */
 	u8 NumPorts;			/**< The number of ports associated with
 						this branch device. */
-	XDp_SbMsgLinkAddressReplyPortDetail PortDetails[16]; /**< An array
-						describing all ports attached to
-						this branch device. */
+	XDp_SbMsgLinkAddressReplyPortDetail PortDetails[XDP_MAX_NPORTS]; /**< An
+						array describing all ports
+						attached to this branch
+						device. */
 } XDp_SbMsgLinkAddressReplyDeviceInfo;
 
 /**
@@ -715,8 +716,9 @@ typedef struct {
 	u8 PayloadTable[64];		/**< The payload table of the RX
 						representing allocated bandwidth
 						per stream. */
-	XDp_RxPort Ports[16];		/**< Port information additional to that
-						contained in LinkAddressInfo. */
+	XDp_RxPort Ports[XDP_MAX_NPORTS]; /**< Port information additional to
+						that contained in
+						LinkAddressInfo. */
 } XDp_RxTopology;
 
 /******************************************************************************/

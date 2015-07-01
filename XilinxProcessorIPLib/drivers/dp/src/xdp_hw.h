@@ -2409,6 +2409,9 @@
 							I2C map of each port. */
 #define XDP_GUID_NBYTES				16 /**< The number of bytes for
 							the global unique ID. */
+#define XDP_MAX_NPORTS				16 /**< The maximum number of
+							ports connected to a
+							DisplayPort device. */
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

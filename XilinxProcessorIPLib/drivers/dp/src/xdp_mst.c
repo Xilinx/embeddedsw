@@ -2415,7 +2415,7 @@ XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertNonvoid(PortNum <= 15);
+	Xil_AssertNonvoid(PortNum < XDP_MAX_NPORTS);
 
 	IicMap = InstancePtr->RxInstance.Topology.Ports[PortNum].IicMap;
 
@@ -2465,7 +2465,7 @@ u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertNonvoid(PortNum <= 15);
+	Xil_AssertNonvoid(PortNum < XDP_MAX_NPORTS);
 	Xil_AssertNonvoid(ReadData != NULL);
 
 	IicMapEntry = XDp_RxGetIicMapEntry(InstancePtr, PortNum, IicAddress);
@@ -2508,7 +2508,7 @@ void XDp_RxSetDpcdMap(XDp *InstancePtr, u8 PortNum, u32 StartAddr, u32 NumBytes,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid(PortNum < XDP_MAX_NPORTS);
 	Xil_AssertVoid(DpcdMap != NULL);
 
 	InstancePtr->RxInstance.Topology.Ports[PortNum].DpcdMap.DataPtr =
@@ -2547,7 +2547,7 @@ void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid(PortNum < XDP_MAX_NPORTS);
 	Xil_AssertVoid((Expose == 0) || (Expose == 1));
 
 	InstancePtr->RxInstance.Topology.Ports[PortNum].Exposed = Expose;
@@ -2589,7 +2589,7 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid(PortNum < XDP_MAX_NPORTS);
 	Xil_AssertVoid(PortDetails != NULL);
 
 	Port = &InstancePtr->RxInstance.Topology.LinkAddressInfo.
@@ -2640,7 +2640,7 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid(PortNum < XDP_MAX_NPORTS);
 
 	Branch = &InstancePtr->RxInstance.Topology.LinkAddressInfo;
 	Port = &Branch->PortDetails[PortNum];
@@ -2687,7 +2687,7 @@ void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(PortNum <= 15);
+	Xil_AssertVoid(PortNum < XDP_MAX_NPORTS);
 
 	InstancePtr->RxInstance.Topology.Ports[PortNum].FullPbn = PbnVal;
 	InstancePtr->RxInstance.Topology.Ports[PortNum].AvailPbn = PbnVal;
@@ -3045,7 +3045,7 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	Msg->Body.MsgData[ReplyIndex++] = Topology->LinkAddressInfo.NumPorts;
 
 	/* For each port of the current device, obtain the details. */
-	for (PortIndex = 0; PortIndex < 16; PortIndex++) {
+	for (PortIndex = 0; PortIndex < XDP_MAX_NPORTS; PortIndex++) {
 		if (!Topology->Ports[PortIndex].Exposed) {
 			/* Current port is not exposed. */
 			continue;
@@ -3175,7 +3175,7 @@ static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg)
         Topology = &InstancePtr->RxInstance.Topology;
 
         if (Msg->Body.MsgData[0] == XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE) {
-                for (Index = 0; Index < 16; Index++) {
+                for (Index = 0; Index < XDP_MAX_NPORTS; Index++) {
                         Topology->Ports[Index].AvailPbn =
                                                 Topology->Ports[Index].FullPbn;
                 }
