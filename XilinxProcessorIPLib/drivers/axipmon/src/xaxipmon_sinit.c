@@ -50,6 +50,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a bss  02/27/12 First release
 * 2.00a bss  06/23/12 Updated to support v2_00a version of IP.
+* 6.3   kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
 * </pre>
 *
 ******************************************************************************/
@@ -92,13 +93,13 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId)
 	XAxiPmon_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index=0; Index < XPAR_XAXIPMON_NUM_INSTANCES; Index++) {
+	for (Index=0U; Index < (u32)XPAR_XAXIPMON_NUM_INSTANCES; Index++) {
 		if (XAxiPmon_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XAxiPmon_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return CfgPtr;
+	return (XAxiPmon_Config *)CfgPtr;
 }
 /** @} */

@@ -53,6 +53,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a bss  02/24/12 First release
 * 2.00a bss  06/23/12 Updated to support v2_00a version of IP.
+* 6.3   kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
 * </pre>
 *
 *****************************************************************************/
@@ -68,8 +69,8 @@
  * to the Range Registers of Incrementers
  */
 
-#define XAPM_TEST_RANGEUPPER_VALUE	16 /**< Test Value for Upper Range */
-#define XAPM_TEST_RANGELOWER_VALUE	 8 /**< Test Value for Lower Range */
+#define XAPM_TEST_RANGEUPPER_VALUE	16U /**< Test Value for Upper Range */
+#define XAPM_TEST_RANGELOWER_VALUE	 8U /**< Test Value for Lower Range */
 
 /**************************** Type Definitions ******************************/
 
@@ -101,11 +102,11 @@
 *		device status after the reset operation.
 *
 ******************************************************************************/
-int XAxiPmon_SelfTest(XAxiPmon *InstancePtr)
+s32 XAxiPmon_SelfTest(XAxiPmon *InstancePtr)
 {
-	int Status;
-	u16 RangeUpper;
-	u16 RangeLower;
+	s32 Status;
+	u16 RangeUpper = 0U;
+	u16 RangeLower = 0U;
 
 	/*
 	 * Assert the argument
@@ -117,7 +118,7 @@ int XAxiPmon_SelfTest(XAxiPmon *InstancePtr)
 	/*
 	 * Reset the device to get it back to its default state
 	 */
-	XAxiPmon_ResetMetricCounter(InstancePtr);
+	(void)XAxiPmon_ResetMetricCounter(InstancePtr);
 	XAxiPmon_ResetGlobalClkCounter(InstancePtr);
 
 	/*
@@ -141,7 +142,7 @@ int XAxiPmon_SelfTest(XAxiPmon *InstancePtr)
 	/*
 	 * Reset the device again to its default state.
 	 */
-	XAxiPmon_ResetMetricCounter(InstancePtr);
+	(void)XAxiPmon_ResetMetricCounter(InstancePtr);
 	XAxiPmon_ResetGlobalClkCounter(InstancePtr);
 
 	/*

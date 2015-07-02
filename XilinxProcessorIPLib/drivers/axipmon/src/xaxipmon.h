@@ -250,6 +250,7 @@
 *						Added XAPM_RID_OFFSET and XAPM_RIDMASK_OFFSET in
 *						xaxipmon_hw.h
 *
+* 6.3	kvn  07/02/15	Modified code according to MISRA-C:2012 guidelines.
 * </pre>
 *
 *****************************************************************************/
@@ -275,8 +276,8 @@ extern "C" {
  *
  * @{
  */
-#define XAPM_MAX_COUNTERS		10 /**< Maximum number of Counters */
-#define XAPM_MAX_COUNTERS_PROFILE	48 /**< Maximum number of Counters */
+#define XAPM_MAX_COUNTERS		10U /**< Maximum number of Counters */
+#define XAPM_MAX_COUNTERS_PROFILE	48U /**< Maximum number of Counters */
 
 /*@}*/
 
@@ -287,16 +288,16 @@ extern "C" {
  * @{
  */
 
-#define XAPM_METRIC_COUNTER_0	0 /**< Metric Counter 0 Register Index */
-#define XAPM_METRIC_COUNTER_1	1 /**< Metric Counter 1 Register Index */
-#define XAPM_METRIC_COUNTER_2	2 /**< Metric Counter 2 Register Index */
-#define XAPM_METRIC_COUNTER_3	3 /**< Metric Counter 3 Register Index */
-#define XAPM_METRIC_COUNTER_4	4 /**< Metric Counter 4 Register Index */
-#define XAPM_METRIC_COUNTER_5	5 /**< Metric Counter 5 Register Index */
-#define XAPM_METRIC_COUNTER_6	6 /**< Metric Counter 6 Register Index */
-#define XAPM_METRIC_COUNTER_7	7 /**< Metric Counter 7 Register Index */
-#define XAPM_METRIC_COUNTER_8	8 /**< Metric Counter 8 Register Index */
-#define XAPM_METRIC_COUNTER_9	9 /**< Metric Counter 9 Register Index */
+#define XAPM_METRIC_COUNTER_0	0U /**< Metric Counter 0 Register Index */
+#define XAPM_METRIC_COUNTER_1	1U /**< Metric Counter 1 Register Index */
+#define XAPM_METRIC_COUNTER_2	2U /**< Metric Counter 2 Register Index */
+#define XAPM_METRIC_COUNTER_3	3U /**< Metric Counter 3 Register Index */
+#define XAPM_METRIC_COUNTER_4	4U /**< Metric Counter 4 Register Index */
+#define XAPM_METRIC_COUNTER_5	5U /**< Metric Counter 5 Register Index */
+#define XAPM_METRIC_COUNTER_6	6U /**< Metric Counter 6 Register Index */
+#define XAPM_METRIC_COUNTER_7	7U /**< Metric Counter 7 Register Index */
+#define XAPM_METRIC_COUNTER_8	8U /**< Metric Counter 8 Register Index */
+#define XAPM_METRIC_COUNTER_9	9U /**< Metric Counter 9 Register Index */
 
 /*@}*/
 
@@ -306,16 +307,16 @@ extern "C" {
  * @{
  */
 
-#define XAPM_INCREMENTER_0	0 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_1	1 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_2	2 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_3	3 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_4	4 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_5	5 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_6	6 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_7	7 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_8	8 /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_9	9 /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_0	0U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_1	1U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_2	2U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_3	3U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_4	4U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_5	5U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_6	6U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_7	7U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_8	8U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_9	9U /**< Metric Counter 0 Register Index */
 
 /*@}*/
 
@@ -324,30 +325,30 @@ extern "C" {
  * @{
  */
 
-#define XAPM_METRIC_SET_0		0 /**< Write Transaction Count */
-#define XAPM_METRIC_SET_1		1 /**< Read Transaction Count */
-#define XAPM_METRIC_SET_2		2 /**< Write Byte Count */
-#define XAPM_METRIC_SET_3		3 /**< Read Byte Count */
-#define XAPM_METRIC_SET_4		4 /**< Write Beat Count */
-#define XAPM_METRIC_SET_5		5 /**< Total Read Latency */
-#define XAPM_METRIC_SET_6		6 /**< Total Write Latency */
-#define XAPM_METRIC_SET_7		7 /**< Slv_Wr_Idle_Cnt */
-#define XAPM_METRIC_SET_8		8 /**< Mst_Rd_Idle_Cnt */
-#define XAPM_METRIC_SET_9		9 /**< Num_BValids */
-#define XAPM_METRIC_SET_10		10 /**< Num_WLasts */
-#define XAPM_METRIC_SET_11		11 /**< Num_RLasts */
-#define XAPM_METRIC_SET_12		12 /**< Minimum Write Latency */
-#define XAPM_METRIC_SET_13		13 /**< Maximum Write Latency */
-#define XAPM_METRIC_SET_14		14 /**< Minimum Read Latency */
-#define XAPM_METRIC_SET_15		15 /**< Maximum Read Latency */
-#define XAPM_METRIC_SET_16		16 /**< Transfer Cycle Count */
-#define XAPM_METRIC_SET_17		17 /**< Packet Count */
-#define XAPM_METRIC_SET_18		18 /**< Data Byte Count */
-#define XAPM_METRIC_SET_19		19 /**< Position Byte Count */
-#define XAPM_METRIC_SET_20		20 /**< Null Byte Count */
-#define XAPM_METRIC_SET_21		21 /**< Slv_Idle_Cnt */
-#define XAPM_METRIC_SET_22		22 /**< Mst_Idle_Cnt */
-#define XAPM_METRIC_SET_30		30 /**< External event count */
+#define XAPM_METRIC_SET_0		0U /**< Write Transaction Count */
+#define XAPM_METRIC_SET_1		1U /**< Read Transaction Count */
+#define XAPM_METRIC_SET_2		2U /**< Write Byte Count */
+#define XAPM_METRIC_SET_3		3U /**< Read Byte Count */
+#define XAPM_METRIC_SET_4		4U /**< Write Beat Count */
+#define XAPM_METRIC_SET_5		5U /**< Total Read Latency */
+#define XAPM_METRIC_SET_6		6U /**< Total Write Latency */
+#define XAPM_METRIC_SET_7		7U /**< Slv_Wr_Idle_Cnt */
+#define XAPM_METRIC_SET_8		8U /**< Mst_Rd_Idle_Cnt */
+#define XAPM_METRIC_SET_9		9U /**< Num_BValids */
+#define XAPM_METRIC_SET_10		10U /**< Num_WLasts */
+#define XAPM_METRIC_SET_11		11U /**< Num_RLasts */
+#define XAPM_METRIC_SET_12		12U /**< Minimum Write Latency */
+#define XAPM_METRIC_SET_13		13U /**< Maximum Write Latency */
+#define XAPM_METRIC_SET_14		14U /**< Minimum Read Latency */
+#define XAPM_METRIC_SET_15		15U /**< Maximum Read Latency */
+#define XAPM_METRIC_SET_16		16U /**< Transfer Cycle Count */
+#define XAPM_METRIC_SET_17		17U /**< Packet Count */
+#define XAPM_METRIC_SET_18		18U /**< Data Byte Count */
+#define XAPM_METRIC_SET_19		19U /**< Position Byte Count */
+#define XAPM_METRIC_SET_20		20U /**< Null Byte Count */
+#define XAPM_METRIC_SET_21		21U /**< Slv_Idle_Cnt */
+#define XAPM_METRIC_SET_22		22U /**< Mst_Idle_Cnt */
+#define XAPM_METRIC_SET_30		30U /**< External event count */
 
 
 /*@}*/
@@ -358,7 +359,7 @@ extern "C" {
  * @{
  */
 
-#define XAPM_MAX_AGENTS 	8 /**< Maximum number of Agents */
+#define XAPM_MAX_AGENTS 	8U /**< Maximum number of Agents */
 
 /*@}*/
 
@@ -381,16 +382,16 @@ extern "C" {
 #define XAPM_FLAG_GCCOVF	0x00100000 /**< Global Clock Counter Overflow
 					     *  Flag */
 #define XAPM_FLAG_SCLAPSE	0x00200000 /**< Sample Counter Lapse Flag */
-#define XAPM_FLAG_MC0		0x00400000 /**< Metric Counter 0 Flag */
-#define XAPM_FLAG_MC1		0x00800000 /**< Metric Counter 1 Flag */
-#define XAPM_FLAG_MC2		0x01000000 /**< Metric Counter 2 Flag */
-#define XAPM_FLAG_MC3		0x02000000 /**< Metric Counter 3 Flag */
-#define XAPM_FLAG_MC4		0x04000000 /**< Metric Counter 4 Flag */
-#define XAPM_FLAG_MC5		0x08000000 /**< Metric Counter 5 Flag */
-#define XAPM_FLAG_MC6		0x10000000 /**< Metric Counter 6 Flag */
-#define XAPM_FLAG_MC7		0x20000000 /**< Metric Counter 7 Flag */
-#define XAPM_FLAG_MC8		0x40000000 /**< Metric Counter 8 Flag */
-#define XAPM_FLAG_MC9		0x80000000 /**< Metric Counter 9 Flag */
+#define XAPM_FLAG_MC0		0x00400000U /**< Metric Counter 0 Flag */
+#define XAPM_FLAG_MC1		0x00800000U /**< Metric Counter 1 Flag */
+#define XAPM_FLAG_MC2		0x01000000U /**< Metric Counter 2 Flag */
+#define XAPM_FLAG_MC3		0x02000000U /**< Metric Counter 3 Flag */
+#define XAPM_FLAG_MC4		0x04000000U /**< Metric Counter 4 Flag */
+#define XAPM_FLAG_MC5		0x08000000U /**< Metric Counter 5 Flag */
+#define XAPM_FLAG_MC6		0x10000000U /**< Metric Counter 6 Flag */
+#define XAPM_FLAG_MC7		0x20000000U /**< Metric Counter 7 Flag */
+#define XAPM_FLAG_MC8		0x40000000U /**< Metric Counter 8 Flag */
+#define XAPM_FLAG_MC9		0x80000000U /**< Metric Counter 9 Flag */
 
 /*@}*/
 
@@ -398,17 +399,17 @@ extern "C" {
  * @name Macros for Read/Write Latency Start and End points
  * @{
  */
-#define XAPM_LATENCY_ADDR_ISSUE		0 /**< Address Issue as start
+#define XAPM_LATENCY_ADDR_ISSUE		0U /**< Address Issue as start
 					point for Latency calculation*/
-#define XAPM_LATENCY_ADDR_ACCEPT	1 /**< Address Acceptance as start
+#define XAPM_LATENCY_ADDR_ACCEPT	1U /**< Address Acceptance as start
 					point for Latency calculation*/
-#define XAPM_LATENCY_LASTRD		0 /**< Last Read as end point for
+#define XAPM_LATENCY_LASTRD		0U /**< Last Read as end point for
 					Latency calculation */
-#define XAPM_LATENCY_LASTWR		0 /**< Last Write as end point for
+#define XAPM_LATENCY_LASTWR		0U /**< Last Write as end point for
 					Latency calculation */
-#define XAPM_LATENCY_FIRSTRD		1 /**< First Read as end point for
+#define XAPM_LATENCY_FIRSTRD		1U /**< First Read as end point for
 					Latency calculation */
-#define XAPM_LATENCY_FIRSTWR		1 /**< First Write as end point for
+#define XAPM_LATENCY_FIRSTWR		1U /**< First Write as end point for
 					Latency calculation */
 
 /*@}*/
@@ -418,11 +419,11 @@ extern "C" {
  * @{
  */
 
-#define XAPM_MODE_TRACE			2 /**< APM in Trace mode */
+#define XAPM_MODE_TRACE			2U /**< APM in Trace mode */
 
-#define XAPM_MODE_PROFILE		1 /**< APM in Profile mode */
+#define XAPM_MODE_PROFILE		1U /**< APM in Profile mode */
 
-#define XAPM_MODE_ADVANCED		0 /**< APM in Advanced mode */
+#define XAPM_MODE_ADVANCED		0U /**< APM in Advanced mode */
 
 /*@}*/
 
@@ -435,8 +436,8 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;			/**< Unique ID of device */
 	u32 BaseAddress;		/**< Device base address */
-	int GlobalClkCounterWidth;	/**< Global Clock Counter Width */
-	int MetricSampleCounterWidth ;	/**< Metric Sample Counters Width */
+	s32 GlobalClkCounterWidth;	/**< Global Clock Counter Width */
+	s32 MetricSampleCounterWidth ;	/**< Metric Sample Counters Width */
 	u8  IsEventCount;		/**< Event Count Enabled 1 - enabled
 							   0 - not enabled */
 	u8  NumberofSlots;		/**< Number of Monitor Slots */
@@ -526,7 +527,7 @@ typedef struct {
 #define XAxiPmon_IntrEnable(InstancePtr, Mask)				     \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_IE_OFFSET, \
 			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_IE_OFFSET) | Mask);
+			XAPM_IE_OFFSET) | (Mask));
 
 
 /****************************************************************************/
@@ -550,7 +551,7 @@ typedef struct {
 #define XAxiPmon_IntrDisable(InstancePtr, Mask)				     \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_IE_OFFSET, \
 			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_IE_OFFSET) | Mask);
+			XAPM_IE_OFFSET) | (Mask));
 
 /****************************************************************************/
 /**
@@ -571,7 +572,7 @@ typedef struct {
 #define XAxiPmon_IntrClear(InstancePtr, Mask)				     \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_IS_OFFSET, \
 			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_IS_OFFSET) | Mask);
+			XAPM_IS_OFFSET) | (Mask));
 
 /****************************************************************************/
 /**
@@ -600,7 +601,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_EnableGlobalClkCounter(XAxiPmon *InstancePtr);
+*		void XAxiPmon_EnableGlobalClkCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_EnableGlobalClkCounter(InstancePtr) \
@@ -618,7 +619,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_DisableGlobalClkCounter(XAxiPmon *InstancePtr);
+*		void XAxiPmon_DisableGlobalClkCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_DisableGlobalClkCounter(InstancePtr) \
@@ -637,13 +638,13 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_EnableFlag(XAxiPmon *InstancePtr);
+*		void XAxiPmon_EnableFlag(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_EnableFlag(InstancePtr, Flag) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_FEC_OFFSET, \
 			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_FEC_OFFSET) | Flag);
+			XAPM_FEC_OFFSET) | (Flag));
 
 /****************************************************************************/
 /**
@@ -655,7 +656,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_DisableFlag(XAxiPmon *InstancePtr);
+*		void XAxiPmon_DisableFlag(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_DisableFlag(InstancePtr, Flag) \
@@ -674,7 +675,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_LoadSampleIntervalCounter(XAxiPmon *InstancePtr);
+*		void XAxiPmon_LoadSampleIntervalCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_LoadSampleIntervalCounter(InstancePtr) \
@@ -693,7 +694,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*	   void XAxiPmon_EnableSampleIntervalCounter(XAxiPmon *InstancePtr);
+*	   void XAxiPmon_EnableSampleIntervalCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_EnableSampleIntervalCounter(InstancePtr) \
@@ -711,7 +712,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*	    void XAxiPmon_DisableSampleIntervalCounter(XAxiPmon *InstancePtr);
+*	    void XAxiPmon_DisableSampleIntervalCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_DisableSampleIntervalCounter(InstancePtr) \
@@ -729,7 +730,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_EnableMetricCounterReset(XAxiPmon *InstancePtr);
+*		void XAxiPmon_EnableMetricCounterReset(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_EnableMetricCounterReset(InstancePtr) \
@@ -746,7 +747,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_DisableMetricCounterReset(XAxiPmon *InstancePtr);
+*		void XAxiPmon_DisableMetricCounterReset(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_DisableMetricCounterReset(InstancePtr) \
@@ -764,7 +765,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_EnableIDFilter(XAxiPmon *InstancePtr);
+*		void XAxiPmon_EnableIDFilter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_EnableIDFilter(InstancePtr) \
@@ -782,7 +783,7 @@ typedef struct {
 * @return	None
 *
 * @note		C-Style signature:
-*		void XAxiPmon_DisableIDFilter(XAxiPmon *InstancePtr);
+*		void XAxiPmon_DisableIDFilter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_DisableIDFilter(InstancePtr) \
@@ -803,7 +804,7 @@ typedef struct {
 *		read to the current read of sample register.
 *
 * @note		C-Style signature:
-*		u32 XAxiPmon_SampleMetrics(XAxiPmon *InstancePtr);
+*		u32 XAxiPmon_SampleMetrics(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_SampleMetrics(InstancePtr) \
@@ -820,14 +821,14 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId);
 /**
  * Functions in xaxipmon.c
  */
-int XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr,
+s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr,
 		XAxiPmon_Config *ConfigPtr, u32 EffectiveAddr);
 
-int XAxiPmon_ResetMetricCounter(XAxiPmon *InstancePtr);
+s32 XAxiPmon_ResetMetricCounter(XAxiPmon *InstancePtr);
 
 void XAxiPmon_ResetGlobalClkCounter(XAxiPmon *InstancePtr);
 
-int XAxiPmon_ResetFifo(XAxiPmon *InstancePtr);
+s32 XAxiPmon_ResetFifo(XAxiPmon *InstancePtr);
 
 void XAxiPmon_SetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
 					u16 RangeUpper,	u16 RangeLower);
@@ -839,10 +840,10 @@ void XAxiPmon_SetSampleInterval(XAxiPmon *InstancePtr, u32 SampleInterval);
 
 void XAxiPmon_GetSampleInterval(XAxiPmon *InstancePtr, u32 *SampleInterval);
 
-int XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
+s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
 							u8 CounterNum);
 
-int XAxiPmon_GetMetrics(XAxiPmon *InstancePtr, u8 CounterNum, u8 *Metrics,
+s32 XAxiPmon_GetMetrics(XAxiPmon *InstancePtr, u8 CounterNum, u8 *Metrics,
 								u8 *Slot);
 void XAxiPmon_GetGlobalClkCounter(XAxiPmon *InstancePtr,u32 *CntHighValue,
 							u32 *CntLowValue);
@@ -859,13 +860,13 @@ void XAxiPmon_SetSwDataReg(XAxiPmon *InstancePtr, u32 SwData);
 
 u32 XAxiPmon_GetSwDataReg(XAxiPmon *InstancePtr);
 
-int XAxiPmon_StartEventLog(XAxiPmon *InstancePtr, u32 FlagEnables);
+s32 XAxiPmon_StartEventLog(XAxiPmon *InstancePtr, u32 FlagEnables);
 
-int XAxiPmon_StopEventLog(XAxiPmon *InstancePtr);
+s32 XAxiPmon_StopEventLog(XAxiPmon *InstancePtr);
 
-int XAxiPmon_StartCounters(XAxiPmon *InstancePtr, u32 SampleInterval);
+s32 XAxiPmon_StartCounters(XAxiPmon *InstancePtr, u32 SampleInterval);
 
-int XAxiPmon_StopCounters(XAxiPmon *InstancePtr);
+s32 XAxiPmon_StopCounters(XAxiPmon *InstancePtr);
 
 void XAxiPmon_EnableMetricsCounter(XAxiPmon *InstancePtr);
 
@@ -925,7 +926,7 @@ u32 XAxiPmon_GetReadIdMask(XAxiPmon *InstancePtr);
 /**
  * Functions in xaxipmon_selftest.c
  */
-int XAxiPmon_SelfTest(XAxiPmon *InstancePtr);
+s32 XAxiPmon_SelfTest(XAxiPmon *InstancePtr);
 
 #ifdef __cplusplus
 }
