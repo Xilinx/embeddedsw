@@ -3217,7 +3217,6 @@ static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 		u8 *RelativeAddress, XDp_TxTopology *Topology, u8 *Guid)
 {
-	XDp_TxGetGuid(InstancePtr, LinkCountTotal, RelativeAddress, Guid);
 	u8 GuidIndex;
 
 	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
@@ -3228,7 +3227,10 @@ static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 	/* The current GUID is all 0's; issue a GUID to the device. */
 	XDp_TxWriteGuid(InstancePtr, LinkCountTotal, RelativeAddress,
 						GuidTable[Topology->NodeTotal]);
-	XDp_TxGetGuid(InstancePtr, LinkCountTotal, RelativeAddress, Guid);
+
+	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
+		Guid[GuidIndex] = GuidTable[Topology->NodeTotal][GuidIndex];
+	}
 }
 
 /******************************************************************************/
