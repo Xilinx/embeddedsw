@@ -139,8 +139,10 @@ int main(void)
 
 	Status = FlashReadWriteExample();
 	if(Status != XST_SUCCESS) {
+		xil_printf("Flash Read/Write Test Fail\n\r");
 		return XST_FAILURE;
 	}
+	xil_printf("Flash Read/Write Test Pass\n\r");
 
 	return XST_SUCCESS;
 }
