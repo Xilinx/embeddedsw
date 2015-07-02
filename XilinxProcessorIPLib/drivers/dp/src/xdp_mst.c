@@ -168,7 +168,7 @@ static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
 static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
 static u32 XDp_RxWriteRawDownReply(XDp *InstancePtr, u8 *Data, u8 DataLength);
 static u8 XDp_TxCrc4CalculateHeader(XDp_SidebandMsgHeader *Header);
-static u8 XDp_TxCrc8CalculateBody(XDp_SidebandMsgBody *Body);
+static u8 XDp_TxCrc8CalculateBody(XDp_SidebandMsg *Msg);
 static u8 XDp_TxCrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
 static u32 XDp_TxIsSameTileDisplay(u8 *DispIdSecTile0, u8 *DispIdSecTile1);
 
@@ -1560,7 +1560,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdWrite(XDp *InstancePtr, u8 LinkCountTotal,
 		Msg.Body.MsgData[5 + Index] = WriteData[Index];
 	}
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the REMOTE_DPCD_WRITE transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -1650,7 +1650,7 @@ u32 XDp_TxSendSbMsgRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.MsgData[3] = (DpcdAddress & 0x000000FF);
 	Msg.Body.MsgData[4] = BytesToRead;
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the REMOTE_DPCD_READ transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -1752,7 +1752,7 @@ u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 		Msg.Body.MsgData[Index + 4] = WriteData[Index];
 	}
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the REMOTE_I2C_WRITE transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -1845,7 +1845,7 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.MsgData[6] = IicDeviceId; /* Read I2C device ID. */
 	Msg.Body.MsgData[7] = BytesToRead;
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the REMOTE_I2C_READ transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -1942,7 +1942,7 @@ u32 XDp_TxSendSbMsgLinkAddress(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Prepare the sideband message body. */
 	Msg.Body.MsgData[0] = XDP_TX_SBMSG_LINK_ADDRESS;
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the LINK_ADDRESS transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -2037,7 +2037,7 @@ u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.MsgData[1] = (RelativeAddress[Msg.Header.LinkCountTotal - 1] <<
 									4);
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the ENUM_PATH_RESOURCES transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -2133,7 +2133,7 @@ u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 	Msg.Body.MsgData[3] = (Pbn >> 8);
 	Msg.Body.MsgData[4] = (Pbn & 0xFFFFFFFF);
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the ALLOCATE_PAYLOAD transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -2196,7 +2196,7 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 	/* Prepare the sideband message body. */
 	Msg.Body.MsgData[0] = XDP_TX_SBMSG_CLEAR_PAYLOAD_ID_TABLE;
 	Msg.Body.MsgDataLength = Msg.Header.MsgBodyLength - 1;
-	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg.Body);
+	Msg.Body.Crc = XDp_TxCrc8CalculateBody(&Msg);
 
 	/* Submit the CLEAR_PAYLOAD_ID_TABLE transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
@@ -2724,6 +2724,7 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply)
 	u8 AuxData[80];
 	XDp_SidebandMsg Msg;
 
+	Msg.FragmentNum = 0;
 	SbReply->Length = 0;
 
 	do {
@@ -2901,7 +2902,7 @@ static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg)
 	}
 	Body->Crc = Transaction[Header->MsgHeaderLength + Index];
 	/* Verify the body CRC. */
-	CrcCheck = XDp_TxCrc8CalculateBody(Body);
+	CrcCheck = XDp_TxCrc8CalculateBody(Msg);
 	if (CrcCheck != Body->Crc) {
 		/* The calculated CRC for the body did not match the
 		 * response. */
@@ -3026,9 +3027,16 @@ static u8 XDp_TxCrc4CalculateHeader(XDp_SidebandMsgHeader *Header)
  * @note	None.
  *
 *******************************************************************************/
-static u8 XDp_TxCrc8CalculateBody(XDp_SidebandMsgBody *Body)
+static u8 XDp_TxCrc8CalculateBody(XDp_SidebandMsg *Msg)
 {
-	return XDp_TxCrcCalculate(Body->MsgData, 8 * Body->MsgDataLength, 8);
+	XDp_SidebandMsgBody *Body = &Msg->Body;
+	u8 StartIndex;
+
+	StartIndex = Msg->FragmentNum * (XDP_MAX_LENGTH_SBMSG -
+					Msg->Header.MsgHeaderLength - 1);
+
+	return XDp_TxCrcCalculate(&Body->MsgData[StartIndex],
+					8 * Body->MsgDataLength, 8);
 }
 
 /******************************************************************************/
