@@ -49,8 +49,9 @@ _UNDEF_STACK_SIZE = DEFINED(_UNDEF_STACK_SIZE) ? _UNDEF_STACK_SIZE : 1024;
 
 MEMORY
 {
-   psu_ram_0_S_AXI_BASEADDR : ORIGIN = 0xfffc0000, LENGTH = 0x0002FF00
-   psu_ram_1_S_AXI_BASEADDR : ORIGIN = 0xffff0040, LENGTH = 0x0000FE00
+   psu_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x0002FF00
+   psu_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFF0040, LENGTH = 0x0000FDC0
+   psu_ram_2_S_AXI_BASEADDR : ORIGIN = 0xFFFFFE00, LENGTH = 0x00000200
 }
 
 /* Specify the default entry point to the program */
@@ -306,6 +307,11 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(16);
    __undef_stack = .;
 } > psu_ram_1_S_AXI_BASEADDR
+
+.handoff_params (NOLOAD) : {
+   . = ALIGN(512);
+   *(.handoff_params)
+} > psu_ram_2_S_AXI_BASEADDR
 
 _end = .;
 }

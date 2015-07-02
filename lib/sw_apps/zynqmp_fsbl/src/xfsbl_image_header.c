@@ -120,7 +120,9 @@ static void XFsbl_SetATFHandoffParameters(
 		XFsblPs_PartitionHeader *PartitionHeader, u32 EntryCount);
 
 /************************** Variable Definitions *****************************/
-XFsblPs_ATFHandoffParams ATFHandoffParams;
+/* Store this data structure at a fixed location for ATF to pick */
+XFsblPs_ATFHandoffParams ATFHandoffParams
+			__attribute__((section (".handoff_params")));
 
 /****************************************************************************/
 /**
@@ -420,11 +422,9 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 
 	/**
 	 * After setting handoff parameters of all partitions to ATF,
-	 * Store lower address of the structure at Persistent register 4
-	 * and higher address at Persistent register 5
+	 * Store address of the structure at Persistent register 4
 	 */
-	XFsbl_Out32(LPD_SLCR_PERSISTENT4,(u32)(((PTRSIZE)(&ATFHandoffParams)) & 0xFFFFFFFF));
-	XFsbl_Out32(LPD_SLCR_PERSISTENT5, (u32)(((PTRSIZE)(&ATFHandoffParams)) >> 32));
+	XFsbl_Out32(LPD_SLCR_PERSISTENT4, (u32)((PTRSIZE) &ATFHandoffParams));
 
 END:
 	return Status;
