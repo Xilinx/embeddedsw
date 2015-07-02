@@ -288,7 +288,8 @@ END:
  *****************************************************************************/
 u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 				XFsblPs_DeviceOps * DeviceOps,
-				u32 FlashImageOffsetAddress)
+				u32 FlashImageOffsetAddress,
+				u32 RunningCpu)
 {
 	u32 Status = XFSBL_SUCCESS;
 	u32 ImageHeaderTableAddressOffset=0U;
@@ -397,6 +398,12 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 		CurrPartitionHdr = &ImageHeader->PartitionHeader[PartitionIndex];
 
 		DestnCPU = XFsbl_GetDestinationCpu(CurrPartitionHdr);
+
+		/* if destination cpu is not present, it means it is for same cpu */
+		if (DestnCPU == XIH_PH_ATTRB_DEST_CPU_NONE)
+		{
+			DestnCPU = RunningCpu;
+		}
 
 		if ((PartitionIndex > 1) && (EntryCount < XFSBL_MAX_ENTRIES_FOR_ATF) &&
 				(CurrPartitionHdr->DestinationExecutionAddress != 0U) &&
@@ -543,6 +550,13 @@ u32 XFsbl_ValidatePartitionHeader(
 
 
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
+
+	/* if destination cpu is not present, it means it is for same cpu */
+	if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_NONE)
+	{
+		DestinationCpu = RunningCpu;
+	}
+
 	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 	/**
 	 * Partition fields Validation
@@ -796,9 +810,24 @@ static void XFsbl_SetATFHandoffParameters(
 		((PartitionAttributes & XIH_PH_ATTRB_TR_SECURE_MASK)
 				<< XIH_ATTRB_TR_SECURE_SHIFT_DIFF) |
 		((PartitionAttributes & XIH_PH_ATTRB_TARGET_EL_MASK)
-				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF) |
-		((PartitionAttributes & XIH_PH_ATTRB_DEST_CPU_A53_MASK)
-				>> XIH_ATTRB_DEST_CPU_A53_SHIFT_DIFF));
+				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
+
+	/* Update CPU number based on destination CPU */
+	if ((PartitionAttributes & XIH_PH_ATTRB_DEST_CPU_MASK)
+			== XIH_PH_ATTRB_DEST_CPU_A53_0) {
+		PartitionFlags |= XIH_PART_FLAGS_DEST_CPU_A53_0;
+	}
+	else if ((PartitionAttributes & XIH_PH_ATTRB_DEST_CPU_MASK)
+				== XIH_PH_ATTRB_DEST_CPU_A53_1) {
+		PartitionFlags |= XIH_PART_FLAGS_DEST_CPU_A53_1;
+	}
+	else if ((PartitionAttributes & XIH_PH_ATTRB_DEST_CPU_MASK)
+				== XIH_PH_ATTRB_DEST_CPU_A53_2) {
+		PartitionFlags |= XIH_PART_FLAGS_DEST_CPU_A53_2;
+	}
+	else {
+		PartitionFlags |= XIH_PART_FLAGS_DEST_CPU_A53_3;
+	}
 
 	/* Insert magic string */
 	if (EntryCount == 0)

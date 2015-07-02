@@ -646,7 +646,8 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	 */
 	Status = XFsbl_ReadImageHeader(&FsblInstancePtr->ImageHeader,
 					&FsblInstancePtr->DeviceOps,
-					FlashImageOffsetAddress);
+					FlashImageOffsetAddress,
+					FsblInstancePtr->ProcessorID);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}

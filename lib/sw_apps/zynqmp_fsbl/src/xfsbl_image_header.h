@@ -141,7 +141,6 @@ extern "C" {
 #define XIH_PH_ATTRB_A53_EXEC_ST_MASK		(0x0008U)
 #define XIH_PH_ATTRB_TARGET_EL_MASK		(0x0006U)
 #define XIH_PH_ATTRB_TR_SECURE_MASK		(0x0001U)
-#define XIH_PH_ATTRB_DEST_CPU_A53_MASK		(0x0600U)
 
 /**
  * Partition Attribute Values
@@ -183,14 +182,19 @@ extern "C" {
  *	ENDIAN	              1	                 18                 17 right
  *	SECURE                2                  0                  2 left
  *	EL                    3:4                1:2                2 left
- *	CPU_A53               5:6                9:10               4 right
+ *	CPU_A53               5:6                8:10
  */
 #define XIH_ATTRB_A53_EXEC_ST_SHIFT_DIFF    (3U)
 #define XIH_ATTRB_ENDIAN_SHIFT_DIFF         (17U)
 #define XIH_ATTRB_TR_SECURE_SHIFT_DIFF      (2U)
 #define XIH_ATTRB_TARGET_EL_SHIFT_DIFF      (2U)
-#define XIH_ATTRB_DEST_CPU_A53_SHIFT_DIFF   (4U)
 
+
+#define XIH_PART_FLAGS_DEST_CPU_A53_MASK   	(0x60U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_0   	(0x00U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_1   	(0x20U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_2   	(0x40U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_3   	(0x60U)
 
 /* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
 #define XFSBL_MAX_ENTRIES_FOR_ATF	8
@@ -286,7 +290,8 @@ __inline u32 XFsbl_GetA53ExecState(
 /************************** Function Prototypes ******************************/
 u32 XFsbl_ValidateChecksum(u32 Buffer[], u32 Length);
 u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
-                  XFsblPs_DeviceOps * DeviceOps, u32 FlashImageOffsetAddress);
+                  XFsblPs_DeviceOps * DeviceOps, u32 FlashImageOffsetAddress,
+                  u32 RunningCpu);
 u32 XFsbl_ValidateImageHeader(XFsblPs_ImageHeaderTable * ImageHeaderTable);
 u32 XFsbl_ValidatePartitionHeader(XFsblPs_PartitionHeader * PartitionHeader,
 			u32 RunningCpu);
