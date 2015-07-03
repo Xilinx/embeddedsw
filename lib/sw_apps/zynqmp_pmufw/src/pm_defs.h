@@ -161,9 +161,8 @@
 #define REQUEST_ACK_NO          1U
 #define REQUEST_ACK_BLOCKING    2U
 #define REQUEST_ACK_CB_STANDARD 3U
-#define REQUEST_ACK_CB_ERROR    4U
 #define REQUEST_ACK_MIN         REQUEST_ACK_NO
-#define REQUEST_ACK_MAX         REQUEST_ACK_CB_ERROR
+#define REQUEST_ACK_MAX         REQUEST_ACK_CB_STANDARD
 
 /* Abort reason argument */
 #define ABORT_REASON_WKUP_EVENT 100U

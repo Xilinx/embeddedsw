@@ -1106,8 +1106,7 @@ int PmRememberSuspendRequest(const PmMaster* const reqMaster,
 	status = XST_PM_NO_ACCESS;
 
 	if (reqMaster == respMaster->pmSuspRequests.reqMst) {
-		if ((REQUEST_ACK_CB_STANDARD == ack) ||
-		    (REQUEST_ACK_CB_ERROR == ack)) {
+		if (REQUEST_ACK_CB_STANDARD == ack) {
 			respMaster->pmSuspRequests.ackReq = ack;
 			respMaster->pmSuspRequests.flags |= PM_REQUESTED_SUSPEND;
 			status = XST_SUCCESS;

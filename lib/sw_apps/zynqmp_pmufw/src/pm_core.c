@@ -63,8 +63,7 @@ static void PmProcessAckRequest(const u32 ack,
 	if (REQUEST_ACK_BLOCKING == ack) {
 		/* Return status immediately */
 		XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
-	} else if ((REQUEST_ACK_CB_STANDARD == ack) ||
-		   ((REQUEST_ACK_CB_ERROR == ack) && (XST_SUCCESS != status))) {
+	} else if (REQUEST_ACK_CB_STANDARD == ack) {
 		/* Return acknowledge through callback */
 		PmAcknowledgeCb(master, nodeId, status, oppoint);
 	} else {

@@ -77,9 +77,7 @@ typedef u32 (*const PmTranHandler)(void);
 
 #define ARRAY_SIZE(x)   (sizeof(x) / sizeof((x)[0]))
 #define BIT0(x) (x & 1U)
-#define TO_ACK_CB(ack, status) \
-		((REQUEST_ACK_CB_STANDARD == (ack)) || \
-		((REQUEST_ACK_CB_ERROR == (ack)) && (XST_SUCCESS != (status))))
+#define TO_ACK_CB(ack, status) (REQUEST_ACK_CB_STANDARD == (ack))
 
 /* All WFI bitfields in GPI2 */
 #define PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK \

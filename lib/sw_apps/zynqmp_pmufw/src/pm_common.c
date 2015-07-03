@@ -177,8 +177,6 @@ const char* PmStrAck(const u32 ack)
 		return "REQUEST_ACK_BLOCKING";
 	case REQUEST_ACK_CB_STANDARD:
 		return "REQUEST_ACK_CB_STANDARD";
-	case REQUEST_ACK_CB_ERROR:
-		return "REQUEST_ACK_CB_ERROR";
 	default:
 		return "ERROR_ACK";
 	}
