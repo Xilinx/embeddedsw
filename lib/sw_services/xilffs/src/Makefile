@@ -45,6 +45,7 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./include/ -I${INCLUDEDIR}
 FATFS_DIR = .
+OBJDIR = obj/
 
 LIB_SRCS = $(FATFS_DIR)/ff.c \
           $(FATFS_DIR)/diskio.c
@@ -54,7 +55,7 @@ LIB_SRCS = $(FATFS_DIR)/ff.c \
 
 FATFS_SRCS = $(LIB_SRCS)
 
-FATFS_OBJS = $(FATFS_SRCS:%.c=%.o)
+FATFS_OBJS = $(addprefix $(OBJDIR), $(FATFS_SRCS:%.c=%.o))
 
 
 EXPORT_INCLUDE_FILES = $(FATFS_DIR)/include/ff.h \
@@ -84,10 +85,10 @@ libxilffs.a: obj_dir print_msg_fatfs_base $(FATFS_OBJS)
 
 
 obj_dir:
-	mkdir obj
+	mkdir -p obj
 
 print_msg_fatfs_base:
 	@echo "Compiling XilFFs Library"
 
-.c.o:
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o obj/$(@F)
+$(OBJDIR)%.o: $(FATFS_DIR)/%.c
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
