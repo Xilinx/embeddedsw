@@ -32,7 +32,7 @@ typedef s32 (*func_ptr)(int c);
 
 /*                                                   */
 
-void xil_printf( const char8 *ctrl1, ...) __attribute__((format(printf, 1, 2)));
+void xil_printf( const char8 *ctrl1, ...);
 void print( const char8 *ptr);
 extern void outbyte (char8 c);
 extern char8 inbyte(void);
