@@ -198,19 +198,19 @@ SECTIONS
    *(.gcc_except_table)
 } > psu_ocm_ram_0_S_AXI_BASEADDR
 
-.mmu_tbl0 (ALIGN(16)) : {
+.mmu_tbl0 (ALIGN(4096)) : {
    __mmu_tbl0_start = .;
    *(.mmu_tbl0)
    __mmu_tbl0_end = .;
 } > psu_ocm_ram_0_S_AXI_BASEADDR
 
-.mmu_tbl1 (ALIGN(2048)) : {
+.mmu_tbl1 (ALIGN(4096)) : {
    __mmu_tbl1_start = .;
    *(.mmu_tbl1)
    __mmu_tbl1_end = .;
 } > psu_ocm_ram_0_S_AXI_BASEADDR
 
-.mmu_tbl2 (ALIGN(2048)) : {
+.mmu_tbl2 (ALIGN(4096)) : {
    __mmu_tbl2_start = .;
    *(.mmu_tbl2)
    __mmu_tbl2_end = .;
