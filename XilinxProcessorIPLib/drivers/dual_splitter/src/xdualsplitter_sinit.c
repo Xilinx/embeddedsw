@@ -44,8 +44,10 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who Date     Changes
-* ----- --- -------- --------------------------------------------------
+* ----- --- -------- -------------------------------------------------------
 * 1.00  sha 07/21/14 Initial release.
+* 1.00  sha 07/08/15 Defined macro XPAR_XDUALSPLITTER_NUM_INSTANCES if not
+*                    defined in xparameters.h.
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +59,9 @@
 
 /************************** Constant Definitions *****************************/
 
+#ifndef XPAR_XDUALSPLITTER_NUM_INSTANCES
+#define XPAR_XDUALSPLITTER_NUM_INSTANCES	0
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
