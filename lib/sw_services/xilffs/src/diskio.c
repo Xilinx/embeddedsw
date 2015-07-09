@@ -252,127 +252,12 @@ DSTATUS disk_initialize (
 		return s;
 	}
 
-#ifndef MMC_CARD
-	Status = XSdPs_SdCardInitialize(&SdInstance);
+	Status = XSdPs_CardInitialize(&SdInstance);
 	if (Status != XST_SUCCESS) {
 		s |= STA_NOINIT;
 		return s;
 	}
 
-	Status = XSdPs_Change_ClkFreq(&SdInstance, SD_CLK_25_MHZ);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_Select_Card(&SdInstance);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_Get_BusWidth(&SdInstance, SCR);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_Get_BusSpeed(&SdInstance, ReadBuff);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	if((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U){
-		Status = XSdPs_Change_BusSpeed(&SdInstance);
-		if (Status != XST_SUCCESS) {
-			s |= STA_NOINIT;
-			return s;
-		}
-	}
-
-	Status = XSdPs_Pullup(&SdInstance);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	if ((SCR[1] & WIDTH_4_BIT_SUPPORT) != 0U) {
-		Status = XSdPs_Change_BusWidth(&SdInstance);
-		if (Status != XST_SUCCESS) {
-			s |= STA_NOINIT;
-			return s;
-		}
-	}
-
-	Status = XSdPs_SetBlkSize(&SdInstance, (u16)XSDPS_BLK_SIZE_512_MASK);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-#else
-	Status = XSdPs_MmcCardInitialize(&SdInstance);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_Change_ClkFreq(&SdInstance, SD_CLK_26_MHZ);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_Select_Card(&SdInstance);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_Change_BusWidth(&SdInstance);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_Get_Mmc_ExtCsd(&SdInstance, ExtCsd);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	if(ExtCsd[EXT_CSD_4_BIT_WIDTH_BYTE] != 0x1) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	if(ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] & EXT_CSD_DEVICE_TYPE_HIGH_SPEED){
-		Status = XSdPs_Change_BusSpeed(&SdInstance);
-		if (Status != XST_SUCCESS) {
-			s |= STA_NOINIT;
-			return s;
-		}
-
-		Status = XSdPs_Get_Mmc_ExtCsd(&SdInstance, ExtCsd);
-		if (Status != XST_SUCCESS) {
-			s |= STA_NOINIT;
-			return s;
-		}
-
-		if(ExtCsd[EXT_CSD_HIGH_SPEED_BYTE] != 0x1) {
-			s |= STA_NOINIT;
-			return s;
-		}
-	}
-
-	Status = XSdPs_SetBlkSize(&SdInstance, XSDPS_BLK_SIZE_512_MASK);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-#endif
 
 	/*
 	 * Disk is initialized.
