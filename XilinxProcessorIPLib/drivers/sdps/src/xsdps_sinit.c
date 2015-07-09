@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps_sinit.c
-* @addtogroup sdps_v2_4
+* @addtogroup sdps_v2_5
 * @{
 * @details
 *

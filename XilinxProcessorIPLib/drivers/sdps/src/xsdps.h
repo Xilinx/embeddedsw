@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps.h
-* @addtogroup sdps_v2_4
+* @addtogroup sdps_v2_5
 * @{
 * @details
 *
@@ -116,6 +116,7 @@
 *						Checked for DAT Inhibit mask instead of CMD
 * 						Inhibit mask in Cmd Transfer API.
 *						Added Support for SD Card v1.0
+* 2.5 	sg		07/09/15 Added SD 3.0 features
 *
 * </pre>
 *
@@ -135,11 +136,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XSDPS_CLK_400_KHZ		400000		/**< 400 KHZ */
-#define XSDPS_CLK_50_MHZ		50000000	/**< 50 MHZ */
-#define CT_MMC					0x1		/**< MMC Card */
-#define CT_SD1					0x2		/**< SD ver 1 */
-#define CT_SD2					0x3		/**< SD ver 2 */
 /**************************** Type Definitions *******************************/
 /**
  * This typedef contains configuration information for the device.
@@ -152,9 +148,7 @@ typedef struct {
 	u32 WriteProtect;			/**< Write Protect */
 } XSdPs_Config;
 
-/*
- * ADMA2 descriptor table
- */
+/* ADMA2 descriptor table */
 typedef struct {
 	u16 Attribute;		/**< Attributes of descriptor */
 	u16 Length;		/**< Length of current dma transfer */
@@ -170,10 +164,18 @@ typedef struct {
 	XSdPs_Config Config;	/**< Configuration structure */
 	u32 IsReady;		/**< Device is initialized and ready */
 	u32 Host_Caps;		/**< Capabilities of host controller */
+	u32 Host_CapsExt;	/**< Extended Capabilities */
 	u32 HCS;		/**< High capacity support in card */
-	u32 CardID[4];		/**< Card ID */
+	u8  CardType;		/**< Type of card - SD/MMC/eMMC */
+	u8  Card_Version;	/**< Card version */
+	u8  HC_Version;		/**< Host controller version */
+	u8  BusWidth;		/**< Current operating bus width */
+	u32 BusSpeed;		/**< Current operating bus speed */
+	u8  Switch1v8;		/**< 1.8V Switch support */
+	u32 CardID[4];		/**< Card ID Register */
 	u32 RelCardAddr;	/**< Relative Card Address */
-	u32 CardType;		/**< Card Type(version) */
+	u32 CardSpecData[4];	/**< Card Specific Data Register */
+	u32 SdCardConfig;	/**< Sd Card Configuration Register */
 	/**< ADMA Descriptors */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
@@ -202,6 +204,7 @@ int XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR);
 int XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff);
 int XSdPs_Pullup(XSdPs *InstancePtr);
 int XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
+int XSdPs_CardInitialize(XSdPs *InstancePtr);
 int XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 
 #ifdef __cplusplus

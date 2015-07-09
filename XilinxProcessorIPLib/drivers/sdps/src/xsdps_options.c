@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps_options.c
-* @addtogroup sdps_v2_4
+* @addtogroup sdps_v2_5
 * @{
 * @details
 *
@@ -50,6 +50,7 @@
 *                       Add sleep for microblaze designs. CR# 781117.
 * 2.3   sk     09/23/14 Use XSdPs_Change_ClkFreq API whenever changing
 *						clock.CR# 816586.
+* 2.5 	sg	   07/09/15 Added SD 3.0 features
 *
 * </pre>
 *
@@ -74,19 +75,6 @@
 #endif
 
 /************************** Constant Definitions *****************************/
-#define XSDPS_SCR_BLKCNT	1
-#define XSDPS_SCR_BLKSIZE	8
-#define XSDPS_4_BIT_WIDTH	0x2
-#define XSDPS_SWITCH_CMD_BLKCNT		1
-#define XSDPS_SWITCH_CMD_BLKSIZE	64
-#define XSDPS_SWITCH_CMD_HS_GET	0x00FFFFF0
-#define XSDPS_SWITCH_CMD_HS_SET	0x80FFFFF1
-#define XSDPS_EXT_CSD_CMD_BLKCNT	1
-#define XSDPS_EXT_CSD_CMD_BLKSIZE	512
-#define XSDPS_CLK_52_MHZ		52000000
-#define XSDPS_MMC_HIGH_SPEED_ARG	0x03B90100
-#define XSDPS_MMC_4_BIT_BUS_ARG		0x03B70100
-#define XSDPS_MMC_DELAY_FOR_SWITCH	2000
 
 /**************************** Type Definitions *******************************/
 
@@ -95,6 +83,9 @@
 /************************** Function Prototypes ******************************/
 int XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
+int XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
+static int XSdPs_Execute_Tuning(XSdPs *InstancePtr);
+int XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 
 /*****************************************************************************/
 /**
@@ -125,9 +116,7 @@ int XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize)
 	}
 
 
-	/*
-	 * Send block write command
-	 */
+	/* Send block write command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD16, BlkSize, 0);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
@@ -137,9 +126,7 @@ int XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize)
 	Status = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP0_OFFSET);
 
-	/*
-	 * Set block size to the value passed
-	 */
+	/* Set block size to the value passed */
 	BlkSize &= XSDPS_BLK_SIZE_MASK;
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
 			 BlkSize);
@@ -182,9 +169,7 @@ int XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 		SCR[LoopCnt] = 0;
 	}
 
-	/*
-	 * Send block write command
-	 */
+	/* Send block write command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD55,
 			InstancePtr->RelCardAddr, 0);
 	if (Status != XST_SUCCESS) {
@@ -195,9 +180,7 @@ int XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 	BlkCnt = XSDPS_SCR_BLKCNT;
 	BlkSize = XSDPS_SCR_BLKSIZE;
 
-	/*
-	 * Set block size to the value passed
-	 */
+	/* Set block size to the value passed */
 	BlkSize &= XSDPS_BLK_SIZE_MASK;
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_BLK_SIZE_OFFSET, BlkSize);
@@ -224,9 +207,7 @@ int XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_NORM_INTR_STS_OFFSET);
 		if (StatusReg & XSDPS_INTR_ERR_MASK) {
-			/*
-			 * Write to clear error bits
-			 */
+			/* Write to clear error bits */
 			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_ERR_INTR_STS_OFFSET,
 					XSDPS_ERROR_INTR_ALL_MASK);
@@ -235,9 +216,7 @@ int XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 		}
 	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0);
 
-	/*
-	 * Write to clear bit
-	 */
+	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 
@@ -275,38 +254,46 @@ int XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-#ifndef MMC_CARD
 
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD55,
-			InstancePtr->RelCardAddr, 0);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
-	}
+	if (InstancePtr->CardType == XSDPS_CARD_SD) {
 
-	Arg = XSDPS_4_BIT_WIDTH;
-	Status = XSdPs_CmdTransfer(InstancePtr, ACMD6, Arg, 0);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
-	}
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD55, InstancePtr->RelCardAddr,
+				0);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 
-	StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
-					XSDPS_HOST_CTRL1_OFFSET);
-	StatusReg |= XSDPS_HC_WIDTH_MASK;
-	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_HOST_CTRL1_OFFSET,StatusReg);
+		InstancePtr->BusWidth = XSDPS_4_BIT_WIDTH;
 
-	Status = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP0_OFFSET);
+		Arg = InstancePtr->BusWidth;
 
-#else
+		Status = XSdPs_CmdTransfer(InstancePtr, ACMD6, Arg, 0);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} else {
 
-	Arg = XSDPS_MMC_4_BIT_BUS_ARG;
-	Status = XSdPs_CmdTransfer(InstancePtr, ACMD6, Arg, 0);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+		if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
+				&& (InstancePtr->CardType == XSDPS_CHIP_EMMC)) {
+			/* in case of eMMC data width 8-bit */
+			InstancePtr->BusWidth = XSDPS_8_BIT_WIDTH;
+		} else {
+			InstancePtr->BusWidth = XSDPS_4_BIT_WIDTH;
+		}
+
+		if (InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH) {
+			Arg = XSDPS_MMC_8_BIT_BUS_ARG;
+		} else {
+			Arg = XSDPS_MMC_4_BIT_BUS_ARG;
+		}
+
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 #ifdef __arm__
@@ -324,14 +311,20 @@ int XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 
 	StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL1_OFFSET);
-	StatusReg |= XSDPS_HC_WIDTH_MASK;
+
+	/* Width setting in controller */
+	if (InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH) {
+		StatusReg |= XSDPS_HC_EXT_BUS_WIDTH;
+	} else {
+		StatusReg |= XSDPS_HC_WIDTH_MASK;
+	}
+
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_HOST_CTRL1_OFFSET,StatusReg);
+			XSDPS_HOST_CTRL1_OFFSET,
+			StatusReg);
 
 	Status = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP0_OFFSET);
-
-#endif
 
 	Status = XST_SUCCESS;
 
@@ -403,9 +396,7 @@ int XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_NORM_INTR_STS_OFFSET);
 		if (StatusReg & XSDPS_INTR_ERR_MASK) {
-			/*
-			 * Write to clear error bits
-			 */
+			/* Write to clear error bits */
 			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_ERR_INTR_STS_OFFSET,
 					XSDPS_ERROR_INTR_ALL_MASK);
@@ -414,9 +405,7 @@ int XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 		}
 	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0);
 
-	/*
-	 * Write to clear bit
-	 */
+	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 
@@ -450,90 +439,102 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 	u32 Status = 0;
 	u32 StatusReg = 0x0;
 	u32 Arg = 0;
-
-#ifndef MMC_CARD
 	u32 ClockReg;
-	u8 ReadBuff[64];
 	u16 BlkCnt;
 	u16 BlkSize;
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	u8 ReadBuff[64];
+#pragma data_alignment = 4
+#else
+	u8 ReadBuff[64] __attribute__ ((aligned(32)));
 #endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-#ifndef MMC_CARD
+	if (InstancePtr->CardType == XSDPS_CARD_SD) {
 
-	BlkCnt = XSDPS_SWITCH_CMD_BLKCNT;
-	BlkSize = XSDPS_SWITCH_CMD_BLKSIZE;
-	BlkSize &= XSDPS_BLK_SIZE_MASK;
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_BLK_SIZE_OFFSET, BlkSize);
+		BlkCnt = XSDPS_SWITCH_CMD_BLKCNT;
+		BlkSize = XSDPS_SWITCH_CMD_BLKSIZE;
+		BlkSize &= XSDPS_BLK_SIZE_MASK;
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_BLK_SIZE_OFFSET, BlkSize);
 
-	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
+		XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-	Xil_DCacheInvalidateRange(ReadBuff, 64);
+		Xil_DCacheFlushRange(ReadBuff, 64);
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_XFER_MODE_OFFSET,
+				XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
 
-	Arg = XSDPS_SWITCH_CMD_HS_SET;
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 1);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
-	}
+		Arg = XSDPS_SWITCH_CMD_HS_SET;
 
-	/*
-	 * Check for transfer complete
-	 * Polling for response for now
-	 */
-	do {
-		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_NORM_INTR_STS_OFFSET);
-		if (StatusReg & XSDPS_INTR_ERR_MASK) {
-			/*
-			 * Write to clear error bits
-			 */
-			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_ERR_INTR_STS_OFFSET,
-					XSDPS_ERROR_INTR_ALL_MASK);
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 1);
+		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
-	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0);
 
-	/*
-	 * Write to clear bit
-	 */
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+		/*
+		 * Check for transfer complete
+		 * Polling for response for now
+		 */
+		do {
+			StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_NORM_INTR_STS_OFFSET);
+			if (StatusReg & XSDPS_INTR_ERR_MASK) {
+				/* Write to clear error bits */
+				XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_ERR_INTR_STS_OFFSET,
+						XSDPS_ERROR_INTR_ALL_MASK);
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+		} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0);
 
-	/*
-	 * Change the clock frequency to 50 MHz
-	 */
-	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_50_MHZ);
-	if (Status != XST_SUCCESS) {
+		/* Write to clear bit */
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+		/* Change the clock frequency to 50 MHz */
+		InstancePtr->BusSpeed = XSDPS_CLK_50_MHZ;
+		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
+		if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+		}
+
+	} else if (InstancePtr->CardType == XSDPS_CARD_MMC) {
+		Arg = XSDPS_MMC_HIGH_SPEED_ARG;
+
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0);
+		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
-	}
+		}
+		/* Change the clock frequency to 52 MHz */
+		InstancePtr->BusSpeed = XSDPS_CLK_52_MHZ;
+		XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_52_MHZ);
+	} else {
+		Arg = XSDPS_MMC_HS200_ARG;
 
-	StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
-					XSDPS_HOST_CTRL1_OFFSET);
-	StatusReg |= XSDPS_HC_SPEED_MASK;
-	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_HOST_CTRL1_OFFSET,StatusReg);
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 
-	Status = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP0_OFFSET);
+		/* Change the clock frequency to 200 MHz */
+		InstancePtr->BusSpeed = XSDPS_MMC_HS200_MAX_CLK;
 
-#else
-
-	Arg = XSDPS_MMC_HIGH_SPEED_ARG;
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+		XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
+		Status = XSdPs_Execute_Tuning(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 #ifdef __arm__
@@ -549,8 +550,6 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 #endif
 
-	XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_52_MHZ);
-
 	StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL1_OFFSET);
 	StatusReg |= XSDPS_HC_SPEED_MASK;
@@ -559,7 +558,7 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 	Status = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP0_OFFSET);
-#endif
+
 
 	Status = XST_SUCCESS;
 
@@ -586,67 +585,87 @@ int XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 int XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 {
 	u16 ClockReg;
-	int DivCnt;
+	u16 DivCnt;
 	u16 Divisor;
+	u16 ExtDivisor;
 	u16 ClkLoopCnt;
 	int Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Disable clock
-	 */
+	/* Disable clock */
 	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_CLK_CTRL_OFFSET);
-	ClockReg &= ~(XSDPS_CC_INT_CLK_EN_MASK | XSDPS_CC_SD_CLK_EN_MASK);
-
+	ClockReg &= ~(XSDPS_CC_SD_CLK_EN_MASK | XSDPS_CC_INT_CLK_EN_MASK);
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_CLK_CTRL_OFFSET, ClockReg);
 
-	/*
-	 * Calculate divisor
-	 */
-	DivCnt = 0x1;
-	for(ClkLoopCnt = 0; ClkLoopCnt < XSDPS_CC_MAX_NUM_OF_DIV;
-		ClkLoopCnt++) {
-		if( ((InstancePtr->Config.InputClockHz)/DivCnt) <= SelFreq) {
-			Divisor = DivCnt/2;
-			Divisor = Divisor << XSDPS_CC_DIV_SHIFT;
-			break;
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
+		/* Calculate divisor */
+		for (DivCnt = 0x1; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT;) {
+			if (((InstancePtr->Config.InputClockHz) / DivCnt) <= SelFreq) {
+				Divisor = DivCnt >> 1;
+				break;
+			}
+			DivCnt++;
 		}
-		DivCnt = DivCnt << 1;
+
+		if (DivCnt > XSDPS_CC_EXT_MAX_DIV_CNT) {
+			/* No valid divisor found for given frequency */
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} else {
+		/* Calculate divisor */
+		for (DivCnt = 0x1; DivCnt <= XSDPS_CC_MAX_DIV_CNT;) {
+			if (((InstancePtr->Config.InputClockHz) / DivCnt) <= SelFreq) {
+				Divisor = DivCnt / 2;
+				break;
+			}
+			DivCnt = DivCnt << 1;
+		}
+
+		if (DivCnt > XSDPS_CC_MAX_DIV_CNT) {
+			/* No valid divisor found for given frequency */
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
-	if(ClkLoopCnt == 9) {
+	/* Set clock divisor */
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
+		ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_CLK_CTRL_OFFSET);
+		ClockReg &= ~(XSDPS_CC_SDCLK_FREQ_SEL_MASK |
+		XSDPS_CC_SDCLK_FREQ_SEL_EXT_MASK);
 
-		/*
-		 * No valid divisor found for given frequency
-		 */
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+		ExtDivisor = Divisor >> 8;
+		ExtDivisor <<= XSDPS_CC_EXT_DIV_SHIFT;
+		ExtDivisor &= XSDPS_CC_SDCLK_FREQ_SEL_EXT_MASK;
+
+		Divisor <<= XSDPS_CC_DIV_SHIFT;
+		Divisor &= XSDPS_CC_SDCLK_FREQ_SEL_MASK;
+		ClockReg |= Divisor | ExtDivisor | XSDPS_CC_INT_CLK_EN_MASK;
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CLK_CTRL_OFFSET,
+				ClockReg);
+	} else {
+		ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_CLK_CTRL_OFFSET);
+		ClockReg &= (~XSDPS_CC_SDCLK_FREQ_SEL_MASK);
+
+		Divisor <<= XSDPS_CC_DIV_SHIFT;
+		Divisor &= XSDPS_CC_SDCLK_FREQ_SEL_MASK;
+		ClockReg |= Divisor | XSDPS_CC_INT_CLK_EN_MASK;
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CLK_CTRL_OFFSET,
+				ClockReg);
 	}
 
-	/*
-	 * Set clock divisor
-	 */
-	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET);
-	ClockReg &= (~XSDPS_CC_SDCLK_FREQ_SEL_MASK);
-
-	ClockReg |= Divisor | XSDPS_CC_INT_CLK_EN_MASK;
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, ClockReg);
-
-	/*
-	 * Wait for internal clock to stabilize
-	 */
+	/* Wait for internal clock to stabilize */
 	while((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 		XSDPS_CLK_CTRL_OFFSET) & XSDPS_CC_INT_CLK_STABLE_MASK) == 0);
 
-	/*
-	 * Enable SD clock
-	 */
+	/* Enable SD clock */
 	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_CLK_CTRL_OFFSET);
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
@@ -655,7 +674,7 @@ int XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 
 	Status = XST_SUCCESS;
 
-	RETURN_PATH:
+RETURN_PATH:
 		return Status;
 
 }
@@ -750,9 +769,7 @@ int XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	Arg = 0;
 
-	/*
-	 * Send SEND_EXT_CSD command
-	 */
+	/* Send SEND_EXT_CSD command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD8, Arg, 1);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
@@ -767,9 +784,7 @@ int XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_NORM_INTR_STS_OFFSET);
 		if (StatusReg & XSDPS_INTR_ERR_MASK) {
-			/*
-			 * Write to clear error bits
-			 */
+			/* Write to clear error bits */
 			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_ERR_INTR_STS_OFFSET,
 					XSDPS_ERROR_INTR_ALL_MASK);
@@ -778,9 +793,7 @@ int XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 		}
 	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0);
 
-	/*
-	 * Write to clear bit
-	 */
+	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 
@@ -791,6 +804,222 @@ int XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	RETURN_PATH:
 		return Status;
+
+}
+
+
+/*****************************************************************************/
+/**
+*
+* API to UHS-I mode initialization
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	Mode UHS-I mode
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fail.
+*
+* @note		None.
+*
+******************************************************************************/
+int XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
+{
+	u32 Status = 0;
+	u16 StatusReg = 0;
+	u16 CtrlReg = 0;
+	u32 Arg = 0;
+	u16 BlkCnt;
+	u16 BlkSize;
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	u8 ReadBuff[64];
+#pragma data_alignment = 4
+#else
+	u8 ReadBuff[64] __attribute__ ((aligned(32)));
+#endif
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Drive strength */
+
+	/* Bus speed mode selection */
+	BlkCnt = XSDPS_SWITCH_CMD_BLKCNT;
+	BlkSize = XSDPS_SWITCH_CMD_BLKSIZE;
+	BlkSize &= XSDPS_BLK_SIZE_MASK;
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
+			BlkSize);
+
+	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
+
+	Xil_DCacheFlushRange(ReadBuff, 64);
+
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
+			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+
+	switch (Mode) {
+	case 0:
+		Arg = XSDPS_SWITCH_CMD_SDR12_SET;
+		InstancePtr->BusSpeed = XSDPS_SD_SDR12_MAX_CLK;
+		break;
+	case 1:
+		Arg = XSDPS_SWITCH_CMD_SDR25_SET;
+		InstancePtr->BusSpeed = XSDPS_SD_SDR25_MAX_CLK;
+		break;
+	case 2:
+		Arg = XSDPS_SWITCH_CMD_SDR50_SET;
+		InstancePtr->BusSpeed = XSDPS_SD_SDR50_MAX_CLK;
+		break;
+	case 3:
+		Arg = XSDPS_SWITCH_CMD_SDR104_SET;
+		InstancePtr->BusSpeed = XSDPS_SD_SDR104_MAX_CLK;
+		break;
+	case 4:
+		Arg = XSDPS_SWITCH_CMD_DDR50_SET;
+		InstancePtr->BusSpeed = XSDPS_SD_DDR50_MAX_CLK;
+		break;
+	default:
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+		break;
+	}
+
+	Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 1);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/*
+	 * Check for transfer complete
+	 * Polling for response for now
+	 */
+	do {
+		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_NORM_INTR_STS_OFFSET);
+		if (StatusReg & XSDPS_INTR_ERR_MASK) {
+			/* Write to clear error bits */
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_ERR_INTR_STS_OFFSET, XSDPS_ERROR_INTR_ALL_MASK);
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0);
+
+	/* Write to clear bit */
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+
+	/* Current limit */
+
+	/* Set UHS mode in controller */
+	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_HOST_CTRL2_OFFSET);
+	CtrlReg &= ~XSDPS_HC2_UHS_MODE_MASK;
+	CtrlReg |= Mode;
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_HOST_CTRL2_OFFSET, CtrlReg);
+
+	/* Change the clock frequency */
+	Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
+	if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+	}
+
+	if((Mode == XSDPS_UHS_SPEED_MODE_SDR104) ||
+			(Mode == XSDPS_UHS_SPEED_MODE_DDR50)) {
+		/* Send tuning pattern */
+		Status = XSdPs_Execute_Tuning(InstancePtr);
+		if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+	RETURN_PATH:
+		return Status;
+}
+
+static int XSdPs_Execute_Tuning(XSdPs *InstancePtr)
+{
+	u32 Status = 0;
+	u32 StatusReg = 0x0;
+	u32 Arg = 0;
+	u16 BlkCnt;
+	u16 BlkSize;
+	int LoopCnt;
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	u8 ReadBuff[128];
+#pragma data_alignment = 4
+#else
+	u8 ReadBuff[128] __attribute__ ((aligned(32)));
+#endif
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	BlkCnt = XSDPS_TUNING_CMD_BLKCNT;
+	BlkSize = XSDPS_TUNING_CMD_BLKSIZE;
+	if(InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH)
+	{
+		BlkSize = BlkSize*2;
+	}
+	BlkSize &= XSDPS_BLK_SIZE_MASK;
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
+			BlkSize);
+
+	for (LoopCnt = 0; LoopCnt < BlkSize; LoopCnt++) {
+		ReadBuff[LoopCnt] = 0;
+	}
+
+	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
+
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
+			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+
+	Xil_DCacheInvalidateRange(ReadBuff, BlkSize);
+
+	if(InstancePtr->CardType == XSDPS_CARD_SD) {
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD19, 0, 1);
+	} else {
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD21, 0, 1);
+	}
+
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/*
+	 * Check for transfer complete
+	 * Polling for response for now
+	 */
+	do {
+		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_NORM_INTR_STS_OFFSET);
+		if (StatusReg & XSDPS_INTR_ERR_MASK) {
+			/* Write to clear error bits */
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_ERR_INTR_STS_OFFSET, XSDPS_ERROR_INTR_ALL_MASK);
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0);
+
+	/* Write to clear bit */
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	Status = XST_SUCCESS;
+
+	RETURN_PATH: return Status;
 
 }
 /** @} */
