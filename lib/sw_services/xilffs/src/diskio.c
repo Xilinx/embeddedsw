@@ -75,6 +75,7 @@
 *					  will take care of it.
 *		sg   03/03/15 Added card detection check logic
 *		     04/28/15 Card detection only in case of card detection signal
+* 3.1   sk   06/04/15 Added support for SD1.
 *
 * </pre>
 *
@@ -92,7 +93,6 @@
 
 #include "xil_printf.h"
 
-#define SD_DEVICE_ID		XPAR_XSDPS_0_DEVICE_ID
 #define HIGH_SPEED_SUPPORT	0x01U
 #define WIDTH_4_BIT_SUPPORT	0x4U
 #define SD_CLK_25_MHZ		25000000U
@@ -115,7 +115,10 @@
 static DSTATUS Stat;	/* Disk status */
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-static XSdPs SdInstance;
+static XSdPs SdInstance[2];
+static u32 BaseAddress;
+static u32 CardDetect;
+static u32 WriteProtect;
 #endif
 
 #ifdef __ICCARM__
@@ -156,20 +159,35 @@ DSTATUS disk_status (
 	u32 StatusReg;
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-		StatusReg = XSdPs_GetPresentStatusReg((u32)XPAR_XSDPS_0_BASEADDR);
-#if XPAR_XSDPS_0_HAS_CD
-		if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
-				s = STA_NODISK | STA_NOINIT;
-				goto Label;
-		}
+		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
+#ifdef XPAR_XSDPS_1_DEVICE_ID
+				if(pdrv == 1) {
+						BaseAddress = XPAR_XSDPS_1_BASEADDR;
+						CardDetect = XPAR_XSDPS_1_HAS_CD;
+						WriteProtect = XPAR_XSDPS_1_HAS_WP;
+				} else {
 #endif
+						BaseAddress = XPAR_XSDPS_0_BASEADDR;
+						CardDetect = XPAR_XSDPS_0_HAS_CD;
+						WriteProtect = XPAR_XSDPS_0_HAS_WP;
+#ifdef XPAR_XSDPS_1_DEVICE_ID
+				}
+#endif
+		}
+		StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
+		if (CardDetect) {
+				if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
+					s = STA_NODISK | STA_NOINIT;
+					goto Label;
+				}
+		}
 		s &= ~STA_NODISK;
-#if XPAR_XSDPS_0_HAS_WP
-		if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U){
-			s |= STA_PROTECT;
-			goto Label;
+		if (WriteProtect) {
+				if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U){
+					s |= STA_PROTECT;
+					goto Label;
+				}
 		}
-#endif
 		s &= ~STA_PROTECT;
 
 Label:
@@ -206,26 +224,24 @@ DSTATUS disk_initialize (
 {
 	DSTATUS s;
 	s32 Status;
-	u8 SCR[8] = {0U};
-	u8 ReadBuff[64] = {0U};
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 
 	XSdPs_Config *SdConfig;
 
-#if XPAR_XSDPS_0_HAS_CD
-    /*
-     * Card detection check
-     * If the HC detects the No Card State, power will be cleared
-     */
-    while(!((XSDPS_PSR_CARD_DPL_MASK |
-            XSDPS_PSR_CARD_STABLE_MASK |
-            XSDPS_PSR_CARD_INSRT_MASK) ==
-          ( XSdPs_GetPresentStatusReg((u32)XPAR_XSDPS_0_BASEADDR) &
-           (XSDPS_PSR_CARD_DPL_MASK |
-            XSDPS_PSR_CARD_STABLE_MASK |
-            XSDPS_PSR_CARD_INSRT_MASK))));
-#endif
+	if (CardDetect) {
+			/*
+			 * Card detection check
+			 * If the HC detects the No Card State, power will be cleared
+			 */
+			while(!((XSDPS_PSR_CARD_DPL_MASK |
+					XSDPS_PSR_CARD_STABLE_MASK |
+					XSDPS_PSR_CARD_INSRT_MASK) ==
+					( XSdPs_GetPresentStatusReg((u32)BaseAddress) &
+					(XSDPS_PSR_CARD_DPL_MASK |
+					XSDPS_PSR_CARD_STABLE_MASK |
+					XSDPS_PSR_CARD_INSRT_MASK))));
+	}
 
 	/*
 	 * Check if card is in the socket
@@ -238,21 +254,21 @@ DSTATUS disk_initialize (
 	/*
 	 * Initialize the host controller
 	 */
-	SdConfig = XSdPs_LookupConfig((u16)SD_DEVICE_ID);
+	SdConfig = XSdPs_LookupConfig((u16)pdrv);
 	if (NULL == SdConfig) {
 		s |= STA_NOINIT;
 		return s;
 	}
 
 	Stat = STA_NOINIT;
-	Status = XSdPs_CfgInitialize(&SdInstance, SdConfig,
+	Status = XSdPs_CfgInitialize(&SdInstance[pdrv], SdConfig,
 					SdConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		s |= STA_NOINIT;
 		return s;
 	}
 
-	Status = XSdPs_CardInitialize(&SdInstance);
+	Status = XSdPs_CardInitialize(&SdInstance[pdrv]);
 	if (Status != XST_SUCCESS) {
 		s |= STA_NOINIT;
 		return s;
@@ -317,11 +333,11 @@ DRESULT disk_read (
 	}
 
 	/* Convert LBA to byte address if needed */
-	if ((SdInstance.HCS) == 0U) {
+	if ((SdInstance[pdrv].HCS) == 0U) {
 		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
 	}
 
-	Status  = XSdPs_ReadPolled(&SdInstance, (u32)LocSector, count, buff);
+	Status  = XSdPs_ReadPolled(&SdInstance[pdrv], (u32)LocSector, count, buff);
 	if (Status != XST_SUCCESS) {
 		return RES_ERROR;
 	}
@@ -437,11 +453,11 @@ DRESULT disk_write (
 	}
 
 	/* Convert LBA to byte address if needed */
-	if ((SdInstance.HCS) == 0U) {
+	if ((SdInstance[pdrv].HCS) == 0U) {
 		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
 	}
 
-	Status  = XSdPs_WritePolled(&SdInstance, (u32)LocSector, count, buff);
+	Status  = XSdPs_WritePolled(&SdInstance[pdrv], (u32)LocSector, count, buff);
 	if (Status != XST_SUCCESS) {
 		return RES_ERROR;
 	}

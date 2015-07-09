@@ -141,7 +141,7 @@ extern "C" {
 / Drive/Volume Configurations
 /---------------------------------------------------------------------------*/
 
-#define _VOLUMES	1U
+#define _VOLUMES	2U
 /* Number of volumes (logical drives) to be used. */
 
 
