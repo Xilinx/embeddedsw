@@ -57,6 +57,7 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./include/ -I${INCLUDEDIR}
 SECURE_DIR = .
+OBJDIR = obj/
 
 LIB_SRCS = $(SECURE_DIR)/xsecure_sha.c \
           $(SECURE_DIR)/xsecure_aes.c \
@@ -67,7 +68,7 @@ LIB_SRCS = $(SECURE_DIR)/xsecure_sha.c \
 
 SECURE_SRCS = $(LIB_SRCS)
 
-SECURE_OBJS = $(SECURE_SRCS:%.c=%.o)
+SECURE_OBJS = $(addprefix $(OBJDIR), $(SECURE_SRCS:%.c=%.o))
 
 
 EXPORT_INCLUDE_FILES = $(SECURE_DIR)/xsecure_sha.h \
@@ -96,10 +97,10 @@ libxilsecure.a: obj_dir print_msg_secure_base $(SECURE_OBJS)
 
 
 obj_dir:
-	mkdir obj
+	mkdir -p obj
 
 print_msg_secure_base:
 	@echo "Compiling Xilsecure Library"
 
-.c.o:
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o obj/$(@F)
+$(OBJDIR)%.o: $(SECURE_DIR)/%.c
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
