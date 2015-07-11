@@ -54,7 +54,6 @@ ifeq ($(COMPILER) , mb-gcc)
 endif
 
 RELEASEDIR=../../../lib
-#RELEASEDIR= .
 INCLUDEDIR=../../../include
 INCLUDES=-I./include/ -I${INCLUDEDIR}
 SECURE_DIR = .
