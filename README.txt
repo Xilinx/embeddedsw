@@ -68,7 +68,7 @@ Building FSBL from git:
 
 FSBL has 3 directories.
 	1. data - It contains files for SDK
-	2. src  - It contains the FSBK source files
+	2. src  - It contains the FSBL source files
 	3. misc - It contains miscelanious files required to 
 		  compile FSBL for zc702, zc706, zed and 
 		  microzed boards.
