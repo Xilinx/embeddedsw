@@ -39,7 +39,7 @@ proc swapp_get_description {} {
 }
 
 proc check_standalone_os {} {
-    set oslist [get_os];
+    set oslist [hsi::get_os];
 
     if { [llength $oslist] != 1 } {
         return 0;
@@ -56,7 +56,7 @@ proc swapp_is_supported_sw {} {
     #check_standalone_os;
 
 	# make sure xilffs is available
-    set librarylist [get_libs -filter "NAME==xilopenamp"];
+    set librarylist [hsi::get_libs -filter "NAME==xilopenamp"];
 
 	if { [llength $librarylist] == 0 } {
         error "This application requires xilopenamp library in the Board Support Package.";
@@ -68,10 +68,10 @@ proc swapp_is_supported_sw {} {
 proc swapp_is_supported_hw {} {
 
     # check processor type
-    set proc_instance [get_sw_processor];
+    set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
 
     if { $proc_type != "psu_cortexr5" } {
                 error "This application is supported only for CortexR5 processors.";

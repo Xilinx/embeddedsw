@@ -59,8 +59,8 @@ proc swapp_is_supported_sw {} {
     check_standalone_os;
 
     # make sure xilffs and xilrsa are available
-    set librarylist_1 [get_libs -filter "NAME==xilffs"];
-    set librarylist_2 [get_libs -filter "NAME==xilsecure"];
+    set librarylist_1 [hsi::get_libs -filter "NAME==xilffs"];
+    set librarylist_2 [hsi::get_libs -filter "NAME==xilsecure"];
 
     if { [llength $librarylist_1] == 0 && [llength $librarylist_2] == 0 } {
         error "This application requires xilffs and xilsecure libraries in the Board Support Package.";
@@ -74,10 +74,10 @@ proc swapp_is_supported_sw {} {
 proc swapp_is_supported_hw {} {
 
     # check processor type
-    set proc_instance [get_sw_processor];
+    set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
 
     if { $proc_type != "psu_cortexr5" && $proc_type != "psu_cortexa53" } {
                 error "This application is supported only for CortexA53/CortexR5 processors.";
@@ -94,7 +94,7 @@ proc get_stdout {} {
 }
 
 proc check_stdout_hw {} {
-    set pu_uarts [get_cells -filter "IP_NAME=psu_uart"];
+    set pu_uarts [hsi::get_cells -filter "IP_NAME=psu_uart"];
 }
 
 proc swapp_generate {} {
@@ -115,9 +115,9 @@ proc swapp_generate {} {
         file delete -force $init_file
     }
 
-    set proc_instance [get_sw_processor];
+    set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
-    set proc_type [common::get_property IP_NAME [get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
 
     # based on the CPU (A53 or R5),
     # remove unnecesary linker script and retain just one: lscript.ld
