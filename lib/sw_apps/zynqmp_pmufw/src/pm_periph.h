@@ -43,6 +43,14 @@
 #define PM_STD_SLAVE_STATE_OFF	0U
 #define PM_STD_SLAVE_STATE_ON	1U
 
+/*
+ * States of a slave with its own power island (PI), who has dependencies to the
+ * power parent (power domain) and have no wake-up capability through GIC Proxy.
+ * In this case, those are graphics processors
+ */
+#define PM_GPP_SLAVE_STATE_OFF	0U
+#define PM_GPP_SLAVE_STATE_ON	1U
+
 /* Always-on slaves, have only one state */
 #define PM_AON_SLAVE_STATE	0U
 
@@ -65,6 +73,18 @@ typedef struct PmSlaveSata {
 	PmSlave slv;
 } PmSlaveSata;
 
+/**
+ * PmSlaveGpp - Structure used for GPP
+ * @slv         Base slave structure
+ * @PwrDn   Pointer to a power down pmu-rom handler
+ * @PwrUp   Pointer to a power up pmu-rom handler
+ */
+typedef struct PmSlaveGpp {
+	PmSlave slv;
+	PmTranHandler PwrDn;
+	PmTranHandler PwrUp;
+} PmSlaveGpp;
+
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
@@ -73,8 +93,8 @@ extern PmSlaveTtc pmSlaveTtc1_g;
 extern PmSlaveTtc pmSlaveTtc2_g;
 extern PmSlaveTtc pmSlaveTtc3_g;
 extern PmSlaveSata pmSlaveSata_g;
-extern PmSlave pmSlaveGpuPP0_g;
-extern PmSlave pmSlaveGpuPP1_g;
+extern PmSlaveGpp pmSlaveGpuPP0_g;
+extern PmSlaveGpp pmSlaveGpuPP1_g;
 extern PmSlave pmSlaveUart0_g;
 extern PmSlave pmSlaveUart1_g;
 extern PmSlave pmSlaveSpi0_g;

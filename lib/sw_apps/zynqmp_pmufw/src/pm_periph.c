@@ -32,6 +32,7 @@
 #include "pm_common.h"
 #include "pm_node.h"
 #include "pm_master.h"
+#include "xpfw_rom_interface.h"
 
 /*
  * Without clock/reset control, from PM perspective ttc has only one state.
@@ -638,42 +639,118 @@ PmSlaveSata pmSlaveSata_g = {
 	},
 };
 
+/*
+ * States of a GPP slave (GPPs have its own power island (PI) and dependencies
+ * to the power parent (FPD)
+ */
+static const u32 PmGppStates[] = {
+	[PM_GPP_SLAVE_STATE_OFF] = 0U,
+	[PM_GPP_SLAVE_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
+};
+
+/* GPP slave transitions (from which to which state slave can transits) */
+static const PmStateTran PmGppTransitions[] = {
+	{
+		.fromState = PM_GPP_SLAVE_STATE_ON,
+		.toState = PM_GPP_SLAVE_STATE_OFF,
+	}, {
+		.fromState = PM_GPP_SLAVE_STATE_OFF,
+		.toState = PM_GPP_SLAVE_STATE_ON,
+	},
+};
+
+/**
+ * PmGppFsmHandler() - FSM handler of a GPP slave
+ * @slave       Slave whose state should be changed
+ * @nextState   State the slave should enter
+ *
+ * @return      Status of performing transition action
+ */
+static int PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
+{
+	int status = XST_PM_INTERNAL;
+	PmSlaveGpp* gpp = (PmSlaveGpp*)slave->node.derived;
+
+	switch (slave->node.currState) {
+	case PM_GPP_SLAVE_STATE_ON:
+		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
+			/* ON -> OFF*/
+			status = gpp->PwrDn();
+		} else {
+			status = XST_NO_FEATURE;
+		}
+		break;
+	case PM_GPP_SLAVE_STATE_OFF:
+		if (PM_GPP_SLAVE_STATE_ON == nextState) {
+			/* OFF -> ON */
+			status = gpp->PwrUp();
+		} else {
+			status = XST_NO_FEATURE;
+		}
+		break;
+	default:
+		PmDbg("ERROR: Unknown state #%d\n", slave->node.currState);
+		break;
+	}
+	if (XST_SUCCESS == status) {
+		slave->node.currState = nextState;
+	}
+
+	return status;
+}
+
+static const PmSlaveFsm slaveGPPFsm = {
+	.states = PmGppStates,
+	.statesCnt = ARRAY_SIZE(PmGppStates),
+	.trans = PmGppTransitions,
+	.transCnt = ARRAY_SIZE(PmGppTransitions),
+	.enterState = PmGppFsmHandler,
+};
+
 static PmRequirement* const pmGpuPP0Reqs[] = {
 	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPUPP0],
 };
 
-PmSlave pmSlaveGpuPP0_g = {
-	.node = {
-		.derived = &pmSlaveGpuPP0_g,
-		.nodeId = NODE_GPU_PP_0,
-		.typeId = PM_TYPE_SLAVE,
-		.parent = &pmPowerDomainFpd_g,
-		.currState = PM_STD_SLAVE_STATE_ON,
-		.ops = NULL,
+PmSlaveGpp pmSlaveGpuPP0_g = {
+	.slv = {
+		.node = {
+			.derived = &pmSlaveGpuPP0_g,
+			.nodeId = NODE_GPU_PP_0,
+			.typeId = PM_TYPE_SLAVE,
+			.parent = &pmPowerDomainFpd_g,
+			.currState = PM_STD_SLAVE_STATE_ON,
+			.ops = NULL,
+		},
+		.reqs = pmGpuPP0Reqs,
+		.reqsCnt = ARRAY_SIZE(pmGpuPP0Reqs),
+		.wake = NULL,
+		.slvFsm = &slaveGPPFsm,
 	},
-	.reqs = pmGpuPP0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmGpuPP0Reqs),
-	.wake = NULL,
-	.slvFsm = &slaveStdFsm,
+	.PwrDn = XpbrPwrDnPp0Handler,
+	.PwrUp = XpbrPwrUpPp0Handler,
 };
 
 static PmRequirement* const pmGpuPP1Reqs[] = {
 	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPUPP1],
 };
 
-PmSlave pmSlaveGpuPP1_g = {
-	.node = {
-		.derived = &pmSlaveGpuPP1_g,
-		.nodeId = NODE_GPU_PP_1,
-		.typeId = PM_TYPE_SLAVE,
-		.parent = &pmPowerDomainFpd_g,
-		.currState = PM_STD_SLAVE_STATE_ON,
-		.ops = NULL,
+PmSlaveGpp pmSlaveGpuPP1_g = {
+	.slv = {
+		.node = {
+			.derived = &pmSlaveGpuPP1_g,
+			.nodeId = NODE_GPU_PP_1,
+			.typeId = PM_TYPE_SLAVE,
+			.parent = &pmPowerDomainFpd_g,
+			.currState = PM_STD_SLAVE_STATE_ON,
+			.ops = NULL,
+		},
+		.reqs = pmGpuPP1Reqs,
+		.reqsCnt = ARRAY_SIZE(pmGpuPP1Reqs),
+		.wake = NULL,
+		.slvFsm = &slaveGPPFsm,
 	},
-	.reqs = pmGpuPP1Reqs,
-	.reqsCnt = ARRAY_SIZE(pmGpuPP1Reqs),
-	.wake = NULL,
-	.slvFsm = &slaveStdFsm,
+	.PwrDn = XpbrPwrDnPp1Handler,
+	.PwrUp = XpbrPwrUpPp1Handler,
 };
 
 static PmRequirement* const pmGdmaReqs[] = {

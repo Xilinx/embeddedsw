@@ -184,7 +184,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.nextReq = 0U,
 	},
 	[PM_MASTER_APU_SLAVE_GPUPP0] = {
-		.slave = &pmSlaveGpuPP0_g,
+		.slave = &pmSlaveGpuPP0_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = 0U,
 		.defaultReq = 0U,
@@ -192,7 +192,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.nextReq = 0U,
 	},
 	[PM_MASTER_APU_SLAVE_GPUPP1] = {
-		.slave = &pmSlaveGpuPP1_g,
+		.slave = &pmSlaveGpuPP1_g.slv,
 		.requestor = &pmMasterApu_g,
 		.info = 0U,
 		.defaultReq = 0U,
