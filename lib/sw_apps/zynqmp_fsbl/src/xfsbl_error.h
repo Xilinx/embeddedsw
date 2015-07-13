@@ -155,7 +155,17 @@ extern "C" {
 #define XFSBL_ERROR_RSA_NOT_ENABLED                 (0x3BU)
 #define XFSBL_ERROR_AES_NOT_ENABLED                 (0x3CU)
 #define XFSBL_ERROR_PL_NOT_ENABLED                  (0x3DU)
-#define XFSBL_ERROR_PL_POWER_ISOLATION				(0x3EU)
+#define XFSBL_ERROR_PL_POWER_UP						(0x3EU)
+#define XFSBL_ERROR_A53_0_POWER_UP					(0x3FU)
+#define XFSBL_ERROR_A53_1_POWER_UP					(0x40U)
+#define XFSBL_ERROR_A53_2_POWER_UP					(0x41U)
+#define XFSBL_ERROR_A53_3_POWER_UP					(0x42U)
+#define XFSBL_ERROR_R5_0_POWER_UP					(0x43U)
+#define XFSBL_ERROR_R5_1_POWER_UP					(0x44U)
+#define XFSBL_ERROR_R5_L_POWER_UP					(0x45U)
+#define XFSBL_ERROR_R5_0_TCM_POWER_UP				(0x46U)
+#define XFSBL_ERROR_R5_1_TCM_POWER_UP				(0x47U)
+#define XFSBL_ERROR_R5_L_TCM_POWER_UP				(0x48U)
 
 #define XFSBL_FAILURE					(0x3FFU)
 

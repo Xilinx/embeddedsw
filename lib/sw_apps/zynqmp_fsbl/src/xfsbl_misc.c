@@ -481,3 +481,55 @@ void XFsbl_RegisterHandlers(void)
 		(Xil_ExceptionHandler)XFsbl_FiqHandler,(void *) 0);
 #endif
 }
+
+/*****************************************************************************/
+/**
+*
+* This function checks the power state of one or more power islands and
+* powers them up if required.
+*
+* @param	Mask of Island(s) that need to be powered up
+*
+* @return	XFSBL_SUCCESS for successful power up or
+* 		    XFSBL_FAILURE otherwise.
+*
+* @note		None.
+*
+****************************************************************************/
+u32 XFsbl_PowerUpIsland(u32 PwrIslandMask)
+{
+
+	u32 RegVal;
+	u32 Status = XFSBL_SUCCESS;
+
+	/* If Island not powered up yet, do it now */
+	RegVal = XFsbl_In32(PMU_GLOBAL_PWR_STATE);
+	if ((RegVal & PwrIslandMask) !=
+			PwrIslandMask) {
+
+		/* There is a single island for both R5_0 and R5_1 */
+		if ((PwrIslandMask & PMU_GLOBAL_PWR_STATE_R5_1_MASK) ==
+				PMU_GLOBAL_PWR_STATE_R5_1_MASK) {
+			PwrIslandMask &= ~(PMU_GLOBAL_PWR_STATE_R5_1_MASK);
+			PwrIslandMask |= PMU_GLOBAL_PWR_STATE_R5_0_MASK;
+		}
+
+		/* Power up request enable */
+		XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_INT_EN, PwrIslandMask);
+
+		/* Trigger power up request */
+		XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_TRIG, PwrIslandMask);
+
+		/* Poll for Power up complete */
+		do {
+			RegVal = XFsbl_In32(PMU_GLOBAL_REQ_PWRUP_STATUS) & PwrIslandMask;
+		} while (RegVal != 0x0U);
+
+		RegVal = XFsbl_In32(PMU_GLOBAL_PWR_STATE);
+		if (RegVal != PwrIslandMask) {
+			Status = XFSBL_FAILURE;
+		}
+	}
+
+	return Status;
+}

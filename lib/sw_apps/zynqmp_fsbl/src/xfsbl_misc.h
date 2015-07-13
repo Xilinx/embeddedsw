@@ -76,6 +76,8 @@ char *XFsbl_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr);
 void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName, u32 MultibootReg);
 u32 XFsbl_Htonl(u32 Value1);
+u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
+
 #ifndef XFSBL_A53
 void XFsbl_RegisterHandlers(void);
 #endif

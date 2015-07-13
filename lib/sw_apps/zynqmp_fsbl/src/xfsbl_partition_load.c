@@ -80,7 +80,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		u32 PartitionNum);
 static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
 		u32 DestinationCpu);
-static void XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
+static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		u64 Address, u32 Length);
 void XFsbl_EccInitialize(u32 Address, u32 Length);
 u32 XFsbl_GetLoadAddress(u32 DestinationCpu, u64 * LoadAddressPtr, u32 Length);
@@ -280,9 +280,12 @@ static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
  *
  * @return	none
  *****************************************************************************/
-static void XFsbl_PowerUpMemory(u32 MemoryType)
+static u32 XFsbl_PowerUpMemory(u32 MemoryType)
 {
 	u32 RegValue;
+	u32 Status = XFSBL_SUCCESS;
+	u32 PwrStateMask;
+
 	/**
 	 * Check the power status of the memory
 	 * Power up if required
@@ -293,6 +296,19 @@ static void XFsbl_PowerUpMemory(u32 MemoryType)
 	{
 		case XFSBL_R5_0_TCM:
 		{
+
+			PwrStateMask = PMU_GLOBAL_PWR_STATE_R5_0_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM0A_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM0B_MASK;
+
+			Status = XFsbl_PowerUpIsland(PwrStateMask);
+
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_R5_0_TCM_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_R5_0_TCM_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * To access TCM,
 			 * 	Release reset to R5 and enable the clk
@@ -343,6 +359,18 @@ static void XFsbl_PowerUpMemory(u32 MemoryType)
 		case XFSBL_R5_1_TCM:
 		{
 
+			PwrStateMask = PMU_GLOBAL_PWR_STATE_R5_1_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM1A_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM1B_MASK;
+
+			Status = XFsbl_PowerUpIsland(PwrStateMask);
+
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_R5_1_TCM_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_R5_1_TCM_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * Place R5 in split mode
 			 */
@@ -383,6 +411,22 @@ static void XFsbl_PowerUpMemory(u32 MemoryType)
 
 		case XFSBL_R5_L_TCM:
 		{
+
+
+			PwrStateMask = PMU_GLOBAL_PWR_STATE_R5_0_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM0A_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM0B_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM1A_MASK |
+					PMU_GLOBAL_PWR_STATE_TCM1B_MASK;
+
+			Status = XFsbl_PowerUpIsland(PwrStateMask);
+
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_R5_L_TCM_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_R5_L_TCM_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * Place R5 in lock step mode
 			 * Combine TCM's
@@ -435,7 +479,8 @@ static void XFsbl_PowerUpMemory(u32 MemoryType)
 			break;
 	}
 
-	return ;
+END:
+	return Status;
 }
 
 void XFsbl_EccInitialize(u32 Address, u32 Length)
@@ -564,10 +609,11 @@ END:
  * @return	returns the error codes described in xfsbl_error.h on any error
  * 			returns XFSBL_SUCCESS on success
  *****************************************************************************/
-static void XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
+static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		u64 Address, u32 Length)
 {
 
+	u32 Status = XFSBL_SUCCESS;
 	/**
 	 * Configure R50 TCM Memory
 	 */
@@ -582,7 +628,10 @@ static void XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		 */
 		if (RunningCpu != DestinationCpu)
 		{
-			XFsbl_PowerUpMemory(XFSBL_R5_0_TCM);
+			Status = XFsbl_PowerUpMemory(XFSBL_R5_0_TCM);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+			}
 		}
 
 		/**
@@ -609,7 +658,10 @@ static void XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		 */
 		if (RunningCpu != DestinationCpu)
 		{
-			XFsbl_PowerUpMemory(XFSBL_R5_1_TCM);
+			Status = XFsbl_PowerUpMemory(XFSBL_R5_1_TCM);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+			}
 		}
 
 		/**
@@ -635,7 +687,11 @@ static void XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		 */
 		if (RunningCpu != DestinationCpu)
 		{
-			XFsbl_PowerUpMemory(XFSBL_R5_L_TCM);
+			Status = XFsbl_PowerUpMemory(XFSBL_R5_L_TCM);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+			}
+
 		}
 
 		/**
@@ -654,7 +710,8 @@ static void XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		 */
 	}
 
-	return;
+END:
+	return Status;
 }
 
 

@@ -143,6 +143,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 	u32 Status=XFSBL_SUCCESS;
 	u32 CpuId=0U;
 	u32 ExecState=0U;
+	u32 PwrStateMask = 0;
 
 	CpuId = CpuSettings & XIH_PH_ATTRB_DEST_CPU_MASK;
 	ExecState = CpuSettings & XIH_PH_ATTRB_A53_EXEC_ST_MASK;
@@ -156,6 +157,17 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 		{
 
 			case XIH_PH_ATTRB_DEST_CPU_A53_0:
+
+			PwrStateMask = PMU_GLOBAL_PWR_STATE_ACPU0_MASK |
+				PMU_GLOBAL_PWR_STATE_FP_MASK |
+				PMU_GLOBAL_PWR_STATE_L2_BANK0_MASK;
+
+			Status = XFsbl_PowerUpIsland(PwrStateMask);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_A53_0_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_A53_0_POWER_UP\r\n");
+				goto END;
+			}
 
 			/**
 			 * Set to Aarch32 if enabled
@@ -187,6 +199,18 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_A53_1:
+
+			PwrStateMask = PMU_GLOBAL_PWR_STATE_ACPU1_MASK |
+				PMU_GLOBAL_PWR_STATE_FP_MASK |
+				PMU_GLOBAL_PWR_STATE_L2_BANK0_MASK;
+
+			Status = XFsbl_PowerUpIsland(PwrStateMask);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_A53_1_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_A53_1_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * Set to Aarch32 if enabled
 			 */
@@ -217,6 +241,18 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_A53_2:
+
+			PwrStateMask = PMU_GLOBAL_PWR_STATE_ACPU2_MASK |
+				PMU_GLOBAL_PWR_STATE_FP_MASK |
+				PMU_GLOBAL_PWR_STATE_L2_BANK0_MASK;
+
+			Status = XFsbl_PowerUpIsland(PwrStateMask);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_A53_2_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_A53_2_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * Set to Aarch32 if enabled
 			 */
@@ -248,6 +284,19 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_A53_3:
+
+			PwrStateMask = PMU_GLOBAL_PWR_STATE_ACPU3_MASK |
+				PMU_GLOBAL_PWR_STATE_FP_MASK |
+				PMU_GLOBAL_PWR_STATE_L2_BANK0_MASK;
+
+			Status = XFsbl_PowerUpIsland(PwrStateMask);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_A53_3_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_A53_3_POWER_UP\r\n");
+				goto END;
+			}
+
+
 			/**
 			 * Set to Aarch32 if enabled
 			 */
@@ -279,6 +328,14 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_R5_0:
+
+			Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_R5_0_MASK);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_R5_0_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_R5_0_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * Place R5, TCM's in split mode
 			 */
@@ -328,6 +385,14 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			break;
 
 		case XIH_PH_ATTRB_DEST_CPU_R5_1:
+
+			Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_R5_1_MASK);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_R5_1_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_R5_1_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * Place R5, TCM's in split mode
 			 */
@@ -375,6 +440,14 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 			XFsbl_Out32(RPU_RPU_1_CFG, RegValue);
 			break;
 		case XIH_PH_ATTRB_DEST_CPU_R5_L:
+
+			Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_R5_0_MASK);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_R5_L_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_R5_L_POWER_UP\r\n");
+				goto END;
+			}
+
 			/**
 			 * Place R5, TCM's in safe mode
 			 */
@@ -445,7 +518,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 		}
 
 	}
-
+END:
 	return Status;
 }
 

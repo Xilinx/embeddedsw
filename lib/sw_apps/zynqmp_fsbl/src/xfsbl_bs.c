@@ -87,32 +87,12 @@ u32 XFsbl_PcapInit(void) {
 	XFsbl_Out32(CSU_PCAP_CTRL, RegVal);
 	XFsbl_Out32(CSU_PCAP_RDWR, 0x0);
 
-	/* If PL not powered up yet, do it now */
-	RegVal = XFsbl_In32(PMU_GLOBAL_PWR_STATE);
-	if ((RegVal & PMU_GLOBAL_PWR_STATE_PL_MASK) !=
-			PMU_GLOBAL_PWR_STATE_PL_MASK) {
-		/* Power up request enable */
-		RegVal = XFsbl_In32(PMU_GLOBAL_REQ_PWRUP_INT_EN);
-		RegVal |= PMU_GLOBAL_REQ_PWRUP_INT_EN_PL_MASK;
-		XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_INT_EN, RegVal);
+	Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
 
-		/* Trigger power up request */
-		RegVal = XFsbl_In32(PMU_GLOBAL_REQ_PWRUP_TRIG);
-		RegVal |= PMU_GLOBAL_REQ_PWRUP_TRIG_PL_MASK;
-		XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_TRIG, RegVal);
-
-		/* Poll for Power up complete */
-		do {
-			RegVal = XFsbl_In32(PMU_GLOBAL_REQ_PWRUP_STATUS) &
-			PMU_GLOBAL_REQ_PWRUP_STATUS_PL_MASK;
-		} while (RegVal != PMU_GLOBAL_REQ_PWRUP_STATUS_PL_MASK);
-
-		if ((RegVal & PMU_GLOBAL_PWR_STATE_PL_MASK) !=
-					PMU_GLOBAL_PWR_STATE_PL_MASK) {
-			Status = XFSBL_ERROR_PL_POWER_ISOLATION;
-			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_ISOLATION\r\n");
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PL_POWER_UP;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_UP\r\n");
 			goto END;
-		}
 	}
 
 	/* Reset PL */
