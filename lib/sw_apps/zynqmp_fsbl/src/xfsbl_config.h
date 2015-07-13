@@ -60,6 +60,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
+/* This is the address in DDR where bitstream will be copied temporarily */
+#define XFSBL_DDR_TEMP_ADDRESS			(0x100000U)
 
 /**************************** Type Definitions *******************************/
 

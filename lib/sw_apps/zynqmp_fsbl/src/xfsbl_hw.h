@@ -480,7 +480,6 @@ extern "C" {
  * Other FSBL defines
  * this can defined in xfsbl_main.h
  */
-#define XFSBL_DDR_TEMP_ADDRESS			(0x100000U)
 #define XFSBL_R5_0				(0x1U)
 #define XFSBL_R5_L				(0x2U)
 
