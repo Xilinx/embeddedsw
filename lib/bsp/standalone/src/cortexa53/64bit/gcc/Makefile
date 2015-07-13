@@ -31,21 +31,15 @@
 ###############################################################################
 include config.make
 
-AS=aarch64-none-elf-as
-CC=aarch64-none-elf-gcc
-AR=aarch64-none-elf-ar
+CC=$(COMPILER)
+AR=$(ARCHIVER)
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
-
-LIB=libxil.a
-
 CC_FLAGS = $(subst -pg, -DPROFILING, $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, -DPROFILING, $(EXTRA_COMPILER_FLAGS))
 
-
-#The following flags are required for PEEP. We can remove them later
 ECC_FLAGS	+= -march=armv8-a
 
 
@@ -62,7 +56,7 @@ libs: $(LIBS)
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone A53"
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
+	$(AR) -r ${RELEASEDIR}/${LIB} ${OUTS}
 
 .PHONY: include
 include: standalone_includes
@@ -72,4 +66,4 @@ standalone_includes:
 
 clean:
 	rm -rf ${OUTS}
-	$(MAKE) -C COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" clean
+	$(MAKE) -C COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" clean
