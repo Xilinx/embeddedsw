@@ -35,7 +35,6 @@
 * @file xwdtps_g.c
 * @addtogroup wdtps_v3_0
 * @{
-* @details
 *
 * This file contains a table that specifies the configuration of the watchdog
 * timer devices in the system. Each device should have an entry in the table.

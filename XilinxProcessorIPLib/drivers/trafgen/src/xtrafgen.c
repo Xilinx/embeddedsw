@@ -35,7 +35,6 @@
 * @file xtrafgen.c
 * @addtogroup trafgen_v3_2
 * @{
-* @details
 *
 * This file implements AXI Traffic Generator device-wise initialization and 
 * control functions.

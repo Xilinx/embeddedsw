@@ -35,7 +35,6 @@
 * @file xiicps_g.c
 * @addtogroup iicps_v3_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * IIC devices in the system.

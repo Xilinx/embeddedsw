@@ -35,7 +35,6 @@
 * @file xrtcpsu.c
 * @addtogroup rtcpsu_v1_0
 * @{
-* @details
 *
 * Functions in this file are the minimum required functions for the XRtcPsu
 * driver. See xrtcpsu.h for a detailed description of the driver.

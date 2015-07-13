@@ -35,7 +35,6 @@
 * @file xsdps_options.c
 * @addtogroup sdps_v2_5
 * @{
-* @details
 *
 * Contains API's for changing the various options in host and card.
 * See xsdps.h for a detailed description of the device and driver.

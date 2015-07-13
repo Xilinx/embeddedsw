@@ -35,7 +35,6 @@
 * @file xv_vcresampler_l2.h
 * @addtogroup v_vcresampler_v1_0
 * @{
-* @details
 *
 * This header file contains layer 2 API's of the vertical chroma resampler
 * sub-core driver.The functions contained herein provides a high level

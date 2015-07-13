@@ -35,7 +35,6 @@
 * @file xccm_sinit.c
 * @addtogroup ccm_v6_0
 * @{
-* @details
 *
 * This file contains static initialization methods for Xilinx CCM core.
 *

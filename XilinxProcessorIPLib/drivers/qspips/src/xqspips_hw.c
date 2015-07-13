@@ -35,7 +35,6 @@
 * @file xqspips_hw.c
 * @addtogroup qspips_v3_2
 * @{
-* @details
 *
 * Contains low level functions, primarily reset related.
 *

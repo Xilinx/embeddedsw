@@ -35,7 +35,6 @@
 * @file xwdttb_selftest.c
 * @addtogroup wdttb_v3_0
 * @{
-* @details
 *
 * Contains diagnostic self-test functions for the XWdtTb component.
 *

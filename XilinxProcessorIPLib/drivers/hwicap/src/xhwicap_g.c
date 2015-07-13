@@ -35,7 +35,6 @@
 * @file xhwicap_g.c
 * @addtogroup hwicap_v10_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * Hwicap devices in the system. Each device in the system should have an

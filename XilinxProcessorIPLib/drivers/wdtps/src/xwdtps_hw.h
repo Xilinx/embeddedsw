@@ -35,7 +35,6 @@
 * @file xwdtps_hw.h
 * @addtogroup wdtps_v3_0
 * @{
-* @details
 *
 * This file contains the hardware interface to the System Watch Dog Timer (WDT).
 *

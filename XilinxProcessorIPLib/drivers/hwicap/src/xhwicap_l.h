@@ -35,7 +35,6 @@
 * @file xhwicap_l.h
 * @addtogroup hwicap_v10_0
 * @{
-* @details
 *
 * This header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions

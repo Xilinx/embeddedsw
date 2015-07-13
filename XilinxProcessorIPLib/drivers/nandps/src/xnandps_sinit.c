@@ -35,7 +35,6 @@
 * @file xnandps_sinit.c
 * @addtogroup nandps_v2_2
 * @{
-* @details
 *
 * This file contains the implementation of the XNand driver's static
 * initialization functionality.

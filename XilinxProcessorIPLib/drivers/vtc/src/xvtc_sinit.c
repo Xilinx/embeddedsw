@@ -35,7 +35,6 @@
 * @file xvtc_sinit.c
 * @addtogroup vtc_v7_0
 * @{
-* @details
 *
 * This file contains static initialization methods for Xilinx VTC core.
 *

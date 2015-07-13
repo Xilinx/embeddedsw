@@ -34,7 +34,6 @@
 * @file xaxipcie_sinit.c
 * @addtogroup axipcie_v3_0
 * @{
-* @details
 *
 * This file contains the implementation of AXI PCIe driver's static
 * initialization functionality.

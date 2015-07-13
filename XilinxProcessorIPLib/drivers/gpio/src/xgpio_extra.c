@@ -34,7 +34,6 @@
 * @file xgpio_extra.c
 * @addtogroup gpio_v4_0
 * @{
-* @details
 *
 * The implementation of the XGpio driver's advanced discrete functions.
 * See xgpio.h for more information about the driver.

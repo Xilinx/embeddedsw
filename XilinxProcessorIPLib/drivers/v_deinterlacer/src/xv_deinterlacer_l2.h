@@ -35,7 +35,6 @@
 * @file xv_deinterlacer_l2.h
 * @addtogroup v_deinterlacer_v5_0
 * @{
-* @details
 *
 * This header file contains layer 2 API's of the deint sub-core driver.
 * The functions contained herein provides a high level implementation of features

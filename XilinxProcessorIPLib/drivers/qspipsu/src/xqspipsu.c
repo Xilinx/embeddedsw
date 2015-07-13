@@ -35,7 +35,6 @@
 * @file xqspipsu.c
 * @addtogroup qspipsu_v1_0
 * @{
-* @details
 *
 * This file implements the functions required to use the QSPIPSU hardware to
 * perform a transfer. These are accessible to the user via xqspipsu.h.

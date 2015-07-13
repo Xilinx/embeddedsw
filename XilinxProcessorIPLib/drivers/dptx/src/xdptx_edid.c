@@ -35,7 +35,6 @@
  * @file xdptx_edid.c
 * @addtogroup dptx_v3_0
 * @{
-* @details
  *
  * This file contains functions related to accessing the Extended Display
  * Identification Data (EDID) of a specified sink using the XDptx driver.

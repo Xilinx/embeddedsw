@@ -35,7 +35,6 @@
 * @file xtft.c
 * @addtogroup tft_v5_0
 * @{
-* @details
 *
 * This file defines all the functions for the XTft driver. See the xtft.h
 * header file for more details on this driver.

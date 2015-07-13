@@ -35,7 +35,6 @@
 * @file xtmrctr.c
 * @addtogroup tmrctr_v3_0
 * @{
-* @details
 *
 * Contains required functions for the XTmrCtr driver.
 *

@@ -35,7 +35,6 @@
 * @file gamma.c
 * @addtogroup gamma_v6_0
 * @{
-* @details
 *
 * This is main code of Xilinx Gamma Correction (GAMMA)
 * device driver. Please see gamma.h for more details of the driver.

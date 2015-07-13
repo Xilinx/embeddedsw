@@ -35,7 +35,6 @@
 * @file xqspipsu_options.c
 * @addtogroup qspipsu_v1_0
 * @{
-* @details
 *
 * This file implements funcitons to configure the QSPIPSU component,
 * specifically some optional settings, clock and flash related information.

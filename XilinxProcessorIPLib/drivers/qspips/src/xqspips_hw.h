@@ -35,7 +35,6 @@
 * @file xqspips_hw.h
 * @addtogroup qspips_v3_2
 * @{
-* @details
 *
 * This header file contains the identifiers and basic HW access driver
 * functions (or  macros) that can be used to access the device. Other driver

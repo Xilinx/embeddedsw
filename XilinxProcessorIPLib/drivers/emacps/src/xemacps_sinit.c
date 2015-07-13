@@ -35,7 +35,6 @@
 * @file xemacps_sinit.c
 * @addtogroup emacps_v3_0
 * @{
-* @details
 *
 * This file contains lookup method by device ID when success, it returns
 * pointer to config table to be used to initialize the device.

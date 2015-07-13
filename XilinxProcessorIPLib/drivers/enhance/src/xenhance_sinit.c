@@ -35,7 +35,6 @@
 * @file xenhance_sinit.c
 * @addtogroup enhance_v7_0
 * @{
-* @details
 *
 * This file contains static initialization methods for Xilinx Enhance core.
 *

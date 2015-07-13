@@ -34,7 +34,6 @@
  * @file xusbps_intr.c
 * @addtogroup usbps_v2_2
 * @{
-* @details
  *
  * This file contains the functions that are related to interrupt processing
  * for the EPB USB driver.

@@ -35,7 +35,6 @@
 * @file xsdps_sinit.c
 * @addtogroup sdps_v2_5
 * @{
-* @details
 *
 * The implementation of the XSdPs component's static initialization
 * functionality.

@@ -35,7 +35,6 @@
 * @file xtrafgen_g.c
 * @addtogroup trafgen_v3_2
 * @{
-* @details
 *
 * Provide a template for user to define their own hardware settings.
 *

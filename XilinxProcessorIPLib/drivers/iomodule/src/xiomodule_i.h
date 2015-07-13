@@ -35,7 +35,6 @@
 * @file xiomodule_i.h
 * @addtogroup iomodule_v2_1
 * @{
-* @details
 *
 * This file contains data which is shared between files and internal to the
 * XIOModule component. It is intended for internal use only.

@@ -35,7 +35,6 @@
  * @file xdptx_mst.c
 * @addtogroup dptx_v3_0
 * @{
-* @details
  *
  * <pre>
  * MODIFICATION HISTORY:

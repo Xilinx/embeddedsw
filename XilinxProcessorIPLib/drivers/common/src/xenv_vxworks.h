@@ -35,7 +35,6 @@
 * @file xenv_vxworks.h
 * @addtogroup common_v1_00_a
 * @{
-* @details
 *
 * Defines common services specified by xenv.h.
 *

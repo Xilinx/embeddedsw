@@ -35,7 +35,6 @@
 * @file xccm_hw.h
 * @addtogroup ccm_v6_0
 * @{
-* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx Color Correction Matrix (CCM)

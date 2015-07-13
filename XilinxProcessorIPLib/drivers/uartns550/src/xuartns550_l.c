@@ -35,7 +35,6 @@
 * @file xuartns550_l.c
 * @addtogroup uartns550_v3_3
 * @{
-* @details
 *
 * This file contains low-level driver functions that can be used to access the
 * device.  The user should refer to the hardware device specification for more

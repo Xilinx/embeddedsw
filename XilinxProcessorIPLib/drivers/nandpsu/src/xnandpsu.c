@@ -35,7 +35,6 @@
 * @file xnandpsu.c
 * @addtogroup nandpsu_v1_0
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for
 * XNandPsu driver. Refer to the header file xnandpsu.h for more detailed

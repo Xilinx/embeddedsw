@@ -35,7 +35,6 @@
 * @file xspips_sinit.c
 * @addtogroup spips_v3_0
 * @{
-* @details
 *
 * The implementation of the XSpiPs driver's static initialization
 * functionality.

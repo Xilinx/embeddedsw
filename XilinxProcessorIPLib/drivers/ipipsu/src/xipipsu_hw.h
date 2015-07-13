@@ -34,7 +34,6 @@
 * @file xipipsu_hw.h
 * @addtogroup ipipsu_v1_0
 * @{
-* @details
 *
 * This file contains macro definitions for low level HW related params
 *

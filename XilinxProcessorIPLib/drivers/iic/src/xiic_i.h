@@ -35,7 +35,6 @@
 * @file xiic_i.h
 * @addtogroup iic_v3_1
 * @{
-* @details
 *
 * This header file contains internal identifiers, which are those shared
 * between XIic components.  The identifiers in this file are not intended for

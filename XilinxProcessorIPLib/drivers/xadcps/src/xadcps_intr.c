@@ -35,7 +35,6 @@
 * @file xadcps_intr.c
 * @addtogroup xadcps_v2_2
 * @{
-* @details
 *
 * This file contains interrupt handling API functions of the XADC
 * device.

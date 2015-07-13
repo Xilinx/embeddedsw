@@ -35,7 +35,6 @@
 * @file xttcps.c
 * @addtogroup ttcps_v3_0
 * @{
-* @details
 *
 * This file contains the implementation of the XTtcPs driver. This driver
 * controls the operation of one timer counter in the Triple Timer Counter (TTC)

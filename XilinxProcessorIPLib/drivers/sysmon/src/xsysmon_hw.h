@@ -35,7 +35,6 @@
 * @file xsysmon_hw.h
 * @addtogroup sysmon_v7_1
 * @{
-* @details
 *
 * This header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the System Monitor/ADC device or XADC.

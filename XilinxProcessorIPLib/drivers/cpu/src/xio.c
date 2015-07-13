@@ -35,7 +35,6 @@
 * @file xio.c
 * @addtogroup cpu_v2_3
 * @{
-* @details
 *
 * Contains I/O functions for memory-mapped or non-memory-mapped I/O
 * architectures.  These functions encapsulate generic CPU I/O requirements.

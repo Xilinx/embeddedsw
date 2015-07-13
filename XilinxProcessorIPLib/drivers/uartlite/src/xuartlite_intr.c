@@ -35,7 +35,6 @@
 * @file xuartlite_intr.c
 * @addtogroup uartlite_v3_0
 * @{
-* @details
 *
 * This file contains interrupt-related functions for the UART Lite component
 * (XUartLite).

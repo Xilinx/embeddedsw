@@ -34,7 +34,6 @@
 * @file xmutex_g.c
 * @addtogroup mutex_v4_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of Mutex devices in the system.

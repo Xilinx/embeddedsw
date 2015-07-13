@@ -35,7 +35,6 @@
 * @file xiic_l.h
 * @addtogroup iic_v3_1
 * @{
-* @details
 *
 * This header file contains identifiers and driver functions (or
 * macros) that can be used to access the device in normal and dynamic

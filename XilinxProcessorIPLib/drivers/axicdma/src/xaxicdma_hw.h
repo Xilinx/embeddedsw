@@ -34,7 +34,6 @@
  *  @file xaxicdma_hw.h
 * @addtogroup axicdma_v3_0
 * @{
-* @details
  *
  * Hardware definition file. It defines the register interface and Buffer
  * Descriptor (BD) definitions.

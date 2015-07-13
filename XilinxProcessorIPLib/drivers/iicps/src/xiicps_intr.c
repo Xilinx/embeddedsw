@@ -35,7 +35,6 @@
 * @file xiicps_intr.c
 * @addtogroup iicps_v3_0
 * @{
-* @details
 *
 * Contains functions of the XIicPs driver for interrupt-driven transfers.
 * See xiicps.h for a detailed description of the device and driver.

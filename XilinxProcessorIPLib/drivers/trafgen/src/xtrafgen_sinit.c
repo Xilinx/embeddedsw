@@ -35,7 +35,6 @@
 * @file xtrafgen_sinit.c
 * @addtogroup trafgen_v3_2
 * @{
-* @details
 *
 * This file contains static initialzation functionality for Axi Traffic
 * Generator driver.

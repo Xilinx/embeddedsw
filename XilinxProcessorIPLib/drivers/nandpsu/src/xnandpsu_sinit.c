@@ -35,7 +35,6 @@
 * @file xnandpsu_sinit.c
 * @addtogroup nandpsu_v1_0
 * @{
-* @details
 *
 * The implementation of the XNandPsu driver's static initialzation
 * functionality.

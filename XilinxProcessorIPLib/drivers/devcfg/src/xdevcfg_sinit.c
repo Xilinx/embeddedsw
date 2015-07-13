@@ -35,7 +35,6 @@
 * @file xdevcfg_sinit.c
 * @addtogroup devcfg_v3_3
 * @{
-* @details
 *
 * This file contains method for static initialization (compile-time) of the
 * driver.

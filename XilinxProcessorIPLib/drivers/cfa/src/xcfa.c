@@ -35,7 +35,6 @@
 * @file xcfa.c
 * @addtogroup cfa_v7_0
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for CFA
 * core. Refer to the header file xcfa.h for more detailed information.

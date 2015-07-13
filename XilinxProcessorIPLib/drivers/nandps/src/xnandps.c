@@ -35,7 +35,6 @@
 * @file xnandps.c
 * @addtogroup nandps_v2_2
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for
 * XNandPs driver. Refer to the header file xnandps.h for more detailed

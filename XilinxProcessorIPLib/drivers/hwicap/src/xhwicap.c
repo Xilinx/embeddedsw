@@ -35,7 +35,6 @@
 * @file xhwicap.c
 * @addtogroup hwicap_v10_0
 * @{
-* @details
 *
 * This file contains the functions of the XHwIcap driver. See xhwicap.h for a
 * detailed description of the driver.

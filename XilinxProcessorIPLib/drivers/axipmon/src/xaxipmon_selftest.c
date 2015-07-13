@@ -35,7 +35,6 @@
 * @file xaxipmon_selftest.c
 * @addtogroup axipmon_v6_2
 * @{
-* @details
 *
 * This file contains a diagnostic self test function for the XAxiPmon driver.
 * The self test function does a simple read/write test of the Alarm Threshold

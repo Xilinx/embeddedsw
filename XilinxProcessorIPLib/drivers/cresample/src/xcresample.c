@@ -35,7 +35,6 @@
 * @file xcresample.c
 * @addtogroup cresample_v4_0
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for the
 * Chroma Resampler core. Refer to the header file xcresample.h for more

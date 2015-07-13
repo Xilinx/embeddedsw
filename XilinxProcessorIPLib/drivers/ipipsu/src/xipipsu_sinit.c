@@ -34,7 +34,6 @@
 * @file xipipsu_sinit.c
 * @addtogroup ipipsu_v1_0
 * @{
-* @details
 *
 * The implementation of the XIpiPsu component's static initialization
 * functionality.

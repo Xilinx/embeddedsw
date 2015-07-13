@@ -34,7 +34,6 @@
  * @file xstreamer.h
 * @addtogroup llfifo_v5_0
 * @{
-* @details
  *
  * The Xilinx byte streamer for packet FIFOs.
  *

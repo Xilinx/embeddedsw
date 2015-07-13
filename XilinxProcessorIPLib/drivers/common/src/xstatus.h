@@ -35,7 +35,6 @@
 * @file xstatus.h
 * @addtogroup common_v1_00_a
 * @{
-* @details
 *
 * This file contains Xilinx software status codes.  Status codes have their
 * own data type called int.  These codes are used throughout the Xilinx

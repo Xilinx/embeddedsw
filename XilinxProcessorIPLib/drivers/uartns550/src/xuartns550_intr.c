@@ -35,7 +35,6 @@
 * @file xuartns550_intr.c
 * @addtogroup uartns550_v3_3
 * @{
-* @details
 *
 * This file contains the functions that are related to interrupt processing
 * for the 16450/16550 UART driver.

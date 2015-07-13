@@ -35,7 +35,6 @@
 * @file xbram_intr.c
 * @addtogroup bram_v4_0
 * @{
-* @details
 *
 * Implements BRAM interrupt processing functions for the
 * XBram driver. See xbram.h for more information

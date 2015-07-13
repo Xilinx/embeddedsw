@@ -34,7 +34,6 @@
 * @file xmbox_g.c
 * @addtogroup mbox_v4_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of Mbox devices in the system.

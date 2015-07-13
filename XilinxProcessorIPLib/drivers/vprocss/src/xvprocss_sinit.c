@@ -35,7 +35,6 @@
 * @file xvprocss_sinit.c
 * @addtogroup vprocss_v1_0
 * @{
-* @details
 *
 * This file contains the implementation of the Video Processing Subsystem
 * driver's static initialization functionality.

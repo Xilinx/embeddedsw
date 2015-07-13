@@ -35,7 +35,6 @@
 * @file xaxis_switch_hw.h
 * @addtogroup axis_switch_v1_0
 * @{
-* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx AXI4-Stream Switch Control

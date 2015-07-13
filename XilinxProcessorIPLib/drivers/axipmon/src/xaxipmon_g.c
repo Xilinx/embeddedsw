@@ -35,7 +35,6 @@
 * @file xaxipmon_g.c
 * @addtogroup axipmon_v6_2
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of AxiMon devices in the system.

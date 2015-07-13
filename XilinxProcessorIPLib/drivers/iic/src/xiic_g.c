@@ -35,7 +35,6 @@
 * @file xiic_g.c
 * @addtogroup iic_v3_1
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * IIC devices in the system. Each IIC device should have an entry in this table.

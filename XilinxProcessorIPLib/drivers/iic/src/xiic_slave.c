@@ -35,7 +35,6 @@
 * @file xiic_slave.c
 * @addtogroup iic_v3_1
 * @{
-* @details
 *
 * Contains slave functions for the XIic component. This file is necessary when
 * slave operations, sending and receiving data as a slave on the IIC bus,

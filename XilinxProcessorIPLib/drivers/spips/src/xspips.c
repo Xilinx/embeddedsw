@@ -35,7 +35,6 @@
 * @file xspips.c
 * @addtogroup spips_v3_0
 * @{
-* @details
 *
 * Contains implements the interface functions of the XSpiPs driver.
 * See xspips.h for a detailed description of the device and driver.

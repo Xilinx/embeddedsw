@@ -35,7 +35,6 @@
 * @file xaxicdma_g.c
 * @addtogroup axicdma_v3_0
 * @{
-* @details
 *
 * Provide a template for user to define their own hardware settings.
 *

@@ -35,7 +35,6 @@
 * @file xqspipsu_hw.h
 * @addtogroup qspipsu_v1_0
 * @{
-* @details
 *
 * This file contains low level access funcitons using the base address
 * directly without an instance.

@@ -35,7 +35,6 @@
 * @file XDeint_g.c
 * @addtogroup deinterlacer_v3_2
 * @{
-* @details
 *
 * This file contains a template for configuration table of Xilinx Video
 * Deinterlacer For a real hardware system, Xilinx Platform Studio (XPS) will

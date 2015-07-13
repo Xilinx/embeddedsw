@@ -34,7 +34,6 @@
  * @file xusbps.c
 * @addtogroup usbps_v2_2
 * @{
-* @details
  *
  * The XUsbPs driver. Functions in this file are the minimum required
  * functions for this driver. See xusbps.h for a detailed description of the

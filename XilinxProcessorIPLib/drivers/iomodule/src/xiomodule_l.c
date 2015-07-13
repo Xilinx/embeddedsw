@@ -35,7 +35,6 @@
 * @file xiomodule_l.c
 * @addtogroup iomodule_v2_1
 * @{
-* @details
 *
 * This file contains low-level driver functions that can be used to access the
 * device.  The user should refer to the hardware device specification for more

@@ -35,7 +35,6 @@
 * @file xaxidma_bdring.h
 * @addtogroup axidma_v8_1
 * @{
-* @details
 *
 * This file contains DMA channel related structure and constant definition
 * as well as function prototypes. Each DMA channel is managed by a Buffer

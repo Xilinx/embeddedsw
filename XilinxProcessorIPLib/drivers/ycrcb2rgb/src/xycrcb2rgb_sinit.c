@@ -35,7 +35,6 @@
 * @file xycrcb2rgb_sinit.c
 * @addtogroup ycrcb2rgb_v7_0
 * @{
-* @details
 *
 * This file contains static initialization methods for Xilinx YCRCB2RGB core.
 *

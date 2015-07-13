@@ -35,7 +35,6 @@
 * @file xccm.c
 * @addtogroup ccm_v6_0
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for CCM
 * driver. Refer to the header file xccm.h for more detailed information.

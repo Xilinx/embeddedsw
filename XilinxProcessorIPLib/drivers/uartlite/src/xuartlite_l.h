@@ -35,7 +35,6 @@
 * @file xuartlite_l.h
 * @addtogroup uartlite_v3_0
 * @{
-* @details
 *
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the device.  High-level driver functions

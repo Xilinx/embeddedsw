@@ -35,7 +35,6 @@
 * @file xuartns550_format.c
 * @addtogroup uartns550_v3_3
 * @{
-* @details
 *
 * This file contains the data format functions for the 16450/16550 UART driver.
 * The data format functions allow the baud rate, number of data bits, number

@@ -34,7 +34,6 @@
 * @file xaxipcie_intr.c
 * @addtogroup axipcie_v3_0
 * @{
-* @details
 *
 * This file implements interrupt functions for the XAxiPcie IP
 *

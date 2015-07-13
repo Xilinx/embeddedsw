@@ -35,7 +35,6 @@
 * @file xadcps.c
 * @addtogroup xadcps_v2_2
 * @{
-* @details
 *
 * This file contains the driver API functions that can be used to access
 * the XADC device.

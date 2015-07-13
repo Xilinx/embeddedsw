@@ -35,7 +35,6 @@
 * @file xiomodule_g.c
 * @addtogroup iomodule_v2_1
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * interrupt controller devices in the system.

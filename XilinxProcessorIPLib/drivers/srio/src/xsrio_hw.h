@@ -35,7 +35,6 @@
 * @file xsrio_hw.h
 * @addtogroup srio_v1_0
 * @{
-* @details
 *
 * This header file contains identifiers and macros that can be used to access
 * the Axi srio gen2 device. The driver APIs/functions are defined in

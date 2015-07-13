@@ -35,7 +35,6 @@
 * @file xbram_g.c
 * @addtogroup bram_v4_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of BRAM devices in the system.

@@ -35,7 +35,6 @@
 * @file xtft_charcode.h
 * @addtogroup tft_v5_0
 * @{
-* @details
 *
 * This file contains the macro and variable definitions of character
 * dimensions and character array of bitmaps of ASCII characters.

@@ -35,7 +35,6 @@
 * @file xnandps_g.c
 * @addtogroup nandps_v2_2
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of NAND flash devices in the system.

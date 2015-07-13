@@ -35,7 +35,6 @@
 * @file xdeint_intr.c
 * @addtogroup deinterlacer_v3_2
 * @{
-* @details
 *
 * This code contains interrupt related functions of Xilinx Video
 * Deinterlacer (DEINT) core. Please see xdeint.h for more details of the core.

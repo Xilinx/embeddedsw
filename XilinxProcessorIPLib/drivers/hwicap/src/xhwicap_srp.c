@@ -35,7 +35,6 @@
 * @file xhwicap_srp.c
 * @addtogroup hwicap_v10_0
 * @{
-* @details
 *
 * This file contains the functions of the XHwIcap driver used to access the
 * configuration memory of the Xilinx FPGAs through the ICAP port.

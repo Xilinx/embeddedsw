@@ -35,7 +35,6 @@
 * @file xdeint_sinit.c
 * @addtogroup deinterlacer_v3_2
 * @{
-* @details
 *
 * This file contains static initialization methods for Xilinx Video
 * Deinterlacer (DEINT) core driver.

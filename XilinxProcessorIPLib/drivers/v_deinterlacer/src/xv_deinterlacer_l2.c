@@ -35,7 +35,6 @@
 * @file xv_deinterlacer_l2.c
 * @addtogroup v_deinterlacer_v5_0
 * @{
-* @details
 *
 * The deint Layer-2 Driver. The functions in this file provides an abstraction
 * from the register peek/poke methodology by implementing most common use-case

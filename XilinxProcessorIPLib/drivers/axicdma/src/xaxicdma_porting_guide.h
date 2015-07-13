@@ -35,7 +35,6 @@
 * @file xaxicdma_porting_guide.h
 * @addtogroup axicdma_v3_0
 * @{
-* @details
 *
 * This is a guide on how to move from using the XPS Central DMA driver,
 * dmacentral, to use xaxidma driver.

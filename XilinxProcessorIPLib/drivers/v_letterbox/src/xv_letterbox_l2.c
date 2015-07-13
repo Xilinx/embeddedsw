@@ -35,7 +35,6 @@
 * @file xv_letterbox_l2.c
 * @addtogroup v_letterbox_v1_0
 * @{
-* @details
 *
 * The Letterbox Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke

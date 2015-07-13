@@ -35,7 +35,6 @@
  * @file xdptx_spm.c
 * @addtogroup dptx_v3_0
 * @{
-* @details
  *
  * This file contains the stream policy maker functions for the XDptx driver.
  * These functions set up the DisplayPort TX core's main stream attributes that

@@ -35,7 +35,6 @@
 * @file xaxivdma_sinit.c
 * @addtogroup axivdma_v5_1
 * @{
-* @details
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xaxivdma_g.c, generated automatically by XPS or

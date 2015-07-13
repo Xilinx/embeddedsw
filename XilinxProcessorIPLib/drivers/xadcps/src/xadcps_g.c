@@ -35,7 +35,6 @@
 * @file xadcps_g.c
 * @addtogroup xadcps_v2_2
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of XADC devices in the system when accessing through the Device Config

@@ -44,7 +44,6 @@
  * @file xusb.c
 * @addtogroup usb_v5_0
 * @{
-* @details
  *
  * The XUsb driver. Functions in this file are the minimum required functions
  * for this driver. See xusb.h for a detailed description of the driver.

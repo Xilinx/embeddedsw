@@ -35,7 +35,6 @@
 * @file xuartns550_sinit.c
 * @addtogroup uartns550_v3_3
 * @{
-* @details
 *
 * The implementation of the XUartNs550 component's static initialzation
 * functionality.

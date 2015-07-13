@@ -35,7 +35,6 @@
 * @file xzdma_hw.h
 * @addtogroup zdma_v1_0
 * @{
-* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx ZDMA core.

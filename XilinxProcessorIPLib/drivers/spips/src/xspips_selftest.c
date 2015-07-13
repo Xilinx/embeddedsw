@@ -35,7 +35,6 @@
 * @file xspips_selftest.c
 * @addtogroup spips_v3_0
 * @{
-* @details
 *
 * This component contains the implementation of selftest functions for an SPI
 * device.

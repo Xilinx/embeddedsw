@@ -35,7 +35,6 @@
 * @file xiic_dyn_master.c
 * @addtogroup iic_v3_1
 * @{
-* @details
 *
 * Contains master functions for the XIic component in Dynamic controller mode.
 * This file is necessary to send or receive as a master on the IIC bus.

@@ -35,7 +35,6 @@
 * @file xscutimer.c
 * @addtogroup scutimer_v2_1
 * @{
-* @details
 *
 * Contains the implementation of interface functions of the SCU Timer driver.
 * See xscutimer.h for a description of the driver.

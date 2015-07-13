@@ -35,7 +35,6 @@
 * @file xmbox_sinit.c
 * @addtogroup mbox_v4_0
 * @{
-* @details
 *
 * Implements static initialization
 * See xmbox.h for more information about the component.

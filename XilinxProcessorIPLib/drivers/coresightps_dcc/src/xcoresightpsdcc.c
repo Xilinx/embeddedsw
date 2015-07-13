@@ -35,7 +35,6 @@
 * @file xcoresightpsdcc.c
 * @addtogroup coresightps_dcc_v1_0
 * @{
-* @details
 *
 * Functions in this file are the minimum required functions for the
 * XCoreSightPs driver.

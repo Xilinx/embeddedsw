@@ -35,7 +35,6 @@
 * @file xtrafgen_hw.h
 * @addtogroup trafgen_v3_2
 * @{
-* @details
 *
 * This header file contains identifiers and macros that can be used to access
 * the Axi Traffic Generator device. The driver APIs/functions are defined in

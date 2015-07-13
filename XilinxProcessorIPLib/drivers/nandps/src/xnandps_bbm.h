@@ -35,7 +35,6 @@
 * @file xnandps_bbm.h
 * @addtogroup nandps_v2_2
 * @{
-* @details
 *
 * This file implements the Bad Block Management(BBM) functionality. This is
 * similar to the Bad Block Management which is a part of the MTD subsystem in

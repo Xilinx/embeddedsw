@@ -35,7 +35,6 @@
 * @file xtmrctr_i.h
 * @addtogroup tmrctr_v3_0
 * @{
-* @details
 *
 * This file contains data which is shared between files internal to the
 * XTmrCtr component. It is intended for internal use only.

@@ -35,7 +35,6 @@
  * @file xdptx_hw.h
 * @addtogroup dptx_v3_0
 * @{
-* @details
  *
  * This header file contains the identifiers and low-level driver functions (or
  * macros) that can be used to access the device. High-level driver functions

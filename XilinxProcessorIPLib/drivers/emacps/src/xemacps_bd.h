@@ -35,7 +35,6 @@
  * @file xemacps_bd.h
 * @addtogroup emacps_v3_0
 * @{
-* @details
  *
  * This header provides operations to manage buffer descriptors in support
  * of scatter-gather DMA.

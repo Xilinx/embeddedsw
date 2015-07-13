@@ -35,7 +35,6 @@
 * @file xcan_g.c
 * @addtogroup can_v3_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of CAN devices in the system.

@@ -35,7 +35,6 @@
 * @file xwdtps_sinit.c
 * @addtogroup wdtps_v3_0
 * @{
-* @details
 *
 * This file contains method for static initialization (compile-time) of the
 * driver.

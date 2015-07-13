@@ -35,7 +35,6 @@
 * @file xdualsplitter_intr.c
 * @addtogroup dual_splitter_v1_0
 * @{
-* @details
 *
 * This file contains interrupt related functions for Xilinx Dual Splitter
 * core. Please see xdualsplitter.h for more details of the core.

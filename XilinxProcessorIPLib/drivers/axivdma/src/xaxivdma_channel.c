@@ -35,7 +35,6 @@
 * @file xaxivdma_channel.c
 * @addtogroup axivdma_v5_1
 * @{
-* @details
 *
 * Implementation of the channel related functions. These functions are used
 * internally by the driver, and are declared in xaxivdma_i.h.

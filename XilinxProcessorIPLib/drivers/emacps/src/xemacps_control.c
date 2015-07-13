@@ -35,7 +35,6 @@
  * @file xemacps_control.c
 * @addtogroup emacps_v3_0
 * @{
-* @details
  *
  * Functions in this file implement general purpose command and control related
  * functionality. See xemacps.h for a detailed description of the driver.

@@ -35,7 +35,6 @@
 * @file xnandps_hw.h
 * @addtogroup nandps_v2_2
 * @{
-* @details
 *
 * This file contains identifiers and low-level macros/functions for the NAND
 * Flash controller driver.

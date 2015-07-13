@@ -35,7 +35,6 @@
 * @file xsrio_sinit.c
 * @addtogroup srio_v1_0
 * @{
-* @details
 * 
 * This file contains static Initialization functionality for Xilinx SRIO Gen2
 * Core driver.

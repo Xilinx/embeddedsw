@@ -35,7 +35,6 @@
 * @file xttcps_hw.h
 * @addtogroup ttcps_v3_0
 * @{
-* @details
 *
 * This file defines the hardware interface to one of the three timer counters
 * in the Ps block.

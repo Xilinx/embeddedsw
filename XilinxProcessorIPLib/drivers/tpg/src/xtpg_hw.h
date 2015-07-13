@@ -35,7 +35,6 @@
 * @file xtpg_hw.h
 * @addtogroup tpg_v3_0
 * @{
-* @details
 *
 * This header file contains the hardware register offsets and register bit
 * definitions for the Xilinx Test Pattern Generator (TPG) core.

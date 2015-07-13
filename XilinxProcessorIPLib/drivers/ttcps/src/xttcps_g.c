@@ -35,7 +35,6 @@
 * @file xttcps_g.c
 * @addtogroup ttcps_v3_0
 * @{
-* @details
 *
 * This file contains a configuration table where each entry is the
 * configuration information for one timer counter device in the system.

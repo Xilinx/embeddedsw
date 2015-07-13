@@ -35,7 +35,6 @@
  * @file xaxidma_bd.c
 * @addtogroup axidma_v8_1
 * @{
-* @details
  *
  * Buffer descriptor (BD) management API implementation.
  *

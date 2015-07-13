@@ -35,7 +35,6 @@
 * @file xdualsplitter.c
 * @addtogroup dual_splitter_v1_0
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for
 * Dual Splitter core. Please refer to the header file xdualsplitter.h for

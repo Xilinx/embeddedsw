@@ -35,7 +35,6 @@
 * @file xuartlite_sinit.c
 * @addtogroup uartlite_v3_0
 * @{
-* @details
 *
 * The implementation of the XUartLite component's static initialzation
 * functionality.

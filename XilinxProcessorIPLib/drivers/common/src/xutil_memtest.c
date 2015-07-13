@@ -35,7 +35,6 @@
 * @file xutil_memtest.c
 * @addtogroup common_v1_00_a
 * @{
-* @details
 *
 * Contains the memory test utility functions.
 *

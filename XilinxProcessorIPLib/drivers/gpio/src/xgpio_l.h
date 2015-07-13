@@ -35,7 +35,6 @@
 * @file xgpio_l.h
 * @addtogroup gpio_v4_0
 * @{
-* @details
 *
 * This header file contains identifiers and driver functions (or
 * macros) that can be used to access the device.  The user should refer to the

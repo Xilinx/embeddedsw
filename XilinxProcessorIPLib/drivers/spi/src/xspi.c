@@ -35,7 +35,6 @@
 * @file xspi.c
 * @addtogroup spi_v4_1
 * @{
-* @details
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for
 * a detailed description of the device and driver.

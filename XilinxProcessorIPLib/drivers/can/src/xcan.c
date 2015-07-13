@@ -35,7 +35,6 @@
 * @file xcan.c
 * @addtogroup can_v3_0
 * @{
-* @details
 *
 * The XCan driver. Functions in this file are the minimum required functions
 * for this driver. See xcan.h for a detailed description of the driver.

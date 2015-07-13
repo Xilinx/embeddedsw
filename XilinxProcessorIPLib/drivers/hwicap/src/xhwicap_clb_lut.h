@@ -35,7 +35,6 @@
 * @file xhwicap_clb_lut.h
 * @addtogroup hwicap_v10_0
 * @{
-* @details
 *
 * This header file contains bit information about the CLB LUT resource.
 * This header file can be used with the XHwIcap_GetClbBits() and

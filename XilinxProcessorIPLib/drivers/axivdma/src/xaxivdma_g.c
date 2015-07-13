@@ -35,7 +35,6 @@
 * @file xaxivdma_g.c
 * @addtogroup axivdma_v5_1
 * @{
-* @details
 *
 * Provide a template for user to define their own hardware settings.
 *

@@ -35,7 +35,6 @@
 * @file xaxis_switch.c
 * @addtogroup axis_switch_v1_0
 * @{
-* @details
 *
 * This is the main file for Xilinx AXI4-Stream Switch Control Router core.
 * Please see xaxis_switch.h for more details of the driver.

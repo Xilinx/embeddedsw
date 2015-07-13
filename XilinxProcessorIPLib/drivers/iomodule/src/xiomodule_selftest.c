@@ -35,7 +35,6 @@
 * @file xiomodule_selftest.c
 * @addtogroup iomodule_v2_1
 * @{
-* @details
 *
 * Contains diagnostic self-test functions for the XIOModule component. This
 * file requires other files of the component to be linked in also.

@@ -35,7 +35,6 @@
 * @file xbasic_types.c
 * @addtogroup common_v1_00_a
 * @{
-* @details
 *
 * This file contains basic functions for Xilinx software IP.
 *

@@ -35,7 +35,6 @@
 * @file xscutimer_sinit.c
 * @addtogroup scutimer_v2_1
 * @{
-* @details
 *
 * This file contains method for static initialization (compile-time) of the
 * driver.

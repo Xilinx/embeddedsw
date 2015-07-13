@@ -35,7 +35,6 @@
 * @file xscutimer_g.c
 * @addtogroup scutimer_v2_1
 * @{
-* @details
 *
 * This file contains a table that specifies the configuration of the SCU
 * Timer in the system.

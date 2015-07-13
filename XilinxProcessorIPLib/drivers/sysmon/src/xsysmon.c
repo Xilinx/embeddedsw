@@ -35,7 +35,6 @@
 * @file xsysmon.c
 * @addtogroup sysmon_v7_1
 * @{
-* @details
 *
 * This file contains the driver API functions that can be used to access
 * the System Monitor/ADC device.

@@ -35,7 +35,6 @@
 * @file xv_csc_l2.c
 * @addtogroup v_csc_v1_0
 * @{
-* @details
 *
 * The CSC Layer-2 Driver. The functions in this file provides an abstraction
 * from the register peek/poke methodology by implementing most common use-case

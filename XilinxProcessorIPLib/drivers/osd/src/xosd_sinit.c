@@ -35,7 +35,6 @@
 * @file xosd_sinit.c
 * @addtogroup osd_v4_0
 * @{
-* @details
 *
 * This file contains the static initialization method for Xilinx Video
 * On-Screen-Display (OSD) core.

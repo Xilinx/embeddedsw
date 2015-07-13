@@ -35,7 +35,6 @@
 * @file xhwicap_i.h
 * @addtogroup hwicap_v10_0
 * @{
-* @details
 *
 * This head file contains internal identifiers, which are those shared
 * between the files of the driver.  It is intended for internal use

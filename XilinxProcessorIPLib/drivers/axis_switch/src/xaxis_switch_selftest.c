@@ -35,7 +35,6 @@
 * @file xaxis_switch_selftest.c
 * @addtogroup axis_switch_v1_0
 * @{
-* @details
 *
 * This file contains self test function for the AXI4-Stream Source Control
 * Router core.

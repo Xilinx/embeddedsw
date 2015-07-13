@@ -35,7 +35,6 @@
 * @file xparameters.h
 * @addtogroup common_v1_00_a
 * @{
-* @details
 *
 * This file contains system parameters for the Xilinx device driver environment.
 * It is a representation of the system in that it contains the number of each

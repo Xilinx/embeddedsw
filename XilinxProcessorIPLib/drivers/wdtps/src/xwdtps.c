@@ -35,7 +35,6 @@
 * @file xwdtps.c
 * @addtogroup wdtps_v3_0
 * @{
-* @details
 *
 * Contains the implementation of interface functions of the XWdtPs driver.
 * See xwdtps.h for a description of the driver.

@@ -35,7 +35,6 @@
 * @file xosd_selftest.c
 * @addtogroup osd_v4_0
 * @{
-* @details
 *
 * This file contains the self-test function for the OSD core.
 *

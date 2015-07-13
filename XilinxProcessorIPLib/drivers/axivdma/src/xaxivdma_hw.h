@@ -34,7 +34,6 @@
  *  @file xaxivdma_hw.h
 * @addtogroup axivdma_v5_1
 * @{
-* @details
  *
  * Hardware definition file. It defines the register interface and Buffer
  * Descriptor (BD) definitions.

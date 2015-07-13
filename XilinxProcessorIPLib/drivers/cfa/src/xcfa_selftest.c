@@ -35,7 +35,6 @@
 * @file xcfa_selftest.c
 * @addtogroup cfa_v7_0
 * @{
-* @details
 *
 * This file contains the self-test functions for the CFA core.
 * The self test function reads the Version register.

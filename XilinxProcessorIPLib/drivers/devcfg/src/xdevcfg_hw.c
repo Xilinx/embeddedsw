@@ -35,7 +35,6 @@
 * @file xdevcfg_hw.c
 * @addtogroup devcfg_v3_3
 * @{
-* @details
 *
 * This file contains the implementation of the interface reset functionality
 * <pre>

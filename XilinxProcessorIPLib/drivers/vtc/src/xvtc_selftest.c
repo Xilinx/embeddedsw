@@ -35,7 +35,6 @@
 * @file xvtc_selftest.c
 * @addtogroup vtc_v7_0
 * @{
-* @details
 *
 * This file contains the self test function for the VTC core.
 * The self test function reads the Version register.

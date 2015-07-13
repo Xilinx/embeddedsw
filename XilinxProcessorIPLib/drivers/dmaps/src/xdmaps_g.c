@@ -35,7 +35,6 @@
 * @file xdmaps_g.c
 * @addtogroup dmaps_v2_1
 * @{
-* @details
 *
 * This file contains a configuration table where each entry is a configuration
 * structure for an XDmaPs device in the system.

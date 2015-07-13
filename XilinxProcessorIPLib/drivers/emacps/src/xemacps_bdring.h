@@ -35,7 +35,6 @@
 * @file xemacps_bdring.h
 * @addtogroup emacps_v3_0
 * @{
-* @details
 *
 * The Xiline EmacPs Buffer Descriptor ring driver. This is part of EmacPs
 * DMA functionalities.

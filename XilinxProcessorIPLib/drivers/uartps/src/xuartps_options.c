@@ -35,7 +35,6 @@
 * @file xuartps_options.c
 * @addtogroup uartps_v3_1
 * @{
-* @details
 *
 * The implementation of the options functions for the XUartPs driver.
 *

@@ -34,7 +34,6 @@
 * @file xiicps_slave.c
 * @addtogroup iicps_v3_0
 * @{
-* @details
 *
 * Handles slave transfers
 *

@@ -35,7 +35,6 @@
 * @file xtpg_sinit.c
 * @addtogroup tpg_v3_0
 * @{
-* @details
 *
 * This file contains static initialization methods for Xilinx TPG core
 * driver.

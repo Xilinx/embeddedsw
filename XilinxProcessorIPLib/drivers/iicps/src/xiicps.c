@@ -35,7 +35,6 @@
 * @file xiicps.c
 * @addtogroup iicps_v3_0
 * @{
-* @details
 *
 * Contains implementation of required functions for the XIicPs driver.
 * See xiicps.h for detailed description of the device and driver.

@@ -46,7 +46,6 @@
 * @file xusb_g.c
 * @addtogroup usb_v5_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * the USB devices in the system.

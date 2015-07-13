@@ -35,7 +35,6 @@
 * @file xgpiops.c
 * @addtogroup gpiops_v3_1
 * @{
-* @details
 *
 * The XGpioPs driver. Functions in this file are the minimum required functions
 * for this driver. See xgpiops.h for a detailed description of the driver.

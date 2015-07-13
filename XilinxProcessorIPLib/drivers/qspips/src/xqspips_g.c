@@ -35,7 +35,6 @@
 * @file xqspips_g.c
 * @addtogroup qspips_v3_2
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * QSPI devices in the system.

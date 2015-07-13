@@ -35,7 +35,6 @@
 * @file xcanfd.c
 * @addtogroup canfd_v1_0
 * @{
-* @details
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
 * for this driver. See xcanfd.h for a detailed description of the driver.

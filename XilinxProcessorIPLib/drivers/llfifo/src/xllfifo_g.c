@@ -35,7 +35,6 @@
 * @file xtrafgen_g.c
 * @addtogroup llfifo_v5_0
 * @{
-* @details
 *
 * Provide a template for user to define their own hardware settings.
 *

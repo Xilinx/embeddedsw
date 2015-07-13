@@ -34,7 +34,6 @@
  *  @file xaxivdma_i.h
 * @addtogroup axivdma_v5_1
 * @{
-* @details
  *
  * Internal API definitions shared by driver files.
  *

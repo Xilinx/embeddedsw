@@ -35,7 +35,6 @@
 * @file xutil.h
 * @addtogroup common_v1_00_a
 * @{
-* @details
 *
 * This file contains utility functions such as memory test functions.
 *

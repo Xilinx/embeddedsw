@@ -35,7 +35,6 @@
 * @file xtrafgen_sinit.c
 * @addtogroup llfifo_v5_0
 * @{
-* @details
 *
 * This file contains static initialzation functionality for Axi Streaming FIFO
 * driver.

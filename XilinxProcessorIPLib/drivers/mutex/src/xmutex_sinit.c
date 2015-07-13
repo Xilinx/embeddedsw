@@ -35,7 +35,6 @@
 * @file xmutex_sinit.c
 * @addtogroup mutex_v4_0
 * @{
-* @details
 *
 * Implements static initialization
 * See xmutex.h for more information about the driver.

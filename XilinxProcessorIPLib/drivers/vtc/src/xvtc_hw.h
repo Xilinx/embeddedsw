@@ -35,7 +35,6 @@
 * @file xvtc_hw.h
 * @addtogroup vtc_v7_0
 * @{
-* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx VTC core.

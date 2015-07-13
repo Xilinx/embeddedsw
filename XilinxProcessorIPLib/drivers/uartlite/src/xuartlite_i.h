@@ -35,7 +35,6 @@
 * @file xuartlite_i.h
 * @addtogroup uartlite_v3_0
 * @{
-* @details
 *
 * Contains data which is shared between the files of the XUartLite component.
 * It is intended for internal use only.

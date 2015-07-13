@@ -35,7 +35,6 @@
  * @file xdptx_intr.c
 * @addtogroup dptx_v3_0
 * @{
-* @details
  *
  * This file contains functions related to XDptx interrupt handling.
  *

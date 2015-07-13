@@ -35,7 +35,6 @@
 * @file xv_vscaler_l2.h
 * @addtogroup v_vscaler_v1_0
 * @{
-* @details
 *
 * This header file contains layer 2 API's of the verrtical scaler sub-core
 * driver.The functions contained herein provides a high level implementation of

@@ -35,7 +35,6 @@
 * @file xiicps_master.c
 * @addtogroup iicps_v3_0
 * @{
-* @details
 *
 * Handles master mode transfers.
 *

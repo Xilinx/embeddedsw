@@ -35,7 +35,6 @@
 * @file xcan_intr.c
 * @addtogroup can_v3_0
 * @{
-* @details
 *
 * This file contains functions related to CAN interrupt handling.
 *

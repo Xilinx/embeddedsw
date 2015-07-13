@@ -35,7 +35,6 @@
 * @file xcanfd_selftest.c
 * @addtogroup canfd_v1_0
 * @{
-* @details
 *
 * This file contains a diagnostic self-test function for the XCanFd driver.
 *

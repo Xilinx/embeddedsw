@@ -35,7 +35,6 @@
 * @file xaxivdma_porting_guide.h
 * @addtogroup axivdma_v5_1
 * @{
-* @details
 *
 * This is a guide on how to move from using the xvdma driver to use xaxivdma
 * driver.

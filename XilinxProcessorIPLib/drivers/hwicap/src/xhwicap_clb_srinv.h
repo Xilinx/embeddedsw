@@ -35,7 +35,6 @@
 * @file xhwicap_clb_srinv.h
 * @addtogroup hwicap_v10_0
 * @{
-* @details
 *
 * This header file contains bit information about the CLB SRINV resource.
 * This header file can be used with the XHwIcap_GetClbBits() and

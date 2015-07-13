@@ -35,7 +35,6 @@
 * @file xrgb2ycrcb_sinit.c
 * @addtogroup rgb2ycrcb_v7_0
 * @{
-* @details
 *
 * This file contains static initialization function for RGB2YCRCB core.
 *

@@ -44,7 +44,6 @@
  * @file xusb_endpoint.c
 * @addtogroup usb_v5_0
 * @{
-* @details
  *
  * This file contains the USB end point related function definitions.
  *

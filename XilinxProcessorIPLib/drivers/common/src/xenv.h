@@ -35,7 +35,6 @@
 * @file xenv.h
 * @addtogroup common_v1_00_a
 * @{
-* @details
 *
 * Defines common services that are typically found in a host operating.
 * environment. This include file simply includes an OS specific file based

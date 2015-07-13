@@ -35,7 +35,6 @@
 * @file xipipsu.c
 * @addtogroup ipipsu_v1_0
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for XIpiPsu
 * driver. Refer to the header file xipipsu.h for more detailed information.

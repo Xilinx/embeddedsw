@@ -35,7 +35,6 @@
 * @file xgpiops_g.c
 * @addtogroup gpiops_v3_1
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of GPIO devices in the system.

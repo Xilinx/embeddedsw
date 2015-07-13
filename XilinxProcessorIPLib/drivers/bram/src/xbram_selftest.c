@@ -34,7 +34,6 @@
 * @file xbram_selftest.c
 * @addtogroup bram_v4_0
 * @{
-* @details
 *
 * The implementation of the XBram driver's self test function. This SelfTest
 * is only applicable if ECC is enabled.

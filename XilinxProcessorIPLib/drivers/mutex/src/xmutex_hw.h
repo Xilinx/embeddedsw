@@ -35,7 +35,6 @@
 * @file xmutex_hw.h
 * @addtogroup mutex_v4_0
 * @{
-* @details
 *
 * This header file contains identifiers/definitions and macros that can be used
 * to access the device.  The user should refer to the hardware device

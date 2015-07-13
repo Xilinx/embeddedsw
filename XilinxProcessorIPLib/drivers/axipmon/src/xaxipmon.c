@@ -35,7 +35,6 @@
 * @file xaxipmon.c
 * @addtogroup axipmon_v6_2
 * @{
-* @details
 *
 * This file contains the driver API functions that can be used to access
 * the AXI Performance Monitor device.

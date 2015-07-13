@@ -35,7 +35,6 @@
 * @file xaxipmon_hw.h
 * @addtogroup axipmon_v6_2
 * @{
-* @details
 *
 * This header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the AXI Performance Monitor.

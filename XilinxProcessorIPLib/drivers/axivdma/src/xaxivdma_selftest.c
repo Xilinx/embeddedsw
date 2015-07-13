@@ -35,7 +35,6 @@
 * @file xaxivdma_selftest.c
 * @addtogroup axivdma_v5_1
 * @{
-* @details
 *
 * Contains diagnostic/self-test functions for the XAxiVdma component.
 *

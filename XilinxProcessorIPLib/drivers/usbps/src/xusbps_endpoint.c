@@ -34,7 +34,6 @@
  * @file xusbps_endpoint.c
 * @addtogroup usbps_v2_2
 * @{
-* @details
  *
  * Endpoint specific function implementations.
  *

@@ -35,7 +35,6 @@
 * @file xzdma.c
 * @addtogroup zdma_v1_0
 * @{
-* @details
 *
 * This file contains the implementation of the interface functions for ZDMA
 * driver. Refer to the header file xzdma.h for more detailed information.

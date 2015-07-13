@@ -45,7 +45,6 @@
 * @file xusb_l.h
 * @addtogroup usb_v5_0
 * @{
-* @details
 *
 * This header file contains identifiers and low-level driver function prototypes
 * (or macros) that can be used to access the USB device. High-level driver

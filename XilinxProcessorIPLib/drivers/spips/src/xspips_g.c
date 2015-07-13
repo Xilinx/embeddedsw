@@ -35,7 +35,6 @@
 * @file xspips_g.c
 * @addtogroup spips_v3_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration of
 * SPI devices in the system.
