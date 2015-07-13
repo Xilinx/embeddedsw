@@ -503,3 +503,23 @@ static inline u32 XpbrPwrUpUsb1Handler(void)
 {
 	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPUSB1]();
 }
+
+static inline u32 XpbrPwrDnPp0Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRDNPP0]();
+}
+
+static inline u32 XpbrPwrDnPp1Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRDNPP1]();
+}
+
+static inline u32 XpbrPwrUpPp0Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP0]();
+}
+
+static inline u32 XpbrPwrUpPp1Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP1]();
+}
