@@ -31,26 +31,20 @@
 ###############################################################################
 
 include config.make
-AS=arm-none-eabi-as
-CC=arm-none-eabi-gcc
-AR=arm-none-eabi-ar
+CC=$(COMPILER)
+AR=$(ARCHIVER)
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
-LIB=libxil.a
-
 CC_FLAGS = $(subst -pg, -DPROFILING, $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, -DPROFILING, $(EXTRA_COMPILER_FLAGS))
 
-ifeq ($(COMPILER) , arm-eabi-gcc)
- ECC_FLAGS	=	+= -nostartfiles
+ifeq ($(notdir $(CC))), armr5-none-eabi-gcc)
+ECC_FLAGS	+= -nostartfiles\
+		+=  -mfloat-abi=soft
 endif
-
-#The following flags are required for PEEP. We can remove them later
-ECC_FLAGS	+= -mcpu=cortex-r5 \
-		  -mfloat-abi=soft \
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
@@ -66,7 +60,7 @@ libs: $(LIBS)
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone R5"
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
+	$(AR) -r ${RELEASEDIR}/${LIB} ${OUTS}
 
 .PHONY: include
 include: standalone_includes
@@ -76,4 +70,4 @@ standalone_includes:
 
 clean:
 	rm -rf ${OUTS}
-	$(MAKE) -C COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(ARCHIVER)" AS="$(AS)" clean
+	$(MAKE) -C COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" clean
