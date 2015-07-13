@@ -55,6 +55,8 @@
 *                     XEmacLite_AlignedRead functions to use volatile
 *                     variables so that they are not optimized.
 * 3.00a ktn  10/22/09 The macros have been renamed to remove _m from the name.
+* 4.1   nsk  07/13/15 Added Length check in XEmacLite_AlignedWrite function
+*                     to avoid extra write operation (CR 843707).
 *
 * </pre>
 *
@@ -367,9 +369,9 @@ void XEmacLite_AlignedWrite(void *SrcPtr, u32 *DestPtr, unsigned ByteCount)
 	for (Index = 0; Index < Length; Index++) {
 		*To8Ptr++ = *From8Ptr++;
 	}
-
-	*To32Ptr++ = AlignBuffer;
-
+	if (Length) {
+		*To32Ptr++ = AlignBuffer;
+	}
 }
 
 /******************************************************************************/

@@ -193,6 +193,9 @@
 *		      driver is compiled with ARM toolchain.
 * 3.04a srt  04/13/13 Removed warnings (CR 705000).
 * 4.0   adk  19/12/13 Updated as per the New Tcl API's
+* 4.1	nsk  07/13/15 Added Length check in XEmacLite_AlignedWrite function
+*		      in xemaclite_l.c file to avoid extra write operation
+*		      (CR 843707).
 *
 * </pre>
 *
