@@ -229,6 +229,14 @@ DSTATUS disk_initialize (
 
 	XSdPs_Config *SdConfig;
 
+	/*
+	 * Check if card is in the socket
+	 */
+	s = disk_status(pdrv);
+	if ((s & STA_NODISK) != 0U) {
+		return s;
+	}
+
 	if (CardDetect) {
 			/*
 			 * Card detection check
@@ -241,14 +249,6 @@ DSTATUS disk_initialize (
 					(XSDPS_PSR_CARD_DPL_MASK |
 					XSDPS_PSR_CARD_STABLE_MASK |
 					XSDPS_PSR_CARD_INSRT_MASK))));
-	}
-
-	/*
-	 * Check if card is in the socket
-	 */
-	s = disk_status(pdrv);
-	if ((s & STA_NODISK) != 0U) {
-		return s;
 	}
 
 	/*
