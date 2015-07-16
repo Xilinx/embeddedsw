@@ -45,6 +45,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
+* 1.00  sha 07/15/15 Defined macro XPAR_XAXIS_SWITCH_NUM_INSTANCES if not
+*                    defined in xparameters.h
 * </pre>
 *
 ******************************************************************************/
@@ -56,6 +58,9 @@
 
 /************************** Constant Definitions *****************************/
 
+#ifndef XPAR_XAXIS_SWITCH_NUM_INSTANCES
+#define XPAR_XAXIS_SWITCH_NUM_INSTANCES			0
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
