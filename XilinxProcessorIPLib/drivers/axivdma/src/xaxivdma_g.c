@@ -57,6 +57,8 @@
 * 4.03a srt  01/18/13 Added TDATA_WIDTH parameters (CR: 691866)
 * 4.04a srt	 03/03/13 Support for *_ENABLE_DEBUG_INFO_* debug configuration
 *			parameters (CR: 703738)
+* 5.1   sha  07/15/15 Added XPAR_XAXIVDMA_NUM_INSTANCES macro to control
+*		      config table parameters.
 *
 * </pre>
 *
@@ -72,6 +74,7 @@
 XAxiVdma_Config XAxiVdma_ConfigTable[] =
 {
 	{
+#ifdef XPAR_XAXIVDMA_NUM_INSTANCES
 		XPAR_AXIVDMA_0_DEVICE_ID,
 		XPAR_AXIVDMA_0_BASEADDR,
 		XPAR_AXIVDMA_0_NUM_FSTORES,
@@ -102,6 +105,7 @@ XAxiVdma_Config XAxiVdma_ConfigTable[] =
 		XPAR_AXIVDMA_0_ENABLE_DEBUG_INFO_14,
 		XPAR_AXIVDMA_0_ENABLE_DEBUG_INFO_15,
 		XPAR_AXIVDMA_0_ENABLE_DEBUG_ALL
+#endif
 	}
 };
 /** @} */
