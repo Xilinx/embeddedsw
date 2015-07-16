@@ -49,6 +49,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 2.01a jvb  10/13/05 First release
 * 2.11a mta  03/21/07 Updated to new coding style
+* 4.0   sha  07/15/15 Defined macro XPAR_XGPIO_NUM_INSTANCES if not
+*		      defined in xparameters.h
 * </pre>
 *
 *****************************************************************************/
@@ -60,6 +62,10 @@
 #include "xgpio_i.h"
 
 /************************** Constant Definitions ****************************/
+
+#ifndef XPAR_XGPIO_NUM_INSTANCES
+#define XPAR_XGPIO_NUM_INSTANCES		0
+#endif
 
 /**************************** Type Definitions ******************************/
 
