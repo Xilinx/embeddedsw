@@ -35,6 +35,7 @@
 * @file xv_deinterlacer_l2.h
 * @addtogroup v_deinterlacer_v5_0
 * @{
+* @details
 *
 * This header file contains layer 2 API's of the deint sub-core driver.
 * The functions contained herein provides a high level implementation of features
@@ -85,7 +86,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -114,5 +115,5 @@ void XV_DeintSetFieldBuffers(XV_deinterlacer   *InstancePtr,
 void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr);
 
 
-#endif /* XSS_DEINT_H_ */
+#endif
 /** @} */

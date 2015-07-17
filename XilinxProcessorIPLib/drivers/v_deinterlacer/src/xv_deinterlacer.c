@@ -11,16 +11,21 @@
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
-int XV_deinterlacer_CfgInitialize(XV_deinterlacer *InstancePtr, XV_deinterlacer_Config *ConfigPtr) {
+int XV_deinterlacer_CfgInitialize(XV_deinterlacer *InstancePtr,
+                                  XV_deinterlacer_Config *ConfigPtr,
+                                  u32 EffectiveAddr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
 
-	/* Setup the instance */
-	(void)memset((void *)InstancePtr, 0, sizeof(XV_deinterlacer));
-	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
-					sizeof(XV_deinterlacer_Config));
+    /* Setup the instance */
+    (void)memset((void *)InstancePtr, 0, sizeof(XV_deinterlacer));
+    (void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+                    sizeof(XV_deinterlacer_Config));
 
-    InstancePtr->Axilites_BaseAddress = ConfigPtr->Axilites_BaseAddress;
+    InstancePtr->Config.BaseAddress = EffectiveAddr;
+
+    /* Set the flag to indicate the driver is ready */
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
     return XST_SUCCESS;
@@ -33,8 +38,8 @@ void XV_deinterlacer_Start(XV_deinterlacer *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL) & 0x80;
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL, Data | 0x01);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL) & 0x80;
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL, Data | 0x01);
 }
 
 u32 XV_deinterlacer_IsDone(XV_deinterlacer *InstancePtr) {
@@ -43,7 +48,7 @@ u32 XV_deinterlacer_IsDone(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
     return (Data >> 1) & 0x1;
 }
 
@@ -53,7 +58,7 @@ u32 XV_deinterlacer_IsIdle(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
     return (Data >> 2) & 0x1;
 }
 
@@ -63,7 +68,7 @@ u32 XV_deinterlacer_IsReady(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
     // check ap_start to see if the pcore is ready for next input
     return !(Data & 0x1);
 }
@@ -72,21 +77,21 @@ void XV_deinterlacer_EnableAutoRestart(XV_deinterlacer *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL, 0x80);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL, 0x80);
 }
 
 void XV_deinterlacer_DisableAutoRestart(XV_deinterlacer *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL, 0);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL, 0);
 }
 
 void XV_deinterlacer_Set_read_fb(XV_deinterlacer *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_READ_FB_DATA, Data);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_READ_FB_DATA, Data);
 }
 
 u32 XV_deinterlacer_Get_read_fb(XV_deinterlacer *InstancePtr) {
@@ -95,7 +100,7 @@ u32 XV_deinterlacer_Get_read_fb(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_READ_FB_DATA);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_READ_FB_DATA);
     return Data;
 }
 
@@ -103,7 +108,7 @@ void XV_deinterlacer_Set_write_fb(XV_deinterlacer *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_WRITE_FB_DATA, Data);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_WRITE_FB_DATA, Data);
 }
 
 u32 XV_deinterlacer_Get_write_fb(XV_deinterlacer *InstancePtr) {
@@ -112,7 +117,7 @@ u32 XV_deinterlacer_Get_write_fb(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_WRITE_FB_DATA);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_WRITE_FB_DATA);
     return Data;
 }
 
@@ -120,7 +125,7 @@ void XV_deinterlacer_Set_colorFormat(XV_deinterlacer *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_COLORFORMAT_DATA, Data);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_COLORFORMAT_DATA, Data);
 }
 
 u32 XV_deinterlacer_Get_colorFormat(XV_deinterlacer *InstancePtr) {
@@ -129,7 +134,7 @@ u32 XV_deinterlacer_Get_colorFormat(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_COLORFORMAT_DATA);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_COLORFORMAT_DATA);
     return Data;
 }
 
@@ -137,7 +142,7 @@ void XV_deinterlacer_Set_algo(XV_deinterlacer *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ALGO_DATA, Data);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ALGO_DATA, Data);
 }
 
 u32 XV_deinterlacer_Get_algo(XV_deinterlacer *InstancePtr) {
@@ -146,7 +151,7 @@ u32 XV_deinterlacer_Get_algo(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ALGO_DATA);
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ALGO_DATA);
     return Data;
 }
 
@@ -154,14 +159,14 @@ void XV_deinterlacer_InterruptGlobalEnable(XV_deinterlacer *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_GIE, 1);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_GIE, 1);
 }
 
 void XV_deinterlacer_InterruptGlobalDisable(XV_deinterlacer *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_GIE, 0);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_GIE, 0);
 }
 
 void XV_deinterlacer_InterruptEnable(XV_deinterlacer *InstancePtr, u32 Mask) {
@@ -170,8 +175,8 @@ void XV_deinterlacer_InterruptEnable(XV_deinterlacer *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER);
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER, Register | Mask);
+    Register =  XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER, Register | Mask);
 }
 
 void XV_deinterlacer_InterruptDisable(XV_deinterlacer *InstancePtr, u32 Mask) {
@@ -180,27 +185,27 @@ void XV_deinterlacer_InterruptDisable(XV_deinterlacer *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER);
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER, Register & (~Mask));
+    Register =  XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER, Register & (~Mask));
 }
 
 void XV_deinterlacer_InterruptClear(XV_deinterlacer *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_deinterlacer_WriteReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ISR, Mask);
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ISR, Mask);
 }
 
 u32 XV_deinterlacer_InterruptGetEnabled(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER);
+    return XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_IER);
 }
 
 u32 XV_deinterlacer_InterruptGetStatus(XV_deinterlacer *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_deinterlacer_ReadReg(InstancePtr->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ISR);
+    return XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_ISR);
 }

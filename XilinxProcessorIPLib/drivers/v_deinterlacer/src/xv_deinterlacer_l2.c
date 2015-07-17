@@ -35,6 +35,7 @@
 * @file xv_deinterlacer_l2.c
 * @addtogroup v_deinterlacer_v5_0
 * @{
+* @details
 *
 * The deint Layer-2 Driver. The functions in this file provides an abstraction
 * from the register peek/poke methodology by implementing most common use-case
@@ -46,7 +47,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -109,8 +110,8 @@ void XV_DeintStop(XV_deinterlacer *InstancePtr)
 *
 ******************************************************************************/
 void XV_DeintSetFieldBuffers(XV_deinterlacer   *InstancePtr,
-							  u32               memAddr,
-							  XVidC_ColorFormat cformat)
+                              u32               memAddr,
+                              XVidC_ColorFormat cformat)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
@@ -145,7 +146,7 @@ void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr)
   done  = XV_deinterlacer_IsDone(pDeint);
   idle  = XV_deinterlacer_IsIdle(pDeint);
   ready = XV_deinterlacer_IsReady(pDeint);
-  ctrl  = XV_deinterlacer_ReadReg(pDeint->Axilites_BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
+  ctrl  = XV_deinterlacer_ReadReg(pDeint->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
 
   rfb  = XV_deinterlacer_Get_read_fb(pDeint);
   wfb  = XV_deinterlacer_Get_write_fb(pDeint);
