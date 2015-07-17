@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_router.c
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 
 * Video buffer management routine.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -45,7 +46,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/18/15   Initial Release
+* 1.00  rco  07/21/15   Initial Release
 
 * </pre>
 *
@@ -54,7 +55,8 @@
 /***************************** Include Files *********************************/
 #include "xvidc.h"
 #include "xvprocss_router.h"
-#include "xvprocss_dma.h"
+#include "xvprocss_vdma.h"
+
 /************************** Constant Definitions *****************************/
 /* AXIS Switch Port# connected to input stream */
 #define AXIS_SWITCH_VIDIN_S0              (0)
@@ -156,8 +158,8 @@ static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss)
     XVprocss_GetZoomPipWindow(pVprocss, XVPROCSS_ZOOM_WIN, &win);
     /* validate window */
     status = validateWindowSize(&win,
-	                        pStrIn->Timing.HActive,
-	                        pStrIn->Timing.VActive);
+	                            pStrIn->Timing.HActive,
+	                            pStrIn->Timing.VActive);
     if(status != XST_SUCCESS)
     {
       xil_printf("ERR:: VDMA Read Channel Window Invalid \r\n");
@@ -564,11 +566,11 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
     {
       case XVPROCSS_SCALE_1_1:
       case XVPROCSS_SCALE_UP:
-          XVprocss_SetVdmaWinToUpScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
+          XVprocss_VdmaSetWinToUpScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
           break;
 
       case XVPROCSS_SCALE_DN:
-	  XVprocss_SetVdmaWinToDnScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
+	  XVprocss_VdmaSetWinToDnScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
           break;
 
       default:

@@ -32,9 +32,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xvprocss_dma.h
+* @file xvprocss_vdma.h
 * @addtogroup vprocss_v1_0
 * @{
+* @details
 *
 * This header file contains the video processing engine DMA buffer management
 * routines and helper functions. AXI-VDMA core is used to provide DMA
@@ -69,19 +70,18 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/18/15   Initial Release
+* 1.00  rco  07/21/15   Initial Release
 
 * </pre>
 *
 ******************************************************************************/
-#ifndef XVPROCSS_DMA_H_  /* prevent circular inclusions */
-#define XVPROCSS_DMA_H_  /* by using protection macros */
+#ifndef XVPROCSS_VDMA_H_  /* prevent circular inclusions */
+#define XVPROCSS_VDMA_H_  /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-//#include "xaxivdma.h"
 #include "xvprocss.h"
 /************************** Constant Definitions *****************************/
 
@@ -102,21 +102,21 @@ void XVprocss_VdmaStart(XAxiVdma *pVdma);
 void XVprocss_VdmaStop(XAxiVdma *pVdma);
 void XVprocss_VdmaReset(XAxiVdma *pVdma);
 int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
-                       u32 WrBaseAddress,
-                       XVidC_VideoWindow *window,
-                       u32 FrameWidth,
-                       u32 FrameHeight,
-                       u32 Bpp);
+                            u32 WrBaseAddress,
+                            XVidC_VideoWindow *window,
+                            u32 FrameWidth,
+                            u32 FrameHeight,
+                            u32 Bpp);
 int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
-                      u32 RdBaseAddress,
-                      XVidC_VideoWindow *window,
-                      u32 FrameWidth,
-                      u32 FrameHeight,
-                      u32 Bpp);
+                           u32 RdBaseAddress,
+                           XVidC_VideoWindow *window,
+                           u32 FrameWidth,
+                           u32 FrameHeight,
+                           u32 Bpp);
 int XVprocss_VdmaStartTransfer(XAxiVdma *pVdma);
 void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 Bpp);
-void XVprocss_SetVdmaWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh);
-void XVprocss_SetVdmaWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh);
+void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh);
+void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh);
 
 #ifdef __cplusplus
 }

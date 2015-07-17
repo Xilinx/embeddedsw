@@ -33,9 +33,6 @@
 /**
 *
 * @file xvprocss.h
-* @addtogroup vprocss_v1_0
-* @{
-* @details
 *
 * This is main header file of the Xilinx Video Processing Subsystem driver
 *
@@ -49,12 +46,12 @@
 *
 * Video Subsystem supports following features
 * 	- AXI Stream Input/Output interface
-* 	- 2 or 4 pixel-wide video interface
-* 	- up to 16 bits per component
-* 	- RGB & YCbCb color space
+* 	- 1, 2 or 4 pixel-wide video interface
+* 	- 8/10/12/16 bits per component
+* 	- RGB & YCbCr color space
 * 	- Memory based/streaming mode scaling in either direction (Up/Down)
 * 	- Up to 4k2k 60Hz resolution at both Input and Output interface
-* 	- Interlaced input support
+* 	- Interlaced input support (1080i 50Hz/60Hz)
 * 	- Frame rate conversion
 * 		- Drop frames if input rate > output rate
 * 		- Repeat frames if input rate < output rate
@@ -111,6 +108,8 @@
 * Subsystem driver requires 2 support peripherals, Timer and an Interrupt
 * Controller, to be present in the design and the application must register a
 * handle to these with the subsystem using the provided API's.
+* Also for memory based design application must program the base address of the
+* video buffers in memory. Refer Memory Requirement section below
 *
 * <b>Subsystem Driver Usage</b>
 *
@@ -122,6 +121,25 @@
 * AXI Stream configuration for input/output interface is derived from the
 * Xilinx video common driver and only the resolutions listed therein are
 * supported at this time
+*
+* <b>Memory Requirement</b>
+*
+* For full configuration mode DDR memory is used to store video frame buffers
+* Subsystem uses 4 frame buffers for Progressive input and 3 field buffers for
+* interlaced input (if supported). Amount of memory required by the subsystem
+* can be calculated
+*
+*  - NUM_BUFFERS * MAX_WIDTH * MAX_HEIGHT * NUM_VIDEO_COMPONENTS * ByesPerPixel
+*
+* BytesPerPixel
+*   - 1 Byte for 8 bit data pipe
+*   - 2 Byte for 10/12/16 bit data pipe
+*
+* The location of these buffers in the memory is system dependent and as such
+* must be determined by the system designer and the application code is
+* responsible to program the base address of the buffer memory prior to
+* initializing the subsystem. API to use is defined below
+*   - XVprocss_SetFrameBufBaseaddr
 *
 * <b>Interrupt Service</b>
 *
@@ -154,7 +172,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -173,11 +191,12 @@ extern "C" {
 #include "xgpio.h"
 #include "xaxis_switch.h"
 #include "xvidc.h"
+#include "xaxivdma.h"
+
 /**
- *  Sub-core Layer 2 driver includes
+ *  Subsystem sub-core header files
  *  Layer 2 includes Layer-1
  */
-#include "xaxivdma.h"
 #include "xv_csc_l2.h"
 #include "xv_deinterlacer_l2.h"
 #include "xv_hcresampler_l2.h"
@@ -210,9 +229,9 @@ typedef enum
  */
 typedef enum
 {
-  XVPROCSS_MODE_MAX = 0,
-  XVPROCSS_MODE_STREAM
-}XVPROCSS_CONFIG_MODE;
+  XVPROCSS_TOPOLOGY_SCALER_ONLY = 0,
+  XVPROCSS_TOPOLOGY_FULL_FLEDGED,
+}XVPROCSS_CONFIG_TOPOLOGY;
 
 /**
  * Types of Windows (Sub-frames) available in the Subsystem
@@ -270,8 +289,9 @@ typedef struct
  */
 typedef struct
 {
-  u16 isPresent; /**< Flag to indicate if sub-core is present in the design*/
-  u16 DeviceId;  /**< Device ID of the sub-core */
+  u16 isPresent;  /**< Flag to indicate if sub-core is present in the design*/
+  u16 DeviceId;   /**< Device ID of the sub-core */
+  u32 AddrOffset; /**< sub-core offset from subsystem base address */
 }XSubCore;
 
 /**
@@ -283,25 +303,28 @@ typedef struct
 typedef struct
 {
   u16 DeviceId;	         /**< DeviceId is the unique ID  of the device */
-  u32 BaseAddress;       /**< BaseAddress is the physical base address of
-                              the device's registers */
-  u8 Mode;               /**< Subsystem configuration mode */
+  u32 BaseAddress;       /**< BaseAddress is the physical base address of the
+                              subsystem address range */
+  u32 HighAddress;       /**< HighAddress is the physical MAX address of the
+                              subsystem address range */
+  u8 Topology;           /**< Subsystem configuration mode */
   u8 PixPerClock;        /**< Number of Pixels Per Clock processed by Subsystem */
   u16 PixPrecision;      /**< Processing precision of the data pipe */
+  u16 NumVidComponents;  /**< Number of Video Components */
+  u16 MaxWidth;          /**< Maximum cols supported by subsystem instance */
+  u16 MaxHeight;         /**< Maximum rows supported by subsystem instance */
+  XSubCore RstAximm;     /**< Axi MM reset network instance configuration */
+  XSubCore RstAxis;      /**< Axi stream reset network instance configuration */
+  XSubCore Vdma;         /**< Sub-core instance configuration */
+  XSubCore Router;       /**< Sub-core instance configuration */
+  XSubCore Csc;          /**< Sub-core instance configuration */
+  XSubCore Deint;        /**< Sub-core instance configuration */
   XSubCore HCrsmplr;     /**< Sub-core instance configuration */
+  XSubCore Hscale;       /**< Sub-core instance configuration */
+  XSubCore Lbox;         /**< Sub-core instance configuration */
   XSubCore VCrsmplrIn;   /**< Sub-core instance configuration */
   XSubCore VCrsmplrOut;  /**< Sub-core instance configuration */
   XSubCore Vscale;       /**< Sub-core instance configuration */
-  XSubCore Hscale;       /**< Sub-core instance configuration */
-  XSubCore Vdma;         /**< Sub-core instance configuration */
-  XSubCore Lbox;         /**< Sub-core instance configuration */
-  XSubCore Csc;          /**< Sub-core instance configuration */
-  XSubCore Deint;        /**< Sub-core instance configuration */
-  XSubCore Router;       /**< Sub-core instance configuration */
-  XSubCore RstAxis;      /**< Axi stream reset network instance configuration */
-  XSubCore RstAximm;     /**< Axi MM reset network instance configuration */
-  u32 UsrExtMemBaseAddr; /**< DDR base address for buffer management */
-  u32 UsrExtMemAddr_Range; /**< Range of addresses available for buffers */
 } XVprocss_Config;
 
 /**
@@ -311,9 +334,9 @@ typedef struct
  */
 typedef struct
 {
-  XVprocss_Config Config;	/**< Hardware configuration */
-  u32 IsReady;		        /**< Device and the driver instance are initialized */
-
+  XVprocss_Config Config;	    /**< Hardware configuration */
+  u32 IsReady;		            /**< Device and the driver instance are
+                                     initialized */
   XAxis_Switch *router;         /**< handle to sub-core driver instance */
   XGpio *rstAxis;               /**< handle to sub-core driver instance */
   XGpio *rstAximm;              /**< handle to sub-core driver instance */
@@ -332,19 +355,22 @@ typedef struct
    * Layer2 SW Register (Every Subsystem instance will have it's own copy
      of Layer 2 register bank for applicable sub-cores)
    */
-  XV_csc_L2Reg cscL2Reg;      /**< Layer 2 register bank for csc sub-core */
-  XV_vscaler_l2 vscL2Reg;     /**< Layer 2 register bank for vsc sub-core */
-  XV_hscaler_l2 hscL2Reg;     /**< Layer 2 register bank for hsc sub-core */
+  XV_csc_L2Reg cscL2Reg;        /**< Layer 2 register bank for csc sub-core */
+  XV_vscaler_l2 vscL2Reg;       /**< Layer 2 register bank for vsc sub-core */
+  XV_hscaler_l2 hscL2Reg;       /**< Layer 2 register bank for hsc sub-core */
 
   //I/O Streams
-  XVidC_VideoStream VidIn;     /**< Input  AXIS configuration */
-  XVidC_VideoStream VidOut;    /**< Output AXIS configuration */
+  XVidC_VideoStream VidIn;      /**< Input  AXIS configuration */
+  XVidC_VideoStream VidOut;     /**< Output AXIS configuration */
 
-  XVprocss_IData idata;        /**< Internal Scratch pad memory for subsystem instance */
+  XVprocss_IData idata;         /**< Internal Scratch pad memory for subsystem
+                                     instance */
+  u32 FrameBufBaseaddr;         /**< Base address for frame buffer storage */
 
-  XIntc *pXintc;           /**< handle to system interrupt controller */
+  XIntc *pXintc;                /**< handle to system interrupt controller */
   XVidC_DelayHandler UsrDelaymsec;  /**< custom user function for delay/sleep */
-  void *pUsrTmr;           /**< handle to timer instance used by user delay function */
+  void *pUsrTmr;                /**< handle to timer instance used by user
+                                     delay function */
 } XVprocss;
 
 /************************** Macros Definitions *******************************/
@@ -357,7 +383,7 @@ typedef struct
  *
  *****************************************************************************/
 #define XVprocss_IsConfigModeMax(pVprocss) \
-                   ((pVprocss)->Config.Mode == XVPROCSS_MODE_MAX)
+                ((pVprocss)->Config.Topology == XVPROCSS_TOPOLOGY_FULL_FLEDGED)
 
 /*****************************************************************************/
 /**
@@ -368,8 +394,8 @@ typedef struct
  * @return Returns 1 if condition is TRUE or 0 if FALSE
  *
  *****************************************************************************/
-#define XVprocss_IsConfigModeStream(pVprocss)  \
-                 ((pVprocss)->Config.Mode == XVPROCSS_MODE_STREAM)
+#define XVprocss_IsConfigModeSscalerOnly(pVprocss)  \
+                 ((pVprocss)->Config.Topology == XVPROCSS_TOPOLOGY_SCALER_ONLY)
 
 
 /*****************************************************************************/
@@ -454,9 +480,10 @@ typedef struct
 
 /************************** Function Prototypes ******************************/
 XVprocss_Config* XVprocss_LookupConfig(u32 DeviceId);
-int  XVprocss_CfgInitialize(XVprocss *InstancePtr,
-                            XVprocss_Config *CfgPtr,
-                            u32 EffectiveAddr);
+void XVprocss_SetFrameBufBaseaddr(XVprocss *InstancePtr, u32 addr);
+int XVprocss_CfgInitialize(XVprocss *InstancePtr,
+                           XVprocss_Config *CfgPtr,
+                           u32 EffectiveAddr);
 int  XVprocss_PowerOnInit(XVprocss *InstancePtr, u32 DeviceId);
 void XVprocss_Start(XVprocss *InstancePtr);
 void XVprocss_Stop(XVprocss *InstancePtr);
@@ -472,11 +499,11 @@ int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr);
 void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff);
 void XVprocss_SetPipMode(XVprocss *InstancePtr, u8 OnOff);
 
-void XVprocss_SetZoomPipWindow(XVprocss       *InstancePtr,
-                               XVprocss_Win   mode,
+void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
+                               XVprocss_Win mode,
                                XVidC_VideoWindow *win);
-void XVprocss_GetZoomPipWindow(XVprocss       *InstancePtr,
-                               XVprocss_Win   mode,
+void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
+                               XVprocss_Win mode,
                                XVidC_VideoWindow *win);
 
 void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr);
@@ -492,4 +519,3 @@ void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
 #endif
 
 #endif /* end of protection macro */
-/** @} */

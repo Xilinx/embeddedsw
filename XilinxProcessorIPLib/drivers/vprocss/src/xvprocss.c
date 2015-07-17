@@ -33,8 +33,6 @@
 /**
 *
 * @file xvprocss.c
-* @addtogroup vprocss_v1_0
-* @{
 *
 * This is main code of Xilinx Video Processing Subsystem device driver.
 * Please see xvprocss.h for more details of the driver.
@@ -44,7 +42,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -54,8 +52,9 @@
 #include "microblaze_sleep.h"
 #include "xvprocss.h"
 #include "xenv.h"
-#include "xvprocss_dma.h"
+#include "xvprocss_vdma.h"
 #include "xvprocss_router.h"
+#include "xvprocss_coreinit.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -107,10 +106,11 @@ XVprocss_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
 /************************** Function Prototypes ******************************/
 static void SetPODConfiguration(XVprocss *pVprocss);
 static void GetIncludedSubcores(XVprocss *pVprocss);
+
 static int validateVidStreamConfig(XVidC_VideoStream *pStrmIn,
                                    XVidC_VideoStream *pStrmOut);
-static int SetupStreamMode(XVprocss *pVprocss);
-static int SetupMaxMode(XVprocss *pVprocss);
+static int SetupModeScalerOnly(XVprocss *pVprocss);
+static int SetupModeMax(XVprocss *pVprocss);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
@@ -367,6 +367,27 @@ static void GetIncludedSubcores(XVprocss *pVprocss)
 
 /*****************************************************************************/
 /**
+* This function sets the base address of the video frame buffers used by the
+* subsystem instance
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  addr is the base address of the video frame buffers
+*
+* @return None
+*
+******************************************************************************/
+void XVprocss_SetFrameBufBaseaddr(XVprocss *InstancePtr, u32 addr)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(addr != 0);
+
+  InstancePtr->FrameBufBaseaddr = addr;
+}
+
+
+/*****************************************************************************/
+/**
 * This function initializes the video subsystem and included sub-cores.
 * This function must be called prior to using the subsystem. Initialization
 * includes setting up the instance data for top level as well as all included
@@ -388,8 +409,8 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
 {
   XVprocss *pVprocss = InstancePtr;
   XAxiVdma_Config *VdmaCfgPtr;
-  XAxis_Switch_Config *RouterCfgPtr;
   int status;
+  u32 AbsAddr;
 
   /* Verify arguments */
   Xil_AssertNonvoid(pVprocss != NULL);
@@ -402,13 +423,13 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
   pVprocss->Config.BaseAddress = EffectiveAddr;
 
   /* Print the configuration selected */
-  switch(pVprocss->Config.Mode)
+  switch(pVprocss->Config.Topology)
   {
-    case XVPROCSS_MODE_MAX:
+    case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
         xil_printf("    [Subsystem Configuration Mode - Full]\r\n\r\n");
         break;
 
-    case XVPROCSS_MODE_STREAM:
+    case XVPROCSS_TOPOLOGY_SCALER_ONLY:
         xil_printf("    [Subsystem Configuration Mode - Scaler-Only]\r\n\r\n");
         break;
 
@@ -421,45 +442,19 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
   GetIncludedSubcores(pVprocss);
 
   /* Initialize all included sub_cores */
-  if(pVprocss->router)
-  {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXIS Switch core.... \r\n");
-    RouterCfgPtr  = XAxisScr_LookupConfig(pVprocss->Config.Router.DeviceId);
-    if(RouterCfgPtr == NULL)
-    {
-      xil_printf("VPROCSS ERR:: AXIS Switch device not found\r\n");
-      return(XST_DEVICE_NOT_FOUND);
-    }
-    status = XAxisScr_CfgInitialize(pVprocss->router,
-                                    RouterCfgPtr,
-                                    RouterCfgPtr->BaseAddress);
-
-    if(status != XST_SUCCESS)
-    {
-      xil_printf("VPROCSS ERR:: AXIS Switch Initialization failed %d\r\n", status);
-      return(XST_FAILURE);
-   }
-  }
-
   if(pVprocss->rstAxis)
   {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXIS Reset core.... \r\n");
-    status  = XGpio_Initialize(pVprocss->rstAxis, pVprocss->Config.RstAxis.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
+	if(XVprocss_SubcoreInitResetAxis(pVprocss) != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: AXIS Clk Reset device not found\r\n");
-      return(status);
+      return(XST_FAILURE);
     }
   }
 
   if(pVprocss->rstAximm)
   {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXI-MM Reset core.... \r\n");
-    status  = XGpio_Initialize(pVprocss->rstAximm, pVprocss->Config.RstAximm.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
+	if(XVprocss_SubcoreInitResetAximm(pVprocss) != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: AXIS Div2 Clk Reset device not found\r\n");
-      return(status);
+      return(XST_FAILURE);
     }
     /*
      * Make sure AXI-MM interface is not in reset. If in reset it will prevent
@@ -468,159 +463,128 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
     XVprocss_EnableBlock(InstancePtr->rstAximm, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
   }
 
-  if(pVprocss->hcrsmplr)
+  if(pVprocss->router)
   {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing H Chroma Resampler core.... \r\n");
-    status = XV_hcresampler_Initialize(pVprocss->hcrsmplr, pVprocss->Config.HCrsmplr.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
+	if(XVprocss_SubcoreInitRouter(pVprocss) != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: H Chroma Resampler device not found\r\n");
-      return(status);
-    }
-  }
-
-  if(pVprocss->vcrsmplrIn)
-  {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Input V Chroma Resampler core.... \r\n");
-    status = XV_vcresampler_Initialize(pVprocss->vcrsmplrIn, pVprocss->Config.VCrsmplrIn.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
-    {
-      xil_printf("VPROCSS ERR:: Input V Chroma Resampler device not found\r\n");
-      return(status);
-    }
-  }
-
-  if(pVprocss->vcrsmplrOut)
-  {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Output V Chroma Resampler core.... \r\n");
-    status = XV_vcresampler_Initialize(pVprocss->vcrsmplrOut, pVprocss->Config.VCrsmplrOut.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
-    {
-      xil_printf("VPROCSS ERR:: Output V Chroma Resampler device not found\r\n");
-      return(status);
-    }
-  }
-
-  if(pVprocss->vscaler)
-  {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing V Scaler core.... \r\n");
-    status = XV_vscaler_Initialize(pVprocss->vscaler, pVprocss->Config.Vscale.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
-    {
-      xil_printf("VPROCSS ERR:: V Scaler device not found\r\n");
-      return(status);
-    }
-  }
-
-  if(pVprocss->hscaler)
-  {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing H Scaler core.... \r\n");
-    status = XV_hscaler_Initialize(pVprocss->hscaler, pVprocss->Config.Hscale.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
-    {
-      xil_printf("VPROCSS ERR:: H Scaler device not found\r\n");
-      return(status);
-    }
-  }
-
-  if(pVprocss->vdma)
-  {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing VDMA core.... \r\n");
-    VdmaCfgPtr = XAxiVdma_LookupConfig(pVprocss->Config.Vdma.DeviceId);
-    if(VdmaCfgPtr == NULL)
-    {
-      xil_printf("VPROCSS ERR:: VDMA device not found\r\n");
-      return(XST_DEVICE_NOT_FOUND);
-    }
-    status = XAxiVdma_CfgInitialize(pVprocss->vdma,
-                                    VdmaCfgPtr,
-                                    VdmaCfgPtr->BaseAddress);
-
-    if(status != XST_SUCCESS)
-    {
-      xil_printf("VPROCSS ERR:: VDMA Configuration Initialization failed %d\r\n", status);
       return(XST_FAILURE);
-    }
-  }
-
-  if(pVprocss->lbox)
-  {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Letterbox core.... \r\n");
-    status = XV_letterbox_Initialize(pVprocss->lbox, pVprocss->Config.Lbox.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
-    {
-      xil_printf("VPROCSS ERR:: LetterBox device not found\r\n");
-      return(status);
     }
   }
 
   if(pVprocss->csc)
   {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing CSC core.... \r\n");
-    status = XV_csc_Initialize(pVprocss->csc, pVprocss->Config.Csc.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
+	if(XVprocss_SubcoreInitCsc(pVprocss) != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: CSC device not found\r\n");
-      return(status);
+      return(XST_FAILURE);
     }
   }
+
+  if(pVprocss->hscaler)
+  {
+	if(XVprocss_SubcoreInitHScaler(pVprocss) != XST_SUCCESS)
+    {
+      return(XST_FAILURE);
+    }
+  }
+
+  if(pVprocss->vscaler)
+  {
+	if(XVprocss_SubcoreInitVScaler(pVprocss) != XST_SUCCESS)
+	{
+	  return(XST_FAILURE);
+	}
+  }
+
+  if(pVprocss->hcrsmplr)
+  {
+	if(XVprocss_SubcoreInitHCrsmplr(pVprocss) != XST_SUCCESS)
+	{
+	  return(XST_FAILURE);
+	}
+  }
+
+  if(pVprocss->vcrsmplrIn)
+  {
+	if(XVprocss_SubcoreInitVCrsmpleIn(pVprocss) != XST_SUCCESS)
+	{
+	  return(XST_FAILURE);
+	}
+  }
+
+  if(pVprocss->vcrsmplrOut)
+  {
+	if(XVprocss_SubcoreInitVCrsmpleOut(pVprocss) != XST_SUCCESS)
+	{
+	  return(XST_FAILURE);
+	}
+  }
+
+  if(pVprocss->lbox)
+  {
+	if(XVprocss_SubcoreInitLetterbox(pVprocss) != XST_SUCCESS)
+	{
+	  return(XST_FAILURE);
+	}
+  }
+
+  if(pVprocss->vdma)
+  {
+	if(XVprocss_SubcoreInitVdma(pVprocss) != XST_SUCCESS)
+	{
+	  return(XST_FAILURE);
+	}
+
+	if(pVprocss->FrameBufBaseaddr == 0)
+	{
+	  xil_printf("\r\nVPROCSS ERR:: Video Frame Buffer base address not set\r\n");
+	  xil_printf("              Use XVprocss_SetFrameBufBaseaddr() API before subsystem init\r\n\r\n");
+	  return(XST_FAILURE);
+	}
+  }
+
 
   if(pVprocss->deint)
   {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Deinterlacer core.... \r\n");
-    status = XV_deinterlacer_Initialize(pVprocss->deint, pVprocss->Config.Deint.DeviceId);
-    if(status == XST_DEVICE_NOT_FOUND)
+	if(XVprocss_SubcoreInitDeinterlacer(pVprocss) != XST_SUCCESS)
+	{
+	  return(XST_FAILURE);
+	}
+
+    /* Set Deinterlacer buffer offset in allocated DDR Frame Buffer */
+    if(pVprocss->vdma) //vdma must be present for this to work
     {
-      xil_printf("VPROCSS ERR:: Deinterlacer device not found\r\n");
-      return(status);
+      u32 vdmaBufReq, bufsize;
+      u32 Bpp; //bytes per pixel
+
+      Bpp = (pVprocss->Config.PixPrecision + 7)/8;
+
+      //compute buffer size based on subsystem configuration
+      //For 1 4K2K buffer (YUV444 16-bit) size is ~48MB
+      bufsize = pVprocss->Config.MaxWidth *
+		        pVprocss->Config.MaxHeight *
+		        pVprocss->Config.NumVidComponents *
+		        Bpp;
+
+      //VDMA requires 4 buffers for total size of ~190MB
+      vdmaBufReq = pVprocss->vdma->MaxNumFrames * bufsize;
+
+      /*
+       * vdmaBufReq = 0x0BDD 80000
+       * padBuf     = 0x02F7 6000 (1 buffer is added as pad between vdma and deint)
+       *             -------------
+       * DeInt Offst= 0x0ED4 E000
+       *             -------------
+       */
+      /* Set Deint Buffer Address Offset */
+      pVprocss->idata.deintBufAddr = pVprocss->FrameBufBaseaddr + vdmaBufReq + bufsize;
     }
-  }
-
-  /* Validate DDR Frame Buffer Allocation */
-  if(pVprocss->vdma)
-  {
-    u32 vdmaBufReq, deintBufReq, padBuf;
-    u32 totBufReq;
-    u32 inRange, numVdmaBuf;
-
-    /* Validate External Memory Range available */
-    numVdmaBuf = pVprocss->vdma->MaxNumFrames;
-
-    //4 4K2K (YUV444 16-bit) buffers (~190MB) needed for frame buffers
-    vdmaBufReq   = numVdmaBuf * (u32)3840 * 2160 * 3 * 2;
-
-    //3 1080i (YUV444 16-bit) field buffers (~18MB) needed for de-interlacer
-    deintBufReq  = 3*(u32)1920*540*3*2;
-
-    //1 4K2K buffer (~48MB) reserved as pad between vdma and deint
-    padBuf       = (u32)3840*2160*3*2;
-
-    totBufReq = vdmaBufReq + deintBufReq + padBuf; //~256MB (0x1000 0000)
-    inRange = (totBufReq < pVprocss->Config.UsrExtMemAddr_Range);
-    if(!inRange)
+    else
     {
-      xil_printf("VPROCSS ERR:: EXT Memory Region Allocated is small.");
-      xil_printf("Try increasing memory range\r\n");
+      xil_printf("\r\nVPROCSS ERR:: VDMA IP not found. Unable to assign De-interlacer buffer offsets\r\n");
       return(XST_FAILURE);
     }
-
-    /*
-     * DDR @0x8000 0000
-     *  - 512MB space reserved for elf file
-     * VDMA Buffer offset = 0x8000 0000 + 0x2000 0000
-     *                    = 0xA000 0000
-     * vdmaBufReq = 0x0BDD 80000
-     * padBuf     = 0x02F7 6000
-     *             -------------
-     * DeInt Offst= 0x0ED4 E000  --->0xAED4 E0000
-     *             -------------
-     */
-    /* Set Deint Buffer Address Offset */
-    if(pVprocss->deint)
-    {
-      pVprocss->idata.deintBufAddr = pVprocss->Config.UsrExtMemBaseAddr + vdmaBufReq + padBuf;
-    }
   }
+
   return(XST_SUCCESS);
 }
 
@@ -1015,11 +979,11 @@ void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr)
     /* send vdma update window to IP */
     if(XVprocss_IsPipModeOn(InstancePtr))
     {
-      XVprocss_SetVdmaWinToDnScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_WR_CH);
+      XVprocss_VdmaSetWinToDnScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_WR_CH);
     }
     else
     {
-      XVprocss_SetVdmaWinToUpScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_RD_CH);
+      XVprocss_VdmaSetWinToUpScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_RD_CH);
     }
 
     XVprocss_VdmaStartTransfer(InstancePtr->vdma);
@@ -1274,8 +1238,8 @@ static int validateVidStreamConfig(XVidC_VideoStream *pStrmIn,
 
 /*****************************************************************************/
 /**
-* This function configures the video subsystem pipeline for Stream Mode
-* configuration of the subsystem
+* This function configures the video subsystem pipeline for ScalerOnly
+* topology of the subsystem
 *
 * @param  pVprocss is a pointer to the Subsystem instance to be worked on.
 *
@@ -1285,7 +1249,7 @@ static int validateVidStreamConfig(XVidC_VideoStream *pStrmIn,
 *       accordingly else will ignore the request
 *
 ******************************************************************************/
-static int SetupStreamMode(XVprocss *pVprocss)
+static int SetupModeScalerOnly(XVprocss *pVprocss)
 {
   u32 vsc_WidthIn, vsc_HeightIn, vsc_HeightOut;
   u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
@@ -1354,15 +1318,15 @@ static int SetupStreamMode(XVprocss *pVprocss)
 
 /*****************************************************************************/
 /**
-* This function configures the video subsystem pipeline for Maximum (Full)
-* mode configuration
+* This function configures the video subsystem pipeline for Maximum
+* (Full_Fledged) topology
 *
 * @param  pVprocss is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-static int SetupMaxMode(XVprocss *pVprocss)
+static int SetupModeMax(XVprocss *pVprocss)
 {
   int status;
 
@@ -1420,15 +1384,15 @@ int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr)
   XVidC_ReportStreamInfo(&InstancePtr->VidOut);
   xil_printf("**************************************************\r\n\r\n");
 
-  switch(InstancePtr->Config.Mode)
+  switch(InstancePtr->Config.Topology)
   {
-    case XVPROCSS_MODE_MAX:
-        status = SetupMaxMode(InstancePtr);
+    case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
+        status = SetupModeMax(InstancePtr);
         break;
 
-    case XVPROCSS_MODE_STREAM:
+    case XVPROCSS_TOPOLOGY_SCALER_ONLY:
         //Only configuration supported is V->H
-        status = SetupStreamMode(InstancePtr);
+        status = SetupModeScalerOnly(InstancePtr);
         break;
 
     default:
@@ -1438,4 +1402,3 @@ int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr)
   }
   return(status);
 }
-/** @} */

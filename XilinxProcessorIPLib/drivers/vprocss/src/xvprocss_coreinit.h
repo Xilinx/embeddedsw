@@ -32,26 +32,26 @@
 /*****************************************************************************/
 /**
 *
-* @file xvprocss_router.h
+* @file xvprocss_coreinit.h
 * @addtogroup vprocss
 * @{
 * @details
 *
-* This header file contains the video processing engine data flow setup
-* routines and helper functions.
+* This header file contains the video processing engine sub-cores
+* initialization routines and helper functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/21/15   Initial Release
+* 1.00  rco  07/21/15   Initial Release
 
 * </pre>
 *
 ******************************************************************************/
-#ifndef XVPROCSS_ROUTER_H__  /* prevent circular inclusions */
-#define XVPROCSS_ROUTER_H__  /* by using protection macros */
+#ifndef XVPROCSS_COREINIT_H__  /* prevent circular inclusions */
+#define XVPROCSS_COREINIT_H__  /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -61,9 +61,18 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-int XVprocss_BuildRoutingTable(XVprocss *pVprocss);
-void XVprocss_ProgRouterMux(XVprocss *pVprocss);
-void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss);
+int XVprocss_SubcoreInitResetAxis(XVprocss *pVprocss);
+int XVprocss_SubcoreInitResetAximm(XVprocss *pVprocss);
+int XVprocss_SubcoreInitRouter(XVprocss *pVprocss);
+int XVprocss_SubcoreInitCsc(XVprocss *pVprocss);
+int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss);
+int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss);
+int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss);
+int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss);
+int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss);
+int XVprocss_SubcoreInitLetterbox(XVprocss *pVprocss);
+int XVprocss_SubcoreInitVdma(XVprocss *pVprocss);
+int XVprocss_SubcoreInitDeinterlacer(XVprocss *pVprocss);
 
 #ifdef __cplusplus
 }

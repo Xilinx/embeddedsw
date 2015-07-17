@@ -32,9 +32,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xvprocss_dma.c
-* @addtogroup vprocss_v1_0
+* @file xvprocss_vdma.c
+* @addtogroup vprocss
 * @{
+* @details
 
 * Video buffer management routine.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -45,7 +46,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/18/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -53,7 +54,7 @@
 
 /***************************** Include Files *********************************/
 #include "xvidc.h"
-#include "xvprocss_dma.h"
+#include "xvprocss_vdma.h"
 #include "microblaze_sleep.h"
 
 #define XVDMA_RESET_TIMEOUT   (1000000) //10ms at 10ns time period (100MHz clock))
@@ -429,7 +430,7 @@ void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 Bpp)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_SetVdmaWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
+void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
 {
   XVidC_VideoWindow wrWin, rdWin;
   u32 OutputWidth, OutputHeight;
@@ -464,7 +465,7 @@ void XVprocss_SetVdmaWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
 
     /* write PIP window stream to DDR */
     status = XVprocss_VdmaWriteSetup(pVprocss->vdma,
-                                pVprocss->Config.UsrExtMemBaseAddr,
+                                pVprocss->FrameBufBaseaddr,
                                 &wrWin,
                                 OutputWidth,
                                 OutputHeight,
@@ -486,7 +487,7 @@ void XVprocss_SetVdmaWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
     rdWin.Height = OutputHeight;
 
     status = XVprocss_VdmaReadSetup(pVprocss->vdma,
-                               pVprocss->Config.UsrExtMemBaseAddr,
+                               pVprocss->FrameBufBaseaddr,
                                &rdWin,
                                OutputWidth,
                                OutputHeight,
@@ -509,7 +510,7 @@ void XVprocss_SetVdmaWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_SetVdmaWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
+void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
 {
   XVidC_VideoWindow wrWin, rdWin;
   u32 InputWidth, InputHeight;
@@ -533,7 +534,7 @@ void XVprocss_SetVdmaWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
 
     /* write input stream to DDR */
     status = XVprocss_VdmaWriteSetup(pVprocss->vdma,
-                                pVprocss->Config.UsrExtMemBaseAddr,
+                                pVprocss->FrameBufBaseaddr,
                                 &wrWin,
                                 InputWidth,
                                 InputHeight,
@@ -563,7 +564,7 @@ void XVprocss_SetVdmaWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
     }
 
     status = XVprocss_VdmaReadSetup(pVprocss->vdma,
-                               pVprocss->Config.UsrExtMemBaseAddr,
+                               pVprocss->FrameBufBaseaddr,
                                &rdWin,
                                InputWidth,
                                InputHeight,

@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_sinit.c
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 *
 * This file contains the implementation of the Video Processing Subsystem
 * driver's static initialization functionality.
@@ -44,7 +45,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -55,8 +56,6 @@
 #include "xvprocss.h"
 
 /************************** Constant Definitions *****************************/
-//ToDo: This will be exported to xparameters.h
-#define XPAR_XDSPSS_NUM_INSTANCES        (1)
 
 
 /**************************** Type Definitions *******************************/
@@ -68,7 +67,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XVprocss_Config XVprocss_ConfigTable[XPAR_XDSPSS_NUM_INSTANCES];
+extern XVprocss_Config XVprocss_ConfigTable[];
 
 /*****************************************************************************/
 /**
@@ -87,7 +86,7 @@ XVprocss_Config* XVprocss_LookupConfig(u32 DeviceId)
   XVprocss_Config *CfgPtr = NULL;
   u32 index;
 
-  for (index = 0U; index < (u32)XPAR_XDSPSS_NUM_INSTANCES; index++)
+  for (index = 0U; index < (u32)XPAR_XVPROCSS_NUM_INSTANCES; index++)
   {
     if (XVprocss_ConfigTable[index].DeviceId == DeviceId)
     {
