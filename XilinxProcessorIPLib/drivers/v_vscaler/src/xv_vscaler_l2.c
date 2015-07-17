@@ -35,6 +35,7 @@
 * @file xv_vscaler_l2.c
 * @addtogroup v_vscaler_v1_0
 * @{
+* @details
 *
 * The Vertical Scaler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -46,7 +47,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -393,6 +394,9 @@ void XV_VScalerSetup(XV_vscaler  *InstancePtr,
    */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(pVscL2Data != NULL);
+  Xil_AssertVoid((WidthIn>0) && (WidthIn<=InstancePtr->Config.MaxWidth));
+  Xil_AssertVoid((HeightIn>0) && (HeightIn<=InstancePtr->Config.MaxHeight));
+  Xil_AssertVoid((HeightOut>0) && (HeightOut<=InstancePtr->Config.MaxHeight));
 
   if(InstancePtr->Config.ScalerType == XV_VSCALER_POLYPHASE)
   {
@@ -450,7 +454,7 @@ void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr)
   done  = XV_vscaler_IsDone(pVsc);
   idle  = XV_vscaler_IsIdle(pVsc);
   ready = XV_vscaler_IsReady(pVsc);
-  ctrl =  XV_vscaler_ReadReg(pVsc->Ctrl_BaseAddress, XV_VSCALER_CTRL_ADDR_AP_CTRL);
+  ctrl =  XV_vscaler_ReadReg(pVsc->Config.BaseAddress, XV_VSCALER_CTRL_ADDR_AP_CTRL);
 
 
   heightin  = XV_vscaler_Get_HwReg_HeightIn(pVsc);
