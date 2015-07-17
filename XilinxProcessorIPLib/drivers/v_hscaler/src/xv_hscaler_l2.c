@@ -35,6 +35,7 @@
 * @file xv_hscaler_l2.c
 * @addtogroup v_hscaler_v1_0
 * @{
+* @details
 *
 * The Horizontal Scaler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -46,7 +47,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -487,6 +488,9 @@ void XV_HScalerSetup(XV_hscaler  *InstancePtr,
    */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(pHscL2Data != NULL);
+  Xil_AssertVoid((HeightIn>0) && (HeightIn<=InstancePtr->Config.MaxHeight));
+  Xil_AssertVoid((WidthIn>0) && (WidthIn<=InstancePtr->Config.MaxWidth));
+  Xil_AssertVoid((WidthOut>0) && (WidthOut<=InstancePtr->Config.MaxWidth));
 
   PixelRate = (u32) ((float)((WidthIn * STEP_PRECISION) + (WidthOut/2))/(float)WidthOut);
 
@@ -549,7 +553,7 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
   done  = XV_hscaler_IsDone(pHsc);
   idle  = XV_hscaler_IsIdle(pHsc);
   ready = XV_hscaler_IsReady(pHsc);
-  ctrl =  XV_hscaler_ReadReg(pHsc->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
+  ctrl =  XV_hscaler_ReadReg(pHsc->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
 
   heightin = XV_hscaler_Get_HwReg_Height(pHsc);
   widthin  = XV_hscaler_Get_HwReg_WidthIn(pHsc);

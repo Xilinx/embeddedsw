@@ -11,16 +11,21 @@
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
-int XV_hscaler_CfgInitialize(XV_hscaler *InstancePtr, XV_hscaler_Config *ConfigPtr) {
+int XV_hscaler_CfgInitialize(XV_hscaler *InstancePtr,
+                             XV_hscaler_Config *ConfigPtr,
+                             u32 EffectiveAddr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
 
-	/* Setup the instance */
-	(void)memset((void *)InstancePtr, 0, sizeof(XV_hscaler));
-	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
-					sizeof(XV_hscaler_Config));
+    /* Setup the instance */
+    (void)memset((void *)InstancePtr, 0, sizeof(XV_hscaler));
+    (void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+                    sizeof(XV_hscaler_Config));
 
-    InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
+    InstancePtr->Config.BaseAddress = EffectiveAddr;
+
+    /* Set the flag to indicate the driver is ready */
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
     return XST_SUCCESS;
@@ -33,8 +38,8 @@ void XV_hscaler_Start(XV_hscaler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL) & 0x80;
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL, Data | 0x01);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL) & 0x80;
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL, Data | 0x01);
 }
 
 u32 XV_hscaler_IsDone(XV_hscaler *InstancePtr) {
@@ -43,7 +48,7 @@ u32 XV_hscaler_IsDone(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
     return (Data >> 1) & 0x1;
 }
 
@@ -53,7 +58,7 @@ u32 XV_hscaler_IsIdle(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
     return (Data >> 2) & 0x1;
 }
 
@@ -63,7 +68,7 @@ u32 XV_hscaler_IsReady(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
     // check ap_start to see if the pcore is ready for next input
     return !(Data & 0x1);
 }
@@ -72,21 +77,21 @@ void XV_hscaler_EnableAutoRestart(XV_hscaler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL, 0x80);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL, 0x80);
 }
 
 void XV_hscaler_DisableAutoRestart(XV_hscaler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL, 0);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL, 0);
 }
 
 void XV_hscaler_Set_HwReg_Height(XV_hscaler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_HEIGHT_DATA, Data);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_HEIGHT_DATA, Data);
 }
 
 u32 XV_hscaler_Get_HwReg_Height(XV_hscaler *InstancePtr) {
@@ -95,7 +100,7 @@ u32 XV_hscaler_Get_HwReg_Height(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_HEIGHT_DATA);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_HEIGHT_DATA);
     return Data;
 }
 
@@ -103,7 +108,7 @@ void XV_hscaler_Set_HwReg_WidthIn(XV_hscaler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHIN_DATA, Data);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHIN_DATA, Data);
 }
 
 u32 XV_hscaler_Get_HwReg_WidthIn(XV_hscaler *InstancePtr) {
@@ -112,7 +117,7 @@ u32 XV_hscaler_Get_HwReg_WidthIn(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHIN_DATA);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHIN_DATA);
     return Data;
 }
 
@@ -120,7 +125,7 @@ void XV_hscaler_Set_HwReg_WidthOut(XV_hscaler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHOUT_DATA, Data);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHOUT_DATA, Data);
 }
 
 u32 XV_hscaler_Get_HwReg_WidthOut(XV_hscaler *InstancePtr) {
@@ -129,7 +134,7 @@ u32 XV_hscaler_Get_HwReg_WidthOut(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHOUT_DATA);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_WIDTHOUT_DATA);
     return Data;
 }
 
@@ -137,7 +142,7 @@ void XV_hscaler_Set_HwReg_ColorMode(XV_hscaler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA, Data);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA, Data);
 }
 
 u32 XV_hscaler_Get_HwReg_ColorMode(XV_hscaler *InstancePtr) {
@@ -146,7 +151,7 @@ u32 XV_hscaler_Get_HwReg_ColorMode(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA);
     return Data;
 }
 
@@ -154,7 +159,7 @@ void XV_hscaler_Set_HwReg_PixelRate(XV_hscaler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_PIXELRATE_DATA, Data);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_PIXELRATE_DATA, Data);
 }
 
 u32 XV_hscaler_Get_HwReg_PixelRate(XV_hscaler *InstancePtr) {
@@ -163,7 +168,7 @@ u32 XV_hscaler_Get_HwReg_PixelRate(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_PIXELRATE_DATA);
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_PIXELRATE_DATA);
     return Data;
 }
 
@@ -171,14 +176,14 @@ u32 XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return (InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE);
+    return (InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE);
 }
 
 u32 XV_hscaler_Get_HwReg_hfltCoeff_HighAddress(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return (InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_HIGH);
+    return (InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_HIGH);
 }
 
 u32 XV_hscaler_Get_HwReg_hfltCoeff_TotalBytes(XV_hscaler *InstancePtr) {
@@ -212,7 +217,7 @@ u32 XV_hscaler_Write_HwReg_hfltCoeff_Words(XV_hscaler *InstancePtr, int offset, 
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(int *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + (offset + i)*4) = *(data + i);
+        *(int *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + (offset + i)*4) = *(data + i);
     }
     return length;
 }
@@ -227,7 +232,7 @@ u32 XV_hscaler_Read_HwReg_hfltCoeff_Words(XV_hscaler *InstancePtr, int offset, i
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + (offset + i)*4);
+        *(data + i) = *(int *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + (offset + i)*4);
     }
     return length;
 }
@@ -242,7 +247,7 @@ u32 XV_hscaler_Write_HwReg_hfltCoeff_Bytes(XV_hscaler *InstancePtr, int offset, 
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(char *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + offset + i) = *(data + i);
+        *(char *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + offset + i) = *(data + i);
     }
     return length;
 }
@@ -257,7 +262,7 @@ u32 XV_hscaler_Read_HwReg_hfltCoeff_Bytes(XV_hscaler *InstancePtr, int offset, c
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + offset + i);
+        *(data + i) = *(char *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE + offset + i);
     }
     return length;
 }
@@ -266,14 +271,14 @@ u32 XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return (InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE);
+    return (InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE);
 }
 
 u32 XV_hscaler_Get_HwReg_phasesH_V_HighAddress(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return (InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_HIGH);
+    return (InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_HIGH);
 }
 
 u32 XV_hscaler_Get_HwReg_phasesH_V_TotalBytes(XV_hscaler *InstancePtr) {
@@ -307,7 +312,7 @@ u32 XV_hscaler_Write_HwReg_phasesH_V_Words(XV_hscaler *InstancePtr, int offset, 
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(int *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + (offset + i)*4) = *(data + i);
+        *(int *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + (offset + i)*4) = *(data + i);
     }
     return length;
 }
@@ -322,7 +327,7 @@ u32 XV_hscaler_Read_HwReg_phasesH_V_Words(XV_hscaler *InstancePtr, int offset, i
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + (offset + i)*4);
+        *(data + i) = *(int *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + (offset + i)*4);
     }
     return length;
 }
@@ -337,7 +342,7 @@ u32 XV_hscaler_Write_HwReg_phasesH_V_Bytes(XV_hscaler *InstancePtr, int offset, 
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(char *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + offset + i) = *(data + i);
+        *(char *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + offset + i) = *(data + i);
     }
     return length;
 }
@@ -352,7 +357,7 @@ u32 XV_hscaler_Read_HwReg_phasesH_V_Bytes(XV_hscaler *InstancePtr, int offset, c
         return 0;
 
     for (i = 0; i < length; i++) {
-        *(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + offset + i);
+        *(data + i) = *(char *)(InstancePtr->Config.BaseAddress + XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE + offset + i);
     }
     return length;
 }
@@ -361,14 +366,14 @@ void XV_hscaler_InterruptGlobalEnable(XV_hscaler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_GIE, 1);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_GIE, 1);
 }
 
 void XV_hscaler_InterruptGlobalDisable(XV_hscaler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_GIE, 0);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_GIE, 0);
 }
 
 void XV_hscaler_InterruptEnable(XV_hscaler *InstancePtr, u32 Mask) {
@@ -377,8 +382,8 @@ void XV_hscaler_InterruptEnable(XV_hscaler *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_IER);
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_IER, Register | Mask);
+    Register =  XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_IER);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_IER, Register | Mask);
 }
 
 void XV_hscaler_InterruptDisable(XV_hscaler *InstancePtr, u32 Mask) {
@@ -387,27 +392,27 @@ void XV_hscaler_InterruptDisable(XV_hscaler *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_IER);
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_IER, Register & (~Mask));
+    Register =  XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_IER);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_IER, Register & (~Mask));
 }
 
 void XV_hscaler_InterruptClear(XV_hscaler *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_hscaler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_ISR, Mask);
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_ISR, Mask);
 }
 
 u32 XV_hscaler_InterruptGetEnabled(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_IER);
+    return XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_IER);
 }
 
 u32 XV_hscaler_InterruptGetStatus(XV_hscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_hscaler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_HSCALER_CTRL_ADDR_ISR);
+    return XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_ISR);
 }
