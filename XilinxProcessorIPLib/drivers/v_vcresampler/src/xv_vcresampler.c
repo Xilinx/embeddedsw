@@ -11,16 +11,21 @@
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
-int XV_vcresampler_CfgInitialize(XV_vcresampler *InstancePtr, XV_vcresampler_Config *ConfigPtr) {
+int XV_vcresampler_CfgInitialize(XV_vcresampler *InstancePtr,
+                                 XV_vcresampler_Config *ConfigPtr,
+                                 u32 EffectiveAddr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
 
-	/* Setup the instance */
-	(void)memset((void *)InstancePtr, 0, sizeof(XV_vcresampler));
-	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
-					sizeof(XV_vcresampler_Config));
+    /* Setup the instance */
+    (void)memset((void *)InstancePtr, 0, sizeof(XV_vcresampler));
+    (void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+                    sizeof(XV_vcresampler_Config));
 
-    InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
+    InstancePtr->Config.BaseAddress = EffectiveAddr;
+
+    /* Set the flag to indicate the driver is ready */
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
     return XST_SUCCESS;
@@ -33,8 +38,8 @@ void XV_vcresampler_Start(XV_vcresampler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL) & 0x80;
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL, Data | 0x01);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL) & 0x80;
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL, Data | 0x01);
 }
 
 u32 XV_vcresampler_IsDone(XV_vcresampler *InstancePtr) {
@@ -43,7 +48,7 @@ u32 XV_vcresampler_IsDone(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
     return (Data >> 1) & 0x1;
 }
 
@@ -53,7 +58,7 @@ u32 XV_vcresampler_IsIdle(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
     return (Data >> 2) & 0x1;
 }
 
@@ -63,7 +68,7 @@ u32 XV_vcresampler_IsReady(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
     // check ap_start to see if the pcore is ready for next input
     return !(Data & 0x1);
 }
@@ -72,21 +77,21 @@ void XV_vcresampler_EnableAutoRestart(XV_vcresampler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL, 0x80);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL, 0x80);
 }
 
 void XV_vcresampler_DisableAutoRestart(XV_vcresampler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL, 0);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL, 0);
 }
 
 void XV_vcresampler_Set_HwReg_width(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_width(XV_vcresampler *InstancePtr) {
@@ -95,7 +100,7 @@ u32 XV_vcresampler_Get_HwReg_width(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA);
     return Data;
 }
 
@@ -103,7 +108,7 @@ void XV_vcresampler_Set_HwReg_height(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_height(XV_vcresampler *InstancePtr) {
@@ -112,7 +117,7 @@ u32 XV_vcresampler_Get_HwReg_height(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA);
     return Data;
 }
 
@@ -120,7 +125,7 @@ void XV_vcresampler_Set_HwReg_input_video_format(XV_vcresampler *InstancePtr, u3
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_input_video_format(XV_vcresampler *InstancePtr) {
@@ -129,7 +134,7 @@ u32 XV_vcresampler_Get_HwReg_input_video_format(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA);
     return Data;
 }
 
@@ -137,7 +142,7 @@ void XV_vcresampler_Set_HwReg_output_video_format(XV_vcresampler *InstancePtr, u
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_output_video_format(XV_vcresampler *InstancePtr) {
@@ -146,7 +151,7 @@ u32 XV_vcresampler_Get_HwReg_output_video_format(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA);
     return Data;
 }
 
@@ -154,7 +159,7 @@ void XV_vcresampler_Set_HwReg_coefs_0_0(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_0_0(XV_vcresampler *InstancePtr) {
@@ -163,7 +168,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_0_0(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA);
     return Data;
 }
 
@@ -171,7 +176,7 @@ void XV_vcresampler_Set_HwReg_coefs_0_1(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_1_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_1_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_0_1(XV_vcresampler *InstancePtr) {
@@ -180,7 +185,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_0_1(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_1_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_1_DATA);
     return Data;
 }
 
@@ -188,7 +193,7 @@ void XV_vcresampler_Set_HwReg_coefs_0_2(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_2_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_2_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_0_2(XV_vcresampler *InstancePtr) {
@@ -197,7 +202,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_0_2(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_2_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_2_DATA);
     return Data;
 }
 
@@ -205,7 +210,7 @@ void XV_vcresampler_Set_HwReg_coefs_0_3(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_3_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_3_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_0_3(XV_vcresampler *InstancePtr) {
@@ -214,7 +219,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_0_3(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_3_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_3_DATA);
     return Data;
 }
 
@@ -222,7 +227,7 @@ void XV_vcresampler_Set_HwReg_coefs_1_0(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_0_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_0_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_1_0(XV_vcresampler *InstancePtr) {
@@ -231,7 +236,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_1_0(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_0_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_0_DATA);
     return Data;
 }
 
@@ -239,7 +244,7 @@ void XV_vcresampler_Set_HwReg_coefs_1_1(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_1_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_1_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_1_1(XV_vcresampler *InstancePtr) {
@@ -248,7 +253,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_1_1(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_1_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_1_DATA);
     return Data;
 }
 
@@ -256,7 +261,7 @@ void XV_vcresampler_Set_HwReg_coefs_1_2(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_2_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_2_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_1_2(XV_vcresampler *InstancePtr) {
@@ -265,7 +270,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_1_2(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_2_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_2_DATA);
     return Data;
 }
 
@@ -273,7 +278,7 @@ void XV_vcresampler_Set_HwReg_coefs_1_3(XV_vcresampler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_3_DATA, Data);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_3_DATA, Data);
 }
 
 u32 XV_vcresampler_Get_HwReg_coefs_1_3(XV_vcresampler *InstancePtr) {
@@ -282,7 +287,7 @@ u32 XV_vcresampler_Get_HwReg_coefs_1_3(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_3_DATA);
+    Data = XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_3_DATA);
     return Data;
 }
 
@@ -290,14 +295,14 @@ void XV_vcresampler_InterruptGlobalEnable(XV_vcresampler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_GIE, 1);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_GIE, 1);
 }
 
 void XV_vcresampler_InterruptGlobalDisable(XV_vcresampler *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_GIE, 0);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_GIE, 0);
 }
 
 void XV_vcresampler_InterruptEnable(XV_vcresampler *InstancePtr, u32 Mask) {
@@ -306,8 +311,8 @@ void XV_vcresampler_InterruptEnable(XV_vcresampler *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER);
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER, Register | Mask);
+    Register =  XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER, Register | Mask);
 }
 
 void XV_vcresampler_InterruptDisable(XV_vcresampler *InstancePtr, u32 Mask) {
@@ -316,27 +321,27 @@ void XV_vcresampler_InterruptDisable(XV_vcresampler *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER);
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER, Register & (~Mask));
+    Register =  XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER, Register & (~Mask));
 }
 
 void XV_vcresampler_InterruptClear(XV_vcresampler *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_vcresampler_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_ISR, Mask);
+    XV_vcresampler_WriteReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_ISR, Mask);
 }
 
 u32 XV_vcresampler_InterruptGetEnabled(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER);
+    return XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_IER);
 }
 
 u32 XV_vcresampler_InterruptGetStatus(XV_vcresampler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_vcresampler_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_ISR);
+    return XV_vcresampler_ReadReg(InstancePtr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_ISR);
 }

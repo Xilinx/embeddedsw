@@ -45,13 +45,14 @@ typedef uint32_t u32;
 */
 typedef struct {
     u16 DeviceId;          /**< Unique ID  of device */
-    u32 Ctrl_BaseAddress;  /**< The base address of the core instance. */
-    int PixPerClk;         /**< Samples Per Clock supported by core instance */
+    u32 BaseAddress;       /**< The base address of the core instance. */
+    u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
+    u16 NumVidComponents;  /**< Number of Video Components */
     u16 MaxWidth;          /**< Maximum columns supported by core instance */
     u16 MaxHeight;         /**< Maximum rows supported by core instance */
-    int MaxDataWidth;      /**< Maximum Data width of each channel */
-    int ResamplingType;    /**< Resampling Method selected */
-    u8  NumTaps;           /**< Number of filter taps */
+    u16 MaxDataWidth;      /**< Maximum Data width of each channel */
+    u16 ResamplingType;    /**< Resampling Method selected */
+    u16 NumTaps;           /**< Number of filter taps */
 } XV_vcresampler_Config;
 #endif
 
@@ -60,7 +61,6 @@ typedef struct {
 */
 typedef struct {
     XV_vcresampler_Config Config; /**< Hardware Configuration */
-    u32 Ctrl_BaseAddress;     /**< The base address of the core instance. */
     u32 IsReady;                  /**< Device is initialized and ready */
 } XV_vcresampler;
 
@@ -89,7 +89,9 @@ typedef struct {
 #ifndef __linux__
 int XV_vcresampler_Initialize(XV_vcresampler *InstancePtr, u16 DeviceId);
 XV_vcresampler_Config* XV_vcresampler_LookupConfig(u16 DeviceId);
-int XV_vcresampler_CfgInitialize(XV_vcresampler *InstancePtr, XV_vcresampler_Config *ConfigPtr);
+int XV_vcresampler_CfgInitialize(XV_vcresampler *InstancePtr,
+                                 XV_vcresampler_Config *ConfigPtr,
+                                 u32 EffectiveAddr);
 #else
 int XV_vcresampler_Initialize(XV_vcresampler *InstancePtr, const char* InstanceName);
 int XV_vcresampler_Release(XV_vcresampler *InstancePtr);

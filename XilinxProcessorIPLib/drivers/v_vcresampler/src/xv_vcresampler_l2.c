@@ -35,6 +35,7 @@
 * @file xv_vcresampler_l2.c
 * @addtogroup v_vcresampler_v1_0
 * @{
+* @details
 *
 * The Vertical Chroma Resampler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -46,7 +47,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -239,7 +240,7 @@ void XV_VCrsmplDbgReportStatus(XV_vcresampler *InstancePtr)
   done  = XV_vcresampler_IsDone(pVCrsmplr);
   idle  = XV_vcresampler_IsIdle(pVCrsmplr);
   ready = XV_vcresampler_IsReady(pVCrsmplr);
-  ctrl  = XV_vcresampler_ReadReg(pVCrsmplr->Ctrl_BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
+  ctrl  = XV_vcresampler_ReadReg(pVCrsmplr->Config.BaseAddress, XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL);
 
   vidfmtIn  = XV_vcresampler_Get_HwReg_input_video_format(pVCrsmplr);
   vidfmtOut = XV_vcresampler_Get_HwReg_output_video_format(pVCrsmplr);
