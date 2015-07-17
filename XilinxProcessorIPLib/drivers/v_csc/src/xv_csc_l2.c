@@ -35,6 +35,7 @@
 * @file xv_csc_l2.c
 * @addtogroup v_csc_v1_0
 * @{
+* @details
 *
 * The CSC Layer-2 Driver. The functions in this file provides an abstraction
 * from the register peek/poke methodology by implementing most common use-case
@@ -46,7 +47,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -1080,8 +1081,8 @@ static void cscFwComputeCoeff(XV_csc_L2Reg *pCscFwReg,
 
   if (((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
        (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_444)) ||
-	  ((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_422) &&
-	   (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_422)))
+      ((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_422) &&
+       (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_422)))
   {
     cscFwYCbCrtoRGB(M1, pCscFwReg->StandardIn, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K2, K3);
@@ -1242,7 +1243,7 @@ void XV_CscDbgReportStatus(XV_csc *InstancePtr)
   done  = XV_csc_IsDone(pCsc);
   idle  = XV_csc_IsIdle(pCsc);
   ready = XV_csc_IsReady(pCsc);
-  ctrl  = XV_csc_ReadReg(pCsc->Ctrl_BaseAddress, XV_CSC_CTRL_ADDR_AP_CTRL);
+  ctrl  = XV_csc_ReadReg(pCsc->Config.BaseAddress, XV_CSC_CTRL_ADDR_AP_CTRL);
 
   colstart = XV_csc_Get_HwReg_ColStart(pCsc);
   colend   = XV_csc_Get_HwReg_ColEnd(pCsc);
