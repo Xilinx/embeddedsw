@@ -11,16 +11,21 @@
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
-int XV_letterbox_CfgInitialize(XV_letterbox *InstancePtr, XV_letterbox_Config *ConfigPtr) {
+int XV_letterbox_CfgInitialize(XV_letterbox *InstancePtr,
+                               XV_letterbox_Config *ConfigPtr,
+                               u32 EffectiveAddr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
 
-	/* Setup the instance */
-	(void)memset((void *)InstancePtr, 0, sizeof(XV_letterbox));
-	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
-					sizeof(XV_letterbox_Config));
+    /* Setup the instance */
+    (void)memset((void *)InstancePtr, 0, sizeof(XV_letterbox));
+    (void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+                    sizeof(XV_letterbox_Config));
 
-    InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
+    InstancePtr->Config.BaseAddress = EffectiveAddr;
+
+    /* Set the flag to indicate the driver is ready */
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
     return XST_SUCCESS;
@@ -33,8 +38,8 @@ void XV_letterbox_Start(XV_letterbox *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL) & 0x80;
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL, Data | 0x01);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL) & 0x80;
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL, Data | 0x01);
 }
 
 u32 XV_letterbox_IsDone(XV_letterbox *InstancePtr) {
@@ -43,7 +48,7 @@ u32 XV_letterbox_IsDone(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
     return (Data >> 1) & 0x1;
 }
 
@@ -53,7 +58,7 @@ u32 XV_letterbox_IsIdle(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
     return (Data >> 2) & 0x1;
 }
 
@@ -63,7 +68,7 @@ u32 XV_letterbox_IsReady(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
     // check ap_start to see if the pcore is ready for next input
     return !(Data & 0x1);
 }
@@ -72,21 +77,21 @@ void XV_letterbox_EnableAutoRestart(XV_letterbox *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL, 0x80);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL, 0x80);
 }
 
 void XV_letterbox_DisableAutoRestart(XV_letterbox *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL, 0);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL, 0);
 }
 
 void XV_letterbox_Set_HwReg_width(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_WIDTH_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_WIDTH_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_width(XV_letterbox *InstancePtr) {
@@ -95,7 +100,7 @@ u32 XV_letterbox_Get_HwReg_width(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_WIDTH_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_WIDTH_DATA);
     return Data;
 }
 
@@ -103,7 +108,7 @@ void XV_letterbox_Set_HwReg_height(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_HEIGHT_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_HEIGHT_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_height(XV_letterbox *InstancePtr) {
@@ -112,7 +117,7 @@ u32 XV_letterbox_Get_HwReg_height(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_HEIGHT_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_HEIGHT_DATA);
     return Data;
 }
 
@@ -120,7 +125,7 @@ void XV_letterbox_Set_HwReg_video_format(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_video_format(XV_letterbox *InstancePtr) {
@@ -129,7 +134,7 @@ u32 XV_letterbox_Get_HwReg_video_format(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA);
     return Data;
 }
 
@@ -137,7 +142,7 @@ void XV_letterbox_Set_HwReg_col_start(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_START_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_START_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_col_start(XV_letterbox *InstancePtr) {
@@ -146,7 +151,7 @@ u32 XV_letterbox_Get_HwReg_col_start(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_START_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_START_DATA);
     return Data;
 }
 
@@ -154,7 +159,7 @@ void XV_letterbox_Set_HwReg_col_end(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_END_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_END_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_col_end(XV_letterbox *InstancePtr) {
@@ -163,7 +168,7 @@ u32 XV_letterbox_Get_HwReg_col_end(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_END_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_COL_END_DATA);
     return Data;
 }
 
@@ -171,7 +176,7 @@ void XV_letterbox_Set_HwReg_row_start(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_START_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_START_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_row_start(XV_letterbox *InstancePtr) {
@@ -180,7 +185,7 @@ u32 XV_letterbox_Get_HwReg_row_start(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_START_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_START_DATA);
     return Data;
 }
 
@@ -188,7 +193,7 @@ void XV_letterbox_Set_HwReg_row_end(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_END_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_END_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_row_end(XV_letterbox *InstancePtr) {
@@ -197,7 +202,7 @@ u32 XV_letterbox_Get_HwReg_row_end(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_END_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_END_DATA);
     return Data;
 }
 
@@ -205,7 +210,7 @@ void XV_letterbox_Set_HwReg_Y_R_value(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_Y_R_VALUE_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_Y_R_VALUE_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_Y_R_value(XV_letterbox *InstancePtr) {
@@ -214,7 +219,7 @@ u32 XV_letterbox_Get_HwReg_Y_R_value(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_Y_R_VALUE_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_Y_R_VALUE_DATA);
     return Data;
 }
 
@@ -222,7 +227,7 @@ void XV_letterbox_Set_HwReg_Cb_G_value(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CB_G_VALUE_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CB_G_VALUE_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_Cb_G_value(XV_letterbox *InstancePtr) {
@@ -231,7 +236,7 @@ u32 XV_letterbox_Get_HwReg_Cb_G_value(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CB_G_VALUE_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CB_G_VALUE_DATA);
     return Data;
 }
 
@@ -239,7 +244,7 @@ void XV_letterbox_Set_HwReg_Cr_B_value(XV_letterbox *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CR_B_VALUE_DATA, Data);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CR_B_VALUE_DATA, Data);
 }
 
 u32 XV_letterbox_Get_HwReg_Cr_B_value(XV_letterbox *InstancePtr) {
@@ -248,7 +253,7 @@ u32 XV_letterbox_Get_HwReg_Cr_B_value(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CR_B_VALUE_DATA);
+    Data = XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_HWREG_CR_B_VALUE_DATA);
     return Data;
 }
 
@@ -256,14 +261,14 @@ void XV_letterbox_InterruptGlobalEnable(XV_letterbox *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_GIE, 1);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_GIE, 1);
 }
 
 void XV_letterbox_InterruptGlobalDisable(XV_letterbox *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_GIE, 0);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_GIE, 0);
 }
 
 void XV_letterbox_InterruptEnable(XV_letterbox *InstancePtr, u32 Mask) {
@@ -272,8 +277,8 @@ void XV_letterbox_InterruptEnable(XV_letterbox *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER);
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER, Register | Mask);
+    Register =  XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER, Register | Mask);
 }
 
 void XV_letterbox_InterruptDisable(XV_letterbox *InstancePtr, u32 Mask) {
@@ -282,27 +287,27 @@ void XV_letterbox_InterruptDisable(XV_letterbox *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER);
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER, Register & (~Mask));
+    Register =  XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER, Register & (~Mask));
 }
 
 void XV_letterbox_InterruptClear(XV_letterbox *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_letterbox_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_ISR, Mask);
+    XV_letterbox_WriteReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_ISR, Mask);
 }
 
 u32 XV_letterbox_InterruptGetEnabled(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER);
+    return XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_IER);
 }
 
 u32 XV_letterbox_InterruptGetStatus(XV_letterbox *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_letterbox_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_ISR);
+    return XV_letterbox_ReadReg(InstancePtr->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_ISR);
 }

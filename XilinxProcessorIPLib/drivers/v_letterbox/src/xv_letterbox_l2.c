@@ -35,6 +35,7 @@
 * @file xv_letterbox_l2.c
 * @addtogroup v_letterbox_v1_0
 * @{
+* @details
 *
 * The Letterbox Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -46,7 +47,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rc   05/01/15   Initial Release
+* 1.00  rco   07/21/15   Initial Release
 
 * </pre>
 *
@@ -223,7 +224,7 @@ void XV_LBoxDbgReportStatus(XV_letterbox *InstancePtr)
   done  = XV_letterbox_IsDone(pLbox);
   idle  = XV_letterbox_IsIdle(pLbox);
   ready = XV_letterbox_IsReady(pLbox);
-  ctrl  = XV_letterbox_ReadReg(pLbox->Ctrl_BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
+  ctrl  = XV_letterbox_ReadReg(pLbox->Config.BaseAddress, XV_LETTERBOX_CTRL_ADDR_AP_CTRL);
 
   colstart = XV_letterbox_Get_HwReg_col_start(pLbox);
   colend   = XV_letterbox_Get_HwReg_col_end(pLbox);
