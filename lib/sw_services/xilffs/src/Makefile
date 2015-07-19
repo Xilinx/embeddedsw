@@ -35,21 +35,9 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
 
-ifeq ($(notdir $(COMPILER)) , arm-xilinx-eabi-gcc)
-	EXTRA_ARCHIVE_FLAGS=rc
-else
-ifeq ($(notdir $(COMPILER)), aarch64-none-elf-gcc)
-	EXTRA_ARCHIVE_FLAGS=rc
-else
-ifeq ($(notdir $(COMPILER)), arm-none-eabi-gcc)
-	EXTRA_ARCHIVE_FLAGS=rc
-else
+ifeq ($(notdir $(COMPILER)) , iccarm)
 	EXTRA_ARCHIVE_FLAGS=--create
-endif
-endif
-endif
-
-ifeq ($(COMPILER) , mb-gcc)
+else
 	EXTRA_ARCHIVE_FLAGS=rc
 endif
 
