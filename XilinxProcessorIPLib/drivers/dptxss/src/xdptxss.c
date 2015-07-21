@@ -45,6 +45,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 07/21/15 Renamed sub-cores functions with prefix XDpTxSs_*
 * </pre>
 *
 ******************************************************************************/
@@ -100,7 +101,7 @@ XDpTxSs_SubCores DpTxSsSubCores;
 * @return
 *		- XST_DEVICE_NOT_FOUND if sub-core not found.
 *		- XST_FAILURE if sub-core initialization failed.
-*		- XST_SUCCESS if XDptxss_CfgInitialize successful.
+*		- XST_SUCCESS if XDpTxSs_CfgInitialize successful.
 *
 * @note		None.
 *
@@ -353,7 +354,7 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 	}
 
 	/* Start DisplayPort sub-core configuration */
-	Status = XSs_DpTxStart(InstancePtr->DpPtr,
+	Status = XDpTxSs_DpTxStart(InstancePtr->DpPtr,
 			InstancePtr->UsrOpt.MstSupport,
 				InstancePtr->UsrOpt.Bpc,
 					InstancePtr->UsrOpt.VmId);
@@ -394,7 +395,7 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		}
 
 		/* Setup Dual Splitter in either bypass/vertical split mode */
-		Status = XSs_DsSetup(InstancePtr->DsPtr, VertSplit,
+		Status = XDpTxSs_DsSetup(InstancePtr->DsPtr, VertSplit,
 				&InstancePtr->DpPtr->TxInstance.MsaConfig[0]);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: DS start "
@@ -407,7 +408,7 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 	/* Setup VTC */
 	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
-			Status = XSs_VtcSetup(InstancePtr->VtcPtr[Index],
+			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
 			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "

@@ -32,10 +32,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xss_dualsplitter.h
+* @file xdptxss_vtc.h
 *
 * This is the header file for Xilinx DisplayPort Transmitter Subsystem
-* sub-core, is Dual Splitter.
+* sub-core, is Video Timing Controller.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -43,11 +43,13 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
+*                   name with prefix XDpTxSs_*
 * </pre>
 *
 ******************************************************************************/
-#ifndef XSS_DUALSPLITTER_H_
-#define XSS_DUALSPLITTER_H_	/**< Prevent circular inclusions
+#ifndef XDPTXSS_VTC_H_
+#define XDPTXSS_VTC_H_		/**< Prevent circular inclusions
 				  *  by using protection macros */
 
 #ifdef __cplusplus
@@ -56,10 +58,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
-#if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
-#include "xdualsplitter.h"
-#endif
+#include "xvtc.h"
 #include "xdp.h"
 
 /************************** Constant Definitions *****************************/
@@ -73,10 +72,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-#if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
-u32 XSs_DsSetup(XDualSplitter *InstancePtr, u8 NumStreams,
-			XDp_TxMainStreamAttributes *MsaConfig);
-#endif
+u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig);
 
 /************************** Variable Declarations ****************************/
 

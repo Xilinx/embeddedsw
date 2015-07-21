@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xss_vtc.c
+* @file xdptxss_vtc.c
 *
 * This file contains a minimal set of functions for the Video Timing controller
 * core to configure.
@@ -43,13 +43,15 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
+*                   name with prefix XDpTxSs_*
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xss_vtc.h"
+#include "xdptxss_vtc.h"
 #include "string.h"
 
 /************************** Constant Definitions *****************************/
@@ -85,7 +87,7 @@
 * @note		None.
 *
 ******************************************************************************/
-u32 XSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
+u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
 {
 	u32 UserPixelWidth;
 

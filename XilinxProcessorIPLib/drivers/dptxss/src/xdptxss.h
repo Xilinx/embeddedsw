@@ -90,6 +90,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 07/21/15 Included renamed sub-cores header files.
 * </pre>
 *
 ******************************************************************************/
@@ -110,9 +111,9 @@ extern "C" {
 #include "xdebug.h"
 
 /* Subsystem sub-cores header files */
-#include "xss_dptx.h"
-#include "xss_dualsplitter.h"
-#include "xss_vtc.h"
+#include "xdptxss_dptx.h"
+#include "xdptxss_dualsplitter.h"
+#include "xdptxss_vtc.h"
 
 /************************** Constant Definitions *****************************/
 

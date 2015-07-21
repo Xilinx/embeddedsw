@@ -17,7 +17,7 @@ OUTS = *.o
 INCLUDEFILES=*.h ./vtc/*.h ./dualsplitter/*.h ./dp/*.h
 LIBSOURCES=*.c ./vtc/*.c ./dualsplitter/*.c ./dp/*.c
 
-OBJECTS = $(addsuffix .o, $(basename ./vtc/xss_vtc.c ./dualsplitter/xss_dualsplitter.c ./dp/xss_dptx.c $(wildcard *.c)))
+OBJECTS = $(addsuffix .o, $(basename ./vtc/xdptxss_vtc.c ./dualsplitter/xdptxss_dualsplitter.c ./dp/xdptxss_dptx.c $(wildcard *.c)))
 
 libs: banner xdptxss_libs clean
 

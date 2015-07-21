@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xss_dualsplitter.c
+* @file xdptxss_dualsplitter.c
 *
 * This file contains a minimal set of functions for the Dual Splitter core
 * to configure.
@@ -43,13 +43,15 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
+*                   name with prefix XDpTxSs_*.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xss_dualsplitter.h"
+#include "xdptxss_dualsplitter.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -87,7 +89,7 @@
 * @note		None.
 *
 ******************************************************************************/
-u32 XSs_DsSetup(XDualSplitter *InstancePtr, u8 VertSplit,
+u32 XDpTxSs_DsSetup(XDualSplitter *InstancePtr, u8 VertSplit,
 				XDp_TxMainStreamAttributes *MsaConfig)
 {
 	u8 ISamples;

@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xss_dptx.c
+* @file xdptxss_dptx.c
 *
 * This file contains a minimal set of functions for the DisplayPort core
 * to configure in TX mode of operation.
@@ -43,13 +43,15 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
+*                   names with prefix XDpTxSs_*.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xss_dptx.h"
+#include "xdptxss_dptx.h"
 #include "xvidc.h"
 #include "xvidc_edid.h"
 #include "xdebug.h"
@@ -103,7 +105,7 @@ static XVidC_VideoMode Dp_GetPreferredVm(u8 *EdidPtr);
 * @note		None.
 *
 ******************************************************************************/
-u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
+u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			XVidC_VideoMode VidMode)
 {
 	u32 Status;
@@ -114,8 +116,8 @@ u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((TransportMode == XSS_DPTX_MST) ||
-			(TransportMode == XSS_DPTX_SST));
+	Xil_AssertNonvoid((TransportMode == XDPTXSS_DPTX_MST) ||
+			(TransportMode == XDPTXSS_DPTX_SST));
 	Xil_AssertNonvoid((Bpc == XVIDC_BPC_8) || (Bpc == XVIDC_BPC_10) ||
 			(Bpc == XVIDC_BPC_12) || (Bpc == XVIDC_BPC_16));
 	Xil_AssertNonvoid((VidMode < XVIDC_VM_NUM_SUPPORTED) ||
@@ -167,13 +169,13 @@ u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		 * count. Training is required to discover topology so that
 		 * prefer erred timing can be known.
 		 */
-		Status = XSs_DpTxStartLink(InstancePtr, FALSE);
+		Status = XDpTxSs_DpTxStartLink(InstancePtr, FALSE);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Re- "
 				"training with maximum RX capabilities\n\r");
 
 			/* Train link with maximum RX capabilities */
-			Status = XSs_DpTxStartLink(InstancePtr, TRUE);
+			Status = XDpTxSs_DpTxStartLink(InstancePtr, TRUE);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:MST:"
 					"Verify cable and/or monitor.\n\r");
@@ -301,7 +303,7 @@ u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			/* Check for link training need and run training
 			 * sequence.
 			 */
-			Status = XSs_DpTxStartLink(InstancePtr, TRUE);
+			Status = XDpTxSs_DpTxStartLink(InstancePtr, TRUE);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
 					"Re-training with max after payload "
@@ -444,14 +446,14 @@ u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		/* Start link training with user set link rate and lane
 		 * count.
 		 */
-		Status = XSs_DpTxStartLink(InstancePtr, FALSE);
+		Status = XDpTxSs_DpTxStartLink(InstancePtr, FALSE);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:"
 				"Re-training with maximum RX capabilities."
 					"\n\r");
 
 			/* Train link with maximum RX capabilities */
-			Status = XSs_DpTxStartLink(InstancePtr, TRUE);
+			Status = XDpTxSs_DpTxStartLink(InstancePtr, TRUE);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:SST:"
 					"Verify cable and/or monitor.\n\r");
@@ -517,7 +519,7 @@ u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			/* Check for link training need and run training
 			 * sequence.
 			 */
-			Status = XSs_DpTxStartLink(InstancePtr, TRUE);
+			Status = XDpTxSs_DpTxStartLink(InstancePtr, TRUE);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:"
 					"Re-training failed with max "
@@ -611,7 +613,7 @@ u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 * @note		None.
 *
 ******************************************************************************/
-u32 XSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap)
+u32 XDpTxSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap)
 {
 	u32 Status;
 	u32 IntrMask;

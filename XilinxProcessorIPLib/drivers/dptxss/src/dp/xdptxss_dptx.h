@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xss_dptx.h
+* @file xdptxss_dptx.h
 *
 * This is the header file for Xilinx DisplayPort Transmitter Subsystem
 * sub-core, is DisplayPort in TX mode of operation.
@@ -43,11 +43,14 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_*, function
+*                   names with prefix XDpTxSs_* and macros with prefix
+*                   XDPTXSS_*
 * </pre>
 *
 ******************************************************************************/
-#ifndef XSS_DPTX_H_
-#define XSS_DPTX_H_		/**< Prevent circular inclusions
+#ifndef XDPTXSS_DPTX_H_
+#define XDPTXSS_DPTX_H_		/**< Prevent circular inclusions
 				  *  by using protection macros */
 
 #ifdef __cplusplus
@@ -60,8 +63,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XSS_DPTX_MST		1	/**< Multi-Stream Transport */
-#define XSS_DPTX_SST		0	/**< Single Stream Transport */
+#define XDPTXSS_DPTX_MST	1	/**< Multi-Stream Transport */
+#define XDPTXSS_DPTX_SST	0	/**< Single Stream Transport */
 
 /**************************** Type Definitions *******************************/
 
@@ -71,9 +74,9 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-u32 XSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
+u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			XVidC_VideoMode VidMode);
-u32 XSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap);
+u32 XDpTxSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap);
 
 /************************** Variable Declarations ****************************/
 
