@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,9 @@
 #include "xparameters_ps.h"
 #include "xil_exception.h"
 #include "xil_mmu.h"
+#if defined (ARMR5)
+#include "xreg_cortexr5.h"
+#endif
 #ifdef CONFIG_XTRACE
 #include "xtrace.h"
 #endif
@@ -54,8 +57,8 @@
 #endif
 
 
-#define INTC_BASE_ADDR		XPAR_SCUGIC_CPU_BASEADDR
-#define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_DIST_BASEADDR
+#define INTC_BASE_ADDR		XPAR_SCUGIC_0_CPU_BASEADDR
+#define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_0_DIST_BASEADDR
 
 /* Byte alignment of BDs */
 #define BD_ALIGNMENT (XEMACPS_DMABD_MINIMUM_ALIGNMENT*2)
@@ -173,7 +176,10 @@ void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 			tx_pbufs_storage[index + bdindex] = 0;
 			curbdpntr = XEmacPs_BdRingNext(txring, curbdpntr);
 			n_pbufs_freed--;
+#if defined (ARMR5)
+#else
 			dsb();
+#endif
 		}
 
 		status = XEmacPs_BdRingFree(txring, n_bds, txbdset);
@@ -367,6 +373,7 @@ void emacps_recv_handler(void *arg)
 	u32_t bdindex;
 	u32_t regval;
 	u32_t index = 0;
+	u32_t gigeversion;
 
 	xemac = (struct xemac_s *)(arg);
 	xemacpsif = (xemacpsif_s *)(xemac->state);
@@ -375,6 +382,8 @@ void emacps_recv_handler(void *arg)
 #ifdef OS_IS_FREERTOS
 	xInsideISR++;
 #endif
+
+	gigeversion = ((Xil_In32(xemacpsif->emacps.Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
 	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
 		index = sizeof(s32_t) * XLWIP_CONFIG_N_RX_DESC;
 	}
@@ -384,8 +393,9 @@ void emacps_recv_handler(void *arg)
 	 */
 	regval = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_RXSR_OFFSET);
 	XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_RXSR_OFFSET, regval);
-
-	resetrx_on_no_rxdata(xemacpsif);
+	if (gigeversion <= 2) {
+			resetrx_on_no_rxdata(xemacpsif);
+	}
 
 	while(1) {
 
@@ -462,6 +472,10 @@ XStatus init_dma(struct xemac_s *xemac)
 	u32_t bdindex;
 	volatile u32_t tempaddress;
 	u32_t index = 0;
+	u32_t gigeversion;
+	XEmacPs_Bd *bdtxterminate;
+	XEmacPs_Bd *bdrxterminate;
+	u32_t *temp;
 
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
@@ -469,6 +483,7 @@ XStatus init_dma(struct xemac_s *xemac)
 	if (xemacpsif->emacps.Config.BaseAddress != XPAR_XEMACPS_0_BASEADDR) {
 		index = sizeof(s32_t) * XLWIP_CONFIG_N_RX_DESC;
 	}
+	gigeversion = ((Xil_In32(xemacpsif->emacps.Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
 	/*
 	 * The BDs need to be allocated in uncached memory. Hence the 1 MB
 	 * address range allocated for Bd_Space is made uncached
@@ -477,7 +492,11 @@ XStatus init_dma(struct xemac_s *xemac)
 	 * a reserved uncached area used only for BDs.
 	 */
 	if (bd_space_attr_set == 0) {
-		Xil_SetTlbAttributes((s32_t)bd_space, 0xc02); // addr, attr
+#if defined (ARMR5)
+	Xil_SetTlbAttributes((s32_t)bd_space, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW); // addr, attr
+#else
+	Xil_SetTlbAttributes((s32_t)bd_space, 0xc02); // addr, attr
+#endif
 		bd_space_attr_set = 1;
 	}
 
@@ -493,6 +512,14 @@ XStatus init_dma(struct xemac_s *xemac)
 	tempaddress = (u32_t)&(bd_space[bd_space_index]);
 	xemacpsif->tx_bdspace = (void *)tempaddress;
 	bd_space_index += 0x10000;
+	if (gigeversion > 2) {
+		tempaddress = (u32_t)&(bd_space[bd_space_index]);
+		bdrxterminate = (XEmacPs_Bd *)tempaddress;
+		bd_space_index += 0x10000;
+		tempaddress = (u32_t)&(bd_space[bd_space_index]);
+		bdtxterminate = (XEmacPs_Bd *)tempaddress;
+		bd_space_index += 0x10000;
+	}
 
 	LWIP_DEBUGF(NETIF_DEBUG, ("rx_bdspace: 0x%08x\r\n", xemacpsif->rx_bdspace));
 	LWIP_DEBUGF(NETIF_DEBUG, ("tx_bdspace: 0x%08x\r\n", xemacpsif->tx_bdspace));
@@ -577,12 +604,47 @@ XStatus init_dma(struct xemac_s *xemac)
 			return ERR_IF;
 		}
 
+		bdindex = XEMACPS_BD_TO_INDEX(rxringptr, rxbd);
+		temp = (u32_t *)rxbd;
+		*temp = 0;
+		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
+			*temp = 0x00000002;
+		}
+		temp++;
+		*temp = 0;
 		Xil_DCacheInvalidateRange((u32_t)p->payload, (u32_t)XEMACPS_MAX_FRAME_SIZE);
 		XEmacPs_BdSetAddressRx(rxbd, (u32_t)p->payload);
 
-		bdindex = XEMACPS_BD_TO_INDEX(rxringptr, rxbd);
 		rx_pbufs_storage[index + bdindex] = (s32_t)p;
 	}
+	XEmacPs_SetQueuePtr(&(xemacpsif->emacps), xemacpsif->emacps.RxBdRing.BaseBdAddr, 0, XEMACPS_RECV);
+	if (gigeversion > 2) {
+		XEmacPs_SetQueuePtr(&(xemacpsif->emacps), xemacpsif->emacps.TxBdRing.BaseBdAddr, 1, XEMACPS_SEND);
+	}else {
+		XEmacPs_SetQueuePtr(&(xemacpsif->emacps), xemacpsif->emacps.TxBdRing.BaseBdAddr, 0, XEMACPS_SEND);
+	}
+	if (gigeversion > 2)
+	{
+		/*
+		 * This version of GEM supports priority queuing and the current
+		 * dirver is using tx priority queue 1 and normal rx queue for
+		 * packet transmit and receive. The below code ensure that the
+		 * other queue pointers are parked to known state for avoiding
+		 * the controller to malfunction by fetching the descriptors
+		 * from these queues.
+		 */
+		XEmacPs_BdClear(bdrxterminate);
+		XEmacPs_BdSetAddressRx(bdrxterminate, (XEMACPS_RXBUF_NEW_MASK |
+						XEMACPS_RXBUF_WRAP_MASK));
+		XEmacPs_Out32((xemacpsif->emacps.Config.BaseAddress + XEMACPS_RXQ1BASE_OFFSET),
+				   (UINTPTR)bdrxterminate);
+		XEmacPs_BdClear(bdtxterminate);
+		XEmacPs_BdSetStatus(bdrxterminate, (XEMACPS_TXBUF_USED_MASK |
+						XEMACPS_TXBUF_WRAP_MASK));
+		XEmacPs_Out32((xemacpsif->emacps.Config.BaseAddress + XEMACPS_TXQBASE_OFFSET),
+				   (UINTPTR)bdrxterminate);
+	}
+
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -618,19 +680,23 @@ void resetrx_on_no_rxdata(xemacpsif_s *xemacpsif)
 {
 	u32_t regctrl;
 	u32_t tempcntr;
+	u32_t gigeversion;
 
-	tempcntr = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_RXCNT_OFFSET);
-	if ((!tempcntr) && (!(xemacpsif->last_rx_frms_cntr))) {
-		regctrl = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress,
-				XEMACPS_NWCTRL_OFFSET);
-		regctrl &= (~XEMACPS_NWCTRL_RXEN_MASK);
-		XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,
-				XEMACPS_NWCTRL_OFFSET, regctrl);
-		regctrl = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_NWCTRL_OFFSET);
-		regctrl |= (XEMACPS_NWCTRL_RXEN_MASK);
-		XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_NWCTRL_OFFSET, regctrl);
+	gigeversion = ((Xil_In32(xemacpsif->emacps.Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
+	if (gigeversion == 2) {
+		tempcntr = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_RXCNT_OFFSET);
+		if ((!tempcntr) && (!(xemacpsif->last_rx_frms_cntr))) {
+			regctrl = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress,
+					XEMACPS_NWCTRL_OFFSET);
+			regctrl &= (~XEMACPS_NWCTRL_RXEN_MASK);
+			XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,
+					XEMACPS_NWCTRL_OFFSET, regctrl);
+			regctrl = XEmacPs_ReadReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_NWCTRL_OFFSET);
+			regctrl |= (XEMACPS_NWCTRL_RXEN_MASK);
+			XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress, XEMACPS_NWCTRL_OFFSET, regctrl);
+		}
+		xemacpsif->last_rx_frms_cntr = tempcntr;
 	}
-	xemacpsif->last_rx_frms_cntr = tempcntr;
 }
 
 void free_txrx_pbufs(xemacpsif_s *xemacpsif)

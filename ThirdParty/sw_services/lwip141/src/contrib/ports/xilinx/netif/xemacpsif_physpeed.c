@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -527,56 +527,61 @@ static void SetUpSLCRDivisors(s32_t mac_baseaddr, s32_t speed)
 	u32_t SlcrDiv0;
 	u32_t SlcrDiv1;
 	u32_t SlcrTxClkCntrl;
+	u32_t gigeversion;
 
-	*(volatile u32_t *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
+	gigeversion = ((Xil_In32(mac_baseaddr + 0xFC)) >> 16) & 0xFFF;
+	if (gigeversion == 2) {
 
-	if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
-		slcrBaseAddress = SLCR_GEM0_CLK_CTRL_ADDR;
-	} else {
-		slcrBaseAddress = SLCR_GEM1_CLK_CTRL_ADDR;
-	}
-	if (speed == 1000) {
+		*(volatile u32_t *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
+
 		if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
+			slcrBaseAddress = SLCR_GEM0_CLK_CTRL_ADDR;
+		} else {
+			slcrBaseAddress = SLCR_GEM1_CLK_CTRL_ADDR;
+		}
+		if (speed == 1000) {
+			if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
-			SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0;
-			SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1;
+				SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0;
+				SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1;
 #endif
-		} else {
+			} else {
 #ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
-			SlcrDiv0 = XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0;
-			SlcrDiv1 = XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1;
+				SlcrDiv0 = XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0;
+				SlcrDiv1 = XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1;
 #endif
-		}
-	} else if (speed == 100) {
-		if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
+			}
+		} else if (speed == 100) {
+			if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV0
-			SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV0;
-			SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV1;
+				SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV0;
+				SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV1;
 #endif
-		} else {
+			} else {
 #ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_100MBPS_DIV0
-			SlcrDiv0 = XPAR_PS7_ETHERNET_1_ENET_SLCR_100MBPS_DIV0;
-			SlcrDiv1 = XPAR_PS7_ETHERNET_1_ENET_SLCR_100MBPS_DIV1;
+				SlcrDiv0 = XPAR_PS7_ETHERNET_1_ENET_SLCR_100MBPS_DIV0;
+				SlcrDiv1 = XPAR_PS7_ETHERNET_1_ENET_SLCR_100MBPS_DIV1;
 #endif
-		}
-	} else {
-		if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
-#ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV0
-			SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV0;
-			SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV1;
-#endif
+			}
 		} else {
-#ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_10MBPS_DIV0
-			SlcrDiv0 = XPAR_PS7_ETHERNET_1_ENET_SLCR_10MBPS_DIV0;
-			SlcrDiv1 = XPAR_PS7_ETHERNET_1_ENET_SLCR_10MBPS_DIV1;
+			if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
+#ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV0
+				SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV0;
+				SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV1;
 #endif
+			} else {
+#ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_10MBPS_DIV0
+				SlcrDiv0 = XPAR_PS7_ETHERNET_1_ENET_SLCR_10MBPS_DIV0;
+				SlcrDiv1 = XPAR_PS7_ETHERNET_1_ENET_SLCR_10MBPS_DIV1;
+#endif
+			}
 		}
+		SlcrTxClkCntrl = *(volatile u32_t *)(slcrBaseAddress);
+		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
+		SlcrTxClkCntrl |= (SlcrDiv1 << 20);
+		SlcrTxClkCntrl |= (SlcrDiv0 << 8);
+		*(volatile u32_t *)(slcrBaseAddress) = SlcrTxClkCntrl;
+		*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
 	}
-	SlcrTxClkCntrl = *(volatile u32_t *)(slcrBaseAddress);
-	SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
-	SlcrTxClkCntrl |= (SlcrDiv1 << 20);
-	SlcrTxClkCntrl |= (SlcrDiv0 << 8);
-	*(volatile u32_t *)(slcrBaseAddress) = SlcrTxClkCntrl;
-	*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
 	return;
 }
