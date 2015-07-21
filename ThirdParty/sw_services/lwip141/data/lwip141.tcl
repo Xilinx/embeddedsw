@@ -245,7 +245,8 @@ proc get_emac_periphs {processor} {
 			|| $periphname == "axi_ethernet"
 			|| $periphname == "axi_ethernet_buffer"
 			|| $periphname == "axi_ethernetlite"
-			|| $periphname == "ps7_ethernet"} {
+			|| $periphname == "ps7_ethernet"
+			|| $periphname == "psu_ethernet"} {
 			lappend emac_periphs_list $periph
 		} elseif {$periphname == "xps_ll_temac"} {
 			set emac0_enabled "0"
@@ -288,7 +289,7 @@ proc get_emac_periphs {processor} {
 # all components to run lwIP are available.
 #---------------------------------------------
 proc lwip_drc {libhandle} {
-	puts "Runnning DRC for lwIP library... \n"
+	#puts "Runnning DRC for lwIP library... \n"
 
 	# find the list of xps_ethernetlite, xps_ll_temac, or axi_ethernet cores
 	set sw_processor [hsi::get_sw_processor]
@@ -299,13 +300,16 @@ proc lwip_drc {libhandle} {
 	if { [llength $emac_periphs_list] == 0 } {
 		set cpuname [common::get_property NAME $processor]
 		error "ERROR: No Ethernet MAC cores are addressable from processor $cpuname. \
-			lwIP requires atleast one EMAC (xps_ethernetlite | xps_ll_temac | axi_ethernet | axi_ethernet_buffer | axi_ethernetlite | ps7_ethernet) core \
+			lwIP requires atleast one EMAC (xps_ethernetlite | xps_ll_temac | axi_ethernet | axi_ethernet_buffer | axi_ethernetlite | ps7_ethernet | psu_ethernet ) core \
 			with its interrupt pin connected to the interrupt controller.\n" "" "MDT_ERROR"
 		return
-	}
+	} else {
+		set emac_names_list {}
 
-	foreach emac $emac_periphs_list {
-		lappend emac_names_list [common::get_property NAME $emac]
+		foreach emac $emac_periphs_list {
+			lappend emac_names_list [common::get_property NAME $emac]
+		}
+		#puts "lwIP can be used with the following EMAC peripherals found in your system: $emac_names_list"
 	}
 
 	#----
@@ -365,6 +369,19 @@ proc generate_lwip_opts {libhandle} {
 		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
 		puts $lwipopts_fd "\#endif\n"
             }
+
+            "psu_cortexr5" {
+		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#endif\n"
+            }
+
+            "psu_cortexa53" {
+		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#endif\n"
+            }
+
             default {
                 puts $lwipopts_fd "\#ifndef PROCESSOR_BIG_ENDIAN"
 		puts $lwipopts_fd "\#define PROCESSOR_BIG_ENDIAN"
@@ -539,7 +556,7 @@ proc generate_lwip_opts {libhandle} {
 		set use_axieth_on_zynq 0
 	}
 
-	if {$proctype != "ps7_cortexa9" || $use_axieth_on_zynq == 1} {
+	if {$proctype == "microblaze" || $use_axieth_on_zynq == 1} {
 		set tx_full_csum_temp [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
 		if {$tx_full_csum_temp == true} {
 			if {$checksum_txoption != 2} {
@@ -637,12 +654,12 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define MEMP_SEPARATE_POOLS 1"
 	puts $lwipopts_fd "\#define MEMP_NUM_FRAG_PBUF 256"
 	puts $lwipopts_fd "\#define IP_OPTIONS_ALLOWED 0"
-	if {$proctype != "ps7_cortexa9"} {
+	if {$proctype == "microblaze"} {
 		puts $lwipopts_fd "\#define TCP_OVERSIZE 0"
 	} else {
 		puts $lwipopts_fd "\#define TCP_OVERSIZE TCP_MSS"
 	}
-	if {$proctype != "ps7_cortexa9"} {
+	if {$proctype == "microblaze"} {
 		puts $lwipopts_fd "\#define LWIP_COMPAT_MUTEX 1"
 		puts $lwipopts_fd "\#define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 0"
 	} else {
@@ -803,8 +820,10 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	set processor_type [common::get_property IP_NAME $processor]
 	set force_emaclite_on_zynq 0
 
-	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
-		set force_emaclite_on_zynq 1
+	if {$use_emaclite_on_zynq == 1} {
+		if {$processor_type == "ps7_cortexa9" || $processor_type == "psu_cortexr5" || $processor_type == "psu_cortexa53"} {
+			set force_emaclite_on_zynq 1
+		}
 	}
 
 	# get emac baseaddr
@@ -875,7 +894,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 			"" "mdt_error"
 	}
 
-	if { $intc_periph_type != [format "ps7_scugic"] } {
+	if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_scugic"] && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psu_rcpu_gic"]} {
 		set topology(intc_baseaddr) [common::get_property CONFIG.C_BASEADDR $intc_handle]
 		set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 		set topology(scugic_baseaddr) "0x0"
@@ -888,7 +907,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 
 }
 
-proc update_ps7_ethernet_topology {emac processor topologyvar} {
+proc update_ps_ethernet_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
 	set topology(emac_baseaddr) [common::get_property CONFIG.C_S_AXI_BASEADDR $emac]
 	set topology(emac_type) "xemac_type_emacps"
@@ -901,6 +920,14 @@ proc update_ps7_ethernet_topology {emac processor topologyvar} {
 		set topology(scugic_emac_intr) "0x36"
 	} elseif {$ethernet_instance == "ps7_ethernet_1" || $ethernet_instance == "ps7_enet1"} {
 		set topology(scugic_emac_intr) "0x4D"
+	} elseif {$ethernet_instance == "psu_ethernet_0"} {
+		set topology(scugic_emac_intr) "XPAR_XEMACPS_0_INTR"
+	} elseif {$ethernet_instance == "psu_ethernet_1"} {
+		set topology(scugic_emac_intr) "XPAR_XEMACPS_1_INTR"
+	} elseif {$ethernet_instance == "psu_ethernet_2"} {
+		set topology(scugic_emac_intr) "XPAR_XEMACPS_2_INTR"
+	} elseif {$ethernet_instance == "psu_ethernet_3"} {
+		set topology(scugic_emac_intr) "XPAR_XEMACPS_3_INTR"
 	}
 }
 
@@ -970,7 +997,11 @@ proc generate_topology {libhandle} {
 			generate_topology_per_emac $tfd topology
 			incr topology_size 1
 		} elseif {$iptype == "ps7_ethernet"} {
-			update_ps7_ethernet_topology $emac $processor topology
+			update_ps_ethernet_topology $emac $processor topology
+			generate_topology_per_emac $tfd topology
+			incr topology_size 1
+		} elseif {$iptype == "psu_ethernet"} {
+			update_ps_ethernet_topology $emac $processor topology
 			generate_topology_per_emac $tfd topology
 			incr topology_size 1
 		}
@@ -998,17 +1029,28 @@ proc generate_adapterconfig_makefile {libhandle} {
 	set have_axi_ethernet 0
 	set have_axi_ethernet_fifo 0
 	set have_axi_ethernet_dma 0
-	set have_ps7_ethernet 0
+	set have_ps_ethernet 0
 	set force_axieth_on_zynq 0
 	set force_emaclite_on_zynq 0
 
 	if {$processor_type == "ps7_cortexa9" && $use_axieth_on_zynq == 1} {
 		set force_axieth_on_zynq 1
 	}
+	if {$processor_type == "psu_cortexr5" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
+	if {$processor_type == "psu_cortexa53" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
-
+	if {$processor_type == "psu_cortexr5" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psu_cortexa53" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
 	foreach emac $emac_periphs_list {
 		set iptype [common::get_property IP_NAME $emac]
 		if {$iptype == "xps_ethernetlite" || $iptype == "opb_ethernetlite" || $iptype == "axi_ethernetlite"} {
@@ -1024,16 +1066,16 @@ proc generate_adapterconfig_makefile {libhandle} {
 			} else {
 				set have_axi_ethernet_dma 1
 			}
-		} elseif {$iptype == "ps7_ethernet"} {
-			set have_ps7_ethernet 1
+		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet" } {
+			set have_ps_ethernet 1
 		}
 	}
 	if {$force_axieth_on_zynq == 1 && $have_axi_ethernet == 1} {
-		set have_ps7_ethernet 0
+		set have_ps_ethernet 0
 		set have_axi_ethernet 1
 	}
 	if {$force_emaclite_on_zynq == 1 && $have_emaclite == 1} {
-		set have_ps7_ethernet 0
+		set have_ps_ethernet 0
 		set have_axi_ethernet 0
 	}
 
@@ -1066,6 +1108,11 @@ proc generate_adapterconfig_makefile {libhandle} {
 		#puts "Little Endian system"
                 puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }
+            "psu_cortexr5" {
+		puts $fd "GCC_COMPILER=arm-none-eabi-gcc"
+		#puts "Little Endian system"
+		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+            }
             default {
                 puts "unknown processor type $proctype\n"
             }
@@ -1079,7 +1126,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 		puts $fd "CONFIG_XLLTEMAC=y"
 	}
 
-	if {$force_axieth_on_zynq == 1 || $have_ps7_ethernet == 0 } {
+	if {$force_axieth_on_zynq == 1 || $have_ps_ethernet == 0 } {
 		if {$have_axi_ethernet == 1} {
 			puts $fd "CONFIG_AXI_ETHERNET=y"
 		}
@@ -1089,8 +1136,8 @@ proc generate_adapterconfig_makefile {libhandle} {
 		if {$have_axi_ethernet_fifo == 1} {
 			puts $fd "CONFIG_AXI_ETHERNET_FIFO=y"
 		}
-	} elseif {$have_ps7_ethernet == 1} {
-		puts $fd "CONFIG_PS7_ETHERNET=y"
+	} elseif {$have_ps_ethernet == 1} {
+		puts $fd "CONFIG_PS_ETHERNET=y"
 	}
 
 	set api_mode [common::get_property CONFIG.api_mode $libhandle]
@@ -1114,14 +1161,26 @@ proc generate_adapterconfig_include {libhandle} {
 	set have_axi_ethernet 0
 	set have_axi_ethernet_fifo 0
 	set have_axi_ethernet_dma 0
-	set have_ps7_ethernet 0
+	set have_ps_ethernet 0
 	set force_axieth_on_zynq 0
 	set force_emaclite_on_zynq 0
 
 	if {$processor_type == "ps7_cortexa9" && $use_axieth_on_zynq == 1} {
 		set force_axieth_on_zynq 1
 	}
+	if {$processor_type == "psu_cortexr5" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
+	if {$processor_type == "psu_cortexa53" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psu_cortexr5" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psu_cortexa53" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
 
@@ -1140,12 +1199,12 @@ proc generate_adapterconfig_include {libhandle} {
 				set have_axi_ethernet_dma 1
 			}
 			set have_axi_ethernet 1
-		} elseif {$iptype == "ps7_ethernet"} {
-			set have_ps7_ethernet 1
+		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet"} {
+			set have_ps_ethernet 1
 		}
 	}
 	if {$force_emaclite_on_zynq == 1 && $have_emaclite == 1} {
-		set have_ps7_ethernet 0
+		set have_ps_ethernet 0
 		set have_axi_ethernet 0
 	}
 
@@ -1173,11 +1232,7 @@ proc generate_adapterconfig_include {libhandle} {
 		puts $fd "\#define XLWIP_CONFIG_INCLUDE_EMACLITE 1"
 	}
 
-	if {$have_temac == 1} {
-		puts $fd "\#define XLWIP_CONFIG_INCLUDE_TEMAC 1"
-	}
-
-	if {$force_axieth_on_zynq == 1 || $have_ps7_ethernet == 0 } {
+	if {$force_axieth_on_zynq == 1 || $have_ps_ethernet == 0 } {
 		if {$have_axi_ethernet == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_AXI_ETHERNET 1"
 		}
@@ -1187,11 +1242,11 @@ proc generate_adapterconfig_include {libhandle} {
 		if {$have_axi_ethernet_fifo == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO 1"
 		}
-	} elseif {$have_ps7_ethernet == 1} {
+	} elseif {$have_ps_ethernet == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_GEM 1"
 	}
 
-	if {$have_temac == 1 || $have_axi_ethernet == 1} {
+	if {$have_axi_ethernet == 1} {
 		set ndesc [common::get_property CONFIG.n_tx_descriptors $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_N_TX_DESC $ndesc"
 		set ndesc [common::get_property CONFIG.n_rx_descriptors $libhandle]
@@ -1204,7 +1259,7 @@ proc generate_adapterconfig_include {libhandle} {
 		puts $fd "\#define XLWIP_CONFIG_N_RX_COALESCE $ncoalesce"
 		puts $fd ""
 	}
-	if {$have_ps7_ethernet == 1} {
+	if {$have_ps_ethernet == 1} {
 		set emacnum [common::get_property CONFIG.emac_number $libhandle]
 		puts $fd "\#define XLWIP_CONFIG_EMAC_NUMBER $emacnum"
 		set ndesc [common::get_property CONFIG.n_tx_descriptors $libhandle]
