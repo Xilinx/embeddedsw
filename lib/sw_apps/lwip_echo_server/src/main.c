@@ -52,6 +52,8 @@
 void print_app_header();
 int start_application();
 int transfer_data();
+void tcp_fasttmr(void);
+void tcp_slowtmr(void);
 
 /* missing declaration in lwIP */
 void lwip_init();
