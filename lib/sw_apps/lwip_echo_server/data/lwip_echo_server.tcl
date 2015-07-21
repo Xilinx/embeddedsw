@@ -14,7 +14,7 @@ proc check_stdout_hw {} {
 		set slave_type [common::get_property IP_NAME [hsi::get_cells $slave]];
 		# Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 		# only if it has a UART interface. So no further check is required
-		if { $slave_type == "ps7_uart" || $slave_type == "axi_uartlite" ||
+		if { $slave_type == "ps7_uart" || $slave_type == "psu_uart" || $slave_type == "axi_uartlite" ||
 			$slave_type == "axi_uart16550" || $slave_type == "iomodule" ||
 			$slave_type == "mdm" } {
 			return;
@@ -57,6 +57,11 @@ proc check_emac_hw {} {
     set temacs [hsi::get_cells -filter { ip_name == "ps7_ethernet" }];
     if { [llength $temacs] != 0 } {      
             return;
+    }
+
+    set temacs [hsi::get_cells -filter { ip_name == "psu_ethernet" }];
+        if { [llength $temacs] != 0 } {
+                return;
     }
 
     error "This application requires an Ethernet MAC IP instance in the hardware."
@@ -257,6 +262,12 @@ proc generate_emac_config {fp} {
             puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
             return;
     }
+
+    set temacs [hsi::get_cells -filter { ip_name == "psu_ethernet" }];
+        if { [llength $temacs] > 0 } {
+                puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
+                return;
+    }
 }
 
 proc generate_timer_config { fp } {
@@ -321,6 +332,14 @@ proc swapp_generate {} {
         puts $fid "";
     }
 
+    set hw_processor [common::get_property HW_INSTANCE $proc]
+    set proc_arm [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+    if { $proc_arm == "ps7_cortexa9"} {
+	puts $fid "#define PLATFORM_ZYNQ \n";
+    } elseif { $proc_arm == "psu_cortexr5"} {
+	puts $fid "#define PLATFORM_ZYNQMP \n";
+    }
+    puts $fid "";
     
     puts $fid "#endif";
     close $fid;
