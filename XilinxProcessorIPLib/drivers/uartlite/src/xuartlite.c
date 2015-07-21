@@ -69,6 +69,10 @@
 * 2.01a adk  18/04/13 Updated the code to avoid unused variable
 *			 warnings when compiling with the -Wextra -Wall flags
 *			 In the file xuartlite.c. CR:704999.
+* 3.1	nsk  21/07/15 Updated XUartLite_ReceiveBuffer function to update the
+*		      receive data into user buffer in critical region.
+*		      CR#865787.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -576,8 +580,16 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 {
 	u8 StatusRegister;
+	u8 StatusRegisterVal;
 	unsigned int ReceivedCount = 0;
 
+	/*
+	 * Enter a critical region by disabling all the UART interrupts to allow
+	 * this call to stop a previous operation that may be interrupt driven
+	 */
+	StatusRegisterVal = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
+				XUL_CONTROL_REG_OFFSET, 0);
 	/*
 	 * Loop until there is not more data buffered by the UART or the
 	 * specified number of bytes is received
@@ -614,14 +626,6 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 	}
 
 	/*
-	 * Enter a critical region by disabling all the UART interrupts to allow
-	 * this call to stop a previous operation that may be interrupt driven
-	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
-	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
-				XUL_CONTROL_REG_OFFSET, 0);
-
-	/*
 	 * Update the receive buffer to reflect the number of bytes that was
 	 * received
 	 */
@@ -637,9 +641,9 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 	 * Restore the interrupt enable register to it's previous value such
 	 * that the critical region is exited
 	 */
-	StatusRegister &= XUL_CR_ENABLE_INTR;
+	StatusRegisterVal &= XUL_CR_ENABLE_INTR;
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
-				XUL_CONTROL_REG_OFFSET, StatusRegister);
+				XUL_CONTROL_REG_OFFSET, StatusRegisterVal);
 
 	return ReceivedCount;
 }
