@@ -35,6 +35,11 @@
 # 2.0      adk    12/10/13 Updated as per the New Tcl API's
 # 2.0      bss    05/02/14 Modified to generate PITx_EXPIRED_MASK parameter 
 #			      to fix CR#794167.
+# 2.2	   nsk	  21/07/15 Updated iomodule_define_vector_table by removing
+#		  	   absoluted hsi commands like xget_handle.CR#865544.
+#			   Modified generate proc to get canonical defintions
+#			   in xparameters.h.
+#
 ##############################################################################
 
 
@@ -115,9 +120,9 @@ proc generate {drv_handle} {
     # 7. INTC
     set intc_params [list "C_INTC_LEVEL_EDGE" "C_INTC_POSITIVE"]
 
-    set all_params [concat $gpo1_params $gpo2_params $gpo3_params $gpo4_params $intc_params]
+    set params [concat  $gpo1_params $gpo2_params $gpo3_params $gpo4_params $intc_params]
 
-    eval [xdefine_include_file_hex $drv_handle "xparameters.h" "XIOModule" $all_params]
+    eval [xdefine_include_file_hex $drv_handle "xparameters.h" "XIOModule" $params]
 
     # 7. INTC: Set XPAR_IOMODULE_INTC_MAX_INTR_SIZE
     set max_intr_size 0
@@ -139,7 +144,7 @@ proc generate {drv_handle} {
          "XPAR_IOMODULE_SINGLE_BASEADDR" "C_BASEADDR" \
          "XPAR_IOMODULE_SINGLE_HIGHADDR" "C_HIGHADDR" \
          "XPAR_IOMODULE_INTC_SINGLE_DEVICE_ID" "DEVICE_ID"
-    }
+	 }
 
     set config_inc [hsi::utils::open_include_file "xparameters.h"]
     puts $config_inc "#define XPAR_IOMODULE_INTC_MAX_INTR_SIZE $max_intr_size"
@@ -148,6 +153,7 @@ proc generate {drv_handle} {
     close $config_inc
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "IOModule" $all_params
+
 }
 
 
@@ -288,108 +294,80 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
 
     variable interrupt_handlers
     variable default_interrupt_handler
+    variable source_port_name
+    variable source_name
+    variable source_port_type
+    variable source_driver
+    variable source_interrupt_handler
+    variable source_interrupt_id
+    variable total_source_intrs
 
+    #update global array of Interrupt sources for this periph
+    intc_update_source_array $periph
     set periph_name [common::get_property NAME $periph]
+    set interrupt_pin [hsi::get_pins -of_objects [get_cells $periph] -filter {TYPE==INTERRUPT&&DIRECTION==I}]
 
-    # Get ports that are driving the interrupt
-    set source_ports [hsi::utils::get_interrupt_sources $periph]
-    set num_intr_inputs [get_num_intr_inputs $periph]
-    set num_intr_internal [get_num_intr_internal $periph]
+    # Get pins/ports that are driving the interrupt
+    lappend source_pins
+    set source_pins [::hsi::utils::get_source_pins $interrupt_pin]
+    set num_intr_inputs [common::get_property CONFIG.C_INTC_INTR_SIZE $periph]
 
-    if {$num_intr_inputs != [llength $source_ports]} {
-        error "ERROR: Internal error: Number of interrupt inputs on $periph_name ($num_intr_inputs) is not the same as length of total number of interrupt sources ([llength $source_ports]). If any interrupt source is a vector then libgen does not support this use case" "" "hsi_error"
+    #calculate the total interrupt sources
+    set total_intr_ports [::hsi::utils::get_connected_pin_count $interrupt_pin]
+    if {$num_intr_inputs != $total_intr_ports} {
+       puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the \
+	     same as length of ::hsi::utils::get_interrupt_sources [llength \
+		 $source_pins] hsi_error"
         return
     }
 
-     set i 0
-    foreach source_pin $source_ports {
-        set source_periph [hsi::get_cells -of_objects $source_pin ]
-        if { [llength $source_periph ] == 0} {
-            #external interrupt port case
-            set width [hsi::utils::get_port_width $source_pin]
-            for { set j 0 } { $j < $width } { incr j } {
-                set source_port_name($i) "[common::get_property NAME $source_pin]_$j"
-                set source_name($i) "system"
-                set port_type($i) "global"
-                set source_driver ""
-                set source_interrupt_handler($i) $default_interrupt_handler
-                incr i
-            }
-        } else {
-            #peripheral interrrupt case
-            set port_type($i) "local"
-            set source_name($i) [common::get_property NAME $source_periph]
-            set source_port_name($i) [common::get_property NAME $source_pin]
-            set source_driver [hsi::get_drivers -filter "HW_INSTANCE==$source_periph"]
-    		set source_interrupt_handler($i) $default_interrupt_handler
-            incr i
-        }
-        if {[string compare -nocase $source_driver ""] != 0} {
-            set int_array [hsi::get_arrays interrupt_handler -of_objects $source_driver]
-            if {[string compare -nocase $int_array ""] != 0} {
-                set int_array_elems [xget_handle $int_array "ELEMENTS" "*"]
-                foreach int_array_elem $int_array_elems {
-                    set int_port [common::get_property CONFIG.int_port $int_array_elem]
-                    set mhs_handle [common::get_property CONFIG.mhsinst $int_array_elem]
-                    if {[string compare -nocase $int_port $source_port_name] == 0 && \
-                        $mhs_handle == $source_periph } {
-                        set source_interrupt_handler($i) [common::get_property CONFIG.int_handler $int_array_elem]
-                        # copy this handler to interrupt_handlers
-                        set arrsize [array size interrupt_handlers]
-                        iomodule_add_handler $source_interrupt_handler($i)
-                        set source_handler_arg($i) [common::get_property CONFIG.int_handler_arg $int_array_elem]
-                        if {[string compare -nocase $source_handler_arg($i) DEVICE_ID] == 0 } {
-                            set source_handler_arg($i) [::hsi::utils::get_ip_param_name $source_periph "DEVICE_ID"]
-                        }
-                        break
-                    }
-                }
-            }
-        }
+    #Check if default_interrupt_handler has to have an extern definition
+    if {[array size interrupt_handlers] < $total_source_intrs } {
+        intc_add_handler $default_interrupt_handler
     }
 
-    # Check if default_interrupt_handler has to have an extern definition
-    if {[array size interrupt_handlers] < [llength $source_ports]} {
-        iomodule_add_handler $default_interrupt_handler
-    }
-
-    # Write vector table to the config_file
     puts -nonewline $config_file ",\n\t\t\{"
     set comma "\n"
-    for {set i 0} {$i < $num_intr_internal} {incr i} {
+
+    for {set i 0} {$i < $total_source_intrs} {incr i} {
+        set source_ip $source_name($i)
+        if { [llength $source_ip] != 0 && [llength [hsi::get_cells $source_ip]] \
+	   != 0} {
+           set ip_name [common::get_property IP_NAME [hsi::get_cells $source_ip]]
+           if { [string compare -nocase $ip_name "xlconstant"] == 0 } {
+              #do no generate interrupt handler entries for xlconstant
+              continue
+           }
+        }
         puts $config_file [format "%s\t\t\t\{" $comma ]
-        puts $config_file [format "\t\t\t\t%s," $default_interrupt_handler ]
-        puts $config_file "\t\t\t\t(void *)XNULL"
-        puts -nonewline $config_file "\t\t\t\}"
-        set comma ",\n"
-    }
-    for {set i 0} {$i < $num_intr_inputs} {incr i} {
-        puts $config_file [format "%s\t\t\t\{" $comma ]
-        puts $config_file [format "\t\t\t\t%s," $source_interrupt_handler($i)]
+        puts $config_file [format "\t\t\t\t%s," $source_interrupt_handler($i) ]
         if {[llength $source_name($i)] == 0} {
             puts $config_file "\t\t\t\t(void *)XNULL"
         } else {
+            set sname [string toupper $source_name($i)]
+            set source_xparam_name [::hsi::utils::format_xparam_name $sname]
+            set pname [string toupper $periph_name]
+            set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
             puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X" \
-              [string toupper $source_name($i)] \
-              [string toupper $source_port_name($i)] [expr 1 << $i]]
-            puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" \
-              [string toupper $periph_name] \
-              [string toupper $source_name($i)] \
-              [string toupper $source_port_name($i)] $i]
+		$source_xparam_name [string toupper $source_port_name($i)] \
+		[expr 1 << $i]]
+            puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string \
+		toupper $periph_name] [string toupper $source_name($i)] [string \
+		 toupper $source_port_name($i)] $i]
 
-            if {[string compare -nocase "global" $port_type($i) ] != 0 && \
+            if {[string compare -nocase "global" $source_port_type($i) ] != 0 && \
                 [string compare $source_interrupt_handler($i) $default_interrupt_handler ] != 0} {
-                puts $config_file [format "\t\t\t\t(void *) %s" $source_handler_arg($i)]
+                puts $config_file [format "\t\t\t\t(void *) %s" \
+			$source_handler_arg($i)]
             } else {
                 puts $config_file "\t\t\t\t(void *) XNULL"
             }
-
         }
         puts -nonewline $config_file "\t\t\t\}"
         set comma ",\n"
     }
-
     puts $config_file "\n\t\t\}"
+
 }
 
 ##########################################################################
@@ -807,4 +785,88 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     }		
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
+}
+
+################################################
+# This procedure creates a unique list of
+# handlers that needs to have an extern defn.
+# in xparameters.h
+################################################
+proc intc_add_handler {handler} {
+
+    variable interrupt_handlers
+
+    set interrupt_handlers($handler) 1
+}
+
+###############################################################################
+# this proc traverse all the interrupt source of peripheral and create a array
+# will the the details
+###############################################################################
+proc intc_update_source_array {periph} {
+
+    variable default_interrupt_handler
+    variable source_port_name
+    variable source_name
+    variable source_port_type
+    variable source_driver
+    variable source_interrupt_handler
+    variable source_interrupt_id
+    variable total_source_intrs
+
+    array unset source_port_name
+    array unset source_name
+    array unset source_port_type
+    array unset source_driver
+    array unset source_interrupt_handler
+    array unset source_interrupt_id
+
+    lappend source_pins
+    set source_pins [::hsi::utils::get_interrupt_sources $periph]
+    set intr_cnt 0
+    foreach source_pin $source_pins {
+
+        #default value as per external processor
+        set t_source_port_name          [common::get_property NAME $source_pin]
+        set t_source_name               "system"
+        set t_ip_name                   ""
+        set t_port_type                 "global"
+        set t_source_driver             ""
+        set t_source_interrupt_handler  $default_interrupt_handler
+        set t_source_intrrupt_id        "-1"
+
+        #if interrupt is coming from IP, update it.
+        if { [::hsi::utils::is_external_pin $source_pin] == 0} {
+            set source_periph   [hsi::get_cells -of_objects $source_pin]
+            set t_source_name   [common::get_property NAME $source_periph]
+            set t_ip_name       $t_source_name
+            set t_port_type     "local"
+           set t_source_driver [hsi::get_drivers -filter "HW_INSTANCE==$t_source_name"]
+        }
+        set port_intr_id [::hsi::utils::get_interrupt_id $t_ip_name $source_pin]
+        if { [llength $port_intr_id ] > 1 } {
+
+            #this is the case of vector interrupt port
+            set j 0
+            foreach pin_id $port_intr_id {
+                set source_port_name($intr_cnt)         "${t_source_port_name}_$j"
+                set source_name($intr_cnt)              $t_source_name
+                set source_port_type($intr_cnt)         $t_port_type
+                set source_driver($intr_cnt)            $t_source_driver
+                set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
+                set source_interrupt_id($intr_cnt)      $pin_id
+                incr intr_cnt
+                incr j
+            }
+        } else {
+            set source_port_name($intr_cnt)         "${t_source_port_name}"
+            set source_name($intr_cnt)              $t_source_name
+            set source_port_type($intr_cnt)          $t_port_type
+            set source_driver($intr_cnt)            $t_source_driver
+            set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
+            set source_interrupt_id($intr_cnt)      $port_intr_id
+            incr intr_cnt
+        }
+    }
+    set total_source_intrs $intr_cnt
 }
