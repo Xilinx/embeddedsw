@@ -45,6 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.00a hk/sg  10/17/13 Initial release
+*       kvn    07/15/15 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *
@@ -85,14 +86,14 @@ extern XSdPs_Config XSdPs_ConfigTable[];
 XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId)
 {
 	XSdPs_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XSDPS_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XSDPS_NUM_INSTANCES; Index++) {
 		if (XSdPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XSdPs_ConfigTable[Index];
 			break;
 		}
 	}
-	return CfgPtr;
+	return (XSdPs_Config *)CfgPtr;
 }
 /** @} */

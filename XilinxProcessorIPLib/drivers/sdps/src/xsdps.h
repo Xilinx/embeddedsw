@@ -117,6 +117,7 @@
 * 						Inhibit mask in Cmd Transfer API.
 *						Added Support for SD Card v1.0
 * 2.5 	sg		07/09/15 Added SD 3.0 features
+*       kvn     07/15/15 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *
@@ -130,6 +131,9 @@
 extern "C" {
 #endif
 
+#include "xil_printf.h"
+#include "xil_cache.h"
+#include "sleep.h"
 #include "xstatus.h"
 #include "xsdps_hw.h"
 #include <string.h>
@@ -190,22 +194,22 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId);
-int XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
+s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 				u32 EffectiveAddr);
-int XSdPs_SdCardInitialize(XSdPs *InstancePtr);
-int XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
-int XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff);
-int XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize);
-int XSdPs_Select_Card (XSdPs *InstancePtr);
-int XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq);
-int XSdPs_Change_BusWidth(XSdPs *InstancePtr);
-int XSdPs_Change_BusSpeed(XSdPs *InstancePtr);
-int XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR);
-int XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff);
-int XSdPs_Pullup(XSdPs *InstancePtr);
-int XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
-int XSdPs_CardInitialize(XSdPs *InstancePtr);
-int XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
+s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr);
+s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
+s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff);
+s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize);
+s32 XSdPs_Select_Card (XSdPs *InstancePtr);
+s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq);
+s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr);
+s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr);
+s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR);
+s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff);
+s32 XSdPs_Pullup(XSdPs *InstancePtr);
+s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
+s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
+s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 
 #ifdef __cplusplus
 }
