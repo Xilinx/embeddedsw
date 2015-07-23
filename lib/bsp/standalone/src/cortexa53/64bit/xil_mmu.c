@@ -65,10 +65,15 @@
 
 /************************** Constant Definitions *****************************/
 
+#define BLOCK_SIZE_2MB 0x200000U
+#define BLOCK_SIZE_1GB 0x40000000U
+#define ADDRESS_LIMIT_4GB 0x100000000UL
+
 /************************** Variable Definitions *****************************/
 
 extern INTPTR MMUTableL1;
 extern INTPTR MMUTableL2;
+
 /************************** Function Prototypes ******************************/
 /*****************************************************************************
 *
@@ -88,18 +93,22 @@ void Xil_SetTlbAttributes(INTPTR Addr, u64 attrib)
 {
 	INTPTR *ptr;
 	INTPTR section;
+	u64 block_size;
 	/* if region is less than 4GB MMUTable level 2 need to be modified */
-	if(Addr<0x100000000){
-	section = Addr / 0x00200000U;
-	ptr = &MMUTableL2 + section;
-	*ptr = (Addr & (~0x001FFFFFU)) | attrib;
+	if(Addr < ADDRESS_LIMIT_4GB){
+		/* block size is 2MB for addressed < 4GB*/
+		block_size = BLOCK_SIZE_2MB;
+		section = Addr / block_size;
+		ptr = &MMUTableL2 + section;
 	}
 	/* if region is greater than 4GB MMUTable level 1 need to be modified */
 	else{
-	section = Addr / 0x40000000U;
-	ptr = &MMUTableL1 + section;
-	*ptr = (Addr & (~0x3FFFFFFFU)) | attrib;
+		/* block size is 1GB for addressed > 4GB */
+		block_size = BLOCK_SIZE_1GB;
+		section = Addr / block_size;
+		ptr = &MMUTableL1 + section;
 	}
+	*ptr = (Addr & (~(block_size-1))) | attrib;
 
 	Xil_DCacheFlush();
 	mtcptlbi(ALLE3);
