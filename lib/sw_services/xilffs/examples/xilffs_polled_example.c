@@ -50,6 +50,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.00a hk  10/17/13 First release
 * 2.2   hk  07/28/14 Make changes to enable use of data cache.
+* 2.5   sk  07/15/15 Used File size as 8KB to test on emulation platform.
 *
 *</pre>
 *
@@ -62,6 +63,7 @@
 #include "xil_printf.h"
 #include "ff.h"
 #include "xil_cache.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -78,6 +80,7 @@ static FIL fil;		/* File object */
 static FATFS fatfs;
 static char FileName[32] = "Test.bin";
 static char *SD_File;
+u32 Platform;
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
@@ -144,6 +147,15 @@ int FfsSdPolledExample(void)
 	u32 BuffCnt;
 	u32 FileSize = (8*1024*1024);
 	TCHAR *Path = "0:/";
+
+	Platform = XGetPlatform_Info();
+	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
+		/*
+		 * Since 8MB in Emulation Platform taking long time, reduced
+		 * file size to 8KB.
+		 */
+		FileSize = 8*1024;
+	}
 
 	for(BuffCnt = 0; BuffCnt < FileSize; BuffCnt++){
 		SourceAddress[BuffCnt] = TEST + BuffCnt;
