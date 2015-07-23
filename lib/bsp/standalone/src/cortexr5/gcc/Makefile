@@ -41,9 +41,9 @@ LIB=libxil.a
 CC_FLAGS = $(subst -pg, -DPROFILING, $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, -DPROFILING, $(EXTRA_COMPILER_FLAGS))
 
-ifeq ($(notdir $(CC))), armr5-none-eabi-gcc)
+ifeq (($(notdir $(CC))), armr5-none-eabi-gcc)
 ECC_FLAGS	+= -nostartfiles\
-		+=  -mfloat-abi=soft
+		  -mfloat-abi=soft
 endif
 
 RELEASEDIR=../../../lib
