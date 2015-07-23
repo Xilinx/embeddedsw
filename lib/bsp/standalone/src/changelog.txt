@@ -235,4 +235,7 @@
  * 5.2 pkp   06/08/15  Modified cortexa9/gcc/translation_table.S to put a check for
  *		       XPAR_PS7_DDR_0_S_AXI_BASEADDR to confirm if DDR is present or not and
  *		       accordingly generate the	translation table
+ * 5.2 pkp   23/07/15  Modified cortexa9/gcc/Makefile to keep a correct check of a compiler
+ *		       to update ECC_FLAGS to fix a bug introduced during new version creation
+ *		       of BSP.
  *****************************************************************************************/

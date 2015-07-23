@@ -42,7 +42,7 @@ LIB=libxil.a
 CC_FLAGS = $(subst -pg, -DPROFILING, $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, -DPROFILING, $(EXTRA_COMPILER_FLAGS))
 
-ifeq ($(notdir $(CC))) , arm-xilinx-eabi-gcc)
+ifeq (($(notdir $(CC))) , arm-xilinx-eabi-gcc)
 ECC_FLAGS	+= -nostartfiles\
 		  -march=armv7-a \
 		  -mfloat-abi=soft \
