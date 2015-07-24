@@ -84,6 +84,7 @@ static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		u64 Address, u32 Length);
 void XFsbl_EccInitialize(u32 Address, u32 Length);
 u32 XFsbl_GetLoadAddress(u32 DestinationCpu, u64 * LoadAddressPtr, u32 Length);
+static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 
 /************************** Variable Definitions *****************************/
 static int IsR50TcmEccInitialized = FALSE;
@@ -154,6 +155,9 @@ u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	{
 		goto END;
 	}
+
+	/* Check if PMU FW load is done and handoff it to Microblaze */
+	XFsbl_CheckPmuFw(FsblInstancePtr, PartitionNum);
 
 END:
 	return Status;
@@ -1224,7 +1228,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	/**
 	 * Update the handoff details
 	 */
-	if(DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL)
+	if ((DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) &&
+			(DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PMU))
 	{
 		CpuNo = FsblInstancePtr->HandoffCpuNo;
 		if (XFsbl_CheckHandoffCpu(FsblInstancePtr,
@@ -1240,4 +1245,60 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function checks if PMU FW is loaded and gives handoff to PMU Microblaze
+ *
+ * @param	FsblInstancePtr is pointer to the XFsbl Instance
+ *
+ * @param	PartitionNum is the partition number of the image
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum)
+{
+
+	u32 DestinationDev;
+	u32 DestinationDevNxt = 0;
+	u32 PmuFwLoadDone = FALSE;
+
+	DestinationDev = XFsbl_GetDestinationDevice(
+			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum]);
+
+	if (DestinationDev == XIH_PH_ATTRB_DEST_DEVICE_PMU) {
+		if ((PartitionNum + 1) <
+				(FsblInstancePtr->
+						ImageHeader.ImageHeaderTable.NoOfPartitions-1U)) {
+			DestinationDevNxt = XFsbl_GetDestinationDevice(
+					&FsblInstancePtr->
+					ImageHeader.PartitionHeader[PartitionNum + 1]);
+			if (DestinationDevNxt != XIH_PH_ATTRB_DEST_DEVICE_PMU) {
+				/* there is a partition after this but that is not PMU FW */
+				PmuFwLoadDone = TRUE;
+			}
+		}
+		else
+		{
+			/* the current partition is last PMU FW partition */
+			PmuFwLoadDone = TRUE;
+		}
+	}
+
+	/* If all partitions of PMU FW loaded, handoff it to PMU MicroBlaze */
+	if (TRUE == PmuFwLoadDone)
+	{
+		/* Wakeup the processor */
+		XFsbl_Out32(PMU_GLOBAL_GLOBAL_CNTRL,
+				XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) | 0x1);
+
+		/* wait until done waking up */
+		while((XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) &
+				PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) !=
+						PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ) {;}
+
+	}
+
 }
