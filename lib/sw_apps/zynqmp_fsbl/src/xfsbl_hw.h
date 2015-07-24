@@ -303,6 +303,7 @@ extern "C" {
 
 #define PMU_GLOBAL_GLOBAL_CNTRL    ( ( PMU_GLOBAL_BASEADDR ) + 0X00000000U )
 #define PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK    0X00010000U
+#define PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK    0X00000010U
 
 /* Register: PMU_GLOBAL_REQ_PWRUP_INT_EN */
 #define PMU_GLOBAL_REQ_PWRUP_INT_EN    ( ( PMU_GLOBAL_BASEADDR ) + 0X00000118U )
@@ -547,6 +548,14 @@ extern "C" {
  */
 #if !defined(FSBL_BS_EXCLUDE)
 #define XFSBL_BS
+#endif
+
+
+/**
+ * Definition for early handoff feature to be included
+ */
+#if !defined(FSBL_EARLY_HANDOFF_EXCLUDE)
+#define XFSBL_EARLY_HANDOFF
 #endif
 
 /**

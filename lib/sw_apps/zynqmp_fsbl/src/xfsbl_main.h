@@ -156,8 +156,10 @@ u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 /**
  * Functions defined in xfsbl_handoff.c
  */
-u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr);
+u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff);
 void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags);
+u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId);
+u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 /************************** Variable Definitions *****************************/
 
 

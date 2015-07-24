@@ -74,7 +74,7 @@ u32 XFsbl_HookBeforeBSDownload(void );
 
 u32 XFsbl_HookAfterBSDownload(void );
 
-u32 XFsbl_HookBeforeHandoff(void );
+u32 XFsbl_HookBeforeHandoff(u32 EarlyHandoff);
 
 
 #ifdef __cplusplus

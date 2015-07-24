@@ -712,13 +712,17 @@ static void XFsbl_CopyIVT(u32 CpuSettings)
  *
  * @param	FsblInstancePtr is pointer to the XFsbl Instance
  *
+ * @param	PartitionNum is the partition number of the image
+ *
+ * @param	EarlyHandoff is flag to indicate if called for early handoff or not
+ *
  * @return	returns the error codes described in xfsbl_error.h on any error
  *
  * @note	This function should not return incase of success
  *
  *****************************************************************************/
 
-u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
+u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff)
 {
 	u32 Status=XFSBL_SUCCESS;
 	u32 CpuIndex=0U;
@@ -729,9 +733,9 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 	u64 RunningCpuHandoffAddress=0U;
 	u32 RunningCpuExecState=0U;
 	s32 RunningCpuHandoffAddressPresent=FALSE;
-	u32 NoOfPartitions;
-	u32 PartitionIndex;
-	u32 PartitionAttributes;
+	u32 CpuNeedsEarlyHandoff = FALSE;
+
+	static u32 CpuIndexEarlyHandoff = 0;
 
 	/**
 	 * if JTAG bootmode, be in while loop as of now
@@ -775,7 +779,7 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 	/**
 	 * FSBL hook before Handoff
 	 */
-	Status = XFsbl_HookBeforeHandoff();
+	Status = XFsbl_HookBeforeHandoff(EarlyHandoff);
 	if (Status != XFSBL_SUCCESS)
 	{
 		Status = XFSBL_ERROR_HOOK_BEFORE_HANDOFF;
@@ -818,100 +822,150 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 	 * get cpu out of reset
 	 *
 	 */
-	CpuIndex=0U;
+
+	/**
+	 * If we are doing early handoff, remember the CPU index to avoid
+	 * traversing through for the next early handoff
+	 */
+	if (EarlyHandoff == TRUE) {
+		CpuIndex = CpuIndexEarlyHandoff;
+	}
+
 	while (CpuIndex < FsblInstancePtr->HandoffCpuNo)
 	{
 		CpuSettings =
-		FsblInstancePtr->HandoffValues[CpuIndex].CpuSettings;
+				FsblInstancePtr->HandoffValues[CpuIndex].CpuSettings;
 
 		CpuId = CpuSettings & XIH_PH_ATTRB_DEST_CPU_MASK;
 		ExecState = CpuSettings & XIH_PH_ATTRB_A53_EXEC_ST_MASK;
 
 		/**
-		 * Check if handoff address is present
+		 * Run the code in this loop in the below conditions:
+		 * - This function called for early handoff and CPU needs early handoff
+		 * - This function called for regular handoff and CPU doesn't need early
+		 *   handoff
+		 * - This function called for regular handoff and CPU needs early
+		 *   handoff AND if handoff is to running CPU
+		 *
 		 */
-		if (CpuId != FsblInstancePtr->ProcessorID)
-		{
+		CpuNeedsEarlyHandoff = XFsbl_CheckEarlyHandoffCpu(CpuId);
+		if (((EarlyHandoff == TRUE) && (CpuNeedsEarlyHandoff == TRUE)) ||
+				((EarlyHandoff != TRUE) && (CpuNeedsEarlyHandoff != TRUE)) ||
+				(((EarlyHandoff != TRUE) && (CpuNeedsEarlyHandoff == TRUE)) &&
+						(CpuId == FsblInstancePtr->ProcessorID))) {
+
 			/**
-			 * Check for power status of the cpu
-			 * Update the IVT
-			 * Take cpu out of reset
+			 * Check if handoff address is present
 			 */
-			Status = XFsbl_SetCpuPwrSettings(
-			       CpuSettings, XFSBL_CPU_POWER_UP);
-			if (XFSBL_SUCCESS != Status)
+			if (CpuId != FsblInstancePtr->ProcessorID)
 			{
-				XFsbl_Printf(DEBUG_GENERAL,"Power Up "
-				    "Cpu 0x%0lx failed \n\r", CpuId);
-
-				XFsbl_Printf(DEBUG_GENERAL,
-				      "XFSBL_ERROR_PWR_UP_CPU\n\r");
-				Status = XFSBL_ERROR_PWR_UP_CPU;
-				goto END;
-			}
-
-			/**
-			 * Read the handoff address from structure
-			 */
-			HandoffAddress = (u64 )
-			FsblInstancePtr->HandoffValues[CpuIndex].HandoffAddress;
-
-			/**
-			 * Update the handoff address at reset vector address
-			 */
-			XFsbl_UpdateResetVector(HandoffAddress, CpuSettings);
-
-			XFsbl_Printf(DEBUG_INFO,"CPU 0x%0lx reset release, "
-				"Exec State 0x%0lx, HandoffAddress: %0lx\n\r",
-				CpuId, ExecState, (PTRSIZE )HandoffAddress);
-
-			/**
-			 * Reset the flag at 0xffffff80
-			 * Write Zero at 0xffffff80
-			 */
-			XFsbl_Out32(XFSBL_HANDOFF_FLAG_ADDR, 0U);
-			/**
-			 * Take CPU out of reset
-			 */
-			Status = XFsbl_SetCpuPwrSettings(
-				 CpuSettings, XFSBL_CPU_SWRST);
-			if (XFSBL_SUCCESS != Status)
-                        {
-                                goto END;
-                        }
-
-			/**
-			 * Wait till the CPU executed the
-			 * predefined code for R5
-			 */
-			if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0) ||
-				(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) ||
-				(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L) )
-			{
-				while (XFsbl_In32(XFSBL_HANDOFF_FLAG_ADDR)
-						!= 0xAAU)
+				/**
+				 * Check for power status of the cpu
+				 * Update the IVT
+				 * Take cpu out of reset
+				 */
+				Status = XFsbl_SetCpuPwrSettings(
+						CpuSettings, XFSBL_CPU_POWER_UP);
+				if (XFSBL_SUCCESS != Status)
 				{
-					/**
-					 * wait for flag
-					 * block for MISRA C compliance
-					 */
-				};
-			}
+					XFsbl_Printf(DEBUG_GENERAL,"Power Up "
+							"Cpu 0x%0lx failed \n\r", CpuId);
 
-		} else {
-			/**
-			 * Update the running cpu handoff address
-			 */
-			RunningCpuHandoffAddressPresent = TRUE;
-			RunningCpuHandoffAddress = (u64 )
-			FsblInstancePtr->HandoffValues[CpuIndex].HandoffAddress;
-			RunningCpuExecState = ExecState;
+					XFsbl_Printf(DEBUG_GENERAL,
+							"XFSBL_ERROR_PWR_UP_CPU\n\r");
+					Status = XFSBL_ERROR_PWR_UP_CPU;
+					goto END;
+				}
+
+				/**
+				 * Read the handoff address from structure
+				 */
+				HandoffAddress = (u64 )
+					FsblInstancePtr->HandoffValues[CpuIndex].HandoffAddress;
+
+				/**
+				 * Update the handoff address at reset vector address
+				 */
+				XFsbl_UpdateResetVector(HandoffAddress, CpuSettings);
+
+				XFsbl_Printf(DEBUG_INFO,"CPU 0x%0lx reset release, "
+						"Exec State 0x%0lx, HandoffAddress: %0lx\n\r",
+						CpuId, ExecState, (PTRSIZE )HandoffAddress);
+
+				/**
+				 * Reset the flag at 0xffffff80
+				 * Write Zero at 0xffffff80
+				 */
+				XFsbl_Out32(XFSBL_HANDOFF_FLAG_ADDR, 0U);
+				/**
+				 * Take CPU out of reset
+				 */
+				Status = XFsbl_SetCpuPwrSettings(
+						CpuSettings, XFSBL_CPU_SWRST);
+				if (XFSBL_SUCCESS != Status)
+				{
+					goto END;
+				}
+
+				/**
+				 * Wait till the CPU executed the
+				 * predefined code for R5
+				 */
+				if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0) ||
+						(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) ||
+						(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L) )
+				{
+					while (XFsbl_In32(XFSBL_HANDOFF_FLAG_ADDR)
+							!= 0xAAU)
+					{
+						/**
+						 * wait for flag
+						 * block for MISRA C compliance
+						 */
+					};
+				}
+
+			} else {
+				/**
+				 * Update the running cpu handoff address
+				 */
+				RunningCpuHandoffAddressPresent = TRUE;
+				RunningCpuHandoffAddress = (u64 )
+					FsblInstancePtr->HandoffValues[CpuIndex].HandoffAddress;
+				RunningCpuExecState = ExecState;
+			}
+		}
+
+		if ((EarlyHandoff == TRUE) && (CpuNeedsEarlyHandoff == TRUE)){
+
+			/* Enable cache again as we will continue loading partitions */
+			Xil_DCacheEnable();
+
+			if (PartitionNum <
+					(FsblInstancePtr->
+							ImageHeader.ImageHeaderTable.NoOfPartitions-1U)) {
+				/**
+				 * If this is not the last handoff CPU, return back and continue
+				 * loading remaining partitions in stage 3
+				 */
+				CpuIndexEarlyHandoff++;
+				Status = XFSBL_STATUS_CONTINUE_PARTITION_LOAD;
+			}
+			else {
+				/**
+				 * Early handoff to all required CPUs is done, continue with
+				 * regular handoff for remaining applications, as applicable
+				 */
+				Status = XFSBL_STATUS_CONTINUE_OTHER_HANDOFF;
+			}
+			goto END;
 		}
 
 		/**
 		 * Go to the next cpu
 		 */
 		CpuIndex++;
+		CpuIndexEarlyHandoff++;
 	}
 
 
@@ -953,5 +1007,95 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr)
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function determines if the given CPU needs early handoff or not.
+ * Currently early handoff is provided for R5
+ *
+ * @param	CpuId is Mask of CPU Id in partition attributes
+ *
+ * @return	TRUE if this CPU needs early handoff, and FALSE if not
+ *
+ *****************************************************************************/
+u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId)
+{
+	u32 CpuNeedEarlyHandoff = FALSE;
+
+	if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0) ||
+			(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) ||
+			(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L))
+	{
+		CpuNeedEarlyHandoff = TRUE;
+	}
+
+	return CpuNeedEarlyHandoff;
+
+}
+
+/*****************************************************************************/
+/**
+ * This function determines if the given partition needs early handoff
+ *
+ * @param	FsblInstancePtr is pointer to the XFsbl Instance
+ *
+ * @param	PartitionNum is the partition number of the image
+ *
+ * @return	TRUE if this partitions needs early handoff, and FALSE if not
+ *
+ *****************************************************************************/
+u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
+{
+
+	u32 Status = FALSE;
+#if defined(XFSBL_EARLY_HANDOFF)
+	u32 CpuNeedsEarlyHandoff = FALSE;
+	u32 DestinationCpu = 0;
+	u32 DestinationDev = 0;
+	u32 DestinationCpuNxt = 0;
+	u32 DestinationDevNxt = 0;
+
+	DestinationCpu = XFsbl_GetDestinationCpu(
+			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum]);
+	DestinationDev = XFsbl_GetDestinationDevice(
+			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum]);
+	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_NONE) &&
+			((DestinationDev == XIH_PH_ATTRB_DEST_DEVICE_PS) ||
+					(DestinationDev == XIH_PH_ATTRB_DEST_DEVICE_NONE)))
+	{
+		/* If dest device is not PS, retain the dest CPU as NONE/0 */
+		DestinationCpu = FsblInstancePtr->ProcessorID;
+	}
+
+	if ((PartitionNum + 1) <=
+		(FsblInstancePtr->ImageHeader.ImageHeaderTable.NoOfPartitions-1U)) {
+
+		DestinationCpuNxt = XFsbl_GetDestinationCpu(
+			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum + 1]);
+		DestinationDevNxt = XFsbl_GetDestinationDevice(
+			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum + 1]);
+
+		if ((DestinationCpuNxt == XIH_PH_ATTRB_DEST_CPU_NONE) &&
+				((DestinationDevNxt == XIH_PH_ATTRB_DEST_DEVICE_PS) ||
+						(DestinationDevNxt == XIH_PH_ATTRB_DEST_DEVICE_NONE))) {
+			DestinationCpuNxt = FsblInstancePtr->ProcessorID;
+		}
+	}
+
+	/**
+	 *  Early handoff needed if destination CPU needs early handoff AND
+	 *  if handoff CPU is not same as running CPU AND
+	 *  if this is the last partition of this application
+	 */
+	CpuNeedsEarlyHandoff = XFsbl_CheckEarlyHandoffCpu(DestinationCpu);
+	if ((CpuNeedsEarlyHandoff == TRUE) &&
+			(DestinationCpu != FsblInstancePtr->ProcessorID) &&
+			(DestinationCpuNxt != DestinationCpu)) {
+
+		Status = TRUE;
+	}
+#endif
 	return Status;
 }

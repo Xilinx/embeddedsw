@@ -120,8 +120,9 @@ extern "C" {
  *     - FSBL_SD_EXCLUDE SD code will be excluded
  *     - FSBL_RSA_EXCLUDE RSA (authentication) code will be excluded
  *     - FSBL_AES_EXCLUDE AES (decryption) code will be excluded
- *     - FSBL_BS_EXCLUDE AES (PL bitstream) code will be excluded
+ *     - FSBL_BS_EXCLUDE PL bitstream code will be excluded
  *     - FSBL_SHA2_EXCLUDE SHA2 code will be excluded
+ *     - FSBL_EARLY_HANDOFF_EXCLUDE Early handoff related code will be excluded
  */
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
 #define FSBL_QSPI_EXCLUDE_VAL			(0U)
@@ -130,6 +131,7 @@ extern "C" {
 #define FSBL_AES_EXCLUDE_VAL			(0U)
 #define FSBL_BS_EXCLUDE_VAL				(0U)
 #define FSBL_SHA2_EXCLUDE_VAL			(1U)
+#define FSBL_EARLY_HANDOFF_EXCLUDE_VAL	(0U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -158,6 +160,11 @@ extern "C" {
 #if FSBL_SHA2_EXCLUDE_VAL
 #define FSBL_SHA2_EXCLUDE
 #endif
+
+#if FSBL_EARLY_HANDOFF_EXCLUDE_VAL
+#define FSBL_EARLY_HANDOFF_EXCLUDE
+#endif
+
 
 
 /************************** Function Prototypes ******************************/

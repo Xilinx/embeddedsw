@@ -87,7 +87,7 @@ u32 XFsbl_HookAfterBSDownload(void )
 }
 #endif
 
-u32 XFsbl_HookBeforeHandoff(void )
+u32 XFsbl_HookBeforeHandoff(u32 EarlyHandoff)
 {
 	u32 Status = XFSBL_SUCCESS;
 

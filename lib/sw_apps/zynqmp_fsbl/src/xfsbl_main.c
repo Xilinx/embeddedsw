@@ -81,6 +81,7 @@ int main(void )
 	u32 FsblStatus = XFSBL_SUCCESS;
 	u32 FsblStage = XFSBL_STAGE1;
 	u32 PartitionNum=0U;
+	u32 EarlyHandoff = FALSE;
 
 	/**
 	 * Initialize globals.
@@ -185,20 +186,30 @@ int main(void )
 					/**
 					 * Check loading all partitions is completed
 					 */
+
+					FsblStatus = XFsbl_CheckEarlyHandoff(&FsblInstancePtr, PartitionNum);
+
 					if (PartitionNum <
 						(FsblInstancePtr.ImageHeader.ImageHeaderTable.NoOfPartitions-1U))
 					{
-						/**
-						 * No need to change the Fsbl Stage
-						 * Load the next partition
-						 */
-						PartitionNum++;
+						if (TRUE == FsblStatus) {
+							EarlyHandoff = TRUE;
+							FsblStage = XFSBL_STAGE4;
+						}
+						else {
+							/**
+							 * No need to change the Fsbl Stage
+							 * Load the next partition
+							 */
+							PartitionNum++;
+						}
 					} else {
 						/**
 						 * No more partitions present, go to handoff stage
 						 */
 						XFsbl_Printf(DEBUG_INFO,"All Partitions Loaded \n\r");
 						FsblStage = XFSBL_STAGE4;
+						EarlyHandoff = FsblStatus;
 
 					}
 				} /* End of else loop for Load Success */
@@ -216,9 +227,21 @@ int main(void )
 				 * xip
 				 * ps7 post config
 				 */
-				FsblStatus = XFsbl_Handoff(&FsblInstancePtr);
-				if (XFSBL_SUCCESS != FsblStatus)
-				{
+				FsblStatus = XFsbl_Handoff(&FsblInstancePtr, PartitionNum, EarlyHandoff);
+
+				if (XFSBL_STATUS_CONTINUE_PARTITION_LOAD == FsblStatus) {
+					XFsbl_Printf(DEBUG_INFO,"Early handoff to a application complete \n\r");
+					XFsbl_Printf(DEBUG_INFO,"Continuing to load remaining partitions \n\r");
+
+					PartitionNum++;
+					FsblStage = XFSBL_STAGE3;
+				}
+				else if (XFSBL_STATUS_CONTINUE_OTHER_HANDOFF == FsblStatus) {
+					XFsbl_Printf(DEBUG_INFO,"Early handoff to a application complete \n\r");
+					XFsbl_Printf(DEBUG_INFO,"Continuing handoff to other applications, if present \n\r");
+					EarlyHandoff = FALSE;
+				}
+				else if (XFSBL_SUCCESS != FsblStatus) {
 					/**
 					 * Error
 					 */
