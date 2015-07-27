@@ -184,8 +184,10 @@ OKToRun:
 	* 0 = b01000100 = Normal, Inner/Outer Non-Cacheable
 	* 1 = b11111111 = Normal, Inner/Outer WB/WA/RA
 	* 2 = b00000000 = Device-nGnRnE
+	* 3 = b00000100 = Device-nGnRE
+	* 4 = b10111011 = Normal, Inner/Outer WT/WA/RA
 	**********************************************/
-	ldr      x1, =0x000000000000FF44
+	ldr      x1, =0x000000BB0400FF44
 	msr      MAIR_EL3, x1
 
         /**********************************************
