@@ -124,13 +124,16 @@ int XAxiDma_BdSetLength(XAxiDma_Bd *BdPtr, u32 LenBytes, u32 LengthMask)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-int XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, u32 Addr)
+u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, UINTPTR Addr)
 {
 	u32 HasDRE;
 	u8 WordLen;
+	u32 Addrlen;
 
 	HasDRE = XAxiDma_BdRead(BdPtr, XAXIDMA_BD_HAS_DRE_OFFSET);
 	WordLen = HasDRE & XAXIDMA_BD_WORDLEN_MASK;
+	Addrlen = XAxiDma_BdRead(BdPtr, XAXIDMA_BD_ADDRLEN_OFFSET);
+
 
 	if (Addr & (WordLen - 1)) {
 		if ((HasDRE & XAXIDMA_BD_HAS_DRE_MASK) == 0) {
@@ -142,10 +145,12 @@ int XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, u32 Addr)
 		}
 	}
 
-	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
+	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET, LOWER_32_BITS(Addr));
+	if (Addrlen)
+		XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_MSB_OFFSET,
+				UPPER_32_BITS(Addr));
 
 	return XST_SUCCESS;
-
 }
 
 /*****************************************************************************/
@@ -164,8 +169,11 @@ int XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, u32 Addr)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-int XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, u32 Addr)
+u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, UINTPTR Addr)
 {
+	u32 Addrlen;
+	Addrlen = XAxiDma_BdRead(BdPtr, XAXIDMA_BD_ADDRLEN_OFFSET);
+
 	if (Addr & XAXIDMA_MICROMODE_MIN_BUF_ALIGN) {
 			xil_printf("Error set buf addr %x and %x,"
 			" %x\r\n", Addr, XAXIDMA_MICROMODE_MIN_BUF_ALIGN,
@@ -174,7 +182,11 @@ int XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, u32 Addr)
 			return XST_INVALID_PARAM;
 	}
 
-	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET, Addr);
+	XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_OFFSET,
+			LOWER_32_BITS(Addr));
+	if (Addrlen)
+		XAxiDma_BdWrite(BdPtr, XAXIDMA_BD_BUFA_MSB_OFFSET,
+				UPPER_32_BITS(Addr));
 
 	return XST_SUCCESS;
 }
@@ -303,7 +315,7 @@ void XAxiDma_BdSetCtrl(XAxiDma_Bd* BdPtr, u32 Data)
 void XAxiDma_DumpBd(XAxiDma_Bd* BdPtr)
 {
 
-	xil_printf("Dump BD %x:\r\n", (unsigned int)BdPtr);
+	xil_printf("Dump BD %x:\r\n", (UINTPTR)BdPtr);
 	xil_printf("\tNext Bd Ptr: %x\r\n",
 	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_NDESC_OFFSET));
 	xil_printf("\tBuff addr: %x\r\n",

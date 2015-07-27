@@ -132,7 +132,7 @@ extern "C" {
  * The XAxiDma_Bd is the type for a buffer descriptor (BD).
  */
 
-typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
+typedef UINTPTR XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -141,11 +141,16 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
  * Define methods to flush and invalidate cache for BDs should they be
  * located in cached memory.
  *****************************************************************************/
+#ifdef __aarch64__
+#define XAXIDMA_CACHE_FLUSH(BdPtr)
+#define XAXIDMA_CACHE_INVALIDATE(BdPtr)
+#else
 #define XAXIDMA_CACHE_FLUSH(BdPtr) \
-	Xil_DCacheFlushRange((unsigned int)(BdPtr), XAXIDMA_BD_HW_NUM_BYTES)
+	Xil_DCacheFlushRange((UINTPTR)(BdPtr), XAXIDMA_BD_HW_NUM_BYTES)
 
 #define XAXIDMA_CACHE_INVALIDATE(BdPtr) \
-	Xil_DCacheInvalidateRange((unsigned int)(BdPtr), XAXIDMA_BD_HW_NUM_BYTES)
+	Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XAXIDMA_BD_HW_NUM_BYTES)
+#endif
 
 /*****************************************************************************/
 /**
@@ -163,7 +168,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 *
 ******************************************************************************/
 #define XAxiDma_BdRead(BaseAddress, Offset)				\
-	(*(u32*)((u32)(BaseAddress) + (u32)(Offset)))
+	(*(u32 *)((UINTPTR)((void *)(BaseAddress)) + (u32)(Offset)))
 
 /*****************************************************************************/
 /**
@@ -182,7 +187,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 *
 ******************************************************************************/
 #define XAxiDma_BdWrite(BaseAddress, Offset, Data)			\
-	(*(u32*)((u32)(BaseAddress) + (u32)(Offset)) = (Data))
+	(*(u32 *)((UINTPTR)(void *)(BaseAddress) + (u32)(Offset))) = (u32)(Data)
 
 /*****************************************************************************/
 /**
@@ -199,7 +204,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
  *
  *****************************************************************************/
 #define XAxiDma_BdClear(BdPtr)                    \
-  memset((void *)(((u32)(BdPtr)) + XAXIDMA_BD_START_CLEAR), 0, \
+  memset((void *)(((UINTPTR)(BdPtr)) + XAXIDMA_BD_START_CLEAR), 0, \
     XAXIDMA_BD_BYTES_TO_CLEAR)
 
 /*****************************************************************************/
@@ -656,8 +661,8 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 /************************** Function Prototypes ******************************/
 
 int XAxiDma_BdSetLength(XAxiDma_Bd* BdPtr, u32 LenBytes, u32 LengthMask);
-int XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, u32 Addr);
-int XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, u32 Addr);
+u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, UINTPTR Addr);
+u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, UINTPTR Addr);
 int XAxiDma_BdSetAppWord(XAxiDma_Bd * BdPtr, int Offset, u32 Word);
 u32 XAxiDma_BdGetAppWord(XAxiDma_Bd * BdPtr, int Offset, int *Valid);
 void XAxiDma_BdSetCtrl(XAxiDma_Bd *BdPtr, u32 Data);

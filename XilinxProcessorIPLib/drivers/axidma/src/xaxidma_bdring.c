@@ -101,7 +101,7 @@
  *
  *****************************************************************************/
 #define XAXIDMA_VIRT_TO_PHYS(BdPtr) \
-	((u32)(BdPtr) + (RingPtr->FirstBdPhysAddr - RingPtr->FirstBdAddr))
+	((UINTPTR)(BdPtr) + (RingPtr->FirstBdPhysAddr - RingPtr->FirstBdAddr))
 
 /******************************************************************************
  * Move the BdPtr argument ahead an arbitrary number of BDs wrapping around
@@ -123,15 +123,15 @@
  *****************************************************************************/
 #define XAXIDMA_RING_SEEKAHEAD(RingPtr, BdPtr, NumBd)                \
     {                                                                \
-        u32 Addr = (u32)(BdPtr);                                     \
+        UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                                     \
                                                                      \
         Addr += ((RingPtr)->Separation * (NumBd));                   \
-        if ((Addr > (RingPtr)->LastBdAddr) || ((u32)(BdPtr) > Addr)) \
+        if ((Addr > (RingPtr)->LastBdAddr) || ((UINTPTR)(BdPtr) > Addr)) \
         {                                                            \
             Addr -= (RingPtr)->Length;                               \
         }                                                            \
                                                                      \
-        (BdPtr) = (XAxiDma_Bd*)Addr;                                 \
+        (BdPtr) = (XAxiDma_Bd*)(void *)Addr;                                 \
     }
 /******************************************************************************
  * Move the BdPtr argument backwards an arbitrary number of BDs wrapping
@@ -153,10 +153,10 @@
  *****************************************************************************/
 #define XAXIDMA_RING_SEEKBACK(RingPtr, BdPtr, NumBd)                  \
     {                                                                 \
-        u32 Addr = (u32)(BdPtr);                                      \
+        UINTPTR Addr = (UINTPTR)(BdPtr);                                      \
                                                                       \
         Addr -= ((RingPtr)->Separation * (NumBd));                    \
-        if ((Addr < (RingPtr)->FirstBdAddr) || ((u32)(BdPtr) < Addr)) \
+        if ((Addr < (RingPtr)->FirstBdAddr) || ((UINTPTR)(BdPtr) < Addr)) \
         {                                                             \
             Addr += (RingPtr)->Length;                                \
         }                                                             \
@@ -186,7 +186,7 @@
 int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 {
 	u32 RegBase;
-	XAxiDma_Bd *BdPtr;
+	UINTPTR BdPtr;
 	int RingIndex = RingPtr->RingIndex;
 
 	/* BD list has yet to be created for this channel */
@@ -214,24 +214,38 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 		/* Put a valid BD pointer in the current BD pointer register
 		 * So, the hardware is ready to go when tail BD pointer is updated
 		 */
-		BdPtr = (XAxiDma_Bd *)RingPtr->BdaRestart;
+		BdPtr = (UINTPTR)(void *)(RingPtr->BdaRestart);
 
 		if (!XAxiDma_BdHwCompleted(BdPtr)) {
 			if (RingPtr->IsRxChannel) {
 				if (!RingIndex) {
 					XAxiDma_WriteReg(RegBase,
-					XAXIDMA_CDESC_OFFSET, (u32)BdPtr);
+							 XAXIDMA_CDESC_OFFSET,
+							 (u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+					if (RingPtr->Addr_ext)
+						XAxiDma_WriteReg(RegBase,
+								 XAXIDMA_CDESC_MSB_OFFSET,
+								 UPPER_32_BITS(BdPtr));
 				}
 				else {
 					XAxiDma_WriteReg(RegBase,
 					(XAXIDMA_RX_CDESC0_OFFSET +
 					(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
-					(u32)BdPtr);
+					(u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+					if (RingPtr->Addr_ext)
+						XAxiDma_WriteReg(RegBase,
+								 (XAXIDMA_RX_CDESC0_MSB_OFFSET +
+								 (RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
+								 UPPER_32_BITS(BdPtr));
 				}
 			}
 			else {
-				XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_OFFSET,
-				(u32)BdPtr);
+				XAxiDma_WriteReg(RegBase,
+						 XAXIDMA_CDESC_OFFSET,
+						 (u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+				if (RingPtr->Addr_ext)
+					XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
+							 UPPER_32_BITS(BdPtr));
 			}
 		}
 		else {
@@ -240,7 +254,7 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 			while (XAxiDma_BdHwCompleted(BdPtr)) {
 				BdPtr = XAxiDma_BdRingNext(RingPtr, BdPtr);
 
-				if ((u32)BdPtr == (u32) RingPtr->BdaRestart) {
+				if ((UINTPTR)BdPtr == (UINTPTR) RingPtr->BdaRestart) {
 					xdbg_printf(XDBG_DEBUG_ERROR,
 					"StartBdRingHw: Cannot find valid cdesc\r\n");
 
@@ -251,19 +265,29 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
 					if (RingPtr->IsRxChannel) {
 						if (!RingIndex) {
 							XAxiDma_WriteReg(RegBase,
-							XAXIDMA_CDESC_OFFSET, (u32)BdPtr);
+								XAXIDMA_CDESC_OFFSET,(u32) (BdPtr & XAXIDMA_DESC_LSB_MASK));
+							if (RingPtr->Addr_ext)
+								XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
+									UPPER_32_BITS(BdPtr));
 						}
 						else {
 							XAxiDma_WriteReg(RegBase,
-							(XAXIDMA_RX_CDESC0_OFFSET +
-							(RingIndex - 1) *
-							XAXIDMA_RX_NDESC_OFFSET),
-							(u32)BdPtr);
+								(XAXIDMA_RX_CDESC0_OFFSET +
+								(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
+								(u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+							if (RingPtr->Addr_ext)
+								XAxiDma_WriteReg(RegBase,
+									(XAXIDMA_RX_CDESC0_MSB_OFFSET +
+									(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
+									UPPER_32_BITS(BdPtr));
 						}
 					}
 					else {
 						XAxiDma_WriteReg(RegBase,
-						XAXIDMA_CDESC_OFFSET, (u32)BdPtr);
+								XAXIDMA_CDESC_OFFSET, (u32)(BdPtr & XAXIDMA_DESC_LSB_MASK));
+						if (RingPtr->Addr_ext)
+							XAxiDma_WriteReg(RegBase, XAXIDMA_CDESC_MSB_OFFSET,
+									 UPPER_32_BITS(BdPtr));
 					}
 					break;
 				}
@@ -315,12 +339,12 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-int XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, u32 PhysAddr,
-			u32 VirtAddr, u32 Alignment, int BdCount)
+u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
+			UINTPTR VirtAddr, u32 Alignment, int BdCount)
 {
 	int i;
-	u32 BdVirtAddr;
-	u32 BdPhysAddr;
+	UINTPTR BdVirtAddr;
+	UINTPTR BdPhysAddr;
 
 	if (BdCount <= 0) {
 
@@ -395,8 +419,12 @@ int XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, u32 PhysAddr,
 	BdVirtAddr = VirtAddr;
 	BdPhysAddr = PhysAddr + RingPtr->Separation;
 	for (i = 1; i < BdCount; i++) {
+		XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_ADDRLEN_OFFSET,
+				RingPtr->Addr_ext);
 		XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_OFFSET,
-							BdPhysAddr);
+				(BdPhysAddr & XAXIDMA_DESC_LSB_MASK));
+		XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_MSB_OFFSET,
+				UPPER_32_BITS(BdPhysAddr));
 
 		/* Put hardware information in the BDs
 		 */
@@ -413,7 +441,13 @@ int XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, u32 PhysAddr,
 	}
 
 	/* At the end of the ring, link the last BD back to the top */
-	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_OFFSET, PhysAddr);
+	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_ADDRLEN_OFFSET,
+			RingPtr->Addr_ext);
+	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_OFFSET,
+			(PhysAddr & XAXIDMA_DESC_LSB_MASK));
+	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_MSB_OFFSET,
+			UPPER_32_BITS(PhysAddr));
+
 
 	/* Setup the last BD's hardware information */
 	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_HAS_STSCNTRL_OFFSET,
@@ -469,7 +503,7 @@ int XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, u32 PhysAddr,
 int XAxiDma_BdRingClone(XAxiDma_BdRing * RingPtr, XAxiDma_Bd * SrcBdPtr)
 {
 	int i;
-	u32 CurBd;
+	UINTPTR CurBd;
 	u32 Save;
 	XAxiDma_Bd TmpBd;
 
@@ -511,8 +545,8 @@ int XAxiDma_BdRingClone(XAxiDma_BdRing * RingPtr, XAxiDma_Bd * SrcBdPtr)
 	for (i = 0, CurBd = RingPtr->FirstBdAddr;
 	     i < RingPtr->AllCnt; i++, CurBd += RingPtr->Separation) {
 
-		memcpy((void *)((u32)CurBd + XAXIDMA_BD_START_CLEAR),
-		    (void *)((u32)(&TmpBd) + XAXIDMA_BD_START_CLEAR),
+		memcpy((void *)((UINTPTR)CurBd + XAXIDMA_BD_START_CLEAR),
+		    (void *)((UINTPTR)(&TmpBd) + XAXIDMA_BD_START_CLEAR),
 		    XAXIDMA_BD_BYTES_TO_CLEAR);
 
 		XAXIDMA_CACHE_FLUSH(CurBd);
@@ -571,20 +605,29 @@ int XAxiDma_StartBdRingHw(XAxiDma_BdRing * RingPtr)
 				if (RingPtr->IsRxChannel) {
 					if (!RingIndex) {
 						XAxiDma_WriteReg(RingPtr->ChanBase,
-						XAXIDMA_TDESC_OFFSET,
-						XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail));
+							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
+						if (RingPtr->Addr_ext)
+							XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 					}
 					else {
 						XAxiDma_WriteReg(RingPtr->ChanBase,
-						(XAXIDMA_RX_TDESC0_OFFSET +
-						(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
-						XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail));
+							(XAXIDMA_RX_TDESC0_OFFSET +
+							(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
+							(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK ));
+						if (RingPtr->Addr_ext)
+							XAxiDma_WriteReg(RingPtr->ChanBase,
+								(XAXIDMA_RX_TDESC0_MSB_OFFSET +
+								(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
+								UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 					}
 				}
 				else {
 					XAxiDma_WriteReg(RingPtr->ChanBase,
-					XAXIDMA_TDESC_OFFSET,
-					XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail));
+							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
+					if (RingPtr->Addr_ext)
+						XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 				}
 			}
 		}
@@ -1028,7 +1071,7 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing * RingPtr, int NumBd,
 		/* Flush the current BD so DMA core could see the updates */
 		XAXIDMA_CACHE_FLUSH(CurBdPtr);
 
-		CurBdPtr = XAxiDma_BdRingNext(RingPtr, CurBdPtr);
+		CurBdPtr = (XAxiDma_Bd *)((void *)XAxiDma_BdRingNext(RingPtr, CurBdPtr));
 		BdCr = XAxiDma_BdRead(CurBdPtr, XAXIDMA_BD_CTRL_LEN_OFFSET);
 		BdSts = XAxiDma_BdRead(CurBdPtr, XAXIDMA_BD_STS_OFFSET);
 	}
@@ -1073,21 +1116,29 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing * RingPtr, int NumBd,
 			if (RingPtr->IsRxChannel) {
 				if (!RingIndex) {
 					XAxiDma_WriteReg(RingPtr->ChanBase,
-					 XAXIDMA_TDESC_OFFSET,
-					XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail));
+							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
+					if (RingPtr->Addr_ext)
+						XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+								 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 				}
 				else {
 					XAxiDma_WriteReg(RingPtr->ChanBase,
-					(XAXIDMA_RX_TDESC0_OFFSET +
-					(RingIndex - 1) *
-					XAXIDMA_RX_NDESC_OFFSET),
-					XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail));
+						(XAXIDMA_RX_TDESC0_OFFSET +
+						(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
+						(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK ));
+					if (RingPtr->Addr_ext)
+						XAxiDma_WriteReg(RingPtr->ChanBase,
+							(XAXIDMA_RX_TDESC0_MSB_OFFSET +
+							(RingIndex - 1) * XAXIDMA_RX_NDESC_OFFSET),
+							UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 				}
 			}
 			else {
 				XAxiDma_WriteReg(RingPtr->ChanBase,
-					 XAXIDMA_TDESC_OFFSET,
-					XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail));
+							XAXIDMA_TDESC_OFFSET, (XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail) & XAXIDMA_DESC_LSB_MASK));
+				if (RingPtr->Addr_ext)
+					XAxiDma_WriteReg(RingPtr->ChanBase, XAXIDMA_TDESC_MSB_OFFSET,
+								UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->HwTail)));
 			}
 	}
 
@@ -1239,7 +1290,7 @@ int XAxiDma_BdRingFromHw(XAxiDma_BdRing * RingPtr, int BdLimit,
 		}
 
 		/* Move on to the next BD in work group */
-		CurBdPtr = XAxiDma_BdRingNext(RingPtr, CurBdPtr);
+		CurBdPtr = (XAxiDma_Bd *)((void *)XAxiDma_BdRingNext(RingPtr, CurBdPtr));
 	}
 
 	/* Subtract off any partial packet BDs found */
@@ -1309,8 +1360,8 @@ int XAxiDma_BdRingFree(XAxiDma_BdRing * RingPtr, int NumBd,
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingFree: Error free BDs: "
 		"post count %d to free %d, PostHead %x to free ptr %x\r\n",
 			RingPtr->PostCnt, NumBd,
-			(unsigned int)RingPtr->PostHead,
-			(unsigned int)BdSetPtr);
+			(UINTPTR)RingPtr->PostHead,
+			(UINTPTR)BdSetPtr);
 
 		return XST_DMA_SG_LIST_ERROR;
 	}
@@ -1382,7 +1433,7 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing * RingPtr)
 	}
 
 	/* Verify internal pointers point to correct memory space */
-	AddrV = (u32) RingPtr->FreeHead;
+	AddrV = (UINTPTR) RingPtr->FreeHead;
 	if ((AddrV < RingPtr->FirstBdAddr) || (AddrV > RingPtr->LastBdAddr)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCheck: FreeHead wrong "
@@ -1394,7 +1445,7 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing * RingPtr)
 		return XST_DMA_SG_LIST_ERROR;
 	}
 
-	AddrV = (u32) RingPtr->PreHead;
+	AddrV = (UINTPTR) RingPtr->PreHead;
 	if ((AddrV < RingPtr->FirstBdAddr) || (AddrV > RingPtr->LastBdAddr)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCheck: PreHead wrong %x, "
@@ -1406,7 +1457,7 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing * RingPtr)
 		return XST_DMA_SG_LIST_ERROR;
 	}
 
-	AddrV = (u32) RingPtr->HwHead;
+	AddrV = (UINTPTR) RingPtr->HwHead;
 	if ((AddrV < RingPtr->FirstBdAddr) || (AddrV > RingPtr->LastBdAddr)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCheck: HwHead wrong %x, "
@@ -1418,7 +1469,7 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing * RingPtr)
 		return XST_DMA_SG_LIST_ERROR;
 	}
 
-	AddrV = (u32) RingPtr->HwTail;
+	AddrV = (UINTPTR) RingPtr->HwTail;
 	if ((AddrV < RingPtr->FirstBdAddr) || (AddrV > RingPtr->LastBdAddr)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCheck: HwTail wrong %x, "
@@ -1430,7 +1481,7 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing * RingPtr)
 		return XST_DMA_SG_LIST_ERROR;
 	}
 
-	AddrV = (u32) RingPtr->PostHead;
+	AddrV = (UINTPTR) RingPtr->PostHead;
 	if ((AddrV < RingPtr->FirstBdAddr) || (AddrV > RingPtr->LastBdAddr)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCheck: PostHead wrong "

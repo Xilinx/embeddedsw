@@ -151,6 +151,7 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 	InstancePtr->HasSg = Config->HasSg;
 
 	InstancePtr->MicroDmaMode = Config->MicroDmaMode;
+	InstancePtr->AddrWidth = Config->AddrWidth;
 
 	/* Get the number of channels */
 	InstancePtr->TxNumChannels = Config->Mm2sNumChannels;
@@ -200,6 +201,11 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 				BaseAddr + XAXIDMA_TX_OFFSET;
 		InstancePtr->TxBdRing.HasStsCntrlStrm =
 					Config->HasStsCntrlStrm;
+		if (InstancePtr->AddrWidth > 32)
+			InstancePtr->TxBdRing.Addr_ext = 1;
+		else
+			InstancePtr->TxBdRing.Addr_ext = 0;
+
 		InstancePtr->TxBdRing.HasDRE = Config->HasMm2SDRE;
 		InstancePtr->TxBdRing.DataWidth =
 			((unsigned int)Config->Mm2SDataWidth >> 3);
@@ -229,6 +235,10 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 						((Config->S2MmDataWidth / 4) *
 						Config->S2MmBurstSize);
 			}
+			if (InstancePtr->AddrWidth > 32)
+				InstancePtr->RxBdRing[Index].Addr_ext = 1;
+			else
+				InstancePtr->RxBdRing[Index].Addr_ext = 0;
 		}
 	}
 
@@ -820,7 +830,7 @@ int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
  *		Simple mode.
  *
  *****************************************************************************/
-int XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, u32 BuffAddr, u32 Length,
+u32 XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, UINTPTR BuffAddr, u32 Length,
 	int Direction)
 {
 	u32 WordBits;
@@ -880,7 +890,11 @@ int XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, u32 BuffAddr, u32 Length,
 
 
 		XAxiDma_WriteReg(InstancePtr->TxBdRing.ChanBase,
-					XAXIDMA_SRCADDR_OFFSET, BuffAddr);
+				 XAXIDMA_SRCADDR_OFFSET, LOWER_32_BITS(BuffAddr));
+		if (InstancePtr->AddrWidth > 32)
+			XAxiDma_WriteReg(InstancePtr->TxBdRing.ChanBase,
+					 XAXIDMA_SRCADDR_MSB_OFFSET,
+					 UPPER_32_BITS(BuffAddr));
 
 		XAxiDma_WriteReg(InstancePtr->TxBdRing.ChanBase,
 				XAXIDMA_CR_OFFSET,
@@ -938,7 +952,11 @@ int XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, u32 BuffAddr, u32 Length,
 
 
 		XAxiDma_WriteReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
-					XAXIDMA_DESTADDR_OFFSET, BuffAddr);
+				 XAXIDMA_DESTADDR_OFFSET, LOWER_32_BITS(BuffAddr));
+		if (InstancePtr->AddrWidth > 32)
+			XAxiDma_WriteReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
+					 XAXIDMA_DESTADDR_MSB_OFFSET,
+					 UPPER_32_BITS(BuffAddr));
 
 		XAxiDma_WriteReg(InstancePtr->RxBdRing[RingIndex].ChanBase,
 				XAXIDMA_CR_OFFSET,

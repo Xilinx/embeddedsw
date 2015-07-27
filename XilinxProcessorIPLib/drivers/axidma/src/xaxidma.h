@@ -451,6 +451,7 @@
 *		       test example to include it on peripheral test's(CR#823144).
 * 8.1   adk  29/01/15  Added the sefltest api (XAxiDma_Selftest) to the driver source files
 * 		      (xaxidma_selftest.c) and called this from the selftest example
+* 9.0 	adk  27/07/15  Added support for 64-bit Addressing.
 *
 * </pre>
 *
@@ -494,6 +495,7 @@ typedef struct XAxiDma {
 	int TxNumChannels;
 	int RxNumChannels;
 	int MicroDmaMode;
+	int AddrWidth;		  /**< Address Width */
 } XAxiDma;
 
 /**
@@ -518,6 +520,7 @@ typedef struct {
 	int Mm2SBurstSize;
 	int S2MmBurstSize;
 	int MicroDmaMode;
+	int AddrWidth;		  /**< Address Width */
 } XAxiDma_Config;
 
 
@@ -723,7 +726,7 @@ int XAxiDma_ResetIsDone(XAxiDma * InstancePtr);
 int XAxiDma_Pause(XAxiDma * InstancePtr);
 int XAxiDma_Resume(XAxiDma * InstancePtr);
 u32 XAxiDma_Busy(XAxiDma *InstancePtr,int Direction);
-int XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, u32 BuffAddr, u32 Length,
+u32 XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, UINTPTR BuffAddr, u32 Length,
 	int Direction);
 int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select);
 int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select);

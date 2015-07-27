@@ -112,13 +112,14 @@ typedef struct {
 	int HasStsCntrlStrm; 	/**< Whether has stscntrl stream */
 	int HasDRE;
 	int DataWidth;
+	int Addr_ext;
 	u32 MaxTransferLen;
 
-	u32 FirstBdPhysAddr;	/**< Physical address of 1st BD in list */
-	u32 FirstBdAddr;	/**< Virtual address of 1st BD in list */
-	u32 LastBdAddr;		/**< Virtual address of last BD in the list */
+	UINTPTR FirstBdPhysAddr;	/**< Physical address of 1st BD in list */
+	UINTPTR FirstBdAddr;	/**< Virtual address of 1st BD in list */
+	UINTPTR LastBdAddr;		/**< Virtual address of last BD in the list */
 	u32 Length;		/**< Total size of ring in bytes */
-	u32 Separation;		/**< Number of bytes between the starting
+	UINTPTR Separation;		/**< Number of bytes between the starting
 				     address of adjacent BDs */
 	XAxiDma_Bd *FreeHead;	/**< First BD in the free group */
 	XAxiDma_Bd *PreHead;	/**< First BD in the pre-work group */
@@ -157,7 +158,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XAxiDma_BdRingCntCalc(Alignment, Bytes)                           \
-	(int)((Bytes)/((sizeof(XAxiDma_Bd)+((Alignment)-1))&~((Alignment)-1)))
+	(uint32_t)((Bytes)/((sizeof(XAxiDma_Bd)+((Alignment)-1))&~((Alignment)-1)))
 
 /*****************************************************************************/
 /**
@@ -235,17 +236,17 @@ typedef struct {
 	{								  \
 		if (!RingPtr->IsRxChannel) {				  \
 			(RingPtr)->BdaRestart = 			  \
-			(XAxiDma_Bd *)XAxiDma_ReadReg((RingPtr)->ChanBase, \
+				XAxiDma_ReadReg((RingPtr)->ChanBase, \
 					XAXIDMA_CDESC_OFFSET);		  \
 		} else {						  \
 			if (!RingPtr->RingIndex) {				  \
 				(RingPtr)->BdaRestart = 		  \
-				(XAxiDma_Bd *)XAxiDma_ReadReg(            \
+				XAxiDma_ReadReg(            \
 					(RingPtr)->ChanBase, 		  \
 					XAXIDMA_CDESC_OFFSET);		  \
 			} else {					  \
 				(RingPtr)->BdaRestart = 		  \
-				(XAxiDma_Bd *)XAxiDma_ReadReg( 		  \
+				XAxiDma_ReadReg( 		  \
 				(RingPtr)->ChanBase,                      \
 				(XAXIDMA_RX_CDESC0_OFFSET +		  \
                                 (RingPtr->RingIndex - 1) * 		  \
@@ -289,9 +290,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingNext(RingPtr, BdPtr)			\
-		(((u32)(BdPtr) >= (RingPtr)->LastBdAddr) ?	\
-			(XAxiDma_Bd*)(RingPtr)->FirstBdAddr :	\
-			(XAxiDma_Bd*)((u32)(BdPtr) + (RingPtr)->Separation))
+		(((UINTPTR)(BdPtr) >= (RingPtr)->LastBdAddr) ?	\
+			(UINTPTR)(RingPtr)->FirstBdAddr :	\
+			(UINTPTR)((UINTPTR)(BdPtr) + (RingPtr)->Separation))
 
 /****************************************************************************/
 /**
@@ -495,8 +496,8 @@ typedef struct {
  */
 int XAxiDma_StartBdRingHw(XAxiDma_BdRing* RingPtr);
 int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr);
-int XAxiDma_BdRingCreate(XAxiDma_BdRing * RingPtr, u32 PhysAddr,
-		u32 VirtAddr, u32 Alignment, int BdCount);
+u32 XAxiDma_BdRingCreate(XAxiDma_BdRing * RingPtr, UINTPTR PhysAddr,
+		UINTPTR VirtAddr, u32 Alignment, int BdCount);
 int XAxiDma_BdRingClone(XAxiDma_BdRing * RingPtr, XAxiDma_Bd * SrcBdPtr);
 int XAxiDma_BdRingAlloc(XAxiDma_BdRing * RingPtr, int NumBd,
 		XAxiDma_Bd ** BdSetPtr);

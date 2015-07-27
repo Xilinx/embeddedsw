@@ -116,19 +116,26 @@ extern "C" {
  * XAXIDMA_TX_OFFSET to get to TX channel, and XAXIDMA_RX_OFFSET to get to RX
  * channel
  */
-#define XAXIDMA_CR_OFFSET	0x00000000   /**< Channel control */
-#define XAXIDMA_SR_OFFSET	0x00000004   /**< Status */
-#define XAXIDMA_CDESC_OFFSET	0x00000008   /**< Current descriptor pointer */
-#define XAXIDMA_TDESC_OFFSET	0x00000010   /**< Tail descriptor pointer */
-#define XAXIDMA_SRCADDR_OFFSET	0x00000018   /**< Simple mode source address
+#define XAXIDMA_CR_OFFSET	 0x00000000   /**< Channel control */
+#define XAXIDMA_SR_OFFSET	 0x00000004   /**< Status */
+#define XAXIDMA_CDESC_OFFSET	 0x00000008   /**< Current descriptor pointer */
+#define XAXIDMA_CDESC_MSB_OFFSET 0x0000000C   /**< Current descriptor pointer */
+#define XAXIDMA_TDESC_OFFSET	 0x00000010   /**< Tail descriptor pointer */
+#define XAXIDMA_TDESC_MSB_OFFSET 0x00000014   /**< Tail descriptor pointer */
+#define XAXIDMA_SRCADDR_OFFSET	 0x00000018   /**< Simple mode source address
 						pointer */
-#define XAXIDMA_DESTADDR_OFFSET	0x00000018   /**< Simple mode destination address pointer */
-#define XAXIDMA_BUFFLEN_OFFSET	0x00000028   /**< Tail descriptor pointer */
-#define XAXIDMA_SGCTL_OFFSET	0x0000002c   /**< SG Control Register */
+#define XAXIDMA_SRCADDR_MSB_OFFSET	0x0000001C  /**< Simple mode source address
+						pointer */
+#define XAXIDMA_DESTADDR_OFFSET		0x00000018   /**< Simple mode destination address pointer */
+#define XAXIDMA_DESTADDR_MSB_OFFSET	0x0000001C   /**< Simple mode destination address pointer */
+#define XAXIDMA_BUFFLEN_OFFSET		0x00000028   /**< Tail descriptor pointer */
+#define XAXIDMA_SGCTL_OFFSET		0x0000002c   /**< SG Control Register */
 
 /** Multi-Channel DMA Descriptor Offsets **/
 #define XAXIDMA_RX_CDESC0_OFFSET	0x00000040   /**< Rx Current Descriptor 0 */
+#define XAXIDMA_RX_CDESC0_MSB_OFFSET	0x00000044   /**< Rx Current Descriptor 0 */
 #define XAXIDMA_RX_TDESC0_OFFSET	0x00000048   /**< Rx Tail Descriptor 0 */
+#define XAXIDMA_RX_TDESC0_MSB_OFFSET	0x0000004C   /**< Rx Tail Descriptor 0 */
 #define XAXIDMA_RX_NDESC_OFFSET		0x00000020   /**< Rx Next Descriptor Offset */
 /*@}*/
 
@@ -200,7 +207,9 @@ extern "C" {
  *  @{
  */
 #define XAXIDMA_BD_NDESC_OFFSET		0x00  /**< Next descriptor pointer */
+#define XAXIDMA_BD_NDESC_MSB_OFFSET	0x04  /**< Next descriptor pointer */
 #define XAXIDMA_BD_BUFA_OFFSET		0x08  /**< Buffer address */
+#define XAXIDMA_BD_BUFA_MSB_OFFSET	0x0C  /**< Buffer address */
 #define XAXIDMA_BD_MCCTL_OFFSET		0x10  /**< Multichannel Control Fields */
 #define XAXIDMA_BD_STRIDE_VSIZE_OFFSET	0x14  /**< 2D Transfer Sizes */
 #define XAXIDMA_BD_CTRL_LEN_OFFSET	0x18  /**< Control/buffer length */
@@ -215,6 +224,7 @@ extern "C" {
 #define XAXIDMA_BD_ID_OFFSET		0x34  /**< Sw ID */
 #define XAXIDMA_BD_HAS_STSCNTRL_OFFSET	0x38  /**< Whether has stscntrl strm */
 #define XAXIDMA_BD_HAS_DRE_OFFSET	0x3C  /**< Whether has DRE */
+#define XAXIDMA_BD_ADDRLEN_OFFSET	0x40  /**< Check for BD Addr */
 
 #define XAXIDMA_BD_HAS_DRE_MASK		0xF00 /**< Whether has DRE mask */
 #define XAXIDMA_BD_WORDLEN_MASK		0xFF  /**< Whether has DRE mask */
@@ -226,7 +236,7 @@ extern "C" {
 #define XAXIDMA_BD_BYTES_TO_CLEAR	48  /**< BD specific bytes to be
 					      *  cleared */
 
-#define XAXIDMA_BD_NUM_WORDS		16  /**< Total number of words for
+#define XAXIDMA_BD_NUM_WORDS		16U  /**< Total number of words for
 					       * one BD*/
 #define XAXIDMA_BD_HW_NUM_BYTES		52  /**< Number of bytes hw used */
 
@@ -235,7 +245,7 @@ extern "C" {
 #define XAXIDMA_LAST_APPWORD		4
 
 /*@}*/
-
+#define XAXIDMA_DESC_LSB_MASK	(0xFFFFFFC0U)	/**< LSB Address mask */
 
 /** @name Bitmasks of XAXIDMA_BD_CTRL_OFFSET register
  *  @{

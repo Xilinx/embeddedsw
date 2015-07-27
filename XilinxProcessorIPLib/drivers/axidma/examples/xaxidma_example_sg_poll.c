@@ -113,6 +113,8 @@ extern void xil_printf(const char *format, ...);
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_BASE_ADDR		XPAR_MIG7SERIES_0_BASEADDR
+#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
 
 #ifndef DDR_BASE_ADDR
@@ -133,6 +135,7 @@ extern void xil_printf(const char *format, ...);
 
 
 #define MAX_PKT_LEN		0x20
+#define MARK_UNCACHEABLE        0x701
 
 #define TEST_START_VALUE	0xC
 
@@ -195,6 +198,10 @@ int main(void)
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
+
+#ifdef __aarch64__
+	Xil_SetTlbAttributes(MEM_BASE_ADDR, MARK_UNCACHEABLE);
+#endif
 
 	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
 	if (!Config) {
@@ -298,7 +305,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_Bd *BdCurPtr;
 	u32 BdCount;
 	u32 FreeBdCount;
-	u32 RxBufferPtr;
+	UINTPTR RxBufferPtr;
 	int Index;
 
 	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);
@@ -507,7 +514,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TxPacket, MAX_PKT_LEN);
+	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
 
 
 	/* Allocate a BD */
@@ -517,7 +524,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	}
 
 	/* Set up the BD using the information of the packet to transmit */
-	Status = XAxiDma_BdSetBufAddr(BdPtr, (u32) Packet);
+	Status = XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR) Packet);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tx set buffer addr %x on BD %x failed %d\r\n",
 		    (unsigned int)Packet, (unsigned int)BdPtr, Status);
@@ -590,7 +597,7 @@ static int CheckData(void)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-	Xil_DCacheInvalidateRange((u32)RxPacket, MAX_PKT_LEN);
+	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, MAX_PKT_LEN);
 
 	for(Index = 0; Index < MAX_PKT_LEN; Index++) {
 		if (RxPacket[Index] != Value) {
