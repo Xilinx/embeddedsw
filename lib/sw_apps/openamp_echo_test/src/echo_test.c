@@ -86,14 +86,6 @@
 
 #define SHUTDOWN_MSG	0xEF56A55A
 
-/*
- * Shared memory location as defined in linux device tree for remoteproc
- * User may need to check with device tree of remoteproc and ensure the
- * share memory address is same
- */
-#define SHARED_MEMORY 	0x3ED00000
-#define SHARED_SIZE 	0x400000	/* size of the shared memory*/
-
 /* Internal functions */
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl);
@@ -155,9 +147,6 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 }
 
 static void init_system() {
-
-	/* configure MPU for shared memory region */
-	zynqMP_r5_map_mem_region(SHARED_MEMORY, SHARED_SIZE, NORM_SHARED_NCACHE | PRIV_RW_USER_RW);
 
 	/* Initilaize GIC */
 	zynqMP_r5_gic_initialize();
