@@ -51,6 +51,7 @@
 
 /***************************** Include Files *********************************/
 #include "xaxicdma.h"
+#include "xaxicdma_bd.h"
 
 #define XAXICDMA_PAGE_SIZE  0x1000
 
@@ -71,7 +72,7 @@
  *****************************************************************************/
 void XAxiCdma_BdClear(XAxiCdma_Bd* BdPtr)
 {
-	memset((void *)((u32)BdPtr + XAXICDMA_BD_START_CLEAR), 0,
+	memset((void *)((UINTPTR)BdPtr + XAXICDMA_BD_START_CLEAR), 0,
 	    XAXICDMA_BD_TO_CLEAR);
 
 	return;
@@ -92,8 +93,8 @@ void XAxiCdma_BdClear(XAxiCdma_Bd* BdPtr)
 void XAxiCdma_BdClone(XAxiCdma_Bd *BdPtr, XAxiCdma_Bd *TmpBd)
 {
 
-	memcpy((void *)((u32)BdPtr + XAXICDMA_BD_START_CLEAR),
-	    (void *)((u32)TmpBd + XAXICDMA_BD_START_CLEAR),
+	memcpy((void *)((UINTPTR)BdPtr + XAXICDMA_BD_START_CLEAR),
+	    (void *)((UINTPTR)TmpBd + XAXICDMA_BD_START_CLEAR),
 	    XAXICDMA_BD_TO_CLEAR);
 
 	return;
@@ -110,10 +111,17 @@ void XAxiCdma_BdClone(XAxiCdma_Bd *BdPtr, XAxiCdma_Bd *TmpBd)
  * @note	None.
  *
  *****************************************************************************/
-u32 XAxiCdma_BdGetNextPtr(XAxiCdma_Bd* BdPtr)
+LONG XAxiCdma_BdGetNextPtr(XAxiCdma_Bd* BdPtr)
 {
+	u32 addrlen;
+	addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
 
-	return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_NDESC_OFFSET));
+	if (addrlen > 32) {
+		return (u64)((XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_NDESC_OFFSET)) |
+		((uint64_t)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_NDESC_MSB_OFFSET)) << 32U));
+	} else {
+		return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_NDESC_OFFSET));
+	}
 }
 
 /*****************************************************************************/
@@ -128,11 +136,16 @@ u32 XAxiCdma_BdGetNextPtr(XAxiCdma_Bd* BdPtr)
  * @note	None.
  *
  *****************************************************************************/
-void XAxiCdma_BdSetNextPtr(XAxiCdma_Bd* BdPtr, u32 NextBdPtr)
+void XAxiCdma_BdSetNextPtr(XAxiCdma_Bd* BdPtr, UINTPTR NextBdPtr)
 {
+	u32 addrlen;
+        addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
 
-	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_NDESC_OFFSET, NextBdPtr);
-
+	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_NDESC_OFFSET,
+                         (NextBdPtr & XAXICDMA_DESC_LSB_MASK));
+	if (addrlen > 32)
+		XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_NDESC_MSB_OFFSET,
+				 UPPER_32_BITS(NextBdPtr));
 	return;
 }
 
@@ -193,8 +206,10 @@ void XAxiCdma_BdClearSts(XAxiCdma_Bd* BdPtr)
  * @note	None.
  *
  *****************************************************************************/
-int XAxiCdma_BdSetSrcBufAddr(XAxiCdma_Bd* BdPtr, u32 Addr)
+u32 XAxiCdma_BdSetSrcBufAddr(XAxiCdma_Bd* BdPtr, UINTPTR Addr)
 {
+	u32 addrlen;
+        addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
 
 	if (XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_HASDRE_OFFSET) == 0) {
 
@@ -209,7 +224,10 @@ int XAxiCdma_BdSetSrcBufAddr(XAxiCdma_Bd* BdPtr, u32 Addr)
 		}
 	}
 
-	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_BUFSRC_OFFSET, Addr);
+	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_BUFSRC_OFFSET, LOWER_32_BITS(Addr));
+	if (addrlen > 32)
+		XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_BUFSRC_MSB_OFFSET,
+				 UPPER_32_BITS(Addr));
 
 	return XST_SUCCESS;
 }
@@ -225,10 +243,17 @@ int XAxiCdma_BdSetSrcBufAddr(XAxiCdma_Bd* BdPtr, u32 Addr)
  * @note	None.
  *
  *****************************************************************************/
-u32 XAxiCdma_BdGetSrcBufAddr(XAxiCdma_Bd* BdPtr)
+LONG XAxiCdma_BdGetSrcBufAddr(XAxiCdma_Bd* BdPtr)
 {
+	u32 addrlen;
+        addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
 
-	return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFSRC_OFFSET));
+	if (addrlen > 32)
+		return (u64)((XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFSRC_OFFSET)) |
+			((uint64_t)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFSRC_MSB_OFFSET))
+				<< 32U));
+	else
+		return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFSRC_OFFSET));
 }
 
 /*****************************************************************************/
@@ -246,8 +271,11 @@ u32 XAxiCdma_BdGetSrcBufAddr(XAxiCdma_Bd* BdPtr)
  * @note	None.
  *
  *****************************************************************************/
-int XAxiCdma_BdSetDstBufAddr(XAxiCdma_Bd* BdPtr, u32 Addr)
+u32 XAxiCdma_BdSetDstBufAddr(XAxiCdma_Bd* BdPtr, UINTPTR Addr)
 {
+	u32 addrlen;
+        addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
+
 	if (XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_HASDRE_OFFSET) == 0) {
 
 		if (Addr &
@@ -260,7 +288,10 @@ int XAxiCdma_BdSetDstBufAddr(XAxiCdma_Bd* BdPtr, u32 Addr)
 		}
 	}
 
-	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_BUFDST_OFFSET, Addr);
+	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_BUFDST_OFFSET, LOWER_32_BITS(Addr));
+	if (addrlen > 32)
+		XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_BUFDST_MSB_OFFSET,
+				 UPPER_32_BITS(Addr));
 
 	return XST_SUCCESS;
 }
@@ -276,10 +307,16 @@ int XAxiCdma_BdSetDstBufAddr(XAxiCdma_Bd* BdPtr, u32 Addr)
  * @note	None
  *
  *****************************************************************************/
-u32 XAxiCdma_BdGetDstBufAddr(XAxiCdma_Bd* BdPtr)
+LONG XAxiCdma_BdGetDstBufAddr(XAxiCdma_Bd* BdPtr)
 {
+	u32 addrlen;
+    addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
 
-	return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFDST_OFFSET));
+	if (addrlen > 32)
+		return (u64) (XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFDST_OFFSET) |
+			((uint64_t)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFDST_MSB_OFFSET)) << 32U));
+	else
+		return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_BUFDST_OFFSET));
 }
 
 /*****************************************************************************/
@@ -300,7 +337,7 @@ u32 XAxiCdma_BdGetDstBufAddr(XAxiCdma_Bd* BdPtr)
  *		slave error if the hardware is built in lite mode.
  *
  *****************************************************************************/
-int XAxiCdma_BdSetLength(XAxiCdma_Bd* BdPtr, int LenBytes)
+u32 XAxiCdma_BdSetLength(XAxiCdma_Bd* BdPtr, int LenBytes)
 {
 	int MaxLen;
 
@@ -326,7 +363,7 @@ int XAxiCdma_BdSetLength(XAxiCdma_Bd* BdPtr, int LenBytes)
  * @note	None
  *
  *****************************************************************************/
-int XAxiCdma_BdGetLength(XAxiCdma_Bd* BdPtr)
+u32 XAxiCdma_BdGetLength(XAxiCdma_Bd* BdPtr)
 {
 
 	return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_CTRL_LEN_OFFSET));
@@ -344,10 +381,15 @@ int XAxiCdma_BdGetLength(XAxiCdma_Bd* BdPtr)
  * @note	None
  *
  *****************************************************************************/
-void XAxiCdma_BdSetPhysAddr(XAxiCdma_Bd* BdPtr, u32 PhysAddr)
+void XAxiCdma_BdSetPhysAddr(XAxiCdma_Bd* BdPtr, UINTPTR PhysAddr)
 {
+	u32 addrlen;
+    addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
 
 	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_PHYS_ADDR_OFFSET, PhysAddr);
+	if (addrlen > 32)
+                XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET,
+				 UPPER_32_BITS(PhysAddr));
 
 	return;
 }
@@ -443,10 +485,17 @@ void XAxiCdma_BdSetMaxLen(XAxiCdma_Bd* BdPtr, int MaxLen)
  * @note	None
  *
  *****************************************************************************/
-u32 XAxiCdma_BdGetPhysAddr(XAxiCdma_Bd* BdPtr)
+LONG XAxiCdma_BdGetPhysAddr(XAxiCdma_Bd* BdPtr)
 {
+	 u32 addrlen;
+        addrlen = XAxiCdma_BdGetAddrLength(BdPtr);
 
-	return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_PHYS_ADDR_OFFSET));
+	 if (addrlen > 32)
+             return (u64)((XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_PHYS_ADDR_OFFSET)) |
+                       ((uint64_t)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET))
+                                << 32U));
+        else
+             return (u32)(XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_PHYS_ADDR_OFFSET));
 }
 
 /*****************************************************************************/
@@ -462,7 +511,7 @@ u32 XAxiCdma_BdGetPhysAddr(XAxiCdma_Bd* BdPtr)
  *****************************************************************************/
 void XAxiCdma_DumpBd(XAxiCdma_Bd* BdPtr)
 {
-	xil_printf("\r\nDump BD %x:\r\n", (unsigned int)BdPtr);
+	xil_printf("\r\nDump BD %x:\r\n", (UINTPTR)BdPtr);
 
 	xil_printf("Next BD ptr \t%x\r\n",
 	    (unsigned int)XAxiCdma_BdGetNextPtr(BdPtr));

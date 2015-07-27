@@ -31,9 +31,9 @@
 ##############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XAxiCdma" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_DRE" "C_USE_DATAMOVER_LITE" "C_M_AXI_DATA_WIDTH" "C_INCLUDE_SG" "C_M_AXI_MAX_BURST_LEN"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XAxiCdma" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_DRE" "C_USE_DATAMOVER_LITE" "C_M_AXI_DATA_WIDTH" "C_INCLUDE_SG" "C_M_AXI_MAX_BURST_LEN" "C_ADDR_WIDTH"
 
-	::hsi::utils::define_config_file  $drv_handle "xaxicdma_g.c" "XAxiCdma" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_DRE" "C_USE_DATAMOVER_LITE" "C_M_AXI_DATA_WIDTH" "C_M_AXI_MAX_BURST_LEN"
+	::hsi::utils::define_config_file  $drv_handle "xaxicdma_g.c" "XAxiCdma" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_DRE" "C_USE_DATAMOVER_LITE" "C_M_AXI_DATA_WIDTH" "C_M_AXI_MAX_BURST_LEN" "C_ADDR_WIDTH"
 
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "AxiCdma" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_DRE" "C_USE_DATAMOVER_LITE" "C_M_AXI_DATA_WIDTH" "C_INCLUDE_SG" "C_M_AXI_MAX_BURST_LEN"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "AxiCdma" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_DRE" "C_USE_DATAMOVER_LITE" "C_M_AXI_DATA_WIDTH" "C_INCLUDE_SG" "C_M_AXI_MAX_BURST_LEN" "C_ADDR_WIDTH"
 }

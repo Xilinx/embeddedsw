@@ -96,6 +96,8 @@ extern void xil_printf(const char *format, ...);
 #define MEMORY_BASE		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define MEMORY_BASE	XPAR_MIG7SERIES_0_BASEADDR
+#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #else
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
@@ -108,9 +110,8 @@ extern void xil_printf(const char *format, ...);
 #define RX_BUFFER_BASE		(MEMORY_BASE + 0x00660000)
 #define RX_BUFFER_HIGH		(MEMORY_BASE + 0x0068FFFF)
 
-
-
 #define MAX_PKT_LEN		128
+#define MARK_UNCACHEABLE	0x701
 
 /* Number of BDs in the transfer example
  * We show how to submit multiple BDs for one transmit.
@@ -358,7 +359,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TransmitBufferPtr,
+	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
 	return XST_SUCCESS;
@@ -384,8 +385,8 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 	XAxiCdma_Bd *BdCurPtr;
 	int Status;
 	int Index;
-	u32 SrcBufferAddr;
-	u32 DstBufferAddr;
+	UINTPTR SrcBufferAddr;
+	UINTPTR DstBufferAddr;
 
 	Status = XAxiCdma_BdRingAlloc(InstancePtr,
 		    NUMBER_OF_BDS_TO_TRANSFER, &BdPtr);
@@ -395,8 +396,8 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 		return XST_FAILURE;
 	}
 
-	SrcBufferAddr = (u32)TransmitBufferPtr;
-	DstBufferAddr = (u32)ReceiveBufferPtr;
+	SrcBufferAddr = (UINTPTR)TransmitBufferPtr;
+	DstBufferAddr = (UINTPTR)ReceiveBufferPtr;
 	BdCurPtr = BdPtr;
 
 	/* Set up the BDs
@@ -470,7 +471,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-	Xil_DCacheInvalidateRange((u32)DestPtr, Length);
+	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
@@ -507,6 +508,10 @@ int XAxiCdma_SgPollExample(u16 DeviceId)
 
 	SrcPtr = (u8 *)TransmitBufferPtr;
 	DstPtr = (u8 *)ReceiveBufferPtr;
+
+#ifdef __aarch64__
+	Xil_SetTlbAttributes(MEMORY_BASE, MARK_UNCACHEABLE);
+#endif
 
 	/* Initialize the XAxiCdma device.
 	 */

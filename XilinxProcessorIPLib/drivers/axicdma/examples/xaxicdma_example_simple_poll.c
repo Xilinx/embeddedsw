@@ -258,15 +258,15 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)&SrcBuffer, Length);
+	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
 
 	/* Try to start the DMA transfer
 	 */
 	while (Retries) {
 		Retries -= 1;
 
-		Status = XAxiCdma_SimpleTransfer(InstancePtr, (u32)SrcBuffer,
-			(u32)DestBuffer, Length, NULL, NULL);
+		Status = XAxiCdma_SimpleTransfer(InstancePtr, (UINTPTR)SrcBuffer,
+			(UINTPTR)DestBuffer, Length, NULL, NULL);
 		if (Status == XST_SUCCESS) {
 			break;
 		}
@@ -341,7 +341,9 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-	Xil_DCacheInvalidateRange((u32)DestPtr, Length);
+#ifndef __aarch64__
+	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
+#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {

@@ -153,7 +153,7 @@ int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
  * @note	None.
  *
  *****************************************************************************/
-int XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
+u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 		u32 EffectiveAddr)
 {
 	u32 RegValue;
@@ -167,6 +167,7 @@ int XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 	InstancePtr->HasDRE = CfgPtr->HasDRE;
 	InstancePtr->IsLite = CfgPtr->IsLite;
 	InstancePtr->WordLength = ((unsigned int)CfgPtr->DataWidth) >> 3;
+	InstancePtr->AddrWidth = CfgPtr->AddrWidth;
 
 	/* AXI CDMA supports 32 bits data width and up
 	 */
@@ -419,9 +420,8 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 			/* Update the CDESC register, because the hardware is
 			 * to start from the CDESC
 			 */
-			XAxiCdma_WriteReg(InstancePtr->BaseAddr,
-			    XAXICDMA_CDESC_OFFSET,
-			    (u32)InstancePtr->BdaRestart);
+			XAxiCdma_BdSetCurBdPtr(InstancePtr,
+				(UINTPTR)InstancePtr->BdaRestart);
 
 			return XST_SUCCESS;
 		}
@@ -464,7 +464,7 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
  * 		function to be NULL.
  *
  *****************************************************************************/
-int XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, u32 SrcAddr, u32 DstAddr,
+u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstAddr,
 	int Length, XAxiCdma_CallBackFn SimpleCallBack, void *CallBackRef)
 {
 	u32 WordBits;
@@ -533,9 +533,18 @@ int XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, u32 SrcAddr, u32 DstAddr,
 	InstancePtr->SimpleCallBackRef = CallBackRef;
 
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_SRCADDR_OFFSET,
-		SrcAddr);
+			  LOWER_32_BITS(SrcAddr));
+	if (InstancePtr->AddrWidth > 32)
+		XAxiCdma_WriteReg(InstancePtr->BaseAddr,
+				  XAXICDMA_SRCADDR_MSB_OFFSET,
+				  UPPER_32_BITS(SrcAddr));
+
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_DSTADDR_OFFSET,
-		DstAddr);
+			  LOWER_32_BITS(DstAddr));
+	if (InstancePtr->AddrWidth > 32)
+		XAxiCdma_WriteReg(InstancePtr->BaseAddr,
+				  XAXICDMA_DSTADDR_MSB_OFFSET,
+				  UPPER_32_BITS(DstAddr));
 
 	/* Writing to the BTT register starts the transfer
 	 */
@@ -676,12 +685,20 @@ void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr)
 		XAxiCdma_ReadReg(RegBase, XAXICDMA_SR_OFFSET));
 	xil_printf("Current BD register: %x\r\n",
 		XAxiCdma_ReadReg(RegBase, XAXICDMA_CDESC_OFFSET));
+	xil_printf("Current BD MSB register: %x\r\n",
+		XAxiCdma_ReadReg(RegBase, XAXICDMA_CDESC_MSB_OFFSET));
 	xil_printf("Tail BD register: %x\r\n",
 		XAxiCdma_ReadReg(RegBase, XAXICDMA_TDESC_OFFSET));
+	xil_printf("Tail BD MSB register: %x\r\n",
+			XAxiCdma_ReadReg(RegBase, XAXICDMA_TDESC_MSB_OFFSET));
 	xil_printf("Source Addr register: %x\r\n",
 		XAxiCdma_ReadReg(RegBase, XAXICDMA_SRCADDR_OFFSET));
+	xil_printf("Source Addr MSB register: %x\r\n",
+		XAxiCdma_ReadReg(RegBase, XAXICDMA_SRCADDR_MSB_OFFSET));
 	xil_printf("Destination Addr register: %x\r\n",
 		XAxiCdma_ReadReg(RegBase, XAXICDMA_DSTADDR_OFFSET));
+	xil_printf("Destination Addr MSB register: %x\r\n",
+		XAxiCdma_ReadReg(RegBase, XAXICDMA_DSTADDR_MSB_OFFSET));
 	xil_printf("BTT register: %x\r\n",
 		XAxiCdma_ReadReg(RegBase, XAXICDMA_BTT_OFFSET));
 

@@ -82,13 +82,40 @@ extern "C" {
  *   Register accesses are 32-bit.
  * @{
  */
-#define XAXICDMA_CR_OFFSET    	0x00000000  /**< Control register */
-#define XAXICDMA_SR_OFFSET    	0x00000004  /**< Status register */
-#define XAXICDMA_CDESC_OFFSET 	0x00000008  /**< Current descriptor pointer */
-#define XAXICDMA_TDESC_OFFSET	0x00000010  /**< Tail descriptor pointer */
-#define XAXICDMA_SRCADDR_OFFSET 0x00000018  /**< Source address register */
-#define XAXICDMA_DSTADDR_OFFSET 0x00000020  /**< Destination address register */
-#define XAXICDMA_BTT_OFFSET     0x00000028  /**< Bytes to transfer */
+#define XAXICDMA_CR_OFFSET	     0x00000000  /**< Control register */
+#define XAXICDMA_SR_OFFSET	     0x00000004  /**< Status register */
+#define XAXICDMA_CDESC_OFFSET        0x00000008  /**< Current descriptor
+						    pointer */
+#define XAXICDMA_CDESC_MSB_OFFSET    0x0000000C /**< Current descriptor pointer */
+#define XAXICDMA_TDESC_OFFSET	     0x00000010  /**< Tail descriptor pointer */
+#define XAXICDMA_TDESC_MSB_OFFSET    0x00000014  /**< Tail descriptor pointer */
+#define XAXICDMA_SRCADDR_OFFSET	     0x00000018  /**< Source address register */
+#define XAXICDMA_SRCADDR_MSB_OFFSET  0x0000001C /**< Source address register */
+#define XAXICDMA_DSTADDR_OFFSET	     0x00000020  /**< Destination address
+						register */
+#define XAXICDMA_DSTADDR_MSB_OFFSET  0x00000024  /**< Destination address
+						register */
+#define XAXICDMA_BTT_OFFSET          0x00000028  /**< Bytes to transfer */
+/*@}*/
+
+/** @name Bitmasks of XAXICDMA_CR_OFFSET register
+ * @{
+ */
+#define XAXICDMA_CR_RESET_MASK		0x00000004 /**< Reset DMA engine */
+#define XAXICDMA_CR_SGMODE_MASK		0x00000008 /**< Scatter gather mode */
+#define XAXICDMA_CR_KHOLE_RD_MASK	0x00000010 /**< Keyhole Read */
+#define XAXICDMA_CR_KHOLE_WR_MASK	0x00000020 /**< Keyhole Write */
+/*@}*/
+
+/** @name Bitmasks of XAXICDMA_SR_OFFSET register
+ * This register reports status of a DMA channel, including
+ * idle state, errors, and interrupts
+ * @{
+ */
+#define XAXICDMA_SR_IDLE_MASK         0x00000002  /**< DMA channel idle */
+#define XAXICDMA_SR_SGINCLD_MASK      0x00000008  /**< Hybrid build */
+#define XAXICDMA_SR_ERR_INTERNAL_MASK 0x00000010  /**< Datamover internal err */
+#define XAXICDMA_BTT_OFFSET       0x00000028  /**< Bytes to transfer */
 /*@}*/
 
 /** @name Bitmasks of XAXICDMA_CR_OFFSET register
@@ -115,6 +142,13 @@ extern "C" {
 #define XAXICDMA_SR_ERR_SG_DEC_MASK   0x00000400  /**< SG decode err */
 #define XAXICDMA_SR_ERR_ALL_MASK      0x00000770  /**< All errors */
 /*@}*/
+
+/** @name Bitmask for descriptor
+ * @{
+ */
+#define XAXICDMA_DESC_LSB_MASK	(0xFFFFFFC0U)	/**< LSB Address mask */
+/*@}*/
+
 
 /** @name Bitmask for interrupts
  * These masks are shared by XAXICDMA_CR_OFFSET register and
@@ -156,19 +190,24 @@ extern "C" {
  *  @{
  */
 #define XAXICDMA_BD_NDESC_OFFSET     0x00 /**< Next descriptor pointer */
+#define XAXICDMA_BD_NDESC_MSB_OFFSET     0x04 /**< Next descriptor pointer */
 #define XAXICDMA_BD_BUFSRC_OFFSET    0x08 /**< Buffer source address */
+#define XAXICDMA_BD_BUFSRC_MSB_OFFSET    0x0C /**< Buffer source address */
 #define XAXICDMA_BD_BUFDST_OFFSET    0x10 /**< Buffer destination address */
+#define XAXICDMA_BD_BUFDST_MSB_OFFSET    0x14 /**< Buffer destination address */
 #define XAXICDMA_BD_CTRL_LEN_OFFSET  0x18 /**< Control/buffer length */
 #define XAXICDMA_BD_STS_OFFSET       0x1C /**< Status */
 #define XAXICDMA_BD_PHYS_ADDR_OFFSET 0x20 /**< Physical address of the BD */
-#define XAXICDMA_BD_ISLITE_OFFSET    0x24 /**< Lite mode hardware build? */
-#define XAXICDMA_BD_HASDRE_OFFSET    0x28 /**< Support unaligned transfers? */
-#define XAXICDMA_BD_WORDLEN_OFFSET   0x2C /**< Word length in bytes */
-#define XAXICDMA_BD_MAX_LEN_OFFSET   0x30 /**< Word length in bytes */
+#define XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET 0x24 /**< Physical address of the BD */
+#define XAXICDMA_BD_ISLITE_OFFSET    0x28 /**< Lite mode hardware build? */
+#define XAXICDMA_BD_HASDRE_OFFSET    0x2C /**< Support unaligned transfers? */
+#define XAXICDMA_BD_WORDLEN_OFFSET   0x30 /**< Word length in bytes */
+#define XAXICDMA_BD_MAX_LEN_OFFSET   0x34 /**< Word length in bytes */
+#define XAXICDMA_BD_ADDRLEN_OFFSET   0x38 /**< Word length in bytes */
 
 #define XAXICDMA_BD_START_CLEAR    8   /**< Offset to start clear */
 #define XAXICDMA_BD_TO_CLEAR       24  /**< BD specific bytes to be cleared */
-#define XAXICDMA_BD_NUM_WORDS      16  /**< Total number of words for one BD*/
+#define XAXICDMA_BD_NUM_WORDS      16U  /**< Total number of words for one BD*/
 #define XAXICDMA_BD_HW_NUM_BYTES   32  /**< Number of bytes hw used */
 /*@}*/
 
@@ -213,7 +252,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XAxiCdma_ReadReg(BaseAddress, RegOffset)             \
-    XAxiCdma_In32((BaseAddress) + (RegOffset))
+    XAxiCdma_In32((BaseAddress) + (u32)(RegOffset))
 
 /*****************************************************************************/
 /**
@@ -232,7 +271,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XAxiCdma_WriteReg(BaseAddress, RegOffset, Data)          \
-    XAxiCdma_Out32((BaseAddress) + (RegOffset), (Data))
+    XAxiCdma_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
 
 #ifdef __cplusplus
 }

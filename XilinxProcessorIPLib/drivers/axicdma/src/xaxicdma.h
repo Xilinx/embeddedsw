@@ -330,6 +330,7 @@
  * 		       Added logic to check if DDR is present in the test app
  *		       tcl file. (CR 700806)
  * 3.0   adk  19/12/13 Updated as per the New Tcl API's
+ * 4.0	 adk  27/07/15 Added support for 64-bit Addressing.
  * </pre>
  *****************************************************************************/
 
@@ -416,11 +417,12 @@ typedef struct {
  */
 typedef struct {
 	u32 DeviceId;             /**< Unique ID of this instance */
-	u32 BaseAddress;          /**< Physical address of this instance */
+	UINTPTR BaseAddress;          /**< Physical address of this instance */
 	int HasDRE;               /**< Whether support unaligned transfers */
 	int IsLite;               /**< Whether hardware build is lite mode */
 	int DataWidth;            /**< Length of a word in bits */
 	int BurstLen;             /**< Burst length */
+	int AddrWidth;		  /**< Address Width */
 }XAxiCdma_Config;
 
 /**
@@ -432,7 +434,7 @@ typedef struct {
  * @{
  */
 typedef struct {
-	u32 BaseAddr;         /**< Virtual base address of the DMA engine */
+	UINTPTR BaseAddr;         /**< Virtual base address of the DMA engine */
 
 	int Initialized;      /**< The driver/engine in working state */
 	int SimpleOnlyBuild;  /**< Whether hardware is simple only build */
@@ -444,9 +446,9 @@ typedef struct {
 	int SGWaiting;        /**< Flag that SG transfers are waiting */
 
 	/* BD ring fields for SG transfer */
-	u32 FirstBdPhysAddr;  /**< Physical address of 1st BD in list */
-	u32 FirstBdAddr;      /**< Virtual address of 1st BD in list */
-	u32 LastBdAddr;       /**< Virtual address of last BD in the list */
+	UINTPTR FirstBdPhysAddr;  /**< Physical address of 1st BD in list */
+	UINTPTR FirstBdAddr;      /**< Virtual address of 1st BD in list */
+	UINTPTR LastBdAddr;       /**< Virtual address of last BD in the list */
 	u32 BdRingTotalLen;   /**< Total size of ring in bytes */
 	u32 BdSeparation;     /**< Distance between adjacent BDs in bytes */
 	XAxiCdma_Bd *FreeBdHead;   /**< First BD in the free group */
@@ -470,6 +472,7 @@ typedef struct {
 	int SgHandlerTail;             /**< Last active sg transfer handler */
 	XAxiCdma_IntrHandlerList Handlers[XAXICDMA_MAXIMUM_MAX_HANDLER];
 	                               /**< List of interrupt handlers */
+	int AddrWidth;		  /**< Address Width */
 
 }XAxiCdma;
 /* @} */
@@ -483,7 +486,10 @@ typedef struct {
  * XCACHE_FLUSH_DCACHE_RANGE and XCACHE_INVALIDATE_DCACHE_RANGE macros are not
  * implemented or they do nothing.
  *****************************************************************************/
-#ifdef __MICROBLAZE__
+#ifdef __aarch64__
+#define XAXICDMA_CACHE_FLUSH(BdPtr)
+#define XAXICDMA_CACHE_INVALIDATE(BdPtr)
+#elif __MICROBLAZE__
 #ifdef XCACHE_FLUSH_DCACHE_RANGE
 #define XAXICDMA_CACHE_FLUSH(BdPtr)               \
       XCACHE_FLUSH_DCACHE_RANGE((BdPtr), XAXICDMA_BD_HW_NUM_BYTES)
@@ -512,7 +518,7 @@ typedef struct {
 
 XAxiCdma_Config *XAxiCdma_LookupConfig(u32 DeviceId);
 
-int XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
+u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
         u32 EffectiveAddr);
 void XAxiCdma_Reset(XAxiCdma *InstancePtr);
 int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr);
@@ -525,34 +531,36 @@ void XAxiCdma_IntrEnable(XAxiCdma *InstancePtr, u32 Mask);
 u32 XAxiCdma_IntrGetEnabled(XAxiCdma *InstancePtr);
 void XAxiCdma_IntrDisable(XAxiCdma *InstancePtr, u32 Mask);
 void XAxiCdma_IntrHandler(void *HandlerRef);
-int XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, u32 SrcAddr, u32 DstAddr,
+u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstAddr,
         int Length, XAxiCdma_CallBackFn SimpleCallBack, void *CallbackRef);
 int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select);
 
 /* BD ring API functions
  */
-int XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, u32 BuffAddr);
-int XAxiCdma_BdRingMemCalc(u32 Alignment, int NumBd);
-int XAxiCdma_BdRingGetCnt(XAxiCdma *InstancePtr);
-int XAxiCdma_BdRingGetFreeCnt(XAxiCdma *InstancePtr);
+u32 XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, u32 BuffAddr);
+u32 XAxiCdma_BdRingMemCalc(u32 Alignment, int NumBd);
+u32 XAxiCdma_BdRingGetCnt(XAxiCdma *InstancePtr);
+u32 XAxiCdma_BdRingGetFreeCnt(XAxiCdma *InstancePtr);
 void XAxiCdma_BdRingSnapShotCurrBd(XAxiCdma *InstancePtr);
 XAxiCdma_Bd *XAxiCdma_BdRingGetCurrBd(XAxiCdma *InstancePtr);
 XAxiCdma_Bd *XAxiCdma_BdRingNext(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr);
 XAxiCdma_Bd *XAxiCdma_BdRingPrev(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr);
-int XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, u32 PhysAddr,
-        u32 VirtAddr, u32 Alignment, int BdCount);
-int XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd * TemplateBdPtr);
-int XAxiCdma_BdRingAlloc(XAxiCdma *InstancePtr, int NumBd,
+LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
+        UINTPTR VirtAddr, u32 Alignment, int BdCount);
+LONG XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd * TemplateBdPtr);
+LONG XAxiCdma_BdRingAlloc(XAxiCdma *InstancePtr, int NumBd,
 	XAxiCdma_Bd ** BdSetPtr);
-int XAxiCdma_BdRingUnAlloc(XAxiCdma *InstancePtr, int NumBd,
+LONG XAxiCdma_BdRingUnAlloc(XAxiCdma *InstancePtr, int NumBd,
 	XAxiCdma_Bd * BdSetPtr);
-int XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
+LONG XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
         XAxiCdma_Bd * BdSetPtr, XAxiCdma_CallBackFn CallBack,
         void *CallBackRef);
-int XAxiCdma_BdRingFromHw(XAxiCdma *InstancePtr, int BdLimit,
+u32 XAxiCdma_BdRingFromHw(XAxiCdma *InstancePtr, int BdLimit,
         XAxiCdma_Bd ** BdSetPtr);
-int XAxiCdma_BdRingFree(XAxiCdma *InstancePtr, int NumBd,
+u32 XAxiCdma_BdRingFree(XAxiCdma *InstancePtr, int NumBd,
         XAxiCdma_Bd * BdSetPtr);
+void XAxiCdma_BdSetCurBdPtr(XAxiCdma *InstancePtr, UINTPTR CurBdPtr);
+void XAxiCdma_BdSetTailBdPtr(XAxiCdma *InstancePtr, UINTPTR TailBdPtr);
 
 /* Debug utility function
  */
