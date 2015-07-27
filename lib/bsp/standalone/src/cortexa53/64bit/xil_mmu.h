@@ -66,6 +66,32 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/* Memory type */
+#define NORM_NONCACHE 0x401UL 	/* Normal Non-cacheable*/
+#define STRONG_ORDERED 0x409UL	/* Strongly ordered (Device-nGnRnE)*/
+#define DEVICE_MEMORY 0x40DUL	/* Device memory (Device-nGnRE)*/
+#define RESERVED 0x0UL			/* reserved memory*/
+
+/* Normal write-through cacheable inner shareable*/
+#define NORM_WT_CACHE 0x711UL
+
+/* Normal write back cacheable inner-shareable */
+#define NORM_WB_CACHE 0x705UL
+
+/*
+ * shareability attribute only applicable to
+ * normal cacheable memory
+ */
+#define INNER_SHAREABLE (0x3 << 8)UL
+#define OUTER_SHAREABLE (0x2 << 8)UL
+#define NON_SHAREABLE	(~(0x3 << 8))UL
+
+/* Execution type */
+#define EXECUTE_NEVER ((0x1 << 53) | (0x1 << 54))UL
+
+/* Security type */
+#define NON_SECURE	(0x1 << 5)UL
+
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
