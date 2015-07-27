@@ -36,6 +36,7 @@
 #include "xil_cache.h"
 #include "xil_mmu.h"
 #include "baremetal.h"
+#include "env.h"
 
 XScuGic InterruptController;
 
@@ -85,38 +86,6 @@ void zynqMP_r5_irq_isr() {
 	bm_env_isr(irq_vector);
 
 	XScuGic_CPUWriteReg(&InterruptController,XSCUGIC_EOI_OFFSET, raw_irq);
-}
-
-/***********************************************************************
- *
- *
- * zynqMP_r5_map_mem_region
- *
- *
- * This function sets-up the region of memory based on the given
- * attributes
- * There is no MMU for R5, no need to map phy address to vrt_addr
- *
- * @param addr		     - Starting address of memory region
- * @parma size           - size of region
- * @param attrib  		 - Attributes for memory region
- *
- *
- * OUTPUTS
- *
- *       None
- *
- ***********************************************************************/
-void zynqMP_r5_map_mem_region(u32 addr, u32 size, u32 attrib) {
-	u32 Index, NumSize;
-	/* Calculating the number of MBs required for the shared region*/
-	NumSize = size / 0x100000;
-
-	/* Xil_SetTlbAttributes is designed to configure memory for 1MB
-	 * region. The API is called multiple times to configure the number
-	 * of MBs required by shared memory size (calculated as NumSize)*/
-	for (Index = 0; Index < NumSize; Index ++)
-		Xil_SetTlbAttributes(addr + 0x100000 * Index, attrib);
 }
 
 /*
@@ -230,6 +199,28 @@ void platform_cache_disable() {
 }
 
 void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size,unsigned int flags) {
+
+	unsigned int r5_flags;
+
+	/* Assume DEVICE_SHARED if nothing indicates this is memory.  */
+	r5_flags = DEVICE_SHARED;
+	if (flags & SHARED_MEM) {
+		r5_flags = NORM_SHARED_NCACHE;
+		if (flags & WB_CACHE) {
+			r5_flags = NORM_SHARED_WB_WA;
+		} else if (flags & WT_CACHE) {
+			r5_flags = NORM_SHARED_WT_NWA;
+		}
+	} else if (flags & MEM_MAPPED) {
+		r5_flags = NORM_NSHARED_NCACHE;
+		if (flags & WB_CACHE) {
+			r5_flags = NORM_NSHARED_WB_WA;
+		} else if (flags & WT_CACHE) {
+			r5_flags = NORM_NSHARED_WT_NWA;
+		}
+	}
+
+	Xil_SetMPURegion(pa, size, r5_flags | PRIV_RW_USER_RW);
 	return;
 }
 
