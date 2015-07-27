@@ -57,6 +57,8 @@
 * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp GEM specification
 *		       and 64-bit changes.
 * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1   hk   07/27/15 Do not call error handler with '0' error code when
+*                     there is no error. CR# 869403
 * </pre>
 ******************************************************************************/
 
@@ -228,8 +230,11 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 					XEMACPS_NWCTRL_OFFSET, RegCtrl);
 		}
-		InstancePtr->ErrorHandler(InstancePtr->ErrorRef, XEMACPS_RECV,
-					  RegSR);
+
+		if(RegSR != 0) {
+			InstancePtr->ErrorHandler(InstancePtr->ErrorRef,
+						XEMACPS_RECV, RegSR);
+		}
 	}
 
         /* When XEMACPS_IXR_TXCOMPL_MASK is flaged, XEMACPS_IXR_TXUSED_MASK
