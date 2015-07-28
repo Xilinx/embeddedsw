@@ -294,9 +294,9 @@ proc intc_define_vector_table {periph config_inc config_file} {
 
     for {set i 0} {$i < $total_source_intrs} {incr i} {
         set source_ip $source_name($i)
-        if { [llength $source_ip] != 0 && [llength [hsi::get_cells $source_ip]] != 0} {
-          report_property [hsi::get_cells $source_ip]
-           set ip_name [common::get_property IP_NAME [hsi::get_cells $source_ip]]
+        if { [llength $source_ip] != 0 && [llength [hsi::get_cells -hier $source_ip]] != 0} {
+          report_property [hsi::get_cells -hier $source_ip]
+           set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $source_ip]]
            if { [string compare -nocase $ip_name "xlconstant"] == 0 } {
               #do no generate interrupt handler entries for xlconstant
               continue

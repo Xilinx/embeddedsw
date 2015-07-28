@@ -161,7 +161,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     set bram_intr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
 
     if { ${bram_intr} == 1 } {
-       set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
+       set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname]  -filter "TYPE==INTERRUPT"]
        set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
        set intcvar intc
        set proc [hsi::get_sw_processor]
@@ -346,11 +346,11 @@ proc has_ecc_support {mhsinst} {
 
 proc get_intr_port_name {mhsinst} {
     set ipname [common::get_property NAME $mhsinst]
-    set port_intr [hsi::get_pins -of_objects [hsi::get_cells $mhsinst] "Interrupt"]
+    set port_intr [hsi::get_pins -of_objects [hsi::get_cells -hier $mhsinst] "Interrupt"]
     if {$port_intr != ""} {
       return "INTERRUPT"
     }
-    set port_intr [hsi::get_pins -of_objects [hsi::get_cells $mhsinst] "ECC_Interrupt"]
+    set port_intr [hsi::get_pins -of_objects [hsi::get_cells -hier $mhsinst] "ECC_Interrupt"]
     if {$port_intr != ""} {
       return "ECC_INTERRUPT"
     }

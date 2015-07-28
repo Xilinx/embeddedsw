@@ -59,7 +59,7 @@ proc swapp_is_supported_hw {} {
 	# check processor type
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
-	set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
 	if {($proc_type != "psu_microblaze")} {
 		error "This application is supported only for PMU Microblaze processor (psu_microblaze).";

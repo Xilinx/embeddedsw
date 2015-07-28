@@ -175,10 +175,10 @@ proc gen_testfunc_call {swproj mhsinst} {
   set dma_ipname   [get_dma_info $mhsinst "name"]
 
   if {$ifintr == 1} {
-	set intr_pin_name [get_pins -of_objects [get_cells $ipname] INTERRUPT]
+	set intr_pin_name [get_pins -of_objects [get_cells -hier $ipname] INTERRUPT]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
 	set intcvar intc
-	set proc [get_property IP_NAME [get_cells [get_sw_processor]]]
+	set proc [get_property IP_NAME [get_cells -hier [get_sw_processor]]]
   }
 
 
@@ -350,7 +350,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 proc get_fifo_info {mhsHandle type} {
 
-   set ipinst_list [get_cells $mhsHandle "*"]
+   set ipinst_list [get_cells -hier $mhsHandle "*"]
 
    foreach ipinst $ipinst_list {
       set coreName [get_property IP_NAME $ipinst]
@@ -370,7 +370,7 @@ proc get_fifo_info {mhsHandle type} {
 }
 
 proc get_dma_info {mhsinst type} {
-    set ipinst_list [get_cells  $mhsinst "*"]
+    set ipinst_list [get_cells -hier  $mhsinst "*"]
 
 	set p2p_busifs_i [get_intf_pins -of_objects $mhsinst -filter "TYPE==INITIATOR"]
 	# Add p2p periphs

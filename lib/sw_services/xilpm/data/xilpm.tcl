@@ -33,7 +33,7 @@
 proc generate {libhandle} {
 	# Copy over the right set of files as src based on processor type
 	set sw_proc_handle [hsi::get_sw_processor]
-	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set procname [common::get_property NAME    $hw_proc_handle]
 

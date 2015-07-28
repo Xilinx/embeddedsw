@@ -222,11 +222,11 @@ proc xdefine_axi_target_params {periphs file_handle} {
                      puts $file_handle [format "#define $canonical_name %s" $axi_fifo_baseaddr]
                     add_field_to_periph_config_struct $device_id $canonical_name
 		    # FIFO Interrupts Handling
-			set int_pin [get_pins -of_objects [get_cells $tartget_per_name] INTERRUPT]
+			set int_pin [get_pins -of_objects [get_cells -hier $tartget_per_name] INTERRUPT]
 			set intc_periph_type [::hsi::utils::get_connected_intr_cntrl $tartget_per_name $int_pin]
 			set intc_name [get_property IP_NAME $intc_periph_type]
 		       if { $intc_name != [format "ps7_scugic"] } {
-				set int_id [::hsi::utils::get_port_intr_id [get_cells $tartget_per_name] $int_pin]
+				set int_id [::hsi::utils::get_port_intr_id [get_cells -hier $tartget_per_name] $int_pin]
 				set canonical_name [format "XPAR_%s_CONNECTED_FIFO_INTR" $canonical_tag]
 				puts $file_handle [format "#define $canonical_name %d" $int_id]
 				add_field_to_periph_config_struct $device_id $canonical_name
@@ -620,12 +620,12 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     #  as connected to an interrupt controller
     set interrupt_signal_name [get_property NAME $interrupt_port]
     #set interrupt_signal [xget_hw_value $interrupt_port]
-    set intc_prt [::hsi::utils::get_sink_pins [get_pins -of_objects [get_cells $periph] INTERRUPT]]
+    set intc_prt [::hsi::utils::get_sink_pins [get_pins -of_objects [get_cells -hier $periph] INTERRUPT]]
 
     # Make sure the interrupt signal was connected in this design. We assume
     # at least one is. (could be a bug if user just wants polled mode)
     if { $intc_prt != "" } {
-        set intc_periph [::hsi::utils::get_connected_intr_cntrl $periph [get_pins -of_objects [get_cells $periph] INTERRUPT] ]
+        set intc_periph [::hsi::utils::get_connected_intr_cntrl $periph [get_pins -of_objects [get_cells -hier $periph] INTERRUPT] ]
         if {$intc_periph == ""} {
                 puts "Info: Axi Ethernet interrupt not connected to intc\n"
                 # No interrupts were connected, so add dummy entry to the config structure
@@ -669,8 +669,8 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
 
 proc generate_sgmii_params {drv_handle file_name} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
-	set phy_type [common::get_property CONFIG.PHY_TYPE [get_cells $drv_handle]]
-	set phyaddr [common::get_property CONFIG.PHYADDR [get_cells $drv_handle]]
+	set phy_type [common::get_property CONFIG.PHY_TYPE [get_cells -hier $drv_handle]]
+	set phyaddr [common::get_property CONFIG.PHYADDR [get_cells -hier $drv_handle]]
 	set phyaddr [::hsi::utils::convert_binary_to_decimal $phyaddr]
 	if {[llength $phyaddr] == 0} {
 	set phyaddr 0

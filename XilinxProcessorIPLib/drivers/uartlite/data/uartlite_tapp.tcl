@@ -180,10 +180,10 @@ proc gen_testfunc_call {swproj mhsinst} {
        set hasStdout 1
   }
    if {$ifuartliteintr == 1} {
-        set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells $ipname]  -filter "TYPE==INTERRUPT"]
+        set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname]  -filter "TYPE==INTERRUPT"]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname $intr_pin_name]
 	set intcvar intc
-	set proc [common::get_property IP_NAME [hsi::get_cells [hsi::get_sw_processor]]]
+	set proc [common::get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
 	set mdm_name [common::get_property IP_NAME $mhsinst]
   }
 

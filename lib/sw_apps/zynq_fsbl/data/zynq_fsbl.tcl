@@ -47,7 +47,7 @@ proc swapp_is_supported_hw {} {
     set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
     
     if { $proc_type != "ps7_cortexa9" } {
                 error "This application is supported only for CortexA9 processors.";
@@ -64,7 +64,7 @@ proc get_stdout {} {
 }
 
 proc check_stdout_hw {} {
-    set p7_uarts [hsi::get_cells -filter "IP_NAME=ps7_uart"];
+    set p7_uarts [hsi::get_cells -hier -filter "IP_NAME=ps7_uart"];
 }
 
 proc swapp_generate {} {

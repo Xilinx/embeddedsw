@@ -72,7 +72,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 
     #Get the processor instance name
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
@@ -174,7 +174,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 
     #Get the processor instance name
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
 
     #Get proper gic instance for periphs in case of zynqmp
@@ -295,7 +295,7 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
 
    #Get the processor instance name
    set sw_proc_handle [hsi::get_sw_processor]
-   set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+   set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
    set proctype [common::get_property IP_NAME $hw_proc_handle]
 
    #Get proper gic instance for periphs in case of zynqmp
@@ -355,7 +355,7 @@ proc xdefine_gic_params {drvhandle} {
 
     #Get the processor instance name
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     # Fix me
     # Avoid generating fabric interrupts for zynqmp till the issue is fixed
@@ -423,7 +423,7 @@ proc xdefine_gic_params {drvhandle} {
             set port_obj  [::hsi::get_ports $port_name]
             set port_intr_id [::hsi::utils::get_interrupt_id $ip_name $port_name]
             if { [string compare -nocase $ip_name "system"] } {
-                set ip_obj      [::hsi::get_cells $ip_name]
+                set ip_obj      [::hsi::get_cells -hier $ip_name]
                 if {[llength $ip_obj]} {
                     set port_obj    [::hsi::get_pins -of_objects $ip_obj $port_name]
                 }

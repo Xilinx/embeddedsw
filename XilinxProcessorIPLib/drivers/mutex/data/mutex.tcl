@@ -138,7 +138,7 @@ proc xdefine_mutex_config_files {drv_handle hfile_name cfile_name drv_string} {
 
 proc check_if_connected {periph if_num} {
 	set sw_proc_handle [hsi::get_sw_processor]
-	set hw_proc_handle [hsi::get_cells $sw_proc_handle]
+	set hw_proc_handle [hsi::get_cells -hier $sw_proc_handle]
     	set if_isaxi 0
 
 	set baseaddr [common::get_property CONFIG.[format "C_S%d_AXI_BASEADDR" $if_num] $periph]

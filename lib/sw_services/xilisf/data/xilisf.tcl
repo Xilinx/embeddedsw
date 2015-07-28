@@ -55,7 +55,7 @@ proc isf_drc {libhandle} {
 
 	# find the list of xps or opb spi cores
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 
 	set spi_periphs_list [get_spi_periphs $processor]
 

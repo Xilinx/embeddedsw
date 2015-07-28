@@ -90,7 +90,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
   set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
   set sw_proc_handle [hsi::get_sw_processor]
-  set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+  set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
   set proctype [common::get_property IP_NAME $hw_proc_handle]
   if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $ipname "psu_acpu_gic"] == 0))||

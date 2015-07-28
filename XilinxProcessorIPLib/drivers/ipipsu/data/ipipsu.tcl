@@ -47,7 +47,7 @@ proc ipi_format_hexmask {bitpos} {
 proc ipi_define_xpar {inst param} {
 	set param_name [string range $param [string length "CONFIG."] [string length $param]]
 	set name [string range $param_name 2 end]
-	set param_value [common::get_property $param [hsi::get_cells $inst]]
+	set param_value [common::get_property $param [hsi::get_cells -hier $inst]]
 	if { [string compare $name "BIT_POSITION"] == 0} {
 		set name "BIT_MASK"
 		set param_value [ipi_format_hexmask $param_value]
@@ -63,13 +63,13 @@ proc ipi_generate_config {drv_handle file_name} {
 
 	#The current processor
 	set sw_proc_handle [::hsi::get_sw_processor]
-	set hw_proc_handle [::hsi::get_cells [common::get_property hw_instance $sw_proc_handle]]
+	set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $sw_proc_handle]]
 
 	# List of IPIs owned by this processor
 	set proc_ipi_list [lsearch -all -inline [get_property SLAVES $hw_proc_handle] psu_ipi_*]
 
 	# List of all IPIs on SoC
-	set ipi_list [get_cells -filter { IP_NAME == "psu_ipi" }]
+	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" }]
 
 	set cfgfilename [file join "src" $file_name]
 	set config_file [open $cfgfilename w]
@@ -127,14 +127,14 @@ proc ipi_generate_params {file_name} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
 
 	# List of all IPIs on SoC
-	set ipi_list [get_cells -filter { IP_NAME == "psu_ipi" }]
+	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" }]
 
 	#List of all processors on SoC
-	set proc_list [get_cells -filter { IP_TYPE == "PROCESSOR" }]
+	set proc_list [get_cells -hier -filter { IP_TYPE == "PROCESSOR" }]
 
 	#The current processor
 	set sw_proc_handle [::hsi::get_sw_processor]
-	set hw_proc_handle [::hsi::get_cells [common::get_property hw_instance $sw_proc_handle]]
+	set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $sw_proc_handle]]
 
 
 	# List of IPIs owned by this processor

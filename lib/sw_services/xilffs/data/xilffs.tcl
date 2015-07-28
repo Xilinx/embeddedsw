@@ -48,7 +48,7 @@ proc ffs_drc {libhandle} {
 
 	# Check if any IP instances that use FATFS are present
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 
 	set ffs_periphs_list [get_ffs_periphs $processor]
 

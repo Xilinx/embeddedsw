@@ -103,7 +103,7 @@ proc xdefine_axispi_include_file {drv_handle file_name drv_string} {
 }
 
 proc xdefine_axispi_params_instance {file_handle periph device_id} {
-	set ip [hsi::get_cells $periph]
+	set ip [hsi::get_cells -hier $periph]
     set xip_mode_value [common::get_property  CONFIG.C_XIP_MODE $ip]
     if {[llength $xip_mode_value] == 0} {
          set xip_mode_value 0

@@ -16,9 +16,9 @@ proc get_stdout {} {
 }
 
 proc check_stdout_hw {} {
-	set slaves [common::get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
+	set slaves [common::get_property SLAVES [hsi::get_cells -hier [hsi::get_sw_processor]]]
 	foreach slave $slaves {
-		set slave_type [common::get_property IP_NAME [hsi::get_cells $slave]];
+		set slave_type [common::get_property IP_NAME [hsi::get_cells -hier $slave]];
 		# Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "ps7_uart" || $slave_type == "axi_uartlite" ||
@@ -44,7 +44,7 @@ proc swapp_is_supported_hw {} {
     set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
     
     if { $proc_type != "ps7_cortexa9" } {
                 error "This application is supported only for CortexA9 processors.";

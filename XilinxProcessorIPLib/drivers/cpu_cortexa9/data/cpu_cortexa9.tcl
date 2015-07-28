@@ -55,7 +55,7 @@ proc generate {drv_handle} {
 proc xdefine_cortexa9_params {drvhandle} {
 
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle ]]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle ]]
     set procdrv [hsi::get_sw_processor]
     set archiver [common::get_property CONFIG.archiver $procdrv]
     if {[string first "iarchive" $archiver] < 0 } {
@@ -70,7 +70,7 @@ proc xdefine_cortexa9_params {drvhandle} {
     	}   
     }
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
-    set lprocs [hsi::get_cells -filter "IP_NAME==ps7_cortexa9"]
+    set lprocs [hsi::get_cells -hier -filter "IP_NAME==ps7_cortexa9"]
     set lprocs [lsort $lprocs]
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
@@ -96,7 +96,7 @@ proc xdefine_cortexa9_params {drvhandle} {
 
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle ]]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle ]]
     
  # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]

@@ -65,7 +65,7 @@ proc generate {drv_handle} {
 
 proc generate_gmii2rgmii_params {drv_handle file_name} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
-	set ips [hsi::get_cells  "*"]
+	set ips [hsi::get_cells -hier  "*"]
 	foreach ip $ips {
 		set ipname [common::get_property NAME  $ip]
 		set periph [common::get_property IP_NAME  $ip]
@@ -94,7 +94,7 @@ proc is_gmii2rgmii_conv_present {slave} {
 	set port_value 0
 	set phy_addr 0
 	set ipconv 0
-	set ips [hsi::get_cells "*"]
+	set ips [hsi::get_cells -hier "*"]
 	set enetipinstance_name [common::get_property NAME  $slave]
 
 	foreach ip $ips {
@@ -136,7 +136,7 @@ proc is_gmii2rgmii_conv_present {slave} {
 
 proc generate_sgmii_params {drv_handle file_name} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
-	set ips [hsi::get_cells "*"]
+	set ips [hsi::get_cells -hier "*"]
 
 	foreach ip $ips {
 		set ipname [common::get_property NAME $ip]
@@ -172,7 +172,7 @@ proc is_gige_pcs_pma_ip_present {slave} {
 	set phy_addr 0
 	set ipconv 0
 
-	set ips [hsi::get_cells "*"]
+	set ips [hsi::get_cells -hier "*"]
 	set enetipinstance_name [common::get_property IP_NAME  $slave]
 
 	foreach ip $ips {

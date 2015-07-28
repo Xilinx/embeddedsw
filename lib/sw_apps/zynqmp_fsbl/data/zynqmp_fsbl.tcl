@@ -77,7 +77,7 @@ proc swapp_is_supported_hw {} {
     set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
     if { $proc_type != "psu_cortexr5" && $proc_type != "psu_cortexa53" } {
                 error "This application is supported only for CortexA53/CortexR5 processors.";
@@ -94,7 +94,7 @@ proc get_stdout {} {
 }
 
 proc check_stdout_hw {} {
-    set pu_uarts [hsi::get_cells -filter "IP_NAME=psu_uart"];
+    set pu_uarts [hsi::get_cells -hier -filter "IP_NAME=psu_uart"];
 }
 
 proc swapp_generate {} {
@@ -117,7 +117,7 @@ proc swapp_generate {} {
 
     set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
-    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
     # based on the CPU (A53 or R5),
     # remove unnecesary linker script and retain just one: lscript.ld

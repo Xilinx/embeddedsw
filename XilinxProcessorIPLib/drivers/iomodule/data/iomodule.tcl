@@ -305,7 +305,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
     #update global array of Interrupt sources for this periph
     intc_update_source_array $periph
     set periph_name [common::get_property NAME $periph]
-    set interrupt_pin [hsi::get_pins -of_objects [get_cells $periph] -filter {TYPE==INTERRUPT&&DIRECTION==I}]
+    set interrupt_pin [hsi::get_pins -of_objects [get_cells -hier $periph] -filter {TYPE==INTERRUPT&&DIRECTION==I}]
 
     # Get pins/ports that are driving the interrupt
     lappend source_pins
@@ -331,9 +331,9 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
 
     for {set i 0} {$i < $total_source_intrs} {incr i} {
         set source_ip $source_name($i)
-        if { [llength $source_ip] != 0 && [llength [hsi::get_cells $source_ip]] \
+        if { [llength $source_ip] != 0 && [llength [hsi::get_cells -hier $source_ip]] \
 	   != 0} {
-           set ip_name [common::get_property IP_NAME [hsi::get_cells $source_ip]]
+           set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $source_ip]]
            if { [string compare -nocase $ip_name "xlconstant"] == 0 } {
               #do no generate interrupt handler entries for xlconstant
               continue
@@ -611,7 +611,7 @@ proc xfind_instance {drvhandle instname} {
 # (from external source).
 ##########################################################################
 proc xget_port_type {periph} {
-    set mhs [hsi::get_cells -of_object $periph]
+    set mhs [hsi::get_cells -hier -of_object $periph]
     if {[llength $mhs] == 0} {
         return "global"
     } else {

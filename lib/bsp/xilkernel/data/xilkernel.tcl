@@ -37,7 +37,7 @@
 
 proc kernel_drc {os_handle} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set compiler [common::get_property CONFIG.compiler $sw_proc_handle]
 
@@ -58,7 +58,7 @@ proc kernel_drc {os_handle} {
             if { $systmr_dev == "none" } {
                 error "ERROR: Xilkernel for Microblaze requires a system timer device to be specified. Please choose a valid peripheral instance in the systmr_dev parameter." "" "mdt_error"
             }
-            set systmr_handle [hsi::get_cells $systmr_dev]
+            set systmr_handle [hsi::get_cells -hier $systmr_dev]
             set systmr_type [common::get_property IP_NAME $systmr_handle]
             if { $systmr_type != "fit_timer" && $systmr_type != "opb_timer" && $systmr_type != "xps_timer" && $systmr_type != "axi_timer" } {
                 error "ERROR: Xilkernel for Microblaze can work only with an axi_timer, xps_timer, opb_timer or fit_timer. Please choose a valid device as the system timer with the parameter systmr_dev." "" "mdt_error"
@@ -123,7 +123,7 @@ proc kernel_drc {os_handle} {
 proc generate {os_handle} {
     variable standalone_version
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set procver [common::get_property CONFIG.HW_VER $hw_proc_handle]
 
@@ -376,7 +376,7 @@ proc generate {os_handle} {
     set systmr_spec [common::get_property CONFIG.systmr_spec $os_handle]
     if { $proctype == "microblaze" } {
         set systmr_dev [common::get_property CONFIG.systmr_dev  $os_handle]
-        set systmr_handle [hsi::get_cells $systmr_dev]
+        set systmr_handle [hsi::get_cells -hier $systmr_dev]
 	set systmr_type [common::get_property IP_NAME $systmr_handle]
     }
 
@@ -408,7 +408,7 @@ proc generate {os_handle} {
     set sysintc_spec [common::get_property CONFIG.sysintc_spec $os_handle]
     if { $sysintc_spec != "none" } {
 	xput_define $config_file "CONFIG_INTC" "true"
-	set sysintc_dev_handle [hsi::get_cells $sysintc_spec]
+	set sysintc_dev_handle [hsi::get_cells -hier $sysintc_spec]
 	set sysintc_baseaddr [::hsi::utils::get_ip_param_name $sysintc_dev_handle "C_BASEADDR"]
 	set sysintc_device_id [::hsi::utils::get_ip_param_name $sysintc_dev_handle "DEVICE_ID"]
 	xput_define $config_file "sysintc_baseaddr" $sysintc_baseaddr
@@ -417,13 +417,13 @@ proc generate {os_handle} {
 	# Additionally for microblaze, figure out which interrupt
 	# input is the system timer interrupt and define its ID
 	if { $proctype == "microblaze" } {
-	     set systmr_intr [hsi::get_pins -of_objects [hsi::get_cells $systmr_handle] Interrupt]
+	     set systmr_intr [hsi::get_pins -of_objects [hsi::get_cells -hier $systmr_handle] Interrupt]
 	     #set systmr_intr [xget_value $systmr_handle "PORT" "Interrupt"]
 	    if { [string compare -nocase $systmr_intr ""] == 0 } {
                 error "ERROR: System Timer Interrupt PORT is not specified" "" "mdt_error"
 	    }
-	    #set mhs_handle [hsi::get_cells -of_object $systmr_handle]
-	    set intr_ports [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $systmr_intr] INTERRUPT]]
+	    #set mhs_handle [hsi::get_cells -hier -of_object $systmr_handle]
+	    set intr_ports [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $systmr_intr] INTERRUPT]]
 	    #set intr_ports [xget_connected_ports_handle $mhs_handle $systmr_intr "sink"]
 	    foreach intr_port $intr_ports {
                 set intr_port_type [common::get_property TYPE $intr_port]
@@ -431,13 +431,13 @@ proc generate {os_handle} {
                     continue
                 }
 
-                set intc_handle [hsi::get_cells -of_object $intr_port]
+                set intc_handle [hsi::get_cells -hier -of_object $intr_port]
                 set intc_name [common::get_property NAME $intc_handle]
-                set proc_intc_handle [hsi::get_cells $intc_name]
+                set proc_intc_handle [hsi::get_cells -hier $intc_name]
                 if { [string compare -nocase $sysintc_dev_handle $intc_handle] == 0 } {
                     continue
                 }
-                set systmr_intrpin  [hsi::get_pins -of_objects [hsi::get_cells $systmr_handle] -filter "TYPE == INTERRUPT"]
+                set systmr_intrpin  [hsi::get_pins -of_objects [hsi::get_cells -hier $systmr_handle] -filter "TYPE == INTERRUPT"]
 		set intr_id [::hsi::utils::get_port_intr_id $systmr_handle $systmr_intrpin]
 		puts $config_file "#define SYSTMR_INTR_ID $intr_id\n"
             }
@@ -527,7 +527,7 @@ proc generate {os_handle} {
 
     # Handle I/O ranges for MicroBlaze MPU here
     if { $proctype == "microblaze" } {
-        #set mhs_handle [hsi::get_cells -of_object $hw_proc_handle]
+        #set mhs_handle [hsi::get_cells -hier -of_object $hw_proc_handle]
         set mmu [common::get_property CONFIG.C_USE_MMU $hw_proc_handle]
         if { $mmu >= 2 } {
 
@@ -542,18 +542,18 @@ proc generate {os_handle} {
             }
 
             set dbus_name [::hsi::utils::get_intfnet_name $hw_proc_handle $dbus_if_name]
-            set dbus_handle [hsi::get_cells $dbus_name]
+            set dbus_handle [hsi::get_cells -hier $dbus_name]
             if { $interconnect == 2 } {
-                set dcachelink_handle [hsi::get_cells "DXCL"]
+                set dcachelink_handle [hsi::get_cells -hier "DXCL"]
             } else {
-                set dcachelink_handle [hsi::get_cells "M_AXI_DC"]
+                set dcachelink_handle [hsi::get_cells -hier "M_AXI_DC"]
             }
 
             #set addrlist [xget_hw_bus_slave_addrpairs $dbus_handle]
-	    set addrlists [hsi::get_mem_ranges -of_objects [hsi::get_cells $sw_proc_handle]]
+	    set addrlists [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $sw_proc_handle]]
 	    set addrlist [list]
 	    foreach addrist $addrlists {
-			set ip_name [common::get_property IP_NAME [hsi::get_cells $addrist]]
+			set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $addrist]]
 			if { $ip_name == "axi_emc" || $ip_name == "mig_7series" } {
 						set mem  [lindex [hsi::get_mem_ranges $addrist] 0]
 						set mc_base [common::get_property BASE_VALUE  $mem]
@@ -569,7 +569,7 @@ proc generate {os_handle} {
 
             if { $dcachelink_handle != "" } {
                 #set xcl_addrlist [xget_hw_bus_slave_addrpairs $dcachelink_handle]
-		set xcl_addrlist [hsi::get_mem_ranges -of_objects [hsi::get_cells $sw_proc_handle]]
+		set xcl_addrlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $sw_proc_handle]]
                 set addrlist [concat addrlist xcl_addrlist]
             }
 
@@ -577,8 +577,8 @@ proc generate {os_handle} {
 
             # Get the list of memory controllers in the mhs. We want to filter
             # "memories" from the above addrlist
-            set memcon_handles [xget_memory_controller_handles [hsi::get_cells $sw_proc_handle]]
-	    #set memcon_handles [hsi::get_mem_ranges -of_objects [hsi::get_cells $sw_proc_handle]]
+            set memcon_handles [xget_memory_controller_handles [hsi::get_cells -hier $sw_proc_handle]]
+	    #set memcon_handles [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $sw_proc_handle]]
             set n_ioranges 0
             foreach {base high} $addrlist {
                 set skip 0
@@ -770,7 +770,7 @@ proc xhandle_mb_interrupts {} {
 
     # Handle the interrupt pin
     set sw_proc_handle [hsi::get_sw_processor]
-    set periph [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set periph [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
     set source_ports [::hsi::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
 	error "ERROR: Too many interrupting ports on the MicroBlaze.  Should only find 1" "" "hsi_error"
@@ -781,7 +781,7 @@ proc xhandle_mb_interrupts {} {
 	set source_port [lindex $source_ports 0]
 	if {[llength $source_port] != 0} {
 	    set source_port_name [common::get_property NAME $source_port]
-	    set source_periph [hsi::get_cells -of_object $source_port]
+	    set source_periph [hsi::get_cells -hier -of_object $source_port]
 	    set source_name [common::get_property NAME $source_periph]
 	    set source_driver [hsi::get_drivers $source_name]
 
@@ -864,7 +864,7 @@ proc xcreate_mb_exc_config_file { } {
     puts $hconfig_file "\n"
 
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
     set procver [common::get_property CONFIG.HW_VER $hw_proc_handle]
 
     if { ![mb_has_exceptions $hw_proc_handle]} { ;# NO exceptions are enabled
@@ -889,7 +889,7 @@ proc xcreate_mb_exc_config_file { } {
 # --------------------------------------
 proc post_generate {os_handle} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set procname [common::get_property NAME $hw_proc_handle]
 
@@ -1017,7 +1017,7 @@ proc xget_memory_controller_handles { mhs } {
    set ret_list ""
 
    # Gets all MhsInsts in the system
-   set mhsinsts [hsi::get_cells *]
+   set mhsinsts [hsi::get_cells -hier *]
 
    # Loop thru each MhsInst and determine if have "ADDR_TYPE = MEMORY" in
    # the parameters.

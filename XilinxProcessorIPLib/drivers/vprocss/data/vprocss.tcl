@@ -80,7 +80,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
 		::hsi::current_hw_instance $periph_g;
 
-		set child_cells_g [::hsi::get_cells]
+		set child_cells_g [::hsi::get_cells -hier]
 
 		foreach child_cell_g $child_cells_g {
 			set child_cell_vlnv [::common::get_property VLNV $child_cell_g]
@@ -217,7 +217,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
         }
 
 		::hsi::current_hw_instance  $periph
-		set child_cells [::hsi::get_cells]
+		set child_cells [::hsi::get_cells -hier]
 		puts $config_file ",\n"
 
 		foreach sub_core [lsort [array names sub_core_inst]] {

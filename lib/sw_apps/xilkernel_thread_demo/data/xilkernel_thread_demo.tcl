@@ -13,9 +13,9 @@ proc get_stdout {} {
 }
 
 proc check_stdout_hw {} {
-	set slaves [common::get_property SLAVES [hsi::get_cells [hsi::get_sw_processor]]]
+	set slaves [common::get_property SLAVES [hsi::get_cells -hier [hsi::get_sw_processor]]]
 	foreach slave $slaves {
-		set slave_type [common::get_property IP_NAME [hsi::get_cells $slave]];
+		set slave_type [common::get_property IP_NAME [hsi::get_cells -hier $slave]];
 		# Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "ps7_uart" || $slave_type == "axi_uartlite" ||
@@ -27,14 +27,14 @@ proc check_stdout_hw {} {
 
 	error "This application requires a Uart IP in the hardware."
 
-#    set uartlites [hsi::get_cells -filter { ip_name == "axi_uartlite" }];
+#    set uartlites [hsi::get_cells -hier -filter { ip_name == "axi_uartlite" }];
 #    if { [llength $uartlites] == 0 } {
 #        # we do not have an uartlite
-#	set uart16550s [hsi::get_cells -filter {ip_name == "axi_uart16550"}];
+#	set uart16550s [hsi::get_cells -hier -filter {ip_name == "axi_uart16550"}];
 #	if { [llength $uart16550s] == 0 } {      
 #	    # Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
 #	    # only if it has a UART interface. So no further check is required
-#	    set mdmlist [hsi::get_cells -filter {ip_name == "mdm"}]
+#	    set mdmlist [hsi::get_cells -hier -filter {ip_name == "mdm"}]
 #	    if { [llength $mdmlist] == 0 } {
 #		error "This application requires a Uart IP in the hardware."
 #	    }
@@ -77,9 +77,9 @@ proc swapp_is_supported_hw {} {
 
     if { $proc_type == 1} {
         # make sure there is a timer (if this is a MB)
-        set timerlist [hsi::get_cells -filter {ip_name == "xps_timer"}];
+        set timerlist [hsi::get_cells -hier -filter {ip_name == "xps_timer"}];
         if { [llength $timerlist] <= 0 } {
-            set timerlist [hsi::get_cells -filter {ip_name == "axi_timer"}];
+            set timerlist [hsi::get_cells -hier -filter {ip_name == "axi_timer"}];
             if { [llength $timerlist] <= 0 } {
                 error "There seems to be no timer peripheral in the hardware. Xilkernel requires a timer for operation.";
             }
@@ -109,7 +109,7 @@ proc generate_stdout_config { fid } {
     set stdout [get_stdout];
 
     # if stdout is uartlite, we don't have to generate anything
-    set stdout_type [common::get_property IP_NAME [hsi::get_cells $stdout]];
+    set stdout_type [common::get_property IP_NAME [hsi::get_cells -hier $stdout]];
 
     if { [regexp -nocase "uartlite" $stdout_type] || [string match -nocase "mdm" $stdout_type] } {
         puts $fid "#define STDOUT_IS_UARTLITE";

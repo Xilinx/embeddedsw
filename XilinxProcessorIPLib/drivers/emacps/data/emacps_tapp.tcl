@@ -69,7 +69,7 @@ proc gen_include_files {swproj mhsinst} {
 
 	set ispcs_pma 0
 	set ipname [get_property NAME $mhsinst]
-	set ips [get_cells "*"]
+	set ips [get_cells -hier "*"]
 	set ipconv 0
 	foreach ip $ips {
 		set convipname [get_property NAME  $ip]

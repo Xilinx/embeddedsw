@@ -4,7 +4,7 @@ set use_emaclite_on_zynq 0
 # emaclite hw requirements - interrupt needs to be connected
 proc lwip_elite_hw_drc {libhandle emac} {
 	set emacname [common::get_property NAME $emac]
-	set intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] IP2INTC_Irpt]
+	set intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] IP2INTC_Irpt]
 	if {[string compare -nocase $intr_port ""] == 0} {
 		error "ERROR: xps_ethernetlite core $emacname does not have its interrupt connected to interrupt controller. \
 			lwIP operates only in interrupt mode, so please connect the interrupt port to \
@@ -42,9 +42,9 @@ proc lwip_elite_hw_drc {libhandle emac} {
 #	- if fifo, fifo intr (not verified)
 proc lwip_temac_channel_hw_drc {libhandle emac irpt_name llink_name tx_csum_name rx_csum_name} {
 	set emacname [common::get_property NAME $emac]
-	set mhs_handle [hsi::get_cells $emac]
+	set mhs_handle [hsi::get_cells -hier $emac]
 
-	set intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] irpt_name]
+	set intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] irpt_name]
 	if {[string compare -nocase $intr_port ""] == 0} {
 		error "ERROR: xps_ll_temac core $emacname does not have its interrupt connected to interrupt controller. \
 			lwIP requires that this interrupt line be connected to \
@@ -103,7 +103,7 @@ proc lwip_temac_channel_hw_drc {libhandle emac irpt_name llink_name tx_csum_name
 }
 
 proc lwip_temac_hw_drc {libhandle emac} {
-	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] TemacIntc0_Irpt]
+	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] TemacIntc0_Irpt]
 	set emac0_enabled "0"
 	if {$emac_intr_port != ""} { set emac0_enabled "1" }
 	if {$emac0_enabled == "1"} {
@@ -123,9 +123,9 @@ proc lwip_temac_hw_drc {libhandle emac} {
 proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 
 	set emacname $emac
-	set mhs_handle [hsi::get_cells $emac]
+	set mhs_handle [hsi::get_cells -hier $emac]
 
-	set intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] INTERRUPT]
+	set intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] INTERRUPT]
 	if {[string compare -nocase $intr_port ""] == 0} {
 		error "ERROR: axi_ethernet core $emacname does not have its interrupt connected to interrupt controller. \
 			lwIP requires that this interrupt line be connected to \
@@ -204,7 +204,7 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 #--
 proc lwip_hw_drc {libhandle emacs_list} {
 	foreach ip $emacs_list {
-		set iptype [common::get_property IP_NAME [get_cells $ip]]
+		set iptype [common::get_property IP_NAME [get_cells -hier $ip]]
 		if {$iptype == "xps_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			lwip_elite_hw_drc $libhandle $ip
 		} elseif {$iptype == "xps_ll_temac"} {
@@ -254,7 +254,7 @@ proc get_emac_periphs {processor} {
 			set emac_name [common::get_property NAME $periph]
 
 			# emac 0 is always enabled. just check for its interrupt port
-			set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $periph] TemacIntc0_Irpt]
+			set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $periph] TemacIntc0_Irpt]
 			if {$emac_intr_port != ""} {
 				set emac0_enabled "1"
 			} else {
@@ -265,7 +265,7 @@ proc get_emac_periphs {processor} {
 			# for emac 1, check C_TEMAC1_ENABLED and then its interrupt port
 			set emac1_on [common::get_property CONFIG.C_TEMAC1_ENABLED $periph "PARAMETER"]
 			if {$emac1_on == "1"} {
-				set emac_intr_port2 [hsi::get_pins -of_objects [hsi::get_cells  $periph] TemacIntc1_Irpt]
+				set emac_intr_port2 [hsi::get_pins -of_objects [hsi::get_cells -hier  $periph] TemacIntc1_Irpt]
 				if {$emac_intr_port2 != ""} {
 					set emac1_enabled "1"
 				} else {
@@ -293,7 +293,7 @@ proc lwip_drc {libhandle} {
 
 	# find the list of xps_ethernetlite, xps_ll_temac, or axi_ethernet cores
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 
 	set emac_periphs_list [get_emac_periphs $processor]
 
@@ -324,7 +324,7 @@ proc generate_lwip_opts {libhandle} {
 	global use_emaclite_on_zynq
 	set lwipopts_file "src/contrib/ports/xilinx/include/lwipopts.h"
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
@@ -744,8 +744,8 @@ proc update_temac_topology {emac processor topologyvar} {
 	set topology(emac_type) "xemac_type_xps_ll_temac"
 
 	# find intc to which the interrupt line is connected
-	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] TemacIntc0_Irpt]
-	set intr_ports [::hsm::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $emac] TemacIntc0_Irpt]]
+	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] TemacIntc0_Irpt]
+	set intr_ports [::hsm::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] TemacIntc0_Irpt]]
 
 	set l [llength $intr_ports]
 
@@ -783,8 +783,8 @@ proc update_temac1_topology {emac processor topologyvar} {
 	set topology(emac_type) "xemac_type_xps_ll_temac"
 
 	# find intc to which the interrupt line is connected
-	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] TemacIntc1_Irpt]
-	set mhs_handle [hsi::get_cells $emac]
+	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] TemacIntc1_Irpt]
+	set mhs_handle [hsi::get_cells -hier $emac]
 	set intr_ports [xget_connected_ports_handle $mhs_handle $emac_intr_port "sink"]
 
 	if { [llength $intr_ports] != 1 } {
@@ -816,7 +816,7 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	global use_emaclite_on_zynq
 	upvar $topologyvar topology
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
 	set force_emaclite_on_zynq 0
 
@@ -838,9 +838,9 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	} else {
 
 	# find intc to which the interrupt line is connected
-	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] IP2INTC_Irpt]
-	set mhs_handle [hsi::get_cells $emac]
-	set intr_ports [::hsm::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $emac] IP2INTC_Irpt]]
+	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] IP2INTC_Irpt]
+	set mhs_handle [hsi::get_cells -hier $emac]
+	set intr_ports [::hsm::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] IP2INTC_Irpt]]
 
 	if { [llength $intr_ports] != 1 } {
 		set emac_name [common::get_property NAME $emac]
@@ -876,7 +876,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 	set topology(emac_type) "xemac_type_axi_ethernet"
 
 	# find intc to which the interrupt line is connected
-	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] INTERRUPT]
+	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] INTERRUPT]
     set intc_handle [::hsi::utils::get_connected_intr_cntrl $emac $emac_intr_port]
     set intc_periph_type [common::get_property IP_NAME $intc_handle]
     set intc_name [common::get_property NAME $intc_handle]
@@ -946,7 +946,7 @@ proc generate_topology_per_emac {fd topologyvar} {
 
 proc generate_topology {libhandle} {
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set emac_periphs_list [get_emac_periphs $processor]
 	set tempcntr 0
 
@@ -977,7 +977,7 @@ proc generate_topology {libhandle} {
 			generate_topology_per_emac $tfd topology
 			incr topology_size 1
 		} elseif {$iptype == "xps_ll_temac"} {
-			set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells $emac] TemacIntc0_Irpt]
+			set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] TemacIntc0_Irpt]
 			set temac0 "0"
 			if {$emac_intr_port != ""} { set temac0 "1" }
 			if {$temac0 == "1"} {
@@ -1020,7 +1020,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 	global use_axieth_on_zynq
 	global use_emaclite_on_zynq
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
@@ -1152,7 +1152,7 @@ proc generate_adapterconfig_include {libhandle} {
 	global use_axieth_on_zynq
 	global use_emaclite_on_zynq
 	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells [common::get_property HW_INSTANCE $sw_processor]]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
 	set emac_periphs_list [get_emac_periphs $processor]
 
@@ -1275,7 +1275,7 @@ proc generate_adapterconfig_include {libhandle} {
 }
 
 proc axieth_target_periph {emac} {
-	set p2p_busifs_i [get_intf_pins -of_objects [get_cells $emac] -filter "TYPE==INITIATOR"]
+	set p2p_busifs_i [get_intf_pins -of_objects [get_cells -hier $emac] -filter "TYPE==INITIATOR"]
 	foreach p2p_busif $p2p_busifs_i {
 		set busif_name [string toupper [get_property NAME  $p2p_busif]]
 		set conn_busif_handle [::hsi::utils::get_connected_intf $emac $busif_name]

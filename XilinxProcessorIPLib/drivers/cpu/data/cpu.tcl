@@ -121,7 +121,7 @@ proc generate {drv_handle} {
         set libm "libm"
 
         set sw_proc_handle [hsi::get_sw_processor]
-        set periph [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+        set periph [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
         set proctype [common::get_property IP_NAME $periph]
 
         set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
@@ -399,7 +399,7 @@ proc generate {drv_handle} {
 }
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle ]]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle ]]
 
  # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]

@@ -47,7 +47,7 @@ proc rsa_drc {libhandle} {
     set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
     
     if { $proc_type != "ps7_cortexa9" } {
                 error "ERROR: This library is supported only for CortexA9 processors.";

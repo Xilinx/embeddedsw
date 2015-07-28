@@ -56,7 +56,7 @@ proc generate {os_handle} {
     set need_config_file "false"
     # Copy over the right set of files as src based on processor type
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set procname [common::get_property NAME    $hw_proc_handle]
 
@@ -276,7 +276,7 @@ proc xhandle_mb_interrupts {} {
 
     # Handle the interrupt pin
     set sw_proc_handle [hsi::get_sw_processor]
-    set periph [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set periph [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set source_ports [::hsi::utils::get_interrupt_sources $periph]
     if {[llength $source_ports] > 1} {
         error "ERROR: Too many interrupting ports on the MicroBlaze. Should only find 1" "" "hsi_error"
@@ -351,7 +351,7 @@ proc xcreate_mb_exc_config_file {os_handle} {
     set hconfig_file [open $hfilename w]
     ::hsi::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set procvlnv [common::get_property VLNV $hw_proc_handle]
     set procvlnv [split $procvlnv :]
     set procver [lindex $procvlnv 3]
@@ -426,7 +426,7 @@ proc xcreate_mb_exc_config_file {os_handle} {
 proc post_generate {os_handle} {
 
     set sw_proc_handle [hsi::get_sw_processor]
-    set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 
     set procname [common::get_property NAME $hw_proc_handle]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
@@ -590,14 +590,14 @@ proc handle_profile { os_handle proctype } {
 
     if {$proctype == "ps7_cortexa9"} {
         set sw_proc_handle [hsi::get_sw_processor]
-        set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle]]
+        set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
         set cpu_freq [common::get_property CONFIG.C_CPU_CLK_FREQ_HZ $hw_proc_handle]
         if { [string compare -nocase $cpu_freq ""] == 0 } {
             puts "WARNING<profile> :: CPU Clk Frequency not specified, Assuming 666Mhz"
             set cpu_freq 666000000
         }
     } else {
-        set cpu_freq [common::get_property CONFIG.C_FREQ  [hsi::get_cells $proc]]
+        set cpu_freq [common::get_property CONFIG.C_FREQ  [hsi::get_cells -hier $proc]]
         if { [string compare -nocase $cpu_freq ""] == 0 } {
             puts "WARNING<profile> :: CPU Clk Frequency not specified, Assuming 100Mhz"
             set cpu_freq 100000000
@@ -690,21 +690,21 @@ proc execpipe {COMMAND} {
 # - The xps/opb_timer can be connected directly to Microblaze External Intr Pin.
 # - (OR) xps/opb_timer can be connected to xps/opb_intc
 proc handle_profile_opbtimer { config_file timer_inst } {
-    set timer_handle [hsi::get_cells  $timer_inst]
+    set timer_handle [hsi::get_cells -hier  $timer_inst]
     set timer_baseaddr [common::get_property CONFIG.C_BASEADDR $timer_handle]
     puts $config_file "#define PROFILE_TIMER_BASEADDR [::hsi::utils::format_addr_string $timer_baseaddr "C_BASEADDR"]"
 
     # Figure out how Timer is connected.
-     set timer_intr [hsi::get_pins -of_objects [hsi::get_cells $timer_handle] Interrupt]
+     set timer_intr [hsi::get_pins -of_objects [hsi::get_cells -hier $timer_handle] Interrupt]
     if { [string compare -nocase $timer_intr ""] == 0 } {
 	error "ERROR <profile> :: Timer Interrupt PORT is not specified" "" "mdt_error"
     }
     #set mhs_handle [xget_handle $timer_handle "parent"]
     # CR 302300 - There can be multiple "sink" for the interrupt. So need to iterate through the list
-    set intr_port_list [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells $timer_intr] INTERRUPT]]
+    set intr_port_list [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $timer_intr] INTERRUPT]]
     set timer_connection 0
     foreach intr_port $intr_port_list {
-	set intc_handle [hsi::get_cells -of_object $intr_port]
+	set intc_handle [hsi::get_cells -hier -of_object $intr_port]
 	# Check if the Sink is a Global Port. If so, Skip the Port Connection
 
 	if {  [::hsi::utils::is_external_pin $intr_port] } {

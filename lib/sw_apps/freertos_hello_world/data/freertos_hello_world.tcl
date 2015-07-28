@@ -64,7 +64,7 @@ proc swapp_is_supported_hw {} {
     set proc_instance [::hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
     if { $proc_type != "psu_cortexr5" } {
                 error "This application is supported only for CortexR5 processors.";
