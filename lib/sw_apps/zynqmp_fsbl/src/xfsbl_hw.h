@@ -629,16 +629,11 @@ extern "C" {
 /**
  * Platform
  */
-#if 1
 #define XFSBL_PLATFORM		\
 		(Xil_In32(CSU_VERSION) & CSU_VERSION_PLATFORM_MASK )
-#else
-#define XFSBL_PLATFORM		XFSBL_PLATFORM_VELOCE
-#endif
 
 #define XFSBL_PLATFORM_SILICON	(0X00000000U)
 #define XFSBL_PLATFORM_REMUS	(0X00001000U)
-#define XFSBL_PLATFORM_VELOCE	(0X00002000U)
 #define XFSBL_PLATFORM_QEMU	(0X00003000U)
 
 /************************** Function Prototypes ******************************/

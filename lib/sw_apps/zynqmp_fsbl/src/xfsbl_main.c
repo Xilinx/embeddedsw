@@ -320,9 +320,6 @@ void XFsbl_PrintFsblBanner(void )
 	} else  if (XFSBL_PLATFORM == XFSBL_PLATFORM_REMUS)
 	{
 		XFsbl_Printf(DEBUG_GENERAL, "Platform: REMUS, ");
-	} else  if (XFSBL_PLATFORM == XFSBL_PLATFORM_VELOCE)
-	{
-		XFsbl_Printf(DEBUG_GENERAL, "Platform: VELOCE, ");
 	} else {
 		XFsbl_Printf(DEBUG_GENERAL, "Platform Not identified \r\n");
 	}
