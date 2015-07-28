@@ -202,6 +202,18 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 
 static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm);
 
+static s32 XNandPsu_Data_ReadWrite(XNandPsu *InstancePtr, u8* Buf, u32 PktCount,
+				u32 PktSize, u32 Operation, u8 DmaMode);
+
+static s32 XNandPsu_WaitFor_Transfer_Complete(XNandPsu *InstancePtr);
+
+static s32 XNandPsu_Device_Ready(XNandPsu *InstancePtr, u32 Target);
+
+static void XNandPsu_Fifo_Read(XNandPsu *InstancePtr, u8* Buf, u32 Size);
+
+static void XNandPsu_Fifo_Write(XNandPsu *InstancePtr, u8* Buf, u32 Size);
+
+static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8* Buf);
 /*****************************************************************************/
 /**
 *
@@ -1162,32 +1174,8 @@ static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target)
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		(XNANDPSU_INTR_STS_EN_OFFSET), 0U);
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	Status = XNandPsu_WaitFor_Transfer_Complete(InstancePtr);
 
-Out:
 	return Status;
 }
 
@@ -1235,12 +1223,10 @@ static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 	/*
 	 * Program Packet Size and Packet Count
 	 */
-	if(InstancePtr->DataInterface == XNANDPSU_SDR){
+	if(InstancePtr->DataInterface == XNANDPSU_SDR)
 		XNandPsu_SetPktSzCnt(InstancePtr, 1U, 1U);
-	}
-	else{
+	else
 		XNandPsu_SetPktSzCnt(InstancePtr, 2U, 1U);
-	}
 
 	/*
 	 * Set Read Status in Program Register
@@ -1250,37 +1236,12 @@ static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	Status = XNandPsu_WaitFor_Transfer_Complete(InstancePtr);
 	/*
 	 * Read Flash Status
 	 */
 	*OnfiStatus = (u16) XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
 						XNANDPSU_FLASH_STS_OFFSET);
-
-Out:
 
 	return Status;
 }
@@ -1398,33 +1359,7 @@ static s32 XNandPsu_OnfiReadId(XNandPsu *InstancePtr, u32 Target, u8 IdAddr,
 		}
 	}
 
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_EN_OFFSET,0U);
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	Status = XNandPsu_WaitFor_Transfer_Complete(InstancePtr);
 
 Out:
 	return Status;
@@ -1451,8 +1386,6 @@ static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 						u8 *Buf)
 {
 	s32 Status = XST_FAILURE;
-	u32 *BufPtr = (u32 *)(void *)Buf;
-	u32 Index;
 
 	/*
 	 * Assert the input arguments.
@@ -1490,75 +1423,8 @@ static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_PRM_PG_MASK);
 
-	/*
-	 * Poll for Buffer Read Ready event
-	 */
-	 Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	 if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-			xil_printf("%s: Poll for buf read ready timeout\r\n",
-							__func__);
-#endif
-			goto Out;
-		}
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, 1, ONFI_PRM_PG_LEN, 0, 0);
 
-
-			/*
-			 * Enable Transfer Complete Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XNANDPSU_INTR_STS_EN_OFFSET),
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-		/*
-		 * Clear Buffer Read Ready Interrupt in Interrupt Status
-		 * Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
-		/*
-		 * Read Packet Data from Data Port Register
-		 */
-		for (Index = 0U; Index < (ONFI_PRM_PG_LEN/4); Index++) {
-			*(BufPtr + Index) = XNandPsu_ReadReg(
-					InstancePtr->Config.BaseAddress,
-						XNANDPSU_BUF_DATA_PORT_OFFSET);
-		}
-
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-
-Out:
 	return Status;
 }
 
@@ -1644,7 +1510,6 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 	u32 RemLen;
 	u8 *BufPtr;
 	u8 *SrcBufPtr = (u8 *)SrcBuf;
-	u16 OnfiStatus;
 	u64 OffsetVar = Offset;
 	u64 LengthVar = Length;
 
@@ -1723,32 +1588,18 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 		 */
 		Status = XNandPsu_ProgramPage(InstancePtr, Target, Page, 0U,
 								BufPtr);
-		if (Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS)
 			goto Out;
-		}
-		/*
-		 * ONFI ReadStatus
-		 */
-		do {
-			Status = XNandPsu_OnfiReadStatus(InstancePtr, Target,
-								&OnfiStatus);
-			if (Status != XST_SUCCESS) {
-				goto Out;
-			}
-			if ((OnfiStatus & (1U << 6U)) != 0U) {
-				if ((OnfiStatus & (1U << 0U)) != 0U) {
-					Status = XST_FAILURE;
-					goto Out;
-				}
-			}
-		} while (((OnfiStatus >> 6U) & 0x1U) == 0U);
+
+		Status = XNandPsu_Device_Ready(InstancePtr, Target);
+		if (Status != XST_SUCCESS)
+			goto Out;
 
 		SrcBufPtr += NumBytes;
 		OffsetVar += NumBytes;
 		LengthVar -= NumBytes;
 	}
 
-	Status = XST_SUCCESS;
 Out:
 	return Status;
 }
@@ -1954,39 +1805,20 @@ s32 XNandPsu_Erase(XNandPsu *InstancePtr, u64 Offset, u64 Length)
 	for (Block = StartBlock; Block < (StartBlock + NumBlocks); Block++) {
 		Target = Block/InstancePtr->Geometry.NumTargetBlocks;
 		Block %= InstancePtr->Geometry.NumTargetBlocks;
+		/* Don't erase bad block */
 		if (XNandPsu_IsBlockBad(InstancePtr, Block) ==
-							XST_SUCCESS) {
-			/*
-			 * Don't erase bad block
-			 */
+							XST_SUCCESS)
 			continue;
-		}
-		/*
-		 * Block Erase
-		 */
+		/* Block Erase */
 		Status = XNandPsu_EraseBlock(InstancePtr, Target, Block);
-		if (Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS)
 			goto Out;
-		}
-		/*
-		 * ONFI ReadStatus
-		 */
-		do {
-			Status = XNandPsu_OnfiReadStatus(InstancePtr, Target,
-								&OnfiStatus);
-			if (Status != XST_SUCCESS) {
-				goto Out;
-			}
-			if ((OnfiStatus & (1U << 6U)) != 0U) {
-				if ((OnfiStatus & (1U << 0U)) != 0U) {
-					Status = XST_FAILURE;
-					goto Out;
-				}
-			}
-		} while (((OnfiStatus >> 6U) & 0x1U) == 0U);
-	}
 
-	Status = XST_SUCCESS;
+		Status = XNandPsu_Device_Ready(InstancePtr, Target);
+		if (Status != XST_SUCCESS)
+					goto Out;
+
+				}
 Out:
 	return Status;
 }
@@ -2017,8 +1849,8 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	u32 PktSize;
 	u32 PktCount;
 	u32 BufWrCnt = 0U;
-	u32 *BufPtr = (u32 *)(void *)Buf;
 	s32 Status = XST_FAILURE;
+	u32 IsrValue;
 	u32 Index;
 
 	/*
@@ -2038,24 +1870,16 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 					1U, 1U, (u8)AddrCycles);
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-
-		/*
-		 * Enable DMA boundary Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET,
-			(u32)XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-			(u32)XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+		IsrValue = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+			   XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
+		Xil_DCacheFlushRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
-		/*
-		 * Enable Buffer Write Ready Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET,
-			(u32)XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+		IsrValue = XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK;
 	}
+
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XNANDPSU_INTR_STS_EN_OFFSET, IsrValue);
 	/*
 	 * Program Page Size
 	 */
@@ -2064,24 +1888,6 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	 * Program Packet Size and Packet Count
 	 */
 	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
-	/*
-	 * Program DMA system address and DMA buffer boundary
-	 */
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Flush the Data Cache
-		 */
-		Xil_DCacheFlushRange((INTPTR)(void *)Buf, (PktSize * PktCount));
-
-#ifdef __aarch64__
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
-				(u32) (((INTPTR)Buf >> 32) & 0xFFFFFFFFU));
-#endif
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
-				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
-	}
 	/*
 	 * Program Column, Page, Block address
 	 */
@@ -2103,108 +1909,9 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_PG_PROG_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		goto WriteDmaDone;
-	}
 
-	while (BufWrCnt < PktCount) {
-		/*
-		 * Poll for Buffer Write Ready event
-		 */
-		Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-			xil_printf("%s: Poll for buf write ready timeout\r\n",
-							__func__);
-#endif
-			goto Out;
-		}
-		/*
-		 * Increment Buffer Write Interrupt Count
-		 */
-		BufWrCnt++;
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 1, 1);
 
-		if (BufWrCnt == PktCount) {
-			/*
-			 * Enable Transfer Complete Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-		} else {
-			/*
-			 * Clear Buffer Write Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-		}
-		/*
-		 * Clear Buffer Write Ready Interrupt in Interrupt Status
-		 * Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
-		/*
-		 * Write Packet Data to Data Port Register
-		 */
-		for (Index = 0U; Index < (PktSize/4U); Index++) {
-			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-						XNANDPSU_BUF_DATA_PORT_OFFSET,
-						(u32)(*(BufPtr +Index)));
-		}
-		BufPtr += (PktSize/4U);
-
-		if (BufWrCnt < PktCount) {
-			/*
-			 * Enable Buffer Write Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
-		} else {
-			break;
-		}
-	}
-WriteDmaDone:
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-
-Out:
 	return Status;
 }
 
@@ -2245,6 +1952,7 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u32 PageVar = Page;
+	u32 RegVal;
 
 	/*
 	 * Assert the input arguments.
@@ -2297,24 +2005,15 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	}
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Enable Transfer Complete Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET,
-			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-
+		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
+		Xil_DCacheFlushRange((INTPTR)(void *)BufPtr, (PktSize * PktCount));
+		XNandPsu_Update_DmaAddr(InstancePtr, (u8 *)BufPtr);
 	} else {
-		/*
-		 * Enable Buffer Write Ready Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET,
-			XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
-
+		RegVal = XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK;
 	}
+
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 	/*
 	 * Program Command hack for change write column
 	 */
@@ -2337,24 +2036,6 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	 */
 	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
-	 * Program DMA system address and DMA buffer boundary
-	 */
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Flush the Data Cache
-		 */
-		Xil_DCacheFlushRange((INTPTR)(void *)BufPtr, (PktSize * PktCount));
-
-#ifdef __aarch64__
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
-				(u32) (((INTPTR)BufPtr >> 32) & 0xFFFFFFFFU));
-#endif
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
-				(u32) ((INTPTR)(void *)BufPtr & 0xFFFFFFFFU));
-	}
-	/*
 	 * Program Column, Page, Block address
 	 */
 	XNandPsu_SetPageColAddr(InstancePtr, PageVar, (u16)Col);
@@ -2374,106 +2055,8 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_PG_PROG_MASK);
 	}
 
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		goto WriteDmaDone;
-	}
-
-	while (BufWrCnt < PktCount) {
-		/*
-		 * Poll for Buffer Write Ready event
-		 */
-		Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-			xil_printf("%s: Poll for buf write ready timeout\r\n",
-							__func__);
-#endif
-			goto Out;
-		}
-		/*
-		 * Increment Buffer Write Interrupt Count
-		 */
-		BufWrCnt++;
-
-		if (BufWrCnt == PktCount) {
-			/*
-			 * Enable Transfer Complete Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-
-		} else {
-			/*
-			 * Clear Buffer Write Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-		}
-		/*
-		 * Clear Buffer Write Ready Interrupt in Interrupt Status
-		 * Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
-		/*
-		 * Write Packet Data to Data Port Register
-		 */
-		for (Index = 0U; Index < (PktSize/4U); Index++) {
-			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-						XNANDPSU_BUF_DATA_PORT_OFFSET,
-						(u32)(*(BufPtr + Index)));
-		}
-		BufPtr += (PktSize/4U);
-
-		if (BufWrCnt < PktCount) {
-			/*
-			 * Enable Buffer Write Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
-		} else {
-			break;
-		}
-	}
-WriteDmaDone:
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, (u8 *)BufPtr, PktCount,
+					 PktSize, 1, 1);
 
 	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
 		if (PostWrite > 0U) {
@@ -2488,7 +2071,6 @@ WriteDmaDone:
 		}
 	}
 Out:
-
 	return Status;
 }
 
@@ -2518,7 +2100,6 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	u32 PktSize;
 	u32 PktCount;
 	u32 BufRdCnt = 0U;
-	u32 *BufPtr = (u32 *)(void *)Buf;
 	s32 Status = XST_FAILURE;
 	u32 Index, RegVal;
 
@@ -2539,37 +2120,20 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 					1U, 1U, (u8)AddrCycles);
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-
-		/*
-		 * Enable DMA boundary Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET,
-			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-			XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
-
+		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+			 XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
-		/*
-		 * Enable Buffer Read Ready Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET,
-			XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+		RegVal = XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
+	}
+	/* Enable Single bit error and Multi bit error */
+	if (InstancePtr->EccMode == XNANDPSU_HWECC)
+		RegVal |= XNANDPSU_INTR_STS_EN_MUL_BIT_ERR_STS_EN_MASK |
+			 XNANDPSU_INTR_STS_EN_ERR_INTR_STS_EN_MASK;
 
-	}
-	/*
-	 * Enable Single bit error and Multi bit error
-	 */
-	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
-		/*
-		 * Interrupt Status Enable Register
-		 */
-		XNandPsu_IntrStsEnable(InstancePtr,
-			(XNANDPSU_INTR_STS_EN_MUL_BIT_ERR_STS_EN_MASK |
-			XNANDPSU_INTR_STS_EN_ERR_INTR_STS_EN_MASK));
-	}
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 	/*
 	 * Program Page Size
 	 */
@@ -2582,25 +2146,6 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	 * Program Packet Size and Packet Count
 	 */
 	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
-	/*
-	 * Program DMA system address and DMA buffer boundary
-	 */
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Invalidate the Data Cache
-		 */
-		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
-
-#ifdef __aarch64__
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
-				(u32) (((INTPTR)(void *)Buf >> 32) &
-				0xFFFFFFFFU));
-#endif
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
-				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
-	}
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
@@ -2621,119 +2166,7 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 				XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		goto ReadDmaDone;
-	}
-
-	while (BufRdCnt < PktCount) {
-		/*
-		 * Poll for Buffer Read Ready event
-		 */
-		Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-			xil_printf("%s: Poll for buf read ready timeout\r\n",
-							__func__);
-#endif
-			goto CheckEccError;
-		}
-		/*
-		 * Increment Buffer Read Interrupt Count
-		 */
-		BufRdCnt++;
-
-		if (BufRdCnt == PktCount) {
-			/*
-			 * Enable Transfer Complete Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			RegVal = XNandPsu_ReadReg(
-					(InstancePtr)->Config.BaseAddress,
-					XNANDPSU_INTR_STS_EN_OFFSET);
-			RegVal &= (u32)(~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
-			RegVal |= XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
-		} else {
-			/*
-			 * Clear Buffer Read Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			RegVal = XNandPsu_ReadReg(
-					(InstancePtr)->Config.BaseAddress,
-					XNANDPSU_INTR_STS_EN_OFFSET);
-			RegVal &= (u32)(~XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-					XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
-		}
-		/*
-		 * Clear Buffer Read Ready Interrupt in Interrupt Status
-		 * Register
-		 */
-		RegVal = XNandPsu_ReadReg(
-				(InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET);
-		RegVal |= XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET, RegVal);
-		/*
-		 * Read Packet Data from Data Port Register
-		 */
-		for (Index = 0U; Index < (PktSize/4); Index++) {
-			*(BufPtr + Index) = XNandPsu_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					XNANDPSU_BUF_DATA_PORT_OFFSET);
-		}
-		BufPtr += (PktSize/4);
-
-		if (BufRdCnt < PktCount) {
-			/*
-			 * Enable Buffer Read Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			RegVal = XNandPsu_ReadReg(
-					(InstancePtr)->Config.BaseAddress,
-					XNANDPSU_INTR_STS_EN_OFFSET);
-			RegVal |= XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
-		} else {
-			break;
-		}
-	}
-ReadDmaDone:
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto CheckEccError;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 0, 1);
 
 CheckEccError:
 	/*
@@ -2787,7 +2220,7 @@ CheckEccError:
 			}
 		}
 	}
-Out:
+
 	return Status;
 }
 
@@ -2821,6 +2254,7 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u32 PageVar = Page;
+	u32 RegVal;
 
 	/*
 	 * Assert the input arguments.
@@ -2833,22 +2267,14 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	PageVar %= InstancePtr->Geometry.NumTargetPages;
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Enable Transfer Complete Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
-		/*
-		 * Enable Buffer Read Ready Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+		RegVal = XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
 	}
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 	/*
 	 * Program Command
 	 */
@@ -2867,25 +2293,6 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	 */
 	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
-	 * Program DMA system address and DMA buffer boundary
-	 */
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-
-		/*
-		 * Invalidate the Data Cache
-		 */
-		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
-#ifdef __aarch64__
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
-				(u32) (((INTPTR)(void *)Buf >> 32) &
-				0xFFFFFFFFU));
-#endif
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
-				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
-	}
-	/*
 	 * Program Memory Address Register2 for chip select
 	 */
 	XNandPsu_SelectChip(InstancePtr, Target);
@@ -2895,108 +2302,7 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 				XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		goto ReadDmaDone;
-	}
-
-	while (BufRdCnt < PktCount) {
-		/*
-		 * Poll for Buffer Read Ready event
-		 */
-		Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-			xil_printf("%s: Poll for buf read ready timeout\r\n",
-							__func__);
-#endif
-			goto Out;
-		}
-		/*
-		 * Increment Buffer Read Interrupt Count
-		 */
-		BufRdCnt++;
-
-		if (BufRdCnt == PktCount) {
-			/*
-			 * Enable Transfer Complete Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-
-		} else {
-			/*
-			 * Clear Buffer Read Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-					XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-		}
-		/*
-		 * Clear Buffer Read Ready Interrupt in Interrupt Status
-		 * Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
-		/*
-		 * Read Packet Data from Data Port Register
-		 */
-		for (Index = 0U; Index < (PktSize/4); Index++) {
-			*(BufPtr + Index) = XNandPsu_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					XNANDPSU_BUF_DATA_PORT_OFFSET);
-		}
-		BufPtr += (PktSize/4);
-
-		if (BufRdCnt < PktCount) {
-			/*
-			 * Enable Buffer Read Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
-		} else {
-			break;
-		}
-	}
-ReadDmaDone:
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-Out:
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 0, 1);
 
 	return Status;
 }
@@ -3066,33 +2372,7 @@ s32 XNandPsu_EraseBlock(XNandPsu *InstancePtr, u32 Target, u32 Block)
 	/*
 	 * Poll for Transfer Complete event
 	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-
-Out:
+	Status = XNandPsu_WaitFor_Transfer_Complete(InstancePtr);
 	return Status;
 }
 
@@ -3160,80 +2440,9 @@ s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 	 */
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_GET_FEATURES_MASK);
-	/*
-	 * Poll for Buffer Read Ready event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-		InstancePtr,
-		XNANDPSU_INTR_STS_OFFSET,
-		XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-		XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for buf read ready timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Buffer Read Ready Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
-	/*
-	 * Clear Buffer Read Ready Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
-	/*
-	 * Enable Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET,
-			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 0, 0);
 
-	/*
-	 * Read Data from Data Port Register
-	 */
-	for (Index = 0U; Index < (PktSize/4U); Index++) {
-		*(BufPtr + Index) = XNandPsu_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					XNANDPSU_BUF_DATA_PORT_OFFSET);
-	}
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-
-Out:
 	return Status;
 }
 
@@ -3304,79 +2513,8 @@ s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 	 */
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_SET_FEATURES_MASK);
-	/*
-	 * Poll for Buffer Write Ready event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-		InstancePtr,
-		XNANDPSU_INTR_STS_OFFSET,
-		XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-		XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for buf write ready timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Buffer Write Ready Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
 
-	/*
-	 * Clear Buffer Write Ready Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
-	/*
-	 * Enable Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			(XNANDPSU_INTR_STS_EN_OFFSET),
-			XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-	/*
-	 * Write Data to Data Port Register
-	 */
-	for (Index = 0U; Index < (PktSize/4U); Index++) {
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-					XNANDPSU_BUF_DATA_PORT_OFFSET,
-					(u32)(*(BufPtr + Index)));
-	}
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-			XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-
-Out:
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 1, 0);
 	return Status;
 }
 
@@ -3599,6 +2737,7 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 	u32 *BufPtr = (u32 *)(void *)Buf;
 	s32 Status = XST_FAILURE;
 	u32 Index;
+	u32 RegVal;
 
 	/*
 	 * Assert the input arguments.
@@ -3607,23 +2746,16 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 	Xil_AssertNonvoid(Buf != NULL);
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Enable DMA boundary Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-				XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+			 XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
+		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
-		/*
-		 * Enable Buffer Read Ready Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
+		RegVal = XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
 	}
+
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 	/*
 	 * Program Command
 	 */
@@ -3642,24 +2774,6 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 	 */
 	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
-	 * Program DMA system address and DMA buffer boundary
-	 */
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Invalidate the Data Cache
-		 */
-		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
-#ifdef __aarch64__
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
-				(u32) (((INTPTR)Buf >> 32) & 0xFFFFFFFFU));
-#endif
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
-				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
-	}
-
-	/*
 	 * Program Memory Address Register2 for chip select
 	 */
 	XNandPsu_SelectChip(InstancePtr, Target);
@@ -3669,107 +2783,8 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		goto ReadDmaDone;
-	}
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 0, 1);
 
-	while (BufRdCnt < PktCount) {
-		/*
-		 * Poll for Buffer Read Ready event
-		 */
-		Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-			xil_printf("%s: Poll for buf read ready timeout\r\n",
-							__func__);
-#endif
-			goto Out;
-		}
-		/*
-		 * Increment Buffer Read Interrupt Count
-		 */
-		BufRdCnt++;
-
-		if (BufRdCnt == PktCount) {
-			/*
-			 * Enable Transfer Complete Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-		} else {
-			/*
-			 * Clear Buffer Read Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-		}
-		/*
-		 * Clear Buffer Read Ready Interrupt in Interrupt Status
-		 * Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK);
-		/*
-		 * Read Packet Data from Data Port Register
-		 */
-		for (Index = 0U; Index < (PktSize/4); Index++) {
-			*(BufPtr + Index) = XNandPsu_ReadReg(
-						InstancePtr->Config.BaseAddress,
-						XNANDPSU_BUF_DATA_PORT_OFFSET);
-		}
-		BufPtr += (PktSize/4U);
-
-		if (BufRdCnt < PktCount) {
-			/*
-			 * Enable Buffer Read Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK);
-		} else {
-			break;
-		}
-	}
-ReadDmaDone:
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-Out:
 	return Status;
 }
 
@@ -3803,6 +2818,7 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 	s32 Status = XST_FAILURE;
 	OnfiCmdFormat OnfiCommand;
 	u32 Index;
+	u32 RegVal;
 
 	/*
 	 * Assert the input arguments.
@@ -3815,23 +2831,15 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 	}
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		/*
-		 * Enable DMA boundary Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
-				XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK);
+		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
+			 XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
+		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
-		/*
-		 * Enable Buffer Write Ready Interrupt in Interrupt Status
-		 * Enable Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
+		RegVal = XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK;
 	}
+
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			   XNANDPSU_INTR_STS_EN_OFFSET, RegVal);
 	/*
 	 * Change write column hack
 	 */
@@ -3853,19 +2861,6 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 	 */
 	XNandPsu_SetPktSzCnt(InstancePtr, PktSize, PktCount);
 	/*
-	 * Program DMA system address and DMA buffer boundary
-	 */
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-#ifdef __aarch64__
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
-				(u32) (((INTPTR)Buf >> 32U) & 0xFFFFFFFFU));
-#endif
-		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
-				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
-	}
-	/*
 	 * Program Memory Address Register2 for chip select
 	 */
 	XNandPsu_SelectChip(InstancePtr, Target);
@@ -3875,106 +2870,7 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 		XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_CHNG_ROW_ADDR_END_MASK);
 
-	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
-		goto WriteDmaDone;
-	}
-
-	while (BufWrCnt < PktCount) {
-		/*
-		 * Poll for Buffer Write Ready event
-		 */
-		Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-			xil_printf("%s: Poll for buf write ready timeout\r\n",
-							__func__);
-#endif
-			goto Out;
-		}
-		/*
-		 * Increment Buffer Write Interrupt Count
-		 */
-		BufWrCnt++;
-
-		if (BufWrCnt == PktCount) {
-			/*
-			 * Enable Transfer Complete Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
-		} else {
-			/*
-			 * Clear Buffer Write Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-		}
-		/*
-		 * Clear Buffer Write Ready Interrupt in Interrupt Status
-		 * Register
-		 */
-		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_OFFSET,
-				XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK);
-		/*
-		 * Write Packet Data to Data Port Register
-		 */
-		for (Index = 0U; Index < (PktSize/4U); Index++) {
-			XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
-						XNANDPSU_BUF_DATA_PORT_OFFSET,
-						(u32)(*(BufPtr + Index)));
-		}
-		BufPtr += (PktSize/4U);
-
-		if (BufWrCnt < PktCount) {
-			/*
-			 * Enable Buffer Write Ready Interrupt in Interrupt
-			 * Status Enable Register
-			 */
-			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-				XNANDPSU_INTR_STS_EN_OFFSET,
-				XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK);
-		} else {
-			break;
-		}
-	}
-WriteDmaDone:
-	/*
-	 * Poll for Transfer Complete event
-	 */
-	Status = XNandPsu_PollRegTimeout(
-			InstancePtr,
-			XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
-			XNANDPSU_INTR_POLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-#ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Poll for xfer complete timeout\r\n",
-							__func__);
-#endif
-		goto Out;
-	}
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Enable
-	 * Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
-
-	/*
-	 * Clear Transfer Complete Interrupt in Interrupt Status Register
-	 */
-	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
-		XNANDPSU_INTR_STS_OFFSET,
-			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
-
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 1, 0);
 Out:
 	return Status;
 }
@@ -4076,5 +2972,241 @@ void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_CMD_OFFSET, RegValue);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Read/Writes data from the nand controller.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Buf is the data buffer.
+* @param	PktCount is the number packet chunks.
+* @param	PktSize is the size of the packet.
+* @param	Operation is 1 for write and 0 for read.
+* @param	DmaMode is 1 for Dma and 0 for PIO.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if failed.
+*
+* @note		None
+*
+******************************************************************************/
+static s32 XNandPsu_Data_ReadWrite(XNandPsu *InstancePtr, u8* Buf, u32 PktCount,
+				u32 PktSize, u32 Operation, u8 DmaMode)
+{
+u32 BufRwCnt = 0U;
+s32 Status = XST_FAILURE;
+u32 Event = XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
+
+	if ((DmaMode != 0U) && (InstancePtr->DmaMode == XNANDPSU_MDMA))
+		goto DmaDone;
+
+	if (Operation)
+		Event = XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK;
+
+	while (BufRwCnt < PktCount) {
+		/* Poll for Buffer Write Ready event */
+		Status = XNandPsu_PollRegTimeout(InstancePtr,
+				XNANDPSU_INTR_STS_OFFSET, Event,
+				XNANDPSU_INTR_POLL_TIMEOUT);
+		if (Status != XST_SUCCESS) {
+			xil_printf("%s: Poll for buf write ready timeout\r\n",
+				    __func__);
+			goto Out;
+		}
+
+		/* Increment Buffer Write Interrupt Count */
+		BufRwCnt++;
+
+		if (BufRwCnt == PktCount)
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET,
+				XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK);
+
+		else
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET, 0U);
+		/*
+	         * Clear Buffer Write Ready Interrupt in Interrupt Status
+		 * Register
+		 */
+		XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET, Event);
+		/* Write Packet Data to Data Port Register */
+		if (Operation)
+			XNandPsu_Fifo_Write(InstancePtr, Buf, PktSize);
+		else
+			XNandPsu_Fifo_Read(InstancePtr, Buf, PktSize);
+
+		Buf += PktSize;
+
+		if (BufRwCnt < PktCount)
+			XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+				XNANDPSU_INTR_STS_EN_OFFSET, Event);
+		else
+			break;
+	}
+
+DmaDone:
+	Status = XNandPsu_WaitFor_Transfer_Complete(InstancePtr);
+Out:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function writes data to the fifo.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Buf is the buffer pointer.
+* @param	Size of the Buffer.
+*
+* @return
+*		None
+*
+* @note		None
+*
+******************************************************************************/
+static void XNandPsu_Fifo_Write(XNandPsu *InstancePtr, u8* Buffer, u32 Size)
+{
+u32 *BufPtr = (u32 *)(void *)Buffer;
+u32 Index;
+
+	for (Index = 0U; Index < Size/4U; Index++)
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_BUF_DATA_PORT_OFFSET,
+				BufPtr[Index]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function reads data from the fifo.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Buf is the buffer pointer.
+* @param	Size of the Buffer.
+*
+* @return
+*		None
+*
+* @note		None
+*
+******************************************************************************/
+static void XNandPsu_Fifo_Read(XNandPsu *InstancePtr, u8* Buf, u32 Size)
+{
+u32 *BufPtr = (u32 *)(void *)Buf;
+u32 Index;
+
+	for (Index = 0U; Index < Size/4U; Index++)
+		BufPtr[Index] = XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
+					XNANDPSU_BUF_DATA_PORT_OFFSET);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures the given dma address to the controller.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Buf is the buffer pointer.
+*
+* @return
+*		None
+*
+* @note		None
+*
+******************************************************************************/
+static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8* Buf)
+{
+#ifdef __aarch64__
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR1_OFFSET,
+				(u32) (((INTPTR)Buf >> 32U) & 0xFFFFFFFFU));
+#endif
+		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
+				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function waits for the device ready stataus.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Target is the chipselect value.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if failed.
+*
+* @note		None
+*
+******************************************************************************/
+static s32 XNandPsu_Device_Ready(XNandPsu *InstancePtr, u32 Target)
+{
+s32 Status = XST_SUCCESS;
+u16 OnfiStatus;
+
+	do {
+		Status = XNandPsu_OnfiReadStatus(InstancePtr, Target,
+							&OnfiStatus);
+		if (Status != XST_SUCCESS)
+			goto Out;
+		if ((OnfiStatus & (1U << 6U)) != 0U) {
+			if ((OnfiStatus & (1U << 0U)) != 0U) {
+				Status = XST_FAILURE;
+				goto Out;
+			}
+		}
+	} while (((OnfiStatus >> 6U) & 0x1U) == 0U);
+
+Out:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function waits for the  transfer complete event.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if failed.
+*
+* @note		Expects that transfer complete event was set before calling
+* 		this function.
+*
+******************************************************************************/
+static s32 XNandPsu_WaitFor_Transfer_Complete(XNandPsu *InstancePtr)
+{
+s32 Status = XST_FAILURE;
+
+	 /* Poll for Transfer Complete event */
+	Status = XNandPsu_PollRegTimeout(
+			InstancePtr,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK,
+			XNANDPSU_INTR_POLL_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		xil_printf("%s: Poll for xfer complete timeout\r\n", __func__);
+		goto Out;
+	}
+
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+		XNANDPSU_INTR_STS_EN_OFFSET, 0U);
+
+	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
+			XNANDPSU_INTR_STS_OFFSET,
+			XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK);
+Out:
+	return Status;
 }
 /** @} */
