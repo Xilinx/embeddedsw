@@ -301,9 +301,7 @@ typedef struct {
  * The XNandPsu_Geometry structure contains the ONFI geometry information.
  */
 typedef struct {
-	/*
-	 * Parameter page information
-	 */
+	/* Parameter page information */
 	u32 BytesPerPage;	/**< Number of bytes per page */
 	u16 SpareBytesPerPage;	/**< Number of spare bytes per page */
 	u32 PagesPerBlock;	/**< Number of pages per block */
@@ -314,9 +312,7 @@ typedef struct {
 	u8 NumBitsPerCell;	/**< Number of bits per cell (Hamming/BCH) */
 	u8 NumBitsECC;		/**< Number of bits ECC correctability */
 	u32 EccCodeWordSize;	/**< ECC codeword size */
-	/*
-	 * Driver specific information
-	 */
+	/* Driver specific information */
 	u32 BlockSize;		/**< Block size */
 	u32 NumTargetPages;	/**< Total number of pages in a Target */
 	u32 NumTargetBlocks;	/**< Total number of blocks in a Target */
@@ -560,9 +556,7 @@ void XNandPsu_DisableEccMode(XNandPsu *InstancePtr);
 void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 			u8 DmaMode, u8 AddrCycles);
 
-/*
- * XNandPsu_LookupConfig in xnandpsu_sinit.c
- */
+/* XNandPsu_LookupConfig in xnandpsu_sinit.c */
 XNandPsu_Config *XNandPsu_LookupConfig(u16 DevID);
 
 

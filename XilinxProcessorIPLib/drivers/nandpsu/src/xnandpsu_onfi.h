@@ -60,12 +60,8 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
-/*
- * Standard ONFI 3.1 Commands
- */
-/*
- * ONFI 3.1 Mandatory Commands
- */
+/* Standard ONFI 3.1 Commands */
+/* ONFI 3.1 Mandatory Commands */
 #define ONFI_CMD_RD1			0x00U	/**< Read (1st cycle) */
 #define ONFI_CMD_RD2			0x30U	/**< Read (2nd cycle) */
 #define ONFI_CMD_CHNG_RD_COL1		0x05U	/**< Change Read Column
@@ -81,9 +77,7 @@ extern "C" {
 #define ONFI_CMD_RD_ID			0x90U	/**< Read ID */
 #define ONFI_CMD_RD_PRM_PG		0xECU	/**< Read Parameter Page */
 #define ONFI_CMD_RST			0xFFU	/**< Reset */
-/*
- * ONFI 3.1 Optional Commands
- */
+/* ONFI 3.1 Optional Commands */
 #define ONFI_CMD_MUL_RD1		0x00U	/**< Multiplane Read
 						  (1st cycle) */
 #define ONFI_CMD_MUL_RD2		0x32U	/**< Multiplane Read
@@ -140,9 +134,7 @@ extern "C" {
 #define ONFI_CMD_RST_LUN		0xFAU	/**< Reset LUN */
 #define ONFI_CMD_SYN_RST		0xFCU	/**< Synchronous Reset */
 
-/*
- * ONFI Status Register bit offsets
- */
+/* ONFI Status Register bit offsets */
 #define ONFI_STS_FAIL			0x01U	/**< FAIL */
 #define ONFI_STS_FAILC			0x02U	/**< FAILC */
 #define ONFI_STS_CSP			0x08U	/**< CSP */
@@ -151,9 +143,7 @@ extern "C" {
 #define ONFI_STS_RDY			0x40U	/**< RDY */
 #define ONFI_STS_WP			0x80U	/**< WP_n */
 
-/*
- * ONFI constants
- */
+/* ONFI constants */
 #define ONFI_CRC_LEN			254U	/**< ONFI CRC Buf Length */
 #define ONFI_PRM_PG_LEN			256U	/**< Parameter Page Length */
 #define ONFI_MND_PRM_PGS		3U	/**< Number of mandatory
@@ -209,13 +199,9 @@ enum OnfiCommandList {
 };
 
 /**************************** Type Definitions *******************************/
-/*
- * Parameter page structure of ONFI 3.1 specification.
- */
+/* Parameter page structure of ONFI 3.1 specification. */
 typedef struct {
-	/*
-	 * Revision information and features block
-	 */
+	/* Revision information and features block */
 	u8 Signature[4];		/**< Parameter page signature */
 	u16 Revision;			/**< Revision Number */
 	u16 Features;			/**< Features supported */
@@ -226,17 +212,13 @@ typedef struct {
 	u16 ExtParamPageLen;		/**< Extended Parameter Page Length */
 	u8 NumOfParamPages;		/**< Number of Parameter Pages */
 	u8 Reserved1[17];		/**< Reserved (15-31) */
-	/*
-	 * Manufacturer information block
-	 */
+	/* Manufacturer information block */
 	u8 DeviceManufacturer[12];	/**< Device manufacturer */
 	u8 DeviceModel[20];		/**< Device model */
 	u8 JedecManufacturerId;		/**< JEDEC Manufacturer ID */
 	u8 DateCode[2];			/**< Date code */
 	u8 Reserved2[13];		/**< Reserved (67-79) */
-	/*
-	 * Memory organization block
-	*/
+	/* Memory organization block */
 	u32 BytesPerPage;		/**< Number of data bytes per page */
 	u16 SpareBytesPerPage;		/**< Number of spare bytes per page */
 	u32 BytesPerPartialPage;	/**< Number of data bytes per
@@ -263,9 +245,7 @@ typedef struct {
 					  attributes */
 	u8 EzNandSupport;		/**< EZ NAND support */
 	u8 Reserved3[12];		/**< Reserved (116 - 127) */
-	/*
-	 * Electrical parameters block
-	*/
+	/* Electrical parameters block */
 	u8 IOPinCapacitance;		/**< I/O pin capacitance, maximum */
 	u16 SDRTimingMode;		/**< SDR Timing mode support */
 	u16 SDRPagecacheTimingMode;	/**< SDR Program cache timing mode */
@@ -290,17 +270,13 @@ typedef struct {
 	u8 NVDDR2Features;		/**< NVDDR2 Features */
 	u8 NVDDR2WarmupCycles;		/**< NVDDR2 Warmup Cycles */
 	u8 Reserved4[4];		/**< Reserved (160 - 163) */
-	/*
-	 * Vendor block
-	 */
+	/* Vendor block */
 	u16 VendorRevisionNum;		/**< Vendor specific revision number */
 	u8 VendorSpecific[88];		/**< Vendor specific */
 	u16 Crc;			/**< Integrity CRC */
 }__attribute__((packed))OnfiParamPage;
 
-/*
- * ONFI extended parameter page structure.
- */
+/* ONFI extended parameter page structure. */
 typedef struct {
 	u16 Crc;
 	u8 Sig[4];
@@ -313,9 +289,7 @@ typedef struct {
 	u8 SectionData[256];
 }__attribute__((packed))OnfiExtPrmPage;
 
-/*
- * Driver extended parameter page information.
- */
+/* Driver extended parameter page information. */
 typedef struct {
 	u8 NumEccBits;
 	u8 CodeWordSize;

@@ -104,17 +104,13 @@ extern "C" {
 #include "xnandpsu.h"
 
 /************************** Constant Definitions *****************************/
-/*
- * Block definitions for RAM based Bad Block Table (BBT)
- */
+/* Block definitions for RAM based Bad Block Table (BBT) */
 #define XNANDPSU_BLOCK_GOOD			0x0U	/**< Block is good */
 #define XNANDPSU_BLOCK_BAD			0x1U	/**< Block is bad */
 #define XNANDPSU_BLOCK_RESERVED			0x2U	/**< Reserved block */
 #define XNANDPSU_BLOCK_FACTORY_BAD		0x3U	/**< Factory marked bad
 							  block */
-/*
- * Block definitions for FLASH based Bad Block Table (BBT)
- */
+/* Block definitions for FLASH based Bad Block Table (BBT) */
 #define XNANDPSU_FLASH_BLOCK_GOOD		0x3U	/**< Block is good */
 #define XNANDPSU_FLASH_BLOCK_BAD		0x2U	/**< Block is bad */
 #define XNANDPSU_FLASH_BLOCK_RESERVED		0x1U	/**< Reserved block */
