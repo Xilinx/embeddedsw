@@ -192,9 +192,6 @@ extern "C" {
 #define XNANDPSU_PAGE_SIZE_1K_16BIT	1024U	/**< 16-bit 2K bytes page */
 #define XNANDPSU_MAX_PAGE_SIZE		16384U	/**< Max page size supported */
 
-#define XNANDPSU_BUS_WIDTH_8		0U	/**< 8-bit bus width */
-#define XNANDPSU_BUS_WIDTH_16		1U	/**< 16-bit bus width */
-
 #define XNANDPSU_HAMMING		0x1U	/**< Hamming Flash */
 #define XNANDPSU_BCH			0x2U	/**< BCH Flash */
 
@@ -343,7 +340,6 @@ typedef struct {
  * The XNandPsu_Features structure contains the ONFI features information.
  */
 typedef struct {
-	u32 BusWidth;
 	u32 NvDdr;
 	u32 EzNand;
 	u32 OnDie;

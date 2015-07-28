@@ -169,8 +169,6 @@ static void XNandPsu_SetPageColAddr(XNandPsu *InstancePtr, u32 Page, u16 Col);
 
 static void XNandPsu_SetPageSize(XNandPsu *InstancePtr);
 
-static void XNandPsu_SetBusWidth(XNandPsu *InstancePtr);
-
 static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target);
 
 static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target);
@@ -578,9 +576,6 @@ static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param)
 	 */
 	Xil_AssertVoid(Param != NULL);
 
-	InstancePtr->Features.BusWidth = ((Param->Features & (1U << 0U)) != 0U) ?
-						XNANDPSU_BUS_WIDTH_16 :
-						XNANDPSU_BUS_WIDTH_8;
 	InstancePtr->Features.NvDdr = ((Param->Features & (1U << 5)) != 0U) ?
 								1U : 0U;
 	InstancePtr->Features.EzNand = ((Param->Features & (1U << 9)) != 0U) ?
@@ -1154,31 +1149,6 @@ static void XNandPsu_SetEccSpareCmd(XNandPsu *InstancePtr, u16 SpareCmd,
 	XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				(u32)XNANDPSU_ECC_SPR_CMD_OFFSET,
 				(u32)SpareCmd | ((u32)AddrCycles << 28U));
-}
-
-/*****************************************************************************/
-/**
-*
-* This function sets the flash bus width in memory address2 register.
-*
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @return
-*		None
-*
-* @note		None
-*
-******************************************************************************/
-static void XNandPsu_SetBusWidth(XNandPsu *InstancePtr)
-{
-	/*
-	 * Update Memory Address2 register with bus width
-	 */
-	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_MEM_ADDR2_OFFSET,
-				XNANDPSU_MEM_ADDR2_BUS_WIDTH_MASK,
-				(InstancePtr->Features.BusWidth <<
-				XNANDPSU_MEM_ADDR2_BUS_WIDTH_SHIFT));
-
 }
 
 /*****************************************************************************/
@@ -2179,10 +2149,6 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	 */
 	XNandPsu_SetPageColAddr(InstancePtr, Page, (u16)Col);
 	/*
-	 * Set Bus Width
-	 */
-	XNandPsu_SetBusWidth(InstancePtr);
-	/*
 	 * Program Memory Address Register2 for chip select
 	 */
 	XNandPsu_SelectChip(InstancePtr, Target);
@@ -2455,10 +2421,6 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	 */
 	XNandPsu_SetPageColAddr(InstancePtr, PageVar, (u16)Col);
 	/*
-	 * Set Bus Width
-	 */
-	XNandPsu_SetBusWidth(InstancePtr);
-	/*
 	 * Program Memory Address Register2 for chip select
 	 */
 	XNandPsu_SelectChip(InstancePtr, Target);
@@ -2701,10 +2663,6 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
-	/*
-	 * Set Bus Width
-	 */
-	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
@@ -2989,10 +2947,6 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
-	/*
-	 * Set Bus Width
-	 */
-	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
@@ -3766,10 +3720,7 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
-	/*
-	 * Set Bus Width
-	 */
-	XNandPsu_SetBusWidth(InstancePtr);
+
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
@@ -3976,10 +3927,6 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 				XNANDPSU_DMA_SYS_ADDR0_OFFSET,
 				(u32) ((INTPTR)(void *)Buf & 0xFFFFFFFFU));
 	}
-	/*
-	 * Set Bus Width
-	 */
-	XNandPsu_SetBusWidth(InstancePtr);
 	/*
 	 * Program Memory Address Register2 for chip select
 	 */
