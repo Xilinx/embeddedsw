@@ -195,7 +195,7 @@ extern "C" {
 #define XNANDPSU_HAMMING		0x1U	/**< Hamming Flash */
 #define XNANDPSU_BCH			0x2U	/**< BCH Flash */
 
-#define XNANDPSU_MAX_BLOCKS		32768U	/**< Max number of Blocks */
+#define XNANDPSU_MAX_BLOCKS		16384U	/**< Max number of Blocks */
 #define XNANDPSU_MAX_SPARE_SIZE		0x800U	/**< Max spare bytes of a NAND
 						  flash page of 16K */
 

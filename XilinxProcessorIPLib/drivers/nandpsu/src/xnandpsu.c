@@ -533,6 +533,8 @@ static void XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
 						(u64)Param->PagesPerBlock *
 						(u64)Param->BytesPerPage);
 	InstancePtr->Geometry.EccCodeWordSize = 9U; /* 2 power of 9 = 512 */
+	if (InstancePtr->Geometry.NumTargetBlocks > XNANDPSU_MAX_BLOCKS)
+		xil_printf("!!! Device contains more blocks than the max defined blocks in driver\r\n");
 
 #ifdef XNANDPSU_DEBUG
 	xil_printf("Manufacturer: %s\r\n", Param->DeviceManufacturer);
