@@ -121,8 +121,8 @@
 #else
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
-#define DDR_BASE_ADDR		0x01000000
-#define DDR_HIGH_ADDR		0x0F000000
+#define DDR_BASE_ADDR		0x10000000
+#define DDR_HIGH_ADDR		0x20000000
 #endif
 
 /* Memory space for the frame buffers
@@ -172,9 +172,9 @@
  * Note that SUBFRAME_HORIZONTAL_SIZE and SUBFRAME_VERTICAL_SIZE must ensure
  * to be inside the frame.
  */
-#define SUBFRAME_START_OFFSET    (FRAME_HORIZONTAL_LEN * 5 + 32)
-#define SUBFRAME_HORIZONTAL_SIZE 100
-#define SUBFRAME_VERTICAL_SIZE   100
+#define SUBFRAME_START_OFFSET    (FRAME_HORIZONTAL_LEN * 5 + 64)
+#define SUBFRAME_HORIZONTAL_SIZE 0x100
+#define SUBFRAME_VERTICAL_SIZE   0x100
 
 /* Number of frames to work on, this is to set the frame count threshold
  *
@@ -214,11 +214,11 @@ static XScuGic Intc;	/* Instance of the Interrupt Controller */
  *
  * Read and write sub-frame use the same settings
  */
-static u32 ReadFrameAddr;
-static u32 WriteFrameAddr;
-static u32 BlockStartOffset;
-static u32 BlockHoriz;
-static u32 BlockVert;
+static UINTPTR ReadFrameAddr;
+static UINTPTR WriteFrameAddr;
+static UINTPTR BlockStartOffset;
+static UINTPTR BlockHoriz;
+static UINTPTR BlockVert;
 
 /* DMA channel setup
  */
@@ -441,6 +441,13 @@ int main(void)
 	/* Enable your video IP interrupts if needed
 	 */
 
+	/* Enable DMA read and write channel interrupts
+	 *
+	 * If interrupts overwhelms the system, please do not enable interrupt
+	 */
+	XAxiVdma_IntrEnable(&AxiVdma, XAXIVDMA_IXR_ALL_MASK, XAXIVDMA_WRITE);
+	XAxiVdma_IntrEnable(&AxiVdma, XAXIVDMA_IXR_ALL_MASK, XAXIVDMA_READ);
+
 	/* Start the DMA engine to transfer
 	 */
 	Status = StartTransfer(&AxiVdma);
@@ -449,13 +456,6 @@ int main(void)
 			xil_printf("DMA Mismatch Error\r\n");
 		return XST_FAILURE;
 	}
-
-	/* Enable DMA read and write channel interrupts
-	 *
-	 * If interrupts overwhelms the system, please do not enable interrupt
-	 */
-	XAxiVdma_IntrEnable(&AxiVdma, XAXIVDMA_IXR_ALL_MASK, XAXIVDMA_WRITE);
-	XAxiVdma_IntrEnable(&AxiVdma, XAXIVDMA_IXR_ALL_MASK, XAXIVDMA_READ);
 
 	/* Every set of frame buffer finish causes a completion interrupt
 	 */
@@ -503,7 +503,7 @@ int main(void)
 static int ReadSetup(XAxiVdma *InstancePtr)
 {
 	int Index;
-	u32 Addr;
+	UINTPTR Addr;
 	int Status;
 
 	ReadCfg.VertSizeInput = SUBFRAME_VERTICAL_SIZE;
@@ -569,7 +569,7 @@ static int ReadSetup(XAxiVdma *InstancePtr)
 static int WriteSetup(XAxiVdma * InstancePtr)
 {
 	int Index;
-	u32 Addr;
+	UINTPTR Addr;
 	int Status;
 
 	WriteCfg.VertSizeInput = SUBFRAME_VERTICAL_SIZE;

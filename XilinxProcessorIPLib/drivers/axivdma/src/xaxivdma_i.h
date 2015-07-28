@@ -100,10 +100,10 @@ typedef struct {
     int WordLength;     /* Word length */
     int NumFrames;	/* Number of frames to work on */
 
-    u32 HeadBdPhysAddr; /* Physical address of the first BD */
-    u32 HeadBdAddr;     /* Virtual address of the first BD */
-    u32 TailBdPhysAddr; /* Physical address of the last BD */
-    u32 TailBdAddr;     /* Virtual address of the last BD */
+    UINTPTR HeadBdPhysAddr; /* Physical address of the first BD */
+    UINTPTR HeadBdAddr;     /* Virtual address of the first BD */
+    UINTPTR TailBdPhysAddr; /* Physical address of the last BD */
+    UINTPTR TailBdAddr;     /* Virtual address of the last BD */
     int Hsize;          /* Horizontal size */
     int Vsize;          /* Vertical size saved for no-sg mode hw start */
 
@@ -115,6 +115,7 @@ typedef struct {
     XAxiVdma_Bd BDs[XAXIVDMA_MAX_FRAMESTORE] __attribute__((__aligned__(32)));
                         /*Statically allocated BDs */
     u32 DbgFeatureFlags; /* Debug Parameter Flags */
+	int AddrWidth;
 }XAxiVdma_Channel;
 
 /* Duplicate layout of XAxiVdma_DmaSetup
@@ -131,7 +132,7 @@ typedef struct {
     int EnableSync;         /**< Gen-Lock Mode? */
     int PointNum;           /**< Master we synchronize with */
     int EnableFrameCounter; /**< Frame Counter Enable */
-    u32 FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
+    UINTPTR FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
                             /**< Start Addresses of Frame Store Buffers. */
     int FixedFrameStoreAddr;/**< Fixed Frame Store Address index */
     int GenLockRepeat;      /**< Gen-Lock Repeat? */
@@ -159,11 +160,11 @@ u32 XAxiVdma_ChannelGetEnabledIntr(XAxiVdma_Channel *Channel);
 void XAxiVdma_ChannelIntrClear(XAxiVdma_Channel *Channel, u32 IntrType);
 int XAxiVdma_ChannelStartTransfer(XAxiVdma_Channel *Channel,
         XAxiVdma_ChannelSetup *ChannelCfgPtr);
-int XAxiVdma_ChannelSetBdAddrs(XAxiVdma_Channel *Channel, u32 BdAddrPhys,
-          u32 BdAddrVirt);
+int XAxiVdma_ChannelSetBdAddrs(XAxiVdma_Channel *Channel, UINTPTR BdAddrPhys,
+          UINTPTR BdAddrVirt);
 int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
         XAxiVdma_ChannelSetup *ChannelCfgPtr);
-int XAxiVdma_ChannelSetBufferAddr(XAxiVdma_Channel *Channel, u32 *AddrSet,
+int XAxiVdma_ChannelSetBufferAddr(XAxiVdma_Channel *Channel, UINTPTR *AddrSet,
         int NumFrames);
 int XAxiVdma_ChannelStart(XAxiVdma_Channel *Channel);
 void XAxiVdma_ChannelStop(XAxiVdma_Channel *Channel);

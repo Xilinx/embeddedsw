@@ -96,6 +96,8 @@ extern "C" {
  */
 #define XAXIVDMA_MAX_FRAMESTORE    32  /**< Maximum # of the frame store */
 
+#define XAXIVDMA_MAX_FRAMESTORE_64 16  /**< Maximum # of the frame store for 64 bit*/
+
 /*@}*/
 
 /** @name Maximum transfer length
@@ -164,6 +166,8 @@ extern "C" {
 #define XAXIVDMA_STRD_FRMDLY_OFFSET   0x00000008  /**< Horizontal size */
 #define XAXIVDMA_START_ADDR_OFFSET    0x0000000C  /**< Start of address */
 #define XAXIVDMA_START_ADDR_LEN       0x00000004  /**< Each entry is 4 bytes */
+#define XAXIVDMA_START_ADDR_MSB_OFFSET 0x00000010  /**< Start of address */
+
 /*@}*/
 
 /** @name Bitmasks of the XAXIVDMA_CR_OFFSET register

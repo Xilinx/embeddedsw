@@ -163,6 +163,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 	InstancePtr->HasS2Mm = CfgPtr->HasS2Mm;
 	InstancePtr->UseFsync = CfgPtr->UseFsync;
 	InstancePtr->InternalGenLock = CfgPtr->InternalGenLock;
+	InstancePtr->AddrWidth = CfgPtr->AddrWidth;
 
 	if (XAxiVdma_Major(InstancePtr) < 3) {
 		InstancePtr->HasSG = 1;
@@ -205,6 +206,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 		RdChannel->HasDRE = CfgPtr->HasMm2SDRE;
 		RdChannel->WordLength = CfgPtr->Mm2SWordLen >> 3;
 		RdChannel->StreamWidth = CfgPtr->Mm2SStreamWidth >> 3;
+		RdChannel->AddrWidth = InstancePtr->AddrWidth;
 
 		/* Internal GenLock */
 		RdChannel->GenLock = CfgPtr->Mm2SGenLock;
@@ -266,6 +268,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 		WrChannel->StartAddrBase = InstancePtr->BaseAddr +
 		                                 XAXIVDMA_S2MM_ADDR_OFFSET;
 		WrChannel->NumFrames = CfgPtr->MaxFrameStoreNum;
+		WrChannel->AddrWidth = InstancePtr->AddrWidth;
 
 		/* Flush on Sync */
 		WrChannel->FlushonFsync = CfgPtr->FlushonFsync;
@@ -1007,7 +1010,7 @@ int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
  *
  *****************************************************************************/
 int XAxiVdma_DmaSetBufferAddr(XAxiVdma *InstancePtr, u16 Direction,
-        u32 *BufferAddrSet)
+        UINTPTR *BufferAddrSet)
 {
 	XAxiVdma_Channel *Channel;
 

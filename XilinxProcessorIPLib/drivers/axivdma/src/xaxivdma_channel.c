@@ -207,7 +207,7 @@ void XAxiVdma_ChannelInit(XAxiVdma_Channel *Channel)
 		}
 
 		XAxiVdma_BdSetNextPtr(BdPtr,
-				XAXIVDMA_VIRT_TO_PHYS((u32)NextBdPtr));
+				XAXIVDMA_VIRT_TO_PHYS((UINTPTR)NextBdPtr));
 	}
 
 	Channel->AllCnt = NumFrames;
@@ -215,11 +215,11 @@ void XAxiVdma_ChannelInit(XAxiVdma_Channel *Channel)
 	/* Setup the BD addresses so that access the head/tail BDs fast
 	 *
 	 */
-	Channel->HeadBdAddr = (u32)FirstBdPtr;
-	Channel->HeadBdPhysAddr = XAXIVDMA_VIRT_TO_PHYS((u32)FirstBdPtr);
+	Channel->HeadBdAddr = (UINTPTR)FirstBdPtr;
+	Channel->HeadBdPhysAddr = XAXIVDMA_VIRT_TO_PHYS((UINTPTR)FirstBdPtr);
 
-	Channel->TailBdAddr = (u32)LastBdPtr;
-	Channel->TailBdPhysAddr = XAXIVDMA_VIRT_TO_PHYS((u32)LastBdPtr);
+	Channel->TailBdAddr = (UINTPTR)LastBdPtr;
+	Channel->TailBdPhysAddr = XAXIVDMA_VIRT_TO_PHYS((UINTPTR)LastBdPtr);
 
 
 	Channel->IsValid = 1;
@@ -492,13 +492,13 @@ void XAxiVdma_ChannelStartFrmCntEnable(XAxiVdma_Channel *Channel)
  * to hold all the BDs.
  *
  *****************************************************************************/
-int XAxiVdma_ChannelSetBdAddrs(XAxiVdma_Channel *Channel, u32 BdAddrPhys,
-          u32 BdAddrVirt)
+int XAxiVdma_ChannelSetBdAddrs(XAxiVdma_Channel *Channel, UINTPTR BdAddrPhys,
+		UINTPTR BdAddrVirt)
 {
 	int NumFrames = Channel->AllCnt;
 	int i;
-	u32 NextPhys = BdAddrPhys;
-	u32 CurrVirt = BdAddrVirt;
+	UINTPTR NextPhys = BdAddrPhys;
+	UINTPTR CurrVirt = BdAddrVirt;
 
 	if (Channel->HasSG && XAxiVdma_ChannelIsBusy(Channel)) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
@@ -851,12 +851,17 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
  *
  *****************************************************************************/
 int XAxiVdma_ChannelSetBufferAddr(XAxiVdma_Channel *Channel,
-        u32 *BufferAddrSet, int NumFrames)
+        UINTPTR *BufferAddrSet, int NumFrames)
 {
 	int i;
 	u32 WordLenBits;
 	int HiFrmAddr = 0;
-	int FrmBound = (XAXIVDMA_MAX_FRAMESTORE)/2 - 1;
+	int FrmBound;
+	if (Channel->AddrWidth > 32) {
+		FrmBound = (XAXIVDMA_MAX_FRAMESTORE_64)/2 - 1;
+	} else {
+		FrmBound = (XAXIVDMA_MAX_FRAMESTORE)/2 - 1;
+	}
 	int Loop16 = 0;
 
 	if (!Channel->IsValid) {
@@ -896,10 +901,25 @@ int XAxiVdma_ChannelSetBufferAddr(XAxiVdma_Channel *Channel,
 				Loop16 = 0;
 			}
 
-			XAxiVdma_WriteReg(Channel->StartAddrBase,
-				XAXIVDMA_START_ADDR_OFFSET +
-				Loop16 * XAXIVDMA_START_ADDR_LEN,
-				BufferAddrSet[i]);
+			if (Channel->AddrWidth > 32) {
+				/* For a 40-bit address XAXIVDMA_MAX_FRAMESTORE
+				 * value should be set to 16 */
+				XAxiVdma_WriteReg(Channel->StartAddrBase,
+					XAXIVDMA_START_ADDR_OFFSET +
+					Loop16 * XAXIVDMA_START_ADDR_LEN + i*4,
+					LOWER_32_BITS(BufferAddrSet[i]));
+
+				XAxiVdma_WriteReg(Channel->StartAddrBase,
+					XAXIVDMA_START_ADDR_MSB_OFFSET +
+					Loop16 * XAXIVDMA_START_ADDR_LEN + i*4,
+					UPPER_32_BITS((u64)BufferAddrSet[i]));
+			} else {
+				XAxiVdma_WriteReg(Channel->StartAddrBase,
+					XAXIVDMA_START_ADDR_OFFSET +
+					Loop16 * XAXIVDMA_START_ADDR_LEN,
+					BufferAddrSet[i]);
+			}
+
 
 			if ((NumFrames > FrmBound) && (i == (NumFrames - 1)))
 				XAxiVdma_ChannelHiFrmAddrDisable(Channel);
@@ -1309,7 +1329,7 @@ u32 XAxiVdma_ChannelGetEnabledIntr(XAxiVdma_Channel *Channel)
  *****************************************************************************/
 static u32 XAxiVdma_BdRead(XAxiVdma_Bd *BdPtr, int Offset)
 {
-	return (*(u32 *)((u32)BdPtr + Offset));
+	return (*(u32 *)((UINTPTR)(void *)BdPtr + Offset));
 }
 
 /*****************************************************************************/
@@ -1326,7 +1346,7 @@ static u32 XAxiVdma_BdRead(XAxiVdma_Bd *BdPtr, int Offset)
  *****************************************************************************/
 static void XAxiVdma_BdWrite(XAxiVdma_Bd *BdPtr, int Offset, u32 Value)
 {
-	*(u32 *)((u32)BdPtr + Offset) = Value;
+	*(u32 *)((UINTPTR)(void *)BdPtr + Offset) = Value;
 
 	return;
 }

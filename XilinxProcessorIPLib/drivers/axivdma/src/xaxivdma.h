@@ -396,7 +396,7 @@ typedef void (*XAxiVdma_ErrorCallBack) (void *CallBackRef, u32 ErrorMask);
  */
 typedef struct {
     u16 DeviceId;         /**< DeviceId is the unique ID  of the device */
-    u32 BaseAddress;      /**< BaseAddress is the physical base address of the
+    UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
                             *  device's registers */
     u16 MaxFrameStoreNum; /**< The maximum number of Frame Stores */
     int HasMm2S;          /**< Whether hw build has read channel */
@@ -447,6 +447,7 @@ typedef struct {
     int EnableAllDbgFeatures;/**< Enable all Debug features
 						       This corresponds to C_ENABLE_DEBUG_ALL
 							   configuration parameter */
+	int AddrWidth;		  /**< Address Width */
 } XAxiVdma_Config;
 
 /**
@@ -464,7 +465,7 @@ typedef struct {
     int EnableSync;         /**< Gen-Lock Mode? */
     int PointNum;           /**< Master we synchronize with */
     int EnableFrameCounter; /**< Frame Counter Enable */
-    u32 FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
+    UINTPTR FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
                             /**< Start Addresses of Frame Store Buffers. */
     int FixedFrameStoreAddr;/**< Fixed Frame Store Address index */
     int GenLockRepeat;      /**< Gen-Lock Repeat? */
@@ -497,7 +498,7 @@ typedef struct {
  * The XAxiVdma driver instance data.
  */
 typedef struct {
-    u32 BaseAddr;                   /**< Memory address for this device */
+    UINTPTR BaseAddr;                   /**< Memory address for this device */
     int HasSG;                      /**< Whether hardware has SG engine */
     int IsReady;                    /**< Whether driver is initialized */
 
@@ -516,6 +517,7 @@ typedef struct {
 
     XAxiVdma_Channel ReadChannel;  /**< Channel to read from memory */
     XAxiVdma_Channel WriteChannel; /**< Channel to write to memory */
+	int AddrWidth;		  /**< Address Width */
 } XAxiVdma;
 
 
@@ -571,7 +573,7 @@ int XAxiVdma_StartReadFrame(XAxiVdma *InstancePtr,
 int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
         XAxiVdma_DmaSetup *DmaConfigPtr);
 int XAxiVdma_DmaSetBufferAddr(XAxiVdma *InstancePtr, u16 Direction,
-        u32 *BufferAddrSet);
+        UINTPTR *BufferAddrSet);
 int XAxiVdma_DmaStart(XAxiVdma *InstancePtr, u16 Direction);
 void XAxiVdma_DmaStop(XAxiVdma *InstancePtr, u16 Direction);
 void XAxiVdma_DmaRegisterDump(XAxiVdma *InstancePtr, u16 Direction);
@@ -595,4 +597,3 @@ int XAxiVdma_Selftest(XAxiVdma * InstancePtr);
 #endif
 
 #endif /* end of protection macro */
-/** @} */
