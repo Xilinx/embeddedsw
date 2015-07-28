@@ -272,14 +272,6 @@ typedef enum {
 } XNandPsu_EccMode;
 
 /**
- * The XNandPsu_BbtOption enum contains the BBT storage option.
- */
-typedef enum {
-	XNANDPSU_BBT_OOB = 0,		/**< OOB area */
-	XNANDPSU_BBT_NO_OOB,		/**< No OOB i.e page area */
-} XNandPsu_BbtOption;
-
-/**
  * Bad block table descriptor
  */
 typedef struct {
@@ -293,7 +285,6 @@ typedef struct {
 	u8 Version[XNANDPSU_MAX_TARGETS];
 				/**< BBT version */
 	u32 Valid;		/**< BBT descriptor is valid or not */
-	XNandPsu_BbtOption Option;	/**< BBT Oob option enabled/disabled */
 } XNandPsu_BbtDesc;
 
 /**
@@ -569,9 +560,6 @@ void XNandPsu_DisableEccMode(XNandPsu *InstancePtr);
 void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 			u8 DmaMode, u8 AddrCycles);
 
-void XNandPsu_EnableBbtOobMode(XNandPsu *InstancePtr);
-
-void XNandPsu_DisableBbtOobMode(XNandPsu *InstancePtr);
 /*
  * XNandPsu_LookupConfig in xnandpsu_sinit.c
  */
