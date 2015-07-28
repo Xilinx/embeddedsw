@@ -96,10 +96,17 @@ proc generate {os_handle} {
         }
         "psu_cortexa53"  {
             set procdrv [hsi::get_sw_processor]
-            set ccdir "./src/cortexa53/64bit/gcc"
+            set compiler [get_property CONFIG.compiler $procdrv]
+            if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+		set ccdir "./src/cortexa53/32bit/gcc"
+		set cortexa53srcdir1 "./src/cortexa53/32bit"
+	    } else {
+	        set ccdir "./src/cortexa53/64bit/gcc"
+	        set cortexa53srcdir1 "./src/cortexa53/64bit"
+	    }
+
 	    set includedir "./src/cortexa53/includes_ps"
-	    set cortexa53srcdir64 "./src/cortexa53/64bit"
-            foreach entry [glob -nocomplain [file join $cortexa53srcdir64 *]] {
+            foreach entry [glob -nocomplain [file join $cortexa53srcdir1 *]] {
                 file copy -force $entry "./src/"
             }
             foreach entry [glob -nocomplain [file join $ccdir *]] {
