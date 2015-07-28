@@ -282,7 +282,7 @@
 *		       test example to include it on peripheral test's(CR#823144).
 * 5.1   adk  29/01/15  Added the sefltest api (XAxiVdma_Selftest) to the driver source files
 *                     (xaxivdma_selftest.c) and called this from the selftest example
-*
+* 6.0   vak  27/07/15  Added example for demonstarting triple buffer api.
 * </pre>
 *
 ******************************************************************************/
