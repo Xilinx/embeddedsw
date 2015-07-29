@@ -115,13 +115,13 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	FlashMsg[0].RxBfrPtr = NULL;
 	FlashMsg[0].ByteCount = 1;
 	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	FlashMsg[0].Flags = 0;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 	FlashMsg[1].TxBfrPtr = NULL;
 	FlashMsg[1].RxBfrPtr = ReadBuffer;
 	FlashMsg[1].ByteCount = 4;
 	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	FlashMsg[1].Flags = 0;
+	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
 	if (Status != XST_SUCCESS) {
@@ -390,7 +390,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = 1;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = 0;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 1);
 		if (Status != XST_SUCCESS) {
@@ -410,7 +410,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = 2;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = 0;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 1);
 		if (Status != XST_SUCCESS) {
@@ -432,7 +432,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = 2;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = 0;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 1);
 		if (Status != XST_SUCCESS) {
@@ -455,13 +455,13 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = 1;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = 0;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = ReadBuffer;
 		FlashMsg[1].ByteCount = 1;
 		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = 0;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 2);
 		if (Status != XST_SUCCESS) {
@@ -480,13 +480,13 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = 1;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = 0;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = ReadBuffer;
 		FlashMsg[1].ByteCount = 1;
 		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = 0;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 2);
 		if (Status != XST_SUCCESS) {
@@ -617,7 +617,7 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = DiscardByteCnt;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = 0;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		/* It is recommended to have a separate entry for dummy */
 		if ((ReadCommand == FAST_READ_CMD_24BIT) || (ReadCommand == DUAL_READ_CMD_24BIT) ||
@@ -652,11 +652,11 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		FlashMsg[2].TxBfrPtr = NULL;
 		FlashMsg[2].RxBfrPtr = (u8 *)DestAddress;
 		FlashMsg[2].ByteCount = TransferBytes;
-		FlashMsg[2].Flags = 0;
+		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		if(QspiPsuInstancePtr->Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL){
-			FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_STRIPE;
+			FlashMsg[2].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		}
 
 		/**
@@ -908,7 +908,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = DiscardByteCnt;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = 0;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		/*
 		 * It is recommended to have a separate entry for dummy
@@ -947,11 +947,11 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		FlashMsg[2].TxBfrPtr = NULL;
 		FlashMsg[2].RxBfrPtr = (u8 *)DestAddress;
 		FlashMsg[2].ByteCount = TransferBytes;
-		FlashMsg[2].Flags = 0;
+		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		if(QspiPsuInstancePtr->Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL){
-			FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_STRIPE;
+			FlashMsg[2].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		}
 
 		/**
