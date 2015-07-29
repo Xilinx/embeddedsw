@@ -224,6 +224,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
 		    # FIFO Interrupts Handling
 			set int_pin [get_pins -of_objects [get_cells -hier $tartget_per_name] INTERRUPT]
 			set intc_periph_type [::hsi::utils::get_connected_intr_cntrl $tartget_per_name $int_pin]
+                        if { $intc_periph_type == ""} {
+                                puts "Info: FIFO interrupt not connected to intc\n"
+                                return
+                        }
 			set intc_name [get_property IP_NAME $intc_periph_type]
 		       if { $intc_name != [format "ps7_scugic"] } {
 				set int_id [::hsi::utils::get_port_intr_id [get_cells -hier $tartget_per_name] $int_pin]

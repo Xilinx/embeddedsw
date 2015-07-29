@@ -461,6 +461,8 @@
 *		      Axi stream fifo (CR 835605). Changes are made in the
 *		      driver tcl file.
 * 5.0  adk 13/06/15 - Updated the driver tcl for Hier IP(To support User parameters).
+* 5.0  adk 28/07/15 - Fixed CR:870631 AXI Ethernet with FIFO will fail to
+*		      Create the BSP if the interrupt pin on the FIFO is unconnected
 * </pre>
 *
 ******************************************************************************/
