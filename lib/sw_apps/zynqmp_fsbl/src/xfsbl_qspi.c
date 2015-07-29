@@ -619,11 +619,20 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			/* Update Dummy cycles as per flash specs for QUAD IO */
 
 			/*
-			 * Silicon and REMUS do not care what the SPI mode is
-			 * for dummies, but QEMU expects it to match the address
-			 * phase. Make it so.
+			 * It is recommended that Bus width value during dummy
+			 * phase should be same as data phase
 			 */
-			FlashMsg[1].BusWidth = FlashMsg[0].BusWidth;
+			if (ReadCommand == FAST_READ_CMD_24BIT) {
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			}
+
+			if (ReadCommand == DUAL_READ_CMD_24BIT) {
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
+			}
+
+			if (ReadCommand == QUAD_READ_CMD_24BIT) {
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
+			}
 
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = NULL;
@@ -908,11 +917,20 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			/* Update Dummy cycles as per flash specs for QUAD IO */
 
 			/*
-			 * Silicon and REMUS do not care what the SPI mode is
-			 * for dummies, but QEMU expects it to match the address
-			 * phase. Make it so.
+			 * It is recommended that Bus width value during dummy
+			 * phase should be same as data phase
 			 */
-			FlashMsg[1].BusWidth = FlashMsg[0].BusWidth;
+			if (ReadCommand == FAST_READ_CMD_32BIT) {
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			}
+
+			if (ReadCommand == DUAL_READ_CMD_32BIT) {
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
+			}
+
+			if (ReadCommand == QUAD_READ_CMD_32BIT) {
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
+			}
 
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = NULL;
