@@ -611,7 +611,7 @@ proc xfind_instance {drvhandle instname} {
 # (from external source).
 ##########################################################################
 proc xget_port_type {periph} {
-    set mhs [hsi::get_cells -hier -of_object $periph]
+    set mhs [hsi::get_cells -of_object $periph]
     if {[llength $mhs] == 0} {
         return "global"
     } else {
