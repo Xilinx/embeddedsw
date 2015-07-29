@@ -1,7 +1,7 @@
 Change Log for lwip
 =================================
-2015-07-19
-	* Add support for Zynq Ultrascale MPSoC emacps
+2015-07-15
+	* Add Support for Axi ethernet with fifo on zynq.
 2015-06-15
 	* Update the lwip tcl for Hier IP(To support User parameters).
 2015-05-15

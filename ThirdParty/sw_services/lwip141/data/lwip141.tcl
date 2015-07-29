@@ -877,7 +877,15 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 
 	# find intc to which the interrupt line is connected
 	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] INTERRUPT]
-    set intc_handle [::hsi::utils::get_connected_intr_cntrl $emac $emac_intr_port]
+       set intc_handle [::hsi::utils::get_connected_intr_cntrl $emac $emac_intr_port]
+       if { $intc_handle == "" } {
+               set topology(intc_baseaddr) "0x0"
+               set topology(scugic_baseaddr) "0x0"
+               set topology(scugic_emac_intr) "0x0"
+               puts "Info: Target Periph Interrupt is not connected to interrupt controller"
+               return
+       }
+
     set intc_periph_type [common::get_property IP_NAME $intc_handle]
     set intc_name [common::get_property NAME $intc_handle]
     set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
