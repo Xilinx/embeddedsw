@@ -422,7 +422,7 @@ proc generate {os_handle} {
 	    if { [string compare -nocase $systmr_intr ""] == 0 } {
                 error "ERROR: System Timer Interrupt PORT is not specified" "" "mdt_error"
 	    }
-	    #set mhs_handle [hsi::get_cells -hier -of_object $systmr_handle]
+	    #set mhs_handle [hsi::get_cells -of_object $systmr_handle]
 	    set intr_ports [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $systmr_intr] INTERRUPT]]
 	    #set intr_ports [xget_connected_ports_handle $mhs_handle $systmr_intr "sink"]
 	    foreach intr_port $intr_ports {
@@ -431,7 +431,7 @@ proc generate {os_handle} {
                     continue
                 }
 
-                set intc_handle [hsi::get_cells -hier -of_object $intr_port]
+                set intc_handle [hsi::get_cells -of_object $intr_port]
                 set intc_name [common::get_property NAME $intc_handle]
                 set proc_intc_handle [hsi::get_cells -hier $intc_name]
                 if { [string compare -nocase $sysintc_dev_handle $intc_handle] == 0 } {
@@ -527,7 +527,7 @@ proc generate {os_handle} {
 
     # Handle I/O ranges for MicroBlaze MPU here
     if { $proctype == "microblaze" } {
-        #set mhs_handle [hsi::get_cells -hier -of_object $hw_proc_handle]
+        #set mhs_handle [hsi::get_cells -of_object $hw_proc_handle]
         set mmu [common::get_property CONFIG.C_USE_MMU $hw_proc_handle]
         if { $mmu >= 2 } {
 
@@ -781,7 +781,7 @@ proc xhandle_mb_interrupts {} {
 	set source_port [lindex $source_ports 0]
 	if {[llength $source_port] != 0} {
 	    set source_port_name [common::get_property NAME $source_port]
-	    set source_periph [hsi::get_cells -hier -of_object $source_port]
+	    set source_periph [hsi::get_cells -of_object $source_port]
 	    set source_name [common::get_property NAME $source_periph]
 	    set source_driver [hsi::get_drivers $source_name]
 
