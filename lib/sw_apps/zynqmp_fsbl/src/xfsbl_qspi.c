@@ -189,12 +189,6 @@ u32 XFsbl_Qspi24Init()
 	XQspiPsu_Config *QspiConfig;
 	u32 Status = XFSBL_SUCCESS;
 
-	/*
-	 * GQSPI driver not supporting caches
-	 * Need to be removed and once supported
-	 */
-	Xil_DCacheDisable();
-
 	QspiPsuInstancePtr = &QspiPsuInstance;
 
 	/**
@@ -726,12 +720,6 @@ u32 XFsbl_Qspi32Init()
 {
 	XQspiPsu_Config *QspiConfig;
 	u32 Status = XFSBL_SUCCESS;
-
-	/*
-	 * GQSPI driver not supporting caches
-	 * Need to be removed and once supported
-	 */
-	Xil_DCacheDisable();
 
 	QspiPsuInstancePtr = &QspiPsuInstance;
 
