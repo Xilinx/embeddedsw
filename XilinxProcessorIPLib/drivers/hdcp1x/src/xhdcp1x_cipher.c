@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,13 +42,13 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Additional documentation and formating
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x.h"
@@ -65,343 +65,176 @@
 
 /*****************************************************************************/
 /**
+* This function performs register read from a cipher.
 *
-* This function performs register read from a cipher
+* @param	InstancePtr is the instance to read from.
+* @param	Reg is the register to read.
 *
-* @param InstancePtr  the instance to read from
-* @param Reg  the register to read
+* @return	The current contents of the indicated register.
 *
-* @return
-*   The current contents of the indicated register
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define RegRead(InstancePtr, Reg)  \
+#define RegRead(InstancePtr, Reg) \
 	XHdcp1x_CipherReadReg(InstancePtr->CfgPtr->BaseAddress, Reg)
 
 /*****************************************************************************/
 /**
+* This function performs register write to a cipher.
 *
-* This function performs register write to a cipher
+* @param	InstancePtr is the instance to write to.
+* @param	Reg is the register to write.
+* @param	Value is the value to write.
 *
-* @param InstancePtr  the instance to write to
-* @param Reg  the register to write
-* @param Value  the value to write
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define RegWrite(InstancePtr, Reg, Value)  \
+#define RegWrite(InstancePtr, Reg, Value) \
 	XHdcp1x_CipherWriteReg(InstancePtr->CfgPtr->BaseAddress, Reg, Value)
 
 /*****************************************************************************/
 /**
+* This queries a cipher to determine if it is Display Port (DP).
 *
-* This queries a cipher to determine if it is Display Port (DP)
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating DP (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating DP (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsDP(InstancePtr)  \
+#define IsDP(InstancePtr) \
 	XHdcp1x_CipherIsDP(InstancePtr)
 
 /*****************************************************************************/
 /**
+* This queries a cipher to determine if it is HDMI.
 *
-* This queries a cipher to determine if it is HDMI
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating HDMI (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating HDMI (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsHDMI(InstancePtr)  \
+#define IsHDMI(InstancePtr) \
 	XHdcp1x_CipherIsHDMI(InstancePtr)
 
 /*****************************************************************************/
 /**
+* This queries a cipher to determine if it is a receiver.
 *
-* This queries a cipher to determine if it is a receiver
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating receiver (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating receiver (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsRX(InstancePtr)  \
+#define IsRX(InstancePtr) \
 	XHdcp1x_CipherIsRX(InstancePtr)
 
 /*****************************************************************************/
 /**
+* This queries a cipher to determine if it is a transmitter.
 *
-* This queries a cipher to determine if it is a transmitter
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating transmitter (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating transmitter (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsTX(InstancePtr)  \
+#define IsTX(InstancePtr) \
 	XHdcp1x_CipherIsTX(InstancePtr)
 
 /*****************************************************************************/
 /**
+* This queries a cipher to determine if it is enabled.
 *
-* This queries a cipher to determine if it is enabled
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating transmitter (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating transmitter (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsEnabled(InstancePtr)  \
+#define IsEnabled(InstancePtr) \
 	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL) & \
 	XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE) != 0)
 
 /*****************************************************************************/
 /**
-*
 * This queries a cipher to determine if the XOR (encryption) function is
-* currently in progress
+* currently in progress.
 *
-* @param InstancePtr  the instance to query
+* @param	InstancePtr is the instance to query.
 *
-* @return
-*   Truth value indicating in progress (TRUE) or not (FALSE)
+* @return	Truth value indicating in progress (TRUE) or not (FALSE).
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define XorInProgress(InstancePtr)  \
+#define XorInProgress(InstancePtr) \
 	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_STATUS) & \
 	XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG) != 0)
 
 /*****************************************************************************/
 /**
+* This queries a cipher to determine if the local KSV is ready to read.
 *
-* This queries a cipher to determine if the local KSV is ready to read
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating ready (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating ready (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define LocalKsvReady(InstancePtr)  \
+#define LocalKsvReady(InstancePtr) \
 	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_STATUS) & \
 	XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY) != 0)
 
 /*****************************************************************************/
 /**
+* This queries a cipher to determine if the Km value is ready.
 *
-* This queries a cipher to determine if the Km value is ready
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating ready (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating ready (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define KmReady(InstancePtr)  \
+#define KmReady(InstancePtr) \
 	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_STATUS) & \
 	XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY) != 0)
+
+/*************************** Function Prototypes *****************************/
+
+static void Enable(XHdcp1x_Cipher *InstancePtr);
+static void Disable(XHdcp1x_Cipher *InstancePtr);
+static void Init(XHdcp1x_Cipher *InstancePtr);
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* This function initializes a cipher device.
 *
-* This function enables a hdcp cipher
-*
-* @param InstancePtr  the device to enable
-*
-* @return
-*   void
-*
-* @note
-*   None.
-*
-******************************************************************************/
-static void Enable(XHdcp1x_Cipher* InstancePtr)
-{
-	u32 Value = 0;
-
-	/* Clear the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure that all encryption is disabled for now */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
-
-	/* Ensure that XOR is disabled on tx and enabled for rx to start */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	if (IsRX(InstancePtr)) {
-		Value |= XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	}
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
-
-	/* Enable it */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	return;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function disables a hdcp cipher
-*
-* @param InstancePtr  the device to disable
+* @param	InstancePtr is the device to initialize.
+* @param	CfgPtr is the device configuration.
 *
 * @return
-*   void
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
-*
-******************************************************************************/
-static void Disable(XHdcp1x_Cipher* InstancePtr)
-{
-	u32 Value = 0;
-
-	/* Ensure all interrupts are disabled */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, 0xFFFFFFFFul);
-
-	/* Enable bypass operation */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure that all encryption is disabled for now */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
-
-	/* Ensure that XOR is disabled */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
-
-	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Wait until the XOR has actually stopped */
-	while (XorInProgress(InstancePtr));
-
-	return;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function initializes a hdcp cipher
-*
-* @param InstancePtr  the device to initialize
-*
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-static void Init(XHdcp1x_Cipher* InstancePtr)
-{
-	u32 Value = 0;
-
-	/* Reset it */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure all interrupts are disabled and cleared */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, (u32) (-1));
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, (u32) (-1));
-
-	/* Check for DP */
-	if (IsDP(InstancePtr)) {
-
-		/* Configure for four lanes SST */
-		Value  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
-		Value |= (4u << 4);
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-	}
-
-	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	return;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function initializes a cipher device
-*
-* @param InstancePtr  the device to initialize
-* @param CfgPtr  the device configuration
-*
-* @return
-*   XST_SUCCESS if successful.
-*
-* @note
-*   None.
-*
-******************************************************************************/
-int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher* InstancePtr,
-		const XHdcp1x_Config* CfgPtr)
+int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher *InstancePtr,
+		const XHdcp1x_Config *CfgPtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -445,51 +278,47 @@ int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher* InstancePtr,
 
 /*****************************************************************************/
 /**
+* This function queries the link state of a cipher device.
 *
-* This function queries the link state of a cipher device
+* @param	InstancePtr is	the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	Truth value.
 *
-* @return
-*   Truth value
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherIsLinkUp(const XHdcp1x_Cipher* InstancePtr)
+int XHdcp1x_CipherIsLinkUp(const XHdcp1x_Cipher *InstancePtr)
 {
-	int isUp = FALSE;
+	int IsUp = FALSE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check for currently enabled */
 	if (IsEnabled(InstancePtr)) {
-
 		u32 Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_STATUS);
-		if ((Value & XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL) != 0)
-			isUp = TRUE;
+		if ((Value & XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL) != 0) {
+			IsUp = TRUE;
+		}
 	}
 
-	return (isUp);
+	return (IsUp);
 }
 
 /*****************************************************************************/
 /**
+* This function enables a HDCP cipher.
 *
-* This function enables a hdcp cipher
-*
-* @param InstancePtr  the device to enable
+* @param	InstancePtr is the device to enable.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherEnable(XHdcp1x_Cipher* InstancePtr)
+int XHdcp1x_CipherEnable(XHdcp1x_Cipher *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -510,18 +339,17 @@ int XHdcp1x_CipherEnable(XHdcp1x_Cipher* InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function disables a hdcp cipher
+* This function disables a HDCP cipher.
 *
-* @param InstancePtr  the device to disable
+* @param	InstancePtr is the device to disable.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherDisable(XHdcp1x_Cipher* InstancePtr)
+int XHdcp1x_CipherDisable(XHdcp1x_Cipher *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -533,26 +361,23 @@ int XHdcp1x_CipherDisable(XHdcp1x_Cipher* InstancePtr)
 		Disable(InstancePtr);
 	}
 
-	/* Return */
 	return (Status);
 }
 
 /*****************************************************************************/
 /**
+* This function configures the key selection value.
 *
-* This function configures the key selection value
-*
-* @param InstancePtr  the device to configure
-* @param KeySelect  the desired key select value
+* @param	InstancePtr is the device to configure.
+* @param	KeySelect is the desired key select value.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetKeySelect(XHdcp1x_Cipher* InstancePtr, u8 KeySelect)
+int XHdcp1x_CipherSetKeySelect(XHdcp1x_Cipher *InstancePtr, u8 KeySelect)
 {
 	int Status = XST_SUCCESS;
 	u32 Value = 0;
@@ -572,20 +397,20 @@ int XHdcp1x_CipherSetKeySelect(XHdcp1x_Cipher* InstancePtr, u8 KeySelect)
 
 /*****************************************************************************/
 /**
+* This function initiates a request within the HDCP cipher.
 *
-* This function initiates a request within the hdcp cipher
-*
-* @param InstancePtr  the device to submit the request to
-* @param Request  the request to submit
+* @param	InstancePtr is the device to submit the request to.
+* @param	Request is the request to submit.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLE if the core is disabled.
+*		- XST_DEVICE_BUSY if the core is busy.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher* InstancePtr,
+int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher *InstancePtr,
 		XHdcp1x_CipherRequestType Request)
 {
 	u32 Value = 0;
@@ -593,7 +418,6 @@ int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher* InstancePtr,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Request >= (XHDCP1X_CIPHER_REQUEST_BLOCK));
-//	Xil_AssertNonvoid(Request <  (XHDCP1X_CIPHER_REQUEST_MAX));
 
 	/* Check that it is not disabled */
 	if (!IsEnabled(InstancePtr)) {
@@ -617,7 +441,7 @@ int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher* InstancePtr,
 	/* Set the appropriate request bit and ensure that Km is always used */
 	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST;
-	Value |= (XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK<<Request);
+	Value |= (XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK << Request);
 	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
 
 	/* Ensure that the request bit(s) get cleared for next time */
@@ -630,19 +454,16 @@ int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher* InstancePtr,
 
 /*****************************************************************************/
 /**
+* This function queries the progress of the current request.
 *
-* This function queries the progress of the current request
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	Truth value.
 *
-* @return
-*   Truth value
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherIsRequestComplete(const XHdcp1x_Cipher* InstancePtr)
+int XHdcp1x_CipherIsRequestComplete(const XHdcp1x_Cipher *InstancePtr)
 {
 	u32 Value = 0;
 	int IsComplete = TRUE;
@@ -664,21 +485,17 @@ int XHdcp1x_CipherIsRequestComplete(const XHdcp1x_Cipher* InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function retrieves the current number of lanes of the HDCP cipher.
 *
-* This function retrieves the current number of lanes of the hdcp cipher
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	The current number of lanes.
 *
-* @return
-*   The current number of lanes
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x_Cipher* InstancePtr)
+u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x_Cipher *InstancePtr)
 {
-	/* Locals */
 	u32 NumLanes = 0;
 
 	/* Verify arguments. */
@@ -686,33 +503,29 @@ u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x_Cipher* InstancePtr)
 
 	/* Check for currently enabled */
 	if (IsEnabled(InstancePtr)) {
-
 		/* Determine NumLanes */
 		NumLanes = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
 		NumLanes &= XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
 		NumLanes >>= 4;
 	}
 
-	/* Return */
 	return (NumLanes);
 }
 
 /*****************************************************************************/
 /**
+* This function configures the number of lanes of the HDCP cipher.
 *
-* This function configures the number of lanes of the hdcp cipher
-*
-* @param InstancePtr  the device to configure
-* @param NumLanes  the number of lanes to configure
+* @param	InstancePtr is the device to configure.
+* @param	NumLanes is the number of lanes to configure.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher* InstancePtr, u32 NumLanes)
+int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher *InstancePtr, u32 NumLanes)
 {
 	int Status = XST_SUCCESS;
 	u32 Value = 0;
@@ -724,7 +537,6 @@ int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher* InstancePtr, u32 NumLanes)
 
 	/* Check for HDMI */
 	if (IsHDMI(InstancePtr)) {
-
 		/* Verify NumLanes (again) */
 		Xil_AssertNonvoid(NumLanes == 1);
 
@@ -733,11 +545,9 @@ int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher* InstancePtr, u32 NumLanes)
 		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
 		Value |= (NumLanes << 4);
 		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
 	}
 	/* Otherwise - must be DP */
 	else {
-
 		/* Verify NumLanes (again) */
 		Xil_AssertNonvoid(NumLanes != 3);
 
@@ -753,22 +563,19 @@ int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher* InstancePtr, u32 NumLanes)
 
 /*****************************************************************************/
 /**
+* This function retrieves the current encryption stream map.
 *
-* This function retrieves the current encryption stream map
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	The current encryption stream map.
 *
-* @return
-*   The current encryption stream map.
-*
-* @note
-*   In the case of the receiver version of this core, the XOR in progress bit
-*   needs to be checked as well as the encryption map to fully determine if
-*   encryption is enabled for the SST case.  This is reason for the additional
-*   check in this code
+* @note		In the case of the receiver version of this core, the XOR in
+*		progress bit needs to be checked as well as the encryption map
+*		to fully determine if encryption is enabled for the SST case.
+*		This is the reason for the additional check in this code.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetEncryption(const XHdcp1x_Cipher* InstancePtr)
+u64 XHdcp1x_CipherGetEncryption(const XHdcp1x_Cipher *InstancePtr)
 {
 	u64 StreamMap = 0;
 
@@ -795,20 +602,20 @@ u64 XHdcp1x_CipherGetEncryption(const XHdcp1x_Cipher* InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function enables encryption on a set of streams.
 *
-* This function enables encryption on a set of streams
-*
-* @param InstancePtr  the device to configure
-* @param StreamMap  the bit map of streams to enable encryption on
+* @param	InstancePtr is the device to configure.
+* @param	StreamMap is the bit map of streams to enable encryption on.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLE if the core is not enabled.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherEnableEncryption(XHdcp1x_Cipher* InstancePtr, u64 StreamMap)
+int XHdcp1x_CipherEnableEncryption(XHdcp1x_Cipher *InstancePtr, u64 StreamMap)
 {
 	u32 Value = 0;
 
@@ -864,19 +671,20 @@ int XHdcp1x_CipherEnableEncryption(XHdcp1x_Cipher* InstancePtr, u64 StreamMap)
 /*****************************************************************************/
 /**
 *
-* This function disables encryption on a set of streams
+* This function disables encryption on a set of streams.
 *
-* @param InstancePtr  the device to configure
-* @param StreamMap  the bit map of streams to disable encryption on
+* @param	InstancePtr is the device to configure.
+* @param	StreamMap is the bit map of streams to disable encryption on.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLE if the core is not enabled.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherDisableEncryption(XHdcp1x_Cipher* InstancePtr, u64 StreamMap)
+int XHdcp1x_CipherDisableEncryption(XHdcp1x_Cipher *InstancePtr, u64 StreamMap)
 {
 	u32 Val = 0;
 	int DisableXor = TRUE;
@@ -947,19 +755,16 @@ int XHdcp1x_CipherDisableEncryption(XHdcp1x_Cipher* InstancePtr, u64 StreamMap)
 
 /*****************************************************************************/
 /**
+* This function reads the local KSV value from the cipher.
 *
-* This function reads the local KSV value from the cipher
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	The local KSV value.
 *
- * @return
-*   The local KSV value
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher* InstancePtr)
+u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher *InstancePtr)
 {
 	u32 Val = 0;
 	u32 Guard = 0x400ul;
@@ -977,7 +782,6 @@ u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher* InstancePtr)
 	Val  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_STATUS);
 	Val &= XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY;
 	if (Val == 0) {
-
 		/* Abort any running Km calculation just in case */
 		Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
 		Val |= XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_ABORT_Km;
@@ -998,7 +802,6 @@ u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher* InstancePtr)
 
 	/* Confirm no timeout */
 	if (Guard != 0) {
-
 		/* Update Ksv */
 		Ksv = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KSV_LOCAL_H);
 		Ksv &= 0xFFul;
@@ -1011,21 +814,17 @@ u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher* InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function reads the remote KSV value from the cipher.
 *
-* This function reads the remote KSV value from the cipher
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	The remote KSV value.
 *
-* @return
-*   The remote KSV value
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x_Cipher* InstancePtr)
+u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x_Cipher *InstancePtr)
 {
-	/* Locals */
 	u64 Ksv = 0;
 
 	/* Verify arguments. */
@@ -1036,27 +835,26 @@ u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x_Cipher* InstancePtr)
 	Ksv <<= 32;
 	Ksv |= RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KSV_REMOTE_L);
 
-	/* Return */
 	return (Ksv);
 }
 
 /*****************************************************************************/
 /**
+* This function writes the remote KSV value to the cipher.
 *
-* This function writes the remote KSV value to the cipher
-*
-* @param InstancePtr  the device to write to
-* @param Ksv  the remote KSV value to write
+* @param	InstancePtr is the device to write to.
+* @param	Ksv is the remote KSV value to write.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLED otherwise.
 *
-* @note
-*   Whenever this function is called, the underlying driver will initiate
-*   the calculation of the Km value and wait for it to complete.
+* @note		Whenever this function is called, the underlying driver will
+*		initiate the calculation of the Km value and wait for it to
+*		complete.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetRemoteKsv(XHdcp1x_Cipher* InstancePtr, u64 Ksv)
+int XHdcp1x_CipherSetRemoteKsv(XHdcp1x_Cipher *InstancePtr, u64 Ksv)
 {
 	u32 Value = 0;
 	u32 Guard = 0x400ul;
@@ -1111,26 +909,24 @@ int XHdcp1x_CipherSetRemoteKsv(XHdcp1x_Cipher* InstancePtr, u64 Ksv)
 }
 
 /*****************************************************************************/
-
 /**
+* This function reads the contents of the B register in BM0.
 *
-* This function reads the contents of the B register in BM0
-*
-* @param InstancePtr  the device to query
-* @param X  to be loaded with the contents of Bx
-* @param Y  to be loaded with the contents of By
-* @param Z  to be loaded with the contents of Bz
+* @param	InstancePtr is the device to query.
+* @param	X is to be loaded with the contents of Bx.
+* @param	Y is to be loaded with the contents of By.
+* @param	Z is to be loaded with the contents of Bz.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLED otherwise.
 *
-* @note
-*   A NULL pointer can be passed in any of X, Y and Z.  If so, then
-*   this portion of the B register is not returned to the caller.
+* @note		A NULL pointer can be passed in any of X, Y and Z.  If so, then
+*		this portion of the B register is not returned to the caller.
 *
 ******************************************************************************/
-int XHdcp1x_CipherGetB(const XHdcp1x_Cipher* InstancePtr, u32* X, u32* Y,
-		u32* Z)
+int XHdcp1x_CipherGetB(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
+		u32 *Z)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1163,22 +959,21 @@ int XHdcp1x_CipherGetB(const XHdcp1x_Cipher* InstancePtr, u32* X, u32* Y,
 
 /*****************************************************************************/
 /**
+* This function writes the contents of the B register in BM0.
 *
-* This function writes the contents of the B register in BM0
-*
-* @param InstancePtr  the device to write to
-* @param X  the value to be written to Bx
-* @param Y  the value to be written to By
-* @param Z  the value to be written to Bz
+* @param	InstancePtr is the device to write to.
+* @param	X is the value to be written to Bx.
+* @param	Y is the value to be written to By.
+* @param	Z is the value to be written to Bz.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLED otherwise.
 *
-* @note
-*   None
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetB(XHdcp1x_Cipher* InstancePtr, u32 X, u32 Y, u32 Z)
+int XHdcp1x_CipherSetB(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z)
 {
 	u32 Value = 0;
 
@@ -1217,24 +1012,23 @@ int XHdcp1x_CipherSetB(XHdcp1x_Cipher* InstancePtr, u32 X, u32 Y, u32 Z)
 
 /*****************************************************************************/
 /**
+* This function reads the contents of the K register in BM0.
 *
-* This function reads the contents of the K register in BM0
-*
-* @param InstancePtr  the device to query
-* @param X  to be loaded with the contents of Kx
-* @param Y  to be loaded with the contents of Ky
-* @param Z  to be loaded with the contents of Kz
+* @param	InstancePtr is the device to query.
+* @param	X is to be loaded with the contents of Kx.
+* @param	Y is to be loaded with the contents of Ky.
+* @param	Z is to be loaded with the contents of Kz.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLED otherwise.
 *
-* @note
-*   A NULL pointer can be passed in any of X, Y and Z.  If so, then
-*   this portion of the K register is not returned to the caller.
+* @note		A NULL pointer can be passed in any of X, Y and Z.  If so, then
+*		this portion of the K register is not returned to the caller.
 *
 ******************************************************************************/
-int XHdcp1x_CipherGetK(const XHdcp1x_Cipher* InstancePtr, u32* X, u32* Y,
-		u32* Z)
+int XHdcp1x_CipherGetK(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
+		u32 *Z)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1267,22 +1061,21 @@ int XHdcp1x_CipherGetK(const XHdcp1x_Cipher* InstancePtr, u32* X, u32* Y,
 
 /*****************************************************************************/
 /**
+* This function writes the contents of the K register in BM0.
 *
-* This function writes the contents of the K register in BM0
-*
-* @param InstancePtr  the device to write to
-* @param X  the value to be written to Kx
-* @param Y  the value to be written to Ky
-* @param Z  the value to be written to Kz
+* @param	InstancePtr is the device to write to.
+* @param	X is the value to be written to Kx.
+* @param	Y is the value to be written to Ky.
+* @param	Z is the value to be written to Kz.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_NOT_ENABLED otherwise.
 *
-* @note
-*   None
+* @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetK(XHdcp1x_Cipher* InstancePtr, u32 X, u32 Y, u32 Z)
+int XHdcp1x_CipherSetK(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z)
 {
 	u32 Value = 0;
 
@@ -1321,19 +1114,16 @@ int XHdcp1x_CipherSetK(XHdcp1x_Cipher* InstancePtr, u32 X, u32 Y, u32 Z)
 
 /*****************************************************************************/
 /**
+* This function reads the contents of the Mi/An register of BM0.
 *
-* This function reads the contents of the Mi/An register of BM0
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	The contents of the register.
 *
-* @return
-*   The contents of the register
-*
-* @note
-*   None
+* @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetMi(const XHdcp1x_Cipher* InstancePtr)
+u64 XHdcp1x_CipherGetMi(const XHdcp1x_Cipher *InstancePtr)
 {
 	u64 Mi = 0;
 
@@ -1355,19 +1145,16 @@ u64 XHdcp1x_CipherGetMi(const XHdcp1x_Cipher* InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function reads the contents of the Ri register of BM0.
 *
-* This function reads the contents of the Ri register of BM0
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	The contents of the register.
 *
-* @return
-*   The contents of the register
-*
-* @note
-*   None
+* @note		None.
 *
 ******************************************************************************/
-u16 XHdcp1x_CipherGetRi(const XHdcp1x_Cipher* InstancePtr)
+u16 XHdcp1x_CipherGetRi(const XHdcp1x_Cipher *InstancePtr)
 {
 	u16 Ri = 0;
 
@@ -1379,7 +1166,7 @@ u16 XHdcp1x_CipherGetRi(const XHdcp1x_Cipher* InstancePtr)
 		return (XST_NOT_ENABLED);
 	}
 
-	/* Determine theRi */
+	/* Determine Ri */
 	Ri = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Ri);
 
 	return (Ri);
@@ -1388,18 +1175,16 @@ u16 XHdcp1x_CipherGetRi(const XHdcp1x_Cipher* InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function reads the contents of the Mo register of the device
+* This function reads the contents of the Mo register of the device.
 *
-* @param InstancePtr  the device to query
+* @param	InstancePtr is the device to query.
 *
-* @return
-*   The contents of the Mo register
+* @return	The contents of the Mo register.
 *
-* @note
-*   None
+* @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetMo(const XHdcp1x_Cipher* InstancePtr)
+u64 XHdcp1x_CipherGetMo(const XHdcp1x_Cipher *InstancePtr)
 {
 	u64 Mo = 0;
 
@@ -1422,18 +1207,16 @@ u64 XHdcp1x_CipherGetMo(const XHdcp1x_Cipher* InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function reads the contents of the Ro register of the device
+* This function reads the contents of the Ro register of the device.
 *
-* @param InstancePtr  the device to query
+* @param	InstancePtr is the device to query.
 *
-* @return
-*   The contents of the Ro register
+* @return	The contents of the Ro register.
 *
-* @note
-*   None
+* @note		None.
 *
 ******************************************************************************/
-u16 XHdcp1x_CipherGetRo(const XHdcp1x_Cipher* InstancePtr)
+u16 XHdcp1x_CipherGetRo(const XHdcp1x_Cipher *InstancePtr)
 {
 	u16 Ro = 0;
 
@@ -1453,19 +1236,16 @@ u16 XHdcp1x_CipherGetRo(const XHdcp1x_Cipher* InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function reads the version of the HDCP cipher core.
 *
-* This function reads the version of the hdcp cipher core
+* @param	InstancePtr is the device to query.
 *
-* @param InstancePtr  the device to query
+* @return	The version of the HDCP cipher device.
 *
-* @return
-*   The version of the hdcp cipher device
-*
-* @note
-*   None
+* @note		None.
 *
 ******************************************************************************/
-u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher* InstancePtr)
+u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher *InstancePtr)
 {
 	u32 Version = 0;
 
@@ -1476,4 +1256,130 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher* InstancePtr)
 	Version = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_VERSION);
 
 	return (Version);
+}
+
+/*****************************************************************************/
+/**
+* This function enables an HDCP cipher.
+*
+* @param	InstancePtr is the device to enable.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void Enable(XHdcp1x_Cipher *InstancePtr)
+{
+	u32 Value = 0;
+
+	/* Clear the register update bit */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Ensure that all encryption is disabled for now */
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
+
+	/* Ensure that XOR is disabled on tx and enabled for rx to start */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
+	if (IsRX(InstancePtr)) {
+		Value |= XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
+	}
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+
+	/* Enable it */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Ensure that the register update bit is set */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+}
+
+/*****************************************************************************/
+/**
+* This function disables a HDCP cipher.
+*
+* @param	InstancePtr is the device to disable.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void Disable(XHdcp1x_Cipher *InstancePtr)
+{
+	u32 Value = 0;
+
+	/* Ensure all interrupts are disabled */
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, 0xFFFFFFFFul);
+
+	/* Enable bypass operation */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Ensure that all encryption is disabled for now */
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
+
+	/* Ensure that XOR is disabled */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+
+	/* Ensure that the register update bit is set */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Wait until the XOR has actually stopped */
+	while (XorInProgress(InstancePtr));
+}
+
+/*****************************************************************************/
+/**
+* This function initializes an HDCP cipher.
+*
+* @param	InstancePtr is the device to initialize.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void Init(XHdcp1x_Cipher *InstancePtr)
+{
+	u32 Value = 0;
+
+	/* Reset it */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Ensure all interrupts are disabled and cleared */
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, (u32) (-1));
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, (u32) (-1));
+
+	/* Check for DP */
+	if (IsDP(InstancePtr)) {
+		/* Configure for four lanes SST */
+		Value  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
+		Value |= (4u << 4);
+		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	}
+
+	/* Ensure that the register update bit is set */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
 }

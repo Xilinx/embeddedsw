@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,11 +42,11 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Additional documentation and formating
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
+
 #ifndef XHDCP1X_H
 /**< Prevent circular inclusions by using protection macros */
 #define XHDCP1X_H
@@ -56,6 +56,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xtmrctr.h"
@@ -74,13 +75,13 @@ typedef void (*XHdcp1x_Callback)(void *CallbackRef);
  * This typedef defines the function interface that is to be used for debug
  * print statements within this driver
  */
-typedef void (*XHdcp1x_Printf)(const char* fmt, ...);
+typedef void (*XHdcp1x_Printf)(const char *fmt, ...);
 
 /**
  * This typedef defines the function interface that is to be used for debug
  * log message statements within this driver
  */
-typedef void (*XHdcp1x_LogMsg)(const char* fmt, ...);
+typedef void (*XHdcp1x_LogMsg)(const char *fmt, ...);
 
 /**
 * This typedef contains configuration information for the HDCP core.
@@ -90,7 +91,8 @@ typedef struct {
 	u32 BaseAddress;	/**< The base address of the core  */
 	u32 SysFrequency;	/**< The main clock frequency of the core */
 	u16 IsRx;	        /**< Flag indicating the core direction */
-	u16 IsHDMI;	        /**< Flag indicating the core type */
+	u16 IsHDMI;	        /**< Flag indicating if the core is meant to
+					work with HDMI. */
 } XHdcp1x_Config;
 
 /**
@@ -116,8 +118,8 @@ typedef struct {
 } XHdcp1x_Cipher;
 
 /**
-* This typedef defines the statistics collected by a port instance
-*/
+ * This typedef defines the statistics collected by a port instance
+ */
 typedef struct {
 	u32 IntCount;		/**< The number of interrupts detected */
 } XHdcp1x_PortStats;
@@ -142,8 +144,8 @@ typedef struct XHdcp1x_PortStruct {
 } XHdcp1x_Port;
 
 /**
-* This typedef defines the statistics collected transmit port instance
-*/
+ * This typedef defines the statistics collected transmit port instance
+ */
 typedef struct {
 	u32 AuthFailed;		/**< Num of failed authentication attempts */
 	u32 AuthPassed;		/**< Num of passed authentication attempts */
@@ -154,8 +156,8 @@ typedef struct {
 } XHdcp1x_TxStats;
 
 /**
-* This typedef defines the statistics collected receive port instance
-*/
+ * This typedef defines the statistics collected receive port instance
+ */
 typedef struct {
 	u32 AuthAttempts;	/**< Num of rxd authentication requests */
 	u32 LinkFailures;	/**< Num of link verifications that failed */
@@ -163,10 +165,10 @@ typedef struct {
 } XHdcp1x_RxStats;
 
 /**
-* This typedef defines the elements that are common to both RX and TX HDCP
-* interfaces.  The fields within this typedef must align with both the RX
-* and TX definitions
-*/
+ * This typedef defines the elements that are common to both RX and TX HDCP
+ * interfaces. The fields within this typedef must align with both the RX
+ * and TX definitions
+ */
 typedef struct {
 	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
 	u32 IsReady;			/**< The ready flag */
@@ -175,8 +177,8 @@ typedef struct {
 } XHdcp1x_Common;
 
 /**
-* This typedef contains the transmit HDCP interface
-*/
+ * This typedef contains the transmit HDCP interface
+ */
 typedef struct {
 	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
 	u32 IsReady;			/**< The ready flag */
@@ -192,8 +194,8 @@ typedef struct {
 } XHdcp1x_Tx;
 
 /**
-* This typedef contains the receive HDCP interface
-*/
+ * This typedef contains the receive HDCP interface
+ */
 typedef struct {
 	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
 	u32 IsReady;			/**< The ready flag */
@@ -207,8 +209,8 @@ typedef struct {
 } XHdcp1x_Rx;
 
 /**
-* This typedef contains an instance of an HDCP interface
-*/
+ * This typedef contains an instance of an HDCP interface
+ */
 typedef union {
 	XHdcp1x_Common Common;	/**< The common interface elements */
 	XHdcp1x_Tx Tx;		/**< The transmit interface elements */
@@ -219,31 +221,31 @@ typedef union {
  * This typedef defines the function interface that is to be used for checking
  * a specific KSV against the platforms revocation list
  */
-typedef int  (*XHdcp1x_KsvRevokeCheck)(const XHdcp1x *InstancePtr, u64 Ksv);
+typedef int (*XHdcp1x_KsvRevokeCheck)(const XHdcp1x *InstancePtr, u64 Ksv);
 
 /**
  * This typedef defines the function interface that is to be used for starting
  * a one shot timer on behalf of an HDCP interface within the underlying
  * platform
  */
-typedef int  (*XHdcp1x_TimerStart)(const XHdcp1x *InstancePtr, u16 TmoInMs);
+typedef int (*XHdcp1x_TimerStart)(const XHdcp1x *InstancePtr, u16 TmoInMs);
 
 /**
  * This typedef defines the function interface that is to be used for stopping
  * a timer on behalf of an HDCP interface
  */
-typedef int  (*XHdcp1x_TimerStop)(const XHdcp1x *InstancePtr);
+typedef int (*XHdcp1x_TimerStop)(const XHdcp1x *InstancePtr);
 
 /**
  * This typedef defines the function interface that is to be used for
  * performing a busy delay on behalf of an HDCP interface
  */
-typedef int  (*XHdcp1x_TimerDelay)(const XHdcp1x *InstancePtr, u16 DelayInMs);
-
+typedef int (*XHdcp1x_TimerDelay)(const XHdcp1x *InstancePtr, u16 DelayInMs);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId);
 
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,

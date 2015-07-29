@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,12 +42,12 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Additional documentation and formating
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xhdcp1x_cipher.h"
 #include "xil_assert.h"
 
@@ -70,16 +70,15 @@
 
 /*****************************************************************************/
 /**
+* This function self tests an hdcp cipher core.
 *
-* This function self tests an hdcp cipher core
-*
-* @param InstancePtr  the cipher core to test
+* @param	InstancePtr is the cipher core to test.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful
+*		- XST_FAILURE otherwise.
 *
-* @note
-*  None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_CipherSelfTest(XHdcp1x_Cipher *InstancePtr)
@@ -98,27 +97,29 @@ int XHdcp1x_CipherSelfTest(XHdcp1x_Cipher *InstancePtr)
 	Value = XHdcp1x_CipherReadReg(Base, XHDCP1X_CIPHER_REG_VERSION);
 
 	/* Confirm the version is reasonable */
-	if ((Value != 0u) && (Value != ((u32) (-1)))) {
-
+	if ((Value != 0u) && (Value != ((u32)(-1)))) {
 		const XHdcp1x_Config *CfgPtr = InstancePtr->CfgPtr;
 		int IsRx = FALSE;
 		int IsHdmi = FALSE;
 
 		/* Determine isRx */
-		Value  = XHdcp1x_CipherReadReg(Base, XHDCP1X_CIPHER_REG_TYPE);
+		Value = XHdcp1x_CipherReadReg(Base, XHDCP1X_CIPHER_REG_TYPE);
 		Value &= XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION;
-		if (Value == XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX)
+		if (Value == XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX) {
 			IsRx = TRUE;
+		}
 
 		/* Determine isHdmi */
-		Value  = XHdcp1x_CipherReadReg(Base, XHDCP1X_CIPHER_REG_TYPE);
+		Value = XHdcp1x_CipherReadReg(Base, XHDCP1X_CIPHER_REG_TYPE);
 		Value &= XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL;
-		if (Value == XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI)
+		if (Value == XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI) {
 			IsHdmi = TRUE;
+		}
 
 		/* Confirm direction and protocol match */
-		if (((IsRx == CfgPtr->IsRx)) && ((IsHdmi == CfgPtr->IsHDMI)))
+		if (((IsRx == CfgPtr->IsRx)) && ((IsHdmi == CfgPtr->IsHDMI))) {
 			Status = XST_SUCCESS;
+		}
 	}
 
 	return (Status);

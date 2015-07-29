@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,12 +42,13 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xhdcp1x.h"
 #include "xhdcp1x_platform.h"
 #include "xil_types.h"
@@ -59,26 +60,24 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Extern Declarations ******************************/
-extern XHdcp1x_KsvRevokeCheck  XHdcp1xKsvRevokeCheck;
-extern XHdcp1x_TimerStart  XHdcp1xTimerStart;
-extern XHdcp1x_TimerStop  XHdcp1xTimerStop;
-extern XHdcp1x_TimerDelay  XHdcp1xTimerDelay;
+
+extern XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck;
+extern XHdcp1x_TimerStart XHdcp1xTimerStart;
+extern XHdcp1x_TimerStop XHdcp1xTimerStop;
+extern XHdcp1x_TimerDelay XHdcp1xTimerDelay;
 
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
 /**
+* This function checks a KSV value to determine if it has been revoked or not.
 *
-* This function checks a KSV value to determine if it has been revoked or not
+* @param	InstancePtr is the HDCP interface.
+* @param	Ksv is the KSV to check.
 *
-* @param InstancePtr  the hdcp interface
-* @param Ksv  the KSV to check
+* @return	Truth value indicating the KSV is revoked (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating the KSV is revoked (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PlatformIsKsvRevoked(const XHdcp1x *InstancePtr, u64 Ksv)
@@ -98,17 +97,16 @@ int XHdcp1x_PlatformIsKsvRevoked(const XHdcp1x *InstancePtr, u64 Ksv)
 
 /*****************************************************************************/
 /**
+* This function starts a timer on behalf of an HDCP interface.
 *
-* This function starts a timer on behalf of an hdcp interface
-*
-* @param InstancePtr  the hdcp interface
-* @param TimeoutInMs  the duration of the timer in milliseconds
+* @param	InstancePtr is the hdcp interface.
+* @param	TimeoutInMs is the duration of the timer in milliseconds.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PlatformTimerStart(XHdcp1x *InstancePtr, u16 TimeoutInMs)
@@ -126,19 +124,17 @@ int XHdcp1x_PlatformTimerStart(XHdcp1x *InstancePtr, u16 TimeoutInMs)
 	return (Status);
 }
 
-
 /*****************************************************************************/
 /**
+* This function stop a timer on behalf of an HDCP interface.
 *
-* This function stop a timer on behalf of an hdcp interface
-*
-* @param InstancePtr  the hdcp interface
+* @param	InstancePtr is the HDCP interface.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PlatformTimerStop(XHdcp1x *InstancePtr)
@@ -156,20 +152,18 @@ int XHdcp1x_PlatformTimerStop(XHdcp1x *InstancePtr)
 	return (Status);
 }
 
-
 /*****************************************************************************/
 /**
+* This function busy waits on a timer for a number of milliseconds.
 *
-* This function busy waits on a timer for a number of milliseconds
-*
-* @param InstancePtr  the hdcp interface
-* @param DelayInMs  the delay time in milliseconds
+* @param	InstancePtr is the hdcp interface.
+* @param	DelayInMs is the delay time in milliseconds.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PlatformTimerBusy(XHdcp1x *InstancePtr, u16 DelayInMs)

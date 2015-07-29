@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,11 +42,11 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Additional documentation and formating
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
+
 #ifndef XHDCP1X_PORT_H
 /**< Prevent circular inclusions by using protection macros */
 #define XHDCP1X_PORT_H
@@ -56,6 +56,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+
 #include "xhdcp1x.h"
 #include "xparameters.h"
 #include "xstatus.h"
@@ -86,7 +87,8 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 	int (*Write)(XHdcp1x_Port*, u8, const void*, u32); /**< Reg write */
 	int (*IsCapable)(const XHdcp1x_Port*);	/**< Tests for HDCP capable */
 	int (*IsRepeater)(const XHdcp1x_Port*);	/**< Tests for repeater */
-	int (*GetRepeaterInfo)(const XHdcp1x_Port*, u16*); /**< Gets repeater info */
+	int (*GetRepeaterInfo)(const XHdcp1x_Port*, u16*); /**< Gets repeater
+							info */
 	void (*IntrHandler)(XHdcp1x_Port *, u32); /**< Interrupt handler */
 } XHdcp1x_PortPhyIfAdaptor;
 
@@ -94,25 +96,23 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 
 /*****************************************************************************/
 /**
-*
 * This macro converts from an unsigned integer to a little endian formatted
 * buffer
 *
-* @param buf  the buffer to write to
-* @param uint  the unsigned integer to convert
-* @param numbits  the number of bits within the unsigned integer to use
+* @param	buf the buffer to write to
+* @param	uint the unsigned integer to convert
+* @param	numbits the number of bits within the unsigned integer to use
 *
-* @return
-*   void
+* @return	None.
 *
-* @note
-*   The value of the "uint" parameter is destroyed by a call to this macro
+* @note		The value of the "uint" parameter is destroyed by a call to this
+*		macro
 *
 ******************************************************************************/
 #define XHDCP1X_PORT_UINT_TO_BUF(buf, uint, numbits)			\
 	if ((numbits) > 0) {						\
 		int byte;						\
-		for (byte=0; byte<=(((numbits)-1)>>3); byte++) {	\
+		for (byte = 0; byte <= (((numbits) - 1) >> 3); byte++) { \
 			buf[byte] = (uint8_t) (uint & 0xFFu);		\
 			uint >>= 8;					\
 		}							\
@@ -120,26 +120,23 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 
 /*****************************************************************************/
 /**
-*
 * This macro converts from a little endian formatted buffer to an unsigned
 * integer value
 *
-* @param uint  the unsigned integer to write
-* @param buf  the buffer to convert
-* @param numbits  the number of bits within the buffer to use
+* @param	uint the unsigned integer to write
+* @param	buf the buffer to convert
+* @param	numbits the number of bits within the buffer to use
 *
-* @return
-*   void
+* @return	None.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 #define XHDCP1X_PORT_BUF_TO_UINT(uint, buf, numbits)			\
 	if ((numbits) > 0) {						\
 		int byte;						\
 		uint = 0;	 					\
-		for (byte=(((numbits)-1)>>3); byte>=0; byte--) {	\
+		for (byte = (((numbits) - 1) >> 3); byte >= 0; byte--) { \
 			uint <<= 8;					\
 			uint  |= buf[byte];				\
 		}							\
@@ -147,64 +144,55 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 
 /*****************************************************************************/
 /**
-*
 * This macro sets a bit within a little endian formatted buffer
 *
-* @param buf  the buffer to write to
-* @param bitnum  the bit to set
+* @param	buf the buffer to write to
+* @param	bitnum the bit to set
 *
-* @return
-*   void
+* @return	None.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 #define XHDCP1X_PORT_BSET_IN_BUF(buf, bitnum)	\
-	buf[(bitnum)>>3] |=  (1u << ((bitnum) & 0x07u));
+	buf[(bitnum) >> 3] |=  (1u << ((bitnum) & 0x07u));
 
 /*****************************************************************************/
 /**
-*
 * This macro clears a bit within a little endian formatted buffer
 *
-* @param buf  the buffer to write to
-* @param bitnum  the bit to clear
+* @param	buf the buffer to write to
+* @param	bitnum the bit to clear
 *
-* @return
-*   void
+* @return	None.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 #define XHDCP1X_PORT_BCLR_IN_BUF(buf, bitnum)	\
-	buf[(bitnum)>>3] &= ~(1u << ((bitnum) & 0x07u));
+	buf[(bitnum) >> 3] &= ~(1u << ((bitnum) & 0x07u));
 
 /*****************************************************************************/
 /**
-*
 * This macro tests a bit within a little endian formatted buffer
 *
-* @param buf  the buffer containing the bit to test
-* @param bitnum  the bit to test
+* @param	buf the buffer containing the bit to test
+* @param	bitnum the bit to test
 *
-* @return
-*   void
+* @return	None.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 #define XHDCP1X_PORT_BTST_IN_BUF(buf, bitnum)	\
-	(buf[(bitnum)>>3] & (1u << ((bitnum) & 0x07u)))
+	(buf[(bitnum) >> 3] & (1u << ((bitnum) & 0x07u)))
 
 /************************** Function Prototypes ******************************/
 
 int XHdcp1x_PortCfgInitialize(XHdcp1x_Port *InstancePtr,
-	const XHdcp1x_Config* ConfigPtr, void *PhyIfPtr);
+	const XHdcp1x_Config *ConfigPtr, void *PhyIfPtr);
 
-int XHdcp1x_PortSetCallback(XHdcp1x_Port* InstancePtr, u32 HandlerType,
+int XHdcp1x_PortSetCallback(XHdcp1x_Port *InstancePtr, u32 HandlerType,
 	XHdcp1x_Callback Callback, void *Parameter);
 
 int XHdcp1x_PortEnable(XHdcp1x_Port *InstancePtr);

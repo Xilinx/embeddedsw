@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,13 +42,14 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xhdcp1x_cipher_hw.h"
+
+#include "xhdcp1x_hw.h"
 #include "xhdcp1x_cipher.h"
 #include "xil_types.h"
 
@@ -58,17 +59,16 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define RegRead(InstancePtr, Offset)  \
+#define RegRead(InstancePtr, Offset) \
 	XHdcp1x_CipherReadReg(InstancePtr->CfgPtr->BaseAddress, Offset)
 
-#define RegWrite(InstancePtr, Offset, Value)  \
+#define RegWrite(InstancePtr, Offset, Value) \
 	XHdcp1x_CipherWriteReg(InstancePtr->CfgPtr->BaseAddress, Offset, Value)
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
-*
 * This function installs an asynchronous callback function for the given
 * HandlerType:
 *
@@ -96,7 +96,6 @@
 int XHdcp1x_CipherSetCallback(XHdcp1x_Cipher *InstancePtr, u32 HandlerType,
                 XHdcp1x_Callback CallbackFunc, void *CallbackRef)
 {
-	/* Locals */
 	u32 Status = XST_SUCCESS;
 
 	/* Verify arguments. */
@@ -107,43 +106,40 @@ int XHdcp1x_CipherSetCallback(XHdcp1x_Cipher *InstancePtr, u32 HandlerType,
 
 	/* Check for handler type */
 	switch (HandlerType) {
-
-	/* Link Failure Callback */
-	case (XHDCP1X_CIPHER_HANDLER_LINK_FAILURE):
-		InstancePtr->LinkFailCallback = CallbackFunc;
-		InstancePtr->LinkFailRef = CallbackRef;
-		InstancePtr->IsLinkFailCallbackSet = (TRUE);
-		break;
+		/* Link Failure Callback */
+		case (XHDCP1X_CIPHER_HANDLER_LINK_FAILURE):
+			InstancePtr->LinkFailCallback = CallbackFunc;
+			InstancePtr->LinkFailRef = CallbackRef;
+			InstancePtr->IsLinkFailCallbackSet = (TRUE);
+			break;
 
 		/* Ri Update Callback */
-	case (XHDCP1X_CIPHER_HANDLER_Ri_UPDATE):
-		InstancePtr->RiUpdateCallback = CallbackFunc;
-		InstancePtr->RiUpdateRef = CallbackRef;
-		InstancePtr->IsRiUpdateCallbackSet = (TRUE);
-		break;
+		case (XHDCP1X_CIPHER_HANDLER_Ri_UPDATE):
+			InstancePtr->RiUpdateCallback = CallbackFunc;
+			InstancePtr->RiUpdateRef = CallbackRef;
+			InstancePtr->IsRiUpdateCallbackSet = (TRUE);
+			break;
 
-	default:
-		Status = (XST_INVALID_PARAM);
-		break;
+		default:
+			Status = (XST_INVALID_PARAM);
+			break;
 	}
 
-	/* Return */
 	return (Status);
 }
 
 /*****************************************************************************/
 /**
+* This function enables/disables the reporting of link check state changes.
 *
-* This function enables/disables the reporting of link check state changes
-*
-* @param InstancePtr  the cipher core instance
-* @param IsEnabled  enable/disable link state change notifications
+* @param	InstancePtr is the cipher core instance.
+* @param	IsEnabled enables/disables link state change notifications.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
@@ -156,7 +152,6 @@ int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
 	/* Check DP receive */
 	if (XHdcp1x_CipherIsDP(InstancePtr) &&
 			XHdcp1x_CipherIsRX(InstancePtr)) {
-
 		u32 Val = 0;
 
 		/* Clear any pending link state failure interrupt */
@@ -182,17 +177,16 @@ int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
 
 /*****************************************************************************/
 /**
+* This function enables/disables the reporting of Ri update notifications.
 *
-* This function enables/disables the reporting of Ri update notifications
-*
-* @param InstancePtr  the cipher core instance
-* @param IsEnabled  enable/disable Ri update notifications
+* @param	InstancePtr is the cipher core instance.
+* @param	IsEnabled enables/disables Ri update notifications.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_CipherSetRiUpdate(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
@@ -204,7 +198,6 @@ int XHdcp1x_CipherSetRiUpdate(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
 
 	/* Check HDMI receive */
 	if (XHdcp1x_CipherIsHDMI(InstancePtr)) {
-
 		u32 Val = 0;
 
 		/* Clear any pending link state failure interrupt */
@@ -230,21 +223,18 @@ int XHdcp1x_CipherSetRiUpdate(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
 
 /*****************************************************************************/
 /**
+* This function is the interrupt handler for the cipher core driver.
 *
-* This function is the interrupt handler for the cipher core driver
+* @param	InstancePtr is the cipher core instance.
 *
-* @param InstancePtr  the cipher core instance
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   none
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 {
-	XHdcp1x_Cipher *HdcpCipherPtr = (XHdcp1x_Cipher *) InstancePtr;
+	XHdcp1x_Cipher *HdcpCipherPtr = (XHdcp1x_Cipher *)InstancePtr;
 	u32 Pending = 0;
 
 	/* Verify arguments */
@@ -257,7 +247,6 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 
 	/* Check for pending */
 	if (Pending != 0) {
-
 		/* Clear Pending */
 		RegWrite(HdcpCipherPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS,
 				Pending);
@@ -267,7 +256,6 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 
 		/* Check for link integrity failure */
 		if (Pending & XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL) {
-
 			/* Invoke callback if set */
 			if (HdcpCipherPtr->IsLinkFailCallbackSet)
 				(*HdcpCipherPtr->LinkFailCallback)(
@@ -276,13 +264,10 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 
 		/* Check for change to Ri register */
 		if (Pending & XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE) {
-
 			/* Invoke callback if set */
 			if (HdcpCipherPtr->IsRiUpdateCallbackSet)
 				(*HdcpCipherPtr->RiUpdateCallback)(
 						HdcpCipherPtr->RiUpdateRef);
 		}
 	}
-
-	return;
 }

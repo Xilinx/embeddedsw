@@ -9,7 +9,7 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-INCLUDEFILES=xhdcp1x.h xhdcp1x_port.h
+INCLUDEFILES=xhdcp1x.h xhdcp1x_hw.h xhdcp1x_port.h
 
 LIBSOURCES=*.c
 OUTS = *.o

@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -41,10 +41,11 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
+
 #ifndef XHDCP1X_CIPHER_H
 /**< Prevent circular inclusions by using protection macros */
 #define XHDCP1X_CIPHER_H
@@ -54,6 +55,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+
 #include "xhdcp1x.h"
 #include "xhdcp1x_cipher_hw.h"
 #include "xstatus.h"
@@ -191,11 +193,11 @@ u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher *InstancePtr);
 u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x_Cipher *InstancePtr);
 int XHdcp1x_CipherSetRemoteKsv(XHdcp1x_Cipher *InstancePtr, u64 Ksv);
 
-int XHdcp1x_CipherGetB(const XHdcp1x_Cipher *InstancePtr, u32* X, u32* Y,
-		u32* Z);
+int XHdcp1x_CipherGetB(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
+		u32 *Z);
 int XHdcp1x_CipherSetB(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z);
-int XHdcp1x_CipherGetK(const XHdcp1x_Cipher *InstancePtr, u32* X, u32* Y,
-		u32* Z);
+int XHdcp1x_CipherGetK(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
+		u32 *Z);
 int XHdcp1x_CipherSetK(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z);
 
 u64 XHdcp1x_CipherGetMi(const XHdcp1x_Cipher *InstancePtr);
@@ -207,10 +209,8 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher *InstancePtr);
 
 void XHdcp1x_CipherHandlerInterrupt(void *InstancePtr);
 
-
 #ifdef __cplusplus
 }
 #endif
-
 
 #endif /* XHDCP1X_CIPHER_H */

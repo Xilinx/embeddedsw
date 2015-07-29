@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -29,7 +29,6 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
@@ -42,13 +41,13 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Additional documentation and formating
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x.h"
@@ -72,15 +71,15 @@
 /*****************************************************************************/
 /**
 *
-* This function self tests an hdcp interface
+* This function self tests an hdcp interface.
 *
-* @param InstancePtr  the interface to test
+* @param	InstancePtr is the interface to test.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_SelfTest(XHdcp1x *InstancePtr)

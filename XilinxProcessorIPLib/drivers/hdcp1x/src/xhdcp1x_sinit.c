@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -41,13 +41,13 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Additional documentation and formating
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xhdcp1x.h"
 #include "xhdcp1x_cipher.h"
 #include "xparameters.h"
@@ -61,29 +61,27 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+
 extern XHdcp1x_Config XHdcp1x_ConfigTable[];
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
-*
 * This function returns a reference to an XHdcp1x_Config structure based on
 * specified device ID.
 *
-* @param DeviceID  the unique core ID of the HDCP interface
+* @param	DeviceID is the unique core ID of the HDCP interface.
 *
-* @return
-*  A reference to the config record in the configuration table (in xhdcp_g.c)
-*  corresponding the specified DeviceID.  NULL if no match is found.
+* @return	A reference to the config record in the configuration table (in
+*		xhdcp_g.c) corresponding the specified DeviceID. NULL if no
+*		match is found.
 *
-* @note
-*  None.
+* @note		None.
 *
 ******************************************************************************/
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceID)
 {
-	/* Locals */
 	XHdcp1x_Config *OneToCheck = XHdcp1x_ConfigTable;
 	XHdcp1x_Config *CfgPtr = NULL;
 	u32 NumLeft = XPAR_XHDCP_NUM_INSTANCES;
@@ -91,18 +89,19 @@ XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceID)
 	/* Iterate through the configuration table */
 	do {
 		/* Is this the one? */
-		if (OneToCheck->DeviceId == DeviceID)
+		if (OneToCheck->DeviceId == DeviceID) {
 			CfgPtr = OneToCheck;
+		}
 
 		/* Update for loop */
 		OneToCheck++;
 		NumLeft--;
 
-	} while ((NumLeft > 0) && (CfgPtr == NULL));
+	}
+	while ((NumLeft > 0) && (CfgPtr == NULL));
 
 	/* Sanity Check */
 	if (CfgPtr != 0) {
-
 		u32 Value = 0;
 		u32 BaseAddress = CfgPtr->BaseAddress;
 
@@ -127,6 +126,5 @@ XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceID)
 		}
 	}
 
-	/* Return */
 	return (CfgPtr);
 }

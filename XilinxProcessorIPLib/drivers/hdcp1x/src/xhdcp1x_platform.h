@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -41,10 +41,11 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
+
 #ifndef XHDCP1X_PLATFORM_H
 /**< Prevent circular inclusions by using protection macros */
 #define XHDCP1X_PLATFORM_H
@@ -54,6 +55,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+
 #include "xhdcp1x.h"
 #include "xil_types.h"
 
@@ -64,6 +66,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
+
 int XHdcp1x_PlatformIsKsvRevoked(const XHdcp1x *InstancePtr, u64 Ksv);
 
 int XHdcp1x_PlatformTimerStart(XHdcp1x *InstancePtr, u16 TimeoutInMs);
@@ -73,6 +76,5 @@ int XHdcp1x_PlatformTimerBusy(XHdcp1x *InstancePtr, u16 DelayInMs);
 #ifdef __cplusplus
 }
 #endif
-
 
 #endif  /* XHDCP1X_PLATFORM_H */

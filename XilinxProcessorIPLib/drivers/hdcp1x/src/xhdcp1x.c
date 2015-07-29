@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -29,7 +29,6 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
@@ -42,13 +41,13 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Additional documentation and formating
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x.h"
@@ -62,15 +61,16 @@
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
+
 #if defined(XPAR_XHDMI_TX_NUM_INSTANCES) && (XPAR_XHDMI_TX_NUM_INSTANCES > 0)
-	#define INCLUDE_TX
+#define INCLUDE_TX
 #endif
 #if defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0)
-	#define INCLUDE_RX
+#define INCLUDE_RX
 #endif
 #if defined(XPAR_XDP_NUM_INSTANCES) && (XPAR_XDP_NUM_INSTANCES > 0)
-	#define INCLUDE_RX
-	#define INCLUDE_TX
+#define INCLUDE_RX
+#define INCLUDE_TX
 #endif
 
 /**
@@ -83,99 +83,88 @@
 /************************** Extern Declarations ******************************/
 
 /************************** Global Declarations ******************************/
-XHdcp1x_Printf  XHdcp1xDebugPrintf = NULL;
-XHdcp1x_LogMsg  XHdcp1xDebugLogMsg = NULL;
-XHdcp1x_KsvRevokeCheck  XHdcp1xKsvRevokeCheck = NULL;
-XHdcp1x_TimerStart  XHdcp1xTimerStart = NULL;
-XHdcp1x_TimerStop  XHdcp1xTimerStop = NULL;
-XHdcp1x_TimerDelay  XHdcp1xTimerDelay = NULL;
+
+XHdcp1x_Printf XHdcp1xDebugPrintf = NULL;
+XHdcp1x_LogMsg XHdcp1xDebugLogMsg = NULL;
+XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL;
+XHdcp1x_TimerStart XHdcp1xTimerStart = NULL;
+XHdcp1x_TimerStop XHdcp1xTimerStop = NULL;
+XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*****************************************************************************/
 /**
+* This queries an interface to determine if it is a receiver.
 *
-* This queries an interface to determine if it is a receiver
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating receiver (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating receiver (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsRX(InstancePtr)  		(InstancePtr->Common.CfgPtr->IsRx)
+#define IsRX(InstancePtr) ((InstancePtr)->Common.CfgPtr->IsRx)
 
 /*****************************************************************************/
 /**
+* This queries an interface to determine if it is a transmitter.
 *
-* This queries an interface to determine if it is a transmitter
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating transmitter (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating transmitter (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsTX(InstancePtr)  		(!InstancePtr->Common.CfgPtr->IsRx)
+#define IsTX(InstancePtr) (!(InstancePtr)->Common.CfgPtr->IsRx)
 
 /*****************************************************************************/
 /**
+* This queries an interface to determine if it is Display Port (DP).
 *
-* This queries an interface to determine if it is Display Port (DP)
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating DP (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating DP (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsDP(InstancePtr)  		(!InstancePtr->Common.CfgPtr->IsHDMI)
+#define IsDP(InstancePtr) (!(InstancePtr)->Common.CfgPtr->IsHDMI)
 
 /*****************************************************************************/
 /**
+* This queries an interface to determine if it is HDMI.
 *
-* This queries an interface to determine if it is HDMI
+* @param	InstancePtr is the instance to query.
 *
-* @param InstancePtr  the instance to query
+* @return	Truth value indicating HDMI (TRUE) or not (FALSE).
 *
-* @return
-*   Truth value indicating HDMI (TRUE) or not (FALSE)
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-#define IsHDMI(InstancePtr)  		(InstancePtr->Common.CfgPtr->IsHDMI)
+#define IsHDMI(InstancePtr) ((InstancePtr)->Common.CfgPtr->IsHDMI)
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* This function retrieves the configuration for this HDCP instance and fills
+* in the InstancePtr->Config structure.
 *
-* This function determines the adaptor for a specified port device
-*
-* @param InstancePtr  the device whose adaptor is to be determined
-* @param CfgPtr  the configuration of the instance
-* @param PhyIfPtr  pointer to the underlying physical interface
+* @param	InstancePtr is the device whose adaptor is to be determined.
+* @param	CfgPtr is the configuration of the instance.
+* @param	PhyIfPtr is pointer to the underlying physical interface.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
-		void* PhyIfPtr)
+		void *PhyIfPtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -219,16 +208,15 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 
 /*****************************************************************************/
 /**
+* This function polls an HDCP interface.
 *
-* This function polls an hdcp interface
-*
-* @param InstancePtr  the interface to poll
+* @param	InstancePtr is the interface to poll.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_Poll(XHdcp1x *InstancePtr)
@@ -261,16 +249,15 @@ int XHdcp1x_Poll(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function resets an HDCP interface.
 *
-* This function resets an hdcp interface
-*
-* @param InstancePtr  the interface to reset
+* @param InstancePtr is the interface to reset.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_Reset(XHdcp1x *InstancePtr)
@@ -303,16 +290,15 @@ int XHdcp1x_Reset(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function enables an HDCP interface.
 *
-* This function enables an hdcp interface
-*
-* @param InstancePtr  the interface to enable
+* @param	InstancePtr is the interface to enable.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_Enable(XHdcp1x *InstancePtr)
@@ -345,16 +331,15 @@ int XHdcp1x_Enable(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function disables an HDCP interface.
 *
-* This function disables an hdcp interface
-*
-* @param InstancePtr  the interface to disable
+* @param	InstancePtr is the interface to disable.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_Disable(XHdcp1x *InstancePtr)
@@ -387,17 +372,16 @@ int XHdcp1x_Disable(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function updates the state of the underlying physical interface.
 *
-* This function updates the state of the underlying physical interface
-*
-* @param InstancePtr  the interface to update
-* @param IsUp  truth value indicating the underlying physical interface state
+* @param	InstancePtr is the interface to update.
+* @param	IsUp indicates the state of the underlying physical interface.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_SetPhysicalState(XHdcp1x *InstancePtr, int IsUp)
@@ -430,17 +414,16 @@ int XHdcp1x_SetPhysicalState(XHdcp1x *InstancePtr, int IsUp)
 
 /*****************************************************************************/
 /**
-*
 * This function sets the lane count of a hdcp interface
 *
-* @param InstancePtr  the interface to update
-* @param LaneCount  the lane count
+* @param	InstancePtr is the interface to update.
+* @param	LaneCount is the lane count.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
@@ -473,16 +456,15 @@ int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 
 /*****************************************************************************/
 /**
+* This function initiates authentication of an HDCP interface.
 *
-* This function initiates authentication of an hdcp interface
-*
-* @param InstancePtr  the interface to initiate authentication on
+* @param	InstancePtr is the interface to initiate authentication on.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_Authenticate(XHdcp1x *InstancePtr)
@@ -515,17 +497,15 @@ int XHdcp1x_Authenticate(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function queries an interface to determine if authentication is in
-* progress
+* progress.
 *
-* @param InstancePtr  the interface to query
+* @param	InstancePtr is the interface to query.
 *
-* @return
-*   Truth value indicating authentication in progress (TRUE) or not (FALSE)
+* @return	Truth value indicating authentication in progress (TRUE) or not
+*		(FALSE).
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr)
@@ -547,17 +527,14 @@ int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function queries an interface to determine if it has successfully
-* completed authentication
+* completed authentication.
 *
-* @param InstancePtr  the interface to query
+* @param	InstancePtr is the interface to query.
 *
-* @return
-*   Truth value indicating authenticated (TRUE) or not (FALSE)
+* @return	Truth value indicating authenticated (TRUE) or not (FALSE).
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
@@ -590,17 +567,14 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function retrieves the current encryption map of the video streams
-* traversing an hdcp interface
+* traversing an hdcp interface.
 *
-* @param InstancePtr  the interface to query
+* @param InstancePtr is the interface to query.
 *
-* @return
-*   The current encryption map
+* @return	The current encryption map.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr)
@@ -633,18 +607,16 @@ u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function enables encryption on a series of streams within an HDCP
+* interface.
 *
-* This function enables encryption on a series of streams within an hdcp
-* interface
+* @param	InstancePtr is the interface to configure.
+* @param	Map is the stream map to enable encryption on.
 *
-* @param InstancePtr  the interface to configure
-* @param Map  the stream map to enable encryption on
+* @return	XST_SUCCESS if successful.
+*		XST_FAILURE otherwise.
 *
-* @return
-*   XST_SUCCESS if successful
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 Map)
@@ -666,18 +638,17 @@ int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 Map)
 
 /*****************************************************************************/
 /**
+* This function disables encryption on a series of streams within an HDCP
+* interface.
 *
-* This function disables encryption on a series of streams within an hdcp
-* interface
-*
-* @param InstancePtr  the interface to configure
-* @param Map  the stream map to disable encryption on
+* @param	InstancePtr is the interface to configure.
+* @param	Map is the stream map to disable encryption on.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 Map)
@@ -699,18 +670,17 @@ int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 Map)
 
 /*****************************************************************************/
 /**
+* This function sets the key selection vector that is to be used by the HDCP
+* cipher.
 *
-* This function sets the key selection vector that is to be used by the hdcp
-* cipher
-*
-* @param InstancePtr  the interface to configure
-* @param KeySelect  the key selection vector
+* @param	InstancePtr is the interface to configure.
+* @param	KeySelect is the key selection vector.
 *
 * @return
-*   XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect)
@@ -749,16 +719,13 @@ int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect)
 
 /*****************************************************************************/
 /**
+* This function handles a timeout on an HDCP interface.
 *
-* This function handles a timeout on an hdcp interface
+* @param	InstancePtr is the interface.
 *
-* @param InstancePtr  the interface
+* @return	None.
 *
-* @return
-*  void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_HandleTimeout(void *InstancePtr)
@@ -774,141 +741,112 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 		XHdcp1x_TxHandleTimeout(&(HdcpPtr->Tx));
 	}
 #endif
-
-	return;
 }
 
 
 /*****************************************************************************/
 /**
+* This function sets the debug printf function for the module.
 *
-* This function sets the debug printf function for the module
+* @param	PrintfFunc is the printf function.
 *
-* @param PrintfFunc  the printf function
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_SetDebugPrintf(XHdcp1x_Printf PrintfFunc)
 {
 	XHdcp1xDebugPrintf = PrintfFunc;
-	return;
 }
 
 /*****************************************************************************/
 /**
+* This function sets the debug log message function for the module.
 *
-* This function sets the debug log message function for the module
+* @param	LogFunc is the debug logging function.
 *
-* @param LogFunc  the debug logging function
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_SetDebugLogMsg(XHdcp1x_LogMsg LogFunc)
 {
 	XHdcp1xDebugLogMsg = LogFunc;
-	return;
 }
 
 /*****************************************************************************/
 /**
+* This function sets the KSV revocation list check function for the module.
 *
-* This function sets the KSV revocation list check function for the module
+* @param	RevokeCheckFunc is the KSV revocation list check function.
 *
-* @param RevokeCheckFunc  the KSV revocation list check function
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_SetKsvRevokeCheck(XHdcp1x_KsvRevokeCheck RevokeCheckFunc)
 {
 	XHdcp1xKsvRevokeCheck = RevokeCheckFunc;
-	return;
 }
 
 /*****************************************************************************/
 /**
+* This function sets timer start function for the module.
 *
-* This function sets timer start function for the module
+* @param	TimerStartFunc is the timer start function.
 *
-* @param TimerStartFunc  the timer start function
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_SetTimerStart(XHdcp1x_TimerStart TimerStartFunc)
 {
 	XHdcp1xTimerStart = TimerStartFunc;
-	return;
 }
 
 /*****************************************************************************/
 /**
+* This function sets timer stop function for the module.
 *
-* This function sets timer stop function for the module
+* @param	TimerStopFunc is the timer stop function.
 *
-* @param TimerStopFunc  the timer stop function
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_SetTimerStop(XHdcp1x_TimerStop TimerStopFunc)
 {
 	XHdcp1xTimerStop = TimerStopFunc;
-	return;
 }
 
 /*****************************************************************************/
 /**
+* This function sets timer busy delay function for the module.
 *
-* This function sets timer busy delay function for the module
+* @param	TimerDelayFunc is the timer busy delay function.
 *
-* @param TimerDelayFunc  the timer busy delay function
+* @return	None.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_SetTimerDelay(XHdcp1x_TimerDelay TimerDelayFunc)
 {
 	XHdcp1xTimerDelay = TimerDelayFunc;
-	return;
 }
 
 /*****************************************************************************/
 /**
+* This function retrieves the version of the HDCP driver software.
 *
-* This function retrieves the version of the hdcp driver software
+* @return	The software driver version.
 *
-* @return
-*   The software driver version
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 u32 XHdcp1x_GetDriverVersion(void)
@@ -918,16 +856,13 @@ u32 XHdcp1x_GetDriverVersion(void)
 
 /*****************************************************************************/
 /**
+* This function retrieves the cipher version of an HDCP interface.
 *
-* This function retrieves the cipher version of an hdcp interface
+* @param	InstancePtr is the interface to query.
 *
-* @param InstancePtr  the interface to query
+* @return	The cipher version used by the interface
 *
-* @return
-*   The cipher version used by the interface
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
@@ -967,15 +902,13 @@ u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function performs a debug display of an hdcp instance
+* This function performs a debug display of an HDCP instance.
 *
-* @param InstancePtr  the interface to display
+* @param	InstancePtr is the interface to display.
 *
-* @return
-*   void
+* @return	None.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 void XHdcp1x_Info(const XHdcp1x *InstancePtr)
@@ -1000,6 +933,4 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 	{
 		XHDCP_DEBUG_PRINTF("unknown interface type\r\n");
 	}
-
-	return;
 }

@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,14 +42,14 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xparameters.h"
 
+#include "xparameters.h"
 #if defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0)
 #include <stdlib.h>
 #include <string.h>
@@ -65,128 +65,26 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/*************************** Function Prototypes *****************************/
+
+static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
+                u32 BufSize);
+static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
+		u32 BufSize);
+static void ProcessAKsvWrite(void *CallbackRef);
+
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* This function enables a HDCP port device.
 *
-* This reads a register from the hdcp port device
-*
-* @param InstancePtr  the device to read from
-* @param Offset  the offset to start reading from
-* @param Buf  the Bufer to copy the data read
-* @param BufSize  the size of the Bufer
+* @param	InstancePtr is the id of the device to enable.
 *
 * @return
-*   The number of bytes read
+*		- XST_SUCCESS if successful.
 *
-* @note
-*   None.
-*
-******************************************************************************/
-static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
-                u32 BufSize)
-{
-	/* Locals */
-	XHdmi_Rx *HdmiRx = InstancePtr->PhyIfPtr;
-	u32 NumLeft = BufSize;
-
-	/* Write the offset */
-	XHdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
-
-	/* Read the buffer */
-	while (NumLeft-- > 0) {
-		*Buf++ = XHdmiRx_DdcHdcpReadData(HdmiRx);
-	}
-
-	/* Return */
-	return ((int) BufSize);
-}
-
-/*****************************************************************************/
-/**
-*
-* This writes a register from the hdcp port device
-*
-* @param InstancePtr  the device to write to
-* @param Offset  the offset to start writing at
-* @param Buf  the Bufer containing the data to write
-* @param BufSize  the size of the Bufer
-*
-* @return
-*   The number of bytes written
-*
-* @note
-*   None.
-*
-******************************************************************************/
-static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
-		u32 BufSize)
-{
-	XHdmi_Rx *HdmiRx = InstancePtr->PhyIfPtr;
-	u32 NumLeft = BufSize;
-
-	/* Write the offset */
-	XHdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
-
-	/* Write the buffer */
-	while (NumLeft-- > 0) {
-		XHdmiRx_DdcHdcpWriteData(HdmiRx, *Buf++);
-	}
-
-	/* Return */
-	return ((int) BufSize);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function process a write to the AKsv register from the tx device
-*
-* @param CallbackRef  the device to whose register was written
-*
-* @return
-*   void
-*
-* @note
-*   This function initiates the side effects of the tx device writing the Aksv
-*   register.  This is currently updates some status bits as well as kick
-*   starts a re-authentication process.
-*
-******************************************************************************/
-static void ProcessAKsvWrite(void *CallbackRef)
-{
-	XHdcp1x_Port *InstancePtr = (XHdcp1x_Port *) CallbackRef;
-	u8 Value = 0;
-
-	/* Update statistics */
-	InstancePtr->Stats.IntCount++;
-
-	/* Clear bit 1 of the Ainfo register */
-	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Value, 1);
-	Value &= 0xFDu;
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Value, 1);
-
-	/* Invoke authentication callback if set */
-	if (InstancePtr->IsAuthCallbackSet) {
-		(*(InstancePtr->AuthCallback))(InstancePtr->AuthRef);
-	}
-
-	return;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function enables a hdcp port device
-*
-* @param InstancePtr  the id of the device to enable
-*
-* @return
-*   XST_SUCCESS if successful.
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PortHdmiRxEnable(XHdcp1x_Port *InstancePtr)
@@ -233,16 +131,14 @@ int XHdcp1x_PortHdmiRxEnable(XHdcp1x_Port *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function disables a HDCP port device.
 *
-* This function disables a hdcp port device
-*
-* @param InstancePtr  the id of the device to disable
+* @param	InstancePtr is the id of the device to disable.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PortHdmiRxDisable(XHdcp1x_Port *InstancePtr)
@@ -259,7 +155,7 @@ int XHdcp1x_PortHdmiRxDisable(XHdcp1x_Port *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
 
 	/* Determine HdmiRxBase */
-	HdmiRxBase = ((XHdmi_Rx*) InstancePtr->PhyIfPtr)->Config.BaseAddress;
+	HdmiRxBase = ((XHdmi_Rx *)InstancePtr->PhyIfPtr)->Config.BaseAddress;
 
 	/* Disable the hdcp ddc slave */
 	Value = XHdmiRx_ReadReg(HdmiRxBase, XHDMI_RX_DDC_CTRL_SET_OFFSET);
@@ -279,16 +175,15 @@ int XHdcp1x_PortHdmiRxDisable(XHdcp1x_Port *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function initializes a HDCP port device.
 *
-* This function initializes a hdcp port device
-*
-* @param InstancePtr  the device to initialize
+* @param	InstancePtr is the device to initialize.
 *
 * @return
-*   XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PortHdmiRxInit(XHdcp1x_Port *InstancePtr)
@@ -310,18 +205,16 @@ int XHdcp1x_PortHdmiRxInit(XHdcp1x_Port *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function reads a register from a hdcp port device
+* This function reads a register from a HDCP port device.
 *
-* @param InstancePtr  the device to read from
-* @param Offset  the offset to start reading from
-* @param Buf  the Bufer to copy the data read
-* @param BufSize  the size of the Bufer
+* @param	InstancePtr is the device to read from.
+* @param	Offset is the offset to start reading from.
+* @param	Buf is the buffer to copy the data read.
+* @param	BufSize is the size of the buffer.
 *
-* @return
-*   The number of bytes read
+* @return	The number of bytes read.
 *
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PortHdmiRxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
@@ -342,19 +235,16 @@ int XHdcp1x_PortHdmiRxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
 
 /*****************************************************************************/
 /**
+* This function writes a register from a HDCP port device.
 *
-* This function writes a register from a hdcp port device
+* @param	InstancePtr is the device to write to.
+* @param	Offset is the offset to start writing to.
+* @param	Buf is the buffer containing the data to write.
+* @param	BufSize is the size of the buffer.
 *
-* @param InstancePtr  the device to write to
-* @param Offset  the offset to start writing to
-* @param Buf  the Bufer containing the data to write
-* @param BufSize  the size of the Bufer
+* @return	The number of bytes written.
 *
-* @return
-*   The number of bytes written
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
 int XHdcp1x_PortHdmiRxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
@@ -373,37 +263,102 @@ int XHdcp1x_PortHdmiRxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
 	return (RegWrite(InstancePtr, Offset, Buf, BufSize));
 }
 
-#if 0
 /*****************************************************************************/
 /**
+* This reads a register from the HDCP port device.
 *
-* This function serves as the interrupt handler for the hdcp port device
+* @param	InstancePtr is the device to read from.
+* @param	Offset is the offset to start reading from.
+* @param	Buf is the buffer to copy the data read.
+* @param	BufSize is the size of the buffer.
 *
-* @param CallbackRef  the device that generated the interrupt
+* @return	The number of bytes read.
 *
-* @return
-*   void
-*
-* @note
-*   None.
+* @note		None.
 *
 ******************************************************************************/
-void XHdcp1x_PortHdmiRxIntrHandler(XHdcp1x_Port *InstancePtr, u32 IntCause)
+static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
+                u32 BufSize)
 {
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
+	XHdmi_Rx *HdmiRx = InstancePtr->PhyIfPtr;
+	u32 NumLeft = BufSize;
 
-	/* Process the Aksv write as it is the only hdcp interrupt */
-	ProcessAKsvWrite(InstancePtr);
+	/* Write the offset */
+	XHdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
 
-	/* Return */
-	return;
+	/* Read the buffer */
+	while (NumLeft-- > 0) {
+		*Buf++ = XHdmiRx_DdcHdcpReadData(HdmiRx);
+	}
+
+	return ((int) BufSize);
 }
-#endif
 
 /*****************************************************************************/
 /**
+* This writes a register from the HDCP port device.
 *
+* @param	InstancePtr is the device to write to.
+* @param	Offset is the offset to start writing at.
+* @param	Buf is the buffer containing the data to write.
+* @param	BufSize is the size of the buffer.
+*
+* @return	The number of bytes written.
+*
+* @note		None.
+*
+******************************************************************************/
+static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
+		u32 BufSize)
+{
+	XHdmi_Rx *HdmiRx = InstancePtr->PhyIfPtr;
+	u32 NumLeft = BufSize;
+
+	/* Write the offset */
+	XHdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
+
+	/* Write the buffer */
+	while (NumLeft-- > 0) {
+		XHdmiRx_DdcHdcpWriteData(HdmiRx, *Buf++);
+	}
+
+	return ((int) BufSize);
+}
+
+/*****************************************************************************/
+/**
+* This function process a write to the AKsv register from the tx device.
+*
+* @param	CallbackRef is the device to whose register was written.
+*
+* @return	None.
+*
+* @note		This function initiates the side effects of the tx device
+*		writing the Aksv register. This is currently updates some status
+*		bits as well as kick starts a re-authentication process.
+*
+******************************************************************************/
+static void ProcessAKsvWrite(void *CallbackRef)
+{
+	XHdcp1x_Port *InstancePtr = (XHdcp1x_Port *) CallbackRef;
+	u8 Value = 0;
+
+	/* Update statistics */
+	InstancePtr->Stats.IntCount++;
+
+	/* Clear bit 1 of the Ainfo register */
+	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Value, 1);
+	Value &= 0xFDu;
+	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Value, 1);
+
+	/* Invoke authentication callback if set */
+	if (InstancePtr->IsAuthCallbackSet) {
+		(*(InstancePtr->AuthCallback))(InstancePtr->AuthRef);
+	}
+}
+
+/*****************************************************************************/
+/**
 * This tables defines the adaptor for the HDMI RX HDCP port driver
 *
 ******************************************************************************/
@@ -418,7 +373,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiRxAdaptor =
 	NULL,
 	NULL,
 	NULL,
-//	&XHdcp1x_PortHdmiRxIntrHandler,
 };
 
-#endif  /* defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0) */
+#endif
+/* defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0) */

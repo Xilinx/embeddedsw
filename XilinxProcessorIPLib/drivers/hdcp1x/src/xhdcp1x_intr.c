@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -42,12 +42,13 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xhdcp1x.h"
 #include "xhdcp1x_cipher.h"
 #include "xil_types.h"
@@ -62,22 +63,19 @@
 
 /*****************************************************************************/
 /**
+* This function is the cipher interrupt handler for the HDCP module.
 *
-* This function is the cipher interrupt handler for the HDCP module
+* @param	InstancePtr is the device instance that just interrupted.
 *
-* @param InstancePtr  the device instance that just interrupted
+* @return	None.
 *
-* @return
-* 	void
-*
-* @note
-*  This function just forwards the interrupt along to the corresponding
-*  cipher core.
+* @note		This function just forwards the interrupt along to the
+*		corresponding cipher core.
 *
 ******************************************************************************/
 void XHdcp1x_CipherIntrHandler(void *InstancePtr)
 {
-	XHdcp1x* HdcpPtr = InstancePtr;
+	XHdcp1x *HdcpPtr = InstancePtr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(HdcpPtr != NULL);
@@ -89,23 +87,20 @@ void XHdcp1x_CipherIntrHandler(void *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function is the port interrupt handler for the HDCP module.
 *
-* This function is the port interrupt handler for the HDCP module
+* @param	InstancePtr is the device instance that just interrupted.
+* @param	IntCause is the interrupt cause bit map.
 *
-* @param InstancePtr  the device instance that just interrupted
-* @param IntCause  the interrupt cause bit map
+* @return	None.
 *
-* @return
-* 	void
-*
-* @note
-*  This function just forwards the interrupt along to the corresponding
-*  cipher core.
+* @note		This function just forwards the interrupt along to the
+*		corresponding cipher core.
 *
 ******************************************************************************/
 void XHdcp1x_PortIntrHandler(void *InstancePtr, u32 IntCause)
 {
-	XHdcp1x* HdcpPtr = InstancePtr;
+	XHdcp1x *HdcpPtr = InstancePtr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(HdcpPtr != NULL);

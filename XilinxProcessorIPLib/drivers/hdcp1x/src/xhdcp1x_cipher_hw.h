@@ -18,8 +18,8 @@
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -46,11 +46,11 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         07/16/15 Initial release.
-* 1.01         07/23/15 Fixed RNG cipher request value
+* 1.00  fidus  07/16/15 Initial release.
 * </pre>
 *
- ******************************************************************************/
+******************************************************************************/
+
 #ifndef XHDCP1X_CIPHER_HW_H
 /**< Prevent circular inclusions by using protection macros */
 #define XHDCP1X_CIPHER_HW_H
@@ -65,76 +65,169 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 // HDCP Cipher register offsets
-#define XHDCP1X_CIPHER_REG_VERSION				(0x0000u)  /**< Version register offset */
-#define XHDCP1X_CIPHER_REG_TYPE					(0x0004u)  /**< Type register offset */
-#define XHDCP1X_CIPHER_REG_SCRATCH				(0x0008u)  /**< Scratch pad register offset */
-#define XHDCP1X_CIPHER_REG_CONTROL				(0x000Cu)  /**< Control register offset */
-#define XHDCP1X_CIPHER_REG_STATUS				(0x0010u)  /**< Status register offset */
-#define XHDCP1X_CIPHER_REG_INTERRUPT_MASK			(0x0014u)  /**< Interrupt Mask register offset */
-#define XHDCP1X_CIPHER_REG_INTERRUPT_STATUS			(0x0018u)  /**< Interrupt Status register offset */
-#define XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H			(0x0020u)  /**< Encryption Enable (High) register offset */
-#define XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L			(0x0024u)  /**< Encryption Enable (Low) register offset */
+#define XHDCP1X_CIPHER_REG_VERSION	(0x0000u)  /**< Version register
+						offset */
+#define XHDCP1X_CIPHER_REG_TYPE		(0x0004u)  /**< Type register offset */
+#define XHDCP1X_CIPHER_REG_SCRATCH	(0x0008u)  /**< Scratch pad register
+						offset */
+#define XHDCP1X_CIPHER_REG_CONTROL	(0x000Cu)  /**< Control register
+						offset */
+#define XHDCP1X_CIPHER_REG_STATUS	(0x0010u)  /**< Status register
+						offset */
+#define XHDCP1X_CIPHER_REG_INTERRUPT_MASK (0x0014u)  /**< Interrupt Mask
+						register offset */
+#define XHDCP1X_CIPHER_REG_INTERRUPT_STATUS \
+					(0x0018u)  /**< Interrupt Status
+						register offset */
+#define XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H \
+					(0x0020u)  /**< Encryption Enable (High)
+						register offset */
+#define XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L \
+					(0x0024u)  /**< Encryption Enable (Low)
+						register offset */
 
-#define XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL			(0x002Cu)  /**< Key Management Control register offset */
-#define XHDCP1X_CIPHER_REG_KEYMGMT_STATUS			(0x0030u)  /**< Key Management Status register offset */
-#define XHDCP1X_CIPHER_REG_KSV_LOCAL_H				(0x0038u)  /**< Local KSV (High) register offset */
-#define XHDCP1X_CIPHER_REG_KSV_LOCAL_L				(0x003Cu)  /**< Local KSV (Low) register offset */
-#define XHDCP1X_CIPHER_REG_KSV_REMOTE_H				(0x0040u)  /**< Remote KSV (High) offset */
-#define XHDCP1X_CIPHER_REG_KSV_REMOTE_L				(0x0044u)  /**< Remote KSV (Low) register offset */
-#define XHDCP1X_CIPHER_REG_Km_H					(0x0048u)  /**< Km (High) register offset */
-#define XHDCP1X_CIPHER_REG_Km_L					(0x004Cu)  /**< Km (Low) register offset */
+#define XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL \
+					(0x002Cu)  /**< Key Management Control
+						register offset */
+#define XHDCP1X_CIPHER_REG_KEYMGMT_STATUS (0x0030u)  /**< Key Management Status
+						register offset */
+#define XHDCP1X_CIPHER_REG_KSV_LOCAL_H	(0x0038u)  /**< Local KSV (High)
+						register offset */
+#define XHDCP1X_CIPHER_REG_KSV_LOCAL_L	(0x003Cu)  /**< Local KSV (Low) register
+						offset */
+#define XHDCP1X_CIPHER_REG_KSV_REMOTE_H	(0x0040u)  /**< Remote KSV (High)
+						offset */
+#define XHDCP1X_CIPHER_REG_KSV_REMOTE_L	(0x0044u)  /**< Remote KSV (Low)
+						register offset */
+#define XHDCP1X_CIPHER_REG_Km_H		(0x0048u)  /**< Km (High) register
+						offset */
+#define XHDCP1X_CIPHER_REG_Km_L		(0x004Cu)  /**< Km (Low) register
+						offset */
 
-#define XHDCP1X_CIPHER_REG_CIPHER_CONTROL			(0x0050u)  /**< Cipher Control register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_STATUS			(0x0054u)  /**< Cipher Status register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Bx				(0x0058u)  /**< Cipher Bx register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_By				(0x005Cu)  /**< Cipher By register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Bz				(0x0060u)  /**< Cipher Bz register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Kx				(0x0064u)  /**< Cipher Kx register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Ky				(0x0068u)  /**< Cipher Ky register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Kz				(0x006Cu)  /**< Cipher Kz register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Mi_H				(0x0070u)  /**< Cipher Mi (High) register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Mi_L				(0x0074u)  /**< Cipher Mi (Low) register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Ri				(0x0078u)  /**< Cipher Ri register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Ro				(0x007Cu)  /**< Cipher Ro register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Mo_H				(0x0080u)  /**< Cipher Mo (High) register offset */
-#define XHDCP1X_CIPHER_REG_CIPHER_Mo_L				(0x0084u)  /**< Cipher Mo (Low) register offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_CONTROL \
+					(0x0050u)  /**< Cipher Control register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_STATUS (0x0054u)  /**< Cipher Status register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Bx	(0x0058u)  /**< Cipher Bx register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_By	(0x005Cu)  /**< Cipher By register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Bz	(0x0060u)  /**< Cipher Bz register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Kx	(0x0064u)  /**< Cipher Kx register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Ky	(0x0068u)  /**< Cipher Ky register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Kz	(0x006Cu)  /**< Cipher Kz register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Mi_H	(0x0070u)  /**< Cipher Mi (High)
+						register offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Mi_L	(0x0074u)  /**< Cipher Mi (Low) register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Ri	(0x0078u)  /**< Cipher Ri register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Ro	(0x007Cu)  /**< Cipher Ro register
+						offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Mo_H	(0x0080u)  /**< Cipher Mo (High)
+						register offset */
+#define XHDCP1X_CIPHER_REG_CIPHER_Mo_L	(0x0084u)  /**< Cipher Mo (Low) register
+						offset */
 
 // HDCP Cipher register bit mask definitions
-#define XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL			(0x03u <<  0)  /**< Protocol bitmask in Type register */
-#define XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION			(0x01u <<  2)  /**< Direction bitmask in Type register */
+#define XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL \
+					(0x03u <<  0)	/**< Protocol bitmask in
+						Type register */
+#define XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION \
+					(0x01u <<  2)  /**< Direction bitmask in
+						Type register */
 
-#define XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE			(0x01u <<  0)  /**< Enable bitmask in Control register */
-#define XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE			(0x01u <<  1)  /**< Update bitmask in Control register */
-#define XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES		(0x07u <<  4)  /**< Num Lanes bitmask in Control register */
-#define XHDCP1X_CIPHER_BITMASK_CONTROL_RESET			(0x01u << 31)  /**< Reset bitmask in Control register */
+#define XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE \
+					(0x01u <<  0)  /**< Enable bitmask in
+						Control register */
+#define XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE \
+					(0x01u <<  1)  /**< Update bitmask in
+						Control register */
+#define XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES \
+					(0x07u <<  4)  /**< Num Lanes bitmask in
+						Control register */
+#define XHDCP1X_CIPHER_BITMASK_CONTROL_RESET \
+					(0x01u << 31)  /**< Reset bitmask in
+						Control register */
 
-#define XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL		(0x01u <<  0)  /**< Link Failure bitmask in Interrupt register(s) */
-#define XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE		(0x01u <<  1)  /**< Ri bitmask in Interrupt register(s) */
+#define XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL \
+					(0x01u <<  0)  /**< Link Failure bitmask
+						in Interrupt register(s) */
+#define XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE \
+					(0x01u <<  1)  /**< Ri bitmask in
+						Interrupt register(s) */
 
-#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_LOCAL_KSV	(0x01u <<  0)  /**< Read Local KSV bitmask in Key Management Control register */
-#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_BEGIN_Km		(0x01u <<  1)  /**< Being Km bitmask in Key Management Control register */
-#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_ABORT_Km		(0x01u <<  2)  /**< Abort Km bitmask in Key Management Control register */
-#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_SET_SELECT	(0x07u << 16)  /**< Key Set Select bitmask in Key Management Control register */
+#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_LOCAL_KSV \
+					(0x01u <<  0)  /**< Read Local KSV
+						bitmask in Key Management
+						Control register */
+#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_BEGIN_Km \
+					(0x01u <<  1)  /**< Being Km bitmask in
+						Key Management Control
+						register */
+#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_ABORT_Km \
+					(0x01u <<  2)  /**< Abort Km bitmask in
+						Key Management Control
+						register */
+#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_SET_SELECT \
+					(0x07u << 16)  /**< Key Set Select
+						bitmask in Key Management
+						Control register */
 
-#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY		(0x01u <<  0)  /**< Local KSV ready bitmask in Key Management Status register */
-#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY		(0x01u <<  1)  /**< Km Value ready bitmask in Key Management Status register */
+#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY \
+					(0x01u <<  0)  /**< Local KSV ready
+						bitmask in Key Management Status
+						register */
+#define XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY \
+					(0x01u <<  1)  /**< Km Value ready
+						bitmask in Key Management Status
+						register */
 
-#define XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE	(0x01u <<  0)  /**< XOR Enable bitmask in Cipher Control register */
-#define XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST		(0x07u <<  8)  /**< Request bitmask in Cipher Control register */
+#define XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE \
+					(0x01u <<  0)  /**< XOR Enable bitmask
+						in Cipher Control register */
+#define XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST \
+					(0x07u <<  8)  /**< Request bitmask in
+						Cipher Control register */
 
-#define XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG	(0x01u <<  0)  /**< XOR In Progress bitmask in Cipher Status register */
-#define XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_REQUEST_IN_PROG	(0x07u <<  8)  /**< Request In Progress bitmask in Cipher Status register */
+#define XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG \
+					(0x01u <<  0)  /**< XOR In Progress
+						bitmask in Cipher Status
+						register */
+#define XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_REQUEST_IN_PROG \
+					(0x07u <<  8)  /**< Request In Progress
+						bitmask in Cipher Status
+						register */
 
 // HDCP Cipher register bit value definitions
-#define XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP			(0x00u <<  0)  /**< DP Protocol value in Type register */
-#define XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI			(0x01u <<  0)  /**< HDMI Protocol value in Type register */
+#define XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP \
+					(0x00u <<  0)  /**< DP Protocol value in
+						Type register */
+#define XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI \
+					(0x01u <<  0)  /**< HDMI Protocol value
+						in Type register */
 
-#define XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX			(0x00u <<  2)  /**< RX Direction value in Type register */
-#define XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX			(0x01u <<  2)  /**< TX Direction value in Type register */
+#define XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX \
+					(0x00u <<  2)  /**< RX Direction value
+						in Type register */
+#define XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX \
+					(0x01u <<  2)  /**< TX Direction value
+						in Type register */
 
-#define XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK	(0x01u <<  8)  /**< Block Request value in Cipher Control register */
-#define XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_REKEY	(0x01u <<  9)  /**< ReKey Request value in Cipher Control register */
-#define XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_RNG		(0x01u << 10)  /**< RNG Request value in Cipher Control register */
+#define XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK \
+					(0x01u <<  8)  /**< Block Request value
+						in Cipher Control register */
+#define XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_REKEY \
+					(0x01u <<  9)  /**< ReKey Request value
+						in Cipher Control register */
+#define XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_RNG \
+					(0x01u << 10)  /**< RNG Request value in
+						Cipher Control register */
 
 /**************************** Type Definitions *******************************/
 
