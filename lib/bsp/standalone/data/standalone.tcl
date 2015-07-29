@@ -704,7 +704,7 @@ proc handle_profile_opbtimer { config_file timer_inst } {
     set intr_port_list [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $timer_intr] INTERRUPT]]
     set timer_connection 0
     foreach intr_port $intr_port_list {
-	set intc_handle [hsi::get_cells -hier -of_object $intr_port]
+	set intc_handle [hsi::get_cells -of_object $intr_port]
 	# Check if the Sink is a Global Port. If so, Skip the Port Connection
 
 	if {  [::hsi::utils::is_external_pin $intr_port] } {
