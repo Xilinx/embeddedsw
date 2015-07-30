@@ -123,6 +123,7 @@ extern "C" {
  *     - FSBL_BS_EXCLUDE PL bitstream code will be excluded
  *     - FSBL_SHA2_EXCLUDE SHA2 code will be excluded
  *     - FSBL_EARLY_HANDOFF_EXCLUDE Early handoff related code will be excluded
+ *     - FSBL_WDT_EXCLUDE WDT code will be excluded
  */
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
 #define FSBL_QSPI_EXCLUDE_VAL			(0U)
@@ -132,6 +133,7 @@ extern "C" {
 #define FSBL_BS_EXCLUDE_VAL				(0U)
 #define FSBL_SHA2_EXCLUDE_VAL			(1U)
 #define FSBL_EARLY_HANDOFF_EXCLUDE_VAL	(0U)
+#define FSBL_WDT_EXCLUDE_VAL			(0U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -165,6 +167,9 @@ extern "C" {
 #define FSBL_EARLY_HANDOFF_EXCLUDE
 #endif
 
+#if FSBL_WDT_EXCLUDE_VAL
+#define FSBL_WDT_EXCLUDE
+#endif
 
 
 /************************** Function Prototypes ******************************/

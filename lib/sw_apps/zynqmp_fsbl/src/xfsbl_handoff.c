@@ -538,6 +538,11 @@ END:
 void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 {
 
+#ifdef XFSBL_WDT_PRESENT
+	/* Stop WDT as we are exiting FSBL */
+	XFsbl_StopWdt();
+#endif
+
 	/**
 	 * Flush the L1 data cache and L2 cache, Disable Data Cache
 	 */

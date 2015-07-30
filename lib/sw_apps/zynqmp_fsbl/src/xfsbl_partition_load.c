@@ -113,6 +113,11 @@ u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 {
 	u32 Status=XFSBL_SUCCESS;
 
+#ifdef XFSBL_WDT_PRESENT
+	/* Restart WDT as partition copy can take more time */
+	XFsbl_RestartWdt();
+#endif
+
 	/**
 	 * Load and validate the partition
 	 */

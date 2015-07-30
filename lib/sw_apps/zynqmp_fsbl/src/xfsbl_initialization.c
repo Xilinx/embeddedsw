@@ -308,9 +308,9 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 {
 	u32 Status =  XFSBL_SUCCESS;
-#if 0
 	u32 FsblErrorStatus=0U;
 	u32 ResetReasonValue=0U;
+	u32 ErrStatusRegValue;
 
 	/**
 	 *  Read the Error Status register
@@ -319,15 +319,16 @@ static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 	FsblErrorStatus = XFsbl_In32(XFSBL_ERROR_STATUS_REGISTER_OFFSET);
 
 	ResetReasonValue = XFsbl_In32(CRL_APB_RESET_REASON);
+	ErrStatusRegValue = XFsbl_In32(PMU_GLOBAL_ERROR_STATUS_1);
 
 	/**
-	 * Add LPD_SWDT for r5
-	 * check if the reset is due to system WDT during
+	 * Check if the reset is due to system WDT during
 	 * previous FSBL execution
 	 */
-	/* WDT reset is missing in reset reason */
-	if (((ResetReasonValue & CRL_APB_RESET_REASON_FPD_SWDT_MASK)
-			== CRL_APB_RESET_REASON_FPD_SWDT_MASK) &&
+	if (((ResetReasonValue & CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK)
+			== CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK) &&
+			((ErrStatusRegValue & PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
+			== PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK) &&
 			(FsblErrorStatus == XFSBL_RUNNING)) {
 		/**
 		 * reset is due to System WDT.
@@ -353,7 +354,6 @@ static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 	 */
 
 END:
-#endif
 	return Status;
 }
 
@@ -457,6 +457,11 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		{
 			XFsbl_Printf(DEBUG_GENERAL,"In JTAG Boot Mode \n\r");
 			Status = XFSBL_STATUS_JTAG;
+
+#ifdef XFSBL_WDT_PRESENT
+			/* Stop WDT as we are in JTAG boot mode */
+			XFsbl_StopWdt();
+#endif
 		}
 		break;
 

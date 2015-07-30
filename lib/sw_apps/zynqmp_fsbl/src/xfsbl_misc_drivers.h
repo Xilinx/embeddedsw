@@ -77,6 +77,8 @@ extern "C" {
 #ifdef XFSBL_WDT_PRESENT
 u32 XFsbl_InitWdt();
 u32 XFsbl_ConvertTime_WdtCounter(u32 seconds);
+void XFsbl_StopWdt();
+void XFsbl_RestartWdt();
 #endif
 
 /************************** Variable Definitions *****************************/

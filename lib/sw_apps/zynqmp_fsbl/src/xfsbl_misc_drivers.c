@@ -99,6 +99,8 @@ u32 XFsbl_InitWdt()
 	u32 Status = XFSBL_SUCCESS;
 	XWdtPs_Config *ConfigPtr; 	/* Config structure of the WatchDog Timer */
 	u32 CounterValue = 1;
+	u32 RegValue;
+
 
 	/**
 	 * Initialize the WDT timer
@@ -134,6 +136,16 @@ u32 XFsbl_InitWdt()
 	 * enable reset output, as we are only using this as a basic counter
 	 */
 	XWdtPs_EnableOutput(&Watchdog, XWDTPS_RESET_SIGNAL);
+
+	/* Enable generation of system reset by PMU due to LPD SWDT */
+	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_EN_1);
+	RegValue |= PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK;
+	XFsbl_Out32(PMU_GLOBAL_ERROR_SRST_EN_1, RegValue);
+
+	/* Enable LPD System Watchdog Timer Error */
+	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
+	RegValue |= PMU_GLOBAL_ERROR_EN_1_LPD_SWDT_MASK;
+	XFsbl_Out32(PMU_GLOBAL_ERROR_EN_1, RegValue);
 
 	/**
 	 * Start the Watchdog timer
@@ -216,7 +228,19 @@ void XFsbl_RestartWdt()
 *******************************************************************************/
 void XFsbl_StopWdt()
 {
+	u32 RegValue;
+
 	XWdtPs_Stop(&Watchdog);
+
+	/* Disable LPD System Watchdog Timer Error */
+	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
+	RegValue &= ~(PMU_GLOBAL_ERROR_EN_1_LPD_SWDT_MASK);
+	XFsbl_Out32(PMU_GLOBAL_ERROR_EN_1, RegValue);
+
+	/* Disable generation of system reset by PMU due to LPD SWDT */
+	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_DIS_1);
+	RegValue |= PMU_GLOBAL_ERROR_SRST_DIS_1_LPD_SWDT_MASK;
+	XFsbl_Out32(PMU_GLOBAL_ERROR_SRST_DIS_1, RegValue);
 }
 
 #endif /** end of WDT wrapper code */

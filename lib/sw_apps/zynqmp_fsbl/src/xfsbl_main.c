@@ -408,6 +408,11 @@ void XFsbl_FallBack(void)
 {
 	u32 RegValue;
 
+#ifdef XFSBL_WDT_PRESENT
+	/* Stop WDT as we are restarting */
+	XFsbl_StopWdt();
+#endif
+
 	/* Hook before FSBL Fallback */
 	XFsbl_HookBeforeFallback();
 
