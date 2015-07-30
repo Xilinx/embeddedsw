@@ -410,7 +410,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	u32 Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
 	u8 * PadPtr = Signature;
 	u32 ii;
-	u32 ErrorCode = 0U;
+	u32 Status = XST_SUCCESS;
 
 	if(XSECURE_HASH_TYPE_SHA3 == HashLen)
 	{
@@ -429,14 +429,14 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 
 	if (0x00U != *PadPtr)
 	{
-		ErrorCode = 1U;
+		Status = XST_FAILURE;
 		goto ENDF;
 	}
 	PadPtr++;
 
 	if (0x01U != *PadPtr)
 	{
-		ErrorCode = 2U;
+		Status = XST_FAILURE;
 		goto ENDF;
 	}
 	PadPtr++;
@@ -445,7 +445,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	{
 		if (0xFFU != *PadPtr)
 		{
-			ErrorCode = 3U;
+			Status = XST_FAILURE;
 			goto ENDF;
 		}
 		PadPtr++;
@@ -453,7 +453,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 
 	if (0x00U != *PadPtr)
 	{
-		ErrorCode = 4U;
+		Status = XST_FAILURE;
 		goto ENDF;
 	}
 	PadPtr++;
@@ -462,7 +462,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	{
 		if (*PadPtr != Tpadding[ii])
 		{
-			ErrorCode = 5U;
+			Status = XST_FAILURE;
 			goto ENDF;
 		}
 		PadPtr++;
@@ -472,12 +472,12 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	{
 		if (*PadPtr != Hash[ii])
 		{
-			ErrorCode = 6U;
+			Status = XST_FAILURE;
 			goto ENDF;
 		}
 		PadPtr++;
 	}
 
 ENDF:
-	return ErrorCode;
+	return Status;
 }
