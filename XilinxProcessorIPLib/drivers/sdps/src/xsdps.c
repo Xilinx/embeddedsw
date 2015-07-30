@@ -69,7 +69,7 @@
  * The header sleep.h and API usleep() can only be used with an arm design.
  * MB_Sleep() is used for microblaze design.
  */
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 
 #include "sleep.h"
 
@@ -165,7 +165,17 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 			XSDPS_POWER_CTRL_OFFSET, 0U);
 
 	/* Delay to poweroff card */
+#if defined (__arm__) || defined (__aarch64__)
+
     (void)sleep(1U);
+
+#endif
+
+#ifdef __MICROBLAZE__
+
+    MB_Sleep(1000U);
+
+#endif
 
 	/* "Software reset for all" is initiated */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress, XSDPS_SW_RST_OFFSET,
@@ -698,7 +708,7 @@ static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* 74 CLK delay after card is powered up, before the first command. */
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 
 	usleep(XSDPS_INIT_DELAY);
 
@@ -788,7 +798,17 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 			CtrlReg);
 
 	/* Wait minimum 5mSec */
+#if defined (__arm__) || defined (__aarch64__)
+
 	(void)usleep(5000U);
+
+#endif
+
+#ifdef __MICROBLAZE__
+
+	MB_Sleep(5U);
+
+#endif
 
 	/* Enabling 1.8V in controller */
 	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,

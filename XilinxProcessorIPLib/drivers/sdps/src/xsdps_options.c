@@ -62,7 +62,7 @@
  * The header sleep.h and API usleep() can only be used with an arm design.
  * MB_Sleep() is used for microblaze design.
  */
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 
 #include "sleep.h"
 
@@ -295,7 +295,7 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 		}
 	}
 
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 
 	usleep(XSDPS_MMC_DELAY_FOR_SWITCH);
 
@@ -544,7 +544,7 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 		}
 	}
 
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 
 	usleep(XSDPS_MMC_DELAY_FOR_SWITCH);
 
