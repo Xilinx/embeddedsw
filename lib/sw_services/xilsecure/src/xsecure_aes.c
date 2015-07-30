@@ -303,15 +303,17 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 	/* Push IV into the AES engine.*/
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					(u64)InstancePtr->Iv,
+					(UINTPTR)InstancePtr->Iv,
 					XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 
 	/* Configure the CSU DMA Tx/Rx.*/
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL, (u64) Dst,
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+				(UINTPTR) Dst,
 				(Len + XSECURE_SECURE_GCM_TAG_SIZE)/4U, 0);
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL, (u64) Src,
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+				(UINTPTR) Src,
 				XSECURE_SECURE_GCM_TAG_SIZE/4U, 1);
 
 	/**
@@ -359,7 +361,7 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 	/* Push IV into the AES engine. */
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-		(u64)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
+		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 
@@ -395,10 +397,10 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 					&ConfigurValues);
 			/* Configure the CSU DMA Tx/Rx for the incoming Block. */
 			XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-					(u64)Dst, Len/4U, 0);
+					(UINTPTR)Dst, Len/4U, 0);
 		}
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						(u64)Src, Len/4U, 0);
+						(UINTPTR)Src, Len/4U, 0);
 
 		if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 		{
@@ -455,7 +457,7 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	/* Push the Secure header/footer for decrypting next blocks KEY and IV. */
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-			(u64)(Src + Len), XSECURE_SECURE_HDR_SIZE/4U, 1);
+			(UINTPTR)(Src + Len), XSECURE_SECURE_HDR_SIZE/4U, 1);
 
 	/* Wait for the Src DMA completion. */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
@@ -469,7 +471,8 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0);
 
 	/* Push the GCM tag. */
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL, (u64)Tag,
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+					(UINTPTR)Tag,
 					XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
 	/* Wait for the Src DMA completion. */
@@ -707,7 +710,7 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 					XSECURE_SECURE_GCM_TAG_SIZE);
 			/* Point IV to the CSU IV register. */
 			InstancePtr->Iv = (u32 *)(InstancePtr->BaseAddress +
-					XSECURE_CSU_AES_IV_0_OFFSET);
+					(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 		}
 
 		/* Update the GcmTagAddr to get GCM-TAG for next block. */

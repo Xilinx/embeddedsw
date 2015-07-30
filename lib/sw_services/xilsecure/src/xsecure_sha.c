@@ -183,7 +183,7 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	InstancePtr->Sha3Len += Size;
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					(u64)Data, (u32)Size/4, 0);
+					(UINTPTR)Data, (u32)Size/4, 0);
 
 	/* Checking the CSU DMA done bit should be enough. */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
@@ -246,7 +246,7 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	XSecure_Sha3Padd(InstancePtr, XSecure_RsaSha3Array, PartialLen);
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				(u64)XSecure_RsaSha3Array, PartialLen/4, 1);
+				(UINTPTR)XSecure_RsaSha3Array, PartialLen/4, 1);
 
 	/* Check the SHA3 DONE bit. */
 	XSecure_Sha3WaitForDone(InstancePtr);
