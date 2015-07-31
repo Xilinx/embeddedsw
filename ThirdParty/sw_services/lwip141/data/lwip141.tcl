@@ -3,7 +3,6 @@ set use_emaclite_on_zynq 0
 
 # emaclite hw requirements - interrupt needs to be connected
 proc lwip_elite_hw_drc {libhandle emac} {
-	set emacname [common::get_property NAME $emac]
 	set intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] IP2INTC_Irpt]
 	if {[string compare -nocase $intr_port ""] == 0} {
 		error "ERROR: xps_ethernetlite core $emacname does not have its interrupt connected to interrupt controller. \
