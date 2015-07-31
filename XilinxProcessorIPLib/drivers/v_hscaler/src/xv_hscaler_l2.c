@@ -273,10 +273,10 @@ static void CalculatePhases(XV_hscaler *pHsc,
     int x,s;
     int offset = 0;
     int xWritePos = 0;
-    int OutputWriteEn;
+    u64 OutputWriteEn;
     int GetNewPix;
-    int PhaseH;
-    int arrayIdx;
+    u64 PhaseH;
+    u64 arrayIdx;
     int xReadPos = 0;
     int nrRds = 0;
     int nrRdsClck = 0;
