@@ -370,6 +370,9 @@ int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss)
       xil_printf("VPROCSS ERR:: Horiz. Scaler Initialization failed\r\n");
       return(XST_FAILURE);
     }
+
+    /* Load Default filter coefficients */
+    XV_HScalerLoadDefaultCoeff(pVprocss->hscaler, &pVprocss->hscL2Reg);
   }
   return(XST_SUCCESS);
 }
@@ -423,6 +426,10 @@ int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss)
       xil_printf("VPROCSS ERR:: Vert. Scaler Initialization failed\r\n");
       return(XST_FAILURE);
     }
+
+    /* Load Default filter coefficients */
+    XV_VScalerLoadDefaultCoeff(pVprocss->vscaler, &pVprocss->vscL2Reg);
+
   }
   return(XST_SUCCESS);
 }
@@ -476,6 +483,9 @@ int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss)
       xil_printf("VPROCSS ERR:: H Chroma Resampler Initialization failed\r\n");
       return(XST_FAILURE);
     }
+
+    /* Load default filter coefficients */
+    XV_HCrsmplLoadDefaultCoeff(pVprocss->hcrsmplr, &pVprocss->hcrL2Reg);
   }
   return(XST_SUCCESS);
 }
@@ -529,6 +539,9 @@ int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss)
       xil_printf("VPROCSS ERR:: Input V Chroma Resampler Initialization failed\r\n");
       return(XST_FAILURE);
     }
+
+    /* Load default filter coefficients */
+    XV_VCrsmplLoadDefaultCoeff(pVprocss->vcrsmplrIn, &pVprocss->vcrInL2Reg);
   }
   return(XST_SUCCESS);
 }
@@ -582,6 +595,9 @@ int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss)
       xil_printf("VPROCSS ERR:: Output V Chroma Resampler Initialization failed\r\n");
       return(XST_FAILURE);
     }
+
+    /* Load default filter coefficients */
+    XV_VCrsmplLoadDefaultCoeff(pVprocss->vcrsmplrOut, &pVprocss->vcrOutL2Reg);
   }
   return(XST_SUCCESS);
 }

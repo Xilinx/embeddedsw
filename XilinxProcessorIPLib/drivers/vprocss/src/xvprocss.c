@@ -49,20 +49,22 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "microblaze_sleep.h"
 #include "xvprocss.h"
 #include "xenv.h"
 #include "xvprocss_vdma.h"
 #include "xvprocss_router.h"
 #include "xvprocss_coreinit.h"
 
+#if defined(__arm__)
+#include "sleep.h"
+#elif defined(__MICROBLAZE__)
+#include "microblaze_sleep.h"
+#endif
+
 /************************** Constant Definitions *****************************/
 
 /* HW Reset Network GPIO Channel */
 #define GPIO_CH_RESET_SEL                 (1u)
-
-/* VDMA transaction size in Bytes/Pixel */
-#define XVPROC_VDMA_TRANS_SIZE_BYTES      (4)
 
 /** @name Reset Network
  *
@@ -182,7 +184,7 @@ static __inline void XVprocss_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock
 
 /*****************************************************************************/
 /**
-* This function diverts the delay routine used in the subsystem. Preference is
+* This function routes the delay routine used in the subsystem. Preference is
 * given to the user registered timer based routine. If no delay handler is
 * registered then it uses the platform specific delay handler
 *
@@ -192,16 +194,30 @@ static __inline void XVprocss_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock
 * @return None
 *
 ******************************************************************************/
-static __inline void Waitms(XVprocss *pVprocss, u32 msec)
+static __inline void WaitUs(XVprocss *pVprocss, u32 MicroSeconds)
 {
-  if(pVprocss->UsrDelaymsec)
+  if(MicroSeconds == 0)
+	  return;
+
+#if defined(__arm__)
+  /* Wait the requested amount of time. */
+  usleep(MicroSeconds);
+#elif defined(__MICROBLAZE__)
+  if(pVprocss->UsrDelayUs)
   {
-	 pVprocss->UsrDelaymsec(pVprocss->pUsrTmr, msec);
+    /* Use the time handler specified by the user for
+     * better accuracy
+     */
+	 pVprocss->UsrDelayUs(pVprocss->pUsrTmr, MicroSeconds);
   }
   else
   {
-	MB_Sleep(msec);
+    /* MicroBlaze sleep only has millisecond accuracy. Round up. */
+    u32 MilliSeconds = (MicroSeconds + 999) / 1000;
+
+	MB_Sleep(MilliSeconds);
   }
+#endif
 }
 
 /************************** Function Definition ******************************/
@@ -289,40 +305,25 @@ void XVprocss_ReportCoreInfo(XVprocss *InstancePtr)
 * This function registers the user defined delay/sleep function with subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance
-* @param  waitmsec is the function pointer to the user defined delay function
-* @param  pTimer is the pointer to timer instance used by the delay function
+* @param  CallbackFunc is the function pointer to the user defined delay
+*         function
+* @param  CallbackRef is the pointer to timer instance used by the delay
+*         function
 *
 * @return None
 *
 ******************************************************************************/
 void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
-                                   XVidC_DelayHandler waitmsec,
-                                   void *pTimer)
+                                   XVidC_DelayHandler CallbackFunc,
+                                   void *CallbackRef)
 {
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(CallbackFunc != NULL);
+  Xil_AssertVoid(CallbackRef != NULL);
 
-  InstancePtr->UsrDelaymsec = waitmsec;
-  InstancePtr->pUsrTmr      = pTimer;
-}
-
-/*****************************************************************************/
-/**
-* This function registers the System Interrupt controller with subsystem
-*
-* @param  InstancePtr is a pointer to the Subsystem instance
-* @param  sysIntc is a pointer to the interrupt controller instance
-*
-* @return None
-*
-* @note Currently the subsystem and any of its sub-cores do not generate any
-*       interrupts. Use of interrupt controller is reserved for future version
-******************************************************************************/
-void XVprocss_RegisterSysIntc(XVprocss *InstancePtr, XIntc *sysIntc)
-{
-  Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(sysIntc != NULL);
-
-  InstancePtr->pXintc = sysIntc;
+  InstancePtr->UsrDelayUs = CallbackFunc;
+  InstancePtr->pUsrTmr    = CallbackRef;
 }
 
 /*****************************************************************************/
@@ -416,7 +417,6 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
   Xil_AssertNonvoid(pVprocss != NULL);
   Xil_AssertNonvoid(CfgPtr != NULL);
   Xil_AssertNonvoid(EffectiveAddr != (u32)NULL);
-  Xil_AssertNonvoid(pVprocss->pXintc != NULL);
 
   /* Setup the instance */
   memcpy((void *)&(pVprocss->Config), (const void *)CfgPtr, sizeof(XVprocss_Config));
@@ -692,8 +692,6 @@ static void SetPODConfiguration(XVprocss *pVprocss)
                               &win);
   }
 
-  pVprocss->idata.vdmaBytesPerPixel = XVPROC_VDMA_TRANS_SIZE_BYTES;
-
   /* Release reset before programming any IP Block */
   XVprocss_EnableBlock(pVprocss->rstAxis,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
 
@@ -731,6 +729,7 @@ void XVprocss_Start(XVprocss *InstancePtr)
 {
   u8 *pStartCore;
 
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   pStartCore = &InstancePtr->idata.startCore[0];
@@ -779,6 +778,7 @@ void XVprocss_Start(XVprocss *InstancePtr)
 ******************************************************************************/
 void XVprocss_Stop(XVprocss *InstancePtr)
 {
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Stop Video Processing Subsystem.... \r\n");
@@ -825,6 +825,7 @@ void XVprocss_Stop(XVprocss *InstancePtr)
 ******************************************************************************/
 void XVprocss_Reset(XVprocss *InstancePtr)
 {
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Reset Video Processing Subsystem.... \r\n");
@@ -842,7 +843,7 @@ void XVprocss_Reset(XVprocss *InstancePtr)
      XV_DeintStop(InstancePtr->deint);
    }
 
-  Waitms(InstancePtr, 10); /* hold reset line for 10ms */
+   WaitUs(InstancePtr, 100); /* hold reset line for 100us */
   /*
    * Make sure the video IP's are out of reset - IP's cannot be programmed when held
    * in reset. Will cause Axi-Lite bus to lock.
@@ -851,7 +852,7 @@ void XVprocss_Reset(XVprocss *InstancePtr)
 //  XVprocss_EnableBlock(InstancePtr->rstAximm, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
 //  Waitms(InstancePtr, 10); /* wait for AXI-MM IP's to stabilize */
   XVprocss_EnableBlock(InstancePtr->rstAxis,  GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIS);
-  Waitms(InstancePtr, 10); /* wait for AXIS to stabilize */
+  WaitUs(InstancePtr, 1000); /* wait 1ms for AXIS to stabilize */
 
   /* Reset start core flags */
   memset(InstancePtr->idata.startCore, 0, sizeof(InstancePtr->idata.startCore));
@@ -872,6 +873,7 @@ int XVprocss_SetVidStreamIn(XVprocss *InstancePtr,
 {
   int status;
 
+  /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(StrmIn != NULL);
 
@@ -904,6 +906,7 @@ int XVprocss_SetVidStreamOut(XVprocss *InstancePtr,
 {
   int status;
 
+  /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(StrmOut != NULL);
 
@@ -937,6 +940,7 @@ int XVprocss_SetStreamResolution(XVidC_VideoStream *StreamPtr,
 {
   int status;
 
+  /* Verify arguments */
   Xil_AssertNonvoid(StreamPtr != NULL);
 
   if(VmId < XVIDC_VM_NUM_SUPPORTED)
@@ -972,6 +976,7 @@ int XVprocss_SetStreamResolution(XVidC_VideoStream *StreamPtr,
 ******************************************************************************/
 void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr)
 {
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   if(XVprocss_IsConfigModeMax(InstancePtr))
@@ -1028,6 +1033,7 @@ void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
 {
   u16 wordlen;
 
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(win != NULL);
 
@@ -1090,6 +1096,7 @@ void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
                                XVprocss_Win   mode,
                                XVidC_VideoWindow *win)
 {
+  /* Verify arguments */
    Xil_AssertVoid(InstancePtr != NULL);
    Xil_AssertVoid(win != NULL);
 
@@ -1140,6 +1147,7 @@ void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff)
 {
   char *status[] = {"OFF","ON"};
 
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   if(XVprocss_IsConfigModeMax(InstancePtr))
@@ -1179,6 +1187,7 @@ void XVprocss_SetPipMode(XVprocss *InstancePtr, u8 OnOff)
 {
   char *status[] = {"OFF","ON"};
 
+  /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   if(XVprocss_IsConfigModeMax(InstancePtr))
@@ -1369,6 +1378,7 @@ int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr)
 {
   int status = XST_SUCCESS;
 
+  /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   /* Video Processing Subsystem overrides In/Out Pixel Precision & Pixel/Clk */
@@ -1376,6 +1386,10 @@ int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr)
   InstancePtr->VidOut.ColorDepth = (XVidC_ColorDepth)InstancePtr->Config.PixPrecision;
 
   InstancePtr->VidIn.PixPerClk  = (XVidC_PixelsPerClock)InstancePtr->Config.PixPerClock;
+
+  /* compute data width of input stream */
+  InstancePtr->idata.PixelWidthInBits = InstancePtr->Config.NumVidComponents *
+		                                InstancePtr->VidIn.ColorDepth;
 
   xil_printf("\r\n****** VPROC SUBSYSTEM INPUT/OUTPUT CONFIG ******\r\n");
   xil_printf("->INPUT\r\n");

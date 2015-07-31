@@ -243,16 +243,16 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
   pCfg->strmCformat = pStrIn->ColorFormatId;
 
   /* Determine Scaling Mode */
-  pVprocss->idata.memEn = FALSE;
-  pVprocss->idata.ScaleMode = GetScalingMode(pVprocss);
-  if(pVprocss->idata.ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED)
+  pCfg->memEn = FALSE;
+  pCfg->ScaleMode = GetScalingMode(pVprocss);
+  if(pCfg->ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED)
   {
     xil_printf("VPROCSS ERR:: Scaling Mode not supported\r\n");
     return(XST_FAILURE);
   }
 
   /* Reset Routing Table */
-  memset(pTable, 0, sizeof(pVprocss->idata.RtngTable));
+  memset(pTable, 0, sizeof(pCfg->RtngTable));
 
   /* Check if input is I/P */
   if(pStrIn->IsInterlaced)
@@ -297,25 +297,25 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
     }
   }
 
-  switch(pVprocss->idata.ScaleMode)
+  switch(pCfg->ScaleMode)
   {
     case XVPROCSS_SCALE_1_1:
         pTable[index++] = XVPROCSS_RTR_VDMA;
-        pVprocss->idata.memEn = TRUE;
+        pCfg->memEn = TRUE;
         break;
 
     case XVPROCSS_SCALE_UP:
         pTable[index++] = XVPROCSS_RTR_VDMA;     /* VDMA is before Scaler */
         pTable[index++] = XVPROCSS_RTR_SCALER_V;
         pTable[index++] = XVPROCSS_RTR_SCALER_H;
-        pVprocss->idata.memEn = TRUE;
+        pCfg->memEn = TRUE;
         break;
 
     case XVPROCSS_SCALE_DN:
         pTable[index++] = XVPROCSS_RTR_SCALER_H;
         pTable[index++] = XVPROCSS_RTR_SCALER_V;
         pTable[index++] = XVPROCSS_RTR_VDMA;     /* VDMA is after Scaler */
-        pVprocss->idata.memEn = TRUE;
+        pCfg->memEn = TRUE;
         break;
 
     default:
@@ -467,7 +467,7 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
   pTable[index++] = XVPROCSS_RTR_VIDOUT;
 
   /* save number of cores in processing path */
-  pVprocss->idata.RtrNumCores = index;
+  pCfg->RtrNumCores = index;
 
 #ifdef DEBUG
   if(status == XST_SUCCESS)
@@ -556,13 +556,13 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
      * with progressive frame. Adjust active height to reflect the
      * progressive frame to downstream cores
      */
-    pVprocss->idata.vidInHeight *= 2;
+	pCfg->vidInHeight *= 2;
   }
 
   /* If Vdma is enabled, RD/WR Client needs to be programmed before Scaler */
-  if((pVprocss->vdma) && (pVprocss->idata.memEn))
+  if((pVprocss->vdma) && (pCfg->memEn))
   {
-    switch(pVprocss->idata.ScaleMode)
+    switch(pCfg->ScaleMode)
     {
       case XVPROCSS_SCALE_1_1:
       case XVPROCSS_SCALE_UP:
@@ -570,7 +570,7 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
           break;
 
       case XVPROCSS_SCALE_DN:
-	  XVprocss_VdmaSetWinToDnScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
+	      XVprocss_VdmaSetWinToDnScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
           break;
 
       default:
@@ -579,28 +579,28 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
     pStartCore[XVPROCSS_RTR_VDMA] = TRUE;
   }
 
-  for(count=0; count<pVprocss->idata.RtrNumCores; ++count)
+  for(count=0; count<pCfg->RtrNumCores; ++count)
   {
     switch(pTable[count])
     {
       case XVPROCSS_RTR_SCALER_V:
           if(pVprocss->vscaler)
           {
-            if(pVprocss->idata.ScaleMode == XVPROCSS_SCALE_DN)
+            if(pCfg->ScaleMode == XVPROCSS_SCALE_DN)
             {
               /* Downscale mode H Scaler is before V Scaler */
               vsc_WidthIn   = hsc_WidthOut;
               vsc_HeightIn  = hsc_HeightIn;
-              vsc_HeightOut = ((XVprocss_IsPipModeOn(pVprocss)) ? pVprocss->idata.wrWindow.Height
+              vsc_HeightOut = ((XVprocss_IsPipModeOn(pVprocss)) ? pCfg->wrWindow.Height
                                                                 : pVprocss->VidOut.Timing.VActive);
             }
             else
             {
               /* UpScale mode V Scaler is before H Scaler */
-              vsc_WidthIn  = ((XVprocss_IsZoomModeOn(pVprocss)) ? pVprocss->idata.rdWindow.Width
-                                                       : pVprocss->idata.vidInWidth);
-              vsc_HeightIn = ((XVprocss_IsZoomModeOn(pVprocss)) ? pVprocss->idata.rdWindow.Height
-                                                       : pVprocss->idata.vidInHeight);
+              vsc_WidthIn  = ((XVprocss_IsZoomModeOn(pVprocss)) ? pCfg->rdWindow.Width
+                                                                : pCfg->vidInWidth);
+              vsc_HeightIn = ((XVprocss_IsZoomModeOn(pVprocss)) ? pCfg->rdWindow.Height
+                                                                : pCfg->vidInHeight);
               vsc_HeightOut = pVprocss->VidOut.Timing.VActive;
             }
 
@@ -608,7 +608,7 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
                            (int)vsc_WidthIn, (int)vsc_HeightIn, (int)vsc_WidthIn, (int)vsc_HeightOut);
 
             XV_VScalerSetup(pVprocss->vscaler,
-			        &pVprocss->vscL2Reg,
+			                &pVprocss->vscL2Reg,
                             vsc_WidthIn,
                             vsc_HeightIn,
                             vsc_HeightOut);
@@ -619,12 +619,12 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
       case XVPROCSS_RTR_SCALER_H:
           if(pVprocss->hscaler)
           {
-            if(pVprocss->idata.ScaleMode == XVPROCSS_SCALE_DN)
+            if(pCfg->ScaleMode == XVPROCSS_SCALE_DN)
             {
               /* Downscale mode H Scaler is before V Scaler */
-              hsc_WidthIn  = pVprocss->idata.vidInWidth;
-              hsc_HeightIn = pVprocss->idata.vidInHeight;
-              hsc_WidthOut = ((XVprocss_IsPipModeOn(pVprocss)) ? pVprocss->idata.wrWindow.Width
+              hsc_WidthIn  = pCfg->vidInWidth;
+              hsc_HeightIn = pCfg->vidInHeight;
+              hsc_WidthOut = ((XVprocss_IsPipModeOn(pVprocss)) ? pCfg->wrWindow.Width
                                                                : pVprocss->VidOut.Timing.HActive);
             }
             else
@@ -639,7 +639,7 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
                                (int)hsc_WidthIn, (int)hsc_HeightIn, (int)hsc_WidthOut, (int)hsc_HeightIn);
 
             XV_HScalerSetup(pVprocss->hscaler,
-			        &pVprocss->hscL2Reg,
+			                &pVprocss->hscL2Reg,
                             hsc_HeightIn,
                             hsc_WidthIn,
                             hsc_WidthOut,
@@ -658,7 +658,7 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
             if(XVprocss_IsPipModeOn(pVprocss))
             {
               /* get the active window for lbox */
-              lboxWin = pVprocss->idata.wrWindow;
+              lboxWin = pCfg->wrWindow;
             }
             else //Downscale - Read full image from VDMA
             {
@@ -669,9 +669,9 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
               lboxWin.Height = pVprocss->VidOut.Timing.VActive;
             }
             XV_LBoxSetActiveWin(pVprocss->lbox,
-                                 &lboxWin,
-                                 pVprocss->VidOut.Timing.HActive,
-                                 pVprocss->VidOut.Timing.VActive);
+                                &lboxWin,
+                                pVprocss->VidOut.Timing.HActive,
+                                pVprocss->VidOut.Timing.VActive);
             pStartCore[XVPROCSS_RTR_LBOX] = TRUE;
           }
           break;
@@ -680,12 +680,13 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
           if(pVprocss->hcrsmplr)
           {
             XV_HCrsmplSetActiveSize(pVprocss->hcrsmplr,
-                                     pVprocss->VidOut.Timing.HActive,
-                                     pVprocss->VidOut.Timing.VActive);
+                                    pVprocss->VidOut.Timing.HActive,
+                                    pVprocss->VidOut.Timing.VActive);
 
             XV_HCrsmplSetFormat(pVprocss->hcrsmplr,
-                                 pCfg->hcrIn,
-                                 pCfg->hcrOut);
+			            &pVprocss->hcrL2Reg,
+                                pCfg->hcrIn,
+                                pCfg->hcrOut);
             pStartCore[XVPROCSS_RTR_CR_H] = TRUE;
           }
           break;
@@ -694,12 +695,13 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
           if(pVprocss->vcrsmplrIn)
           {
             XV_VCrsmplSetActiveSize(pVprocss->vcrsmplrIn,
-                                     pVprocss->idata.vidInWidth,
-                                     pVprocss->idata.vidInHeight);
+			                pCfg->vidInWidth,
+			                pCfg->vidInHeight);
 
             XV_VCrsmplSetFormat(pVprocss->vcrsmplrIn,
-                                 XVIDC_CSF_YCRCB_420,
-                                 XVIDC_CSF_YCRCB_422);
+			            &pVprocss->vcrInL2Reg,
+                                XVIDC_CSF_YCRCB_420,
+                                XVIDC_CSF_YCRCB_422);
             pStartCore[XVPROCSS_RTR_CR_V_IN] = TRUE;
           }
           break;
@@ -708,12 +710,13 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
           if(pVprocss->vcrsmplrOut)
           {
             XV_VCrsmplSetActiveSize(pVprocss->vcrsmplrOut,
-                                     pVprocss->VidOut.Timing.HActive,
-                                     pVprocss->VidOut.Timing.VActive);
+                                    pVprocss->VidOut.Timing.HActive,
+                                    pVprocss->VidOut.Timing.VActive);
 
             XV_VCrsmplSetFormat(pVprocss->vcrsmplrOut,
-                                 XVIDC_CSF_YCRCB_422,
-                                 XVIDC_CSF_YCRCB_420);
+			            &pVprocss->vcrOutL2Reg,
+                                XVIDC_CSF_YCRCB_422,
+                                XVIDC_CSF_YCRCB_420);
             pStartCore[XVPROCSS_RTR_CR_V_OUT] = TRUE;
           }
           break;
@@ -722,16 +725,16 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
           if(pVprocss->csc)
           {
             XV_CscSetColorspace(pVprocss->csc,
-                                 &pVprocss->cscL2Reg,
-                                 pVprocss->idata.cscIn,
-                                 pVprocss->idata.cscOut,
-                                 pVprocss->cscL2Reg.StandardIn,
-                                 pVprocss->cscL2Reg.StandardOut,
-                                 pVprocss->cscL2Reg.OutputRange);
+                                &pVprocss->cscL2Reg,
+                                pCfg->cscIn,
+                                pCfg->cscOut,
+                                pVprocss->cscL2Reg.StandardIn,
+                                pVprocss->cscL2Reg.StandardOut,
+                                pVprocss->cscL2Reg.OutputRange);
 
             XV_CscSetActiveSize(pVprocss->csc,
-                                 pVprocss->VidOut.Timing.HActive,
-                                 pVprocss->VidOut.Timing.VActive);
+                                pVprocss->VidOut.Timing.HActive,
+                                pVprocss->VidOut.Timing.VActive);
 
             pStartCore[XVPROCSS_RTR_CSC] = TRUE;
           }
@@ -740,15 +743,23 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
       case XVPROCSS_RTR_DEINT:
           if(pVprocss->deint)
           {
-	    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Deinterlacer for %dx%d to %dx%d\r\n", \
+	        xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Deinterlacer for %dx%d to %dx%d\r\n", \
 		              (int)pVprocss->VidIn.Timing.HActive,
 		              (int)pVprocss->VidIn.Timing.VActive,
-		              (int)pVprocss->idata.vidInWidth,
-		              (int)pVprocss->idata.vidInHeight);
+		              (int)pCfg->vidInWidth,
+		              (int)pCfg->vidInHeight);
 
             XV_DeintSetFieldBuffers(pVprocss->deint,
-			                 pVprocss->idata.deintBufAddr,
-			                 pVprocss->VidIn.ColorFormatId);
+			                pCfg->deintBufAddr,
+			                        pVprocss->VidIn.ColorFormatId);
+
+            XV_deinterlacer_Set_width(pVprocss->deint,
+			                  pCfg->vidInWidth);
+
+            XV_deinterlacer_Set_height(pVprocss->deint,
+			                   pVprocss->VidIn.Timing.VActive); //field height
+
+            XV_deinterlacer_Set_invert_field_id(pVprocss->deint, 0); //TBD
             pStartCore[XVPROCSS_RTR_DEINT] = TRUE;
           }
           break;

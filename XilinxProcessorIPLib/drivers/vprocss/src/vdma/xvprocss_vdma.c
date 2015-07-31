@@ -55,9 +55,11 @@
 /***************************** Include Files *********************************/
 #include "xvidc.h"
 #include "xvprocss_vdma.h"
-#include "microblaze_sleep.h"
 
 #define XVDMA_RESET_TIMEOUT   (1000000) //10ms at 10ns time period (100MHz clock))
+
+/************************** Function Prototypes ******************************/
+
 /*****************************************************************************/
 /**
 * This function starts Read and Write channels
@@ -154,9 +156,9 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
                             XVidC_VideoWindow *window,
                             u32 FrameWidth,
                             u32 FrameHeight,
-                            u32 Bpp)
+                            u32 PixelWidthInBits)
 {
-  XAxiVdma_DmaSetup WriteCfg;
+  XAxiVdma_DmaSetup WriteCfg = {0};
   int Index;
   u32 Addr;
   int Status;
@@ -164,24 +166,24 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
   u32 StrideInBytes;;
   u32 BlockOffset;
   u32 alignBytes = 0;
-  int MAX_WR_FRAMES;
 
   if(pVdma)
   {
-    MAX_WR_FRAMES  = pVdma->MaxNumFrames;
-    HSizeInBytes   = window->Width*Bpp;
-    StrideInBytes  = FrameWidth*Bpp;
+    HSizeInBytes  = (window->Width*PixelWidthInBits)/8;
+    StrideInBytes = (FrameWidth*PixelWidthInBits)/8;
 
     /* Compute start location for sub-frame */
-    BlockOffset = (window->StartY * StrideInBytes) + window->StartX*Bpp;
+    BlockOffset = (window->StartY * StrideInBytes) + (window->StartX*PixelWidthInBits)/8;
 
     /* If DMA engine does not support unaligned transfers then align block
-     * offset to next data width boundary (DMA WR Data-width = 128)
+     * offset, hsize and stride to next data width boundary
      */
     if(!pVdma->WriteChannel.HasDRE)
     {
       alignBytes = pVdma->WriteChannel.WordLength-1;
-      BlockOffset = (BlockOffset+alignBytes) & ~(alignBytes);
+      BlockOffset   = (BlockOffset   + alignBytes) & ~(alignBytes);
+      HSizeInBytes  = (HSizeInBytes  + alignBytes) & ~(alignBytes);
+      StrideInBytes = (StrideInBytes + alignBytes) & ~(alignBytes);
     }
 
     WriteCfg.VertSizeInput = window->Height;
@@ -211,7 +213,7 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
      * Use physical addresses
      */
     Addr = WrBaseAddress + BlockOffset;
-    for(Index = 0; Index < MAX_WR_FRAMES; Index++)
+    for(Index = 0; Index < pVdma->MaxNumFrames; Index++)
     {
         WriteCfg.FrameStoreStartAddr[Index] = Addr;
         Addr += StrideInBytes * FrameHeight;
@@ -251,7 +253,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
                            XVidC_VideoWindow *window,
                            u32 FrameWidth,
                            u32 FrameHeight,
-                           u32 Bpp)
+                           u32 PixelWidthInBits)
 {
   XAxiVdma_DmaSetup ReadCfg;
   int Index;
@@ -261,24 +263,24 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
   u32 StrideInBytes;
   u32 BlockOffset;
   u32 alignBytes = 0;
-  int MAX_RD_FRAMES = pVdma->MaxNumFrames;
 
   if(pVdma)
   {
-    MAX_RD_FRAMES = pVdma->MaxNumFrames;
-    HSizeInBytes  = window->Width*Bpp;
-    StrideInBytes = FrameWidth*Bpp;
+    HSizeInBytes  = (window->Width*PixelWidthInBits)/8;
+    StrideInBytes = (FrameWidth*PixelWidthInBits)/8;
 
     //Compute start location for sub-frame
-    BlockOffset = (window->StartY * StrideInBytes) + window->StartX*Bpp;
+    BlockOffset = (window->StartY * StrideInBytes) + (window->StartX*PixelWidthInBits)/8;
 
     /* If DMA engine does not support unaligned transfers then align block
-     * offset to next data width boundary (DMA WR Data-width = 128)
+     * offset, hsize and stride to next data width boundary
      */
     if(!pVdma->ReadChannel.HasDRE)
     {
       alignBytes = pVdma->ReadChannel.WordLength-1;
-      BlockOffset = (BlockOffset+alignBytes) & ~(alignBytes);
+      BlockOffset   = (BlockOffset   + alignBytes) & ~(alignBytes);
+      HSizeInBytes  = (HSizeInBytes  + alignBytes) & ~(alignBytes);
+      StrideInBytes = (StrideInBytes + alignBytes) & ~(alignBytes);
     }
 
     ReadCfg.VertSizeInput = window->Height;
@@ -307,7 +309,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
      * These addresses are physical addresses
      */
     Addr = RdBaseAddress + BlockOffset;
-    for(Index = 0; Index < MAX_RD_FRAMES; Index++)
+    for(Index = 0; Index < pVdma->MaxNumFrames; Index++)
     {
       ReadCfg.FrameStoreStartAddr[Index] = Addr;
       Addr += StrideInBytes * FrameHeight;
@@ -365,63 +367,6 @@ int XVprocss_VdmaStartTransfer(XAxiVdma *pVdma)
 
 /*****************************************************************************/
 /**
-*
-* This function prints VDMA status on the console
-*
-* @param  pVdma is the instance pointer to the DMA engine.
-* @param  Bpp is Bytes per pixel to be used for data transfer
-*
-* @return	None
-*
-******************************************************************************/
-void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 Bpp)
-{
-  u32 height,width,stride;
-  u32 regOffset;
-
-  if(pVdma)
-  {
-    xil_printf("\r\n\r\n----->VDMA IP STATUS<----\r\n");
-    xil_printf("INFO: VDMA Rd/Wr Client Width/Stride defined in Bytes Per Pixel\r\n");
-    xil_printf("Bytes Per Pixel = %d\r\n\r\n", Bpp);
-    xil_printf("Read Channel Setting \r\n" );
-    //clear status register before reading
-    XAxiVdma_ClearDmaChannelErrors(pVdma, XAXIVDMA_READ, 0xFFFFFFFF);
-    MB_Sleep(100);
-
-    //Read Registers
-    XAxiVdma_DmaRegisterDump(pVdma, XAXIVDMA_READ);
-    regOffset = XAXIVDMA_MM2S_ADDR_OFFSET;
-    height =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+0);
-    width  =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+4);
-    stride =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+8);
-    stride &= XAXIVDMA_STRIDE_MASK;
-
-    xil_printf("Height: %d \r\n", height);
-    xil_printf("Width : %d (%d)\r\n", width, (width/Bpp));
-    xil_printf("Stride: %d (%d)\r\n", stride, (stride/Bpp));
-
-    xil_printf("\r\nWrite Channel Setting \r\n" );
-    //clear status register before reading
-    XAxiVdma_ClearDmaChannelErrors(pVdma, XAXIVDMA_WRITE, 0xFFFFFFFF);
-    MB_Sleep(100);
-
-    //Read Registers
-    XAxiVdma_DmaRegisterDump(pVdma, XAXIVDMA_WRITE);
-    regOffset = XAXIVDMA_S2MM_ADDR_OFFSET;
-    height =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+0);
-    width  =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+4);
-    stride =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+8);
-    stride &= XAXIVDMA_STRIDE_MASK;
-
-    xil_printf("Height: %d \r\n", height);
-    xil_printf("Width : %d (%d)\r\n", width, (width/Bpp));
-    xil_printf("Stride: %d (%d)\r\n", stride, (stride/Bpp));
-  }
-}
-
-/*****************************************************************************/
-/**
 * This function configures the VDMA RD/WR channel for down scale mode
 *
 * @param  pVprocss is a pointer to the Subsystem instance to be worked on.
@@ -465,11 +410,11 @@ void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
 
     /* write PIP window stream to DDR */
     status = XVprocss_VdmaWriteSetup(pVprocss->vdma,
-                                pVprocss->FrameBufBaseaddr,
-                                &wrWin,
-                                OutputWidth,
-                                OutputHeight,
-                                pVprocss->idata.vdmaBytesPerPixel);
+                                     pVprocss->FrameBufBaseaddr,
+                                     &wrWin,
+                                     OutputWidth,
+                                     OutputHeight,
+                                     pVprocss->idata.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("VPROCSS ERR:: Unable to configure VDMA Write Channel \r\n");
@@ -487,11 +432,11 @@ void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
     rdWin.Height = OutputHeight;
 
     status = XVprocss_VdmaReadSetup(pVprocss->vdma,
-                               pVprocss->FrameBufBaseaddr,
-                               &rdWin,
-                               OutputWidth,
-                               OutputHeight,
-                               pVprocss->idata.vdmaBytesPerPixel);
+                                    pVprocss->FrameBufBaseaddr,
+                                    &rdWin,
+                                    OutputWidth,
+                                    OutputHeight,
+                                    pVprocss->idata.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("VPROCSS ERR:: Unable to configure VDMA Read Channel \r\n");
@@ -534,11 +479,11 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
 
     /* write input stream to DDR */
     status = XVprocss_VdmaWriteSetup(pVprocss->vdma,
-                                pVprocss->FrameBufBaseaddr,
-                                &wrWin,
-                                InputWidth,
-                                InputHeight,
-                                pVprocss->idata.vdmaBytesPerPixel);
+                                     pVprocss->FrameBufBaseaddr,
+                                     &wrWin,
+                                     InputWidth,
+                                     InputHeight,
+                                     pVprocss->idata.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("ERR:: Unable to configure VDMA Write Channel \r\n");
@@ -564,15 +509,71 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
     }
 
     status = XVprocss_VdmaReadSetup(pVprocss->vdma,
-                               pVprocss->FrameBufBaseaddr,
-                               &rdWin,
-                               InputWidth,
-                               InputHeight,
-                               pVprocss->idata.vdmaBytesPerPixel);
+                                    pVprocss->FrameBufBaseaddr,
+                                    &rdWin,
+                                    InputWidth,
+                                    InputHeight,
+                                    pVprocss->idata.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("ERR:: Unable to configure VDMA Read Channel \r\n");
     }
   }
 }
+
+/*****************************************************************************/
+/**
+*
+* This function prints VDMA status on the console
+*
+* @param  pVdma is the instance pointer to the DMA engine.
+* @param  Bpp is Bytes per pixel to be used for data transfer
+*
+* @return	None
+*
+******************************************************************************/
+void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 PixelWidthInBits)
+{
+  u32 height,width,stride;
+  u32 regOffset;
+
+  if(pVdma)
+  {
+    xil_printf("\r\n\r\n----->VDMA IP STATUS<----\r\n");
+    xil_printf("INFO: VDMA Rd/Wr Client Width/Stride defined in Bytes Per Pixel\r\n");
+    xil_printf("Bytes Per Pixel = %d\r\n\r\n", PixelWidthInBits/8);
+    xil_printf("Read Channel Setting \r\n" );
+    //clear status register before reading
+    XAxiVdma_ClearDmaChannelErrors(pVdma, XAXIVDMA_READ, 0xFFFFFFFF);
+
+    //Read Registers
+    XAxiVdma_DmaRegisterDump(pVdma, XAXIVDMA_READ);
+    regOffset = XAXIVDMA_MM2S_ADDR_OFFSET;
+    height =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+0);
+    width  =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+4);
+    stride =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+8);
+    stride &= XAXIVDMA_STRIDE_MASK;
+
+    xil_printf("Height: %d \r\n", height);
+    xil_printf("Width : %d (%d)\r\n", width, (width*8/PixelWidthInBits));
+    xil_printf("Stride: %d (%d)\r\n", stride, (stride*8/PixelWidthInBits));
+
+    xil_printf("\r\nWrite Channel Setting \r\n" );
+    //clear status register before reading
+    XAxiVdma_ClearDmaChannelErrors(pVdma, XAXIVDMA_WRITE, 0xFFFFFFFF);
+
+    //Read Registers
+    XAxiVdma_DmaRegisterDump(pVdma, XAXIVDMA_WRITE);
+    regOffset = XAXIVDMA_S2MM_ADDR_OFFSET;
+    height =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+0);
+    width  =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+4);
+    stride =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+8);
+    stride &= XAXIVDMA_STRIDE_MASK;
+
+    xil_printf("Height: %d \r\n", height);
+    xil_printf("Width : %d (%d)\r\n", width, (width*8/PixelWidthInBits));
+    xil_printf("Stride: %d (%d)\r\n", stride, (stride*8/PixelWidthInBits));
+  }
+}
+
 /** @} */

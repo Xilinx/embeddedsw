@@ -37,7 +37,7 @@ BEGIN driver vprocss
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.0;
-  OPTION DEPENDS = (video_common v_csc v_deinterlacer v_hcresampler v_vcresampler v_hscaler v_vscaler v_letterbox axivdma gpio axis_switch);
+  OPTION DEPENDS = (video_common_v1_1 v_csc_v1_0 v_deinterlacer_v5_0 v_hcresampler_v1_0 v_vcresampler_v1_0 v_hscaler_v1_0 v_vscaler_v1_0 v_letterbox_v1_0 axivdma_v5_1 gpio_v4_0 axis_switch_v1_0);
   OPTION NAME = vprocss;
 
 END driver

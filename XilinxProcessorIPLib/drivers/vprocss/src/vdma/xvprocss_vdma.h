@@ -106,15 +106,15 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
                             XVidC_VideoWindow *window,
                             u32 FrameWidth,
                             u32 FrameHeight,
-                            u32 Bpp);
+                            u32 PixelWidthInBits);
 int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
                            u32 RdBaseAddress,
                            XVidC_VideoWindow *window,
                            u32 FrameWidth,
                            u32 FrameHeight,
-                           u32 Bpp);
+                           u32 PixelWidthInBits);
 int XVprocss_VdmaStartTransfer(XAxiVdma *pVdma);
-void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 Bpp);
+void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 PixelWidthInBits);
 void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh);
 void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh);
 

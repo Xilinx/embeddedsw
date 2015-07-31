@@ -105,11 +105,12 @@
 *
 * <b>Pre-Requisite's</b>
 *
-* Subsystem driver requires 2 support peripherals, Timer and an Interrupt
-* Controller, to be present in the design and the application must register a
-* handle to these with the subsystem using the provided API's.
-* Also for memory based design application must program the base address of the
-* video buffers in memory. Refer Memory Requirement section below
+*   - For memory based design (Full Fledged Topology) application must program
+*     the base address of the video buffers in memory. Refer Memory Requirement
+*     section below.
+*   - For microblaze based designs it is recommended to include a timer
+*     peripheral in the design and application should register a delay handling
+*     routine with the subsystem using the provided API.
 *
 * <b>Subsystem Driver Usage</b>
 *
@@ -125,13 +126,15 @@
 * <b>Memory Requirement</b>
 *
 * For full configuration mode DDR memory is used to store video frame buffers
-* Subsystem uses 4 frame buffers for Progressive input and 3 field buffers for
-* interlaced input (if supported). Amount of memory required by the subsystem
-* can be calculated
+* Subsystem uses 5 frame buffers for Progressive input and 3 field buffers for
+* interlaced input. Amount of memory required by the subsystem can be
+* calculated by below equation
 *
-*  - NUM_BUFFERS * MAX_WIDTH * MAX_HEIGHT * NUM_VIDEO_COMPONENTS * ByesPerPixel
+*  - 5 * MAX_WIDTHp * MAX_HEIGHTp * NUM_VIDEO_COMPONENTS * BytesPerComp
+*                        +
+*    3 * MAX_WIDTHi * MAX_HEIGHTi * NUM_VIDEO_COMPONENTS * BytesPerComp
 *
-* BytesPerPixel
+* BytesPerComp
 *   - 1 Byte for 8 bit data pipe
 *   - 2 Byte for 10/12/16 bit data pipe
 *
@@ -187,7 +190,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xstatus.h"
-#include "xintc.h"
 #include "xgpio.h"
 #include "xaxis_switch.h"
 #include "xvidc.h"
@@ -265,8 +267,8 @@ typedef struct
   XVidC_VideoWindow rdWindow; /**< window for Zoom/Pip feature support */
   XVidC_VideoWindow wrWindow; /**< window for Zoom/Pip feature support */
 
-  u32 deintBufAddr;           /**< Deinterlacer field buffer Addr. in DDR */
-  u8 vdmaBytesPerPixel;       /**< Number of bytes required to store 1 pixel */
+  u32 deintBufAddr;        /**< Deinterlacer field buffer Addr. in DDR */
+  u8 PixelWidthInBits;     /**< Number of bits required to store 1 pixel */
 
   u8 RtngTable[XVPROCSS_RTR_MAX]; /**< Storage for computed routing map */
   u8 startCore[XVPROCSS_RTR_MAX]; /**< Enable flag to start sub-core */
@@ -358,6 +360,9 @@ typedef struct
   XV_csc_L2Reg cscL2Reg;        /**< Layer 2 register bank for csc sub-core */
   XV_vscaler_l2 vscL2Reg;       /**< Layer 2 register bank for vsc sub-core */
   XV_hscaler_l2 hscL2Reg;       /**< Layer 2 register bank for hsc sub-core */
+  XV_hcresampler_l2 hcrL2Reg;   /**< Layer 2 register bank for hcr sub-core */
+  XV_vcresampler_l2 vcrInL2Reg; /**< Layer 2 register bank for hcr sub-core */
+  XV_vcresampler_l2 vcrOutL2Reg; /**< Layer 2 register bank for hcr sub-core */
 
   //I/O Streams
   XVidC_VideoStream VidIn;      /**< Input  AXIS configuration */
@@ -367,8 +372,7 @@ typedef struct
                                      instance */
   u32 FrameBufBaseaddr;         /**< Base address for frame buffer storage */
 
-  XIntc *pXintc;                /**< handle to system interrupt controller */
-  XVidC_DelayHandler UsrDelaymsec;  /**< custom user function for delay/sleep */
+  XVidC_DelayHandler UsrDelayUs; /**< custom user function for delay/sleep */
   void *pUsrTmr;                /**< handle to timer instance used by user
                                      delay function */
 } XVprocss;
@@ -508,10 +512,9 @@ void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
 
 void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr);
 
-void XVprocss_RegisterSysIntc(XVprocss *InstancePtr, XIntc *sysIntc);
 void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
-                                   XVidC_DelayHandler waitmsec,
-                                   void *pTimer);
+                                   XVidC_DelayHandler CallbackFunc,
+                                   void *CallbackRef);
 
 
 #ifdef __cplusplus
