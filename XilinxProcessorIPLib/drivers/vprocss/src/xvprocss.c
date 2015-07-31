@@ -104,13 +104,33 @@ typedef struct
 XVprocss_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
                                     included in the design */
 
+/** @name VDMA Alignment required step size
+ *
+ * @{
+ * The following constants define various Zoom/Pip window horizontal step sizes
+ * that keeps the VDMA access aligned to aximm interface width, based on
+ * Pixels/Clock and Color Depth of the configured subsystem. This is required
+ * as current version of VDMA does not support DRE if interface width is
+ * >64bits. Software has to align the hsize and stride for all possible
+ * configurations supported by the subsystem.
+ * Current subsystem version supports the following
+ *  - Number of components = 3 (Fixed)
+ *  - Pixels/Clock         = 1, 2, 4
+ *  - Color Depth          = 8, 10, 12, 16   (4 variations)
+ */
+const u16 XVprocss_PixelHStep[XVIDC_PPC_NUM_SUPPORTED][4] =
+{
+  {16,   4,  32,   8}, //XVIDC_PPC_1
+  {16,   4,  64,  16}, //XVIDC_PPC_2
+  {32, 128, 128,  32}, //XVIDC_PPC_4
+};
 
 /************************** Function Prototypes ******************************/
 static void SetPODConfiguration(XVprocss *pVprocss);
 static void GetIncludedSubcores(XVprocss *pVprocss);
-
-static int validateVidStreamConfig(XVidC_VideoStream *pStrmIn,
-                                   XVidC_VideoStream *pStrmOut);
+static int ValidateSubsystemConfig(XVprocss *InstancePtr);
+static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
+                                    XVidC_VideoStream *pStrmOut);
 static int SetupModeScalerOnly(XVprocss *pVprocss);
 static int SetupModeMax(XVprocss *pVprocss);
 
@@ -422,15 +442,14 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
   memcpy((void *)&(pVprocss->Config), (const void *)CfgPtr, sizeof(XVprocss_Config));
   pVprocss->Config.BaseAddress = EffectiveAddr;
 
-  /* Print the configuration selected */
   switch(pVprocss->Config.Topology)
   {
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
-        xil_printf("    [Subsystem Configuration Mode - Full]\r\n\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Full]\r\n\r\n");
         break;
 
     case XVPROCSS_TOPOLOGY_SCALER_ONLY:
-        xil_printf("    [Subsystem Configuration Mode - Scaler-Only]\r\n\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Scaler-Only]\r\n\r\n");
         break;
 
     default:
@@ -556,7 +575,7 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
       u32 vdmaBufReq, bufsize;
       u32 Bpp; //bytes per pixel
 
-      Bpp = (pVprocss->Config.PixPrecision + 7)/8;
+      Bpp = (pVprocss->Config.ColorDepth + 7)/8;
 
       //compute buffer size based on subsystem configuration
       //For 1 4K2K buffer (YUV444 16-bit) size is ~48MB
@@ -655,13 +674,14 @@ static void SetPODConfiguration(XVprocss *pVprocss)
   XVidC_VideoStream vidStrmIn;
   XVidC_VideoStream vidStrmOut;
   XVidC_VideoWindow win;
+  u16 PixPrecisionIndex;
 
   /* Setup Default Output Stream configuration */
   vidStrmOut.VmId          = XVIDC_VM_1920x1080_60_P;
   vidStrmOut.ColorFormatId = XVIDC_CSF_RGB;
   vidStrmOut.FrameRate     = XVIDC_FR_60HZ;
   vidStrmOut.IsInterlaced  = FALSE;
-  vidStrmOut.ColorDepth    = XVIDC_BPC_10;
+  vidStrmOut.ColorDepth    = pVprocss->Config.ColorDepth;
   vidStrmOut.PixPerClk     = pVprocss->Config.PixPerClock;
 
   /* Setup Default Input Stream configuration */
@@ -669,12 +689,48 @@ static void SetPODConfiguration(XVprocss *pVprocss)
   vidStrmIn.ColorFormatId = XVIDC_CSF_RGB;
   vidStrmIn.FrameRate     = XVIDC_FR_60HZ;
   vidStrmIn.IsInterlaced  = FALSE;
-  vidStrmIn.ColorDepth    = XVIDC_BPC_10;
+  vidStrmIn.ColorDepth    = pVprocss->Config.ColorDepth;
   vidStrmIn.PixPerClk     = pVprocss->Config.PixPerClock;
 
   /* Setup Video Processing subsystem input/output  configuration */
   XVprocss_SetVidStreamIn(pVprocss,  &vidStrmIn);
   XVprocss_SetVidStreamOut(pVprocss, &vidStrmOut);
+
+  /* compute data width supported by vdma */
+  pVprocss->idata.PixelWidthInBits = pVprocss->Config.NumVidComponents *
+			                         pVprocss->VidIn.ColorDepth;
+  switch(pVprocss->Config.PixPerClock)
+  {
+    case XVIDC_PPC_1:
+    case XVIDC_PPC_2:
+	 if(pVprocss->Config.ColorDepth == XVIDC_BPC_10)
+	 {
+	   /* Align the bit width to next byte boundary for this particular case
+	    * Num_Channel	Color Depth		PixelWidth		Align
+	    * ----------------------------------------------------
+	    *    2				10				20			 24
+	    *    3				10				30			 32
+	    *
+	    *    HW will do the bit padding for 20->24 and 30->32
+	    */
+	   pVprocss->idata.PixelWidthInBits = ((pVprocss->idata.PixelWidthInBits + 7)/8)*8;
+	 }
+	 break;
+
+    default:
+	 break;
+  }
+
+  /* Setup Pixel Step size for define HW configuration */
+  switch(pVprocss->Config.ColorDepth)
+  {
+    case XVIDC_BPC_8:  PixPrecisionIndex = 0; break;
+    case XVIDC_BPC_10: PixPrecisionIndex = 1; break;
+    case XVIDC_BPC_12: PixPrecisionIndex = 2; break;
+    case XVIDC_BPC_16: PixPrecisionIndex = 3; break;
+    default: break;
+  }
+  pVprocss->idata.PixelHStepSize = XVprocss_PixelHStep[pVprocss->Config.PixPerClock>>1][PixPrecisionIndex];
 
   if(XVprocss_IsConfigModeMax(pVprocss))
   {
@@ -682,6 +738,7 @@ static void SetPODConfiguration(XVprocss *pVprocss)
     win.Width  = 400;
     win.Height = 400;
     win.StartX = win.StartY = 0;
+
     XVprocss_SetZoomPipWindow(pVprocss,
                               XVPROCSS_ZOOM_WIN,
                               &win);
@@ -1007,7 +1064,7 @@ void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr)
   }
   else //Scaler Only Config
   {
-    xil_printf("\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
   }
 }
 
@@ -1044,7 +1101,7 @@ void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
      /* check if DMA includes DRE. If not then auto-align to selected bus width */
      if(!InstancePtr->vdma->ReadChannel.HasDRE)
      {
-       wordlen = InstancePtr->vdma->ReadChannel.WordLength-1;
+       wordlen = InstancePtr->idata.PixelHStepSize-1;
 
        win->StartX = ((win->StartX + wordlen) & ~(wordlen));
        win->Width  = ((win->Width  + wordlen) & ~(wordlen));
@@ -1060,7 +1117,7 @@ void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
      /* check if DMA does not have DRE then auto-align */
      if(!InstancePtr->vdma->WriteChannel.HasDRE)
      {
-       wordlen = InstancePtr->vdma->WriteChannel.WordLength-1;
+       wordlen = InstancePtr->idata.PixelHStepSize-1;
 
        win->StartX = ((win->StartX + wordlen) & ~(wordlen));
        win->Width  = ((win->Width  + wordlen) & ~(wordlen));
@@ -1074,7 +1131,7 @@ void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
   }
   else //Scaler Only Config
   {
-    xil_printf("\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
   }
 }
 
@@ -1119,7 +1176,7 @@ void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
    }
    else //Scaler Only Config
    {
-    xil_printf("\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
+	 xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
    }
 }
 
@@ -1155,11 +1212,11 @@ void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff)
     InstancePtr->idata.ZoomEn = OnOff;
     InstancePtr->idata.PipEn  = FALSE;
 
-    xil_printf("\r\n  :ZOOM Mode %s \r\n", status[InstancePtr->idata.ZoomEn]);
+    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n  :ZOOM Mode %s \r\n", status[InstancePtr->idata.ZoomEn]);
   }
   else //Scaler Only Config
   {
-    xil_printf("\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
   }
 }
 
@@ -1195,17 +1252,18 @@ void XVprocss_SetPipMode(XVprocss *InstancePtr, u8 OnOff)
     InstancePtr->idata.PipEn  = OnOff;
     InstancePtr->idata.ZoomEn = FALSE;
 
-    xil_printf("\r\n  :PIP Mode %s \r\n", status[InstancePtr->idata.PipEn]);
+    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n  :PIP Mode %s \r\n", status[InstancePtr->idata.PipEn]);
   }
   else //Scaler Only Config
   {
-    xil_printf("\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported in Streaming Mode\r\n");
   }
 }
 
 /*****************************************************************************/
 /**
-* This function validates the input and output stream configuration
+* This function validates the input and output stream configuration for scaler
+* only configuration
 *
 * @param  pStrmIn is a pointer to the input stream
 * @param  pStrmOut is a pointer to the output stream
@@ -1213,32 +1271,26 @@ void XVprocss_SetPipMode(XVprocss *InstancePtr, u8 OnOff)
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 * @note This function is applicable only for Stream mode configuration of the
-*       subsystem. In this mode very limited functionality is possible
+*       subsystem. In this mode very limited functionality is available
 ******************************************************************************/
-static int validateVidStreamConfig(XVidC_VideoStream *pStrmIn,
-                                   XVidC_VideoStream *pStrmOut)
+static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
+                                    XVidC_VideoStream *pStrmOut)
 {
-  if(pStrmIn->IsInterlaced)
-  {
-    xil_printf("VPROCSS ERR: Interlaced Input not supported\r\n");
-    return(XST_FAILURE);
-  }
-
   if(pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
   {
-    xil_printf("VPROCSS ERR: YUV420 Input not supported\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: YUV420 Input not supported\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->ColorFormatId != pStrmOut->ColorFormatId)
   {
-    xil_printf("VPROCSS ERR: Input & Output Stream Color Format different\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Stream Color Format different\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->ColorDepth != pStrmOut->ColorDepth)
   {
-    xil_printf("VPROCSS ERR: Input & Output Color Depth different\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Color Depth different\r\n");
     return(XST_FAILURE);
   }
 
@@ -1269,13 +1321,13 @@ static int SetupModeScalerOnly(XVprocss *pVprocss)
 
   if((!pVprocss->vscaler) || (!pVprocss->hscaler))
   {
-      xil_printf("VPROCSS ERR:: Scaler IP not found\r\n");
-      return(XST_FAILURE);
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaler IP not found\r\n");
+    return(XST_FAILURE);
   }
 
   /* check if input/output stream configuration is supported */
-  status = validateVidStreamConfig(&pVprocss->VidIn,
-                                   &pVprocss->VidOut);
+  status = ValidateScalerOnlyConfig(&pVprocss->VidIn,
+                                    &pVprocss->VidOut);
 
   if(status ==  XST_SUCCESS)
   {
@@ -1320,7 +1372,7 @@ static int SetupModeScalerOnly(XVprocss *pVprocss)
   }
   else
   {
-    xil_printf("\r\n-->Command Ignored<--\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n-->Command Ignored<--\r\n");
   }
   return(status);
 }
@@ -1355,11 +1407,129 @@ static int SetupModeMax(XVprocss *pVprocss)
   }
   else
   {
-    xil_printf("VPROCSS ERR: Subsystem Routing Table Invalid");
-    xil_printf("- Ignoring Configuration Request\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Subsystem Routing Table Invalid");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"- Ignoring Configuration Request\r\n");
   }
   return(status);
 }
+
+
+/*****************************************************************************/
+/**
+* This function validates the input and output stream configuration against the
+* Subsystem hardware capabilities
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+******************************************************************************/
+static int ValidateSubsystemConfig(XVprocss *InstancePtr)
+{
+  XVidC_VideoStream *StrmIn  = &InstancePtr->VidIn;
+  XVidC_VideoStream *StrmOut = &InstancePtr->VidOut;
+
+  /* Check Stream Samples/Clock against Subsystem HW Configuration */
+  if((StrmIn->PixPerClk  != InstancePtr->Config.PixPerClock) ||
+	 (StrmOut->PixPerClk != InstancePtr->Config.PixPerClock))
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input/Output Stream Samples/Clk Not Supported \r\n");
+	return(XST_FAILURE);
+  }
+
+  /* Check Stream Color Depth against Subsystem HW Configuration */
+  if((StrmIn->ColorDepth  != InstancePtr->Config.ColorDepth) ||
+	 (StrmOut->ColorDepth != InstancePtr->Config.ColorDepth))
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input/Output Stream ColorDepth Not Supported \r\n");
+	return(XST_FAILURE);
+  }
+
+  /* Check Stream Width is aligned at Samples/Clock boundary */
+  if(((StrmIn->Timing.HActive  % InstancePtr->Config.PixPerClock) != 0) ||
+     ((StrmOut->Timing.HActive % InstancePtr->Config.PixPerClock) != 0))
+  {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input/Output Width not aligned with Samples/Clk\r\n");
+	return(XST_FAILURE);
+  }
+
+  /* Check if Subsystem HW Configuration can process requested resolution*/
+  if(((StrmIn->PixPerClk  == XVIDC_PPC_1) && (StrmIn->VmId > XVIDC_VM_3840x2160_30_P))||
+	 ((StrmOut->PixPerClk == XVIDC_PPC_1) && (StrmOut->VmId > XVIDC_VM_3840x2160_30_P)))
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: 1 Sample/Clk can support Max resolution of 4K2K@30Hz \r\n");
+	return(XST_FAILURE);
+  }
+
+  /* Check for YUV422 In/Out stream width is even */
+  if(((StrmIn->ColorFormatId  == XVIDC_CSF_YCRCB_422) && ((StrmIn->Timing.HActive % 2) != 0)) ||
+	 ((StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_422) && ((StrmOut->Timing.HActive % 2) != 0)))
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: YUV422 stream width must be even\r\n");
+	return(XST_FAILURE);
+  }
+
+  /* Check for YUV420 In stream width and height is even */
+  if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
+  {
+	if(InstancePtr->vcrsmplrIn)
+	{
+      if(((StrmIn->Timing.HActive % 2) != 0) && ((StrmIn->Timing.VActive % 2) != 0))
+	  {
+	    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: YUV420 input stream width and height must be even\r\n");
+	    return(XST_FAILURE);
+	  }
+	}
+	else
+	{
+	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Vertical Chroma Resampler IP not found. YUV420 Input not supported\r\n");
+	  return(XST_FAILURE);
+	}
+  }
+
+  /* Check for YUV420 out stream width and height is even */
+  if(StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_420)
+  {
+	if(InstancePtr->vcrsmplrOut)
+	{
+      if(((StrmOut->Timing.HActive % 2) != 0) && ((StrmOut->Timing.VActive % 2) != 0))
+	  {
+	    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: YUV420 output stream width and height must be even\r\n");
+	    return(XST_FAILURE);
+	  }
+	}
+	else
+	{
+	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Vertical Chroma Resampler IP not found. YUV420 Output not supported\r\n");
+	  return(XST_FAILURE);
+	}
+  }
+
+  /* Check for Interlaced input limitation */
+  if(StrmIn->IsInterlaced)
+  {
+	if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
+	{
+	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced YUV420 stream not supported\r\n");
+	  return(XST_FAILURE);
+	}
+	if(InstancePtr->deint)
+	{
+	  if((StrmIn->VmId != XVIDC_VM_1080_50_I) && ((StrmIn->VmId != XVIDC_VM_1080_60_I)))
+	  {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Only 1080i 50Hz/60Hz Supported\r\n");
+		return(XST_FAILURE);
+	  }
+	}
+	else
+	{
+	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced input not supported\r\n");
+	  return(XST_FAILURE);
+	}
+  }
+  return(XST_SUCCESS);
+}
+
 
 /*****************************************************************************/
 /**
@@ -1374,29 +1544,27 @@ static int SetupModeMax(XVprocss *pVprocss)
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr)
+int XVprocss_SetSubsystemConfig(XVprocss *InstancePtr)
 {
   int status = XST_SUCCESS;
 
   /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
-  /* Video Processing Subsystem overrides In/Out Pixel Precision & Pixel/Clk */
-  InstancePtr->VidIn.ColorDepth  = (XVidC_ColorDepth)InstancePtr->Config.PixPrecision;
-  InstancePtr->VidOut.ColorDepth = (XVidC_ColorDepth)InstancePtr->Config.PixPrecision;
-
-  InstancePtr->VidIn.PixPerClk  = (XVidC_PixelsPerClock)InstancePtr->Config.PixPerClock;
-
-  /* compute data width of input stream */
-  InstancePtr->idata.PixelWidthInBits = InstancePtr->Config.NumVidComponents *
-		                                InstancePtr->VidIn.ColorDepth;
-
+#ifdef DEBUG
   xil_printf("\r\n****** VPROC SUBSYSTEM INPUT/OUTPUT CONFIG ******\r\n");
   xil_printf("->INPUT\r\n");
   XVidC_ReportStreamInfo(&InstancePtr->VidIn);
   xil_printf("\r\n->OUTPUT\r\n");
   XVidC_ReportStreamInfo(&InstancePtr->VidOut);
   xil_printf("**************************************************\r\n\r\n");
+#endif
+
+  /* validate subsystem configuration */
+  if(ValidateSubsystemConfig(InstancePtr) != XST_SUCCESS)
+  {
+	 return(XST_FAILURE);
+  }
 
   switch(InstancePtr->Config.Topology)
   {
@@ -1410,9 +1578,83 @@ int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr)
         break;
 
     default:
-        xil_printf("VPROCSS ERR: Subsystem Configuration Mode Not Supported. \r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Subsystem Configuration Mode Not Supported. \r\n");
         status = XST_FAILURE;
         break;
   }
   return(status);
+}
+
+/*****************************************************************************/
+/**
+* This function reports the subsystem HW and input/output stream configuration
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr)
+{
+  char *topology[2] = {"Scaler-Only", "Full-Fledged"};
+  XVidC_VideoWindow win;
+
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  xil_printf("\r\n****** Video Processing Subsystem Configuration ******\r\n");
+  /* Print the configuration selected */
+  if(InstancePtr->Config.Topology <= XVPROCSS_TOPOLOGY_FULL_FLEDGED)
+  {
+    xil_printf("\r\nTopology: %s\r\n", topology[InstancePtr->Config.Topology]);
+    XVprocss_ReportCoreInfo(InstancePtr);
+  }
+  else
+  {
+	xil_printf("VPROCSS ERR:: Unknown Topology\r\n");
+	return;
+  }
+  xil_printf("\r\nPixels/Clk  = %d\r\n", InstancePtr->Config.PixPerClock);
+  xil_printf("Color Depth = %d\r\n", InstancePtr->Config.ColorDepth);
+  xil_printf("Num Video Components = %d\r\n", InstancePtr->Config.NumVidComponents);
+  xil_printf("Max Width Supported  = %d\r\n", InstancePtr->Config.MaxWidth);
+  xil_printf("Max Height Supported = %d\r\n", InstancePtr->Config.MaxHeight);
+
+  xil_printf("\r\n------ SUBSYSTEM INPUT/OUTPUT CONFIG ------\r\n");
+  xil_printf("->INPUT\r\n");
+  XVidC_ReportStreamInfo(&InstancePtr->VidIn);
+  xil_printf("\r\n->OUTPUT\r\n");
+  XVidC_ReportStreamInfo(&InstancePtr->VidOut);
+
+  if(XVprocss_IsConfigModeMax(InstancePtr))
+  {
+    if(XVprocss_IsZoomModeOn(InstancePtr))
+    {
+	  xil_printf("\r\nZoom Mode: ON\r\n");
+	  XVprocss_GetZoomPipWindow(InstancePtr, XVPROCSS_ZOOM_WIN, &win);
+	  xil_printf("   Start X    = %d\r\n", win.StartX);
+	  xil_printf("   Start Y    = %d\r\n", win.StartY);
+	  xil_printf("   Win Width  = %d\r\n", win.Width);
+	  xil_printf("   Win Height = %d\r\n", win.Height);
+    }
+    else
+    {
+      xil_printf("\r\nZoom Mode: OFF\r\n");
+    }
+
+    if(XVprocss_IsPipModeOn(InstancePtr))
+    {
+	  xil_printf("\r\nPip Mode: ON\r\n");
+	  XVprocss_GetZoomPipWindow(InstancePtr, XVPROCSS_PIP_WIN, &win);
+	  xil_printf("   Start X    = %d\r\n", win.StartX);
+	  xil_printf("   Start Y    = %d\r\n", win.StartY);
+	  xil_printf("   Win Width  = %d\r\n", win.Width);
+	  xil_printf("   Win Height = %d\r\n", win.Height);
+    }
+    else
+    {
+      xil_printf("\r\nPip  Mode: OFF\r\n");
+    }
+  }
+  xil_printf("**************************************************\r\n\r\n");
 }

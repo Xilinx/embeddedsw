@@ -204,7 +204,7 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
     Status = XAxiVdma_DmaConfig(pVdma, XAXIVDMA_WRITE, &WriteCfg);
     if (Status != XST_SUCCESS)
     {
-      xil_printf("Write channel config failed %d\r\n", Status);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"Write channel config failed %d\r\n", Status);
       return XST_FAILURE;
     }
 
@@ -224,7 +224,7 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
                                        WriteCfg.FrameStoreStartAddr);
     if (Status != XST_SUCCESS)
     {
-      xil_printf("Write channel set buffer address failed %d\r\n", Status);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"Write channel set buffer address failed %d\r\n", Status);
       return XST_FAILURE;
     }
   }
@@ -300,7 +300,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
     Status = XAxiVdma_DmaConfig(pVdma, XAXIVDMA_READ, &ReadCfg);
     if (Status != XST_SUCCESS)
     {
-      xil_printf("Read channel config failed %d\r\n", Status);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"Read channel config failed %d\r\n", Status);
       return XST_FAILURE;
     }
 
@@ -322,7 +322,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
                                        ReadCfg.FrameStoreStartAddr);
     if (Status != XST_SUCCESS)
     {
-      xil_printf("Read channel set buffer address failed %d\r\n", Status);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"Read channel set buffer address failed %d\r\n", Status);
       return XST_FAILURE;
     }
   }
@@ -351,14 +351,14 @@ int XVprocss_VdmaStartTransfer(XAxiVdma *pVdma)
     Status = XAxiVdma_DmaStart(pVdma, XAXIVDMA_WRITE);
     if (Status != XST_SUCCESS)
     {
-      xil_printf("VDMA ERR:: Start Write transfer failed %d\r\n", Status);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"VDMA ERR:: Start Write transfer failed %d\r\n", Status);
       return XST_FAILURE;
     }
 
     Status = XAxiVdma_DmaStart(pVdma, XAXIVDMA_READ);
     if (Status != XST_SUCCESS)
     {
-      xil_printf("VDMA ERR:: Start read transfer failed %d\r\n", Status);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"VDMA ERR:: Start read transfer failed %d\r\n", Status);
       return XST_FAILURE;
     }
   }
@@ -486,7 +486,7 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
                                      pVprocss->idata.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
-      xil_printf("ERR:: Unable to configure VDMA Write Channel \r\n");
+      xil_printf("VPROCSS ERR:: Unable to configure VDMA Write Channel \r\n");
     }
   }
 
@@ -516,7 +516,7 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
                                     pVprocss->idata.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
-      xil_printf("ERR:: Unable to configure VDMA Read Channel \r\n");
+      xil_printf("VPROCSS ERR:: Unable to configure VDMA Read Channel \r\n");
     }
   }
 }

@@ -133,16 +133,12 @@ static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss)
                                 pVprocss->VidOut.Timing.VActive);
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: VDMA Write Channel Window Invalid \r\n");
-	  xil_printf("   Start X    = %d\r\n", win.StartX);
-	  xil_printf("   Start Y    = %d\r\n", win.StartY);
-	  xil_printf("   Win Width  = %d\r\n", win.Width);
-	  xil_printf("   Win Height = %d\r\n", win.Height);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VDMA Write Channel Window Invalid \r\n");
 	  return(XVPROCSS_SCALE_NOT_SUPPORTED);
     }
     else
     {
-	  xil_printf("\r\n PIP Mode ON: Scale %dx%d -> %dx%d window in output stream\r\n",
+      xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n PIP Mode ON: Scale %dx%d -> %dx%d window in output stream\r\n",
 		            pStrIn->Timing.HActive,
 		            pStrIn->Timing.VActive,
 		            pVprocss->idata.wrWindow.Width,
@@ -162,16 +158,12 @@ static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss)
 	                            pStrIn->Timing.VActive);
     if(status != XST_SUCCESS)
     {
-      xil_printf("ERR:: VDMA Read Channel Window Invalid \r\n");
-	  xil_printf("   Start X    = %d\r\n", win.StartX);
-	  xil_printf("   Start Y    = %d\r\n", win.StartY);
-	  xil_printf("   Win Width  = %d\r\n", win.Width);
-	  xil_printf("   Win Height = %d\r\n", win.Height);
+      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VDMA Read Channel Window Invalid \r\n");
 	  return(XVPROCSS_SCALE_NOT_SUPPORTED);
     }
     else
     {
-	  xil_printf("\r\n Zoom Mode ON: Scale %dx%d window from Input Stream -> %dx%d\r\n",
+      xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n Zoom Mode ON: Scale %dx%d window from Input Stream -> %dx%d\r\n",
                     pVprocss->idata.rdWindow.Width,
                     pVprocss->idata.rdWindow.Height,
 		            pStrOut->Timing.HActive,
@@ -247,7 +239,7 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
   pCfg->ScaleMode = GetScalingMode(pVprocss);
   if(pCfg->ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED)
   {
-    xil_printf("VPROCSS ERR:: Scaling Mode not supported\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode not supported\r\n");
     return(XST_FAILURE);
   }
 
@@ -257,44 +249,15 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
   /* Check if input is I/P */
   if(pStrIn->IsInterlaced)
   {
-    if(pStrIn->ColorFormatId != XVIDC_CSF_YCRCB_420)
-    {
-      if(pVprocss->deint)
-      {
-        if((pVprocss->VidIn.VmId != XVIDC_VM_1080_60_I) &&
-           (pVprocss->VidIn.VmId != XVIDC_VM_1080_50_I))
-        {
-          xil_printf("VPROCSS ERR:: De-Interlacer supports only 1080i Input\r\n");
-          return(XST_FAILURE);
-        }
-        pTable[index++] = XVPROCSS_RTR_DEINT;
-      }
-      else
-      {
-        xil_printf("VPROCSS ERR:: De-Interlacer IP not found - Interlaced Input not supported\r\n");
-        return(XST_FAILURE);
-      }
-    }
-    else //YUV_420
-    {
-      xil_printf("VPROCSS ERR:: Interlaced 420 input not supported\r\n");
-      return(XST_FAILURE);
-    }
+    pTable[index++] = XVPROCSS_RTR_DEINT;
   }
 
   /* Check if input is 420 */
   if(pStrIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
   {
-    if(pVprocss->vcrsmplrIn) //up-sample vertically to 422 as none of the IP supports 420
-    {
-      pTable[index++] = XVPROCSS_RTR_CR_V_IN;
-      pCfg->strmCformat = XVIDC_CSF_YCRCB_422;
-    }
-    else //V Chroma Resampler IP not included in design
-    {
-      xil_printf("VPROCSS ERR:: Vertical Chroma Resampler IP not found. YUV420 Input not supported\r\n");
-      return(XST_FAILURE);
-    }
+    //up-sample vertically to 422 as none of the IP supports 420
+    pTable[index++] = XVPROCSS_RTR_CR_V_IN;
+    pCfg->strmCformat = XVIDC_CSF_YCRCB_422;
   }
 
   switch(pCfg->ScaleMode)
@@ -319,7 +282,7 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
         break;
 
     default:
-        xil_printf("VPROCSS ERR:: Scaling Mode cannot be determined.\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode cannot be determined.\r\n");
         return(XST_FAILURE);
         break;
   }
@@ -362,7 +325,7 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
               break;
 
            default: //Unsupported color format
-              xil_printf("VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
@@ -389,7 +352,7 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
               break;
 
            default: //Unsupported color format
-              xil_printf("VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
@@ -424,7 +387,7 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
               break;
 
            default: //Unsupported color format
-              xil_printf("VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
@@ -451,14 +414,14 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
               break;
 
            default: //Unsupported color format
-              xil_printf("VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
          break;
 
       default:
-        xil_printf("VPROCSS ERR:: Output Color Format Not Supported \r\n");
+	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Output Color Format Not Supported \r\n");
         status = XST_FAILURE;
         break;
   }
@@ -475,12 +438,12 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
     u32 count = 0;
 
     //print IP Data Flow Map
-    xil_printf("\r\nGenerated Map: VidIn");
+    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nGenerated Map: VidIn");
     while(count<index)
     {
-      xil_printf(" -> %s",ipStr[pTable[count++]]);
+      xdbg_printf(XDBG_DEBUG_GENERAL," -> %s",ipStr[pTable[count++]]);
     }
-    xil_printf("\r\n\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n\r\n");
   }
 #endif
 

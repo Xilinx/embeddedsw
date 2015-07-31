@@ -279,6 +279,7 @@ typedef struct
   u8 PipEn;            /**< Flag to store PIP feature state */
   u16 vidInWidth;      /**< Input H Active */
   u16 vidInHeight;     /**< Input V Active */
+  u16 PixelHStepSize;  /**< Increment step size for Pip/Zoom window */
   XVidC_ColorFormat strmCformat; /**< processing pipe color format */
   XVidC_ColorFormat cscIn;  /**< CSC core input color format */
   XVidC_ColorFormat cscOut; /**< CSC core output color format */
@@ -311,7 +312,7 @@ typedef struct
                               subsystem address range */
   u8 Topology;           /**< Subsystem configuration mode */
   u8 PixPerClock;        /**< Number of Pixels Per Clock processed by Subsystem */
-  u16 PixPrecision;      /**< Processing precision of the data pipe */
+  u16 ColorDepth;        /**< Processing precision of the data pipe */
   u16 NumVidComponents;  /**< Number of Video Components */
   u16 MaxWidth;          /**< Maximum cols supported by subsystem instance */
   u16 MaxHeight;         /**< Maximum rows supported by subsystem instance */
@@ -499,7 +500,8 @@ int XVprocss_SetVidStreamOut(XVprocss *InstancePtr,
 int XVprocss_SetStreamResolution(XVidC_VideoStream *StreamPtr,
                                  const XVidC_VideoMode VmId);
 void XVprocss_ReportCoreInfo(XVprocss *InstancePtr);
-int XVprocss_ConfigureSubsystem(XVprocss *InstancePtr);
+void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr);
+int XVprocss_SetSubsystemConfig(XVprocss *InstancePtr);
 void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff);
 void XVprocss_SetPipMode(XVprocss *InstancePtr, u8 OnOff);
 
