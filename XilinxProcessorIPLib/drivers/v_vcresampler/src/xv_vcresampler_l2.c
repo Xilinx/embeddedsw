@@ -61,9 +61,16 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
+const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4];
+const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6];
+const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8];
+const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10];
+
 
 /************************** Function Prototypes ******************************/
-static void vcrUpdateCoefficients(XV_vcresampler *pVCrsmplr, u32 coeff[2][4]);
+static void XV_vcresampler_SetCoefficients(XV_vcresampler *pVCrsmplr,
+		                                   XV_vcresampler_l2 *pVcrsmplL2Data,
+		                                   XV_VCRESAMPLER_CONVERSION convType);
 
 /*****************************************************************************/
 /**
@@ -100,6 +107,144 @@ void XV_VCrsmplStop(XV_vcresampler *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function loads default filter coefficients in the chroma resampler
+* coefficient storage based on the selected TAP configuration
+*
+* @param  InstancePtr is a pointer to the core instance to be worked on.
+* @param  pVcrsmplL2Data is a pointer to the core instance layer 2 data.
+*
+* @return None
+*
+******************************************************************************/
+void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
+		                        XV_vcresampler_l2 *pVcrsmplL2Data)
+{
+  u16 numTaps;
+  const short *coeff;
+
+  /*
+   * validates input arguments
+   */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(pVcrsmplL2Data != NULL);
+
+  numTaps = InstancePtr->Config.NumTaps;
+
+  switch(numTaps)
+  {
+    case XV_VCRSMPLR_TAPS_4:
+	     coeff = &XV_vcrsmplrcoeff_taps4[0][0][0];
+		 break;
+
+    case XV_VCRSMPLR_TAPS_6:
+	     coeff = &XV_vcrsmplrcoeff_taps6[0][0][0];
+		 break;
+
+    case XV_VCRSMPLR_TAPS_8:
+	     coeff = &XV_vcrsmplrcoeff_taps8[0][0][0];
+         break;
+
+    case XV_VCRSMPLR_TAPS_10:
+         coeff = &XV_vcrsmplrcoeff_taps10[0][0][0];
+		 break;
+
+	  default:
+		  xil_printf("ERR: V Chroma Resampler %d Taps Not Supported",numTaps);
+		  return;
+  }
+
+  XV_VCrsmplrLoadUsrCoeff(InstancePtr,
+		                  pVcrsmplL2Data,
+		                  numTaps,
+		                  coeff);
+}
+
+/*****************************************************************************/
+/**
+* This function loads user defined filter coefficients in the horiz. chroma
+* resampler coefficient storage
+*
+* @param  InstancePtr is a pointer to the core instance to be worked on.
+* @param  pVcrsmplL2Data is a pointer to the core instance layer 2 data.
+* @param  num_taps is the number of taps
+* @param  Coeff is a pointer to user defined filter coefficients table
+*
+* @return None
+*
+******************************************************************************/
+void XV_VCrsmplrLoadUsrCoeff(XV_vcresampler *InstancePtr,
+		                     XV_vcresampler_l2 *pVcrsmplL2Data,
+                             u16 num_taps,
+                             const short *Coeff)
+{
+  int i,j, k, pad, offset;
+  int index, phase, tap, conversion;
+
+  /*
+   * validate input arguments
+   */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(pVcrsmplL2Data != NULL);
+  Xil_AssertVoid(num_taps <= InstancePtr->Config.NumTaps);
+  Xil_AssertVoid(Coeff != NULL);
+
+  switch(num_taps)
+  {
+    case XV_VCRSMPLR_TAPS_4:
+    case XV_VCRSMPLR_TAPS_6:
+    case XV_VCRSMPLR_TAPS_8:
+    case XV_VCRSMPLR_TAPS_10:
+	break;
+
+    default:
+	xil_printf("\r\nERR: V Chroma Resampler %d TAPS not supported. (Select from 4/6/8/10)\r\n");
+	return;
+  }
+
+  //determine if coefficient needs padding (effective vs. max taps)
+  pad = XV_VCRSMPLR_MAX_TAPS - InstancePtr->Config.NumTaps;
+  offset = ((pad) ? (pad>>1) : 0);
+
+  index = 0;
+  //Load User defined coefficients into coefficient storage
+  for (conversion = 0; conversion < XV_VCRSMPLR_NUM_CONVERSIONS; ++conversion)
+  {
+    for (phase = 0; phase < XV_VCRSMPLR_MAX_PHASES; ++phase)
+    {
+      for (tap = 0; tap < num_taps; ++tap)
+      {
+	index = (conversion*XV_VCRSMPLR_MAX_PHASES*num_taps) + (phase*num_taps) + tap;
+        pVcrsmplL2Data->coeff[conversion][phase][tap+offset] = Coeff[index];
+      }
+    }
+  }
+
+  if(pad) //effective taps < max_taps
+  {
+    for (conversion = 0; conversion < XV_VCRSMPLR_NUM_CONVERSIONS; ++conversion)
+    {
+      for(phase = 0; phase < XV_VCRSMPLR_MAX_PHASES; ++phase)
+      {
+        //pad left
+        for (tap = 0; tap < offset; ++tap)
+        {
+          pVcrsmplL2Data->coeff[conversion][phase][tap] = 0;
+        }
+        //pad right
+        for (tap = (num_taps+offset); tap < XV_VCRSMPLR_MAX_TAPS; ++tap)
+        {
+          pVcrsmplL2Data->coeff[conversion][phase][tap] = 0;
+        }
+      }
+    }
+  }
+
+  /* Enable use of external coefficients */
+  pVcrsmplL2Data->UseExtCoeff = TRUE;
+}
+
+/*****************************************************************************/
+/**
 * This function configures the Chroma resampler active resolution
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
@@ -132,63 +277,34 @@ void XV_VCrsmplSetActiveSize(XV_vcresampler *InstancePtr,
 *
 ******************************************************************************/
 void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
+		                 XV_vcresampler_l2 *pVcrsmplL2Data,
                          XVidC_ColorFormat formatIn,
                          XVidC_ColorFormat formatOut)
 {
-  u32 fmtIn, fmtOut;
-  u32 K[2][4] = {{0}};
+  XV_VCRESAMPLER_CONVERSION convType;
 
   /*
-   * Assert validates the input arguments
+   * validate the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(pVcrsmplL2Data != NULL);
 
-  /* Temp: Resampler IP YUV420 has 2 modes with distinct indexes. The difference is
-   * in how the data is packed into the AXIS stream. HDMI IP packing is different
-   * than standard AXIS definition. Ideally HDMI should convert and repack it in the
-   * standard format, but until update is available the sub-cores that work with
-   * YUV420 will have 2 modes to support
-   * 		- YUV420_AXIS	= 3
-   * 		- YUV420_HDMI	= 4
-   *
-   * 	Video Common driver has only YUV420_AXIS mode defined at index 3
-   * 	VPRD beta release, is tightly coupled with HDMI IP, hence fow now the 420 mode
-   * 	is mapped to YUV420_HDMI (4)
-   */
-
-  fmtIn  = ((formatIn  == XVIDC_CSF_YCRCB_420) ? (XVIDC_CSF_YCRCB_420+1) : formatIn);
-  fmtOut = ((formatOut == XVIDC_CSF_YCRCB_420) ? (XVIDC_CSF_YCRCB_420+1) : formatOut);
-
-  XV_vcresampler_Set_HwReg_input_video_format(InstancePtr,  fmtIn);
-  XV_vcresampler_Set_HwReg_output_video_format(InstancePtr, fmtOut);
+  XV_vcresampler_Set_HwReg_input_video_format(InstancePtr,  formatIn);
+  XV_vcresampler_Set_HwReg_output_video_format(InstancePtr, formatOut);
 
   if((formatIn == XVIDC_CSF_YCRCB_420) &&
      (formatOut == XVIDC_CSF_YCRCB_422))
   {
-    K[0][0] = 0;
-    K[0][1] = 4096;
-    K[0][2] = 0;
-    K[0][3] = 0;
-    K[1][0] = 506;
-    K[1][1] = 1542;
-    K[1][2] = 1542;
-    K[1][3] = 506;
+	convType = XV_VCRSMPLR_420_TO_422;
   }
   else if((formatIn == XVIDC_CSF_YCRCB_422) &&
-        (formatOut == XVIDC_CSF_YCRCB_420))
+          (formatOut == XVIDC_CSF_YCRCB_420))
 
   {
-    K[0][0] = 0;
-    K[0][1] = 1024;
-    K[0][2] = 2048;
-    K[0][3] = 1024;
-    K[1][0] = 0;
-    K[1][1] = 0;
-    K[1][2] = 0;
-    K[1][3] = 0;
+	convType = XV_VCRSMPLR_422_TO_420;
   }
 
-  vcrUpdateCoefficients(InstancePtr, K);
+  XV_vcresampler_SetCoefficients(InstancePtr, pVcrsmplL2Data, convType);
 }
 
 /*****************************************************************************/
@@ -197,21 +313,36 @@ void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
 * required conversion
 *
 * @param  pVCrsmplr is a pointer to the core instance to be worked on.
-* @param  coeff is the array holding computed coefficients
+* @param  pVcrsmplL2Data is a pointer to the core instance layer 2 data.
+* @param  convType is the format conversion requested
 *
 * @return None
 *
 ******************************************************************************/
-static void vcrUpdateCoefficients(XV_vcresampler *pVCrsmplr, u32 coeff[2][4])
+static void XV_vcresampler_SetCoefficients(XV_vcresampler *pVCrsmplr,
+		                                   XV_vcresampler_l2 *pVcrsmplL2Data,
+		                                   XV_VCRESAMPLER_CONVERSION convType)
 {
-  XV_vcresampler_Set_HwReg_coefs_0_0(pVCrsmplr, coeff[0][0]);
-  XV_vcresampler_Set_HwReg_coefs_0_1(pVCrsmplr, coeff[0][1]);
-  XV_vcresampler_Set_HwReg_coefs_0_2(pVCrsmplr, coeff[0][2]);
-  XV_vcresampler_Set_HwReg_coefs_0_3(pVCrsmplr, coeff[0][3]);
-  XV_vcresampler_Set_HwReg_coefs_1_0(pVCrsmplr, coeff[1][0]);
-  XV_vcresampler_Set_HwReg_coefs_1_1(pVCrsmplr, coeff[1][1]);
-  XV_vcresampler_Set_HwReg_coefs_1_2(pVCrsmplr, coeff[1][2]);
-  XV_vcresampler_Set_HwReg_coefs_1_3(pVCrsmplr, coeff[1][3]);
+  u16 pad, offset;
+  u32 baseaddr;
+  u16 tap, phase,regcount;
+
+  //determine if coefficients are padded
+  pad = XV_VCRSMPLR_MAX_TAPS - pVCrsmplr->Config.NumTaps;
+  offset = ((pad) ? (pad>>1) : 0);
+
+  regcount = 0; //number of registers being written
+  baseaddr = XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA;
+  baseaddr += pVCrsmplr->Config.BaseAddress;
+
+  for(phase = 0; phase < XV_VCRSMPLR_MAX_PHASES; ++phase)
+  {
+    for(tap = 0; tap < pVCrsmplr->Config.NumTaps; ++tap)
+    {
+	  Xil_Out32((baseaddr+(regcount*8)), pVcrsmplL2Data->coeff[convType][phase][offset+tap]);
+	  ++regcount;
+    }
+  }
 }
 
 /*****************************************************************************/

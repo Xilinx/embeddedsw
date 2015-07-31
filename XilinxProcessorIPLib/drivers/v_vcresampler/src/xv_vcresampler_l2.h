@@ -106,18 +106,65 @@ extern "C" {
 #include "xv_vcresampler.h"
 
 /************************** Constant Definitions *****************************/
+ /** @name Hw Configuration
+    * @{
+    * The following constants define the vert. resampler HW MAX configuration
+    *
+    */
+#define XV_VCRSMPLR_MAX_TAPS           (10)
+#define XV_VCRSMPLR_MAX_PHASES         (2)
 
 /**************************** Type Definitions *******************************/
+ /**
+  * This typedef enumerates the supported taps
+  */
+ typedef enum
+ {
+   XV_VCRSMPLR_TAPS_4  = 4,
+   XV_VCRSMPLR_TAPS_6  = 6,
+   XV_VCRSMPLR_TAPS_8  = 8,
+   XV_VCRSMPLR_TAPS_10 = 10,
+   XV_VCRSMPLR_NUM_SUPPORTED_TAPS_CONFIG = 4
+ }XV_VCRESAMPLER_TAPS;
+
+ /**
+  * This typedef enumerates the conversion type
+  */
+ typedef enum
+ {
+   XV_VCRSMPLR_422_TO_420  = 0,
+   XV_VCRSMPLR_420_TO_422 ,
+   XV_VCRSMPLR_NUM_CONVERSIONS
+ }XV_VCRESAMPLER_CONVERSION;
+
+ /**
+  * V Chroma Resampler Layer 2 data. The user is required to allocate a
+  * variable of this type for every V chroma resampler device in the system.
+  * A pointer to a variable of this type is then passed to the driver API
+  * functions.
+  */
+ typedef struct
+ {
+   u16 UseExtCoeff;
+   short coeff[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_MAX_TAPS];
+ }XV_vcresampler_l2;
 
 /************************** Function Prototypes ******************************/
 void XV_VCrsmplStart(XV_vcresampler *InstancePtr);
 void XV_VCrsmplStop(XV_vcresampler *InstancePtr);
+void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
+		                        XV_vcresampler_l2 *pVcrsmplL2Data);
+void XV_VCrsmplrLoadUsrCoeff(XV_vcresampler *InstancePtr,
+		                     XV_vcresampler_l2 *pVcrsmplL2Data,
+                             u16 num_taps,
+                             const short *Coeff);
 
 void XV_VCrsmplSetActiveSize(XV_vcresampler *InstancePtr,
                              u32            width,
                              u32            height);
 
 void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
+                         XV_vcresampler_l2 *pVcrsmplL2Data,
                          XVidC_ColorFormat formatIn,
                          XVidC_ColorFormat formatOut);
 
