@@ -106,18 +106,65 @@ extern "C" {
 #include "xv_hcresampler.h"
 
 /************************** Constant Definitions *****************************/
+ /** @name Hw Configuration
+   * @{
+   * The following constants define the horiz. resampler HW MAX configuration
+   *
+   */
+#define XV_HCRSMPLR_MAX_TAPS           (10)
+#define XV_HCRSMPLR_MAX_PHASES         (2)
 
 /**************************** Type Definitions *******************************/
+ /**
+  * This typedef enumerates the supported taps
+  */
+ typedef enum
+ {
+   XV_HCRSMPLR_TAPS_4  = 4,
+   XV_HCRSMPLR_TAPS_6  = 6,
+   XV_HCRSMPLR_TAPS_8  = 8,
+   XV_HCRSMPLR_TAPS_10 = 10,
+   XV_HCRSMPLR_NUM_SUPPORTED_TAPS_CONFIG = 4
+ }XV_HCRESAMPLER_TAPS;
+
+ /**
+  * This typedef enumerates the conversion type
+  */
+ typedef enum
+ {
+   XV_HCRSMPLR_444_TO_422  = 0,
+   XV_HCRSMPLR_422_TO_444 ,
+   XV_HCRSMPLR_NUM_CONVERSIONS
+ }XV_HCRESAMPLER_CONVERSION;
+
+ /**
+  * H Chroma Resampler Layer 2 data. The user is required to allocate a
+  * variable of this type for every H chroma resampler device in the system.
+  * A pointer to a variable of this type is then passed to the driver API
+  * functions.
+  */
+ typedef struct
+ {
+   u16 UseExtCoeff;
+   short coeff[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_MAX_TAPS];
+ }XV_hcresampler_l2;
 
 /************************** Function Prototypes ******************************/
 void XV_HCrsmplStart(XV_hcresampler *InstancePtr);
 void XV_HCrsmplStop(XV_hcresampler *InstancePtr);
+void XV_HCrsmplLoadDefaultCoeff(XV_hcresampler *InstancePtr,
+		                        XV_hcresampler_l2 *pHcrsmplL2Data);
+void XV_HCrsmplrLoadUsrCoeff(XV_hcresampler *InstancePtr,
+		                     XV_hcresampler_l2 *pHcrsmplL2Data,
+                             u16 num_taps,
+                             const short *Coeff);
 
 void XV_HCrsmplSetActiveSize(XV_hcresampler *InstancePtr,
                              u32            width,
                              u32            height);
 
 void XV_HCrsmplSetFormat(XV_hcresampler   *InstancePtr,
+		                 XV_hcresampler_l2 *pHcrsmplL2Data,
                          XVidC_ColorFormat formatIn,
                          XVidC_ColorFormat formatOut);
 
