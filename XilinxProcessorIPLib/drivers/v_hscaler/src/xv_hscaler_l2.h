@@ -111,26 +111,21 @@
 extern "C" {
 #endif
 
+#include "xvidc.h"
 #include "xv_hscaler.h"
 
 /************************** Constant Definitions *****************************/
 /** @name Hw Configuration
  * @{
- * The following constants define the scaler HW configuration
- * TODO:
- * Below defined Parameters are static configuration of H Scaler IP
- * The tool needs to export these parameters to SDK and the driver will
- * be populated with these option settings. i.e. these settings could be
- * accessible via instance pointer
- *
+ * The following constants define the scaler HW MAX configuration
  */
-#define XV_HSCALER_MAX_H_TAPS           (10)
+#define XV_HSCALER_MAX_H_TAPS           (12)
 #define XV_HSCALER_MAX_H_PHASES         (64)
-#define XV_HSCALER_MAX_LINE_WIDTH       (4096)
+#define XV_HSCALER_MAX_LINE_WIDTH       (3840)
 
 /**************************** Type Definitions *******************************/
 /**
- * This typedef contains the Scaler Type
+ * This typedef enumerates the Scaler Type
  */
 typedef enum
 {
@@ -140,50 +135,40 @@ typedef enum
 }XV_HSCALER_TYPE;
 
 /**
- * This typedef contains the type of filters available for scaling operation
+ * This typedef enumerates the supported taps
  */
 typedef enum
 {
-  XV_HFILT_LANCZOS = 0,
-  XV_HFILT_WINDOWED_SINC
-}XV_HFILTER_ID;
+  XV_HSCALER_TAPS_6  = 6,
+  XV_HSCALER_TAPS_8  = 8,
+  XV_HSCALER_TAPS_10 = 10,
+  XV_HSCALER_TAPS_12 = 12
+}XV_HSCALER_TAPS;
 
 /**
- * V Scaler Layer 2 data. The user is required to allocate a variable
- * of this type for every V Scaler device in the system. A pointer to a
+ * H Scaler Layer 2 data. The user is required to allocate a variable
+ * of this type for every H Scaler device in the system. A pointer to a
  * variable of this type is then passed to the driver API functions.
  */
 typedef struct
 {
   u8 UseExtCoeff;
-  XV_HFILTER_ID FilterSel;
   short coeff[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS];
-  u32 phasesH[XV_HSCALER_MAX_LINE_WIDTH];
+  u64 phasesH[XV_HSCALER_MAX_LINE_WIDTH];
 }XV_hscaler_l2;
 
 /************************** Macros Definitions *******************************/
-/*****************************************************************************/
-/**
- * This macro selects the filter used for generating coefficients.
- * Applicable only for Ployphase Scaler Type
- *
- * @param  pHscL2Data is pointer to the H Scaler Layer 2 structure instance
- * @param  value is the filter type
- *
- * @return None
- *
- *****************************************************************************/
-#define XV_HScalerSetFilterType(pHscL2Data, value)  \
-                         ((pHscL2Data)->FilterSel = value)
 
 /************************** Function Prototypes ******************************/
 void XV_HScalerStart(XV_hscaler *InstancePtr);
 void XV_HScalerStop(XV_hscaler *InstancePtr);
-void XV_HscalerLoadUsrCoeffients(XV_hscaler *InstancePtr,
-                                 XV_hscaler_l2 *pHscL2Data,
-                                 u16 num_phases,
-                                 u16 num_taps,
-                                 const short *Coeff);
+void XV_HScalerLoadDefaultCoeff(XV_hscaler *InstancePtr,
+		                        XV_hscaler_l2 *pHscL2Data);
+void XV_HScalerLoadUsrCoeff(XV_hscaler *InstancePtr,
+                            XV_hscaler_l2 *pHscL2Data,
+                            u16 num_phases,
+                            u16 num_taps,
+                            const short *Coeff);
 void XV_HScalerSetup(XV_hscaler  *InstancePtr,
                      XV_hscaler_l2 *pHscL2Data,
                      u32 HeightIn,
