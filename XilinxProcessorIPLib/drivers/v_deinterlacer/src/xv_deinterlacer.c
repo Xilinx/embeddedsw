@@ -87,6 +87,39 @@ void XV_deinterlacer_DisableAutoRestart(XV_deinterlacer *InstancePtr) {
     XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL, 0);
 }
 
+void XV_deinterlacer_Set_width(XV_deinterlacer *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_WIDTH_DATA, Data);
+}
+
+u32 XV_deinterlacer_Get_width(XV_deinterlacer *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_WIDTH_DATA);
+    return Data;
+}
+
+void XV_deinterlacer_Set_height(XV_deinterlacer *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_HEIGHT_DATA, Data);
+}
+
+u32 XV_deinterlacer_Get_height(XV_deinterlacer *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_HEIGHT_DATA);
+    return Data;
+}
 void XV_deinterlacer_Set_read_fb(XV_deinterlacer *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -155,6 +188,22 @@ u32 XV_deinterlacer_Get_algo(XV_deinterlacer *InstancePtr) {
     return Data;
 }
 
+void XV_deinterlacer_Set_invert_field_id(XV_deinterlacer *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_deinterlacer_WriteReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_INVERT_FIELD_ID_DATA, Data);
+}
+
+u32 XV_deinterlacer_Get_invert_field_id(XV_deinterlacer *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_deinterlacer_ReadReg(InstancePtr->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_INVERT_FIELD_ID_DATA);
+    return Data;
+}
 void XV_deinterlacer_InterruptGlobalEnable(XV_deinterlacer *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

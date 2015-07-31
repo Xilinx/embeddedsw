@@ -99,6 +99,10 @@ u32 XV_deinterlacer_IsReady(XV_deinterlacer *InstancePtr);
 void XV_deinterlacer_EnableAutoRestart(XV_deinterlacer *InstancePtr);
 void XV_deinterlacer_DisableAutoRestart(XV_deinterlacer *InstancePtr);
 
+void XV_deinterlacer_Set_width(XV_deinterlacer *InstancePtr, u32 Data);
+u32 XV_deinterlacer_Get_width(XV_deinterlacer *InstancePtr);
+void XV_deinterlacer_Set_height(XV_deinterlacer *InstancePtr, u32 Data);
+u32 XV_deinterlacer_Get_height(XV_deinterlacer *InstancePtr);
 void XV_deinterlacer_Set_read_fb(XV_deinterlacer *InstancePtr, u32 Data);
 u32 XV_deinterlacer_Get_read_fb(XV_deinterlacer *InstancePtr);
 void XV_deinterlacer_Set_write_fb(XV_deinterlacer *InstancePtr, u32 Data);
@@ -107,6 +111,8 @@ void XV_deinterlacer_Set_colorFormat(XV_deinterlacer *InstancePtr, u32 Data);
 u32 XV_deinterlacer_Get_colorFormat(XV_deinterlacer *InstancePtr);
 void XV_deinterlacer_Set_algo(XV_deinterlacer *InstancePtr, u32 Data);
 u32 XV_deinterlacer_Get_algo(XV_deinterlacer *InstancePtr);
+void XV_deinterlacer_Set_invert_field_id(XV_deinterlacer *InstancePtr, u32 Data);
+u32 XV_deinterlacer_Get_invert_field_id(XV_deinterlacer *InstancePtr);
 
 void XV_deinterlacer_InterruptGlobalEnable(XV_deinterlacer *InstancePtr);
 void XV_deinterlacer_InterruptGlobalDisable(XV_deinterlacer *InstancePtr);
