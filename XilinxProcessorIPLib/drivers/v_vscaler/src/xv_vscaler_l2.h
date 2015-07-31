@@ -110,25 +110,21 @@
 extern "C" {
 #endif
 
+#include "xvidc.h"
 #include "xv_vscaler.h"
 
 /************************** Constant Definitions *****************************/
  /** @name Hw Configuration
   * @{
-  * The following constants define the scaler HW configuration
-  * TODO:
-  * Below defined Parameters are static configuration of H Scaler IP
-  * The tool needs to export these parameters to SDK and the driver will
-  * be populated with these option settings. i.e. these settings could be
-  * accessible via instance pointer
+  * The following constants define the scaler HW MAX configuration
   *
   */
- #define XV_VSCALER_MAX_V_TAPS           (10)
+ #define XV_VSCALER_MAX_V_TAPS           (12)
  #define XV_VSCALER_MAX_V_PHASES         (64)
 
 /**************************** Type Definitions *******************************/
 /**
- * This typedef contains the Scaler Type
+ * This typedef eumerates the Scaler Type
  */
 typedef enum
 {
@@ -138,14 +134,15 @@ typedef enum
 }XV_VSCALER_TYPE;
 
 /**
- * This typedef contains the type of filters available for scaling operation
+ * This typedef enumerates the supported taps
  */
 typedef enum
 {
-  XV_VFILT_LANCZOS = 0,
-  XV_VFILT_WINDOWED_SINC
-}XV_VFILTER_ID;
-
+  XV_VSCALER_TAPS_6  = 6,
+  XV_VSCALER_TAPS_8  = 8,
+  XV_VSCALER_TAPS_10 = 10,
+  XV_VSCALER_TAPS_12 = 12
+}XV_VSCALER_TAPS;
 
 /**
  * V Scaler Layer 2 data. The user is required to allocate a variable
@@ -155,33 +152,21 @@ typedef enum
 typedef struct
 {
   u8 UseExtCoeff;
-  XV_VFILTER_ID FilterSel;
   short coeff[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
 }XV_vscaler_l2;
 
 /************************** Macros Definitions *******************************/
-/*****************************************************************************/
-/**
- * This macro selects the filter used for generating coefficients.
- * Applicable only for Ployphase Scaler Type
- *
- * @param  pVscL2Data is pointer to the V Scaler Layer 2 structure instance
- * @param  value is the filter type
- *
- * @return None
- *
- *****************************************************************************/
-#define XV_VScalerSetFilterType(pVscL2Data, value)  \
-                         ((pVscL2Data)->FilterSel = value)
 
 /************************** Function Prototypes ******************************/
 void XV_VScalerStart(XV_vscaler *InstancePtr);
 void XV_VScalerStop(XV_vscaler *InstancePtr);
-void XV_VscalerLoadUsrCoeffients(XV_vscaler *InstancePtr,
-                                 XV_vscaler_l2 *pVscL2Data,
-                                 u16 num_phases,
-                                 u16 num_taps,
-                                 const short *Coeff);
+void XV_VScalerLoadDefaultCoeff(XV_vscaler *InstancePtr,
+		                        XV_vscaler_l2 *pVscL2Data);
+void XV_VScalerLoadUsrCoeff(XV_vscaler *InstancePtr,
+                            XV_vscaler_l2 *pVscL2Data,
+                            u16 num_phases,
+                            u16 num_taps,
+                            const short *Coeff);
 void XV_VScalerSetup(XV_vscaler *InstancePtr,
                      XV_vscaler_l2 *pVscL2Data,
                      u32 WidthIn,

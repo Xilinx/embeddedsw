@@ -54,34 +54,24 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include <math.h>
 #include "xv_vscaler_l2.h"
 
 /************************** Constant Definitions *****************************/
-#define PI                     (3.14159265358979)
 #define STEP_PRECISION         (65536)  // 2^16
-#define COEFF_PRECISION        (4096)   // 2^12
-#define COEFF_QUANT            (4096)
 
 /* Mask definitions for Low and high 16 bits in a 32 bit number */
-#define XMASK_LOW_16BITS       (0x0000FFFF)
-#define XMASK_HIGH_16BITS      (0xFFFF0000)
+#define XVSC_MASK_LOW_16BITS       (0x0000FFFF)
+#define XVSC_MASK_HIGH_16BITS      (0xFFFF0000)
 
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
-static float SincCoeffs[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
-static float TempCoeffs[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
-static float WinCoeffs[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
-static float NormCoeffs[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
+const short XV_vscaler_fixedcoeff_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
+const short XV_vscaler_fixedcoeff_taps8[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8];
+const short XV_vscaler_fixedcoeff_taps10[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10];
+const short XV_vscaler_fixedcoeff_taps12[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/
-static float hamming( int x, int taps);
-static float sinc(float x);
-static void XV_VScalerGetCoeff(XV_vscaler *pVsc,
-                               XV_vscaler_l2 *pVscL2Data,
-                               u32 HeightIn,
-                               u32 HeightOut);
 static void XV_VScalerSetCoeff(XV_vscaler *pVsc,
                                XV_vscaler_l2 *pVscL2Data);
 
@@ -120,35 +110,58 @@ void XV_VScalerStop(XV_vscaler *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function applies the hamming filter on specified pixel position
+* This function loads default filter coefficients in the scaler coefficient
+* storage based on the selected TAP configuration
 *
-* @param  x is the pixel coordinate in horizontal direction
-* @param  taps is the number of taps available to the scaler
+* @param  InstancePtr is a pointer to the core instance to be worked on.
+* @param  pVscL2Data is a pointer to the core instance layer 2 data.
 *
-* @return hamming filter result
-*
-******************************************************************************/
-static float hamming( int x, int taps)
-{
-    //0.54 + 0.46 * cos(pi * x / filter_size); 0.54 - 0.46 * cos(2*pi * x / filter_size)
-    return (float) (0.54 + (0.46*cos((PI*x)/(taps+1))));
-}
-
-/*****************************************************************************/
-/**
-* This function applies the SIN function to specified pixel position
-*
-* @param  x is the pixel coordinate in horizontal direction
-*
-* @return Sine function result
+* @return None
 *
 ******************************************************************************/
-static float sinc(float x)
+void XV_VScalerLoadDefaultCoeff(XV_vscaler *InstancePtr,
+		                        XV_vscaler_l2 *pVscL2Data)
 {
-    if (x==0)
-       return 1;
+  const short *coeff;
+  u16 numTaps, numPhases;
 
-    return (float) sin(x*PI)/(float)(x*PI);
+  /*
+   * validates input arguments
+   */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(pVscL2Data != NULL);
+
+  numTaps   = InstancePtr->Config.NumTaps;
+  numPhases = (1<<InstancePtr->Config.PhaseShift);
+
+  switch(numTaps)
+  {
+    case XV_VSCALER_TAPS_6:
+	     coeff = &XV_vscaler_fixedcoeff_taps6[0][0];
+		 break;
+
+    case XV_VSCALER_TAPS_8:
+	     coeff = &XV_vscaler_fixedcoeff_taps8[0][0];
+		 break;
+
+    case XV_VSCALER_TAPS_10:
+	     coeff = &XV_vscaler_fixedcoeff_taps10[0][0];
+         break;
+
+    case XV_VSCALER_TAPS_12:
+         coeff = &XV_vscaler_fixedcoeff_taps12[0][0];
+		 break;
+
+	  default:
+		  xil_printf("ERR: V-Scaler %d Taps Not Supported",numTaps);
+		  return;
+	}
+
+	XV_VScalerLoadUsrCoeff(InstancePtr,
+			               pVscL2Data,
+		                   numPhases,
+		                   numTaps,
+		                   coeff);
 }
 
 /*****************************************************************************/
@@ -158,23 +171,42 @@ static float sinc(float x)
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
 * @param  pVscL2Data is a pointer to the core instance layer 2 data.
-* @param  VCoeff is the user defined filter coefficients
+* @param  num_phases is the number of phases in coefficient table
+* @param  num_taps is the number of taps in coefficient table
+* @param  Coeff is a pointer to user defined filter coefficients table
+*
+* @return None
+*
 ******************************************************************************/
-void XV_VscalerLoadUsrCoeffients(XV_vscaler *InstancePtr,
-                                 XV_vscaler_l2 *pVscL2Data,
-                                 u16 num_phases,
-                                 u16 num_taps,
-                                 const short *Coeff)
+void XV_VScalerLoadUsrCoeff(XV_vscaler *InstancePtr,
+                            XV_vscaler_l2 *pVscL2Data,
+                            u16 num_phases,
+                            u16 num_taps,
+                            const short *Coeff)
 {
   int i,j, pad, offset;
 
   /*
-   * Assert validates the input arguments
+   * validate input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(pVscL2Data != NULL);
   Xil_AssertVoid(num_taps <= InstancePtr->Config.NumTaps);
-  Xil_AssertVoid(num_phases <= (1<<InstancePtr->Config.PhaseShift));
+  Xil_AssertVoid(num_phases == (1<<InstancePtr->Config.PhaseShift));
+  Xil_AssertVoid(Coeff != NULL);
+
+  switch(num_taps)
+  {
+    case XV_VSCALER_TAPS_6:
+    case XV_VSCALER_TAPS_8:
+    case XV_VSCALER_TAPS_10:
+    case XV_VSCALER_TAPS_12:
+	break;
+
+    default:
+	xil_printf("\r\nERR: V Scaler %d TAPS not supported. (Select from 8/10/12/16)\r\n");
+	return;
+  }
 
   //determine if coefficient needs padding (effective vs. max taps)
   pad = XV_VSCALER_MAX_V_TAPS - InstancePtr->Config.NumTaps;
@@ -212,126 +244,6 @@ void XV_VscalerLoadUsrCoeffients(XV_vscaler *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function computes the filter coefficients based on scaling ratio and
-* stores them into the layer 2 data storage
-*
-* @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  pVscL2Data is a pointer to the core instance layer 2 data.
-* @param  HeightIn is the input frame height
-* @param  HeightOut is the scaled frame height
-*
-* @return None
-*
-******************************************************************************/
-static void XV_VScalerGetCoeff(XV_vscaler    *pVsc,
-                               XV_vscaler_l2 *pVscL2Data,
-                               u32            HeightIn,
-                               u32            HeightOut)
-{
-  int num_phases = (1<<pVsc->Config.PhaseShift);
-  int num_taps   = pVsc->Config.NumTaps;
-  int center_tap = num_taps/2;
-  int i,j, pad, offset;
-  float x, fc;
-  float sum[XV_VSCALER_MAX_V_PHASES];
-  float cos_win[XV_VSCALER_MAX_V_TAPS];
-
-  if(HeightIn < HeightOut)
-  {
-    fc = (float)HeightIn/(float)HeightOut;
-  }
-  else
-  {
-    fc = (float)HeightOut/(float)HeightIn;
-  }
-
-  //determine if coefficient needs padding (effective vs. max taps)
-  pad = XV_VSCALER_MAX_V_TAPS - num_taps;
-  offset = ((pad) ? (pad>>1) : 0);
-
-  for(i=0; i<num_phases; ++i)
-  {
-    for(j=0; j<num_taps; ++j)
-    {
-      x = ((float) (j - center_tap)) + (((float)i)/(float)num_phases);
-      TempCoeffs[i][j] = x;
-      SincCoeffs[i][j] = sinc(fc*x);
-    }
-  }
-
-  switch(pVscL2Data->FilterSel)
-  {
-    case XV_VFILT_LANCZOS:
-      //Window is a sinc function instead of cosine function
-      // if using lanczos2 or lanczos3 kernel
-      // lanczos(x) = sinc(x) * sinc(x / filter_size);
-
-      for (i = 0; i < num_phases; i++)
-      {
-          for (j = 0; j < num_taps; j++)
-          {
-              x = TempCoeffs[i][j];
-              WinCoeffs[i][j] = SincCoeffs[i][j] * sinc((fc*x)/num_taps);
-          }
-      }
-      break;
-
-    case XV_VFILT_WINDOWED_SINC:
-      for (j = 1; j <= num_taps; j++)
-      {
-        cos_win[j-1] = hamming(j, num_taps);
-      }
-
-      for (i = 0; i < num_phases; i++)
-      {
-          for (j = 0; j < num_taps; j++)
-          {
-              WinCoeffs[i][j] = SincCoeffs[i][j] * cos_win[j];
-          }
-      }
-      break;
-  }
-
-  // normalize to unity and quantize
-  for (i = 0; i < num_phases; i++)
-  {
-    sum[i] = 0;
-    for (j = 0; j < num_taps; j++)
-    {
-      sum[i] += WinCoeffs[i][j];
-    }
-  }
-
-  for (i = 0; i < num_phases; i++)
-  {
-    for (j = 0; j < num_taps; j++)
-    {
-      NormCoeffs[i][j] = WinCoeffs[i][j]/sum[i];
-      pVscL2Data->coeff[i][j+offset] = (short) ((NormCoeffs[i][j] * COEFF_QUANT) + 0.5);
-    }
-  }
-
-  if(pad) //effective taps < max_taps
-  {
-    for (i = 0; i < num_phases; i++)
-    {
-      //pad left
-      for (j = 0; j < offset; j++)
-      {
-        pVscL2Data->coeff[i][j] = 0;
-      }
-        //pad right
-      for (j = (num_taps+offset); j < XV_VSCALER_MAX_V_TAPS; j++)
-      {
-        pVscL2Data->coeff[i][j] = 0;
-      }
-    }
-  }
-}
-
-
-/*****************************************************************************/
-/**
 * This function programs the computed filter coefficients and phase data into
 * core registers
 *
@@ -362,7 +274,7 @@ static void XV_VScalerSetCoeff(XV_vscaler *pVsc,
     for(j=0; j < num_taps; j++)
     {
        rdIndx = j*2+offset;
-       val = (pVscL2Data->coeff[i][rdIndx+1] << 16) | (pVscL2Data->coeff[i][rdIndx] & XMASK_LOW_16BITS);
+       val = (pVscL2Data->coeff[i][rdIndx+1] << 16) | (pVscL2Data->coeff[i][rdIndx] & XVSC_MASK_LOW_16BITS);
        Xil_Out32(baseAddr+((i*num_taps+j)*4), val);
     }
   }
@@ -397,29 +309,22 @@ void XV_VScalerSetup(XV_vscaler  *InstancePtr,
   Xil_AssertVoid((WidthIn>0) && (WidthIn<=InstancePtr->Config.MaxWidth));
   Xil_AssertVoid((HeightIn>0) && (HeightIn<=InstancePtr->Config.MaxHeight));
   Xil_AssertVoid((HeightOut>0) && (HeightOut<=InstancePtr->Config.MaxHeight));
+  Xil_AssertVoid((InstancePtr->Config.PixPerClk >= XVIDC_PPC_1) &&
+                 (InstancePtr->Config.PixPerClk <= XVIDC_PPC_4));
 
   if(InstancePtr->Config.ScalerType == XV_VSCALER_POLYPHASE)
   {
     if(!pVscL2Data->UseExtCoeff) //No predefined coefficients
     {
-      /* If user has not selected any filter set default */
-      if(pVscL2Data->FilterSel == 0)
-      {
-        XV_VScalerSetFilterType(pVscL2Data, XV_VFILT_LANCZOS);
-      }
-
-      /* Generate coefficients for vertical scaling ratio */
-      XV_VScalerGetCoeff(InstancePtr,
-                         pVscL2Data,
-                         HeightIn,
-                         HeightOut);
+      xil_printf("\r\nERR: V Scaler coefficients not programmed\r\n");
+      return;
     }
 
     /* Program coefficients into the IP register bank */
     XV_VScalerSetCoeff(InstancePtr, pVscL2Data);
   }
 
-  LineRate = (u32) ((float)((HeightIn * STEP_PRECISION) + (HeightOut/2))/(float)HeightOut);
+  LineRate = (HeightIn * STEP_PRECISION)/HeightOut;
 
   XV_vscaler_Set_HwReg_HeightIn(InstancePtr,   HeightIn);
   XV_vscaler_Set_HwReg_Width(InstancePtr,      WidthIn);
@@ -493,8 +398,8 @@ void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr)
         val = Xil_In32(baseAddr+((i*taps+j)*4));
 
         //coefficients are 12-bits
-        lsb = (short)(val & XMASK_LOW_16BITS);
-        msb = (short)((val & XMASK_HIGH_16BITS)>>16);
+        lsb = (short)(val & XVSC_MASK_LOW_16BITS);
+        msb = (short)((val & XVSC_MASK_HIGH_16BITS)>>16);
 
         xil_printf("%5d %5d ", lsb, msb);
       }
