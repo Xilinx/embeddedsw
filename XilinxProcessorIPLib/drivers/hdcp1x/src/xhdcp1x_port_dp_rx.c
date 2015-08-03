@@ -72,7 +72,6 @@ static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
 		u32 BufSize);
 static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
 		u32 BufSize);
-static void NotifyTx(const XHdcp1x_Port *InstancePtr);
 static void ProcessAKsvWrite(void *CallbackRef);
 static void ProcessRoRead(void *CallbackRef);
 static void ProcessBinfoRead(void *CallbackRef);
@@ -429,43 +428,6 @@ static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
 	while (BufSize > 0);
 
 	return (NumWritten);
-}
-
-/*****************************************************************************/
-/**
-* This function notifies the tx end of the link of an event of interest.
-*
-* @param	InstancePtr is the device to perform the notification.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void NotifyTx(const XHdcp1x_Port *InstancePtr)
-{
-	XDprx *HwDp = InstancePtr->PhyIfPtr;
-	u32 Base = HwDp->Config.BaseAddr;
-	u32 Value = 0;
-	u8 Ainfo = 0;
-
-	/* Read  Ainfo */
-	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Ainfo, sizeof(Ainfo));
-
-	/* Check for regular HPD pulse notification */
-	if ((Ainfo & 0x01u) == 0) {
-		/* Send a 500us HPD pulse */
-		XDp_RxGenerateHpdInterrupt(HwDp, 500u);
-	}
-	/* Otherwise - must use HPD IRQ */
-	else {
-		/* #### WORK TO DO #### */
-	}
-
-	/* Always generate CP IRQ */
-	Value  = XDprx_ReadReg(Base, XDP_RX_DEVICE_SERVICE_IRQ);
-	Value |= XDP_RX_DEVICE_SERVICE_IRQ_CP_IRQ_MASK;
-	XDprx_WriteReg(Base, XDP_RX_DEVICE_SERVICE_IRQ, Value);
 }
 
 /*****************************************************************************/
