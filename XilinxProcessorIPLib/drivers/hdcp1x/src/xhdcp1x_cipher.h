@@ -207,7 +207,9 @@ u16 XHdcp1x_CipherGetRo(const XHdcp1x_Cipher *InstancePtr);
 
 u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher *InstancePtr);
 
-void XHdcp1x_CipherHandlerInterrupt(void *InstancePtr);
+void XHdcp1x_CipherHandleInterrupt(void *InstancePtr);
+
+int XHdcp1x_CipherSelfTest(XHdcp1x_Cipher *InstancePtr);
 
 #ifdef __cplusplus
 }

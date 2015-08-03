@@ -51,6 +51,7 @@
 
 #include "xhdcp1x.h"
 #include "xhdcp1x_cipher.h"
+#include "xhdcp1x_port.h"
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/

@@ -931,6 +931,6 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 	else
 #endif
 	{
-		XHDCP_DEBUG_PRINTF("unknown interface type\r\n");
+		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
 	}
 }
