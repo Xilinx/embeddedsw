@@ -538,10 +538,6 @@ END:
 void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 {
 
-#ifdef XFSBL_WDT_PRESENT
-	/* Stop WDT as we are exiting FSBL */
-	XFsbl_StopWdt();
-#endif
 
 	/**
 	 * Flush the L1 data cache and L2 cache, Disable Data Cache
@@ -951,6 +947,11 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 	 * Mark Error status with Fsbl completed
 	 */
 	XFsbl_Out32(XFSBL_ERROR_STATUS_REGISTER_OFFSET, XFSBL_COMPLETED);
+
+#ifdef XFSBL_WDT_PRESENT
+	/* Stop WDT as we are exiting FSBL */
+	XFsbl_StopWdt();
+#endif
 
 	/**
 	 * call to the handoff routine

@@ -457,11 +457,6 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		{
 			XFsbl_Printf(DEBUG_GENERAL,"In JTAG Boot Mode \n\r");
 			Status = XFSBL_STATUS_JTAG;
-
-#ifdef XFSBL_WDT_PRESENT
-			/* Stop WDT as we are in JTAG boot mode */
-			XFsbl_StopWdt();
-#endif
 		}
 		break;
 
