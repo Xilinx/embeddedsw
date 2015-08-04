@@ -171,29 +171,8 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 
 	InstancePtr->IsReady = 0;
 
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
-	InstancePtr->Config.SAxiClkHz = ConfigPtr->SAxiClkHz;
-
-	InstancePtr->Config.MaxLaneCount = ConfigPtr->MaxLaneCount;
-	InstancePtr->Config.MaxLinkRate = ConfigPtr->MaxLinkRate;
-
-	InstancePtr->Config.MaxBitsPerColor = ConfigPtr->MaxBitsPerColor;
-	InstancePtr->Config.QuadPixelEn = ConfigPtr->QuadPixelEn;
-	InstancePtr->Config.DualPixelEn = ConfigPtr->DualPixelEn;
-	InstancePtr->Config.YCrCbEn = ConfigPtr->YCrCbEn;
-	InstancePtr->Config.YOnlyEn = ConfigPtr->YOnlyEn;
-	InstancePtr->Config.PayloadDataWidth = ConfigPtr->PayloadDataWidth;
-
-	InstancePtr->Config.SecondaryChEn = ConfigPtr->SecondaryChEn;
-	InstancePtr->Config.NumAudioChs = ConfigPtr->NumAudioChs;
-
-	InstancePtr->Config.MstSupport = ConfigPtr->MstSupport;
-	InstancePtr->Config.NumMstStreams = ConfigPtr->NumMstStreams;
-
-	InstancePtr->Config.DpProtocol = ConfigPtr->DpProtocol;
-
-	InstancePtr->Config.IsRx = ConfigPtr->IsRx;
 
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		/* Set the DisplayPort TX's voltage swing and pre-emphasis
