@@ -7,7 +7,8 @@ There are 2 DisplayPort RX examples included in this directory:
    to call MB_Sleep from microblaze_sleep.h, which has only millisecond
    accuracy. For ARM/Zynq SoC systems, the supplied callback function will be
    ignored - the usleep function will be called since the SoC has a timer
-   built-in.
+   built-in. The programming sequence for the DP159 retimer is provided.
+
 2) xdp_rx_mst_example.c : This multi-stream transport (MST) example uses
    interrupts to detect events coming from the TX. The example sets up a
    topology that the RX will respond with, including LINK_ADDRESS reply and I2C

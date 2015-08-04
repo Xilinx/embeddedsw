@@ -34,11 +34,14 @@
  *
  * @file xdp_rx_intr_timer_example.c
  *
- * Contains a design example using the XDp driver with a user-defined hook
- * for delay. The reasoning behind this is that MicroBlaze sleep is not very
- * accurate without a hardware timer. For systems that have a hardware timer,
- * the user may override the default MicroBlaze sleep with a function that will
- * use the hardware timer.
+ * Contains a design example using the XDp driver for an DP RX core generated
+ * with SST-only functionality.
+ * This example runs the programming sequence for the DP159 retimer. An I2C
+ * controller will need to exist in the design have a connection to the DP159.
+ * A user-defined hook is used for delay. The reasoning behind this is that
+ * MicroBlaze sleep is not very accurate without a hardware timer. For systems
+ * that have a hardware timer, the user may override the default MicroBlaze
+ * sleep with a function that will use the hardware timer.
  * Also, this example sets up the interrupt controller and defines handlers for
  * various interrupt types. In this way, the RX interrupt handler will arbitrate
  * the different interrupts to their respective interrupt handlers defined in
@@ -56,6 +59,10 @@
  * @note	For this example to display output, the user will need to
  *		implement the Dprx_Vidpipe* functions which configure and
  *		reset the video pipeline as required as this is system-specific.
+ * @note	In the presence of a DP159 retimer, an I2C controller needs to
+ *		exist in the design to program it. Depending on how the
+ *		DP159 connection exists, the user will need to implement
+ *		Dprx_Dp159Reset function.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -63,6 +70,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial creation.
+ * 2.0   als  07/07/15 Added DP159 programming.
  * </pre>
  *
 *******************************************************************************/
@@ -71,6 +79,13 @@
 
 #include "xdp.h"
 #include "xparameters.h"
+#ifdef XPAR_IIC_0_DEVICE_ID
+/* Default behavior: If an I2C controller exists use the first instance to
+ * control a DP159 retimer. This is system-specific. */
+#define USE_DP159
+#include "xiic.h"
+#include "xvidc_dp159.h"
+#endif /* XPAR_IIC_0_DEVICE_ID */
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
 #include "xintc.h"
@@ -93,6 +108,10 @@ XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_INTC_1_DISPLAYPORT_0_AXI_INT_INTR
 #define DP_INTERRUPT_ID		XPAR_FABRIC_DISPLAYPORT_0_AXI_INT_INTR
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#ifdef USE_DP159
+#define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
+#define IIC_INTERRUPT_ID	XPAR_INTC_0_IIC_1_VEC_ID
+#endif /* USE_DP159 */
 #define TMRC_DEVICE_ID		XPAR_TMRCTR_0_DEVICE_ID
 
 /****************************** Type Definitions ******************************/
@@ -116,6 +135,11 @@ static u32 Dprx_SetupTimerHandler(XDp *InstancePtr, XTmrCtr *TimerCounterPtr,
 								u16 TimerId);
 static u32 Dprx_SetupInterruptHandler(XDp *InstancePtr, INTC *IntcPtr,
 						u16 IntrId, u16 DpIntrId);
+#ifdef USE_DP159
+static u32 Dprx_Dp159Setup(XIic *InstancePtr, u16 DeviceId);
+static void Dprx_Dp159Config(XDp *InstancePtr, XIic *IicInstancePtr,
+								u8 ConfigType);
+#endif /* USE_DP159 */
 static void Dprx_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 static void Dprx_ResetVideoOutput(void *InstancePtr);
 static void Dprx_DetectResolution(void *InstancePtr);
@@ -133,12 +157,16 @@ static void Dprx_InterruptHandlerTp3(void *InstancePtr);
 
 extern void Dprx_VidpipeConfig(XDp *InstancePtr);
 extern void Dprx_VidpipeReset(void);
+extern void Dprx_Dp159Reset(void);
 
 /*************************** Variable Declarations ****************************/
 
 XDp DpInstance; /* The Dp instance. */
 INTC IntcInstance; /* The interrupt controller instance. */
 XTmrCtr TimerCounterInst; /* The timer counter instance. */
+#ifdef USE_DP159
+XIic IicInst; /* The I2C controller instance for DP159 programming. */
+#endif /* USE_DP159 */
 
 /* Used by interrupt handlers. */
 u8 VBlankEnable;
@@ -218,6 +246,14 @@ u32 Dprx_IntrTimerExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 
 	/* Set up a timer. */
 	Dprx_SetupTimerHandler(InstancePtr, TimerCounterPtr, TimerId);
+
+#ifdef USE_DP159
+	/* Initialize and configure the DP159 retimer. */
+	Status = Dprx_Dp159Setup(&IicInst, IIC_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif /* USE_DP159 */
 
 	/* Set up interrupt handling in the system. */
 	Status = Dprx_SetupInterruptHandler(InstancePtr, IntcPtr, IntrId,
@@ -424,6 +460,85 @@ static u32 Dprx_SetupInterruptHandler(XDp *InstancePtr, INTC *IntcPtr,
 
 	return XST_SUCCESS;
 }
+
+#ifdef USE_DP159
+/******************************************************************************/
+/**
+ * This function sets up the I2C controller and uses it to initialize the DP159.
+ *
+ * @param	InstancePtr is a pointer to the XIic instance representing the
+ *		I2C controller connected to the same I2C bus which the DP159 is
+ *		is addressable from.
+ * @param	DeviceId is the device ID of the I2C controller.
+ *
+ * @return
+ *		- XST_SUCCESS if the I2C controller and the DP159 retimer have
+ *		  been successfully set up and initialized.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 Dprx_Dp159Setup(XIic *InstancePtr, u16 DeviceId)
+{
+	u32 Status;
+	XIic_Config *ConfigPtr;
+
+	ConfigPtr = XIic_LookupConfig(IIC_DEVICE_ID);
+	if (!ConfigPtr) {
+		return XST_FAILURE;
+	}
+
+	Status = XIic_CfgInitialize(InstancePtr, ConfigPtr,
+							ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	XIic_DynInit(InstancePtr->BaseAddress);
+
+	/* This is hardware system specific - it is up to the user to implement
+	 * this function if needed. In some systems, a GPIO controller can reset
+	 * the DP159. In other systems, the reset functionality may be
+	 * accomplished using:
+	 *	void XVidC_Dp159Reset(XIic *InstancePtr, u8 Reset); */
+	Dprx_Dp159Reset();
+	/*******************/
+
+	Status = XVidC_Dp159Initialize(InstancePtr);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function reconfigures the DP159 retimer based on the current lane count
+ * and link rate configuration.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	IicInstancePtr is a pointer to the XIic instance representing
+ *		the I2C controller connected to the same I2C bus which the DP159
+ *		is addressable from.
+ * @param	ConfigType determines which DP159 programming sequence to use.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void Dprx_Dp159Config(XDp *InstancePtr, XIic *IicInstancePtr,
+								u8 ConfigType)
+{
+	u8 LaneCount;
+	u8 LinkRate;
+
+	LaneCount = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_OVER_LANE_COUNT_SET);
+	LinkRate = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_OVER_LINK_BW_SET);
+
+	XVidC_Dp159Config(IicInstancePtr, ConfigType, LinkRate, LaneCount);
+}
+#endif /* USE_DP159 */
 
 /******************************************************************************/
 /**
@@ -715,6 +830,10 @@ static void Dprx_InterruptHandlerBwChange(void *InstancePtr)
 static void Dprx_InterruptHandlerTp1(void *InstancePtr)
 {
 	xil_printf("> Interrupt: training pattern 1.\n");
+
+#ifdef USE_DP159
+	Dprx_Dp159Config(InstancePtr, &IicInst, XVIDC_DP159_CT_TP1);
+#endif /* XPAR_INTC_0_DEVICE_ID */
 }
 
 /******************************************************************************/
@@ -732,6 +851,10 @@ static void Dprx_InterruptHandlerTp1(void *InstancePtr)
 static void Dprx_InterruptHandlerTp2(void *InstancePtr)
 {
 	xil_printf("> Interrupt: training pattern 2.\n");
+
+#ifdef USE_DP159
+	Dprx_Dp159Config(InstancePtr, &IicInst, XVIDC_DP159_CT_TP2);
+#endif /* XPAR_INTC_0_DEVICE_ID */
 }
 
 /******************************************************************************/
@@ -749,4 +872,8 @@ static void Dprx_InterruptHandlerTp2(void *InstancePtr)
 static void Dprx_InterruptHandlerTp3(void *InstancePtr)
 {
 	xil_printf("> Interrupt: training pattern 3.\n");
+
+#ifdef USE_DP159
+	Dprx_Dp159Config(InstancePtr, &IicInst, XVIDC_DP159_CT_TP3);
+#endif /* XPAR_INTC_0_DEVICE_ID */
 }
