@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  *
- * @file xdp_rx_intr_timer_example.c
+ * @file xdp_rx_sst_dp159_example.c
  *
  * Contains a design example using the XDp driver for an DP RX core generated
  * with SST-only functionality.
@@ -128,8 +128,8 @@ XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_INTC_1_DISPLAYPORT_0_AXI_INT_INTR
 
 /**************************** Function Prototypes *****************************/
 
-u32 Dprx_IntrTimerExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-	u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr, u16 TimerId);
+u32 Dprx_SstExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr, u16 IntrId,
+			u16 DpIntrId, XTmrCtr *TimerCounterPtr, u16 TimerId);
 static u32 Dprx_SetupExample(XDp *InstancePtr, u16 DeviceId);
 static u32 Dprx_SetupTimerHandler(XDp *InstancePtr, XTmrCtr *TimerCounterPtr,
 								u16 TimerId);
@@ -177,8 +177,8 @@ u8 VBlankCount;
 /******************************************************************************/
 /**
  * This function is the main function of the XDp (operating in RX mode)
- * interrupt with timer example. If the Dprx_IntrTimerExample function, which
- * sets up the system succeeds, this function will wait for interrupts.
+ * interrupt with timer example. If the Dprx_SstExample function, which sets up
+ * the system succeeds, this function will wait for interrupts.
  *
  * @param	None.
  *
@@ -187,7 +187,7 @@ u8 VBlankCount;
  *		  setup failed.
  *
  * @note	Unless setup failed, main will never return since
- *		Dprx_IntrTimerExample is blocking.
+ *		Dprx_SstExample is blocking.
  *
 *******************************************************************************/
 int main(void)
@@ -195,7 +195,7 @@ int main(void)
 	u32 Status;
 
 	/* Run the XDp (in RX mode) interrupt with timer example. */
-	Status = Dprx_IntrTimerExample(&DpInstance, DPRX_DEVICE_ID,
+	Status = Dprx_SstExample(&DpInstance, DPRX_DEVICE_ID,
 				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
 				&TimerCounterInst, TMRC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
@@ -229,8 +229,8 @@ int main(void)
  * @note	None.
  *
 *******************************************************************************/
-u32 Dprx_IntrTimerExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-		u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr, u16 TimerId)
+u32 Dprx_SstExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr, u16 IntrId,
+			u16 DpIntrId, XTmrCtr *TimerCounterPtr, u16 TimerId)
 {
 	u32 Status;
 

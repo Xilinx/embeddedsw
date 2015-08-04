@@ -1,5 +1,5 @@
 There are 2 DisplayPort RX examples included in this directory:
-1) xdp_rx_intr_timer_example.c : This interrupt with timer example shows how to
+1) xdp_rx_sst_dp159_example.c : This interrupt with timer example shows how to
    set up both the interrupt system with interrupt handlers and how to override
    the default sleep/delay functionality for MicroBlaze. A timer needs to exist
    in the hardware system and will be used for sleep/delay functionality inside
