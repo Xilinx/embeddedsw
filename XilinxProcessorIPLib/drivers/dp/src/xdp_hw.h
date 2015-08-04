@@ -1849,6 +1849,79 @@
 							2. */
 #define XDP_RX_PHY_POWER_DOWN_LANE_3_MASK 0x8	/**< Power down the PHY for lane
 							3. */
+/* 0x214: MIN_VOLTAGE_SWING */
+#define XDP_RX_MIN_VOLTAGE_SWING_MIN_MASK \
+				0x000003	/**< The minimum voltage swing
+							level. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_MASK \
+				0x00000C	/**< Clock recovery options. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_SHIFT 2	/**< Shift bits for clock
+							recovery options. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_VS_INC \
+				0x0		/**< Increment voltage swing
+							adjust request every
+							training iteration. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_VS_INC_4CNT \
+				0x1		/**< Increment voltage swing
+							adjust request every
+							4 or VS_SWEEP_CNT
+							iterations. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_VS_HOLD \
+				0x2		/**< Hold adjust request to
+							SET_VS. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_VS_NA \
+				0x3		/**< Not applicable. */
+#define XDP_RX_MIN_VOLTAGE_SWING_VS_SWEEP_CNT_MASK \
+				0x000070	/**< Voltage swing sweep
+							count. */
+
+#define XDP_RX_MIN_VOLTAGE_SWING_VS_SWEEP_CNT_SHIFT \
+				4		/**< Shift bits for voltage
+							swing sweep count. */
+#define XDP_RX_MIN_VOLTAGE_SWING_SET_VS_MASK \
+				0x000300	/**< Set voltage swing level. */
+#define XDP_RX_MIN_VOLTAGE_SWING_SET_VS_SHIFT 8	/**< Shift bits for voltage
+							swing setting. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_MASK \
+				0x000C00	/**< Channel equalization
+							options. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_SHIFT 10 /**< Shift bits for channel
+							equalization options. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_PE_INC \
+				0x0		/**< Increment pre-emphasis
+							adjust request every
+							training iteration until
+							maximum level, SET_PE,
+							is reached. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_PE_HOLD \
+				0x1		/**< Hold adjust request to
+							SET_PE. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_PE_TABLE \
+				0x2		/**< Pick pre-emphasis values
+							from PE_TABLE. */
+#define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_VS_NA \
+				0x3		/**< Not applicable. */
+#define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_MASK \
+				0x003000	/**< Set pre-emphasis level. */
+#define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_SHIFT 12 /**< Shift bits for
+							pre-emphasis setting. */
+#define XDP_RX_MIN_VOLTAGE_SWING_PE_TABLE_MASK(Iteration) \
+	(0x3 << (14 + ((Iteration - 1) * 2)))	/**< Table specifying what
+							pre-emphasis level to
+							request for each
+							training iteration. */
+#define XDP_RX_MIN_VOLTAGE_SWING_PE_TABLE_SHIFT(Iteration) \
+	(14 + ((Iteration - 1) * 2))		/**< Shift bits for
+							pre-emphasis table. */
+/* 0x21C: CDR_CONTROL_CONFIG */
+#define XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_TO_MASK \
+				0x000FFFFF	/**< Controls the CDR tDLOCK
+							timeout value. */
+#define XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_DP159 \
+				0x1388		/**< CDR tDLOCK calibration
+							value using DP159. */
+#define XDP_RX_CDR_CONTROL_CONFIG_DFE_CTRL_MASK \
+				0x80000000	/**< Use DFE control. */
 /* @} */
 
 /******************************************************************************/
