@@ -1569,6 +1569,14 @@ void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 
 	InstancePtr->RxInstance.LinkConfig.LaneCount = LaneCount;
 
+	/* Use enhanced framing mode to meet the DisplayPort specification. */
+	LaneCount |= XDP_RX_OVER_LANE_COUNT_SET_ENHANCED_FRAME_CAP_MASK;
+	/* If the core is a DisplayPort v1.2 or newer core, always support
+	 * training pattern 3 to meet the specification. */
+	if (InstancePtr->Config.DpProtocol) {
+		LaneCount |= XDP_RX_OVER_LANE_COUNT_SET_TPS3_SUPPORTED_MASK;
+	}
+
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_LANE_COUNT_SET,
 								LaneCount);

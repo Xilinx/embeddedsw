@@ -533,6 +533,8 @@ static void Dprx_Dp159Config(XDp *InstancePtr, XIic *IicInstancePtr,
 
 	LaneCount = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						XDP_RX_OVER_LANE_COUNT_SET);
+	LaneCount &= XDP_RX_OVER_LANE_COUNT_SET_MASK;
+
 	LinkRate = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						XDP_RX_OVER_LINK_BW_SET);
 
