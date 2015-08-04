@@ -47,6 +47,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  06/08/15 Updated RX initialization with MST support.
+ *                     Added callbacks for lane count changes, link rate changes
+ *                     and pre-emphasis + voltage swing adjust requests.
  * </pre>
  *
 *******************************************************************************/
@@ -1060,6 +1062,12 @@ u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 		return XST_FAILURE;
 	}
 
+	/* Invoke callback, if defined. */
+	if (InstancePtr->TxInstance.LaneCountChangeCallback) {
+		InstancePtr->TxInstance.LaneCountChangeCallback(
+			InstancePtr->TxInstance.LaneCountChangeCallbackRef);
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -1132,6 +1140,12 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 				&InstancePtr->TxInstance.LinkConfig.LinkRate);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
+
+	/* Invoke callback, if defined. */
+	if (InstancePtr->TxInstance.LinkRateChangeCallback) {
+		InstancePtr->TxInstance.LinkRateChangeCallback(
+			InstancePtr->TxInstance.LinkRateChangeCallbackRef);
 	}
 
 	return XST_SUCCESS;
@@ -1701,6 +1715,92 @@ void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds)
 		MB_Sleep(MilliSeconds);
 	}
 #endif
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when the driver's lane count
+ * change function is called either directly by the user or during link
+ * training.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetLaneCountChangeCallback(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.LaneCountChangeCallback = CallbackFunc;
+	InstancePtr->TxInstance.LaneCountChangeCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when the driver's link rate
+ * change function is called either directly by the user or during link
+ * training.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetLinkRateChangeCallback(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.LinkRateChangeCallback = CallbackFunc;
+	InstancePtr->TxInstance.LinkRateChangeCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when the driver's link rate
+ * change function is called during link training.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetPeVsAdjustCallback(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.PeVsAdjustCallback = CallbackFunc;
+	InstancePtr->TxInstance.PeVsAdjustCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -2636,6 +2736,12 @@ static u32 XDp_TxAdjVswingPreemp(XDp *InstancePtr)
 				4, AuxData);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
+
+	/* Invoke callback, if defined. */
+	if (InstancePtr->TxInstance.PeVsAdjustCallback) {
+		InstancePtr->TxInstance.PeVsAdjustCallback(
+			InstancePtr->TxInstance.PeVsAdjustCallbackRef);
 	}
 
 	return XST_SUCCESS;

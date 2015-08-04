@@ -345,6 +345,8 @@
  *                         'u32 Guid[4]' changed to 'u8 Guid[16]'
  *                     Added handlers and setter functions for HDCP and unplug
  *                     events.
+ *                     Added callbacks for lane count changes, link rate changes
+ *                     and pre-emphasis + voltage swing adjust requests.
  * </pre>
  *
 *******************************************************************************/
@@ -808,6 +810,35 @@ typedef struct {
 	void *HpdPulseCallbackRef;		/**< A pointer to the user data
 							passed to the HPD pulse
 							callback function. */
+	XDp_IntrHandler LaneCountChangeCallback; /** Callback function to be
+							invoked once a lane
+							count change has
+							occurred within the
+							driver. */
+	void *LaneCountChangeCallbackRef;	/** A pointer to the user data
+							passed to the lane count
+							change callback
+							function. */
+	XDp_IntrHandler LinkRateChangeCallback;	/**< Callback function to be
+							invoked once a link
+							rate change has
+							occurred within the
+							driver. */
+	void *LinkRateChangeCallbackRef;	/** A pointer to the user data
+							passed to the link rate
+							change callback
+							function. */
+	XDp_IntrHandler PeVsAdjustCallback;	/** Callback function to be
+							invoked once a voltage
+							swing and pre-emphasis
+							adjust request has been
+							handled within the
+							driver. */
+	void *PeVsAdjustCallbackRef;		/** A pointer to the user data
+							passed to the voltage
+							swing and pre-emphasis
+							adjust request callback
+							function. */
 } XDp_Tx;
 
 /**
@@ -1037,6 +1068,12 @@ void XDp_TxSetHasRedriverInPath(XDp *InstancePtr, u8 Set);
 void XDp_TxCfgTxVsOffset(XDp *InstancePtr, u8 Offset);
 void XDp_TxCfgTxVsLevel(XDp *InstancePtr, u8 Level, u8 TxLevel);
 void XDp_TxCfgTxPeLevel(XDp *InstancePtr, u8 Level, u8 TxLevel);
+void XDp_TxSetLaneCountChangeCallback(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetLinkRateChangeCallback(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetPeVsAdjustCallback(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 
 /* xdp.c: TX AUX transaction functions. */
 u32 XDp_TxAuxRead(XDp *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
