@@ -1854,6 +1854,10 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_PHY_CONFIG,
 					XDP_RX_PHY_CONFIG_GTRX_RESET_MASK);
 
+	/* Set the CDR tDLOCK timeout value. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_CDR_CONTROL_CONFIG,
+					XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_DP159);
+
 	/* Remove the reset from the PHY and configure to issue reset after
 	 * every training iteration, link rate change, and start of training
 	 * pattern. */
@@ -1883,13 +1887,17 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 						XDP_RX_SINK_COUNT, 0x1);
 	}
 
-	/* Set other user parameters. */
+	/* Set other link training parameters parameters. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MIN_VOLTAGE_SWING,
-									0x01);
+		1 | (XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_VS_INC_4CNT <<
+		XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_SHIFT) |
+		(4 << XDP_RX_MIN_VOLTAGE_SWING_VS_SWEEP_CNT_SHIFT) |
+		(XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_VS_NA <<
+		XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_SHIFT));
 	/* Set the AUX training interval. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
-			(XDP_DPCD_TRAIN_AUX_RD_INT_4MS <<
+			(XDP_DPCD_TRAIN_AUX_RD_INT_8MS <<
 			XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 	/* Set the link configuration.*/
