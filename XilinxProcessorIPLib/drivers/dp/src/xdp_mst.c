@@ -1397,8 +1397,7 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertNonvoid(VcId >= 0);
-	Xil_AssertNonvoid((Ts >= 0) && (Ts <= 64));
+	Xil_AssertNonvoid(Ts <= 64);
 
 	/* Clear the VC payload ID table updated bit. */
 	AuxData[0] = 0x1;
@@ -1493,7 +1492,6 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts)
 u32 XDp_TxClearPayloadVcIdTable(XDp *InstancePtr)
 {
 	u32 Status;
-	u8 Index;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1750,8 +1748,6 @@ u32 XDp_TxSendSbMsgRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
-	Xil_AssertNonvoid(IicDeviceId <= 0xFF);
-	Xil_AssertNonvoid(BytesToWrite <= 0xFF);
 	Xil_AssertNonvoid(WriteData != NULL);
 
 	Msg.FragmentNum = 0;
@@ -1842,8 +1838,6 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertNonvoid(LinkCountTotal > 0);
 	Xil_AssertNonvoid((RelativeAddress != NULL) || (LinkCountTotal == 1));
-	Xil_AssertNonvoid(IicDeviceId <= 0xFF);
-	Xil_AssertNonvoid(BytesToRead <= 0xFF);
 	Xil_AssertNonvoid(ReadData != NULL);
 
 	Msg.FragmentNum = 0;
@@ -3111,7 +3105,7 @@ static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	u8 StreamId;
 	u8 StartTs;
 	u8 NumTs;
-	u8 PbnReq;
+	u8 PbnReq = 0;
 
 	PayloadTable = &InstancePtr->RxInstance.Topology.PayloadTable[0];
 

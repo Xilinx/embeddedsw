@@ -439,7 +439,6 @@ u32 XDp_TxCheckLinkStatus(XDp *InstancePtr, u8 LaneCount)
 {
 	u32 Status;
 	u8 RetryCount = 0;
-	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -545,7 +544,7 @@ void XDp_TxCfgTxVsOffset(XDp *InstancePtr, u8 Offset)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid((Offset >= 0) && (Offset < 16));
+	Xil_AssertVoid(Offset < 16);
 
 	InstancePtr->TxInstance.BoardChar.TxVsOffset = Offset;
 }
@@ -573,8 +572,8 @@ void XDp_TxCfgTxVsLevel(XDp *InstancePtr, u8 Level, u8 TxLevel)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid((Level >= 0) && (Level < 4));
-	Xil_AssertVoid((TxLevel >= 0) && (TxLevel < 16));
+	Xil_AssertVoid(Level < 4);
+	Xil_AssertVoid(TxLevel < 16);
 
 	InstancePtr->TxInstance.BoardChar.TxVsLevels[Level] = TxLevel;
 }
@@ -602,8 +601,8 @@ void XDp_TxCfgTxPeLevel(XDp *InstancePtr, u8 Level, u8 TxLevel)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid((Level >= 0) && (Level < 4));
-	Xil_AssertVoid((TxLevel >= 0) && (TxLevel < 32));
+	Xil_AssertVoid(Level < 4);
+	Xil_AssertVoid(TxLevel < 32);
 
 	InstancePtr->TxInstance.BoardChar.TxPeLevels[Level] = TxLevel;
 }
@@ -672,7 +671,6 @@ u32 XDp_TxAuxRead(XDp *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
 								void *ReadData)
 {
 	u32 Status;
-	XDp_AuxTransaction Request;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -720,7 +718,6 @@ u32 XDp_TxAuxWrite(XDp *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
 								void *WriteData)
 {
 	u32 Status;
-	XDp_AuxTransaction Request;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -775,7 +772,6 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 						u16 BytesToRead, void *ReadData)
 {
 	u32 Status;
-	XDp_AuxTransaction Request;
 	u8 SegPtr;
 	u16 NumBytesLeftInSeg;
 	u16 BytesLeft;
@@ -785,9 +781,6 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertNonvoid(IicAddress <= 0xFF);
-	Xil_AssertNonvoid(Offset <= 0xFFFF);
-	Xil_AssertNonvoid(BytesToRead <= 0xFFFF);
 	Xil_AssertNonvoid(ReadData != NULL);
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
@@ -891,14 +884,11 @@ u32 XDp_TxIicWrite(XDp *InstancePtr, u8 IicAddress, u8 BytesToWrite,
 								void *WriteData)
 {
 	u32 Status;
-	XDp_AuxTransaction Request;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertNonvoid(IicAddress <= 0xFF);
-	Xil_AssertNonvoid(BytesToWrite <= 0xFF);
 	Xil_AssertNonvoid(WriteData != NULL);
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
@@ -1145,6 +1135,7 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
 		break;
 	default:
+		Status = XST_SUCCESS;
 		break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -1384,7 +1375,7 @@ void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid((Lane >= 0) && (Lane <= 3));
+	Xil_AssertVoid(Lane <= 3);
 	Xil_AssertVoid((Polarity == 0) || (Polarity == 1));
 
 	/* Preserve current settings. */
@@ -2147,7 +2138,6 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(
 	u32 Status;
 	u32 DelayUs;
 	u32 IterationCount = 0;
-	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
 	/* Obtain the required delay for channel equalization as specified by
 	 * the RX device. */
@@ -2384,9 +2374,6 @@ static u32 XDp_TxGetLaneStatusAdjReqs(XDp *InstancePtr)
 *******************************************************************************/
 static u32 XDp_TxCheckClockRecovery(XDp *InstancePtr, u8 LaneCount)
 {
-	u32 Status;
-	u8 AuxData[6];
-
 	u8 *LaneStatus = InstancePtr->TxInstance.RxConfig.LaneStatusAdjReqs;
 
 	/* Check that all LANEx_CR_DONE bits are set. */
@@ -2441,8 +2428,6 @@ static u32 XDp_TxCheckClockRecovery(XDp *InstancePtr, u8 LaneCount)
 *******************************************************************************/
 static u32 XDp_TxCheckChannelEqualization(XDp *InstancePtr, u8 LaneCount)
 {
-	u32 Status;
-	u8 AuxData[6];
 	u8 *LaneStatus = InstancePtr->TxInstance.RxConfig.LaneStatusAdjReqs;
 
 	/* Check that all LANEx_CHANNEL_EQ_DONE bits are set. */
@@ -2529,7 +2514,6 @@ static u32 XDp_TxCheckChannelEqualization(XDp *InstancePtr, u8 LaneCount)
 *******************************************************************************/
 static void XDp_TxSetVswingPreemp(XDp *InstancePtr, u8 *AuxData)
 {
-	u32 Status;
 	u8 Data;
 	u8 Index;
 	u8 VsLevelRx = InstancePtr->TxInstance.LinkConfig.VsLevel;

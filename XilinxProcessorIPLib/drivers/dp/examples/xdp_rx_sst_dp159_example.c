@@ -633,7 +633,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		XDp_WaitUs(InstancePtr, 1000);
 	} while (((DpHres == 0) || (DpVres == 0)) && (GetResCount < 2000));
 
-	xil_printf("\n*** Detected resolution: %d x %d ***\n", DpHres, DpVres);
+	xil_printf("\n*** Detected resolution: %u x %u ***\n", DpHres, DpVres);
 }
 
 /******************************************************************************/
