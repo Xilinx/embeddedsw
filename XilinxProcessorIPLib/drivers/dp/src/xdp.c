@@ -1838,8 +1838,6 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 *******************************************************************************/
 static u32 XDp_RxInitialize(XDp *InstancePtr)
 {
-	u32 Status;
-
 	/* Disable the main link. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x0);
 
@@ -1856,20 +1854,6 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_PHY_CONFIG,
 					XDP_RX_PHY_CONFIG_GTRX_RESET_MASK);
 
-	/* Wait until all lane CPLLs have locked. */
-	if (InstancePtr->Config.MaxLaneCount > 2) {
-		Status = XDp_WaitPhyReady(InstancePtr,
-				XDP_RX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK |
-				XDP_RX_PHY_STATUS_PLL_LANE2_3_LOCK_MASK);
-	}
-	else {
-		Status = XDp_WaitPhyReady(InstancePtr,
-				XDP_RX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK);
-	}
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
 	/* Remove the reset from the PHY and configure to issue reset after
 	 * every training iteration, link rate change, and start of training
 	 * pattern. */
@@ -1878,26 +1862,6 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 			XDP_RX_PHY_CONFIG_RESET_AT_TRAIN_ITER_MASK |
 			XDP_RX_PHY_CONFIG_RESET_AT_LINK_RATE_CHANGE_MASK |
 			XDP_RX_PHY_CONFIG_RESET_AT_TP1_START_MASK);
-
-	/* Wait until the PHY has completed the reset cycle. */
-	if (InstancePtr->Config.MaxLaneCount > 2) {
-		Status = XDp_WaitPhyReady(InstancePtr,
-					XDP_RX_PHY_STATUS_ALL_LANES_READY_MASK |
-					XDP_RX_PHY_STATUS_PLL_FABRIC_LOCK_MASK |
-					XDP_RX_PHY_STATUS_RX_CLK_LOCK_MASK);
-	}
-	else {
-		Status = XDp_WaitPhyReady(InstancePtr,
-					XDP_RX_PHY_STATUS_LANES_0_1_READY_MASK |
-					XDP_RX_PHY_STATUS_PLL_FABRIC_LOCK_MASK |
-					XDP_RX_PHY_STATUS_RX_CLK_LOCK_MASK);
-	}
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Set the interrupt masks. */
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK, 0x0);
 
 	if (InstancePtr->Config.MstSupport) {
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP,
@@ -1919,9 +1883,6 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 						XDP_RX_SINK_COUNT, 0x1);
 	}
 
-	/* Enable the RX core. */
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x1);
-
 	/* Set other user parameters. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MIN_VOLTAGE_SWING,
 									0x01);
@@ -1936,6 +1897,12 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 				InstancePtr->RxInstance.LinkConfig.LinkRate);
 	XDp_RxSetLaneCount(InstancePtr,
 				InstancePtr->RxInstance.LinkConfig.LaneCount);
+
+	/* Set the interrupt masks. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK, 0x0);
+
+	/* Enable the RX core. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x1);
 
 	/* Enable the display timing generator. */
 	XDp_RxDtgEn(InstancePtr);
