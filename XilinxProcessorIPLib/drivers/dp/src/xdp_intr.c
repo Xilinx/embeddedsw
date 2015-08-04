@@ -139,7 +139,7 @@ void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask)
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-							XDP_RX_INTERRUPT_CAUSE);
+							XDP_RX_INTERRUPT_MASK);
 	MaskVal &= ~Mask;
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
 								MaskVal);
@@ -168,7 +168,7 @@ void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask)
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	MaskVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-							XDP_RX_INTERRUPT_CAUSE);
+							XDP_RX_INTERRUPT_MASK);
 	MaskVal |= Mask;
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
 								MaskVal);
@@ -1032,6 +1032,9 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
 	IntrStatus = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_RX_INTERRUPT_CAUSE);
+	/* Mask out required interrupts. */
+	IntrStatus &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
+							XDP_RX_INTERRUPT_MASK);
 
 	/* Training pattern 1 has started. */
 	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK) {
