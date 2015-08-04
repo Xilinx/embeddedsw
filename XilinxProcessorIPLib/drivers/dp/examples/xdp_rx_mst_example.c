@@ -73,7 +73,7 @@
 
 /* The following constants map to the XPAR parameters created in the
  * xparameters.h file. */
-#define DPRX_DEVICE_ID XPAR_DISPLAYPORT_0_DEVICE_ID
+#define DPRX_DEVICE_ID		XPAR_DISPLAYPORT_0_DEVICE_ID
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define DP_INTERRUPT_ID \
 XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_INTC_1_DISPLAYPORT_0_AXI_INT_INTR
@@ -82,6 +82,7 @@ XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_INTC_1_DISPLAYPORT_0_AXI_INT_INTR
 #define DP_INTERRUPT_ID		XPAR_FABRIC_DISPLAYPORT_0_AXI_INT_INTR
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#define TMRC_DEVICE_ID		XPAR_TMRCTR_0_DEVICE_ID
 
 /****************************** Type Definitions ******************************/
 
@@ -98,9 +99,10 @@ XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_INTC_1_DISPLAYPORT_0_AXI_INT_INTR
 /**************************** Function Prototypes *****************************/
 
 u32 Dprx_MstExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-			u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr);
+	u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr, u16 TimerId);
 static u32 Dprx_SetupExample(XDp *InstancePtr, u16 DeviceId);
-static u32 Dprx_SetupTimerHandler(XDp *InstancePtr, XTmrCtr *TimerCounterPtr);
+static u32 Dprx_SetupTimerHandler(XDp *InstancePtr, XTmrCtr *TimerCounterPtr,
+								u16 TimerId);
 static u32 Dprx_SetupInterruptHandler(XDp *InstancePtr, INTC *IntcPtr,
 						u16 IntrId, u16 DpIntrId);
 static void Dprx_SetupDownTopology(XDp *InstancePtr);
@@ -189,7 +191,7 @@ int main(void)
 	/* Run the XDp (in RX mode) interrupt with timer example. */
 	Status = Dprx_MstExample(&DpInstance, DPRX_DEVICE_ID,
 				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
-				&TimerCounterInst);
+				&TimerCounterInst, TMRC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -211,6 +213,7 @@ int main(void)
  * @param	DpIntrId is the interrupt ID of the DisplayPort RX connection to
  *		the interrupt controller.
  * @param	TimerCounterPtr is a pointer to the timer instance.
+ * @param	TimerId is the ID of the timer controller to use for delays.
  *
  * @return
  *		- XST_SUCCESS if the system was set up correctly and link
@@ -221,7 +224,7 @@ int main(void)
  *
 *******************************************************************************/
 u32 Dprx_MstExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-			u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr)
+		u16 IntrId, u16 DpIntrId, XTmrCtr *TimerCounterPtr, u16 TimerId)
 {
 	u32 Status;
 
@@ -236,7 +239,7 @@ u32 Dprx_MstExample(XDp *InstancePtr, u16 DeviceId, INTC *IntcPtr,
 	}
 
 	/* Set up a timer. */
-	Dprx_SetupTimerHandler(InstancePtr, TimerCounterPtr);
+	Dprx_SetupTimerHandler(InstancePtr, TimerCounterPtr, TimerId);
 
 	/* Set up interrupt handling in the system. */
 	Status = Dprx_SetupInterruptHandler(InstancePtr, IntcPtr, IntrId,
@@ -306,6 +309,7 @@ static u32 Dprx_SetupExample(XDp *InstancePtr, u16 DeviceId)
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  * @param	TimerCounterPtr is a pointer to the timer instance.
+ * @param	TimerId is the ID of the timer controller to use for delays.
  *
  * @return
  *		- XST_SUCCESS if a timer controller exists for use.
@@ -314,11 +318,12 @@ static u32 Dprx_SetupExample(XDp *InstancePtr, u16 DeviceId)
  * @note	A timer controller must be present in the system.
  *
 *******************************************************************************/
-static u32 Dprx_SetupTimerHandler(XDp *InstancePtr, XTmrCtr *TimerCounterPtr)
+static u32 Dprx_SetupTimerHandler(XDp *InstancePtr, XTmrCtr *TimerCounterPtr,
+								u16 TimerId)
 {
 	u32 Status;
 
-	Status = XTmrCtr_Initialize(&TimerCounterInst, 0);
+	Status = XTmrCtr_Initialize(TimerCounterPtr, TimerId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
