@@ -45,6 +45,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  06/08/15 Added MST interrupt handlers for RX.
+ *                     Guard against uninitialized callbacks.
  *                     Added HDCP interrupts.
  *                     Added unplug interrupt.
  * </pre>
@@ -991,11 +992,12 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 	HpdPulseDetected = IntrStatus &
 				XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
 
-	if (HpdEventDetected) {
+	if (HpdEventDetected && InstancePtr->TxInstance.HpdEventHandler) {
 		InstancePtr->TxInstance.HpdEventHandler(
 				InstancePtr->TxInstance.HpdEventCallbackRef);
 	}
-	else if (HpdPulseDetected && XDp_TxIsConnected(InstancePtr)) {
+	else if (HpdPulseDetected && XDp_TxIsConnected(InstancePtr) &&
+			InstancePtr->TxInstance.HpdPulseHandler) {
 		/* The source device must debounce the incoming HPD signal by
 		 * sampling the value at an interval greater than 0.500 ms. An
 		 * HPD pulse should be of width 0.5 ms - 1.0 ms. */
@@ -1037,27 +1039,32 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 							XDP_RX_INTERRUPT_MASK);
 
 	/* Training pattern 1 has started. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK) &&
+			InstancePtr->RxInstance.IntrTp1Handler) {
 		InstancePtr->RxInstance.IntrTp1Handler(
 			InstancePtr->RxInstance.IntrTp1CallbackRef);
 	}
 	/* Training pattern 2 has started. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP2_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP2_MASK) &&
+			InstancePtr->RxInstance.IntrTp2Handler) {
 		InstancePtr->RxInstance.IntrTp2Handler(
 			InstancePtr->RxInstance.IntrTp2CallbackRef);
 	}
 	/* Training pattern 3 has started. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP3_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP3_MASK) &&
+			InstancePtr->RxInstance.IntrTp3Handler) {
 		InstancePtr->RxInstance.IntrTp3Handler(
 			InstancePtr->RxInstance.IntrTp3CallbackRef);
 	}
 	/* Training lost - the link has been lost. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TRAINING_LOST_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TRAINING_LOST_MASK) &&
+			InstancePtr->RxInstance.IntrTrainingLostHandler) {
 		InstancePtr->RxInstance.IntrTrainingLostHandler(
 			InstancePtr->RxInstance.IntrTrainingLostCallbackRef);
 	}
 	/* The link has been trained. */
-	else if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_TRAINING_DONE_MASK) {
+	else if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TRAINING_DONE_MASK) &&
+			InstancePtr->RxInstance.IntrTrainingDoneHandler) {
 		InstancePtr->RxInstance.IntrTrainingDoneHandler(
 			InstancePtr->RxInstance.IntrTrainingDoneCallbackRef);
 	}
@@ -1066,72 +1073,84 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	 * link as indicated by the main stream attributes (MSA) fields. The
 	 * horizontal and vertical resolution parameters are monitored for
 	 * changes. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VM_CHANGE_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VM_CHANGE_MASK) &&
+			InstancePtr->RxInstance.IntrVmChangeHandler) {
 		InstancePtr->RxInstance.IntrVmChangeHandler(
 			InstancePtr->RxInstance.IntrVmChangeCallbackRef);
 	}
 	/* The VerticalBlanking_Flag in the VB-ID field of the received stream
 	 * indicates the start of the vertical blanking interval. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VBLANK_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VBLANK_MASK) &&
+			InstancePtr->RxInstance.IntrVBlankHandler) {
 		InstancePtr->RxInstance.IntrVBlankHandler(
 			InstancePtr->RxInstance.IntrVBlankCallbackRef);
 	}
 	/* The receiver has detected the no-video flags in the VB-ID field after
 	 * active video has been received. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_NO_VIDEO_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_NO_VIDEO_MASK) &&
+			InstancePtr->RxInstance.IntrNoVideoHandler) {
 		InstancePtr->RxInstance.IntrNoVideoHandler(
 			InstancePtr->RxInstance.IntrNoVideoCallbackRef);
 	}
 	/* A valid video frame is detected on the main link. */
-	else if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK) {
+	else if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK) &&
+			InstancePtr->RxInstance.IntrVideoHandler) {
 		InstancePtr->RxInstance.IntrVideoHandler(
 			InstancePtr->RxInstance.IntrVideoCallbackRef);
 	}
 
 	/* The transmitter has requested a change in the current power state of
 	 * the receiver core. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_POWER_STATE_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_POWER_STATE_MASK) &&
+			InstancePtr->RxInstance.IntrPowerStateHandler) {
 		InstancePtr->RxInstance.IntrPowerStateHandler(
 			InstancePtr->RxInstance.IntrPowerStateCallbackRef);
 	}
 	/* A change in the bandwidth has been detected. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_BW_CHANGE_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_BW_CHANGE_MASK) &&
+			InstancePtr->RxInstance.IntrBwChangeHandler) {
 		InstancePtr->RxInstance.IntrBwChangeHandler(
 			InstancePtr->RxInstance.IntrBwChangeCallbackRef);
 	}
 
 	/* An audio info packet has been received. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_INFO_PKT_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_INFO_PKT_MASK) &&
+			InstancePtr->RxInstance.IntrInfoPktHandler) {
 		InstancePtr->RxInstance.IntrInfoPktHandler(
 			InstancePtr->RxInstance.IntrInfoPktCallbackRef);
 	}
 	/* An audio extension packet has been received. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_EXT_PKT_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_EXT_PKT_MASK) &&
+			InstancePtr->RxInstance.IntrExtPktHandler) {
 		InstancePtr->RxInstance.IntrExtPktHandler(
 			InstancePtr->RxInstance.IntrExtPktCallbackRef);
 	}
 
 	/* The TX has issued a down request; a sideband message is ready. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_DOWN_REQUEST_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_DOWN_REQUEST_MASK) &&
+			InstancePtr->RxInstance.IntrDownReqHandler) {
 		InstancePtr->RxInstance.IntrDownReqHandler(
 			InstancePtr->RxInstance.IntrDownReqCallbackRef);
 	}
 
 	/* The RX has issued a down reply. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_DOWN_REPLY_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_DOWN_REPLY_MASK) &&
+			InstancePtr->RxInstance.IntrDownReplyHandler) {
 		InstancePtr->RxInstance.IntrDownReplyHandler(
 			InstancePtr->RxInstance.IntrDownReplyCallbackRef);
 	}
 
 	/* An audio packet overflow has occurred. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_AUDIO_OVER_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_AUDIO_OVER_MASK) &&
+			InstancePtr->RxInstance.IntrAudioOverHandler) {
 		InstancePtr->RxInstance.IntrAudioOverHandler(
 			InstancePtr->RxInstance.IntrAudioOverCallbackRef);
 	}
 
 	/* The RX's DPCD payload allocation registers have been written for
 	 * allocation, de-allocation, or partial deletion. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_PAYLOAD_ALLOC_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_PAYLOAD_ALLOC_MASK) &&
+			InstancePtr->RxInstance.IntrPayloadAllocHandler) {
 		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 								XDP_RX_MST_CAP);
 		RegVal |= XDP_RX_MST_CAP_VCP_UPDATE_MASK;
@@ -1143,44 +1162,52 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	}
 
 	/* The ACT sequence has been received. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_ACT_RX_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_ACT_RX_MASK) &&
+			InstancePtr->RxInstance.IntrActRxHandler) {
 		InstancePtr->RxInstance.IntrActRxHandler(
 			InstancePtr->RxInstance.IntrActRxCallbackRef);
 	}
 
 	/* The CRC test has started. */
-	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_CRC_TEST_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_CRC_TEST_MASK) &&
+			InstancePtr->RxInstance.IntrCrcTestHandler) {
 		InstancePtr->RxInstance.IntrCrcTestHandler(
 			InstancePtr->RxInstance.IntrCrcTestCallbackRef);
 	}
 
 	/* A write to one of the HDCP debug registers has been performed. */
-	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK) &&
+			InstancePtr->RxInstance.IntrHdcpDbgWrHandler) {
 		InstancePtr->RxInstance.IntrHdcpDbgWrHandler(
 			InstancePtr->RxInstance.IntrHdcpDbgWrCallbackRef);
 	}
 	/* A write to the HDCP Aksv MSB register has been performed. */
-	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK) &&
+			InstancePtr->RxInstance.IntrHdcpAksvWrHandler) {
 		InstancePtr->RxInstance.IntrHdcpAksvWrHandler(
 			InstancePtr->RxInstance.IntrHdcpAksvWrCallbackRef);
 	}
 	/* A write to the HDCP An MSB register has been performed. */
-	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AN_WRITE_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AN_WRITE_MASK) &&
+			InstancePtr->RxInstance.IntrHdcpAnWrHandler) {
 		InstancePtr->RxInstance.IntrHdcpAnWrHandler(
 			InstancePtr->RxInstance.IntrHdcpAnWrCallbackRef);
 	}
 	/* A write to the HDCP Ainfo MSB register has been performed. */
-	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AINFO_WRITE_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AINFO_WRITE_MASK) &&
+			InstancePtr->RxInstance.IntrHdcpAinfoWrHandler) {
 		InstancePtr->RxInstance.IntrHdcpAinfoWrHandler(
 			InstancePtr->RxInstance.IntrHdcpAinfoWrCallbackRef);
 	}
 	/* A read of the HDCP Ro register has been performed. */
-	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_RO_READ_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_RO_READ_MASK) &&
+			InstancePtr->RxInstance.IntrHdcpRoRdHandler) {
 		InstancePtr->RxInstance.IntrHdcpRoRdHandler(
 			InstancePtr->RxInstance.IntrHdcpRoRdCallbackRef);
 	}
 	/* A read of the HDCP Binfo register has been performed. */
-	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_BINFO_READ_MASK) {
+	if ((IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_BINFO_READ_MASK) &&
+			InstancePtr->RxInstance.IntrHdcpBinfoRdHandler) {
 		InstancePtr->RxInstance.IntrHdcpBinfoRdHandler(
 			InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef);
 	}
