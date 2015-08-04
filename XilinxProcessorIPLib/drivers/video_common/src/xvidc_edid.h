@@ -33,8 +33,8 @@
 /**
  *
  * @file xvidc_edid.h
-* @addtogroup video_common_v1_1
-* @{
+ * @addtogroup video_common_v2_0
+ * @{
  *
  * Contains macros, definitions, and function declarations related to the
  * Extended Display Identification Data (EDID) structure which is present in all

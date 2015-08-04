@@ -33,9 +33,9 @@
 /**
  *
  * @file xvidc.h
-* @addtogroup video_common_v1_1
-* @{
-* @details
+ * @addtogroup video_common_v2_0
+ * @{
+ * @details
  *
  * Contains common structures, definitions, macros, and utility functions that
  * are typically used by video-related drivers and applications.

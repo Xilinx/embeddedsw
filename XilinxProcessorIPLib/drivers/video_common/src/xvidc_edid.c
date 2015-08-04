@@ -33,8 +33,8 @@
 /**
  *
  * @file xvidc_edid.c
-* @addtogroup video_common_v1_1
-* @{
+ * @addtogroup video_common_v2_0
+ * @{
  *
  * Contains function definitions related to the Extended Display Identification
  * Data (EDID) structure which is present in all monitors. All content in this

@@ -33,8 +33,8 @@
 /**
  *
  * @file xvidc.c
-* @addtogroup video_common_v1_1
-* @{
+ * @addtogroup video_common_v2_0
+ * @{
  *
  * Contains common utility functions that are typically used by video-related
  * drivers and applications.
