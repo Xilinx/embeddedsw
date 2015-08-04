@@ -33,9 +33,9 @@
 /**
  *
  * @file xdp.h
-* @addtogroup dp_v1_0
-* @{
-* @details
+ * @addtogroup dp_v2_0
+ * @{
+ * @details
  *
  * The Xilinx DisplayPort transmitter (DP) driver. This driver supports the
  * Xilinx DisplayPort soft IP core in both transmit/source (TX) and receive/sink
@@ -1311,3 +1311,4 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 					XDp_SbMsgLinkAddressReplyPortDetail
 
 #endif /* XDP_H_ */
+/** @} */

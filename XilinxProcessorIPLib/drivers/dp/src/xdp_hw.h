@@ -47,6 +47,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  06/08/15 Added MST registers, masks, and values for RX.
+ *                     Added HDCP registers and masks.
  * </pre>
  *
 *******************************************************************************/

@@ -47,6 +47,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
+ * 2.0   als  07/27/15 Scale TX fractional register by 1024 instead of 1000.
  * </pre>
  *
 *******************************************************************************/
