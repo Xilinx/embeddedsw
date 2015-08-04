@@ -300,6 +300,12 @@
 							extension packet. */
 /* @} */
 
+/** @name DPTX core registers: HDCP.
+  * @{
+  */
+#define XDP_TX_HDCP_ENABLE		0x400	/**< Enables HDCP core. */
+/* @} */
+
 /** @name DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
   */
@@ -748,6 +754,11 @@
 #define XDP_TX_GT_DRP_COMMAND_DRP_W_DATA_SHIFT \
 				16		/**< Shift bits for DRP write
 							data. */
+/* 0x400: XDP_TX_HDCP_ENABLE */
+#define XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK \
+				0x0001		/**< Disables bypass of the
+							HDCP core. */
+
 /* @} */
 
 /******************************************************************************/
@@ -1128,6 +1139,13 @@
 							of stream 1. */
 /* @} */
 
+/** @name DPRX core registers: DPCD registers for HDCP.
+  * @{
+  */
+#define XDP_RX_DPCD_HDCP_TABLE		0x900	/**< HDCP register table
+							(0x100 bytes). */
+/* @} */
+
 /** @name DPRX core registers: MST field for sideband message buffers and the
   *	  virtual channel payload table.
   * @{
@@ -1259,6 +1277,30 @@
 #define XDP_RX_INTERRUPT_MASK_TP3_MASK	0x00040000 /**< Mask the interrupt
 							assertion for start of
 							training pattern 3. */
+#define XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK \
+					0x00080000 /**< Mask the interrupt
+							for a write to any HDCP
+							debug register. */
+#define XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK \
+					0x00100000 /**< Mask the interrupt
+							for a write to the HDCP
+							AKSV MSB register. */
+#define XDP_RX_INTERRUPT_MASK_HDCP_AN_WRITE_MASK \
+					0x00200000 /**< Mask the interrupt
+							for a write to the HDCP
+							An MSB register. */
+#define XDP_RX_INTERRUPT_MASK_HDCP_AINFO_WRITE_MASK \
+					0x00400000 /**< Mask the interrupt
+							for a write to the HDCP
+							AInfo register. */
+#define XDP_RX_INTERRUPT_MASK_HDCP_RO_READ_MASK \
+					0x00800000 /**< Mask the interrupt
+							for a read of the HDCP
+							Ro register. */
+#define XDP_RX_INTERRUPT_MASK_HDCP_BINFO_READ_MASK \
+					0x01000000 /**< Mask the interrupt
+							for a read of the HDCP
+							BInfo register. */
 #define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
 					0x08000000 /**< Mask the interrupt
 							assertion caused for an
@@ -1281,8 +1323,10 @@
 					0x40000000 /**< Mask the interrupt
 							assertion for the start
 							of a CRC test. */
-
-#define XDP_RX_INTERRUPT_MASK_ALL_MASK	0x7807FFFF /**< Mask all interrupts. */
+#define XDP_RX_INTERRUPT_MASK_UNPLUG_MASK \
+					0x80000000 /**< Mask the unplug event
+							interrupt. */
+#define XDP_RX_INTERRUPT_MASK_ALL_MASK	0xF9FFFFFF /**< Mask all interrupts. */
 /* 0x018: MISC_CTRL */
 #define XDP_RX_MISC_CTRL_USE_FILT_MSA_MASK \
 					0x1	/**< When set, two matching
@@ -1407,6 +1451,9 @@
 #define XDP_RX_INTERRUPT_CAUSE_CRC_TEST_MASK \
 	XDP_RX_INTERRUPT_MASK_CRC_TEST_MASK	/**< Interrupt caused by the
 							start of a CRC test. */
+#define XDP_RX_INTERRUPT_CAUSE_UNPLUG_MASK \
+	XDP_RX_INTERRUPT_MASK_UNPLUG_MASK	/**< Interrupt caused by the
+							an unplug event. */
 /* 0x044: INTERRUPT_MASK_1 */
 #define XDP_RX_INTERRUPT_MASK_1_EXT_PKT_STREAM234_MASK(Stream) \
 		(0x00001 << ((Stream - 2) * 6))	/**< Mask the interrupt
@@ -1531,6 +1578,9 @@
 					0x02	/**< Reflects the
 							SINK_SPECIFIC_IRQ
 							state. */
+#define XDP_RX_DEVICE_SERVICE_IRQ_CP_IRQ_MASK \
+					0x04	/**< Generates a CP IRQ
+							event */
 #define XDP_RX_DEVICE_SERVICE_IRQ_NEW_DOWN_REPLY_MASK \
 					0x10	/**< Indicates a new DOWN_REPLY
 							buffer message is

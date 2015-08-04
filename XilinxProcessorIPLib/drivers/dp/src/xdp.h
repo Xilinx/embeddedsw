@@ -343,6 +343,8 @@
  *                         XDp_TxSbMsgLinkAddressReplyDeviceInfo
  *                     GUID type change for ease of use:
  *                         'u32 Guid[4]' changed to 'u8 Guid[16]'
+ *                     Added handlers and setter functions for HDCP and unplug
+ *                     events.
  * </pre>
  *
 *******************************************************************************/
@@ -809,7 +811,7 @@ typedef struct {
 } XDp_Tx;
 
 /**
- * The XDp driver instance data representing the TX mode of operation.
+ * The XDp driver instance data representing the RX mode of operation.
  */
 typedef struct {
 	XDp_RxTopology Topology;		/**< Topology of connected sinks
@@ -944,6 +946,53 @@ typedef struct {
 							passed to the CRC test
 							start callback
 							function. */
+	XDp_IntrHandler IntrHdcpDbgWrHandler;	/**< Callback function for
+							HDCP debug register
+							write interrupts. */
+	void *IntrHdcpDbgWrCallbackRef;		/**< A pointer to the user data
+							passed to the hdcp
+							debug register write
+							callback function. */
+	XDp_IntrHandler IntrHdcpAksvWrHandler;	/**< Callback function for
+							HDCP Aksv MSB register
+							write interrupts. */
+	void *IntrHdcpAksvWrCallbackRef;	/**< A pointer to the user data
+							passed to the HDCP
+							Aksv MSB register write
+							callback function. */
+	XDp_IntrHandler IntrHdcpAnWrHandler;	/**< Callback function for
+							HDCP An MSB register
+							write interrupts. */
+	void *IntrHdcpAnWrCallbackRef;		/**< A pointer to the user data
+							passed to the HDCP
+							An MSB register write
+							callback function. */
+	XDp_IntrHandler IntrHdcpAinfoWrHandler;	/**< Callback function for
+							HDCP Ainfo register
+							write interrupts. */
+	void *IntrHdcpAinfoWrCallbackRef;	/**< A pointer to the user data
+							passed to the HDCP
+							Ainfo register write
+							callback function. */
+	XDp_IntrHandler IntrHdcpRoRdHandler;	/**< Callback function for
+							HDCP Ro register
+							read interrupts. */
+	void *IntrHdcpRoRdCallbackRef;		/**< A pointer to the user data
+							passed to the HDCP
+							Ro register read
+							callback function. */
+	XDp_IntrHandler IntrHdcpBinfoRdHandler;	/**< Callback function for
+							HDCP Binfo register
+							read interrupts. */
+	void *IntrHdcpBinfoRdCallbackRef;	/**< A pointer to the user data
+							passed to the HDCP
+							Binfo register read
+							callback function. */
+	XDp_IntrHandler IntrUnplugHandler;	/**< Callback function for
+							unplug interrupts. */
+	void *IntrUnplugCallbackRef;		/**< A pointer to the user data
+							passed to the unplug
+							callback function. */
 } XDp_Rx;
 
 /**
@@ -1087,6 +1136,20 @@ void XDp_RxSetIntrPayloadAllocHandler(XDp *InstancePtr,
 void XDp_RxSetIntrActRxHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetIntrCrcTestHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrHdcpDebugWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrHdcpAksvWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrHdcpAnWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrHdcpAinfoWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrHdcpRoReadHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrHdcpBinfoReadHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetIntrUnplugHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling

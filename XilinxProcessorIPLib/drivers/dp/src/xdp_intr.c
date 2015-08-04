@@ -45,6 +45,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  06/08/15 Added MST interrupt handlers for RX.
+ *                     Added HDCP interrupts.
+ *                     Added unplug interrupt.
  * </pre>
  *
 *******************************************************************************/
@@ -595,6 +597,174 @@ void XDp_RxSetIntrTp3Handler(XDp *InstancePtr,
 
 /******************************************************************************/
 /**
+ * This function installs a callback function for when a write to any hdcp
+ * debug register occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrHdcpDebugWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrHdcpDbgWrHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrHdcpDbgWrCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a write to the hdcp
+ * Aksv MSB register occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrHdcpAksvWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrHdcpAksvWrHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrHdcpAksvWrCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a write to the hdcp
+ * An MSB register occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrHdcpAnWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrHdcpAnWrHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrHdcpAnWrCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a write to the hdcp
+ * Ainfo MSB register occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrHdcpAinfoWriteHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrHdcpAinfoWrHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrHdcpAinfoWrCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a read of the hdcp
+ * Ro/Ri MSB register occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrHdcpRoReadHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrHdcpRoRdHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrHdcpRoRdCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a read of the hdcp
+ * Binfo register occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrHdcpBinfoReadHandler(XDp *InstancePtr,
+		XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrHdcpBinfoRdHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
  * This function installs a callback function for when a down request interrupt
  * occurs.
  *
@@ -760,6 +930,34 @@ void XDp_RxSetIntrCrcTestHandler(XDp *InstancePtr,
 
 	InstancePtr->RxInstance.IntrCrcTestHandler = CallbackFunc;
 	InstancePtr->RxInstance.IntrCrcTestCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when an unplug event interrupt
+ * occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_RxSetIntrUnplugHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrUnplugHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrUnplugCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -951,5 +1149,43 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_CRC_TEST_MASK) {
 		InstancePtr->RxInstance.IntrCrcTestHandler(
 			InstancePtr->RxInstance.IntrCrcTestCallbackRef);
+	}
+
+	/* A write to one of the HDCP debug registers has been performed. */
+	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK) {
+		InstancePtr->RxInstance.IntrHdcpDbgWrHandler(
+			InstancePtr->RxInstance.IntrHdcpDbgWrCallbackRef);
+	}
+	/* A write to the HDCP Aksv MSB register has been performed. */
+	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK) {
+		InstancePtr->RxInstance.IntrHdcpAksvWrHandler(
+			InstancePtr->RxInstance.IntrHdcpAksvWrCallbackRef);
+	}
+	/* A write to the HDCP An MSB register has been performed. */
+	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AN_WRITE_MASK) {
+		InstancePtr->RxInstance.IntrHdcpAnWrHandler(
+			InstancePtr->RxInstance.IntrHdcpAnWrCallbackRef);
+	}
+	/* A write to the HDCP Ainfo MSB register has been performed. */
+	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_AINFO_WRITE_MASK) {
+		InstancePtr->RxInstance.IntrHdcpAinfoWrHandler(
+			InstancePtr->RxInstance.IntrHdcpAinfoWrCallbackRef);
+	}
+	/* A read of the HDCP Ro register has been performed. */
+	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_RO_READ_MASK) {
+		InstancePtr->RxInstance.IntrHdcpRoRdHandler(
+			InstancePtr->RxInstance.IntrHdcpRoRdCallbackRef);
+	}
+	/* A read of the HDCP Binfo register has been performed. */
+	if (IntrStatus & XDP_RX_INTERRUPT_MASK_HDCP_BINFO_READ_MASK) {
+		InstancePtr->RxInstance.IntrHdcpBinfoRdHandler(
+			InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef);
+	}
+
+	/* An unplug event has occurred. */
+	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_UNPLUG_MASK) &&
+			InstancePtr->RxInstance.IntrUnplugHandler) {
+		InstancePtr->RxInstance.IntrUnplugHandler(
+			InstancePtr->RxInstance.IntrUnplugCallbackRef);
 	}
 }
