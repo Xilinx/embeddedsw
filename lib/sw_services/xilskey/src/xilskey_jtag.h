@@ -41,5 +41,11 @@ int JtagServerInit(XilSKey_EPl *PlInstancePtr);
 int JtagValidateMioPins(void);
 void JtagWrite(unsigned char row, unsigned char bit);
 void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOption);
+void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant);
+void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
+			u8 Page, u8 Redundant);
+void JtagRead_Status_Ultrascale(u32 *Rowdata);
+void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
+u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption);
 
 #endif /*XILSKEY_JTAG_H*/

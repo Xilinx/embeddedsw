@@ -50,13 +50,20 @@
 *                        Modified efuse PS macro
 *                        XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE to
 *                        XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE
+*                        Added efuse functionality for Ultrascale.
 *
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
 #define XILSKEY_UTILS_H
 /***************************** Include Files ********************************/
+#include "xparameters.h"
+#ifdef XPAR_XSK_MICROBLAZE_PLATFORM
+#include "xsysmon.h"
+#include "xtmrctr.h"
+#else
 #include "xadcps.h"
+#endif
 /************************** Constant Definitions ****************************/
 /**************************** Type Definitions ******************************/
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -70,7 +77,31 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef XSK_ARM_PLATFORM
 #define XADC_DEVICE_ID 		XPAR_XADCPS_0_DEVICE_ID
+#else
+#define XTMRCTR_DEVICE_ID		(XPAR_TMRCTR_0_DEVICE_ID)
+#define XSK_EFUSEPL_CLCK_FREQ_ULTRA	(XPAR_AXI_TIMER_0_CLOCK_FREQ_HZ)
+#define XSK_TMRCTR_NUM			(0)
+#define XSK_GPIO_DEVICE_ID		(XPAR_AXI_GPIO_0_DEVICE_ID)
+#endif
+
+#define REVERSE_POLYNOMIAL	(0x82F63B78)
+				/**< Polynomial for calculating CRC */
+/** @name CSU_DMA pause types
+ * @{
+ */
+typedef enum {
+	XSK_FPGA_SERIES_ULTRA,	/**< Ultrascale series */
+	XSK_FPGA_SERIES_ZYNQ	/**< Zynq series */
+}XSKEfusePl_Fpga;
+/*@}*/
+
+/**
+ * Row numbers of Sysmon
+ */
+#define XSK_SYSMON_TEMP_ROW	(0)	/**< Row for Temperature */
+#define XSK_SYSMON_VOL_ROW	(2)	/**< Row for Voltage */
 
 /**
  * Temperature and voltage range for PS eFUSE reading and programming
@@ -82,7 +113,7 @@
 #define XSK_EFUSEPS_READ_VPAUX_MAX		(1.98)
 #define XSK_EFUSEPS_WRITE_VPAUX_MIN	(1.71)
 #define XSK_EFUSEPS_WRITE_VPAUX_MAX	(1.98)
-
+#ifdef XSK_ARM_PLATFORM
 /**
  * Converting the celsius temperature to equivalent Binary data for xAdc
  */
@@ -96,7 +127,7 @@
 #define XSK_EFUSEPS_READ_VPAUX_MAX_RAW	(XAdcPs_VoltageToRaw(XSK_EFUSEPS_READ_VPAUX_MAX))
 #define XSK_EFUSEPS_WRITE_VPAUX_MIN_RAW	(XAdcPs_VoltageToRaw(XSK_EFUSEPS_WRITE_VPAUX_MIN))
 #define XSK_EFUSEPS_WRITE_VPAUX_MAX_RAW	(XAdcPs_VoltageToRaw(XSK_EFUSEPS_WRITE_VPAUX_MAX))
-
+#endif
 /**
  * Temperature and voltage range for PL eFUSE reading and programming
  * Temperature in Celsius('C) and Voltage(V) is in volts
@@ -125,11 +156,16 @@
 #define	XSK_EFUSEPL_READ_VOLTAGE_VCCINT_MIN		(.795)
 #define	XSK_EFUSEPL_READ_VOLTAGE_VCCINT_MAX		(1.1)
 
+/* Ultrascale Microblaze Voltage range */
+#define	XSK_EFUSEPL_VOL_VCCAUX_MIN_ULTRA	(1.746)
+#define	XSK_EFUSEPL_VOL_VCCAUX_MAX_ULTRA	(1.854)
+#define	XSK_EFUSEPL_TEMP_MIN_ULTRA		(-40)
+#define	XSK_EFUSEPL_TEMP_MAX_ULTRA		(125)
 
 /**
  * PL eFUSE write Min and Max Temperature and Voltages
  */
-
+#ifdef XSK_ARM_PLATFORM
 /**
  * Converting the celsius temperature to equivalent Binary data for xAdc
  */
@@ -171,6 +207,17 @@
 #define	XSK_EFUSEPL_READ_VOLTAGE_VCCINT_MIN_RAW 	(XAdcPs_VoltageToRaw(XSK_EFUSEPL_READ_VOLTAGE_VCCINT_MIN))
 #define	XSK_EFUSEPL_READ_VOLTAGE_VCCINT_MAX_RAW	(XAdcPs_VoltageToRaw(XSK_EFUSEPL_READ_VOLTAGE_VCCINT_MAX))
 
+#else
+/**
+ * Converting the voltage to equivalent Binary data for xAdc
+ */
+#define XSK_EFUSEPL_VOL_VCCAUX_MIN_RAW_ULTRA 	(XSysMon_VoltageToRaw(XSK_EFUSEPL_VOL_VCCAUX_MIN_ULTRA))
+#define XSK_EFUSEPL_VOL_VCCAUX_MAX_RAW_ULTRA 	(XSysMon_VoltageToRaw(XSK_EFUSEPL_VOL_VCCAUX_MAX_ULTRA))
+
+#define XSK_EFUSEPL_TEMP_MIN_RAW_ULTRA	(XSysMon_TemperatureToRaw(XSK_EFUSEPL_TEMP_MIN_ULTRA))
+#define XSK_EFUSEPL_TEMP_MAX_RAW_ULTRA	(XSysMon_TemperatureToRaw(XSK_EFUSEPL_TEMP_MAX_ULTRA))
+
+#endif
 /**
  * Different voltage types that can be read from xAdc
  */
@@ -265,6 +312,11 @@
  *  PS eFUSE RSA key Hash size in characters
  */
 #define XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE     (64)
+/**
+ * Ultrascale Efuse PL RSA Key size in Bytes
+ */
+#define XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES			(48)
+
 /************************** Variable Definitions ****************************/
 /**
  * 	XADC Structure
@@ -342,7 +394,15 @@ typedef enum {
 	XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH,
 	XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR,
 	XSK_EFUSEPL_ERROR_NULL_KEY,
+	/**
+	 * SECURE KEY error codes
+	 */
+	 XSK_EFUSEPL_ERROR_FUSE_SEC_WRITE_DISABLED,
+	 XSK_EFUSEPL_ERROR_FUSE_SEC_READ_DISABLED,
+	 XSK_EFUSEPL_ERROR_SEC_WRITE_BUFFER_NULL,
 
+	XSK_EFUSEPL_ERROR_READ_PAGE_OUT_OF_RANGE,
+	XSK_EFUSEPL_ERROR_FUSE_ROW_RANGE,
 	/**
 	 * XSKEfusepl_Program_Efuse() error codes
 	 */
@@ -360,7 +420,13 @@ typedef enum {
 	XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_DATA_ROW = 0x1A00,
 	XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW = 0x1B00,
 	XSK_EFUSEPL_ERROR_XADC = 0x1C00,
-	XSK_EFUSEPL_ERROR_INVALID_REF_CLK= 0x3000
+	XSK_EFUSEPL_ERROR_INVALID_REF_CLK= 0x3000,
+	XSK_EFUSEPL_ERROR_FUSE_SEC_WRITE_NOT_ALLOWED = 0x1D00,
+	XSK_EFUSEPL_ERROR_READING_FUSE_STATUS = 0x1E00,
+	XSK_EFUSEPL_ERROR_FUSE_BUSY = 0x1F00,
+	XSK_EFUSEPL_ERROR_READING_FUSE_RSA_ROW = 0x2000,
+	XSK_EFUSEPL_ERROR_TIMER_INTIALISE_ULTRA = 0x2200,
+	XSK_EFUSEPL_ERROR_READING_FUSE_SEC = 0x2300
 }XSKEfusePl_ErrorCodes;
 
 
@@ -466,6 +532,9 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 Xilskey_Timer_Intialise();
+u32 Xilskey_Efuse_ReverseHex(u32 Input);
+void Xilskey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
+u32 Xilskey_CrcCalculation(u8 *Key);
 /***************************************************************************/
 
 

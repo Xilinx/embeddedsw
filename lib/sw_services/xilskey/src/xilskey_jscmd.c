@@ -50,6 +50,8 @@
 *                        void Bbram_DeInit(void)
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 *
+* 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+*
 * </pre>
 *
 *
@@ -73,7 +75,12 @@ typedef long ssize_t;
 #include "xilskey_utils.h"
 #include "xilskey_jslib.h"
 #include "xilskey_jscmd.h"
+#ifdef XSK_MICROBLAZE_PLATFORM
+#include "xgpio.h"
+#else
 #include "xgpiops.h"
+#endif
+
 #include "xilskey_bbram.h"
 
 //#define DEBUG_PRINT
@@ -88,6 +95,7 @@ void dummy_printf(const char *ctrl1, ...);
 #define DEFAULT_FREQUENCY 10000000
 #define MAX_FREQUENCY 30000000
 #define ZYNQ_DAP_ID 0x4ba00477
+#define ULTRA_MB_DAP_ID 0x13822093 /**< Ultrascale microblaze TAP ID */
 
 #define set_last_error(JS, ...) js_set_last_error(&(JS)->js.base, __VA_ARGS__)
 
@@ -99,6 +107,8 @@ static js_port_t *g_port = NULL;
 static js_server_t *g_js = NULL;
 static js_port_descr_t *g_useport = NULL;
 extern u32 TimerTicksfor100ns;
+extern u32 TimerTicksfor500ns;
+u32 GpoOutValue = 0;
 
 void dummy_printf(const char *ctrl1, ...)
 {
@@ -153,8 +163,11 @@ struct js_port_impl_struct {
 };
 
 
-
+#ifdef XSK_ARM_PLATFORM
 static XGpioPs structXGpioPs;
+#else
+static XGpio structXGpio;
+#endif
 
 int setPin (int pin, int value);
 int readPin (int pin);
@@ -169,6 +182,7 @@ void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
 
 void JtagInitGpio ()
 {
+#ifdef XSK_ARM_PLATFORM
 	js_printf("===== Initializing PS GPIO pins...\n\r");
 	XGpioPs_Config *ptrConfigPtrPs = XGpioPs_LookupConfig(0);
 	XGpioPs_CfgInitialize(&structXGpioPs,ptrConfigPtrPs,ptrConfigPtrPs->BaseAddr);
@@ -197,6 +211,41 @@ void JtagInitGpio ()
 
 	XGpioPs_SetDirectionPin(&structXGpioPs,MIO_TDO,0);
 	XGpioPs_SetOutputEnablePin(&structXGpioPs,MIO_TDO,0);
+#else
+	u32 DataDirection;
+
+	js_printf("===== Initializing PL GPIO pins...\n\r");
+	XGpio_Config *ptrConfigPtr = XGpio_LookupConfig(XSK_GPIO_DEVICE_ID);
+	XGpio_CfgInitialize(&structXGpio, ptrConfigPtr,
+						ptrConfigPtr->BaseAddress);
+
+	/* Setting Data direction for GPIO pins */
+	if (GpioInPutCh == GpioOutPutCh) {
+		DataDirection = XGpio_GetDataDirection(&structXGpio,
+							GpioInPutCh);
+		DataDirection = DataDirection & (~((1 << GPIO_TDI) |
+					(1 << GPIO_TCK) | (GPIO_TMS)));
+		DataDirection = DataDirection | (1 << GPIO_TDO);
+		XGpio_SetDataDirection(&structXGpio, GpioInPutCh,
+							DataDirection);
+	}
+	else {
+		DataDirection = XGpio_GetDataDirection(&structXGpio,
+							GpioOutPutCh);
+		DataDirection = DataDirection & (~((1 << GPIO_TDI) |
+					(1 << GPIO_TCK) | (GPIO_TMS)));
+		XGpio_SetDataDirection(&structXGpio, GpioOutPutCh,
+							DataDirection);
+
+		DataDirection = XGpio_GetDataDirection(&structXGpio,
+							GpioInPutCh);
+		DataDirection = DataDirection | (1 << GPIO_TDO);
+		XGpio_SetDataDirection(&structXGpio, GpioInPutCh,
+							DataDirection);
+	}
+
+
+#endif
 } /* initGpio() */
 
 int getByteCountFromBitCount (int bitCount)
@@ -544,13 +593,28 @@ void navigateTAP (unsigned char startState, unsigned char endState)
 int setPin (int pin, int value)
 {
 	int status = 1;
+#ifdef XSK_ARM_PLATFORM
 	XGpioPs_WritePin(&structXGpioPs, pin, value);
+#else
+	u32 Mask = (1 << pin);
+	u32 GpoOut = (value) ? (0xFFFFFFFF) : (0x0);
+
+	GpoOutValue = (GpoOutValue & (~Mask)) | (GpoOut & Mask);
+	XGpio_DiscreteWrite(&structXGpio, GpioOutPutCh, GpoOutValue);
+#endif
+
 	return (status);
 }
 
 int readPin (int pin)
 {
+#ifdef XSK_ARM_PLATFORM
 	int retVal = XGpioPs_ReadPin(&structXGpioPs, pin);
+#else
+	int retVal = XGpio_DiscreteRead(&structXGpio, GpioInPutCh);
+	retVal = retVal ? 1: 0;
+#endif
+
 	return (retVal);
 }
 
@@ -1099,6 +1163,7 @@ void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOp
 }
 int JtagValidateMioPins(void)
 {
+#ifdef XSK_ARM_PLATFORM
 	/*
 	 * Make sure that each every MIO pin defined is valid
 	 */
@@ -1138,6 +1203,64 @@ int JtagValidateMioPins(void)
 
 	if(g_mio_jtag_tms == g_mio_jtag_mux_sel)
 		return 1;
+#else
+	/*
+	 * Make sure that each every AXI GPIO pin defined is valid
+	 */
+	if (GpioPinMasterJtagTDI > 31) {
+		return 1;
+	}
+	if (GpioPinMasterJtagTDO > 31) {
+		return 1;
+	}
+	if (GpioPinMasterJtagTMS > 31) {
+		return 1;
+	}
+	if (GpioPinMasterJtagTCK > 31) {
+		return 1;
+	}
+
+	/*
+	 * Make sure that provided channel numbers of GPIO is valid
+	 */
+	if ((GpioInPutCh < XSK_EFUSEPL_GPIO_CH1) ||
+			(GpioInPutCh > XSK_EFUSEPL_GPIO_CH2)) {
+		return 1;
+	}
+	if ((GpioOutPutCh < XSK_EFUSEPL_GPIO_CH1) ||
+			(GpioOutPutCh > XSK_EFUSEPL_GPIO_CH2)) {
+		return 1;
+	}
+	/*
+	 * Make sure that GPIO pins defined for JTAG operation are
+	 * unique among themselves
+	 */
+	/* If both input and output channels is same */
+	if (GpioInPutCh == GpioOutPutCh) {
+		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTDO)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK)) {
+			return 1;
+		}
+		if((GpioPinMasterJtagTDO == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDO == GpioPinMasterJtagTCK)) {
+			return 1;
+		}
+		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK)) {
+			return 1;
+		}
+	}
+	else {
+		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK)) {
+			return 1;
+		}
+		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK)) {
+			return 1;
+		}
+	}
+
+#endif
 
 	return 0;
 }
@@ -1147,10 +1270,11 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
     int retval=0, i=0, num_taps=0, status=0;
     unsigned long *tap_codes = NULL;
 
-    g_mio_jtag_tdi		=	InstancePtr->JtagMioTDI;
-    g_mio_jtag_tdo		= 	InstancePtr->JtagMioTDO;
-    g_mio_jtag_tck		= 	InstancePtr->JtagMioTCK;
-    g_mio_jtag_tms		=	InstancePtr->JtagMioTMS;
+#ifdef XSK_ARM_PLATFORM
+	g_mio_jtag_tdi		=	InstancePtr->JtagMioTDI;
+	g_mio_jtag_tdo		= 	InstancePtr->JtagMioTDO;
+	g_mio_jtag_tck		= 	InstancePtr->JtagMioTCK;
+	g_mio_jtag_tms		=	InstancePtr->JtagMioTMS;
     g_mio_jtag_mux_sel	=	InstancePtr->JtagMioMuxSel;
     g_mux_sel_def_val   =   InstancePtr->JtagMuxSelLineDefVal;
 
@@ -1164,6 +1288,22 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
     {
 	return 1;
     }
+#else
+	GpioPinMasterJtagTDI = InstancePtr->JtagGpioTDI;
+	GpioPinMasterJtagTDO = InstancePtr->JtagGpioTDO;
+	GpioPinMasterJtagTMS = InstancePtr->JtagGpioTMS;
+	GpioPinMasterJtagTCK = InstancePtr->JtagGpioTCK;
+
+	GpioInPutCh = InstancePtr->GpioInputCh;
+	GpioOutPutCh = InstancePtr->GpioOutPutCh;
+
+	status = JtagValidateMioPins();
+	if(status != 0)
+	{
+	   return 1;
+	}
+
+#endif
     JtagInitGpio();
 
     g_js = js_init_zynq();
@@ -1199,6 +1339,11 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 
     for (i = 0; i < num_taps; i++) {
 		if(tap_codes[i] == ZYNQ_DAP_ID){
+			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ZYNQ;
+			break;
+		}
+		if (tap_codes[i] == ULTRA_MB_DAP_ID) {
+			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
 			break;
 		}
     }
@@ -1812,5 +1957,413 @@ void Bbram_DeInit(void)
 	}
 
 	js_deinit_server(g_js);
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function reads temperature and voltage of Ultrascale
+*
+* @param	Row specifies the row number to read.
+* @param	Row_Data is a pointer to a variable, to store the read value
+*		of given row.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data)
+{
+
+	u8 WriteBuf[4];
+	u8 ReadBuf[4];
+	u8 *DataPtr = (u8 *)Row_Data;
+	u32 TckCnt;
+	jtag_navigate (g_port, JS_RESET);
+	WriteBuf[0] = 0x37;
+
+	jtag_shift (g_port, ATOMIC_IR_SCAN, 6, WriteBuf,
+						NULL, JS_IREXIT1);
+	WriteBuf[3] = 0xC4;
+	WriteBuf[2] = Row;
+	WriteBuf[1] = 0x00;
+	WriteBuf[0] = 0x00;
+
+	jtag_shift (g_port, ATOMIC_DR_SCAN, 32, WriteBuf,
+					NULL, JS_IDLE);
+	/*
+	 * Wait 12 TCK
+	 */
+	for(TckCnt = 0; TckCnt < 12; TckCnt++){
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	jtag_shift (g_port, ATOMIC_DR_SCAN, 32, NULL,
+						ReadBuf, JS_IDLE);
+
+	DataPtr[0] = ReadBuf[0];
+	DataPtr[1] = ReadBuf[1];
+}
+
+/****************************************************************************/
+/**
+*
+* This function blows the fuse of Ultrascale with provided parameters.
+*
+* @param	Row specifies the row number of EFUSE to blow.
+* @param	Bit Specifies the bit location in the given row.
+* @param	Page tell the page of EFUSE in which the given row is located.
+* @param	Redundant is a flag to specify the bit to be programmed is
+*		Normal bit or Redundant bit.
+*		- Redundant	- XSK_EFUSEPL_REDUNDANT_ULTRA
+*		- Normal	- XSK_EFUSEPL_NORMAL_ULTRA
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
+{
+
+	u8 wrBuffer [8];
+	u32 Bits = 0;
+
+	jtag_navigate (g_port, JS_RESET);
+
+	Bits = TAP_IR_LENGTH;
+	wrBuffer [0] = 0x30; /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, wrBuffer, NULL, JS_DRSELECT);
+
+	/* Prepare FUSE_CTS data */
+	wrBuffer [0] = (((Bit & 0x1) << 7) | ((Row << 2)| 0x3));
+	wrBuffer [1] = ((Bit >> 1) & 0xF) | ((0x20 << Redundant) | (Page << 4));
+	wrBuffer [2] = 0x00;
+	wrBuffer [3] = 0x00;
+	/* Magic word */
+	wrBuffer [4] = 0xAC;
+	wrBuffer [5] = 0x28;
+	wrBuffer [6] = 0xED;
+	wrBuffer [7] = 0xFE;
+
+	Bits = 64; /* fuse_cts data length */
+
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, wrBuffer, NULL, JS_DRSELECT);
+
+	jtag_navigate (g_port, JS_DRCAPTURE);
+	jtag_navigate (g_port, JS_DREXIT1);
+	jtag_navigate (g_port, JS_DRUPDATE);
+
+	XilSKey_Efuse_StartTimer();
+	jtag_navigate (g_port, JS_IDLE);
+
+	/* Here we will be providing 5micro seconds delay */
+	if (XilSKey_Efuse_GetTime() < TimerTicksfor500ns) {
+		while(1) {
+			if(XilSKey_Efuse_IsTimerExpired(TimerTicksfor500ns) == 1) {
+				break;
+			}
+		}
+	}
+	jtag_navigate (g_port, JS_DRSELECT);
+	jtag_navigate (g_port, JS_IRSELECT);
+	jtag_navigate (g_port, JS_RESET);
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function reads entire row of Ultrascale's EFUSE.
+*
+* @param	Row specifies the row number of EFUSE.
+* @param	Bit Specifies the bit location in the given row.
+* @param	MarginOption is a variable which tells the margin option in
+*		which read operation to be performed.
+* @param	Page tell the page of EFUSE in which the given row is located.
+* @param	Redundant is a flag to specify the bit to be programmed is
+*		Normal bit or Redundant bit.
+*		- Redundant	- XSK_EFUSEPL_REDUNDANT_ULTRA
+*		- Normal	- XSK_EFUSEPL_NORMAL_ULTRA
+*
+* @return	None.
+*
+* @note		Method to read FUSE register in Direct Macro Access way.
+*		Go to TLR to clear FUSE_CTS
+*		Load FUSE_CTS instruction on IR
+*		Step to CDR/SDR to shift in 32-bits FUSE_CTS command word
+*		Shift in MAGIC_CTS_WRITE "FEED28AC" for ultrascale
+*		Read 64 bit data in IR read state.
+*
+*****************************************************************************/
+void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
+						u8 Page, u8 Redundant)
+{
+
+	u8 WrBuffer [8];
+	u8 RdBuffer [8];
+	u32 Bits = 8;
+	u8 *RowDataPtr = (u8 *)RowData;
+
+	jtag_navigate (g_port, JS_RESET);
+
+	/* Load FUSE_CTS instruction on IR */
+	Bits = TAP_IR_LENGTH; /* IR length */
+	WrBuffer [0] = 0x30; /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+
+	/*prepare FUSE_CTS data. */
+	WrBuffer [0] = ((Row << 2)| 0x1);	/* Select the row number */
+	WrBuffer [1] = (0x20 << Redundant) | (Page << 4);
+				/* Page and Redundant/normal bit selection */
+	WrBuffer [2] = MarginOption;
+	WrBuffer [3] = 0x00;
+	/* Magic word. */
+	WrBuffer [4] = 0xAC;
+	WrBuffer [5] = 0x28;
+	WrBuffer [6] = 0xED;
+	WrBuffer [7] = 0xFE;
+
+	Bits = 64; /* Fuse_cts data length */
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, NULL, RdBuffer, JS_IDLE);
+
+	/*
+	 * Captured macro word (32 Bits) is stored in [63:32] of
+	 * 64 bit buffer
+	 */
+	RowDataPtr[0] = RdBuffer[4];
+	RowDataPtr[1] = RdBuffer[5];
+	RowDataPtr[2] = RdBuffer[6];
+	RowDataPtr[3] = RdBuffer[7];
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function reads the status row of Ultrascale's EFUSE and updates the
+* pointer.
+*
+* @param	Rowdata is a pointer to a 32 bit variable which stores the
+*		status register value read from EFUSE status register.
+
+* @return	None.
+*
+* @note		Method to read FUSE register in Direct Macro Access way.
+*		For reading the status values we need send the bitstream
+*		in shift DR state.
+*		Shift in MAGIC_CTS_WRITE "FEED28AC" for ultrascale
+*		Read 64 bit data in IR read state.
+*
+*****************************************************************************/
+void JtagRead_Status_Ultrascale(u32 *Rowdata)
+{
+	u8 WrBuffer[32];
+	u8 RdBuffer [4];
+	u32 Bits = 8;
+	u8 *RowDataPtr = (u8 *)Rowdata;
+
+	/* Go to TLR to clear FUSE_CTS */
+	jtag_navigate (g_port, JS_RESET);
+
+	/* Load FUSE_CTS instruction on IR */
+	Bits = TAP_IR_LENGTH; /* ir length */
+
+	WrBuffer [0] = 0x05; /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+
+	/* prepare Bit stream data */
+	WrBuffer[0] = 0xff;
+	WrBuffer[1] = 0xff;
+	WrBuffer[2] = 0xff;
+	WrBuffer[3] = 0xff;
+
+	WrBuffer[4] = 0x55;
+	WrBuffer[5] = 0x99;
+	WrBuffer[6] = 0xAA;
+	WrBuffer[7] = 0x66;
+
+	WrBuffer[8] = 0x0c;
+	WrBuffer[9] = 0x00;
+	WrBuffer[10] = 0x01;
+	WrBuffer[11] = 0x80;
+
+	WrBuffer[12] = 0x0c;
+	WrBuffer[13] = 0x41;
+	WrBuffer[14] = 0x04;
+	WrBuffer[15] = 0xc9;
+
+	WrBuffer [16] = 0x04;
+	WrBuffer [17] = 0x00;
+	WrBuffer [18] = 0x00;
+	WrBuffer [19] = 0x00;
+
+	WrBuffer [20] = 0x14;
+	WrBuffer [21] = 0xc0;
+	WrBuffer [22] = 0x05;
+	WrBuffer [23] = 0x80;
+
+	WrBuffer [24] = 0x04;
+	WrBuffer [25] = 0x00;
+	WrBuffer [26] = 0x00;
+	WrBuffer [27] = 0x00;
+
+	WrBuffer [28] = 0x04;
+	WrBuffer [29] = 0x00;
+	WrBuffer [30] = 0x00;
+	WrBuffer [31] = 0x00;
+
+	Bits = 256;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+
+	WrBuffer [0] = 0x04;
+	Bits = 0x06;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+
+	Bits = 32;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, NULL, RdBuffer, JS_IDLE);
+
+	RowDataPtr[0] = RdBuffer [0];
+	RowDataPtr[1] = RdBuffer [1];
+	RowDataPtr[2] = RdBuffer [2];
+	RowDataPtr[3] = RdBuffer [3];
+
+	*(u32 *)RowDataPtr = Xilskey_Efuse_ReverseHex(*(u32 *)RowDataPtr);
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function verifies the AES key of Ultrascale's EFUSE with provided CRC
+* value.
+*
+* @param	Crc is a pointer to a 32 bit variable which holds the expected
+*		AES key's CRC.
+* @param	MarginOption is a variable which tells the margin option in
+*		which read operation to be performed.
+*
+* @return	Returns XST_FAILURE/XST_SUCCESS
+*		- XST_SUCCESS - If CRC is correct
+*		- XST_FAILURE - If CRC is wrong
+*
+* @note		To verify AES key with provided CRC 256 bits need to be written
+*		with all ZEROS and last 32 bits with CRC.
+*		And then CTS word should be framed and read 9 rows.
+*		The keys are stored in 8 rows (20 to 27) but in UltraScale
+*		the device will read all 1s.
+*		On the 9th read (row 28), the CRC computation takes
+*		place. An extra read after the 9th read is required
+*		to read the computed CRC out (can use last row addr
+*		of 28 or row 0). The FPGA internally compares the
+*		computed CRC with the expected CRC loaded through
+*		the FUSE_KEY operation. If they match, then the expected CRC
+*		is read. If not, the FPGA will return all 1s.
+*
+*****************************************************************************/
+u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
+{
+	u8 WrBuffer [32];
+	u8 RdBuffer [8];
+	u32 Bits = 8;
+	u8 *RowDataPtr = (u8 *)Crc;
+	u32 Row;
+	u32 Index;
+	u8 WrBuf[8];
+
+	/* Go to TLR to clear FUSE_CTS */
+	jtag_navigate (g_port, JS_RESET);
+
+	/* Load FUSE_CTS instruction on IR */
+	Bits = TAP_IR_LENGTH; /* IR length */
+	WrBuffer [0] = 0x30; /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+
+	/* Prepare FUSE_CTS data. */
+	WrBuffer [0] = 0x00;
+	WrBuffer [1] = 0x80;
+	WrBuffer [2] = MarginOption;
+	WrBuffer [3] = 0x01;
+	/* Magic word. */
+	WrBuffer [4] = 0xAC;
+	WrBuffer [5] = 0x28;
+	WrBuffer [6] = 0xED;
+	WrBuffer [7] = 0xFE;
+
+	Bits = 64; /* fuse_cts data length */
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+
+	Bits = TAP_IR_LENGTH; /* Ir length */
+	WrBuffer [0] = 0x31; /* CMD for FUSE Key */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+
+
+	WrBuffer[0] = RowDataPtr[0];
+	WrBuffer[1] = RowDataPtr[1];
+	WrBuffer[2] = RowDataPtr[2];
+	WrBuffer[3] = RowDataPtr[3];
+	for (Index = 4; Index < 32; Index++) {
+		WrBuffer[Index] = 0;
+	}
+	Bits = 256;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+	Bits = TAP_IR_LENGTH;
+	WrBuffer [0] = 0x30; /* FUSE_CTS instruction */
+	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
+
+	WrBuffer [0] = 0x01;
+	WrBuffer [1] = 0x00;
+	WrBuffer [2] = MarginOption;
+	WrBuffer [3] = 0x01;
+	/* Magic word. */
+	WrBuffer [4] = 0xAC;
+	WrBuffer [5] = 0x28;
+	WrBuffer [6] = 0xED;
+	WrBuffer [7] = 0xFE;
+
+	Bits = 64;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, NULL, JS_IDLE);
+	/*
+	 * Repeat for all AES key Rows 20-27 and repeat one extra read
+	 * for getting CRC back.
+	 */
+	for (Row = 20; Row < 29; Row++) {
+		WrBuf[0] = 0x30;
+		Bits = 6;
+		jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuf, NULL,
+							JS_DRSELECT);
+
+		WrBuffer [0] = (Row << 2) | 0x1;	/* Select row number */
+		WrBuffer [1] = 0x00;
+		WrBuffer [2] = MarginOption;
+		WrBuffer [3] = 0x01;
+		/* Magic word */
+		WrBuffer [4] = 0xAC;
+		WrBuffer [5] = 0x28;
+		WrBuffer [6] = 0xED;
+		WrBuffer [7] = 0xFE;
+		Bits = 64;
+		jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer,
+						RdBuffer, JS_IDLE);
+	}
+
+	WrBuf[0] = 0x30;
+	Bits = 6;
+	jtag_shift(g_port, ATOMIC_IR_SCAN, Bits, WrBuf, NULL, JS_DRSELECT);
+	Bits = 64;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, Bits, WrBuffer, RdBuffer, JS_IDLE);
+	if ((RowDataPtr[0] == RdBuffer[4]) &&
+		(RowDataPtr[1] == RdBuffer[5]) &&
+		(RowDataPtr[2] == RdBuffer[6]) &&
+		(RowDataPtr[3] == RdBuffer[7])) {
+		return XST_SUCCESS;
+	}
+
+	return XST_FAILURE;
 
 }

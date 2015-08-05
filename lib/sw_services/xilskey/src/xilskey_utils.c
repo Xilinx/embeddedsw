@@ -60,11 +60,18 @@
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
+#ifdef XSK_ARM_PLATFORM
 static XAdcPs XAdcInst;     /**< XADC driver instance */
 u16 XAdcDeviceId;	/**< XADC Device ID */
+#else
+XTmrCtr XTmrCtrInst;
+#endif
 u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/
+u32 TimerTicksfor500ns; /**< Global Variable for 5 micro secs for microblaze */
 /************************** Function Prototypes *****************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
+extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
+static u32 Xilskey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 /***************************************************************************/
 /**
 * This function is used to initialize the XADC driver
@@ -82,6 +89,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
 u32 XilSKey_EfusePs_XAdcInit (void )
 {
 	u32 Status;
+#ifdef XSK_ARM_PLATFORM
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
 
@@ -118,7 +126,11 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	 */
 	XAdcPs_SetSequencerMode(XAdcInstPtr, XADCPS_SEQ_MODE_SAFE);
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+#else
+	Status = XST_FAILURE;
+#endif
+	return Status;
 
 }
 
@@ -144,6 +156,13 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+#ifdef XSK_MICROBLAZE_PLATFORM
+	/* Temperature */
+	Jtag_Read_Sysmon(XSK_SYSMON_TEMP_ROW, &(XAdcInstancePtr->Temp));
+	XAdcInstancePtr->Temp = (XAdcInstancePtr->Temp) >> 6;
+	/* Voltage */
+	Jtag_Read_Sysmon(XSK_SYSMON_VOL_ROW, &(XAdcInstancePtr->V));
+#else
 	XAdcPs *XAdcInstPtr = &XAdcInst;
 	u8 V, VMin, VMax;
 
@@ -217,6 +236,8 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 				XAdcInstancePtr->V,
 				(int )XAdcPs_RawToVoltage(XAdcInstancePtr->V));
 
+#endif
+
 	return;
 }
 
@@ -256,6 +277,11 @@ void XilSKey_Efuse_StartTimer()
          * Enable the Timer counter
          */
         Xil_Out32(XSK_GLOBAL_TIMER_CTRL_REG,0x1);
+#else
+	XTmrCtr_SetOptions(&XTmrCtrInst, XSK_TMRCTR_NUM,
+					XTC_AUTO_RELOAD_OPTION);
+		XTmrCtr_Start(&XTmrCtrInst, XSK_TMRCTR_NUM);
+
 #endif
 }
 
@@ -274,14 +300,20 @@ void XilSKey_Efuse_StartTimer()
 
 u64 XilSKey_Efuse_GetTime(void)
 {
-        volatile u32 t_hi=0, t_lo=0;
-        volatile u64 t=0;
-        do {
-                t_hi = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH);
-                t_lo = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_LOW);
-        }while(t_hi != Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH));
+    volatile u64 t=0;
+#ifdef XSK_ARM_PLATFORM
+	volatile u32 t_hi=0, t_lo=0;
 
-        t = (((u64) t_hi) << 32) | (u64) t_lo;
+    do {
+			t_hi = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH);
+			t_lo = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_LOW);
+	}while(t_hi != Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH));
+
+	t = (((u64) t_hi) << 32) | (u64) t_lo;
+
+#else
+		 t = XTmrCtr_GetValue(&XTmrCtrInst, XSK_TMRCTR_NUM);
+#endif
         return t;
 }
 /****************************************************************************/
@@ -829,4 +861,146 @@ u32 Xilskey_Timer_Intialise()
 
 	return RefClk;
 
+}
+
+/****************************************************************************/
+/**
+ * Copies one string to other from specified location
+ *
+ * @param	Src is a pointer to Source string.
+ * @param	Dst is a pointer to Destination string.
+ * @param	From which position to be copied.
+ * @param	To which position to be copied.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ****************************************************************************/
+void Xilskey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
+{
+	u32 Index,J = 0;
+	for (Index = From; Index <= To; Index++) {
+		Dst[J++] = Src[Index];
+	}
+	Dst[J] = '\0';
+
+}
+
+/****************************************************************************/
+/**
+ * Calculates CRC value of provided key.
+ *
+ * @param	Key is the string contains AES key in hexa decimal of length
+ *		less than or equal to 64.
+ *
+ * @return	Crc of AES key value.
+ *
+ * @note	None.
+ *
+ ****************************************************************************/
+u32 Xilskey_CrcCalculation(u8 *Key)
+{
+	u32 Crc = 0;
+	u8 Key_8[8];
+	u8 Key_Hex[4];
+	u32 Index;
+	u32 Key_32;
+	u8 FullKey[64] = {0};
+	u32 Length = strlen((char *)Key);
+
+
+	if (Length > 64) {
+		return XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
+	}
+	if (Length < 64) {
+		strcpy((char *)&FullKey[64-Length + 1], (char *)Key);
+
+	}
+	else {
+		strcpy((char *)FullKey, (char *)Key);
+	}
+
+	for (Index = 0; Index <8;Index++) {
+		Xilskey_StrCpyRange(FullKey, Key_8, ((7 - Index)*8),
+					((((7 - Index) + 1)*8)-1));
+		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8);
+		Key_32 = (Key_Hex[0] << 24) | (Key_Hex[1] << 16) |
+				(Key_Hex[2] << 8) | (Key_Hex[3]);
+		Crc = Xilskey_RowCrcCalculation(Crc, Key_32, 20+Index);
+	}
+
+	return Crc;
+}
+
+/****************************************************************************/
+/**
+ * Calculates CRC value for each row of AES key.
+ *
+ * @param	PrevCRC holds the prev row's CRC.
+ * @param	Data holds the present row's key.
+ * @param	Addr stores the current row number.
+ *
+ * @return	Crc of current row.
+ *
+ * @note	None.
+ *
+ ****************************************************************************/
+u32 Xilskey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
+{
+	u32 Crc = PrevCRC;
+	u32 Value = Data;
+	u32 Row = Addr;
+	u32 Index;
+
+	for (Index = 0; Index < 32; Index++) {
+		if ((((Value & 0x1) ^ Crc) & 0x1) != 0) {
+			Crc = ((Crc >> 1) ^ REVERSE_POLYNOMIAL);
+		}
+		else {
+			Crc = Crc >>1;
+		}
+		Value = Value >>1;
+	}
+
+	for (Index = 0; Index < 5; Index++) {
+		if ((((Row & 0x1) ^ Crc) & 0x1) != 0) {
+			Crc = ((Crc >> 1) ^ REVERSE_POLYNOMIAL);
+		}
+		else {
+			Crc = Crc >>1;
+		}
+		Row = Row >> 1;
+	}
+
+	return Crc;
+
+}
+
+/****************************************************************************/
+/**
+ * This API reverse the value.
+ *
+ * @param	Input is a 32 bit variable
+ *
+ * @return	Reverse the given value.
+ *
+ * @note	None.
+ *
+ ****************************************************************************/
+u32 Xilskey_Efuse_ReverseHex(u32 Input)
+{
+	u32 Index = 0;
+	u32 Rev = 0;
+	u32 Bit;
+
+	while (Index++ < 32) {
+	Bit = Input & 1;
+	Input = Input >> 1;
+	Rev = Rev ^ Bit;
+	if (Index < 32)
+		Rev = Rev << 1;
+	}
+
+	return Rev;
 }

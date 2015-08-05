@@ -47,7 +47,7 @@
 * 2.00  hk      22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX.
 *                        CR#768077
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
-*
+* 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -138,6 +138,7 @@ typedef enum {
 u32 ErrorCode;	/**< Global variable which holds the error key*/
 static u8 AesDataInBytes[XSK_EFUSEPL_ARRAY_FUSE_AES_KEY_SIZE];
 static u8 UserDataInBytes[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
+XSKEfusePl_Fpga PlFpgaFlag;		/**< For Storing Fpga series */
 
 /************************** Function Prototypes *****************************/
 /**
@@ -172,6 +173,11 @@ extern void JtagWrite(unsigned char row, unsigned char bit);
  * 	JTAG Server Read routine
  */
 extern void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOption);
+extern void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant);
+extern void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
+			u8 Page, u8 Redundant);
+extern void JtagRead_Status_Ultrascale(u32 *Rowdata);
+extern u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption);
 /***************************************************************************/
 /****************************************************************************/
 /**
@@ -249,7 +255,7 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 		}
 
 		InstancePtr->SystemInitDone = 1;
-
+		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
 
 	/**
@@ -473,7 +479,7 @@ u8 XilSKey_EfusePl_IsVectorAllZeros(u8 *RowDataPtr)
 *****************************************************************************/
 u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 {
-	XSKEfusePs_XAdc PL_XAdc;
+
 	/**
 	 *Check if the row position is valid.
 	 */
@@ -526,6 +532,9 @@ u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
 	 */
+#ifdef XSK_ARM_PLATFORM
+	XSKEfusePs_XAdc PL_XAdc;
+
 	PL_XAdc.VType = XSK_EFUSEPS_VAUX;
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
 	if((PL_XAdc.Temp < XSK_EFUSEPL_WRITE_TEMP_MIN_RAW) ||
@@ -547,6 +556,7 @@ u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_VCCINT_VOLTAGE_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
+#endif
 
 	JtagWrite(Row, Bit);
 	return XST_SUCCESS;
@@ -866,6 +876,8 @@ u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes)
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
 	 */
+#ifdef XSK_ARM_PLATFORM
+	XSKEfusePs_XAdc PL_XAdc;
 	PL_XAdc.VType = XSK_EFUSEPS_VAUX;
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
 	if((PL_XAdc.Temp < XSK_EFUSEPL_READ_TEMP_MIN_RAW) ||
@@ -887,7 +899,7 @@ u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes)
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_VCCINT_VOLTAGE_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
-
+#endif
 	/**
 	 * Here we have to use the impact algorithm to read the eFUSE row.
 	 * and return the data in row_data.
@@ -1122,9 +1134,10 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		}
 
 		InstancePtr->SystemInitDone = 1;
-
+		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
 
+#ifdef XSK_ARM_PLATFORM
 	/**
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
@@ -1156,6 +1169,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 	JtagRead(0, &RowData, 0);
 
 	*StatusBits = RowData & 0xFFFFFF;
+#endif
 
 	return XST_SUCCESS;
 
@@ -1185,7 +1199,6 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 	unsigned int RowData;
 	u32 KeyCnt;
 	u32 Status;
-	XSKEfusePs_XAdc PL_XAdc;
 
 	if(NULL == InstancePtr)	{
 		return XSK_EFUSEPL_ERROR_PL_STRUCT_NULL;
@@ -1224,9 +1237,12 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 		}
 
 		InstancePtr->SystemInitDone = 1;
+		PlFpgaFlag = InstancePtr->FpgaFlag;
 
 	}
 
+#ifdef XSK_ARM_PLATFORM
+	XSKEfusePs_XAdc PL_XAdc = {0};
 	/**
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
@@ -1252,7 +1268,7 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_VCCINT_VOLTAGE_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
-
+#endif
 	/*
 	 * Read AES key and User Key and
 	 * store them in the variables in instance structure

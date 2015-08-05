@@ -92,6 +92,11 @@ u32 GpioOutPutCh;
 #define GPIO_MUX_SEL_VAL	0x00001300U
 
 /**
+ * GPIO channel numbers of Ultrascale
+ */
+#define XSK_EFUSEPL_GPIO_CH1	(1)	/**< GPIO channel 1 */
+#define XSK_EFUSEPL_GPIO_CH2	(2)	/**< GPIO channel 2 */
+/**
  * XEfusePl is the PL eFUSE driver instance. Using this
  * structure, user can define the eFUSE bits to be
  * blown.

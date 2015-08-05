@@ -510,6 +510,7 @@ XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
 	/**
 	 * Check the temperature and voltage
 	 */
+#ifdef XSK_ARM_PLATFORM
 	if ((XAdcInstancePtr.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstancePtr.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_WRITE_TEMPERATURE_OUT_OF_RANGE;
@@ -519,7 +520,7 @@ XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
 			((XAdcInstancePtr.V > XSK_EFUSEPS_WRITE_VPAUX_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_WRITE_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
 	}
-
+#endif
 	/**
 	 * Write the eFUSE bit
 	 */
@@ -780,6 +781,7 @@ XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
 	/**
 	 * Check the temperature and voltage
 	 */
+#ifdef XSK_ARM_PLATFORM
 	if ((XAdcInstancePtr.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstancePtr.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
@@ -789,7 +791,7 @@ XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
 			((XAdcInstancePtr.V > XSK_EFUSEPS_READ_VPAUX_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
 	}
-
+#endif
 	/**
 	 * Read the eFUSE bit
 	 */
@@ -833,6 +835,7 @@ static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 	/**
 	 * Check the temperature and voltage
 	 */
+#ifdef XSK_ARM_PLATFORM
 	if ((XAdcInstancePtr.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstancePtr.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
@@ -842,7 +845,7 @@ static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 			((XAdcInstancePtr.V > XSK_EFUSEPS_READ_VPAUX_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
 	}
-
+#endif
 
 	/**
 	 * Read the eFUSE bit in Margin_1 mode
