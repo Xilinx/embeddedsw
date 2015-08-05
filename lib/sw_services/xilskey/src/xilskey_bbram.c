@@ -43,6 +43,7 @@
 * Ver   Who  	Date     Changes
 * ----- ---- 	-------- --------------------------------------------------------
 * 1.01a hk      09/18/13 First release
+* 3.00  vns     31/07/15 Removed redundant code to initialise timer.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -102,8 +103,6 @@ extern void Bbram_DeInit(void);
 *****************************************************************************/
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 {
-	u32 ArmPllFdiv;
-	u32 ArmClkDivisor;
 	u32 RefClk;
 	int Status;
 
@@ -111,22 +110,8 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/**
-	 *  Extract PLL FDIV value from ARM PLL Control Register
-	 */
-	ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
-
-	/**
-	 *  Extract Clock divisor value from ARM Clock Control Register
-	 */
-	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
-
-	/**
-	 * Initialize the variables
-	 */
-	RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
-				ArmPllFdiv);
-
+	/* Get timer values */
+	RefClk = Xilskey_Timer_Intialise();
 	/*
 	 * Initialize and start the timer
 	 */

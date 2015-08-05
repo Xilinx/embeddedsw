@@ -198,8 +198,6 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 	u8 CtrlData[XSK_EFUSEPL_ARRAY_FUSE_CNTRL_MAX_BITS]={0};
 	u32 Index = 0;
 	u32 Status;
-	u32 RefClk;
-	u32 ArmPllFDiv,ArmClkDivisor;
 	ErrorCode = XSK_EFUSEPL_ERROR_NONE;
 
 
@@ -209,22 +207,10 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 
 	if(!(InstancePtr->SystemInitDone))
 	{
-		/**
-		 *  Extract PLL FDIV value from ARM PLL Control Register
-		 */
-		ArmPllFDiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
 
-		/**
-		 *  Extract Clock divisor value from ARM Clock Control Register
-		 */
-		ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
-
-		/**
-		 * Initialize the variables
-		 */
-		RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ *
-				ArmClkDivisor)/ ArmPllFDiv);
-
+#ifdef XSK_ARM_PLATFORM
+		u32 RefClk;
+		RefClk = Xilskey_Timer_Intialise();
 		/**
 		 * Return error if the reference clock frequency is not in
 		 * between 20 & 60MHz
@@ -239,13 +225,18 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 		 * server using the passed info.
 		 */
 
-		XilSKey_Efuse_StartTimer(RefClk);
+		XilSKey_Efuse_StartTimer();
 
 		Status = XilSKey_EfusePs_XAdcInit();
 		if(Status != XST_SUCCESS) {
 			ErrorCode = Status;
 			return (XSK_EFUSEPL_ERROR_XADC + ErrorCode);
+			}
+#else
+		if (Xilskey_Timer_Intialise() == XST_FAILURE) {
+			return (XSK_EFUSEPL_ERROR_TIMER_INTIALISE_ULTRA);
 		}
+#endif
 		/**
 		 * Start using the Jtag server to read the JTAG ID and
 		 * compare with the stored ID, if it not matches return with
@@ -1086,12 +1077,8 @@ void XilSKey_EfusePl_CalculateEcc(u8 *RowData, u8 *ECCData)
 *****************************************************************************/
 u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 {
-	u32 RefClk;
-	u32 ArmPllFdiv;
-	u32 ArmClkDivisor;
 	unsigned int RowData;
-	u32 Status;
-	XSKEfusePs_XAdc PL_XAdc;
+	XSKEfusePs_XAdc PL_XAdc = {0};
 
 	if(NULL == InstancePtr)	{
 		return XSK_EFUSEPL_ERROR_PL_STRUCT_NULL;
@@ -1100,21 +1087,13 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 	if(!(InstancePtr->SystemInitDone))
 	{
 
-		/**
-		 *  Extract PLL FDIV value from ARM PLL Control Register
-		 */
-		ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
-
-		/**
-		 *  Extract Clock divisor value from ARM Clock Control Register
-		 */
-		ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
-
+#ifdef XSK_ARM_PLATFORM
+		u32 RefClk;
+		u32 Status;
 		/**
 		 * Initialize the variables
 		 */
-		RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
-					ArmPllFdiv);
+		RefClk = Xilskey_Timer_Intialise();
 
 		/**
 		 * Return error if the reference clock frequency is not in
@@ -1129,13 +1108,14 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		 * Initialize the timer, XADC and jtag server
 		 */
 
-		XilSKey_Efuse_StartTimer(RefClk);
+		XilSKey_Efuse_StartTimer();
 
 		Status = XilSKey_EfusePs_XAdcInit();
 		if(Status != XST_SUCCESS) {
 			ErrorCode = Status;
 			return (XSK_EFUSEPL_ERROR_XADC + ErrorCode);
 		}
+#endif
 
 		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
 			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
@@ -1201,9 +1181,6 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 *****************************************************************************/
 u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 {
-	u32 RefClk;
-	u32 ArmPllFdiv;
-	u32 ArmClkDivisor;
 	u32 RowCount;
 	unsigned int RowData;
 	u32 KeyCnt;
@@ -1217,21 +1194,9 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 	if(!(InstancePtr->SystemInitDone))
 	{
 
-		/**
-		 *  Extract PLL FDIV value from ARM PLL Control Register
-		 */
-		ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
-
-		/**
-		 *  Extract Clock divisor value from ARM Clock Control Register
-		 */
-		ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
-
-		/**
-		 * Initialize the variables
-		 */
-		RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
-					ArmPllFdiv);
+#ifdef XSK_ARM_PLATFORM
+		u32 RefClk;
+		RefClk = Xilskey_Timer_Intialise();
 
 		/**
 		 * Return error if the reference clock frequency is not in
@@ -1246,14 +1211,14 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 		 * Initialize the timer and jtag server
 		 */
 
-		XilSKey_Efuse_StartTimer(RefClk);
+		XilSKey_Efuse_StartTimer();
 
 		Status = XilSKey_EfusePs_XAdcInit();
 		if(Status != XST_SUCCESS) {
 			ErrorCode = Status;
 			return (XSK_EFUSEPL_ERROR_XADC + ErrorCode);
 		}
-
+#endif
 		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
 			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
 		}

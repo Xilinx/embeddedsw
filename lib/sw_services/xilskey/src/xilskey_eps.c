@@ -45,7 +45,7 @@
 * 1.02a hk      10/28/13 Added API to read status register.PR# 735957
 * 2.00  hk      23/01/14 Changed PS efuse error codes for voltage out of range.
 * 2.1   sk      04/03/15 Initialized RSAKeyReadback with Zeros CR# 829723.
-*
+* 3.00  vns     31/07/15 Removed redundant code to initialise timer.
 *
 *****************************************************************************/
 
@@ -96,7 +96,6 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 {
 	u32 Status, StatusRedundantBit, RetValue;
 	u32 RefClk;
-	u32 ArmPllFDiv,ArmClkDivisor;
 
 	RetValue = XST_SUCCESS;
 
@@ -105,20 +104,7 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 		return XSK_EFUSEPS_ERROR_PS_STRUCT_NULL;
 	}
 
-	/**
-	 *  Extract PLL FDIV value from ARM PLL Control Register
-	 */
-	ArmPllFDiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
-	/**
-	 *  Extract Clock divisor value from ARM Clock Control Register
-	 */
-	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
-
-	/**
-	 * Initialize the variables
-	 */
-	RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
-				ArmPllFDiv);
+	RefClk = Xilskey_Timer_Intialise();
 
 	/**
 	 *  Check the variables
@@ -316,7 +302,6 @@ u32 XilSKey_EfusePs_Read(XilSKey_EPs *InstancePtr)
 
 	u32 Status, RetValue;
 	u32 RefClk;
-	u32 ArmPllFDiv,ArmClkDivisor;
 	u32 Index;
 
 	RetValue = XST_SUCCESS;
@@ -334,20 +319,7 @@ u32 XilSKey_EfusePs_Read(XilSKey_EPs *InstancePtr)
 		InstancePtr->RsaKeyReadback[Index] = 0;
 	}
 
-	/**
-	 *  Extract PLL FDIV value from ARM PLL Control Register
-	 */
-	ArmPllFDiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
-	/**
-	 *  Extract Clock divisor value from ARM Clock Control Register
-	 */
-	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
-
-	/**
-	 * Initialize the variables
-	 */
-	RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
-			   ArmPllFDiv);
+	RefClk = Xilskey_Timer_Intialise();
 
 	/**
 	 * Check the variables

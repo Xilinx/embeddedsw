@@ -45,6 +45,8 @@
 * 2.00  hk      22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX.
 *                        CR#768077
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
+* 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+*
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -235,24 +237,10 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 * @note		None.
 *
 *****************************************************************************/
-void XilSKey_Efuse_StartTimer(u32 RefClk)
+void XilSKey_Efuse_StartTimer()
 {
-		u32 arm_pll_fdiv,arm_clk_divisor;
-		TimerTicksfor100ns = 0;
+#ifdef XSK_ARM_PLATFORM
 		/**
-		 *  Extract PLL FDIV value from ARM PLL Control Register
-		 */
-		arm_pll_fdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
-		/**
-		 *  Extract Clock divisor value from ARM Clock Control Register
-		 */
-		arm_clk_divisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
-		/**
-		 * Calculate the Timer ticks per 100ns
-		 */
-		TimerTicksfor100ns =
-				(((RefClk * arm_pll_fdiv)/arm_clk_divisor)/2)/10000000;
-        /**
          * Disable the Timer counter
          */
         Xil_Out32(XSK_GLOBAL_TIMER_CTRL_REG,0);
@@ -268,6 +256,7 @@ void XilSKey_Efuse_StartTimer(u32 RefClk)
          * Enable the Timer counter
          */
         Xil_Out32(XSK_GLOBAL_TIMER_CTRL_REG,0x1);
+#endif
 }
 
 /****************************************************************************/
@@ -772,4 +761,72 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
     else {
 	return XST_SUCCESS;
     }
+}
+/****************************************************************************/
+/**
+ * This API intialises the Timer based on platform
+ *
+ * @param	None.
+ *
+ * @return	RefClk will be returned.
+ *
+ * @note	None.
+ *
+ ****************************************************************************/
+u32 Xilskey_Timer_Intialise()
+{
+
+	u32 RefClk;
+
+#ifdef XSK_ARM_PLATFORM
+	TimerTicksfor100ns = 0;
+	u32 ArmPllFdiv;
+	u32 ArmClkDivisor;
+		/**
+		 *  Extract PLL FDIV value from ARM PLL Control Register
+		 */
+	ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
+
+		/**
+		 *  Extract Clock divisor value from ARM Clock Control Register
+		 */
+	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
+
+		/**
+		 * Initialize the variables
+		 */
+	RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
+					ArmPllFdiv);
+
+	/**
+	 * Calculate the Timer ticks per 100ns
+	 */
+	TimerTicksfor100ns =
+			(((RefClk * ArmPllFdiv)/ArmClkDivisor)/2)/10000000;
+#else
+
+	u32 Status;
+	TimerTicksfor500ns = 0;
+
+	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
+
+	Status = XTmrCtr_Initialize(&XTmrCtrInst, XTMRCTR_DEVICE_ID);
+	if (Status == XST_FAILURE) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Perform a self-test to ensure that the hardware was built
+	 * correctly.
+	 */
+	Status = XTmrCtr_SelfTest(&XTmrCtrInst, XSK_TMRCTR_NUM);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	TimerTicksfor500ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/200000;
+
+#endif
+
+	return RefClk;
+
 }

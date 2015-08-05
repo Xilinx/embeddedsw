@@ -45,6 +45,11 @@
 * 2.00  hk      23/01/14 Corrected PL voltage checks to VCCINT and VCCAUX.
 *                        CR#768077.
 *                        Changed PS efuse error codes for voltage out of range
+* 3.00  vns     31/07/15 Added Xilskey_Timer_Intialise API and modified
+*                        prototype of XilSKey_Efuse_StartTimer
+*                        Modified efuse PS macro
+*                        XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE to
+*                        XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE
 *
  *****************************************************************************/
 
@@ -55,6 +60,11 @@
 /************************** Constant Definitions ****************************/
 /**************************** Type Definitions ******************************/
 /***************** Macros (Inline Functions) Definitions ********************/
+#ifdef XPAR_XSK_MICROBLAZE_PLATFORM
+#define XSK_MICROBLAZE_PLATFORM
+#else
+#define XSK_ARM_PLATFORM
+#endif
 /**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -254,7 +264,7 @@
 /**
  *  PS eFUSE RSA key Hash size in characters
  */
-#define XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE     (64)
+#define XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE     (64)
 /************************** Variable Definitions ****************************/
 /**
  * 	XADC Structure
@@ -440,7 +450,7 @@ typedef enum {
 /************************** Function Prototypes *****************************/
 u32 XilSKey_EfusePs_XAdcInit (void );
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr);
-void XilSKey_Efuse_StartTimer(u32 RefClk);
+void XilSKey_Efuse_StartTimer();
 u64 XilSKey_Efuse_GetTime();
 void XilSKey_Efuse_SetTimeOut(volatile u64* t, u64 us);
 u8 XilSKey_Efuse_IsTimerExpired(u64 t);
@@ -455,7 +465,7 @@ u32 XilSKey_Efuse_IsValidChar(const char *c);
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
-
+u32 Xilskey_Timer_Intialise();
 /***************************************************************************/
 
 
