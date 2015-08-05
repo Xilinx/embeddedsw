@@ -84,10 +84,10 @@
 #define PM_SET_REQUIREMENT          15U
 #define PM_SET_MAX_LATENCY          16U
 
-#define PM_RESET_ASSERT             22U
-#define PM_RESET_GET_STATUS         23U
-#define PM_MMIO_WRITE               24U
-#define PM_MMIO_READ                25U
+#define PM_RESET_ASSERT             17U
+#define PM_RESET_GET_STATUS         18U
+#define PM_MMIO_WRITE               19U
+#define PM_MMIO_READ                20U
 
 #define PM_API_MIN	PM_GET_API_VERSION
 #define PM_API_MAX	PM_MMIO_READ
