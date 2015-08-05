@@ -170,6 +170,7 @@ extern "C" {
 #define XIH_PH_ATTRB_A53_EXEC_ST_AA32	(0x0008U)
 #define XIH_PH_ATTRB_A53_EXEC_ST_AA64	(0x0000U)
 
+#define XIH_INVALID_EXEC_ST	(0xFFFFU)
 /**
  * Below is the bit mapping of fields in the ATF Handoff parameters
  * with that of Partition header. The number of bits shifted is

@@ -69,6 +69,10 @@
 #define APU_CONFIG_0_AA64N32_MASK_CPU2 (0x4U)
 #define APU_CONFIG_0_AA64N32_MASK_CPU3 (0x8U)
 
+#define OTHER_CPU_HANDOFF				(0x0U)
+#define A53_0_64_HANDOFF_TO_A53_0_32	(0x1U)
+#define A53_0_32_HANDOFF_TO_A53_0_64	(0x2U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -78,8 +82,9 @@
 /************************** Function Prototypes ******************************/
 
 static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags);
-static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings);
-static void XFsbl_CopyIVT(u32 CpuSettings);
+static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
+		u32 HandoffType);
+static void XFsbl_CopyIVT(u32 CpuSettings, u32 HandoffType);
 static int XFsbl_Is32BitCpu(u32 CpuSettings);
 
 /**
@@ -572,7 +577,8 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 *
 *
 *****************************************************************************/
-static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings)
+static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
+		u32 HandoffType)
 {
 	u32 HandOffAddressLow=0U;
 	u32 HandOffAddressHigh=0U;
@@ -585,7 +591,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings)
 	/**
 	 * copy the IVT to 0xffff0000
 	 */
-	XFsbl_CopyIVT(CpuSettings);
+	XFsbl_CopyIVT(CpuSettings, HandoffType);
 
 	/**
 	 * Writing u64/u32 will be decided on the handoff Cpu
@@ -593,11 +599,22 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings)
 	if (XFsbl_Is32BitCpu(CpuSettings) == TRUE)
 	{
 		/**
-		 * for R5 cpu, write 32bit handoff address
+		 * for R5 and A53(32-bit) cpus, write 32bit handoff address
+		 * Hence is also applicable for A53_0_64_TO_A53_0_32
 		 */
 		XFsbl_Out32(XFSBL_HANDOFF_ADDR_PTR,
 					(u32 )HandOffAddress);
-	} else {
+	} else if (HandoffType == A53_0_32_HANDOFF_TO_A53_0_64) {
+		/**
+		 * for A53_0_32_TO_A53_0_64 case, write 64 bit handoff address
+		 * to the predfined location
+		 */
+		XFsbl_Out32(XFSBL_HANDOFF_ADDR_PTR,
+				(u32 )(HandOffAddress & 0xFFFFFFFFU));
+		XFsbl_Out32(XFSBL_HANDOFF_ADDR_PTR+4U,
+				(u32 )((HandOffAddress>>32) & 0xFFFFFFFFU));
+	}
+	else {
 		/**
 		 * for A53 cpu, write 64bit handoff address
 		 * to the RVBARADDR in APU
@@ -642,14 +659,17 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings)
  * This function will copy the Arm predefined code to the Reset IVT address
  *
  * @param CpuId is used to determine which arm predefined code to be loaded
-	  Supports R5, A53/A53 processors
+ *	  by checking if the handoff cpu is of 32 bit
+ *
+ * @param HandoffType used to determine which arm A53 predefined code to be
+ *	  loaded. Supports handoff to A53(32-bit) and A53(64bit) processors
  *
  * @return
  *
  * @note
  *
  *****************************************************************************/
-static void XFsbl_CopyIVT(u32 CpuSettings)
+static void XFsbl_CopyIVT(u32 CpuSettings, u32 HandoffType)
 {
 	u32 Index=0U;
 	const u32 XFsbl_ArmR5PredefinedCode[] =
@@ -689,21 +709,89 @@ static void XFsbl_CopyIVT(u32 CpuSettings)
 		0xE12FFF1EU
 	};
 
+	const u32 XFsbl_ArmA53Cpu32PredefinedCode[] =
+	{
+		/**
+		 * 1. Move 0xffffff00 to r0
+		 * 2. load value stored in r0 to lr
+		 * 3. dsb
+		 * 4. isb
+		 * 5. branch to lr
+		 */
+
+		/* mvn r0, #255 */
+		0xE3E000FFU,
+		/* ldr lr, [r0] */
+		0xE590E000U,
+		/* dsb */
+		0xF57FF04FU,
+		/* isb */
+		0xF57FF06FU,
+		/* bx	lr */
+		0xE12FFF1EU
+	};
+
+	const u32 XFsbl_ArmA53Cpu64PredefinedCode[] =
+	{
+		/**
+		 * 1. Move 0xffffff00 to x0
+		 * 2. load value stored in x0 to x30
+		 * 3. dsb
+		 * 4. isb
+		 * 5. branch to x30
+		 */
+
+		/* mov	x0, #0xffffff00 */
+		0xB2785FE0U,
+		/* ldr	x30, [x0] */
+		0xF940001EU,
+		/* dsb sy */
+		0xD5033F9FU,
+		/* isb */
+		0xD5033FDFU,
+		/* br	x30 */
+		0xD61F03C0U
+	};
+
+
+
 	/**
 	 * Load the predefined ARM code to the reset vector address
 	 * For R5 load the R5 code otherwise A53 code
 	 */
-	if (XFsbl_Is32BitCpu(CpuSettings) == TRUE)
-	{
+	if ((XFsbl_Is32BitCpu(CpuSettings) == TRUE) &&
+			(HandoffType == OTHER_CPU_HANDOFF)) {
 		/**
 		 * Load R5 code
 		 */
-		for (Index=0U;Index<10U;Index++)
+		for (Index=0U;
+				Index < sizeof(XFsbl_ArmR5PredefinedCode)/sizeof(u32); Index++)
 		{
 			XFsbl_Out32(XFSBL_IVT_ADDRESS + (Index*4U),
 					XFsbl_ArmR5PredefinedCode[Index]);
 		}
 	}
+	else if (HandoffType == A53_0_64_HANDOFF_TO_A53_0_32) {
+		for (Index=0U;
+				Index < sizeof(XFsbl_ArmA53Cpu32PredefinedCode)/sizeof(u32);
+				Index++) {
+			XFsbl_Out32(XFSBL_IVT_ADDRESS + (Index*4U),
+					XFsbl_ArmA53Cpu32PredefinedCode[Index]);
+		}
+	}
+	else if (HandoffType == A53_0_32_HANDOFF_TO_A53_0_64) {
+		for (Index=0U;
+				Index < sizeof(XFsbl_ArmA53Cpu64PredefinedCode)/sizeof(u32);
+				Index++) {
+			XFsbl_Out32(XFSBL_IVT_ADDRESS + (Index*4U),
+					XFsbl_ArmA53Cpu64PredefinedCode[Index]);
+		}
+	}
+	else {
+		/* for MISRA C compliance  */
+	}
+
+
 	return;
 }
 
@@ -849,7 +937,8 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 				/**
 				 * Update the handoff address at reset vector address
 				 */
-				XFsbl_UpdateResetVector(HandoffAddress, CpuSettings);
+				XFsbl_UpdateResetVector(HandoffAddress, CpuSettings,
+						OTHER_CPU_HANDOFF);
 
 				XFsbl_Printf(DEBUG_INFO,"CPU 0x%0lx reset release, "
 						"Exec State 0x%0lx, HandoffAddress: %0lx\n\r",
@@ -894,8 +983,30 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 				 */
 				RunningCpuHandoffAddressPresent = TRUE;
 				RunningCpuHandoffAddress = (u64 )
-					FsblInstancePtr->HandoffValues[CpuIndex].HandoffAddress;
+				FsblInstancePtr->HandoffValues[CpuIndex].HandoffAddress;
 				RunningCpuExecState = ExecState;
+
+				/**
+				 * Update reset vector address for
+				 * - FSBL running on A53-0 (64bit), handoff to A53-0 (32 bit)
+				 * - FSBL running on A53-0 (32bit), handoff to A53-0 (64 bit)
+				 */
+				if ((FsblInstancePtr->A53ExecState ==
+						XIH_PH_ATTRB_A53_EXEC_ST_AA64) &&
+						(ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA32)) {
+					XFsbl_UpdateResetVector(RunningCpuHandoffAddress,
+							CpuSettings, A53_0_64_HANDOFF_TO_A53_0_32);
+				}
+				else if ((FsblInstancePtr->A53ExecState ==
+						XIH_PH_ATTRB_A53_EXEC_ST_AA32) &&
+						(ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA64)) {
+					XFsbl_UpdateResetVector(RunningCpuHandoffAddress,
+							CpuSettings, A53_0_32_HANDOFF_TO_A53_0_64);
+				}
+				else
+				{
+					/* for MISRA C compliance */
+				}
 			}
 		}
 

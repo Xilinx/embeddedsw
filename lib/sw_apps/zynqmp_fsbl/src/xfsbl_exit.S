@@ -94,8 +94,19 @@ XFsbl_Exit:
 	mcr	 15,0,r4,cr1,cr0,0
 	isb
 
-	cmp r1,#0
-	bne XFsbl_StartApp
+	cmp r1, #0  		/* exit to wfe    */
+	beq XFsbl_Loop
+
+	cmp r1, #2   /* x1 is 2 - exit in aarch32  */
+	beq XFsbl_StartApp
+
+	/* x1 is 1 - exit in aarch64 */
+	mov r2, #3   /* request for warm reset and aarch64 */
+	dsb
+	isb
+	mcr	p15, 0, r2, c12, c0, 2 /* write to reset management register */
+	isb
+
 #else
 	mov x30, x0 /* move the destination address into x30 register */
 
@@ -120,7 +131,9 @@ XFsbl_Exit:
 
 		     /* x1 is 2 - exit in aarch32 */
 
-	mov x2, #3   /* request for warm reset and aarch32 */
+	mov x2, #2   /* request for warm reset and aarch32 */
+	dsb sy
+	isb
 	msr RMR_EL3,x2 /* write to reset management register */
 	isb
 #endif

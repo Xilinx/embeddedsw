@@ -119,7 +119,7 @@ proc swapp_generate {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-    # based on the CPU (A53 or R5),
+    # based on the CPU (A53 64-bit, A53 32-bit or R5),
     # remove unnecesary linker script and retain just one: lscript.ld
     # set the compiler flags
     if { $proc_type == "psu_cortexr5" } {
@@ -130,16 +130,29 @@ proc swapp_generate {} {
         -value {-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp} \
         -objects [current_sw_design ]
     } else {
-        set ld_file "lscript.ld"
-        file delete -force $ld_file
+        set compiler [get_property CONFIG.compiler $proc_instance]
 
-        set ld_file_a53 "lscript_a53.ld"
-        set ld_file_new "lscript.ld"
-        file rename -force $ld_file_a53 $ld_file_new
+        if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+            # A53 32-bit : Use same linker script as that of R5
+            set ld_file_a53 "lscript_a53.ld"
+            file delete -force $ld_file_a53
 
-        set_property -name {APP_COMPILER_FLAGS} \
-        -value {-Wall -fmessage-length=0 -DXFSBL_A53} \
-        -objects [current_sw_design ]
+            set_property -name {APP_COMPILER_FLAGS} \
+            -value {-Wall -fmessage-length=0 -march=armv7-a} \
+            -objects [current_sw_design ]
+        } else {
+            #A53 64-bit
+            set ld_file "lscript.ld"
+            file delete -force $ld_file
+
+            set ld_file_a53 "lscript_a53.ld"
+            set ld_file_new "lscript.ld"
+            file rename -force $ld_file_a53 $ld_file_new
+
+            set_property -name {APP_COMPILER_FLAGS} \
+            -value {-Wall -fmessage-length=0 -DXFSBL_A53} \
+            -objects [current_sw_design ]
+        }
     }
 }
 

@@ -259,10 +259,23 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	 * Need a check for unsupported Cluster ID
 	 */
 	if ((ClusterId & XFSBL_CLUSTER_ID_MASK) == XFSBL_A53_PROCESSOR) {
-		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 Processor \n\r");
+		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 ");
 		FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_A53_0;
+#ifndef __aarch32__
+		/* Running on A53 64-bit */
+		XFsbl_Printf(DEBUG_GENERAL,"(64-bit) Processor \n\r");
+		FsblInstancePtr->A53ExecState = XIH_PH_ATTRB_A53_EXEC_ST_AA64;
+#else
+		/* Running on A53 32-bit */
+		XFsbl_Printf(DEBUG_GENERAL,"(32-bit) Processor \n\r");
+		FsblInstancePtr->A53ExecState = XIH_PH_ATTRB_A53_EXEC_ST_AA32;
+#endif
+
 	} else {
+		/* A53ExecState is not valid for R5 */
+		FsblInstancePtr->A53ExecState = XIH_INVALID_EXEC_ST;
+
 		RegValue = XFsbl_In32(RPU_RPU_GLBL_CNTL);
 		if ((RegValue & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK) == 0U) {
 			XFsbl_Printf(DEBUG_GENERAL,

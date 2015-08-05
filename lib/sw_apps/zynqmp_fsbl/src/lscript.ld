@@ -32,7 +32,7 @@
 
 /*******************************************************************/
 /*                                                                 */
-/* Description : FSBL R5 Linker Script                             */
+/* Description : FSBL R5 and A53(32-bit) Linker Script                             */
 /*                                                                 */
 /*******************************************************************/
 
@@ -63,7 +63,7 @@ ENTRY(_vector_table)
 SECTIONS
 {
 .text : {
-   *(.vectors)
+   KEEP (*(.vectors))
    *(.boot)
    *(.text)
    *(.text.*)
@@ -76,6 +76,7 @@ SECTIONS
    *(.vfp11_veneer)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
+   *(.note.gnu.build-id)
 } > psu_ram_0_S_AXI_BASEADDR
 
 .init : {
@@ -235,7 +236,7 @@ SECTIONS
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
-} > psu_ram_0_S_AXI_BASEADDR
+} > psu_ram_1_S_AXI_BASEADDR
 
 .tdata : {
    __tdata_start = .;

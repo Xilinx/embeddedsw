@@ -81,6 +81,7 @@ typedef struct {
 	u32 Version; /**< FSBL Version */
 	u32 PresentStage; /**< Stage */
 	u32 ProcessorID; /**< One of R5-0, R5-LS, A53-0 */
+	u32 A53ExecState; /**< One of A53 64-bit, A53 32-bit */
 	u32 BootHdrAttributes; /**< Boot Header attributes */
 	u32 ImageOffsetAddress; /**< Flash offset address */
 	XFsblPs_ImageHeader ImageHeader; /** Image header */
