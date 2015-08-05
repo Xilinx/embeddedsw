@@ -69,6 +69,37 @@ extern "C" {
  *  User Key size in Bytes
  */
 #define XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES				(4)
+/**
+ *  CRC of AES key with all zeros
+ */
+#define XSK_EFUSEPL_CRC_FOR_AES_ZEROS					(0x621C42AA)
+/**
+ * AES key String length
+ */
+#define XSK_EFUSEPL_AES_KEY_STRING_LEN					(64)
+
+/*
+ * Status register index values of Ultrascale's Fuse
+ */
+typedef enum {
+	XSK_EFUSEPL_STATUS_DISABLE_KEY_READ_ULTRA,	/**< Bit 0 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_READ_ULTRA,	/**< Bit 1 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_SECURE_READ_ULTRA,	/**< Bit 2 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_CNTRL_WRITE_ULTRA = 5,/**< Bit 5 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_READ_ULTRA,	/**< Bit 6 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_KEY_WRITE_ULTRA,	/**< Bit 7 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_WRITE_ULTRA,/**< Bit 8 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_SECURE_WRITE_ULTRA,	/**< Bit 9 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_WRITE_ULTRA = 15,/**< Bit 15 of Status reg */
+	XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA = 22,/**< Bit 22 of Status reg */
+	XSK_EFUSEPL_STATUS_ALLOW_ENCRYPTED_ONLY_ULTRA,/**< Bit 23 of Status reg */
+	XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA,/**< Bit 24 of Status reg */
+	XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA,/**< Bit 25 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA,/**< Bit 26 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_TEST_ACCESS_ULTRA,/**< Bit 27 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_DCRPTR_ULTRA,/**< Bit 28 of Status reg */
+}XSKEfusePl_FuseStatusBits_F8Series;
+
 /**************************** Type Definitions ******************************/
 /***************** Macros (Inline Functions) Definitions ********************/
 
@@ -282,6 +313,8 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *PlInstancePtr);
 u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits);
 
 u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr);
+
+u32 Xilskey_CrcCalculation(u8 *Key);
 
 #ifdef __cplusplus
 }

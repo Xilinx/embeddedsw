@@ -108,6 +108,93 @@
 															 */
 #define XSK_EFUSEPL_MAX_REF_CLK_FREQ	60000000 /**< Max Ref Clk Frequency */
 #define XSK_EFUSEPL_MIN_REF_CLK_FREQ	20000000 /**< Min Ref Clk Frequency */
+
+/*
+ * Definitions for Ultrascale
+ */
+#define XSK_EFUSEPL_CNTRL_ROW_ULTRA	(1)	/**< Control row of
+						  * FUSE for Ultrascale
+						  * series */
+#define XSK_EFUSEPL_DNA_ROW_ULTRA	(7)	/**< DNA row of
+						  * FUSE for Ultrascale
+						  * series */
+#define XSK_EFUSEPL_AES_ROW_START_ULTRA	(20)	/**< AES key start
+						  * row of FUSE for
+						  * Ultrascale series */
+#define XSK_EFUSEPL_AES_ROW_END_ULTRA	(27)	/**< AES key end
+						  * row of FUSE for
+						  * Ultrascale series */
+#define XSK_EFUSEPL_USER_ROW_ULTRA	(28)	/**< USER key start
+						  * row of FUSE for
+						  * Ultrascale series */
+#define XSK_EFUSEPL_SEC_ROW_ULTRA	(10)	/**< Secure row of
+						  * FUSE for Ultrascale
+						  * series */
+#define XSK_EFUSEPL_RSA_ROW_START_ULTRA	(12)	/**< RSA start row of
+						  * FUSE for Ultrascale
+						  * series */
+#define XSK_EFUSEPL_RSA_ROW_END_ULTRA	(23)	/**< RSA end row of
+						  * FUSE for Ultrascale
+						  * series */
+#define XSK_EFUSEPL_DNA_KEY_SIZE_ULTRA	(96)	/**< DNA key size
+						 * of Ultrascale
+						 * series */
+#define XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA	(384)	/**< RSA hash size
+						  *  of Ultrascale
+						  *  series */
+#define XSK_EFUSEPL_SEC_MAX_BITS_ULTRA	(6)	/**< Secure row
+						  *  max bits of
+						  *  Ultrascale
+						  *  series */
+#define XSK_EFUSEPL_CNTRL_MAX_BITS_ULTRA	(16)
+						/**< Fuse Control max
+						  * bits of Ultrascale
+						  * series */
+#define XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA	(32)
+						/**< Max Pay load
+						  * in Row */
+#define XSK_EFUSEPL_END_BIT_IN_A_ROW_ULTRA	(31)
+						/**< FUSE end bit in
+						  *  a row of Ultrascale
+						  *  series */
+#define XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA	(15)
+						/**< Control
+						  * row end bit
+						  * of Ultrascale series */
+#define XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA	(5)
+						/**< Secure
+						  * row end bit
+						  * of Ultrascale series */
+/*
+ * Unsupported bits of Control register
+ */
+#define XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA	(3)
+							/** < Unsupported bit in
+							  *   ctrl register */
+#define XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA	(4)
+							/** < Unsupported bit in
+							  *   ctrl register */
+#define XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA	(10)
+							/** < Unsupported bit in
+							  *   ctrl register */
+#define XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA	(14)
+							/** < Unsupported bit in
+							  *   ctrl register */
+
+#define XSK_EFUSEPL_MAX_REF_CLK_FREQ	60000000 /**< Max Ref Clk Frequency */
+#define XSK_EFUSEPL_MIN_REF_CLK_FREQ	20000000 /**< Min Ref Clk Frequency */
+
+#define XSK_EFUSEPL_PAGE_0_ULTRA		(0)	/**< Page 0 for Ultrascale
+							  *  series */
+#define XSK_EFUSEPL_PAGE_1_ULTRA		(1)	/**< Page 1 for Ultrascale
+							  *  series */
+#define XSK_EFUSEPL_REDUNDANT_ULTRA		(1)	/**< Redundant read
+							  *  selection for
+							  *  Ultrascale series */
+#define XSK_EFUSEPL_NORMAL_ULTRA		(0)	/**< Normal read
+							  *  selection for
+							  *  Ultrascale series */
+
 /**************************** Type Definitions ******************************/
 /**
  * Read or Write eFUSE Margin Options
@@ -131,6 +218,48 @@ typedef enum {
 	XSK_EFUSEPL_CNTRL_JTAG_CHAIN_DISABLE,          /**< Bit9 of Fuse Ctrl Row*/
 	XSK_EFUSEPL_CNTRL_BBRAM_KEY_DISABLE           /**< Bit10 of Fuse Ctrl Row*/
 }XSKEfusePl_FuseCntrlBits;
+
+/**
+ * Fuse Control Row Bit Indices of Ultrascale series
+ */
+typedef enum {
+	XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA,		/**< Bit 0 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_RD_ULTRA,	/**< Bit 1 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_SEC_RD_ULTRA,		/**< Bit 2 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA = 5,/**< Bit 5 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_RD_ULTRA,	/**< Bit 6 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_KEY_WR_ULTRA,		/**< Bit 7 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_WR_ULTRA,	/**< Bit 8 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_SEC_WR_ULTRA,		/**< Bit 8 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_WR_ULTRA = 15,/**< Bit 15 of Fuse Ctrl
+							  *  row of Ultrascale */
+}XSKEfusePl_FuseCntrlBits_Ultra;
+
+/**
+ * Fuse Secure Row Bit Indices of Ultrascale series
+ */
+typedef enum {
+	XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY,
+	XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA,		/**< Bit 0 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_SEC_RSA_AUTH_EN_ULTRA ,	/**< Bit 2 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_SEC_JTAG_CHAIN_DISABLE_ULTRA,	/**< Bit 3 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_SEC_DISABLE_INTRNL_TEST_ACCESS_ULTRA,/**< Bit 4 of Fuse Ctrl
+							  *  row of Ultrascale */
+	XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA,		/**< Bit 5 of Fuse Ctrl
+							  *  row of Ultrascale */
+}XSKEfusePl_FuseSecureBits_Ultra;
+
 /***************** Macros (Inline Functions) Definitions ********************/
 
 
@@ -139,6 +268,9 @@ u32 ErrorCode;	/**< Global variable which holds the error key*/
 static u8 AesDataInBytes[XSK_EFUSEPL_ARRAY_FUSE_AES_KEY_SIZE];
 static u8 UserDataInBytes[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
 XSKEfusePl_Fpga PlFpgaFlag;		/**< For Storing Fpga series */
+static u8 RsaDataInBytes[XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA];
+static u8 CtrlBitsUltra[XSK_EFUSEPL_ARRAY_MAX_ROW];
+XSKEfusePl_Fpga	PlFpgaFlag;		/**< For Storing Fpga series */
 
 /************************** Function Prototypes *****************************/
 /**
@@ -161,6 +293,48 @@ static u8 XilSKey_EfusePl_VerifyBit(u8 Row, u8 Bit, u8 MarginOption);
 static u8 XilSKey_EfusePl_IsVectorAllZeros(u8 *RowDataPtr);
 
 static void XilSKey_EfusePl_CalculateEcc(u8 *RowData, u8 *ECCData);
+
+static inline u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue);
+
+static u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr);
+
+static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr);
+
+static inline u32 XilSKey_EfusePl_Program_AesKey_ultra();
+
+static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
+				u8 *DataPrgrmg, u8 Page);
+
+static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page);
+
+static inline u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
+				u8 *KeyRead, u8 Page);
+
+static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr);
+
+static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr);
+
+static inline u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr);
+
+static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr);
+
+static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
+								u8 Page);
+
+static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData, u8 Redundant,
+								u8 Page);
+static inline u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData);
+
+static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData);
+
+static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
+					u8 *BitData, u8 Redundant, u8 Page);
+
+static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
+					u8 *RowDataBytes, u8 Redundant, u8 Page);
+
+static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData);
+
 /**
  * 	JTAG Server Initialization routine
  */
@@ -199,10 +373,6 @@ extern u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption);
 *****************************************************************************/
 u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 {
-	u32 Row = 0;
-	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
-	u8 CtrlData[XSK_EFUSEPL_ARRAY_FUSE_CNTRL_MAX_BITS]={0};
-	u32 Index = 0;
 	u32 Status;
 	ErrorCode = XSK_EFUSEPL_ERROR_NONE;
 
@@ -258,173 +428,21 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
 
-	/**
-	 *	Read the FUSE_CNTL register bits [5:2], and if any of them is found to
-	 *	be set to 1 then we can not write to the eFUSE, so return with unique
-	 *	error.
-	 *
-	 *	If everything is well above then start programming with FUSE_AES key as
-	 *	passed to this function, followed by FUSE_USER if selected.
-	 *
-	 *	AES key is 256 bits, but has to be written across many rows, in the PL
-	 *	eFUSE each row has 24 bits of data bits and 6 bits of ecc bits.
-	 *	So for 256 bits we will need full 10 rows(240 bits) and extra 1 row for
-	 *	remaining 16 bits, but rest 8 bits will be taken from the FUSE_USER key
-	 *	value[7:0]
-	 *
-	 *	check if FUSE_CNTRL allows us to read and write the AES and USER eFUSE
-	 *	array.
-	 */
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
 
-
-	if(XilSKey_EfusePl_ReadControlRegister(CtrlData) != XST_SUCCESS) {
-		return (XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL + ErrorCode);
-	}
-
-	if (((CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_AES_KEY_READ] == TRUE) ||
-		(CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_READ] == TRUE)||
-		(CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WRITE]== TRUE)) &&
-		((InstancePtr->ProgAESandUserLowKey == TRUE) ||
-		(InstancePtr->ProgUserHighKey == TRUE))) {
-		return (XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED + ErrorCode);
-	}
-
-	if((CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WRITE] == TRUE) &&
-	    ((InstancePtr->ForcePowerCycle == TRUE)||
-	     (InstancePtr->KeyWrite == TRUE)||
-	     (InstancePtr->AESKeyRead == TRUE)||
-	     (InstancePtr->UserKeyRead == TRUE)||
-	     (InstancePtr->UseAESOnly == TRUE)||
-	     (InstancePtr->JtagDisable == TRUE)||
-	     (InstancePtr->AESKeyExclusive == TRUE))) {
-		return (XSK_EFUSEPL_ERROR_FUSE_CTRL_WRITE_NOT_ALLOWED + ErrorCode);
-	}
-	/**
-	 * convert each aes data bits to bytes.
-	 */
-	XilSKey_Efuse_ConvertBitsToBytes(&InstancePtr->AESKey[0],
-									AesDataInBytes,
-									XSK_EFUSEPL_ARRAY_FUSE_AES_KEY_SIZE);
-
-	/**
-	 * convert each user data bits to bytes.
-	 */
-	XilSKey_Efuse_ConvertBitsToBytes(&InstancePtr->UserKey[0],
-									UserDataInBytes,
-									XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE);
-
-
-	if(InstancePtr->ProgAESandUserLowKey == TRUE) {
-		/**
-		 * check if row 20 to 30 are empty before programming AES and
-		 * USER low key.
-		 */
-		for(Row=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START;
-			Row<=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_END;
-			Row++) {
-			if(XilSKey_EfusePl_ReadRow(Row, XSK_EFUSEPL_READ_NORMAL,
-										   RowData) != XST_SUCCESS) {
-				return (XSK_EFUSEPL_ERROR_READING_FUSE_AES_ROW + ErrorCode);
-			}
-			if(XilSKey_EfusePl_IsVectorAllZeros(RowData) != XST_SUCCESS) {
-				return (XSK_EFUSEPL_ERROR_AES_ROW_NOT_EMPTY + ErrorCode);
-			}
+		Status = XilSKey_EfusePl_Program_Zynq(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
 
-		/**
-		 * program AES_KEY 256 bits and USER_KEY lower 8 bits first.
-		 */
-		for(Row=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START;
-				Row<=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_END;
-				Row++) {
-			if(Row < XSK_EFUSEPL_ARRAY_AES_DATA_ROW_END) {
-				/**
-				 * prepare row data for row from 20 to 29.
-				 */
-				for(Index=0;
-					Index<XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW;
-					Index++) {
-						RowData[Index] = AesDataInBytes[
-					                     (Index +
-										 ((Row -
-										 XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START) *
-								XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW))];
-				}
-			}
-			else
-			{
-				/**
-				 * prepare row data for row 30.
-				 */
-				for(Index=0;
-					Index<XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW;
-					Index++) {
-					if(Index < XSK_EFUSEPL_ARRAY_AES_DATA_BITS_IN_30th_ROW) {
-						RowData[Index] =
-								AesDataInBytes[
-						            (Index +
-								((Row -
-						              XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START) *
-						         XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW))];
-					}
-					else {
-						RowData[Index] =
-								UserDataInBytes[Index -
-								   XSK_EFUSEPL_ARRAY_AES_DATA_BITS_IN_30th_ROW];
-					}
-				}
-			}
-
-			if(XilSKey_EfusePl_ProgramRow(Row, RowData) != XST_SUCCESS) {
-				return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
-						ErrorCode);
-			}
+	}
+	else {
+		Status = XilSKey_EfusePl_Program_Ultra(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
 	}
 
-	if(InstancePtr->ProgUserHighKey == TRUE) {
-		/**
-		 * check if 31 is empty before programming USER high key.
-		 */
-		if(XilSKey_EfusePl_ReadRow(XSK_EFUSEPL_ARRAY_USER_DATA_START_ROW,
-									   XSK_EFUSEPL_READ_NORMAL, RowData) !=
-									   XST_SUCCESS) {
-			return (XSK_EFUSEPL_ERROR_READING_FUSE_USER_DATA_ROW + ErrorCode);
-		}
-
-
-		if(XilSKey_EfusePl_IsVectorAllZeros(RowData) != XST_SUCCESS) {
-			return (XSK_EFUSEPL_ERROR_USER_DATA_ROW_NOT_EMPTY + ErrorCode);
-		}
-
-		/**
-		 * Program USER_KEY high 24 bits next.
-		 * Prepare row data for row 31.
-		 */
-
-		for(Index=0; Index<XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW; Index++) {
-			RowData[Index] =
-					UserDataInBytes[Index +
-					              XSK_EFUSEPL_ARRAY_USER_DATA_BITS_IN_30th_ROW];
-		}
-
-		if(XilSKey_EfusePl_ProgramRow(XSK_EFUSEPL_ARRAY_USER_DATA_START_ROW,
-										RowData) != XST_SUCCESS) {
-			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_DATA_ROW + ErrorCode);
-		}
-	}
-	CtrlData[XSK_EFUSEPL_CNTRL_FORCE_PCYCLE_RECONFIG] = InstancePtr->ForcePowerCycle;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WRITE] 	= InstancePtr->KeyWrite;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_AES_KEY_READ] = InstancePtr->AESKeyRead;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_READ] = InstancePtr->UserKeyRead;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_FUSE_CNTRL_WRITE] = InstancePtr->CtrlWrite;
-	CtrlData[XSK_EFUSEPL_CNTRL_FORCE_USE_AES_ONLY] = InstancePtr->UseAESOnly;
-	CtrlData[XSK_EFUSEPL_CNTRL_JTAG_CHAIN_DISABLE] = InstancePtr->JtagDisable;
-	CtrlData[XSK_EFUSEPL_CNTRL_BBRAM_KEY_DISABLE] = InstancePtr->AESKeyExclusive;
-
-	if(XilSKey_EfusePl_ProgramControlRegister(CtrlData) != XST_SUCCESS)	{
-			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW + ErrorCode);
-	}
 	/**
 	 * If everything is ok then return PASS.
 	 */
@@ -450,11 +468,22 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 u8 XilSKey_EfusePl_IsVectorAllZeros(u8 *RowDataPtr)
 {
 	u32 Index;
-	for(Index=0; Index<=XSK_EFUSEPL_ARRAY_ECC_END_BIT_IN_A_ROW; Index++) {
-		if(RowDataPtr[Index] != 0) {
-			return XST_FAILURE;
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
+		for(Index=0; Index<=XSK_EFUSEPL_ARRAY_ECC_END_BIT_IN_A_ROW;
+								Index++) {
+			if(RowDataPtr[Index] != 0) {
+				return XST_FAILURE;
+			}
 		}
 	}
+	else {
+		for(Index = 0; Index < XSK_EFUSEPL_ARRAY_MAX_COL; Index++) {
+			if(RowDataPtr[Index] != 0) {
+				return XST_FAILURE;
+			}
+		}
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -672,70 +701,84 @@ u8 XilSKey_EfusePl_ProgramControlRegister(u8 *CtrlData)
 		return XST_FAILURE;
 	}
 
-	/**
-	 *	Read the FUSE_CNTRL register
-	 */
-	if(XilSKey_EfusePl_ReadControlRegister(TmpCtrlData) != XST_SUCCESS)	{
-		return XST_FAILURE;
-	}
-
-	/**
-	 * check if FUSE_CNTRL allows us to write FUSE_CNTRL eFUSE array.
-	 */
-	if(TmpCtrlData[XSK_EFUSEPL_CNTRL_DISABLE_FUSE_CNTRL_WRITE] == TRUE) {
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
 		/**
-		 * This means we cannot program FUSE_CNTRL register
+		 *	Read the FUSE_CNTRL register
 		 */
-		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_CNTRL_WRITE_DISABLED;
-		return XST_FAILURE;
-	}
 
-
-	for(Index=1;Index<XSK_EFUSEPL_ARRAY_FUSE_CNTRL_MAX_BITS;Index++)	{
-
-		if((Index == 6) || (Index == 7)) {
-			continue;
+		if(XilSKey_EfusePl_ReadControlRegister(TmpCtrlData) != XST_SUCCESS)	{
+			return XST_FAILURE;
 		}
 
-		if((CtrlData[Index] == TRUE) && (TmpCtrlData[Index] == FALSE)) {
-			if(XilSKey_EfusePl_ProgramBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-											  Index) != XST_SUCCESS) {
-				return XST_FAILURE;
+		/**
+		 * check if FUSE_CNTRL allows us to write FUSE_CNTRL eFUSE array for Zynq.
+		 */
+		if(TmpCtrlData[XSK_EFUSEPL_CNTRL_DISABLE_FUSE_CNTRL_WRITE] == TRUE) {
+			/**
+			 * This means we cannot program FUSE_CNTRL register
+			 */
+			ErrorCode = XSK_EFUSEPL_ERROR_FUSE_CNTRL_WRITE_DISABLED;
+			return XST_FAILURE;
+		}
+
+		for(Index=1;Index<XSK_EFUSEPL_ARRAY_FUSE_CNTRL_MAX_BITS;Index++)	{
+
+			if((Index == 6) || (Index == 7)) {
+				continue;
 			}
 
-			if(XilSKey_EfusePl_VerifyBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-							Index, XSK_EFUSEPL_READ_NORMAL) != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
+			if((CtrlData[Index] == TRUE) && (TmpCtrlData[Index] == FALSE)) {
+				if(XilSKey_EfusePl_ProgramBit(
+					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
+						Index) != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
 
-			if(XilSKey_EfusePl_VerifyBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-							Index, XSK_EFUSEPL_READ_MARGIN_1) != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-			if(XilSKey_EfusePl_ProgramBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-							Index +
-							XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT)
-							!= XST_SUCCESS) {
-				return XST_FAILURE;
-			}
+				if(XilSKey_EfusePl_VerifyBit(
+					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
+					Index, XSK_EFUSEPL_READ_NORMAL) !=
+								XST_SUCCESS) {
+					return XST_FAILURE;
+				}
 
-			if(XilSKey_EfusePl_VerifyBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-							(Index +
-							XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT),
-							XSK_EFUSEPL_READ_NORMAL) != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
+				if(XilSKey_EfusePl_VerifyBit(
+					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
+					Index, XSK_EFUSEPL_READ_MARGIN_1) !=
+								XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				if(XilSKey_EfusePl_ProgramBit(
+					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
+					Index +
+					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT)
+									!= XST_SUCCESS) {
+					return XST_FAILURE;
+				}
 
-			if(XilSKey_EfusePl_VerifyBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-							(Index +
-							XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT),
-							XSK_EFUSEPL_READ_MARGIN_1) != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
+				if(XilSKey_EfusePl_VerifyBit(
+					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
+					(Index +
+				XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT),
+					XSK_EFUSEPL_READ_NORMAL) != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
 
+				if(XilSKey_EfusePl_VerifyBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
+					(Index +
+					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT),
+					XSK_EFUSEPL_READ_MARGIN_1) != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+
+			}
 		}
 	}
-
+	/* Programming for Ultrascale Series */
+	else {
+		if (XilSKey_EfusePl_ProgramControlReg_Ultra(CtrlData) != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
 	return XST_SUCCESS;
 }
 /****************************************************************************/
@@ -838,7 +881,6 @@ u8 XilSKey_EfusePl_ReadBit(u8 Row, u8 Bit, u8 MarginOption, u8 *BitData)
 
 u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes)
 {
-	XSKEfusePs_XAdc PL_XAdc;
 	u32 RowDataBits=0;
 
 	/**
@@ -944,6 +986,7 @@ u8 XilSKey_EfusePl_ReadControlRegister(u8 *CtrlData)
 {
 	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
 	u32 Index=0;
+	u32 CtrlDataUltra;
 
 	/**
 	 * check if cntrl_data is not NULL
@@ -952,19 +995,28 @@ u8 XilSKey_EfusePl_ReadControlRegister(u8 *CtrlData)
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_BUFFER_NULL;
 		return XST_FAILURE;
 	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
+		if(XilSKey_EfusePl_ReadRow(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
+			XSK_EFUSEPL_READ_NORMAL, RowData) != XST_SUCCESS)
+		{
+			return XST_FAILURE;
+		}
 
-	if(XilSKey_EfusePl_ReadRow(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-									 XSK_EFUSEPL_READ_NORMAL,
-									 RowData) != XST_SUCCESS)
-	{
-		return XST_FAILURE;
+		for(Index=0; Index < XSK_EFUSEPL_ARRAY_FUSE_CNTRL_MAX_BITS; Index++)
+		{
+			CtrlData[Index] = RowData[Index] |
+					 RowData[Index +
+				  XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT];
+		}
 	}
-
-	for(Index=0; Index < XSK_EFUSEPL_ARRAY_FUSE_CNTRL_MAX_BITS; Index++)
-	{
-		CtrlData[Index] = RowData[Index] |
-						  RowData[Index +
-							  XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT];
+	else {
+		if (XilSKey_EfusePl_GetRowData_Ultra(XSK_EFUSEPL_CNTRL_ROW_ULTRA,
+			(u8 *)&CtrlDataUltra, XSK_EFUSEPL_PAGE_0_ULTRA) !=
+								XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&CtrlDataUltra,
+							CtrlData, 32);
 	}
 
 	return XST_SUCCESS;
@@ -1169,6 +1221,24 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 	JtagRead(0, &RowData, 0);
 
 	*StatusBits = RowData & 0xFFFFFF;
+	/* For Ultrascale */
+#else
+
+	/* Monitor Temperature and voltage */
+	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
+	if((PL_XAdc.Temp < XSK_EFUSEPL_TEMP_MIN_RAW_ULTRA) ||
+		(PL_XAdc.Temp > XSK_EFUSEPL_TEMP_MAX_RAW_ULTRA)) {
+		return XSK_EFUSEPL_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+	}
+
+	if((PL_XAdc.V < XSK_EFUSEPL_VOL_VCCAUX_MIN_RAW_ULTRA) ||
+		(PL_XAdc.V > XSK_EFUSEPL_VOL_VCCAUX_MAX_RAW_ULTRA)) {
+		return XSK_EFUSEPL_ERROR_READ_VCCAUX_VOLTAGE_OUT_OF_RANGE;
+	}
+
+	JtagRead_Status_Ultrascale((u32 *)&RowData);
+	*StatusBits = RowData & 0xFFFFFF;
+
 #endif
 
 	return XST_SUCCESS;
@@ -1195,9 +1265,6 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 *****************************************************************************/
 u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 {
-	u32 RowCount;
-	unsigned int RowData;
-	u32 KeyCnt;
 	u32 Status;
 
 	if(NULL == InstancePtr)	{
@@ -1238,8 +1305,45 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
-
 	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
+		Status = XilSKey_EfusePl_ReadKey_Zynq(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+	}
+	else {
+		Status = XilSKey_EfusePl_ReadKey_Ultra(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+* Reads the PL efuse key (AES and user) of Zynq
+*
+*
+* @param	InstancePtr - Input data to be written to PL eFUSE
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
+{
+	u32 KeyCnt;
+	u32 RowCount;
+	unsigned int RowData;
 
 #ifdef XSK_ARM_PLATFORM
 	XSKEfusePs_XAdc PL_XAdc = {0};
@@ -1316,6 +1420,1420 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 	InstancePtr->UserKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
 	RowData = RowData >> 8;
 	InstancePtr->UserKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Reads the PL efuse keys AES,user,RSA and RES of Ultrascale based on the
+* user selections.
+*
+* @param	InstancePtr is an instance of PL efuse of ultrascale
+*
+* @return
+*		- XST_FAILURE - In case of failure
+*		- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
+{
+
+	u32 Index;
+
+	/* Checks conditions for read key */
+	if (XilSKey_EfusePl_ReadKey_Checks(InstancePtr) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Initiating all read back arrays to zeros */
+	InstancePtr->AESKeyMatched = FALSE;
+	for (Index = 0; Index < XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES; Index++) {
+		if (Index < XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES) {
+			InstancePtr->UserKeyReadback[Index] = 0;
+		}
+		if (Index < XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES) {
+			InstancePtr->RSAHashReadback[Index] = 0;
+		}
+	}
+	/*
+	 * Read AES Key is not possible directly, verifying through CRC
+	 * is valid. If CheckAESKeyUltra is not enabled then CRC check
+	 * for AES will not be performed
+	 */
+	if ((InstancePtr->CheckAESKeyUltra == TRUE) &&
+	(XilSKey_EfusePl_VerifyAES_Ultrascale(
+		InstancePtr->CrcOfAESKey) == XST_SUCCESS)) {
+		InstancePtr->AESKeyMatched = TRUE;
+	}
+
+	/*
+	 * Read User key of row 28
+	 */
+	if (InstancePtr->ReadUserKeyUltra == TRUE) {
+		if (XilSKey_EfusePl_GetDataRowRange_Ultra(
+			XSK_EFUSEPL_USER_ROW_ULTRA, XSK_EFUSEPL_USER_ROW_ULTRA,
+		InstancePtr->UserKeyReadback, XSK_EFUSEPL_PAGE_0_ULTRA) !=
+								XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+	 /*
+	  * Read RSA Key
+	  */
+	if (InstancePtr->ReadRSAKeyUltra == TRUE) {
+		if (XilSKey_EfusePl_GetDataRowRange_Ultra(
+			XSK_EFUSEPL_RSA_ROW_START_ULTRA,
+			XSK_EFUSEPL_RSA_ROW_END_ULTRA,
+			InstancePtr->RSAHashReadback,
+			XSK_EFUSEPL_PAGE_1_ULTRA) != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+* Reads control register and checks the conditions for reading keys.
+*
+* @param	InstancePtr is an instance of PL efuse of ultrascale
+*
+* @return
+*		- ErrorCode - In case of failure
+*		- XST_SUCCESS - In case of Success
+*
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
+{
+
+	if(XilSKey_EfusePl_ReadControlRegister(CtrlBitsUltra) != XST_SUCCESS) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL;
+		return XST_FAILURE;
+	}
+
+	if ((InstancePtr->CheckAESKeyUltra == TRUE) &&
+		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] == TRUE)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READING_FUSE_AES_ROW;
+		return XST_FAILURE;
+	}
+
+	if ((InstancePtr->ReadUserKeyUltra == TRUE) &&
+	(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_RD_ULTRA] == TRUE)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READING_FUSE_USER_DATA_ROW;
+		return XST_FAILURE;
+	}
+	if ((InstancePtr->ReadRSAKeyUltra == TRUE) &&
+	(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_RD_ULTRA] == TRUE)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READING_FUSE_RSA_ROW;
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Reads the given normal or reduntant row of PL efuse key for Ultrascale.
+*
+*
+* @param	Row is the row number of Fuse array.
+* @param	Margin option is the option to select in which mode read has
+*		to be happend
+* @param	RowDataBytes is a pointer to an array to store the read value
+*		of given row.
+* @param	Redundant is the option to be selected either redundant row
+*		or normal row.
+* @param	Page is the page of Fuse array in which row has to be read
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*	Using this API can't read AES key rows(20-27) as they can't read
+*	directly.
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
+				u8 *RowDataBytes, u8 Redundant, u8 Page)
+{
+
+	/**
+	 *Check if the row position is valid.
+	 */
+	 /* If Row is AES can't read directly need to calculate CRC */
+	if ((Page == XSK_EFUSEPL_PAGE_0_ULTRA) &&
+		((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+		(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA))) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	if(((Row > XSK_EFUSEPL_USER_ROW_ULTRA) ||
+	((Row < XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+	 (Row > XSK_EFUSEPL_SEC_ROW_ULTRA)) ||
+	((Row < XSK_EFUSEPL_SEC_ROW_ULTRA) &&
+	 (Row > XSK_EFUSEPL_DNA_ROW_ULTRA)) ||
+	((Row < XSK_EFUSEPL_DNA_ROW_ULTRA) &&
+	 (Row > XSK_EFUSEPL_CNTRL_ROW_ULTRA))) &&
+			(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
+		(Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA)) &&
+			(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+	/**
+	 * Check the read margin option.
+	 */
+	if((MarginOption != XSK_EFUSEPL_READ_NORMAL ) &&
+		(MarginOption != XSK_EFUSEPL_READ_MARGIN_1)&&
+		(MarginOption != XSK_EFUSEPL_READ_MARGIN_2))
+	{
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_MARGIN_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+	/**
+	 * check if row_data is not NULL
+	 */
+	if(NULL == RowDataBytes)
+	{
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_BUFFER_NULL;
+		return XST_FAILURE;
+	}
+
+#ifdef XSK_MICROBLAZE_PLATFORM
+	XSKEfusePs_XAdc PL_XAdc_Ultra = {0};
+	/**
+	 * Monitor the Voltage and temperature using XADC, if out of range
+	 * return unique error.
+	 */
+	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc_Ultra);
+	if((PL_XAdc_Ultra.Temp < XSK_EFUSEPL_TEMP_MIN_RAW_ULTRA) ||
+		(PL_XAdc_Ultra.Temp > XSK_EFUSEPL_TEMP_MAX_RAW_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+	if((PL_XAdc_Ultra.V < XSK_EFUSEPL_VOL_VCCAUX_MIN_RAW_ULTRA) ||
+		(PL_XAdc_Ultra.V > XSK_EFUSEPL_VOL_VCCAUX_MAX_RAW_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_VCCAUX_VOLTAGE_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+#endif
+	/**
+	 * Here we have to use the impact algorithm to read the eFUSE row.
+	 * and return the data in row_data.
+	 */
+	if((MarginOption & XSK_EFUSEPL_READ_NORMAL) ==
+					XSK_EFUSEPL_READ_NORMAL) {
+
+		JtagRead_Ultrascale(Row, (u32 *)RowDataBytes, 0,
+							Page, Redundant);
+	}
+	else if((MarginOption & XSK_EFUSEPL_READ_MARGIN_1) ==
+					XSK_EFUSEPL_READ_MARGIN_1) {
+		JtagRead_Ultrascale(Row,
+			(u32 *)RowDataBytes, 1, Page, Redundant);
+	}
+	else if((MarginOption & XSK_EFUSEPL_READ_MARGIN_2) ==
+					XSK_EFUSEPL_READ_MARGIN_2) {
+		JtagRead_Ultrascale(Row, (u32 *)RowDataBytes,
+				2, Page, Redundant);
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+* Reads the bit of given normal or reduntant row of PL efuse key for Ultrascale.
+*
+*
+* @param	Row is the row number of Fuse array.
+* @param	Bit is the bit position to be read.
+* @param	Margin option is the option to select in which mode read has
+*		to be happend
+* @param	BitData is a pointer to a variable to store the read value
+*		of given given bit in provided row.
+* @param	Redundant is the option to be selected either redundant row
+*		or normal row.
+* @param	Page is the page of Fuse array in which row has to be read
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*	Using this API can't read AES key bits of rows(20-27) as they can't
+*	read directly.
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
+				u8 *BitData, u8 Redundant, u8 Page)
+{
+	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
+
+	/**
+	 * check if row_data is not NULL
+	 */
+	if(NULL == BitData)	{
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_BUFFER_NULL;
+		return XST_FAILURE;
+	}
+	/**
+	 *Check if the row position is valid.
+	 */
+	 /* If Row is AES can't read directly need to calculate CRC */
+	 if ((Page == XSK_EFUSEPL_PAGE_0_ULTRA) &&
+		((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+		(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA))) {
+		return XST_FAILURE;
+	}
+	if(((Row > XSK_EFUSEPL_USER_ROW_ULTRA) ||
+		((Row < XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+		 (Row > XSK_EFUSEPL_SEC_ROW_ULTRA)) ||
+		((Row < XSK_EFUSEPL_SEC_ROW_ULTRA) &&
+		 (Row > XSK_EFUSEPL_DNA_ROW_ULTRA)) ||
+		 ((Row < XSK_EFUSEPL_DNA_ROW_ULTRA) &&
+		 (Row > XSK_EFUSEPL_CNTRL_ROW_ULTRA))) &&
+		 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
+		 (Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA)) &&
+			(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	/**
+	 * Check if the bit position is valid.
+	 */
+	if (Bit > XSK_EFUSEPL_END_BIT_IN_A_ROW_ULTRA) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	/**
+	 * If row=1 then bit should be either 0 to 2 and 5 to 9 and 15 to 17
+	 * rest all are not supported
+	 */
+	if(Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) {
+		if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
+		(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
+		((Bit >=
+		 XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA) &&
+		 (Bit <=
+		 XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA)) ||
+		(Bit > XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+	}
+	/**
+	 * If row = 1- then bits should be supported from 0 to 6
+	 */
+	 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&
+		 (Row > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) ) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+			return XST_FAILURE;
+	 }
+
+
+	if(XilSKey_EfusePl_ReadRow_Ultra(Row, MarginOption,RowData,
+					Redundant, Page) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	*BitData = RowData[Bit];
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Programs the bit of given normal or reduntant row of PL efuse key for
+* Ultrascale.
+*
+*
+* @param	Row is the row number of Fuse array.
+* @param	Bit is the bit position to be read.
+* @param	Redundant is the option to be selected either redundant row
+*		or normal row.
+* @param	Page is the page of Fuse array in which row has to be read
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, u8 Page)
+{
+
+	/**
+	 *Check if the row position is valid.
+	 */
+	if (((Row > XSK_EFUSEPL_USER_ROW_ULTRA) ||
+		((Row < XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+		(Row > XSK_EFUSEPL_SEC_ROW_ULTRA)) ||
+		((Row < XSK_EFUSEPL_SEC_ROW_ULTRA) &&
+		 (Row > XSK_EFUSEPL_DNA_ROW_ULTRA)) ||
+		 ((Row < XSK_EFUSEPL_DNA_ROW_ULTRA) &&
+		 (Row > XSK_EFUSEPL_CNTRL_ROW_ULTRA))) &&
+			 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
+		 (Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA)) &&
+				(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	/**
+	 * Check if the bit position is valid.
+	 */
+	if (Bit > XSK_EFUSEPL_END_BIT_IN_A_ROW_ULTRA) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	/**
+	 * If row = 1 then bit should be either 0 to 2 and 5 to 9 and 15
+	 * rest all are not supported
+	 */
+	if(Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) {
+		if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
+		(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
+		((Bit >= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA) &&
+		(Bit <= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA)) ||
+		(Bit > XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+	}
+	/**
+	 * If row = 10 then bits should be supported from 0 to 5
+	 */
+	 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&\
+		 (Row > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) ) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+			return XST_FAILURE;
+	 }
+#ifdef XSK_MICROBLAZE_PLATFORM
+	 XSKEfusePs_XAdc PL_XAdc = {0};
+	/**
+	 * Monitor the Voltage and temperature using Sysmon, if out of range
+	 * return unique error.
+	 */
+
+	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
+	if ((PL_XAdc.Temp < XSK_EFUSEPL_TEMP_MIN_RAW_ULTRA) ||
+			(PL_XAdc.Temp > XSK_EFUSEPL_TEMP_MAX_RAW_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	if((PL_XAdc.V < XSK_EFUSEPL_VOL_VCCAUX_MIN_RAW_ULTRA) ||
+		(PL_XAdc.V > XSK_EFUSEPL_VOL_VCCAUX_MAX_RAW_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_VCCAUX_VOLTAGE_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+#endif
+	JtagWrite_Ultrascale(Row, Bit, Page, Redundant);
+
+	return XST_SUCCESS;
+}
+/****************************************************************************/
+/**
+* Programs the entire row PL efuse key for Ultrascale.
+*
+* @param	Row is the row number of Fuse array.
+* @param	RowData is a pointer to a variable to program the row.
+* @param	Redundant is the option to be selected either redundant row
+*		or normal row.
+* @param	Page is the page of Fuse array in which row has to be read
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
+						u8 Redundant, u8 Page)
+{
+	u32 Bit = 0;
+
+	/**
+	 * check if row_data is not NULL
+	 */
+	if (NULL == RowData) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_BUFFER_NULL;
+		return XST_FAILURE;
+	}
+
+	if ((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) ||
+		(Row == XSK_EFUSEPL_SEC_ROW_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_ROW_OUT_OF_RANGE;
+		return XST_FAILURE;
+	}
+
+	for(Bit = 0; Bit < XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA;
+							Bit++ ) {
+		if(RowData[Bit]) {
+			if(XilSKey_EfusePl_ProgramBit_Ultra(Row,
+				Bit, Redundant, Page) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+		}
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Verify's the AES key by passing the CRC of expected key.
+*
+* @param	CrcValue is CRC of expected AES key
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_VerifyAES_Ultrascale(u32 CrcValue)
+{
+
+	/* For Margin read 0 */
+	if (JtagAES_Check_Ultrascale((u32 *)&CrcValue, 0)
+							!= XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/* For Margin read 1 */
+	if (JtagAES_Check_Ultrascale((u32 *)&CrcValue, 1)
+							!= XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* For Margin read 2 */
+	if (JtagAES_Check_Ultrascale((u32 *)&CrcValue, 2)
+							!= XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* Programs PL eFUSE Secure Register of Ultrascale.
+*
+* @param	SecData is a pointer to which holds the data to be programmed.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
+{
+	u8 TempSecData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA] = {0};
+	u32 Index = 0;
+
+	/**
+	 * check if SecData is not NULL
+	 */
+	if(NULL == SecData) {
+		ErrorCode = XSK_EFUSEPL_ERROR_SEC_WRITE_BUFFER_NULL;
+		return XST_FAILURE;
+	}
+
+	/**
+	 * check if FUSE_CNTRL allows us to write FUSE_SEC eFUSE
+	 * array for Ultrascale series.
+	 */
+	if ((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_SEC_RD_ULTRA]
+							== TRUE) ||
+		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_SEC_WR_ULTRA]
+							== TRUE)) {
+		/**
+		 * This means we cannot program FUSE_CNTRL register
+		 */
+		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_SEC_WRITE_DISABLED;
+		return XST_FAILURE;
+	}
+
+
+
+	/* Read SecData */
+	if (XilSKey_EfusePl_ReadSecRegister(TempSecData) != XST_SUCCESS) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READING_FUSE_SEC;
+		return XST_FAILURE;
+	}
+
+	for (Index = 0; Index < XSK_EFUSEPL_SEC_MAX_BITS_ULTRA;
+						Index++) {
+
+		if ((SecData[Index] == TRUE) && (TempSecData[Index] == FALSE)) {
+			if (XilSKey_EfusePl_ProgramBit_Ultra(
+				XSK_EFUSEPL_SEC_ROW_ULTRA, Index,
+				XSK_EFUSEPL_NORMAL_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			if (XilSKey_EfusePl_ProgramBit_Ultra(
+				XSK_EFUSEPL_SEC_ROW_ULTRA,
+				Index, XSK_EFUSEPL_REDUNDANT_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+		}
+
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* Programs PL eFUSE reads Secure Register of Ultrascale.
+*
+* @param	SecData is a pointer to which holds the data read from Secure
+*		register of Fuse.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData)
+{
+	u32 Status;
+	u32 SecDataUltra;
+
+	/**
+	 * check if Pointer passed is not NULL
+	 */
+	if (NULL == SecData) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_BUFFER_NULL;
+		return XST_FAILURE;
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
+		return XST_FAILURE;
+	}
+
+	/**
+	 * check if FUSE_CNTRL allows us to write FUSE_SEC eFUSE
+	 * array for Ultrascale series.
+	 */
+	if (CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_SEC_RD_ULTRA]
+							== TRUE) {
+		/**
+		 * This means we cannot program FUSE_CNTRL register
+		 */
+		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_SEC_READ_DISABLED;
+		return XST_FAILURE;
+	}
+	else {
+		Status = XilSKey_EfusePl_GetRowData_Ultra(XSK_EFUSEPL_SEC_ROW_ULTRA,
+				(u8 *)&SecDataUltra, XSK_EFUSEPL_PAGE_0_ULTRA);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&SecDataUltra,
+							SecData, 32);
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* Programs PL eFUSE of Zynq.
+*
+* @param	InstancePtr is an instance of EFuse PL of Zynq.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr)
+{
+	u8 RowData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA]={0};
+	u8 CtrlData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA]={0};
+	u32 Row = 0;
+	u32 Index = 0;
+
+	/**
+	 *	Read the FUSE_CNTL register bits [5:2], and if any of them is found to
+	 *	be set to 1 then we can not write to the eFUSE, so return with unique
+	 *	error.
+	 *
+	 *	If everything is well above then start programming with FUSE_AES key as
+	 *	passed to this function, followed by FUSE_USER if selected.
+	 *
+	 *	AES key is 256 bits, but has to be written across many rows, in the PL
+	 *	eFUSE each row has 24 bits of data bits and 6 bits of ecc bits.
+	 *	So for 256 bits we will need full 10 rows(240 bits) and extra 1 row for
+	 *	remaining 16 bits, but rest 8 bits will be taken from the FUSE_USER key
+	 *	value[7:0]
+	 *
+	 *	check if FUSE_CNTRL allows us to read and write the AES and USER eFUSE
+	 *	array.
+	 */
+	if(XilSKey_EfusePl_ReadControlRegister(CtrlData) != XST_SUCCESS) {
+		return (XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL + ErrorCode);
+	}
+
+
+	if (((CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_AES_KEY_READ] == TRUE) ||
+		(CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_READ] == TRUE)||
+		(CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WRITE]== TRUE)) &&
+		((InstancePtr->ProgAESandUserLowKey == TRUE) ||
+		(InstancePtr->ProgUserHighKey == TRUE))) {
+		return (XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED + ErrorCode);
+	}
+
+	if((CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WRITE] == TRUE) &&
+		((InstancePtr->ForcePowerCycle == TRUE)||
+		 (InstancePtr->KeyWrite == TRUE)||
+		 (InstancePtr->AESKeyRead == TRUE)||
+		 (InstancePtr->UserKeyRead == TRUE)||
+		 (InstancePtr->UseAESOnly == TRUE)||
+		 (InstancePtr->JtagDisable == TRUE)||
+		 (InstancePtr->AESKeyExclusive == TRUE))) {
+		return (XSK_EFUSEPL_ERROR_FUSE_CTRL_WRITE_NOT_ALLOWED + ErrorCode);
+	}
+
+	/**
+	 * convert each aes data bits to bytes.
+	 */
+	XilSKey_Efuse_ConvertBitsToBytes(&InstancePtr->AESKey[0],
+		AesDataInBytes, XSK_EFUSEPL_ARRAY_FUSE_AES_KEY_SIZE);
+
+	/**
+	 * convert each user data bits to bytes.
+	 */
+	XilSKey_Efuse_ConvertBitsToBytes(&InstancePtr->UserKey[0],
+			UserDataInBytes, XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE);
+
+	if(InstancePtr->ProgAESandUserLowKey == TRUE) {
+		/**
+		 * check if row 20 to 30 are empty before programming AES and
+		 * USER low key.
+		 */
+		for(Row=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START;
+			Row<=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_END;
+			Row++) {
+			if(XilSKey_EfusePl_ReadRow(Row, XSK_EFUSEPL_READ_NORMAL,
+										   RowData) != XST_SUCCESS) {
+				return (XSK_EFUSEPL_ERROR_READING_FUSE_AES_ROW + ErrorCode);
+			}
+			if(XilSKey_EfusePl_IsVectorAllZeros(RowData) != XST_SUCCESS) {
+				return (XSK_EFUSEPL_ERROR_AES_ROW_NOT_EMPTY + ErrorCode);
+			}
+		}
+
+		/**
+		 * program AES_KEY 256 bits and USER_KEY lower 8 bits first.
+		 */
+		for(Row=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START;
+				Row<=XSK_EFUSEPL_ARRAY_AES_DATA_ROW_END;
+				Row++) {
+			if(Row < XSK_EFUSEPL_ARRAY_AES_DATA_ROW_END) {
+				/**
+				 * prepare row data for row from 20 to 29.
+				 */
+				for(Index=0;
+					Index<XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW;
+					Index++) {
+						RowData[Index] = AesDataInBytes[
+										 (Index +
+										 ((Row -
+										 XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START) *
+								XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW))];
+				}
+			}
+			else
+			{
+				/**
+				 * prepare row data for row 30.
+				 */
+				for(Index=0;
+					Index<XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW;
+					Index++) {
+					if(Index < XSK_EFUSEPL_ARRAY_AES_DATA_BITS_IN_30th_ROW) {
+						RowData[Index] =
+								AesDataInBytes[
+									(Index +
+								((Row -
+									  XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START) *
+								 XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW))];
+					}
+					else {
+						RowData[Index] =
+								UserDataInBytes[Index -
+								   XSK_EFUSEPL_ARRAY_AES_DATA_BITS_IN_30th_ROW];
+					}
+				}
+			}
+
+			if(XilSKey_EfusePl_ProgramRow(Row, RowData) != XST_SUCCESS) {
+				return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
+						ErrorCode);
+			}
+		}
+	}
+
+	if(InstancePtr->ProgUserHighKey == TRUE) {
+		/**
+		 * check if 31 is empty before programming USER high key.
+		 */
+		if(XilSKey_EfusePl_ReadRow(XSK_EFUSEPL_ARRAY_USER_DATA_START_ROW,
+									   XSK_EFUSEPL_READ_NORMAL, RowData) !=
+									   XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_READING_FUSE_USER_DATA_ROW + ErrorCode);
+		}
+
+
+		if(XilSKey_EfusePl_IsVectorAllZeros(RowData) != XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_USER_DATA_ROW_NOT_EMPTY + ErrorCode);
+		}
+
+		/**
+		 * Program USER_KEY high 24 bits next.
+		 * Prepare row data for row 31.
+		 */
+
+		for(Index=0; Index<XSK_EFUSEPL_ARRAY_MAX_PAYLAOD_BITS_IN_A_ROW; Index++) {
+			RowData[Index] =
+					UserDataInBytes[Index +
+								  XSK_EFUSEPL_ARRAY_USER_DATA_BITS_IN_30th_ROW];
+		}
+
+		if(XilSKey_EfusePl_ProgramRow(XSK_EFUSEPL_ARRAY_USER_DATA_START_ROW,
+										RowData) != XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_DATA_ROW + ErrorCode);
+		}
+	}
+
+	CtrlData[XSK_EFUSEPL_CNTRL_FORCE_PCYCLE_RECONFIG] = InstancePtr->ForcePowerCycle;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WRITE] 	= InstancePtr->KeyWrite;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_AES_KEY_READ] = InstancePtr->AESKeyRead;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_READ] = InstancePtr->UserKeyRead;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_FUSE_CNTRL_WRITE] = InstancePtr->CtrlWrite;
+	CtrlData[XSK_EFUSEPL_CNTRL_FORCE_USE_AES_ONLY] = InstancePtr->UseAESOnly;
+	CtrlData[XSK_EFUSEPL_CNTRL_JTAG_CHAIN_DISABLE] = InstancePtr->JtagDisable;
+	CtrlData[XSK_EFUSEPL_CNTRL_BBRAM_KEY_DISABLE] = InstancePtr->AESKeyExclusive;
+
+	if(XilSKey_EfusePl_ProgramControlRegister(CtrlData) != XST_SUCCESS)	{
+			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW + ErrorCode);
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* Programs PL eFUSE of Ultrascale.
+*
+* @param	InstancePtr is an instance of EFusePL of Ultrascale.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
+{
+	u8 CtrlData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
+	u8 SecData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
+	u32 Status;
+
+	Status = XilSKey_EfusePl_Program_Checks(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/* Programming AES key */
+	if (InstancePtr->ProgAESKeyUltra == TRUE) {
+		/**
+		 * convert each AES data bits to bytes.
+		 */
+		XilSKey_Efuse_ConvertBitsToBytes(&(InstancePtr->AESKey[0]),
+		AesDataInBytes, XSK_EFUSEPL_ARRAY_FUSE_AES_KEY_SIZE);
+		Status = XilSKey_EfusePl_Program_AesKey_ultra();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+	}
+	/* Programming USER key */
+	if (InstancePtr->ProgUserKeyUltra == TRUE) {
+		/**
+		 * convert each user data bits to bytes.
+		 */
+		XilSKey_Efuse_ConvertBitsToBytes(&(InstancePtr->UserKey[0]),
+			UserDataInBytes, XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE);
+		Status = XilSKey_EfusePl_Program_RowRange_ultra(
+			XSK_EFUSEPL_USER_ROW_ULTRA,
+			XSK_EFUSEPL_USER_ROW_ULTRA, UserDataInBytes,
+			XSK_EFUSEPL_PAGE_0_ULTRA);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+	}
+
+	/* Programming RSA key */
+	if (InstancePtr->ProgRSAKeyUltra == TRUE) {
+		/**
+		 * convert each RSA data bits to bytes
+		 */
+		XilSKey_Efuse_ConvertBitsToBytes(&(InstancePtr->RSAKeyHash[0]),
+			RsaDataInBytes, XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA);
+		Status = XilSKey_EfusePl_Program_RowRange_ultra(
+			XSK_EFUSEPL_RSA_ROW_START_ULTRA,
+			XSK_EFUSEPL_RSA_ROW_END_ULTRA,
+			RsaDataInBytes, XSK_EFUSEPL_PAGE_1_ULTRA);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+	}
+
+	/* Programming secure bits */
+	SecData[XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY] = InstancePtr->EncryptOnly;
+	SecData[XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA] =
+						InstancePtr->UseAESOnly;
+	SecData[XSK_EFUSEPL_SEC_RSA_AUTH_EN_ULTRA] =
+						InstancePtr->RSAEnable;
+	SecData[XSK_EFUSEPL_SEC_JTAG_CHAIN_DISABLE_ULTRA] =
+						InstancePtr->JtagDisable;
+	SecData[XSK_EFUSEPL_SEC_DISABLE_INTRNL_TEST_ACCESS_ULTRA] =
+				InstancePtr->IntTestAccessDisable;
+	SecData[XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA] =
+					InstancePtr->DecoderDisable;
+	if(XilSKey_EfusePl_ProgramSecRegister(SecData) != XST_SUCCESS) {
+		return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW +
+							ErrorCode);
+	}
+
+	/* Programming control bits */
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] =
+						InstancePtr->AESKeyRead;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_RD_ULTRA] =
+						InstancePtr->UserKeyRead;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_SEC_RD_ULTRA] =
+						InstancePtr->SecureRead;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA] =
+						InstancePtr->CtrlWrite;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_RD_ULTRA] =
+						InstancePtr->RSARead;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WR_ULTRA] =
+						InstancePtr->KeyWrite;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_WR_ULTRA] =
+						InstancePtr->UserKeyWrite;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_SEC_WR_ULTRA] =
+						InstancePtr->SecureWrite;
+	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_WR_ULTRA] =
+						InstancePtr->RSAWrite;
+
+	if(XilSKey_EfusePl_ProgramControlRegister(CtrlData) !=
+							XST_SUCCESS) {
+		return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW +
+							ErrorCode);
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function checks the conditions for keys programming.
+*
+* @param	InstancePtr is an instance of EFusePL of Ultrascale.
+*
+* @return
+*	- ErrorCode - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
+{
+	u32 StatusValues = 0;
+
+	if (XilSKey_EfusePl_ReadControlRegister(CtrlBitsUltra)
+						!= XST_SUCCESS) {
+		return (XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL +
+							ErrorCode);
+	}
+
+	if (XilSKey_EfusePl_ReadStatus(InstancePtr,&StatusValues)
+						!= XST_SUCCESS) {
+		return (XSK_EFUSEPL_ERROR_READING_FUSE_STATUS +
+							ErrorCode);
+	}
+
+	if ((StatusValues &
+		(1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) == TRUE) {
+		return (XSK_EFUSEPL_ERROR_FUSE_BUSY + ErrorCode);
+	}
+
+	if ((((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] == TRUE) ||
+		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WR_ULTRA] == TRUE))
+		&& (InstancePtr->ProgAESKeyUltra == TRUE))) {
+		return (XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED +
+								ErrorCode);
+	}
+	if ((((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_RD_ULTRA] == TRUE) ||
+		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_WR_ULTRA]))
+			&& (InstancePtr->ProgUserKeyUltra == TRUE))) {
+		return (XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED +
+								ErrorCode);
+	}
+	if ((((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_RD_ULTRA] == TRUE) ||
+		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_WR_ULTRA] == TRUE))
+		&& (InstancePtr->ProgRSAKeyUltra == TRUE))) {
+		return (XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED +
+								ErrorCode);
+	}
+
+	if ((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA] == TRUE) &&
+		((InstancePtr->AESKeyRead == TRUE) ||
+		 (InstancePtr->UserKeyRead == TRUE) ||
+		 (InstancePtr->SecureRead == TRUE) ||
+		 (InstancePtr->CtrlWrite == TRUE) ||
+		 (InstancePtr->RSARead == TRUE) ||
+		 (InstancePtr->KeyWrite == TRUE) ||
+		 (InstancePtr->UserKeyWrite == TRUE) ||
+		 (InstancePtr->SecureWrite == TRUE) ||
+		 (InstancePtr->RSAWrite == TRUE))) {
+		return (XSK_EFUSEPL_ERROR_FUSE_CTRL_WRITE_NOT_ALLOWED +
+								ErrorCode);
+	}
+
+	if (((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_SEC_RD_ULTRA] == TRUE) ||
+		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_SEC_WR_ULTRA] == TRUE)) &&
+		((InstancePtr->EncryptOnly == TRUE) ||
+		 (InstancePtr->UseAESOnly == TRUE) ||
+		 (InstancePtr->RSAEnable) ||
+		 (InstancePtr->JtagDisable == TRUE) ||
+		 (InstancePtr->IntTestAccessDisable == TRUE) ||
+		 (InstancePtr->DecoderDisable == TRUE))) {
+		return (XSK_EFUSEPL_ERROR_FUSE_SEC_WRITE_NOT_ALLOWED +
+								ErrorCode);
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* Programs a range of rows for PL eFUSE of Ultrascale.
+*
+* @param	RowStart is the starting row to be programmed.
+* @param	Rowend is the row till which need to be programmed.
+* @param	DataPrgrmg is the data to be programmed.
+* @param	Page is the Page to be programmed.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
+						u8 *DataPrgrmg, u8 Page)
+{
+	u32 Row;
+	u8 RowData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA]={0};
+	u32 Status;
+	u8 *RowPtr;
+
+	/**
+	 * check if DataPrgrmg is not NULL
+	 */
+	if (NULL == DataPrgrmg) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_BUFFER_NULL;
+		return ErrorCode;
+	}
+
+	if (RowStart > RowEnd) {
+		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_ROW_RANGE;
+		return ErrorCode;
+	}
+
+	if (((RowStart == XSK_EFUSEPL_AES_ROW_START_ULTRA) ||
+		(RowEnd == XSK_EFUSEPL_AES_ROW_END_ULTRA))
+		&& (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_ROW_RANGE;
+		return XST_FAILURE;
+
+	}
+
+	if (Page > XSK_EFUSEPL_PAGE_1_ULTRA) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_PAGE_OUT_OF_RANGE;
+		return ErrorCode;
+	}
+
+	/**
+	 * Check is RowStart to RowEnd of given Page are empty before
+	 * programming the rows
+	 */
+	for (Row = RowStart; Row <= RowEnd; Row++) {
+		Status = XilSKey_EfusePl_GetRowData_Ultra(Row, RowData, Page);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		if(XilSKey_EfusePl_IsVectorAllZeros(RowData) !=
+						XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_AES_ROW_NOT_EMPTY +
+					ErrorCode);
+		}
+	}
+	/**
+	 * Program rows
+	 */
+	for (Row = RowStart; Row <= RowEnd; Row++) {
+
+		RowPtr = &DataPrgrmg[(Row - RowStart) *
+				XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA];
+
+		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+			XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
+						XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
+						ErrorCode);
+		}
+		/* Programming redundancy bits */
+		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+			XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
+						XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
+							ErrorCode);
+		}
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* Programs a AES key rows for PL eFUSE of Ultrascale.
+*
+* @param	None.
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_Program_AesKey_ultra()
+{
+
+	u32 Row;
+	u8 *RowPtr;
+	/**
+	 * check if row 20 to 27 are empty before programming AES Key
+	 */
+	for (Row = XSK_EFUSEPL_AES_ROW_START_ULTRA;
+			Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA; Row++) {
+		/**
+		 * Verify AES key is zero or not before
+		 * programming AES key
+		 */
+		if (XilSKey_EfusePl_VerifyAES_Ultrascale(
+			XSK_EFUSEPL_CRC_FOR_AES_ZEROS) !=
+						XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_AES_ROW_NOT_EMPTY +
+							ErrorCode);
+		}
+	}
+	/**
+	 * program AES_KEY 256 bits
+	 */
+
+	for (Row=XSK_EFUSEPL_AES_ROW_START_ULTRA;
+		Row<=XSK_EFUSEPL_AES_ROW_END_ULTRA; Row++) {
+
+		RowPtr = &AesDataInBytes[(Row - XSK_EFUSEPL_AES_ROW_START_ULTRA) *
+			XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA];
+		if (XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+			XSK_EFUSEPL_NORMAL_ULTRA, XSK_EFUSEPL_PAGE_0_ULTRA) !=
+					XST_SUCCESS) {
+			return ( XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
+							ErrorCode);
+		}
+		/* Programming redundancy bits */
+		if (XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		XSK_EFUSEPL_REDUNDANT_ULTRA, XSK_EFUSEPL_PAGE_0_ULTRA) !=
+							XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW
+						+ ErrorCode);
+		}
+	}
+
+	return (XST_SUCCESS);
+
+}
+
+/****************************************************************************/
+/**
+*
+* This API gets the row data of Ored Normal and Redundant rows for EFUSE of
+* Ultrascale.
+*
+* @param	Row is the row number.
+* @param	RowData is the ORed result of both rows.
+* @param	Page indicates row belongs to which page.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
+{
+	u8 RowDataRedundant[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA] = {0};
+	u32 Column;
+
+	if (((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+		(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA)) &&
+			(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_ROW_OUT_OF_RANGE;
+		return ErrorCode;
+	}
+	/**
+	 * check if RowData is not NULL
+	 */
+	if (NULL == RowData) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_BUFFER_NULL;
+		return ErrorCode;
+	}
+
+	if (Page > XSK_EFUSEPL_PAGE_1_ULTRA) {
+		ErrorCode = XSK_EFUSEPL_ERROR_READ_PAGE_OUT_OF_RANGE;
+		return ErrorCode;
+	}
+
+	if (XilSKey_EfusePl_ReadRow_Ultra(Row,
+		XSK_EFUSEPL_READ_NORMAL, RowData,
+		XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
+				XST_SUCCESS) {
+		return XST_FAILURE;
+		return ErrorCode;
+	}
+
+	if (XilSKey_EfusePl_ReadRow_Ultra(Row,
+		XSK_EFUSEPL_READ_NORMAL, RowDataRedundant,
+		XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
+				XST_SUCCESS) {
+		return XST_FAILURE;
+		return ErrorCode;
+	}
+
+	for (Column = 0;
+		Column < XSK_EFUSEPL_ARRAY_MAX_COL;
+					Column++) {
+		RowData[Column] = RowData[Column] |
+				RowDataRedundant[Column];
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This API gets the rows data of given range of FUSE's array of Ultrascale
+*
+* @param	RowStart is the starting row to be programmed.
+* @param	Rowend is the row till which need to be programmed.
+* @param	KeyRead is a pointer of array in which read data is updated.
+* @param	Page is the Page to be programmed.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*	Reads all the margin options.
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
+						u8 *KeyRead, u8 Page)
+{
+	u8 RowData[4];
+	u8 Row;
+	u8 KeyCnt = 0;
+	u8 Index = 0;
+
+	if (RowStart > RowEnd) {
+		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_ROW_RANGE;
+		return ErrorCode;
+	}
+
+	for (Row = RowStart; Row <= RowEnd; Row++) {
+		if (XilSKey_EfusePl_GetRowData_Ultra(Row, RowData, Page)
+						!= XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		Index = 0;
+		KeyRead[KeyCnt++] = RowData[Index++] & 0xFF;
+		KeyRead[KeyCnt++] = RowData[Index++] & 0xFF;
+		KeyRead[KeyCnt++] = RowData[Index++] & 0xFF;
+		KeyRead[KeyCnt++] = RowData[Index] & 0xFF;
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* Programs PL eFUSE Control Register of Ultrascale.
+*
+*
+*
+* @param	CtrlData - Control data pointer
+*
+* @return
+*
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note		Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData)
+{
+	u32 Index;
+
+	/**
+	 * check if FUSE_CNTRL allows us to write FUSE_CNTRL eFUSE
+	 * array for Ultrascale series.
+	 */
+	if (CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA]
+							== TRUE) {
+		/**
+		 * This means we cannot program FUSE_CNTRL register
+		 */
+		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_CNTRL_WRITE_DISABLED;
+		return XST_FAILURE;
+	}
+
+	for(Index = 0; Index < XSK_EFUSEPL_CNTRL_MAX_BITS_ULTRA;
+							Index++) {
+
+		if((Index == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
+		(Index == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
+		((Index >= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA)
+		&& (Index <
+			XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA))) {
+			continue;
+		}
+
+		if((CtrlData[Index] == TRUE) &&
+			(CtrlBitsUltra[Index] == FALSE)) {
+			if(XilSKey_EfusePl_ProgramBit_Ultra(
+				XSK_EFUSEPL_CNTRL_ROW_ULTRA,
+				Index, XSK_EFUSEPL_NORMAL_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+
+			if(XilSKey_EfusePl_ProgramBit_Ultra(
+				XSK_EFUSEPL_CNTRL_ROW_ULTRA,
+				Index, XSK_EFUSEPL_REDUNDANT_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+		}
+	}
 
 	return XST_SUCCESS;
 
