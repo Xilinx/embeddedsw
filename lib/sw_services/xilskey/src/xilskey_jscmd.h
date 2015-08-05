@@ -51,14 +51,33 @@ unsigned int g_mio_jtag_tms;
 unsigned int g_mio_jtag_mux_sel;
 unsigned int g_mux_sel_def_val;
 
+u32 GpioPinMasterJtagTDI;
+u32 GpioPinMasterJtagTDO;
+u32 GpioPinMasterJtagTMS;
+u32 GpioPinMasterJtagTCK;
+
+u32 GpioInPutCh;
+u32 GpioOutPutCh;
+
 // MIO assignments
+#ifdef XSK_MICROBLAZE_PLATFORM
+#define MIO_TDI    			GPIO_TDI
+#define MIO_TDO    			GPIO_TDO
+#define MIO_TCK    			GPIO_TCK
+#define MIO_TMS    			GPIO_TMS
+#else
 #define MIO_TDI    			g_mio_jtag_tdi
 #define MIO_TDO    			g_mio_jtag_tdo
 #define MIO_TCK    			g_mio_jtag_tck
 #define MIO_TMS    			g_mio_jtag_tms
 #define MIO_MUX_SELECT		g_mio_jtag_mux_sel
+#endif
+#define GPIO_TDI			GpioPinMasterJtagTDI
+#define GPIO_TDO			GpioPinMasterJtagTDO
+#define GPIO_TMS			GpioPinMasterJtagTMS
+#define GPIO_TCK			GpioPinMasterJtagTCK
 
-#define ZYNQ_TAP_IR_LENGTH		(6)
+#define TAP_IR_LENGTH		(6)
 #define ZYNQ_DAP_IR_LENGTH		(4)
 
 #define ATOMIC_DR_SCAN                 0x40
@@ -83,43 +102,117 @@ typedef struct {
 	 */
 
 	/**
-	 * If XTRUE then part has to be power cycled to be able to be reconfigured
+	 * If XTRUE then part has to be power cycled to be able to be reconfigured only for zynq
 	 */
-	u32	ForcePowerCycle;
+	u32	ForcePowerCycle;/* Only for ZYNQ */
 	/**
-	 * If XTRUE will disable eFUSE write to FUSE_AES and FUSE_USER blocks
+	 * If XTRUE will disable eFUSE write to FUSE_AES and FUSE_USER blocks valid
+	 * only for zynq but in ultrascale If XTRUE will disable eFUSE write to
+	 * FUSE_AESKEY block in Ultrascale
 	 */
-	u32 KeyWrite;
+	u32 KeyWrite;		/* For ZYNQ and Ultrascale */
 	/**
 	 * If XTRUE will disable eFUSE read to FUSE_AES block and also disables eFUSE write to FUSE_AES and FUSE_USER blocks
+	 * in Zynq Pl.but in Ultrascale if XTRUE will disable eFUSE read to FUSE_KEY block and also
+	 * disables eFUSE write to FUSE_KEY blocks
 	 */
-	u32 AESKeyRead;
+	u32 AESKeyRead;		/* For Zynq and Ultrascale */
 	/**
 	 * If XTRUE will disable eFUSE read to FUSE_USER block and also disables eFUSE write to FUSE_AES and FUSE_USER blocks
+	 * in zynq but in ultrascale if XTRUE will disable eFUSE read to FUSE_USER block
+	 * and also disables eFUSE write to FUSE_USER blocks
 	 */
-	u32 UserKeyRead;
+	u32 UserKeyRead;	/* For Zynq and Ultrascale */
 	/**
-	 * If XTRUE will disable eFUSE write to FUSE_CNTRL block
+	 * If XTRUE will disable eFUSE write to FUSE_CNTRL block in both Zynq and
+	 * Ultrascale
 	 */
-	u32	CtrlWrite;
+	u32 CtrlWrite;		/* For Zynq and Ultrascale */
 	/**
-	 * If XTRUE will force eFUSE key to be used if booting Secure Image
+	 * If XTRUE will disable eFuse read to FUSE_RSA block and also disables
+	 * eFuse write to FUSE_RSA block in Ultrascale
 	 */
-	u32 AESKeyExclusive;
+	u32 RSARead;		/* only For Ultrascale */
+	/* If XTRUE will disable eFUSE write to FUSE_USER block in Ultrascale */
+	u32 UserKeyWrite;	/* only For Ultrascale */
+	/* If XTRUE will disable eFUSE write to FUSE_SEC block in Ultrascale */
+	u32 SecureWrite;	/* only For Ultrascale */
+	/* If XTRUE will disable eFUSE write to FUSE_RSA block in Ultrascale */
+	u32 RSAWrite;	/* only For Ultrascale */
+	/**
+	 * IF XTRUE will disable eFuse read to FUSE_SEC block and also disables
+	 * eFuse write to FUSE_SEC block in Ultrascale
+	 */
+	u32 SecureRead;		/* only For Ultrascale */
+	/**
+	 * If XTRUE will force eFUSE key to be used if booting Secure Image In Zynq
+	 */
+	u32 AESKeyExclusive;	/* Only for Zynq */
 	/**
 	 * If XTRUE then permanently sets the Zynq ARM DAP controller in bypass mode
+	 * in both zynq and ultrascale.
 	 */
-	u32 JtagDisable;
+	u32 JtagDisable;	/* for Zynq and Ultrascale */
 	/**
-	 * If XTRUE will force to use Secure boot with eFUSE key only
+	 * If XTRUE will force to use Secure boot with eFUSE key only for both Zynq and Ultrascale
 	 */
-	u32 UseAESOnly;
+	u32 UseAESOnly;		/* For Zynq and Ultrascale */
 	/**
-	 * Following is the define to select if the user wants to select AES key and USER low key OR USER high key or BOTH
+	 * If XTRUE will only allow encrypted bitstreams only
 	 */
-	u32 ProgAESandUserLowKey;
-	u32 ProgUserHighKey;
-
+	 u32 EncryptOnly;	/* For Ultrascale only */
+	/**
+	 * If XTRUE then sets the disable's Xilinx internal test access in Ultrascale
+	 */
+	u32 IntTestAccessDisable;	/* Only for Ultrascale */
+	/**
+	 * If XTRUE then permanently disables the decryptor in Ultrascale
+	 */
+	u32 DecoderDisable;	/* Only for Ultrascale */
+	/**
+	 * Enable RSA authentication in ultrascale
+	 */
+	u32 RSAEnable;		/* only for Ultrascale */
+	/**
+	 * Following is the define to select if the user wants to select AES key
+	 * and User Low Key for Zynq
+	 */
+	u32 ProgAESandUserLowKey;	/* Only for Zynq */
+	/**
+	 * Following is the define to select if the user wants to select
+	 * User Low Key for Zynq
+	 */
+	u32 ProgUserHighKey;	/* Only for Zynq */
+	/**
+	 * Following is the define to select if the user wants to select
+	 * User key for Ultrascale
+	 */
+	u32 ProgAESKeyUltra;	/* Only for Ultrascale */
+	/**
+	 * Following is the define to select if the user wants to select
+	 * User key for Ultrascale
+	 */
+	u32 ProgUserKeyUltra;	/* Only for Ultrascale */
+	/**
+	 * Following is the define to select if the user wants to select
+	 * RSA key for Ultrascale
+	 */
+	u32 ProgRSAKeyUltra;	/* Only for Ultrascale */
+	/**
+	 * Following is the define to select if the user wants to read
+	 * AES key for Ultrascale
+	 */
+	u32 CheckAESKeyUltra;	/* Only for Ultrascale */
+	/**
+	 * Following is the define to select if the user wants to read
+	 * User key for Ultrascale
+	 */
+	u32 ReadUserKeyUltra;	/* Only for Ultrascale */
+	/**
+	 * Following is the define to select if the user wants to read
+	 * RSA key for Ultrascale
+	 */
+	u32 ReadRSAKeyUltra;	/* Only for Ultrascale */
 	/**
 	 * This is the REF_CLK value in Hz
 	 */
@@ -127,36 +220,76 @@ typedef struct {
 	/**
 	 * This is for the aes_key value
 	 */
-	u8 AESKey[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES];
+	u8 AESKey[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES]; /* for both Zynq and Ultrascale */
 	/**
 	 * This is for the user_key value
 	 */
-	u8 UserKey[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES];
+	u8 UserKey[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES]; /* for both Zynq and Ultrascale */
 	/**
-	 * TDI MIO Pin Number
+	 * This is for the rsa_key value for Ultrascale
 	 */
-	u32 JtagMioTDI;
+	u8 RSAKeyHash[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES]; /* Only for Ultrascale */
 	/**
-	 * TDO MIO Pin Number
+	 * TDI MIO Pin Number for ZYNQ
 	 */
-	u32 JtagMioTDO;
+	u32 JtagMioTDI;		/* Only for ZYNQ */
 	/**
-	 * TCK MIO Pin Number
+	 * TDO MIO Pin Number for ZYNQ
 	 */
-	u32 JtagMioTCK;
+	u32 JtagMioTDO;		/* Only for ZYNQ */
 	/**
-	 * TMS MIO Pin Number
+	 * TCK MIO Pin Number for ZYNQ
 	 */
-	u32 JtagMioTMS;
+	u32 JtagMioTCK;		/* Only for ZYNQ */
 	/**
-	 * MUX Selection MIO Pin Number
+	 * TMS MIO Pin Number for ZYNQ
 	 */
-	u32 JtagMioMuxSel;
+	u32 JtagMioTMS;		/* Only for ZYNQ */
 	/**
-	 * Value on the MUX Selection line
+	 * MUX Selection MIO Pin Number for ZYNQ
 	 */
-	u32	JtagMuxSelLineDefVal;
-
+	u32 JtagMioMuxSel;	/* Only for ZYNQ */
+	/**
+	 * Value on the MUX Selection line for ZYNQ
+	 */
+	u32 JtagMuxSelLineDefVal;/* Only for ZYNQ */
+	/* TDI AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTDI;	/* Only for Ultrascale */
+	/* TDO AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTDO;	/* Only for Ultrascale */
+	/* TMS AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTMS;	/* Only for Ultrascale */
+	/* TCK AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTCK;	/* Only for Ultrascale */
+	/* AXI GPIO Channel number of all Inputs TDO */
+	u32 GpioInputCh;	/* Only for Ultrascale */
+	/* AXI GPIO Channel number for all Outputs TDI/TMS/TCK */
+	u32 GpioOutPutCh;	/* Only for Ultrascale */
+	/**
+	 * AES key read only for Zynq
+	 */
+	u8 AESKeyReadback[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES];
+	/**
+	 * User key read in Ultrascale and Zynq
+	 */
+	u8 UserKeyReadback[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES];
+				/* for Ultrascale and Zynq */
+	/**
+	 * Expected AES key's CRC for Ultrascale here we can't read AES
+	 * key directly
+	 */
+	u32 CrcOfAESKey;	/* Only for Ultrascale */
+	/* Flag is True is AES's CRC is matched, otherwise False */
+	 u8 AESKeyMatched;	/* Only for Ultrascale */
+	/* RSA key read back for Ultrascale */
+	u8 RSAHashReadback[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES];
+				/* Only for Ultrascale */
+	/**
+	 * Internal variable to check if timer, XADC and JTAG are initialized.
+	 */
+	u32 SystemInitDone;
+	/* Stores Fpga series of Efuse */
+	XSKEfusePl_Fpga FpgaFlag;
 }XilSKey_EPl;
 
 #ifdef __cplusplus

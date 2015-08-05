@@ -997,7 +997,7 @@ void JtagWrite(unsigned char row, unsigned char bit)
 
 	//Load FUSE_CTS instruction on IR
 	jtag_setPreAndPostPads (g_port, 0, ZYNQ_DAP_IR_LENGTH, 0, 1);
-	bits = ZYNQ_TAP_IR_LENGTH; // xc7z020 ir length
+	bits = TAP_IR_LENGTH; // xc7z020 ir length
 	wrBuffer [0] = 0x30; // FUSE_CTS instruction
 	jtag_shift (g_port, ATOMIC_IR_SCAN, bits, wrBuffer, NULL, JS_DRSELECT);
 
@@ -1072,7 +1072,7 @@ void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOp
 
 		//Load FUSE_CTS instruction on IR
 		jtag_setPreAndPostPads (g_port, 0, ZYNQ_DAP_IR_LENGTH, 0, 1);
-		bits = ZYNQ_TAP_IR_LENGTH; // xc7z020 ir length
+		bits = TAP_IR_LENGTH; // xc7z020 ir length
 		wrBuffer [0] = 0x30; // FUSE_CTS instruction
 		jtag_shift (g_port, ATOMIC_IR_SCAN, bits, wrBuffer, NULL, JS_DRSELECT);
 		//prepare FUSE_CTS data.
