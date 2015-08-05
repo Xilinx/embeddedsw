@@ -71,34 +71,26 @@ extern XHdcp1x_Config XHdcp1x_ConfigTable[];
 * This function returns a reference to an XHdcp1x_Config structure based on
 * specified device ID.
 *
-* @param	DeviceID is the unique core ID of the HDCP interface.
+* @param	DeviceId is the unique core ID of the HDCP interface.
 *
 * @return	A reference to the config record in the configuration table (in
-*		xhdcp_g.c) corresponding the specified DeviceID. NULL if no
+*		xhdcp_g.c) corresponding the specified DeviceId. NULL if no
 *		match is found.
 *
 * @note		None.
 *
 ******************************************************************************/
-XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceID)
+XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId)
 {
-	XHdcp1x_Config *OneToCheck = XHdcp1x_ConfigTable;
-	XHdcp1x_Config *CfgPtr = NULL;
-	u32 NumLeft = XPAR_XHDCP_NUM_INSTANCES;
+	XHdcp1x_Config *CfgPtr;
+	u32 Index;
 
-	/* Iterate through the configuration table */
-	do {
-		/* Is this the one? */
-		if (OneToCheck->DeviceId == DeviceID) {
-			CfgPtr = OneToCheck;
+	for (Index = 0; Index < XPAR_XHDCP_NUM_INSTANCES; Index++) {
+		if (XHdcp1x_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XHdcp1x_ConfigTable[Index];
+			break;
 		}
-
-		/* Update for loop */
-		OneToCheck++;
-		NumLeft--;
-
 	}
-	while ((NumLeft > 0) && (CfgPtr == NULL));
 
 	/* Sanity Check */
 	if (CfgPtr != 0) {
