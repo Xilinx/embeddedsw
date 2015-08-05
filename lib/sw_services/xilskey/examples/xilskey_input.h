@@ -84,7 +84,7 @@
 * 	Note: When XilSKey_EfusePs_Write() API is used, above mentioned RSA hash
 * 	is written and  XSK_EFUSEPS_ENABLE_RSA_KEY_HASH should have TRUE value.
 *
-* 	   					User configurable parameters for PL eFUSE
+* 	   			User configurable parameters for PL eFUSE for Zynq
 *  	-----------------------------------------------------------------------
 *  	#define 	XSK_EFUSEPL_FORCE_PCYCLE_RECONFIG			FALSE
 *	TRUE then part has to be power cycled to be able to be reconfigured.
@@ -203,6 +203,169 @@
 *	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
 * #define	XSK_BBRAM_AES_KEY_SIZE_IN_BITS	256
 *
+*	User configurable parameters for PL eFUSE for Kintex Ultrascale
+*	-----------------------------------------------------------------------
+*	#define	XSK_EFUSEPL_DISABLE_AES_KEY_READ	FALSE
+*	TRUE will permanently disables the write to FUSE_AES and
+*	check CRC for AES key by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_USER_KEY_READ	FALSE
+*	TRUE will permanently disables the write to FUSE_USER and
+*	read of FUSE_USER key by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_SECURE_READ		FALSE
+*	TRUE will permanently disables the write to FUSE_Secure block
+*	and reading of secure block by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_FUSE_CNTRL_WRITE 	FALSE
+*	TRUE will permanently disables the write to FUSE_CNTRL block
+*	by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_RSA_KEY_READ	FALSE
+*	TRUE will permanently disables the write to FUSE_RSA block and
+*	reading of FUSE_RSA Hash by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_KEY_WRITE		FALSE
+*	TRUE will permanently disables the write to FUSE_AES block by
+*	programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_USER_KEY_WRITE	FALSE
+*	TRUE will permanently disables the write to FUSE_USER block
+*	by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_SECURE_WRITE	FALSE
+*	TRUE will permanently disables the write to FUSE_SECURE block
+*	by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_RSA_HASH_WRITE	FALSE
+*	TRUE will permanently disables the write to FUSE_RSA authentication
+*	key by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_ALLOW_ENCRYPTED_ONLY	FALSE
+*	TRUE will permanently allows encrypted bitstream only.
+*	FALSE will not modify this Secure bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_FORCE_USE_FUSE_AES_ONLY	FALSE
+*	TRUE then allows only FUSE's AES key as source of encryption
+*	FALSE then allows FPGA to configure an unencrypted bitstream or
+*	bitstream encrypted using key stored BBRAM or eFuse.
+*
+*	#define	XSK_EFUSEPL_ENABLE_RSA_AUTH		FALSE
+*	TRUE will enable RSA authentication of bitstream
+*	FALSE will not modify this secure bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_JTAG_CHAIN		FALSE
+*	TRUE will disable JTAG permanently.
+*	FALSE will not modify this secure bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_TEST_ACCESS		FALSE
+*	TRUE will disables Xilinx test access.
+*	FALSE will not modify this secure bit of eFuse.
+*
+*	#define	XSK_EFUSEPL_DISABLE_DECODER		FALSE
+*	TRUE will disables decoder completely.
+*	FALSE will not modify this secure bit of eFuse.
+*
+*	In Ultrascale GPIO pins used for connecting MASTER_JTAG pins to access
+*	eFUSE
+*	Following are the GPIO pins and user can change these pins
+*	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TDO	(0)
+*	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TDI	(0)
+*	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TMS	(1)
+*	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TCK	(2)
+*
+*	#define XSK_EFUSEPL_GPIO_INPUT_CH			(2)
+*	This macro is for providing channel number of ALL INPUTS connected (TDO)
+*	#define XSK_EFUSEPL_GPIO_OUTPUT_CH			(1)
+*	This macro is for providing channel number of ALL OUTPUTS connected
+*	(TDI, TCK, TMS)
+*
+*	NOTE: All inputs and outputs of GPIO can be configured in single
+*	channel also
+*	i.e XSK_EFUSEPL_GPIO_INPUT_CH = XSK_EFUSEPL_GPIO_OUTPUT_CH = 1 or 2.
+*	Among (TDI, TCK, TMS) Outputs of GPIO cannot be connected to different
+*	GPIO channels all the 3 signals should be in same channel.
+*	TDO can be a other channel of (TDI, TCK, TMS) or the same.
+*
+*	#define XSK_EFUSEPL_PROGRAM_AES_KEY_ULTRA	FALSE
+*	TRUE will burn the AES key given in XSK_EFUSEPL_AES_KEY.
+*	FALSE will ignore the values given.
+*
+*	#define XSK_EFUSEPL_PROGRAM_USER_KEY_ULTRA	FALSE
+*	TRUE will burn User key given in XSK_EFUSEPL_USER_KEY
+*	FALSE will ignore the values given.
+*
+*	#define XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA	FALSE
+*	TRUE will burn RSA hash given in XSK_EFUSEPL_RSA_KEY_HASH_VALUE
+*	FALSE will ignore the values given.
+*
+*	#define XSK_EFUSEPL_CHECK_AES_KEY_ULTRA		FALSE
+*	TRUE will perform CRC check of FUSE_AES with provided CRC value in macro
+*	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY.
+*	And result of CRC checck will be updated in XilSKey_EPl instance
+*	parameter AESKeyMatched with either TRUE or FALSE.
+*	FALSE CRC check of FUSE_AES will not be performed.
+*
+*	#define XSK_EFUSEPL_READ_USER_KEY_ULTRA		FALSE
+*	TRUE will read FUSE_USER from Ultrascale's eFuse and updates in
+*	XilSKey_EPl instance parameter UserKeyReadback
+*	FALSE FUSE_USER  key read will not be performed.
+*
+*	#define XSK_EFUSEPL_READ_RSA_HASH_ULTRA		FALSE
+*	TRUE will read FUSE_USER from Ultrascale's eFuse and updates in
+*	XilSKey_EPl instance parameter RSAHashReadback
+*	FALSE FUSE_RSA_HASH read will not be performed.
+*
+*	#define 	XSK_EFUSEPL_AES_KEY
+*	"0000000000000000000000000000000000000000000000000000000000000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the PL eFUSE array when write API used. This value should be the
+*	PPK(Primary Public Key) hash given in string format. It should be 64
+*	characters long, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered as invalid string and will not burn AES Key. Note that,
+*	for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_KEY_ULTRA should
+*	have TRUE value.
+*
+*	#define 	XSK_EFUSEPL_USER_KEY	"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the PL eFUSE array when write API used. This value should be the
+*	User Key given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Key. Note that, for writing the User Key,
+*	XSK_EFUSEPL_PROGRAM_USER_KEY_ULTRA should have TRUE value.
+*
+*	#define XSK_EFUSEPL_RSA_KEY_HASH_VALUE
+*		"0000000000000000000000000000000000000000000000 \
+*		00000000000000000000000000000000000000000000000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the PL eFUSE array when write API used. This value should be the
+*	RSA Key hash given in string format. It should be 96 characters long,
+*	valid characters are 0-9,a-f,A-F. Any other character is considered as
+*	invalid string and will not burn RSA hash value. Note that, for writing
+*	the RSA hash, XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA should have TRUE value.
+*
+*	#define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY	0x621C42AA
+*	0x621C42AA is hexadecimal CRC value of FUSE_AES with all Zeros.
+*	Expected FUSE_AES key's CRC value has to be updated in place of
+*	0x621C42AA.
+*	For Checking CRC of FUSE_AES XSK_EFUSEPL_CHECK_AES_KEY_ULTRA macro
+*	should be TRUE otherwise CRC check will not be performed.
+*	For calculation of AES key's CRC one can use
+*	u32 Xilskey_CrcCalculation(u8 *Key) API or reverse polynomial
+*	0x82F63B78.
+*
+*	NOTE:Please make sure you have sufficient heap and stack to run this
+*	application.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -210,6 +373,12 @@
 * ----- ---- 	-------- --------------------------------------------------------
 * 1.00a rpoolla 04/26/13 First release
 * 1.01a hk      09/18/13 Added BBRAM related definitions
+* 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+*                        In Ultrascale GPIO pins and channels macros are added
+*                        to access Master Jtag primitive and also added
+*                        extra control bits and secure bits for Ultrascale's
+*                        eFuse.
+*
 * </pre>
 *
 *
@@ -238,6 +407,11 @@ extern "C" {
 #define 	LOW								0
 #define 	HIGH							1
 
+/**
+ *  Definition of Zynq PL
+ *	----------------------------------------------------------
+ */
+#ifdef XSK_ARM_PLATFORM
 /**
  * Following defines should be defined either TRUE or FALSE.
  * --------------------------------------------------------
@@ -320,9 +494,145 @@ extern "C" {
 #define 	XSK_EFUSEPL_AES_KEY			"0000000000000000000000000000000000000000000000000000000000000000"
 #define 	XSK_EFUSEPL_USER_LOW_KEY	"00"
 #define 	XSK_EFUSEPL_USER_HIGH_KEY	"000000"
+/**
+ * Definitions for Kintex Ultrascale's eFuse
+ * ---------------------------------------------
+ */
+#else
+
+/**
+ * Following is the define to select if the user wants to program control bits
+ */
+#define	XSK_EFUSEPL_DISABLE_AES_KEY_READ	FALSE	/**< If TRUE will disable
+							  *  AES key crc check
+							  *  andprogramming
+							  */
+#define	XSK_EFUSEPL_DISABLE_USER_KEY_READ	FALSE	/**< If TRUE will disable
+							  *  User key reading and
+							  *  programming
+							  */
+#define	XSK_EFUSEPL_DISABLE_SECURE_READ		FALSE	/**< If TRUE will disable
+							  *  secure block reading
+							  *  and programming
+							  */
+#define	XSK_EFUSEPL_DISABLE_FUSE_CNTRL_WRITE 	FALSE	/**< If TRUE will disable
+							  *  programming control
+							  *  bits
+							  */
+#define	XSK_EFUSEPL_DISABLE_RSA_KEY_READ	FALSE	/**< If TRUE will disable
+							  *  RSA key hash reading
+							  *  and programming
+							  */
+#define	XSK_EFUSEPL_DISABLE_KEY_WRITE		FALSE	/**< If TRUE will disable
+							  *  AES key programming
+							  */
+#define	XSK_EFUSEPL_DISABLE_USER_KEY_WRITE	FALSE	/**< If TRUE will disable
+							  *  Programming User
+							  *  key
+							  */
+#define	XSK_EFUSEPL_DISABLE_SECURE_WRITE	FALSE	/**< If TRUE will disable
+							  *  programming Secure block
+							  */
+#define	XSK_EFUSEPL_DISABLE_RSA_HASH_WRITE	FALSE	/**< If TRUE will disable
+							  *  programming to RSA key
+							  *  hash
+							  */
+/**
+ * Following is the define to select if the user wants to program Secure bits
+ */
+
+#define	XSK_EFUSEPL_ALLOW_ENCRYPTED_ONLY	FALSE	/**< If TRUE will force
+							  *  to use only encrypted
+							  *  bitstreams
+							  */
+
+#define	XSK_EFUSEPL_FORCE_USE_FUSE_AES_ONLY	FALSE	/**< If TRUE will force
+							  * to use Secure boot
+							  * with eFUSE key only.
+							  */
+
+#define	XSK_EFUSEPL_ENABLE_RSA_AUTH		FALSE	/**< If TRUE will enable
+							  *  RSA authentication of
+							  * bitstream */
+#define	XSK_EFUSEPL_DISABLE_JTAG_CHAIN		FALSE	/**< If TRUE then
+							  *  permanently sets the Ultrascale
+							  *  device in bypass mode
+							  */
+
+#define	XSK_EFUSEPL_DISABLE_TEST_ACCESS		FALSE	/**< If TRUE will disable internal
+							  * test access for ULTRASCALE
+							  */
+#define	XSK_EFUSEPL_DISABLE_DECODER		FALSE	/**< If TRUE will
+							  *  Disable's decoder
+							  */
+
+/**
+ * Following defines should be given in decimal/hexa-decimal values.
+ * These are to be defined for Ultrascale Microblaze
+ * AXI GPIO pin numbers connected to MASTER JTAG primitive and corresponding
+ * channel numbers for GPIO pins
+ */
+#define	XSK_EFUSEPL_AXI_GPIO_JTAG_TDO	(0)	/**< MASTER JTAG GPIO
+						  *  pin for TDO */
+#define	XSK_EFUSEPL_AXI_GPIO_JTAG_TDI	(0)	/**< MASTER JTAG GPIO
+						  *  pin for TDI */
+#define	XSK_EFUSEPL_AXI_GPIO_JTAG_TMS	(1)	/**< MASTER JTAG GPIO
+						  *  pin for TMS */
+#define	XSK_EFUSEPL_AXI_GPIO_JTAG_TCK	(2)	/**< MASTER JTAG GPIO
+						  *  pin for TCK */
+
+#define	XSK_EFUSEPL_GPIO_INPUT_CH	(2)	/**< GPIO Channel of TDO
+						  *  pin connected */
+#define	XSK_EFUSEPL_GPIO_OUTPUT_CH	(1)	/**< GPIO Channel of TDI,
+*						  * TMS and TCK pin connected */
+
+/**
+ * Following is the define to select if the user wants to select AES, User, RSA and RES keys
+ * for Ultrascale
+ */
+/* For Programming keys */
+#define	XSK_EFUSEPL_PROGRAM_AES_KEY		FALSE 	/**< TRUE burns
+							  * the AES key
+							  */
+#define	XSK_EFUSEPL_PROGRAM_USER_KEY		FALSE	/**< TRUE burns
+							  * the USER key
+							  */
+#define	XSK_EFUSEPL_PROGRAM_RSA_KEY_HASH	FALSE	/**< TRUE burns
+							  * the RSA hash
+							  */
+/* For reading keys */
+#define	XSK_EFUSEPL_CHECK_AES_KEY_CRC		FALSE	/**< TRUE checks
+							  * AES key with
+							  * below provided CRC
+							  */
+#define	XSK_EFUSEPL_READ_USER_KEY		FALSE	/**< TRUE read
+							  *  USER key
+							  */
+#define	XSK_EFUSEPL_READ_RSA_KEY_HASH		FALSE	/**< TRUE read
+							  *  RSA Hash value
+							  */
+
+/**
+ * Following defines should be given in the form of hex string.
+ * The length of AES_KEY string must me 64 and for USER_KEY must be 8.
+ */
+#define	XSK_EFUSEPL_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_USER_KEY		"00000000"
+
+/**
+ * Following defines should be given only for Ultrascale the length of
+ * RSA string must be 96
+ */
+#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+
+/**
+ * Following define is CRC value of expected AES key
+ */
+#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY	0x621C42AA
+
+#endif
 
 #endif	/*XSK_EFUSEPL_DRIVER*/
-
 
 /**
  *  Similarly we can define PS eFUSE related data
