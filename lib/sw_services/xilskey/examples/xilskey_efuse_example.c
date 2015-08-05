@@ -107,7 +107,9 @@
 * ----- ---- 	-------- --------------------------------------------------------
 * 1.00a rpoolla 04/26/13 First release
 * 1.02a hk      10/28/13 Added use of API's read status and key. PR# 735957.
-*
+* 3.00  vns     31/07/15 Modified XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE macro
+*                        name to XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE.
+*                        Added missing goto statement.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -155,7 +157,7 @@
 /**
  *  PS eFUSE RSA key Hash size in characters
  */
-#define XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE        (64)
+#define XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE        (64)
 
 /*
  * PS efuse status bit definitions
@@ -311,6 +313,7 @@ int main()
      PlStatus = XilSKey_EfusePl_Program(&PlInstancePtr);
 	if(PlStatus != XST_SUCCESS)	{
 		printf("PL eFUSE programming failed\r\n");
+		goto EFUSE_ERROR;
 	}
 
     /*
@@ -481,7 +484,7 @@ u32 XilSKey_EfusePs_InitData(XilSKey_EPs *PsInstancePtr)
 		 */
 		PsStatus = XilSKey_Efuse_ValidateKey(
 						(char *)XSK_EFUSEPS_RSA_KEY_HASH_VALUE,
-						XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE);
+						XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE);
 		if(PsStatus != XST_SUCCESS)	{
 			return PsStatus;
 		}
