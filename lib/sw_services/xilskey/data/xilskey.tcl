@@ -35,6 +35,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00a rpo  04/25/13 Initial Release
+# 3.00  vns  30/07/15 Added macro in xparameters.h based on the
+#                     processor
 ##############################################################################
 
 #---------------------------------------------
@@ -66,6 +68,23 @@ proc execs_generate {libhandle} {
 
 proc xgen_opts_file {libhandle} {
 
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+
+	set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
+
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+
+	puts $file_handle "\n/* Xilinx processor macro for Secure Library (Xilskey) */ "
+	if {$proc_type == "ps7_cortexa9"} {
+		puts $file_handle "\n#define XPAR_XSK_ARM_PLATFORM 1"
+	}
+	if {$proc_type == "microblaze"} {
+		puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_PLATFORM 1"
+	}
+
+	puts $file_handle ""
+	close $file_handle
 
 	# Copy the include files to the include directory
 	set srcdir [file join src include]
