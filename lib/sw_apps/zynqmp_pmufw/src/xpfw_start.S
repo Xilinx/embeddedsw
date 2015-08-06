@@ -89,6 +89,18 @@ XPfw_Init:
 		.ent XPfw_Exception
 		.type XPfw_Exception, @function
 XPfw_Exception:
+/* Save ESR to PERS_GLOBAL_STORAGE0 Register */
+		addik	r3,	r0,	0xffd80050
+		mfs	r4,	resr
+		swi	r4,	r3,	0
+/* Save EAR to PERS_GLOBAL_STORAGE1 Register */
+		addik	r3,	r0,	0xffd80054
+		mfs	r4,	rear
+		swi	r4,	r3,	0
+/* Set the FW error bit-0 */
+		addik	r3,	r0,	0xffd6033c
+		addik	r4,	r0,	0x10000000
+		swi	r4,	r3,	0
 /* For now, just keep looping here. Its easier to debug */
 		bri 0
 		nop
