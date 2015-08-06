@@ -76,7 +76,7 @@
 *
 ******************************************************************************/
 #define RegRead(InstancePtr, Reg) \
-	XHdcp1x_CipherReadReg(InstancePtr->CfgPtr->BaseAddress, Reg)
+	XHdcp1x_CipherReadReg(InstancePtr->Config.BaseAddress, Reg)
 
 /*****************************************************************************/
 /**
@@ -92,7 +92,7 @@
 *
 ******************************************************************************/
 #define RegWrite(InstancePtr, Reg, Value) \
-	XHdcp1x_CipherWriteReg(InstancePtr->CfgPtr->BaseAddress, Reg, Value)
+	XHdcp1x_CipherWriteReg(InstancePtr->Config.BaseAddress, Reg, Value)
 
 /*****************************************************************************/
 /**
@@ -213,9 +213,9 @@
 
 /*************************** Function Prototypes *****************************/
 
-static void Enable(XHdcp1x_Cipher *InstancePtr);
-static void Disable(XHdcp1x_Cipher *InstancePtr);
-static void Init(XHdcp1x_Cipher *InstancePtr);
+static void Enable(XHdcp1x *InstancePtr);
+static void Disable(XHdcp1x *InstancePtr);
+static void Init(XHdcp1x *InstancePtr);
 
 /************************** Function Definitions *****************************/
 
@@ -233,7 +233,7 @@ static void Init(XHdcp1x_Cipher *InstancePtr);
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher *InstancePtr,
+int XHdcp1x_CipherCfgInitialize(XHdcp1x *InstancePtr,
 		const XHdcp1x_Config *CfgPtr)
 {
 	int Status = XST_SUCCESS;
@@ -241,11 +241,11 @@ int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher *InstancePtr,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady != XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->Cipher.IsReady !=
+						XIL_COMPONENT_IS_READY);
 
 	/* Initialize InstancePtr */
-	memset(InstancePtr, 0, sizeof(XHdcp1x_Cipher));
-	InstancePtr->CfgPtr = CfgPtr;
+	InstancePtr->Cipher.CfgPtr = CfgPtr;
 
 	/* Check for mismatch on direction */
 	if (IsRX(InstancePtr)) {
@@ -270,7 +270,7 @@ int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher *InstancePtr,
 	/* Initialize it */
 	if (Status == XST_SUCCESS) {
 		Init(InstancePtr);
-		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+		InstancePtr->Cipher.IsReady = XIL_COMPONENT_IS_READY;
 	}
 
 	return (Status);
@@ -287,7 +287,7 @@ int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherIsLinkUp(const XHdcp1x_Cipher *InstancePtr)
+int XHdcp1x_CipherIsLinkUp(const XHdcp1x *InstancePtr)
 {
 	int IsUp = FALSE;
 
@@ -318,7 +318,7 @@ int XHdcp1x_CipherIsLinkUp(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherEnable(XHdcp1x_Cipher *InstancePtr)
+int XHdcp1x_CipherEnable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -349,7 +349,7 @@ int XHdcp1x_CipherEnable(XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherDisable(XHdcp1x_Cipher *InstancePtr)
+int XHdcp1x_CipherDisable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -377,7 +377,7 @@ int XHdcp1x_CipherDisable(XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetKeySelect(XHdcp1x_Cipher *InstancePtr, u8 KeySelect)
+int XHdcp1x_CipherSetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect)
 {
 	int Status = XST_SUCCESS;
 	u32 Value = 0;
@@ -410,7 +410,7 @@ int XHdcp1x_CipherSetKeySelect(XHdcp1x_Cipher *InstancePtr, u8 KeySelect)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher *InstancePtr,
+int XHdcp1x_CipherDoRequest(XHdcp1x *InstancePtr,
 		XHdcp1x_CipherRequestType Request)
 {
 	u32 Value = 0;
@@ -463,7 +463,7 @@ int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherIsRequestComplete(const XHdcp1x_Cipher *InstancePtr)
+int XHdcp1x_CipherIsRequestComplete(const XHdcp1x *InstancePtr)
 {
 	u32 Value = 0;
 	int IsComplete = TRUE;
@@ -494,7 +494,7 @@ int XHdcp1x_CipherIsRequestComplete(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x_Cipher *InstancePtr)
+u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x *InstancePtr)
 {
 	u32 NumLanes = 0;
 
@@ -525,7 +525,7 @@ u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher *InstancePtr, u32 NumLanes)
+int XHdcp1x_CipherSetNumLanes(XHdcp1x *InstancePtr, u32 NumLanes)
 {
 	int Status = XST_SUCCESS;
 	u32 Value = 0;
@@ -575,7 +575,7 @@ int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher *InstancePtr, u32 NumLanes)
 *		This is the reason for the additional check in this code.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetEncryption(const XHdcp1x_Cipher *InstancePtr)
+u64 XHdcp1x_CipherGetEncryption(const XHdcp1x *InstancePtr)
 {
 	u64 StreamMap = 0;
 
@@ -615,7 +615,7 @@ u64 XHdcp1x_CipherGetEncryption(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherEnableEncryption(XHdcp1x_Cipher *InstancePtr, u64 StreamMap)
+int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 {
 	u32 Value = 0;
 
@@ -684,7 +684,7 @@ int XHdcp1x_CipherEnableEncryption(XHdcp1x_Cipher *InstancePtr, u64 StreamMap)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherDisableEncryption(XHdcp1x_Cipher *InstancePtr, u64 StreamMap)
+int XHdcp1x_CipherDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 {
 	u32 Val = 0;
 	int DisableXor = TRUE;
@@ -764,7 +764,7 @@ int XHdcp1x_CipherDisableEncryption(XHdcp1x_Cipher *InstancePtr, u64 StreamMap)
 * @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher *InstancePtr)
+u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x *InstancePtr)
 {
 	u32 Val = 0;
 	u32 Guard = 0x400ul;
@@ -823,7 +823,7 @@ u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x_Cipher *InstancePtr)
+u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x *InstancePtr)
 {
 	u64 Ksv = 0;
 
@@ -854,7 +854,7 @@ u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x_Cipher *InstancePtr)
 *		complete.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetRemoteKsv(XHdcp1x_Cipher *InstancePtr, u64 Ksv)
+int XHdcp1x_CipherSetRemoteKsv(XHdcp1x *InstancePtr, u64 Ksv)
 {
 	u32 Value = 0;
 	u32 Guard = 0x400ul;
@@ -925,8 +925,7 @@ int XHdcp1x_CipherSetRemoteKsv(XHdcp1x_Cipher *InstancePtr, u64 Ksv)
 *		this portion of the B register is not returned to the caller.
 *
 ******************************************************************************/
-int XHdcp1x_CipherGetB(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
-		u32 *Z)
+int XHdcp1x_CipherGetB(const XHdcp1x *InstancePtr, u32 *X, u32 *Y, u32 *Z)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -973,7 +972,7 @@ int XHdcp1x_CipherGetB(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetB(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z)
+int XHdcp1x_CipherSetB(XHdcp1x *InstancePtr, u32 X, u32 Y, u32 Z)
 {
 	u32 Value = 0;
 
@@ -1027,8 +1026,7 @@ int XHdcp1x_CipherSetB(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z)
 *		this portion of the K register is not returned to the caller.
 *
 ******************************************************************************/
-int XHdcp1x_CipherGetK(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
-		u32 *Z)
+int XHdcp1x_CipherGetK(const XHdcp1x *InstancePtr, u32 *X, u32 *Y, u32 *Z)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1075,7 +1073,7 @@ int XHdcp1x_CipherGetK(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetK(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z)
+int XHdcp1x_CipherSetK(XHdcp1x *InstancePtr, u32 X, u32 Y, u32 Z)
 {
 	u32 Value = 0;
 
@@ -1123,7 +1121,7 @@ int XHdcp1x_CipherSetK(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z)
 * @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetMi(const XHdcp1x_Cipher *InstancePtr)
+u64 XHdcp1x_CipherGetMi(const XHdcp1x *InstancePtr)
 {
 	u64 Mi = 0;
 
@@ -1154,7 +1152,7 @@ u64 XHdcp1x_CipherGetMi(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u16 XHdcp1x_CipherGetRi(const XHdcp1x_Cipher *InstancePtr)
+u16 XHdcp1x_CipherGetRi(const XHdcp1x *InstancePtr)
 {
 	u16 Ri = 0;
 
@@ -1184,7 +1182,7 @@ u16 XHdcp1x_CipherGetRi(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_CipherGetMo(const XHdcp1x_Cipher *InstancePtr)
+u64 XHdcp1x_CipherGetMo(const XHdcp1x *InstancePtr)
 {
 	u64 Mo = 0;
 
@@ -1216,7 +1214,7 @@ u64 XHdcp1x_CipherGetMo(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u16 XHdcp1x_CipherGetRo(const XHdcp1x_Cipher *InstancePtr)
+u16 XHdcp1x_CipherGetRo(const XHdcp1x *InstancePtr)
 {
 	u16 Ro = 0;
 
@@ -1245,7 +1243,7 @@ u16 XHdcp1x_CipherGetRo(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher *InstancePtr)
+u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr)
 {
 	u32 Version = 0;
 
@@ -1269,7 +1267,7 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void Enable(XHdcp1x_Cipher *InstancePtr)
+static void Enable(XHdcp1x *InstancePtr)
 {
 	u32 Value = 0;
 
@@ -1312,7 +1310,7 @@ static void Enable(XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void Disable(XHdcp1x_Cipher *InstancePtr)
+static void Disable(XHdcp1x *InstancePtr)
 {
 	u32 Value = 0;
 
@@ -1353,7 +1351,7 @@ static void Disable(XHdcp1x_Cipher *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void Init(XHdcp1x_Cipher *InstancePtr)
+static void Init(XHdcp1x *InstancePtr)
 {
 	u32 Value = 0;
 

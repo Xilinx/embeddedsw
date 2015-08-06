@@ -80,16 +80,16 @@ typedef enum {
  * underlying physical interface that it is running over
  */
 typedef struct XHdcp1x_PortPhyIfAdaptorS {
-	int (*Init)(XHdcp1x_Port*);		/**< Initialization function */
-	int (*Enable)(XHdcp1x_Port*);		/**< Enable function */
-	int (*Disable)(XHdcp1x_Port*);		/**< Disable function */
-	int (*Read)(const XHdcp1x_Port*, u8, void*, u32);  /**< Reg read */
-	int (*Write)(XHdcp1x_Port*, u8, const void*, u32); /**< Reg write */
-	int (*IsCapable)(const XHdcp1x_Port*);	/**< Tests for HDCP capable */
-	int (*IsRepeater)(const XHdcp1x_Port*);	/**< Tests for repeater */
-	int (*GetRepeaterInfo)(const XHdcp1x_Port*, u16*); /**< Gets repeater
+	int (*Init)(XHdcp1x *);			/**< Initialization function */
+	int (*Enable)(XHdcp1x *);		/**< Enable function */
+	int (*Disable)(XHdcp1x *);		/**< Disable function */
+	int (*Read)(const XHdcp1x *, u8, void*, u32);  /**< Reg read */
+	int (*Write)(XHdcp1x *, u8, const void*, u32); /**< Reg write */
+	int (*IsCapable)(const XHdcp1x *);	/**< Tests for HDCP capable */
+	int (*IsRepeater)(const XHdcp1x *);	/**< Tests for repeater */
+	int (*GetRepeaterInfo)(const XHdcp1x *, u16*); /**< Gets repeater
 							info */
-	void (*IntrHandler)(XHdcp1x_Port *, u32); /**< Interrupt handler */
+	void (*IntrHandler)(XHdcp1x *, u32); /**< Interrupt handler */
 } XHdcp1x_PortPhyIfAdaptor;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -189,23 +189,23 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 
 /************************** Function Prototypes ******************************/
 
-int XHdcp1x_PortCfgInitialize(XHdcp1x_Port *InstancePtr,
+int XHdcp1x_PortCfgInitialize(XHdcp1x *InstancePtr,
 	const XHdcp1x_Config *ConfigPtr, void *PhyIfPtr);
 
-int XHdcp1x_PortSetCallback(XHdcp1x_Port *InstancePtr, u32 HandlerType,
+int XHdcp1x_PortSetCallback(XHdcp1x *InstancePtr, u32 HandlerType,
 	XHdcp1x_Callback Callback, void *Parameter);
 
-int XHdcp1x_PortEnable(XHdcp1x_Port *InstancePtr);
-int XHdcp1x_PortDisable(XHdcp1x_Port *InstancePtr);
-int XHdcp1x_PortIsCapable(const XHdcp1x_Port *InstancePtr);
-int XHdcp1x_PortIsRepeater(const XHdcp1x_Port *InstancePtr);
-int XHdcp1x_PortGetRepeaterInfo(XHdcp1x_Port *InstancePtr, u16 *Info);
-int XHdcp1x_PortRead(const XHdcp1x_Port *InstancePtr, u8 Offset, void *Buf,
+int XHdcp1x_PortEnable(XHdcp1x *InstancePtr);
+int XHdcp1x_PortDisable(XHdcp1x *InstancePtr);
+int XHdcp1x_PortIsCapable(const XHdcp1x *InstancePtr);
+int XHdcp1x_PortIsRepeater(const XHdcp1x *InstancePtr);
+int XHdcp1x_PortGetRepeaterInfo(XHdcp1x *InstancePtr, u16 *Info);
+int XHdcp1x_PortRead(const XHdcp1x *InstancePtr, u8 Offset, void *Buf,
 	u32 BufSize);
-int XHdcp1x_PortWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const void *Buf,
+int XHdcp1x_PortWrite(XHdcp1x *InstancePtr, u8 Offset, const void *Buf,
 	u32 BufSize);
 
-void XHdcp1x_PortHandleInterrupt(XHdcp1x_Port *InstancePtr, u32 IntCause);
+void XHdcp1x_PortHandleInterrupt(XHdcp1x *InstancePtr, u32 IntCause);
 
 #ifdef __cplusplus
 }

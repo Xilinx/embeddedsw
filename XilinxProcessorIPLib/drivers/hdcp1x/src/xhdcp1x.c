@@ -684,34 +684,12 @@ int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 Map)
 ******************************************************************************/
 int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect)
 {
-	XHdcp1x_Cipher *CipherPtr = NULL;
 	int Status = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-#if defined(INCLUDE_TX)
-	/* Check for TX */
-	if (IsTX(InstancePtr)) {
-		CipherPtr = &InstancePtr->Cipher;
-	}
-	else
-#endif
-#if defined(INCLUDE_RX)
-	/* Check for RX */
-	if (IsRX(InstancePtr)) {
-		CipherPtr = &InstancePtr->Cipher;
-	}
-	else
-#endif
-	{
-		CipherPtr = NULL;
-	}
-
-	/* Set it */
-	if (CipherPtr != NULL) {
-		Status = XHdcp1x_CipherSetKeySelect(CipherPtr, KeySelect);
-	}
+	Status = XHdcp1x_CipherSetKeySelect(InstancePtr, KeySelect);
 
 	return (Status);
 }
@@ -866,34 +844,12 @@ u32 XHdcp1x_GetDriverVersion(void)
 ******************************************************************************/
 u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
 {
-	const XHdcp1x_Cipher *CipherPtr = NULL;
 	u32 Version = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-#if defined(INCLUDE_TX)
-	/* Check for TX */
-	if (IsTX(InstancePtr)) {
-		CipherPtr = &InstancePtr->Cipher;
-	}
-	else
-#endif
-#if defined(INCLUDE_RX)
-	/* Check for RX */
-	if (IsRX(InstancePtr)) {
-		CipherPtr = &InstancePtr->Cipher;
-	}
-	else
-#endif
-	{
-		CipherPtr = NULL;
-	}
-
-	/* Set it */
-	if (CipherPtr != NULL) {
-		Version = XHdcp1x_CipherGetVersion(CipherPtr);
-	}
+	Version = XHdcp1x_CipherGetVersion(InstancePtr);
 
 	return (Version);
 }

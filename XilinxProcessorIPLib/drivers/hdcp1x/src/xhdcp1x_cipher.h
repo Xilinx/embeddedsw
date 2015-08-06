@@ -108,7 +108,7 @@ typedef enum {
 *
 ******************************************************************************/
 #define XHdcp1x_CipherIsDP(InstancePtr) \
-	((XHdcp1x_CipherReadReg((InstancePtr->CfgPtr)->BaseAddress, \
+	((XHdcp1x_CipherReadReg((InstancePtr)->Config.BaseAddress, \
 	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL) \
 	== XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP)
 
@@ -123,7 +123,7 @@ typedef enum {
 *
 ******************************************************************************/
 #define XHdcp1x_CipherIsHDMI(InstancePtr) \
-	((XHdcp1x_CipherReadReg((InstancePtr->CfgPtr)->BaseAddress, \
+	((XHdcp1x_CipherReadReg((InstancePtr)->Config.BaseAddress, \
 	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL) \
 	== XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI)
 
@@ -138,7 +138,7 @@ typedef enum {
 *
 ******************************************************************************/
 #define XHdcp1x_CipherIsRX(InstancePtr) \
-	((XHdcp1x_CipherReadReg((InstancePtr->CfgPtr)->BaseAddress, \
+	((XHdcp1x_CipherReadReg((InstancePtr)->Config.BaseAddress, \
 	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION) \
 	== XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX)
 
@@ -153,63 +153,58 @@ typedef enum {
 *
 ******************************************************************************/
 #define XHdcp1x_CipherIsTX(InstancePtr) \
-	((XHdcp1x_CipherReadReg((InstancePtr->CfgPtr)->BaseAddress, \
+	((XHdcp1x_CipherReadReg((InstancePtr)->Config.BaseAddress, \
 	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION) \
 	== XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX)
 
 
 /************************** Function Prototypes ******************************/
 
-int XHdcp1x_CipherCfgInitialize(XHdcp1x_Cipher *InstancePtr,
+int XHdcp1x_CipherCfgInitialize(XHdcp1x *InstancePtr,
 		const XHdcp1x_Config *CfgPtr);
 
-int XHdcp1x_CipherSetCallback(XHdcp1x_Cipher *InstancePtr, u32 HandlerType,
+int XHdcp1x_CipherSetCallback(XHdcp1x *InstancePtr, u32 HandlerType,
 		XHdcp1x_Callback Callback, void *Ref);
 
-int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x_Cipher *InstancePtr,
-		int IsEnabled);
-int XHdcp1x_CipherIsLinkUp(const XHdcp1x_Cipher *InstancePtr);
-int XHdcp1x_CipherSetRiUpdate(XHdcp1x_Cipher *InstancePtr, int IsEnabled);
+int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x *InstancePtr, int IsEnabled);
+int XHdcp1x_CipherIsLinkUp(const XHdcp1x *InstancePtr);
+int XHdcp1x_CipherSetRiUpdate(XHdcp1x *InstancePtr, int IsEnabled);
 
-int XHdcp1x_CipherEnable(XHdcp1x_Cipher *InstancePtr);
-int XHdcp1x_CipherDisable(XHdcp1x_Cipher *InstancePtr);
+int XHdcp1x_CipherEnable(XHdcp1x *InstancePtr);
+int XHdcp1x_CipherDisable(XHdcp1x *InstancePtr);
 
-int XHdcp1x_CipherSetKeySelect(XHdcp1x_Cipher *InstancePtr, u8 KeySelect);
+int XHdcp1x_CipherSetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect);
 
-int XHdcp1x_CipherDoRequest(XHdcp1x_Cipher *InstancePtr,
+int XHdcp1x_CipherDoRequest(XHdcp1x *InstancePtr,
 		XHdcp1x_CipherRequestType Request);
-int XHdcp1x_CipherIsRequestComplete(const XHdcp1x_Cipher *InstancePtr);
+int XHdcp1x_CipherIsRequestComplete(const XHdcp1x *InstancePtr);
 
-u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x_Cipher *InstancePtr);
-int XHdcp1x_CipherSetNumLanes(XHdcp1x_Cipher *InstancePtr, u32 NumLanes);
+u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x *InstancePtr);
+int XHdcp1x_CipherSetNumLanes(XHdcp1x *InstancePtr, u32 NumLanes);
 
-u64 XHdcp1x_CipherGetEncryption(const XHdcp1x_Cipher *InstancePtr);
-int XHdcp1x_CipherEnableEncryption(XHdcp1x_Cipher *InstancePtr,
-		u64 StreamMap);
-int XHdcp1x_CipherDisableEncryption(XHdcp1x_Cipher *InstancePtr,
-		u64 StreamMap);
+u64 XHdcp1x_CipherGetEncryption(const XHdcp1x *InstancePtr);
+int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
+int XHdcp1x_CipherDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 
-u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x_Cipher *InstancePtr);
-u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x_Cipher *InstancePtr);
-int XHdcp1x_CipherSetRemoteKsv(XHdcp1x_Cipher *InstancePtr, u64 Ksv);
+u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x *InstancePtr);
+u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x *InstancePtr);
+int XHdcp1x_CipherSetRemoteKsv(XHdcp1x *InstancePtr, u64 Ksv);
 
-int XHdcp1x_CipherGetB(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
-		u32 *Z);
-int XHdcp1x_CipherSetB(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z);
-int XHdcp1x_CipherGetK(const XHdcp1x_Cipher *InstancePtr, u32 *X, u32 *Y,
-		u32 *Z);
-int XHdcp1x_CipherSetK(XHdcp1x_Cipher *InstancePtr, u32 X, u32 Y, u32 Z);
+int XHdcp1x_CipherGetB(const XHdcp1x *InstancePtr, u32 *X, u32 *Y, u32 *Z);
+int XHdcp1x_CipherSetB(XHdcp1x *InstancePtr, u32 X, u32 Y, u32 Z);
+int XHdcp1x_CipherGetK(const XHdcp1x *InstancePtr, u32 *X, u32 *Y, u32 *Z);
+int XHdcp1x_CipherSetK(XHdcp1x *InstancePtr, u32 X, u32 Y, u32 Z);
 
-u64 XHdcp1x_CipherGetMi(const XHdcp1x_Cipher *InstancePtr);
-u16 XHdcp1x_CipherGetRi(const XHdcp1x_Cipher *InstancePtr);
-u64 XHdcp1x_CipherGetMo(const XHdcp1x_Cipher *InstancePtr);
-u16 XHdcp1x_CipherGetRo(const XHdcp1x_Cipher *InstancePtr);
+u64 XHdcp1x_CipherGetMi(const XHdcp1x *InstancePtr);
+u16 XHdcp1x_CipherGetRi(const XHdcp1x *InstancePtr);
+u64 XHdcp1x_CipherGetMo(const XHdcp1x *InstancePtr);
+u16 XHdcp1x_CipherGetRo(const XHdcp1x *InstancePtr);
 
-u32 XHdcp1x_CipherGetVersion(const XHdcp1x_Cipher *InstancePtr);
+u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr);
 
 void XHdcp1x_CipherHandleInterrupt(void *InstancePtr);
 
-int XHdcp1x_CipherSelfTest(XHdcp1x_Cipher *InstancePtr);
+int XHdcp1x_CipherSelfTest(XHdcp1x *InstancePtr);
 
 #ifdef __cplusplus
 }

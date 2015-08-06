@@ -60,10 +60,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #define RegRead(InstancePtr, Offset) \
-	XHdcp1x_CipherReadReg(InstancePtr->CfgPtr->BaseAddress, Offset)
+	XHdcp1x_CipherReadReg(InstancePtr->Config.BaseAddress, Offset)
 
 #define RegWrite(InstancePtr, Offset, Value) \
-	XHdcp1x_CipherWriteReg(InstancePtr->CfgPtr->BaseAddress, Offset, Value)
+	XHdcp1x_CipherWriteReg(InstancePtr->Config.BaseAddress, Offset, Value)
 
 /************************** Function Definitions *****************************/
 
@@ -93,7 +93,7 @@
 *		installed replaces it with the new handler.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetCallback(XHdcp1x_Cipher *InstancePtr, u32 HandlerType,
+int XHdcp1x_CipherSetCallback(XHdcp1x *InstancePtr, u32 HandlerType,
                 XHdcp1x_Callback CallbackFunc, void *CallbackRef)
 {
 	u32 Status = XST_SUCCESS;
@@ -108,16 +108,16 @@ int XHdcp1x_CipherSetCallback(XHdcp1x_Cipher *InstancePtr, u32 HandlerType,
 	switch (HandlerType) {
 		/* Link Failure Callback */
 		case (XHDCP1X_CIPHER_HANDLER_LINK_FAILURE):
-			InstancePtr->LinkFailCallback = CallbackFunc;
-			InstancePtr->LinkFailRef = CallbackRef;
-			InstancePtr->IsLinkFailCallbackSet = (TRUE);
+			InstancePtr->Cipher.LinkFailCallback = CallbackFunc;
+			InstancePtr->Cipher.LinkFailRef = CallbackRef;
+			InstancePtr->Cipher.IsLinkFailCallbackSet = (TRUE);
 			break;
 
 		/* Ri Update Callback */
 		case (XHDCP1X_CIPHER_HANDLER_Ri_UPDATE):
-			InstancePtr->RiUpdateCallback = CallbackFunc;
-			InstancePtr->RiUpdateRef = CallbackRef;
-			InstancePtr->IsRiUpdateCallbackSet = (TRUE);
+			InstancePtr->Cipher.RiUpdateCallback = CallbackFunc;
+			InstancePtr->Cipher.RiUpdateRef = CallbackRef;
+			InstancePtr->Cipher.IsRiUpdateCallbackSet = (TRUE);
 			break;
 
 		default:
@@ -142,7 +142,7 @@ int XHdcp1x_CipherSetCallback(XHdcp1x_Cipher *InstancePtr, u32 HandlerType,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
+int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x *InstancePtr, int IsEnabled)
 {
 	int Status = XST_SUCCESS;
 
@@ -189,7 +189,7 @@ int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSetRiUpdate(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
+int XHdcp1x_CipherSetRiUpdate(XHdcp1x *InstancePtr, int IsEnabled)
 {
 	int Status = XST_SUCCESS;
 
@@ -234,40 +234,41 @@ int XHdcp1x_CipherSetRiUpdate(XHdcp1x_Cipher *InstancePtr, int IsEnabled)
 ******************************************************************************/
 void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 {
-	XHdcp1x_Cipher *HdcpCipherPtr = (XHdcp1x_Cipher *)InstancePtr;
+	XHdcp1x *HdcpPtr = InstancePtr;
 	u32 Pending = 0;
 
 	/* Verify arguments */
-	Xil_AssertVoid(HdcpCipherPtr != NULL);
-	Xil_AssertVoid(HdcpCipherPtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(HdcpPtr != NULL);
+	Xil_AssertVoid(HdcpPtr->Cipher.IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Determine Pending */
-	Pending = RegRead(HdcpCipherPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS);
-	Pending &= ~RegRead(HdcpCipherPtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
+	Pending = RegRead(HdcpPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS);
+	Pending &= ~RegRead(HdcpPtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
 
 	/* Check for pending */
 	if (Pending != 0) {
 		/* Clear Pending */
-		RegWrite(HdcpCipherPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS,
-				Pending);
+		RegWrite(HdcpPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, Pending);
 
 		/* Update statistics */
-		HdcpCipherPtr->Stats.IntCount++;
+		HdcpPtr->Cipher.Stats.IntCount++;
 
 		/* Check for link integrity failure */
 		if (Pending & XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL) {
 			/* Invoke callback if set */
-			if (HdcpCipherPtr->IsLinkFailCallbackSet)
-				(*HdcpCipherPtr->LinkFailCallback)(
-						HdcpCipherPtr->LinkFailRef);
+			if (HdcpPtr->Cipher.IsLinkFailCallbackSet) {
+				(*HdcpPtr->Cipher.LinkFailCallback)(
+						HdcpPtr->Cipher.LinkFailRef);
+			}
 		}
 
 		/* Check for change to Ri register */
 		if (Pending & XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE) {
 			/* Invoke callback if set */
-			if (HdcpCipherPtr->IsRiUpdateCallbackSet)
-				(*HdcpCipherPtr->RiUpdateCallback)(
-						HdcpCipherPtr->RiUpdateRef);
+			if (HdcpPtr->Cipher.IsRiUpdateCallbackSet) {
+				(*HdcpPtr->Cipher.RiUpdateCallback)(
+						HdcpPtr->Cipher.RiUpdateRef);
+			}
 		}
 	}
 }

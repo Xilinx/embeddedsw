@@ -81,7 +81,7 @@
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherSelfTest(XHdcp1x_Cipher *InstancePtr)
+int XHdcp1x_CipherSelfTest(XHdcp1x *InstancePtr)
 {
 	u32 Base = 0;
 	u32 Value = 0;
@@ -91,14 +91,14 @@ int XHdcp1x_CipherSelfTest(XHdcp1x_Cipher *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Base */
-	Base = InstancePtr->CfgPtr->BaseAddress;
+	Base = InstancePtr->Config.BaseAddress;
 
 	/* Read the version */
 	Value = XHdcp1x_CipherReadReg(Base, XHDCP1X_CIPHER_REG_VERSION);
 
 	/* Confirm the version is reasonable */
 	if ((Value != 0u) && (Value != ((u32)(-1)))) {
-		const XHdcp1x_Config *CfgPtr = InstancePtr->CfgPtr;
+		const XHdcp1x_Config *CfgPtr = &InstancePtr->Config;
 		int IsRx = FALSE;
 		int IsHdmi = FALSE;
 

@@ -85,16 +85,12 @@
 int XHdcp1x_SelfTest(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
-	XHdcp1x_Cipher *CipherPtr = NULL;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Determine CipherPtr */
-	CipherPtr = &InstancePtr->Cipher;
-
 	/* Self test the cipher */
-	if (XHdcp1x_CipherSelfTest(CipherPtr) != XST_SUCCESS) {
+	if (XHdcp1x_CipherSelfTest(InstancePtr) != XST_SUCCESS) {
 		Status = XST_FAILURE;
 	}
 

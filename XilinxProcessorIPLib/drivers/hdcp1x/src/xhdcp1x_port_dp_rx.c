@@ -68,9 +68,8 @@
 
 /*************************** Function Prototypes *****************************/
 
-static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
-		u32 BufSize);
-static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
+static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf, u32 BufSize);
+static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf,
 		u32 BufSize);
 static void ProcessAKsvWrite(void *CallbackRef);
 static void ProcessRoRead(void *CallbackRef);
@@ -90,16 +89,16 @@ static void ProcessBinfoRead(void *CallbackRef);
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxEnable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
 {
-	XDprx *HwDp = InstancePtr->PhyIfPtr;
+	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
 	u32 IntMask = 0;
 	u8 Buf[4];
 	int Status = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
 
 	/* Initialize Buf */
 	memset(Buf, 0, 4);
@@ -150,9 +149,9 @@ int XHdcp1x_PortDpRxEnable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxDisable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 {
-	XDprx *HwDp = InstancePtr->PhyIfPtr;
+	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
 	u32 IntMask = 0;
 	u8 Offset = 0;
 	u8 Value = 0;
@@ -161,7 +160,7 @@ int XHdcp1x_PortDpRxDisable(XHdcp1x_Port *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
 
 	/* Disable interrupts */
 	IntMask  = XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK;
@@ -193,13 +192,13 @@ int XHdcp1x_PortDpRxDisable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxInit(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpRxInit(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
 
 	/* Disable it */
 	if (XHdcp1x_PortDpRxDisable(InstancePtr) != XST_SUCCESS) {
@@ -224,7 +223,7 @@ int XHdcp1x_PortDpRxInit(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
+int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
 	/* Verify arguments. */
@@ -254,7 +253,7 @@ int XHdcp1x_PortDpRxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
+int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
 	/* Verify arguments. */
@@ -284,10 +283,9 @@ int XHdcp1x_PortDpRxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
 * @note		None.
 *
 ******************************************************************************/
-static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
-		u32 BufSize)
+static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf, u32 BufSize)
 {
-	XDprx *HwDp = InstancePtr->PhyIfPtr;
+	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
 	u32 Base = HwDp->Config.BaseAddr;
 	u32 RegOffset = 0;
 	int NumRead = 0;
@@ -353,10 +351,9 @@ static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
 * @note		None.
 *
 ******************************************************************************/
-static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
-		u32 BufSize)
+static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 {
-	XDprx *HwDp = InstancePtr->PhyIfPtr;
+	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
 	u32 Base = HwDp->Config.BaseAddr;
 	u32 RegOffset = 0;
 	int NumWritten = 0;
@@ -445,14 +442,14 @@ static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
 ******************************************************************************/
 static void ProcessAKsvWrite(void *CallbackRef)
 {
-	XHdcp1x_Port *InstancePtr = CallbackRef;
+	XHdcp1x *InstancePtr = CallbackRef;
 	u8 Value = 0;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Update statistics */
-	InstancePtr->Stats.IntCount++;
+	InstancePtr->Port.Stats.IntCount++;
 
 	/* Clear bit 0 of  Ainfo register */
 	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Value, 1);
@@ -465,8 +462,8 @@ static void ProcessAKsvWrite(void *CallbackRef)
 	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
 
 	/* Invoke authentication callback if set */
-	if (InstancePtr->IsAuthCallbackSet) {
-		(*(InstancePtr->AuthCallback))(InstancePtr->AuthRef);
+	if (InstancePtr->Port.IsAuthCallbackSet) {
+		(*(InstancePtr->Port.AuthCallback))(InstancePtr->Port.AuthRef);
 	}
 }
 
@@ -485,14 +482,14 @@ static void ProcessAKsvWrite(void *CallbackRef)
 ******************************************************************************/
 static void ProcessRoRead(void *CallbackRef)
 {
-	XHdcp1x_Port *InstancePtr = CallbackRef;
+	XHdcp1x *InstancePtr = CallbackRef;
 	u8 Value = 0;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Update statistics */
-	InstancePtr->Stats.IntCount++;
+	InstancePtr->Port.Stats.IntCount++;
 
 	/* Clear bit 1 of  Bstatus register */
 	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
@@ -515,14 +512,14 @@ static void ProcessRoRead(void *CallbackRef)
 ******************************************************************************/
 static void ProcessBinfoRead(void *CallbackRef)
 {
-	XHdcp1x_Port *InstancePtr = CallbackRef;
+	XHdcp1x *InstancePtr = CallbackRef;
 	u8 Value = 0;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Update statistics */
-	InstancePtr->Stats.IntCount++;
+	InstancePtr->Port.Stats.IntCount++;
 
 	/* Clear bit 0 of  Bstatus register */
 	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);

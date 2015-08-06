@@ -69,9 +69,8 @@
 
 /*************************** Function Prototypes *****************************/
 
-static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
-                u32 BufSize);
-static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
+static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf, u32 BufSize);
+static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf,
 		u32 BufSize);
 
 /************************** Function Definitions *****************************/
@@ -88,14 +87,14 @@ static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxEnable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortHdmiTxEnable(XHdcp1x *InstancePtr)
 {
 	u8 Value = 0;
 	int Status = XST_NOT_ENABLED;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
 
 	/* Read anything to ensure that the remote end is present */
 	if ((RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS, &Value, 1)) > 0) {
@@ -117,7 +116,7 @@ int XHdcp1x_PortHdmiTxEnable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxDisable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortHdmiTxDisable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -142,13 +141,13 @@ int XHdcp1x_PortHdmiTxDisable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxInit(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortHdmiTxInit(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
 
 	/* Disable it */
 	if (XHdcp1x_PortHdmiTxDisable(InstancePtr) != XST_SUCCESS) {
@@ -169,7 +168,7 @@ int XHdcp1x_PortHdmiTxInit(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxIsCapable(const XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortHdmiTxIsCapable(const XHdcp1x *InstancePtr)
 {
 	u8 Value = 0;
 	int IsCapable = FALSE;
@@ -198,7 +197,7 @@ int XHdcp1x_PortHdmiTxIsCapable(const XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxIsRepeater(const XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortHdmiTxIsRepeater(const XHdcp1x *InstancePtr)
 {
 	u8 Value = 0;
 	int IsRepeater = FALSE;
@@ -230,7 +229,7 @@ int XHdcp1x_PortHdmiTxIsRepeater(const XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxGetRepeaterInfo(const XHdcp1x_Port *InstancePtr, u16 *Info)
+int XHdcp1x_PortHdmiTxGetRepeaterInfo(const XHdcp1x *InstancePtr, u16 *Info)
 {
 	u8 Value = 0;
 	int Status = XST_SUCCESS;
@@ -287,7 +286,7 @@ int XHdcp1x_PortHdmiTxGetRepeaterInfo(const XHdcp1x_Port *InstancePtr, u16 *Info
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
+int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
 	/* Verify arguments. */
@@ -317,7 +316,7 @@ int XHdcp1x_PortHdmiTxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortHdmiTxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
+int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
 	/* Verify arguments. */
@@ -347,10 +346,9 @@ int XHdcp1x_PortHdmiTxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
 * @note		None.
 *
 ******************************************************************************/
-static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
-                u32 BufSize)
+static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf, u32 BufSize)
 {
-	XHdmi_Tx *HdmiTx = InstancePtr->PhyIfPtr;
+	XHdmi_Tx *HdmiTx = InstancePtr->Port.PhyIfPtr;
 	u8 Slave = 0x3Au;
 	int NumRead = 0;
 
@@ -386,10 +384,9 @@ static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
 * @note		None.
 *
 ******************************************************************************/
-static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
-		u32 BufSize)
+static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 {
-	XHdmi_Tx *HdmiTx = InstancePtr->PhyIfPtr;
+	XHdmi_Tx *HdmiTx = InstancePtr->Port.PhyIfPtr;
 	u8 Slave = 0x3Au;
 	u8 TxBuf[WRITE_CHUNK_SZ + 1];
 	int NumWritten = 0;

@@ -86,7 +86,7 @@
 *		installed replaces it with the new handler.
 *
 ******************************************************************************/
-int XHdcp1x_PortSetCallback(XHdcp1x_Port *InstancePtr, u32 HandlerType,
+int XHdcp1x_PortSetCallback(XHdcp1x *InstancePtr, u32 HandlerType,
                 XHdcp1x_Callback CallbackFunc, void *CallbackRef)
 {
 	u32 Status = XST_SUCCESS;
@@ -101,9 +101,9 @@ int XHdcp1x_PortSetCallback(XHdcp1x_Port *InstancePtr, u32 HandlerType,
 	switch (HandlerType) {
 		/* Authentication Callback */
 		case (XHDCP1X_PORT_HANDLER_AUTHENTICATE):
-			InstancePtr->AuthCallback = CallbackFunc;
-			InstancePtr->AuthRef = CallbackRef;
-			InstancePtr->IsAuthCallbackSet = (TRUE);
+			InstancePtr->Port.AuthCallback = CallbackFunc;
+			InstancePtr->Port.AuthRef = CallbackRef;
+			InstancePtr->Port.IsAuthCallbackSet = (TRUE);
 			break;
 
 		default:
@@ -126,7 +126,7 @@ int XHdcp1x_PortSetCallback(XHdcp1x_Port *InstancePtr, u32 HandlerType,
 * @note		None.
 *
 ******************************************************************************/
-void XHdcp1x_PortHandleInterrupt(XHdcp1x_Port *InstancePtr, u32 IntCause)
+void XHdcp1x_PortHandleInterrupt(XHdcp1x *InstancePtr, u32 IntCause)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
 
@@ -134,11 +134,11 @@ void XHdcp1x_PortHandleInterrupt(XHdcp1x_Port *InstancePtr, u32 IntCause)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Check for adaptor function and invoke if present */
 	if ((Adaptor != NULL) && (Adaptor->IntrHandler != NULL)) {
-		InstancePtr->Stats.IntCount++;
+		InstancePtr->Port.Stats.IntCount++;
 		(*(Adaptor->IntrHandler))(InstancePtr, IntCause);
 	}
 }

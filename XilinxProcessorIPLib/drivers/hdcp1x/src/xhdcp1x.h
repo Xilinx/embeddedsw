@@ -172,7 +172,6 @@ typedef struct {
 typedef struct {
 	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
 	u32 IsReady;			/**< The ready flag */
-	XHdcp1x_Port Port;		/**< The interface's port */
 } XHdcp1x_Common;
 
 /**
@@ -181,7 +180,6 @@ typedef struct {
 typedef struct {
 	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
 	u32 IsReady;			/**< The ready flag */
-	XHdcp1x_Port Port;		/**< The interface's port */
 	u32 CurrentState;		/**< The interface's current state */
 	u32 PreviousState;		/**< The interface's previous state */
 	u64 StateHelper;		/**< The interface's state helper */
@@ -197,7 +195,6 @@ typedef struct {
 typedef struct {
 	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
 	u32 IsReady;			/**< The ready flag */
-	XHdcp1x_Port Port;		/**< The interface's port */
 	u32 CurrentState;		/**< The interface's current state */
 	u32 PreviousState;		/**< The interface's previous state */
 	u16 Flags;			/**< The interface flags */
@@ -211,6 +208,7 @@ typedef struct {
 typedef struct {
 	XHdcp1x_Config Config;		/**< The core config */
 	XHdcp1x_Cipher Cipher;		/**< The interface's cipher */
+	XHdcp1x_Port Port;	/**< The interface's port */
 	union {
 		XHdcp1x_Common Common;	/**< The common interface elements */
 		XHdcp1x_Tx Tx;		/**< The transmit interface elements */

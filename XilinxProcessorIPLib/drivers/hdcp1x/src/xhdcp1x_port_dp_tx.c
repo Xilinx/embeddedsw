@@ -66,11 +66,10 @@
 
 /*************************** Function Prototypes *****************************/
 
-static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
+static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf, u32 BufSize);
+static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf,
 		u32 BufSize);
-static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
-		u32 BufSize);
-static void CheckForRxStatusChange(XHdcp1x_Port *InstancePtr);
+static void CheckForRxStatusChange(XHdcp1x *InstancePtr);
 
 /************************** Function Definitions *****************************/
 
@@ -87,14 +86,14 @@ static void CheckForRxStatusChange(XHdcp1x_Port *InstancePtr);
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxEnable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpTxEnable(XHdcp1x *InstancePtr)
 {
 	u8 Value = 0;
 	int Status = XST_NOT_ENABLED;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
 
 	/* Read anything to ensure that the remote end is present */
 	if ((RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS, &Value, 1)) > 0) {
@@ -116,7 +115,7 @@ int XHdcp1x_PortDpTxEnable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxDisable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpTxDisable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -141,7 +140,7 @@ int XHdcp1x_PortDpTxDisable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxInit(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpTxInit(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 	u32 Base = 0;
@@ -149,10 +148,10 @@ int XHdcp1x_PortDpTxInit(XHdcp1x_Port *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->PhyIfPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
 
 	/* Ensure that the dp video path routes through the hdcp core */
-	Base = ((XDptx *)InstancePtr->PhyIfPtr)->Config.BaseAddr;
+	Base = ((XDptx *)InstancePtr->Port.PhyIfPtr)->Config.BaseAddr;
 	Value  = XDptx_ReadReg(Base, XDP_TX_HDCP_ENABLE);
 	Value |= XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK;
 	XDptx_WriteReg(Base, XDP_TX_HDCP_ENABLE, Value);
@@ -176,7 +175,7 @@ int XHdcp1x_PortDpTxInit(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxIsCapable(const XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpTxIsCapable(const XHdcp1x *InstancePtr)
 {
 	u8 Value = 0;
 	int IsCapable = FALSE;
@@ -206,7 +205,7 @@ int XHdcp1x_PortDpTxIsCapable(const XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxIsRepeater(const XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDpTxIsRepeater(const XHdcp1x *InstancePtr)
 {
 	u8 Value = 0;
 	int IsRepeater = FALSE;
@@ -239,7 +238,7 @@ int XHdcp1x_PortDpTxIsRepeater(const XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxGetRepeaterInfo(const XHdcp1x_Port *InstancePtr, u16 *Info)
+int XHdcp1x_PortDpTxGetRepeaterInfo(const XHdcp1x *InstancePtr, u16 *Info)
 {
 	u8 Value = 0;
 	int Status = XST_SUCCESS;
@@ -300,7 +299,7 @@ int XHdcp1x_PortDpTxGetRepeaterInfo(const XHdcp1x_Port *InstancePtr, u16 *Info)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
+int XHdcp1x_PortDpTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
 	/* Verify arguments. */
@@ -330,7 +329,7 @@ int XHdcp1x_PortDpTxRead(const XHdcp1x_Port *InstancePtr, u8 Offset,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpTxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
+int XHdcp1x_PortDpTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
 	/* Verify arguments. */
@@ -358,7 +357,7 @@ int XHdcp1x_PortDpTxWrite(XHdcp1x_Port *InstancePtr, u8 Offset,
 * @note		None.
 *
 ******************************************************************************/
-void XHdcp1x_PortDpTxIntrHandler(XHdcp1x_Port *InstancePtr, u32 IntCause)
+void XHdcp1x_PortDpTxIntrHandler(XHdcp1x *InstancePtr, u32 IntCause)
 {
 	int HpdDetected = 0;
 
@@ -393,10 +392,10 @@ void XHdcp1x_PortDpTxIntrHandler(XHdcp1x_Port *InstancePtr, u32 IntCause)
 * @note		None.
 *
 ******************************************************************************/
-static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
+static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf,
 		u32 BufSize)
 {
-	XDptx *DpHw = InstancePtr->PhyIfPtr;
+	XDptx *DpHw = InstancePtr->Port.PhyIfPtr;
 	u32 Address = 0;
 	int NumRead = 0;
 
@@ -426,10 +425,10 @@ static int RegRead(const XHdcp1x_Port *InstancePtr, u8 Offset, u8 *Buf,
 * @note		None.
 *
 ******************************************************************************/
-static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
+static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf,
 		u32 BufSize)
 {
-	XDptx *DpHw = InstancePtr->PhyIfPtr;
+	XDptx *DpHw = InstancePtr->Port.PhyIfPtr;
 	u32 Address = 0;
 	int NumWritten = 0;
 
@@ -456,7 +455,7 @@ static int RegWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const u8 *Buf,
 * @note		None.
 *
 ******************************************************************************/
-static void CheckForRxStatusChange(XHdcp1x_Port *InstancePtr)
+static void CheckForRxStatusChange(XHdcp1x *InstancePtr)
 {
 	u8 Value = 0;
 
@@ -471,9 +470,9 @@ static void CheckForRxStatusChange(XHdcp1x_Port *InstancePtr)
 		/* Check for link failure or re-authentication requested */
 		if ((Value & ReauthMask) != 0) {
 			/* Invoke authentication callback if set */
-			if (InstancePtr->IsAuthCallbackSet) {
-				(*(InstancePtr->AuthCallback))(
-						InstancePtr->AuthRef);
+			if (InstancePtr->Port.IsAuthCallbackSet) {
+				(*(InstancePtr->Port.AuthCallback))(
+						InstancePtr->Port.AuthRef);
 			}
 		}
 	}

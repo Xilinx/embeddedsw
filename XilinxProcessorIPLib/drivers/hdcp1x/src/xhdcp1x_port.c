@@ -89,8 +89,7 @@ extern const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor;
 
 /*************************** Function Prototypes *****************************/
 
-static const XHdcp1x_PortPhyIfAdaptor *DetermineAdaptor(
-		const XHdcp1x_Port *InstancePtr);
+static const XHdcp1x_PortPhyIfAdaptor *DetermineAdaptor(XHdcp1x *InstancePtr);
 
 /************************** Function Definitions *****************************/
 
@@ -109,7 +108,7 @@ static const XHdcp1x_PortPhyIfAdaptor *DetermineAdaptor(
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortCfgInitialize(XHdcp1x_Port *InstancePtr,
+int XHdcp1x_PortCfgInitialize(XHdcp1x *InstancePtr,
                 const XHdcp1x_Config *CfgPtr, void *PhyIfPtr)
 {
 	int Status = XST_SUCCESS;
@@ -118,26 +117,25 @@ int XHdcp1x_PortCfgInitialize(XHdcp1x_Port *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	Xil_AssertNonvoid(PhyIfPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady != XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr->Port.IsReady != XIL_COMPONENT_IS_READY);
 
 	/* Initialize InstancePtr */
-	memset(InstancePtr, 0, sizeof(XHdcp1x_Port));
-	InstancePtr->CfgPtr = CfgPtr;
-	InstancePtr->PhyIfPtr = PhyIfPtr;
-	InstancePtr->Adaptor = DetermineAdaptor(InstancePtr);
+	InstancePtr->Port.CfgPtr = CfgPtr;
+	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
+	InstancePtr->Port.Adaptor = DetermineAdaptor(InstancePtr);
 
 	/* Sanity Check */
-	if (InstancePtr->Adaptor == NULL) {
+	if (InstancePtr->Port.Adaptor == NULL) {
 		Status = XST_NO_FEATURE;
 	}
 	/* Invoke adaptor function if present */
-	else if (InstancePtr->Adaptor->Init != NULL) {
-		Status = (*(InstancePtr->Adaptor->Init))(InstancePtr);
+	else if (InstancePtr->Port.Adaptor->Init != NULL) {
+		Status = (*(InstancePtr->Port.Adaptor->Init))(InstancePtr);
 	}
 
 	/* Set IsReady */
 	if (Status == XST_SUCCESS) {
-		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+		InstancePtr->Port.IsReady = XIL_COMPONENT_IS_READY;
 	}
 
 	return (Status);
@@ -156,7 +154,7 @@ int XHdcp1x_PortCfgInitialize(XHdcp1x_Port *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortEnable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortEnable(XHdcp1x *InstancePtr)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
 	int Status = XST_SUCCESS;
@@ -165,7 +163,7 @@ int XHdcp1x_PortEnable(XHdcp1x_Port *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Sanity Check */
 	if (Adaptor == NULL) {
@@ -192,7 +190,7 @@ int XHdcp1x_PortEnable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDisable(XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortDisable(XHdcp1x *InstancePtr)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
 	int Status = XST_SUCCESS;
@@ -201,7 +199,7 @@ int XHdcp1x_PortDisable(XHdcp1x_Port *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Sanity Check */
 	if (Adaptor == NULL) {
@@ -226,7 +224,7 @@ int XHdcp1x_PortDisable(XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortIsCapable(const XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortIsCapable(const XHdcp1x *InstancePtr)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
 	int IsCapable = FALSE;
@@ -235,7 +233,7 @@ int XHdcp1x_PortIsCapable(const XHdcp1x_Port *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Invoke adaptor function if present */
 	if ((Adaptor != NULL) && (Adaptor->IsCapable != NULL)) {
@@ -257,7 +255,7 @@ int XHdcp1x_PortIsCapable(const XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortIsRepeater(const XHdcp1x_Port *InstancePtr)
+int XHdcp1x_PortIsRepeater(const XHdcp1x *InstancePtr)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
 	int IsRepeater = FALSE;
@@ -266,7 +264,7 @@ int XHdcp1x_PortIsRepeater(const XHdcp1x_Port *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Invoke adaptor function if present */
 	if ((Adaptor != NULL) && (Adaptor->IsRepeater != NULL)) {
@@ -290,7 +288,7 @@ int XHdcp1x_PortIsRepeater(const XHdcp1x_Port *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortGetRepeaterInfo(XHdcp1x_Port *InstancePtr, u16 *InfoPtr)
+int XHdcp1x_PortGetRepeaterInfo(XHdcp1x *InstancePtr, u16 *InfoPtr)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
 	int Status = XST_SUCCESS;
@@ -300,7 +298,7 @@ int XHdcp1x_PortGetRepeaterInfo(XHdcp1x_Port *InstancePtr, u16 *InfoPtr)
 	Xil_AssertNonvoid(InfoPtr != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Sanity Check */
 	if (Adaptor == NULL) {
@@ -328,7 +326,7 @@ int XHdcp1x_PortGetRepeaterInfo(XHdcp1x_Port *InstancePtr, u16 *InfoPtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortRead(const XHdcp1x_Port *InstancePtr, u8 Offset, void *Buf,
+int XHdcp1x_PortRead(const XHdcp1x *InstancePtr, u8 Offset, void *Buf,
                 u32 BufSize)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
@@ -339,7 +337,7 @@ int XHdcp1x_PortRead(const XHdcp1x_Port *InstancePtr, u8 Offset, void *Buf,
 	Xil_AssertNonvoid(Buf != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Invoke adaptor function if present */
 	if ((Adaptor != NULL) && (Adaptor->Read != NULL)) {
@@ -364,7 +362,7 @@ int XHdcp1x_PortRead(const XHdcp1x_Port *InstancePtr, u8 Offset, void *Buf,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const void *Buf,
+int XHdcp1x_PortWrite(XHdcp1x *InstancePtr, u8 Offset, const void *Buf,
                 u32 BufSize)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
@@ -375,7 +373,7 @@ int XHdcp1x_PortWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const void *Buf,
 	Xil_AssertNonvoid(Buf != NULL);
 
 	/* Determine Adaptor */
-	Adaptor = InstancePtr->Adaptor;
+	Adaptor = InstancePtr->Port.Adaptor;
 
 	/* Invoke adaptor function if present */
 	if ((Adaptor != NULL) && (Adaptor->Write != NULL)) {
@@ -398,11 +396,10 @@ int XHdcp1x_PortWrite(XHdcp1x_Port *InstancePtr, u8 Offset, const void *Buf,
 * @note		None.
 *
 ******************************************************************************/
-static const XHdcp1x_PortPhyIfAdaptor *DetermineAdaptor(
-		const XHdcp1x_Port *InstancePtr)
+static const XHdcp1x_PortPhyIfAdaptor *DetermineAdaptor(XHdcp1x *InstancePtr)
 {
 	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
-	const XHdcp1x_Config *CfgPtr = InstancePtr->CfgPtr;
+	XHdcp1x_Config *CfgPtr = &InstancePtr->Config;
 
 #if defined(INCLUDE_HDMI_RX)
 	/* Check for HDMI Rx */

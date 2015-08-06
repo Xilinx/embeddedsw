@@ -212,8 +212,6 @@ static const char *StateToString(tState State);
 int XHdcp1x_TxCfgInitialize(XHdcp1x *InstancePtr,
 		const XHdcp1x_Config *CfgPtr, void *PhyIfPtr)
 {
-	XHdcp1x_Cipher *CipherPtr = NULL;
-	XHdcp1x_Port *PortPtr = NULL;
 	int Status = XST_SUCCESS;
 
 	/* Verify arguments. */
@@ -225,11 +223,9 @@ int XHdcp1x_TxCfgInitialize(XHdcp1x *InstancePtr,
 	InstancePtr->Tx.CfgPtr = CfgPtr;
 
 	/* Initialize cipher, port and state machine */
-	CipherPtr = &InstancePtr->Cipher;
-	PortPtr = &InstancePtr->Tx.Port;
-	Status = XHdcp1x_PortCfgInitialize(PortPtr, CfgPtr, PhyIfPtr);
+	Status = XHdcp1x_PortCfgInitialize(InstancePtr, CfgPtr, PhyIfPtr);
 	if (Status == XST_SUCCESS) {
-		Status = XHdcp1x_CipherCfgInitialize(CipherPtr, CfgPtr);
+		Status = XHdcp1x_CipherCfgInitialize(InstancePtr, CfgPtr);
 		if (Status == XST_SUCCESS) {
 			Init(InstancePtr);
 		}
@@ -394,7 +390,7 @@ int XHdcp1x_TxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 	Xil_AssertNonvoid(LaneCount > 0);
 
 	/* Set it */
-	return (XHdcp1x_CipherSetNumLanes(&InstancePtr->Cipher, LaneCount));
+	return (XHdcp1x_CipherSetNumLanes(InstancePtr, LaneCount));
 }
 
 /*****************************************************************************/
@@ -550,8 +546,7 @@ int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Disable it */
-	Status = XHdcp1x_CipherDisableEncryption(&InstancePtr->Cipher,
-			StreamMap);
+	Status = XHdcp1x_CipherDisableEncryption(InstancePtr, StreamMap);
 
 	/* Update InstancePtr */
 	if (Status == XST_SUCCESS) {
@@ -622,7 +617,7 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 	XHDCP1X_DEBUG_PRINTF("Driver Version:  %d.%02d.%02d\r\n",
 			((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
 			(Version & 0xFFu));
-	Version = XHdcp1x_CipherGetVersion(&InstancePtr->Cipher);
+	Version = XHdcp1x_CipherGetVersion(InstancePtr);
 	XHDCP1X_DEBUG_PRINTF("Cipher Version:  %d.%02d.%02d\r\n",
 			((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
 			(Version & 0xFFu));
@@ -649,7 +644,7 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Port Stats\r\n");
 	XHDCP1X_DEBUG_PRINTF("Int Count:       %d\r\n",
-			InstancePtr->Tx.Port.Stats.IntCount);
+			InstancePtr->Port.Stats.IntCount);
 
 	return (XST_SUCCESS);
 }
@@ -817,22 +812,20 @@ static void SetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
 {
 	/* Check for HDMI */
 	if (IsHDMI(InstancePtr)) {
-		XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
-
 		/* Check for enabled */
 		if (IsEnabled) {
 			/* Register Callback */
-			XHdcp1x_CipherSetCallback(CipherPtr,
+			XHdcp1x_CipherSetCallback(InstancePtr,
 					XHDCP1X_CIPHER_HANDLER_Ri_UPDATE,
 					&CheckLinkCallback, InstancePtr);
 
 			/* Enable it */
-			XHdcp1x_CipherSetRiUpdate(CipherPtr, TRUE);
+			XHdcp1x_CipherSetRiUpdate(InstancePtr, TRUE);
 		}
 		/* Otherwise */
 		else {
 			/* Disable it */
-			XHdcp1x_CipherSetRiUpdate(CipherPtr, FALSE);
+			XHdcp1x_CipherSetRiUpdate(InstancePtr, FALSE);
 		}
 	}
 }
@@ -857,7 +850,7 @@ static void EnableEncryption(XHdcp1x *InstancePtr)
 
 		/* Determine StreamMap */
 		StreamMap =
-			XHdcp1x_CipherGetEncryption(&InstancePtr->Cipher);
+			XHdcp1x_CipherGetEncryption(InstancePtr);
 
 		/* Check if there is something to do */
 		if (StreamMap != InstancePtr->Tx.EncryptionMap) {
@@ -865,7 +858,7 @@ static void EnableEncryption(XHdcp1x *InstancePtr)
 			BusyDelay(InstancePtr, TMO_5MS);
 
 			/* Enable it */
-			XHdcp1x_CipherEnableEncryption(&InstancePtr->Cipher,
+			XHdcp1x_CipherEnableEncryption(InstancePtr,
 					InstancePtr->Tx.EncryptionMap);
 		}
 	}
@@ -885,7 +878,7 @@ static void EnableEncryption(XHdcp1x *InstancePtr)
 ******************************************************************************/
 static void DisableEncryption(XHdcp1x *InstancePtr)
 {
-	u64 StreamMap = XHdcp1x_CipherGetEncryption(&InstancePtr->Cipher);
+	u64 StreamMap = XHdcp1x_CipherGetEncryption(InstancePtr);
 
 	/* Check if encryption actually enabled */
 	if (StreamMap != 0) {
@@ -893,8 +886,7 @@ static void DisableEncryption(XHdcp1x *InstancePtr)
 		StreamMap = (u64)(-1);
 
 		/* Disable it all */
-		XHdcp1x_CipherDisableEncryption(&InstancePtr->Cipher,
-				StreamMap);
+		XHdcp1x_CipherDisableEncryption(InstancePtr, StreamMap);
 
 		/* Wait at least a frame */
 		BusyDelay(InstancePtr, TMO_5MS);
@@ -918,15 +910,15 @@ static void Enable(XHdcp1x *InstancePtr)
 	memset(&(InstancePtr->Tx.Stats), 0, sizeof(InstancePtr->Tx.Stats));
 
 	/* Enable the crypto engine */
-	XHdcp1x_CipherEnable(&InstancePtr->Cipher);
+	XHdcp1x_CipherEnable(InstancePtr);
 
 	/* Register the re-authentication callback */
-	XHdcp1x_PortSetCallback(&InstancePtr->Tx.Port,
+	XHdcp1x_PortSetCallback(InstancePtr,
 			XHDCP1X_PORT_HANDLER_AUTHENTICATE,
 			&ReauthenticateCallback, InstancePtr);
 
 	/* Enable the hdcp port */
-	XHdcp1x_PortEnable(&InstancePtr->Tx.Port);
+	XHdcp1x_PortEnable(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -943,10 +935,10 @@ static void Enable(XHdcp1x *InstancePtr)
 static void Disable(XHdcp1x *InstancePtr)
 {
 	/* Disable the hdcp port */
-	XHdcp1x_PortDisable(&InstancePtr->Tx.Port);
+	XHdcp1x_PortDisable(InstancePtr);
 
 	/* Disable the cryto engine */
-	XHdcp1x_CipherDisable(&InstancePtr->Cipher);
+	XHdcp1x_CipherDisable(InstancePtr);
 
 	/* Disable the timer */
 	StopTimer(InstancePtr);
@@ -972,7 +964,7 @@ static void Disable(XHdcp1x *InstancePtr)
 static void CheckRxCapable(const XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
 	/* Check for capable */
-	if (XHdcp1x_PortIsCapable(&InstancePtr->Tx.Port)) {
+	if (XHdcp1x_PortIsCapable(InstancePtr)) {
 		/* Log */
 		DebugLog(InstancePtr, "rx hdcp capable");
 
@@ -1001,17 +993,16 @@ static void CheckRxCapable(const XHdcp1x *InstancePtr, tState *NextStatePtr)
 ******************************************************************************/
 static u64 GenerateAn(XHdcp1x *InstancePtr)
 {
-	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u64 An = 0;
 
 	/* Attempt to generate An */
-	if (XHdcp1x_CipherDoRequest(CipherPtr, XHDCP1X_CIPHER_REQUEST_RNG) ==
+	if (XHdcp1x_CipherDoRequest(InstancePtr, XHDCP1X_CIPHER_REQUEST_RNG) ==
 			XST_SUCCESS) {
 		/* Wait until done */
-		while (!XHdcp1x_CipherIsRequestComplete(CipherPtr));
+		while (!XHdcp1x_CipherIsRequestComplete(InstancePtr));
 
 		/* Update theAn */
-		An = XHdcp1x_CipherGetMi(CipherPtr);
+		An = XHdcp1x_CipherGetMi(InstancePtr);
 	}
 
 	/* Check if zero */
@@ -1068,8 +1059,6 @@ static int IsKsvValid(u64 Ksv)
 ******************************************************************************/
 static void ExchangeKsvs(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
-	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u8 Buf[8];
 
 	/* Initialize Buf */
@@ -1079,7 +1068,8 @@ static void ExchangeKsvs(XHdcp1x *InstancePtr, tState *NextStatePtr)
 	*NextStatePtr = STATE_UNAUTHENTICATED;
 
 	/* Read the Bksv from remote end */
-	if (XHdcp1x_PortRead(PortPtr, XHDCP1X_PORT_OFFSET_BKSV, Buf, 5) > 0) {
+	if (XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BKSV,
+			Buf, 5) > 0) {
 		u64 RemoteKsv = 0;
 
 		/* Determine theRemoteKsv */
@@ -1100,7 +1090,7 @@ static void ExchangeKsvs(XHdcp1x *InstancePtr, tState *NextStatePtr)
 			u64 An = 0;
 
 			/* Check for repeater and update InstancePtr */
-			if (XHdcp1x_PortIsRepeater(&InstancePtr->Tx.Port)) {
+			if (XHdcp1x_PortIsRepeater(InstancePtr)) {
 				InstancePtr->Tx.Flags |= FLAG_IS_REPEATER;
 			}
 			else {
@@ -1114,21 +1104,21 @@ static void ExchangeKsvs(XHdcp1x *InstancePtr, tState *NextStatePtr)
 			InstancePtr->Tx.StateHelper = An;
 
 			/* Determine theLocalKsv */
-			LocalKsv = XHdcp1x_CipherGetLocalKsv(CipherPtr);
+			LocalKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
 
 			/* Load the cipher with the remote ksv */
-			XHdcp1x_CipherSetRemoteKsv(CipherPtr, RemoteKsv);
+			XHdcp1x_CipherSetRemoteKsv(InstancePtr, RemoteKsv);
 
 			/* Send An to remote */
 			XHDCP1X_PORT_UINT_TO_BUF(Buf, An,
 					XHDCP1X_PORT_SIZE_AN * 8);
-			XHdcp1x_PortWrite(PortPtr, XHDCP1X_PORT_OFFSET_AN, Buf,
-					XHDCP1X_PORT_SIZE_AN);
+			XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AN,
+					Buf, XHDCP1X_PORT_SIZE_AN);
 
 			/* Send AKsv to remote */
 			XHDCP1X_PORT_UINT_TO_BUF(Buf, LocalKsv,
 					XHDCP1X_PORT_SIZE_AKSV * 8);
-			XHdcp1x_PortWrite(PortPtr, XHDCP1X_PORT_OFFSET_AKSV,
+			XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AKSV,
 					Buf, XHDCP1X_PORT_SIZE_AKSV);
 
 			/* Update NextStatePtr */
@@ -1156,7 +1146,6 @@ static void ExchangeKsvs(XHdcp1x *InstancePtr, tState *NextStatePtr)
 ******************************************************************************/
 static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u64 Value = 0;
 	u32 X = 0;
 	u32 Y = 0;
@@ -1177,10 +1166,10 @@ static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 	if ((InstancePtr->Tx.Flags & FLAG_IS_REPEATER) != 0) {
 		Z |= (1ul << 8);
 	}
-	XHdcp1x_CipherSetB(CipherPtr, X, Y, Z);
+	XHdcp1x_CipherSetB(InstancePtr, X, Y, Z);
 
 	/* Initiate the block cipher */
-	XHdcp1x_CipherDoRequest(CipherPtr, XHDCP1X_CIPHER_REQUEST_BLOCK);
+	XHdcp1x_CipherDoRequest(InstancePtr, XHDCP1X_CIPHER_REQUEST_BLOCK);
 }
 
 /*****************************************************************************/
@@ -1198,7 +1187,7 @@ static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
 	/* Check for done */
-	if (XHdcp1x_CipherIsRequestComplete(&InstancePtr->Cipher)) {
+	if (XHdcp1x_CipherIsRequestComplete(InstancePtr)) {
 		DebugLog(InstancePtr, "computations complete");
 		*NextStatePtr = STATE_VALIDATERX;
 	}
@@ -1221,8 +1210,6 @@ static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 ******************************************************************************/
 static void ValidateRx(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
-	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u8 Buf[2];
 	int NumTries = 3;
 
@@ -1232,7 +1219,7 @@ static void ValidateRx(XHdcp1x *InstancePtr, tState *NextStatePtr)
 	/* Attempt to read Ro */
 	do {
 		/* Read the remote Ro' */
-		if (XHdcp1x_PortRead(PortPtr, XHDCP1X_PORT_OFFSET_RO,
+		if (XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_RO,
 				Buf, 2) > 0) {
 			char LogBuf[32];
 			u16 RemoteRo = 0;
@@ -1242,7 +1229,7 @@ static void ValidateRx(XHdcp1x *InstancePtr, tState *NextStatePtr)
 			XHDCP1X_PORT_BUF_TO_UINT(RemoteRo, Buf, 2 * 8);
 
 			/* Determine theLLocalRoocalRo */
-			LocalRo = XHdcp1x_CipherGetRo(CipherPtr);
+			LocalRo = XHdcp1x_CipherGetRo(InstancePtr);
 
 			/* Compare the Ro values */
 			if (LocalRo == RemoteRo) {
@@ -1297,8 +1284,6 @@ static void ValidateRx(XHdcp1x *InstancePtr, tState *NextStatePtr)
 ******************************************************************************/
 static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
-	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u8 Buf[2];
 	int NumTries = 3;
 
@@ -1308,7 +1293,7 @@ static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr)
 	/* Iterate through the tries */
 	do {
 		/* Read the remote Ri' */
-		if (XHdcp1x_PortRead(PortPtr, XHDCP1X_PORT_OFFSET_RO,
+		if (XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_RO,
 				Buf, 2) > 0) {
 
 			char LogBuf[48];
@@ -1319,7 +1304,7 @@ static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr)
 			XHDCP1X_PORT_BUF_TO_UINT(RemoteRi, Buf, 16);
 
 			/* Determine theLocalRi */
-			LocalRi = XHdcp1x_CipherGetRi(CipherPtr);
+			LocalRi = XHdcp1x_CipherGetRi(InstancePtr);
 
 			/* Compare the local and remote values */
 			if (LocalRi == RemoteRi) {
@@ -1373,10 +1358,8 @@ static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr)
 ******************************************************************************/
 static void TestForRepeater(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
-
 	/* Check for repeater */
-	if (XHdcp1x_PortIsRepeater(PortPtr)) {
+	if (XHdcp1x_PortIsRepeater(InstancePtr)) {
 		u8 Buf[XHDCP1X_PORT_SIZE_AINFO];
 
 		/* Update InstancePtr */
@@ -1384,7 +1367,7 @@ static void TestForRepeater(XHdcp1x *InstancePtr, tState *NextStatePtr)
 
 		/* Clear AINFO */
 		memset(Buf, 0, XHDCP1X_PORT_SIZE_AINFO);
-		XHdcp1x_PortWrite(PortPtr, XHDCP1X_PORT_OFFSET_AINFO, Buf,
+		XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, Buf,
 				XHDCP1X_PORT_SIZE_AINFO);
 
 		/* Update NextStatePtr */
@@ -1419,12 +1402,11 @@ static void TestForRepeater(XHdcp1x *InstancePtr, tState *NextStatePtr)
 ******************************************************************************/
 static void PollForWaitForReady(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
 	u16 RepeaterInfo = 0;
 	int Status = XST_SUCCESS;
 
 	/* Attempt to read the repeater info */
-	Status = XHdcp1x_PortGetRepeaterInfo(PortPtr, &RepeaterInfo);
+	Status = XHdcp1x_PortGetRepeaterInfo(InstancePtr, &RepeaterInfo);
 	if (Status == XST_SUCCESS) {
 		/* Check that neither cascade or device numbers exceeded */
 		if ((RepeaterInfo & 0x0880u) == 0) {
@@ -1479,8 +1461,6 @@ static void PollForWaitForReady(XHdcp1x *InstancePtr, tState *NextStatePtr)
 ******************************************************************************/
 static int ValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
-	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	SHA1Context Sha1Context;
 	u8 Buf[24];
 	int NumToRead = 0;
@@ -1508,7 +1488,7 @@ static int ValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 		}
 
 		/* Read the next chunk of the list */
-		if (XHdcp1x_PortRead(PortPtr, XHDCP1X_PORT_OFFSET_KSVFIFO,
+		if (XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_KSVFIFO,
 				Buf, NumThisTime) > 0) {
 			/* Update the calculation of V */
 			SHA1Input(&Sha1Context, Buf, NumThisTime);
@@ -1537,7 +1517,7 @@ static int ValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 		SHA1Input(&Sha1Context, Buf, 2);
 
 		/* Insert the Mo into the SHA-1 transform */
-		Mo = XHdcp1x_CipherGetMo(CipherPtr);
+		Mo = XHdcp1x_CipherGetMo(InstancePtr);
 		XHDCP1X_PORT_UINT_TO_BUF(Buf, Mo, 64);
 		SHA1Input(&Sha1Context, Buf, 8);
 
@@ -1562,7 +1542,7 @@ static int ValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 				CalcValue |= *Sha1Buf++;
 
 				/* Read the value from the far end */
-				if (XHdcp1x_PortRead(PortPtr, Offset, Buf,
+				if (XHdcp1x_PortRead(InstancePtr, Offset, Buf,
 						4) > 0) {
 					/* Determine ReadValue */
 					XHDCP1X_PORT_BUF_TO_UINT(ReadValue,
@@ -2278,7 +2258,7 @@ static void EnterState(XHdcp1x *InstancePtr, tState State, tState *NextStatePtr)
 		case STATE_PHYDOWN:
 			InstancePtr->Tx.Flags &= ~FLAG_PHY_UP;
 			DisableEncryption(InstancePtr);
-			XHdcp1x_CipherDisable(&InstancePtr->Cipher);
+			XHdcp1x_CipherDisable(InstancePtr);
 			break;
 
 		/* Otherwise */
@@ -2331,7 +2311,7 @@ static void ExitState(XHdcp1x *InstancePtr, tState State)
 
 		/* For physical layer down */
 		case STATE_PHYDOWN:
-			XHdcp1x_CipherEnable(&InstancePtr->Cipher);
+			XHdcp1x_CipherEnable(InstancePtr);
 			break;
 
 		/* Otherwise */
