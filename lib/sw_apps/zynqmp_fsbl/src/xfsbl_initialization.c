@@ -262,7 +262,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 ");
 		FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_A53_0;
-#ifndef __aarch32__
+#ifdef __aarch64__
 		/* Running on A53 64-bit */
 		XFsbl_Printf(DEBUG_GENERAL,"(64-bit) Processor \n\r");
 		FsblInstancePtr->A53ExecState = XIH_PH_ATTRB_A53_EXEC_ST_AA64;
