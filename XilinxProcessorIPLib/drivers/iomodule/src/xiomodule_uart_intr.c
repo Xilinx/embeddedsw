@@ -48,6 +48,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.03a sa   10/16/12 First release
+* 2.2	nsk  08/06/15 Updated XIOModule_Uart_InterruptHandler function
+*		      to read Status register instead of reading Interrupt
+*		      Pending register.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -583,8 +587,7 @@ void XIOModule_Uart_InterruptHandler(XIOModule *InstancePtr)
 	 * Read the status register to determine which, could be both,
 	 * interrupt is active
 	 */
-	IsrStatus = XIOModule_ReadReg(InstancePtr->BaseAddress,
-					XIN_IPR_OFFSET);
+	IsrStatus = XIOModule_GetStatusReg(InstancePtr->BaseAddress);
 
 	if ((IsrStatus & XUL_SR_RX_FIFO_VALID_DATA) != 0) {
 		ReceiveDataHandler(InstancePtr);
