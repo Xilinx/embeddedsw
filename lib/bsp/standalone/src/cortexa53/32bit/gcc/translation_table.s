@@ -102,7 +102,7 @@ MMUTable:
 .set	SECT, SECT+0x100000
 .endr
 
-.rept	0x44			/* 0xfA000000 - 0xfe3fffff (Device).
+.rept	0x44			/* 0xfA000000 - 0xfe3fffff (Device).*/
 .word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
