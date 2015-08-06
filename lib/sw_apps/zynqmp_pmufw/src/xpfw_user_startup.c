@@ -43,6 +43,8 @@
 #include "ipi_buffer.h"
 #include "pm_defs.h"
 
+#include "xpfw_mod_dap.h"
+
 #ifdef ENABLE_PM
 static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
 {
@@ -266,4 +268,5 @@ void XPfw_UserStartUp(void)
 	ModEmInit();
 	ModPmInit();
 	(void)ModSchInit();
+	ModDapInit();
 }
