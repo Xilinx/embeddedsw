@@ -111,7 +111,9 @@ static struct XPfw_Event_t EventTable[] = {
 	[XPFW_EV_PL_GPI_1] = { .Type = XPFW_EV_TYPE_GPI3, .RegMask =  PMU_IOMODULE_GPI3_PL_GPI_1_MASK, .ModMask = MASK32_ALL_LOW },
 	[XPFW_EV_PL_GPI_0] = { .Type = XPFW_EV_TYPE_GPI3, .RegMask =  PMU_IOMODULE_GPI3_PL_GPI_0_MASK, .ModMask = MASK32_ALL_LOW },
 	[XPFW_EV_RTC_SECONDS] = { .Type = XPFW_EV_TYPE_RTC, .RegMask =  PMU_IOMODULE_IRQ_PENDING_RTC_EVERY_SECOND_MASK, .ModMask = MASK32_ALL_LOW },
-	[XPFW_EV_RTC_ALARM] = { .Type = XPFW_EV_TYPE_RTC, .RegMask =  PMU_IOMODULE_IRQ_PENDING_RTC_ALARM_MASK, .ModMask = MASK32_ALL_LOW }
+	[XPFW_EV_RTC_ALARM] = { .Type = XPFW_EV_TYPE_RTC, .RegMask =  PMU_IOMODULE_IRQ_PENDING_RTC_ALARM_MASK, .ModMask = MASK32_ALL_LOW },
+	[XPFW_EV_REQ_PWRUP] = { .Type = XPFW_EV_TYPE_GEN, .RegMask =  PMU_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, .ModMask = MASK32_ALL_LOW },
+	[XPFW_EV_REQ_PWRDN] = { .Type = XPFW_EV_TYPE_GEN, .RegMask =  PMU_IOMODULE_IRQ_PENDING_PWR_DN_REQ_MASK, .ModMask = MASK32_ALL_LOW }
 };
 
 u32 XPfw_EventGetModMask(u32 EventId)
@@ -145,6 +147,12 @@ static XStatus XPfw_EventEnable(u32 EventId)
 	XStatus Status;
 
 	switch (EventTable[EventId].Type) {
+	case XPFW_EV_TYPE_GEN:
+		/* Enable REQ_PWRUP /PWR_DN bit in IRQ_ENABLE */
+		XPfw_InterruptEnable(EventTable[EventId].RegMask);
+		Status = XST_SUCCESS;
+		break;
+
 	case XPFW_EV_TYPE_GPI0:
 		/* Nothing to do for GPI0. These are enabled by default */
 		/* Enable GPI0 bit in IRQ_ENABLE */
@@ -194,6 +202,12 @@ static XStatus XPfw_EventDisable(u32 EventId)
 	XStatus Status;
 
 	switch (EventTable[EventId].Type) {
+	case XPFW_EV_TYPE_GEN:
+		/* Enable REQ_PWRUP /PWR_DN bit in IRQ_ENABLE */
+		XPfw_InterruptDisable(EventTable[EventId].RegMask);
+		Status = XST_SUCCESS;
+		break;
+
 	case XPFW_EV_TYPE_GPI0:
 		/* Nothing to do for GPI0. These are enabled by default */
 		/* Disable GPI0 bit in IRQ_ENABLE */

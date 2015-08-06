@@ -137,6 +137,28 @@ static void XPfw_NullHandler(void)
 	fw_printf("Error: NullHandler Triggered!\r\n");
 }
 
+static void XPfw_InterruptPwrUpHandler(void)
+{
+	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_REQ_PWRUP);
+
+	if (XST_SUCCESS != Status) {
+		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
+		XPFW_EV_MB_FAULT);
+	}
+}
+
+static void XPfw_InterruptPwrDnHandler(void)
+{
+	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_REQ_PWRDN);
+
+	if (XST_SUCCESS != Status) {
+		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
+		XPFW_EV_MB_FAULT);
+	}
+}
+
+
+
 static void XPfw_InterruptGpi0Handler(void)
 {
 	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_MB_FAULT);
@@ -280,8 +302,8 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PMU_IOMODULE_IRQ_PENDING_IPI2_MASK, XPfw_Ipi2Handler},
 	{PMU_IOMODULE_IRQ_PENDING_IPI1_MASK, XPfw_Ipi1Handler},
 	{PMU_IOMODULE_IRQ_PENDING_IPI0_MASK, XPfw_Ipi0Handler},
-	{PMU_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_PWR_DN_REQ_MASK, XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, XPfw_InterruptPwrUpHandler},
+	{PMU_IOMODULE_IRQ_PENDING_PWR_DN_REQ_MASK, XPfw_InterruptPwrDnHandler},
 	{PMU_IOMODULE_IRQ_PENDING_ISO_REQ_MASK, XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_HW_RST_REQ_MASK, XPfw_NullHandler},

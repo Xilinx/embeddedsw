@@ -112,6 +112,10 @@
 #define    XPFW_EV_PL_GPI_0                77U
 #define    XPFW_EV_RTC_SECONDS             78U
 #define    XPFW_EV_RTC_ALARM               79U
+#define    XPFW_EV_REQ_PWRUP               80U
+#define    XPFW_EV_REQ_PWRDN               81U
+
+#define    XPFW_EV_MAX                     82U
 
 #define XPFW_EV_GROUP_GPI0
 #define XPFW_EV_GROUP_GPI1
@@ -125,25 +129,19 @@
 #define XPFW_EV_GROUP_PWR_DISCONNECT
 #define XPFW_EV_GROUP_SYS_ERROR
 
-#define    XPFW_EV_MAX						80U
-
-
 #define XPFW_EV_TYPE_INVALID	0xffffffffU
 #define XPFW_EV_TYPE_GPI0	0U
 #define XPFW_EV_TYPE_GPI1	1U
 #define XPFW_EV_TYPE_GPI2	2U
 #define XPFW_EV_TYPE_GPI3	3U
 #define XPFW_EV_TYPE_RTC	4U
-
+#define XPFW_EV_TYPE_GEN	5U
 
 struct XPfw_Event_t {
 	const u8 Type;
 	const u32 RegMask;
 	u32 ModMask;
 };
-
-
-
 
 u32 XPfw_EventGetModMask(u32 EventId);
 u32 XPfw_EventGetRegMask(u32 EventId);
