@@ -56,6 +56,7 @@ XStatus XPfw_CoreConfigure(void);
 XStatus XPfw_CoreDispatchEvent( u32 EventId);
 const XPfw_Module_t *XPfw_CoreCreateMod(void);
 XStatus XPfw_CoreScheduleTask(const XPfw_Module_t *ModPtr, u32 Interval, VoidFunction_t CallbackRef);
+s32 XPfw_CoreRemoveTask(const XPfw_Module_t *ModPtr, u32 Interval, VoidFunction_t CallbackRef);
 XStatus XPfw_CoreStopScheduler(void);
 XStatus XPfw_CoreLoop(void);
 void XPfw_CorePrintStats(void);

@@ -204,6 +204,21 @@ XStatus XPfw_CoreScheduleTask(const XPfw_Module_t *ModPtr, u32 Interval,
 	return Status;
 }
 
+s32 XPfw_CoreRemoveTask(const XPfw_Module_t *ModPtr, u32 Interval,
+		VoidFunction_t CallbackRef)
+{
+	s32 Status;
+
+	if ((ModPtr == NULL) || (CorePtr == NULL)) {
+		Status = XST_FAILURE;
+		goto Done;
+	}
+	Status = XPfw_SchedulerRemoveTask(&CorePtr->Scheduler, ModPtr->ModId,
+			Interval, CallbackRef);
+Done:
+	return Status;
+}
+
 void XPfw_CoreTickHandler(void)
 {
 	if(CorePtr != NULL){
