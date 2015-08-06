@@ -43,9 +43,7 @@ CC_FLAGS = $(subst -pg, -DPROFILING, $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, -DPROFILING, $(EXTRA_COMPILER_FLAGS))
 
 ECC_FLAGS	+= -nostartfiles\
-		  -march=armv7-a \
-		  -mfloat-abi=soft \
-		  -mfpu=neon
+		  -march=armv7-a
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
