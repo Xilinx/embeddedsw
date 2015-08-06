@@ -46,7 +46,10 @@ static void LegacyCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRUP);
 	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRDN);
 
-	fw_printf("LEGACY PWR UP/DN (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+	/* Used for handling Secure Lock-Down request from CSU */
+	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_CSU_SEC_LOCK);
+
+	fw_printf("Legacy Request Handler (MOD-%d): Initialized.\r\n", ModPtr->ModId);
 }
 
 /* Event Handler */
@@ -63,6 +66,13 @@ static void LegacyEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		/* Call ROM Handler for PwrDn */
 		fw_printf("XPFW: Calling ROM PWRDN Handler..");
 		XpbrServHndlrTbl[XPBR_SERV_EXT_PWRDN_REQS]();
+		fw_printf("Done\r\n");
+	}
+
+	if (XPFW_EV_CSU_SEC_LOCK == EventId) {
+		/* Call ROM Handler for Secure Lock-DOwn */
+		fw_printf("XPFW: Calling Secure Lock-Down Handler..");
+		XpbrServHndlrTbl[XPBR_SERV_EXT_CSU_SECLOCK]();
 		fw_printf("Done\r\n");
 	}
 
