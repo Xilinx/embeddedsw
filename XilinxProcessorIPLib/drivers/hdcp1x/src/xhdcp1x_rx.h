@@ -69,24 +69,24 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-int XHdcp1x_RxCfgInitialize(XHdcp1x_Rx *InstancePtr,
+int XHdcp1x_RxCfgInitialize(XHdcp1x *InstancePtr,
 		const XHdcp1x_Config *CfgPtr, void *PhyIfPtr);
 
-int XHdcp1x_RxPoll(XHdcp1x_Rx *InstancePtr);
+int XHdcp1x_RxPoll(XHdcp1x *InstancePtr);
 
-int XHdcp1x_RxReset(XHdcp1x_Rx *InstancePtr);
-int XHdcp1x_RxEnable(XHdcp1x_Rx *InstancePtr);
-int XHdcp1x_RxDisable(XHdcp1x_Rx *InstancePtr);
+int XHdcp1x_RxReset(XHdcp1x *InstancePtr);
+int XHdcp1x_RxEnable(XHdcp1x *InstancePtr);
+int XHdcp1x_RxDisable(XHdcp1x *InstancePtr);
 
-int XHdcp1x_RxSetPhysicalState(XHdcp1x_Rx *InstancePtr, int IsUp);
-int XHdcp1x_RxSetLaneCount(XHdcp1x_Rx *InstancePtr, int LaneCount);
+int XHdcp1x_RxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
+int XHdcp1x_RxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
 
-int XHdcp1x_RxAuthenticate(XHdcp1x_Rx *InstancePtr);
-int XHdcp1x_RxIsAuthenticated(const XHdcp1x_Rx *InstancePtr);
+int XHdcp1x_RxAuthenticate(XHdcp1x *InstancePtr);
+int XHdcp1x_RxIsAuthenticated(const XHdcp1x *InstancePtr);
 
-u64 XHdcp1x_RxGetEncryption(const XHdcp1x_Rx *InstancePtr);
+u64 XHdcp1x_RxGetEncryption(const XHdcp1x *InstancePtr);
 
-int XHdcp1x_RxInfo(const XHdcp1x_Rx *InstancePtr);
+int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr);
 
 #ifdef __cplusplus
 }

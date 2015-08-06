@@ -119,7 +119,7 @@ typedef enum {
 * @note		None.
 *
 ******************************************************************************/
-#define IsDP(InstancePtr)  		(!InstancePtr->CfgPtr->IsHDMI)
+#define IsDP(InstancePtr)  		(!InstancePtr->Config.IsHDMI)
 
 /*****************************************************************************/
 /**
@@ -132,65 +132,65 @@ typedef enum {
 * @note		None.
 *
 ******************************************************************************/
-#define IsHDMI(InstancePtr)  		(InstancePtr->CfgPtr->IsHDMI)
+#define IsHDMI(InstancePtr)  		(InstancePtr->Config.IsHDMI)
 
 /*************************** Function Prototypes *****************************/
 
-static void DebugLog(const XHdcp1x_Tx *InstancePtr, const char *LogMsg);
-static void PostEvent(XHdcp1x_Tx *InstancePtr, tEvent Event);
-static void StartTimer(XHdcp1x_Tx *InstancePtr, u16 TimeoutInMs);
-static void StopTimer(XHdcp1x_Tx *InstancePtr);
-static void BusyDelay(XHdcp1x_Tx *InstancePtr, u16 DelayInMs);
+static void DebugLog(const XHdcp1x *InstancePtr, const char *LogMsg);
+static void PostEvent(XHdcp1x *InstancePtr, tEvent Event);
+static void StartTimer(XHdcp1x *InstancePtr, u16 TimeoutInMs);
+static void StopTimer(XHdcp1x *InstancePtr);
+static void BusyDelay(XHdcp1x *InstancePtr, u16 DelayInMs);
 static void ReauthenticateCallback(void *Parameter);
 static void CheckLinkCallback(void *Parameter);
-static void SetCheckLinkState(XHdcp1x_Tx *InstancePtr, int IsEnabled);
-static void EnableEncryption(XHdcp1x_Tx *InstancePtr);
-static void DisableEncryption(XHdcp1x_Tx *InstancePtr);
-static void Enable(XHdcp1x_Tx *InstancePtr);
-static void Disable(XHdcp1x_Tx *InstancePtr);
-static void CheckRxCapable(const XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static u64 GenerateAn(XHdcp1x_Tx *InstancePtr);
+static void SetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled);
+static void EnableEncryption(XHdcp1x *InstancePtr);
+static void DisableEncryption(XHdcp1x *InstancePtr);
+static void Enable(XHdcp1x *InstancePtr);
+static void Disable(XHdcp1x *InstancePtr);
+static void CheckRxCapable(const XHdcp1x *InstancePtr, tState *NextStatePtr);
+static u64 GenerateAn(XHdcp1x *InstancePtr);
 static int IsKsvValid(u64 Ksv);
-static void ExchangeKsvs(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static void StartComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static void PollForComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static void ValidateRx(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static void CheckLinkIntegrity(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static void TestForRepeater(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static void PollForWaitForReady(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static int ValidateKsvList(XHdcp1x_Tx *InstancePtr, u16 RepeaterInfo);
-static void ReadKsvList(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr);
-static int IsAuthenticated(const XHdcp1x_Tx *InstancePtr);
-static void RunDisabledState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void ExchangeKsvs(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static void ValidateRx(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static void TestForRepeater(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static void PollForWaitForReady(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static int ValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo);
+static void ReadKsvList(XHdcp1x *InstancePtr, tState *NextStatePtr);
+static int IsAuthenticated(const XHdcp1x *InstancePtr);
+static void RunDisabledState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunDetermineRxCapableState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunDetermineRxCapableState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunExchangeKsvsState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunExchangeKsvsState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunComputationsState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunComputationsState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunValidateRxState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunValidateRxState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunAuthenticatedState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunAuthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunLinkIntegrityCheckState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunLinkIntegrityCheckState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunTestForRepeaterState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunTestForRepeaterState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunWaitForReadyState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunWaitForReadyState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunReadKsvListState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunReadKsvListState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunUnauthenticatedState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunUnauthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void RunPhysicalLayerDownState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunPhysicalLayerDownState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr);
-static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
+static void EnterState(XHdcp1x *InstancePtr, tState State,
 		tState *NextStatePtr);
-static void ExitState(XHdcp1x_Tx *InstancePtr, tState State);
-static void DoTheState(XHdcp1x_Tx *InstancePtr, tEvent Event);
-static void Init(XHdcp1x_Tx *InstancePtr);
-static void ProcessPending(XHdcp1x_Tx *InstancePtr);
+static void ExitState(XHdcp1x *InstancePtr, tState State);
+static void DoTheState(XHdcp1x *InstancePtr, tEvent Event);
+static void Init(XHdcp1x *InstancePtr);
+static void ProcessPending(XHdcp1x *InstancePtr);
 static const char *StateToString(tState State);
 
 /************************** Function Definitions *****************************/
@@ -209,7 +209,7 @@ static const char *StateToString(tState State);
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxCfgInitialize(XHdcp1x_Tx *InstancePtr,
+int XHdcp1x_TxCfgInitialize(XHdcp1x *InstancePtr,
 		const XHdcp1x_Config *CfgPtr, void *PhyIfPtr)
 {
 	XHdcp1x_Cipher *CipherPtr = NULL;
@@ -222,12 +222,11 @@ int XHdcp1x_TxCfgInitialize(XHdcp1x_Tx *InstancePtr,
 	Xil_AssertNonvoid(PhyIfPtr != NULL);
 
 	/* Initialize InstancePtr */
-	memset(InstancePtr, 0, sizeof(XHdcp1x_Tx));
-	InstancePtr->CfgPtr = CfgPtr;
+	InstancePtr->Tx.CfgPtr = CfgPtr;
 
 	/* Initialize cipher, port and state machine */
 	CipherPtr = &InstancePtr->Cipher;
-	PortPtr = &InstancePtr->Port;
+	PortPtr = &InstancePtr->Tx.Port;
 	Status = XHdcp1x_PortCfgInitialize(PortPtr, CfgPtr, PhyIfPtr);
 	if (Status == XST_SUCCESS) {
 		Status = XHdcp1x_CipherCfgInitialize(CipherPtr, CfgPtr);
@@ -251,7 +250,7 @@ int XHdcp1x_TxCfgInitialize(XHdcp1x_Tx *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxPoll(XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxPoll(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -279,7 +278,7 @@ int XHdcp1x_TxPoll(XHdcp1x_Tx *InstancePtr)
 * @note		This function disables and then re-enables the interface.
 *
 ******************************************************************************/
-int XHdcp1x_TxReset(XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxReset(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -305,7 +304,7 @@ int XHdcp1x_TxReset(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxEnable(XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxEnable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -330,7 +329,7 @@ int XHdcp1x_TxEnable(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxDisable(XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxDisable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -356,7 +355,7 @@ int XHdcp1x_TxDisable(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxSetPhysicalState(XHdcp1x_Tx *InstancePtr, int IsUp)
+int XHdcp1x_TxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp)
 {
 	int Status = XST_SUCCESS;
 	tEvent Event = EVENT_PHYDOWN;
@@ -388,14 +387,14 @@ int XHdcp1x_TxSetPhysicalState(XHdcp1x_Tx *InstancePtr, int IsUp)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxSetLaneCount(XHdcp1x_Tx *InstancePtr, int LaneCount)
+int XHdcp1x_TxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(LaneCount > 0);
 
 	/* Set it */
-	return (XHdcp1x_CipherSetNumLanes(&(InstancePtr->Cipher), LaneCount));
+	return (XHdcp1x_CipherSetNumLanes(&InstancePtr->Cipher, LaneCount));
 }
 
 /*****************************************************************************/
@@ -410,7 +409,7 @@ int XHdcp1x_TxSetLaneCount(XHdcp1x_Tx *InstancePtr, int LaneCount)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxAuthenticate(XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxAuthenticate(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -435,7 +434,7 @@ int XHdcp1x_TxAuthenticate(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxIsInProgress(const XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxIsInProgress(const XHdcp1x *InstancePtr)
 {
 	int IsInProgress = FALSE;
 
@@ -443,7 +442,7 @@ int XHdcp1x_TxIsInProgress(const XHdcp1x_Tx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Which state? */
-	switch (InstancePtr->CurrentState) {
+	switch (InstancePtr->Tx.CurrentState) {
 		/* For the "steady" states */
 		case STATE_DISABLED:
 		case STATE_UNAUTHENTICATED:
@@ -472,7 +471,7 @@ int XHdcp1x_TxIsInProgress(const XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxIsAuthenticated(const XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxIsAuthenticated(const XHdcp1x *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -491,12 +490,12 @@ int XHdcp1x_TxIsAuthenticated(const XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u64 XHdcp1x_TxGetEncryption(const XHdcp1x_Tx *InstancePtr)
+u64 XHdcp1x_TxGetEncryption(const XHdcp1x *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return (InstancePtr->EncryptionMap);
+	return (InstancePtr->Tx.EncryptionMap);
 }
 
 /*****************************************************************************/
@@ -512,7 +511,7 @@ u64 XHdcp1x_TxGetEncryption(const XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxEnableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap)
+int XHdcp1x_TxEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 {
 	int Status = XST_SUCCESS;
 
@@ -520,7 +519,7 @@ int XHdcp1x_TxEnableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Update InstancePtr */
-	InstancePtr->EncryptionMap |= StreamMap;
+	InstancePtr->Tx.EncryptionMap |= StreamMap;
 
 	/* Check for authenticated */
 	if (IsAuthenticated(InstancePtr)) {
@@ -543,7 +542,7 @@ int XHdcp1x_TxEnableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxDisableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap)
+int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 {
 	int Status = XST_SUCCESS;
 
@@ -556,7 +555,7 @@ int XHdcp1x_TxDisableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap)
 
 	/* Update InstancePtr */
 	if (Status == XST_SUCCESS) {
-		InstancePtr->EncryptionMap &= ~StreamMap;
+		InstancePtr->Tx.EncryptionMap &= ~StreamMap;
 	}
 
 	return (Status);
@@ -573,7 +572,7 @@ int XHdcp1x_TxDisableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap)
 * @note		None.
 *
 ******************************************************************************/
-void XHdcp1x_TxHandleTimeout(XHdcp1x_Tx *InstancePtr)
+void XHdcp1x_TxHandleTimeout(XHdcp1x *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -594,7 +593,7 @@ void XHdcp1x_TxHandleTimeout(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxInfo(const XHdcp1x_Tx *InstancePtr)
+int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 {
 	u32 Version = 0;
 
@@ -610,37 +609,37 @@ int XHdcp1x_TxInfo(const XHdcp1x_Tx *InstancePtr)
 		XHDCP1X_DEBUG_PRINTF("dp-tx\r\n");
 	}
 	XHDCP1X_DEBUG_PRINTF("Current State:   %s\r\n",
-			StateToString(InstancePtr->CurrentState));
+			StateToString(InstancePtr->Tx.CurrentState));
 	XHDCP1X_DEBUG_PRINTF("Previous State:  %s\r\n",
-			StateToString(InstancePtr->PreviousState));
+			StateToString(InstancePtr->Tx.PreviousState));
 	XHDCP1X_DEBUG_PRINTF("State Helper:    %016llX\r\n",
-			InstancePtr->StateHelper);
+			InstancePtr->Tx.StateHelper);
 	XHDCP1X_DEBUG_PRINTF("Flags:           %04X\r\n",
-			InstancePtr->Flags);
+			InstancePtr->Tx.Flags);
 	XHDCP1X_DEBUG_PRINTF("Encryption Map:  %016llX\r\n",
-			InstancePtr->EncryptionMap);
+			InstancePtr->Tx.EncryptionMap);
 	Version = XHdcp1x_GetDriverVersion();
 	XHDCP1X_DEBUG_PRINTF("Driver Version:  %d.%02d.%02d\r\n",
 			((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
 			(Version & 0xFFu));
-	Version = XHdcp1x_CipherGetVersion(&(InstancePtr->Cipher));
+	Version = XHdcp1x_CipherGetVersion(&InstancePtr->Cipher);
 	XHDCP1X_DEBUG_PRINTF("Cipher Version:  %d.%02d.%02d\r\n",
 			((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
 			(Version & 0xFFu));
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Tx Stats\r\n");
 	XHDCP1X_DEBUG_PRINTF("Auth Passed:     %d\r\n",
-			InstancePtr->Stats.AuthPassed);
+			InstancePtr->Tx.Stats.AuthPassed);
 	XHDCP1X_DEBUG_PRINTF("Auth Failed:     %d\r\n",
-			InstancePtr->Stats.AuthFailed);
+			InstancePtr->Tx.Stats.AuthFailed);
 	XHDCP1X_DEBUG_PRINTF("Reauth Requests: %d\r\n",
-			InstancePtr->Stats.ReauthRequested);
+			InstancePtr->Tx.Stats.ReauthRequested);
 	XHDCP1X_DEBUG_PRINTF("Check Passed:    %d\r\n",
-			InstancePtr->Stats.LinkCheckPassed);
+			InstancePtr->Tx.Stats.LinkCheckPassed);
 	XHDCP1X_DEBUG_PRINTF("Check Failed:    %d\r\n",
-			InstancePtr->Stats.LinkCheckFailed);
+			InstancePtr->Tx.Stats.LinkCheckFailed);
 	XHDCP1X_DEBUG_PRINTF("Read Failures:   %d\r\n",
-			InstancePtr->Stats.ReadFailures);
+			InstancePtr->Tx.Stats.ReadFailures);
 
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Cipher Stats\r\n");
@@ -650,7 +649,7 @@ int XHdcp1x_TxInfo(const XHdcp1x_Tx *InstancePtr)
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Port Stats\r\n");
 	XHDCP1X_DEBUG_PRINTF("Int Count:       %d\r\n",
-			InstancePtr->Port.Stats.IntCount);
+			InstancePtr->Tx.Port.Stats.IntCount);
 
 	return (XST_SUCCESS);
 }
@@ -667,12 +666,12 @@ int XHdcp1x_TxInfo(const XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void DebugLog(const XHdcp1x_Tx *InstancePtr, const char *LogMsg)
+static void DebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 {
 	char Label[16];
 
 	/* Format Label */
-	snprintf(Label, 16, "hdcp-tx(%d) - ", InstancePtr->CfgPtr->DeviceId);
+	snprintf(Label, 16, "hdcp-tx(%d) - ", InstancePtr->Config.DeviceId);
 
 	/* Log it */
 	XHDCP1X_DEBUG_LOGMSG(Label);
@@ -692,19 +691,19 @@ static void DebugLog(const XHdcp1x_Tx *InstancePtr, const char *LogMsg)
 * @note		None.
 *
 ******************************************************************************/
-static void PostEvent(XHdcp1x_Tx *InstancePtr, tEvent Event)
+static void PostEvent(XHdcp1x *InstancePtr, tEvent Event)
 {
 	/* Check for disable and clear any pending enable */
 	if (Event == EVENT_DISABLE) {
-		InstancePtr->PendingEvents &= ~(1u << EVENT_ENABLE);
+		InstancePtr->Tx.PendingEvents &= ~(1u << EVENT_ENABLE);
 	}
 	/* Check for phy-down and clear any pending phy-up */
 	else if (Event == EVENT_PHYDOWN) {
-		InstancePtr->PendingEvents &= ~(1u << EVENT_PHYUP);
+		InstancePtr->Tx.PendingEvents &= ~(1u << EVENT_PHYUP);
 	}
 
 	/* Post it */
-	InstancePtr->PendingEvents |= (1u << Event);
+	InstancePtr->Tx.PendingEvents |= (1u << Event);
 }
 
 /*****************************************************************************/
@@ -719,10 +718,10 @@ static void PostEvent(XHdcp1x_Tx *InstancePtr, tEvent Event)
 * @note		None.
 *
 ******************************************************************************/
-static void StartTimer(XHdcp1x_Tx *InstancePtr, u16 TimeoutInMs)
+static void StartTimer(XHdcp1x *InstancePtr, u16 TimeoutInMs)
 {
 	/* Start it */
-	XHdcp1x_PlatformTimerStart((XHdcp1x *)InstancePtr, TimeoutInMs);
+	XHdcp1x_PlatformTimerStart(InstancePtr, TimeoutInMs);
 }
 
 /*****************************************************************************/
@@ -736,10 +735,10 @@ static void StartTimer(XHdcp1x_Tx *InstancePtr, u16 TimeoutInMs)
 * @note		None.
 *
 ******************************************************************************/
-static void StopTimer(XHdcp1x_Tx *InstancePtr)
+static void StopTimer(XHdcp1x *InstancePtr)
 {
 	/* Stop it */
-	XHdcp1x_PlatformTimerStop((XHdcp1x *)InstancePtr);
+	XHdcp1x_PlatformTimerStop(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -755,10 +754,10 @@ static void StopTimer(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void BusyDelay(XHdcp1x_Tx *InstancePtr, u16 DelayInMs)
+static void BusyDelay(XHdcp1x *InstancePtr, u16 DelayInMs)
 {
 	/* Busy wait */
-	XHdcp1x_PlatformTimerBusy((XHdcp1x *)InstancePtr, DelayInMs);
+	XHdcp1x_PlatformTimerBusy(InstancePtr, DelayInMs);
 }
 
 /*****************************************************************************/
@@ -774,10 +773,10 @@ static void BusyDelay(XHdcp1x_Tx *InstancePtr, u16 DelayInMs)
 ******************************************************************************/
 static void ReauthenticateCallback(void *Parameter)
 {
-	XHdcp1x_Tx *InstancePtr = Parameter;
+	XHdcp1x *InstancePtr = Parameter;
 
 	/* Update statistics */
-	InstancePtr->Stats.ReauthRequested++;
+	InstancePtr->Tx.Stats.ReauthRequested++;
 
 	/* Post the re-authentication request */
 	PostEvent(InstancePtr, EVENT_AUTHENTICATE);
@@ -796,7 +795,7 @@ static void ReauthenticateCallback(void *Parameter)
 ******************************************************************************/
 static void CheckLinkCallback(void *Parameter)
 {
-	XHdcp1x_Tx *InstancePtr = Parameter;
+	XHdcp1x *InstancePtr = Parameter;
 
 	/* Post the check request */
 	PostEvent(InstancePtr, EVENT_CHECK);
@@ -814,11 +813,11 @@ static void CheckLinkCallback(void *Parameter)
 * @note		None.
 *
 ******************************************************************************/
-static void SetCheckLinkState(XHdcp1x_Tx *InstancePtr, int IsEnabled)
+static void SetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
 {
 	/* Check for HDMI */
 	if (IsHDMI(InstancePtr)) {
-		XHdcp1x_Cipher *CipherPtr = &(InstancePtr->Cipher);
+		XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 
 		/* Check for enabled */
 		if (IsEnabled) {
@@ -850,23 +849,24 @@ static void SetCheckLinkState(XHdcp1x_Tx *InstancePtr, int IsEnabled)
 *		encryption is actually being disabled.
 *
 ******************************************************************************/
-static void EnableEncryption(XHdcp1x_Tx *InstancePtr)
+static void EnableEncryption(XHdcp1x *InstancePtr)
 {
 	/* Check for encryption enabled */
-	if (InstancePtr->EncryptionMap != 0) {
+	if (InstancePtr->Tx.EncryptionMap != 0) {
 		u64 StreamMap = 0;
 
 		/* Determine StreamMap */
-		StreamMap = XHdcp1x_CipherGetEncryption(&InstancePtr->Cipher);
+		StreamMap =
+			XHdcp1x_CipherGetEncryption(&InstancePtr->Cipher);
 
 		/* Check if there is something to do */
-		if (StreamMap != InstancePtr->EncryptionMap) {
+		if (StreamMap != InstancePtr->Tx.EncryptionMap) {
 			/* Wait a bit */
 			BusyDelay(InstancePtr, TMO_5MS);
 
 			/* Enable it */
 			XHdcp1x_CipherEnableEncryption(&InstancePtr->Cipher,
-					InstancePtr->EncryptionMap);
+					InstancePtr->Tx.EncryptionMap);
 		}
 	}
 }
@@ -883,7 +883,7 @@ static void EnableEncryption(XHdcp1x_Tx *InstancePtr)
 *		encryption is actually being disabled.
 *
 ******************************************************************************/
-static void DisableEncryption(XHdcp1x_Tx *InstancePtr)
+static void DisableEncryption(XHdcp1x *InstancePtr)
 {
 	u64 StreamMap = XHdcp1x_CipherGetEncryption(&InstancePtr->Cipher);
 
@@ -912,21 +912,21 @@ static void DisableEncryption(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void Enable(XHdcp1x_Tx *InstancePtr)
+static void Enable(XHdcp1x *InstancePtr)
 {
 	/* Clear statistics */
-	memset(&(InstancePtr->Stats), 0, sizeof(InstancePtr->Stats));
+	memset(&(InstancePtr->Tx.Stats), 0, sizeof(InstancePtr->Tx.Stats));
 
 	/* Enable the crypto engine */
 	XHdcp1x_CipherEnable(&InstancePtr->Cipher);
 
 	/* Register the re-authentication callback */
-	XHdcp1x_PortSetCallback(&InstancePtr->Port,
+	XHdcp1x_PortSetCallback(&InstancePtr->Tx.Port,
 			XHDCP1X_PORT_HANDLER_AUTHENTICATE,
 			&ReauthenticateCallback, InstancePtr);
 
 	/* Enable the hdcp port */
-	XHdcp1x_PortEnable(&InstancePtr->Port);
+	XHdcp1x_PortEnable(&InstancePtr->Tx.Port);
 }
 
 /*****************************************************************************/
@@ -940,10 +940,10 @@ static void Enable(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void Disable(XHdcp1x_Tx *InstancePtr)
+static void Disable(XHdcp1x *InstancePtr)
 {
 	/* Disable the hdcp port */
-	XHdcp1x_PortDisable(&InstancePtr->Port);
+	XHdcp1x_PortDisable(&InstancePtr->Tx.Port);
 
 	/* Disable the cryto engine */
 	XHdcp1x_CipherDisable(&InstancePtr->Cipher);
@@ -952,9 +952,9 @@ static void Disable(XHdcp1x_Tx *InstancePtr)
 	StopTimer(InstancePtr);
 
 	/* Update InstancePtr */
-	InstancePtr->Flags &= ~FLAG_IS_REPEATER;
-	InstancePtr->StateHelper = 0;
-	InstancePtr->EncryptionMap = 0;
+	InstancePtr->Tx.Flags &= ~FLAG_IS_REPEATER;
+	InstancePtr->Tx.StateHelper = 0;
+	InstancePtr->Tx.EncryptionMap = 0;
 }
 
 /*****************************************************************************/
@@ -969,10 +969,10 @@ static void Disable(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void CheckRxCapable(const XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void CheckRxCapable(const XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
 	/* Check for capable */
-	if (XHdcp1x_PortIsCapable(&InstancePtr->Port)) {
+	if (XHdcp1x_PortIsCapable(&InstancePtr->Tx.Port)) {
 		/* Log */
 		DebugLog(InstancePtr, "rx hdcp capable");
 
@@ -999,7 +999,7 @@ static void CheckRxCapable(const XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static u64 GenerateAn(XHdcp1x_Tx *InstancePtr)
+static u64 GenerateAn(XHdcp1x *InstancePtr)
 {
 	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u64 An = 0;
@@ -1066,9 +1066,9 @@ static int IsKsvValid(u64 Ksv)
 * @note		None.
 *
 ******************************************************************************/
-static void ExchangeKsvs(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void ExchangeKsvs(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Port;
+	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
 	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u8 Buf[8];
 
@@ -1091,8 +1091,7 @@ static void ExchangeKsvs(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 			DebugLog(InstancePtr, "Bksv invalid");
 		}
 		/* Check for revoked */
-		else if (XHdcp1x_PlatformIsKsvRevoked((XHdcp1x *)InstancePtr,
-				RemoteKsv)) {
+		else if (XHdcp1x_PlatformIsKsvRevoked(InstancePtr, RemoteKsv)) {
 			DebugLog(InstancePtr, "Bksv is revoked");
 		}
 		/* Otherwise we're good to go */
@@ -1101,18 +1100,18 @@ static void ExchangeKsvs(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 			u64 An = 0;
 
 			/* Check for repeater and update InstancePtr */
-			if (XHdcp1x_PortIsRepeater(&InstancePtr->Port)) {
-				InstancePtr->Flags |= FLAG_IS_REPEATER;
+			if (XHdcp1x_PortIsRepeater(&InstancePtr->Tx.Port)) {
+				InstancePtr->Tx.Flags |= FLAG_IS_REPEATER;
 			}
 			else {
-				InstancePtr->Flags &= ~FLAG_IS_REPEATER;
+				InstancePtr->Tx.Flags &= ~FLAG_IS_REPEATER;
 			}
 
 			/* Generate theAn */
 			An = GenerateAn(InstancePtr);
 
 			/* Save theAn into the state helper for use later */
-			InstancePtr->StateHelper = An;
+			InstancePtr->Tx.StateHelper = An;
 
 			/* Determine theLocalKsv */
 			LocalKsv = XHdcp1x_CipherGetLocalKsv(CipherPtr);
@@ -1139,7 +1138,7 @@ static void ExchangeKsvs(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 	/* Otherwise */
 	else {
 		/* Update the statistics */
-		InstancePtr->Stats.ReadFailures++;
+		InstancePtr->Tx.Stats.ReadFailures++;
 	}
 }
 
@@ -1155,7 +1154,7 @@ static void ExchangeKsvs(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void StartComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
 	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u64 Value = 0;
@@ -1167,7 +1166,7 @@ static void StartComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 	DebugLog(InstancePtr, "starting computations");
 
 	/* Update Value with An */
-	Value = InstancePtr->StateHelper;
+	Value = InstancePtr->Tx.StateHelper;
 
 	/* Load the cipher B registers with An */
 	X = (u32) (Value & 0x0FFFFFFFul);
@@ -1175,7 +1174,7 @@ static void StartComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 	Y = (u32) (Value & 0x0FFFFFFFul);
 	Value >>= 28;
 	Z = (u32) (Value & 0x000000FFul);
-	if ((InstancePtr->Flags & FLAG_IS_REPEATER) != 0) {
+	if ((InstancePtr->Tx.Flags & FLAG_IS_REPEATER) != 0) {
 		Z |= (1ul << 8);
 	}
 	XHdcp1x_CipherSetB(CipherPtr, X, Y, Z);
@@ -1196,7 +1195,7 @@ static void StartComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void PollForComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
 	/* Check for done */
 	if (XHdcp1x_CipherIsRequestComplete(&InstancePtr->Cipher)) {
@@ -1220,9 +1219,9 @@ static void PollForComputations(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void ValidateRx(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void ValidateRx(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Port;
+	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
 	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u8 Buf[2];
 	int NumTries = 3;
@@ -1263,7 +1262,7 @@ static void ValidateRx(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 
 				/* Update statistics if the last attempt */
 				if (NumTries == 1)
-					InstancePtr->Stats.AuthFailed++;
+					InstancePtr->Tx.Stats.AuthFailed++;
 			}
 
 			/* Log */
@@ -1275,7 +1274,7 @@ static void ValidateRx(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 			DebugLog(InstancePtr, "Ro' read failure");
 
 			/* Update the statistics */
-			InstancePtr->Stats.ReadFailures++;
+			InstancePtr->Tx.Stats.ReadFailures++;
 		}
 
 		/* Update for loop */
@@ -1296,9 +1295,9 @@ static void ValidateRx(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void CheckLinkIntegrity(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Port;
+	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
 	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	u8 Buf[2];
 	int NumTries = 3;
@@ -1340,7 +1339,7 @@ static void CheckLinkIntegrity(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 		}
 		else {
 			DebugLog(InstancePtr, "Ri' read failure");
-			InstancePtr->Stats.ReadFailures++;
+			InstancePtr->Tx.Stats.ReadFailures++;
 		}
 
 		/* Update for loop */
@@ -1350,10 +1349,10 @@ static void CheckLinkIntegrity(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 
 	/* Check for success */
 	if (*NextStatePtr == STATE_AUTHENTICATED) {
-		InstancePtr->Stats.LinkCheckPassed++;
+		InstancePtr->Tx.Stats.LinkCheckPassed++;
 	}
 	else {
-		InstancePtr->Stats.LinkCheckFailed++;
+		InstancePtr->Tx.Stats.LinkCheckFailed++;
 	}
 }
 
@@ -1372,16 +1371,16 @@ static void CheckLinkIntegrity(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 *		in order to pass the Unigraf compliance test suite.
 *
 ******************************************************************************/
-static void TestForRepeater(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void TestForRepeater(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Port;
+	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
 
 	/* Check for repeater */
 	if (XHdcp1x_PortIsRepeater(PortPtr)) {
 		u8 Buf[XHDCP1X_PORT_SIZE_AINFO];
 
 		/* Update InstancePtr */
-		InstancePtr->Flags |= FLAG_IS_REPEATER;
+		InstancePtr->Tx.Flags |= FLAG_IS_REPEATER;
 
 		/* Clear AINFO */
 		memset(Buf, 0, XHDCP1X_PORT_SIZE_AINFO);
@@ -1399,7 +1398,7 @@ static void TestForRepeater(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 	}
 	else {
 		/* Update InstancePtr */
-		InstancePtr->Flags &= ~FLAG_IS_REPEATER;
+		InstancePtr->Tx.Flags &= ~FLAG_IS_REPEATER;
 
 		/* Update NextStatePtr */
 		*NextStatePtr = STATE_AUTHENTICATED;
@@ -1418,9 +1417,9 @@ static void TestForRepeater(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void PollForWaitForReady(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void PollForWaitForReady(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Port;
+	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
 	u16 RepeaterInfo = 0;
 	int Status = XST_SUCCESS;
 
@@ -1432,7 +1431,7 @@ static void PollForWaitForReady(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 			/* Check for at least one attached device */
 			if ((RepeaterInfo & 0x007Fu) != 0) {
 				/* Update InstancePtr */
-				InstancePtr->StateHelper = RepeaterInfo;
+				InstancePtr->Tx.StateHelper = RepeaterInfo;
 
 				/* Update NextStatePtr */
 				*NextStatePtr = STATE_READKSVLIST;
@@ -1478,9 +1477,9 @@ static void PollForWaitForReady(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static int ValidateKsvList(XHdcp1x_Tx *InstancePtr, u16 RepeaterInfo)
+static int ValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 {
-	XHdcp1x_Port *PortPtr = &InstancePtr->Port;
+	XHdcp1x_Port *PortPtr = &InstancePtr->Tx.Port;
 	XHdcp1x_Cipher *CipherPtr = &InstancePtr->Cipher;
 	SHA1Context Sha1Context;
 	u8 Buf[24];
@@ -1516,7 +1515,7 @@ static int ValidateKsvList(XHdcp1x_Tx *InstancePtr, u16 RepeaterInfo)
 		}
 		else {
 			/* Update the statistics */
-			InstancePtr->Stats.ReadFailures++;
+			InstancePtr->Tx.Stats.ReadFailures++;
 
 			/* Update IsValid */
 			IsValid = FALSE;
@@ -1574,7 +1573,7 @@ static int ValidateKsvList(XHdcp1x_Tx *InstancePtr, u16 RepeaterInfo)
 					ReadValue = 0;
 
 					/* Update the statistics */
-					InstancePtr->Stats.ReadFailures++;
+					InstancePtr->Tx.Stats.ReadFailures++;
 				}
 
 				/* Check for mismatch */
@@ -1609,14 +1608,14 @@ static int ValidateKsvList(XHdcp1x_Tx *InstancePtr, u16 RepeaterInfo)
 * @note		None.
 *
 ******************************************************************************/
-static void ReadKsvList(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
+static void ReadKsvList(XHdcp1x *InstancePtr, tState *NextStatePtr)
 {
 	int NumAttempts = 3;
 	int KsvListIsValid = FALSE;
 	u16 RepeaterInfo = 0;
 
 	/* Determine RepeaterInfo */
-	RepeaterInfo = (u16) (InstancePtr->StateHelper & 0x0FFFu);
+	RepeaterInfo = (u16)(InstancePtr->Tx.StateHelper & 0x0FFFu);
 
 	/* Iterate through the attempts */
 	do {
@@ -1656,12 +1655,12 @@ static void ReadKsvList(XHdcp1x_Tx *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static int IsAuthenticated(const XHdcp1x_Tx *InstancePtr)
+static int IsAuthenticated(const XHdcp1x *InstancePtr)
 {
 	int Authenticated = FALSE;
 
 	/* Which state? */
-	switch (InstancePtr->CurrentState) {
+	switch (InstancePtr->Tx.CurrentState) {
 		/* For the authenticated and link integrity check states */
 		case STATE_AUTHENTICATED:
 		case STATE_LINKINTEGRITYCHECK:
@@ -1690,7 +1689,7 @@ static int IsAuthenticated(const XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void RunDisabledState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunDisabledState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -1698,19 +1697,19 @@ static void RunDisabledState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 		/* For enable */
 		case EVENT_ENABLE:
 			*NextStatePtr = STATE_UNAUTHENTICATED;
-			if ((InstancePtr->Flags & FLAG_PHY_UP) == 0) {
+			if ((InstancePtr->Tx.Flags & FLAG_PHY_UP) == 0) {
 				*NextStatePtr = STATE_PHYDOWN;
 			}
 			break;
 
 		/* For physical layer down */
 		case EVENT_PHYDOWN:
-			InstancePtr->Flags &= ~FLAG_PHY_UP;
+			InstancePtr->Tx.Flags &= ~FLAG_PHY_UP;
 			break;
 
 		/* For physical layer up */
 		case EVENT_PHYUP:
-			InstancePtr->Flags |= FLAG_PHY_UP;
+			InstancePtr->Tx.Flags |= FLAG_PHY_UP;
 			break;
 
 		/* Otherwise */
@@ -1734,7 +1733,7 @@ static void RunDisabledState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunDetermineRxCapableState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunDetermineRxCapableState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -1769,7 +1768,7 @@ static void RunDetermineRxCapableState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunExchangeKsvsState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunExchangeKsvsState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -1804,7 +1803,7 @@ static void RunExchangeKsvsState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunComputationsState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunComputationsState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -1849,7 +1848,7 @@ static void RunComputationsState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunValidateRxState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunValidateRxState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -1895,7 +1894,7 @@ static void RunValidateRxState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunAuthenticatedState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunAuthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -1941,7 +1940,7 @@ static void RunAuthenticatedState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunLinkIntegrityCheckState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunLinkIntegrityCheckState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -1987,7 +1986,7 @@ static void RunLinkIntegrityCheckState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunTestForRepeaterState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunTestForRepeaterState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -2032,7 +2031,7 @@ static void RunTestForRepeaterState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunWaitForReadyState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunWaitForReadyState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -2086,7 +2085,7 @@ static void RunWaitForReadyState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunReadKsvListState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunReadKsvListState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -2126,7 +2125,7 @@ static void RunReadKsvListState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunUnauthenticatedState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunUnauthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -2168,7 +2167,7 @@ static void RunUnauthenticatedState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunPhysicalLayerDownState(XHdcp1x_Tx *InstancePtr, tEvent Event,
+static void RunPhysicalLayerDownState(XHdcp1x *InstancePtr, tEvent Event,
 		tState *NextStatePtr)
 {
 	/* Which event? */
@@ -2181,7 +2180,7 @@ static void RunPhysicalLayerDownState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 		/* For physical layer up */
 		case EVENT_PHYUP:
 			*NextStatePtr = STATE_UNAUTHENTICATED;
-			if (InstancePtr->EncryptionMap != 0) {
+			if (InstancePtr->Tx.EncryptionMap != 0) {
 				PostEvent(InstancePtr, EVENT_AUTHENTICATE);
 			}
 			break;
@@ -2206,8 +2205,7 @@ static void RunPhysicalLayerDownState(XHdcp1x_Tx *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
-		tState *NextStatePtr)
+static void EnterState(XHdcp1x *InstancePtr, tState State, tState *NextStatePtr)
 {
 	/* Which state? */
 	switch (State) {
@@ -2218,7 +2216,7 @@ static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
 
 		/* For determine rx capable */
 		case STATE_DETERMINERXCAPABLE:
-			InstancePtr->Flags |= FLAG_PHY_UP;
+			InstancePtr->Tx.Flags |= FLAG_PHY_UP;
 			SetCheckLinkState(InstancePtr, FALSE);
 			DisableEncryption(InstancePtr);
 			CheckRxCapable(InstancePtr, NextStatePtr);
@@ -2226,7 +2224,7 @@ static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
 
 		/* For the exchange ksvs state */
 		case STATE_EXCHANGEKSVS:
-			InstancePtr->StateHelper = 0;
+			InstancePtr->Tx.StateHelper = 0;
 			ExchangeKsvs(InstancePtr, NextStatePtr);
 			break;
 
@@ -2237,13 +2235,13 @@ static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
 
 		/* For the validate rx state */
 		case STATE_VALIDATERX:
-			InstancePtr->StateHelper = 0;
+			InstancePtr->Tx.StateHelper = 0;
 			StartTimer(InstancePtr, TMO_100MS);
 			break;
 
 		/* For the wait for ready state */
 		case STATE_WAITFORREADY:
-			InstancePtr->StateHelper = 0;
+			InstancePtr->Tx.StateHelper = 0;
 			StartTimer(InstancePtr, (5 * TMO_1SECOND));
 			break;
 
@@ -2254,11 +2252,11 @@ static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
 
 		/* For the authenticated state */
 		case STATE_AUTHENTICATED:
-			InstancePtr->StateHelper = 0;
+			InstancePtr->Tx.StateHelper = 0;
 			EnableEncryption(InstancePtr);
-			if (InstancePtr->PreviousState !=
+			if (InstancePtr->Tx.PreviousState !=
 					STATE_LINKINTEGRITYCHECK) {
-				InstancePtr->Stats.AuthPassed++;
+				InstancePtr->Tx.Stats.AuthPassed++;
 				SetCheckLinkState(InstancePtr, TRUE);
 				DebugLog(InstancePtr, "authenticated");
 			}
@@ -2271,14 +2269,14 @@ static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
 
 		/* For the unauthenticated state */
 		case STATE_UNAUTHENTICATED:
-			InstancePtr->Flags &= ~FLAG_IS_REPEATER;
-			InstancePtr->Flags |= FLAG_PHY_UP;
+			InstancePtr->Tx.Flags &= ~FLAG_IS_REPEATER;
+			InstancePtr->Tx.Flags |= FLAG_PHY_UP;
 			DisableEncryption(InstancePtr);
 			break;
 
 		/* For physical layer down */
 		case STATE_PHYDOWN:
-			InstancePtr->Flags &= ~FLAG_PHY_UP;
+			InstancePtr->Tx.Flags &= ~FLAG_PHY_UP;
 			DisableEncryption(InstancePtr);
 			XHdcp1x_CipherDisable(&InstancePtr->Cipher);
 			break;
@@ -2302,7 +2300,7 @@ static void EnterState(XHdcp1x_Tx *InstancePtr, tState State,
 * @note		None.
 *
 ******************************************************************************/
-static void ExitState(XHdcp1x_Tx *InstancePtr, tState State)
+static void ExitState(XHdcp1x *InstancePtr, tState State)
 {
 	/* Which state? */
 	switch (State) {
@@ -2313,7 +2311,7 @@ static void ExitState(XHdcp1x_Tx *InstancePtr, tState State)
 
 		/* For the computations state */
 		case STATE_COMPUTATIONS:
-			InstancePtr->StateHelper = 0;
+			InstancePtr->Tx.StateHelper = 0;
 			break;
 
 		/* For the validate rx state */
@@ -2328,7 +2326,7 @@ static void ExitState(XHdcp1x_Tx *InstancePtr, tState State)
 
 		/* For the read ksv list state */
 		case STATE_READKSVLIST:
-			InstancePtr->StateHelper = 0;
+			InstancePtr->Tx.StateHelper = 0;
 			break;
 
 		/* For physical layer down */
@@ -2355,12 +2353,12 @@ static void ExitState(XHdcp1x_Tx *InstancePtr, tState State)
 * @note		None.
 *
 ******************************************************************************/
-static void DoTheState(XHdcp1x_Tx *InstancePtr, tEvent Event)
+static void DoTheState(XHdcp1x *InstancePtr, tEvent Event)
 {
-	tState NextState = InstancePtr->CurrentState;
+	tState NextState = InstancePtr->Tx.CurrentState;
 
 	/* Which state? */
-	switch (InstancePtr->CurrentState) {
+	switch (InstancePtr->Tx.CurrentState) {
 		/* For the disabled state */
 		case STATE_DISABLED:
 			RunDisabledState(InstancePtr, Event, &NextState);
@@ -2430,12 +2428,13 @@ static void DoTheState(XHdcp1x_Tx *InstancePtr, tEvent Event)
 	}
 
 	/* Check for state change */
-	while (InstancePtr->CurrentState != NextState) {
+	while (InstancePtr->Tx.CurrentState != NextState) {
 		/* Perform the state transition */
-		ExitState(InstancePtr, InstancePtr->CurrentState);
-		InstancePtr->PreviousState = InstancePtr->CurrentState;
-		InstancePtr->CurrentState = NextState;
-		EnterState(InstancePtr, InstancePtr->CurrentState, &NextState);
+		ExitState(InstancePtr, InstancePtr->Tx.CurrentState);
+		InstancePtr->Tx.PreviousState = InstancePtr->Tx.CurrentState;
+		InstancePtr->Tx.CurrentState = NextState;
+		EnterState(InstancePtr, InstancePtr->Tx.CurrentState,
+								&NextState);
 	}
 }
 
@@ -2450,12 +2449,12 @@ static void DoTheState(XHdcp1x_Tx *InstancePtr, tEvent Event)
 * @note		None.
 *
 ******************************************************************************/
-static void Init(XHdcp1x_Tx *InstancePtr)
+static void Init(XHdcp1x *InstancePtr)
 {
 	tState DummyState = STATE_DISABLED;
 
 	/* Update theHandler */
-	InstancePtr->PendingEvents = 0;
+	InstancePtr->Tx.PendingEvents = 0;
 
 	/* Kick the state machine */
 	EnterState(InstancePtr, STATE_DISABLED, &DummyState);
@@ -2472,15 +2471,15 @@ static void Init(XHdcp1x_Tx *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void ProcessPending(XHdcp1x_Tx *InstancePtr)
+static void ProcessPending(XHdcp1x *InstancePtr)
 {
 	/* Check for any pending events */
-	if (InstancePtr->PendingEvents != 0) {
-		u16 Pending = InstancePtr->PendingEvents;
+	if (InstancePtr->Tx.PendingEvents != 0) {
+		u16 Pending = InstancePtr->Tx.PendingEvents;
 		tEvent Event = EVENT_NULL;
 
 		/* Update InstancePtr */
-		InstancePtr->PendingEvents = 0;
+		InstancePtr->Tx.PendingEvents = 0;
 
 		/* Iterate through thePending */
 		do {

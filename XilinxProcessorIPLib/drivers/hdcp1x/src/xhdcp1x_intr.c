@@ -83,7 +83,7 @@ void XHdcp1x_CipherIntrHandler(void *InstancePtr)
 	Xil_AssertVoid(HdcpPtr->Common.IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Dispatch it to the corresponding cipher */
-	XHdcp1x_CipherHandleInterrupt(&(HdcpPtr->Common.Cipher));
+	XHdcp1x_CipherHandleInterrupt(&(HdcpPtr->Cipher));
 }
 
 /*****************************************************************************/

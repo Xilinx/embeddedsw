@@ -182,16 +182,14 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxCfgInitialize(&(InstancePtr->Tx),
-				CfgPtr, PhyIfPtr);
+		Status = XHdcp1x_TxCfgInitialize(InstancePtr, CfgPtr, PhyIfPtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxCfgInitialize(&(InstancePtr->Rx),
-				CfgPtr, PhyIfPtr);
+		Status = XHdcp1x_RxCfgInitialize(InstancePtr, CfgPtr, PhyIfPtr);
 	}
 	else
 #endif
@@ -230,14 +228,14 @@ int XHdcp1x_Poll(XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxPoll(&(InstancePtr->Tx));
+		Status = XHdcp1x_TxPoll(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxPoll(&(InstancePtr->Rx));
+		Status = XHdcp1x_RxPoll(InstancePtr);
 	}
 	else
 #endif
@@ -271,14 +269,14 @@ int XHdcp1x_Reset(XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxReset(&(InstancePtr->Tx));
+		Status = XHdcp1x_TxReset(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxReset(&(InstancePtr->Rx));
+		Status = XHdcp1x_RxReset(InstancePtr);
 	}
 	else
 #endif
@@ -312,14 +310,14 @@ int XHdcp1x_Enable(XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxEnable(&(InstancePtr->Tx));
+		Status = XHdcp1x_TxEnable(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxEnable(&(InstancePtr->Rx));
+		Status = XHdcp1x_RxEnable(InstancePtr);
 	}
 	else
 #endif
@@ -353,14 +351,14 @@ int XHdcp1x_Disable(XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxDisable(&(InstancePtr->Tx));
+		Status = XHdcp1x_TxDisable(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxDisable(&(InstancePtr->Rx));
+		Status = XHdcp1x_RxDisable(InstancePtr);
 	}
 	else
 #endif
@@ -395,14 +393,14 @@ int XHdcp1x_SetPhysicalState(XHdcp1x *InstancePtr, int IsUp)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxSetPhysicalState(&(InstancePtr->Tx), IsUp);
+		Status = XHdcp1x_TxSetPhysicalState(InstancePtr, IsUp);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxSetPhysicalState(&(InstancePtr->Rx), IsUp);
+		Status = XHdcp1x_RxSetPhysicalState(InstancePtr, IsUp);
 	}
 	else
 #endif
@@ -437,14 +435,14 @@ int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if ((IsTX(InstancePtr)) && (IsDP(InstancePtr))) {
-		Status = XHdcp1x_TxSetLaneCount(&(InstancePtr->Tx), LaneCount);
+		Status = XHdcp1x_TxSetLaneCount(InstancePtr, LaneCount);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if ((IsRX(InstancePtr)) && (IsDP(InstancePtr))) {
-		Status = XHdcp1x_RxSetLaneCount(&(InstancePtr->Rx), LaneCount);
+		Status = XHdcp1x_RxSetLaneCount(InstancePtr, LaneCount);
 	}
 	else
 #endif
@@ -478,14 +476,14 @@ int XHdcp1x_Authenticate(XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxAuthenticate(&(InstancePtr->Tx));
+		Status = XHdcp1x_TxAuthenticate(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxAuthenticate(&(InstancePtr->Rx));
+		Status = XHdcp1x_RxAuthenticate(InstancePtr);
 	}
 	else
 #endif
@@ -519,7 +517,7 @@ int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		IsInProgress = XHdcp1x_TxIsInProgress(&(InstancePtr->Tx));
+		IsInProgress = XHdcp1x_TxIsInProgress(InstancePtr);
 	}
 #endif
 
@@ -548,14 +546,14 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		IsAuth = XHdcp1x_TxIsAuthenticated(&(InstancePtr->Tx));
+		IsAuth = XHdcp1x_TxIsAuthenticated(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		IsAuth = XHdcp1x_RxIsAuthenticated(&(InstancePtr->Rx));
+		IsAuth = XHdcp1x_RxIsAuthenticated(InstancePtr);
 	}
 	else
 #endif
@@ -588,14 +586,14 @@ u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		StreamMap = XHdcp1x_TxGetEncryption(&(InstancePtr->Tx));
+		StreamMap = XHdcp1x_TxGetEncryption(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		StreamMap = XHdcp1x_RxGetEncryption(&(InstancePtr->Rx));
+		StreamMap = XHdcp1x_RxGetEncryption(InstancePtr);
 	}
 	else
 #endif
@@ -630,7 +628,7 @@ int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 Map)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxEnableEncryption(&(InstancePtr->Tx), Map);
+		Status = XHdcp1x_TxEnableEncryption(InstancePtr, Map);
 	}
 #endif
 
@@ -662,7 +660,7 @@ int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 Map)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxDisableEncryption(&(InstancePtr->Tx), Map);
+		Status = XHdcp1x_TxDisableEncryption(InstancePtr, Map);
 	}
 #endif
 
@@ -695,14 +693,14 @@ int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		CipherPtr = &(InstancePtr->Tx.Cipher);
+		CipherPtr = &InstancePtr->Cipher;
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		CipherPtr = &(InstancePtr->Rx.Cipher);
+		CipherPtr = &InstancePtr->Cipher;
 	}
 	else
 #endif
@@ -739,7 +737,7 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(HdcpPtr)) {
-		XHdcp1x_TxHandleTimeout(&(HdcpPtr->Tx));
+		XHdcp1x_TxHandleTimeout(HdcpPtr);
 	}
 #endif
 }
@@ -877,14 +875,14 @@ u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		CipherPtr = &(InstancePtr->Tx.Cipher);
+		CipherPtr = &InstancePtr->Cipher;
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		CipherPtr = &(InstancePtr->Rx.Cipher);
+		CipherPtr = &InstancePtr->Cipher;
 	}
 	else
 #endif
@@ -920,14 +918,14 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (IsTX(InstancePtr)) {
-		XHdcp1x_TxInfo(&(InstancePtr->Tx));
+		XHdcp1x_TxInfo(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (IsRX(InstancePtr)) {
-		XHdcp1x_RxInfo(&(InstancePtr->Rx));
+		XHdcp1x_RxInfo(InstancePtr);
 	}
 	else
 #endif

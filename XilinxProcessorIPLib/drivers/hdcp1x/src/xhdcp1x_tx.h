@@ -69,29 +69,29 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-int XHdcp1x_TxCfgInitialize(XHdcp1x_Tx *InstancePtr,
+int XHdcp1x_TxCfgInitialize(XHdcp1x *InstancePtr,
 		const XHdcp1x_Config *CfgPtr, void *PhyIfPtr);
 
-int XHdcp1x_TxPoll(XHdcp1x_Tx *InstancePtr);
+int XHdcp1x_TxPoll(XHdcp1x *InstancePtr);
 
-int XHdcp1x_TxReset(XHdcp1x_Tx *InstancePtr);
-int XHdcp1x_TxEnable(XHdcp1x_Tx *InstancePtr);
-int XHdcp1x_TxDisable(XHdcp1x_Tx *InstancePtr);
+int XHdcp1x_TxReset(XHdcp1x *InstancePtr);
+int XHdcp1x_TxEnable(XHdcp1x *InstancePtr);
+int XHdcp1x_TxDisable(XHdcp1x *InstancePtr);
 
-u64 XHdcp1x_TxGetEncryption(const XHdcp1x_Tx *InstancePtr);
-int XHdcp1x_TxEnableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap);
-int XHdcp1x_TxDisableEncryption(XHdcp1x_Tx *InstancePtr, u64 StreamMap);
+u64 XHdcp1x_TxGetEncryption(const XHdcp1x *InstancePtr);
+int XHdcp1x_TxEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
+int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 
-int XHdcp1x_TxSetPhysicalState(XHdcp1x_Tx *InstancePtr, int IsUp);
-int XHdcp1x_TxSetLaneCount(XHdcp1x_Tx *InstancePtr, int LaneCount);
+int XHdcp1x_TxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
+int XHdcp1x_TxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
 
-int XHdcp1x_TxAuthenticate(XHdcp1x_Tx *InstancePtr);
-int XHdcp1x_TxIsInProgress(const XHdcp1x_Tx *InstancePtr);
-int XHdcp1x_TxIsAuthenticated(const XHdcp1x_Tx *InstancePtr);
+int XHdcp1x_TxAuthenticate(XHdcp1x *InstancePtr);
+int XHdcp1x_TxIsInProgress(const XHdcp1x *InstancePtr);
+int XHdcp1x_TxIsAuthenticated(const XHdcp1x *InstancePtr);
 
-void XHdcp1x_TxHandleTimeout(XHdcp1x_Tx *InstancePtr);
+void XHdcp1x_TxHandleTimeout(XHdcp1x *InstancePtr);
 
-int XHdcp1x_TxInfo(const XHdcp1x_Tx *InstancePtr);
+int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr);
 
 #ifdef __cplusplus
 }

@@ -91,7 +91,7 @@ int XHdcp1x_SelfTest(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine CipherPtr */
-	CipherPtr = &(InstancePtr->Common.Cipher);
+	CipherPtr = &InstancePtr->Cipher;
 
 	/* Self test the cipher */
 	if (XHdcp1x_CipherSelfTest(CipherPtr) != XST_SUCCESS) {
