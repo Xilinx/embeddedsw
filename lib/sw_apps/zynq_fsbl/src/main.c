@@ -509,7 +509,7 @@ int main(void)
 		FsblFallback();
 	}
 
-	fsbl_printf(DEBUG_INFO,"Flash Base Address: 0x%08x\r\n", FlashReadBaseAddress);
+	fsbl_printf(DEBUG_INFO,"Flash Base Address: 0x%08lx\r\n", FlashReadBaseAddress);
 
 	/*
 	 * Check for valid flash address
@@ -549,7 +549,7 @@ int main(void)
 	 */
 	HandoffAddress = LoadBootImage();
 
-	fsbl_printf(DEBUG_INFO,"Handoff Address: 0x%08x\r\n",HandoffAddress);
+	fsbl_printf(DEBUG_INFO,"Handoff Address: 0x%08lx\r\n",HandoffAddress);
 
 	/*
 	 * For Performance measurement
@@ -800,7 +800,7 @@ void OutputStatus(u32 State)
 #ifdef STDOUT_BASEADDRESS
 	u32 UartReg = 0;
 
-	fsbl_printf(DEBUG_GENERAL,"FSBL Status = 0x%.4x\r\n", State);
+	fsbl_printf(DEBUG_GENERAL,"FSBL Status = 0x%.4lx\r\n", State);
 	/*
 	 * The TX buffer needs to be flushed out
 	 * If this is not done some of the prints will not appear on the
@@ -1034,7 +1034,7 @@ static void Update_MultiBootRegister(void)
 				XDCFG_MULTIBOOT_ADDR_OFFSET,
 				MultiBootReg);
 
-		fsbl_printf(DEBUG_INFO,"Updated MultiBootReg = 0x%08x\r\n",
+		fsbl_printf(DEBUG_INFO,"Updated MultiBootReg = 0x%08lx\r\n",
 				MultiBootReg);
 	}
 }
@@ -1296,7 +1296,7 @@ void GetSiliconVersion(void)
 	if(Silicon_Version == SILICON_VERSION_3_1) {
 		fsbl_printf(DEBUG_GENERAL,"Silicon Version 3.1\r\n");
 	} else {
-		fsbl_printf(DEBUG_GENERAL,"Silicon Version %d.0\r\n",
+		fsbl_printf(DEBUG_GENERAL,"Silicon Version %lu.0\r\n",
 				Silicon_Version + 1);
 	}
 }
@@ -1343,7 +1343,7 @@ u32 HeaderChecksum(u32 FlashOffsetAddress){
 	 * Validate the checksum
 	 */
 	if (TempValue != Checksum){
-		fsbl_printf(DEBUG_INFO, "Checksum = %8.8x\r\n", Checksum);
+		fsbl_printf(DEBUG_INFO, "Checksum = %8.8lx\r\n", Checksum);
 		return XST_FAILURE;
 	}
 
@@ -1448,7 +1448,7 @@ u32 NextValidImageCheck(void)
 		if ((ImageCheckID(ImageBaseAddr) == XST_SUCCESS) &&
 				(HeaderChecksum(ImageBaseAddr) == XST_SUCCESS)) {
 
-			fsbl_printf(DEBUG_GENERAL, "\r\nImage found, offset: 0x%.8x\r\n",
+			fsbl_printf(DEBUG_GENERAL, "\r\nImage found, offset: 0x%.8lx\r\n",
 					ImageBaseAddr);
 			/*
 			 * Update multiboot register

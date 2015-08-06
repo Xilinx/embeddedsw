@@ -152,7 +152,7 @@ u32 SDAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 
 	rc = f_lseek(&fil, SourceAddress);
 	if (rc) {
-		fsbl_printf(DEBUG_INFO,"SD: Unable to seek to %x\n", SourceAddress);
+		fsbl_printf(DEBUG_INFO,"SD: Unable to seek to %lx\n", SourceAddress);
 		return XST_FAILURE;
 	}
 

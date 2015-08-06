@@ -187,7 +187,7 @@ u32 LoadBootImage(void)
 
 	RebootStatusRegister = Xil_In32(REBOOT_STATUS_REG);
 	fsbl_printf(DEBUG_INFO,
-			"Reboot status register: 0x%08x\r\n",RebootStatusRegister);
+			"Reboot status register: 0x%08lx\r\n",RebootStatusRegister);
 
 	if (Silicon_Version == SILICON_VERSION_1) {
 		/*
@@ -213,7 +213,7 @@ u32 LoadBootImage(void)
 		MultiBootReg =  XDcfg_ReadReg(DcfgInstPtr->Config.BaseAddr,
 				XDCFG_MULTIBOOT_ADDR_OFFSET);
 
-		fsbl_printf(DEBUG_INFO,"Multiboot Register: 0x%08x\r\n",MultiBootReg);
+		fsbl_printf(DEBUG_INFO,"Multiboot Register: 0x%08lx\r\n",MultiBootReg);
 
 		/*
 		 * Compute the image start address
@@ -222,7 +222,7 @@ u32 LoadBootImage(void)
 									* GOLDEN_IMAGE_OFFSET;
 	}
 
-	fsbl_printf(DEBUG_INFO,"Image Start Address: 0x%08x\r\n",ImageStartAddress);
+	fsbl_printf(DEBUG_INFO,"Image Start Address: 0x%08lx\r\n",ImageStartAddress);
 
 	/*
 	 * Get partitions header information
@@ -299,7 +299,7 @@ u32 LoadBootImage(void)
 
 	while (PartitionNum < PartitionCount) {
 
-		fsbl_printf(DEBUG_INFO, "Partition Number: %d\r\n", PartitionNum);
+		fsbl_printf(DEBUG_INFO, "Partition Number: %lu\r\n", PartitionNum);
 
 		HeaderPtr = &PartitionHeader[PartitionNum];
 
@@ -339,7 +339,7 @@ u32 LoadBootImage(void)
 			 * if FSBL is not the owner of partition,
 			 * skip this partition, continue with next partition
 			 */
-			 fsbl_printf(DEBUG_INFO, "Skipping partition %0x\r\n", 
+			 fsbl_printf(DEBUG_INFO, "Skipping partition %0lx\r\n",
 			 							PartitionNum);
 			/*
 			 * Increment partition number
@@ -606,7 +606,7 @@ u32 GetPartitionHeaderInfo(u32 ImageBaseAddress)
      */
     PartitionHeaderOffset += ImageBaseAddress;
 
-    fsbl_printf(DEBUG_INFO,"Partition Header Offset:0x%08x\r\n",
+    fsbl_printf(DEBUG_INFO,"Partition Header Offset:0x%08lx\r\n",
     		PartitionHeaderOffset);
 
     /*
@@ -624,7 +624,7 @@ u32 GetPartitionHeaderInfo(u32 ImageBaseAddress)
      */
 	PartitionCount = GetPartitionCount(&PartitionHeader[0]);
 
-    fsbl_printf(DEBUG_INFO, "Partition Count: %d\r\n", PartitionCount);
+    fsbl_printf(DEBUG_INFO, "Partition Count: %lu\r\n", PartitionCount);
 
     /*
      * Partition Count check
@@ -814,25 +814,25 @@ u32 LoadPartitionsHeaderInfo(u32 PartHeaderOffset,  PartHeader *Header)
 void HeaderDump(PartHeader *Header)
 {
 	fsbl_printf(DEBUG_INFO, "Header Dump\r\n");
-	fsbl_printf(DEBUG_INFO, "Image Word Len: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Image Word Len: 0x%08lx\r\n",
 									Header->ImageWordLen);
-	fsbl_printf(DEBUG_INFO, "Data Word Len: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Data Word Len: 0x%08lx\r\n",
 									Header->DataWordLen);
-	fsbl_printf(DEBUG_INFO, "Partition Word Len:0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Partition Word Len:0x%08lx\r\n",
 									Header->PartitionWordLen);
-	fsbl_printf(DEBUG_INFO, "Load Addr: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Load Addr: 0x%08lx\r\n",
 									Header->LoadAddr);
-	fsbl_printf(DEBUG_INFO, "Exec Addr: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Exec Addr: 0x%08lx\r\n",
 									Header->ExecAddr);
-	fsbl_printf(DEBUG_INFO, "Partition Start: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Partition Start: 0x%08lx\r\n",
 									Header->PartitionStart);
-	fsbl_printf(DEBUG_INFO, "Partition Attr: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Partition Attr: 0x%08lx\r\n",
 									Header->PartitionAttr);
-	fsbl_printf(DEBUG_INFO, "Partition Checksum Offset: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Partition Checksum Offset: 0x%08lx\r\n",
 										Header->CheckSumOffset);
-	fsbl_printf(DEBUG_INFO, "Section Count: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Section Count: 0x%08lx\r\n",
 									Header->SectionCount);
-	fsbl_printf(DEBUG_INFO, "Checksum: 0x%08x\r\n",
+	fsbl_printf(DEBUG_INFO, "Checksum: 0x%08lx\r\n",
 									Header->CheckSum);
 }
 
@@ -1017,7 +1017,7 @@ u32 ValidatePartitionHeaderChecksum(struct HeaderArray *H)
 	 * Validate the checksum
 	 */
 	if (H->Fields[PARTITION_HDR_CHECKSUM_WORD_COUNT] != Checksum) {
-	    fsbl_printf(DEBUG_GENERAL, "Error: Checksum 0x%8.8x != 0x%8.8x\r\n",
+	    fsbl_printf(DEBUG_GENERAL, "Error: Checksum 0x%8.8lx != 0x%8.8lx\r\n",
 			Checksum, H->Fields[PARTITION_HDR_CHECKSUM_WORD_COUNT]);
 		return XST_FAILURE;
 	}

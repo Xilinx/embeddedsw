@@ -550,7 +550,7 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 			if ((SourceAddress >= FLASH_SIZE_16MB) && (BankSwitchFlag == 1)) {
 				BankSel = SourceAddress/FLASH_SIZE_16MB;
 
-				fsbl_printf(DEBUG_INFO, "Bank Selection %d\n\r", BankSel);
+				fsbl_printf(DEBUG_INFO, "Bank Selection %lu\n\r", BankSel);
 
 				Status = SendBankSelect(BankSel);
 				if (Status != XST_SUCCESS) {
