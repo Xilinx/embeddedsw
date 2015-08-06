@@ -114,8 +114,9 @@
 #define    XPFW_EV_RTC_ALARM               79U
 #define    XPFW_EV_REQ_PWRUP               80U
 #define    XPFW_EV_REQ_PWRDN               81U
+#define    XPFW_EV_CSU_SEC_LOCK            82U
 
-#define    XPFW_EV_MAX                     82U
+#define    XPFW_EV_MAX                     83U
 
 #define XPFW_EV_GROUP_GPI0
 #define XPFW_EV_GROUP_GPI1
