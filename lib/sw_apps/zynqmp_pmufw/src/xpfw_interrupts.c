@@ -157,7 +157,15 @@ static void XPfw_InterruptPwrDnHandler(void)
 	}
 }
 
+static void XPfw_InterruptSecLockHandler(void)
+{
+	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_CSU_SEC_LOCK);
 
+	if (XST_SUCCESS != Status) {
+		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
+		XPFW_EV_CSU_SEC_LOCK);
+	}
+}
 
 static void XPfw_InterruptGpi0Handler(void)
 {
@@ -315,7 +323,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PMU_IOMODULE_IRQ_PENDING_PIT2_MASK, XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_PIT1_MASK, XPfw_Pit1Handler},
 	{PMU_IOMODULE_IRQ_PENDING_PIT0_MASK, XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_CSU_PMU_SEC_LOCK_MASK, XPfw_NullHandler}
+	{PMU_IOMODULE_IRQ_PENDING_CSU_PMU_SEC_LOCK_MASK, XPfw_InterruptSecLockHandler}
 };
 
 void XPfw_InterruptInit(void)
