@@ -143,7 +143,7 @@ static void XPfw_InterruptPwrUpHandler(void)
 
 	if (XST_SUCCESS != Status) {
 		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
-		XPFW_EV_MB_FAULT);
+		XPFW_EV_REQ_PWRUP);
 	}
 }
 
@@ -153,7 +153,7 @@ static void XPfw_InterruptPwrDnHandler(void)
 
 	if (XST_SUCCESS != Status) {
 		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
-		XPFW_EV_MB_FAULT);
+		XPFW_EV_REQ_PWRDN);
 	}
 }
 
