@@ -1,5 +1,4 @@
 /******************************************************************************
-*
 * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,40 +26,11 @@
 * Except as contained in this notice, the name of the Xilinx shall not be used
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
-*
 ******************************************************************************/
 
-#ifndef XPFW_ERROR_HANDLER_H_
-#define XPFW_ERROR_HANDLER_H_
+#ifndef XPFW_MOD_EM_H_
+#define XPFW_MOD_EM_H_
 
-void XPfw_ErrorHandlerInit(void);
+void ModEmInit(void);
 
-void XPfw_ErrorHandlerOne(void);
-void XPfw_ErrorHandlerTwo(void);
-
-void XPfw_ErrorEccDdr(void);
-void XPfw_ErrorEccOcm(void);
-void XPfw_ErrorRpu0(void);
-void XPfw_ErrorRpu1(void);
-void XPfw_ErrorLpdTemp(void);
-void XPfw_ErrorFpdTemp(void);
-void XPfw_ErrorRpuLockStep(void);
-void XPfw_ErrorRpuCcf(void);
-void XPfw_ErrorLpdSwdt(void);
-void XPfw_ErrorFpdSwdt(void);
-void XPfw_ErrorPowerSupply(void);
-void XPfw_ErrorXmpu(void);
-void XPfw_ErrorTimeOut(void);
-void XPfw_ErrorPL(void);
-void XPfw_ErrorPLL(void);
-void XPfw_ErrorCsu(void);
-void XPfw_ErrorPmuUncorrectable(void);
-void XPfw_ErrorPmuFw(void);
-void XPfw_ErrorPmuServiceMode(void);
-void XPfw_ErrorPmuPreBoot(void);
-void XPfw_ErrorCsuRom(void);
-
-
-
-
-#endif /* XPFW_ERROR_HANDLER_H_ */
+#endif /* XPFW_MOD_EM_H_ */

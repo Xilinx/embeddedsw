@@ -37,14 +37,13 @@
 #include "xpfw_user_startup.h"
 
 #include "pm_binding.h"
-#include "xpfw_error_handler.h"
-
 #include "pm_api.h"
 #include "ipi_buffer.h"
 #include "pm_defs.h"
 
 #include "xpfw_mod_dap.h"
 #include "xpfw_mod_legacy.h"
+#include "xpfw_mod_em.h"
 
 #ifdef ENABLE_PM
 static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
@@ -167,42 +166,6 @@ static void ModPmInit(void)
 #else /* ENABLE_PM */
 static void ModPmInit(void) { }
 #endif /* ENABLE_PM */
-
-#ifdef ENABLE_EM
-static void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
-{
-	switch (EventId) {
-	case XPFW_EV_ERROR_1:
-		XPfw_ErrorHandlerOne();
-		break;
-	case XPFW_EV_ERROR_2:
-		XPfw_ErrorHandlerTwo();
-		break;
-	default:
-		fw_printf("EM:Unhandled Event(ID:%d)\r\n", EventId);
-		break;
-	}
-}
-
-static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
-{
-
-	(void)XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_1);
-	(void)XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_2);
-	XPfw_ErrorHandlerInit();
-	fw_printf("EM (MOD-%d): Initialized.\r\n", ModPtr->ModId);
-}
-
-static void ModEmInit(void)
-{
-	const XPfw_Module_t *EmModPtr = XPfw_CoreCreateMod();
-
-	(void)XPfw_CoreSetCfgHandler(EmModPtr, EmCfgInit);
-	(void)XPfw_CoreSetEventHandler(EmModPtr, EmEventHandler);
-}
-#else /* ENABLE_EM */
-static void ModEmInit(void) { }
-#endif /* ENABLE_EM */
 
 #ifdef ENABLE_RTC_TEST
 static void RtcEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
