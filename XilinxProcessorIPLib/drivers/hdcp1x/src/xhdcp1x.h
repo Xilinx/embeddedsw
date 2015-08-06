@@ -211,10 +211,13 @@ typedef struct {
 /**
  * This typedef contains an instance of an HDCP interface
  */
-typedef union {
-	XHdcp1x_Common Common;	/**< The common interface elements */
-	XHdcp1x_Tx Tx;		/**< The transmit interface elements */
-	XHdcp1x_Rx Rx;		/**< The receive interface elements */
+typedef struct {
+	XHdcp1x_Config Config;		/**< The core config */
+	union {
+		XHdcp1x_Common Common;	/**< The common interface elements */
+		XHdcp1x_Tx Tx;		/**< The transmit interface elements */
+		XHdcp1x_Rx Rx;		/**< The receive interface elements */
+	};
 } XHdcp1x;
 
 /**

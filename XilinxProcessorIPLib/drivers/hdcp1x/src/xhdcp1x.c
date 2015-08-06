@@ -104,7 +104,7 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 * @note		None.
 *
 ******************************************************************************/
-#define IsRX(InstancePtr) ((InstancePtr)->Common.CfgPtr->IsRx)
+#define IsRX(InstancePtr) ((InstancePtr)->Config.IsRx)
 
 /*****************************************************************************/
 /**
@@ -117,7 +117,7 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 * @note		None.
 *
 ******************************************************************************/
-#define IsTX(InstancePtr) (!(InstancePtr)->Common.CfgPtr->IsRx)
+#define IsTX(InstancePtr) (!(InstancePtr)->Config.IsRx)
 
 /*****************************************************************************/
 /**
@@ -130,7 +130,7 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 * @note		None.
 *
 ******************************************************************************/
-#define IsDP(InstancePtr) (!(InstancePtr)->Common.CfgPtr->IsHDMI)
+#define IsDP(InstancePtr) (!(InstancePtr)->Config.IsHDMI)
 
 /*****************************************************************************/
 /**
@@ -143,7 +143,7 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 * @note		None.
 *
 ******************************************************************************/
-#define IsHDMI(InstancePtr) ((InstancePtr)->Common.CfgPtr->IsHDMI)
+#define IsHDMI(InstancePtr) ((InstancePtr)->Config.IsHDMI)
 
 /************************** Function Definitions *****************************/
 
@@ -177,6 +177,7 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	/* Initialize InstancePtr */
 	memset(InstancePtr, 0, sizeof(XHdcp1x));
 	InstancePtr->Common.CfgPtr = CfgPtr;
+	InstancePtr->Config = *CfgPtr;
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
