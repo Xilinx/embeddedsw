@@ -44,6 +44,7 @@
 #include "pm_defs.h"
 
 #include "xpfw_mod_dap.h"
+#include "xpfw_mod_legacy.h"
 
 #ifdef ENABLE_PM
 static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
@@ -269,4 +270,5 @@ void XPfw_UserStartUp(void)
 	ModPmInit();
 	(void)ModSchInit();
 	ModDapInit();
+	ModLegacyInit();
 }
