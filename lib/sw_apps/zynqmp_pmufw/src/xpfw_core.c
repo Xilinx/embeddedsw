@@ -51,6 +51,9 @@ XStatus XPfw_CoreInit(u32 Options)
 
 		XPfw_InterruptInit();
 
+		/* Clear the DONT_SLEEP bit */
+		XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL,
+			PMU_GLOBAL_GLOBAL_CNTRL_DONT_SLEEP_MASK, 0U);
 
 		CorePtr->ModCount = (u8)0U;
 
