@@ -135,7 +135,7 @@ void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr)
   XV_deinterlacer *pDeint = InstancePtr;
   u32 done, idle, ready, ctrl;
   u32 rfb, wfb, colformat, algo;
-
+  u32 width, height;
   /*
    * Assert validates the input arguments
    */
@@ -152,6 +152,8 @@ void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr)
   wfb  = XV_deinterlacer_Get_write_fb(pDeint);
   colformat = XV_deinterlacer_Get_colorFormat(pDeint);
   algo      = XV_deinterlacer_Get_algo(pDeint);
+  width  = XV_deinterlacer_Get_width(pDeint);
+  height = XV_deinterlacer_Get_height(pDeint);
 
   xil_printf("IsDone:  %d\r\n",     done);
   xil_printf("IsIdle:  %d\r\n",     idle);
@@ -162,5 +164,7 @@ void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr)
   xil_printf("Write Frame Buffer: 0x%x\r\n", wfb);
   xil_printf("Color Format:       %d\r\n", colformat);
   xil_printf("Algo Selected:      %d\r\n", algo);
+  xil_printf("Width        :      %d\r\n", width);
+  xil_printf("Height       :      %d\r\n", height);
 }
 /** @} */
