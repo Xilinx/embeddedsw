@@ -32,6 +32,11 @@
 /*****************************************************************************/
 /**
 *
+* @file xzdma.h
+* @addtogroup zdma_v1_0
+* @{
+* @details
+*
 * ZDMA is a general purpose DMA designed to support memory to memory and memory
 * to IO buffer transfers. ALTO has two instance of general purpose ZDMA.
 * One is located in FPD (full power domain) which is GDMA and other is located
@@ -92,11 +97,6 @@
 *
 * The XZDma driver is composed of several source files. This allows the user
 * to build and link only those parts of the driver that are necessary.
-*
-* @file xzdma.h
-* @addtogroup zdma_v1_0
-* @{
-* @details
 *
 * This header file contains identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
