@@ -31,7 +31,7 @@
 #******************************************************************************/
 
 proc swapp_get_name {} {
-    return "FreeRTOS Hello Horld";
+    return "FreeRTOS Hello World";
 }
 
 proc swapp_get_description {} {
@@ -46,8 +46,8 @@ proc check_freertos_os {} {
     }
     set os [lindex $oslist 0];
 
-    if { $os != "freertos820_xilinx" } {
-        error "This application is supported only on the freertos820_xilinx.";
+    if { $os != "freertos821_xilinx" } {
+        error "This application is supported only on the freertos821_xilinx.";
     }
 }
 
