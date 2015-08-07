@@ -42,6 +42,7 @@
 #		      Added support to SST flash.
 # 3.02a srt  05/13/13 Removed compiler errors when not selecting proper
 #		      interface for Zynq. (CR 716451)
+# 5.4   sk   08/07/15 Updated to support QSPIPSU interface.
 #
 ##############################################################################
 
@@ -82,7 +83,8 @@ proc get_spi_periphs {processor} {
 			|| $periphname == "axi_spi"
 			|| $periphname == "axi_quad_spi"
 			|| $periphname == "ps7_spi"
-			|| $periphname == "ps7_qspi"} {
+			|| $periphname == "ps7_qspi"
+			|| $periphname == "psu_qspi"} {
 			lappend spi_periphs_list $periph
 			lappend spi_periphs_name_list $periphname
 		}
@@ -158,6 +160,9 @@ proc xgen_opts_file {libhandle} {
 		} elseif {$periph == "ps7_qspi" &&
 			$serial_flash_interface == 3} {
 			puts $file_handle "\#define XPAR_XISF_INTERFACE_PSQSPI	1"
+			set ifaceselect 1
+		} elseif {$periph == "psu_qspi" && $serial_flash_interface == 3} {
+			puts $file_handle "\#define XPAR_XISF_INTERFACE_QSPIPSU	1"
 			set ifaceselect 1
 		} elseif {$periph == "ps7_qspi"} {
 			set ps7qspi 1
