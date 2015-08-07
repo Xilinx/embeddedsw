@@ -60,6 +60,7 @@
 *		     for each sector erase.
 * 5.0   sb  08/05/14 Registering to Xilisf Interrupt handler
 *	             instead of driver handler.
+* 5.4   sk  08/07/15 Modified the example to support on ZynqMP.
 *</pre>
 *
 ******************************************************************************/
@@ -70,6 +71,7 @@
 #include "xscugic.h"		/* Interrupt controller device driver */
 #include "xil_exception.h"
 #include "xil_printf.h"
+#include "xplatform_info.h"
 #include <xilisf.h>
 
 /************************** Constant Definitions *****************************/
@@ -120,7 +122,8 @@
  * to select the FLASH device on the SPI bus, this signal is typically
  * connected to the chip select of the device
  */
-#define FLASH_SPI_SELECT	0x01
+#define FLASH_SPI_SELECT_1	0x01
+#define FLASH_SPI_SELECT_0	0x00
 
 /**************************** Type Definitions *******************************/
 
@@ -231,6 +234,14 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	u32 Count;
 	XSpiPs_Config *ConfigPtr;	/* Pointer to Configuration ROM data */
 	u32 TempAddress;
+	u32 MaxSize = MAX_DATA;
+	u32 ChipSelect = FLASH_SPI_SELECT_1;
+
+	if (XGetPlatform_Info() == XPLAT_ZYNQ_ULTRA_MP) {
+		MaxSize = 1024 * 10;
+		ChipSelect = FLASH_SPI_SELECT_0;	/* Device is on CS 0 */
+		SpiIntrId = XPAR_XSPIPS_0_INTR;
+	}
 
 	/*
 	 * Lookup the device configuration in the temporary CROM table. Use this
@@ -245,7 +256,7 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 				  ConfigPtr->BaseAddress);
 
 	/* Initialize the XILISF Library */
-	XIsf_Initialize(&Isf, SpiInstancePtr, FLASH_SPI_SELECT,
+	XIsf_Initialize(&Isf, SpiInstancePtr, ChipSelect,
                        IsfWriteBuffer);
 
 	XIsf_SetTransferMode(&Isf, XISF_INTERRUPT_MODE);
@@ -276,7 +287,7 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	/* Unprotect Sectors */
 	FlashWrite(&Isf, 0, 0, XISF_WRITE_STATUS_REG);
 
-	FlashErase(&Isf, TEST_ADDRESS, MAX_DATA);
+	FlashErase(&Isf, TEST_ADDRESS, MaxSize);
 
 	/*
 	 * Initialize the write buffer for a pattern to write to the FLASH
@@ -285,7 +296,7 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	 * changed in a debug environment to guarantee
 	 */
 	TempAddress = TEST_ADDRESS;
-	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
+	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
 		 Count++, UniqueValue++, TempAddress++) {
 		WriteBuffer[0] = (u8)(UniqueValue);
 		FlashWrite(&Isf, TempAddress, 1, XISF_WRITE);
@@ -295,7 +306,7 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	 * Read the contents of the FLASH from TEST_ADDRESS, using Normal Read
 	 * command
 	 */
-	FlashRead(&Isf, TEST_ADDRESS, MAX_DATA, XISF_READ);
+	FlashRead(&Isf, TEST_ADDRESS, MaxSize, XISF_READ);
 
 	/*
 	 * Setup a pointer to the start of the data that was read into the read
@@ -303,7 +314,7 @@ int SpiFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	 */
 	BufferPtr = &ReadBuffer[DATA_OFFSET];
 
-	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MAX_DATA;
+	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
 			 Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
 			return XST_FAILURE;
