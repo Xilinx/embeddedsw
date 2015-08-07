@@ -43,6 +43,7 @@
 # 3.02a srt  05/13/13 Removed compiler errors when not selecting proper
 #		      interface for Zynq. (CR 716451)
 # 5.4   sk   08/07/15 Updated to support QSPIPSU interface.
+#                     Updated to support SPIPS interface in ZynqMP.
 #
 ##############################################################################
 
@@ -84,7 +85,8 @@ proc get_spi_periphs {processor} {
 			|| $periphname == "axi_quad_spi"
 			|| $periphname == "ps7_spi"
 			|| $periphname == "ps7_qspi"
-			|| $periphname == "psu_qspi"} {
+			|| $periphname == "psu_qspi"
+			|| $periphname == "psu_spi"} {
 			lappend spi_periphs_list $periph
 			lappend spi_periphs_name_list $periphname
 		}
@@ -153,7 +155,7 @@ proc xgen_opts_file {libhandle} {
 				puts $file_handle "\#define XPAR_XISF_INTERFACE_AXISPI	1"
 				set ifaceselect 1
 			}
-		} elseif {$periph == "ps7_spi" &&
+		} elseif {($periph == "ps7_spi" || $periph == "psu_spi") &&
 			$serial_flash_interface == 2} {
 			puts $file_handle "\#define XPAR_XISF_INTERFACE_PSSPI	1"
 			set ifaceselect 1
