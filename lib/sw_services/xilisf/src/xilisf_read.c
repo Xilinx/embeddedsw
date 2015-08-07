@@ -57,6 +57,7 @@
 * 						  which supports 4 byte addressing.
 * 5.3  sk        06/01/15 Used Half of Actual byte count for calculating
 *                         Real Byte count in parallel mode. CR# 859979.
+* 5.4  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * </pre>
 *
 ******************************************************************************/
@@ -371,6 +372,14 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	u32 LocalAddress = Address;
 	u32 TempByteCnt = LocalByteCnt;
 	u8 WriteBuffer[10] = {0};
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	u32 DieSize, BusWidth, DieTempData;
+	u8 DiscardByteCnt;
+	int DieNo;
+	u8 * NULLPtr = NULL;
+	XQspiPsu_Msg FlashMsg[3];
+#endif
+
 	if (LocalByteCnt <= 0 ) {
 		return (int)XST_FAILURE;
 	}
@@ -386,6 +395,23 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	 * If stacked assert the slave select based on address
 	 */
 	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, LocalAddress);
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+
+	DieNo = RealAddr/DieSize;
+
+	DieTempData = (DieSize * (DieNo+1)) - (RealAddr);
+
+	if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_PARALLEL) {
+		DieTempData = DieTempData*2;
+	}
+
+	/* For Dual Stacked, split and read for boundary crossing */
+	if(LocalByteCnt > DieTempData) {
+		RealByteCnt = DieTempData;
+	} else {
+#endif
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	if(InstancePtr->DeviceIDMemSize > 0x18U) {
@@ -412,7 +438,7 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	}
 
 	if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-			XQSPIPS_CONNECTION_MODE_PARALLEL) {
+			XISF_QSPIPS_CONNECTION_MODE_PARALLEL) {
 		TempByteCnt = LocalByteCnt/2;
 	}
 
@@ -428,7 +454,8 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 #endif
 		RealByteCnt = LocalByteCnt;
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	}
 #endif
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
@@ -439,16 +466,43 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 		WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		WriteBuffer[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
 		WriteBuffer[BYTE5] = (u8) (RealAddr);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		DiscardByteCnt = 5;
+#endif
 	} else {
 #endif
 		WriteBuffer[BYTE1] = XISF_CMD_RANDOM_READ;
 		WriteBuffer[BYTE2] = (u8)((RealAddr & 0xFF0000) >> XISF_ADDR_SHIFT16);
 		WriteBuffer[BYTE3] = (u8)((RealAddr & 0xFF00) >> XISF_ADDR_SHIFT8);
 		WriteBuffer[BYTE4] = (u8)(RealAddr & 0xFF);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		DiscardByteCnt = 4;
+#endif
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	}
 #endif
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	FlashMsg[0].TxBfrPtr = WriteBuffer;
+	FlashMsg[0].RxBfrPtr = NULL;
+	FlashMsg[0].ByteCount = DiscardByteCnt;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[1].TxBfrPtr = NULL;
+	FlashMsg[1].RxBfrPtr = ReadPtr;
+	FlashMsg[1].ByteCount = RealByteCnt;
+	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+	if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+			XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+		FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+	}
+	InstancePtr->SpiInstPtr->Msg = FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+#else
 	if (InstancePtr->FourByteAddrMode == TRUE) {
 		Status = XIsf_Transfer(InstancePtr, WriteBuffer,
 			&(ReadPtr[TotalByteCnt - LocalByteCnt]),
@@ -458,9 +512,15 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 				&(ReadPtr[TotalByteCnt - LocalByteCnt]),
 				RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES);
 	}
+#endif
 	if (Status != (int)(XST_SUCCESS)) {
 		return (int)XST_FAILURE;
 	}
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	LocalAddress += RealByteCnt;
+	ReadPtr += RealByteCnt;
+#endif
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	/*
@@ -538,6 +598,14 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u32 LocalAddress = Address;
 	u32 TempByteCnt = LocalByteCnt;
 	u8 WriteBuffer[5]= {0};
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	u32 DieSize, BusWidth, DieTempData;
+	u32 FlashMsgCnt;
+	u8 DiscardByteCnt;
+	int DieNo;
+	u8 * NULLPtr = NULL;
+	XQspiPsu_Msg FlashMsg[3];
+#endif
 
 	if (LocalByteCnt <= 0 ) {
 		return (int)XST_FAILURE;
@@ -558,6 +626,23 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	 * If stacked assert the slave select based on address
 	 */
 	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, LocalAddress);
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+
+	DieNo = RealAddr/DieSize;
+
+	DieTempData = (DieSize * (DieNo+1)) - (RealAddr);
+
+	if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_PARALLEL) {
+		DieTempData = DieTempData*2;
+	}
+
+	/* For Dual Stacked, split and read for boundary crossing */
+	if(LocalByteCnt > DieTempData) {
+		RealByteCnt = DieTempData;
+	} else {
+#endif
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	if(InstancePtr->DeviceIDMemSize > 0x18U) {
@@ -583,7 +668,7 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	}
 
 	if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-			XQSPIPS_CONNECTION_MODE_PARALLEL) {
+			XISF_QSPIPS_CONNECTION_MODE_PARALLEL) {
 		TempByteCnt = LocalByteCnt/2;
 	}
 	/*
@@ -598,7 +683,8 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 #endif
 		RealByteCnt = LocalByteCnt;
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	}
 #endif
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
@@ -609,24 +695,89 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 		WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		WriteBuffer[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
 		WriteBuffer[BYTE5] = (u8) RealAddr;
-
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		DiscardByteCnt = 5;
+#else
 		for (Index = 0; Index < NumDummyBytes; Index++) {
 			WriteBuffer[Index + BYTE5 + 1] = (u8) (XISF_DUMMYBYTE);
 		}
+#endif
 	} else {
 #endif
 		WriteBuffer[BYTE1] = Command;
 		WriteBuffer[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		WriteBuffer[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
 		WriteBuffer[BYTE4] = (u8) RealAddr;
-
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		DiscardByteCnt = 4;
+#else
 		for (Index = 0; Index < NumDummyBytes; Index++) {
 			WriteBuffer[Index + BYTE5] = (u8) (XISF_DUMMYBYTE);
 		}
+#endif
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	}
 #endif
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	FlashMsg[0].TxBfrPtr = WriteBuffer;
+	FlashMsg[0].RxBfrPtr = NULL;
+	FlashMsg[0].ByteCount = DiscardByteCnt;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+	FlashMsgCnt = 1;
+	BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	/* It is recommended to have a separate entry for dummy */
+	if ((Command == XISF_CMD_FAST_READ) ||
+			(Command == XISF_CMD_DUAL_OP_FAST_READ) ||
+			(Command == XISF_CMD_QUAD_OP_FAST_READ) ||
+			(Command == XISF_CMD_FAST_READ_4BYTE) ||
+			(Command == XISF_CMD_DUAL_OP_FAST_READ_4B) ||
+			(Command == XISF_CMD_QUAD_OP_FAST_READ_4B)) {
+		/* Update Dummy cycles as per flash specs for QUAD IO */
+
+		/*
+		 * It is recommended that Bus width value during dummy
+		 * phase should be same as data phase
+		 */
+		if ((Command == XISF_CMD_FAST_READ) ||
+					(Command == XISF_CMD_FAST_READ_4BYTE)) {
+			BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		}
+
+		if ((Command == XISF_CMD_DUAL_OP_FAST_READ) ||
+				(Command == XISF_CMD_DUAL_OP_FAST_READ_4B)) {
+			BusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
+		}
+
+		if ((Command == XISF_CMD_QUAD_OP_FAST_READ) ||
+				(Command == XISF_CMD_QUAD_OP_FAST_READ_4B)) {
+			BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
+		}
+
+		FlashMsg[1].BusWidth = BusWidth;
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = NULL;
+		FlashMsg[1].ByteCount = 8;
+		FlashMsg[1].Flags = 0;
+
+		FlashMsgCnt++;
+	}
+	FlashMsg[FlashMsgCnt].BusWidth = BusWidth;
+	FlashMsg[FlashMsgCnt].TxBfrPtr = NULL;
+	FlashMsg[FlashMsgCnt].RxBfrPtr = ReadPtr;
+	FlashMsg[FlashMsgCnt].ByteCount = RealByteCnt;
+	FlashMsg[FlashMsgCnt].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+	if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+			XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+		FlashMsg[FlashMsgCnt].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+	}
+	InstancePtr->SpiInstPtr->Msg = FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsgCnt+1);
+#else
 	RealByteCnt += NumDummyBytes;
 	if (InstancePtr->FourByteAddrMode == TRUE) {
 		Status = (int)XIsf_Transfer(InstancePtr, WriteBuffer,
@@ -637,9 +788,16 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 			&(ReadPtr[TotalByteCnt - LocalByteCnt]),
 			RealByteCnt + XISF_CMD_SEND_EXTRA_BYTES);
 	}
+#endif
 	if (Status != (int)(XST_SUCCESS)) {
 		return (int)(XST_FAILURE);
 	}
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	LocalAddress += RealByteCnt;
+	LocalByteCnt -= RealByteCnt;
+	ReadPtr += RealByteCnt;
+#endif
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	/*
@@ -658,10 +816,13 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	 */
 	LocalAddress = (LocalAddress & BANKMASK) + SIXTEENMB;
 #endif
+
+#ifndef XPAR_XISF_INTERFACE_QSPIPSU
 	/*
 	 * Decrease byte count by bytes already read.
 	 */
 	LocalByteCnt = LocalByteCnt - (RealByteCnt - NumDummyBytes);
+#endif
 	}
 
 	return (int)XST_SUCCESS;

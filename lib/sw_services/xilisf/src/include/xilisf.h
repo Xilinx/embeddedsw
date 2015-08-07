@@ -496,6 +496,7 @@
 *               These were done to fix CR#858950.
 * 5.3  sk    06/01/15 Used Half of Actual byte count for calculating
 *                     Real Byte count in parallel mode. CR# 859979.
+* 5.4  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 *
 * </pre>
 *
@@ -517,6 +518,8 @@ extern "C" {
 #include "xspips.h"
 #elif XPAR_XISF_INTERFACE_PSQSPI
 #include "xqspips.h"
+#elif XPAR_XISF_INTERFACE_QSPIPSU
+#include "xqspipsu.h"
 #endif
 
 /**
@@ -637,6 +640,8 @@ extern "C" {
 #elif XPAR_XISF_INTERFACE_PSQSPI
 #define XISF_SPI_OPTIONS	(XQSPIPS_MANUAL_START_OPTION | \
 					XQSPIPS_FORCE_SSELECT_OPTION)
+#elif XPAR_XISF_INTERFACE_QSPIPSU
+#define XISF_SPI_OPTIONS	XQSPIPSU_MANUAL_START_OPTION
 #elif XPAR_XISF_INTERFACE_PSSPI
 #define XISF_SPI_OPTIONS	(XSPIPS_MASTER_OPTION | \
 					XSPIPS_FORCE_SSELECT_OPTION)
@@ -647,6 +652,8 @@ extern "C" {
  */
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 #define XISF_SPI_PRESCALER	XQSPIPS_CLK_PRESCALE_4
+#elif XPAR_XISF_INTERFACE_QSPIPSU
+#define XISF_SPI_PRESCALER	XQSPIPSU_CLK_PRESCALE_4
 #elif XPAR_XISF_INTERFACE_PSSPI
 #define XISF_SPI_PRESCALER  	XSPIPS_CLK_PRESCALE_8
 #elif XPAR_XISF_INTERFACE_AXISPI
@@ -765,6 +772,8 @@ typedef XSpi XIsf_Iface;
 typedef XSpiPs XIsf_Iface;
 #elif XPAR_XISF_INTERFACE_PSQSPI
 typedef XQspiPs XIsf_Iface;
+#elif XPAR_XISF_INTERFACE_QSPIPSU
+typedef XQspiPsu XIsf_Iface;
 #endif
 typedef void (*XIsf_StatusHandler) (void *CallBackRef, u32 StatusEvent,
 					unsigned int ByteCount);
@@ -788,7 +797,8 @@ typedef struct {
 				  *  0 - Default/Normal Addressing Mode
 				  *  1 - Power-Of-2 Addressing Mode */
 	u16 DeviceCode;		/**< The Serial Flash Device Code */
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	u8 DeviceIDMemSize;	/**< Byte of device ID indicating the memory
 				 *   size */
 	u8 NumDie;		/**< No. of die forming a single flash */
@@ -807,21 +817,36 @@ typedef struct {
 	u8 FourByteAddrMode; /**< In four byte address mode flag */
 	int (*XIsf_Iface_SetOptions)
 		(XIsf_Iface *InstancePtr, u32 Options);
-#ifndef XPAR_XISF_INTERFACE_PSQSPI
+#if (!defined (XPAR_XISF_INTERFACE_PSQSPI)) && \
+	(!defined (XPAR_XISF_INTERFACE_QSPIPSU))
 	int (*XIsf_Iface_SetSlaveSelect)
 		(XIsf_Iface *InstancePtr, u8 SlaveMask);
+#else
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	void (*XIsf_Iface_SetSlaveSelect)
+		(XIsf_Iface *InstancePtr, u8 FlashCS, u8 FlashBus);
 #else
 	int (*XIsf_Iface_SetSlaveSelect)
 		(XIsf_Iface *InstancePtr);
 #endif
+#endif
 	int (*XIsf_Iface_Start)
 		(XIsf_Iface *InstancePtr);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	int (*XIsf_Iface_Transfer)
+		(XIsf_Iface *InstancePtr, XQspiPsu_Msg *Msg,
+			u32 NumMsg);
+	int (*XIsf_Iface_PolledTransfer)
+		(XIsf_Iface *InstancePtr, XQspiPsu_Msg *Msg,
+			u32 NumMsg);
+#else
 	int (*XIsf_Iface_Transfer)
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
 			u8 *RecvBufPtr, unsigned int ByteCount);
 	int (*XIsf_Iface_PolledTransfer)
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
 			u8 *RecvBufPtr, unsigned ByteCount);
+#endif
 	int (*XIsf_Iface_SetClkPrescaler)
 		(XIsf_Iface *InstancePtr, u8 PreScaler);
 	XIsf_StatusHandler StatusHandler;
@@ -986,7 +1011,8 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address);
 
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
-	defined(XPAR_XISF_INTERFACE_AXISPI))
+	(defined(XPAR_XISF_INTERFACE_AXISPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)))
 /*
  * Function for entering into 4 byte mode for Micron flash.
  */

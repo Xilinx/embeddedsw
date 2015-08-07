@@ -56,6 +56,7 @@
 *				XIsf_Write()
 * 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
 * 						  which supports 4 byte addressing.
+* 5.4  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +82,7 @@ extern u32 GetRealAddr(XIsf_Iface *QspiPtr, u32 Address);
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
 static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
-			const u8 *BufferPtr, u32 ByteCount);
+			u8 *BufferPtr, u32 ByteCount);
 static int AutoPageWrite(XIsf *InstancePtr, u32 Address);
 static int BufferWrite(XIsf *InstancePtr, u8 BufferNum, const u8 *WritePtr,
 			u32 ByteOffset, u32 NumBytes);
@@ -383,7 +384,7 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 *
 ******************************************************************************/
 static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
-			const u8 *BufferPtr, u32 ByteCount)
+			u8 *BufferPtr, u32 ByteCount)
 {
 	u8 Mode;
 	u32 Index;
@@ -393,8 +394,14 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u8 FlagStatus[2] = {0};
 	u8 FlashStatus[2] = {0};
 	u8 * NULLPtr = NULL;
-	const u8 * LocalBufPtr = BufferPtr;
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	u8 * LocalBufPtr = BufferPtr;
+#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[2];
+	u8 ReadStatusCmd, FSRFlag;
+	u32 CmdByteCount;
+#endif
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	u32 FlashMake = InstancePtr->ManufacturerID;
 #endif
 	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
@@ -455,33 +462,65 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
 		InstancePtr->WriteBufPtr[BYTE5] = (u8) (RealAddr);
+#ifndef XPAR_XISF_INTERFACE_QSPIPSU
 		for(Index = 5U; Index < (ByteCount + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
 													Index++) {
 			InstancePtr->WriteBufPtr[Index] = *LocalBufPtr;
 			LocalBufPtr += 1;
 		}
+#else
+		CmdByteCount = 5;
+#endif
 	} else {
 #endif
 		InstancePtr->WriteBufPtr[BYTE1] = Command;
 		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
 		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
+#ifndef XPAR_XISF_INTERFACE_QSPIPSU
 		for(Index = 4U; Index < (ByteCount + XISF_CMD_SEND_EXTRA_BYTES);
 										Index++) {
 			InstancePtr->WriteBufPtr[Index] = *LocalBufPtr;
 			LocalBufPtr += 1;
 		}
+#else
+		CmdByteCount = 4;
+#endif
+
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	}
 #endif
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	/*
 	 * Enable write before transfer
 	 */
 	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
 #endif
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
+	FlashMsg[0].RxBfrPtr = NULL;
+	FlashMsg[0].ByteCount = CmdByteCount;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+	FlashMsg[1].TxBfrPtr = LocalBufPtr;
+	FlashMsg[1].RxBfrPtr = NULL;
+	FlashMsg[1].ByteCount = ByteCount;
+	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+	if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+		FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+	}
+
+	InstancePtr->SpiInstPtr->Msg = FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+
+#else
 	if (InstancePtr->FourByteAddrMode == TRUE) {
 		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULLPtr,
 							(ByteCount + XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE));
@@ -489,18 +528,29 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULLPtr,
 					(ByteCount + XISF_CMD_SEND_EXTRA_BYTES));
 	}
+#endif
+
 	if (Status != (int)XST_SUCCESS) {
 		return (int)XST_FAILURE;
 	}
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
-	if((InstancePtr->NumDie > 1) &&
-			(FlashMake == XISF_MANUFACTURER_ID_MICRON)) {
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
+
+	if((InstancePtr->NumDie > (u8)1) &&
+		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		ReadStatusCmd = READ_FLAG_STATUS_CMD;
+		FSRFlag = 1;
+#else
 		Status = XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
 					(u32)sizeof(ReadFlagSRCmd));
-		if(Status != (int)XST_SUCCESS){
-			return (int)XST_FAILURE;
-		}
+#endif
+	} else {
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		ReadStatusCmd = READ_STATUS_CMD;
+		FSRFlag = 0;
+#endif
 	}
 
 	/*
@@ -508,6 +558,48 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	 * some time for the data to be written
 	 */
 	while (1) {
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = FlashStatus;
+		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+		InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			if(FSRFlag) {
+				FlashStatus[1] &= FlashStatus[0];
+			} else {
+				FlashStatus[1] |= FlashStatus[0];
+			}
+		}
+
+		if(FSRFlag) {
+			if ((FlashStatus[1] & 0x80) != 0) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[1] & 0x01) == 0) {
+				break;
+			}
+		}
+#else
 		/*
 		 * Poll the status register of the Flash to determine when it
 		 * completes, by sending a read status command and receiving
@@ -529,8 +621,10 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 		if ((FlashStatus[1] & 0x01) == 0) {
 			break;
 		}
+#endif
 	}
 
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
 	if((InstancePtr->NumDie > 1) &&
 			(FlashMake == XISF_MANUFACTURER_ID_MICRON)) {
 		Status = XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
@@ -539,6 +633,7 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 			return (int)XST_FAILURE;
 		}
 	}
+#endif
 #endif
 
 	return Status;

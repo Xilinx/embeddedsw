@@ -58,6 +58,7 @@
 *				BulkErase()
 * 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
 * 						  which supports 4 byte addressing.
+* 5.4  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * </pre>
 *
 ******************************************************************************/
@@ -84,7 +85,8 @@ static int PageErase(XIsf *InstancePtr, u32 Address);
 static int BlockErase(XIsf *InstancePtr, u32 Address);
 static int SectorErase(XIsf *InstancePtr, u32 Address);
 static int BulkErase(XIsf *InstancePtr);
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 static int DieErase(XIsf *InstancePtr);
 #endif
 /************************** Variable Definitions *****************************/
@@ -301,7 +303,14 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 	u8 FlashStatus[2] = {0};
 	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
 	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+	u8 *WriteBfrPtr = InstancePtr->WriteBufPtr;
+	u8 FSRFlag, ReadStatusCmd;
+#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[2];
+#endif
+
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	u32 FlashMake = InstancePtr->ManufacturerID;
 #endif
 
@@ -357,18 +366,26 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
 		InstancePtr->WriteBufPtr[BYTE5] = (u8) (RealAddr);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].ByteCount = 5;
+#endif
 	} else {
 #endif
 		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
 		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
 		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].ByteCount = 4;
+#endif
+
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	}
 #endif
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	/*
 	 * Enable write before transfer
 	 */
@@ -377,6 +394,16 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 		return (int)XST_FAILURE;
 	}
 #endif
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
+	FlashMsg[0].RxBfrPtr = NULL;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+	InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
+#else
 	if (InstancePtr->FourByteAddrMode == TRUE) {
 		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
 			NULLPtr, XISF_CMD_SEND_EXTRA_BYTES_4BYTE_MODE);
@@ -384,22 +411,73 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
 				NULLPtr, XISF_CMD_SEND_EXTRA_BYTES);
 	}
+#endif
 	if (Status != (int)XST_SUCCESS) {
 		return (int)XST_FAILURE;
 	}
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
+
 	if((InstancePtr->NumDie > (u8)1) &&
 		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
-
+		ReadStatusCmd = READ_FLAG_STATUS_CMD;
+		FSRFlag = 1;
+#ifndef XPAR_XISF_INTERFACE_QSPIPSU
 		Status = XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
 					(u32)sizeof(ReadFlagSRCmd));
+#endif
+	} else {
+		ReadStatusCmd = READ_STATUS_CMD;
+		FSRFlag = 0;
 	}
 
 	/*
 	 * Wait for the sector erase command to the Flash to be completed
 	 */
 	while (1) {
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = FlashStatus;
+		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+		InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			if(FSRFlag) {
+				FlashStatus[1] &= FlashStatus[0];
+			} else {
+				FlashStatus[1] |= FlashStatus[0];
+			}
+		}
+
+		if(FSRFlag) {
+			if ((FlashStatus[1] & 0x80) != 0) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[1] & 0x01) == 0) {
+				break;
+			}
+		}
+#else
 		/*
 		 * Poll the status register of the device to determine
 		 * when it completes, by sending a read status command
@@ -419,8 +497,10 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 		if ((FlashStatus[1] & 0x01) == 0) {
 			break;
 		}
+#endif
 	}
 
+#ifdef XPAR_XISF_INTERFACE_PSQSPI
 	if((InstancePtr->NumDie > (u8)1) &&
 		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
 
@@ -428,6 +508,7 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 			XIsf_Transfer(InstancePtr, ReadFlagSRCmd, FlagStatus,
 					(u32)sizeof(ReadFlagSRCmd));
 	}
+#endif
 #endif
 
 	return Status;
@@ -452,12 +533,16 @@ static int BulkErase(XIsf *InstancePtr)
 {
 	int Status = (int)(XST_FAILURE);
 	u8* NULLPtr = NULL;
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[2];
+#endif
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
      (XPAR_XISF_FLASH_FAMILY == WINBOND) || (XPAR_XISF_FLASH_FAMILY == SST) \
      || (XPAR_XISF_FLASH_FAMILY == SPANSION))
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	/*
 	 * If the number of die is greater than 1 call die erase
 	 */
@@ -478,13 +563,25 @@ static int BulkErase(XIsf *InstancePtr)
 		}
 
 		Xil_AssertNonvoid(NULLPtr == NULL);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		InstancePtr->SpiInstPtr->Msg = FlashMsg;
 
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
+#else
 		/*
 		 * Initiate the Transfer.
 		 */
 		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
 				NULLPtr, XISF_BULK_ERASE_BYTES);
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#endif
+
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 	}
 #endif
 #endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL)||(XPAR_XISF_FLASH_FAMILY==STM)) \
@@ -495,7 +592,8 @@ static int BulkErase(XIsf *InstancePtr)
 	return Status;
 }
 
-#ifdef XPAR_XISF_INTERFACE_PSQSPI
+#if defined (XPAR_XISF_INTERFACE_PSQSPI) || \
+	defined (XPAR_XISF_INTERFACE_QSPIPSU)
 /*****************************************************************************/
 /**
 *
@@ -514,6 +612,13 @@ static int DieErase(XIsf *InstancePtr)
 {
 	int Status = (int)(XST_FAILURE);
 	u8* NULLPtr = NULL;
+#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[2];
+	u8 ReadStatusCmd, FSRFlag;
+	u32 FlashMake = InstancePtr->ManufacturerID;
+	u8 FlashStatus[2] = {0};
+#endif
+
 #if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
      (XPAR_XISF_FLASH_FAMILY == SPANSION))
 
@@ -522,11 +627,13 @@ static int DieErase(XIsf *InstancePtr)
 	u8 FlagStatus[2] = {0};
 
 	for(DieCnt = 0; DieCnt < InstancePtr->NumDie; DieCnt++) {
+#ifndef XPAR_XISF_INTERFACE_QSPIPSU
 		/*
 		 * Select bank - the lower of the 2 banks in each die
 		 * This is specific to Micron flash
 		 */
 		Status = SendBankSelect(InstancePtr, DieCnt*2);
+#endif
 
 		/*
 		 * Setup the write command with the specified address and data
@@ -552,7 +659,24 @@ static int DieErase(XIsf *InstancePtr)
 		}
 
 		Xil_AssertNonvoid(NULLPtr == NULL);
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = BYTE5;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		InstancePtr->SpiInstPtr->Msg = FlashMsg;
 
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
+		if((InstancePtr->NumDie > (u8)1) &&
+			(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
+			ReadStatusCmd = READ_FLAG_STATUS_CMD;
+			FSRFlag = 1;
+		} else {
+			ReadStatusCmd = READ_STATUS_CMD;
+			FSRFlag = 0;
+		}
+#else
 		/*
 		 * Send the sector erase command and address; no receive buffer
 		 * is specified since there is nothing to receive
@@ -560,11 +684,54 @@ static int DieErase(XIsf *InstancePtr)
 		Status =
 		XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr, NULLPtr,
 				DIE_ERASE_SIZE);
+#endif
 
 		/*
 		 * Wait for the sector erase command to Flash to be completed
 		 */
 		while (1) {
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = FlashStatus;
+		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+		InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		}
+
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+			if(FSRFlag) {
+				FlashStatus[1] &= FlashStatus[0];
+			} else {
+				FlashStatus[1] |= FlashStatus[0];
+			}
+		}
+
+		if(FSRFlag) {
+			if ((FlashStatus[1] & 0x80) != 0) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[1] & 0x01) == 0) {
+				break;
+			}
+		}
+#else
 
 			/*
 			 * Poll the status register of the device to determine
@@ -585,6 +752,7 @@ static int DieErase(XIsf *InstancePtr)
 			if ((FlagStatus[1] & (u8)0x80) == (u8)0x80) {
 				break;
 			}
+#endif
 		}
 
 	}
