@@ -132,9 +132,9 @@ void XV_LBoxStop(XV_letterbox *InstancePtr)
 *
 ******************************************************************************/
 void XV_LBoxSetActiveWin(XV_letterbox *InstancePtr,
-                          XVidC_VideoWindow *ActiveWindow,
-                          u32 FrameWidth,
-                          u32 FrameHeight)
+                         XVidC_VideoWindow *ActiveWindow,
+                         u32 FrameWidth,
+                         u32 FrameHeight)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
@@ -190,7 +190,10 @@ void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
     Cr_b_val = bkgndColorYUV[ColorId][2] * scale;
   }
 
-  //Set Background (outside window) to be Black
+  /* Set video format */
+  XV_letterbox_Set_HwReg_video_format(InstancePtr, cfmt);
+
+  /* Set Background color (outside window) */
   XV_letterbox_Set_HwReg_Y_R_value(InstancePtr,  y_r_val);
   XV_letterbox_Set_HwReg_Cb_G_value(InstancePtr, Cb_g_val);
   XV_letterbox_Set_HwReg_Cr_B_value(InstancePtr, Cr_b_val);
@@ -212,7 +215,7 @@ void XV_LBoxDbgReportStatus(XV_letterbox *InstancePtr)
   XV_letterbox *pLbox = InstancePtr;
   u32 done, idle, ready, ctrl;
   u32 colstart, colend, rowstart, rowend;
-  u32 yr,cbg,crb, width, height;
+  u32 yr,cbg,crb, cfmt, width, height;
 
   /*
    * Assert validates the input arguments
@@ -235,6 +238,7 @@ void XV_LBoxDbgReportStatus(XV_letterbox *InstancePtr)
   crb      = XV_letterbox_Get_HwReg_Cr_B_value(pLbox);
   height   = XV_letterbox_Get_HwReg_height(pLbox);
   width    = XV_letterbox_Get_HwReg_width(pLbox);
+  cfmt     = XV_letterbox_Get_HwReg_video_format(pLbox);
 
 
   xil_printf("IsDone:  %d\r\n", done);
@@ -248,6 +252,7 @@ void XV_LBoxDbgReportStatus(XV_letterbox *InstancePtr)
   xil_printf(" Window End   Y : %d\r\n",rowend);
   xil_printf(" Frame Width    : %d\r\n",width);
   xil_printf(" Frame Height   : %d\r\n",height);
+  xil_printf(" Color Format   : %d\r\n",cfmt);
   xil_printf(" Bkgnd Color Y/R: %d\r\n",yr);
   xil_printf(" Bkgnd Color U/G: %d\r\n",cbg);
   xil_printf(" Bkgnd Color V/B: %d\r\n",crb);
