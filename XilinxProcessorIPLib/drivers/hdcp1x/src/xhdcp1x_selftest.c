@@ -70,8 +70,7 @@
 
 /*****************************************************************************/
 /**
-*
-* This function self tests an hdcp interface.
+* This function self tests an HDCP interface.
 *
 * @param	InstancePtr is the interface to test.
 *
@@ -84,15 +83,30 @@
 ******************************************************************************/
 int XHdcp1x_SelfTest(XHdcp1x *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	const XHdcp1x_Config *CfgPtr = &InstancePtr->Config;
+	u32 RegVal;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Self test the cipher */
-	if (XHdcp1x_CipherSelfTest(InstancePtr) != XST_SUCCESS) {
-		Status = XST_FAILURE;
+	/* Confirm that the version is reasonable. */
+	RegVal = XHdcp1x_CipherReadReg(CfgPtr->BaseAddress,
+			XHDCP1X_CIPHER_REG_VERSION);
+	if (!RegVal || (RegVal == ((u32)(-1)))) {
+		return (XST_FAILURE);
 	}
 
-	return (Status);
+	/* Confirm that the direction matches in both SW and HW. */
+	if ((!CfgPtr->IsRx && XHdcp1x_CipherIsRX(InstancePtr)) ||
+			(CfgPtr->IsRx && XHdcp1x_CipherIsTX(InstancePtr))) {
+		return (XST_FAILURE);
+	}
+
+	/* Confirm that the protocol matches in both SW and HW. */
+	if ((!CfgPtr->IsHDMI && XHdcp1x_CipherIsHDMI(InstancePtr)) ||
+			(CfgPtr->IsHDMI && XHdcp1x_CipherIsDP(InstancePtr))) {
+		return (XST_FAILURE);
+	}
+
+	return (XST_SUCCESS);
 }

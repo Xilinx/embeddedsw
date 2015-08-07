@@ -203,8 +203,6 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr);
 
 void XHdcp1x_CipherHandleInterrupt(void *InstancePtr);
 
-int XHdcp1x_CipherSelfTest(XHdcp1x *InstancePtr);
-
 #ifdef __cplusplus
 }
 #endif
