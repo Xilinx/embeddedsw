@@ -35,7 +35,6 @@
 * @file xemaclite_g.c
 * @addtogroup emaclite_v4_0
 * @{
-* @details
 *
 * This file contains a configuration table that specifies the configuration
 * of EmacLite devices in the system.

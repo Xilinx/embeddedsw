@@ -35,7 +35,6 @@
 * @file xemaclite_l.c
 * @addtogroup emaclite_v4_0
 * @{
-* @details
 *
 * This file contains the minimal, polled functions to send and receive Ethernet
 * frames.

@@ -35,7 +35,6 @@
 * @file xemaclite.c
 * @addtogroup emaclite_v4_0
 * @{
-* @details
 *
 * Functions in this file are the minimum required functions for the EmacLite
 * driver. See xemaclite.h for a detailed description of the driver.

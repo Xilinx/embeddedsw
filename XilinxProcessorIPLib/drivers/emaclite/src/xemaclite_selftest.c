@@ -35,7 +35,6 @@
 * @file xemaclite_selftest.c
 * @addtogroup emaclite_v4_0
 * @{
-* @details
 *
 * Function(s) in this file are the required functions for the EMAC Lite
 * driver sefftest for the hardware.

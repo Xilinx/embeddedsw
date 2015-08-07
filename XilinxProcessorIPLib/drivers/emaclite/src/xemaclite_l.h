@@ -35,7 +35,6 @@
 * @file xemaclite_l.h
 * @addtogroup emaclite_v4_0
 * @{
-* @details
 *
 * This header file contains identifiers and basic driver functions and macros
 * that can be used to access the Xilinx Ethernet Lite 10/100 MAC (EmacLite).
