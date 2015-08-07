@@ -80,7 +80,7 @@ void XHdcp1x_CipherIntrHandler(void *InstancePtr)
 
 	/* Verify arguments */
 	Xil_AssertVoid(HdcpPtr != NULL);
-	Xil_AssertVoid(HdcpPtr->Common.IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(HdcpPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Dispatch it to the corresponding cipher */
 	XHdcp1x_CipherHandleInterrupt(HdcpPtr);
@@ -105,7 +105,7 @@ void XHdcp1x_PortIntrHandler(void *InstancePtr, u32 IntCause)
 
 	/* Verify arguments */
 	Xil_AssertVoid(HdcpPtr != NULL);
-	Xil_AssertVoid(HdcpPtr->Common.IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(HdcpPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Dispatch it to the corresponding port */
 	XHdcp1x_PortHandleInterrupt(HdcpPtr, IntCause);

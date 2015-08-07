@@ -171,12 +171,9 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Common.IsReady !=
-			XIL_COMPONENT_IS_READY);
 
 	/* Initialize InstancePtr */
 	memset(InstancePtr, 0, sizeof(XHdcp1x));
-	InstancePtr->Common.CfgPtr = CfgPtr;
 	InstancePtr->Config = *CfgPtr;
 
 #if defined(INCLUDE_TX)
@@ -199,7 +196,7 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 
 	/* Update IsReady */
 	if (Status == XST_SUCCESS) {
-		InstancePtr->Common.IsReady = XIL_COMPONENT_IS_READY;
+		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	}
 
 	return (Status);

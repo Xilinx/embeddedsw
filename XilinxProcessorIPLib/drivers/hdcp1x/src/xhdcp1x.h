@@ -106,8 +106,6 @@ typedef struct {
 * This typedef contains an instance of the HDCP cipher core
 */
 typedef struct {
-	const XHdcp1x_Config *CfgPtr;		/**< The cipher core config */
-	u32 IsReady;				/**< The ready flag */
 	XHdcp1x_Callback LinkFailCallback;	/**< Link fail callback */
 	void *LinkFailRef;			/**< Link fail reference */
 	u32 IsLinkFailCallbackSet;		/**< Link fail config flag */
@@ -133,10 +131,8 @@ struct XHdcp1x_PortPhyIfAdaptorS;
  * This typedef contains an instance of the HDCP port
  */
 typedef struct XHdcp1x_PortStruct {
-	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
 	const struct XHdcp1x_PortPhyIfAdaptorS *Adaptor; /**< Port adaptor */
 	void *PhyIfPtr;			/**< The port's physical interface */
-	u32 IsReady;			/**< The ready flag */
 	XHdcp1x_Callback AuthCallback;	/**< (Re)Authentication callback */
 	void *AuthRef;			/**< (Re)Authentication reference */
 	u32 IsAuthCallbackSet;		/**< (Re)Authentication config flag */
@@ -165,21 +161,9 @@ typedef struct {
 } XHdcp1x_RxStats;
 
 /**
- * This typedef defines the elements that are common to both RX and TX HDCP
- * interfaces. The fields within this typedef must align with both the RX
- * and TX definitions
- */
-typedef struct {
-	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
-	u32 IsReady;			/**< The ready flag */
-} XHdcp1x_Common;
-
-/**
  * This typedef contains the transmit HDCP interface
  */
 typedef struct {
-	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
-	u32 IsReady;			/**< The ready flag */
 	u32 CurrentState;		/**< The interface's current state */
 	u32 PreviousState;		/**< The interface's previous state */
 	u64 StateHelper;		/**< The interface's state helper */
@@ -193,8 +177,6 @@ typedef struct {
  * This typedef contains the receive HDCP interface
  */
 typedef struct {
-	const XHdcp1x_Config *CfgPtr;	/**< The cipher core config */
-	u32 IsReady;			/**< The ready flag */
 	u32 CurrentState;		/**< The interface's current state */
 	u32 PreviousState;		/**< The interface's previous state */
 	u16 Flags;			/**< The interface flags */
@@ -210,10 +192,10 @@ typedef struct {
 	XHdcp1x_Cipher Cipher;		/**< The interface's cipher */
 	XHdcp1x_Port Port;	/**< The interface's port */
 	union {
-		XHdcp1x_Common Common;	/**< The common interface elements */
 		XHdcp1x_Tx Tx;		/**< The transmit interface elements */
 		XHdcp1x_Rx Rx;		/**< The receive interface elements */
 	};
+	u32 IsReady;			/**< The ready flag */
 } XHdcp1x;
 
 /**

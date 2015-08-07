@@ -181,9 +181,6 @@ int XHdcp1x_RxCfgInitialize(XHdcp1x *InstancePtr,
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	Xil_AssertNonvoid(PhyIfPtr != NULL);
 
-	/* Initialize InstancePtr */
-	InstancePtr->Rx.CfgPtr = CfgPtr;
-
 	/* Initialize cipher, port and state machine */
 	Status = XHdcp1x_PortCfgInitialize(InstancePtr, CfgPtr, PhyIfPtr);
 	if (Status == XST_SUCCESS) {

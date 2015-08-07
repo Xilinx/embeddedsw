@@ -117,10 +117,8 @@ int XHdcp1x_PortCfgInitialize(XHdcp1x *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	Xil_AssertNonvoid(PhyIfPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Port.IsReady != XIL_COMPONENT_IS_READY);
 
 	/* Initialize InstancePtr */
-	InstancePtr->Port.CfgPtr = CfgPtr;
 	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
 	InstancePtr->Port.Adaptor = DetermineAdaptor(InstancePtr);
 
@@ -131,11 +129,6 @@ int XHdcp1x_PortCfgInitialize(XHdcp1x *InstancePtr,
 	/* Invoke adaptor function if present */
 	else if (InstancePtr->Port.Adaptor->Init != NULL) {
 		Status = (*(InstancePtr->Port.Adaptor->Init))(InstancePtr);
-	}
-
-	/* Set IsReady */
-	if (Status == XST_SUCCESS) {
-		InstancePtr->Port.IsReady = XIL_COMPONENT_IS_READY;
 	}
 
 	return (Status);

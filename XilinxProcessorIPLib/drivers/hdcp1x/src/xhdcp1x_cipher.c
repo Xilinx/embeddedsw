@@ -241,11 +241,6 @@ int XHdcp1x_CipherCfgInitialize(XHdcp1x *InstancePtr,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Cipher.IsReady !=
-						XIL_COMPONENT_IS_READY);
-
-	/* Initialize InstancePtr */
-	InstancePtr->Cipher.CfgPtr = CfgPtr;
 
 	/* Check for mismatch on direction */
 	if (IsRX(InstancePtr)) {
@@ -270,7 +265,6 @@ int XHdcp1x_CipherCfgInitialize(XHdcp1x *InstancePtr,
 	/* Initialize it */
 	if (Status == XST_SUCCESS) {
 		Init(InstancePtr);
-		InstancePtr->Cipher.IsReady = XIL_COMPONENT_IS_READY;
 	}
 
 	return (Status);

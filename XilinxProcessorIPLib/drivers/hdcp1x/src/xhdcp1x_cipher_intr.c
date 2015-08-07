@@ -239,7 +239,7 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 
 	/* Verify arguments */
 	Xil_AssertVoid(HdcpPtr != NULL);
-	Xil_AssertVoid(HdcpPtr->Cipher.IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(HdcpPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Determine Pending */
 	Pending = RegRead(HdcpPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS);
