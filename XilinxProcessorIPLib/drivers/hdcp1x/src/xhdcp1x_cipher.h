@@ -160,8 +160,7 @@ typedef enum {
 
 /************************** Function Prototypes ******************************/
 
-int XHdcp1x_CipherCfgInitialize(XHdcp1x *InstancePtr,
-		const XHdcp1x_Config *CfgPtr);
+void XHdcp1x_CipherInit(XHdcp1x *InstancePtr);
 
 int XHdcp1x_CipherSetCallback(XHdcp1x *InstancePtr, u32 HandlerType,
 		XHdcp1x_Callback Callback, void *Ref);

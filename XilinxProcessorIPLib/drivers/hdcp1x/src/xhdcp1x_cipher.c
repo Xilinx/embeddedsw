@@ -215,59 +215,49 @@
 
 static void Enable(XHdcp1x *InstancePtr);
 static void Disable(XHdcp1x *InstancePtr);
-static void Init(XHdcp1x *InstancePtr);
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
-* This function initializes a cipher device.
+* This function initializes an HDCP cipher.
 *
 * @param	InstancePtr is the device to initialize.
-* @param	CfgPtr is the device configuration.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE otherwise.
+* @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_CipherCfgInitialize(XHdcp1x *InstancePtr,
-		const XHdcp1x_Config *CfgPtr)
+void XHdcp1x_CipherInit(XHdcp1x *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	u32 Value = 0;
 
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CfgPtr != NULL);
+	/* Reset it */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
 
-	/* Check for mismatch on direction */
-	if (IsRX(InstancePtr)) {
-		 if (!(CfgPtr->IsRx)) {
-			 Status = XST_FAILURE;
-		 }
-	}
-	else if (CfgPtr->IsRx) {
-		Status = XST_FAILURE;
-	}
+	/* Ensure all interrupts are disabled and cleared */
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, (u32) (-1));
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, (u32) (-1));
 
-	/* Check for mismatch on protocol */
-	if (IsHDMI(InstancePtr)) {
-		if (!(CfgPtr->IsHDMI)) {
-			Status = XST_FAILURE;
-		}
-	}
-	else if (CfgPtr->IsHDMI) {
-		Status = XST_FAILURE;
+	/* Check for DP */
+	if (IsDP(InstancePtr)) {
+		/* Configure for four lanes SST */
+		Value  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
+		Value |= (4u << 4);
+		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
 	}
 
-	/* Initialize it */
-	if (Status == XST_SUCCESS) {
-		Init(InstancePtr);
-	}
-
-	return (Status);
+	/* Ensure that the register update bit is set */
+	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
 }
 
 /*****************************************************************************/
@@ -1332,46 +1322,4 @@ static void Disable(XHdcp1x *InstancePtr)
 
 	/* Wait until the XOR has actually stopped */
 	while (XorInProgress(InstancePtr));
-}
-
-/*****************************************************************************/
-/**
-* This function initializes an HDCP cipher.
-*
-* @param	InstancePtr is the device to initialize.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void Init(XHdcp1x *InstancePtr)
-{
-	u32 Value = 0;
-
-	/* Reset it */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure all interrupts are disabled and cleared */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, (u32) (-1));
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, (u32) (-1));
-
-	/* Check for DP */
-	if (IsDP(InstancePtr)) {
-		/* Configure for four lanes SST */
-		Value  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
-		Value |= (4u << 4);
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-	}
-
-	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
 }

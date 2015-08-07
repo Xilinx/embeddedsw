@@ -189,7 +189,6 @@ static void EnterState(XHdcp1x *InstancePtr, tState State,
 		tState *NextStatePtr);
 static void ExitState(XHdcp1x *InstancePtr, tState State);
 static void DoTheState(XHdcp1x *InstancePtr, tEvent Event);
-static void Init(XHdcp1x *InstancePtr);
 static void ProcessPending(XHdcp1x *InstancePtr);
 static const char *StateToString(tState State);
 
@@ -197,38 +196,24 @@ static const char *StateToString(tState State);
 
 /*****************************************************************************/
 /**
-* This function initializes an HDCP interface.
+* This function initializes a transmit state machine.
 *
-* @param	InstancePtr is the transmitter instance.
-* @param	CfgPtr is the configuration of the instance.
-* @param	PhyIfPtr is pointer to the underlying physical interface.
+* @param	InstancePtr is the receiver instance.
 *
-* @return
-*		- XST_SUCCESS if successful.
+* @return	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_TxCfgInitialize(XHdcp1x *InstancePtr,
-		const XHdcp1x_Config *CfgPtr, void *PhyIfPtr)
+void XHdcp1x_TxInit(XHdcp1x *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	tState DummyState = STATE_DISABLED;
 
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(PhyIfPtr != NULL);
+	/* Update theHandler */
+	InstancePtr->Tx.PendingEvents = 0;
 
-	/* Initialize cipher, port and state machine */
-	Status = XHdcp1x_PortCfgInitialize(InstancePtr, CfgPtr, PhyIfPtr);
-	if (Status == XST_SUCCESS) {
-		Status = XHdcp1x_CipherCfgInitialize(InstancePtr, CfgPtr);
-		if (Status == XST_SUCCESS) {
-			Init(InstancePtr);
-		}
-	}
-
-	return (Status);
+	/* Kick the state machine */
+	EnterState(InstancePtr, STATE_DISABLED, &DummyState);
 }
 
 /*****************************************************************************/
@@ -2413,28 +2398,6 @@ static void DoTheState(XHdcp1x *InstancePtr, tEvent Event)
 		EnterState(InstancePtr, InstancePtr->Tx.CurrentState,
 								&NextState);
 	}
-}
-
-/*****************************************************************************/
-/**
-* This function initializes a transmit state machine.
-*
-* @param	InstancePtr is the receiver instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void Init(XHdcp1x *InstancePtr)
-{
-	tState DummyState = STATE_DISABLED;
-
-	/* Update theHandler */
-	InstancePtr->Tx.PendingEvents = 0;
-
-	/* Kick the state machine */
-	EnterState(InstancePtr, STATE_DISABLED, &DummyState);
 }
 
 /*****************************************************************************/

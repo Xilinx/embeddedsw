@@ -189,9 +189,8 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 
 /************************** Function Prototypes ******************************/
 
-int XHdcp1x_PortCfgInitialize(XHdcp1x *InstancePtr,
-	const XHdcp1x_Config *ConfigPtr, void *PhyIfPtr);
-
+const XHdcp1x_PortPhyIfAdaptor *XHdcp1x_PortDetermineAdaptor(
+		XHdcp1x *InstancePtr);
 int XHdcp1x_PortSetCallback(XHdcp1x *InstancePtr, u32 HandlerType,
 	XHdcp1x_Callback Callback, void *Parameter);
 

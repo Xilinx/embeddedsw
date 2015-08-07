@@ -166,7 +166,7 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 		void *PhyIfPtr)
 {
-	int Status = XST_SUCCESS;
+	int Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -175,31 +175,32 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	/* Initialize InstancePtr */
 	memset(InstancePtr, 0, sizeof(XHdcp1x));
 	InstancePtr->Config = *CfgPtr;
+	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
+	InstancePtr->Port.Adaptor = XHdcp1x_PortDetermineAdaptor(InstancePtr);
 
-#if defined(INCLUDE_TX)
-	/* Check for TX */
-	if (IsTX(InstancePtr)) {
-		Status = XHdcp1x_TxCfgInitialize(InstancePtr, CfgPtr, PhyIfPtr);
+	/* Ensure existence of an adaptor initialization function. */
+	if (!InstancePtr->Port.Adaptor || !InstancePtr->Port.Adaptor->Init) {
+		return (XST_NO_FEATURE);
 	}
-	else
-#endif
-#if defined(INCLUDE_RX)
-	/* Check for RX */
-	if (IsRX(InstancePtr)) {
-		Status = XHdcp1x_RxCfgInitialize(InstancePtr, CfgPtr, PhyIfPtr);
-	}
-	else
-#endif
-	{
-		Status = XST_FAILURE;
+	/* Invoke adaptor initialization function. */
+	Status = (*(InstancePtr->Port.Adaptor->Init))(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return (Status);
 	}
 
-	/* Update IsReady */
-	if (Status == XST_SUCCESS) {
-		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+	/* Initialize the cipher core. */
+	XHdcp1x_CipherInit(InstancePtr);
+	/* Initialize the transmitter/receiver state machine. */
+	if (!CfgPtr->IsRx) {
+		XHdcp1x_TxInit(InstancePtr);
+	}
+	else {
+		XHdcp1x_RxInit(InstancePtr);
 	}
 
-	return (Status);
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+	return (XST_SUCCESS);
 }
 
 /*****************************************************************************/

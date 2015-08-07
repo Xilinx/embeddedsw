@@ -89,49 +89,59 @@ extern const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor;
 
 /*************************** Function Prototypes *****************************/
 
-static const XHdcp1x_PortPhyIfAdaptor *DetermineAdaptor(XHdcp1x *InstancePtr);
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
-* This function initializes a port device.
+* This function determines the adaptor for a specified port device.
 *
-* @param	InstancePtr is the device to initialize.
-* @param	CfgPtr is the HDCP configuration structure.
-* @param	PhyIfPtr is pointer to the underlying physical interface.
+* @param	InstancePtr is the device whose adaptor is to be determined.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_NO_FEATURE if the port lacks an Init function.
+* @return	A pointer to the adaptor table. NULL if not found.
 *
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortCfgInitialize(XHdcp1x *InstancePtr,
-                const XHdcp1x_Config *CfgPtr, void *PhyIfPtr)
+const XHdcp1x_PortPhyIfAdaptor *XHdcp1x_PortDetermineAdaptor(
+		XHdcp1x *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
+	XHdcp1x_Config *CfgPtr = &InstancePtr->Config;
 
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(PhyIfPtr != NULL);
-
-	/* Initialize InstancePtr */
-	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
-	InstancePtr->Port.Adaptor = DetermineAdaptor(InstancePtr);
-
-	/* Sanity Check */
-	if (InstancePtr->Port.Adaptor == NULL) {
-		Status = XST_NO_FEATURE;
+#if defined(INCLUDE_HDMI_RX)
+	/* Check for HDMI Rx */
+	if ((CfgPtr->IsRx) && (CfgPtr->IsHDMI)) {
+		Adaptor = &XHdcp1x_PortHdmiRxAdaptor;
 	}
-	/* Invoke adaptor function if present */
-	else if (InstancePtr->Port.Adaptor->Init != NULL) {
-		Status = (*(InstancePtr->Port.Adaptor->Init))(InstancePtr);
+	else
+#endif
+#if defined(INCLUDE_HDMI_TX)
+	/* Check for HDMI Tx */
+	if (!(CfgPtr->IsRx) && (CfgPtr->IsHDMI)) {
+		Adaptor = &XHdcp1x_PortHdmiTxAdaptor;
+	}
+	else
+#endif
+#if defined(INCLUDE_DP_RX)
+	/* Check for DP Rx */
+	if ((CfgPtr->IsRx) && !(CfgPtr->IsHDMI)) {
+		Adaptor = &XHdcp1x_PortDpRxAdaptor;
+	}
+	else
+#endif
+#if defined(INCLUDE_DP_TX)
+	/* Check for DP Tx */
+	if (!(CfgPtr->IsRx) && !(CfgPtr->IsHDMI)) {
+		Adaptor = &XHdcp1x_PortDpTxAdaptor;
+	}
+	else
+#endif
+	{
+		Adaptor = NULL;
 	}
 
-	return (Status);
+	return (Adaptor);
 }
 
 /*****************************************************************************/
@@ -375,56 +385,4 @@ int XHdcp1x_PortWrite(XHdcp1x *InstancePtr, u8 Offset, const void *Buf,
 	}
 
 	return (NumWritten);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function determines the adaptor for a specified port device.
-*
-* @param	InstancePtr is the device whose adaptor is to be determined.
-*
-* @return	A pointer to the adaptor table. NULL if not found.
-*
-* @note		None.
-*
-******************************************************************************/
-static const XHdcp1x_PortPhyIfAdaptor *DetermineAdaptor(XHdcp1x *InstancePtr)
-{
-	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
-	XHdcp1x_Config *CfgPtr = &InstancePtr->Config;
-
-#if defined(INCLUDE_HDMI_RX)
-	/* Check for HDMI Rx */
-	if ((CfgPtr->IsRx) && (CfgPtr->IsHDMI)) {
-		Adaptor = &XHdcp1x_PortHdmiRxAdaptor;
-	}
-	else
-#endif
-#if defined(INCLUDE_HDMI_TX)
-	/* Check for HDMI Tx */
-	if (!(CfgPtr->IsRx) && (CfgPtr->IsHDMI)) {
-		Adaptor = &XHdcp1x_PortHdmiTxAdaptor;
-	}
-	else
-#endif
-#if defined(INCLUDE_DP_RX)
-	/* Check for DP Rx */
-	if ((CfgPtr->IsRx) && !(CfgPtr->IsHDMI)) {
-		Adaptor = &XHdcp1x_PortDpRxAdaptor;
-	}
-	else
-#endif
-#if defined(INCLUDE_DP_TX)
-	/* Check for DP Tx */
-	if (!(CfgPtr->IsRx) && !(CfgPtr->IsHDMI)) {
-		Adaptor = &XHdcp1x_PortDpTxAdaptor;
-	}
-	else
-#endif
-	{
-		Adaptor = NULL;
-	}
-
-	return (Adaptor);
 }

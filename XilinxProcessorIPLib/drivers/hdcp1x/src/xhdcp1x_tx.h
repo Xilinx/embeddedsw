@@ -69,8 +69,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-int XHdcp1x_TxCfgInitialize(XHdcp1x *InstancePtr,
-		const XHdcp1x_Config *CfgPtr, void *PhyIfPtr);
+void XHdcp1x_TxInit(XHdcp1x *InstancePtr);
 
 int XHdcp1x_TxPoll(XHdcp1x *InstancePtr);
 
