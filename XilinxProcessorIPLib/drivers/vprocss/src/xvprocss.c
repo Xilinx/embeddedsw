@@ -1057,9 +1057,9 @@ void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr)
     if(XVprocss_IsPipModeOn(InstancePtr))
     {
       XV_LBoxSetActiveWin(InstancePtr->lbox,
-                           &InstancePtr->idata.wrWindow,
-                           InstancePtr->VidOut.Timing.HActive,
-                           InstancePtr->VidOut.Timing.VActive);
+                          &InstancePtr->idata.wrWindow,
+                          InstancePtr->VidOut.Timing.HActive,
+                          InstancePtr->VidOut.Timing.VActive);
     }
   }
   else //Scaler Only Config
@@ -1429,21 +1429,17 @@ static int ValidateSubsystemConfig(XVprocss *InstancePtr)
   XVidC_VideoStream *StrmIn  = &InstancePtr->VidIn;
   XVidC_VideoStream *StrmOut = &InstancePtr->VidOut;
 
-  /* Check Stream Samples/Clock against Subsystem HW Configuration */
-  if((StrmIn->PixPerClk  != InstancePtr->Config.PixPerClock) ||
-	 (StrmOut->PixPerClk != InstancePtr->Config.PixPerClock))
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input/Output Stream Samples/Clk Not Supported \r\n");
-	return(XST_FAILURE);
-  }
+  /* Runtime Color Depth conversion not supported
+   * Always overwrite input/output stream color depth with subsystem setting
+   */
+  StrmIn->ColorDepth  = InstancePtr->Config.ColorDepth;
+  StrmOut->ColorDepth = InstancePtr->Config.ColorDepth;
 
-  /* Check Stream Color Depth against Subsystem HW Configuration */
-  if((StrmIn->ColorDepth  != InstancePtr->Config.ColorDepth) ||
-	 (StrmOut->ColorDepth != InstancePtr->Config.ColorDepth))
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input/Output Stream ColorDepth Not Supported \r\n");
-	return(XST_FAILURE);
-  }
+  /* Runtime Pixel/Clock conversion not supported
+   * Always overwrite input/output stream pixel/clk with subsystem setting
+   */
+  StrmIn->PixPerClk  = InstancePtr->Config.PixPerClock;
+  StrmOut->PixPerClk = InstancePtr->Config.PixPerClock;
 
   /* Check Stream Width is aligned at Samples/Clock boundary */
   if(((StrmIn->Timing.HActive  % InstancePtr->Config.PixPerClock) != 0) ||
@@ -1513,15 +1509,7 @@ static int ValidateSubsystemConfig(XVprocss *InstancePtr)
 	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced YUV420 stream not supported\r\n");
 	  return(XST_FAILURE);
 	}
-	if(InstancePtr->deint)
-	{
-	  if((StrmIn->VmId != XVIDC_VM_1080_50_I) && ((StrmIn->VmId != XVIDC_VM_1080_60_I)))
-	  {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Only 1080i 50Hz/60Hz Supported\r\n");
-		return(XST_FAILURE);
-	  }
-	}
-	else
+	if(!InstancePtr->deint)
 	{
 	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced input not supported\r\n");
 	  return(XST_FAILURE);

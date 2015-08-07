@@ -635,6 +635,13 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
                                 &lboxWin,
                                 pVprocss->VidOut.Timing.HActive,
                                 pVprocss->VidOut.Timing.VActive);
+
+            /* set background to default color on pipe reset */
+            XV_LboxSetBackgroundColor(pVprocss->lbox,
+                                      XLBOX_BKGND_BLACK,
+                                      pVprocss->idata.strmCformat,
+                                      pVprocss->VidOut.ColorDepth);
+
             pStartCore[XVPROCSS_RTR_LBOX] = TRUE;
           }
           break;
