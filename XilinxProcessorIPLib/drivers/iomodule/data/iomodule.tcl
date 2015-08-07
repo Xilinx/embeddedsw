@@ -39,6 +39,8 @@
 #		  	   absoluted hsi commands like xget_handle.CR#865544.
 #			   Modified generate proc to get canonical defintions
 #			   in xparameters.h.
+# 2.2	   nsk	  07/08/15 Updated iomodule_define_vector_table to handle
+#		 	   External vector interrupts.
 #
 ##############################################################################
 
@@ -315,10 +317,9 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
     #calculate the total interrupt sources
     set total_intr_ports [::hsi::utils::get_connected_pin_count $interrupt_pin]
     if {$num_intr_inputs != $total_intr_ports} {
-       puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the \
+       puts "WARNING: Num intr inputs $num_intr_inputs not the \
 	     same as length of ::hsi::utils::get_interrupt_sources [llength \
-		 $source_pins] hsi_error"
-        return
+		 $source_pins] hsi_warning"
     }
 
     #Check if default_interrupt_handler has to have an extern definition
@@ -348,9 +349,9 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
             set source_xparam_name [::hsi::utils::format_xparam_name $sname]
             set pname [string toupper $periph_name]
             set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
-            puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X" \
-		$source_xparam_name [string toupper $source_port_name($i)] \
-		[expr 1 << $i]]
+            puts $config_inc [format "#define XPAR_%s_%s_%s_MASK %#08X" \
+		[string toupper $periph_name] $source_xparam_name [string \
+		toupper $source_port_name($i)] [expr 1 << $i]]
             puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string \
 		toupper $periph_name] [string toupper $source_name($i)] [string \
 		 toupper $source_port_name($i)] $i]
@@ -409,7 +410,6 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
         }
 
         puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
-	puts [llength $args]
         foreach arg $args {
             if {[string first "_EXPIRED_MASK" $arg] > 0} {
 	   	set charindex [string first "_EXPIRED_MASK" $arg]
@@ -481,6 +481,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
                 set port_type($i) "global"
                 set source_driver ""
                 set source_interrupt_handler($i) $default_interrupt_handler
+		set source_periph($i) ""
 		lappend source_list $source_name($i)
                 incr i
             }
