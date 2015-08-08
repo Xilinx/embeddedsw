@@ -283,6 +283,8 @@
 * 5.1   adk  29/01/15  Added the sefltest api (XAxiVdma_Selftest) to the driver source files
 *                     (xaxivdma_selftest.c) and called this from the selftest example
 * 6.0   vak  27/07/15  Added example for demonstarting triple buffer api.
+* 6.0   vak  27/07/15  Added 64 bit addressing support to the driver.
+*
 * </pre>
 *
 ******************************************************************************/
