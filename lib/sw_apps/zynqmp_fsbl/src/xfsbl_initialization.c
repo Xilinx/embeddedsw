@@ -257,13 +257,18 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		 */
 		if (ClusterId == 0x80000004U) {
 			ClusterId = 0xC0000100U;
+		} else if (ClusterId == 0x80000005U) {
+			/* this corresponds to R5-1 */
+			Status = XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID;
+			XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID\n\r");
+			goto END;
+		} else {
+			/* For MISRA C compliance */
 		}
 	}
 
-	/**
-	 * store the processor ID based on the cluster ID
-	 * Need a check for unsupported Cluster ID
-	 */
+	/* store the processor ID based on the cluster ID */
 	if ((ClusterId & XFSBL_CLUSTER_ID_MASK) == XFSBL_A53_PROCESSOR) {
 		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 ");
 		FsblInstancePtr->ProcessorID =
@@ -278,7 +283,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->A53ExecState = XIH_PH_ATTRB_A53_EXEC_ST_AA32;
 #endif
 
-	} else {
+	} else if ((ClusterId & XFSBL_CLUSTER_ID_MASK) == XFSBL_R5_PROCESSOR) {
 		/* A53ExecState is not valid for R5 */
 		FsblInstancePtr->A53ExecState = XIH_INVALID_EXEC_ST;
 
@@ -304,12 +309,19 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 			Index += 4;
 		}
 
+	} else {
+		Status = XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID;
+		XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID\n\r");
+		goto END;
 	}
 
 	/**
 	 * Register the exception handlers
 	 */
 	XFsbl_RegisterHandlers();
+
+END:
 	return Status;
 }
 
