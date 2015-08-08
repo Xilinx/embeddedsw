@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma.h
-* @addtogroup axicdma_v3_0
+* @addtogroup axicdma_v4_0
 * @{
 * @details
  *
