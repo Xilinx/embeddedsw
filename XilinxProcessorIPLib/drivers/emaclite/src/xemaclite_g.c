@@ -33,7 +33,7 @@
 /**
 *
 * @file xemaclite_g.c
-* @addtogroup emaclite_v4_0
+* @addtogroup emaclite_v4_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration

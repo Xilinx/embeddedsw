@@ -33,7 +33,7 @@
 /**
 *
 * @file xemaclite.c
-* @addtogroup emaclite_v4_0
+* @addtogroup emaclite_v4_1
 * @{
 *
 * Functions in this file are the minimum required functions for the EmacLite

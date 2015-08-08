@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
 * @file xemaclite_i.h
-* @addtogroup emaclite_v4_0
+* @addtogroup emaclite_v4_1
 * @{
 *
 * This header file contains internal identifiers, which are those shared
