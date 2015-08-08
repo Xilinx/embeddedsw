@@ -33,7 +33,7 @@
 /**
 *
 * @file xiomodule_g.c
-* @addtogroup iomodule_v2_1
+* @addtogroup iomodule_v2_2
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

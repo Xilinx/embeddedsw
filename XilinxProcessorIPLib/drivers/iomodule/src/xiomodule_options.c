@@ -33,7 +33,7 @@
 /**
 *
 * @file xiomodule_options.c
-* @addtogroup iomodule_v2_1
+* @addtogroup iomodule_v2_2
 * @{
 *
 * Contains option functions for the XIOModule driver. These functions allow the

@@ -33,7 +33,7 @@
 /**
 *
 * @file xiomodule_selftest.c
-* @addtogroup iomodule_v2_1
+* @addtogroup iomodule_v2_2
 * @{
 *
 * Contains diagnostic self-test functions for the XIOModule component. This

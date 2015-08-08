@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xiomodule_extra.c
-* @addtogroup iomodule_v2_1
+* @addtogroup iomodule_v2_2
 * @{
 *
 * The implementation of the XIOModule component's advanced discrete
