@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartlite.h
-* @addtogroup uartlite_v3_0
+* @addtogroup uartlite_v3_1
 * @{
 * @details
 *
