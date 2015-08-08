@@ -83,7 +83,8 @@ static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
 static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		u64 Address, u32 Length);
 void XFsbl_EccInitialize(u32 Address, u32 Length);
-u32 XFsbl_GetLoadAddress(u32 DestinationCpu, u64 * LoadAddressPtr, u32 Length);
+u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
+		u32 Length);
 static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 
 /************************** Variable Definitions *****************************/
@@ -513,10 +514,10 @@ void XFsbl_EccInitialize(u32 Address, u32 Length)
 }
 
 
-u32 XFsbl_GetLoadAddress(u32 DestinationCpu, u64 * LoadAddressPtr, u32 Length)
+u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Length)
 {
 	u32 Status = XFSBL_SUCCESS;
-	u64 Address=0U;
+	PTRSIZE Address=0U;
 
 	Address = *LoadAddressPtr;
 
@@ -744,7 +745,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	u32 ExecState=0U;
 	XFsblPs_PartitionHeader * PartitionHeader;
 	u32 SrcAddress=0U;
-	u64 LoadAddress=0U;
+	PTRSIZE LoadAddress=0U;
 	u32 Length=0U;
 	u32 RunningCpu=0U;
 
@@ -969,7 +970,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 Length=0U;
 #endif
 #if defined(XFSBL_RSA) || defined(XFSBL_AES) || defined(XFSBL_BS)
-	u64 LoadAddress=0U;
+	PTRSIZE LoadAddress=0U;
 #endif
 #if defined(XFSBL_BS)
 	u32 BitstreamWordSize = 0;

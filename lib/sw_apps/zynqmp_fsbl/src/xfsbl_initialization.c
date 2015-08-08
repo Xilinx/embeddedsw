@@ -74,6 +74,12 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 
+/* Functions from xfsbl_misc.c */
+int psu_init();
+
+/* Functions from uart.c of BSP */
+void Init_Uart(void);
+
 /**
  * Functions from xfsbl_misc.c
  */

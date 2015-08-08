@@ -346,7 +346,12 @@ static u32 XFsbl_GetQspiAddr(u32 Address )
 			break;
 
 		default:
-			/* RealAddr wont be assigned in this case; */
+			/*
+			 * We should never reach here as error will be triggered during
+			 * QSPI Init for invalid connection mode. Hence, assign a value (0)
+			 * to RealAddr, to avoid warning.
+			 */
+			RealAddr = 0U;
 			break;
 	}
 

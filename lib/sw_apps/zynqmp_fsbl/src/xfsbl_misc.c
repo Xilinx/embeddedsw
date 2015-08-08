@@ -76,7 +76,6 @@ __inline void XFsbl_Printf(u32 DebugType,char *Format, ...)
 }
 #endif
 /************************** Function Prototypes ******************************/
-static char * XFsbl_Itoa(u32 Val, u32 Base);
 static void XFsbl_UndefHandler (void);
 #ifndef XFSBL_A53
 static void XFsbl_SvcHandler (void);

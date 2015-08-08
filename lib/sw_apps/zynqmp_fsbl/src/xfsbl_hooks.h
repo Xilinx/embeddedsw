@@ -76,6 +76,8 @@ u32 XFsbl_HookAfterBSDownload(void );
 
 u32 XFsbl_HookBeforeHandoff(u32 EarlyHandoff);
 
+u32 XFsbl_HookBeforeFallback(void);
+
 
 #ifdef __cplusplus
 }
