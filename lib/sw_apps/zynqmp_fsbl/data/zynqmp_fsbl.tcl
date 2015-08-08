@@ -42,7 +42,7 @@ proc swapp_get_description {} {
 }
 
 proc check_standalone_os {} {
-    set oslist [get_os];
+    set oslist [hsi::get_os];
 
     if { [llength $oslist] != 1 } {
         return 0;
@@ -88,7 +88,7 @@ proc swapp_is_supported_hw {} {
 
 
 proc get_stdout {} {
-    set os [get_os];
+    set os [hsi::get_os];
     set stdout [common::get_property CONFIG.STDOUT $os];
     return $stdout;
 }
@@ -120,7 +120,7 @@ proc swapp_generate {} {
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
     # get the compiler flags, if set already
-    set def_flags [get_property APP_COMPILER_FLAGS [current_sw_design]]
+    set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
 
     # based on the CPU (A53 64-bit, A53 32-bit or R5),
     # remove unnecesary linker script and retain just one: lscript.ld
@@ -131,7 +131,7 @@ proc swapp_generate {} {
 
         set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp $def_flags"
     } else {
-        set compiler [get_property CONFIG.compiler $proc_instance]
+        set compiler [common::get_property CONFIG.compiler $proc_instance]
 
         if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
             # A53 32-bit : Use same linker script as that of R5
@@ -152,7 +152,7 @@ proc swapp_generate {} {
         }
     }
     # Update compiler flags
-    set_property -name {APP_COMPILER_FLAGS} -value $new_flags -objects [current_sw_design]
+    common::set_property -name {APP_COMPILER_FLAGS} -value $new_flags -objects [hsi::current_sw_design]
 }
 
 proc swapp_get_linker_constraints {} {
