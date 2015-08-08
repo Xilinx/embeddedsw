@@ -33,7 +33,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_0
+* @addtogroup emacps_v3_1
 * @{
 * @details
  *
