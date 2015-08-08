@@ -33,7 +33,7 @@
 /**
  *
  * @file xaxidma_bd.h
-* @addtogroup axidma_v8_1
+* @addtogroup axidma_v9_0
 * @{
  *
  * Buffer descriptor (BD) management API.
