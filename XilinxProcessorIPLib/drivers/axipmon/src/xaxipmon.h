@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxipmon.h
-* @addtogroup axipmon_v6_2
+* @addtogroup axipmon_v6_3
 * @{
 * @details
 *

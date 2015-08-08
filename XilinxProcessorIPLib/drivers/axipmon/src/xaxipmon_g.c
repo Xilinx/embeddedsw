@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxipmon_g.c
-* @addtogroup axipmon_v6_2
+* @addtogroup axipmon_v6_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration
