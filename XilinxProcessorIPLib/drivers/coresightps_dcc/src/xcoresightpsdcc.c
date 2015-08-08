@@ -33,7 +33,7 @@
 /**
 *
 * @file xcoresightpsdcc.c
-* @addtogroup coresightps_dcc_v1_0
+* @addtogroup coresightps_dcc_v1_1
 * @{
 *
 * Functions in this file are the minimum required functions for the
