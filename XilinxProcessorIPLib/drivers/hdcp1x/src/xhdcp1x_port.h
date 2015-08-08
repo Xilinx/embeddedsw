@@ -83,11 +83,11 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 	int (*Init)(XHdcp1x *);			/**< Initialization function */
 	int (*Enable)(XHdcp1x *);		/**< Enable function */
 	int (*Disable)(XHdcp1x *);		/**< Disable function */
-	int (*Read)(const XHdcp1x *, u8, void*, u32);  /**< Reg read */
-	int (*Write)(XHdcp1x *, u8, const void*, u32); /**< Reg write */
+	int (*Read)(const XHdcp1x *, u8, void *, u32); /**< Reg read */
+	int (*Write)(XHdcp1x *, u8, const void *, u32); /**< Reg write */
 	int (*IsCapable)(const XHdcp1x *);	/**< Tests for HDCP capable */
 	int (*IsRepeater)(const XHdcp1x *);	/**< Tests for repeater */
-	int (*GetRepeaterInfo)(const XHdcp1x *, u16*); /**< Gets repeater
+	int (*GetRepeaterInfo)(const XHdcp1x *, u16 *); /**< Gets repeater
 							info */
 	void (*IntrHandler)(XHdcp1x *, u32); /**< Interrupt handler */
 } XHdcp1x_PortPhyIfAdaptor;

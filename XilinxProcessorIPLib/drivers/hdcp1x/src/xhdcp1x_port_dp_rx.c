@@ -62,18 +62,25 @@
 
 /************************** Constant Definitions *****************************/
 
+/* Adaptor definition at the end of this file. */
+const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor;
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes *****************************/
 
-static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf, u32 BufSize);
-static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf,
-		u32 BufSize);
-static void ProcessAKsvWrite(void *CallbackRef);
-static void ProcessRoRead(void *CallbackRef);
-static void ProcessBinfoRead(void *CallbackRef);
+static int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr);
+static int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr);
+static int XHdcp1x_PortDpRxInit(XHdcp1x *InstancePtr);
+static int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
+		void *Buf, u32 BufSize);
+static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
+		const void *Buf, u32 BufSize);
+static void XHdcp1x_PortDpRxProcessAKsvWrite(void *CallbackRef);
+static void XHdcp1x_PortDpRxProcessRoRead(void *CallbackRef);
+static void XHdcp1x_PortDpRxProcessBinfoRead(void *CallbackRef);
 
 /************************** Function Definitions *****************************/
 
@@ -89,7 +96,7 @@ static void ProcessBinfoRead(void *CallbackRef);
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
+static int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
 {
 	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
 	u32 IntMask = 0;
@@ -104,29 +111,29 @@ int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
 	memset(Buf, 0, 4);
 
 	/* Initialize Bstatus register */
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, Buf, 1);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, Buf, 1);
 
 	/* Initialize Binfo register */
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO, Buf, 2);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO, Buf, 2);
 
 	/* Initialize Bcaps register */
 	Buf[0] |= XHDCP1X_PORT_BIT_BCAPS_HDCP_CAPABLE;
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS, Buf, 1);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS, Buf, 1);
 
 	/* Initialize some debug registers */
 	Buf[0] = 0xDE;
 	Buf[1] = 0xAD;
 	Buf[2] = 0xBE;
 	Buf[3] = 0xEF;
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_DBG, Buf, 4);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_DBG, Buf, 4);
 
 	/* Register callbacks */
-	XDp_RxSetIntrHdcpAksvWriteHandler(HwDp, &ProcessAKsvWrite,
-			InstancePtr);
-	XDp_RxSetIntrHdcpBinfoReadHandler(HwDp, &ProcessBinfoRead,
-			InstancePtr);
-	XDp_RxSetIntrHdcpRoReadHandler(HwDp, &ProcessRoRead,
-			InstancePtr);
+	XDp_RxSetIntrHdcpAksvWriteHandler(HwDp,
+		&XHdcp1x_PortDpRxProcessAKsvWrite, InstancePtr);
+	XDp_RxSetIntrHdcpBinfoReadHandler(HwDp,
+		&XHdcp1x_PortDpRxProcessBinfoRead, InstancePtr);
+	XDp_RxSetIntrHdcpRoReadHandler(HwDp,
+		&XHdcp1x_PortDpRxProcessRoRead,	InstancePtr);
 
 	/* Enable interrupts */
 	IntMask  = XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK;
@@ -149,7 +156,7 @@ int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
+static int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 {
 	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
 	u32 IntMask = 0;
@@ -173,7 +180,8 @@ int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 	Offset = 0;
 	NumLeft = 256;
 	while (NumLeft-- > 0) {
-		RegWrite(InstancePtr, Offset++, &Value, sizeof(Value));
+		XHdcp1x_PortDpRxWrite(InstancePtr, Offset++, &Value,
+								sizeof(Value));
 	}
 
 	return (Status);
@@ -192,7 +200,7 @@ int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxInit(XHdcp1x *InstancePtr)
+static int XHdcp1x_PortDpRxInit(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
@@ -223,9 +231,15 @@ int XHdcp1x_PortDpRxInit(XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
+static int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
+	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
+	u32 Base = HwDp->Config.BaseAddr;
+	u32 RegOffset = 0;
+	int NumRead = 0;
+	u8 *ReadBuf = Buf;
+
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buf != NULL);
@@ -235,8 +249,51 @@ int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		BufSize = (0x100u - Offset);
 	}
 
-	/* Read it */
-	return (RegRead(InstancePtr, Offset, Buf, BufSize));
+	/* Determine RegOffset */
+	RegOffset = XDP_RX_DPCD_HDCP_TABLE;
+	RegOffset += Offset;
+
+	/* Iterate through the reads */
+	do {
+		u32 Value = 0;
+		u32 Alignment = 0;
+		u32 NumThisTime = 0;
+		int Idx = 0;
+
+		/* Determine Alignment */
+		Alignment = (RegOffset & 0x03ul);
+
+		/* Determine NumThisTime */
+		NumThisTime = 4;
+		if (Alignment) {
+			NumThisTime = (4 - Alignment);
+		}
+		if (NumThisTime > BufSize) {
+			NumThisTime = BufSize;
+		}
+
+		/* Determine Value */
+		Value = XDprx_ReadReg(Base, (RegOffset & ~0x03ul));
+
+		/* Check for adjustment of Value */
+		if (Alignment) {
+			Value >>= (8 * Alignment);
+		}
+
+		/* Update theBuf */
+		for (Idx = 0; Idx < NumThisTime; Idx++) {
+			ReadBuf[Idx] = (u8)(Value & 0xFFul);
+			Value >>= 8;
+		}
+
+		/* Update for loop */
+		ReadBuf += NumThisTime;
+		BufSize -= NumThisTime;
+		RegOffset += NumThisTime;
+		NumRead += NumThisTime;
+	} while (BufSize > 0);
+
+	return (NumRead);
 }
 
 /*****************************************************************************/
@@ -253,9 +310,15 @@ int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
+static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
+	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
+	u32 Base = HwDp->Config.BaseAddr;
+	u32 RegOffset = 0;
+	int NumWritten = 0;
+	const u8 *WriteBuf = Buf;
+
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buf != NULL);
@@ -265,101 +328,8 @@ int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		BufSize = (0x100u - Offset);
 	}
 
-	/* Write it */
-	return (RegWrite(InstancePtr, Offset, Buf, BufSize));
-}
-
-/*****************************************************************************/
-/**
-* This reads a register from the HDCP port device.
-*
-* @param	InstancePtr is the device to read from.
-* @param	Offset is the offset to start reading from.
-* @param	Buf is the buffer to copy data read.
-* @param	BufSize is the size of the buffer.
-*
-* @return	The number of bytes read.
-*
-* @note		None.
-*
-******************************************************************************/
-static int RegRead(const XHdcp1x *InstancePtr, u8 Offset, u8 *Buf, u32 BufSize)
-{
-	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
-	u32 Base = HwDp->Config.BaseAddr;
-	u32 RegOffset = 0;
-	int NumRead = 0;
-
 	/* Determine RegOffset */
-	RegOffset  = XDP_RX_DPCD_HDCP_TABLE;
-	RegOffset += Offset;
-
-	/* Iterate through the reads */
-	do {
-		u32 Value = 0;
-		u32 Alignment = 0;
-		u32 NumThisTime = 0;
-		int Idx = 0;
-
-		/* Determine Alignment */
-		Alignment = (RegOffset & 0x03ul);
-
-		/* Determine NumThisTime */
-		NumThisTime = 4;
-		if (Alignment != 0) {
-			NumThisTime = (4 - Alignment);
-		}
-		if (NumThisTime > BufSize) {
-			NumThisTime = BufSize;
-		}
-
-		/* Determine Value */
-		Value = XDprx_ReadReg(Base, (RegOffset & ~0x03ul));
-
-		/* Check for adjustment of Value */
-		if (Alignment != 0)
-			Value >>= (8 * Alignment);
-
-		/* Update theBuf */
-		for (Idx = 0; Idx < NumThisTime; Idx++) {
-			Buf[Idx] = (u8) (Value & 0xFFul);
-			Value >>= 8;
-		}
-
-		/* Update for loop */
-		Buf += NumThisTime;
-		BufSize -= NumThisTime;
-		RegOffset += NumThisTime;
-		NumRead += NumThisTime;
-	}
-	while (BufSize > 0);
-
-	return (NumRead);
-}
-
-/*****************************************************************************/
-/**
-* This writes a register from the HDCP port device.
-*
-* @param	InstancePtr is the device to write to.
-* @param	Offset is the offset to start writing at.
-* @param	Buf is the buffer containing data to write.
-* @param	BufSize is the size of the buffer.
-*
-* @return	The number of bytes written.
-*
-* @note		None.
-*
-******************************************************************************/
-static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
-{
-	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
-	u32 Base = HwDp->Config.BaseAddr;
-	u32 RegOffset = 0;
-	int NumWritten = 0;
-
-	/* Determine RegOffset */
-	RegOffset  = XDP_RX_DPCD_HDCP_TABLE;
+	RegOffset = XDP_RX_DPCD_HDCP_TABLE;
 	RegOffset += Offset;
 
 	/* Iterate through the writes */
@@ -374,7 +344,7 @@ static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 
 		/* Determine NumThisTime */
 		NumThisTime = 4;
-		if (Alignment != 0) {
+		if (Alignment) {
 			NumThisTime = (4 - Alignment);
 		}
 		if (NumThisTime > BufSize) {
@@ -386,7 +356,7 @@ static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 			/* Determine Value */
 			for (Idx = 3; Idx >= 0; Idx--) {
 				Value <<= 8;
-				Value |= Buf[Idx];
+				Value |= WriteBuf[Idx];
 			}
 		}
 		/* Otherwise - must read and modify existing memory */
@@ -396,7 +366,7 @@ static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 
 			/* Determine Mask */
 			Mask = 0xFFu;
-			if (Alignment != 0) {
+			if (Alignment) {
 				Mask <<= (8 * Alignment);
 			}
 
@@ -405,7 +375,7 @@ static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 
 			/* Update theValue */
 			for (Idx = 0; Idx < NumThisTime; Idx++) {
-				Temp = Buf[Idx];
+				Temp = WriteBuf[Idx];
 				Temp <<= (8 * (Alignment + Idx));
 				Value &= ~Mask;
 				Value |= Temp;
@@ -417,12 +387,11 @@ static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 		XDprx_WriteReg(Base, (RegOffset & ~0x03ul), Value);
 
 		/* Update for loop */
-		Buf += NumThisTime;
+		WriteBuf += NumThisTime;
 		BufSize -= NumThisTime;
 		RegOffset += NumThisTime;
 		NumWritten += NumThisTime;
-	}
-	while (BufSize > 0);
+	} while (BufSize > 0);
 
 	return (NumWritten);
 }
@@ -440,7 +409,7 @@ static int RegWrite(XHdcp1x *InstancePtr, u8 Offset, const u8 *Buf, u32 BufSize)
 *		bits as well as kick starts a re-authentication process.
 *
 ******************************************************************************/
-static void ProcessAKsvWrite(void *CallbackRef)
+static void XHdcp1x_PortDpRxProcessAKsvWrite(void *CallbackRef)
 {
 	XHdcp1x *InstancePtr = CallbackRef;
 	u8 Value = 0;
@@ -452,14 +421,18 @@ static void ProcessAKsvWrite(void *CallbackRef)
 	InstancePtr->Port.Stats.IntCount++;
 
 	/* Clear bit 0 of  Ainfo register */
-	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Value, 1);
+	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
+								&Value, 1);
 	Value &= 0xFEu;
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, &Value, 1);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
+								&Value, 1);
 
 	/* Clear bits 3:2 of  Bstatus register */
-	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
+	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+								&Value, 1);
 	Value &= 0xF3u;
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+								&Value, 1);
 
 	/* Invoke authentication callback if set */
 	if (InstancePtr->Port.IsAuthCallbackSet) {
@@ -480,7 +453,7 @@ static void ProcessAKsvWrite(void *CallbackRef)
 *		bits within device's Bstatus register.
 *
 ******************************************************************************/
-static void ProcessRoRead(void *CallbackRef)
+static void XHdcp1x_PortDpRxProcessRoRead(void *CallbackRef)
 {
 	XHdcp1x *InstancePtr = CallbackRef;
 	u8 Value = 0;
@@ -492,9 +465,11 @@ static void ProcessRoRead(void *CallbackRef)
 	InstancePtr->Port.Stats.IntCount++;
 
 	/* Clear bit 1 of  Bstatus register */
-	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
+	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+								&Value, 1);
 	Value &= 0xFDu;
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+								&Value, 1);
 }
 
 /*****************************************************************************/
@@ -510,7 +485,7 @@ static void ProcessRoRead(void *CallbackRef)
 *		bits within device's Bstatus register.
 *
 ******************************************************************************/
-static void ProcessBinfoRead(void *CallbackRef)
+static void XHdcp1x_PortDpRxProcessBinfoRead(void *CallbackRef)
 {
 	XHdcp1x *InstancePtr = CallbackRef;
 	u8 Value = 0;
@@ -521,15 +496,17 @@ static void ProcessBinfoRead(void *CallbackRef)
 	/* Update statistics */
 	InstancePtr->Port.Stats.IntCount++;
 
-	/* Clear bit 0 of  Bstatus register */
-	RegRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
+	/* Clear bit 0 of Bstatus register */
+	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+								&Value, 1);
 	Value &= 0xFEu;
-	RegWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, &Value, 1);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+								&Value, 1);
 }
 
 /*****************************************************************************/
 /**
-* This tables defines  adaptor for  DP RX HDCP port driver
+* This tables defines adaptor for DP RX HDCP port driver
 *
 ******************************************************************************/
 const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor =

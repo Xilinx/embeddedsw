@@ -67,29 +67,30 @@
 
 /************************** Constant Definitions *****************************/
 
-#define FLAG_PHY_UP		(1u << 0)  /**< Flag to track physical state */
+#define XVPHY_FLAG_PHY_UP	(1u << 0)  /**< Flag to track physical state */
 
 /**************************** Type Definitions *******************************/
-typedef enum {
-	EVENT_NULL,
-	EVENT_AUTHENTICATE,
-	EVENT_CHECK,
-	EVENT_DISABLE,
-	EVENT_ENABLE,
-	EVENT_PHYDOWN,
-	EVENT_PHYUP,
-	EVENT_POLL,
-	EVENT_UPDATERi,
-} tEvent;
 
 typedef enum {
-	STATE_DISABLED,
-	STATE_UNAUTHENTICATED,
-	STATE_COMPUTATIONS,
-	STATE_AUTHENTICATED,
-	STATE_LINKINTEGRITYFAILED,
-	STATE_PHYDOWN,
-} tState;
+	XHDCP1X_EVENT_NULL,
+	XHDCP1X_EVENT_AUTHENTICATE,
+	XHDCP1X_EVENT_CHECK,
+	XHDCP1X_EVENT_DISABLE,
+	XHDCP1X_EVENT_ENABLE,
+	XHDCP1X_EVENT_PHYDOWN,
+	XHDCP1X_EVENT_PHYUP,
+	XHDCP1X_EVENT_POLL,
+	XHDCP1X_EVENT_UPDATERi,
+} XHdcp1x_EventType;
+
+typedef enum {
+	XHDCP1X_STATE_DISABLED,
+	XHDCP1X_STATE_UNAUTHENTICATED,
+	XHDCP1X_STATE_COMPUTATIONS,
+	XHDCP1X_STATE_AUTHENTICATED,
+	XHDCP1X_STATE_LINKINTEGRITYFAILED,
+	XHDCP1X_STATE_PHYDOWN,
+} XHdcp1x_StateType;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -121,38 +122,42 @@ typedef enum {
 
 /*************************** Function Prototypes *****************************/
 
-static void DebugLog(const XHdcp1x *InstancePtr, const char *LogMsg);
-static void PostEvent(XHdcp1x *InstancePtr, tEvent Event);
-static void AuthCallback(void *Parameter);
-static void LinkFailCallback(void *Parameter);
-static void RiUpdateCallback(void *Parameter);
-static void SetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled);
-static void Enable(XHdcp1x *InstancePtr);
-static void Disable(XHdcp1x *InstancePtr);
-static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr);
-static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr);
-static void UpdateRi(XHdcp1x *InstancePtr, tState *NextStatePtr);
-static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr);
-static void ReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
-		tState *NextStatePtr);
-static void RunDisabledState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr);
-static void RunUnauthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr);
-static void RunComputationsState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr);
-static void RunAuthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr);
-static void RunLinkIntegrityFailedState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr);
-static void RunPhysicalLayerDownState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr);
-static void EnterState(XHdcp1x *InstancePtr, tState State,
-		tState *NextStatePtr);
-static void ExitState(XHdcp1x *InstancePtr, tState State);
-static void DoTheState(XHdcp1x *InstancePtr, tEvent Event);
-static void ProcessPending(XHdcp1x *InstancePtr);
-static const char *StateToString(tState State);
+static void XHdcp1x_RxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg);
+static void XHdcp1x_RxPostEvent(XHdcp1x *InstancePtr, XHdcp1x_EventType Event);
+static void XHdcp1x_RxAuthCallback(void *Parameter);
+static void XHdcp1x_RxLinkFailCallback(void *Parameter);
+static void XHdcp1x_RxRiUpdateCallback(void *Parameter);
+static void XHdcp1x_RxSetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled);
+static void XHdcp1x_RxEnableState(XHdcp1x *InstancePtr);
+static void XHdcp1x_RxDisableState(XHdcp1x *InstancePtr);
+static void XHdcp1x_RxStartComputations(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxCheckLinkIntegrity(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxRunDisabledState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxRunUnauthenticatedState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxRunComputationsState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxRunAuthenticatedState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxRunLinkIntegrityFailedState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxRunPhysicalLayerDownState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
+		XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State);
+static void XHdcp1x_RxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event);
+static void XHdcp1x_RxProcessPending(XHdcp1x *InstancePtr);
+static const char *XHdcp1x_RxStateToString(XHdcp1x_StateType State);
 
 /************************** Function Definitions *****************************/
 
@@ -169,13 +174,13 @@ static const char *StateToString(tState State);
 ******************************************************************************/
 void XHdcp1x_RxInit(XHdcp1x *InstancePtr)
 {
-	tState DummyState = STATE_DISABLED;
+	XHdcp1x_StateType DummyState = XHDCP1X_STATE_DISABLED;
 
 	/* Update theHandler */
 	InstancePtr->Rx.PendingEvents = 0;
 
 	/* Kick the state machine */
-	EnterState(InstancePtr, STATE_DISABLED, &DummyState);
+	XHdcp1x_RxEnterState(InstancePtr, XHDCP1X_STATE_DISABLED, &DummyState);
 }
 
 /*****************************************************************************/
@@ -198,10 +203,10 @@ int XHdcp1x_RxPoll(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Process any pending events */
-	ProcessPending(InstancePtr);
+	XHdcp1x_RxProcessPending(InstancePtr);
 
 	/* Poll it */
-	DoTheState(InstancePtr, EVENT_POLL);
+	XHdcp1x_RxDoTheState(InstancePtr, XHDCP1X_EVENT_POLL);
 
 	return (Status);
 }
@@ -226,8 +231,8 @@ int XHdcp1x_RxReset(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Reset it */
-	PostEvent(InstancePtr, EVENT_DISABLE);
-	PostEvent(InstancePtr, EVENT_ENABLE);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_DISABLE);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_ENABLE);
 
 	return (Status);
 }
@@ -252,7 +257,7 @@ int XHdcp1x_RxEnable(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Post it */
-	PostEvent(InstancePtr, EVENT_ENABLE);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_ENABLE);
 
 	return (Status);
 }
@@ -277,7 +282,7 @@ int XHdcp1x_RxDisable(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Post it */
-	PostEvent(InstancePtr, EVENT_DISABLE);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_DISABLE);
 
 	return (Status);
 }
@@ -298,18 +303,18 @@ int XHdcp1x_RxDisable(XHdcp1x *InstancePtr)
 int XHdcp1x_RxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp)
 {
 	int Status = XST_SUCCESS;
-	tEvent Event = EVENT_PHYDOWN;
+	XHdcp1x_EventType Event = XHDCP1X_EVENT_PHYDOWN;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Event */
 	if (IsUp) {
-		Event = EVENT_PHYUP;
+		Event = XHDCP1X_EVENT_PHYUP;
 	}
 
 	/* Post it */
-	PostEvent(InstancePtr, Event);
+	XHdcp1x_RxPostEvent(InstancePtr, Event);
 
 	return (Status);
 }
@@ -357,7 +362,7 @@ int XHdcp1x_RxAuthenticate(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Post the re-authentication request */
-	PostEvent(InstancePtr, EVENT_AUTHENTICATE);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_AUTHENTICATE);
 
 	return (Status);
 }
@@ -381,7 +386,7 @@ int XHdcp1x_RxIsAuthenticated(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine IsAuthenticated */
-	if (InstancePtr->Rx.CurrentState == STATE_AUTHENTICATED) {
+	if (InstancePtr->Rx.CurrentState == XHDCP1X_STATE_AUTHENTICATED) {
 		IsAuthenticated = TRUE;
 	}
 
@@ -436,37 +441,37 @@ int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr)
 		XHDCP1X_DEBUG_PRINTF("dp-rx\r\n");
 	}
 	XHDCP1X_DEBUG_PRINTF("Current State:   %s\r\n",
-			StateToString(InstancePtr->Rx.CurrentState));
+		XHdcp1x_RxStateToString(InstancePtr->Rx.CurrentState));
 	XHDCP1X_DEBUG_PRINTF("Previous State:  %s\r\n",
-			StateToString(InstancePtr->Rx.PreviousState));
+		XHdcp1x_RxStateToString(InstancePtr->Rx.PreviousState));
 	XHDCP1X_DEBUG_PRINTF("Flags:           %04X\r\n",
-			InstancePtr->Rx.Flags);
+		InstancePtr->Rx.Flags);
 	Version = XHdcp1x_GetDriverVersion();
 	XHDCP1X_DEBUG_PRINTF("Driver Version:  %d.%02d.%02d\r\n",
-			((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
-			(Version & 0xFFu));
+		((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
+		(Version & 0xFFu));
 	Version = XHdcp1x_CipherGetVersion(InstancePtr);
 	XHDCP1X_DEBUG_PRINTF("Cipher Version:  %d.%02d.%02d\r\n",
-			((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
-			(Version & 0xFFu));
+		((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
+		(Version & 0xFFu));
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Rx Stats\r\n");
 	XHDCP1X_DEBUG_PRINTF("Auth Attempts:   %d\r\n",
-			InstancePtr->Rx.Stats.AuthAttempts);
+		InstancePtr->Rx.Stats.AuthAttempts);
 	XHDCP1X_DEBUG_PRINTF("Link Failures:   %d\r\n",
-			InstancePtr->Rx.Stats.LinkFailures);
+		InstancePtr->Rx.Stats.LinkFailures);
 	XHDCP1X_DEBUG_PRINTF("Ri Updates:      %d\r\n",
-			InstancePtr->Rx.Stats.RiUpdates);
+		InstancePtr->Rx.Stats.RiUpdates);
 
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Cipher Stats\r\n");
 	XHDCP1X_DEBUG_PRINTF("Int Count:       %d\r\n",
-			InstancePtr->Cipher.Stats.IntCount);
+		InstancePtr->Cipher.Stats.IntCount);
 
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Port Stats\r\n");
 	XHDCP1X_DEBUG_PRINTF("Int Count:       %d\r\n",
-			InstancePtr->Port.Stats.IntCount);
+		InstancePtr->Port.Stats.IntCount);
 
 	return (XST_SUCCESS);
 }
@@ -483,7 +488,7 @@ int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void DebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
+static void XHdcp1x_RxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 {
 	char Label[16];
 
@@ -508,15 +513,15 @@ static void DebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 * @note		None.
 *
 ******************************************************************************/
-static void PostEvent(XHdcp1x *InstancePtr, tEvent Event)
+static void XHdcp1x_RxPostEvent(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 {
 	/* Check for disable and clear any pending enable */
-	if (Event == EVENT_DISABLE) {
-		InstancePtr->Rx.PendingEvents &= ~(1u << EVENT_ENABLE);
+	if (Event == XHDCP1X_EVENT_DISABLE) {
+		InstancePtr->Rx.PendingEvents &= ~(1u << XHDCP1X_EVENT_ENABLE);
 	}
 	/* Check for phy-down and clear any pending phy-up */
-	else if (Event == EVENT_PHYDOWN) {
-		InstancePtr->Rx.PendingEvents &= ~(1u << EVENT_PHYUP);
+	else if (Event == XHDCP1X_EVENT_PHYDOWN) {
+		InstancePtr->Rx.PendingEvents &= ~(1u << XHDCP1X_EVENT_PHYUP);
 	}
 
 	/* Post it */
@@ -534,12 +539,12 @@ static void PostEvent(XHdcp1x *InstancePtr, tEvent Event)
 * @note		None.
 *
 ******************************************************************************/
-static void AuthCallback(void *Parameter)
+static void XHdcp1x_RxAuthCallback(void *Parameter)
 {
 	XHdcp1x *InstancePtr = Parameter;
 
 	/* Post the re-authentication request */
-	PostEvent(InstancePtr, EVENT_AUTHENTICATE);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_AUTHENTICATE);
 }
 
 /*****************************************************************************/
@@ -553,12 +558,12 @@ static void AuthCallback(void *Parameter)
 * @note		None.
 *
 ******************************************************************************/
-static void LinkFailCallback(void *Parameter)
+static void XHdcp1x_RxLinkFailCallback(void *Parameter)
 {
 	XHdcp1x *InstancePtr = Parameter;
 
 	/* Post the check request */
-	PostEvent(InstancePtr, EVENT_CHECK);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_CHECK);
 }
 
 /*****************************************************************************/
@@ -572,12 +577,12 @@ static void LinkFailCallback(void *Parameter)
 * @note		None.
 *
 ******************************************************************************/
-static void RiUpdateCallback(void *Parameter)
+static void XHdcp1x_RxRiUpdateCallback(void *Parameter)
 {
 	XHdcp1x *InstancePtr = Parameter;
 
 	/* Post the update Ri request */
-	PostEvent(InstancePtr, EVENT_UPDATERi);
+	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_UPDATERi);
 }
 
 /*****************************************************************************/
@@ -592,7 +597,7 @@ static void RiUpdateCallback(void *Parameter)
 * @note		None.
 *
 ******************************************************************************/
-static void SetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
+static void XHdcp1x_RxSetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
 {
 	/* Check for DP */
 	if (IsDP(InstancePtr)) {
@@ -615,7 +620,7 @@ static void SetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
 * @note		None.
 *
 ******************************************************************************/
-static void Enable(XHdcp1x *InstancePtr)
+static void XHdcp1x_RxEnableState(XHdcp1x *InstancePtr)
 {
 	u64 MyKsv = 0;
 	u8 Buf[8];
@@ -624,13 +629,13 @@ static void Enable(XHdcp1x *InstancePtr)
 	XHdcp1x_CipherSetLinkStateCheck(InstancePtr, FALSE);
 	XHdcp1x_CipherSetCallback(InstancePtr,
 			XHDCP1X_CIPHER_HANDLER_LINK_FAILURE,
-			&LinkFailCallback, InstancePtr);
+			&XHdcp1x_RxLinkFailCallback, InstancePtr);
 
 	/* Disable and register the Ri callback */
 	XHdcp1x_CipherSetRiUpdate(InstancePtr, FALSE);
 	XHdcp1x_CipherSetCallback(InstancePtr,
 			XHDCP1X_CIPHER_HANDLER_Ri_UPDATE,
-			&RiUpdateCallback, InstancePtr);
+			&XHdcp1x_RxRiUpdateCallback, InstancePtr);
 
 	/* Enable the crypto engine */
 	XHdcp1x_CipherEnable(InstancePtr);
@@ -651,7 +656,7 @@ static void Enable(XHdcp1x *InstancePtr)
 
 	/* Register the re-authentication callback */
 	XHdcp1x_PortSetCallback(InstancePtr, XHDCP1X_PORT_HANDLER_AUTHENTICATE,
-			&AuthCallback, InstancePtr);
+			&XHdcp1x_RxAuthCallback, InstancePtr);
 
 	/* Enable the hdcp port */
 	XHdcp1x_PortEnable(InstancePtr);
@@ -668,7 +673,7 @@ static void Enable(XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void Disable(XHdcp1x *InstancePtr)
+static void XHdcp1x_RxDisableState(XHdcp1x *InstancePtr)
 {
 	/* Disable the hdcp cipher and port */
 	XHdcp1x_PortDisable(InstancePtr);
@@ -690,7 +695,8 @@ static void Disable(XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
+static void XHdcp1x_RxStartComputations(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr)
 {
 	u8 Buf[8];
 	u64 Value = 0;
@@ -699,7 +705,7 @@ static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 	u32 Z = 0;
 
 	/* Log */
-	DebugLog(InstancePtr, "starting computations");
+	XHdcp1x_RxDebugLog(InstancePtr, "starting computations");
 
 	/* Update statistics */
 	InstancePtr->Rx.Stats.AuthAttempts++;
@@ -743,7 +749,8 @@ static void StartComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
+static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr)
 {
 	/* Check for done */
 	if (XHdcp1x_CipherIsRequestComplete(InstancePtr)) {
@@ -751,7 +758,7 @@ static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 		u16 Ro = 0;
 
 		/* Log */
-		DebugLog(InstancePtr, "computations complete");
+		XHdcp1x_RxDebugLog(InstancePtr, "computations complete");
 
 		/* Read theRo */
 		Ro = XHdcp1x_CipherGetRo(InstancePtr);
@@ -772,10 +779,10 @@ static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 				XHDCP1X_PORT_SIZE_BSTATUS);
 #endif
 		/* Update NextStatePtr */
-		*NextStatePtr = STATE_AUTHENTICATED;
+		*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
 	}
 	else {
-		DebugLog(InstancePtr, "waiting for computations");
+		XHdcp1x_RxDebugLog(InstancePtr, "waiting for computations");
 	}
 }
 
@@ -793,7 +800,8 @@ static void PollForComputations(XHdcp1x *InstancePtr, tState *NextStatePtr)
 *		original value.
 *
 ******************************************************************************/
-static void UpdateRi(XHdcp1x *InstancePtr, tState *NextStatePtr)
+static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr)
 {
 	char LogBuf[20];
 	u8 Buf[4];
@@ -829,7 +837,7 @@ static void UpdateRi(XHdcp1x *InstancePtr, tState *NextStatePtr)
 	snprintf(LogBuf, 20, "update Ri (%04X)", RememberRi);
 
 	/* Log */
-	DebugLog(InstancePtr, LogBuf);
+	XHdcp1x_RxDebugLog(InstancePtr, LogBuf);
 }
 
 /*****************************************************************************/
@@ -844,13 +852,14 @@ static void UpdateRi(XHdcp1x *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr)
+static void XHdcp1x_RxCheckLinkIntegrity(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr)
 {
 	if (XHdcp1x_CipherIsLinkUp(InstancePtr)) {
-		*NextStatePtr = STATE_AUTHENTICATED;
+		*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
 	}
 	else {
-		*NextStatePtr = STATE_LINKINTEGRITYFAILED;
+		*NextStatePtr = XHDCP1X_STATE_LINKINTEGRITYFAILED;
 	}
 }
 
@@ -866,8 +875,8 @@ static void CheckLinkIntegrity(XHdcp1x *InstancePtr, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void ReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
-		tState *NextStatePtr)
+static void XHdcp1x_RxReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
+		XHdcp1x_StateType *NextStatePtr)
 {
 #if defined(XHDCP1X_PORT_BIT_BSTATUS_LINK_FAILURE)
 	u8 Buf[XHDCP1X_PORT_SIZE_BSTATUS];
@@ -881,7 +890,7 @@ static void ReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
 #endif
 
 	/* Log */
-	DebugLog(InstancePtr, "link integrity failed");
+	XHdcp1x_RxDebugLog(InstancePtr, "link integrity failed");
 }
 
 /*****************************************************************************/
@@ -897,27 +906,27 @@ static void ReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void RunDisabledState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr)
+static void XHdcp1x_RxRunDisabledState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
 	/* Which event? */
 	switch (Event) {
 		/* For enable */
-		case EVENT_ENABLE:
-			*NextStatePtr = STATE_UNAUTHENTICATED;
-			if ((InstancePtr->Rx.Flags & FLAG_PHY_UP) == 0) {
-				*NextStatePtr = STATE_PHYDOWN;
+		case XHDCP1X_EVENT_ENABLE:
+			*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
+			if ((InstancePtr->Rx.Flags & XVPHY_FLAG_PHY_UP) == 0) {
+				*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
 			}
 			break;
 
 		/* For physical layer down */
-		case EVENT_PHYDOWN:
-			InstancePtr->Rx.Flags &= ~FLAG_PHY_UP;
+		case XHDCP1X_EVENT_PHYDOWN:
+			InstancePtr->Rx.Flags &= ~XVPHY_FLAG_PHY_UP;
 			break;
 
 		/* For physical layer up */
-		case EVENT_PHYUP:
-			InstancePtr->Rx.Flags |= FLAG_PHY_UP;
+		case XHDCP1X_EVENT_PHYUP:
+			InstancePtr->Rx.Flags |= XVPHY_FLAG_PHY_UP;
 			break;
 
 		/* Otherwise */
@@ -940,24 +949,24 @@ static void RunDisabledState(XHdcp1x *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunUnauthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr)
+static void XHdcp1x_RxRunUnauthenticatedState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
 	/* Which event? */
 	switch (Event) {
 		/* For authenticate */
-		case EVENT_AUTHENTICATE:
-			*NextStatePtr = STATE_COMPUTATIONS;
+		case XHDCP1X_EVENT_AUTHENTICATE:
+			*NextStatePtr = XHDCP1X_STATE_COMPUTATIONS;
 			break;
 
 		/* For disable */
-		case EVENT_DISABLE:
-			*NextStatePtr = STATE_DISABLED;
+		case XHDCP1X_EVENT_DISABLE:
+			*NextStatePtr = XHDCP1X_STATE_DISABLED;
 			break;
 
 		/* For physical layer down */
-		case EVENT_PHYDOWN:
-			*NextStatePtr = STATE_PHYDOWN;
+		case XHDCP1X_EVENT_PHYDOWN:
+			*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
 			break;
 
 		/* Otherwise */
@@ -980,29 +989,30 @@ static void RunUnauthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunComputationsState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr)
+static void XHdcp1x_RxRunComputationsState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
 	/* Which event? */
 	switch (Event) {
 		/* For authenticate */
-		case EVENT_AUTHENTICATE:
-			StartComputations(InstancePtr, NextStatePtr);
+		case XHDCP1X_EVENT_AUTHENTICATE:
+			XHdcp1x_RxStartComputations(InstancePtr, NextStatePtr);
 			break;
 
 		/* For disable */
-		case EVENT_DISABLE:
-			*NextStatePtr = STATE_DISABLED;
+		case XHDCP1X_EVENT_DISABLE:
+			*NextStatePtr = XHDCP1X_STATE_DISABLED;
 			break;
 
 		/* For physical layer down */
-		case EVENT_PHYDOWN:
-			*NextStatePtr = STATE_PHYDOWN;
+		case XHDCP1X_EVENT_PHYDOWN:
+			*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
 			break;
 
 		/* For poll */
-		case EVENT_POLL:
-			PollForComputations(InstancePtr, NextStatePtr);
+		case XHDCP1X_EVENT_POLL:
+			XHdcp1x_RxPollForComputations(InstancePtr,
+				NextStatePtr);
 			break;
 
 		/* Otherwise */
@@ -1025,34 +1035,34 @@ static void RunComputationsState(XHdcp1x *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunAuthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr)
+static void XHdcp1x_RxRunAuthenticatedState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
 	/* Which event? */
 	switch (Event) {
 		/* For authenticate */
-		case EVENT_AUTHENTICATE:
-			*NextStatePtr = STATE_COMPUTATIONS;
+		case XHDCP1X_EVENT_AUTHENTICATE:
+			*NextStatePtr = XHDCP1X_STATE_COMPUTATIONS;
 			break;
 
 		/* For check */
-		case EVENT_CHECK:
-			CheckLinkIntegrity(InstancePtr, NextStatePtr);
+		case XHDCP1X_EVENT_CHECK:
+			XHdcp1x_RxCheckLinkIntegrity(InstancePtr, NextStatePtr);
 			break;
 
 		/* For disable */
-		case EVENT_DISABLE:
-			*NextStatePtr = STATE_DISABLED;
+		case XHDCP1X_EVENT_DISABLE:
+			*NextStatePtr = XHDCP1X_STATE_DISABLED;
 			break;
 
 		/* For physical layer down */
-		case EVENT_PHYDOWN:
-			*NextStatePtr = STATE_PHYDOWN;
+		case XHDCP1X_EVENT_PHYDOWN:
+			*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
 			break;
 
 		/* For update Ri */
-		case EVENT_UPDATERi:
-			UpdateRi(InstancePtr, NextStatePtr);
+		case XHDCP1X_EVENT_UPDATERi:
+			XHdcp1x_RxUpdateRi(InstancePtr, NextStatePtr);
 			break;
 
 		/* Otherwise */
@@ -1076,29 +1086,29 @@ static void RunAuthenticatedState(XHdcp1x *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunLinkIntegrityFailedState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr)
+static void XHdcp1x_RxRunLinkIntegrityFailedState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
 	/* Which event? */
 	switch (Event) {
 		/* For authenticate */
-		case EVENT_AUTHENTICATE:
-			*NextStatePtr = STATE_COMPUTATIONS;
+		case XHDCP1X_EVENT_AUTHENTICATE:
+			*NextStatePtr = XHDCP1X_STATE_COMPUTATIONS;
 			break;
 
 		/* For check */
-		case EVENT_CHECK:
-			CheckLinkIntegrity(InstancePtr, NextStatePtr);
+		case XHDCP1X_EVENT_CHECK:
+			XHdcp1x_RxCheckLinkIntegrity(InstancePtr, NextStatePtr);
 			break;
 
 		/* For disable */
-		case EVENT_DISABLE:
-			*NextStatePtr = STATE_DISABLED;
+		case XHDCP1X_EVENT_DISABLE:
+			*NextStatePtr = XHDCP1X_STATE_DISABLED;
 			break;
 
 		/* For physical layer down */
-		case EVENT_PHYDOWN:
-			*NextStatePtr = STATE_PHYDOWN;
+		case XHDCP1X_EVENT_PHYDOWN:
+			*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
 			break;
 
 		/* Otherwise */
@@ -1122,19 +1132,19 @@ static void RunLinkIntegrityFailedState(XHdcp1x *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void RunPhysicalLayerDownState(XHdcp1x *InstancePtr, tEvent Event,
-		tState *NextStatePtr)
+static void XHdcp1x_RxRunPhysicalLayerDownState(XHdcp1x *InstancePtr,
+		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
 	/* Which event? */
 	switch (Event) {
 		/* For disable */
-		case EVENT_DISABLE:
-			*NextStatePtr = STATE_DISABLED;
+		case XHDCP1X_EVENT_DISABLE:
+			*NextStatePtr = XHDCP1X_STATE_DISABLED;
 			break;
 
 		/* For physical layer up */
-		case EVENT_PHYUP:
-			*NextStatePtr = STATE_UNAUTHENTICATED;
+		case XHDCP1X_EVENT_PHYUP:
+			*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
 			break;
 
 		/* Otherwise */
@@ -1157,40 +1167,42 @@ static void RunPhysicalLayerDownState(XHdcp1x *InstancePtr, tEvent Event,
 * @note		None.
 *
 ******************************************************************************/
-static void EnterState(XHdcp1x *InstancePtr, tState State, tState *NextStatePtr)
+static void XHdcp1x_RxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
+		XHdcp1x_StateType *NextStatePtr)
 {
 	/* Which state? */
 	switch (State) {
 		/* For the disabled state */
-		case STATE_DISABLED:
-			Disable(InstancePtr);
+		case XHDCP1X_STATE_DISABLED:
+			XHdcp1x_RxDisableState(InstancePtr);
 			break;
 
 		/* For the unauthenticated state */
-		case STATE_UNAUTHENTICATED:
-			InstancePtr->Rx.Flags |= FLAG_PHY_UP;
+		case XHDCP1X_STATE_UNAUTHENTICATED:
+			InstancePtr->Rx.Flags |= XVPHY_FLAG_PHY_UP;
 			break;
 
 		/* For the computations state */
-		case STATE_COMPUTATIONS:
-			StartComputations(InstancePtr, NextStatePtr);
+		case XHDCP1X_STATE_COMPUTATIONS:
+			XHdcp1x_RxStartComputations(InstancePtr, NextStatePtr);
 			break;
 
 		/* For the authenticated state */
-		case STATE_AUTHENTICATED:
-			DebugLog(InstancePtr, "authenticated");
-			SetCheckLinkState(InstancePtr, TRUE);
+		case XHDCP1X_STATE_AUTHENTICATED:
+			XHdcp1x_RxDebugLog(InstancePtr, "authenticated");
+			XHdcp1x_RxSetCheckLinkState(InstancePtr, TRUE);
 			break;
 
 		/* For the link integrity failed state */
-		case STATE_LINKINTEGRITYFAILED:
+		case XHDCP1X_STATE_LINKINTEGRITYFAILED:
 			InstancePtr->Rx.Stats.LinkFailures++;
-			ReportLinkIntegrityFailure(InstancePtr, NextStatePtr);
+			XHdcp1x_RxReportLinkIntegrityFailure(InstancePtr,
+				NextStatePtr);
 			break;
 
 		/* For physical layer down */
-		case STATE_PHYDOWN:
-			InstancePtr->Rx.Flags &= ~FLAG_PHY_UP;
+		case XHDCP1X_STATE_PHYDOWN:
+			InstancePtr->Rx.Flags &= ~XVPHY_FLAG_PHY_UP;
 			XHdcp1x_CipherDisable(InstancePtr);
 			break;
 
@@ -1213,22 +1225,22 @@ static void EnterState(XHdcp1x *InstancePtr, tState State, tState *NextStatePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void ExitState(XHdcp1x *InstancePtr, tState State)
+static void XHdcp1x_RxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State)
 {
 	/* Which state? */
 	switch (State) {
 		/* For the disabled state */
-		case STATE_DISABLED:
-			Enable(InstancePtr);
+		case XHDCP1X_STATE_DISABLED:
+			XHdcp1x_RxEnableState(InstancePtr);
 			break;
 
 		/* For the authenticated state */
-		case STATE_AUTHENTICATED:
-			SetCheckLinkState(InstancePtr, FALSE);
+		case XHDCP1X_STATE_AUTHENTICATED:
+			XHdcp1x_RxSetCheckLinkState(InstancePtr, FALSE);
 			break;
 
 		/* For physical layer down */
-		case STATE_PHYDOWN:
+		case XHDCP1X_STATE_PHYDOWN:
 			XHdcp1x_CipherEnable(InstancePtr);
 			break;
 
@@ -1251,41 +1263,45 @@ static void ExitState(XHdcp1x *InstancePtr, tState State)
 * @note		None.
 *
 ******************************************************************************/
-static void DoTheState(XHdcp1x *InstancePtr, tEvent Event)
+static void XHdcp1x_RxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 {
-	tState NextState = InstancePtr->Rx.CurrentState;
+	XHdcp1x_StateType NextState = InstancePtr->Rx.CurrentState;
 
 	/* Which state? */
 	switch (InstancePtr->Rx.CurrentState) {
 		/* For the disabled state */
-		case STATE_DISABLED:
-			RunDisabledState(InstancePtr, Event, &NextState);
-			break;
-
-		/* For the unauthenticated state */
-		case STATE_UNAUTHENTICATED:
-			RunUnauthenticatedState(InstancePtr, Event, &NextState);
-			break;
-
-		/* For the computations state */
-		case STATE_COMPUTATIONS:
-			RunComputationsState(InstancePtr, Event, &NextState);
-			break;
-
-		/* For the authenticated state */
-		case STATE_AUTHENTICATED:
-			RunAuthenticatedState(InstancePtr, Event, &NextState);
-			break;
-
-		/* For the link integrity failed state */
-		case STATE_LINKINTEGRITYFAILED:
-			RunLinkIntegrityFailedState(InstancePtr, Event,
+		case XHDCP1X_STATE_DISABLED:
+			XHdcp1x_RxRunDisabledState(InstancePtr, Event,
 								&NextState);
 			break;
 
+		/* For the unauthenticated state */
+		case XHDCP1X_STATE_UNAUTHENTICATED:
+			XHdcp1x_RxRunUnauthenticatedState(InstancePtr, Event,
+								&NextState);
+			break;
+
+		/* For the computations state */
+		case XHDCP1X_STATE_COMPUTATIONS:
+			XHdcp1x_RxRunComputationsState(InstancePtr, Event,
+								&NextState);
+			break;
+
+		/* For the authenticated state */
+		case XHDCP1X_STATE_AUTHENTICATED:
+			XHdcp1x_RxRunAuthenticatedState(InstancePtr, Event,
+								&NextState);
+			break;
+
+		/* For the link integrity failed state */
+		case XHDCP1X_STATE_LINKINTEGRITYFAILED:
+			XHdcp1x_RxRunLinkIntegrityFailedState(InstancePtr,
+							Event, &NextState);
+			break;
+
 		/* For the physical layer down state */
-		case STATE_PHYDOWN:
-			RunPhysicalLayerDownState(InstancePtr, Event,
+		case XHDCP1X_STATE_PHYDOWN:
+			XHdcp1x_RxRunPhysicalLayerDownState(InstancePtr, Event,
 								&NextState);
 			break;
 
@@ -1297,10 +1313,10 @@ static void DoTheState(XHdcp1x *InstancePtr, tEvent Event)
 	/* Check for state change */
 	while (InstancePtr->Rx.CurrentState != NextState) {
 		/* Perform the state transition */
-		ExitState(InstancePtr, InstancePtr->Rx.CurrentState);
+		XHdcp1x_RxExitState(InstancePtr, InstancePtr->Rx.CurrentState);
 		InstancePtr->Rx.PreviousState = InstancePtr->Rx.CurrentState;
 		InstancePtr->Rx.CurrentState = NextState;
-		EnterState(InstancePtr, InstancePtr->Rx.CurrentState,
+		XHdcp1x_RxEnterState(InstancePtr, InstancePtr->Rx.CurrentState,
 								&NextState);
 	}
 }
@@ -1316,12 +1332,12 @@ static void DoTheState(XHdcp1x *InstancePtr, tEvent Event)
 * @note		None.
 *
 ******************************************************************************/
-static void ProcessPending(XHdcp1x *InstancePtr)
+static void XHdcp1x_RxProcessPending(XHdcp1x *InstancePtr)
 {
 	/* Check for any pending events */
 	if (InstancePtr->Rx.PendingEvents != 0) {
 		u16 Pending = InstancePtr->Rx.PendingEvents;
-		tEvent Event = EVENT_NULL;
+		XHdcp1x_EventType Event = XHDCP1X_EVENT_NULL;
 
 		/* Update InstancePtr */
 		InstancePtr->Rx.PendingEvents = 0;
@@ -1330,7 +1346,7 @@ static void ProcessPending(XHdcp1x *InstancePtr)
 		do {
 			/* Check for a pending event */
 			if ((Pending & 1u) != 0) {
-				DoTheState(InstancePtr, Event);
+				XHdcp1x_RxDoTheState(InstancePtr, Event);
 			}
 
 			/* Update for loop */
@@ -1352,33 +1368,33 @@ static void ProcessPending(XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static const char *StateToString(tState State)
+static const char *XHdcp1x_RxStateToString(XHdcp1x_StateType State)
 {
 	const char *String = NULL;
 
 	/* Which state? */
 	switch (State) {
-		case STATE_DISABLED:
+		case XHDCP1X_STATE_DISABLED:
 			String = "disabled";
 			break;
 
-		case STATE_UNAUTHENTICATED:
+		case XHDCP1X_STATE_UNAUTHENTICATED:
 			String = "unauthenticated";
 			break;
 
-		case STATE_COMPUTATIONS:
+		case XHDCP1X_STATE_COMPUTATIONS:
 			String = "computations";
 			break;
 
-		case STATE_AUTHENTICATED:
+		case XHDCP1X_STATE_AUTHENTICATED:
 			String = "authenticated";
 			break;
 
-		case STATE_LINKINTEGRITYFAILED:
+		case XHDCP1X_STATE_LINKINTEGRITYFAILED:
 			String = "link-integrity-failed";
 			break;
 
-		case STATE_PHYDOWN:
+		case XHDCP1X_STATE_PHYDOWN:
 			String = "physical-layer-down";
 			break;
 
