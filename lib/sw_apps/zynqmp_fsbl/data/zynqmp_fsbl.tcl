@@ -119,6 +119,9 @@ proc swapp_generate {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
+    # get the compiler flags, if set already
+    set def_flags [get_property APP_COMPILER_FLAGS [current_sw_design]]
+
     # based on the CPU (A53 64-bit, A53 32-bit or R5),
     # remove unnecesary linker script and retain just one: lscript.ld
     # set the compiler flags
@@ -126,9 +129,7 @@ proc swapp_generate {} {
         set ld_file_a53 "lscript_a53.ld"
         file delete -force $ld_file_a53
 
-        set_property -name {APP_COMPILER_FLAGS} \
-        -value {-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp} \
-        -objects [current_sw_design ]
+        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp $def_flags"
     } else {
         set compiler [get_property CONFIG.compiler $proc_instance]
 
@@ -137,9 +138,7 @@ proc swapp_generate {} {
             set ld_file_a53 "lscript_a53.ld"
             file delete -force $ld_file_a53
 
-            set_property -name {APP_COMPILER_FLAGS} \
-            -value {-Wall -fmessage-length=0 -march=armv7-a} \
-            -objects [current_sw_design ]
+            set new_flags "-Wall -fmessage-length=0 -march=armv7-a $def_flags"
         } else {
             #A53 64-bit
             set ld_file "lscript.ld"
@@ -149,11 +148,11 @@ proc swapp_generate {} {
             set ld_file_new "lscript.ld"
             file rename -force $ld_file_a53 $ld_file_new
 
-            set_property -name {APP_COMPILER_FLAGS} \
-            -value {-Wall -fmessage-length=0 -DXFSBL_A53} \
-            -objects [current_sw_design ]
+            set new_flags "-Wall -fmessage-length=0 -DXFSBL_A53 $def_flags"
         }
     }
+    # Update compiler flags
+    set_property -name {APP_COMPILER_FLAGS} -value $new_flags -objects [current_sw_design]
 }
 
 proc swapp_get_linker_constraints {} {
