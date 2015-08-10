@@ -38,7 +38,7 @@
 * </pre>
  */
 
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 
 #include "xparameters.h"
 #include "xparameters_ps.h"	/* defines XPAR values */

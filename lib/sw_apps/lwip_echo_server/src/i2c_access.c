@@ -49,7 +49,7 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#ifdef __arm__
+#if defined (__arm__) || defined(__aarch64__)
 #if XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1 || \
 	XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
 #include "xil_exception.h"

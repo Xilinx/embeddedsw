@@ -35,7 +35,7 @@
 
 #include "lwip/err.h"
 #include "lwip/tcp.h"
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 #include "xil_printf.h"
 #endif
 
