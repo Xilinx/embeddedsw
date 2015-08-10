@@ -117,11 +117,13 @@ int main(void)
 	 *  Run the Scu Gic Intc example, specify the Device ID generated in
 	 *  xparameters.h.
 	 */
+	xil_printf("Starting Scugic self test Example \r\n");
 	Status = ScuGicSelfTestExample(INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Scugic self test Example failed \n!");
 		return XST_FAILURE;
 	}
-
+	xil_printf("Scugic self test Example passed \n!");
 	return XST_SUCCESS;
 
 }
@@ -170,9 +172,6 @@ int ScuGicSelfTestExample(u16 DeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
-
-
 
 	return XST_SUCCESS;
 
