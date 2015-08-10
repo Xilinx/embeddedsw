@@ -336,7 +336,7 @@ proc swapp_generate {} {
     set proc_arm [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
     if { $proc_arm == "ps7_cortexa9"} {
 	puts $fid "#define PLATFORM_ZYNQ \n";
-    } elseif { $proc_arm == "psu_cortexr5"} {
+    } elseif { $proc_arm == "psu_cortexr5" || $proc_arm == "psu_cortexa53"} {
 	puts $fid "#define PLATFORM_ZYNQMP \n";
     }
     puts $fid "";
