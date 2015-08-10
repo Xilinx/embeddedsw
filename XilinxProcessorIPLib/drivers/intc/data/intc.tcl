@@ -295,7 +295,6 @@ proc intc_define_vector_table {periph config_inc config_file} {
     for {set i 0} {$i < $total_source_intrs} {incr i} {
         set source_ip $source_name($i)
         if { [llength $source_ip] != 0 && [llength [hsi::get_cells -hier $source_ip]] != 0} {
-          report_property [hsi::get_cells -hier $source_ip]
            set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $source_ip]]
            if { [string compare -nocase $ip_name "xlconstant"] == 0 } {
               #do no generate interrupt handler entries for xlconstant
@@ -646,7 +645,6 @@ proc intc_update_source_array {periph} {
 
 	lappend source_pins
 	set source_pins [::hsi::utils::get_interrupt_sources $periph]
-    puts "source_pins = $source_pins of intc = $periph"
     set intr_cnt 0
     foreach source_pin $source_pins {
         #default value as per external processor
