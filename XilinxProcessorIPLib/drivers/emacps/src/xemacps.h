@@ -314,6 +314,7 @@
  *                     Remove "used bit set" from TX error interrupt masks.
  * 3.1   hk   07/27/15 Do not call error handler with '0' error code when
  *                     there is no error. CR# 869403
+ *            08/10/15 Update upper 32 bit tx and rx queue ptr registers.
  * </pre>
  *
  ****************************************************************************/

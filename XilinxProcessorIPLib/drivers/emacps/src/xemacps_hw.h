@@ -59,6 +59,7 @@
 * 3.0  kvn   02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.0  hk   03/18/15 Added support for jumbo frames.
 *                    Remove "used bit set" from TX error interrupt masks.
+* 3.1  hk   08/10/15 Update upper 32 bit tx and rx queue ptr register offsets.
 * </pre>
 *
 ******************************************************************************/
@@ -300,7 +301,9 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 							reg */
 #define XEMACPS_RXQ1BASE_OFFSET	     0x00000480U /**< RX Q1 Base address
 							reg */
-#define XEMACPS_MSBBUF_QBASE_OFFSET  0x000004C8U /**< MSB Buffer Q Base
+#define XEMACPS_MSBBUF_TXQBASE_OFFSET  0x000004C8U /**< MSB Buffer TX Q Base
+							reg */
+#define XEMACPS_MSBBUF_RXQBASE_OFFSET  0x000004D4U /**< MSB Buffer RX Q Base
 							reg */
 #define XEMACPS_INTQ1_IER_OFFSET     0x00000600U /**< Interrupt Q1 Enable
 							reg */

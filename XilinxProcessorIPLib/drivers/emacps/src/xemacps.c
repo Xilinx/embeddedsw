@@ -51,6 +51,7 @@
 * 3.0  hk   02/20/15 Added support for jumbo frames. Increase AHB burst.
 *                    Disable extended mode. Perform all 64 bit changes under
 *                    check for arch64.
+* 3.1  hk   08/10/15 Update upper 32 bit tx and rx queue ptr registers
 *
 * </pre>
 ******************************************************************************/
@@ -470,10 +471,17 @@ void XEmacPs_SetQueuePtr(XEmacPs *InstancePtr, UINTPTR QPtr, u8 QueueNum,
 			(QPtr & ULONG64_LO_MASK));
 	}
 #ifdef __aarch64__
-	/* Set the MSB of Queue start address */
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XEMACPS_MSBBUF_QBASE_OFFSET,
-			(u32)((QPtr & (u32)ULONG64_HI_MASK) >> 32U));
+	if (Direction == XEMACPS_SEND) {
+		/* Set the MSB of TX Queue start address */
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				XEMACPS_MSBBUF_TXQBASE_OFFSET,
+				(u32)((QPtr & ULONG64_HI_MASK) >> 32U));
+	} else {
+		/* Set the MSB of RX Queue start address */
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				XEMACPS_MSBBUF_RXQBASE_OFFSET,
+				(u32)((QPtr & ULONG64_HI_MASK) >> 32U));
+	}
 #endif
 }
 /** @} */
