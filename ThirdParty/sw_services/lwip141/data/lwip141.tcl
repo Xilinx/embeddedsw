@@ -1120,6 +1120,11 @@ proc generate_adapterconfig_makefile {libhandle} {
 		#puts "Little Endian system"
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }
+            "psu_cortexa53" {
+		puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
+		#puts "Little Endian system"
+		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+            }
             default {
                 puts "unknown processor type $proctype\n"
             }
