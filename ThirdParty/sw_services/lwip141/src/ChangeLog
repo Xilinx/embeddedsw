@@ -1,5 +1,9 @@
 Change Log for lwip
 =================================
+2015-08-10
+	* Add support for A53
+2015-07-19
+	* Add support for Zynq Ultrascale MPSoC emacps
 2015-07-15
 	* Add Support for Axi ethernet with fifo on zynq.
 2015-06-15

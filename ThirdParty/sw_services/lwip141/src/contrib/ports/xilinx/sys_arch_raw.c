@@ -69,6 +69,9 @@ sys_arch_protect()
 #elif __arm__
 	cur = mfcpsr();
 	mtcpsr(cur | 0xC0);
+#elif __aarch64__
+	cur = mfcpsr();
+	mtcpsr(cur | 0xC0);
 #endif
 	return cur;
 }
@@ -82,7 +85,7 @@ sys_arch_protect()
 void
 sys_arch_unprotect(sys_prot_t lev)
 {
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 	mtcpsr(lev);
 #else
 	mtmsr(lev);

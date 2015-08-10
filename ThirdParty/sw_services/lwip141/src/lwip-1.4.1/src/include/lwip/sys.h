@@ -33,7 +33,7 @@
 #define __LWIP_SYS_H__
 
 #include "lwip/opt.h"
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 #include "xpseudo_asm.h"
 #include "xil_exception.h"
 #endif
@@ -279,7 +279,7 @@ u32_t sys_now(void);
 #define SYS_ARCH_PROTECT(lev) lev = mfmsr(); \
 			      mtmsr(lev & ~XEXC_ALL)
 #endif
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 #define SYS_ARCH_PROTECT(lev) lev = sys_arch_protect()
 #endif
 
@@ -298,7 +298,7 @@ u32_t sys_now(void);
 #ifdef __PPC__
 #define SYS_ARCH_UNPROTECT(lev)	mtmsr(lev)
 #endif
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 #define SYS_ARCH_UNPROTECT(lev) sys_arch_unprotect(lev)
 #endif
 sys_prot_t sys_arch_protect(void);

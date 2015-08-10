@@ -67,7 +67,7 @@ struct netif *	xemac_add(struct netif *netif,
 	struct ip_addr *ipaddr, struct ip_addr *netmask, struct ip_addr *gw,
 	unsigned char *mac_ethernet_address,
 	unsigned mac_baseaddr);
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 void xemacpsif_resetrx_on_no_rxdata(struct netif *netif);
 #endif
 

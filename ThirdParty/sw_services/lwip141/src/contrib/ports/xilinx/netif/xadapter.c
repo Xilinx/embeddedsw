@@ -160,7 +160,7 @@ xemac_add(struct netif *netif,
 #else
 				return NULL;
 #endif
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 			case xemac_type_emacps:
 #ifdef XLWIP_CONFIG_INCLUDE_GEM
 				return netif_add(netif, ipaddr, netmask, gw,
@@ -236,7 +236,7 @@ xemacif_input(struct netif *netif)
 			while(1);
 			return 0;
 #endif
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
 		case xemac_type_emacps:
 #ifdef XLWIP_CONFIG_INCLUDE_GEM
 			SYS_ARCH_PROTECT(lev);
