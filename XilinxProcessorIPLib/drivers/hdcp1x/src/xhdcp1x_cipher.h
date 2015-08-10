@@ -57,7 +57,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xhdcp1x.h"
-#include "xhdcp1x_cipher_hw.h"
 #include "xstatus.h"
 #include "xil_types.h"
 

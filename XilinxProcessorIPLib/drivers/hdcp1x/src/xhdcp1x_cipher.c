@@ -52,7 +52,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x.h"
-#include "xhdcp1x_cipher_hw.h"
 #include "xhdcp1x_cipher.h"
 #include "xil_assert.h"
 #include "xil_types.h"
