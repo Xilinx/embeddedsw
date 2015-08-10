@@ -94,32 +94,6 @@ typedef enum {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is Display Port (DP).
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating DP (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsDP(InstancePtr)  		(!InstancePtr->Config.IsHDMI)
-
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is HDMI.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating HDMI (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsHDMI(InstancePtr)  		(InstancePtr->Config.IsHDMI)
-
 /*************************** Function Prototypes *****************************/
 
 static void XHdcp1x_RxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg);
@@ -434,7 +408,7 @@ int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr)
 
 	/* Display it */
 	XHDCP1X_DEBUG_PRINTF("Type:            ");
-	if (IsHDMI(InstancePtr)) {
+	if (InstancePtr->Config.IsHDMI) {
 		XHDCP1X_DEBUG_PRINTF("hdmi-rx\r\n");
 	}
 	else {
@@ -599,13 +573,13 @@ static void XHdcp1x_RxRiUpdateCallback(void *Parameter)
 ******************************************************************************/
 static void XHdcp1x_RxSetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
 {
-	/* Check for DP */
-	if (IsDP(InstancePtr)) {
-		XHdcp1x_CipherSetLinkStateCheck(InstancePtr, IsEnabled);
-	}
 	/* Check for HDMI */
-	else if (IsHDMI(InstancePtr)) {
+	if (InstancePtr->Config.IsHDMI) {
 		XHdcp1x_CipherSetRiUpdate(InstancePtr, IsEnabled);
+	}
+	/* Check for DP */
+	else {
+		XHdcp1x_CipherSetLinkStateCheck(InstancePtr, IsEnabled);
 	}
 }
 

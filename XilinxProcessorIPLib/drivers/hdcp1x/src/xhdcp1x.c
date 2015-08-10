@@ -93,58 +93,6 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is a receiver.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating receiver (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsRX(InstancePtr) ((InstancePtr)->Config.IsRx)
-
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is a transmitter.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating transmitter (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsTX(InstancePtr) (!(InstancePtr)->Config.IsRx)
-
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is Display Port (DP).
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating DP (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsDP(InstancePtr) (!(InstancePtr)->Config.IsHDMI)
-
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is HDMI.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating HDMI (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsHDMI(InstancePtr) ((InstancePtr)->Config.IsHDMI)
-
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -225,14 +173,14 @@ int XHdcp1x_Poll(XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxPoll(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_RxPoll(InstancePtr);
 	}
 	else
@@ -266,14 +214,14 @@ int XHdcp1x_Reset(XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxReset(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_RxReset(InstancePtr);
 	}
 	else
@@ -307,14 +255,14 @@ int XHdcp1x_Enable(XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxEnable(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_RxEnable(InstancePtr);
 	}
 	else
@@ -348,14 +296,14 @@ int XHdcp1x_Disable(XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxDisable(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_RxDisable(InstancePtr);
 	}
 	else
@@ -390,14 +338,14 @@ int XHdcp1x_SetPhysicalState(XHdcp1x *InstancePtr, int IsUp)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxSetPhysicalState(InstancePtr, IsUp);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_RxSetPhysicalState(InstancePtr, IsUp);
 	}
 	else
@@ -432,14 +380,14 @@ int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if ((IsTX(InstancePtr)) && (IsDP(InstancePtr))) {
+	if ((!InstancePtr->Config.IsRx) && (!InstancePtr->Config.IsHDMI)) {
 		Status = XHdcp1x_TxSetLaneCount(InstancePtr, LaneCount);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if ((IsRX(InstancePtr)) && (IsDP(InstancePtr))) {
+	if ((InstancePtr->Config.IsRx) && (!InstancePtr->Config.IsHDMI)) {
 		Status = XHdcp1x_RxSetLaneCount(InstancePtr, LaneCount);
 	}
 	else
@@ -473,14 +421,14 @@ int XHdcp1x_Authenticate(XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxAuthenticate(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_RxAuthenticate(InstancePtr);
 	}
 	else
@@ -514,7 +462,7 @@ int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		IsInProgress = XHdcp1x_TxIsInProgress(InstancePtr);
 	}
 #endif
@@ -543,14 +491,14 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		IsAuth = XHdcp1x_TxIsAuthenticated(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		IsAuth = XHdcp1x_RxIsAuthenticated(InstancePtr);
 	}
 	else
@@ -583,14 +531,14 @@ u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		StreamMap = XHdcp1x_TxGetEncryption(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		StreamMap = XHdcp1x_RxGetEncryption(InstancePtr);
 	}
 	else
@@ -625,7 +573,7 @@ int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 Map)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxEnableEncryption(InstancePtr, Map);
 	}
 #endif
@@ -657,7 +605,7 @@ int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 Map)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxDisableEncryption(InstancePtr, Map);
 	}
 #endif
@@ -712,7 +660,7 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(HdcpPtr)) {
+	if (!HdcpPtr->Config.IsRx) {
 		XHdcp1x_TxHandleTimeout(HdcpPtr);
 	}
 #endif
@@ -871,14 +819,14 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 
 #if defined(INCLUDE_TX)
 	/* Check for TX */
-	if (IsTX(InstancePtr)) {
+	if (!InstancePtr->Config.IsRx) {
 		XHdcp1x_TxInfo(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
-	if (IsRX(InstancePtr)) {
+	if (InstancePtr->Config.IsRx) {
 		XHdcp1x_RxInfo(InstancePtr);
 	}
 	else

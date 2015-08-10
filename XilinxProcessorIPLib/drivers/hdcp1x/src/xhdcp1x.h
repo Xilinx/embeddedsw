@@ -225,6 +225,131 @@ typedef int (*XHdcp1x_TimerDelay)(const XHdcp1x *InstancePtr, u16 DelayInMs);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/*****************************************************************************/
+/**
+* This queries a cipher to determine if it is enabled.
+*
+* @param	InstancePtr is the instance to query.
+*
+* @return	Truth value indicating transmitter (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+#define XHdcp1x_CipherIsEnabled(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_CONTROL) & \
+	XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE) != 0)
+
+/*****************************************************************************/
+/**
+* This queries a cipher to determine if the XOR (encryption) function is
+* currently in progress.
+*
+* @param	InstancePtr is the instance to query.
+*
+* @return	Truth value indicating in progress (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+#define XHdcp1x_CipherXorInProgress(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_CIPHER_STATUS) & \
+	XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG) != 0)
+
+/*****************************************************************************/
+/**
+* This queries a cipher to determine if the local KSV is ready to read.
+*
+* @param	InstancePtr is the instance to query.
+*
+* @return	Truth value indicating ready (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+#define XHdcp1x_CipherLocalKsvReady(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_KEYMGMT_STATUS) & \
+	XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY) != 0)
+
+/*****************************************************************************/
+/**
+* This queries a cipher to determine if the Km value is ready.
+*
+* @param	InstancePtr is the instance to query.
+*
+* @return	Truth value indicating ready (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+#define XHdcp1x_CipherKmReady(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_KEYMGMT_STATUS) & \
+	XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY) != 0)
+
+/*****************************************************************************/
+/**
+*
+* This macro checks if a core supports the Display Port protocol
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+*
+* @return	Truth value indicating DP (TRUE) or not (FALSE)
+*
+******************************************************************************/
+#define XHdcp1x_IsDP(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL) \
+	== XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP)
+
+/*****************************************************************************/
+/**
+*
+* This macro checks if a core supports the HDMI protocol
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+*
+* @return	Truth value indicating HDMI (TRUE) or not (FALSE)
+*
+******************************************************************************/
+#define XHdcp1x_IsHDMI(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL) \
+	== XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI)
+
+/*****************************************************************************/
+/**
+*
+* This macro checks if a core supports the receive direction
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+*
+* @return	Truth value indicating receive (TRUE) or not (FALSE)
+*
+******************************************************************************/
+#define XHdcp1x_IsRX(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION) \
+	== XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX)
+
+/*****************************************************************************/
+/**
+*
+* This macro checks if a core supports the transmit direction
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+*
+* @return	Truth value indicating transmit (TRUE) or not (FALSE)
+*
+******************************************************************************/
+#define XHdcp1x_IsTX(InstancePtr) \
+	((XHdcp1x_ReadReg((InstancePtr)->Config.BaseAddress, \
+	XHDCP1X_CIPHER_REG_TYPE) & XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION) \
+	== XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX)
+
 /************************** Function Prototypes ******************************/
 
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId);

@@ -108,32 +108,6 @@ typedef enum {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is Display Port (DP).
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating DP (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsDP(InstancePtr)  		(!InstancePtr->Config.IsHDMI)
-
-/*****************************************************************************/
-/**
-* This queries an interface to determine if it is HDMI.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating HDMI (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsHDMI(InstancePtr)  		(InstancePtr->Config.IsHDMI)
-
 /*************************** Function Prototypes *****************************/
 
 static void XHdcp1x_TxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg);
@@ -603,7 +577,7 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 
 	/* Display it */
 	XHDCP1X_DEBUG_PRINTF("Type:            ");
-	if (IsHDMI(InstancePtr)) {
+	if (InstancePtr->Config.IsHDMI) {
 		XHDCP1X_DEBUG_PRINTF("hdmi-tx\r\n");
 	}
 	else {
@@ -817,7 +791,7 @@ static void XHdcp1x_TxCheckLinkCallback(void *Parameter)
 static void XHdcp1x_TxSetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
 {
 	/* Check for HDMI */
-	if (IsHDMI(InstancePtr)) {
+	if (InstancePtr->Config.IsHDMI) {
 		/* Check for enabled */
 		if (IsEnabled) {
 			/* Register Callback */

@@ -63,154 +63,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/**
-* This function performs register read from a cipher.
-*
-* @param	InstancePtr is the instance to read from.
-* @param	Reg is the register to read.
-*
-* @return	The current contents of the indicated register.
-*
-* @note		None.
-*
-******************************************************************************/
-#define RegRead(InstancePtr, Reg) \
-	XHdcp1x_CipherReadReg(InstancePtr->Config.BaseAddress, Reg)
-
-/*****************************************************************************/
-/**
-* This function performs register write to a cipher.
-*
-* @param	InstancePtr is the instance to write to.
-* @param	Reg is the register to write.
-* @param	Value is the value to write.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-#define RegWrite(InstancePtr, Reg, Value) \
-	XHdcp1x_CipherWriteReg(InstancePtr->Config.BaseAddress, Reg, Value)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if it is Display Port (DP).
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating DP (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsDP(InstancePtr) \
-	XHdcp1x_CipherIsDP(InstancePtr)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if it is HDMI.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating HDMI (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsHDMI(InstancePtr) \
-	XHdcp1x_CipherIsHDMI(InstancePtr)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if it is a receiver.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating receiver (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsRX(InstancePtr) \
-	XHdcp1x_CipherIsRX(InstancePtr)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if it is a transmitter.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating transmitter (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsTX(InstancePtr) \
-	XHdcp1x_CipherIsTX(InstancePtr)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if it is enabled.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating transmitter (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define IsEnabled(InstancePtr) \
-	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL) & \
-	XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE) != 0)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if the XOR (encryption) function is
-* currently in progress.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating in progress (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define XorInProgress(InstancePtr) \
-	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_STATUS) & \
-	XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG) != 0)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if the local KSV is ready to read.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating ready (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define LocalKsvReady(InstancePtr) \
-	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_STATUS) & \
-	XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY) != 0)
-
-/*****************************************************************************/
-/**
-* This queries a cipher to determine if the Km value is ready.
-*
-* @param	InstancePtr is the instance to query.
-*
-* @return	Truth value indicating ready (TRUE) or not (FALSE).
-*
-* @note		None.
-*
-******************************************************************************/
-#define KmReady(InstancePtr) \
-	((RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_STATUS) & \
-	XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY) != 0)
-
 /*************************** Function Prototypes *****************************/
 
 static void Enable(XHdcp1x *InstancePtr);
@@ -234,30 +86,40 @@ void XHdcp1x_CipherInit(XHdcp1x *InstancePtr)
 	u32 Value = 0;
 
 	/* Reset it */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_RESET;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Ensure all interrupts are disabled and cleared */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, (u32) (-1));
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, (u32) (-1));
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_INTERRUPT_MASK, (u32)(-1));
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, (u32)(-1));
 
 	/* Check for DP */
-	if (IsDP(InstancePtr)) {
+	if (XHdcp1x_IsDP(InstancePtr)) {
 		/* Configure for four lanes SST */
-		Value  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+		Value  = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL);
 		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
 		Value |= (4u << 4);
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL, Value);
 	}
 
 	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 }
 
 /*****************************************************************************/
@@ -273,14 +135,16 @@ void XHdcp1x_CipherInit(XHdcp1x *InstancePtr)
 ******************************************************************************/
 int XHdcp1x_CipherIsLinkUp(const XHdcp1x *InstancePtr)
 {
+	u32 Value;
 	int IsUp = FALSE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check for currently enabled */
-	if (IsEnabled(InstancePtr)) {
-		u32 Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_STATUS);
+	if (XHdcp1x_CipherIsEnabled(InstancePtr)) {
+		Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_STATUS);
 		if ((Value & XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL) != 0) {
 			IsUp = TRUE;
 		}
@@ -310,7 +174,7 @@ int XHdcp1x_CipherEnable(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check for currently disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		Enable(InstancePtr);
 	}
 	else {
@@ -341,7 +205,7 @@ int XHdcp1x_CipherDisable(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check for currently enabled */
-	if (IsEnabled(InstancePtr)) {
+	if (XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		Disable(InstancePtr);
 	}
 
@@ -371,10 +235,12 @@ int XHdcp1x_CipherSetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect)
 	Xil_AssertNonvoid(KeySelect < 8);
 
 	/* Update the device */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_SET_SELECT;
 	Value |= (KeySelect << 16);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Value);
 
 	return (Status);
 }
@@ -404,12 +270,13 @@ int XHdcp1x_CipherDoRequest(XHdcp1x *InstancePtr,
 	Xil_AssertNonvoid(Request >= (XHDCP1X_CIPHER_REQUEST_BLOCK));
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Determine if there is a request in progress */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_STATUS);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_STATUS);
 	Value &= XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_REQUEST_IN_PROG;
 
 	/* Check that it is not busy */
@@ -418,20 +285,26 @@ int XHdcp1x_CipherDoRequest(XHdcp1x *InstancePtr,
 	}
 
 	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Set the appropriate request bit and ensure that Km is always used */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST;
 	Value |= (XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK << Request);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
 
 	/* Ensure that the request bit(s) get cleared for next time */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
 
 	return (XST_SUCCESS);
 }
@@ -456,7 +329,8 @@ int XHdcp1x_CipherIsRequestComplete(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Value */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_STATUS);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_STATUS);
 	Value &= XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_REQUEST_IN_PROG;
 
 	/* Update IsComplete */
@@ -486,9 +360,10 @@ u32 XHdcp1x_CipherGetNumLanes(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check for currently enabled */
-	if (IsEnabled(InstancePtr)) {
+	if (XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		/* Determine NumLanes */
-		NumLanes = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+		NumLanes = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL);
 		NumLanes &= XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
 		NumLanes >>= 4;
 	}
@@ -520,15 +395,17 @@ int XHdcp1x_CipherSetNumLanes(XHdcp1x *InstancePtr, u32 NumLanes)
 	Xil_AssertNonvoid(NumLanes <= 4);
 
 	/* Check for HDMI */
-	if (IsHDMI(InstancePtr)) {
+	if (XHdcp1x_IsHDMI(InstancePtr)) {
 		/* Verify NumLanes (again) */
 		Xil_AssertNonvoid(NumLanes == 1);
 
 		/* Update the control register */
-		Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+		Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL);
 		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
 		Value |= (NumLanes << 4);
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL, Value);
 	}
 	/* Otherwise - must be DP */
 	else {
@@ -536,10 +413,12 @@ int XHdcp1x_CipherSetNumLanes(XHdcp1x *InstancePtr, u32 NumLanes)
 		Xil_AssertNonvoid(NumLanes != 3);
 
 		/* Update the control register */
-		Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+		Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL);
 		Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES;
 		Value |= (NumLanes << 4);
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CONTROL, Value);
 	}
 
 	return (Status);
@@ -567,17 +446,19 @@ u64 XHdcp1x_CipherGetEncryption(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (StreamMap);
 	}
 
 	/* Determine StreamMap */
-	StreamMap  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H);
+	StreamMap  = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H);
 	StreamMap <<= 32;
-	StreamMap |= RegRead(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L);
+	StreamMap |= XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L);
 
 	/* Check for special case of just XOR in progress */
-	if ((StreamMap == 0) && (XorInProgress(InstancePtr))) {
+	if ((StreamMap == 0) && (XHdcp1x_CipherXorInProgress(InstancePtr))) {
 		StreamMap = 0x01ul;
 	}
 
@@ -607,12 +488,12 @@ int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Check that it is not a receiver */
-	if (IsRX(InstancePtr)) {
+	if (XHdcp1x_IsRX(InstancePtr)) {
 		return (XST_FAILURE);
 	}
 
@@ -622,32 +503,42 @@ int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 	}
 
 	/* Clear the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Update the LS 32-bits */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L);
 	Value |= ((u32) (StreamMap & 0xFFFFFFFFul));
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, Value);
 
 	/* Write the MS 32-bits */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H);
 	Value |= ((u32) ((StreamMap >> 32) & 0xFFFFFFFFul));
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, Value);
 
 	/* Ensure that the XOR is enabled */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
 
 	/* Set the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Wait until the XOR has actually started */
-	while (!XorInProgress(InstancePtr));
+	while (!XHdcp1x_CipherXorInProgress(InstancePtr));
 
 	return (XST_SUCCESS);
 }
@@ -677,12 +568,12 @@ int XHdcp1x_CipherDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Check that it is not a receiver */
-	if (IsRX(InstancePtr)) {
+	if (XHdcp1x_IsRX(InstancePtr)) {
 		return (XST_FAILURE);
 	}
 
@@ -692,46 +583,56 @@ int XHdcp1x_CipherDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 	}
 
 	/* Clear the register update bit */
-	Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Val &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Val);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Val);
 
 	/* Update the LS 32-bits */
-	Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L);
+	Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L);
 	Val &= ~((u32) (StreamMap & 0xFFFFFFFFul));
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, Val);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, Val);
 	if (Val != 0) {
 		DisableXor = FALSE;
 	}
 
 	/* Write the MS 32-bits */
-	Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H);
+	Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H);
 	Val &= ~((u32) ((StreamMap >> 32) & 0xFFFFFFFFul));
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, Val);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, Val);
 	if (Val != 0) {
 		DisableXor = FALSE;
 	}
 
 	/* Check HDMI special case */
-	if (IsHDMI(InstancePtr)) {
+	if (XHdcp1x_IsHDMI(InstancePtr)) {
 		DisableXor = TRUE;
 	}
 
 	/* Check for XOR disable */
 	if (DisableXor) {
-		Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+		Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 		Val &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Val);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Val);
 	}
 
 	/* Set the register update bit */
-	Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Val |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Val);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Val);
 
 	/* If disabling the XOR, wait until no longer in progress */
 	if (DisableXor) {
-		while (XorInProgress(InstancePtr));
+		while (XHdcp1x_CipherXorInProgress(InstancePtr));
 	}
 
 	return (XST_SUCCESS);
@@ -758,39 +659,49 @@ u64 XHdcp1x_CipherGetLocalKsv(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (Ksv);
 	}
 
 	/* Check if the local ksv is not available */
-	Val  = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_STATUS);
+	Val  = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KEYMGMT_STATUS);
 	Val &= XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY;
 	if (Val == 0) {
 		/* Abort any running Km calculation just in case */
-		Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
+		Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
 		Val |= XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_ABORT_Km;
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
 		Val &= ~XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_ABORT_Km;
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
 
 		/* Load the local ksv */
-		Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
+		Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
 		Val |= XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_LOCAL_KSV;
-		RegWrite(InstancePtr,  XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
 		Val &= ~XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_LOCAL_KSV;
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Val);
 
 		/* Wait until local KSV available */
-		while ((!LocalKsvReady(InstancePtr)) && (--Guard > 0));
+		while ((!XHdcp1x_CipherLocalKsvReady(InstancePtr)) &&
+			(--Guard > 0));
 	}
 
 	/* Confirm no timeout */
 	if (Guard != 0) {
 		/* Update Ksv */
-		Ksv = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KSV_LOCAL_H);
+		Ksv = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KSV_LOCAL_H);
 		Ksv &= 0xFFul;
 		Ksv <<= 32;
-		Ksv |= RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KSV_LOCAL_L);
+		Ksv |= XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_KSV_LOCAL_L);
 	}
 
 	return (Ksv);
@@ -815,9 +726,11 @@ u64 XHdcp1x_CipherGetRemoteKsv(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Ksv */
-	Ksv = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KSV_REMOTE_H);
+	Ksv = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KSV_REMOTE_H);
 	Ksv <<= 32;
-	Ksv |= RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KSV_REMOTE_L);
+	Ksv |= XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KSV_REMOTE_L);
 
 	return (Ksv);
 }
@@ -848,7 +761,7 @@ int XHdcp1x_CipherSetRemoteKsv(XHdcp1x *InstancePtr, u64 Ksv)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
@@ -856,33 +769,42 @@ int XHdcp1x_CipherSetRemoteKsv(XHdcp1x *InstancePtr, u64 Ksv)
 	XHdcp1x_CipherGetLocalKsv(InstancePtr);
 
 	/* Clear the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Write the LS 32-bits */
-	Value = (u32) (Ksv & 0xFFFFFFFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KSV_REMOTE_L, Value);
+	Value = (u32)(Ksv & 0xFFFFFFFFul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KSV_REMOTE_L, Value);
 
 	/* Write the MS 8-bits */
-	Value = (u32) ((Ksv >> 32) & 0xFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KSV_REMOTE_H, Value);
+	Value = (u32)((Ksv >> 32) & 0xFFul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KSV_REMOTE_H, Value);
 
 	/* Set the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Trigger the calculation of theKm */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL);
 	Value &= 0xFFFFFFF0ul;
 	Value |= XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_BEGIN_Km;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Value);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_BEGIN_Km;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL, Value);
 
 	/* Wait until Km is available */
-	while ((!KmReady(InstancePtr)) && (--Guard > 0));
+	while ((!XHdcp1x_CipherKmReady(InstancePtr)) && (--Guard > 0));
 
 	/* Check for timeout */
 	if (Guard == 0) {
@@ -915,25 +837,28 @@ int XHdcp1x_CipherGetB(const XHdcp1x *InstancePtr, u32 *X, u32 *Y, u32 *Z)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Get X if requested */
 	if (X != NULL) {
-		*X = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Bx);
+		*X = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_Bx);
 		*X &= 0x0FFFFFFFul;
 	}
 
 	/* Get Y if requested */
 	if (Y != NULL) {
-		*Y = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_By);
+		*Y = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_By);
 		*Y &= 0x0FFFFFFFul;
 	}
 
 	/* Get Z if requested */
 	if (Z != NULL) {
-		*Z = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Bz);
+		*Z = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_Bz);
 		*Z &= 0x0FFFFFFFul;
 	}
 
@@ -964,31 +889,38 @@ int XHdcp1x_CipherSetB(XHdcp1x *InstancePtr, u32 X, u32 Y, u32 Z)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Clear the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Update the Bx */
 	Value = (X & 0x0FFFFFFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Bx, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Bx, Value);
 
 	/* Update the By */
 	Value = (Y & 0x0FFFFFFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_By, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_By, Value);
 
 	/* Update the Bz */
 	Value = (Z & 0x0FFFFFFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Bz, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Bz, Value);
 
 	/* Set the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	return (XST_SUCCESS);
 }
@@ -1016,25 +948,28 @@ int XHdcp1x_CipherGetK(const XHdcp1x *InstancePtr, u32 *X, u32 *Y, u32 *Z)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Get X if requested */
 	if (X != NULL) {
-		*X = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Kx);
+		*X = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_Kx);
 		*X &= 0x0FFFFFFFul;
 	}
 
 	/* Get Y if requested */
 	if (Y != NULL) {
-		*Y = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Ky);
+		*Y = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_Ky);
 		*Y &= 0x0FFFFFFFul;
 	}
 
 	/* Get Z if requested */
 	if (Z != NULL) {
-		*Z = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Kz);
+		*Z = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_Kz);
 		*Z &= 0x0FFFFFFFul;
 	}
 
@@ -1065,31 +1000,38 @@ int XHdcp1x_CipherSetK(XHdcp1x *InstancePtr, u32 X, u32 Y, u32 Z)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Clear the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Update the Kx */
 	Value = (X & 0x0FFFFFFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Kx, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Kx, Value);
 
 	/* Update the Ky */
 	Value = (Y & 0x0FFFFFFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Ky, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Ky, Value);
 
 	/* Update the Kz */
 	Value = (Z & 0x0FFFFFFFul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Kz, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Kz, Value);
 
 	/* Set the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	return (XST_SUCCESS);
 }
@@ -1113,14 +1055,16 @@ u64 XHdcp1x_CipherGetMi(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Update Mi */
-	Mi = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Mi_H);
+	Mi = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Mi_H);
 	Mi <<= 32;
-	Mi |= RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Mi_L);
+	Mi |= XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Mi_L);
 
 	return (Mi);
 }
@@ -1144,12 +1088,13 @@ u16 XHdcp1x_CipherGetRi(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Determine Ri */
-	Ri = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Ri);
+	Ri = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Ri);
 
 	return (Ri);
 }
@@ -1174,14 +1119,16 @@ u64 XHdcp1x_CipherGetMo(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Determine Mo */
-	Mo = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Mo_H);
+	Mo = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Mo_H);
 	Mo <<= 32;
-	Mo |= RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Mo_L);
+	Mo |= XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Mo_L);
 
 	return (Mo);
 }
@@ -1206,12 +1153,13 @@ u16 XHdcp1x_CipherGetRo(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check that it is not disabled */
-	if (!IsEnabled(InstancePtr)) {
+	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		return (XST_NOT_ENABLED);
 	}
 
 	/* Determine Ro */
-	Ro = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_Ro);
+	Ro = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_Ro);
 
 	return (Ro);
 }
@@ -1235,7 +1183,8 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Determine Version */
-	Version = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_VERSION);
+	Version = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_VERSION);
 
 	return (Version);
 }
@@ -1256,31 +1205,41 @@ static void Enable(XHdcp1x *InstancePtr)
 	u32 Value = 0;
 
 	/* Clear the register update bit */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Ensure that all encryption is disabled for now */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
 
 	/* Ensure that XOR is disabled on tx and enabled for rx to start */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	if (IsRX(InstancePtr)) {
+	if (XHdcp1x_IsRX(InstancePtr)) {
 		Value |= XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
 	}
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
 
 	/* Enable it */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 }
 
 /*****************************************************************************/
@@ -1299,27 +1258,36 @@ static void Disable(XHdcp1x *InstancePtr)
 	u32 Value = 0;
 
 	/* Ensure all interrupts are disabled */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, 0xFFFFFFFFul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_INTERRUPT_MASK, 0xFFFFFFFFul);
 
 	/* Enable bypass operation */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Ensure that all encryption is disabled for now */
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
 
 	/* Ensure that XOR is disabled */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
 
 	/* Ensure that the register update bit is set */
-	Value = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL);
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
 	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_CONTROL, Value);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Wait until the XOR has actually stopped */
-	while (XorInProgress(InstancePtr));
+	while (XHdcp1x_CipherXorInProgress(InstancePtr));
 }

@@ -234,8 +234,8 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 // Register access macro definition
-#define XHdcp1x_CipherIn32	Xil_In32	/**< Input Operations */
-#define XHdcp1x_CipherOut32	Xil_Out32	/**< Output Operations */
+#define XHdcp1x_In32		Xil_In32	/**< Input Operations */
+#define XHdcp1x_Out32		Xil_Out32	/**< Output Operations */
 
 /*****************************************************************************/
 /**
@@ -250,11 +250,11 @@ extern "C" {
 *  The 32-bit value of the register.
 *
 * @note
-* C-style: u32 XHdcp1x_CipherReadReg(u32 BaseAddress, u32 RegOffset)
+* C-style: u32 XHdcp1x_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
-#define XHdcp1x_CipherReadReg(BaseAddress, RegOffset) \
-	XHdcp1x_CipherIn32((BaseAddress) + ((u32)RegOffset))
+#define XHdcp1x_ReadReg(BaseAddress, RegOffset) \
+	XHdcp1x_In32((BaseAddress) + ((u32)RegOffset))
 
 /*****************************************************************************/
 /**
@@ -270,11 +270,11 @@ extern "C" {
 *  None.
 *
 * @note
-* C-style: void XHdcp1x_CipherWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+* C-style: void XHdcp1x_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
-#define XHdcp1x_CipherWriteReg(BaseAddress, RegOffset, Data) \
-	XHdcp1x_CipherOut32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
+#define XHdcp1x_WriteReg(BaseAddress, RegOffset, Data) \
+	XHdcp1x_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 
 /************************** Function Prototypes ******************************/
 

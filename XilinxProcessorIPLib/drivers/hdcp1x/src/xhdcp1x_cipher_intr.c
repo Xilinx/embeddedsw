@@ -59,12 +59,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define RegRead(InstancePtr, Offset) \
-	XHdcp1x_CipherReadReg(InstancePtr->Config.BaseAddress, Offset)
-
-#define RegWrite(InstancePtr, Offset, Value) \
-	XHdcp1x_CipherWriteReg(InstancePtr->Config.BaseAddress, Offset, Value)
-
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -150,23 +144,25 @@ int XHdcp1x_CipherSetLinkStateCheck(XHdcp1x *InstancePtr, int IsEnabled)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check DP receive */
-	if (XHdcp1x_CipherIsDP(InstancePtr) &&
-			XHdcp1x_CipherIsRX(InstancePtr)) {
+	if (XHdcp1x_IsDP(InstancePtr) && XHdcp1x_IsRX(InstancePtr)) {
 		u32 Val = 0;
 
 		/* Clear any pending link state failure interrupt */
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS,
-		                XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_INTERRUPT_STATUS,
+			XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL);
 
 		/* Update it */
-		Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
+		Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
 		if (IsEnabled) {
 			Val &= ~XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL;
 		}
 		else {
 			Val |= XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL;
 		}
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, Val);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_INTERRUPT_MASK, Val);
 	}
 	else {
 		Status = XST_FAILURE;
@@ -197,22 +193,25 @@ int XHdcp1x_CipherSetRiUpdate(XHdcp1x *InstancePtr, int IsEnabled)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check HDMI receive */
-	if (XHdcp1x_CipherIsHDMI(InstancePtr)) {
+	if (XHdcp1x_IsHDMI(InstancePtr)) {
 		u32 Val = 0;
 
 		/* Clear any pending link state failure interrupt */
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS,
-		                XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_INTERRUPT_STATUS,
+			XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE);
 
 		/* Update theDevice */
-		Val = RegRead(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
+		Val = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
 		if (IsEnabled) {
 			Val &= ~XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE;
 		}
 		else {
 			Val |= XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE;
 		}
-		RegWrite(InstancePtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK, Val);
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_INTERRUPT_MASK, Val);
 	}
 	else {
 		Status = XST_FAILURE;
@@ -242,13 +241,16 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 	Xil_AssertVoid(HdcpPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Determine Pending */
-	Pending = RegRead(HdcpPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS);
-	Pending &= ~RegRead(HdcpPtr, XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
+	Pending = XHdcp1x_ReadReg(HdcpPtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_INTERRUPT_STATUS);
+	Pending &= ~XHdcp1x_ReadReg(HdcpPtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
 
 	/* Check for pending */
 	if (Pending != 0) {
 		/* Clear Pending */
-		RegWrite(HdcpPtr, XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, Pending);
+		XHdcp1x_WriteReg(HdcpPtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_INTERRUPT_STATUS, Pending);
 
 		/* Update statistics */
 		HdcpPtr->Cipher.Stats.IntCount++;

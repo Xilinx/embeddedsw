@@ -90,21 +90,21 @@ int XHdcp1x_SelfTest(XHdcp1x *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Confirm that the version is reasonable. */
-	RegVal = XHdcp1x_CipherReadReg(CfgPtr->BaseAddress,
+	RegVal = XHdcp1x_ReadReg(CfgPtr->BaseAddress,
 			XHDCP1X_CIPHER_REG_VERSION);
 	if (!RegVal || (RegVal == ((u32)(-1)))) {
 		return (XST_FAILURE);
 	}
 
 	/* Confirm that the direction matches in both SW and HW. */
-	if ((!CfgPtr->IsRx && XHdcp1x_CipherIsRX(InstancePtr)) ||
-			(CfgPtr->IsRx && XHdcp1x_CipherIsTX(InstancePtr))) {
+	if ((!CfgPtr->IsRx && XHdcp1x_IsRX(InstancePtr)) ||
+			(CfgPtr->IsRx && XHdcp1x_IsTX(InstancePtr))) {
 		return (XST_FAILURE);
 	}
 
 	/* Confirm that the protocol matches in both SW and HW. */
-	if ((!CfgPtr->IsHDMI && XHdcp1x_CipherIsHDMI(InstancePtr)) ||
-			(CfgPtr->IsHDMI && XHdcp1x_CipherIsDP(InstancePtr))) {
+	if ((!CfgPtr->IsHDMI && XHdcp1x_IsHDMI(InstancePtr)) ||
+			(CfgPtr->IsHDMI && XHdcp1x_IsDP(InstancePtr))) {
 		return (XST_FAILURE);
 	}
 

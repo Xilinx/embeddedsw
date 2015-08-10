@@ -102,7 +102,7 @@ XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId)
 		CfgPtr->IsHDMI = FALSE;
 
 		/* Update IsRx */
-		Value  = (XHdcp1x_CipherReadReg(BaseAddress,
+		Value  = (XHdcp1x_ReadReg(BaseAddress,
 				XHDCP1X_CIPHER_REG_TYPE));
 		Value &= XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION;
 		if (Value == XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX) {
@@ -110,7 +110,7 @@ XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId)
 		}
 
 		/* Update IsHDMI */
-		Value  = (XHdcp1x_CipherReadReg(BaseAddress,
+		Value  = (XHdcp1x_ReadReg(BaseAddress,
 				XHDCP1X_CIPHER_REG_TYPE));
 		Value &= XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL;
 		if (Value == XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI) {
