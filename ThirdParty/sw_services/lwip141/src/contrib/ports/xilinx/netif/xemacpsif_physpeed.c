@@ -138,6 +138,10 @@
 #define IEEE_CTRL_LINKSPEED_10M				0x0000
 #define IEEE_CTRL_RESET_MASK				0x8000
 
+#define IEEE_SPEED_MASK		0xC000
+#define IEEE_SPEED_1000		0x8000
+#define IEEE_SPEED_100		0x4000
+
 #define IEEE_CTRL_RESET_MASK				0x8000
 #define IEEE_CTRL_AUTONEGOTIATE_ENABLE		0x1000
 #define IEEE_STAT_AUTONEGOTIATE_COMPLETE	0x0020
@@ -183,7 +187,7 @@ u32_t phymapemac0[32];
 u32_t phymapemac1[32];
 
 static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr);
-static void SetUpSLCRDivisors(s32_t mac_baseaddr, s32_t speed);
+static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed);
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed);
 
 #ifdef PCM_PMA_CORE_PRESENT
@@ -361,7 +365,12 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	u16_t temp;
 	u16_t control;
 	u16_t status;
-	u16_t partner_capabilities;
+	u16_t status_speed;
+	u32_t gigeversion = 2;
+	u32_t timeout_counter = 0;
+	u32_t temp_speed;
+
+	gigeversion = ((Xil_In32(xemacpsp->Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
 	xil_printf("Start PHY autonegotiation \r\n");
 
@@ -379,11 +388,19 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	control |= ADVERTISE_10;
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, control);
 
-	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-																	&control);
-	control |= ADVERTISE_1000;
-	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-																	control);
+	if (gigeversion == 2) {
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+						&control);
+		control |= ADVERTISE_1000;
+		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+						control);
+	} else {
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+								&control);
+				control &= ~ADVERTISE_1000;
+		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+						control);
+	}
 
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
 	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_COPPER_SPECIFIC_CONTROL_REG,
@@ -415,21 +432,43 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		sleep(1);
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_COPPER_SPECIFIC_STATUS_REG_2,
 																	&temp);
-		if (temp & IEEE_AUTONEG_ERROR_MASK) {
-			xil_printf("Auto negotiation error \r\n");
+		if(gigeversion == 2) {
+			if (temp & IEEE_AUTONEG_ERROR_MASK) {
+					xil_printf("Auto negotiation error \r\n");
+			}
+		} else {
+			timeout_counter++;
+
+			if (timeout_counter == 30) {
+				xil_printf("Auto negotiation error \r\n");
+				return;
+			}
 		}
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET,
 																&status);
 		}
 	xil_printf("autonegotiation complete \r\n");
-	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_SPECIFIC_STATUS_REG, &partner_capabilities);
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_SPECIFIC_STATUS_REG, &status_speed);
 
-	if ( ((partner_capabilities >> 14) & 3) == 2)/* 1000Mbps */
-		return 1000;
-	else if ( ((partner_capabilities >> 14) & 3) == 1)/* 100Mbps */
-		return 100;
-	else					/* 10Mbps */
-		return 10;
+	if (gigeversion == 2) {
+		if ( ((status_speed >> 14) & 3) == 2)/* 1000Mbps */
+			return 1000;
+		else if ( ((status_speed >> 14) & 3) == 1)/* 100Mbps */
+			return 100;
+		else					/* 10Mbps */
+			return 10;
+	} else {
+		if (status_speed & 0x400) {
+			temp_speed = status_speed & IEEE_SPEED_MASK;
+
+			if (temp_speed == IEEE_SPEED_1000)
+				return 1000;
+			else if(temp_speed == IEEE_SPEED_100)
+				return 100;
+			else
+				return 10;
+		}
+	}
 }
 
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed)
@@ -521,7 +560,7 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 }
 #endif /*PCM_PMA_CORE_PRESENT*/
 
-static void SetUpSLCRDivisors(s32_t mac_baseaddr, s32_t speed)
+static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 {
 	volatile u32_t slcrBaseAddress;
 	u32_t SlcrDiv0;
