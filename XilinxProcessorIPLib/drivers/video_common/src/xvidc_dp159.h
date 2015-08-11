@@ -45,6 +45,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------
 * 1.00 sha 07/13/15 Initial release.
+* 1.00 sha 08/11/15 Modified XVIDC_DP159_CT_PWR -> XVIDC_DP159_CT_UNPLUG.
+*                   Added bit error count function.
 * </pre>
 *
 ******************************************************************************/
@@ -102,7 +104,7 @@ typedef enum {
        XVIDC_DP159_CT_TP1 = 1, /**< DP159 training pattern 1 */
        XVIDC_DP159_CT_TP2,     /**< DP159 training pattern 2 */
        XVIDC_DP159_CT_TP3,     /**< DP159 training pattern 1 */
-       XVIDC_DP159_CT_PWR      /**< DP159 power */
+       XVIDC_DP159_CT_UNPLUG   /**< DP159 unplug */
 } XVidC_Dp159ConfigType;
 
 /**
@@ -130,6 +132,7 @@ u32 XVidC_Dp159Read(XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
 void XVidC_Dp159Config(XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
                        u8 LaneCount);
 void XVidC_Dp159Reset(XIic *InstancePtr, u8 Reset);
+void XVidC_Dp159BitErrCount(XIic *InstancePtr);
 #endif /* End of XPAR_XIIC_NUM_INSTANCES */
 
 /************************** Variable Declarations ****************************/

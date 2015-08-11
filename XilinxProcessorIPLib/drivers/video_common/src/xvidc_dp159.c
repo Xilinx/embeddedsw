@@ -42,14 +42,17 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- -----------------------------------------------------
+* ---- --- -------- ---------------------------------------------------------
 * 1.00 sha 07/13/15 Initial release.
+* 1.00 sha 08/11/15 Removed extra DP159 register programming as per new DP159
+*                   programming guide. Added bit error count function.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
+#include "xil_printf.h"
 #include "xvidc_dp159.h"
 
 /************************** Constant Definitions *****************************/
@@ -100,11 +103,9 @@ const XVidC_Dp159Data Dp159Values [] = {
        {0x4D, 0x08},
        {0x4C, 0x01},
        {0x34, 0x01},
-       {0x3C, 0x04},
        {0x32, 0xF0},
        {0x32, 0x00},
        {0x33, 0xF0},
-       {0x30, 0xE0},
        {0xFF, 0x00},
        {0x0A, 0x3B},
        {0xFF, 0x01}
@@ -133,7 +134,7 @@ u32 XVidC_Dp159Initialize(XIic *InstancePtr)
        /* Verify argument. */
        Xil_AssertNonvoid(InstancePtr != NULL);
 
-       for (Index = 0x0; Index < 39; Index++) {
+       for (Index = 0x0; Index < 37; Index++) {
                XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE,
                        Dp159Values[Index].Dp159Offset,
                                Dp159Values[Index].Dp159Value);
@@ -261,7 +262,7 @@ void XVidC_Dp159Config(XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
        Xil_AssertVoid((ConfigType == XVIDC_DP159_CT_TP1) ||
                        (ConfigType == XVIDC_DP159_CT_TP2) ||
                        (ConfigType == XVIDC_DP159_CT_TP3) ||
-                       (ConfigType == XVIDC_DP159_CT_PWR));
+                       (ConfigType == XVIDC_DP159_CT_UNPLUG));
        Xil_AssertVoid((LinkRate == XVIDC_DP159_RBR) ||
                        (LinkRate == XVIDC_DP159_HBR) ||
                        (LinkRate == XVIDC_DP159_HBR2));
@@ -294,8 +295,6 @@ void XVidC_Dp159Config(XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
                                        0xC3:0x0F;
                        LRate = (LinkRate == XVIDC_DP159_HBR2)? 0x0:
                                (LinkRate == XVIDC_DP159_HBR) ? 0x1 : 0x2;
-                       XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE,
-                               0x02, 0x3F);
 
                        /* Enable RX lanes */
                        XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE,
@@ -402,7 +401,7 @@ void XVidC_Dp159Config(XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
                                0xFF, 0x01);
                        break;
 
-               case XVIDC_DP159_CT_PWR:
+               case XVIDC_DP159_CT_UNPLUG:
                        /*Enable bandgap, disable PLL, clear A_LOCK_OVR */
                        XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE,
                                0x00, 0x02);
@@ -475,6 +474,71 @@ void XVidC_Dp159Reset(XIic *InstancePtr, u8 Reset)
        else {
                XIic_WriteReg(InstancePtr->BaseAddress, 0x124, 0x1);
        }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints the bit error encountered in DP159.
+*
+* @param	InstancePtr is a pointer to the XIic instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVidC_Dp159BitErrCount(XIic *InstancePtr)
+{
+	u8 Data;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Select page 0 */
+	XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0xFF, 0x00);
+
+	/* Read TST_INT/Q */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x17, &Data);
+	xil_printf("TST_INT/Q           : %d\n\r", Data);
+
+	/* BERT counter0[7:0] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x18, &Data);
+	xil_printf("BERT counter0[7:0]  : %d\n\r", Data);
+
+	/* BERT counter0[11:8] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x19, &Data);
+	xil_printf("BERT counter0[11:8] : %d\n\r", Data);
+
+	/* BERT counter1[7:0] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x1A, &Data);
+	xil_printf("BERT counter0[7:0]  : %d\n\r", Data);
+
+	/* BERT counter1[11:8] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x1B, &Data);
+	xil_printf("BERT counter0[11:8] : %d\n\r", Data);
+
+	/* BERT counter2[7:0] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x1C, &Data);
+	xil_printf("BERT counter2[7:0]  : %d\n\r", Data);
+
+	/* BERT counter2[11:8] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x1D, &Data);
+	xil_printf("BERT counter2[11:8] : %d\n\r", Data);
+
+	/* BERT counter3[7:0] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x1E, &Data);
+	xil_printf("BERT counter3[7:0]  : %d\n\r", Data);
+
+	/* BERT counter3[11:8] */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x1F, &Data);
+	xil_printf("BERT counter3[11:8] : %d\n\r", Data);
+
+	/* Clear BERT counters and TST_INTQ latches - Self-clearing in DP159 */
+	XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x15, 0x18);
+
+	/* Select page 1 */
+	XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0xFF, 0x01);
 }
 #endif /* End of XPAR_XIIC_NUM_INSTANCES */
 /** @} */
