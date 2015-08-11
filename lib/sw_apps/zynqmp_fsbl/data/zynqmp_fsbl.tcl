@@ -129,7 +129,7 @@ proc swapp_generate {} {
         set ld_file_a53 "lscript_a53.ld"
         file delete -force $ld_file_a53
 
-        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=softfp $def_flags"
+        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=soft $def_flags"
     } else {
         set compiler [common::get_property CONFIG.compiler $proc_instance]
 
