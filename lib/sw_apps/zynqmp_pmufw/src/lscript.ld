@@ -166,10 +166,6 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    KEEP (*(.xpbr_serv_ext_tbl))
 } > PMU_RAM
 
-.xpbr_serv_ext_tbl 0xffddf6e0: {
-   KEEP (*(.xpbr_serv_ext_tbl))
-} > ram_cntlr
-
 _end = .;
 }
 
