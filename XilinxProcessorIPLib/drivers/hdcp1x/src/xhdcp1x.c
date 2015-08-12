@@ -554,6 +554,25 @@ u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function determines if the video stream is encrypted.
+* The traffic is encrypted if the encryption bit map is non-zero and the
+* interface is authenticated.
+*
+* @param	InstancePtr is a pointer to the HDCP instance.
+*
+* @return	Truth value indicating encrypted (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_IsEncrypted(const XHdcp1x *InstancePtr)
+{
+	return (XHdcp1x_GetEncryption(InstancePtr) &&
+			XHdcp1x_IsAuthenticated(InstancePtr));
+}
+
+/*****************************************************************************/
+/**
 * This function enables encryption on a series of streams within an HDCP
 * interface.
 *

@@ -590,6 +590,8 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 			XHdcp1x_TxStateToString(InstancePtr->Tx.CurrentState));
 	XHDCP1X_DEBUG_PRINTF("Previous State:  %s\r\n",
 			XHdcp1x_TxStateToString(InstancePtr->Tx.PreviousState));
+	XHDCP1X_DEBUG_PRINTF("Encrypted?:      %s\r\n",
+			XHdcp1x_IsEncrypted(InstancePtr) ? "Yes" : "No");
 	XHDCP1X_DEBUG_PRINTF("State Helper:    %016llX\r\n",
 			InstancePtr->Tx.StateHelper);
 	XHDCP1X_DEBUG_PRINTF("Flags:           %04X\r\n",

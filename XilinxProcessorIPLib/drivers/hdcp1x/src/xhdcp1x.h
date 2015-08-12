@@ -252,6 +252,7 @@ int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr);
 int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr);
 
 u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr);
+int XHdcp1x_IsEncrypted(const XHdcp1x *InstancePtr);
 int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 

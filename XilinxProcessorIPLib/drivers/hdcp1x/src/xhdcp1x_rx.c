@@ -421,6 +421,8 @@ int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr)
 		XHdcp1x_RxStateToString(InstancePtr->Rx.CurrentState));
 	XHDCP1X_DEBUG_PRINTF("Previous State:  %s\r\n",
 		XHdcp1x_RxStateToString(InstancePtr->Rx.PreviousState));
+	XHDCP1X_DEBUG_PRINTF("Encrypted?:      %s\r\n",
+		XHdcp1x_IsEncrypted(InstancePtr) ? "Yes" : "No");
 	XHDCP1X_DEBUG_PRINTF("Flags:           %04X\r\n",
 		InstancePtr->Rx.Flags);
 	Version = XHdcp1x_GetDriverVersion();
