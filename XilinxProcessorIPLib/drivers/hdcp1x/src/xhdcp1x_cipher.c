@@ -66,9 +66,6 @@
 
 /*************************** Function Prototypes *****************************/
 
-static void Enable(XHdcp1x *InstancePtr);
-static void Disable(XHdcp1x *InstancePtr);
-
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -169,20 +166,55 @@ int XHdcp1x_CipherIsLinkUp(const XHdcp1x *InstancePtr)
 ******************************************************************************/
 int XHdcp1x_CipherEnable(XHdcp1x *InstancePtr)
 {
+	u32 Value = 0;
 	int Status = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check for currently disabled */
-	if (!XHdcp1x_CipherIsEnabled(InstancePtr)) {
-		Enable(InstancePtr);
-	}
-	else {
-		Status = XST_FAILURE;
+	if (XHdcp1x_CipherIsEnabled(InstancePtr)) {
+		return (XST_FAILURE);
 	}
 
-	return (Status);
+	/* Clear the register update bit */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Ensure that all encryption is disabled for now */
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
+
+	/* Ensure that XOR is disabled on tx and enabled for rx to start */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
+	if (XHdcp1x_IsRX(InstancePtr)) {
+		Value |= XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
+	}
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+
+	/* Enable it */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Ensure that the register update bit is set */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	return (XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -200,17 +232,46 @@ int XHdcp1x_CipherEnable(XHdcp1x *InstancePtr)
 ******************************************************************************/
 int XHdcp1x_CipherDisable(XHdcp1x *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	u32 Value = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Check for currently enabled */
-	if (XHdcp1x_CipherIsEnabled(InstancePtr)) {
-		Disable(InstancePtr);
-	}
+	/* Ensure all interrupts are disabled */
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_INTERRUPT_MASK, 0xFFFFFFFFul);
 
-	return (Status);
+	/* Enable bypass operation */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Ensure that all encryption is disabled for now */
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
+
+	/* Ensure that XOR is disabled */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
+
+	/* Ensure that the register update bit is set */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL);
+	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+		XHDCP1X_CIPHER_REG_CONTROL, Value);
+
+	/* Wait until the XOR has actually stopped */
+	while (XHdcp1x_CipherXorInProgress(InstancePtr));
+
+	return (XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -1189,107 +1250,3 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr)
 
 	return (Version);
 }
-
-/*****************************************************************************/
-/**
-* This function enables an HDCP cipher.
-*
-* @param	InstancePtr is the device to enable.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void Enable(XHdcp1x *InstancePtr)
-{
-	u32 Value = 0;
-
-	/* Clear the register update bit */
-	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure that all encryption is disabled for now */
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
-
-	/* Ensure that XOR is disabled on tx and enabled for rx to start */
-	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	if (XHdcp1x_IsRX(InstancePtr)) {
-		Value |= XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	}
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
-
-	/* Enable it */
-	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure that the register update bit is set */
-	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL, Value);
-}
-
-/*****************************************************************************/
-/**
-* This function disables a HDCP cipher.
-*
-* @param	InstancePtr is the device to disable.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static void Disable(XHdcp1x *InstancePtr)
-{
-	u32 Value = 0;
-
-	/* Ensure all interrupts are disabled */
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_INTERRUPT_MASK, 0xFFFFFFFFul);
-
-	/* Enable bypass operation */
-	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE;
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Ensure that all encryption is disabled for now */
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H, 0x00ul);
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L, 0x00ul);
-
-	/* Ensure that XOR is disabled */
-	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
-	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE;
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
-
-	/* Ensure that the register update bit is set */
-	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL);
-	Value |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_CONTROL, Value);
-
-	/* Wait until the XOR has actually stopped */
-	while (XHdcp1x_CipherXorInProgress(InstancePtr));
-}
-/** @} */
