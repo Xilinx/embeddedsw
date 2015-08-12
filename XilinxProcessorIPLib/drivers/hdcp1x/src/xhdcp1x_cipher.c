@@ -268,9 +268,6 @@ int XHdcp1x_CipherDisable(XHdcp1x *InstancePtr)
 	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
 		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
-	/* Wait until the XOR has actually stopped */
-	while (XHdcp1x_CipherXorInProgress(InstancePtr));
-
 	return (XST_SUCCESS);
 }
 
@@ -691,11 +688,6 @@ int XHdcp1x_CipherDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 	Val |= XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE;
 	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
 		XHDCP1X_CIPHER_REG_CONTROL, Val);
-
-	/* If disabling the XOR, wait until no longer in progress */
-	if (DisableXor) {
-		while (XHdcp1x_CipherXorInProgress(InstancePtr));
-	}
 
 	return (XST_SUCCESS);
 }
