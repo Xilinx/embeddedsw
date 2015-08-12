@@ -572,6 +572,7 @@ void XHdcp1x_TxHandleTimeout(XHdcp1x *InstancePtr)
 ******************************************************************************/
 int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 {
+	u64 LocalKsv = 0;
 	u32 Version = 0;
 
 	/* Verify arguments. */
@@ -603,6 +604,10 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 	XHDCP1X_DEBUG_PRINTF("Cipher Version:  %d.%02d.%02d\r\n",
 			((Version >> 16) &0xFFFFu), ((Version >> 8) & 0xFFu),
 			(Version & 0xFFu));
+	LocalKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
+	XHDCP1X_DEBUG_PRINTF("Local KSV:       %02lX", (LocalKsv >> 32));
+	XHDCP1X_DEBUG_PRINTF("%08lX\r\n", (LocalKsv & 0xFFFFFFFFu));
+
 	XHDCP1X_DEBUG_PRINTF("\r\n");
 	XHDCP1X_DEBUG_PRINTF("Tx Stats\r\n");
 	XHDCP1X_DEBUG_PRINTF("Auth Passed:     %d\r\n",
