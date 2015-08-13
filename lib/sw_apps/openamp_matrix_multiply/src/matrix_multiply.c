@@ -83,6 +83,7 @@
 #include "xil_cache.h"
 #include "xil_mmu.h"
 #include "xreg_cortexr5.h"
+#include "xil_exception.h"
 
 #define	MAX_SIZE		6
 #define NUM_MATRIX      2
@@ -98,42 +99,141 @@ static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl);
 static void rpmsg_read_cb(struct rpmsg_channel *, void *, int, void *, unsigned long);
 static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r);
-static void init_system();
+static void communication_task();
+static void matrix_mul();
 
-/* Globals */
+/* Static variables */
 static struct rpmsg_channel *app_rp_chnl;
-void* mat_mul_lock;
-int need_to_cal = 0;
 static struct rpmsg_endpoint *rp_ept;
-static matrix matrix_array[NUM_MATRIX];
-static matrix matrix_result;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
+#ifdef USE_FREERTOS
+static queue_data send_data,mat_array;
+static TimerHandle_t stop_scheduler;
+#else
+static queue_data *send_data,*mat_array;
+#endif
+static queue_data recv_mat_data, mat_result_array;
+#ifdef USE_FREERTOS
+static TaskHandle_t comm_task;
+static TaskHandle_t mat_mul;
+static QueueSetHandle_t comm_queueset;
+static QueueHandle_t mat_mul_queue;
+#else
+static	pq_queue_t *mat_mul_queue;
+#endif
+static matrix matrix_array[NUM_MATRIX];
+static matrix matrix_result;
+
+/* Globals */
 extern const struct remote_resource_table resources;
+struct XOpenAMPInstPtr OpenAMPInstPtr;
 
 /* Application entry point */
 int main() {
+	Xil_ExceptionDisable();
 
-	int status = 0;
+#ifdef USE_FREERTOS
+	BaseType_t stat;
+	/* Create the tasks */
+	stat = xTaskCreate(communication_task, ( const char * ) "HW2",
+				1024, NULL,2,&comm_task);
+	if(stat != pdPASS)
+		return -1;
 
-	/* Initialize HW system components */
-	init_system();
+	stat = xTaskCreate(matrix_mul, ( const char * ) "HW2",
+			1024, NULL, 1, &mat_mul );
+	if(stat != pdPASS)
+		return -1;
+
+	/*Create Queues*/
+	mat_mul_queue = xQueueCreate( 1, sizeof( queue_data ) );
+	OpenAMPInstPtr.send_queue = xQueueCreate( 1, sizeof( queue_data  ) );
+	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
+	/* Start the tasks and timer running. */
+	vTaskStartScheduler();
+	while(1);
+#else
+	/*Create Queues*/
+	mat_mul_queue = pq_create_queue();
+	OpenAMPInstPtr.send_queue = pq_create_queue();
+	communication_task();
+#endif
+	return 0;
+}
+
+void communication_task(){
+	int status;
 
 	rsc_info.rsc_tab = (struct resource_table *)&resources;
 	rsc_info.size = sizeof(resources);
+
+	zynqMP_r5_gic_initialize();
 
 	/* Initialize RPMSG framework */
 	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted,
 			rpmsg_read_cb ,&proc);
 	if (status < 0) {
-		return -1;
+		return;
 	}
 
+#ifdef USE_FREERTOS
+	comm_queueset = xQueueCreateSet( 2 );
+	xQueueAddToSet( OpenAMPInstPtr.send_queue, comm_queueset);
+	xQueueAddToSet( OpenAMPInstPtr.lock, comm_queueset);
+#else
+	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
+#endif
 	while (1) {
-		__asm__ ( "wfi\n\t" );
+#ifdef USE_FREERTOS
+		QueueSetMemberHandle_t xActivatedMember;
+		env_enable_interrupt(VRING1_IPI_INTR_VECT, 0, 0);
+		xActivatedMember = xQueueSelectFromSet( comm_queueset, portMAX_DELAY);
+		if( xActivatedMember == OpenAMPInstPtr.lock ) {
+			env_acquire_sync_lock(OpenAMPInstPtr.lock);
+			process_communication(OpenAMPInstPtr);
+		}
+		if (xActivatedMember == OpenAMPInstPtr.send_queue) {
+			xQueueReceive( OpenAMPInstPtr.send_queue, &send_data, 0 );
+			rpmsg_send(app_rp_chnl, send_data.data, send_data.length);
+		}
+#else
+		env_enable_interrupt(VRING1_IPI_INTR_VECT, 0, 0);
+		env_acquire_sync_lock(OpenAMPInstPtr.lock);
+		process_communication(OpenAMPInstPtr);
+		matrix_mul();
+		if(pq_qlength(OpenAMPInstPtr.send_queue) > 0) {
+				send_data = pq_dequeue(OpenAMPInstPtr.send_queue);
+				/* Send the result of matrix multiplication back to master. */
+				rpmsg_send(app_rp_chnl, send_data->data, send_data->length);
+		}
+#endif
 	}
+}
 
-	return 0;
+void matrix_mul(){
+#ifdef USE_FREERTOS
+	for( ;; ){
+		if( xQueueReceive(mat_mul_queue, &mat_array, portMAX_DELAY )){
+			env_memcpy(matrix_array, mat_array.data, mat_array.length);
+			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
+			mat_result_array.length = sizeof(matrix);
+			mat_result_array.data = &matrix_result;
+			xQueueSend( OpenAMPInstPtr.send_queue, &mat_result_array, portMAX_DELAY  );
+		}
+	}
+#else
+	if(pq_qlength(mat_mul_queue) > 0){
+			mat_array = pq_dequeue(mat_mul_queue);
+			env_memcpy(matrix_array, mat_array->data, mat_array->length);
+			/* Process received data and multiple matrices. */
+			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
+			mat_result_array.length = sizeof(matrix);
+			mat_result_array.data = &matrix_result;
+			pq_enqueue(OpenAMPInstPtr.send_queue, &mat_result_array);
+		}
+
+#endif
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
@@ -146,17 +246,30 @@ static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
 	rpmsg_destroy_ept(rp_ept);
 }
 
+#ifdef USE_FREERTOS
+static void StopSchedulerTmrCallBack(TimerHandle_t timer)
+{
+	vTaskEndScheduler();
+}
+#endif
+
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 					void * priv, unsigned long src) {
 	if ((*(int *) data) == SHUTDOWN_MSG) {
 		remoteproc_resource_deinit(proc);
+#ifdef USE_FREERTOS
+		int TempTimerId;
+		stop_scheduler = xTimerCreate("TMR", 200, pdFALSE, (void *)&TempTimerId, StopSchedulerTmrCallBack);
+		xTimerStart(stop_scheduler, 0);
+#endif
 	}else{
-		env_memcpy(matrix_array, data, len);
-		/* Process received data and multiple matrices. */
-		Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
-
-		/* Send the result of matrix multiplication back to master. */
-		rpmsg_send(app_rp_chnl, &matrix_result, sizeof(matrix));
+		recv_mat_data.data = data;
+		recv_mat_data.length = len;
+#ifdef USE_FREERTOS
+		xQueueSend(mat_mul_queue , &recv_mat_data, portMAX_DELAY  );
+#else
+		pq_enqueue(mat_mul_queue, &recv_mat_data);
+#endif
 	}
 }
 
@@ -175,9 +288,39 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r) {
 	}
 }
 
-static void init_system() {
-
-	/* Initilaize GIC */
-	zynqMP_r5_gic_initialize();
-
+#ifdef USE_FREERTOS
+/*-----------------------------------------------------------*/
+void vApplicationMallocFailedHook( void )
+{
+	/* vApplicationMallocFailedHook() will only be called if
+	configUSE_MALLOC_FAILED_HOOK is set to 1 in FreeRTOSConfig.h.  It is a hook
+	function that will get called if a call to pvPortMalloc() fails.
+	pvPortMalloc() is called internally by the kernel whenever a task, queue or
+	semaphore is created.  It is also called by various parts of the demo
+	application.  If heap_1.c or heap_2.c are used, then the size of the heap
+	available to pvPortMalloc() is defined by configTOTAL_HEAP_SIZE in
+	FreeRTOSConfig.h, and the xPortGetFreeHeapSize() API function can be used
+	to query the size of free heap space that remains (although it does not
+	provide information on how the remaining heap might be fragmented). */
+	xil_printf("malloc failed\r\n");
+	taskDISABLE_INTERRUPTS();
+	for( ;; );
 }
+
+/*-----------------------------------------------------------*/
+void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed char *pcTaskName )
+{
+	( void ) pcTaskName;
+	( void ) pxTask;
+
+	/* vApplicationStackOverflowHook() will only be called if
+	configCHECK_FOR_STACK_OVERFLOW is set to either 1 or 2.  The handle and name
+	of the offending task will be passed into the hook function via its
+	parameters.  However, when a stack has overflowed, it is possible that the
+	parameters will have been corrupted, in which case the pxCurrentTCB variable
+	can be inspected directly. */
+	taskDISABLE_INTERRUPTS();
+	for( ;; );
+}
+
+#endif

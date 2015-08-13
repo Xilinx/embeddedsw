@@ -90,7 +90,19 @@ proc check_stdout_hw {} {
 }
 
 proc swapp_generate {} {
-    return;
+	set oslist [get_os];
+	if { [llength $oslist] != 1 } {
+		return 0;
+	}
+	set os [lindex $oslist 0];
+	if { $os != "standalone" } {
+		set ld_file "lscript.ld"
+		file delete -force $ld_file
+	} else {
+		set ld_file "lscript_freertos.ld"
+		file delete -force $ld_file
+	}
+	return;
 }
 
 proc swapp_get_linker_constraints {} {
