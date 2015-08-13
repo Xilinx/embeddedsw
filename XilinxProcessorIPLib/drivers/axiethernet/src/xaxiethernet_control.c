@@ -32,6 +32,8 @@
 /**
 *
 * @file xaxiethernet_control.c
+* @addtogroup axiethernet_v5_0
+* @{
 *
 * This file has driver APIs related to the controlling of the extended
 * features of the AXI Ethernet device. Please note that APIs for turning on/off
@@ -1710,3 +1712,4 @@ void XAxiEthernet_DumpExtMulticastGroup(XAxiEthernet *InstancePtr)
 		}
 	}
 }
+/** @} */

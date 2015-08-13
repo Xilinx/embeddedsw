@@ -32,6 +32,8 @@
 /**
 *
 * @file xaxiethernet_hw.h
+* @addtogroup axiethernet_v5_0
+* @{
 *
 * This header file contains identifiers and macros that can be used to access
 * the Axi Ethernet device. The driver APIs/functions are defined in
@@ -958,3 +960,4 @@ xdbg_stmnt(extern int indent_on);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

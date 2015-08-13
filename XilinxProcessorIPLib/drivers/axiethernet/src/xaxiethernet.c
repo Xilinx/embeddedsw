@@ -32,6 +32,8 @@
 /**
 *
 * @file xaxiethernet.c
+* @addtogroup axiethernet_v5_0
+* @{
 *
 * The APIs in this file takes care of the primary functionalities of the driver.
 * The APIs in this driver take care of the following:
@@ -1769,3 +1771,4 @@ void XAxiEthernet_PhyWrite(XAxiEthernet *InstancePtr, u32 PhyAddress,
 	}
 
 }
+/** @} */

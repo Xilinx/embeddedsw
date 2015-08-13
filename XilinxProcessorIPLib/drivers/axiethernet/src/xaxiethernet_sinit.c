@@ -32,6 +32,8 @@
 /**
 *
 * @file xaxiethernet_sinit.c
+* @addtogroup axiethernet_v5_0
+* @{
 *
 * This file contains static initialzation functionality for Axi Ethernet driver.
 *
@@ -93,3 +95,4 @@ XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+/** @} */

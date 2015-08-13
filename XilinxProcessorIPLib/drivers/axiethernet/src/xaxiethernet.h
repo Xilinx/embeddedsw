@@ -32,6 +32,9 @@
 /**
 *
 * @file xaxiethernet.h
+* @addtogroup axiethernet_v5_0
+* @{
+* @details
 *
 * The Xilinx AXI Ethernet MAC driver component. This driver supports hard
 * Ethernet core for Virtex-6(TM) devices and soft Ethernet core for
@@ -1481,3 +1484,4 @@ void XAxiEthernet_DumpExtMulticastGroup(XAxiEthernet *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */
