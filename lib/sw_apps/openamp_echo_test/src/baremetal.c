@@ -160,7 +160,7 @@ void ipi_unregister_handler(unsigned long ipi_base_addr, unsigned int intr_mask)
 	memset(&(ipi_handler_table[ipi_hd_i]), 0, sizeof(struct ipi_handler_info));
 }
 
-void ipi_isr(int vect_id, void *data) {
+void ipi_isr(int vect_id, void *data, unsigned int inr_status) {
 	unsigned long ipi_base_addr = *((unsigned long *)data);
 	unsigned int ipi_intr_status = (unsigned int)Xil_In32(ipi_base_addr + IPI_ISR_OFFSET);
 	int i = 0;
