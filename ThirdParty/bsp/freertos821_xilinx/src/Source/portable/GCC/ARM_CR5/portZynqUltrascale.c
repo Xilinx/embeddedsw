@@ -95,7 +95,7 @@ void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName ) __att
 
 /* Timer used to generate the tick interrupt. */
 static XTtcPs xTimerInstance;
-
+XScuGic xInterruptController;
 /*-----------------------------------------------------------*/
 
 void FreeRTOS_SetupTickInterrupt( void )
@@ -104,7 +104,6 @@ uint16_t usInterval;
 uint8_t ucPrescaler;
 int iStatus;
 XTtcPs_Config *pxTimerConfig;
-XScuGic xInterruptController;
 XScuGic_Config *pxInterruptControllerConfig;
 
 	/* Initialize the interrupt controller driver. */
@@ -131,22 +130,26 @@ XScuGic_Config *pxInterruptControllerConfig;
 	pxTimerConfig = XTtcPs_LookupConfig( configTIMER_ID );
 
 	iStatus = XTtcPs_CfgInitialize( &xTimerInstance, pxTimerConfig, pxTimerConfig->BaseAddress );
+
 	if( iStatus != XST_SUCCESS )
 	{
-		xil_printf( "In %s: Timer Cfg initialization failed...\r\n", __func__ );
+		XTtcPs_Stop(&xTimerInstance);
+		iStatus = XTtcPs_CfgInitialize( &xTimerInstance, pxTimerConfig, pxTimerConfig->BaseAddress );
+		if( iStatus != XST_SUCCESS )
+		{
+			xil_printf( "In %s: Timer Cfg initialization failed...\r\n", __func__ );
+			return;
+		}
 	}
-	else
-	{
-		XTtcPs_SetOptions( &xTimerInstance, XTTCPS_OPTION_INTERVAL_MODE | XTTCPS_OPTION_WAVE_DISABLE );
-		XTtcPs_CalcIntervalFromFreq( &xTimerInstance, configTICK_RATE_HZ, &usInterval, &ucPrescaler );
-		XTtcPs_SetInterval( &xTimerInstance, usInterval );
-		XTtcPs_SetPrescaler( &xTimerInstance, ucPrescaler );
+	XTtcPs_SetOptions( &xTimerInstance, XTTCPS_OPTION_INTERVAL_MODE | XTTCPS_OPTION_WAVE_DISABLE );
+	XTtcPs_CalcIntervalFromFreq( &xTimerInstance, configTICK_RATE_HZ, &usInterval, &ucPrescaler );
+	XTtcPs_SetInterval( &xTimerInstance, usInterval );
+	XTtcPs_SetPrescaler( &xTimerInstance, ucPrescaler );
+	/* Enable the interrupt for timer. */
+	XScuGic_EnableIntr( configINTERRUPT_CONTROLLER_BASE_ADDRESS, configTIMER_INTERRUPT_ID );
+	XTtcPs_EnableInterrupts( &xTimerInstance, XTTCPS_IXR_INTERVAL_MASK );
+	XTtcPs_Start( &xTimerInstance );
 
-		/* Enable the interrupt for timer. */
-		XScuGic_EnableIntr( configINTERRUPT_CONTROLLER_BASE_ADDRESS, configTIMER_INTERRUPT_ID );
-		XTtcPs_EnableInterrupts( &xTimerInstance, XTTCPS_IXR_INTERVAL_MASK );
-		XTtcPs_Start( &xTimerInstance );
-	}
 }
 /*-----------------------------------------------------------*/
 

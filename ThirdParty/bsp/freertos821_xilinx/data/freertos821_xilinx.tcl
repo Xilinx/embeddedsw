@@ -585,7 +585,7 @@ proc generate {os_handle} {
 		puts $config_file "void FreeRTOS_SetupTickInterrupt( void );"
 		puts $config_file "#define configSETUP_TICK_INTERRUPT() FreeRTOS_SetupTickInterrupt()\n"
 		puts $config_file "void FreeRTOS_ClearTickInterrupt( void );"
-		puts $config_file "#define portCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
+		puts $config_file "#define configCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
 
 		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
 		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
