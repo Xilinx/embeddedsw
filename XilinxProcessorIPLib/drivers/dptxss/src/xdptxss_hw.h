@@ -33,6 +33,8 @@
 /**
 *
 * @file xdptxss_hw.h
+* @addtogroup dptxss_v1_0
+* @{
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx DisplayPort Transmitter
@@ -171,3 +173,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

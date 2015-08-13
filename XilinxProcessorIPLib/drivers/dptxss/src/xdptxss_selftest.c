@@ -33,6 +33,8 @@
 /**
 *
 * @file xdptxss_selftest.c
+* @addtogroup dptxss_v1_0
+* @{
 *
 * This file contains self test function for the DisplayPort Transmitter
 * Subsystem core.
@@ -122,3 +124,4 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */

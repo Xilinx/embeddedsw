@@ -33,6 +33,8 @@
 /**
 *
 * @file xdptxss_dbg.c
+* @addtogroup dptxss_v1_0
+* @{
 *
 * This file contains functions to report debug information of DisplayPort TX
 * Subsystem sub-cores.
@@ -532,3 +534,4 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 
 	xil_printf("\n\r");
 }
+/** @} */

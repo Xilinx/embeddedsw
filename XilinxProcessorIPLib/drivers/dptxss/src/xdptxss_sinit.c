@@ -33,6 +33,8 @@
 /**
 *
 * @file xdptxss_sinit.c
+* @addtogroup dptxss_v1_0
+* @{
 *
 * This file contains static initialization method for Xilinx DisplayPort
 * Transmitter Subsystem core.
@@ -106,3 +108,4 @@ XDpTxSs_Config *XDpTxSs_LookupConfig(u16 DeviceId)
 
 	return (XDpTxSs_Config *)CfgPtr;
 }
+/** @} */

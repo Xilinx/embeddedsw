@@ -33,6 +33,8 @@
 /**
 *
 * @file xdptxss.c
+* @addtogroup dptxss_v1_0
+* @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
 * This file contains a minimal set of functions for the XDpTxSs driver that
@@ -922,3 +924,4 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr)
 				(&DpTxSsSubCores.VtcInst[Index]): NULL);
 	}
 }
+/** @} */

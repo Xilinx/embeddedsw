@@ -33,6 +33,9 @@
 /**
 *
 * @file xdptxss.h
+* @addtogroup dptxss_v1_0
+* @{
+* @details
 *
 * This is the main header file for Xilinx DisplayPort Transmitter Subsystem
 * core. It abstracts Subsystem cores and provides high level API's to
@@ -279,3 +282,4 @@ void XDpTxSs_SetUserTimerHandler(XDpTxSs *InstancePtr,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

@@ -33,6 +33,8 @@
 /**
 *
 * @file xdptxss_intr.c
+* @addtogroup dptxss_v1_0
+* @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
 * Subsystem core. Please see xdptxss.h for more details of the core.
@@ -188,3 +190,4 @@ void XDpTxSs_SetUserTimerHandler(XDpTxSs *InstancePtr,
 	/* Set custom timer wait handler */
 	XDp_SetUserTimerHandler(InstancePtr->DpPtr, CallbackFunc, CallbackRef);
 }
+/** @} */
