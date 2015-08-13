@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port.h
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This header file contains the external declarations associated with the
 * HDCP port driver.
@@ -211,3 +213,4 @@ void XHdcp1x_PortHandleInterrupt(XHdcp1x *InstancePtr, u32 IntCause);
 #endif
 
 #endif /* XHDCP1X_PORT_H */
+/** @} */

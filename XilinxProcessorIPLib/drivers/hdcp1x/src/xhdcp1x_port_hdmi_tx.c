@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port_hdmi_tx.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This contains the implementation of the HDCP port driver for HDMI TX
 * interfaces
@@ -420,3 +422,4 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiTxAdaptor =
 
 #endif
 /* defined(XPAR_XHDMI_TX_NUM_INSTANCES) && (XPAR_XHDMI_TX_NUM_INSTANCES > 0) */
+/** @} */

@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port_dp.h
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file contains the definitions for the hdcp port registers/offsets for
 * display port interfaces
@@ -134,3 +136,4 @@ extern "C" {
 #endif
 
 #endif /* XHDCP1X_PORT_DP_H */
+/** @} */

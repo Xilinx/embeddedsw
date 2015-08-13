@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_debug.h
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file provides the interface of the HDCP debug commands
 *
@@ -79,3 +81,4 @@ extern XHdcp1x_LogMsg XHdcp1xDebugLogMsg;
 #endif
 
 #endif  /* XHDCP1X_DEBUG_H */
+/** @} */

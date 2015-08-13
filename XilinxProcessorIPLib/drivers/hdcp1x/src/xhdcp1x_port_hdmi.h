@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port_hdmi.h
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file contains the definitions for the hdcp port registers/offsets for
 * HDMI interfaces
@@ -135,3 +137,4 @@ extern "C" {
 #endif
 
 #endif /* XHDCP1X_PORT_HDMI_H */
+/** @} */

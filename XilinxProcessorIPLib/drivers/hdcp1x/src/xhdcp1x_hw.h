@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_hw.h
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx HDCP cipher core.
@@ -410,3 +412,4 @@ extern "C" {
 #endif
 
 #endif /* XHDCP1X_HW_H */
+/** @} */

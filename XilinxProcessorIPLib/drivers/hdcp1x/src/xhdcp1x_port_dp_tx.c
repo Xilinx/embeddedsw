@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port_dp_tx.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This contains the implementation of the HDCP port driver for DP TX
 * interfaces
@@ -474,3 +476,4 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpTxAdaptor =
 
 #endif
 /* defined(XPAR_XDP_TX_NUM_INSTANCES) && (XPAR_XDP_TX_NUM_INSTANCES > 0) */
+/** @} */

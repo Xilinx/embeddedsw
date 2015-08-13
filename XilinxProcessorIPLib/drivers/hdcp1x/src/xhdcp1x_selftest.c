@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_selftest.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file contains self test function for the hdcp interface
 *
@@ -110,3 +112,4 @@ int XHdcp1x_SelfTest(XHdcp1x *InstancePtr)
 
 	return (XST_SUCCESS);
 }
+/** @} */

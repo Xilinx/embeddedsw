@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_tx.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This contains the main implementation file for the Xilinx HDCP transmit
 * state machine
@@ -2506,3 +2508,4 @@ static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State)
 
 	return (String);
 }
+/** @} */

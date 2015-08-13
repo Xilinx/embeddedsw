@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port_dp_rx.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This contains the implementation of the HDCP port driver for Xilinx DP
 * RX interfaces
@@ -524,3 +526,4 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor =
 
 #endif
 /* defined(XPAR_XDP_RX_NUM_INSTANCES) && (XPAR_XDP_RX_NUM_INSTANCES > 0) */
+/** @} */

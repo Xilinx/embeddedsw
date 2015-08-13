@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This contains the main implementation file for the Xilinx HDCP Port driver
 *
@@ -386,3 +388,4 @@ int XHdcp1x_PortWrite(XHdcp1x *InstancePtr, u8 Offset, const void *Buf,
 
 	return (NumWritten);
 }
+/** @} */

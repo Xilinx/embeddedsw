@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_port_hdmi_rx.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This contains the implementation of the HDCP port driver for HDMI RX
 * interfaces
@@ -347,3 +349,4 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiRxAdaptor =
 
 #endif
 /* defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0) */
+/** @} */

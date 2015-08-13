@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_cipher.h
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This is the main header file for Xilinx HDCP Cipher core.
 *
@@ -146,3 +148,4 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr);
 #endif
 
 #endif /* XHDCP1X_CIPHER_H */
+/** @} */

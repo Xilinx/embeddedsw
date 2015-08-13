@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_cipher_intr.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file contains interrupt related functions for Xilinx HDCP core.
 * Please see xhdcp1x_cipher.h for more details of the driver.
@@ -274,3 +276,4 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 		}
 	}
 }
+/** @} */

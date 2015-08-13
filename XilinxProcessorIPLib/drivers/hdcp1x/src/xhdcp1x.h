@@ -33,6 +33,9 @@
 /**
 *
 * @file xhdcp1x.h
+* @addtogroup hdcp1x_v1_0
+* @{
+* @details
 *
 * This header file contains the external declarations associated with the
 * HDCP interface driver.
@@ -275,3 +278,4 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr);
 #endif
 
 #endif /* XHDCP1X_H */
+/** @} */

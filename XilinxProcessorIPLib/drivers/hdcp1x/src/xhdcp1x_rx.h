@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_rx.h
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file provides the interface of the HDCP RX state machine
 *
@@ -92,3 +94,4 @@ int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr);
 #endif
 
 #endif /* XHDCP1X_RX_H */
+/** @} */

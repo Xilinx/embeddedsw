@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This contains the implementation of the HDCP state machine module
 *
@@ -835,3 +837,4 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
 	}
 }
+/** @} */

@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_sinit.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file contains static initialization method for Xilinx HDCP driver
 *
@@ -120,3 +122,4 @@ XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+/** @} */

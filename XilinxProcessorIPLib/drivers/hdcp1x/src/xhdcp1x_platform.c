@@ -33,6 +33,8 @@
 /**
 *
 * @file xhdcp1x_platform.c
+* @addtogroup hdcp1x_v1_0
+* @{
 *
 * This file provides the implementation for the hdcp platform integration
 * module
@@ -180,3 +182,4 @@ int XHdcp1x_PlatformTimerBusy(XHdcp1x *InstancePtr, u16 DelayInMs)
 
 	return (Status);
 }
+/** @} */
