@@ -33,6 +33,9 @@
 /**
  *
  * @file xddrps.h
+ * @addtogroup ddrps_v1_0
+ * @{
+ * @details
  *
  * The Xilinx DdrPs driver. This driver supports the Xilinx ddrps
  * IP core.
@@ -56,3 +59,4 @@
 
 
 #endif /* XDDRPS_H_ */
+/** @} */
