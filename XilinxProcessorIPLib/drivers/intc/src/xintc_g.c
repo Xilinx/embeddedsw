@@ -33,6 +33,8 @@
 /**
 *
 * @file xintc_g.c
+* @addtogroup intc_v3_4
+* @{
 *
 * This file contains a configuration table that specifies the configuration of
 * interrupt controller devices in the system.
@@ -110,3 +112,4 @@ XIntc_Config XIntc_ConfigTable[XPAR_XINTC_NUM_INSTANCES] = {
 	 0			/* Device options */
 	 }
 };
+/** @} */

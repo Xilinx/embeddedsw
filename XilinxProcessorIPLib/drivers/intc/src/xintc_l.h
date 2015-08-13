@@ -33,6 +33,8 @@
 /**
 *
 * @file xintc_l.h
+* @addtogroup intc_v3_4
+* @{
 *
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the device.  The user should refer to the
@@ -325,3 +327,4 @@ void XIntc_RegisterFastHandler(u32 BaseAddress, u8 Id,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

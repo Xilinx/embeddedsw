@@ -33,6 +33,8 @@
 /**
 *
 * @file xintc_selftest.c
+* @addtogroup intc_v3_4
+* @{
 *
 * Contains diagnostic self-test functions for the XIntc component. This file
 * requires other files of the component to be linked in also.
@@ -250,3 +252,4 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
 
 	return XST_SUCCESS;
 }
+/** @} */

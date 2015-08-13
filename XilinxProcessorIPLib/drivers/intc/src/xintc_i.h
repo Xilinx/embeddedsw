@@ -33,6 +33,8 @@
 /**
 *
 * @file xintc_i.h
+* @addtogroup intc_v3_4
+* @{
 *
 * This file contains data which is shared between files and internal to the
 * XIntc component. It is intended for internal use only.
@@ -88,3 +90,4 @@ extern XIntc_Config XIntc_ConfigTable[];
 #endif
 
 #endif
+/** @} */

@@ -33,6 +33,8 @@
 /**
 *
 * @file xintc_intr.c
+* @addtogroup intc_v3_4
+* @{
 *
 * This file contains the interrupt processing for the XIntc component which
 * is the driver for the Xilinx Interrupt Controller.  The interrupt
@@ -171,3 +173,4 @@ void XIntc_InterruptHandler(XIntc * InstancePtr)
 	XIntc_DeviceInterruptHandler((void *)
 				     ((u32) (InstancePtr->CfgPtr->DeviceId)));
 }
+/** @} */

@@ -33,6 +33,8 @@
 /**
 *
 * @file xintc_options.c
+* @addtogroup intc_v3_4
+* @{
 *
 * Contains option functions for the XIntc driver. These functions allow the
 * user to configure an instance of the XIntc driver.  This file requires other
@@ -144,3 +146,4 @@ u32 XIntc_GetOptions(XIntc * InstancePtr)
 
 	return InstancePtr->CfgPtr->Options;
 }
+/** @} */

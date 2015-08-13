@@ -33,6 +33,8 @@
 /**
 *
 * @file xintc_l.c
+* @addtogroup intc_v3_4
+* @{
 *
 * This file contains low-level driver functions that can be used to access the
 * device.  The user should refer to the hardware device specification for more
@@ -660,3 +662,4 @@ static void XIntc_CascadeHandler(void *DeviceId)
 	}
 }
 #endif
+/** @} */

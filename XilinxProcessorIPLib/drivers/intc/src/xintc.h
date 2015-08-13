@@ -33,6 +33,9 @@
 /**
 *
 * @file xintc.h
+* @addtogroup intc_v3_4
+* @{
+* @details
 *
 * The Xilinx interrupt controller driver component. This component supports the
 * Xilinx interrupt controller.
@@ -364,3 +367,4 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id);
 #endif
 
 #endif /* end of protection macro */
+/** @} */
