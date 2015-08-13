@@ -33,6 +33,8 @@
 /**
 *
 * @file xscugic_hw.c
+* @addtogroup scugic_v3_1
+* @{
 *
 * This file contains low-level driver functions that can be used to access the
 * device.  The user should refer to the hardware device specification for more
@@ -565,3 +567,4 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 
 	*Trigger = (u8)(RegValue & XSCUGIC_INT_CFG_MASK);
 }
+/** @} */

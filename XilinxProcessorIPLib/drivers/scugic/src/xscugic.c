@@ -33,6 +33,8 @@
 /**
 *
 * @file xscugic.c
+* @addtogroup scugic_v3_1
+* @{
 *
 * Contains required functions for the XScuGic driver for the Interrupt
 * Controller. See xscugic.h for a detailed description of the driver.
@@ -740,3 +742,4 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 						 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 						 RegValue);
 }
+/** @} */

@@ -33,6 +33,8 @@
 /**
 *
 * @file xscugic_selftest.c
+* @addtogroup scugic_v3_1
+* @{
 *
 * Contains diagnostic self-test functions for the XScuGic driver.
 * <pre>
@@ -110,3 +112,4 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 	}
 	return Status;
 }
+/** @} */

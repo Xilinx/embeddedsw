@@ -33,6 +33,8 @@
 /**
 *
 * @file xscugic_g.c
+* @addtogroup scugic_v3_1
+* @{
 *
 * This file contains a configuration table that specifies the configuration of
 * interrupt controller devices in the system.
@@ -91,3 +93,4 @@ XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES] =
         (u32)XPAR_SCUGIC_0_DIST_BASEADDR	/* Distributor base address */
     }
 };
+/** @} */

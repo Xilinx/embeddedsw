@@ -33,6 +33,8 @@
 /**
 *
 * @file xscugic_hw.h
+* @addtogroup scugic_v3_1
+* @{
 *
 * This header file contains identifiers and HW access functions (or
 * macros) that can be used to access the device.  The user should refer to the
@@ -635,3 +637,4 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 #endif
 
 #endif            /* end of protection macro */
+/** @} */
