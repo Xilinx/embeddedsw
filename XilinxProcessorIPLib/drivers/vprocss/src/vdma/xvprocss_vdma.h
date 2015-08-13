@@ -35,7 +35,6 @@
 * @file xvprocss_vdma.h
 * @addtogroup vprocss_v1_0
 * @{
-* @details
 *
 * This header file contains the video processing engine DMA buffer management
 * routines and helper functions. AXI-VDMA core is used to provide DMA

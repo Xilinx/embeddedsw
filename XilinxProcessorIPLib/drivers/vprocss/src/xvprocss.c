@@ -33,6 +33,8 @@
 /**
 *
 * @file xvprocss.c
+* @addtogroup vprocss_v1_0
+* @{
 *
 * This is main code of Xilinx Video Processing Subsystem device driver.
 * Please see xvprocss.h for more details of the driver.
@@ -1646,3 +1648,4 @@ void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr)
   }
   xil_printf("**************************************************\r\n\r\n");
 }
+/** @} */

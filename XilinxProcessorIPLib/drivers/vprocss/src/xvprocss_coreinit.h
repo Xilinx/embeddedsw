@@ -33,9 +33,8 @@
 /**
 *
 * @file xvprocss_coreinit.h
-* @addtogroup vprocss
+* @addtogroup vprocss_v1_0
 * @{
-* @details
 *
 * This header file contains the video processing engine sub-cores
 * initialization routines and helper functions.

@@ -33,9 +33,8 @@
 /**
 *
 * @file xvprocss_coreinit.c
-* @addtogroup vprocss
+* @addtogroup vprocss_v1_0
 * @{
-* @details
 
 * Video Processing Subsystem Sub-Cores initialization
 * The functions in this file provides an abstraction from the initialization

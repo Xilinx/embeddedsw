@@ -33,9 +33,8 @@
 /**
 *
 * @file xvprocss_router.h
-* @addtogroup vprocss
+* @addtogroup vprocss_v1_0
 * @{
-* @details
 *
 * This header file contains the video processing engine data flow setup
 * routines and helper functions.
