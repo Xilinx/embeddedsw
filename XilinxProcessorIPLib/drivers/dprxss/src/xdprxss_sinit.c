@@ -33,6 +33,8 @@
 /**
 *
 * @file xdprxss_sinit.c
+* @addtogroup dprxss_v1_0
+* @{
 *
 * This file contains static initialization method for Xilinx DisplayPort
 * Receiver Subsystem core.
@@ -107,3 +109,4 @@ XDpRxSs_Config *XDpRxSs_LookupConfig(u16 DeviceId)
 
 	return (XDpRxSs_Config *)CfgPtr;
 }
+/** @} */

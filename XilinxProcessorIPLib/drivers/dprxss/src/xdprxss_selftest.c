@@ -33,6 +33,8 @@
 /**
 *
 * @file xdprxss_selftest.c
+* @addtogroup dprxss_v1_0
+* @{
 *
 * This file contains self test function for the DisplayPort Receiver
 * Subsystem core.
@@ -111,3 +113,4 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */

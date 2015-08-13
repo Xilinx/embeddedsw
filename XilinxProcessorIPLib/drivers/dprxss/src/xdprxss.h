@@ -33,6 +33,9 @@
 /**
 *
 * @file xdprxss.h
+* @addtogroup dprxss_v1_0
+* @{
+* @details
 *
 * This is the main header file for Xilinx DisplayPort Receiver Subsystem core.
 * It abstracts Subsystem cores and provides high level API's to application
@@ -481,3 +484,4 @@ void XDpRxSs_SetUserTimerHandler(XDpRxSs *InstancePtr,
 #endif
 
 #endif /* End of protection macro */
+/** @} */

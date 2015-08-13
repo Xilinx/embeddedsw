@@ -33,6 +33,8 @@
 /**
 *
 * @file xdprxss_intr.c
+* @addtogroup dprxss_v1_0
+* @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX
 * Subsystem core. Please see xdprxss.h for more details of the core.
@@ -352,3 +354,4 @@ void XDpRxSs_SetUserTimerHandler(XDpRxSs *InstancePtr,
 	/* Set custom timer wait handler */
 	XDp_SetUserTimerHandler(InstancePtr->DpPtr, CallbackFunc, CallbackRef);
 }
+/** @} */

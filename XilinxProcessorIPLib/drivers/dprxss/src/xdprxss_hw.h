@@ -33,6 +33,8 @@
 /**
 *
 * @file xdprxss_hw.h
+* @addtogroup dprxss_v1_0
+* @{
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx DisplayPort Receiver Subsystem.
@@ -187,3 +189,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */

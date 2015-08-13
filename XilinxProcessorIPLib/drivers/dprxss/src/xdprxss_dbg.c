@@ -33,6 +33,8 @@
 /**
 *
 * @file xdprxss_dbg.c
+* @addtogroup dprxss_v1_0
+* @{
 *
 * This file contains functions to report debug information of DisplayPort RX
 * Subsystem sub-cores.
@@ -306,3 +308,4 @@ void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr)
 	XVidC_Dp159Write(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
 			0xFF, 0x01);
 }
+/** @} */

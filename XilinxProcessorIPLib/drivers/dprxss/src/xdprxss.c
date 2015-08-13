@@ -33,6 +33,8 @@
 /**
 *
 * @file xdprxss.c
+* @addtogroup dprxss_v1_0
+* @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
 * This file contains a minimal set of functions for the XDpRxSs driver that
@@ -830,3 +832,4 @@ static void StubUnplugCallback(void *InstancePtr)
 		DpRxSsPtr->UnplugCallback(DpRxSsPtr->UnplugRef);
 	}
 }
+/** @} */
