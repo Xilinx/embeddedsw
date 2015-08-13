@@ -93,6 +93,7 @@ SECTIONS
    *(.gnu.linkonce.s2.*)
    . = ALIGN(8);
    __sdata2_end = .;
+   BYTE(0);
 } > PMU_RAM
 
 .sbss2 : {
@@ -101,6 +102,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
+   BYTE(0);
 } > PMU_RAM
 
 .sdata : {
@@ -110,9 +112,10 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
+   BYTE(0);
 } > PMU_RAM
 
-.sbss (NOLOAD) : {
+.sbss  : {
    . = ALIGN(4);
    __sbss_start = .;
    *(.sbss)
@@ -120,6 +123,7 @@ SECTIONS
    *(.gnu.linkonce.sb.*)
    . = ALIGN(8);
    __sbss_end = .;
+   BYTE(0);
 } > PMU_RAM
 
 .tdata : {
@@ -138,7 +142,7 @@ SECTIONS
    __tbss_end = .;
 } > PMU_RAM
 
-.bss (NOLOAD) : {
+.bss  : {
    . = ALIGN(4);
    __bss_start = .;
    *(.bss)
@@ -147,6 +151,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(4);
    __bss_end = .;
+   BYTE(0);
 } > PMU_RAM
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
@@ -154,15 +159,25 @@ _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
 /* Generate Stack definitions */
-.stack (NOLOAD) : {
+.stack  : {
    _stack_end = .;
    . += _STACK_SIZE;
    . = ALIGN(8);
    _stack = .;
    __stack = _stack;
+   BYTE(0);
+} > PMU_RAM
+
+.filler  : {
+   FILL(0);
+   _fill_start = .;
+   BYTE(0);
+   . += (_srv_tbl_start - _fill_start -1 );
+   _fill_end = .;
 } > PMU_RAM
 
 .xpbr_serv_ext_tbl 0xffddf6e0: {
+   _srv_tbl_start = .;
    KEEP (*(.xpbr_serv_ext_tbl))
 } > PMU_RAM
 
