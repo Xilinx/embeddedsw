@@ -33,6 +33,8 @@
 /**
  *
  * @file xdp_edid.c
+* @addtogroup dp_v2_0
+* @{
  *
  * This file contains functions related to accessing the Extended Display
  * Identification Data (EDID) of a specified sink using the XDp driver operating
@@ -414,3 +416,4 @@ u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 
 	return XST_SUCCESS;
 }
+/** @} */

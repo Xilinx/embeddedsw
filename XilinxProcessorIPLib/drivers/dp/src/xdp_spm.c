@@ -33,6 +33,8 @@
 /**
  *
  * @file xdp_spm.c
+* @addtogroup dp_v2_0
+* @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
  * These functions set up the DisplayPort TX core's main stream attributes (MSA)
@@ -949,3 +951,4 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 			MsaConfig->TransferUnitSize *
 			(LinkConfig->LaneCount * LinkConfig->LinkRate / 2);
 }
+/** @} */

@@ -33,6 +33,8 @@
 /**
  *
  * @file xdp_mst.c
+* @addtogroup dp_v2_0
+* @{
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -4162,3 +4164,4 @@ static u32 XDp_TxIsSameTileDisplay(u8 *TileDisp0, u8 *TileDisp1)
 
 	return 1;
 }
+/** @} */

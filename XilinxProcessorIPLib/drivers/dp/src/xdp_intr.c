@@ -33,6 +33,8 @@
 /**
  *
  * @file xdp_intr.c
+* @addtogroup dp_v2_0
+* @{
  *
  * This file contains functions related to XDp interrupt handling.
  *
@@ -1219,3 +1221,4 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrUnplugCallbackRef);
 	}
 }
+/** @} */

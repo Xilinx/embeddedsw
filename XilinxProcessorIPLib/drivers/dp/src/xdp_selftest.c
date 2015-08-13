@@ -33,6 +33,8 @@
 /**
  *
  * @file xdp_selftest.c
+* @addtogroup dp_v2_0
+* @{
  *
  * This file contains a diagnostic self-test function for the XDp driver. It
  * will check many of the DisplayPort core's register values against the default
@@ -337,3 +339,4 @@ static u32 XDp_RxSelfTest(XDp *InstancePtr)
 	/* All tested registers hold their default reset values. */
 	return XST_SUCCESS;
 }
+/** @} */

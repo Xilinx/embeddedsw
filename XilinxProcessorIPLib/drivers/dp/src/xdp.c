@@ -33,6 +33,8 @@
 /**
  *
  * @file xdp.c
+* @addtogroup dp_v2_0
+* @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
  * all of the DisplayPort core's functionality. See xdp.h for a detailed
@@ -3305,3 +3307,4 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 
 	return XST_SUCCESS;
 }
+/** @} */

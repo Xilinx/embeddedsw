@@ -33,6 +33,8 @@
 /**
  *
  * @file xdp_sinit.c
+* @addtogroup dp_v2_0
+* @{
  *
  * This file contains static initialization methods for the XDp driver.
  *
@@ -91,3 +93,4 @@ XDp_Config *XDp_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */
