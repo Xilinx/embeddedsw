@@ -65,6 +65,24 @@ proc execs_generate {libhandle} {
 }
 
 proc xgen_opts_file {libhandle} {
+	set oslist [hsi::get_os];
+
+	if { [llength $oslist] != 1 } {
+	    return 0;
+	}
+	set os [lindex $oslist 0];
+	set config_inc [::hsi::utils::open_include_file "amp_os.h"]
+	puts $config_inc "/******************************************************************/"
+	puts $config_inc ""
+	puts $config_inc "/* Operating System definition */"
+	if { $os == "freertos821_xilinx" } {
+		puts $config_inc "#define USE_FREERTOS TRUE"
+	      } else {
+		puts $config_inc "#define USE_BAREMETAL TRUE"
+	      }
+	puts $config_inc ""
+	puts $config_inc "/******************************************************************/"
+	close $config_inc
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]
@@ -73,8 +91,6 @@ proc xgen_opts_file {libhandle} {
 	if { ! [file exists $dstdir] } {
 		file mkdir $dstdir
 	}
-	puts "its openamp"
-
 	# Get list of files in the srcdir
 		set sources [glob -join $srcdir *.h]
 

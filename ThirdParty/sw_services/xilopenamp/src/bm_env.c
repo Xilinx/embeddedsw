@@ -86,28 +86,6 @@ int env_init() {
 int env_deinit() {
     return 0;
 }
-/**
- * env_allocate_memory - implementation
- *
- * @param size
- */
-void *env_allocate_memory(unsigned int size)
-{
-    return (malloc(size));
-}
-
-/**
- * env_free_memory - implementation
- *
- * @param ptr
- */
-void env_free_memory(void *ptr)
-{
-    if (ptr != NULL)
-    {
-        free(ptr);
-    }
-}
 
 /**
  *
@@ -217,116 +195,6 @@ void *env_map_patova(unsigned long address)
 {
     return platform_patova(address);
 }
-
-/**
- * env_create_mutex
- *
- * Creates a mutex with the given initial count.
- *
- */
-int env_create_mutex(void **lock, int count)
-{
-    return 0;
-}
-
-/**
- * env_delete_mutex
- *
- * Deletes the given lock
- *
- */
-void env_delete_mutex(void *lock)
-{
-}
-
-/**
- * env_lock_mutex
- *
- * Tries to acquire the lock, if lock is not available then call to
- * this function will suspend.
- */
-void env_lock_mutex(void *lock)
-{
-    env_disable_interrupts();
-}
-
-/**
- * env_unlock_mutex
- *
- * Releases the given lock.
- */
-
-void env_unlock_mutex(void *lock)
-{
-    env_restore_interrupts();
-}
-
-
-/**
- * env_create_sync_lock
- *
- * Creates a synchronization lock primitive. It is used
- * when signal has to be sent from the interrupt context to main
- * thread context.
- */
-int env_create_sync_lock(void **lock , int state) {
-	int *slock;
-
-	slock = (int *)malloc(sizeof(int));
-	if(slock){
-		*slock = state;
-		*lock = slock;
-	}
-	else{
-		*lock = NULL;
-		return -1;
-	}
-
-	return 0;
-}
-
-/**
- * env_delete_sync_lock
- *
- * Deletes the given lock
- *
- */
-void env_delete_sync_lock(void *lock){
-	if(lock)
-		free(lock);
-}
-
-/**
- * env_acquire_sync_lock
- *
- * Tries to acquire the lock, if lock is not available then call to
- * this function waits for lock to become available.
- */
-void env_acquire_sync_lock(void *lock){
-	acquire_spin_lock(lock);
-}
-
-/**
- * env_release_sync_lock
- *
- * Releases the given lock.
- */
-
-void env_release_sync_lock(void *lock){
-	release_spin_lock(lock);
-}
-
-/**
- * env_sleep_msec
- *
- * Suspends the calling thread for given time , in msecs.
- */
-
-void env_sleep_msec(int num_msec)
-{
-
-}
-
 /**
  * env_disable_interrupts
  *
@@ -500,11 +368,310 @@ void bm_env_isr(int vector) {
         info = &isr_table[idx];
         if(info->vector == vector)
         {
-            info->isr(info->vector , info->data);
+            info->isr(info->vector , info->data, 0);
             env_enable_interrupt(info->vector , info->priority, info->type);
             break;
         }
     }
+}
+#ifdef USE_FREERTOS
+/**
+ * env_allocate_memory - implementation
+ *
+ * @param size
+ */
+void *env_allocate_memory(unsigned int size)
+{
+    return (pvPortMalloc(size));
+}
+
+/**
+ * env_free_memory - implementation
+ *
+ * @param ptr
+ */
+void env_free_memory(void *ptr)
+{
+    if (ptr != NULL)
+    {
+        vPortFree(ptr);
+    }
+}
+
+/**
+ * env_create_mutex
+ *
+ * Creates a mutex with the given initial count.
+ *
+ */
+int env_create_mutex(void **lock, int count)
+{
+	*lock = xSemaphoreCreateMutex();
+	if(*lock != NULL)
+		return 0;
+	else
+		return 1;
+}
+
+/**
+ * env_delete_mutex
+ *
+ * Deletes the given lock
+ *
+ */
+void env_delete_mutex(void *lock)
+{
+	vSemaphoreDelete(lock );
+}
+
+/**
+ * env_lock_mutex
+ *
+ * Tries to acquire the lock, if lock is not available then call to
+ * this function will suspend.
+ */
+extern unsigned int xInsideISR;
+void env_lock_mutex(void *lock)
+{
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	if( xInsideISR != pdFALSE ) { /* define it as a global var and mark in ISR */
+		xSemaphoreTakeFromISR(lock, &xHigherPriorityTaskWoken );
+		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+	}
+	else
+		xSemaphoreTake( lock, portMAX_DELAY );
+}
+
+/**
+ * env_unlock_mutex
+ *
+ * Releases the given lock.
+ */
+void env_unlock_mutex(void *lock)
+{
+    portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	if( xInsideISR != pdFALSE ) {
+		xSemaphoreGiveFromISR( lock, &xHigherPriorityTaskWoken );
+
+			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+	}
+	else
+		xSemaphoreGive(lock );
+}
+
+/**
+ * env_create_sync_lock
+ *
+ * Creates a synchronization lock primitive. It is used
+ * when signal has to be sent from the interrupt context to main
+ * thread context.
+ */
+int env_create_sync_lock(void **lock , int state) {
+
+	int xReturn = 0;
+	*lock = xSemaphoreCreateBinary();
+		if( *lock != NULL )
+		{
+				xReturn = 1;
+		}
+		else
+		{
+				xReturn = 0;
+		}
+	return xReturn;
+}
+
+/**
+ * env_delete_sync_lock
+ *
+ * Deletes the given lock
+ *
+ */
+void env_delete_sync_lock(void *lock){
+		vSemaphoreDelete(lock);
+}
+
+/**
+ * env_acquire_sync_lock
+ *
+ * Tries to acquire the lock, if lock is not available then call to
+ * this function waits for lock to become available.
+ */
+void env_acquire_sync_lock(void *lock){
+
+	unsigned long ulReturn = 0;
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	if( xInsideISR != pdFALSE ) {
+		if( xSemaphoreTakeFromISR( lock, &xHigherPriorityTaskWoken ) == pdTRUE )
+				portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+	} else {
+		 xSemaphoreTake( lock, portMAX_DELAY );
+
+	}
+}
+
+/**
+ * env_release_sync_lock
+ *
+ * Releases the given lock.
+ */
+void env_release_sync_lock(void *lock){
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+		if( xInsideISR != pdFALSE ) {
+			xSemaphoreGiveFromISR(lock, &xHigherPriorityTaskWoken );
+
+				portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+		}
+		else
+			xSemaphoreGive(lock );
+}
+
+/**
+ * env_sleep_msec
+ *
+ * Suspends the calling thread for given time , in msecs.
+ */
+
+void env_sleep_msec(int num_msec)
+{
+	/* Block for 500ms. */
+	int xDelay;
+	xDelay	= num_msec / portTICK_PERIOD_MS;
+	if((num_msec % portTICK_PERIOD_MS)!=0)
+		xDelay++;
+	vTaskDelay( xDelay );
+
+}
+#else
+/**
+ * env_allocate_memory - implementation
+ *
+ * @param size
+ */
+void *env_allocate_memory(unsigned int size)
+{
+    return (malloc(size));
+}
+
+/**
+ * env_free_memory - implementation
+ *
+ * @param ptr
+ */
+void env_free_memory(void *ptr)
+{
+    if (ptr != NULL)
+    {
+        free(ptr);
+    }
+}
+/**
+ * env_create_mutex
+ *
+ * Creates a mutex with the given initial count.
+ *
+ */
+int env_create_mutex(void **lock, int count)
+{
+    return 0;
+}
+
+/**
+ * env_delete_mutex
+ *
+ * Deletes the given lock
+ *
+ */
+void env_delete_mutex(void *lock)
+{
+}
+
+/**
+ * env_lock_mutex
+ *
+ * Tries to acquire the lock, if lock is not available then call to
+ * this function will suspend.
+ */
+void env_lock_mutex(void *lock)
+{
+    env_disable_interrupts();
+}
+
+/**
+ * env_unlock_mutex
+ *
+ * Releases the given lock.
+ */
+
+void env_unlock_mutex(void *lock)
+{
+    env_restore_interrupts();
+}
+
+
+/**
+ * env_create_sync_lock
+ *
+ * Creates a synchronization lock primitive. It is used
+ * when signal has to be sent from the interrupt context to main
+ * thread context.
+ */
+int env_create_sync_lock(void **lock , int state) {
+	int *slock;
+
+	slock = (int *)malloc(sizeof(int));
+	if(slock){
+		*slock = state;
+		*lock = slock;
+	}
+	else{
+		*lock = NULL;
+		return -1;
+	}
+
+	return 0;
+}
+
+/**
+ * env_delete_sync_lock
+ *
+ * Deletes the given lock
+ *
+ */
+void env_delete_sync_lock(void *lock){
+	if(lock)
+		free(lock);
+}
+
+/**
+ * env_acquire_sync_lock
+ *
+ * Tries to acquire the lock, if lock is not available then call to
+ * this function waits for lock to become available.
+ */
+void env_acquire_sync_lock(void *lock){
+	acquire_spin_lock(lock);
+}
+
+/**
+ * env_release_sync_lock
+ *
+ * Releases the given lock.
+ */
+
+void env_release_sync_lock(void *lock){
+	release_spin_lock(lock);
+}
+
+/**
+ * env_sleep_msec
+ *
+ * Suspends the calling thread for given time , in msecs.
+ */
+
+void env_sleep_msec(int num_msec)
+{
+
 }
 
 static inline unsigned int xchg(void* plock, unsigned int lockVal)
@@ -556,3 +723,4 @@ static void release_spin_lock(void *plock)
 
 	xchg(plock, 1);
 }
+#endif

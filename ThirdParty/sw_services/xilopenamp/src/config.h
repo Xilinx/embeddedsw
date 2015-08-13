@@ -45,7 +45,7 @@ struct isr_info {
     int priority;
     int type;
     void *data;
-    void (*isr)(int vector, void *data);
+    void (*isr)(int vector, void *data, unsigned int intr_status);
 };
 
 struct firmware_info {
