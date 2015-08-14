@@ -441,13 +441,7 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 	u32 ClockReg;
 	u16 BlkCnt;
 	u16 BlkSize;
-#ifdef __ICCARM__
-#pragma data_alignment = 32
 	u8 ReadBuff[64];
-#pragma data_alignment = 4
-#else
-	u8 ReadBuff[64] __attribute__ ((aligned(32))) = {0U};
-#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -843,13 +837,7 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 	u32 Arg;
 	u16 BlkCnt;
 	u16 BlkSize;
-#ifdef __ICCARM__
-#pragma data_alignment = 32
 	u8 ReadBuff[64];
-#pragma data_alignment = 4
-#else
-	u8 ReadBuff[64] __attribute__ ((aligned(32))) = {0U};
-#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -965,13 +953,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	u16 BlkCnt;
 	u16 BlkSize;
 	s32 LoopCnt;
-#ifdef __ICCARM__
-#pragma data_alignment = 32
 	u8 ReadBuff[128];
-#pragma data_alignment = 4
-#else
-	u8 ReadBuff[128] __attribute__ ((aligned(32))) = {0U};
-#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
