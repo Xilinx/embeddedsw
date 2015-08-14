@@ -499,6 +499,16 @@ static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId, u32 DevId)
         }
 #endif
 
+        /**
+         * If destination device is PL and load address is not configured,
+         * don't consider this as error as we will use temp load address
+         * to load PL bitstream
+         */
+        if ((DevId == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
+			(Address == XFSBL_DUMMY_PL_ADDR))
+        {
+		goto END;
+        }
 
 	/**
 	 * Not a valid address

@@ -489,6 +489,13 @@ extern "C" {
 #define XFSBL_PMU_RAM_END_ADDRESS		(0xFFDDFFFFU)
 
 /**
+ * If address where bitstream need to be copied is not configured, below will
+ * be the default address to indicate it is invalid address. In such cases,
+ * XFSBL_DDR_TEMP_ADDRESS is used as load address.
+ */
+#define XFSBL_DUMMY_PL_ADDR				(0xFFFFFFFFU)
+
+/**
  * ARM Processor defines
  */
 #define XFSBL_CLUSTER_ID_MASK			(0x00000F00U)

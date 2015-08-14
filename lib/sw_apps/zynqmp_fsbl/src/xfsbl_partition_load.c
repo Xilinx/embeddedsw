@@ -816,7 +816,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	{
 #ifdef XFSBL_BS
 
-		if (LoadAddress == 0U)
+		if (LoadAddress == XFSBL_DUMMY_PL_ADDR)
 		{
 			LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
 		}
