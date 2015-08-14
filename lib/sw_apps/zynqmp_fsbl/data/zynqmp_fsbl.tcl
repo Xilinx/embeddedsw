@@ -109,7 +109,8 @@ proc swapp_generate {} {
     set files(3) "psu_init_gpl.h"
     set files(4) "psu_pmucfg.c"
     set files(5) "psu_clock_registers.log"
-    set files(6) "Makefile"
+    set files(6) "psu_power_report.log"
+    set files(7) "Makefile"
 
     foreach init_file [array get files] {
         file delete -force $init_file
