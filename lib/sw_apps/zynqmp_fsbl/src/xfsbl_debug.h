@@ -88,7 +88,7 @@ extern "C" {
 #elif defined (FSBL_DEBUG)
 #define XFsblDbgCurrentTypes ((DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (FSBL_PRINT)
-#define XFsblDbgCurrentTypes (PRINT_ALWAYS)
+#define XFsblDbgCurrentTypes (DEBUG_PRINT_ALWAYS)
 #else
 #define XFsblDbgCurrentTypes (0U)
 #endif

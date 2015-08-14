@@ -85,7 +85,7 @@ extern "C" {
  */
 #define FSBL_PRINT_VAL              (1U)
 #define FSBL_DEBUG_VAL              (0U)
-#define FSBL_DEBUG_INFO_VAL         (1U)
+#define FSBL_DEBUG_INFO_VAL         (0U)
 #define FSBL_DEBUG_DETAILED_VAL     (0U)
 
 /**
