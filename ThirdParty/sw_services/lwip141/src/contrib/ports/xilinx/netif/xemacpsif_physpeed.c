@@ -396,8 +396,8 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 						control);
 	} else {
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-								&control);
-				control &= ~ADVERTISE_1000;
+						&control);
+		control &= ~ADVERTISE_1000;
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
 						control);
 	}
@@ -432,17 +432,11 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		sleep(1);
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_COPPER_SPECIFIC_STATUS_REG_2,
 																	&temp);
-		if(gigeversion == 2) {
-			if (temp & IEEE_AUTONEG_ERROR_MASK) {
-					xil_printf("Auto negotiation error \r\n");
-			}
-		} else {
-			timeout_counter++;
+		timeout_counter++;
 
-			if (timeout_counter == 30) {
-				xil_printf("Auto negotiation error \r\n");
-				return;
-			}
+		if (timeout_counter == 30) {
+			xil_printf("Auto negotiation error \r\n");
+			return;
 		}
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET,
 																&status);
@@ -450,25 +444,17 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	xil_printf("autonegotiation complete \r\n");
 	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_SPECIFIC_STATUS_REG, &status_speed);
 
-	if (gigeversion == 2) {
-		if ( ((status_speed >> 14) & 3) == 2)/* 1000Mbps */
-			return 1000;
-		else if ( ((status_speed >> 14) & 3) == 1)/* 100Mbps */
-			return 100;
-		else					/* 10Mbps */
-			return 10;
-	} else {
-		if (status_speed & 0x400) {
-			temp_speed = status_speed & IEEE_SPEED_MASK;
+	if (status_speed & 0x400) {
+		temp_speed = status_speed & IEEE_SPEED_MASK;
 
-			if (temp_speed == IEEE_SPEED_1000)
-				return 1000;
-			else if(temp_speed == IEEE_SPEED_100)
-				return 100;
-			else
-				return 10;
-		}
+		if (temp_speed == IEEE_SPEED_1000)
+			return 1000;
+		else if(temp_speed == IEEE_SPEED_100)
+			return 100;
+		else
+			return 10;
 	}
+
 }
 
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed)
