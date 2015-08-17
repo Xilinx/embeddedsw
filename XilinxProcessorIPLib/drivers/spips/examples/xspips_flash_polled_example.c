@@ -134,15 +134,15 @@
 
 /************************** Function Prototypes ******************************/
 
-void FlashErase(XSpiPs *SpiPtr);
+static void FlashErase(XSpiPs *SpiPtr);
 
-void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
+static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
 
-void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
+static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
 
 int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, u16 SpiDeviceId);
 
-int FlashReadID(void);
+static int FlashReadID(XSpiPs *SpiInstance);
 
 /************************** Variable Definitions *****************************/
 
@@ -151,7 +151,9 @@ int FlashReadID(void);
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
+#ifndef TESTAPP_GEN
 static XSpiPs SpiInstance;
+#endif
 
 /*
  * Write Address Location in Serial Flash.
@@ -179,6 +181,7 @@ u8 WriteBuffer[MAX_DATA + DATA_OFFSET];
 * @note		None
 *
 ******************************************************************************/
+#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -197,6 +200,7 @@ int main(void)
 	xil_printf("Successfully ran SPI SerialFlash Polled Example Test\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************
 *
@@ -291,7 +295,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr,
 	/*
 	 * Read the flash Id
 	 */
-	Status = FlashReadID();
+	Status = FlashReadID(SpiInstancePtr);
 	if (Status != XST_SUCCESS) {
 		xil_printf("SPI Flash Polled Example Read ID Failed\r\n");
 		return XST_FAILURE;
@@ -395,7 +399,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
+static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	u8 WriteEnableCmd = { WRITE_ENABLE_CMD };
 	u8 WriteDisableCmd = { WRITE_DISABLE_CMD };
@@ -488,7 +492,7 @@ void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 * @note		None.
 *
 ******************************************************************************/
-void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
+static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	/*
 	 * Setup the read command with the specified address and data for the
@@ -518,7 +522,7 @@ void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 * @note		None.
 *
 ******************************************************************************/
-int FlashReadID(void)
+static int FlashReadID(XSpiPs *SpiInstance)
 {
 	u8 Index;
 	int Status;
@@ -535,7 +539,7 @@ int FlashReadID(void)
 		SendBuffer[4 + Index] = 0x00;
 	}
 
-	Status = XSpiPs_PolledTransfer(&SpiInstance, SendBuffer, RecvBuffer,
+	Status = XSpiPs_PolledTransfer(SpiInstance, SendBuffer, RecvBuffer,
 			 (4 + ByteCount));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -561,7 +565,7 @@ int FlashReadID(void)
 * @note		None.
 *
 ******************************************************************************/
-void FlashErase(XSpiPs *SpiPtr)
+static void FlashErase(XSpiPs *SpiPtr)
 {
 	u8 WriteEnableCmd = { WRITE_ENABLE_CMD };
 	/* must send 2 bytes */
