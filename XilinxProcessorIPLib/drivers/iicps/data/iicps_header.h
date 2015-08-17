@@ -37,5 +37,8 @@
 #include "xstatus.h"
 
 int IicPsSelfTestExample(u16 DeviceId);
+int IicPsEepromPolledExample(XIicPs *IicInstance, u16 DeviceId);
+int IicPsEepromIntrExample(XScuGic *InterruptController, XIicPs *IicInstance,
+								u16 DeviceId, u16 IntrId);
 
 #endif

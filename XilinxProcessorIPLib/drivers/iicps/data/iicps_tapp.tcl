@@ -63,7 +63,7 @@ proc gen_src_files {swproj mhsinst} {
   }
   if {$swproj == 1} {
 
-      set inc_file_lines {examples/xiicps_selftest_example.c data/iicps_header.h}
+      set inc_file_lines {examples/xiicps_selftest_example.c examples/xiicps_eeprom_polled_example.c examples/xiicps_eeprom_intr_example.c data/iicps_header.h}
 
       return $inc_file_lines
   }
@@ -79,7 +79,10 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-        return ""
+      set ipname [common::get_property NAME $mhsinst]
+      set decl "   static XIicPs ${ipname};"
+      set inc_file_lines $decl
+      return $inc_file_lines
     }
 
 }
@@ -99,6 +102,9 @@ proc gen_testfunc_call {swproj mhsinst} {
        set hasStdout 1
     }
 
+    set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
+    set intcvar intc
+
     set testfunc_call ""
 
   if {${hasStdout} == 0} {
@@ -112,6 +118,29 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    }"
 
+	append testfunc_call "
+
+   {
+      int Status;
+
+      Status = IicPsEepromPolledExample(&${ipname}, ${deviceid});
+
+   }"
+
+   if {$isintr == 1} {
+        set intr_id "XPAR_${ipname}_INTR"
+		set intr_id [string toupper $intr_id]
+
+      append testfunc_call "
+
+   {
+      int Status;
+      Status = IicPsEepromIntrExample(&${intcvar}, &${ipname}, \\
+                                 ${deviceid}, \\
+                                 ${intr_id});
+   }"
+
+   }
 
   } else {
 
@@ -132,7 +161,47 @@ proc gen_testfunc_call {swproj mhsinst} {
       }
    }"
 
-  }
+   append testfunc_call "
+
+   {
+      int Status;
+
+      print(\"\\r\\n Running IicPsPolledExample() for ${ipname}...\\r\\n\");
+
+      Status = IicPsEepromPolledExample(&${ipname}, ${deviceid});
+
+      if (Status == 0) {
+         print(\"IicPsEepromPolledExample PASSED\\r\\n\");
+      }
+      else {
+         print(\"IicPsEepromPolledExample FAILED\\r\\n\");
+      }
+   }"
+
+   if {$isintr ==1 } {
+        set intr_id "XPAR_${ipname}_INTR"
+	set intr_id [string toupper $intr_id]
+
+      append testfunc_call "
+   {
+      int Status;
+
+      print(\"\\r\\n Running Interrupt Test  for ${ipname}...\\r\\n\");
+
+      Status = IicPsEepromIntrExample(&${intcvar}, &${ipname}, \\
+                                 ${deviceid}, \\
+                                 ${intr_id});
+
+      if (Status == 0) {
+         print(\"IicPsIntrExample PASSED\\r\\n\");
+      }
+      else {
+         print(\"IicPsIntrExample FAILED\\r\\n\");
+      }
+
+   }"
+ }
+ }
 
   return $testfunc_call
 }
