@@ -119,14 +119,15 @@ typedef u16 AddressType;
 
 /************************** Function Prototypes ******************************/
 
-int IicPsEepromPolledExample(void);
-int EepromWriteData(u16 ByteCount);
-int MuxInit(void);
-int EepromReadData(u8 *BufferPtr, u16 ByteCount);
+int IicPsEepromPolledExample(XIicPs *IicInstance, u16 DeviceId);
+static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
+static int MuxInit(XIicPs *IicInstance);
+static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount);
 
 /************************** Variable Definitions *****************************/
-
+#ifndef TESTAPP_GEN
 XIicPs IicInstance;		/* The instance of the IIC device. */
+#endif
 u32 Platform;
 
 /*
@@ -149,6 +150,7 @@ u8 ReadBuffer[MAX_SIZE];	/* Read buffer for reading a page. */
 * @note		None.
 *
 ******************************************************************************/
+#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -158,7 +160,7 @@ int main(void)
 	/*
 	 * Run the Iic EEPROM Polled Mode example.
 	 */
-	Status = IicPsEepromPolledExample();
+	Status = IicPsEepromPolledExample(&IicInstance, IIC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC EEPROM Polled Mode Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -167,7 +169,7 @@ int main(void)
 	xil_printf("Successfully ran IIC EEPROM Polled Mode Example Test\r\n");
 	return XST_SUCCESS;
 }
-
+#endif
 /*****************************************************************************/
 /**
 * This function writes, reads, and verifies the data to the IIC EEPROM. It
@@ -180,7 +182,7 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
-int IicPsEepromPolledExample(void)
+int IicPsEepromPolledExample(XIicPs *IicInstance, u16 DeviceId)
 {
 	u32 Index;
 	int Status;
@@ -192,12 +194,12 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-	ConfigPtr = XIicPs_LookupConfig(IIC_DEVICE_ID);
+	ConfigPtr = XIicPs_LookupConfig(DeviceId);
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
+	Status = XIicPs_CfgInitialize(IicInstance, ConfigPtr,
 					ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -206,7 +208,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Set the IIC serial clock rate.
 	 */
-	XIicPs_SetSClk(&IicInstance, IIC_SCLK_RATE);
+	XIicPs_SetSClk(IicInstance, IIC_SCLK_RATE);
 
 	/*
 	 * Set the channel value in IIC Mux if
@@ -214,7 +216,7 @@ int IicPsEepromPolledExample(void)
 	 */
 	Platform = XGetPlatform_Info();
 	if(Platform == XPLAT_ZYNQ) {
-		Status = MuxInit();
+		Status = MuxInit(IicInstance);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -242,7 +244,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Write to the EEPROM.
 	 */
-	Status = EepromWriteData(WrBfrOffset + PageSize);
+	Status = EepromWriteData(IicInstance, WrBfrOffset + PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -250,7 +252,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Read from the EEPROM.
 	 */
-	Status = EepromReadData(ReadBuffer, PageSize);
+	Status = EepromReadData(IicInstance, ReadBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -284,7 +286,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Write to the EEPROM.
 	 */
-	Status = EepromWriteData(WrBfrOffset + PageSize);
+	Status = EepromWriteData(IicInstance, WrBfrOffset + PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -292,7 +294,7 @@ int IicPsEepromPolledExample(void)
 	/*
 	 * Read from the EEPROM.
 	 */
-	Status = EepromReadData(ReadBuffer, PageSize);
+	Status = EepromReadData(IicInstance, ReadBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -322,14 +324,14 @@ int IicPsEepromPolledExample(void)
 *		noted by the constant PAGE_SIZE.
 *
 ******************************************************************************/
-int EepromWriteData(u16 ByteCount)
+static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 {
 	int Status;
 
 	/*
 	 * Send the Data.
 	 */
-	Status = XIicPs_MasterSendPolled(&IicInstance, WriteBuffer,
+	Status = XIicPs_MasterSendPolled(IicInstance, WriteBuffer,
 					  ByteCount, IIC_SLAVE_ADDR);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -338,7 +340,7 @@ int EepromWriteData(u16 ByteCount)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	/*
 	 * Wait for a bit of time to allow the programming to complete
@@ -360,7 +362,7 @@ int EepromWriteData(u16 ByteCount)
 * @note		None.
 *
 ******************************************************************************/
-int EepromReadData(u8 *BufferPtr, u16 ByteCount)
+static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
 {
 	int Status;
 	AddressType Address = EEPROM_START_ADDRESS;
@@ -378,7 +380,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 		WrBfrOffset = 2;
 	}
 
-	Status = EepromWriteData(WrBfrOffset);
+	Status = EepromWriteData(IicInstance, WrBfrOffset);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -386,7 +388,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 	/*
 	 * Receive the Data.
 	 */
-	Status = XIicPs_MasterRecvPolled(&IicInstance, BufferPtr,
+	Status = XIicPs_MasterRecvPolled(IicInstance, BufferPtr,
 					  ByteCount, IIC_SLAVE_ADDR);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -395,7 +397,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	return XST_SUCCESS;
 }
@@ -411,7 +413,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 * @note		None.
 *
 ****************************************************************************/
-int MuxInit(void)
+static int MuxInit(XIicPs *IicInstance)
 {
 	u8 WriteBuffer;
 	u8 MuxIicAddr = IIC_MUX_ADDRESS;
@@ -426,7 +428,7 @@ int MuxInit(void)
 	/*
 	 * Send the Data.
 	 */
-	Status = XIicPs_MasterSendPolled(&IicInstance, &WriteBuffer,1,
+	Status = XIicPs_MasterSendPolled(IicInstance, &WriteBuffer,1,
 					MuxIicAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -435,12 +437,12 @@ int MuxInit(void)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	/*
 	 * Receive the Data.
 	 */
-	Status = XIicPs_MasterRecvPolled(&IicInstance, &Buffer,1, MuxIicAddr);
+	Status = XIicPs_MasterRecvPolled(IicInstance, &Buffer,1, MuxIicAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -448,7 +450,7 @@ int MuxInit(void)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	return XST_SUCCESS;
 }

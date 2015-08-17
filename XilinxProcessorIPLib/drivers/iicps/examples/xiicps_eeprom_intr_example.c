@@ -123,19 +123,22 @@ typedef u16 AddressType;
 
 /************************** Function Prototypes ******************************/
 
-int IicPsEepromIntrExample(void);
-int EepromWriteData(u16 ByteCount);
-int MuxInit(void);
-int EepromReadData(u8 *BufferPtr, u16 ByteCount);
+int IicPsEepromIntrExample(XScuGic *InterruptController, XIicPs *IicInstance,
+								u16 DeviceId, u16 IntrId);
+static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
+static int MuxInit(XIicPs *IicInstance);
+static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount);
 
-static int SetupInterruptSystem(XIicPs * IicInstPtr);
+static int SetupInterruptSystem(XScuGic *InterruptController,
+						XIicPs * IicInstPtr, u16 IntrId);
 
 static void Handler(void *CallBackRef, u32 Event);
 
 /************************** Variable Definitions *****************************/
-
+#ifndef TESTAPP_GEN
 XIicPs IicInstance;		/* The instance of the IIC device. */
 XScuGic InterruptController;	/* The instance of the Interrupt Controller. */
+#endif
 u32 Platform;
 
 /*
@@ -162,6 +165,7 @@ volatile u32 TotalErrorCount;
 * @note		None.
 *
 ******************************************************************************/
+#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -171,7 +175,8 @@ int main(void)
 	/*
 	 * Run the Iic EEPROM interrupt mode example.
 	 */
-	Status = IicPsEepromIntrExample();
+	Status = IicPsEepromIntrExample(&InterruptController, &IicInstance,
+								IIC_DEVICE_ID, IIC_INTR_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC EEPROM Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -180,6 +185,7 @@ int main(void)
 	xil_printf("Successfully ran IIC EEPROM Interrupt Example Test\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -193,7 +199,8 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
-int IicPsEepromIntrExample(void)
+int IicPsEepromIntrExample(XScuGic *InterruptController, XIicPs *IicInstance,
+								u16 DeviceId, u16 IntrId)
 {
 	u32 Index;
 	int Status;
@@ -205,12 +212,12 @@ int IicPsEepromIntrExample(void)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-	ConfigPtr = XIicPs_LookupConfig(IIC_DEVICE_ID);
+	ConfigPtr = XIicPs_LookupConfig(DeviceId);
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
+	Status = XIicPs_CfgInitialize(IicInstance, ConfigPtr,
 					ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -219,7 +226,7 @@ int IicPsEepromIntrExample(void)
 	/*
 	 * Setup the Interrupt System.
 	 */
-	Status = SetupInterruptSystem(&IicInstance);
+	Status = SetupInterruptSystem(InterruptController, IicInstance, IntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -230,12 +237,12 @@ int IicPsEepromIntrExample(void)
 	 * pointer to the IIC driver instance as the callback reference so
 	 * the handlers are able to access the instance data.
 	 */
-	XIicPs_SetStatusHandler(&IicInstance, (void *) &IicInstance, Handler);
+	XIicPs_SetStatusHandler(IicInstance, (void *) IicInstance, Handler);
 
 	/*
 	 * Set the IIC serial clock rate.
 	 */
-	XIicPs_SetSClk(&IicInstance, IIC_SCLK_RATE);
+	XIicPs_SetSClk(IicInstance, IIC_SCLK_RATE);
 
 	/*
 	 * Set the channel value in IIC Mux if
@@ -243,7 +250,7 @@ int IicPsEepromIntrExample(void)
 	 */
 	Platform = XGetPlatform_Info();
 	if(Platform == XPLAT_ZYNQ) {
-		Status = MuxInit();
+		Status = MuxInit(IicInstance);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -271,7 +278,7 @@ int IicPsEepromIntrExample(void)
 	/*
 	 * Write to the EEPROM.
 	 */
-	Status = EepromWriteData(WrBfrOffset + PageSize);
+	Status = EepromWriteData(IicInstance, WrBfrOffset + PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -279,7 +286,7 @@ int IicPsEepromIntrExample(void)
 	/*
 	 * Read from the EEPROM.
 	 */
-	Status = EepromReadData(ReadBuffer, PageSize);
+	Status = EepromReadData(IicInstance, ReadBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -313,7 +320,7 @@ int IicPsEepromIntrExample(void)
 	/*
 	 * Write to the EEPROM.
 	 */
-	Status = EepromWriteData(WrBfrOffset + PageSize);
+	Status = EepromWriteData(IicInstance, WrBfrOffset + PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -321,7 +328,7 @@ int IicPsEepromIntrExample(void)
 	/*
 	 * Read from the EEPROM.
 	 */
-	Status = EepromReadData(ReadBuffer, PageSize);
+	Status = EepromReadData(IicInstance, ReadBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -351,7 +358,7 @@ int IicPsEepromIntrExample(void)
 *		noted by the constant PAGE_SIZE.
 *
 ******************************************************************************/
-int EepromWriteData(u16 ByteCount)
+static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 {
 
 	TransmitComplete = FALSE;
@@ -359,7 +366,7 @@ int EepromWriteData(u16 ByteCount)
 	/*
 	 * Send the Data.
 	 */
-	XIicPs_MasterSend(&IicInstance, WriteBuffer,
+	XIicPs_MasterSend(IicInstance, WriteBuffer,
 			   ByteCount, IIC_SLAVE_ADDR);
 
 	/*
@@ -377,7 +384,7 @@ int EepromWriteData(u16 ByteCount)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	/*
 	 * Wait for a bit of time to allow the programming to complete
@@ -399,7 +406,7 @@ int EepromWriteData(u16 ByteCount)
 * @note		None.
 *
 ******************************************************************************/
-int EepromReadData(u8 *BufferPtr, u16 ByteCount)
+static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
 {
 	int Status;
 	AddressType Address = EEPROM_START_ADDRESS;
@@ -417,7 +424,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 		WrBfrOffset = 2;
 	}
 
-	Status = EepromWriteData(WrBfrOffset);
+	Status = EepromWriteData(IicInstance, WrBfrOffset);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -427,7 +434,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 	/*
 	 * Receive the Data.
 	 */
-	XIicPs_MasterRecv(&IicInstance, BufferPtr,
+	XIicPs_MasterRecv(IicInstance, BufferPtr,
 			   ByteCount, IIC_SLAVE_ADDR);
 
 	while (ReceiveComplete == FALSE) {
@@ -439,7 +446,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	return XST_SUCCESS;
 }
@@ -458,7 +465,8 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 * @note		None.
 *
 *******************************************************************************/
-static int SetupInterruptSystem(XIicPs *IicPsPtr)
+static int SetupInterruptSystem(XScuGic *InterruptController, XIicPs *IicPsPtr,
+								u16 IntrId)
 {
 	int Status;
 	XScuGic_Config *IntcConfig; /* Instance of the interrupt controller */
@@ -474,7 +482,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 		return XST_FAILURE;
 	}
 
-	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
+	Status = XScuGic_CfgInitialize(InterruptController, IntcConfig,
 					IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -487,14 +495,14 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
 				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				&InterruptController);
+				InterruptController);
 
 	/*
 	 * Connect the device driver handler that will be called when an
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device.
 	 */
-	Status = XScuGic_Connect(&InterruptController, IIC_INTR_ID,
+	Status = XScuGic_Connect(InterruptController, IntrId,
 			(Xil_InterruptHandler)XIicPs_MasterInterruptHandler,
 			(void *)IicPsPtr);
 	if (Status != XST_SUCCESS) {
@@ -504,7 +512,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	/*
 	 * Enable the interrupt for the Iic device.
 	 */
-	XScuGic_Enable(&InterruptController, IIC_INTR_ID);
+	XScuGic_Enable(InterruptController, IntrId);
 
 
 	/*
@@ -566,7 +574,7 @@ void Handler(void *CallBackRef, u32 Event)
 * @note		None.
 *
 ****************************************************************************/
-int MuxInit(void)
+static int MuxInit(XIicPs *IicInstance)
 {
 	u8 WriteBuffer;
 	u8 MuxIicAddr = IIC_MUX_ADDRESS;
@@ -582,7 +590,7 @@ int MuxInit(void)
 	/*
 	 * Send the Data.
 	 */
-	XIicPs_MasterSend(&IicInstance, &WriteBuffer,1, MuxIicAddr);
+	XIicPs_MasterSend(IicInstance, &WriteBuffer,1, MuxIicAddr);
 	while (TransmitComplete == FALSE) {
 		if (0 != TotalErrorCount) {
 			return XST_FAILURE;
@@ -592,14 +600,14 @@ int MuxInit(void)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	ReceiveComplete = FALSE;
 
 	/*
 	 * Receive the Data.
 	 */
-	XIicPs_MasterRecv(&IicInstance, &Buffer,1, MuxIicAddr);
+	XIicPs_MasterRecv(IicInstance, &Buffer,1, MuxIicAddr);
 	while (ReceiveComplete == FALSE) {
 		if (0 != TotalErrorCount) {
 			return XST_FAILURE;
@@ -609,7 +617,7 @@ int MuxInit(void)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance));
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	return XST_SUCCESS;
 }
