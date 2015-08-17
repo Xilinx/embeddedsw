@@ -37,4 +37,7 @@
 #include "xstatus.h"
 
 int SpiPsSelfTestExample(u16 DeviceId);
+int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, u16 SpiDeviceId);
+int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
+			 u16 SpiDeviceId, u16 SpiIntrId);
 #endif
