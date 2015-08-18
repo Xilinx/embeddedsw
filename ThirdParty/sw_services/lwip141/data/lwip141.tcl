@@ -293,6 +293,17 @@ proc lwip_drc {libhandle} {
 	# find the list of xps_ethernetlite, xps_ll_temac, or axi_ethernet cores
 	set sw_processor [hsi::get_sw_processor]
 	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
+
+	if {$processor_type == "psu_cortexa53"} {
+		set procdrv [hsi::get_sw_processor]
+		set compiler [get_property CONFIG.compiler $procdrv]
+
+		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			error "ERROR: No support for 32 bit A53 compiler \n"
+		return
+            }
+	}
 
 	set emac_periphs_list [get_emac_periphs $processor]
 

@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2015-08-18
+	* Error out for A53 32 bit compiler
 2015-08-10
 	* Add support for A53
 2015-07-19
