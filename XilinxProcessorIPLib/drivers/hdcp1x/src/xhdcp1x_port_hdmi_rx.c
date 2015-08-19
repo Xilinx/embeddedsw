@@ -131,10 +131,6 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 	XHdmiRx_SetCallback(HdmiRx, XHDMI_RX_HANDLER_HDCP,
 			XHdcp1x_ProcessAKsvWrite, InstancePtr);
 
-	/* Enable the hdcp slave over the ddc */
-	XHdmiRx_DdcHdcpEnable(HdmiRx);
-	XHdmiRx_DdcIntrEnable(HdmiRx);
-
 	return (Status);
 }
 
