@@ -35,6 +35,7 @@
 * @file xtft_hw.h
 * @addtogroup tft_v5_0
 * @{
+* @details
 *
 * This file defines the macros and definitions for the Xilinx TFT Controller
 * device.
@@ -49,6 +50,10 @@
 *			 bit masks.
 * 3.00a  ktn   10/22/09  Updated driver to use the HAL APIs/macros.
 *		         Removed the macros XTft_mSetPixel and XTft_mGetPixel.
+* 6.0    sd   07/09/15  Added XTFT_AR_LSB_OFFSET and XTFT_AR_MSB_OFFSET
+*			 definitions to the xtft_hw.h file, these offsets
+*			 are valid only when the Address Width is greater
+*			 than 32 bits.
 * </pre>
 *
 ****************************************************************************/
@@ -76,6 +81,9 @@ extern "C" {
 #define XTFT_AR_OFFSET		0 /**< Address Reg (Video memory) Offset */
 #define XTFT_CR_OFFSET		4 /**< Control Register Offset */
 #define XTFT_IESR_OFFSET	8 /**< Interrupt Enable and Status Reg Offset */
+
+#define XTFT_AR_LSB_OFFSET	0x10 /**< Address Reg LSB (Video memory) Offset */
+#define XTFT_AR_MSB_OFFSET	0x14 /**< Address Reg MSB (Video memory) Offset */
 
 /*@}*/
 

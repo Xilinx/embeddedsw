@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,12 @@
 * 4.00a  bss   01/25/13	 Added support for AXI TFT controller,
 *			 XTft_WriteReg and XTft_ReadReg functions are updated
 *			 Removed all functionality associated with DCR access
+* 6.0    sd   07/13/15	 Modified the XTft_SetFrameBaseAddr API to
+*			 void XTft_SetFrameBaseAddr(XTft *InstancePtr,
+*			 UINTPR NewFrameBaseAddr) so that it can be used
+*			 in systems with memory greater than 4 GB
+*			 Updated XTft_CfgInitialize API so that input
+*			 argument EffectiveAddr is a UINTPTR type
 * </pre>
 *
 ****************************************************************************/
@@ -107,7 +113,7 @@ static void XTft_WriteChar(XTft* InstancePtr, u8 CharValue,
 *
 ****************************************************************************/
 int XTft_CfgInitialize(XTft *InstancePtr, XTft_Config *ConfigPtr,
-			 u32 EffectiveAddr)
+			 UINTPTR EffectiveAddr)
 {
 	/*
 	 * Assert validates the input arguments.
@@ -754,7 +760,7 @@ void XTft_ScanNormal(XTft* InstancePtr)
 *		screen can be written.
 *
 ****************************************************************************/
-void XTft_SetFrameBaseAddr(XTft* InstancePtr, u32 NewFrameBaseAddr)
+void XTft_SetFrameBaseAddr(XTft *InstancePtr, UINTPTR NewFrameBaseAddr)
 {
 	/*
 	 * Assert validates the input arguments.
@@ -763,10 +769,20 @@ void XTft_SetFrameBaseAddr(XTft* InstancePtr, u32 NewFrameBaseAddr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((NewFrameBaseAddr & 0x1FFFFF) == 0x0);
 
-	/*
-	 * Write to the Control Register.
-	 */
-	XTft_WriteReg(InstancePtr, XTFT_AR_OFFSET, NewFrameBaseAddr);
+	if (InstancePtr->TftConfig.AddrWidth > 32 ) {
+
+		/* Write to the  Address (Video memory) MSB Register */
+		XTft_WriteReg(InstancePtr, XTFT_AR_MSB_OFFSET,
+					UPPER_32_BITS(NewFrameBaseAddr));
+
+		/* Write to the  Address (Video memory) LSB Register */
+		XTft_WriteReg(InstancePtr, XTFT_AR_LSB_OFFSET,
+				(u32)(NewFrameBaseAddr & 0xFFFFFFFF));
+	} else {
+
+		/* Write to the  Address (Video memory) LSB Register */
+		XTft_WriteReg(InstancePtr, XTFT_AR_OFFSET, NewFrameBaseAddr);
+	}
 
 	/*
 	 * Update the Instance structure member.

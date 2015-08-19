@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -114,6 +114,16 @@
 * 4.01a  bss   11/01/13	 Modified driver tcl to retrieve C_BASEADDR/C_HIGHADDR
 *			 CR#757359.
 * 5.0   adk  19/12/13 Updated as per the New Tcl API's
+* 6.0    sd  19/08/15  Updated the BaseAddress and VideoMemBaseAddr
+*		         variables in XTft_Config to be UINTPTR to support
+*			 64 bit addresses. Added AddrWidth to the
+*			 XTft_Config structure which reflects the value of
+*			 C_M_AXI_ADDR_WIDTH.
+*			 Updated to tcl add the C_M_AXI_ADDR_WIDTH  parameter.
+*			 Added XTFT_AR_LSB_OFFSET and XTFT_AR_MSB_OFFSET
+*			 definitions to the xtft_hw.h file, these offsets
+*			 are valid only when the Address Width is greater
+*			 than 32 bits.
 *</pre>
 *
 ****************************************************************************/
@@ -152,14 +162,17 @@ extern "C" {
 /**************************** Type Definitions *****************************/
 
 /**
+ * @struct XTft_Config
+ *
  * This structure holds the Device base address, video memory base address
  * and Unique identifier of the device.
  */
 typedef struct {
 
-	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddress;	/**< Base address of device */
-	u32 VideoMemBaseAddr;	/**< Video Memory Base address */
+	u16 DeviceId;			/**< Unique ID of device */
+	UINTPTR BaseAddress;		/**< Base address of device */
+	UINTPTR VideoMemBaseAddr;	/**< Video Memory Base address */
+	u32 AddrWidth;			/**< Address Width */
 } XTft_Config;
 
 
@@ -193,7 +206,7 @@ XTft_Config *XTft_LookupConfig(u16 DeviceId);
  * Functions for basic driver operations in xtft.c.
  */
 int XTft_CfgInitialize(XTft *InstancePtr, XTft_Config *ConfigPtr,
-			 u32 EffectiveAddr);
+			 UINTPTR EffectiveAddr);
 
 void XTft_SetPos(XTft *InstancePtr, u32 ColVal, u32 RowVal);
 void XTft_SetPosChar(XTft *InstancePtr, u32 ColVal, u32 RowVal);
@@ -213,7 +226,7 @@ void XTft_EnableDisplay(XTft *InstancePtr);
 void XTft_DisableDisplay(XTft *InstancePtr);
 void XTft_ScanReverse(XTft* InstancePtr);
 void XTft_ScanNormal(XTft* InstancePtr);
-void XTft_SetFrameBaseAddr(XTft *InstancePtr, u32 NewFrameBaseAddr);
+void XTft_SetFrameBaseAddr(XTft *InstancePtr, UINTPTR NewFrameBaseAddr);
 void XTft_WriteReg(XTft* InstancePtr, u32 RegOffset, u32 Data);
 u32 XTft_ReadReg(XTft* InstancePtr, u32 RegOffset);
 void XTft_IntrEnable(XTft* InstancePtr);
