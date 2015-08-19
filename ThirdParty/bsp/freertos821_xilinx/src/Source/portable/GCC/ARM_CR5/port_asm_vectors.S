@@ -94,6 +94,7 @@ _vector_table:
 _irq:   .word FreeRTOS_IRQ_Handler
 _swi:   .word FreeRTOS_SWI_Handler
 
+.text
 FIQHandler:					/* FIQ vector handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
 FIQLoop:
