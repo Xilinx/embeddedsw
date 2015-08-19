@@ -236,7 +236,7 @@ extern "C" {
 #define XAXIDMA_BD_BYTES_TO_CLEAR	48  /**< BD specific bytes to be
 					      *  cleared */
 
-#define XAXIDMA_BD_NUM_WORDS		16U  /**< Total number of words for
+#define XAXIDMA_BD_NUM_WORDS		20U  /**< Total number of words for
 					       * one BD*/
 #define XAXIDMA_BD_HW_NUM_BYTES		52  /**< Number of bytes hw used */
 

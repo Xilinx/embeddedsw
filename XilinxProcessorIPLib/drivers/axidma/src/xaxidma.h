@@ -452,6 +452,8 @@
 * 8.1   adk  29/01/15  Added the sefltest api (XAxiDma_Selftest) to the driver source files
 * 		      (xaxidma_selftest.c) and called this from the selftest example
 * 9.0 	adk  27/07/15  Added support for 64-bit Addressing.
+* 9.0   adk  19/08/15  Fixed CR#873125 DMA SG Mode example tests are failing on
+*		       HW in 2015.3.
 *
 * </pre>
 *
