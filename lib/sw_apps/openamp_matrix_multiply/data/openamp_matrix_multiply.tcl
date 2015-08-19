@@ -46,14 +46,14 @@ proc check_standalone_os {} {
     }
     set os [lindex $oslist 0];
 
-    if { $os != "standalone" } {
-        error "This application is supported only on the Standalone Board Support Package.";
+    if {{ $os != "standalone" } || { $os != "freertos821_xilinx" }} {
+        error "This application is supported only on the Standalone Board Support Package and freertos821.";
     }
 }
 
 proc swapp_is_supported_sw {} {
     # make sure we are using standalone OS
-    #check_standalone_os;
+    check_standalone_os;
 
 	# make sure xilffs is available
     set librarylist [hsi::get_libs -filter "NAME==xilopenamp"];
@@ -97,7 +97,9 @@ proc swapp_generate {} {
 	set os [lindex $oslist 0];
 	if { $os != "standalone" } {
 		set ld_file "lscript.ld"
-		file delete -force $ld_file
+		set ld_file_new "lscript_freertos.ld"
+		file rename -force $ld_file_new $ld_file
+		file delete -force $ld_file_new
 	} else {
 		set ld_file "lscript_freertos.ld"
 		file delete -force $ld_file

@@ -269,12 +269,18 @@ unsigned int old_value = 0;
 
 void restore_global_interrupts() {
 
+#ifdef USE_FREERTOS
+	taskENABLE_INTERRUPTS();
+#else
 	ARM_AR_INT_BITS_SET(old_value);
+#endif
 
 }
 
 void disable_global_interrupts() {
-
+#ifdef USE_FREERTOS
+	taskDISABLE_INTERRUPTS();
+#else
 	unsigned int value = 0;
 
 	ARM_AR_INT_BITS_GET(&value);
@@ -286,7 +292,7 @@ void disable_global_interrupts() {
 		old_value = value;
 
 	}
-
+#endif
 }
 
 /*==================================================================*/

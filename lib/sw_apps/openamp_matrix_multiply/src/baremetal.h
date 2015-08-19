@@ -32,6 +32,7 @@
 #ifndef _BAREMETAL_H
 #define _BAREMETAL_H
 
+#include "amp_os.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xil_cache.h"
@@ -116,5 +117,6 @@ void platform_cache_disable();
 void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size, unsigned int flags);
 unsigned long platform_vatopa(void *addr);
 void *platform_patova(unsigned long addr);
+void process_communication(struct XOpenAMPInstPtr OpenAMPInstance);
 
 #endif /* _BAREMETAL_H */

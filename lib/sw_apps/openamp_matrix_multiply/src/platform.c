@@ -96,6 +96,7 @@ void _notify(int cpu_id, struct proc_intr *intr_info) {
 	if (chn_ipi_info == NULL)
 		return;
 	platform_dcache_all_flush();
+	env_wmb();
 	/* Trigger IPI */
 	ipi_trigger(chn_ipi_info->ipi_base_addr, chn_ipi_info->ipi_chn_mask);
 }

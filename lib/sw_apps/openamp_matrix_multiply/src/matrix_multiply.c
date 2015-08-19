@@ -88,6 +88,9 @@
 #define	MAX_SIZE		6
 #define NUM_MATRIX      2
 #define SHUTDOWN_MSG    0xEF56A55A
+#ifdef USE_FREERTOS
+#define DELAY_200MSEC    200/portTICK_PERIOD_MS
+#endif
 
 typedef struct _matrix {
 	unsigned int size;
@@ -191,6 +194,7 @@ void communication_task(){
 		xActivatedMember = xQueueSelectFromSet( comm_queueset, portMAX_DELAY);
 		if( xActivatedMember == OpenAMPInstPtr.lock ) {
 			env_acquire_sync_lock(OpenAMPInstPtr.lock);
+			env_disable_interrupt(VRING1_IPI_INTR_VECT);
 			process_communication(OpenAMPInstPtr);
 		}
 		if (xActivatedMember == OpenAMPInstPtr.send_queue) {
@@ -200,6 +204,7 @@ void communication_task(){
 #else
 		env_enable_interrupt(VRING1_IPI_INTR_VECT, 0, 0);
 		env_acquire_sync_lock(OpenAMPInstPtr.lock);
+		env_disable_interrupt(VRING1_IPI_INTR_VECT);
 		process_communication(OpenAMPInstPtr);
 		matrix_mul();
 		if(pq_qlength(OpenAMPInstPtr.send_queue) > 0) {
@@ -259,7 +264,7 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 		remoteproc_resource_deinit(proc);
 #ifdef USE_FREERTOS
 		int TempTimerId;
-		stop_scheduler = xTimerCreate("TMR", 200, pdFALSE, (void *)&TempTimerId, StopSchedulerTmrCallBack);
+		stop_scheduler = xTimerCreate("TMR", DELAY_200MSEC, pdFALSE, (void *)&TempTimerId, StopSchedulerTmrCallBack);
 		xTimerStart(stop_scheduler, 0);
 #endif
 	}else{
@@ -287,40 +292,3 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r) {
 		}
 	}
 }
-
-#ifdef USE_FREERTOS
-/*-----------------------------------------------------------*/
-void vApplicationMallocFailedHook( void )
-{
-	/* vApplicationMallocFailedHook() will only be called if
-	configUSE_MALLOC_FAILED_HOOK is set to 1 in FreeRTOSConfig.h.  It is a hook
-	function that will get called if a call to pvPortMalloc() fails.
-	pvPortMalloc() is called internally by the kernel whenever a task, queue or
-	semaphore is created.  It is also called by various parts of the demo
-	application.  If heap_1.c or heap_2.c are used, then the size of the heap
-	available to pvPortMalloc() is defined by configTOTAL_HEAP_SIZE in
-	FreeRTOSConfig.h, and the xPortGetFreeHeapSize() API function can be used
-	to query the size of free heap space that remains (although it does not
-	provide information on how the remaining heap might be fragmented). */
-	xil_printf("malloc failed\r\n");
-	taskDISABLE_INTERRUPTS();
-	for( ;; );
-}
-
-/*-----------------------------------------------------------*/
-void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed char *pcTaskName )
-{
-	( void ) pcTaskName;
-	( void ) pxTask;
-
-	/* vApplicationStackOverflowHook() will only be called if
-	configCHECK_FOR_STACK_OVERFLOW is set to either 1 or 2.  The handle and name
-	of the offending task will be passed into the hook function via its
-	parameters.  However, when a stack has overflowed, it is possible that the
-	parameters will have been corrupted, in which case the pxCurrentTCB variable
-	can be inspected directly. */
-	taskDISABLE_INTERRUPTS();
-	for( ;; );
-}
-
-#endif
