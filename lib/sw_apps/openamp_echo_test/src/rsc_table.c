@@ -41,34 +41,33 @@
 
 #define RPMSG_IPU_C0_FEATURES        1
 
+
 /* VirtIO rpmsg device id */
 #define VIRTIO_ID_RPMSG_             7
 
 /* Remote supports Name Service announcement */
 #define VIRTIO_RPMSG_F_NS           0
-
-#define OCM_0_START                 0xFFFC0000
-#define OCM_0_LEN                   0x20000
 #define OCM_1_START                 0xFFFF0000
 #define OCM_1_LEN                   0x10000
 #define TCM_0_START_DA              0x00000000
-#define TCM_0_LEN                   0x10000
+#define TCM_0_LEN                   0x20000
 #define TCM_0_START_PA              0xFFE00000
 #define TCM_1_START_DA              0x00020000
-#define TCM_1_LEN                   0x10000
+#define TCM_1_LEN                   0x20000
 #define TCM_1_START_PA              0xFFE40000
+#define DDR_ELF_START               0x3ED00000
+#define DDR_ELF_LEN                	0x40000
 #define NUM_VRINGS                  0x02
 #define VRING_ALIGN                 0x1000
-#define RING_TX                     0x3ED00000
-#define RING_RX                     0x3ED04000
+#define RING_TX                     0x3ED40000
+#define RING_RX                     0x3ED44000
 #define VRING_SIZE                  256
-
 #define NUM_TABLE_ENTRIES           3
-#define CARVEOUT_SRC_OFFSETS        offsetof(struct remote_resource_table, ocm_0_cout), \
-							        offsetof(struct remote_resource_table, ocm_1_cout),
+#define CARVEOUT_SRC_OFFSETS        offsetof(struct remote_resource_table, ocm_1_cout), \
+							        offsetof(struct remote_resource_table, ddr_cout),
 
-#define CARVEOUT_SRC                {RSC_CARVEOUT, OCM_0_START, OCM_0_START, OCM_0_LEN, 0, 0, "OCM0_COUT",}, \
-					                {RSC_CARVEOUT, OCM_1_START, OCM_1_START, OCM_1_LEN, 0, 0, "ELF_DATA_COUT",},
+#define CARVEOUT_SRC                {RSC_CARVEOUT, OCM_1_START, OCM_1_START, OCM_1_LEN, 0, 0, "OCM1_COUT",}, \
+					                {RSC_CARVEOUT, DDR_ELF_START, DDR_ELF_START, DDR_ELF_LEN, 0, 0, "ELF_DATA_COUT",},
 
 
 const struct remote_resource_table __resource resources =
