@@ -71,18 +71,21 @@ proc xgen_opts_file {libhandle} {
 	    return 0;
 	}
 	set os [lindex $oslist 0];
-	set config_inc [::hsi::utils::open_include_file "amp_os.h"]
-	puts $config_inc "/******************************************************************/"
-	puts $config_inc ""
-	puts $config_inc "/* Operating System definition */"
+	set amposfn [file join "src" "amp_os.h"]
+	file delete $amposfn
+	set ampos [open $amposfn w]
+	::hsi::utils::write_c_header $ampos "Definition of OS for which the BSP is built"
+	puts $ampos "/******************************************************************/"
+	puts $ampos ""
+	puts $ampos "/* Operating System definition */"
 	if { $os == "freertos821_xilinx" } {
-		puts $config_inc "#define USE_FREERTOS TRUE"
+		puts $ampos "#define USE_FREERTOS TRUE"
 	      } else {
-		puts $config_inc "#define USE_BAREMETAL TRUE"
+		puts $ampos "#define USE_BAREMETAL TRUE"
 	      }
-	puts $config_inc ""
-	puts $config_inc "/******************************************************************/"
-	close $config_inc
+	puts $ampos ""
+	puts $ampos "/******************************************************************/"
+	close $ampos
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]

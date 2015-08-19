@@ -44,7 +44,13 @@
 
 #include "env.h"
 #include "config.h"
-
+#include "amp_os.h"
+#ifdef USE_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "portmacro.h"
+#include "task.h"
+#endif
 #include <stdlib.h>
 #include <string.h>
 
