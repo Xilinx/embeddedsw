@@ -56,6 +56,7 @@ set periph_ninstances_atg    0
 set atg_mode_value	     0
 set atg_mode_value_l2        0
 set axi_mode_value           0
+set address_width_value      0
 set baseaddr_value           0
 set highaddr_value           0
 
@@ -113,6 +114,7 @@ proc xdfeine_trafgen_params_constants { periph } {
     global atg_mode_value_l2        
     global axi_mode_value           
     global baseaddr_value           
+    global address_width_value
     global highaddr_value       
  
     set atg_mode_name [::hsi::utils::get_param_value $periph C_ATG_MODE]
@@ -174,6 +176,10 @@ proc xdfeine_trafgen_params_constants { periph } {
     if {[llength $baseaddr_value] == 0} {
              set baseaddr_value 0
     }
+    set address_width_value [::hsi::utils::get_param_value $periph C_EXTENDED_ADDRESS_WIDTH]
+    if {[llength $address_width_value] == 0} {
+             set address_width_value 0
+    }
     set highaddr_value [::hsi::utils::get_param_value $periph C_HIGHADDR]
     if {[llength $highaddr_value] == 0} {
              set highaddr_value 0
@@ -194,6 +200,7 @@ proc xdefine_trafgen_params_instance {file_handle periph device_id} {
     puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE"] $atg_mode_value"
     puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE_L2"] $atg_mode_value_l2"
     puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_AXIS_MODE"] $axi_mode_value"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_EXTENDED_ADDRESS_WIDTH"] [::hsi::utils::get_param_value $periph C_EXTENDED_ADDRESS_WIDTH]"
 }
 
 proc xdefine_trafgen_params_canonical {file_handle periph device_id} {
@@ -201,6 +208,7 @@ proc xdefine_trafgen_params_canonical {file_handle periph device_id} {
     global atg_mode_value	     
     global atg_mode_value_l2        
     global axi_mode_value           
+    global address_width_value
     global baseaddr_value           
     global highaddr_value
     puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
@@ -229,6 +237,10 @@ proc xdefine_trafgen_params_canonical {file_handle periph device_id} {
     
     set canonical_name  [format "%s_AXIS_MODE" $canonical_tag]
     puts $file_handle "\#define $canonical_name $axi_mode_value"
+    add_field_to_periph_config_struct_atg $device_id $canonical_name
+
+    set canonical_name  [format "%s_EXTENDED_ADDRESS_WIDTH" $canonical_tag]
+    puts $file_handle "\#define $canonical_name $address_width_value"
     add_field_to_periph_config_struct_atg $device_id $canonical_name
 }
 

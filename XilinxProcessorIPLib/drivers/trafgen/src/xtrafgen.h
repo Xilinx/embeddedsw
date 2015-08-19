@@ -191,6 +191,8 @@
 * 3.2   adk  05/08/14 Fixed CR:798742 The last word of 8KB Master RAM in
 *		      axi traffic generator can't access and CR:799554
 * 		      Some incorrect parameter in axi traffic generator driver.
+* 4.0   sd  19/08/15 Fixed CR:876564 Added 64-bit Support to axi traffic generator
+*		     driver.
 * </pre>
 ******************************************************************************/
 
@@ -235,6 +237,7 @@ extern "C" {
 /* Internal RAM Sizes */
 #define XTG_PRM_RAM_BLOCK_SIZE	0x400	/**< PARAM Block Size (1KB) */	
 #define XTG_CMD_RAM_BLOCK_SIZE	0x1000 	/**< Cmd RAM Block Size (4KB) */
+#define XTG_EXTCMD_RAM_BLOCK_SIZE 0x400	/**< Extended CMDRAM Block Size (1KB) */
 #define XTG_PARAM_RAM_SIZE	0x800	/**< Parameter RAM (2KB) */
 #define XTG_COMMAND_RAM_SIZE	0x2000	/**< Command RAM (8KB) */
 #define XTG_MASTER_RAM_SIZE	0x2000	/**< Master RAM (8KB) */
@@ -247,7 +250,7 @@ extern "C" {
  */
 typedef struct XTrafGen_CRamCmd
 {
-	u32 Address;		/**< Address Driven to a*_addr line */
+	UINTPTR Address;		/**< Address Driven to a*_addr line */
 	u32 ValidCmd;		/**< Valid Command */
 	u32 LastAddress;	/**< Last address */
 	u32 Prot;		/**< Driven to a*_prot line */
@@ -301,7 +304,7 @@ typedef struct XTrafGen_Cmd
  */
 typedef struct XTrafGen_CmdEntry
 {
-	u32 CmdWords[4];	/**< Command Ram words */
+	u32 CmdWords[5];	/**< Command Ram words */
 	u32 ParamWord;		/**< Parameter Ram word */
 } XTrafGen_CmdEntry;
 
@@ -312,10 +315,11 @@ typedef struct XTrafGen_CmdEntry
  */
 typedef struct XTrafGen_Config {
 	u16 DeviceId;		/**< Device Id */
-	u32 BaseAddress;	/**< Base Address */
+	UINTPTR BaseAddress;	/**< Base Address */
 	u32 BusType;		/**< Atgmode */
 	u32 Mode;		/**< Atgmode_l2 */
 	u32 ModeType;		/**< Axismode */
+	u32 AddressWidth;	/**< AddressWidth */
 } XTrafGen_Config;
 
 /**
@@ -1188,7 +1192,7 @@ typedef struct XTrafGen {
  * Initialization and control functions in xtrafgen.c
  */
 int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
-                             XTrafGen_Config *Config, u32 EffectiveAddress);
+                             XTrafGen_Config *Config, UINTPTR EffectiveAddress);
 XTrafGen_Config *XTrafGen_LookupConfig(u32 DeviceId);
 int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr);
 int XTrafGen_GetLastValidIndex(XTrafGen *InstancePtr, u32 RdWrFlag);

@@ -116,7 +116,7 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag);
  *
  *****************************************************************************/
 int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
-			XTrafGen_Config *Config, u32 EffectiveAddress)
+			XTrafGen_Config *Config, UINTPTR EffectiveAddress)
 {
 	u32 ConfigStatus;
 
@@ -130,6 +130,7 @@ int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
 	memset(InstancePtr, 0, sizeof(XTrafGen));
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 	InstancePtr->Config.DeviceId = Config->DeviceId;
+	InstancePtr->Config.AddressWidth = Config->AddressWidth;
 		
 	if((Config->BusType == 1) && (Config->Mode == 1 || 
 						Config->ModeType == 2)) {
@@ -442,7 +443,13 @@ static void XTrafGen_PrepCmdWords(XTrafGen *InstancePtr,
 	Cmd = &CmdPtr->CRamCmd;
 
 	/* Command Word 0 */
-        CmdWords[0] = Cmd->Address;
+	if ( InstancePtr->Config.AddressWidth > 32) {
+		/* Command Word 4 */
+		CmdWords[0] = LOWER_32_BITS(Cmd->Address);
+		CmdWords[4] = UPPER_32_BITS(Cmd->Address);
+	} else {
+		CmdWords[0] = Cmd->Address;
+	}
 
 	/* Command Word 1 */
         CmdWords[1] = 0;
@@ -556,6 +563,7 @@ static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 	u32 Index;
 	u32 Offset;
 	u32 CmdWordIndex;
+	u32 Offset1;
 	int ValidIndex;
 	
 	/* Verify arguments */
@@ -567,10 +575,12 @@ static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 		EntryIndex = CmdInfo->WrIndex;
 		ValidIndex = CmdInfo->LastWrValidIndex;
 		Offset = XTG_CMD_RAM_BLOCK_SIZE;
+		Offset1 = XTG_EXTCMD_RAM_BLOCK_SIZE;
 	} else {
 		EntryIndex = CmdInfo->RdIndex;
 		ValidIndex = CmdInfo->LastRdValidIndex;
 		Offset = 0;
+		Offset1 = 0;
 	}
 
 	for (Index = 0; Index < EntryIndex; Index++) {
@@ -582,6 +592,12 @@ static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 					Offset, CmdWords[CmdWordIndex]);
 				Offset += 4;
 			}
+			if ( InstancePtr->Config.AddressWidth > 32) {
+				XTrafGen_WriteCmdRam_Msb(InstancePtr->Config.BaseAddress,
+					Offset1, CmdWords[4]);
+					Offset1 += 4;
+			}
+
 		} else {
 			return XST_FAILURE;
 		}
@@ -671,7 +687,7 @@ void XTrafGen_PrintCmds(XTrafGen *InstancePtr)
 	xil_printf("Commands configured for Write Block: \n\r");
 	for (Index1 = 0; Index1 < MAX_NUM_ENTRIES; Index1++) {
 		xil_printf("Cmd%d:\t", Index1);
-		for (Index2 = 0; Index2 < 4; Index2++) {
+		for (Index2 = 0; Index2 < 5; Index2++) {
 			xil_printf("0x%08x, ",
 				CmdInfo->CmdEntry[1][Index1].CmdWords[Index2]);
 		}
@@ -681,7 +697,7 @@ void XTrafGen_PrintCmds(XTrafGen *InstancePtr)
 	xil_printf("Commands configured for Read Block: \n\r");
 	for (Index1 = 0; Index1 < MAX_NUM_ENTRIES; Index1++) {
 		xil_printf("Cmd%d:\t", Index1);
-		for (Index2 = 0; Index2 < 4; Index2++) {
+		for (Index2 = 0; Index2 < 5; Index2++) {
 			xil_printf("0x%08x, ",
 				CmdInfo->CmdEntry[0][Index1].CmdWords[Index2]);
 		}

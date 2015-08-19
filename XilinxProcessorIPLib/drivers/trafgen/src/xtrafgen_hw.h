@@ -107,6 +107,7 @@ extern "C" {
 #define XTG_PARAM_RAM_OFFSET	0x1000	/**< Parameter RAM Offset */
 #define XTG_COMMAND_RAM_OFFSET	0x8000	/**< Command RAM Offset */
 #define XTG_MASTER_RAM_OFFSET	0xC000	/**< Master RAM Offset */
+#define XTG_COMMAND_RAM_MSB_OFFSET	0xa000	/**< Command RAM MSB Offset */
 
 /*@}*/
 
@@ -458,6 +459,23 @@ extern "C" {
 /****************************************************************************/
 /**
 *
+* XTrafGen_ReadCmdRam_Msb returns the value read from the Command RAM
+* specified by <i>Offset</i>.
+*
+* @param	BaseAddress is the MSB of base address of the Axi TrafGen device.
+* @param	Offset is the offset of the Command RAM to be read.
+*
+* @return	Returns the 32-bit value of the memory location.
+*
+* @note		C-style signature:
+*		u32 XTrafGen_ReadCmdRam_Msb(u32 BaseAddress, u32 Offset)
+*
+*****************************************************************************/
+#define XTrafGen_ReadCmdRam_Msb(BaseAddress, Offset) \
+	(Xil_In32(((BaseAddress) + XTG_COMMAND_RAM_MSB_OFFSET + (Offset))))
+/****************************************************************************/
+/**
+*
 * XTrafGen_WriteCmdRam, writes <i>Data</i> to the Command RAM specified by
 * <i>Offset</i>.
 *
@@ -475,6 +493,26 @@ extern "C" {
 *****************************************************************************/
 #define XTrafGen_WriteCmdRam(BaseAddress, Offset, Data) \
 	Xil_Out32(((BaseAddress) + XTG_COMMAND_RAM_OFFSET + (Offset)), (Data))
+/****************************************************************************/
+/**
+*
+* XTrafGen_WriteCmdRam_Msb, writes <i>Data</i> to the Command RAM specified by
+* <i>Offset</i>.
+*
+* @param	BaseAddress is the MSB of base address of the Axi TrafGen device.
+* @param	Offset is the offset of the location in Command RAM
+*		to be written.
+* @param	Data is the 32-bit value to write to the Command RAM.
+*
+* @return	None.
+*
+* @note
+* 	C-style signature:
+*	void XTrafGen_WriteCmdRam_Msb(u32 BaseAddress, u32 Offset, u32 Data)
+*
+*****************************************************************************/
+#define XTrafGen_WriteCmdRam_Msb(BaseAddress, Offset, Data) \
+	Xil_Out32(((BaseAddress) + XTG_COMMAND_RAM_MSB_OFFSET + (Offset)), (Data))
 
 /****************************************************************************/
 /**
