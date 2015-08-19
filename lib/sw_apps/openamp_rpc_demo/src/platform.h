@@ -48,7 +48,7 @@ struct ipi_info {
 #define SHM_ADDR                          (void *)0x3ED08000
 #define SHM_SIZE                          0x00200000
 #define IPI_BASEADDR                      0xff310000
-#define IPI_CHN_BITMASK                   0x00000001 /* IPI channel bit mask APU<->RPU0 */
+#define IPI_CHN_BITMASK                   0x01000000 /* IPI channel bit mask APU<->RPU0 */
 #define VRING0_IPI_INTR_VECT              -1
 #define VRING1_IPI_INTR_VECT              65
 #define MASTER_CPU_ID                     0

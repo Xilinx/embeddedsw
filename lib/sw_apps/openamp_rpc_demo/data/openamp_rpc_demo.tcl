@@ -53,7 +53,7 @@ proc check_standalone_os {} {
 
 proc swapp_is_supported_sw {} {
     # make sure we are using standalone OS
-    #check_standalone_os;
+    check_standalone_os;
 
 	# make sure xilffs is available
     set librarylist [hsi::get_libs -filter "NAME==xilopenamp"];
