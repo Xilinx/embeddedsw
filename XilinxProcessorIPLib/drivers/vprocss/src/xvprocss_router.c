@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_router.c
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 
 * Video buffer management routine.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -65,7 +66,7 @@ static int validateWindowSize(const XVidC_VideoWindow *win,
 		                      const u32 HActive,
 		                      const u32 VActive);
 
-static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss);
+static XVprocSs_ScaleMode GetScalingMode(XVprocSs *XVprocSsPtr);
 
 
 /*****************************************************************************/
@@ -73,7 +74,8 @@ static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss);
 * This function checks to make sure sub-frame is inside full frame
 *
 * @param  win is a pointer to the sub-frame window
-* @param  Resolution is a pointer to the current output resolution
+* @param  HActive is frame width
+* @param  VActive is frame height
 *
 * @return XST_SUCCESS if window is valid else XST_FAILURE
 *
@@ -109,27 +111,27 @@ static int validateWindowSize(const XVidC_VideoWindow *win,
 * This function computes the scaling mode based on input/output stream
 * resolution. It also accounts for Zoom or PIP mode, if enabled
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return Scaling mode Up/Dpwn or 1:1
 *
 ******************************************************************************/
-static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss)
+static XVprocSs_ScaleMode GetScalingMode(XVprocSs *XVprocSsPtr)
 {
   int status;
-  XVprocss_ScaleMode mode;
+  XVprocSs_ScaleMode mode;
   XVidC_VideoWindow win;
-  XVidC_VideoStream *pStrIn  = &pVprocss->VidIn;
-  XVidC_VideoStream *pStrOut = &pVprocss->VidOut;
+  XVidC_VideoStream *StrmInPtr  = &XVprocSsPtr->VidIn;
+  XVidC_VideoStream *StrmOutPtr = &XVprocSsPtr->VidOut;
 
-  if(XVprocss_IsPipModeOn(pVprocss))
+  if(XVprocSs_IsPipModeOn(XVprocSsPtr))
   {
     /* Read PIP window setting - set elsewhere */
-    XVprocss_GetZoomPipWindow(pVprocss, XVPROCSS_PIP_WIN, &win);
+    XVprocSs_GetZoomPipWindow(XVprocSsPtr, XVPROCSS_PIP_WIN, &win);
     /* validate window */
     status = validateWindowSize(&win,
-                                pVprocss->VidOut.Timing.HActive,
-                                pVprocss->VidOut.Timing.VActive);
+                                XVprocSsPtr->VidOut.Timing.HActive,
+                                XVprocSsPtr->VidOut.Timing.VActive);
     if(status != XST_SUCCESS)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VDMA Write Channel Window Invalid \r\n");
@@ -138,23 +140,23 @@ static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss)
     else
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n PIP Mode ON: Scale %dx%d -> %dx%d window in output stream\r\n",
-		            pStrIn->Timing.HActive,
-		            pStrIn->Timing.VActive,
-		            pVprocss->idata.wrWindow.Width,
-		            pVprocss->idata.wrWindow.Height);
+		            StrmInPtr->Timing.HActive,
+		            StrmInPtr->Timing.VActive,
+		            XVprocSsPtr->CtxtData.WrWindow.Width,
+		            XVprocSsPtr->CtxtData.WrWindow.Height);
 
       return(XVPROCSS_SCALE_DN);
     }
   }
 
-  if(XVprocss_IsZoomModeOn(pVprocss))
+  if(XVprocSs_IsZoomModeOn(XVprocSsPtr))
   {
     /* Read PIP window setting - set elsewhere */
-    XVprocss_GetZoomPipWindow(pVprocss, XVPROCSS_ZOOM_WIN, &win);
+    XVprocSs_GetZoomPipWindow(XVprocSsPtr, XVPROCSS_ZOOM_WIN, &win);
     /* validate window */
     status = validateWindowSize(&win,
-	                            pStrIn->Timing.HActive,
-	                            pStrIn->Timing.VActive);
+	                            StrmInPtr->Timing.HActive,
+	                            StrmInPtr->Timing.VActive);
     if(status != XST_SUCCESS)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VDMA Read Channel Window Invalid \r\n");
@@ -163,23 +165,23 @@ static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss)
     else
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n Zoom Mode ON: Scale %dx%d window from Input Stream -> %dx%d\r\n",
-                    pVprocss->idata.rdWindow.Width,
-                    pVprocss->idata.rdWindow.Height,
-		            pStrOut->Timing.HActive,
-		            pStrOut->Timing.VActive);
+                    XVprocSsPtr->CtxtData.RdWindow.Width,
+                    XVprocSsPtr->CtxtData.RdWindow.Height,
+		            StrmOutPtr->Timing.HActive,
+		            StrmOutPtr->Timing.VActive);
 
       return (XVPROCSS_SCALE_UP);
     }
   }
 
   /* Pip & Zoom mode are off. Check input/output resolution */
-  if((pStrIn->Timing.HActive > pStrOut->Timing.HActive) ||
-     (pStrIn->Timing.VActive > pStrOut->Timing.VActive))
+  if((StrmInPtr->Timing.HActive > StrmOutPtr->Timing.HActive) ||
+     (StrmInPtr->Timing.VActive > StrmOutPtr->Timing.VActive))
   {
     mode = XVPROCSS_SCALE_DN;
   }
-  else if((pStrIn->Timing.HActive < pStrOut->Timing.HActive) ||
-          (pStrIn->Timing.VActive < pStrOut->Timing.VActive))
+  else if((StrmInPtr->Timing.HActive < StrmOutPtr->Timing.HActive) ||
+          (StrmInPtr->Timing.VActive < StrmOutPtr->Timing.VActive))
   {
     mode = XVPROCSS_SCALE_UP;
   }
@@ -196,12 +198,12 @@ static XVprocss_ScaleMode GetScalingMode(XVprocss *pVprocss)
 * builds a routing table for the supported use-case. The computed routing
 * table is stored in the scratch pad memory
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS if routing table can be created else XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
+int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 {
 #ifdef DEBUG
   const char *ipStr[XVPROCSS_RTR_MAX] =
@@ -220,68 +222,68 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
 #endif
 
   u32 index = 0;
-  XVidC_VideoStream *pStrIn  = &pVprocss->VidIn;
-  XVidC_VideoStream *pStrOut = &pVprocss->VidOut;
-  XVprocss_IData *pCfg    = &pVprocss->idata;
-  u8 *pTable              = &pVprocss->idata.RtngTable[0];
+  XVidC_VideoStream *StrmInPtr  = &XVprocSsPtr->VidIn;
+  XVidC_VideoStream *StrmOutPtr = &XVprocSsPtr->VidOut;
+  XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
+  u8 *pTable              = &XVprocSsPtr->CtxtData.RtngTable[0];
   int status = XST_SUCCESS;
 
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Build AXIS Routing Map for Subsystem Use-Case.... \r\n");
 
   /* Save input resolution */
-  pCfg->vidInWidth  = pStrIn->Timing.HActive;
-  pCfg->vidInHeight = pStrIn->Timing.VActive;
-  pCfg->strmCformat = pStrIn->ColorFormatId;
+  CtxtPtr->VidInWidth  = StrmInPtr->Timing.HActive;
+  CtxtPtr->VidInHeight = StrmInPtr->Timing.VActive;
+  CtxtPtr->StrmCformat = StrmInPtr->ColorFormatId;
 
   /* Determine Scaling Mode */
-  pCfg->memEn = FALSE;
-  pCfg->ScaleMode = GetScalingMode(pVprocss);
-  if(pCfg->ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED)
+  CtxtPtr->MemEn = FALSE;
+  CtxtPtr->ScaleMode = GetScalingMode(XVprocSsPtr);
+  if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED)
   {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode not supported\r\n");
     return(XST_FAILURE);
   }
 
   /* Reset Routing Table */
-  memset(pTable, 0, sizeof(pCfg->RtngTable));
+  memset(pTable, 0, sizeof(CtxtPtr->RtngTable));
 
   /* Check if input is I/P */
-  if(pStrIn->IsInterlaced)
+  if(StrmInPtr->IsInterlaced)
   {
     pTable[index++] = XVPROCSS_RTR_DEINT;
   }
 
   /* Check if input is 420 */
-  if(pStrIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
+  if(StrmInPtr->ColorFormatId == XVIDC_CSF_YCRCB_420)
   {
     //up-sample vertically to 422 as none of the IP supports 420
     pTable[index++] = XVPROCSS_RTR_CR_V_IN;
-    pCfg->strmCformat = XVIDC_CSF_YCRCB_422;
+    CtxtPtr->StrmCformat = XVIDC_CSF_YCRCB_422;
   }
 
-  switch(pCfg->ScaleMode)
+  switch(CtxtPtr->ScaleMode)
   {
     case XVPROCSS_SCALE_1_1:
         pTable[index++] = XVPROCSS_RTR_VDMA;
-        pCfg->memEn = TRUE;
+        CtxtPtr->MemEn = TRUE;
         break;
 
     case XVPROCSS_SCALE_UP:
         pTable[index++] = XVPROCSS_RTR_VDMA;     /* VDMA is before Scaler */
         pTable[index++] = XVPROCSS_RTR_SCALER_V;
         pTable[index++] = XVPROCSS_RTR_SCALER_H;
-        pCfg->memEn = TRUE;
+        CtxtPtr->MemEn = TRUE;
         break;
 
     case XVPROCSS_SCALE_DN:
         pTable[index++] = XVPROCSS_RTR_SCALER_H;
         pTable[index++] = XVPROCSS_RTR_SCALER_V;
         pTable[index++] = XVPROCSS_RTR_VDMA;     /* VDMA is after Scaler */
-        pCfg->memEn = TRUE;
+        CtxtPtr->MemEn = TRUE;
         break;
 
     default:
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode cannot be determined.\r\n");
+	    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode cannot be determined.\r\n");
         return(XST_FAILURE);
         break;
   }
@@ -290,37 +292,37 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
   pTable[index++] = XVPROCSS_RTR_LBOX;
 
   /* Check for input and output color format to derive required conversions */
-  switch(pStrOut->ColorFormatId)
+  switch(StrmOutPtr->ColorFormatId)
   {
       case XVIDC_CSF_YCRCB_420:
-         switch(pStrIn->ColorFormatId)
+         switch(StrmInPtr->ColorFormatId)
          {
            case XVIDC_CSF_RGB:
               pTable[index++] = XVPROCSS_RTR_CSC;      //convert RGB->444
               pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
               pTable[index++] = XVPROCSS_RTR_CR_V_OUT; //convert 422->420
-              pCfg->cscIn  = XVIDC_CSF_RGB;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrOut = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscIn  = XVIDC_CSF_RGB;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_422;
               break;
 
            case XVIDC_CSF_YCRCB_444:
               pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 444
               pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
               pTable[index++] = XVPROCSS_RTR_CR_V_OUT; //convert 422->420
-              pCfg->cscIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrOut = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_422;
               break;
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
               pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 422
               pTable[index++] = XVPROCSS_RTR_CR_V_OUT; //convert 422->420
-              pCfg->cscIn  = XVIDC_CSF_YCRCB_422;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_422;
               break;
 
            default: //Unsupported color format
@@ -331,89 +333,89 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
          break;
 
       case XVIDC_CSF_RGB:
-         switch(pStrIn->ColorFormatId)
+         switch(StrmInPtr->ColorFormatId)
          {
            case XVIDC_CSF_RGB:
            case XVIDC_CSF_YCRCB_444:  //convert 444->RGB
               pTable[index++] = XVPROCSS_RTR_CSC;
-              pCfg->cscIn  = pStrIn->ColorFormatId;
-              pCfg->cscOut = XVIDC_CSF_RGB;
+              CtxtPtr->CscIn  = StrmInPtr->ColorFormatId;
+              CtxtPtr->CscOut = XVIDC_CSF_RGB;
               break;
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
               pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 422->444
               pTable[index++] = XVPROCSS_RTR_CSC;      //convert 444->RGB
-              pCfg->hcrIn  = XVIDC_CSF_YCRCB_422;
-              pCfg->hcrOut = XVIDC_CSF_YCRCB_444;
-              pCfg->cscIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->cscOut = XVIDC_CSF_RGB;
+              CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->CscOut = XVIDC_CSF_RGB;
               break;
 
            default: //Unsupported color format
-		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
          break;
 
       case XVIDC_CSF_YCRCB_422:
-         switch(pStrIn->ColorFormatId)
+         switch(StrmInPtr->ColorFormatId)
          {
            case XVIDC_CSF_RGB:
               pTable[index++] = XVPROCSS_RTR_CSC;      //convert RGB->444
               pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
-              pCfg->cscIn  = XVIDC_CSF_RGB;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrOut = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscIn  = XVIDC_CSF_RGB;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_422;
               break;
 
            case XVIDC_CSF_YCRCB_444:
               pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 444
               pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
-              pCfg->cscIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->hcrOut = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_422;
               break;
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
               pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 422
-              pCfg->cscIn  = XVIDC_CSF_YCRCB_422;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_422;
               break;
 
            default: //Unsupported color format
-		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
          break;
 
       case XVIDC_CSF_YCRCB_444:
-         switch(pStrIn->ColorFormatId)
+         switch(StrmInPtr->ColorFormatId)
          {
            case XVIDC_CSF_RGB:        //convert 444->RGB
            case XVIDC_CSF_YCRCB_444:
               pTable[index++] = XVPROCSS_RTR_CSC;
-              pCfg->cscIn  = pStrIn->ColorFormatId;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->CscIn  = StrmInPtr->ColorFormatId;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
               break;
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
               pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 422->444
               pTable[index++] = XVPROCSS_RTR_CSC;      //picture control
-              pCfg->hcrIn  = XVIDC_CSF_YCRCB_422;
-              pCfg->hcrOut = XVIDC_CSF_YCRCB_444;
-              pCfg->cscIn  = XVIDC_CSF_YCRCB_444;
-              pCfg->cscOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_422;
+              CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
+              CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
               break;
 
            default: //Unsupported color format
-		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
@@ -429,7 +431,7 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
   pTable[index++] = XVPROCSS_RTR_VIDOUT;
 
   /* save number of cores in processing path */
-  pCfg->RtrNumCores = index;
+  CtxtPtr->RtrNumCores = index;
 
 #ifdef DEBUG
   if(status == XST_SUCCESS)
@@ -455,36 +457,36 @@ int XVprocss_BuildRoutingTable(XVprocss *pVprocss)
 * switch registers, to route the stream through processing cores, in the order
 * defined in the routing map
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return None
 *
 ******************************************************************************/
-void XVprocss_ProgRouterMux(XVprocss *pVprocss)
+void XVprocSs_ProgRouterMux(XVprocSs *XVprocSsPtr)
 {
   u32 count, nextMi, prevSi;
-  u8 *pTable = &pVprocss->idata.RtngTable[0];
-  u32 numProcElem = pVprocss->idata.RtrNumCores;
+  u8 *pTable = &XVprocSsPtr->CtxtData.RtngTable[0];
+  u32 numProcElem = XVprocSsPtr->CtxtData.RtrNumCores;
 
-  XAxisScr_RegUpdateDisable(pVprocss->router);
+  XAxisScr_RegUpdateDisable(XVprocSsPtr->RouterPtr);
 
   /* Disable all ports */
-  XAxisScr_MiPortDisableAll(pVprocss->router);
+  XAxisScr_MiPortDisableAll(XVprocSsPtr->RouterPtr);
 
   /* Connect Input Stream to the 1st core in path */
   nextMi = prevSi = pTable[0];
-  XAxisScr_MiPortEnable(pVprocss->router, nextMi, AXIS_SWITCH_VIDIN_S0);
+  XAxisScr_MiPortEnable(XVprocSsPtr->RouterPtr, nextMi, AXIS_SWITCH_VIDIN_S0);
 
   /* Traverse routing map and connect cores in the chain */
   for(count=1; count<numProcElem; ++count)
   {
     nextMi  = pTable[count];
-    XAxisScr_MiPortEnable(pVprocss->router, nextMi, prevSi);
+    XAxisScr_MiPortEnable(XVprocSsPtr->RouterPtr, nextMi, prevSi);
     prevSi = nextMi;
   }
 
   //Enable Router register update
-  XAxisScr_RegUpdateEnable(pVprocss->router);
+  XAxisScr_RegUpdateEnable(XVprocSsPtr->RouterPtr);
 }
 
 /*****************************************************************************/
@@ -494,119 +496,121 @@ void XVprocss_ProgRouterMux(XVprocss *pVprocss)
 * Each core in the processing path is marked and only marked cores are started
 * All remaining cores stay disabled
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return None
 *
 ******************************************************************************/
-void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
+void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 {
   XVidC_VideoWindow lboxWin;
   u32 vsc_WidthIn, vsc_HeightIn, vsc_HeightOut;
   u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
   u32 count;
-  XVprocss_IData *pCfg = &pVprocss->idata;
-  u8 *pTable = &pVprocss->idata.RtngTable[0];
-  u8 *pStartCore = &pVprocss->idata.startCore[0];
+  XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
+  u8 *pTable = &XVprocSsPtr->CtxtData.RtngTable[0];
+  u8 *StartCorePtr = &XVprocSsPtr->CtxtData.StartCore[0];
+
+
   vsc_WidthIn = vsc_HeightIn = vsc_HeightOut = 0;
   hsc_HeightIn = hsc_WidthIn = hsc_WidthOut = 0;
 
   /* Program Video Pipe Sub-Cores */
-  if(pVprocss->VidIn.IsInterlaced)
+  if(XVprocSsPtr->VidIn.IsInterlaced)
   {
     /* Input will de-interlaced first. All downstream IP's work
      * with progressive frame. Adjust active height to reflect the
      * progressive frame to downstream cores
      */
-	pCfg->vidInHeight *= 2;
+	CtxtPtr->VidInHeight *= 2;
   }
 
   /* If Vdma is enabled, RD/WR Client needs to be programmed before Scaler */
-  if((pVprocss->vdma) && (pCfg->memEn))
+  if((XVprocSsPtr->VdmaPtr) && (CtxtPtr->MemEn))
   {
-    switch(pCfg->ScaleMode)
+    switch(CtxtPtr->ScaleMode)
     {
       case XVPROCSS_SCALE_1_1:
       case XVPROCSS_SCALE_UP:
-          XVprocss_VdmaSetWinToUpScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
+          XVprocSs_VdmaSetWinToUpScaleMode(XVprocSsPtr, XVPROCSS_VDMA_UPDATE_ALL_CH);
           break;
 
       case XVPROCSS_SCALE_DN:
-	      XVprocss_VdmaSetWinToDnScaleMode(pVprocss, XVPROCSS_VDMA_UPDATE_ALL_CH);
+	      XVprocSs_VdmaSetWinToDnScaleMode(XVprocSsPtr, XVPROCSS_VDMA_UPDATE_ALL_CH);
           break;
 
       default:
           break;
     }
-    pStartCore[XVPROCSS_RTR_VDMA] = TRUE;
+    StartCorePtr[XVPROCSS_RTR_VDMA] = TRUE;
   }
 
-  for(count=0; count<pCfg->RtrNumCores; ++count)
+  for(count=0; count<CtxtPtr->RtrNumCores; ++count)
   {
     switch(pTable[count])
     {
       case XVPROCSS_RTR_SCALER_V:
-          if(pVprocss->vscaler)
+          if(XVprocSsPtr->VscalerPtr)
           {
-            if(pCfg->ScaleMode == XVPROCSS_SCALE_DN)
+            if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN)
             {
               /* Downscale mode H Scaler is before V Scaler */
               vsc_WidthIn   = hsc_WidthOut;
               vsc_HeightIn  = hsc_HeightIn;
-              vsc_HeightOut = ((XVprocss_IsPipModeOn(pVprocss)) ? pCfg->wrWindow.Height
-                                                                : pVprocss->VidOut.Timing.VActive);
+              vsc_HeightOut = ((XVprocSs_IsPipModeOn(XVprocSsPtr)) ? CtxtPtr->WrWindow.Height
+                                                                   : XVprocSsPtr->VidOut.Timing.VActive);
             }
             else
             {
               /* UpScale mode V Scaler is before H Scaler */
-              vsc_WidthIn  = ((XVprocss_IsZoomModeOn(pVprocss)) ? pCfg->rdWindow.Width
-                                                                : pCfg->vidInWidth);
-              vsc_HeightIn = ((XVprocss_IsZoomModeOn(pVprocss)) ? pCfg->rdWindow.Height
-                                                                : pCfg->vidInHeight);
-              vsc_HeightOut = pVprocss->VidOut.Timing.VActive;
+              vsc_WidthIn  = ((XVprocSs_IsZoomModeOn(XVprocSsPtr)) ? CtxtPtr->RdWindow.Width
+                                                                   : CtxtPtr->VidInWidth);
+              vsc_HeightIn = ((XVprocSs_IsZoomModeOn(XVprocSsPtr)) ? CtxtPtr->RdWindow.Height
+                                                                   : CtxtPtr->VidInHeight);
+              vsc_HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
             }
 
             xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure VScaler for %dx%d to %dx%d\r\n", \
                            (int)vsc_WidthIn, (int)vsc_HeightIn, (int)vsc_WidthIn, (int)vsc_HeightOut);
 
-            XV_VScalerSetup(pVprocss->vscaler,
-			                &pVprocss->vscL2Reg,
+            XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
+			                &XVprocSsPtr->VscL2Reg,
                             vsc_WidthIn,
                             vsc_HeightIn,
                             vsc_HeightOut);
-            pStartCore[XVPROCSS_RTR_SCALER_V] = TRUE;
+            StartCorePtr[XVPROCSS_RTR_SCALER_V] = TRUE;
           }
           break;
 
       case XVPROCSS_RTR_SCALER_H:
-          if(pVprocss->hscaler)
+          if(XVprocSsPtr->HscalerPtr)
           {
-            if(pCfg->ScaleMode == XVPROCSS_SCALE_DN)
+            if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN)
             {
               /* Downscale mode H Scaler is before V Scaler */
-              hsc_WidthIn  = pCfg->vidInWidth;
-              hsc_HeightIn = pCfg->vidInHeight;
-              hsc_WidthOut = ((XVprocss_IsPipModeOn(pVprocss)) ? pCfg->wrWindow.Width
-                                                               : pVprocss->VidOut.Timing.HActive);
+              hsc_WidthIn  = CtxtPtr->VidInWidth;
+              hsc_HeightIn = CtxtPtr->VidInHeight;
+              hsc_WidthOut = ((XVprocSs_IsPipModeOn(XVprocSsPtr)) ? CtxtPtr->WrWindow.Width
+                                                                  : XVprocSsPtr->VidOut.Timing.HActive);
             }
             else
             {
               /* Upscale mode V Scaler is before H Scaler */
               hsc_WidthIn  = vsc_WidthIn;
               hsc_HeightIn = vsc_HeightOut;
-              hsc_WidthOut = pVprocss->VidOut.Timing.HActive;
+              hsc_WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
             }
 
             xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure HScaler for %dx%d to %dx%d\r\n", \
                                (int)hsc_WidthIn, (int)hsc_HeightIn, (int)hsc_WidthOut, (int)hsc_HeightIn);
 
-            XV_HScalerSetup(pVprocss->hscaler,
-			                &pVprocss->hscL2Reg,
+            XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
+			                &XVprocSsPtr->HscL2Reg,
                             hsc_HeightIn,
                             hsc_WidthIn,
                             hsc_WidthOut,
-                            pVprocss->idata.strmCformat);
-            pStartCore[XVPROCSS_RTR_SCALER_H] = TRUE;
+                            XVprocSsPtr->CtxtData.StrmCformat);
+            StartCorePtr[XVPROCSS_RTR_SCALER_H] = TRUE;
           }
           break;
 
@@ -615,127 +619,127 @@ void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss)
           break;
 
       case XVPROCSS_RTR_LBOX:
-          if(pVprocss->lbox)
+          if(XVprocSsPtr->LboxPtr)
           {
-            if(XVprocss_IsPipModeOn(pVprocss))
+            if(XVprocSs_IsPipModeOn(XVprocSsPtr))
             {
-              /* get the active window for lbox */
-              lboxWin = pCfg->wrWindow;
+              /* get the active window for Lbox */
+              lboxWin = CtxtPtr->WrWindow;
             }
             else //Downscale - Read full image from VDMA
             {
               /* window is same as output resolution */
               lboxWin.StartX = 0;
               lboxWin.StartY = 0;
-              lboxWin.Width  = pVprocss->VidOut.Timing.HActive;
-              lboxWin.Height = pVprocss->VidOut.Timing.VActive;
+              lboxWin.Width  = XVprocSsPtr->VidOut.Timing.HActive;
+              lboxWin.Height = XVprocSsPtr->VidOut.Timing.VActive;
             }
-            XV_LBoxSetActiveWin(pVprocss->lbox,
+            XV_LBoxSetActiveWin(XVprocSsPtr->LboxPtr,
                                 &lboxWin,
-                                pVprocss->VidOut.Timing.HActive,
-                                pVprocss->VidOut.Timing.VActive);
+                                XVprocSsPtr->VidOut.Timing.HActive,
+                                XVprocSsPtr->VidOut.Timing.VActive);
 
             /* set background to default color on pipe reset */
-            XV_LboxSetBackgroundColor(pVprocss->lbox,
+            XV_LboxSetBackgroundColor(XVprocSsPtr->LboxPtr,
                                       XLBOX_BKGND_BLACK,
-                                      pVprocss->idata.strmCformat,
-                                      pVprocss->VidOut.ColorDepth);
+                                      XVprocSsPtr->CtxtData.StrmCformat,
+                                      XVprocSsPtr->VidOut.ColorDepth);
 
-            pStartCore[XVPROCSS_RTR_LBOX] = TRUE;
+            StartCorePtr[XVPROCSS_RTR_LBOX] = TRUE;
           }
           break;
 
       case XVPROCSS_RTR_CR_H:
-          if(pVprocss->hcrsmplr)
+          if(XVprocSsPtr->HcrsmplrPtr)
           {
-            XV_HCrsmplSetActiveSize(pVprocss->hcrsmplr,
-                                    pVprocss->VidOut.Timing.HActive,
-                                    pVprocss->VidOut.Timing.VActive);
+            XV_HCrsmplSetActiveSize(XVprocSsPtr->HcrsmplrPtr,
+                                    XVprocSsPtr->VidOut.Timing.HActive,
+                                    XVprocSsPtr->VidOut.Timing.VActive);
 
-            XV_HCrsmplSetFormat(pVprocss->hcrsmplr,
-			            &pVprocss->hcrL2Reg,
-                                pCfg->hcrIn,
-                                pCfg->hcrOut);
-            pStartCore[XVPROCSS_RTR_CR_H] = TRUE;
+            XV_HCrsmplSetFormat(XVprocSsPtr->HcrsmplrPtr,
+			                    &XVprocSsPtr->HcrL2Reg,
+                                CtxtPtr->HcrIn,
+                                CtxtPtr->HcrOut);
+            StartCorePtr[XVPROCSS_RTR_CR_H] = TRUE;
           }
           break;
 
       case XVPROCSS_RTR_CR_V_IN:
-          if(pVprocss->vcrsmplrIn)
+          if(XVprocSsPtr->VcrsmplrInPtr)
           {
-            XV_VCrsmplSetActiveSize(pVprocss->vcrsmplrIn,
-			                pCfg->vidInWidth,
-			                pCfg->vidInHeight);
+            XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrInPtr,
+			                        CtxtPtr->VidInWidth,
+			                        CtxtPtr->VidInHeight);
 
-            XV_VCrsmplSetFormat(pVprocss->vcrsmplrIn,
-			            &pVprocss->vcrInL2Reg,
+            XV_VCrsmplSetFormat(XVprocSsPtr->VcrsmplrInPtr,
+			                    &XVprocSsPtr->VcrInL2Reg,
                                 XVIDC_CSF_YCRCB_420,
                                 XVIDC_CSF_YCRCB_422);
-            pStartCore[XVPROCSS_RTR_CR_V_IN] = TRUE;
+            StartCorePtr[XVPROCSS_RTR_CR_V_IN] = TRUE;
           }
           break;
 
       case XVPROCSS_RTR_CR_V_OUT:
-          if(pVprocss->vcrsmplrOut)
+          if(XVprocSsPtr->VcrsmplrOutPtr)
           {
-            XV_VCrsmplSetActiveSize(pVprocss->vcrsmplrOut,
-                                    pVprocss->VidOut.Timing.HActive,
-                                    pVprocss->VidOut.Timing.VActive);
+            XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrOutPtr,
+                                    XVprocSsPtr->VidOut.Timing.HActive,
+                                    XVprocSsPtr->VidOut.Timing.VActive);
 
-            XV_VCrsmplSetFormat(pVprocss->vcrsmplrOut,
-			            &pVprocss->vcrOutL2Reg,
+            XV_VCrsmplSetFormat(XVprocSsPtr->VcrsmplrOutPtr,
+			                    &XVprocSsPtr->VcrOutL2Reg,
                                 XVIDC_CSF_YCRCB_422,
                                 XVIDC_CSF_YCRCB_420);
-            pStartCore[XVPROCSS_RTR_CR_V_OUT] = TRUE;
+            StartCorePtr[XVPROCSS_RTR_CR_V_OUT] = TRUE;
           }
           break;
 
       case XVPROCSS_RTR_CSC:
-          if(pVprocss->csc)
+          if(XVprocSsPtr->CscPtr)
           {
-            XV_CscSetColorspace(pVprocss->csc,
-                                &pVprocss->cscL2Reg,
-                                pCfg->cscIn,
-                                pCfg->cscOut,
-                                pVprocss->cscL2Reg.StandardIn,
-                                pVprocss->cscL2Reg.StandardOut,
-                                pVprocss->cscL2Reg.OutputRange);
+            XV_CscSetColorspace(XVprocSsPtr->CscPtr,
+                                &XVprocSsPtr->CscL2Reg,
+                                CtxtPtr->CscIn,
+                                CtxtPtr->CscOut,
+                                XVprocSsPtr->CscL2Reg.StandardIn,
+                                XVprocSsPtr->CscL2Reg.StandardOut,
+                                XVprocSsPtr->CscL2Reg.OutputRange);
 
-            XV_CscSetActiveSize(pVprocss->csc,
-                                pVprocss->VidOut.Timing.HActive,
-                                pVprocss->VidOut.Timing.VActive);
+            XV_CscSetActiveSize(XVprocSsPtr->CscPtr,
+                                XVprocSsPtr->VidOut.Timing.HActive,
+                                XVprocSsPtr->VidOut.Timing.VActive);
 
-            pStartCore[XVPROCSS_RTR_CSC] = TRUE;
+            StartCorePtr[XVPROCSS_RTR_CSC] = TRUE;
           }
           break;
 
       case XVPROCSS_RTR_DEINT:
-          if(pVprocss->deint)
+          if(XVprocSsPtr->DeintPtr)
           {
 	        xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Deinterlacer for %dx%d to %dx%d\r\n", \
-		              (int)pVprocss->VidIn.Timing.HActive,
-		              (int)pVprocss->VidIn.Timing.VActive,
-		              (int)pCfg->vidInWidth,
-		              (int)pCfg->vidInHeight);
+		              (int)XVprocSsPtr->VidIn.Timing.HActive,
+		              (int)XVprocSsPtr->VidIn.Timing.VActive,
+		              (int)CtxtPtr->VidInWidth,
+		              (int)CtxtPtr->VidInHeight);
 
-            XV_DeintSetFieldBuffers(pVprocss->deint,
-			                pCfg->deintBufAddr,
-			                        pVprocss->VidIn.ColorFormatId);
+            XV_DeintSetFieldBuffers(XVprocSsPtr->DeintPtr,
+			                        CtxtPtr->DeintBufAddr,
+			                        XVprocSsPtr->VidIn.ColorFormatId);
 
-            XV_deinterlacer_Set_width(pVprocss->deint,
-			                  pCfg->vidInWidth);
+            XV_deinterlacer_Set_width(XVprocSsPtr->DeintPtr,
+			                          CtxtPtr->VidInWidth);
 
-            XV_deinterlacer_Set_height(pVprocss->deint,
-			                   pVprocss->VidIn.Timing.VActive); //field height
+            XV_deinterlacer_Set_height(XVprocSsPtr->DeintPtr,
+			                           XVprocSsPtr->VidIn.Timing.VActive); //field height
 
-            XV_deinterlacer_Set_invert_field_id(pVprocss->deint, 0); //TBD
-            pStartCore[XVPROCSS_RTR_DEINT] = TRUE;
+            XV_deinterlacer_Set_invert_field_id(XVprocSsPtr->DeintPtr, 0); //TBD
+            StartCorePtr[XVPROCSS_RTR_DEINT] = TRUE;
           }
           break;
     }
   }
 
   /* Start all IP Blocks in the processing chain */
-  XVprocss_Start(pVprocss);
+  XVprocSs_Start(XVprocSsPtr);
 }
 /** @} */

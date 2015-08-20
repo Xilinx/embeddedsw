@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_coreinit.c
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 
 * Video Processing Subsystem Sub-Cores initialization
 * The functions in this file provides an abstraction from the initialization
@@ -111,22 +112,22 @@ static int ComputeSubcoreAbsAddr(u32 subsys_baseaddr,
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitResetAxis(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XGpio_Config *pConfig;
 
-  if(pVprocss->rstAxis)
+  if(XVprocSsPtr->RstAxisPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXIS Reset core.... \r\n");
-    pConfig  = XGpio_LookupConfig(pVprocss->Config.RstAxis.DeviceId);
+    pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAxis.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Reset AXIS device not found\r\n");
@@ -135,10 +136,10 @@ int XVprocss_SubcoreInitResetAxis(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.RstAxis.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.RstAxis.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -147,7 +148,7 @@ int XVprocss_SubcoreInitResetAxis(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XGpio_CfgInitialize(pVprocss->rstAxis,
+    status = XGpio_CfgInitialize(XVprocSsPtr->RstAxisPtr,
                                  pConfig,
                                  AbsAddr);
 
@@ -164,22 +165,22 @@ int XVprocss_SubcoreInitResetAxis(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitResetAximm(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XGpio_Config *pConfig;
 
-  if(pVprocss->rstAximm)
+  if(XVprocSsPtr->RstAximmPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXI-MM Reset core.... \r\n");
-    pConfig  = XGpio_LookupConfig(pVprocss->Config.RstAximm .DeviceId);
+    pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAximm .DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Reset AXI-MM device not found\r\n");
@@ -188,10 +189,10 @@ int XVprocss_SubcoreInitResetAximm(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.RstAximm.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.RstAximm.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -200,7 +201,7 @@ int XVprocss_SubcoreInitResetAximm(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XGpio_CfgInitialize(pVprocss->rstAximm,
+    status = XGpio_CfgInitialize(XVprocSsPtr->RstAximmPtr,
                                  pConfig,
                                  AbsAddr);
 
@@ -217,22 +218,22 @@ int XVprocss_SubcoreInitResetAximm(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitRouter(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XAxis_Switch_Config *pConfig;
 
-  if(pVprocss->router)
+  if(XVprocSsPtr->RouterPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXIS Switch core.... \r\n");
-    pConfig  = XAxisScr_LookupConfig(pVprocss->Config.Router.DeviceId);
+    pConfig  = XAxisScr_LookupConfig(XVprocSsPtr->Config.Router.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: AXIS Switch device not found\r\n");
@@ -241,10 +242,10 @@ int XVprocss_SubcoreInitRouter(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.Router.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.Router.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -253,7 +254,7 @@ int XVprocss_SubcoreInitRouter(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XAxisScr_CfgInitialize(pVprocss->router,
+    status = XAxisScr_CfgInitialize(XVprocSsPtr->RouterPtr,
                                     pConfig,
                                     AbsAddr);
 
@@ -270,22 +271,22 @@ int XVprocss_SubcoreInitRouter(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitCsc(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_csc_Config *pConfig;
 
-  if(pVprocss->csc)
+  if(XVprocSsPtr->CscPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing CSC core.... \r\n");
-    pConfig  = XV_csc_LookupConfig(pVprocss->Config.Csc.DeviceId);
+    pConfig  = XV_csc_LookupConfig(XVprocSsPtr->Config.Csc.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: CSC device not found\r\n");
@@ -294,10 +295,10 @@ int XVprocss_SubcoreInitCsc(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.Csc.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.Csc.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -306,7 +307,7 @@ int XVprocss_SubcoreInitCsc(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_csc_CfgInitialize(pVprocss->csc,
+    status = XV_csc_CfgInitialize(XVprocSsPtr->CscPtr,
                                   pConfig,
                                   AbsAddr);
 
@@ -324,22 +325,22 @@ int XVprocss_SubcoreInitCsc(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_hscaler_Config *pConfig;
 
-  if(pVprocss->hscaler)
+  if(XVprocSsPtr->HscalerPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Horiz. Scaler core.... \r\n");
-    pConfig  = XV_hscaler_LookupConfig(pVprocss->Config.Hscale.DeviceId);
+    pConfig  = XV_hscaler_LookupConfig(XVprocSsPtr->Config.Hscale.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Horiz. Scaler device not found\r\n");
@@ -348,10 +349,10 @@ int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.Hscale.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.Hscale.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -360,7 +361,7 @@ int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_hscaler_CfgInitialize(pVprocss->hscaler,
+    status = XV_hscaler_CfgInitialize(XVprocSsPtr->HscalerPtr,
                                       pConfig,
                                       AbsAddr);
 
@@ -370,8 +371,11 @@ int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss)
       return(XST_FAILURE);
     }
 
-    /* Load Default filter coefficients */
-    XV_HScalerLoadDefaultCoeff(pVprocss->hscaler, &pVprocss->hscL2Reg);
+    if(XVprocSsPtr->HscalerPtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
+    {
+      /* Load Default filter coefficients */
+      XV_HScalerLoadDefaultCoeff(XVprocSsPtr->HscalerPtr, &XVprocSsPtr->HscL2Reg);
+    }
   }
   return(XST_SUCCESS);
 }
@@ -380,22 +384,22 @@ int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_vscaler_Config *pConfig;
 
-  if(pVprocss->vscaler)
+  if(XVprocSsPtr->VscalerPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Vert. Scaler core.... \r\n");
-    pConfig  = XV_vscaler_LookupConfig(pVprocss->Config.Vscale.DeviceId);
+    pConfig  = XV_vscaler_LookupConfig(XVprocSsPtr->Config.Vscale.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Vert. Scaler device not found\r\n");
@@ -404,10 +408,10 @@ int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.Vscale.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.Vscale.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -416,7 +420,7 @@ int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_vscaler_CfgInitialize(pVprocss->vscaler,
+    status = XV_vscaler_CfgInitialize(XVprocSsPtr->VscalerPtr,
                                       pConfig,
                                       AbsAddr);
 
@@ -426,8 +430,11 @@ int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss)
       return(XST_FAILURE);
     }
 
-    /* Load Default filter coefficients */
-    XV_VScalerLoadDefaultCoeff(pVprocss->vscaler, &pVprocss->vscL2Reg);
+    if(XVprocSsPtr->VscalerPtr->Config.ScalerType == XV_VSCALER_POLYPHASE)
+    {
+      /* Load Default filter coefficients */
+      XV_VScalerLoadDefaultCoeff(XVprocSsPtr->VscalerPtr, &XVprocSsPtr->VscL2Reg);
+    }
 
   }
   return(XST_SUCCESS);
@@ -437,22 +444,22 @@ int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_hcresampler_Config *pConfig;
 
-  if(pVprocss->hcrsmplr)
+  if(XVprocSsPtr->HcrsmplrPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing H Chroma Resampler core.... \r\n");
-    pConfig  = XV_hcresampler_LookupConfig(pVprocss->Config.HCrsmplr.DeviceId);
+    pConfig  = XV_hcresampler_LookupConfig(XVprocSsPtr->Config.HCrsmplr.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: H Chroma Resampler device not found\r\n");
@@ -461,10 +468,10 @@ int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.HCrsmplr.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.HCrsmplr.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -473,7 +480,7 @@ int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_hcresampler_CfgInitialize(pVprocss->hcrsmplr,
+    status = XV_hcresampler_CfgInitialize(XVprocSsPtr->HcrsmplrPtr,
                                           pConfig,
                                           AbsAddr);
 
@@ -483,8 +490,11 @@ int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss)
       return(XST_FAILURE);
     }
 
-    /* Load default filter coefficients */
-    XV_HCrsmplLoadDefaultCoeff(pVprocss->hcrsmplr, &pVprocss->hcrL2Reg);
+    if(XVprocSsPtr->HcrsmplrPtr->Config.ResamplingType == XV_HCRSMPLR_TYPE_FIR)
+    {
+      /* Load default filter coefficients */
+      XV_HCrsmplLoadDefaultCoeff(XVprocSsPtr->HcrsmplrPtr, &XVprocSsPtr->HcrL2Reg);
+    }
   }
   return(XST_SUCCESS);
 }
@@ -493,22 +503,22 @@ int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_vcresampler_Config *pConfig;
 
-  if(pVprocss->vcrsmplrIn)
+  if(XVprocSsPtr->VcrsmplrInPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Input V Chroma Resampler core.... \r\n");
-    pConfig  = XV_vcresampler_LookupConfig(pVprocss->Config.VCrsmplrIn.DeviceId);
+    pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrIn.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Input V Chroma Resampler device not found\r\n");
@@ -517,10 +527,10 @@ int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.VCrsmplrIn.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.VCrsmplrIn.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -529,7 +539,7 @@ int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_vcresampler_CfgInitialize(pVprocss->vcrsmplrIn,
+    status = XV_vcresampler_CfgInitialize(XVprocSsPtr->VcrsmplrInPtr,
                                           pConfig,
                                           AbsAddr);
 
@@ -539,8 +549,11 @@ int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss)
       return(XST_FAILURE);
     }
 
-    /* Load default filter coefficients */
-    XV_VCrsmplLoadDefaultCoeff(pVprocss->vcrsmplrIn, &pVprocss->vcrInL2Reg);
+    if(XVprocSsPtr->VcrsmplrInPtr->Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
+    {
+      /* Load default filter coefficients */
+      XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrInPtr, &XVprocSsPtr->VcrInL2Reg);
+    }
   }
   return(XST_SUCCESS);
 }
@@ -549,22 +562,22 @@ int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_vcresampler_Config *pConfig;
 
-  if(pVprocss->vcrsmplrOut)
+  if(XVprocSsPtr->VcrsmplrOutPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Output V Chroma Resampler core.... \r\n");
-    pConfig  = XV_vcresampler_LookupConfig(pVprocss->Config.VCrsmplrOut.DeviceId);
+    pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrOut.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Output V Chroma Resampler device not found\r\n");
@@ -573,10 +586,10 @@ int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.VCrsmplrOut.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.VCrsmplrOut.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -585,7 +598,7 @@ int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_vcresampler_CfgInitialize(pVprocss->vcrsmplrOut,
+    status = XV_vcresampler_CfgInitialize(XVprocSsPtr->VcrsmplrOutPtr,
                                           pConfig,
                                           AbsAddr);
 
@@ -595,8 +608,11 @@ int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss)
       return(XST_FAILURE);
     }
 
-    /* Load default filter coefficients */
-    XV_VCrsmplLoadDefaultCoeff(pVprocss->vcrsmplrOut, &pVprocss->vcrOutL2Reg);
+    if(XVprocSsPtr->VcrsmplrOutPtr->Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
+    {
+      /* Load default filter coefficients */
+      XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrOutPtr, &XVprocSsPtr->VcrOutL2Reg);
+    }
   }
   return(XST_SUCCESS);
 }
@@ -605,22 +621,22 @@ int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitLetterbox(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_letterbox_Config *pConfig;
 
-  if(pVprocss->lbox)
+  if(XVprocSsPtr->LboxPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Letterbox core.... \r\n");
-    pConfig  = XV_letterbox_LookupConfig(pVprocss->Config.Lbox.DeviceId);
+    pConfig  = XV_letterbox_LookupConfig(XVprocSsPtr->Config.Lbox.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Letterbox device not found\r\n");
@@ -629,10 +645,10 @@ int XVprocss_SubcoreInitLetterbox(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.Lbox.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.Lbox.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -641,7 +657,7 @@ int XVprocss_SubcoreInitLetterbox(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_letterbox_CfgInitialize(pVprocss->lbox,
+    status = XV_letterbox_CfgInitialize(XVprocSsPtr->LboxPtr,
                                         pConfig,
                                         AbsAddr);
 
@@ -658,22 +674,22 @@ int XVprocss_SubcoreInitLetterbox(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitVdma(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XAxiVdma_Config *pConfig;
 
-  if(pVprocss->vdma)
+  if(XVprocSsPtr->VdmaPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing VDMA core.... \r\n");
-    pConfig  = XAxiVdma_LookupConfig(pVprocss->Config.Vdma.DeviceId);
+    pConfig  = XAxiVdma_LookupConfig(XVprocSsPtr->Config.Vdma.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: VDMA device not found\r\n");
@@ -682,10 +698,10 @@ int XVprocss_SubcoreInitVdma(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.Vdma.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.Vdma.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -694,7 +710,7 @@ int XVprocss_SubcoreInitVdma(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XAxiVdma_CfgInitialize(pVprocss->vdma,
+    status = XAxiVdma_CfgInitialize(XVprocSsPtr->VdmaPtr,
                                     pConfig,
                                     AbsAddr);
 
@@ -711,22 +727,22 @@ int XVprocss_SubcoreInitVdma(XVprocss *pVprocss)
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SubcoreInitDeinterlacer(XVprocss *pVprocss)
+int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr)
 {
   int status;
   u32 AbsAddr;
   XV_deinterlacer_Config *pConfig;
 
-  if(pVprocss->deint)
+  if(XVprocSsPtr->DeintPtr)
   {
 	/* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Deinterlacer core.... \r\n");
-    pConfig  = XV_deinterlacer_LookupConfig(pVprocss->Config.Deint.DeviceId);
+    pConfig  = XV_deinterlacer_LookupConfig(XVprocSsPtr->Config.Deint.DeviceId);
     if(pConfig == NULL)
     {
       xil_printf("VPROCSS ERR:: Deinterlacer device not found\r\n");
@@ -735,10 +751,10 @@ int XVprocss_SubcoreInitDeinterlacer(XVprocss *pVprocss)
 
 	/* Compute absolute base address */
     AbsAddr = 0;
-    status = ComputeSubcoreAbsAddr(pVprocss->Config.BaseAddress,
-		                       pVprocss->Config.HighAddress,
-		                       pVprocss->Config.Deint.AddrOffset,
-		                       &AbsAddr);
+    status = ComputeSubcoreAbsAddr(XVprocSsPtr->Config.BaseAddress,
+		                           XVprocSsPtr->Config.HighAddress,
+		                           XVprocSsPtr->Config.Deint.AddrOffset,
+		                           &AbsAddr);
 
     if(status != XST_SUCCESS)
     {
@@ -747,7 +763,7 @@ int XVprocss_SubcoreInitDeinterlacer(XVprocss *pVprocss)
     }
 
 	/* Initialize core */
-    status = XV_deinterlacer_CfgInitialize(pVprocss->deint,
+    status = XV_deinterlacer_CfgInitialize(XVprocSsPtr->DeintPtr,
                                            pConfig,
                                            AbsAddr);
 

@@ -33,9 +33,6 @@
 /**
 *
 * @file xvprocss.h
-* @addtogroup vprocss_v1_0
-* @{
-* @details
 *
 * This is main header file of the Xilinx Video Processing Subsystem driver
 *
@@ -121,7 +118,7 @@
 * make use of provided API's to configure it at boot-up. Thereafter application
 * SW is responsible to monitor the system for external impetus and call the
 * subsystem API's to communicate the change and trigger the reconfiguration of
-* internal data processing pipe (refer API XVprocss_ConfigureSubsystem())
+* internal data processing pipe (refer API XVprocSs_ConfigureSubsystem())
 * AXI Stream configuration for input/output interface is derived from the
 * Xilinx video common driver and only the resolutions listed therein are
 * supported at this time
@@ -145,7 +142,7 @@
 * must be determined by the system designer and the application code is
 * responsible to program the base address of the buffer memory prior to
 * initializing the subsystem. API to use is defined below
-*   - XVprocss_SetFrameBufBaseaddr
+*   - XVprocSs_SetFrameBufBaseaddr
 *
 * <b>Interrupt Service</b>
 *
@@ -178,7 +175,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/21/15   Initial Release
+* 1.00  rco   08/17/15  Initial Release
 
 * </pre>
 *
@@ -246,7 +243,7 @@ typedef enum
   XVPROCSS_ZOOM_WIN = 0,
   XVPROCSS_PIP_WIN,
   XVPROCSS_PIXEL_WIN
-}XVprocss_Win;
+}XVprocSs_Win;
 
 /**
  * Scaling Modes supported
@@ -257,45 +254,45 @@ typedef enum
   XVPROCSS_SCALE_UP,
   XVPROCSS_SCALE_DN,
   XVPROCSS_SCALE_NOT_SUPPORTED
-}XVprocss_ScaleMode;
+}XVprocSs_ScaleMode;
 
 /**
- * Video Processing Subsystem internal scratch pad memory.
+ * Video Processing Subsystem context scratch pad memory.
  * This contains internal flags, state variables, routing table
  * and other meta-data required by the subsystem. Each instance
- * of the subsystem will have its own scratch pad memory
+ * of the subsystem will have its own context data memory
  */
 typedef struct
 {
-  XVidC_VideoWindow rdWindow; /**< window for Zoom/Pip feature support */
-  XVidC_VideoWindow wrWindow; /**< window for Zoom/Pip feature support */
+  XVidC_VideoWindow RdWindow; /**< window for Zoom/Pip feature support */
+  XVidC_VideoWindow WrWindow; /**< window for Zoom/Pip feature support */
 
-  u32 deintBufAddr;        /**< Deinterlacer field buffer Addr. in DDR */
+  u32 DeintBufAddr;        /**< Deinterlacer field buffer Addr. in DDR */
   u8 PixelWidthInBits;     /**< Number of bits required to store 1 pixel */
 
   u8 RtngTable[XVPROCSS_RTR_MAX]; /**< Storage for computed routing map */
-  u8 startCore[XVPROCSS_RTR_MAX]; /**< Enable flag to start sub-core */
+  u8 StartCore[XVPROCSS_RTR_MAX]; /**< Enable flag to start sub-core */
   u8 RtrNumCores;      /**< Number of sub-cores in routing map */
   u8 ScaleMode;        /**< Stored computed scaling mode - UP/DN/1:1 */
-  u8 memEn;            /**< Flag to indicate if stream routes through memory */
+  u8 MemEn;            /**< Flag to indicate if stream routes through memory */
   u8 ZoomEn;           /**< Flag to store Zoom feature state */
   u8 PipEn;            /**< Flag to store PIP feature state */
-  u16 vidInWidth;      /**< Input H Active */
-  u16 vidInHeight;     /**< Input V Active */
+  u16 VidInWidth;      /**< Input H Active */
+  u16 VidInHeight;     /**< Input V Active */
   u16 PixelHStepSize;  /**< Increment step size for Pip/Zoom window */
-  XVidC_ColorFormat strmCformat; /**< processing pipe color format */
-  XVidC_ColorFormat cscIn;  /**< CSC core input color format */
-  XVidC_ColorFormat cscOut; /**< CSC core output color format */
-  XVidC_ColorFormat hcrIn;  /**< horiz. cresmplr core input color format */
-  XVidC_ColorFormat hcrOut; /**< horiz. cresmplr core output color format */
-}XVprocss_IData;
+  XVidC_ColorFormat StrmCformat; /**< processing pipe color format */
+  XVidC_ColorFormat CscIn;  /**< CSC core input color format */
+  XVidC_ColorFormat CscOut; /**< CSC core output color format */
+  XVidC_ColorFormat HcrIn;  /**< horiz. cresmplr core input color format */
+  XVidC_ColorFormat HcrOut; /**< horiz. cresmplr core output color format */
+}XVprocSs_ContextData;
 
 /**
  * Sub-Core Configuration Table
  */
 typedef struct
 {
-  u16 isPresent;  /**< Flag to indicate if sub-core is present in the design*/
+  u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
   u16 DeviceId;   /**< Device ID of the sub-core */
   u32 AddrOffset; /**< sub-core offset from subsystem base address */
 }XSubCore;
@@ -331,79 +328,79 @@ typedef struct
   XSubCore VCrsmplrIn;   /**< Sub-core instance configuration */
   XSubCore VCrsmplrOut;  /**< Sub-core instance configuration */
   XSubCore Vscale;       /**< Sub-core instance configuration */
-} XVprocss_Config;
+} XVprocSs_Config;
 
 /**
- * The XVprocss driver instance data. The user is required to allocate a variable
- * of this type for every XVprocss device in the system. A pointer to a variable
+ * The XVprocSs driver instance data. The user is required to allocate a variable
+ * of this type for every XVprocSs device in the system. A pointer to a variable
  * of this type is then passed to the driver API functions.
  */
 typedef struct
 {
-  XVprocss_Config Config;	    /**< Hardware configuration */
-  u32 IsReady;		            /**< Device and the driver instance are
+  XVprocSs_Config Config;	      /**< Hardware configuration */
+  u32 IsReady;		              /**< Device and the driver instance are
                                      initialized */
-  XAxis_Switch *router;         /**< handle to sub-core driver instance */
-  XGpio *rstAxis;               /**< handle to sub-core driver instance */
-  XGpio *rstAximm;              /**< handle to sub-core driver instance */
-                                /**< handle to sub-core driver instance */
-  XV_hcresampler *hcrsmplr;     /**< handle to sub-core driver instance */
-  XV_vcresampler *vcrsmplrIn;   /**< handle to sub-core driver instance */
-  XV_vcresampler *vcrsmplrOut;  /**< handle to sub-core driver instance */
-  XV_vscaler *vscaler;          /**< handle to sub-core driver instance */
-  XV_hscaler *hscaler;          /**< handle to sub-core driver instance */
-  XAxiVdma *vdma;               /**< handle to sub-core driver instance */
-  XV_letterbox *lbox;           /**< handle to sub-core driver instance */
-  XV_csc *csc;                  /**< handle to sub-core driver instance */
-  XV_deinterlacer *deint;       /**< handle to sub-core driver instance */
+  XAxis_Switch *RouterPtr;        /**< handle to sub-core driver instance */
+  XGpio *RstAxisPtr;              /**< handle to sub-core driver instance */
+  XGpio *RstAximmPtr;             /**< handle to sub-core driver instance */
+                                  /**< handle to sub-core driver instance */
+  XV_hcresampler *HcrsmplrPtr;    /**< handle to sub-core driver instance */
+  XV_vcresampler *VcrsmplrInPtr;  /**< handle to sub-core driver instance */
+  XV_vcresampler *VcrsmplrOutPtr; /**< handle to sub-core driver instance */
+  XV_vscaler *VscalerPtr;         /**< handle to sub-core driver instance */
+  XV_hscaler *HscalerPtr;         /**< handle to sub-core driver instance */
+  XAxiVdma *VdmaPtr;              /**< handle to sub-core driver instance */
+  XV_letterbox *LboxPtr;          /**< handle to sub-core driver instance */
+  XV_csc *CscPtr;                 /**< handle to sub-core driver instance */
+  XV_deinterlacer *DeintPtr;      /**< handle to sub-core driver instance */
 
   /**
    * Layer2 SW Register (Every Subsystem instance will have it's own copy
      of Layer 2 register bank for applicable sub-cores)
    */
-  XV_csc_L2Reg cscL2Reg;        /**< Layer 2 register bank for csc sub-core */
-  XV_vscaler_l2 vscL2Reg;       /**< Layer 2 register bank for vsc sub-core */
-  XV_hscaler_l2 hscL2Reg;       /**< Layer 2 register bank for hsc sub-core */
-  XV_hcresampler_l2 hcrL2Reg;   /**< Layer 2 register bank for hcr sub-core */
-  XV_vcresampler_l2 vcrInL2Reg; /**< Layer 2 register bank for hcr sub-core */
-  XV_vcresampler_l2 vcrOutL2Reg; /**< Layer 2 register bank for hcr sub-core */
+  XV_csc_L2Reg CscL2Reg;         /**< Layer 2 register bank for csc sub-core */
+  XV_vscaler_l2 VscL2Reg;        /**< Layer 2 register bank for vsc sub-core */
+  XV_hscaler_l2 HscL2Reg;        /**< Layer 2 register bank for hsc sub-core */
+  XV_hcresampler_l2 HcrL2Reg;    /**< Layer 2 register bank for hcr sub-core */
+  XV_vcresampler_l2 VcrInL2Reg;  /**< Layer 2 register bank for hcr sub-core */
+  XV_vcresampler_l2 VcrOutL2Reg; /**< Layer 2 register bank for hcr sub-core */
 
   //I/O Streams
   XVidC_VideoStream VidIn;      /**< Input  AXIS configuration */
   XVidC_VideoStream VidOut;     /**< Output AXIS configuration */
 
-  XVprocss_IData idata;         /**< Internal Scratch pad memory for subsystem
+  XVprocSs_ContextData CtxtData; /**< Internal Scratch pad memory for subsystem
                                      instance */
   u32 FrameBufBaseaddr;         /**< Base address for frame buffer storage */
 
   XVidC_DelayHandler UsrDelayUs; /**< custom user function for delay/sleep */
-  void *pUsrTmr;                /**< handle to timer instance used by user
+  void *UsrTmrPtr;                /**< handle to timer instance used by user
                                      delay function */
-} XVprocss;
+} XVprocSs;
 
 /************************** Macros Definitions *******************************/
 /*****************************************************************************/
 /**
  * This macro checks if subsystem is in Maximum configuration mode
  *
- * @param  pVprocss is a pointer to the Video Processing subsystem instance
+ * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
  * @return Return 1 if condition is TRUE or 0 if FALSE
  *
  *****************************************************************************/
-#define XVprocss_IsConfigModeMax(pVprocss) \
-                ((pVprocss)->Config.Topology == XVPROCSS_TOPOLOGY_FULL_FLEDGED)
+#define XVprocSs_IsConfigModeMax(XVprocSsPtr) \
+             ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_FULL_FLEDGED)
 
 /*****************************************************************************/
 /**
  * This macro checks if subsystem configuration is in Stream Mode (Scaler Only)
  *
- * @param  pVprocss is pointer to the Video Processing subsystem instance
+ * @param  XVprocSsPtr is pointer to the Video Processing subsystem instance
  *
  * @return Returns 1 if condition is TRUE or 0 if FALSE
  *
  *****************************************************************************/
-#define XVprocss_IsConfigModeSscalerOnly(pVprocss)  \
-                 ((pVprocss)->Config.Topology == XVPROCSS_TOPOLOGY_SCALER_ONLY)
+#define XVprocSs_IsConfigModeSscalerOnly(XVprocSsPtr)  \
+              ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_SCALER_ONLY)
 
 
 /*****************************************************************************/
@@ -411,55 +408,57 @@ typedef struct
  * This macro returns the current state of PIP Mode stored in subsystem internal
  * scratch pad memory
  *
- * @param  pVprocss is a pointer to the Video Processing subsystem instance
+ * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
  *
  * @return Returns 1 if PIP mode is ON or 0 if OFF
  *
  *****************************************************************************/
-#define XVprocss_IsPipModeOn(pVprocss)        ((pVprocss)->idata.PipEn)
+#define XVprocSs_IsPipModeOn(XVprocSsPtr)       ((XVprocSsPtr)->CtxtData.PipEn)
 
 /*****************************************************************************/
 /**
  * This macro returns the current state of Zoom Mode stored in subsystem internal
  * scratch pad memory
  *
- * @param  pVprocss is a pointer to the Video Processing subsystem instance
+ * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
  *
  * @return Returns 1 if ZOOM mode is ON or 0 if OFF
  *
  *****************************************************************************/
-#define XVprocss_IsZoomModeOn(pVprocss)       ((pVprocss)->idata.ZoomEn)
+#define XVprocSs_IsZoomModeOn(XVprocSsPtr)     ((XVprocSsPtr)->CtxtData.ZoomEn)
 
 /*****************************************************************************/
 /**
  * This macro clears the PIP mode flag stored in subsystem internal scratch
  * pad memory. This call has no side-effect
  *
- * @param  pVprocss is a pointer to the Video Processing subsystem instance
+ * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
  *
  * @return None
  *
  *****************************************************************************/
-#define XVprocss_ResetPipModeFlag(pVprocss)    ((pVprocss)->idata.PipEn = FALSE)
+#define XVprocSs_ResetPipModeFlag(XVprocSsPtr) \
+                                        ((XVprocSsPtr)->CtxtData.PipEn = FALSE)
 
 /*****************************************************************************/
 /**
  * This macro clears the ZOOM mode flag stored in subsystem internal scratch
  * pad memory. This call has no side-effect
  *
- * @param  pVprocss is pointer to the Video Processing subsystem instance
+ * @param  XVprocSsPtr is pointer to the Video Processing subsystem instance
  *
  * @return None
  *
  *****************************************************************************/
-#define XVprocss_ResetZoomModeFlag(pVprocss)    ((pVprocss)->idata.ZoomEn = FALSE)
+#define XVprocSs_ResetZoomModeFlag(XVprocSsPtr)  \
+                                       ((XVprocSsPtr)->CtxtData.ZoomEn = FALSE)
 
 /*****************************************************************************/
 /**
  * This macro sets the specified stream's color format. It can be used to
  * update input or output stream. This call has no side-effect in isolation.
  * For change to take effect user must trigger processing path reconfiguration
- * by calling XVprocss_ConfigureSubsystem()
+ * by calling XVprocSs_ConfigureSubsystem()
  *
  * @param  Stream is a pointer to the Subsystem Input or Output Stream
  * @param  ColorFormat is the requested color format
@@ -467,15 +466,15 @@ typedef struct
  * @return None
  *
  *****************************************************************************/
-#define XVprocss_SetStreamColorFormat(Stream, ColorFormat) \
-                 ((Stream)->ColorFormatId = ColorFormat)
+#define XVprocSs_SetStreamColorFormat(Stream, ColorFormat) \
+                                        ((Stream)->ColorFormatId = ColorFormat)
 
 /*****************************************************************************/
 /**
  * This macro sets the specified stream's color depth. It can be used to update
  * input or output stream. This call has no side-effect in isolation
  * For change to take effect user must trigger processing path reconfiguration
- * by calling XVprocss_ConfigureSubsystem()
+ * by calling XVprocSs_ConfigureSubsystem()
  *
  * @param  Stream is a pointer to the Subsystem Input or Output Stream
  * @param  ColorDepth is the requested color depth
@@ -483,48 +482,46 @@ typedef struct
  * @return None
  *
  *****************************************************************************/
-#define XVprocss_SetStreamColorDepth(Stream, ColorDepth) \
-                 ((Stream)->ColorDepth = ColorDepth)
+#define XVprocSs_SetStreamColorDepth(Stream, ColorDepth) \
+                                            ((Stream)->ColorDepth = ColorDepth)
 
 /************************** Function Prototypes ******************************/
-XVprocss_Config* XVprocss_LookupConfig(u32 DeviceId);
-void XVprocss_SetFrameBufBaseaddr(XVprocss *InstancePtr, u32 addr);
-int XVprocss_CfgInitialize(XVprocss *InstancePtr,
-                           XVprocss_Config *CfgPtr,
+void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr);
+
+XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId);
+int XVprocSs_CfgInitialize(XVprocSs *InstancePtr,
+                           XVprocSs_Config *CfgPtr,
                            u32 EffectiveAddr);
-int  XVprocss_PowerOnInit(XVprocss *InstancePtr, u32 DeviceId);
-void XVprocss_Start(XVprocss *InstancePtr);
-void XVprocss_Stop(XVprocss *InstancePtr);
-void XVprocss_Reset(XVprocss *InstancePtr);
-int XVprocss_SetVidStreamIn(XVprocss *InstancePtr,
+
+void XVprocSs_Start(XVprocSs *InstancePtr);
+void XVprocSs_Stop(XVprocSs *InstancePtr);
+void XVprocSs_Reset(XVprocSs *InstancePtr);
+int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
                             const XVidC_VideoStream *StrmIn);
-int XVprocss_SetVidStreamOut(XVprocss *InstancePtr,
+int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
                              const XVidC_VideoStream *StrmOut);
-int XVprocss_SetStreamResolution(XVidC_VideoStream *StreamPtr,
+int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
                                  const XVidC_VideoMode VmId);
-void XVprocss_ReportCoreInfo(XVprocss *InstancePtr);
-void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr);
-int XVprocss_SetSubsystemConfig(XVprocss *InstancePtr);
-void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff);
-void XVprocss_SetPipMode(XVprocss *InstancePtr, u8 OnOff);
-
-void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
-                               XVprocss_Win mode,
+int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr);
+void XVprocSs_SetZoomMode(XVprocSs *InstancePtr, u8 OnOff);
+void XVprocSs_SetPipMode(XVprocSs *InstancePtr, u8 OnOff);
+void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
+                               XVprocSs_Win mode,
                                XVidC_VideoWindow *win);
-void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
-                               XVprocss_Win mode,
+void XVprocSs_GetZoomPipWindow(XVprocSs *InstancePtr,
+                               XVprocSs_Win mode,
                                XVidC_VideoWindow *win);
+void XVprocSs_UpdateZoomPipWindow(XVprocSs *InstancePtr);
 
-void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr);
+void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
+                                  XVidC_DelayHandler CallbackFunc,
+                                  void *CallbackRef);
 
-void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
-                                   XVidC_DelayHandler CallbackFunc,
-                                   void *CallbackRef);
-
+void XVprocSs_ReportCoreInfo(XVprocSs *InstancePtr);
+void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* end of protection macro */
-/** @} */

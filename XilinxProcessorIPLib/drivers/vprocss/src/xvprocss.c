@@ -33,8 +33,6 @@
 /**
 *
 * @file xvprocss.c
-* @addtogroup vprocss_v1_0
-* @{
 *
 * This is main code of Xilinx Video Processing Subsystem device driver.
 * Please see xvprocss.h for more details of the driver.
@@ -87,23 +85,23 @@
  */
 typedef struct
 {
-  XAxis_Switch router;
-  XGpio rstAxis;      //Reset for IP's running at AXIS Clk
-  XGpio rstAximm;     //Reset for IP's with AXI MM interface
+  XAxis_Switch Router;
+  XGpio RstAxis;      //Reset for IP's running at AXIS Clk
+  XGpio RstAximm;     //Reset for IP's with AXI MM interface
 
-  XV_hcresampler hcrsmplr;
-  XV_vcresampler vcrsmplrIn;
-  XV_vcresampler vcrsmplrOut;
-  XV_vscaler vscaler;
-  XV_hscaler hscaler;
-  XAxiVdma vdma;
-  XV_letterbox lbox;
-  XV_csc csc;
-  XV_deinterlacer deint;
-}XVprocss_SubCores;
+  XV_hcresampler Hcrsmplr;
+  XV_vcresampler VcrsmplrIn;
+  XV_vcresampler VcrsmplrOut;
+  XV_vscaler Vscaler;
+  XV_hscaler Hscaler;
+  XAxiVdma Vdma;
+  XV_letterbox Lbox;
+  XV_csc Csc;
+  XV_deinterlacer Deint;
+}XVprocSs_SubCores;
 
 /**************************** Local Global ***********************************/
-XVprocss_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
+XVprocSs_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
                                     included in the design */
 
 /** @name VDMA Alignment required step size
@@ -120,7 +118,7 @@ XVprocss_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
  *  - Pixels/Clock         = 1, 2, 4
  *  - Color Depth          = 8, 10, 12, 16   (4 variations)
  */
-const u16 XVprocss_PixelHStep[XVIDC_PPC_NUM_SUPPORTED][4] =
+const u16 XVprocSs_PixelHStep[XVIDC_PPC_NUM_SUPPORTED][4] =
 {
   {16,   4,  32,   8}, //XVIDC_PPC_1
   {16,   4,  64,  16}, //XVIDC_PPC_2
@@ -128,13 +126,13 @@ const u16 XVprocss_PixelHStep[XVIDC_PPC_NUM_SUPPORTED][4] =
 };
 
 /************************** Function Prototypes ******************************/
-static void SetPODConfiguration(XVprocss *pVprocss);
-static void GetIncludedSubcores(XVprocss *pVprocss);
-static int ValidateSubsystemConfig(XVprocss *InstancePtr);
+static void SetPODConfiguration(XVprocSs *XVprocSsPtr);
+static void GetIncludedSubcores(XVprocSs *XVprocSsPtr);
+static int ValidateSubsystemConfig(XVprocSs *InstancePtr);
 static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
                                     XVidC_VideoStream *pStrmOut);
-static int SetupModeScalerOnly(XVprocss *pVprocss);
-static int SetupModeMax(XVprocss *pVprocss);
+static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr);
+static int SetupModeMax(XVprocSs *XVprocSsPtr);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
@@ -149,7 +147,7 @@ static int SetupModeMax(XVprocss *pVprocss);
 *           -0: Reset
 *
 ******************************************************************************/
-static __inline u32 XVprocss_GetResetState(XGpio *pReset, u32 channel)
+static __inline u32 XVprocSs_GetResetState(XGpio *pReset, u32 channel)
 {
   return(XGpio_DiscreteRead(pReset, channel));
 }
@@ -167,13 +165,13 @@ static __inline u32 XVprocss_GetResetState(XGpio *pReset, u32 channel)
 * @note If reset block is not included in the subsystem instance function does
 *       not do anything
 ******************************************************************************/
-static __inline void XVprocss_EnableBlock(XGpio *pReset, u32 channel, u32 ipBlock)
+static __inline void XVprocSs_EnableBlock(XGpio *pReset, u32 channel, u32 ipBlock)
 {
   u32 val;
 
   if(pReset)
   {
-    val = XVprocss_GetResetState(pReset, channel);
+    val = XVprocSs_GetResetState(pReset, channel);
     val |= ipBlock;
     XGpio_DiscreteWrite(pReset, channel, val);
   }
@@ -192,13 +190,13 @@ static __inline void XVprocss_EnableBlock(XGpio *pReset, u32 channel, u32 ipBloc
 * @note If reset block is not included in the subsystem instance function does
 *       not do anything
 ******************************************************************************/
-static __inline void XVprocss_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock)
+static __inline void XVprocSs_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock)
 {
   u32 val;
 
   if(pReset)
   {
-    val = XVprocss_GetResetState(pReset, channel);
+    val = XVprocSs_GetResetState(pReset, channel);
     val &= ~ipBlock;
     XGpio_DiscreteWrite(pReset, channel, val);
   }
@@ -210,13 +208,13 @@ static __inline void XVprocss_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock
 * given to the user registered timer based routine. If no delay handler is
 * registered then it uses the platform specific delay handler
 *
-* @param  pVprocss is a pointer to the subsystem instance
+* @param  XVprocSsPtr is a pointer to the subsystem instance
 * @param  msec is delay required
 *
 * @return None
 *
 ******************************************************************************/
-static __inline void WaitUs(XVprocss *pVprocss, u32 MicroSeconds)
+static __inline void WaitUs(XVprocSs *XVprocSsPtr, u32 MicroSeconds)
 {
   if(MicroSeconds == 0)
 	  return;
@@ -225,12 +223,12 @@ static __inline void WaitUs(XVprocss *pVprocss, u32 MicroSeconds)
   /* Wait the requested amount of time. */
   usleep(MicroSeconds);
 #elif defined(__MICROBLAZE__)
-  if(pVprocss->UsrDelayUs)
+  if(XVprocSsPtr->UsrDelayUs)
   {
     /* Use the time handler specified by the user for
      * better accuracy
      */
-	 pVprocss->UsrDelayUs(pVprocss->pUsrTmr, MicroSeconds);
+	 XVprocSsPtr->UsrDelayUs(XVprocSsPtr->UsrTmrPtr, MicroSeconds);
   }
   else
   {
@@ -254,69 +252,69 @@ static __inline void WaitUs(XVprocss *pVprocss, u32 MicroSeconds)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_ReportCoreInfo(XVprocss *InstancePtr)
+void XVprocSs_ReportCoreInfo(XVprocSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
   xil_printf("\r\n  ->Video Processing Subsystem Cores\r\n");
 
   /* Report all the included cores in the subsystem instance */
-  if(InstancePtr->hcrsmplr)
+  if(InstancePtr->HcrsmplrPtr)
   {
     xil_printf("    : Horiz. Chroma Resampler \r\n");
   }
 
-  if(InstancePtr->vcrsmplrIn)
+  if(InstancePtr->VcrsmplrInPtr)
   {
     xil_printf("    : Vert Chroma Resampler - Input\r\n");
   }
 
-  if(InstancePtr->vcrsmplrOut)
+  if(InstancePtr->VcrsmplrOutPtr)
   {
     xil_printf("    : Vert Chroma Resampler - Output\r\n");
   }
 
-  if(InstancePtr->hscaler)
+  if(InstancePtr->HscalerPtr)
   {
     xil_printf("    : H Scaler\r\n");
   }
 
-  if(InstancePtr->vscaler)
+  if(InstancePtr->VscalerPtr)
   {
     xil_printf("    : V Scaler\r\n");
   }
 
-  if(InstancePtr->vdma)
+  if(InstancePtr->VdmaPtr)
   {
     xil_printf("    : VDMA\r\n");
   }
 
-  if(InstancePtr->lbox)
+  if(InstancePtr->LboxPtr)
   {
     xil_printf("    : LetterBox\r\n");
   }
 
-  if(InstancePtr->csc)
+  if(InstancePtr->CscPtr)
   {
     xil_printf("    : Color Space Converter\r\n");
   }
 
-  if(InstancePtr->deint)
+  if(InstancePtr->DeintPtr)
   {
     xil_printf("    : Deinterlacer\r\n");
   }
 
-  if(InstancePtr->rstAxis)
+  if(InstancePtr->RstAxisPtr)
   {
     xil_printf("    : Reset (AXIS)\r\n");
   }
 
-  if(InstancePtr->rstAximm)
+  if(InstancePtr->RstAximmPtr)
   {
     xil_printf("    : Reset (AXI-MM) \r\n");
   }
 
-  if(InstancePtr->router)
+  if(InstancePtr->RouterPtr)
   {
     xil_printf("    : AXIS Router\r\n");
   }
@@ -335,9 +333,9 @@ void XVprocss_ReportCoreInfo(XVprocss *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
-                                   XVidC_DelayHandler CallbackFunc,
-                                   void *CallbackRef)
+void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
+                                  XVidC_DelayHandler CallbackFunc,
+                                  void *CallbackRef)
 {
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
@@ -345,7 +343,7 @@ void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
   Xil_AssertVoid(CallbackRef != NULL);
 
   InstancePtr->UsrDelayUs = CallbackFunc;
-  InstancePtr->pUsrTmr    = CallbackRef;
+  InstancePtr->UsrTmrPtr  = CallbackRef;
 }
 
 /*****************************************************************************/
@@ -355,37 +353,37 @@ void XVprocss_RegisterDelayHandler(XVprocss *InstancePtr,
 * the sub-core driver instance is binded with the subsystem sub-core driver
 * handle
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return None
 *
 ******************************************************************************/
-static void GetIncludedSubcores(XVprocss *pVprocss)
+static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
 {
-  pVprocss->hcrsmplr    = ((pVprocss->Config.HCrsmplr.isPresent)    \
-                              ? (&subcoreRepo.hcrsmplr)    : NULL);
-  pVprocss->vcrsmplrIn  = ((pVprocss->Config.VCrsmplrIn.isPresent)  \
-                              ? (&subcoreRepo.vcrsmplrIn)  : NULL);
-  pVprocss->vcrsmplrOut = ((pVprocss->Config.VCrsmplrOut.isPresent) \
-                              ? (&subcoreRepo.vcrsmplrOut) : NULL);
-  pVprocss->vscaler     = ((pVprocss->Config.Vscale.isPresent)      \
-                              ? (&subcoreRepo.vscaler)     : NULL);
-  pVprocss->hscaler     = ((pVprocss->Config.Hscale.isPresent)      \
-                              ? (&subcoreRepo.hscaler)     : NULL);
-  pVprocss->vdma        = ((pVprocss->Config.Vdma.isPresent)        \
-                              ? (&subcoreRepo.vdma)        : NULL);
-  pVprocss->lbox        = ((pVprocss->Config.Lbox.isPresent)        \
-                              ? (&subcoreRepo.lbox)        : NULL);
-  pVprocss->csc         = ((pVprocss->Config.Csc.isPresent)         \
-                              ? (&subcoreRepo.csc)         : NULL);
-  pVprocss->deint       = ((pVprocss->Config.Deint.isPresent)       \
-                              ? (&subcoreRepo.deint)       : NULL);
-  pVprocss->router      = ((pVprocss->Config.Router.isPresent)      \
-                              ? (&subcoreRepo.router)      : NULL);
-  pVprocss->rstAxis     = ((pVprocss->Config.RstAxis.isPresent)     \
-                              ? (&subcoreRepo.rstAxis)     : NULL);
-  pVprocss->rstAximm    = ((pVprocss->Config.RstAximm.isPresent)    \
-                              ? (&subcoreRepo.rstAximm)    : NULL);
+  XVprocSsPtr->HcrsmplrPtr    = ((XVprocSsPtr->Config.HCrsmplr.IsPresent)    \
+                              ? (&subcoreRepo.Hcrsmplr)    : NULL);
+  XVprocSsPtr->VcrsmplrInPtr  = ((XVprocSsPtr->Config.VCrsmplrIn.IsPresent)  \
+                              ? (&subcoreRepo.VcrsmplrIn)  : NULL);
+  XVprocSsPtr->VcrsmplrOutPtr = ((XVprocSsPtr->Config.VCrsmplrOut.IsPresent) \
+                              ? (&subcoreRepo.VcrsmplrOut) : NULL);
+  XVprocSsPtr->VscalerPtr     = ((XVprocSsPtr->Config.Vscale.IsPresent)      \
+                              ? (&subcoreRepo.Vscaler)     : NULL);
+  XVprocSsPtr->HscalerPtr     = ((XVprocSsPtr->Config.Hscale.IsPresent)      \
+                              ? (&subcoreRepo.Hscaler)     : NULL);
+  XVprocSsPtr->VdmaPtr        = ((XVprocSsPtr->Config.Vdma.IsPresent)        \
+                              ? (&subcoreRepo.Vdma)        : NULL);
+  XVprocSsPtr->LboxPtr        = ((XVprocSsPtr->Config.Lbox.IsPresent)        \
+                              ? (&subcoreRepo.Lbox)        : NULL);
+  XVprocSsPtr->CscPtr         = ((XVprocSsPtr->Config.Csc.IsPresent)         \
+                              ? (&subcoreRepo.Csc)         : NULL);
+  XVprocSsPtr->DeintPtr       = ((XVprocSsPtr->Config.Deint.IsPresent)       \
+                              ? (&subcoreRepo.Deint)       : NULL);
+  XVprocSsPtr->RouterPtr      = ((XVprocSsPtr->Config.Router.IsPresent)      \
+                              ? (&subcoreRepo.Router)      : NULL);
+  XVprocSsPtr->RstAxisPtr     = ((XVprocSsPtr->Config.RstAxis.IsPresent)     \
+                              ? (&subcoreRepo.RstAxis)     : NULL);
+  XVprocSsPtr->RstAximmPtr    = ((XVprocSsPtr->Config.RstAximm.IsPresent)    \
+                              ? (&subcoreRepo.RstAximm)    : NULL);
 }
 
 /*****************************************************************************/
@@ -399,7 +397,7 @@ static void GetIncludedSubcores(XVprocss *pVprocss)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_SetFrameBufBaseaddr(XVprocss *InstancePtr, u32 addr)
+void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr)
 {
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
@@ -427,31 +425,31 @@ void XVprocss_SetFrameBufBaseaddr(XVprocss *InstancePtr, u32 addr)
 * @return XST_SUCCESS if initialization is successful else XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
+int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
                           u32 EffectiveAddr)
 {
-  XVprocss *pVprocss = InstancePtr;
+  XVprocSs *XVprocSsPtr = InstancePtr;
   XAxiVdma_Config *VdmaCfgPtr;
   int status;
   u32 AbsAddr;
 
   /* Verify arguments */
-  Xil_AssertNonvoid(pVprocss != NULL);
+  Xil_AssertNonvoid(XVprocSsPtr != NULL);
   Xil_AssertNonvoid(CfgPtr != NULL);
   Xil_AssertNonvoid(EffectiveAddr != (u32)NULL);
 
   /* Setup the instance */
-  memcpy((void *)&(pVprocss->Config), (const void *)CfgPtr, sizeof(XVprocss_Config));
-  pVprocss->Config.BaseAddress = EffectiveAddr;
+  memcpy((void *)&(XVprocSsPtr->Config), (const void *)CfgPtr, sizeof(XVprocSs_Config));
+  XVprocSsPtr->Config.BaseAddress = EffectiveAddr;
 
-  switch(pVprocss->Config.Topology)
+  switch(XVprocSsPtr->Config.Topology)
   {
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
-	xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Full]\r\n\r\n");
+	    xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Full]\r\n\r\n");
         break;
 
     case XVPROCSS_TOPOLOGY_SCALER_ONLY:
-	xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Scaler-Only]\r\n\r\n");
+	    xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Scaler-Only]\r\n\r\n");
         break;
 
     default:
@@ -460,20 +458,20 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
   }
 
   /* Determine sub-cores included in the provided instance of subsystem */
-  GetIncludedSubcores(pVprocss);
+  GetIncludedSubcores(XVprocSsPtr);
 
   /* Initialize all included sub_cores */
-  if(pVprocss->rstAxis)
+  if(XVprocSsPtr->RstAxisPtr)
   {
-	if(XVprocss_SubcoreInitResetAxis(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitResetAxis(XVprocSsPtr) != XST_SUCCESS)
     {
       return(XST_FAILURE);
     }
   }
 
-  if(pVprocss->rstAximm)
+  if(XVprocSsPtr->RstAximmPtr)
   {
-	if(XVprocss_SubcoreInitResetAximm(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitResetAximm(XVprocSsPtr) != XST_SUCCESS)
     {
       return(XST_FAILURE);
     }
@@ -481,123 +479,123 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
      * Make sure AXI-MM interface is not in reset. If in reset it will prevent
      * Deinterlacer from being initialized
      */
-    XVprocss_EnableBlock(InstancePtr->rstAximm, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
+    XVprocSs_EnableBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
   }
 
-  if(pVprocss->router)
+  if(XVprocSsPtr->RouterPtr)
   {
-	if(XVprocss_SubcoreInitRouter(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitRouter(XVprocSsPtr) != XST_SUCCESS)
     {
       return(XST_FAILURE);
     }
   }
 
-  if(pVprocss->csc)
+  if(XVprocSsPtr->CscPtr)
   {
-	if(XVprocss_SubcoreInitCsc(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitCsc(XVprocSsPtr) != XST_SUCCESS)
     {
       return(XST_FAILURE);
     }
   }
 
-  if(pVprocss->hscaler)
+  if(XVprocSsPtr->HscalerPtr)
   {
-	if(XVprocss_SubcoreInitHScaler(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitHScaler(XVprocSsPtr) != XST_SUCCESS)
     {
       return(XST_FAILURE);
     }
   }
 
-  if(pVprocss->vscaler)
+  if(XVprocSsPtr->VscalerPtr)
   {
-	if(XVprocss_SubcoreInitVScaler(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitVScaler(XVprocSsPtr) != XST_SUCCESS)
 	{
 	  return(XST_FAILURE);
 	}
   }
 
-  if(pVprocss->hcrsmplr)
+  if(XVprocSsPtr->HcrsmplrPtr)
   {
-	if(XVprocss_SubcoreInitHCrsmplr(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitHCrsmplr(XVprocSsPtr) != XST_SUCCESS)
 	{
 	  return(XST_FAILURE);
 	}
   }
 
-  if(pVprocss->vcrsmplrIn)
+  if(XVprocSsPtr->VcrsmplrInPtr)
   {
-	if(XVprocss_SubcoreInitVCrsmpleIn(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitVCrsmpleIn(XVprocSsPtr) != XST_SUCCESS)
 	{
 	  return(XST_FAILURE);
 	}
   }
 
-  if(pVprocss->vcrsmplrOut)
+  if(XVprocSsPtr->VcrsmplrOutPtr)
   {
-	if(XVprocss_SubcoreInitVCrsmpleOut(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitVCrsmpleOut(XVprocSsPtr) != XST_SUCCESS)
 	{
 	  return(XST_FAILURE);
 	}
   }
 
-  if(pVprocss->lbox)
+  if(XVprocSsPtr->LboxPtr)
   {
-	if(XVprocss_SubcoreInitLetterbox(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitLetterbox(XVprocSsPtr) != XST_SUCCESS)
 	{
 	  return(XST_FAILURE);
 	}
   }
 
-  if(pVprocss->vdma)
+  if(XVprocSsPtr->VdmaPtr)
   {
-	if(XVprocss_SubcoreInitVdma(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitVdma(XVprocSsPtr) != XST_SUCCESS)
 	{
 	  return(XST_FAILURE);
 	}
 
-	if(pVprocss->FrameBufBaseaddr == 0)
+	if(XVprocSsPtr->FrameBufBaseaddr == 0)
 	{
 	  xil_printf("\r\nVPROCSS ERR:: Video Frame Buffer base address not set\r\n");
-	  xil_printf("              Use XVprocss_SetFrameBufBaseaddr() API before subsystem init\r\n\r\n");
+	  xil_printf("              Use XVprocSs_SetFrameBufBaseaddr() API before subsystem init\r\n\r\n");
 	  return(XST_FAILURE);
 	}
   }
 
 
-  if(pVprocss->deint)
+  if(XVprocSsPtr->DeintPtr)
   {
-	if(XVprocss_SubcoreInitDeinterlacer(pVprocss) != XST_SUCCESS)
+	if(XVprocSs_SubcoreInitDeinterlacer(XVprocSsPtr) != XST_SUCCESS)
 	{
 	  return(XST_FAILURE);
 	}
 
     /* Set Deinterlacer buffer offset in allocated DDR Frame Buffer */
-    if(pVprocss->vdma) //vdma must be present for this to work
+    if(XVprocSsPtr->VdmaPtr) //Vdma must be present for this to work
     {
       u32 vdmaBufReq, bufsize;
       u32 Bpp; //bytes per pixel
 
-      Bpp = (pVprocss->Config.ColorDepth + 7)/8;
+      Bpp = (XVprocSsPtr->Config.ColorDepth + 7)/8;
 
       //compute buffer size based on subsystem configuration
       //For 1 4K2K buffer (YUV444 16-bit) size is ~48MB
-      bufsize = pVprocss->Config.MaxWidth *
-		        pVprocss->Config.MaxHeight *
-		        pVprocss->Config.NumVidComponents *
+      bufsize = XVprocSsPtr->Config.MaxWidth *
+		        XVprocSsPtr->Config.MaxHeight *
+		        XVprocSsPtr->Config.NumVidComponents *
 		        Bpp;
 
       //VDMA requires 4 buffers for total size of ~190MB
-      vdmaBufReq = pVprocss->vdma->MaxNumFrames * bufsize;
+      vdmaBufReq = XVprocSsPtr->VdmaPtr->MaxNumFrames * bufsize;
 
       /*
        * vdmaBufReq = 0x0BDD 80000
-       * padBuf     = 0x02F7 6000 (1 buffer is added as pad between vdma and deint)
+       * padBuf     = 0x02F7 6000 (1 buffer is added as pad between Vdma and Deint)
        *             -------------
        * DeInt Offst= 0x0ED4 E000
        *             -------------
        */
       /* Set Deint Buffer Address Offset */
-      pVprocss->idata.deintBufAddr = pVprocss->FrameBufBaseaddr + vdmaBufReq + bufsize;
+      XVprocSsPtr->CtxtData.DeintBufAddr = XVprocSsPtr->FrameBufBaseaddr + vdmaBufReq + bufsize;
     }
     else
     {
@@ -606,56 +604,14 @@ int XVprocss_CfgInitialize(XVprocss *InstancePtr, XVprocss_Config *CfgPtr,
     }
   }
 
-  return(XST_SUCCESS);
-}
-
-/*****************************************************************************/
-/**
-* This function initializes the subsystem to power on default state. Subsystem
-* device id is used to access the HW configuration for the instance.
-* This configuration is then initialized along with any sub-cores included.
-* As the last step the internal state of the subsystem is set to pre-defined
-* power up default and Subsystem Ready state is set
-*
-* @param  InstancePtr is the pointer to subsystem instance
-* @param  DeviceId is the unique device ID of the device for the lookup operation.
-*
-* @return XST_SUCCESS if successful
-*         XST_DEVICE_NOT_FOUND if no device match is found.
-*         XST_FAILURE otherwise
-*
-*******************************************************************************/
-int XVprocss_PowerOnInit(XVprocss *InstancePtr, u32 DeviceId)
-{
-  XVprocss_Config *ConfigPtr;
-  int status;
-
-  Xil_AssertNonvoid(InstancePtr != NULL);
-
-  ConfigPtr = XVprocss_LookupConfig(DeviceId);
-  if(ConfigPtr == NULL)
-  {
-      InstancePtr->IsReady = 0;
-      return (XST_DEVICE_NOT_FOUND);
-  }
-
-  //Initialize top level and all included sub-cores
-  status = XVprocss_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddress);
-  if(status != XST_SUCCESS)
-  {
-    xil_printf("ERR:: Video Processing Subsystem Initialization failed %d\r\n", status);
-    return(XST_FAILURE);
-  }
-
-  /* All sub-cores static configuration extracted. Next configure subsystem to
-   * power on default state
-   */
+  /* Set subsystem to power on default state */
   SetPODConfiguration(InstancePtr);
 
   /* Reset the hardware and set the flag to indicate the
      subsystem is ready
    */
-  XVprocss_Reset(InstancePtr);
+  XVprocSs_Reset(InstancePtr);
+
   InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
   return(XST_SUCCESS);
@@ -666,12 +622,12 @@ int XVprocss_PowerOnInit(XVprocss *InstancePtr, u32 DeviceId)
 * This function configures the Video Processing subsystem internal blocks
 * to power on default configuration
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return None
 *
 ******************************************************************************/
-static void SetPODConfiguration(XVprocss *pVprocss)
+static void SetPODConfiguration(XVprocSs *XVprocSsPtr)
 {
   XVidC_VideoStream vidStrmIn;
   XVidC_VideoStream vidStrmOut;
@@ -683,29 +639,29 @@ static void SetPODConfiguration(XVprocss *pVprocss)
   vidStrmOut.ColorFormatId = XVIDC_CSF_RGB;
   vidStrmOut.FrameRate     = XVIDC_FR_60HZ;
   vidStrmOut.IsInterlaced  = FALSE;
-  vidStrmOut.ColorDepth    = pVprocss->Config.ColorDepth;
-  vidStrmOut.PixPerClk     = pVprocss->Config.PixPerClock;
+  vidStrmOut.ColorDepth    = XVprocSsPtr->Config.ColorDepth;
+  vidStrmOut.PixPerClk     = XVprocSsPtr->Config.PixPerClock;
 
   /* Setup Default Input Stream configuration */
   vidStrmIn.VmId          = XVIDC_VM_1920x1080_60_P;
   vidStrmIn.ColorFormatId = XVIDC_CSF_RGB;
   vidStrmIn.FrameRate     = XVIDC_FR_60HZ;
   vidStrmIn.IsInterlaced  = FALSE;
-  vidStrmIn.ColorDepth    = pVprocss->Config.ColorDepth;
-  vidStrmIn.PixPerClk     = pVprocss->Config.PixPerClock;
+  vidStrmIn.ColorDepth    = XVprocSsPtr->Config.ColorDepth;
+  vidStrmIn.PixPerClk     = XVprocSsPtr->Config.PixPerClock;
 
   /* Setup Video Processing subsystem input/output  configuration */
-  XVprocss_SetVidStreamIn(pVprocss,  &vidStrmIn);
-  XVprocss_SetVidStreamOut(pVprocss, &vidStrmOut);
+  XVprocSs_SetVidStreamIn(XVprocSsPtr,  &vidStrmIn);
+  XVprocSs_SetVidStreamOut(XVprocSsPtr, &vidStrmOut);
 
-  /* compute data width supported by vdma */
-  pVprocss->idata.PixelWidthInBits = pVprocss->Config.NumVidComponents *
-			                         pVprocss->VidIn.ColorDepth;
-  switch(pVprocss->Config.PixPerClock)
+  /* compute data width supported by Vdma */
+  XVprocSsPtr->CtxtData.PixelWidthInBits = XVprocSsPtr->Config.NumVidComponents *
+			                               XVprocSsPtr->VidIn.ColorDepth;
+  switch(XVprocSsPtr->Config.PixPerClock)
   {
     case XVIDC_PPC_1:
     case XVIDC_PPC_2:
-	 if(pVprocss->Config.ColorDepth == XVIDC_BPC_10)
+	 if(XVprocSsPtr->Config.ColorDepth == XVIDC_BPC_10)
 	 {
 	   /* Align the bit width to next byte boundary for this particular case
 	    * Num_Channel	Color Depth		PixelWidth		Align
@@ -715,7 +671,7 @@ static void SetPODConfiguration(XVprocss *pVprocss)
 	    *
 	    *    HW will do the bit padding for 20->24 and 30->32
 	    */
-	   pVprocss->idata.PixelWidthInBits = ((pVprocss->idata.PixelWidthInBits + 7)/8)*8;
+	   XVprocSsPtr->CtxtData.PixelWidthInBits = ((XVprocSsPtr->CtxtData.PixelWidthInBits + 7)/8)*8;
 	 }
 	 break;
 
@@ -724,7 +680,7 @@ static void SetPODConfiguration(XVprocss *pVprocss)
   }
 
   /* Setup Pixel Step size for define HW configuration */
-  switch(pVprocss->Config.ColorDepth)
+  switch(XVprocSsPtr->Config.ColorDepth)
   {
     case XVIDC_BPC_8:  PixPrecisionIndex = 0; break;
     case XVIDC_BPC_10: PixPrecisionIndex = 1; break;
@@ -732,42 +688,42 @@ static void SetPODConfiguration(XVprocss *pVprocss)
     case XVIDC_BPC_16: PixPrecisionIndex = 3; break;
     default: break;
   }
-  pVprocss->idata.PixelHStepSize = XVprocss_PixelHStep[pVprocss->Config.PixPerClock>>1][PixPrecisionIndex];
+  XVprocSsPtr->CtxtData.PixelHStepSize = XVprocSs_PixelHStep[XVprocSsPtr->Config.PixPerClock>>1][PixPrecisionIndex];
 
-  if(XVprocss_IsConfigModeMax(pVprocss))
+  if(XVprocSs_IsConfigModeMax(XVprocSsPtr))
   {
     /* Set default Zoom Window */
     win.Width  = 400;
     win.Height = 400;
     win.StartX = win.StartY = 0;
 
-    XVprocss_SetZoomPipWindow(pVprocss,
+    XVprocSs_SetZoomPipWindow(XVprocSsPtr,
                               XVPROCSS_ZOOM_WIN,
                               &win);
 
     /* Set default PIP Window */
-    XVprocss_SetZoomPipWindow(pVprocss,
+    XVprocSs_SetZoomPipWindow(XVprocSsPtr,
                               XVPROCSS_PIP_WIN,
                               &win);
   }
 
   /* Release reset before programming any IP Block */
-  XVprocss_EnableBlock(pVprocss->rstAxis,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
+  XVprocSs_EnableBlock(XVprocSsPtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
 
   /* User parameter configuration */
   /* Set default background color for Letter Box */
-  if(pVprocss->lbox)
+  if(XVprocSsPtr->LboxPtr)
   {
-    XV_LboxSetBackgroundColor(pVprocss->lbox,
+    XV_LboxSetBackgroundColor(XVprocSsPtr->LboxPtr,
                               XLBOX_BKGND_BLACK,
-                              pVprocss->VidOut.ColorFormatId,
-                              pVprocss->VidOut.ColorDepth);
+                              XVprocSsPtr->VidOut.ColorFormatId,
+                              XVprocSsPtr->VidOut.ColorDepth);
   }
   /* Initialize CSC sub-core layer 2 driver. This block has FW register map */
-  if(pVprocss->csc)
+  if(XVprocSsPtr->CscPtr)
   {
-    XV_CscInitPowerOnDefault(&pVprocss->cscL2Reg);
-    XV_CscSetColorDepth((&pVprocss->cscL2Reg), vidStrmIn.ColorDepth);
+    XV_CscInitPowerOnDefault(&XVprocSsPtr->CscL2Reg);
+    XV_CscSetColorDepth((&XVprocSsPtr->CscL2Reg), vidStrmIn.ColorDepth);
   }
 }
 
@@ -784,45 +740,45 @@ static void SetPODConfiguration(XVprocss *pVprocss)
 *       pad memory is set. This allows to selectively start only those cores
 *       included in the processing chain
 ******************************************************************************/
-void XVprocss_Start(XVprocss *InstancePtr)
+void XVprocSs_Start(XVprocSs *InstancePtr)
 {
-  u8 *pStartCore;
+  u8 *StartCorePtr;
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
-  pStartCore = &InstancePtr->idata.startCore[0];
+  StartCorePtr = &InstancePtr->CtxtData.StartCore[0];
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Start Video Processing Subsystem.... \r\n");
 
-  if(pStartCore[XVPROCSS_RTR_CR_V_OUT])
-    XV_VCrsmplStart(InstancePtr->vcrsmplrOut);
+  if(StartCorePtr[XVPROCSS_RTR_CR_V_OUT])
+    XV_VCrsmplStart(InstancePtr->VcrsmplrOutPtr);
 
-  if(pStartCore[XVPROCSS_RTR_CR_H])
-    XV_HCrsmplStart(InstancePtr->hcrsmplr);
+  if(StartCorePtr[XVPROCSS_RTR_CR_H])
+    XV_HCrsmplStart(InstancePtr->HcrsmplrPtr);
 
-  if(pStartCore[XVPROCSS_RTR_CSC])
-    XV_CscStart(InstancePtr->csc);
+  if(StartCorePtr[XVPROCSS_RTR_CSC])
+    XV_CscStart(InstancePtr->CscPtr);
 
-  if(pStartCore[XVPROCSS_RTR_LBOX])
-    XV_LBoxStart(InstancePtr->lbox);
+  if(StartCorePtr[XVPROCSS_RTR_LBOX])
+    XV_LBoxStart(InstancePtr->LboxPtr);
 
-  if(pStartCore[XVPROCSS_RTR_SCALER_H])
-    XV_HScalerStart(InstancePtr->hscaler);
+  if(StartCorePtr[XVPROCSS_RTR_SCALER_H])
+    XV_HScalerStart(InstancePtr->HscalerPtr);
 
-  if(pStartCore[XVPROCSS_RTR_SCALER_V])
-    XV_VScalerStart(InstancePtr->vscaler);
+  if(StartCorePtr[XVPROCSS_RTR_SCALER_V])
+    XV_VScalerStart(InstancePtr->VscalerPtr);
 
-  if(pStartCore[XVPROCSS_RTR_VDMA])
-    XVprocss_VdmaStartTransfer(InstancePtr->vdma);
+  if(StartCorePtr[XVPROCSS_RTR_VDMA])
+    XVprocSs_VdmaStartTransfer(InstancePtr->VdmaPtr);
 
-  if(pStartCore[XVPROCSS_RTR_DEINT])
-    XV_DeintStart(InstancePtr->deint);
+  if(StartCorePtr[XVPROCSS_RTR_DEINT])
+    XV_DeintStart(InstancePtr->DeintPtr);
 
-  if(pStartCore[XVPROCSS_RTR_CR_V_IN])
-    XV_VCrsmplStart(InstancePtr->vcrsmplrIn);
+  if(StartCorePtr[XVPROCSS_RTR_CR_V_IN])
+    XV_VCrsmplStart(InstancePtr->VcrsmplrInPtr);
 
   /* Subsystem ready to accept axis - Enable Video Input */
-  XVprocss_EnableBlock(InstancePtr->rstAxis,  GPIO_CH_RESET_SEL, RESET_MASK_VIDEO_IN);
+  XVprocSs_EnableBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_VIDEO_IN);
 }
 
 /*****************************************************************************/
@@ -835,39 +791,39 @@ void XVprocss_Start(XVprocss *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_Stop(XVprocss *InstancePtr)
+void XVprocSs_Stop(XVprocSs *InstancePtr)
 {
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Stop Video Processing Subsystem.... \r\n");
 
-  if(InstancePtr->vcrsmplrIn)
-    XV_VCrsmplStop(InstancePtr->vcrsmplrIn);
+  if(InstancePtr->VcrsmplrInPtr)
+    XV_VCrsmplStop(InstancePtr->VcrsmplrInPtr);
 
-  if(InstancePtr->deint)
-    XV_DeintStop(InstancePtr->deint);
+  if(InstancePtr->DeintPtr)
+    XV_DeintStop(InstancePtr->DeintPtr);
 
-  if(InstancePtr->vdma)
-    XVprocss_VdmaStop(InstancePtr->vdma);
+  if(InstancePtr->VdmaPtr)
+    XVprocSs_VdmaStop(InstancePtr->VdmaPtr);
 
-  if(InstancePtr->vscaler)
-    XV_VScalerStop(InstancePtr->vscaler);
+  if(InstancePtr->VscalerPtr)
+    XV_VScalerStop(InstancePtr->VscalerPtr);
 
-  if(InstancePtr->hscaler)
-    XV_HScalerStop(InstancePtr->hscaler);
+  if(InstancePtr->HscalerPtr)
+    XV_HScalerStop(InstancePtr->HscalerPtr);
 
-  if(InstancePtr->lbox)
-    XV_LBoxStop(InstancePtr->lbox);
+  if(InstancePtr->LboxPtr)
+    XV_LBoxStop(InstancePtr->LboxPtr);
 
-  if(InstancePtr->csc)
-    XV_CscStop(InstancePtr->csc);
+  if(InstancePtr->CscPtr)
+    XV_CscStop(InstancePtr->CscPtr);
 
-  if(InstancePtr->hcrsmplr)
-    XV_HCrsmplStop(InstancePtr->hcrsmplr);
+  if(InstancePtr->HcrsmplrPtr)
+    XV_HCrsmplStop(InstancePtr->HcrsmplrPtr);
 
-  if(InstancePtr->vcrsmplrOut)
-    XV_VCrsmplStop(InstancePtr->vcrsmplrOut);
+  if(InstancePtr->VcrsmplrOutPtr)
+    XV_VCrsmplStop(InstancePtr->VcrsmplrOutPtr);
 }
 
 /*****************************************************************************/
@@ -882,7 +838,7 @@ void XVprocss_Stop(XVprocss *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_Reset(XVprocss *InstancePtr)
+void XVprocSs_Reset(XVprocSs *InstancePtr)
 {
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
@@ -890,16 +846,16 @@ void XVprocss_Reset(XVprocss *InstancePtr)
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Reset Video Processing Subsystem.... \r\n");
 
   /* Soft Reset */
-  XVprocss_VdmaReset(InstancePtr->vdma);
+  XVprocSs_VdmaReset(InstancePtr->VdmaPtr);
 
   /* Reset All IP Blocks on AXIS interface*/
-  XVprocss_ResetBlock(InstancePtr->rstAxis,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
+  XVprocSs_ResetBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
   /* Reset All IP Blocks on AXI-MM interface*/
-//  XVprocss_ResetBlock(InstancePtr->rstAximm, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
+//  XVprocSs_ResetBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
   /* If enabled, Stop AXI-MM traffic */
-   if((InstancePtr->deint) && (InstancePtr->idata.startCore[XVPROCSS_RTR_DEINT]))
+   if((InstancePtr->DeintPtr) && (InstancePtr->CtxtData.StartCore[XVPROCSS_RTR_DEINT]))
    {
-     XV_DeintStop(InstancePtr->deint);
+     XV_DeintStop(InstancePtr->DeintPtr);
    }
 
    WaitUs(InstancePtr, 100); /* hold reset line for 100us */
@@ -908,13 +864,13 @@ void XVprocss_Reset(XVprocss *InstancePtr)
    * in reset. Will cause Axi-Lite bus to lock.
    * Release IP reset - but hold vid_in in reset
    */
-//  XVprocss_EnableBlock(InstancePtr->rstAximm, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
+//  XVprocSs_EnableBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
 //  Waitms(InstancePtr, 10); /* wait for AXI-MM IP's to stabilize */
-  XVprocss_EnableBlock(InstancePtr->rstAxis,  GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIS);
+  XVprocSs_EnableBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIS);
   WaitUs(InstancePtr, 1000); /* wait 1ms for AXIS to stabilize */
 
   /* Reset start core flags */
-  memset(InstancePtr->idata.startCore, 0, sizeof(InstancePtr->idata.startCore));
+  memset(InstancePtr->CtxtData.StartCore, 0, sizeof(InstancePtr->CtxtData.StartCore));
 }
 
 /*****************************************************************************/
@@ -927,7 +883,7 @@ void XVprocss_Reset(XVprocss *InstancePtr)
 * @return XST_SUCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SetVidStreamIn(XVprocss *InstancePtr,
+int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
                             const XVidC_VideoStream *StrmIn)
 {
   int status;
@@ -937,7 +893,7 @@ int XVprocss_SetVidStreamIn(XVprocss *InstancePtr,
   Xil_AssertNonvoid(StrmIn != NULL);
 
   /* Set Timing information based on resolution ID */
-  status = XVprocss_SetStreamResolution(&InstancePtr->VidIn, StrmIn->VmId);
+  status = XVprocSs_SetStreamResolution(&InstancePtr->VidIn, StrmIn->VmId);
 
   if(!status)
   {
@@ -960,7 +916,7 @@ int XVprocss_SetVidStreamIn(XVprocss *InstancePtr,
 * @return XST_SUCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SetVidStreamOut(XVprocss *InstancePtr,
+int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
                              const XVidC_VideoStream *StrmOut)
 {
   int status;
@@ -970,7 +926,7 @@ int XVprocss_SetVidStreamOut(XVprocss *InstancePtr,
   Xil_AssertNonvoid(StrmOut != NULL);
 
   /* Set Timing information based on resolution ID */
-  status = XVprocss_SetStreamResolution(&InstancePtr->VidOut, StrmOut->VmId);
+  status = XVprocSs_SetStreamResolution(&InstancePtr->VidOut, StrmOut->VmId);
 
   if(!status)
   {
@@ -994,7 +950,7 @@ int XVprocss_SetVidStreamOut(XVprocss *InstancePtr,
 * @return XST_SUCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SetStreamResolution(XVidC_VideoStream *StreamPtr,
+int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
                                  const XVidC_VideoMode VmId)
 {
   int status;
@@ -1033,33 +989,33 @@ int XVprocss_SetStreamResolution(XVidC_VideoStream *StreamPtr,
 *       This function is not applicable in Subsystem Stream Mode Configuration
 *
 ******************************************************************************/
-void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr)
+void XVprocSs_UpdateZoomPipWindow(XVprocSs *InstancePtr)
 {
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
-  if(XVprocss_IsConfigModeMax(InstancePtr))
+  if(XVprocSs_IsConfigModeMax(InstancePtr))
   {
-    /* send vdma update window to IP */
-    if(XVprocss_IsPipModeOn(InstancePtr))
+    /* send Vdma update window to IP */
+    if(XVprocSs_IsPipModeOn(InstancePtr))
     {
-      XVprocss_VdmaSetWinToDnScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_WR_CH);
+      XVprocSs_VdmaSetWinToDnScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_WR_CH);
     }
     else
     {
-      XVprocss_VdmaSetWinToUpScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_RD_CH);
+      XVprocSs_VdmaSetWinToUpScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_RD_CH);
     }
 
-    XVprocss_VdmaStartTransfer(InstancePtr->vdma);
+    XVprocSs_VdmaStartTransfer(InstancePtr->VdmaPtr);
 
     /*
      * Final output of Video Processing subsystem goes via LBox IP
      * Program the output resolution window
      */
-    if(XVprocss_IsPipModeOn(InstancePtr))
+    if(XVprocSs_IsPipModeOn(InstancePtr))
     {
-      XV_LBoxSetActiveWin(InstancePtr->lbox,
-                          &InstancePtr->idata.wrWindow,
+      XV_LBoxSetActiveWin(InstancePtr->LboxPtr,
+                          &InstancePtr->CtxtData.WrWindow,
                           InstancePtr->VidOut.Timing.HActive,
                           InstancePtr->VidOut.Timing.VActive);
     }
@@ -1086,8 +1042,8 @@ void XVprocss_UpdateZoomPipWindow(XVprocss *InstancePtr)
 *       This function is not applicable in Subsystem Stream Mode Configuration
 *
 ******************************************************************************/
-void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
-                               XVprocss_Win   mode,
+void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
+                               XVprocSs_Win   mode,
                                XVidC_VideoWindow *win)
 {
   u16 wordlen;
@@ -1096,39 +1052,39 @@ void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(win != NULL);
 
-  if(XVprocss_IsConfigModeMax(InstancePtr))
+  if(XVprocSs_IsConfigModeMax(InstancePtr))
   {
     if(mode == XVPROCSS_ZOOM_WIN)
     {
      /* check if DMA includes DRE. If not then auto-align to selected bus width */
-     if(!InstancePtr->vdma->ReadChannel.HasDRE)
+     if(!InstancePtr->VdmaPtr->ReadChannel.HasDRE)
      {
-       wordlen = InstancePtr->idata.PixelHStepSize-1;
+       wordlen = InstancePtr->CtxtData.PixelHStepSize-1;
 
        win->StartX = ((win->StartX + wordlen) & ~(wordlen));
        win->Width  = ((win->Width  + wordlen) & ~(wordlen));
      }
      //VDMA RD Client
-     InstancePtr->idata.rdWindow.StartX = win->StartX;
-     InstancePtr->idata.rdWindow.StartY = win->StartY;
-     InstancePtr->idata.rdWindow.Width  = win->Width;
-     InstancePtr->idata.rdWindow.Height = win->Height;
+     InstancePtr->CtxtData.RdWindow.StartX = win->StartX;
+     InstancePtr->CtxtData.RdWindow.StartY = win->StartY;
+     InstancePtr->CtxtData.RdWindow.Width  = win->Width;
+     InstancePtr->CtxtData.RdWindow.Height = win->Height;
     }
     else //PIP
     {
      /* check if DMA does not have DRE then auto-align */
-     if(!InstancePtr->vdma->WriteChannel.HasDRE)
+     if(!InstancePtr->VdmaPtr->WriteChannel.HasDRE)
      {
-       wordlen = InstancePtr->idata.PixelHStepSize-1;
+       wordlen = InstancePtr->CtxtData.PixelHStepSize-1;
 
        win->StartX = ((win->StartX + wordlen) & ~(wordlen));
        win->Width  = ((win->Width  + wordlen) & ~(wordlen));
      }
      //VDMA WR Client
-     InstancePtr->idata.wrWindow.StartX = win->StartX;
-     InstancePtr->idata.wrWindow.StartY = win->StartY;
-     InstancePtr->idata.wrWindow.Width  = win->Width;
-     InstancePtr->idata.wrWindow.Height = win->Height;
+     InstancePtr->CtxtData.WrWindow.StartX = win->StartX;
+     InstancePtr->CtxtData.WrWindow.StartY = win->StartY;
+     InstancePtr->CtxtData.WrWindow.Width  = win->Width;
+     InstancePtr->CtxtData.WrWindow.Height = win->Height;
     }
   }
   else //Scaler Only Config
@@ -1151,29 +1107,29 @@ void XVprocss_SetZoomPipWindow(XVprocss *InstancePtr,
 *        This function is not applicable in Subsystem Stream Mode Configuration
 *
 ******************************************************************************/
-void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
-                               XVprocss_Win   mode,
+void XVprocSs_GetZoomPipWindow(XVprocSs *InstancePtr,
+                               XVprocSs_Win   mode,
                                XVidC_VideoWindow *win)
 {
   /* Verify arguments */
    Xil_AssertVoid(InstancePtr != NULL);
    Xil_AssertVoid(win != NULL);
 
-   if(XVprocss_IsConfigModeMax(InstancePtr))
+   if(XVprocSs_IsConfigModeMax(InstancePtr))
    {
      if(mode == XVPROCSS_ZOOM_WIN)
      {
-       win->StartX = InstancePtr->idata.rdWindow.StartX;
-       win->StartY = InstancePtr->idata.rdWindow.StartY;
-       win->Width  = InstancePtr->idata.rdWindow.Width;
-       win->Height = InstancePtr->idata.rdWindow.Height;
+       win->StartX = InstancePtr->CtxtData.RdWindow.StartX;
+       win->StartY = InstancePtr->CtxtData.RdWindow.StartY;
+       win->Width  = InstancePtr->CtxtData.RdWindow.Width;
+       win->Height = InstancePtr->CtxtData.RdWindow.Height;
      }
      else //PIP
      {
-       win->StartX = InstancePtr->idata.wrWindow.StartX;
-       win->StartY = InstancePtr->idata.wrWindow.StartY;
-       win->Width  = InstancePtr->idata.wrWindow.Width;
-       win->Height = InstancePtr->idata.wrWindow.Height;
+       win->StartX = InstancePtr->CtxtData.WrWindow.StartX;
+       win->StartY = InstancePtr->CtxtData.WrWindow.StartY;
+       win->Width  = InstancePtr->CtxtData.WrWindow.Width;
+       win->Height = InstancePtr->CtxtData.WrWindow.Height;
      }
    }
    else //Scaler Only Config
@@ -1194,7 +1150,7 @@ void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
 *
 * @return None
 *
-* @note User must call XVprocss_ConfigureSubsystem() for change to take effect
+* @note User must call XVprocSs_ConfigureSubsystem() for change to take effect
 *       This call has not been added here such that it provides an opportunity
 *       to make the change during vertical blanking at system level. This
 *       behavior will change once shadow register support is available in
@@ -1202,19 +1158,19 @@ void XVprocss_GetZoomPipWindow(XVprocss *InstancePtr,
 *       This function is not applicable in Subsystem Stream Mode Configuration
 *
 ******************************************************************************/
-void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff)
+void XVprocSs_SetZoomMode(XVprocSs *InstancePtr, u8 OnOff)
 {
   char *status[] = {"OFF","ON"};
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
-  if(XVprocss_IsConfigModeMax(InstancePtr))
+  if(XVprocSs_IsConfigModeMax(InstancePtr))
   {
-    InstancePtr->idata.ZoomEn = OnOff;
-    InstancePtr->idata.PipEn  = FALSE;
+    InstancePtr->CtxtData.ZoomEn = OnOff;
+    InstancePtr->CtxtData.PipEn  = FALSE;
 
-    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n  :ZOOM Mode %s \r\n", status[InstancePtr->idata.ZoomEn]);
+    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n  :ZOOM Mode %s \r\n", status[InstancePtr->CtxtData.ZoomEn]);
   }
   else //Scaler Only Config
   {
@@ -1234,7 +1190,7 @@ void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff)
 *
 * @return None
 *
-* @note User must call XVprocss_ConfigureSubsystem() for change to take effect
+* @note User must call XVprocSs_ConfigureSubsystem() for change to take effect
 *       This call has not been added here such that it provides an opportunity
 *       to make the change during vertical blanking at system level. This
 *       behavior will change once shadow register support is available in
@@ -1242,19 +1198,19 @@ void XVprocss_SetZoomMode(XVprocss *InstancePtr, u8 OnOff)
 *       This function is not applicable in Subsystem Stream Mode Configuration
 *
 ******************************************************************************/
-void XVprocss_SetPipMode(XVprocss *InstancePtr, u8 OnOff)
+void XVprocSs_SetPipMode(XVprocSs *InstancePtr, u8 OnOff)
 {
   char *status[] = {"OFF","ON"};
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
-  if(XVprocss_IsConfigModeMax(InstancePtr))
+  if(XVprocSs_IsConfigModeMax(InstancePtr))
   {
-    InstancePtr->idata.PipEn  = OnOff;
-    InstancePtr->idata.ZoomEn = FALSE;
+    InstancePtr->CtxtData.PipEn  = OnOff;
+    InstancePtr->CtxtData.ZoomEn = FALSE;
 
-    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n  :PIP Mode %s \r\n", status[InstancePtr->idata.PipEn]);
+    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n  :PIP Mode %s \r\n", status[InstancePtr->CtxtData.PipEn]);
   }
   else //Scaler Only Config
   {
@@ -1304,7 +1260,7 @@ static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
 * This function configures the video subsystem pipeline for ScalerOnly
 * topology of the subsystem
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
@@ -1312,7 +1268,7 @@ static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
 *       accordingly else will ignore the request
 *
 ******************************************************************************/
-static int SetupModeScalerOnly(XVprocss *pVprocss)
+static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
 {
   u32 vsc_WidthIn, vsc_HeightIn, vsc_HeightOut;
   u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
@@ -1321,36 +1277,36 @@ static int SetupModeScalerOnly(XVprocss *pVprocss)
   vsc_WidthIn = vsc_HeightIn = vsc_HeightOut = 0;
   hsc_HeightIn = hsc_WidthIn = hsc_WidthOut = 0;
 
-  if((!pVprocss->vscaler) || (!pVprocss->hscaler))
+  if((!XVprocSsPtr->VscalerPtr) || (!XVprocSsPtr->HscalerPtr))
   {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaler IP not found\r\n");
     return(XST_FAILURE);
   }
 
   /* check if input/output stream configuration is supported */
-  status = ValidateScalerOnlyConfig(&pVprocss->VidIn,
-                                    &pVprocss->VidOut);
+  status = ValidateScalerOnlyConfig(&XVprocSsPtr->VidIn,
+                                    &XVprocSsPtr->VidOut);
 
   if(status ==  XST_SUCCESS)
   {
     /* Reset All IP Blocks */
-    XVprocss_Reset(pVprocss);
+    XVprocSs_Reset(XVprocSsPtr);
 
     /* UpScale mode V Scaler is before H Scaler */
-    vsc_WidthIn   = pVprocss->VidIn.Timing.HActive;
-    vsc_HeightIn  = pVprocss->VidIn.Timing.VActive;
-    vsc_HeightOut = pVprocss->VidOut.Timing.VActive;
+    vsc_WidthIn   = XVprocSsPtr->VidIn.Timing.HActive;
+    vsc_HeightIn  = XVprocSsPtr->VidIn.Timing.VActive;
+    vsc_HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
 
     hsc_WidthIn  = vsc_WidthIn;
     hsc_HeightIn = vsc_HeightOut;
-    hsc_WidthOut = pVprocss->VidOut.Timing.HActive;
+    hsc_WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
 
     /* Configure scaler to scale input to output resolution */
     xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure VScaler for %dx%d to %dx%d\r\n", \
             (int)vsc_WidthIn, (int)vsc_HeightIn, (int)vsc_WidthIn, (int)vsc_HeightOut);
 
-    XV_VScalerSetup(pVprocss->vscaler,
-		        &pVprocss->vscL2Reg,
+    XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
+		            &XVprocSsPtr->VscL2Reg,
                     vsc_WidthIn,
                     vsc_HeightIn,
                     vsc_HeightOut);
@@ -1358,19 +1314,19 @@ static int SetupModeScalerOnly(XVprocss *pVprocss)
     xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure HScaler for %dx%d to %dx%d\r\n", \
                        (int)hsc_WidthIn, (int)hsc_HeightIn, (int)hsc_WidthOut, (int)hsc_HeightIn);
 
-    XV_HScalerSetup(pVprocss->hscaler,
-		        &pVprocss->hscL2Reg,
+    XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
+		            &XVprocSsPtr->HscL2Reg,
                     hsc_HeightIn,
                     hsc_WidthIn,
                     hsc_WidthOut,
-                    pVprocss->VidIn.ColorFormatId);
+                    XVprocSsPtr->VidIn.ColorFormatId);
 
     /* Start Scaler sub-cores */
-    XV_HScalerStart(pVprocss->hscaler);
-    XV_VScalerStart(pVprocss->vscaler);
+    XV_HScalerStart(XVprocSsPtr->HscalerPtr);
+    XV_VScalerStart(XVprocSsPtr->VscalerPtr);
 
     /* Subsystem Ready to accept input stream - Enable Video Input */
-    XVprocss_EnableBlock(pVprocss->rstAxis,  GPIO_CH_RESET_SEL, RESET_MASK_VIDEO_IN);
+    XVprocSs_EnableBlock(XVprocSsPtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_VIDEO_IN);
   }
   else
   {
@@ -1384,28 +1340,28 @@ static int SetupModeScalerOnly(XVprocss *pVprocss)
 * This function configures the video subsystem pipeline for Maximum
 * (Full_Fledged) topology
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-static int SetupModeMax(XVprocss *pVprocss)
+static int SetupModeMax(XVprocSs *XVprocSsPtr)
 {
   int status;
 
   /* Build Routing table */
-  status = XVprocss_BuildRoutingTable(pVprocss);
+  status = XVprocSs_BuildRoutingTable(XVprocSsPtr);
 
   if(status == XST_SUCCESS)
   {
     /* Reset All IP Blocks */
-    XVprocss_Reset(pVprocss);
+    XVprocSs_Reset(XVprocSsPtr);
 
     /* Set AXI Switch registers */
-    XVprocss_ProgRouterMux(pVprocss);
+    XVprocSs_ProgRouterMux(XVprocSsPtr);
 
     /* program use case */
-    XVprocss_SetupRouterDataFlow(pVprocss);
+    XVprocSs_SetupRouterDataFlow(XVprocSsPtr);
   }
   else
   {
@@ -1426,7 +1382,7 @@ static int SetupModeMax(XVprocss *pVprocss)
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-static int ValidateSubsystemConfig(XVprocss *InstancePtr)
+static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
 {
   XVidC_VideoStream *StrmIn  = &InstancePtr->VidIn;
   XVidC_VideoStream *StrmOut = &InstancePtr->VidOut;
@@ -1470,7 +1426,7 @@ static int ValidateSubsystemConfig(XVprocss *InstancePtr)
   /* Check for YUV420 In stream width and height is even */
   if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
   {
-	if(InstancePtr->vcrsmplrIn)
+	if(InstancePtr->VcrsmplrInPtr)
 	{
       if(((StrmIn->Timing.HActive % 2) != 0) && ((StrmIn->Timing.VActive % 2) != 0))
 	  {
@@ -1488,7 +1444,7 @@ static int ValidateSubsystemConfig(XVprocss *InstancePtr)
   /* Check for YUV420 out stream width and height is even */
   if(StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_420)
   {
-	if(InstancePtr->vcrsmplrOut)
+	if(InstancePtr->VcrsmplrOutPtr)
 	{
       if(((StrmOut->Timing.HActive % 2) != 0) && ((StrmOut->Timing.VActive % 2) != 0))
 	  {
@@ -1511,7 +1467,7 @@ static int ValidateSubsystemConfig(XVprocss *InstancePtr)
 	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced YUV420 stream not supported\r\n");
 	  return(XST_FAILURE);
 	}
-	if(!InstancePtr->deint)
+	if(!InstancePtr->DeintPtr)
 	{
 	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced input not supported\r\n");
 	  return(XST_FAILURE);
@@ -1534,7 +1490,7 @@ static int ValidateSubsystemConfig(XVprocss *InstancePtr)
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
-int XVprocss_SetSubsystemConfig(XVprocss *InstancePtr)
+int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr)
 {
   int status = XST_SUCCESS;
 
@@ -1584,7 +1540,7 @@ int XVprocss_SetSubsystemConfig(XVprocss *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr)
+void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
 {
   char *topology[2] = {"Scaler-Only", "Full-Fledged"};
   XVidC_VideoWindow win;
@@ -1597,7 +1553,7 @@ void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr)
   if(InstancePtr->Config.Topology <= XVPROCSS_TOPOLOGY_FULL_FLEDGED)
   {
     xil_printf("\r\nTopology: %s\r\n", topology[InstancePtr->Config.Topology]);
-    XVprocss_ReportCoreInfo(InstancePtr);
+    XVprocSs_ReportCoreInfo(InstancePtr);
   }
   else
   {
@@ -1616,12 +1572,12 @@ void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr)
   xil_printf("\r\n->OUTPUT\r\n");
   XVidC_ReportStreamInfo(&InstancePtr->VidOut);
 
-  if(XVprocss_IsConfigModeMax(InstancePtr))
+  if(XVprocSs_IsConfigModeMax(InstancePtr))
   {
-    if(XVprocss_IsZoomModeOn(InstancePtr))
+    if(XVprocSs_IsZoomModeOn(InstancePtr))
     {
 	  xil_printf("\r\nZoom Mode: ON\r\n");
-	  XVprocss_GetZoomPipWindow(InstancePtr, XVPROCSS_ZOOM_WIN, &win);
+	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_ZOOM_WIN, &win);
 	  xil_printf("   Start X    = %d\r\n", win.StartX);
 	  xil_printf("   Start Y    = %d\r\n", win.StartY);
 	  xil_printf("   Win Width  = %d\r\n", win.Width);
@@ -1632,10 +1588,10 @@ void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr)
       xil_printf("\r\nZoom Mode: OFF\r\n");
     }
 
-    if(XVprocss_IsPipModeOn(InstancePtr))
+    if(XVprocSs_IsPipModeOn(InstancePtr))
     {
 	  xil_printf("\r\nPip Mode: ON\r\n");
-	  XVprocss_GetZoomPipWindow(InstancePtr, XVPROCSS_PIP_WIN, &win);
+	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_PIP_WIN, &win);
 	  xil_printf("   Start X    = %d\r\n", win.StartX);
 	  xil_printf("   Start Y    = %d\r\n", win.StartY);
 	  xil_printf("   Win Width  = %d\r\n", win.Width);
@@ -1648,4 +1604,3 @@ void XVprocss_ReportSubsystemConfig(XVprocss *InstancePtr)
   }
   xil_printf("**************************************************\r\n\r\n");
 }
-/** @} */

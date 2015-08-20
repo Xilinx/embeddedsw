@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_coreinit.h
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 *
 * This header file contains the video processing engine sub-cores
 * initialization routines and helper functions.
@@ -60,18 +61,18 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-int XVprocss_SubcoreInitResetAxis(XVprocss *pVprocss);
-int XVprocss_SubcoreInitResetAximm(XVprocss *pVprocss);
-int XVprocss_SubcoreInitRouter(XVprocss *pVprocss);
-int XVprocss_SubcoreInitCsc(XVprocss *pVprocss);
-int XVprocss_SubcoreInitHScaler(XVprocss *pVprocss);
-int XVprocss_SubcoreInitVScaler(XVprocss *pVprocss);
-int XVprocss_SubcoreInitHCrsmplr(XVprocss *pVprocss);
-int XVprocss_SubcoreInitVCrsmpleIn(XVprocss *pVprocss);
-int XVprocss_SubcoreInitVCrsmpleOut(XVprocss *pVprocss);
-int XVprocss_SubcoreInitLetterbox(XVprocss *pVprocss);
-int XVprocss_SubcoreInitVdma(XVprocss *pVprocss);
-int XVprocss_SubcoreInitDeinterlacer(XVprocss *pVprocss);
+int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr);
+int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr);
 
 #ifdef __cplusplus
 }

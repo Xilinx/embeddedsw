@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_router.h
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 *
 * This header file contains the video processing engine data flow setup
 * routines and helper functions.
@@ -60,9 +61,9 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-int XVprocss_BuildRoutingTable(XVprocss *pVprocss);
-void XVprocss_ProgRouterMux(XVprocss *pVprocss);
-void XVprocss_SetupRouterDataFlow(XVprocss *pVprocss);
+int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr);
+void XVprocSs_ProgRouterMux(XVprocSs *XVprocSsPtr);
+void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr);
 
 #ifdef __cplusplus
 }

@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_sinit.c
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 *
 * This file contains the implementation of the Video Processing Subsystem
 * driver's static initialization functionality.
@@ -66,12 +67,12 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XVprocss_Config XVprocss_ConfigTable[];
+extern XVprocSs_Config XVprocSs_ConfigTable[];
 
 /*****************************************************************************/
 /**
 * This function looks for the device configuration based on the unique device
-* ID. The table XVprocss_ConfigTable[] contains the configuration information
+* ID. The table XVprocSs_ConfigTable[] contains the configuration information
 * for each instance of the device in the system.
 *
 * @param  DeviceId is the unique device ID of the device being looked up
@@ -80,16 +81,16 @@ extern XVprocss_Config XVprocss_ConfigTable[];
 *         given device ID, or NULL if no match is found
 *
 *******************************************************************************/
-XVprocss_Config* XVprocss_LookupConfig(u32 DeviceId)
+XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId)
 {
-  XVprocss_Config *CfgPtr = NULL;
+  XVprocSs_Config *CfgPtr = NULL;
   u32 index;
 
   for (index = 0U; index < (u32)XPAR_XVPROCSS_NUM_INSTANCES; index++)
   {
-    if (XVprocss_ConfigTable[index].DeviceId == DeviceId)
+    if (XVprocSs_ConfigTable[index].DeviceId == DeviceId)
     {
-      CfgPtr = &XVprocss_ConfigTable[index];
+      CfgPtr = &XVprocSs_ConfigTable[index];
       break;
     }
   }

@@ -35,6 +35,7 @@
 * @file xvprocss_vdma.h
 * @addtogroup vprocss_v1_0
 * @{
+* @details
 *
 * This header file contains the video processing engine DMA buffer management
 * routines and helper functions. AXI-VDMA core is used to provide DMA
@@ -97,25 +98,25 @@ typedef enum
 
 
 /************************** Function Prototypes ******************************/
-void XVprocss_VdmaStart(XAxiVdma *pVdma);
-void XVprocss_VdmaStop(XAxiVdma *pVdma);
-void XVprocss_VdmaReset(XAxiVdma *pVdma);
-int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
+void XVprocSs_VdmaStart(XAxiVdma *XVdmaPtr);
+void XVprocSs_VdmaStop(XAxiVdma *XVdmaPtr);
+void XVprocSs_VdmaReset(XAxiVdma *XVdmaPtr);
+int XVprocSs_VdmaWriteSetup(XAxiVdma *XVdmaPtr,
                             u32 WrBaseAddress,
                             XVidC_VideoWindow *window,
                             u32 FrameWidth,
                             u32 FrameHeight,
                             u32 PixelWidthInBits);
-int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
+int XVprocSs_VdmaReadSetup(XAxiVdma *XVdmaPtr,
                            u32 RdBaseAddress,
                            XVidC_VideoWindow *window,
                            u32 FrameWidth,
                            u32 FrameHeight,
                            u32 PixelWidthInBits);
-int XVprocss_VdmaStartTransfer(XAxiVdma *pVdma);
-void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 PixelWidthInBits);
-void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh);
-void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh);
+int XVprocSs_VdmaStartTransfer(XAxiVdma *XVdmaPtr);
+void XVprocSs_VdmaDbgReportStatus(XAxiVdma *XVdmaPtr, u32 PixelWidthInBits);
+void XVprocSs_VdmaSetWinToUpScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh);
+void XVprocSs_VdmaSetWinToDnScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh);
 
 #ifdef __cplusplus
 }

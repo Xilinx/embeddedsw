@@ -36,11 +36,11 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XVprocss" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID"   "C_SCALER_ALGORITHM" "C_TOPOLOGY" "C_SAMPLES_PER_CLK" "C_MAX_DATA_WIDTH" "C_NUM_VIDEO_COMPONENTS" "C_MAX_COLS" "C_MAX_ROWS" "C_H_SCALER_TAPS" "C_V_SCALER_TAPS" "C_H_SCALER_PHASES" "C_V_SCALER_PHASES" "C_CHROMA_ALGORITHM" "C_H_CHROMA_TAPS" "C_V_CHROMA_TAPS"
+  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XVprocSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID"   "C_SCALER_ALGORITHM" "C_TOPOLOGY" "C_SAMPLES_PER_CLK" "C_MAX_DATA_WIDTH" "C_NUM_VIDEO_COMPONENTS" "C_MAX_COLS" "C_MAX_ROWS" "C_H_SCALER_TAPS" "C_V_SCALER_TAPS" "C_H_SCALER_PHASES" "C_V_SCALER_PHASES" "C_CHROMA_ALGORITHM" "C_H_CHROMA_TAPS" "C_V_CHROMA_TAPS"
 
-  hier_ip_define_config_file $drv_handle "xvprocss_g.c" "XVprocss" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TOPOLOGY" "C_SAMPLES_PER_CLK" "C_MAX_DATA_WIDTH" "C_NUM_VIDEO_COMPONENTS" "C_MAX_COLS" "C_MAX_ROWS"
+  hier_ip_define_config_file $drv_handle "xvprocss_g.c" "XVprocSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_TOPOLOGY" "C_SAMPLES_PER_CLK" "C_MAX_DATA_WIDTH" "C_NUM_VIDEO_COMPONENTS" "C_MAX_COLS" "C_MAX_ROWS"
 
-  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Vprocss" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID"  "C_SCALER_ALGORITHM" "C_TOPOLOGY" "C_SAMPLES_PER_CLK" "C_MAX_DATA_WIDTH" "C_NUM_VIDEO_COMPONENTS" "C_MAX_COLS" "C_MAX_ROWS" "C_H_SCALER_TAPS" "C_V_SCALER_TAPS" "C_H_SCALER_PHASES" "C_V_SCALER_PHASES" "C_CHROMA_ALGORITHM" "C_H_CHROMA_TAPS" "C_V_CHROMA_TAPS"
+  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "XVprocSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID"  "C_SCALER_ALGORITHM" "C_TOPOLOGY" "C_SAMPLES_PER_CLK" "C_MAX_DATA_WIDTH" "C_NUM_VIDEO_COMPONENTS" "C_MAX_COLS" "C_MAX_ROWS" "C_H_SCALER_TAPS" "C_V_SCALER_TAPS" "C_H_SCALER_PHASES" "C_V_SCALER_PHASES" "C_CHROMA_ALGORITHM" "C_H_CHROMA_TAPS" "C_V_CHROMA_TAPS"
 }
 
 
@@ -227,9 +227,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
 			if {[dict exists $ss_ip_list $sub_core]} {
 				#puts "****Sub-core found in dictionary****"
-				if {[string compare -nocase "V_DEINTERLACER" $sub_core] == 0} {
-						set base_addr_name "S_AXI_AXILITES_BASEADDR"
-					} elseif {[string match -nocase v_* $sub_core]} {
+				if {[string match -nocase v_* $sub_core]} {
 						set base_addr_name "S_AXI_CTRL_BASEADDR"
 					} else {
 						set base_addr_name "BASEADDR"

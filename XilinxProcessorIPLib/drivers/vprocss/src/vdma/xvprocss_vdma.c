@@ -33,8 +33,9 @@
 /**
 *
 * @file xvprocss_vdma.c
-* @addtogroup vprocss_v1_0
+* @addtogroup vprocss
 * @{
+* @details
 
 * Video buffer management routine.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -63,17 +64,17 @@
 /**
 * This function starts Read and Write channels
 *
-* @param  pVdma is the pointer to core instance to be worked on
+* @param  XVdmaPtr is the pointer to core instance to be worked on
 *
 * @return None
 *
 *******************************************************************************/
-void XVprocss_VdmaStart(XAxiVdma *pVdma)
+void XVprocSs_VdmaStart(XAxiVdma *XVdmaPtr)
 {
-  if(pVdma)
+  if(XVdmaPtr)
   {
-    XAxiVdma_DmaStart(pVdma, XAXIVDMA_WRITE);
-    XAxiVdma_DmaStart(pVdma, XAXIVDMA_READ);
+    XAxiVdma_DmaStart(XVdmaPtr, XAXIVDMA_WRITE);
+    XAxiVdma_DmaStart(XVdmaPtr, XAXIVDMA_READ);
   }
 }
 
@@ -81,17 +82,17 @@ void XVprocss_VdmaStart(XAxiVdma *pVdma)
 /**
 * This function stops Read and Write channels
 *
-* @param  pVdma is the pointer to core instance to be worked on
+* @param  XVdmaPtr is the pointer to core instance to be worked on
 *
 * @return None
 *
 *******************************************************************************/
-void XVprocss_VdmaStop(XAxiVdma *pVdma)
+void XVprocSs_VdmaStop(XAxiVdma *XVdmaPtr)
 {
-  if(pVdma)
+  if(XVdmaPtr)
   {
-    XAxiVdma_DmaStop(pVdma, XAXIVDMA_WRITE);
-    XAxiVdma_DmaStop(pVdma, XAXIVDMA_READ);
+    XAxiVdma_DmaStop(XVdmaPtr, XAXIVDMA_WRITE);
+    XAxiVdma_DmaStop(XVdmaPtr, XAXIVDMA_READ);
   }
 }
 
@@ -99,20 +100,20 @@ void XVprocss_VdmaStop(XAxiVdma *pVdma)
 /**
 * This function resets Read and Write channels.
 *
-* @param  pVdma is the pointer to core instance to be worked on
+* @param  XVdmaPtr is the pointer to core instance to be worked on
 *
 * @return None
 *
 *******************************************************************************/
-void XVprocss_VdmaReset(XAxiVdma *pVdma)
+void XVprocSs_VdmaReset(XAxiVdma *XVdmaPtr)
 {
   u32 timeout;
 
-  if(pVdma)
+  if(XVdmaPtr)
   {
-    XAxiVdma_Reset(pVdma, XAXIVDMA_WRITE);
+    XAxiVdma_Reset(XVdmaPtr, XAXIVDMA_WRITE);
     timeout = XVDMA_RESET_TIMEOUT;
-    while(timeout && XAxiVdma_ResetNotDone(pVdma, XAXIVDMA_WRITE))
+    while(timeout && XAxiVdma_ResetNotDone(XVdmaPtr, XAXIVDMA_WRITE))
     {
       timeout -= 1;
     }
@@ -122,8 +123,8 @@ void XVprocss_VdmaReset(XAxiVdma *pVdma)
     }
 
     timeout = XVDMA_RESET_TIMEOUT;
-    XAxiVdma_Reset(pVdma, XAXIVDMA_READ);
-    while(timeout && XAxiVdma_ResetNotDone(pVdma, XAXIVDMA_READ))
+    XAxiVdma_Reset(XVdmaPtr, XAXIVDMA_READ);
+    while(timeout && XAxiVdma_ResetNotDone(XVdmaPtr, XAXIVDMA_READ))
     {
       timeout -= 1;
     }
@@ -140,17 +141,17 @@ void XVprocss_VdmaReset(XAxiVdma *pVdma)
 *
 * This function sets up the write channel
 *
-* @param	pVdma is the instance pointer to the DMA engine.
+* @param	XVdmaPtr is the instance pointer to the DMA engine.
 * @param    WrBaseAddress is the address in DDR where frame buffers are located
 * @param	window  is pointer to sub-frame window
 * @param	FrameWidth is the active width of the stream to be written
 * @param	FrameHeight is the active height of the stream to be written
-* @param	Bpp is Bytes Per Pixel required for the stream to be written
+* @param	PixelWidthInBits is Bits Per Pixel required for the stream
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
 ******************************************************************************/
-int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
+int XVprocSs_VdmaWriteSetup(XAxiVdma *XVdmaPtr,
                             u32 WrBaseAddress,
                             XVidC_VideoWindow *window,
                             u32 FrameWidth,
@@ -166,7 +167,7 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
   u32 BlockOffset;
   u32 alignBytes = 0;
 
-  if(pVdma)
+  if(XVdmaPtr)
   {
     HSizeInBytes  = (window->Width*PixelWidthInBits)/8;
     StrideInBytes = (FrameWidth*PixelWidthInBits)/8;
@@ -177,9 +178,9 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
     /* If DMA engine does not support unaligned transfers then align block
      * offset, hsize and stride to next data width boundary
      */
-    if(!pVdma->WriteChannel.HasDRE)
+    if(!XVdmaPtr->WriteChannel.HasDRE)
     {
-      alignBytes = pVdma->WriteChannel.WordLength-1;
+      alignBytes = XVdmaPtr->WriteChannel.WordLength-1;
       BlockOffset   = (BlockOffset   + alignBytes) & ~(alignBytes);
       HSizeInBytes  = (HSizeInBytes  + alignBytes) & ~(alignBytes);
       StrideInBytes = (StrideInBytes + alignBytes) & ~(alignBytes);
@@ -200,7 +201,7 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
     WriteCfg.FixedFrameStoreAddr = 0; /* We are not doing parking */
 
     WriteCfg.GenLockRepeat = 1; /* Repeat previous frame on frame errors */
-    Status = XAxiVdma_DmaConfig(pVdma, XAXIVDMA_WRITE, &WriteCfg);
+    Status = XAxiVdma_DmaConfig(XVdmaPtr, XAXIVDMA_WRITE, &WriteCfg);
     if (Status != XST_SUCCESS)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"Write channel config failed %d\r\n", Status);
@@ -212,14 +213,14 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
      * Use physical addresses
      */
     Addr = WrBaseAddress + BlockOffset;
-    for(Index = 0; Index < pVdma->MaxNumFrames; Index++)
+    for(Index = 0; Index < XVdmaPtr->MaxNumFrames; Index++)
     {
         WriteCfg.FrameStoreStartAddr[Index] = Addr;
         Addr += StrideInBytes * FrameHeight;
     }
 
     /* Set the buffer addresses for transfer in the DMA engine */
-    Status = XAxiVdma_DmaSetBufferAddr(pVdma, XAXIVDMA_WRITE,
+    Status = XAxiVdma_DmaSetBufferAddr(XVdmaPtr, XAXIVDMA_WRITE,
                                        WriteCfg.FrameStoreStartAddr);
     if (Status != XST_SUCCESS)
     {
@@ -235,19 +236,19 @@ int XVprocss_VdmaWriteSetup(XAxiVdma *pVdma,
 *
 * This function sets up the read channel
 *
-* @param	pVdma is the instance pointer to the DMA engine.
+* @param	XVdmaPtr is the instance pointer to the DMA engine.
 * @param    RdBaseAddress is the address in DDR where frame buffers are located
 * @param	window  is pointer to sub-frame window
 * @param	FrameWidth is the active width of the stream to be read
 * @param	FrameHeight is the active height of the stream to be read
-* @param	Bpp is Bytes Per Pixel required for the stream to be read
+* @param	PixelWidthInBits is Bits Per Pixel required for the stream
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
 * @note		None.
 *
 ******************************************************************************/
-int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
+int XVprocSs_VdmaReadSetup(XAxiVdma *XVdmaPtr,
                            u32 RdBaseAddress,
                            XVidC_VideoWindow *window,
                            u32 FrameWidth,
@@ -263,7 +264,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
   u32 BlockOffset;
   u32 alignBytes = 0;
 
-  if(pVdma)
+  if(XVdmaPtr)
   {
     HSizeInBytes  = (window->Width*PixelWidthInBits)/8;
     StrideInBytes = (FrameWidth*PixelWidthInBits)/8;
@@ -274,9 +275,9 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
     /* If DMA engine does not support unaligned transfers then align block
      * offset, hsize and stride to next data width boundary
      */
-    if(!pVdma->ReadChannel.HasDRE)
+    if(!XVdmaPtr->ReadChannel.HasDRE)
     {
-      alignBytes = pVdma->ReadChannel.WordLength-1;
+      alignBytes = XVdmaPtr->ReadChannel.WordLength-1;
       BlockOffset   = (BlockOffset   + alignBytes) & ~(alignBytes);
       HSizeInBytes  = (HSizeInBytes  + alignBytes) & ~(alignBytes);
       StrideInBytes = (StrideInBytes + alignBytes) & ~(alignBytes);
@@ -296,7 +297,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
 
     ReadCfg.FixedFrameStoreAddr = 0; /* We are not doing parking */
 
-    Status = XAxiVdma_DmaConfig(pVdma, XAXIVDMA_READ, &ReadCfg);
+    Status = XAxiVdma_DmaConfig(XVdmaPtr, XAXIVDMA_READ, &ReadCfg);
     if (Status != XST_SUCCESS)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"Read channel config failed %d\r\n", Status);
@@ -308,7 +309,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
      * These addresses are physical addresses
      */
     Addr = RdBaseAddress + BlockOffset;
-    for(Index = 0; Index < pVdma->MaxNumFrames; Index++)
+    for(Index = 0; Index < XVdmaPtr->MaxNumFrames; Index++)
     {
       ReadCfg.FrameStoreStartAddr[Index] = Addr;
       Addr += StrideInBytes * FrameHeight;
@@ -317,7 +318,7 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
     /* Set the buffer addresses for transfer in the DMA engine
      * The buffer addresses are physical addresses
      */
-    Status = XAxiVdma_DmaSetBufferAddr(pVdma, XAXIVDMA_READ,
+    Status = XAxiVdma_DmaSetBufferAddr(XVdmaPtr, XAXIVDMA_READ,
                                        ReadCfg.FrameStoreStartAddr);
     if (Status != XST_SUCCESS)
     {
@@ -334,27 +335,27 @@ int XVprocss_VdmaReadSetup(XAxiVdma *pVdma,
 * This function starts the transfer on Read/Write channels. Both channels must
 * have been configured before this call is made
 *
-* @param	pVdma is the instance pointer to the DMA engine.
+* @param	XVdmaPtr is the instance pointer to the DMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
 * @note		Currently the return value is ignored at subsystem level.
 *
 ******************************************************************************/
-int XVprocss_VdmaStartTransfer(XAxiVdma *pVdma)
+int XVprocSs_VdmaStartTransfer(XAxiVdma *XVdmaPtr)
 {
   int Status;
 
-  if(pVdma)
+  if(XVdmaPtr)
   {
-    Status = XAxiVdma_DmaStart(pVdma, XAXIVDMA_WRITE);
+    Status = XAxiVdma_DmaStart(XVdmaPtr, XAXIVDMA_WRITE);
     if (Status != XST_SUCCESS)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"VDMA ERR:: Start Write transfer failed %d\r\n", Status);
       return XST_FAILURE;
     }
 
-    Status = XAxiVdma_DmaStart(pVdma, XAXIVDMA_READ);
+    Status = XAxiVdma_DmaStart(XVdmaPtr, XAXIVDMA_READ);
     if (Status != XST_SUCCESS)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"VDMA ERR:: Start read transfer failed %d\r\n", Status);
@@ -368,20 +369,20 @@ int XVprocss_VdmaStartTransfer(XAxiVdma *pVdma)
 /**
 * This function configures the VDMA RD/WR channel for down scale mode
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 * @param  updateCh defines VDMA channel (RD/WR or RD+WR) to update
 *
 * @return None
 *
 ******************************************************************************/
-void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
+void XVprocSs_VdmaSetWinToDnScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh)
 {
   XVidC_VideoWindow wrWin, rdWin;
   u32 OutputWidth, OutputHeight;
   int status;
 
-  OutputWidth  = pVprocss->VidOut.Timing.HActive;
-  OutputHeight = pVprocss->VidOut.Timing.VActive;
+  OutputWidth  = XVprocSsPtr->VidOut.Timing.HActive;
+  OutputHeight = XVprocSsPtr->VidOut.Timing.VActive;
 
   /*VDMA is After Scaler
     WR client will receive PIP (or down scaled) stream from Scaler
@@ -393,10 +394,10 @@ void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
     )
   {
     /* Setup WR CLIENT window size */
-    if(XVprocss_IsPipModeOn(pVprocss))
+    if(XVprocSs_IsPipModeOn(XVprocSsPtr))
     {
       /* Read PIP window setting - set elsewhere */
-      XVprocss_GetZoomPipWindow(pVprocss, XVPROCSS_PIP_WIN, &wrWin);
+      XVprocSs_GetZoomPipWindow(XVprocSsPtr, XVPROCSS_PIP_WIN, &wrWin);
     }
     else //Normal Downscale mode
     {
@@ -408,12 +409,12 @@ void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
     }
 
     /* write PIP window stream to DDR */
-    status = XVprocss_VdmaWriteSetup(pVprocss->vdma,
-                                     pVprocss->FrameBufBaseaddr,
+    status = XVprocSs_VdmaWriteSetup(XVprocSsPtr->VdmaPtr,
+                                     XVprocSsPtr->FrameBufBaseaddr,
                                      &wrWin,
                                      OutputWidth,
                                      OutputHeight,
-                                     pVprocss->idata.PixelWidthInBits);
+                                     XVprocSsPtr->CtxtData.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("VPROCSS ERR:: Unable to configure VDMA Write Channel \r\n");
@@ -430,12 +431,12 @@ void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
     rdWin.Width  = OutputWidth;
     rdWin.Height = OutputHeight;
 
-    status = XVprocss_VdmaReadSetup(pVprocss->vdma,
-                                    pVprocss->FrameBufBaseaddr,
+    status = XVprocSs_VdmaReadSetup(XVprocSsPtr->VdmaPtr,
+                                    XVprocSsPtr->FrameBufBaseaddr,
                                     &rdWin,
                                     OutputWidth,
                                     OutputHeight,
-                                    pVprocss->idata.PixelWidthInBits);
+                                    XVprocSsPtr->CtxtData.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("VPROCSS ERR:: Unable to configure VDMA Read Channel \r\n");
@@ -448,20 +449,20 @@ void XVprocss_VdmaSetWinToDnScaleMode(XVprocss *pVprocss, u32 updateCh)
 /**
 * This function configures the VDMA RD/WR channel for UP scale (or 1:1) mode
 *
-* @param  pVprocss is a pointer to the Subsystem instance to be worked on.
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 * @param  updateCh defines VDMA channel (RD/WR or RD+WR) to update
 *
 * @return None
 *
 ******************************************************************************/
-void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
+void XVprocSs_VdmaSetWinToUpScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh)
 {
   XVidC_VideoWindow wrWin, rdWin;
   u32 InputWidth, InputHeight;
   int status;
 
-  InputWidth  = pVprocss->idata.vidInWidth;
-  InputHeight = pVprocss->idata.vidInHeight;
+  InputWidth  = XVprocSsPtr->CtxtData.VidInWidth;
+  InputHeight = XVprocSsPtr->CtxtData.VidInHeight;
 
   /*VDMA is before Scaler
     WR client will receive streaming input
@@ -477,12 +478,12 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
     wrWin.Height = InputHeight;
 
     /* write input stream to DDR */
-    status = XVprocss_VdmaWriteSetup(pVprocss->vdma,
-                                     pVprocss->FrameBufBaseaddr,
+    status = XVprocSs_VdmaWriteSetup(XVprocSsPtr->VdmaPtr,
+                                     XVprocSsPtr->FrameBufBaseaddr,
                                      &wrWin,
                                      InputWidth,
                                      InputHeight,
-                                     pVprocss->idata.PixelWidthInBits);
+                                     XVprocSsPtr->CtxtData.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("VPROCSS ERR:: Unable to configure VDMA Write Channel \r\n");
@@ -494,10 +495,10 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
      )
   {
     /* Setup RD CLIENT window size to either crop window or input resolution */
-    if(XVprocss_IsZoomModeOn(pVprocss))
+    if(XVprocSs_IsZoomModeOn(XVprocSsPtr))
     {
       /* Read user defined ZOOM window */
-      XVprocss_GetZoomPipWindow(pVprocss, XVPROCSS_ZOOM_WIN, &rdWin);
+      XVprocSs_GetZoomPipWindow(XVprocSsPtr, XVPROCSS_ZOOM_WIN, &rdWin);
     }
     else //set RD window to input resolution
     {
@@ -507,12 +508,12 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
       rdWin.Height = InputHeight;
     }
 
-    status = XVprocss_VdmaReadSetup(pVprocss->vdma,
-                                    pVprocss->FrameBufBaseaddr,
+    status = XVprocSs_VdmaReadSetup(XVprocSsPtr->VdmaPtr,
+                                    XVprocSsPtr->FrameBufBaseaddr,
                                     &rdWin,
                                     InputWidth,
                                     InputHeight,
-                                    pVprocss->idata.PixelWidthInBits);
+                                    XVprocSsPtr->CtxtData.PixelWidthInBits);
     if(status != XST_SUCCESS)
     {
       xil_printf("VPROCSS ERR:: Unable to configure VDMA Read Channel \r\n");
@@ -525,32 +526,32 @@ void XVprocss_VdmaSetWinToUpScaleMode(XVprocss *pVprocss, u32 updateCh)
 *
 * This function prints VDMA status on the console
 *
-* @param  pVdma is the instance pointer to the DMA engine.
+* @param  XVdmaPtr is the instance pointer to the DMA engine.
 * @param  Bpp is Bytes per pixel to be used for data transfer
 *
 * @return	None
 *
 ******************************************************************************/
-void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 PixelWidthInBits)
+void XVprocSs_VdmaDbgReportStatus(XAxiVdma *XVdmaPtr, u32 PixelWidthInBits)
 {
   u32 height,width,stride;
   u32 regOffset;
 
-  if(pVdma)
+  if(XVdmaPtr)
   {
     xil_printf("\r\n\r\n----->VDMA IP STATUS<----\r\n");
     xil_printf("INFO: VDMA Rd/Wr Client Width/Stride defined in Bytes Per Pixel\r\n");
     xil_printf("Bytes Per Pixel = %d\r\n\r\n", PixelWidthInBits/8);
     xil_printf("Read Channel Setting \r\n" );
     //clear status register before reading
-    XAxiVdma_ClearDmaChannelErrors(pVdma, XAXIVDMA_READ, 0xFFFFFFFF);
+    XAxiVdma_ClearDmaChannelErrors(XVdmaPtr, XAXIVDMA_READ, 0xFFFFFFFF);
 
     //Read Registers
-    XAxiVdma_DmaRegisterDump(pVdma, XAXIVDMA_READ);
+    XAxiVdma_DmaRegisterDump(XVdmaPtr, XAXIVDMA_READ);
     regOffset = XAXIVDMA_MM2S_ADDR_OFFSET;
-    height =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+0);
-    width  =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+4);
-    stride =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+8);
+    height =  XAxiVdma_ReadReg(XVdmaPtr->BaseAddr, regOffset+0);
+    width  =  XAxiVdma_ReadReg(XVdmaPtr->BaseAddr, regOffset+4);
+    stride =  XAxiVdma_ReadReg(XVdmaPtr->BaseAddr, regOffset+8);
     stride &= XAXIVDMA_STRIDE_MASK;
 
     xil_printf("Height: %d \r\n", height);
@@ -559,14 +560,14 @@ void XVprocss_VdmaDbgReportStatus(XAxiVdma *pVdma, u32 PixelWidthInBits)
 
     xil_printf("\r\nWrite Channel Setting \r\n" );
     //clear status register before reading
-    XAxiVdma_ClearDmaChannelErrors(pVdma, XAXIVDMA_WRITE, 0xFFFFFFFF);
+    XAxiVdma_ClearDmaChannelErrors(XVdmaPtr, XAXIVDMA_WRITE, 0xFFFFFFFF);
 
     //Read Registers
-    XAxiVdma_DmaRegisterDump(pVdma, XAXIVDMA_WRITE);
+    XAxiVdma_DmaRegisterDump(XVdmaPtr, XAXIVDMA_WRITE);
     regOffset = XAXIVDMA_S2MM_ADDR_OFFSET;
-    height =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+0);
-    width  =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+4);
-    stride =  XAxiVdma_ReadReg(pVdma->BaseAddr, regOffset+8);
+    height =  XAxiVdma_ReadReg(XVdmaPtr->BaseAddr, regOffset+0);
+    width  =  XAxiVdma_ReadReg(XVdmaPtr->BaseAddr, regOffset+4);
+    stride =  XAxiVdma_ReadReg(XVdmaPtr->BaseAddr, regOffset+8);
     stride &= XAXIVDMA_STRIDE_MASK;
 
     xil_printf("Height: %d \r\n", height);
