@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2015-08-19
+	* Fix bsp compilation errors when elite is configured
+	  with interrupts though a concat IP (CR#875527)
 2015-08-18
 	* Error out for A53 32 bit compiler
 2015-08-10

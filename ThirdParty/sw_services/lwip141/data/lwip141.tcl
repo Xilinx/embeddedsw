@@ -849,18 +849,15 @@ proc update_emaclite_topology {emac processor topologyvar} {
 
 	# find intc to which the interrupt line is connected
 	set emac_intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] IP2INTC_Irpt]
-	set mhs_handle [hsi::get_cells -hier $emac]
-	set intr_ports [::hsm::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] IP2INTC_Irpt]]
-
-	if { [llength $intr_ports] != 1 } {
-		set emac_name [common::get_property NAME $emac]
-		error "ERROR: emaclite ($emac_name) interrupt port connected to more than one IP.\
-			lwIP requires that the interrupt line be connected only to the interrupt controller"
-			"" "mdt_error"
-	}
-
-	set intr_port [lindex $intr_ports 0]
-	set intc_handle [hsi::get_cells -of_objects $intr_port]
+	set intc_handle [::hsi::utils::get_connected_intr_cntrl $emac $emac_intr_port]
+        if { $intc_handle == "" } {
+               set topology(intc_baseaddr) "0x0"
+	       set topology(emac_intr_id) "0x0"
+               set topology(scugic_baseaddr) "0x0"
+               set topology(scugic_emac_intr) "0x0"
+               puts "Info: Target Periph Interrupt is not connected to interrupt controller"
+               return
+        }
 
 	# can we address this intc from the processor?
 	set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
