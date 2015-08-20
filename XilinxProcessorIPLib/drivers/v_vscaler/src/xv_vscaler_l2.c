@@ -349,6 +349,7 @@ void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr)
   u32 widthin, heightin, heightout, linerate;
   u32 baseAddr, taps, phases;
   int val,i,j;
+  const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
 
   /*
    * Assert validates the input arguments
@@ -375,18 +376,25 @@ void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr)
   xil_printf("IsReady: %d\r\n", ready);
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
-  xil_printf("Scaler Type:     %d\r\n",pVsc->Config.ScalerType);
+  if(pVsc->Config.ScalerType <= XV_VSCALER_POLYPHASE)
+  {
+    xil_printf("Scaler Type:     %s\r\n",ScalerTypeStr[pVsc->Config.ScalerType]);
+  }
+  else
+  {
+    xil_printf("Scaler Type:     Unknown\r\n");
+  }
   xil_printf("Input Width:     %d\r\n",widthin);
   xil_printf("Input Height:    %d\r\n",heightin);
   xil_printf("Output Height:   %d\r\n",heightout);
   xil_printf("Line Rate:       %d\r\n",linerate);
   xil_printf("Num Phases:      %d\r\n",phases);
-  xil_printf("Num Taps:        %d\r\n",taps*2);
 
   if(pVsc->Config.ScalerType == XV_VSCALER_POLYPHASE)
   {
     short lsb, msb;
 
+    xil_printf("Num Taps:        %d\r\n",taps*2);
     xil_printf("\r\nCoefficients:");
 
     baseAddr = XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(pVsc);
