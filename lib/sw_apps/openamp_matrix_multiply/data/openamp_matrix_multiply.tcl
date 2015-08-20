@@ -46,7 +46,7 @@ proc check_standalone_os {} {
     }
     set os [lindex $oslist 0];
 
-    if {{ $os != "standalone" } || { $os != "freertos821_xilinx" }} {
+    if { ( $os != "standalone" ) && ( $os != "freertos821_xilinx" ) } {
         error "This application is supported only on the Standalone Board Support Package and freertos821.";
     }
 }
