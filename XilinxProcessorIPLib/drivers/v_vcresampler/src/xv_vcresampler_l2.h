@@ -137,6 +137,16 @@ extern "C" {
    XV_VCRSMPLR_NUM_CONVERSIONS
  }XV_VCRESAMPLER_CONVERSION;
 
+ /** This typedef enumerates the resampling algorithm
+  *
+  */
+ typedef enum
+ {
+   XV_VCRSMPLR_TYPE_NEAREST_NEIGHBOR = 0,
+   XV_VCRSMPLR_TYPE_FIXED_COEFFICIENT,
+   XV_VCRSMPLR_TYPE_FIR
+ }XV_VCRESAMPLER_TYPE;
+
  /**
   * V Chroma Resampler Layer 2 data. The user is required to allocate a
   * variable of this type for every V chroma resampler device in the system.

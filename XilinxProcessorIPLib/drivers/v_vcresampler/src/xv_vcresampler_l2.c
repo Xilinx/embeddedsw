@@ -213,7 +213,7 @@ void XV_VCrsmplrLoadUsrCoeff(XV_vcresampler *InstancePtr,
     {
       for (tap = 0; tap < num_taps; ++tap)
       {
-	index = (conversion*XV_VCRSMPLR_MAX_PHASES*num_taps) + (phase*num_taps) + tap;
+	    index = (conversion*XV_VCRSMPLR_MAX_PHASES*num_taps) + (phase*num_taps) + tap;
         pVcrsmplL2Data->coeff[conversion][phase][tap+offset] = Coeff[index];
       }
     }
@@ -292,19 +292,21 @@ void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
   XV_vcresampler_Set_HwReg_input_video_format(InstancePtr,  formatIn);
   XV_vcresampler_Set_HwReg_output_video_format(InstancePtr, formatOut);
 
-  if((formatIn == XVIDC_CSF_YCRCB_420) &&
-     (formatOut == XVIDC_CSF_YCRCB_422))
+  if(InstancePtr->Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
   {
-	convType = XV_VCRSMPLR_420_TO_422;
-  }
-  else if((formatIn == XVIDC_CSF_YCRCB_422) &&
-          (formatOut == XVIDC_CSF_YCRCB_420))
+    if((formatIn  == XVIDC_CSF_YCRCB_420) &&
+       (formatOut == XVIDC_CSF_YCRCB_422))
+    {
+	  convType = XV_VCRSMPLR_420_TO_422;
+    }
+    else if((formatIn  == XVIDC_CSF_YCRCB_422) &&
+            (formatOut == XVIDC_CSF_YCRCB_420))
+    {
+	  convType = XV_VCRSMPLR_422_TO_420;
+    }
 
-  {
-	convType = XV_VCRSMPLR_422_TO_420;
+    XV_vcresampler_SetCoefficients(InstancePtr, pVcrsmplL2Data, convType);
   }
-
-  XV_vcresampler_SetCoefficients(InstancePtr, pVcrsmplL2Data, convType);
 }
 
 /*****************************************************************************/
@@ -360,6 +362,8 @@ void XV_VCrsmplDbgReportStatus(XV_vcresampler *InstancePtr)
   XV_vcresampler *pVCrsmplr = InstancePtr;
   u32 done, idle, ready, ctrl;
   u32 vidfmtIn, vidfmtOut, height, width;
+  u32 baseAddr, convType;
+  const char *RsmplrTypeStr[] = {"Nearest Neighbor", "Fixed Coeff", "FIR"};
 
   /*
    * Assert validates the input arguments
@@ -378,14 +382,60 @@ void XV_VCrsmplDbgReportStatus(XV_vcresampler *InstancePtr)
   height    = XV_vcresampler_Get_HwReg_height(pVCrsmplr);
   width     = XV_vcresampler_Get_HwReg_width(pVCrsmplr);
 
+  convType = XV_VCRSMPLR_420_TO_422;
+
+  if((vidfmtIn  == XVIDC_CSF_YCRCB_420) &&
+     (vidfmtOut == XVIDC_CSF_YCRCB_422))
+  {
+	convType = XV_VCRSMPLR_420_TO_422;
+  }
+  else if((vidfmtIn  == XVIDC_CSF_YCRCB_422) &&
+          (vidfmtOut == XVIDC_CSF_YCRCB_420))
+
+  {
+	convType = XV_VCRSMPLR_422_TO_420;
+  }
+
   xil_printf("IsDone:  %d\r\n", done);
   xil_printf("IsIdle:  %d\r\n", idle);
   xil_printf("IsReady: %d\r\n", ready);
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
-  xil_printf("Video Format In:  %d\r\n", vidfmtIn);
-  xil_printf("Video Format Out: %d\r\n", vidfmtOut);
+  if(pVCrsmplr->Config.ResamplingType <= XV_VCRSMPLR_TYPE_FIR)
+  {
+    xil_printf("Resampling Type:  %s\r\n", RsmplrTypeStr[pVCrsmplr->Config.ResamplingType]);
+  }
+  else
+  {
+	xil_printf("Resampling Type:  Unknown\r\n");
+  }
+  xil_printf("Video Format In:  %s\r\n", XVidC_GetColorFormatStr(vidfmtIn));
+  xil_printf("Video Format Out: %s\r\n", XVidC_GetColorFormatStr(vidfmtOut));
   xil_printf("Width:            %d\r\n", width);
   xil_printf("Height:           %d\r\n", height);
+
+  if(pVCrsmplr->Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
+  {
+    u32 numTaps, tap, phase, regcount;
+    u32 coeff;
+
+    numTaps = pVCrsmplr->Config.NumTaps;
+    xil_printf("Num Taps:         %d\r\n", numTaps);
+    xil_printf("\r\nCoefficients:");
+
+    regcount = 0;
+    baseAddr = XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA;
+    baseAddr += pVCrsmplr->Config.BaseAddress;
+    for(phase=0; phase < XV_VCRSMPLR_MAX_PHASES; ++phase)
+    {
+      xil_printf("\r\nPhase %2d: ", phase);
+      for(tap=0; tap < numTaps; ++tap)
+      {
+	coeff = Xil_In32((baseAddr+(regcount*8)));
+	xil_printf("%4d ",coeff);
+	++regcount;
+      }
+    }
+  }
 }
 /** @} */
