@@ -137,6 +137,16 @@ extern "C" {
    XV_HCRSMPLR_NUM_CONVERSIONS
  }XV_HCRESAMPLER_CONVERSION;
 
+ /** This typedef enumerates the resampling algorithm
+  *
+  */
+ typedef enum
+ {
+   XV_HCRSMPLR_TYPE_NEAREST_NEIGHBOR = 0,
+   XV_HCRSMPLR_TYPE_FIXED_COEFFICIENT,
+   XV_HCRSMPLR_TYPE_FIR
+ }XV_HCRESAMPLER_TYPE;
+
  /**
   * H Chroma Resampler Layer 2 data. The user is required to allocate a
   * variable of this type for every H chroma resampler device in the system.
