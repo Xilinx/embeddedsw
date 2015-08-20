@@ -81,7 +81,11 @@ static void CalculatePhases(XV_hscaler *pHsc,
                             u32 WidthIn,
                             u32 WidthOut,
                             u32 PixelRate);
+
 static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
+                               XV_hscaler_l2 *pHscL2Data);
+
+static void XV_HScalerSetPhase(XV_hscaler *pHsc,
                                XV_hscaler_l2 *pHscL2Data);
 
 /*****************************************************************************/
@@ -339,11 +343,10 @@ static void CalculatePhases(XV_hscaler *pHsc,
 
 /*****************************************************************************/
 /**
-* This function programs the filter coefficients and phase data into core
-* registers
+* This function programs the phase data into core registers
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  HCoeff is the array that holds computed coefficients
+* @param  pHscL2Data is a pointer to the core instance layer 2 data.
 *
 * @return None
 *
@@ -351,25 +354,10 @@ static void CalculatePhases(XV_hscaler *pHsc,
 *        User must load the coefficients, using the provided API, before
 *        scaler can be used
 ******************************************************************************/
-static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
+static void XV_HScalerSetPhase(XV_hscaler *pHsc,
                                XV_hscaler_l2 *pHscL2Data)
 {
-  int num_phases = 1<<pHsc->Config.PhaseShift;
-  int num_taps   = pHsc->Config.NumTaps/2;
-  int val,i,j,offset,rdIndx;
   u32 baseAddr, loopWidth;
-
-  offset = (XV_HSCALER_MAX_H_TAPS - pHsc->Config.NumTaps)/2;
-  baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(pHsc);
-  for (i = 0; i < num_phases; i++)
-  {
-    for(j=0; j < num_taps; j++)
-    {
-       rdIndx = j*2+offset;
-       val = (pHscL2Data->coeff[i][rdIndx+1] << 16) | (pHscL2Data->coeff[i][rdIndx] & XHSC_MASK_LOW_16BITS);
-       Xil_Out32(baseAddr+((i*num_taps+j)*4), val);
-    }
-  }
 
   //program phases
   baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(pHsc);
@@ -378,7 +366,7 @@ static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
   {
     case XVIDC_PPC_1:
             {
-              u32 val, lsb, msb, index;
+              u32 val, lsb, msb, index, i;
 
               /* PhaseH is 64bits but only lower 16b of each entry is valid
                * Form 32b word with 16bit LSB from 2 consecutive entries
@@ -399,7 +387,7 @@ static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
 
     case XVIDC_PPC_2:
             {
-              u32 val;
+              u32 val, i;
 
               /* PhaseH is 64bits but only lower 32b of each entry is valid
                * Need 1 32b write to get each entry into IP registers
@@ -414,7 +402,7 @@ static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
 
     case XVIDC_PPC_4:
             {
-              u32 lsb, msb, index, offset;
+              u32 lsb, msb, index, offset, i;
 			  u64 phaseHData;
 
               /* PhaseH is 64bits and each entry has valid 32b MSB & LSB
@@ -441,12 +429,49 @@ static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
   }
 }
 
+
+/*****************************************************************************/
+/**
+* This function programs the filter coefficients and phase data into core
+* registers
+*
+* @param  InstancePtr is a pointer to the core instance to be worked on.
+* @param  pHscL2Data is a pointer to the core instance layer 2 data.
+*
+* @return None
+*
+* @Note  This version of driver does not make use of computed coefficients.
+*        User must load the coefficients, using the provided API, before
+*        scaler can be used
+******************************************************************************/
+static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
+                               XV_hscaler_l2 *pHscL2Data)
+{
+  int num_phases = 1<<pHsc->Config.PhaseShift;
+  int num_taps   = pHsc->Config.NumTaps/2;
+  int val,i,j,offset,rdIndx;
+  u32 baseAddr;
+
+  offset = (XV_HSCALER_MAX_H_TAPS - pHsc->Config.NumTaps)/2;
+  baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(pHsc);
+  for (i = 0; i < num_phases; i++)
+  {
+    for(j=0; j < num_taps; j++)
+    {
+       rdIndx = j*2+offset;
+       val = (pHscL2Data->coeff[i][rdIndx+1] << 16) | (pHscL2Data->coeff[i][rdIndx] & XHSC_MASK_LOW_16BITS);
+       Xil_Out32(baseAddr+((i*num_taps+j)*4), val);
+    }
+  }
+}
+
 /*****************************************************************************/
 /**
 * This function configures the scaler core registers with the specified
 * configuration parameters of the axi stream
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
+* @param  pHscL2Data is a pointer to the core instance layer 2 data.
 * @param  HeightIn is the input stream height
 * @param  WidthIn is the input stream width
 * @param  WidthOut is the output stream width
@@ -479,9 +504,6 @@ void XV_HScalerSetup(XV_hscaler  *InstancePtr,
 
   if(InstancePtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
   {
-    /* Compute Phase for 1 line */
-    CalculatePhases(InstancePtr, pHscL2Data, WidthIn, WidthOut, PixelRate);
-
     if(!pHscL2Data->UseExtCoeff)  //No predefined coefficients
     {
       xil_printf("\r\nERR: H Scaler coefficients not programmed\r\n");
@@ -491,6 +513,12 @@ void XV_HScalerSetup(XV_hscaler  *InstancePtr,
     /* Program generated coefficients into the IP register bank */
     XV_HScalerSetCoeff(InstancePtr, pHscL2Data);
   }
+
+  /* Compute Phase for 1 line */
+  CalculatePhases(InstancePtr, pHscL2Data, WidthIn, WidthOut, PixelRate);
+
+  /* Program computed Phase into the IP register bank */
+  XV_HScalerSetPhase(InstancePtr, pHscL2Data);
 
   XV_hscaler_Set_HwReg_Height(InstancePtr,     HeightIn);
   XV_hscaler_Set_HwReg_WidthIn(InstancePtr,    WidthIn);
@@ -517,6 +545,7 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
   u32 widthin, widthout, heightin, pixrate, cformat;
   u32 baseAddr, taps, phases;
   int val,i,j;
+  const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
 
   /*
    * Assert validates the input arguments
@@ -542,19 +571,26 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
   xil_printf("IsReady: %d\r\n", ready);
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
-  xil_printf("Scaler Type:     %d\r\n",pHsc->Config.ScalerType);
+  if(pHsc->Config.ScalerType <= XV_HSCALER_POLYPHASE)
+  {
+    xil_printf("Scaler Type:     %s\r\n",ScalerTypeStr[pHsc->Config.ScalerType]);
+  }
+  else
+  {
+    xil_printf("Scaler Type:     Unknown\r\n");
+  }
   xil_printf("Input Height:    %d\r\n",heightin);
   xil_printf("Input Width:     %d\r\n",widthin);
   xil_printf("Output Width:    %d\r\n",widthout);
   xil_printf("Color Format:    %d\r\n",cformat);
   xil_printf("Pixel Rate:      %d\r\n",pixrate);
   xil_printf("Num Phases:      %d\r\n",phases);
-  xil_printf("Num Taps:        %d\r\n",taps*2);
 
   if(pHsc->Config.ScalerType == XV_HSCALER_POLYPHASE)
   {
     short lsb, msb;
 
+    xil_printf("Num Taps:        %d\r\n",taps*2);
     xil_printf("\r\nCoefficients:");
 
     baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(pHsc);
