@@ -146,7 +146,7 @@ void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr)
   done  = XV_deinterlacer_IsDone(pDeint);
   idle  = XV_deinterlacer_IsIdle(pDeint);
   ready = XV_deinterlacer_IsReady(pDeint);
-  ctrl  = XV_deinterlacer_ReadReg(pDeint->Config.BaseAddress, XV_DEINTERLACER_AXILITES_ADDR_AP_CTRL);
+  ctrl  = XV_deinterlacer_ReadReg(pDeint->Config.BaseAddress, XV_DEINTERLACER_CTRL_ADDR_AP_CTRL);
 
   rfb  = XV_deinterlacer_Get_read_fb(pDeint);
   wfb  = XV_deinterlacer_Get_write_fb(pDeint);
