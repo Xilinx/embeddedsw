@@ -259,6 +259,9 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)&DestBuffer, Length);
+#endif
 
 	/* Try to start the DMA transfer
 	 */

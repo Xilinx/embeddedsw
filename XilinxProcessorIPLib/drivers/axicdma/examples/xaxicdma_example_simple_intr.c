@@ -79,9 +79,16 @@
 #include "xscugic.h"
 #endif
 
-#ifndef __MICROBLAZE__
+#ifdef __MICROBLAZE__
 #include "xpseudo_asm_gcc.h"
+#endif
+
+#ifdef __arm__
 #include "xreg_cortexa9.h"
+#endif
+
+#ifdef __aarch64__
+#include "xreg_cortexa53.h"
 #endif
 
 
@@ -320,7 +327,10 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)&SrcBuffer, Length);
+	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)&DestBuffer, Length);
+#endif
 
 	/* Try to start the DMA transfer
 	 */
@@ -353,7 +363,9 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-	Xil_DCacheInvalidateRange((u32)&DestBuffer, Length);
+#ifndef __aarch64__
+	Xil_DCacheInvalidateRange((UINTPTR)&DestBuffer,, Length);
+#endif
 
 	/* Transfer completes successfully, check data
 	 *
