@@ -79,7 +79,7 @@
 #include "xscugic.h"
 #endif
 
-#ifdef __MICROBLAZE__
+#ifndef __MICROBLAZE__
 #include "xpseudo_asm_gcc.h"
 #endif
 
@@ -364,7 +364,7 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	 * Data Cache is enabled
 	 */
 #ifndef __aarch64__
-	Xil_DCacheInvalidateRange((UINTPTR)&DestBuffer,, Length);
+	Xil_DCacheInvalidateRange((UINTPTR)&DestBuffer, Length);
 #endif
 
 	/* Transfer completes successfully, check data
