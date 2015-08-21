@@ -40,7 +40,10 @@
 #			   Modified generate proc to get canonical defintions
 #			   in xparameters.h.
 # 2.2	   nsk	  07/08/15 Updated iomodule_define_vector_table to handle
-#		 	   External vector interrupts.
+#		 	   External vector interrupts CR#871572.
+# 2.2	   nsk    19/08/15 Modified iomodule_defince_vector_table
+#			   to handle, if iomodule doesn't have interrupts
+#			   enabled CR#876507.
 #
 ##############################################################################
 
@@ -154,6 +157,7 @@ proc generate {drv_handle} {
     iomodule_define_config_file $drv_handle $periphs $config_inc
     close $config_inc
 
+    set all_params [concat $all_params $params]
     xdefine_canonical_xpars $drv_handle "xparameters.h" "IOModule" $all_params
 
 }
@@ -315,7 +319,7 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
     set num_intr_inputs [common::get_property CONFIG.C_INTC_INTR_SIZE $periph]
 
     #calculate the total interrupt sources
-    set total_intr_ports [::hsi::utils::get_connected_pin_count $interrupt_pin]
+    set total_intr_ports [get_num_intr_internal $periph]
     if {$num_intr_inputs != $total_intr_ports} {
        puts "WARNING: Num intr inputs $num_intr_inputs not the \
 	     same as length of ::hsi::utils::get_interrupt_sources [llength \
@@ -422,7 +426,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 	    	set rvalue [format "%.0f" $rvalue]
 	    	set rvalue [format "0x%08X" $rvalue]
 	    } else {
-		set lvalue [hsi::utils::get_driver_param_name $canonical_name $arg]
+		set lvalue [hsi::utils::get_driver_param_name $canonical_name [string toupper $arg]]
  # The commented out rvalue is the name of the instance-specific constant
  #              set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
 	    	# The rvalue set below is the actual value of the parameter
