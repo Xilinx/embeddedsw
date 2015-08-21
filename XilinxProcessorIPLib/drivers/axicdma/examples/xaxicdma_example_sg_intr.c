@@ -79,7 +79,14 @@
 
 #ifndef __MICROBLAZE__
 #include "xpseudo_asm_gcc.h"
+#endif
+
+#ifdef __arm__
 #include "xreg_cortexa9.h"
+#endif
+
+#ifdef __aarch64__
+#include "xreg_cortexa53.h"
 #endif
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
@@ -129,6 +136,7 @@ extern void xil_printf(const char *format, ...);
 
 
 #define MAX_PKT_LEN			1024
+#define MARK_UNCACHEABLE	0x701
 
 /* Number of BDs in the transfer example
  * We show how to submit multiple BDs for one transmit.
@@ -609,6 +617,10 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 */
 	Xil_DCacheFlushRange((u32)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
+		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+#endif
 
 	Status = XAxiCdma_SetCoalesce(InstancePtr, COALESCING_COUNT,
 		DELAY_COUNT);
@@ -734,7 +746,9 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-	Xil_DCacheInvalidateRange((u32)DestPtr, Length);
+#ifndef __aarch64__
+	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
+#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
@@ -783,6 +797,10 @@ int XAxiCdma_SgIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	SrcPtr = (u8 *)TransmitBufferPtr;
 	DstPtr = (u8 *)ReceiveBufferPtr;
+
+#ifdef __aarch64__
+	Xil_SetTlbAttributes(BD_SPACE_BASE, MARK_UNCACHEABLE);
+#endif
 
 	/* Initialize the XAxiCdma device.
 	 */

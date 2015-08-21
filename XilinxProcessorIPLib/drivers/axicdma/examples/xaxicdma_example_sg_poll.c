@@ -361,6 +361,10 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
+		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -471,7 +475,9 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
+#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
+#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
@@ -510,7 +516,7 @@ int XAxiCdma_SgPollExample(u16 DeviceId)
 	DstPtr = (u8 *)ReceiveBufferPtr;
 
 #ifdef __aarch64__
-	Xil_SetTlbAttributes(MEMORY_BASE, MARK_UNCACHEABLE);
+	Xil_SetTlbAttributes(BD_SPACE_BASE, MARK_UNCACHEABLE);
 #endif
 
 	/* Initialize the XAxiCdma device.
