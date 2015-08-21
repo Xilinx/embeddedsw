@@ -277,6 +277,9 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxBufferPtr, MAX_PKT_LEN);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
+#endif
 
 	for(Index = 0; Index < Tries; Index ++) {
 

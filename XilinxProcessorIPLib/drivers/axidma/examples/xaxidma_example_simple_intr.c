@@ -326,6 +326,9 @@ int main(void)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((u32)TxBufferPtr, MAX_PKT_LEN);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
+#endif
 
 	/* Send a packet */
 	for(Index = 0; Index < Tries; Index ++) {
@@ -438,7 +441,9 @@ static int CheckData(int Length, u8 StartValue)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
+#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((u32)RxPacket, Length);
+#endif
 
 	for(Index = 0; Index < Length; Index++) {
 		if (RxPacket[Index] != Value) {
