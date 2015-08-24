@@ -1102,14 +1102,14 @@ END:
 u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId)
 {
 	u32 CpuNeedEarlyHandoff = FALSE;
-
+#if defined(XFSBL_EARLY_HANDOFF)
 	if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0) ||
 			(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) ||
 			(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L))
 	{
 		CpuNeedEarlyHandoff = TRUE;
 	}
-
+#endif
 	return CpuNeedEarlyHandoff;
 
 }
