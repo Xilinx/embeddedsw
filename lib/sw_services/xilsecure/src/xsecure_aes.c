@@ -91,7 +91,6 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CsuDmaPtr != NULL);
-	Xil_AssertNonvoid(Iv != NULL);
 
 	InstancePtr->BaseAddress = XSECURE_CSU_AES_BASE;
 	InstancePtr->CsuDmaPtr = CsuDmaPtr;
@@ -278,8 +277,6 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Dst != NULL);
-	Xil_AssertVoid(Src != NULL);
 	Xil_AssertVoid(Len != (u32)0x0);
 
 	u32 SssCfg = 0U;
@@ -348,8 +345,6 @@ static u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 {
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Dst != NULL);
-	Xil_AssertNonvoid(Src != NULL);
 	Xil_AssertNonvoid(Tag != NULL);
 
 	volatile u32 Status = 0U;
@@ -557,8 +552,6 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 {
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Dst != NULL);
-	Xil_AssertNonvoid(Src != NULL);
 
 	u32 SssCfg = 0x0U;
 	volatile u32 Status=0x0U;

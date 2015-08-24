@@ -116,7 +116,6 @@ void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Dst != NULL);
 
 	memset(Dst, 0, MsgLen);
 	Dst[0] = 0x1U;
@@ -177,7 +176,6 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 {
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Data != NULL);
 	Xil_AssertVoid(Size != (u32)0x00U);
 
 	InstancePtr->Sha3Len += Size;
@@ -272,7 +270,7 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
  * Calculate SHA-3 Digest on the given input data
  *
  * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
- * @param   In is the pointer to the input data for hashing
+ * @param   	In is the pointer to the input data for hashing
  * @param	Size of the input data
  * @param	Out is the pointer to location where resulting hash will be
  *		written.
@@ -287,7 +285,6 @@ void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 {
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(In != NULL);
 	Xil_AssertVoid(Size != (u32)0x00U);
 	Xil_AssertVoid(Out != NULL);
 

@@ -138,7 +138,6 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(WrData != NULL);
 
 	u32 Index = 0U;
 	u32 DataOffset = 0U;
@@ -211,7 +210,6 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(RdData != NULL);
 
 	u32 Index = 0U;
 	u32 DataOffset = 0U;
@@ -385,17 +383,11 @@ END:
  * Match the decrypted data with expected data
  *
  * @param	Signature is the pointer to RSA signature for data to be
- *          authenticated
+ *          	authenticated
  * @param	Hash is the pointer to expected hash data
  * @param	HashLen is the length of Hash used.
  *
- * @return	0 if RSA match succeeded
- *			1 if character 1 of padding does not match
- *			2 if character 2 of padding does not match
- *			3 if FF padding scheme does not match
- *			4 if character after FF padding does not match
- *			5 T_padding for given SHA algorithm does not match
- *			6 if the output hash does not match
+ * @return	XST_SUCCESS if decryption was successful.
  *
  * @note	None
  *
