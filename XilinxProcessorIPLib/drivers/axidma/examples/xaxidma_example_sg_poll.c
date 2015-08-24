@@ -200,7 +200,8 @@ int main(void)
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
 #ifdef __aarch64__
-	Xil_SetTlbAttributes(MEM_BASE_ADDR, MARK_UNCACHEABLE);
+	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, MARK_UNCACHEABLE);
+	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, MARK_UNCACHEABLE);
 #endif
 
 	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
@@ -515,6 +516,9 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN);
+#endif
 
 
 	/* Allocate a BD */
@@ -597,7 +601,9 @@ static int CheckData(void)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
+#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, MAX_PKT_LEN);
+#endif
 
 	for(Index = 0; Index < MAX_PKT_LEN; Index++) {
 		if (RxPacket[Index] != Value) {

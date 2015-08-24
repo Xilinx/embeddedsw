@@ -162,6 +162,7 @@ extern void xil_printf(const char *format, ...);
  * Buffer and Buffer Descriptor related constant definition
  */
 #define MAX_PKT_LEN		0x100
+#define MARK_UNCACHEABLE        0x701
 
 /*
  * Number of BDs in the transfer example
@@ -276,6 +277,10 @@ int main(void)
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
+#ifdef __aarch64__
+	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, MARK_UNCACHEABLE);
+	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, MARK_UNCACHEABLE);
+#endif
 
 	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
 	if (!Config) {
@@ -428,7 +433,9 @@ static int CheckData(int Length, u8 StartValue)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
+#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((u32)RxPacket, Length);
+#endif
 
 	for(Index = 0; Index < Length; Index++) {
 		if (RxPacket[Index] != Value) {
@@ -1113,6 +1120,10 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	 */
 	Xil_DCacheFlushRange((u32)TxPacket, MAX_PKT_LEN *
 							NUMBER_OF_BDS_TO_TRANSFER);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
+							NUMBER_OF_BDS_TO_TRANSFER);
+#endif
 
 	Status = XAxiDma_BdRingAlloc(TxRingPtr, NUMBER_OF_BDS_TO_TRANSFER,
 								&BdPtr);
