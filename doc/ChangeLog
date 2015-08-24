@@ -1,42 +1,124 @@
-Change Log for 2015.2
+Change Log for 2015.3
 =================================
-standalone_v5_1: Changes
-New minor version upgrade with following changes:
-The initialization order in cortexa9/gcc/boot.S, iccarm/boot.s and armcc/boot.s are changed
-to first invalidate caches and TLB, enable MMU and caches, then enable SMP bit in ACTLR.
-L2Cache invalidation and enabling of L2Cache is done later.
-Modifies cortexa9/xil_cache.c to modify Xil_DCacheInvalidateRange and Xil_DCacheFlushRange
-to remove unnecessary "dsb" to improve performance. L2CacheSync is added into
-Xil_L2CacheInvalidateRange API. Xil_L1DCacheInvalidate and Xil_L2CacheInvalidate APIs are
-modified to flush the complete stack instead of just System Stack.
-Modifies cortexa9/gcc/Makefile to keep a correct check of a compiler to update ECC_FLAGS
-and also take the compiler and archiver as specified in settings instead of hardcoding it.
+axicdma_v4_0
+Added support for 64-bit Addressing.
+Mark only BD Memory region as uncacheable.
 
-xilisf_v5_2: Changes
-New minor version that adds support for Micron N25Q256A (>16MB) flash devices.
-Adds necessary support for 4 byte addressing mode. APIs are added to enter and exit from 4 byte mode.
-Changes are made in read, erase and write APIs to support 4 byte mode.
+axidma_v9_0
+Added support for 64-bit Addressing.
+Fix bug in the number of words in a buffer descriptor
 
-xilskey_v2_1: Changes
-New minor version upgrade that initializes RSAKeyReadback with zeros.
+axiethernet_v5_0
+Updated the driver tcl for Hier IP(To support User parameters).
+Fixed CR 870631 AXI Ethernet with FIFO will fail to create the BSP if the interrupt pin on the FIFO is unconnected.
 
-lwip141_v1_1: Changes
-New minor version upgrade that fixes the AC701 RGMII autonegotiation issue. The AxiEthernetUtilPhyDelay
-routine is added with an attribute to avoid inlining of this function by toolchain.
+axipmon_v6_2
+New version of the driver for Ultrascale+ ZynqMP SoC with the following changes
+Added Is32BitFiltering in XAxiPmon_Config structure.
+Updated XAxiPmon_SetWriteId, XAxiPmon_SetReadId,XAxiPmon_GetWriteId, XAxiPmon_GetReadId
+XAxiPmon_SetWriteIdMask, XAxiPmon_SetReadIdMask, XAxiPmon_GetWriteIdMask, XAxiPmon_GetReadIdMask
+functions in xaxipmon.c.
+Added XAPM_RID_OFFSET and XAPM_RIDMASK_OFFSET in xaxipmon_hw.h
 
-zynq_fsbl: Changes
-In the file pcap.c, changes done to write to devcfg.STATUS register to clear the DMA done count.
+axipmon_v6_3
+Updated version to comply to MISRA-C:2012 guidelines.
 
-devcfg_v3_3: Changes
-Minor driver version upgrade that fixes the XDcfg_ReadMultiBootConfig macro which was passing wrong number of arguments
+axis_switch_v1_0
+New version of the driver to support to axis_switch
 
-llfifo_v5_0: Changes
+axivdma_v6_0
+Added support for a vdma triple buffer api and added support for 64 bit addressing.
+
+canfd_v1_0
+First version of the driver for can_fd.
+
+coresightps_dcc_v1_1
+Updated for Ultrascale+ ZynqMP SoC support
+
+cpu_cortexa53_v1_0
+New driver for cortex a53
+
+cpu_cortexr5_v1_0
+New driver for cortex R5
+
+cpu_cortexr5_v1_1
+Minor updates in the tcl file
+
+csu_dma_v1_0
+First version of the driver for CSU DMA in Ultrascale+ ZynqMP SoC
+
+dp_v2_0
+Added MST functionality to RX. New APIs added are :
+  XDp_RxHandleDownReq, XDp_RxGetIicMapEntry,
+  XDp_RxSetIicMapEntry, XDp_RxSetDpcdMap,
+  XDp_RxMstExposePort, XDp_RxMstSetPort,
+  XDp_RxMstSetInputPort, XDp_RxMstSetPbn,
+  XDp_RxSetIntrDownReqHandler, XDp_RxSetIntrDownReplyHandler,
+  XDp_RxSetIntrAudioOverHandler, XDp_RxSetIntrPayloadAllocHandler,
+  XDp_RxSetIntrActRxHandler, XDp_RxSetIntrCrcTestHandler
+
+  Added Intr*Handler and Intr*CallbackRef interrupt-related
+  members to XDp_Rx structure for:
+  DownReq, DownReply, AudioOver, PayloadAlloc, ActRx,CrcTest
+
+  Added new data structures related to RX MST topology:
+  XDp_RxIicMapEntry, XDp_RxDpcdMap, XDp_RxPort, XDp_RxTopology
+
+   Renamed XDp_Tx* to XDp_* to reflect commonality with RX
+   for XDp_TxSbMsgLinkAddressReplyPortDetail and  XDp_TxSbMsgLinkAddressReplyDeviceInfo
+   GUID type change for ease of use:
+   'u32 Guid[4]' changed to 'u8 Guid[16]'
+   Added handlers and setter functions for HDCP and unplug
+   events.
+   Added callbacks for lane count changes, link rate changes
+   and pre-emphasis + voltage swing adjust requests.
+
+dptxss_v1_0:
+Initial version of the driver for the Display Port Tx Sub System Driver
+
+dual_splitter_v1_0
+Initial version of the Xilinx Dual Splitter core
+
+emaclite_v4_1
+Added Length check in XEmacLite_AlignedWrite function in xemaclite_l.c file to
+avoid extra write operation - CR 843707
+
+emacps_v3_1
+Do not call error handler with '0' error code when there is no error- CR 869403
+
+gpiops_v3_1
+Added support for Zynq Ultrascale+ MP -  CR 856980.
+
+iomodule_v2_2
+Updated XIOModule_Uart_InterruptHandler function in xiomodule_uart_intr.c file
+to read Status register instead of reading Interrupt Pending register - CR #862715
+
+ipipsu_v1_0:
+Initial version of the IPI driver for Ultrascale+ ZynqMPSoC
+
+nandpsu_v1_0
+Initial version of the NAND driver for Ultrascale+ ZynqMPSoC
+
+qspipsu_v1_0
+Initial version of the QSPI driver for Ultrascale+ ZynqMPSoC
+
+rtcpsu_v1_0
+Initial version of the RTC driver for Ultrascale+ ZynqMPSoC
+
+sdps_v2_5
+Added SD 3.0 features and updated the code according to MISRAC-2012.
+
+devcfg_v3_3:
+Minor driver version upgrade that fixes the XDcfg_ReadMultiBootConfig macro which was passing
+wrong number of arguments
+
+llfifo_v5_0:
 Major driver version that updates the register offsets in the AXI4 data path as per latest IP version(v4.1)
 
 sysmon_v7_1:
 Minor driver version upgrade that modifies temperature transfer function for for Ultrascale.
 
-vtc_v7_0: Changes
+vtc_v7_0:
 Major driver version upgrade that makes the following changes:
 Adds interlaced field to XVtc_Signal structure. Removes XVtc_RegUpdate as there are is one more API
 XVtc_RegUpdateEnable present with same functionality.
@@ -49,5 +131,84 @@ Removes XVTC_ERR_FIL_MASK macro because it is  not present in latest product gui
 Modifies register offsets from XVTC_* to XVTC_*_OFFSET for consistency.
 Adds new file xvtc_selftest.c.
 
-xadcps_v2_2: Changes
+xadcps_v2_2:
 Minor driver version upgrade that uses correct Device Config base address in xadcps.c.
+
+zdma_v1_0:
+New version of the LPD/FPD DMA driver for Ultrascale+ ZynqMPSoC
+
+usbpsu_v1_0:
+New version of the USB driver (device mode only) for Ultrascale+ Zynq MPSoC
+
+usbpsu_v1_1:
+Updated version of the USB driver (device mode only) for Ultrascale+ Zynq MPSoC for changes to comply to MISRA-C guidelines.
+
+uartps_v3_1:
+Added support for Zynq Ultrascale+ MP related changes
+
+uartns550_v3_3:
+Fixed an issue with the clock divisor - CR 857013
+
+uartlite_v3_0:
+XUartLite_ReceiveBuffer function in xuartlite.c is updated to receive data into user buffer in critical region - CR#865787.
+
+standalone_v5_2:
+Corrected interrupt ID's of TTC.
+Added PSU definitions for TEST APP.
+Modified translation table in a53 32bit bsp
+Changed A53 32bit bsp makefile
+Added interrupt IDs for RTC
+Rearranged the Cortex A53 folder structure
+Modified translation_table.s for Zynq DDR-less system
+Modified Xil_DCacheFlushRange, Xil_DCacheInvalidateRange and Xil_ICacheInvalidateRange API to add
+Support for addresses higher than 4GB by not truncating the addresses to 32bit
+Added support for 64bit print in xil_printf
+xil_settlbattributes modified for addresses > 4GB
+Changed in boot.s to include more memory attributes
+
+xilffs_v3_1:
+Used --create option for armcc compiler
+Modify makefile to check for IAR compiler
+Card detection checked after disk status
+Added support for SD1
+Removed Change Bus Speed, Clock API's in glue layer
+Added Read_Only option
+Add card check logic to support Zynq Ultrascale+ MPSoC
+
+xilisf_v5_4:
+Modified SPIPS examples to support on ZynqMP.
+Added examples to test QSPIPSU interface.
+
+xilflash_v4_1:
+Fix Write buffer programming for IntelStrataFlash
+Fix Spansion write buffer programming
+Added Pass/Fail string to readwrite_example
+
+xilskey_v3_0:
+Added ultrascale efuse functionality
+Added new functions
+Added API for clk calculations
+
+lwip141_v1_2:
+Add support for A53
+Update autonegotiation for ZynqMP
+Use updated autonegotiation for Zynq as well
+Give error message when A53 32 bit compiler is used
+Fix bsp compilation errors when elite is configured with interrupts though a concat IP
+
+zynq_fsbl:
+In the file pcap.c, changes done to write to devcfg.STATUS register to clear the DMA done count.
+
+freertos821_xilinx_v1_0:
+FreeRTOS BSP that supports MicroBlaze, CortexA9 and CortexR5
+
+xilopenamp_v1_0:
+XilOpenAMP library that supports Cortex-R5 slave
+
+freertos_hello_world:
+New FreeRTOS demo application
+
+openamp_matrix_multiply
+openamp_rpc_demo
+openamp_echo_test:
+OpenAMP demo applications to run on R5 slave and are based on xilopenamp_v1_0.
