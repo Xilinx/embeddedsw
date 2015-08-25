@@ -39,7 +39,7 @@ proc swapp_get_description {} {
 }
 
 proc check_standalone_os {} {
-    set oslist [get_os];
+    set oslist [hsi::get_os];
 
     if { [llength $oslist] != 1 } {
         return 0;
