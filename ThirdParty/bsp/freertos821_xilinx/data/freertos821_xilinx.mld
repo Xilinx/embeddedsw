@@ -21,7 +21,6 @@ OPTION psf_version = 2.1.0 ;
 BEGIN OS freertos821_xilinx
 
 OPTION DRC = FreeRTOS_drc ;
-# _RB_ Not sure if line below is valid.
 OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5);
 OPTION COPYFILES = all;
 OPTION NAME = freertos821_xilinx;
@@ -31,8 +30,8 @@ OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-gr
 OPTION DESC = "FreeRTOS is a market leading open source RTOS";
 
 # STDIN/STDOUT
-PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (psu_uart, ps7_uart, ps7_coresight_comp, iomodule, axi_uartlite, axi_uart16550, mdm);
-PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (psu_uart, ps7_uart, ps7_coresight_comp, iomodule, axi_uartlite, axi_uart16550, mdm);
+PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
+PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
 
 BEGIN CATEGORY kernel_behavior
 	PARAM name = kernel_behavior, type = bool, default = true, desc = "Parameters relating to the kernel behavior", permit = none;
@@ -80,7 +79,7 @@ BEGIN CATEGORY software_timers
 END CATEGORY
 
 BEGIN CATEGORY tick_setup
-	PARAM name = psu_cortexr5_tick_setup, type = bool, default = true, desc = "Configuration for enabling tick timer", permit = user;
+	PARAM name = tick_setup, type = bool, default = true, desc = "Configuration for enabling tick timer", permit = user;
 	PARAM name = PSU_TTC0_Select, type = bool, default = true, desc = "psu_cortexr5 only: Set it to true to use TTC0 for tick interrupt generation";
 	PARAM name = PSU_TTC0_Select_Cntr, type = int, default = 0, desc = "psu_cortexr5 only: Selects the TTC0 counter to be used for tick generation. Allowed range is 0-2";
 	PARAM name = PSU_TTC1_Select, type = bool, default = false, desc = "psu_cortexr5 only: Set it to true to use TTC1 for tick interrupt generation";
