@@ -62,7 +62,7 @@
 
 /************************* Test Configuration ********************************/
 /* IPI device ID to use for this test */
-#define TEST_CHANNEL_ID	XPAR_XIPIPSU_1_DEVICE_ID
+#define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
 /* Test message length in words. Max is 8 words (32 bytes) */
 #define TEST_MSG_LEN	8
 /* Interrupt Controller device ID */
