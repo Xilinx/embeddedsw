@@ -35,7 +35,7 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-    return " FreeRTOS R5 Hello World application";
+    return " FreeRTOS Hello World application";
 }
 
 proc check_freertos_os {} {
@@ -66,8 +66,8 @@ proc swapp_is_supported_hw {} {
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-    if { $proc_type != "psu_cortexr5" } {
-                error "This application is supported only for CortexR5 processors.";
+    if { $proc_type != "psu_cortexr5" && $proc_type != "ps7_cortexa9" && $proc_type != "microblaze" } {
+                error "This application is supported only for CortexR5/CortexA9/MicroBlaze processors.";
     }
 
     return 1;

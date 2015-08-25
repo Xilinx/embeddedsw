@@ -1,5 +1,5 @@
 /*
-    FreeRTOS V8.2.0rc1 - Copyright (C) 2014 Real Time Engineers Ltd.
+    FreeRTOS V8.2.1 - Copyright (C) 2015 Real Time Engineers Ltd.
     All rights reserved
 
     VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
@@ -93,44 +93,53 @@
     1 tab == 4 spaces!
 */
 
-/* Kernel includes. */
+/* FreeRTOS includes. */
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "timers.h"
+
+/* Xilinx includes. */
 #include "xil_printf.h"
 #include "xparameters.h"
-#include "xscugic.h"
-#include "xttcps.h"
-
-/* Priorities at which the tasks are created. */
-#define mainHELLO_WORLD_TASK_PRIORITY		( tskIDLE_PRIORITY + 1 )
-#define	mainGOOD_BYE_TASK_PRIORITY		( tskIDLE_PRIORITY + 1 )
 
 /*-----------------------------------------------------------*/
-static void prvHelloWorld( void *pvParameters );
-static void prvGoodBye( void *pvParameters );
 
-/*
- * This example creates two tasks were each task prints a statement.
- * Each task yields after it prints a message which apppears on
- * console alternatively. Sometimes, due to scheduler algorithm the
- * task might be pre-empted before print could complete.
- */
+/* The Tx and Rx tasks as described at the top of this file. */
+static void prvTxTask( void *pvParameters );
+static void prvRxTask( void *pvParameters );
+
 /*-----------------------------------------------------------*/
+
+/* The queue used by the Tx and Rx tasks, as described at the top of this
+file. */
+static QueueHandle_t xQueue = NULL;
+char HWstring[15] = "Hello World";
 
 int main( void )
 {
+	xil_printf( "Hello from Freertos\r\n" );
 
-	xil_printf("Hello Freertos\r\n");
-	/* Start the two tasks */
+	/* Create the two tasks.  The Tx task is given a lower priority than the
+	Rx task, so the Rx task will leave the Blocked state and pre-empt the Tx
+	task as soon as the Tx task places an item in the queue. */
+	xTaskCreate( 	prvTxTask, 					/* The function that implements the task. */
+					( const char * ) "Tx", 		/* Text name for the task, provided to assist debugging only. */
+					configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
+					NULL, 						/* The task parameter is not used, so set to NULL. */
+					tskIDLE_PRIORITY,			/* The task runs at the idle priority. */
+					NULL );
 
-	xTaskCreate( prvHelloWorld, ( const char * ) "HW",
-			configMINIMAL_STACK_SIZE, NULL,
-			mainHELLO_WORLD_TASK_PRIORITY, NULL );
-	xTaskCreate( prvGoodBye, ( const char * ) "GB",
-			configMINIMAL_STACK_SIZE, NULL,
-			mainGOOD_BYE_TASK_PRIORITY, NULL );
+	xTaskCreate( prvRxTask, ( const char * ) "GB",	configMINIMAL_STACK_SIZE, NULL,	tskIDLE_PRIORITY + 1, NULL );
+
+	/* Create the queue used by the tasks.  The Rx task has a higher priority
+	than the Tx task, so will preempt the Tx task and remove values from the
+	queue as soon as the Tx task writes to the queue - therefore the queue can
+	never have more than one item in it. */
+	xQueue = xQueueCreate( 	1,						/* There is only one space in the queue. */
+							sizeof( HWstring ) );	/* Each space in the queue is large enough to hold a uint32_t. */
+
+	/* Check the queue was created. */
+	configASSERT( xQueue );
 
 	/* Start the tasks and timer running. */
 	vTaskStartScheduler();
@@ -140,60 +149,42 @@ int main( void )
 	insufficient FreeRTOS heap memory available for the idle and/or timer tasks
 	to be created.  See the memory management section on the FreeRTOS web site
 	for more details. */
-
 	for( ;; );
 }
 
 
 /*-----------------------------------------------------------*/
-static void prvHelloWorld( void *pvParameters )
+static void prvTxTask( void *pvParameters )
 {
+const TickType_t x1second = pdMS_TO_TICKS( 1000UL );
+
 	for( ;; )
 	{
-		xil_printf("Hello World\r\n");
+		/* Delay for 1 second. */
+		vTaskDelay( x1second );
+
+		/* Send the next value on the queue.  The queue should always be
+		empty at this point so a block time of 0 is used. */
+		xQueueSend( xQueue,			/* The queue being written to. */
+					HWstring, /* The address of the data being sent. */
+					0UL );			/* The block time. */
 	}
 }
 
 /*-----------------------------------------------------------*/
-static void prvGoodBye( void *pvParameters )
+static void prvRxTask( void *pvParameters )
 {
+char Recdstring[15] = "";
 
 	for( ;; )
 	{
-		xil_printf("Good Bye\r\n");
+		/* Block to wait for data arriving on the queue. */
+		xQueueReceive( 	xQueue,				/* The queue being read. */
+						Recdstring,	/* Data is read into this address. */
+						portMAX_DELAY );	/* Wait without a timeout for data. */
+
+		/* Print the received data. */
+		xil_printf( "Rx task received string from Tx task: %s\r\n", Recdstring );
 	}
 }
 
-
-/*-----------------------------------------------------------*/
-void vApplicationMallocFailedHook( void )
-{
-	/* vApplicationMallocFailedHook() will only be called if
-	configUSE_MALLOC_FAILED_HOOK is set to 1 in FreeRTOSConfig.h.  It is a hook
-	function that will get called if a call to pvPortMalloc() fails.
-	pvPortMalloc() is called internally by the kernel whenever a task, queue or
-	semaphore is created.  It is also called by various parts of the demo
-	application.  If heap_1.c or heap_2.c are used, then the size of the heap
-	available to pvPortMalloc() is defined by configTOTAL_HEAP_SIZE in
-	FreeRTOSConfig.h, and the xPortGetFreeHeapSize() API function can be used
-	to query the size of free heap space that remains (although it does not
-	provide information on how the remaining heap might be fragmented). */
-	taskDISABLE_INTERRUPTS();
-	for( ;; );
-}
-
-/*-----------------------------------------------------------*/
-void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed char *pcTaskName )
-{
-	( void ) pcTaskName;
-	( void ) pxTask;
-
-	/* vApplicationStackOverflowHook() will only be called if
-	configCHECK_FOR_STACK_OVERFLOW is set to either 1 or 2.  The handle and name
-	of the offending task will be passed into the hook function via its
-	parameters.  However, when a stack has overflowed, it is possible that the
-	parameters will have been corrupted, in which case the pxCurrentTCB variable
-	can be inspected directly. */
-	taskDISABLE_INTERRUPTS();
-	for( ;; );
-}
