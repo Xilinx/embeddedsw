@@ -294,7 +294,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _HEAP_SIZE;
    _heap_end = .;
    HeapLimit = .;
-} > ps8_ocm_ram_1_S_AXI_BASEADDR
+} > ps8_ddr_S_AXI_BASEADDR
 
 .stack (NOLOAD) : {
    . = ALIGN(16);
@@ -322,7 +322,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _UNDEF_STACK_SIZE;
    . = ALIGN(16);
    __undef_stack = .;
-} > ps8_ocm_ram_1_S_AXI_BASEADDR
+} > ps8_ddr_S_AXI_BASEADDR
 
 _end = .;
 }
