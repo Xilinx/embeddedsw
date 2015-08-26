@@ -63,7 +63,7 @@ proc gen_src_files {swproj mhsinst} {
   }
   if {$swproj == 1} {
 
-      set inc_file_lines {examples/xspips_selftest_example.c examples/xspips_flash_intr_example.c examples/xspips_flash_polled_example.c data/spips_header.h}
+      set inc_file_lines {examples/xspips_selftest_example.c data/spips_header.h}
 
       return $inc_file_lines
   }
@@ -79,10 +79,7 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-      set ipname [common::get_property NAME $mhsinst]
-      set decl "   static XSpiPs ${ipname};"
-      set inc_file_lines $decl
-      return $inc_file_lines
+        return ""
     }
 
 }
@@ -102,9 +99,6 @@ proc gen_testfunc_call {swproj mhsinst} {
        set hasStdout 1
     }
 
-    set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
-    set intcvar intc
-
     set testfunc_call ""
 
   if {${hasStdout} == 0} {
@@ -117,28 +111,6 @@ proc gen_testfunc_call {swproj mhsinst} {
       Status = SpiPsSelfTestExample(${deviceid});
 
    }"
-     append testfunc_call "
-
-   {
-      int Status;
-
-      Status = SpiPsFlashPolledExample(&${ipname}, ${deviceid});
-
-   }"
-	if {$isintr == 1} {
-        set intr_id "XPAR_${ipname}_INTR"
-	set intr_id [string toupper $intr_id]
-
-      append testfunc_call "
-
-   {
-      int Status;
-      Status = SpiPsFlashIntrExample(&${intcvar}, &${ipname}, \\
-                                 ${deviceid}, \\
-                                 ${intr_id});
-   }"
-
-   }
 
 
   } else {
@@ -159,47 +131,6 @@ proc gen_testfunc_call {swproj mhsinst} {
          print(\"SpiPsSelfTestExample FAILED\\r\\n\");
       }
    }"
-
-	append testfunc_call "
-
-   {
-      int Status;
-
-      print(\"\\r\\n Running SPIPsPolledExample() for ${ipname}...\\r\\n\");
-
-      Status = SpiPsFlashPolledExample(&${ipname}, ${deviceid});
-
-      if (Status == 0) {
-         print(\"SPIPsPolledExample PASSED\\r\\n\");
-      }
-      else {
-         print(\"SPIPsPolledExample FAILED\\r\\n\");
-      }
-   }"
-
-	if {$isintr ==1 } {
-        set intr_id "XPAR_${ipname}_INTR"
-		set intr_id [string toupper $intr_id]
-
-		  append testfunc_call "
-	   {
-		  int Status;
-
-		  print(\"\\r\\n Running Interrupt Test  for ${ipname}...\\r\\n\");
-
-		  Status = SpiPsFlashIntrExample(&${intcvar}, &${ipname}, \\
-									 ${deviceid}, \\
-									 ${intr_id});
-
-		  if (Status == 0) {
-			 print(\"SPIPsIntrExample PASSED\\r\\n\");
-		  }
-		  else {
-			 print(\"SPIPsIntrExample FAILED\\r\\n\");
-		  }
-
-	   }"
-	}
 
   }
 
