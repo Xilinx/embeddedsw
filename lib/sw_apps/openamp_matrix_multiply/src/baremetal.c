@@ -49,8 +49,6 @@ int zynqMP_r5_gic_initialize() {
 #ifndef USE_FREERTOS
 	u32 Status;
 
-	Xil_ExceptionDisable();
-
 	XScuGic_Config *IntcConfig; /* The configuration parameters of the interrupt controller */
 
 	/*

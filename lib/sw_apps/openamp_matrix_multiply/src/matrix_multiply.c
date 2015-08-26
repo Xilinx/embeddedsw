@@ -187,14 +187,13 @@ void communication_task(){
 #else
 	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
 #endif
+	env_enable_interrupt(VRING1_IPI_INTR_VECT, 0, 0);
 	while (1) {
 #ifdef USE_FREERTOS
 		QueueSetMemberHandle_t xActivatedMember;
-		env_enable_interrupt(VRING1_IPI_INTR_VECT, 0, 0);
 		xActivatedMember = xQueueSelectFromSet( comm_queueset, portMAX_DELAY);
 		if( xActivatedMember == OpenAMPInstPtr.lock ) {
 			env_acquire_sync_lock(OpenAMPInstPtr.lock);
-			env_disable_interrupt(VRING1_IPI_INTR_VECT);
 			process_communication(OpenAMPInstPtr);
 		}
 		if (xActivatedMember == OpenAMPInstPtr.send_queue) {
@@ -202,9 +201,7 @@ void communication_task(){
 			rpmsg_send(app_rp_chnl, send_data.data, send_data.length);
 		}
 #else
-		env_enable_interrupt(VRING1_IPI_INTR_VECT, 0, 0);
 		env_acquire_sync_lock(OpenAMPInstPtr.lock);
-		env_disable_interrupt(VRING1_IPI_INTR_VECT);
 		process_communication(OpenAMPInstPtr);
 		matrix_mul();
 		if(pq_qlength(OpenAMPInstPtr.send_queue) > 0) {
