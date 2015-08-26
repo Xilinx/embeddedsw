@@ -81,49 +81,159 @@
 #include "baremetal.h"
 #include "xil_cache.h"
 #include "xil_mmu.h"
-#include "xstatus.h"
 #include "xreg_cortexr5.h"
+#include "xil_exception.h"
 
 #define SHUTDOWN_MSG	0xEF56A55A
+#ifdef USE_FREERTOS
+#define DELAY_200MSEC    200/portTICK_PERIOD_MS
+#endif
 
 /* Internal functions */
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl);
 static void rpmsg_read_cb(struct rpmsg_channel *, void *, int, void *, unsigned long);
-static void init_system();
+static void communication_task();
+static void echo_test();
 
-/* Globals */
+/* Static variables */
 static struct rpmsg_channel *app_rp_chnl;
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
+#ifdef USE_FREERTOS
+static queue_data send_data, echo_data;
+static TimerHandle_t stop_scheduler;
+#else
+static queue_data *send_data, *echo_data;
+#endif
+static queue_data recv_echo_data;
+#ifdef USE_FREERTOS
+static TaskHandle_t comm_task;
+static TaskHandle_t echo_tst;
+static QueueSetHandle_t comm_queueset;
+static QueueHandle_t echo_queue;
+#else
+static	pq_queue_t *echo_queue;
+#endif
+
+/* Globals */
 extern const struct remote_resource_table resources;
+struct XOpenAMPInstPtr OpenAMPInstPtr;
 
 /* Application entry point */
 int main() {
-    int status = 0;
+	Xil_ExceptionDisable();
 
-    /* Initialize HW system components */
-    init_system();
+#ifdef USE_FREERTOS
+	BaseType_t stat;
 
-    rsc_info.rsc_tab = (struct resource_table *)&resources;
-    rsc_info.size = sizeof(resources);
+	/* Create the tasks */
+	stat = xTaskCreate(communication_task, ( const char * ) "HW2",
+				1024, NULL,2,&comm_task);
+	if(stat != pdPASS)
+		return -1;
 
-    /* Initialize RPMSG framework */
-    status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted, rpmsg_read_cb,
-                    &proc);
+	stat = xTaskCreate(echo_test, ( const char * ) "HW2",
+			1024, NULL, 1, &echo_tst );
+	if(stat != pdPASS)
+		return -1;
 
-    if (status < 0) {
-        return -1;
-    }
+	/*Create Queues*/
+	echo_queue = xQueueCreate( 1, sizeof( queue_data ) );
+	OpenAMPInstPtr.send_queue = xQueueCreate( 1, sizeof( queue_data ) );
+	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
+	/* Start the tasks and timer running. */
+	vTaskStartScheduler();
+	while(1);
 
-    while(1) {
-		 __asm__ ( "\
-			wfi\n\t" \
-		);
-	};
+#else
 
-    return 0;
+	/*Create Queues*/
+	echo_queue = pq_create_queue();
+	OpenAMPInstPtr.send_queue = pq_create_queue();
+	communication_task();
+#endif
+	return 0;
+}
+
+void communication_task(){
+	int status;
+
+	rsc_info.rsc_tab = (struct resource_table *)&resources;
+	rsc_info.size = sizeof(resources);
+
+	zynqMP_r5_gic_initialize();
+
+	/* Initialize RPMSG framework */
+	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted,
+			rpmsg_read_cb ,&proc);
+	if (status < 0) {
+		return;
+	}
+
+#ifdef USE_FREERTOS
+	comm_queueset = xQueueCreateSet( 2 );
+	xQueueAddToSet( OpenAMPInstPtr.send_queue, comm_queueset);
+	xQueueAddToSet( OpenAMPInstPtr.lock, comm_queueset);
+#else
+	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
+#endif
+	env_enable_interrupt(VRING1_IPI_INTR_VECT,0,0);
+	while (1) {
+#ifdef USE_FREERTOS
+		QueueSetMemberHandle_t xActivatedMember;
+
+		xActivatedMember = xQueueSelectFromSet( comm_queueset, portMAX_DELAY);
+		if( xActivatedMember == OpenAMPInstPtr.lock ) {
+			env_acquire_sync_lock(OpenAMPInstPtr.lock);
+			process_communication(OpenAMPInstPtr);
+		}
+		if (xActivatedMember == OpenAMPInstPtr.send_queue) {
+			xQueueReceive( OpenAMPInstPtr.send_queue, &send_data, 0 );
+			rpmsg_send(app_rp_chnl, send_data.data, send_data.length);
+		}
+#else
+		env_acquire_sync_lock(OpenAMPInstPtr.lock);
+		process_communication(OpenAMPInstPtr);
+		echo_test();
+		/* Wait for the result data on queue */
+		if(pq_qlength(OpenAMPInstPtr.send_queue) > 0) {
+			send_data = pq_dequeue(OpenAMPInstPtr.send_queue);
+			/* Send the result of matrix multiplication back to master. */
+			rpmsg_send(app_rp_chnl, send_data->data, send_data->length);
+		}
+#endif
+
+	}
+}
+
+void echo_test(){
+#ifdef USE_FREERTOS
+	for( ;; ){
+		/* Wait to receive data for matrix multiplication */
+		if( xQueueReceive( echo_queue, &echo_data, portMAX_DELAY )){
+			/*
+			 * The data can be processed here and send back
+			 * Since it is simple echo test, the data is sent without
+			 * processing
+			 */
+			xQueueSend( OpenAMPInstPtr.send_queue, &echo_data, portMAX_DELAY  );
+		}
+	}
+#else
+	/* check whether data is received for matrix multiplication */
+	if(pq_qlength(echo_queue) > 0){
+			echo_data = pq_dequeue(echo_queue);
+			/*
+			 * The data can be processed here and send back
+			 * Since it is simple echo test, the data is sent without
+			 * processing
+			 */
+			pq_enqueue(OpenAMPInstPtr.send_queue, echo_data);
+		}
+
+#endif
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
@@ -132,23 +242,33 @@ static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
                     RPMSG_ADDR_ANY);
 }
 
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
+#ifdef USE_FREERTOS
+static void StopSchedulerTmrCallBack(TimerHandle_t timer)
+{
+	vTaskEndScheduler();
+}
+#endif
 
+static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
 }
 
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src) {
     if ((*(int *) data) == SHUTDOWN_MSG) {
         remoteproc_resource_deinit(proc);
+#ifdef USE_FREERTOS
+		int TempTimerId;
+		stop_scheduler = xTimerCreate("TMR", DELAY_200MSEC, pdFALSE, (void *)&TempTimerId, StopSchedulerTmrCallBack);
+		xTimerStart(stop_scheduler, 0);
+#endif
     } else {
-        /* Send data back to master*/
-        rpmsg_send(rp_chnl, data, len);
+/* copy the received data and send to matrix mul task over queue */
+		recv_echo_data.data = data;
+		recv_echo_data.length = len;
+#ifdef USE_FREERTOS
+		xQueueSend( echo_queue, &recv_echo_data, portMAX_DELAY  );
+#else
+		pq_enqueue(echo_queue, &recv_echo_data);
+#endif
     }
-}
-
-static void init_system() {
-
-	/* Initilaize GIC */
-	zynqMP_r5_gic_initialize();
-
 }
