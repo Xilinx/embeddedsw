@@ -284,6 +284,8 @@
 *                     (xaxivdma_selftest.c) and called this from the selftest example
 * 6.0   vak  27/07/15  Added example for demonstarting triple buffer api.
 * 6.0   vak  27/07/15  Added 64 bit addressing support to the driver.
+* 6.0   vak  26/08/15  Added checks to align hsize and stride based on channel direction
+*                      (read or write)(CR 874861)
 *
 * </pre>
 *

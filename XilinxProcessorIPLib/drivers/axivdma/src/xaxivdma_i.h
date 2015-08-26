@@ -116,6 +116,7 @@ typedef struct {
                         /*Statically allocated BDs */
     u32 DbgFeatureFlags; /* Debug Parameter Flags */
 	int AddrWidth;
+	int direction;	/* Determines whether Read or write channel */
 }XAxiVdma_Channel;
 
 /* Duplicate layout of XAxiVdma_DmaSetup

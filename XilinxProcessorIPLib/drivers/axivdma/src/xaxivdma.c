@@ -181,6 +181,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 	WrChannel->IsValid = 0;
 
 	if (InstancePtr->HasMm2S) {
+		RdChannel->direction = XAXIVDMA_READ;
 		RdChannel->ChanBase = InstancePtr->BaseAddr + XAXIVDMA_TX_OFFSET;
 		RdChannel->InstanceBase = InstancePtr->BaseAddr;
 		RdChannel->HasSG = InstancePtr->HasSG;
@@ -261,6 +262,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 	}
 
 	if (InstancePtr->HasS2Mm) {
+		WrChannel->direction = XAXIVDMA_WRITE;
 		WrChannel->ChanBase = InstancePtr->BaseAddr + XAXIVDMA_RX_OFFSET;
 		WrChannel->InstanceBase = InstancePtr->BaseAddr;
 		WrChannel->HasSG = InstancePtr->HasSG;

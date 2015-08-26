@@ -627,7 +627,8 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
 	int i;
 	int NumBds;
 	int Status;
-	u32 WordLenBits;
+	u32 hsize_align;
+	u32 stride_align;
 
 	if (!Channel->IsValid) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Channel not initialized\r\n");
@@ -644,25 +645,41 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
 
 	Channel->Vsize = ChannelCfgPtr->VertSizeInput;
 
-	WordLenBits = (u32)(Channel->WordLength - 1);
+	/* Check whether Hsize is properly aligned */
+	if (Channel->direction == XAXIVDMA_WRITE) {
+		if (ChannelCfgPtr->HoriSizeInput < Channel->WordLength) {
+			hsize_align = (u32)Channel->WordLength;
+		} else {
+			hsize_align =
+				(u32)(ChannelCfgPtr->HoriSizeInput % Channel->WordLength);
+		}
+	} else {
+		if (ChannelCfgPtr->HoriSizeInput < Channel->WordLength) {
+			hsize_align = (u32)Channel->WordLength;
+		} else {
+			hsize_align =
+				(u32)(ChannelCfgPtr->HoriSizeInput % Channel->StreamWidth);
+		}
+	}
+
+	/* Check whether Stride is properly aligned */
+	if (ChannelCfgPtr->Stride < Channel->WordLength) {
+		stride_align = (u32)Channel->WordLength;
+	} else {
+		stride_align = (u32)(ChannelCfgPtr->Stride % Channel->WordLength);
+	}
 
 	/* If hardware has no DRE, then Hsize and Stride must
 	 * be word-aligned
 	 */
 	if (!Channel->HasDRE) {
-		if (ChannelCfgPtr->HoriSizeInput & WordLenBits) {
-			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Unaligned Hsize %x: without DRE\r\n",
-				ChannelCfgPtr->HoriSizeInput);
-
-			return XST_INVALID_PARAM;
+		if (hsize_align != 0) {
+			/* Adjust hsize to multiples of stream/mm data width*/
+			ChannelCfgPtr->HoriSizeInput += hsize_align;
 		}
-		if (ChannelCfgPtr->Stride & WordLenBits) {
-			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Unaligned Stride %x: without DRE\r\n",
-				ChannelCfgPtr->Stride);
-
-			return XST_INVALID_PARAM;
+		if (stride_align != 0) {
+			/* Adjust stride to multiples of stream/mm data width*/
+			ChannelCfgPtr->Stride += stride_align;
 		}
 	}
 
