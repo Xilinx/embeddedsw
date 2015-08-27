@@ -160,15 +160,13 @@ typedef struct
 /************************** Function Prototypes ******************************/
 void XV_VScalerStart(XV_vscaler *InstancePtr);
 void XV_VScalerStop(XV_vscaler *InstancePtr);
-void XV_VScalerLoadDefaultCoeff(XV_vscaler *InstancePtr,
-		                        XV_vscaler_l2 *pVscL2Data);
-void XV_VScalerLoadUsrCoeff(XV_vscaler *InstancePtr,
-                            XV_vscaler_l2 *pVscL2Data,
+void XV_VScalerLoadExtCoeff(XV_vscaler *InstancePtr,
+                            XV_vscaler_l2 *VscL2DataPtr,
                             u16 num_phases,
                             u16 num_taps,
                             const short *Coeff);
 void XV_VScalerSetup(XV_vscaler *InstancePtr,
-                     XV_vscaler_l2 *pVscL2Data,
+                     XV_vscaler_l2 *VscL2DataPtr,
                      u32 WidthIn,
                      u32 HeightIn,
                      u32 HeightOut);
