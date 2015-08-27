@@ -162,15 +162,13 @@ typedef struct
 /************************** Function Prototypes ******************************/
 void XV_HScalerStart(XV_hscaler *InstancePtr);
 void XV_HScalerStop(XV_hscaler *InstancePtr);
-void XV_HScalerLoadDefaultCoeff(XV_hscaler *InstancePtr,
-		                        XV_hscaler_l2 *pHscL2Data);
-void XV_HScalerLoadUsrCoeff(XV_hscaler *InstancePtr,
-                            XV_hscaler_l2 *pHscL2Data,
+void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
+                            XV_hscaler_l2 *HscL2DataPtr,
                             u16 num_phases,
                             u16 num_taps,
                             const short *Coeff);
 void XV_HScalerSetup(XV_hscaler  *InstancePtr,
-                     XV_hscaler_l2 *pHscL2Data,
+                     XV_hscaler_l2 *HscL2DataPtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
