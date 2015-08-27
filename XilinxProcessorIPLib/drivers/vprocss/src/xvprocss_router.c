@@ -59,7 +59,8 @@
 
 /************************** Constant Definitions *****************************/
 /* AXIS Switch Port# connected to input stream */
-#define AXIS_SWITCH_VIDIN_S0              (0)
+#define XVPROCSS_AXIS_SWITCH_VIDIN_S0     (0)
+#define XVPROCSS_AXIS_SWITCH_VIDOUT_M0    (0)
 
 /************************** Function Prototypes ******************************/
 static int validateWindowSize(const XVidC_VideoWindow *win,
@@ -206,7 +207,7 @@ static XVprocSs_ScaleMode GetScalingMode(XVprocSs *XVprocSsPtr)
 int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 {
 #ifdef DEBUG
-  const char *ipStr[XVPROCSS_RTR_MAX] =
+  const char *ipStr[XVPROCSS_SUBCORE_MAX] =
   {
     "VID_OUT",
     "SCALER-V",
@@ -250,35 +251,35 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   /* Check if input is I/P */
   if(StrmInPtr->IsInterlaced)
   {
-    pTable[index++] = XVPROCSS_RTR_DEINT;
+    pTable[index++] = XVPROCSS_SUBCORE_DEINT;
   }
 
   /* Check if input is 420 */
   if(StrmInPtr->ColorFormatId == XVIDC_CSF_YCRCB_420)
   {
     //up-sample vertically to 422 as none of the IP supports 420
-    pTable[index++] = XVPROCSS_RTR_CR_V_IN;
+    pTable[index++] = XVPROCSS_SUBCORE_CR_V_IN;
     CtxtPtr->StrmCformat = XVIDC_CSF_YCRCB_422;
   }
 
   switch(CtxtPtr->ScaleMode)
   {
     case XVPROCSS_SCALE_1_1:
-        pTable[index++] = XVPROCSS_RTR_VDMA;
+        pTable[index++] = XVPROCSS_SUBCORE_VDMA;
         CtxtPtr->MemEn = TRUE;
         break;
 
     case XVPROCSS_SCALE_UP:
-        pTable[index++] = XVPROCSS_RTR_VDMA;     /* VDMA is before Scaler */
-        pTable[index++] = XVPROCSS_RTR_SCALER_V;
-        pTable[index++] = XVPROCSS_RTR_SCALER_H;
+        pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
+        pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
+        pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         CtxtPtr->MemEn = TRUE;
         break;
 
     case XVPROCSS_SCALE_DN:
-        pTable[index++] = XVPROCSS_RTR_SCALER_H;
-        pTable[index++] = XVPROCSS_RTR_SCALER_V;
-        pTable[index++] = XVPROCSS_RTR_VDMA;     /* VDMA is after Scaler */
+        pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
+        pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
+        pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
         CtxtPtr->MemEn = TRUE;
         break;
 
@@ -289,7 +290,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   }
 
   /* Send stream to LBox to add H/V bars, if needed */
-  pTable[index++] = XVPROCSS_RTR_LBOX;
+  pTable[index++] = XVPROCSS_SUBCORE_LBOX;
 
   /* Check for input and output color format to derive required conversions */
   switch(StrmOutPtr->ColorFormatId)
@@ -298,9 +299,9 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
          switch(StrmInPtr->ColorFormatId)
          {
            case XVIDC_CSF_RGB:
-              pTable[index++] = XVPROCSS_RTR_CSC;      //convert RGB->444
-              pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
-              pTable[index++] = XVPROCSS_RTR_CR_V_OUT; //convert 422->420
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //convert RGB->444
+              pTable[index++] = XVPROCSS_SUBCORE_CR_H;     //convert 444->422
+              pTable[index++] = XVPROCSS_SUBCORE_CR_V_OUT; //convert 422->420
               CtxtPtr->CscIn  = XVIDC_CSF_RGB;
               CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
               CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
@@ -308,9 +309,9 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            case XVIDC_CSF_YCRCB_444:
-              pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 444
-              pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
-              pTable[index++] = XVPROCSS_RTR_CR_V_OUT; //convert 422->420
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //picture control in 444
+              pTable[index++] = XVPROCSS_SUBCORE_CR_H;     //convert 444->422
+              pTable[index++] = XVPROCSS_SUBCORE_CR_V_OUT; //convert 422->420
               CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
               CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
               CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
@@ -319,8 +320,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
-              pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 422
-              pTable[index++] = XVPROCSS_RTR_CR_V_OUT; //convert 422->420
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //picture control in 422
+              pTable[index++] = XVPROCSS_SUBCORE_CR_V_OUT; //convert 422->420
               CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_422;
               CtxtPtr->CscOut = XVIDC_CSF_YCRCB_422;
               break;
@@ -337,15 +338,15 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
          {
            case XVIDC_CSF_RGB:
            case XVIDC_CSF_YCRCB_444:  //convert 444->RGB
-              pTable[index++] = XVPROCSS_RTR_CSC;
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;
               CtxtPtr->CscIn  = StrmInPtr->ColorFormatId;
               CtxtPtr->CscOut = XVIDC_CSF_RGB;
               break;
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
-              pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 422->444
-              pTable[index++] = XVPROCSS_RTR_CSC;      //convert 444->RGB
+              pTable[index++] = XVPROCSS_SUBCORE_CR_H;     //convert 422->444
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //convert 444->RGB
               CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_422;
               CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_444;
               CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
@@ -363,8 +364,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
          switch(StrmInPtr->ColorFormatId)
          {
            case XVIDC_CSF_RGB:
-              pTable[index++] = XVPROCSS_RTR_CSC;      //convert RGB->444
-              pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //convert RGB->444
+              pTable[index++] = XVPROCSS_SUBCORE_CR_H;     //convert 444->422
               CtxtPtr->CscIn  = XVIDC_CSF_RGB;
               CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
               CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
@@ -372,8 +373,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            case XVIDC_CSF_YCRCB_444:
-              pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 444
-              pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 444->422
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //picture control in 444
+              pTable[index++] = XVPROCSS_SUBCORE_CR_H;     //convert 444->422
               CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
               CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
               CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_444;
@@ -382,7 +383,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
-              pTable[index++] = XVPROCSS_RTR_CSC;      //picture control in 422
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //picture control in 422
               CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_422;
               CtxtPtr->CscOut = XVIDC_CSF_YCRCB_422;
               break;
@@ -399,15 +400,15 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
          {
            case XVIDC_CSF_RGB:        //convert 444->RGB
            case XVIDC_CSF_YCRCB_444:
-              pTable[index++] = XVPROCSS_RTR_CSC;
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;
               CtxtPtr->CscIn  = StrmInPtr->ColorFormatId;
               CtxtPtr->CscOut = XVIDC_CSF_YCRCB_444;
               break;
 
            case XVIDC_CSF_YCRCB_422:
            case XVIDC_CSF_YCRCB_420: //Input was up converted to 422
-              pTable[index++] = XVPROCSS_RTR_CR_H;     //convert 422->444
-              pTable[index++] = XVPROCSS_RTR_CSC;      //picture control
+              pTable[index++] = XVPROCSS_SUBCORE_CR_H;     //convert 422->444
+              pTable[index++] = XVPROCSS_SUBCORE_CSC;      //picture control
               CtxtPtr->HcrIn  = XVIDC_CSF_YCRCB_422;
               CtxtPtr->HcrOut = XVIDC_CSF_YCRCB_444;
               CtxtPtr->CscIn  = XVIDC_CSF_YCRCB_444;
@@ -428,7 +429,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   }
 
   /* Connect Last IP in chain to switch output */
-  pTable[index++] = XVPROCSS_RTR_VIDOUT;
+  pTable[index++] = XVPROCSS_AXIS_SWITCH_VIDOUT_M0;
 
   /* save number of cores in processing path */
   CtxtPtr->RtrNumCores = index;
@@ -475,7 +476,7 @@ void XVprocSs_ProgRouterMux(XVprocSs *XVprocSsPtr)
 
   /* Connect Input Stream to the 1st core in path */
   nextMi = prevSi = pTable[0];
-  XAxisScr_MiPortEnable(XVprocSsPtr->RouterPtr, nextMi, AXIS_SWITCH_VIDIN_S0);
+  XAxisScr_MiPortEnable(XVprocSsPtr->RouterPtr, nextMi, XVPROCSS_AXIS_SWITCH_VIDIN_S0);
 
   /* Traverse routing map and connect cores in the chain */
   for(count=1; count<numProcElem; ++count)
@@ -542,14 +543,14 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
       default:
           break;
     }
-    StartCorePtr[XVPROCSS_RTR_VDMA] = TRUE;
+    StartCorePtr[XVPROCSS_SUBCORE_VDMA] = TRUE;
   }
 
   for(count=0; count<CtxtPtr->RtrNumCores; ++count)
   {
     switch(pTable[count])
     {
-      case XVPROCSS_RTR_SCALER_V:
+      case XVPROCSS_SUBCORE_SCALER_V:
           if(XVprocSsPtr->VscalerPtr)
           {
             if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN)
@@ -578,11 +579,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                             vsc_WidthIn,
                             vsc_HeightIn,
                             vsc_HeightOut);
-            StartCorePtr[XVPROCSS_RTR_SCALER_V] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_SCALER_V] = TRUE;
           }
           break;
 
-      case XVPROCSS_RTR_SCALER_H:
+      case XVPROCSS_SUBCORE_SCALER_H:
           if(XVprocSsPtr->HscalerPtr)
           {
             if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN)
@@ -610,15 +611,15 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                             hsc_WidthIn,
                             hsc_WidthOut,
                             XVprocSsPtr->CtxtData.StrmCformat);
-            StartCorePtr[XVPROCSS_RTR_SCALER_H] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_SCALER_H] = TRUE;
           }
           break;
 
-      case XVPROCSS_RTR_VDMA:
+      case XVPROCSS_SUBCORE_VDMA:
           /* NOP - Programmed before the switch statement */
           break;
 
-      case XVPROCSS_RTR_LBOX:
+      case XVPROCSS_SUBCORE_LBOX:
           if(XVprocSsPtr->LboxPtr)
           {
             if(XVprocSs_IsPipModeOn(XVprocSsPtr))
@@ -645,11 +646,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                                       XVprocSsPtr->CtxtData.StrmCformat,
                                       XVprocSsPtr->VidOut.ColorDepth);
 
-            StartCorePtr[XVPROCSS_RTR_LBOX] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_LBOX] = TRUE;
           }
           break;
 
-      case XVPROCSS_RTR_CR_H:
+      case XVPROCSS_SUBCORE_CR_H:
           if(XVprocSsPtr->HcrsmplrPtr)
           {
             XV_HCrsmplSetActiveSize(XVprocSsPtr->HcrsmplrPtr,
@@ -660,11 +661,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 			                    &XVprocSsPtr->HcrL2Reg,
                                 CtxtPtr->HcrIn,
                                 CtxtPtr->HcrOut);
-            StartCorePtr[XVPROCSS_RTR_CR_H] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_CR_H] = TRUE;
           }
           break;
 
-      case XVPROCSS_RTR_CR_V_IN:
+      case XVPROCSS_SUBCORE_CR_V_IN:
           if(XVprocSsPtr->VcrsmplrInPtr)
           {
             XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrInPtr,
@@ -675,11 +676,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 			                    &XVprocSsPtr->VcrInL2Reg,
                                 XVIDC_CSF_YCRCB_420,
                                 XVIDC_CSF_YCRCB_422);
-            StartCorePtr[XVPROCSS_RTR_CR_V_IN] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_CR_V_IN] = TRUE;
           }
           break;
 
-      case XVPROCSS_RTR_CR_V_OUT:
+      case XVPROCSS_SUBCORE_CR_V_OUT:
           if(XVprocSsPtr->VcrsmplrOutPtr)
           {
             XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrOutPtr,
@@ -690,11 +691,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 			                    &XVprocSsPtr->VcrOutL2Reg,
                                 XVIDC_CSF_YCRCB_422,
                                 XVIDC_CSF_YCRCB_420);
-            StartCorePtr[XVPROCSS_RTR_CR_V_OUT] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_CR_V_OUT] = TRUE;
           }
           break;
 
-      case XVPROCSS_RTR_CSC:
+      case XVPROCSS_SUBCORE_CSC:
           if(XVprocSsPtr->CscPtr)
           {
             XV_CscSetColorspace(XVprocSsPtr->CscPtr,
@@ -709,11 +710,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                                 XVprocSsPtr->VidOut.Timing.HActive,
                                 XVprocSsPtr->VidOut.Timing.VActive);
 
-            StartCorePtr[XVPROCSS_RTR_CSC] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_CSC] = TRUE;
           }
           break;
 
-      case XVPROCSS_RTR_DEINT:
+      case XVPROCSS_SUBCORE_DEINT:
           if(XVprocSsPtr->DeintPtr)
           {
 	        xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Deinterlacer for %dx%d to %dx%d\r\n", \
@@ -733,7 +734,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 			                           XVprocSsPtr->VidIn.Timing.VActive); //field height
 
             XV_deinterlacer_Set_invert_field_id(XVprocSsPtr->DeintPtr, 0); //TBD
-            StartCorePtr[XVPROCSS_RTR_DEINT] = TRUE;
+            StartCorePtr[XVPROCSS_SUBCORE_DEINT] = TRUE;
           }
           break;
     }

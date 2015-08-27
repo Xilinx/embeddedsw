@@ -163,28 +163,31 @@ int XVprocSs_VdmaWriteSetup(XAxiVdma *XVdmaPtr,
   u32 Addr;
   int Status;
   u32 HSizeInBytes;
-  u32 StrideInBytes;;
+  u32 StrideInBytes;
   u32 BlockOffset;
-  u32 alignBytes = 0;
+  u32 StartHPosBytes;
+  u32 alignBytes;
 
   if(XVdmaPtr)
   {
-    HSizeInBytes  = (window->Width*PixelWidthInBits)/8;
-    StrideInBytes = (FrameWidth*PixelWidthInBits)/8;
-
-    /* Compute start location for sub-frame */
-    BlockOffset = (window->StartY * StrideInBytes) + (window->StartX*PixelWidthInBits)/8;
+    HSizeInBytes   = (window->Width  * PixelWidthInBits)/8;
+    StrideInBytes  = (FrameWidth     * PixelWidthInBits)/8;
+    StartHPosBytes = (window->StartX * PixelWidthInBits)/8;
 
     /* If DMA engine does not support unaligned transfers then align block
-     * offset, hsize and stride to next data width boundary
+     * offset, hsize and stride to next data width boundary (aximm)
      */
     if(!XVdmaPtr->WriteChannel.HasDRE)
     {
       alignBytes = XVdmaPtr->WriteChannel.WordLength-1;
-      BlockOffset   = (BlockOffset   + alignBytes) & ~(alignBytes);
-      HSizeInBytes  = (HSizeInBytes  + alignBytes) & ~(alignBytes);
-      StrideInBytes = (StrideInBytes + alignBytes) & ~(alignBytes);
+
+      HSizeInBytes   = (HSizeInBytes   + alignBytes) & ~(alignBytes);
+      StrideInBytes  = (StrideInBytes  + alignBytes) & ~(alignBytes);
+      StartHPosBytes = (StartHPosBytes + alignBytes) & ~(alignBytes);
     }
+
+    /* Compute start location for sub-frame */
+    BlockOffset = ((window->StartY * StrideInBytes) + StartHPosBytes);
 
     WriteCfg.VertSizeInput = window->Height;
     WriteCfg.HoriSizeInput = HSizeInBytes;
@@ -200,7 +203,7 @@ int XVprocSs_VdmaWriteSetup(XAxiVdma *XVdmaPtr,
 
     WriteCfg.FixedFrameStoreAddr = 0; /* We are not doing parking */
 
-    WriteCfg.GenLockRepeat = 1; /* Repeat previous frame on frame errors */
+    WriteCfg.GenLockRepeat = 0; /* Do not repeat previous frame on frame errors */
     Status = XAxiVdma_DmaConfig(XVdmaPtr, XAXIVDMA_WRITE, &WriteCfg);
     if (Status != XST_SUCCESS)
     {
@@ -262,26 +265,34 @@ int XVprocSs_VdmaReadSetup(XAxiVdma *XVdmaPtr,
   u32 HSizeInBytes;
   u32 StrideInBytes;
   u32 BlockOffset;
-  u32 alignBytes = 0;
+  u32 alignBytes;
+  u32 StartHPosBytes;
 
   if(XVdmaPtr)
   {
-    HSizeInBytes  = (window->Width*PixelWidthInBits)/8;
-    StrideInBytes = (FrameWidth*PixelWidthInBits)/8;
-
-    //Compute start location for sub-frame
-    BlockOffset = (window->StartY * StrideInBytes) + (window->StartX*PixelWidthInBits)/8;
+    HSizeInBytes   = (window->Width  * PixelWidthInBits)/8;
+    StrideInBytes  = (FrameWidth     * PixelWidthInBits)/8;
+    StartHPosBytes = (window->StartX * PixelWidthInBits)/8;
 
     /* If DMA engine does not support unaligned transfers then align block
-     * offset, hsize and stride to next data width boundary
+     * offset, hsize and stride
+     * Block offset and Stride are aligned to aximm width
+     * hsize is aligned to axis width
      */
     if(!XVdmaPtr->ReadChannel.HasDRE)
     {
       alignBytes = XVdmaPtr->ReadChannel.WordLength-1;
-      BlockOffset   = (BlockOffset   + alignBytes) & ~(alignBytes);
-      HSizeInBytes  = (HSizeInBytes  + alignBytes) & ~(alignBytes);
-      StrideInBytes = (StrideInBytes + alignBytes) & ~(alignBytes);
+
+      StrideInBytes  = (StrideInBytes  + alignBytes) & ~(alignBytes);
+      StartHPosBytes = (StartHPosBytes + alignBytes) & ~(alignBytes);
+
+      /* align hsize to stream width (axis) */
+      alignBytes = XVdmaPtr->ReadChannel.StreamWidth;
+      HSizeInBytes  = ((HSizeInBytes+alignBytes-1)/alignBytes)*alignBytes;
     }
+
+    //Compute start location for sub-frame
+    BlockOffset = ((window->StartY * StrideInBytes) + StartHPosBytes);
 
     ReadCfg.VertSizeInput = window->Height;
     ReadCfg.HoriSizeInput = HSizeInBytes;
@@ -541,7 +552,7 @@ void XVprocSs_VdmaDbgReportStatus(XAxiVdma *XVdmaPtr, u32 PixelWidthInBits)
   {
     xil_printf("\r\n\r\n----->VDMA IP STATUS<----\r\n");
     xil_printf("INFO: VDMA Rd/Wr Client Width/Stride defined in Bytes Per Pixel\r\n");
-    xil_printf("Bytes Per Pixel = %d\r\n\r\n", PixelWidthInBits/8);
+    xil_printf("Bytes Per Pixel = %d.%d\r\n\r\n", (PixelWidthInBits/8), (PixelWidthInBits%8));
     xil_printf("Read Channel Setting \r\n" );
     //clear status register before reading
     XAxiVdma_ClearDmaChannelErrors(XVdmaPtr, XAXIVDMA_READ, 0xFFFFFFFF);

@@ -42,7 +42,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/21/15   Initial Release
+* 1.00  rco   08/28/15   Initial Release
 
 * </pre>
 *
@@ -126,7 +126,7 @@ const u16 XVprocSs_PixelHStep[XVIDC_PPC_NUM_SUPPORTED][4] =
 };
 
 /************************** Function Prototypes ******************************/
-static void SetPODConfiguration(XVprocSs *XVprocSsPtr);
+static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr);
 static void GetIncludedSubcores(XVprocSs *XVprocSsPtr);
 static int ValidateSubsystemConfig(XVprocSs *InstancePtr);
 static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
@@ -252,7 +252,7 @@ static __inline void WaitUs(XVprocSs *XVprocSsPtr, u32 MicroSeconds)
 * @return None
 *
 ******************************************************************************/
-void XVprocSs_ReportCoreInfo(XVprocSs *InstancePtr)
+void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
@@ -442,7 +442,7 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
   memcpy((void *)&(XVprocSsPtr->Config), (const void *)CfgPtr, sizeof(XVprocSs_Config));
   XVprocSsPtr->Config.BaseAddress = EffectiveAddr;
 
-  switch(XVprocSsPtr->Config.Topology)
+  switch(XVprocSs_GetSubsystemTopology(InstancePtr))
   {
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
 	    xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Full]\r\n\r\n");
@@ -605,7 +605,7 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
   }
 
   /* Set subsystem to power on default state */
-  SetPODConfiguration(InstancePtr);
+  SetPowerOnDefaultState(InstancePtr);
 
   /* Reset the hardware and set the flag to indicate the
      subsystem is ready
@@ -627,7 +627,7 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
 * @return None
 *
 ******************************************************************************/
-static void SetPODConfiguration(XVprocSs *XVprocSsPtr)
+static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
 {
   XVidC_VideoStream vidStrmIn;
   XVidC_VideoStream vidStrmOut;
@@ -679,7 +679,7 @@ static void SetPODConfiguration(XVprocSs *XVprocSsPtr)
 	 break;
   }
 
-  /* Setup Pixel Step size for define HW configuration */
+  /* Set default Pip/Zoom window increment step size */
   switch(XVprocSsPtr->Config.ColorDepth)
   {
     case XVIDC_BPC_8:  PixPrecisionIndex = 0; break;
@@ -688,6 +688,7 @@ static void SetPODConfiguration(XVprocSs *XVprocSsPtr)
     case XVIDC_BPC_16: PixPrecisionIndex = 3; break;
     default: break;
   }
+
   XVprocSsPtr->CtxtData.PixelHStepSize = XVprocSs_PixelHStep[XVprocSsPtr->Config.PixPerClock>>1][PixPrecisionIndex];
 
   if(XVprocSs_IsConfigModeMax(XVprocSsPtr))
@@ -711,7 +712,7 @@ static void SetPODConfiguration(XVprocSs *XVprocSsPtr)
   XVprocSs_EnableBlock(XVprocSsPtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
 
   /* User parameter configuration */
-  /* Set default background color for Letter Box */
+  /* Set default background color for Letter Box (PIP) */
   if(XVprocSsPtr->LboxPtr)
   {
     XV_LboxSetBackgroundColor(XVprocSsPtr->LboxPtr,
@@ -750,31 +751,31 @@ void XVprocSs_Start(XVprocSs *InstancePtr)
   StartCorePtr = &InstancePtr->CtxtData.StartCore[0];
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Start Video Processing Subsystem.... \r\n");
 
-  if(StartCorePtr[XVPROCSS_RTR_CR_V_OUT])
+  if(StartCorePtr[XVPROCSS_SUBCORE_CR_V_OUT])
     XV_VCrsmplStart(InstancePtr->VcrsmplrOutPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_CR_H])
+  if(StartCorePtr[XVPROCSS_SUBCORE_CR_H])
     XV_HCrsmplStart(InstancePtr->HcrsmplrPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_CSC])
+  if(StartCorePtr[XVPROCSS_SUBCORE_CSC])
     XV_CscStart(InstancePtr->CscPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_LBOX])
+  if(StartCorePtr[XVPROCSS_SUBCORE_LBOX])
     XV_LBoxStart(InstancePtr->LboxPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_SCALER_H])
+  if(StartCorePtr[XVPROCSS_SUBCORE_SCALER_H])
     XV_HScalerStart(InstancePtr->HscalerPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_SCALER_V])
+  if(StartCorePtr[XVPROCSS_SUBCORE_SCALER_V])
     XV_VScalerStart(InstancePtr->VscalerPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_VDMA])
+  if(StartCorePtr[XVPROCSS_SUBCORE_VDMA])
     XVprocSs_VdmaStartTransfer(InstancePtr->VdmaPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_DEINT])
+  if(StartCorePtr[XVPROCSS_SUBCORE_DEINT])
     XV_DeintStart(InstancePtr->DeintPtr);
 
-  if(StartCorePtr[XVPROCSS_RTR_CR_V_IN])
+  if(StartCorePtr[XVPROCSS_SUBCORE_CR_V_IN])
     XV_VCrsmplStart(InstancePtr->VcrsmplrInPtr);
 
   /* Subsystem ready to accept axis - Enable Video Input */
@@ -853,7 +854,7 @@ void XVprocSs_Reset(XVprocSs *InstancePtr)
   /* Reset All IP Blocks on AXI-MM interface*/
 //  XVprocSs_ResetBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
   /* If enabled, Stop AXI-MM traffic */
-   if((InstancePtr->DeintPtr) && (InstancePtr->CtxtData.StartCore[XVPROCSS_RTR_DEINT]))
+   if((InstancePtr->DeintPtr) && (InstancePtr->CtxtData.StartCore[XVPROCSS_SUBCORE_DEINT]))
    {
      XV_DeintStop(InstancePtr->DeintPtr);
    }
@@ -1046,8 +1047,6 @@ void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
                                XVprocSs_Win   mode,
                                XVidC_VideoWindow *win)
 {
-  u16 wordlen;
-
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(win != NULL);
@@ -1056,35 +1055,47 @@ void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
   {
     if(mode == XVPROCSS_ZOOM_WIN)
     {
-     /* check if DMA includes DRE. If not then auto-align to selected bus width */
-     if(!InstancePtr->VdmaPtr->ReadChannel.HasDRE)
-     {
-       wordlen = InstancePtr->CtxtData.PixelHStepSize-1;
+      /* If DMA engine does not support unaligned transfers then
+       * - align window StartX to next PixelHStepSize boundary
+       * - align window size to 2*Pixels/Clock
+       */
+      if(!InstancePtr->VdmaPtr->ReadChannel.HasDRE)
+      {
+	u32 AlignStartX, AlignWidth;
 
-       win->StartX = ((win->StartX + wordlen) & ~(wordlen));
-       win->Width  = ((win->Width  + wordlen) & ~(wordlen));
-     }
-     //VDMA RD Client
-     InstancePtr->CtxtData.RdWindow.StartX = win->StartX;
-     InstancePtr->CtxtData.RdWindow.StartY = win->StartY;
-     InstancePtr->CtxtData.RdWindow.Width  = win->Width;
-     InstancePtr->CtxtData.RdWindow.Height = win->Height;
+	AlignStartX = InstancePtr->CtxtData.PixelHStepSize;
+	AlignWidth  = 2*InstancePtr->Config.PixPerClock;
+
+	win->StartX = ((win->StartX + AlignStartX - 1)/AlignStartX)*AlignStartX;
+	win->Width  = ((win->Width  + AlignWidth  - 1)/AlignWidth)*AlignWidth;
+      }
+      //VDMA RD Client
+      InstancePtr->CtxtData.RdWindow.StartX = win->StartX;
+      InstancePtr->CtxtData.RdWindow.StartY = win->StartY;
+      InstancePtr->CtxtData.RdWindow.Width  = win->Width;
+      InstancePtr->CtxtData.RdWindow.Height = win->Height;
     }
     else //PIP
     {
-     /* check if DMA does not have DRE then auto-align */
-     if(!InstancePtr->VdmaPtr->WriteChannel.HasDRE)
-     {
-       wordlen = InstancePtr->CtxtData.PixelHStepSize-1;
+      /* If DMA engine does not support unaligned transfers then
+       * - align window StartX to next PixelHStepSize boundary
+       * - align window size to 2*Pixels/Clock
+       */
+      if(!InstancePtr->VdmaPtr->WriteChannel.HasDRE)
+      {
+        u32 AlignStartX, AlignWidth;
 
-       win->StartX = ((win->StartX + wordlen) & ~(wordlen));
-       win->Width  = ((win->Width  + wordlen) & ~(wordlen));
-     }
-     //VDMA WR Client
-     InstancePtr->CtxtData.WrWindow.StartX = win->StartX;
-     InstancePtr->CtxtData.WrWindow.StartY = win->StartY;
-     InstancePtr->CtxtData.WrWindow.Width  = win->Width;
-     InstancePtr->CtxtData.WrWindow.Height = win->Height;
+	AlignStartX = InstancePtr->CtxtData.PixelHStepSize;
+	AlignWidth  = 2*InstancePtr->Config.PixPerClock;
+
+	win->StartX = ((win->StartX + AlignStartX - 1)/AlignStartX)*AlignStartX;
+	win->Width  = ((win->Width  + AlignWidth  - 1)/AlignWidth)*AlignWidth;
+      }
+      //VDMA WR Client
+      InstancePtr->CtxtData.WrWindow.StartX = win->StartX;
+      InstancePtr->CtxtData.WrWindow.StartY = win->StartY;
+      InstancePtr->CtxtData.WrWindow.Width  = win->Width;
+      InstancePtr->CtxtData.WrWindow.Height = win->Height;
     }
   }
   else //Scaler Only Config
@@ -1512,7 +1523,7 @@ int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr)
 	 return(XST_FAILURE);
   }
 
-  switch(InstancePtr->Config.Topology)
+  switch(XVprocSs_GetSubsystemTopology(InstancePtr))
   {
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
         status = SetupModeMax(InstancePtr);
@@ -1544,20 +1555,21 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
 {
   char *topology[2] = {"Scaler-Only", "Full-Fledged"};
   XVidC_VideoWindow win;
+  int SubsytemTopology = XVprocSs_GetSubsystemTopology(InstancePtr);
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   xil_printf("\r\n****** Video Processing Subsystem Configuration ******\r\n");
   /* Print the configuration selected */
-  if(InstancePtr->Config.Topology <= XVPROCSS_TOPOLOGY_FULL_FLEDGED)
+  if(SubsytemTopology < XVPROCSS_TOPOLOGY_NUM_SUPPORTED)
   {
-    xil_printf("\r\nTopology: %s\r\n", topology[InstancePtr->Config.Topology]);
-    XVprocSs_ReportCoreInfo(InstancePtr);
+    xil_printf("\r\nTopology: %s\r\n", topology[SubsytemTopology]);
+    XVprocSs_ReportSubsystemCoreInfo(InstancePtr);
   }
   else
   {
-	xil_printf("VPROCSS ERR:: Unknown Topology\r\n");
+	xil_printf("VPROCSS ERR:: Topology: Not Supported\r\n");
 	return;
   }
   xil_printf("\r\nPixels/Clk  = %d\r\n", InstancePtr->Config.PixPerClock);
@@ -1582,6 +1594,7 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
 	  xil_printf("   Start Y    = %d\r\n", win.StartY);
 	  xil_printf("   Win Width  = %d\r\n", win.Width);
 	  xil_printf("   Win Height = %d\r\n", win.Height);
+	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
     }
     else
     {
@@ -1596,6 +1609,7 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
 	  xil_printf("   Start Y    = %d\r\n", win.StartY);
 	  xil_printf("   Win Width  = %d\r\n", win.Width);
 	  xil_printf("   Win Height = %d\r\n", win.Height);
+	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
     }
     else
     {
@@ -1603,4 +1617,772 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
     }
   }
   xil_printf("**************************************************\r\n\r\n");
+}
+
+
+/*****************************************************************************/
+/**
+* This function returns picture brighntess setting
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return current value (0-100), if csc subcore is included
+*
+******************************************************************************/
+s32 XVprocSs_GetPictureBrightness(XVprocSs *InstancePtr)
+{
+  s32 Retval;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+
+  if(InstancePtr->CscPtr)
+  {
+	Retval = XV_CscGetBrightness(&InstancePtr->CscL2Reg);
+  }
+  return(Retval);
+}
+
+/*****************************************************************************/
+/**
+* This function updates picture brighntess setting with specified value
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  NewValue is the new value to be written
+* 			- Range: 0-100
+*
+* @return None
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPictureBrightness(XVprocSs *InstancePtr, s32 NewValue)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
+
+  if(InstancePtr->CscPtr)
+  {
+	XV_CscSetBrightness(InstancePtr->CscPtr,
+			            &InstancePtr->CscL2Reg,
+			            NewValue);
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function returns picture contrast setting
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return current value (0-100), if csc subcore is included
+*
+******************************************************************************/
+s32 XVprocSs_GetPictureContrast(XVprocSs *InstancePtr)
+{
+  s32 Retval;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+
+  if(InstancePtr->CscPtr)
+  {
+	Retval = XV_CscGetContrast(&InstancePtr->CscL2Reg);
+  }
+  return(Retval);
+}
+
+/*****************************************************************************/
+/**
+* This function updates picture contrast setting with specified value
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  NewValue is the new value to be written
+* 			- Range: 0-100
+*
+* @return None
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPictureContrast(XVprocSs *InstancePtr, s32 NewValue)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
+
+  if(InstancePtr->CscPtr)
+  {
+	XV_CscSetContrast(InstancePtr->CscPtr,
+			          &InstancePtr->CscL2Reg,
+			          NewValue);
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function returns picture saturation setting
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return current value (0-100), if csc subcore is included
+*
+******************************************************************************/
+s32 XVprocSs_GetPictureSaturation(XVprocSs *InstancePtr)
+{
+  s32 Retval;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+
+  if(InstancePtr->CscPtr)
+  {
+	Retval = XV_CscGetSaturation(&InstancePtr->CscL2Reg);
+  }
+  return(Retval);
+}
+
+/*****************************************************************************/
+/**
+* This function updates picture saturation setting with specified value
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  NewValue is the new value to be written
+* 			- Range: 0-100
+*
+* @return None
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPictureSaturation(XVprocSs *InstancePtr, s32 NewValue)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
+
+  if(InstancePtr->CscPtr)
+  {
+	XV_CscSetSaturation(InstancePtr->CscPtr,
+			            &InstancePtr->CscL2Reg,
+			            NewValue);
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function returns picture gain setting for the specified color channel
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  ChId is the color channel id for which gain is requested
+*
+* @return current value (0-100), if csc subcore is included
+*
+******************************************************************************/
+s32 XVprocSs_GetPictureGain(XVprocSs *InstancePtr, XVprocSs_ColorChannel ChId)
+{
+  s32 Retval;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertNonvoid((ChId >= XVPROCSS_COLOR_CH_Y_RED) &&
+		            (ChId < XVPROCSS_COLOR_CH_NUM_SUPPORTED));
+
+  if(InstancePtr->CscPtr)
+  {
+	switch(ChId)
+	{
+	  case XVPROCSS_COLOR_CH_Y_RED:
+			Retval = XV_CscGetRedGain(&InstancePtr->CscL2Reg);
+			break;
+
+	  case XVPROCSS_COLOR_CH_CB_GREEN:
+			Retval = XV_CscGetGreenGain(&InstancePtr->CscL2Reg);
+			break;
+
+	  case XVPROCSS_COLOR_CH_CR_BLUE:
+			Retval = XV_CscGetBlueGain(&InstancePtr->CscL2Reg);
+			break;
+
+	  default:
+		    break;
+	}
+  }
+  else
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+  }
+  return(Retval);
+}
+
+/*****************************************************************************/
+/**
+* This function updates picture gain setting with specified value
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  ChId is the color channel id for which gain is to be updated
+* @param  NewValue is the new value to be written
+* 			- Range: 0-100
+*
+* @return none
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPictureGain(XVprocSs *InstancePtr,
+		                     XVprocSs_ColorChannel ChId,
+		                     s32 NewValue)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertVoid((ChId >= XVPROCSS_COLOR_CH_Y_RED) &&
+		         (ChId <= XVPROCSS_COLOR_CH_NUM_SUPPORTED));
+  Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
+
+  if(InstancePtr->CscPtr)
+  {
+    switch(ChId)
+    {
+      case XVPROCSS_COLOR_CH_Y_RED:
+            XV_CscSetRedGain(InstancePtr->CscPtr,
+			             &InstancePtr->CscL2Reg,
+			             NewValue);
+			break;
+
+	  case XVPROCSS_COLOR_CH_CB_GREEN:
+            XV_CscSetGreenGain(InstancePtr->CscPtr,
+			                   &InstancePtr->CscL2Reg,
+			                   NewValue);
+			break;
+
+	  case XVPROCSS_COLOR_CH_CR_BLUE:
+            XV_CscSetBlueGain(InstancePtr->CscPtr,
+			                  &InstancePtr->CscL2Reg,
+			                  NewValue);
+			break;
+
+	  default:
+			break;
+    }
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function returns picture color standard setting for input
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return Current set color standard, if csc core is included
+*		    - XVIDC_BT_2020
+*		    - XVIDC_BT_709
+*		    - XVIDC_BT_601
+*		   Else
+*		     XVIDC_BT_UNKNOWN
+*
+******************************************************************************/
+XVidC_ColorStd XVprocSs_GetPictureColorStdIn(XVprocSs *InstancePtr)
+{
+  XVidC_ColorStd Retval = XVIDC_BT_UNKNOWN;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+
+  if(InstancePtr->CscPtr)
+  {
+	Retval = XV_CscGetColorStdIn(&InstancePtr->CscL2Reg);
+  }
+  return(Retval);
+}
+
+/*****************************************************************************/
+/**
+* This function returns picture color standard setting for output
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return Current set color standard, if csc core is included
+*		    - XVIDC_BT_2020
+*		    - XVIDC_BT_709
+*		    - XVIDC_BT_601
+*		   Else
+*		     XVIDC_BT_UNKNOWN
+*
+******************************************************************************/
+XVidC_ColorStd XVprocSs_GetPictureColorStdOut(XVprocSs *InstancePtr)
+{
+  XVidC_ColorStd Retval = XVIDC_BT_UNKNOWN;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+
+  if(InstancePtr->CscPtr)
+  {
+	Retval = XV_CscGetColorStdOut(&InstancePtr->CscL2Reg);
+  }
+  return(Retval);
+}
+
+/*****************************************************************************/
+/**
+* This function sets picture color standard setting for input
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  NewVal is the required color standard
+*		    - XVIDC_BT_2020
+*		    - XVIDC_BT_709
+*		    - XVIDC_BT_601
+*
+* @return None
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
+	                               XVidC_ColorStd NewVal)
+{
+  XV_csc_L2Reg *CscL2RegPtr = &InstancePtr->CscL2Reg;
+
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertVoid((NewVal >= XVIDC_BT_2020) &&
+		         (NewVal < XVIDC_BT_NUM_SUPPORTED));
+
+  if(InstancePtr->CscPtr)
+  {
+    XV_CscSetColorspace(InstancePtr->CscPtr,
+                        CscL2RegPtr,
+                        CscL2RegPtr->ColorFormatIn,
+                        CscL2RegPtr->ColorFormatOut,
+                        NewVal,
+                        CscL2RegPtr->StandardOut,
+                        CscL2RegPtr->OutputRange);
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function sets picture color standard setting for output
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  NewVal is the required color standard
+*		    - XVIDC_BT_2020
+*		    - XVIDC_BT_709
+*		    - XVIDC_BT_601
+*
+* @return None
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
+	                                XVidC_ColorStd NewVal)
+{
+  XV_csc_L2Reg *CscL2RegPtr = &InstancePtr->CscL2Reg;
+
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertVoid((NewVal >= XVIDC_BT_2020) &&
+		         (NewVal < XVIDC_BT_NUM_SUPPORTED));
+
+  if(InstancePtr->CscPtr)
+  {
+    XV_CscSetColorspace(InstancePtr->CscPtr,
+                        CscL2RegPtr,
+                        CscL2RegPtr->ColorFormatIn,
+                        CscL2RegPtr->ColorFormatOut,
+                        CscL2RegPtr->StandardIn,
+                        NewVal,
+                        CscL2RegPtr->OutputRange);
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function returns picture color range for output
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return Current set output range, if csc core is included
+*    		- XVIDC_CR_16_235
+*	    	- XVIDC_CR_16_240
+*		    - XVIDC_CR_0_255
+*		  Else
+*		     XVIDC_CR_UNKNOWN_RANGE
+*
+******************************************************************************/
+XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr)
+{
+  XVidC_ColorRange Retval = XVIDC_CR_UNKNOWN_RANGE;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+
+  if(InstancePtr->CscPtr)
+  {
+	Retval = XV_CscGetOutputRange(&InstancePtr->CscL2Reg);
+  }
+  return(Retval);
+}
+
+/*****************************************************************************/
+/**
+* This function sets picture color range for output
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  NewVal is the required color range
+*    		- XVIDC_CR_16_235
+*	    	- XVIDC_CR_16_240
+*		    - XVIDC_CR_0_255
+*
+* @return None
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
+	                               XVidC_ColorRange NewVal)
+{
+  XV_csc_L2Reg *CscL2RegPtr = &InstancePtr->CscL2Reg;
+
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertVoid((NewVal >= XVIDC_CR_16_235) &&
+		         (NewVal < XVIDC_CR_NUM_SUPPORTED));
+
+  if(InstancePtr->CscPtr)
+  {
+    XV_CscSetColorspace(InstancePtr->CscPtr,
+                        CscL2RegPtr,
+                        CscL2RegPtr->ColorFormatIn,
+                        CscL2RegPtr->ColorFormatOut,
+                        CscL2RegPtr->StandardIn,
+                        CscL2RegPtr->StandardOut,
+                        NewVal);
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function sets picture active window.
+* Post this function call all further picture settings will apply only within
+* the defined window. Active window gets reset everytime subsystem
+* configuration changes
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Win is the pointer to window coordinates within which picture
+*         settings should be applied
+*
+* @return XST_SUCCESS if window is valid else XST_FAILURE
+*
+* @note   Applicable only if CSC core is included in the subsystem
+*
+******************************************************************************/
+int XVprocSs_SetPictureActiveWindow(XVprocSs *InstancePtr,
+	                                XVidC_VideoWindow *Win)
+{
+  u16 width, height;
+  int status = XST_FAILURE;
+
+  /* Verify arguments */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
+  Xil_AssertNonvoid(Win != NULL);
+
+  if(InstancePtr->CscPtr)
+  {
+    width  = XV_csc_Get_HwReg_width(InstancePtr->CscPtr);
+	height = XV_csc_Get_HwReg_height(InstancePtr->CscPtr);
+
+	//Check if window is within the active frame resolution
+	if(((Win->StartX < 0) || (Win->StartX > width))  ||
+	   ((Win->StartY < 0) || (Win->StartY > height)) ||
+	   ((Win->StartX + Win->Width) > width)         ||
+	   ((Win->StartY + Win->Height) > height))
+	{
+	  status = XST_FAILURE;
+	}
+	else
+	{
+	  status = XST_SUCCESS;
+	}
+
+	if(status == XST_SUCCESS)
+	{
+	  XV_CscSetDemoWindow(InstancePtr->CscPtr, Win);
+	}
+  }
+  return(status);
+}
+
+/*****************************************************************************/
+/**
+* This function sets PIP background color
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  ColorIs is the requested background color
+*           - XLBOX_BKGND_BLACK
+*           - XLBOX_BKGND_WHITE
+*           - XLBOX_BKGND_RED
+*           - XLBOX_BKGND_GREEN
+*           - XLBOX_BKGND_BLUE
+*
+* @return None
+*
+* @note   Applicable only if Letterbox core is included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
+		                            XLboxColorId ColorId)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(InstancePtr->LboxPtr != NULL);
+  Xil_AssertVoid((ColorId >= XLBOX_BKGND_BLACK) &&
+		         (ColorId < XLBOX_BKGND_LAST));
+
+  if(InstancePtr->LboxPtr)
+  {
+	XV_LboxSetBackgroundColor(InstancePtr->LboxPtr,
+			                  ColorId,
+			                  InstancePtr->CtxtData.StrmCformat,
+			                  InstancePtr->VidIn.ColorDepth);
+  }
+  else
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function enables user to load external filter coefficients for
+* Scaler cores, independently for H & V
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  CoreId is the Scaler core to be worked on
+*           - XVPROCSS_SUBCORE_SCALER_V
+*           - XVPROCSS_SUBCORE_SCALER_H
+* @param  num_phases is the number of phases supported by Scaler
+* @param  num_taps is the effective taps to be used by Scaler
+* @param  Coeff is the pointer to the filter table to be loaded
+*
+* @return None
+*
+* @note   Applicable only if Scaler cores are included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_LoadScalerCoeff(XVprocSs *InstancePtr,
+		                      u32 CoreId,
+                              u16 num_phases,
+                              u16 num_taps,
+                              const short *Coeff)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(Coeff != NULL);
+  Xil_AssertVoid((CoreId == XVPROCSS_SUBCORE_SCALER_V) ||
+		         (CoreId == XVPROCSS_SUBCORE_SCALER_H));
+
+  switch(CoreId)
+  {
+    case XVPROCSS_SUBCORE_SCALER_V:
+        if(InstancePtr->VscalerPtr)
+	{
+	  XV_VScalerLoadExtCoeff(InstancePtr->VscalerPtr,
+		                     &InstancePtr->VscL2Reg,
+		                     num_phases,
+		                     num_taps,
+		                     Coeff);
+        }
+        else
+        {
+          xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+        }
+
+	break;
+
+    case XVPROCSS_SUBCORE_SCALER_H:
+	if(InstancePtr->HscalerPtr)
+	{
+	  XV_HScalerLoadExtCoeff(InstancePtr->HscalerPtr,
+		                     &InstancePtr->HscL2Reg,
+		                     num_phases,
+		                     num_taps,
+		                     Coeff);
+        }
+	else
+	{
+	  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+	}
+	break;
+
+    default:
+	break;
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function enables user to load external filter coefficients for
+* Chroma Resampler cores, independently for H & V
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  CoreId is the resampler core to be worked on
+*           - XVPROCSS_SUBCORE_CR_H
+*           - XVPROCSS_SUBCORE_CR_V_IN
+*           - XVPROCSS_SUBCORE_CR_V_OUT
+* @param  num_taps is the taps of the resampler hw instance
+* @param  Coeff is the pointer to the filter table to be loaded
+*
+* @return None
+*
+* @note   Applicable only if Resampler cores are included in the subsystem
+*
+******************************************************************************/
+void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
+		                               u32 CoreId,
+                                       u16 num_taps,
+                                       const short *Coeff)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid(Coeff != NULL);
+  Xil_AssertVoid((CoreId == XVPROCSS_SUBCORE_CR_H)    ||
+			     (CoreId == XVPROCSS_SUBCORE_CR_V_IN) ||
+			     (CoreId == XVPROCSS_SUBCORE_CR_V_OUT));
+
+  switch(CoreId)
+  {
+	case XVPROCSS_SUBCORE_CR_H:
+		if(InstancePtr->HcrsmplrPtr)
+		{
+		  XV_HCrsmplrLoadExtCoeff(InstancePtr->HcrsmplrPtr,
+				                  &InstancePtr->HcrL2Reg,
+		                          num_taps,
+		                          Coeff);
+		}
+		else
+		{
+		  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+		}
+		break;
+
+	case XVPROCSS_SUBCORE_CR_V_IN:
+		if(InstancePtr->VcrsmplrInPtr)
+		{
+		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrInPtr,
+				                  &InstancePtr->VcrInL2Reg,
+		                          num_taps,
+		                          Coeff);
+		}
+	    else
+		{
+		  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+		}
+		break;
+
+	case XVPROCSS_SUBCORE_CR_V_OUT:
+		if(InstancePtr->VcrsmplrOutPtr)
+		{
+		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrOutPtr,
+				                  &InstancePtr->VcrOutL2Reg,
+		                          num_taps,
+		                          Coeff);
+		}
+		else
+		{
+		  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+		}
+		break;
+
+	default:
+	    break;
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function reports the status of specified sub-core
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  SubcoreId is the subcore index from the below list
+*           - XVPROCSS_SUBCORE_SCALER_V
+*           - XVPROCSS_SUBCORE_SCALER_H
+*           - XVPROCSS_SUBCORE_VDMA
+*           - XVPROCSS_SUBCORE_LBOX
+*           - XVPROCSS_SUBCORE_CR_H
+*           - XVPROCSS_SUBCORE_CR_V_IN
+*           - XVPROCSS_SUBCORE_CR_V_OUT
+*           - XVPROCSS_SUBCORE_CSC
+*           - XVPROCSS_SUBCORE_DEINT
+*
+* @return None
+*
+******************************************************************************/
+void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
+		                          u32 SubcoreId)
+{
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid((SubcoreId >= XVPROCSS_SUBCORE_SCALER_V) &&
+		         (SubcoreId < XVPROCSS_SUBCORE_MAX));
+
+  switch(SubcoreId)
+  {
+    case XVPROCSS_SUBCORE_SCALER_V:
+         XV_VScalerDbgReportStatus(InstancePtr->VscalerPtr);
+	 break;
+
+    case XVPROCSS_SUBCORE_SCALER_H:
+         XV_HScalerDbgReportStatus(InstancePtr->HscalerPtr);
+	 break;
+
+    case XVPROCSS_SUBCORE_VDMA:
+         XVprocSs_VdmaDbgReportStatus(InstancePtr->VdmaPtr,
+			                      InstancePtr->CtxtData.PixelWidthInBits);
+	 break;
+
+    case XVPROCSS_SUBCORE_LBOX:
+         XV_LBoxDbgReportStatus(InstancePtr->LboxPtr);
+	 break;
+
+    case XVPROCSS_SUBCORE_CR_H:
+         XV_HCrsmplDbgReportStatus(InstancePtr->HcrsmplrPtr);
+	 break;
+
+    case XVPROCSS_SUBCORE_CR_V_IN:
+         XV_VCrsmplDbgReportStatus(InstancePtr->VcrsmplrInPtr);
+	 break;
+
+    case XVPROCSS_SUBCORE_CR_V_OUT:
+         XV_VCrsmplDbgReportStatus(InstancePtr->VcrsmplrOutPtr);
+	 break;
+
+    case XVPROCSS_SUBCORE_CSC:
+	 XV_CscDbgReportStatus(InstancePtr->CscPtr);
+	 break;
+
+    case XVPROCSS_SUBCORE_DEINT:
+	 XV_DeintDbgReportStatus(InstancePtr->DeintPtr);
+	 break;
+
+    default:
+	 break;
+  }
 }

@@ -175,7 +175,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   08/17/15  Initial Release
+* 1.00  rco   08/28/15  Initial Release
 
 * </pre>
 *
@@ -196,7 +196,7 @@ extern "C" {
 #include "xaxivdma.h"
 
 /**
- *  Subsystem sub-core header files
+ *  Subsystem sub-core layer 2 header files
  *  Layer 2 includes Layer-1
  */
 #include "xv_csc_l2.h"
@@ -209,44 +209,46 @@ extern "C" {
 
 /****************************** Type Definitions ******************************/
 /**
- *  AXIS Switch Port enumeration for Sub-Core connection
+ *  This typedef enumerates the AXIS Switch Port for Sub-Core connection
  */
 typedef enum
 {
-  XVPROCSS_RTR_VIDOUT = 0, //M0
-  XVPROCSS_RTR_SCALER_V,   //M1
-  XVPROCSS_RTR_SCALER_H,   //M2
-  XVPROCSS_RTR_VDMA,       //M3
-  XVPROCSS_RTR_LBOX,       //M4
-  XVPROCSS_RTR_CR_H,       //M5
-  XVPROCSS_RTR_CR_V_IN,    //M6
-  XVPROCSS_RTR_CR_V_OUT,   //M7
-  XVPROCSS_RTR_CSC,        //M8
-  XVPROCSS_RTR_DEINT,      //M9
-  XVPROCSS_RTR_MAX
-}XVPROCSS_RTR_MIx_ID;
+  XVPROCSS_SUBCORE_SCALER_V = 1,
+  XVPROCSS_SUBCORE_SCALER_H,
+  XVPROCSS_SUBCORE_VDMA,
+  XVPROCSS_SUBCORE_LBOX,
+  XVPROCSS_SUBCORE_CR_H,
+  XVPROCSS_SUBCORE_CR_V_IN,
+  XVPROCSS_SUBCORE_CR_V_OUT,
+  XVPROCSS_SUBCORE_CSC,
+  XVPROCSS_SUBCORE_DEINT,
+  XVPROCSS_SUBCORE_MAX
+}XVPROCSS_SUBCORE_ID;
 
 /**
- * Subsystem Configuration Mode Select
+ * This typedef enumerates supported subsystem configuration topology
  */
 typedef enum
 {
   XVPROCSS_TOPOLOGY_SCALER_ONLY = 0,
   XVPROCSS_TOPOLOGY_FULL_FLEDGED,
+  XVPROCSS_TOPOLOGY_NUM_SUPPORTED
 }XVPROCSS_CONFIG_TOPOLOGY;
 
 /**
- * Types of Windows (Sub-frames) available in the Subsystem
+ * This typedef enumerates types of Windows (Sub-frames) available in the
+ * Subsystem
  */
 typedef enum
 {
   XVPROCSS_ZOOM_WIN = 0,
   XVPROCSS_PIP_WIN,
-  XVPROCSS_PIXEL_WIN
+  XVPROCSS_PIXEL_WIN,
+  XVPROCSS_WIN_NUM_SUPPORTED
 }XVprocSs_Win;
 
 /**
- * Scaling Modes supported
+ * This typedef enumerates supported scaling modes
  */
 typedef enum
 {
@@ -255,6 +257,17 @@ typedef enum
   XVPROCSS_SCALE_DN,
   XVPROCSS_SCALE_NOT_SUPPORTED
 }XVprocSs_ScaleMode;
+
+/** This typedef enumerates supported Color Channels
+ *
+ */
+typedef enum
+{
+  XVPROCSS_COLOR_CH_Y_RED = 0,
+  XVPROCSS_COLOR_CH_CB_GREEN,
+  XVPROCSS_COLOR_CH_CR_BLUE,
+  XVPROCSS_COLOR_CH_NUM_SUPPORTED
+}XVprocSs_ColorChannel;
 
 /**
  * Video Processing Subsystem context scratch pad memory.
@@ -270,8 +283,8 @@ typedef struct
   u32 DeintBufAddr;        /**< Deinterlacer field buffer Addr. in DDR */
   u8 PixelWidthInBits;     /**< Number of bits required to store 1 pixel */
 
-  u8 RtngTable[XVPROCSS_RTR_MAX]; /**< Storage for computed routing map */
-  u8 StartCore[XVPROCSS_RTR_MAX]; /**< Enable flag to start sub-core */
+  u8 RtngTable[XVPROCSS_SUBCORE_MAX]; /**< Storage for computed routing map */
+  u8 StartCore[XVPROCSS_SUBCORE_MAX]; /**< Enable flag to start sub-core */
   u8 RtrNumCores;      /**< Number of sub-cores in routing map */
   u8 ScaleMode;        /**< Stored computed scaling mode - UP/DN/1:1 */
   u8 MemEn;            /**< Flag to indicate if stream routes through memory */
@@ -381,9 +394,21 @@ typedef struct
 /************************** Macros Definitions *******************************/
 /*****************************************************************************/
 /**
- * This macro checks if subsystem is in Maximum configuration mode
+ * This macro returns the subsystem topology
  *
  * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
+ *
+ * @return XVPROCSS_TOPOLOGY_FULL_FLEDGED or XVPROCSS_TOPOLOGY_SCALER_ONLY
+ *
+ *****************************************************************************/
+#define XVprocSs_GetSubsystemTopology(XVprocSsPtr) \
+	                                        ((XVprocSsPtr)->Config.Topology)
+/*****************************************************************************/
+/**
+ * This macro checks if subsystem is in Maximum (Full_Fledged) configuration
+ *
+ * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
+ *
  * @return Return 1 if condition is TRUE or 0 if FALSE
  *
  *****************************************************************************/
@@ -426,6 +451,19 @@ typedef struct
  *
  *****************************************************************************/
 #define XVprocSs_IsZoomModeOn(XVprocSsPtr)     ((XVprocSsPtr)->CtxtData.ZoomEn)
+
+/*****************************************************************************/
+/**
+ * This macro returns the Pip/Zoom window horizontal increment size
+ *
+ * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
+ *
+ * @return Pixel H Step size
+ *
+ *****************************************************************************/
+#define XVprocSs_GetPipZoomWinHStepSize(XVprocSsPtr) \
+	                                   ((XVprocSsPtr)->CtxtData.PixelHStepSize)
+
 
 /*****************************************************************************/
 /**
@@ -513,12 +551,53 @@ void XVprocSs_GetZoomPipWindow(XVprocSs *InstancePtr,
                                XVidC_VideoWindow *win);
 void XVprocSs_UpdateZoomPipWindow(XVprocSs *InstancePtr);
 
+/* Picture Control functions */
+s32 XVprocSs_GetPictureBrightness(XVprocSs *InstancePtr);
+void XVprocSs_SetPictureBrightness(XVprocSs *InstancePtr, s32 NewValue);
+s32 XVprocSs_GetPictureContrast(XVprocSs *InstancePtr);
+void XVprocSs_SetPictureContrast(XVprocSs *InstancePtr, s32 NewValue);
+s32 XVprocSs_GetPictureSaturation(XVprocSs *InstancePtr);
+void XVprocSs_SetPictureSaturation(XVprocSs *InstancePtr, s32 NewValue);
+s32 XVprocSs_GetPictureGain(XVprocSs *InstancePtr,
+                            XVprocSs_ColorChannel ChId);
+void XVprocSs_SetPictureGain(XVprocSs *InstancePtr,
+		                     XVprocSs_ColorChannel ChId,
+		                     s32 NewValue);
+XVidC_ColorStd XVprocSs_GetPictureColorStdIn(XVprocSs *InstancePtr);
+void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
+	                               XVidC_ColorStd NewVal);
+XVidC_ColorStd XVprocSs_GetPictureColorStdOut(XVprocSs *InstancePtr);
+void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
+	                                XVidC_ColorStd NewVal);
+XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr);
+void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
+	                               XVidC_ColorRange NewVal);
+int XVprocSs_SetPictureActiveWindow(XVprocSs *InstancePtr,
+	                                XVidC_VideoWindow *Win);
+void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
+		                            XLboxColorId ColorId);
+
+/* External Filter Load functions */
+void XVprocSs_LoadScalerCoeff(XVprocSs *InstancePtr,
+		                      u32 CoreId,
+                              u16 num_phases,
+                              u16 num_taps,
+                              const short *Coeff);
+
+void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
+		                               u32 CoreId,
+                                       u16 num_taps,
+                                       const short *Coeff);
+
+/* Debug functions */
+void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr);
+void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr);
+void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
+		                          u32 SubcoreId);
+
 void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
                                   XVidC_DelayHandler CallbackFunc,
                                   void *CallbackRef);
-
-void XVprocSs_ReportCoreInfo(XVprocSs *InstancePtr);
-void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr);
 
 #ifdef __cplusplus
 }

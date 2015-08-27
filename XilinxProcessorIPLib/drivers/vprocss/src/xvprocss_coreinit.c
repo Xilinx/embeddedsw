@@ -370,12 +370,6 @@ int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
       xil_printf("VPROCSS ERR:: Horiz. Scaler Initialization failed\r\n");
       return(XST_FAILURE);
     }
-
-    if(XVprocSsPtr->HscalerPtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
-    {
-      /* Load Default filter coefficients */
-      XV_HScalerLoadDefaultCoeff(XVprocSsPtr->HscalerPtr, &XVprocSsPtr->HscL2Reg);
-    }
   }
   return(XST_SUCCESS);
 }
@@ -429,13 +423,6 @@ int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
       xil_printf("VPROCSS ERR:: Vert. Scaler Initialization failed\r\n");
       return(XST_FAILURE);
     }
-
-    if(XVprocSsPtr->VscalerPtr->Config.ScalerType == XV_VSCALER_POLYPHASE)
-    {
-      /* Load Default filter coefficients */
-      XV_VScalerLoadDefaultCoeff(XVprocSsPtr->VscalerPtr, &XVprocSsPtr->VscL2Reg);
-    }
-
   }
   return(XST_SUCCESS);
 }
