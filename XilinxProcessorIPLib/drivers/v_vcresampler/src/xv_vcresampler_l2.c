@@ -153,10 +153,14 @@ void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
 		  return;
   }
 
-  XV_VCrsmplrLoadUsrCoeff(InstancePtr,
+  /* Use external filter load API */
+  XV_VCrsmplrLoadExtCoeff(InstancePtr,
 		                  pVcrsmplL2Data,
 		                  numTaps,
 		                  coeff);
+
+  /* Disable use of external coefficients */
+  pVcrsmplL2Data->UseExtCoeff = FALSE;
 }
 
 /*****************************************************************************/
@@ -172,7 +176,7 @@ void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-void XV_VCrsmplrLoadUsrCoeff(XV_vcresampler *InstancePtr,
+void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
 		                     XV_vcresampler_l2 *pVcrsmplL2Data,
                              u16 num_taps,
                              const short *Coeff)

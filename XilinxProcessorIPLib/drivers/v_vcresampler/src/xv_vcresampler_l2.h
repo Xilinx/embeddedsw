@@ -164,7 +164,7 @@ void XV_VCrsmplStart(XV_vcresampler *InstancePtr);
 void XV_VCrsmplStop(XV_vcresampler *InstancePtr);
 void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
 		                        XV_vcresampler_l2 *pVcrsmplL2Data);
-void XV_VCrsmplrLoadUsrCoeff(XV_vcresampler *InstancePtr,
+void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
 		                     XV_vcresampler_l2 *pVcrsmplL2Data,
                              u16 num_taps,
                              const short *Coeff);
