@@ -652,6 +652,8 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
 		} else {
 			hsize_align =
 				(u32)(ChannelCfgPtr->HoriSizeInput % Channel->WordLength);
+			if (hsize_align > 0)
+				hsize_align = (Channel->WordLength - hsize_align);
 		}
 	} else {
 		if (ChannelCfgPtr->HoriSizeInput < Channel->WordLength) {
@@ -659,6 +661,8 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
 		} else {
 			hsize_align =
 				(u32)(ChannelCfgPtr->HoriSizeInput % Channel->StreamWidth);
+			if (hsize_align > 0)
+				hsize_align = (Channel->StreamWidth - hsize_align);
 		}
 	}
 
@@ -667,6 +671,8 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
 		stride_align = (u32)Channel->WordLength;
 	} else {
 		stride_align = (u32)(ChannelCfgPtr->Stride % Channel->WordLength);
+		if (stride_align > 0)
+			stride_align = (Channel->WordLength - stride_align);
 	}
 
 	/* If hardware has no DRE, then Hsize and Stride must
