@@ -97,5 +97,7 @@ void platform_cache_disable();
 void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size, unsigned int flags);
 unsigned long platform_vatopa(void *addr);
 void *platform_patova(unsigned long addr);
+void ipi_register_handler(unsigned long ipi_base_addr, unsigned int intr_mask, void *data, void *ipi_handler);
+void ipi_trigger(unsigned long ipi_base_addr, unsigned int trigger_mask);
 
 #endif /* _BAREMETAL_H */
