@@ -51,7 +51,7 @@ struct hil_platform_ops proc_ops = {
 };
 
 extern void ipi_enable_interrupt(unsigned int vector);
-extern void ipi_isr(int vect_id, void *data);
+extern void ipi_isr(int vector , void *data, unsigned int ipi_intr_status);
 
 extern void ipi_register_interrupt(unsigned long ipi_base_addr, unsigned int intr_mask, void *data, void *ipi_handler);
 
