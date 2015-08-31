@@ -70,7 +70,7 @@ int zynqMP_r5_gic_initialize() {
 	 * logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			XScuGic_InterruptHandler,&xInterruptController);
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,&xInterruptController);
 	Xil_ExceptionEnable();
 #endif
 	OpenAMPInstPtr.IntrID=VRING1_IPI_INTR_VECT;
