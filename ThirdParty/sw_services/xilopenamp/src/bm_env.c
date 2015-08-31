@@ -199,7 +199,7 @@ unsigned long env_map_vatopa(void *address)
  */
 void *env_map_patova(unsigned long address)
 {
-    return platform_patova(address);
+    return (void *)platform_patova(address);
 }
 /**
  * env_disable_interrupts
@@ -238,7 +238,7 @@ void env_restore_interrupts()
  * @param isr    - interrupt handler
  */
 void env_register_isr(int vector , void *data ,
-                void (*isr)(int vector , void *data))
+                void (*isr)(int vector , void *data, unsigned int ipi_intr_status))
 {
     env_disable_interrupts();
 
@@ -254,7 +254,7 @@ void env_register_isr(int vector , void *data ,
 }
 
 void env_update_isr(int vector , void *data ,
-                void (*isr)(int vector , void *data))
+                void (*isr)(int vector , void *data, unsigned int ipi_intr_status))
 {
     int idx;
     struct isr_info *info;
