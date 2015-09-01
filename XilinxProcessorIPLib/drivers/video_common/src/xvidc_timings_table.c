@@ -438,5 +438,8 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_4096x2160_60_P, "4096x2160@60Hz", XVIDC_FR_60HZ,
 		{4096, 88, 88, 128, 4400, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
+	{ XVIDC_VM_4096x2160_60_P_RB, "4096x2160@60Hz (RB)", XVIDC_FR_60HZ,
+		{4096, 8, 32, 40, 4176, 1,
+		2160, 48, 8, 6, 2222, 0, 0, 0, 0, 0} },
 };
 /** @} */

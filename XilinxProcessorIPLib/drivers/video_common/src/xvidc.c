@@ -312,6 +312,9 @@ const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId)
 	if (VmId < (XVIDC_VM_NUM_SUPPORTED)) {
 		return (XVidC_VideoTimingModes[VmId].Name);
 	}
+	else if (VmId == XVIDC_VM_CUSTOM) {
+		return ("Custom video mode");
+	}
 	else {
 		return ("Video mode not supported");
 	}
@@ -479,7 +482,8 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 *******************************************************************************/
 void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
 {
-	if (Stream->VmId < XVIDC_VM_NUM_SUPPORTED) {
+	if ((Stream->VmId < XVIDC_VM_NUM_SUPPORTED) ||
+					(Stream->VmId == XVIDC_VM_CUSTOM)) {
 		xil_printf("\tColor Format:     %s\r\n",
 			XVidC_GetColorFormatStr(Stream->ColorFormatId));
 		xil_printf("\tColor Depth:      %d\r\n", Stream->ColorDepth);
