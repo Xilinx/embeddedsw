@@ -1,7 +1,7 @@
 /* $Id: tmrctr_header.h,v 1.1.2.1 2010/12/01 07:53:56 svemula Exp $ */
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
