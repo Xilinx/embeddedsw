@@ -101,6 +101,7 @@
 							secondary link info. */
 #define XDP_TX_FORCE_SCRAMBLER_RESET	0x0C0	/**< Force a scrambler reset. */
 #define XDP_TX_MST_CONFIG		0x0D0	/**< Enable MST. */
+#define XDP_TX_LINE_RESET_DISABLE	0x0F0	/**< TX line reset disable. */
 /* @} */
 
 /** @name DPTX core registers: Core ID.
@@ -396,6 +397,10 @@
 #define XDP_TX_MST_CONFIG_VCP_UPDATED_MASK \
 				0x00000002	/**< The VC payload has been
 							updated in the sink. */
+/* 0x0F0: TX_LINE_RESET_DISABLE */
+#define XDP_TX_LINE_RESET_DISABLE_MASK	0x1	/**< Used to disable the end of
+							the line reset to the
+							internal video pipe. */
 /* 0x0F8: VERSION */
 #define XDP_TX_VERSION_INTER_REV_MASK \
 				0x0000000F	/**< Internal revision. */
@@ -780,6 +785,7 @@
 #define XDP_RX_AUX_CLK_DIVIDER		0x004	/**< Clock divider value for
 							generating the internal
 							1MHz clock. */
+#define XDP_RX_LINE_RESET_DISABLE	0x008	/**< RX line reset disable. */
 #define XDP_RX_DTG_ENABLE		0x00C	/**< Enables the display timing
 							generator (DTG). */
 #define XDP_RX_USER_PIXEL_WIDTH		0x010	/**< Selects the width of the
@@ -834,8 +840,15 @@
 #define XDP_RX_INTERRUPT_CAUSE_1	0x048	/**< Indicates the cause of a
 							pending host interrupts
 							for streams 2, 3, 4. */
+/* @} */
+
 #define XDP_RX_HSYNC_WIDTH		0x050	/**< Controls the timing of the
 							active-high horizontal
+							sync pulse generated
+							by the display timing
+							generator (DTG). */
+#define XDP_RX_VSYNC_WIDTH		0x058	/**< Controls the timing of the
+							active-high vertical
 							sync pulse generated
 							by the display timing
 							generator (DTG). */
@@ -845,7 +858,6 @@
 							the DPCD registers
 							related to payload
 							allocation. */
-/* @} */
 
 /** @name DPRX core registers: DPCD fields.
   * @{
@@ -962,6 +974,12 @@
 #define XDP_RX_CDR_CONTROL_CONFIG	0x21C	/**< Control the configuration
 							for clock and data
 							recovery. */
+#define XDP_RX_BS_IDLE_TIME		0x220	/**< Blanking start symbol idle
+							time - this value is
+							loaded as a timeout
+							counter for detecting
+							cable disconnect or
+							unplug events. */
 #define XDP_RX_GT_DRP_COMMAND		0x2A0	/**< Provides access to the GT
 							DRP ports. */
 #define XDP_RX_GT_DRP_READ_DATA		0x2A4	/**< Provides access to GT DRP
@@ -1193,6 +1211,10 @@
 #define XDP_RX_AUX_CLK_DIVIDER_AUX_SIG_WIDTH_FILT_SHIFT \
 					8	/**< Shift bits for AUX signal
 							width filter. */
+/* 0x008: RX_LINE_RESET_DISABLE */
+#define XDP_RX_LINE_RESET_DISABLE_MASK	0x1	/**< Used to disable the end of
+							the line reset to the
+							internal video pipe. */
 /* 0x010: USER_PIXEL_WIDTH */
 #define XDP_RX_USER_PIXEL_WIDTH_1	0x1	/**< Single pixel wide
 							interface. */
