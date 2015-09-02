@@ -825,7 +825,8 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MIN_BYTES_PER_TU +
 		StreamOffset[Stream - 1], MsaConfig->AvgBytesPerTU / 1000);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_FRAC_BYTES_PER_TU +
-		StreamOffset[Stream - 1], MsaConfig->AvgBytesPerTU % 1024);
+		StreamOffset[Stream - 1],
+		(MsaConfig->AvgBytesPerTU % 1000) * 1024 / 1000);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_INIT_WAIT +
 			StreamOffset[Stream - 1], MsaConfig->InitWait);
 }
