@@ -44,6 +44,8 @@
 # 2.2	   nsk    19/08/15 Modified iomodule_defince_vector_table
 #			   to handle, if iomodule doesn't have interrupts
 #			   enabled CR#876507.
+# 2.2	   nsk    02/09/15 Modified iomodule_define_vector_table
+#			   when no external interrupts are used.CR#878782.
 #
 ##############################################################################
 
@@ -314,13 +316,17 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
     set interrupt_pin [hsi::get_pins -of_objects [get_cells -hier $periph] -filter {TYPE==INTERRUPT&&DIRECTION==I}]
 
     # Get pins/ports that are driving the interrupt
-    lappend source_pins
-    set source_pins [::hsi::utils::get_source_pins $interrupt_pin]
-    set num_intr_inputs [common::get_property CONFIG.C_INTC_INTR_SIZE $periph]
+    set c_intc_use_ext_intr [common::get_property CONFIG.C_INTC_USE_EXT_INTR $periph]
+    if {$c_intc_use_ext_intr == 0} {
+	set num_intr_inputs 0
+    } else {
+	set num_intr_inputs [common::get_property CONFIG.C_INTC_INTR_SIZE $periph]
+    }
 
     #calculate the total interrupt sources
     set total_intr_ports [get_num_intr_internal $periph]
     if {$num_intr_inputs != $total_intr_ports} {
+       set source_pins [::hsi::utils::get_interrupt_sources $periph]
        puts "WARNING: Num intr inputs $num_intr_inputs not the \
 	     same as length of ::hsi::utils::get_interrupt_sources [llength \
 		 $source_pins] hsi_warning"
@@ -500,7 +506,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
             incr i
         }
      }
-	
+
         set num_intr_inputs [get_num_intr_inputs $periph]
         for {set i 0} {$i < $num_intr_inputs} {incr i} {
 

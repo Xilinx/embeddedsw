@@ -231,6 +231,8 @@
 * 2.2	nsk  08/19/15 Modifed iomodule_define_vector_table in iomodule.tcl
 *		      to handle,if iomodule doesn't have interrupts enabled
 *		      (CR #876507).
+* 2.2	nsk  09/02/15 Modified iomodule_define_vector_table in iomodule.tcl
+*		      when no external interrupts are used.(CR #878782)
 *
 * </pre>
 *
