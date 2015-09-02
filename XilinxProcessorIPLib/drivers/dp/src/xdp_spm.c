@@ -501,7 +501,7 @@ void XDp_TxCfgMsaUseCustom(XDp *InstancePtr, u8 Stream,
 
 	/* Copy the MSA values from the user configuration structure. */
 	MsaConfig->PixelClockHz = MsaConfigCustom->PixelClockHz;
-	MsaConfig->Vtm.VmId = MsaConfigCustom->Vtm.VmId;
+	MsaConfig->Vtm.VmId = XVIDC_VM_CUSTOM;
 	MsaConfig->Vtm.FrameRate = MsaConfigCustom->Vtm.FrameRate;
 	MsaConfig->Vtm.Timing.HActive =
 				MsaConfigCustom->Vtm.Timing.HActive;
@@ -806,6 +806,11 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - 1], MsaConfig->UserPixelWidth);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_USER_DATA_COUNT_PER_LANE +
 			StreamOffset[Stream - 1], MsaConfig->DataPerLane);
+	/* Disable the end of line reset to the internal video pipe in case of
+	 * 4K2K reduced blanking. */
+	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE,
+			(MsaConfig->Vtm.VmId == XVIDC_VM_4K2K_60_P_RB) ?
+			XDP_TX_LINE_RESET_DISABLE_MASK : 0);
 
 	/* Set the transfer unit values to the associated DisplayPort TX core
 	 * registers. */
