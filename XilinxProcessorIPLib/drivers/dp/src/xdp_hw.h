@@ -689,9 +689,10 @@
 #define XDP_TX_PE_LEVEL_2		0x14	/**< Pre-emphasis level 2. */
 #define XDP_TX_PE_LEVEL_3		0x1B	/**< Pre-emphasis level 3. */
 /* 0x280: PHY_STATUS */
-#define XDP_TX_PHY_STATUS_RESET_LANE_0_1_DONE_MASK \
-				0x00000003	/**< Reset done for lanes
-							0 and 1. */
+#define XDP_TX_PHY_STATUS_RESET_LANE_0_DONE_MASK \
+				0x00000001	/**< Reset done for lane 0. */
+#define XDP_TX_PHY_STATUS_RESET_LANE_1_DONE_MASK \
+				0x00000002	/**< Reset done for lane 1. */
 #define XDP_TX_PHY_STATUS_RESET_LANE_2_3_DONE_MASK \
 				0x0000000C	/**< Reset done for lanes
 							2 and 3. */
@@ -747,10 +748,21 @@
 #define XDP_TX_PHY_STATUS_TX_ERROR_LANE_3_SHIFT \
 				30		/**< Shift bits for TX error on
 							lane 3. */
+#define XDP_TX_PHY_STATUS_LANE_0_READY_MASK \
+	XDP_TX_PHY_STATUS_RESET_LANE_0_DONE_MASK \
+	XDP_TX_PHY_STATUS_PLL_LANE0_1_LOCK_MASK	/**< Lane 0 is ready. */
 #define XDP_TX_PHY_STATUS_LANES_0_1_READY_MASK \
-				0x00000013	/**< Lanes 0 and 1 are ready. */
+	XDP_TX_PHY_STATUS_LANE_0_READY_MASK \
+	XDP_TX_PHY_STATUS_RESET_LANE_1_DONE_MASK /**< Lanes 0,1 are ready. */
 #define XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK \
-				0x0000003F	/**< All lanes are ready. */
+	XDP_TX_PHY_STATUS_RESET_LANE_2_3_DONE_MASK \
+	XDP_TX_PHY_STATUS_PLL_LANE2_3_LOCK_MASK	/**< Lanes 0,1,2,3 are ready. */
+#define XDP_TX_PHY_STATUS_LANES_READY_MASK(n) \
+	((n > 2) ? XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK : \
+	(n == 2) ? XDP_TX_PHY_STATUS_LANES_0_1_READY_MASK : \
+	XDP_TX_PHY_STATUS_LANE_0_READY_MASK)	/**< Macro for lanes ready mask
+							with number of lanes as
+							the argument. */
 /* 0x2A0: XDP_TX_GT_DRP_COMMAND */
 #define XDP_TX_GT_DRP_COMMAND_DRP_ADDR_MASK \
 				0x000F		/**< DRP address. */
