@@ -1295,14 +1295,8 @@ void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, PhyVal);
 
 	/* Wait for the PHY to be ready. */
-	if (InstancePtr->Config.MaxLaneCount > 2) {
-		XDp_WaitPhyReady(InstancePtr,
-					XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK);
-	}
-	else {
-		XDp_WaitPhyReady(InstancePtr,
-					XDP_TX_PHY_STATUS_LANES_0_1_READY_MASK);
-	}
+	XDp_WaitPhyReady(InstancePtr, XDP_TX_PHY_STATUS_LANES_READY_MASK(
+					InstancePtr->Config.MaxLaneCount));
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_ENABLE, 0x1);
 }
@@ -1878,14 +1872,8 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
 
 	/* Wait for the PHY to be ready. */
-	if (ConfigPtr->MaxLaneCount > 2) {
-		Status = XDp_WaitPhyReady(InstancePtr,
-				XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK);
-	}
-	else {
-		Status = XDp_WaitPhyReady(InstancePtr,
-				XDP_TX_PHY_STATUS_LANES_0_1_READY_MASK);
-	}
+	Status = XDp_WaitPhyReady(InstancePtr,
+		XDP_TX_PHY_STATUS_LANES_READY_MASK(ConfigPtr->MaxLaneCount));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -3251,14 +3239,9 @@ static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed)
 	}
 
 	/* Wait until the PHY is ready. */
-	if (InstancePtr->Config.MaxLaneCount > 2) {
-		Status = XDp_WaitPhyReady(InstancePtr,
-					XDP_TX_PHY_STATUS_ALL_LANES_READY_MASK);
-	}
-	else {
-		Status = XDp_WaitPhyReady(InstancePtr,
-					XDP_TX_PHY_STATUS_LANES_0_1_READY_MASK);
-	}
+	Status = XDp_WaitPhyReady(InstancePtr,
+					XDP_TX_PHY_STATUS_LANES_READY_MASK(
+					InstancePtr->Config.MaxLaneCount));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
