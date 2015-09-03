@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2007 - 2015 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,54 +35,42 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
+EXTRA_ARCHIVE_FLAGS=rc
+LIB=libxilflash.a
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
-INCLUDES=-I${INCLUDEDIR}
-ISF_DIR = .
+INCLUDES=-I./. -I${INCLUDEDIR}
 
-EXPORT_INCLUDE_FILES = $(ISF_DIR)/include/xilflash.h \
-			$(ISF_DIR)/include/xilflash_cfi.h \
-			$(ISF_DIR)/include/xilflash_intel.h \
-			$(ISF_DIR)/include/xilflash_properties.h \
-			$(ISF_DIR)/include/xilflash_amd.h
+XILFLASH_DIR = .
+OUTS = *.o
 
-LIB_SRCS = $(ISF_DIR)/xilflash.c \
-          $(ISF_DIR)/xilflash_cfi.c \
-          $(ISF_DIR)/xilflash_intel.c \
-          $(ISF_DIR)/xilflash_amd.c
+XILFLASH_SRCS := $(wildcard *.c)
+XILFLASH_OBJS = $(addprefix $(XILFLASH_DIR)/, $(XILFLASH_SRCS:%.c=%.o))
 
-
-# create ISF_SRCS based on configured options
-
-ISF_SRCS = $(LIB_SRCS)
-
-ISF_OBJS = $(ISF_SRCS:%.c=%.o)
+INCLUDEFILES=$(XILFLASH_DIR)/include/xilflash.h \
+	     $(XILFLASH_DIR)/include/xilflash_cfi.h \
+	     $(XILFLASH_DIR)/include/xilflash_intel.h \
+	     $(XILFLASH_DIR)/include/xilflash_properties.h \
+	     $(XILFLASH_DIR)/include/xilflash_amd.h
 
 libs: libxilflash.a
-	cp libxilflash.a $(RELEASEDIR)
-	make clean
 
-include:
-	@for i in $(EXPORT_INCLUDE_FILES); do \
-	echo ${CP} -r $$i ${INCLUDEDIR}; \
-	${CP} -r $$i ${INCLUDEDIR}; \
-	done
+libxilflash.a: print_msg_xilflash $(XILFLASH_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
+
+print_msg_xilflash:
+	@echo "Compiling XilFlash Library"
+
+.PHONY: include
+include: libxilflash_includes
+
+libxilflash_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf obj/*.o
-	rmdir obj
-	rm libxilflash.a
+	rm -rf $(XILFLASH_DIR)/${OUTS}
+	rm -rf ${RELEASEDIR}/${LIB}
 
-libxilflash.a: obj_dir print_msg_flash_base $(ISF_OBJS)
-	@echo "Creating archive $@"
-	$(ARCHIVER) rc $@ obj/*.o
-
-obj_dir:
-	mkdir obj
-
-print_msg_flash_base:
-	@echo "Compiling XilFlash Library:"
-
-.c.o:
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o obj/$(@F)
+$(XILFLASH_DIR)/%.o: $(XILFLASH_DIR)/%.c $(INCLUDEFILES)
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
