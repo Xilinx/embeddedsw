@@ -35,55 +35,40 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
+EXTRA_ARCHIVE_FLAGS=rc
+LIB=libxilisf.a
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
-INCLUDES=-I${INCLUDEDIR}
-ISF_DIR = .
+INCLUDES=-I./. -I${INCLUDEDIR}
 
-LIB_SRCS = $(ISF_DIR)/xilisf.c \
-          $(ISF_DIR)/xilisf_read.c \
-          $(ISF_DIR)/xilisf_erase.c \
-          $(ISF_DIR)/xilisf_write.c \
-          $(ISF_DIR)/xilisf_spr.c
+XILISF_DIR = .
+OUTS = *.o
 
-# create ISF_SRCS based on configured options
+XILISF_SRCS := $(wildcard *.c)
+XILISF_OBJS = $(addprefix $(XILISF_DIR)/, $(XILISF_SRCS:%.c=%.o))
 
-ISF_SRCS = $(LIB_SRCS)
-
-ISF_OBJS = $(ISF_SRCS:%.c=%.o)
-
-
-EXPORT_INCLUDE_FILES = $(ISF_DIR)/include/xilisf.h \
-			$(ISF_DIR)/include/xilisf_atmel.h \
-			$(ISF_DIR)/include/xilisf_intelstm.h
-
+INCLUDEFILES=$(XILISF_DIR)/include/xilisf.h \
+	     $(XILISF_DIR)/include/xilisf_atmel.h \
+	     $(XILISF_DIR)/include/xilisf_intelstm.h
 
 libs: libxilisf.a
-	cp libxilisf.a $(RELEASEDIR)
-	make clean
 
-include:
-	@for i in $(EXPORT_INCLUDE_FILES); do \
-	echo ${CP} -r $$i ${INCLUDEDIR}; \
-	${CP} -r $$i ${INCLUDEDIR}; \
-	done
+libxilisf.a: print_msg_xilisf $(XILISF_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
 
-clean:
-	rm -rf obj/*.o
-	rmdir obj
-	rm libxilisf.a
-
-
-libxilisf.a: obj_dir print_msg_isf_base $(ISF_OBJS)
-	@echo "Creating archive $@"
-	$(ARCHIVER) rc $@ obj/*.o
-
-obj_dir:
-	mkdir obj
-
-print_msg_isf_base:
+print_msg_xilisf:
 	@echo "Compiling XilIsf Library"
 
-.c.o:
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o obj/$(@F)
+.PHONY: include
+include: libxilisf_includes
+
+libxilisf_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+
+clean:
+	rm -rf $(XILISF_DIR)/${OUTS}
+	rm -rf ${RELEASEDIR}/${LIB}
+
+$(XILISF_DIR)/%.o: $(XILISF_DIR)/%.c $(INCLUDEFILES)
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
