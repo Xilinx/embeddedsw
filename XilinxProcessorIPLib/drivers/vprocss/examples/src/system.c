@@ -69,7 +69,7 @@
 #include "system.h"
 
 /************************** Constant Definitions *****************************/
-#define USR_FRAME_BUF_BASEADDR     (XPAR_MEMORY_SS_MIG_7SERIES_0_BASEADDR+(0x20000000))
+#define USR_FRAME_BUF_BASEADDR     (XPAR_MIG7SERIES_0_BASEADDR + (0x20000000))
 
 /**************************** Type Definitions *******************************/
 
