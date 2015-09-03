@@ -50,6 +50,55 @@ API_SOCK_SRCS = $(LWIP_DIR)/src/api/api_lib.c \
 		 $(LWIP_DIR)/src/api/sockets.c \
 		 $(LWIP_DIR)/src/api/tcpip.c
 
+LWIP_INCLUDES = $(LWIP_DIR)/src/include/ipv4/lwip/autoip.h \
+		$(LWIP_DIR)/src/include/ipv4/lwip/icmp.h \
+		$(LWIP_DIR)/src/include/ipv4/lwip/igmp.h \
+		$(LWIP_DIR)/src/include/ipv4/lwip/inet.h \
+		$(LWIP_DIR)/src/include/ipv4/lwip/inet_chksum.h \
+		$(LWIP_DIR)/src/include/ipv4/lwip/ip.h \
+		$(LWIP_DIR)/src/include/ipv4/lwip/ip_addr.h \
+		$(LWIP_DIR)/src/include/ipv4/lwip/ip_frag.h \
+		$(LWIP_DIR)/src/include/ipv6/lwip/icmp.h \
+		$(LWIP_DIR)/src/include/ipv6/lwip/inet.h \
+		$(LWIP_DIR)/src/include/ipv6/lwip/ip.h \
+		$(LWIP_DIR)/src/include/ipv6/lwip/ip_addr.h \
+		$(LWIP_DIR)/src/include/lwip/api.h \
+		$(LWIP_DIR)/src/include/lwip/api_msg.h \
+		$(LWIP_DIR)/src/include/lwip/arch.h \
+		$(LWIP_DIR)/src/include/lwip/debug.h \
+		$(LWIP_DIR)/src/include/lwip/def.h \
+		$(LWIP_DIR)/src/include/lwip/dhcp.h \
+		$(LWIP_DIR)/src/include/lwip/dns.h \
+		$(LWIP_DIR)/src/include/lwip/err.h \
+		$(LWIP_DIR)/src/include/lwip/init.h \
+		$(LWIP_DIR)/src/include/lwip/mem.h \
+		$(LWIP_DIR)/src/include/lwip/memp.h \
+		$(LWIP_DIR)/src/include/lwip/memp_std.h \
+		$(LWIP_DIR)/src/include/lwip/netbuf.h \
+		$(LWIP_DIR)/src/include/lwip/netdb.h \
+		$(LWIP_DIR)/src/include/lwip/netif.h \
+		$(LWIP_DIR)/src/include/lwip/netifapi.h \
+		$(LWIP_DIR)/src/include/lwip/opt.h \
+		$(LWIP_DIR)/src/include/lwip/raw.h \
+		$(LWIP_DIR)/src/include/lwip/pbuf.h \
+		$(LWIP_DIR)/src/include/lwip/sio.h \
+		$(LWIP_DIR)/src/include/lwip/snmp.h \
+		$(LWIP_DIR)/src/include/lwip/snmp_asn1.h \
+		$(LWIP_DIR)/src/include/lwip/snmp_msg.h \
+		$(LWIP_DIR)/src/include/lwip/snmp_structs.h \
+		$(LWIP_DIR)/src/include/lwip/sockets.h \
+		$(LWIP_DIR)/src/include/lwip/stats.h \
+		$(LWIP_DIR)/src/include/lwip/sys.h \
+		$(LWIP_DIR)/src/include/lwip/tcp.h \
+		$(LWIP_DIR)/src/include/lwip/tcp_impl.h \
+		$(LWIP_DIR)/src/include/lwip/tcpip.h \
+		$(LWIP_DIR)/src/include/lwip/timers.h \
+		$(LWIP_DIR)/src/include/lwip/udp.h \
+		$(LWIP_DIR)/src/include/netif/etharp.h \
+		$(LWIP_DIR)/src/include/netif/ppp_oe.h \
+		$(LWIP_DIR)/src/include/netif/slipif.h
+
+
 # create LWIP_SRCS based on configured options
 
 LWIP_SRCS = $(CORE_SRCS)
@@ -65,4 +114,5 @@ ifeq ($(CONFIG_SOCKETS), y)
 LWIP_SRCS += $(API_SOCK_SRCS)
 endif
 
-LWIP_OBJS = $(LWIP_SRCS:%.c=%.o)
+LWIP_OBJS1 = $(LWIP_SRCS:%.c=%.o)
+LWIP_OBJS = $(notdir $(LWIP_OBJS1))

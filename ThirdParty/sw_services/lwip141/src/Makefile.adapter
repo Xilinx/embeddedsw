@@ -7,6 +7,23 @@ COMMON_SRCS = $(PORT)/sys_arch_raw.c \
 	      $(PORT)/netif/xadapter.c \
 	      $(PORT)/netif/xtopology_g.c
 
+ADAPTER_INCLUDES = $(PORT)/include/arch/cc.h \
+		   $(PORT)/include/arch/cpu.h \
+		   $(PORT)/include/arch/perf.h \
+		   $(PORT)/include/arch/sys_arch.h \
+		   $(PORT)/include/netif/xadapter.h \
+		   $(PORT)/include/netif/xaxiemacif.h \
+		   $(PORT)/include/netif/xemacliteif.h \
+		   $(PORT)/include/netif/xemacpsif.h \
+		   $(PORT)/include/netif/xlltemacif.h \
+		   $(PORT)/include/netif/xpqueue.h \
+		   $(PORT)/include/netif/xtopology.h \
+		   $(PORT)/netif/xaxiemacif_fifo.h \
+		   $(PORT)/netif/xaxiemacif_hw.h \
+		   $(PORT)/netif/xemacpsif_hw.h \
+		   $(PORT)/include/lwipopts.h \
+		   $(PORT)/include/xlwipconfig.h
+
 EMACLITE_SRCS = $(PORT)/netif/xemacliteif.c
 
 TEMAC_SRCS = $(PORT)/netif/xlltemacif_hw.c \
@@ -18,6 +35,7 @@ TEMAC_SRCS = $(PORT)/netif/xlltemacif_hw.c \
 AXI_ETHERNET_SRCS = $(PORT)/netif/xaxiemacif_hw.c \
 	     $(PORT)/netif/xaxiemacif_physpeed.c \
 	     $(PORT)/netif/xaxiemacif.c
+
 AXI_ETHERNET_FIFO_SRCS = $(PORT)/netif/xaxiemacif_fifo.c
 AXI_ETHERNET_DMA_SRCS = $(PORT)/netif/xaxiemacif_dma.c
 
@@ -56,4 +74,5 @@ ifeq ($(CONFIG_PS_ETHERNET), y)
 ADAPTER_SRCS += $(PS_ETHERNET_SRCS)
 endif
 
-ADAPTER_OBJS = $(ADAPTER_SRCS:%.c=%.o)
+ADAPTER_OBJS1 = $(ADAPTER_SRCS:%.c=%.o)
+ADAPTER_OBJS = $(notdir $(ADAPTER_OBJS1))
