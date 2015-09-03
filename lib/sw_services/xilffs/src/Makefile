@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,8 @@
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=
+COMPILER_FLAGS =
+LIB=libxilffs.a
 
 ifeq ($(notdir $(COMPILER)) , iccarm)
 	EXTRA_ARCHIVE_FLAGS=--create
@@ -47,52 +48,36 @@ endif
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
-INCLUDES=-I./include/ -I${INCLUDEDIR}
+INCLUDES=-I./. -I${INCLUDEDIR}
+
 FATFS_DIR = .
-OBJDIR = obj/
+OUTS = *.o
 
-LIB_SRCS = $(FATFS_DIR)/ff.c \
-          $(FATFS_DIR)/diskio.c
+FATFS_SRCS := $(wildcard *.c)
+FATFS_OBJS = $(addprefix $(FATFS_DIR)/, $(FATFS_SRCS:%.c=%.o))
 
-
-# create FATFS_SRCS based on configured options
-
-FATFS_SRCS = $(LIB_SRCS)
-
-FATFS_OBJS = $(addprefix $(OBJDIR), $(FATFS_SRCS:%.c=%.o))
-
-
-EXPORT_INCLUDE_FILES = $(FATFS_DIR)/include/ff.h \
+INCLUDEFILES=$(FATFS_DIR)/include/ff.h \
 			$(FATFS_DIR)/include/ffconf.h \
 			$(FATFS_DIR)/include/diskio.h \
 			$(FATFS_DIR)/include/integer.h
 
-
 libs: libxilffs.a
-	cp libxilffs.a $(RELEASEDIR)
-	make clean
 
-include:
-	@for i in $(EXPORT_INCLUDE_FILES); do \
-	${CP} -r $$i ${INCLUDEDIR}; \
-	done
+libxilffs.a: print_msg_fatfs $(FATFS_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
 
-clean:
-	rm -rf obj/ff.o obj/diskio.o
-	rmdir obj
-	rm libxilffs.a
-
-
-libxilffs.a: obj_dir print_msg_fatfs_base $(FATFS_OBJS)
-	@echo "Creating archive $@"
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) $@ obj/ff.o obj/diskio.o
-
-
-obj_dir:
-	mkdir -p obj
-
-print_msg_fatfs_base:
+print_msg_fatfs:
 	@echo "Compiling XilFFs Library"
 
-$(OBJDIR)%.o: $(FATFS_DIR)/%.c
+.PHONY: include
+include: libxilffs_includes
+
+libxilffs_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+
+clean:
+	rm -rf $(FATFS_DIR)/${OUTS}
+	rm -rf ${RELEASEDIR}/${LIB}
+
+$(FATFS_DIR)/%.o: $(FATFS_DIR)/%.c $(INCLUDEFILES)
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
