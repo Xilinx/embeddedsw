@@ -551,7 +551,7 @@ void sys_mbox_post( sys_mbox_t *pxMailBox, void *pxMessageToPost )
 	if( xInsideISR != pdFALSE ) {
 		xQueueSendToBackFromISR( *pxMailBox, &pxMessageToPost, &xHigherPriorityTaskWoken );
 		if (xHigherPriorityTaskWoken == pdTRUE) {
-			portYIELD_FROM_ISR();
+			taskYIELD_FROM_ISR();
 		}
 	}
 	else
@@ -580,7 +580,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	{
 		xReturn = xQueueSendFromISR( *pxMailBox, &pxMessageToPost, &xHigherPriorityTaskWoken );
 		if (xHigherPriorityTaskWoken == pdTRUE) {
-			portYIELD_FROM_ISR();
+			taskYIELD_FROM_ISR();
 		}
 	}
 	else
@@ -653,7 +653,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 				xElapsed = ( xEndTime - xStartTime ) * portTICK_RATE_MS;
 				ulReturn = xElapsed;
 				if (xHigherPriorityTaskWoken == pdTRUE) {
-					portYIELD_FROM_ISR();
+					taskYIELD_FROM_ISR();
 				}
 			}
 			else
@@ -682,7 +682,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 		if( xInsideISR != pdFALSE ) {
 			xQueueReceiveFromISR( *pxMailBox, &( *ppvBuffer ), &xHigherPriorityTaskWoken );
 			if (xHigherPriorityTaskWoken == pdTRUE) {
-				portYIELD_FROM_ISR();
+				taskYIELD_FROM_ISR();
 			}
 		}
 		else
@@ -731,7 +731,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	{
 		lResult = xQueueReceiveFromISR( *pxMailBox, &( *ppvBuffer ), &xHigherPriorityTaskWoken );
 		if (xHigherPriorityTaskWoken == pdTRUE) {
-			portYIELD_FROM_ISR();
+			taskYIELD_FROM_ISR();
 		}
 	}
 	else
@@ -768,15 +768,10 @@ err_t sys_sem_new( sys_sem_t *pxSemaphore, u8_t ucCount )
 {
 err_t xReturn = ERR_MEM;
 
-	vSemaphoreCreateBinary( ( *pxSemaphore ) );
+	*pxSemaphore = xSemaphoreCreateBinary();
 
 	if( *pxSemaphore != NULL )
 	{
-		if( ucCount == 0U )
-		{
-			xSemaphoreTake( *pxSemaphore, 1UL );
-		}
-
 		xReturn = ERR_OK;
 		SYS_STATS_INC_USED( sem );
 	}
@@ -829,7 +824,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 				xElapsed = (xEndTime - xStartTime) * portTICK_RATE_MS;
 				ulReturn = xElapsed;
 				if (xHigherPriorityTaskWoken == pdTRUE) {
-					portYIELD_FROM_ISR();
+					taskYIELD_FROM_ISR();
 				}
 			}
 			else
@@ -854,7 +849,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 		if( xInsideISR != pdFALSE ) {
 			xSemaphoreTakeFromISR( *pxSemaphore, &xHigherPriorityTaskWoken );
 			if (xHigherPriorityTaskWoken == pdTRUE) {
-				portYIELD_FROM_ISR();
+				taskYIELD_FROM_ISR();
 			}
 		}
 		else
@@ -904,7 +899,7 @@ void sys_mutex_lock( sys_mutex_t *pxMutex )
 	if( xInsideISR != pdFALSE ) {
 		xSemaphoreTakeFromISR( *pxMutex, &xHigherPriorityTaskWoken );
 		if (xHigherPriorityTaskWoken == pdTRUE) {
-			portYIELD_FROM_ISR();
+			taskYIELD_FROM_ISR();
 		}
 	}
 	else
@@ -919,7 +914,7 @@ void sys_mutex_unlock(sys_mutex_t *pxMutex )
 	if( xInsideISR != pdFALSE ) {
 		xSemaphoreGiveFromISR( *pxMutex, &xHigherPriorityTaskWoken );
 		if (xHigherPriorityTaskWoken == pdTRUE)
-			portYIELD_FROM_ISR();
+			taskYIELD_FROM_ISR();
 	}
 	else
 	xSemaphoreGive( *pxMutex );
@@ -951,7 +946,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	{
 		xSemaphoreGiveFromISR( *pxSemaphore, &xHigherPriorityTaskWoken );
 		if (xHigherPriorityTaskWoken == pdTRUE) {
-			portYIELD_FROM_ISR();
+			taskYIELD_FROM_ISR();
 		}
 	}
 	else
