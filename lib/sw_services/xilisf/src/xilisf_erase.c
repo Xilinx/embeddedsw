@@ -58,7 +58,7 @@
 *				BulkErase()
 * 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
 * 						  which supports 4 byte addressing.
-* 5.4  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * </pre>
 *
 ******************************************************************************/

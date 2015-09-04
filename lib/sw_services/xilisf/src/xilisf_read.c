@@ -57,7 +57,7 @@
 * 						  which supports 4 byte addressing.
 * 5.3  sk        06/01/15 Used Half of Actual byte count for calculating
 *                         Real Byte count in parallel mode. CR# 859979.
-* 5.4  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * </pre>
 *
 ******************************************************************************/

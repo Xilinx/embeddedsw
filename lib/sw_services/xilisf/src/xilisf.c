@@ -92,7 +92,7 @@
 * 5.2   asa  05/12/15 Added APIs to support 4 byte addressing for Micron flash.
 *                     2 APIs were added, one to enter into 4 byte mode and the other
 *                     to exit from the same.
-* 5.4   sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.3   sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 *
 * </pre>
 *
