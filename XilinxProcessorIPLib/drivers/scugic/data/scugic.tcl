@@ -74,13 +74,20 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
+    set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
+		set valid_periph 1
 	}
+    }
+
+    if {!$valid_periph } {
+	error "The scugic driver is not supported for the combination of selected IP and processor";
+	return;
     }
     set periphs $newperiphs
 
@@ -177,14 +184,21 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
 
+    set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
-     foreach periph $periphs {
+    foreach periph $periphs {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-			lappend newperiphs $periph
+		lappend newperiphs $periph
+		set valid_periph 1
 	}
-     }
+    }
+
+    if {!$valid_periph } {
+	error "The scugic driver is not supported for the combination of selected IP and processor";
+	return;
+    }
     set periphs $newperiphs
 
     # Get the names of all the peripherals connected to this driver
@@ -298,14 +312,21 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
    set proctype [common::get_property IP_NAME $hw_proc_handle]
 
-   #Get proper gic instance for periphs in case of zynqmp
-   foreach periph $periphs {
+    set valid_periph 0
+    #Get proper gic instance for periphs in case of zynqmp
+    foreach periph $periphs {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-			lappend newperiphs $periph
+		lappend newperiphs $periph
+		set valid_periph 1
 	}
-   }
+    }
+
+    if {!$valid_periph } {
+	error "The scugic driver is not supported for the combination of selected IP and processor";
+	return;
+    }
    set periphs $newperiphs
    set start_comma ""
    foreach periph $periphs {
