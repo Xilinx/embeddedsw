@@ -183,10 +183,10 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-u32 XFsbl_Qspi24Init(void );
+u32 XFsbl_Qspi24Init(u32 DeviceFlags);
 u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_Qspi24Release(void );
-u32 XFsbl_Qspi32Init(void );
+u32 XFsbl_Qspi32Init(u32 DeviceFlags);
 u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_Qspi32Release(void );
 

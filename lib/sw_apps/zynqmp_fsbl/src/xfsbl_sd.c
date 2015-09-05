@@ -51,8 +51,9 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
+#include "xfsbl_main.h"
 
-#ifdef XFSBL_SD
+#if (defined(XFSBL_SD_0) || defined(XFSBL_SD_1))
 
 #include "xparameters.h"
 #include "ff.h"
@@ -64,7 +65,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-extern void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName, u32 MultibootReg);
+extern void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
+		u32 MultibootReg, u32 DeviceFlags);
 
 
 /************************** Variable Definitions *****************************/
@@ -81,14 +83,24 @@ static FATFS fatfs;
  * @return	None
  *
  *****************************************************************************/
-u32 XFsbl_SdInit(void )
+u32 XFsbl_SdInit(u32 DeviceFlags)
 {
 	u32 Status = XFSBL_SUCCESS;
 	FRESULT rc;
 	char buffer[32];
 	char *boot_file = buffer;
 	u32 MultiBootOffset=0U;
-	TCHAR *path = "0:/"; /* Logical drive number is 0 */
+	TCHAR *path;
+
+	/* Set logical drive number as 0 or 1 based on SD0 or SD1 */
+	if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
+			(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
+		path = "0:/";
+	}
+	else {
+		/* For XFSBL_SD1_BOOT_MODE or XFSBL_SD1_LS_BOOT_MODE */
+		path = "1:/";
+	}
 
 	/* Register volume work area, initialize device */
 	rc = f_mount(&fatfs, path, 0);
@@ -108,7 +120,7 @@ u32 XFsbl_SdInit(void )
 	/**
 	 * Create boot image name
 	 */
-	XFsbl_MakeSdFileName(boot_file, MultiBootOffset);
+	XFsbl_MakeSdFileName(boot_file, MultiBootOffset, DeviceFlags);
 
 	rc = f_open(&fil, boot_file, FA_READ);
 	if (rc) {

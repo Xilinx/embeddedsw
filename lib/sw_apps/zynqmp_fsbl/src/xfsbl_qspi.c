@@ -184,7 +184,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-u32 XFsbl_Qspi24Init()
+u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 {
 	XQspiPsu_Config *QspiConfig;
 	u32 Status = XFSBL_SUCCESS;
@@ -730,7 +730,7 @@ u32 XFsbl_Qspi24Release()
  * @return	None
  *
  *****************************************************************************/
-u32 XFsbl_Qspi32Init()
+u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 {
 	XQspiPsu_Config *QspiConfig;
 	u32 Status = XFSBL_SUCCESS;

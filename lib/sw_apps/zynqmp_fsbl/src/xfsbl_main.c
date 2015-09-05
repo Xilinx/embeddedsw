@@ -370,8 +370,10 @@ void XFsbl_ErrorLockDown(u32 ErrorStatus)
 	if ( (BootMode == XFSBL_QSPI24_BOOT_MODE) ||
 			(BootMode == XFSBL_QSPI32_BOOT_MODE) ||
 			(BootMode == XFSBL_NAND_BOOT_MODE) ||
-			(BootMode == XFSBL_SD_BOOT_MODE) ||
-			(BootMode == XFSBL_EMMC_BOOT_MODE) )
+			(BootMode == XFSBL_SD0_BOOT_MODE) ||
+			(BootMode == XFSBL_EMMC_BOOT_MODE) ||
+			(BootMode == XFSBL_SD1_BOOT_MODE) ||
+			(BootMode == XFSBL_SD1_LS_BOOT_MODE) )
 	{
 		XFsbl_FallBack();
 	} else {
