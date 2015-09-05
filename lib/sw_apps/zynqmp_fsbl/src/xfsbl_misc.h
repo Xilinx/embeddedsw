@@ -74,7 +74,8 @@ void *XFsbl_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
 int XFsbl_MemCmp(const void *Str1Ptr, const void *Str2Ptr, u32 Count);
 char *XFsbl_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr);
-void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName, u32 MultibootReg);
+void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
+		u32 MultibootReg, u32 DeviceFlags);
 u32 XFsbl_Htonl(u32 Value1);
 u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
 

@@ -85,7 +85,7 @@ void XFsbl_RestartWdt();
 
 typedef struct {
 	u32 DeviceBaseAddress; /**< Flash device base address */
-	u32 (*DeviceInit) ();
+	u32 (*DeviceInit) (u32 DeviceFlags);
 		/**< Function pointer for Device initialization code */
 	u32 (*DeviceCopy) (u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 		/**< Function pointer for device copy */
@@ -97,8 +97,8 @@ typedef struct {
 /**
  * SD driver functions
  */
-#ifdef XFSBL_SD
-u32 XFsbl_SdInit(void );
+#if (defined(XFSBL_SD_0) || defined(XFSBL_SD_1))
+u32 XFsbl_SdInit(u32 DeviceFlags);
 u32 XFsbl_SdCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_SdRelease(void );
 #endif
@@ -107,7 +107,7 @@ u32 XFsbl_SdRelease(void );
  * NAND driver functions
  */
 #ifdef XFSBL_NAND
-u32 XFsbl_NandInit(void );
+u32 XFsbl_NandInit(u32 DeviceFlags);
 u32 XFsbl_NandCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_NandRelease(void );
 #endif

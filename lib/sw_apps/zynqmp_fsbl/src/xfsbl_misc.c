@@ -52,6 +52,7 @@
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
+#include "xfsbl_main.h"
 #include "xil_exception.h"
 
 /************************** Constant Definitions *****************************/
@@ -297,7 +298,8 @@ u32 XFsbl_Htonl(u32 Value1)
  * @return	None
  *
  ******************************************************************************/
-void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName, u32 MultibootReg)
+void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
+		u32 MultibootReg, u32 DeviceFlags)
 {
 
 	u32 Index;
@@ -307,12 +309,26 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName, u32 MultibootReg)
 	if (0x0U == MultiBootNum)
 	{
 		/* SD file name is BOOT.BIN when Multiboot register value is 0 */
-		(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT.BIN");
+		if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
+				(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
+			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT.BIN");
+		}
+		else {
+			/* For XFSBL_SD1_BOOT_MODE or XFSBL_SD1_LS_BOOT_MODE */
+			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "1:/BOOT.BIN");
+		}
 	}
 	else
 	{
 		/* set default SD file name as BOOT0000.BIN */
-		(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT0000.BIN");
+		if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
+				(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
+			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT0000.BIN");
+		}
+		else {
+			/* For XFSBL_SD1_BOOT_MODE or XFSBL_SD1_LS_BOOT_MODE */
+			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "1:/BOOT0000.BIN");
+		}
 
 		/* Update file name (to BOOTXXXX.BIN) based on Multiboot register value */
 		for(Index = XFSBL_BASE_FILE_NAME_LEN - 1;

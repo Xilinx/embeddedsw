@@ -451,8 +451,10 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	if ( (BootMode == XFSBL_QSPI24_BOOT_MODE) ||
 			(BootMode == XFSBL_QSPI32_BOOT_MODE) ||
 			(BootMode == XFSBL_NAND_BOOT_MODE) ||
-			(BootMode == XFSBL_SD_BOOT_MODE) ||
-			(BootMode == XFSBL_EMMC_BOOT_MODE) ) {
+			(BootMode == XFSBL_SD0_BOOT_MODE) ||
+			(BootMode == XFSBL_EMMC_BOOT_MODE) ||
+			(BootMode == XFSBL_SD1_BOOT_MODE) ||
+			(BootMode == XFSBL_SD1_LS_BOOT_MODE)) {
 		/**
 		 * Initialize the WDT and CSU drivers
 		 */
@@ -548,11 +550,16 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 #endif
 		} break;
 
-		case XFSBL_SD_BOOT_MODE:
+		case XFSBL_SD0_BOOT_MODE:
 		case XFSBL_EMMC_BOOT_MODE:
 		{
-			XFsbl_Printf(DEBUG_GENERAL,"SD/eMMC Boot Mode \n\r");
-#ifdef XFSBL_SD
+			if (BootMode == XFSBL_SD0_BOOT_MODE) {
+				XFsbl_Printf(DEBUG_GENERAL,"SD0 Boot Mode \n\r");
+			}
+			else {
+				XFsbl_Printf(DEBUG_GENERAL,"eMMC Boot Mode \n\r");
+			}
+#ifdef XFSBL_SD_0
 			/**
 			 * Update the deviceops structure with necessary values
 			 */
@@ -569,20 +576,31 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 #endif
 		} break;
 
-		case XFSBL_USB_BOOT_MODE:
+		case XFSBL_SD1_BOOT_MODE:
+		case XFSBL_SD1_LS_BOOT_MODE:
 		{
-			XFsbl_Printf(DEBUG_GENERAL,"USB Boot Mode \n\r");
+			if (BootMode == XFSBL_SD1_BOOT_MODE) {
+				XFsbl_Printf(DEBUG_GENERAL, "SD1 Boot Mode \n\r");
+			}
+			else {
+				XFsbl_Printf(DEBUG_GENERAL,
+						"SD1 with level shifter Boot Mode \n\r");
+			}
+#ifdef XFSBL_SD_1
 			/**
 			 * Update the deviceops structure with necessary values
-			 *
 			 */
-
+			FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
+			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
+			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
+#else
 			/**
 			 * This bootmode is not supported in this release
 			 */
 			XFsbl_Printf(DEBUG_GENERAL,
-					"XFSBL_ERROR_UNSUPPORTED_BOOT_MODE\n\r");
+				"XFSBL_ERROR_UNSUPPORTED_BOOT_MODE\n\r");
 			Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
 		} break;
 
 		default:
@@ -604,7 +622,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	/**
 	 * Initialize the Device Driver
 	 */
-	Status = FsblInstancePtr->DeviceOps.DeviceInit();
+	Status = FsblInstancePtr->DeviceOps.DeviceInit(BootMode);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
@@ -641,8 +659,10 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	 *  Calculate the Flash Offset Address
 	 *  For file system based devices, Flash Offset Address should be 0 always
 	 */
-	if ((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD_BOOT_MODE) ||
-			(FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE))
+	if ((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE) ||
+			(FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE) ||
+			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_BOOT_MODE) ||
+			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE))
 	{
 		FsblInstancePtr->ImageOffsetAddress = 0x0U;
 	} else {

@@ -534,10 +534,14 @@ extern "C" {
 #endif
 
 /**
- * Definition for SD to be included
+ * Definitions for SD to be included
  */
-#if (!defined(FSBL_SD_EXCLUDE) && defined( XPAR_XSDPS_0_DEVICE_ID))
-#define XFSBL_SD
+#if (!defined(FSBL_SD_EXCLUDE) && defined(XPAR_XSDPS_0_DEVICE_ID))
+#define XFSBL_SD_0
+#endif
+
+#if (!defined(FSBL_SD_EXCLUDE) && defined(XPAR_XSDPS_1_DEVICE_ID))
+#define XFSBL_SD_1
 #endif
 
 /**
