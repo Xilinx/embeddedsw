@@ -412,6 +412,7 @@ int main()
 		Status = IsfWaitForFlashNotBusy();
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 	}
 
 	return XST_SUCCESS;
