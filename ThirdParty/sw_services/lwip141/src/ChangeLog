@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2015-09-09
+	* Fix compilation issues with the non hier axi eth design
 2015-09-04
 	* Update makefile to allow incremental build.
 	* Add support for latest freertos (freertos821_xilinx)
