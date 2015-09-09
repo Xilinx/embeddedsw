@@ -121,7 +121,7 @@ proc lwip_temac_hw_drc {libhandle emac} {
 #	- if fifo, fifo intr (not verified)
 proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 
-	set emacname $emac
+	set emacname [common::get_property IP_NAME [hsi::get_cells -hier $emac]]
 	set mhs_handle [hsi::get_cells -hier $emac]
 
 	set intr_port [hsi::get_pins -of_objects [hsi::get_cells -hier $emac] INTERRUPT]
@@ -152,7 +152,14 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 		if {$target_periph_type == "axi_fifo_mm_s"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_tx_csum [common::get_property CONFIG.TXCSUM $emac]
+
+		if {$emacname == "axi_ethernet_buffer" } {
+			set hw_tx_csum [common::get_property CONFIG.C_TXCSUM $mhs_handle]
+		} else {
+			set hw_tx_csum [common::get_property CONFIG.TXCSUM $mhs_handle]
+			set hw_tx_csum [get_checksum $hw_tx_csum]
+		}
+
 		if {$hw_tx_csum == "1" &&  $tx_full_csum } {
 			error "ERROR: lwIP cannot offload full TX checksum calculation since hardware \
 				supports partial TX checksum offload" "" "MDT_ERROR"
@@ -175,7 +182,13 @@ proc lwip_axi_ethernet_hw_drc {libhandle emac} {
 		if {$target_periph_type == "axi_fifo_mm_s"} {
 			error "ERROR: Checksum offload is possible only with a DMA engine" "" "MDT_ERROR"
 		}
-		set hw_rx_csum [common::get_property CONFIG.RXCSUM $emac]
+		if {$emacname == "axi_ethernet_buffer" } {
+			set hw_rx_csum [common::get_property CONFIG.C_RXCSUM $mhs_handle]
+		} else {
+			set hw_rx_csum [common::get_property CONFIG.RXCSUM $mhs_handle]
+			set hw_rx_csum [get_checksum $hw_rx_csum]
+		}
+
 		if {$hw_rx_csum == "1" &&  $rx_full_csum } {
 			error "ERROR: lwIP cannot offload full RX checksum calculation since hardware \
 				supports partial RX checksum offload" "" "MDT_ERROR"
@@ -344,7 +357,13 @@ proc generate_lwip_opts {libhandle} {
 		if {$iptype == "xps_ethernetlite" || $iptype == "opb_ethernetlite" || $iptype == "axi_ethernetlite"} {
 			set have_emaclite 1
 		}
-		if {$iptype == "axi_ethernet" || $iptype == "axi_ethernet_buffer" } {
+		if {$iptype == "axi_ethernet"} {
+			set checksum_txoption [common::get_property CONFIG.TXCSUM $emac]
+			set checksum_txoption [get_checksum $checksum_txoption]
+			set checksum_rxoption [common::get_property CONFIG.RXCSUM $emac]
+			set checksum_rxoption [get_checksum $checksum_rxoption]
+		}
+		if {$iptype == "axi_ethernet_buffer" } {
 			set checksum_txoption [common::get_property CONFIG.C_TXCSUM $emac]
 			set checksum_rxoption [common::get_property CONFIG.C_RXCSUM $emac]
 		}
@@ -1315,6 +1334,18 @@ proc axieth_target_periph {emac} {
 	}
 
 	return $target_periph_type
+}
+
+proc get_checksum {value} {
+	if {[string compare -nocase $value "None"] == 0} {
+		set value 0
+	} elseif {[string compare -nocase $value "Partial"] == 0} {
+		set value 1
+	} else {
+		set value 2
+	}
+
+	return $value
 }
 
 #-------
