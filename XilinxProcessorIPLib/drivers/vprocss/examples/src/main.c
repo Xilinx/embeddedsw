@@ -4,6 +4,7 @@
 #include "xparameters.h"
 #include "system.h"
 #include "xvprocss_vdma.h"
+#include "microblaze_sleep.h"
 
 #define XVPROCSS_SW_VER  "v1.00"
 #define VERBOSE_MODE     0
@@ -114,8 +115,13 @@ int main(void)
     XPeriph_TpgDbgReportStatus(PeriphPtr);
 #endif
 
+    /* vtc is running at 9Mhz essentially providing < 2fps frame rate
+     * Need to wait for 3-4 frames (~2sec) for vidout to acquire lock
+     */
     xil_printf("\r\nWaiting for output to lock: ");
+    MB_Sleep(2000);
 
+    /* check for output lock */
     Timeout = VIDEO_MONITOR_LOCK_TIMEOUT;
     while(!Lock && Timeout)
     {
