@@ -142,6 +142,19 @@ proc swapp_is_supported_sw {} {
     # make sure we are using standalone OS
     check_standalone_os;
 
+	set sw_processor [hsi::get_sw_processor]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
+
+	if {$processor_type == "psu_cortexa53"} {
+		set procdrv [hsi::get_sw_processor]
+		set compiler [::common::get_property CONFIG.compiler $procdrv]
+		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			error "ERROR: lwip library does not support 32 bit A53 compiler";
+		return;
+            }
+	}
+
     # check for stdout being set
     check_stdout_sw;
 
