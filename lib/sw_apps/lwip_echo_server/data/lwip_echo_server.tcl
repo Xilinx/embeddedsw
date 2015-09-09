@@ -132,6 +132,12 @@ proc swapp_is_supported_hw {} {
         }
     }
 
+	# PSU_Microblaze is not supported
+	if { $proc_type == "psu_microblaze"} {
+		error "ERROR: lwip is not supported on PSU Microblaze";
+		return;
+	}
+
     # require about 1M of memory
     require_memory "1000000";
 
