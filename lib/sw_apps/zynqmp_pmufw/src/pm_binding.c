@@ -56,6 +56,8 @@ void XPfw_PmInit(void)
 	DISABLE_WAKE(PMU_IOMODULE_GPI1_WAKES_ALL_MASK);
 	/* Disable all wfi requests in GPI2 */
 	DISABLE_WFI(PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK);
+	/* Setup initial slaves for masters */
+	PmSetupInitialMasterRequirements();
 	/* Enable all IPI interrupts so masters' requests can be received */
 	PmEnableAllMasterIpis();
 }

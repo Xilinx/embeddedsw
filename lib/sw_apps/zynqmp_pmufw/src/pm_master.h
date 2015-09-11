@@ -258,4 +258,6 @@ int PmMasterSuspendAck(PmMaster* const respMaster,
 
 PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId);
 
+void PmSetupInitialMasterRequirements(void);
+
 #endif
