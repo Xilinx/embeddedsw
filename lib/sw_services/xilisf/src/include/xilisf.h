@@ -497,6 +497,8 @@
 * 5.3  sk    06/01/15 Used Half of Actual byte count for calculating
 *                     Real Byte count in parallel mode. CR# 859979.
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.4  nsk  09/14/15 Updated IntelStmDevices list in xilisf.c to support
+*                    Micron N25Q256A.CR#881478.
 *
 * </pre>
 *
