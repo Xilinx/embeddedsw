@@ -93,6 +93,8 @@
 *                     2 APIs were added, one to enter into 4 byte mode and the other
 *                     to exit from the same.
 * 5.3   sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.4   nsk  09/14/15 Updated IntelStmDevices list to support Micron N25Q256A
+*                     (CR 881478).
 *
 * </pre>
 *
@@ -405,6 +407,10 @@ static const IntelStmDeviceGeometry IntelStmDevices[] = {
 	 XISF_NUM_OF_SECTORS256},
 
 	{XISF_MANUFACTURER_ID_MICRON, XISF_MIC_DEV_N25Q256_3V0,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS512},
+
+	{XISF_MANUFACTURER_ID_MICRON,XISF_MIC_DEV_N25Q256_1V8,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS512},
 
