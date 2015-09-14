@@ -77,9 +77,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 /* Functions from xfsbl_misc.c */
 int psu_init();
 
-/* Functions from uart.c of BSP */
-void Init_Uart(void);
-
 /**
  * Functions from xfsbl_misc.c
  */
@@ -135,11 +132,6 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
-
-#ifdef STDOUT_BASEADDRESS
-	Init_Uart();
-#endif
-
 
 	/**
 	 * Print the FSBL banner
