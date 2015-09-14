@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -33,58 +33,43 @@
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=
+COMPILER_FLAGS =
+LIB=libxilsecure.a
 
 EXTRA_ARCHIVE_FLAGS=rc
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
-INCLUDES=-I./include/ -I${INCLUDEDIR}
+INCLUDES=-I./. -I${INCLUDEDIR}
+
 SECURE_DIR = .
-OBJDIR = obj/
+OUTS = *.o
 
-LIB_SRCS = $(SECURE_DIR)/xsecure_sha.c \
-          $(SECURE_DIR)/xsecure_aes.c \
-          $(SECURE_DIR)/xsecure_rsa.c
+SECURE_SRCS := $(wildcard *.c)
+SECURE_OBJS = $(addprefix $(SECURE_DIR)/, $(SECURE_SRCS:%.c=%.o))
 
-
-# create SECURE_SRCS based on configured options
-
-SECURE_SRCS = $(LIB_SRCS)
-
-SECURE_OBJS = $(addprefix $(OBJDIR), $(SECURE_SRCS:%.c=%.o))
-
-
-EXPORT_INCLUDE_FILES = $(SECURE_DIR)/xsecure_sha.h \
-			$(SECURE_DIR)/xsecure_rsa.h \
-			$(SECURE_DIR)/xsecure_aes.h
-
+INCLUDEFILES=$(SECURE_DIR)/xsecure_sha.h \
+		$(SECURE_DIR)/xsecure_aes.h \
+		$(SECURE_DIR)/xsecure_rsa.h \
+		$(SECURE_DIR)/xsecure_hw.h
 
 libs: libxilsecure.a
-	cp libxilsecure.a $(RELEASEDIR)
-	make clean
 
-include:
-	$(@for i in $(EXPORT_INCLUDE_FILES); do \
-	${CP} -r $$i ${INCLUDEDIR}; \
-	done)
+libxilsecure.a: print_msg_secure $(SECURE_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
+
+print_msg_secure:
+	@echo "Compiling XilSecure Library"
+
+.PHONY: include
+include: libxilsecure_includes
+
+libxilsecure_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf obj/xsecure_rsa.o obj/xsecure_sha.o obj/xsecure_aes.o
-	rmdir obj
-	rm libxilsecure.a
+	rm -rf $(SECURE_DIR)/${OUTS}
+	rm -rf ${RELEASEDIR}/${LIB}
 
-
-libxilsecure.a: obj_dir print_msg_secure_base $(SECURE_OBJS)
-	@echo "Creating archive $@"
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) $@ obj/xsecure_rsa.o obj/xsecure_sha.o obj/xsecure_aes.o
-
-
-obj_dir:
-	mkdir -p obj
-
-print_msg_secure_base:
-	@echo "Compiling Xilsecure Library"
-
-$(OBJDIR)%.o: $(SECURE_DIR)/%.c
+$(SECURE_DIR)/%.o: $(SECURE_DIR)/%.c $(INCLUDEFILES)
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
