@@ -126,10 +126,10 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 
 void XPm_ClientAbortSuspend(void)
 {
-	/* Enable interrupts at processor level */
-	pm_enable_int();
 	/* Clear powerdown request */
 	pm_write(MASTER_PWRCTL, pm_read(MASTER_PWRCTL) & ~primary_master->pwrdn_mask);
+	/* Enable interrupts at processor level */
+	pm_enable_int();
 }
 
 void XPm_ClientWakeup(const struct XPm_Master *const master)

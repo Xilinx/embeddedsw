@@ -284,17 +284,18 @@ enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 	enum XPmStatus status;
 	u32 payload[PAYLOAD_ARG_CNT];
 
-	/*
-	 * Do client specific abort suspend operations
-	 * (e.g. enable interrupts and clear powerdown request bit)
-	 */
-	XPm_ClientAbortSuspend();
 	/* Send request to the PMU */
 	PACK_PAYLOAD(payload, PM_ABORT_SUSPEND, reason, primary_master->node_id, 0, 0);
 	status = pm_ipi_send(primary_master, payload);
 	if (PM_RET_SUCCESS == status)
 		/* Wait for PMU to finish handling request */
 		status = pm_ipi_wait(primary_master);
+	/*
+	 * Do client specific abort suspend operations
+	 * (e.g. enable interrupts and clear powerdown request bit)
+	 */
+	XPm_ClientAbortSuspend();
+
 	return status;
 }
 
