@@ -100,7 +100,7 @@ static const PmApiEntry pmApiTable[] = {
 		.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UINT32, ARG_UNDEF }
 	}, {
 		.apiId = PM_MMIO_READ,
-		.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
 	},
 };
 

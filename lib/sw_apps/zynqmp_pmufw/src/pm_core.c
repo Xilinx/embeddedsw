@@ -495,19 +495,16 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
  * PmMmioRead() - Read value from protected mmio
  * @master  Master who initiated the request
  * @address Address to write to
- * @mask    Mask to apply
  *
  * @note    This function provides access to PM-related control registers
  *          that may not be directly accessible by a particular PU.
  */
-static void PmMmioRead(const PmMaster *const master, const u32 address,
-		       const u32 mask)
+static void PmMmioRead(const PmMaster *const master, const u32 address)
 {
-	u32 value;
+	u32 value = XPfw_Read32(address);
 
-	PmDbg("addr=0x%x, mask=0x%x\n", address, mask);
+	PmDbg("addr=0x%x, value=0x%x\n", address, value);
 
-	value = XPfw_Read32(address) & mask;
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, XST_SUCCESS);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
 		     value);
@@ -736,7 +733,7 @@ void PmProcessApiCall(const PmMaster *const master,
 		PmMmioWrite(master, pload[1], pload[2], pload[3]);
 		break;
 	case PM_MMIO_READ:
-		PmMmioRead(master, pload[1], pload[2]);
+		PmMmioRead(master, pload[1]);
 		break;
 	default:
 		PmDbg("ERROR unsupported PM API #%d\n", pload[0]);
