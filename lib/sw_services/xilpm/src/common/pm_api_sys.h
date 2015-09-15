@@ -84,7 +84,6 @@ enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node);
 enum XPmStatus XPm_MmioWrite(const u32 address, const u32 mask,
 			     const u32 value);
 
-enum XPmStatus XPm_MmioRead(const u32 address, const u32 mask,
-			    u32 *const value);
+enum XPmStatus XPm_MmioRead(const u32 address, u32 *const value);
 
 #endif /* _PM_API_SYS_H_ */

@@ -478,7 +478,6 @@ enum XPmStatus XPm_MmioWrite(const u32 address, const u32 mask,
 /**
  * XPm_MmioRead() - Read value from protected mmio
  * @address	Address to write to
- * @mask	Mask to apply
  * @value	Value to write
  *
  * This function provides access to PM-related control registers
@@ -486,14 +485,13 @@ enum XPmStatus XPm_MmioWrite(const u32 address, const u32 mask,
  *
  * @return	Returns status, either success or error+reason
  */
-enum XPmStatus XPm_MmioRead(const u32 address, const u32 mask,
-			    u32 *const value)
+enum XPmStatus XPm_MmioRead(const u32 address, u32 *const value)
 {
 	enum XPmStatus status;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_MMIO_READ, address, mask, 0, 0);
+	PACK_PAYLOAD(payload, PM_MMIO_READ, address, 0, 0, 0);
 	status = pm_ipi_send(primary_master, payload);
 
 	if (PM_RET_SUCCESS != status)
