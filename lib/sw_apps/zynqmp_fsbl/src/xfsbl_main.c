@@ -320,6 +320,9 @@ void XFsbl_PrintFsblBanner(void )
 	} else  if (XFSBL_PLATFORM == XFSBL_PLATFORM_REMUS)
 	{
 		XFsbl_Printf(DEBUG_GENERAL, "Platform: REMUS, ");
+	} else  if (XFSBL_PLATFORM == XFSBL_PLATFORM_SILICON)
+	{
+		XFsbl_Printf(DEBUG_GENERAL, "Platform: Silicon, ");
 	} else {
 		XFsbl_Printf(DEBUG_GENERAL, "Platform Not identified \r\n");
 	}
