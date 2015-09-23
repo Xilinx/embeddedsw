@@ -274,7 +274,6 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 	PmDbg("SUSPENDING->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 
 	DISABLE_WFI(proc->wfiEnableMask);
-	DISABLE_WAKE(proc->wakeEnableMask);
 
 	/* Notify master to cancel scheduled requests */
 	status = PmMasterNotify(proc->master, PM_PROC_EVENT_ABORT_SUSPEND);
@@ -346,8 +345,6 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 	if (XST_SUCCESS == status) {
 		PmDbg("SLEEP->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 		status = PmProcWake(&proc->node);
-		/* Keep wfi interrupt disabled while processor is active */
-		DISABLE_WFI(proc->wfiEnableMask);
 		DISABLE_WAKE(proc->wakeEnableMask);
 	}
 
