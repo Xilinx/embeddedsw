@@ -107,9 +107,9 @@ done:
 }
 
 /**
- * PmRequestSuspend() - Requested suspend by a PU for another processor
+ * PmRequestSuspend() - Requested suspend by a PU for another PU
  * @master  PU from which the request is initiated
- * @node    PU/processor node to be suspended
+ * @node    PU node to be suspended
  * @ack     Acknowledge request
  * @latency Desired wakeup latency - Not supported
  * @state   Desired power state   - Not supported
@@ -128,7 +128,6 @@ static void PmRequestSuspend(const PmMaster *const master,
 			     const u32 state)
 {
 	int status;
-	PmProc* proc;
 	PmMaster* target = NULL;
 
 	PmDbg("(%s, %s, %d, %d)\n", PmStrNode(node), PmStrAck(ack),
@@ -140,14 +139,8 @@ static void PmRequestSuspend(const PmMaster *const master,
 		goto done;
 	}
 
-	proc = PmGetProcOfOtherMaster(master, node);
-	if (NULL != proc) {
-		/* Node is processor, request suspend to it's master */
-		target = proc->master;
-	} else {
-		/* Check whether the target is placeholder in PU */
-		target = PmMasterGetPlaceholder(node);
-	}
+	/* Check whether the target is placeholder in PU */
+	target = PmMasterGetPlaceholder(node);
 
 	if (NULL == target) {
 		PmDbg("ERROR: invalid node argument\n");
