@@ -338,12 +338,6 @@ static void PmReleaseNode(const PmMaster *master,
 		goto done;
 	}
 
-	/* after releasing a node, try power down whole island/domain */
-	PmPower* powerParent = masterReq->slave->node.parent;
-	if (NULL != powerParent) {
-		PmOpportunisticSuspend(powerParent);
-	}
-
 done:
 	PmDbg("(%s, %d)\n", PmStrNode(node), latency);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);

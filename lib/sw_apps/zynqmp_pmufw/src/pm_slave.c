@@ -201,9 +201,7 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 	u32 t;
 	int status;
 	const PmSlaveFsm* fsm = slave->slvFsm;
-#ifdef DEBUG_PM
 	PmStateId oldState = slave->node.currState;
-#endif
 
 	if (0U == fsm->transCnt) {
 		/* Slave's FSM has no transitions when it has only one state */
@@ -243,9 +241,19 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 			 */
 			status = XST_SUCCESS;
 		}
-
 		break;
 	}
+
+	if ((oldState == slave->node.currState) || (XST_SUCCESS != status)) {
+		goto done;
+	}
+
+	if ((0U == (slave->node.currState & PM_CAP_POWER)) &&
+	    (NULL != slave->node.parent)) {
+		PmOpportunisticSuspend(slave->node.parent);
+	}
+
+done:
 #ifdef DEBUG_PM
 	if (XST_SUCCESS == status) {
 		PmDbg("%s %d->%d\n", PmStrNode(slave->node.nodeId), oldState,
@@ -254,8 +262,6 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 		PmDbg("%s ERROR #%d\n", PmStrNode(slave->node.nodeId), status);
 	}
 #endif
-
-done:
 	return status;
 }
 
