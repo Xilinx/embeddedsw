@@ -85,29 +85,25 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 /**
  * PmInitSuspendCb() - request a master to suspend itself
  * @master      Master to be asked to suspend
- * @nodeId      Node within the master to be suspended
  * @reason      The reason of initiating the suspend
  * @latency     Not supported
  * @state       State to which the master should suspend
  * @timeout     How much time the master has to respond
  */
-void PmInitSuspendCb(const PmMaster* const master, const PmNodeId nodeId,
-		     const u32 reason, const u32 latency, const u32 state,
-		     const u32 timeout)
+void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
+		     const u32 latency, const u32 state, const u32 timeout)
 {
-	PmDbg("of %s (%d, %d, %d, %d)\n", PmStrNode(nodeId), reason, latency,
-	      state, timeout);
+	PmDbg("of %s (%d, %d, %d, %d)\n", PmStrNode(master->nid), reason,
+	      latency, state, timeout);
 
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_INIT_SUSPEND_CB);
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
-		     nodeId);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 2 * PAYLOAD_ELEM_SIZE,
 		     reason);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 3 * PAYLOAD_ELEM_SIZE,
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 2 * PAYLOAD_ELEM_SIZE,
 		     latency);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 4 * PAYLOAD_ELEM_SIZE,
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 3 * PAYLOAD_ELEM_SIZE,
 		     state);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 5 * PAYLOAD_ELEM_SIZE,
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 4 * PAYLOAD_ELEM_SIZE,
 		     timeout);
 	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }

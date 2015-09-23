@@ -46,8 +46,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		const u32 event, const u32 oppoint);
 
-void PmInitSuspendCb(const PmMaster* const master, const PmNodeId nodeId,
-		     const u32 reason, const u32 latency, const u32 state,
-		     const u32 timeout);
+void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
+		     const u32 latency, const u32 state, const u32 timeout);
 
 #endif

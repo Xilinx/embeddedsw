@@ -175,7 +175,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 
 	if (XST_SUCCESS == status) {
 		/* Request is ok and saved (remembered to acknowledge) */
-		PmInitSuspendCb(target, node, SUSPEND_REASON_PU_REQ,
+		PmInitSuspendCb(target, SUSPEND_REASON_PU_REQ,
 				latency, state, MAX_LATENCY);
 	}
 
@@ -572,7 +572,6 @@ static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 			    (PM_PROC_STATE_ACTIVE ==
 			     pmAllMasters[i]->procs->node.currState)) {
 				PmInitSuspendCb(pmAllMasters[i],
-						pmAllMasters[i]->nid,
 						SUSPEND_REASON_SYS_SHUTDOWN,
 						MAX_LATENCY, 0, MAX_LATENCY);
 			}
