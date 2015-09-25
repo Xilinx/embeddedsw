@@ -212,7 +212,7 @@ int XCsuDma_IntrExample(u16 DeviceId)
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, SRC_ADDR, SIZE, EnLast);
 
 	/* Wait for generation of destination work is done */
-	while(DstDone == 1);
+	while(DstDone == 0);
 	/* Disable interrupts */
 	XCsuDma_DisableIntr(&CsuDma, XCSUDMA_DST_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
