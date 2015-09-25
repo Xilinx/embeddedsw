@@ -46,6 +46,8 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00a kvn	  04/21/15 First release
+* 1.1   kvn   09/25/15 Modify control register to enable battery
+*                      switching when vcc_psaux is not available.
 *
 * </pre>
 *
@@ -282,10 +284,10 @@ extern "C" {
 #define XRTC_CTL_OFFSET    0x00000040U
 #define XRTC_CTL_RSTVAL   0x01000000U
 
-#define XRTC_CTL_BATTERY_DIS_SHIFT   31U
-#define XRTC_CTL_BATTERY_DIS_WIDTH   1U
-#define XRTC_CTL_BATTERY_DIS_MASK    0x80000000U
-#define XRTC_CTL_BATTERY_DIS_DEFVAL  0x0U
+#define XRTC_CTL_BATTERY_EN_SHIFT   31U
+#define XRTC_CTL_BATTERY_EN_WIDTH   1U
+#define XRTC_CTL_BATTERY_EN_MASK    0x80000000U
+#define XRTC_CTL_BATTERY_EN_DEFVAL  0x0U
 
 #define XRTC_CTL_OSC_SHIFT   24U
 #define XRTC_CTL_OSC_WIDTH   4U

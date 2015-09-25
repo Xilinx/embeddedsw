@@ -98,6 +98,8 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00  kvn    04/21/15 First release
+* 1.1   kvn    09/25/15 Modify control register to enable battery
+*                       switching when vcc_psaux is not available.
 * </pre>
 *
 ******************************************************************************/
