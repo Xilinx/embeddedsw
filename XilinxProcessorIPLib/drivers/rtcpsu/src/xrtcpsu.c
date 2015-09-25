@@ -48,6 +48,8 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00  kvn    04/21/15 First release
+* 1.1   kvn    09/25/15 Modify control register to enable battery
+*                       switching when vcc_psaux is not available.
 * </pre>
 *
 ******************************************************************************/
@@ -95,6 +97,7 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status;
+	u32 ControlRegister;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -120,9 +123,10 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CALIB_WR_OFFSET,
 				InstancePtr->CalibrationValue);
 
-	/* Set the Oscillator crystal enable in control register. */
+	/* Set the Oscillator crystal and Battery switch enable in control register. */
+	ControlRegister = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CTL_OFFSET);
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CTL_OFFSET,
-			XRTCPSU_CRYSTAL_OSC_EN);
+			(ControlRegister | (u32)XRTCPSU_CRYSTAL_OSC_EN | (u32)XRTC_CTL_BATTERY_EN_MASK));
 
 	/* Clear the Interrupt Status and Disable the interrupts. */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET,
