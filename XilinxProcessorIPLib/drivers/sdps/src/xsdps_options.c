@@ -293,6 +293,24 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
+
+		/* Check for transfer complete */
+		do {
+			StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_NORM_INTR_STS_OFFSET);
+			if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
+				/* Write to clear error bits */
+				XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_ERR_INTR_STS_OFFSET,
+						XSDPS_ERROR_INTR_ALL_MASK);
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+		} while((StatusReg & XSDPS_INTR_TC_MASK) == 0U);
+
+		/* Write to clear bit */
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 	}
 
 #if defined (__arm__) || defined (__aarch64__)
