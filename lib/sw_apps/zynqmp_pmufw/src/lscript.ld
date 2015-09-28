@@ -45,6 +45,8 @@ ENTRY(XPfw_Init)
 
 SECTIONS
 {
+XpbrServHndlrTbl = 0xffd07bc8;
+
 .vectors.reset 0xFFDC0000 : {
    KEEP (*(.vectors.reset))
 } > PMU_RAM
@@ -168,5 +170,3 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
 _end = .;
 }
-
-XpbrServHndlrTbl = 0xffd07bc8;
