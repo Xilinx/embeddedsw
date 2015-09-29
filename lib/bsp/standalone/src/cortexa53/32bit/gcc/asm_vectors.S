@@ -65,7 +65,7 @@
 .globl IRQHandler
 .globl prof_pc
 
-.section .vectors
+.section .vectors, "a"
 _vector_table:
 	B	_boot
 	B	Undefined
