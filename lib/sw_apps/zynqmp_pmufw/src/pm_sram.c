@@ -49,15 +49,19 @@ static const PmStateTran pmSramTransitions[] = {
 	{
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_RET,
+		.latency = PM_DEFAULT_LATENCY,
 	}, {
 		.fromState = PM_SRAM_STATE_RET,
 		.toState = PM_SRAM_STATE_ON,
+		.latency = PM_DEFAULT_LATENCY,
 	}, {
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_OFF,
+		.latency = PM_DEFAULT_LATENCY,
 	}, {
 		.fromState = PM_SRAM_STATE_OFF,
 		.toState = PM_SRAM_STATE_ON,
+		.latency = PM_DEFAULT_LATENCY,
 	},
 };
 

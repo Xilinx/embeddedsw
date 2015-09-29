@@ -54,6 +54,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_OCM1] = {
 		.slave = &pmSlaveOcm1_g.slv,
@@ -62,6 +63,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_OCM2] = {
 		.slave = &pmSlaveOcm2_g.slv,
@@ -70,6 +72,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_OCM3] = {
 		.slave = &pmSlaveOcm3_g.slv,
@@ -78,6 +81,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_L2] = {
 		.slave = &pmSlaveL2_g.slv,
@@ -86,6 +90,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_USB0] = {
 		.slave = &pmSlaveUsb0_g.slv,
@@ -94,6 +99,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_USB1] = {
 		.slave = &pmSlaveUsb1_g.slv,
@@ -102,6 +108,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_TTC0] = {
 		.slave = &pmSlaveTtc0_g.slv,
@@ -110,6 +117,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_TTC1] = {
 		.slave = &pmSlaveTtc1_g.slv,
@@ -118,6 +126,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_TTC2] = {
 		.slave = &pmSlaveTtc2_g.slv,
@@ -126,6 +135,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_TTC3] = {
 		.slave = &pmSlaveTtc3_g.slv,
@@ -134,6 +144,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_SATA] = {
 		.slave = &pmSlaveSata_g.slv,
@@ -142,6 +153,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_APLL] = {
 		.slave = &pmSlaveApll_g.slv,
@@ -150,6 +162,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_VPLL] = {
 		.slave = &pmSlaveVpll_g.slv,
@@ -158,6 +171,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_DPLL] = {
 		.slave = &pmSlaveDpll_g.slv,
@@ -166,6 +180,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_RPLL] = {
 		.slave = &pmSlaveRpll_g.slv,
@@ -174,6 +189,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_IOPLL] = {
 		.slave = &pmSlaveIOpll_g.slv,
@@ -182,6 +198,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_GPUPP0] = {
 		.slave = &pmSlaveGpuPP0_g.slv,
@@ -190,6 +207,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_GPUPP1] = {
 		.slave = &pmSlaveGpuPP1_g.slv,
@@ -198,6 +216,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_UART0] = {
 		.slave = &pmSlaveUart0_g,
@@ -206,6 +225,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_UART1] = {
 		.slave = &pmSlaveUart1_g,
@@ -214,6 +234,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_SPI0] = {
 		.slave = &pmSlaveSpi0_g,
@@ -222,6 +243,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_SPI1] = {
 		.slave = &pmSlaveSpi1_g,
@@ -230,6 +252,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_I2C0] = {
 		.slave = &pmSlaveI2C0_g,
@@ -238,6 +261,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_I2C1] = {
 		.slave = &pmSlaveI2C1_g,
@@ -246,6 +270,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_SD0] = {
 		.slave = &pmSlaveSD0_g,
@@ -254,6 +279,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_SD1] = {
 		.slave = &pmSlaveSD1_g,
@@ -262,6 +288,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_CAN0] = {
 		.slave = &pmSlaveCan0_g,
@@ -270,6 +297,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_CAN1] = {
 		.slave = &pmSlaveCan1_g,
@@ -278,6 +306,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_ETH0] = {
 		.slave = &pmSlaveEth0_g,
@@ -286,6 +315,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_ETH1] = {
 		.slave = &pmSlaveEth1_g,
@@ -294,6 +324,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_ETH2] = {
 		.slave = &pmSlaveEth2_g,
@@ -302,6 +333,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_ETH3] = {
 		.slave = &pmSlaveEth3_g,
@@ -310,6 +342,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_ADMA] = {
 		.slave = &pmSlaveAdma_g,
@@ -318,6 +351,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_GDMA] = {
 		.slave = &pmSlaveGdma_g,
@@ -326,6 +360,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_DP] = {
 		.slave = &pmSlaveDP_g,
@@ -334,6 +369,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_NAND] = {
 		.slave = &pmSlaveNand_g,
@@ -342,6 +378,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_QSPI] = {
 		.slave = &pmSlaveQSpi_g,
@@ -350,6 +387,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_GPIO] = {
 		.slave = &pmSlaveGpio_g,
@@ -358,6 +396,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_APU_SLAVE_AFI] = {
 		.slave = &pmSlaveAFI_g,
@@ -366,6 +405,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 };
 
@@ -378,6 +418,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_OCM1] = {
 		.slave = &pmSlaveOcm1_g.slv,
@@ -386,6 +427,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_OCM2] = {
 		.slave = &pmSlaveOcm2_g.slv,
@@ -394,6 +436,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_OCM3] = {
 		.slave = &pmSlaveOcm3_g.slv,
@@ -402,6 +445,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_TCM0A] = {
 		.slave = &pmSlaveTcm0A_g.slv,
@@ -410,6 +454,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_TCM0B] = {
 		.slave = &pmSlaveTcm0B_g.slv,
@@ -418,6 +463,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_TCM1A] = {
 		.slave = &pmSlaveTcm1A_g.slv,
@@ -426,6 +472,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_TCM1B] = {
 		.slave = &pmSlaveTcm1B_g.slv,
@@ -434,6 +481,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_USB0] = {
 		.slave = &pmSlaveUsb0_g.slv,
@@ -442,6 +490,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_USB1] = {
 		.slave = &pmSlaveUsb1_g.slv,
@@ -450,6 +499,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_TTC0] = {
 		.slave = &pmSlaveTtc0_g.slv,
@@ -458,6 +508,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_SATA] = {
 		.slave = &pmSlaveSata_g.slv,
@@ -466,6 +517,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_APLL] = {
 		.slave = &pmSlaveApll_g.slv,
@@ -474,6 +526,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_VPLL] = {
 		.slave = &pmSlaveVpll_g.slv,
@@ -482,6 +535,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_DPLL] = {
 		.slave = &pmSlaveDpll_g.slv,
@@ -490,6 +544,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_RPLL] = {
 		.slave = &pmSlaveRpll_g.slv,
@@ -498,6 +553,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_IOPLL] = {
 		.slave = &pmSlaveIOpll_g.slv,
@@ -506,6 +562,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.defaultReq = 0U,
 		.currReq = 0U,
 		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
 	},
 };
 

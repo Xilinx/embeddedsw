@@ -112,6 +112,9 @@ typedef u32 (*const PmTranHandler)(void);
 /* PMU internal capabilities used in definition of slaves' states */
 #define PM_CAP_POWER        0x8U
 
+/* Default transition latencies in us */
+#define PM_DEFAULT_LATENCY 1000U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/

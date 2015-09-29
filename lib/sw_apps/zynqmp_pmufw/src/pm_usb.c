@@ -48,9 +48,11 @@ static const PmStateTran pmUsbTransitions[] = {
 	{
 		.fromState = PM_USB_STATE_ON,
 		.toState = PM_USB_STATE_OFF,
+		.latency = PM_DEFAULT_LATENCY,
 	}, {
 		.fromState = PM_USB_STATE_OFF,
 		.toState = PM_USB_STATE_ON,
+		.latency = PM_DEFAULT_LATENCY,
 	},
 };
 

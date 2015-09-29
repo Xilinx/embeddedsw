@@ -122,10 +122,12 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
  * PmStateTran - Transition for a state in finite state machine
  * @fromState   From which state the transition is taken
  * @toState     To which state the transition is taken
+ * @latency     Transition latency in microseconds
  */
 typedef struct {
 	PmStateId fromState;
 	PmStateId toState;
+	const u32 latency;
 } PmStateTran;
 
 /**

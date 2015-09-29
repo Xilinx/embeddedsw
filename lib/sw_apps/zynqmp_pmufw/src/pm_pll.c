@@ -60,9 +60,11 @@ static const PmStateTran pmPllTransitions[] = {
 	{
 		.fromState = PM_PLL_STATE_USED,
 		.toState = PM_PLL_STATE_UNUSED,
+		.latency = PM_DEFAULT_LATENCY,
 	}, {
 		.fromState = PM_PLL_STATE_UNUSED,
 		.toState = PM_PLL_STATE_USED,
+		.latency = PM_DEFAULT_LATENCY,
 	},
 };
 

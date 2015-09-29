@@ -149,6 +149,8 @@ typedef struct PmMaster PmMaster;
  * @currReq     Currently holding requirements of a master for this slave
  * @nextReq     Requirements of a master to be configured when it changes the
  *              state (after it goes to sleep or before it gets awake)
+ * @latencyReq  Latency requirements of master for the slave's transition time
+ *              from any to its maximum (highest id) state
  */
 typedef struct PmRequirement {
 	PmSlave* const slave;
@@ -157,6 +159,7 @@ typedef struct PmRequirement {
 	const u32 defaultReq;
 	u32 currReq;
 	u32 nextReq;
+	u32 latencyReq;
 } PmRequirement;
 
 /**

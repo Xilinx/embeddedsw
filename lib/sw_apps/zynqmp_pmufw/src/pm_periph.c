@@ -598,9 +598,11 @@ static const PmStateTran pmStdTransitions[] = {
 	{
 		.fromState = PM_STD_SLAVE_STATE_ON,
 		.toState = PM_STD_SLAVE_STATE_OFF,
+		.latency = PM_DEFAULT_LATENCY,
 	}, {
 		.fromState = PM_STD_SLAVE_STATE_OFF,
 		.toState = PM_STD_SLAVE_STATE_ON,
+		.latency = PM_DEFAULT_LATENCY,
 	},
 };
 
@@ -653,9 +655,11 @@ static const PmStateTran PmGppTransitions[] = {
 	{
 		.fromState = PM_GPP_SLAVE_STATE_ON,
 		.toState = PM_GPP_SLAVE_STATE_OFF,
+		.latency = PM_DEFAULT_LATENCY,
 	}, {
 		.fromState = PM_GPP_SLAVE_STATE_OFF,
 		.toState = PM_GPP_SLAVE_STATE_ON,
+		.latency = PM_DEFAULT_LATENCY,
 	},
 };
 
