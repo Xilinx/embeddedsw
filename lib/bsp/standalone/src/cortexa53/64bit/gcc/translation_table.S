@@ -49,6 +49,8 @@
 * None.
 *
 ******************************************************************************/
+#include "xparameters.h"
+
 	.globl  MMUTableL0
 	.globl  MMUTableL1
 	.globl  MMUTableL2
@@ -120,8 +122,24 @@ MMUTableL2:
 
 .set SECT, 0
 
-.rept	0x0400			/*2GB DDR */
+#ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
+.set DDR_START, XPAR_PSU_DDR_0_S_AXI_BASEADDR
+.set DDR_END, XPAR_PSU_DDR_0_S_AXI_HIGHADDR
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.set DDR_REG, DDR_SIZE/0x200000
+#else
+.set DDR_REG, 0
+#endif
+
+.set UNDEF_REG, 0x400 - DDR_REG
+
+.rept	DDR_REG			/* DDR based on size in hdf*/
 .8byte	SECT + Memory
+.set	SECT, SECT+0x200000
+.endr
+
+.rept	UNDEF_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
 .set	SECT, SECT+0x200000
 .endr
 

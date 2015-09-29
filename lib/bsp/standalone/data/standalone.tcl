@@ -189,7 +189,7 @@ proc generate {os_handle} {
     } elseif { $proctype == "psu_cortexr5" } {
 	puts $makeconfig "LIBSOURCES = *.c *.S"
     } elseif { $proctype == "psu_cortexa53" }  {
-            puts $makeconfig "LIBSOURCES = *.c *.s *.S"
+            puts $makeconfig "LIBSOURCES = *.c *.S"
     } elseif { $proctype == "ps7_cortexa9" } {
         if {[string compare -nocase $compiler "armcc"] == 0} {
             puts $makeconfig "LIBSOURCES = *.c *.s"
