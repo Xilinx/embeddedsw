@@ -49,6 +49,7 @@
 * None.
 *
 ******************************************************************************/
+#include "xparameters.h"
 	.globl  MMUTable
 
 	.section .mmu_tbl,"a"
@@ -61,8 +62,24 @@ MMUTable:
 
 .set SECT, 0
 
-.rept	0x0800			/* 0x00000000 - 0x7fffffff (DDR Cacheable) */
+#ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
+.set DDR_START, XPAR_PSU_DDR_0_S_AXI_BASEADDR
+.set DDR_END, XPAR_PSU_DDR_0_S_AXI_HIGHADDR
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.set DDR_REG, DDR_SIZE/0x100000
+#else
+.set DDR_REG, 0
+#endif
+.set UNDEF_REG, 0x800 - DDR_REG
+
+.rept	DDR_REG			/* DDR Cacheable */
 .word	SECT + 0x15de6		/* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
+.set	SECT, SECT+0x100000
+.endr
+
+.rept	UNDEF_REG		/* unassigned/reserved */
+				/* Generates a translation fault if accessed */
+.word	SECT + 0x0		/* S=b0 TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 */
 .set	SECT, SECT+0x100000
 .endr
 
