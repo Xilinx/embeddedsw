@@ -286,6 +286,10 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		txbd = XEmacPs_BdRingNext(txring, txbd);
 	}
 	XEmacPs_BdClearTxUsed(temp_txbd);
+#if defined (ARMR5) || defined (ARMA53)
+#else
+			dsb();
+#endif
 
 	status = XEmacPs_BdRingToHw(txring, n_pbufs, txbdset);
 	if (status != XST_SUCCESS) {
@@ -358,6 +362,10 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 		}
 		temp++;
 		*temp = 0;
+#if defined (ARMR5) || defined (ARMA53)
+#else
+			dsb();
+#endif
 
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
 		rx_pbufs_storage[index + bdindex] = (s32_t)p;
