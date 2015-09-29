@@ -576,7 +576,28 @@ static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 			    const u32 latency)
 {
-	PmDbg("(%s, %d) not implemented\n", PmStrNode(node), latency);
+	int status = XST_SUCCESS;
+	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
+
+	PmDbg("(%s, %lu)\n", PmStrNode(node), latency);
+
+	/* Check if the master can use given slave node */
+	if (NULL == masterReq) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Check if master has previously requested the node */
+	if (0U == (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	masterReq->latencyReq = latency;
+	status = PmUpdateSlave(masterReq->slave);
+
+done:
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**

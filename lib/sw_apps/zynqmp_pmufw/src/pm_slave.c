@@ -220,7 +220,6 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 			(fsm->trans[t].toState != state)) {
 			continue;
 		}
-
 		if ((0U != (slave->slvFsm->states[state] & PM_CAP_POWER)) &&
 		    (NULL != slave->node.parent) &&
 		    (true == IS_OFF(&slave->node.parent->node))) {
@@ -230,7 +229,6 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 				goto done;
 			}
 		}
-
 		if (NULL != slave->slvFsm->enterState) {
 			/* Execute transition action of slave's FSM */
 			status = slave->slvFsm->enterState(slave, state);
@@ -306,6 +304,91 @@ static int PmGetStateWithCaps(const PmSlave* const slave, const u32 caps,
 }
 
 /**
+ * PmGetMinRequestedLatency() - Find minimum of all latency requirements
+ * @slave       Slave whose min required latency should be found
+ *
+ * @return      Latency in microseconds
+ */
+static u32 PmGetMinRequestedLatency(const PmSlave* const slave)
+{
+	u32 i, minLatency = MAX_LATENCY;
+
+	for (i = 0U; i < slave->reqsCnt; i++) {
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) {
+			if (minLatency > slave->reqs[i]->latencyReq) {
+				minLatency = slave->reqs[i]->latencyReq;
+			}
+		}
+	}
+
+	return minLatency;
+}
+
+/**
+ * PmGetLatencyFromToState() - Get latency from given state to the highest state
+ * @slave       Pointer to the slave whose states are in question
+ * @state       State from which the latency is calculated
+ *
+ * @return      Return value for the found latency
+ */
+static u32 PmGetLatencyFromState(const PmSlave* const slave,
+				 const PmStateId state)
+{
+	u32 i, latency = 0U;
+	PmStateId highestState = slave->slvFsm->statesCnt - 1;
+
+	for (i = 0U; i < slave->slvFsm->transCnt; i++) {
+		if ((state == slave->slvFsm->trans[i].fromState) &&
+		    (highestState == slave->slvFsm->trans[i].toState)) {
+			latency = slave->slvFsm->trans[i].latency;
+			break;
+		}
+	}
+
+	return latency;
+}
+
+/**
+ * PmConstrainStateByLatency() - Find a higher power state which satisfies
+ *                               latency requirements
+ * @slave       Slave whose state may be constrained
+ * @state       Chosen state which does not satisfy latency requirements
+ * @capsToSet   Capabilities that the state must have
+ * @minLatency  Latency requirements to be satisfied
+ *
+ * @return      Status showing whether the higher power state is found or not.
+ *              State may not be found if multiple masters have contradicting
+ *              requirements, then XST_PM_CONFLICT is returned. Otherwise,
+ *              function returns success.
+ */
+static int PmConstrainStateByLatency(const PmSlave* const slave,
+				     PmStateId* const state,
+				     const u32 capsToSet,
+				     const u32 minLatency)
+{
+	int status = XST_PM_CONFLICT;
+	PmStateId startState = *state;
+	u32 wkupLat, i;
+
+	for (i = startState; i < slave->slvFsm->statesCnt; i++) {
+		if ((capsToSet & slave->slvFsm->states[i]) != capsToSet) {
+			/* State candidate has no required capabilities */
+			continue;
+		}
+		wkupLat = PmGetLatencyFromState(slave, i);
+		if (wkupLat > minLatency) {
+			/* State does not satisfy latency requirement */
+			continue;
+		}
+		status = XST_SUCCESS;
+		*state = i;
+		break;
+	}
+
+	return status;
+}
+
+/**
  * PmUpdateSlave() - Update the slave's state according to the current
  *                   requirements from all masters
  * @slave       Slave whose state is about to be updated
@@ -316,6 +399,7 @@ int PmUpdateSlave(PmSlave* const slave)
 {
 	PmStateId state;
 	int status = XST_SUCCESS;
+	u32 wkupLat, minLat;
 	u32 capsToSet = PmGetMaxCapabilities(slave);
 
 	if (0U == capsToSet) {
@@ -331,7 +415,26 @@ int PmUpdateSlave(PmSlave* const slave)
 		status = PmGetStateWithCaps(slave, capsToSet, &state);
 	}
 
-	if ((XST_SUCCESS == status) && (state != slave->node.currState)) {
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	minLat = PmGetMinRequestedLatency(slave);
+	wkupLat = PmGetLatencyFromState(slave, state);
+	if (wkupLat > minLat) {
+		/*
+		 * State does not satisfy wake-up latency requirements. Find the
+		 * first higher power state which does (in the worst case the
+		 * highest power state may be chosen)
+		 */
+		status = PmConstrainStateByLatency(slave, &state, capsToSet,
+						   minLat);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+
+	if (state != slave->node.currState) {
 		/*
 		 * Change state of a slave if state with required capabilities
 		 * exists and slave is not already in that state.
@@ -339,6 +442,7 @@ int PmUpdateSlave(PmSlave* const slave)
 		status = PmSlaveChangeState(slave, state);
 	}
 
+done:
 	return status;
 }
 
