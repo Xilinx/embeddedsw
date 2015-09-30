@@ -99,6 +99,9 @@
 #define EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200		0x10U
 #define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U
 
+/* Note: Remove this once fixed */
+#define UHS_BROKEN
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -375,6 +378,8 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 		InstancePtr->HCS = 1U;
 	}
 
+	/* There is no support to switch to 1.8V and use UHS mode on 1.0 silicon */
+#ifndef UHS_BROKEN
     if ((RespOCR & XSDPS_OCR_S18) != 0U) {
 		InstancePtr->Switch1v8 = 1U;
 		Status = XSdPs_Switch_Voltage(InstancePtr);
@@ -384,6 +389,7 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 		}
 
 	}
+#endif
 
 	/* CMD2 for Card ID */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD2, 0U, 0U);
