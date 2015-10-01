@@ -106,6 +106,8 @@
 * 3.0  kpc  01/23/14 Removed PEEP board related code
 * 3.0  hk   03/18/15 Added support for jumbo frames.
 *                    Add cache flush after BD terminate entries.
+* 3.2  hk   09/30/15 Added clock control using CRL_APB_GEM_REF_CTRL register.
+*                    Enabled 1G speed for ZynqMP GEM.
 *
 * </pre>
 *
@@ -143,7 +145,18 @@
 #define SLCR_UNLOCK_KEY_VALUE		0xDF0D
 #define SLCR_ADDR_GEM_RST_CTRL		(XPS_SYS_CTRL_BASEADDR + 0x214)
 
+/* CRL APB registers for GEM clock control */
+#define CRL_GEM0_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x50)
+#define CRL_GEM1_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x54)
+#define CRL_GEM2_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x58)
+#define CRL_GEM3_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x5C)
 
+#define CRL_GEM_DIV_MASK	0x003F3F00
+#define CRL_GEM_1G_DIV0		0x00000C00
+#define CRL_GEM_1G_DIV1		0x00010000
+
+#define JUMBO_FRAME_SIZE	10240
+#define FRAME_HDR_SIZE		18
 /*************************** Variable Definitions ***************************/
 
 EthernetFrame TxFrame;		/* Transmit buffer */
@@ -222,7 +235,7 @@ static void XEmacPsErrorHandler(void *Callback, u8 direction, u32 word);
  * Utility routines
  */
 static LONG EmacPsResetDevice(XEmacPs * EmacPsInstancePtr);
-
+void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId);
 void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor);
 /****************************************************************************/
 /**
@@ -291,7 +304,6 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 	LONG Status;
 	XEmacPs_Config *Config;
 	XEmacPs_Bd BdTemplate;
-	u32 SlcrTxClkCntrl;
 
 	/*************************************/
 	/* Setup device for first-time usage */
@@ -321,42 +333,7 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 		XEmacPs_SetOptions(EmacPsInstancePtr, XEMACPS_JUMBO_ENABLE_OPTION);
 	}
 
-	if (GemVersion == 2)
-	{
-		/*************************************/
-		/* Setup device for first-time usage */
-		/*************************************/
-
-	/* SLCR unlock */
-	*(volatile unsigned int *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
-	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
-#ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
-		/* GEM0 1G clock configuration*/
-		SlcrTxClkCntrl =
-		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR);
-		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
-		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1 << 20);
-		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 8);
-		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) =
-								SlcrTxClkCntrl;
-#endif
-	} else if (EmacPsIntrId == XPS_GEM1_INT_ID) {
-#ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1
-		/* GEM1 1G clock configuration*/
-		SlcrTxClkCntrl =
-		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR);
-		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
-		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 << 20);
-		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 8);
-		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR) =
-								SlcrTxClkCntrl;
-#endif
-	}
-	/* SLCR lock */
-	*(unsigned int *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
-	sleep(1);
-	}
-
+	XEmacPsClkSetup(EmacPsInstancePtr, EmacPsIntrId);
 
 	/*
 	 * Set the MAC address
@@ -505,8 +482,8 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 	else
 	{
 		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
-		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED);
-		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED);
+		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
+		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED_1G);
 	}
 
 	/*
@@ -570,7 +547,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	DeviceErrors = 0;
 
 	if (GemVersion > 2) {
-		PayloadSize = (7168-14);
+		PayloadSize = (JUMBO_FRAME_SIZE - FRAME_HDR_SIZE);
 	}
 	/*
 	 * Calculate the frame length (not including FCS)
@@ -1170,5 +1147,110 @@ static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
 	 */
 	if (GemVersion == 2) {
 	EmacPsResetDevice(EmacPsInstancePtr);
+	}
+}
+
+/****************************************************************************/
+/**
+*
+* This function sets up the clock divisors for 1000Mbps.
+*
+* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+*			driver.
+* @param	EmacPsIntrId is the Interrupt ID and is typically
+*			XPAR_<EMACPS_instance>_INTR value from xparameters.h.
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
+{
+	u32 SlcrTxClkCntrl;
+	u32 CrlApbClkCntrl;
+
+	if (GemVersion == 2)
+	{
+		/*************************************/
+		/* Setup device for first-time usage */
+		/*************************************/
+
+	/* SLCR unlock */
+	*(volatile unsigned int *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
+	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+#ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
+		/* GEM0 1G clock configuration*/
+		SlcrTxClkCntrl =
+		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR);
+		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1 << 20);
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 8);
+		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) =
+								SlcrTxClkCntrl;
+#endif
+	} else if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+#ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1
+		/* GEM1 1G clock configuration*/
+		SlcrTxClkCntrl =
+		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR);
+		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 << 20);
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 8);
+		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR) =
+								SlcrTxClkCntrl;
+#endif
+	}
+	/* SLCR lock */
+	*(unsigned int *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
+	sleep(1);
+	}
+
+	if (GemVersion > 2) {
+
+		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
+			/* GEM0 1G clock configuration*/
+			CrlApbClkCntrl =
+			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL);
+			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV1;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
+			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL) =
+									CrlApbClkCntrl;
+#endif
+		} else if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
+			/* GEM1 1G clock configuration*/
+			CrlApbClkCntrl =
+			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL);
+			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV1;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
+			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL) =
+									CrlApbClkCntrl;
+#endif
+		} else if (EmacPsIntrId == XPS_GEM2_INT_ID) {
+#ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
+			/* GEM1 1G clock configuration*/
+			CrlApbClkCntrl =
+			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL);
+			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV1;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
+			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL) =
+									CrlApbClkCntrl;
+#endif
+		} else if (EmacPsIntrId == XPS_GEM3_INT_ID) {
+#ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
+			/* GEM1 1G clock configuration*/
+			CrlApbClkCntrl =
+			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL);
+			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV1;
+			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
+			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
+									CrlApbClkCntrl;
+#endif
+		}
 	}
 }
