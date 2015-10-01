@@ -839,10 +839,26 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 		XFsbl_Out32(XFSBL_ERROR_STATUS_REGISTER_OFFSET,
 		    XFSBL_COMPLETED);
 
-		/**
-		 * Exit from FSBL
-		 */
-		XFsbl_HandoffExit(0U, XFSBL_NO_HANDOFFEXIT);
+		if (XFSBL_PLATFORM == 0X00002000U)
+		{
+			/**
+			 * Flush the L1 data cache and L2 cache, Disable Data Cache
+			 */
+			Xil_DCacheDisable();
+			XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL. \n\r");
+#ifdef XFSBL_A53
+			XFsbl_Out32(0xFFFC0000U, 0x14000000U);
+#else
+			XFsbl_Out32(0xFFFC0000U, 0xEAFFFFFEU);
+#endif
+			XFsbl_Exit(0xFFFC0000U, XFSBL_HANDOFFEXIT);
+		} else {
+			/**
+			 * Exit from FSBL
+			 */
+			XFsbl_HandoffExit(0U, XFSBL_NO_HANDOFFEXIT);
+		}
+
 	}
 
 	/**
