@@ -50,6 +50,7 @@
 * 1.01a asa  02/27/12 The sleep value after PHY loopback is setup is reduced
 *		      for Zynq.
 * 3.0   kpc  01/23/15 Removed PEEP board related code
+* 3.2	hk   09/30/15 Added support for TI PHY DP83867
 * </pre>
 *
 *****************************************************************************/
@@ -346,6 +347,9 @@ void EmacPsUtilEnterLocalLoopback(XEmacPs * EmacPsInstancePtr)
 #define PHY_DETECT_REG1 2
 #define PHY_DETECT_REG2 3
 
+#define PHY_ID_MARVELL	0x141
+#define PHY_ID_TI		0x2000
+
 u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 {
 	u32 PhyAddr;
@@ -393,26 +397,23 @@ u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 #define PHY_REG21_10      0x0030
 #define PHY_REG21_100     0x2030
 #define PHY_REG21_1000    0x0070
+#define PHY_LOOPCR		0xFE
+#define PHY_REGCR		0x0D
+#define PHY_ADDAR		0x0E
+#define PHY_RGMIIDCTL	0x86
+#define PHY_RGMIICTL	0x32
 
-LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
+#define PHY_REGCR_ADDR	0x001F
+#define PHY_REGCR_DATA	0x401F
+
+LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
+									u32 Speed, u32 PhyAddr)
 {
 	LONG Status;
 	u16 PhyReg0  = 0;
 	u16 PhyReg21  = 0;
 	u16 PhyReg22  = 0;
-	u32 PhyAddr;
-
-	u32 i =0;
-
-	/*
-	 * Detect the PHY address
-	 */
-	PhyAddr = XEmacPsDetectPHY(EmacPsInstancePtr);
-
-	if (PhyAddr >= 32) {
-		EmacPsUtilErrorTrap("Error detect phy");
-		return XST_FAILURE;
-	}
+	u32 i = 0;
 
 	/*
 	 * Setup speed and duplex
@@ -500,6 +501,193 @@ LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
 	for(i=0;i<0xfffff;i++);
 	/* FIXME: Sleep doesn't seem to work */
 	//sleep(1);
+
+	return XST_SUCCESS;
+}
+
+LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
+								u32 Speed, u32 PhyAddr)
+{
+	LONG Status;
+	u16 PhyReg0  = 0;
+	u32 i = 0;
+
+	/*
+	 * Setup speed and duplex
+	 */
+	switch (Speed) {
+	case 10:
+		PhyReg0 |= PHY_REG0_10;
+		break;
+	case 100:
+		PhyReg0 |= PHY_REG0_100;
+		break;
+	case 1000:
+		PhyReg0 |= PHY_REG0_1000;
+		break;
+	default:
+		EmacPsUtilErrorTrap("Error: speed not recognized ");
+		return XST_FAILURE;
+	}
+
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
+	/*
+	 * Make sure new configuration is in effect
+	 */
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy speed");
+		return XST_FAILURE;
+	}
+
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 1, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy speed");
+		return XST_FAILURE;
+	}
+
+	/* Write PHY_LOOPCR */
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_LOOPCR);
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, 0xEF20);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy speed");
+		return XST_FAILURE;
+	}
+
+	/* Read PHY_LOOPCR */
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_LOOPCR);
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy speed");
+		return XST_FAILURE;
+	}
+
+	/* SW reset */
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0x1F, 0x4000);
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy speed");
+		return XST_FAILURE;
+	}
+
+	/* issue a reset to phy */
+	Status  = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
+	PhyReg0 |= PHY_REG0_RESET;
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
+
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error reset phy");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Delay loop
+	 */
+	for(i=0;i<1000000000;i++);
+	/* FIXME: Sleep doesn't seem to work */
+	//sleep(1);
+
+	/* enable loopback */
+	PhyReg0 = PHY_REG0_1000 | PHY_REG0_LOOPBACK;
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy loopback");
+		return XST_FAILURE;
+	}
+
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0x10, 0x5048);
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0x10, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy loopback");
+		return XST_FAILURE;
+	}
+
+	/* Write to PHY_RGMIIDCTL */
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIIDCTL);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, 0xA8);
+		if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	/* Read PHY_RGMIIDCTL */
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIIDCTL);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	/* Write PHY_RGMIICTL */
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIICTL);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, 0xD3);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	/* Read PHY_RGMIICTL */
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIICTL);
+	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0x11, &PhyReg0);
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy loopback");
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+
+LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
+{
+	LONG Status;
+	u16 PhyIdentity;
+	u32 PhyAddr;
+
+	/*
+	 * Detect the PHY address
+	 */
+	PhyAddr = XEmacPsDetectPHY(EmacPsInstancePtr);
+
+	if (PhyAddr >= 32) {
+		EmacPsUtilErrorTrap("Error detect phy");
+		return XST_FAILURE;
+	}
+
+	XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, PHY_DETECT_REG1, &PhyIdentity);
+
+	if (PhyIdentity == PHY_ID_MARVELL) {
+		Status = EmacPsUtilMarvellPhyLoopback(EmacPsInstancePtr, Speed, PhyAddr);
+	}
+
+	if (PhyIdentity == PHY_ID_TI) {
+		Status = EmacPsUtilTiPhyLoopback(EmacPsInstancePtr, Speed, PhyAddr);
+	}
+
+	if (Status != XST_SUCCESS) {
+		EmacPsUtilErrorTrap("Error setup phy loopback");
+		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
 }
