@@ -33,6 +33,7 @@
 #ifndef _PM_API_SYS_H_
 #define _PM_API_SYS_H_
 
+#include <xil_types.h>
 #include "pm_defs.h"
 #include "pm_common.h"
 
