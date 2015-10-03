@@ -47,7 +47,7 @@
 
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
-#define PAYLOAD_ARG_CNT		5U
+#define PAYLOAD_ARG_CNT		6U	/* 1 for API ID + 5 for API arguments */
 #define PAYLOAD_ARG_SIZE	4U	/* size in bytes */
 
 /* Power Management IPI interrupt number */

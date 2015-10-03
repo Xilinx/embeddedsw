@@ -46,8 +46,9 @@ enum XPmStatus XPm_RequestSuspend(const enum XPmNodeId node,
 				  const u8 state);
 
 enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId node,
-				   const u32 latency,
-				   const u8 state);
+			       const u32 latency,
+			       const u8 state,
+			       const u64 address);
 
 enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId node,
 				      const enum XPmRequestAck ack);
@@ -55,6 +56,8 @@ enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId node,
 enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason);
 
 enum XPmStatus XPm_RequestWakeUp(const enum XPmNodeId node,
+				 const bool setAddress,
+				 const u64 address,
 				 const enum XPmRequestAck ack);
 
 enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,

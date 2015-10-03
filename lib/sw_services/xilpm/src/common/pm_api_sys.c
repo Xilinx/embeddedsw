@@ -40,13 +40,27 @@
  * pause and pm_dbg are used for debugging and should be removed in
  * final version.
  */
-#define PACK_PAYLOAD(pl, arg0, arg1, arg2, arg3, arg4)			\
+#define PACK_PAYLOAD(pl, arg0, arg1, arg2, arg3, arg4, arg5)		\
 	pl[0] = (u32)arg0;						\
 	pl[1] = (u32)arg1;						\
 	pl[2] = (u32)arg2;						\
 	pl[3] = (u32)arg3;						\
 	pl[4] = (u32)arg4;						\
-	pm_dbg("%s(%d, %d, %d, %d)\n", __func__, arg1, arg2, arg3, arg4);
+	pl[5] = (u32)arg5;						\
+	pm_dbg("%s(%d, %d, %d, %d, %d)\n", __func__, arg1, arg2, arg3, arg4, arg5);
+
+#define PACK_PAYLOAD0(pl, api_id) \
+	PACK_PAYLOAD(pl, api_id, 0, 0, 0, 0, 0)
+#define PACK_PAYLOAD1(pl, api_id, arg1) \
+	PACK_PAYLOAD(pl, api_id, arg1, 0, 0, 0, 0)
+#define PACK_PAYLOAD2(pl, api_id, arg1, arg2) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, 0, 0, 0)
+#define PACK_PAYLOAD3(pl, api_id, arg1, arg2, arg3) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, 0, 0)
+#define PACK_PAYLOAD4(pl, api_id, arg1, arg2, arg3, arg4) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, 0)
+#define PACK_PAYLOAD5(pl, api_id, arg1, arg2, arg3, arg4, arg5) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, arg5)
 
 /**
  * XPm_GetBootStatus() - checks for reason of boot
@@ -154,6 +168,7 @@ static enum XPmStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
  * @node	Node id of the master or subsystem
  * @latency	Requested maximum wakeup latency (not supported)
  * @state	Requested state (not supported)
+ * @address	Address from which processor should resume
  *
  * This is a blocking call, it will return only once PMU has responded
  *
@@ -161,7 +176,8 @@ static enum XPmStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
  */
 enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 				   const u32 latency,
-				   const u8 state)
+				   const u8 state,
+				   const u64 address)
 {
 	enum XPmStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -184,8 +200,10 @@ enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 	 * (e.g. disable interrupts and set powerdown request bit)
 	 */
 	XPm_ClientSuspend(master);
+
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_SELF_SUSPEND, nid, latency, state, 0);
+	PACK_PAYLOAD5(payload, PM_SELF_SUSPEND, nid, latency, state, (u32)address,
+		     (u32)(address >> 32));
 	ret = pm_ipi_send(master, payload);
 	if (PM_RET_SUCCESS != ret)
 		return ret;
@@ -211,7 +229,7 @@ enum XPmStatus XPm_RequestSuspend(const enum XPmNodeId target,
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_REQUEST_SUSPEND, target, ack, latency, state);
+	PACK_PAYLOAD4(payload, PM_REQUEST_SUSPEND, target, ack, latency, state);
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
@@ -228,15 +246,23 @@ enum XPmStatus XPm_RequestSuspend(const enum XPmNodeId target,
  * @return	Returns status, either success or error+reason
  */
 enum XPmStatus XPm_RequestWakeUp(const enum XPmNodeId target,
+				 const bool setAddress,
+				 const u64 address,
 				 const enum XPmRequestAck ack)
 {
 	enum XPmStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
+	u64 encodedAddress;
 	const struct XPm_Master *master = pm_get_master_by_node(target);
 
 	XPm_ClientWakeup(master);
+
+	/* encode set Address into 1st bit of address */
+	encodedAddress = address | !!setAddress;
+
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_REQUEST_WAKEUP, target, ack, 0, 0);
+	PACK_PAYLOAD4(payload, PM_REQUEST_WAKEUP, target, (u32)encodedAddress,
+		     (u32)(encodedAddress >> 32), ack);
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
@@ -260,7 +286,7 @@ enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_FORCE_POWERDOWN, target, ack, 0, 0);
+	PACK_PAYLOAD2(payload, PM_FORCE_POWERDOWN, target, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
@@ -285,7 +311,7 @@ enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_ABORT_SUSPEND, reason, primary_master->node_id, 0, 0);
+	PACK_PAYLOAD2(payload, PM_ABORT_SUSPEND, reason, primary_master->node_id);
 	status = pm_ipi_send(primary_master, payload);
 	if (PM_RET_SUCCESS == status)
 		/* Wait for PMU to finish handling request */
@@ -312,7 +338,7 @@ enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 					const u8 enable)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD(payload, PM_SET_WAKEUP_SOURCE, target, wkup_node, enable, 0);
+	PACK_PAYLOAD3(payload, PM_SET_WAKEUP_SOURCE, target, wkup_node, enable);
 	return pm_ipi_send(primary_master, payload);
 }
 
@@ -325,7 +351,7 @@ enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 enum XPmStatus XPm_SystemShutdown(const u8 restart)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD(payload, PM_SYSTEM_SHUTDOWN, restart, 0, 0, 0);
+	PACK_PAYLOAD1(payload, PM_SYSTEM_SHUTDOWN, restart);
 	return pm_ipi_send(primary_master, payload);
 }
 
@@ -348,7 +374,7 @@ enum XPmStatus XPm_RequestNode(const enum XPmNodeId node,
 	enum XPmStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD(payload, PM_REQUEST_NODE, node, capabilities, qos, ack);
+	PACK_PAYLOAD4(payload, PM_REQUEST_NODE, node, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
@@ -375,7 +401,7 @@ enum XPmStatus XPm_SetRequirement(const enum XPmNodeId nid,
 {
 	enum XPmStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD(payload, PM_SET_REQUIREMENT, nid, capabilities, qos, ack);
+	PACK_PAYLOAD4(payload, PM_SET_REQUIREMENT, nid, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((PM_RET_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
@@ -395,7 +421,7 @@ enum XPmStatus XPm_ReleaseNode(const enum XPmNodeId node,
 				   const u32 latency)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD(payload, PM_RELEASE_NODE, node, latency, 0, 0);
+	PACK_PAYLOAD2(payload, PM_RELEASE_NODE, node, latency);
 	return pm_ipi_send(primary_master, payload);
 }
 
@@ -412,7 +438,7 @@ enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_SET_MAX_LATENCY, node, latency, 0, 0);
+	PACK_PAYLOAD2(payload, PM_SET_MAX_LATENCY, node, latency);
 	return pm_ipi_send(primary_master, payload);
 }
 
@@ -507,7 +533,7 @@ enum XPmStatus XPm_GetApiVersion(u32 *version)
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_GET_API_VERSION, 0, 0, 0, 0);
+	PACK_PAYLOAD0(payload, PM_GET_API_VERSION);
 	ret = pm_ipi_send(primary_master, payload);
 
 	if (PM_RET_SUCCESS != ret)
@@ -528,7 +554,7 @@ enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node)
 {
 	/* TODO: Add power state argument!! */
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD(payload, PM_GET_NODE_STATUS, node, 0, 0, 0);
+	PACK_PAYLOAD(payload, PM_GET_NODE_STATUS, node, 0, 0, 0, 0);
 	return pm_ipi_send(primary_master, payload);
 }
 
@@ -549,7 +575,7 @@ enum XPmStatus XPm_MmioWrite(const u32 address, const u32 mask,
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_MMIO_WRITE, address, mask, value, 0);
+	PACK_PAYLOAD3(payload, PM_MMIO_WRITE, address, mask, value);
 	return pm_ipi_send(primary_master, payload);
 }
 
@@ -569,7 +595,7 @@ enum XPmStatus XPm_MmioRead(const u32 address, u32 *const value)
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
-	PACK_PAYLOAD(payload, PM_MMIO_READ, address, 0, 0, 0);
+	PACK_PAYLOAD1(payload, PM_MMIO_READ, address);
 	status = pm_ipi_send(primary_master, payload);
 
 	if (PM_RET_SUCCESS != status)
