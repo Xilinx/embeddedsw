@@ -348,3 +348,13 @@ proc swapp_generate {} {
 proc swapp_get_linker_constraints {} {
     return "stack 40k heap 40k"
 }
+
+proc swapp_get_supported_processors {} {
+
+	return "psu_cortexa53 psu_cortexr5 ps7_cortexa9 microblaze";
+}
+
+proc swapp_get_supported_os {} {
+
+	return "standalone freertos821_xilinx";
+}
