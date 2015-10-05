@@ -59,6 +59,9 @@ typedef u8 PmProcEvent;
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, mask, mask);
 #define DISABLE_WFI(mask)   XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, mask, ~(mask));
 
+#define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
+#define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
+
 /*
  * Processor is powered down as requested by a master which is priviledged
  * to request so. Processor has not saved its context.
@@ -105,6 +108,7 @@ typedef u8 PmProcEvent;
  * Structure definitions
  ********************************************************************/
 typedef struct PmMaster PmMaster;
+typedef struct PmProc PmProc;
 
 /**
  * PmProc - Processor node's structure
@@ -115,8 +119,13 @@ typedef struct PmMaster PmMaster;
  * @wakeStatusMask  Mask in PM_IOMODULE_GPI1 register (GIC wake interrupt)
  * @wfiEnableMask   Mask in PM_LOCAL_GPI2_ENABLE register (WFI interrupt)
  * @wakeEnableMask  mask in PM_LOCAL_GPI1_ENABLE register (GIC wake interrupt)
+ * @resumeCfg       Address of register configuring processor's resume address
+ * @resumeAddress   Address from which processor should resume
+ *                  resumeAddress BIT0=1 indicates valid address
+ * @saveResumeAddr  Pointer to function for saving the resume address
+ * @restoreResumeAddr Pointer to function for restoring resume address
  */
-typedef struct {
+typedef struct PmProc {
 	PmNode node;
 	PmMaster* const master;
 	bool isPrimary;
@@ -124,6 +133,10 @@ typedef struct {
 	const u32 wakeStatusMask;
 	const u32 wfiEnableMask;
 	const u32 wakeEnableMask;
+	const u32 resumeCfg;
+	u64 resumeAddress;
+	int (*const saveResumeAddr)(PmProc* const, u64);
+	void (*const restoreResumeAddr)(PmProc* const);
 } PmProc;
 
 /*********************************************************************

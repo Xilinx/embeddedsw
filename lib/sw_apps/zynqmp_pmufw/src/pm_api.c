@@ -43,64 +43,84 @@
 static const PmApiEntry pmApiTable[] = {
 	{
 		.apiId = PM_SELF_SUSPEND,
-		.argTypes = { ARG_NODE, ARG_LATENCY, ARG_STATE, ARG_UNDEF }
+		.argTypes = { ARG_NODE, ARG_LATENCY, ARG_STATE, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_REQUEST_SUSPEND,
-		.argTypes = { ARG_NODE, ARG_ACK, ARG_LATENCY, ARG_STATE }
+		.argTypes = { ARG_NODE, ARG_ACK, ARG_LATENCY, ARG_STATE,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_FORCE_POWERDOWN,
-		.argTypes = { ARG_NODE, ARG_ACK, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_NODE, ARG_ACK, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_ABORT_SUSPEND,
-		.argTypes = { ARG_ABORT_REASON, ARG_NODE, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_ABORT_REASON, ARG_NODE, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_REQUEST_WAKEUP,
-		.argTypes = { ARG_NODE, ARG_ACK, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_NODE, ARG_UINT32, ARG_UINT32, ARG_ACK,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_SET_WAKEUP_SOURCE,
-		.argTypes = { ARG_NODE, ARG_NODE, ARG_ENABLE, ARG_UNDEF }
+		.argTypes = { ARG_NODE, ARG_NODE, ARG_ENABLE, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_SYSTEM_SHUTDOWN,
-		.argTypes = { ARG_RESTART, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_RESTART, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_REQUEST_NODE,
-		.argTypes = { ARG_NODE, ARG_CAPABILITIES, ARG_QOS, ARG_ACK }
+		.argTypes = { ARG_NODE, ARG_CAPABILITIES, ARG_QOS, ARG_ACK,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_RELEASE_NODE,
-		.argTypes = { ARG_NODE, ARG_LATENCY, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_NODE, ARG_LATENCY, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_SET_REQUIREMENT,
-		.argTypes = {ARG_NODE, ARG_CAPABILITIES, ARG_QOS, ARG_ACK }
+		.argTypes = {ARG_NODE, ARG_CAPABILITIES, ARG_QOS, ARG_ACK,
+			     ARG_UNDEF }
 	}, {
 		.apiId = PM_SET_MAX_LATENCY,
-		.argTypes = {ARG_NODE, ARG_LATENCY, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = {ARG_NODE, ARG_LATENCY, ARG_UNDEF, ARG_UNDEF,
+			     ARG_UNDEF }
 	}, {
 		.apiId = PM_GET_API_VERSION,
-		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_SET_CONFIGURATION,
-		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_GET_NODE_STATUS,
-		.argTypes = { ARG_NODE, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_NODE, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_GET_OP_CHARACTERISTIC,
-		.argTypes = { ARG_NODE, ARG_OP_CH_TYPE, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_NODE, ARG_OP_CH_TYPE, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_REGISTER_NOTIFIER,
-		.argTypes = { ARG_NODE, ARG_EVENT_ID, ARG_WAKE, ARG_ENABLE }
+		.argTypes = { ARG_NODE, ARG_EVENT_ID, ARG_WAKE, ARG_ENABLE,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_RESET_ASSERT,
-		.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_RESET_GET_STATUS,
-		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_MMIO_WRITE,
-		.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UINT32, ARG_UNDEF }
+		.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UINT32, ARG_UNDEF,
+			      ARG_UNDEF }
 	}, {
 		.apiId = PM_MMIO_READ,
-		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
+		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	},
 };
 

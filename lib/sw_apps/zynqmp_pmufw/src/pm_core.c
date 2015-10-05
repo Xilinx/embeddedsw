@@ -85,7 +85,8 @@ static void PmProcessAckRequest(const u32 ack,
 static void PmSelfSuspend(const PmMaster *const master,
 			  const u32 node,
 			  const u32 latency,
-			  const u32 state)
+			  const u32 state,
+			  const u64 address)
 {
 	int status;
 	/* the node ID must refer to a processor belonging to this master */
@@ -100,6 +101,10 @@ static void PmSelfSuspend(const PmMaster *const master,
 		goto done;
 	}
 
+	status = proc->saveResumeAddr(proc, address);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 	status = PmProcFsm(proc, PM_PROC_EVENT_SELF_SUSPEND);
 
 done:
@@ -272,6 +277,7 @@ done:
  * @ack     Acknowledge request
  */
 static void PmRequestWakeup(const PmMaster *const master, const u32 node,
+			    const u32 setAddress, const u64 address,
 			    const u32 ack)
 {
 	int status;
@@ -283,6 +289,10 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	if (NULL == proc) {
 		status = XST_PM_INVALID_NODE;
 		goto done;
+	}
+
+	if (1U == setAddress) {
+		proc->saveResumeAddr(proc, address);
 	}
 
 	status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
@@ -681,9 +691,14 @@ static void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 void PmProcessApiCall(const PmMaster *const master,
 		      const u32 pload[PAYLOAD_ELEM_CNT])
 {
+	u32 setAddress;
+	u64 address;
+
 	switch (pload[0]) {
 	case PM_SELF_SUSPEND:
-		PmSelfSuspend(master, pload[1], pload[2], pload[3]);
+		address = ((u64) pload[5]) << 32ULL;
+		address += pload[4];
+		PmSelfSuspend(master, pload[1], pload[2], pload[3], address);
 		break;
 	case PM_REQUEST_SUSPEND:
 		PmRequestSuspend(master, pload[1], pload[2], pload[3], pload[4]);
@@ -695,7 +710,12 @@ void PmProcessApiCall(const PmMaster *const master,
 		PmAbortSuspend(master, pload[1], pload[2]);
 		break;
 	case PM_REQUEST_WAKEUP:
-		PmRequestWakeup(master, pload[1], pload[2]);
+		/* setAddress is encoded in the 1st bit of the low-word address */
+		setAddress = pload[2] & 0x1U;
+		/* addresses are word-aligned, ignore bit 0 */
+		address = ((u64) pload[3]) << 32ULL;
+		address += pload[2] & ~0x1U;
+		PmRequestWakeup(master, pload[1], setAddress, address, pload[4]);
 		break;
 	case PM_SET_WAKEUP_SOURCE:
 		PmSetWakeupSource(master, pload[1], pload[2], pload[3]);

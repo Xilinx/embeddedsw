@@ -53,6 +53,107 @@
 #include "crl_apb.h"
 #include "crf_apb.h"
 #include "xpfw_rom_interface.h"
+#include "apu.h"
+#include "rpu.h"
+
+/**
+ * RPUSaveResumeAddr() - Saved address from which RPU core should resume
+ * @proc        Processor to which the address should be restored upon wake-up
+ * @address     Resume address (64-bit)
+ *
+ * @return      XStatus of performing save operation
+ *              - XST_SUCCESS is address is successfully saved
+ *              - XST_INVALID_PARAM if address is invalid
+ */
+static int RPUSaveResumeAddr(PmProc* const proc, const u64 address)
+{
+	int status = XST_SUCCESS;
+	u32 addrLow = (u32) (address & 0xffffffffULL);
+
+	/*
+	 * For RPU processors lower 32-bits matter - only 2 values are
+	 * possible to configure, report an error is addrLow is none of
+	 * these.
+	 */
+	if ((PM_PROC_RPU_LOVEC_ADDR != addrLow) &&
+	    (PM_PROC_RPU_HIVEC_ADDR != addrLow)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Set bit0 to mark address as valid */
+	proc->resumeAddress = address | 1ULL;
+done:
+	return status;
+}
+
+/**
+ * APUSaveResumeAddr() - Saved address from which APU core should resume
+ * @proc        Processor to which the address should be restored upon wake-up
+ * @address     Resume address (64-bit)
+ *
+ * @return      XST_SUCCESS
+ */
+static int APUSaveResumeAddr(PmProc* const proc, const u64 address)
+{
+	/* Set bit0 to mark address as valid */
+	proc->resumeAddress = address | 1ULL;
+	return XST_SUCCESS;
+}
+
+/**
+ * RPURestoreResumeAddr() - Restore resume address for RPU core
+ * @proc        Processor whose address should be restored
+ *
+ * Note: RPU processors get restored resume address by configuring VINITHI bit
+ * in configuration register (RPUs can resume only from 2 addresses).
+ */
+static void RPURestoreResumeAddr(PmProc* const proc)
+{
+	/* mask out resumeAddress BIT0, which indicates address validity */
+	u32 addrLow = (u32) (proc->resumeAddress & 0xfffffffeULL);
+
+	if (0ULL == (proc->resumeAddress & 1ULL)) {
+		goto done;
+	}
+
+	/* CFG_VINITHI_MASK mask is common for both processors */
+	if (PM_PROC_RPU_LOVEC_ADDR == addrLow) {
+		XPfw_RMW32(proc->resumeCfg, RPU_RPU_0_CFG_VINITHI_MASK,
+			   ~RPU_RPU_0_CFG_VINITHI_MASK);
+	} else {
+		XPfw_RMW32(proc->resumeCfg, RPU_RPU_0_CFG_VINITHI_MASK,
+			   RPU_RPU_0_CFG_VINITHI_MASK);
+	}
+
+	/* Mark resume address as invalid by setting it to 0 */
+	proc->resumeAddress = 0ULL;
+
+done:
+	return;
+}
+
+/**
+ * APURestoreResumeAddr() - Restore resume address for APU core
+ * @proc        Processor whose address should be restored
+ */
+static void APURestoreResumeAddr(PmProc* const proc)
+{
+	/* mask out resumeAddress BIT0, which indicates address validity */
+	u32 addrLow = (u32) (proc->resumeAddress & 0xfffffffeULL);
+	u32 addrHigh = (u32) (proc->resumeAddress >> 32ULL);
+
+	if (0ULL == (proc->resumeAddress & 1ULL)) {
+		goto done;
+	}
+
+	XPfw_Write32(proc->resumeCfg, addrLow);
+	XPfw_Write32(proc->resumeCfg + 4U, addrHigh);
+
+	/* Mark resume address as invalid by setting it to 0 */
+	proc->resumeAddress = 0ULL;
+done:
+	return;
+}
 
 /**
  * PmProcSleep() - Put a processor to sleep
@@ -133,6 +234,7 @@ done:
 int PmProcWake(PmNode* const nodePtr)
 {
 	int status = XST_SUCCESS;
+	PmProc *proc;
 
 	if (NULL == nodePtr) {
 		status = XST_PM_INTERNAL;
@@ -147,6 +249,9 @@ int PmProcWake(PmNode* const nodePtr)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+
+	proc = (PmProc*)nodePtr->derived;
+	proc->restoreResumeAddr(proc);
 
 	/* Call proper PMU-ROM handler as needed */
 	switch (nodePtr->nodeId) {
@@ -469,6 +574,10 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_0_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU0_PWRDWN_REQ_MASK,
 		.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU0_WAKE_MASK,
+		.resumeCfg = APU_RVBARADDR0L,
+		.resumeAddress = 0ULL,
+		.saveResumeAddr = APUSaveResumeAddr,
+		.restoreResumeAddr = APURestoreResumeAddr,
 	},
 	[PM_PROC_APU_1] = {
 		.node = {
@@ -485,6 +594,10 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_1_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU1_PWRDWN_REQ_MASK,
 		.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU1_WAKE_MASK,
+		.resumeCfg = APU_RVBARADDR1L,
+		.resumeAddress = 0ULL,
+		.saveResumeAddr = APUSaveResumeAddr,
+		.restoreResumeAddr = APURestoreResumeAddr,
 	},
 	[PM_PROC_APU_2] = {
 		.node = {
@@ -501,6 +614,10 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_2_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU2_PWRDWN_REQ_MASK,
 		.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU2_WAKE_MASK,
+		.resumeCfg = APU_RVBARADDR2L,
+		.resumeAddress = 0ULL,
+		.saveResumeAddr = APUSaveResumeAddr,
+		.restoreResumeAddr = APURestoreResumeAddr,
 	},
 	[PM_PROC_APU_3] = {
 		.node = {
@@ -517,6 +634,10 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_3_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU3_PWRDWN_REQ_MASK,
 		.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_ACPU3_WAKE_MASK,
+		.resumeCfg = APU_RVBARADDR3L,
+		.resumeAddress = 0ULL,
+		.saveResumeAddr = APUSaveResumeAddr,
+		.restoreResumeAddr = APURestoreResumeAddr,
 	}
 };
 
@@ -537,6 +658,10 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 		.wakeStatusMask = PMU_IOMODULE_GPI1_R5_0_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_0_PWRDWN_REQ_MASK,
 		.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_R5_0_WAKE_MASK,
+		.resumeCfg = RPU_RPU_0_CFG,
+		.resumeAddress = 0ULL,
+		.saveResumeAddr = RPUSaveResumeAddr,
+		.restoreResumeAddr = RPURestoreResumeAddr,
 	},
 	[PM_PROC_RPU_1] = {
 		.node = {
@@ -553,5 +678,9 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 		.wakeStatusMask = PMU_IOMODULE_GPI1_R5_1_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_1_PWRDWN_REQ_MASK,
 		.wakeEnableMask = PMU_LOCAL_GPI1_ENABLE_R5_1_WAKE_MASK,
+		.resumeCfg = RPU_RPU_1_CFG,
+		.resumeAddress = 0ULL,
+		.saveResumeAddr = APUSaveResumeAddr,
+		.restoreResumeAddr = APURestoreResumeAddr,
 	},
 };
