@@ -98,3 +98,11 @@ proc swapp_get_linker_constraints {} {
     # don't generate a linker script. fsbl has its own linker script
     return "lscript no";
 }
+
+proc swapp_get_supported_processors {} {
+    return "psu_cortexr5";
+}
+
+proc swapp_get_supported_os {} {
+    return "standalone";
+}
