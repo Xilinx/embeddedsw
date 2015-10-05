@@ -47,6 +47,5 @@ BEGIN LIBRARY xilrsa
   OPTION SUPPORTED_PERIPHERALS = (ps7_cortexa9);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx RSA Library ";
-  OPTION VERSION = 1.1;
   OPTION NAME = xilrsa;  
 END LIBRARY

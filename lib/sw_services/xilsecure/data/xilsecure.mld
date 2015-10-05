@@ -45,6 +45,5 @@ BEGIN LIBRARY xilsecure
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library ";
-  OPTION VERSION = 1.0;
   OPTION NAME = xilsecure;
 END LIBRARY
