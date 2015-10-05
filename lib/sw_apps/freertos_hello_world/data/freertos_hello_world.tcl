@@ -89,3 +89,11 @@ proc swapp_generate {} {
 proc swapp_get_linker_constraints {} {
     return "";
 }
+
+proc swapp_get_supported_processors {} {
+    return "psu_cortexr5 ps7_cortexa9 microblaze";
+}
+
+proc swapp_get_supported_os {} {
+    return "freertos821_xilinx";
+}
