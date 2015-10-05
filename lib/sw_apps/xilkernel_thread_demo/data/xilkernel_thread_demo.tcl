@@ -145,3 +145,11 @@ proc swapp_generate {} {
 proc swapp_get_linker_constraints {} {
     return "stack 2k heap 2k"
 }
+
+proc swapp_get_supported_processors {} {
+    return "microblaze";
+}
+
+proc swapp_get_supported_os {} {
+    return "xilkernel";
+}
