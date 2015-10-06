@@ -9,6 +9,14 @@ proc swapp_get_description {} {
 	and each partition can be a code image or a bit stream.";
 }
 
+proc swapp_get_supported_processors {} {
+    return "ps7_cortexa9";
+}
+
+proc swapp_get_supported_os {} {
+    return "standalone";
+}
+
 proc check_standalone_os {} {
     set oslist [hsi::get_os];
 
