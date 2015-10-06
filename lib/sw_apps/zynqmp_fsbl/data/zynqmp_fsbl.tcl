@@ -35,10 +35,18 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-    return "First Stage Bootloader (FSBL) for Zynq MP. The FSBL configures the FPGA with HW bit stream (if it exists) \
+    return "First Stage Bootloader (FSBL) for Zynq Ultrascale+ MPSoC. The FSBL configures the FPGA with HW bit stream (if it exists) \
 	and loads the Operating System (OS) Image or Standalone (SA) Image or 2nd Stage Boot Loader image from the \
-	non-volatile memory (NAND/SD/QSPI) to RAM (DDR) and takes A5x/R5 out of reset.  It supports multiple partitions, \
+	non-volatile memory (NAND/SD/QSPI) to RAM (DDR) and takes A53/R5 out of reset.  It supports multiple partitions, \
 	and each partition can be a code image or a bit stream.";
+}
+
+proc swapp_get_supported_processors {} {
+    return "psu_cortexa53 psu_cortexr5";
+}
+
+proc swapp_get_supported_os {} {
+    return "standalone";
 }
 
 proc check_standalone_os {} {
