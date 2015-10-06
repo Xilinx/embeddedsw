@@ -43,7 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   09/11/15   Initial Release
-
+* 1.10  rco   10/05/15   Update to support multiple PPC configurations
 * </pre>
 *
 ******************************************************************************/
@@ -121,6 +121,7 @@ int driverInit()
 void videoIpConfig(XVidC_VideoMode videoMode)
 {
 	XVidC_VideoTiming const *timing = XVidC_GetTimingInfo(videoMode);
+	u16 PixelsPerClk;
 
 	XV_tpg_Set_height(&tpg, timing->VActive);
 	XV_tpg_Set_width(&tpg, timing->HActive);
@@ -141,10 +142,12 @@ void videoIpConfig(XVidC_VideoMode videoMode)
 	XV_tpg_Set_passthruEndY(&tpg1, timing->VActive);
 	XV_tpg_WriteReg(tpg1_Config->BaseAddress, XV_TPG_CTRL_ADDR_AP_CTRL, 0x81);
 
-	vtc_timing.HActiveVideo  = timing->HActive/2;
-	vtc_timing.HFrontPorch   = timing->HFrontPorch/2;
-	vtc_timing.HSyncWidth    = timing->HSyncWidth/2;
-	vtc_timing.HBackPorch    = timing->HBackPorch/2;
+	PixelsPerClk = tpg1.Config.PixPerClk;
+
+	vtc_timing.HActiveVideo  = timing->HActive/PixelsPerClk;
+	vtc_timing.HFrontPorch   = timing->HFrontPorch/PixelsPerClk;
+	vtc_timing.HSyncWidth    = timing->HSyncWidth/PixelsPerClk;
+	vtc_timing.HBackPorch    = timing->HBackPorch/PixelsPerClk;
 	vtc_timing.HSyncPolarity = timing->HSyncPolarity;
 	vtc_timing.VActiveVideo  = timing->VActive;
 	vtc_timing.V0FrontPorch  = timing->F0PVFrontPorch;
@@ -168,28 +171,39 @@ int videoClockConfig(XVidC_VideoMode videoMode)
 	u32 clock_config_reg_2;
 	u32 timeout;
 	u32 lock;
+	u16 PixelsPerClk, mode_index;
+
+    const int ClkOut_Frac[3][XVIDC_PPC_NUM_SUPPORTED] =
+    { {250, 500, 0  }, //1080p
+      {125, 250, 500}, //4K30
+      {0,   125, 250}  //4K60
+    };
+    const int ClkOut_Div[3][XVIDC_PPC_NUM_SUPPORTED] =
+    { {6, 12, 25}, //1080p
+      {3, 6 , 12}, //4K30
+      {0, 3 , 6 }  //4K60
+    };
+
+    /* Validate TPG Parameters */
+    Xil_AssertNonvoid((tpg1.Config.PixPerClk == XVIDC_PPC_1) ||
+                      (tpg1.Config.PixPerClk == XVIDC_PPC_2) ||
+                      (tpg1.Config.PixPerClk == XVIDC_PPC_4));
 
 
-	if(videoMode == XVIDC_VM_1080_60_P)
-	{
-		CLKOUT0_FRAC = 500;
-		CLKOUT0_DIVIDE = 12;
-	}
-	else if(videoMode == XVIDC_VM_UHD_30_P)
-	{
-		CLKOUT0_FRAC = 250;
-		CLKOUT0_DIVIDE = 6;
-	}
-	else if(videoMode == XVIDC_VM_UHD_60_P)
-	{
-		CLKOUT0_FRAC = 125;
-		CLKOUT0_DIVIDE = 3;
-	}
-	else
-	{
-		print("ERR:: Invalid video mode\r\n");
-		return(XST_FAILURE);
-	}
+    mode_index = ((videoMode ==  XVIDC_VM_1080_60_P) ? 0 :
+                  (videoMode ==  XVIDC_VM_UHD_30_P)  ? 1 :
+                  (videoMode ==  XVIDC_VM_UHD_60_P)  ? 2 : 3);
+
+    if(mode_index > 2)
+    {
+      xil_printf("ERR:: Video Mode %s not supported\r\n", XVidC_GetVideoModeStr(videoMode));
+      return(XST_FAILURE);
+    }
+
+    //map PPC to array index
+    PixelsPerClk = (tpg1.Config.PixPerClk>>1);
+    CLKOUT0_FRAC   =  ClkOut_Frac[mode_index][PixelsPerClk];
+    CLKOUT0_DIVIDE =  ClkOut_Div[mode_index][PixelsPerClk];
 
 	clock_config_reg_0 = (1<<26) | (CLKFBOUT_FRAC<<16) | (CLKFBOUT_MULT<<8) | DIVCLK_DIVIDE;
 	clock_config_reg_2 = (1<<18) | (CLKOUT0_FRAC<<8) | CLKOUT0_DIVIDE;
@@ -197,7 +211,7 @@ int videoClockConfig(XVidC_VideoMode videoMode)
 	VideoClockGen_WriteReg(0x200, clock_config_reg_0);
 	VideoClockGen_WriteReg(0x208, clock_config_reg_2);
 
-	MB_Sleep(100);
+	MB_Sleep(300);
 
 	lock = VideoClockGen_ReadReg(0x4) & 0x1;
 	if(!lock) //check for lock
@@ -227,17 +241,18 @@ void resetIp(void)
 {
 	*gpio_hlsIpReset = 0; //reset IPs
 
-	MB_Sleep(100);
+	MB_Sleep(300);
 
 	*gpio_hlsIpReset = 1; // release reset
 
-	MB_Sleep(100);
+	MB_Sleep(300);
 
 }
 
 int main()
 {
 	int status;
+	XVidC_VideoMode TestMode;
 
 	print("Start test\r\n");
 
@@ -245,72 +260,84 @@ int main()
 	gpio_videoLockMonitor = (u32*)XPAR_VIDEO_LOCK_MONITOR_BASEADDR;
 
 	status = driverInit();
-	if(status != XST_SUCCESS)
-	{
+	if(status != XST_SUCCESS) {
 		return(XST_FAILURE);
 	}
 
 	resetIp();
 
-	if(*gpio_videoLockMonitor)
-	{
+	if(*gpio_videoLockMonitor) {
 		print("ERR:: Video should not be locked\r\n");
 		return(XST_FAILURE);
 	}
 
 
-	videoClockConfig(XVIDC_VM_1080_60_P);
-	videoIpConfig(XVIDC_VM_1080_60_P);
+	TestMode = XVIDC_VM_1080_60_P;
+	xil_printf("\r\nTest: %s\r\n", XVidC_GetVideoModeStr(TestMode));
+	status = videoClockConfig(TestMode);
+	if(status != XST_SUCCESS) {
+		return(XST_FAILURE);
+	}
+	videoIpConfig(TestMode);
 
-	MB_Sleep(100);
+	MB_Sleep(300);
 
-	if(!gpio_videoLockMonitor)
-	{
+	if(!(*gpio_videoLockMonitor)) {
 		print("ERR:: Video Lock failed for 1080P60\r\n");
 		return(XST_FAILURE);
 	}
-	else
-	{
+	else {
 		print("1080P60 passed\r\n");
 	}
 
 	resetIp();
 
-	videoClockConfig(XVIDC_VM_UHD_30_P);
-	videoIpConfig(XVIDC_VM_UHD_30_P);
+	TestMode = XVIDC_VM_UHD_30_P;
+	xil_printf("\r\nTest: %s\r\n", XVidC_GetVideoModeStr(TestMode));
+	status = videoClockConfig(TestMode);
+	if(status != XST_SUCCESS){
+		return(XST_FAILURE);
+	}
+	videoIpConfig(TestMode);
 
-	MB_Sleep(100);
+	MB_Sleep(300);
 
-	if(!gpio_videoLockMonitor)
-	{
+	if(!(*gpio_videoLockMonitor)) {
 		print("ERR:: Video Lock failed for 4KP30\r\n");
 		return(XST_FAILURE);
 	}
-	else
-	{
-		print("4KP30 passed\r\n");
+	else {
+		print("4KP30 passed\r\n\r\n");
 	}
 
-	resetIp();
+    /* Run 4k60 Test if supported by HW
+     * Check if TPG is configured for 2/4 Pixels/Clock
+     * Required to support 4K60
+     */
+    if((tpg1.Config.PixPerClk == XVIDC_PPC_2) ||
+       (tpg1.Config.PixPerClk == XVIDC_PPC_4)) {
 
-	videoClockConfig(XVIDC_VM_UHD_60_P);
-	videoIpConfig(XVIDC_VM_UHD_60_P);
+      resetIp();
 
-	MB_Sleep(100);
+      TestMode = XVIDC_VM_UHD_60_P;
+	  xil_printf("\r\nTest: %s\r\n", XVidC_GetVideoModeStr(TestMode));
+	  status = videoClockConfig(TestMode);
+	  if(status != XST_SUCCESS) {
+		return(XST_FAILURE);
+	  }
+	  videoIpConfig(TestMode);
 
-	if(!gpio_videoLockMonitor)
-	{
+	  MB_Sleep(300);
+
+	  if(!(*gpio_videoLockMonitor)) {
 		print("ERR:: Video Lock failed for 4KP60\r\n");
 		return(XST_FAILURE);
-	}
-	else
-	{
-		print("4KP60 passed\r\n");
-	}
-
+	  }
+	  else {
+		print("4KP60 passed\r\n\r\n");
+	  }
+    }
 	print("TEST PASS\r\n");
-
-
 
 	return 0;
 }
