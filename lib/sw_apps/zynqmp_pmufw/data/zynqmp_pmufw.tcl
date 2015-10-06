@@ -85,3 +85,11 @@ proc swapp_get_linker_constraints {} {
 	# don't generate a linker script. PMU Firmware has its own linker script
 	return "lscript no";
 }
+
+proc swapp_get_supported_processors {} {
+	return "psu_microblaze";
+}
+
+proc swapp_get_supported_os {} {
+	return "standalone";
+}
