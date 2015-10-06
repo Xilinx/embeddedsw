@@ -360,6 +360,8 @@
 #define XPAR_PS7_SD_0_BASEADDR 0xE0100000
 #define XPAR_PS7_SD_0_HIGHADDR 0xE0100FFF
 #define XPAR_PS7_SD_0_SDIO_CLK_FREQ_HZ 50000000
+#define XPAR_PS7_SD_0_HAS_CD 1
+#define XPAR_PS7_SD_0_HAS_WP 1
 
 
 /******************************************************************/
@@ -369,6 +371,8 @@
 #define XPAR_XSDPS_0_BASEADDR 0xE0100000
 #define XPAR_XSDPS_0_HIGHADDR 0xE0100FFF
 #define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 50000000
+#define XPAR_XSDPS_0_HAS_CD 1
+#define XPAR_XSDPS_0_HAS_WP 1
 
 
 /******************************************************************/
