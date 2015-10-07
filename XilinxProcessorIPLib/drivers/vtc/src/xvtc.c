@@ -157,6 +157,11 @@
 *                       Modified XVtc_SetGenerator, XVtc_GetGenerator,
 *                       XVtc_GetDetector, XVtc_ConvTiming2Signal and
 *                       XVtc_ConvSignal2Timing APIs
+* 7.1   vns    07/10/15 Corrected V0SyncStart and V1SyncStart values
+*                       in APIs XVtc_ConvTiming2Signal and
+*                       XVtc_ConvSignal2Timing
+*                       Corrected register read to XVTC_DVSYNC_F1_OFFSET
+*                       in API XVtc_GetDetector
 * </pre>
 *
 ******************************************************************************/
@@ -1735,7 +1740,7 @@ void XVtc_GetDetector(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 							XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-							XVTC_GVSYNC_F1_OFFSET);
+							XVTC_DVSYNC_F1_OFFSET);
 		SCPtr->V1SyncStart = ((RegValue) & XVTC_SB_START_MASK);
 		SCPtr->V1BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT)) &
 							XVTC_SB_START_MASK);
@@ -2144,11 +2149,11 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 	SignalCfgPtr->V0ActiveStart     = 0;
 	SignalCfgPtr->V0FrontPorchStart = TimingPtr->VActiveVideo;
 	SignalCfgPtr->V0SyncStart       = SignalCfgPtr->V0FrontPorchStart +
-						TimingPtr->V0FrontPorch;
+						TimingPtr->V0FrontPorch - 1;
 	SignalCfgPtr->V0BackPorchStart  = SignalCfgPtr->V0SyncStart +
 						TimingPtr->V0SyncWidth;
 	SignalCfgPtr->V0Total           = SignalCfgPtr->V0BackPorchStart +
-						TimingPtr->V0BackPorch;
+						TimingPtr->V0BackPorch + 1;
 
 	HOffPtr->V0BlankHoriStart = SignalCfgPtr->HFrontPorchStart;
 	HOffPtr->V0BlankHoriEnd   = SignalCfgPtr->HFrontPorchStart;
@@ -2161,13 +2166,13 @@ void XVtc_ConvTiming2Signal(XVtc *InstancePtr, XVtc_Timing *TimingPtr,
 		SignalCfgPtr->V1FrontPorchStart = TimingPtr->VActiveVideo;
 		SignalCfgPtr->V1SyncStart       =
 					SignalCfgPtr->V1FrontPorchStart +
-					TimingPtr->V1FrontPorch;
+					TimingPtr->V1FrontPorch - 1;
 		SignalCfgPtr->V1BackPorchStart  =
 						SignalCfgPtr->V1SyncStart +
 							TimingPtr->V1SyncWidth;
 		SignalCfgPtr->V1Total           =
 					SignalCfgPtr->V1BackPorchStart +
-							TimingPtr->V1BackPorch;
+						TimingPtr->V1BackPorch + 1;
 		SignalCfgPtr->Interlaced 		= 1;
 
 		/* Align to H blank */
@@ -2259,16 +2264,16 @@ void XVtc_ConvSignal2Timing(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr,
 
 
 	TimingPtr->V0FrontPorch  = SignalCfgPtr->V0SyncStart -
-					  SignalCfgPtr->V0FrontPorchStart;
+					  SignalCfgPtr->V0FrontPorchStart + 1;
 	TimingPtr->V0SyncWidth   = SignalCfgPtr->V0BackPorchStart -
-						SignalCfgPtr->V0SyncStart;
+						SignalCfgPtr->V0SyncStart + 1;
 	TimingPtr->V0BackPorch   = SignalCfgPtr->V0Total -
 					SignalCfgPtr->V0BackPorchStart;
 
 	TimingPtr->V1FrontPorch  = SignalCfgPtr->V1SyncStart -
-					SignalCfgPtr->V1FrontPorchStart;
+					SignalCfgPtr->V1FrontPorchStart + 1;
 	TimingPtr->V1SyncWidth   = SignalCfgPtr->V1BackPorchStart -
-						SignalCfgPtr->V1SyncStart;
+						SignalCfgPtr->V1SyncStart + 1;
 	TimingPtr->V1BackPorch   = SignalCfgPtr->V1Total -
 					SignalCfgPtr->V1BackPorchStart;
 
