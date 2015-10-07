@@ -32,10 +32,23 @@
 #ifndef _BAREMETAL_H
 #define _BAREMETAL_H
 
+#include "amp_os.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xil_cache.h"
 #include "xreg_cortexr5.h"
+#ifdef USE_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "task.h"
+#include "timers.h"
+#endif
+
+struct XOpenAMPInstPtr{
+	unsigned int IntrID;
+	unsigned int IPI_Status;
+	void *lock;
+};
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
@@ -97,6 +110,7 @@ void platform_cache_disable();
 void platform_map_mem_region(unsigned int va,unsigned int pa, unsigned int size, unsigned int flags);
 unsigned long platform_vatopa(void *addr);
 void *platform_patova(unsigned long addr);
+void process_communication(struct XOpenAMPInstPtr OpenAMPInstance);
 void ipi_register_handler(unsigned long ipi_base_addr, unsigned int intr_mask, void *data, void *ipi_handler);
 void ipi_trigger(unsigned long ipi_base_addr, unsigned int trigger_mask);
 

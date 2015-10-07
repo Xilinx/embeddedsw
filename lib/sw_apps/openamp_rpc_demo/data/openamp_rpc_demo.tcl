@@ -46,8 +46,8 @@ proc check_standalone_os {} {
     }
     set os [lindex $oslist 0];
 
-    if { $os != "standalone" } {
-        error "This application is supported only on the Standalone Board Support Package.";
+    if { ( $os != "standalone" ) && ( $os != "freertos821_xilinx" ) } {
+        error "This application is supported only on the Standalone Board Support Package and freertos821.";
     }
 }
 
@@ -90,7 +90,21 @@ proc check_stdout_hw {} {
 }
 
 proc swapp_generate {} {
-    return;
+	set oslist [get_os];
+	if { [llength $oslist] != 1 } {
+		return 0;
+	}
+	set os [lindex $oslist 0];
+	if { $os != "standalone" } {
+		set ld_file "lscript.ld"
+		set ld_file_new "lscript_freertos.ld"
+		file rename -force $ld_file_new $ld_file
+		file delete -force $ld_file_new
+	} else {
+		set ld_file "lscript_freertos.ld"
+		file delete -force $ld_file
+	}
+	return;
 }
 
 proc swapp_get_linker_constraints {} {
@@ -104,5 +118,5 @@ proc swapp_get_supported_processors {} {
 }
 
 proc swapp_get_supported_os {} {
-    return "standalone";
+    return "freertos821_xilinx standalone";
 }

@@ -30,20 +30,24 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "xparameters.h"
 #include "xil_exception.h"
 #include "xscugic.h"
-#include "xil_cache.h"
 #include "xil_mpu.h"
 #include "baremetal.h"
 #include "env.h"
-
-XScuGic InterruptController;
+#include "platform.h"
+#ifdef USE_FREERTOS
+extern XScuGic xInterruptController;
+#else
+XScuGic xInterruptController;
+#endif
+extern struct isr_info isr_table[ISR_COUNT];
+extern struct XOpenAMPInstPtr OpenAMPInstPtr;
+unsigned int xInsideISR;
 
 int zynqMP_r5_gic_initialize() {
+#ifndef USE_FREERTOS
 	u32 Status;
-
-	Xil_ExceptionDisable();
 
 	XScuGic_Config *IntcConfig; /* The configuration parameters of the interrupt controller */
 
@@ -55,7 +59,7 @@ int zynqMP_r5_gic_initialize() {
 		return XST_FAILURE;
 	}
 
-	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
+	Status = XScuGic_CfgInitialize(&xInterruptController, IntcConfig,
 					IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -66,26 +70,58 @@ int zynqMP_r5_gic_initialize() {
 	 * logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler) zynqMP_r5_irq_isr,
-				&InterruptController);
-
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,&xInterruptController);
 	Xil_ExceptionEnable();
+#endif
+	OpenAMPInstPtr.IntrID = VRING1_IPI_INTR_VECT;
+	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
+			   (Xil_ExceptionHandler)zynqMP_r5_irq_isr,
+			   &OpenAMPInstPtr);
 
 	return 0;
 }
 
-extern void bm_env_isr(int vector);
 
-void zynqMP_r5_irq_isr() {
+void zynqMP_r5_irq_isr(void *OpenAMPInst) {
 
-	unsigned int raw_irq;
-	int irq_vector;
-	raw_irq = (unsigned int)XScuGic_CPUReadReg(&InterruptController,XSCUGIC_INT_ACK_OFFSET);
-	irq_vector = (int) (raw_irq & XSCUGIC_ACK_INTID_MASK);
+	struct XOpenAMPInstPtr *OpenAMPInstance;
+	int idx;
+	struct isr_info *info;
+	OpenAMPInstance = (struct XOpenAMPInstPtr *)OpenAMPInst;
+	xInsideISR=1;
 
-	bm_env_isr(irq_vector);
+	for(idx = 0; idx < ISR_COUNT; idx++)
+	{
+		info = &isr_table[idx];
+	    if(info->vector == OpenAMPInstance->IntrID)
+	    {
+			unsigned long ipi_base_addr = *((unsigned long *)info->data);
+			OpenAMPInstance->IPI_Status = (unsigned int)Xil_In32(ipi_base_addr + IPI_ISR_OFFSET);
+			Xil_Out32((ipi_base_addr + IPI_ISR_OFFSET), OpenAMPInstance->IPI_Status);
+			break;
+	       }
+	   }
+#ifdef USE_FREERTOS
+	env_release_sync_lock(OpenAMPInstance->lock);
+#else
+	process_communication(*OpenAMPInstance);
+#endif
+	xInsideISR=0;
+}
 
-	XScuGic_CPUWriteReg(&InterruptController,XSCUGIC_EOI_OFFSET, raw_irq);
+void process_communication(struct XOpenAMPInstPtr OpenAMPInstance)  {
+    int idx;
+    struct isr_info *info;
+
+    for(idx = 0; idx < ISR_COUNT; idx++)
+    {
+        info = &isr_table[idx];
+        if(info->vector == OpenAMPInstance.IntrID)
+        {
+		info->isr(info->vector , info->data, OpenAMPInstance.IPI_Status);
+            break;
+        }
+    }
 }
 
 /*
@@ -160,9 +196,8 @@ void ipi_unregister_handler(unsigned long ipi_base_addr, unsigned int intr_mask)
 	memset(&(ipi_handler_table[ipi_hd_i]), 0, sizeof(struct ipi_handler_info));
 }
 
-void ipi_isr(int vect_id, void *data, unsigned int intr_status) {
+void ipi_isr(int vect_id, void *data, unsigned int ipi_intr_status) {
 	unsigned long ipi_base_addr = *((unsigned long *)data);
-	unsigned int ipi_intr_status = (unsigned int)Xil_In32(ipi_base_addr + IPI_ISR_OFFSET);
 	int i = 0;
 	do {
 		Xil_Out32((ipi_base_addr + IPI_ISR_OFFSET), ipi_intr_status);
@@ -236,12 +271,18 @@ unsigned int old_value = 0;
 
 void restore_global_interrupts() {
 
+#ifdef USE_FREERTOS
+	taskENABLE_INTERRUPTS();
+#else
 	ARM_AR_INT_BITS_SET(old_value);
+#endif
 
 }
 
 void disable_global_interrupts() {
-
+#ifdef USE_FREERTOS
+	taskDISABLE_INTERRUPTS();
+#else
 	unsigned int value = 0;
 
 	ARM_AR_INT_BITS_GET(&value);
@@ -253,7 +294,7 @@ void disable_global_interrupts() {
 		old_value = value;
 
 	}
-
+#endif
 }
 
 /*==================================================================*/
