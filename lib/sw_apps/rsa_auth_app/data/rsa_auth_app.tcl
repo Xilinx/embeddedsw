@@ -80,3 +80,10 @@ proc swapp_get_linker_constraints {} {
     return "";
 }
 
+proc swapp_get_supported_processors {} {
+    return "ps7_cortexa9";
+}
+
+proc swapp_get_supported_os {} {
+    return "standalone";
+}
