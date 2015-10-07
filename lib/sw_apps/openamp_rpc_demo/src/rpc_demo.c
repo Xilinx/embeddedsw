@@ -84,22 +84,37 @@
 #include "rpmsg_retarget.h"
 #include "xil_cache.h"
 #include "xil_mmu.h"
-#include "xreg_cortexr5.h"
+
+#define SHUTDOWN_MSG	0xEF56A55A
+#ifdef USE_FREERTOS
+#define DELAY_200MSEC    200/portTICK_PERIOD_MS
+#endif
 
 /* Internal functions */
-static void init_system();
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl);
 static void rpmsg_read_cb(struct rpmsg_channel *, void *, int, void *, unsigned long);
 static void shutdown_cb(struct rpmsg_channel *rp_chnl);
+static void communication_task();
+static void rpc_demo();
 
-/* Globals */
+/* Static variables */
 static struct rpmsg_channel *app_rp_chnl;
-volatile int chnl_cb_flag = 0;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
-extern const struct remote_resource_table resources;
+#ifdef USE_FREERTOS
+static TimerHandle_t stop_scheduler;
+#endif
 
+#ifdef USE_FREERTOS
+static TaskHandle_t comm_task;
+static TaskHandle_t rpc_dmo;
+#endif
+void *chnl_cb_flag;
+/* Globals */
+
+extern const struct remote_resource_table resources;
+struct XOpenAMPInstPtr OpenAMPInstPtr;
 #define REDEF_O_CREAT 100
 #define REDEF_O_EXCL 200
 #define REDEF_O_RDONLY 0
@@ -112,6 +127,64 @@ extern const struct remote_resource_table resources;
 
 /* Application entry point */
 int main() {
+
+#ifdef USE_FREERTOS
+	BaseType_t stat;
+
+	/* Create the tasks */
+	stat = xTaskCreate(communication_task, ( const char * ) "HW2",
+				1024, NULL,2,&comm_task);
+	if(stat != pdPASS)
+		return -1;
+
+	stat = xTaskCreate(rpc_demo, ( const char * ) "HW2",
+			2048, NULL, 1, &rpc_dmo );
+	if(stat != pdPASS)
+		return -1;
+
+	/*Create Queues*/
+	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
+	env_create_sync_lock(&chnl_cb_flag,LOCKED);
+
+	/* Start the tasks and timer running. */
+	vTaskStartScheduler();
+#else
+	env_create_sync_lock(&chnl_cb_flag,LOCKED);
+	communication_task();
+#endif
+
+	while(1);
+
+}
+
+void communication_task(){
+	int status;
+
+	rsc_info.rsc_tab = (struct resource_table *)&resources;
+	rsc_info.size = sizeof(resources);
+
+	zynqMP_r5_gic_initialize();
+
+	/* Initialize RPMSG framework */
+	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted,
+			rpmsg_read_cb ,&proc);
+	if (status < 0) {
+		return;
+	}
+	env_enable_interrupt(VRING1_IPI_INTR_VECT,0,0);
+
+#ifdef USE_FREERTOS
+	while (1) {
+		env_acquire_sync_lock(OpenAMPInstPtr.lock);
+		process_communication(OpenAMPInstPtr);
+	}
+#else
+	rpc_demo();
+#endif
+
+}
+
+void rpc_demo(){
 	int fd, bytes_written, bytes_read;
 	char fname[] = "remote.file";
 	char wbuff[50];
@@ -120,33 +193,17 @@ int main() {
 	float fdata;
 	int idata;
 	int ret;
-	int status;
 
-	/* Initialize HW system components */
-	init_system();
-
-	rsc_info.rsc_tab = (struct resource_table *) &resources;
-	rsc_info.size = sizeof(resources);
-
-	/* Initialize RPMSG framework */
-	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
-					rpmsg_channel_deleted, rpmsg_read_cb, &proc);
-	if (status < 0) {
-		return -1;
-	}
-
-	while (!chnl_cb_flag) {
-		__asm__ ( "\
-			wfi\n\t" \
-		);
-	}
-
-	chnl_cb_flag = 0;
+	env_acquire_sync_lock(chnl_cb_flag);
 
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
-
+#ifdef USE_FREERTOS
+	printf("\r\nRemote>FreeRTOS Remote Procedure Call (RPC) Demonstration\r\n");
+#else
 	printf("\r\nRemote>Baremetal Remote Procedure Call (RPC) Demonstration\r\n");
+#endif
 	printf("\r\nRemote>***************************************************\r\n");
+
 	printf("\r\nRemote>Rpmsg based retargetting to proxy initialized..\r\n");
 
 	/* Remote performing file IO on Master */
@@ -217,13 +274,11 @@ int main() {
 			wfi\n\t" \
 		);
 	}
-
-	return 0;
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
 	app_rp_chnl = rp_chnl;
-	chnl_cb_flag = 1;
+	env_release_sync_lock(chnl_cb_flag);
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
@@ -232,15 +287,18 @@ static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 						void * priv, unsigned long src) {
 }
-
+#ifdef USE_FREERTOS
+static void StopSchedulerTmrCallBack(TimerHandle_t timer)
+{
+	vTaskEndScheduler();
+}
+#endif
 static void shutdown_cb(struct rpmsg_channel *rp_chnl) {
 	rpmsg_retarget_deinit(rp_chnl);
 	remoteproc_resource_deinit(proc);
-}
-
-static void init_system() {
-
-	/* Initilaize GIC */
-	zynqMP_r5_gic_initialize();
-
+#ifdef USE_FREERTOS
+		int TempTimerId;
+		stop_scheduler = xTimerCreate("TMR", DELAY_200MSEC, pdFALSE, (void *)&TempTimerId, StopSchedulerTmrCallBack);
+		xTimerStart(stop_scheduler, 0);
+#endif
 }

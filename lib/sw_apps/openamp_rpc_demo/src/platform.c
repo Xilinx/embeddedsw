@@ -76,9 +76,10 @@ int _enable_interrupt(struct proc_vring *vring_hw) {
 	/* Register ISR*/
 	env_register_isr(vring_hw->intr_info.vect_id, &(chn_ipi_info->ipi_base_addr), ipi_isr);
 	/* Enable IPI interrupt */
-	env_enable_interrupt(vring_hw->intr_info.vect_id,
+	/* FIXME: enabled interrupt in application */
+	/*env_enable_interrupt(vring_hw->intr_info.vect_id,
 		vring_hw->intr_info.priority,
-		vring_hw->intr_info.trigger_type);
+		vring_hw->intr_info.trigger_type);*/
 	return 0;
 }
 
@@ -95,6 +96,7 @@ void _notify(int cpu_id, struct proc_intr *intr_info) {
 	if (chn_ipi_info == NULL)
 		return;
 	platform_dcache_all_flush();
+	env_wmb();
 	/* Trigger IPI */
 	ipi_trigger(chn_ipi_info->ipi_base_addr, chn_ipi_info->ipi_chn_mask);
 }
