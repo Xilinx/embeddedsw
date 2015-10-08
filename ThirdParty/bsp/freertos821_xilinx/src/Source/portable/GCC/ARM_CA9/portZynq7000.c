@@ -95,12 +95,11 @@ void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName ) __att
 
 /* Timer used to generate the tick interrupt. */
 static XScuTimer xTimer;
-
+XScuGic xInterruptController; 	/* Interrupt controller instance */
 /*-----------------------------------------------------------*/
 
 void FreeRTOS_SetupTickInterrupt( void )
 {
-static XScuGic xInterruptController; 	/* Interrupt controller instance */
 BaseType_t xStatus;
 extern void FreeRTOS_Tick_Handler( void );
 XScuTimer_Config *pxTimerConfig;
