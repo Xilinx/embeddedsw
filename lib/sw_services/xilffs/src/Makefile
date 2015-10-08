@@ -64,7 +64,7 @@ INCLUDEFILES=$(FATFS_DIR)/include/ff.h \
 libs: libxilffs.a
 
 libxilffs.a: print_msg_fatfs $(FATFS_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${FATFS_OBJS}
 
 print_msg_fatfs:
 	@echo "Compiling XilFFs Library"
