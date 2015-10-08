@@ -46,8 +46,8 @@ proc openamp_drc {libhandle} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-    if { $proc_type != "psu_cortexr5" } {
-                error "ERROR: This library is supported only for CortexR5 processors.";
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) } {
+                error "ERROR: This library is supported only for CortexR5 and CortexA9 processors.";
                 return;
     }
 }
