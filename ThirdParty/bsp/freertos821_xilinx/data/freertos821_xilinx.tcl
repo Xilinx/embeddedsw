@@ -19,7 +19,7 @@
 
 
 # standalone bsp version. set this to the latest "ACTIVE" version.
-set standalone_version standalone_v5_2
+set standalone_version standalone_v5_3
 
 proc FreeRTOS_drc {os_handle} {
 
@@ -99,7 +99,8 @@ proc generate {os_handle} {
 				}
 
 				file delete -force "../${standalone_version}/src/gcc"
-
+				file delete -force "../${standalone_version}/src/iccarm"
+				file delete -force "../${standalone_version}/src/armcc"
 				set need_config_file "true"
 
 				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
