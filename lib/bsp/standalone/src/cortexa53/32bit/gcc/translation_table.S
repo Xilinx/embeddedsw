@@ -66,7 +66,12 @@ MMUTable:
 .set DDR_START, XPAR_PSU_DDR_0_S_AXI_BASEADDR
 .set DDR_END, XPAR_PSU_DDR_0_S_AXI_HIGHADDR
 .set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x80000000
+/* If DDR size is larger than 2GB, truncate to 2GB */
+.set DDR_REG, 0x800
+.else
 .set DDR_REG, DDR_SIZE/0x100000
+.endif
 #else
 .set DDR_REG, 0
 #endif
