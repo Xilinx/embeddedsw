@@ -130,12 +130,17 @@ void Init_MPU(void)
 #ifdef	XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
 	size = (XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR - XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR) + 1;
-	/* Lookup the size.  */
-	for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
-		if (size <= region_size[i].size) {
-			RegSize = region_size[i].encoding;
-			break;
+	if (size < 0x80000000) {
+		/* Lookup the size.  */
+		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
+			if (size <= region_size[i].size) {
+				RegSize = region_size[i].encoding;
+				break;
+			}
 		}
+	} else {
+		/* if the DDR size is > 2GB, truncate it to 2GB */
+		RegSize = REGION_2G;
 	}
 #else
 	/* For DDRless system, configure region for TCM */
