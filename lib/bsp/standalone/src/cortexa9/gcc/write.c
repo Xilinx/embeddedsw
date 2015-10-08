@@ -32,7 +32,7 @@
 
 /* write.c -- write bytes to an output device.
  */
-
+#ifndef USE_AMP
 #include "xil_printf.h"
 #include "xparameters.h"
 
@@ -109,3 +109,4 @@ _write (sint32 fd, char8* buf, sint32 nbytes)
   return 0;
 #endif
 }
+#endif

@@ -29,7 +29,7 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
+#ifndef USE_AMP
 #include <errno.h>
 #include "xil_types.h"
 
@@ -51,3 +51,4 @@ __attribute__((weak)) s32 _open(const char8 *buf, s32 flags, s32 mode)
   errno = EIO;
   return (-1);
 }
+#endif
