@@ -55,7 +55,7 @@ INCLUDEFILES=$(XILISF_DIR)/include/xilisf.h \
 libs: libxilisf.a
 
 libxilisf.a: print_msg_xilisf $(XILISF_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${XILISF_OBJS}
 
 print_msg_xilisf:
 	@echo "Compiling XilIsf Library"
