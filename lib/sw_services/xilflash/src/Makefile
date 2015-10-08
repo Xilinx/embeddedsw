@@ -57,7 +57,7 @@ INCLUDEFILES=$(XILFLASH_DIR)/include/xilflash.h \
 libs: libxilflash.a
 
 libxilflash.a: print_msg_xilflash $(XILFLASH_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${XILFLASH_OBJS}
 
 print_msg_xilflash:
 	@echo "Compiling XilFlash Library"
