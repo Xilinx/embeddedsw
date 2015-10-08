@@ -32,7 +32,7 @@
 
 /* read.c -- read bytes from a input device.
  */
-
+#ifndef USE_AMP
 #include "xil_printf.h"
 #include "xparameters.h"
 
@@ -109,3 +109,4 @@ _read (s32 fd, char8* buf, s32 nbytes)
   return 0;
 #endif
 }
+#endif

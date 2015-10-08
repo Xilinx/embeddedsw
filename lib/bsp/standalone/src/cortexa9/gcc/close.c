@@ -29,6 +29,7 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+#ifndef USE_AMP
 #include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
@@ -45,3 +46,4 @@ __attribute__((weak)) s32 _close(s32 fd)
   (void)fd;
   return (0);
 }
+#endif

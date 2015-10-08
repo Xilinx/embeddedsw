@@ -238,4 +238,12 @@
  * 5.2 pkp   23/07/15  Modified cortexa9/gcc/Makefile to keep a correct check of a compiler
  *		       to update ECC_FLAGS to fix a bug introduced during new version creation
  *		       of BSP.
+ * 5.3 pkp   10/07/15  Modified cortexa9/xil_cache.c file to change cache API so that L2 Cache
+ *		       functionalities are avoided for the OpenAMP slave application(when
+ *		       USE_AMP flag is defined for BSP) as master CPU would be utilizing L2
+ *		       cache for its operation. Also file operations such as read, write,
+ *		       close, open are also avoided for OpenAMP support(when USE_AMP flag is
+ *		       defined for BSP) because XilOpenAMP library contains own file operation.
+ *		       The xil-crt0.S file is modified for not initializing global timer for
+ *		       OpenAMP application as it might be already in use by master CPU
  *****************************************************************************************/

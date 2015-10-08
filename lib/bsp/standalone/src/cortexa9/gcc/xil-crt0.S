@@ -46,6 +46,8 @@
 * 3.07a sgd  10/19/12 SMC NOR and SRAM initialization with build option
 * 4.2	pkp  08/04/14 Removed PEEP board related code which contained
 *		      initialization of uart smc nor and sram
+* 5.3	pkp  10/07/15 Added support for OpenAMP by not initializing global
+*		      timer when USE_AMP flag is defined
 * </pre>
 *
 * @note
@@ -110,7 +112,10 @@ _start:
     /* Reset and start Global Timer */
 	mov	r0, #0x0
 	mov	r1, #0x0
-    bl XTime_SetTime
+
+#if USE_AMP != 1
+	bl XTime_SetTime
+#endif
 
 #ifdef PROFILING			/* defined in Makefile */
 	/* Setup profiling stuff */
