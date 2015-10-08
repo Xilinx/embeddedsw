@@ -53,7 +53,7 @@ INCLUDEFILES=*.h
 libs: libxilopenamp.a
 
 libxilopenamp.a: print_msg_xilopenamp $(OPENAMP_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OPENAMP_OBJS}
 
 print_msg_xilopenamp:
 	@echo "Compiling XilOpenAMP Library"
