@@ -56,7 +56,7 @@ INCLUDEFILES=$(SECURE_DIR)/xsecure_sha.h \
 libs: libxilsecure.a
 
 libxilsecure.a: print_msg_secure $(SECURE_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OUTS}
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
 
 print_msg_secure:
 	@echo "Compiling XilSecure Library"
