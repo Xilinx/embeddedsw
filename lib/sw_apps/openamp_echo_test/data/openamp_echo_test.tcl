@@ -73,13 +73,12 @@ proc swapp_is_supported_hw {} {
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-    if { $proc_type != "psu_cortexr5" } {
-                error "This application is supported only for CortexR5 processors.";
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) } {
+                error "This application is supported only for CortexR5 and Cortex-A9 processors.";
     }
 
     return 1;
 }
-
 
 proc get_stdout {} {
     return;
@@ -94,6 +93,27 @@ proc swapp_generate {} {
 	if { [llength $oslist] != 1 } {
 		return 0;
 	}
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+
+	if { $proc_type == "psu_cortexr5" } {
+		set srcdir "ARM_R5/"
+		foreach entry [glob -nocomplain [file join $srcdir *]] {
+			file copy -force $entry "."
+		}
+		file delete -force "ARM_R5"
+		file delete -force "ARM_A9"
+	} elseif { $proc_type == "ps7_cortexa9" } {
+		set srcdir "ARM_A9/"
+		foreach entry [glob -nocomplain [file join $srcdir *]] {
+			file copy -force $entry "."
+		}
+		file delete -force "ARM_R5"
+		file delete -force "ARM_A9"
+	}
+
 	set os [lindex $oslist 0];
 	if { $os != "standalone" } {
 		set ld_file "lscript.ld"
@@ -114,7 +134,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexr5";
+    return "psu_cortexr5 ps7_cortexa9";
 }
 
 proc swapp_get_supported_os {} {

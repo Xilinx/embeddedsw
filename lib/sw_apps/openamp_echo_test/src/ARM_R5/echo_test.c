@@ -200,7 +200,7 @@ void communication_task(){
 		/* Wait for the result data on queue */
 		if(pq_qlength(OpenAMPInstPtr.send_queue) > 0) {
 			send_data = pq_dequeue(OpenAMPInstPtr.send_queue);
-			/* Send the result of matrix multiplication back to master. */
+			/* Send the result of echo_test back to master. */
 			rpmsg_send(app_rp_chnl, send_data->data, send_data->length);
 		}
 #endif
@@ -211,7 +211,7 @@ void communication_task(){
 void echo_test(){
 #ifdef USE_FREERTOS
 	for( ;; ){
-		/* Wait to receive data for matrix multiplication */
+		/* Wait to receive data for echo test */
 		if( xQueueReceive( echo_queue, &echo_data, portMAX_DELAY )){
 			/*
 			 * The data can be processed here and send back
@@ -222,7 +222,7 @@ void echo_test(){
 		}
 	}
 #else
-	/* check whether data is received for matrix multiplication */
+	/* check whether data is received for echo test */
 	if(pq_qlength(echo_queue) > 0){
 			echo_data = pq_dequeue(echo_queue);
 			/*
@@ -262,7 +262,7 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 		xTimerStart(stop_scheduler, 0);
 #endif
     } else {
-/* copy the received data and send to matrix mul task over queue */
+/* copy the received data and send to echo_test task over queue */
 		recv_echo_data.data = data;
 		recv_echo_data.length = len;
 #ifdef USE_FREERTOS
