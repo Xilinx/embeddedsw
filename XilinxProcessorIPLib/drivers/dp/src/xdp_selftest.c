@@ -33,8 +33,8 @@
 /**
  *
  * @file xdp_selftest.c
-* @addtogroup dp_v2_0
-* @{
+ * @addtogroup dp_v3_0
+ * @{
  *
  * This file contains a diagnostic self-test function for the XDp driver. It
  * will check many of the DisplayPort core's register values against the default

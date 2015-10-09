@@ -33,8 +33,8 @@
 /**
  *
  * @file xdp_mst.c
-* @addtogroup dp_v2_0
-* @{
+ * @addtogroup dp_v3_0
+ * @{
  *
  * <pre>
  * MODIFICATION HISTORY:

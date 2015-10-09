@@ -33,8 +33,8 @@
 /**
  *
  * @file xdp.c
-* @addtogroup dp_v2_0
-* @{
+ * @addtogroup dp_v3_0
+ * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
  * all of the DisplayPort core's functionality. See xdp.h for a detailed
