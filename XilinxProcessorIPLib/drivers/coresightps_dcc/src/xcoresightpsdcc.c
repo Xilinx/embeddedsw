@@ -50,6 +50,7 @@
 * 1.00  kvn    02/14/15 First release
 * 1.1   kvn    06/12/15 Add support for Zynq Ultrascale+ MP.
 *       kvn    08/18/15 Modified Makefile according to compiler changes.
+* 1.2   kvn    10/09/15 Add support for IAR Compiler.
 *
 * </pre>
 *
@@ -60,7 +61,11 @@
 #include <xil_types.h>
 #include <xpseudo_asm.h>
 
+#ifdef __ICCARM__
+#define INLINE
+#else
 #define INLINE __inline
+#endif
 
 /* DCC Status Bits */
 #define XCORESIGHTPS_DCC_STATUS_RX (1 << 30)
