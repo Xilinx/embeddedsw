@@ -56,6 +56,10 @@
 
 /************************** Constant Definitions *****************************/
 
+#ifndef XPAR_XHDCP_NUM_INSTANCES
+#define XPAR_XHDCP_NUM_INSTANCES 0
+#endif
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
