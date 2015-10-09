@@ -83,6 +83,7 @@
 
 /************************** Function Prototypes ******************************/
 
+static void XTmrCtr_StubCallback(void *CallBackRef, u8 TmrCtrNumber);
 
 /************************** Variable Definitions *****************************/
 
@@ -118,8 +119,8 @@ void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->BaseAddress = EffectiveAddr;
 
-	InstancePtr->Handler = NULL;
-	InstancePtr->CallBackRef = NULL;
+	InstancePtr->Handler = XTmrCtr_StubCallback;
+	InstancePtr->CallBackRef = InstancePtr;
 	InstancePtr->Stats.Interrupts = 0;
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
@@ -541,4 +542,25 @@ XTmrCtr_Config *XTmrCtr_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+
+/*****************************************************************************/
+/**
+* Default callback for the driver does nothing. It matches the signature of the
+* XTmrCtr_Handler type.
+*
+* @param	CallBackRef is a pointer to the callback's data.
+* @param	TmrCtrNumber is the ID of the timer counter which a user-defined
+*		callback would normally operate on.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XTmrCtr_StubCallback(void *CallBackRef, u8 TmrCtrNumber)
+{
+	Xil_AssertVoid(CallBackRef != NULL);
+	Xil_AssertVoid(TmrCtrNumber < XTC_DEVICE_TIMER_COUNT);
+}
+
 /** @} */
