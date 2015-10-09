@@ -95,6 +95,6 @@ typedef unsigned long mem_ptr_t;
 #define PACK_STRUCT_END
 
 #define LWIP_PLATFORM_ASSERT(x)
-#define LWIP_PLATFORM_DIAG(x) do { printf x; } while(0)
+#define LWIP_PLATFORM_DIAG(x) do { xil_printf x; } while(0)
 
 #endif /* __ARCH_CC_H__ */
