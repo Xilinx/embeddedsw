@@ -108,7 +108,7 @@ static XStatus pm_ipi_wait(const struct XPm_Master *const master)
  * @return	Returns status, either success or error+reason
  */
 static XStatus pm_ipi_send(const struct XPm_Master *const master,
-				      u32 payload[PAYLOAD_ARG_CNT])
+			   u32 payload[PAYLOAD_ARG_CNT])
 {
 	u32 i;
 	u32 offset = 0;
@@ -136,7 +136,7 @@ static XStatus pm_ipi_send(const struct XPm_Master *const master,
  * @return	Returns status, either success or error+reason
  */
 static XStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
-					     u32 *value)
+				  u32 *value)
 {
 	u32 buffer_base = master->ipi->buffer_base
 		+ IPI_BUFFER_TARGET_PMU_OFFSET
@@ -175,9 +175,9 @@ static XStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
-				   const u32 latency,
-				   const u8 state,
-				   const u64 address)
+			const u32 latency,
+			const u8 state,
+			const u64 address)
 {
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -222,8 +222,8 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_RequestSuspend(const enum XPmNodeId target,
-				  const enum XPmRequestAck ack,
-				  const u32 latency, const u8 state)
+			   const enum XPmRequestAck ack,
+			   const u32 latency, const u8 state)
 {
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -246,9 +246,9 @@ XStatus XPm_RequestSuspend(const enum XPmNodeId target,
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
-				 const bool setAddress,
-				 const u64 address,
-				 const enum XPmRequestAck ack)
+			  const bool setAddress,
+			  const u64 address,
+			  const enum XPmRequestAck ack)
 {
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -280,7 +280,7 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
-				      const enum XPmRequestAck ack)
+			   const enum XPmRequestAck ack)
 {
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -334,8 +334,8 @@ XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
-					const enum XPmNodeId wkup_node,
-					const u8 enable)
+			    const enum XPmNodeId wkup_node,
+			    const u8 enable)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
 	PACK_PAYLOAD3(payload, PM_SET_WAKEUP_SOURCE, target, wkup_node, enable);
@@ -367,9 +367,9 @@ XStatus XPm_SystemShutdown(const u8 restart)
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_RequestNode(const enum XPmNodeId node,
-			       const u32 capabilities,
-			       const u32 qos,
-			       const enum XPmRequestAck ack)
+			const u32 capabilities,
+			const u32 qos,
+			const enum XPmRequestAck ack)
 {
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -395,9 +395,9 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_SetRequirement(const enum XPmNodeId nid,
-				      const u32 capabilities,
-				      const u32 qos,
-				      const enum XPmRequestAck ack)
+			   const u32 capabilities,
+			   const u32 qos,
+			   const enum XPmRequestAck ack)
 {
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -418,7 +418,7 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_ReleaseNode(const enum XPmNodeId node,
-				   const u32 latency)
+			const u32 latency)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
 	PACK_PAYLOAD2(payload, PM_RELEASE_NODE, node, latency);
@@ -433,7 +433,7 @@ XStatus XPm_ReleaseNode(const enum XPmNodeId node,
  * @return	Returns status, either success or error+reason
  */
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
-				      const u32 latency)
+			  const u32 latency)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
 
@@ -569,8 +569,7 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node)
  *
  * @return	Returns status, either success or error+reason
  */
-XStatus XPm_MmioWrite(const u32 address, const u32 mask,
-			     const u32 value)
+XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
 

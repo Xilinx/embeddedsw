@@ -42,28 +42,28 @@ enum XPmBootStatus XPm_GetBootStatus();
 
 /* System-level API function declarations */
 XStatus XPm_RequestSuspend(const enum XPmNodeId node,
-				  const enum XPmRequestAck ack,
-				  const u32 latency,
-				  const u8 state);
+			   const enum XPmRequestAck ack,
+			   const u32 latency,
+			   const u8 state);
 
 XStatus XPm_SelfSuspend(const enum XPmNodeId node,
-			       const u32 latency,
-			       const u8 state,
-			       const u64 address);
+			const u32 latency,
+			const u8 state,
+			const u64 address);
 
 XStatus XPm_ForcePowerDown(const enum XPmNodeId node,
-				      const enum XPmRequestAck ack);
+			   const enum XPmRequestAck ack);
 
 XStatus XPm_AbortSuspend(const enum XPmAbortReason reason);
 
 XStatus XPm_RequestWakeUp(const enum XPmNodeId node,
-				 const bool setAddress,
-				 const u64 address,
-				 const enum XPmRequestAck ack);
+			  const bool setAddress,
+			  const u64 address,
+			  const enum XPmRequestAck ack);
 
 XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
-					const enum XPmNodeId wkup_node,
-					const u8 enable);
+			    const enum XPmNodeId wkup_node,
+			    const u8 enable);
 
 XStatus XPm_SystemShutdown(const u8 restart);
 
@@ -118,17 +118,17 @@ void XPm_NotifyCb(const enum XPmNodeId node,
 
 /* API functions for managing PM Slaves */
 XStatus XPm_RequestNode(const enum XPmNodeId node,
-			       const u32 capabilities,
-			       const u32 qos,
-			       const enum XPmRequestAck ack);
+			const u32 capabilities,
+			const u32 qos,
+			const enum XPmRequestAck ack);
 XStatus XPm_ReleaseNode(const enum XPmNodeId node,
-				   const u32 latency);
+			const u32 latency);
 XStatus XPm_SetRequirement(const enum XPmNodeId node,
-				      const u32 capabilities,
-				      const u32 qos,
-				      const enum XPmRequestAck ack);
+			   const u32 capabilities,
+			   const u32 qos,
+			   const enum XPmRequestAck ack);
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
-				      const u32 latency);
+			  const u32 latency);
 
 /* Miscellaneous API functions */
 XStatus XPm_GetApiVersion(u32 *version);
@@ -136,8 +136,7 @@ XStatus XPm_GetApiVersion(u32 *version);
 XStatus XPm_GetNodeStatus(const enum XPmNodeId node);
 
 /* Direct-Control API functions */
-XStatus XPm_MmioWrite(const u32 address, const u32 mask,
-			     const u32 value);
+XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value);
 
 XStatus XPm_MmioRead(const u32 address, u32 *const value);
 
