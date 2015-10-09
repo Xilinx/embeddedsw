@@ -3,6 +3,7 @@ Change Log for lwip
 2015-09-30
 	* Created a new version lwip141_v1_3.
 	* Made changes in xemacpsif_dma.c to add required barriers.
+	* Remove repeated sysarch protect and unprotect calls.
 2015-09-09
 	* Fix compilation issues with the non hier axi eth design
 2015-09-04
