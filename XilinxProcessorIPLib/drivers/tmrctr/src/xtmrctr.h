@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -147,6 +147,7 @@
 *		      which was checking the Register Value to know whether
 *		      a timer has started or not.
 * 3.0   adk  19/12/13 Updated as per the New Tcl API's
+* 4.0   als  09/30/15 Updated initialization API.
 * </pre>
 *
 ******************************************************************************/
@@ -243,6 +244,7 @@ typedef struct {
  * functions.
  */
 typedef struct {
+	XTmrCtr_Config Config;   /**< Core configuration. */
 	XTmrCtrStats Stats;	 /**< Component Statistics */
 	u32 BaseAddress;	 /**< Base address of registers */
 	u32 IsReady;		 /**< Device is initialized and ready */
@@ -262,6 +264,9 @@ typedef struct {
 /*
  * Required functions, in file xtmrctr.c
  */
+void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
+		u32 EffectiveAddr);
+int XTmrCtr_InitHw(XTmrCtr *InstancePtr);
 int XTmrCtr_Initialize(XTmrCtr * InstancePtr, u16 DeviceId);
 void XTmrCtr_Start(XTmrCtr * InstancePtr, u8 TmrCtrNumber);
 void XTmrCtr_Stop(XTmrCtr * InstancePtr, u8 TmrCtrNumber);

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@
 *		      Removed the logic in the XTmrCtr_Initialize function
 *		      which was checking the Register Value to know whether
 *		      a timer has started or not.
+* 4.0   als  09/30/15 Updated initialization API.
 * </pre>
 *
 ******************************************************************************/
@@ -85,10 +86,98 @@
 
 /************************** Variable Definitions *****************************/
 
+/*****************************************************************************/
+/**
+* This function populates the timer counter's configuration structure and sets
+* some configurations defaults.
+*
+* @param	InstancePtr is a pointer to the XTmrCtr instance.
+* @param	ConfigPtr is a pointer to the configuration structure that will
+*		be used to copy the settings from.
+* @param	EffectiveAddr is the device base address in the virtual memory
+*		space. If the address translation is not used, then the physical
+*		address is passed.
+*
+* @return	None.
+*
+* @note		Unexpected errors may occur if the address mapping is changed
+*		after this function is invoked.
+*
+******************************************************************************/
+void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
+		u32 EffectiveAddr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ConfigPtr != NULL);
+	Xil_AssertVoid(EffectiveAddr != 0x0);
+
+	InstancePtr->IsReady = 0;
+	InstancePtr->Config = *ConfigPtr;
+
+	InstancePtr->Config.BaseAddress = EffectiveAddr;
+	InstancePtr->BaseAddress = EffectiveAddr;
+
+	InstancePtr->Handler = NULL;
+	InstancePtr->CallBackRef = NULL;
+	InstancePtr->Stats.Interrupts = 0;
+
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+}
 
 /*****************************************************************************/
 /**
+* (Re-)initialzes all timer counters which aren't started already.
 *
+* @param	InstancePtr is a pointer to the XTmrCtr instance.
+*
+* @return
+*		- XST_SUCCESS if at least one timer counter is stopped.
+*		- XST_DEVICE_IS_STARTED otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
+{
+	int Status = XST_DEVICE_IS_STARTED;
+	u8 TmrIndex;
+	u32 TmrCtrStarted[XTC_DEVICE_TIMER_COUNT];
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	TmrCtrStarted[0] = InstancePtr->IsStartedTmrCtr0;
+	TmrCtrStarted[1] = InstancePtr->IsStartedTmrCtr1;
+
+	for (TmrIndex = 0; TmrIndex < XTC_DEVICE_TIMER_COUNT; TmrIndex++) {
+		/* Only initialize timers counters which aren't started. */
+		if (TmrCtrStarted[TmrIndex] == XIL_COMPONENT_IS_STARTED) {
+			continue;
+		}
+
+		/* Set the compare register to 0. */
+		XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrIndex,
+				  XTC_TLR_OFFSET, 0);
+		/* Reset the timer and the interrupt. */
+		XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrIndex,
+				  XTC_TCSR_OFFSET,
+				  XTC_CSR_INT_OCCURED_MASK | XTC_CSR_LOAD_MASK);
+		/* Release the reset. */
+		XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrIndex,
+				  XTC_TCSR_OFFSET, 0);
+
+		/* Indicate that at least one timer is not running and has been
+		 * initialized. */
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 * Initializes a specific timer/counter instance/driver. Initialize fields of
 * the XTmrCtr structure, then reset the timer/counter.If a timer is already
 * running then it is not initialized.
@@ -108,98 +197,28 @@
 * @note		None.
 *
 ******************************************************************************/
-int XTmrCtr_Initialize(XTmrCtr * InstancePtr, u16 DeviceId)
+int XTmrCtr_Initialize(XTmrCtr *InstancePtr, u16 DeviceId)
 {
-	XTmrCtr_Config *TmrCtrConfigPtr;
-	int TmrCtrNumber;
-	int TmrCtrLowIndex = 0;
-	int TmrCtrHighIndex = XTC_DEVICE_TIMER_COUNT;
+	XTmrCtr_Config *ConfigPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-
-	/*
-	 * If both the timers have already started, disallow the initialize and
-	 * return a status indicating it is started.  This allows the user to stop
-	 * the device and reinitialize, but prevents a user from inadvertently
-	 * initializing.
-	 * In case one of the timers has not started then that particular timer
-	 * will be initialized
-	 */
+	/* In case all timer counters are already started, don't proceed with
+	 * re-initialization. */
 	if ((InstancePtr->IsStartedTmrCtr0 == XIL_COMPONENT_IS_STARTED) &&
 	    (InstancePtr->IsStartedTmrCtr1 == XIL_COMPONENT_IS_STARTED)) {
 		return XST_DEVICE_IS_STARTED;
 	}
 
-
-	/*
-	 * Ensure that only the timer which is NOT started can be initialized
-	 */
-	if ((InstancePtr->IsStartedTmrCtr0 == XIL_COMPONENT_IS_STARTED)) {
-		TmrCtrLowIndex = 1;
-	} else if ((InstancePtr->IsStartedTmrCtr1 == XIL_COMPONENT_IS_STARTED)) {
-		TmrCtrHighIndex = 1;
-	} else {
-		InstancePtr->IsStartedTmrCtr0 = 0;
-		InstancePtr->IsStartedTmrCtr1 = 0;
-	}
-
-
-
-	/*
-	 * Lookup the device configuration in the temporary CROM table. Use this
-	 * configuration info down below when initializing this component.
-	 */
-	TmrCtrConfigPtr = XTmrCtr_LookupConfig(DeviceId);
-
-	if (TmrCtrConfigPtr == (XTmrCtr_Config *) NULL) {
+	/* Retrieve configuration of timer counter core with matching ID. */
+	ConfigPtr = XTmrCtr_LookupConfig(DeviceId);
+	if (!ConfigPtr) {
 		return XST_DEVICE_NOT_FOUND;
 	}
 
-	/*
-	 * Set some default values, including setting the callback
-	 * handlers to stubs.
-	 */
-	InstancePtr->BaseAddress = TmrCtrConfigPtr->BaseAddress;
-	InstancePtr->Handler = NULL;
-	InstancePtr->CallBackRef = NULL;
+	XTmrCtr_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddress);
 
-	/*
-	 * Clear the statistics for this driver
-	 */
-	InstancePtr->Stats.Interrupts = 0;
-
-	/* Initialize the registers of each timer/counter in the device */
-
-	for (TmrCtrNumber = TmrCtrLowIndex; TmrCtrNumber < TmrCtrHighIndex;
-	     TmrCtrNumber++) {
-
-		/*
-		 * Set the Compare register to 0
-		 */
-		XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrCtrNumber,
-				  XTC_TLR_OFFSET, 0);
-		/*
-		 * Reset the timer and the interrupt, the reset bit will need to
-		 * be cleared after this
-		 */
-		XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrCtrNumber,
-				  XTC_TCSR_OFFSET,
-				  XTC_CSR_INT_OCCURED_MASK | XTC_CSR_LOAD_MASK);
-		/*
-		 * Set the control/status register to complete initialization by
-		 * clearing the reset bit which was just set
-		 */
-		XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrCtrNumber,
-				  XTC_TCSR_OFFSET, 0);
-	}
-
-	/*
-	 * Indicate the instance is ready to use, successfully initialized
-	 */
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
-	return XST_SUCCESS;
+	return XTmrCtr_InitHw(InstancePtr);
 }
 
 /*****************************************************************************/
