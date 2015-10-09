@@ -1634,7 +1634,7 @@
 #define XDP_RX_OVER_LANE_COUNT_SET_2	0x2	/**< Lane count of 2. */
 #define XDP_RX_OVER_LANE_COUNT_SET_4	0x4	/**< Lane count of 4. */
 #define XDP_RX_OVER_LANE_COUNT_SET_TPS3_SUPPORTED_MASK \
-					0x20	/**< Capability override for
+					0x40	/**< Capability override for
 							training pattern 3. */
 #define XDP_RX_OVER_LANE_COUNT_SET_ENHANCED_FRAME_CAP_MASK \
 					0x80	/**< Capability override for
