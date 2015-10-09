@@ -46,6 +46,8 @@
 * 2.00  hk      23/01/14 Changed PS efuse error codes for voltage out of range.
 * 2.1   sk      04/03/15 Initialized RSAKeyReadback with Zeros CR# 829723.
 * 3.00  vns     31/07/15 Removed redundant code to initialise timer.
+* 4.00  vns     09/10/15 Added DFT control bits programming fecility for
+*                        eFuse PS on Zynq. PR#862778
 *
 *****************************************************************************/
 
@@ -117,7 +119,11 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 		((InstancePtr->EnableRom128Crc != TRUE) &&
 		 (InstancePtr->EnableRom128Crc != FALSE)) ||
 		((InstancePtr->EnableRsaKeyHash != TRUE) &&
-		 (InstancePtr->EnableRsaKeyHash != FALSE)) ) {
+		 (InstancePtr->EnableRsaKeyHash != FALSE)) ||
+		((InstancePtr->DisableDftJtag != TRUE) &&
+		 (InstancePtr->DisableDftJtag != FALSE)) ||
+		((InstancePtr->DisableDftMode != TRUE) &&
+		 (InstancePtr->DisableDftMode != FALSE))) {
 		return XSK_EFUSEPS_ERROR_PS_PARAMETER_WRONG;
 	}
 
@@ -261,6 +267,26 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 		/* NEW: Error only if burning of the both the bits are not success */
 		if ((Status != XST_SUCCESS) && (StatusRedundantBit != XST_SUCCESS)) {
 			RetValue = XSK_EFUSEPS_ERROR_WRITE_WRITE_PROTECT_BIT + Status;
+			goto ExitCtrlResetStatus;
+		}
+	}
+
+	/* Programs 0xC eFuse bit to disable DFT JTAG */
+	if (InstancePtr->DisableDftJtag) {
+		Status = XilSKey_EfusePs_WriteWithXadcCheckAndVerify(
+				XSK_EFUSEPS_APB_DFT_JTAG_DISABLE, RefClk);
+		if (Status != XST_SUCCESS) {
+			RetValue = XSK_EFUSEPS_ERROR_WRTIE_DFT_JTAG_DIS_BIT + Status;
+			goto ExitCtrlResetStatus;
+		}
+	}
+
+	/* Programs 0xD eFuse bit to disable DFT Mode */
+	if (InstancePtr->DisableDftMode) {
+		Status = XilSKey_EfusePs_WriteWithXadcCheckAndVerify(
+				XSK_EFUSEPS_APB_DFT_MODE_DISABLE, RefClk);
+		if (Status != XST_SUCCESS) {
+			RetValue = XSK_EFUSEPS_ERROR_WRTIE_DFT_MODE_DIS_BIT + Status;
 			goto ExitCtrlResetStatus;
 		}
 	}

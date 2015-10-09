@@ -81,6 +81,14 @@ typedef struct {
 	 * Enable the ROM code 128K crc  eFUSE Bit
 	 */
 	u32 EnableRom128Crc;
+		/**
+	 * Disable DFT JTAG
+	 */
+	u32 DisableDftJtag;
+	/**
+	 * Disable DFT Mode
+	 */
+	u32 DisableDftMode;
 	/**
 	 * EnableRsaKeyHash: Enabling this RsaKeyHashValue[32] is written to
 	 * eFUSE array
