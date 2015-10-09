@@ -208,7 +208,7 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 	if (XST_SUCCESS != ret)
 		return ret;
 	/* Wait for PMU to finish handling request */
-	return pm_ipi_wait(master);
+	return pm_ipi_buff_read32(master, NULL);
 }
 
 /**
