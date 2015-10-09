@@ -577,11 +577,18 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node)
  */
 XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 {
+	XStatus status;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD3(payload, PM_MMIO_WRITE, address, mask, value);
-	return pm_ipi_send(primary_master, payload);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status)
+		return status;
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 }
 
 /**
