@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,49 +32,65 @@
 /*****************************************************************************/
 /**
 *
-* @file xtmrctr_i.h
-* @addtogroup tmrctr_v3_0
+* @file xtmrctr_sinit.c
+* @addtogroup tmrctr_v4_0
 * @{
 *
-* This file contains data which is shared between files internal to the
-* XTmrCtr component. It is intended for internal use only.
+* This file contains static initialization methods for the XTmrCtr driver.
+*
+* @note	None.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 1.00b jhl  02/06/02 First release
-* 1.10b mta  03/21/07 Updated to new coding style
-* 2.00a ktn  10/30/09 _m is removed from all the macro definitions.
+* 4.0   als  09/30/15 Creation of this file. Moved LookupConfig from xtmrctr.c.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XTMRCTR_I_H		/* prevent circular inclusions */
-#define XTMRCTR_I_H		/* by using protection macros */
+/******************************* Include Files *******************************/
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "xparameters.h"
+#include "xtmrctr.h"
 
-/***************************** Include Files *********************************/
+/*************************** Variable Declarations ***************************/
 
-#include "xil_types.h"
+/* A table of configuration structures containing the configuration information
+ * for each timer core in the system. */
+extern XTmrCtr_Config XTmrCtr_ConfigTable[XPAR_XTMRCTR_NUM_INSTANCES];
 
-/************************** Constant Definitions *****************************/
+/**************************** Function Definitions ***************************/
 
+/*****************************************************************************/
+/**
+* Looks up the device configuration based on the unique device ID. The table
+* TmrCtr_ConfigTable contains the configuration info for each device in the
+* system.
+*
+* @param	DeviceId is the unique device ID to search for in the config
+*		table.
+*
+* @return	A pointer to the configuration that matches the given device
+* 		ID, or NULL if no match is found.
+*
+* @note		None.
+*
+******************************************************************************/
+XTmrCtr_Config *XTmrCtr_LookupConfig(u16 DeviceId)
+{
+	XTmrCtr_Config *CfgPtr = NULL;
+	int Index;
 
-/************************** Function Prototypes ******************************/
+	for (Index = 0; Index < XPAR_XTMRCTR_NUM_INSTANCES; Index++) {
+		if (XTmrCtr_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XTmrCtr_ConfigTable[Index];
+			break;
+		}
+	}
 
-
-/************************** Variable Definitions *****************************/
-
-extern u8 XTmrCtr_Offsets[];
-
-#ifdef __cplusplus
+	return CfgPtr;
 }
-#endif
 
-#endif
 /** @} */

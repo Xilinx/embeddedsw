@@ -261,9 +261,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
-/*
- * Required functions, in file xtmrctr.c
- */
+/* Required functions, in file xtmrctr.c */
 void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
 		u32 EffectiveAddr);
 int XTmrCtr_InitHw(XTmrCtr *InstancePtr);
@@ -276,28 +274,22 @@ void XTmrCtr_SetResetValue(XTmrCtr * InstancePtr, u8 TmrCtrNumber,
 u32 XTmrCtr_GetCaptureValue(XTmrCtr * InstancePtr, u8 TmrCtrNumber);
 int XTmrCtr_IsExpired(XTmrCtr * InstancePtr, u8 TmrCtrNumber);
 void XTmrCtr_Reset(XTmrCtr * InstancePtr, u8 TmrCtrNumber);
+
+/* Lookup configuration in xtmrctr_sinit.c */
 XTmrCtr_Config *XTmrCtr_LookupConfig(u16 DeviceId);
 
-/*
- * Functions for options, in file xtmrctr_options.c
- */
+/* Functions for options, in file xtmrctr_options.c */
 void XTmrCtr_SetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber, u32 Options);
 u32 XTmrCtr_GetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber);
 
-/*
- * Functions for statistics, in file xtmrctr_stats.c
- */
+/* Functions for statistics, in file xtmrctr_stats.c */
 void XTmrCtr_GetStats(XTmrCtr * InstancePtr, XTmrCtrStats * StatsPtr);
 void XTmrCtr_ClearStats(XTmrCtr * InstancePtr);
 
-/*
- * Functions for self-test, in file xtmrctr_selftest.c
- */
+/* Functions for self-test, in file xtmrctr_selftest.c */
 int XTmrCtr_SelfTest(XTmrCtr * InstancePtr, u8 TmrCtrNumber);
 
-/*
- * Functions for interrupts, in file xtmrctr_intr.c
- */
+/* Functions for interrupts, in file xtmrctr_intr.c */
 void XTmrCtr_SetHandler(XTmrCtr * InstancePtr, XTmrCtr_Handler FuncPtr,
 			void *CallBackRef);
 void XTmrCtr_InterruptHandler(void *InstancePtr);
