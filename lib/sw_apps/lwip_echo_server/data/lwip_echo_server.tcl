@@ -375,5 +375,5 @@ proc swapp_get_supported_processors {} {
 
 proc swapp_get_supported_os {} {
 
-	return "standalone freertos821_xilinx";
+	return "standalone";
 }
