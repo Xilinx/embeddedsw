@@ -33,8 +33,8 @@
 /**
  *
  * @file xdp_spm.c
-* @addtogroup dp_v2_0
-* @{
+ * @addtogroup dp_v3_0
+ * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
  * These functions set up the DisplayPort TX core's main stream attributes (MSA)
@@ -50,6 +50,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  07/27/15 Scale TX fractional register by 1024 instead of 1000.
+ * 3.0   als  10/07/15 Added MSA callback.
  * </pre>
  *
 *******************************************************************************/

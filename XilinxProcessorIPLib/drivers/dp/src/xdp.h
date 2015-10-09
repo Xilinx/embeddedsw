@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v2_0
+ * @addtogroup dp_v3_0
  * @{
  * @details
  *
@@ -347,6 +347,7 @@
  *                     events.
  *                     Added callbacks for lane count changes, link rate changes
  *                     and pre-emphasis + voltage swing adjust requests.
+ * 3.0   als  10/07/15 Added MSA callback.
  * </pre>
  *
 *******************************************************************************/

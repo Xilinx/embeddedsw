@@ -33,8 +33,8 @@
 /**
  *
  * @file xdp_hw.h
-* @addtogroup dp_v2_0
-* @{
+ * @addtogroup dp_v3_0
+ * @{
  *
  * This header file contains the identifiers and low-level driver functions (or
  * macros) that can be used to access the device. High-level driver functions
