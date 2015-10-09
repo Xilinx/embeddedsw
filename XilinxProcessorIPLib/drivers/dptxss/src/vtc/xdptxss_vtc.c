@@ -41,10 +41,11 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
+* ---- --- -------- -----------------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
 *                   name with prefix XDpTxSs_*
+* 1.00 sha 08/07/15 Set interlace to zero when video mode is XVIDC_VM_CUSTOM.
 * </pre>
 *
 ******************************************************************************/
@@ -150,8 +151,13 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
 	VideoTiming.VSyncPolarity = MsaConfig->Vtm.Timing.VSyncPolarity;
 
 	/* Check for interlaced mode */
-	VideoTiming.Interlaced = XVidC_VideoTimingModes[
-		MsaConfig->Vtm.VmId].Timing.F1VTotal == 0 ? 0: 1;
+	if (MsaConfig->Vtm.VmId != XVIDC_VM_CUSTOM) {
+		VideoTiming.Interlaced = XVidC_VideoTimingModes[
+			MsaConfig->Vtm.VmId].Timing.F1VTotal == 0 ? 0: 1;
+	}
+	else {
+		VideoTiming.Interlaced = 0;
+	}
 
 	/* Set timing */
 	XVtc_SetGeneratorTiming(InstancePtr, &VideoTiming);

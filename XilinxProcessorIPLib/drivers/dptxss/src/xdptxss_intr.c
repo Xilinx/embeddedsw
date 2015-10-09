@@ -43,8 +43,10 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
+* ---- --- -------- ---------------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 08/07/15 Added new handler types: lane count, link rate,
+*                   Pre-emphasis voltage swing adjust and Set MSA.
 * </pre>
 *
 ******************************************************************************/
@@ -79,7 +81,7 @@
 * The application is responsible for connecting this function to the interrupt
 * system. Application beyond this driver is also responsible for providing
 * callbacks to handle interrupts and installing the callbacks using
-* XDptxss_SetCallBack() during initialization phase.
+* XDpTxSs_SetCallBack() during initialization phase.
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance that
 *		just interrupted.
@@ -108,10 +110,14 @@ void XDpTxSs_DpIntrHandler(void *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType                    Callback Function Type
-* ------------------------------ ---------------------------------------------
-* (XDPTXSS_HANDLER_DP_HPD_EVENT) XDp_TxSetHpdEventHandler
-* (XDPTXSS_HANDLER_DP_HPD_PULSE) XDp_TxSetHpdPulseHandler
+* HandlerType                         Callback Function Type
+* ----------------------------------- -------------------------------------
+* (XDPTXSS_HANDLER_DP_HPD_EVENT)      XDp_TxSetHpdEventHandler
+* (XDPTXSS_HANDLER_DP_HPD_PULSE)      XDp_TxSetHpdPulseHandler
+* (XDPTXSS_HANDLER_DP_LANE_COUNT_CHG) XDp_TxSetLaneCountChangeCallback
+* (XDPTXSS_HANDLER_DP_LINK_RATE_CHG)  XDp_TxSetLinkRateChangeCallback
+* (XDPTXSS_HANDLER_DP_PE_VS_ADJUST)   XDp_TxSetPeVsAdjustCallback
+* (XDPTXSS_HANDLER_DP_SET_MSA)        XDp_TxSetMsaHandler
 * </pre>
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
@@ -151,6 +157,30 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 		case XDPTXSS_HANDLER_DP_HPD_PULSE:
 			XDp_TxSetHpdPulseHandler(InstancePtr->DpPtr,
 				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_HANDLER_DP_LANE_COUNT_CHG:
+			XDp_TxSetLaneCountChangeCallback(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_HANDLER_DP_LINK_RATE_CHG:
+			XDp_TxSetLinkRateChangeCallback(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_HANDLER_DP_PE_VS_ADJUST:
+			XDp_TxSetPeVsAdjustCallback(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_HANDLER_DP_SET_MSA:
+			XDp_TxSetMsaHandler(InstancePtr->DpPtr, CallbackFunc,
+				CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 

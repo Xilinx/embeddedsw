@@ -27,6 +27,11 @@
 # Except as contained in this notice, the name of the Xilinx shall not be used
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
+#
+# MODIFICATION HISTORY:
+# Ver  Who Date     Changes
+# ---- --- -------- -----------------------------------------------------------
+# 1.00 sha 08/07/15 Added HDCP support to work with DP pass-through.
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -48,6 +53,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set sub_core_params(displayport) "BASEADDR S_AXI_ACLK LANE_COUNT LINK_RATE MAX_BITS_PER_COLOR QUAD_PIXEL_ENABLE DUAL_PIXEL_ENABLE YCRCB_ENABLE YONLY_ENABLE GT_DATAWIDTH SECONDARY_SUPPORT AUDIO_CHANNELS MST_ENABLE NUMBER_OF_MST_STREAMS PROTOCOL_SELECTION FLOW_DIRECTION"
 	set sub_core_params(v_tc) "BASEADDR"
 	set sub_core_params(v_dual_splitter) "BASEADDR ACTIVE_COLS ACTIVE_ROWS MAX_SEGMENTS AXIS_VIDEO_MAX_TDATA_WIDTH AXIS_VIDEO_MAX_ITDATASMPLS_PER_CLK AXIS_VIDEO_MAX_OTDATASMPLS_PER_CLK MAX_OVRLAP MAX_SMPL_WIDTH HAS_AXI4_LITE HAS_IRQ"
+	set sub_core_params(hdcp) "BASEADDR S_AXI_FREQUENCY IS_RX IS_HDMI"
 
 	set filename [file join "src" $file_name]
 	set config_file [open $filename w]
@@ -86,7 +92,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					}
 				}
 				if { $is_slave != 0 } {
-					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_present_g] \t1\n"
+					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_present_g]\t1\n"
 					if {$ip_name == "v_tc"} {
 						incr num_vtc
 					}

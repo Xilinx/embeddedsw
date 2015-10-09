@@ -41,10 +41,12 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
+* ---- --- -------- ---------------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
 *                   names with prefix XDpTxSs_*.
+* 1.00 sha 08/07/15 Added support for customized main stream attributes for
+*                   Single Steam Transport and Multi-Stream Transport.
 * </pre>
 *
 ******************************************************************************/
@@ -121,7 +123,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	Xil_AssertNonvoid((Bpc == XVIDC_BPC_8) || (Bpc == XVIDC_BPC_10) ||
 			(Bpc == XVIDC_BPC_12) || (Bpc == XVIDC_BPC_16));
 	Xil_AssertNonvoid((VidMode < XVIDC_VM_NUM_SUPPORTED) ||
-			(VidMode == XVIDC_VM_USE_EDID_PREFERRED));
+			(VidMode == XVIDC_VM_USE_EDID_PREFERRED) ||
+			(VidMode == XVIDC_VM_CUSTOM));
 
 	/* Check for MST / SST mode */
 	if (TransportMode) {
@@ -158,9 +161,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
-
-		/* Enable redriver on DP output path */
-		XDp_TxSetHasRedriverInPath(InstancePtr, 1);
 
 		/* Disable main stream to force sending of IDLE patterns. */
 		XDp_TxDisableMainLink(InstancePtr);
@@ -249,7 +249,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				XDp_TxTopologySortSinksByTiling(InstancePtr);
 			}
 		}
-		else {
+		else if (VidMode != XVIDC_VM_CUSTOM) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
 				"user set resolution.\n\r");
 
@@ -286,6 +286,10 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				/* Order sinks belongs to the same TDT */
 				XDp_TxTopologySortSinksByTiling(InstancePtr);
 			}
+		}
+		else {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
+				"custom set resolution.\n\r");
 		}
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:calculating "
@@ -346,27 +350,63 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				XDp_TxCfgMsaSetBpc(InstancePtr,
 					XDP_TX_STREAM_ID1 + StreamIndex, Bpc);
 
-				/* Enable sync clock mode for each stream */
-				XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
-					XDP_TX_STREAM_ID1 + StreamIndex, 1);
+				/* Check for video mode */
+				if (VidMode == XVIDC_VM_CUSTOM) {
+					/* Enable sync clock mode for each
+					 * stream
+					 */
+					XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
+						XDP_TX_STREAM_ID1 +
+						StreamIndex,
+					InstancePtr->TxInstance.MsaConfig[
+					StreamIndex].SynchronousClockMode);
 
-				/* Use standard video mode to calculate MSA */
-				XDp_TxCfgMsaUseStandardVideoMode(InstancePtr,
-					XDP_TX_STREAM_ID1 + StreamIndex,
-						VidMode);
+					/* Set user pixel width if video mode
+					 * is 1920 x 2160
+					 */
+					if ((InstancePtr->TxInstance.MsaConfig[
+						StreamIndex].Vtm.Timing.HActive
+							== 1920) &&
+					(InstancePtr->TxInstance.MsaConfig[
+						StreamIndex].Vtm.Timing.VActive
+							== 2160) &&
+					(InstancePtr->TxInstance.MsaConfig[
+					StreamIndex].OverrideUserPixelWidth
+								== 0)) {
+					InstancePtr->TxInstance.MsaConfig[
+						StreamIndex].UserPixelWidth =
+							4;
+					}
+				}
+				else {
+					/* Enable sync clock mode for each
+					 * stream
+					 */
+					XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
+						XDP_TX_STREAM_ID1 +
+							StreamIndex, 1);
 
-				/* Set user pixel width if video mode is
-				 * UHD2
-				 */
-				if ((InstancePtr->TxInstance.MsaConfig[
-					StreamIndex].Vtm.VmId ==
-						XVIDC_VM_UHD2_60_P) &&
+					/* Use standard video mode to calculate
+					 * MSA
+					 */
+					XDp_TxCfgMsaUseStandardVideoMode(
+						InstancePtr,
+						XDP_TX_STREAM_ID1 +
+						StreamIndex, VidMode);
+
+					/* Set user pixel width if video mode
+					 * is UHD2
+					 */
+					if ((InstancePtr->TxInstance.MsaConfig[
+						StreamIndex].Vtm.VmId ==
+							XVIDC_VM_UHD2_60_P) &&
 					(InstancePtr->TxInstance.MsaConfig[
 					StreamIndex].OverrideUserPixelWidth ==
 									0)) {
 					InstancePtr->TxInstance.MsaConfig[
 						StreamIndex].UserPixelWidth =
 									4;
+					}
 				}
 
 				/* Apply to hardware */
@@ -437,9 +477,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
 
-		/* Enable redriver on DP output path */
-		XDp_TxSetHasRedriverInPath(InstancePtr, 1);
-
 		/* Disable main stream to force sending of IDLE patterns. */
 		XDp_TxDisableMainLink(InstancePtr);
 
@@ -487,7 +524,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				VidMode = XVIDC_VM_640x480_60_P;
 			}
 		}
-		else {
+		else if (VidMode != XVIDC_VM_CUSTOM) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:Using "
 				"user set resolution.\n\r");
 
@@ -502,6 +539,10 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 					XVidC_GetVideoModeStr(VidMode));
 				VidMode = XVIDC_VM_640x480_60_P;
 			}
+		}
+		else {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:Using "
+				"custom set resolution.\n\r");
 		}
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:calculating "
@@ -535,12 +576,21 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		XDp_TxClearMsaValues(InstancePtr, XDP_TX_STREAM_ID3);
 		XDp_TxClearMsaValues(InstancePtr, XDP_TX_STREAM_ID4);
 
-		InstancePtr->TxInstance.MsaConfig[0].DynamicRange = 0;
-		InstancePtr->TxInstance.MsaConfig[0].YCbCrColorimetry = 0;
-
 		/* Enable sync clock mode */
-		XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
+		if (VidMode == XVIDC_VM_CUSTOM) {
+			XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
+				XDP_TX_STREAM_ID1,
+					InstancePtr->TxInstance.MsaConfig[
+						0].SynchronousClockMode);
+		}
+		else {
+			InstancePtr->TxInstance.MsaConfig[
+				0].DynamicRange = 0;
+			InstancePtr->TxInstance.MsaConfig[
+				0].YCbCrColorimetry = 0;
+			XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
 						XDP_TX_STREAM_ID1, 1);
+		}
 
 		/* Set user provided BPC to stream 1 */
 		XDp_TxCfgMsaSetBpc(InstancePtr, XDP_TX_STREAM_ID1, Bpc);
@@ -548,16 +598,30 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		/* Set user standard video mode for stream 1 to populate
 		 * MSA values
 		 */
-		XDp_TxCfgMsaUseStandardVideoMode(InstancePtr,
+		if (VidMode != XVIDC_VM_CUSTOM) {
+			XDp_TxCfgMsaUseStandardVideoMode(InstancePtr,
 					XDP_TX_STREAM_ID1, VidMode);
 
-		/* Set user pixel width if video mode is UHD2 */
-		if ((InstancePtr->TxInstance.MsaConfig[0].Vtm.VmId ==
-			XVIDC_VM_UHD2_60_P) &&
-			(InstancePtr->TxInstance.MsaConfig[
-				0].OverrideUserPixelWidth == 0)) {
-			InstancePtr->TxInstance.MsaConfig[
-				0].UserPixelWidth = 4;
+			/* Set user pixel width if video mode is UHD2 */
+			if ((InstancePtr->TxInstance.MsaConfig[0].Vtm.VmId ==
+				XVIDC_VM_UHD2_60_P) &&
+				(InstancePtr->TxInstance.MsaConfig[
+					0].OverrideUserPixelWidth == 0)) {
+					InstancePtr->TxInstance.MsaConfig[
+					0].UserPixelWidth = 4;
+			}
+		}
+		else {
+			/* Set user pixel width if video mode is 1920 x 2160 */
+			if ((InstancePtr->TxInstance.MsaConfig[
+				0].Vtm.Timing.HActive == 1920) &&
+				(InstancePtr->TxInstance.MsaConfig[
+					0].Vtm.Timing.VActive == 2160) &&
+				(InstancePtr->TxInstance.MsaConfig[
+					0].OverrideUserPixelWidth == 0)) {
+				InstancePtr->TxInstance.MsaConfig[
+					0].UserPixelWidth = 4;
+			}
 		}
 
 		/* Set video mode */
@@ -785,8 +849,18 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 	if ((MstCapable != XST_SUCCESS) ||
 				(InstancePtr->TxInstance.MstEnable == 0)) {
 		u32 TransferUnitSize = 64;
-		u32 VideoBw = (XVidC_GetPixelClockHzByVmId(VidMode) / 1000) *
-				BitsPerPixel / 8;
+		u32 VideoBw;
+
+		/* Check video mode */
+		if (VidMode != XVIDC_VM_CUSTOM){
+			VideoBw = (XVidC_GetPixelClockHzByVmId(VidMode) /
+					1000) * BitsPerPixel / 8;
+		}
+		else {
+			VideoBw = InstancePtr->TxInstance.MsaConfig[
+				0].PixelClockHz / 1000 * BitsPerPixel / 8;
+		}
+
 		u32 AvgBytesPerTU = (VideoBw * TransferUnitSize) / LinkBw;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS:INFO:Checking link "
@@ -821,8 +895,17 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 		u32 TsFrac;
 		u16 Pbn;
 
-		PeakPixelBw = ((double)XVidC_GetPixelClockHzByVmId(VidMode) /
+		if (VidMode != XVIDC_VM_CUSTOM){
+			PeakPixelBw =
+				((double)XVidC_GetPixelClockHzByVmId(VidMode) /
 					1000000) * ((double)BitsPerPixel / 8);
+		}
+		else {
+			PeakPixelBw =
+				((double)InstancePtr->TxInstance.MsaConfig[
+					0].PixelClockHz / 1000000) *
+					((double)BitsPerPixel / 8);
+		}
 
 		Pbn = 1.006 * PeakPixelBw * ((double)64 / 54);
 
