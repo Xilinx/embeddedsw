@@ -75,10 +75,12 @@
  * The timer/counter configuration table, sized by the number of instances
  * defined in xparameters.h.
  */
-XTmrCtr_Config XTmrCtr_ConfigTable[XPAR_XTMRCTR_NUM_INSTANCES] = {
+XTmrCtr_Config XTmrCtr_ConfigTable[] = {
+#if defined(XPAR_XTMRCTR_NUM_INSTANCES) && (XPAR_XTMRCTR_NUM_INSTANCES > 0)
 	{
-	 XPAR_TMRCTR_0_DEVICE_ID,	/* Device ID for instance */
-	 XPAR_TMRCTR_0_BASEADDR	/* Device base address */
-	 }
+		XPAR_TMRCTR_0_DEVICE_ID,
+		XPAR_TMRCTR_0_BASEADDR,
+	}
+#endif
 };
 /** @} */
