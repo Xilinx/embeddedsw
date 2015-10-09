@@ -57,6 +57,7 @@
 
 /******************************* Include Files ********************************/
 
+#include <string.h>
 #include "xdp.h"
 #if defined(__arm__)
 #include "sleep.h"
@@ -173,7 +174,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 	Xil_AssertVoid(ConfigPtr != NULL);
 	Xil_AssertVoid(EffectiveAddr != 0x0);
 
-	InstancePtr->IsReady = 0;
+	memset(InstancePtr, 0, sizeof(XDp));
 
 	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
