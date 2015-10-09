@@ -513,36 +513,6 @@ int XTmrCtr_IsExpired(XTmrCtr * InstancePtr, u8 TmrCtrNumber)
 		XTC_CSR_INT_OCCURED_MASK);
 }
 
-/*****************************************************************************
-*
-* Looks up the device configuration based on the unique device ID. The table
-* TmrCtrConfigTable contains the configuration info for each device in the
-* system.
-*
-* @param	DeviceId is the unique device ID to search for in the config
-*		table.
-*
-* @return	A pointer to the configuration that matches the given device ID,
-* 		or NULL if no match is found.
-*
-* @note		None.
-*
-******************************************************************************/
-XTmrCtr_Config *XTmrCtr_LookupConfig(u16 DeviceId)
-{
-	XTmrCtr_Config *CfgPtr = NULL;
-	int Index;
-
-	for (Index = 0; Index < XPAR_XTMRCTR_NUM_INSTANCES; Index++) {
-		if (XTmrCtr_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XTmrCtr_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-
 /*****************************************************************************/
 /**
 * Default callback for the driver does nothing. It matches the signature of the
