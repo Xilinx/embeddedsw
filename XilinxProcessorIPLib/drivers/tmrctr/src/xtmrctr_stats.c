@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr_stats.c
-* @addtogroup tmrctr_v3_0
+* @addtogroup tmrctr_v4_0
 * @{
 *
 * Contains function to get and clear statistics for the XTmrCtr component.

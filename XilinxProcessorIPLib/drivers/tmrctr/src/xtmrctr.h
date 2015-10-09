@@ -33,7 +33,7 @@
 /**
 *
 * @file xtmrctr.h
-* @addtogroup tmrctr_v3_0
+* @addtogroup tmrctr_v4_0
 * @{
 * @details
 *
