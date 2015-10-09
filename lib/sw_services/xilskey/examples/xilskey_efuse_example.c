@@ -157,6 +157,8 @@
 *                        done based on the platform and Modified example
 *                        to support both Zynq PL's eFuse and also Ultrascale's
 *                        eFuse.
+* 4.00  vns     09/10/15 Added DFT JTAG disable and DFT MODE disable
+*                        programming and reading options for Zynq eFuse PS.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -229,6 +231,8 @@
 #define XSK_EFUSEPS_STATUS_WP_BIT_HIGH	0x2000
 #define XSK_EFUSEPS_STATUS_RSA_EN		0x400
 #define XSK_EFUSEPS_STATUS_ROM_128_CRC	0x800
+#define XSK_EFUSEPS_STATUS_DFT_JTAG_DISABLE	0x200
+#define XSK_EFUSEPS_STATUS_DFT_MODE_DISABLE	0x100
 
 /*
  * PL efuse status bit definitions of Zynq
@@ -320,6 +324,21 @@ int main()
     }else {
 	xil_printf("EfusePS status bits : 128k CRC check on ROM disabled\n\r");
     }
+
+	if (PsStatusBits & XSK_EFUSEPS_STATUS_DFT_JTAG_DISABLE) {
+		xil_printf("EfusePS status bits : DFT JTAG is disabled\n\r");
+	}
+	else {
+	xil_printf("EfusePS status bits : DFT JTAG is enabled\n\r");
+	}
+
+	if (PsStatusBits & XSK_EFUSEPS_STATUS_DFT_MODE_DISABLE) {
+		xil_printf("EfusePS status bits : DFT mode is disabled\n\r");
+	}
+	else {
+		xil_printf("EfusePS status bits : DFT mode is enabled\n\r");
+	}
+
 
     /**
      * Write the PS eFUSE as defined in xilskeyinput.h
@@ -656,6 +675,8 @@ u32 XilSKey_EfusePs_InitData(XilSKey_EPs *PsInstancePtr)
 	PsInstancePtr->EnableRsaAuth = XSK_EFUSEPS_ENABLE_RSA_AUTH;
 	PsInstancePtr->EnableRom128Crc = XSK_EFUSEPS_ENABLE_ROM_128K_CRC;
 	PsInstancePtr->EnableRsaKeyHash = XSK_EFUSEPS_ENABLE_RSA_KEY_HASH;
+	PsInstancePtr->DisableDftJtag = XSK_EFUSEPS_DISABLE_DFT_JTAG;
+	PsInstancePtr->DisableDftMode = XSK_EFUSEPS_DISABLE_DFT_MODE;
 
 	if (PsInstancePtr->EnableRsaKeyHash == TRUE) {
 		/**

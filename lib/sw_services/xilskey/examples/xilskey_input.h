@@ -67,6 +67,14 @@
 *	TRUE will burn the ROM 128k crc bit. Every successive boot after this,
 *	BootROM will calculate 128k crc. FALSE will not modify the ROM CRC128K bit.
 *
+*	#define XSK_EFUSEPS_DISABLE_DFT_JTAG		FALSE
+*	TRUE will disable DFT JTAG permanently.
+*	FALSE will not modify the eFuse PS DFT JTAG disable bit
+*
+*	#define XSK_EFUSEPS_DISABLE_DFT_MODE		FALSE
+*	TRUE will disable DFT mode permanently.
+*	FALSE will not modify the eFuse PS DFT mode disable bit
+*
 *	#define XSK_EFUSEPS_ENABLE_RSA_KEY_HASH				FALSE
 *	TRUE will burn the eFUSE hash, that is given in XSK_EFUSEPS_RSA_KEY_HASH_VALUE
 *	when write API is used. TRUE will read the eFUSE hash when read API is used
@@ -378,6 +386,8 @@
 *                        to access Master Jtag primitive and also added
 *                        extra control bits and secure bits for Ultrascale's
 *                        eFuse.
+* 4.00  vns     09/10/15 Added DFT JTAG disable and DFT MODE disable programming
+*                        options for Zynq eFuse PS.
 *
 * </pre>
 *
@@ -648,6 +658,12 @@ extern "C" {
 											*/
 #define XSK_EFUSEPS_ENABLE_ROM_128K_CRC		FALSE /**< Enable the ROM
 											* code 128K crc  eFUSE Bit
+											*/
+#define XSK_EFUSEPS_DISABLE_DFT_JTAG		FALSE /**< DFT jtag
+											* Disable
+											*/
+#define XSK_EFUSEPS_DISABLE_DFT_MODE		FALSE /**< DFT mode
+											* Disable
 											*/
 #define XSK_EFUSEPS_ENABLE_RSA_KEY_HASH		FALSE /**< Enabling this
 											* RsaKeyHashValue[64] is
