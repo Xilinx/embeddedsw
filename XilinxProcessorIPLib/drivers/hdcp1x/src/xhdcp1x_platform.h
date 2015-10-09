@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_platform.h
-* @addtogroup hdcp1x_v1_0
+* @addtogroup hdcp1x_v2_0
 * @{
 *
 * This file provides the interface for the hdcp platform integration module
