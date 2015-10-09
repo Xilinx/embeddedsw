@@ -42,6 +42,7 @@
 * Ver   Who  	Date     Changes
 * ----- ---- 	-------- --------------------------------------------------------
 * 1.00a rpoolla 04/26/13 First release
+* 4.00  vns     09/10/15 Added DFT control bits addresses
  *
  *****************************************************************************/
 
@@ -263,6 +264,14 @@ extern "C" {
  */
 #define XSK_EFUSEPS_APB_RSA_AUTH_ENABLE_OFFSET 			(0x2C)
 /**
+ * eFUSE DFT JTAG disable
+ */
+#define XSK_EFUSEPS_APB_DFT_JTAG_DISABLE_OFFSET 			(0x30)
+/**
+ * eFUSE DFT mode disable
+ */
+#define XSK_EFUSEPS_APB_DFT_MODE_DISABLE_OFFSET 			(0x34)
+/**
  * eFUSE APB address for RSA uart status enable on MIO48 offset
  */
 #define XSK_EFUSEPS_APB_ROM_UART_STATUS_ENABLE_OFFSET 		(0x5C0)
@@ -365,6 +374,10 @@ extern "C" {
  * eFUSE APB address for RSA authentication enable
  */
 #define XSK_EFUSEPS_APB_RSA_AUTH_ENABLE 			(XSK_EFUSEPS_APB_START_ADDR + XSK_EFUSEPS_APB_RSA_AUTH_ENABLE_OFFSET)
+/* eFuse DFT JTAG disable */
+#define XSK_EFUSEPS_APB_DFT_JTAG_DISABLE				(XSK_EFUSEPS_APB_START_ADDR + XSK_EFUSEPS_APB_DFT_JTAG_DISABLE_OFFSET)
+/* eFuse DFT mode disable */
+#define XSK_EFUSEPS_APB_DFT_MODE_DISABLE				(XSK_EFUSEPS_APB_START_ADDR + XSK_EFUSEPS_APB_DFT_MODE_DISABLE_OFFSET)
 /*
  * eFUSE APB address for RSA uart status enable on MIO48
  */
