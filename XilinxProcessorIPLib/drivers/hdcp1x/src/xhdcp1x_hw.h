@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_hw.h
-* @addtogroup hdcp1x_v1_0
+* @addtogroup hdcp1x_v2_0
 * @{
 *
 * This header file contains identifiers and register-level core functions (or

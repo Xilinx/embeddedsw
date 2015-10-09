@@ -36,6 +36,6 @@ BEGIN driver hdcp1x
         OPTION supported_peripherals = (hdmi_tx_hdcp_cipher_4b hdmi_rx_hdcp_cipher_4b hdcp);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 1.0;
+        OPTION VERSION = 2.0;
         OPTION NAME = hdcp1x;
 END driver

@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x.c
-* @addtogroup hdcp1x_v1_0
+* @addtogroup hdcp1x_v2_0
 * @{
 *
 * This contains the implementation of the HDCP state machine module
@@ -44,6 +44,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 2.00  als    09/30/15 Added EffectiveAddr argument to XHdcp1x_CfgInitialize.
 * </pre>
 *
 ******************************************************************************/

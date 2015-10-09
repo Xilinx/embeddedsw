@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_cipher.h
-* @addtogroup hdcp1x_v1_0
+* @addtogroup hdcp1x_v2_0
 * @{
 *
 * This is the main header file for Xilinx HDCP Cipher core.
