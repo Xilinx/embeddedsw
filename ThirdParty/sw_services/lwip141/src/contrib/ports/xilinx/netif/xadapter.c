@@ -216,9 +216,7 @@ xemacif_input(struct netif *netif)
 	switch (emac->type) {
 		case xemac_type_xps_emaclite:
 #ifdef XLWIP_CONFIG_INCLUDE_EMACLITE
-			SYS_ARCH_PROTECT(lev);
 			n_packets = xemacliteif_input(netif);
-			SYS_ARCH_UNPROTECT(lev);
 			break;
 #else
 			print("incorrect configuration: xps_ethernetlite drivers not present?");
@@ -227,9 +225,7 @@ xemacif_input(struct netif *netif)
 #endif
 		case xemac_type_axi_ethernet:
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
-			SYS_ARCH_PROTECT(lev);
 			n_packets = xaxiemacif_input(netif);
-			SYS_ARCH_UNPROTECT(lev);
 			break;
 #else
 			print("incorrect configuration: axi_ethernet drivers not present?");
@@ -239,9 +235,7 @@ xemacif_input(struct netif *netif)
 #if defined (__arm__) || defined (__aarch64__)
 		case xemac_type_emacps:
 #ifdef XLWIP_CONFIG_INCLUDE_GEM
-			SYS_ARCH_PROTECT(lev);
 			n_packets = xemacpsif_input(netif);
-			SYS_ARCH_UNPROTECT(lev);
 			break;
 #else
 			xil_printf("incorrect configuration: ps7_ethernet drivers not present?\r\n");
