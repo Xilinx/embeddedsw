@@ -40,6 +40,7 @@
 #include "pm_common.h"
 #include "pm_callbacks.h"
 #include "ipi_buffer.h"
+#include "pm_mmio_access.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -482,10 +483,23 @@ static void PmGetApiVersion(const PmMaster *const master)
 static void PmMmioWrite(const PmMaster *const master, const u32 address,
 			const u32 mask, const u32 value)
 {
-	PmDbg("(0x%x, 0x%x, 0x%x)\n", address, mask, value);
+	int status;
+
+	PmDbg("(%s) addr=0x%lx, mask=0x%lx, value=0x%lx\n",
+	      PmStrNode(master->nid), address, mask, value);
+
+	/* Check access permissions */
+	if (false == PmGetMmioAccess(master, address)) {
+		PmDbg("(%s) ERROR: access denied for address 0x%lx\n",
+		      PmStrNode(master->nid), address);
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
 
 	XPfw_Write32(address, mask & value);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, XST_SUCCESS);
+	status = XST_SUCCESS;
+done:
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
@@ -498,13 +512,26 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
  */
 static void PmMmioRead(const PmMaster *const master, const u32 address)
 {
-	u32 value = XPfw_Read32(address);
+	int status;
+	u32 value;
 
-	PmDbg("addr=0x%x, value=0x%x\n", address, value);
+	/* Check access permissions */
+	if (false == PmGetMmioAccess(master, address)) {
+		PmDbg("(%s) ERROR: access denied for address 0x%lx\n",
+		      PmStrNode(master->nid), address);
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
 
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, XST_SUCCESS);
+	value = XPfw_Read32(address);
+	status = XST_SUCCESS;
 	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
 		     value);
+	PmDbg("(%s) addr=0x%lx, value=0x%lx\n", PmStrNode(master->nid),
+	      address, value);
+
+done:
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
