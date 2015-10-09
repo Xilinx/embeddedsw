@@ -236,6 +236,34 @@ void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
 
 /******************************************************************************/
 /**
+ * This function installs a callback function for when the main stream attribute
+ * (MSA) values are updated.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetMsaHandler(XDp *InstancePtr,
+                                XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+        Xil_AssertVoid(CallbackFunc != NULL);
+        Xil_AssertVoid(CallbackRef != NULL);
+
+        InstancePtr->TxInstance.TxSetMsaCallback = CallbackFunc;
+        InstancePtr->TxInstance.TxMsaCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
  * This function installs a callback function for when a video mode change
  * interrupt occurs.
  *
