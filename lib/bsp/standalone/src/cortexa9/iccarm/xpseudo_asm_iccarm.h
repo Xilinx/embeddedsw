@@ -44,6 +44,7 @@
 * ----- -------- -------- -----------------------------------------------
 * 1.00a ecm/sdm  10/28/09 First release
 * 3.12a asa		 11/02/13  Removed the macro mfcpsr to make it a function.
+* 5.3	pkp		 10/09/15 Modified dsb, dmb and isb definitions
 * </pre>
 *
 ******************************************************************************/
@@ -99,13 +100,13 @@ extern "C" {
 /* memory synchronization operations */
 
 /* Instruction Synchronization Barrier */
-#define isb() __asm volatile ("isb" : : : "memory")
+#define isb() void __ISB(void);
 
 /* Data Synchronization Barrier */
-#define dsb() __asm volatile ("dsb" : : : "memory")
+#define dsb() void __DSB(void);
 
 /* Data Memory Barrier */
-#define dmb() __asm volatile ("dmb" : : : "memory")
+#define dmb() void __DMB(void);
 
 
 /* Memory Operations */

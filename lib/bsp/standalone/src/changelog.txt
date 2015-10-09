@@ -246,4 +246,6 @@
  *		       defined for BSP) because XilOpenAMP library contains own file operation.
  *		       The xil-crt0.S file is modified for not initializing global timer for
  *		       OpenAMP application as it might be already in use by master CPU
+ * 5.3 pkp   10/09/15  Modified cortexa9/iccarm/xpseudo_asm_iccarm.h file to change function
+ *		       definition for dsb, isb and dmb to fix the compilation error when used
  *****************************************************************************************/
