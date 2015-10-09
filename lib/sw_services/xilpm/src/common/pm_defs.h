@@ -176,29 +176,14 @@ enum XPmOpCharType {
 	PM_OPCHAR_TYPE_TEMP,
 };
 
-/**
- * @PM_RET_SUCCESS:		success
- * @PM_RET_ERROR_ARGS:		illegal arguments provided
- * @PM_RET_ERROR_ACCESS:	access rights violation
- * @PM_RET_ERROR_TIMEOUT:	timeout in communication with PMU
- * @PM_RET_ERROR_NOTSUPPORTED:	feature not supported
- * @PM_RET_ERROR_PROC:		node is not a processor node
- * @PM_RET_ERROR_API_ID:	illegal API ID
- * @PM_RET_ERROR_OTHER:		other error
- */
-enum XPmStatus {
-	PM_RET_SUCCESS,
-	PM_RET_ERROR_ARGS,
-	PM_RET_ERROR_ACCESS,
-	PM_RET_ERROR_TIMEOUT,
-	PM_RET_ERROR_NOTSUPPORTED,
-	PM_RET_ERROR_PROC,
-	PM_RET_ERROR_API_ID,
-	PM_RET_ERROR_FAILURE,
-	PM_RET_ERROR_COMMUNIC,
-	PM_RET_ERROR_DOUBLEREQ,
-	PM_RET_ERROR_OTHER = 25,
-};
+/* Power management specific return error statuses - to be moved in xstatus.h */
+#define XST_PM_INTERNAL		2000L
+#define XST_PM_CONFLICT		2001L
+#define XST_PM_NO_ACCESS	2002L
+#define XST_PM_INVALID_NODE	2003L
+#define XST_PM_DOUBLE_REQ	2004L
+#define XST_PM_ABORT_SUSPEND	2005L
+#define XST_PM_TIMEOUT		2006L
 
 /**
  * @PM_INITIAL_BOOT:	boot is a fresh system startup

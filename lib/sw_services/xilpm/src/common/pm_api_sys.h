@@ -34,37 +34,38 @@
 #define _PM_API_SYS_H_
 
 #include <xil_types.h>
+#include <xstatus.h>
 #include "pm_defs.h"
 #include "pm_common.h"
 
 enum XPmBootStatus XPm_GetBootStatus();
 
 /* System-level API function declarations */
-enum XPmStatus XPm_RequestSuspend(const enum XPmNodeId node,
+XStatus XPm_RequestSuspend(const enum XPmNodeId node,
 				  const enum XPmRequestAck ack,
 				  const u32 latency,
 				  const u8 state);
 
-enum XPmStatus XPm_SelfSuspend(const enum XPmNodeId node,
+XStatus XPm_SelfSuspend(const enum XPmNodeId node,
 			       const u32 latency,
 			       const u8 state,
 			       const u64 address);
 
-enum XPmStatus XPm_ForcePowerDown(const enum XPmNodeId node,
+XStatus XPm_ForcePowerDown(const enum XPmNodeId node,
 				      const enum XPmRequestAck ack);
 
-enum XPmStatus XPm_AbortSuspend(const enum XPmAbortReason reason);
+XStatus XPm_AbortSuspend(const enum XPmAbortReason reason);
 
-enum XPmStatus XPm_RequestWakeUp(const enum XPmNodeId node,
+XStatus XPm_RequestWakeUp(const enum XPmNodeId node,
 				 const bool setAddress,
 				 const u64 address,
 				 const enum XPmRequestAck ack);
 
-enum XPmStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
+XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 					const enum XPmNodeId wkup_node,
 					const u8 enable);
 
-enum XPmStatus XPm_SystemShutdown(const u8 restart);
+XStatus XPm_SystemShutdown(const u8 restart);
 
 /* Callback API function */
 /**
@@ -92,7 +93,7 @@ struct pm_init_suspend {
 struct pm_acknowledge {
 	volatile bool received;
 	enum XPmNodeId node;
-	enum XPmStatus status;
+	XStatus status;
 	u32 opp;
 };
 
@@ -108,7 +109,7 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
 		       const u32 timeout);
 
 void XPm_AcknowledgeCb(const enum XPmNodeId node,
-		       const enum XPmStatus status,
+		       const XStatus status,
 		       const u32 oppoint);
 
 void XPm_NotifyCb(const enum XPmNodeId node,
@@ -116,28 +117,28 @@ void XPm_NotifyCb(const enum XPmNodeId node,
 		  const u32 oppoint);
 
 /* API functions for managing PM Slaves */
-enum XPmStatus XPm_RequestNode(const enum XPmNodeId node,
+XStatus XPm_RequestNode(const enum XPmNodeId node,
 			       const u32 capabilities,
 			       const u32 qos,
 			       const enum XPmRequestAck ack);
-enum XPmStatus XPm_ReleaseNode(const enum XPmNodeId node,
+XStatus XPm_ReleaseNode(const enum XPmNodeId node,
 				   const u32 latency);
-enum XPmStatus XPm_SetRequirement(const enum XPmNodeId node,
+XStatus XPm_SetRequirement(const enum XPmNodeId node,
 				      const u32 capabilities,
 				      const u32 qos,
 				      const enum XPmRequestAck ack);
-enum XPmStatus XPm_SetMaxLatency(const enum XPmNodeId node,
+XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 				      const u32 latency);
 
 /* Miscellaneous API functions */
-enum XPmStatus XPm_GetApiVersion(u32 *version);
+XStatus XPm_GetApiVersion(u32 *version);
 
-enum XPmStatus XPm_GetNodeStatus(const enum XPmNodeId node);
+XStatus XPm_GetNodeStatus(const enum XPmNodeId node);
 
 /* Direct-Control API functions */
-enum XPmStatus XPm_MmioWrite(const u32 address, const u32 mask,
+XStatus XPm_MmioWrite(const u32 address, const u32 mask,
 			     const u32 value);
 
-enum XPmStatus XPm_MmioRead(const u32 address, u32 *const value);
+XStatus XPm_MmioRead(const u32 address, u32 *const value);
 
 #endif /* _PM_API_SYS_H_ */
