@@ -1207,8 +1207,8 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 
 	if (GemVersion > 2) {
 
-		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 			/* GEM0 1G clock configuration*/
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL);
@@ -1217,9 +1217,12 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL) =
 									CrlApbClkCntrl;
+
+		}
 #endif
-		} else if (EmacPsIntrId == XPS_GEM1_INT_ID) {
 #ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+
 			/* GEM1 1G clock configuration*/
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL);
@@ -1228,9 +1231,11 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL) =
 									CrlApbClkCntrl;
+		}
 #endif
-		} else if (EmacPsIntrId == XPS_GEM2_INT_ID) {
 #ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM2_INT_ID) {
+
 			/* GEM1 1G clock configuration*/
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL);
@@ -1239,9 +1244,11 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL) =
 									CrlApbClkCntrl;
+
+		}
 #endif
-		} else if (EmacPsIntrId == XPS_GEM3_INT_ID) {
 #ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM3_INT_ID) {
 			/* GEM1 1G clock configuration*/
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL);
@@ -1250,7 +1257,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
 									CrlApbClkCntrl;
-#endif
 		}
+#endif
 	}
 }
