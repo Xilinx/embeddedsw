@@ -80,6 +80,7 @@ XTmrCtr_Config XTmrCtr_ConfigTable[] = {
 	{
 		XPAR_TMRCTR_0_DEVICE_ID,
 		XPAR_TMRCTR_0_BASEADDR,
+		XPAR_TMRCTR_0_CLOCK_FREQ_HZ,
 	}
 #endif
 };

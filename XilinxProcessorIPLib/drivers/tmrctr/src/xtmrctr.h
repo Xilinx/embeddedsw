@@ -211,8 +211,9 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
-	u16 DeviceId;	/**< Unique ID  of device */
-	u32 BaseAddress;/**< Register base address */
+	u16 DeviceId;		/**< Unique ID  of device */
+	u32 BaseAddress;	/**< Register base address */
+	u32 SysClockFreqHz;	/**< The AXI bus clock frequency */
 } XTmrCtr_Config;
 
 /**
