@@ -989,6 +989,8 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 	 * Note: XDP_TX_INTERRUPT_STATUS is an RC (read-clear) register. */
 	IntrStatus = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						XDP_TX_INTERRUPT_STATUS);
+	IntrStatus &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_TX_INTERRUPT_MASK);
 
 	HpdEventDetected = IntrStatus & XDP_TX_INTERRUPT_STATUS_HPD_EVENT_MASK;
 	HpdPulseDetected = IntrStatus &
