@@ -55,6 +55,12 @@
 #include "xparameters.h"
 #include "xtmrctr.h"
 
+/************************** Constant Definitions *****************************/
+
+#ifndef XPAR_XTMRCTR_NUM_INSTANCES
+#define XPAR_XTMRCTR_NUM_INSTANCES	0
+#endif
+
 /*************************** Variable Declarations ***************************/
 
 /* A table of configuration structures containing the configuration information
