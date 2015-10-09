@@ -131,12 +131,14 @@ static XStatus pm_ipi_send(const struct XPm_Master *const master,
 /**
  * pm_ipi_buff_read32() - Reads IPI response after PMU has handled interrupt
  * @master	Pointer to the master who is waiting and reading response
- * @value 	Used to return value from 2nd IPI buffer element (optional)
+ * @value1 	Used to return value from 2nd IPI buffer element (optional)
+ * @value2 	Used to return value from 3rd IPI buffer element (optional)
+ * @value3 	Used to return value from 4th IPI buffer element (optional)
  *
  * @return	Returns status, either success or error+reason
  */
 static XStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
-				  u32 *value)
+				  u32 *value1, u32 *value2, u32 *value3)
 {
 	u32 buffer_base = master->ipi->buffer_base
 		+ IPI_BUFFER_TARGET_PMU_OFFSET
@@ -153,12 +155,16 @@ static XStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
 	/*
 	 * Read response from IPI buffer
 	 * buf-0: success or error+reason
-	 * buf-1: value
-	 * buf-2: unused
-	 * buf-3: unused
+	 * buf-1: value1
+	 * buf-2: value2
+	 * buf-3: value3
 	 */
-	if (NULL != value)
-		*value = pm_read(buffer_base + PAYLOAD_ARG_SIZE);
+	if (NULL != value1)
+		*value1 = pm_read(buffer_base + PAYLOAD_ARG_SIZE);
+	if (NULL != value2)
+		*value2 = pm_read(buffer_base + PAYLOAD_ARG_SIZE * 2);
+	if (NULL != value3)
+		*value3 = pm_read(buffer_base + PAYLOAD_ARG_SIZE * 2);
 
 	return pm_read(buffer_base);
 }
@@ -208,7 +214,7 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 	if (XST_SUCCESS != ret)
 		return ret;
 	/* Wait for PMU to finish handling request */
-	return pm_ipi_buff_read32(master, NULL);
+	return pm_ipi_buff_read32(master, NULL, NULL, NULL);
 }
 
 /**
@@ -233,7 +239,7 @@ XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL);
+		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 	else
 		return ret;
 }
@@ -266,7 +272,7 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL);
+		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 	else
 		return ret;
 }
@@ -290,7 +296,7 @@ XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL);
+		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 	else
 		return ret;
 }
@@ -378,7 +384,7 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL);
+		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 	else
 		return ret;
 }
@@ -405,7 +411,7 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 	ret = pm_ipi_send(primary_master, payload);
 
 	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL);
+		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 	else
 		return ret;
 }
@@ -540,7 +546,7 @@ XStatus XPm_GetApiVersion(u32 *version)
 		return ret;
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, version);
+	return pm_ipi_buff_read32(primary_master, version, NULL, NULL);
 }
 
 
@@ -601,5 +607,5 @@ XStatus XPm_MmioRead(const u32 address, u32 *const value)
 		return status;
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, value);
+	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
 }
