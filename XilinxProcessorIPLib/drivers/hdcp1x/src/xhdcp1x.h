@@ -234,7 +234,7 @@ typedef int (*XHdcp1x_TimerDelay)(const XHdcp1x *InstancePtr, u16 DelayInMs);
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId);
 
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
-		void *PhyIfPtr);
+		void *PhyIfPtr, u32 EffectiveAddr);
 
 int XHdcp1x_SelfTest(XHdcp1x *InstancePtr);
 

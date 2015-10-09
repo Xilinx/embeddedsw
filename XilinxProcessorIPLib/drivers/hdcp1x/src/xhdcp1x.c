@@ -105,6 +105,9 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 * @param	InstancePtr is the device whose adaptor is to be determined.
 * @param	CfgPtr is the configuration of the instance.
 * @param	PhyIfPtr is pointer to the underlying physical interface.
+* @param	EffectiveAddr is the device base address in the virtual memory
+*		space. If the address translation is not used, then the physical
+*		address is passed.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -114,18 +117,33 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 *
 ******************************************************************************/
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
-		void *PhyIfPtr)
+		void *PhyIfPtr, u32 EffectiveAddr)
 {
 	int Status;
+	u32 RegVal;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
-	/* Initialize InstancePtr */
+	/* Initialize InstancePtr. */
 	memset(InstancePtr, 0, sizeof(XHdcp1x));
 	InstancePtr->Config = *CfgPtr;
+	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
+
+	/* Update IsRx. */
+	RegVal = XHdcp1x_ReadReg(EffectiveAddr, XHDCP1X_CIPHER_REG_TYPE);
+	RegVal &= XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION;
+	InstancePtr->Config.IsRx = (RegVal ==
+			XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX) ? TRUE : FALSE;
+
+	/* Update IsHDMI. */
+	RegVal = XHdcp1x_ReadReg(EffectiveAddr, XHDCP1X_CIPHER_REG_TYPE);
+	RegVal &= XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL;
+	InstancePtr->Config.IsHDMI = (RegVal ==
+			XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI) ? TRUE : FALSE;
+
 	InstancePtr->Port.Adaptor = XHdcp1x_PortDetermineAdaptor(InstancePtr);
 
 	/* Ensure existence of an adaptor initialization function. */
@@ -141,7 +159,7 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	/* Initialize the cipher core. */
 	XHdcp1x_CipherInit(InstancePtr);
 	/* Initialize the transmitter/receiver state machine. */
-	if (!CfgPtr->IsRx) {
+	if (!InstancePtr->Config.IsRx) {
 		XHdcp1x_TxInit(InstancePtr);
 	}
 	else {
