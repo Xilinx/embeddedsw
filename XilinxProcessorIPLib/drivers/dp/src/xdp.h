@@ -479,6 +479,8 @@ typedef struct {
 						as specified by the DisplayPort
 						1.2 specification. */
 	u32 NVid;			/**< N value for the video stream. */
+	u32 MVid;			/**< M value used to recover the video
+						clock from the link clock. */
 	u32 UserPixelWidth;		/**< The width of the user data input
 						port. */
 	u32 DataPerLane;		/**< Used to translate the number of
@@ -798,6 +800,11 @@ typedef struct {
 							sideband messages for
 							multi-stream transport
 							(MST) mode. */
+	XDp_IntrHandler TxSetMsaCallback;	/**< Callback function for
+							setting the TX MSA. */
+	void *TxMsaCallbackRef;			/**< A pointer to the user data
+							passed to the TX MSA
+							callback function. */
 	XDp_IntrHandler HpdEventHandler;	/**< Callback function for Hot-
 							Plug-Detect (HPD) event
 							interrupts. */
@@ -1132,6 +1139,8 @@ void XDp_InterruptHandler(XDp *InstancePtr);
 void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetMsaHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxGenerateHpdInterrupt(XDp *InstancePtr, u16 DurationUs);
 void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask);

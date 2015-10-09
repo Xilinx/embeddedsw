@@ -501,7 +501,7 @@ void XDp_TxCfgMsaUseCustom(XDp *InstancePtr, u8 Stream,
 
 	/* Copy the MSA values from the user configuration structure. */
 	MsaConfig->PixelClockHz = MsaConfigCustom->PixelClockHz;
-	MsaConfig->Vtm.VmId = XVIDC_VM_CUSTOM;
+	MsaConfig->Vtm.VmId = MsaConfigCustom->Vtm.VmId;
 	MsaConfig->Vtm.FrameRate = MsaConfigCustom->Vtm.FrameRate;
 	MsaConfig->Vtm.Timing.HActive =
 				MsaConfigCustom->Vtm.Timing.HActive;
@@ -769,43 +769,52 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 
 	/* Set the main stream attributes to the associated DisplayPort TX core
 	 * registers. */
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL +
+	if (InstancePtr->TxInstance.TxSetMsaCallback) {
+		/* Callback for MSA value updates. */
+		InstancePtr->TxInstance.TxSetMsaCallback(
+				InstancePtr->TxInstance.TxMsaCallbackRef);
+	}
+	else {
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL +
 			StreamOffset[Stream - 1], MsaConfig->Vtm.Timing.HTotal);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VTOTAL +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VTOTAL +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.F0PVTotal);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.HSyncPolarity |
 			(MsaConfig->Vtm.Timing.VSyncPolarity <<
 			XDP_TX_MAIN_STREAMX_POLARITY_VSYNC_POL_SHIFT));
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HSWIDTH +
-		StreamOffset[Stream - 1], MsaConfig->Vtm.Timing.HSyncWidth);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VSWIDTH +
-		StreamOffset[Stream - 1], MsaConfig->Vtm.Timing.F0PVSyncWidth);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HRES +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HSWIDTH +
+			StreamOffset[Stream - 1],
+			MsaConfig->Vtm.Timing.HSyncWidth);
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VSWIDTH +
+			StreamOffset[Stream - 1],
+			MsaConfig->Vtm.Timing.F0PVSyncWidth);
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HRES +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.HActive);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VRES +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VRES +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.VActive);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HSTART +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HSTART +
 			StreamOffset[Stream - 1], MsaConfig->HStart);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
 			StreamOffset[Stream - 1], MsaConfig->VStart);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
 			StreamOffset[Stream - 1], MsaConfig->Misc0);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
 			StreamOffset[Stream - 1], MsaConfig->Misc1);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_M_VID +
-			StreamOffset[Stream - 1],
-			MsaConfig->PixelClockHz / 1000);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_N_VID +
-			StreamOffset[Stream - 1], MsaConfig->NVid);
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_USER_PIXEL_WIDTH +
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_USER_PIXEL_WIDTH +
 			StreamOffset[Stream - 1], MsaConfig->UserPixelWidth);
+	}
+	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_M_VID +
+		StreamOffset[Stream - 1], MsaConfig->PixelClockHz / 1000);
+	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_N_VID +
+		StreamOffset[Stream - 1], MsaConfig->NVid);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_USER_DATA_COUNT_PER_LANE +
-			StreamOffset[Stream - 1], MsaConfig->DataPerLane);
+		StreamOffset[Stream - 1], MsaConfig->DataPerLane);
+
 	/* Disable the end of line reset to the internal video pipe in case of
 	 * 4K2K reduced blanking. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE,
