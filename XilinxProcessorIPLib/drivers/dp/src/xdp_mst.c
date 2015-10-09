@@ -1320,8 +1320,6 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
 	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
-		MstStream =
-			&InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
 		MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[StreamIndex];
 
