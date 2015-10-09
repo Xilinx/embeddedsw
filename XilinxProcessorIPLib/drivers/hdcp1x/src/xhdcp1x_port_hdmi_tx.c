@@ -52,12 +52,12 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if defined(XPAR_XHDMI_TX_NUM_INSTANCES) && (XPAR_XHDMI_TX_NUM_INSTANCES > 0)
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x_port.h"
 #include "xhdcp1x_port_hdmi.h"
-#include "xhdmi_tx.h"
+#include "xv_hdmitx.h"
 #include "xil_assert.h"
 #include "xil_types.h"
 
@@ -307,7 +307,7 @@ static int XHdcp1x_PortHdmiTxGetRepeaterInfo(const XHdcp1x *InstancePtr,
 static int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
-	XHdmi_Tx *HdmiTx = InstancePtr->Port.PhyIfPtr;
+	XV_HdmiTx *HdmiTx = InstancePtr->Port.PhyIfPtr;
 	u8 Slave = 0x3Au;
 	int NumRead = 0;
 	u8 *ReadBuf = Buf;
@@ -322,12 +322,12 @@ static int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 	}
 
 	/* Write the address and check for failure */
-	if (XHdmiTx_DdcWrite(HdmiTx, Slave, 1, &Offset, FALSE)
+	if (XV_HdmiTx_DdcWrite(HdmiTx, Slave, 1, &Offset, FALSE)
 			!= XST_SUCCESS) {
 		NumRead = -1;
 	}
 	/* Read the data back and check for failure */
-	else if (XHdmiTx_DdcRead(HdmiTx, Slave, BufSize, ReadBuf, TRUE)
+	else if (XV_HdmiTx_DdcRead(HdmiTx, Slave, BufSize, ReadBuf, TRUE)
 			!= XST_SUCCESS) {
 		NumRead = -2;
 	}
@@ -356,7 +356,7 @@ static int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 static int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
-	XHdmi_Tx *HdmiTx = InstancePtr->Port.PhyIfPtr;
+	XV_HdmiTx *HdmiTx = InstancePtr->Port.PhyIfPtr;
 	u8 Slave = 0x3Au;
 	u8 TxBuf[XHDCP1X_WRITE_CHUNK_SZ + 1];
 	int NumWritten = 0;
@@ -385,7 +385,7 @@ static int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		memcpy(&(TxBuf[1]), WriteBuf, ThisTime);
 
 		/* Write the TxBuf */
-		if (XHdmiTx_DdcWrite(HdmiTx, Slave, (ThisTime + 1), TxBuf, TRUE)
+		if (XV_HdmiTx_DdcWrite(HdmiTx, Slave, (ThisTime + 1), TxBuf, TRUE)
 				!= XST_SUCCESS) {
 			/* Update NumWritten and break */
 			NumWritten = -1;
@@ -421,5 +421,5 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiTxAdaptor =
 };
 
 #endif
-/* defined(XPAR_XHDMI_TX_NUM_INSTANCES) && (XPAR_XHDMI_TX_NUM_INSTANCES > 0) */
+/* defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0) */
 /** @} */
