@@ -47,7 +47,7 @@
 	pl[3] = (u32)arg3;						\
 	pl[4] = (u32)arg4;						\
 	pl[5] = (u32)arg5;						\
-	pm_dbg("%s(%d, %d, %d, %d, %d)\n", __func__, arg1, arg2, arg3, arg4, arg5);
+	pm_dbg("%s(%x, %x, %x, %x, %x)\n", __func__, arg1, arg2, arg3, arg4, arg5);
 
 #define PACK_PAYLOAD0(pl, api_id) \
 	PACK_PAYLOAD(pl, api_id, 0, 0, 0, 0, 0)
