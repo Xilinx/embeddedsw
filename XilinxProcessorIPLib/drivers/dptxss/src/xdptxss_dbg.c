@@ -45,6 +45,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
+* 1.00 sha 08/07/15 Updated register offsets in debug MSA info.
 * </pre>
 *
 ******************************************************************************/
@@ -494,22 +495,22 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 			"\tClocks, H Total      	(0x180) : %ld\n\r"
 			"\tClocks, V Total      	(0x184) : %ld\n\r"
 			"\tPolarity (V / H)     	(0x188) : %ld\n\r"
-			"\tHSync Width          	(0x180) : %ld\n\r"
-			"\tVSync Width          	(0x180) : %ld\n\r"
-			"\tHorz Resolution      	(0x180) : %ld\n\r"
-			"\tVert Resolution      	(0x180) : %ld\n\r"
-			"\tHorz Start           	(0x180) : %ld\n\r"
-			"\tVert Start           	(0x180) : %ld\n\r"
-			"\tMisc0                	(0x180) : 0x%08lX\n\r"
-			"\tMisc1                	(0x180) : 0x%08lX\n\r"
-			"\tUser Pixel Width     	(0x180) : %ld\n\r"
-			"\tM Vid                	(0x180) : %ld\n\r"
-			"\tN Vid                	(0x180) : %ld\n\r"
-			"\tTransfer Unit Size   	(0x180) : %ld\n\r"
-			"\tUser Data Count      	(0x180) : %ld\n\r"
-			"\tMinimum bytes per TU 	(0x180) : %ld\n\r"
-			"\tFractional bytes per TU	(0x180) : %ld\n\r"
-			"\tInit wait              	(0x180) : %ld\n\r",
+			"\tHSync Width          	(0x18C) : %ld\n\r"
+			"\tVSync Width          	(0x190) : %ld\n\r"
+			"\tHorz Resolution      	(0x194) : %ld\n\r"
+			"\tVert Resolution      	(0x198) : %ld\n\r"
+			"\tHorz Start           	(0x19C) : %ld\n\r"
+			"\tVert Start           	(0x1A0) : %ld\n\r"
+			"\tMisc0                	(0x1A4) : 0x%08lX\n\r"
+			"\tMisc1                	(0x1A8) : 0x%08lX\n\r"
+			"\tUser Pixel Width     	(0x1B8) : %ld\n\r"
+			"\tM Vid                	(0x1AC) : %ld\n\r"
+			"\tN Vid                	(0x1B4) : %ld\n\r"
+			"\tTransfer Unit Size   	(0x1B0) : %ld\n\r"
+			"\tUser Data Count      	(0x1BC) : %ld\n\r"
+			"\tMinimum bytes per TU 	(0x1C4) : %ld\n\r"
+			"\tFractional bytes per TU	(0x1C8) : %ld\n\r"
+			"\tInit wait              	(0x1CC) : %ld\n\r",
 		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL),
 		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VTOTAL),
 		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY),

@@ -45,9 +45,11 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
+* ---- --- -------- ---------------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Renamed sub-cores functions with prefix XDpTxSs_*
+* 1.00 sha 08/07/15 Added support for customized main stream attributes.
+*                   Added HDCP instance into global sub-cores structure.
 * </pre>
 *
 ******************************************************************************/
@@ -56,6 +58,7 @@
 
 #include "xdptxss.h"
 #include "string.h"
+#include "math.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -70,6 +73,9 @@ typedef struct {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter DsInst;
 #endif
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x Hdcp1xInst;
+#endif
 	XDp DpInst;
 	XVtc VtcInst[XDPTXSS_NUM_STREAMS];
 } XDpTxSs_SubCores;
@@ -77,6 +83,9 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr);
+static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream);
+static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr);
+static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -162,12 +171,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		DpConfig.BaseAddr += InstancePtr->Config.BaseAddress;
 		XDp_CfgInitialize(InstancePtr->DpPtr, &DpConfig,
 				DpConfig.BaseAddr);
-		Status = XDp_Initialize(InstancePtr->DpPtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: DP TX "
-				"initialization failed!\n\r");
-			return XST_FAILURE;
-		}
 
 		/* Initialize user configurable parameters */
 		InstancePtr->UsrOpt.VmId = XVIDC_VM_USE_EDID_PREFERRED;
@@ -231,10 +234,15 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		}
 	}
 
-	/* Reset the hardware and set the flag to indicate the
-	 * subsystem is ready
-	 */
-	XDpTxSs_Reset(InstancePtr);
+	/* Initialize DP */
+	Status = XDp_Initialize(InstancePtr->DpPtr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: DP TX initialization "
+			"failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Set the flag to indicate the subsystem is ready */
 	InstancePtr->IsReady = (u32)XIL_COMPONENT_IS_READY;
 
 	return XST_SUCCESS;
@@ -300,59 +308,16 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 {
 	u32 Status;
-	u32 Index;
-	u8 SinkTotal;
-#if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
-	u8 VertSplit;
-#endif
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((InstancePtr->UsrOpt.MstSupport == 0) ||
 				(InstancePtr->UsrOpt.MstSupport == 1));
 
-	/* Check for downstream device connected */
-	if (!XDp_TxIsConnected(InstancePtr->DpPtr)) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: RX device "
-				"is not connected!\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Check RX device is MST capable */
-	Status = XDp_TxMstCapable(InstancePtr->DpPtr);
-	if ((Status == XST_SUCCESS) && (InstancePtr->Config.MstSupport)) {
-		if (InstancePtr->UsrOpt.MstSupport <
-					InstancePtr->Config.MstSupport) {
-			/* Enable SST mode when RX is MST */
-			InstancePtr->UsrOpt.MstSupport = 0;
-
-			/* set maximum number of streams to one */
-			InstancePtr->UsrOpt.NumOfStreams = 1;
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Setting "
-				"to SST even though RX device is with MST "
-					"capable!\n\r");
-		}
-		else {
-			/* Enable MST mode */
-			InstancePtr->UsrOpt.MstSupport =
-					InstancePtr->Config.MstSupport;
-
-			/* Restore maximum number of supported streams */
-			InstancePtr->UsrOpt.NumOfStreams =
-					InstancePtr->Config.NumMstStreams;
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: RX device "
-					"is with MST capable!\n\r");
-		}
-	}
-	else {
-		/* Enable SST mode */
-		InstancePtr->UsrOpt.MstSupport = 0;
-
-		/* set maximum number of streams to one */
-		InstancePtr->UsrOpt.NumOfStreams = 1;
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: RX device "
-			"is with SST capable. OR Design supports only SST "
-				"mode.\n\r");
+	/* Check RX device in MST/SST */
+	Status = DpTxSs_CheckRxDeviceMode(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
 	}
 
 	/* Start DisplayPort sub-core configuration */
@@ -371,53 +336,84 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 	InstancePtr->UsrOpt.VmId =
 			InstancePtr->DpPtr->TxInstance.MsaConfig[0].Vtm.VmId;
 
-	/* Set number of stream to number of sinks found. Make sure that sink
-	 * total does not exceed total number supported streams in by Subsystem
-	 * configuration.
-	 */
-	if (InstancePtr->UsrOpt.MstSupport) {
-		SinkTotal = InstancePtr->DpPtr->TxInstance.Topology.SinkTotal;
-		InstancePtr->UsrOpt.NumOfStreams =
-		(SinkTotal > InstancePtr->UsrOpt.NumOfStreams)?
-			InstancePtr->UsrOpt.NumOfStreams:SinkTotal;
+	/* Setup subsystem sub-cores */
+	Status = DpTxSs_SetupSubCores(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
 	}
 
-#if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
-	if (InstancePtr->DsPtr) {
-		/* Check video mode and MST support */
-		if ((InstancePtr->UsrOpt.VmId == XVIDC_VM_UHD2_60_P)
-				&& (InstancePtr->UsrOpt.MstSupport)) {
+	return XST_SUCCESS;
+}
 
-			/* Vertical split mode */
-			VertSplit = (TRUE);
-		}
-		else {
-			/* Bypass mode */
-			VertSplit = (FALSE);
-		}
+/*****************************************************************************/
+/**
+*
+* This function starts the DisplayPort Transmitter Subsystem with custom
+* multi-stream attributes (MSA)including all sub-cores.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	MsaConfigCustom is the structure that will be used to copy the
+*		main stream attributes from (into
+*		InstancePtr->DpPtr->TxInstance.MsaConfig).
+*
+* @return
+*		- XST_SUCCESS, if DP TX Subsystem and its included sub-cores
+*		configured successfully.
+*		- XST_FAILURE, otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
+				XDpTxSs_MainStreamAttributes *MsaConfigCustom)
+{
+	u32 Status;
+	u8 Index;
 
-		/* Setup Dual Splitter in either bypass/vertical split mode */
-		Status = XDpTxSs_DsSetup(InstancePtr->DsPtr, VertSplit,
-				&InstancePtr->DpPtr->TxInstance.MsaConfig[0]);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: DS start "
-				"failed!\n\r");
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((InstancePtr->UsrOpt.MstSupport == 0) ||
+				(InstancePtr->UsrOpt.MstSupport == 1));
+	Xil_AssertNonvoid(MsaConfigCustom != NULL);
+
+	/* Check RX device in MST/SST */
+	Status = DpTxSs_CheckRxDeviceMode(InstancePtr);
+	if (Status != XST_SUCCESS) {
 			return Status;
-		}
 	}
-#endif
 
-	/* Setup VTC */
-	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
-		if (InstancePtr->VtcPtr[Index]) {
-			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
-			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
-			if (Status != XST_SUCCESS) {
-				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
-					"VTC%d setup failed!\n\r", Index);
-				return Status;
-			}
-		}
+	/* Clear MSA values */
+	(void)memset((void *)InstancePtr->DpPtr->TxInstance.MsaConfig, 0,
+		InstancePtr->UsrOpt.NumOfStreams *
+			sizeof(XDpTxSs_MainStreamAttributes));
+
+	/* Copy user provided MSA values */
+	(void)memcpy((void *)InstancePtr->DpPtr->TxInstance.MsaConfig,
+		(const void *)MsaConfigCustom,
+			InstancePtr->UsrOpt.NumOfStreams *
+				sizeof(XDpTxSs_MainStreamAttributes));
+
+	/* Calculate required MSA values from user provided MSA values */
+	for (Index = 1; Index <= InstancePtr->UsrOpt.NumOfStreams; Index ++) {
+		DpTxSs_CalculateMsa(InstancePtr, Index);
+	}
+
+	/* Start DisplayPort sub-core configuration */
+	Status = XDpTxSs_DpTxStart(InstancePtr->DpPtr,
+			InstancePtr->UsrOpt.MstSupport,
+				InstancePtr->UsrOpt.Bpc,
+					InstancePtr->UsrOpt.VmId);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: DP custom start "
+			"failed in %s!\n\r",
+				InstancePtr->UsrOpt.MstSupport?"MST":"SST");
+		return Status;
+	}
+
+	/* Setup subsystem sub-cores */
+	Status = DpTxSs_SetupSubCores(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
 	}
 
 	return XST_SUCCESS;
@@ -893,6 +889,34 @@ u32 XDpTxSs_IsMstCapable(XDpTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function sets software switch that specify whether or not a redriver
+* exits on the DisplayPort output path.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	Set establishes that a redriver exists in the DisplayPort output
+*		path.
+*		1 = Set redriver in the DisplayPort output path.
+*		0 = Unset redriver in the DisplayPort output path.
+*
+* @return	None.
+*
+* @note		Set the redriver in the DisplayPort output path before
+*		starting the training.
+*
+******************************************************************************/
+void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Set == 1) || (Set == 0));
+
+	/* Set redriver in the DisplayPort output path */
+	XDp_TxSetHasRedriverInPath(InstancePtr->DpPtr, Set);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function reports list of cores included in DisplayPort TX Subsystem.
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
@@ -923,5 +947,251 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr)
 			((InstancePtr->Config.VtcSubCore[Index].IsPresent)?
 				(&DpTxSsSubCores.VtcInst[Index]): NULL);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function computes multi-stream attribute and populates frame rate,
+* pixel clock and so on.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	Stream is the stream number for which the MSA values will be
+*		computed for.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
+{
+	XDpTxSs_MainStreamAttributes *MsaConfig;
+	XVidC_VideoMode VidMode;
+	double FrameClk;
+	u32 FrameRate;
+	u32 ClkFreq;
+	u8 LinkRate;
+
+	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[Stream - 1];
+	LinkRate = InstancePtr->DpPtr->TxInstance.LinkConfig.LinkRate;
+
+	/*Calculate pixel clock in HZ */
+	ClkFreq = (LinkRate * 27 * MsaConfig->MVid) / MsaConfig->NVid;
+	MsaConfig->PixelClockHz = ((u32)ClkFreq) * 1000000;
+
+	/*Calculate frame rate */
+	FrameClk = ceil((ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
+				MsaConfig->Vtm.Timing.F0PVTotal));
+	FrameRate = (u32)FrameClk;
+
+	/* Round of frame rate */
+	if ((FrameRate == 59) || (FrameRate == 61)) {
+		FrameRate = 60;
+	}
+	else if ((FrameRate == 29) || (FrameRate == 31)) {
+		FrameRate = 30;
+	}
+	else if ((FrameRate == 76) || (FrameRate == 74)) {
+		FrameRate = 75;
+	}
+	MsaConfig->Vtm.FrameRate = FrameRate;
+
+	/* Calculate horizontal front porch */
+	MsaConfig->Vtm.Timing.HFrontPorch = MsaConfig->Vtm.Timing.HTotal -
+			MsaConfig->HStart - MsaConfig->Vtm.Timing.HActive;
+
+	/* Calculate horizontal back porch */
+	MsaConfig->Vtm.Timing.HBackPorch = MsaConfig->HStart -
+			MsaConfig->Vtm.Timing.HSyncWidth;
+
+	/* Calculate vertical frame zero front porch */
+	MsaConfig->Vtm.Timing.F0PVFrontPorch =
+		MsaConfig->Vtm.Timing.F0PVTotal - MsaConfig->VStart -
+			MsaConfig->Vtm.Timing.VActive;
+
+	/* Calculate vertical frame zero back porch */
+	MsaConfig->Vtm.Timing.F0PVBackPorch = MsaConfig->VStart -
+			MsaConfig->Vtm.Timing.F0PVSyncWidth;
+
+	/* Set frame 1 parameters */
+	MsaConfig->Vtm.Timing.F1VFrontPorch = 0;
+	MsaConfig->Vtm.Timing.F1VSyncWidth = 0;
+	MsaConfig->Vtm.Timing.F1VBackPorch = 0;
+	MsaConfig->Vtm.Timing.F1VTotal = 0;
+
+	/* Check video mode is present in video common library */
+	VidMode = XVidC_GetVideoModeId(MsaConfig->Vtm.Timing.HActive,
+			MsaConfig->Vtm.Timing.VActive,
+				MsaConfig->Vtm.FrameRate,
+					XVIDC_VF_PROGRESSIVE);
+	if (VidMode == XVIDC_VM_NOT_SUPPORTED) {
+		MsaConfig->Vtm.VmId = XVIDC_VM_CUSTOM;
+		InstancePtr->UsrOpt.VmId = XVIDC_VM_CUSTOM;
+	}
+	else {
+		MsaConfig->Vtm.VmId = XVIDC_VM_CUSTOM;
+		InstancePtr->UsrOpt.VmId = XVIDC_VM_CUSTOM;
+	}
+
+	/* Set bits per color */
+	InstancePtr->UsrOpt.Bpc = MsaConfig->BitsPerColor;
+
+	/* Use custom MSA */
+	XDp_TxCfgMsaUseCustom(InstancePtr->DpPtr, Stream, MsaConfig, TRUE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function checks whether RX device in multi-stream (MST) / Single Stream
+* transport mode.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- XST_FAILURE if DisplayPort TX initialization failed or RX
+*		device is not connected.
+*		- XST_SUCCESS if RX device check is successful.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Check for downstream device connected */
+	if (!XDp_TxIsConnected(InstancePtr->DpPtr)) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: RX device "
+				"is not connected!\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Check RX device is MST capable */
+	Status = XDp_TxMstCapable(InstancePtr->DpPtr);
+	if ((Status == XST_SUCCESS) && (InstancePtr->Config.MstSupport)) {
+		if (InstancePtr->UsrOpt.MstSupport <
+					InstancePtr->Config.MstSupport) {
+			/* Enable SST mode when RX is MST */
+			InstancePtr->UsrOpt.MstSupport = 0;
+
+			/* set maximum number of streams to one */
+			InstancePtr->UsrOpt.NumOfStreams = 1;
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Setting "
+				"to SST even though RX device is with MST "
+					"capable!\n\r");
+		}
+		else {
+			/* Enable MST mode */
+			InstancePtr->UsrOpt.MstSupport =
+					InstancePtr->Config.MstSupport;
+
+			/* Restore maximum number of supported streams */
+			InstancePtr->UsrOpt.NumOfStreams =
+					InstancePtr->Config.NumMstStreams;
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: RX device "
+					"is with MST capable!\n\r");
+		}
+	}
+	else {
+		/* Enable SST mode */
+		InstancePtr->UsrOpt.MstSupport = 0;
+
+		/* set maximum number of streams to one */
+		InstancePtr->UsrOpt.NumOfStreams = 1;
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: RX device "
+			"is with SST capable. OR Design supports only SST "
+				"mode.\n\r");
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures DisplayPort TX subsystem sub-cores.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- XST_FAILURE if all sub-cores configuration failed.
+*		- XST_SUCCESS if all sub-cores configuration was successful.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+	u32 Index;
+	u8 SinkTotal;
+#if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
+	u8 VertSplit;
+#endif
+	/* Set number of stream to number of sinks found. Make sure that sink
+	 * total does not exceed total number supported streams in by Subsystem
+	 * configuration.
+	 */
+	if (InstancePtr->UsrOpt.MstSupport) {
+		SinkTotal = InstancePtr->DpPtr->TxInstance.Topology.SinkTotal;
+		InstancePtr->UsrOpt.NumOfStreams =
+		(SinkTotal > InstancePtr->UsrOpt.NumOfStreams)?
+			InstancePtr->UsrOpt.NumOfStreams:SinkTotal;
+	}
+
+#if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
+	if (InstancePtr->DsPtr) {
+		/* Check video mode and MST support */
+		if (InstancePtr->UsrOpt.MstSupport) {
+			if ((InstancePtr->UsrOpt.VmId == XVIDC_VM_UHD2_60_P)) {
+				/* Vertical split mode */
+				VertSplit = (TRUE);
+			}
+			else if ((InstancePtr->UsrOpt.VmId ==
+				XVIDC_VM_CUSTOM) &&
+				(InstancePtr->DpPtr->TxInstance.MsaConfig[
+				0].Vtm.Timing.HActive == 1920) &&
+				(InstancePtr->DpPtr->TxInstance.MsaConfig[
+					0].Vtm.Timing.VActive == 2160)) {
+				/* Vertical split mode */
+				VertSplit = (TRUE);
+			}
+			else {
+				/* Bypass mode */
+				VertSplit = FALSE;
+			}
+		}
+		else {
+			/* Bypass mode */
+			VertSplit = FALSE;
+		}
+
+		/* Setup Dual Splitter in either bypass/vertical split mode */
+		Status = XDpTxSs_DsSetup(InstancePtr->DsPtr, VertSplit,
+				&InstancePtr->DpPtr->TxInstance.MsaConfig[0]);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: DS start "
+				"failed!\n\r");
+			return Status;
+		}
+	}
+#endif
+
+	/* Setup VTC */
+	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
+		if (InstancePtr->VtcPtr[Index]) {
+			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
+			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+					"VTC%d setup failed!\n\r", Index);
+				return Status;
+			}
+		}
+	}
+
+	return XST_SUCCESS;
 }
 /** @} */

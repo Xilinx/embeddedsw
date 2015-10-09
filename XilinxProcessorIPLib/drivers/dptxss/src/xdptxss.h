@@ -91,9 +91,14 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
+* ---- --- -------- ---------------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Included renamed sub-cores header files.
+* 1.00 sha 08/07/15 Added new handler types: lane count, link rate,
+*                   pre-emphasis voltage swing adjust and set MSA.
+*                   Added support for customized main stream attributes.
+*                   Added function: XDpTxSs_SetHasRedriverInPath.
+*                   Added HDCP support data structure.
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +121,7 @@ extern "C" {
 /* Subsystem sub-cores header files */
 #include "xdptxss_dptx.h"
 #include "xdptxss_dualsplitter.h"
+#include "xdptxss_hdcp1x.h"
 #include "xdptxss_vtc.h"
 
 /************************** Constant Definitions *****************************/
@@ -131,9 +137,22 @@ typedef enum {
 	XDPTXSS_HANDLER_DP_HPD_EVENT = 1,	/**< A HPD event interrupt
 						  *  type for DisplayPort
 						  *  core */
-	XDPTXSS_HANDLER_DP_HPD_PULSE		/**< A HPD pulse interrupt
+	XDPTXSS_HANDLER_DP_HPD_PULSE,		/**< A HPD pulse interrupt
 						  *  type for DisplayPort
 						  *  core */
+	XDPTXSS_HANDLER_DP_LANE_COUNT_CHG,	/**< Lane count change
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPTXSS_HANDLER_DP_LINK_RATE_CHG,	/**< Link rate change
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPTXSS_HANDLER_DP_PE_VS_ADJUST,	/**< Pre-emphasis and voltage
+						  *  swing change interrupt
+						  *  type for DisplayPort
+						  *  core */
+	XDPTXSS_HANDLER_DP_SET_MSA		/**< Set MSA immediate change
+						  *  change interrupt type for
+						  *  DisplayPort core */
 } XDpTxSs_HandlerType;
 
 /**
@@ -177,6 +196,17 @@ typedef struct {
 				  *  information */
 } XDpTxSs_DpSubCore;
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+/**
+* High-Bandwidth Content Protection (HDCP) Sub-core structure.
+*/
+typedef struct {
+	u16 IsPresent;		/**< Flag to hold the presence of HDCP core */
+	XHdcp1x_Config Hdcp1xConfig;	/**< HDCP core configuration
+					  *  information */
+} XDpTxSs_Hdcp1xSubCore;
+#endif
+
 /**
 * This typedef contains configuration information for the DisplayPort
 * Transmitter Subsystem core. Each DisplayPort TX Subsystem core should have
@@ -200,6 +230,9 @@ typedef struct {
 	u8 NumMstStreams;	/**< The total number of MST streams supported
 				  *  by this core instance. */
 	XDpTxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XDpTxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
+#endif
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDpTxSs_DsSubCore DsSubCore;	/**< Dual Splitter Configuration */
 #endif
@@ -220,6 +253,9 @@ typedef struct {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter *DsPtr;		/**< Dual Splitter sub-core instance */
 #endif
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
+#endif
 	XDp *DpPtr;			/**< DisplayPort sub-core instance */
 	XVtc *VtcPtr[XDPTXSS_NUM_STREAMS];/**< Maximum number of VTC sub-core
 					  *  instances */
@@ -234,6 +270,11 @@ typedef struct {
 */
 #define XDpTxSs_TimerHandler		XDp_TimerHandler
 
+/**
+* Main-Stream attributes.
+*/
+#define XDpTxSs_MainStreamAttributes	XDp_TxMainStreamAttributes
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xdptxss_sinit.c */
@@ -243,6 +284,8 @@ XDpTxSs_Config* XDpTxSs_LookupConfig(u16 DeviceId);
 u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 				u32 EffectiveAddr);
 u32 XDpTxSs_Start(XDpTxSs *InstancePtr);
+u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
+		XDpTxSs_MainStreamAttributes *MsaConfigCustom);
 void XDpTxSs_Stop(XDpTxSs *InstancePtr);
 void XDpTxSs_Reset(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc);
@@ -256,6 +299,7 @@ u32 XDpTxSs_IsMstCapable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_GetRxCapabilities(XDpTxSs *InstancePtr);
 u32 XDpTxSs_GetEdid(XDpTxSs *InstancePtr, u8 *Edid);
 u32 XDpTxSs_GetRemoteEdid(XDpTxSs *InstancePtr, u8 SinkNum, u8 *Edid);
+void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set);
 
 void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr);
