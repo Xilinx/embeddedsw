@@ -52,12 +52,12 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0)
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x_port.h"
 #include "xhdcp1x_port_hdmi.h"
-#include "xhdmi_rx.h"
+#include "xv_hdmirx.h"
 #include "xil_assert.h"
 #include "xil_types.h"
 
@@ -97,7 +97,7 @@ static void XHdcp1x_ProcessAKsvWrite(void *CallbackRef);
 ******************************************************************************/
 static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 {
-	XHdmi_Rx *HdmiRx = NULL;
+	XV_HdmiRx *HdmiRx = NULL;
 	u8 Buf[4];
 	int Status = XST_SUCCESS;
 
@@ -128,7 +128,7 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_DBG, Buf, 4);
 
 	/* Bind for interrupt callback */
-	XHdmiRx_SetCallback(HdmiRx, XHDMI_RX_HANDLER_HDCP,
+	XV_HdmiRx_SetCallback(HdmiRx, XV_HDMIRX_HANDLER_HDCP,
 			XHdcp1x_ProcessAKsvWrite, InstancePtr);
 
 	return (Status);
@@ -161,12 +161,12 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 
 	/* Determine HdmiRxBase */
 	HdmiRxBase =
-		((XHdmi_Rx *)InstancePtr->Port.PhyIfPtr)->Config.BaseAddress;
+		((XV_HdmiRx *)InstancePtr->Port.PhyIfPtr)->Config.BaseAddress;
 
 	/* Disable the hdcp ddc slave */
-	RegValue = XHdmiRx_ReadReg(HdmiRxBase, XHDMI_RX_DDC_CTRL_SET_OFFSET);
-	RegValue &= ~XHDMI_RX_DDC_CTRL_HDCP_EN_MASK;
-	XHdmiRx_WriteReg(HdmiRxBase, XHDMI_RX_DDC_CTRL_SET_OFFSET, RegValue);
+	RegValue = XV_HdmiRx_ReadReg(HdmiRxBase, XV_HDMIRX_DDC_CTRL_SET_OFFSET);
+	RegValue &= ~XV_HDMIRX_DDC_CTRL_HDCP_EN_MASK;
+	XV_HdmiRx_WriteReg(HdmiRxBase, XV_HDMIRX_DDC_CTRL_SET_OFFSET, RegValue);
 
 	/* Clear the hdcp registers */
 	Value = 0;
@@ -226,7 +226,7 @@ static int XHdcp1x_PortHdmiRxInit(XHdcp1x *InstancePtr)
 static int XHdcp1x_PortHdmiRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
-	XHdmi_Rx *HdmiRx = InstancePtr->Port.PhyIfPtr;
+	XV_HdmiRx *HdmiRx = InstancePtr->Port.PhyIfPtr;
 	u32 NumLeft = BufSize;
 	u8 *ReadBuf = Buf;
 
@@ -240,11 +240,11 @@ static int XHdcp1x_PortHdmiRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 	}
 
 	/* Write the offset */
-	XHdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
+	XV_HdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
 
 	/* Read the buffer */
 	while (NumLeft-- > 0) {
-		*ReadBuf++ = XHdmiRx_DdcHdcpReadData(HdmiRx);
+		*ReadBuf++ = XV_HdmiRx_DdcHdcpReadData(HdmiRx);
 	}
 
 	return ((int)BufSize);
@@ -267,7 +267,7 @@ static int XHdcp1x_PortHdmiRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 static int XHdcp1x_PortHdmiRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
-	XHdmi_Rx *HdmiRx = InstancePtr->Port.PhyIfPtr;
+	XV_HdmiRx *HdmiRx = InstancePtr->Port.PhyIfPtr;
 	u32 NumLeft = BufSize;
 	const u8 *WriteBuf = Buf;
 
@@ -281,11 +281,11 @@ static int XHdcp1x_PortHdmiRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 	}
 
 	/* Write the offset */
-	XHdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
+	XV_HdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
 
 	/* Write the buffer */
 	while (NumLeft-- > 0) {
-		XHdmiRx_DdcHdcpWriteData(HdmiRx, *WriteBuf++);
+		XV_HdmiRx_DdcHdcpWriteData(HdmiRx, *WriteBuf++);
 	}
 
 	return ((int)BufSize);
@@ -344,5 +344,5 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiRxAdaptor =
 };
 
 #endif
-/* defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0) */
+/* defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0) */
 /** @} */

@@ -59,7 +59,7 @@
 #include "xhdcp1x_cipher.h"
 #include "xhdcp1x_debug.h"
 #include "xhdcp1x_port.h"
-#if defined(XPAR_XHDMI_RX_NUM_INSTANCES) && (XPAR_XHDMI_RX_NUM_INSTANCES > 0)
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
 #include "xhdcp1x_port_hdmi.h"
 #else
 #include "xhdcp1x_port_dp.h"
