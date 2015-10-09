@@ -176,7 +176,7 @@ xemac_add(struct netif *netif,
 #endif
 #endif
 			default:
-				printf("unable to determine type of EMAC with baseaddress 0x%08x\r\n",
+				xil_printf("unable to determine type of EMAC with baseaddress 0x%08x\r\n",
 						mac_baseaddr);
 				return NULL;
 	}
