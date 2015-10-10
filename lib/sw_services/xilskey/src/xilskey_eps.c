@@ -48,6 +48,8 @@
 * 3.00  vns     31/07/15 Removed redundant code to initialise timer.
 * 4.00  vns     09/10/15 Added DFT control bits programming fecility for
 *                        eFuse PS on Zynq. PR#862778
+*                        Added Conditional compilation to support Zynq Mp
+*                        also.
 *
 *****************************************************************************/
 
@@ -536,7 +538,7 @@ XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
 	/**
 	 * Check the temperature and voltage
 	 */
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	if ((XAdcInstancePtr.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstancePtr.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_WRITE_TEMPERATURE_OUT_OF_RANGE;
@@ -807,7 +809,7 @@ XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
 	/**
 	 * Check the temperature and voltage
 	 */
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	if ((XAdcInstancePtr.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstancePtr.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
@@ -861,7 +863,7 @@ static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 	/**
 	 * Check the temperature and voltage
 	 */
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	if ((XAdcInstancePtr.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstancePtr.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
 		return XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;

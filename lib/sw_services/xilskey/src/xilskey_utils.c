@@ -46,6 +46,8 @@
 *                        CR#768077
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+* 4.0   vns     10/01/15 Modified condtional compilation
+*                        to support ZynqMp platform also.
 *
  *****************************************************************************/
 
@@ -60,10 +62,11 @@
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 static XAdcPs XAdcInst;     /**< XADC driver instance */
 u16 XAdcDeviceId;	/**< XADC Device ID */
-#else
+#endif
+#ifdef XSK_MICROBLAZE_PLATFORM
 XTmrCtr XTmrCtrInst;
 #endif
 u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/
@@ -89,7 +92,7 @@ static u32 Xilskey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 u32 XilSKey_EfusePs_XAdcInit (void )
 {
 	u32 Status;
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
 
@@ -162,7 +165,8 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 	XAdcInstancePtr->Temp = (XAdcInstancePtr->Temp) >> 6;
 	/* Voltage */
 	Jtag_Read_Sysmon(XSK_SYSMON_VOL_ROW, &(XAdcInstancePtr->V));
-#else
+#endif
+#ifdef XSK_ZYNQ_PLATFORM
 	XAdcPs *XAdcInstPtr = &XAdcInst;
 	u8 V, VMin, VMax;
 
@@ -236,6 +240,9 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 				XAdcInstancePtr->V,
 				(int )XAdcPs_RawToVoltage(XAdcInstancePtr->V));
 
+#endif
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+	/* TBD */
 #endif
 
 	return;
@@ -810,7 +817,7 @@ u32 Xilskey_Timer_Intialise()
 
 	u32 RefClk;
 
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	TimerTicksfor100ns = 0;
 	u32 ArmPllFdiv;
 	u32 ArmClkDivisor;
@@ -835,7 +842,8 @@ u32 Xilskey_Timer_Intialise()
 	 */
 	TimerTicksfor100ns =
 			(((RefClk * ArmPllFdiv)/ArmClkDivisor)/2)/10000000;
-#else
+#endif
+#ifdef XSK_MICROBLAZE_PLATFORM
 
 	u32 Status;
 	TimerTicksfor500ns = 0;

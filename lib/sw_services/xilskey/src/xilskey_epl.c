@@ -48,6 +48,8 @@
 *                        CR#768077
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+* 4.0   vns     10/01/15 provided conditional compilation to support
+*                        ZynqMp platform also.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -561,7 +563,7 @@ u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
 	 */
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	XSKEfusePs_XAdc PL_XAdc;
 
 	PL_XAdc.VType = XSK_EFUSEPS_VAUX;
@@ -918,7 +920,7 @@ u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes)
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
 	 */
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	XSKEfusePs_XAdc PL_XAdc;
 	PL_XAdc.VType = XSK_EFUSEPS_VAUX;
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
@@ -1151,7 +1153,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 	if(!(InstancePtr->SystemInitDone))
 	{
 
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 		u32 RefClk;
 		u32 Status;
 		/**
@@ -1189,7 +1191,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
 
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	/**
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.
@@ -1221,8 +1223,9 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 	JtagRead(0, &RowData, 0);
 
 	*StatusBits = RowData & 0xFFFFFF;
+#endif
 	/* For Ultrascale */
-#else
+#ifdef XSK_MICROBLAZE_PLATFORM
 
 	/* Monitor Temperature and voltage */
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
@@ -1345,7 +1348,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 	u32 RowCount;
 	unsigned int RowData;
 
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 	XSKEfusePs_XAdc PL_XAdc = {0};
 	/**
 	 * Monitor the Voltage and temperature using XADC, if out of range return
