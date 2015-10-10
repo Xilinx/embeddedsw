@@ -52,8 +52,11 @@
 *                        XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE
 *                        Added efuse functionality for Ultrascale.
 * 4.0   vns     10/01/15 Added efuse functionality for ZynqMp platform.
-*                        Added Xsk_Ceil API. Added error code for efuse and
+*                        Added XilSKey_Ceil API. Added error code for efuse and
 *                        bbram PS for Zynq MP.
+*                        Modified Xilskey_CrcCalculation API name to
+*                        XilSKey_CrcCalculation. and Xilskey_Timer_Intialise API
+*                        to XilSKey_Timer_Intialise
 *
  *****************************************************************************/
 
@@ -528,8 +531,46 @@ typedef enum {
 #define XSK_EFUSEPS_ERROR_READ_VCCINT_VOLTAGE_OUT_OF_RANGE XSK_EFUSEPS_ERROR_READ_VCCPINT_VOLTAGE_OUT_OF_RANGE
 #define XSK_EFUSEPS_ERROR_WRITE_VCCAUX_VOLTAGE_OUT_OF_RANGE XSK_EFUSEPS_ERROR_WRITE_VCCPAUX_VOLTAGE_OUT_OF_RANGE
 #define XSK_EFUSEPS_ERROR_WRITE_VCCINT_VOLTAGE_OUT_OF_RANGE XSK_EFUSEPS_ERROR_WRITE_VCCPINT_VOLTAGE_OUT_OF_RANGE
+#define XilSKey_CrcCalculation XilSKey_CrcCalculation
+#define Xilskey_Timer_Intialise	XilSKey_Timer_Intialise
 
 
+/*****************************************************************************/
+/**
+*
+* This macro reads the given register.
+*
+* @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
+*			controller.
+* @param	RegOffset is the register offset of the register.
+*
+* @return	The 32-bit value of the register.
+*
+* @note		C-style signature:
+*		u32 XilSKey_ReadReg(u32 BaseAddress, u32 RegOffset)
+*
+******************************************************************************/
+#define XilSKey_ReadReg(BaseAddress, RegOffset) \
+		Xil_In32((BaseAddress) + (u32)(RegOffset))
+
+/*****************************************************************************/
+/**
+*
+* This macro writes the value into the given register.
+*
+* @param	BaseAddress is the Xilinx base address of the eFuse or Bbram
+*			controller.
+* @param	RegOffset is the register offset of the register.
+* @param	Data is the 32-bit value to write to the register.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XilSKey_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+*
+******************************************************************************/
+#define XilSKey_WriteReg(BaseAddress, RegOffset, Data) \
+		Xil_Out32(((BaseAddress) + (u32)(RegOffset)), (u32)(Data))
 
 /************************** Function Prototypes *****************************/
 u32 XilSKey_EfusePs_XAdcInit (void );
@@ -549,10 +590,11 @@ u32 XilSKey_Efuse_IsValidChar(const char *c);
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
-u32 Xilskey_Timer_Intialise();
-u32 Xilskey_Efuse_ReverseHex(u32 Input);
-void Xilskey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
-u32 Xilskey_CrcCalculation(u8 *Key);
+u32 XilSKey_Timer_Intialise();
+u32 XilSKey_Efuse_ReverseHex(u32 Input);
+void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
+u32 XilSKey_CrcCalculation(u8 *Key);
+u32 XilSKey_Ceil(float Freq);
 /***************************************************************************/
 
 

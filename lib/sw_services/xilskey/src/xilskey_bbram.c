@@ -111,7 +111,7 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 	}
 
 	/* Get timer values */
-	RefClk = Xilskey_Timer_Intialise();
+	RefClk = XilSKey_Timer_Intialise();
 	/*
 	 * Initialize and start the timer
 	 */
