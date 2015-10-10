@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,57 +35,42 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
+LIB= libxilskey.a
 
+EXTRA_ARCHIVE_FLAGS=rc
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
-INCLUDES=-I${INCLUDEDIR}
+INCLUDES=-I./. -I${INCLUDEDIR}
+
 SKEY_DIR = .
+OUTS = *.o
 
-LIB_SRCS = $(SKEY_DIR)/xilskey_eps.c \
-          $(SKEY_DIR)/xilskey_epl.c \
-          $(SKEY_DIR)/xilskey_utils.c \
-          $(SKEY_DIR)/xilskey_jslib.c \
-          $(SKEY_DIR)/xilskey_jscmd.c \
-          $(SKEY_DIR)/xilskey_bbram.c
+SKEY_SRCS := $(wildcard *.c)
+SKEY_OBJS = $(addprefix $(SKEY_DIR)/, $(SKEY_SRCS:%.c=%.o))
 
-# create ISF_SRCS based on configured options
-
-SKEY_SRCS = $(LIB_SRCS)
-
-SKEY_OBJS = $(SKEY_SRCS:%.c=%.o)
-
-
-EXPORT_INCLUDE_FILES = $(SKEY_DIR)/include/xilskey_eps.h \
+INCLUDEFILES=$(SKEY_DIR)/include/xilskey_eps.h \
 			$(SKEY_DIR)/include/xilskey_epl.h \
 			$(SKEY_DIR)/include/xilskey_utils.h \
-			$(SKEY_DIR)/include/xilskey_bbram.h
-
+			$(SKEY_DIR)/include/xilskey_bbram.h \
+			$(SKEY_DIR)/include/xilskey_eps_zynqmp.h
 
 libs: libxilskey.a
-	cp libxilskey.a $(RELEASEDIR)
-	make clean
 
-include:
-	@for i in $(EXPORT_INCLUDE_FILES); do \
-	echo ${CP} -r $$i ${INCLUDEDIR}; \
-	${CP} -r $$i ${INCLUDEDIR}; \
-	done
+libxilskey.a: print_msg_xilskey $(SKEY_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SKEY_OBJS}
+
+print_msg_xilskey:
+	@echo "Compiling Xilskey Library"
+
+.PHONY: include
+include: libxilskey_includes
+
+libxilskey_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf obj/*.o
-	rmdir obj
-	rm libxilskey.a
+	rm -rf $(SKEY_DIR)/${OUTS}
+	rm -rf ${RELEASEDIR}/${LIB}
 
-
-libxilskey.a: obj_dir print_msg_isf_base $(SKEY_OBJS)
-	@echo "Creating archive $@"
-	$(ARCHIVER) rc $@ obj/*.o
-
-obj_dir:
-	mkdir obj
-
-print_msg_isf_base:
-	@echo "Compiling Xilinx Secure Key Library..."
-
-.c.o:
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o obj/$(@F)
+$(SKEY_DIR)/%.o: $(SKEY_DIR)/%.c $(INCLUDEFILES)
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
