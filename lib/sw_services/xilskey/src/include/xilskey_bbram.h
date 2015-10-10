@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 * Ver   Who  	Date     Changes
 * ----- ---- 	-------- --------------------------------------------------------
 * 1.01a hk      09/18/13 First release
+* 4.0   vns     10/08/15 Added prototypes for ZynqMp BBRAM PS
 *
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
@@ -192,9 +193,13 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 /*
- * Function for BBRAM program and vefiry algorithm
+ * Function for BBRAM program and verify algorithm
  */
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr);
+
+/* Functions to program AES key and function to zeroise AES key */
+u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey);
+void XilSKey_ZynqMp_Bbram_Zeroise();
 
 #ifdef __cplusplus
 }

@@ -547,6 +547,20 @@ typedef enum {
 
 }XSKEfusePs_ErrorCodes;
 
+/**
+ * ZynqMP PS BBRAM error codes
+ */
+typedef enum {
+	XSK_ZYNQMP_BBRAMPS_ERROR_NONE = 0,
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE = 0x01, /**< If this error is occurred
+														  *  programming is not
+														  *  possible */
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK = 0xB000,  /**< If this error is occurred
+													  *  programming is done but CRC
+													  *  check is failed */
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG = 0xC000		/**< programming of key is failed */
+}XskZynqMp_Ps_Bbram_ErrorCodes;
+
 /*
  * For backward compatibility with old error codes
  */
