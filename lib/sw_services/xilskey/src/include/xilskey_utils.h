@@ -51,6 +51,9 @@
 *                        XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE to
 *                        XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE
 *                        Added efuse functionality for Ultrascale.
+* 4.0   vns     10/01/15 Added efuse functionality for ZynqMp platform.
+*                        Added Xsk_Ceil API. Added error code for efuse and
+*                        bbram PS for Zynq MP.
 *
  *****************************************************************************/
 
@@ -62,8 +65,14 @@
 #include "xsysmon.h"
 #include "xtmrctr.h"
 #else
+#if defined (ARMR5) || defined (__aarch64__)
+/* Need to include sysmon driver's header */
+#else
 #include "xadcps.h"
 #endif
+#endif
+#include "xstatus.h"
+
 /************************** Constant Definitions ****************************/
 /**************************** Type Definitions ******************************/
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -71,6 +80,12 @@
 #define XSK_MICROBLAZE_PLATFORM
 #else
 #define XSK_ARM_PLATFORM
+#if defined (ARMR5) || (__aarch64__)
+#define XSK_ZYNQ_ULTRA_MP_PLATFORM
+#else
+#define XSK_ZYNQ_PLATFORM
+#endif
+
 #endif
 /**
  * The following constants map to the XPAR parameters created in the
