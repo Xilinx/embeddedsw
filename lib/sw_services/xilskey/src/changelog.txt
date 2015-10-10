@@ -23,5 +23,43 @@
  *                      CR#773090
  * 2.1   kvn  04/01/15  Fixed warnings. CR#716453.
  * 2.1   sk   04/03/15  Initialized RSAKeyReadback with Zeros CR# 829723.
+ * 3.0   vns  10/08/15  Added eFusePL functionality for Ultrascale.
+ *                      Added new API u32 Xilskey_CrcCalculation(u8 *Key)
+ *                      to calculate CRC of AES key.
+ *                      Added new parameters to XilSKey_EPl instance which
+ *                      supports Ultrascale.
+ *                      For programming and reading APIs used for Zynq efuse PL
+ *                      can be used in Ultrascale's efuse PL also, however inputs
+ *                      will differ.
+ *                      In Ultrascale there is a feasibility of programming and
+ *                      reading AES key, User key and RSA hash separately.
+ *                      It also has its own control bits which can be programmed.
+ * 4.0   vns  10/08/15  Added eFusePs and bbram Ps functionality for
+ *                      Zynq Ultrascle+ Mp.
+ *                      Added new APIs for accessing eFusePs and BbramPS
+ *                      u32 Xilskey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue);
+ *                      u32 Xilskey_ZynqMp_EfusePs_ReadUserKey(u32 *UseKeyPtr,
+ *                       u8 ReadOption);
+ *                      u32 Xilskey_ZynqMp_EfusePs_ReadPpk0Sha3Hash(
+ *                                u32 *Sha3Hash, u8 ReadOption);
+ *                      u32 Xilskey_ZynqMp_EfusePs_ReadPpk1Sha3Hash(u32 *Sha3Hash,
+ *                      u8 ReadOption); u32 Xilskey_ZynqMp_EfusePs_ReadSpkId(
+ *                      u32 *SpkId, u8 ReadOption);
+ *                      u32 Xilskey_ZynqMp_EfusePs_ReadJtagUsrCode(
+ *                      u32 *JtagUsrCode, u8 ReadOption);
+ *                      void Xilskey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead);
+ *                      u32 Xilskey_ZynqMp_EfusePs_ReadSecCtrlBits(
+ *                      Xilskey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption);
+ *                      u32 Xilskey_ZynqMp_EfusePs_CacheLoad();
+ *                      u32 Xilskey_ZynqMp_EfusePs_Write(
+ *                                   XilSKey_ZynqMpEPs *InstancePtr);
+ *                      u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey);
+ *                      void Xilskey_ZynqMp_Bbram_Zeroise();
+ *
+ *                      Added DFT control bits programming for Zynq efuse PS.
+ *
+ *                      Modified Zynq efuse PL jtagwrite API by adding clock after
+ *                      RTI state and one more clock at the end of 11us.
+ *                      (CR #885421).
  *
  ********************************************************************************/
