@@ -182,7 +182,7 @@
 
 /* Definitions for peripheral PS7_QSPI_LINEAR_0 */
 #define XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR 0xFC000000
-#define XPAR_PS7_QSPI_LINEAR_0_S_AXI_HIGHADDR 0xFCFFFFFF
+#define XPAR_PS7_QSPI_LINEAR_0_S_AXI_HIGHADDR 0xFDFFFFFF
 
 
 /* Definitions for peripheral PS7_RAM_0 */
