@@ -50,6 +50,7 @@
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
 * 4.0   vns     10/01/15 provided conditional compilation to support
 *                        ZynqMp platform also.
+*                        Corrected error code names of Ultrascale efuse PL
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -1755,10 +1756,10 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 		}
 	}
 	/**
-	 * If row = 1- then bits should be supported from 0 to 6
+	 * If row = 10 then bits should be supported from 0 to 5
 	 */
 	 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&
-		 (Row > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) ) {
+		 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) ) {
 		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
 			return XST_FAILURE;
 	 }
@@ -2341,7 +2342,7 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 			XSK_EFUSEPL_USER_ROW_ULTRA, UserDataInBytes,
 			XSK_EFUSEPL_PAGE_0_ULTRA);
 		if (Status != XST_SUCCESS) {
-			return Status;
+			return (XSK_EFUSEPL_ERROR_PRGRMG_USER_KEY + Status);
 		}
 	}
 
@@ -2357,7 +2358,7 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 			XSK_EFUSEPL_RSA_ROW_END_ULTRA,
 			RsaDataInBytes, XSK_EFUSEPL_PAGE_1_ULTRA);
 		if (Status != XST_SUCCESS) {
-			return Status;
+			return (XSK_EFUSEPL_ERROR_PRGRMG_RSA_HASH + Status);;
 		}
 	}
 
@@ -2374,7 +2375,7 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 	SecData[XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA] =
 					InstancePtr->DecoderDisable;
 	if(XilSKey_EfusePl_ProgramSecRegister(SecData) != XST_SUCCESS) {
-		return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW +
+		return (XSK_EFUSEPL_ERROR_PRGRMG_FUSE_SEC_ROW +
 							ErrorCode);
 	}
 
@@ -2558,7 +2559,7 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 
 		if(XilSKey_EfusePl_IsVectorAllZeros(RowData) !=
 						XST_SUCCESS) {
-			return (XSK_EFUSEPL_ERROR_AES_ROW_NOT_EMPTY +
+			return (XSK_EFUSEPL_ERROR_PRGRMG_ROWS_NOT_EMPTY +
 					ErrorCode);
 		}
 	}
@@ -2573,14 +2574,14 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
 			XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
 						XST_SUCCESS) {
-			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
+			return (XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW +
 						ErrorCode);
 		}
 		/* Programming redundancy bits */
 		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
 			XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
 						XST_SUCCESS) {
-			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
+			return (XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW +
 							ErrorCode);
 		}
 	}
