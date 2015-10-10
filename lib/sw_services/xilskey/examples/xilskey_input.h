@@ -368,7 +368,7 @@
 *	For Checking CRC of FUSE_AES XSK_EFUSEPL_CHECK_AES_KEY_ULTRA macro
 *	should be TRUE otherwise CRC check will not be performed.
 *	For calculation of AES key's CRC one can use
-*	u32 Xilskey_CrcCalculation(u8 *Key) API or reverse polynomial
+*	u32 XilSKey_CrcCalculation(u8 *Key) API or reverse polynomial
 *	0x82F63B78.
 *
 *	NOTE:Please make sure you have sufficient heap and stack to run this
