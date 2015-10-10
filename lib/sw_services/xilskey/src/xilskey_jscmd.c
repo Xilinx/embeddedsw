@@ -51,6 +51,10 @@
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 *
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+* 4.00  vns     09/10/15 Modified JtagWrite API as per IEEE 1149.1 standard
+*                        added TCK toggle after RTI state change where programming
+*                        will start and toggled TCK again at exit of RTI state to
+*                        stop programming. CR#885421.
 *
 * </pre>
 *
@@ -1089,24 +1093,31 @@ void JtagWrite(unsigned char row, unsigned char bit)
 	jtag_navigate (g_port, JS_DRUPDATE);
 
 	//Go to RTI and stay in RTI EXACTLY Tpgm = 12 us (tbd) and immediately exit to SDS
-	time_start = XilSKey_Efuse_GetTime();
+
 	jtag_navigate (g_port, JS_IDLE);
-	time_end = XilSKey_Efuse_GetTime();
-	delay = (u32)((time_end - time_start)/(TimerTicksfor100ns));
+
+	/* Toggle Clk after RTI */
+	setPin (MIO_TCK, 0);
+	setPin (MIO_TCK, 1);
+	setPin (MIO_TCK, 0);
 
 	//Here we will be providing 12us delay.
-	if(delay < 110)
-	{
-
-		XilSKey_Efuse_SetTimeOut(&time, 110-delay);
+		XilSKey_Efuse_SetTimeOut(&time, 110);
 		while(1)
 		{
 			if(XilSKey_Efuse_IsTimerExpired(time) == 1)
 				break;
 		}
-	}
 
 	jtag_navigate (g_port, JS_DRSELECT);
+	/*
+	 * After exit from RTI toggle Clk after entering DRSELECT state
+	 * so programming will be disabled
+	 */
+		setPin (MIO_TCK, 0);
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+
 	jtag_navigate (g_port, JS_IRSELECT);
 	jtag_navigate (g_port, JS_RESET);
 }
