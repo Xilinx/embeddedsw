@@ -142,7 +142,7 @@
 *		4) Program the board using $Final.bit bitstream
 *		5) Output can be seen in UART terminal.
 *		6) For calculating CRC of AES key reverse polynomial is 0x82F63B78 or
-*		one can use the API u32 Xilskey_CrcCalculation(u8 *Key)
+*		one can use the API u32 XilSKey_CrcCalculation(u8 *Key)
 *
 * MODIFICATION HISTORY:
 *
@@ -580,7 +580,7 @@ int main()
 
 		if (XSK_EFUSEPL_CHECK_AES_KEY_CRC == TRUE){
 			if (PlInstancePtr.AESKeyMatched == TRUE) {
-				xil_printf("AES key matched with expected AES Key's CRC");
+				xil_printf("AES key matched with expected AES Key's CRC\n\r");
 			}
 			else {
 				xil_printf("AES key not matched with expected AES's CRC "
@@ -593,12 +593,14 @@ int main()
 				   xil_printf("%02x", PlInstancePtr.UserKeyReadback[KeyCnt]);
 			   }
 		}
+		xil_printf("\r\n");
 		if (XSK_EFUSEPL_READ_RSA_KEY_HASH == TRUE) {
 			  xil_printf("\r\nEfusePL RSA hash value : 0x");
 			   for(KeyCnt = (XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES - 1); KeyCnt >= 0; KeyCnt--) {
 				   xil_printf("%02x", PlInstancePtr.RSAHashReadback[KeyCnt]);
 			   }
 		}
+		xil_printf("\r\n");
 #endif
 
 
@@ -631,7 +633,7 @@ EFUSE_ERROR:
 	 */
 	Status = ((PsStatus << 16) + PlStatus);
 
-	printf("eFUSE operations exit status: %08X\r\n", Status);
+	xil_printf("\r\neFUSE operations exit status: %08X\r\n", Status);
 #ifdef XSK_ARM_PLATFORM
 		/**
 		* Writing the Exit Status to Reboot Status Register
