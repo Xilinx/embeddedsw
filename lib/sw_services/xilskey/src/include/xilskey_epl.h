@@ -314,7 +314,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits);
 
 u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr);
 
-u32 Xilskey_CrcCalculation(u8 *Key);
+u32 XilSKey_CrcCalculation(u8 *Key);
 
 #ifdef __cplusplus
 }

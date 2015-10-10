@@ -48,6 +48,9 @@
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
 * 4.0   vns     10/01/15 Modified condtional compilation
 *                        to support ZynqMp platform also.
+*                        Added new API Xsk_Ceil
+*                        Modified Xilskey_CrcCalculation() API for providing
+*                        support for efuse ZynqMp also.
 *
  *****************************************************************************/
 
@@ -74,7 +77,7 @@ u32 TimerTicksfor500ns; /**< Global Variable for 5 micro secs for microblaze */
 /************************** Function Prototypes *****************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
 extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
-static u32 Xilskey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
+u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 /***************************************************************************/
 /**
 * This function is used to initialize the XADC driver
@@ -812,7 +815,7 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
  * @note	None.
  *
  ****************************************************************************/
-u32 Xilskey_Timer_Intialise()
+u32 XilSKey_Timer_Intialise()
 {
 
 	u32 RefClk;
@@ -885,7 +888,7 @@ u32 Xilskey_Timer_Intialise()
  * @note	None.
  *
  ****************************************************************************/
-void Xilskey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
+void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 {
 	u32 Index,J = 0;
 	for (Index = From; Index <= To; Index++) {
@@ -904,10 +907,14 @@ void Xilskey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
  *
  * @return	Crc of AES key value.
  *
- * @note	None.
+ * @note	This API calculates CRC of AES key for Ultrascale Microblaze's
+ * 		PL eFuse and ZynqMp Ultrascale's PS eFuse.
+ * 		In Microblaze CRC will be calculated from 8th word of key to 0th
+ * 		word whereas in ZynqMp Ultrascale's PS eFuse from 0th word to
+ * 		8th word
  *
  ****************************************************************************/
-u32 Xilskey_CrcCalculation(u8 *Key)
+u32 XilSKey_CrcCalculation(u8 *Key)
 {
 	u32 Crc = 0;
 	u8 Key_8[8];
@@ -930,12 +937,27 @@ u32 Xilskey_CrcCalculation(u8 *Key)
 	}
 
 	for (Index = 0; Index <8;Index++) {
-		Xilskey_StrCpyRange(FullKey, Key_8, ((7 - Index)*8),
+#ifdef XSK_MICROBLAZE_PLATFORM
+		XilSKey_StrCpyRange(FullKey, Key_8, ((7 - Index)*8),
 					((((7 - Index) + 1)*8)-1));
+#endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+		XilSKey_StrCpyRange(FullKey, Key_8, ((Index) * 8),
+							((((Index) *8) + 8) -1));
+#endif
+
 		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8);
 		Key_32 = (Key_Hex[0] << 24) | (Key_Hex[1] << 16) |
 				(Key_Hex[2] << 8) | (Key_Hex[3]);
-		Crc = Xilskey_RowCrcCalculation(Crc, Key_32, 20+Index);
+#ifdef XSK_MICROBLAZE_PLATFORM
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 20 + Index);
+#endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8 - Index);
+#endif
+
 	}
 
 	return Crc;
@@ -954,7 +976,7 @@ u32 Xilskey_CrcCalculation(u8 *Key)
  * @note	None.
  *
  ****************************************************************************/
-u32 Xilskey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
+u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
 {
 	u32 Crc = PrevCRC;
 	u32 Value = Data;
@@ -996,7 +1018,7 @@ u32 Xilskey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
  * @note	None.
  *
  ****************************************************************************/
-u32 Xilskey_Efuse_ReverseHex(u32 Input)
+u32 XilSKey_Efuse_ReverseHex(u32 Input)
 {
 	u32 Index = 0;
 	u32 Rev = 0;
@@ -1011,4 +1033,27 @@ u32 Xilskey_Efuse_ReverseHex(u32 Input)
 	}
 
 	return Rev;
+}
+
+/****************************************************************************/
+/**
+* This API celis the provided float value.
+*
+* @param	Value is a float variable which has to ceiled to nearest
+*		integer.
+*
+* @return	Returns ceiled value.
+*
+* @note	None.
+*
+*****************************************************************************/
+u32 XilSKey_Ceil(float Value)
+{
+	u32 RetValue;
+
+	RetValue = ((Value > (u32)Value) || ((u32)Value == 0)) ?
+					(u32)(Value + 1) : (u32)Value;
+
+	return RetValue;
+
 }

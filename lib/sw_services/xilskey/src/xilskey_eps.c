@@ -108,7 +108,7 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 		return XSK_EFUSEPS_ERROR_PS_STRUCT_NULL;
 	}
 
-	RefClk = Xilskey_Timer_Intialise();
+	RefClk = XilSKey_Timer_Intialise();
 
 	/**
 	 *  Check the variables
@@ -347,7 +347,7 @@ u32 XilSKey_EfusePs_Read(XilSKey_EPs *InstancePtr)
 		InstancePtr->RsaKeyReadback[Index] = 0;
 	}
 
-	RefClk = Xilskey_Timer_Intialise();
+	RefClk = XilSKey_Timer_Intialise();
 
 	/**
 	 * Check the variables

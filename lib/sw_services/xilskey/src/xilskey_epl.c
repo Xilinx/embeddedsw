@@ -388,7 +388,7 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 
 #ifdef XSK_ARM_PLATFORM
 		u32 RefClk;
-		RefClk = Xilskey_Timer_Intialise();
+		RefClk = XilSKey_Timer_Intialise();
 		/**
 		 * Return error if the reference clock frequency is not in
 		 * between 20 & 60MHz
@@ -411,7 +411,7 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 			return (XSK_EFUSEPL_ERROR_XADC + ErrorCode);
 			}
 #else
-		if (Xilskey_Timer_Intialise() == XST_FAILURE) {
+		if (XilSKey_Timer_Intialise() == XST_FAILURE) {
 			return (XSK_EFUSEPL_ERROR_TIMER_INTIALISE_ULTRA);
 		}
 #endif
@@ -1159,7 +1159,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		/**
 		 * Initialize the variables
 		 */
-		RefClk = Xilskey_Timer_Intialise();
+		RefClk = XilSKey_Timer_Intialise();
 
 		/**
 		 * Return error if the reference clock frequency is not in
@@ -1279,7 +1279,7 @@ u32 XilSKey_EfusePl_ReadKey(XilSKey_EPl *InstancePtr)
 
 #ifdef XSK_ARM_PLATFORM
 		u32 RefClk;
-		RefClk = Xilskey_Timer_Intialise();
+		RefClk = XilSKey_Timer_Intialise();
 
 		/**
 		 * Return error if the reference clock frequency is not in

@@ -2244,7 +2244,7 @@ void JtagRead_Status_Ultrascale(u32 *Rowdata)
 	RowDataPtr[2] = RdBuffer [2];
 	RowDataPtr[3] = RdBuffer [3];
 
-	*(u32 *)RowDataPtr = Xilskey_Efuse_ReverseHex(*(u32 *)RowDataPtr);
+	*(u32 *)RowDataPtr = XilSKey_Efuse_ReverseHex(*(u32 *)RowDataPtr);
 
 }
 
