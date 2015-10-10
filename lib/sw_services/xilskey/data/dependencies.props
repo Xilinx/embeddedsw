@@ -1,0 +1,4 @@
+xilskey_bbram_example.c=xilskey_input.h
+xilskey_efuse_example.c=xilskey_input.h
+xilskey_efuseps_zynqmp_example.c = xilskey_efuseps_zynqmp_input.h
+xilskey_bbramps_zynqmp_example.c = NULL

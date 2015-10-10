@@ -39,6 +39,8 @@
 #                     supported processors are a9 and microblaze too.
 #                     so supported peripherals option has been removed.
 # 4.00  vns  09/10/15 Added DFT control bit programming for efusePS Zynq.
+#                     Bbram and eFuse programming fecility is provided
+#                     for Zynq MP Platform.
 #
 ##############################################################################
 
