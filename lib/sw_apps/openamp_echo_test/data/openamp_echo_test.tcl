@@ -35,7 +35,7 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-    return " OPENAMP R5 echo-test application";
+    return " OpenAMP echo-test application ";
 }
 
 proc check_standalone_os {} {
