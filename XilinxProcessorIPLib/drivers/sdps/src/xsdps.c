@@ -59,6 +59,7 @@
 *						Added Support for SD Card v1.0
 * 2.5 	sg	   07/09/15 Added SD 3.0 features
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
+* 2.6   sk     10/12/15 Added support for SD card v1.0 CR# 840601.
 * </pre>
 *
 ******************************************************************************/
@@ -301,6 +302,7 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	u32 RespOCR;
 	u32 CSD[4];
 	u32 Arg;
+	u8 ReadReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -331,9 +333,23 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	 */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD8,
 			XSDPS_CMD8_VOL_PATTERN, 0U);
-	if (Status != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) && (Status != XSDPS_CT_ERROR)) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
+	}
+
+	if (Status == XSDPS_CT_ERROR) {
+		 /* "Software reset for all" is initiated */
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress, XSDPS_SW_RST_OFFSET,
+				XSDPS_SWRST_CMD_LINE_MASK);
+
+		/* Proceed with initialization only after reset is complete */
+		ReadReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+						XSDPS_SW_RST_OFFSET);
+		while ((ReadReg & XSDPS_SWRST_CMD_LINE_MASK) != 0U) {
+			ReadReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+						XSDPS_SW_RST_OFFSET);
+		}
 	}
 
 	RespOCR = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
@@ -587,19 +603,27 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			}
 
 		} else {
-			/* Get speed supported by device */
-			Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
-			if (Status != XST_SUCCESS) {
-				Status = XST_FAILURE;
-				goto RETURN_PATH;
-			}
 
-			/* Check for high speed support */
-			if ((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) {
-				Status = XSdPs_Change_BusSpeed(InstancePtr);
+			/*
+			 * card supports CMD6 when SD_SPEC field in SCR register
+			 * indicates that the Physical Layer Specification Version
+			 * is 1.10 or later. So for SD v1.0 cmd6 is not supported.
+			 */
+			if (SCR[0] != 0U) {
+				/* Get speed supported by device */
+				Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
 				if (Status != XST_SUCCESS) {
 					Status = XST_FAILURE;
 					goto RETURN_PATH;
+				}
+
+				/* Check for high speed support */
+				if ((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) {
+					Status = XSdPs_Change_BusSpeed(InstancePtr);
+					if (Status != XST_SUCCESS) {
+						Status = XST_FAILURE;
+						goto RETURN_PATH;
+					}
 				}
 			}
 		}
@@ -925,11 +949,15 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 					XSDPS_NORM_INTR_STS_OFFSET);
 
 		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
+			Status = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+									XSDPS_ERR_INTR_STS_OFFSET);
+			if ((Status & ~XSDPS_INTR_ERR_CT_MASK) == 0) {
+				Status = XSDPS_CT_ERROR;
+			}
 			 /* Write to clear error bits */
 			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_ERR_INTR_STS_OFFSET,
 					XSDPS_ERROR_INTR_ALL_MASK);
-			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
 	} while((StatusReg & XSDPS_INTR_CC_MASK) == 0U);
