@@ -155,11 +155,21 @@
 #define PHY_IDENTIFIER_1_REG					2
 #define PHY_DETECT_MASK 					0x1808
 #define PHY_MARVELL_IDENTIFIER				0x0141
+#define PHY_TI_IDENTIFIER					0x2000
 
 #define XEMACPS_GMII2RGMII_SPEED1000_FD		0x140
 #define XEMACPS_GMII2RGMII_SPEED100_FD		0x2100
 #define XEMACPS_GMII2RGMII_SPEED10_FD		0x100
 #define XEMACPS_GMII2RGMII_REG_NUM			0x10
+
+#define PHY_REGCR		0x0D
+#define PHY_ADDAR		0x0E
+#define PHY_RGMIIDCTL	0x86
+#define PHY_RGMIICTL	0x32
+#define PHY_STS			0x11
+
+#define PHY_REGCR_ADDR	0x001F
+#define PHY_REGCR_DATA	0x401F
 
 /* Frequency setting */
 #define SLCR_LOCK_ADDR			(XPS_SYS_CTRL_BASEADDR + 0x4)
@@ -296,8 +306,9 @@ void detect_phy(XEmacPs *xemacpsp)
 
 			XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
 							&phy_reg);
-			if (phy_reg != PHY_MARVELL_IDENTIFIER) {
-				xil_printf("WARNING: Not a Marvell Ethernet PHY. Please verify the initialization sequence\r\n");
+			if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
+				(phy_reg != PHY_TI_IDENTIFIER)) {
+				xil_printf("WARNING: Not a Marvell or TI Ethernet PHY. Please verify the initialization sequence\r\n");
 			}
 		}
 	}
@@ -360,17 +371,150 @@ u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
 	return link_speed;
 }
 
-static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
+static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 {
 	u16_t temp;
 	u16_t control;
 	u16_t status;
 	u16_t status_speed;
-	u32_t gigeversion = 2;
 	u32_t timeout_counter = 0;
 	u32_t temp_speed;
+	u32_t phyregtemp;
+	int i;
+	u32_t RetStatus;
 
-	gigeversion = ((Xil_In32(xemacpsp->Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
+	xil_printf("Start PHY autonegotiation \r\n");
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, 0x1F, &phyregtemp);
+	phyregtemp |= 0x4000;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x1F, phyregtemp);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0x1F, &phyregtemp);
+	if (RetStatus != XST_SUCCESS) {
+		xil_printf("Error during sw reset \n\r");
+		return XST_FAILURE;
+	}
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, 0, &phyregtemp);
+	phyregtemp |= 0x8000;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0, phyregtemp);
+
+	/*
+	 * Delay
+	 */
+	for(i=0;i<1000000000;i++);
+
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0, &phyregtemp);
+	if (RetStatus != XST_SUCCESS) {
+		xil_printf("Error during reset \n\r");
+		return XST_FAILURE;
+	}
+
+	/* FIFO depth */
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x10, 0x5048);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x10, phyregtemp);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0x10, &phyregtemp);
+	if (RetStatus != XST_SUCCESS) {
+		xil_printf("Error writing to 0x10 \n\r");
+		return XST_FAILURE;
+	}
+
+	/* TX/RX tuning */
+	/* Write to PHY_RGMIIDCTL */
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_RGMIIDCTL);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
+	RetStatus = XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, 0xA8);
+	if (RetStatus != XST_SUCCESS) {
+		xil_printf("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	/* Read PHY_RGMIIDCTL */
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_RGMIIDCTL);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, &phyregtemp);
+	if (RetStatus != XST_SUCCESS) {
+		xil_printf("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	/* Write PHY_RGMIICTL */
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_RGMIICTL);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
+	RetStatus = XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, 0xD3);
+	if (RetStatus != XST_SUCCESS) {
+		xil_printf("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	/* Read PHY_RGMIICTL */
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_RGMIICTL);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, &phyregtemp);
+	if (RetStatus != XST_SUCCESS) {
+		xil_printf("Error in tuning");
+		return XST_FAILURE;
+	}
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &control);
+	control |= IEEE_ASYMMETRIC_PAUSE_MASK;
+	control |= IEEE_PAUSE_MASK;
+	control |= ADVERTISE_100;
+	control |= ADVERTISE_10;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, control);
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+					&control);
+	control |= ADVERTISE_1000;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+					control);
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+	control |= IEEE_CTRL_AUTONEGOTIATE_ENABLE;
+	control |= IEEE_STAT_AUTONEGOTIATE_RESTART;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, control);
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+
+	xil_printf("Waiting for PHY to complete autonegotiation.\r\n");
+
+	while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
+		sleep(1);
+		timeout_counter++;
+
+		if (timeout_counter == 30) {
+			xil_printf("Auto negotiation error \r\n");
+			return;
+		}
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+	}
+	xil_printf("autonegotiation complete \r\n");
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_STS, &status_speed);
+	if ((status_speed & 0xC000) == 0x8000) {
+		return 1000;
+	} else if ((status_speed & 0xC000) == 0x4000) {
+		return 100;
+	} else {
+		return 10;
+	}
+
+	return XST_SUCCESS;
+}
+
+static u32_t get_Marvell_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
+{
+	u16_t temp;
+	u16_t control;
+	u16_t status;
+	u16_t status_speed;
+	u32_t timeout_counter = 0;
+	u32_t temp_speed;
+	u32_t phyregtemp;
 
 	xil_printf("Start PHY autonegotiation \r\n");
 
@@ -388,19 +532,11 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	control |= ADVERTISE_10;
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, control);
 
-	if (gigeversion == 2) {
-		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-						&control);
-		control |= ADVERTISE_1000;
-		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-						control);
-	} else {
-		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-						&control);
-		control &= ~ADVERTISE_1000;
-		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
-						control);
-	}
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+					&control);
+	control |= ADVERTISE_1000;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+					control);
 
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
 	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_COPPER_SPECIFIC_CONTROL_REG,
@@ -425,25 +561,27 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		else
 			break;
 	}
-	xil_printf("Waiting for PHY to complete autonegotiation.\r\n");
 
 	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+
+	xil_printf("Waiting for PHY to complete autonegotiation.\r\n");
+
 	while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
 		sleep(1);
-		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_COPPER_SPECIFIC_STATUS_REG_2,
-																	&temp);
+		XEmacPs_PhyRead(xemacpsp, phy_addr,
+						IEEE_COPPER_SPECIFIC_STATUS_REG_2,  &temp);
 		timeout_counter++;
 
 		if (timeout_counter == 30) {
 			xil_printf("Auto negotiation error \r\n");
 			return;
 		}
-		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET,
-																&status);
-		}
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+	}
 	xil_printf("autonegotiation complete \r\n");
-	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_SPECIFIC_STATUS_REG, &status_speed);
 
+	XEmacPs_PhyRead(xemacpsp, phy_addr,IEEE_SPECIFIC_STATUS_REG,
+					&status_speed);
 	if (status_speed & 0x400) {
 		temp_speed = status_speed & IEEE_SPEED_MASK;
 
@@ -455,6 +593,26 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 			return 10;
 	}
 
+	return XST_SUCCESS;
+}
+
+static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
+{
+	u32_t phy_identity;
+	u32_t RetStatus;
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
+					&phy_identity);
+	if (phy_identity == PHY_TI_IDENTIFIER) {
+		RetStatus = get_TI_phy_speed(xemacpsp, phy_addr);
+	} else {
+		RetStatus = get_Marvell_phy_speed(xemacpsp, phy_addr);
+	}
+	if (RetStatus != XST_SUCCESS) {
+		return RetStatus;
+	}
+
+	return XST_SUCCESS;
 }
 
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed)
