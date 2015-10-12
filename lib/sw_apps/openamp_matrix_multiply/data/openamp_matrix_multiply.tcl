@@ -35,7 +35,7 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-    return " OpenAMP R5 matrix multiplication application";
+    return " OpenAMP matrix multiplication application";
 }
 
 proc check_standalone_os {} {
