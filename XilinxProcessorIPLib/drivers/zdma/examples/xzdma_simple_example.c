@@ -43,6 +43,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
+*       vns    10/13/15  Declared static array rather than hard code memory.
 * </pre>
 *
 ******************************************************************************/
@@ -84,8 +85,8 @@ static void DoneHandler(void *CallBackRef);
 XZDma ZDma;		/**<Instance of the ZDMA Device */
 XScuGic Intc;		/**< XIntc Instance */
 
-u32 *DstBuf = (u32 *)0x3C000000;	/**< Pointer to destination buffer */
-u32 *SrcBuf = (u32 *)0x00200000;	/**< Pointer to source buffer */
+u8 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
+u8 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 
 u8 Done = 0;				/**< Done flag */
 
