@@ -907,8 +907,11 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PMU)
 	{
+		/* Enable PMU_0 IPI */
+		XFsbl_Out32(IPI_PMU_0_IER, IPI_PMU_0_IER_PMU_0_MASK);
+
 		/* Trigger PMU0 IPI in PMU IPI TRIG Reg */
-		XFsbl_Out32(IPI_PMU_0_TRIG, IPI_APU_TRIG_PMU_0_SHIFT);
+		XFsbl_Out32(IPI_PMU_0_TRIG, IPI_PMU_0_TRIG_PMU_0_MASK);
 
 		/**
 		 * Wait until PMU Microblaze goes to sleep state,

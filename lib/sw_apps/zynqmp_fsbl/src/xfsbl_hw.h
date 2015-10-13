@@ -470,7 +470,10 @@ extern "C" {
 
 /* Register: IPI_PMU_0_TRIG */
 #define IPI_PMU_0_TRIG    ( ( IPI_BASEADDR ) + 0X00030000U )
-#define IPI_APU_TRIG_PMU_0_SHIFT    16U
+#define IPI_PMU_0_TRIG_PMU_0_MASK    0X00010000U
+
+#define IPI_PMU_0_IER    ( ( IPI_BASEADDR ) + 0X00030018U )
+#define IPI_PMU_0_IER_PMU_0_MASK    0X00010000U
 
 /**************************** Type Definitions *******************************/
 
