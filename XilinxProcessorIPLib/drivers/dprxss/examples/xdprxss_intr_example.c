@@ -46,11 +46,11 @@
 *		For this example to display output, the user need to implement
 *		initialization of the system (DpRxSs_PlatformInit), Video Phy
 *		(DpRxSs_VideoPhyInit), start DisplayPort RX subsystem
-*		(XDpRxSs_Start) and DisplayPort TX Subsystem setup
-*		(DpTxSs_Setup).
+*		(XDpRxSs_Start) and DisplayPort RX Subsystem setup
+*		(DpRxSs_Setup).
 *		The input to the Subsystem is from RX (GT).
 *		The functions DpRxSs_PlatformInit, DpRxSs_VideoPhyInit and
-*		DpTxSs_Setup are declared and are left up to the user to
+*		DpRxSs_Setup are declared and are left up to the user to
 *		implement.
 *
 * <pre>
@@ -59,6 +59,9 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 07/29/15 Initial release.
+* 2.00 sha 10/05/15 Changed DpTxSs_Setup --> DpRxSs_Setup.
+*                   Removed HDCP callbacks registration and callbacks.
+*                   Added HDCP and Timer Counter interrupt handler setup.
 * </pre>
 *
 ******************************************************************************/
@@ -88,12 +91,26 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define XINTC_DPRXSS_DP_INTERRUPT_ID	XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+#define XINTC_DPRXSS_DP_INTERRUPT_ID \
+	XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#define XINTC_DPRXSS_HDCP_INTERRUPT_ID \
+	XPAR_INTC_0_DPRXSS_0_DPRXSS_HDCP_IRQ_VEC_ID
+#define XINTC_DPRXSS_TMR_INTERRUPT_ID \
+	XPAR_INTC_0_DPRXSS_0_DPRXSS_TIMER_IRQ_VEC_ID
+#endif
 #define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #define XINTC				XIntc
 #define XINTC_HANDLER			XIntc_InterruptHandler
 #else /* Else part */
-#define XINTC_DPRXSS_DP_INTERRUPT_ID 	XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+#define XINTC_DPRXSS_DP_INTERRUPT_ID \
+	XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#define XINTC_DPRXSS_HDCP_INTERRUPT_ID \
+	XPAR_INTC_0_DPRXSS_0_DPRXSS_HDCP_IRQ_VEC_ID
+#define XINTC_DPRXSS_TMR_INTERRUPT_ID \
+	XPAR_INTC_0_DPRXSS_0_DPRXSS_TIMER_IRQ_VEC_ID
+#endif
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC				XScuGic
 #define XINTC_HANDLER			XScuGic_InterruptHandler
@@ -122,7 +139,7 @@
 u32 DpRxSs_IntrExample(u16 DeviceId);
 u32 DpRxSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(void);
-u32 DpTxSs_Setup(void);
+u32 DpRxSs_Setup(void);
 
 
 /* Interrupt helper functions */
@@ -144,13 +161,6 @@ void DpRxSs_AudioOverflowHandler(void *InstancePtr);
 void DpRxSs_PayloadAllocationHandler(void *InstancePtr);
 void DpRxSs_ActRxHandler(void *InstancePtr);
 void DpRxSs_CrcTestHandler(void *InstancePtr);
-
-void DpRxSs_HdcpDebugWriteHandler(void *InstancePtr);
-void DpRxSs_HdcpAksvWriteHandler(void *InstancePtr);
-void DpRxSs_HdcpAnWriteHandler(void *InstancePtr);
-void DpRxSs_HdcpAInfoWriteHandler(void *InstancePtr);
-void DpRxSs_HdcpRoReadHandler(void *InstancePtr);
-void DpRxSs_HdcpBInfoReadHandler(void *InstancePtr);
 void DpRxSs_UnplugHandler(void *InstancePtr);
 void DpRxSs_LinkBandwidthHandler(void *InstancePtr);
 void DpRxSs_PllResetHandler(void *InstancePtr);
@@ -280,8 +290,8 @@ u32 DpRxSs_IntrExample(u16 DeviceId)
 	/* Setup Video Phy, left to the user for implementation */
 	DpRxSs_VideoPhyInit();
 
-	/* Setup DPTX SS, left to the user for implementation */
-	DpTxSs_Setup();
+	/* Setup DPRX SS, left to the user for implementation */
+	DpRxSs_Setup();
 
 	/* Do not return in order to allow interrupt handling to run. Different
 	 * types of interrupts will be detected and handled.
@@ -337,18 +347,18 @@ u32 DpRxSs_VideoPhyInit(void)
 /*****************************************************************************/
 /**
 *
-* This function configures DisplayPort TX Subsystem.
+* This function configures DisplayPort RX Subsystem.
 *
 * @param	None.
 *
 * @return
-*		- XST_SUCCESS if DP TX Subsystem configured successfully.
+*		- XST_SUCCESS if DP RX Subsystem configured successfully.
 *		- XST_FAILURE, otherwise.
 *
 * @note		None.
 *
 ******************************************************************************/
-u32 DpTxSs_Setup(void)
+u32 DpRxSs_Setup(void)
 {
 	/* User is responsible to setup Video Phy */
 
@@ -414,20 +424,6 @@ u32 DpRxSs_SetupIntrSystem(void)
 				DpRxSs_ActRxHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_CRC_TEST_EVENT,
 				DpRxSs_CrcTestHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_HDCP_DBG_WR_EVENT,
-				DpRxSs_HdcpDebugWriteHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_HDCP_AKSV_WR_EVENT,
-				DpRxSs_HdcpAksvWriteHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_HDCP_AN_WR_EVENT,
-				DpRxSs_HdcpAnWriteHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst,
-			XDPRXSS_HANDLER_DP_HDCP_A_INFO_WR_EVENT,
-				DpRxSs_HdcpAInfoWriteHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_HDCP_RO_RD_EVENT,
-				DpRxSs_HdcpRoReadHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst,
-			XDPRXSS_HANDLER_DP_HDCP_B_INFO_RD_EVENT,
-				DpRxSs_HdcpBInfoReadHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_UNPLUG_EVENT,
 				DpRxSs_UnplugHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_LINKBW_EVENT,
@@ -456,6 +452,29 @@ u32 DpRxSs_SetupIntrSystem(void)
 
 	/* Enable the interrupt vector at the interrupt controller */
 	XIntc_Enable(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	Status = XIntc_Connect(IntcInstPtr, XINTC_DPRXSS_HDCP_INTERRUPT_ID,
+			(XInterruptHandler)XDpRxSs_HdcpIntrHandler,
+				&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS HDCP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	Status = XIntc_Connect(IntcInstPtr, XINTC_DPRXSS_TMR_INTERRUPT_ID,
+			(XInterruptHandler)XDpRxSs_TmrCtrIntrHandler,
+				&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS Timer Counter interrupt connect "
+			"failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Enable the interrupt vector at the interrupt controller */
+	XIntc_Enable(IntcInstPtr, XINTC_DPRXSS_HDCP_INTERRUPT_ID);
+	XIntc_Enable(IntcInstPtr, XINTC_DPRXSS_TMR_INTERRUPT_ID);
+#endif
 
 	/* Start the interrupt controller such that interrupts are recognized
 	 * and handled by the processor
@@ -493,9 +512,31 @@ u32 DpRxSs_SetupIntrSystem(void)
 		xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
 		return XST_FAILURE;
 	}
-
-	/* Enable the interrupt for the Pixel Splitter device */
+	/* Enable the interrupt for the DP device */
 	XScuGic_Enable(IntcInstance, XINTC_DPRXSS_DP_INTERRUPT_ID);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPRXSS_HDCP_INTERRUPT_ID,
+			(Xil_InterruptHandler)XDpRxSs_HdcpIntrHandler,
+				&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS HDCP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPRXSS_TMR_INTERRUPT_ID,
+			(Xil_InterruptHandler)XDpRxSs_TmrCtrIntrHandler,
+				&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS Timer Counter interrupt connect "
+			"failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Enable the interrupt device */
+	XScuGic_Enable(IntcInstance, XINTC_DPRXSS_HDCP_INTERRUPT_ID);
+	XScuGic_Enable(IntcInstance, XINTC_DPRXSS_TMR_INTERRUPT_ID);
+#endif
 #endif
 	/* Initialize the exception table. */
 	Xil_ExceptionInit();
@@ -800,114 +841,6 @@ void DpRxSs_ActRxHandler(void *InstancePtr)
 void DpRxSs_CrcTestHandler(void *InstancePtr)
 {
 	xil_printf("Interrupt: CRC test started.\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the callback function for when the HDCP debug write start
-* interrupt occurs.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void DpRxSs_HdcpDebugWriteHandler(void *InstancePtr)
-{
-	xil_printf("Interrupt: HDCP debug write started.\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the callback function for when the HDCP AKSV write start
-* interrupt occurs.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void DpRxSs_HdcpAksvWriteHandler(void *InstancePtr)
-{
-	xil_printf("Interrupt: HDCP AKSV write started.\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the callback function for when the HDCP AN write start
-* interrupt occurs.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void DpRxSs_HdcpAnWriteHandler(void *InstancePtr)
-{
-	xil_printf("Interrupt: HDCP AN write started.\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the callback function for when the HDCP A info write start
-* interrupt occurs.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void DpRxSs_HdcpAInfoWriteHandler(void *InstancePtr)
-{
-	xil_printf("Interrupt: HDCP A info write started.\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the callback function for when the HDCP RO read start
-* interrupt occurs.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void DpRxSs_HdcpRoReadHandler(void *InstancePtr)
-{
-	xil_printf("Interrupt: HDCP RO read started.\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the callback function for when the B info read start
-* interrupt occurs.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void DpRxSs_HdcpBInfoReadHandler(void *InstancePtr)
-{
-	xil_printf("Interrupt: HDCP B info read started.\n\r");
 }
 
 /*****************************************************************************/

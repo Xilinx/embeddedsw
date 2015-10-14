@@ -32,11 +32,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xdprxss_debug_example.c
+* @file xdprxss_hdcp_example.c
 *
 * This file contains a design example using the XDpRxSs driver in single stream
-* (SST) transport or multi-stream transport (MST) mode and provides DisplayPort
-* RX Subsystem debug information at runtime.
+* (SST) transport or multi-stream transport (MST) mode and enables HDCP.
 *
 * @note		For this example to display output, the user need to implement
 *		initialization of the system (DpRxSs_PlatformInit), Video Phy
@@ -55,9 +54,7 @@
 *
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
-* 1.00 sha 07/29/15 Initial release.
-* 2.00 sha 10/05/15 Changed DpTxSs_Setup --> DpRxSs_Setup.
-*                   Added HDCP debug function.
+* 1.00 sha 10/05/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -93,7 +90,7 @@
 
 /************************** Function Prototypes ******************************/
 
-u32 DpRxSs_DebugExample(u16 DeviceId);
+u32 DpRxSs_HdcpExample(u16 DeviceId);
 u32 DpRxSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(void);
 u32 DpRxSs_Setup(void);
@@ -124,18 +121,18 @@ int main()
 	u32 Status;
 
 	xil_printf("-------------------------------------------\n\r");
-	xil_printf("DisplayPort RX Subsystem debug example\n\r");
+	xil_printf("DisplayPort RX Subsystem HDCP example\n\r");
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
-	Status = DpRxSs_DebugExample(XDPRXSS_DEVICE_ID);
+	Status = DpRxSs_HdcpExample(XDPRXSS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("DisplayPort RX Subsystem debug example failed."
+		xil_printf("DisplayPort RX Subsystem HDCP example failed."
 				"\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("DisplayPort RX Subsystem debug example passed\n\r");
+	xil_printf("DisplayPort RX Subsystem HDCP example passed\n\r");
 
 	return XST_SUCCESS;
 }
@@ -143,22 +140,22 @@ int main()
 /*****************************************************************************/
 /**
 *
-* This function is the main entry point for the debug example using the
-* XDpRxSs driver. This function will print values set during DisplayPort RX
+* This function is the main entry point for the HDCP example using the
+* XDpRxSs driver. This function will enable HDCP during DisplayPort RX
 * Subsystem set up to work in MST/SST mode.
 *
 * @param	DeviceId is the unique device ID of the DisplayPort RX
 *		Subsystem core.
 *
 * @return
-*		- XST_SUCCESS if DisplayPort RX Subsystem prints debug
-*		information successfully.
+*		- XST_SUCCESS if DisplayPort RX Subsystem HDCP enabled
+*		successfully.
 *		- XST_FAILURE, otherwise.
 *
 * @note		None.
 *
 ******************************************************************************/
-u32 DpRxSs_DebugExample(u16 DeviceId)
+u32 DpRxSs_HdcpExample(u16 DeviceId)
 {
 	u32 Status;
 	XDpRxSs_Config *ConfigPtr;
@@ -202,6 +199,29 @@ u32 DpRxSs_DebugExample(u16 DeviceId)
 	XDpRxSs_SetLinkRate(&DpRxSsInst, DPRXSS_LINK_RATE);
 	XDpRxSs_SetLaneCount(&DpRxSsInst, DPRXSS_LANE_COUNT);
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Enable HDCP */
+	Status = XDpRxSs_HdcpEnable(&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:DPRX SS HDCP enable failed\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Set PHY status down */
+	Status = XDpRxSs_SetPhysicalState(&DpRxSsInst, 0);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:DPRX SS HDCP PHY failed\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Execute HDCP RX state machine */
+	Status = XDpRxSs_Poll(&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:DPRX SS HDCP poll failed\n\r");
+		return XST_FAILURE;
+	}
+#endif
+
 	/* Start DPRXSS */
 	Status = XDpRxSs_Start(&DpRxSsInst);
 	if (Status != XST_SUCCESS) {
@@ -209,25 +229,34 @@ u32 DpRxSs_DebugExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Set PHY status up */
+	Status = XDpRxSs_SetPhysicalState(&DpRxSsInst, 1);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:DPRX SS HDCP PHY failed\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Set authenticate */
+	Status = XDpRxSs_Authenticate(&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:DPRX SS HDCP AUTH failed\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Execute HDCP RX state machine */
+	Status = XDpRxSs_Poll(&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:DPRX SS HDCP poll failed\n\r");
+		return XST_FAILURE;
+	}
+#endif
+
 	/* Setup Video Phy, left to the user for implementation */
 	DpRxSs_VideoPhyInit();
 
 	/* Setup DPRX SS, left to the user for implementation */
 	DpRxSs_Setup();
-
-	/* Print available sub-cores of subsystem */
-	XDpRxSs_ReportCoreInfo(&DpRxSsInst);
-
-	/* Print link info that was configured during link training */
-	XDpRxSs_ReportLinkInfo(&DpRxSsInst);
-
-	/* Print Multi-stream attributes being set during subsystem set up */
-	XDpRxSs_ReportMsaInfo(&DpRxSsInst);
-
-	/* Print HDCP debug info if HDCP is present. Otherwise unsupported
-	 * info
-	 */
-	XDpRxSs_ReportHdcpInfo(&DpRxSsInst);
 
 	return XST_SUCCESS;
 }
