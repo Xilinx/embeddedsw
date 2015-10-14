@@ -288,6 +288,17 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	SssCfg = SssDma|SssAes ;
 
 	XSecure_SssSetup(SssCfg);
+	/* Clear AES contents by reseting it. */
+	XSecure_AesReset(InstancePtr);
+
+	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
+
+	if(InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV)
+	{
+		XSecure_AesKeySelNLoad(InstancePtr);
+	}
 
 	/* Configure the AES for Encryption.*/
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
@@ -311,13 +322,21 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				(Len + XSECURE_SECURE_GCM_TAG_SIZE)/4U, 0);
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR) Src,
-				XSECURE_SECURE_GCM_TAG_SIZE/4U, 1);
+				Len/4U, 1);
 
-	/**
-	* Wait for Dst/Src DMA done.
-	*/
+	/* Wait for Src DMA done. */
+	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
+
+	/* Wait for Dst DMA done. */
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
 
 	/* Wait for AES encryption completion.*/
 	XSecure_AesWaitForDone(InstancePtr);
