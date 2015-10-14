@@ -40,12 +40,12 @@
 * @note		For this example to display output, the user need to implement
 *		initialization of the system (DpRxSs_PlatformInit), Video Phy
 *		(DpRxSs_VideoPhyInit), start DisplayPort RX subsystem
-*		(XDpRxSs_Start) and DisplayPort TX Subsystem setup
-*		(DpTxSs_Setup).
+*		(XDpRxSs_Start) and DisplayPort RX Subsystem setup
+*		(DpRxSs_Setup).
 *		The input to the Subsystem is from RX (GT).
 *		This example requires an interrupt controller in the system.
 *		The functions DpRxSs_PlatformInit, DpRxSs_VideoPhyInit and
-*		DpTxSs_Setup are declared and are left up to the user to
+*		DpRxSs_Setup are declared and are left up to the user to
 *		implement.
 *
 * <pre>
@@ -54,6 +54,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 07/29/15 Initial release.
+* 2.00 sha 10/05/15 Changed DpTxSs_Setup --> DpRxSs_Setup.
 * </pre>
 *
 ******************************************************************************/
@@ -121,7 +122,7 @@
 u32 DpRxSs_MstExample(u16 DeviceId);
 u32 DpRxSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(void);
-u32 DpTxSs_Setup(void);
+u32 DpRxSs_Setup(void);
 
 /* Interrupt helper functions */
 u32 DpRxSs_SetupIntrSystem(void);
@@ -263,8 +264,8 @@ u32 DpRxSs_MstExample(u16 DeviceId)
 	/* Setup Video Phy, left to the user for implementation */
 	DpRxSs_VideoPhyInit();
 
-	/* Setup DPTX SS, left to the user for implementation */
-	DpTxSs_Setup();
+	/* Setup DPRX SS, left to the user for implementation */
+	DpRxSs_Setup();
 
 	return XST_SUCCESS;
 }
@@ -315,18 +316,18 @@ u32 DpRxSs_VideoPhyInit(void)
 /*****************************************************************************/
 /**
 *
-* This function configures DisplayPort TX Subsystem.
+* This function configures DisplayPort RX Subsystem.
 *
 * @param	None.
 *
 * @return
-*		- XST_SUCCESS if DPTX Subsystem configured successfully.
+*		- XST_SUCCESS if DPRX Subsystem configured successfully.
 *		- XST_FAILURE, otherwise.
 *
 * @note		None.
 *
 ******************************************************************************/
-u32 DpTxSs_Setup(void)
+u32 DpRxSs_Setup(void)
 {
 	/* User is responsible to setup Video Phy */
 

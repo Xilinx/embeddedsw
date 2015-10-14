@@ -1,3 +1,15 @@
+******************************************************************************/
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver  Who Date     Changes
+* ---- --- -------- --------------------------------------------------
+* 1.00 sha 10/05/15 Added modification header
+*                   Changed DpTxSs_Setup --> DpRxSs_Setup.
+*                   Added HDCP example.
+* </pre>
+*
+******************************************************************************/
 There are 4 DisplayPort Receiver Subsystem examples include in this directory:
 1) xdprxss_selftest_example.c : This self test example will call self test
    functions of each DisplayPort RX Subsystem's sub-cores to verify that the sub-cores
@@ -15,14 +27,17 @@ There are 4 DisplayPort Receiver Subsystem examples include in this directory:
 4) xdprxss_debug_example.c : The debug example setup MST/SST mode based on system confi-
    guration parameters and prints debug information at the end.
 
+5) xdprxss_hdcp_example.c : The HDCP example setup SST mode and enables the HDCP after
+   RX has started.
+
 Additionally, in order to be able to use the interrupt, MST/SST, and debug examples,
 the user will need to implement following functions:
 1) DpRxSs_PlatformInit : This function needs to do all hardware system
    initialization.
 2) DpRxSs_VideoPhyInit : These function need to configure the Video Phy using video phy
    driver functions. For information, refer video phy driver documentation.
-3) DpTxSs_Setup : These function need to configure the DisplayPort TX Subsystem using
-   DPTX Subsystem driver functions. For information, refer DPTXSS driver documentation.
+3) DpRxSs_Setup : These function need to configure the DisplayPort RX Subsystem using
+   DPRX Subsystem driver functions. For information, refer DPRXSS driver documentation.
 
 Note: All example functions start with DpRxSs_*, while all DisplayPort RX Subsystem
 driver functions start with XDpRxSs_*.
