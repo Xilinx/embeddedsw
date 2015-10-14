@@ -27,6 +27,11 @@
 # Except as contained in this notice, the name of the Xilinx shall not be used
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
+#
+# MODIFICATION HISTORY:
+# Ver  Who Date     Changes
+# ---- --- -------- -----------------------------------------------------------
+# 2.00 sha 10/05/15 Added Timer Counter support.
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -50,6 +55,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set sub_core_params(displayport) "BASEADDR S_AXI_ACLK LANE_COUNT LINK_RATE MAX_BITS_PER_COLOR QUAD_PIXEL_ENABLE DUAL_PIXEL_ENABLE YCRCB_ENABLE YONLY_ENABLE GT_DATAWIDTH SECONDARY_SUPPORT AUDIO_CHANNELS MST_ENABLE NUMBER_OF_MST_STREAMS PROTOCOL_SELECTION FLOW_DIRECTION"
 	set sub_core_params(axi_iic) "BASEADDR TEN_BIT_ADR GPO_WIDTH"
 	set sub_core_params(hdcp) "BASEADDR S_AXI_FREQUENCY IS_RX IS_HDMI"
+	set sub_core_params(axi_timer) "BASEADDR CLOCK_FREQ_HZ"
 	set total_subcores [array size sub_core_params]
 
 	set filename [file join "src" $file_name]

@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_hw.h
-* @addtogroup dprxss_v1_0
+* @addtogroup dprxss_v2_0
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -48,6 +48,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
+* 2.00 sha 10/05/15 Added Timer Counter reset value macro.
 * </pre>
 *
 ******************************************************************************/
@@ -122,6 +123,9 @@ extern "C" {
 							  *  RX ports */
 #define XDPRXSS_GUID_NBYTES		XDP_GUID_NBYTES	/**< Number of bytes
 							  *  for GUID */
+
+#define XDPRXSS_TMRCTR_RST_VAL		100000000	/**< Timer Counter
+							  *  reset value */
 
 /**************************** Type Definitions *******************************/
 
