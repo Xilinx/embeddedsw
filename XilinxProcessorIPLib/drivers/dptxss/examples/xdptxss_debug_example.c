@@ -52,6 +52,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 07/01/15 Initial release.
+* 1.00 sha 09/28/15 Added HDCP debug info function call.
 * </pre>
 *
 ******************************************************************************/
@@ -302,6 +303,9 @@ u32 DpTxSs_DebugExample(u16 DeviceId)
 
 	/* Print EDID info of RX device(s) */
 	DpTxSs_ReportEdidInfo(&DpTxSsInst);
+
+	/* Print HDCP debug info */
+	XDpTxSs_ReportHdcpInfo(&DpTxSsInst);
 
 	/* Enable interrupts. */
 	Xil_ExceptionEnable();

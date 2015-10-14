@@ -56,6 +56,9 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 07/01/15 Initial release.
+* 2.00 sha 09/28/15 Added HDCP, Timer Counter interrupt handier registration.
+*                   Added set MSA callback.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -85,12 +88,26 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define XINTC_DPTXSS_DP_INTERRUPT_ID	XPAR_INTC_0_DPTXSS_0_VEC_ID
+#define XINTC_DPTXSS_DP_INTERRUPT_ID \
+	XPAR_INTC_0_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#define XINTC_DPTXSS_HDCP_INTERRUPT_ID \
+	XPAR_INTC_0_DPTXSS_0_DPTXSS_HDCP_IRQ_VEC_ID
+#define XINTC_DPTXSS_TMR_INTERRUPT_ID \
+	XPAR_INTC_0_DPTXSS_0_DPTXSS_TIMER_IRQ_VEC_ID
+#endif
 #define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #define XINTC				XIntc
 #define XINTC_HANDLER			XIntc_InterruptHandler
 #else /* Else part */
-#define XINTC_DPTXSS_DP_INTERRUPT_ID 	XPAR_INTC_0_DPTXSS_0_VEC_ID
+#define XINTC_DPTXSS_DP_INTERRUPT_ID \
+	XPAR_INTC_0_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#define XINTC_DPTXSS_HDCP_INTERRUPT_ID \
+	XPAR_INTC_0_DPTXSS_0_DPTXSS_HDCP_IRQ_VEC_ID
+#define XINTC_DPTXSS_TMR_INTERRUPT_ID \
+	XPAR_INTC_0_DPTXSS_0_DPTXSS_TIMER_IRQ_VEC_ID
+#endif
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC				XScuGic
 #define XINTC_HANDLER			XScuGic_InterruptHandler
@@ -136,6 +153,10 @@ u32 DpTxSs_StreamSrc(u8 VerticalSplit);
 u32 DpTxSs_SetupIntrSystem(void);
 void DpTxSs_HpdEventHandler(void *InstancePtr);
 void DpTxSs_HpdPulseHandler(void *InstancePtr);
+void DpTxSs_LaneCountChangeHandler(void *InstancePtr);
+void DpTxSs_LinkRateChangeHandler(void *InstancePtr);
+void DpTxSs_PeVsAdjustHandler(void *InstancePtr);
+void DpTxSs_MsaHandler(void *InstancePtr);
 static void DpTxSs_HpdEventCommon(XDpTxSs *InstancePtr, u8 Mode);
 
 /************************** Variable Definitions *****************************/
@@ -329,11 +350,19 @@ u32 DpTxSs_SetupIntrSystem(void)
 	u32 Status;
 	XINTC *IntcInstPtr = &IntcInst;
 
-	/* Set the HPD interrupt handlers. */
+	/* Set interrupt handlers. */
 	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_HPD_EVENT,
 				DpTxSs_HpdEventHandler, &DpTxSsInst);
 	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_HPD_PULSE,
 				DpTxSs_HpdPulseHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_LANE_COUNT_CHG,
+				DpTxSs_LaneCountChangeHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_LINK_RATE_CHG,
+				DpTxSs_LinkRateChangeHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_PE_VS_ADJUST,
+				DpTxSs_PeVsAdjustHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_SET_MSA,
+				DpTxSs_MsaHandler, &DpTxSsInst);
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 
@@ -357,6 +386,28 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 	/* Enable the interrupt vector at the interrupt controller */
 	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Hook up interrupt service routine */
+	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID,
+			(XInterruptHandler)XDpTxSs_HdcpIntrHandler,
+				&DpTxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+	/* Hook up interrupt service routine */
+	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID,
+			(XInterruptHandler)XDpTxSs_TmrCtrIntrHandler,
+				&DpTxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+	/* Enable the interrupt vector at the interrupt controller */
+	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID);
+	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID);
+#endif
 
 	/* Start the interrupt controller such that interrupts are recognized
 	 * and handled by the processor
@@ -397,6 +448,28 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 	/* Enable the interrupt for the Pixel Splitter device */
 	XScuGic_Enable(IntcInstance, XINTC_DPTXSS_DP_INTERRUPT_ID);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Hook up interrupt service routine */
+	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID,
+			(XInterruptHandler)XDpTxSs_HdcpIntrHandler,
+				&DpTxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+	/* Hook up interrupt service routine */
+	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID,
+			(XInterruptHandler)XDpTxSs_TmrCtrIntrHandler,
+				&DpTxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+	/* Enable the interrupt vector at the interrupt controller */
+	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID);
+	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID);
+#endif
 #endif
 	/* Initialize the exception table. */
 	Xil_ExceptionInit();
@@ -494,6 +567,80 @@ void DpTxSs_HpdPulseHandler(void *InstancePtr)
 		xil_printf("INFO:HPD Pulse event for SST.\n\r");
 		DpTxSs_HpdEventCommon(DpTxSsInstance, 0);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the lane count change interrupt occurs.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+*
+* @return	None.
+*
+* @note		Use the XDpTxSs_SetCallback driver function to set this
+*		function as the handler for lane count change.
+*
+******************************************************************************/
+void DpTxSs_LaneCountChangeHandler(void *InstancePtr)
+{
+	xil_printf("Interrupt: lane count change.\n\r");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the link rate change interrupt occurs.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+*
+* @return	None.
+*
+* @note		Use the XDpTxSs_SetCallback driver function to set this
+*		function as the handler for link rate change.
+*
+******************************************************************************/
+void DpTxSs_LinkRateChangeHandler(void *InstancePtr)
+{
+	xil_printf("Interrupt: link rate change.\n\r");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the pre-emphasis and voltage swing adjustment
+* interrupt occurs.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+*
+* @return	None.
+*
+* @note		Use the XDpTxSs_SetCallback driver function to set this
+*		function as the handler for pre-emphasis and voltage swing
+*		adjust.
+*
+******************************************************************************/
+void DpTxSs_PeVsAdjustHandler(void *InstancePtr)
+{
+	xil_printf("Interrupt: pre-emphasis and voltage swing adjust.\n\r");
+}
+
+/*****************************************************************************/
+/**
+*
+* This callback is called when RX MSA values to be copied into TX MSA.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+*
+* @return	None.
+*
+* @note		Use the XDpTxSs_SetCallback driver function to set this
+*		function as the handler MSA copy.
+*
+******************************************************************************/
+void DpTxSs_MsaHandler(void *InstancePtr)
+{
+	xil_printf("Interrupt: MSA handler.\n\r");
 }
 
 /*****************************************************************************/
