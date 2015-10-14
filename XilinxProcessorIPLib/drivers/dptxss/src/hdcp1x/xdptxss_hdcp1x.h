@@ -43,6 +43,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------
 * 1.00 sha 08/07/15 Initial release.
+* 2.00 sha 09/28/15 Included Timer Counter core header file.
+*                   Included HDCP port header file.
 * </pre>
 *
 ******************************************************************************/
@@ -59,6 +61,8 @@ extern "C" {
 #include "xparameters.h"
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
+#include "xhdcp1x_port.h"
+#include "xtmrctr.h"
 #endif
 
 /************************** Constant Definitions *****************************/

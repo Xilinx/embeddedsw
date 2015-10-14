@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_intr.c
-* @addtogroup dptxss_v1_0
+* @addtogroup dptxss_v2_0
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
@@ -47,6 +47,7 @@
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 08/07/15 Added new handler types: lane count, link rate,
 *                   Pre-emphasis voltage swing adjust and Set MSA.
+* 2.00 sha 09/28/15 Added HDCP and Timer Counter interrupt handlers.
 * </pre>
 *
 ******************************************************************************/
@@ -102,6 +103,64 @@ void XDpTxSs_DpIntrHandler(void *InstancePtr)
 	/* DisplayPort TX interrupt handler */
 	XDp_InterruptHandler(XDpTxSsPtr->DpPtr);
 }
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the HDCP Cipher core.
+*
+* The application is responsible for connecting this function to the interrupt
+* system.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance that
+*		just interrupted.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpTxSs_HdcpIntrHandler(void *InstancePtr)
+{
+	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(XDpTxSsPtr != NULL);
+	Xil_AssertVoid(XDpTxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* HDCP Cipher interrupt handler */
+	XHdcp1x_CipherIntrHandler(XDpTxSsPtr->Hdcp1xPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the Timer Counter core.
+*
+* The application is responsible for connecting this function to the interrupt
+* system.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance that
+*		just interrupted.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
+{
+	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(XDpTxSsPtr != NULL);
+	Xil_AssertVoid(XDpTxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Timer Counter interrupt handler */
+	XTmrCtr_InterruptHandler(XDpTxSsPtr->TmrCtrPtr);
+}
+#endif
 
 /*****************************************************************************/
 /**

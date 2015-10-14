@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v1_0
+* @addtogroup dptxss_v2_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
@@ -50,6 +50,7 @@
 * 1.00 sha 07/21/15 Renamed sub-cores functions with prefix XDpTxSs_*
 * 1.00 sha 08/07/15 Added support for customized main stream attributes.
 *                   Added HDCP instance into global sub-cores structure.
+* 2.00 sha 09/28/15 Added HDCP and Timer Counter support.
 * </pre>
 *
 ******************************************************************************/
@@ -75,6 +76,7 @@ typedef struct {
 #endif
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	XHdcp1x Hdcp1xInst;
+	XTmrCtr TmrCtrInst;
 #endif
 	XDp DpInst;
 	XVtc VtcInst[XDPTXSS_NUM_STREAMS];
@@ -86,6 +88,14 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr);
 static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream);
 static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr);
 static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs);
+static int DpTxSs_HdcpStopTimer(const XHdcp1x *InstancePtr);
+static int DpTxSs_HdcpBusyDelay(const XHdcp1x *InstancePtr, u16 DelayInMs);
+static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq);
+static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -122,6 +132,9 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter_Config DualConfig;
+#endif
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x_Config Hdcp1xConfig;
 #endif
 	XDp_Config DpConfig;
 	XVtc_Config VtcConfig;
@@ -204,6 +217,64 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		}
 	}
 #endif
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Check for Timer Counter availability */
+	if (InstancePtr->TmrCtrPtr != NULL) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
+			"Counter IP \n\r");
+
+		/* Calculate absolute base address of Timer Counter sub-core */
+		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+
+		/* Timer Counter config initialize */
+		Status = XTmrCtr_Initialize(InstancePtr->TmrCtrPtr,
+		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.DeviceId);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: Timer "
+				"Counter initialization failed\n\r");
+			return XST_FAILURE;
+		}
+
+		/* Calculate absolute base address of Timer Counter sub-core */
+		InstancePtr->TmrCtrPtr->Config.BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+		InstancePtr->TmrCtrPtr->BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+
+		/* Initialize the HDCP timer functions */
+		XHdcp1x_SetTimerStart(&DpTxSs_HdcpStartTimer);
+		XHdcp1x_SetTimerStop(&DpTxSs_HdcpStopTimer);
+		XHdcp1x_SetTimerDelay(&DpTxSs_HdcpBusyDelay);
+	}
+
+	/* Check for HDCP availability */
+	if (InstancePtr->Hdcp1xPtr != NULL) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing HDCP IP "
+				"\n\r");
+
+		/* Calculate absolute base address of HDCP sub-core */
+		InstancePtr->Config.Hdcp1xSubCore.Hdcp1xConfig.BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+		(void)memcpy((void *)&(Hdcp1xConfig),
+			(const void *)&CfgPtr->Hdcp1xSubCore.Hdcp1xConfig,
+				sizeof(XHdcp1x_Config));
+
+		/* HDCP config initialize */
+		Hdcp1xConfig.BaseAddress += InstancePtr->Config.BaseAddress;
+		Status = XHdcp1x_CfgInitialize(InstancePtr->Hdcp1xPtr,
+				&Hdcp1xConfig, (void *)InstancePtr->DpPtr,
+				Hdcp1xConfig.BaseAddress);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: HDCP "
+				"initialization failed\n\r");
+			return XST_FAILURE;
+		}
+
+		/* Set key selection value for TX */
+		XHdcp1x_SetKeySelect(InstancePtr->Hdcp1xPtr, 0x0);
+	}
+#endif
 
 	/* Initialize VTC equal to number of streams */
 	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
@@ -281,6 +352,17 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 	}
 #endif
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Reset HDCP interface */
+	if (InstancePtr->Hdcp1xPtr) {
+		XHdcp1x_Reset(InstancePtr->Hdcp1xPtr);
+	}
+
+	/* Reset Timer Counter zero */
+	if (InstancePtr->TmrCtrPtr) {
+		XTmrCtr_Reset(InstancePtr->TmrCtrPtr, 0);
+	}
+#endif
 	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
 		/* Reset VTC's */
 		if (InstancePtr->VtcPtr[Index]) {
@@ -320,6 +402,15 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		return Status;
 	}
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Set physical interface (DisplayPort) down */
+	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY down "
+			"failed.\n\r");
+		return Status;
+	}
+#endif
 	/* Start DisplayPort sub-core configuration */
 	Status = XDpTxSs_DpTxStart(InstancePtr->DpPtr,
 			InstancePtr->UsrOpt.MstSupport,
@@ -332,6 +423,24 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		return Status;
 	}
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Set lane count in HDCP */
+	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
+		InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting HDCP lane "
+			"count failed.\n\r");
+		return Status;
+	}
+
+	/* Set physical interface (DisplayPort) up */
+	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 1);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY up failed."
+			"\n\r");
+		return Status;
+	}
+#endif
 	/* Align video mode being set in DisplayPort */
 	InstancePtr->UsrOpt.VmId =
 			InstancePtr->DpPtr->TxInstance.MsaConfig[0].Vtm.VmId;
@@ -398,6 +507,16 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		DpTxSs_CalculateMsa(InstancePtr, Index);
 	}
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Set physical interface (DisplayPort) down */
+	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY down "
+			"failed.\n\r");
+		return Status;
+	}
+#endif
+
 	/* Start DisplayPort sub-core configuration */
 	Status = XDpTxSs_DpTxStart(InstancePtr->DpPtr,
 			InstancePtr->UsrOpt.MstSupport,
@@ -409,6 +528,25 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 				InstancePtr->UsrOpt.MstSupport?"MST":"SST");
 		return Status;
 	}
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Set lane count in HDCP */
+	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
+		InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting HDCP lane "
+			"count failed.\n\r");
+		return Status;
+	}
+
+	/* Set physical interface (DisplayPort) up */
+	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 1);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY up failed."
+			"\n\r");
+		return Status;
+	}
+#endif
 
 	/* Setup subsystem sub-cores */
 	Status = DpTxSs_SetupSubCores(InstancePtr);
@@ -450,6 +588,12 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 	}
 #endif
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		/* Disable HDCP */
+		XHdcp1x_Disable(InstancePtr->Hdcp1xPtr);
+	}
+#endif
 	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
 			/* Disable all the VTC sub-cores */
@@ -465,6 +609,7 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs instance.
 * @param	Bpc is the new number of bits per color that needs to be set.
+*		- 6 = XVIDC_BPC_6,
 *		- 8 = XVIDC_BPC_8,
 *		- 10 = XVIDC_BPC_10,
 *		- 12 = XVIDC_BPC_12,
@@ -481,8 +626,9 @@ u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Bpc == XVIDC_BPC_8) || (Bpc == XVIDC_BPC_10) ||
-			(Bpc == XVIDC_BPC_12) || (Bpc == XVIDC_BPC_16));
+	Xil_AssertNonvoid((Bpc == XVIDC_BPC_6) || (Bpc == XVIDC_BPC_8) ||
+			(Bpc == XVIDC_BPC_10) || (Bpc == XVIDC_BPC_12) ||
+			(Bpc == XVIDC_BPC_16));
 
 	/* Set bits per color */
 	InstancePtr->UsrOpt.Bpc = Bpc;
@@ -914,6 +1060,578 @@ void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set)
 	XDp_TxSetHasRedriverInPath(InstancePtr->DpPtr, Set);
 }
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+*
+* This function enables High-Bandwidth Content Protection (HDCP) interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if HDCP i/f enabled successfully.
+*		- XST_FAILURE, otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Enable HDCP interface */
+	Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables High-Bandwidth Content Protection (HDCP) interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if HDCP i/f disabled successfully.
+*		- XST_FAILURE, otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Enable HDCP interface */
+	Status = XHdcp1x_Disable(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function polls the HDCP interface, process events and sets transmit
+* state machine accordingly.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if polling the HDCP interface was successful.
+*		- XST_FAILURE, if polling the HDCP interface failed.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_Poll(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Poll the HDCP interface */
+	Status = XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function determines whether downstream/remote RX device is HDCP capable.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- TRUE, if remote RX device is HDCP capable.
+*		- FALSE, if remote RX device is not HDCP capable.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
+{
+	u32 HdcpCapable;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Query a port device HDCP capability */
+	HdcpCapable = XHdcp1x_PortIsCapable(InstancePtr->Hdcp1xPtr);
+
+	return HdcpCapable;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initiates authentication process.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if authentication initiated successfully.
+*		- XST_FAILURE, if authentication initiated failed.
+*
+* @note		The transmitter initiates authentication by first sending its
+*		An and Aksv value to the HDCP Receiver.
+*
+******************************************************************************/
+u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Initiate authentication process */
+	Status = XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function checks whether HDCP Transmitter authenticated the HDCP
+* Receiver.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- TRUE, if HDCP Transmitter authenticated the HDCP Receiver.
+*		- FALSE, if HDCP Transmitter not authenticated the HDCP
+*		Receiver.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
+{
+	u32 Authenticate;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Check authentication has completed successfully */
+	Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
+
+	return Authenticate;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables encryption on series of streams within an HDCP
+* interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	StreamMap is the bit map of streams to enable encryption on.
+*
+* @return
+*		- XST_SUCCESS, if encryption enabled successfully.
+*		- XST_FAILURE, if encryption enabled failed.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Enable encryption on stream(s) */
+	Status = XHdcp1x_EnableEncryption(InstancePtr->Hdcp1xPtr, StreamMap);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables encryption on series of streams within an HDCP
+* interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	StreamMap is the bit map of streams to disable encryption on.
+*
+* @return
+*		- XST_SUCCESS, if encryption disabled successfully.
+*		- XST_FAILURE, if encryption disabled failed.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Disable encryption on stream(s) */
+	Status = XHdcp1x_DisableEncryption(InstancePtr->Hdcp1xPtr, StreamMap);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the current encryption map.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- The current encryption map.
+*		- Otherwise zero.
+*
+* @note		None.
+*
+******************************************************************************/
+u64 XDpTxSs_GetEncryption(XDpTxSs *InstancePtr)
+{
+	u64 StreamMap;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Get stream map of the stream(s) */
+	StreamMap = XHdcp1x_GetEncryption(InstancePtr->Hdcp1xPtr);
+
+	return StreamMap;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables/disables the underlying physical interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	PhyState indicates TRUE/FALSE value to enable/disable the
+*		underlying physical interface.
+*
+* @return
+*		- XST_SUCCESS, if the underlying physical interface enabled
+*		successfully.
+*		- XST_FAILURE, if the underlying physical interface failed to
+*		enable.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_SetPhysicalState(XDpTxSs *InstancePtr, u32 PhyState)
+{
+	u32 Status;
+
+	/* Verify argument.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid((PhyState == TRUE) || (PhyState == FALSE));
+
+	/* Enable underlying physical interface */
+	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, PhyState);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets lane(s) of the HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	Lane is the number of lanes to be used.
+*		- 1 = XDPTXSS_LANE_COUNT_SET_1
+*		- 2 = XDPTXSS_LANE_COUNT_SET_2
+*		- 4 = XDPTXSS_LANE_COUNT_SET_4
+*
+* @return
+*		- XST_SUCCESS, if lane(s) into the HDCP i/f set successfully.
+*		- XST_FAILURE, if failed to set lane(s) into the HDCP i/f.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpTxSs_SetLane(XDpTxSs *InstancePtr, u32 Lane)
+{
+	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid((Lane == XDPTXSS_LANE_COUNT_SET_1) ||
+			(Lane == XDPTXSS_LANE_COUNT_SET_2) ||
+			(Lane == XDPTXSS_LANE_COUNT_SET_4));
+
+	/* Set lanes into the HDCP interface */
+	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr, Lane);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the debug printf function.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	PrintfFunc is the printf function.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpTxSs_SetDebugPrintf(XDpTxSs *InstancePtr, XDpTxSs_Printf PrintfFunc)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertVoid(PrintfFunc != NULL);
+
+	/* Set debug printf function */
+	XHdcp1x_SetDebugPrintf(PrintfFunc);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the debug log message function.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	LogFunc is the debug logging function.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpTxSs_SetDebugLogMsg(XDpTxSs *InstancePtr, XDpTxSs_LogMsg LogFunc)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertVoid(LogFunc != NULL);
+
+	/* Set debug log message function */
+	XHdcp1x_SetDebugLogMsg(LogFunc);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function starts a timer on behalf of an HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+* @param	TimeoutInMs the timer duration in milliseconds.
+*
+* @return
+*		- XST_SUCCESS if Timer Counter started successfully.
+*
+* @note		None.
+*
+******************************************************************************/
+static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs)
+{
+	XTmrCtr *TmrCtrPtr = &DpTxSsSubCores.TmrCtrInst;
+	u8 TimerChannel;
+	u32 TimerOptions;
+	u32 NumTicks;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Determine NumTicks */
+	NumTicks = DpTxSs_ConvertUsToTicks((TimeoutInMs * 1000),
+				TmrCtrPtr->Config.SysClockFreqHz);
+
+	/* Stop Timer Counter */
+	TimerChannel = 0;
+	XTmrCtr_Stop(TmrCtrPtr, TimerChannel);
+
+	/* Configure the callback */
+	XTmrCtr_SetHandler(TmrCtrPtr, &DpTxSs_TimerCallback,
+				&DpTxSsSubCores.Hdcp1xInst);
+
+	/* Configure the timer options */
+	TimerOptions = XTmrCtr_GetOptions(TmrCtrPtr, TimerChannel);
+	TimerOptions |= XTC_DOWN_COUNT_OPTION;
+	TimerOptions |= XTC_INT_MODE_OPTION;
+	TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
+	XTmrCtr_SetOptions(TmrCtrPtr, TimerChannel, TimerOptions);
+
+	/* Set the timeout and start */
+	XTmrCtr_SetResetValue(TmrCtrPtr, TimerChannel, NumTicks);
+	XTmrCtr_Start(TmrCtrPtr, TimerChannel);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function stops a timer on behalf of an HDCP interface
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+*
+* @return
+*		- XST_SUCCESS if Timer Counter stopped successfully.
+*
+* @note		None.
+*
+******************************************************************************/
+static int DpTxSs_HdcpStopTimer(const XHdcp1x *InstancePtr)
+{
+	XTmrCtr *TmrCtrPtr = &DpTxSsSubCores.TmrCtrInst;
+	u8 TimerChannel;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Stop Timer Counter */
+	TimerChannel = 0;
+	XTmrCtr_Stop(TmrCtrPtr, TimerChannel);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function busy waits for an interval on behalf of an HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+* @param	DelayInMs the delay duration in milliseconds.
+*
+* @return
+*		- XST_SUCCESS if Timer Counter busy wait successfully.
+*
+* @note		None.
+*
+******************************************************************************/
+static int DpTxSs_HdcpBusyDelay(const XHdcp1x *InstancePtr, u16 DelayInMs)
+{
+	XTmrCtr *TmrCtrPtr = &DpTxSsSubCores.TmrCtrInst;
+	u8 TimerChannel;
+	u32 TimerOptions;
+	u32 NumTicks;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Determine number of timer ticks */
+	NumTicks = DpTxSs_ConvertUsToTicks((DelayInMs * 1000),
+					TmrCtrPtr->Config.SysClockFreqHz);
+
+	/* Stop it */
+	TimerChannel = 0;
+	XTmrCtr_Stop(TmrCtrPtr, TimerChannel);
+
+	/* Configure the timer options */
+	TimerOptions = XTmrCtr_GetOptions(TmrCtrPtr, TimerChannel);
+	TimerOptions |= XTC_DOWN_COUNT_OPTION;
+	TimerOptions &= ~XTC_INT_MODE_OPTION;
+	TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
+	XTmrCtr_SetOptions(TmrCtrPtr, TimerChannel, TimerOptions);
+
+	/* Set the timeout and start */
+	XTmrCtr_SetResetValue(TmrCtrPtr, TimerChannel, NumTicks);
+	XTmrCtr_Start(TmrCtrPtr, TimerChannel);
+
+	/* Wait until done */
+	while (!XTmrCtr_IsExpired(TmrCtrPtr, TimerChannel));
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function serves as the timer callback.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param 	TmrCtrNumber is the number of the timer/counter within the
+*		device. The device typically contains at least two
+*		timer/counters.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber)
+{
+	XHdcp1x *Hdcp1xPtr = (XHdcp1x *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(Hdcp1xPtr != NULL);
+	Xil_AssertVoid(TmrCtrNumber < XTC_DEVICE_TIMER_COUNT);
+
+	/* Handle timeout */
+	XHdcp1x_HandleTimeout(Hdcp1xPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function converts from microseconds to timer ticks.
+*
+* @param	TimeoutInUs is the timeout value to convert into timer ticks.
+* @param 	ClkFreq the clock frequency to use in the conversion.
+*
+* @return	The number of timer ticks.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq)
+{
+	u32 TimeoutFreq;
+	u32 NumSeconds;
+	u32 NumTicks = 0;
+
+	/* Check for greater than one second */
+	if (TimeoutInUs > 1000000) {
+		/* Determine the number of seconds */
+		NumSeconds = (TimeoutInUs / 1000000);
+
+		/* Update theNumTicks */
+		NumTicks = (NumSeconds * ClkFreq);
+
+		/* Adjust the TimeoutInUs */
+		TimeoutInUs -= (NumSeconds * 1000000);
+	}
+
+	/* Convert TimeoutFreq to a frequency */
+	TimeoutFreq = 1000;
+	TimeoutFreq *= 1000;
+	TimeoutFreq /= TimeoutInUs;
+
+	/* Update NumTicks */
+	NumTicks += ((ClkFreq / TimeoutFreq) + 1);
+
+	return NumTicks;
+}
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -934,6 +1652,18 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr)
 	/* Assign instance of Dual Splitter core */
 	InstancePtr->DsPtr = ((InstancePtr->Config.DsSubCore.IsPresent)?
 					(&DpTxSsSubCores.DsInst): NULL);
+#endif
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Assign instance of HDCP core */
+	InstancePtr->Hdcp1xPtr =
+		((InstancePtr->Config.Hdcp1xSubCore.IsPresent)?
+					(&DpTxSsSubCores.Hdcp1xInst): NULL);
+
+	/* Assign instance of Timer Counter core */
+	InstancePtr->TmrCtrPtr =
+		((InstancePtr->Config.TmrCtrSubCore.IsPresent)?
+					(&DpTxSsSubCores.TmrCtrInst): NULL);
 #endif
 
 	/* Assign instance of DisplayPort core */
