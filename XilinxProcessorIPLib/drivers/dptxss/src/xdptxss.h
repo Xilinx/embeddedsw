@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v1_0
+* @addtogroup dptxss_v2_0
 * @{
 * @details
 *
@@ -58,11 +58,13 @@
 *
 * <b>Interrupts</b>
 *
-* The DisplayPort TX Subsystem driver provides an interrupt handler
-* XDpTxSs_DpIntrHandler for handling the interrupt from the DisplayPort
-* sub-core. The users of this driver have to register this handler with
-* the interrupt system and provide the callback functions by using
-* XDpTxSs_SetCallBack API.
+* The DisplayPort TX Subsystem driver provides the interrupt handlers
+* - XDpTxSs_DpIntrHandler
+* - XDpTxSs_HdcpIntrHandler
+* - XDpTxSs_TmrCtrIntrHandler, for handling the interrupt from the DisplayPort,
+* optional HDCP and Timer Counter sub-cores respectively. The users of this
+* driver have to register this handler with the interrupt system and provide
+* the callback functions by using XDpTxSs_SetCallBack API.
 *
 * <b>Virtual Memory</b>
 *
@@ -99,6 +101,7 @@
 *                   Added support for customized main stream attributes.
 *                   Added function: XDpTxSs_SetHasRedriverInPath.
 *                   Added HDCP support data structure.
+* 2.00 sha 09/28/15 Added HDCP and Timer Counter functions.
 * </pre>
 *
 ******************************************************************************/
@@ -205,6 +208,16 @@ typedef struct {
 	XHdcp1x_Config Hdcp1xConfig;	/**< HDCP core configuration
 					  *  information */
 } XDpTxSs_Hdcp1xSubCore;
+
+/**
+* Timer Counter Sub-core structure.
+*/
+typedef struct {
+	u16 IsPresent;		/**< Flag to hold the presence of Timer
+				  *  Counter core */
+	XTmrCtr_Config TmrCtrConfig;	/**< Timer Counter core
+					  * configuration information */
+} XDpTxSs_TmrCtrSubCore;
 #endif
 
 /**
@@ -232,6 +245,9 @@ typedef struct {
 	XDpTxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	XDpTxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
+	XDpTxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
+						  *  Configuration */
+
 #endif
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDpTxSs_DsSubCore DsSubCore;	/**< Dual Splitter Configuration */
@@ -255,6 +271,7 @@ typedef struct {
 #endif
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
+	XTmrCtr *TmrCtrPtr;		/**< Timer Counter sub-core instance */
 #endif
 	XDp *DpPtr;			/**< DisplayPort sub-core instance */
 	XVtc *VtcPtr[XDPTXSS_NUM_STREAMS];/**< Maximum number of VTC sub-core
@@ -274,6 +291,11 @@ typedef struct {
 * Main-Stream attributes.
 */
 #define XDpTxSs_MainStreamAttributes	XDp_TxMainStreamAttributes
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#define XDpTxSs_Printf		XHdcp1x_Printf	/**< Debug printf */
+#define XDpTxSs_LogMsg		XHdcp1x_LogMsg	/**< Debug log message */
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -301,17 +323,39 @@ u32 XDpTxSs_GetEdid(XDpTxSs *InstancePtr, u8 *Edid);
 u32 XDpTxSs_GetRemoteEdid(XDpTxSs *InstancePtr, u8 SinkNum, u8 *Edid);
 void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set);
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+/* Optional HDCP related functions */
+u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
+u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr);
+u32 XDpTxSs_Poll(XDpTxSs *InstancePtr);
+u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr);
+u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
+u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
+u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
+u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
+u64 XDpTxSs_GetEncryption(XDpTxSs *InstancePtr);
+u32 XDpTxSs_SetPhysicalState(XDpTxSs *InstancePtr, u32 PhyState);
+u32 XDpTxSs_SetLane(XDpTxSs *InstancePtr, u32 Lane);
+void XDpTxSs_SetDebugPrintf(XDpTxSs *InstancePtr, XDpTxSs_Printf PrintfFunc);
+void XDpTxSs_SetDebugLogMsg(XDpTxSs *InstancePtr, XDpTxSs_LogMsg LogFunc);
+#endif
+
 void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportSplitterInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportVtcInfo(XDpTxSs *InstancePtr);
+void XDpTxSs_ReportHdcpInfo(XDpTxSs *InstancePtr);
 
 /* Self test function in xdptxss_selftest.c */
 u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr);
 
 /* Interrupt functions in xdptxss_intr.c */
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+void XDpTxSs_HdcpIntrHandler(void *InstancePtr);
+void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr);
+#endif
 void XDpTxSs_DpIntrHandler(void *InstancePtr);
 u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);

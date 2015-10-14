@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_hw.h
-* @addtogroup dptxss_v1_0
+* @addtogroup dptxss_v2_0
 * @{
 *
 * This header file contains identifiers and register-level core functions (or

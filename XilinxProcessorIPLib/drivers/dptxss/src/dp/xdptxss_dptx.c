@@ -47,6 +47,7 @@
 *                   names with prefix XDpTxSs_*.
 * 1.00 sha 08/07/15 Added support for customized main stream attributes for
 *                   Single Steam Transport and Multi-Stream Transport.
+* 2.00 sha 09/28/15 Removed cross checking user set resolution with RX EDID.
 * </pre>
 *
 ******************************************************************************/
@@ -120,8 +121,9 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((TransportMode == XDPTXSS_DPTX_MST) ||
 			(TransportMode == XDPTXSS_DPTX_SST));
-	Xil_AssertNonvoid((Bpc == XVIDC_BPC_8) || (Bpc == XVIDC_BPC_10) ||
-			(Bpc == XVIDC_BPC_12) || (Bpc == XVIDC_BPC_16));
+	Xil_AssertNonvoid((Bpc == XVIDC_BPC_6) || (Bpc == XVIDC_BPC_8) ||
+			(Bpc == XVIDC_BPC_10) || (Bpc == XVIDC_BPC_12) ||
+			(Bpc == XVIDC_BPC_16));
 	Xil_AssertNonvoid((VidMode < XVIDC_VM_NUM_SUPPORTED) ||
 			(VidMode == XVIDC_VM_USE_EDID_PREFERRED) ||
 			(VidMode == XVIDC_VM_CUSTOM));
@@ -527,18 +529,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		else if (VidMode != XVIDC_VM_CUSTOM) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:Using "
 				"user set resolution.\n\r");
-
-			/* Check whether VidMode ID is supported */
-			Status = XVidC_EdidIsVideoTimingSupported(Edid,
-			(XVidC_VideoTimingMode *)XVidC_GetVideoModeData(
-				VidMode));
-			if (Status != XST_SUCCESS) {
-				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:"
-					"%s is not supported.\n\rSetting to "
-					"640x480 resolution.\n\r",
-					XVidC_GetVideoModeStr(VidMode));
-				VidMode = XVIDC_VM_640x480_60_P;
-			}
 		}
 		else {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:SST:Using "

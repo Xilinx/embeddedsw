@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_dbg.c
-* @addtogroup dptxss_v1_0
+* @addtogroup dptxss_v2_0
 * @{
 *
 * This file contains functions to report debug information of DisplayPort TX
@@ -46,6 +46,7 @@
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 08/07/15 Updated register offsets in debug MSA info.
+* 2.00 sha 09/28/15 Added HDCP debug function.
 * </pre>
 *
 ******************************************************************************/
@@ -272,6 +273,15 @@ void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr)
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	if (InstancePtr->DsPtr) {
 		xil_printf("Dual Splitter:Yes\n\r");
+	}
+#endif
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
+	}
+	if (InstancePtr->TmrCtrPtr) {
+		xil_printf("Timer Counter(0):Yes\n\r");
 	}
 #endif
 
@@ -534,5 +544,29 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 	);
 
 	xil_printf("\n\r");
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints the debug display info of the HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpTxSs_ReportHdcpInfo(XDpTxSs *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
+#else
+	xil_printf("HDCP is not supported in this design.\n\r");
+#endif
 }
 /** @} */

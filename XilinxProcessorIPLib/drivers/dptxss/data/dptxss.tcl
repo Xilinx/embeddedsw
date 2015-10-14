@@ -32,6 +32,7 @@
 # Ver  Who Date     Changes
 # ---- --- -------- -----------------------------------------------------------
 # 1.00 sha 08/07/15 Added HDCP support to work with DP pass-through.
+# 2.00 sha 09/28/15 Added Timer Counter support to work with DP pass-through.
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -54,6 +55,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set sub_core_params(v_tc) "BASEADDR"
 	set sub_core_params(v_dual_splitter) "BASEADDR ACTIVE_COLS ACTIVE_ROWS MAX_SEGMENTS AXIS_VIDEO_MAX_TDATA_WIDTH AXIS_VIDEO_MAX_ITDATASMPLS_PER_CLK AXIS_VIDEO_MAX_OTDATASMPLS_PER_CLK MAX_OVRLAP MAX_SMPL_WIDTH HAS_AXI4_LITE HAS_IRQ"
 	set sub_core_params(hdcp) "BASEADDR S_AXI_FREQUENCY IS_RX IS_HDMI"
+	set sub_core_params(axi_timer) "BASEADDR CLOCK_FREQ_HZ"
 
 	set filename [file join "src" $file_name]
 	set config_file [open $filename w]
