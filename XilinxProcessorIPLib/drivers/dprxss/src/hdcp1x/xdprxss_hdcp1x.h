@@ -41,8 +41,10 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- -----------------------------------------------------
+* ---- --- -------- ----------------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
+* 2.00 sha 10/05/15 Protected HDCP, Timer Counter header file under macro
+*                    number of instances.
 * </pre>
 *
 ******************************************************************************/
@@ -56,7 +58,11 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
+#include "xparameters.h"
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
+#include "xtmrctr.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

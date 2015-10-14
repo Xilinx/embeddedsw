@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_selftest.c
-* @addtogroup dprxss_v1_0
+* @addtogroup dprxss_v2_0
 * @{
 *
 * This file contains self test function for the DisplayPort Receiver
@@ -45,6 +45,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
+* 2.00 sha 10/05/15 Added HDCP and Timer Counter self test.
 * </pre>
 *
 ******************************************************************************/
@@ -101,6 +102,24 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 				"failed\n\r");
 		}
 	}
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
+		Status = XHdcp1x_SelfTest(InstancePtr->Hdcp1xPtr);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::HDCP Self test "
+				"failed\r\n");
+		}
+	}
+
+	if (InstancePtr->TmrCtrPtr) {
+		Status = XTmrCtr_SelfTest(InstancePtr->TmrCtrPtr, 0);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::Timer Counter "
+				"Self test failed\r\n");
+		}
+	}
+#endif
 
 	/* Check IIC availability */
 	if (InstancePtr->IicPtr) {

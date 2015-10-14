@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_intr.c
-* @addtogroup dprxss_v1_0
+* @addtogroup dprxss_v2_0
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX
@@ -45,6 +45,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
+* 2.00 sha 10/05/15 Removed setting HDCP callbacks.
+*                   Added HDCP and Timer Counter interrupt handler.
 * </pre>
 *
 ******************************************************************************/
@@ -101,6 +103,64 @@ void XDpRxSs_DpIntrHandler(void *InstancePtr)
 	XDp_InterruptHandler(XDpRxSsPtr->DpPtr);
 }
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the HDCP Cipher core.
+*
+* The application is responsible for connecting this function to the interrupt
+* system.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance that
+*		just interrupted.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_HdcpIntrHandler(void *InstancePtr)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(XDpRxSsPtr != NULL);
+	Xil_AssertVoid(XDpRxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* HDCP Cipher interrupt handler */
+	XHdcp1x_CipherIntrHandler(XDpRxSsPtr->Hdcp1xPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the Timer Counter core.
+*
+* The application is responsible for connecting this function to the interrupt
+* system.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance that
+*		just interrupted.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(XDpRxSsPtr != NULL);
+	Xil_AssertVoid(XDpRxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Timer Counter interrupt handler */
+	XTmrCtr_InterruptHandler(XDpRxSsPtr->TmrCtrPtr);
+}
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -126,12 +186,6 @@ void XDpRxSs_DpIntrHandler(void *InstancePtr)
 * XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT   XDp_RxSetIntrPayloadAllocHandler
 * XDPRXSS_HANDLER_DP_ACT_RX_EVENT          XDp_RxSetIntrActRxHandler
 * XDPRXSS_HANDLER_DP_CRC_TEST_EVENT        XDp_RxSetIntrCrcTestHandler
-* XDPRXSS_HANDLER_DP_HDCP_DBG_WR_EVENT     XDp_RxSetIntrHdcpDebugWriteHandler
-* XDPRXSS_HANDLER_DP_HDCP_AKSV_WR_EVENT    XDp_RxSetIntrHdcpAksvWriteHandler
-* XDPRXSS_HANDLER_DP_HDCP_AN_WR_EVENT      XDp_RxSetIntrHdcpAnWriteHandler
-* XDPRXSS_HANDLER_DP_HDCP_A_INFO_WR_EVENT  XDp_RxSetIntrHdcpAinfoWriteHandler
-* XDPRXSS_HANDLER_DP_HDCP_RO_RD_EVENT      XDp_RxSetIntrHdcpRoReadHandler
-* XDPRXSS_HANDLER_DP_HDCP_B_INFO_RD_EVENT  XDp_RxSetIntrHdcpBinfoReadHandler
 * XDPRXSS_HANDLER_UNPLUG_EVENT             UnplugCallback
 * XDPRXSS_HANDLER_LINKBW_EVENT             LinkBwCallback
 * XDPRXSS_HANDLER_PLL_RESET_EVENT          PllResetCallback
@@ -257,42 +311,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 
 		case XDPRXSS_HANDLER_DP_CRC_TEST_EVENT:
 			XDp_RxSetIntrCrcTestHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_HANDLER_DP_HDCP_DBG_WR_EVENT:
-			XDp_RxSetIntrHdcpDebugWriteHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_HANDLER_DP_HDCP_AKSV_WR_EVENT:
-			XDp_RxSetIntrHdcpAksvWriteHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_HANDLER_DP_HDCP_AN_WR_EVENT:
-			XDp_RxSetIntrHdcpAnWriteHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_HANDLER_DP_HDCP_A_INFO_WR_EVENT:
-			XDp_RxSetIntrHdcpAinfoWriteHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_HANDLER_DP_HDCP_RO_RD_EVENT:
-			XDp_RxSetIntrHdcpRoReadHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_HANDLER_DP_HDCP_B_INFO_RD_EVENT:
-			XDp_RxSetIntrHdcpBinfoReadHandler(InstancePtr->DpPtr,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;

@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v1_0
+* @addtogroup dprxss_v2_0
 * @{
 * @details
 *
@@ -58,11 +58,13 @@
 *
 * <b>Interrupts</b>
 *
-* The DisplayPort RX Subsystem driver provides an interrupt handler
-* XDpRxSs_DpIntrHandler for handling the interrupt from the DisplayPort
-* sub-core. The users of this driver have to register this handler with
-* the interrupt system and provide the callback functions by using
-* XDpRxSs_SetCallBack API.
+* The DisplayPort RX Subsystem driver provides the interrupt handlers
+* - XDpRxSs_DpIntrHandler
+* - XDpRxSs_HdcpIntrHandler
+* - XDpRxSs_TmrCtrIntrHandler, for handling the interrupt from the DisplayPort,
+* optional HDCP and Timer Counter sub-cores respectively. The users of this
+* driver have to register this handler with the interrupt system and provide
+* the callback functions by using XDpRxSs_SetCallBack API.
 *
 * <b>Virtual Memory</b>
 *
@@ -91,8 +93,10 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- -----------------------------------------------------
+* ---- --- -------- ----------------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
+* 2.00 sha 10/05/15 Removed HDCP interrupt handler types.
+*                   Added HDCP and Timer Counter support.
 * </pre>
 *
 ******************************************************************************/
@@ -175,48 +179,13 @@ typedef enum {
 	XDPRXSS_HANDLER_DP_CRC_TEST_EVENT = 16,	/**< CRC test start event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_HDCP_DBG_WR_EVENT = 17,	/**< HDCP debug
-							  *  register write
-							  *  event interrupt
-							  *  type for
-							  *  DisplayPort
-							  *  core */
-	XDPRXSS_HANDLER_DP_HDCP_AKSV_WR_EVENT = 18,	/**< HDCP AKSV MSB
-							  *  register write
-							  *  event interrupt
-							  *  type for
-							  *  DisplayPort
-							  *  core */
-	XDPRXSS_HANDLER_DP_HDCP_AN_WR_EVENT = 19,	/**< HDCP AN MSB
-							  *  register write
-							  *  event interrupt
-							  *  type for
-							  *  DisplayPort
-							  *  core */
-	XDPRXSS_HANDLER_DP_HDCP_A_INFO_WR_EVENT = 20,	/**< HDCP A info
-							  *  register write
-							  *  event interrupt
-							  *  type for
-							  *  DisplayPort
-							  *  core */
-	XDPRXSS_HANDLER_DP_HDCP_RO_RD_EVENT = 21,	/**< HDCP RO register
-							  *  read event
-							  *  interrupt type for
-							  *  DisplayPort
-							  *  core */
-	XDPRXSS_HANDLER_DP_HDCP_B_INFO_RD_EVENT = 22,	/**< HDCP B info
-							  *  register read
-							  *  event interrupt
-							  *  type for
-							  *  DisplayPort
-							  *  core */
-	XDPRXSS_HANDLER_UNPLUG_EVENT = 23,	/**< Unplug event type for
+	XDPRXSS_HANDLER_UNPLUG_EVENT = 17,	/**< Unplug event type for
 						  *  DisplayPort RX
 						  *  Subsystem */
-	XDPRXSS_HANDLER_LINKBW_EVENT = 24,	/**< Link BW event type for
+	XDPRXSS_HANDLER_LINKBW_EVENT = 18,	/**< Link BW event type for
 						  *  DisplayPort RX Subsystem
 						  */
-	XDPRXSS_HANDLER_PLL_RESET_EVENT = 25	/**< PLL reset event type for
+	XDPRXSS_HANDLER_PLL_RESET_EVENT = 19	/**< PLL reset event type for
 						  *  DisplayPort RX Subsystem
 						  */
 } XDpRxSs_HandlerType;
@@ -252,6 +221,7 @@ typedef struct {
 				  *  information */
 } XDpRxSs_IicSubCore;
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /**
 * High-Bandwidth Content Protection (HDCP) Sub-core structure.
 */
@@ -260,6 +230,17 @@ typedef struct {
 	XHdcp1x_Config Hdcp1xConfig;	/**< HDCP core configuration
 					  *  information */
 } XDpRxSs_Hdcp1xSubCore;
+
+/**
+* Timer Counter Sub-core structure.
+*/
+typedef struct {
+	u16 IsPresent;		/**< Flag to hold the presence of Timer
+				  *  Counter core */
+	XTmrCtr_Config TmrCtrConfig;	/**< Timer Counter core
+					  * configuration information */
+} XDpRxSs_TmrCtrSubCore;
+#endif
 
 /**
 * This typedef contains configuration information for the DisplayPort
@@ -288,8 +269,14 @@ typedef struct {
 	u8 ColorFormat;		/**< Type of color format supported by this
 				  *  core instance. */
 	XDpRxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
+#endif
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
+#if ((XPAR_XHDCP_NUM_INSTANCES > 0) && (XPAR_XTMRCTR_NUM_INSTANCES > 0))
+	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
+						  *  Configuration */
+#endif
 } XDpRxSs_Config;
 
 /*****************************************************************************/
@@ -315,6 +302,16 @@ typedef struct {
 	/* Sub-core instances */
 	XDp *DpPtr;			/**< DisplayPort sub-core instance */
 	XIic *IicPtr;			/**< IIC sub-core instance */
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
+	XTmrCtr *TmrCtrPtr;		/**< Timer Counter sub-core instance */
+	u8 TmrCtrResetDone;		/**< Timer reset done. This is used for
+					  *  MacBook which authenticates just
+					  *  after training is done. This
+					  *  ensures that system does not do
+					  *  anything until this variable set
+					  *  to one.*/
+#endif
 
 	/* Callback */
 	XDpRxSs_Callback PllResetCallback;	/**< Callback function for PLL
@@ -444,6 +441,11 @@ typedef struct {
 #define XDpRxSs_WaitUs(InstancePtr, MicroSeconds) \
 	XDp_WaitUs((InstancePtr)->DpPtr, MicroSeconds)
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#define XDpRxSs_Printf		XHdcp1x_Printf	/**< Debug printf */
+#define XDpRxSs_LogMsg		XHdcp1x_LogMsg	/**< Debug log message */
+#endif
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xdprxss_sinit.c */
@@ -461,15 +463,36 @@ u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr);
 void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth);
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+/* Optional HDCP related functions */
+u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr);
+u32 XDpRxSs_HdcpDisable(XDpRxSs *InstancePtr);
+u32 XDpRxSs_Poll(XDpRxSs *InstancePtr);
+u32 XDpRxSs_SetPhysicalState(XDpRxSs *InstancePtr, u32 PhyState);
+u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane);
+u32 XDpRxSs_Authenticate(XDpRxSs *InstancePtr);
+u32 XDpRxSs_IsAuthenticated(XDpRxSs *InstancePtr);
+u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr);
+void XDpRxSs_SetDebugPrintf(XDpRxSs *InstancePtr, XDpRxSs_Printf PrintfFunc);
+void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc);
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
+#endif
+
 void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr);
 void XDpRxSs_ReportLinkInfo(XDpRxSs *InstancePtr);
 void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr);
 void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr);
+void XDpRxSs_ReportHdcpInfo(XDpRxSs *InstancePtr);
 
 /* Self test function in xdprxss_selftest.c */
 u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr);
 
 /* Interrupt functions in xdprxss_intr.c */
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+void XDpRxSs_HdcpIntrHandler(void *InstancePtr);
+void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr);
+#endif
 void XDpRxSs_DpIntrHandler(void *InstancePtr);
 u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);

@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v1_0
+* @addtogroup dprxss_v2_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -45,8 +45,10 @@
 * MODIFICATION HISTORY:
 *
 * Ver  Who Date     Changes
-* ---- --- -------- -----------------------------------------------------
+* ---- --- -------- ----------------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
+* 2.00 sha 10/05/15 Added HDCP and Timer Counter support.
+*                   Protected HDCP under macro number of instances.
 * </pre>
 *
 ******************************************************************************/
@@ -70,6 +72,10 @@
 typedef struct {
 	XDp DpInst;
 	XIic IicInst;
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x Hdcp1xInst;
+	XTmrCtr TmrCtrInst;
+#endif
 } XDpRxSs_SubCores;
 
 /************************** Function Prototypes ******************************/
@@ -79,6 +85,10 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr);
 static void StubTp1Callback(void *InstancePtr);
 static void StubTp2Callback(void *InstancePtr);
 static void StubUnplugCallback(void *InstancePtr);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -139,6 +149,9 @@ XDpRxSs_SubCores DpRxSsSubCores;
 u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				u32 EffectiveAddr)
 {
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x_Config Hdcp1xConfig;
+#endif
 	XIic_Config IicConfig;
 	XDp_Config DpConfig;
 	u32 Status;
@@ -238,13 +251,13 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		XVidC_Dp159Reset(InstancePtr->IicPtr, FALSE);
 
 		/* Wait for us */
-		XDp_WaitUs(InstancePtr->DpPtr, 800);
+		XDp_WaitUs(InstancePtr->DpPtr, 1000);
 
 		/* Initialize DP159 */
 		XVidC_Dp159Initialize(InstancePtr->IicPtr);
 
 		/* Wait for us */
-		XDp_WaitUs(InstancePtr->DpPtr, 900);
+		XDp_WaitUs(InstancePtr->DpPtr, 1000);
 
 		/* Initialize default training pattern callbacks in DP RX
 		 * Subsystem
@@ -271,6 +284,74 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		DpRxSs_PopulateDpRxPorts(InstancePtr);
 	}
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Check for Timer Counter availability */
+	if (InstancePtr->TmrCtrPtr != NULL) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
+			"Counter IP \n\r");
+
+		/* Calculate absolute base address of Timer Counter sub-core */
+		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+
+		/* Timer Counter config initialize */
+		Status = XTmrCtr_Initialize(InstancePtr->TmrCtrPtr,
+		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.DeviceId);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: Timer "
+				"Counter initialization failed\n\r");
+			return XST_FAILURE;
+		}
+
+		/* Calculate absolute base address of Timer Counter sub-core */
+		InstancePtr->TmrCtrPtr->Config.BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+		InstancePtr->TmrCtrPtr->BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+
+		/* Configure the callback */
+		XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
+				(XTmrCtr_Handler)DpRxSs_TimeOutCallback,
+					InstancePtr);
+
+		/* Enable the specified options for Timer Counter zero */
+		XTmrCtr_SetOptions (InstancePtr->TmrCtrPtr, 0,
+			XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
+
+		/* Set the reset value to Timer Counter zero */
+		XTmrCtr_SetResetValue (InstancePtr->TmrCtrPtr, 0,
+					XDPRXSS_TMRCTR_RST_VAL);
+	}
+
+	/* Check for HDCP availability */
+	if ((InstancePtr->Hdcp1xPtr != NULL) &&
+					(InstancePtr->Config.HdcpEnable)) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing HDCP IP "
+				"\n\r");
+
+		/* Calculate absolute base address of HDCP sub-core */
+		InstancePtr->Config.Hdcp1xSubCore.Hdcp1xConfig.BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+		(void)memcpy((void *)&(Hdcp1xConfig),
+			(const void *)&CfgPtr->Hdcp1xSubCore.Hdcp1xConfig,
+				sizeof(XHdcp1x_Config));
+
+		/* HDCP config initialize */
+		Hdcp1xConfig.BaseAddress += InstancePtr->Config.BaseAddress;
+		Status = XHdcp1x_CfgInitialize(InstancePtr->Hdcp1xPtr,
+				&Hdcp1xConfig, (void *)InstancePtr->DpPtr,
+				Hdcp1xConfig.BaseAddress);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: HDCP "
+				"initialization failed\n\r");
+			return XST_FAILURE;
+		}
+
+		/* Set key selection value for RX */
+		XHdcp1x_SetKeySelect(InstancePtr->Hdcp1xPtr, 0x1);
+	}
+#endif
+
 	/* Set the flag to indicate the subsystem is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
@@ -295,6 +376,17 @@ void XDpRxSs_Reset(XDpRxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Reset HDCP interface */
+	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
+		XHdcp1x_Reset(InstancePtr->Hdcp1xPtr);
+	}
+
+	/* Reset Timer Counter zero */
+	if (InstancePtr->TmrCtrPtr) {
+		XTmrCtr_Reset(InstancePtr->TmrCtrPtr, 0);
+	}
+#endif
 	/* Reset the video and AUX logic from DP RX */
 	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
 			XDP_RX_SOFT_RESET, XDP_RX_SOFT_RESET_VIDEO_MASK |
@@ -588,6 +680,373 @@ u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr)
 	return Status;
 }
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+*
+* This function enables High-Bandwidth Content Protection (HDCP) interface.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if HDCP i/f enabled successfully.
+*		- XST_FAILURE, otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Enable HDCP interface */
+	Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables High-Bandwidth Content Protection (HDCP) interface.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if HDCP i/f disabled successfully.
+*		- XST_FAILURE, otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_HdcpDisable(XDpRxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Enable HDCP interface */
+	Status = XHdcp1x_Disable(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function polls the HDCP interface, process events and sets receive
+* state machine accordingly.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if polling the HDCP interface was successful.
+*		- XST_FAILURE, if polling the HDCP interface failed.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_Poll(XDpRxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Poll the HDCP interface */
+	Status = XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables/disables the underlying physical interface.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param	PhyState indicates TRUE/FALSE value to enable/disable the
+*		underlying physical interface.
+*
+* @return
+*		- XST_SUCCESS, if the underlying physical interface enabled
+*		successfully.
+*		- XST_FAILURE, if the underlying physical interface failed to
+*		enable.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_SetPhysicalState(XDpRxSs *InstancePtr, u32 PhyState)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((PhyState == TRUE) || (PhyState == FALSE));
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Enable underlying physical interface */
+	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, PhyState);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets lane(s) of the HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param	Lane is the number of lanes to be used.
+*		- 1 = XDPRXSS_LANE_COUNT_SET_1
+*		- 2 = XDPRXSS_LANE_COUNT_SET_2
+*		- 4 = XDPRXSS_LANE_COUNT_SET_4
+*
+* @return
+*		- XST_SUCCESS, if lane(s) into the HDCP i/f set successfully.
+*		- XST_FAILURE, if failed to set lane(s) into the HDCP i/f.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane)
+{
+	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid((Lane == XDPRXSS_LANE_COUNT_SET_1) ||
+			(Lane == XDPRXSS_LANE_COUNT_SET_2) ||
+			(Lane == XDPRXSS_LANE_COUNT_SET_4));
+
+	/* Set lanes into the HDCP interface */
+	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr, Lane);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initiates authentication process.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if authentication initiated successfully.
+*		- XST_FAILURE, if authentication initiated failed.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_Authenticate(XDpRxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Initiate authentication process */
+	Status = XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function checks whether the HDCP Receiver authenticated or not.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- TRUE, if HDCP Receiver is authenticated.
+*		- FALSE, if the HDCP Receiver not authenticated.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_IsAuthenticated(XDpRxSs *InstancePtr)
+{
+	u32 Authenticate;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Check authentication has completed successfully */
+	Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
+
+	return Authenticate;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the current encryption map.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- The current encryption map.
+*		- Otherwise zero.
+*
+* @note		None.
+*
+******************************************************************************/
+u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr)
+{
+	u64 StreamMap;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Get stream map of the stream(s) */
+	StreamMap = XHdcp1x_GetEncryption(InstancePtr->Hdcp1xPtr);
+
+	return StreamMap;
+}
+/*****************************************************************************/
+/**
+*
+* This function sets the debug printf function.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param	PrintfFunc is the printf function.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_SetDebugPrintf(XDpRxSs *InstancePtr, XDpRxSs_Printf PrintfFunc)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertVoid(PrintfFunc != NULL);
+
+	/* Set debug printf function */
+	XHdcp1x_SetDebugPrintf(PrintfFunc);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the debug log message function.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param	LogFunc is the debug logging function.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertVoid(LogFunc != NULL);
+
+	/* Set debug log message function */
+	XHdcp1x_SetDebugLogMsg(LogFunc);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function starts the Timer Counter in count down, interrupt mode.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Enable the specified options for Timer Counter zero */
+	XTmrCtr_SetOptions (InstancePtr->TmrCtrPtr, 0,
+		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
+
+	/* Set the reset value to Timer Counter zero */
+	XTmrCtr_SetResetValue (InstancePtr->TmrCtrPtr, 0,
+				XDPRXSS_TMRCTR_RST_VAL);
+
+	/* Start Timer Counter 0 in count down mode */
+	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function stops the Timer Counter.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Stop Timer Counter 0 in count down mode */
+	XTmrCtr_Stop(InstancePtr->TmrCtrPtr, 0);
+
+	/* Reset Timer Counter reset done */
+	InstancePtr->TmrCtrResetDone = 0;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback called when the Timer Counter reset done with
+* specified reset value, assigned during initialization.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param	TmrCtrNumber is the number of the timer/counter within the
+*		Timer Counter core.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	/* Verify arguments.*/
+	Xil_AssertVoid(XDpRxSsPtr != NULL);
+	Xil_AssertVoid(TmrCtrNumber < XTC_DEVICE_TIMER_COUNT);
+
+	/* Set Timer Counter reset done */
+	XDpRxSsPtr->TmrCtrResetDone = 1;
+}
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -608,6 +1067,18 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 	/* Assign instance of IIC core */
 	InstancePtr->IicPtr = ((InstancePtr->Config.DpSubCore.IsPresent)?
 					(&DpRxSsSubCores.IicInst): NULL);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Assign instance of HDCP core */
+	InstancePtr->Hdcp1xPtr =
+		((InstancePtr->Config.Hdcp1xSubCore.IsPresent)?
+				(&DpRxSsSubCores.Hdcp1xInst): NULL);
+
+	/* Assign instance of Timer Counter core */
+	InstancePtr->TmrCtrPtr =
+		((InstancePtr->Config.TmrCtrSubCore.IsPresent)?
+					(&DpRxSsSubCores.TmrCtrInst): NULL);
+#endif
 }
 
 /*****************************************************************************/

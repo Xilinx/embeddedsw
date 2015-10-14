@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_dbg.c
-* @addtogroup dprxss_v1_0
+* @addtogroup dprxss_v2_0
 * @{
 *
 * This file contains functions to report debug information of DisplayPort RX
@@ -45,6 +45,9 @@
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
+* 2.00 sha 10/05/15 Added HDCP support.
+*                   Removed DP159 bit error count code. Used DP159 bit error
+*                   count function from Video Common library.
 * </pre>
 *
 ******************************************************************************/
@@ -91,6 +94,15 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	xil_printf("\n\rDisplayPort RX Subsystem info:\n\r");
 
 	/* Report all the included cores in the subsystem instance */
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
+	}
+	if (InstancePtr->TmrCtrPtr) {
+		xil_printf("Timer Counter(0):Yes\n\r");
+	}
+#endif
+
 	if (InstancePtr->DpPtr) {
 		xil_printf("DisplayPort Receiver(DPRX):Yes\n\r");
 	}
@@ -140,36 +152,46 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 void XDpRxSs_ReportLinkInfo(XDpRxSs *InstancePtr)
 {
 	XDp_Config *RxConfig = &InstancePtr->DpPtr->Config;
+	u32 RegValue;
+	u32 Index;
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Read link rate and lane count */
-	xil_printf("\n\rLINK_BW_SET (0x09C) status in DPCD = 0x%x\n\r",
+	xil_printf("\n\rLINK_BW_SET (0x400) status in DPCD = 0x%x\n\r",
 			XDpRxSs_ReadReg(RxConfig->BaseAddr,
-				XDP_RX_OVER_LINK_BW_SET));
-	xil_printf("\n\rLANE_COUNT_SET (0x0A0) status in DPCD = 0x%x\n\r",
+					XDP_RX_DPCD_LINK_BW_SET));
+	xil_printf("LANE_COUNT_SET (0x404) status in DPCD = 0x%x\n\r",
 			XDpRxSs_ReadReg(RxConfig->BaseAddr,
-				XDP_RX_OVER_LANE_COUNT_SET));
+					XDP_RX_DPCD_LANE_COUNT_SET));
 
 	/* Read lanes status */
-	xil_printf("LANE0_1_STATUS (0x043C) in DPCD = 0x%x\n\r",
+	xil_printf("\n\rLANE0_1_STATUS (0x043C) in DPCD = 0x%x\n\r",
 			XDpRxSs_ReadReg(RxConfig->BaseAddr,
 				XDP_RX_DPCD_LANE01_STATUS));
 	xil_printf("LANE2_3_STATUS (0x440) in DPCD = 0x%x\n\r",
 			XDpRxSs_ReadReg(RxConfig->BaseAddr,
 				XDP_RX_DPCD_LANE23_STATUS));
 
-	/* Read symbol error */
-	xil_printf("SYM_ERR_CNT01 (0x448) = 0x%x\n\r"
-		"SYM_ERR_CNT23 (0x44C) = 0x%x\n\r",
-			XDpRxSs_ReadReg(RxConfig->BaseAddr,
-				XDP_RX_DPCD_SYM_ERR_CNT01),
-			XDpRxSs_ReadReg(RxConfig->BaseAddr,
-				XDP_RX_DPCD_SYM_ERR_CNT23));
+	/* Read symbol error which is RC register. Two times read is required
+	 * due to during training if this register is read it gives all F's,
+	 * second time read it gives proper value.
+	 */
+	for (Index = 0; Index < 2; Index++) {
+		RegValue = XDpRxSs_ReadReg(RxConfig->BaseAddr,
+				XDP_RX_DPCD_SYM_ERR_CNT01);
+	}
+	xil_printf("\n\rSYM_ERR_CNT01 (0x448) = 0x%x\n\r", RegValue);
+
+	for (Index = 0; Index < 2; Index++) {
+		RegValue = XDpRxSs_ReadReg(RxConfig->BaseAddr,
+				XDP_RX_DPCD_SYM_ERR_CNT23);
+	}
+	xil_printf("SYM_ERR_CNT23 (0x44C) = 0x%x\n\r", RegValue);
 
 	/* PHY status */
-	xil_printf("PHY_STATUS (0x208) = 0x%x\n\r",
+	xil_printf("\n\rPHY_STATUS (0x208) = 0x%x\n\r",
 		XDpRxSs_ReadReg(RxConfig->BaseAddr, XDP_RX_PHY_STATUS));
 
 	xil_printf("\n\r");
@@ -246,66 +268,34 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 ******************************************************************************/
 void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr)
 {
-	u8 Data;
-
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Select page 0 */
-	XVidC_Dp159Write(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0xFF, 0x00);
+	/* Print bit error count */
+	XVidC_Dp159BitErrCount(InstancePtr->IicPtr);
+}
 
-	/* Read TST_INT/Q */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x17, &Data);
-	xil_printf("TST_INT/Q : %d\n\r", Data);
+/*****************************************************************************/
+/**
+*
+* This function prints the debug display info of the HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_ReportHdcpInfo(XDpRxSs *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* BERT counter0[7:0] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x18, &Data);
-	xil_printf("BERT counter0[7:0] : %d\n\r", Data);
-
-	/* BERT counter0[11:8] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x19, &Data);
-	xil_printf("BERT counter0[11:8] : %d\n\r", Data);
-
-	/* BERT counter1[7:0] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x1A, &Data);
-	xil_printf("BERT counter0[7:0] : %d\n\r", Data);
-
-	/* BERT counter1[11:8] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x1B, &Data);
-	xil_printf("BERT counter0[11:8] : %d\n\r", Data);
-
-	/* BERT counter2[7:0] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x1C, &Data);
-	xil_printf("BERT counter2[7:0] : %d\n\r", Data);
-
-	/* BERT counter2[11:8] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x1D, &Data);
-	xil_printf("BERT counter2[11:8] : %d\n\r", Data);
-
-	/* BERT counter3[7:0] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x1E, &Data);
-	xil_printf("BERT counter3[7:0] : %d\n\r", Data);
-
-	/* BERT counter3[11:8] */
-	XVidC_Dp159Read(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0x1F, &Data);
-	xil_printf("BERT counter3[11:8] : %d\n\r", Data);
-
-	/* Clear BERT counters and TST_INTQ latches - Self-clearing in DP159 */
-	XVidC_Dp159Write(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0xFF, 0x00);
-
-	/* Select page 1 */
-	XVidC_Dp159Write(InstancePtr->IicPtr, XVIDC_DP159_IIC_SLAVE,
-			0xFF, 0x01);
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
+#else
+	xil_printf("HDCP is not supported in this design.\n\r");
+#endif
 }
 /** @} */
