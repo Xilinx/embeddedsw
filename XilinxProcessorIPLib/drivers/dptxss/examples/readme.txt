@@ -1,3 +1,14 @@
+******************************************************************************/
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver  Who Date     Changes
+* ---- --- -------- --------------------------------------------------
+* 1.00 sha 09/28/15 Added modification header
+*                   Added HDCP example.
+* </pre>
+*
+******************************************************************************/
 There are 4 DisplayPort Transmitter Subsystem examples include in this directory:
 1) xdptxss_selftest_example.c : This self test example will call self test
    functions of each DisplayPort TX Subsystem's sub-cores to verify that the sub-cores
@@ -15,6 +26,9 @@ There are 4 DisplayPort Transmitter Subsystem examples include in this directory
 4) xdptxss_debug_example.c : The debug example set up MST/SST mode based on RX capability
    and prints debug information at the end. This example check whether DisplayPort TX
    Subsystem is programmed in SST/MST. Upon MST/SST, reads EDID information and prints.
+
+5) xdptxss_hdcp_example.c : The HDCP example setup SST mode and enables the HDCP after
+   RX has started.
 
 Additionally, in order to be able to use the interrupt, MST/SST, and debug examples,
 the user will need to implement following functions:
