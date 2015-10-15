@@ -106,8 +106,9 @@
 * 3.0  kpc  01/23/14 Removed PEEP board related code
 * 3.0  hk   03/18/15 Added support for jumbo frames.
 *                    Add cache flush after BD terminate entries.
-* 3.2  hk   09/30/15 Added clock control using CRL_APB_GEM_REF_CTRL register.
+* 3.2  hk   10/15/15 Added clock control using CRL_APB_GEM_REF_CTRL register.
 *                    Enabled 1G speed for ZynqMP GEM.
+*                    Select GEM interrupt based on instance present.
 *
 * </pre>
 *
@@ -128,6 +129,19 @@
 #define EMACPS_DEVICE_ID	XPAR_XEMACPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define EMACPS_IRPT_INTR	XPS_GEM0_INT_ID
+
+#ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
+#define EMACPS_IRPT_INTR	XPS_GEM3_INT_ID
+#endif
+#ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
+#define EMACPS_IRPT_INTR	XPS_GEM2_INT_ID
+#endif
+#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
+#define EMACPS_IRPT_INTR	XPS_GEM1_INT_ID
+#endif
+#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
+#define EMACPS_IRPT_INTR	XPS_GEM0_INT_ID
+#endif
 
 #define RXBD_CNT       32	/* Number of RxBDs to use */
 #define TXBD_CNT       32	/* Number of TxBDs to use */
