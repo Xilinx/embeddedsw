@@ -109,6 +109,7 @@
 * 3.2  hk   10/15/15 Added clock control using CRL_APB_GEM_REF_CTRL register.
 *                    Enabled 1G speed for ZynqMP GEM.
 *                    Select GEM interrupt based on instance present.
+*                    Manage differences between emulation platform and silicon.
 *
 * </pre>
 *
@@ -171,6 +172,10 @@
 
 #define JUMBO_FRAME_SIZE	10240
 #define FRAME_HDR_SIZE		18
+
+#define CSU_VERSION			0xFFCA0044
+#define PLATFORM_MASK		0xF000
+#define PLATFORM_SILICON	0x0000
 /*************************** Variable Definitions ***************************/
 
 EthernetFrame TxFrame;		/* Transmit buffer */
@@ -218,6 +223,7 @@ XEmacPs_Bd BdRxTerminate __attribute__ ((aligned(64)));
 #endif
 
 u32 GemVersion;
+u32 Platform;
 
 /*************************** Function Prototypes ****************************/
 
@@ -342,6 +348,9 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
+	if (GemVersion > 2) {
+		Platform = Xil_In32(CSU_VERSION);
+	}
 	/* Enable jumbo frames for zynqmp */
 	if (GemVersion > 2) {
 		XEmacPs_SetOptions(EmacPsInstancePtr, XEMACPS_JUMBO_ENABLE_OPTION);
@@ -496,8 +505,13 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 	else
 	{
 		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
-		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
-		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED_1G);
+		if ((Platform & PLATFORM_MASK) == PLATFORM_SILICON) {
+			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
+			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED_1G);
+		} else {
+			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED);
+			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED);
+		}
 	}
 
 	/*
@@ -1219,7 +1233,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 	sleep(1);
 	}
 
-	if (GemVersion > 2) {
+	if ((GemVersion > 2) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
 
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
@@ -1250,7 +1264,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 #ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM2_INT_ID) {
 
-			/* GEM1 1G clock configuration*/
+			/* GEM2 1G clock configuration*/
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL);
 			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
@@ -1263,7 +1277,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 #endif
 #ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM3_INT_ID) {
-			/* GEM1 1G clock configuration*/
+			/* GEM3 1G clock configuration*/
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL);
 			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
