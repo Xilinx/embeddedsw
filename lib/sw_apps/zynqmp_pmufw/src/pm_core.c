@@ -76,7 +76,7 @@ static void PmProcessAckRequest(const u32 ack,
  * PmSelfSuspend() - Requested self suspend for a processor
  * @master  Master who initiated the request
  * @node    Processor or subsystem node to be suspended
- * @latency Not supported
+ * @latency Maximum latency for processor to go back to active state
  * @state   Not supported
  *
  * @note    Used to announce starting of self suspend procedure. Node will be
@@ -90,6 +90,7 @@ static void PmSelfSuspend(const PmMaster *const master,
 			  const u64 address)
 {
 	int status;
+	u32 worstCaseLatency = 0;
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
@@ -101,6 +102,17 @@ static void PmSelfSuspend(const PmMaster *const master,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
+	if (latency < worstCaseLatency) {
+		PmDbg("Specified latency is smaller than worst case latency! "
+		      "Try latency > %lu\n", worstCaseLatency);
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Remember latency requirement */
+	proc->latencyReq = latency;
 
 	status = proc->saveResumeAddr(proc, address);
 	if (XST_SUCCESS != status) {

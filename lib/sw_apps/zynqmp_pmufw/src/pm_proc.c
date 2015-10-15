@@ -166,13 +166,23 @@ done:
  */
 int PmProcSleep(PmNode* const nodePtr)
 {
+	PmProc* proc;
+	u32 worstCaseLatency = 0;
 	int status = XST_PM_INTERNAL;
 
-	if (NULL == nodePtr) {
+	if ((NULL == nodePtr) || (false == IS_PROC(nodePtr->typeId))) {
 		goto done;
 	}
 
-	/* Call proper PMU-ROM handler as needed */
+	proc = (PmProc*)nodePtr->derived;
+	worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
+	/* Sanity check has already been performed in PmSelfSuspend */
+	nodePtr->latencyMarg = proc->latencyReq - worstCaseLatency;
+
+	/*
+	 * Call proper PMU-ROM handler as needed, provided that the latency
+	 * requirement is satisfied. Otherwise put processor into reset only!
+	 */
 	switch (nodePtr->nodeId) {
 	case NODE_APU_0:
 		XPfw_RMW32(CRF_APB_RST_FPD_APU,
@@ -514,6 +524,9 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 			DISABLE_WFI(proc->wfiEnableMask);
 		}
 		status = PmProcTrToForcedOff(proc);
+
+		/* Reset latency requirement */
+		proc->latencyReq = MAX_LATENCY;
 		break;
 	case PM_PROC_EVENT_ABORT_SUSPEND:
 		if (PM_PROC_STATE_SUSPENDING == currState) {
@@ -524,6 +537,9 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 						    XST_PM_ABORT_SUSPEND);
 		} else {
 		}
+
+		/* Reset latency requirement */
+		proc->latencyReq = MAX_LATENCY;
 		break;
 	case PM_PROC_EVENT_SLEEP:
 		if (PM_PROC_STATE_SUSPENDING == currState) {
@@ -537,6 +553,9 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 			status = PmProcTrForcePwrdnToActive(proc);
 		} else {
 		}
+
+		/* Reset latency requirement */
+		proc->latencyReq = MAX_LATENCY;
 		break;
 	default:
 		PmDbg("ERROR: unrecognized event %d\n", event);
