@@ -100,6 +100,7 @@ typedef struct PmNodeOps {
  * @parent      Pointer to power parent node
  * @currState   Id of the node's current state. Interpretation depends on type
  *              of the node, bit 0 value is reserved for off states
+ * @latencyMarg Latency margin: lowest latency requirement - powerup latency
  * @ops         Pointer to the operations structure
  */
 typedef struct PmNode {
@@ -108,6 +109,7 @@ typedef struct PmNode {
 	const PmNodeTypeId typeId;
 	PmPower* const parent;
 	PmStateId currState;
+	u32 latencyMarg;
 	const PmNodeOps* const ops;
 } PmNode;
 

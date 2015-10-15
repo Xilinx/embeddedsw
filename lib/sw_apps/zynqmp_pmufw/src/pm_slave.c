@@ -380,6 +380,7 @@ static int PmConstrainStateByLatency(const PmSlave* const slave,
 			/* State does not satisfy latency requirement */
 			continue;
 		}
+
 		status = XST_SUCCESS;
 		*state = i;
 		break;
@@ -429,6 +430,7 @@ int PmUpdateSlave(PmSlave* const slave)
 		 */
 		status = PmConstrainStateByLatency(slave, &state, capsToSet,
 						   minLat);
+
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -441,6 +443,9 @@ int PmUpdateSlave(PmSlave* const slave)
 		 */
 		status = PmSlaveChangeState(slave, state);
 	}
+
+	/* remember the remaining latency margin for upper levels to use */
+	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);
 
 done:
 	return status;
