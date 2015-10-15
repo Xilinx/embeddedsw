@@ -272,13 +272,21 @@ PmPower pmPowerIslandRpu_g = {
 		.typeId = PM_TYPE_PWR_ISLAND,
 		.parent = NULL,
 		.currState = PM_PWR_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
 		.ops = &pmRpuNodeOps,
 	},
 	.children = pmRpuChildren,
 	.childCnt = ARRAY_SIZE(pmRpuChildren),
+	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
+	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 };
 
-/* Apu power island does not physically exist, therefore it has no operations */
+/*
+ * @Note: The APU power island does not physically exist, therefore it has
+ * no operations and no latencies. The individual APU cores have their own
+ * dedicated power islands, the transition latency is hence accounted for
+ * in PmProc
+ */
 PmPower pmPowerIslandApu_g = {
 	.node = {
 		.derived = &pmPowerIslandApu_g,
@@ -286,10 +294,13 @@ PmPower pmPowerIslandApu_g = {
 		.typeId = PM_TYPE_PWR_ISLAND,
 		.parent = &pmPowerDomainFpd_g,
 		.currState = PM_PWR_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
 		.ops = &pmApuNodeOps,
 	},
 	.children = pmApuChildren,
 	.childCnt = ARRAY_SIZE(pmApuChildren),
+	.pwrDnLatency = 0,
+	.pwrUpLatency = 0,
 };
 
 PmPower pmPowerDomainFpd_g = {
@@ -299,10 +310,13 @@ PmPower pmPowerDomainFpd_g = {
 		.typeId = PM_TYPE_PWR_DOMAIN,
 		.parent = NULL,
 		.currState = PM_PWR_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
 		.ops = &pmFpdNodeOps,
 	},
 	.children = pmFpdChildren,
 	.childCnt = ARRAY_SIZE(pmFpdChildren),
+	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
+	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 };
 
 /**

@@ -124,6 +124,9 @@ typedef struct PmProc PmProc;
  *                  resumeAddress BIT0=1 indicates valid address
  * @saveResumeAddr  Pointer to function for saving the resume address
  * @restoreResumeAddr Pointer to function for restoring resume address
+ * @latencyReq      Latenct requirement as passed in by self_suspend argument
+ * @pwrDnLatency    Latency (in us) for transition to OFF state
+ * @pwrUpLatency    Latency (in us) for transition to ON state
  */
 typedef struct PmProc {
 	PmNode node;
@@ -137,6 +140,9 @@ typedef struct PmProc {
 	u64 resumeAddress;
 	int (*const saveResumeAddr)(PmProc* const, u64);
 	void (*const restoreResumeAddr)(PmProc* const);
+	u32 latencyReq;
+	const u32 pwrDnLatency;
+	const u32 pwrUpLatency;
 } PmProc;
 
 /*********************************************************************

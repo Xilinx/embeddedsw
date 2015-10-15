@@ -114,6 +114,8 @@ typedef u32 (*const PmTranHandler)(void);
 
 /* Default transition latencies in us */
 #define PM_DEFAULT_LATENCY 1000U
+#define PM_POWER_ISLAND_LATENCY 2000U
+#define PM_POWER_DOMAIN_LATENCY 10000U
 
 /*********************************************************************
  * Structure definitions

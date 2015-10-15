@@ -566,6 +566,7 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.typeId = PM_TYPE_PROC,
 			.parent = &pmPowerIslandApu_g,
 			.currState = PM_PROC_STATE_ACTIVE,
+			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
 		},
 		.master = &pmMasterApu_g,
@@ -578,6 +579,9 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.resumeAddress = 0ULL,
 		.saveResumeAddr = APUSaveResumeAddr,
 		.restoreResumeAddr = APURestoreResumeAddr,
+		.latencyReq = MAX_LATENCY,
+		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
+		.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 	},
 	[PM_PROC_APU_1] = {
 		.node = {
@@ -586,6 +590,7 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.typeId = PM_TYPE_PROC,
 			.parent = &pmPowerIslandApu_g,
 			.currState = PM_PROC_STATE_SLEEP,
+			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
 		},
 		.master = &pmMasterApu_g,
@@ -598,6 +603,9 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.resumeAddress = 0ULL,
 		.saveResumeAddr = APUSaveResumeAddr,
 		.restoreResumeAddr = APURestoreResumeAddr,
+		.latencyReq = MAX_LATENCY,
+		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
+		.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 	},
 	[PM_PROC_APU_2] = {
 		.node = {
@@ -606,6 +614,7 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.typeId = PM_TYPE_PROC,
 			.parent = &pmPowerIslandApu_g,
 			.currState = PM_PROC_STATE_SLEEP,
+			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
 		},
 		.master = &pmMasterApu_g,
@@ -618,6 +627,9 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.resumeAddress = 0ULL,
 		.saveResumeAddr = APUSaveResumeAddr,
 		.restoreResumeAddr = APURestoreResumeAddr,
+		.latencyReq = MAX_LATENCY,
+		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
+		.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 	},
 	[PM_PROC_APU_3] = {
 		.node = {
@@ -626,6 +638,7 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.typeId = PM_TYPE_PROC,
 			.parent = &pmPowerIslandApu_g,
 			.currState = PM_PROC_STATE_SLEEP,
+			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
 		},
 		.master = &pmMasterApu_g,
@@ -638,6 +651,9 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 		.resumeAddress = 0ULL,
 		.saveResumeAddr = APUSaveResumeAddr,
 		.restoreResumeAddr = APURestoreResumeAddr,
+		.latencyReq = MAX_LATENCY,
+		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
+		.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 	}
 };
 
@@ -650,6 +666,7 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 			.typeId = PM_TYPE_PROC,
 			.parent = &pmPowerIslandRpu_g,
 			.currState = PM_PROC_STATE_ACTIVE,
+			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
 		},
 		.master = &pmMasterRpu0_g,
@@ -662,6 +679,9 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 		.resumeAddress = 0ULL,
 		.saveResumeAddr = RPUSaveResumeAddr,
 		.restoreResumeAddr = RPURestoreResumeAddr,
+		.latencyReq = MAX_LATENCY,
+		.pwrDnLatency = 0,
+		.pwrUpLatency = 0,
 	},
 	[PM_PROC_RPU_1] = {
 		.node = {
@@ -670,6 +690,7 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 			.typeId = PM_TYPE_PROC,
 			.parent = &pmPowerIslandRpu_g,
 			.currState = PM_PROC_STATE_SLEEP,
+			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
 		},
 		.master = &pmMasterRpu1_g,
@@ -682,5 +703,8 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 		.resumeAddress = 0ULL,
 		.saveResumeAddr = APUSaveResumeAddr,
 		.restoreResumeAddr = APURestoreResumeAddr,
+		.latencyReq = MAX_LATENCY,
+		.pwrDnLatency = 0,
+		.pwrUpLatency = 0,
 	},
 };
