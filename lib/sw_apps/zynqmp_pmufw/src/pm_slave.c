@@ -331,8 +331,8 @@ static u32 PmGetMinRequestedLatency(const PmSlave* const slave)
  *
  * @return      Return value for the found latency
  */
-static u32 PmGetLatencyFromState(const PmSlave* const slave,
-				 const PmStateId state)
+u32 PmGetLatencyFromState(const PmSlave* const slave,
+			  const PmStateId state)
 {
 	u32 i, latency = 0U;
 	PmStateId highestState = slave->slvFsm->statesCnt - 1;
