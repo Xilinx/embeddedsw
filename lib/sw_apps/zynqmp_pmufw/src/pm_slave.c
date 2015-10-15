@@ -237,6 +237,7 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 			 * Slave's FSM has no actions, because it has no private
 			 * properties to be controlled here.
 			 */
+			slave->node.currState = state;
 			status = XST_SUCCESS;
 		}
 		break;
@@ -398,20 +399,19 @@ static int PmConstrainStateByLatency(const PmSlave* const slave,
  */
 int PmUpdateSlave(PmSlave* const slave)
 {
-	PmStateId state;
+	PmStateId state = 0U;
 	int status = XST_SUCCESS;
-	u32 wkupLat, minLat;
+	u32 wkupLat, minLat, latencyMargin;
 	u32 capsToSet = PmGetMaxCapabilities(slave);
+	PmPower* parent;
 
-	if (0U == capsToSet) {
+	if (0U != capsToSet) {
 		/*
-		 * Set the lowest power state as no capabilities are required.
 		 * This check has to exist because some slaves have no state
 		 * with 0 capabilities. Therefore, they are always placed in
 		 * first, lowest power state when their caps are not required.
 		 */
-		state = 0U;
-	} else {
+
 		/* Get state that has all required capabilities */
 		status = PmGetStateWithCaps(slave, capsToSet, &state);
 	}
@@ -442,6 +442,36 @@ int PmUpdateSlave(PmSlave* const slave)
 		 * exists and slave is not already in that state.
 		 */
 		status = PmSlaveChangeState(slave, state);
+	} else {
+		/* Ensure that parents meet latency requirement as well */
+		parent = slave->node.parent;
+		latencyMargin = minLat;
+
+		while ((NULL != parent) && (true == IS_OFF(&parent->node))) {
+			/* Calculate remaining latency budget */
+			latencyMargin -= wkupLat;
+			wkupLat = parent->pwrUpLatency;
+			if (latencyMargin < wkupLat) {
+				/* Power up parents from this level up */
+				status = PmTriggerPowerUp(parent);
+				if (XST_SUCCESS != status) {
+					goto done;
+				}
+				break;
+			}
+			parent = parent->node.parent;
+		}
+	}
+
+	/* determine the new latency margin for the parent nodes */
+	latencyMargin = slave->node.latencyMarg;
+	/* remember the remaining latency margin for upper levels to use */
+	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);
+
+	if ((latencyMargin < slave->node.latencyMarg) &&
+	    (false == IS_OFF(&slave->node.parent->node))) {
+		/* latency margin increased? => try opportunistic suspend */
+		PmOpportunisticSuspend(slave->node.parent);
 	}
 
 	/* remember the remaining latency margin for upper levels to use */

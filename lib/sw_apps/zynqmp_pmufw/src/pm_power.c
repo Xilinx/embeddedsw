@@ -347,6 +347,7 @@ static bool PmChildIsInLowestPowerState(const PmNode* const nodePtr)
  * PmHasAwakeChild() - Check whether power node has awake children
  * @power       Pointer to PmPower object to be checked
  *
+ * Used during opportunistic suspend:
  * Function checks whether any child of the power provided as argument stops
  * power from being turned off. In the case of processor or power child, that
  * can be checked by inspecting currState value. For slaves, that is not the
@@ -355,20 +356,32 @@ static bool PmChildIsInLowestPowerState(const PmNode* const nodePtr)
  * multiple nodes. Therefore, slave does not block power from turning off if
  * it is unused and not in lowest power state.
  *
+ * Latency accounting: determine the lowest latency requirement of any child
+ * and pass it up to the power island/domain node.
+ *
  * @return      True if it has a child that is not off
  */
-static bool PmHasAwakeChild(const PmPower* const power)
+static bool PmHasAwakeChild(PmPower* const power)
 {
 	u32 i;
+	u32 minLatencyMargin = MAX_LATENCY;
 	bool hasAwakeChild = false;
 
 	for (i = 0U; i < power->childCnt; i++) {
+		/* Determine the lowest latency requirement of any child */
+		if (power->children[i]->latencyMarg < minLatencyMargin) {
+			minLatencyMargin = power->children[i]->latencyMarg;
+		}
+
 		if (false == PmChildIsInLowestPowerState(power->children[i])) {
 			hasAwakeChild = true;
 			PmDbg("%s\n", PmStrNode(power->children[i]->nodeId));
 			break;
 		}
 	}
+
+	/* Pass the lowest latency margin to the power island/domain node */
+	power->node.latencyMarg = minLatencyMargin;
 
 	return hasAwakeChild;
 }
@@ -381,6 +394,7 @@ static bool PmHasAwakeChild(const PmPower* const power)
  */
 void PmOpportunisticSuspend(PmPower* const powerParent)
 {
+	u32 worstCaseLatency;
 	PmPower* power = powerParent;
 
 	if (NULL == powerParent) {
@@ -391,14 +405,20 @@ void PmOpportunisticSuspend(PmPower* const powerParent)
 		PmDbg("Opportunistic suspend attempt for %s\n",
 		      PmStrNode(power->node.nodeId));
 
+		worstCaseLatency = power->pwrUpLatency + power->pwrDnLatency;
+
 		if ((false == PmHasAwakeChild(power)) &&
-			(true == HAS_SLEEP(power->node.ops))) {
-			/* Call sleep function of this power node */
-			power->node.ops->sleep(&power->node);
-			power = power->node.parent;
-		} else {
-			power = NULL;
+		    (true == HAS_SLEEP(power->node.ops))) {
+			/* Note: latencyMarg field updated by PmHasAwakeChild */
+			if (worstCaseLatency < power->node.latencyMarg) {
+				/* Call sleep function of this power node */
+				power->node.ops->sleep(&power->node);
+				power = power->node.parent;
+				continue;
+			}
 		}
+		power = NULL;
+
 	} while (NULL != power);
 
 done:
