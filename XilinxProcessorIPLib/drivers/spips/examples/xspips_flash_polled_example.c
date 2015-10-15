@@ -87,7 +87,13 @@
 #define BULK_ERASE_CMD		0xC7
 #define	BLOCK_ERASE_64K_CMD	0xD8
 #define READ_ID			0x90
+#define SST_READ_ID		0x9F
 #define AAI_WRITE_CMD		0xAD
+/* Global Block-Protection Unlock register */
+#define GLOBAL_BLK_PROT_UNLK	0x98
+
+/* All SST flash parts have id as 0xBF */
+#define SST_FLASH_ID		0xBF
 
 /*
  * The following constants define the offsets within a FlashBuffer data
@@ -128,6 +134,9 @@
 #define FLASH_SPI_SELECT_1	0x01
 #define FLASH_SPI_SELECT_0	0x00
 
+/* Flag stating sst flash or not */
+static int is_sst;
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -143,6 +152,8 @@ static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
 int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, u16 SpiDeviceId);
 
 static int FlashReadID(XSpiPs *SpiInstance);
+
+static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -300,6 +311,16 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr,
 		xil_printf("SPI Flash Polled Example Read ID Failed\r\n");
 		return XST_FAILURE;
 	}
+
+	if (is_sst == 1) {
+		/* Unlock  the Global Block-Protection Unlock register bits */
+		SST_GlobalBlkProtectUnlk(SpiInstancePtr);
+		if (Status != XST_SUCCESS) {
+			xil_printf("SPI Flash Polled Example Read ID Failed\r\n");
+			return XST_FAILURE;
+		}
+	}
+
 	/*
 	 * Erase the flash
 	 */
@@ -508,6 +529,37 @@ static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 
 }
 
+/******************************************************************************
+*
+* This function Unlocks the Global Block-Protection Unlock register bits.
+*
+* @param        None.
+*
+* @return
+*               - XST_SUCCESS if successful
+*               - XST_FAILURE if not successful
+*
+* @note         None.
+*
+******************************************************************************/
+static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr)
+{
+	int Status;
+	u8 WriteEnable[] = { WRITE_ENABLE_CMD };
+	u8 ulbpr[] = { GLOBAL_BLK_PROT_UNLK };
+
+	/* send wite enable */
+	Status = XSpiPs_PolledTransfer(SpiInstancePtr, WriteEnable, NULL,sizeof(WriteEnable));
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	/* Unlock  the Global Block-Protection Unlock register bits */
+	Status = XSpiPs_PolledTransfer(SpiInstancePtr, ulbpr, NULL, sizeof(ulbpr));
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	return XST_SUCCESS;
+}
 
 /******************************************************************************
 *
@@ -543,6 +595,22 @@ static int FlashReadID(XSpiPs *SpiInstance)
 			 (4 + ByteCount));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
+
+	if ((RecvBuffer[4] == 0xff) || (RecvBuffer[4] == 0x00)) {
+		/* Use SST_READ_ID(0x9f) for reading id*/
+		SendBuffer[0] = SST_READ_ID;
+		Status = XSpiPs_PolledTransfer(SpiInstance, SendBuffer, RecvBuffer,
+				(4 + ByteCount));
+
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		if (RecvBuffer[4] == SST_FLASH_ID) {
+			/* SST flash part */
+			is_sst = 1;
+		}
 	}
 
 	for(Index=0; Index < ByteCount; Index++) {
@@ -647,7 +715,11 @@ static void FlashErase(XSpiPs *SpiPtr)
 	/*
 	 * Performs chip erase.
 	 */
-	WriteBuffer[COMMAND_OFFSET] = CHIP_ERASE_CMD;
+	if (is_sst == 0) {
+		WriteBuffer[COMMAND_OFFSET] = CHIP_ERASE_CMD;
+	} else {
+		WriteBuffer[COMMAND_OFFSET] = BULK_ERASE_CMD;
+	}
 
 	XSpiPs_PolledTransfer(SpiPtr, WriteBuffer, NULL, 1);
 
