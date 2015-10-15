@@ -49,6 +49,8 @@
 * 1.00 sha 05/18/15 Initial release.
 * 2.00 sha 10/05/15 Added HDCP and Timer Counter support.
 *                   Protected HDCP under macro number of instances.
+* 2.00 sha 10/15/15 Generate a HPD interrupt whenever RX cable
+*                   disconnect/unplug interrupt is detected.
 * </pre>
 *
 ******************************************************************************/
@@ -1297,6 +1299,9 @@ static void StubUnplugCallback(void *InstancePtr)
 	 */
 	XDp_RxInterruptDisable(DpRxSsPtr->DpPtr,
 				XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
+
+	/* Generate a HPD interrupt. Bring down HPD signal for 750us */
+	XDp_RxGenerateHpdInterrupt(DpRxSsPtr->DpPtr, 750);
 
 	/* Unplug event callback */
 	if (DpRxSsPtr->UnplugCallback) {
