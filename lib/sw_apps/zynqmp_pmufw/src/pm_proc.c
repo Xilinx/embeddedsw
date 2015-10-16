@@ -552,6 +552,10 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 			status = PmProcTrSleepToActive(proc);
 		} else if (PM_PROC_STATE_FORCEDOFF == currState) {
 			status = PmProcTrForcePwrdnToActive(proc);
+		} else if (PM_PROC_STATE_ACTIVE == currState) {
+			status = XST_SUCCESS;
+		} else if (PM_PROC_STATE_SUSPENDING == currState) {
+			status = XST_PM_CONFLICT;
 		} else {
 		}
 
