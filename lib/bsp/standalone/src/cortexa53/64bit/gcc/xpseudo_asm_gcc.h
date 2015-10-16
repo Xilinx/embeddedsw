@@ -110,7 +110,7 @@ extern "C" {
 
 
 /* Memory Operations */
-#define ldr(adr)	({u32 rval; \
+#define ldr(adr)	({u64 rval; \
 			  __asm__ __volatile__(\
 			    "ldr	%0,[%1]"\
 			    : "=r" (rval) : "r" (adr)\
@@ -151,7 +151,7 @@ extern "C" {
 #define mtcptlbi(reg)	asm("tlbi " #reg)
 #define mtcpat(reg,val)	asm("at " #reg ",%0"  : : "r" (val))
 /* CP15 operations */
-#define mfcp(reg)	({u32 rval;\
+#define mfcp(reg)	({u64 rval;\
 			asm("mrs	%0, " #reg : "=r" (rval));\
 			rval;\
 			})
