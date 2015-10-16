@@ -54,6 +54,18 @@
 extern "C" {
 #endif
 
+#define asm_inval_dc_line_mva_poc(param) __asm__ __volatile__("mcr " \
+		XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (param))
+
+#define asm_clean_inval_dc_line_sw(param) __asm__ __volatile__("mcr " \
+		XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (param))
+
+#define asm_clean_inval_dc_line_mva_poc(param) __asm__ __volatile__("mcr " \
+		XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (param))
+
+#define asm_inval_ic_line_mva_pou(param) __asm__ __volatile__("mcr " \
+		XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (param))
+
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);
 void Xil_DCacheInvalidate(void);

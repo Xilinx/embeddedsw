@@ -235,8 +235,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 		while (tempadr < tempend) {
 
 		/* Invalidate Data cache line */
-		__asm__ __volatile__("mcr " \
-		XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (tempadr));
+		asm_inval_dc_line_mva_poc(tempadr);
 
 		tempadr += cacheline;
 		}
@@ -296,8 +295,7 @@ void Xil_DCacheFlush(void)
 		for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
 			C7Reg = Way | Set;
 			/* Flush by Set/Way */
-			__asm__ __volatile__("mcr " \
-				XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (C7Reg));
+			asm_clean_inval_dc_line_sw(C7Reg);
 
 			Set += (0x00000001U << LineSize);
 		}
@@ -377,8 +375,7 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 
 		while (LocalAddr < end) {
 			/* Flush Data cache line */
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
+			asm_clean_inval_dc_line_mva_poc(LocalAddr);
 
 			LocalAddr += cacheline;
 		}
@@ -571,8 +568,7 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 		while (LocalAddr < end) {
 
 			/* Invalidate L1 I-cache line */
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
+			asm_inval_ic_line_mva_pou(LocalAddr);
 
 			LocalAddr += cacheline;
 		}
