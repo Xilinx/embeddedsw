@@ -45,6 +45,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
+*       vns    16/10/15  Corrected Destination descriptor addresss calculation
+*                        in XZDma_CreateBDList API
 * </pre>
 *
 ******************************************************************************/
@@ -248,8 +250,7 @@ s32 XZDma_SetMode(XZDma *InstancePtr, u8 IsSgDma, XZDma_Mode Mode)
 u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 					UINTPTR Dscr_MemPtr, u32 NoOfBytes)
 {
-	XZDma_LiDscr *LocalLinearPtr = (XZDma_LiDscr *)(void *)Dscr_MemPtr;
-	XZDma_LlDscr *LocalLinklistPtr = (XZDma_LlDscr *)(void *)Dscr_MemPtr;
+	u32 Size;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -261,20 +262,16 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 	InstancePtr->Descriptor.DscrType = TypeOfDscr;
 
 	if (TypeOfDscr == XZDMA_LINEAR) {
-		InstancePtr->Descriptor.SrcDscrPtr = (void *)Dscr_MemPtr;
-		LocalLinearPtr = ((LocalLinearPtr + (NoOfBytes >> 1)) + 1U);
-		InstancePtr->Descriptor.DstDscrPtr = (void *)LocalLinearPtr;
-		InstancePtr->Descriptor.DscrCount =
-				(NoOfBytes >> 1) / sizeof(XZDma_LiDscr);
+		Size = sizeof(XZDma_LiDscr);
 	}
 	else {
-		InstancePtr->Descriptor.SrcDscrPtr = (void *)Dscr_MemPtr;
-		LocalLinklistPtr =
-				((LocalLinklistPtr + (NoOfBytes >> 1)) + 1U);
-		InstancePtr->Descriptor.DstDscrPtr = (void *)LocalLinklistPtr;
-		InstancePtr->Descriptor.DscrCount =
-				(NoOfBytes >> 1) / sizeof(XZDma_LlDscr);
+		Size = sizeof(XZDma_LlDscr);
 	}
+	InstancePtr->Descriptor.DscrCount =
+						(NoOfBytes >> 1) / Size;
+	InstancePtr->Descriptor.SrcDscrPtr = (void *)Dscr_MemPtr;
+	InstancePtr->Descriptor.DstDscrPtr =
+			(void *)Dscr_MemPtr + (Size * InstancePtr->Descriptor.DscrCount);
 
 	Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
 
