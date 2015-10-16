@@ -531,11 +531,12 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 	case PM_PROC_EVENT_ABORT_SUSPEND:
 		if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = PmProcTrSuspendToActive(proc);
-		} else if (PM_PROC_STATE_ACTIVE == currState) {
-			/* Processor aborting request to suspend */
+		} else {
+			status = XST_SUCCESS;
+		}
+		if (true == PmIsRequestedToSuspend(proc->master)) {
 			status = PmMasterSuspendAck(proc->master,
 						    XST_PM_ABORT_SUSPEND);
-		} else {
 		}
 
 		/* Reset latency requirement */
