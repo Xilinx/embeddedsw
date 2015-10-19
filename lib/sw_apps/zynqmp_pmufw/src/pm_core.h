@@ -46,7 +46,6 @@
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmProcessRequest(const PmMaster *const master,
-		      const u32 payload[PAYLOAD_ELEM_CNT]);
+void PmProcessRequest(const PmMaster *const master, const u32 *payload);
 
 #endif

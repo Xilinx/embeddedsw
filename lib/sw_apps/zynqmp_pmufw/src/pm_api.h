@@ -107,7 +107,7 @@ typedef struct {
  * Function declarations
  ********************************************************************/
 bool PmIsApiIdValid(const u32 api);
-u32 PmRequestAcknowledge(const u32 args[PAYLOAD_ELEM_CNT]);
-PmPayloadStatus PmCheckPayload(const u32 args[PAYLOAD_ELEM_CNT]);
+u32 PmRequestAcknowledge(const u32 *args);
+PmPayloadStatus PmCheckPayload(const u32 *args);
 
 #endif

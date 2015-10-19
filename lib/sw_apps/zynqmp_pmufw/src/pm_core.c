@@ -722,13 +722,12 @@ static void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 /**
  * PmProcessApiCall() - Called to process PM API call
  * @master  Pointer to a requesting master structure
- * @pload   Array of integers with the information about the pm call (api id +
- *          arguments of the api)
+ * @pload   Pointer to array of integers with the information about the pm call
+ *          (api id + arguments of the api)
  *
  * @note    Payload arguments are checked and validated before calling this.
  */
-void PmProcessApiCall(const PmMaster *const master,
-		      const u32 pload[PAYLOAD_ELEM_CNT])
+static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 {
 	u32 setAddress;
 	u64 address;
@@ -812,14 +811,13 @@ void PmProcessApiCall(const PmMaster *const master,
 /**
  * PmProcessRequest() - Process PM API call
  * @master  Pointer to a requesting master structure
- * @pload   Array of integers with the information about the pm call (api id +
- *          arguments of the api)
+ * @pload   Pointer to array of integers with the information about the pm call
+ *          (api id + arguments of the api)
  *
  * @note    Called to process PM API call. If specific PM API receives less
  *          than 4 arguments, extra arguments are ignored.
  */
-void PmProcessRequest(const PmMaster *const master,
-		      const u32 pload[PAYLOAD_ELEM_CNT])
+void PmProcessRequest(const PmMaster *const master, const u32 *pload)
 {
 	PmPayloadStatus status = PmCheckPayload(pload);
 

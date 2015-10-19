@@ -272,13 +272,13 @@ done:
 
 /**
  * PmRequestAcknowledge() - check whether this API call requires acknowledge
- * @args    Array of argument values read from IPI buffer (the payload)
+ * @args    Pointer to array of argument values read from IPI buffer
  *
  * @return  Extracted acknowledge argument from payload, if payload does not
  *          contain acknowledge argument (because of APIs call declaration),
  *          return REQUEST_ACK_NO
  */
-u32 PmRequestAcknowledge(const u32 args[PAYLOAD_ELEM_CNT])
+u32 PmRequestAcknowledge(const u32 *args)
 {
 	u32 i;
 	u32 ack = REQUEST_ACK_NO;
