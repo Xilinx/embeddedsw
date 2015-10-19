@@ -42,7 +42,6 @@
 
 typedef u8 PmNodeId;
 typedef u8 PmStateId;
-typedef u8 PmTransitionId;
 typedef u8 PmNodeTypeId;
 
 /* Forward declaration */

@@ -45,10 +45,6 @@
 #include "pm_power.h"
 #include "xil_types.h"
 
-typedef u8 PmMasterId;
-typedef u8 PmRequirementId;
-typedef u8 PmMasterEvent;
-
 typedef struct PmMaster PmMaster;
 
 /*********************************************************************
@@ -205,7 +201,7 @@ typedef struct PmMaster {
 	const u32 buffer;
 	PmRequirement* const reqs;
 	PmSuspendRequest pmSuspRequests;
-	const PmRequirementId reqsCnt;
+	const u8 reqsCnt;
 } PmMaster;
 
 /*********************************************************************

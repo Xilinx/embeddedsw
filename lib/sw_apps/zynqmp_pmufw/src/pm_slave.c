@@ -493,7 +493,7 @@ done:
  */
 static int PmSlaveWakeMasters(PmSlave* const slave)
 {
-	PmMasterId i;
+	unsigned int i;
 	int status;
 	int totalSt = XST_SUCCESS;
 

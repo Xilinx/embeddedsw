@@ -707,7 +707,7 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
 					    const bool swap)
 {
 	int status;
-	PmRequirementId i;
+	unsigned int i;
 
 	PmDbg("%s\n", PmStrNode(master->procs[0].node.nodeId));
 
@@ -753,7 +753,7 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
  */
 void PmRequirementCancelScheduled(const PmMaster* const master)
 {
-	PmRequirementId i;
+	unsigned int i;
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
@@ -777,7 +777,7 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
  */
 static void PmRequirementRequestDefault(const PmMaster* const master)
 {
-	PmRequirementId i;
+	unsigned int i;
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (0U != master->reqs[i].defaultReq) {
@@ -800,7 +800,7 @@ static void PmRequirementRequestDefault(const PmMaster* const master)
 static int PmRequirementReleaseAll(const PmMaster* const master)
 {
 	int status;
-	PmRequirementId i;
+	unsigned int i;
 
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & master->reqs[i].info)) {
@@ -1083,7 +1083,7 @@ static void PmWakeUpDisableAll(PmMaster* const master)
 	PmDbg("for %s\n", PmStrNode(master->procs->node.nodeId));
 	for (i = 0; i < master->reqsCnt; i++) {
 		if (0U != (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK)) {
-			PmMasterId r;
+			unsigned int r;
 			bool hasOtherReq = false;
 
 			master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
