@@ -108,36 +108,36 @@ typedef struct PmProc PmProc;
 /**
  * PmProc - Processor node's structure
  * @node            Processor's node structure
+ * @resumeAddress   Address from which processor should resume
+ *                  resumeAddress BIT0=1 indicates valid address
  * @master          Master channel used by this processor
- * @isPrimary       True if this is a primary core (owner of Master channel)
+ * @saveResumeAddr  Pointer to function for saving the resume address
+ * @restoreResumeAddr Pointer to function for restoring resume address
  * @wfiStatusMask   Mask in PM_IOMODULE_GPI2 register (WFI interrupt)
  * @wakeStatusMask  Mask in PM_IOMODULE_GPI1 register (GIC wake interrupt)
  * @wfiEnableMask   Mask in PM_LOCAL_GPI2_ENABLE register (WFI interrupt)
  * @wakeEnableMask  mask in PM_LOCAL_GPI1_ENABLE register (GIC wake interrupt)
  * @resumeCfg       Address of register configuring processor's resume address
- * @resumeAddress   Address from which processor should resume
- *                  resumeAddress BIT0=1 indicates valid address
- * @saveResumeAddr  Pointer to function for saving the resume address
- * @restoreResumeAddr Pointer to function for restoring resume address
  * @latencyReq      Latenct requirement as passed in by self_suspend argument
  * @pwrDnLatency    Latency (in us) for transition to OFF state
  * @pwrUpLatency    Latency (in us) for transition to ON state
+ * @isPrimary       True if this is a primary core (owner of Master channel)
  */
 typedef struct PmProc {
 	PmNode node;
+	u64 resumeAddress;
 	PmMaster* const master;
-	bool isPrimary;
+	int (*const saveResumeAddr)(PmProc* const, u64);
+	void (*const restoreResumeAddr)(PmProc* const);
 	const u32 wfiStatusMask;
 	const u32 wakeStatusMask;
 	const u32 wfiEnableMask;
 	const u32 wakeEnableMask;
 	const u32 resumeCfg;
-	u64 resumeAddress;
-	int (*const saveResumeAddr)(PmProc* const, u64);
-	void (*const restoreResumeAddr)(PmProc* const);
 	u32 latencyReq;
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
+	bool isPrimary;
 } PmProc;
 
 /*********************************************************************

@@ -120,14 +120,14 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
  ********************************************************************/
 /**
  * PmStateTran - Transition for a state in finite state machine
+ * @latency     Transition latency in microseconds
  * @fromState   From which state the transition is taken
  * @toState     To which state the transition is taken
- * @latency     Transition latency in microseconds
  */
 typedef struct {
+	const u32 latency;
 	PmStateId fromState;
 	PmStateId toState;
-	const u32 latency;
 } PmStateTran;
 
 /**
@@ -135,17 +135,17 @@ typedef struct {
  * @state       Pointer to states array. Index in array is a state id, elements
  *              of array are power values in that state. For power island values
  *              are 0 and 1, for power domains values are in mV
- * @statesCnt   Number of states in state array
+ * @enterState  Pointer to a function that executes FSM actions to enter a state
  * @trans       Pointer to array of transitions of the FSM
  * @transCnt    Number of elements in transition array
- * @enterState  Pointer to a function that executes FSM actions to enter a state
+ * @statesCnt   Number of states in state array
  */
 typedef struct {
 	const u32* const states;
-	const PmStateId statesCnt;
-	const PmStateTran* const trans;
-	const u8 transCnt;
 	PmSlaveFsmHandler enterState;
+	const PmStateTran* const trans;
+	const u8 statesCnt;
+	const u8 transCnt;
 } PmSlaveFsm;
 
 /**
@@ -173,16 +173,16 @@ typedef struct {
  * PmSlave - Slave structure used for managing slave's states
  * @node        Pointer to the node structure of this slave
  * @reqs        Pointer to array of master requirements related to this slave
- * @reqsCnt     Size of masterReq array
  * @wake        Wake event this slave can generate
  * @slvFsm      Slave finite state machine
+ * @reqsCnt     Size of masterReq array
  */
 typedef struct PmSlave {
 	PmNode node;
 	PmRequirement* const* reqs;
-	u8 reqsCnt;
 	const PmWakeProperties* wake;
 	const PmSlaveFsm* slvFsm;
+	u8 reqsCnt;
 } PmSlave;
 
 /*********************************************************************

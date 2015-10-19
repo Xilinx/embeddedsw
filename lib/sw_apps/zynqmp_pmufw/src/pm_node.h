@@ -92,22 +92,22 @@ typedef struct PmNodeOps {
 /**
  * PmNode - Structure common for all entities that have node id
  * @derived     Pointer to a derived node type structure
+ * @parent      Pointer to power parent node
+ * @ops         Pointer to the operations structure
+ * @latencyMarg Latency margin: lowest latency requirement - powerup latency
  * @nodeId      Node id defined in pm_defs.h
  * @typeId      Type id, used to distinguish the nodes
- * @parent      Pointer to power parent node
  * @currState   Id of the node's current state. Interpretation depends on type
  *              of the node, bit 0 value is reserved for off states
- * @latencyMarg Latency margin: lowest latency requirement - powerup latency
- * @ops         Pointer to the operations structure
  */
 typedef struct PmNode {
 	void* const derived;
+	PmPower* const parent;
+	const PmNodeOps* const ops;
+	u32 latencyMarg;
 	const PmNodeId nodeId;
 	const PmNodeTypeId typeId;
-	PmPower* const parent;
 	PmStateId currState;
-	u32 latencyMarg;
-	const PmNodeOps* const ops;
 } PmNode;
 
 /*********************************************************************

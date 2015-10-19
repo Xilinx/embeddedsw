@@ -133,9 +133,6 @@ typedef struct PmMaster PmMaster;
  * @slave       Pointer to the slave structure
  * @requestor   Pointer to the master structure. Can be removed if need to
  *              optimize for space instead performance
- * @info        Contains information about master's request - a bit for
- *              encoding has master requested or released node, and a bit to
- *              encode has master requested a wake-up of this slave.
  * @defaultReq  Default requirements of a master - requirements for slave
  *              capabilities without which master's primary processor cannot
  *              switch to active state.
@@ -144,34 +141,43 @@ typedef struct PmMaster PmMaster;
  *              state (after it goes to sleep or before it gets awake)
  * @latencyReq  Latency requirements of master for the slave's transition time
  *              from any to its maximum (highest id) state
+ * @info        Contains information about master's request - a bit for
+ *              encoding has master requested or released node, and a bit to
+ *              encode has master requested a wake-up of this slave.
  */
 typedef struct PmRequirement {
 	PmSlave* const slave;
 	PmMaster* const requestor;
-	u8 info;
 	const u32 defaultReq;
 	u32 currReq;
 	u32 nextReq;
 	u32 latencyReq;
+	u8 info;
 } PmRequirement;
 
 /**
  * PmSuspendRequest() - For tracking information about which master can/has
  *                      requested which master to suspend.
  * @reqMst      Master which is priviledged to request suspend of respMst
- * @flags       Flags storing information about the actual request
  * @ackReq      Acknowledge argument provided with the request suspend call
+ * @flags       Flags storing information about the actual request
  */
 typedef struct {
 	const PmMaster* reqMst;
-	u8 flags;
 	u32 ackReq;
+	u8 flags;
 } PmSuspendRequest;
 
 /**
  * PmMaster - contains PM master related informations
  * @procs       Pointer to the array of processors within the master
- * @procsCnt    Number of processors within the master
+ * @reqs        Pointer to the masters array of requirements for slave
+ *              capabilities. For every slave the master can use, there has to
+ *              be a statically initialized structure for that master/slave pair
+ * @ipiMask     Mask dedicated to the master in IPI registers
+ * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
+ * @buffer      IPI buffer address into which this master can write
+ *              (master's buffer)
  * @nid         Placeholder nodeId - used to encode request suspend for group of
  *              processors sharing the same communication channel. When PM
  *              receives this nid as request suspend argument, it initiates
@@ -179,25 +185,19 @@ typedef struct {
  *              implementation, the request is mappend to actual suspend of all
  *              processors in the PU. In RPU case, this data could be
  *              initialized from PCW, based on RPU configuration.
- * @ipiMask     Mask dedicated to the master in IPI registers
- * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
- * @buffer      IPI buffer address into which this master can write
- *              (master's buffer)
- * @reqs        Pointer to the masters array of requirements for slave
- *              capabilities. For every slave the master can use, there has to
- *              be a statically initialized structure for that master/slave pair
+ * @procsCnt    Number of processors within the master
  * @reqsCnt     Number of requirement elements (= worst case for number of
  *              used slaves)
  */
 typedef struct PmMaster {
+	PmSuspendRequest pmSuspRequests;
 	PmProc* const procs;
-	const u8 procsCnt;
-	PmNodeId nid;
+	PmRequirement* const reqs;
 	const u32 ipiMask;
 	const u32 pmuBuffer;
 	const u32 buffer;
-	PmRequirement* const reqs;
-	PmSuspendRequest pmSuspRequests;
+	PmNodeId nid;
+	const u8 procsCnt;
 	const u8 reqsCnt;
 } PmMaster;
 
