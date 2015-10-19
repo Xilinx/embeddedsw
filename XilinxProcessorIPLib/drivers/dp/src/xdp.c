@@ -382,6 +382,14 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 		XDp_TxDisableMainLink(InstancePtr);
 	}
 
+	/* Wait for the PHY to be ready. */
+	Status = XDp_WaitPhyReady(InstancePtr,
+			XDP_TX_PHY_STATUS_LANES_READY_MASK(
+			InstancePtr->Config.MaxLaneCount));
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	/* Train main link. */
 	Status = XDp_TxRunTraining(InstancePtr);
 
@@ -1824,7 +1832,6 @@ void XDp_TxSetPeVsAdjustCallback(XDp *InstancePtr,
 *******************************************************************************/
 static u32 XDp_TxInitialize(XDp *InstancePtr)
 {
-	u32 Status;
 	u32 PhyVal;
 	u32 RegVal;
 	XDp_Config *ConfigPtr = &InstancePtr->Config;
@@ -1871,13 +1878,6 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 	/* Bring the PHY (and GTTXRESET) out of reset. */
 	RegVal = PhyVal & ~XDP_TX_PHY_CONFIG_GT_ALL_RESET_MASK;
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
-
-	/* Wait for the PHY to be ready. */
-	Status = XDp_WaitPhyReady(InstancePtr,
-		XDP_TX_PHY_STATUS_LANES_READY_MASK(ConfigPtr->MaxLaneCount));
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
 
 	/* Enable the DisplayPort TX core. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_ENABLE, 1);
