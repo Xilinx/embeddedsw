@@ -33,6 +33,7 @@
  * should be used directly only by power management itself.
  *********************************************************************/
 
+#include "pm_api.h"
 #include "pm_core.h"
 #include "pm_node.h"
 #include "pm_proc.h"

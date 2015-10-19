@@ -35,6 +35,25 @@
 #include "xpfw_rom_interface.h"
 
 /*
+ * Standard slave states (used for generic slaves with trivial on/off)
+ * These slaves have no machanisms for controlling their own state, and their
+ * off state is controlled by the power parent state.
+ */
+#define PM_STD_SLAVE_STATE_OFF	0U
+#define PM_STD_SLAVE_STATE_ON	1U
+
+/*
+ * States of a slave with its own power island (PI), who has dependencies to the
+ * power parent (power domain) and have no wake-up capability through GIC Proxy.
+ * In this case, those are graphics processors
+ */
+#define PM_GPP_SLAVE_STATE_OFF	0U
+#define PM_GPP_SLAVE_STATE_ON	1U
+
+/* Always-on slaves, have only one state */
+#define PM_AON_SLAVE_STATE	0U
+
+/*
  * Without clock/reset control, from PM perspective ttc has only one state.
  * It is in LPD, which is never turned off, does not sit in power island,
  * therefore has no off state.

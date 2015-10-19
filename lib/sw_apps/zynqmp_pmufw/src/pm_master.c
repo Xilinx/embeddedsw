@@ -45,6 +45,9 @@
 #include "pm_callbacks.h"
 #include "ipi_buffer.h"
 
+#define PM_REQUESTED_SUSPEND        0x1U
+#define TO_ACK_CB(ack, status) (REQUEST_ACK_CB_STANDARD == (ack))
+
 /* Requirement of APU master */
 PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 	[PM_MASTER_APU_SLAVE_OCM0] = {

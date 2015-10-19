@@ -96,14 +96,6 @@ typedef enum {
 } PmPayloadStatus;
 
 /*********************************************************************
- * Structure definitions
- ********************************************************************/
-typedef struct {
-	const u8 apiId;
-	const u8 argTypes[PAYLOAD_API_ARGS_CNT];
-} PmApiEntry;
-
-/*********************************************************************
  * Function declarations
  ********************************************************************/
 bool PmIsApiIdValid(const u32 api);

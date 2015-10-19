@@ -49,6 +49,28 @@
 #include "crl_apb.h"
 #include "xpfw_util.h"
 
+/* PLL states: */
+/*
+ * PLL is not used by any master, so it can be powered down and it's power
+ * parent can be powered down as well.
+ */
+#define PM_PLL_STATE_UNUSED	0U
+/* PLL is used by at least one master which is controlling state of PLL */
+#define PM_PLL_STATE_USED	1U
+#define PM_PLL_STATE_MAX	2U
+
+/* Register offsets (in regard to PLL's base address of control registers) */
+#define PM_PLL_CTRL_OFFSET	0x0U
+#define PM_PLL_CFG_OFFSET	0x4U
+#define PM_PLL_FRAC_OFFSET	0x8U
+
+/* Masks of bitfields in PLL's control register */
+#define PM_PLL_CTRL_RESET_MASK	0x1U
+#define PM_PLL_CTRL_BYPASS_MASK	0x8U
+
+/* Configurable: timeout period when waiting for PLL to lock */
+#define PM_PLL_LOCK_TIMEOUT	0x10000U
+
 /* PLL states */
 static const u32 pmPllStates[PM_PLL_STATE_MAX] = {
 	[PM_PLL_STATE_UNUSED] = 0U,

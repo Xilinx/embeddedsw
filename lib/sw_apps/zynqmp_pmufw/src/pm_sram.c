@@ -37,6 +37,12 @@
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
 
+/* Power states of SRAM */
+#define PM_SRAM_STATE_OFF	0U
+#define PM_SRAM_STATE_RET	1U
+#define PM_SRAM_STATE_ON	2U
+#define PM_SRAM_STATE_MAX	3U
+
 /* Sram states */
 static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_OFF] = 0U,

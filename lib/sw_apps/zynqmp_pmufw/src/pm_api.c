@@ -40,6 +40,11 @@
 #include "pm_api.h"
 #include "pm_defs.h"
 
+typedef struct {
+	const u8 apiId;
+	const u8 argTypes[PAYLOAD_API_ARGS_CNT];
+} PmApiEntry;
+
 static const PmApiEntry pmApiTable[] = {
 	{
 		.apiId = PM_SELF_SUSPEND,

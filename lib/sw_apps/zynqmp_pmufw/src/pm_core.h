@@ -39,7 +39,6 @@
 #ifndef PM_CORE_H_
 #define PM_CORE_H_
 
-#include "pm_api.h"
 #include "pm_master.h"
 #include "xil_types.h"
 

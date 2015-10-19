@@ -77,33 +77,6 @@ typedef u32 (*const PmTranHandler)(void);
 
 #define ARRAY_SIZE(x)   (sizeof(x) / sizeof((x)[0]))
 #define BIT0(x) (x & 1U)
-#define TO_ACK_CB(ack, status) (REQUEST_ACK_CB_STANDARD == (ack))
-
-/* All WFI bitfields in GPI2 */
-#define PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK \
-		(PMU_LOCAL_GPI2_ENABLE_ACPU0_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_ACPU1_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_ACPU2_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_ACPU3_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_R5_0_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_R5_1_PWRDWN_REQ_MASK)
-
-/* All GIC wakes in GPI1 */
-#define PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK \
-		(PMU_IOMODULE_GPI1_ACPU_0_WAKE_MASK | \
-		PMU_IOMODULE_GPI1_ACPU_1_WAKE_MASK | \
-		PMU_IOMODULE_GPI1_ACPU_2_WAKE_MASK | \
-		PMU_IOMODULE_GPI1_ACPU_3_WAKE_MASK | \
-		PMU_IOMODULE_GPI1_R5_0_WAKE_MASK | \
-		PMU_IOMODULE_GPI1_R5_1_WAKE_MASK)
-
-/*
- * Macro for all wake events in GPI1 that PM handles.
- * Used for initialization to avoid looping through all slaves array.
- */
-#define PMU_IOMODULE_GPI1_WAKES_ALL_MASK \
-		(PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK | \
-		PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK)
 
 /* Enable/disable macros for wake events in GPI1 register */
 #define ENABLE_WAKE(mask)   XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, mask, mask);

@@ -119,9 +119,6 @@ typedef struct PmMaster PmMaster;
 #define PM_MASTER_WAKEUP_REQ_MASK   0x1U
 #define PM_MASTER_USING_SLAVE_MASK  0x2U
 
-/* Suspend request related */
-#define PM_REQUESTED_SUSPEND        0x1U
-
 /* Maximum number of masters currently supported */
 #define PM_MASTER_MAX               3U
 

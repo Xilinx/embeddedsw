@@ -37,6 +37,11 @@
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
 
+/* Power states of USB */
+#define PM_USB_STATE_OFF   0U
+#define PM_USB_STATE_ON    1U
+#define PM_USB_STATE_MAX   2U
+
 /* USB states */
 static const u32 pmUsbStates[PM_USB_STATE_MAX] = {
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP,

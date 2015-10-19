@@ -71,8 +71,6 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define IS_POWER(type)      ((PM_TYPE_PWR_ISLAND == type) || \
 				(PM_TYPE_PWR_DOMAIN == type))
 
-#define IS_SLAVE(type)      (type >= PM_TYPE_SLAVE)
-
 #define IS_OFF(nodePtr)     (0U == BIT0((nodePtr)->currState))
 
 #define HAS_SLEEP(opsPtr)   ((NULL != opsPtr) && (NULL != (opsPtr)->sleep))
