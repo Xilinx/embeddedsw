@@ -174,7 +174,7 @@ SECTIONS
    *(.gcc_except_table)
 } > ps7_ram_0_S_AXI_BASEADDR
 
-.mmu_tbl ALIGN(0x4000): {
+.mmu_tbl (ALIGN(0x4000)): {
    __mmu_tbl_start = .;
    *(.mmu_tbl)
    __mmu_tbl_end = .;
