@@ -61,5 +61,10 @@
  *                      Modified Zynq efuse PL jtagwrite API by adding clock after
  *                      RTI state and one more clock at the end of 11us.
  *                      (CR #885421).
+ *       vns  10/20/15 Added cplusplus boundary blocks. (CR #911062)
+ *                     Modified XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits API
+ *                     when reading from efuse memory to return both bits
+ *                     of secure control feature for RSA enable, PPK hash
+ *                     bits invalid bits. (CR #911063)
  *
  ********************************************************************************/

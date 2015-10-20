@@ -43,6 +43,10 @@
 * Ver   Who   Date     Changes
 * ----- ----  -------- ------------------------------------------------------
 * 4.0   vns   10/01/15 First release
+*     vns     10/20/15 Modified XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits API
+*                      when reading from efuse memory to return both bits
+*                      of secure control feature for RSA enable, PPK hash
+*                      bits invalid bits.
 * </pre>
 *
 *****************************************************************************/
@@ -373,15 +377,21 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		ReadBackSecCtrlBits->SecureLock =
 			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_LOCK];
 		ReadBackSecCtrlBits->RSAEnable =
-			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN];
+			(DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT2] <<
+					XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT) |
+			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT1];
 		ReadBackSecCtrlBits->PPK0WrLock =
 			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK0_WRLK];
 		ReadBackSecCtrlBits->PPK0Revoke =
-			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD];
+			(DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT2] <<
+					XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT) |
+			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT1];
 		ReadBackSecCtrlBits->PPK1WrLock =
 			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK1_WRLK];
 		ReadBackSecCtrlBits->PPK1Revoke =
-			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD];
+			(DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD_BIT2] <<
+			XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT) |
+			DataInBits[XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD_BIT1];
 
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 			XSK_ZYNQMP_EFUSEPS_XILINX_SPECIFIC_CTRL_BITS_ROW,
@@ -1238,12 +1248,12 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	if ((InstancePtr->PrgrmgSecCtrlBits.RSAEnable != 0x00) &&
 		(InstancePtr->ReadBackSecCtrlBits.RSAEnable == 0x00)) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
-			XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN, EfuseType);
+			XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT1, EfuseType);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
-			(XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN + 1), EfuseType);
+			XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT2, EfuseType);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -1259,12 +1269,12 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	if ((InstancePtr->PrgrmgSecCtrlBits.PPK0Revoke != 0x00) &&
 		(InstancePtr->ReadBackSecCtrlBits.PPK0Revoke == 0x00)) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
-			XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD, EfuseType);
+			XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT1, EfuseType);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
-			(XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD + 1), EfuseType);
+			XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT2, EfuseType);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -1280,12 +1290,12 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	if ((InstancePtr->PrgrmgSecCtrlBits.PPK1Revoke != 0x00) &&
 		(InstancePtr->ReadBackSecCtrlBits.PPK1Revoke == 0x00)) {
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
-			XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD, EfuseType);
+			XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD_BIT1, EfuseType);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
-			XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD + 1, EfuseType);
+			XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD_BIT2, EfuseType);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
