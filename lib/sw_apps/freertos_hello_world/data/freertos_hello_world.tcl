@@ -65,9 +65,13 @@ proc swapp_is_supported_hw {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-
-    if { $proc_type != "psu_cortexr5" && $proc_type != "ps7_cortexa9" && $proc_type != "microblaze" } {
-                error "This application is supported only for CortexR5/CortexA9/MicroBlaze processors.";
+    set procdrv [::hsi::get_sw_processor]
+    set compiler [common::get_property CONFIG.compiler $procdrv]
+    if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+    error "ERROR: FreeRTOS is not supported for 32bit A53"
+    }
+    if { $proc_type != "psu_cortexr5" && $proc_type != "ps7_cortexa9" && $proc_type != "psu_cortexa53" && $proc_type != "microblaze" } {
+                error "This application is supported only for CortexR5/CortexA9/CortexA53/MicroBlaze processors.";
     }
 
     return 1;
@@ -91,7 +95,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexr5 ps7_cortexa9 microblaze";
+    return "psu_cortexr5 ps7_cortexa9 psu_cortexa53 microblaze";
 }
 
 proc swapp_get_supported_os {} {
