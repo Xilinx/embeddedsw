@@ -628,7 +628,8 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			}
 		}
 
-	} else if (InstancePtr->CardType == XSDPS_CARD_MMC) {
+	} else if ((InstancePtr->CardType == XSDPS_CARD_MMC) &&
+				(InstancePtr->HC_Version == XSDPS_HC_SPEC_V2)) {
 
 		Status = XSdPs_Change_BusWidth(InstancePtr);
 		if (Status != XST_SUCCESS) {
@@ -666,7 +667,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 				goto RETURN_PATH;
 			}
 		}
-	} else {
+	} else if (InstancePtr->CardType == XSDPS_CHIP_EMMC){
 		/* Change bus width to 8-bit */
 		Status = XSdPs_Change_BusWidth(InstancePtr);
 		if (Status != XST_SUCCESS) {
