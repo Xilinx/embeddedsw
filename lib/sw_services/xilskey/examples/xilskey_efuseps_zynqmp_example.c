@@ -43,6 +43,10 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     10/01/15 First release
+*       vns     10/20/15 Modified XilSKey_EfusePs_Example_ReadSecCtrlBits API
+*                        while reading RSA authentication and PPK revokes bits
+*                        status it may return 0 or BOTH_BITS_SET. So in place
+*                        of TRUE added BOTH_BITS_SET.
 * </pre>
 *
 ******************************************************************************/
@@ -511,7 +515,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	else {
 		xil_printf("Reboot from JTAG mode is enabled\n\r");
 	}
-	if (ReadSecCtrlBits.RSAEnable == TRUE) {
+	if (ReadSecCtrlBits.RSAEnable == BOTH_BITS_SET) {
 		xil_printf("RSA authentication is enabled\n\r");
 	}
 	else {
@@ -524,7 +528,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 		xil_printf("writing to PPK0 efuse is not locked\n\r");
 	}
 
-	if (ReadSecCtrlBits.PPK0Revoke == TRUE) {
+	if (ReadSecCtrlBits.PPK0Revoke == BOTH_BITS_SET) {
 		xil_printf("Revoking PPK0 is enabled \n\r");
 	}
 	else {
@@ -538,7 +542,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 		xil_printf("writing to PPK1 efuses is not locked\n\r");
 	}
 
-	if (ReadSecCtrlBits.PPK1Revoke == TRUE) {
+	if (ReadSecCtrlBits.PPK1Revoke == BOTH_BITS_SET) {
 		xil_printf("Revoking PPK1 is enabled \n\r");
 	}
 	else {
