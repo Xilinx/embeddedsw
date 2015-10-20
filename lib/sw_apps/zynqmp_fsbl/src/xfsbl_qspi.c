@@ -494,9 +494,9 @@ static int SendBankSelect(u32 BankSel)
 			goto END;
 		}
 
-		if (ReadBuffer[1] != BankSel) {
+		if (ReadBuffer[0] != BankSel) {
 			XFsbl_Printf(DEBUG_INFO, "Bank Select %d != Register Read %d\n\r", BankSel,
-				ReadBuffer[1]);
+				ReadBuffer[0]);
 			Status = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
