@@ -57,11 +57,17 @@
 *                        Modified Xilskey_CrcCalculation API name to
 *                        XilSKey_CrcCalculation. and Xilskey_Timer_Intialise API
 *                        to XilSKey_Timer_Intialise
+*       vns     10/20/15 Added cplusplus boundary blocks.
 *
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
 #define XILSKEY_UTILS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***************************** Include Files ********************************/
 #include "xparameters.h"
 #ifdef XPAR_XSK_MICROBLAZE_PLATFORM
@@ -640,6 +646,8 @@ u32 XilSKey_CrcCalculation(u8 *Key);
 u32 XilSKey_Ceil(float Freq);
 /***************************************************************************/
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XILSKEY_UTILS_H */

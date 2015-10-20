@@ -51,12 +51,17 @@
 *			 u32 XilSKey_EfusePs_Read(XilSKey_EPs *PsInstancePtr)
 * 2.00  hk      23/01/14 Changed PS efuse error codes for voltage out of range
 * 2.1   sk      04/03/15 Initialized RSAKeyReadback with Zeros CR# 829723.
+* 4.0   vns     10/20/15 Added cplusplus boundary blocks.
 *
 *
 *****************************************************************************/
 
 #ifndef XILSKEY_EPS_H
 #define XILSKEY_EPS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * Key length definition for RSA KEY Hash
@@ -110,5 +115,9 @@ typedef struct {
 u32 XilSKey_EfusePs_Write(XilSKey_EPs *PsInstancePtr);
 u32 XilSKey_EfusePs_Read (XilSKey_EPs *PsInstancePtr);
 u32 XilSKey_EfusePs_ReadStatus(XilSKey_EPs *InstancePtr, u32 *StatusBits);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XILSKEY_EPS_H */
