@@ -43,6 +43,7 @@
 * Ver   Who  	Date     Changes
 * ----- ---- 	-------- --------------------------------------------------------
 * 4.0   vns     10/01/15 First release
+*       vns     10/20/15 Modified secure control bits readback bits.
 * </pre>
 *
 *****************************************************************************/
@@ -121,6 +122,12 @@ extern "C" {
 #define XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) \
 	XilSKey_Ceil(((float)30 * RefClk) / (float)1000000000)
 
+#define BOTH_BITS_SET					0x3
+								/**< If both bits are set */
+#define XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT	0x1
+								/**< Shift macro for SEC_CTRL
+								 *   if it has 2 bits */
+
 /** @name efuse types
  * @{
  */
@@ -146,11 +153,14 @@ typedef enum {
 	XSK_ZYNQMP_EFUSEPS_SEC_DIS_PROG_GATE1,
 	XSK_ZYNQMP_EFUSEPS_SEC_DIS_PROG_GATE2,
 	XSK_ZYNQMP_EFUSEPS_SEC_LOCK,
-	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN = 24,
-	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_WRLK = 26,
-	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD = 27,
-	XSK_ZYNQMP_EFUSEPS_SEC_PPK1_WRLK = 29,
-	XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT1 = 24,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT2,
+	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_WRLK,
+	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT1,
+	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT2,
+	XSK_ZYNQMP_EFUSEPS_SEC_PPK1_WRLK,
+	XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD_BIT1,
+	XSK_ZYNQMP_EFUSEPS_SEC_PPK1_INVLD_BIT2
 }XskEfusePS_SecCtrlBits;
 /*@}*/
 
