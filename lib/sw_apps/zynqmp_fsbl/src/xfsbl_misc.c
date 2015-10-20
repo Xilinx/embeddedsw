@@ -517,23 +517,27 @@ u32 XFsbl_PowerUpIsland(u32 PwrIslandMask)
 	u32 RegVal;
 	u32 Status = XFSBL_SUCCESS;
 
-	/* There is a single island for both R5_0 and R5_1 */
-	if ((PwrIslandMask & PMU_GLOBAL_PWR_STATE_R5_1_MASK) ==
-			PMU_GLOBAL_PWR_STATE_R5_1_MASK) {
-		PwrIslandMask &= ~(PMU_GLOBAL_PWR_STATE_R5_1_MASK);
-		PwrIslandMask |= PMU_GLOBAL_PWR_STATE_R5_0_MASK;
+	/* Skip power-up request for QEMU */
+	if (XFSBL_PLATFORM != XFSBL_PLATFORM_QEMU)
+	{
+		/* There is a single island for both R5_0 and R5_1 */
+		if ((PwrIslandMask & PMU_GLOBAL_PWR_STATE_R5_1_MASK) ==
+				PMU_GLOBAL_PWR_STATE_R5_1_MASK) {
+			PwrIslandMask &= ~(PMU_GLOBAL_PWR_STATE_R5_1_MASK);
+			PwrIslandMask |= PMU_GLOBAL_PWR_STATE_R5_0_MASK;
+		}
+
+		/* Power up request enable */
+		XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_INT_EN, PwrIslandMask);
+
+		/* Trigger power up request */
+		XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_TRIG, PwrIslandMask);
+
+		/* Poll for Power up complete */
+		do {
+			RegVal = XFsbl_In32(PMU_GLOBAL_REQ_PWRUP_STATUS) & PwrIslandMask;
+		} while (RegVal != 0x0U);
 	}
-
-	/* Power up request enable */
-	XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_INT_EN, PwrIslandMask);
-
-	/* Trigger power up request */
-	XFsbl_Out32(PMU_GLOBAL_REQ_PWRUP_TRIG, PwrIslandMask);
-
-	/* Poll for Power up complete */
-	do {
-		RegVal = XFsbl_In32(PMU_GLOBAL_REQ_PWRUP_STATUS) & PwrIslandMask;
-	} while (RegVal != 0x0U);
 
 	return Status;
 }
