@@ -42,14 +42,17 @@ proc generate {os_handle} {
 	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set need_config_file "false"
-
-	# proctype should be "microblaze", ps7_cortexa9 or psu_cortexr5
+	set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
+	# proctype should be "microblaze", ps7_cortexa9, psu_cortexr5 or psu_cortexa53
 	set commonsrcdir "../${standalone_version}/src/common"
 	set mbsrcdir "../${standalone_version}/src/microblaze"
 	set armr5srcdir "../${standalone_version}/src/cortexr5"
 	set armr5gccdir "../${standalone_version}/src/cortexr5/gcc"
 	set arma53srcdir "../${standalone_version}/src/cortexa53"
-	set arma53gccdir "../${standalone_version}/src/cortexa53/gcc"
+	set arma5364srcdir "../${standalone_version}/src/cortexa53/64bit"
+	set arma5332srcdir "../${standalone_version}/src/cortexa53/32bit"
+	set arma5364gccdir "../${standalone_version}/src/cortexa53/64bit/gcc"
+	set arma5332gccdir "../${standalone_version}/src/cortexa53/32bit/gcc"
 	set includedir "../${standalone_version}/src/cortexa53/includes_ps"
 	set arma9srcdir "../${standalone_version}/src/cortexa9"
 	set arma9gccdir "../${standalone_version}/src/cortexa9/gcc"
@@ -76,7 +79,10 @@ proc generate {os_handle} {
 
 				file copy -force $includedir "../${standalone_version}/src/"
 				file delete -force "../${standalone_version}/src/gcc"
-
+				file delete -force "../${standalone_version}/src/profile"
+				if { $enable_sw_profile == "true" } {
+					error "ERROR: Profiling is not supported for R5"
+				}
 				set need_config_file "true"
 
 				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -84,7 +90,36 @@ proc generate {os_handle} {
 				puts $file_handle ""
 				close $file_handle
 			}
+		"psu_cortexa53"  {
+				set procdrv [hsi::get_sw_processor]
+			        set compiler [get_property CONFIG.compiler $procdrv]
+				if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+					error "ERROR: FreeRTOS is not supported for 32bit A53"
+				}
+				puts "In start copy psu_cortexa53"
+				file copy -force "./src/Makefile_psu_cortexa53" "./src/Makefile"
+				file copy -force "./src/Makefile" "./src/Makefile_dep"
+				foreach entry [glob -nocomplain [file join $arma5364srcdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
 
+				foreach entry [glob -nocomplain [file join $arma5364gccdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
+
+				file copy -force $includedir "../${standalone_version}/src/"
+				file delete -force "../${standalone_version}/src/gcc"
+				file delete -force "../${standalone_version}/src/profile"
+				if { $enable_sw_profile == "true" } {
+					error "ERROR: Profiling is not supported for A53"
+				}
+				set need_config_file "true"
+
+				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+				puts $file_handle "#include \"xparameters_ps.h\""
+				puts $file_handle ""
+				close $file_handle
+			}
 		"ps7_cortexa9"  {
 				puts "In start copy ps7_cortexa9"
 				file copy -force "./src/Makefile_ps7_cortexa9" "./src/Makefile"
@@ -132,7 +167,7 @@ proc generate {os_handle} {
 	set makeconfig [open "../${standalone_version}/src/config.make" w]
 	file rename -force -- "../${standalone_version}/src/Makefile" "../${standalone_version}/src/Makefile_depends"
 
-	if { $proctype == "psu_cortexr5" || $proctype == "ps7_cortexa9" || $proctype == "microblaze" } {
+	if { $proctype == "psu_cortexr5" || $proctype == "ps7_cortexa9" || $proctype == "microblaze" || $proctype == "psu_cortexa53" } {
 		puts $makeconfig "LIBSOURCES = *.c *.S"
 		puts $makeconfig "LIBS = standalone_libs"
 	}
@@ -142,6 +177,7 @@ proc generate {os_handle} {
 	# Remove arm directory...
 	file delete -force $armr5srcdir
 	file delete -force $arma9srcdir
+	file delete -force $arma5364srcdir
 	file delete -force $mbsrcdir
 
 	# Copy core kernel files to the main src directory
@@ -158,6 +194,13 @@ proc generate {os_handle} {
 		file copy -force [file join src Source portable GCC ARM_CR5 port_asm_vectors.S] ./src
 		file copy -force [file join src Source portable GCC ARM_CR5 portmacro.h] ./src
 		file copy -force [file join src Source portable GCC ARM_CR5 portZynqUltrascale.c] ./src
+	}
+	if { $proctype == "psu_cortexa53" } {
+		file copy -force [file join src Source portable GCC ARM_CA53 port.c] ./src
+		file copy -force [file join src Source portable GCC ARM_CA53 portASM.S] ./src
+		file copy -force [file join src Source portable GCC ARM_CA53 port_asm_vectors.S] ./src
+		file copy -force [file join src Source portable GCC ARM_CA53 portmacro.h] ./src
+		file copy -force [file join src Source portable GCC ARM_CA53 portZynqUltrascale.c] ./src
 	}
 
 	if { $proctype == "ps7_cortexa9" } {
@@ -227,7 +270,6 @@ proc generate {os_handle} {
 	file delete -force $armr5srcdir
 	file delete -force $armr5gccdir
 	file delete -force $arma53srcdir
-	file delete -force $arma53gccdir
 	file delete -force $arma9srcdir
 	file delete -force $arma9gccdir
 	file delete -force $arma9armccdir
@@ -587,6 +629,11 @@ proc generate {os_handle} {
 		puts $config_file "#define configSETUP_TICK_INTERRUPT() FreeRTOS_SetupTickInterrupt()\n"
 		puts $config_file "void FreeRTOS_ClearTickInterrupt( void );"
 		puts $config_file "#define configCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
+		puts $config_file "#define configGENERATE_RUN_TIME_STATS 0\n"
+		puts $config_file "#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()\n"
+		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE()\n"
+		puts $config_file "#define configCOMMAND_INT_MAX_OUTPUT_SIZE 2096\n"
+		puts $config_file "#define recmuCONTROLLING_TASK_PRIORITY ( configMAX_PRIORITIES - 2 )\n"
 
 		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
 		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
@@ -600,7 +647,152 @@ proc generate {os_handle} {
 	}
 	# end of if $proctype == "psu_cortexr5"
 
+	############################################################################
+	## Add constants specific to the psu_cortexa53
+	############################################################################
 
+	if { $proctype == "psu_cortexa53" } {
+
+		set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
+		if {$val == "true"} {
+			set have_tick_timer 1
+			set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
+			if {$val1 == "0"} {
+				xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_0_DEVICE_ID"
+				xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_0_BASEADDR"
+				xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_0_INTR"
+			} else {
+				if {$val1 == "1"} {
+					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_1_DEVICE_ID"
+					xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_1_BASEADDR"
+					xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_1_INTR"
+				} else {
+					if {$val1 == "2"} {
+						xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_2_DEVICE_ID"
+						xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_2_BASEADDR"
+						xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_2_INTR"
+					} else {
+						error "ERROR: invalid timer selected" "mdt_error"
+					}
+				}
+			}
+		}
+
+		set val [common::get_property CONFIG.PSU_TTC1_Select $os_handle]
+		if {$val == "true"} {
+		if {$have_tick_timer == 1} {
+				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
+			} else {
+				set have_tick_timer 1
+				set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
+				if {$val1 == "0"} {
+					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_3_DEVICE_ID"
+					xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_3_BASEADDR"
+					xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_3_INTR"
+				} else {
+					if {$val1 == "1"} {
+						xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_4_DEVICE_ID"
+						xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_4_BASEADDR"
+						xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_4_INTR"
+					} else {
+						if {$val1 == "2"} {
+							xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_5_DEVICE_ID"
+							xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_5_BASEADDR"
+							xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_5_INTR"
+						} else {
+							error "ERROR: invalid timer selected " "mdt_error"
+						}
+					}
+				}
+			}
+		}
+
+		set val [common::get_property CONFIG.PSU_TTC2_Select $os_handle]
+		if {$val == "true"} {
+			if {$have_tick_timer == 1} {
+				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
+			} else {
+				set have_tick_timer 1
+				set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
+				if {$val1 == "0"} {
+					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_6_DEVICE_ID"
+					xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_6_BASEADDR"
+					xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_6_INTR"
+				} else {
+					if {$val1 == "1"} {
+						xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_7_DEVICE_ID"
+						xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_7_BASEADDR"
+						xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_7_INTR"
+					} else {
+						if {$val1 == "2"} {
+							xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_8_DEVICE_ID"
+							xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_8_BASEADDR"
+							xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_8_INTR"
+						} else {
+							error "ERROR: invalid timer selected " "mdt_error"
+						}
+					}
+				}
+			}
+		}
+
+		set val [common::get_property CONFIG.PSU_TTC3_Select $os_handle]
+		if {$val == "true"} {
+			if {$have_tick_timer == 1} {
+				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
+			} else {
+				set have_tick_timer 1
+				set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
+				if {$val1 == "0"} {
+					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_9_DEVICE_ID"
+					xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_9_BASEADDR"
+					xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_9_INTR"
+				} else {
+					if {$val1 == "1"} {
+						xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_10_DEVICE_ID"
+						xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_10_BASEADDR"
+						xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_10_INTR"
+					} else {
+						if {$val1 == "2"} {
+							xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_11_DEVICE_ID"
+							xput_define $config_file "configTIMER_BASEADDR" "XPAR_XTTCPS_11_BASEADDR"
+							xput_define $config_file "configTIMER_INTERRUPT_ID" "XPAR_XTTCPS_11_INTR"
+						} else {
+							error "ERROR: invalid timer selected " "mdt_error"
+						}
+					}
+				}
+			}
+		}
+
+		if {$have_tick_timer == 0} {
+			error "ERROR: No tick timer selected " "mdt_error"
+		}
+		xput_define $config_file "configUNIQUE_INTERRUPT_PRIORITIES"			   "32"
+		xput_define $config_file "configINTERRUPT_CONTROLLER_DEVICE_ID"			"XPAR_SCUGIC_SINGLE_DEVICE_ID"
+		xput_define $config_file "configINTERRUPT_CONTROLLER_BASE_ADDRESS"		 "XPAR_SCUGIC_0_DIST_BASEADDR"
+		xput_define $config_file "configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET" 	"0x10000"
+
+		# Function prototypes cannot be in the common code as some compilers or
+		# ports require pre-processor guards to ensure they are not visible from
+		# assembly files.
+		puts $config_file "void vApplicationAssert( const char *pcFile, uint32_t ulLine );"
+		puts $config_file "void FreeRTOS_SetupTickInterrupt( void );"
+		puts $config_file "#define configSETUP_TICK_INTERRUPT() FreeRTOS_SetupTickInterrupt()\n"
+		puts $config_file "void FreeRTOS_ClearTickInterrupt( void );"
+		puts $config_file "#define configCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
+
+		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
+		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
+
+		set val [common::get_property CONFIG.use_port_optimized_task_selection $os_handle]
+		if {$val == "false"} {
+			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "0"
+		} else {
+			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "1"
+		}
+	}
+	# end of if $proctype == "psu_cortexa53"
 
 
 	############################################################################
