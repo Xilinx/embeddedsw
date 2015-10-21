@@ -31,9 +31,9 @@
 ##*****************************************************************************/
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XVPHY" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL"
-    ::hsi::utils::define_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "VPHY" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL"
+    xdefine_include_file $drv_handle "xparameters.h" "XVPHY" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK"
+    ::hsi::utils::define_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "VPHY" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK"
 }
 
 #
