@@ -21,7 +21,7 @@ OPTION psf_version = 2.1.0 ;
 BEGIN OS freertos821_xilinx
 
 OPTION DRC = FreeRTOS_drc ;
-OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5);
+OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psu_cortexa53);
 OPTION COPYFILES = all;
 OPTION NAME = freertos821_xilinx;
 OPTION VERSION = 1.1;
