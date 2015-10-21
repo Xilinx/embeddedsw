@@ -305,11 +305,8 @@ u32 XVphy_ClkInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
-	if ((Dir == XVPHY_DIR_RX) && XVphy_IsBonded(InstancePtr, 0, ChId)) {
-		XVphy_OutDivReconfig(InstancePtr, 0, ChId, XVPHY_DIR_TX);
-	}
 
-	Status = XVphy_DirReconfig(InstancePtr, QuadId, ChId, XVPHY_DIR_RX);
+	Status = XVphy_DirReconfig(InstancePtr, QuadId, ChId, Dir);
 
 	return Status;
 }
