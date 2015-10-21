@@ -508,6 +508,8 @@ typedef struct {
 	u8 DruIsPresent;		/**< A data recovery unit (DRU) exists
 						in the design .*/
 	XVphy_PllRefClkSelType DruRefClkSel; /**< DRU REFCLK selection. */
+	XVidC_PixelsPerClock Ppc;	/**< Number of input pixels per
+						 clock. */
 } XVphy_Config;
 
 /* Forward declaration. */
