@@ -987,9 +987,37 @@ u32 XVphy_WaitForResetDone(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 ******************************************************************************/
 u32 XVphy_WaitForPllLock(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
+	u32 Status = XST_FAILURE;
+	u8 Retry = 0;
+
+	do {
+		XVphy_WaitUs(InstancePtr, 1000);
+		Status = XVphy_IsPllLocked(InstancePtr, QuadId, ChId);
+		Retry++;
+	} while ((Status != XST_SUCCESS) && (Retry < 15));
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* This function will check the status of a PLL lock on the specified channel.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID which to operate on.
+*
+* @return
+*		- XST_SUCCESS if the specified PLL is locked.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
 	u32 RegVal;
 	u32 MaskVal;
-	u8 Retry = 0;
 
 	if (ChId == XVPHY_CHANNEL_ID_CMN0) {
 		MaskVal = XVPHY_PLL_LOCK_STATUS_QPLL0_MASK;
@@ -1007,22 +1035,14 @@ u32 XVphy_WaitForPllLock(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	else {
 		MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_MASK(ChId);
 	}
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+			XVPHY_PLL_LOCK_STATUS_REG);
 
-	do {
-		RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
-						XVPHY_PLL_LOCK_STATUS_REG);
-		if (!(RegVal & MaskVal)){
-			XVphy_WaitUs(InstancePtr, 1000);
-			Retry++;
-		}
-	} while ((!(RegVal & MaskVal)) && (Retry < 15));
-
-	if (Retry == 15){
-		return XST_FAILURE;
-	}
-	else {
+	if (RegVal & MaskVal) {
 		return XST_SUCCESS;
 	}
+
+	return XST_FAILURE;
 }
 
 /*****************************************************************************/
