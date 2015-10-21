@@ -94,10 +94,12 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg]_STR \"$value\""
                 if {[string compare -nocase "GTXE2" "$value"] == 0} {
                     puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 1"
+		} elseif {[string compare -nocase "GTHE2" "$value"] == 0} {
+                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 2"
 		} elseif {[string compare -nocase "GTHE3" "$value"] == 0} {
                     puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 4"
 		} else {
-		    puts $file_handle "#error \"Video PHY currently supports only GTHE3 and GTXE2; $value not supported\""
+		    puts $file_handle "#error \"Video PHY currently supports only GTHE3, GTHE2 and GTXE2; $value not supported\""
 		}
             } else {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
@@ -170,10 +172,12 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                    puts $file_handle "#define [string toupper $lvalue]_STR \"$rvalue\""
                    if {[string compare -nocase "GTXE2" "$rvalue"] == 0} {
                        puts $file_handle "#define [string toupper $lvalue] 1"
+		   } elseif {[string compare -nocase "GTHE2" "$rvalue"] == 0} {
+                       puts $file_handle "#define [string toupper $lvalue] 2"
 		   } elseif {[string compare -nocase "GTHE3" "$rvalue"] == 0} {
                        puts $file_handle "#define [string toupper $lvalue] 4"
 		   } else {
-		       puts $file_handle "#error \"Video PHY currently supports only GTHE3 and GTXE2; $rvalue not supported\""
+		       puts $file_handle "#error \"Video PHY currently supports only GTHE3, GTHE2 and GTXE2; $rvalue not supported\""
 		   }
                } else {
                    puts $file_handle "#define [string toupper $lvalue] $rvalue"
