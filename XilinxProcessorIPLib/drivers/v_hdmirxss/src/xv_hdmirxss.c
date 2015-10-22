@@ -535,6 +535,9 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
   else {
     xil_printf("RX cable is disconnected\n\r");
 
+    // Clear RX hot plug detect
+    XV_HdmiRx_SetHpd(HdmiRxSsPtr->HdmiRxPtr, FALSE);
+
     XV_HdmiRx_SetScrambler(HdmiRxSsPtr->HdmiRxPtr, (FALSE)); // Disable scrambler
     HdmiRxSsPtr->IsStreamConnected = (FALSE);
   }
