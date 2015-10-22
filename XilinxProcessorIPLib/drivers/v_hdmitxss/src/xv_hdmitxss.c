@@ -563,11 +563,8 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
   /* Vertical Timing */
   VideoTiming.VActiveVideo = HdmiTxPtr->Stream.Video.Timing.VActive;
 
-  // The VTC has an offset issue.
-  // This results into a wrong front porch and back porch value.
-  // As a workaround the front porch and back porch need to be adjusted.
-  VideoTiming.V0FrontPorch = HdmiTxPtr->Stream.Video.Timing.F0PVFrontPorch - 1;
-  VideoTiming.V0BackPorch = HdmiTxPtr->Stream.Video.Timing.F0PVBackPorch + 1;
+  VideoTiming.V0FrontPorch = HdmiTxPtr->Stream.Video.Timing.F0PVFrontPorch;
+  VideoTiming.V0BackPorch = HdmiTxPtr->Stream.Video.Timing.F0PVBackPorch;
   VideoTiming.V0SyncWidth = HdmiTxPtr->Stream.Video.Timing.F0PVSyncWidth;
 
   VideoTiming.V1FrontPorch = HdmiTxPtr->Stream.Video.Timing.F1VFrontPorch;
@@ -1243,7 +1240,7 @@ void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiTxSs_SendAudioInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
+void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 {
   u8 Index;
   u8 Crc;

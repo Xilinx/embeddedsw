@@ -122,7 +122,7 @@ typedef struct
                                                                subsystem address range */
        u32 HighAddress;          /**< HighAddress is the physical MAX address of the
                                                                subsystem address range */
-       u8 MaxPixelsPerClock;             /**< Maximum  Supported Pixel per Clock */
+	XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
        u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
        XV_HdmiTxSs_SubCore HdcpTimer;    /**< Sub-core instance configuration */
        XV_HdmiTxSs_SubCore Hdcp;         /**< Sub-core instance configuration */
@@ -213,7 +213,7 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
 int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *BufferPtr);
 void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSs_SendAudioInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
+void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels);
 void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable);
 u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
