@@ -221,11 +221,6 @@ int XV_HdmiRxSs_SubcoreInitHdcpTimer(XV_HdmiRxSs *HdmiRxSsPtr)
        XTmrCtr_CfgInitialize(HdmiRxSsPtr->HdcpTimerPtr, ConfigPtr, AbsAddr);
        Status = XTmrCtr_InitHw(HdmiRxSsPtr->HdcpTimerPtr);
 
-       /* Initialize the hdcp timer functions */
-       XHdcp1x_SetTimerStart(&XV_HdmiRxSs_HdcpTimerStart);
-       XHdcp1x_SetTimerStop(&XV_HdmiRxSs_HdcpTimerStop);
-       XHdcp1x_SetTimerDelay(&XV_HdmiRxSs_HdcpTimerBusyDelay);
-
     if(Status != XST_SUCCESS)
     {
       xil_printf("HDMIRXSS ERR:: AXI Timer Initialization failed\r\n");
