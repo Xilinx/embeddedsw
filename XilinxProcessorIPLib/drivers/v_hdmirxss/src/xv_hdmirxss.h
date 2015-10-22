@@ -123,7 +123,7 @@ typedef struct
                                                subsystem address range */
   u32 HighAddress;     /**< HighAddress is the physical MAX address of the
                                                subsystem address range */
-  u8 MaxPixelsPerClock;             /**< Maximum  Supported Pixel per Clock */
+  XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
   XV_HdmiRxSs_SubCore HdcpTimer;    /**< Sub-core instance configuration */
   XV_HdmiRxSs_SubCore Hdcp;         /**< Sub-core instance configuration */
