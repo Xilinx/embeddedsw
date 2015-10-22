@@ -162,6 +162,11 @@
 *                       XVtc_ConvSignal2Timing
 *                       Corrected register read to XVTC_DVSYNC_F1_OFFSET
 *                       in API XVtc_GetDetector
+*       vns    10/14/15 Modified XVtc_SetSource API to provided programming
+*                       interlaced mode feature and modified XVtc_GetSource
+*                       API to read interlaced mode status.
+*                       Corrected XVtc_ConvSignal2Timing API to get interlaced
+*                       mode from SignalCfgPtr structure.
 * </pre>
 *
 ******************************************************************************/
@@ -708,6 +713,9 @@ void XVtc_SetSource(XVtc *InstancePtr, XVtc_SourceSelect *SourcePtr)
 	if (SourcePtr->HTotalSrc)
 		CtrlRegValue |= XVTC_CTL_HTSS_MASK;
 
+	if (SourcePtr->InterlacedMode)
+		CtrlRegValue |= XVTC_CTL_INTERLACE_MASK;
+
 	XVtc_WriteReg(InstancePtr->Config.BaseAddress, (XVTC_CTL_OFFSET),
 			CtrlRegValue);
 }
@@ -782,6 +790,8 @@ void XVtc_GetSource(XVtc *InstancePtr, XVtc_SourceSelect *SourcePtr)
 		SourcePtr->HFrontPorchSrc = 1;
 	if (CtrlRegValue & XVTC_CTL_HTSS_MASK)
 		SourcePtr->HTotalSrc = 1;
+	if (CtrlRegValue & XVTC_CTL_INTERLACE_MASK)
+		SourcePtr->InterlacedMode = 1;
 }
 
 /*****************************************************************************/
@@ -2278,9 +2288,7 @@ void XVtc_ConvSignal2Timing(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr,
 					SignalCfgPtr->V1BackPorchStart;
 
 	/* Interlaced */
-	if (SignalCfgPtr->Interlaced == 1) {
-		TimingPtr->Interlaced  = 1;
-	}
+	TimingPtr->Interlaced  = SignalCfgPtr->Interlaced;
 
 }
 
