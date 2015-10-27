@@ -468,7 +468,8 @@ int PmUpdateSlave(PmSlave* const slave)
 	/* remember the remaining latency margin for upper levels to use */
 	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);
 
-	if ((latencyMargin < slave->node.latencyMarg) &&
+	if ((NULL != slave->node.parent) &&
+	    (latencyMargin < slave->node.latencyMarg) &&
 	    (false == IS_OFF(&slave->node.parent->node))) {
 		/* latency margin increased? => try opportunistic suspend */
 		PmOpportunisticSuspend(slave->node.parent);
