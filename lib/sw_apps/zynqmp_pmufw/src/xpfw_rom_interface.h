@@ -523,3 +523,83 @@ static inline u32 XpbrPwrUpPp1Handler(void)
 {
 	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP1]();
 }
+
+static inline u32 XpbrRstACPU0CPHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU0]();
+}
+
+static inline u32 XpbrRstACPU1CPHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU1]();
+}
+
+static inline u32 XpbrRstACPU2CPHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU2]();
+}
+
+static inline u32 XpbrRstACPU3CPHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU3]();
+}
+
+static inline u32 XpbrRstPp0Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTPP0]();
+}
+
+static inline u32 XpbrRstPp1Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTPP1]();
+}
+
+static inline u32 XpbrRstGpuHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTGPU]();
+}
+
+static inline u32 XpbrRstPCIeHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTPCIE]();
+}
+
+static inline u32 XpbrRstSataHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTSATA]();
+}
+
+static inline u32 XpbrRstDisplayPortHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTDISPLAYPORT]();
+}
+
+static inline u32 XpbrRstGem0Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTGEM0]();
+}
+
+static inline u32 XpbrRstGem1Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTGEM1]();
+}
+
+static inline u32 XpbrRstGem2Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTGEM2]();
+}
+
+static inline u32 XpbrRstGem3Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTGEM3]();
+}
+
+static inline u32 XpbrRstUsb0Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTUSB0]();
+}
+
+static inline u32 XpbrRstUsb1Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTUSB1]();
+}
