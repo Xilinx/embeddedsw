@@ -40,6 +40,7 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "pm_callbacks.h"
+#include "pm_reset.h"
 #include "ipi_buffer.h"
 #include "pm_mmio_access.h"
 
@@ -696,28 +697,6 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 {
 	PmDbg("(%s, %d, %d, %d) not implemented\n", PmStrNode(node),
 	      event, wake, enable);
-}
-
-/**
- * PmResetAssert() - Request setting of reset (1 - assert, 0 - release)
- * @master      Initiator of the request
- * @reset       Reset to be configured
- * @assertFlag  Flag stating should reset be asserted (1) or released (0)
- */
-static void PmResetAssert(const PmMaster *const master, const u32 reset,
-			  const u32 assertFlag)
-{
-	PmDbg("%s(%d, %d) not implemented\n", __func__, reset, assertFlag);
-}
-
-/**
- * PmResetGetStatus() - Get status of the reset
- * @master  Initiator of the request
- * @reset   Reset whose status should be returned
- */
-static void PmResetGetStatus(const PmMaster *const master, const u32 reset)
-{
-	PmDbg("(%d) not implemented\n", reset);
 }
 
 /**
