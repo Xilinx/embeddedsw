@@ -66,8 +66,9 @@
 
 /************************** Function Prototypes ******************************/
 extern void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
-		u32 MultibootReg, u32 DeviceFlags);
+		u32 MultibootReg, u32 DrvNum);
 
+extern u32 XFsbl_GetDrvNumSD(u32 DeviceFlags);
 
 /************************** Variable Definitions *****************************/
 
@@ -91,14 +92,15 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	char *boot_file = buffer;
 	u32 MultiBootOffset=0U;
 	TCHAR *path;
+	u32 DrvNum;
 
-	/* Set logical drive number as 0 or 1 based on SD0 or SD1 */
-	if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
-			(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
+	DrvNum = XFsbl_GetDrvNumSD(DeviceFlags);
+
+	/* Set logical drive number */
+	if (DrvNum == XFSBL_SD_DRV_NUM_0) {
 		path = "0:/";
 	}
 	else {
-		/* For XFSBL_SD1_BOOT_MODE or XFSBL_SD1_LS_BOOT_MODE */
 		path = "1:/";
 	}
 
@@ -120,7 +122,7 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	/**
 	 * Create boot image name
 	 */
-	XFsbl_MakeSdFileName(boot_file, MultiBootOffset, DeviceFlags);
+	XFsbl_MakeSdFileName(boot_file, MultiBootOffset, DrvNum);
 
 	rc = f_open(&fil, boot_file, FA_READ);
 	if (rc) {

@@ -299,7 +299,7 @@ u32 XFsbl_Htonl(u32 Value1)
  *
  ******************************************************************************/
 void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
-		u32 MultibootReg, u32 DeviceFlags)
+		u32 MultibootReg, u32 DrvNum)
 {
 
 	u32 Index;
@@ -309,8 +309,7 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 	if (0x0U == MultiBootNum)
 	{
 		/* SD file name is BOOT.BIN when Multiboot register value is 0 */
-		if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
-				(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
+		if (DrvNum == XFSBL_SD_DRV_NUM_0) {
 			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT.BIN");
 		}
 		else {
@@ -321,8 +320,7 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 	else
 	{
 		/* set default SD file name as BOOT0000.BIN */
-		if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
-				(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
+		if (DrvNum == XFSBL_SD_DRV_NUM_0) {
 			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT0000.BIN");
 		}
 		else {
@@ -347,6 +345,39 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 
 	XFsbl_Printf(DEBUG_INFO,
 			"File name is %s\r\n",XFsbl_SdEmmcFileName);
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to obtain drive number based on design and boot mode
+ *
+ * @param	DeviceFlags contain boot mode information
+ *
+ * @return	Drive number (0 or 1)
+ *
+ *****************************************************************************/
+u32 XFsbl_GetDrvNumSD(u32 DeviceFlags)
+{
+	u32 DrvNum;
+
+	/*
+	 * If design has both SD0 and SD1, select drive number based on bootmode
+	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
+	 */
+#ifdef XPAR_XSDPS_1_DEVICE_ID
+	if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
+			(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
+		DrvNum = XFSBL_SD_DRV_NUM_0;
+	}
+	else {
+		/* For XFSBL_SD1_BOOT_MODE or XFSBL_SD1_LS_BOOT_MODE */
+		DrvNum = XFSBL_SD_DRV_NUM_1;
+	}
+#else
+	DrvNum = XFSBL_SD_DRV_NUM_0;
+#endif
+
+	return DrvNum;
 }
 
 /****************************************************************************/
