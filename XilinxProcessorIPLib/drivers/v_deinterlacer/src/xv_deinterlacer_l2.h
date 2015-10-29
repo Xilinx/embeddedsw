@@ -87,7 +87,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
@@ -105,14 +106,26 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * Deinterlacer Layer 2 data. The user is required to allocate a variable
+ * of this type for every V Scaler device in the system. A pointer to a
+ * variable of this type is then passed to the driver API functions.
+ */
+typedef struct
+{
+  XV_deinterlacer Deint; /*<< Layer 1 instance */
+
+}XV_Deint_l2;
+
 /************************** Function Prototypes ******************************/
-void XV_DeintStart(XV_deinterlacer *InstancePtr);
-void XV_DeintStop(XV_deinterlacer *InstancePtr);
-void XV_DeintSetFieldBuffers(XV_deinterlacer   *InstancePtr,
-							 u32               memAddr,
+int XV_DeintInitialize(XV_Deint_l2 *InstancePtr, u16 DeviceId);
+void XV_DeintStart(XV_Deint_l2 *InstancePtr);
+void XV_DeintStop(XV_Deint_l2 *InstancePtr);
+void XV_DeintSetFieldBuffers(XV_Deint_l2   *InstancePtr,
+							 u32 memAddr,
 							 XVidC_ColorFormat cformat);
 
-void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr);
+void XV_DeintDbgReportStatus(XV_Deint_l2 *InstancePtr);
 
 
 #endif

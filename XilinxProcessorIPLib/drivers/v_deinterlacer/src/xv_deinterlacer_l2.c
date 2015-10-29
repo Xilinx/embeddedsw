@@ -48,12 +48,14 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include <string.h>
 #include "xv_deinterlacer_l2.h"
 
 /************************** Constant Definitions *****************************/
@@ -66,6 +68,29 @@
 
 /*****************************************************************************/
 /**
+* This function initializes the core instance
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  DeviceId is instance id of the core
+*
+* @return XST_SUCCESS if device is found and initialized
+*         XST_DEVICE_NOT_FOUND if device is not found
+*
+******************************************************************************/
+int XV_DeintInitialize(XV_Deint_l2 *InstancePtr, u16 DeviceId)
+{
+  int Status;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Setup the instance */
+  memset(InstancePtr, 0, sizeof(XV_Deint_l2));
+  Status = XV_deinterlacer_Initialize(&InstancePtr->Deint, DeviceId);
+
+  return(Status);
+}
+
+/*****************************************************************************/
+/**
 * This function starts the deinterlacer core
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on
@@ -73,12 +98,12 @@
 * @return None
 *
 ******************************************************************************/
-void XV_DeintStart(XV_deinterlacer *InstancePtr)
+void XV_DeintStart(XV_Deint_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_deinterlacer_EnableAutoRestart(InstancePtr);
-  XV_deinterlacer_Start(InstancePtr);
+  XV_deinterlacer_EnableAutoRestart(&InstancePtr->Deint);
+  XV_deinterlacer_Start(&InstancePtr->Deint);
 }
 
 /*****************************************************************************/
@@ -90,11 +115,11 @@ void XV_DeintStart(XV_deinterlacer *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_DeintStop(XV_deinterlacer *InstancePtr)
+void XV_DeintStop(XV_Deint_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_deinterlacer_DisableAutoRestart(InstancePtr);
+  XV_deinterlacer_DisableAutoRestart(&InstancePtr->Deint);
 }
 
 /*****************************************************************************/
@@ -109,15 +134,15 @@ void XV_DeintStop(XV_deinterlacer *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_DeintSetFieldBuffers(XV_deinterlacer   *InstancePtr,
-                              u32               memAddr,
+void XV_DeintSetFieldBuffers(XV_Deint_l2   *InstancePtr,
+                              u32  memAddr,
                               XVidC_ColorFormat cformat)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_deinterlacer_Set_read_fb(InstancePtr, memAddr);
-  XV_deinterlacer_Set_write_fb(InstancePtr, memAddr);
-  XV_deinterlacer_Set_colorFormat(InstancePtr, cformat);
+  XV_deinterlacer_Set_read_fb(&InstancePtr->Deint, memAddr);
+  XV_deinterlacer_Set_write_fb(&InstancePtr->Deint, memAddr);
+  XV_deinterlacer_Set_colorFormat(&InstancePtr->Deint, cformat);
 }
 
 /*****************************************************************************/
@@ -130,9 +155,9 @@ void XV_DeintSetFieldBuffers(XV_deinterlacer   *InstancePtr,
 * @return	None
 *
 ******************************************************************************/
-void XV_DeintDbgReportStatus(XV_deinterlacer *InstancePtr)
+void XV_DeintDbgReportStatus(XV_Deint_l2 *InstancePtr)
 {
-  XV_deinterlacer *pDeint = InstancePtr;
+  XV_deinterlacer *pDeint = &InstancePtr->Deint;
   u32 done, idle, ready, ctrl;
   u32 rfb, wfb, colformat, algo;
   u32 width, height;
