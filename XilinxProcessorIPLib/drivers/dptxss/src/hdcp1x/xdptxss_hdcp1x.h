@@ -42,9 +42,7 @@
 *
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------
-* 1.00 sha 08/07/15 Initial release.
-* 2.00 sha 09/28/15 Included Timer Counter core header file.
-*                   Included HDCP port header file.
+* 2.00 sha 09/28/15 Initial release.
 * </pre>
 *
 ******************************************************************************/

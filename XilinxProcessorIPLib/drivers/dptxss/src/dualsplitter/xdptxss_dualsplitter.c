@@ -45,7 +45,7 @@
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
 *                   name with prefix XDpTxSs_*.
-* 1.00 sha 08/07/15 Removed video mode check.
+* 2.00 sha 08/07/15 Removed video mode check.
 * </pre>
 *
 ******************************************************************************/

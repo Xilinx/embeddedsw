@@ -31,7 +31,7 @@
 # MODIFICATION HISTORY:
 # Ver  Who Date     Changes
 # ---- --- -------- -----------------------------------------------------------
-# 1.00 sha 08/07/15 Added HDCP support to work with DP pass-through.
+# 2.00 sha 08/07/15 Added HDCP support to work with DP pass-through.
 # 2.00 sha 09/28/15 Added Timer Counter support to work with DP pass-through.
 ###############################################################################
 

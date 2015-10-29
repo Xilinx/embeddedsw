@@ -45,7 +45,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- ---------------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
-* 1.00 sha 08/07/15 Added new handler types: lane count, link rate,
+* 2.00 sha 08/07/15 Added new handler types: lane count, link rate,
 *                   Pre-emphasis voltage swing adjust and Set MSA.
 * 2.00 sha 09/28/15 Added HDCP and Timer Counter interrupt handlers.
 * </pre>

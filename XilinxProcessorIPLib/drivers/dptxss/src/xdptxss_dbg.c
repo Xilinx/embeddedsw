@@ -45,7 +45,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
-* 1.00 sha 08/07/15 Updated register offsets in debug MSA info.
+* 2.00 sha 08/07/15 Updated register offsets in debug MSA info.
 * 2.00 sha 09/28/15 Added HDCP debug function.
 * </pre>
 *

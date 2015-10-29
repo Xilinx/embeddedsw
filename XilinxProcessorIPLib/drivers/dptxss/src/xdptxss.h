@@ -96,7 +96,7 @@
 * ---- --- -------- ---------------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Included renamed sub-cores header files.
-* 1.00 sha 08/07/15 Added new handler types: lane count, link rate,
+* 2.00 sha 08/07/15 Added new handler types: lane count, link rate,
 *                   pre-emphasis voltage swing adjust and set MSA.
 *                   Added support for customized main stream attributes.
 *                   Added function: XDpTxSs_SetHasRedriverInPath.
