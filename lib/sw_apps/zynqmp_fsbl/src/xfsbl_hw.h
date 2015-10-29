@@ -539,11 +539,12 @@ extern "C" {
 /**
  * Definitions for SD to be included
  */
-#if (!defined(FSBL_SD_EXCLUDE) && defined(XPAR_XSDPS_0_DEVICE_ID))
+#if (!defined(FSBL_SD_EXCLUDE) && (XPAR_XSDPS_0_BASEADDR == 0xFF160000))
 #define XFSBL_SD_0
 #endif
 
-#if (!defined(FSBL_SD_EXCLUDE) && defined(XPAR_XSDPS_1_DEVICE_ID))
+#if (!defined(FSBL_SD_EXCLUDE) && (XPAR_XSDPS_0_BASEADDR == 0xFF170000) ||\
+		(XPAR_XSDPS_1_BASEADDR == 0xFF170000))
 #define XFSBL_SD_1
 #endif
 

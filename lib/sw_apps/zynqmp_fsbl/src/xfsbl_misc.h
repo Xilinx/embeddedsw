@@ -62,6 +62,8 @@ extern "C" {
 #include "xil_exception.h"
 
 /************************** Constant Definitions *****************************/
+#define XFSBL_SD_DRV_NUM_0	0
+#define XFSBL_SD_DRV_NUM_1	1
 
 /**************************** Type Definitions *******************************/
 
@@ -75,7 +77,8 @@ int XFsbl_MemCmp(const void *Str1Ptr, const void *Str2Ptr, u32 Count);
 char *XFsbl_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr);
 void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
-		u32 MultibootReg, u32 DeviceFlags);
+		u32 MultibootReg, u32 DrvNum);
+u32 XFsbl_GetDrvNumSD(u32 DeviceFlags);
 u32 XFsbl_Htonl(u32 Value1);
 u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
 
