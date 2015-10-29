@@ -48,12 +48,14 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include <string.h>
 #include "xv_hcresampler_l2.h"
 
 /************************** Constant Definitions *****************************/
@@ -68,9 +70,31 @@ const short XV_hcrsmplrcoeff_taps10[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX
 
 
 /************************** Function Prototypes ******************************/
-static void XV_hcresampler_SetCoefficients(XV_hcresampler *pHCrsmplr,
-		                                   XV_hcresampler_l2 *pHcrsmplL2Data,
+static void XV_hcresampler_SetCoefficients(XV_Hcresampler_l2 *pHCrsmplr,
 		                                   XV_HCRESAMPLER_CONVERSION convType);
+
+/*****************************************************************************/
+/**
+* This function initializes the core instance
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  DeviceId is instance id of the core
+*
+* @return XST_SUCCESS if device is found and initialized
+*         XST_DEVICE_NOT_FOUND if device is not found
+*
+******************************************************************************/
+int XV_HcrsmplInitialize(XV_Hcresampler_l2 *InstancePtr, u16 DeviceId)
+{
+  int Status;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Setup the instance */
+  memset(InstancePtr, 0, sizeof(XV_Hcresampler_l2));
+  Status = XV_hcresampler_Initialize(&InstancePtr->Hcr, DeviceId);
+
+  return(Status);
+}
 
 /*****************************************************************************/
 /**
@@ -81,12 +105,12 @@ static void XV_hcresampler_SetCoefficients(XV_hcresampler *pHCrsmplr,
  * @return None
  *
  *****************************************************************************/
-void XV_HCrsmplStart(XV_hcresampler *InstancePtr)
+void XV_HCrsmplStart(XV_Hcresampler_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_hcresampler_EnableAutoRestart(InstancePtr);
-  XV_hcresampler_Start(InstancePtr);
+  XV_hcresampler_EnableAutoRestart(&InstancePtr->Hcr);
+  XV_hcresampler_Start(&InstancePtr->Hcr);
 }
 
 /*****************************************************************************/
@@ -98,11 +122,11 @@ void XV_HCrsmplStart(XV_hcresampler *InstancePtr)
  * @return None
  *
  *****************************************************************************/
-void XV_HCrsmplStop(XV_hcresampler *InstancePtr)
+void XV_HCrsmplStop(XV_Hcresampler_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_hcresampler_DisableAutoRestart(InstancePtr);
+  XV_hcresampler_DisableAutoRestart(&InstancePtr->Hcr);
 }
 
 /*****************************************************************************/
@@ -111,13 +135,11 @@ void XV_HCrsmplStop(XV_hcresampler *InstancePtr)
 * coefficient storage based on the selected TAP configuration
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  pHcrsmplL2Data is a pointer to the core instance layer 2 data.
 *
 * @return None
 *
 ******************************************************************************/
-void XV_HCrsmplLoadDefaultCoeff(XV_hcresampler *InstancePtr,
-		                        XV_hcresampler_l2 *pHcrsmplL2Data)
+void XV_HCrsmplLoadDefaultCoeff(XV_Hcresampler_l2 *InstancePtr)
 {
   u16 numTaps;
   const short *coeff;
@@ -126,9 +148,8 @@ void XV_HCrsmplLoadDefaultCoeff(XV_hcresampler *InstancePtr,
    * validates input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pHcrsmplL2Data != NULL);
 
-  numTaps = InstancePtr->Config.NumTaps;
+  numTaps = InstancePtr->Hcr.Config.NumTaps;
 
   switch(numTaps)
   {
@@ -154,13 +175,10 @@ void XV_HCrsmplLoadDefaultCoeff(XV_hcresampler *InstancePtr,
   }
 
   /* Use external filter load API */
-  XV_HCrsmplrLoadExtCoeff(InstancePtr,
-		                  pHcrsmplL2Data,
-		                  numTaps,
-		                  coeff);
+  XV_HCrsmplrLoadExtCoeff(InstancePtr, numTaps, coeff);
 
   /* Disable use of external coefficients */
-  pHcrsmplL2Data->UseExtCoeff = FALSE;
+  InstancePtr->UseExtCoeff = FALSE;
 }
 
 /*****************************************************************************/
@@ -169,15 +187,13 @@ void XV_HCrsmplLoadDefaultCoeff(XV_hcresampler *InstancePtr,
 * resampler coefficient storage
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  pHcrsmplL2Data is a pointer to the core instance layer 2 data.
 * @param  num_taps is the number of taps
 * @param  Coeff is a pointer to user defined filter coefficients table
 *
 * @return None
 *
 ******************************************************************************/
-void XV_HCrsmplrLoadExtCoeff(XV_hcresampler *InstancePtr,
-		                     XV_hcresampler_l2 *pHcrsmplL2Data,
+void XV_HCrsmplrLoadExtCoeff(XV_Hcresampler_l2 *InstancePtr,
                              u16 num_taps,
                              const short *Coeff)
 {
@@ -188,8 +204,7 @@ void XV_HCrsmplrLoadExtCoeff(XV_hcresampler *InstancePtr,
    * validate input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pHcrsmplL2Data != NULL);
-  Xil_AssertVoid(num_taps <= InstancePtr->Config.NumTaps);
+  Xil_AssertVoid(num_taps <= InstancePtr->Hcr.Config.NumTaps);
   Xil_AssertVoid(Coeff != NULL);
 
   switch(num_taps)
@@ -206,7 +221,7 @@ void XV_HCrsmplrLoadExtCoeff(XV_hcresampler *InstancePtr,
   }
 
   //determine if coefficient needs padding (effective vs. max taps)
-  pad = XV_HCRSMPLR_MAX_TAPS - InstancePtr->Config.NumTaps;
+  pad = XV_HCRSMPLR_MAX_TAPS - InstancePtr->Hcr.Config.NumTaps;
   offset = ((pad) ? (pad>>1) : 0);
 
   index = 0;
@@ -218,7 +233,7 @@ void XV_HCrsmplrLoadExtCoeff(XV_hcresampler *InstancePtr,
       for (tap = 0; tap < num_taps; ++tap)
       {
 	    index = (conversion*XV_HCRSMPLR_MAX_PHASES*num_taps) + (phase*num_taps) + tap;
-        pHcrsmplL2Data->coeff[conversion][phase][tap+offset] = Coeff[index];
+        InstancePtr->coeff[conversion][phase][tap+offset] = Coeff[index];
       }
     }
   }
@@ -232,19 +247,19 @@ void XV_HCrsmplrLoadExtCoeff(XV_hcresampler *InstancePtr,
         //pad left
         for (tap = 0; tap < offset; ++tap)
         {
-          pHcrsmplL2Data->coeff[conversion][phase][tap] = 0;
+          InstancePtr->coeff[conversion][phase][tap] = 0;
         }
         //pad right
         for (tap = (num_taps+offset); tap < XV_HCRSMPLR_MAX_TAPS; ++tap)
         {
-          pHcrsmplL2Data->coeff[conversion][phase][tap] = 0;
+          InstancePtr->coeff[conversion][phase][tap] = 0;
         }
       }
     }
   }
 
   /* Enable use of external coefficients */
-  pHcrsmplL2Data->UseExtCoeff = TRUE;
+  InstancePtr->UseExtCoeff = TRUE;
 }
 
 /*****************************************************************************/
@@ -258,14 +273,14 @@ void XV_HCrsmplrLoadExtCoeff(XV_hcresampler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-void XV_HCrsmplSetActiveSize(XV_hcresampler *InstancePtr,
-                             u32             width,
-                             u32             height)
+void XV_HCrsmplSetActiveSize(XV_Hcresampler_l2 *InstancePtr,
+                             u32 width,
+                             u32 height)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_hcresampler_Set_HwReg_width(InstancePtr,  width);
-  XV_hcresampler_Set_HwReg_height(InstancePtr, height);
+  XV_hcresampler_Set_HwReg_width(&InstancePtr->Hcr,  width);
+  XV_hcresampler_Set_HwReg_height(&InstancePtr->Hcr, height);
 }
 
 /*****************************************************************************/
@@ -274,15 +289,13 @@ void XV_HCrsmplSetActiveSize(XV_hcresampler *InstancePtr,
 * conversion
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  pHcrsmplL2Data is a pointer to the core instance layer 2 data.
 * @param  formatIn is the input chroma format
 * @param  formatOut is required chroma format
 *
 * @return None
 *
 ******************************************************************************/
-void XV_HCrsmplSetFormat(XV_hcresampler   *InstancePtr,
-		                 XV_hcresampler_l2 *pHcrsmplL2Data,
+void XV_HCrsmplSetFormat(XV_Hcresampler_l2   *InstancePtr,
                          XVidC_ColorFormat formatIn,
                          XVidC_ColorFormat formatOut)
 {
@@ -292,12 +305,11 @@ void XV_HCrsmplSetFormat(XV_hcresampler   *InstancePtr,
    * validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pHcrsmplL2Data != NULL);
 
-  XV_hcresampler_Set_HwReg_input_video_format(InstancePtr,  formatIn);
-  XV_hcresampler_Set_HwReg_output_video_format(InstancePtr, formatOut);
+  XV_hcresampler_Set_HwReg_input_video_format(&InstancePtr->Hcr,  formatIn);
+  XV_hcresampler_Set_HwReg_output_video_format(&InstancePtr->Hcr, formatOut);
 
-  if(InstancePtr->Config.ResamplingType == XV_HCRSMPLR_TYPE_FIR)
+  if(InstancePtr->Hcr.Config.ResamplingType == XV_HCRSMPLR_TYPE_FIR)
   {
     if((formatIn  == XVIDC_CSF_YCRCB_422) &&
        (formatOut == XVIDC_CSF_YCRCB_444))
@@ -310,7 +322,7 @@ void XV_HCrsmplSetFormat(XV_hcresampler   *InstancePtr,
 	  convType = XV_HCRSMPLR_444_TO_422;
     }
 
-    XV_hcresampler_SetCoefficients(InstancePtr, pHcrsmplL2Data, convType);
+    XV_hcresampler_SetCoefficients(InstancePtr, convType);
   }
 }
 
@@ -320,14 +332,12 @@ void XV_HCrsmplSetFormat(XV_hcresampler   *InstancePtr,
 * required conversion
 *
 * @param  pHCrsmplr is a pointer to the core instance to be worked on.
-* @param  pHcrsmplL2Data is a pointer to the core instance layer 2 data.
 * @param  convType is the format conversion requested
 *
 * @return None
 *
 ******************************************************************************/
-static void XV_hcresampler_SetCoefficients(XV_hcresampler *pHCrsmplr,
-		                                   XV_hcresampler_l2 *pHcrsmplL2Data,
+static void XV_hcresampler_SetCoefficients(XV_Hcresampler_l2 *pHCrsmplr,
 		                                   XV_HCRESAMPLER_CONVERSION convType)
 {
   u16 pad, offset;
@@ -335,18 +345,18 @@ static void XV_hcresampler_SetCoefficients(XV_hcresampler *pHCrsmplr,
   u16 tap, phase,regcount;
 
   //determine if coefficients are padded
-  pad = XV_HCRSMPLR_MAX_TAPS - pHCrsmplr->Config.NumTaps;
+  pad = XV_HCRSMPLR_MAX_TAPS - pHCrsmplr->Hcr.Config.NumTaps;
   offset = ((pad) ? (pad>>1) : 0);
 
   regcount = 0; //number of registers being written
   baseaddr = XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA;
-  baseaddr += pHCrsmplr->Config.BaseAddress;
+  baseaddr += pHCrsmplr->Hcr.Config.BaseAddress;
 
   for(phase = 0; phase < XV_HCRSMPLR_MAX_PHASES; ++phase)
   {
-    for(tap = 0; tap < pHCrsmplr->Config.NumTaps; ++tap)
+    for(tap = 0; tap < pHCrsmplr->Hcr.Config.NumTaps; ++tap)
     {
-	  Xil_Out32((baseaddr+(regcount*8)), pHcrsmplL2Data->coeff[convType][phase][offset+tap]);
+	  Xil_Out32((baseaddr+(regcount*8)), pHCrsmplr->coeff[convType][phase][offset+tap]);
 	  ++regcount;
     }
   }
@@ -362,9 +372,9 @@ static void XV_hcresampler_SetCoefficients(XV_hcresampler *pHCrsmplr,
 * @return None
 *
 ******************************************************************************/
-void XV_HCrsmplDbgReportStatus(XV_hcresampler *InstancePtr)
+void XV_HCrsmplDbgReportStatus(XV_Hcresampler_l2 *InstancePtr)
 {
-  XV_hcresampler *pHCrsmplr = InstancePtr;
+  XV_hcresampler *pHCrsmplr = &InstancePtr->Hcr;
   u32 done, idle, ready, ctrl;
   u32 vidfmtIn, vidfmtOut, height, width;
   u32 baseAddr, convType;
