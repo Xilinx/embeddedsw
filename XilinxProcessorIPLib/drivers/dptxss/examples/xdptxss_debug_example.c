@@ -52,7 +52,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 07/01/15 Initial release.
-* 1.00 sha 09/28/15 Added HDCP debug info function call.
+* 2.00 sha 09/28/15 Added HDCP debug info function call.
 * </pre>
 *
 ******************************************************************************/
