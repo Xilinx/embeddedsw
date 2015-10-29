@@ -45,7 +45,7 @@
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
 *                   names with prefix XDpTxSs_*.
-* 1.00 sha 08/07/15 Added support for customized main stream attributes for
+* 2.00 sha 08/07/15 Added support for customized main stream attributes for
 *                   Single Steam Transport and Multi-Stream Transport.
 * 2.00 sha 09/28/15 Removed cross checking user set resolution with RX EDID.
 * </pre>
