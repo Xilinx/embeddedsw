@@ -90,6 +90,13 @@
 #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define IIC_INTR_ID	XPAR_XIICPS_0_INTR
 
+#ifdef XPAR_PSU_I2C_1_DEVICE_ID
+#define IIC_INTR_ID		XPAR_XIICPS_1_INTR
+#endif
+#ifdef XPAR_PSU_I2C_0_DEVICE_ID
+#define IIC_INTR_ID		XPAR_XIICPS_0_INTR
+#endif
+
 /*
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
