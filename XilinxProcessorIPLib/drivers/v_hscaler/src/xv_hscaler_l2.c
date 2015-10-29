@@ -48,12 +48,14 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include <string.h>
 #include "xv_hscaler_l2.h"
 
 /************************** Constant Definitions *****************************/
@@ -76,21 +78,39 @@ const short XV_hscaler_fixedcoeff_taps10[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAP
 const short XV_hscaler_fixedcoeff_taps12[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/
-static void XV_HScalerSelectCoeff(XV_hscaler *InstancePtr,
-		                          XV_hscaler_l2 *HscL2DataPtr,
-		                          u32 WidthIn,
-		                          u32 WidthOut);
-static void CalculatePhases(XV_hscaler *pHsc,
-                            XV_hscaler_l2 *HscL2DataPtr,
+static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
+                                  u32 WidthIn,
+                                  u32 WidthOut);
+static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
                             u32 WidthIn,
                             u32 WidthOut,
                             u32 PixelRate);
 
-static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
-                               XV_hscaler_l2 *HscL2DataPtr);
+static void XV_HScalerSetCoeff(XV_Hscaler_l2 *HscPtr);
+static void XV_HScalerSetPhase(XV_Hscaler_l2 *HscPtr);
 
-static void XV_HScalerSetPhase(XV_hscaler *pHsc,
-                               XV_hscaler_l2 *HscL2DataPtr);
+/*****************************************************************************/
+/**
+* This function initializes the core instance
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  DeviceId is instance id of the core
+*
+* @return XST_SUCCESS if device is found and initialized
+*         XST_DEVICE_NOT_FOUND if device is not found
+*
+******************************************************************************/
+int XV_HScalerInitialize(XV_Hscaler_l2 *InstancePtr, u16 DeviceId)
+{
+  int Status;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Setup the instance */
+  memset(InstancePtr, 0, sizeof(XV_Hscaler_l2));
+  Status = XV_hscaler_Initialize(&InstancePtr->Hsc, DeviceId);
+
+  return(Status);
+}
 
 /*****************************************************************************/
 /**
@@ -101,12 +121,12 @@ static void XV_HScalerSetPhase(XV_hscaler *pHsc,
 * @return None
 *
 ******************************************************************************/
-void XV_HScalerStart(XV_hscaler *InstancePtr)
+void XV_HScalerStart(XV_Hscaler_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_hscaler_EnableAutoRestart(InstancePtr);
-  XV_hscaler_Start(InstancePtr);
+  XV_hscaler_EnableAutoRestart(&InstancePtr->Hsc);
+  XV_hscaler_Start(&InstancePtr->Hsc);
 }
 
 /*****************************************************************************/
@@ -118,11 +138,11 @@ void XV_HScalerStart(XV_hscaler *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_HScalerStop(XV_hscaler *InstancePtr)
+void XV_HScalerStop(XV_Hscaler_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_hscaler_DisableAutoRestart(InstancePtr);
+  XV_hscaler_DisableAutoRestart(&InstancePtr->Hsc);
 }
 
 /*****************************************************************************/
@@ -132,17 +152,15 @@ void XV_HScalerStop(XV_hscaler *InstancePtr)
 * storage.
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  HscL2DataPtr is a pointer to the core instance layer 2 data.
 * @param  WidthIn is the input stream width
 * @param  Widthout is the output stream width
 *
 * @return None
 *
 ******************************************************************************/
-static void XV_HScalerSelectCoeff(XV_hscaler *InstancePtr,
-		                          XV_hscaler_l2 *HscL2DataPtr,
-		                          u32 WidthIn,
-		                          u32 WidthOut)
+static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
+                                  u32 WidthIn,
+                                  u32 WidthOut)
 {
   const short *coeff;
   u16 numTaps, numPhases;
@@ -153,9 +171,8 @@ static void XV_HScalerSelectCoeff(XV_hscaler *InstancePtr,
    * validate input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(HscL2DataPtr != NULL);
 
-  numPhases = (1<<InstancePtr->Config.PhaseShift);
+  numPhases = (1<<InstancePtr->Hsc.Config.PhaseShift);
 
   IsScaleDown = (WidthOut < WidthIn);
 
@@ -166,86 +183,85 @@ static void XV_HScalerSelectCoeff(XV_hscaler *InstancePtr,
   {
     ScalingRatio = ((WidthIn * 10)/WidthOut);
 
-    switch(InstancePtr->Config.NumTaps)
+    switch(InstancePtr->Hsc.Config.NumTaps)
     {
       case XV_HSCALER_TAPS_6:
-	       coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-		   numTaps = XV_HSCALER_TAPS_6;
-		   break;
+           coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
+           numTaps = XV_HSCALER_TAPS_6;
+           break;
 
       case XV_HSCALER_TAPS_8:
-	   if(ScalingRatio > 15) //>1.5
-	   {
-		 coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-		 numTaps = XV_HSCALER_TAPS_8;
-	   }
-	   else //<=1.5
-	   {
-	         coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-		 numTaps = XV_HSCALER_TAPS_6;
-	   }
-		   break;
+       if(ScalingRatio > 15) //>1.5
+       {
+         coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
+         numTaps = XV_HSCALER_TAPS_8;
+       }
+       else //<=1.5
+       {
+         coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
+         numTaps = XV_HSCALER_TAPS_6;
+       }
+           break;
 
       case XV_HSCALER_TAPS_10:
-	       if(ScalingRatio > 25) //2.5
-	       {
-		     coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
-		 numTaps = XV_HSCALER_TAPS_10;
-	       }
-	       else if(ScalingRatio > 15) // 1.6 < ratio <= 2.5
-	       {
-	         coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-		 numTaps = XV_HSCALER_TAPS_8;
-	       }
-	       else // <= 1.5
-	       {
-	         coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-		 numTaps = XV_HSCALER_TAPS_6;
-	       }
+           if(ScalingRatio > 25) //2.5
+           {
+             coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
+             numTaps = XV_HSCALER_TAPS_10;
+           }
+           else if(ScalingRatio > 15) // 1.6 < ratio <= 2.5
+           {
+             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
+             numTaps = XV_HSCALER_TAPS_8;
+           }
+           else // <= 1.5
+           {
+             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
+             numTaps = XV_HSCALER_TAPS_6;
+           }
            break;
 
       case XV_HSCALER_TAPS_12:
-	       if(ScalingRatio > 35) //> 3.5
-	       {
-		     coeff = &XV_hscaler_fixedcoeff_taps12[0][0];
-		 numTaps = XV_HSCALER_TAPS_12;
-	       }
-	       else if(ScalingRatio > 25) //2.6 < Ratio <= 3.5
-	       {
-	         coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
-		 numTaps = XV_HSCALER_TAPS_10;
-	       }
-	       else if(ScalingRatio > 15) //1.6 < Ratio <= 2.5
-	       {
-	         coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-		 numTaps = XV_HSCALER_TAPS_8;
-	       }
-	       else // <=1.5
-	       {
-	         coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-		 numTaps = XV_HSCALER_TAPS_6;
-	       }
-		   break;
+           if(ScalingRatio > 35) //> 3.5
+           {
+             coeff = &XV_hscaler_fixedcoeff_taps12[0][0];
+             numTaps = XV_HSCALER_TAPS_12;
+           }
+           else if(ScalingRatio > 25) //2.6 < Ratio <= 3.5
+           {
+             coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
+             numTaps = XV_HSCALER_TAPS_10;
+           }
+           else if(ScalingRatio > 15) //1.6 < Ratio <= 2.5
+           {
+             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
+             numTaps = XV_HSCALER_TAPS_8;
+           }
+           else // <=1.5
+           {
+             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
+             numTaps = XV_HSCALER_TAPS_6;
+           }
+           break;
 
-	  default:
-		  xil_printf("ERR: H-Scaler %d Taps Not Supported",numTaps);
-		  return;
-	}
+      default:
+          xil_printf("ERR: H-Scaler %d Taps Not Supported",numTaps);
+          return;
+    }
   }
   else //Scale Up
   {
     coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-	numTaps = XV_HSCALER_TAPS_6;
+    numTaps = XV_HSCALER_TAPS_6;
   }
 
   XV_HScalerLoadExtCoeff(InstancePtr,
-			             HscL2DataPtr,
-		                 numPhases,
-		                 numTaps,
-		                 coeff);
+                         numPhases,
+                         numTaps,
+                         coeff);
 
   /* Disable use of external coefficients */
-  HscL2DataPtr->UseExtCoeff = FALSE;
+  InstancePtr->UseExtCoeff = FALSE;
 }
 
 /*****************************************************************************/
@@ -254,7 +270,6 @@ static void XV_HScalerSelectCoeff(XV_hscaler *InstancePtr,
 * storage
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  HscL2DataPtr is a pointer to the core instance layer 2 data.
 * @param  num_phases is the number of phases in coefficient table
 * @param  num_taps is the number of taps in coefficient table
 * @param  Coeff is a pointer to user defined filter coefficients table
@@ -262,8 +277,7 @@ static void XV_HScalerSelectCoeff(XV_hscaler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
-                            XV_hscaler_l2 *HscL2DataPtr,
+void XV_HScalerLoadExtCoeff(XV_Hscaler_l2 *InstancePtr,
                             u16 num_phases,
                             u16 num_taps,
                             const short *Coeff)
@@ -274,9 +288,8 @@ void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
    * validate input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(HscL2DataPtr != NULL);
-  Xil_AssertVoid(num_taps <= InstancePtr->Config.NumTaps);
-  Xil_AssertVoid(num_phases == (1<<InstancePtr->Config.PhaseShift));
+  Xil_AssertVoid(num_taps <= InstancePtr->Hsc.Config.NumTaps);
+  Xil_AssertVoid(num_phases == (1<<InstancePtr->Hsc.Config.PhaseShift));
   Xil_AssertVoid(Coeff != NULL);
 
   switch(num_taps)
@@ -285,11 +298,11 @@ void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
     case XV_HSCALER_TAPS_8:
     case XV_HSCALER_TAPS_10:
     case XV_HSCALER_TAPS_12:
-	break;
+    break;
 
     default:
-	xil_printf("\r\nERR: H Scaler %d TAPS not supported. (Select from 8/10/12/16)\r\n");
-	return;
+    xil_printf("\r\nERR: H Scaler %d TAPS not supported. (Select from 8/10/12/16)\r\n");
+    return;
   }
 
   //determine if coefficient needs padding (effective vs. max taps)
@@ -301,7 +314,7 @@ void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
   {
     for (j=0; j<num_taps; ++j)
     {
-      HscL2DataPtr->coeff[i][j+offset] = Coeff[i*num_taps+j];
+      InstancePtr->coeff[i][j+offset] = Coeff[i*num_taps+j];
     }
   }
 
@@ -312,18 +325,18 @@ void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
       //pad left
       for (j = 0; j < offset; j++)
       {
-        HscL2DataPtr->coeff[i][j] = 0;
+        InstancePtr->coeff[i][j] = 0;
       }
         //pad right
       for (j = (num_taps+offset); j < XV_HSCALER_MAX_H_TAPS; j++)
       {
-        HscL2DataPtr->coeff[i][j] = 0;
+        InstancePtr->coeff[i][j] = 0;
       }
     }
   }
 
   /* Enable use of external coefficients */
-  HscL2DataPtr->UseExtCoeff = TRUE;
+  InstancePtr->UseExtCoeff = TRUE;
 }
 
 /*****************************************************************************/
@@ -331,6 +344,7 @@ void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
 * This function calculates the phases for 1 line. Same phase info is used for
 * full frame
 *
+* @param  HscPtr is a pointer to the core instance to be worked on.
 * @param  WidthIn is the input frame width
 * @param  WidthOut is the scaled frame width
 * @param  PixelRate is the number of pixels per clock being processed
@@ -338,8 +352,7 @@ void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-static void CalculatePhases(XV_hscaler *pHsc,
-                            XV_hscaler_l2 *HscL2DataPtr,
+static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
                             u32 WidthIn,
                             u32 WidthOut,
                             u32 PixelRate)
@@ -355,19 +368,19 @@ static void CalculatePhases(XV_hscaler *pHsc,
     int xReadPos = 0;
     int nrRds = 0;
     int nrRdsClck = 0;
-    int MaxPhases = (1<<pHsc->Config.PhaseShift);
-    loopWidth = ((WidthIn > WidthOut) ? WidthIn + (pHsc->Config.PixPerClk-1)
-                                      : WidthOut  +(pHsc->Config.PixPerClk-1))/pHsc->Config.PixPerClk;
+    int MaxPhases = (1<<HscPtr->Hsc.Config.PhaseShift);
+    loopWidth = ((WidthIn > WidthOut) ? WidthIn + (HscPtr->Hsc.Config.PixPerClk-1)
+                                      : WidthOut  +(HscPtr->Hsc.Config.PixPerClk-1))/HscPtr->Hsc.Config.PixPerClk;
 
 
     arrayIdx = 0;
     for (x=0; x<loopWidth; x++)
     {
-        HscL2DataPtr->phasesH[x] = 0;
+        HscPtr->phasesH[x] = 0;
         nrRdsClck = 0;
-        for (s=0; s<pHsc->Config.PixPerClk; s++)
+        for (s=0; s<HscPtr->Hsc.Config.PixPerClk; s++)
         {
-            PhaseH = (offset>>(STEP_PRECISION_SHIFT-pHsc->Config.PhaseShift)) & (MaxPhases-1);//(HSC_PHASES-1);
+            PhaseH = (offset>>(STEP_PRECISION_SHIFT-HscPtr->Hsc.Config.PhaseShift)) & (MaxPhases-1);//(HSC_PHASES-1);
             GetNewPix = 0;
             OutputWriteEn = 0;
             if ((offset >> STEP_PRECISION_SHIFT) != 0)
@@ -388,27 +401,27 @@ static void CalculatePhases(XV_hscaler *pHsc,
                 xWritePos++;
             }
 
-            if(pHsc->Config.PixPerClk == XVIDC_PPC_4)
+            if(HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_4)
             {
-              HscL2DataPtr->phasesH[x] = HscL2DataPtr->phasesH[x] | (PhaseH << (s*10));
-              HscL2DataPtr->phasesH[x] = HscL2DataPtr->phasesH[x] | (arrayIdx << 6 + (s*10));
-              HscL2DataPtr->phasesH[x] = HscL2DataPtr->phasesH[x] | (OutputWriteEn << 9 + (s*10));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (PhaseH << (s*10));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << 6 + (s*10));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << 9 + (s*10));
             }
             else
             {
-              HscL2DataPtr->phasesH[x] = HscL2DataPtr->phasesH[x] | (PhaseH << (s*9));
-              HscL2DataPtr->phasesH[x] = HscL2DataPtr->phasesH[x] | (arrayIdx << 6 + (s*9));
-              HscL2DataPtr->phasesH[x] = HscL2DataPtr->phasesH[x] | (OutputWriteEn << 8 + (s*9));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (PhaseH << (s*9));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << 6 + (s*9));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << 8 + (s*9));
             }
 
             if (GetNewPix) nrRdsClck++;
         }
-        if (arrayIdx>=pHsc->Config.PixPerClk)
-            arrayIdx &= (pHsc->Config.PixPerClk-1);
+        if (arrayIdx>=HscPtr->Hsc.Config.PixPerClk)
+            arrayIdx &= (HscPtr->Hsc.Config.PixPerClk-1);
 
         nrRds += nrRdsClck;
-        if (nrRds >= pHsc->Config.PixPerClk)
-            nrRds -= pHsc->Config.PixPerClk;
+        if (nrRds >= HscPtr->Hsc.Config.PixPerClk)
+            nrRds -= HscPtr->Hsc.Config.PixPerClk;
     }
 }
 
@@ -416,8 +429,7 @@ static void CalculatePhases(XV_hscaler *pHsc,
 /**
 * This function programs the phase data into core registers
 *
-* @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  HscL2DataPtr is a pointer to the core instance layer 2 data.
+* @param  HscPtr is a pointer to the core instance to be worked on.
 *
 * @return None
 *
@@ -425,15 +437,14 @@ static void CalculatePhases(XV_hscaler *pHsc,
 *        User must load the coefficients, using the provided API, before
 *        scaler can be used
 ******************************************************************************/
-static void XV_HScalerSetPhase(XV_hscaler *pHsc,
-                               XV_hscaler_l2 *HscL2DataPtr)
+static void XV_HScalerSetPhase(XV_Hscaler_l2 *HscPtr)
 {
   u32 baseAddr, loopWidth;
 
   //program phases
-  baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(pHsc);
-  loopWidth = pHsc->Config.MaxWidth/pHsc->Config.PixPerClk;
-  switch(pHsc->Config.PixPerClk)
+  baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(&HscPtr->Hsc);
+  loopWidth = HscPtr->Hsc.Config.MaxWidth/HscPtr->Hsc.Config.PixPerClk;
+  switch(HscPtr->Hsc.Config.PixPerClk)
   {
     case XVIDC_PPC_1:
             {
@@ -447,8 +458,8 @@ static void XV_HScalerSetPhase(XV_hscaler *pHsc,
               index = 0;
               for(i=0; i < loopWidth; i+=2)
               {
-                lsb = (u32)(HscL2DataPtr->phasesH[i]   & (u64)XHSC_MASK_LOW_16BITS);
-                msb = (u32)(HscL2DataPtr->phasesH[i+1] & (u64)XHSC_MASK_LOW_16BITS);
+                lsb = (u32)(HscPtr->phasesH[i]   & (u64)XHSC_MASK_LOW_16BITS);
+                msb = (u32)(HscPtr->phasesH[i+1] & (u64)XHSC_MASK_LOW_16BITS);
                 val = (msb<<16 | lsb);
                 Xil_Out32(baseAddr+(index*4), val);
                 ++index;
@@ -465,7 +476,7 @@ static void XV_HScalerSetPhase(XV_hscaler *pHsc,
                */
               for(i=0; i < loopWidth; ++i)
               {
-                val = (u32)(HscL2DataPtr->phasesH[i] & XHSC_MASK_LOW_32BITS);
+                val = (u32)(HscPtr->phasesH[i] & XHSC_MASK_LOW_32BITS);
                 Xil_Out32(baseAddr+(i*4), val);
               }
             }
@@ -474,23 +485,23 @@ static void XV_HScalerSetPhase(XV_hscaler *pHsc,
     case XVIDC_PPC_4:
             {
               u32 lsb, msb, index, offset, i;
-			  u64 phaseHData;
+              u64 phaseHData;
 
               /* PhaseH is 64bits and each entry has valid 32b MSB & LSB
                * Need 2 32b writes to get each entry into IP registers
                * (index is array loc and offset is address offset)
                */
               index = 0;
-			  offset = 0;
+              offset = 0;
               for(i=0; i < loopWidth; ++i)
               {
-			    phaseHData = HscL2DataPtr->phasesH[index];
+                phaseHData = HscPtr->phasesH[index];
                 lsb = (u32)(phaseHData & XHSC_MASK_LOW_32BITS);
                 msb = (u32)((phaseHData>>32) & XHSC_MASK_LOW_32BITS);
                 Xil_Out32(baseAddr+(offset*4), lsb);
                 Xil_Out32(baseAddr+((offset+1)*4), msb);
                 ++index;
-				offset += 2;
+                offset += 2;
               }
             }
             break;
@@ -506,8 +517,7 @@ static void XV_HScalerSetPhase(XV_hscaler *pHsc,
 * This function programs the filter coefficients and phase data into core
 * registers
 *
-* @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  HscL2DataPtr is a pointer to the core instance layer 2 data.
+* @param  HscPtr is a pointer to the core instance to be worked on.
 *
 * @return None
 *
@@ -515,22 +525,21 @@ static void XV_HScalerSetPhase(XV_hscaler *pHsc,
 *        User must load the coefficients, using the provided API, before
 *        scaler can be used
 ******************************************************************************/
-static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
-                               XV_hscaler_l2 *HscL2DataPtr)
+static void XV_HScalerSetCoeff(XV_Hscaler_l2 *HscPtr)
 {
-  int num_phases = 1<<pHsc->Config.PhaseShift;
-  int num_taps   = pHsc->Config.NumTaps/2;
+  int num_phases = 1<<HscPtr->Hsc.Config.PhaseShift;
+  int num_taps   = HscPtr->Hsc.Config.NumTaps/2;
   int val,i,j,offset,rdIndx;
   u32 baseAddr;
 
-  offset = (XV_HSCALER_MAX_H_TAPS - pHsc->Config.NumTaps)/2;
-  baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(pHsc);
+  offset = (XV_HSCALER_MAX_H_TAPS - HscPtr->Hsc.Config.NumTaps)/2;
+  baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(&HscPtr->Hsc);
   for (i = 0; i < num_phases; i++)
   {
     for(j=0; j < num_taps; j++)
     {
        rdIndx = j*2+offset;
-       val = (HscL2DataPtr->coeff[i][rdIndx+1] << 16) | (HscL2DataPtr->coeff[i][rdIndx] & XHSC_MASK_LOW_16BITS);
+       val = (HscPtr->coeff[i][rdIndx+1] << 16) | (HscPtr->coeff[i][rdIndx] & XHSC_MASK_LOW_16BITS);
        Xil_Out32(baseAddr+((i*num_taps+j)*4), val);
     }
   }
@@ -542,7 +551,6 @@ static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
 * configuration parameters of the axi stream
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  HscL2DataPtr is a pointer to the core instance layer 2 data.
 * @param  HeightIn is the input stream height
 * @param  WidthIn is the input stream width
 * @param  WidthOut is the output stream width
@@ -551,8 +559,7 @@ static void XV_HScalerSetCoeff(XV_hscaler *pHsc,
 * @return None
 *
 ******************************************************************************/
-void XV_HScalerSetup(XV_hscaler  *InstancePtr,
-                     XV_hscaler_l2 *HscL2DataPtr,
+void XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
@@ -564,40 +571,36 @@ void XV_HScalerSetup(XV_hscaler  *InstancePtr,
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(HscL2DataPtr != NULL);
-  Xil_AssertVoid((HeightIn>0) && (HeightIn<=InstancePtr->Config.MaxHeight));
-  Xil_AssertVoid((WidthIn>0) && (WidthIn<=InstancePtr->Config.MaxWidth));
-  Xil_AssertVoid((WidthOut>0) && (WidthOut<=InstancePtr->Config.MaxWidth));
-  Xil_AssertVoid((InstancePtr->Config.PixPerClk >= XVIDC_PPC_1) &&
-                 (InstancePtr->Config.PixPerClk <= XVIDC_PPC_4));
+  Xil_AssertVoid((HeightIn>0) && (HeightIn<=InstancePtr->Hsc.Config.MaxHeight));
+  Xil_AssertVoid((WidthIn>0) && (WidthIn<=InstancePtr->Hsc.Config.MaxWidth));
+  Xil_AssertVoid((WidthOut>0) && (WidthOut<=InstancePtr->Hsc.Config.MaxWidth));
+  Xil_AssertVoid((InstancePtr->Hsc.Config.PixPerClk >= XVIDC_PPC_1) &&
+                 (InstancePtr->Hsc.Config.PixPerClk <= XVIDC_PPC_4));
 
   PixelRate = (WidthIn * STEP_PRECISION)/WidthOut;
 
-  if(InstancePtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
+  if(InstancePtr->Hsc.Config.ScalerType == XV_HSCALER_POLYPHASE)
   {
-    if(!HscL2DataPtr->UseExtCoeff)  //No user defined coefficients
+    if(!InstancePtr->UseExtCoeff)  //No user defined coefficients
     {
       /* Determine coefficient table to use */
-      XV_HScalerSelectCoeff(InstancePtr,
-		                HscL2DataPtr,
-		                WidthIn,
-		                WidthOut);
+      XV_HScalerSelectCoeff(InstancePtr, WidthIn, WidthOut);
     }
     /* Program generated coefficients into the IP register bank */
-    XV_HScalerSetCoeff(InstancePtr, HscL2DataPtr);
+    XV_HScalerSetCoeff(InstancePtr);
   }
 
   /* Compute Phase for 1 line */
-  CalculatePhases(InstancePtr, HscL2DataPtr, WidthIn, WidthOut, PixelRate);
+  CalculatePhases(InstancePtr, WidthIn, WidthOut, PixelRate);
 
   /* Program computed Phase into the IP register bank */
-  XV_HScalerSetPhase(InstancePtr, HscL2DataPtr);
+  XV_HScalerSetPhase(InstancePtr);
 
-  XV_hscaler_Set_HwReg_Height(InstancePtr,     HeightIn);
-  XV_hscaler_Set_HwReg_WidthIn(InstancePtr,    WidthIn);
-  XV_hscaler_Set_HwReg_WidthOut(InstancePtr,   WidthOut);
-  XV_hscaler_Set_HwReg_ColorMode(InstancePtr,  cformat);
-  XV_hscaler_Set_HwReg_PixelRate(InstancePtr,  PixelRate);
+  XV_hscaler_Set_HwReg_Height(&InstancePtr->Hsc,     HeightIn);
+  XV_hscaler_Set_HwReg_WidthIn(&InstancePtr->Hsc,    WidthIn);
+  XV_hscaler_Set_HwReg_WidthOut(&InstancePtr->Hsc,   WidthOut);
+  XV_hscaler_Set_HwReg_ColorMode(&InstancePtr->Hsc,  cformat);
+  XV_hscaler_Set_HwReg_PixelRate(&InstancePtr->Hsc,  PixelRate);
 }
 
 
@@ -611,9 +614,9 @@ void XV_HScalerSetup(XV_hscaler  *InstancePtr,
 * @return	None
 *
 ******************************************************************************/
-void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
+void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
 {
-  XV_hscaler *pHsc = InstancePtr;
+  XV_hscaler *HscPtr = &InstancePtr->Hsc;
   u32 done, idle, ready, ctrl;
   u32 widthin, widthout, heightin, pixrate, cformat;
   u32 baseAddr, taps, phases;
@@ -626,27 +629,27 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
   Xil_AssertVoid(InstancePtr != NULL);
 
   xil_printf("\r\n\r\n----->H SCALER IP STATUS<----\r\n");
-  done  = XV_hscaler_IsDone(pHsc);
-  idle  = XV_hscaler_IsIdle(pHsc);
-  ready = XV_hscaler_IsReady(pHsc);
-  ctrl =  XV_hscaler_ReadReg(pHsc->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
+  done  = XV_hscaler_IsDone(HscPtr);
+  idle  = XV_hscaler_IsIdle(HscPtr);
+  ready = XV_hscaler_IsReady(HscPtr);
+  ctrl =  XV_hscaler_ReadReg(HscPtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
 
-  heightin = XV_hscaler_Get_HwReg_Height(pHsc);
-  widthin  = XV_hscaler_Get_HwReg_WidthIn(pHsc);
-  widthout = XV_hscaler_Get_HwReg_WidthOut(pHsc);
-  cformat  = XV_hscaler_Get_HwReg_ColorMode(pHsc);
-  pixrate  = XV_hscaler_Get_HwReg_PixelRate(pHsc);
+  heightin = XV_hscaler_Get_HwReg_Height(HscPtr);
+  widthin  = XV_hscaler_Get_HwReg_WidthIn(HscPtr);
+  widthout = XV_hscaler_Get_HwReg_WidthOut(HscPtr);
+  cformat  = XV_hscaler_Get_HwReg_ColorMode(HscPtr);
+  pixrate  = XV_hscaler_Get_HwReg_PixelRate(HscPtr);
 
-  taps   = pHsc->Config.NumTaps/2;
-  phases = (1<<pHsc->Config.PhaseShift);
+  taps   = HscPtr->Config.NumTaps/2;
+  phases = (1<<HscPtr->Config.PhaseShift);
   xil_printf("IsDone:  %d\r\n", done);
   xil_printf("IsIdle:  %d\r\n", idle);
   xil_printf("IsReady: %d\r\n", ready);
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
-  if(pHsc->Config.ScalerType <= XV_HSCALER_POLYPHASE)
+  if(HscPtr->Config.ScalerType <= XV_HSCALER_POLYPHASE)
   {
-    xil_printf("Scaler Type:     %s\r\n",ScalerTypeStr[pHsc->Config.ScalerType]);
+    xil_printf("Scaler Type:     %s\r\n",ScalerTypeStr[HscPtr->Config.ScalerType]);
   }
   else
   {
@@ -659,14 +662,14 @@ void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr)
   xil_printf("Pixel Rate:      %d\r\n",pixrate);
   xil_printf("Num Phases:      %d\r\n",phases);
 
-  if(pHsc->Config.ScalerType == XV_HSCALER_POLYPHASE)
+  if(HscPtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
   {
     short lsb, msb;
 
     xil_printf("Num Taps:        %d\r\n",taps*2);
     xil_printf("\r\nCoefficients:");
 
-    baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(pHsc);
+    baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(HscPtr);
     for(i = 0; i < phases; i++)
     {
       xil_printf("\r\nPhase %2d: ",i);

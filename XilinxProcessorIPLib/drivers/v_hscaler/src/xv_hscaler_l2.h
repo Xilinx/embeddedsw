@@ -100,7 +100,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
@@ -152,29 +153,29 @@ typedef enum
  */
 typedef struct
 {
+  XV_hscaler Hsc; /*<< Layer 1 instance */
   u8 UseExtCoeff;
   short coeff[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS];
   u64 phasesH[XV_HSCALER_MAX_LINE_WIDTH];
-}XV_hscaler_l2;
+}XV_Hscaler_l2;
 
 /************************** Macros Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-void XV_HScalerStart(XV_hscaler *InstancePtr);
-void XV_HScalerStop(XV_hscaler *InstancePtr);
-void XV_HScalerLoadExtCoeff(XV_hscaler *InstancePtr,
-                            XV_hscaler_l2 *HscL2DataPtr,
+int XV_HScalerInitialize(XV_Hscaler_l2 *InstancePtr, u16 DeviceId);
+void XV_HScalerStart(XV_Hscaler_l2 *InstancePtr);
+void XV_HScalerStop(XV_Hscaler_l2 *InstancePtr);
+void XV_HScalerLoadExtCoeff(XV_Hscaler_l2 *InstancePtr,
                             u16 num_phases,
                             u16 num_taps,
                             const short *Coeff);
-void XV_HScalerSetup(XV_hscaler  *InstancePtr,
-                     XV_hscaler_l2 *HscL2DataPtr,
+void XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
                      u32 cformat);
 
-void XV_HScalerDbgReportStatus(XV_hscaler *InstancePtr);
+void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr);
 
 #ifdef __cplusplus
 }
