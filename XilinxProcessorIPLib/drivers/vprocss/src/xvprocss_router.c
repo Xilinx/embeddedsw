@@ -206,22 +206,6 @@ static XVprocSs_ScaleMode GetScalingMode(XVprocSs *XVprocSsPtr)
 ******************************************************************************/
 int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 {
-#ifdef DEBUG
-  const char *ipStr[XVPROCSS_SUBCORE_MAX] =
-  {
-    "VID_OUT",
-    "SCALER-V",
-    "SCALER-H",
-    "VDMA",
-    "LBOX",
-    "CR-H",
-    "CR-VIn",
-    "CR-VOut",
-    "CSC",
-    "DEINT",
-  };
-#endif
-
   u32 index = 0;
   XVidC_VideoStream *StrmInPtr  = &XVprocSsPtr->VidIn;
   XVidC_VideoStream *StrmOutPtr = &XVprocSsPtr->VidOut;
@@ -433,21 +417,6 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 
   /* save number of cores in processing path */
   CtxtPtr->RtrNumCores = index;
-
-#ifdef DEBUG
-  if(status == XST_SUCCESS)
-  {
-    u32 count = 0;
-
-    //print IP Data Flow Map
-    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nGenerated Map: VidIn");
-    while(count<index)
-    {
-      xdbg_printf(XDBG_DEBUG_GENERAL," -> %s",ipStr[pTable[count++]]);
-    }
-    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n\r\n");
-  }
-#endif
 
   return(status);
 }

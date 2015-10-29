@@ -529,7 +529,8 @@ int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
 int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
                              const XVidC_VideoStream *StrmOut);
 int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
-                                 const XVidC_VideoMode VmId);
+                                 const XVidC_VideoMode VmId,
+                                 XVidC_VideoTiming const *Timing);
 int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr);
 void XVprocSs_SetZoomMode(XVprocSs *InstancePtr, u8 OnOff);
 void XVprocSs_SetPipMode(XVprocSs *InstancePtr, u8 OnOff);

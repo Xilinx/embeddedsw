@@ -105,6 +105,19 @@ typedef struct
 XVprocSs_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
                                     included in the design */
 
+static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
+    "VID_OUT",
+    "SCALER-V",
+    "SCALER-H",
+    "VDMA",
+    "LBOX",
+    "CR-H",
+    "CR-VIn",
+    "CR-VOut",
+    "CSC",
+    "DEINT",
+  };
+
 /** @name VDMA Alignment required step size
  *
  * @{
@@ -242,84 +255,6 @@ static __inline void WaitUs(XVprocSs *XVprocSsPtr, u32 MicroSeconds)
 }
 
 /************************** Function Definition ******************************/
-
-
-/*****************************************************************************/
-/**
-* This function reports list of cores included in Video Processing Subsystem
-*
-* @param  InstancePtr is a pointer to the Subsystem instance.
-*
-* @return None
-*
-******************************************************************************/
-void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr)
-{
-  Xil_AssertVoid(InstancePtr != NULL);
-
-  xil_printf("\r\n  ->Video Processing Subsystem Cores\r\n");
-
-  /* Report all the included cores in the subsystem instance */
-  if(InstancePtr->HcrsmplrPtr)
-  {
-    xil_printf("    : Horiz. Chroma Resampler \r\n");
-  }
-
-  if(InstancePtr->VcrsmplrInPtr)
-  {
-    xil_printf("    : Vert Chroma Resampler - Input\r\n");
-  }
-
-  if(InstancePtr->VcrsmplrOutPtr)
-  {
-    xil_printf("    : Vert Chroma Resampler - Output\r\n");
-  }
-
-  if(InstancePtr->HscalerPtr)
-  {
-    xil_printf("    : H Scaler\r\n");
-  }
-
-  if(InstancePtr->VscalerPtr)
-  {
-    xil_printf("    : V Scaler\r\n");
-  }
-
-  if(InstancePtr->VdmaPtr)
-  {
-    xil_printf("    : VDMA\r\n");
-  }
-
-  if(InstancePtr->LboxPtr)
-  {
-    xil_printf("    : LetterBox\r\n");
-  }
-
-  if(InstancePtr->CscPtr)
-  {
-    xil_printf("    : Color Space Converter\r\n");
-  }
-
-  if(InstancePtr->DeintPtr)
-  {
-    xil_printf("    : Deinterlacer\r\n");
-  }
-
-  if(InstancePtr->RstAxisPtr)
-  {
-    xil_printf("    : Reset (AXIS)\r\n");
-  }
-
-  if(InstancePtr->RstAximmPtr)
-  {
-    xil_printf("    : Reset (AXI-MM) \r\n");
-  }
-
-  if(InstancePtr->RouterPtr)
-  {
-    xil_printf("    : AXIS Router\r\n");
-  }
-}
 
 /*****************************************************************************/
 /**
@@ -634,6 +569,7 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
   XVidC_VideoStream vidStrmOut;
   XVidC_VideoWindow win;
   u16 PixPrecisionIndex;
+  XVidC_VideoTiming const *TimingPtr;
 
   /* Setup Default Output Stream configuration */
   vidStrmOut.VmId          = XVIDC_VM_1920x1080_60_P;
@@ -643,6 +579,9 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
   vidStrmOut.ColorDepth    = XVprocSsPtr->Config.ColorDepth;
   vidStrmOut.PixPerClk     = XVprocSsPtr->Config.PixPerClock;
 
+  TimingPtr = XVidC_GetTimingInfo(vidStrmOut.VmId);
+  vidStrmOut.Timing = *TimingPtr;
+
   /* Setup Default Input Stream configuration */
   vidStrmIn.VmId          = XVIDC_VM_1920x1080_60_P;
   vidStrmIn.ColorFormatId = XVIDC_CSF_RGB;
@@ -650,6 +589,9 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
   vidStrmIn.IsInterlaced  = FALSE;
   vidStrmIn.ColorDepth    = XVprocSsPtr->Config.ColorDepth;
   vidStrmIn.PixPerClk     = XVprocSsPtr->Config.PixPerClock;
+
+  TimingPtr = XVidC_GetTimingInfo(vidStrmIn.VmId);
+  vidStrmIn.Timing = *TimingPtr;
 
   /* Setup Video Processing subsystem input/output  configuration */
   XVprocSs_SetVidStreamIn(XVprocSsPtr,  &vidStrmIn);
@@ -882,30 +824,22 @@ void XVprocSs_Reset(XVprocSs *InstancePtr)
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  StrmIn is the pointer to input stream configuration
 *
-* @return XST_SUCESS if successful else XST_FAILURE
+* @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
 int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
                             const XVidC_VideoStream *StrmIn)
 {
-  int status;
-
   /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(StrmIn != NULL);
+  Xil_AssertNonvoid((StrmIn->Timing.HActive > 0) &&
+                    (StrmIn->Timing.VActive > 0));
 
-  /* Set Timing information based on resolution ID */
-  status = XVprocSs_SetStreamResolution(&InstancePtr->VidIn, StrmIn->VmId);
+  /* set stream properties */
+  InstancePtr->VidIn = *StrmIn;
 
-  if(!status)
-  {
-    InstancePtr->VidIn.ColorFormatId = StrmIn->ColorFormatId;
-    InstancePtr->VidIn.ColorDepth    = StrmIn->ColorDepth;
-    InstancePtr->VidIn.PixPerClk     = StrmIn->PixPerClk;
-    InstancePtr->VidIn.FrameRate     = StrmIn->FrameRate;
-    InstancePtr->VidIn.IsInterlaced  = StrmIn->IsInterlaced;
-  }
-  return(status);
+  return(XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -915,30 +849,22 @@ int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  StrmOut is the pointer to input stream configuration
 *
-* @return XST_SUCESS if successful else XST_FAILURE
+* @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
 int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
                              const XVidC_VideoStream *StrmOut)
 {
-  int status;
-
   /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(StrmOut != NULL);
+  Xil_AssertNonvoid((StrmOut->Timing.HActive > 0) &&
+                    (StrmOut->Timing.VActive > 0));
 
-  /* Set Timing information based on resolution ID */
-  status = XVprocSs_SetStreamResolution(&InstancePtr->VidOut, StrmOut->VmId);
+  /* set stream properties */
+  InstancePtr->VidOut = *StrmOut;
 
-  if(!status)
-  {
-    InstancePtr->VidOut.ColorFormatId = StrmOut->ColorFormatId;
-    InstancePtr->VidOut.ColorDepth    = StrmOut->ColorDepth;
-    InstancePtr->VidOut.PixPerClk     = StrmOut->PixPerClk;
-    InstancePtr->VidOut.FrameRate     = StrmOut->FrameRate;
-    InstancePtr->VidOut.IsInterlaced  = StrmOut->IsInterlaced;
-  }
-  return(status);
+  return(XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -948,32 +874,30 @@ int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
 *
 * @param  StreamPtr is a pointer to the video stream to be configured
 * @param  VmId is the Video Mode ID of the new resolution to be set
+* @param  Timing is the timing parameters of the new resolution to be set
 
-* @return XST_SUCESS if successful else XST_FAILURE
+* @return XST_SUCCESS if successful else XST_FAILURE
 *
 ******************************************************************************/
 int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
-                                 const XVidC_VideoMode VmId)
+                                 const XVidC_VideoMode VmId,
+                                 XVidC_VideoTiming const *Timing)
 {
   int status;
 
   /* Verify arguments */
   Xil_AssertNonvoid(StreamPtr != NULL);
+  Xil_AssertNonvoid(VmId != XVIDC_VM_NOT_SUPPORTED);
+  Xil_AssertNonvoid(Timing != NULL);
+  Xil_AssertNonvoid((Timing->HActive > 0) &&
+                    (Timing->VActive > 0));
 
-  if(VmId < XVIDC_VM_NUM_SUPPORTED)
-  {
-    XVidC_VideoTiming const *pResTiming = XVidC_GetTimingInfo(VmId);
 
-    StreamPtr->VmId = VmId;
-    memcpy(&StreamPtr->Timing, pResTiming, sizeof(XVidC_VideoTiming));
-    status = XST_SUCCESS;
-  }
-  else
-  {
-    xil_printf("\r\nVPROCSS ERR:: Stream Resolution Not Supported. Command Ignored\r\n");
-    status = XST_FAILURE;
-  }
-  return(status);
+  /* update stream timing properties */
+  StreamPtr->VmId   = VmId;
+  StreamPtr->Timing = *Timing;
+
+  return(XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -1540,84 +1464,6 @@ int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr)
   }
   return(status);
 }
-
-/*****************************************************************************/
-/**
-* This function reports the subsystem HW and input/output stream configuration
-*
-* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
-*
-* @return None
-*
-******************************************************************************/
-void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
-{
-  char *topology[2] = {"Scaler-Only", "Full-Fledged"};
-  XVidC_VideoWindow win;
-  int SubsytemTopology = XVprocSs_GetSubsystemTopology(InstancePtr);
-
-  /* Verify arguments */
-  Xil_AssertVoid(InstancePtr != NULL);
-
-  xil_printf("\r\n****** Video Processing Subsystem Configuration ******\r\n");
-  /* Print the configuration selected */
-  if(SubsytemTopology < XVPROCSS_TOPOLOGY_NUM_SUPPORTED)
-  {
-    xil_printf("\r\nTopology: %s\r\n", topology[SubsytemTopology]);
-    XVprocSs_ReportSubsystemCoreInfo(InstancePtr);
-  }
-  else
-  {
-	xil_printf("VPROCSS ERR:: Topology: Not Supported\r\n");
-	return;
-  }
-  xil_printf("\r\nPixels/Clk  = %d\r\n", InstancePtr->Config.PixPerClock);
-  xil_printf("Color Depth = %d\r\n", InstancePtr->Config.ColorDepth);
-  xil_printf("Num Video Components = %d\r\n", InstancePtr->Config.NumVidComponents);
-  xil_printf("Max Width Supported  = %d\r\n", InstancePtr->Config.MaxWidth);
-  xil_printf("Max Height Supported = %d\r\n", InstancePtr->Config.MaxHeight);
-
-  xil_printf("\r\n------ SUBSYSTEM INPUT/OUTPUT CONFIG ------\r\n");
-  xil_printf("->INPUT\r\n");
-  XVidC_ReportStreamInfo(&InstancePtr->VidIn);
-  xil_printf("\r\n->OUTPUT\r\n");
-  XVidC_ReportStreamInfo(&InstancePtr->VidOut);
-
-  if(XVprocSs_IsConfigModeMax(InstancePtr))
-  {
-    if(XVprocSs_IsZoomModeOn(InstancePtr))
-    {
-	  xil_printf("\r\nZoom Mode: ON\r\n");
-	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_ZOOM_WIN, &win);
-	  xil_printf("   Start X    = %d\r\n", win.StartX);
-	  xil_printf("   Start Y    = %d\r\n", win.StartY);
-	  xil_printf("   Win Width  = %d\r\n", win.Width);
-	  xil_printf("   Win Height = %d\r\n", win.Height);
-	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
-    }
-    else
-    {
-      xil_printf("\r\nZoom Mode: OFF\r\n");
-    }
-
-    if(XVprocSs_IsPipModeOn(InstancePtr))
-    {
-	  xil_printf("\r\nPip Mode: ON\r\n");
-	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_PIP_WIN, &win);
-	  xil_printf("   Start X    = %d\r\n", win.StartX);
-	  xil_printf("   Start Y    = %d\r\n", win.StartY);
-	  xil_printf("   Win Width  = %d\r\n", win.Width);
-	  xil_printf("   Win Height = %d\r\n", win.Height);
-	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
-    }
-    else
-    {
-      xil_printf("\r\nPip  Mode: OFF\r\n");
-    }
-  }
-  xil_printf("**************************************************\r\n\r\n");
-}
-
 
 /*****************************************************************************/
 /**
@@ -2358,4 +2204,167 @@ void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
     default:
 	 break;
   }
+}
+
+/*****************************************************************************/
+/**
+* This function reports Video Processing Subsystem HW configuration
+*
+* @param  InstancePtr is a pointer to the Subsystem instance.
+*
+* @return None
+*
+******************************************************************************/
+void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr)
+{
+  char *topology[2] = {"Scaler-Only", "Full-Fledged"};
+  int SubsytemTopology;
+
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  SubsytemTopology = XVprocSs_GetSubsystemTopology(InstancePtr);
+
+  xil_printf("\r\n****** Video Processing Subsystem Configuration ******\r\n");
+  /* Print the configuration selected */
+  if(SubsytemTopology < XVPROCSS_TOPOLOGY_NUM_SUPPORTED) {
+    xil_printf("\r\nTopology: %s\r\n", topology[SubsytemTopology]);
+  } else {
+	xil_printf("VPROCSS ERR:: Topology: Not Supported\r\n");
+	return;
+  }
+
+  xil_printf("\r\n  ->Sub-Cores Included\r\n");
+
+  /* Report all the included cores in the subsystem instance */
+  if(InstancePtr->HcrsmplrPtr)
+  {
+    xil_printf("    : Horiz. Chroma Resampler \r\n");
+  }
+
+  if(InstancePtr->VcrsmplrInPtr)
+  {
+    xil_printf("    : Vert Chroma Resampler - Input\r\n");
+  }
+
+  if(InstancePtr->VcrsmplrOutPtr)
+  {
+    xil_printf("    : Vert Chroma Resampler - Output\r\n");
+  }
+
+  if(InstancePtr->HscalerPtr)
+  {
+    xil_printf("    : H Scaler\r\n");
+  }
+
+  if(InstancePtr->VscalerPtr)
+  {
+    xil_printf("    : V Scaler\r\n");
+  }
+
+  if(InstancePtr->VdmaPtr)
+  {
+    xil_printf("    : VDMA\r\n");
+  }
+
+  if(InstancePtr->LboxPtr)
+  {
+    xil_printf("    : LetterBox\r\n");
+  }
+
+  if(InstancePtr->CscPtr)
+  {
+    xil_printf("    : Color Space Converter\r\n");
+  }
+
+  if(InstancePtr->DeintPtr)
+  {
+    xil_printf("    : Deinterlacer\r\n");
+  }
+
+  if(InstancePtr->RstAxisPtr)
+  {
+    xil_printf("    : Reset (AXIS)\r\n");
+  }
+
+  if(InstancePtr->RstAximmPtr)
+  {
+    xil_printf("    : Reset (AXI-MM) \r\n");
+  }
+
+  if(InstancePtr->RouterPtr)
+  {
+    xil_printf("    : AXIS Router\r\n");
+  }
+
+  xil_printf("\r\nPixels/Clk  = %d\r\n", InstancePtr->Config.PixPerClock);
+  xil_printf("Color Depth = %d\r\n", InstancePtr->Config.ColorDepth);
+  xil_printf("Num Video Components = %d\r\n", InstancePtr->Config.NumVidComponents);
+  xil_printf("Max Width Supported  = %d\r\n", InstancePtr->Config.MaxWidth);
+  xil_printf("Max Height Supported = %d\r\n", InstancePtr->Config.MaxHeight);
+}
+
+/*****************************************************************************/
+/**
+* This function reports the subsystem HW and input/output stream configuration
+*
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return None
+*
+******************************************************************************/
+void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
+{
+  XVidC_VideoWindow win;
+  u32 count;
+
+  /* Verify arguments */
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  xil_printf("\r\n------ SUBSYSTEM INPUT/OUTPUT CONFIG ------\r\n");
+  xil_printf("->INPUT\r\n");
+  XVidC_ReportStreamInfo(&InstancePtr->VidIn);
+  xil_printf("\r\n->OUTPUT\r\n");
+  XVidC_ReportStreamInfo(&InstancePtr->VidOut);
+
+  if(XVprocSs_IsConfigModeMax(InstancePtr))
+  {
+    if(XVprocSs_IsZoomModeOn(InstancePtr))
+    {
+	  xil_printf("\r\nZoom Mode: ON\r\n");
+	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_ZOOM_WIN, &win);
+	  xil_printf("   Start X    = %d\r\n", win.StartX);
+	  xil_printf("   Start Y    = %d\r\n", win.StartY);
+	  xil_printf("   Win Width  = %d\r\n", win.Width);
+	  xil_printf("   Win Height = %d\r\n", win.Height);
+	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
+    }
+    else
+    {
+      xil_printf("\r\nZoom Mode: OFF\r\n");
+    }
+
+    if(XVprocSs_IsPipModeOn(InstancePtr))
+    {
+	  xil_printf("\r\nPip Mode: ON\r\n");
+	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_PIP_WIN, &win);
+	  xil_printf("   Start X    = %d\r\n", win.StartX);
+	  xil_printf("   Start Y    = %d\r\n", win.StartY);
+	  xil_printf("   Win Width  = %d\r\n", win.Width);
+	  xil_printf("   Win Height = %d\r\n", win.Height);
+	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
+    }
+    else
+    {
+      xil_printf("\r\nPip  Mode: OFF\r\n");
+    }
+
+    count = 0;
+    //print IP Data Flow Map
+    xil_printf("\r\Data Flow Map: VidIn");
+    while(count<InstancePtr->CtxtData.RtrNumCores)
+    {
+      xil_printf(" -> %s",XVprocSsIpStr[InstancePtr->CtxtData.RtngTable[count++]]);
+    }
+  }
+  xil_printf("\r\n**************************************************\r\n\r\n");
 }
