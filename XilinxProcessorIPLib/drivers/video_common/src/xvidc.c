@@ -483,19 +483,32 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
 {
 	if ((Stream->VmId < XVIDC_VM_NUM_SUPPORTED) ||
-					(Stream->VmId == XVIDC_VM_CUSTOM)) {
+		(Stream->VmId == XVIDC_VM_CUSTOM)) {
 		xil_printf("\tColor Format:     %s\r\n",
 			XVidC_GetColorFormatStr(Stream->ColorFormatId));
 		xil_printf("\tColor Depth:      %d\r\n", Stream->ColorDepth);
 		xil_printf("\tPixels Per Clock: %d\r\n", Stream->PixPerClk);
 		xil_printf("\tMode:             %s\r\n",
 			Stream->IsInterlaced ? "Interlaced" : "Progressive");
-		xil_printf("\tFrame Rate:       %s\r\n",
-			XVidC_GetFrameRateStr(Stream->VmId));
-		xil_printf("\tResolution:       %s\r\n",
-			XVidC_GetVideoModeStr(Stream->VmId));
-		xil_printf("\tPixel Clock:      %d\r\n",
-			XVidC_GetPixelClockHzByVmId(Stream->VmId));
+
+		if(Stream->VmId == XVIDC_VM_CUSTOM) {
+			xil_printf("\tFrame Rate:       %dHz\r\n",
+					Stream->FrameRate);
+			xil_printf("\tResolution:       %dx%d "
+					"[Custom Mode]\r\n",
+			Stream->Timing.HActive, Stream->Timing.VActive);
+		    xil_printf("\tPixel Clock:      %d\r\n",
+		    XVidC_GetPixelClockHzByHVFr(Stream->Timing.F0PVTotal,
+						Stream->Timing.F0PVTotal,
+						Stream->FrameRate));
+		} else {
+			xil_printf("\tFrame Rate:       %s\r\n",
+				XVidC_GetFrameRateStr(Stream->VmId));
+			xil_printf("\tResolution:       %s\r\n",
+				XVidC_GetVideoModeStr(Stream->VmId));
+		    xil_printf("\tPixel Clock:      %d\r\n",
+			    XVidC_GetPixelClockHzByVmId(Stream->VmId));
+		}
 	}
 	else {
 		xil_printf("Video Stream ID (%d) Not Supported\r\n",
