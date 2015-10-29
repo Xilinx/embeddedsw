@@ -4,7 +4,7 @@
 *
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
-* 1.00 sha 09/28/15 Added modification header
+* 2.00 sha 09/28/15 Added modification header
 *                   Added HDCP example.
 * </pre>
 *
