@@ -48,7 +48,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
@@ -68,8 +69,7 @@ const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX
 
 
 /************************** Function Prototypes ******************************/
-static void XV_vcresampler_SetCoefficients(XV_vcresampler *pVCrsmplr,
-		                                   XV_vcresampler_l2 *pVcrsmplL2Data,
+static void XV_vcresampler_SetCoefficients(XV_Vcresampler_l2 *pVCrsmplr,
 		                                   XV_VCRESAMPLER_CONVERSION convType);
 
 /*****************************************************************************/
@@ -81,12 +81,12 @@ static void XV_vcresampler_SetCoefficients(XV_vcresampler *pVCrsmplr,
  * @return None
  *
  *****************************************************************************/
-void XV_VCrsmplStart(XV_vcresampler *InstancePtr)
+void XV_VCrsmplStart(XV_Vcresampler_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_vcresampler_EnableAutoRestart(InstancePtr);
-  XV_vcresampler_Start(InstancePtr);
+  XV_vcresampler_EnableAutoRestart(&InstancePtr->Vcr);
+  XV_vcresampler_Start(&InstancePtr->Vcr);
 }
 
 /*****************************************************************************/
@@ -98,11 +98,11 @@ void XV_VCrsmplStart(XV_vcresampler *InstancePtr)
  * @return None
  *
  *****************************************************************************/
-void XV_VCrsmplStop(XV_vcresampler *InstancePtr)
+void XV_VCrsmplStop(XV_Vcresampler_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_vcresampler_DisableAutoRestart(InstancePtr);
+  XV_vcresampler_DisableAutoRestart(&InstancePtr->Vcr);
 }
 
 /*****************************************************************************/
@@ -111,13 +111,11 @@ void XV_VCrsmplStop(XV_vcresampler *InstancePtr)
 * coefficient storage based on the selected TAP configuration
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  pVcrsmplL2Data is a pointer to the core instance layer 2 data.
 *
 * @return None
 *
 ******************************************************************************/
-void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
-		                        XV_vcresampler_l2 *pVcrsmplL2Data)
+void XV_VCrsmplLoadDefaultCoeff(XV_Vcresampler_l2 *InstancePtr)
 {
   u16 numTaps;
   const short *coeff;
@@ -126,9 +124,8 @@ void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
    * validates input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pVcrsmplL2Data != NULL);
 
-  numTaps = InstancePtr->Config.NumTaps;
+  numTaps = InstancePtr->Vcr.Config.NumTaps;
 
   switch(numTaps)
   {
@@ -154,13 +151,10 @@ void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
   }
 
   /* Use external filter load API */
-  XV_VCrsmplrLoadExtCoeff(InstancePtr,
-		                  pVcrsmplL2Data,
-		                  numTaps,
-		                  coeff);
+  XV_VCrsmplrLoadExtCoeff(InstancePtr, numTaps, coeff);
 
   /* Disable use of external coefficients */
-  pVcrsmplL2Data->UseExtCoeff = FALSE;
+  InstancePtr->UseExtCoeff = FALSE;
 }
 
 /*****************************************************************************/
@@ -169,15 +163,13 @@ void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
 * resampler coefficient storage
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  pVcrsmplL2Data is a pointer to the core instance layer 2 data.
 * @param  num_taps is the number of taps
 * @param  Coeff is a pointer to user defined filter coefficients table
 *
 * @return None
 *
 ******************************************************************************/
-void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
-		                     XV_vcresampler_l2 *pVcrsmplL2Data,
+void XV_VCrsmplrLoadExtCoeff(XV_Vcresampler_l2 *InstancePtr,
                              u16 num_taps,
                              const short *Coeff)
 {
@@ -188,8 +180,7 @@ void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
    * validate input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pVcrsmplL2Data != NULL);
-  Xil_AssertVoid(num_taps <= InstancePtr->Config.NumTaps);
+  Xil_AssertVoid(num_taps <= InstancePtr->Vcr.Config.NumTaps);
   Xil_AssertVoid(Coeff != NULL);
 
   switch(num_taps)
@@ -206,7 +197,7 @@ void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
   }
 
   //determine if coefficient needs padding (effective vs. max taps)
-  pad = XV_VCRSMPLR_MAX_TAPS - InstancePtr->Config.NumTaps;
+  pad = XV_VCRSMPLR_MAX_TAPS - InstancePtr->Vcr.Config.NumTaps;
   offset = ((pad) ? (pad>>1) : 0);
 
   index = 0;
@@ -218,7 +209,7 @@ void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
       for (tap = 0; tap < num_taps; ++tap)
       {
 	    index = (conversion*XV_VCRSMPLR_MAX_PHASES*num_taps) + (phase*num_taps) + tap;
-        pVcrsmplL2Data->coeff[conversion][phase][tap+offset] = Coeff[index];
+        InstancePtr->coeff[conversion][phase][tap+offset] = Coeff[index];
       }
     }
   }
@@ -232,19 +223,19 @@ void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
         //pad left
         for (tap = 0; tap < offset; ++tap)
         {
-          pVcrsmplL2Data->coeff[conversion][phase][tap] = 0;
+          InstancePtr->coeff[conversion][phase][tap] = 0;
         }
         //pad right
         for (tap = (num_taps+offset); tap < XV_VCRSMPLR_MAX_TAPS; ++tap)
         {
-          pVcrsmplL2Data->coeff[conversion][phase][tap] = 0;
+          InstancePtr->coeff[conversion][phase][tap] = 0;
         }
       }
     }
   }
 
   /* Enable use of external coefficients */
-  pVcrsmplL2Data->UseExtCoeff = TRUE;
+  InstancePtr->UseExtCoeff = TRUE;
 }
 
 /*****************************************************************************/
@@ -258,14 +249,14 @@ void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-void XV_VCrsmplSetActiveSize(XV_vcresampler *InstancePtr,
-                              u32             width,
-                              u32             height)
+void XV_VCrsmplSetActiveSize(XV_Vcresampler_l2 *InstancePtr,
+                              u32 width,
+                              u32 height)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_vcresampler_Set_HwReg_width(InstancePtr,  width);
-  XV_vcresampler_Set_HwReg_height(InstancePtr, height);
+  XV_vcresampler_Set_HwReg_width(&InstancePtr->Vcr,  width);
+  XV_vcresampler_Set_HwReg_height(&InstancePtr->Vcr, height);
 }
 
 /*****************************************************************************/
@@ -280,8 +271,7 @@ void XV_VCrsmplSetActiveSize(XV_vcresampler *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
-		                 XV_vcresampler_l2 *pVcrsmplL2Data,
+void XV_VCrsmplSetFormat(XV_Vcresampler_l2 *InstancePtr,
                          XVidC_ColorFormat formatIn,
                          XVidC_ColorFormat formatOut)
 {
@@ -291,12 +281,11 @@ void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
    * validate the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pVcrsmplL2Data != NULL);
 
-  XV_vcresampler_Set_HwReg_input_video_format(InstancePtr,  formatIn);
-  XV_vcresampler_Set_HwReg_output_video_format(InstancePtr, formatOut);
+  XV_vcresampler_Set_HwReg_input_video_format(&InstancePtr->Vcr,  formatIn);
+  XV_vcresampler_Set_HwReg_output_video_format(&InstancePtr->Vcr, formatOut);
 
-  if(InstancePtr->Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
+  if(InstancePtr->Vcr.Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
   {
     if((formatIn  == XVIDC_CSF_YCRCB_420) &&
        (formatOut == XVIDC_CSF_YCRCB_422))
@@ -309,7 +298,7 @@ void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
 	  convType = XV_VCRSMPLR_422_TO_420;
     }
 
-    XV_vcresampler_SetCoefficients(InstancePtr, pVcrsmplL2Data, convType);
+    XV_vcresampler_SetCoefficients(InstancePtr, convType);
   }
 }
 
@@ -319,14 +308,12 @@ void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
 * required conversion
 *
 * @param  pVCrsmplr is a pointer to the core instance to be worked on.
-* @param  pVcrsmplL2Data is a pointer to the core instance layer 2 data.
 * @param  convType is the format conversion requested
 *
 * @return None
 *
 ******************************************************************************/
-static void XV_vcresampler_SetCoefficients(XV_vcresampler *pVCrsmplr,
-		                                   XV_vcresampler_l2 *pVcrsmplL2Data,
+static void XV_vcresampler_SetCoefficients(XV_Vcresampler_l2 *pVCrsmplr,
 		                                   XV_VCRESAMPLER_CONVERSION convType)
 {
   u16 pad, offset;
@@ -334,18 +321,18 @@ static void XV_vcresampler_SetCoefficients(XV_vcresampler *pVCrsmplr,
   u16 tap, phase,regcount;
 
   //determine if coefficients are padded
-  pad = XV_VCRSMPLR_MAX_TAPS - pVCrsmplr->Config.NumTaps;
+  pad = XV_VCRSMPLR_MAX_TAPS - pVCrsmplr->Vcr.Config.NumTaps;
   offset = ((pad) ? (pad>>1) : 0);
 
   regcount = 0; //number of registers being written
   baseaddr = XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA;
-  baseaddr += pVCrsmplr->Config.BaseAddress;
+  baseaddr += pVCrsmplr->Vcr.Config.BaseAddress;
 
   for(phase = 0; phase < XV_VCRSMPLR_MAX_PHASES; ++phase)
   {
-    for(tap = 0; tap < pVCrsmplr->Config.NumTaps; ++tap)
+    for(tap = 0; tap < pVCrsmplr->Vcr.Config.NumTaps; ++tap)
     {
-	  Xil_Out32((baseaddr+(regcount*8)), pVcrsmplL2Data->coeff[convType][phase][offset+tap]);
+	  Xil_Out32((baseaddr+(regcount*8)), pVCrsmplr->coeff[convType][phase][offset+tap]);
 	  ++regcount;
     }
   }
@@ -361,9 +348,9 @@ static void XV_vcresampler_SetCoefficients(XV_vcresampler *pVCrsmplr,
 * @return None
 *
 ******************************************************************************/
-void XV_VCrsmplDbgReportStatus(XV_vcresampler *InstancePtr)
+void XV_VCrsmplDbgReportStatus(XV_Vcresampler_l2 *InstancePtr)
 {
-  XV_vcresampler *pVCrsmplr = InstancePtr;
+  XV_vcresampler *pVCrsmplr = &InstancePtr->Vcr;
   u32 done, idle, ready, ctrl;
   u32 vidfmtIn, vidfmtOut, height, width;
   u32 baseAddr, convType;

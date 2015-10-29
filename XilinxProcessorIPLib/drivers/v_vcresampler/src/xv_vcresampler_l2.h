@@ -91,7 +91,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rc   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
@@ -155,30 +156,29 @@ extern "C" {
   */
  typedef struct
  {
+   XV_vcresampler Vcr;   /*<< Layer 1 instance */
    u16 UseExtCoeff;
    short coeff[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_MAX_TAPS];
- }XV_vcresampler_l2;
+ }XV_Vcresampler_l2;
 
 /************************** Function Prototypes ******************************/
-void XV_VCrsmplStart(XV_vcresampler *InstancePtr);
-void XV_VCrsmplStop(XV_vcresampler *InstancePtr);
-void XV_VCrsmplLoadDefaultCoeff(XV_vcresampler *InstancePtr,
-		                        XV_vcresampler_l2 *pVcrsmplL2Data);
-void XV_VCrsmplrLoadExtCoeff(XV_vcresampler *InstancePtr,
-		                     XV_vcresampler_l2 *pVcrsmplL2Data,
+int XV_VcrsmplInitialize(XV_Vcresampler_l2 *InstancePtr, u16 DeviceId);
+void XV_VCrsmplStart(XV_Vcresampler_l2 *InstancePtr);
+void XV_VCrsmplStop(XV_Vcresampler_l2 *InstancePtr);
+void XV_VCrsmplLoadDefaultCoeff(XV_Vcresampler_l2 *InstancePtr);
+void XV_VCrsmplrLoadExtCoeff(XV_Vcresampler_l2 *InstancePtr,
                              u16 num_taps,
                              const short *Coeff);
 
-void XV_VCrsmplSetActiveSize(XV_vcresampler *InstancePtr,
-                             u32            width,
-                             u32            height);
+void XV_VCrsmplSetActiveSize(XV_Vcresampler_l2 *InstancePtr,
+                             u32 width,
+                             u32 height);
 
-void XV_VCrsmplSetFormat(XV_vcresampler *InstancePtr,
-                         XV_vcresampler_l2 *pVcrsmplL2Data,
+void XV_VCrsmplSetFormat(XV_Vcresampler_l2 *InstancePtr,
                          XVidC_ColorFormat formatIn,
                          XVidC_ColorFormat formatOut);
 
-void XV_VCrsmplDbgReportStatus(XV_vcresampler *InstancePtr);
+void XV_VCrsmplDbgReportStatus(XV_Vcresampler_l2 *InstancePtr);
 
 #ifdef __cplusplus
 }
