@@ -48,12 +48,14 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include <string.h>
 #include "xv_letterbox_l2.h"
 
 /************************** Constant Definitions *****************************/
@@ -83,6 +85,28 @@ const u8 bkgndColorRGB[XLBOX_BKGND_LAST][3] =
 
 /************************** Function Prototypes ******************************/
 
+/*****************************************************************************/
+/**
+* This function initializes the core instance
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  DeviceId is instance id of the core
+*
+* @return XST_SUCCESS if device is found and initialized
+*         XST_DEVICE_NOT_FOUND if device is not found
+*
+******************************************************************************/
+int XV_LBoxInitialize(XV_Lbox_l2 *InstancePtr, u16 DeviceId)
+{
+  int Status;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Setup the instance */
+  memset(InstancePtr, 0, sizeof(XV_Lbox_l2));
+  Status = XV_letterbox_Initialize(&InstancePtr->Lbox, DeviceId);
+
+  return(Status);
+}
 
 /*****************************************************************************/
 /**
@@ -93,12 +117,12 @@ const u8 bkgndColorRGB[XLBOX_BKGND_LAST][3] =
 * @return None
 *
 ******************************************************************************/
-void XV_LBoxStart(XV_letterbox *InstancePtr)
+void XV_LBoxStart(XV_Lbox_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_letterbox_EnableAutoRestart(InstancePtr);
-  XV_letterbox_Start(InstancePtr);
+  XV_letterbox_EnableAutoRestart(&InstancePtr->Lbox);
+  XV_letterbox_Start(&InstancePtr->Lbox);
 }
 
 /*****************************************************************************/
@@ -110,11 +134,11 @@ void XV_LBoxStart(XV_letterbox *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_LBoxStop(XV_letterbox *InstancePtr)
+void XV_LBoxStop(XV_Lbox_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_letterbox_DisableAutoRestart(InstancePtr);
+  XV_letterbox_DisableAutoRestart(&InstancePtr->Lbox);
 }
 
 /*****************************************************************************/
@@ -131,20 +155,22 @@ void XV_LBoxStop(XV_letterbox *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_LBoxSetActiveWin(XV_letterbox *InstancePtr,
+void XV_LBoxSetActiveWin(XV_Lbox_l2 *InstancePtr,
                          XVidC_VideoWindow *ActiveWindow,
                          u32 FrameWidth,
                          u32 FrameHeight)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_letterbox_Set_HwReg_col_start(InstancePtr, ActiveWindow->StartX);
-  XV_letterbox_Set_HwReg_col_end(InstancePtr,   (ActiveWindow->StartX+ActiveWindow->Width-1));
-  XV_letterbox_Set_HwReg_row_start(InstancePtr, ActiveWindow->StartY);
-  XV_letterbox_Set_HwReg_row_end(InstancePtr,   (ActiveWindow->StartY+ActiveWindow->Height-1));
+  XV_letterbox_Set_HwReg_col_start(&InstancePtr->Lbox, ActiveWindow->StartX);
+  XV_letterbox_Set_HwReg_col_end(&InstancePtr->Lbox,
+                (ActiveWindow->StartX+ActiveWindow->Width-1));
+  XV_letterbox_Set_HwReg_row_start(&InstancePtr->Lbox, ActiveWindow->StartY);
+  XV_letterbox_Set_HwReg_row_end(&InstancePtr->Lbox,
+                (ActiveWindow->StartY+ActiveWindow->Height-1));
 
-  XV_letterbox_Set_HwReg_height(InstancePtr, FrameHeight);
-  XV_letterbox_Set_HwReg_width(InstancePtr,  FrameWidth);
+  XV_letterbox_Set_HwReg_height(&InstancePtr->Lbox, FrameHeight);
+  XV_letterbox_Set_HwReg_width(&InstancePtr->Lbox,  FrameWidth);
 }
 
 /*****************************************************************************/
@@ -160,8 +186,8 @@ void XV_LBoxSetActiveWin(XV_letterbox *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
-                                XLboxColorId      ColorId,
+void XV_LboxSetBackgroundColor(XV_Lbox_l2    *InstancePtr,
+                                XLboxColorId ColorId,
                                 XVidC_ColorFormat cfmt,
                                 XVidC_ColorDepth  bpc)
 {
@@ -173,7 +199,7 @@ void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
    */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid((bpc >= XVIDC_BPC_8) &&
-                 (bpc <= InstancePtr->Config.MaxDataWidth))
+                 (bpc <= InstancePtr->Lbox.Config.MaxDataWidth))
 
   if(cfmt == XVIDC_CSF_RGB)
   {
@@ -191,12 +217,12 @@ void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
   }
 
   /* Set video format */
-  XV_letterbox_Set_HwReg_video_format(InstancePtr, cfmt);
+  XV_letterbox_Set_HwReg_video_format(&InstancePtr->Lbox, cfmt);
 
   /* Set Background color (outside window) */
-  XV_letterbox_Set_HwReg_Y_R_value(InstancePtr,  y_r_val);
-  XV_letterbox_Set_HwReg_Cb_G_value(InstancePtr, Cb_g_val);
-  XV_letterbox_Set_HwReg_Cr_B_value(InstancePtr, Cr_b_val);
+  XV_letterbox_Set_HwReg_Y_R_value(&InstancePtr->Lbox,  y_r_val);
+  XV_letterbox_Set_HwReg_Cb_G_value(&InstancePtr->Lbox, Cb_g_val);
+  XV_letterbox_Set_HwReg_Cr_B_value(&InstancePtr->Lbox, Cr_b_val);
 }
 
 
@@ -210,9 +236,9 @@ void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
 * @return	None
 *
 ******************************************************************************/
-void XV_LBoxDbgReportStatus(XV_letterbox *InstancePtr)
+void XV_LBoxDbgReportStatus(XV_Lbox_l2 *InstancePtr)
 {
-  XV_letterbox *pLbox = InstancePtr;
+  XV_letterbox *pLbox = &InstancePtr->Lbox;
   u32 done, idle, ready, ctrl;
   u32 colstart, colend, rowstart, rowend;
   u32 yr,cbg,crb, cfmt, width, height;

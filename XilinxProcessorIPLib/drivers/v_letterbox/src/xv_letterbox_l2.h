@@ -91,7 +91,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
@@ -121,21 +122,33 @@ typedef enum
   XLBOX_BKGND_LAST
 }XLboxColorId;
 
-/************************** Function Prototypes ******************************/
-void XV_LBoxStart(XV_letterbox *InstancePtr);
-void XV_LBoxStop(XV_letterbox *InstancePtr);
+/**
+ * Letterbox Layer 2 data. The user is required to allocate a variable
+ * of this type for every V Scaler device in the system. A pointer to a
+ * variable of this type is then passed to the driver API functions.
+ */
+typedef struct
+{
+  XV_letterbox Lbox; /*<< Layer 1 instance */
 
-void XV_LBoxSetActiveWin(XV_letterbox *InstancePtr,
+}XV_Lbox_l2;
+
+/************************** Function Prototypes ******************************/
+int XV_LBoxInitialize(XV_Lbox_l2 *InstancePtr, u16 DeviceId);
+void XV_LBoxStart(XV_Lbox_l2 *InstancePtr);
+void XV_LBoxStop(XV_Lbox_l2 *InstancePtr);
+
+void XV_LBoxSetActiveWin(XV_Lbox_l2 *InstancePtr,
                          XVidC_VideoWindow *ActiveWindow,
                          u32 FrameWidth,
                          u32 FrameHeight);
 
-void XV_LboxSetBackgroundColor(XV_letterbox     *InstancePtr,
-                               XLboxColorId      ColorId,
+void XV_LboxSetBackgroundColor(XV_Lbox_l2    *InstancePtr,
+                               XLboxColorId  ColorId,
                                XVidC_ColorFormat cfmt,
                                XVidC_ColorDepth  bpc);
 
-void XV_LBoxDbgReportStatus(XV_letterbox *InstancePtr);
+void XV_LBoxDbgReportStatus(XV_Lbox_l2 *InstancePtr);
 
 #ifdef __cplusplus
 }
