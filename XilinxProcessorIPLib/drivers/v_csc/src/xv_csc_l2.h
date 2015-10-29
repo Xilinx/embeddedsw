@@ -99,7 +99,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
@@ -157,11 +158,13 @@ typedef enum
 }XV_CSC_FW_REG_MMAP;
 
 /**
- * This typedef contains the layer 2 register map for a given
- * instance of the csc core.
+ * Csc driver Layer 2 data. The user is required to allocate a variable
+ * of this type for every mixer device in the system. A pointer to a
+ * variable of this type is then passed to the driver API functions.
  */
 typedef struct
 {
+  XV_csc Csc;       /*<< Layer 1 instance */
   XVidC_ColorFormat ColorFormatIn;
   XVidC_ColorFormat ColorFormatOut;
   XVidC_ColorStd StandardIn;
@@ -183,106 +186,100 @@ typedef struct
   s32 K_active[3][4];
 
   s32 regMap[CSC_FW_NUM_REGS];
-}XV_csc_L2Reg;
+}XV_Csc_l2;
 
 /************************** Macros Definitions *******************************/
 /*****************************************************************************/
 /**
 * This macro sets color depth for CSC core
 *
-* @param  pCscFwReg is a pointer to csc layer 2 fw register map
+* @param  InstancePtr is a pointer to csc layer 2 fw register map
 * @param  val is the requested color depth
 *
 * @return None
 *
 ******************************************************************************/
-#define XV_CscSetColorDepth(pCscFwReg, val)   ((pCscFwReg)->ColorDepth = val)
+#define XV_CscSetColorDepth(InstancePtr, val) \
+									((InstancePtr)->ColorDepth = val)
 
 /*****************************************************************************/
 /**
 * This macro returns current brightness setting by reading layer 2 fw register
 * map. It also translates between hw register value and user view
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return current user view value (0-100)
 *
 ******************************************************************************/
-#define XV_CscGetBrightness(pCscFwReg)        (((pCscFwReg)->Brightness-20)/2)
+#define XV_CscGetBrightness(InstancePtr)    (((InstancePtr)->Brightness-20)/2)
 
 /*****************************************************************************/
 /**
 * This macro returns current contrast setting by reading layer 2 fw register
 * map. It also translates between hw register value and user view
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return current user view value (0-100)
 *
 ******************************************************************************/
-#define XV_CscGetContrast(pCscFwReg)          (((pCscFwReg)->Contrast+200)/4)
+#define XV_CscGetContrast(InstancePtr)       (((InstancePtr)->Contrast+200)/4)
 
 /*****************************************************************************/
 /**
 * This macro returns current saturation setting by reading layer 2 fw register
 * map. It also translates between hw register value and user view
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return current user view value (0-100)
 *
 ******************************************************************************/
-#define XV_CscGetSaturation(pCscFwReg)        (((pCscFwReg)->Saturation/2))
+#define XV_CscGetSaturation(InstancePtr)       (((InstancePtr)->Saturation/2))
 
 /*****************************************************************************/
 /**
 * This macro returns current red gain setting by reading layer 2 fw register
 * map. It also translates between hw register value and user view
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return current user view value (0-100)
 *
 ******************************************************************************/
-#define XV_CscGetRedGain(pCscFwReg)           (((pCscFwReg)->RedGain-20)/2)
+#define XV_CscGetRedGain(InstancePtr)          (((InstancePtr)->RedGain-20)/2)
 
 /*****************************************************************************/
 /**
 * This macro returns current green gain setting by reading layer 2 fw register
 * map. It also translates between hw register value and user view
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return current user view value (0-100)
 *
 ******************************************************************************/
-#define XV_CscGetGreenGain(pCscFwReg)         (((pCscFwReg)->GreenGain-20)/2)
+#define XV_CscGetGreenGain(InstancePtr)      (((InstancePtr)->GreenGain-20)/2)
 
 /*****************************************************************************/
 /**
 * This macro returns current blue gain setting by reading layer 2 fw register
 * map. It also translates between hw register value and user view
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return current user view value (0-100)
 *
 ******************************************************************************/
-#define XV_CscGetBlueGain(pCscFwReg)          (((pCscFwReg)->BlueGain-20)/2)
+#define XV_CscGetBlueGain(InstancePtr)        (((InstancePtr)->BlueGain-20)/2)
 
 /*****************************************************************************/
 /**
 * This macro returns current set input color format by reading layer 2 fw
 * register map.
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return Current set input color format
 *		- XVIDC_CSF_RGB
@@ -290,15 +287,14 @@ typedef struct
 *		- XVIDC_CSF_YCRCB_422
 *
 ******************************************************************************/
-#define XV_CscGetColorFormatIn(pCscFwReg)     ((pCscFwReg)->ColorFormatIn)
+#define XV_CscGetColorFormatIn(InstancePtr)     ((InstancePtr)->ColorFormatIn)
 
 /*****************************************************************************/
 /**
 * This macro returns current set output color format by reading layer 2 fw
 * register map.
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return Current set output color format
 *		- XVIDC_CSF_RGB
@@ -306,15 +302,14 @@ typedef struct
 *		- XVIDC_CSF_YCRCB_422
 *
 ******************************************************************************/
-#define XV_CscGetColorFormatOut(pCscFwReg)    ((pCscFwReg)->ColorFormatOut)
+#define XV_CscGetColorFormatOut(InstancePtr)   ((InstancePtr)->ColorFormatOut)
 
 /*****************************************************************************/
 /**
 * This macro returns current set input color standard by reading layer 2 fw
 * register map.
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return Current set input color standard
 *		- XVIDC_BT_2020
@@ -322,15 +317,14 @@ typedef struct
 *		- XVIDC_BT_601
 *
 ******************************************************************************/
-#define XV_CscGetColorStdIn(pCscFwReg)        ((pCscFwReg)->StandardIn)
+#define XV_CscGetColorStdIn(InstancePtr)        ((InstancePtr)->StandardIn)
 
 /*****************************************************************************/
 /**
 * This macro returns current set output color standard by reading layer 2 fw
 * register map.
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return Current set output color standard
 *		- XVIDC_BT_2020
@@ -338,15 +332,14 @@ typedef struct
 *		- XVIDC_BT_601
 *
 *****************************************************************************/
-#define XV_CscGetColorStdOut(pCscFwReg)       ((pCscFwReg)->StandardOut)
+#define XV_CscGetColorStdOut(InstancePtr)       ((InstancePtr)->StandardOut)
 
 /*****************************************************************************/
 /**
 * This macro returns current set output range by reading layer 2 fw register
 * map.
 *
-* @param  pCscFwReg is pointer to csc fw register associated with csc core
-*         instance
+* @param  InstancePtr is pointer to csc core layer 2
 *
 * @return Current set output range
 *		- XVIDC_CR_16_235
@@ -354,18 +347,19 @@ typedef struct
 *		- XVIDC_CR_0_255
 *
 ******************************************************************************/
-#define XV_CscGetOutputRange(pCscFwReg)       ((pCscFwReg)->OutputRange)
+#define XV_CscGetOutputRange(InstancePtr)       ((InstancePtr)->OutputRange)
 
 /************************** Function Prototypes ******************************/
-void XV_CscStart(XV_csc *InstancePtr);
-void XV_CscStop(XV_csc *InstancePtr);
-void XV_CscSetActiveSize(XV_csc *InstancePtr,
+int XV_CscInitialize(XV_Csc_l2 *InstancePtr, u16 DeviceId);
+void XV_CscSetPowerOnDefaultState(XV_Csc_l2 *CscPtr);
+void XV_CscStart(XV_Csc_l2 *InstancePtr);
+void XV_CscStop(XV_Csc_l2 *InstancePtr);
+void XV_CscSetActiveSize(XV_Csc_l2 *InstancePtr,
                          u32    width,
                          u32    height);
-void XV_CscSetDemoWindow(XV_csc *InstancePtr, XVidC_VideoWindow *ActiveWindow);
+void XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *ActiveWindow);
 
-void XV_CscSetColorspace(XV_csc *InstancePtr,
-                         XV_csc_L2Reg  *pCscFwReg,
+void XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
                          XVidC_ColorFormat cfmtIn,
                          XVidC_ColorFormat cfmtOut,
                          XVidC_ColorStd    cstdIn,
@@ -373,26 +367,13 @@ void XV_CscSetColorspace(XV_csc *InstancePtr,
                          XVidC_ColorRange  cRangeOut
                          );
 
-void XV_CscInitPowerOnDefault(XV_csc_L2Reg *pCscFwReg);
-void XV_CscSetBrightness(XV_csc *InstancePtr,
-                         XV_csc_L2Reg *pCscFwReg,
-                         s32 val);
-void XV_CscSetContrast(XV_csc *InstancePtr,
-                        XV_csc_L2Reg *pCscFwReg,
-                        s32 val);
-void XV_CscSetSaturation(XV_csc *InstancePtr,
-                         XV_csc_L2Reg *pCscFwReg,
-                         s32 val);
-void XV_CscSetRedGain(XV_csc *InstancePtr,
-                      XV_csc_L2Reg *pCscFwReg,
-                      s32 val);
-void XV_CscSetGreenGain(XV_csc *InstancePtr,
-                        XV_csc_L2Reg *pCscFwReg,
-                        s32 val);
-void XV_CscSetBlueGain(XV_csc *InstancePtr,
-                       XV_csc_L2Reg *pCscFwReg,
-                       s32 val);
-void XV_CscDbgReportStatus(XV_csc *InstancePtr);
+void XV_CscSetBrightness(XV_Csc_l2 *InstancePtr, s32 val);
+void XV_CscSetContrast(XV_Csc_l2 *InstancePtr, s32 val);
+void XV_CscSetSaturation(XV_Csc_l2 *InstancePtr, s32 val);
+void XV_CscSetRedGain(XV_Csc_l2 *InstancePtr, s32 val);
+void XV_CscSetGreenGain(XV_Csc_l2 *InstancePtr, s32 val);
+void XV_CscSetBlueGain(XV_Csc_l2 *InstancePtr, s32 val);
+void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr);
 
 #ifdef __cplusplus
 }

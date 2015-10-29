@@ -48,12 +48,14 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include <string.h>
 #include "xv_csc_l2.h"
 
 /************************** Constant Definitions *****************************/
@@ -87,53 +89,123 @@ static void cscFwRGBtoYCbCr(s32 K[3][4],
                             s32 *ClampMin,
                             s32 *ClipMax);
 #if 0 //currently not used
-static void cscFwGetCoefficients(XV_csc_L2Reg *pCscFwReg,
+static void cscFwGetCoefficients(XV_Csc_l2 *CscPtr,
                                  s32 K[3][4],
                                  s32 *ClampMin,
                                  s32 *ClipMax);
 #endif
-static void cscFwSetCoefficients(XV_csc_L2Reg *pCscFwReg,
+static void cscFwSetCoefficients(XV_Csc_l2 *CscPtr,
                                  s32 K[3][4],
                                  s32 ClampMin,
                                  s32 ClipMax);
-static void cscFwGetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4]);
-static void cscFwSetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4]);
+static void cscFwGetActiveCoefficients(XV_Csc_l2 *CscPtr, s32 K[3][4]);
+static void cscFwSetActiveCoefficients(XV_Csc_l2 *CscPtr, s32 K[3][4]);
 static void cscFwMatrixMult(s32 K1[3][4], s32 K2[3][4], s32 Kout[3][4]);
-static void cscFwComputeCoeff(XV_csc_L2Reg *pCscFwReg,
+static void cscFwComputeCoeff(XV_Csc_l2 *CscPtr,
                               s32 K2[3][4]);
-static void cscUpdateIPReg(XV_csc *pCsc,
-                           XV_csc_L2Reg *pCscFwReg,
+static void cscUpdateIPReg(XV_Csc_l2 *CscPtr,
                            XV_CSC_REG_UPDT_WIN win);
 /*****************************************************************************/
 /**
 * This function provides the write interface for FW register bank
 *
-* @param  pCscFwReg is a pointer to fw register map of csc core instance
+* @param  CscPtr is a pointer to layer 2 of csc core instance
 * @param  offset is register offset
 * @param  val is data to write
 *
 * @return None
 *
 ******************************************************************************/
-__inline void cscFw_RegW(XV_csc_L2Reg *pCscFwReg, u32 offset, s32 val)
+__inline void cscFw_RegW(XV_Csc_l2 *CscPtr, u32 offset, s32 val)
 {
-  pCscFwReg->regMap[offset] = val;
+  CscPtr->regMap[offset] = val;
 }
 
 /*****************************************************************************/
 /**
 * This function provides the read interface for FW register bank
 *
-* @param  pCscFwReg is a pointer to fw register map of csc core instance
+* @param  CscPtr is a pointer to layer 2 of csc core instance
 * @param  offset is register offset
 *
 * @return Register value at requested offset
 *
 *
 ******************************************************************************/
-__inline s32 cscFw_RegR(XV_csc_L2Reg *pCscFwReg, u32 offset)
+__inline s32 cscFw_RegR(XV_Csc_l2 *CscPtr, u32 offset)
 {
-  return pCscFwReg->regMap[offset];
+  return CscPtr->regMap[offset];
+}
+
+/*****************************************************************************/
+/**
+* This function initializes the core instance
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  DeviceId is instance id of the core
+*
+* @return XST_SUCCESS if device is found and initialized
+*         XST_DEVICE_NOT_FOUND if device is not found
+*
+******************************************************************************/
+int XV_CscInitialize(XV_Csc_l2 *InstancePtr, u16 DeviceId)
+{
+  int Status;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Setup the instance */
+  memset(InstancePtr, 0, sizeof(XV_Csc_l2));
+  Status = XV_csc_Initialize(&InstancePtr->Csc, DeviceId);
+
+  if(Status == XST_SUCCESS) {
+	XV_CscSetPowerOnDefaultState(InstancePtr);
+  }
+  return(Status);
+}
+
+/*****************************************************************************/
+/**
+* This function sets the CSC IP layer 2 fw registers to power on default state
+*
+* @param  CscPtr is a pointer to the layer 2
+*
+* @return None
+*
+******************************************************************************/
+void XV_CscSetPowerOnDefaultState(XV_Csc_l2 *CscPtr)
+{
+  Xil_AssertVoid(CscPtr != NULL);
+
+  CscPtr->ColorFormatIn     = XVIDC_CSF_RGB;
+  CscPtr->ColorFormatOut    = XVIDC_CSF_RGB;
+  CscPtr->StandardIn        = XVIDC_BT_601;
+  CscPtr->StandardOut       = XVIDC_BT_601;
+  CscPtr->OutputRange       = XVIDC_CR_0_255;
+  CscPtr->ColorDepth        = XVIDC_BPC_8;
+  CscPtr->Brightness        = 120;
+  CscPtr->Contrast          = 0;
+  CscPtr->Saturation        = 100;
+  CscPtr->RedGain           = 120;
+  CscPtr->GreenGain         = 120;
+  CscPtr->BlueGain          = 120;
+  CscPtr->Brightness_active = 120;
+  CscPtr->Contrast_active   = 0;
+  CscPtr->Saturation_active = 100;
+  CscPtr->RedGain_active    = 120;
+  CscPtr->GreenGain_active  = 120;
+  CscPtr->BlueGain_active   = 120;
+  CscPtr->K_active[0][0]    = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
+  CscPtr->K_active[0][1]    = 0;
+  CscPtr->K_active[0][2]    = 0;
+  CscPtr->K_active[1][0]    = 0;
+  CscPtr->K_active[1][1]    = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
+  CscPtr->K_active[1][2]    = 0;
+  CscPtr->K_active[2][0]    = 0;
+  CscPtr->K_active[2][1]    = 0;
+  CscPtr->K_active[2][2]    = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
+  CscPtr->K_active[0][3]    = 0;
+  CscPtr->K_active[1][3]    = 0;
+  CscPtr->K_active[2][3]    = 0;
 }
 
 /*****************************************************************************/
@@ -145,12 +217,12 @@ __inline s32 cscFw_RegR(XV_csc_L2Reg *pCscFwReg, u32 offset)
 * @return None
 *
 ******************************************************************************/
-void XV_CscStart(XV_csc *InstancePtr)
+void XV_CscStart(XV_Csc_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_csc_EnableAutoRestart(InstancePtr);
-  XV_csc_Start(InstancePtr);
+  XV_csc_EnableAutoRestart(&InstancePtr->Csc);
+  XV_csc_Start(&InstancePtr->Csc);
 }
 
 /*****************************************************************************/
@@ -162,11 +234,11 @@ void XV_CscStart(XV_csc *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_CscStop(XV_csc *InstancePtr)
+void XV_CscStop(XV_Csc_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_csc_DisableAutoRestart(InstancePtr);
+  XV_csc_DisableAutoRestart(&InstancePtr->Csc);
 }
 
 /*****************************************************************************/
@@ -181,20 +253,20 @@ void XV_CscStop(XV_csc *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetActiveSize(XV_csc *InstancePtr,
+void XV_CscSetActiveSize(XV_Csc_l2 *InstancePtr,
                           u32    width,
                           u32    height)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_csc_Set_HwReg_width(InstancePtr,  width);
-  XV_csc_Set_HwReg_height(InstancePtr, height);
+  XV_csc_Set_HwReg_width(&InstancePtr->Csc,  width);
+  XV_csc_Set_HwReg_height(&InstancePtr->Csc, height);
 
   //Reset demo window to full frame
-  XV_csc_Set_HwReg_ColStart(InstancePtr, 0);
-  XV_csc_Set_HwReg_ColEnd(InstancePtr,   (width-1));
-  XV_csc_Set_HwReg_RowStart(InstancePtr, 0);
-  XV_csc_Set_HwReg_RowEnd(InstancePtr,  (height-1));
+  XV_csc_Set_HwReg_ColStart(&InstancePtr->Csc, 0);
+  XV_csc_Set_HwReg_ColEnd(&InstancePtr->Csc,   (width-1));
+  XV_csc_Set_HwReg_RowStart(&InstancePtr->Csc, 0);
+  XV_csc_Set_HwReg_RowEnd(&InstancePtr->Csc,  (height-1));
 }
 
 /*****************************************************************************/
@@ -209,62 +281,15 @@ void XV_CscSetActiveSize(XV_csc *InstancePtr,
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetDemoWindow(XV_csc *InstancePtr, XVidC_VideoWindow *ActiveWindow)
+void XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *ActiveWindow)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_csc_Set_HwReg_ColStart(InstancePtr, ActiveWindow->StartX);
-  XV_csc_Set_HwReg_ColEnd(InstancePtr,   (ActiveWindow->StartX+ActiveWindow->Width-1));
-  XV_csc_Set_HwReg_RowStart(InstancePtr, ActiveWindow->StartY);
-  XV_csc_Set_HwReg_RowEnd(InstancePtr,   (ActiveWindow->StartY+ActiveWindow->Height-1));
+  XV_csc_Set_HwReg_ColStart(&InstancePtr->Csc, ActiveWindow->StartX);
+  XV_csc_Set_HwReg_ColEnd(&InstancePtr->Csc,   (ActiveWindow->StartX+ActiveWindow->Width-1));
+  XV_csc_Set_HwReg_RowStart(&InstancePtr->Csc, ActiveWindow->StartY);
+  XV_csc_Set_HwReg_RowEnd(&InstancePtr->Csc,   (ActiveWindow->StartY+ActiveWindow->Height-1));
 }
-
-
-/*****************************************************************************/
-/**
-* This function sets the CSC IP layer 2 fw registers to power on default state
-*
-* @param  pCscFwReg is a pointer to the layer 2 fw register bank
-*
-* @return None
-*
-******************************************************************************/
-void XV_CscInitPowerOnDefault(XV_csc_L2Reg *pCscFwReg)
-{
-  Xil_AssertVoid(pCscFwReg != NULL);
-
-  pCscFwReg->ColorFormatIn     = XVIDC_CSF_RGB;
-  pCscFwReg->ColorFormatOut    = XVIDC_CSF_RGB;
-  pCscFwReg->StandardIn        = XVIDC_BT_601;
-  pCscFwReg->StandardOut       = XVIDC_BT_601;
-  pCscFwReg->OutputRange       = XVIDC_CR_0_255;
-  pCscFwReg->ColorDepth        = XVIDC_BPC_8;
-  pCscFwReg->Brightness        = 120;
-  pCscFwReg->Contrast          = 0;
-  pCscFwReg->Saturation        = 100;
-  pCscFwReg->RedGain           = 120;
-  pCscFwReg->GreenGain         = 120;
-  pCscFwReg->BlueGain          = 120;
-  pCscFwReg->Brightness_active = 120;
-  pCscFwReg->Contrast_active   = 0;
-  pCscFwReg->Saturation_active = 100;
-  pCscFwReg->RedGain_active    = 120;
-  pCscFwReg->GreenGain_active  = 120;
-  pCscFwReg->BlueGain_active   = 120;
-  pCscFwReg->K_active[0][0]    = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
-  pCscFwReg->K_active[0][1]    = 0;
-  pCscFwReg->K_active[0][2]    = 0;
-  pCscFwReg->K_active[1][0]    = 0;
-  pCscFwReg->K_active[1][1]    = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
-  pCscFwReg->K_active[1][2]    = 0;
-  pCscFwReg->K_active[2][0]    = 0;
-  pCscFwReg->K_active[2][1]    = 0;
-  pCscFwReg->K_active[2][2]    = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
-  pCscFwReg->K_active[0][3]    = 0;
-  pCscFwReg->K_active[1][3]    = 0;
-  pCscFwReg->K_active[2][3]    = 0;
-}
-
 
 /*****************************************************************************/
 /**
@@ -273,7 +298,6 @@ void XV_CscInitPowerOnDefault(XV_csc_L2Reg *pCscFwReg)
  * csc core should have been configured via this call.
  *
  * @param  InstancePtr is a pointer to the core instance to be worked on.
- * @param  pCscFwReg is pointer to layer 2 register bank
  * @param  cfmtIn is input color space
  * @param  cfmtOut is output color space
  * @param  cstdIn is input color standard
@@ -283,28 +307,26 @@ void XV_CscInitPowerOnDefault(XV_csc_L2Reg *pCscFwReg)
  * @return None
  *
  *****************************************************************************/
-void XV_CscSetColorspace(XV_csc *InstancePtr,
-                          XV_csc_L2Reg  *pCscFwReg,
-                          XVidC_ColorFormat cfmtIn,
-                          XVidC_ColorFormat cfmtOut,
-                          XVidC_ColorStd cstdIn,
-                          XVidC_ColorStd cstdOut,
-                          XVidC_ColorRange  cRangeOut
-                         )
+void XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
+                         XVidC_ColorFormat cfmtIn,
+                         XVidC_ColorFormat cfmtOut,
+                         XVidC_ColorStd cstdIn,
+                         XVidC_ColorStd cstdOut,
+                         XVidC_ColorRange  cRangeOut
+                        )
 {
   s32 K[3][4], K1[3][4], K2[3][4];
   s32 ClampMin = 0;
   s32 ClipMax;
   s32 scale_factor;
-  XV_csc *pCsc = InstancePtr;
+  XV_csc *pCsc = &InstancePtr->Csc;
 
   /*
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pCscFwReg != NULL);
 
-  ClipMax  = ((1<<pCscFwReg->ColorDepth)-1);
+  ClipMax  = ((1<<InstancePtr->ColorDepth)-1);
   scale_factor = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
 
   //initialize to identity matrix
@@ -325,11 +347,11 @@ void XV_CscSetColorspace(XV_csc *InstancePtr,
   XV_csc_Set_HwReg_OutVideoFormat(pCsc, cfmtOut);
   if ((cfmtIn == XVIDC_CSF_RGB) && (cfmtOut == XVIDC_CSF_YCRCB_444) )
   {
-    cscFwRGBtoYCbCr(K, cstdOut, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(K, cstdOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
   }
   else if ((cfmtIn == XVIDC_CSF_YCRCB_444) && (cfmtOut == XVIDC_CSF_RGB))
   {
-    cscFwYCbCrtoRGB(K, cstdIn, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(K, cstdIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
   }
   else if ((cfmtIn == XVIDC_CSF_RGB) && (cfmtOut == XVIDC_CSF_RGB) )
   {
@@ -339,39 +361,39 @@ void XV_CscSetColorspace(XV_csc *InstancePtr,
   {
     if (cstdIn != cstdOut)
     {
-      cscFwYCbCrtoRGB(K1, cstdIn, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
-      cscFwRGBtoYCbCr(K2, cstdOut, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+      cscFwYCbCrtoRGB(K1, cstdIn,  InstancePtr->ColorDepth, &ClampMin, &ClipMax);
+      cscFwRGBtoYCbCr(K2, cstdOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
       cscFwMatrixMult(K1, K2, K);
     }
   }
   //update fw registers
-  pCscFwReg->ColorFormatIn  = cfmtIn;
-  pCscFwReg->ColorFormatOut = cfmtOut;
-  pCscFwReg->StandardIn     = cstdIn;
-  pCscFwReg->StandardOut    = cstdOut;
-  pCscFwReg->OutputRange    = cRangeOut;
+  InstancePtr->ColorFormatIn  = cfmtIn;
+  InstancePtr->ColorFormatOut = cfmtOut;
+  InstancePtr->StandardIn     = cstdIn;
+  InstancePtr->StandardOut    = cstdOut;
+  InstancePtr->OutputRange    = cRangeOut;
 
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K11,K[0][0]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K12,K[0][1]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K13,K[0][2]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K21,K[1][0]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K22,K[1][1]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K23,K[1][2]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K13,K[2][0]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K32,K[2][1]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K33,K[2][2]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_ROffset,K[0][3]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_GOffset,K[1][3]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_BOffset,K[2][3]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_ClampMin,ClampMin);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_ClipMax,ClipMax);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K11,K[0][0]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K12,K[0][1]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K13,K[0][2]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K21,K[1][0]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K22,K[1][1]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K23,K[1][2]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K13,K[2][0]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K32,K[2][1]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K33,K[2][2]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_ROffset,K[0][3]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_GOffset,K[1][3]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_BOffset,K[2][3]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_ClampMin,ClampMin);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_ClipMax,ClipMax);
 
   //compute coeff for Demo window
-  cscFwComputeCoeff(pCscFwReg, pCscFwReg->K_active);
+  cscFwComputeCoeff(InstancePtr, InstancePtr->K_active);
 
   //write IP Registers
-  cscUpdateIPReg(pCsc, pCscFwReg, UPDT_REG_FULL_FRAME);
-  cscUpdateIPReg(pCsc, pCscFwReg, UPD_REG_DEMO_WIN);
+  cscUpdateIPReg(InstancePtr, UPDT_REG_FULL_FRAME);
+  cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
 }
 
 /*****************************************************************************/
@@ -557,7 +579,7 @@ static void cscFwRGBtoYCbCr(s32 RGB2YCC[3][4],
 /**
  * This function reads demo window coefficient set from the register bank
 *
-* @param  pCscFwReg is the pointer to layer 2 fw register bank
+* @param  CscPtr is the pointer to layer 2 fw register bank
 * @param  K is the array to hold coefficients
 *
 * @return
@@ -565,25 +587,25 @@ static void cscFwRGBtoYCbCr(s32 RGB2YCC[3][4],
 *   - ClipMax  is max value to saturate
 *
 ******************************************************************************/
-static void cscFwGetCoefficients(XV_csc_L2Reg *pCscFwReg,
+static void cscFwGetCoefficients(XV_Csc_l2 *CscPtr,
                                  s32 K[3][4],
                                  s32 *ClampMin,
                                  s32 *ClipMax)
 {
-  K[0][0]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K11_2);
-  K[0][1]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K12_2);
-  K[0][2]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K13_2);
-  K[1][0]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K21_2);
-  K[1][1]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K22_2);
-  K[1][2]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K23_2);
-  K[2][0]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K31_2);
-  K[2][1]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K32_2);
-  K[2][2]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_K33_2);
-  K[0][3]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_ROffset_2);
-  K[1][3]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_GOffset_2);
-  K[2][3]  = cscFw_RegR(pCscFwReg, CSC_FW_REG_BOffset_2);
-  *ClampMin = cscFw_RegR(pCscFwReg, CSC_FW_REG_ClampMin_2);
-  *ClipMax  = cscFw_RegR(pCscFwReg, CSC_FW_REG_ClipMax_2);
+  K[0][0]  = cscFw_RegR(CscPtr, CSC_FW_REG_K11_2);
+  K[0][1]  = cscFw_RegR(CscPtr, CSC_FW_REG_K12_2);
+  K[0][2]  = cscFw_RegR(CscPtr, CSC_FW_REG_K13_2);
+  K[1][0]  = cscFw_RegR(CscPtr, CSC_FW_REG_K21_2);
+  K[1][1]  = cscFw_RegR(CscPtr, CSC_FW_REG_K22_2);
+  K[1][2]  = cscFw_RegR(CscPtr, CSC_FW_REG_K23_2);
+  K[2][0]  = cscFw_RegR(CscPtr, CSC_FW_REG_K31_2);
+  K[2][1]  = cscFw_RegR(CscPtr, CSC_FW_REG_K32_2);
+  K[2][2]  = cscFw_RegR(CscPtr, CSC_FW_REG_K33_2);
+  K[0][3]  = cscFw_RegR(CscPtr, CSC_FW_REG_ROffset_2);
+  K[1][3]  = cscFw_RegR(CscPtr, CSC_FW_REG_GOffset_2);
+  K[2][3]  = cscFw_RegR(CscPtr, CSC_FW_REG_BOffset_2);
+  *ClampMin = cscFw_RegR(CscPtr, CSC_FW_REG_ClampMin_2);
+  *ClipMax  = cscFw_RegR(CscPtr, CSC_FW_REG_ClipMax_2);
 }
 #endif
 
@@ -591,7 +613,7 @@ static void cscFwGetCoefficients(XV_csc_L2Reg *pCscFwReg,
 /**
 * This function writes demo window coefficients to layer 2 fw register bank
 *
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
+* @param  CscPtr is a pointer to layer 2 fw register bank
 * @param  K is an array to hold coefficients
 * @param  ClampMin is min value to clamp
 * @param  ClipMax is max value to saturate
@@ -599,38 +621,38 @@ static void cscFwGetCoefficients(XV_csc_L2Reg *pCscFwReg,
 * @return None
 *
 ******************************************************************************/
-static void cscFwSetCoefficients(XV_csc_L2Reg *pCscFwReg,
+static void cscFwSetCoefficients(XV_Csc_l2 *CscPtr,
                                  s32 K[3][4],
                                  s32 ClampMin,
                                  s32 ClipMax)
 {
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K11_2,K[0][0]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K12_2,K[0][1]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K13_2,K[0][2]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K21_2,K[1][0]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K22_2,K[1][1]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K23_2,K[1][2]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K31_2,K[2][0]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K32_2,K[2][1]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_K33_2,K[2][2]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_ROffset_2,K[0][3]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_GOffset_2,K[1][3]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_BOffset_2,K[2][3]);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_ClampMin_2,ClampMin);
-  cscFw_RegW(pCscFwReg, CSC_FW_REG_ClipMax_2,ClipMax);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K11_2,K[0][0]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K12_2,K[0][1]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K13_2,K[0][2]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K21_2,K[1][0]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K22_2,K[1][1]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K23_2,K[1][2]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K31_2,K[2][0]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K32_2,K[2][1]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_K33_2,K[2][2]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_ROffset_2,K[0][3]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_GOffset_2,K[1][3]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_BOffset_2,K[2][3]);
+  cscFw_RegW(CscPtr, CSC_FW_REG_ClampMin_2,ClampMin);
+  cscFw_RegW(CscPtr, CSC_FW_REG_ClipMax_2,ClipMax);
 }
 
 /*****************************************************************************/
 /**
 * This function gets the current RGB coefficients for demo window
 *
-* @param  pCscFwReg is the pointer to layer 2 fw register bank
+* @param  CscPtr is the pointer to layer 2 fw register bank
 * @param  K is the array to hold coefficients
 *
 * @return None
 *
 ******************************************************************************/
-static void cscFwGetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4])
+static void cscFwGetActiveCoefficients(XV_Csc_l2 *CscPtr, s32 K[3][4])
 {
   u8 x,y;
 
@@ -638,7 +660,7 @@ static void cscFwGetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4])
   {
     for(y=0; y<4; ++y)
     {
-      K[x][y] = pCscFwReg->K_active[x][y];
+      K[x][y] = CscPtr->K_active[x][y];
     }
   }
 }
@@ -647,13 +669,13 @@ static void cscFwGetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4])
 /**
 * This function sets the current RGB coefficients for demo window
 *
-* @param  pCscFwReg is the pointer to layer 2 fw register bank
+* @param  CscPtr is the pointer to layer 2 fw register bank
 * @param  K is the array to hold coefficients
 *
 * @return None
 *
 ******************************************************************************/
-static void cscFwSetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4])
+static void cscFwSetActiveCoefficients(XV_Csc_l2 *CscPtr, s32 K[3][4])
 {
   u8 x,y;
 
@@ -661,7 +683,7 @@ static void cscFwSetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4])
   {
     for(y=0; y<4; ++y)
     {
-        pCscFwReg->K_active[x][y] = K[x][y];
+        CscPtr->K_active[x][y] = K[x][y];
     }
   }
 }
@@ -672,15 +694,13 @@ static void cscFwSetActiveCoefficients(XV_csc_L2Reg *pCscFwReg, s32 K[3][4])
 * setting of 0-100 to hw register range
 *
 * @param  InstancePtr is pointer to csc core instance
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
 * @param  val is new brightness value
 *
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetBrightness(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
+void XV_CscSetBrightness(XV_Csc_l2 *InstancePtr, s32 val)
 {
-  XV_csc *pCsc = InstancePtr;
   s32 K1[3][4], K2[3][4];
   float brightness_f;
 
@@ -688,13 +708,12 @@ void XV_CscSetBrightness(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pCscFwReg != NULL);
 
-  pCscFwReg->Brightness = (val*2+20);
-  brightness_f = (float)(pCscFwReg->Brightness)/(float)(pCscFwReg->Brightness_active);
+  InstancePtr->Brightness = (val*2+20);
+  brightness_f = (float)(InstancePtr->Brightness)/(float)(InstancePtr->Brightness_active);
 
   //get active coefficient set in RGB
-  cscFwGetActiveCoefficients(pCscFwReg, K1);
+  cscFwGetActiveCoefficients(InstancePtr, K1);
 
   K2[0][0] = (s32) ((float) K1[0][0] * brightness_f);
   K2[0][1] = (s32) ((float) K1[0][1] * brightness_f);
@@ -710,12 +729,12 @@ void XV_CscSetBrightness(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
   K2[2][3] = K1[2][3];
 
   //write new active coefficient set in RGB
-  cscFwSetActiveCoefficients(pCscFwReg, K2);
+  cscFwSetActiveCoefficients(InstancePtr, K2);
   //write new active brightness value
-  pCscFwReg->Brightness_active = pCscFwReg->Brightness;
+  InstancePtr->Brightness_active = InstancePtr->Brightness;
 
-  cscFwComputeCoeff(pCscFwReg, K2);
-  cscUpdateIPReg(pCsc, pCscFwReg, UPD_REG_DEMO_WIN);
+  cscFwComputeCoeff(InstancePtr, K2);
+  cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
 }
 
 /*****************************************************************************/
@@ -724,15 +743,13 @@ void XV_CscSetBrightness(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
 * setting of 0-100 to hw register range
 *
 * @param  InstancePtr is pointer to csc core instance
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
 * @param  val is new contrast value
 *
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetContrast(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
+void XV_CscSetContrast(XV_Csc_l2 *InstancePtr, s32 val)
 {
-  XV_csc *pCsc = InstancePtr;
   s32 contrast;
   s32 K1[3][4], K2[3][4];
   s32 scale;
@@ -741,14 +758,13 @@ void XV_CscSetContrast(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pCscFwReg != NULL);
 
-  pCscFwReg->Contrast = val*4 - 200;
-  contrast = (pCscFwReg->Contrast) - (pCscFwReg->Contrast_active);
+  InstancePtr->Contrast = val*4 - 200;
+  contrast = (InstancePtr->Contrast) - (InstancePtr->Contrast_active);
 
-  scale = (1<<(pCscFwReg->ColorDepth-8));
+  scale = (1<<(InstancePtr->ColorDepth-8));
   //get active coefficient set in RGB
-  cscFwGetActiveCoefficients(pCscFwReg, K1);
+  cscFwGetActiveCoefficients(InstancePtr, K1);
 
   K2[0][0] = K1[0][0];
   K2[0][1] = K1[0][1];
@@ -764,12 +780,12 @@ void XV_CscSetContrast(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
   K2[2][3] = K1[2][3] + contrast*scale;
 
   //write new active coefficient set in RGB
-  cscFwSetActiveCoefficients(pCscFwReg, K2);
+  cscFwSetActiveCoefficients(InstancePtr, K2);
   //write new active contrast value
-  pCscFwReg->Contrast_active = pCscFwReg->Contrast;
+  InstancePtr->Contrast_active = InstancePtr->Contrast;
 
-  cscFwComputeCoeff(pCscFwReg, K2);
-  cscUpdateIPReg(pCsc, pCscFwReg, UPD_REG_DEMO_WIN);
+  cscFwComputeCoeff(InstancePtr, K2);
+  cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
 }
 
 /*****************************************************************************/
@@ -778,15 +794,13 @@ void XV_CscSetContrast(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
 * setting of 0-100 to hw register range
 *
 * @param  InstancePtr is pointer to csc core instance
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
 * @param  val is new saturation value
 *
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetSaturation(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
+void XV_CscSetSaturation(XV_Csc_l2 *InstancePtr, s32 val)
 {
-  XV_csc *pCsc = InstancePtr;
   s32 x, y;
   s32 K1[3][4], K2[3][4], K3[3][4], K4[3][4], M1[3][4], M2[3][4], Kout[3][4];
   s32 ClampMin = 0;
@@ -800,16 +814,15 @@ void XV_CscSetSaturation(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pCscFwReg != NULL);
 
-  ClipMax  = ((1<<pCscFwReg->ColorDepth)-1);
+  ClipMax  = ((1<<InstancePtr->ColorDepth)-1);
   scale_factor = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
 
-  pCscFwReg->Saturation = ((val == 0) ? 1 : val*2);
-  saturation_f = (float)(pCscFwReg->Saturation)/(float)(pCscFwReg->Saturation_active);
+  InstancePtr->Saturation = ((val == 0) ? 1 : val*2);
+  saturation_f = (float)(InstancePtr->Saturation)/(float)(InstancePtr->Saturation_active);
 
   //get active coefficient set in RGB
-  cscFwGetActiveCoefficients(pCscFwReg, K1);
+  cscFwGetActiveCoefficients(InstancePtr, K1);
 
   rwgt = 0.3086f;
   gwgt = 0.6094f;
@@ -844,42 +857,42 @@ void XV_CscSetSaturation(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
   cscFwMatrixMult(K1, K2, K3);
 
   //write new active coefficient set in RGB
-  cscFwSetActiveCoefficients(pCscFwReg, K3);
+  cscFwSetActiveCoefficients(InstancePtr, K3);
   //write new active saturation value
-  pCscFwReg->Saturation_active = pCscFwReg->Saturation;
+  InstancePtr->Saturation_active = InstancePtr->Saturation;
 
-  if ((pCscFwReg->ColorFormatIn == XVIDC_CSF_RGB) &&
-      (pCscFwReg->ColorFormatOut == XVIDC_CSF_RGB) )
+  if ((InstancePtr->ColorFormatIn == XVIDC_CSF_RGB) &&
+      (InstancePtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
     for (x=0; x<3; x++)  for (y=0; y<4; y++)
       Kout[x][y] = K3[x][y];
   }
 
-  if ((pCscFwReg->ColorFormatIn == XVIDC_CSF_RGB) &&
-      (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
+  if ((InstancePtr->ColorFormatIn == XVIDC_CSF_RGB) &&
+      (InstancePtr->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
   {
-    cscFwRGBtoYCbCr(M2, pCscFwReg->StandardOut, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, InstancePtr->StandardOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(K3, M2, Kout);
   }
 
-  if ((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
-      (pCscFwReg->ColorFormatOut == XVIDC_CSF_RGB) )
+  if ((InstancePtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
+      (InstancePtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
-    cscFwYCbCrtoRGB(M1, pCscFwReg->StandardIn, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K3, Kout);
   }
 
-  if ((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
-      (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
+  if ((InstancePtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
+      (InstancePtr->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
   {
-    cscFwYCbCrtoRGB(M1, pCscFwReg->StandardIn, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K3, K4);
-    cscFwRGBtoYCbCr(M2, pCscFwReg->StandardOut, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, InstancePtr->StandardOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(K4, M2, Kout);
   }
 
-  cscFwSetCoefficients(pCscFwReg, Kout, ClampMin, ClipMax);
-  cscUpdateIPReg(pCsc, pCscFwReg, UPD_REG_DEMO_WIN);
+  cscFwSetCoefficients(InstancePtr, Kout, ClampMin, ClipMax);
+  cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
 }
 
 /*****************************************************************************/
@@ -888,15 +901,13 @@ void XV_CscSetSaturation(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
 * setting of 0-100 to hw register range
 *
 * @param  InstancePtr is pointer to csc core instance
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
 * @param  val is new gain value
 *
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetRedGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
+void XV_CscSetRedGain(XV_Csc_l2 *InstancePtr, s32 val)
 {
-  XV_csc *pCsc = InstancePtr;
   s32 K1[3][4], K2[3][4];
   float red_f;
 
@@ -904,13 +915,12 @@ void XV_CscSetRedGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pCscFwReg != NULL);
 
-  pCscFwReg->RedGain = (val*2+20);
-  red_f = (float)(pCscFwReg->RedGain)/(float)(pCscFwReg->RedGain_active);
+  InstancePtr->RedGain = (val*2+20);
+  red_f = (float)(InstancePtr->RedGain)/(float)(InstancePtr->RedGain_active);
 
   //get active coefficient set in RGB
-  cscFwGetActiveCoefficients(pCscFwReg, K1);
+  cscFwGetActiveCoefficients(InstancePtr, K1);
 
   K2[0][0] = (s32) ((float) K1[0][0] * red_f);
   K2[0][1] = (s32) ((float) K1[0][1] * red_f);
@@ -926,12 +936,12 @@ void XV_CscSetRedGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
   K2[2][3] = K1[2][3];
 
   //write new active coefficient set in RGB
-  cscFwSetActiveCoefficients(pCscFwReg, K2);
+  cscFwSetActiveCoefficients(InstancePtr, K2);
   //write new active red value
-  pCscFwReg->RedGain_active = pCscFwReg->RedGain;
+  InstancePtr->RedGain_active = InstancePtr->RedGain;
 
-  cscFwComputeCoeff(pCscFwReg, K2);
-  cscUpdateIPReg(pCsc, pCscFwReg, UPD_REG_DEMO_WIN);
+  cscFwComputeCoeff(InstancePtr, K2);
+  cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
 }
 
 /*****************************************************************************/
@@ -940,15 +950,13 @@ void XV_CscSetRedGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
 * setting of 0-100 to hw register range
 *
 * @param  InstancePtr is pointer to csc core instance
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
 * @param  val is new gain value
 *
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetGreenGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
+void XV_CscSetGreenGain(XV_Csc_l2 *InstancePtr, s32 val)
 {
-  XV_csc *pCsc = InstancePtr;
   s32 K1[3][4], K2[3][4];
   float green_f;
 
@@ -956,13 +964,12 @@ void XV_CscSetGreenGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pCscFwReg != NULL);
 
-  pCscFwReg->GreenGain = (val*2+20);
-  green_f = (float)(pCscFwReg->GreenGain)/(float)(pCscFwReg->GreenGain_active);
+  InstancePtr->GreenGain = (val*2+20);
+  green_f = (float)(InstancePtr->GreenGain)/(float)(InstancePtr->GreenGain_active);
 
   //get active coefficient set in RGB
-  cscFwGetActiveCoefficients(pCscFwReg, K1);
+  cscFwGetActiveCoefficients(InstancePtr, K1);
 
   K2[0][0] = K1[0][0];
   K2[0][1] = K1[0][1];
@@ -978,12 +985,12 @@ void XV_CscSetGreenGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
   K2[2][3] = K1[2][3];
 
   //write new active coefficient set in RGB
-  cscFwSetActiveCoefficients(pCscFwReg, K2);
+  cscFwSetActiveCoefficients(InstancePtr, K2);
   //write new active green value
-  pCscFwReg->GreenGain_active = pCscFwReg->GreenGain;
+  InstancePtr->GreenGain_active = InstancePtr->GreenGain;
 
-  cscFwComputeCoeff(pCscFwReg, K2);
-  cscUpdateIPReg(pCsc, pCscFwReg, UPD_REG_DEMO_WIN);
+  cscFwComputeCoeff(InstancePtr, K2);
+  cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
 }
 
 /*****************************************************************************/
@@ -992,15 +999,13 @@ void XV_CscSetGreenGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
 * setting of 0-100 to hw register range
 *
 * @param  InstancePtr is pointer to csc core instance
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
 * @param  val is new gain value
 *
 * @return None
 *
 ******************************************************************************/
-void XV_CscSetBlueGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
+void XV_CscSetBlueGain(XV_Csc_l2 *InstancePtr, s32 val)
 {
-  XV_csc *pCsc = InstancePtr;
   s32 K1[3][4], K2[3][4];
   float blue_f;
 
@@ -1008,13 +1013,12 @@ void XV_CscSetBlueGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid(pCscFwReg != NULL);
 
-  pCscFwReg->BlueGain = (val*2+20);
-  blue_f = (float)(pCscFwReg->BlueGain)/(float)(pCscFwReg->BlueGain_active);
+  InstancePtr->BlueGain = (val*2+20);
+  blue_f = (float)(InstancePtr->BlueGain)/(float)(InstancePtr->BlueGain_active);
 
   //get active coefficient set in RGB
-  cscFwGetActiveCoefficients(pCscFwReg, K1);
+  cscFwGetActiveCoefficients(InstancePtr, K1);
 
   K2[0][0] = K1[0][0];
   K2[0][1] = K1[0][1];
@@ -1030,12 +1034,12 @@ void XV_CscSetBlueGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
   K2[2][3] = K1[2][3];
 
   //write new active coefficient set in RGB
-  cscFwSetActiveCoefficients(pCscFwReg, K2);
+  cscFwSetActiveCoefficients(InstancePtr, K2);
   //write new active blue value
-  pCscFwReg->BlueGain_active = pCscFwReg->BlueGain;
+  InstancePtr->BlueGain_active = InstancePtr->BlueGain;
 
-  cscFwComputeCoeff(pCscFwReg, K2);
-  cscUpdateIPReg(pCsc, pCscFwReg, UPD_REG_DEMO_WIN);
+  cscFwComputeCoeff(InstancePtr, K2);
+  cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
 }
 
 
@@ -1044,52 +1048,52 @@ void XV_CscSetBlueGain(XV_csc *InstancePtr, XV_csc_L2Reg *pCscFwReg, s32 val)
 * Compute the coefficients for the required color space and write to layer 2
 * fw register bank
 *
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
+* @param  CscPtr is a pointer to layer 2 fw register bank
 * @param  K2 is the active coefficients
 *
 * @return None
 *
 ******************************************************************************/
-static void cscFwComputeCoeff(XV_csc_L2Reg *pCscFwReg,
+static void cscFwComputeCoeff(XV_Csc_l2 *CscPtr,
                               s32 K2[3][4])
 {
   u32 x,y;
   s32 K3[3][4], M1[3][4], M2[3][4], Kout[3][4];;
   s32 ClampMin = 0;
-  s32 ClipMax  = ((1<<pCscFwReg->ColorDepth)-1);
+  s32 ClipMax  = ((1<<CscPtr->ColorDepth)-1);
 
-  if((pCscFwReg->ColorFormatIn == XVIDC_CSF_RGB) &&
-     (pCscFwReg->ColorFormatOut == XVIDC_CSF_RGB) )
+  if((CscPtr->ColorFormatIn == XVIDC_CSF_RGB) &&
+     (CscPtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
     for (x=0; x<3; x++)  for (y=0; y<4; y++)
       Kout[x][y] = K2[x][y];
   }
 
-  if ((pCscFwReg->ColorFormatIn == XVIDC_CSF_RGB) &&
-      (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
+  if ((CscPtr->ColorFormatIn == XVIDC_CSF_RGB) &&
+      (CscPtr->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
   {
-    cscFwRGBtoYCbCr(M2, pCscFwReg->StandardOut, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, CscPtr->StandardOut, CscPtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(K2, M2, Kout);
   }
 
-  if ((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
-      (pCscFwReg->ColorFormatOut == XVIDC_CSF_RGB) )
+  if ((CscPtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
+      (CscPtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
-    cscFwYCbCrtoRGB(M1, pCscFwReg->StandardIn, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K2, Kout);
   }
 
-  if (((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
-       (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_444)) ||
-      ((pCscFwReg->ColorFormatIn == XVIDC_CSF_YCRCB_422) &&
-       (pCscFwReg->ColorFormatOut == XVIDC_CSF_YCRCB_422)))
+  if (((CscPtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
+       (CscPtr->ColorFormatOut == XVIDC_CSF_YCRCB_444)) ||
+      ((CscPtr->ColorFormatIn == XVIDC_CSF_YCRCB_422) &&
+       (CscPtr->ColorFormatOut == XVIDC_CSF_YCRCB_422)))
   {
-    cscFwYCbCrtoRGB(M1, pCscFwReg->StandardIn, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K2, K3);
-    cscFwRGBtoYCbCr(M2, pCscFwReg->StandardOut, pCscFwReg->ColorDepth, &ClampMin, &ClipMax);
+    cscFwRGBtoYCbCr(M2, CscPtr->StandardOut, CscPtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(K3, M2, Kout);
   }
-  cscFwSetCoefficients(pCscFwReg, Kout, ClampMin, ClipMax);
+  cscFwSetCoefficients(CscPtr, Kout, ClampMin, ClipMax);
 }
 
 /*****************************************************************************/
@@ -1136,19 +1140,19 @@ static void cscFwMatrixMult(s32 K1[3][4], s32 K2[3][4], s32 Kout[3][4])
 * Write computed coefficients to IP HW registers
 *
 * @param  pCsc is pointer to csc core instance
-* @param  pCscFwReg is a pointer to layer 2 fw register bank
+* @param  CscPtr is a pointer to layer 2 fw register bank
 * @param  win is the window mode: Full Frame or Demo window
 *
 * @return None
 *
 ******************************************************************************/
-static void cscUpdateIPReg(XV_csc *pCsc,
-                           XV_csc_L2Reg *pCscFwReg,
+static void cscUpdateIPReg(XV_Csc_l2 *CscPtr,
                            XV_CSC_REG_UPDT_WIN win)
 {
   u8 x,y;
   s32 K[3][4];
   u32 clampMin, clipMax;
+  XV_csc *pCsc = &CscPtr->Csc;
 
   switch(win)
   {
@@ -1157,14 +1161,14 @@ static void cscUpdateIPReg(XV_csc *pCsc,
         {
           for(y=0; y<3; ++y)
           {
-            K[x][y] = cscFw_RegR(pCscFwReg, (x*3+y)+CSC_FW_REG_K11);
+            K[x][y] = cscFw_RegR(CscPtr, (x*3+y)+CSC_FW_REG_K11);
           }
         }
-        K[0][3] = cscFw_RegR(pCscFwReg, CSC_FW_REG_ROffset);
-        K[1][3] = cscFw_RegR(pCscFwReg, CSC_FW_REG_GOffset);
-        K[2][3] = cscFw_RegR(pCscFwReg, CSC_FW_REG_BOffset);
-        clampMin = cscFw_RegR(pCscFwReg, CSC_FW_REG_ClampMin);
-        clipMax  = cscFw_RegR(pCscFwReg, CSC_FW_REG_ClipMax);
+        K[0][3] = cscFw_RegR(CscPtr, CSC_FW_REG_ROffset);
+        K[1][3] = cscFw_RegR(CscPtr, CSC_FW_REG_GOffset);
+        K[2][3] = cscFw_RegR(CscPtr, CSC_FW_REG_BOffset);
+        clampMin = cscFw_RegR(CscPtr, CSC_FW_REG_ClampMin);
+        clipMax  = cscFw_RegR(CscPtr, CSC_FW_REG_ClipMax);
 
         XV_csc_Set_HwReg_K11(pCsc, K[0][0]);
         XV_csc_Set_HwReg_K12(pCsc, K[0][1]);
@@ -1187,14 +1191,14 @@ static void cscUpdateIPReg(XV_csc *pCsc,
         {
           for(y=0; y<3; ++y)
           {
-            K[x][y] = cscFw_RegR(pCscFwReg, (x*3+y)+CSC_FW_REG_K11_2);
+            K[x][y] = cscFw_RegR(CscPtr, (x*3+y)+CSC_FW_REG_K11_2);
           }
         }
-        K[0][3] = cscFw_RegR(pCscFwReg, CSC_FW_REG_ROffset_2);
-        K[1][3] = cscFw_RegR(pCscFwReg, CSC_FW_REG_GOffset_2);
-        K[2][3] = cscFw_RegR(pCscFwReg, CSC_FW_REG_BOffset_2);
-        clampMin = cscFw_RegR(pCscFwReg, CSC_FW_REG_ClampMin_2);
-        clipMax  = cscFw_RegR(pCscFwReg, CSC_FW_REG_ClipMax_2);
+        K[0][3] = cscFw_RegR(CscPtr, CSC_FW_REG_ROffset_2);
+        K[1][3] = cscFw_RegR(CscPtr, CSC_FW_REG_GOffset_2);
+        K[2][3] = cscFw_RegR(CscPtr, CSC_FW_REG_BOffset_2);
+        clampMin = cscFw_RegR(CscPtr, CSC_FW_REG_ClampMin_2);
+        clipMax  = cscFw_RegR(CscPtr, CSC_FW_REG_ClipMax_2);
 
         XV_csc_Set_HwReg_K11_2(pCsc, K[0][0]);
         XV_csc_Set_HwReg_K12_2(pCsc, K[0][1]);
@@ -1226,11 +1230,11 @@ static void cscUpdateIPReg(XV_csc *pCsc,
 * @return None
 *
 ******************************************************************************/
-void XV_CscDbgReportStatus(XV_csc *InstancePtr)
+void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  XV_csc *pCsc = InstancePtr;
+  XV_csc *pCsc = &InstancePtr->Csc;
   u32 done, idle, ready, ctrl;
   u32 colstart, colend, rowstart, rowend;
   u32 coeff[3][3];
