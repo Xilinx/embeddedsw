@@ -575,7 +575,6 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                            (int)vsc_WidthIn, (int)vsc_HeightIn, (int)vsc_WidthIn, (int)vsc_HeightOut);
 
             XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
-			                &XVprocSsPtr->VscL2Reg,
                             vsc_WidthIn,
                             vsc_HeightIn,
                             vsc_HeightOut);
@@ -606,7 +605,6 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                                (int)hsc_WidthIn, (int)hsc_HeightIn, (int)hsc_WidthOut, (int)hsc_HeightIn);
 
             XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
-			                &XVprocSsPtr->HscL2Reg,
                             hsc_HeightIn,
                             hsc_WidthIn,
                             hsc_WidthOut,
@@ -658,7 +656,6 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                                     XVprocSsPtr->VidOut.Timing.VActive);
 
             XV_HCrsmplSetFormat(XVprocSsPtr->HcrsmplrPtr,
-			                    &XVprocSsPtr->HcrL2Reg,
                                 CtxtPtr->HcrIn,
                                 CtxtPtr->HcrOut);
             StartCorePtr[XVPROCSS_SUBCORE_CR_H] = TRUE;
@@ -673,7 +670,6 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 			                        CtxtPtr->VidInHeight);
 
             XV_VCrsmplSetFormat(XVprocSsPtr->VcrsmplrInPtr,
-			                    &XVprocSsPtr->VcrInL2Reg,
                                 XVIDC_CSF_YCRCB_420,
                                 XVIDC_CSF_YCRCB_422);
             StartCorePtr[XVPROCSS_SUBCORE_CR_V_IN] = TRUE;
@@ -688,7 +684,6 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                                     XVprocSsPtr->VidOut.Timing.VActive);
 
             XV_VCrsmplSetFormat(XVprocSsPtr->VcrsmplrOutPtr,
-			                    &XVprocSsPtr->VcrOutL2Reg,
                                 XVIDC_CSF_YCRCB_422,
                                 XVIDC_CSF_YCRCB_420);
             StartCorePtr[XVPROCSS_SUBCORE_CR_V_OUT] = TRUE;
@@ -699,12 +694,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           if(XVprocSsPtr->CscPtr)
           {
             XV_CscSetColorspace(XVprocSsPtr->CscPtr,
-                                &XVprocSsPtr->CscL2Reg,
                                 CtxtPtr->CscIn,
                                 CtxtPtr->CscOut,
-                                XVprocSsPtr->CscL2Reg.StandardIn,
-                                XVprocSsPtr->CscL2Reg.StandardOut,
-                                XVprocSsPtr->CscL2Reg.OutputRange);
+                                XVprocSsPtr->CscPtr->StandardIn,
+                                XVprocSsPtr->CscPtr->StandardOut,
+                                XVprocSsPtr->CscPtr->OutputRange);
 
             XV_CscSetActiveSize(XVprocSsPtr->CscPtr,
                                 XVprocSsPtr->VidOut.Timing.HActive,
@@ -727,13 +721,13 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 			                        CtxtPtr->DeintBufAddr,
 			                        XVprocSsPtr->VidIn.ColorFormatId);
 
-            XV_deinterlacer_Set_width(XVprocSsPtr->DeintPtr,
+            XV_deinterlacer_Set_width(&XVprocSsPtr->DeintPtr->Deint,
 			                          CtxtPtr->VidInWidth);
 
-            XV_deinterlacer_Set_height(XVprocSsPtr->DeintPtr,
+            XV_deinterlacer_Set_height(&XVprocSsPtr->DeintPtr->Deint,
 			                           XVprocSsPtr->VidIn.Timing.VActive); //field height
 
-            XV_deinterlacer_Set_invert_field_id(XVprocSsPtr->DeintPtr, 0); //TBD
+            XV_deinterlacer_Set_invert_field_id(&XVprocSsPtr->DeintPtr->Deint, 0); //TBD
             StartCorePtr[XVPROCSS_SUBCORE_DEINT] = TRUE;
           }
           break;

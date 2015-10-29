@@ -43,7 +43,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   08/28/15   Initial Release
-
+* 2.00  rco   11/05/15  Update to adapt to sub-core layer 2 changes
+*
 * </pre>
 *
 ******************************************************************************/
@@ -89,15 +90,15 @@ typedef struct
   XGpio RstAxis;      //Reset for IP's running at AXIS Clk
   XGpio RstAximm;     //Reset for IP's with AXI MM interface
 
-  XV_hcresampler Hcrsmplr;
-  XV_vcresampler VcrsmplrIn;
-  XV_vcresampler VcrsmplrOut;
-  XV_vscaler Vscaler;
-  XV_hscaler Hscaler;
+  XV_Hcresampler_l2 Hcrsmplr;
+  XV_Vcresampler_l2 VcrsmplrIn;
+  XV_Vcresampler_l2 VcrsmplrOut;
+  XV_Vscaler_l2 Vscaler;
+  XV_Hscaler_l2 Hscaler;
   XAxiVdma Vdma;
-  XV_letterbox Lbox;
-  XV_csc Csc;
-  XV_deinterlacer Deint;
+  XV_Lbox_l2 Lbox;
+  XV_Csc_l2 Csc;
+  XV_Deint_l2 Deint;
 }XVprocSs_SubCores;
 
 /**************************** Local Global ***********************************/
@@ -723,8 +724,8 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
   /* Initialize CSC sub-core layer 2 driver. This block has FW register map */
   if(XVprocSsPtr->CscPtr)
   {
-    XV_CscInitPowerOnDefault(&XVprocSsPtr->CscL2Reg);
-    XV_CscSetColorDepth((&XVprocSsPtr->CscL2Reg), vidStrmIn.ColorDepth);
+    XV_CscSetPowerOnDefaultState(XVprocSsPtr->CscPtr);
+    XV_CscSetColorDepth(XVprocSsPtr->CscPtr, vidStrmIn.ColorDepth);
   }
 }
 
@@ -1317,7 +1318,6 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
             (int)vsc_WidthIn, (int)vsc_HeightIn, (int)vsc_WidthIn, (int)vsc_HeightOut);
 
     XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
-		            &XVprocSsPtr->VscL2Reg,
                     vsc_WidthIn,
                     vsc_HeightIn,
                     vsc_HeightOut);
@@ -1326,7 +1326,6 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
                        (int)hsc_WidthIn, (int)hsc_HeightIn, (int)hsc_WidthOut, (int)hsc_HeightIn);
 
     XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
-		            &XVprocSsPtr->HscL2Reg,
                     hsc_HeightIn,
                     hsc_WidthIn,
                     hsc_WidthOut,
@@ -1639,7 +1638,7 @@ s32 XVprocSs_GetPictureBrightness(XVprocSs *InstancePtr)
 
   if(InstancePtr->CscPtr)
   {
-	Retval = XV_CscGetBrightness(&InstancePtr->CscL2Reg);
+	Retval = XV_CscGetBrightness(InstancePtr->CscPtr);
   }
   return(Retval);
 }
@@ -1666,9 +1665,7 @@ void XVprocSs_SetPictureBrightness(XVprocSs *InstancePtr, s32 NewValue)
 
   if(InstancePtr->CscPtr)
   {
-	XV_CscSetBrightness(InstancePtr->CscPtr,
-			            &InstancePtr->CscL2Reg,
-			            NewValue);
+	XV_CscSetBrightness(InstancePtr->CscPtr, NewValue);
   }
 }
 
@@ -1691,7 +1688,7 @@ s32 XVprocSs_GetPictureContrast(XVprocSs *InstancePtr)
 
   if(InstancePtr->CscPtr)
   {
-	Retval = XV_CscGetContrast(&InstancePtr->CscL2Reg);
+	Retval = XV_CscGetContrast(InstancePtr->CscPtr);
   }
   return(Retval);
 }
@@ -1718,9 +1715,7 @@ void XVprocSs_SetPictureContrast(XVprocSs *InstancePtr, s32 NewValue)
 
   if(InstancePtr->CscPtr)
   {
-	XV_CscSetContrast(InstancePtr->CscPtr,
-			          &InstancePtr->CscL2Reg,
-			          NewValue);
+	XV_CscSetContrast(InstancePtr->CscPtr, NewValue);
   }
 }
 
@@ -1743,7 +1738,7 @@ s32 XVprocSs_GetPictureSaturation(XVprocSs *InstancePtr)
 
   if(InstancePtr->CscPtr)
   {
-	Retval = XV_CscGetSaturation(&InstancePtr->CscL2Reg);
+	Retval = XV_CscGetSaturation(InstancePtr->CscPtr);
   }
   return(Retval);
 }
@@ -1770,9 +1765,7 @@ void XVprocSs_SetPictureSaturation(XVprocSs *InstancePtr, s32 NewValue)
 
   if(InstancePtr->CscPtr)
   {
-	XV_CscSetSaturation(InstancePtr->CscPtr,
-			            &InstancePtr->CscL2Reg,
-			            NewValue);
+	XV_CscSetSaturation(InstancePtr->CscPtr, NewValue);
   }
 }
 
@@ -1801,15 +1794,15 @@ s32 XVprocSs_GetPictureGain(XVprocSs *InstancePtr, XVprocSs_ColorChannel ChId)
 	switch(ChId)
 	{
 	  case XVPROCSS_COLOR_CH_Y_RED:
-			Retval = XV_CscGetRedGain(&InstancePtr->CscL2Reg);
+			Retval = XV_CscGetRedGain(InstancePtr->CscPtr);
 			break;
 
 	  case XVPROCSS_COLOR_CH_CB_GREEN:
-			Retval = XV_CscGetGreenGain(&InstancePtr->CscL2Reg);
+			Retval = XV_CscGetGreenGain(InstancePtr->CscPtr);
 			break;
 
 	  case XVPROCSS_COLOR_CH_CR_BLUE:
-			Retval = XV_CscGetBlueGain(&InstancePtr->CscL2Reg);
+			Retval = XV_CscGetBlueGain(InstancePtr->CscPtr);
 			break;
 
 	  default:
@@ -1853,21 +1846,15 @@ void XVprocSs_SetPictureGain(XVprocSs *InstancePtr,
     switch(ChId)
     {
       case XVPROCSS_COLOR_CH_Y_RED:
-            XV_CscSetRedGain(InstancePtr->CscPtr,
-			             &InstancePtr->CscL2Reg,
-			             NewValue);
+            XV_CscSetRedGain(InstancePtr->CscPtr, NewValue);
 			break;
 
 	  case XVPROCSS_COLOR_CH_CB_GREEN:
-            XV_CscSetGreenGain(InstancePtr->CscPtr,
-			                   &InstancePtr->CscL2Reg,
-			                   NewValue);
+            XV_CscSetGreenGain(InstancePtr->CscPtr, NewValue);
 			break;
 
 	  case XVPROCSS_COLOR_CH_CR_BLUE:
-            XV_CscSetBlueGain(InstancePtr->CscPtr,
-			                  &InstancePtr->CscL2Reg,
-			                  NewValue);
+            XV_CscSetBlueGain(InstancePtr->CscPtr, NewValue);
 			break;
 
 	  default:
@@ -1900,7 +1887,7 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdIn(XVprocSs *InstancePtr)
 
   if(InstancePtr->CscPtr)
   {
-	Retval = XV_CscGetColorStdIn(&InstancePtr->CscL2Reg);
+	Retval = XV_CscGetColorStdIn(InstancePtr->CscPtr);
   }
   return(Retval);
 }
@@ -1929,7 +1916,7 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdOut(XVprocSs *InstancePtr)
 
   if(InstancePtr->CscPtr)
   {
-	Retval = XV_CscGetColorStdOut(&InstancePtr->CscL2Reg);
+	Retval = XV_CscGetColorStdOut(InstancePtr->CscPtr);
   }
   return(Retval);
 }
@@ -1952,7 +1939,7 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdOut(XVprocSs *InstancePtr)
 void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
 	                               XVidC_ColorStd NewVal)
 {
-  XV_csc_L2Reg *CscL2RegPtr = &InstancePtr->CscL2Reg;
+  XV_Csc_l2 *CscPtr = InstancePtr->CscPtr;
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
@@ -1962,13 +1949,12 @@ void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
 
   if(InstancePtr->CscPtr)
   {
-    XV_CscSetColorspace(InstancePtr->CscPtr,
-                        CscL2RegPtr,
-                        CscL2RegPtr->ColorFormatIn,
-                        CscL2RegPtr->ColorFormatOut,
+    XV_CscSetColorspace(CscPtr,
+                        CscPtr->ColorFormatIn,
+                        CscPtr->ColorFormatOut,
                         NewVal,
-                        CscL2RegPtr->StandardOut,
-                        CscL2RegPtr->OutputRange);
+                        CscPtr->StandardOut,
+                        CscPtr->OutputRange);
   }
 }
 
@@ -1990,7 +1976,7 @@ void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
 void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
 	                                XVidC_ColorStd NewVal)
 {
-  XV_csc_L2Reg *CscL2RegPtr = &InstancePtr->CscL2Reg;
+  XV_Csc_l2 *CscPtr = InstancePtr->CscPtr;
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
@@ -2000,13 +1986,12 @@ void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
 
   if(InstancePtr->CscPtr)
   {
-    XV_CscSetColorspace(InstancePtr->CscPtr,
-                        CscL2RegPtr,
-                        CscL2RegPtr->ColorFormatIn,
-                        CscL2RegPtr->ColorFormatOut,
-                        CscL2RegPtr->StandardIn,
+    XV_CscSetColorspace(CscPtr,
+                        CscPtr->ColorFormatIn,
+                        CscPtr->ColorFormatOut,
+                        CscPtr->StandardIn,
                         NewVal,
-                        CscL2RegPtr->OutputRange);
+                        CscPtr->OutputRange);
   }
 }
 
@@ -2034,7 +2019,7 @@ XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr)
 
   if(InstancePtr->CscPtr)
   {
-	Retval = XV_CscGetOutputRange(&InstancePtr->CscL2Reg);
+	Retval = XV_CscGetOutputRange(InstancePtr->CscPtr);
   }
   return(Retval);
 }
@@ -2057,7 +2042,7 @@ XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr)
 void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
 	                               XVidC_ColorRange NewVal)
 {
-  XV_csc_L2Reg *CscL2RegPtr = &InstancePtr->CscL2Reg;
+  XV_Csc_l2 *CscPtr = InstancePtr->CscPtr;
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
@@ -2067,12 +2052,11 @@ void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
 
   if(InstancePtr->CscPtr)
   {
-    XV_CscSetColorspace(InstancePtr->CscPtr,
-                        CscL2RegPtr,
-                        CscL2RegPtr->ColorFormatIn,
-                        CscL2RegPtr->ColorFormatOut,
-                        CscL2RegPtr->StandardIn,
-                        CscL2RegPtr->StandardOut,
+    XV_CscSetColorspace(CscPtr,
+                        CscPtr->ColorFormatIn,
+                        CscPtr->ColorFormatOut,
+                        CscPtr->StandardIn,
+                        CscPtr->StandardOut,
                         NewVal);
   }
 }
@@ -2106,8 +2090,8 @@ int XVprocSs_SetPictureActiveWindow(XVprocSs *InstancePtr,
 
   if(InstancePtr->CscPtr)
   {
-    width  = XV_csc_Get_HwReg_width(InstancePtr->CscPtr);
-	height = XV_csc_Get_HwReg_height(InstancePtr->CscPtr);
+    width  = XV_csc_Get_HwReg_width(&InstancePtr->CscPtr->Csc);
+	height = XV_csc_Get_HwReg_height(&InstancePtr->CscPtr->Csc);
 
 	//Check if window is within the active frame resolution
 	if(((Win->StartX < 0) || (Win->StartX > width))  ||
@@ -2205,7 +2189,6 @@ void XVprocSs_LoadScalerCoeff(XVprocSs *InstancePtr,
         if(InstancePtr->VscalerPtr)
 	{
 	  XV_VScalerLoadExtCoeff(InstancePtr->VscalerPtr,
-		                     &InstancePtr->VscL2Reg,
 		                     num_phases,
 		                     num_taps,
 		                     Coeff);
@@ -2221,7 +2204,6 @@ void XVprocSs_LoadScalerCoeff(XVprocSs *InstancePtr,
 	if(InstancePtr->HscalerPtr)
 	{
 	  XV_HScalerLoadExtCoeff(InstancePtr->HscalerPtr,
-		                     &InstancePtr->HscL2Reg,
 		                     num_phases,
 		                     num_taps,
 		                     Coeff);
@@ -2272,10 +2254,7 @@ void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
 	case XVPROCSS_SUBCORE_CR_H:
 		if(InstancePtr->HcrsmplrPtr)
 		{
-		  XV_HCrsmplrLoadExtCoeff(InstancePtr->HcrsmplrPtr,
-				                  &InstancePtr->HcrL2Reg,
-		                          num_taps,
-		                          Coeff);
+		  XV_HCrsmplrLoadExtCoeff(InstancePtr->HcrsmplrPtr, num_taps, Coeff);
 		}
 		else
 		{
@@ -2286,10 +2265,7 @@ void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
 	case XVPROCSS_SUBCORE_CR_V_IN:
 		if(InstancePtr->VcrsmplrInPtr)
 		{
-		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrInPtr,
-				                  &InstancePtr->VcrInL2Reg,
-		                          num_taps,
-		                          Coeff);
+		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrInPtr, num_taps, Coeff);
 		}
 	    else
 		{
@@ -2300,10 +2276,7 @@ void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
 	case XVPROCSS_SUBCORE_CR_V_OUT:
 		if(InstancePtr->VcrsmplrOutPtr)
 		{
-		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrOutPtr,
-				                  &InstancePtr->VcrOutL2Reg,
-		                          num_taps,
-		                          Coeff);
+		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrOutPtr, num_taps, Coeff);
 		}
 		else
 		{

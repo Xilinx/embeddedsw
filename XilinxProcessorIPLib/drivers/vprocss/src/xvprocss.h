@@ -176,7 +176,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   08/28/15  Initial Release
-
+* 2.00  rco   11/05/15  Update to adapt to sub-core layer 2 changes
+*
 * </pre>
 *
 ******************************************************************************/
@@ -350,33 +351,22 @@ typedef struct
  */
 typedef struct
 {
-  XVprocSs_Config Config;	      /**< Hardware configuration */
-  u32 IsReady;		              /**< Device and the driver instance are
-                                     initialized */
-  XAxis_Switch *RouterPtr;        /**< handle to sub-core driver instance */
-  XGpio *RstAxisPtr;              /**< handle to sub-core driver instance */
-  XGpio *RstAximmPtr;             /**< handle to sub-core driver instance */
-                                  /**< handle to sub-core driver instance */
-  XV_hcresampler *HcrsmplrPtr;    /**< handle to sub-core driver instance */
-  XV_vcresampler *VcrsmplrInPtr;  /**< handle to sub-core driver instance */
-  XV_vcresampler *VcrsmplrOutPtr; /**< handle to sub-core driver instance */
-  XV_vscaler *VscalerPtr;         /**< handle to sub-core driver instance */
-  XV_hscaler *HscalerPtr;         /**< handle to sub-core driver instance */
-  XAxiVdma *VdmaPtr;              /**< handle to sub-core driver instance */
-  XV_letterbox *LboxPtr;          /**< handle to sub-core driver instance */
-  XV_csc *CscPtr;                 /**< handle to sub-core driver instance */
-  XV_deinterlacer *DeintPtr;      /**< handle to sub-core driver instance */
-
-  /**
-   * Layer2 SW Register (Every Subsystem instance will have it's own copy
-     of Layer 2 register bank for applicable sub-cores)
-   */
-  XV_csc_L2Reg CscL2Reg;         /**< Layer 2 register bank for csc sub-core */
-  XV_vscaler_l2 VscL2Reg;        /**< Layer 2 register bank for vsc sub-core */
-  XV_hscaler_l2 HscL2Reg;        /**< Layer 2 register bank for hsc sub-core */
-  XV_hcresampler_l2 HcrL2Reg;    /**< Layer 2 register bank for hcr sub-core */
-  XV_vcresampler_l2 VcrInL2Reg;  /**< Layer 2 register bank for hcr sub-core */
-  XV_vcresampler_l2 VcrOutL2Reg; /**< Layer 2 register bank for hcr sub-core */
+  XVprocSs_Config Config;	         /**< Hardware configuration */
+  u32 IsReady;		                 /**< Device and the driver instance are
+                                       initialized */
+  XAxis_Switch *RouterPtr;           /**< handle to sub-core driver instance */
+  XGpio *RstAxisPtr;                 /**< handle to sub-core driver instance */
+  XGpio *RstAximmPtr;                /**< handle to sub-core driver instance */
+                                     /**< handle to sub-core driver instance */
+  XV_Hcresampler_l2 *HcrsmplrPtr;    /**< handle to sub-core driver instance */
+  XV_Vcresampler_l2 *VcrsmplrInPtr;  /**< handle to sub-core driver instance */
+  XV_Vcresampler_l2 *VcrsmplrOutPtr; /**< handle to sub-core driver instance */
+  XV_Vscaler_l2 *VscalerPtr;         /**< handle to sub-core driver instance */
+  XV_Hscaler_l2 *HscalerPtr;         /**< handle to sub-core driver instance */
+  XAxiVdma *VdmaPtr;                 /**< handle to sub-core driver instance */
+  XV_Lbox_l2 *LboxPtr;             /**< handle to sub-core driver instance */
+  XV_Csc_l2 *CscPtr;                 /**< handle to sub-core driver instance */
+  XV_Deint_l2 *DeintPtr;             /**< handle to sub-core driver instance */
 
   //I/O Streams
   XVidC_VideoStream VidIn;      /**< Input  AXIS configuration */

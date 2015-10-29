@@ -307,7 +307,7 @@ int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_csc_CfgInitialize(XVprocSsPtr->CscPtr,
+    status = XV_csc_CfgInitialize(&XVprocSsPtr->CscPtr->Csc,
                                   pConfig,
                                   AbsAddr);
 
@@ -361,7 +361,7 @@ int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_hscaler_CfgInitialize(XVprocSsPtr->HscalerPtr,
+    status = XV_hscaler_CfgInitialize(&XVprocSsPtr->HscalerPtr->Hsc,
                                       pConfig,
                                       AbsAddr);
 
@@ -414,7 +414,7 @@ int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_vscaler_CfgInitialize(XVprocSsPtr->VscalerPtr,
+    status = XV_vscaler_CfgInitialize(&XVprocSsPtr->VscalerPtr->Vsc,
                                       pConfig,
                                       AbsAddr);
 
@@ -467,7 +467,7 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_hcresampler_CfgInitialize(XVprocSsPtr->HcrsmplrPtr,
+    status = XV_hcresampler_CfgInitialize(&XVprocSsPtr->HcrsmplrPtr->Hcr,
                                           pConfig,
                                           AbsAddr);
 
@@ -477,10 +477,10 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
       return(XST_FAILURE);
     }
 
-    if(XVprocSsPtr->HcrsmplrPtr->Config.ResamplingType == XV_HCRSMPLR_TYPE_FIR)
+    if(XVprocSsPtr->HcrsmplrPtr->Hcr.Config.ResamplingType == XV_HCRSMPLR_TYPE_FIR)
     {
       /* Load default filter coefficients */
-      XV_HCrsmplLoadDefaultCoeff(XVprocSsPtr->HcrsmplrPtr, &XVprocSsPtr->HcrL2Reg);
+      XV_HCrsmplLoadDefaultCoeff(XVprocSsPtr->HcrsmplrPtr);
     }
   }
   return(XST_SUCCESS);
@@ -526,7 +526,7 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_vcresampler_CfgInitialize(XVprocSsPtr->VcrsmplrInPtr,
+    status = XV_vcresampler_CfgInitialize(&XVprocSsPtr->VcrsmplrInPtr->Vcr,
                                           pConfig,
                                           AbsAddr);
 
@@ -536,10 +536,10 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
       return(XST_FAILURE);
     }
 
-    if(XVprocSsPtr->VcrsmplrInPtr->Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
+    if(XVprocSsPtr->VcrsmplrInPtr->Vcr.Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
     {
       /* Load default filter coefficients */
-      XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrInPtr, &XVprocSsPtr->VcrInL2Reg);
+      XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrInPtr);
     }
   }
   return(XST_SUCCESS);
@@ -585,7 +585,7 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_vcresampler_CfgInitialize(XVprocSsPtr->VcrsmplrOutPtr,
+    status = XV_vcresampler_CfgInitialize(&XVprocSsPtr->VcrsmplrOutPtr->Vcr,
                                           pConfig,
                                           AbsAddr);
 
@@ -595,10 +595,10 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
       return(XST_FAILURE);
     }
 
-    if(XVprocSsPtr->VcrsmplrOutPtr->Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
+    if(XVprocSsPtr->VcrsmplrOutPtr->Vcr.Config.ResamplingType == XV_VCRSMPLR_TYPE_FIR)
     {
       /* Load default filter coefficients */
-      XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrOutPtr, &XVprocSsPtr->VcrOutL2Reg);
+      XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrOutPtr);
     }
   }
   return(XST_SUCCESS);
@@ -644,7 +644,7 @@ int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_letterbox_CfgInitialize(XVprocSsPtr->LboxPtr,
+    status = XV_letterbox_CfgInitialize(&XVprocSsPtr->LboxPtr->Lbox,
                                         pConfig,
                                         AbsAddr);
 
@@ -750,7 +750,7 @@ int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr)
     }
 
 	/* Initialize core */
-    status = XV_deinterlacer_CfgInitialize(XVprocSsPtr->DeintPtr,
+    status = XV_deinterlacer_CfgInitialize(&XVprocSsPtr->DeintPtr->Deint,
                                            pConfig,
                                            AbsAddr);
 
