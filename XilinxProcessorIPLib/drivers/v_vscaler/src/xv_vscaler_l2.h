@@ -99,7 +99,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
-
+* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*
 * </pre>
 *
 ******************************************************************************/
@@ -151,27 +152,27 @@ typedef enum
  */
 typedef struct
 {
+  XV_vscaler Vsc; /*<< Layer 1 instance */
   u8 UseExtCoeff;
   short coeff[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];
-}XV_vscaler_l2;
+}XV_Vscaler_l2;
 
 /************************** Macros Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-void XV_VScalerStart(XV_vscaler *InstancePtr);
-void XV_VScalerStop(XV_vscaler *InstancePtr);
-void XV_VScalerLoadExtCoeff(XV_vscaler *InstancePtr,
-                            XV_vscaler_l2 *VscL2DataPtr,
+int XV_VScalerInitialize(XV_Vscaler_l2 *InstancePtr, u16 DeviceId);
+void XV_VScalerStart(XV_Vscaler_l2 *InstancePtr);
+void XV_VScalerStop(XV_Vscaler_l2 *InstancePtr);
+void XV_VScalerLoadExtCoeff(XV_Vscaler_l2 *InstancePtr,
                             u16 num_phases,
                             u16 num_taps,
                             const short *Coeff);
-void XV_VScalerSetup(XV_vscaler *InstancePtr,
-                     XV_vscaler_l2 *VscL2DataPtr,
+void XV_VScalerSetup(XV_Vscaler_l2 *InstancePtr,
                      u32 WidthIn,
                      u32 HeightIn,
                      u32 HeightOut);
 
-void XV_VScalerDbgReportStatus(XV_vscaler *InstancePtr);
+void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr);
 
 #ifdef __cplusplus
 }
