@@ -202,10 +202,10 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
 	XVphy_Channel *ChPtr;
-	XVphy_ChannelId CmnId;
+	XVphy_ChannelId CmnId = XVPHY_CHANNEL_ID_CMN0;
+	u8 UsesQpll0 = 0;
 	u8 CpllDVal;
 	u8 QpllDVal;
-	u8 UsesQpll0;
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[0];
 
