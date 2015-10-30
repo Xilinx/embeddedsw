@@ -2188,7 +2188,7 @@ static u32 XVphy_DrpAccess(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	do {
 		RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 								RegOffsetSts);
-		if (Retry > 15) {
+		if (Retry > 150) {
 			return XST_FAILURE;
 		}
 		Retry++;
@@ -2210,7 +2210,7 @@ static u32 XVphy_DrpAccess(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	do {
 		RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 								RegOffsetSts);
-		if (Retry > 15) {
+		if (Retry > 150) {
 			return XST_FAILURE;
 		}
 		Retry++;
