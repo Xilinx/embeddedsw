@@ -891,7 +891,7 @@ u64 XVphy_DruCalcCenterFreqHz(XVphy *InstancePtr, u8 QuadId,
 void XVphy_HdmiGtDruModeEnable(XVphy *InstancePtr, u8 Enable)
 {
 	u32 RegVal;
-	u32 RegMask;
+	u32 RegMask = 0;
 	u8 Id, Id0, Id1;
 
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
@@ -950,7 +950,7 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 	u8 Div;
 	u8 Mult;
 	u8 Valid;
-	u64 LineRate;
+	u64 LineRate = 0;
 	XVphy_Mmcm *MmcmPtr;
 
 	if (Dir == XVPHY_DIR_RX) {
@@ -1133,21 +1133,21 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir)
 {
 	u32 Status;
-	u64 RefClk;
+	u64 RefClk = 0;
 	u32 *RefClkPtr;
-	u64 TxLineRate;
+	u64 TxLineRate = 0;
 	u8 Id, Id0, Id1;
 
 	u8 SRArray[] = {1, 3, 5};
 	u8 SRIndex;
 	u8 SRValue;
 
-	XVphy_SysClkDataSelType SysClkDataSel;
-	XVphy_SysClkOutSelType SysClkOutSel;
-	XVphy_ChannelId ActiveCmnId;
+	XVphy_SysClkDataSelType SysClkDataSel = 0;
+	XVphy_SysClkOutSelType SysClkOutSel = 0;
+	XVphy_ChannelId ActiveCmnId = XVPHY_CHANNEL_ID_CMN0;
 
 	u32 QpllRefClk;
-	u32 QpllClkMin;
+	u32 QpllClkMin = 0;
 
 	/* Determine QPLL reference clock from the first (master) channel. */
 	if (Dir == XVPHY_DIR_RX) {
@@ -1374,9 +1374,9 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir)
 {
 	u32 Status;
-	u64 RefClk;
+	u64 RefClk = 0;
 	u32 *RefClkPtr;
-	u32 TxLineRate;
+	u32 TxLineRate = 0;
 	u8 ChIndex;
 	u8 Id, Id0, Id1;
 
@@ -1699,10 +1699,10 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
 	u32 RegValue;
 	XVphy_Channel *ChPtr;
-	XVphy_ChannelId CmnId;
+	XVphy_ChannelId CmnId = XVPHY_CHANNEL_ID_CMN0;
 	u8 CpllDVal;
 	u8 QpllDVal;
-	u8 UsesQpll0;
+	u8 UsesQpll0 = 0;
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[0];
 
