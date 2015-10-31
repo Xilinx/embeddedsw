@@ -1,3 +1,120 @@
+Change Log for 2015.4
+=================================
+can_v3_1:
+Fixed the issue wrong values for the IP Parameters being exported to the xparameters.h file
+
+coresightps_dcc_v1_2
+Added support for IAR Compiler.
+
+dp_v3_0
+Fixed fractional TU bytes calculation.
+Updated PHY status check to work cores instantiated with a single lane.
+Qualify interrupt status with interrupt mask.
+Added MSA callback.
+Fixed TPS3 mask value.
+Move waiting for PHY to be ready to link training rather than initialization to allow more flexible usage in pass-through systems.
+
+dprxss_v2_0
+Removed HDCP handler types.
+Added HDCP and Timer Counter support.
+Protected HDCP under macro number of instances.
+Added Timer Counter reset value macro.
+Generate a HPD interrupt whenever RX cable disconnect/unplug interrupt is detected.
+Removed DP159 bit error count code. Used DP159 bit error count function from Video Common library.
+
+dptxss_v2_0
+Added support for customized main stream attributes for SST and MST
+Added HDCP instance into global sub-cores structure.
+Added new handler types: lane count, link rate, pre-emphasis voltage swing adjust and set MSA.
+Added function: XDpTxSs_SetHasRedriverInPath.
+Updated register offsets in debug MSA info.
+Removed cross checking user set resolution with RX EDID.
+Set interlace to zero when video mode is XVIDC_VM_CUSTOM.
+Removed video mode check.
+Added HDCP and Timer Counter support.
+Removed cross checking user set resolution with RX EDID.
+
+hdcp1x_v2_0
+Added dependency on timer counter driver.
+Updated for integration in subsystems for cases that an HDCP core is not instantiated (default *_g.c and protection macros).
+Added EffectiveAddr argument to XHdcp1x_CfgInitialize.
+Updated naming of HDMI references as xv_hdmi* rather than xhdmi* to match new HDMI drivers.
+
+rtcpsu_v1_1
+Enabled rtc controller switching to battery supply when vcc_psaux is not available
+
+tmrctr_v4_0
+Added alternate initialization sequence to allow for setting a different EffectiveAddress (using standard CfgInitialize and InitHw).
+Updated for integration in subsystems for cases that an HDCP core is not instantiated (default *_g.c and protection macros).
+Creation of xtmrctr_sinit.c file. Moved LookupConfig from xtmrctr.c.
+
+v_hdmirx_v1_0
+Initial release.
+
+v_hdmirxss_v1_0
+Initial release.
+
+v_hdmitx_v1_0
+Initial release.
+
+v_hdmitxss_v1_0
+Initial release.
+
+vphy_v1_0
+Initial release.
+
+vtc_v7_1:
+Corrected VsyncStart Calculations
+Added interlaced programming feature.
+
+standalone_v5_3:
+Modified Cortex-A9 BSP to add openamp support
+Modified assembly instruction for iar compiler for cortex-a9
+
+sdps_v2_6:
+Polled for Transfer Complete bit after cmd6.
+Dont switch to 1.8V
+Added support for SD v1.0
+
+zdma_v1_0:
+Modified ZDMA simple transfer example
+Modified XZDma_CreateBDList API
+
+zynqmp_fsbl:
+Fix for SD1 boot failure in FSBL when the design has SD1 and no SD0/eMMC
+Skip power-up requests for QEMU
+Corrected the ReadBuffer index value in QSPI-24 bit (for Spansion)
+Corrected logic to trigger PMU_0 IPI
+Added support for SD1 and SD1 with level shifter bootmodes
+Removed UART initialization workaround in FSBL
+Power state not to be checked before sending powering up request
+
+zynqmp_pmufw:
+Skip UART configuration during PMUFW init
+
+xilisf_v5_4
+updated the IntelStmDevices list to support Micron N25Q256A flash device.
+xilskey_v4_0:
+Added DFT control bits programming feature for Zynq Platform
+Modified JtagWrite API for programming eFUSE on Zynq Platform
+Added efuse PS and bbram PS support  for Zynq MP SoC
+Added Xilskey write and read regs APIs for ZynqMP SoC
+Added efuseps APIs for Zynq MP
+Added BBRAM PS functionality for Zynq MP SoC
+Added Example for Zynq MP efusePs
+Added BBRAM Ps example for Zynq MP SoC
+Corrected error code names of efuse PL programming for Ultrascale
+Added c++ boundary blocks for header files xilskey_eps.h, xilskey_utils.h and xilskey_jtag.h.
+
+freertos821_xilinx_v1_1:
+Added support for Cortex-A53
+
+lwip141_v1_3:
+Made changes in xemacpsif_dma.c to add required barriers.
+Remove repeated sysarch protect and unprotect calls.
+Replace printf with xil_printf.
+Add support for TI phy.
+
 Change Log for 2015.3
 =================================
 axicdma_v4_0
