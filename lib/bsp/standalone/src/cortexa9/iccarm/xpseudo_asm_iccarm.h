@@ -100,13 +100,13 @@ extern "C" {
 /* memory synchronization operations */
 
 /* Instruction Synchronization Barrier */
-#define isb() void __ISB(void);
+#define isb() __ISB();
 
 /* Data Synchronization Barrier */
-#define dsb() void __DSB(void);
+#define dsb() __DSB();
 
 /* Data Memory Barrier */
-#define dmb() void __DMB(void);
+#define dmb() __DMB();
 
 
 /* Memory Operations */
