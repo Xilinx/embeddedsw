@@ -39,10 +39,10 @@ BEGIN CATEGORY kernel_behavior
 	PARAM name = use_preemption, type = bool, default = true, desc = "Set to true to use the preemptive scheduler, or false to use the cooperative scheduler.";
 	PARAM name = tick_rate, type = int, default = 100, desc = "Number of RTOS ticks per sec";
 	PARAM name = idle_yield, type = bool, default = true, desc = "Set to true if the Idle task should yield if another idle priority task is able to run, or false if the idle task should always use its entire time slice unless it is preempted.";
-	PARAM name = max_priorities, type = int, default = 4, desc = "The number of task priorities that will be available.  Priorities can be assigned from zero to (max_priorities - 1)";
-	PARAM name = minimal_stack_size, type = int, default = 180, desc = "The size of the stack allocated to the Idle task. Also used by standard demo and test tasks found in the main FreeRTOS download.";
-	PARAM name = total_heap_size, type = int, default = 32768, desc = "Sets the amount of RAM reserved for use by FreeRTOS - used when tasks, queues, semaphores and event groups are created.";
-	PARAM name = max_task_name_len, type = int, default = 8, desc = "The maximum number of characters that can be in the name of a task.";
+	PARAM name = max_priorities, type = int, default = 8, desc = "The number of task priorities that will be available.  Priorities can be assigned from zero to (max_priorities - 1)";
+	PARAM name = minimal_stack_size, type = int, default = 200, desc = "The size of the stack allocated to the Idle task. Also used by standard demo and test tasks found in the main FreeRTOS download.";
+	PARAM name = total_heap_size, type = int, default = 65536, desc = "Sets the amount of RAM reserved for use by FreeRTOS - used when tasks, queues, semaphores and event groups are created.";
+	PARAM name = max_task_name_len, type = int, default = 10, desc = "The maximum number of characters that can be in the name of a task.";
 	PARAM name = use_timeslicing, type = bool, default = true, desc = "When true equal priority ready tasks will share CPU time with a context switch on each tick interrupt.";
 	PARAM name = use_port_optimized_task_selection, type = bool, default = true, desc ="When true task selection will be faster at the cost of limiting the maximum number of unique priorities to 32.";
 END CATEGORY

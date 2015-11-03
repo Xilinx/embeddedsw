@@ -356,13 +356,6 @@ proc generate {os_handle} {
 		xput_define $config_file "configUSE_TRACE_FACILITY" "1"
 	}
 
-	set val [common::get_property CONFIG.use_task_notifications $os_handle]
-	if {$val == "false"} {
-		xput_define $config_file "configUSE_TASK_NOTIFICATIONS" "0"
-	} else {
-		xput_define $config_file "configUSE_TASK_NOTIFICATIONS" "1"
-	}
-
 	xput_define $config_file "configUSE_16_BIT_TICKS"		   "0"
 	xput_define $config_file "configUSE_APPLICATION_TASK_TAG"   "0"
 	xput_define $config_file "configUSE_CO_ROUTINES"			"0"
@@ -395,7 +388,7 @@ proc generate {os_handle} {
 	if {$val == "false"} {
 		xput_define $config_file "configTIMER_TASK_PRIORITY"  "0"
 	} else {
-		xput_define $config_file "configTIMER_TASK_PRIORITY"  "1"
+		xput_define $config_file "configTIMER_TASK_PRIORITY"  $val
 	}
 
 	set val [common::get_property CONFIG.timer_command_queue_length $os_handle]
@@ -409,21 +402,7 @@ proc generate {os_handle} {
 	if {$val == "false"} {
 		xput_define $config_file "configTIMER_TASK_STACK_DEPTH"  "0"
 	} else {
-		xput_define $config_file "configTIMER_TASK_STACK_DEPTH"  $min_stack
-	}
-
-	set val [common::get_property CONFIG.use_newlib_reent $os_handle]
-	if {$val == "false"} {
-		xput_define $config_file "configUSE_NEWLIB_REENTRANT"  "0"
-	} else {
-		xput_define $config_file "configUSE_NEWLIB_REENTRANT"  "1"
-	}
-
-	set val [common::get_property CONFIG.use_timeslicing $os_handle]
-	if {$val == "false"} {
-		xput_define $config_file "configUSE_TIME_SLICING"  "0"
-	} else {
-		xput_define $config_file "configUSE_TIME_SLICING"  "1"
+		xput_define $config_file "configTIMER_TASK_STACK_DEPTH"  "($val * 2)"
 	}
 
 	set val [get_property CONFIG.use_freertos_asserts $os_handle]
@@ -472,28 +451,18 @@ proc generate {os_handle} {
 		xput_define $config_file "configNUM_THREAD_LOCAL_STORAGE_POINTERS"  $val
 	}
 
+	puts $config_file "#define configUSE_TICKLESS_IDLE	0"
 	puts $config_file "#define configTASK_RETURN_ADDRESS    NULL"
-
 	puts $config_file "#define INCLUDE_vTaskPrioritySet             1"
 	puts $config_file "#define INCLUDE_uxTaskPriorityGet            1"
 	puts $config_file "#define INCLUDE_vTaskDelete                  1"
-	puts $config_file "#define INCLUDE_vTaskCleanUpResources        0"
+	puts $config_file "#define INCLUDE_vTaskCleanUpResources        1"
 	puts $config_file "#define INCLUDE_vTaskSuspend                 1"
 	puts $config_file "#define INCLUDE_vTaskDelayUntil              1"
 	puts $config_file "#define INCLUDE_vTaskDelay                   1"
-	puts $config_file "#define INCLUDE_uxTaskGetStackHighWaterMark  1"
-	puts $config_file "#define INCLUDE_xTaskGetSchedulerState       1"
-	puts $config_file "#define INCLUDE_xTimerGetTimerTaskHandle     1"
-	puts $config_file "#define INCLUDE_xTaskGetIdleTaskHandle       1"
-	puts $config_file "#define INCLUDE_xQueueGetMutexHolder         1"
 	puts $config_file "#define INCLUDE_eTaskGetState                1"
-	puts $config_file "#define INCLUDE_xEventGroupSetBitFromISR     1"
 	puts $config_file "#define INCLUDE_xTimerPendFunctionCall       1"
 	puts $config_file "#define INCLUDE_pcTaskGetTaskName            1"
-	puts $config_file "#define INCLUDE_xTaskResumeFromISR           1"
-	puts $config_file "#define INCLUDE_xTaskGetCurrentTaskHandle    1"
-	puts $config_file "#define INCLUDE_xSemaphoreGetMutexHolder     1"
-
 
 	############################################################################
 	## Add constants specific to the psu_cortexr5
@@ -781,7 +750,12 @@ proc generate {os_handle} {
 		puts $config_file "#define configSETUP_TICK_INTERRUPT() FreeRTOS_SetupTickInterrupt()\n"
 		puts $config_file "void FreeRTOS_ClearTickInterrupt( void );"
 		puts $config_file "#define configCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
-
+		puts $config_file "#define configGENERATE_RUN_TIME_STATS 0\n"
+		puts $config_file "#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()\n"
+		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE()\n"
+		puts $config_file "#define configCOMMAND_INT_MAX_OUTPUT_SIZE 2096\n"
+		puts $config_file "#define recmuCONTROLLING_TASK_PRIORITY ( configMAX_PRIORITIES - 2 )\n"
+		puts $config_file "#define fabs( x ) __builtin_fabs( x )\n"
 		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
 		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
 
