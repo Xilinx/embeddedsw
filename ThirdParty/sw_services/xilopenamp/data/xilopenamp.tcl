@@ -86,7 +86,7 @@ proc xgen_opts_file {libhandle} {
 	puts $ampos "/******************************************************************/"
 	puts $ampos ""
 	puts $ampos "/* Operating System definition */"
-	if { $os == "freertos821_xilinx" } {
+	if { $os == "freertos823_xilinx" } {
 		puts $ampos "#define USE_FREERTOS TRUE"
 	      } else {
 		puts $ampos "#define USE_BAREMETAL TRUE"

@@ -46,8 +46,8 @@ proc check_standalone_os {} {
     }
     set os [lindex $oslist 0];
 
-    if { ( $os != "standalone" ) && ( $os != "freertos821_xilinx" ) } {
-        error "This application is supported only on the Standalone Board Support Package and freertos821.";
+    if { ( $os != "standalone" ) && ( $os != "freertos823_xilinx" ) } {
+        error "This application is supported only on the Standalone Board Support Package and freertos823_xilinx.";
     }
 }
 
@@ -140,5 +140,5 @@ proc swapp_get_supported_processors {} {
 }
 
 proc swapp_get_supported_os {} {
-    return "freertos821_xilinx standalone";
+    return "freertos823_xilinx standalone";
 }
