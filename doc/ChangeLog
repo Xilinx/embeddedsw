@@ -106,8 +106,9 @@ Added BBRAM Ps example for Zynq MP SoC
 Corrected error code names of efuse PL programming for Ultrascale
 Added c++ boundary blocks for header files xilskey_eps.h, xilskey_utils.h and xilskey_jtag.h.
 
-freertos821_xilinx_v1_1:
-Added support for Cortex-A53
+freertos823_xilinx_v1_0:
+The freertos821_xilinx_v1_0 version is changed to freertos823_xilinx_v1_0 to upgrade the
+freertos kernel version to 8.2.3 with the support for processor cortex-a53 64bit mode.
 
 lwip141_v1_3:
 Made changes in xemacpsif_dma.c to add required barriers.
