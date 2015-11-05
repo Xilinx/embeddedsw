@@ -346,7 +346,7 @@ s32 XZDma_SetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 
 		/* Setting over fetch */
 		Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_CTRL0_OFFSET);
+				XZDMA_CH_CTRL0_OFFSET) & (~XZDMA_CTRL0_OVR_FETCH_MASK);
 
 		Data |= (((u32)(Configure->OverFetch) <<
 				XZDMA_CTRL0_OVR_FETCH_SHIFT) &
@@ -357,8 +357,8 @@ s32 XZDma_SetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 
 		/* Setting source issue */
 		Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_CTRL1_OFFSET);
-		Data = (u32)(Configure->SrcIssue & XZDMA_CTRL1_SRC_ISSUE_MASK);
+						XZDMA_CH_CTRL1_OFFSET) & (~XZDMA_CTRL1_SRC_ISSUE_MASK);
+		Data |= (u32)(Configure->SrcIssue & XZDMA_CTRL1_SRC_ISSUE_MASK);
 
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 						XZDMA_CH_CTRL1_OFFSET, Data);
