@@ -233,6 +233,10 @@
 *		      (CR #876507).
 * 2.2	nsk  09/02/15 Modified iomodule_define_vector_table in iomodule.tcl
 *		      when no external interrupts are used.(CR #878782)
+* 2.3   nsk  11/05/15 Updated xdefine_canonical_xpars in iomodule.tcl to
+*                     Generate canonical definitions, whose canonical
+*                     name is not the same as hardware instance name.
+*                     (CR #876604)
 *
 * </pre>
 *

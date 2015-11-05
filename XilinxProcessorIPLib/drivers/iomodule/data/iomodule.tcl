@@ -46,6 +46,10 @@
 #			   enabled CR#876507.
 # 2.2	   nsk    02/09/15 Modified iomodule_define_vector_table
 #			   when no external interrupts are used.CR#878782.
+# 2.3      nsk    05/11/15 Updated xdefine_canonical_xpars such that
+#                          Generate canonical definitions, whose canonical
+#                          name is not the same as hardware instance name.
+#                          CR #876604.
 #
 ##############################################################################
 
@@ -406,47 +410,62 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     # Get all peripherals connected to this driver
     set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 
+    # Get the names of all the peripherals connected to this driver
+    foreach periph $periphs {
+	set peripheral_name [string toupper [common::get_property NAME $periph]]
+	lappend peripherals $peripheral_name
+    }
+    # Get possible canonical names for all the peripherals connected to this
+    # driver
+    set device_id 0
+    foreach periph $periphs {
+	set canonical_name [string toupper [format "%s_%s" $drv_string $device_id]]
+	lappend canonicals $canonical_name
+	# Create a list of IDs of the peripherals whose hardware instance name
+	# doesn't match the canonical name. These IDs can be used later to
+	# generate canonical definitions
+	if { [lsearch $peripherals $canonical_name] < 0 } {
+		lappend indices $device_id
+	}
+	incr device_id
+    }
+
     # Print canonical parameters for each peripheral
     set device_id 0
     foreach periph $periphs {
         puts $file_handle ""
         set periph_name [string toupper [common::get_property NAME $periph]]
-        set canonical_name [format "%s_%s" $drv_string $device_id]
-
-        # Make sure canonical name is not the same as hardware instance
-        if { [string compare -nocase $canonical_name $periph_name] == 0 } {
-            # Abort canonical names
-            break
-        }
-
-        puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
-        foreach arg $args {
-            if {[string first "_EXPIRED_MASK" $arg] > 0} {
-	   	set charindex [string first "_EXPIRED_MASK" $arg]
-	    	set size [string index $arg [expr $charindex - 1]]
-	    	set sizearg [format "C_PIT%d_SIZE" $size]
-	    	set lvalue [format "C_PIT%d_EXPIRED_MASK" $size]
-		set lvalue [hsi::utils::get_driver_param_name $canonical_name $lvalue]
-		set rvalue [common::get_property CONFIG.$sizearg $periph]
-	    	set rvalue [expr pow(2, $rvalue) - 1]
-	    	set rvalue [format "%.0f" $rvalue]
-	    	set rvalue [format "0x%08X" $rvalue]
-	    } else {
-		set lvalue [hsi::utils::get_driver_param_name $canonical_name [string toupper $arg]]
- # The commented out rvalue is the name of the instance-specific constant
- #              set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
-	    	# The rvalue set below is the actual value of the parameter
-		set rvalue [common::get_property CONFIG.$arg  $periph]
-            }          
-            if {[llength $rvalue] == 0} {
-                set rvalue 0
-            }
-            set rvalue [hsi::utils::format_addr_string $rvalue $arg]
-            puts $file_handle "#define $lvalue $rvalue"
-        }
-        incr device_id
-        puts $file_handle ""
-    }
+	if { [lsearch $canonicals $periph_name] < 0 } {
+		set canonical_name [format "%s_%s" $drv_string [lindex $indices $device_id]]
+		puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
+		foreach arg $args {
+			if {[string first "_EXPIRED_MASK" $arg] > 0} {
+				set charindex [string first "_EXPIRED_MASK" $arg]
+				set size [string index $arg [expr $charindex - 1]]
+				set sizearg [format "C_PIT%d_SIZE" $size]
+				set lvalue [format "C_PIT%d_EXPIRED_MASK" $size]
+				set lvalue [hsi::utils::get_driver_param_name $canonical_name $lvalue]
+				set rvalue [common::get_property CONFIG.$sizearg $periph]
+				set rvalue [expr pow(2, $rvalue) - 1]
+				set rvalue [format "%.0f" $rvalue]
+				set rvalue [format "0x%08X" $rvalue]
+			} else {
+				set lvalue [hsi::utils::get_driver_param_name $canonical_name [string toupper $arg]]
+				# The commented out rvalue is the name of the instance-specific constant
+				# set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
+				# The rvalue set below is the actual value of the parameter
+				set rvalue [common::get_property CONFIG.$arg  $periph]
+				}
+			if {[llength $rvalue] == 0} {
+				set rvalue 0
+			}
+			set rvalue [hsi::utils::format_addr_string $rvalue $arg]
+			puts $file_handle "#define $lvalue $rvalue"
+		}
+	incr device_id
+	puts $file_handle ""
+	}
+     }
 
     #
     # Now redefine the Interrupt ID constants
