@@ -47,6 +47,11 @@
 * 1.0   vns     2/27/15  First release
 *       vns    16/10/15  Corrected Destination descriptor addresss calculation
 *                        in XZDma_CreateBDList API
+*       vns    05/11/15  Modified XZDma_SetMode to return XST_FAILURE on
+*                        selecting DMA mode other than normal mode in
+*                        scatter gather mode data transfer and corrected
+*                        XZDma_SetChDataConfig API to set over fetch and
+*                        src issue parameters correctly.
 * </pre>
 *
 ******************************************************************************/
@@ -175,6 +180,7 @@ s32 XZDma_SetMode(XZDma *InstancePtr, u8 IsSgDma, XZDma_Mode Mode)
 
 	if (InstancePtr->ChannelState != XZDMA_IDLE) {
 		Status = XST_FAILURE;
+		goto End;
 	}
 	else {
 		Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
@@ -200,6 +206,7 @@ s32 XZDma_SetMode(XZDma *InstancePtr, u8 IsSgDma, XZDma_Mode Mode)
 		else {
 			if (Mode != XZDMA_NORMAL_MODE) {
 				Status = XST_FAILURE;
+				goto End;
 			}
 			else {
 				Data |= (XZDMA_CTRL0_POINT_TYPE_MASK);
@@ -214,6 +221,7 @@ s32 XZDma_SetMode(XZDma *InstancePtr, u8 IsSgDma, XZDma_Mode Mode)
 		Status = XST_SUCCESS;
 	}
 
+End:
 	return Status;
 
 }
