@@ -53,6 +53,9 @@
 ##			 CR#794205
 ## 2.2     bss 08/04/14 Updated to add protection macros for xparameters.h
 ##			 CR#802257
+## 2.4     nsk 11/05/15 Updated generate and post_generate procs, not to generate
+##                      cpu macros, when microblaze is connected as one of
+##                      the streaming slaves to itself. CR#876604
 # uses xillib.tcl
 
 ########################################
@@ -73,6 +76,16 @@ proc generate {drv_handle} {
 
     set osname "[::hsi::utils::get_hostos_platform]/"
 
+    # Don't generate cpu macros, when microblaze itself is connected
+    # as one of the streaming slave to itself.
+    # when CLASS type of processor is driver ignore, and if it is of type
+    # cpu then continue generation.
+    set class_type [get_property CLASS $drv_handle]
+    if {[string equal $class_type "driver"]} {
+	puts "WARNING : Processor $drv_handle is connected as one of the streaming slaves\
+	      to itself \n"
+	return
+    }
     #---------------------------------------------------------------------------
     # Start of mb-gcc specific processing..
     # 1. Copy libc, libm and libxil files..
@@ -461,6 +474,12 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
 }
 
 proc post_generate {drv_handle} {
+
+	set type [get_property CLASS $drv_handle]
+	if {[string equal $type "driver"]} {
+	   return
+	}
+
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "#endif  /* end of protection macro */"
 	close $file_handle
