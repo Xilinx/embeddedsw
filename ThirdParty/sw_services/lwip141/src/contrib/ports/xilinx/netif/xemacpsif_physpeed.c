@@ -385,16 +385,16 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 
 	xil_printf("Start PHY autonegotiation \r\n");
 
-	XEmacPs_PhyRead(xemacpsp, phy_addr, 0x1F, &phyregtemp);
+	XEmacPs_PhyRead(xemacpsp, phy_addr, 0x1F, (u16_t *)&phyregtemp);
 	phyregtemp |= 0x4000;
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x1F, phyregtemp);
-	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0x1F, &phyregtemp);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0x1F, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
 		xil_printf("Error during sw reset \n\r");
 		return XST_FAILURE;
 	}
 
-	XEmacPs_PhyRead(xemacpsp, phy_addr, 0, &phyregtemp);
+	XEmacPs_PhyRead(xemacpsp, phy_addr, 0, (u16_t *)&phyregtemp);
 	phyregtemp |= 0x8000;
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0, phyregtemp);
 
@@ -403,7 +403,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	 */
 	for(i=0;i<1000000000;i++);
 
-	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0, &phyregtemp);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
 		xil_printf("Error during reset \n\r");
 		return XST_FAILURE;
@@ -412,7 +412,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	/* FIFO depth */
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x10, 0x5048);
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x10, phyregtemp);
-	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0x10, &phyregtemp);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0x10, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
 		xil_printf("Error writing to 0x10 \n\r");
 		return XST_FAILURE;
@@ -433,7 +433,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_RGMIIDCTL);
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
-	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, &phyregtemp);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
 		xil_printf("Error in tuning");
 		return XST_FAILURE;
@@ -453,7 +453,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_RGMIICTL);
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
-	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, &phyregtemp);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
 		xil_printf("Error in tuning");
 		return XST_FAILURE;
@@ -598,7 +598,7 @@ static u32_t get_Marvell_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 
 static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 {
-	u32_t phy_identity;
+	u16_t phy_identity;
 	u32_t RetStatus;
 
 	XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
