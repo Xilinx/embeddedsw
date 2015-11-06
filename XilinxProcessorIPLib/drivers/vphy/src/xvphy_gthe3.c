@@ -183,20 +183,15 @@ u32 XVphy_Gthe3CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
 		PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
 						ChPtr->CpllRefClkSel);
-
-		if ((ChPtr->RxOutDiv == 1) && (PllClkInFreqHz == 270000000)) {
+		if (PllClkInFreqHz == 270000000) {
 			ChPtr->PllParams.Cdr[2] = 0x0766;
 		}
-		else if ((ChPtr->RxOutDiv == 2) &&
-				(PllClkInFreqHz == 135000000)) {
+		else if (PllClkInFreqHz == 135000000) {
 			ChPtr->PllParams.Cdr[2] = 0x0756;
 		}
 		/* RBR does not use DP159 forwarded clock and expects 162MHz. */
-		else if (ChPtr->RxOutDiv == 2) {
-			ChPtr->PllParams.Cdr[2] = 0x0721;
-		}
 		else {
-			Status = XST_FAILURE;
+			ChPtr->PllParams.Cdr[2] = 0x0721;
 		}
 	}
 	else if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
