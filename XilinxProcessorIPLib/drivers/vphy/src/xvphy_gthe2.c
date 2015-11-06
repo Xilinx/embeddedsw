@@ -169,6 +169,7 @@ const XVphy_GtConfig Gthe2Config = {
 u32 XVphy_Gthe2CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
 	XVphy_Channel *ChPtr;
+	u32 PllClkInFreqHz;
 
 	/* Set CDR values only for CPLLs. */
 	if ((ChId < XVPHY_CHANNEL_ID_CH1) || (ChId > XVPHY_CHANNEL_ID_CH4)) {
@@ -176,22 +177,20 @@ u32 XVphy_Gthe2CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	}
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
+	PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
+							ChPtr->CpllRefClkSel);
 
 	/* Update the RXCDR_CFG2 settings. */
-	ChPtr->PllParams.Cdr[0] = 0x0020;
-	ChPtr->PllParams.Cdr[1] = 0x07FE;
-	ChPtr->PllParams.Cdr[3] = (ChPtr->RxOutDiv == 1) ? 0xC208 : 0xC220;
-	ChPtr->PllParams.Cdr[4] = 0x0018;
-
-	/* RxOutDiv = 1  => Cdr[2] = 0x2000
-	 * RxOutDiv = 2  => Cdr[2] = 0x1000
-	 * RxOutDiv = 4  => Cdr[2] = 0x0800
-	 * RxOutDiv = 8  => Cdr[2] = 0x0400 */
-	u8 RxOutDiv = ChPtr->RxOutDiv;
-	ChPtr->PllParams.Cdr[2] = 0x2000;
-	while (RxOutDiv >>= 1) {
-		ChPtr->PllParams.Cdr[2] >>= 1;
+	ChPtr->PllParams.Cdr[0] = 0x0018;
+	if (PllClkInFreqHz == 270000000) {
+		ChPtr->PllParams.Cdr[1] = 0xC208;
 	}
+	else {
+		ChPtr->PllParams.Cdr[1] = 0xC220;
+	}
+	ChPtr->PllParams.Cdr[2] = 0x1000;
+	ChPtr->PllParams.Cdr[3] = 0x07FE;
+	ChPtr->PllParams.Cdr[4] = 0x0020;
 
 	return XST_SUCCESS;
 }
