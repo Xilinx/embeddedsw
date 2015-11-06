@@ -51,6 +51,8 @@
 *                   Protected HDCP under macro number of instances.
 * 2.00 sha 10/15/15 Generate a HPD interrupt whenever RX cable
 *                   disconnect/unplug interrupt is detected.
+* 2.00 sha 11/06/15 Modified the order of execution in TP1 callback as DP159
+*                   config for TP1 and then link bandwidth callback.
 * </pre>
 *
 ******************************************************************************/
@@ -1213,15 +1215,15 @@ static void StubTp1Callback(void *InstancePtr)
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 			XDPRXSS_DPCD_LANE_COUNT_SET);
 
-	/* Link bandwidth callback */
-	if (DpRxSsPtr->LinkBwCallback) {
-		DpRxSsPtr->LinkBwCallback(DpRxSsPtr->LinkBwRef);
-	}
-
 	/* DP159 config for TP1 */
 	XVidC_Dp159Config(DpRxSsPtr->IicPtr, XVIDC_DP159_CT_TP1,
 			DpRxSsPtr->UsrOpt.LinkRate,
 				DpRxSsPtr->UsrOpt.LaneCount);
+
+	/* Link bandwidth callback */
+	if (DpRxSsPtr->LinkBwCallback) {
+		DpRxSsPtr->LinkBwCallback(DpRxSsPtr->LinkBwRef);
+	}
 
 	XDpRxSs_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 		XDPRXSS_RX_PHY_CONFIG, 0x3800000);
