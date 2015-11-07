@@ -100,6 +100,8 @@
 * 3.2	sk	02/05/15 Add SLCR reset in abort function as a workaround because
 * 					 controller does not update FIFO status flags as expected
 * 					 when thresholds are used.
+* 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
+*                    to remove compilation warnings. CR# 868893.
 *
 * </pre>
 *
@@ -413,8 +415,8 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 * no two threads are transferring data on the QSPI bus at the same time.
 *
 ******************************************************************************/
-int XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
-			unsigned ByteCount)
+s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
+			u32 ByteCount)
 {
 	u32 StatusReg;
 	u32 ConfigReg;
@@ -703,8 +705,8 @@ int XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 * no two threads are transferring data on the QSPI bus at the same time.
 *
 ******************************************************************************/
-int XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
-			    u8 *RecvBufPtr, unsigned ByteCount)
+s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
+			    u8 *RecvBufPtr, u32 ByteCount)
 {
 	u32 StatusReg;
 	u32 ConfigReg;

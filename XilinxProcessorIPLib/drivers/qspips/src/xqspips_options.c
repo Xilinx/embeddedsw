@@ -58,6 +58,8 @@
 *
 * 2.02a hk  26/03/13 Removed XQspi_Reset() in Set_Options() function when
 *			 LQSPI_MODE_OPTION is set. Moved Enable() to XQpsiPs_LqspiRead().
+* 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
+*                    to remove compilation warnings. CR# 868893.
 *</pre>
 *
 ******************************************************************************/
@@ -119,7 +121,7 @@ static OptionsMap OptionsTable[] = {
 * This function is not thread-safe.
 *
 ******************************************************************************/
-int XQspiPs_SetOptions(XQspiPs *InstancePtr, u32 Options)
+s32 XQspiPs_SetOptions(XQspiPs *InstancePtr, u32 Options)
 {
 	u32 ConfigReg;
 	unsigned int Index;
@@ -259,7 +261,7 @@ u32 XQspiPs_GetOptions(XQspiPs *InstancePtr)
 * This function is not thread-safe.
 *
 ******************************************************************************/
-int XQspiPs_SetClkPrescaler(XQspiPs *InstancePtr, u8 Prescaler)
+s32 XQspiPs_SetClkPrescaler(XQspiPs *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 
