@@ -499,6 +499,8 @@
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * 5.4  nsk  09/14/15 Updated IntelStmDevices list in xilisf.c to support
 *                    Micron N25Q256A.CR#881478.
+* 5.5  sk   11/07/15 Removed Compilation warnings with SPI interface.
+*                    CR# 868893.
 *
 * </pre>
 *
@@ -817,11 +819,11 @@ typedef struct {
 	u8 RegDone;		/**< Registration Done flag */
 	u8 IntrMode;		/**< Operating Mode flag Interrupt/Polling */
 	u8 FourByteAddrMode; /**< In four byte address mode flag */
-	int (*XIsf_Iface_SetOptions)
+	s32 (*XIsf_Iface_SetOptions)
 		(XIsf_Iface *InstancePtr, u32 Options);
 #if (!defined (XPAR_XISF_INTERFACE_PSQSPI)) && \
 	(!defined (XPAR_XISF_INTERFACE_QSPIPSU))
-	int (*XIsf_Iface_SetSlaveSelect)
+	s32 (*XIsf_Iface_SetSlaveSelect)
 		(XIsf_Iface *InstancePtr, u8 SlaveMask);
 #else
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
@@ -842,14 +844,14 @@ typedef struct {
 		(XIsf_Iface *InstancePtr, XQspiPsu_Msg *Msg,
 			u32 NumMsg);
 #else
-	int (*XIsf_Iface_Transfer)
+	s32 (*XIsf_Iface_Transfer)
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
-			u8 *RecvBufPtr, unsigned int ByteCount);
-	int (*XIsf_Iface_PolledTransfer)
+			u8 *RecvBufPtr, u32 ByteCount);
+	s32 (*XIsf_Iface_PolledTransfer)
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
-			u8 *RecvBufPtr, unsigned ByteCount);
+			u8 *RecvBufPtr, u32 ByteCount);
 #endif
-	int (*XIsf_Iface_SetClkPrescaler)
+	s32 (*XIsf_Iface_SetClkPrescaler)
 		(XIsf_Iface *InstancePtr, u8 PreScaler);
 	XIsf_StatusHandler StatusHandler;
 } XIsf;
