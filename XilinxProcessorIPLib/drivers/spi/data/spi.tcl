@@ -45,6 +45,7 @@
 #		      on C_FIFO_DEPTH for compatability of driver
 # 3.06a adk 07/08/13 Added C_USE_STARTUP parameter to the config structure
 # 4.0   adk 12/10/13 Updated as per the New Tcl API's
+# 4.2   sk  11/09/15 Removed delete filename statement CR# 784758.
 #
 ##############################################################################
 
@@ -313,7 +314,6 @@ proc xdefine_axispi_config_file {file_name drv_string} {
     global periph_ninstances
 
     set filename [file join "src" $file_name]
-    file delete $filename
     set config_file [open $filename w]
     ::hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "\#include \"xparameters.h\""
