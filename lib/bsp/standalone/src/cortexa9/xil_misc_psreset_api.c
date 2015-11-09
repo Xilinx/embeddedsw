@@ -45,6 +45,7 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00b kpc   03/07/13 First release
+* 5.4	pkp	  09/11/15 Change the description for XOcm_Remap function
 * </pre>
 *
 ******************************************************************************/
@@ -94,6 +95,7 @@ void XDdr_ResetHw(void)
 /*****************************************************************************/
 /**
 * This function contains the implementation for remapping the ocm memory region
+* to postbootrom state.
 *
 * @param   N/A.
 *
