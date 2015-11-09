@@ -70,6 +70,8 @@
 * 3.0	pkp  12/09/14 changed XSCUGIC_MAX_NUM_INTR_INPUTS for
 *		      Zynq Ultrascale Mp
 * 3.0   kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
+* 3.2	pkp  11/09/15 Corrected the interrupt processsor target mask value
+*					  for CPU interface 2 i.e. XSCUGIC_SPI_CPU2_MASK
 * </pre>
 *
 ******************************************************************************/
@@ -284,7 +286,7 @@ extern "C" {
 #define XSCUGIC_SPI_CPU5_MASK	0x00000020U /**< CPU 5 Mask*/
 #define XSCUGIC_SPI_CPU4_MASK	0x00000010U /**< CPU 4 Mask*/
 #define XSCUGIC_SPI_CPU3_MASK	0x00000008U /**< CPU 3 Mask*/
-#define XSCUGIC_SPI_CPU2_MASK	0x00000003U /**< CPU 2 Mask*/
+#define XSCUGIC_SPI_CPU2_MASK	0x00000004U /**< CPU 2 Mask*/
 #define XSCUGIC_SPI_CPU1_MASK	0x00000002U /**< CPU 1 Mask*/
 #define XSCUGIC_SPI_CPU0_MASK	0x00000001U /**< CPU 0 Mask*/
 /* @} */
