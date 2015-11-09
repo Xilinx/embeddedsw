@@ -74,6 +74,8 @@
 * 3.00  kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
 * 3.01	pkp	 06/19/15 Added XScuGic_InterruptMaptoCpu API for an interrupt
 *			  target CPU mapping
+* 3.02	pkp	 11/09/15 Modified DistributorInit function for AMP case to add
+*					  the current cpu to interrupt processor targets registers
 *
 * </pre>
 *
@@ -122,16 +124,27 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	u32 Int_Id;
 	u32 LocalCpuID = CpuID;
 
-#if USE_AMP==1
+ #if USE_AMP==1
 	#warning "Building GIC for AMP"
+    u32 RegValue;
 
 	/*
-	 * The distrubutor should not be initialized by FreeRTOS in the case of
-	 * AMP -- it is assumed that Linux is the master of this device in that
-	 * case.
+	 * The overall distributor should not be initialized in AMP case where
+	 * another CPU is taking care of it.
 	 */
+	LocalCpuID |= LocalCpuID << 8U;
+	LocalCpuID |= LocalCpuID << 16U;
+	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+		RegValue = XScuGic_DistReadReg(InstancePtr,
+						XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+		RegValue |= LocalCpuID;
+		XScuGic_DistWriteReg(InstancePtr,
+				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
+				     RegValue);
+	}
 	return;
-#endif
+ #endif
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
 
