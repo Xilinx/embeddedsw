@@ -39,6 +39,7 @@
 # 3.02a bss  08/18/12 Updated the script to fix CR 655224 and CR 672073.
 # 		      Added check for C_USE_EXTENDED_FSL_INSTR for AXI Stream.
 # 3.02a bss  12/03/12 Updated the script to fix CR#687103 and CR#688715
+# 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -129,7 +130,6 @@ proc xdefine_mbox_config_files {drv_handle hfile_name cfile_name drv_string} {
     # Open include file
     set hfile_handle [::hsi::utils::open_include_file $hfile_name]
     set cfile_name [file join "src" $cfile_name] 
-    file delete $cfile_name
     set cfile_handle [open $cfile_name w]
 
     ::hsi::utils::write_c_header $cfile_handle "Driver configuration"
