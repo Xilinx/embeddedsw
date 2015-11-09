@@ -37,6 +37,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00a sdm  11/22/11 Created
 # 3.0   adk  10/12/13 Updated as per the New Tcl API's
+# 3.4   sk   11/09/15 Removed delete filename statement CR# 784758.
 #
 ##############################################################################
 
@@ -112,7 +113,6 @@ proc xdefine_include_file_zynq {drv_handle file_name drv_string args} {
 
 proc xdefine_devcfg_config_file {drv_handle file_name drv_string args} {
     set filename [file join "src" $file_name]
-    file delete $filename
     set config_file [open $filename w]
     ::hsm::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "#include \"xparameters.h\""
