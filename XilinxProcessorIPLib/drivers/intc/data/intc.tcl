@@ -32,6 +32,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
+# 3.5      sk     11/09/15 Removed delete filename statement CR# 784758.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG
@@ -180,7 +181,6 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 	set drv_string "XIntc"
 	set args [list "DEVICE_ID" "C_BASEADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS"]
 	set filename [file join "src" $file_name]
-	file delete $filename
 	set config_file [open $filename w]
 	::hsi::utils::write_c_header $config_file "Driver configuration"
 	puts $config_file "#include \"xparameters.h\""
