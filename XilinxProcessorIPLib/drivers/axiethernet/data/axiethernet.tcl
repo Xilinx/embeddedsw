@@ -46,6 +46,7 @@
 # 8/1/15   adk Fixed TCL errors when axiethernet is configured with the
 #	       Axi stream fifo (CR 835605).
 # 13/06/15 adk Updated the driver tcl for Hier IP(To support User parameters).
+# 11/09/15 sk  Removed delete filename statement CR# 784758.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -470,7 +471,6 @@ proc xdefine_axiethernet_config_file {file_name drv_string} {
     global periph_ninstances
 
     set filename [file join "src" $file_name]
-    file delete $filename
     set config_file [open $filename w]
     ::hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "\#include \"xparameters.h\""
