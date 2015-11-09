@@ -38,6 +38,7 @@
 #			   Instances of UARTSNS550 have the same Device Id.
 # 3.2 	   adk    15/10/14 Fixed CR:826435 external clock speed is not
 #			   being updated with proper value in xparametrs.h file.
+# 3.4      sk     11/09/15 Removed delete filename statement CR# 784758.
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_L
 ##    Deprecated the CLOCK_HZ parameter in mdd and updated the Tcl to obtain the
@@ -142,7 +143,6 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 #
 proc xdefine_config_file {drv_handle file_name drv_string args} {
     set filename [file join "src" $file_name]
-    file delete $filename
     set config_file [open $filename w]
     ::hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "#include \"xparameters.h\""
