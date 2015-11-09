@@ -32,6 +32,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
 # 4.0     adk    10/12/13 Updated as per the New Tcl API's
+# 4.1     sk     11/09/15 Removed delete filename statement CR# 784758.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_P
@@ -195,7 +196,6 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 #
 proc xdefine_config_file {drv_handle file_name drv_string args} {
     set filename [file join "src" $file_name] 
-    file delete $filename
     set config_file [open $filename w]
     ::hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "#include \"xparameters.h\""
