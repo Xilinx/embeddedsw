@@ -40,7 +40,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
-* 5.00 pkp  02/10/14 Initial version
+* 5.00  pkp  02/10/14 Initial version
 * </pre>
 *
 * @note
@@ -176,6 +176,7 @@ OKToRun:
         bic     r0, r0, #(0x1 << 17)        /* Clear RSDIS bit 17 to enable return stack*/
         bic     r0, r0, #(0x1 << 16)        /* Clear BP bit 15 and BP bit 16:*/
         bic     r0, r0, #(0x1 << 15)        /* Normal operation, BP is taken from the global history table.*/
+        orr	r0, r0, #(0x1 << 14)	    /* Disable DBWR for errata 780125 */
 	mcr     p15, 0, r0, c1, c0, 1       /* Write ACTLR*/
 
 /* Enable icahce and dcache */
