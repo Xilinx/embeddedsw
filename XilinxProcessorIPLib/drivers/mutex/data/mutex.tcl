@@ -37,6 +37,7 @@
 # 3.01a sdm  05/06/11 Updated to handle mutex connected through axi2axiconnector
 # 3.02a bss  01/31/13 Updated script to fix CR #679127
 # 4.0   bss  12/10/13 Updated as per the New Tcl API's
+# 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -103,7 +104,6 @@ proc xdefine_mutex_config_files {drv_handle hfile_name cfile_name drv_string} {
     # Open include file
     set hfile_handle [::hsi::utils::open_include_file $hfile_name]
     set cfile_name [file join "src" $cfile_name] 
-    file delete $cfile_name
     set cfile_handle [open $cfile_name w]
 
     ::hsi::utils::write_c_header $cfile_handle "Driver configuration"
