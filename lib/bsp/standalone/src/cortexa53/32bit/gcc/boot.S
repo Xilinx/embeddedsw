@@ -171,8 +171,10 @@ OKToRun:
 
 	/* Enable mmu, icahce and dcache */
 	mrc p15,0,r0,c1,c0,0
-	orr r0,r0,#0x1
-	bic r0,r0,#(0x1 << 13)
+	bic r0, r0, #(0x1 << 13)
+	orr r0, r0, #(0x1 << 12)		/* enable I-cache */
+	orr r0, r0, #(0x1 << 2)			/* enable D-Cache */
+	orr r0, r0, #0x1			/* enable MMU */
 	dsb					/* dsb	allow the MMU to start up */
 	mcr	p15,0,r0,c1,c0,0		/* Enable cache and MMU */
 	isb					/* isb	flush prefetch buffer */
