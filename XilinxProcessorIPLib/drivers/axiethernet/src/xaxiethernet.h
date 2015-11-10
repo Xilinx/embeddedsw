@@ -466,6 +466,8 @@
 * 5.0  adk 13/06/15 - Updated the driver tcl for Hier IP(To support User parameters).
 * 5.0  adk 28/07/15 - Fixed CR:870631 AXI Ethernet with FIFO will fail to
 *		      Create the BSP if the interrupt pin on the FIFO is unconnected
+* 5.1  sk  11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                   Changed the prototype of XAxiEthernet_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -713,7 +715,7 @@ extern "C" {
  */
 typedef struct XAxiEthernet_Config {
 	u16 DeviceId;	/**< DeviceId is the unique ID  of the device */
-	u32 BaseAddress;/**< BaseAddress is the physical base address of the
+	UINTPTR BaseAddress;/**< BaseAddress is the physical base address of the
 			  *  device's registers
 			  */
 	u8 TemacType;   /**< Temac Type can have 3 possible values. They are
@@ -1401,7 +1403,7 @@ typedef struct XAxiEthernet {
  * Initialization functions in xaxiethernet.c
  */
 int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
-			XAxiEthernet_Config *CfgPtr,u32 VirtualAddress);
+			XAxiEthernet_Config *CfgPtr,UINTPTR VirtualAddress);
 void XAxiEthernet_Start(XAxiEthernet *InstancePtr);
 void XAxiEthernet_Stop(XAxiEthernet *InstancePtr);
 void XAxiEthernet_Reset(XAxiEthernet *InstancePtr);

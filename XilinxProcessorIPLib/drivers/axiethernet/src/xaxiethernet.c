@@ -52,6 +52,8 @@
 * 1.00a asa  6/30/10 First release based on the ll temac driver
 * 1.02a asa  2/16/11 Made changes in XAxiEthernet_Reset to insert delays.
 * 3.02a srt  4/13/13 Removed Warnings (CR 704998).
+* 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XAxiEthernet_CfgInitialize API.
 *
 * </pre>
 ******************************************************************************/
@@ -105,7 +107,7 @@ xdbg_stmnt(u32 _xaxiethernet_rir_value;)
 ******************************************************************************/
 int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
 				XAxiEthernet_Config *CfgPtr,
-				u32 EffectiveAddress)
+				UINTPTR EffectiveAddress)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
