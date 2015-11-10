@@ -75,6 +75,8 @@
 *		       has been fixed and the swapping is not required
 *		       in  the driver (CR 657412)
 * 2.03a srt  04/13/13  Removed Warnings (CR 705004).
+* 3.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XAxiPcie_CfgInitialize API.
 *
 * </pre>
 *
@@ -115,7 +117,7 @@
 *
 ******************************************************************************/
 int XAxiPcie_CfgInitialize(XAxiPcie *InstancePtr, XAxiPcie_Config *CfgPtr,
-							 u32 EffectiveAddress)
+							 UINTPTR EffectiveAddress)
 {
 	u32 Data;
 

@@ -125,6 +125,8 @@
 * 		       renamed to BASEADDR and HIGHADDR in Vivado builds.
 *	               Modified the tcl for this change.
 * 3.0   adk  19/12/13 Updated as per the New Tcl API's
+* 3.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XAxiPcie_CfgInitialize API.
 *
 * </pre>
 *
@@ -174,7 +176,7 @@ extern "C" {
 
 typedef  struct {
 	u16 DeviceId;			/**< Unique ID of PCIe IP */
-	u32 BaseAddress;		/**< Register base address */
+	UINTPTR BaseAddress;		/**< Register base address */
 	u8  LocalBarsNum;		/* The number of local bus (AXI) BARs
 					 * in hardware
 					 */
@@ -276,7 +278,7 @@ XAxiPcie_Config * XAxiPcie_LookupConfig(u16 DeviceId);
 
 /* Config Initialization */
 int XAxiPcie_CfgInitialize(XAxiPcie * InstancePtr, XAxiPcie_Config * CfgPtr,
-							u32 EffectiveAddress);
+							UINTPTR EffectiveAddress);
 void XAxiPcie_GetVsecCapability(XAxiPcie *InstancePtr, u8 VsecNum,
 			u16 *VsecIdPtr, u8 *VersionPtr, u16 *NextCapPtr);
 void XAxiPcie_GetVsecHeader(XAxiPcie *InstancePtr, u8 VsecNum, u16 *VsecIdPtr,
