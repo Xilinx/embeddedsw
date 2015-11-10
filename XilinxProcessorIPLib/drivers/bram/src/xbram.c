@@ -51,6 +51,8 @@
 * 3.01a sa   13/01/12 Added CorrectableFailingDataRegs and
 *                     UncorrectableFailingDataRegs in
 *					  XBram_CfgInitialize API.
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XBram_CfgInitialize API.
 *</pre>
 *
 *****************************************************************************/
@@ -106,7 +108,7 @@
 *****************************************************************************/
 int XBram_CfgInitialize(XBram *InstancePtr,
 			XBram_Config *Config,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	/*
 	 * Assert arguments

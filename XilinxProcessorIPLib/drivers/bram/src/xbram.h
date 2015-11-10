@@ -111,6 +111,8 @@
 *		      flush the Cache after writing to BRAM in InjectErrors
 *		      API(CR #719011)
 * 4.0   adk  19/12/13 Updated as per the New Tcl API's
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XBram_CfgInitialize API.
 * </pre>
 *****************************************************************************/
 #ifndef XBRAM_H		/* prevent circular inclusions */
@@ -161,8 +163,8 @@ typedef struct {
 					     *  h/w */
 	u32 MemBaseAddress;		   /**< Device memory base address */
 	u32 MemHighAddress;		   /**< Device memory high address */
-	u32 CtrlBaseAddress;		   /**< Device register base address.*/
-	u32 CtrlHighAddress;		   /**< Device register base address.*/
+	UINTPTR CtrlBaseAddress;		   /**< Device register base address.*/
+	UINTPTR CtrlHighAddress;		   /**< Device register base address.*/
 } XBram_Config;
 
 /**
@@ -190,7 +192,7 @@ XBram_Config *XBram_LookupConfig(u16 DeviceId);
  * Functions implemented in xbram.c
  */
 int XBram_CfgInitialize(XBram *InstancePtr, XBram_Config *Config,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 
 /*
  * Functions implemented in xbram_selftest.c
