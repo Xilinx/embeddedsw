@@ -49,6 +49,8 @@
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name in
 *		      all the driver files.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XCan_VmInitialize API.
 * </pre>
 ******************************************************************************/
 
@@ -174,7 +176,7 @@ int XCan_Initialize(XCan *InstancePtr, u16 DeviceId)
 * @note		None.
 *
 ******************************************************************************/
-int XCan_VmInitialize(XCan *InstancePtr, u16 DeviceId, u32 VirtAddr)
+int XCan_VmInitialize(XCan *InstancePtr, u16 DeviceId, UINTPTR VirtAddr)
 {
 	XCan_Config *ConfigPtr;
 

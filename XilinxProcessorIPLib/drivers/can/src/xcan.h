@@ -189,6 +189,8 @@ exclusion
 * 3.0   adk  19/12/13 Updated as per the New Tcl API's
 * 3.1	adk  20/10/15 Update the driver tcl to check for valid IP parameters.
 *		      CR#910450.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XCan_VmInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -232,7 +234,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	u8 NumOfAcceptFilters;	/**< Number of Acceptance Filters */
 } XCan_Config;
 
@@ -279,7 +281,7 @@ typedef void (*XCan_EventHandler) (void *CallBackRef, u32 Mask);
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	u32 BaseAddress;	/**< Device Base address */
+	UINTPTR BaseAddress;	/**< Device Base address */
 	u32 IsReady;		/**< Device is initialized and ready */
 	u8 NumOfAcceptFilters;  /**< Number of Acceptance Filters */
 
@@ -477,7 +479,7 @@ typedef struct {
  * Functions in xcan.c
  */
 int XCan_Initialize(XCan *InstancePtr, u16 DeviceId);
-int XCan_VmInitialize(XCan *InstancePtr, u16 DeviceId, u32 VirtAddr);
+int XCan_VmInitialize(XCan *InstancePtr, u16 DeviceId, UINTPTR VirtAddr);
 void XCan_Reset(XCan *InstancePtr);
 u8 XCan_GetMode(XCan *InstancePtr);
 void XCan_EnterMode(XCan *InstancePtr, u8 OperationMode);
