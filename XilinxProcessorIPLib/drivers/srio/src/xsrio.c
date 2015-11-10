@@ -44,6 +44,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   adk  16/04/14 Initial release
+* 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XSrio_CfgInitialize API.
 * </pre>
 ******************************************************************************/
 
@@ -75,7 +77,7 @@
 * @note         None.
 *****************************************************************************/
 int XSrio_CfgInitialize(XSrio *InstancePtr,
-			XSrio_Config *Config, u32 EffectiveAddress)
+			XSrio_Config *Config, UINTPTR EffectiveAddress)
 {
 	u32 Portwidth;
 

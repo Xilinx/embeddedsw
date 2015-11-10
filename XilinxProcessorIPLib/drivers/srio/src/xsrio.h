@@ -97,6 +97,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   adk  16/04/14 Initial release.
+* 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XSrio_CfgInitialize API.
 * 
 * </pre>
 ******************************************************************************/
@@ -163,7 +165,7 @@ extern "C" {
  */
 typedef struct XSrio_Config {
 	u16 DeviceId;		/**< Device Id */
-	u32 BaseAddress;	/**< Base Address */
+	UINTPTR BaseAddress;	/**< Base Address */
 } XSrio_Config;
 
 /**
@@ -1531,7 +1533,7 @@ typedef struct XSrio {
  * Initialization and Control functions in xsrio.c
  */
 int XSrio_CfgInitialize(XSrio * InstancePtr,
-			XSrio_Config *Config, u32 EffectiveAddress);
+			XSrio_Config *Config, UINTPTR EffectiveAddress);
 XSrio_Config *XSrio_LookupConfig(u32 DeviceId);
 int XSrio_GetPortStatus(XSrio *InstancePtr);
 int XSrio_GetPEType(XSrio *InstancePtr);
