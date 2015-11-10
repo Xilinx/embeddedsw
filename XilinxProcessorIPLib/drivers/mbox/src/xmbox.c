@@ -60,6 +60,8 @@
 *			Renamed _mIsEmpty to _IsEmptyHw and _mIsFull
 *			to _IsFullHw.
 * 3.02a bss  08/18/12   Added XMbox_GetStatus API for CR 676187
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XMbox_CfgInitialize API.
 *
 * </pre>
 *
@@ -100,7 +102,7 @@
 *
 ******************************************************************************/
 int XMbox_CfgInitialize(XMbox *InstancePtr, XMbox_Config *ConfigPtr,
-			u32 EffectiveAddress)
+			UINTPTR EffectiveAddress)
 {
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
