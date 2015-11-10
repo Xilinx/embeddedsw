@@ -68,6 +68,10 @@
 *		      Added XIntc_CascadeHandler API.
 * 2.07a bss  10/18/13 Modified XIntc_DeviceInterruptHandler to support
 *		      nested interrupts.
+* 3.5   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of LookupConfigByBaseAddress,
+*                     XIntc_SetIntrSvcOption, XIntc_RegisterHandler,
+*                     XIntc_RegisterFastHandler APIs.
 *
 * </pre>
 *
@@ -92,7 +96,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static XIntc_Config *LookupConfigByBaseAddress(u32 BaseAddress);
+static XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
 
 #if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
 static void XIntc_CascadeHandler(void *DeviceId);
@@ -339,7 +343,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XIntc_SetIntrSvcOption(u32 BaseAddress, int Option)
+void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 {
 	XIntc_Config *CfgPtr;
 
@@ -388,7 +392,7 @@ void XIntc_SetIntrSvcOption(u32 BaseAddress, int Option)
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XIntc_RegisterHandler(u32 BaseAddress, int InterruptId,
+void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 			   XInterruptHandler Handler, void *CallBackRef)
 {
 	XIntc_Config *CfgPtr;
@@ -428,7 +432,7 @@ void XIntc_RegisterHandler(u32 BaseAddress, int InterruptId,
 * @note		None.
 *
 ******************************************************************************/
-static XIntc_Config *LookupConfigByBaseAddress(u32 BaseAddress)
+static XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 {
 	XIntc_Config *CfgPtr = NULL;
 	int Index;
@@ -465,7 +469,7 @@ static XIntc_Config *LookupConfigByBaseAddress(u32 BaseAddress)
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XIntc_RegisterFastHandler(u32 BaseAddress, u8 Id,
+void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 					XFastInterruptHandler FastHandler)
 {
 	u32 CurrentIER;

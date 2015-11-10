@@ -206,6 +206,7 @@
 * 3.3     adk    11/3/14   added generation of C_HAS_ILR parameter to
 *			   xparameters.h.Changes are made in the driver tcl file
 *			   (CR#828046).
+* 3.5   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *
 * </pre>
 *
@@ -283,7 +284,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	u32 AckBeforeService;	/**< Ack location per interrupt */
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
@@ -309,7 +310,7 @@ typedef struct {
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	u32 BaseAddress;	 /**< Base address of registers */
+	UINTPTR BaseAddress;	 /**< Base address of registers */
 	u32 IsReady;		 /**< Device is initialized and ready */
 	u32 IsStarted;		 /**< Device has been started */
 	u32 UnhandledInterrupts; /**< Intc Statistics */

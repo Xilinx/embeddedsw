@@ -76,6 +76,9 @@
 * 2.05a bss  08/18/12 Added XIntc_RegisterFastHandler API to register fast
 *		      interrupt handlers using base address.
 * 2.07a bss  10/18/13 Added XIN_ILR_OFFSET macro for nested interrupts.
+* 3.5   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XIntc_RegisterFastHandler,
+*                     XIntc_SetIntrSvcOption, XIntc_RegisterHandler APIs.
 *
 * </pre>
 *
@@ -311,12 +314,12 @@ void XIntc_LowLevelInterruptHandler(void);
 void XIntc_DeviceInterruptHandler(void *DeviceId);
 
 /* Various configuration functions */
-void XIntc_SetIntrSvcOption(u32 BaseAddress, int Option);
+void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option);
 
-void XIntc_RegisterHandler(u32 BaseAddress, int InterruptId,
+void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 			   XInterruptHandler Handler, void *CallBackRef);
 
-void XIntc_RegisterFastHandler(u32 BaseAddress, u8 Id,
+void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 					XFastInterruptHandler FastHandler);
 
 /************************** Variable Definitions *****************************/
