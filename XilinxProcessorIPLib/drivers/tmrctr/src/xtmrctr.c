@@ -61,6 +61,8 @@
 *		      which was checking the Register Value to know whether
 *		      a timer has started or not.
 * 4.0   als  09/30/15 Updated initialization API.
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XTmrCtr_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -106,7 +108,7 @@ static void XTmrCtr_StubCallback(void *CallBackRef, u8 TmrCtrNumber);
 *
 ******************************************************************************/
 void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
-		u32 EffectiveAddr)
+		UINTPTR EffectiveAddr)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);

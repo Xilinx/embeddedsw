@@ -148,6 +148,8 @@
 *		      a timer has started or not.
 * 3.0   adk  19/12/13 Updated as per the New Tcl API's
 * 4.0   als  09/30/15 Updated initialization API.
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XTmrCtr_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -212,7 +214,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	u32 SysClockFreqHz;	/**< The AXI bus clock frequency */
 } XTmrCtr_Config;
 
@@ -247,7 +249,7 @@ typedef struct {
 typedef struct {
 	XTmrCtr_Config Config;   /**< Core configuration. */
 	XTmrCtrStats Stats;	 /**< Component Statistics */
-	u32 BaseAddress;	 /**< Base address of registers */
+	UINTPTR BaseAddress;	 /**< Base address of registers */
 	u32 IsReady;		 /**< Device is initialized and ready */
 	u32 IsStartedTmrCtr0;	 /**< Is Timer Counter 0 started */
 	u32 IsStartedTmrCtr1;	 /**< Is Timer Counter 1 started */
@@ -264,7 +266,7 @@ typedef struct {
 
 /* Required functions, in file xtmrctr.c */
 void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
-		u32 EffectiveAddr);
+		UINTPTR EffectiveAddr);
 int XTmrCtr_InitHw(XTmrCtr *InstancePtr);
 int XTmrCtr_Initialize(XTmrCtr * InstancePtr, u16 DeviceId);
 void XTmrCtr_Start(XTmrCtr * InstancePtr, u8 TmrCtrNumber);
