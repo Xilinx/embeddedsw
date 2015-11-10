@@ -251,6 +251,8 @@
 *						xaxipmon_hw.h
 *
 * 6.3	kvn  07/02/15	Modified code according to MISRA-C:2012 guidelines.
+* 6.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XAxiPmon_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -435,7 +437,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;			/**< Unique ID of device */
-	u32 BaseAddress;		/**< Device base address */
+	UINTPTR BaseAddress;		/**< Device base address */
 	s32 GlobalClkCounterWidth;	/**< Global Clock Counter Width */
 	s32 MetricSampleCounterWidth ;	/**< Metric Sample Counters Width */
 	u8  IsEventCount;		/**< Event Count Enabled 1 - enabled
@@ -822,7 +824,7 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId);
  * Functions in xaxipmon.c
  */
 s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr,
-		XAxiPmon_Config *ConfigPtr, u32 EffectiveAddr);
+		XAxiPmon_Config *ConfigPtr, UINTPTR EffectiveAddr);
 
 s32 XAxiPmon_ResetMetricCounter(XAxiPmon *InstancePtr);
 

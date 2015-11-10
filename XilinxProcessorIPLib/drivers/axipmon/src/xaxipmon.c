@@ -118,6 +118,8 @@
 *						XAxiPmon_GetWriteIdMask, XAxiPmon_GetReadIdMask
 *						functions to support Zynq MP APM.
 * 6.3	kvn  07/02/15	Modified code according to MISRA-C:2012 guidelines.
+* 6.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XAxiPmon_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -159,7 +161,7 @@
 *
 ******************************************************************************/
 s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
-						u32 EffectiveAddr)
+						UINTPTR EffectiveAddr)
 {
 	/*
 	 * Assert the input arguments.
