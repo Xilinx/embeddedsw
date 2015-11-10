@@ -51,6 +51,8 @@
 * 3.00a hbm  10/15/09 Migrated to HAL phase 1 to use xil_io, xil_types,
 *			and xil_assert.
 * 4.00a bss  03/05/14 Modified XMutex_CfgInitialize to fix CR# 770096
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XMutex_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -92,7 +94,7 @@
 *
 ******************************************************************************/
 int XMutex_CfgInitialize(XMutex *InstancePtr, XMutex_Config *ConfigPtr,
-			 u32 EffectiveAddress)
+			 UINTPTR EffectiveAddress)
 {
 	int i;
 

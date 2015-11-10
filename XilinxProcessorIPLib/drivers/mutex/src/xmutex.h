@@ -102,6 +102,8 @@
 * 3.02a bss  01/31/13 Updated driver tcl to fix CR #679127
 * 4.0   adk  19/12/13 Updated as per the New Tcl API's
 * 4.00a bss  03/05/14 Modified XMutex_CfgInitialize to fix CR# 770096
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XMutex_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -128,7 +130,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;	/**< Unique ID of device */
-	u32 BaseAddress;/**< Register base address */
+	UINTPTR BaseAddress;/**< Register base address */
 	u32 NumMutex;	/**< Number of Mutexes in this device */
 	 u8 UserReg;	/**< User Register, access not controlled by Mutex */
 } XMutex_Config;
@@ -155,7 +157,7 @@ typedef struct {
  * Required functions, in file xmutex.c
  */
 int XMutex_CfgInitialize(XMutex *InstancePtr, XMutex_Config *ConfigPtr,
-			 u32 EffectiveAddress);
+			 UINTPTR EffectiveAddress);
 void XMutex_Lock(XMutex *InstancePtr, u8 MutexNumber);
 int XMutex_Trylock(XMutex *InstancePtr, u8 MutexNumber);
 int XMutex_Unlock(XMutex *InstancePtr, u8 MutexNumber);
