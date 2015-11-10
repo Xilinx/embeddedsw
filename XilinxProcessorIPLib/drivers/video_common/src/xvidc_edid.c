@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc_edid.c
- * @addtogroup video_common_v2_0
+ * @addtogroup video_common_v2_1
  * @{
  *
  * Contains function definitions related to the Extended Display Identification
