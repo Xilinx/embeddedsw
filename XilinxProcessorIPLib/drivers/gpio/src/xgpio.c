@@ -60,6 +60,8 @@
 * 2.12a sv   11/21/07 Updated driver to support access through DCR bus
 * 3.00a sv   11/21/09 Updated to use HAL Processor APIs. Renamed the
 *		      macros to remove _m from the name.
+* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XGpio_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -114,7 +116,7 @@
 *
 *****************************************************************************/
 int XGpio_CfgInitialize(XGpio * InstancePtr, XGpio_Config * Config,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	/*
 	 * Assert arguments
