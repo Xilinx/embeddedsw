@@ -100,6 +100,7 @@
 *		      acheive the desired functioanality of the macros that
 *		      were removed.
 * 3.0   adk  19/12/13 Updated as per the New Tcl API's
+* 3.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 * </pre>
 *
 ******************************************************************************/
@@ -128,7 +129,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;	 /**< Unique ID of device */
-	u32 BaseAddr;	 /**< Base address of the device */
+	UINTPTR BaseAddr;	 /**< Base address of the device */
 } XWdtTb_Config;
 
 
@@ -139,7 +140,7 @@ typedef struct {
  * functions.
  */
 typedef struct {
-	u32 RegBaseAddress;	/* Base address of registers */
+	UINTPTR RegBaseAddress;	/* Base address of registers */
 	u32 IsReady;		/* Device is initialized and ready */
 	u32 IsStarted;		/* Device watchdog timer is running */
 } XWdtTb;
