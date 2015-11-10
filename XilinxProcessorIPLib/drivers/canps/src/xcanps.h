@@ -200,6 +200,8 @@
 *			SDK claims a 40kbps baud rate but it's not.
 * 3.0 adk     09/12/14  Added support for Zynq Ultrascale Mp.Also code
 *			modified for MISRA-C:2012 compliance.
+* 3.1 adk     10/11/15  Fixed CR#911958 Add support for Tx Watermark example.
+*			Data mismatch while sending data less than 8 bytes.
 * </pre>
 *
 ******************************************************************************/

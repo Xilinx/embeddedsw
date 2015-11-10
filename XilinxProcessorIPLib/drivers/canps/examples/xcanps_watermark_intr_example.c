@@ -52,6 +52,7 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00a xd/sv  01/12/10 First release
+* 3.1   adk    10/11/15 Fixed CR#911958 Add support for Tx Watermark testing.
 *
 *
 * </pre>
@@ -292,6 +293,7 @@ int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 	 * Enable all interrupts in CAN device.
 	 */
 	XCanPs_IntrEnable(CanInstPtr, XCANPS_IXR_ALL);
+	XCanPs_IntrEnable(CanInstPtr, XCANPS_IXR_TXFWMEMP_MASK);
 
 	/*
 	 * Disable the Receive FIFO Not Empty Interrupt and the
@@ -299,7 +301,7 @@ int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 	 */
 	XCanPs_IntrDisable(CanInstPtr,
 				XCANPS_IXR_RXNEMP_MASK |
-				XCANPS_IXR_RXOK_MASK);
+				XCANPS_IXR_RXOK_MASK | XCANPS_IXR_TXOK_MASK);
 
 	/*
 	 * Enter Loop Back Mode.
@@ -320,7 +322,7 @@ int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 	/*
 	 * Wait here until both sending and reception have been completed.
 	 */
-	while ((SendDone < TEST_THRESHOLD) || (RecvDone != TRUE));
+	while ((SendDone != TRUE) || (RecvDone != TRUE));
 
 	/*
 	 * Check for errors found in the callbacks.
@@ -385,6 +387,7 @@ static void Config(XCanPs *InstancePtr)
 	 * Set the threshold value for the Rx FIFO Watermark interrupt.
 	 */
 	XCanPs_SetRxIntrWatermark(InstancePtr, TEST_THRESHOLD - 1);
+	XCanPs_SetTxIntrWatermark(InstancePtr, TEST_THRESHOLD - 1);
 }
 
 /*****************************************************************************/
@@ -532,10 +535,14 @@ static int ReceiveData(XCanPs *InstancePtr)
 ******************************************************************************/
 static void SendHandler(void *CallBackRef)
 {
+
+	XCanPs *CanInstPtr = (XCanPs *)CallBackRef;
+
 	/*
-	 * The frame was sent successfully. Notify the task context.
+	 * The Tx FIFO Empty Watermark level specified.
 	 */
-	SendDone++;
+	XCanPs_IntrDisable(CanInstPtr, XCANPS_IXR_TXFWMEMP_MASK);
+	SendDone = TRUE;
 }
 
 

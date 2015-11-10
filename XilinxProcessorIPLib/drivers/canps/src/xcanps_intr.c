@@ -90,7 +90,7 @@ void XCanPs_IntrEnable(XCanPs *InstancePtr, u32 Mask)
 	 * Write to the IER to enable the specified interrupts.
 	 */
 	IntrValue = XCanPs_IntrGetEnabled(InstancePtr);
-	IntrValue |= Mask & XCANPS_IXR_ALL;
+	IntrValue |= Mask;
 	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 			XCANPS_IER_OFFSET, IntrValue);
 }
@@ -324,7 +324,7 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	/*
 	 * A frame was transmitted successfully.
 	 */
-	if (((PendingIntr & XCANPS_IXR_TXOK_MASK) != (u32)0) &&
+	if (((PendingIntr & (XCANPS_IXR_TXOK_MASK | XCANPS_IXR_TXFWMEMP_MASK)) != (u32)0) &&
 		(CanPtr->SendHandler != NULL)) {
 		CanPtr->SendHandler(CanPtr->SendRef);
 	}
