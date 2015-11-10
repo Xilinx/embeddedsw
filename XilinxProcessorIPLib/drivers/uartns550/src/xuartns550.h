@@ -164,6 +164,8 @@
 * 3.2   adk 15/10/14  Fixed CR:826435 changes are made in the driver tcl file.
 * 3.3	nsk  04/13/15 Fixed CR:857013 changes are made in xuartns550.c and
 *		      xuartns550_l.c.
+* 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XUartNs550_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -308,7 +310,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Base address of device */
+	UINTPTR BaseAddress;	/**< Base address of device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u32 DefaultBaudRate;	/**< Baud Rate in bps, ie 1200 */
 } XUartNs550_Config;
@@ -377,7 +379,7 @@ typedef struct {
  */
 typedef struct {
 	XUartNs550Stats Stats;	/**< Statistics */
-	u32 BaseAddress;	/**< Base address of device  */
+	UINTPTR BaseAddress;	/**< Base address of device  */
 	u32 InputClockHz;	/**< Input clock frequency */
 	int IsReady;		/**< Device is initialized and ready */
 	u32 BaudRate;		/**< Current baud rate of hw */
@@ -405,7 +407,7 @@ XUartNs550_Config *XUartNs550_LookupConfig(u16 DeviceId);
  */
 int XUartNs550_CfgInitialize(XUartNs550 *InstancePtr,
 				XUartNs550_Config *Config,
-				 u32 EffectiveAddr);
+				 UINTPTR EffectiveAddr);
 unsigned int XUartNs550_Send(XUartNs550 *InstancePtr, u8 *BufferPtr,
 				unsigned int NumBytes);
 unsigned int XUartNs550_Recv(XUartNs550 *InstancePtr, u8 *BufferPtr,

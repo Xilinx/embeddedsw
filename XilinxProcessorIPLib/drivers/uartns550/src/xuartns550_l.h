@@ -52,6 +52,9 @@
 * 2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
 *		      Updated to use HAL Processor APIs. _m is removed from the
 *		      name of all the macro definitions.
+* 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XUartNs550_SendByte,
+*                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -332,11 +335,11 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-void XUartNs550_SendByte(u32 BaseAddress, u8 Data);
+void XUartNs550_SendByte(UINTPTR BaseAddress, u8 Data);
 
-u8 XUartNs550_RecvByte(u32 BaseAddress);
+u8 XUartNs550_RecvByte(UINTPTR BaseAddress);
 
-void XUartNs550_SetBaud(u32 BaseAddress, u32 InputClockHz, u32 BaudRate);
+void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate);
 
 /************************** Variable Definitions *****************************/
 

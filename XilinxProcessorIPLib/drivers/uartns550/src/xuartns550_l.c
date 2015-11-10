@@ -53,6 +53,9 @@
 *		      name of all the macro definitions.
 * 3.3	nsk  04/13/15 Fixed Clock Divisor Enhancement.
 *		      (CR 857013)
+* 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XUartNs550_SendByte,
+*                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -92,7 +95,7 @@
 * @note		None.
 *
 *****************************************************************************/
-void XUartNs550_SendByte(u32 BaseAddress, u8 Data)
+void XUartNs550_SendByte(UINTPTR BaseAddress, u8 Data)
 {
 	/*
 	 * Wait til we know that the byte can be sent, the 550 does not have any
@@ -120,7 +123,7 @@ void XUartNs550_SendByte(u32 BaseAddress, u8 Data)
 * @note		None.
 *
 *****************************************************************************/
-u8 XUartNs550_RecvByte(u32 BaseAddress)
+u8 XUartNs550_RecvByte(UINTPTR BaseAddress)
 {
 	/*
 	 * Wait for there to be data received
@@ -149,7 +152,7 @@ u8 XUartNs550_RecvByte(u32 BaseAddress)
 * @note		None.
 *
 *****************************************************************************/
-void XUartNs550_SetBaud(u32 BaseAddress, u32 InputClockHz, u32 BaudRate)
+void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)
 {
 
 	u32 BaudLSB;

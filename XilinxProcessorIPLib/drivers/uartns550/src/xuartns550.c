@@ -66,6 +66,8 @@
 *		      XUartNs550_StubHandler.
 * 3.3	nsk  04/13/15 Fixed Clock Divisor Enhancement.
 *		      (CR 857013)
+* 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XUartNs550_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -137,7 +139,7 @@ static void XUartNs550_StubHandler(void *CallBackRef, u32 Event,
 *****************************************************************************/
 int XUartNs550_CfgInitialize(XUartNs550 *InstancePtr,
 					XUartNs550_Config *Config,
-					u32 EffectiveAddr)
+					UINTPTR EffectiveAddr)
 {
 	int Status;
 	u32 BaudRate;
