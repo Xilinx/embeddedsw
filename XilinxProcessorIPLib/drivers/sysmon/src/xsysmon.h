@@ -204,6 +204,8 @@
 *			parameter.
 * 7.1	bss  05/06/15 Modified temperature transfer function for
 * 					  for Ultrascale CR#859369
+* 7.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XSysMon_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -368,7 +370,7 @@ extern "C" {
  */
 typedef struct {
 	u16  DeviceId;		/**< Unique ID of device */
-	u32  BaseAddress;	/**< Device base address */
+	UINTPTR  BaseAddress;	/**< Device base address */
 	int  IncludeInterrupt; 	/**< Supports Interrupt driven mode */
 	u8   IpType;		/**< 1 - System Management */
 				/**< 0 - XADC/System Monoitor */
@@ -545,7 +547,7 @@ XSysMon_Config *XSysMon_LookupConfig(u16 DeviceId);
  * Functions in xsysmon.c
  */
 int XSysMon_CfgInitialize(XSysMon *InstancePtr,
-			  XSysMon_Config *ConfigPtr, u32 EffectiveAddr);
+			  XSysMon_Config *ConfigPtr, UINTPTR EffectiveAddr);
 
 void XSysMon_Reset(XSysMon *InstancePtr);
 

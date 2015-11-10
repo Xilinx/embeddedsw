@@ -72,6 +72,8 @@
 *			XSysMon_GetSeqChEnables,XSysMon_SetSeqAvgEnables,
 *			XSysMon_GetSeqAvgEnables,XSysMon_SetAlarmThreshold
 *			and XSysMon_GetAlarmThreshold to support Ultrascale
+* 7.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XSysMon_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -113,7 +115,7 @@
 *
 ******************************************************************************/
 int XSysMon_CfgInitialize(XSysMon *InstancePtr, XSysMon_Config *ConfigPtr,
-			  u32 EffectiveAddr)
+			  UINTPTR EffectiveAddr)
 {
 	/*
 	 * Assert the input arguments.
