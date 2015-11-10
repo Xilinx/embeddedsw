@@ -293,6 +293,8 @@
 *                     bytes have been received/sent by the Master
 *                     to the user callback (CR: 828504). Changes are made in the
 *		      file xiic_slave.c.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XIic_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -387,7 +389,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;	  /**< Unique ID  of device */
-	u32 BaseAddress;  /**< Device base address */
+	UINTPTR BaseAddress;  /**< Device base address */
 	int Has10BitAddr; /**< Does device have 10 bit address decoding */
 	u8 GpOutWidth;	  /**< Number of bits in general purpose output */
 } XIic_Config;
@@ -452,7 +454,7 @@ typedef struct {
  */
 typedef struct {
 	XIicStats Stats;	/**< Statistics */
-	u32 BaseAddress;	/**< Device base address */
+	UINTPTR BaseAddress;	/**< Device base address */
 	int Has10BitAddr;	/**< TRUE when 10 bit addressing in design */
 	int IsReady;		/**< Device is initialized and ready */
 	int IsStarted;		/**< Device has been started */
@@ -494,7 +496,7 @@ XIic_Config *XIic_LookupConfig(u16 DeviceId);
  * Functions in xiic.c
  */
 int XIic_CfgInitialize(XIic *InstancePtr, XIic_Config *Config,
-		       u32 EffectiveAddr);
+		       UINTPTR EffectiveAddr);
 
 int XIic_Start(XIic *InstancePtr);
 int XIic_Stop(XIic *InstancePtr);

@@ -79,6 +79,8 @@
 * 2.07a adk   18/04/13 Updated the code to avoid unused variable warnings
 *			  when compiling with the -Wextra -Wall flags.
 *			  Changes done if files xiic.c and xiic_i.h. CR:705001.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XIic_CfgInitialize API.
 *
 * </pre>
 *
@@ -152,7 +154,7 @@ static void XIic_StubHandler(void *CallBackRef, int ByteCount);
 *
 ****************************************************************************/
 int XIic_CfgInitialize(XIic *InstancePtr, XIic_Config * Config,
-			   u32 EffectiveAddr)
+			   UINTPTR EffectiveAddr)
 {
 	/*
 	 * Asserts test the validity of selected input arguments.

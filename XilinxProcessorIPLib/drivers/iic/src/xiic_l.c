@@ -80,6 +80,9 @@
 *		      Direction of Tx bit must be disabled in Receive
 *		      condition It Fixes the CR:685759 Changes are done
 *		      in the function XIic_Recv.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of RecvData, SendData,
+*                     DynRecvData, DynSendData APIs.
 * </pre>
 *
 ****************************************************************************/
@@ -98,13 +101,13 @@
 
 /************************** Function Prototypes ****************************/
 
-static unsigned RecvData(u32 BaseAddress, u8 *BufferPtr,
+static unsigned RecvData(UINTPTR BaseAddress, u8 *BufferPtr,
 			 unsigned ByteCount, u8 Option);
-static unsigned SendData(u32 BaseAddress, u8 *BufferPtr,
+static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
 			 unsigned ByteCount, u8 Option);
 
-static unsigned DynRecvData(u32 BaseAddress, u8 *BufferPtr, u8 ByteCount);
-static unsigned DynSendData(u32 BaseAddress, u8 *BufferPtr,
+static unsigned DynRecvData(UINTPTR BaseAddress, u8 *BufferPtr, u8 ByteCount);
+static unsigned DynSendData(UINTPTR BaseAddress, u8 *BufferPtr,
 				u8 ByteCount, u8 Option);
 
 /************************** Variable Definitions **************************/
@@ -130,7 +133,7 @@ static unsigned DynSendData(u32 BaseAddress, u8 *BufferPtr,
 * @note		None.
 *
 ******************************************************************************/
-unsigned XIic_Recv(u32 BaseAddress, u8 Address,
+unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 			u8 *BufferPtr, unsigned ByteCount, u8 Option)
 {
 	u32 CntlReg;
@@ -249,7 +252,7 @@ unsigned XIic_Recv(u32 BaseAddress, u8 Address,
 * after this function returns.
 *
 ******************************************************************************/
-static unsigned RecvData(u32 BaseAddress, u8 *BufferPtr,
+static unsigned RecvData(UINTPTR BaseAddress, u8 *BufferPtr,
 			 unsigned ByteCount, u8 Option)
 {
 	u32 CntlReg;
@@ -391,7 +394,7 @@ static unsigned RecvData(u32 BaseAddress, u8 *BufferPtr,
 * @note		None.
 *
 ******************************************************************************/
-unsigned XIic_Send(u32 BaseAddress, u8 Address,
+unsigned XIic_Send(UINTPTR BaseAddress, u8 Address,
 		   u8 *BufferPtr, unsigned ByteCount, u8 Option)
 {
 	unsigned RemainingByteCount;
@@ -508,7 +511,7 @@ unsigned XIic_Send(u32 BaseAddress, u8 Address,
 * that could cause the function not to return if the hardware is not working.
 *
 ******************************************************************************/
-static unsigned SendData(u32 BaseAddress, u8 *BufferPtr,
+static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
 			 unsigned ByteCount, u8 Option)
 {
 	u32 IntrStatus;
@@ -647,7 +650,7 @@ static unsigned SendData(u32 BaseAddress, u8 *BufferPtr,
 *		already enabled in the CR register.
 *
 ******************************************************************************/
-unsigned XIic_DynRecv(u32 BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)
+unsigned XIic_DynRecv(UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)
 {
 	unsigned RemainingByteCount;
 	u32 StatusRegister;
@@ -726,7 +729,7 @@ unsigned XIic_DynRecv(u32 BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)
 *		to return if the hardware is not working.
 *
 ******************************************************************************/
-static unsigned DynRecvData(u32 BaseAddress, u8 *BufferPtr, u8 ByteCount)
+static unsigned DynRecvData(UINTPTR BaseAddress, u8 *BufferPtr, u8 ByteCount)
 {
 	u32 StatusReg;
 	u32 IntrStatus;
@@ -805,7 +808,7 @@ static unsigned DynRecvData(u32 BaseAddress, u8 *BufferPtr, u8 ByteCount)
 * @note		None.
 *
 ******************************************************************************/
-unsigned XIic_DynSend(u32 BaseAddress, u16 Address, u8 *BufferPtr,
+unsigned XIic_DynSend(UINTPTR BaseAddress, u16 Address, u8 *BufferPtr,
 			u8 ByteCount, u8 Option)
 {
 	unsigned RemainingByteCount;
@@ -883,7 +886,7 @@ unsigned XIic_DynSend(u32 BaseAddress, u16 Address, u8 *BufferPtr,
 *		because it is designed for minimal code space and complexity.
 *
 ******************************************************************************/
-static unsigned DynSendData(u32 BaseAddress, u8 *BufferPtr,
+static unsigned DynSendData(UINTPTR BaseAddress, u8 *BufferPtr,
 			    u8 ByteCount, u8 Option)
 {
 	u32 IntrStatus;
@@ -971,7 +974,7 @@ static unsigned DynSendData(u32 BaseAddress, u8 *BufferPtr,
 * @note		None.
 *
 ******************************************************************************/
-int XIic_DynInit(u32 BaseAddress)
+int XIic_DynInit(UINTPTR BaseAddress)
 {
 	u32 Status;
 

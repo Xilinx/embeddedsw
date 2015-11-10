@@ -78,6 +78,9 @@
 *		      XIic_mDynSendStartStopAddress is now
 *		      XIic_DynSendStartStopAddress,
 *		      XIic_mDynSendStop is now XIic_DynSendStop.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XIic_Recv, XIic_Send,
+*                     XIic_DynRecv, XIic_DynSend and XIic_DynInit APIs.
 *
 *
 * </pre>
@@ -569,18 +572,18 @@ extern "C" {
 
 /************************** Function Prototypes *****************************/
 
-unsigned XIic_Recv(u32 BaseAddress, u8 Address,
+unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 		   u8 *BufferPtr, unsigned ByteCount, u8 Option);
 
-unsigned XIic_Send(u32 BaseAddress, u8 Address,
+unsigned XIic_Send(UINTPTR BaseAddress, u8 Address,
 		   u8 *BufferPtr, unsigned ByteCount, u8 Option);
 
-unsigned XIic_DynRecv(u32 BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount);
+unsigned XIic_DynRecv(UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount);
 
-unsigned XIic_DynSend(u32 BaseAddress, u16 Address, u8 *BufferPtr,
+unsigned XIic_DynSend(UINTPTR BaseAddress, u16 Address, u8 *BufferPtr,
 		      u8 ByteCount, u8 Option);
 
-int XIic_DynInit(u32 BaseAddress);
+int XIic_DynInit(UINTPTR BaseAddress);
 
 
 #ifdef __cplusplus
