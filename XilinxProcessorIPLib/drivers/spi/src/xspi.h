@@ -284,6 +284,8 @@
 *		      xspi_selftest.c to check for Interrupt Status
 *		      register Tx Empty bit instead of Status register
 *		      CR#810294.
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XSpi_CfgInitialize API.
 * 
 *
 * </pre>
@@ -389,7 +391,7 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device */
 	int HasFifos;		/**< Does device have FIFOs? */
 	u32 SlaveOnly;		/**< Is the device slave only? */
 	u8 NumSlaveBits;	/**< Num of slave select bits on the device */
@@ -409,7 +411,7 @@ typedef struct {
  */
 typedef struct {
 	XSpi_Stats Stats;	/**< Statistics */
-	u32 BaseAddr;		/**< Base address of device (IPIF) */
+	UINTPTR BaseAddr;		/**< Base address of device (IPIF) */
 	int IsReady;		/**< Device is initialized and ready */
 	int IsStarted;		/**< Device has been started */
 	int HasFifos;		/**< Device is configured with FIFOs or not */
@@ -800,7 +802,7 @@ XSpi_Config *XSpi_LookupConfig(u16 DeviceId);
  * Functions, in xspi.c
  */
 int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config * Config,
-		       u32 EffectiveAddr);
+		       UINTPTR EffectiveAddr);
 
 int XSpi_Start(XSpi *InstancePtr);
 int XSpi_Stop(XSpi *InstancePtr);

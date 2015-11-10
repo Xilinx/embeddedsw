@@ -95,6 +95,8 @@
 * 4.1	bss 08/07/14  Modified XSpi_Transfer to check for Interrupt Status
 *		      register Tx Empty bit instead of Status register
 *		      CR#810294.
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XSpi_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -159,7 +161,7 @@ void XSpi_Abort(XSpi *InstancePtr);
 *
 ******************************************************************************/
 int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	u8  Buffer[3];
 	u32 ControlReg;
