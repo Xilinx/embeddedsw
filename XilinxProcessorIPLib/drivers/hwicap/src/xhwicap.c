@@ -78,6 +78,8 @@
 *		      Removed IDCODE lookup logic in XHwIcap_CfgInitialize.
 * 10.0  bss  7/10/14  Fix compilation failure for designs other than 32 bit
 *		      data width of HWICAP.
+* 10.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                      Changed the prototype of XHwIcap_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -128,7 +130,7 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 *
 *****************************************************************************/
 int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	int Status;
 	u32 DeviceIdCode;

@@ -163,6 +163,8 @@
 *		      Removed IDCODE macros from xhwicap_i.h.
 * 10.0  bss  7/10/14  Fix compilation failure for designs other than 32 bit
 *		      data width of HWICAP in xhwicap.c.
+* 10.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                      Changed the prototype of XHwIcap_CfgInitialize API.
 *
 * </pre>
 *
@@ -215,7 +217,7 @@ typedef void (*XHwIcap_StatusHandler) (void *CallBackRef, u32 StatusEvent,
  */
 typedef struct {
 	u16 DeviceId;		/**< Device ID  of device */
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	int IcapWidth;		/**< Width of ICAP */
 	int IsLiteMode;		/**< IsLiteMode, 0 not
 					present, 1 present */
@@ -609,7 +611,7 @@ XHwIcap_WriteReg((InstancePtr)->HwIcapConfig.BaseAddress, 	\
  * Functions in the xhwicap.c
  */
 int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords);
 int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords);
 void XHwIcap_Reset(XHwIcap *InstancePtr);
