@@ -492,9 +492,9 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXFIFO_DLC_OFFSET, FramePtr[1]);
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_TXFIFO_DW1_OFFSET, FramePtr[2]);
+				XCANPS_TXFIFO_DW1_OFFSET, Xil_EndianSwap32(FramePtr[2]));
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_TXFIFO_DW2_OFFSET, FramePtr[3]);
+				XCANPS_TXFIFO_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
 
 		Status = XST_SUCCESS;
 	}
@@ -539,10 +539,10 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 						XCANPS_RXFIFO_ID_OFFSET);
 		FramePtr[1] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 						XCANPS_RXFIFO_DLC_OFFSET);
-		FramePtr[2] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						XCANPS_RXFIFO_DW1_OFFSET);
-		FramePtr[3] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						XCANPS_RXFIFO_DW2_OFFSET);
+		FramePtr[2] = Xil_EndianSwap32(XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						XCANPS_RXFIFO_DW1_OFFSET));
+		FramePtr[3] = Xil_EndianSwap32(XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+						XCANPS_RXFIFO_DW2_OFFSET));
 
 		/*
 		 * Clear RXNEMP bit in ISR. This allows future XCanPs_IsRxEmpty() call
