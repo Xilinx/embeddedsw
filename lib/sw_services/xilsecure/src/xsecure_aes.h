@@ -79,6 +79,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   10/10/14 Initial release
+* 1.1   ba   11/10/15 Modified Key loading logic in AES encryption
 *
 * </pre>
 *

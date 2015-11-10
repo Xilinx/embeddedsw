@@ -52,7 +52,8 @@
 *
 * Ver   Who Date     Changes
 * ----- --- -------- -------------------------------------------------------
-* 1.00  ba  09/10/2014 Initial release
+* 1.00  ba  09/10/14 Initial release
+* 1.1   ba  11/10/15 Modified Key loading logic in AES encryption
 *
 * </pre>
 *
@@ -299,6 +300,23 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	{
 		XSecure_AesKeySelNLoad(InstancePtr);
 	}
+	else
+	{
+		u32 Count=0U, Value=0U;
+		u32 Addr=0U;
+		for(Count = 0U; Count < 8U; Count++)
+		{
+			/* Helion AES block expects the key in big-endian. */
+			Value = Xil_Htonl(InstancePtr->Key[Count]);
+
+			Addr = InstancePtr->BaseAddress +
+				XSECURE_CSU_AES_KUP_0_OFFSET
+				+ (Count * 4);
+
+			XSecure_Out32(Addr, Value);
+		}
+		XSecure_AesKeySelNLoad(InstancePtr);
+	}
 
 	/* Configure the AES for Encryption.*/
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
@@ -315,6 +333,25 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 					XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Enable CSU DMA Src channel for byte swapping.*/
+	XCsuDma_Configure ConfigurValues = {0};
+
+	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+						&ConfigurValues);
+
+	ConfigurValues.EndianType = 1U;
+
+	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+							&ConfigurValues);
+
+	/* Enable CSU DMA Dst channel for byte swapping.*/
+	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			&ConfigurValues);
+	ConfigurValues.EndianType = 1U;
+
+	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			&ConfigurValues);
 
 	/* Configure the CSU DMA Tx/Rx.*/
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
@@ -337,6 +374,25 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
+
+	/* Disble CSU DMA Dst channel for byte swapping. */
+
+	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			&ConfigurValues);
+
+	ConfigurValues.EndianType = 0U;
+
+	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			&ConfigurValues);
+
+	/* Disable CSU DMA Src channel for byte swapping. */
+
+	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+							&ConfigurValues);
+	ConfigurValues.EndianType = 0U;
+
+	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+							&ConfigurValues);
 
 	/* Wait for AES encryption completion.*/
 	XSecure_AesWaitForDone(InstancePtr);
