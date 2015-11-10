@@ -167,6 +167,9 @@
  * 4.0   adk  19/12/13 Updated as per the New Tcl API's
  * 5.0   adk  15/05/15 Updated the register offsets in the AXI4 data path
  *		       as per latest IP version(v4.1)(CR:860254).
+ * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+ *                     Changed the prototypes of XLlFifo_CfgInitialize,
+ *                     XLlFifo_Initialize APIs.
  *
  * </pre>
  *
@@ -191,7 +194,7 @@ extern "C" {
  * This typedef defines a run-time instance of an XLlFifo device.
  */
 typedef struct XLlFifo {
-	u32 BaseAddress;  /**< BaseAddress is the physical base address of the
+	UINTPTR BaseAddress;  /**< BaseAddress is the physical base address of the
 	                   *   device's registers
 	                   */
 
@@ -216,7 +219,7 @@ typedef struct XLlFifo {
 
 typedef struct XLlFifo_Config {
 	u32 DeviceId;		/**< Deviceid of the AXI FIFO */
-	u32 BaseAddress;	/**< Base Address of the AXI FIFO */
+	UINTPTR BaseAddress;	/**< Base Address of the AXI FIFO */
 	u32 Axi4BaseAddress;    /**< Axi4 interface Base address */
 	u32 Datainterface;	/**< Type of Datainterface */
 }XLlFifo_Config;
@@ -698,8 +701,8 @@ extern u32 _xllfifo_ipis_value;
  * Initialization functions xllfifo.c
  */
 int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
-			XLlFifo_Config *Config, u32 EffectiveAddress);
-void XLlFifo_Initialize(XLlFifo *InstancePtr, u32 BaseAddress);
+			XLlFifo_Config *Config, UINTPTR EffectiveAddress);
+void XLlFifo_Initialize(XLlFifo *InstancePtr, UINTPTR BaseAddress);
 XLlFifo_Config *XLlFfio_LookupConfig(u32 DeviceId);
 u32 XLlFifo_iRxOccupancy(XLlFifo *InstancePtr);
 u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr);

@@ -54,6 +54,9 @@
  * 		        XLlFifo_RxGetWord, XLlFifo_TxPutword inorder to
  * 		        handle AXI4 Datainterface. Added Config
  * 		        initialization for the driver.
+ * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+ *                     Changed the prototypes of XLlFifo_CfgInitialize,
+ *                     XLlFifo_Initialize APIs.
  * </pre>
  ******************************************************************************/
 
@@ -336,7 +339,7 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 *
 ******************************************************************************/
 int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
-			XLlFifo_Config *Config, u32 EffectiveAddress)
+			XLlFifo_Config *Config, UINTPTR EffectiveAddress)
 {
 	Xil_AssertNonvoid(InstancePtr);
 
@@ -456,7 +459,7 @@ void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)
 * @return   N/A
 *
 ******************************************************************************/
-void XLlFifo_Initialize(XLlFifo *InstancePtr, u32 BaseAddress)
+void XLlFifo_Initialize(XLlFifo *InstancePtr, UINTPTR BaseAddress)
 {
 	Xil_AssertVoid(InstancePtr);
 	Xil_AssertVoid(BaseAddress);
