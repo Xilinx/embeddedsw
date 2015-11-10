@@ -52,6 +52,9 @@
 * 1.13a sv   01/21/08 Updated driver to support access through DCR bus
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs. The macros have been
 *		      renamed to remove _m from the name.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XUartLite_SendByte,
+*                     XUartLite_RecvByte APIs.
 * </pre>
 *
 *****************************************************************************/
@@ -320,8 +323,8 @@ extern "C" {
 
 /************************** Function Prototypes *****************************/
 
-void XUartLite_SendByte(u32 BaseAddress, u8 Data);
-u8 XUartLite_RecvByte(u32 BaseAddress);
+void XUartLite_SendByte(UINTPTR BaseAddress, u8 Data);
+u8 XUartLite_RecvByte(UINTPTR BaseAddress);
 
 #ifdef __cplusplus
 }

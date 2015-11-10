@@ -72,6 +72,8 @@
 * 3.1	nsk  21/07/15 Updated XUartLite_ReceiveBuffer function to update the
 *		      receive data into user buffer in critical region.
 *		      CR#865787.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XUartLite_CfgInitialize API.
 *
 * </pre>
 *
@@ -132,7 +134,7 @@ static void StubHandler(void *CallBackRef, unsigned int ByteCount);
 *
 *****************************************************************************/
 int XUartLite_CfgInitialize(XUartLite *InstancePtr, XUartLite_Config *Config,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	(void) Config;
 	/*

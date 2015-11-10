@@ -137,6 +137,8 @@
 * 3.1 nsk 21/07/15  Updated XUartLite_ReceiveBuffer function in xuartlite.c
 *		    to update the receive data into user buffer in critical
 *		    region.CR#865787.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XUartLite_CfgInitialize API.
 *
 * </pre>
 *
@@ -197,7 +199,7 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 RegBaseAddr;	/**< Register base address */
+	UINTPTR RegBaseAddr;	/**< Register base address */
 	u32 BaudRate;		/**< Fixed baud rate */
 	u8  UseParity;		/**< Parity generator enabled when TRUE */
 	u8  ParityOdd;		/**< Parity generated is odd when TRUE, even
@@ -212,7 +214,7 @@ typedef struct {
  */
 typedef struct {
 	XUartLite_Stats Stats;		/* Component Statistics */
-	u32 RegBaseAddress;		/* Base address of registers */
+	UINTPTR RegBaseAddress;		/* Base address of registers */
 	u32 IsReady;			/* Device is initialized and ready */
 
 	XUartLite_Buffer SendBuffer;
@@ -241,7 +243,7 @@ XUartLite_Config *XUartLite_LookupConfig(u16 DeviceId);
  */
 int XUartLite_CfgInitialize(XUartLite *InstancePtr,
 				XUartLite_Config *Config,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 
 void XUartLite_ResetFifos(XUartLite *InstancePtr);
 

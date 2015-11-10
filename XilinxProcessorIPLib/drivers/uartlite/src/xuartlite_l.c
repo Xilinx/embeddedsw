@@ -48,6 +48,9 @@
 * 1.00b rpm  04/25/02 First release
 * 1.12a rpm  07/16/07 Fixed arg type for RecvByte
 * 2.00a ktn  10/20/09 The macros have been renamed to remove _m from the name.
+* 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XUartLite_SendByte,
+*                     XUartLite_RecvByte APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -86,7 +89,7 @@
 * @note		None.
 *
 ******************************************************************************/
-void XUartLite_SendByte(u32 BaseAddress, u8 Data)
+void XUartLite_SendByte(UINTPTR BaseAddress, u8 Data)
 {
 	while (XUartLite_IsTransmitFull(BaseAddress));
 
@@ -108,7 +111,7 @@ void XUartLite_SendByte(u32 BaseAddress, u8 Data)
 * @note		None.
 *
 ******************************************************************************/
-u8 XUartLite_RecvByte(u32 BaseAddress)
+u8 XUartLite_RecvByte(UINTPTR BaseAddress)
 {
 	while (XUartLite_IsReceiveEmpty(BaseAddress));
 
