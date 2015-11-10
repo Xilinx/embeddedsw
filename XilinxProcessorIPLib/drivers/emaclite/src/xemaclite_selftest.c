@@ -48,6 +48,7 @@
 * 1.01a ecm  01/31/04 First release
 * 1.11a mta  03/21/07 Updated to new coding style
 * 3.00a ktn  10/22/09 Updated driver to use the HAL Processor APIs/macros.
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 * </pre>
 ******************************************************************************/
 
@@ -88,7 +89,7 @@
 ******************************************************************************/
 int XEmacLite_SelfTest(XEmacLite * InstancePtr)
 {
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 	u8 Index;
 	u8 TestString[4] = { 0xDE, 0xAD, 0xBE, 0xEF };
 	u8 ReturnString[4] = { 0x0, 0x0, 0x0, 0x0 };
@@ -108,9 +109,9 @@ int XEmacLite_SelfTest(XEmacLite * InstancePtr)
 	 * Write the TestString to the TX buffer in EMAC Lite then
 	 * back from the EMAC Lite and verify
 	 */
-	XEmacLite_AlignedWrite(TestString, (u32 *) BaseAddress,
+	XEmacLite_AlignedWrite(TestString, (UINTPTR *) BaseAddress,
 			       sizeof(TestString));
-	XEmacLite_AlignedRead((u32 *) BaseAddress, ReturnString,
+	XEmacLite_AlignedRead((UINTPTR *) BaseAddress, ReturnString,
 			      sizeof(ReturnString));
 
 	for (Index = 0; Index < 4; Index++) {
@@ -134,9 +135,9 @@ int XEmacLite_SelfTest(XEmacLite * InstancePtr)
 		 * Write the TestString to the optional TX buffer in EMAC Lite
 		 * then back from the EMAC Lite and verify
 		 */
-		XEmacLite_AlignedWrite(TestString, (u32 *) BaseAddress,
+		XEmacLite_AlignedWrite(TestString, (UINTPTR *) BaseAddress,
 				       sizeof(TestString));
-		XEmacLite_AlignedRead((u32 *) BaseAddress, ReturnString,
+		XEmacLite_AlignedRead((UINTPTR *) BaseAddress, ReturnString,
 				      sizeof(ReturnString));
 
 		for (Index = 0; Index < 4; Index++) {
@@ -162,9 +163,9 @@ int XEmacLite_SelfTest(XEmacLite * InstancePtr)
 	 * Write the TestString to the RX buffer in EMAC Lite then
 	 * back from the EMAC Lite and verify
 	 */
-	XEmacLite_AlignedWrite(TestString, (u32 *) (BaseAddress),
+	XEmacLite_AlignedWrite(TestString, (UINTPTR *) (BaseAddress),
 			       sizeof(TestString));
-	XEmacLite_AlignedRead((u32 *) (BaseAddress), ReturnString,
+	XEmacLite_AlignedRead((UINTPTR *) (BaseAddress), ReturnString,
 			      sizeof(ReturnString));
 
 	for (Index = 0; Index < 4; Index++) {
@@ -188,9 +189,9 @@ int XEmacLite_SelfTest(XEmacLite * InstancePtr)
 		 * Write the TestString to the optional RX buffer in EMAC Lite
 		 * then back from the EMAC Lite and verify
 		 */
-		XEmacLite_AlignedWrite(TestString, (u32 *) BaseAddress,
+		XEmacLite_AlignedWrite(TestString, (UINTPTR *) BaseAddress,
 				       sizeof(TestString));
-		XEmacLite_AlignedRead((u32 *) BaseAddress, ReturnString,
+		XEmacLite_AlignedRead((UINTPTR *) BaseAddress, ReturnString,
 				      sizeof(ReturnString));
 
 		for (Index = 0; Index < 4; Index++) {

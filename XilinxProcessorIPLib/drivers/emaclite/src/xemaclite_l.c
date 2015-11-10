@@ -56,6 +56,10 @@
 * 3.00a ktn  10/22/09 The macros have been renamed to remove _m from the name.
 * 4.1   nsk  07/13/15 Added Length check in XEmacLite_AlignedWrite function
 *                     to avoid extra write operation (CR 843707).
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XEmacLite_SendFrame,
+*                     XEmacLite_RecvFrame, XEmacLite_AlignedWrite,
+*                     XEmacLite_AlignedRead APIs.
 *
 * </pre>
 *
@@ -75,8 +79,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XEmacLite_AlignedWrite(void *SrcPtr, u32 *DestPtr, unsigned ByteCount);
-void XEmacLite_AlignedRead(u32 *SrcPtr, void *DestPtr, unsigned ByteCount);
+void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount);
+void XEmacLite_AlignedRead(UINTPTR *SrcPtr, void *DestPtr, unsigned ByteCount);
 
 /************************** Variable Definitions *****************************/
 
@@ -105,14 +109,14 @@ void XEmacLite_AlignedRead(u32 *SrcPtr, void *DestPtr, unsigned ByteCount);
 * The function does not take the different buffers into consideration.
 *
 ******************************************************************************/
-void XEmacLite_SendFrame(u32 BaseAddress, u8 *FramePtr, unsigned ByteCount)
+void XEmacLite_SendFrame(UINTPTR BaseAddress, u8 *FramePtr, unsigned ByteCount)
 {
 	u32 Register;
 
 	/*
 	 * Write data to the EmacLite
 	 */
-	XEmacLite_AlignedWrite(FramePtr, (u32 *) (BaseAddress), ByteCount);
+	XEmacLite_AlignedWrite(FramePtr, (UINTPTR *) (BaseAddress), ByteCount);
 
 	/*
 	 * The frame is in the buffer, now send it
@@ -160,7 +164,7 @@ void XEmacLite_SendFrame(u32 BaseAddress, u8 *FramePtr, unsigned ByteCount)
 * The function does not take the different buffers into consideration.
 *
 ******************************************************************************/
-u16 XEmacLite_RecvFrame(u32 BaseAddress, u8 *FramePtr)
+u16 XEmacLite_RecvFrame(UINTPTR BaseAddress, u8 *FramePtr)
 {
 	u16 LengthType;
 	u16 Length;
@@ -200,7 +204,7 @@ u16 XEmacLite_RecvFrame(u32 BaseAddress, u8 *FramePtr)
 	/*
 	 * Read each byte from the EmacLite
 	 */
-	XEmacLite_AlignedRead((u32 *) (BaseAddress + XEL_RXBUFF_OFFSET),
+	XEmacLite_AlignedRead((UINTPTR *) (BaseAddress + XEL_RXBUFF_OFFSET),
 			      FramePtr, Length);
 
 	/*
@@ -228,7 +232,7 @@ u16 XEmacLite_RecvFrame(u32 BaseAddress, u8 *FramePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XEmacLite_AlignedWrite(void *SrcPtr, u32 *DestPtr, unsigned ByteCount)
+void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
 {
 	unsigned Index;
 	unsigned Length = ByteCount;
@@ -388,7 +392,7 @@ void XEmacLite_AlignedWrite(void *SrcPtr, u32 *DestPtr, unsigned ByteCount)
 * @note		None.
 *
 ******************************************************************************/
-void XEmacLite_AlignedRead(u32 *SrcPtr, void *DestPtr, unsigned ByteCount)
+void XEmacLite_AlignedRead(UINTPTR *SrcPtr, void *DestPtr, unsigned ByteCount)
 {
 	unsigned Index;
 	unsigned Length = ByteCount;

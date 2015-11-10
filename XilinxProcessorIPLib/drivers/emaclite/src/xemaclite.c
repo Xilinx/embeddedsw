@@ -64,6 +64,9 @@
 * 3.02a sdm  07/22/11 Removed redundant code in XEmacLite_Recv functions for
 *		      CR617290
 * 3.04a srt  04/13/13 Removed warnings (CR 705000).
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XEmacLite_GetReceiveDataLength,
+*                     XEmacLite_CfgInitialize API's.
 *
 * </pre>
 ******************************************************************************/
@@ -84,7 +87,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static u16 XEmacLite_GetReceiveDataLength(u32 BaseAddress);
+static u16 XEmacLite_GetReceiveDataLength(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
@@ -115,7 +118,7 @@ static u16 XEmacLite_GetReceiveDataLength(u32 BaseAddress);
 ******************************************************************************/
 int XEmacLite_CfgInitialize(XEmacLite *InstancePtr,
 				XEmacLite_Config *EmacLiteConfigPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 
 	/*
@@ -187,8 +190,8 @@ int XEmacLite_CfgInitialize(XEmacLite *InstancePtr,
 int XEmacLite_Send(XEmacLite *InstancePtr, u8 *FramePtr, unsigned ByteCount)
 {
 	u32 Register;
-	u32 BaseAddress;
-	u32 EmacBaseAddress;
+	UINTPTR BaseAddress;
+	UINTPTR EmacBaseAddress;
 	u32 IntrEnableStatus;
 
 	/*
@@ -234,7 +237,7 @@ int XEmacLite_Send(XEmacLite *InstancePtr, u8 *FramePtr, unsigned ByteCount)
 		/*
 		 * Write the frame to the buffer.
 		 */
-		XEmacLite_AlignedWrite(FramePtr, (u32 *) BaseAddress,
+		XEmacLite_AlignedWrite(FramePtr, (UINTPTR *) BaseAddress,
 				       ByteCount);
 
 
@@ -287,7 +290,7 @@ int XEmacLite_Send(XEmacLite *InstancePtr, u8 *FramePtr, unsigned ByteCount)
 			/*
 			 * Write the frame to the buffer.
 			 */
-			XEmacLite_AlignedWrite(FramePtr, (u32 *) BaseAddress,
+			XEmacLite_AlignedWrite(FramePtr, (UINTPTR *) BaseAddress,
 					       ByteCount);
 
 			/*
@@ -363,7 +366,7 @@ u16 XEmacLite_Recv(XEmacLite *InstancePtr, u8 *FramePtr)
 	u16 LengthType;
 	u16 Length;
 	u32 Register;
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 
 	/*
 	 * Verify that each of the inputs are valid.
@@ -477,7 +480,7 @@ u16 XEmacLite_Recv(XEmacLite *InstancePtr, u8 *FramePtr)
 	/*
 	 * Read from the EmacLite.
 	 */
-	XEmacLite_AlignedRead(((u32 *) (BaseAddress + XEL_RXBUFF_OFFSET)),
+	XEmacLite_AlignedRead(((UINTPTR *) (BaseAddress + XEL_RXBUFF_OFFSET)),
 			      FramePtr, Length);
 
 	/*
@@ -514,7 +517,7 @@ u16 XEmacLite_Recv(XEmacLite *InstancePtr, u8 *FramePtr)
 ******************************************************************************/
 void XEmacLite_SetMacAddress(XEmacLite *InstancePtr, u8 *AddressPtr)
 {
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 
 	/*
 	 * Verify that each of the inputs are valid.
@@ -530,7 +533,7 @@ void XEmacLite_SetMacAddress(XEmacLite *InstancePtr, u8 *AddressPtr)
 	 * Copy the MAC address to the Transmit buffer.
 	 */
 	XEmacLite_AlignedWrite(AddressPtr,
-				(u32 *) BaseAddress,
+				(UINTPTR *) BaseAddress,
 				XEL_MAC_ADDR_SIZE);
 
 	/*
@@ -948,7 +951,7 @@ void XEmacLite_DisableLoopBack(XEmacLite *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static u16 XEmacLite_GetReceiveDataLength(u32 BaseAddress)
+static u16 XEmacLite_GetReceiveDataLength(UINTPTR BaseAddress)
 {
 	u16 Length;
 

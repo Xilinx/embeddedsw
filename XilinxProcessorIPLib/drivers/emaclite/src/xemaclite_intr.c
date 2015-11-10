@@ -54,6 +54,7 @@
 *                     the HW.
 * 3.00a ktn  10/22/09 Updated file to use the HAL Processor APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *
 * </pre>
 ******************************************************************************/
@@ -96,7 +97,7 @@
 int XEmacLite_EnableInterrupts(XEmacLite *InstancePtr)
 {
 	u32 Register;
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 
 	/*
 	 * Verify that each of the inputs are valid.
@@ -158,7 +159,7 @@ int XEmacLite_EnableInterrupts(XEmacLite *InstancePtr)
 void XEmacLite_DisableInterrupts(XEmacLite *InstancePtr)
 {
 	u32 Register;
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 
 	/*
 	 * Verify that each of the inputs are valid.
@@ -218,7 +219,7 @@ void XEmacLite_InterruptHandler(void *InstancePtr)
 
 	XEmacLite *EmacLitePtr;
 	int TxCompleteIntr = FALSE;
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 	u32 TxStatus;
 
 	/*

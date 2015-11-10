@@ -196,6 +196,8 @@
 * 4.1	nsk  07/13/15 Added Length check in XEmacLite_AlignedWrite function
 *		      in xemaclite_l.c file to avoid extra write operation
 *		      (CR 843707).
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XEmacLite_CfgInitialize API.
 *
 * </pre>
 *
@@ -235,7 +237,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;	 /**< Unique ID  of device */
-	u32 BaseAddress; /**< Device base address */
+	UINTPTR BaseAddress; /**< Device base address */
 	u8 TxPingPong;	 /**< 1 if TX Pong buffer configured, 0 otherwise */
 	u8 RxPingPong;	 /**< 1 if RX Pong buffer configured, 0 otherwise */
 	u8 MdioInclude;  /**< 1 if MDIO is enabled, 0 otherwise */
@@ -361,7 +363,7 @@ typedef struct {
  */
 int XEmacLite_CfgInitialize(XEmacLite *InstancePtr,
 				XEmacLite_Config *EmacLiteConfigPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 void XEmacLite_SetMacAddress(XEmacLite *InstancePtr, u8 *AddressPtr);
 int XEmacLite_TxBufferAvailable(XEmacLite *InstancePtr);
 void XEmacLite_FlushReceive(XEmacLite *InstancePtr);

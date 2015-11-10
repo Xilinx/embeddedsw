@@ -73,6 +73,9 @@
 *		      XEmacLite_mSetRxStatus changed to XEmacLite_SetRxStatus,
 *		      XEmacLite_mIsTxDone changed to XEmacLite_IsTxDone and
 *		      XEmacLite_mIsRxEmpty changed to XEmacLite_IsRxEmpty.
+* 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototypes of XEmacLite_SendFrame,
+*                     XEmacLite_RecvFrame APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -363,8 +366,8 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-void XEmacLite_SendFrame(u32 BaseAddress, u8 *FramePtr, unsigned ByteCount);
-u16 XEmacLite_RecvFrame(u32 BaseAddress, u8 *FramePtr);
+void XEmacLite_SendFrame(UINTPTR BaseAddress, u8 *FramePtr, unsigned ByteCount);
+u16 XEmacLite_RecvFrame(UINTPTR BaseAddress, u8 *FramePtr);
 
 #ifdef __cplusplus
 }
