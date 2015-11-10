@@ -331,6 +331,8 @@
  *		       tcl file. (CR 700806)
  * 3.0   adk  19/12/13 Updated as per the New Tcl API's
  * 4.0	 adk  27/07/15 Added support for 64-bit Addressing.
+ * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+ *                     Changed the prototype of XAxiCdma_CfgInitialize API.
  * </pre>
  *****************************************************************************/
 
@@ -519,7 +521,7 @@ typedef struct {
 XAxiCdma_Config *XAxiCdma_LookupConfig(u32 DeviceId);
 
 u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
-        u32 EffectiveAddr);
+        UINTPTR EffectiveAddr);
 void XAxiCdma_Reset(XAxiCdma *InstancePtr);
 int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr);
 int XAxiCdma_IsBusy(XAxiCdma *InstancePtr);

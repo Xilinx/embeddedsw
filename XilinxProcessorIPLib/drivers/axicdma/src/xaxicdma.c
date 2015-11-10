@@ -47,6 +47,8 @@
  *			statements Changed XAxiCdma_CfgInitialize to use
  *			EffectiveAddress.
  * 2.02a srt  01/18/13 Added support for Key Hole feature (CR: 687217).
+ * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+ *                     Changed the prototype of XAxiCdma_CfgInitialize API.
  * </pre>
  *
  *****************************************************************************/
@@ -154,7 +156,7 @@ int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
  *
  *****************************************************************************/
 u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
-		u32 EffectiveAddr)
+		UINTPTR EffectiveAddr)
 {
 	u32 RegValue;
 	int TimeOut;
@@ -674,7 +676,7 @@ void XAxiCdma_GetCoalesce(XAxiCdma *InstancePtr, u32 *CounterPtr,
  *****************************************************************************/
 void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr)
 {
-	u32 RegBase;
+	UINTPTR RegBase;
 
 	RegBase = InstancePtr->BaseAddr;
 
