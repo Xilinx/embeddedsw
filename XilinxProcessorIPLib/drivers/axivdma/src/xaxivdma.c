@@ -67,6 +67,8 @@
 *			StreamWidth parameters. (CR 691866)
 * 4.04a srt  03/03/13 - Support for *_ENABLE_DEBUG_INFO_* debug configuration
 *			parameters (CR: 703738)
+* 6.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XAxiVdma_CfgInitialize API.
 *
 * </pre>
 *
@@ -140,7 +142,7 @@ static int XAxiVdma_Major(XAxiVdma *InstancePtr) {
  * If channel fails reset,  then it will be set as invalid
  *****************************************************************************/
 int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	XAxiVdma_Channel *RdChannel;
 	XAxiVdma_Channel *WrChannel;
