@@ -192,6 +192,8 @@
 *		      for CR 660602
 * 4.04a bss  10/22/13 Added macros for HSIC PHY registers in xusb_l.h.
 * 5.0   adk  19/12/13 Updated as per the New Tcl API's
+* 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XUsb_CfgInitialize API.
 *
 * </pre>
 *
@@ -343,7 +345,7 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device. */
-	u32 BaseAddress;	/**< Core register base address. */
+	UINTPTR BaseAddress;	/**< Core register base address. */
 	u8 DmaEnabled;		/**< DMA support Enabled */
 
 } XUsb_Config;
@@ -399,7 +401,7 @@ typedef struct {
  * Implemented in the file xusb.c
  */
 int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 
 int XUsb_ConfigureDevice(XUsb *InstancePtr, XUsb_DeviceConfig *CfgPtr);
 

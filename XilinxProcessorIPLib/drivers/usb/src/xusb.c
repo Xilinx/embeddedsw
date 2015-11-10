@@ -68,6 +68,8 @@
  *			function
  * 4.03a bss  06/20/10 Added SIE Reset API (XUsb_SieReset) to reset the SIE
  * 			state machine (CR 660602)
+ * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+ *                     Changed the prototype of XUsb_CfgInitialize API.
  * </pre>
  *****************************************************************************/
 
@@ -117,7 +119,7 @@ static void StubHandler(void);
 *
 ******************************************************************************/
 int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	u8 Index;
 
