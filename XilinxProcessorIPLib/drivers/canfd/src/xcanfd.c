@@ -52,6 +52,8 @@
 *		      XCanFd_GetMode() since RTL has changed.RTL Changes,Added
 *		      new bits to MSR,SR,ISR,IER,ICR Registers and modified
 *		      TS2 bits in BTR and F_SJW bits in F_BTR Registers.
+* 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XCanFd_CfgInitialize API.
 *		      .
 *
 * </pre>
@@ -110,7 +112,7 @@ static void StubHandler(void);
 *
 ******************************************************************************/
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);

@@ -202,6 +202,8 @@ exclusion
 *		      Changes in RTL, Added new bits to MSR,SR,ISR,IER,ICR
 *		      Registers and modified TS2 bits in BTR and F_SJW bits
 *		      in F_BTR Registers.
+* 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XCanFd_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -255,7 +257,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	u32 Rx_Mode;			/**< 1-Mailbox 0-sequential */
 	u32 NumofRxMbBuf;	/**< Number of RxBuffers */
 	u32 NumofTxBuf;         /**< Number of TxBuffers */
@@ -853,7 +855,7 @@ typedef struct {
 
 /* Functions in xcan.c */
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
-						u32 EffectiveAddr);
+						UINTPTR EffectiveAddr);
 u8 XCanFd_GetMode(XCanFd *InstancePtr);
 void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode);
 void XCanFd_GetBusErrorCounter(XCanFd *InstancePtr, u8 *RxErrorCount,
