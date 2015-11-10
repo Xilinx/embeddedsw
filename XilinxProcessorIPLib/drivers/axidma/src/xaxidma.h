@@ -454,6 +454,7 @@
 * 9.0 	adk  27/07/15  Added support for 64-bit Addressing.
 * 9.0   adk  19/08/15  Fixed CR#873125 DMA SG Mode example tests are failing on
 *		       HW in 2015.3.
+* 9.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *
 * </pre>
 *
@@ -507,7 +508,7 @@ typedef struct XAxiDma {
  */
 typedef struct {
 	u32 DeviceId;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	int HasStsCntrlStrm;
 	int HasMm2S;

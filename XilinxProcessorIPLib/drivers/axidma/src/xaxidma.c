@@ -74,6 +74,7 @@
 *		      - New API:
 *			* XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr,
 *						int Direction, int Select)
+* 9.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *
 * </pre>
 ******************************************************************************/
@@ -126,7 +127,7 @@ static int XAxiDma_Started(XAxiDma * InstancePtr);
  *****************************************************************************/
 int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	int TimeOut;
 	int Index;
 	u32 MaxTransferLen;
