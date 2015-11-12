@@ -45,7 +45,8 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.0   als  10/19/15 Initial release.
+ * 1.0   als, 10/19/15 Initial release.
+ *       gm
  * </pre>
  *
 *******************************************************************************/
@@ -1422,6 +1423,12 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 	u32 Status;
 	u8 Retry;
 
+	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+	    (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
+		/* Enable MMCM Locked Masking */
+		XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, Dir, TRUE);
+	}
+
 	/* Enable MMCM. */
 	XVphy_MmcmPowerDown(InstancePtr, QuadId, Dir, FALSE);
 
@@ -1444,6 +1451,55 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
+
+	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+	    (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
+		/* Disable MMC Locked Masking */
+		XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, Dir, FALSE);
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function will reset the mixed-mode clock manager (MMCM) core.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Enable is an indicator whether to "Enable" the locked mask
+*		if set to 1. If set to 0: reset, then disable.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_MmcmLockedMaskEnable(XVphy *InstancePtr, u8 QuadId,
+		XVphy_DirectionType Dir, u8 Enable)
+{
+	u32 RegOffsetCtrl;
+	u32 RegVal;
+
+	XVphy_SelQuad(InstancePtr, QuadId);
+
+	if (Dir == XVPHY_DIR_TX) {
+		RegOffsetCtrl = XVPHY_MMCM_TXUSRCLK_CTRL_REG;
+	}
+	else {
+		RegOffsetCtrl = XVPHY_MMCM_RXUSRCLK_CTRL_REG;
+	}
+
+	/* Assert reset. */
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl);
+	RegVal |= XVPHY_MMCM_USRCLK_CTRL_LOCKED_MASK_MASK;
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl, RegVal);
+
+	if (!Enable) {
+		/* De-assert reset. */
+		RegVal &= ~XVPHY_MMCM_USRCLK_CTRL_LOCKED_MASK_MASK;
+		XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl,
+									RegVal);
+	}
 }
 
 /*****************************************************************************/
