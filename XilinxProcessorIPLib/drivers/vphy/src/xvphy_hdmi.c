@@ -143,8 +143,6 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	XVphy_HdmiSetSystemClockSelection(InstancePtr, QuadId);
 
 	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
-		XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_TX,TRUE);
-		XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_RX,TRUE);
 		XVphy_SetBufgGtDiv(InstancePtr, XVPHY_DIR_TX, 1);
 		XVphy_SetBufgGtDiv(InstancePtr, XVPHY_DIR_RX, 1);
 	}
@@ -152,12 +150,16 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 			XVPHY_DIR_RX, TRUE);
 	XVphy_ResetGtPll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_TX, TRUE);
-	XVphy_ResetGtTxRx(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
-			XVPHY_DIR_RX, TRUE);
-	XVphy_ResetGtTxRx(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
-			XVPHY_DIR_TX, TRUE);
+	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+		XVphy_ResetGtTxRx(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
+				XVPHY_DIR_RX, TRUE);
+		XVphy_ResetGtTxRx(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
+				XVPHY_DIR_TX, TRUE);
+	}
 	XVphy_PowerDownGtPll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMNA, TRUE);
 	XVphy_PowerDownGtPll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, TRUE);
+	XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
+	XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
 	XVphy_MmcmPowerDown(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
 	XVphy_MmcmPowerDown(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
@@ -170,7 +172,14 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	if (InstancePtr->Config.DruIsPresent) {
 		XVphy_DruReset(InstancePtr, XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_DruEnable(InstancePtr, XVPHY_CHANNEL_ID_CHA, FALSE);
-		XVphy_DruSetGain(InstancePtr, XVPHY_CHANNEL_ID_CHA, 9, 16, 5);
+		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+			XVphy_DruSetGain(InstancePtr, XVPHY_CHANNEL_ID_CHA,
+					9, 16, 5);
+		}
+		else {
+			XVphy_DruSetGain(InstancePtr, XVPHY_CHANNEL_ID_CHA,
+					9, 16, 4);
+		}
 	}
 
 	XVphy_SetRxLpm(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
@@ -183,8 +192,6 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	}
 
 	/* Clear Interrupt Register */
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_INTR_STS_REG,
-			0xFFFFFFFF);
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_INTR_STS_REG,
 			0xFFFFFFFF);
 
@@ -978,18 +985,24 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 
 	Div = 1;
 
+	if (((LineRate / 1000000) > 2970) && (Ppc == XVIDC_PPC_1)) {
+		xil_printf("Error! The Video PHY cannot support this video ");
+		xil_printf("format at PPC = 1\r\n");
+		return (XST_FAILURE);
+	}
+
 	/* In case of 4 pixels per clock, the M must be a multiple of four. */
 	if (Ppc == XVIDC_PPC_4) {
 		Mult = Mult / 4;
 		Mult = Mult * 4;
 	}
 	/* Else the M must be a multiple of two. */
-	else {
+	else if (Ppc == XVIDC_PPC_2) {
 		Mult = Mult / 2;
 		Mult = Mult * 2;
 	}
 
-	if (!((Mult > 1) && (Mult < 65))) {
+	if (!((Mult >= 1) && (Mult < 65))) {
 		return (XST_FAILURE); /* Mult is out of range. */
 	}
 
@@ -1014,50 +1027,82 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 		/* Video clock. */
 		switch (Bpc) {
 		case XVIDC_BPC_10:
+			/* Quad pixel. */
 			if (Ppc == (XVIDC_PPC_4)) {
 				MmcmPtr->ClkOut2Div = (Mult * 5 *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
-			else {
+			/* Dual pixel. */
+			else if (Ppc == (XVIDC_PPC_2)) {
 				MmcmPtr->ClkOut2Div = (Mult * 5 / 2 *
+					((Dir == XVPHY_DIR_TX)?
+					(InstancePtr->HdmiTxSampleRate) : 1));
+			}
+			/* Single pixel. */
+			else {
+				MmcmPtr->ClkOut2Div = (Mult * 5 / 4 *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
 			break;
 		case XVIDC_BPC_12:
+			/* Quad pixel. */
 			if (Ppc == (XVIDC_PPC_4)) {
 				MmcmPtr->ClkOut2Div = (Mult * 6 *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
-			else {
+			/* Dual pixel. */
+			else if (Ppc == (XVIDC_PPC_2)) {
 				MmcmPtr->ClkOut2Div = (Mult * 3 *
+					((Dir == XVPHY_DIR_TX) ?
+					(InstancePtr->HdmiTxSampleRate) : 1));
+			}
+			/* Single pixel. */
+			else {
+				MmcmPtr->ClkOut2Div = (Mult * 3 / 2 *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
 			break;
 		case XVIDC_BPC_16 :
+			/* Quad pixel. */
 			if (Ppc == (XVIDC_PPC_4)) {
 				MmcmPtr->ClkOut2Div = (Mult * 8 *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
-			else {
+			/* Dual pixel. */
+			else if (Ppc == (XVIDC_PPC_2)) {
 				MmcmPtr->ClkOut2Div = (Mult * 4 *
+					((Dir == XVPHY_DIR_TX) ?
+					(InstancePtr->HdmiTxSampleRate) : 1));
+			}
+			/* Single pixel. */
+			else {
+				MmcmPtr->ClkOut2Div = (Mult * 2 *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
 			break;
 		case XVIDC_BPC_8:
 		default:
+			/* Quad pixel. */
 			if (Ppc == (XVIDC_PPC_4)) {
 				MmcmPtr->ClkOut2Div = (Mult * 4 *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
-			else {
+			/* Dual pixel. */
+			else if (Ppc == (XVIDC_PPC_2)) {
 				MmcmPtr->ClkOut2Div = (Mult * 2 *
+					((Dir == XVPHY_DIR_TX) ?
+					(InstancePtr->HdmiTxSampleRate) : 1));
+			}
+			/* Single pixel. */
+			else {
+				MmcmPtr->ClkOut2Div = (Mult *
 					((Dir == XVPHY_DIR_TX) ?
 					(InstancePtr->HdmiTxSampleRate) : 1));
 			}
@@ -1097,19 +1142,31 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 				(MmcmPtr->ClkOut2Div <= 128)) {
 			Valid = (TRUE);
 		}
-		/* 4 pixels per clock. */
-		else if (Ppc == (XVIDC_PPC_4)) {
-			/* Decrease Mult value. */
-			Mult -= 4;
-		}
-		/* 2 pixels per clock. */
 		else {
-			/* Decrease M value. */
-			Mult -= 2;
+			/* 4 pixels per clock. */
+			if (Ppc == (XVIDC_PPC_4)) {
+				/* Decrease Mult value. */
+				Mult -= 4;
+			}
+			/* 2 pixels per clock. */
+			else if (Ppc == (XVIDC_PPC_2)) {
+				/* Decrease M value. */
+				Mult -= 2;
+			}
+			/* 1 pixel per clock */
+			else {
+				/* Decrease M value */
+				Mult -= 1;
+			}
 		}
 	} while (!Valid);
 
-	return (XST_SUCCESS);
+	if (Valid) {
+		return (XST_SUCCESS);
+	}
+	else {
+		return (XST_FAILURE);
+	}
 }
 
 /*****************************************************************************/
@@ -1475,6 +1532,7 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 						"supported by this device\r\n");
 					xil_printf("         "
 						"Change to another format\r\n");
+					return (XST_FAILURE);
 				}
 			}
 			else {
@@ -1557,7 +1615,8 @@ u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Ppc == (XVIDC_PPC_2)) || (Ppc == (XVIDC_PPC_4)));
+	Xil_AssertNonvoid((Ppc == (XVIDC_PPC_1)) || (Ppc == (XVIDC_PPC_2)) ||
+			(Ppc == (XVIDC_PPC_4)));
 	Xil_AssertNonvoid((Bpc == (XVIDC_BPC_8)) || (Bpc == (XVIDC_BPC_10)) ||
 			(Bpc == (XVIDC_BPC_12)) || (Bpc == (XVIDC_BPC_16)));
 	Xil_AssertNonvoid((ColorFormat == (XVIDC_CSF_RGB)) ||
@@ -1578,6 +1637,10 @@ u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			/* Update SysClk and PLL Clk registers immediately. */
 			XVphy_WriteCfgRefClkSelReg(InstancePtr, QuadId);
 
+		}
+
+		if (Status == XST_FAILURE) {
+			return Status;
 		}
 	}
 	/* Bonded mode. */
@@ -1601,6 +1664,15 @@ u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		Status = (XST_SUCCESS);
 	}
 
+	/* Is HDMITXSS PPC match with VPHY PPC? */
+	if (Ppc == InstancePtr->Config.Ppc) {
+		Status = (XST_SUCCESS);
+	}
+	else {
+		xil_printf("Warning: HDMI TX SS PPC = %d, doesn't match with"
+			" VPhy PPC = %d\r\n",Ppc, InstancePtr->Config.Ppc);
+		Status = (XST_FAILURE);
+	}
 	if (Status == (XST_SUCCESS)) {
 		/* Calculate TXPLL parameters.
 		 * In HDMI the colordepth in YUV422 is always 12 bits,
@@ -1616,8 +1688,6 @@ u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			Status = XVphy_HdmiCfgCalcMmcmParam(InstancePtr, QuadId,
 				ChId, XVPHY_DIR_TX, Ppc, Bpc);
 		}
-
-		Status = (XST_SUCCESS);
 	}
 	else {
 		Status = (XST_FAILURE);
