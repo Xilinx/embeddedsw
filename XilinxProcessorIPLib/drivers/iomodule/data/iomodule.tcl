@@ -50,6 +50,7 @@
 #                          Generate canonical definitions, whose canonical
 #                          name is not the same as hardware instance name.
 #                          CR #876604.
+#          sk     11/09/15 Removed delete filename statement CR# 784758.
 #
 ##############################################################################
 
@@ -185,7 +186,6 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
     set drv_string "XIOModule"
     set args [list "DEVICE_ID" "C_BASEADDR" "C_IO_BASEADDR" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS"]
     set filename [file join "src" $file_name]
-    file delete $filename
     set config_file [open $filename w]
     hsi::utils::write_c_header $config_file "Driver configuration"
     puts $config_file "#include \"xparameters.h\""
