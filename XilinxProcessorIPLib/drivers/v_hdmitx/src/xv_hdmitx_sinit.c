@@ -76,35 +76,35 @@
 * on the core id, <i>DeviceId</i>. The return value will refer to an entry in
 * the device configuration table defined in the xv_hdmitx_g.c file.
 *
-* @param       DeviceId is the unique core ID of the HDMI TX core for the
-*              lookup operation.
+* @param	DeviceId is the unique core ID of the HDMI TX core for the
+*		lookup operation.
 *
-* @return      XV_HdmiTx_LookupConfig returns a reference to a config record
-*              in the configuration table (in xv_hdmitx_g.c) corresponding
-*              to <i>DeviceId</i>, or NULL if no match is found.
+* @return	XV_HdmiTx_LookupConfig returns a reference to a config record
+*		in the configuration table (in xv_hdmitx_g.c) corresponding
+*		to <i>DeviceId</i>, or NULL if no match is found.
 *
-* @note                None.
+* @note		None.
 *
 ******************************************************************************/
 XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(u16 DeviceId)
 {
-       extern XV_HdmiTx_Config
-                       XV_HdmiTx_ConfigTable[XPAR_XV_HDMITX_NUM_INSTANCES];
-       XV_HdmiTx_Config *CfgPtr = NULL;
-       u32 Index;
+	extern XV_HdmiTx_Config
+			XV_HdmiTx_ConfigTable[XPAR_XV_HDMITX_NUM_INSTANCES];
+	XV_HdmiTx_Config *CfgPtr = NULL;
+	u32 Index;
 
-       /* Checking for device id for which instance it is matching */
-       for (Index = (u32)0x0; Index < (u32)(XPAR_XV_HDMITX_NUM_INSTANCES);
-                                                               Index++) {
+	/* Checking for device id for which instance it is matching */
+	for (Index = (u32)0x0; Index < (u32)(XPAR_XV_HDMITX_NUM_INSTANCES);
+								Index++) {
 
-               /* Assigning address of config table if both device ids
-                * are matched
-                */
-               if (XV_HdmiTx_ConfigTable[Index].DeviceId == DeviceId) {
-                       CfgPtr = &XV_HdmiTx_ConfigTable[Index];
-                       break;
-               }
-       }
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if (XV_HdmiTx_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XV_HdmiTx_ConfigTable[Index];
+			break;
+		}
+	}
 
-       return (XV_HdmiTx_Config *)CfgPtr;
+	return (XV_HdmiTx_Config *)CfgPtr;
 }
