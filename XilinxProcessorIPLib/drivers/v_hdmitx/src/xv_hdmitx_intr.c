@@ -86,44 +86,44 @@ static void HdmiTx_DdcIntrHandler(XV_HdmiTx *InstancePtr);
 * XV_HdmiTx_SetCallback() during initialization phase. An example delivered
 * with this driver demonstrates how this could be done.
 *
-* @param       InstancePtr is a pointer to the XV_HdmiTx instance that just
-*              interrupted.
+* @param	InstancePtr is a pointer to the XV_HdmiTx instance that just
+*		interrupted.
 *
-* @return      None.
+* @return	None.
 *
-* @note                None.
+* @note		None.
 *
 ******************************************************************************/
 void XV_HdmiTx_IntrHandler(void *InstancePtr)
 {
-       u32 Data;
-       XV_HdmiTx *HdmiTxPtr = (XV_HdmiTx *)InstancePtr;
+	u32 Data;
+	XV_HdmiTx *HdmiTxPtr = (XV_HdmiTx *)InstancePtr;
 
-       /* Verify arguments */
-       Xil_AssertVoid(HdmiTxPtr != NULL);
-       Xil_AssertVoid(HdmiTxPtr->IsReady == XIL_COMPONENT_IS_READY);
+	/* Verify arguments */
+	Xil_AssertVoid(HdmiTxPtr != NULL);
+	Xil_AssertVoid(HdmiTxPtr->IsReady == XIL_COMPONENT_IS_READY);
 
-       /* PIO */
-       Data = XV_HdmiTx_ReadReg(HdmiTxPtr->Config.BaseAddress,
-                                                       (XV_HDMITX_PIO_STA_OFFSET)) &
-                                                       (XV_HDMITX_PIO_STA_IRQ_MASK);
+	/* PIO */
+	Data = XV_HdmiTx_ReadReg(HdmiTxPtr->Config.BaseAddress,
+							(XV_HDMITX_PIO_STA_OFFSET)) &
+							(XV_HDMITX_PIO_STA_IRQ_MASK);
 
-       /* Check for IRQ flag set */
-       if (Data) {
-               /* Jump to PIO handler */
-               HdmiTx_PioIntrHandler(HdmiTxPtr);
-       }
+	/* Check for IRQ flag set */
+	if (Data) {
+		/* Jump to PIO handler */
+		HdmiTx_PioIntrHandler(HdmiTxPtr);
+	}
 
-       /* DDC */
-       Data = XV_HdmiTx_ReadReg(HdmiTxPtr->Config.BaseAddress,
-                                                       (XV_HDMITX_DDC_STA_OFFSET)) &
-                                                       (XV_HDMITX_DDC_STA_IRQ_MASK);
+	/* DDC */
+	Data = XV_HdmiTx_ReadReg(HdmiTxPtr->Config.BaseAddress,
+							(XV_HDMITX_DDC_STA_OFFSET)) &
+							(XV_HDMITX_DDC_STA_IRQ_MASK);
 
-       /* Check for IRQ flag set */
-       if (Data) {
-               /* Jump to DDC handler */
-               HdmiTx_DdcIntrHandler(HdmiTxPtr);
-       }
+	/* Check for IRQ flag set */
+	if (Data) {
+		/* Jump to DDC handler */
+		HdmiTx_DdcIntrHandler(HdmiTxPtr);
+	}
 }
 
 /*****************************************************************************/
@@ -139,71 +139,71 @@ void XV_HdmiTx_IntrHandler(void *InstancePtr)
 * (XV_HDMITX_HANDLER_VS)    VsCallback
 * </pre>
 *
-* @param       InstancePtr is a pointer to the HDMI TX core instance.
-* @param       HandlerType specifies the type of handler.
-* @param       CallbackFunc is the address of the callback function.
-* @param       CallbackRef is a user data item that will be passed to the
-*              callback function when it is invoked.
+* @param	InstancePtr is a pointer to the HDMI TX core instance.
+* @param	HandlerType specifies the type of handler.
+* @param	CallbackFunc is the address of the callback function.
+* @param	CallbackRef is a user data item that will be passed to the
+*		callback function when it is invoked.
 *
 * @return
-*              - XST_SUCCESS if callback function installed successfully.
-*              - XST_INVALID_PARAM when HandlerType is invalid.
+*		- XST_SUCCESS if callback function installed successfully.
+*		- XST_INVALID_PARAM when HandlerType is invalid.
 *
-* @note                Invoking this function for a handler that already has been
-*              installed replaces it with the new handler.
+* @note		Invoking this function for a handler that already has been
+*		installed replaces it with the new handler.
 *
 ******************************************************************************/
 int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
-                                               u32 HandlerType,
-                                               void *CallbackFunc,
-                                               void *CallbackRef)
+						u32 HandlerType,
+						void *CallbackFunc,
+						void *CallbackRef)
 {
-       u32 Status;
+	u32 Status;
 
-       /* Verify arguments. */
-       Xil_AssertNonvoid(InstancePtr != NULL);
-       Xil_AssertNonvoid(HandlerType >= (XV_HDMITX_HANDLER_CONNECT));
-       Xil_AssertNonvoid(CallbackFunc != NULL);
-       Xil_AssertNonvoid(CallbackRef != NULL);
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(HandlerType >= (XV_HDMITX_HANDLER_CONNECT));
+	Xil_AssertNonvoid(CallbackFunc != NULL);
+	Xil_AssertNonvoid(CallbackRef != NULL);
 
-       /* Check for handler type */
-       switch (HandlerType) {
-               case (XV_HDMITX_HANDLER_CONNECT):
-                       InstancePtr->ConnectCallback = (XV_HdmiTx_Callback)CallbackFunc;
-                       InstancePtr->ConnectRef = CallbackRef;
-                       InstancePtr->IsConnectCallbackSet = (TRUE);
-                       Status = (XST_SUCCESS);
-                       break;
+	/* Check for handler type */
+	switch (HandlerType) {
+		case (XV_HDMITX_HANDLER_CONNECT):
+			InstancePtr->ConnectCallback = (XV_HdmiTx_Callback)CallbackFunc;
+			InstancePtr->ConnectRef = CallbackRef;
+			InstancePtr->IsConnectCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
 
-               case (XV_HDMITX_HANDLER_VS):
-                       InstancePtr->VsCallback = (XV_HdmiTx_Callback)CallbackFunc;
-                       InstancePtr->VsRef = CallbackRef;
-                       InstancePtr->IsVsCallbackSet = (TRUE);
-                       Status = (XST_SUCCESS);
-                       break;
+		case (XV_HDMITX_HANDLER_VS):
+			InstancePtr->VsCallback = (XV_HdmiTx_Callback)CallbackFunc;
+			InstancePtr->VsRef = CallbackRef;
+			InstancePtr->IsVsCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
 
-               // Stream down
-               case (XV_HDMITX_HANDLER_STREAM_DOWN):
-                       InstancePtr->StreamDownCallback = (XV_HdmiTx_Callback)CallbackFunc;
-                       InstancePtr->StreamDownRef = CallbackRef;
-                       InstancePtr->IsStreamDownCallbackSet = (TRUE);
-                       Status = (XST_SUCCESS);
-                       break;
+		// Stream down
+		case (XV_HDMITX_HANDLER_STREAM_DOWN):
+			InstancePtr->StreamDownCallback = (XV_HdmiTx_Callback)CallbackFunc;
+			InstancePtr->StreamDownRef = CallbackRef;
+			InstancePtr->IsStreamDownCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
 
-               // Stream up
-               case (XV_HDMITX_HANDLER_STREAM_UP):
-                       InstancePtr->StreamUpCallback = (XV_HdmiTx_Callback)CallbackFunc;
-                       InstancePtr->StreamUpRef = CallbackRef;
-                       InstancePtr->IsStreamUpCallbackSet = (TRUE);
-                       Status = (XST_SUCCESS);
-                       break;
+		// Stream up
+		case (XV_HDMITX_HANDLER_STREAM_UP):
+			InstancePtr->StreamUpCallback = (XV_HdmiTx_Callback)CallbackFunc;
+			InstancePtr->StreamUpRef = CallbackRef;
+			InstancePtr->IsStreamUpCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
 
-               default:
-                       Status = (XST_INVALID_PARAM);
-                       break;
-       }
+		default:
+			Status = (XST_INVALID_PARAM);
+			break;
+	}
 
-       return Status;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -215,95 +215,95 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
 * register. It determines the source of the interrupts and calls according
 * callbacks.
 *
-* @param       InstancePtr is a pointer to the HDMI TX core instance.
+* @param	InstancePtr is a pointer to the HDMI TX core instance.
 *
-* @return      None.
+* @return	None.
 *
-* @note                None.
+* @note		None.
 *
 ******************************************************************************/
 static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
 {
-       u32 Event;
-       u32 Data;
+	u32 Event;
+	u32 Data;
 
-       /* Read PIO IN Event register.*/
-       Event = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-                                                       (XV_HDMITX_PIO_IN_EVT_OFFSET));
+	/* Read PIO IN Event register.*/
+	Event = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+							(XV_HDMITX_PIO_IN_EVT_OFFSET));
 
-       /* Clear event flags */
-       XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
-                                       (XV_HDMITX_PIO_IN_EVT_OFFSET),
-                                       (Event));
+	/* Clear event flags */
+	XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
+					(XV_HDMITX_PIO_IN_EVT_OFFSET),
+					(Event));
 
-       /* Read data */
-       Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-                                                       (XV_HDMITX_PIO_IN_OFFSET));
+	/* Read data */
+	Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+							(XV_HDMITX_PIO_IN_OFFSET));
 
-       /* HPD event has occurred */
-       if ((Event) & (XV_HDMITX_PIO_IN_HPD_MASK)) {
+	/* HPD event has occurred */
+	if ((Event) & (XV_HDMITX_PIO_IN_HPD_MASK)) {
 
-               // Check the HPD status
-               if ((Data) & (XV_HDMITX_PIO_IN_HPD_MASK))
-                       InstancePtr->Stream.IsConnected = (TRUE);       // Set connected flag
-               else
-                       InstancePtr->Stream.IsConnected = (FALSE);      // Clear connected flag
+		// Check the HPD status
+		if ((Data) & (XV_HDMITX_PIO_IN_HPD_MASK))
+			InstancePtr->Stream.IsConnected = (TRUE);	// Set connected flag
+		else
+			InstancePtr->Stream.IsConnected = (FALSE);	// Clear connected flag
 
-               // Check if user callback has been registered
-               if (InstancePtr->IsConnectCallbackSet) {
-                       InstancePtr->ConnectCallback(InstancePtr->ConnectRef);
-               }
-       }
+		// Check if user callback has been registered
+		if (InstancePtr->IsConnectCallbackSet) {
+			InstancePtr->ConnectCallback(InstancePtr->ConnectRef);
+		}
+	}
 
-       /* Vsync event has occurred */
-       if ((Event) & (XV_HDMITX_PIO_IN_VS_MASK)) {
+	/* Vsync event has occurred */
+	if ((Event) & (XV_HDMITX_PIO_IN_VS_MASK)) {
 
-               // Check if user callback has been registered
-               if (InstancePtr->IsVsCallbackSet) {
-                       InstancePtr->VsCallback(InstancePtr->VsRef);
-               }
-       }
+		// Check if user callback has been registered
+		if (InstancePtr->IsVsCallbackSet) {
+			InstancePtr->VsCallback(InstancePtr->VsRef);
+		}
+	}
 
-       /* Link ready event has occurred */
-       if ((Event) & (XV_HDMITX_PIO_IN_LNK_RDY_MASK)) {
+	/* Link ready event has occurred */
+	if ((Event) & (XV_HDMITX_PIO_IN_LNK_RDY_MASK)) {
 
-               // Check the link status
-               if ((Data) & (XV_HDMITX_PIO_IN_LNK_RDY_MASK)) {
-                       // Set stream status to up
-                       InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_UP;
+		// Check the link status
+		if ((Data) & (XV_HDMITX_PIO_IN_LNK_RDY_MASK)) {
+			// Set stream status to up
+			InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_UP;
 
-                       /* Enable the AUX peripheral */
-                       XV_HdmiTx_AuxEnable(InstancePtr);
+			/* Enable the AUX peripheral */
+			XV_HdmiTx_AuxEnable(InstancePtr);
 
-                       /* Enable the AUX peripheral interrupt */
-                       XV_HdmiTx_AuxIntrEnable(InstancePtr);
+			/* Enable the AUX peripheral interrupt */
+			XV_HdmiTx_AuxIntrEnable(InstancePtr);
 
-                       /* Enable audio */
-                       //XV_HdmiTx_AudioEnable(InstancePtr);
+			/* Enable audio */
+			//XV_HdmiTx_AudioEnable(InstancePtr);
 
-                       // Check if user callback has been registered
-                       if (InstancePtr->IsStreamUpCallbackSet) {
-                               InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
-                       }
-               }
+			// Check if user callback has been registered
+			if (InstancePtr->IsStreamUpCallbackSet) {
+				InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
+			}
+		}
 
-               // Link down
-               else {
-                       // Set stream status to down
-                       InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_DOWN;
+		// Link down
+		else {
+			// Set stream status to down
+			InstancePtr->Stream.State = XV_HDMITX_STATE_STREAM_DOWN;
 
-                       /* Disable Audio */
-                       XV_HdmiTx_AudioDisable(InstancePtr);
+			/* Disable Audio */
+			XV_HdmiTx_AudioDisable(InstancePtr);
 
-                       /* Disable AUX */
-                       XV_HdmiTx_AuxDisable(InstancePtr);
+			/* Disable AUX */
+			XV_HdmiTx_AuxDisable(InstancePtr);
 
-                       // Check if user callback has been registered
-                       if (InstancePtr->IsStreamDownCallbackSet) {
-                               InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
-                       }
-               }
-       }
+			// Check if user callback has been registered
+			if (InstancePtr->IsStreamDownCallbackSet) {
+				InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
+			}
+		}
+	}
 }
 
 /*****************************************************************************/
@@ -315,18 +315,18 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
 * determines the state and based on that performs required operation.
 *
 *
-* @param       InstancePtr is a pointer to the HDMI TX core instance.
+* @param	InstancePtr is a pointer to the HDMI TX core instance.
 *
-* @return      None.
+* @return	None.
 *
-* @note                None.
+* @note		None.
 *
 ******************************************************************************/
 static void HdmiTx_DdcIntrHandler(XV_HdmiTx *InstancePtr)
 {
-       u32 Data;
+	u32 Data;
 
-       /* Read DDC Status register */
-       Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-                                                       (XV_HDMITX_DDC_STA_OFFSET));
+	/* Read DDC Status register */
+	Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+							(XV_HDMITX_DDC_STA_OFFSET));
 }

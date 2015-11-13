@@ -16,13 +16,13 @@ OUTS = *.o
 
 
 libs:
-       echo "Compiling v_hdmitx"
-       $(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-       $(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OUTS)
-       make clean
+	echo "Compiling v_hdmitx"
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OUTS)
+	make clean
 
 include:
-        ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-       rm -rf ${OUTS}
+	rm -rf ${OUTS}
