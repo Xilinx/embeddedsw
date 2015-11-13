@@ -36,7 +36,7 @@ BEGIN driver v_hscaler
  OPTION supported_peripherals = (v_hscaler_v1_0 );
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
- OPTION DEPENDS = (video_common_v2_0);
+ OPTION DEPENDS = (video_common_v2_1);
  OPTION name = v_hscaler;
  OPTION version = 2.0;
 
