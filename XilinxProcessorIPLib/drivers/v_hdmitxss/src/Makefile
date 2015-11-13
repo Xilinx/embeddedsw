@@ -22,19 +22,19 @@ OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))
 libs: banner xvhdmitxss_libs clean
 
 %.o: %.c
-       ${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
 
 banner:
-       echo "Compiling HDMI TX Subsystem"
+	echo "Compiling HDMI TX Subsystem"
 
 xvhdmitxss_libs: ${OBJECTS}
-       $(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 
 .PHONY: include
 include: xvhdmitxss_includes
 
 xvhdmitxss_includes:
-       ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-       rm -rf ${OBJECTS}
+	rm -rf ${OBJECTS}
