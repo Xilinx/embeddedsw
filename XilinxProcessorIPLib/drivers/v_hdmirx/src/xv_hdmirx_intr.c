@@ -42,7 +42,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         10/07/15 Initial release.
+* 1.0   gm, mg 11/03/15 Initial release.
 
 * </pre>
 *
@@ -318,16 +318,37 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
 		// Clear event flag
 		XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_TPR_EVT_MASK));
 
-		// Read video timing
-		XV_HdmiRx_GetVideoTiming(InstancePtr);
+		// Check if we are in lock state
+		if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_LOCK) {
 
-	    // Set stream status to up
-		InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;			// The stream is up
+			// Read video timing
+			Status = XV_HdmiRx_GetVideoTiming(InstancePtr);
 
-		// Call stream up callback
-		if (InstancePtr->IsStreamUpCallbackSet) {
-			InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
+			if (Status == XST_SUCCESS) {
+
+				// Set stream status to up
+				InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;			// The stream is up
+
+				// Call stream up callback
+				if (InstancePtr->IsStreamUpCallbackSet) {
+					InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
+				}
+			}
 		}
+
+		// Check if we are in stream up state
+		else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_UP) {
+
+			// Read video timing
+			Status = XV_HdmiRx_GetVideoTiming(InstancePtr);
+
+			if (Status != XST_SUCCESS) {
+
+				// Set stream status to up
+				InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
+			}
+		}
+
 	}
 }
 
@@ -438,7 +459,7 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
 	// Video ready event has occurred
 	if ((Event) & (XV_HDMIRX_PIO_IN_VID_RDY_MASK)) {
 
-		// Stream up
+		// Ready
 		if ((Data) & (XV_HDMIRX_PIO_IN_VID_RDY_MASK)) {
 
 			// Check the previous state
@@ -449,13 +470,11 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
 				// Enable video
 				XV_HdmiRx_VideoEnable(InstancePtr, (TRUE));
 
-			// Set stream status to ready
-				InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_RDY;			// The stream is ready
+			// Set stream status to arm
+				InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_ARM;			// The stream is armed
 
-				// Call stream up callback
-				//if (InstancePtr->IsStreamUpCallbackSet) {
-				//	InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
-				//}
+				// Load timer
+				XV_HdmiRx_TmrStart(InstancePtr, 20000000);			// 200 ms @ 100 MHz (one UHD frame is 40 ms, 5 frames)
 			}
 		}
 
@@ -472,6 +491,9 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
 			// Therefore these two peripheral are disabled to prevent any glitches.
 			XV_HdmiRx_AuxDisable(InstancePtr);
 			XV_HdmiRx_AudioDisable(InstancePtr);
+
+			/* Disable VTD */
+			XV_HdmiRx_VtdDisable(InstancePtr);
 
 			// Disable link
 			XV_HdmiRx_LinkEnable(InstancePtr, (FALSE));
@@ -547,20 +569,35 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 			InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_INIT;	// The stream init
 
 			// Load timer
-			XV_HdmiRx_TmrStart(InstancePtr, 20000000);			// 200 ms @ 100 MHz
+			XV_HdmiRx_TmrStart(InstancePtr, 20000000);			// 200 ms @ 100 MHz (one UHD frame is 40 ms, 5 frames)
 		}
 
 		// Init state
 		else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_INIT) {
 
 			// Read video properties
-			//XV_HdmiRx_GetVideoTiming(InstancePtr);
 			XV_HdmiRx_GetVideoProperties(InstancePtr);
 
 			// Call stream init callback
 			if (InstancePtr->IsStreamInitCallbackSet) {
 				InstancePtr->StreamInitCallback(InstancePtr->StreamInitRef);
 			}
+		}
+
+		// Armed state
+		else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_ARM) {
+
+			// Set VTD threshold
+			XV_HdmiRx_VtdSetThreshold(InstancePtr, 8);	// 8 frames
+
+			/* Enable VTD */
+			XV_HdmiRx_VtdEnable(InstancePtr);
+
+			/* Enable interrupt */
+			XV_HdmiRx_VtdIntrEnable(InstancePtr);
+
+		    // Set stream status to lock
+			InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
 		}
 	}
 }

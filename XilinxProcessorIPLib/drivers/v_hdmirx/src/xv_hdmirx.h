@@ -116,7 +116,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         10/07/15 Initial release.
+* 1.0   gm, mg 10/07/15 Initial release.
 
 * </pre>
 *
@@ -166,8 +166,10 @@ typedef enum {
 	XV_HDMIRX_STATE_STREAM_DOWN,			/**< Stream down */
 	XV_HDMIRX_STATE_STREAM_IDLE,			/**< Stream idle */
 	XV_HDMIRX_STATE_STREAM_INIT,			/**< Stream init */
-	XV_HDMIRX_STATE_STREAM_RDY,			/**< Stream ready */
-	XV_HDMIRX_STATE_STREAM_UP			/**< Stream up */
+	XV_HDMIRX_STATE_STREAM_ARM,				/**< Stream arm */
+	XV_HDMIRX_STATE_STREAM_LOCK,			/**< Stream lock */
+	XV_HDMIRX_STATE_STREAM_RDY,				/**< Stream ready */
+	XV_HDMIRX_STATE_STREAM_UP				/**< Stream up */
 } XV_HdmiRx_State;
 
 /**************************** Type Definitions *******************************/
@@ -645,6 +647,22 @@ typedef struct {
 #define XV_HdmiRx_VtdIntrDisable(InstancePtr) \
 	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_IE_MASK))
 
+/*****************************************************************************/
+/**
+*
+* This macro sets the threshold in the HDMI RX Timing Detector peripheral.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx_VtdIntrDisable(XV_HdmiRx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx_VtdSetThreshold(InstancePtr, Value) \
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_VTD_CTRL_OFFSET), (u32)(Value << XV_HDMIRX_VTD_CTRL_THRESHOLD_SHIFT))
+
 
 /*****************************************************************************/
 /**
@@ -1065,7 +1083,7 @@ int XV_HdmiRx_GetTmdsClockRatio(XV_HdmiRx *InstancePtr);
 u8 XV_HdmiRx_GetAviVic(XV_HdmiRx *InstancePtr);
 XVidC_ColorFormat XV_HdmiRx_GetAviColorSpace(XV_HdmiRx *InstancePtr);
 XVidC_ColorDepth XV_HdmiRx_GetGcpColorDepth(XV_HdmiRx *InstancePtr);
-void XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr);
+int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr);
 u32 XV_HdmiRx_Divide(u32 Dividend, u32 Divisor);
 
 /* Log specific functions */

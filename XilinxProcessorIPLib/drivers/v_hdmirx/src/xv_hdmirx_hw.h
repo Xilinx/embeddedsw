@@ -45,8 +45,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00         10/07/15 Initial release.
-
+* 1.0   gm, mg 11/03/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -158,6 +157,8 @@ extern "C" {
 #define XV_HDMIRX_VTD_CTRL_RUN_MASK					(1<<0)	/**< VTD Control Run mask */
 #define XV_HDMIRX_VTD_CTRL_IE_MASK					(1<<1)	/**< VTD Control Interrupt Enable mask */
 #define XV_HDMIRX_VTD_CTRL_FIELD_POL_MASK			(1<<2)	/**< VTD Control field polarity mask */
+#define XV_HDMIRX_VTD_CTRL_THRESHOLD_SHIFT			24		/**< VTD Control threshold shift */
+#define XV_HDMIRX_VTD_CTRL_THRESHOLD_MASK			0xff	/**< VTD Control threshold mask */
 
 // Video timing detector peripheral Status register masks
 #define XV_HDMIRX_VTD_STA_IRQ_MASK					(1<<0)	/**< VTD Status Interrupt mask */
