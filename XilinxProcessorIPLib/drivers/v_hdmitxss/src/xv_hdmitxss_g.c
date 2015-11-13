@@ -74,32 +74,32 @@
 
 XV_HdmiTxSs_Config XV_HdmiTxSs_ConfigTable[] =
 {
-       {
-               XPAR_V_HDMI_TX_SS_0_DEVICE_ID,
-               XPAR_V_HDMI_TX_SS_0_BASEADDR,
-               XPAR_V_HDMI_TX_SS_0_HIGHADDR,
-               XPAR_V_HDMI_TX_SS_0_INPUT_PIXELS_PER_CLOCK,
-               XPAR_V_HDMI_TX_SS_0_MAX_BITS_PER_COMPONENT,
+	{
+		XPAR_V_HDMI_TX_SS_0_DEVICE_ID,
+		XPAR_V_HDMI_TX_SS_0_BASEADDR,
+		XPAR_V_HDMI_TX_SS_0_HIGHADDR,
+		XPAR_V_HDMI_TX_SS_0_INPUT_PIXELS_PER_CLOCK,
+		XPAR_V_HDMI_TX_SS_0_MAX_BITS_PER_COMPONENT,
 
-               {
-                       XPAR_V_HDMI_TX_SS_0_AXI_TIMER_0_PRESENT,
-                       XPAR_V_HDMI_TX_SS_0_AXI_TIMER_0_DEVICE_ID,
-                       XPAR_V_HDMI_TX_SS_0_AXI_TIMER_0_BASEADDR
-               },
-               {
-                       XPAR_V_HDMI_TX_SS_0_HDCP_0_PRESENT,
-                       XPAR_V_HDMI_TX_SS_0_HDCP_0_DEVICE_ID,
-                       XPAR_V_HDMI_TX_SS_0_HDCP_0_BASEADDR
-               },
-               {
-                       XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_PRESENT,
-                       XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_DEVICE_ID,
-                       XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_BASEADDR
-               },
-               {
-                       XPAR_V_HDMI_TX_SS_0_V_TC_PRESENT,
-                       XPAR_V_HDMI_TX_SS_0_V_TC_DEVICE_ID,
-                       XPAR_V_HDMI_TX_SS_0_V_TC_BASEADDR
-               },
-       }
+		{
+			XPAR_V_HDMI_TX_SS_0_AXI_TIMER_0_PRESENT,
+			XPAR_V_HDMI_TX_SS_0_AXI_TIMER_0_DEVICE_ID,
+			XPAR_V_HDMI_TX_SS_0_AXI_TIMER_0_BASEADDR
+		},
+		{
+			XPAR_V_HDMI_TX_SS_0_HDCP_0_PRESENT,
+			XPAR_V_HDMI_TX_SS_0_HDCP_0_DEVICE_ID,
+			XPAR_V_HDMI_TX_SS_0_HDCP_0_BASEADDR
+		},
+		{
+			XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_PRESENT,
+			XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_DEVICE_ID,
+			XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_BASEADDR
+		},
+		{
+			XPAR_V_HDMI_TX_SS_0_V_TC_PRESENT,
+			XPAR_V_HDMI_TX_SS_0_V_TC_DEVICE_ID,
+			XPAR_V_HDMI_TX_SS_0_V_TC_BASEADDR
+		},
+	}
 };
