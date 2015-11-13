@@ -45,12 +45,12 @@
 * <b>Subsystem Driver Features</b>
 *
 * Video Subsystem supports following features
-*      - AXI Stream Input/Output interface
-*      - 1, 2 or 4 pixel-wide video interface
-*      - 8/10/12/16 bits per component
-*      - RGB & YCbCr color space
-*      - Up to 4k2k 60Hz resolution at both Input and Output interface
-*      - Interlaced input support (1080i 50Hz/60Hz)
+* 	- AXI Stream Input/Output interface
+* 	- 1, 2 or 4 pixel-wide video interface
+* 	- 8/10/12/16 bits per component
+* 	- RGB & YCbCr color space
+* 	- Up to 4k2k 60Hz resolution at both Input and Output interface
+* 	- Interlaced input support (1080i 50Hz/60Hz)
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -88,15 +88,15 @@ extern "C" {
 * interrupt requests from peripheral.
 */
 typedef enum {
-  XV_HDMIRXSS_HANDLER_CONNECT = 1,     /**< A connect event interrupt type */
-  XV_HDMIRXSS_HANDLER_AUX,                     /**< Interrupt type for AUX peripheral */
-  XV_HDMIRXSS_HANDLER_AUD,                     /**< Interrupt type for AUD peripheral */
-  XV_HDMIRXSS_HANDLER_LNKSTA,          /**< Interrupt type for LNKSTA peripheral */
-  XV_HDMIRXSS_HANDLER_DDC,                     /**< Interrupt type for DDC     peripheral */
-  XV_HDMIRXSS_HANDLER_STREAM_DOWN,     /**< Interrupt type for stream down */
-  XV_HDMIRXSS_HANDLER_STREAM_INIT,     /**< Interrupt type for stream init */
-  XV_HDMIRXSS_HANDLER_STREAM_UP,       /**< Interrupt type for stream up */
-  XV_HDMIRXSS_HANDLER_HDCP                     /**< Interrupt type for hdcp */
+  XV_HDMIRXSS_HANDLER_CONNECT = 1,	/**< A connect event interrupt type */
+  XV_HDMIRXSS_HANDLER_AUX,			/**< Interrupt type for AUX peripheral */
+  XV_HDMIRXSS_HANDLER_AUD,			/**< Interrupt type for AUD peripheral */
+  XV_HDMIRXSS_HANDLER_LNKSTA,		/**< Interrupt type for LNKSTA peripheral */
+  XV_HDMIRXSS_HANDLER_DDC,			/**< Interrupt type for DDC	peripheral */
+  XV_HDMIRXSS_HANDLER_STREAM_DOWN,	/**< Interrupt type for stream down */
+  XV_HDMIRXSS_HANDLER_STREAM_INIT,	/**< Interrupt type for stream init */
+  XV_HDMIRXSS_HANDLER_STREAM_UP,	/**< Interrupt type for stream up */
+  XV_HDMIRXSS_HANDLER_HDCP			/**< Interrupt type for hdcp */
 } XV_HdmiRxSs_HandlerType;
 /*@}*/
 
@@ -118,11 +118,11 @@ typedef struct
 
 typedef struct
 {
-  u16 DeviceId;                /**< DeviceId is the unique ID  of the device */
-  u32 BaseAddress;     /**< BaseAddress is the physical base address of the
-                                               subsystem address range */
-  u32 HighAddress;     /**< HighAddress is the physical MAX address of the
-                                               subsystem address range */
+  u16 DeviceId;	   	/**< DeviceId is the unique ID  of the device */
+  u32 BaseAddress; 	/**< BaseAddress is the physical base address of the
+						subsystem address range */
+  u32 HighAddress; 	/**< HighAddress is the physical MAX address of the
+						subsystem address range */
   XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
   XV_HdmiRxSs_SubCore HdcpTimer;    /**< Sub-core instance configuration */
@@ -151,44 +151,44 @@ typedef void (*XV_HdmiRxSs_Callback)(void *CallbackRef);
 */
 typedef struct
 {
-  XV_HdmiRxSs_Config Config;   /**< Hardware configuration */
-  u32 IsReady;                     /**< Device and the driver instance are
+  XV_HdmiRxSs_Config Config;	/**< Hardware configuration */
+  u32 IsReady;		            /**< Device and the driver instance are
                                      initialized */
   XTmrCtr *HdcpTimerPtr;           /**< handle to sub-core driver instance */
   XHdcp1x *HdcpPtr;                /**< handle to sub-core driver instance */
   XV_HdmiRx *HdmiRxPtr;             /**< handle to sub-core driver instance */
 
   /*Callbacks */
-  XV_HdmiRxSs_Callback ConnectCallback;        /**< Callback for connect event
-                                                                               * interrupt */
-  void *ConnectRef;    /**< To be passed to the connect interrupt callback */
+  XV_HdmiRxSs_Callback ConnectCallback;	/**< Callback for connect event
+										* interrupt */
+  void *ConnectRef;	/**< To be passed to the connect interrupt callback */
 
-  XV_HdmiRxSs_Callback AuxCallback;            /**< Callback for AUX event interrupt */
-  void *AuxRef;                /**< To be passed to the AUX interrupt callback */
+  XV_HdmiRxSs_Callback AuxCallback;		/**< Callback for AUX event interrupt */
+  void *AuxRef;		/**< To be passed to the AUX interrupt callback */
 
-  XV_HdmiRxSs_Callback AudCallback;            /**< Callback for AUD event interrupt */
-  void *AudRef;                /**< To be passed to the Audio interrupt callback */
+  XV_HdmiRxSs_Callback AudCallback;		/**< Callback for AUD event interrupt */
+  void *AudRef;		/**< To be passed to the Audio interrupt callback */
 
-  XV_HdmiRxSs_Callback LnkStaCallback; /**< Callback for LNKSTA event
-                                                                               * interrupt */
-  void *LnkStaRef;     /**< To be passed to the LNKSTA interrupt callback */
+  XV_HdmiRxSs_Callback LnkStaCallback;	/**< Callback for LNKSTA event
+										* interrupt */
+  void *LnkStaRef;	/**< To be passed to the LNKSTA interrupt callback */
 
-  XV_HdmiRxSs_Callback DdcCallback;            /**< Callback for PDDC interrupt */
-  void *DdcRef;                /**< To be passed to the DDC interrupt callback */
+  XV_HdmiRxSs_Callback DdcCallback;		/**< Callback for PDDC interrupt */
+  void *DdcRef;		/**< To be passed to the DDC interrupt callback */
 
   XV_HdmiRxSs_Callback StreamDownCallback; /**< Callback for stream down
-                                                                                       * callback */
-  void *StreamDownRef; /**< To be passed to the stream down callback */
+											* callback */
+  void *StreamDownRef;	/**< To be passed to the stream down callback */
 
-  XV_HdmiRxSs_Callback StreamInitCallback;     /**< Callback for stream init
-                                                                                       * callback */
-  void *StreamInitRef; /**< To be passed to the stream start callback */
+  XV_HdmiRxSs_Callback StreamInitCallback;	/**< Callback for stream init
+											* callback */
+  void *StreamInitRef;	/**< To be passed to the stream start callback */
 
   XV_HdmiRxSs_Callback StreamUpCallback; /**< Callback for stream up callback */
-  void *StreamUpRef;   /**< To be passed to the stream up callback */
+  void *StreamUpRef;	/**< To be passed to the stream up callback */
 
-  XV_HdmiRxSs_Callback HdcpCallback;   /**< Callback for hdcp callback */
-  void *HdcpRef;               /**< To be passed to the hdcp callback */
+  XV_HdmiRxSs_Callback HdcpCallback;	/**< Callback for hdcp callback */
+  void *HdcpRef;		/**< To be passed to the hdcp callback */
 
   // Scratch pad
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
@@ -198,11 +198,11 @@ typedef struct
   u16 EdidLength;               /**< Default Edid Length */
   u8 TMDSClockRatio;            /**< HDMI RX TMDS clock ratio */
 
-       XVidC_DelayHandler UserTimerWaitUs;     /**< Custom user function for
-                                                       delay/sleep. */
-       void *UserTimerPtr;           /**< Pointer to a timer instance
-                                                       used by the custom user
-                                                       delay/sleep function. */
+	XVidC_DelayHandler UserTimerWaitUs;	/**< Custom user function for
+							delay/sleep. */
+	void *UserTimerPtr;           /**< Pointer to a timer instance
+							used by the custom user
+							delay/sleep function. */
 } XV_HdmiRxSs;
 
 /************************** Macros Definitions *******************************/
@@ -211,31 +211,30 @@ typedef struct
 XV_HdmiRxSs_Config* XV_HdmiRxSs_LookupConfig(u32 DeviceId);
 void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_SetUserTimerHandler(XV_HdmiRxSs *InstancePtr,
-               XVidC_DelayHandler CallbackFunc, void *CallbackRef);
+		XVidC_DelayHandler CallbackFunc, void *CallbackRef);
 void XV_HdmiRxSS_HdmiRxIntrHandler(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSS_HdcpIntrHandler(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSS_HdcpTimerIntrHandler(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
-       XV_HdmiRxSs_Config *CfgPtr,
-       u32 EffectiveAddr);
+	XV_HdmiRxSs_Config *CfgPtr,
+	u32 EffectiveAddr);
 void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr,
-       u32 HandlerType,
-       void *CallbackFunc,
-       void *CallbackRef);
+	u32 HandlerType,
+	void *CallbackFunc,
+	void *CallbackRef);
 void XV_HdmiRxSs_SetEdidParam(XV_HdmiRxSs *InstancePtr, u8 *EdidDataPtr,
-                                                                                                                               u16 Length);
+																u16 Length);
 void XV_HdmiRxSs_LoadDefaultEdid(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_LoadEdid(XV_HdmiRxSs *InstancePtr, u8 *EdidDataPtr,
-                                                                                                                               u16 Length);
+																u16 Length);
 void XV_HdmiRxSs_ToggleHpd(XV_HdmiRxSs *InstancePtr);
 XV_HdmiRx_Aux *XV_HdmiRxSs_GetAuxiliary(XV_HdmiRxSs *InstancePtr);
 u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
-       XVidC_PixelsPerClock Ppc,
-       u32 Clock,
-       u32 LineRate);
+	u32 Clock,
+	u32 LineRate);
 XVidC_VideoStream *XV_HdmiRxSs_GetVideoStream(XV_HdmiRxSs *InstancePtr);
 u8 XV_HdmiRxSs_GetVideoIDCode(XV_HdmiRxSs *InstancePtr);
 u8 XV_HdmiRxSs_GetVideoStreamType(XV_HdmiRxSs *InstancePtr);
