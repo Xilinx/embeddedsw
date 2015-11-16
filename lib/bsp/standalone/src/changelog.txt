@@ -251,4 +251,6 @@
  *     kvn   16/10/15  Encapsulated assembly code into macros for R5 xil_cache file.
  * 5.4 pkp   09/11/15  Modified cortexa9/xil_misc_psreset_api.c file to change the description
  *		       for XOcm_Remap function
+ * 5.4 pkp   16/11/15  Modified microblaze/xil_misc_psreset_api.c file to change the description
+ *		       for XOcm_Remap function
  *****************************************************************************************/
