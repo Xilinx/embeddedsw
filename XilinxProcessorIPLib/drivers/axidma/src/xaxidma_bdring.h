@@ -236,17 +236,18 @@ typedef struct {
 	{								  \
 		if (!RingPtr->IsRxChannel) {				  \
 			(RingPtr)->BdaRestart = 			  \
-				XAxiDma_ReadReg((RingPtr)->ChanBase, \
+				(XAxiDma_Bd *)XAxiDma_ReadReg(		  \
+					(RingPtr)->ChanBase,  		  \
 					XAXIDMA_CDESC_OFFSET);		  \
 		} else {						  \
 			if (!RingPtr->RingIndex) {				  \
 				(RingPtr)->BdaRestart = 		  \
-				XAxiDma_ReadReg(            \
+				(XAxiDma_Bd *)XAxiDma_ReadReg(            \
 					(RingPtr)->ChanBase, 		  \
 					XAXIDMA_CDESC_OFFSET);		  \
 			} else {					  \
 				(RingPtr)->BdaRestart = 		  \
-				XAxiDma_ReadReg( 		  \
+				(XAxiDma_Bd *)XAxiDma_ReadReg( 		  \
 				(RingPtr)->ChanBase,                      \
 				(XAXIDMA_RX_CDESC0_OFFSET +		  \
                                 (RingPtr->RingIndex - 1) * 		  \
