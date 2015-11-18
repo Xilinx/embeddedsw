@@ -635,7 +635,10 @@ int MCapConfigureFPGA(struct mcap_dev *mdev, char *file_path, u32 bitfile_type)
 		bswap = 1;
 
 	} else {
-		pr_err("Unknown File Format\n");
+		pr_err("Unknown File Format.. This may be");
+		pr_err(" due to .bit/.bin/.rbt files does not exist at the.");
+		pr_err(" specified location, Please cross check the");
+		pr_err(" path is correct or not\n");
 		goto free_resources;
 	}
 
