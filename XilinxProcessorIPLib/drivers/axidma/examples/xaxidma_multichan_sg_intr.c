@@ -556,7 +556,7 @@ static void TxCallBack(XAxiDma *AxiDmaPtr)
 		 */
 
 		/* Find the next processed BD */
-		BdCurPtr = XAxiDma_BdRingNext(TxRingPtr, BdCurPtr);
+		BdCurPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(TxRingPtr, BdCurPtr);
 	}
 
 	/* Free all processed BDs for future transmission */
@@ -688,7 +688,7 @@ static void RxCallBack(XAxiDma *AxiDmaPtr)
 			}
 
 			/* Find the next processed BD */
-			BdCurPtr = XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
+			BdCurPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
 			RxDone += 1;
 		}
 	}
@@ -1029,7 +1029,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 			XAxiDma_BdSetStride(BdCurPtr, STRIDE);
 
 			RxBufferPtr += MAX_PKT_LEN;
-			BdCurPtr = XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
+			BdCurPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
 		}
 
 		/*
@@ -1297,7 +1297,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr, u8 TDest, u8 TId, u8 Value)
 			XAxiDma_BdSetStride(BdCurPtr, STRIDE);
 
 			BufferAddr += MAX_PKT_LEN;
-			BdCurPtr = XAxiDma_BdRingNext(TxRingPtr, BdCurPtr);
+			BdCurPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(TxRingPtr, BdCurPtr);
 		}
 	}
 

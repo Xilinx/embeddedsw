@@ -384,7 +384,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		XAxiDma_BdSetId(BdCurPtr, RxBufferPtr);
 
 		RxBufferPtr += MAX_PKT_LEN;
-		BdCurPtr = XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
+		BdCurPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
 	}
 
 	/* Clear the receive buffer, so we can verify data
