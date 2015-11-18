@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2015-11-18
+	* Created a new version lwip141_v1_4
+	* Made changes for lwip to work with A53 with caches enabled.
 2015-10-12
 	* Created a new version lwip141_v1_3.
 	* Made changes in xemacpsif_dma.c to add required barriers.

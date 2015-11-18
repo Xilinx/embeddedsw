@@ -82,15 +82,15 @@ extern "C" {
  * shareability attribute only applicable to
  * normal cacheable memory
  */
-#define INNER_SHAREABLE (0x3 << 8)UL
-#define OUTER_SHAREABLE (0x2 << 8)UL
-#define NON_SHAREABLE	(~(0x3 << 8))UL
+#define INNER_SHAREABLE (0x3 << 8)
+#define OUTER_SHAREABLE (0x2 << 8)
+#define NON_SHAREABLE	(~(0x3 << 8))
 
 /* Execution type */
-#define EXECUTE_NEVER ((0x1 << 53) | (0x1 << 54))UL
+#define EXECUTE_NEVER ((0x1 << 53) | (0x1 << 54))
 
 /* Security type */
-#define NON_SECURE	(0x1 << 5)UL
+#define NON_SECURE	(0x1 << 5)
 
 /************************** Variable Definitions *****************************/
 

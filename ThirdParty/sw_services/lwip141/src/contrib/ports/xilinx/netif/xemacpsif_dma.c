@@ -110,7 +110,11 @@ static s32_t emac_intr_num;
  * for BDs. The rest 768 KB of memory is just unused.
  *********************************************************************************/
 
+#if defined __aarch64__
+u8_t bd_space[0x200000] __attribute__ ((aligned (0x200000)));
+#else
 u8_t bd_space[0x100000] __attribute__ ((aligned (0x100000)));
+#endif
 static volatile u32_t bd_space_index = 0;
 static volatile u32_t bd_space_attr_set = 0;
 
@@ -198,7 +202,7 @@ void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 	s32_t n_pbufs_freed = 0;
 	u32_t bdindex;
 	struct pbuf *p;
-	UINTPTR *temp;
+	u32 *temp;
 	u32_t index;
 
 	index = get_base_index_txpbufsstorage (xemacpsif);
@@ -215,14 +219,14 @@ void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 		curbdpntr = txbdset;
 		while (n_pbufs_freed > 0) {
 			bdindex = XEMACPS_BD_TO_INDEX(txring, curbdpntr);
-			temp = (UINTPTR *)curbdpntr;
+			temp = (u32 *)curbdpntr;
 			*temp = 0;
 			temp++;
 			*temp = 0x80000000;
 			if (bdindex == (XLWIP_CONFIG_N_TX_DESC - 1)) {
 				*temp = 0xC0000000;
 			}
-
+			dsb();
 			p = (struct pbuf *)tx_pbufs_storage[index + bdindex];
 			if (p != NULL) {
 				pbuf_free(p);
@@ -230,10 +234,7 @@ void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 			tx_pbufs_storage[index + bdindex] = 0;
 			curbdpntr = XEmacPs_BdRingNext(txring, curbdpntr);
 			n_pbufs_freed--;
-#if defined (ARMR5) || defined (ARMA53)
-#else
 			dsb();
-#endif
 		}
 
 		status = XEmacPs_BdRingFree(txring, n_bds, txbdset);
@@ -308,9 +309,7 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		/* Send the data from the pbuf to the interface, one pbuf at a
 		   time. The size of the data in each pbuf is kept in the ->len
 		   variable. */
-#ifndef __aarch64__
 		Xil_DCacheFlushRange((UINTPTR)q->payload, (UINTPTR)q->len);
-#endif
 		XEmacPs_BdSetAddressTx(txbd, (UINTPTR)q->payload);
 		if (q->len > (XEMACPS_MAX_FRAME_SIZE - 18))
 			XEmacPs_BdSetLength(txbd, (XEMACPS_MAX_FRAME_SIZE - 18) & 0x3FFF);
@@ -335,13 +334,11 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	q = p->next;
 	for(; q != NULL; q = q->next) {
 		XEmacPs_BdClearTxUsed(txbd);
+		dsb();
 		txbd = XEmacPs_BdRingNext(txring, txbd);
 	}
 	XEmacPs_BdClearTxUsed(temp_txbd);
-#if defined (ARMR5) || defined (ARMA53)
-#else
-			dsb();
-#endif
+	dsb();
 
 	status = XEmacPs_BdRingToHw(txring, n_pbufs, txbdset);
 	if (status != XST_SUCCESS) {
@@ -366,7 +363,7 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 	struct pbuf *p;
 	u32_t freebds;
 	u32_t bdindex;
-	UINTPTR *temp;
+	u32 *temp;
 	u32_t index;
 
 	index = get_base_index_rxpbufsstorage (xemacpsif);
@@ -401,21 +398,16 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 			XEmacPs_BdRingUnAlloc(rxring, 1, rxbd);
 			return;
 		}
-#ifndef __aarch64__
 		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
-#endif
 		bdindex = XEMACPS_BD_TO_INDEX(rxring, rxbd);
-		temp = (UINTPTR *)rxbd;
+		temp = (u32 *)rxbd;
 		*temp = 0;
 		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
 			*temp = 0x00000002;
 		}
 		temp++;
 		*temp = 0;
-#if defined (ARMR5) || defined (ARMA53)
-#else
-			dsb();
-#endif
+		dsb();
 
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
 		rx_pbufs_storage[index + bdindex] = (s32_t)p;
@@ -534,7 +526,7 @@ XStatus init_dma(struct xemac_s *xemac)
 	u32_t gigeversion;
 	XEmacPs_Bd *bdtxterminate;
 	XEmacPs_Bd *bdrxterminate;
-	UINTPTR *temp;
+	u32 *temp;
 
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
@@ -552,7 +544,9 @@ XStatus init_dma(struct xemac_s *xemac)
 #if defined (ARMR5)
 	Xil_SetTlbAttributes((s32_t)bd_space, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW); // addr, attr
 #else
-#ifndef __aarch64__
+#if defined __aarch64__
+	Xil_SetTlbAttributes((u64)bd_space, NORM_NONCACHE | INNER_SHAREABLE);
+#else
 	Xil_SetTlbAttributes((s32_t)bd_space, 0xc02); // addr, attr
 #endif
 #endif
@@ -664,16 +658,15 @@ XStatus init_dma(struct xemac_s *xemac)
 		}
 
 		bdindex = XEMACPS_BD_TO_INDEX(rxringptr, rxbd);
-		temp = (UINTPTR *)rxbd;
+		temp = (u32 *)rxbd;
 		*temp = 0;
 		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
 			*temp = 0x00000002;
 		}
 		temp++;
 		*temp = 0;
-#ifndef __aarch64__
+		dsb();
 		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
-#endif
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
 
 		rx_pbufs_storage[index + bdindex] = (s32_t)p;
