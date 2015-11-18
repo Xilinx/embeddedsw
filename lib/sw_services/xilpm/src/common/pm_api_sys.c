@@ -565,6 +565,53 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node)
 }
 
 /**
+ * XPm_ResetAssert() - Assert/release reset line
+ * @reset       Reset line
+ * @assert      Identifies action: (release, assert, pulese)
+ *
+ * @return      Returns status, either success or error+reason
+ */
+XStatus XPm_ResetAssert(const enum XPmReset reset,
+			const enum XPmResetAction assert)
+{
+       XStatus ret;
+       u32 payload[PAYLOAD_ARG_CNT];
+
+       /* Send request to the PMU */
+       PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, assert);
+       ret = pm_ipi_send(primary_master, payload);
+
+       if (XST_SUCCESS != ret)
+               return ret;
+
+       /* Return result from IPI return buffer */
+       return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/**
+ * XPm_ResetGetStatus() - Get current status of a given reset line
+ * @reset	 Reset line
+ * @status 	 Status of specified reset (true - asserted, false - released)
+ *
+ * @return	 Returns status, either success or error+reason
+ */
+XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
+{
+	XStatus ret;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_RESET_GET_STATUS, reset);
+	ret = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != ret)
+		return ret;
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+}
+
+/**
  * XPm_MmioWrite() - Perform write to protected mmio
  * @address	Address to write to
  * @mask	Mask to apply

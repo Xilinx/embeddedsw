@@ -136,6 +136,11 @@ XStatus XPm_GetApiVersion(u32 *version);
 XStatus XPm_GetNodeStatus(const enum XPmNodeId node);
 
 /* Direct-Control API functions */
+XStatus XPm_ResetAssert(const enum XPmReset reset,
+			const enum XPmResetAction assert);
+
+XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status);
+
 XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value);
 
 XStatus XPm_MmioRead(const u32 address, u32 *const value);
