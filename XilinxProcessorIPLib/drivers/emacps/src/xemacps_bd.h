@@ -68,6 +68,7 @@
  * 3.0   hk   02/20/15 Added support for jumbo frames.
  *                     Disable extended mode. Perform all 64 bit changes under
  *                     check for arch64.
+ * 3.2   hk   11/18/15 Change BD typedef and number of words.
  *
  * </pre>
  *
@@ -93,16 +94,17 @@ extern "C" {
 #ifdef __aarch64__
 /* Minimum BD alignment */
 #define XEMACPS_DMABD_MINIMUM_ALIGNMENT  64U
+#define XEMACPS_BD_NUM_WORDS 4U
 #else
 /* Minimum BD alignment */
 #define XEMACPS_DMABD_MINIMUM_ALIGNMENT  4U
+#define XEMACPS_BD_NUM_WORDS 2U
 #endif
 
 /**
  * The XEmacPs_Bd is the type for buffer descriptors (BDs).
  */
-#define XEMACPS_BD_NUM_WORDS 2U
-typedef UINTPTR XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
+typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
