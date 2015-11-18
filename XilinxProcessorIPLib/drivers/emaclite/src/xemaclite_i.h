@@ -125,8 +125,8 @@ extern XEmacLite_Config XEmacLite_ConfigTable[];
 
 /************************** Function Prototypes ******************************/
 
-void XEmacLite_AlignedWrite(void *SrcPtr, u32 *DestPtr, unsigned ByteCount);
-void XEmacLite_AlignedRead(u32 *SrcPtr, void *DestPtr, unsigned ByteCount);
+void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount);
+void XEmacLite_AlignedRead(UINTPTR *SrcPtr, void *DestPtr, unsigned ByteCount);
 
 void StubHandler(void *CallBackRef);
 

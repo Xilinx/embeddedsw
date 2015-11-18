@@ -198,6 +198,8 @@
 *		      (CR 843707).
 * 4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XEmacLite_CfgInitialize API.
+* 4.2   adk  11/18/15 Fix compilation errors due to conflicting data types
+*		      CR#917930
 *
 * </pre>
 *
