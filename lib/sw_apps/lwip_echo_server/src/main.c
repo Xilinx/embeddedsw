@@ -94,11 +94,6 @@ int ProgramSfpPhy(void);
 #endif
 int main()
 {
-
-#if __aarch64__
-	Xil_DCacheDisable();
-#endif
-
 	struct ip_addr ipaddr, netmask, gw;
 
 	/* the mac address of the board. this should be unique per board */
