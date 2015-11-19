@@ -222,9 +222,10 @@ void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 			temp = (u32 *)curbdpntr;
 			*temp = 0;
 			temp++;
-			*temp = 0x80000000;
 			if (bdindex == (XLWIP_CONFIG_N_TX_DESC - 1)) {
 				*temp = 0xC0000000;
+			} else {
+				*temp = 0x80000000;
 			}
 			dsb();
 			p = (struct pbuf *)tx_pbufs_storage[index + bdindex];
@@ -401,9 +402,10 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
 		bdindex = XEMACPS_BD_TO_INDEX(rxring, rxbd);
 		temp = (u32 *)rxbd;
-		*temp = 0;
 		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
 			*temp = 0x00000002;
+		} else {
+			*temp = 0;
 		}
 		temp++;
 		*temp = 0;
