@@ -78,6 +78,8 @@
 #define IEEE_PARTNER_ABILITIES_2_REG_OFFSET		8
 #define IEEE_PARTNER_ABILITIES_3_REG_OFFSET		10
 #define IEEE_1000_ADVERTISE_REG_OFFSET			9
+#define IEEE_MMD_ACCESS_CONTROL_REG		        13
+#define IEEE_MMD_ACCESS_ADDRESS_DATA_REG		14
 #define IEEE_COPPER_SPECIFIC_CONTROL_REG		16
 #define IEEE_SPECIFIC_STATUS_REG				17
 #define IEEE_COPPER_SPECIFIC_STATUS_REG_2		19
@@ -106,20 +108,36 @@
 #define IEEE_PAUSE_MASK							0x0400
 #define IEEE_AUTONEG_ERROR_MASK					0x8000
 
+#define IEEE_MMD_ACCESS_CTRL_DEVAD_MASK         0x1F
+#define IEEE_MMD_ACCESS_CTRL_PIDEVAD_MASK       0x801F
+#define IEEE_MMD_ACCESS_CTRL_NOPIDEVAD_MASK     0x401F
+
 #define PHY_R0_ISOLATE  						0x0400
-#define PHY_MODEL_NUM_MASK						0x3F0
 #define PHY_DETECT_REG  						1
 #define PHY_IDENTIFIER_1_REG					2
+#define PHY_IDENTIFIER_2_REG					3
 #define PHY_DETECT_MASK 						0x1808
 #define PHY_MARVELL_IDENTIFIER					0x0141
-
+#define PHY_TI_IDENTIFIER					    0x2000
 
 /* Marvel PHY flags */
 #define MARVEL_PHY_IDENTIFIER 					0x141
+#define MARVEL_PHY_MODEL_NUM_MASK				0x3F0
 #define MARVEL_PHY_88E1111_MODEL				0xC0
 #define MARVEL_PHY_88E1116R_MODEL				0x240
-
 #define PHY_88E1111_RGMII_RX_CLOCK_DELAYED_MASK	0x0080
+
+/* TI PHY Flags */
+#define TI_PHY_DETECT_MASK 						0x796D
+#define TI_PHY_IDENTIFIER 						0x2000
+#define TI_PHY_DP83867_MODEL					0xA231
+#define DP83867_RGMII_CLOCK_DELAY_CTRL_MASK		0x0003
+#define DP83867_RGMII_TX_CLOCK_DELAY_MASK		0x0030
+#define DP83867_RGMII_RX_CLOCK_DELAY_MASK		0x0003
+
+/* TI DP83867 PHY Registers */
+#define DP83867_R32_RGMIICTL1					0x32
+#define DP83867_R86_RGMIIDCTL					0x86
 
 /* Loop counters to check for reset done
  */
@@ -156,8 +174,9 @@ static int detect_phy(XAxiEthernet *xaxiemacp)
 			LWIP_DEBUGF(NETIF_DEBUG, ("XAxiEthernet detect_phy: PHY detected.\r\n"));
 			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG,
 										&phy_reg);
-			if (phy_reg != PHY_MARVELL_IDENTIFIER) {
-				xil_printf("WARNING: Not a Marvell Ethernet PHY. Please verify the initialization sequence\r\n");
+			if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
+                (phy_reg != TI_PHY_IDENTIFIER)){
+				xil_printf("WARNING: Not a Marvell or TI Ethernet PHY. Please verify the initialization sequence\r\n");
 			}
 			return phy_addr;
 		}
@@ -167,6 +186,40 @@ static int detect_phy(XAxiEthernet *xaxiemacp)
 
         /* default to zero */
 	return 0;
+}
+
+void XAxiEthernet_PhyReadExtended(XAxiEthernet *InstancePtr, u32 PhyAddress,
+		u32 RegisterNum, u16 *PhyDataPtr)
+{
+	XAxiEthernet_PhyWrite(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_CONTROL_REG, IEEE_MMD_ACCESS_CTRL_DEVAD_MASK);
+
+	XAxiEthernet_PhyWrite(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_ADDRESS_DATA_REG, RegisterNum);
+
+	XAxiEthernet_PhyWrite(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_CONTROL_REG, IEEE_MMD_ACCESS_CTRL_NOPIDEVAD_MASK);
+
+	XAxiEthernet_PhyRead(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_ADDRESS_DATA_REG, PhyDataPtr);
+
+}
+
+void XAxiEthernet_PhyWriteExtended(XAxiEthernet *InstancePtr, u32 PhyAddress,
+		u32 RegisterNum, u16 PhyDataPtr)
+{
+	XAxiEthernet_PhyWrite(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_CONTROL_REG, IEEE_MMD_ACCESS_CTRL_DEVAD_MASK);
+
+	XAxiEthernet_PhyWrite(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_ADDRESS_DATA_REG, RegisterNum);
+
+	XAxiEthernet_PhyWrite(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_CONTROL_REG, IEEE_MMD_ACCESS_CTRL_NOPIDEVAD_MASK);
+
+	XAxiEthernet_PhyWrite(InstancePtr, PhyAddress,
+			IEEE_MMD_ACCESS_ADDRESS_DATA_REG, PhyDataPtr);
+
 }
 
 unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
@@ -299,6 +352,41 @@ unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 			return (control & IEEE_CTRL_LINKSPEED_MASK) ? 100 : 10;
 		}
 	}
+}
+
+unsigned int get_phy_speed_TI_DP83867(XAxiEthernet *xaxiemacp, u32 phy_addr)
+{
+	u16 phy_val;
+	u16 control;
+	u16 status;
+	u16 partner_capabilities;
+
+	xil_printf("Start PHY autonegotiation \r\n");
+
+	/* Changing the PHY RX and TX DELAY settings. */
+	XAxiEthernet_PhyReadExtended(xaxiemacp, phy_addr, DP83867_R32_RGMIICTL1, &phy_val);
+	phy_val |= DP83867_RGMII_CLOCK_DELAY_CTRL_MASK;
+	XAxiEthernet_PhyWriteExtended(xaxiemacp, phy_addr, DP83867_R32_RGMIICTL1, phy_val);
+
+	XAxiEthernet_PhyReadExtended(xaxiemacp, phy_addr, DP83867_R86_RGMIIDCTL, &phy_val);
+	phy_val &= 0xFF00;
+	phy_val |= DP83867_RGMII_TX_CLOCK_DELAY_MASK;
+	phy_val |= DP83867_RGMII_RX_CLOCK_DELAY_MASK;
+	XAxiEthernet_PhyWriteExtended(xaxiemacp, phy_addr, DP83867_R86_RGMIIDCTL, phy_val);
+
+	/* Set advertised speeds for 10/100/1000Mbps modes. */
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &control);
+	control |= IEEE_ASYMMETRIC_PAUSE_MASK;
+	control |= IEEE_PAUSE_MASK;
+	control |= ADVERTISE_100;
+	control |= ADVERTISE_10;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, control);
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, &control);
+	control |= ADVERTISE_1000;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, control);
+
+	return get_phy_negotiated_speed(xaxiemacp, phy_addr);
 }
 
 unsigned int get_phy_speed_88E1116R(XAxiEthernet *xaxiemacp, u32 phy_addr)
@@ -437,16 +525,28 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 	u32 phy_addr = detect_phy(xaxiemacp);
 
 	/* Get the PHY Identifier and Model number */
-	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, 2, &phy_identifier);
-	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, 3, &phy_model);
-	phy_model = phy_model & PHY_MODEL_NUM_MASK;
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG, &phy_identifier);
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_2_REG, &phy_model);
 
+/* Depending upon what manufacturer PHY is connected, a different mask is
+ * needed to determine the specific model number of the PHY. */
 	if (phy_identifier == MARVEL_PHY_IDENTIFIER) {
+		phy_model = phy_model & MARVEL_PHY_MODEL_NUM_MASK;
+
 		if (phy_model == MARVEL_PHY_88E1116R_MODEL) {
 			return get_phy_speed_88E1116R(xaxiemacp, phy_addr);
 		} else if (phy_model == MARVEL_PHY_88E1111_MODEL) {
 			return get_phy_speed_88E1111(xaxiemacp, phy_addr);
 		}
+	} else if (phy_identifier == TI_PHY_IDENTIFIER) {
+		phy_model = phy_model & TI_PHY_DP83867_MODEL;
+
+		if (phy_model == TI_PHY_DP83867_MODEL) {
+			return get_phy_speed_TI_DP83867(xaxiemacp, phy_addr);
+		}
+	}
+	else {
+	    LWIP_DEBUGF(NETIF_DEBUG, ("XAxiEthernet get_IEEE_phy_speed: Detected PHY with unknown identifier/model.\r\n"));
 	}
 #endif
 #ifdef PCM_PMA_CORE_PRESENT
