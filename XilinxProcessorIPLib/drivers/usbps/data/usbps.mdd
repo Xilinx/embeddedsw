@@ -36,7 +36,6 @@ BEGIN driver usbps
   OPTION supported_peripherals = (ps7_usb);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.2;
   OPTION NAME = usbps;
   
 END driver

@@ -43,7 +43,6 @@ BEGIN driver osd
   OPTION supported_peripherals = (v_osd_v[6-9]_[0-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.0;
   OPTION NAME = osd;
     
 END driver

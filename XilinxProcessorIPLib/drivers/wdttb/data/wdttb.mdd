@@ -54,7 +54,6 @@ BEGIN driver wdttb
   OPTION supported_peripherals = (axi_timebase_wdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-   OPTION VERSION = 3.0;
   OPTION NAME = wdttb;
 
 END driver

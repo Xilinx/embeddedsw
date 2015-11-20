@@ -36,7 +36,6 @@ BEGIN driver scutimer
   OPTION supported_peripherals = (ps7_scutimer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-    OPTION VERSION = 2.1;
   OPTION NAME = scutimer;
 
 END driver
