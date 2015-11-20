@@ -375,13 +375,10 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 			*L2CCOffset = tempadr;
 			Xil_L2CacheSync();
 #endif
-#ifdef __GNUC__
-			/* Invalidate L1 Data cache line */
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (tempadr));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (tempadr));
+
+	/* Invalidate L1 Data cache line */
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_inval_dc_line_mva_poc(tempadr);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);
@@ -489,13 +486,10 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 		LocalAddr &= ~(cacheline - 1U);
 
 		while (LocalAddr < end) {
-#ifdef __GNUC__
-			/* Flush L1 Data cache line */
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
+
+	/* Flush L1 Data cache line */
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_clean_inval_dc_line_mva_poc(LocalAddr);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC);
@@ -674,13 +668,10 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 		*L2CCOffset = LocalAddr;
 		dsb();
 #endif
-#ifdef __GNUC__
-			/* Invalidate L1 I-cache line */
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
+
+		/* Invalidate L1 I-cache line */
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_inval_ic_line_mva_pou(LocalAddr);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_IC_LINE_MVA_POU);
@@ -835,13 +826,10 @@ void Xil_L1DCacheInvalidate(void)
 	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
 		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
 			C7Reg = Way | Set;
-#ifdef __GNUC__
-			/* Invalidate by Set/Way */
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_DC_LINE_SW :: "r" (C7Reg));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_DC_LINE_SW :: "r" (C7Reg));
+
+		/* Invalidate by Set/Way */
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_inval_dc_line_sw(C7Reg);
 #else
 			/*mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg), */
 			{ volatile register u32 Reg
@@ -920,12 +908,9 @@ void Xil_L1DCacheInvalidateRange(u32 adr, u32 len)
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
 
 		while (LocalAddr < end) {
-#ifdef __GNUC__
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
+
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_inval_dc_line_mva_poc(LocalAddr);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);
@@ -999,12 +984,9 @@ void Xil_L1DCacheFlush(void)
 		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
 			C7Reg = Way | Set;
 			/* Flush by Set/Way */
-#ifdef __GNUC__
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (C7Reg));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (C7Reg));
+
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_clean_inval_dc_line_sw(C7Reg);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_CLEAN_INVAL_DC_LINE_SW);
@@ -1081,12 +1063,9 @@ void Xil_L1DCacheFlushRange(u32 adr, u32 len)
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 
 		while (LocalAddr < end) {
-#ifdef __GNUC__
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC :: "r" (LocalAddr));
+
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_clean_inval_dc_line_mva_poc(LocalAddr);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC);
@@ -1276,12 +1255,9 @@ void Xil_L1ICacheInvalidateRange(u32 adr, u32 len)
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, 1U);
 
 		while (LocalAddr < end) {
-#ifdef __GNUC__
-			__asm__ __volatile__("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
-#elif defined (__ICCARM__)
-			__asm volatile ("mcr " \
-			XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (LocalAddr));
+
+#if defined (__GNUC__) || defined (__ICCARM__)
+			asm_cp15_inval_ic_line_mva_pou(LocalAddr);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_IC_LINE_MVA_POU);
