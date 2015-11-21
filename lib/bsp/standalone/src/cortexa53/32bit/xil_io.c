@@ -140,7 +140,7 @@ u32 Xil_In32(INTPTR Addr)
 ******************************************************************************/
 void Xil_Out8(INTPTR Addr, u8 Value)
 {
-	u8 *LocalAddr = (u8 *)Addr;
+	volatile u8 *LocalAddr = (u8 *)Addr;
 	*LocalAddr = Value;
 }
 
@@ -161,7 +161,7 @@ void Xil_Out8(INTPTR Addr, u8 Value)
 ******************************************************************************/
 void Xil_Out16(INTPTR Addr, u16 Value)
 {
-	u16 *LocalAddr = (u16 *)Addr;
+	volatile u16 *LocalAddr = (u16 *)Addr;
 	*LocalAddr = Value;
 }
 
@@ -182,7 +182,7 @@ void Xil_Out16(INTPTR Addr, u16 Value)
 ******************************************************************************/
 void Xil_Out32(INTPTR Addr, u32 Value)
 {
-	u32 *LocalAddr = (u32 *)Addr;
+	volatile u32 *LocalAddr = (u32 *)Addr;
 	*LocalAddr = Value;
 }
 
