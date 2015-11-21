@@ -73,13 +73,13 @@ extern "C" {
 
 /**************************** Function Prototypes ****************************/
 
-u8 Xil_In8(u32 Addr);
-u16 Xil_In16(u32 Addr);
-u32 Xil_In32(u32 Addr);
+u8 Xil_In8(UINTPTR Addr);
+u16 Xil_In16(UINTPTR Addr);
+u32 Xil_In32(UINTPTR Addr);
 
-void Xil_Out8(u32 Addr, u8 Value);
-void Xil_Out16(u32 Addr, u16 Value);
-void Xil_Out32(u32 Addr, u32 Value);
+void Xil_Out8(UINTPTR Addr, u8 Value);
+void Xil_Out16(UINTPTR Addr, u16 Value);
+void Xil_Out32(UINTPTR Addr, u32 Value);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -103,10 +103,10 @@ extern u16 Xil_EndianSwap16(u16 Data);
 extern u32 Xil_EndianSwap32(u32 Data);
 
 #ifndef __LITTLE_ENDIAN__
-extern u16 Xil_In16LE(u32 Addr);
-extern u32 Xil_In32LE(u32 Addr);
-extern void Xil_Out16LE(u32 Addr, u16 Value);
-extern void Xil_Out32LE(u32 Addr, u32 Value);
+extern u16 Xil_In16LE(UINTPTR Addr);
+extern u32 Xil_In32LE(UINTPTR Addr);
+extern void Xil_Out16LE(UINTPTR Addr, u16 Value);
+extern void Xil_Out32LE(UINTPTR Addr, u32 Value);
 
 /**
 *
@@ -193,10 +193,10 @@ extern void Xil_Out32LE(u32 Addr, u32 Value);
 
 #else
 
-extern u16 Xil_In16BE(u32 Addr);
-extern u32 Xil_In32BE(u32 Addr);
-extern void Xil_Out16BE(u32 Addr, u16 Value);
-extern void Xil_Out32BE(u32 Addr, u32 Value);
+extern u16 Xil_In16BE(UINTPTR Addr);
+extern u32 Xil_In32BE(UINTPTR Addr);
+extern void Xil_Out16BE(UINTPTR Addr, u16 Value);
+extern void Xil_Out32BE(UINTPTR Addr, u32 Value);
 
 #define Xil_In16LE(Addr) Xil_In16((Addr))
 #define Xil_In32LE(Addr) Xil_In32((Addr))

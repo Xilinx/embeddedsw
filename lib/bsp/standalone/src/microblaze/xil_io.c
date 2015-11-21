@@ -85,7 +85,7 @@
 * @note		None.
 *
 ******************************************************************************/
-u8 Xil_In8(u32 Addr) {
+u8 Xil_In8(UINTPTR Addr) {
 	return *(volatile u8 *)Addr;
 }
 
@@ -102,7 +102,7 @@ u8 Xil_In8(u32 Addr) {
 * @note		None.
 *
 ******************************************************************************/
-u16 Xil_In16(u32 Addr) {
+u16 Xil_In16(UINTPTR Addr) {
 	return *(volatile u16 *)Addr;
 }
 
@@ -119,7 +119,7 @@ u16 Xil_In16(u32 Addr) {
 * @note		None.
 *
 ******************************************************************************/
-u32 Xil_In32(u32 Addr) {
+u32 Xil_In32(UINTPTR Addr) {
 	return *(volatile u32 *)Addr;
 }
 
@@ -138,7 +138,7 @@ u32 Xil_In32(u32 Addr) {
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out8(u32 Addr, u8 Value) {
+void Xil_Out8(UINTPTR Addr, u8 Value) {
 	volatile u8 *LocalAddr = (u8 *)Addr;
 	*LocalAddr = Value;
 }
@@ -157,7 +157,7 @@ void Xil_Out8(u32 Addr, u8 Value) {
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out16(u32 Addr, u16 Value) {
+void Xil_Out16(UINTPTR Addr, u16 Value) {
 	volatile u16 *LocalAddr = (u16 *)Addr;
 	*LocalAddr = Value;
 }
@@ -176,7 +176,7 @@ void Xil_Out16(u32 Addr, u16 Value) {
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out32(u32 Addr, u32 Value) {
+void Xil_Out32(UINTPTR Addr, u32 Value) {
 	volatile u32 *LocalAddr = (u32 *)Addr;
 	*LocalAddr = Value;
 }
@@ -250,9 +250,9 @@ u32 Xil_EndianSwap32(u32 Data)
 *
 ******************************************************************************/
 #ifndef __LITTLE_ENDIAN__
-u16 Xil_In16LE(u32 Addr)
+u16 Xil_In16LE(UINTPTR Addr)
 #else
-u16 Xil_In16BE(u32 Addr)
+u16 Xil_In16BE(UINTPTR Addr)
 #endif
 {
 	u16 Value;
@@ -282,9 +282,9 @@ u16 Xil_In16BE(u32 Addr)
 *
 ******************************************************************************/
 #ifndef __LITTLE_ENDIAN__
-u32 Xil_In32LE(u32 Addr)
+u32 Xil_In32LE(UINTPTR Addr)
 #else
-u32 Xil_In32BE(u32 Addr)
+u32 Xil_In32BE(UINTPTR Addr)
 #endif
 {
 	u32 InValue;
@@ -313,9 +313,9 @@ u32 Xil_In32BE(u32 Addr)
 *
 ******************************************************************************/
 #ifndef __LITTLE_ENDIAN__
-void Xil_Out16LE(u32 Addr, u16 Value)
+void Xil_Out16LE(UINTPTR Addr, u16 Value)
 #else
-void Xil_Out16BE(u32 Addr, u16 Value)
+void Xil_Out16BE(UINTPTR Addr, u16 Value)
 #endif
 {
 	u16 OutValue;
@@ -345,9 +345,9 @@ void Xil_Out16BE(u32 Addr, u16 Value)
 *
 ******************************************************************************/
 #ifndef __LITTLE_ENDIAN__
-void Xil_Out32LE(u32 Addr, u32 Value)
+void Xil_Out32LE(UINTPTR Addr, u32 Value)
 #else
-void Xil_Out32BE(u32 Addr, u32 Value)
+void Xil_Out32BE(UINTPTR Addr, u32 Value)
 #endif
 {
 	u32 OutValue;

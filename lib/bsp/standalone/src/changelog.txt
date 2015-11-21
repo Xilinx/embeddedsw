@@ -254,4 +254,6 @@
  * 5.4 pkp   16/11/15  Modified microblaze/xil_misc_psreset_api.c file to change the description
  *		       for XOcm_Remap function
  *     kvn   21/11/15  Added volatile keyword for ADDR varibles in Xil_Out API
+ *     kvn   21/11/15  Changed ADDR variable type from u32 to UINTPTR. This is
+ *                     required for MISRA-C:2012 Compliance.
  *****************************************************************************************/
