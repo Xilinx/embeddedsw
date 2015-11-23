@@ -156,16 +156,14 @@ typedef struct PmRequirement {
 } PmRequirement;
 
 /**
- * PmSuspendRequest() - For tracking information about which master can/has
- *                      requested which master to suspend.
- * @reqMst      Master which is priviledged to request suspend of respMst
- * @ackReq      Acknowledge argument provided with the request suspend call
- * @flags       Flags storing information about the actual request
+ * PmSuspendRequest() - For tracking information about request suspend being
+ *                      processed at the moment
+ * @initiator   Master which has requested suspend
+ * @acknowledge Acknowledge argument provided with the request suspend call
  */
 typedef struct {
-	const PmMaster* reqMst;
-	u32 ackReq;
-	u8 flags;
+	const PmMaster* initiator;
+	u32 acknowledge;
 } PmSuspendRequest;
 
 /**
@@ -188,14 +186,22 @@ typedef struct {
  * @procsCnt    Number of processors within the master
  * @reqsCnt     Number of requirement elements (= worst case for number of
  *              used slaves)
+ * @permissions ORed ipi masks of masters which this master is allowed to
+ *              request to suspend (to be updated based on specific
+ *              configuration, by default all masters should be able to request
+ *              any other master to suspend)
+ * @suspendRequest Captures info about the ongoing suspend request (this master
+ *              is the target which suppose to suspend). At any moment only
+ *              one suspend request can be active for one target/master
  */
 typedef struct PmMaster {
-	PmSuspendRequest pmSuspRequests;
+	PmSuspendRequest suspendRequest;
 	PmProc* const procs;
 	PmRequirement* const reqs;
 	const u32 ipiMask;
 	const u32 pmuBuffer;
 	const u32 buffer;
+	u32 permissions;
 	PmNodeId nid;
 	const u8 procsCnt;
 	const u8 reqsCnt;
@@ -245,12 +251,7 @@ bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster);
 bool PmIsRequestedToSuspend(const PmMaster* const master);
 
-int PmRememberSuspendRequest(const PmMaster* const reqMaster,
-				 PmMaster* const respMaster,
-				 const u32 ack);
-
-int PmMasterSuspendAck(PmMaster* const respMaster,
-			   const int response);
+int PmMasterSuspendAck(PmMaster* const mst, const int response);
 
 PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId);
 

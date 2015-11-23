@@ -131,13 +131,13 @@ done:
  * @master  PU from which the request is initiated
  * @node    PU node to be suspended
  * @ack     Acknowledge request
- * @latency Desired wakeup latency - Not supported
- * @state   Desired power state   - Not supported
+ * @latency Desired wakeup latency
+ * @state   Desired power state
  *
  * If suspend has been successfully requested, the requested PU needs to
  * initiate its own self suspend. Remember to acknowledge to the requestor
  * after:
- * 1. PU/processor gets powered down (after it has initiates self suspend),
+ * 1. PU's primary processor goes to sleep (self suspend completed),
  * 2. PU/processor aborts suspend,
  * 3. PU/processor does not respond to the request (timeout) - not supported
  */
@@ -147,7 +147,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 			     const u32 latency,
 			     const u32 state)
 {
-	int status;
+	int status = XST_SUCCESS;
 	PmMaster* target = NULL;
 
 	PmDbg("(%s, %s, %d, %d)\n", PmStrNode(node), PmStrAck(ack),
@@ -175,22 +175,15 @@ static void PmRequestSuspend(const PmMaster *const master,
 		goto done;
 	}
 
-	/*
-	 * Remember to acknowledge to the requestor when:
-	 * 1. PU gets powered down, 2. PU aborts suspend,
-	 * 3. PU does not respond to the request (timeout).
-	 */
-	if (REQUEST_ACK_NO != ack) {
-		status = PmRememberSuspendRequest(master, target, ack);
-	} else {
-		status = XST_SUCCESS;
+	if (true == PmIsRequestedToSuspend(target)) {
+		status = XST_PM_DOUBLE_REQ;
+		goto done;
 	}
 
-	if (XST_SUCCESS == status) {
-		/* Request is ok and saved (remembered to acknowledge) */
-		PmInitSuspendCb(target, SUSPEND_REASON_PU_REQ,
-				latency, state, MAX_LATENCY);
-	}
+	/* Remember request info and init suspend */
+	target->suspendRequest.initiator = master;
+	target->suspendRequest.acknowledge = ack;
+	PmInitSuspendCb(target, SUSPEND_REASON_PU_REQ, latency, state, 0U);
 
 done:
 	if (XST_SUCCESS != status) {

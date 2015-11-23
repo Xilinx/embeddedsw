@@ -578,10 +578,10 @@ PmMaster pmMasterApu_g = {
 	.buffer = IPI_BUFFER_APU_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = pmApuReq_g,
 	.reqsCnt = ARRAY_SIZE(pmApuReq_g),
-	.pmSuspRequests = {
-		.reqMst = &pmMasterRpu0_g,
-		.flags = 0U,
-		.ackReq = 0U,
+	.permissions = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
+	.suspendRequest = {
+		.initiator = NULL,
+		.acknowledge = 0U,
 	},
 };
 
@@ -594,10 +594,10 @@ PmMaster pmMasterRpu0_g = {
 	.buffer = IPI_BUFFER_RPU_0_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = pmRpu0Req_g,
 	.reqsCnt = ARRAY_SIZE(pmRpu0Req_g),
-	.pmSuspRequests = {
-		.reqMst = &pmMasterApu_g,
-		.flags = 0U,
-		.ackReq = 0U,
+	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_1_MASK,
+	.suspendRequest = {
+		.initiator = NULL,
+		.acknowledge = 0U,
 	},
 };
 
@@ -610,6 +610,11 @@ PmMaster pmMasterRpu1_g = {
 	.buffer = IPI_BUFFER_RPU_1_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = NULL,   /* lockstep mode is assumed for now */
 	.reqsCnt = 0U,
+	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
+	.suspendRequest = {
+		.initiator = NULL,
+		.acknowledge = 0U,
+	},
 };
 
 PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
@@ -1126,7 +1131,7 @@ static void PmWakeUpDisableAll(PmMaster* const master)
 bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster)
 {
-	return reqMaster == respMaster->pmSuspRequests.reqMst;
+	return 0U != (reqMaster->permissions & respMaster->ipiMask);
 }
 
 /**
@@ -1140,72 +1145,42 @@ bool PmCanRequestSuspend(const PmMaster* const reqMaster,
  */
 bool PmIsRequestedToSuspend(const PmMaster* const master)
 {
-	return 0U != (PM_REQUESTED_SUSPEND & master->pmSuspRequests.flags);
-}
-
-/**
- * PmRememberSuspendRequest() - Remembers the request suspend to acknowledge
- * @reqMaster   Master which requested suspend
- * @respMaster  Master whose suspend is requested and which should answer
- * @ack         Acknowledge flag received with the request suspend call
- *
- * @return      Status of the operation of remembering the requested acknowledge
- */
-int PmRememberSuspendRequest(const PmMaster* const reqMaster,
-				 PmMaster* const respMaster,
-				 const u32 ack)
-{
-	int status;
-
-	/*
-	 * Assume that reqMaster/respMaster pair does not exist (reqMaster is
-	 * not allowed to request suspend of respMaster). If pair
-	 * reqMaster/respMaster is found, reqMaster is allowed to request
-	 * suspend and status will be changed
-	 */
-	status = XST_PM_NO_ACCESS;
-
-	if (reqMaster == respMaster->pmSuspRequests.reqMst) {
-		if (REQUEST_ACK_CB_STANDARD == ack) {
-			respMaster->pmSuspRequests.ackReq = ack;
-			respMaster->pmSuspRequests.flags |= PM_REQUESTED_SUSPEND;
-			status = XST_SUCCESS;
-		} else {
-			status = XST_INVALID_PARAM;
-		}
-	}
-
-	return status;
+	return NULL != master->suspendRequest.initiator;
 }
 
 /**
  * PmMasterSuspendAck() - Acknowledge to the suspend request of another master
- * @respMaster	Master which is responding to the suspend request
+ * @mst		Master which is responding to the suspend request
  * @response	Status which is acknowledged as a response (whether the suspend
  *		operation is performed successfully)
- * @return	Status of the operation of sending acknowledge
+ * @return	Status of the operation of sending acknowledge:
+ *		- XST_SUCCESS if before calling this function the caller checked
+ *		  that PmIsRequestedToSuspend returns true (the acknowledge
+ *		  may need to be sent)
+ *		- XST_FAILURE otherwise - this function didn't suppose to be
+ *		  called
  */
-int PmMasterSuspendAck(PmMaster* const respMaster, const int response)
+int PmMasterSuspendAck(PmMaster* const mst, const int response)
 {
-	int status;
+	int status = XST_SUCCESS;
 
-	/*
-	 * Assume to return failure, in case when there was no request to
-	 * suspend
-	 */
-	status = XST_FAILURE;
-
-	if (0U != (PM_REQUESTED_SUSPEND & respMaster->pmSuspRequests.flags)) {
-		if (TO_ACK_CB(respMaster->pmSuspRequests.ackReq, response)) {
-			PmAcknowledgeCb(respMaster->pmSuspRequests.reqMst,
-			respMaster->procs->node.nodeId, response,
-			respMaster->procs->node.currState);
-		}
-		respMaster->pmSuspRequests.flags &= ~PM_REQUESTED_SUSPEND;
-		respMaster->pmSuspRequests.ackReq = 0U;
-		status = XST_SUCCESS;
+	if (NULL == mst->suspendRequest.initiator) {
+		status = XST_FAILURE;
+		goto done;
 	}
 
+	if (REQUEST_ACK_CB_STANDARD == mst->suspendRequest.acknowledge) {
+		PmAcknowledgeCb(mst->suspendRequest.initiator,
+				mst->procs->node.nodeId, response,
+				mst->procs->node.currState);
+	} else if (REQUEST_ACK_BLOCKING == mst->suspendRequest.acknowledge) {
+		XPfw_Write32(mst->buffer + IPI_BUFFER_RESP_OFFSET, response);
+	} else {
+		/* No acknowledge */
+	}
+	mst->suspendRequest.initiator = NULL;
+
+done:
 	return status;
 }
 
