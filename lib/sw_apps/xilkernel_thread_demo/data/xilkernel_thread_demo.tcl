@@ -66,9 +66,9 @@ proc check_xilkernel_os {} {
 proc swapp_is_supported_hw {} {
     # xilkernel is supported only for microblaze target
     set proc [hsi::get_sw_processor];
-    set proc_type [string match "microblaze*" $proc];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
 
-    if { ($proc_type != 1) } { 
+    if { [string match -nocase $proc_type "microblaze"] != 1} {
 	error "This application is supported only for MicroBlaze processor";
     }
 
