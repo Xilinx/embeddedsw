@@ -66,6 +66,8 @@
 *                       Added extended slave select support - CR#722569.
 *                       Added check for MODF in polled transfer function.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.02  raw    11/23/15 Updated XSpiPs_Abort() to read all RXFIFO entries.
+* 			This change is to tackle CR#910231.
 *
 * </pre>
 *
@@ -1100,6 +1102,7 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 
 	u8 Temp;
 	u32 Check;
+	u32 Count;
 	XSpiPs_Disable(InstancePtr);
 
 	/*
@@ -1113,6 +1116,14 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 		}
 		Check = (XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 		XSPIPS_SR_OFFSET) & XSPIPS_IXR_RXNEMPTY_MASK);
+	}
+
+	/*
+	 * Read all RX_FIFO entries
+	 */
+	for (Count = 0; Count < XSPIPS_FIFO_DEPTH; Count++) {
+		(void)XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+			XSPIPS_RXD_OFFSET);
 	}
 
 	/*

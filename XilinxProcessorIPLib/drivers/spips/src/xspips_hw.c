@@ -46,7 +46,8 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.06a hk     08/22/13 First release.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
-*
+* 3.02  raw    11/23/15 Updated XSpiPs_ResetHw() to read all RXFIFO
+* 			entries. This change is to tackle CR#910231.
 * </pre>
 *
 ******************************************************************************/
@@ -82,6 +83,8 @@
 void XSpiPs_ResetHw(u32 BaseAddress)
 {
 	u32 Check;
+	u32 Count;
+
 	/*
 	 * Disable Interrupts
 	 */
@@ -112,6 +115,13 @@ void XSpiPs_ResetHw(u32 BaseAddress)
 		(void)XSpiPs_ReadReg(BaseAddress, XSPIPS_RXD_OFFSET);
 		Check = (XSpiPs_ReadReg(BaseAddress,XSPIPS_SR_OFFSET) &
 			XSPIPS_IXR_RXNEMPTY_MASK);
+	}
+
+	/*
+	 * Read all RXFIFO entries
+	 */
+	for (Count = 0; Count < XSPIPS_FIFO_DEPTH; Count++) {
+		(void)XSpiPs_ReadReg(BaseAddress, XSPIPS_RXD_OFFSET);
 	}
 
 	/*
