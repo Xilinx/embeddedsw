@@ -256,4 +256,6 @@
  *     kvn   21/11/15  Added volatile keyword for ADDR varibles in Xil_Out API
  *     kvn   21/11/15  Changed ADDR variable type from u32 to UINTPTR. This is
  *                     required for MISRA-C:2012 Compliance.
+ * 5.4 pkp   23/11/15  Added attribute definitions for Xil_SetTlbAttributes API of Cortex-A9
+ *		       in cortexa9/xil_mmu.h
  *****************************************************************************************/
