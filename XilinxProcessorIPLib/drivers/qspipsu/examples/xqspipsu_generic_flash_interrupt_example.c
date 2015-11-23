@@ -72,6 +72,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
 *       sk  06/17/15 Used Tx/Rx flags for Transmitting/Receiving.
+*		sk  11/23/15 Added Support for Macronix 1Gb part.
 *
 *</pre>
 *
@@ -206,6 +207,8 @@
 #define WINBOND_ID_BYTE0		0xEF
 #define WINBOND_ID_BYTE2_128	0x18
 
+#define MACRONIX_ID_BYTE0		0xC2
+#define MACRONIX_ID_BYTE2_1G	0x1B
 
 /*
  * The index for Flash config table
@@ -242,6 +245,12 @@
 #define FLASH_CFG_TBL_SINGLE_128_WB		WINBOND_INDEX_START
 #define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
+
+/* Macronix */
+#define MACRONIX_INDEX_START			(FLASH_CFG_TBL_PARALLEL_128_WB + 1)
+#define FLASH_CFG_TBL_SINGLE_1G_MX		MACRONIX_INDEX_START
+#define FLASH_CFG_TBL_STACKED_1G_MX		(MACRONIX_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 2)
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -315,7 +324,7 @@ void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
-FlashInfo Flash_Config_Table[24] = {
+FlashInfo Flash_Config_Table[27] = {
 		/* Spansion */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
@@ -367,7 +376,14 @@ FlashInfo Flash_Config_Table[24] = {
 		{0x10000, 0x200, 256, 0x20000, 0x1000000,
 				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFF0000, 1},
 		{0x20000, 0x100, 512, 0x10000, 0x1000000,
-				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFE0000, 1}
+				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFE0000, 1},
+		/* Macronix */
+		{0x10000, 0x800, 256, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 4},
+		{0x10000, 0x1000, 256, 0x100000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 4},
+		{0x20000, 0x800, 512, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 4}
 };
 
 u32 FlashMake;
@@ -711,6 +727,9 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	}else if(ReadBfrPtr[0] == WINBOND_ID_BYTE0) {
 		FlashMake = WINBOND_ID_BYTE0;
 		StartIndex = WINBOND_INDEX_START;
+	} else if(ReadBfrPtr[0] == MACRONIX_ID_BYTE0) {
+		FlashMake = MACRONIX_ID_BYTE0;
+		StartIndex = MACRONIX_INDEX_START;
 	}
 
 
@@ -797,6 +816,26 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				break;
 			case XQSPIPSU_CONNECTION_MODE_STACKED:
 				FCTIndex = FLASH_CFG_TBL_STACKED_1GB_MC;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+		}
+	}
+
+	/* 1Gbit single, parallel and stacked supported for Macronix */
+	if(((FlashMake == MACRONIX_ID_BYTE0) &&
+			(ReadBfrPtr[2] == MACRONIX_ID_BYTE2_1G))) {
+
+		switch(QspiPsuPtr->Config.ConnectionMode) {
+			case XQSPIPSU_CONNECTION_MODE_SINGLE:
+				FCTIndex = FLASH_CFG_TBL_SINGLE_1G_MX;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_1G_MX;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_STACKED:
+				FCTIndex = FLASH_CFG_TBL_STACKED_1G_MX;
 				break;
 			default:
 				FCTIndex = 0;
