@@ -538,7 +538,7 @@ static int PmSlaveWakeMasters(PmSlave* const slave)
 int PmSlaveProcessWake(const u32 wakeMask)
 {
 	int status = XST_SUCCESS;
-	u32 g, s, irqStatus;
+	u32 g, s, irq;
 
 	if (!(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & wakeMask)) {
 		goto done;
@@ -546,15 +546,24 @@ int PmSlaveProcessWake(const u32 wakeMask)
 
 	for (g = 0U; g < ARRAY_SIZE(gicProxyGroups_g); g++) {
 		/* Reading status register clears interrupts */
-		irqStatus = XPfw_Read32(gicProxyGroups_g[g].baseAddr +
+		irq = XPfw_Read32(gicProxyGroups_g[g].baseAddr +
 					FPD_GICP_STATUS_OFFSET);
+		if (0U == irq) {
+			/* No wake in this GIC proxy group, try next group */
+			continue;
+		}
 
-		for (s = 0U; (0U != irqStatus) && (s < ARRAY_SIZE(pmSlaves)); s++) {
-			if ((NULL != pmSlaves[s]->wake) &&
-				(pmSlaves[s]->wake->proxyIrqMask & irqStatus)) {
+		for (s = 0U; s < ARRAY_SIZE(pmSlaves); s++) {
+			if (NULL == pmSlaves[s]->wake) {
+				/* This slave has no wake */
+				continue;
+			}
+			if (pmSlaves[s]->wake->proxyIrqMask & irq) {
 				status = PmSlaveWakeMasters(pmSlaves[s]);
-				irqStatus &= ~pmSlaves[s]->wake->proxyIrqMask;
-
+				irq &= ~pmSlaves[s]->wake->proxyIrqMask;
+				if (0U == irq) {
+					break;
+				}
 			}
 		}
 	}

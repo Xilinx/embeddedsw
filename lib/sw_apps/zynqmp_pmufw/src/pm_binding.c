@@ -222,9 +222,10 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 		} else {
 			status = XST_INVALID_PARAM;
 		}
-	} else {
+	} else if (PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & srcMask) {
 		/* Slave wake */
 		status = PmSlaveProcessWake(srcMask);
+	} else {
 	}
 
 	return status;
