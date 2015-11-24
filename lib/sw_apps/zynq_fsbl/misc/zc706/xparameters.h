@@ -20,6 +20,14 @@
 
 /******************************************************************/
 
+
+/* Definitions for peripheral PS7_DDR_0 */
+#define XPAR_PS7_DDR_0_S_AXI_BASEADDR 0x00100000
+#define XPAR_PS7_DDR_0_S_AXI_HIGHADDR 0x3FFFFFFF
+
+
+/******************************************************************/
+
 /* Definitions for driver DEVCFG */
 #define XPAR_XDCFG_NUM_INSTANCES 1
 
@@ -123,16 +131,6 @@
 #define XPAR_PS7_AFI_3_S_AXI_HIGHADDR 0xF800BFFF
 
 
-/* Definitions for peripheral PS7_CORESIGHT_COMP_0 */
-#define XPAR_PS7_CORESIGHT_COMP_0_S_AXI_BASEADDR 0xF8800000
-#define XPAR_PS7_CORESIGHT_COMP_0_S_AXI_HIGHADDR 0xF88FFFFF
-
-
-/* Definitions for peripheral PS7_DDR_0 */
-#define XPAR_PS7_DDR_0_S_AXI_BASEADDR 0x00100000
-#define XPAR_PS7_DDR_0_S_AXI_HIGHADDR 0x3FFFFFFF
-
-
 /* Definitions for peripheral PS7_DDRC_0 */
 #define XPAR_PS7_DDRC_0_S_AXI_BASEADDR 0xF8006000
 #define XPAR_PS7_DDRC_0_S_AXI_HIGHADDR 0xF8006FFF
@@ -182,7 +180,7 @@
 
 /* Definitions for peripheral PS7_QSPI_LINEAR_0 */
 #define XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR 0xFC000000
-#define XPAR_PS7_QSPI_LINEAR_0_S_AXI_HIGHADDR 0xFCFFFFFF
+#define XPAR_PS7_QSPI_LINEAR_0_S_AXI_HIGHADDR 0xFDFFFFFF
 
 
 /* Definitions for peripheral PS7_RAM_0 */
@@ -270,8 +268,6 @@
 
 /******************************************************************/
 
-
-/***Definitions for Core_nIRQ/nFIQ interrupts ****/
 /* Definitions for driver SCUGIC */
 #define XPAR_XSCUGIC_NUM_INSTANCES 1
 
@@ -339,6 +335,8 @@
 #define XPAR_PS7_SD_0_BASEADDR 0xE0100000
 #define XPAR_PS7_SD_0_HIGHADDR 0xE0100FFF
 #define XPAR_PS7_SD_0_SDIO_CLK_FREQ_HZ 50000000
+#define XPAR_PS7_SD_0_HAS_CD 1
+#define XPAR_PS7_SD_0_HAS_WP 1
 
 
 /******************************************************************/
@@ -348,6 +346,8 @@
 #define XPAR_XSDPS_0_BASEADDR 0xE0100000
 #define XPAR_XSDPS_0_HIGHADDR 0xE0100FFF
 #define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 50000000
+#define XPAR_XSDPS_0_HAS_CD 1
+#define XPAR_XSDPS_0_HAS_WP 1
 
 
 /******************************************************************/
