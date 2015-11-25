@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,11 +33,10 @@
 /**
 * @file xgpio_example.c
 *
-* This file contains a design example using the GPIO driver (XGpio) and hardware
-* device.  It only uses a channel 1 of a GPIO device.
+* This file contains a design example using the AXI GPIO driver (XGpio) and
+* hardware device.  It only uses channel 1 of a GPIO device and assumes that
+* the bit 0 of the GPIO is connected to the LED on the HW board.
 *
-* This example can be ran on the Xilinx ML300 board using the Prototype Pins &
-* LEDs of the board connected to the GPIO.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -49,6 +48,8 @@
 * 2.00a jhl  12/15/03 Added support for dual channels
 * 2.00a sv   04/20/05 Minor changes to comply to Doxygen and coding guidelines
 * 3.00a ktn  11/20/09 Minor changes as per coding guidelines.
+* 4.1   lks  11/18/15 Updated to use canonical xparameters and
+*		      clean up of the comments and code for CR 900381
 *
 * </pre>
 ******************************************************************************/
@@ -64,10 +65,11 @@
 #define LED 0x01   /* Assumes bit 0 of GPIO is connected to an LED  */
 
 /*
- * The following constant maps to the name of the hardware instances that
- * were created in the EDK XPS system.
+ * The following constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here such that a user can easily
+ * change all the needed parameters in one place.
  */
-#define GPIO_EXAMPLE_DEVICE_ID  XPAR_LEDS_POSITIONS_DEVICE_ID
+#define GPIO_EXAMPLE_DEVICE_ID  XPAR_GPIO_0_DEVICE_ID
 
 /*
  * The following constant is used to wait after an LED is turned on to make
@@ -123,12 +125,13 @@ XGpio Gpio; /* The Instance of the GPIO Driver */
 /*****************************************************************************/
 /**
 *
-* The purpose of this function is to illustrate how to use the GPIO level 1
+* The purpose of this function is to illustrate how to use the GPIO
 * driver to turn on and off an LED.
 *
 * @param	None
 *
-* @return	XST_FAILURE to indicate that the GPIO Intialisation had failed.
+* @return	XST_FAILURE to indicate that the GPIO Initialization had
+*		failed.
 *
 * @note		This function will not return if the test is running.
 *
@@ -139,18 +142,13 @@ int main(void)
 	int Status;
 	volatile int Delay;
 
-	/*
-	 * Initialize the GPIO driver
-	 */
+	/* Initialize the GPIO driver */
 	Status = XGpio_Initialize(&Gpio, GPIO_EXAMPLE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Set the direction for all signals to be inputs except the
-	 * LED output
-	 */
+	/* Set the direction for all signals as inputs except the LED output */
 	XGpio_SetDataDirection(&Gpio, LED_CHANNEL, ~LED);
 
 	/* Loop forever blinking the LED */
@@ -174,7 +172,6 @@ int main(void)
 		}
 
 		/* Wait a small amount of time so the LED is visible */
-
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 
 		/*
@@ -194,10 +191,8 @@ int main(void)
 		}
 
 		/* Wait a small amount of time so the LED is visible */
-
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 	}
 
 	return XST_SUCCESS;
 }
-

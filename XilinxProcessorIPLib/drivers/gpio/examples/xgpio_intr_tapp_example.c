@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,10 +38,10 @@
 * an interrupt controller in the hardware system and the GPIO device is
 * connected to the interrupt controller.
 *
-* This file is used by the TestAppGen utility to include a simplified test for
-* gpio interrupts.
+* This file is used in the Peripheral Tests Application in SDK to include a
+* simplified test for gpio interrupts.
 
-* The buttons and LEDs are on 2 seperate channels of the GPIO so that interrupts
+* The buttons and LEDs are on 2 separate channels of the GPIO so that interrupts
 * are not caused when the LEDs are turned on and off.
 *
 * <pre>
@@ -51,9 +51,12 @@
 * ----- ---- -------- -------------------------------------------------------
 * 2.01a sn   05/09/06 Modified to be used by TestAppGen to include test for
 *		      interrupts.
-* 3.00a ktn  11/21/09 Updated to use HAL Processor APIs and minior changes
+* 3.00a ktn  11/21/09 Updated to use HAL Processor APIs and minor changes
 *		      as per coding guidelines.
 * 3.00a sdm  02/16/11 Updated to support ARM Generic Interrupt Controller
+* 4.1   lks  11/18/15 Updated to use canonical xparameters and
+*		      clean up of the comments and code for CR 900381
+
 *</pre>
 *
 ******************************************************************************/
@@ -75,17 +78,18 @@
 /************************** Constant Definitions *****************************/
 #ifndef TESTAPP_GEN
 /*
- * The following constants map to the names of the hardware instances that
- * were created in the EDK XPS system.  They are only defined here such that
- * a user can easily change all the needed device IDs in one place.
+ * The following constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here such that a user can easily
+ * change all the needed parameters in one place.
  */
-#define GPIO_DEVICE_ID		XPAR_PUSH_BUTTONS_4BITS_DEVICE_ID
-#define INTC_GPIO_INTERRUPT_ID	XPAR_INTC_0_GPIO_2_VEC_ID
+#define GPIO_DEVICE_ID		XPAR_GPIO_0_DEVICE_ID
 #define GPIO_CHANNEL1		1
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+ #define INTC_GPIO_INTERRUPT_ID	XPAR_INTC_0_GPIO_0_VEC_ID
  #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
 #else
+ #define INTC_GPIO_INTERRUPT_ID	XPAR_FABRIC_AXI_GPIO_1_IP2INTC_IRPT_INTR
  #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
@@ -219,7 +223,9 @@ int main(void)
 * @param	DataRead is the pointer where the data read from GPIO Input is
 *		returned
 *
-* @return	XST_SUCCESS if the Test is successful, otherwise XST_FAILURE
+* @return
+*		- XST_SUCCESS if the Test is successful
+*		- XST_FAILURE if the test is not successful
 *
 * @note		None.
 *
@@ -231,7 +237,6 @@ int GpioIntrExample(INTC *IntcInstancePtr, XGpio* InstancePtr, u16 DeviceId,
 	u32 delay;
 
 	/* Initialize the GPIO driver. If an error occurs then exit */
-
 	Status = XGpio_Initialize(InstancePtr, DeviceId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -302,7 +307,6 @@ int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 		      (Xil_ExceptionHandler)GpioHandler, InstancePtr);
 
 	/* Enable the interrupt vector at the interrupt controller */
-
 	XIntc_Enable(IntcInstancePtr, IntrId);
 
 #ifndef TESTAPP_GEN
@@ -350,9 +354,7 @@ int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 		return Result;
 	}
 
-	/*
-	 * Enable the interrupt for the GPIO device.
-	 */
+	/* Enable the interrupt for the GPIO device.*/
 	XScuGic_Enable(IntcInstancePtr, IntrId);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
@@ -395,9 +397,8 @@ void GpioHandler(void *CallbackRef)
 	XGpio *GpioPtr = (XGpio *)CallbackRef;
 
 	IntrFlag = 1;
-	/*
-	 * Clear the Interrupt
-	 */
+
+	/* Clear the Interrupt */
 	XGpio_InterruptClear(GpioPtr, GlobalIntrMask);
 
 }
@@ -410,7 +411,7 @@ void GpioHandler(void *CallbackRef)
 * @param	IntcInstancePtr is a pointer to the Interrupt Controller
 *		driver Instance
 * @param	InstancePtr is a pointer to the GPIO driver Instance
-* @param	IntrId is XPAR_<INTC_instance>_<GPIO_instance>_IP2INTC_IRPT_INTR
+* @param	IntrId is XPAR_<INTC_instance>_<GPIO_instance>_VEC
 *		value from xparameters.h
 * @param	IntrMask is the GPIO channel mask
 *

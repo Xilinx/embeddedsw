@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,8 @@
 *		      XGpio_mGetDataReg and XGpio_mSetDataReg. Users
 *		      should use XGpio_WriteReg/XGpio_ReadReg to achieve the
 *		      same functionality.
+* 4.1   lks  11/18/15 Updated to use canonical xparameters and
+*		      clean up of the comments and code for CR 900381
 * </pre>
 *
 ******************************************************************************/
@@ -62,10 +64,11 @@
 #define LED 0x01 /* Assumes bit 0 of GPIO is connected to an LED */
 
 /*
- * The following constant maps to the Base address  of the hardware
- * instances that was created in the EDK XPS system.
+ * The following constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here such that a user can easily
+ * change all the needed parameters in one place.
  */
-#define GPIO_REG_BASEADDR	XPAR_LEDS_POSITIONS_BASEADDR
+#define GPIO_REG_BASEADDR	XPAR_GPIO_0_BASEADDR
 
 /*
  * The following constant is used to wait after an LED is turned on to make
