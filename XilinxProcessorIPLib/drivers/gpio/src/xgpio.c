@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio.c
-* @addtogroup gpio_v4_0
+* @addtogroup gpio_v4_1
 * @{
 *
 * The implementation of the XGpio driver's basic functionality. See xgpio.h
@@ -60,8 +60,8 @@
 * 2.12a sv   11/21/07 Updated driver to support access through DCR bus
 * 3.00a sv   11/21/09 Updated to use HAL Processor APIs. Renamed the
 *		      macros to remove _m from the name.
-* 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
-*                     Changed the prototype of XGpio_CfgInitialize API.
+* 4.1   lks  11/18/15 Clean up of the comments in the code and
+*		      removed support for DCR bridge
 * </pre>
 *
 *****************************************************************************/
@@ -110,27 +110,19 @@
 *		address instead.
 *
 * @return
-* 		- XST_SUCCESS	Initialization was successfull.
+* 		- XST_SUCCESS if the initialization is successfull.
 *
 * @note		None.
 *
 *****************************************************************************/
 int XGpio_CfgInitialize(XGpio * InstancePtr, XGpio_Config * Config,
-			UINTPTR EffectiveAddr)
+			u32 EffectiveAddr)
 {
-	/*
-	 * Assert arguments
-	 */
+	/* Assert arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/*
-	 * Set some default values.
-	 */
-#if (XPAR_XGPIO_USE_DCR_BRIDGE != 0)
-	InstancePtr->BaseAddress = ((EffectiveAddr >> 2)) & 0xFFF;
-#else
+	/* Set some default values. */
 	InstancePtr->BaseAddress = EffectiveAddr;
-#endif
 
 	InstancePtr->InterruptPresent = Config->InterruptPresent;
 	InstancePtr->IsDual = Config->IsDual;
@@ -161,7 +153,7 @@ int XGpio_CfgInitialize(XGpio * InstancePtr, XGpio_Config * Config,
 *		function will assert.
 *
 *****************************************************************************/
-void XGpio_SetDataDirection(XGpio * InstancePtr, unsigned Channel,
+void XGpio_SetDataDirection(XGpio *InstancePtr, unsigned Channel,
 			    u32 DirectionMask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);

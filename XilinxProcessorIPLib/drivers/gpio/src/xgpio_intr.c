@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr.c
-* @addtogroup gpio_v4_0
+* @addtogroup gpio_v4_1
 * @{
 *
 * Implements GPIO interrupt processing functions for the XGpio driver.
@@ -90,7 +90,7 @@
 * @note		None.
 *
 *****************************************************************************/
-void XGpio_InterruptGlobalEnable(XGpio * InstancePtr)
+void XGpio_InterruptGlobalEnable(XGpio *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -117,7 +117,7 @@ void XGpio_InterruptGlobalEnable(XGpio * InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-void XGpio_InterruptGlobalDisable(XGpio * InstancePtr)
+void XGpio_InterruptGlobalDisable(XGpio *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -145,7 +145,7 @@ void XGpio_InterruptGlobalDisable(XGpio * InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-void XGpio_InterruptEnable(XGpio * InstancePtr, u32 Mask)
+void XGpio_InterruptEnable(XGpio *InstancePtr, u32 Mask)
 {
 	u32 Register;
 
@@ -181,7 +181,7 @@ void XGpio_InterruptEnable(XGpio * InstancePtr, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XGpio_InterruptDisable(XGpio * InstancePtr, u32 Mask)
+void XGpio_InterruptDisable(XGpio *InstancePtr, u32 Mask)
 {
 	u32 Register;
 

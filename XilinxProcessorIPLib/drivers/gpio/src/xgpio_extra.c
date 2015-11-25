@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_extra.c
-* @addtogroup gpio_v4_0
+* @addtogroup gpio_v4_1
 * @{
 *
 * The implementation of the XGpio driver's advanced discrete functions.
@@ -106,9 +106,7 @@ void XGpio_DiscreteSet(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 	Xil_AssertVoid((Channel == 1) ||
 		     ((Channel == 2) && (InstancePtr->IsDual == TRUE)));
 
-	/*
-	 * Calculate the offset to the data register of the GPIO once
-	 */
+	/* Calculate the offset to the data register of the GPIO  */
 	DataOffset = ((Channel - 1) * XGPIO_CHAN_OFFSET) + XGPIO_DATA_OFFSET;
 
 	/*
@@ -152,9 +150,7 @@ void XGpio_DiscreteClear(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 	Xil_AssertVoid((Channel == 1) ||
 		     ((Channel == 2) && (InstancePtr->IsDual == TRUE)));
 
-	/*
-	 * Calculate the offset to the data register of the GPIO once
-	 */
+	/* Calculate the offset to the data register of the GPIO  */
 	DataOffset = ((Channel - 1) * XGPIO_CHAN_OFFSET) + XGPIO_DATA_OFFSET;
 
 	/*
