@@ -38,10 +38,19 @@
 ##############################################################################
 
 #---------------------------------------------
-# skey_drc
+# secure_drc
 #---------------------------------------------
-proc skey_drc {libhandle} {
+proc secure_drc {libhandle} {
+	# check processor type
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+
+	if { $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5" } {
+				error "ERROR: This library is supported only for CortexA53 and CortexR5 processors.";
+				return;
+	}
 }
 
 proc generate {libhandle} {
