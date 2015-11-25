@@ -599,9 +599,9 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXHPB_DLC_OFFSET, FramePtr[1]);
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_TXHPB_DW1_OFFSET, FramePtr[2]);
+				XCANPS_TXHPB_DW1_OFFSET, Xil_EndianSwap32(FramePtr[2]));
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_TXHPB_DW2_OFFSET, FramePtr[3]);
+				XCANPS_TXHPB_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
 
 		Status = XST_SUCCESS;
 	}
