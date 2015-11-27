@@ -119,6 +119,7 @@
 * 2.5 	sg		07/09/15 Added SD 3.0 features
 *       kvn     07/15/15 Modified the code according to MISRAC-2012.
 * 2.6   sk     10/12/15 Added support for SD card v1.0 CR# 840601.
+* 2.7   sk     11/24/15 Considered the slot type befoe checking CD/WP pins.
 *
 * </pre>
 *
