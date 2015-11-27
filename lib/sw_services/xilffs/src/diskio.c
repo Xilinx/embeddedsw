@@ -76,6 +76,7 @@
 *		sg   03/03/15 Added card detection check logic
 *		     04/28/15 Card detection only in case of card detection signal
 * 3.1   sk   06/04/15 Added support for SD1.
+* 3.2   sk   11/24/15 Considered the slot type before checking the CD/WP pins.
 *
 * </pre>
 *
@@ -119,6 +120,8 @@ static XSdPs SdInstance[2];
 static u32 BaseAddress;
 static u32 CardDetect;
 static u32 WriteProtect;
+static u32 SlotType[2];
+static u8 HostCntrlrVer[2];
 #endif
 
 #ifdef __ICCARM__
@@ -173,22 +176,35 @@ DSTATUS disk_status (
 #ifdef XPAR_XSDPS_1_DEVICE_ID
 				}
 #endif
+				HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress,
+						XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
+				if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
+					SlotType[pdrv] = XSdPs_ReadReg(BaseAddress,
+							XSDPS_CAPS_OFFSET) & XSDPS_CAPS_SLOT_TYPE_MASK;
+				} else {
+					SlotType[pdrv] = 0;
+				}
 		}
 		StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
-		if (CardDetect) {
-				if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
-					s = STA_NODISK | STA_NOINIT;
-					goto Label;
-				}
+		if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
+			if (CardDetect) {
+					if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
+						s = STA_NODISK | STA_NOINIT;
+						goto Label;
+					}
+			}
+			s &= ~STA_NODISK;
+			if (WriteProtect) {
+					if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U){
+						s |= STA_PROTECT;
+						goto Label;
+					}
+			}
+			s &= ~STA_PROTECT;
+		} else {
+			s &= ~STA_NODISK & ~STA_PROTECT;
 		}
-		s &= ~STA_NODISK;
-		if (WriteProtect) {
-				if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U){
-					s |= STA_PROTECT;
-					goto Label;
-				}
-		}
-		s &= ~STA_PROTECT;
+
 
 Label:
 		Stat = s;
