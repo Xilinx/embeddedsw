@@ -161,6 +161,12 @@ static void PmRequestSuspend(const PmMaster *const master,
 		goto done;
 	}
 
+	if (true == PmSystemShutdownProcessing()) {
+		/* System level transition is in progress, return conflict */
+		status = XST_PM_CONFLICT;
+		goto done;
+	}
+
 	/* Check whether the target is placeholder in PU */
 	target = PmMasterGetPlaceholder(node);
 
@@ -295,6 +301,12 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	PmProc* proc = PmGetProcByNodeId(node);
 
 	PmDbg("(%s, %s)\n", PmStrNode(node), PmStrAck(ack));
+
+	if (true == PmSystemShutdownProcessing()) {
+		/* System level transition is in progress, return conflict */
+		status = XST_PM_CONFLICT;
+		goto done;
+	}
 
 	if (NULL == proc) {
 		status = XST_PM_INVALID_NODE;
