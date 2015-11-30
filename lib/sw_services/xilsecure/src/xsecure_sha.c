@@ -250,6 +250,13 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)XSecure_RsaSha3Array, PartialLen/4, 1);
 
+	/* Check for CSU DMA done bit */
+	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
+
 	/* Check the SHA3 DONE bit. */
 	XSecure_Sha3WaitForDone(InstancePtr);
 
