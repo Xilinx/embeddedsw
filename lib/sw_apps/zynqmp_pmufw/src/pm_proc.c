@@ -55,6 +55,7 @@
 #include "xpfw_rom_interface.h"
 #include "apu.h"
 #include "rpu.h"
+#include "pm_system.h"
 
 /* Enable/disable macros for processor's wfi event in GPI2 register */
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, mask, mask);
@@ -420,6 +421,10 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 
 	status = PmProcSleep(&proc->node);
 	if ((true == proc->isPrimary) && (XST_SUCCESS == status)) {
+		if (true == PmSystemShutdownProcessing()) {
+			/* Inform environment that this master is done */
+			PmSystemCaptureSleep(proc->master);
+		}
 		/*
 		 * Notify master to update slave capabilities according to the
 		 * scheduled requests for after primary processor goes to sleep.

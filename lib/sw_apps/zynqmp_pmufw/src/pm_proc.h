@@ -151,4 +151,28 @@ extern PmProc pmRpuProcs_g[PM_PROC_RPU_MAX];
  ********************************************************************/
 int PmProcFsm(PmProc* const proc, const PmProcEvent event);
 
+/**
+ * PmProcIsForcedOff() - Check whether given processor is in forced off state
+ */
+static inline bool PmProcIsForcedOff(const PmProc* const procPtr)
+{
+	return PM_PROC_STATE_FORCEDOFF == procPtr->node.currState;
+}
+
+/**
+ * PmProcIsAsleep() - Check whether given processor is in sleep state
+ */
+static inline bool PmProcIsAsleep(const PmProc* const procPtr)
+{
+	return PM_PROC_STATE_SLEEP == procPtr->node.currState;
+}
+
+/**
+ * PmProcIsSuspending() - Check whether given processor is in suspending state
+ */
+static inline bool PmProcIsSuspending(const PmProc* const procPtr)
+{
+	return PM_PROC_STATE_SUSPENDING == procPtr->node.currState;
+}
+
 #endif

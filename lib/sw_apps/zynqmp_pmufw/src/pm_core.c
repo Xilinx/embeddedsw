@@ -44,6 +44,7 @@
 #include "pm_notifier.h"
 #include "ipi_buffer.h"
 #include "pm_mmio_access.h"
+#include "pm_system.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -596,26 +597,36 @@ done:
 /**
  * PmSystemShutdown() - Request system shutdown or restart
  * @master  Master requesting system shutdown
- * @restart Flag, 0 is for shutdown, 1 for restart (not-supported)
+ * @restart Flag, 0 is for shutdown, 1 for restart
  */
 static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 {
-	u32 i;
+	int status;
 
 	PmDbg("(%d)\n", restart);
 
-	if (PM_SHUTDOWN == restart) {
-		for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-			/* Master requesting shutdown will suspend on its own */
-			if ((master != pmAllMasters[i]) &&
-			    (PM_PROC_STATE_ACTIVE ==
-			     pmAllMasters[i]->procs->node.currState)) {
-				PmInitSuspendCb(pmAllMasters[i],
-						SUSPEND_REASON_SYS_SHUTDOWN,
-						MAX_LATENCY, 0, MAX_LATENCY);
-			}
-		}
+	/* Check whether the master is allowed to trigger system level action */
+	if (true == PmSystemRequestNotAllowed(master)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
 	}
+
+	/* Check whether given arguments are ok */
+	if ((PM_SHUTDOWN != restart) && (PM_RESTART != restart)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check if system is already processing a shut down */
+	if (true == PmSystemShutdownProcessing()) {
+		status = XST_PM_DOUBLE_REQ;
+		goto done;
+	}
+
+	status = PmSystemProcessShutdown(master, restart);
+
+done:
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
