@@ -42,6 +42,7 @@
 #include "pm_pll.h"
 #include "xpfw_rom_interface.h"
 #include "crf_apb.h"
+#include "pm_system.h"
 
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
@@ -398,6 +399,14 @@ void PmOpportunisticSuspend(PmPower* const powerParent)
 	PmPower* power = powerParent;
 
 	if (NULL == powerParent) {
+		goto done;
+	}
+
+	if (true == PmSystemShutdownProcessing()) {
+		/*
+		 * Opportunistic suspend is not performed when shutting down
+		 * or restarting.
+		 */
 		goto done;
 	}
 
