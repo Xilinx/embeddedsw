@@ -864,7 +864,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	 * Update the SrcAddress, LoadAddress and Len based on the
 	 * above condition
 	 */
-#if 1
 	if (((FsblInstancePtr->ProcessorID ==
 			XIH_PH_ATTRB_DEST_CPU_R5_0) ||
 		(FsblInstancePtr->ProcessorID ==
@@ -878,7 +877,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		 * Get the length of the IVT area to be
 		 * skipped from Load Address
 		 */
-		TcmSkipAddress = LoadAddress/XFSBL_IVT_LENGTH;
+		TcmSkipAddress = LoadAddress%XFSBL_IVT_LENGTH;
 		TcmSkipLength = XFSBL_IVT_LENGTH - TcmSkipAddress;
 
 		/**
@@ -903,7 +902,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		LoadAddress +=  TcmSkipLength;
 		Length -= TcmSkipLength;
 	}
-#endif
 
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PMU)
 	{
