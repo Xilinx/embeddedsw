@@ -45,6 +45,7 @@
 #include "pm_callbacks.h"
 #include "pm_notifier.h"
 #include "ipi_buffer.h"
+#include "pm_system.h"
 
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_CB_STANDARD == (ack))
@@ -1171,6 +1172,11 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response)
 	}
 
 	if (REQUEST_ACK_CB_STANDARD == mst->suspendRequest.acknowledge) {
+		/* If shutdown is being processed drop the callback */
+		if (true == PmSystemShutdownProcessing()) {
+			goto done;
+		}
+
 		PmAcknowledgeCb(mst->suspendRequest.initiator,
 				mst->procs->node.nodeId, response,
 				mst->procs->node.currState);
