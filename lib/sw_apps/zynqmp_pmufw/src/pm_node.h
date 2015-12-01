@@ -115,4 +115,6 @@ typedef struct PmNode {
  ********************************************************************/
 PmNode* PmGetNodeById(const u32 nodeId);
 
+void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
+
 #endif /* PM_NODE_H_ */

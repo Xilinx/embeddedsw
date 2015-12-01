@@ -40,6 +40,7 @@
 #include "pm_usb.h"
 #include "pm_periph.h"
 #include "pm_pll.h"
+#include "pm_notifier.h"
 
 static PmNode* const pmNodes[NODE_MAX] = {
 	&pmApuProcs_g[PM_PROC_APU_0].node,
@@ -116,4 +117,20 @@ PmNode* PmGetNodeById(const u32 nodeId)
 	}
 
 	return node;
+}
+
+/**
+ * PmNodeUpdateCurrState() - Call to update currState variable of the node
+ * @node        Pointer to the node whose state has to be updated
+ * @newState    New state value to be written in currState variable of the node
+ */
+void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState)
+{
+	if (newState == node->currState) {
+		goto done;
+	}
+	node->currState = newState;
+
+done:
+	return;
 }
