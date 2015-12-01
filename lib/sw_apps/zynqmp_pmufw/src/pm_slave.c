@@ -636,3 +636,25 @@ void PmSlaveWakeDisable(PmSlave* const slave)
 done:
 	return;
 }
+
+/**
+ * PmSlaveGetUsersMask() - Gets all masters' mask currently using the slave
+ * @slave       Slave in question
+ *
+ * @return      Each master has unique ipiMask which identifies it (one hot
+ *              encoding). Return value represents ORed masks of all masters
+ *              which are currently using the slave.
+ */
+u32 PmSlaveGetUsersMask(const PmSlave* const slave)
+{
+	u32 i, usage = 0U;
+
+	for (i = 0U; i < slave->reqsCnt; i++) {
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) {
+			/* Found master which is using slave */
+			usage |= slave->reqs[i]->requestor->ipiMask;
+		}
+	}
+
+	return usage;
+}

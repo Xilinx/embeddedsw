@@ -203,5 +203,6 @@ void PmSlaveWakeEnable(PmSlave* const slave);
 void PmSlaveWakeDisable(PmSlave* const slave);
 
 u32 PmGetLatencyFromState(const PmSlave* const slave, const PmStateId state);
+u32 PmSlaveGetUsersMask(const PmSlave* const slave);
 
 #endif

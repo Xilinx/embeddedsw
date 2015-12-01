@@ -323,6 +323,8 @@ static void PmReleaseNode(const PmMaster *master,
 			  const u32 latency)
 {
 	int status;
+	u32 usage;
+
 	/* Get static requirements structure for this master/slave pair */
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
@@ -344,6 +346,11 @@ static void PmReleaseNode(const PmMaster *master,
 	/* Release requirements */
 	status = PmRequirementUpdate(masterReq, 0U);
 	masterReq->info &= ~PM_MASTER_USING_SLAVE_MASK;
+
+	usage = PmSlaveGetUsersMask(masterReq->slave);
+	if (0U == usage) {
+		PmNotifierEvent(&masterReq->slave->node, EVENT_ZERO_USERS);
+	}
 
 	if (XST_SUCCESS != status) {
 		PmDbg("ERROR PmRequirementUpdate status = %d\n", status);
