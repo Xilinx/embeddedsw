@@ -96,7 +96,7 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	}
 	if (XST_SUCCESS == status) {
-		slave->node.currState = nextState;
+		PmNodeUpdateCurrState(&slave->node, nextState);
 	}
 
 	return status;

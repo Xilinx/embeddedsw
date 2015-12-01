@@ -231,7 +231,7 @@ int PmProcSleep(PmNode* const nodePtr)
 	}
 
 	if (XST_SUCCESS == status) {
-		nodePtr->currState = PM_PROC_STATE_SLEEP;
+		PmNodeUpdateCurrState(nodePtr, PM_PROC_STATE_SLEEP);
 	}
 
 done:
@@ -323,7 +323,7 @@ int PmProcWake(PmNode* const nodePtr)
 	}
 
 	if (XST_SUCCESS == status) {
-		nodePtr->currState = PM_PROC_STATE_ACTIVE;
+		PmNodeUpdateCurrState(nodePtr, PM_PROC_STATE_ACTIVE);
 	}
 
 done:
@@ -344,7 +344,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 	PmDbg("ACTIVE->SUSPENDING %s\n", PmStrNode(proc->node.nodeId));
 
 	ENABLE_WFI(proc->wfiEnableMask);
-	proc->node.currState = PM_PROC_STATE_SUSPENDING;
+	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
 
 	return XST_SUCCESS;
 }
@@ -371,7 +371,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 
 	status = PmProcSleep(&proc->node);
 	/* Override the state set in PmProcSleep to indicate FORCED OFF */
-	proc->node.currState = PM_PROC_STATE_FORCEDOFF;
+	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
 	if ((true == proc->isPrimary) && (XST_SUCCESS == status)) {
 		/* Notify master to release all requirements of this processor */
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
@@ -398,7 +398,7 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 
 	/* Notify master to cancel scheduled requests */
 	status = PmMasterNotify(proc->master, PM_PROC_EVENT_ABORT_SUSPEND);
-	proc->node.currState = PM_PROC_STATE_ACTIVE;
+	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_ACTIVE);
 
 	return status;
 }

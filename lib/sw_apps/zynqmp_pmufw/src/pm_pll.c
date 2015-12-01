@@ -210,7 +210,7 @@ static int PmPllFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	}
 
 	if (XST_SUCCESS == status) {
-		slave->node.currState = nextState;
+		PmNodeUpdateCurrState(&slave->node, nextState);
 	}
 
 	return status;

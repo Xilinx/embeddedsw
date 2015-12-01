@@ -152,7 +152,7 @@ static int PmPwrDnHandler(PmNode* const nodePtr)
 	}
 
 	if (XST_SUCCESS == status) {
-		nodePtr->currState = PM_PWR_STATE_OFF;
+		PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_OFF);
 	}
 
 done:
@@ -205,7 +205,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		break;
 	}
 	if (XST_SUCCESS == status) {
-		nodePtr->currState = PM_PWR_STATE_ON;
+		PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_ON);
 	}
 
 done:
@@ -562,7 +562,7 @@ static void PmForcePowerDownChildren(const PmPower* const parent)
 
 		/* Force the child's state to 0, which is its lowest power state */
 		child->ops->sleep(child);
-		child->currState = 0U;
+		PmNodeUpdateCurrState(child, 0U);
 
 		/* Special case: node is a processor, release slave-requirements */
 		if (PM_TYPE_PROC == child->typeId) {
