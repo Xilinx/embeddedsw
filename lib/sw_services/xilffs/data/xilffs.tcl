@@ -109,6 +109,7 @@ proc xgen_opts_file {libhandle} {
 	set fs_interface [common::get_property CONFIG.fs_interface $libhandle]
 	set enable_mmc [common::get_property CONFIG.enable_mmc $libhandle]
 	set read_only [common::get_property CONFIG.read_only $libhandle]
+	set use_lfn [common::get_property CONFIG.use_lfn $libhandle]
 
 	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
@@ -121,6 +122,9 @@ proc xgen_opts_file {libhandle} {
 				puts $file_handle "\#define FILE_SYSTEM_INTERFACE_SD"
 				if {$read_only == true} {
 					puts $file_handle "\#define FILE_SYSTEM_READ_ONLY"
+				}
+				if {$use_lfn == true} {
+					puts $file_handle "\#define FILE_SYSTEM_USE_LFN"
 				}
 			} else {
 				error  "ERROR: Invalid interface selected \n"
