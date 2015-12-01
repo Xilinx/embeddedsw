@@ -91,6 +91,10 @@ proc swapp_is_supported_hw {} {
                 error "This application is supported only for CortexA53/CortexR5 processors.";
     }
 
+    if { $proc_instance != "psu_cortexr5_0" && $proc_instance != "psu_cortexa53_0" } {
+                error "This application is supported only for CortexA53_0 and CortexR5_0.";
+    }
+
     return 1;
 }
 
