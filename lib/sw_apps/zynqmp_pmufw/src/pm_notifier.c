@@ -173,3 +173,18 @@ void PmNotifierUnregister(const PmMaster* const mst, const PmNode* const nd,
 		}
 	}
 }
+
+/**
+ * PmNotifierUnregisterAll() - Unregister all notifiers of the given master
+ * @mst Master whose notifiers should be unregistered
+ */
+void PmNotifierUnregisterAll(const PmMaster* const mst)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNotifiers); i++) {
+		if (mst == pmNotifiers[i].master) {
+			memset(&pmNotifiers[i], 0, sizeof(PmNotifier));
+		}
+	}
+}

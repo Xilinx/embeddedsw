@@ -48,4 +48,6 @@ int PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
 void PmNotifierUnregister(const PmMaster* const mst, const PmNode* const nd,
 			  const u32 event);
 
+void PmNotifierUnregisterAll(const PmMaster* const mst);
+
 #endif

@@ -43,6 +43,7 @@
 #include "pm_pll.h"
 #include "pm_periph.h"
 #include "pm_callbacks.h"
+#include "pm_notifier.h"
 #include "ipi_buffer.h"
 
 #define PM_REQUESTED_SUSPEND        0x1U
@@ -1219,6 +1220,7 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 	case PM_PROC_EVENT_FORCE_PWRDN:
 		status = PmRequirementReleaseAll(master);
 		PmWakeUpCancelScheduled(master);
+		PmNotifierUnregisterAll(master);
 		break;
 	default:
 		status = XST_PM_INTERNAL;
