@@ -35,6 +35,7 @@
 
 #include "pm_notifier.h"
 #include <string.h>
+#include "pm_callbacks.h"
 
 /*
  * Maximum number of notifier master/node pairs supported by PM -
@@ -186,5 +187,52 @@ void PmNotifierUnregisterAll(const PmMaster* const mst)
 		if (mst == pmNotifiers[i].master) {
 			memset(&pmNotifiers[i], 0, sizeof(PmNotifier));
 		}
+	}
+}
+
+/**
+ * PmNotifierProcessEvent() - Process event for the registration
+ * @nt          Pointer to registered notifier
+ * @event       Event that occured in the system
+ */
+static void PmNotifierProcessEvent(const PmNotifier* const nt,
+				   const u32 event)
+{
+	if ((PM_PROC_STATE_ACTIVE != nt->master->procs[0].node.currState) &&
+	    (0U == (event & nt->wakeMask))) {
+		/*
+		 * If master's primary processor is not active it should be
+		 * notified about the event only if it requested to be woken up.
+		 */
+		goto done;
+	}
+
+	PmNotifyCb(nt->master, nt->node->nodeId, event, nt->node->currState);
+
+done:
+	return;
+}
+
+/**
+ * PmNotifierEvent() - Called to trigger the notification framework to check
+ *              whether the notification callback should be sent for given
+ *              arguments
+ * @nd          Node regarding which the event is generated
+ * @event       Event that occured in the system (check for its PU receipients)
+ */
+void PmNotifierEvent(const PmNode* const nd, const u32 event)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNotifiers); i++) {
+		/* Search for the given node */
+		if (nd != pmNotifiers[i].node) {
+			continue;
+		}
+		/* Node is matching, check for event */
+		if (0U == (event & pmNotifiers[i].eventMask)) {
+			continue;
+		}
+		PmNotifierProcessEvent(&pmNotifiers[i], event);
 	}
 }

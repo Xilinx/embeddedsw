@@ -131,6 +131,8 @@ void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState)
 	}
 	node->currState = newState;
 
+	PmNotifierEvent(node, EVENT_STATE_CHANGE);
+
 done:
 	return;
 }
