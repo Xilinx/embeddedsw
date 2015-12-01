@@ -39,6 +39,7 @@
 #include "pm_common.h"
 #include "pm_proc.h"
 #include "pm_core.h"
+#include "pm_notifier.h"
 #include "ipi_buffer.h"
 
 /*

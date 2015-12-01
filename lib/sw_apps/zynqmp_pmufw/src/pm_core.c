@@ -41,6 +41,7 @@
 #include "pm_common.h"
 #include "pm_callbacks.h"
 #include "pm_reset.h"
+#include "pm_notifier.h"
 #include "ipi_buffer.h"
 #include "pm_mmio_access.h"
 
@@ -688,8 +689,25 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 			       const u32 event, const u32 wake,
 			       const u32 enable)
 {
-	PmDbg("(%s, %d, %d, %d) not implemented\n", PmStrNode(node),
-	      event, wake, enable);
+	int status;
+	PmNode* nodePtr = PmGetNodeById(node);
+
+	PmDbg("(%s, %lu, %lu, %lu)\n", PmStrNode(node), event, wake, enable);
+
+	if (NULL == nodePtr) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (0U == enable) {
+		PmNotifierUnregister(master, nodePtr, event);
+		status = XST_SUCCESS;
+	} else {
+		status = PmNotifierRegister(master, nodePtr, event, wake);
+	}
+
+done:
+	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
 }
 
 /**
