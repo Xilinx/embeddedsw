@@ -43,8 +43,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   08/28/15   Initial Release
-* 2.00  rco   11/05/15  Update to adapt to sub-core layer 2 changes
-*
+* 2.00  rco   11/05/15   Update to adapt to sub-core layer 2 changes
+*       dmc   12/02/15   Added support for additional topologies
 * </pre>
 *
 ******************************************************************************/
@@ -99,11 +99,11 @@ typedef struct
   XV_Lbox_l2 Lbox;
   XV_Csc_l2 Csc;
   XV_Deint_l2 Deint;
-}XVprocSs_SubCores[XPAR_XVPROCSS_NUM_INSTANCES];
+}XVprocSs_SubCores;
 
 /**************************** Local Global ***********************************/
-XVprocSs_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
-                                    included in the design */
+//Define Driver instance of all sub-core included in the design */
+XVprocSs_SubCores subcoreRepo[XPAR_XVPROCSS_NUM_INSTANCES];
 
 static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
     "VID_OUT",
@@ -145,7 +145,19 @@ static void GetIncludedSubcores(XVprocSs *XVprocSsPtr);
 static int ValidateSubsystemConfig(XVprocSs *InstancePtr);
 static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
                                     XVidC_VideoStream *pStrmOut);
+static int ValidateCscOnlyConfig(XVidC_VideoStream *pStrmIn,
+                                 XVidC_VideoStream *pStrmOut);
+static int ValidateDeintOnlyConfig(XVidC_VideoStream *pStrmIn,
+                                   XVidC_VideoStream *pStrmOut);
+static int Validate420to422OnlyConfig(XVidC_VideoStream *pStrmIn,
+                                      XVidC_VideoStream *pStrmOut);
+static int Validate422to444OnlyConfig(XVidC_VideoStream *pStrmIn,
+                                      XVidC_VideoStream *pStrmOut);
 static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr);
+static int SetupModeCscOnly(XVprocSs *XVprocSsPtr);
+static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr);
+static int SetupMode420to422Only(XVprocSs *XVprocSsPtr);
+static int SetupMode422to444Only(XVprocSs *XVprocSsPtr);
 static int SetupModeMax(XVprocSs *XVprocSsPtr);
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -1143,9 +1155,159 @@ static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
     return(XST_FAILURE);
   }
 
-  if(pStrmIn->ColorDepth != pStrmOut->ColorDepth)
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Color Depth different\r\n");
+  return(XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+* This function validates the input and output stream configuration for csc
+* only configuration
+*
+* @param  pStrmIn is a pointer to the input stream
+* @param  pStrmOut is a pointer to the output stream
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note This function is applicable only for Stream mode configuration of the
+*       subsystem. In this mode very limited functionality is available
+******************************************************************************/
+static int ValidateCscOnlyConfig(XVidC_VideoStream *pStrmIn,
+                                 XVidC_VideoStream *pStrmOut)
+{
+  if(pStrmIn->VmId != pStrmOut->VmId) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Video Mode different\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->Timing.HActive != pStrmOut->Timing.HActive) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output H Active different\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->Timing.VActive != pStrmOut->Timing.VActive) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output V Active different\r\n");
+    return(XST_FAILURE);
+  }
+
+  return(XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+* This function validates the input and output stream configuration for deint
+* only configuration
+*
+* @param  pStrmIn is a pointer to the input stream
+* @param  pStrmOut is a pointer to the output stream
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note This function is applicable only for Stream mode configuration of the
+*       subsystem. In this mode very limited functionality is available
+******************************************************************************/
+static int ValidateDeintOnlyConfig(XVidC_VideoStream *pStrmIn,
+                                   XVidC_VideoStream *pStrmOut)
+{
+  if((pStrmIn->IsInterlaced != TRUE) || (pStrmOut->IsInterlaced != FALSE)) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input MUST be interlaced and Output MUST be progressive\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->ColorFormatId != pStrmOut->ColorFormatId) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Color Format different\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->Timing.HActive != pStrmOut->Timing.HActive) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output H Active different\r\n");
+    return(XST_FAILURE);
+  }
+
+  return(XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+* This function validates the input and output stream configuration for 420to422
+* only configuration
+*
+* @param  pStrmIn is a pointer to the input stream
+* @param  pStrmOut is a pointer to the output stream
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note This function is applicable only for Stream mode configuration of the
+*       subsystem. In this mode very limited functionality is available
+******************************************************************************/
+static int Validate420to422OnlyConfig(XVidC_VideoStream *pStrmIn,
+                                      XVidC_VideoStream *pStrmOut)
+{
+  if(pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_420) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Input must be YUV420\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_422) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Output must be YUV422\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->VmId != pStrmOut->VmId) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Video Mode different\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->Timing.HActive != pStrmOut->Timing.HActive) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output H Active different\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->Timing.VActive != pStrmOut->Timing.VActive) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output V Active different\r\n");
+    return(XST_FAILURE);
+  }
+
+  return(XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+* This function validates the input and output stream configuration for 422to444
+* only configuration
+*
+* @param  pStrmIn is a pointer to the input stream
+* @param  pStrmOut is a pointer to the output stream
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note This function is applicable only for Stream mode configuration of the
+*       subsystem. In this mode very limited functionality is available
+******************************************************************************/
+static int Validate422to444OnlyConfig(XVidC_VideoStream *pStrmIn,
+                                      XVidC_VideoStream *pStrmOut)
+{
+  if(pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_422) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Input must be YUV422\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_444) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Output must be YUV444\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->VmId != pStrmOut->VmId) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Video Mode different\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->Timing.HActive != pStrmOut->Timing.HActive) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output H Active different\r\n");
+    return(XST_FAILURE);
+  }
+
+  if(pStrmIn->Timing.VActive != pStrmOut->Timing.VActive) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output V Active different\r\n");
     return(XST_FAILURE);
   }
 
@@ -1232,6 +1394,266 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
 
 /*****************************************************************************/
 /**
+* This function configures the video subsystem pipeline for CscOnly
+* topology of the subsystem
+*
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note If use case is possible the subsystem will configure the sub-cores
+*       accordingly else will ignore the request
+*
+******************************************************************************/
+static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
+{
+  XVidC_ColorFormat CscIn, CscOut;
+  XVidC_ColorStd StdIn, StdOut;
+  XVidC_ColorRange RangeOut;
+  u32 HeightOut = 0;
+  u32 WidthOut = 0;
+  int status = XST_SUCCESS;
+
+  if(!XVprocSsPtr->CscPtr) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Csc IP not found\r\n");
+    return(XST_FAILURE);
+  }
+
+  /* check if input/output stream configuration is supported */
+  status = ValidateCscOnlyConfig(&XVprocSsPtr->VidIn,
+                                 &XVprocSsPtr->VidOut);
+
+  if(status ==  XST_SUCCESS) {
+    /* Reset All IP Blocks */
+    XVprocSs_Reset(XVprocSsPtr);
+
+    CscIn = XVprocSsPtr->VidIn.ColorFormatId;
+    CscOut = XVprocSsPtr->VidOut.ColorFormatId;
+    StdIn = XVprocSsPtr->CscPtr->StandardIn;
+    StdOut = XVprocSsPtr->CscPtr->StandardOut;
+    RangeOut = XVprocSsPtr->CscPtr->OutputRange;
+    HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
+    WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
+
+    /* Configure csc to convert and correct the color space */
+    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Csc :\r\n"\
+                                   "     Csc   In  ColorFormat #%d\r\n"\
+                                   "     Csc   Out ColorFormat #%d\r\n"\
+                                   "     Std   In  ColorStd    #%d\r\n"\
+                                   "     Std   Out ColorStd    #%d\r\n"\
+                                   "     Range Out ColorRange  #%d\r\n"\
+                                   "     Width pixels          %d\r\n"\
+                                   "     Height lines          %d\r\n",\
+      (int)CscIn, (int)CscOut, (int)StdIn, (int)StdOut, (int)RangeOut, (int)WidthOut, (int)HeightOut);
+
+    XV_CscSetColorspace(XVprocSsPtr->CscPtr,
+                        CscIn,
+                        CscOut,
+                        StdIn,
+                        StdOut,
+                        RangeOut);
+
+    XV_CscSetActiveSize(XVprocSsPtr->CscPtr,
+                        WidthOut,
+                        HeightOut);
+
+    /* Start Csc sub-core */
+    XV_CscStart(XVprocSsPtr->CscPtr);
+  } else {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n-->Command Ignored<--\r\n");
+  }
+  return(status);
+}
+
+/*****************************************************************************/
+/**
+* This function configures the video subsystem pipeline for DeintOnly
+* topology of the subsystem
+*
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note If use case is possible the subsystem will configure the sub-cores
+*       accordingly else will ignore the request
+*
+******************************************************************************/
+static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
+{
+  XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
+  int status = XST_SUCCESS;
+
+  if(!XVprocSsPtr->DeintPtr) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Deinterlacer IP not found\r\n");
+    return(XST_FAILURE);
+  }
+
+  /* check if input/output stream configuration is supported */
+  status = ValidateDeintOnlyConfig(&XVprocSsPtr->VidIn,
+                                   &XVprocSsPtr->VidOut);
+
+  if(status ==  XST_SUCCESS) {
+	/* Reset All IP Blocks */
+	XVprocSs_Reset(XVprocSsPtr);
+
+    /* Save input resolution in the _ContextData structure */
+    CtxtPtr->StrmCformat = XVprocSsPtr->VidIn.ColorFormatId;
+    CtxtPtr->VidInWidth  = XVprocSsPtr->VidIn.Timing.HActive;
+    // we know after validating this config that VidIn is interlaced and VidOut is progressive
+    CtxtPtr->VidInHeight = XVprocSsPtr->VidIn.Timing.VActive * 2;
+
+    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Deinterlacer for %dx%d to %dx%d\r\n"\
+		                       "                                Buffer addr 0x%X\r\n",\
+	            (int)XVprocSsPtr->VidIn.Timing.HActive,
+	            (int)XVprocSsPtr->VidIn.Timing.VActive,
+	            (int)CtxtPtr->VidInWidth,
+	            (int)CtxtPtr->VidInHeight,
+	            (int)CtxtPtr->DeintBufAddr);
+
+    XV_DeintSetFieldBuffers(XVprocSsPtr->DeintPtr,
+	                        CtxtPtr->DeintBufAddr,
+	                        XVprocSsPtr->VidIn.ColorFormatId);
+
+    XV_deinterlacer_Set_width(&XVprocSsPtr->DeintPtr->Deint,
+	                          CtxtPtr->VidInWidth);
+
+    XV_deinterlacer_Set_height(&XVprocSsPtr->DeintPtr->Deint,
+	                           XVprocSsPtr->VidIn.Timing.VActive); //field height
+
+    XV_deinterlacer_Set_invert_field_id(&XVprocSsPtr->DeintPtr->Deint, 0); //TBD
+
+    /* Start Deint sub-core */
+    XV_DeintStart(XVprocSsPtr->DeintPtr);
+  } else {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n-->Command Ignored<--\r\n");
+  }
+  return(status);
+}
+
+/*****************************************************************************/
+/**
+* This function configures the video subsystem pipeline for 420to422Only
+* topology of the subsystem
+*
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note If use case is possible the subsystem will configure the sub-cores
+*       accordingly else will ignore the request
+*
+******************************************************************************/
+static int SetupMode420to422Only(XVprocSs *XVprocSsPtr)
+{
+  XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
+  int status = XST_SUCCESS;
+
+  if(!XVprocSsPtr->VcrsmplrInPtr) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VCResampler_In IP not found\r\n");
+    return(XST_FAILURE);
+  }
+
+  /* check if input/output stream configuration is supported */
+  status = Validate420to422OnlyConfig(&XVprocSsPtr->VidIn,
+                                      &XVprocSsPtr->VidOut);
+
+  if(status ==  XST_SUCCESS) {
+
+	CtxtPtr->VidInWidth  = XVprocSsPtr->VidIn.Timing.HActive;
+	CtxtPtr->VidInHeight = XVprocSsPtr->VidIn.Timing.VActive;
+
+    /* Reset All IP Blocks */
+    XVprocSs_Reset(XVprocSsPtr);
+
+    /* Configure H chroma resampler in and out color space */
+    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure V Chroma Resampler :\r\n"\
+                                   "     VCR   In  ColorFormat #%d\r\n"\
+                                   "     VCR   Out ColorFormat #%d\r\n"\
+                                   "     Width pixels          %d\r\n"\
+                                   "     Height lines          %d\r\n",\
+      XVIDC_CSF_YCRCB_420, XVIDC_CSF_YCRCB_422,
+      (int)CtxtPtr->VidInWidth, (int)CtxtPtr->VidInHeight);
+
+    XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrInPtr,
+	                        CtxtPtr->VidInWidth,
+	                        CtxtPtr->VidInHeight);
+
+    XV_VCrsmplSetFormat(XVprocSsPtr->VcrsmplrInPtr,
+                        XVIDC_CSF_YCRCB_420,
+                        XVIDC_CSF_YCRCB_422);
+
+    /* Start chroma resampler sub-core */
+    XV_VCrsmplStart(XVprocSsPtr->VcrsmplrInPtr);
+  } else {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n-->Command Ignored<--\r\n");
+  }
+  return(status);
+}
+
+/*****************************************************************************/
+/**
+* This function configures the video subsystem pipeline for 422to444Only
+* topology of the subsystem
+*
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS if successful else XST_FAILURE
+*
+* @note If use case is possible the subsystem will configure the sub-cores
+*       accordingly else will ignore the request
+*
+******************************************************************************/
+static int SetupMode422to444Only(XVprocSs *XVprocSsPtr)
+{
+  XVidC_ColorFormat HcrIn, HcrOut;
+  u32 HeightOut = 0;
+  u32 WidthOut = 0;
+  int status = XST_SUCCESS;
+
+  if(!XVprocSsPtr->HcrsmplrPtr) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: HCResampler IP not found\r\n");
+    return(XST_FAILURE);
+  }
+
+  /* check if input/output stream configuration is supported */
+  status = Validate422to444OnlyConfig(&XVprocSsPtr->VidIn,
+                                      &XVprocSsPtr->VidOut);
+
+  if(status ==  XST_SUCCESS) {
+    /* Reset All IP Blocks */
+    XVprocSs_Reset(XVprocSsPtr);
+
+    HcrIn = XVprocSsPtr->VidIn.ColorFormatId;
+    HcrOut = XVprocSsPtr->VidOut.ColorFormatId;
+    HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
+    WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
+
+    /* Configure H chroma resampler in and out color space */
+    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure H Chroma Resampler :\r\n"\
+                                   "     HCR   In  ColorFormat #%d\r\n"\
+                                   "     HCR   Out ColorFormat #%d\r\n"\
+                                   "     Width pixels          %d\r\n"\
+                                   "     Height lines          %d\r\n",\
+      (int)HcrIn, (int)HcrOut, (int)WidthOut, (int)HeightOut);
+
+    XV_HCrsmplSetFormat(XVprocSsPtr->HcrsmplrPtr,
+                        HcrIn,
+                        HcrOut);
+
+    XV_HCrsmplSetActiveSize(XVprocSsPtr->HcrsmplrPtr,
+                            WidthOut,
+                            HeightOut);
+
+    /* Start chroma resampler sub-core */
+    XV_HCrsmplStart(XVprocSsPtr->HcrsmplrPtr);
+  } else {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n-->Command Ignored<--\r\n");
+  }
+  return(status);
+}
+
+/*****************************************************************************/
+/**
 * This function configures the video subsystem pipeline for Maximum
 * (Full_Fledged) topology
 *
@@ -1247,8 +1669,7 @@ static int SetupModeMax(XVprocSs *XVprocSsPtr)
   /* Build Routing table */
   status = XVprocSs_BuildRoutingTable(XVprocSsPtr);
 
-  if(status == XST_SUCCESS)
-  {
+  if(status == XST_SUCCESS) {
     /* Reset All IP Blocks */
     XVprocSs_Reset(XVprocSsPtr);
 
@@ -1257,9 +1678,7 @@ static int SetupModeMax(XVprocSs *XVprocSsPtr)
 
     /* program use case */
     XVprocSs_SetupRouterDataFlow(XVprocSsPtr);
-  }
-  else
-  {
+  } else {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Subsystem Routing Table Invalid");
 	xdbg_printf(XDBG_DEBUG_GENERAL,"- Ignoring Configuration Request\r\n");
   }
@@ -1293,6 +1712,14 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
    */
   StrmIn->PixPerClk  = InstancePtr->Config.PixPerClock;
   StrmOut->PixPerClk = InstancePtr->Config.PixPerClock;
+
+  /* Frame rate conversion is possible only in FULL topology */
+  if((XVprocSs_GetSubsystemTopology(InstancePtr) != XVPROCSS_TOPOLOGY_FULL_FLEDGED) &&
+     (StrmIn->FrameRate != StrmOut->FrameRate))
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Frame Rate different\r\n");
+    return(XST_FAILURE);
+  }
 
   /* Check input resolution is supported by HW */
   if((StrmIn->Timing.HActive > InstancePtr->Config.MaxWidth) ||
@@ -1408,18 +1835,8 @@ int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr)
   /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
-#ifdef DEBUG
-  xil_printf("\r\n****** VPROC SUBSYSTEM INPUT/OUTPUT CONFIG ******\r\n");
-  xil_printf("->INPUT\r\n");
-  XVidC_ReportStreamInfo(&InstancePtr->VidIn);
-  xil_printf("\r\n->OUTPUT\r\n");
-  XVidC_ReportStreamInfo(&InstancePtr->VidOut);
-  xil_printf("**************************************************\r\n\r\n");
-#endif
-
   /* validate subsystem configuration */
-  if(ValidateSubsystemConfig(InstancePtr) != XST_SUCCESS)
-  {
+  if(ValidateSubsystemConfig(InstancePtr) != XST_SUCCESS) {
 	 return(XST_FAILURE);
   }
 
@@ -1432,6 +1849,26 @@ int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr)
     case XVPROCSS_TOPOLOGY_SCALER_ONLY:
         //Only configuration supported is V->H
         status = SetupModeScalerOnly(InstancePtr);
+        break;
+
+    case XVPROCSS_TOPOLOGY_CSC_ONLY:
+        //Only configuration supported is CSC only
+        status = SetupModeCscOnly(InstancePtr);
+        break;
+
+    case XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY:
+        //Only configuration supported is Deint only
+        status = SetupModeDeintOnly(InstancePtr);
+        break;
+
+    case XVPROCSS_TOPOLOGY_420TO422_ONLY:
+        //Only configuration supported is 420 to 422 only
+        status = SetupMode420to422Only(InstancePtr);
+        break;
+
+    case XVPROCSS_TOPOLOGY_422TO444_ONLY:
+        //Only configuration supported is 422 to 444 only
+        status = SetupMode422to444Only(InstancePtr);
         break;
 
     default:
@@ -2194,7 +2631,13 @@ void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
 ******************************************************************************/
 void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr)
 {
-  char *topology[2] = {"Scaler-Only", "Full-Fledged"};
+  const char *topology[XVPROCSS_TOPOLOGY_NUM_SUPPORTED] = {
+      "Scaler-Only",
+      "Full-Fledged",
+      "Deint-Only",
+      "CSC-Only",
+      "420To422-Only",
+      "422To444-Only"};
   int SubsytemTopology;
 
   Xil_AssertVoid(InstancePtr != NULL);
@@ -2213,63 +2656,51 @@ void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr)
   xil_printf("\r\n  ->Sub-Cores Included\r\n");
 
   /* Report all the included cores in the subsystem instance */
-  if(InstancePtr->HcrsmplrPtr)
-  {
+  if(InstancePtr->HcrsmplrPtr) {
     xil_printf("    : Horiz. Chroma Resampler \r\n");
   }
 
-  if(InstancePtr->VcrsmplrInPtr)
-  {
+  if(InstancePtr->VcrsmplrInPtr) {
     xil_printf("    : Vert Chroma Resampler - Input\r\n");
   }
 
-  if(InstancePtr->VcrsmplrOutPtr)
-  {
+  if(InstancePtr->VcrsmplrOutPtr) {
     xil_printf("    : Vert Chroma Resampler - Output\r\n");
   }
 
-  if(InstancePtr->HscalerPtr)
-  {
+  if(InstancePtr->HscalerPtr) {
     xil_printf("    : H Scaler\r\n");
   }
 
-  if(InstancePtr->VscalerPtr)
-  {
+  if(InstancePtr->VscalerPtr) {
     xil_printf("    : V Scaler\r\n");
   }
 
-  if(InstancePtr->VdmaPtr)
-  {
+  if(InstancePtr->VdmaPtr) {
     xil_printf("    : VDMA\r\n");
   }
 
-  if(InstancePtr->LboxPtr)
-  {
+  if(InstancePtr->LboxPtr) {
     xil_printf("    : LetterBox\r\n");
   }
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
     xil_printf("    : Color Space Converter\r\n");
   }
 
-  if(InstancePtr->DeintPtr)
-  {
+  if(InstancePtr->DeintPtr) {
     xil_printf("    : Deinterlacer\r\n");
   }
 
-  if(InstancePtr->RstAxisPtr)
-  {
+  if(InstancePtr->RstAxisPtr) {
     xil_printf("    : Reset (AXIS)\r\n");
   }
 
-  if(InstancePtr->RstAximmPtr)
-  {
+  if(InstancePtr->RstAximmPtr) {
     xil_printf("    : Reset (AXI-MM) \r\n");
   }
 
-  if(InstancePtr->RouterPtr)
-  {
+  if(InstancePtr->RouterPtr) {
     xil_printf("    : AXIS Router\r\n");
   }
 

@@ -61,7 +61,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 0.01  rc   07/07/14 First release
-
+* 1.00  dmc  12/02/15   Removed UART driver instance
+*
 * </pre>
 *
 ******************************************************************************/
@@ -74,7 +75,6 @@ extern "C" {
 
 #include "string.h"
 #include "xvidc.h"
-#include "xuartlite.h"
 #include "xv_tpg.h"
 #include "xgpio.h"
 #include "xvtc.h"
@@ -98,7 +98,6 @@ typedef struct
 
 typedef struct
 {
-  XUartLite *UartlPtr;
   XV_tpg    *TpgPtr;
   XVtc      *VtcPtr;
   XGpio     *VidLockMonitorPtr;

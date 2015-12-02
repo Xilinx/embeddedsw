@@ -126,9 +126,15 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
     return (XST_DEVICE_NOT_FOUND);
   }
 
-  if(VprocSsConfigPtr->Topology == XVPROCSS_TOPOLOGY_FULL_FLEDGED)
+  switch (VprocSsConfigPtr->Topology)
   {
-    XVprocSs_SetFrameBufBaseaddr(pVprocss, USR_FRAME_BUF_BASEADDR);
+    case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
+    case XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY:
+	  XVprocSs_SetFrameBufBaseaddr(pVprocss, USR_FRAME_BUF_BASEADDR);
+      break;
+
+    default:
+      break;
   }
 
   status = XVprocSs_CfgInitialize(pVprocss,
@@ -171,7 +177,7 @@ void XSys_SetStreamParam(XVprocSs *pVprocss,
   XVidC_VideoMode resId;
   XVidC_VideoStream Stream;
 
-  resId = XVidC_GetVideoModeId(Width, Height, XVIDC_FR_60HZ, FALSE);
+  resId = XVidC_GetVideoModeId(Width, Height, XVIDC_FR_60HZ, IsInterlaced);
 
   //Setup Video Processing Subsystem
   Stream.VmId           = resId;

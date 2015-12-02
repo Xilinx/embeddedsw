@@ -60,15 +60,15 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 0.01  rc   07/07/14 First release
-
+* 0.01  rc   07/07/14   First release
+* 1.00  dmc  12/02/15   Removed UART driver instance
+*
 * </pre>
 *
 ******************************************************************************/
 #include "xparameters.h"
 #include "xdebug.h"
 #include "periph.h"
-#include "xuartlite_l.h"
 
 
 /************************** Constant Definitions *****************************/
@@ -77,7 +77,6 @@
 
 /**************************** Local Global *******************************/
 /* Peripheral IP driver Instance */
-XUartLite Uartl;
 XV_tpg Tpg;
 XVtc Vtc;
 XGpio VidLocMonitor;
@@ -140,36 +139,15 @@ void XPeriph_ReportDeviceInfo(XPeriph *InstancePtr)
 int XPeriph_PowerOnInit(XPeriph *InstancePtr)
 {
   int status = XST_FAILURE;
-  XUartLite_Config *UartlCfgPtr;
   XVtc_Config *VtcConfigPtr;
   XGpio_Config *VidLockMonCfgPtr;
 
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   //Bind the peripheral instance to ip drivers
-  InstancePtr->UartlPtr = &Uartl;
   InstancePtr->TpgPtr   = &Tpg;
   InstancePtr->VtcPtr   = &Vtc;
   InstancePtr->VidLockMonitorPtr = &VidLocMonitor;
-
-  //UART-Lite
-  xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing UART Lite.... \r\n");
-  UartlCfgPtr = XUartLite_LookupConfig(XPAR_MICROBLAZE_SS_AXI_UARTLITE_0_DEVICE_ID);
-  if(UartlCfgPtr == NULL)
-  {
-	xil_printf("ERR:: UART Lite device not found\r\n");
-    return(XST_DEVICE_NOT_FOUND);
-  }
-  status = XUartLite_CfgInitialize(InstancePtr->UartlPtr,
-		                           UartlCfgPtr,
-		                           UartlCfgPtr->RegBaseAddr);
-  if(status != XST_SUCCESS)
-  {
-    xil_printf("ERR:: UART Lite Initialization failed %d\r\n", status);
-	return(XST_FAILURE);
-  }
-  //Reset UART FIFO
-  XUartLite_ResetFifos(InstancePtr->UartlPtr);
 
   //TPG
   xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing TPG.... \r\n");

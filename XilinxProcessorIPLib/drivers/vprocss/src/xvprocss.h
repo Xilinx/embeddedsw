@@ -177,7 +177,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   08/28/15  Initial Release
 * 2.00  rco   11/05/15  Update to adapt to sub-core layer 2 changes
-*
+*       dmc   12/02/15  Added new topologies
 * </pre>
 *
 ******************************************************************************/
@@ -233,6 +233,10 @@ typedef enum
 {
   XVPROCSS_TOPOLOGY_SCALER_ONLY = 0,
   XVPROCSS_TOPOLOGY_FULL_FLEDGED,
+  XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY,
+  XVPROCSS_TOPOLOGY_CSC_ONLY,
+  XVPROCSS_TOPOLOGY_420TO422_ONLY,
+  XVPROCSS_TOPOLOGY_422TO444_ONLY,
   XVPROCSS_TOPOLOGY_NUM_SUPPORTED
 }XVPROCSS_CONFIG_TOPOLOGY;
 

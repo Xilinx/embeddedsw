@@ -6,9 +6,9 @@
 #include "xvprocss_vdma.h"
 #include "microblaze_sleep.h"
 
-#define XVPROCSS_SW_VER  "v1.00"
+#define XVPROCSS_SW_VER  "v2.00"
 #define VERBOSE_MODE     0
-#define VIDEO_MONITOR_LOCK_TIMEOUT   (1000000)
+#define VIDEO_MONITOR_LOCK_TIMEOUT   (2000000)
 
 /************************** Variable Definitions *****************************/
 XPeriph  PeriphInst;
@@ -39,7 +39,6 @@ int main(void)
   Xil_DCacheInvalidate();
   Xil_DCacheEnable();
 
-
   xil_printf("\r\n--------------------------------------------------------\r\n");
   xil_printf("  Video Processing Subsystem Example Design %s\r\n", XVPROCSS_SW_VER);
   xil_printf("  (c) 2015 by Xilinx Inc.\r\n");
@@ -55,15 +54,74 @@ int main(void)
 #if (VERBOSE_MODE == 1)
   xil_printf("\r\nINFO> Setting up VPSS AXIS In/Out\r\n");
 #endif
-  //Set TPG default parameters
-  XPeriph_SetTpgParams(PeriphPtr,
-		               1920,
-		               1080,
-		               XVIDC_CSF_RGB,
-		               XTPG_BKGND_COLOR_BARS,
-		               FALSE);
 
-  //Set AXIS In to TPG settings
+  //Set Test Pattern Generator parameters
+  switch (VpssPtr->Config.Topology) {
+    case XVPROCSS_TOPOLOGY_SCALER_ONLY:
+      XPeriph_SetTpgParams(PeriphPtr,
+		                   1920,
+		                   1080,
+		                   XVIDC_CSF_RGB,
+		                   XTPG_BKGND_COLOR_BARS,
+		                   FALSE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
+      XPeriph_SetTpgParams(PeriphPtr,
+		                   1920,
+		                   540,
+		                   XVIDC_CSF_RGB,
+		                   XTPG_BKGND_COLOR_BARS,
+		                   TRUE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY:
+      XPeriph_SetTpgParams(PeriphPtr,
+		                   1920,
+		                   540,
+		                   XVIDC_CSF_YCRCB_422,
+		                   XTPG_BKGND_COLOR_BARS,
+		                   TRUE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_CSC_ONLY:
+      XPeriph_SetTpgParams(PeriphPtr,
+		                   1920,
+		                   1080,
+		                   XVIDC_CSF_RGB,
+		                   XTPG_BKGND_COLOR_BARS,
+		                   FALSE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_420TO422_ONLY:
+      XPeriph_SetTpgParams(PeriphPtr,
+		                   1920,
+		                   1080,
+		                   XVIDC_CSF_YCRCB_420,
+		                   XTPG_BKGND_COLOR_BARS,
+		                   FALSE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_422TO444_ONLY:
+      XPeriph_SetTpgParams(PeriphPtr,
+		                   1920,
+		                   1080,
+		                   XVIDC_CSF_YCRCB_422,
+		                   XTPG_BKGND_COLOR_BARS,
+		                   FALSE);
+      break;
+
+    default:
+      XPeriph_SetTpgParams(PeriphPtr,
+		                   1920,
+		                   1080,
+		                   XVIDC_CSF_RGB,
+		                   XTPG_BKGND_COLOR_BARS,
+		                   FALSE);
+      break;
+  }
+
+  //Set Video Input AXI Stream to TPG settings
   XSys_SetStreamParam(VpssPtr,
 		              XSYS_VPSS_STREAM_IN,
 		              PeriphInst.TpgConfig.Width,
@@ -71,28 +129,77 @@ int main(void)
 		              PeriphInst.TpgConfig.ColorFmt,
 		              PeriphInst.TpgConfig.IsInterlaced);
 
-  if(VpssPtr->Config.Topology == XVPROCSS_TOPOLOGY_SCALER_ONLY)
-  {
-	/* Only Scaling Ratio can be changed. Stream out color format
-	 * must be same as stream in
-	 */
-    //Set AXIS Out
-    XSys_SetStreamParam(VpssPtr,
-		                XSYS_VPSS_STREAM_OUT,
-		                3840,
-		                2160,
-		                PeriphInst.TpgConfig.ColorFmt,
-		                FALSE);
-  }
-  else //FULL_FLEDGED
-  {
-	//Set AXIS Out
-	XSys_SetStreamParam(VpssPtr,
-	                    XSYS_VPSS_STREAM_OUT,
-			            3840,
-			            2160,
-			            XVIDC_CSF_YCRCB_422,
-			            FALSE);
+  //Set Video Output AXI Stream Out
+  switch (VpssPtr->Config.Topology) {
+    case XVPROCSS_TOPOLOGY_SCALER_ONLY:
+	  /* Only Picture size can be changed. */
+      XSys_SetStreamParam(VpssPtr,
+		                  XSYS_VPSS_STREAM_OUT,
+		                  3840,
+		                  2160,
+		                  PeriphInst.TpgConfig.ColorFmt,
+		                  FALSE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
+	  /* Change picture size and color format. */
+	  XSys_SetStreamParam(VpssPtr,
+		                  XSYS_VPSS_STREAM_OUT,
+				          3840,
+				          2160,
+				          XVIDC_CSF_YCRCB_422,
+				          FALSE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY:
+	  /* Picture size must not change, Output must be progressive. */
+	  XSys_SetStreamParam(VpssPtr,
+	                      XSYS_VPSS_STREAM_OUT,
+			              PeriphInst.TpgConfig.Width,
+			              PeriphInst.TpgConfig.Height*2,
+			              PeriphInst.TpgConfig.ColorFmt,
+			              FALSE);
+	  break;
+
+    case XVPROCSS_TOPOLOGY_CSC_ONLY:
+	  /* Picture size must not change, Color format can be changed. */
+	  XSys_SetStreamParam(VpssPtr,
+	                      XSYS_VPSS_STREAM_OUT,
+			              PeriphInst.TpgConfig.Width,
+			              PeriphInst.TpgConfig.Height,
+			              XVIDC_CSF_YCRCB_444,
+			              FALSE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_420TO422_ONLY:
+	  /* Picture size must not change, Color format out must be 422. */
+	  XSys_SetStreamParam(VpssPtr,
+	                      XSYS_VPSS_STREAM_OUT,
+			              PeriphInst.TpgConfig.Width,
+			              PeriphInst.TpgConfig.Height,
+			              XVIDC_CSF_YCRCB_422,
+			              FALSE);
+      break;
+
+    case XVPROCSS_TOPOLOGY_422TO444_ONLY:
+	  /* Picture size must not change, Color format out must be 444. */
+	  XSys_SetStreamParam(VpssPtr,
+	                      XSYS_VPSS_STREAM_OUT,
+			              PeriphInst.TpgConfig.Width,
+			              PeriphInst.TpgConfig.Height,
+			              XVIDC_CSF_YCRCB_444,
+			              FALSE);
+      break;
+
+    default:
+	  /* Shouldn't come here */
+	  XSys_SetStreamParam(VpssPtr,
+	                      XSYS_VPSS_STREAM_OUT,
+			              PeriphInst.TpgConfig.Width,
+			              PeriphInst.TpgConfig.Height,
+			              PeriphInst.TpgConfig.ColorFmt,
+			              FALSE);
+      break;
   }
 
   //Configure video processing subsystem
@@ -123,48 +230,27 @@ int main(void)
 
     /* check for output lock */
     Timeout = VIDEO_MONITOR_LOCK_TIMEOUT;
-    while(!Lock && Timeout)
-    {
-      if(XPeriph_IsVideoLocked(PeriphPtr))
-      {
+    while(!Lock && Timeout) {
+      if(XPeriph_IsVideoLocked(PeriphPtr)) {
         xil_printf("Locked\r\n");
         Lock = TRUE;
       }
       --Timeout;
     }
 
-    if(!Timeout)
-    {
+    if(!Timeout) {
       xil_printf("\r\nTEST FAILED\r\n");
-    }
-    else
-    {
+    } else {
       xil_printf("\r\nTEST PASSED\r\n");
     }
-  }
-  else
-  {
+  } else {
     xil_printf("\r\nERR:: VProcss Configuration Failed. \r\n");
 	xil_printf("\r\nTEST FAILED\r\n");
   }
 
-  while(1)
-  {
+  while(1) {
 	 //NOP
   }
-
-  /* Clean up DCache. For writeback caches, the disable_dcache routine
-  internally does the flush and invalidate. For write through caches,
-  an explicit invalidation must be performed on the entire cache. */
-#if XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK == 0
-  Xil_DCacheInvalidate ();
-#endif
-
-  Xil_DCacheDisable ();
-
-  /* Clean up ICache */
-  Xil_ICacheInvalidate ();
-  Xil_ICacheDisable ();
 
   return 0;
 }
