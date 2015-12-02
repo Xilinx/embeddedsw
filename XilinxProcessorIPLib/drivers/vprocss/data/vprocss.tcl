@@ -32,7 +32,8 @@
 #  Ver      Who    Date       Changes
 # -------- ------ -------- ----------------------------------------------------
 #  1.0      rco    07/21/15 Initial version of subsystem tcl
-
+#  1.1      rco    11/20/15 Bug fix for designs with single instance of
+#                           vcresampler core
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -133,6 +134,8 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					#check if available instances are less than MAX
 					#if yes, mark the missing instance
 					#if all instances are present then skip the core
+					set strval "Unknown"
+					set strbaseaddr "BASEADDR"
 					if {$avail_instances < $max_instances} {
 						if {[string compare -nocase "axi_gpio" $sub_core] == 0} {
 							set ip_inst_name [lindex $ip_instances 0]
@@ -142,7 +145,10 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 							} else {
 								set strval "RESET_SEL_AXI_MM"
 							}
-						} elseif {[string compare -nocase "v_vcresampler" $sub_core]} {
+						} elseif {[string compare -nocase "v_vcresampler" $sub_core] == 0} {
+							#All hls ip base address string is S_AXI_CTRL_BASEADDR"
+							#This check is needed only for IP's with multiple optional instances
+							set strbaseaddr "S_AXI_CTRL_BASEADDR"
 							set ip_inst_name [lindex $ip_instances 0]
 							set srcstr "${periph_g}_v_vcresampler_in"
 							if {[string compare -nocase $srcstr $ip_inst_name] == 0} {
@@ -154,7 +160,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 						#puts "String Selected: $strval"
 						set final_child_cell_instance_name_g "XPAR_${periph_g}_${strval}_PRESENT"
 						set final_child_cell_instance_devid_g "XPAR_${periph_g}_${strval}_DEVICE_ID"
-						set final_child_cell_instance_baseaddr_g "XPAR_${periph_g}_${strval}_BASEADDR"
+						set final_child_cell_instance_baseaddr_g "XPAR_${periph_g}_${strval}_${strbaseaddr}"
 						puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_g] 0\n"
 						puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_devid_g] 255\n"
 						puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_baseaddr_g] 0\n\n"
@@ -250,7 +256,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 						while {$count < $max_instances} {
 							if {[string compare -nocase "axi_gpio" $sub_core] == 0} {
 								set str_name [expr {$count == 0 ? "RESET_SEL_AXI_MM" : "RESET_SEL_AXIS"}]
-							} elseif {[string compare -nocase "v_vcresampler" $sub_core]} {
+							} elseif {[string compare -nocase "v_vcresampler" $sub_core] == 0} {
 								set str_name [expr {$count == 0 ? "V_VCRESAMPLER_IN" : "V_VCRESAMPLER_OUT"}]
 							}
 							#write the ip instance entry to the table

@@ -51,7 +51,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco  07/21/15   Initial Release
-
+* 1.10  rco  11/25/15   Replace bitwise OR with ADD operation when computing
+*                       subcore absolute address
 * </pre>
 *
 ******************************************************************************/
@@ -93,7 +94,7 @@ static int ComputeSubcoreAbsAddr(u32 subsys_baseaddr,
   int status;
   u32 absAddr;
 
-  absAddr = subsys_baseaddr | subcore_offset;
+  absAddr = subsys_baseaddr + subcore_offset;
   if((absAddr>=subsys_baseaddr) && (absAddr<subsys_highaddr))
   {
     *subcore_baseaddr = absAddr;

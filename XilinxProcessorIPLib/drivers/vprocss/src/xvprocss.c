@@ -99,7 +99,7 @@ typedef struct
   XV_Lbox_l2 Lbox;
   XV_Csc_l2 Csc;
   XV_Deint_l2 Deint;
-}XVprocSs_SubCores;
+}XVprocSs_SubCores[XPAR_XVPROCSS_NUM_INSTANCES];
 
 /**************************** Local Global ***********************************/
 XVprocSs_SubCores subcoreRepo; /**< Define Driver instance of all sub-core
@@ -296,30 +296,30 @@ void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
 ******************************************************************************/
 static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
 {
-  XVprocSsPtr->HcrsmplrPtr    = ((XVprocSsPtr->Config.HCrsmplr.IsPresent)    \
-                              ? (&subcoreRepo.Hcrsmplr)    : NULL);
+  XVprocSsPtr->HcrsmplrPtr    = ((XVprocSsPtr->Config.HCrsmplr.IsPresent)   \
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Hcrsmplr)    : NULL);
   XVprocSsPtr->VcrsmplrInPtr  = ((XVprocSsPtr->Config.VCrsmplrIn.IsPresent)  \
-                              ? (&subcoreRepo.VcrsmplrIn)  : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].VcrsmplrIn)  : NULL);
   XVprocSsPtr->VcrsmplrOutPtr = ((XVprocSsPtr->Config.VCrsmplrOut.IsPresent) \
-                              ? (&subcoreRepo.VcrsmplrOut) : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].VcrsmplrOut) : NULL);
   XVprocSsPtr->VscalerPtr     = ((XVprocSsPtr->Config.Vscale.IsPresent)      \
-                              ? (&subcoreRepo.Vscaler)     : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Vscaler)     : NULL);
   XVprocSsPtr->HscalerPtr     = ((XVprocSsPtr->Config.Hscale.IsPresent)      \
-                              ? (&subcoreRepo.Hscaler)     : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Hscaler)     : NULL);
   XVprocSsPtr->VdmaPtr        = ((XVprocSsPtr->Config.Vdma.IsPresent)        \
-                              ? (&subcoreRepo.Vdma)        : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Vdma)        : NULL);
   XVprocSsPtr->LboxPtr        = ((XVprocSsPtr->Config.Lbox.IsPresent)        \
-                              ? (&subcoreRepo.Lbox)        : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Lbox)        : NULL);
   XVprocSsPtr->CscPtr         = ((XVprocSsPtr->Config.Csc.IsPresent)         \
-                              ? (&subcoreRepo.Csc)         : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Csc)         : NULL);
   XVprocSsPtr->DeintPtr       = ((XVprocSsPtr->Config.Deint.IsPresent)       \
-                              ? (&subcoreRepo.Deint)       : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Deint)       : NULL);
   XVprocSsPtr->RouterPtr      = ((XVprocSsPtr->Config.Router.IsPresent)      \
-                              ? (&subcoreRepo.Router)      : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Router)      : NULL);
   XVprocSsPtr->RstAxisPtr     = ((XVprocSsPtr->Config.RstAxis.IsPresent)     \
-                              ? (&subcoreRepo.RstAxis)     : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAxis)     : NULL);
   XVprocSsPtr->RstAximmPtr    = ((XVprocSsPtr->Config.RstAximm.IsPresent)    \
-                              ? (&subcoreRepo.RstAximm)    : NULL);
+                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAximm)    : NULL);
 }
 
 /*****************************************************************************/
@@ -378,37 +378,23 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
   memcpy((void *)&(XVprocSsPtr->Config), (const void *)CfgPtr, sizeof(XVprocSs_Config));
   XVprocSsPtr->Config.BaseAddress = EffectiveAddr;
 
-  switch(XVprocSs_GetSubsystemTopology(InstancePtr))
-  {
-    case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
-	    xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Full]\r\n\r\n");
-        break;
-
-    case XVPROCSS_TOPOLOGY_SCALER_ONLY:
-	    xdbg_printf(XDBG_DEBUG_GENERAL,"    [Subsystem Configuration Mode - Scaler-Only]\r\n\r\n");
-        break;
-
-    default:
-        xil_printf("ERROR: Subsystem Configuration Mode Not Supported. \r\n");
-        return(XST_FAILURE);
+  if(XVprocSs_GetSubsystemTopology(InstancePtr) >= XVPROCSS_TOPOLOGY_NUM_SUPPORTED) {
+      xil_printf("VPROCSS ERROR:: Subsystem Topology Not Supported. \r\n");
+      return(XST_FAILURE);
   }
 
   /* Determine sub-cores included in the provided instance of subsystem */
   GetIncludedSubcores(XVprocSsPtr);
 
   /* Initialize all included sub_cores */
-  if(XVprocSsPtr->RstAxisPtr)
-  {
-	if(XVprocSs_SubcoreInitResetAxis(XVprocSsPtr) != XST_SUCCESS)
-    {
+  if(XVprocSsPtr->RstAxisPtr) {
+	if(XVprocSs_SubcoreInitResetAxis(XVprocSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->RstAximmPtr)
-  {
-	if(XVprocSs_SubcoreInitResetAximm(XVprocSsPtr) != XST_SUCCESS)
-    {
+  if(XVprocSsPtr->RstAximmPtr) {
+	if(XVprocSs_SubcoreInitResetAximm(XVprocSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
     /*
@@ -418,97 +404,78 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
     XVprocSs_EnableBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
   }
 
-  if(XVprocSsPtr->RouterPtr)
-  {
-	if(XVprocSs_SubcoreInitRouter(XVprocSsPtr) != XST_SUCCESS)
-    {
+  if(XVprocSsPtr->RouterPtr) {
+	if(XVprocSs_SubcoreInitRouter(XVprocSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->CscPtr)
-  {
-	if(XVprocSs_SubcoreInitCsc(XVprocSsPtr) != XST_SUCCESS)
-    {
+  if(XVprocSsPtr->CscPtr) {
+	if(XVprocSs_SubcoreInitCsc(XVprocSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->HscalerPtr)
-  {
-	if(XVprocSs_SubcoreInitHScaler(XVprocSsPtr) != XST_SUCCESS)
-    {
+  if(XVprocSsPtr->HscalerPtr) {
+	if(XVprocSs_SubcoreInitHScaler(XVprocSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->VscalerPtr)
-  {
-	if(XVprocSs_SubcoreInitVScaler(XVprocSsPtr) != XST_SUCCESS)
-	{
+  if(XVprocSsPtr->VscalerPtr) {
+	if(XVprocSs_SubcoreInitVScaler(XVprocSsPtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->HcrsmplrPtr)
-  {
-	if(XVprocSs_SubcoreInitHCrsmplr(XVprocSsPtr) != XST_SUCCESS)
-	{
+  if(XVprocSsPtr->HcrsmplrPtr) {
+	if(XVprocSs_SubcoreInitHCrsmplr(XVprocSsPtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->VcrsmplrInPtr)
-  {
-	if(XVprocSs_SubcoreInitVCrsmpleIn(XVprocSsPtr) != XST_SUCCESS)
-	{
+  if(XVprocSsPtr->VcrsmplrInPtr) {
+	if(XVprocSs_SubcoreInitVCrsmpleIn(XVprocSsPtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->VcrsmplrOutPtr)
-  {
-	if(XVprocSs_SubcoreInitVCrsmpleOut(XVprocSsPtr) != XST_SUCCESS)
-	{
+  if(XVprocSsPtr->VcrsmplrOutPtr) {
+	if(XVprocSs_SubcoreInitVCrsmpleOut(XVprocSsPtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->LboxPtr)
-  {
-	if(XVprocSs_SubcoreInitLetterbox(XVprocSsPtr) != XST_SUCCESS)
-	{
+  if(XVprocSsPtr->LboxPtr) {
+	if(XVprocSs_SubcoreInitLetterbox(XVprocSsPtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->VdmaPtr)
-  {
-	if(XVprocSs_SubcoreInitVdma(XVprocSsPtr) != XST_SUCCESS)
-	{
-	  return(XST_FAILURE);
-	}
+  if((XVprocSsPtr->VdmaPtr) || (XVprocSsPtr->DeintPtr)) {
+	  if(XVprocSsPtr->FrameBufBaseaddr == 0) {
+		xil_printf("\r\nVPROCSS ERR:: Video Frame Buffer base address not set\r\n");
+		xil_printf("              Use XVprocSs_SetFrameBufBaseaddr() API before subsystem init\r\n\r\n");
+		return(XST_FAILURE);
+	  }
+  }
 
-	if(XVprocSsPtr->FrameBufBaseaddr == 0)
-	{
-	  xil_printf("\r\nVPROCSS ERR:: Video Frame Buffer base address not set\r\n");
-	  xil_printf("              Use XVprocSs_SetFrameBufBaseaddr() API before subsystem init\r\n\r\n");
+  if(XVprocSsPtr->VdmaPtr) {
+	if(XVprocSs_SubcoreInitVdma(XVprocSsPtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
 
-  if(XVprocSsPtr->DeintPtr)
-  {
-	if(XVprocSs_SubcoreInitDeinterlacer(XVprocSsPtr) != XST_SUCCESS)
-	{
-	  return(XST_FAILURE);
-	}
-
-    /* Set Deinterlacer buffer offset in allocated DDR Frame Buffer */
-    if(XVprocSsPtr->VdmaPtr) //Vdma must be present for this to work
-    {
+  if(XVprocSsPtr->DeintPtr) {
       u32 vdmaBufReq, bufsize;
+
+	if(XVprocSs_SubcoreInitDeinterlacer(XVprocSsPtr) != XST_SUCCESS) {
+	  return(XST_FAILURE);
+	}
+
+    /* Set Deinterlacer buffer offset in allocated DDR Frame Buffer memory */
+    if(XVprocSsPtr->VdmaPtr) {
       u32 Bpp; //bytes per pixel
 
       Bpp = (XVprocSsPtr->Config.ColorDepth + 7)/8;
@@ -522,22 +489,15 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
 
       //VDMA requires 4 buffers for total size of ~190MB
       vdmaBufReq = XVprocSsPtr->VdmaPtr->MaxNumFrames * bufsize;
-
-      /*
-       * vdmaBufReq = 0x0BDD 80000
-       * padBuf     = 0x02F7 6000 (1 buffer is added as pad between Vdma and Deint)
-       *             -------------
-       * DeInt Offst= 0x0ED4 E000
-       *             -------------
-       */
-      /* Set Deint Buffer Address Offset */
-      XVprocSsPtr->CtxtData.DeintBufAddr = XVprocSsPtr->FrameBufBaseaddr + vdmaBufReq + bufsize;
+    } else {
+      vdmaBufReq = 0;
+      bufsize    = 0;
     }
-    else
-    {
-      xil_printf("\r\nVPROCSS ERR:: VDMA IP not found. Unable to assign De-interlacer buffer offsets\r\n");
-      return(XST_FAILURE);
-    }
+    /* Set Deint Buffer Address Offset
+     *   - Located after vdma buffers, if included
+     *   - 1 4k2k buffer added as a pad between vdma and deint
+     */
+    XVprocSsPtr->CtxtData.DeintBufAddr = XVprocSsPtr->FrameBufBaseaddr + vdmaBufReq + bufsize;
   }
 
   /* Set subsystem to power on default state */
@@ -824,7 +784,7 @@ void XVprocSs_Reset(XVprocSs *InstancePtr)
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  StrmIn is the pointer to input stream configuration
 *
-* @return XST_SUCCESS if successful else XST_FAILURE
+* @return XST_SUCCESS
 *
 ******************************************************************************/
 int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
@@ -849,7 +809,7 @@ int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param  StrmOut is the pointer to input stream configuration
 *
-* @return XST_SUCCESS if successful else XST_FAILURE
+* @return XST_SUCCESS
 *
 ******************************************************************************/
 int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
@@ -869,15 +829,14 @@ int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function validates the video mode id against the supported resolutions
-* and if successful extracts the timing information for the mode
+* This function sets the required subsystem video stream to the user provided
+* stream and timing parameters
 *
-* @param  StreamPtr is a pointer to the video stream to be configured
+* @param  StreamPtr is a pointer to the subsystem video stream to be configured
 * @param  VmId is the Video Mode ID of the new resolution to be set
 * @param  Timing is the timing parameters of the new resolution to be set
 
 * @return XST_SUCCESS if successful else XST_FAILURE
-*
 ******************************************************************************/
 int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
                                  const XVidC_VideoMode VmId,
@@ -887,17 +846,19 @@ int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
 
   /* Verify arguments */
   Xil_AssertNonvoid(StreamPtr != NULL);
-  Xil_AssertNonvoid(VmId != XVIDC_VM_NOT_SUPPORTED);
   Xil_AssertNonvoid(Timing != NULL);
   Xil_AssertNonvoid((Timing->HActive > 0) &&
                     (Timing->VActive > 0));
 
-
-  /* update stream timing properties */
-  StreamPtr->VmId   = VmId;
-  StreamPtr->Timing = *Timing;
-
-  return(XST_SUCCESS);
+  /* Video Mode could be from the list of supported modes or custom */
+  if(VmId != XVIDC_VM_NOT_SUPPORTED) {
+      /* update stream timing properties */
+      StreamPtr->VmId   = VmId;
+      StreamPtr->Timing = *Timing;
+      return(XST_SUCCESS);
+  } else {
+      return(XST_FAILURE);
+  }
 }
 
 /*****************************************************************************/
@@ -1332,6 +1293,22 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
    */
   StrmIn->PixPerClk  = InstancePtr->Config.PixPerClock;
   StrmOut->PixPerClk = InstancePtr->Config.PixPerClock;
+
+  /* Check input resolution is supported by HW */
+  if((StrmIn->Timing.HActive > InstancePtr->Config.MaxWidth) ||
+	 (StrmIn->Timing.VActive > InstancePtr->Config.MaxHeight))
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Stream Resolution greater than IP MAX\r\n");
+	return(XST_FAILURE);
+  }
+
+  /* Check output resolution is supported by HW */
+  if((StrmOut->Timing.HActive > InstancePtr->Config.MaxWidth) ||
+	 (StrmOut->Timing.VActive > InstancePtr->Config.MaxHeight))
+  {
+	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Output Stream Resolution greater than IP MAX\r\n");
+	return(XST_FAILURE);
+  }
 
   /* Check Stream Width is aligned at Samples/Clock boundary */
   if(((StrmIn->Timing.HActive  % InstancePtr->Config.PixPerClock) != 0) ||
@@ -2360,7 +2337,7 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
 
     count = 0;
     //print IP Data Flow Map
-    xil_printf("\r\Data Flow Map: VidIn");
+    xil_printf("\r\nData Flow Map: VidIn");
     while(count<InstancePtr->CtxtData.RtrNumCores)
     {
       xil_printf(" -> %s",XVprocSsIpStr[InstancePtr->CtxtData.RtngTable[count++]]);
