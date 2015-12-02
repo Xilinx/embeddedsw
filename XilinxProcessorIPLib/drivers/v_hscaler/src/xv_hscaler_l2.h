@@ -86,14 +86,6 @@
 *
 * <b>Limitations</b>
 *
-* Current implementation of "computed coefficients" is non-entrant. If multiple
-* instances of the core are used in the design, user application has to make sure
-* that scaler configuration is an atomic operation and cannot be interrupted in
-* middle to context switch to a different instance of the core
-* However fixed coefficient version of the code (default) is safe to be used with
-* multiple instances of the core.
-* i.e. SCALER_FIXED_COEFF should always be 1
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
