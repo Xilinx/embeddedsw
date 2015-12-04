@@ -85,9 +85,6 @@
 #include "xil_exception.h"
 
 #define SHUTDOWN_MSG	0xEF56A55A
-#ifdef USE_FREERTOS
-#define DELAY_200MSEC    200/portTICK_PERIOD_MS
-#endif
 
 /* Internal functions */
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
@@ -103,7 +100,6 @@ static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
 #ifdef USE_FREERTOS
 static queue_data send_data, echo_data;
-static TimerHandle_t stop_scheduler;
 #else
 static queue_data *send_data, *echo_data;
 #endif
@@ -242,13 +238,6 @@ static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
                     RPMSG_ADDR_ANY);
 }
 
-#ifdef USE_FREERTOS
-static void StopSchedulerTmrCallBack(TimerHandle_t timer)
-{
-	vTaskEndScheduler();
-}
-#endif
-
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
 }
 
@@ -256,11 +245,6 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src) {
     if ((*(int *) data) == SHUTDOWN_MSG) {
         remoteproc_resource_deinit(proc);
-#ifdef USE_FREERTOS
-		int TempTimerId;
-		stop_scheduler = xTimerCreate("TMR", DELAY_200MSEC, pdFALSE, (void *)&TempTimerId, StopSchedulerTmrCallBack);
-		xTimerStart(stop_scheduler, 0);
-#endif
     } else {
 /* copy the received data and send to echo_test task over queue */
 		recv_echo_data.data = data;

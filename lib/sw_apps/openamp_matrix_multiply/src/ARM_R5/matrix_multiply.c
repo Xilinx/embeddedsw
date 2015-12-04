@@ -88,9 +88,6 @@
 #define	MAX_SIZE		6
 #define NUM_MATRIX      2
 #define SHUTDOWN_MSG    0xEF56A55A
-#ifdef USE_FREERTOS
-#define DELAY_200MSEC    200/portTICK_PERIOD_MS
-#endif
 
 typedef struct _matrix {
 	unsigned int size;
@@ -112,7 +109,6 @@ static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
 #ifdef USE_FREERTOS
 static queue_data send_data,mat_array;
-static TimerHandle_t stop_scheduler;
 #else
 static queue_data *send_data,*mat_array;
 #endif
@@ -248,22 +244,10 @@ static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
 	rpmsg_destroy_ept(rp_ept);
 }
 
-#ifdef USE_FREERTOS
-static void StopSchedulerTmrCallBack(TimerHandle_t timer)
-{
-	vTaskEndScheduler();
-}
-#endif
-
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 					void * priv, unsigned long src) {
 	if ((*(int *) data) == SHUTDOWN_MSG) {
 		remoteproc_resource_deinit(proc);
-#ifdef USE_FREERTOS
-		int TempTimerId;
-		stop_scheduler = xTimerCreate("TMR", DELAY_200MSEC, pdFALSE, (void *)&TempTimerId, StopSchedulerTmrCallBack);
-		xTimerStart(stop_scheduler, 0);
-#endif
 	}else{
 		recv_mat_data.data = data;
 		recv_mat_data.length = len;
