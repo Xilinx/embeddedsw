@@ -521,8 +521,8 @@ void XPm_NotifyCb(const enum XPmNodeId node,
 		  const u32 event,
 		  const u32 oppoint)
 {
-	pm_dbg("WARNING: %s (%d, %d, %d) - NO CUSTOM HANDLING\n", __func__,
-		node, event, oppoint);
+	pm_dbg("%s (%d, %d, %d)\n", __func__, node, event, oppoint);
+	XPm_NotifierProcessEvent(node, event, oppoint);
 }
 
 /* Miscellaneous API functions */
@@ -609,6 +609,76 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
 
 	/* Return result from IPI return buffer */
 	return pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+}
+
+/*
+ * XPm_RegisterNotifier() - Register notifier for PM events
+ * @notifier	Pointer to data block to be linked in the notifier list
+ *		(includes node ID, event ID and wake flag to be passed to the
+ *		PMU)
+ *
+ * @return	Returns status, either success or error/reason
+ */
+XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
+{
+	XStatus ret;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	if (!notifier) {
+		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
+		return XST_INVALID_PARAM;
+	}
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD4(payload, PM_REGISTER_NOTIFIER, notifier->node,
+		      notifier->event, notifier->flags, 1);
+	ret = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != ret)
+		return ret;
+
+	ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+	if (XST_SUCCESS != ret)
+		return ret;
+
+	/* Add notifier in the list only if PMU has it registered */
+	return XPm_NotifierAdd(notifier);
+}
+
+/*
+ * XPm_UnregisterNotifier() - Unregister notifier for PM events
+ * @notifier	Pointer to data block to be removed from the notifier list
+ *		(includes node ID, event ID and wake flag to be passed to the
+ *		PMU)
+ *
+ * @return	Returns status, either success or error/reason
+ */
+XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
+{
+	XStatus ret;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	if (!notifier) {
+		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
+		return XST_INVALID_PARAM;
+	}
+
+	/*
+	 * Remove first the notifier from the list. If it's not in the list
+	 * report an error, and don't trigger PMU since it don't have it
+	 * registered either.
+	 */
+	ret = XPm_NotifierRemove(notifier);
+	if (XST_SUCCESS != ret)
+		return ret;
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD4(payload, PM_REGISTER_NOTIFIER, notifier->node,
+		      notifier->event, 0, 0);
+	ret = pm_ipi_send(primary_master, payload);
+
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 }
 
 /**

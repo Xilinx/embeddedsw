@@ -97,6 +97,41 @@ struct pm_acknowledge {
 	u32 opp;
 };
 
+/* Forward declaration to enable self reference in struct definition */
+typedef struct XPm_Notifier XPm_Notifier;
+
+/**
+ * XPm_Notifier - Notifier structure registered with a callback by app
+ * @callback	Custom callback handler to be called when the notification is
+ *		received. The custom handler would execute from interrupt
+ *		context, it shall return quickly and must not block! (enables
+ *		event-driven notifications)
+ * @node	Node argument (the node to receive notifications about)
+ * @event	Event argument (the event type to receive notifications about)
+ * @flag	Flags
+ * @oppoint	Operating point of node in question. Contains the value updated
+ *		when the last event notification is received. User shall not
+ *		modify this value while the notifier is registered.
+ * @received	How many times the notification has been received - to be used
+ *		by application (enables polling). User shall not modify this
+ *		value while the notifier is registered.
+ * @next	Pointer to next notifier in linked list. Must not be modified
+ *		while the notifier is registered. User shall not ever modify
+ *		this value.
+ */
+typedef struct XPm_Notifier {
+	void (*const callback)(XPm_Notifier* const notifier);
+	enum XPmNodeId node;
+	enum XPmNotifyEvent event;
+	u32 flags;
+	volatile u32 oppoint;
+	volatile u32 received;
+	XPm_Notifier* next;
+} XPm_Notifier;
+
+/* Notifier Flags */
+#define XILPM_NOTIFIER_FLAG_WAKE	BIT(0) /* wake up PU for notification */
+
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
@@ -134,6 +169,9 @@ XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 XStatus XPm_GetApiVersion(u32 *version);
 
 XStatus XPm_GetNodeStatus(const enum XPmNodeId node);
+
+XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier);
+XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier);
 
 /* Direct-Control API functions */
 XStatus XPm_ResetAssert(const enum XPmReset reset,
