@@ -577,6 +577,34 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 }
 
 /**
+ * XPm_GetOpCharacteristic() - PM call to request operating characteristics
+ *			       of a node
+ * @node	Node id of the slave
+ * @type	Type of the operating characteristics
+ * @result	Returns the operating characteristic for the requested node,
+ *		specified by the type
+ *
+ * @return	Returns status, either success or error/reason
+ */
+XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
+				const enum XPmOpCharType type,
+				u32* const result)
+{
+	XStatus ret;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_GET_OP_CHARACTERISTIC, node, type);
+	ret = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != ret)
+		return ret;
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, result, NULL, NULL);
+}
+
+/**
  * XPm_ResetAssert() - Assert/release reset line
  * @reset       Reset line
  * @assert      Identifies action: (release, assert, pulese)

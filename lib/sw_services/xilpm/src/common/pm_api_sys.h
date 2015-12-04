@@ -186,6 +186,10 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier);
 XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier);
 
+XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
+				const enum XPmOpCharType type,
+				u32* const result);
+
 /* Direct-Control API functions */
 XStatus XPm_ResetAssert(const enum XPmReset reset,
 			const enum XPmResetAction assert);

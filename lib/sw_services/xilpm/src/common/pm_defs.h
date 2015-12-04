@@ -182,8 +182,8 @@ enum XPmRamState {
 
 enum XPmOpCharType {
 	PM_OPCHAR_TYPE_POWER = 1,
-	PM_OPCHAR_TYPE_ENERGY,
 	PM_OPCHAR_TYPE_TEMP,
+	PM_OPCHAR_TYPE_LATENCY,
 };
 
 /* Power management specific return error statuses - to be moved in xstatus.h */
