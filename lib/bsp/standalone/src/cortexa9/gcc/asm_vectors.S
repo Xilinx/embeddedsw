@@ -50,6 +50,7 @@
 * 5.1	pkp	05/13/15 Saved the addresses of instruction causing data
 *			 abort and prefetch abort into DataAbortAddr and
 *			 PrefetchAbortAddr for further use to fix CR#854523
+* 5.4	pkp	12/03/15 Added handler for undefined exception
 * </pre>
 *
 * @note
@@ -140,13 +141,13 @@ FIQLoop:
 
 Undefined:					/* Undefined handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =UndefinedExceptionAddr
+	sub     r1, lr, #4
+	str     r1, [r0]            		/* Store address of instruction causing undefined exception */
 
+	bl	UndefinedException		/* UndefinedException: call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
-
-	b	_prestart
-
 	movs	pc, lr
-
 
 SVCHandler:					/* SWI handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */

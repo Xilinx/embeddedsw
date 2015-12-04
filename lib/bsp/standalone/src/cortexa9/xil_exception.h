@@ -226,6 +226,7 @@ extern void Xil_ExceptionRemoveHandler(u32 Exception_id);
 extern void Xil_ExceptionInit(void);
 extern void Xil_DataAbortHandler(void *CallBackRef);
 extern void Xil_PrefetchAbortHandler(void *CallBackRef);
+extern void Xil_UndefinedExceptionHandler(void *CallBackRef);
 
 #ifdef __cplusplus
 }

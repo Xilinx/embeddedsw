@@ -70,6 +70,24 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 
 /************************** Function Prototypes ******************************/
 
+/*****************************************************************************/
+/**
+*
+* This is the C level wrapper for the Undefined exception called from the
+* vectors.s file.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void UndefinedException(void)
+{
+	XExc_VectorTable[XIL_EXCEPTION_ID_UNDEFINED_INT].Handler(XExc_VectorTable[
+					XIL_EXCEPTION_ID_UNDEFINED_INT].Data);
+}
 
 
 /*****************************************************************************/

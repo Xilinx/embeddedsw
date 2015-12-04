@@ -52,6 +52,8 @@
 *						  using XExc_VectorTable
 * 5.1	pkp		 05/13/15 Added debugging message to print address of instruction
 *						  causing data abort and prefetch abort
+* 5.4	pkp		 12/03/15 Added handler for undefined exception to print the
+*						  address of instruction causing exception
 * </pre>
 *
 *****************************************************************************/
@@ -83,7 +85,7 @@ static void Xil_ExceptionNullHandler(void *Data);
 XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
 {
 	{Xil_ExceptionNullHandler, NULL},
-	{Xil_ExceptionNullHandler, NULL},
+	{Xil_UndefinedExceptionHandler, NULL},
 	{Xil_ExceptionNullHandler, NULL},
 	{Xil_PrefetchAbortHandler, NULL},
 	{Xil_DataAbortHandler, NULL},
@@ -91,6 +93,8 @@ XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
 	{Xil_ExceptionNullHandler, NULL},
 };
 
+u32 UndefinedExceptionAddr;   /* Address of instruction causing Undefined
+							 exception */
 u32 DataAbortAddr;       /* Address of instruction causing data abort */
 u32 PrefetchAbortAddr;   /* Address of instruction causing prefetch abort */
 
@@ -246,6 +250,27 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 	#endif
 	xdbg_printf(XDBG_DEBUG_GENERAL, "Prefetch abort with Instruction Fault Status Register  %x\n",FaultStatus);
 	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instrcution causing Prefetch abort %x\n",PrefetchAbortAddr);
+	while(1) {
+		;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Default undefined exception handler which prints address of the undefined
+* instruction if debug prints are enabled
+*
+* @param	None
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void Xil_UndefinedExceptionHandler(void *CallBackRef){
+
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of the undefined instruction %x\n",UndefinedExceptionAddr);
 	while(1) {
 		;
 	}
