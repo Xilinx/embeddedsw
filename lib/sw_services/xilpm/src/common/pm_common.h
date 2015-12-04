@@ -42,6 +42,7 @@
 #include "pm_ipi.h"
 #include "pm_ipi_buffer.h"
 #include "pm_defs.h"
+#include "xparameters.h"
 
 #define DEBUG_MODE
 
@@ -50,13 +51,7 @@
 #define PAYLOAD_ARG_CNT		6U	/* 1 for API ID + 5 for API arguments */
 #define PAYLOAD_ARG_SIZE	4U	/* size in bytes */
 
-/* Power Management IPI interrupt number */
-#define PM_INT_NUM		0
-#define IPI_PMU_PM_INT_BASE	(IPI_PMU_0_TRIG + (PM_INT_NUM * 0x1000))
-#define IPI_PMU_PM_INT_MASK	(IPI_APU_ISR_PMU_0_MASK << PM_INT_NUM)
-#if (PM_INT_NUM < 0 || PM_INT_NUM > 3)
-	#error PM_INT_NUM value out of range
-#endif
+#define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_MICROBLAZE_0_CH0_MASK
 
 struct XPm_Ipi {
 	const u32 mask;

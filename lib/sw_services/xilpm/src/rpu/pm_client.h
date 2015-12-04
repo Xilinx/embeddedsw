@@ -48,9 +48,8 @@
 #include "pm_common.h"
 
 #define MASTER_PWRCTL		RPU_RPU_0_PWRDWN
-
-#define IPI_TRIG_OFFSET		0x00010000
-#define IPI_OBS_OFFSET		0x00010004
+#define IPI_TRIG_OFFSET		0x0
+#define IPI_OBS_OFFSET		0x4
 
 #define pm_print(MSG, ...)	xil_printf("RPU: "MSG,##__VA_ARGS__)
 

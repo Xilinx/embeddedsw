@@ -38,10 +38,11 @@
  */
 
 #include "pm_client.h"
+#include "xparameters.h"
 
 static const struct XPm_Ipi rpu_0_ipi = {
-	.mask = IPI_RPU_MASK,
-	.base = IPI_BASEADDR,
+	.mask = XPAR_XIPIPSU_0_BIT_MASK,
+	.base = XPAR_XIPIPSU_0_BASE_ADDRESS,
 	.buffer_base = IPI_BUFFER_RPU_0_BASE,
 };
 
