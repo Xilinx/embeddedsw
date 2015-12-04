@@ -52,13 +52,8 @@
 void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 		     const u32 status, const u32 oppoint)
 {
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_ACKNOWLEDGE_CB);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
-		     nodeId);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 2 * PAYLOAD_ELEM_SIZE,
-		     status);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 3 * PAYLOAD_ELEM_SIZE,
-		     oppoint);
+	IPI_RESPONSE4(master->buffer, PM_ACKNOWLEDGE_CB, nodeId, status,
+		      oppoint);
 	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }
 
@@ -72,13 +67,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		const u32 event, const u32 oppoint)
 {
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_NOTIFY_CB);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
-		     nodeId);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 2 * PAYLOAD_ELEM_SIZE,
-		     event);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 3 * PAYLOAD_ELEM_SIZE,
-		     oppoint);
+	IPI_RESPONSE4(master->buffer, PM_NOTIFY_CB, nodeId, event, oppoint);
 	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }
 
@@ -96,14 +85,7 @@ void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 	PmDbg("of %s (%lu, %lu, %lu, %lu)\n", PmStrNode(master->nid), reason,
 	      latency, state, timeout);
 
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, PM_INIT_SUSPEND_CB);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
-		     reason);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 2 * PAYLOAD_ELEM_SIZE,
-		     latency);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 3 * PAYLOAD_ELEM_SIZE,
-		     state);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + 4 * PAYLOAD_ELEM_SIZE,
-		     timeout);
+	IPI_RESPONSE5(master->buffer, PM_INIT_SUSPEND_CB, reason, latency,
+		      state, timeout);
 	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }

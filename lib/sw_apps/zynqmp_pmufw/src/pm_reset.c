@@ -1883,7 +1883,7 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 	};
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -1908,7 +1908,5 @@ void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 	resetStatus = resetPtr->ops->getStatus(resetPtr);
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
-		     resetStatus);
+	IPI_RESPONSE2(master->buffer, status, resetStatus);
 }

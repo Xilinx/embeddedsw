@@ -67,7 +67,7 @@ static void PmProcessAckRequest(const u32 ack,
 #endif
 	if (REQUEST_ACK_BLOCKING == ack) {
 		/* Return status immediately */
-		XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+		IPI_RESPONSE1(master->buffer, status);
 	} else if (REQUEST_ACK_CB_STANDARD == ack) {
 		/* Return acknowledge through callback */
 		PmAcknowledgeCb(master, nodeId, status, oppoint);
@@ -125,7 +125,7 @@ static void PmSelfSuspend(const PmMaster *const master,
 	status = PmProcFsm(proc, PM_PROC_EVENT_SELF_SUSPEND);
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -283,7 +283,7 @@ static void PmAbortSuspend(const PmMaster *const master,
 	status = PmProcFsm(proc, PM_PROC_EVENT_ABORT_SUSPEND);
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -372,7 +372,7 @@ static void PmReleaseNode(const PmMaster *master,
 
 done:
 	PmDbg("(%s, %lu)\n", PmStrNode(node), latency);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -493,9 +493,7 @@ static void PmGetApiVersion(const PmMaster *const master)
 
 	PmDbg("version %d.%d\n", PM_VERSION_MAJOR, PM_VERSION_MINOR);
 
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, XST_SUCCESS);
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
-		     version);
+	IPI_RESPONSE2(master->buffer, XST_SUCCESS, version);
 }
 
 /**
@@ -527,7 +525,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	XPfw_Write32(address, mask & value);
 	status = XST_SUCCESS;
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -541,7 +539,7 @@ done:
 static void PmMmioRead(const PmMaster *const master, const u32 address)
 {
 	int status;
-	u32 value;
+	u32 value = 0;
 
 	/* Check access permissions */
 	if (false == PmGetMmioAccess(master, address)) {
@@ -553,13 +551,11 @@ static void PmMmioRead(const PmMaster *const master, const u32 address)
 
 	value = XPfw_Read32(address);
 	status = XST_SUCCESS;
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE,
-		     value);
 	PmDbg("(%s) addr=0x%lx, value=0x%lx\n", PmStrNode(master->nid),
 	      address, value);
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE2(master->buffer, status, value);
 }
 
 /**
@@ -603,7 +599,7 @@ done:
 	PmDbg("(%s, %s, %lu)\n", PmStrNode(master->procs->node.nodeId),
 	      PmStrNode(sourceNode), enable);
 
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -638,7 +634,7 @@ static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 	status = PmSystemProcessShutdown(master, restart);
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -672,7 +668,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 	status = PmUpdateSlave(masterReq->slave);
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -737,7 +733,7 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 	}
 
 done:
-	XPfw_Write32(master->buffer + IPI_BUFFER_RESP_OFFSET, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
