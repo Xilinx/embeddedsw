@@ -667,3 +667,76 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 
 	return usage;
 }
+
+/**
+ * PmSlaveGetUsageStatus() - get current usage status for a slave node
+ * @slavenode  Slave node for which the usage status is requested
+ * @master     Master that's requesting the current usage status
+ *
+ * @return  Usage status:
+ *	    - 0: No master is currently using the node
+ *	    - 1: Only requesting master is currently using the node
+ *	    - 2: Only other masters (1 or more) are currently using the node
+ *	    - 3: Both the current and at least one other master is currently
+ *               using the node
+ */
+u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master)
+{
+	int i;
+	u32 usageStatus = 0;
+	PmMaster* currMaster;
+	PmRequirement* masterReq;
+
+	for (i = 0U; i < PM_MASTER_MAX; i++) {
+		currMaster = pmAllMasters[i];
+
+		masterReq = PmGetRequirementForSlave(currMaster, slavenode);
+
+		if (NULL == masterReq) {
+			/* This master has no access to this slave */
+			continue;
+		}
+
+		if (0U == (masterReq->info & PM_MASTER_USING_SLAVE_MASK)) {
+			/* This master is currently not using this slave */
+			continue;
+		}
+
+		/* This master is currently using this slave */
+		if (currMaster == master) {
+			usageStatus |= PM_USAGE_CURRENT_MASTER;
+		} else {
+			usageStatus |= PM_USAGE_OTHER_MASTER;
+		}
+	}
+	return usageStatus;
+}
+
+/**
+ * PmSlaveGetRequirements() - get current requirements for a slave node
+ * @slavenode  Slave node for which the current requirements are requested
+ * @master     Master that's making the request
+ *
+ * @return  Current requirements of the requesting master on the node
+ */
+u32 PmSlaveGetRequirements(const u32 slavenode, const PmMaster *const master)
+{
+	u32 currReq = 0;
+	PmRequirement* masterReq = PmGetRequirementForSlave(master, slavenode);
+
+	if (NULL == masterReq) {
+		/* This master has no access to this slave */
+		goto done;
+	}
+
+	if (0U == (masterReq->info & PM_MASTER_USING_SLAVE_MASK)) {
+		/* This master is currently not using this slave */
+		goto done;
+	}
+
+	/* This master is currently using this slave */
+	currReq = masterReq->currReq;
+
+done:
+	return currReq;
+}

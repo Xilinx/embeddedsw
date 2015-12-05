@@ -688,7 +688,27 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
  */
 static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 {
-	PmDbg("(%s) not implemented\n", PmStrNode(node));
+	u32 oppoint = 0U;
+	u32 currReq = 0U;
+	u32 usage = 0U;
+	int status = XST_SUCCESS;
+	PmNode* nodePtr = PmGetNodeById(node);
+
+	PmDbg("(%s)\n", PmStrNode(node));
+
+	if (NULL == nodePtr) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	oppoint = nodePtr->currState;
+	if (nodePtr->typeId >= PM_TYPE_SLAVE) {
+		currReq = PmSlaveGetRequirements(node, master);
+		usage = PmSlaveGetUsageStatus(node, master);
+	}
+
+done:
+	IPI_RESPONSE4(master->buffer, status, oppoint, currReq, usage);
 }
 
 /**

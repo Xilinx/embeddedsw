@@ -57,6 +57,10 @@
 #define PM_CAP_CONTEXT      0x2U
 #define PM_CAP_WAKEUP       0x4U
 
+/* Usage status, returned by PmGetNodeStatus */
+#define PM_USAGE_CURRENT_MASTER 0x1U
+#define PM_USAGE_OTHER_MASTER   0x2U
+
 #define MAX_LATENCY (~0U)
 #define MAX_QOS     100U
 
