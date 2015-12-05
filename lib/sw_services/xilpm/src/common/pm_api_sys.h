@@ -132,6 +132,18 @@ typedef struct XPm_Notifier {
 /* Notifier Flags */
 #define XILPM_NOTIFIER_FLAG_WAKE	BIT(0) /* wake up PU for notification */
 
+/**
+ * XPm_NodeStatus - struct containing node status information
+ * @status	 Node power state
+ * @requirements Current requirements asserted on the node (slaves only)
+ * @usage	 Usage information (which master is currently using the slave)
+ */
+typedef struct XPm_NodeStatus {
+	u32 status;
+	u32 requirements;
+	u32 usage;
+} XPm_NodeStatus;
+
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
@@ -168,7 +180,8 @@ XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 /* Miscellaneous API functions */
 XStatus XPm_GetApiVersion(u32 *version);
 
-XStatus XPm_GetNodeStatus(const enum XPmNodeId node);
+XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
+			  XPm_NodeStatus *const nodestatus);
 
 XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier);
 XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier);

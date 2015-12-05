@@ -43,6 +43,16 @@
 #define PM_CAP_CONTEXT	0x2U
 #define PM_CAP_WAKEUP	0x4U
 
+/* Node default states */
+#define NODE_STATE_OFF		0
+#define NODE_STATE_ON		1
+
+/* Processor's states */
+#define PROC_STATE_FORCEDOFF	0
+#define PROC_STATE_ACTIVE	1
+#define PROC_STATE_SLEEP	2
+#define PROC_STATE_SUSPENDING	3
+
 #define MAX_LATENCY	(~0U)
 #define MAX_QOS		100U
 

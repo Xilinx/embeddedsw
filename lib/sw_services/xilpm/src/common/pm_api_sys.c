@@ -552,16 +552,28 @@ XStatus XPm_GetApiVersion(u32 *version)
 
 /**
  * XPm_GetNodeStatus() - PM call to request a node's current power state
- * @node	Node id of the slave
- *
- * @return	Returns status, either success or error+reason
+ * @node	 Node id of the node to be queried
+ * @nodestatus	 Struct to be passed by caller to be populated with node status
+  *
+ * @return	 Returns status, either success or error+reason
  */
-XStatus XPm_GetNodeStatus(const enum XPmNodeId node)
+XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
+			  XPm_NodeStatus *const nodestatus)
 {
-	/* TODO: Add power state argument!! */
+	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD(payload, PM_GET_NODE_STATUS, node, 0, 0, 0, 0);
-	return pm_ipi_send(primary_master, payload);
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_GET_NODE_STATUS, node);
+	ret = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != ret)
+		return ret;
+
+	/* Return result from IPI return buffer */
+	return pm_ipi_buff_read32(primary_master, &nodestatus->status,
+				  &nodestatus->requirements,
+				  &nodestatus->usage);
 }
 
 /**
