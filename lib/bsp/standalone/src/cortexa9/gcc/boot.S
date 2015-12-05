@@ -61,6 +61,7 @@
 *			 caches and TLB, enable MMU and caches, then enable SMP
 *			 bit in ACTLR. L2Cache invalidation and enabling of L2Cache
 *			 is done later.
+* 5.4   asa     12/6/15  Added code to initialize SPSR for all relevant modes.
 * </pre>
 *
 * @note
@@ -236,6 +237,8 @@ mmu_loop:
 	orr	r2, r2, #0x12			/* IRQ mode */
 	msr	cpsr, r2
 	ldr	r13,=IRQ_stack			/* IRQ stack pointer */
+	bic r2, r2, #(0x1 << 9)    		 /* Set EE bit to little-endian */
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			/* get the current PSR */
 	mvn	r1, #0x1f			/* set up the supervisor stack pointer */
@@ -243,6 +246,8 @@ mmu_loop:
 	orr	r2, r2, #0x13			/* supervisor mode */
 	msr	cpsr, r2
 	ldr	r13,=SPV_stack			/* Supervisor stack pointer */
+	bic r2, r2, #(0x1 << 9)     		/* Set EE bit to little-endian */
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			/* get the current PSR */
 	mvn	r1, #0x1f			/* set up the Abort  stack pointer */
@@ -250,6 +255,8 @@ mmu_loop:
 	orr	r2, r2, #0x17			/* Abort mode */
 	msr	cpsr, r2
 	ldr	r13,=Abort_stack		/* Abort stack pointer */
+	bic r2, r2, #(0x1 << 9)     		/* Set EE bit to little-endian */
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			/* get the current PSR */
 	mvn	r1, #0x1f			/* set up the FIQ stack pointer */
@@ -257,6 +264,8 @@ mmu_loop:
 	orr	r2, r2, #0x11			/* FIQ mode */
 	msr	cpsr, r2
 	ldr	r13,=FIQ_stack			/* FIQ stack pointer */
+	bic r2, r2, #(0x1 << 9)    		/* Set EE bit to little-endian */
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			/* get the current PSR */
 	mvn	r1, #0x1f			/* set up the Undefine stack pointer */
@@ -264,6 +273,8 @@ mmu_loop:
 	orr	r2, r2, #0x1b			/* Undefine mode */
 	msr	cpsr, r2
 	ldr	r13,=Undef_stack		/* Undefine stack pointer */
+	bic r2, r2, #(0x1 << 9)     		/* Set EE bit to little-endian */
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			/* get the current PSR */
 	mvn	r1, #0x1f			/* set up the system stack pointer */

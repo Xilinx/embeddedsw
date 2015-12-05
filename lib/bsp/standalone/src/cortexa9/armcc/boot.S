@@ -58,6 +58,7 @@
 ;			 caches and TLB, enable MMU and caches, then enable SMP
 ;			 bit in ACTLR. L2Cache invalidation and enabling of L2Cache
 ;			 is done later.
+; 5.4  asa      12/06/15 Added code to initialize SPSR for all relevant modes.
 ; </pre>
 ;
 ; @note
@@ -220,6 +221,8 @@ mmu_loop:
 	orr	r2, r2, #0x12			; IRQ mode
 	msr	apsr, r2			; was cpsr, apsr is considered synonym
 	ldr	r13,=|Image$$IRQ_STACK$$ZI$$Limit|	; IRQ stack pointer
+	bic r2, r2, #(0x1 << 9)    		; Set EE bit to little-endian
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			; get the current PSR
 	mvn	r1, #0x1f			; set up the supervisor stack pointer
@@ -227,6 +230,8 @@ mmu_loop:
 	orr	r2, r2, #0x13			; supervisor mode
 	msr	apsr, r2			; was cpsr, apsr is considered synonym
 	ldr	r13,=|Image$$SPV_STACK$$ZI$$Limit|	; Supervisor stack pointer
+	bic r2, r2, #(0x1 << 9)    		; Set EE bit to little-endian
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			; get the current PSR
 	mvn	r1, #0x1f			; set up the Abort  stack pointer
@@ -234,6 +239,8 @@ mmu_loop:
 	orr	r2, r2, #0x17			; Abort mode
 	msr	apsr, r2			; was cpsr, apsr is considered synonym
 	ldr	r13,=|Image$$ABORT_STACK$$ZI$$Limit|	; Abort stack pointer
+	bic r2, r2, #(0x1 << 9)    		; Set EE bit to little-endian
+	msr spsr_fsxc,r2
 
 	mrs	r0, cpsr			; get the current PSR
 	mvn	r1, #0x1f			; set up the system stack pointer
