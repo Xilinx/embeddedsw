@@ -63,6 +63,18 @@
 #define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
 #define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
 
+/* Power consumptions for the APU for specific states */
+#define DEFAULT_APU_POWER_ACTIVE	200
+#define DEFAULT_APU_POWER_SUSPENDING	100
+#define DEFAULT_APU_POWER_SLEEP		50
+#define DEFAULT_APU_POWER_OFF		0
+
+/* Power consumptions for the RPU for specific states */
+#define DEFAULT_RPU_POWER_ACTIVE	200
+#define DEFAULT_RPU_POWER_SUSPENDING	100
+#define DEFAULT_RPU_POWER_SLEEP		50
+#define DEFAULT_RPU_POWER_OFF		0
+
 /**
  * RPUSaveResumeAddr() - Saved address from which RPU core should resume
  * @proc        Processor to which the address should be restored upon wake-up
@@ -592,6 +604,22 @@ static const PmNodeOps pmProcOps = {
 	.wake = PmProcWake,
 };
 
+/* Power consumptions for the APU for specific states */
+static u32 PmProcPowerAPU_X[] = {
+	DEFAULT_APU_POWER_OFF,
+	DEFAULT_APU_POWER_ACTIVE,
+	DEFAULT_APU_POWER_SLEEP,
+	DEFAULT_APU_POWER_SUSPENDING,
+};
+
+/* Power consumptions for the RPU for specific states */
+static u32 PmProcPowerRPU_X[] = {
+	DEFAULT_RPU_POWER_OFF,
+	DEFAULT_RPU_POWER_ACTIVE,
+	DEFAULT_RPU_POWER_SLEEP,
+	DEFAULT_RPU_POWER_SUSPENDING,
+};
+
 /* Apu processors */
 PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 	[PM_PROC_APU_0] = {
@@ -603,6 +631,8 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.currState = PM_PROC_STATE_ACTIVE,
 			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
+			.powerInfo = PmProcPowerAPU_X,
+			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
 		.isPrimary = true,
@@ -627,6 +657,8 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.currState = PM_PROC_STATE_SLEEP,
 			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
+			.powerInfo = PmProcPowerAPU_X,
+			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
 		.isPrimary = false,
@@ -651,6 +683,8 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.currState = PM_PROC_STATE_SLEEP,
 			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
+			.powerInfo = PmProcPowerAPU_X,
+			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
 		.isPrimary = false,
@@ -675,6 +709,8 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.currState = PM_PROC_STATE_SLEEP,
 			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
+			.powerInfo = PmProcPowerAPU_X,
+			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
 		.isPrimary = false,
@@ -703,6 +739,8 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 			.currState = PM_PROC_STATE_ACTIVE,
 			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
+			.powerInfo = PmProcPowerRPU_X,
+			.powerInfoCnt = ARRAY_SIZE(PmProcPowerRPU_X),
 		},
 		.master = &pmMasterRpu0_g,
 		.isPrimary = true,
@@ -727,6 +765,8 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 			.currState = PM_PROC_STATE_SLEEP,
 			.latencyMarg = MAX_LATENCY,
 			.ops = &pmProcOps,
+			.powerInfo = PmProcPowerRPU_X,
+			.powerInfoCnt = ARRAY_SIZE(PmProcPowerRPU_X),
 		},
 		.master = &pmMasterRpu1_g,
 		.isPrimary = false,

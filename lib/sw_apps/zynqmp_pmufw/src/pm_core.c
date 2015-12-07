@@ -715,12 +715,40 @@ done:
  * PmGetOpCharacteristics() - Get operating characteristics of a node
  * @master  Initiator of the request
  * @node    Node in question
- * @type    Type of the operating characteristics (power, temperature)
+ * @type    Type of the operating characteristics
+ *          power, temperature and latency
  */
 static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 				   const u32 type)
 {
-	PmDbg("(%s, %lu) not implemented\n", PmStrNode(node), type);
+	u32 result = 0U;
+	int status = XST_SUCCESS;
+	PmNode* nodePtr = PmGetNodeById(node);
+
+	if (NULL == nodePtr) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	switch(type) {
+	case PM_OPCHAR_TYPE_POWER:
+		result = PmNodeGetPowerConsumption(nodePtr, nodePtr->currState);
+		break;
+	case PM_OPCHAR_TYPE_TEMP:
+		PmDbg("(%s) WARNING: Temperature unsupported\n", PmStrNode(node));
+		break;
+	case PM_OPCHAR_TYPE_LATENCY:
+		result = PmNodeGetWakeLatency(nodePtr);
+		break;
+	default:
+		PmDbg("(%s) ERROR: Invalid type: %lu\n", PmStrNode(node), type);
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+done:
+	PmDbg("(%s, %lu, %lu)\n", PmStrNode(node), type, result);
+	IPI_RESPONSE2(master->buffer, status, result);
 }
 
 /**

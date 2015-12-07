@@ -43,6 +43,11 @@
 #define PM_SRAM_STATE_ON	2U
 #define PM_SRAM_STATE_MAX	3U
 
+/* Power consumptions for SRAM defined by its states */
+#define DEFAULT_SRAM_POWER_ON		100U
+#define DEFAULT_SRAM_POWER_RETENTION	50U
+#define DEFAULT_SRAM_POWER_OFF		0U
+
 /* Sram states */
 static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_OFF] = 0U,
@@ -144,6 +149,12 @@ static PmRequirement* const pmL2Reqs[] = {
 	&pmApuReq_g[PM_MASTER_APU_SLAVE_L2],
 };
 
+static u32 PmSramPowers[] = {
+	DEFAULT_SRAM_POWER_OFF,
+	DEFAULT_SRAM_POWER_RETENTION,
+	DEFAULT_SRAM_POWER_ON,
+};
+
 PmSlaveSram pmSlaveL2_g = {
 	.slv = {
 		.node = {
@@ -154,6 +165,8 @@ PmSlaveSram pmSlaveL2_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmL2Reqs,
 		.reqsCnt = ARRAY_SIZE(pmL2Reqs),
@@ -181,6 +194,8 @@ PmSlaveSram pmSlaveOcm0_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmOcm0Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm0Reqs),
@@ -208,6 +223,8 @@ PmSlaveSram pmSlaveOcm1_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmOcm1Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm1Reqs),
@@ -235,6 +252,8 @@ PmSlaveSram pmSlaveOcm2_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmOcm2Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm2Reqs),
@@ -262,6 +281,8 @@ PmSlaveSram pmSlaveOcm3_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmOcm3Reqs,
 		.reqsCnt = ARRAY_SIZE(pmOcm3Reqs),
@@ -288,6 +309,8 @@ PmSlaveSram pmSlaveTcm0A_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmTcm0AReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm0AReqs),
@@ -314,6 +337,8 @@ PmSlaveSram pmSlaveTcm0B_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmTcm0BReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm0BReqs),
@@ -340,6 +365,8 @@ PmSlaveSram pmSlaveTcm1A_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmTcm1AReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm1AReqs),
@@ -366,6 +393,8 @@ PmSlaveSram pmSlaveTcm1B_g = {
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmSramPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
 		.reqs = pmTcm1BReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm1BReqs),

@@ -109,6 +109,13 @@ typedef u32 (*const PmTranHandler)(void);
 #define PM_POWER_ISLAND_LATENCY 2000U
 #define PM_POWER_DOMAIN_LATENCY 10000U
 
+/* Power consumptions of the slave components */
+#define DEFAULT_POWER_ON		100U
+#define DEFAULT_POWER_RETENTION		50U
+#define DEFAULT_POWER_OFF		0U
+
+#define POWER_MISSING			~0U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/

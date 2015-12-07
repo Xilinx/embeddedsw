@@ -187,8 +187,8 @@
 
 /* Operating characteristics type */
 #define PM_OPCHAR_TYPE_POWER    1U
-#define PM_OPCHAR_TYPE_ENERGY   2U
-#define PM_OPCHAR_TYPE_TEMP     3U
+#define PM_OPCHAR_TYPE_TEMP     2U
+#define PM_OPCHAR_TYPE_LATENCY  3U
 
 /* PM events */
 #define EVENT_NONE              0U

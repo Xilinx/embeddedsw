@@ -71,6 +71,10 @@
 /* Configurable: timeout period when waiting for PLL to lock */
 #define PM_PLL_LOCK_TIMEOUT	0x10000U
 
+/* Power consumptions for PLLs defined by its states */
+#define DEFAULT_PLL_POWER_ON	100U
+#define DEFAULT_PLL_POWER_OFF	0U
+
 /* PLL states */
 static const u32 pmPllStates[PM_PLL_STATE_MAX] = {
 	[PM_PLL_STATE_UNUSED] = 0U,
@@ -231,6 +235,11 @@ static PmRequirement* const pmApllReqs[] = {
 	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_APLL],
 };
 
+static u32 PmStdPllPowers[] = {
+	DEFAULT_PLL_POWER_OFF,
+	DEFAULT_PLL_POWER_ON,
+};
+
 PmSlavePll pmSlaveApll_g = {
 	.slv = {
 		.node = {
@@ -240,6 +249,8 @@ PmSlavePll pmSlaveApll_g = {
 			.parent = &pmPowerDomainFpd_g,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmStdPllPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
 		.reqs = pmApllReqs,
 		.reqsCnt = ARRAY_SIZE(pmApllReqs),
@@ -270,6 +281,8 @@ PmSlavePll pmSlaveVpll_g = {
 			.parent = &pmPowerDomainFpd_g,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmStdPllPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
 		.reqs = pmVpllReqs,
 		.reqsCnt = ARRAY_SIZE(pmVpllReqs),
@@ -300,6 +313,8 @@ PmSlavePll pmSlaveDpll_g = {
 			.parent = &pmPowerDomainFpd_g,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmStdPllPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
 		.reqs = pmDpllReqs,
 		.reqsCnt = ARRAY_SIZE(pmDpllReqs),
@@ -330,6 +345,8 @@ PmSlavePll pmSlaveRpll_g = {
 			.parent = NULL,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmStdPllPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
 		.reqs = pmRpllReqs,
 		.reqsCnt = ARRAY_SIZE(pmRpllReqs),
@@ -360,6 +377,8 @@ PmSlavePll pmSlaveIOpll_g = {
 			.parent = NULL,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmStdPllPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
 		.reqs = pmIOpllReqs,
 		.reqsCnt = ARRAY_SIZE(pmIOpllReqs),

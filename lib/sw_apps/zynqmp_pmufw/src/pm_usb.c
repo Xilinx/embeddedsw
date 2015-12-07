@@ -42,6 +42,10 @@
 #define PM_USB_STATE_ON    1U
 #define PM_USB_STATE_MAX   2U
 
+/* Power consumptions for USB defined by its states */
+#define DEFAULT_USB_POWER_ON	100U
+#define DEFAULT_USB_POWER_OFF	0U
+
 /* USB states */
 static const u32 pmUsbStates[PM_USB_STATE_MAX] = {
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP,
@@ -121,6 +125,11 @@ static PmWakeProperties pmUsb0Wake = {
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP2],
 };
 
+static u32 PmUsbPowers[] = {
+	DEFAULT_USB_POWER_OFF,
+	DEFAULT_USB_POWER_ON,
+};
+
 PmSlaveUsb pmSlaveUsb0_g = {
 	.slv = {
 		.node = {
@@ -130,6 +139,8 @@ PmSlaveUsb pmSlaveUsb0_g = {
 			.derived = &pmSlaveUsb0_g,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmUsbPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmUsbPowers),
 		},
 		.reqs = pmUsb0Reqs,
 		.reqsCnt = ARRAY_SIZE(pmUsb0Reqs),
@@ -159,6 +170,8 @@ PmSlaveUsb pmSlaveUsb1_g = {
 			.derived = &pmSlaveUsb1_g,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
+			.powerInfo = PmUsbPowers,
+			.powerInfoCnt = ARRAY_SIZE(PmUsbPowers),
 		},
 		.reqs = pmUsb1Reqs,
 		.reqsCnt = ARRAY_SIZE(pmUsb1Reqs),

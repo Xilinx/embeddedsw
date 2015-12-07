@@ -71,6 +71,8 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define IS_POWER(type)      ((PM_TYPE_PWR_ISLAND == type) || \
 				(PM_TYPE_PWR_DOMAIN == type))
 
+#define IS_SLAVE(type)      (type >= PM_TYPE_SLAVE)
+
 #define IS_OFF(nodePtr)     (0U == BIT0((nodePtr)->currState))
 
 #define HAS_SLEEP(opsPtr)   ((NULL != opsPtr) && (NULL != (opsPtr)->sleep))
@@ -99,11 +101,17 @@ typedef struct PmNodeOps {
  * @typeId      Type id, used to distinguish the nodes
  * @currState   Id of the node's current state. Interpretation depends on type
  *              of the node, bit 0 value is reserved for off states
+ * @powerInfo   Pointer to the array of power consumptions arranged by
+ *              stateId
+ * @powerInfoCnt  Number of power consumptions in powerInfo array based on
+ *                number of states
  */
 typedef struct PmNode {
 	void* const derived;
 	PmPower* const parent;
 	const PmNodeOps* const ops;
+	const u32 *const powerInfo;
+	const u32 powerInfoCnt;
 	u32 latencyMarg;
 	const PmNodeId nodeId;
 	const PmNodeTypeId typeId;
@@ -116,5 +124,7 @@ typedef struct PmNode {
 PmNode* PmGetNodeById(const u32 nodeId);
 
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
+u32 PmNodeGetPowerConsumption(PmNode* const node, const PmStateId state);
+u32 PmNodeGetWakeLatency(PmNode* const node);
 
 #endif /* PM_NODE_H_ */

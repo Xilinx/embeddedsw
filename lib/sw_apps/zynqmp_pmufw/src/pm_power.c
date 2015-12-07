@@ -258,6 +258,12 @@ static const PmNodeOps pmFpdNodeOps = {
 	.wake = PmPwrUpHandler,
 };
 
+/* Dummy consumption for the power domains/islands */
+static u32 PmDomainPowers[] = {
+	DEFAULT_POWER_OFF,
+	DEFAULT_POWER_OFF,
+};
+
 /*
  * Power Island and Power Domain definitions
  *
@@ -275,6 +281,8 @@ PmPower pmPowerIslandRpu_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmRpuNodeOps,
+		.powerInfo = PmDomainPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
 	},
 	.children = pmRpuChildren,
 	.childCnt = ARRAY_SIZE(pmRpuChildren),
@@ -297,6 +305,8 @@ PmPower pmPowerIslandApu_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmApuNodeOps,
+		.powerInfo = PmDomainPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
 	},
 	.children = pmApuChildren,
 	.childCnt = ARRAY_SIZE(pmApuChildren),
@@ -313,6 +323,8 @@ PmPower pmPowerDomainFpd_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmFpdNodeOps,
+		.powerInfo = PmDomainPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
 	},
 	.children = pmFpdChildren,
 	.childCnt = ARRAY_SIZE(pmFpdChildren),
