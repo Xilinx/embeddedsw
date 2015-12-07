@@ -48,7 +48,7 @@ proc secure_drc {libhandle} {
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
 	if { $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5" } {
-				error "ERROR: This library is supported only for CortexA53 and CortexR5 processors.";
+				error "ERROR: XilSecure library is supported only for CortexA53 and CortexR5 processors.";
 				return;
 	}
 }
