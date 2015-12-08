@@ -277,8 +277,14 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 						XDP_DPCD_MAX_LANE_COUNT_MASK;
 	LinkConfig->MaxLinkRate = (RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
 				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
+	if (!XDp_IsLinkRateValid(InstancePtr, LinkConfig->MaxLinkRate)) {
+		return XST_FAILURE;
+	}
 	LinkConfig->MaxLaneCount = (RxMaxLaneCount > ConfigPtr->MaxLaneCount) ?
 				ConfigPtr->MaxLaneCount : RxMaxLaneCount;
+	if (!XDp_IsLaneCountValid(InstancePtr, LinkConfig->MaxLaneCount)) {
+		return XST_FAILURE;
+	}
 
 	LinkConfig->SupportEnhancedFramingMode =
 					Dpcd[XDP_DPCD_MAX_LANE_COUNT] &
