@@ -1133,7 +1133,7 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
 		break;
 	default:
-		Status = XST_SUCCESS;
+		Status = XST_FAILURE;
 		break;
 	}
 	if (Status != XST_SUCCESS) {
