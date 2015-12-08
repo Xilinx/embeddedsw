@@ -369,9 +369,8 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 			XDP_TX_LINK_BW_SET_162GBPS) ||
 			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_270GBPS) ||
 			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_540GBPS));
-	Xil_AssertNonvoid((LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
-			(LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
-			(LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4));
+	Xil_AssertNonvoid(XDp_IsLaneCountValid(InstancePtr,
+				LinkConfig->LaneCount));
 
 	XDp_TxResetPhy(InstancePtr, XDP_TX_PHY_CONFIG_PHY_RESET_MASK);
 
@@ -436,9 +435,7 @@ u32 XDp_TxCheckLinkStatus(XDp *InstancePtr, u8 LaneCount)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertNonvoid((LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
-				(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
-				(LaneCount == XDP_TX_LANE_COUNT_SET_4));
+	Xil_AssertNonvoid(XDp_IsLaneCountValid(InstancePtr, LaneCount));
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
@@ -1043,9 +1040,7 @@ u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertNonvoid((LaneCount == XDP_TX_LANE_COUNT_SET_1) ||
-				(LaneCount == XDP_TX_LANE_COUNT_SET_2) ||
-				(LaneCount == XDP_TX_LANE_COUNT_SET_4));
+	Xil_AssertNonvoid(XDp_IsLaneCountValid(InstancePtr, LaneCount));
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
@@ -1568,9 +1563,7 @@ void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid((LaneCount == XDP_RX_OVER_LANE_COUNT_SET_1) ||
-				(LaneCount == XDP_RX_OVER_LANE_COUNT_SET_2) ||
-				(LaneCount == XDP_RX_OVER_LANE_COUNT_SET_4));
+	Xil_AssertVoid(XDp_IsLaneCountValid(InstancePtr, LaneCount));
 
 	InstancePtr->RxInstance.LinkConfig.LaneCount = LaneCount;
 
@@ -1814,6 +1807,40 @@ void XDp_TxSetPeVsAdjustCallback(XDp *InstancePtr,
 
 	InstancePtr->TxInstance.PeVsAdjustCallback = CallbackFunc;
 	InstancePtr->TxInstance.PeVsAdjustCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function checks the validity of the lane count.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	LaneCount is the number of lanes to check if valid.
+ *
+ * @return
+ *		- 1 if specified lane count is valid.
+ *		- 0 otherwise, if the lane count specified isn't valid as per
+ *		  spec, or if it exceeds the capabilities of the TX core.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount)
+{
+	u8 Valid;
+
+	if ((LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
+			(LaneCount != XDP_TX_LANE_COUNT_SET_2) &&
+			(LaneCount != XDP_TX_LANE_COUNT_SET_4)) {
+		Valid = 0;
+	}
+	else if (LaneCount > InstancePtr->Config.MaxLaneCount) {
+		Valid = 0;
+	}
+	else {
+		Valid = 1;
+	}
+
+	return Valid;
 }
 
 /******************************************************************************/
