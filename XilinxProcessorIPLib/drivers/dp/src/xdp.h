@@ -348,6 +348,9 @@
  *                     Added callbacks for lane count changes, link rate changes
  *                     and pre-emphasis + voltage swing adjust requests.
  * 3.0   als  10/07/15 Added MSA callback.
+ * 4.0   als  12/08/15 Added link rate and lane count validity check APIs:
+ *                         XDp_IsLinkRateValid
+ *                         XDp_IsLaneCountValid
  * </pre>
  *
 *******************************************************************************/
