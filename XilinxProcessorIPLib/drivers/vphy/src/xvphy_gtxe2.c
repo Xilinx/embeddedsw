@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.1   gm   12/07/15 Corrected PllParams.Cdr[1] values for DP and HDMI
  * </pre>
  *
 *******************************************************************************/
@@ -182,8 +183,7 @@ u32 XVphy_Gtxe2CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	/* Update the RXCDR_CFG2 settings. */
 	switch (ChPtr->RxOutDiv) {
 	case 1:
-		ChPtr->PllParams.Cdr[1] = (InstancePtr->Config.RxProtocol ==
-				XVPHY_PROTOCOL_DP) ? 0x2040 : 0x1040;
+		ChPtr->PllParams.Cdr[1] = 0x2040;
 		break;
 	case 2:
 		ChPtr->PllParams.Cdr[1] = 0x4020;
