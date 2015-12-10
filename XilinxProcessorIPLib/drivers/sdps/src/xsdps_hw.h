@@ -48,6 +48,7 @@
 * 1.00a hk/sg  10/17/13 Initial release
 * 2.5 	sg	   07/09/15 Added SD 3.0 features
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
+* 2.7   sk     12/10/15 Added support for MMC cards.
 * </pre>
 *
 ******************************************************************************/
@@ -793,6 +794,7 @@ extern "C" {
 #define XSDPS_CUR_LIM_600		2U
 #define XSDPS_CUR_LIM_800		3U
 
+#define CSD_SPEC_VER_MASK		0x3C0000U
 
 /* EXT_CSD field definitions */
 #define XSDPS_EXT_CSD_SIZE		512U

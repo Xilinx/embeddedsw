@@ -61,6 +61,7 @@
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
 * 2.6   sk     10/12/15 Added support for SD card v1.0 CR# 840601.
 * 2.7   sk     11/24/15 Considered the slot type befoe checking CD/WP pins.
+*       sk     12/10/15 Added support for MMC cards.
 * </pre>
 *
 ******************************************************************************/
@@ -100,6 +101,7 @@
 #define EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED	0x8U
 #define EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200		0x10U
 #define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U
+#define CSD_SPEC_VER_3		0x3U
 
 /* Note: Remove this once fixed */
 #define UHS_BROKEN
@@ -633,7 +635,8 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			}
 		}
 
-	} else if ((InstancePtr->CardType == XSDPS_CARD_MMC) &&
+	} else if (((InstancePtr->CardType == XSDPS_CARD_MMC) &&
+				(InstancePtr->Card_Version > CSD_SPEC_VER_3)) &&
 				(InstancePtr->HC_Version == XSDPS_HC_SPEC_V2)) {
 
 		Status = XSdPs_Change_BusWidth(InstancePtr);
@@ -1488,6 +1491,8 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 			XSDPS_RESP2_OFFSET);
 	CSD[3] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP3_OFFSET);
+
+	InstancePtr->Card_Version =  (CSD[3] & CSD_SPEC_VER_MASK) >>18U;
 
 	Status = XST_SUCCESS;
 
