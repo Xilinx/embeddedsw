@@ -122,7 +122,7 @@ u16 Xil_In16(INTPTR Addr)
 * @note		None.
 *
 ******************************************************************************/
-u32 Xil_In32(INTPTR Addr)
+u32 Xil_In32(UINTPTR Addr)
 {
 	return *(volatile u32 *) Addr;
 }
@@ -184,7 +184,7 @@ void Xil_Out16(INTPTR Addr, u16 Value)
 * @note		None.
 *
 ******************************************************************************/
-void Xil_Out32(INTPTR Addr, u32 Value)
+void Xil_Out32(UINTPTR Addr, u32 Value)
 {
 	volatile u32 *LocalAddr = (u32 *)Addr;
 	*LocalAddr = Value;

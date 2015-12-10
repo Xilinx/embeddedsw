@@ -127,7 +127,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 *
 ******************************************************************************/
 #define Xil_ExceptionEnable() \
-		Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ)
+		Xil_ExceptionEnableMask((u32)XIL_EXCEPTION_IRQ)
 
 /****************************************************************************/
 /**
