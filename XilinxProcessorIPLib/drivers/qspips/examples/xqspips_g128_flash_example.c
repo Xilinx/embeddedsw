@@ -58,6 +58,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 2.02a hk  05/07/13 First release
+*       raw 12/10/15 Added support for Macronix 256Mb and 1Gb flash parts
 *
 *</pre>
 *
@@ -179,7 +180,9 @@
 #define WINBOND_ID_BYTE2_128	0x18
 
 #define MACRONIX_ID_BYTE0		0xC2
-#define MACRONIX_ID_BYTE2_512	0x3A
+#define MACRONIX_ID_BYTE2_256	0x19
+#define MACRONIX_ID_BYTE2_512	0x1A
+#define MACRONIX_ID_BYTE2_1G	0x1B
 
 /*
  * The index for Flash config table
@@ -218,10 +221,16 @@
 #define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
 
 /* Macronix */
-#define MACRONIX_INDEX_START			(FLASH_CFG_TBL_PARALLEL_128_WB + 1 - 6)
-#define FLASH_CFG_TBL_SINGLE_512_MX		MACRONIX_INDEX_START
-#define FLASH_CFG_TBL_STACKED_512_MX	(MACRONIX_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_512_MX	(MACRONIX_INDEX_START + 2)
+#define MACRONIX_INDEX_START			(FLASH_CFG_TBL_PARALLEL_128_WB + 1 - 3)
+#define FLASH_CFG_TBL_SINGLE_256_MX		MACRONIX_INDEX_START
+#define FLASH_CFG_TBL_STACKED_256_MX	(MACRONIX_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_256_MX	(MACRONIX_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_512_MX		(MACRONIX_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_512_MX	(MACRONIX_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_512_MX	(MACRONIX_INDEX_START + 5)
+#define FLASH_CFG_TBL_SINGLE_1G_MX		(MACRONIX_INDEX_START + 6)
+#define FLASH_CFG_TBL_STACKED_1G_MX		(MACRONIX_INDEX_START + 7)
+#define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 8)
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -309,7 +318,7 @@ u32 GetRealAddr(XQspiPs *QspiPtr, u32 Address);
 
 /************************** Variable Definitions *****************************/
 
-FlashInfo Flash_Config_Table[27] = {
+FlashInfo Flash_Config_Table[33] = {
 		/* Spansion */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
@@ -363,12 +372,24 @@ FlashInfo Flash_Config_Table[27] = {
 		{0x20000, 0x100, 512, 0x10000, 0x1000000,
 				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFE0000, 1},
 		/* Macronix */
+		{0x10000, 0x200, 256, 0x20000, 0x2000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_256, 0xFFFF0000, 1},
+		{0x10000, 0x400, 256, 0x40000, 0x2000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_256, 0xFFFF0000, 1},
+		{0x20000, 0x200, 512, 0x20000, 0x2000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_256, 0xFFFE0000, 1},
 		{0x10000, 0x400, 256, 0x40000, 0x4000000,
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_512, 0xFFFF0000, 1},
 		{0x10000, 0x800, 256, 0x80000, 0x4000000,
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_512, 0xFFFF0000, 1},
 		{0x20000, 0x400, 512, 0x40000, 0x4000000,
-				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_512, 0xFFFE0000, 1}
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_512, 0xFFFE0000, 1},
+		{0x2000, 0x4000, 256, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 1},
+		{0x2000, 0x8000, 256, 0x100000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 1},
+		{0x4000, 0x4000, 512, 0x80000, 0x8000000,
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 1}
 };				/**< Flash Config Table */
 
 u32 FlashMake;
@@ -1068,7 +1089,8 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 		}
 	}
 	/* 256 and 512Mbit supported only for Micron and Spansion, not Winbond */
-	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)) &&
+	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)
+			|| (FlashMake == MACRONIX_ID_BYTE0)) &&
 			(ReadBfrPtr[3] == MICRON_ID_BYTE2_256)) {
 
 		switch(QspiPtr->Config.ConnectionMode)
@@ -1114,8 +1136,10 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 	 * This configuration is handled as the above 512Mbit stacked configuration
 	 */
 	/* 1Gbit single, parallel and stacked supported for Micron */
-	if((FlashMake == MICRON_ID_BYTE0) &&
-			(ReadBfrPtr[3] == MICRON_ID_BYTE2_1G)) {
+	if(((FlashMake == MICRON_ID_BYTE0) &&
+		(ReadBfrPtr[3] == MICRON_ID_BYTE2_1G)) ||
+		((FlashMake == MACRONIX_ID_BYTE0) &&
+		 (ReadBfrPtr[3] == MACRONIX_ID_BYTE2_1G))) {
 
 		switch(QspiPtr->Config.ConnectionMode)
 		{
