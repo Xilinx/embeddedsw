@@ -50,6 +50,20 @@ static void RpuLsHandler(u8 ErrorId)
 	XPfw_ResetRpu();
 }
 
+/**
+ * LpdSwdtHandler() - Error handler for LPD system watchdog timer error
+ * @ErrorId   ID of the error
+ *
+ * @note      Called when an error from watchdog timer in the LPD subsystem
+ *            occurs and it resets the PS gracefully (by terminating
+ *            all PS <-> PL transactions before initiating reset)
+*/
+static void LpdSwdtHandler(u8 ErrorId)
+{
+	fw_printf("EM: LPD Watchdog Timer Error (Error ID: %d)\r\n", ErrorId);
+	fw_printf("EM: Initiating PS Only Reset \r\n");
+	XPfw_ResetPsOnly();
+}
 
 /* CfgInit Handler */
 static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
@@ -63,6 +77,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	XPfw_EmInit();
 	/* Set handlers for error manager */
 	XPfw_EmSetAction(EM_ERR_ID_RPU_LS, EM_ACTION_CUSTOM, RpuLsHandler);
+	XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM, LpdSwdtHandler);
 
 	fw_printf("Error Management Module (MOD-%d): Initialized.\r\n",
 			ModPtr->ModId);
