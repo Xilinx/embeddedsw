@@ -54,11 +54,12 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* Node types */
+/* Node types: Slave types must be at the bottom */
 #define PM_TYPE_PROC            1U
 #define PM_TYPE_PWR_ISLAND      2U
 #define PM_TYPE_PWR_DOMAIN      3U
 #define PM_TYPE_SLAVE           4U
+/* All types from here onward are slave types */
 #define PM_TYPE_SRAM            (PM_TYPE_SLAVE + 0U)
 #define PM_TYPE_USB             (PM_TYPE_SLAVE + 1U)
 #define PM_TYPE_GPU_PP          (PM_TYPE_SLAVE + 2U)
