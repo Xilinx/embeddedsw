@@ -34,6 +34,7 @@
 #include "xpfw_resets.h"
 #include "xpfw_events.h"
 #include "xpfw_core.h"
+#include "xpfw_rom_interface.h"
 
 #ifdef ENABLE_EM
 /**
@@ -65,6 +66,28 @@ static void LpdSwdtHandler(u8 ErrorId)
 	XPfw_ResetPsOnly();
 }
 
+/**
+ * FpdSwdtHandler() - Error handler for FPD system watchdog timer error
+ * @ErrorId   ID of the error
+ *
+ * @note      Called when an error from watchdog timer in the FPD subsystem
+ *            occurs and it resets the FPD
+ */
+static void FpdSwdtHandler(u8 ErrorId)
+{
+	u32 status;
+
+	fw_printf("EM: FPD Watchdog Timer Error (Error ID: %d)\r\n", ErrorId);
+	fw_printf("EM: Initiating FPD Reset \r\n");
+	(void)XPfw_ResetFpd();
+
+	fw_printf("EM: Initiating ACPU0 Reset \r\n");
+	status = XpbrRstACPU0Handler();
+	if (XST_SUCCESS != status) {
+		fw_printf("EM: ROM Rst Handler Error #%lu", status);
+	}
+}
+
 /* CfgInit Handler */
 static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 		u32 Len)
@@ -78,6 +101,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	/* Set handlers for error manager */
 	XPfw_EmSetAction(EM_ERR_ID_RPU_LS, EM_ACTION_CUSTOM, RpuLsHandler);
 	XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM, LpdSwdtHandler);
+	XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM, FpdSwdtHandler);
 
 	fw_printf("Error Management Module (MOD-%d): Initialized.\r\n",
 			ModPtr->ModId);
