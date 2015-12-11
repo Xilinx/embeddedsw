@@ -524,6 +524,26 @@ static inline u32 XpbrPwrUpPp1Handler(void)
 	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP1]();
 }
 
+static inline u32 XpbrRstACPU0Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU0]();
+}
+
+static inline u32 XpbrRstACPU1Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU1]();
+}
+
+static inline u32 XpbrRstACPU2Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU2]();
+}
+
+static inline u32 XpbrRstACPU3Handler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU3]();
+}
+
 static inline u32 XpbrRstACPU0CPHandler(void)
 {
 	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTACPU0]();
