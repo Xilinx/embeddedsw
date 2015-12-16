@@ -970,9 +970,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #if defined(XFSBL_RSA) || defined(XFSBL_AES)
 	u32 Length=0U;
 #endif
-#if defined(XFSBL_RSA) || defined(XFSBL_AES) || defined(XFSBL_BS)
 	PTRSIZE LoadAddress=0U;
-#endif
 #if defined(XFSBL_BS)
 	u32 BitstreamWordSize = 0;
 #endif
@@ -1048,10 +1046,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 */
 	}
 
+	LoadAddress = PartitionHeader->DestinationLoadAddress;
+
 #if defined(XFSBL_RSA) || defined(XFSBL_AES)
 	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE))
 	{
-		LoadAddress = PartitionHeader->DestinationLoadAddress;
 		Length = PartitionHeader->TotalDataWordLength * 4U;
 		Status = XFsbl_GetLoadAddress(DestinationCpu,
 				&LoadAddress, Length);
@@ -1064,7 +1063,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 #ifdef XFSBL_BS
 	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
-			(LoadAddress == 0U))
+			(LoadAddress == XFSBL_DUMMY_PL_ADDR))
 	{
 		LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
 	}
