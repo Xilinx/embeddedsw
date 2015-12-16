@@ -37,7 +37,7 @@
 #include "xpfw_module.h"
 #include "xpfw_scheduler.h"
 
-#define XPFW_MAX_MOD_COUNT 4U
+#define XPFW_MAX_MOD_COUNT 32U
 
 #define XPFW_CORE_ERR_TASK_MISS
 #define XPFW_CORe_ERR_TASK_NULL
