@@ -68,7 +68,11 @@
 *
 * <b> Interrupts </b>
 *
-* This driver does not have any interrupts
+* For the driver to process interrupts, the application must set up the
+* system's interrupt controller and connect the XVMix_InterruptHandler function
+* to service interrupts. When an interrupt occurs, XVMix_InterruptHandler will
+* check if ISR source is the Frame Done signal and will trigger next frame
+* processing
 *
 * <b> Virtual Memory </b>
 *
@@ -86,12 +90,12 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   10/29/15   Initial Release
-*
+*             12/14/15   Added interrupt handler
 * </pre>
 *
 ******************************************************************************/
-#ifndef XV_MIX_L2_H		 /* prevent circular inclusions */
-#define XV_MIX_L2_H		 /* by using protection macros */
+#ifndef XV_MIX_L2_H     /* prevent circular inclusions */
+#define XV_MIX_L2_H     /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -105,17 +109,20 @@ extern "C" {
 #define XVMIX_ALPHA_MIN                  (0)
 #define XVMIX_ALPHA_MAX                  (255)
 
+#define XVMIX_IRQ_DONE_MASK              (0x01)
+#define XVMIX_IRQ_READY_MASK             (0x02)
+
 /**************************** Type Definitions *******************************/
 /**
  * This typedef enumerates supported background colors
  */
 typedef enum {
-	XVMIX_BKGND_BLACK = 0,
-	XVMIX_BKGND_WHITE,
-	XVMIX_BKGND_RED,
-	XVMIX_BKGND_GREEN,
-	XVMIX_BKGND_BLUE,
-	XVMIX_BKGND_LAST
+    XVMIX_BKGND_BLACK = 0,
+    XVMIX_BKGND_WHITE,
+    XVMIX_BKGND_RED,
+    XVMIX_BKGND_GREEN,
+    XVMIX_BKGND_BLUE,
+    XVMIX_BKGND_LAST
 }XVMix_BackgroundId;
 
 /**
@@ -123,44 +130,58 @@ typedef enum {
  */
 typedef enum
 {
-	XVMIX_SCALE_FACTOR_1X = 0,
-	XVMIX_SCALE_FACTOR_2X,
-	XVMIX_SCALE_FACTOR_4X,
+    XVMIX_SCALE_FACTOR_1X = 0,
+    XVMIX_SCALE_FACTOR_2X,
+    XVMIX_SCALE_FACTOR_4X,
 }XVMix_Scalefactor;
 
 /**
  * This typedef enumerates layer index
  */
 typedef enum {
-	XVMIX_LAYER_STREAM = 0,
-	XVMIX_LAYER_1,
-	XVMIX_LAYER_2,
-	XVMIX_LAYER_3,
-	XVMIX_LAYER_4,
-	XVMIX_LAYER_5,
-	XVMIX_LAYER_6,
-	XVMIX_LAYER_7,
-	XVMIX_LAYER_LOGO,
-	XVMIX_LAYER_ALL,
-	XVMIX_LAYER_LAST
+    XVMIX_LAYER_STREAM = 0,
+    XVMIX_LAYER_1,
+    XVMIX_LAYER_2,
+    XVMIX_LAYER_3,
+    XVMIX_LAYER_4,
+    XVMIX_LAYER_5,
+    XVMIX_LAYER_6,
+    XVMIX_LAYER_7,
+    XVMIX_LAYER_LOGO,
+    XVMIX_LAYER_ALL,
+    XVMIX_LAYER_LAST
 }XVMix_LayerId;
 
 /**
  * This typedef contains configuration information for a given layer
  */
 typedef struct {
-	XVidC_VideoWindow Win;
-	u8 IsEnabled;
-	int ColorFormat;
-	union {
-		struct {
-			u8 *RBuffer;
-			u8 *GBuffer;
-			u8 *BBuffer;
-		};
-		u32 BufAddr;
-	};
+    XVidC_VideoWindow Win;
+    u8 IsEnabled;
+    int ColorFormat;
+    union {
+        struct {
+            u8 *RBuffer;
+            u8 *GBuffer;
+            u8 *BBuffer;
+        };
+        u32 BufAddr;
+    };
 }XVMix_Layer;
+
+/**
+* Callback type for interrupt.
+*
+* @param    CallbackRef is a callback reference passed in by the upper
+*           layer when setting the callback functions, and passed back to
+*           the upper layer when the callback is invoked.
+*
+* @return   None.
+*
+* @note     None.
+*
+*/
+typedef void (*XVMix_Callback)(void *CallbackRef);
 
 /**
  * Mixer driver Layer 2 data. The user is required to allocate a variable
@@ -168,13 +189,21 @@ typedef struct {
  * variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	XV_mix Mix;            /**< Mixer Layer 1 instance data */
-	XVMix_Layer Layer[XVMIX_MAX_SUPPORTED_LAYERS];  /**< Layer configuration
-	                                                     structure */
-	XVMix_BackgroundId BkgndColor;
-	//I/O Streams
-	XVidC_VideoStream StrmIn;      /**< Input  AXIS */
-	XVidC_VideoStream StrmOut;     /**< Output AXIS */
+    XV_mix Mix;            /**< Mixer Layer 1 instance data */
+
+    /*Callbacks */
+    XVMix_Callback FrameDoneCallback; /**< Callback for frame processing done */
+    void *CallbackRef;	   /**< To be passed to the connect interrupt
+                                callback */
+
+    XVMix_Layer Layer[XVMIX_MAX_SUPPORTED_LAYERS];  /**< Layer configuration
+                                                         structure */
+    XVMix_BackgroundId BkgndColor;
+
+    //I/O Streams
+    XVidC_VideoStream StrmIn;      /**< Input  AXIS */
+    XVidC_VideoStream StrmOut;     /**< Output AXIS */
+
 }XV_Mix_l2;
 
 /************************** Macros Definitions *******************************/
@@ -183,11 +212,11 @@ typedef struct {
 *
 * This macro returns the current set background color id
 *
-* @param	InstancePtr is a pointer to the core instance.
+* @param    InstancePtr is a pointer to the core instance.
 *
-* @return  	Background color id
+* @return   Background color id
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 #define XVMix_GetBackgroundId(InstancePtr)         ((InstancePtr)->BkgndColor)
@@ -197,32 +226,32 @@ typedef struct {
 *
 * This macro returns if alpha feature of specified layer is available
 *
-* @param	InstancePtr is a pointer to the core instance.
+* @param    InstancePtr is a pointer to the core instance.
 * @param    LayerId is the layer index for which information is requested
 *
 * @return   Enabled(1)/Disabled(0)
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 #define XVMix_IsAlphaEnabled(InstancePtr, LayerId) \
-				((InstancePtr)->Mix.Config.AlphaEn[LayerId-1])
+                ((InstancePtr)->Mix.Config.AlphaEn[LayerId-1])
 
 /*****************************************************************************/
 /**
 *
 * This macro returns if scaling feature of specified layer is available
 *
-* @param	InstancePtr is a pointer to the core instance.
+* @param    InstancePtr is a pointer to the core instance.
 * @param    LayerId is the layer index for which information is requested
 *
 * @return   Enabled(1)/Disabled(0)
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 #define XVMix_IsScalingEnabled(InstancePtr, LayerId) \
-				((InstancePtr)->Mix.Config.UpSampleEn[LayerId-1])
+                ((InstancePtr)->Mix.Config.UpSampleEn[LayerId-1])
 
 
 /*****************************************************************************/
@@ -230,14 +259,14 @@ typedef struct {
 *
 * This macro returns state of the specified layer [enabled or disabled]
 *
-* @param	InstancePtr is a pointer to the core instance.
+* @param    InstancePtr is a pointer to the core instance.
 * @param    LayerId is the layer index for which information is requested
 *
 * @return   Enabled(1)/Disabled(0)
 *
 ******************************************************************************/
 #define XVMix_IsLayerEnabled(InstancePtr, LayerId) \
-				((InstancePtr)->Layer[LayerId].IsEnabled)
+                ((InstancePtr)->Layer[LayerId].IsEnabled)
 
 
 /**************************** Function Prototypes *****************************/
@@ -252,52 +281,53 @@ int XVMix_LayerEnable(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 int XVMix_LayerDisable(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 void XVMix_SetResolution(XV_Mix_l2 *InstancePtr, u32 Width, u32 Height);
 void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
-		                   XVMix_BackgroundId ColorId,
+                           XVMix_BackgroundId ColorId,
                            XVidC_ColorDepth  bpc);
 int XVMix_SetLayerColorFormat(XV_Mix_l2 *InstancePtr,
-		                      XVMix_LayerId LayerId,
-		                      XVidC_ColorFormat Cfmt);
+                              XVMix_LayerId LayerId,
+                              XVidC_ColorFormat Cfmt);
 int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
-		                      XVMix_LayerId LayerId,
-		                      XVidC_ColorFormat *Cfmt);
+                              XVMix_LayerId LayerId,
+                              XVidC_ColorFormat *Cfmt);
 int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
-		                 XVMix_LayerId LayerId,
-		                 XVidC_VideoWindow *Win);
+                         XVMix_LayerId LayerId,
+                         XVidC_VideoWindow *Win);
 int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
-		                 XVMix_LayerId LayerId,
-		                 XVidC_VideoWindow *Win);
+                         XVMix_LayerId LayerId,
+                         XVidC_VideoWindow *Win);
 
 int XVMix_SetLayerPosition(XV_Mix_l2 *InstancePtr,
-		                   XVMix_LayerId LayerId,
-		                   u16 StartX,
-		                   u16 StartY);
+                           XVMix_LayerId LayerId,
+                           u16 StartX,
+                           u16 StartY);
 int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
-		                      XVMix_LayerId LayerId,
-		                      XVMix_Scalefactor Scale);
+                              XVMix_LayerId LayerId,
+                              XVMix_Scalefactor Scale);
 int XVMix_GetLayerScaleFactor(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
-		                XVMix_LayerId LayerId,
-		                u8 Alpha);
+                        XVMix_LayerId LayerId,
+                        u8 Alpha);
 int XVMix_GetLayerAlpha(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
                              XVMix_LayerId LayerId,
-	                         u32 Addr);
+                             u32 Addr);
 u32 XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
-		           XVidC_VideoWindow *Win,
-		           u8 *RBuffer,
-		           u8 *GBuffer,
-		           u8 *BBuffer);
+                   XVidC_VideoWindow *Win,
+                   u8 *RBuffer,
+                   u8 *GBuffer,
+                   u8 *BBuffer);
 
 
 void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr);
 void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
-//void XVMix_SetUserTimerHandler(XV_Mix_l2 *InstancePtr,
-//                               XVidC_DelayHandler CallbackFunc,
-//                               void *CallbackRef);
+
+/* Interrupt related function */
+void XVMix_InterruptHandler(void *InstancePtr);
+int XVMix_SetCallback(XV_Mix_l2 *InstancePtr, void *CallbackFunc, void *CallbackRef);
 
 #ifdef __cplusplus
 }
