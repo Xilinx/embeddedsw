@@ -3110,7 +3110,7 @@ static u32 XDp_TxAuxRequestSend(XDp *InstancePtr, XDp_AuxTransaction *Request)
 		if (TimeoutCount >= XDP_AUX_MAX_TIMEOUT_COUNT) {
 			return XST_ERROR_COUNT_MAX;
 		}
-	} while ((Status & XDP_TX_REPLY_STATUS_REQUEST_IN_PROGRESS_MASK) &&
+	} while ((Status & XDP_TX_REPLY_STATUS_REQUEST_IN_PROGRESS_MASK) ||
 			(Status & XDP_TX_REPLY_STATUS_REPLY_IN_PROGRESS_MASK));
 
 	/* Set the address for the request. */
