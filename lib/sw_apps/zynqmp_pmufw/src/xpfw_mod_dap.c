@@ -37,8 +37,6 @@
 #include "xpfw_events.h"
 #include "xpfw_module.h"
 
-/* Enable DAP wake mod only if PM is disabled, to avoid conflicts */
-#ifndef ENABLE_PM
 /* CfgInit Handler */
 static void DapCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
@@ -75,6 +73,3 @@ void ModDapInit(void)
 	(void) XPfw_CoreSetCfgHandler(DapModPtr, DapCfgInit);
 	(void) XPfw_CoreSetEventHandler(DapModPtr, DapEventHandler);
 }
-#else
-	void ModDapInit(void) { }
-#endif
