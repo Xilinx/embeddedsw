@@ -41,6 +41,7 @@
 #include "pm_core.h"
 #include "pm_notifier.h"
 #include "ipi_buffer.h"
+#include "pm_power.h"
 
 /*
  * Macro for all wake events in GPI1 that PM handles.
@@ -269,4 +270,20 @@ XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal,
 
 done:
 	return status;
+}
+
+/**
+ * XPfw_DapFpdWakeEvent() - Inform PM about the FPD DAP wake event
+ */
+void XPfw_DapFpdWakeEvent(void)
+{
+	pmPowerDomainFpd_g.node.currState = PM_PWR_STATE_ON;
+}
+
+/**
+ * XPfw_DapRpuWakeEvent() - Inform PM about the RPU DAP wake event
+ */
+void XPfw_DapRpuWakeEvent(void)
+{
+	pmPowerIslandRpu_g.node.currState = PM_PWR_STATE_ON;
 }

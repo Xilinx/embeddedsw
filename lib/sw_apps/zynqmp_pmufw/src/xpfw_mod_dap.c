@@ -36,6 +36,7 @@
 #include "xpfw_core.h"
 #include "xpfw_events.h"
 #include "xpfw_module.h"
+#include "pm_binding.h"
 
 /* CfgInit Handler */
 static void DapCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
@@ -54,11 +55,17 @@ static void DapEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		/* Call ROM Handler for RPU Wake */
 		XpbrServHndlrTbl[XPBR_SERV_EXT_DAPRPUWAKE]();
 		fw_printf("XPFW: DAP RPU WAKE.. Done\r\n");
+#ifdef ENABLE_PM
+		XPfw_DapRpuWakeEvent();
+#endif
 	}
 	if (XPFW_EV_DAP_FPD_WAKE == EventId) {
 		/* Call ROM Handler for FPD Wake */
 		XpbrServHndlrTbl[XPBR_SERV_EXT_DAPFPDWAKE]();
 		fw_printf("XPFW: DAP FPD WAKE.. Done\r\n");
+#ifdef ENABLE_PM
+		XPfw_DapFpdWakeEvent();
+#endif
 	}
 }
 
