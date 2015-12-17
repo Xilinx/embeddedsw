@@ -183,7 +183,7 @@ extern "C" {
 #define XUARTPS_IXR_RXFULL 	0x00000004U /**< RX FIFO full interrupt. */
 #define XUARTPS_IXR_RXEMPTY	0x00000002U /**< RX FIFO empty interrupt. */
 #define XUARTPS_IXR_RXOVR  	0x00000001U /**< RX FIFO trigger interrupt. */
-#define XUARTPS_IXR_MASK	0x00001FFFU /**< Valid bit mask */
+#define XUARTPS_IXR_MASK	0x00003FFFU /**< Valid bit mask */
 /* @} */
 
 
@@ -342,7 +342,7 @@ extern "C" {
 #define XUARTPS_RXBS_BYTE0_BRKE		0x00000004U /**< Byte0 Break Error */
 #define XUARTPS_RXBS_BYTE0_FRME		0x00000002U /**< Byte0 Frame Error */
 #define XUARTPS_RXBS_BYTE0_PARE		0x00000001U /**< Byte0 Parity Error */
-#define XUARTPS_RXBS_MASK			0x00000FFFU	/**< 24 bit RX byte status mask */
+#define XUARTPS_RXBS_MASK		0x00000007U /**< 3 bit RX byte status mask */
 /* @} */
 
 

@@ -64,7 +64,7 @@
 
 static void ReceiveDataHandler(XUartPs *InstancePtr);
 static void SendDataHandler(XUartPs *InstancePtr, u32 IsrStatus);
-static void ReceiveErrorHandler(XUartPs *InstancePtr);
+static void ReceiveErrorHandler(XUartPs *InstancePtr, u32 IsrStatus);
 static void ReceiveTimeoutHandler(XUartPs *InstancePtr);
 static void ModemHandler(XUartPs *InstancePtr);
 
@@ -215,7 +215,7 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr)
 	if ((IsrStatus & ((u32)XUARTPS_IXR_OVER | (u32)XUARTPS_IXR_FRAMING |
 			(u32)XUARTPS_IXR_PARITY | (u32)XUARTPS_IXR_RBRK)) != (u32)0) {
 		/* Received Error Status interrupt */
-		ReceiveErrorHandler(InstancePtr);
+		ReceiveErrorHandler(InstancePtr, IsrStatus);
 	}
 
 	if((IsrStatus & ((u32)XUARTPS_IXR_TOUT)) != (u32)0) {
@@ -247,54 +247,42 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-static void ReceiveErrorHandler(XUartPs *InstancePtr)
+static void ReceiveErrorHandler(XUartPs *InstancePtr, u32 IsrStatus)
 {
 	u32 ByteStatusValue, EventData;
 	u32 Event;
 
-	if (InstancePtr->Platform == XPLAT_ZYNQ_ULTRA_MP) {
-		ByteStatusValue = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
-													XUARTPS_RXBS_OFFSET);
-	}
+	InstancePtr->is_rxbs_error = 0;
 
+	if ((InstancePtr->Platform == XPLAT_ZYNQ_ULTRA_MP) &&
+		(IsrStatus & ((u32)XUARTPS_IXR_PARITY | (u32)XUARTPS_IXR_RBRK
+					| (u32)XUARTPS_IXR_FRAMING))) {
+		InstancePtr->is_rxbs_error = 1;
+	}
 	/*
 	 * If there are bytes still to be received in the specified buffer
 	 * go ahead and receive them. Removing bytes from the RX FIFO will
 	 * clear the interrupt.
 	 */
-	if (InstancePtr->ReceiveBuffer.RemainingBytes != (u32)0) {
-		(void)XUartPs_ReceiveBuffer(InstancePtr);
-	}
 
-	/* Platform Zynq Ultrascale+ MP */
-	if (InstancePtr->Platform == XPLAT_ZYNQ_ULTRA_MP) {
-		if((ByteStatusValue & XUARTPS_RXBS_MASK)!= (u32)0) {
-			EventData = ByteStatusValue;
-			Event = XUARTPS_EVENT_PARE_FRAME_BRKE;
-		}
-		else {
-			EventData = InstancePtr->ReceiveBuffer.RequestedBytes -
-							InstancePtr->ReceiveBuffer.RemainingBytes;
-			Event = XUARTPS_EVENT_RECV_ORERR;
-		}
-	}
-	/* Platform Zynq */
-	else {
+	(void)XUartPs_ReceiveBuffer(InstancePtr);
+
+	if (!(InstancePtr->is_rxbs_error)) {
 		Event = XUARTPS_EVENT_RECV_ERROR;
 		EventData = InstancePtr->ReceiveBuffer.RequestedBytes -
-				InstancePtr->ReceiveBuffer.RemainingBytes;
+			InstancePtr->ReceiveBuffer.RemainingBytes;
+
+		/*
+		 * Call the application handler to indicate that there is a receive
+		 * error or a break interrupt, if the application cares about the
+		 * error it call a function to get the last errors.
+		 */
+		InstancePtr->Handler(InstancePtr->CallBackRef,
+					Event,
+					EventData);
 	}
-
-	/*
-	 * Call the application handler to indicate that there is a receive
-	 * error or a break interrupt, if the application cares about the
-	 * error it call a function to get the last errors.
-	 */
-	InstancePtr->Handler(InstancePtr->CallBackRef,
-				Event,
-				EventData);
-
 }
+
 /****************************************************************************/
 /**
 *

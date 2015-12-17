@@ -157,6 +157,8 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	/* Initialize the platform data */
 	InstancePtr->Platform = XGetPlatform_Info();
 
+	InstancePtr->is_rxbs_error = 0U;
+
 	/* Flag that the driver instance is ready to use */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
@@ -447,6 +449,8 @@ u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 {
 	u32 CsrRegister;
 	u32 ReceivedCount = 0U;
+	u32 ByteStatusValue, EventData;
+	u32 Event;
 
 	/*
 	 * Read the Channel Status Register to determine if there is any data in
@@ -459,8 +463,25 @@ u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 	 * Loop until there is no more data in RX FIFO or the specified
 	 * number of bytes has been received
 	 */
-	while((ReceivedCount < InstancePtr->ReceiveBuffer.RemainingBytes)&&
+	while((ReceivedCount <= InstancePtr->ReceiveBuffer.RemainingBytes)&&
 		(((CsrRegister & XUARTPS_SR_RXEMPTY) == (u32)0))){
+
+		if (InstancePtr->is_rxbs_error) {
+			ByteStatusValue = XUartPs_ReadReg(
+						InstancePtr->Config.BaseAddress,
+						XUARTPS_RXBS_OFFSET);
+			if((ByteStatusValue & XUARTPS_RXBS_MASK)!= (u32)0) {
+				EventData = ByteStatusValue;
+				Event = XUARTPS_EVENT_PARE_FRAME_BRKE;
+				/*
+				 * Call the application handler to indicate that there is a receive
+				 * error or a break interrupt, if the application cares about the
+				 * error it call a function to get the last errors.
+				 */
+				InstancePtr->Handler(InstancePtr->CallBackRef,
+							Event, EventData);
+			}
+		}
 
 		InstancePtr->ReceiveBuffer.NextBytePtr[ReceivedCount] =
 			XUartPs_ReadReg(InstancePtr->Config.
@@ -472,7 +493,7 @@ u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 		CsrRegister = XUartPs_ReadReg(InstancePtr->Config.BaseAddress,
 								XUARTPS_SR_OFFSET);
 	}
-
+	InstancePtr->is_rxbs_error = 0;
 	/*
 	 * Update the receive buffer to reflect the number of bytes just
 	 * received

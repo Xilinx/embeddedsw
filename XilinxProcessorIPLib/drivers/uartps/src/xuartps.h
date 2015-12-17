@@ -336,6 +336,7 @@ typedef struct {
 	XUartPs_Handler Handler;
 	void *CallBackRef;	/* Callback reference for event handler */
 	u32 Platform;
+	u8 is_rxbs_error;
 } XUartPs;
 
 
