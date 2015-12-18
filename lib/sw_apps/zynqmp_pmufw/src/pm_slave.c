@@ -247,11 +247,6 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 		goto done;
 	}
 
-	if ((0U == (slave->node.currState & PM_CAP_POWER)) &&
-	    (NULL != slave->node.parent)) {
-		PmOpportunisticSuspend(slave->node.parent);
-	}
-
 done:
 #ifdef DEBUG_PM
 	if (XST_SUCCESS == status) {
@@ -468,10 +463,8 @@ int PmUpdateSlave(PmSlave* const slave)
 	/* remember the remaining latency margin for upper levels to use */
 	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);
 
-	if ((NULL != slave->node.parent) &&
-	    (latencyMargin < slave->node.latencyMarg) &&
-	    (false == IS_OFF(&slave->node.parent->node))) {
-		/* latency margin increased? => try opportunistic suspend */
+	if ((0U == (slave->slvFsm->states[state] & PM_CAP_POWER)) &&
+	    (NULL != slave->node.parent)) {
 		PmOpportunisticSuspend(slave->node.parent);
 	}
 
