@@ -98,7 +98,17 @@ _startup:
 	/* set stack pointer */
 	ldr	r13,.Lstack		/* stack address */
 
+	/* run global constructors */
+	bl __libc_init_array
+
+	/* make sure argc and argv are valid */
+	mov	r0, #0
+	mov	r1, #0
+
 	bl	main			/* Jump to main C code */
+
+	/* Cleanup global constructors */
+	bl __libc_fini_array
 
 	bl	_exit
 

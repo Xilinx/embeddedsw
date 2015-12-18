@@ -97,6 +97,8 @@ _startup:
 	b	.Lloop_bss
 
 .Lenclbss:
+	/* run global constructors */
+	bl __libc_init_array
 
 	/* make sure argc and argv are valid */
 	mov	x0, #0
@@ -104,7 +106,8 @@ _startup:
 
 	bl	main			/* Jump to main C code */
 
-
+	/* Cleanup global constructors */
+	bl __libc_fini_array
 
 	bl	_exit
 
