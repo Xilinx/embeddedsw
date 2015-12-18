@@ -150,32 +150,38 @@ void Init_MPU(void)
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	Addr = 0x80000000;
+	RegSize = REGION_1G;
+	Attrib = STRONG_ORDERD_SHARED | PRIV_RW_USER_RW   ;
+	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	RegNum++;
+
 	Addr = 0xC0000000U;
 	RegSize = REGION_512M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
-	Addr = 0xF0000000U;
-	RegSize = REGION_128M;
+	Addr = 0xE0000000U;
+	RegSize = REGION_256M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	Addr = 0xF8000000U;
-	RegSize = REGION_64M;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	RegNum++;
-
-	Addr = 0xFC000000U;
-	RegSize = REGION_32M;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	RegNum++;
-
-	Addr = 0xFE000000U;
 	RegSize = REGION_16M;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	RegNum++;
+
+	Addr = 0xF9000000U;
+	RegSize = REGION_1M;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	RegNum++;
+
+	Addr = 0xFD000000U;
+	RegSize = REGION_32M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
