@@ -119,22 +119,22 @@ MMUTable:
 .set	SECT, SECT+0x100000
 .endr
 
-.rept	0x10			/* 0xf9000000 - 0xf9ffffff (RPU LLP and A53 PP) */
+.rept	0x1			/* 0xf9000000 - 0xf90fffff (RPU_A53_GIC) */
 .word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
 
-.rept	0x44			/* 0xfA000000 - 0xfe3fffff (Device).*/
+.rept	0x3f			/* 0xf9100000 - 0xfcffffff (reserved).*/
+.word	SECT + 0x0		/* S=b0 TEX=b000 AP=b00, Domain=b0, C=b0, B=b0 */
+.set	SECT, SECT+0x100000
+.endr
+
+.rept	0x10			/* 0xfd000000 - 0xfdffffff (FPS Slaves) */
 .word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
 
-.rept	0x8			/* 0xfe4000000 - 0xfebfffff (FPS Slaves) */
-.word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
-.set	SECT, SECT+0x100000
-.endr
-
-.rept	0x10			/* 0xfec000000 - 0xffbfffff (LPS Slaves) */
+.rept	0x1C			/* 0xfe0000000 - 0xfeffffff (LPS Slaves) */
 .word	SECT + 0xc06		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
