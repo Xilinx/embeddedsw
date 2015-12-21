@@ -712,6 +712,7 @@ u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		/* If decryption failed then return error. */
 		if(0U == (u32)Status)
 		{
+			ErrorCode = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 			goto ENDF;
 		}
 
