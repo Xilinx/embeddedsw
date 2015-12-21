@@ -37,16 +37,10 @@ proc swapp_is_supported_sw {} {
 	# make sure xilffs and xilrsa libraries are available
 
     set librarylist_1 [hsi::get_libs -filter "NAME==xilffs"];
-    set librarylist_2 [hsi::get_libs -filter "NAME==xilrsa"];
 
-	if { [llength $librarylist_1] == 0 && [llength $librarylist_2] == 0 } {
-        error "This application requires xilffs and xilrsa libraries in the Board Support Package.";
-    } elseif { [llength $librarylist_1] == 0 } {
+    if { [llength $librarylist_1] == 0 } {
         error "This application requires xilffs library in the Board Support Package.";
-    } elseif { [llength $librarylist_2] == 0 } {
-        error "This application requires xilrsa library in the Board Support Package.";
-    }
-
+	}
 }
 
 proc swapp_is_supported_hw {} {
