@@ -202,6 +202,8 @@
 *			modified for MISRA-C:2012 compliance.
 * 3.1 adk     10/11/15  Fixed CR#911958 Add support for Tx Watermark example.
 *			Data mismatch while sending data less than 8 bytes.
+* 3.1 nsk     12/21/15  Updated XCanPs_IntrHandler in xcanps_intr.c to handle
+*			error interrupts correctly. CR#925615
 * </pre>
 *
 ******************************************************************************/

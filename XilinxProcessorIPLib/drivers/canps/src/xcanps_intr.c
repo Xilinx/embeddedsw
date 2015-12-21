@@ -45,6 +45,8 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.00a xd/sv  01/12/10 First release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.1   nsk    12/21/15 Updated XCanPs_IntrHandler to handle error
+*			interrupts correctly. CR#925615
 * </pre>
 *
 ******************************************************************************/
@@ -233,6 +235,7 @@ void XCanPs_IntrHandler(void *InstancePtr)
 {
 	u32 PendingIntr;
 	u32 EventIntr;
+	u32 ErrorStatus;
 	XCanPs *CanPtr = (XCanPs *) ((void *)InstancePtr);
 
 	Xil_AssertVoid(CanPtr != NULL);
@@ -252,13 +255,12 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	 */
 	if (((PendingIntr & XCANPS_IXR_ERROR_MASK) != (u32)0) &&
 		(CanPtr->ErrorHandler != NULL)) {
-			CanPtr->ErrorHandler(CanPtr->ErrorRef,
-					XCanPs_GetBusErrorStatus(CanPtr));
+			ErrorStatus = XCanPs_GetBusErrorStatus(CanPtr);
+			CanPtr->ErrorHandler(CanPtr->ErrorRef,ErrorStatus);
 		/*
 		 * Clear Error Status Register.
 		 */
-		XCanPs_ClearBusErrorStatus(CanPtr,
-					XCanPs_GetBusErrorStatus(CanPtr));
+		XCanPs_ClearBusErrorStatus(CanPtr,ErrorStatus);
 	}
 
 	/*
