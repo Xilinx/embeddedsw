@@ -61,6 +61,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#ifdef RSA_SUPPORT
 #include "fsbl.h"
 #include "rsa.h"
 #include "xilrsa.h"
@@ -85,7 +86,6 @@ extern XWdtPs Watchdog;	/* Instance of WatchDog Timer	*/
 
 /************************** Variable Definitions *****************************/
 
-#ifdef RSA_SUPPORT
 static u8 *PpkModular;
 static u8 *PpkModularEx;
 static u32	PpkExp;
