@@ -790,10 +790,8 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 	}
 	NumBytesLeftInSeg = 256 - Offset;
 
-	/* Set the segment pointer to 0. */
-	if (SegPtr != 0) {
-		XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
-	}
+	/* Set the segment pointer. */
+	XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	/* Send I2C read message. Multiple transactions are required if the
 	 * requested data spans multiple segments. */
@@ -845,10 +843,8 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 	}
 
 	/* Reset the segment pointer to 0. */
-	if (SegPtr != 0) {
-		SegPtr = 0;
-		XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
-	}
+	SegPtr = 0;
+	XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	return Status;
 }
