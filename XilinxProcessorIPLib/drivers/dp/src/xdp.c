@@ -769,6 +769,7 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 	u16 NumBytesLeftInSeg;
 	u16 BytesLeft;
 	u8 CurrBytesToRead;
+	u8 Offset8;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -788,7 +789,8 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 		SegPtr += Offset / 256;
 		Offset %= 256;
 	}
-	NumBytesLeftInSeg = 256 - Offset;
+	Offset8 = Offset;
+	NumBytesLeftInSeg = 256 - Offset8;
 
 	/* Set the segment pointer. */
 	XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR, 1, &SegPtr);
@@ -806,7 +808,9 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 		}
 
 		/* Setup the I2C-over-AUX read transaction with the offset. */
-		Status = XDp_TxIicWrite(InstancePtr, IicAddress, 1, &Offset);
+		Status = XDp_TxAuxCommon(InstancePtr,
+				XDP_TX_AUX_CMD_I2C_WRITE_MOT, IicAddress, 1,
+				&Offset8);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -835,6 +839,7 @@ u32 XDp_TxIicRead(XDp *InstancePtr, u8 IicAddress, u16 Offset,
 				XDp_TxIicWrite(InstancePtr, XDP_SEGPTR_ADDR,
 								1, &SegPtr);
 			}
+			Offset8 = Offset;
 		}
 		/* Last I2C read. */
 		else {
