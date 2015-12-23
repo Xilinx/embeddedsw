@@ -136,7 +136,9 @@
 #endif
 
 #ifdef STDOUT_BASEADDRESS
+#ifdef XPAR_XUARTPS_0_BASEADDR
 #include "xuartps_hw.h"
+#endif
 #endif
 
 #ifdef RSA_SUPPORT
@@ -798,7 +800,9 @@ void FsblHandoff(u32 FsblStartAddr)
 void OutputStatus(u32 State)
 {
 #ifdef STDOUT_BASEADDRESS
+#ifdef XPAR_XUARTPS_0_BASEADDR
 	u32 UartReg = 0;
+#endif
 
 	fsbl_printf(DEBUG_GENERAL,"FSBL Status = 0x%.4lx\r\n", State);
 	/*
@@ -806,10 +810,12 @@ void OutputStatus(u32 State)
 	 * If this is not done some of the prints will not appear on the
 	 * serial output
 	 */
+#ifdef XPAR_XUARTPS_0_BASEADDR
 	UartReg = Xil_In32(STDOUT_BASEADDRESS + XUARTPS_SR_OFFSET);
 	while ((UartReg & XUARTPS_SR_TXEMPTY) != XUARTPS_SR_TXEMPTY) {
 		UartReg = Xil_In32(STDOUT_BASEADDRESS + XUARTPS_SR_OFFSET);
 	}
+#endif
 #endif
 }
 
