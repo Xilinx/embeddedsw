@@ -61,13 +61,21 @@ extern "C" {
 #define XPLAT_ZYNQ 0x4
 #define XPLAT_MICROBLAZE 0x5
 
+#define XPS_VERSION_1 0x0
+
 #define XPLAT_INFO_MASK (0xF)
+#define XPS_VERSION_INFO_MASK (0xF)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
 u32 XGetPlatform_Info();
+
+#if defined (ARMR5) || (__aarch64__)
+u32 XGetPSVersion_Info();
+#endif
 
 #if defined (ARMR5) || (__aarch64__)
 u32 XGet_Zynq_UltraMp_Platform_info();

@@ -107,3 +107,25 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 	return reg;
 }
 #endif
+
+/*****************************************************************************/
+/**
+*
+* This API is used to provide information about PS Silicon version
+*
+* @param    None.
+*
+* @return   The information about PS Silicon version.
+*
+* @note     None.
+*
+******************************************************************************/
+#if defined (ARMR5) || (__aarch64__)
+u32 XGetPSVersion_Info()
+{
+	u32 reg;
+	reg = (Xil_In32(XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET)
+			& XPS_VERSION_INFO_MASK);
+	return reg;
+}
+#endif
