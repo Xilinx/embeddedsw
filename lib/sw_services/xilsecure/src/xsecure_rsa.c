@@ -51,7 +51,8 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ba   13/10/14 Initial release
+* 1.0   ba   10/13/14 Initial release
+* 1.1   ba   12/11/15 Added support for NIST approved SHA-3 in 2.0 silicon
 *
 * </pre>
 *
@@ -64,15 +65,25 @@
 
 /************************** Constant Definitions *****************************/
 
-/* PKCS padding for SHA-3 */
-static const u8 XSecure_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU, 0x06U, 0x09U,
-			0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U,
-			0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
+/* PKCS padding for SHA-3 in 1.0 Silicon */
+static const u8 XSecure_Silicon1_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
 
-/* PKCS padding scheme for SHA-2 */
-static const u8 XSecure_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU, 0x06U, 0x09U,
-			0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U,
-			0x01U, 0x05U, 0x00U, 0x04U, 0x20U };
+/* PKCS padding scheme for SHA-2 in 1.0 Silicon */
+static const u8 XSecure_Silicon1_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x01U, 0x05U, 0x00U, 0x04U, 0x20U };
+
+/* PKCS padding for SHA-3 in 2.0 Silicon and onwards */
+static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
+
+/* PKCS padding scheme for SHA-2 in 2.0 Silicon and onwards */
+static const u8 XSecure_Silicon2_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x01U, 0x05U, 0x00U, 0x04U, 0x20U };
 
 /**************************** Type Definitions *******************************/
 
@@ -383,7 +394,7 @@ END:
  * Match the decrypted data with expected data
  *
  * @param	Signature is the pointer to RSA signature for data to be
- *          	authenticated
+ *          authenticated
  * @param	Hash is the pointer to expected hash data
  * @param	HashLen is the length of Hash used.
  *
@@ -401,16 +412,33 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	u8 * Tpadding = (u8 *)XNULL;
 	u32 Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
 	u8 * PadPtr = Signature;
-	u32 ii;
+	u32 sign_index;
 	u32 Status = XST_SUCCESS;
 
-	if(XSECURE_HASH_TYPE_SHA3 == HashLen)
+	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
+	 * id for padding
+	 */
+	if (XGetPSVersion_Info() != XPS_VERSION_1)
 	{
-		Tpadding = (u8 *)XSecure_TPadSha3;
+		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
+		{
+			Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
+		}
+		else
+		{
+			Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
+		}
 	}
 	else
 	{
-		Tpadding = (u8 *)XSecure_TPadSha2;
+		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
+		{
+			Tpadding = (u8 *)XSecure_Silicon1_TPadSha3;
+		}
+		else
+		{
+			Tpadding = (u8 *)XSecure_Silicon1_TPadSha2;
+		}
 	}
 
 	/*
@@ -433,7 +461,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	}
 	PadPtr++;
 
-	for (ii = 0U; ii < Pad; ii++)
+	for (sign_index = 0U; sign_index < Pad; sign_index++)
 	{
 		if (0xFFU != *PadPtr)
 		{
@@ -450,9 +478,9 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	}
 	PadPtr++;
 
-	for (ii = 0U; ii < 19U; ii++)
+	for (sign_index = 0U; sign_index < 19U; sign_index++)
 	{
-		if (*PadPtr != Tpadding[ii])
+		if (*PadPtr != Tpadding[sign_index])
 		{
 			Status = XST_FAILURE;
 			goto ENDF;
@@ -460,9 +488,9 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		PadPtr++;
 	}
 
-	for (ii = 0U; ii < HashLen; ii++)
+	for (sign_index = 0U; sign_index < HashLen; sign_index++)
 	{
-		if (*PadPtr != Hash[ii])
+		if (*PadPtr != Hash[sign_index])
 		{
 			Status = XST_FAILURE;
 			goto ENDF;

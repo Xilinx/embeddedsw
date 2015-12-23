@@ -74,7 +74,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ba   10/10/14 Initial release
+* 1.0   ba   10/10/14 Initial release
 *
 * </pre>
 *
@@ -93,6 +93,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xil_io.h"
 #include "xstatus.h"
+#include "xplatform_info.h"
 /************************** Constant Definitions ****************************/
 
 /** @name Control Register
