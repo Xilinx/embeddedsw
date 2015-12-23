@@ -56,7 +56,8 @@
 #include "xil_exception.h"
 
 /************************** Constant Definitions *****************************/
-#define XFSBL_BASE_FILE_NAME_LEN 8
+#define XFSBL_BASE_FILE_NAME_LEN_SD_0 8
+#define XFSBL_BASE_FILE_NAME_LEN_SD_1 11
 #define XFSBL_NUM_DIGITS_IN_FILE_NAME 4
 
 /**************************** Type Definitions *******************************/
@@ -304,6 +305,7 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 
 	u32 Index;
 	u32 Value;
+	u32 FileNameLen;
 	u32 MultiBootNum = MultibootReg;
 
 	if (0x0U == MultiBootNum)
@@ -313,7 +315,7 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT.BIN");
 		}
 		else {
-			/* For XFSBL_SD1_BOOT_MODE or XFSBL_SD1_LS_BOOT_MODE */
+			/* For second SD instance, include drive number 1 as well */
 			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "1:/BOOT.BIN");
 		}
 	}
@@ -322,15 +324,17 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 		/* set default SD file name as BOOT0000.BIN */
 		if (DrvNum == XFSBL_SD_DRV_NUM_0) {
 			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT0000.BIN");
+			FileNameLen = XFSBL_BASE_FILE_NAME_LEN_SD_0;
 		}
 		else {
-			/* For XFSBL_SD1_BOOT_MODE or XFSBL_SD1_LS_BOOT_MODE */
+			/* For second SD instance, include drive number 1 as well */
 			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "1:/BOOT0000.BIN");
+			FileNameLen = XFSBL_BASE_FILE_NAME_LEN_SD_1;
 		}
 
 		/* Update file name (to BOOTXXXX.BIN) based on Multiboot register value */
-		for(Index = XFSBL_BASE_FILE_NAME_LEN - 1;
-				Index >= XFSBL_BASE_FILE_NAME_LEN - XFSBL_NUM_DIGITS_IN_FILE_NAME;
+		for(Index = FileNameLen - 1;
+				Index >= FileNameLen - XFSBL_NUM_DIGITS_IN_FILE_NAME;
 				Index--)
 		{
 			Value = MultiBootNum % 10;
