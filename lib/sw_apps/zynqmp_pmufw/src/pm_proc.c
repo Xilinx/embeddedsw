@@ -51,6 +51,7 @@
 #include "pm_proc.h"
 #include "pm_master.h"
 #include "crl_apb.h"
+#include "crf_apb.h"
 #include "xpfw_rom_interface.h"
 
 /**
@@ -73,15 +74,27 @@ int PmProcSleep(PmNode* const nodePtr)
 	/* Call proper PMU-ROM handler as needed */
 	switch (nodePtr->nodeId) {
 	case NODE_APU_0:
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
+			   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK);
 		status = XpbrACPU0SleepHandler();
 		break;
 	case NODE_APU_1:
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
+			   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK);
 		status = XpbrACPU1SleepHandler();
 		break;
 	case NODE_APU_2:
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
+			   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK);
 		status = XpbrACPU2SleepHandler();
 		break;
 	case NODE_APU_3:
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
+			   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK);
 		status = XpbrACPU3SleepHandler();
 		break;
 	case NODE_RPU_0:
@@ -139,15 +152,43 @@ int PmProcWake(PmNode* const nodePtr)
 	switch (nodePtr->nodeId) {
 	case NODE_APU_0:
 		status = XpbrACPU0WakeHandler();
+		if (status != XST_SUCCESS) {
+			break;
+		}
+
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
+			   0);
 		break;
 	case NODE_APU_1:
 		status = XpbrACPU1WakeHandler();
+		if (status != XST_SUCCESS) {
+			break;
+		}
+
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
+			   0);
 		break;
 	case NODE_APU_2:
 		status = XpbrACPU2WakeHandler();
+		if (status != XST_SUCCESS) {
+			break;
+		}
+
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
+			   0);
 		break;
 	case NODE_APU_3:
 		status = XpbrACPU3WakeHandler();
+		if (status != XST_SUCCESS) {
+			break;
+		}
+
+		XPfw_RMW32(CRF_APB_RST_FPD_APU,
+			   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
+			   0);
 		break;
 	case NODE_RPU_0:
 		status = XpbrRstR50Handler();
