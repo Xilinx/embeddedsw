@@ -44,13 +44,15 @@
 *
 * @note
 *
-* This example can been run on any Virtex4 or Virtex5 or Virtex6 or a
-* Spartan6 or a 7 series device or a Zynq device.
+* This example can be run on a 7 series device, Zynq device, Ultrascale
+* and ZynqMP Ultrascale FPGAs.
 *
 * In a Zynq device the ICAP needs to be selected using the
 * XDcfg_SelectIcapInterface API of the DevCfg driver (clear the PCAP_PR bit of
 * Control register in the Device Config Interface)  before it can be
 * accessed using the HwIcap.
+* In case of ZynqMP clear the PCAP_PR bit of pcap_ctrl register in Module
+* Configuration Security Unit(CSU) using register write.
 *
 * <pre>
 *
