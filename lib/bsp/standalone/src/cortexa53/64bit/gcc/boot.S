@@ -78,6 +78,7 @@
 .set L1Table,	MMUTableL1
 .set L2Table,	MMUTableL2
 .set vector_base,	_vector_table
+.set rvbar_base,	0xFD5C0040
 
 .section .boot,"ax"
 
@@ -132,6 +133,19 @@ OKToRun:
 	/*Set vector table base address*/
 	ldr	x1, =vector_base
 	msr	VBAR_EL3,x1
+
+	/* Set reset vector address */
+	/* Get the cpu ID */
+	mrs  x0, MPIDR_EL1
+	and  x0, x0, #0xFF
+	mov  w0, w0
+	ldr	 w2, =rvbar_base
+	/* calculate the rvbar base address for particular CPU core */
+	mov	 w3, #0x8
+	mul	 w0, w0, w3
+	add	 w2, w2, w0
+	/* store vector base address to RVBAR */
+	str  x1, [x2]
 
 	/*Define stack pointer for current exception level*/
 	ldr	 x2,=EL3_stack
