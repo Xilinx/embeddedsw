@@ -45,11 +45,13 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who    Date     Changes
+* Ver   Who    Date    Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/21/15   Initial Release
-* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
-*
+* 1.00  rco   07/21/15 Initial Release
+* 2.00  rco   11/05/15 Integrate layer-1 with layer-2
+*       dmc   12/17/15 IsDemoWindowEnabled prevents access to absent HW regs
+*                      Corrected typo in XV_CscSetColorspace setting K31 FW reg
+*                      Updated the XV_CscDbgReportStatus routine
 * </pre>
 *
 ******************************************************************************/
@@ -262,40 +264,50 @@ void XV_CscSetActiveSize(XV_Csc_l2 *InstancePtr,
   XV_csc_Set_HwReg_width(&InstancePtr->Csc,  width);
   XV_csc_Set_HwReg_height(&InstancePtr->Csc, height);
 
-  //Reset demo window to full frame
-  XV_csc_Set_HwReg_ColStart(&InstancePtr->Csc, 0);
-  XV_csc_Set_HwReg_ColEnd(&InstancePtr->Csc,   (width-1));
-  XV_csc_Set_HwReg_RowStart(&InstancePtr->Csc, 0);
-  XV_csc_Set_HwReg_RowEnd(&InstancePtr->Csc,  (height-1));
+  if (XV_CscIsDemoWindowEnabled(InstancePtr)) {
+    //Reset demo window to full frame
+    XV_csc_Set_HwReg_ColStart(&InstancePtr->Csc, 0);
+    XV_csc_Set_HwReg_ColEnd(&InstancePtr->Csc, (width-1));
+    XV_csc_Set_HwReg_RowStart(&InstancePtr->Csc, 0);
+    XV_csc_Set_HwReg_RowEnd(&InstancePtr->Csc, (height-1));
+  }
 }
 
 /*****************************************************************************/
 /**
-* This function set the demo window for the Color space converter. Any pixel
+* This function sets the demo window for the Color space converter. Any pixel
 * outside the demo window will not be impacted and will be passed to output
 * as-is
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  ActiveWindow is structure that contains window coordinates and size
+* @param  DemoWindow is structure that contains window coordinates and size
 *
-* @return None
+* @return XST_SUCCESS if this core instance has the demo window enabled
+*         XST_FAILURE if this instance does not have the demo window enabled
 *
 ******************************************************************************/
-void XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *ActiveWindow)
+int XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *DemoWindow)
 {
-  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr != NULL);
 
-  XV_csc_Set_HwReg_ColStart(&InstancePtr->Csc, ActiveWindow->StartX);
-  XV_csc_Set_HwReg_ColEnd(&InstancePtr->Csc,   (ActiveWindow->StartX+ActiveWindow->Width-1));
-  XV_csc_Set_HwReg_RowStart(&InstancePtr->Csc, ActiveWindow->StartY);
-  XV_csc_Set_HwReg_RowEnd(&InstancePtr->Csc,   (ActiveWindow->StartY+ActiveWindow->Height-1));
+  if (XV_CscIsDemoWindowEnabled(InstancePtr)) {
+    XV_csc_Set_HwReg_ColStart(&InstancePtr->Csc, DemoWindow->StartX);
+    XV_csc_Set_HwReg_ColEnd(&InstancePtr->Csc,
+      (DemoWindow->StartX+DemoWindow->Width-1));
+    XV_csc_Set_HwReg_RowStart(&InstancePtr->Csc, DemoWindow->StartY);
+    XV_csc_Set_HwReg_RowEnd(&InstancePtr->Csc,
+      (DemoWindow->StartY+DemoWindow->Height-1));
+	return XST_SUCCESS;
+  } else {
+	return XST_FAILURE;
+  }
 }
 
 /*****************************************************************************/
 /**
  * This function configures the Color space converter to user specified
  * settings. Before any feature specific calls in layer-2 driver is made
- * csc core should have been configured via this call.
+ * the csc core should have been configured via this call.
  *
  * @param  InstancePtr is a pointer to the core instance to be worked on.
  * @param  cfmtIn is input color space
@@ -304,15 +316,16 @@ void XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *ActiveWindow
  * @param  cstdOut is output color standard
  * @param  cRangeOut is the selected output range
  *
- * @return None
+ * @return XST_SUCCESS if the requested color format is allowed
+ *         XST_FAILURE if YUV422 color format is requested but not allowed
  *
  *****************************************************************************/
-void XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
+int XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
                          XVidC_ColorFormat cfmtIn,
                          XVidC_ColorFormat cfmtOut,
                          XVidC_ColorStd cstdIn,
                          XVidC_ColorStd cstdOut,
-                         XVidC_ColorRange  cRangeOut
+                         XVidC_ColorRange cRangeOut
                         )
 {
   s32 K[3][4], K1[3][4], K2[3][4];
@@ -324,7 +337,13 @@ void XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
   /*
    * Assert validates the input arguments
    */
-  Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  // if 422 is requested but not allowed, return failure
+  if (((cfmtIn == XVIDC_CSF_YCRCB_422)||(cfmtOut == XVIDC_CSF_YCRCB_422)) &&
+      !XV_CscIs422Enabled(InstancePtr)) {
+    return XST_FAILURE;
+  }
 
   ClipMax  = ((1<<InstancePtr->ColorDepth)-1);
   scale_factor = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
@@ -379,7 +398,7 @@ void XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
   cscFw_RegW(InstancePtr, CSC_FW_REG_K21,K[1][0]);
   cscFw_RegW(InstancePtr, CSC_FW_REG_K22,K[1][1]);
   cscFw_RegW(InstancePtr, CSC_FW_REG_K23,K[1][2]);
-  cscFw_RegW(InstancePtr, CSC_FW_REG_K13,K[2][0]);
+  cscFw_RegW(InstancePtr, CSC_FW_REG_K31,K[2][0]);
   cscFw_RegW(InstancePtr, CSC_FW_REG_K32,K[2][1]);
   cscFw_RegW(InstancePtr, CSC_FW_REG_K33,K[2][2]);
   cscFw_RegW(InstancePtr, CSC_FW_REG_ROffset,K[0][3]);
@@ -394,6 +413,8 @@ void XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
   //write IP Registers
   cscUpdateIPReg(InstancePtr, UPDT_REG_FULL_FRAME);
   cscUpdateIPReg(InstancePtr, UPD_REG_DEMO_WIN);
+
+  return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -1199,21 +1220,37 @@ static void cscUpdateIPReg(XV_Csc_l2 *CscPtr,
         K[2][3] = cscFw_RegR(CscPtr, CSC_FW_REG_BOffset_2);
         clampMin = cscFw_RegR(CscPtr, CSC_FW_REG_ClampMin_2);
         clipMax  = cscFw_RegR(CscPtr, CSC_FW_REG_ClipMax_2);
-
-        XV_csc_Set_HwReg_K11_2(pCsc, K[0][0]);
-        XV_csc_Set_HwReg_K12_2(pCsc, K[0][1]);
-        XV_csc_Set_HwReg_K13_2(pCsc, K[0][2]);
-        XV_csc_Set_HwReg_K21_2(pCsc, K[1][0]);
-        XV_csc_Set_HwReg_K22_2(pCsc, K[1][1]);
-        XV_csc_Set_HwReg_K23_2(pCsc, K[1][2]);
-        XV_csc_Set_HwReg_K31_2(pCsc, K[2][0]);
-        XV_csc_Set_HwReg_K32_2(pCsc, K[2][1]);
-        XV_csc_Set_HwReg_K33_2(pCsc, K[2][2]);
-        XV_csc_Set_HwReg_ROffset_2_V(pCsc,  K[0][3]);
-        XV_csc_Set_HwReg_GOffset_2_V(pCsc,  K[1][3]);
-        XV_csc_Set_HwReg_BOffset_2_V(pCsc,  K[2][3]);
-        XV_csc_Set_HwReg_ClampMin_2_V(pCsc, clampMin);
-        XV_csc_Set_HwReg_ClipMax_2_V(pCsc,  clipMax);
+        if (XV_CscIsDemoWindowEnabled(CscPtr)) {
+          XV_csc_Set_HwReg_K11_2(pCsc, K[0][0]);
+          XV_csc_Set_HwReg_K12_2(pCsc, K[0][1]);
+          XV_csc_Set_HwReg_K13_2(pCsc, K[0][2]);
+          XV_csc_Set_HwReg_K21_2(pCsc, K[1][0]);
+          XV_csc_Set_HwReg_K22_2(pCsc, K[1][1]);
+          XV_csc_Set_HwReg_K23_2(pCsc, K[1][2]);
+          XV_csc_Set_HwReg_K31_2(pCsc, K[2][0]);
+          XV_csc_Set_HwReg_K32_2(pCsc, K[2][1]);
+          XV_csc_Set_HwReg_K33_2(pCsc, K[2][2]);
+          XV_csc_Set_HwReg_ROffset_2_V(pCsc,  K[0][3]);
+          XV_csc_Set_HwReg_GOffset_2_V(pCsc,  K[1][3]);
+          XV_csc_Set_HwReg_BOffset_2_V(pCsc,  K[2][3]);
+          XV_csc_Set_HwReg_ClampMin_2_V(pCsc, clampMin);
+          XV_csc_Set_HwReg_ClipMax_2_V(pCsc,  clipMax);
+        } else {
+          XV_csc_Set_HwReg_K11(pCsc, K[0][0]);
+          XV_csc_Set_HwReg_K12(pCsc, K[0][1]);
+          XV_csc_Set_HwReg_K13(pCsc, K[0][2]);
+          XV_csc_Set_HwReg_K21(pCsc, K[1][0]);
+          XV_csc_Set_HwReg_K22(pCsc, K[1][1]);
+          XV_csc_Set_HwReg_K23(pCsc, K[1][2]);
+          XV_csc_Set_HwReg_K31(pCsc, K[2][0]);
+          XV_csc_Set_HwReg_K32(pCsc, K[2][1]);
+          XV_csc_Set_HwReg_K33(pCsc, K[2][2]);
+          XV_csc_Set_HwReg_ROffset_V(pCsc,  K[0][3]);
+          XV_csc_Set_HwReg_GOffset_V(pCsc,  K[1][3]);
+          XV_csc_Set_HwReg_BOffset_V(pCsc,  K[2][3]);
+          XV_csc_Set_HwReg_ClampMin_V(pCsc, clampMin);
+          XV_csc_Set_HwReg_ClipMax_V(pCsc,  clipMax);
+        }
         break;
 
     default:
@@ -1237,69 +1274,108 @@ void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
   XV_csc *pCsc = &InstancePtr->Csc;
   u32 done, idle, ready, ctrl;
   u32 colstart, colend, rowstart, rowend;
-  u32 coeff[3][3];
+  s16 coeff[3][3];
   u32 offset_r, offset_g, offset_b;
   u32 minclamp,maxclamp;
   u32 height, width, i, j;
-
-  xil_printf("\r\n\r\n----->CSC IP STATUS<----\r\n");
+  u16 allow422, allowWindow;
 
   done  = XV_csc_IsDone(pCsc);
   idle  = XV_csc_IsIdle(pCsc);
   ready = XV_csc_IsReady(pCsc);
   ctrl  = XV_csc_ReadReg(pCsc->Config.BaseAddress, XV_CSC_CTRL_ADDR_AP_CTRL);
 
-  colstart = XV_csc_Get_HwReg_ColStart(pCsc);
-  colend   = XV_csc_Get_HwReg_ColEnd(pCsc);
-  rowstart = XV_csc_Get_HwReg_RowStart(pCsc);
-  rowend   = XV_csc_Get_HwReg_RowEnd(pCsc);
+  height   = XV_csc_Get_HwReg_height(pCsc);
+  width    = XV_csc_Get_HwReg_width(pCsc);
+  allow422 = XV_CscIs422Enabled(InstancePtr);
+  allowWindow = XV_CscIsDemoWindowEnabled(InstancePtr);
+
+  colstart = allowWindow? XV_csc_Get_HwReg_ColStart(pCsc) : 0;
+  colend   = allowWindow? XV_csc_Get_HwReg_ColEnd(pCsc)   : width-1;
+  rowstart = allowWindow? XV_csc_Get_HwReg_RowStart(pCsc) : 0;
+  rowend   = allowWindow? XV_csc_Get_HwReg_RowEnd(pCsc)   : height-1;
+
+  xil_printf("\r\n\r\n----->CSC IP STATUS<----\r\n");
+  xil_printf("IsDone:           %d\r\n", done);
+  xil_printf("IsIdle:           %d\r\n", idle);
+  xil_printf("IsReady:          %d\r\n", ready);
+  xil_printf("Ctrl:             0x%x\r\n\r\n", ctrl);
+
+  xil_printf("4:2:2 processing: %s\r\n", allow422?"Enabled":"Disabled");
+  xil_printf("Color Format In:  %s\r\n",
+               XVidC_GetColorFormatStr(XV_csc_Get_HwReg_InVideoFormat(pCsc)));
+  xil_printf("Color Format Out: %s\r\n",
+               XVidC_GetColorFormatStr(XV_csc_Get_HwReg_OutVideoFormat(pCsc)));
+  xil_printf("Active Width:     %d\r\n",width);
+  xil_printf("Active Height:    %d\r\n\r\n",height);
+
+  xil_printf("Demo Window:      %s\r\n", allowWindow?"Enabled":"Disabled");
+  xil_printf("Column Start:     %d\r\n",colstart);
+  xil_printf("Column End:       %d\r\n",colend);
+  xil_printf("Row Start:        %d\r\n",rowstart);
+  xil_printf("Row End:          %d\r\n",rowend);
+
+  xil_printf("\r\nGlobal Window:\r\n");
   offset_r = XV_csc_Get_HwReg_ROffset_V(pCsc);
   offset_g = XV_csc_Get_HwReg_GOffset_V(pCsc);
   offset_b = XV_csc_Get_HwReg_BOffset_V(pCsc);
   minclamp = XV_csc_Get_HwReg_ClampMin_V(pCsc);
   maxclamp = XV_csc_Get_HwReg_ClipMax_V(pCsc);
-  height   = XV_csc_Get_HwReg_height(pCsc);
-  width    = XV_csc_Get_HwReg_width(pCsc);
+  coeff[0][0] = (s16)XV_csc_Get_HwReg_K11(pCsc);
+  coeff[0][1] = (s16)XV_csc_Get_HwReg_K12(pCsc);
+  coeff[0][2] = (s16)XV_csc_Get_HwReg_K13(pCsc);
+  coeff[1][0] = (s16)XV_csc_Get_HwReg_K21(pCsc);
+  coeff[1][1] = (s16)XV_csc_Get_HwReg_K22(pCsc);
+  coeff[1][2] = (s16)XV_csc_Get_HwReg_K23(pCsc);
+  coeff[2][0] = (s16)XV_csc_Get_HwReg_K31(pCsc);
+  coeff[2][1] = (s16)XV_csc_Get_HwReg_K32(pCsc);
+  coeff[2][2] = (s16)XV_csc_Get_HwReg_K33(pCsc);
 
-  coeff[0][0] = XV_csc_Get_HwReg_K11_2(pCsc);
-  coeff[0][1] = XV_csc_Get_HwReg_K12_2(pCsc);
-  coeff[0][2] = XV_csc_Get_HwReg_K13_2(pCsc);
-  coeff[1][0] = XV_csc_Get_HwReg_K21_2(pCsc);
-  coeff[1][1] = XV_csc_Get_HwReg_K22_2(pCsc);
-  coeff[1][2] = XV_csc_Get_HwReg_K23_2(pCsc);
-  coeff[2][0] = XV_csc_Get_HwReg_K31_2(pCsc);
-  coeff[2][1] = XV_csc_Get_HwReg_K32_2(pCsc);
-  coeff[2][2] = XV_csc_Get_HwReg_K33_2(pCsc);
+  xil_printf("R Offset:         %d\r\n",offset_r);
+  xil_printf("G Offset:         %d\r\n",offset_g);
+  xil_printf("B Offset:         %d\r\n",offset_b);
+  xil_printf("Min Clamp:        %d\r\n",minclamp);
+  xil_printf("Max Clamp:        %d\r\n",maxclamp);
 
-  xil_printf("IsDone:  %d\r\n", done);
-  xil_printf("IsIdle:  %d\r\n", idle);
-  xil_printf("IsReady: %d\r\n", ready);
-  xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
-
-  xil_printf("Color Format In:   %s\r\n",
-               XVidC_GetColorFormatStr(XV_csc_Get_HwReg_InVideoFormat(pCsc)));
-  xil_printf("Color Format Out:  %s\r\n",
-               XVidC_GetColorFormatStr(XV_csc_Get_HwReg_OutVideoFormat(pCsc)));
-  xil_printf("Column Start:      %d\r\n",colstart);
-  xil_printf("Column End:        %d\r\n",colend);
-  xil_printf("Row Start:         %d\r\n",rowstart);
-  xil_printf("Row End:           %d\r\n",rowend);
-  xil_printf("R Offset:          %d\r\n",offset_r);
-  xil_printf("G Offset:          %d\r\n",offset_g);
-  xil_printf("B Offset:          %d\r\n",offset_b);
-  xil_printf("Min Clamp:         %d\r\n",minclamp);
-  xil_printf("Max Clamp:         %d\r\n",maxclamp);
-  xil_printf("Active Width:      %d\r\n",width);
-  xil_printf("Active Height:     %d\r\n",height);
-
-  xil_printf("\r\nCoefficients:",height);
-  for(i=0; i<3; ++i)
-  {
+  xil_printf("\r\nCoefficients:");
+  for(i=0; i<3; ++i) {
     xil_printf("\r\n r%d: ",i);
-    for(j=0; j<3; ++j)
-    {
-      xil_printf("%4d ",coeff[i][j]);
+    for(j=0; j<3; ++j) {
+      xil_printf("%5d ",coeff[i][j]);
     }
+  }
+
+  if (allowWindow) {
+    xil_printf("\r\nDemo Window:\r\n");
+    offset_r = XV_csc_Get_HwReg_ROffset_2_V(pCsc);
+    offset_g = XV_csc_Get_HwReg_GOffset_2_V(pCsc);
+    offset_b = XV_csc_Get_HwReg_BOffset_2_V(pCsc);
+    minclamp = XV_csc_Get_HwReg_ClampMin_2_V(pCsc);
+    maxclamp = XV_csc_Get_HwReg_ClipMax_2_V(pCsc);
+    coeff[0][0] = (s16)XV_csc_Get_HwReg_K11_2(pCsc);
+    coeff[0][1] = (s16)XV_csc_Get_HwReg_K12_2(pCsc);
+    coeff[0][2] = (s16)XV_csc_Get_HwReg_K13_2(pCsc);
+    coeff[1][0] = (s16)XV_csc_Get_HwReg_K21_2(pCsc);
+    coeff[1][1] = (s16)XV_csc_Get_HwReg_K22_2(pCsc);
+    coeff[1][2] = (s16)XV_csc_Get_HwReg_K23_2(pCsc);
+    coeff[2][0] = (s16)XV_csc_Get_HwReg_K31_2(pCsc);
+    coeff[2][1] = (s16)XV_csc_Get_HwReg_K32_2(pCsc);
+    coeff[2][2] = (s16)XV_csc_Get_HwReg_K33_2(pCsc);
+    xil_printf("R Offset:          %d\r\n",offset_r);
+    xil_printf("G Offset:          %d\r\n",offset_g);
+    xil_printf("B Offset:          %d\r\n",offset_b);
+    xil_printf("Min Clamp:         %d\r\n",minclamp);
+    xil_printf("Max Clamp:         %d\r\n",maxclamp);
+
+    xil_printf("\r\nCoefficients:");
+    for(i=0; i<3; ++i) {
+      xil_printf("\r\n r%d: ",i);
+      for(j=0; j<3; ++j) {
+        xil_printf("%5d ",coeff[i][j]);
+      }
+    }
+  } else {
+    xil_printf("\r\nDemo Window is the Global Window.\r\n");
   }
 }
 /** @} */

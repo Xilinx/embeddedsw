@@ -44,12 +44,14 @@ typedef uint32_t u32;
 * associated.
 */
 typedef struct {
-    u16 DeviceId;          /**< Unique ID  of device */
-    u32 BaseAddress;       /**< The base address of the core instance. */
-    u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
-    u16 MaxWidth;          /**< Maximum columns supported by core instance */
-    u16 MaxHeight;         /**< Maximum rows supported by core instance */
-    u16 MaxDataWidth;      /**< Maximum Data width of each channel */
+    u16 DeviceId;            /**< Unique ID  of device */
+    u32 BaseAddress;         /**< The base address of the core instance. */
+    u16 PixPerClk;           /**< Samples Per Clock supported by core instance */
+    u16 MaxWidth;            /**< Maximum columns supported by core instance */
+    u16 MaxHeight;           /**< Maximum rows supported by core instance */
+    u16 MaxDataWidth;        /**< Maximum Data width of each channel */
+    u16 Is422Enabled;        /**< 4:2:2 color format supported by core instance */
+    u16 IsDemoWindowEnabled; /**< CSC demo window supported by core instance */
 } XV_csc_Config;
 #endif
 

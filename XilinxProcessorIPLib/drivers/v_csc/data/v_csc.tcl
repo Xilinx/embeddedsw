@@ -27,6 +27,13 @@
 # Except as contained in this notice, the name of the Xilinx shall not be used
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
+#
+# MODIFICATION HISTORY:
+#  Ver      Who    Date       Changes
+# -------- ------ -------- ----------------------------------------------------
+#  1.0      rco    07/21/15 Initial version of vprocss csc subcore tcl
+#  2.0      dmc    12/17/15 Include new args ENABLE_422 and ENABLE_WINDOW
+#
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -38,7 +45,9 @@ proc generate {drv_handle} {
         "SAMPLES_PER_CLOCK" \
         "V_CSC_MAX_WIDTH" \
         "V_CSC_MAX_HEIGHT" \
-        "MAX_DATA_WIDTH"
+        "MAX_DATA_WIDTH" \
+        "ENABLE_422" \
+        "ENABLE_WINDOW"
 
     xdefine_config_file $drv_handle "xv_csc_g.c" "XV_csc" \
         "DEVICE_ID" \
@@ -46,7 +55,9 @@ proc generate {drv_handle} {
         "SAMPLES_PER_CLOCK" \
         "V_CSC_MAX_WIDTH" \
         "V_CSC_MAX_HEIGHT" \
-        "MAX_DATA_WIDTH"
+        "MAX_DATA_WIDTH" \
+        "ENABLE_422" \
+        "ENABLE_WINDOW"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_csc" \
         "DEVICE_ID" \
@@ -55,5 +66,7 @@ proc generate {drv_handle} {
         "SAMPLES_PER_CLOCK" \
         "V_CSC_MAX_WIDTH" \
         "V_CSC_MAX_HEIGHT" \
-        "MAX_DATA_WIDTH"
+        "MAX_DATA_WIDTH" \
+        "ENABLE_422" \
+        "ENABLE_WINDOW"
 }

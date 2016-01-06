@@ -46,7 +46,7 @@
 *
 * The CSC IP supports following features
 *	- Set a Demo Window (user can select a sub-frame where above features
-*	  will have effect)
+*	  will have effect). This Demo Window is optionally included in the CSC IP.
 *	- Supports resolution up to 4k2k 60Hz
 *	- up to 16 bits color depth
 *	- 1, 2 or 4 pixel per clock processing
@@ -100,7 +100,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
-*
+*       dmc   12/17/15   Macros query Is422Enabled, IsDemoWindowEnabled flags
+*                        that were added to the XV_csc_Config structure
 * </pre>
 *
 ******************************************************************************/
@@ -349,6 +350,30 @@ typedef struct
 ******************************************************************************/
 #define XV_CscGetOutputRange(InstancePtr)       ((InstancePtr)->OutputRange)
 
+/*****************************************************************************/
+/**
+ * This macro checks if Csc instance is enabled for 4:2:2 processing
+ *
+ * @param  InstancePtr is pointer to csc core layer 2
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XV_CscIs422Enabled(InstancePtr) \
+   ((InstancePtr)->Csc.Config.Is422Enabled)
+
+/*****************************************************************************/
+/**
+ * This macro checks if Csc instance is enabled for the Demo Window
+ *
+ * @param  InstancePtr is pointer to csc core layer 2
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XV_CscIsDemoWindowEnabled(InstancePtr) \
+   ((InstancePtr)->Csc.Config.IsDemoWindowEnabled)
+
 /************************** Function Prototypes ******************************/
 int XV_CscInitialize(XV_Csc_l2 *InstancePtr, u16 DeviceId);
 void XV_CscSetPowerOnDefaultState(XV_Csc_l2 *CscPtr);
@@ -357,15 +382,15 @@ void XV_CscStop(XV_Csc_l2 *InstancePtr);
 void XV_CscSetActiveSize(XV_Csc_l2 *InstancePtr,
                          u32    width,
                          u32    height);
-void XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *ActiveWindow);
+int XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *DemoWindow);
 
-void XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
-                         XVidC_ColorFormat cfmtIn,
-                         XVidC_ColorFormat cfmtOut,
-                         XVidC_ColorStd    cstdIn,
-                         XVidC_ColorStd    cstdOut,
-                         XVidC_ColorRange  cRangeOut
-                         );
+int XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
+                        XVidC_ColorFormat cfmtIn,
+                        XVidC_ColorFormat cfmtOut,
+                        XVidC_ColorStd    cstdIn,
+                        XVidC_ColorStd    cstdOut,
+                        XVidC_ColorRange  cRangeOut
+                        );
 
 void XV_CscSetBrightness(XV_Csc_l2 *InstancePtr, s32 val);
 void XV_CscSetContrast(XV_Csc_l2 *InstancePtr, s32 val);
