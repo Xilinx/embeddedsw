@@ -41,13 +41,14 @@
 *
 * @note
 *
-* Virtex4, Virtex5, Virtex6, Spartan6, 7 series and Zynq devices are supported.
+* 7 series device, Zynq device, Ultrascale and ZynqMP Ultrascale are supported.
 *
 * In a Zynq device the ICAP needs to be selected using the
 * XDcfg_SelectIcapInterface API of the DevCfg driver (clear the PCAP_PR bit of
 * Control register in the Device Config Interface)  before it can be
 * accessed using the HwIcap.
-*
+* In case of ZynqMP clear the PCAP_PR bit of pcap_ctrl register in Module
+* Configuration Security Unit(CSU) using register write.
 *
 * <pre>
 * MODIFICATION HISTORY:

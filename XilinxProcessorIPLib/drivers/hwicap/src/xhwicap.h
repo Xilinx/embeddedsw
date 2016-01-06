@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap.h
-* @addtogroup hwicap_v10_0
+* @addtogroup hwicap_v10_1
 * @{
 * @details
 *
@@ -165,6 +165,23 @@
 *		      data width of HWICAP in xhwicap.c.
 * 10.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                      Changed the prototype of XHwIcap_CfgInitialize API.
+* 10.1   nsk  01/06/16 Removed xhwicap_clb_srinv.h, xhwicap_clb_ff.h,
+*                      xhwicap_clb_lut.h files
+*                      Removed xhwicap_lut.c and xhwicap_ff.c examples
+*                      Removed defines
+*                      XHI_FAR_MAJOR_FRAME_MASK
+*                      XHI_FAR_MINOR_FRAME_MASK
+*                      XHI_FAR_MAJOR_FRAME_SHIFT
+*                      XHI_FAR_MINOR_FRAME_SHIFT
+*                      XHI_C0R_1
+*                      Updated XHI_FAR_COLUMN_ADDR_MASK to 0x3FF
+*                      Updated XHI_FAR_BLOCK_SHIFT to 23
+*                      Updated XHI_FAR_TOP_BOTTOM_SHIFT to 22
+*                      Updated XHI_FAR_ROW_ADDR_SHIFT to 17
+*                      Updated XHI_NUM_FRAME_BYTES to 404
+*                      Updated XHI_NUM_FRAME_WORDS to 101
+*                      Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
+*                      CR# 909615.
 *
 * </pre>
 *

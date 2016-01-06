@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2003 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_i.h
-* @addtogroup hwicap_v10_0
+* @addtogroup hwicap_v10_1
 * @{
 *
 * This head file contains internal identifiers, which are those shared
@@ -59,6 +59,18 @@
 * 9.0   bss  02/20/14 Added XHI_DEV_FAMILY_K8 for Kintex 8 devices. #CR764668
 * 10.0  bss  6/24/14  Removed support for families older than 7 series.
 *		      Removed IDCODE macros.
+* 10.1  nsk  01/06/15 Removed defines XHI_FAR_MAJOR_FRAME_MASK
+*                     XHI_FAR_MINOR_FRAME_MASK
+*                     XHI_FAR_MAJOR_FRAME_SHIFT
+*                     XHI_FAR_MINOR_FRAME_SHIFT
+*                     XHI_C0R_1
+*                     Updated XHI_FAR_COLUMN_ADDR_MASK to 0x3FF
+*                     Updated XHI_FAR_BLOCK_SHIFT to 23
+*                     Updated XHI_FAR_TOP_BOTTOM_SHIFT to 22
+*                     Updated XHI_FAR_ROW_ADDR_SHIFT to 17
+*                     Updated XHI_NUM_FRAME_BYTES to 404
+*                     Updated XHI_NUM_FRAME_WORDS to 101
+*                     Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
 *
 * </pre>
 *
@@ -80,7 +92,7 @@ extern "C" {
  */
 #define XHI_TYPE_MASK			0x7
 #define XHI_REGISTER_MASK		0x1F
-#define XHI_OP_MASK				0x3
+#define XHI_OP_MASK			0x3
 
 #define XHI_WORD_COUNT_MASK_TYPE_1	0x7FF
 #define XHI_WORD_COUNT_MASK_TYPE_2	0x07FFFFFF
@@ -113,16 +125,16 @@ extern "C" {
 #define XHI_CBC				11
 #define XHI_IDCODE			12
 #define XHI_AXSS			13
-#define XHI_C0R_1			14
+#define XHI_COR_1			14
 #define XHI_CSOB			15
 #define XHI_WBSTAR			16
 #define XHI_TIMER			17
 #define XHI_BOOTSTS			22
 #define XHI_CTL_1			24
+#define XHI_BSPI			31
 #define XHI_NUM_REGISTERS		25 /* Note that the register numbering
-					    * is not sequential in V5/V6 and
-					    *there are gaps */
-#define XHI_COR_1			14
+                                            * is not sequential, there are gaps
+                                            */
 
 /**
  * @name Frame Address Register mask(s)
@@ -130,16 +142,12 @@ extern "C" {
  */
 #define XHI_FAR_BLOCK_MASK		0x7
 #define XHI_FAR_TOP_BOTTOM_MASK		0x1
-#define XHI_FAR_MAJOR_FRAME_MASK	0xFF
 #define XHI_FAR_ROW_ADDR_MASK		0x1F
-#define XHI_FAR_MINOR_FRAME_MASK	0xFF
-#define XHI_FAR_COLUMN_ADDR_MASK	0xFF
+#define XHI_FAR_COLUMN_ADDR_MASK	0x3FF
 #define XHI_FAR_MINOR_ADDR_MASK		0x7F
-#define XHI_FAR_BLOCK_SHIFT		21
-#define XHI_FAR_TOP_BOTTOM_SHIFT	20
-#define XHI_FAR_MAJOR_FRAME_SHIFT	17
-#define XHI_FAR_ROW_ADDR_SHIFT		15
-#define XHI_FAR_MINOR_FRAME_SHIFT	9
+#define XHI_FAR_BLOCK_SHIFT		23
+#define XHI_FAR_TOP_BOTTOM_SHIFT	22
+#define XHI_FAR_ROW_ADDR_SHIFT		17
 #define XHI_FAR_COLUMN_ADDR_SHIFT	7
 #define XHI_FAR_MINOR_ADDR_SHIFT	0
 
@@ -148,6 +156,7 @@ extern "C" {
  */
 #define XHI_FAR_CLB_BLOCK		0 /**< CLB/IO/CLK Block */
 #define XHI_FAR_BRAM_BLOCK		1 /**< Block RAM interconnect */
+#define XHI_FAR_CFG_CLB_BLOCK		2 /**< CFG CLB Block */
 
 /* @} */
 
@@ -189,9 +198,9 @@ extern "C" {
 #define XHI_TYPE_1_HEADER_BYTES		4
 #define XHI_TYPE_2_HEADER_BYTES		8
 
-#define XHI_NUM_FRAME_BYTES		324  /* Number of bytes in a frame */
-#define XHI_NUM_FRAME_WORDS		81   /* Number of Words in a frame */
-#define XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME  162 /* Num of Words in a frame read
+#define XHI_NUM_FRAME_BYTES		404  /* Number of bytes in a frame */
+#define XHI_NUM_FRAME_WORDS		101  /* Number of Words in a frame */
+#define XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME  202 /* Num of Words in a frame read
 						 * from the device including
 						 * the NULL frame
 						 */
@@ -317,7 +326,7 @@ extern "C" {
 /**
 *
 * Generates a Type 1 packet header that is written to the Frame Address
-* Register (FAR) for a Virtex5 device.
+* Register (FAR).
 *
 * @param	Block - Address Block Type (CLB or BRAM address space)
 * @param	Top - top (0) or bottom (1) half of device
@@ -327,7 +336,8 @@ extern "C" {
 *
 * @return	Type 1 packet header to write the FAR
 *
-* @note		None.
+* @note         We are retaining this Macro for Backwards compatiblity
+*               Use the XHwIcap_SetupFar macro.
 *
 *****************************************************************************/
 #define XHwIcap_SetupFarV5(Top, Block, Row, ColumnAddress, MinorAddress)  \
@@ -336,6 +346,8 @@ extern "C" {
 	(Row << XHI_FAR_ROW_ADDR_SHIFT) | \
 	(ColumnAddress << XHI_FAR_COLUMN_ADDR_SHIFT) | \
 	(MinorAddress << XHI_FAR_MINOR_ADDR_SHIFT))
+
+#define XHwIcap_SetupFar XHwIcap_SetupFarV5
 
 /************************** Function Prototypes ******************************/
 

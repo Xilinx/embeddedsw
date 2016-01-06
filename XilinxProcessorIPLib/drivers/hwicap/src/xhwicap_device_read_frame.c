@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2003 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_device_read_frame.c
-* @addtogroup hwicap_v10_0
+* @addtogroup hwicap_v10_1
 * @{
 *
 * This file contains the function that reads a specified frame from the
@@ -146,7 +146,7 @@ int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
 	 * Setup FAR register.
 	 */
 	Packet = XHwIcap_Type1Write(XHI_FAR) | 1;
-	Data = XHwIcap_SetupFarV5(Top, Block, HClkRow,  MajorFrame, MinorFrame);
+	Data = XHwIcap_SetupFar(Top, Block, HClkRow,  MajorFrame, MinorFrame);
 	WriteBuffer[Index++] = Packet;
 	WriteBuffer[Index++] = Data;
 
