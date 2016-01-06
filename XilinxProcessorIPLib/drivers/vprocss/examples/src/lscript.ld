@@ -18,7 +18,7 @@ _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x400;
 MEMORY
 {
    microblaze_ss_microblaze_0_local_memory_ilmb_bram_if_cntlr_microblaze_ss_microblaze_0_local_memory_dlmb_bram_if_cntlr : ORIGIN = 0x50, LENGTH = 0x1FB0
-   memory_ss_mig_7series_0 : ORIGIN = 0x80000000, LENGTH = 0x40000000
+   memory_ss_mig : ORIGIN = 0x80000000, LENGTH = 0x40000000
 }
 
 /* Specify the default entry point to the program */
@@ -49,15 +49,15 @@ SECTIONS
    *(.text)
    *(.text.*)
    *(.gnu.linkonce.t.*)
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .init : {
    KEEP (*(.init))
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .fini : {
    KEEP (*(.fini))
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .ctors : {
    __CTOR_LIST__ = .;
@@ -68,7 +68,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .dtors : {
    __DTOR_LIST__ = .;
@@ -79,7 +79,7 @@ SECTIONS
    KEEP (*(.dtors))
    PROVIDE(__DTOR_END__ = .);
    PROVIDE(___DTORS_END___ = .);
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .rodata : {
    __rodata_start = .;
@@ -87,7 +87,7 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .sdata2 : {
    . = ALIGN(8);
@@ -97,7 +97,7 @@ SECTIONS
    *(.gnu.linkonce.s2.*)
    . = ALIGN(8);
    __sdata2_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .sbss2 : {
    __sbss2_start = .;
@@ -105,7 +105,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .data : {
    . = ALIGN(4);
@@ -114,31 +114,31 @@ SECTIONS
    *(.data.*)
    *(.gnu.linkonce.d.*)
    __data_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .got : {
    *(.got)
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .got1 : {
    *(.got1)
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .got2 : {
    *(.got2)
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .eh_frame : {
    *(.eh_frame)
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .jcr : {
    *(.jcr)
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .sdata : {
    . = ALIGN(8);
@@ -147,7 +147,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .sbss (NOLOAD) : {
    . = ALIGN(4);
@@ -157,7 +157,7 @@ SECTIONS
    *(.gnu.linkonce.sb.*)
    . = ALIGN(8);
    __sbss_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .tdata : {
    __tdata_start = .;
@@ -165,7 +165,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .tbss : {
    __tbss_start = .;
@@ -173,7 +173,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .bss (NOLOAD) : {
    . = ALIGN(4);
@@ -184,7 +184,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(4);
    __bss_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -198,7 +198,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _heap_start = .;
    . += _HEAP_SIZE;
    _heap_end = .;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 .stack (NOLOAD) : {
    _stack_end = .;
@@ -206,7 +206,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(8);
    _stack = .;
    __stack = _stack;
-} > memory_ss_mig_7series_0
+} > memory_ss_mig
 
 _end = .;
 }

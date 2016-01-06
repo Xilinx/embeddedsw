@@ -6,9 +6,9 @@
 #include "xvprocss_vdma.h"
 #include "microblaze_sleep.h"
 
-#define XVPROCSS_SW_VER  "v2.00"
-#define VERBOSE_MODE     0
-#define VIDEO_MONITOR_LOCK_TIMEOUT   (2000000)
+#define XVPROCSS_SW_VER "v2.00"
+#define VERBOSE_MODE 0
+#define VIDEO_MONITOR_LOCK_TIMEOUT (2000000)
 
 /************************** Variable Definitions *****************************/
 XPeriph  PeriphInst;
@@ -58,24 +58,30 @@ int main(void)
   //Set Test Pattern Generator parameters
   switch (VpssPtr->Config.Topology) {
     case XVPROCSS_TOPOLOGY_SCALER_ONLY:
+      // In this mode only the picture size may change
+      // Video In: 1920x1080_60_P 422  Video Out: 3840x2160_60_P 422
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
 		                   1080,
-		                   XVIDC_CSF_RGB,
+		                   XVIDC_CSF_YCRCB_422,
 		                   XTPG_BKGND_COLOR_BARS,
 		                   FALSE);
       break;
 
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
+      // This mode may deinterlace, change picture size and/or color format
+      // Video In: 1920x1080_60_I 422  Video Out: 3840x2160_60_P RGB
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
 		                   540,
-		                   XVIDC_CSF_RGB,
+						   XVIDC_CSF_YCRCB_422,
 		                   XTPG_BKGND_COLOR_BARS,
 		                   TRUE);
       break;
 
     case XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY:
+      // In this mode only deinterlacing may be done
+      // Video In: 1920x1080_60_I 422  Video Out: 1920x1080_60_P 422
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
 		                   540,
@@ -85,15 +91,19 @@ int main(void)
       break;
 
     case XVPROCSS_TOPOLOGY_CSC_ONLY:
+      // In this mode only the color format may change
+      // Video In: 1920x1080_60_P 444  Video Out: 1920x1080_60_P RGB
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
 		                   1080,
-		                   XVIDC_CSF_RGB,
+						   XVIDC_CSF_YCRCB_444,
 		                   XTPG_BKGND_COLOR_BARS,
 		                   FALSE);
       break;
 
-    case XVPROCSS_TOPOLOGY_420TO422_ONLY:
+    case XVPROCSS_TOPOLOGY_VCRESAMPLE_ONLY:
+      // In this mode only vertical chroma resampling may be done
+      // Video In: 1920x1080_60_P 420  Video Out: 1920x1080_60_P 422
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
 		                   1080,
@@ -102,7 +112,9 @@ int main(void)
 		                   FALSE);
       break;
 
-    case XVPROCSS_TOPOLOGY_422TO444_ONLY:
+    case XVPROCSS_TOPOLOGY_HCRESAMPLE_ONLY:
+      // In this mode only horizontal chroma resampling may be done
+      // Video In: 1920x1080_60_P 422  Video Out: 1920x1080_60_P 444
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
 		                   1080,
@@ -112,6 +124,7 @@ int main(void)
       break;
 
     default:
+	  /* Shouldn't come here */
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
 		                   1080,
@@ -132,7 +145,7 @@ int main(void)
   //Set Video Output AXI Stream Out
   switch (VpssPtr->Config.Topology) {
     case XVPROCSS_TOPOLOGY_SCALER_ONLY:
-	  /* Only Picture size can be changed. */
+      // Video In: 1920x1080_60_P 422  Video Out: 3840x2160_60_P 422
       XSys_SetStreamParam(VpssPtr,
 		                  XSYS_VPSS_STREAM_OUT,
 		                  3840,
@@ -142,17 +155,17 @@ int main(void)
       break;
 
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
-	  /* Change picture size and color format. */
+      // Video In: 1920x1080_60_I 422  Video Out: 3840x2160_60_P RGB
 	  XSys_SetStreamParam(VpssPtr,
 		                  XSYS_VPSS_STREAM_OUT,
 				          3840,
 				          2160,
-				          XVIDC_CSF_YCRCB_422,
+						  XVIDC_CSF_RGB,
 				          FALSE);
       break;
 
     case XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY:
-	  /* Picture size must not change, Output must be progressive. */
+      // Video In: 1920x1080_60_I 422  Video Out: 1920x1080_60_P 422
 	  XSys_SetStreamParam(VpssPtr,
 	                      XSYS_VPSS_STREAM_OUT,
 			              PeriphInst.TpgConfig.Width,
@@ -162,17 +175,17 @@ int main(void)
 	  break;
 
     case XVPROCSS_TOPOLOGY_CSC_ONLY:
-	  /* Picture size must not change, Color format can be changed. */
+      // Video In: 1920x1080_60_P 444  Video Out: 1920x1080_60_P RGB
 	  XSys_SetStreamParam(VpssPtr,
 	                      XSYS_VPSS_STREAM_OUT,
 			              PeriphInst.TpgConfig.Width,
 			              PeriphInst.TpgConfig.Height,
-			              XVIDC_CSF_YCRCB_444,
+						  XVIDC_CSF_RGB,
 			              FALSE);
       break;
 
-    case XVPROCSS_TOPOLOGY_420TO422_ONLY:
-	  /* Picture size must not change, Color format out must be 422. */
+    case XVPROCSS_TOPOLOGY_VCRESAMPLE_ONLY:
+	  // Video In: 1920x1080_60_P 420  Video Out: 1920x1080_60_P 422
 	  XSys_SetStreamParam(VpssPtr,
 	                      XSYS_VPSS_STREAM_OUT,
 			              PeriphInst.TpgConfig.Width,
@@ -181,8 +194,8 @@ int main(void)
 			              FALSE);
       break;
 
-    case XVPROCSS_TOPOLOGY_422TO444_ONLY:
-	  /* Picture size must not change, Color format out must be 444. */
+    case XVPROCSS_TOPOLOGY_HCRESAMPLE_ONLY:
+	  // Video In: 1920x1080_60_P 422  Video Out: 1920x1080_60_P 444
 	  XSys_SetStreamParam(VpssPtr,
 	                      XSYS_VPSS_STREAM_OUT,
 			              PeriphInst.TpgConfig.Width,
