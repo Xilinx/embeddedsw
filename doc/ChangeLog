@@ -60,6 +60,18 @@ Initial release.
 v_hdmitxss_v1_0
 Initial release.
 
+video_common_v2_1
+Fixed video timings for some resolutions.
+   XVIDC_VM_720x480_60_I,
+   XVIDC_VM_720x576_50_I,
+   XVIDC_VM_1440x480_60_I,
+   XVIDC_VM_1440x576_50_I,
+   XVIDC_VM_1920x1080_50_I,
+   XVIDC_VM_1920x1080_60_I,
+   XVIDC_VM_1280x720_50_P,
+   XVIDC_VM_1680x720_50_P,
+   XVIDC_VM_1680x720_60_P.
+
 vphy_v1_0
 Initial release.
 
@@ -235,6 +247,33 @@ Major driver version that updates the register offsets in the AXI4 data path as 
 
 sysmon_v7_1:
 Minor driver version upgrade that modifies temperature transfer function for for Ultrascale.
+
+video_common_v2_0
+Added new timings:
+   XVIDC_VM_1440x480_60_I,
+   XVIDC_VM_1440x576_50_I,
+   XVIDC_VM_1440x240_60_P,
+   XVIDC_VM_1680x720_50_P,
+   XVIDC_VM_1680x720_60_P,
+   XVIDC_VM_1680x720_100_P,
+   XVIDC_VM_1680x720_120_P,
+   XVIDC_VM_1680x1050_50_P,
+   XVIDC_VM_1920x1080_100_P,
+   XVIDC_VM_1920x1080_120_P,
+   XVIDC_VM_2560x1080_50_P,
+   XVIDC_VM_2560x1080_60_P,
+   XVIDC_VM_2560x1080_100_P,
+   XVIDC_VM_2560x1080_120_P,
+   XVIDC_VM_4096x2160_24_P,
+   XVIDC_VM_4096x2160_25_P,
+   XVIDC_VM_4096x2160_30_P,
+   XVIDC_VM_4096x2160_50_P,
+   XVIDC_VM_4096x2160_60_P,
+   XVIDC_VM_4096x2160_60_P_RB,
+   XVIDC_VM_CUSTOM.
+Modified XVIDC_DP159_CT_PWR -> XVIDC_DP159_CT_UNPLUG.
+Added bit error count function.
+Removed extra DP159 register programming as per new DP159 programming guide.
 
 vtc_v7_0:
 Major driver version upgrade that makes the following changes:
