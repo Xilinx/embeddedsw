@@ -45,6 +45,10 @@
 * 1.00  rco   08/28/15   Initial Release
 * 2.00  rco   11/05/15   Update to adapt to sub-core layer 2 changes
 *       dmc   12/02/15   Added support for additional topologies
+*       dmc   12/17/15   Rename and modify H,VCresample constants and routines
+*                        Modify CSC-only validate and setup routines
+*                        Modify Scaler-only validate and setup routines
+*                        Mods to conform to coding style
 * </pre>
 *
 ******************************************************************************/
@@ -106,7 +110,7 @@ typedef struct
 XVprocSs_SubCores subcoreRepo[XPAR_XVPROCSS_NUM_INSTANCES];
 
 static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
-    "VID_OUT",
+    "VidOut",
     "SCALER-V",
     "SCALER-H",
     "VDMA",
@@ -144,20 +148,22 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr);
 static void GetIncludedSubcores(XVprocSs *XVprocSsPtr);
 static int ValidateSubsystemConfig(XVprocSs *InstancePtr);
 static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
-                                    XVidC_VideoStream *pStrmOut);
+                                    XVidC_VideoStream *pStrmOut,
+	                                u16 Allow422);
 static int ValidateCscOnlyConfig(XVidC_VideoStream *pStrmIn,
-                                 XVidC_VideoStream *pStrmOut);
+                                 XVidC_VideoStream *pStrmOut,
+                                 u16 Allow422);
 static int ValidateDeintOnlyConfig(XVidC_VideoStream *pStrmIn,
                                    XVidC_VideoStream *pStrmOut);
-static int Validate420to422OnlyConfig(XVidC_VideoStream *pStrmIn,
+static int ValidateVCResampleOnlyConfig(XVidC_VideoStream *pStrmIn,
                                       XVidC_VideoStream *pStrmOut);
-static int Validate422to444OnlyConfig(XVidC_VideoStream *pStrmIn,
+static int ValidateHCResampleOnlyConfig(XVidC_VideoStream *pStrmIn,
                                       XVidC_VideoStream *pStrmOut);
 static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr);
 static int SetupModeCscOnly(XVprocSs *XVprocSsPtr);
 static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr);
-static int SetupMode420to422Only(XVprocSs *XVprocSsPtr);
-static int SetupMode422to444Only(XVprocSs *XVprocSsPtr);
+static int SetupModeVCResampleOnly(XVprocSs *XVprocSsPtr);
+static int SetupModeHCResampleOnly(XVprocSs *XVprocSsPtr);
 static int SetupModeMax(XVprocSs *XVprocSsPtr);
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -387,7 +393,7 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
   Xil_AssertNonvoid(EffectiveAddr != (u32)NULL);
 
   /* Setup the instance */
-  memcpy((void *)&(XVprocSsPtr->Config), (const void *)CfgPtr, sizeof(XVprocSs_Config));
+  XVprocSsPtr->Config = *CfgPtr;
   XVprocSsPtr->Config.BaseAddress = EffectiveAddr;
 
   if(XVprocSs_GetSubsystemTopology(InstancePtr) >= XVPROCSS_TOPOLOGY_NUM_SUPPORTED) {
@@ -634,12 +640,6 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
                               XLBOX_BKGND_BLACK,
                               XVprocSsPtr->VidOut.ColorFormatId,
                               XVprocSsPtr->VidOut.ColorDepth);
-  }
-  /* Initialize CSC sub-core layer 2 driver. This block has FW register map */
-  if(XVprocSsPtr->CscPtr)
-  {
-    XV_CscSetPowerOnDefaultState(XVprocSsPtr->CscPtr);
-    XV_CscSetColorDepth(XVprocSsPtr->CscPtr, vidStrmIn.ColorDepth);
   }
 }
 
@@ -1138,20 +1138,21 @@ void XVprocSs_SetPipMode(XVprocSs *InstancePtr, u8 OnOff)
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 * @note This function is applicable only for Stream mode configuration of the
-*       subsystem. In this mode very limited functionality is available
+*       subsystem. In this mode only picture resizing is available
 ******************************************************************************/
 static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
-                                    XVidC_VideoStream *pStrmOut)
+                                    XVidC_VideoStream *pStrmOut,
+	                                u16 Allow422)
 {
-  if(pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: YUV420 Input not supported\r\n");
+  if(pStrmIn->ColorFormatId != pStrmOut->ColorFormatId) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output Stream Color Format different\r\n");
     return(XST_FAILURE);
   }
 
-  if(pStrmIn->ColorFormatId != pStrmOut->ColorFormatId)
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Stream Color Format different\r\n");
+  if ((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422) && !Allow422) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Color Format YUV422 not enabled in hscaler instance\r\n");
     return(XST_FAILURE);
   }
 
@@ -1172,20 +1173,39 @@ static int ValidateScalerOnlyConfig(XVidC_VideoStream *pStrmIn,
 *       subsystem. In this mode very limited functionality is available
 ******************************************************************************/
 static int ValidateCscOnlyConfig(XVidC_VideoStream *pStrmIn,
-                                 XVidC_VideoStream *pStrmOut)
+                                 XVidC_VideoStream *pStrmOut,
+                                 u16 Allow422)
 {
+  // Valid color formats for the csc only case:
+  //   Note: 420 Vin or Vout is already forbidden in ValidateSubsystemConfig
+  //   1) if neither Vin nor Vout is 422, the case is allowed
+  //   2) if both Vin and Vout are 422, and 422 is enabled, the case is allowed
+
+  if(!(((pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_422) &&
+        (pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_422)) ||
+       ((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422) &&
+        (pStrmOut->ColorFormatId == XVIDC_CSF_YCRCB_422) &&
+        Allow422))) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: 422 color format not allowed\r\n");
+    return(XST_FAILURE);
+  }
+
   if(pStrmIn->VmId != pStrmOut->VmId) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Video Mode different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output Video Mode different\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->Timing.HActive != pStrmOut->Timing.HActive) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output H Active different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output H Active different\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->Timing.VActive != pStrmOut->Timing.VActive) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output V Active different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output V Active different\r\n");
     return(XST_FAILURE);
   }
 
@@ -1228,8 +1248,8 @@ static int ValidateDeintOnlyConfig(XVidC_VideoStream *pStrmIn,
 
 /*****************************************************************************/
 /**
-* This function validates the input and output stream configuration for 420to422
-* only configuration
+* This function validates the in and out stream configuration for VCResample
+* only configuration. Converts 420->422 or 422->420.
 *
 * @param  pStrmIn is a pointer to the input stream
 * @param  pStrmOut is a pointer to the output stream
@@ -1239,31 +1259,38 @@ static int ValidateDeintOnlyConfig(XVidC_VideoStream *pStrmIn,
 * @note This function is applicable only for Stream mode configuration of the
 *       subsystem. In this mode very limited functionality is available
 ******************************************************************************/
-static int Validate420to422OnlyConfig(XVidC_VideoStream *pStrmIn,
-                                      XVidC_VideoStream *pStrmOut)
+static int ValidateVCResampleOnlyConfig(XVidC_VideoStream *pStrmIn,
+                                        XVidC_VideoStream *pStrmOut)
 {
-  if(pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_420) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Input must be YUV420\r\n");
+  if((pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_420) &&
+	 (pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_422)) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Video Input must be YUV420 or YUV422\r\n");
     return(XST_FAILURE);
   }
 
-  if(pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_422) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Output must be YUV422\r\n");
+  if((pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_420) &&
+	 (pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_422)) {
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Video Output must be YUV420 or YUV422\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->VmId != pStrmOut->VmId) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Video Mode different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output Video Mode different\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->Timing.HActive != pStrmOut->Timing.HActive) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output H Active different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+     "VPROCSS ERR: Input & Output H Active different\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->Timing.VActive != pStrmOut->Timing.VActive) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output V Active different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output V Active different\r\n");
     return(XST_FAILURE);
   }
 
@@ -1272,8 +1299,8 @@ static int Validate420to422OnlyConfig(XVidC_VideoStream *pStrmIn,
 
 /*****************************************************************************/
 /**
-* This function validates the input and output stream configuration for 422to444
-* only configuration
+* This function validates the input and output stream configuration for the
+* HCResample only configuration
 *
 * @param  pStrmIn is a pointer to the input stream
 * @param  pStrmOut is a pointer to the output stream
@@ -1283,31 +1310,38 @@ static int Validate420to422OnlyConfig(XVidC_VideoStream *pStrmIn,
 * @note This function is applicable only for Stream mode configuration of the
 *       subsystem. In this mode very limited functionality is available
 ******************************************************************************/
-static int Validate422to444OnlyConfig(XVidC_VideoStream *pStrmIn,
+static int ValidateHCResampleOnlyConfig(XVidC_VideoStream *pStrmIn,
                                       XVidC_VideoStream *pStrmOut)
 {
-  if(pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_422) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Input must be YUV422\r\n");
+  if((pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_422) &&
+	 (pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_444) ){
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Video Input must be YUV422 or YUV444\r\n");
     return(XST_FAILURE);
   }
 
-  if(pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_444) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Video Output must be YUV444\r\n");
+  if((pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_422) &&
+	 (pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_444) ){
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Video Output must be YUV422 or YUV444\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->VmId != pStrmOut->VmId) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Video Mode different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output Video Mode different\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->Timing.HActive != pStrmOut->Timing.HActive) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output H Active different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output H Active different\r\n");
     return(XST_FAILURE);
   }
 
   if(pStrmIn->Timing.VActive != pStrmOut->Timing.VActive) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output V Active different\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Input & Output V Active different\r\n");
     return(XST_FAILURE);
   }
 
@@ -1331,6 +1365,7 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
 {
   u32 vsc_WidthIn, vsc_HeightIn, vsc_HeightOut;
   u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
+  u16 Allow422;
   int status = XST_SUCCESS;
 
   vsc_WidthIn = vsc_HeightIn = vsc_HeightOut = 0;
@@ -1342,9 +1377,12 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
     return(XST_FAILURE);
   }
 
+  Allow422 = XV_HscalerIs422Enabled(XVprocSsPtr->HscalerPtr);
+
   /* check if input/output stream configuration is supported */
   status = ValidateScalerOnlyConfig(&XVprocSsPtr->VidIn,
-                                    &XVprocSsPtr->VidOut);
+                                    &XVprocSsPtr->VidOut,
+	                                Allow422);
 
   if(status ==  XST_SUCCESS)
   {
@@ -1361,16 +1399,10 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
     hsc_WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
 
     /* Configure scaler to scale input to output resolution */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure VScaler for %dx%d to %dx%d\r\n", \
-            (int)vsc_WidthIn, (int)vsc_HeightIn, (int)vsc_WidthIn, (int)vsc_HeightOut);
-
-    XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
+	XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
                     vsc_WidthIn,
                     vsc_HeightIn,
                     vsc_HeightOut);
-
-    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure HScaler for %dx%d to %dx%d\r\n", \
-                       (int)hsc_WidthIn, (int)hsc_HeightIn, (int)hsc_WidthOut, (int)hsc_HeightIn);
 
     XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
                     hsc_HeightIn,
@@ -1410,8 +1442,10 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
   XVidC_ColorFormat CscIn, CscOut;
   XVidC_ColorStd StdIn, StdOut;
   XVidC_ColorRange RangeOut;
+  XVidC_ColorDepth ColorDepth;
   u32 HeightOut = 0;
   u32 WidthOut = 0;
+  u16 Allow422, AllowWindow;
   int status = XST_SUCCESS;
 
   if(!XVprocSsPtr->CscPtr) {
@@ -1419,40 +1453,39 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
     return(XST_FAILURE);
   }
 
+  Allow422 = XV_CscIs422Enabled(XVprocSsPtr->CscPtr);
+  AllowWindow = XV_CscIsDemoWindowEnabled(XVprocSsPtr->CscPtr);
+
   /* check if input/output stream configuration is supported */
   status = ValidateCscOnlyConfig(&XVprocSsPtr->VidIn,
-                                 &XVprocSsPtr->VidOut);
+                                 &XVprocSsPtr->VidOut,
+                                 Allow422);
 
   if(status ==  XST_SUCCESS) {
     /* Reset All IP Blocks */
     XVprocSs_Reset(XVprocSsPtr);
 
+	// when setting up a new resolution, start with default picture settings
+    XV_CscSetPowerOnDefaultState(XVprocSsPtr->CscPtr);
+
+	// set the proper color depth: get it from the vprocss config
+	ColorDepth = XVprocSs_GetColorDepth(XVprocSsPtr);
+	XV_CscSetColorDepth(XVprocSsPtr->CscPtr, ColorDepth);
+
+	// all other picture settings are filled in by XV_CscSetColorspace
     CscIn = XVprocSsPtr->VidIn.ColorFormatId;
     CscOut = XVprocSsPtr->VidOut.ColorFormatId;
     StdIn = XVprocSsPtr->CscPtr->StandardIn;
     StdOut = XVprocSsPtr->CscPtr->StandardOut;
     RangeOut = XVprocSsPtr->CscPtr->OutputRange;
-    HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
-    WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
-
-    /* Configure csc to convert and correct the color space */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Csc :\r\n"\
-                                   "     Csc   In  ColorFormat #%d\r\n"\
-                                   "     Csc   Out ColorFormat #%d\r\n"\
-                                   "     Std   In  ColorStd    #%d\r\n"\
-                                   "     Std   Out ColorStd    #%d\r\n"\
-                                   "     Range Out ColorRange  #%d\r\n"\
-                                   "     Width pixels          %d\r\n"\
-                                   "     Height lines          %d\r\n",\
-      (int)CscIn, (int)CscOut, (int)StdIn, (int)StdOut, (int)RangeOut, (int)WidthOut, (int)HeightOut);
-
     XV_CscSetColorspace(XVprocSsPtr->CscPtr,
-                        CscIn,
-                        CscOut,
-                        StdIn,
-                        StdOut,
+                        CscIn, CscOut,
+                        StdIn, StdOut,
                         RangeOut);
 
+	// set the Global Window size
+	HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
+    WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
     XV_CscSetActiveSize(XVprocSsPtr->CscPtr,
                         WidthOut,
                         HeightOut);
@@ -1484,7 +1517,8 @@ static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
   int status = XST_SUCCESS;
 
   if(!XVprocSsPtr->DeintPtr) {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Deinterlacer IP not found\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR:: Deinterlacer IP not found\r\n");
     return(XST_FAILURE);
   }
 
@@ -1499,16 +1533,9 @@ static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
     /* Save input resolution in the _ContextData structure */
     CtxtPtr->StrmCformat = XVprocSsPtr->VidIn.ColorFormatId;
     CtxtPtr->VidInWidth  = XVprocSsPtr->VidIn.Timing.HActive;
-    // we know after validating this config that VidIn is interlaced and VidOut is progressive
+    // we know after validating this config that VidIn is interlaced
+    // and VidOut is progressive: multiply height by 2 for downstream
     CtxtPtr->VidInHeight = XVprocSsPtr->VidIn.Timing.VActive * 2;
-
-    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Deinterlacer for %dx%d to %dx%d\r\n"\
-		                       "                                Buffer addr 0x%X\r\n",\
-	            (int)XVprocSsPtr->VidIn.Timing.HActive,
-	            (int)XVprocSsPtr->VidIn.Timing.VActive,
-	            (int)CtxtPtr->VidInWidth,
-	            (int)CtxtPtr->VidInHeight,
-	            (int)CtxtPtr->DeintBufAddr);
 
     XV_DeintSetFieldBuffers(XVprocSsPtr->DeintPtr,
 	                        CtxtPtr->DeintBufAddr,
@@ -1517,10 +1544,12 @@ static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
     XV_deinterlacer_Set_width(&XVprocSsPtr->DeintPtr->Deint,
 	                          CtxtPtr->VidInWidth);
 
+    // VidIn.Timing.VActive is the field height
     XV_deinterlacer_Set_height(&XVprocSsPtr->DeintPtr->Deint,
-	                           XVprocSsPtr->VidIn.Timing.VActive); //field height
+	                           XVprocSsPtr->VidIn.Timing.VActive);
 
-    XV_deinterlacer_Set_invert_field_id(&XVprocSsPtr->DeintPtr->Deint, 0); //TBD
+    // TBD
+    XV_deinterlacer_Set_invert_field_id(&XVprocSsPtr->DeintPtr->Deint, 0);
 
     /* Start Deint sub-core */
     XV_DeintStart(XVprocSsPtr->DeintPtr);
@@ -1532,7 +1561,7 @@ static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
 
 /*****************************************************************************/
 /**
-* This function configures the video subsystem pipeline for 420to422Only
+* This function configures the video subsystem pipeline for VCResample only
 * topology of the subsystem
 *
 * @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
@@ -1543,19 +1572,20 @@ static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
 *       accordingly else will ignore the request
 *
 ******************************************************************************/
-static int SetupMode420to422Only(XVprocSs *XVprocSsPtr)
+static int SetupModeVCResampleOnly(XVprocSs *XVprocSsPtr)
 {
   XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
   int status = XST_SUCCESS;
 
   if(!XVprocSsPtr->VcrsmplrInPtr) {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VCResampler_In IP not found\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+	  "VPROCSS ERR:: VCResampler_In IP not found\r\n");
     return(XST_FAILURE);
   }
 
   /* check if input/output stream configuration is supported */
-  status = Validate420to422OnlyConfig(&XVprocSsPtr->VidIn,
-                                      &XVprocSsPtr->VidOut);
+  status = ValidateVCResampleOnlyConfig(&XVprocSsPtr->VidIn,
+                                        &XVprocSsPtr->VidOut);
 
   if(status ==  XST_SUCCESS) {
 
@@ -1565,34 +1595,27 @@ static int SetupMode420to422Only(XVprocSs *XVprocSsPtr)
     /* Reset All IP Blocks */
     XVprocSs_Reset(XVprocSsPtr);
 
-    /* Configure H chroma resampler in and out color space */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure V Chroma Resampler :\r\n"\
-                                   "     VCR   In  ColorFormat #%d\r\n"\
-                                   "     VCR   Out ColorFormat #%d\r\n"\
-                                   "     Width pixels          %d\r\n"\
-                                   "     Height lines          %d\r\n",\
-      XVIDC_CSF_YCRCB_420, XVIDC_CSF_YCRCB_422,
-      (int)CtxtPtr->VidInWidth, (int)CtxtPtr->VidInHeight);
-
+    /* Configure V chroma resampler in and out color space */
     XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrInPtr,
 	                        CtxtPtr->VidInWidth,
 	                        CtxtPtr->VidInHeight);
 
     XV_VCrsmplSetFormat(XVprocSsPtr->VcrsmplrInPtr,
-                        XVIDC_CSF_YCRCB_420,
-                        XVIDC_CSF_YCRCB_422);
+                        XVprocSsPtr->VidIn.ColorFormatId,
+                        XVprocSsPtr->VidOut.ColorFormatId);
 
-    /* Start chroma resampler sub-core */
+    /* Start V Chroma Resampler-In sub-core */
     XV_VCrsmplStart(XVprocSsPtr->VcrsmplrInPtr);
   } else {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n-->Command Ignored<--\r\n");
   }
+
   return(status);
 }
 
 /*****************************************************************************/
 /**
-* This function configures the video subsystem pipeline for 422to444Only
+* This function configures the video subsystem pipeline for HCResample only
 * topology of the subsystem
 *
 * @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
@@ -1603,7 +1626,7 @@ static int SetupMode420to422Only(XVprocSs *XVprocSsPtr)
 *       accordingly else will ignore the request
 *
 ******************************************************************************/
-static int SetupMode422to444Only(XVprocSs *XVprocSsPtr)
+static int SetupModeHCResampleOnly(XVprocSs *XVprocSsPtr)
 {
   XVidC_ColorFormat HcrIn, HcrOut;
   u32 HeightOut = 0;
@@ -1611,13 +1634,14 @@ static int SetupMode422to444Only(XVprocSs *XVprocSsPtr)
   int status = XST_SUCCESS;
 
   if(!XVprocSsPtr->HcrsmplrPtr) {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: HCResampler IP not found\r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+	  "VPROCSS ERR:: HCResampler IP not found\r\n");
     return(XST_FAILURE);
   }
 
   /* check if input/output stream configuration is supported */
-  status = Validate422to444OnlyConfig(&XVprocSsPtr->VidIn,
-                                      &XVprocSsPtr->VidOut);
+  status = ValidateHCResampleOnlyConfig(&XVprocSsPtr->VidIn,
+                                        &XVprocSsPtr->VidOut);
 
   if(status ==  XST_SUCCESS) {
     /* Reset All IP Blocks */
@@ -1629,13 +1653,6 @@ static int SetupMode422to444Only(XVprocSs *XVprocSsPtr)
     WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
 
     /* Configure H chroma resampler in and out color space */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure H Chroma Resampler :\r\n"\
-                                   "     HCR   In  ColorFormat #%d\r\n"\
-                                   "     HCR   Out ColorFormat #%d\r\n"\
-                                   "     Width pixels          %d\r\n"\
-                                   "     Height lines          %d\r\n",\
-      (int)HcrIn, (int)HcrOut, (int)WidthOut, (int)HeightOut);
-
     XV_HCrsmplSetFormat(XVprocSsPtr->HcrsmplrPtr,
                         HcrIn,
                         HcrOut);
@@ -1649,6 +1666,7 @@ static int SetupMode422to444Only(XVprocSs *XVprocSsPtr)
   } else {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n-->Command Ignored<--\r\n");
   }
+
   return(status);
 }
 
@@ -1685,7 +1703,6 @@ static int SetupModeMax(XVprocSs *XVprocSsPtr)
   return(status);
 }
 
-
 /*****************************************************************************/
 /**
 * This function validates the input and output stream configuration against the
@@ -1714,26 +1731,27 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
   StrmOut->PixPerClk = InstancePtr->Config.PixPerClock;
 
   /* Frame rate conversion is possible only in FULL topology */
-  if((XVprocSs_GetSubsystemTopology(InstancePtr) != XVPROCSS_TOPOLOGY_FULL_FLEDGED) &&
-     (StrmIn->FrameRate != StrmOut->FrameRate))
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Input & Output Frame Rate different\r\n");
+  if((XVprocSs_GetSubsystemTopology(InstancePtr)
+      != XVPROCSS_TOPOLOGY_FULL_FLEDGED) &&
+     (StrmIn->FrameRate != StrmOut->FrameRate)) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+	  "VPROCSS ERR: Input & Output Frame Rate different\r\n");
     return(XST_FAILURE);
   }
 
   /* Check input resolution is supported by HW */
   if((StrmIn->Timing.HActive > InstancePtr->Config.MaxWidth) ||
-	 (StrmIn->Timing.VActive > InstancePtr->Config.MaxHeight))
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Stream Resolution greater than IP MAX\r\n");
+	 (StrmIn->Timing.VActive > InstancePtr->Config.MaxHeight)) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+	  "VPROCSS ERR:: Input Stream Resolution greater than IP MAX\r\n");
 	return(XST_FAILURE);
   }
 
   /* Check output resolution is supported by HW */
   if((StrmOut->Timing.HActive > InstancePtr->Config.MaxWidth) ||
-	 (StrmOut->Timing.VActive > InstancePtr->Config.MaxHeight))
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Output Stream Resolution greater than IP MAX\r\n");
+	 (StrmOut->Timing.VActive > InstancePtr->Config.MaxHeight)) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+	  "VPROCSS ERR:: Output Stream Resolution greater than IP MAX\r\n");
 	return(XST_FAILURE);
   }
 
@@ -1741,79 +1759,85 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
   if(((StrmIn->Timing.HActive  % InstancePtr->Config.PixPerClock) != 0) ||
      ((StrmOut->Timing.HActive % InstancePtr->Config.PixPerClock) != 0))
   {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input/Output Width not aligned with Samples/Clk\r\n");
+    xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR:: Input/Output Width not aligned with Samples/Clk\r\n");
 	return(XST_FAILURE);
   }
 
   /* Check if Subsystem HW Configuration can process requested resolution*/
-  if(((StrmIn->PixPerClk  == XVIDC_PPC_1) && (StrmIn->VmId > XVIDC_VM_3840x2160_30_P))||
-	 ((StrmOut->PixPerClk == XVIDC_PPC_1) && (StrmOut->VmId > XVIDC_VM_3840x2160_30_P)))
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: 1 Sample/Clk can support Max resolution of 4K2K@30Hz \r\n");
+  if(((StrmIn->PixPerClk == XVIDC_PPC_1) &&
+	  (StrmIn->VmId > XVIDC_VM_3840x2160_30_P)) ||
+	  ((StrmOut->PixPerClk == XVIDC_PPC_1) &&
+	  (StrmOut->VmId > XVIDC_VM_3840x2160_30_P) )) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+	  "VPROCSS ERR:: 1 Samples/Clk can support Max resolution of 4K2K@30Hz \r\n");
 	return(XST_FAILURE);
   }
 
   /* Check for YUV422 In/Out stream width is even */
-  if(((StrmIn->ColorFormatId  == XVIDC_CSF_YCRCB_422) && ((StrmIn->Timing.HActive % 2) != 0)) ||
-	 ((StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_422) && ((StrmOut->Timing.HActive % 2) != 0)))
-  {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: YUV422 stream width must be even\r\n");
+  if(((StrmIn->ColorFormatId  == XVIDC_CSF_YCRCB_422) &&
+	  ((StrmIn->Timing.HActive % 2) != 0)) ||
+	  ((StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_422) &&
+      ((StrmOut->Timing.HActive % 2) != 0))) {
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+	  "VPROCSS ERR:: YUV422 stream width must be even\r\n");
 	return(XST_FAILURE);
   }
 
   /* Check for YUV420 In stream width and height is even */
-  if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
-  {
-	if(InstancePtr->VcrsmplrInPtr)
-	{
-      if(((StrmIn->Timing.HActive % 2) != 0) && ((StrmIn->Timing.VActive % 2) != 0))
-	  {
-	    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: YUV420 input stream width and height must be even\r\n");
+  if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	if(InstancePtr->VcrsmplrInPtr){
+      if(((StrmIn->Timing.HActive % 2) != 0) &&
+		 ((StrmIn->Timing.VActive % 2) != 0)) {
+	    xdbg_printf(XDBG_DEBUG_GENERAL,
+	      "VPROCSS ERR:: YUV420 in stream width and height must be even\r\n");
 	    return(XST_FAILURE);
 	  }
-	}
-	else
-	{
-	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Vertical Chroma Resampler IP not found. YUV420 Input not supported\r\n");
+	} else {
+	  xdbg_printf(XDBG_DEBUG_GENERAL,
+	    "VPROCSS ERR:: Vertical Chroma Resampler IP not found."\
+	    "YUV420 Input not supported\r\n");
 	  return(XST_FAILURE);
 	}
   }
 
   /* Check for YUV420 out stream width and height is even */
-  if(StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_420)
-  {
-	if(InstancePtr->VcrsmplrOutPtr)
-	{
-      if(((StrmOut->Timing.HActive % 2) != 0) && ((StrmOut->Timing.VActive % 2) != 0))
-	  {
-	    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: YUV420 output stream width and height must be even\r\n");
+  /* In the Full-fledged case, the Output V C Resampler is "VcrsmplrOut" */
+  /* In the VCResample-only case, the Output V C Resampler is "VcrsmplrIn" */
+  if(StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	if(((InstancePtr->Config.Topology==XVPROCSS_TOPOLOGY_FULL_FLEDGED) &&
+        (InstancePtr->VcrsmplrOutPtr)) ||
+       ((InstancePtr->Config.Topology==XVPROCSS_TOPOLOGY_VCRESAMPLE_ONLY) &&
+        (InstancePtr->VcrsmplrInPtr))) {
+      if(((StrmOut->Timing.HActive % 2) != 0) &&
+		 ((StrmOut->Timing.VActive % 2) != 0)) {
+	    xdbg_printf(XDBG_DEBUG_GENERAL,
+	      "VPROCSS ERR:: YUV420 out stream width and height must be even\r\n");
 	    return(XST_FAILURE);
 	  }
-	}
-	else
-	{
-	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Vertical Chroma Resampler IP not found. YUV420 Output not supported\r\n");
+	} else {
+	  xdbg_printf(XDBG_DEBUG_GENERAL,
+	    "VPROCSS ERR:: Vertical Chroma Resampler IP not found."\
+	    "YUV420 Output not supported\r\n");
 	  return(XST_FAILURE);
 	}
   }
 
   /* Check for Interlaced input limitation */
-  if(StrmIn->IsInterlaced)
-  {
-	if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420)
-	{
-	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced YUV420 stream not supported\r\n");
+  if(StrmIn->IsInterlaced) {
+	if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	  xdbg_printf(XDBG_DEBUG_GENERAL,
+	    "VPROCSS ERR:: Interlaced YUV420 stream not supported\r\n");
 	  return(XST_FAILURE);
 	}
-	if(!InstancePtr->DeintPtr)
-	{
-	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Interlaced input not supported\r\n");
+	if(!InstancePtr->DeintPtr) {
+	  xdbg_printf(XDBG_DEBUG_GENERAL,
+	    "VPROCSS ERR:: Deinterlacer IP not found\r\n");
 	  return(XST_FAILURE);
 	}
   }
   return(XST_SUCCESS);
 }
-
 
 /*****************************************************************************/
 /**
@@ -1861,18 +1885,19 @@ int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr)
         status = SetupModeDeintOnly(InstancePtr);
         break;
 
-    case XVPROCSS_TOPOLOGY_420TO422_ONLY:
+    case XVPROCSS_TOPOLOGY_VCRESAMPLE_ONLY:
         //Only configuration supported is 420 to 422 only
-        status = SetupMode420to422Only(InstancePtr);
+        status = SetupModeVCResampleOnly(InstancePtr);
         break;
 
-    case XVPROCSS_TOPOLOGY_422TO444_ONLY:
+    case XVPROCSS_TOPOLOGY_HCRESAMPLE_ONLY:
         //Only configuration supported is 422 to 444 only
-        status = SetupMode422to444Only(InstancePtr);
+        status = SetupModeHCResampleOnly(InstancePtr);
         break;
 
     default:
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR: Subsystem Configuration Mode Not Supported. \r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,
+      "VPROCSS ERR: Subsystem Configuration Mode Not Supported. \r\n");
         status = XST_FAILURE;
         break;
   }
@@ -1896,8 +1921,7 @@ s32 XVprocSs_GetPictureBrightness(XVprocSs *InstancePtr)
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetBrightness(InstancePtr->CscPtr);
   }
   return(Retval);
@@ -1923,8 +1947,7 @@ void XVprocSs_SetPictureBrightness(XVprocSs *InstancePtr, s32 NewValue)
   Xil_AssertVoid(InstancePtr->CscPtr != NULL);
   Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	XV_CscSetBrightness(InstancePtr->CscPtr, NewValue);
   }
 }
@@ -1946,8 +1969,7 @@ s32 XVprocSs_GetPictureContrast(XVprocSs *InstancePtr)
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetContrast(InstancePtr->CscPtr);
   }
   return(Retval);
@@ -1973,8 +1995,7 @@ void XVprocSs_SetPictureContrast(XVprocSs *InstancePtr, s32 NewValue)
   Xil_AssertVoid(InstancePtr->CscPtr != NULL);
   Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	XV_CscSetContrast(InstancePtr->CscPtr, NewValue);
   }
 }
@@ -1996,8 +2017,7 @@ s32 XVprocSs_GetPictureSaturation(XVprocSs *InstancePtr)
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetSaturation(InstancePtr->CscPtr);
   }
   return(Retval);
@@ -2023,8 +2043,7 @@ void XVprocSs_SetPictureSaturation(XVprocSs *InstancePtr, s32 NewValue)
   Xil_AssertVoid(InstancePtr->CscPtr != NULL);
   Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	XV_CscSetSaturation(InstancePtr->CscPtr, NewValue);
   }
 }
@@ -2049,8 +2068,7 @@ s32 XVprocSs_GetPictureGain(XVprocSs *InstancePtr, XVprocSs_ColorChannel ChId)
   Xil_AssertNonvoid((ChId >= XVPROCSS_COLOR_CH_Y_RED) &&
 		            (ChId < XVPROCSS_COLOR_CH_NUM_SUPPORTED));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	switch(ChId)
 	{
 	  case XVPROCSS_COLOR_CH_Y_RED:
@@ -2068,9 +2086,7 @@ s32 XVprocSs_GetPictureGain(XVprocSs *InstancePtr, XVprocSs_ColorChannel ChId)
 	  default:
 		    break;
 	}
-  }
-  else
-  {
+  } else {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
   }
   return(Retval);
@@ -2101,8 +2117,7 @@ void XVprocSs_SetPictureGain(XVprocSs *InstancePtr,
 		         (ChId <= XVPROCSS_COLOR_CH_NUM_SUPPORTED));
   Xil_AssertVoid((NewValue >= 0) && (NewValue <= 100));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
     switch(ChId)
     {
       case XVPROCSS_COLOR_CH_Y_RED:
@@ -2145,8 +2160,7 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdIn(XVprocSs *InstancePtr)
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetColorStdIn(InstancePtr->CscPtr);
   }
   return(Retval);
@@ -2174,8 +2188,7 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdOut(XVprocSs *InstancePtr)
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetColorStdOut(InstancePtr->CscPtr);
   }
   return(Retval);
@@ -2207,8 +2220,7 @@ void XVprocSs_SetPictureColorStdIn(XVprocSs *InstancePtr,
   Xil_AssertVoid((NewVal >= XVIDC_BT_2020) &&
 		         (NewVal < XVIDC_BT_NUM_SUPPORTED));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
     XV_CscSetColorspace(CscPtr,
                         CscPtr->ColorFormatIn,
                         CscPtr->ColorFormatOut,
@@ -2244,8 +2256,7 @@ void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
   Xil_AssertVoid((NewVal >= XVIDC_BT_2020) &&
 		         (NewVal < XVIDC_BT_NUM_SUPPORTED));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
     XV_CscSetColorspace(CscPtr,
                         CscPtr->ColorFormatIn,
                         CscPtr->ColorFormatOut,
@@ -2277,8 +2288,7 @@ XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr)
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetOutputRange(InstancePtr->CscPtr);
   }
   return(Retval);
@@ -2310,8 +2320,7 @@ void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
   Xil_AssertVoid((NewVal >= XVIDC_CR_16_235) &&
 		         (NewVal < XVIDC_CR_NUM_SUPPORTED));
 
-  if(InstancePtr->CscPtr)
-  {
+  if(InstancePtr->CscPtr) {
     XV_CscSetColorspace(CscPtr,
                         CscPtr->ColorFormatIn,
                         CscPtr->ColorFormatOut,
@@ -2323,9 +2332,9 @@ void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function sets picture active window.
+* This function sets picture Demo Window.
 * Post this function call all further picture settings will apply only within
-* the defined window. Active window gets reset everytime subsystem
+* the defined window. Demo window gets reset everytime subsystem
 * configuration changes
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -2334,11 +2343,12 @@ void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
 *
 * @return XST_SUCCESS if window is valid else XST_FAILURE
 *
-* @note   Applicable only if CSC core is included in the subsystem
+* @note   Applicable only if CSC core is included in the subsystem and the
+*         Demo Window is enabled
 *
 ******************************************************************************/
-int XVprocSs_SetPictureActiveWindow(XVprocSs *InstancePtr,
-	                                XVidC_VideoWindow *Win)
+int XVprocSs_SetPictureDemoWindow(XVprocSs *InstancePtr,
+	                              XVidC_VideoWindow *Win)
 {
   u16 width, height;
   int status = XST_FAILURE;
@@ -2348,8 +2358,7 @@ int XVprocSs_SetPictureActiveWindow(XVprocSs *InstancePtr,
   Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
   Xil_AssertNonvoid(Win != NULL);
 
-  if(InstancePtr->CscPtr)
-  {
+  if((InstancePtr->CscPtr) && (XV_CscIsDemoWindowEnabled(InstancePtr->CscPtr))) {
     width  = XV_csc_Get_HwReg_width(&InstancePtr->CscPtr->Csc);
 	height = XV_csc_Get_HwReg_height(&InstancePtr->CscPtr->Csc);
 
@@ -2357,17 +2366,13 @@ int XVprocSs_SetPictureActiveWindow(XVprocSs *InstancePtr,
 	if(((Win->StartX < 0) || (Win->StartX > width))  ||
 	   ((Win->StartY < 0) || (Win->StartY > height)) ||
 	   ((Win->StartX + Win->Width) > width)         ||
-	   ((Win->StartY + Win->Height) > height))
-	{
+	   ((Win->StartY + Win->Height) > height)) {
 	  status = XST_FAILURE;
-	}
-	else
-	{
+	} else {
 	  status = XST_SUCCESS;
 	}
 
-	if(status == XST_SUCCESS)
-	{
+	if(status == XST_SUCCESS) {
 	  XV_CscSetDemoWindow(InstancePtr->CscPtr, Win);
 	}
   }
@@ -2400,15 +2405,12 @@ void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
   Xil_AssertVoid((ColorId >= XLBOX_BKGND_BLACK) &&
 		         (ColorId < XLBOX_BKGND_LAST));
 
-  if(InstancePtr->LboxPtr)
-  {
+  if(InstancePtr->LboxPtr) {
 	XV_LboxSetBackgroundColor(InstancePtr->LboxPtr,
 			                  ColorId,
 			                  InstancePtr->CtxtData.StrmCformat,
 			                  InstancePtr->VidIn.ColorDepth);
-  }
-  else
-  {
+  } else {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
   }
 }
@@ -2446,36 +2448,29 @@ void XVprocSs_LoadScalerCoeff(XVprocSs *InstancePtr,
   switch(CoreId)
   {
     case XVPROCSS_SUBCORE_SCALER_V:
-        if(InstancePtr->VscalerPtr)
-	{
-	  XV_VScalerLoadExtCoeff(InstancePtr->VscalerPtr,
-		                     num_phases,
-		                     num_taps,
-		                     Coeff);
-        }
-        else
-        {
-          xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
-        }
-
-	break;
+      if(InstancePtr->VscalerPtr) {
+	    XV_VScalerLoadExtCoeff(InstancePtr->VscalerPtr,
+		                       num_phases,
+		                       num_taps,
+		                       Coeff);
+      } else {
+        xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+      }
+	  break;
 
     case XVPROCSS_SUBCORE_SCALER_H:
-	if(InstancePtr->HscalerPtr)
-	{
-	  XV_HScalerLoadExtCoeff(InstancePtr->HscalerPtr,
-		                     num_phases,
-		                     num_taps,
-		                     Coeff);
-        }
-	else
-	{
-	  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
-	}
-	break;
+	  if(InstancePtr->HscalerPtr) {
+	    XV_HScalerLoadExtCoeff(InstancePtr->HscalerPtr,
+		                       num_phases,
+		                       num_taps,
+		                       Coeff);
+      }	else {
+	    xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
+	  }
+	  break;
 
     default:
-	break;
+	  break;
   }
 }
 
@@ -2512,34 +2507,25 @@ void XVprocSs_LoadChromaResamplerCoeff(XVprocSs *InstancePtr,
   switch(CoreId)
   {
 	case XVPROCSS_SUBCORE_CR_H:
-		if(InstancePtr->HcrsmplrPtr)
-		{
+		if(InstancePtr->HcrsmplrPtr) {
 		  XV_HCrsmplrLoadExtCoeff(InstancePtr->HcrsmplrPtr, num_taps, Coeff);
-		}
-		else
-		{
+		} else {
 		  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
 		}
 		break;
 
 	case XVPROCSS_SUBCORE_CR_V_IN:
-		if(InstancePtr->VcrsmplrInPtr)
-		{
+		if(InstancePtr->VcrsmplrInPtr) {
 		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrInPtr, num_taps, Coeff);
-		}
-	    else
-		{
+		} else {
 		  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
 		}
 		break;
 
 	case XVPROCSS_SUBCORE_CR_V_OUT:
-		if(InstancePtr->VcrsmplrOutPtr)
-		{
+		if(InstancePtr->VcrsmplrOutPtr) {
 		  XV_VCrsmplrLoadExtCoeff(InstancePtr->VcrsmplrOutPtr, num_taps, Coeff);
-		}
-		else
-		{
+		} else {
 		  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nVPROCSS ERR:: Feature not supported\r\n");
 		}
 		break;
@@ -2579,44 +2565,44 @@ void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
   switch(SubcoreId)
   {
     case XVPROCSS_SUBCORE_SCALER_V:
-         XV_VScalerDbgReportStatus(InstancePtr->VscalerPtr);
-	 break;
+      XV_VScalerDbgReportStatus(InstancePtr->VscalerPtr);
+	  break;
 
     case XVPROCSS_SUBCORE_SCALER_H:
-         XV_HScalerDbgReportStatus(InstancePtr->HscalerPtr);
-	 break;
+      XV_HScalerDbgReportStatus(InstancePtr->HscalerPtr);
+	  break;
 
     case XVPROCSS_SUBCORE_VDMA:
-         XVprocSs_VdmaDbgReportStatus(InstancePtr->VdmaPtr,
-			                      InstancePtr->CtxtData.PixelWidthInBits);
-	 break;
+      XVprocSs_VdmaDbgReportStatus(InstancePtr->VdmaPtr,
+			                       InstancePtr->CtxtData.PixelWidthInBits);
+	  break;
 
     case XVPROCSS_SUBCORE_LBOX:
-         XV_LBoxDbgReportStatus(InstancePtr->LboxPtr);
-	 break;
+      XV_LBoxDbgReportStatus(InstancePtr->LboxPtr);
+	  break;
 
     case XVPROCSS_SUBCORE_CR_H:
-         XV_HCrsmplDbgReportStatus(InstancePtr->HcrsmplrPtr);
-	 break;
+      XV_HCrsmplDbgReportStatus(InstancePtr->HcrsmplrPtr);
+	  break;
 
     case XVPROCSS_SUBCORE_CR_V_IN:
-         XV_VCrsmplDbgReportStatus(InstancePtr->VcrsmplrInPtr);
-	 break;
+      XV_VCrsmplDbgReportStatus(InstancePtr->VcrsmplrInPtr);
+	  break;
 
     case XVPROCSS_SUBCORE_CR_V_OUT:
-         XV_VCrsmplDbgReportStatus(InstancePtr->VcrsmplrOutPtr);
-	 break;
+      XV_VCrsmplDbgReportStatus(InstancePtr->VcrsmplrOutPtr);
+	  break;
 
     case XVPROCSS_SUBCORE_CSC:
-	 XV_CscDbgReportStatus(InstancePtr->CscPtr);
-	 break;
+	  XV_CscDbgReportStatus(InstancePtr->CscPtr);
+	  break;
 
     case XVPROCSS_SUBCORE_DEINT:
-	 XV_DeintDbgReportStatus(InstancePtr->DeintPtr);
-	 break;
+	  XV_DeintDbgReportStatus(InstancePtr->DeintPtr);
+	  break;
 
     default:
-	 break;
+	  break;
   }
 }
 
@@ -2734,10 +2720,8 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
   xil_printf("\r\n->OUTPUT\r\n");
   XVidC_ReportStreamInfo(&InstancePtr->VidOut);
 
-  if(XVprocSs_IsConfigModeMax(InstancePtr))
-  {
-    if(XVprocSs_IsZoomModeOn(InstancePtr))
-    {
+  if(XVprocSs_IsConfigModeMax(InstancePtr)) {
+    if(XVprocSs_IsZoomModeOn(InstancePtr)) {
 	  xil_printf("\r\nZoom Mode: ON\r\n");
 	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_ZOOM_WIN, &win);
 	  xil_printf("   Start X    = %d\r\n", win.StartX);
@@ -2745,24 +2729,19 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
 	  xil_printf("   Win Width  = %d\r\n", win.Width);
 	  xil_printf("   Win Height = %d\r\n", win.Height);
 	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
-    }
-    else
-    {
+    } else {
       xil_printf("\r\nZoom Mode: OFF\r\n");
     }
 
-    if(XVprocSs_IsPipModeOn(InstancePtr))
-    {
-	  xil_printf("\r\nPip Mode: ON\r\n");
+    if(XVprocSs_IsPipModeOn(InstancePtr)) {
+	  xil_printf("Pip Mode: ON\r\n");
 	  XVprocSs_GetZoomPipWindow(InstancePtr, XVPROCSS_PIP_WIN, &win);
 	  xil_printf("   Start X    = %d\r\n", win.StartX);
 	  xil_printf("   Start Y    = %d\r\n", win.StartY);
 	  xil_printf("   Win Width  = %d\r\n", win.Width);
 	  xil_printf("   Win Height = %d\r\n", win.Height);
 	  xil_printf("\r\n   HStep Size = %d\r\n", XVprocSs_GetPipZoomWinHStepSize(InstancePtr));
-    }
-    else
-    {
+    } else {
       xil_printf("\r\nPip  Mode: OFF\r\n");
     }
 

@@ -38,7 +38,7 @@
 *
 * <b>Video Processing Subsystem Overview</b>
 *
-* Video Subsystem is a collection of IP cores bounded together by software
+* Video Subsystem is a collection of IP cores bonded together by software
 * to provide an abstract view of the processing pipe. It hides all the
 * complexities of programming the underlying cores from end user.
 *
@@ -65,9 +65,14 @@
 *
 * <b>Subsystem Configurations</b>
 *
-* Two types of configurations are supported via GUI in IPI
+* Six types of configurations, each with options, are supported via GUI in IPI
 * 	- Full Configuration: provides all the features mentioned above
-* 	- Streaming Mode Configuration (aka Scaler-Only) with limited functionality
+* 	- Five streaming mode configurations have specific limited functionalities:
+*     - Scaler-only mode allows only for changing the picture size
+*     - Deinterlace-only mode allows for converting interlaced to progressive
+*     - Csc-only mode allows only for changing the color space, e.g. YUV to RGB
+*     - Vertical Chroma Resamp-only mode allows only for 420<->422 conversion
+*     - Horizontal Chroma Resamp-only mode allows only for 422<->444 conversion
 *
 * Number of processing cores that get included in the design will depend upon
 * the configuration selected. Static configuration parameters are stored in
@@ -80,34 +85,38 @@
 *
 * Full configuration mode includes following sub-cores in HW
 * 	- Scalers (horizontal/vertical)
-* 	- Chroma Resampler (horizontal/vertical)
+* 	- Deinterlacer
+* 	- Chroma Resamplers (one horizontal and two vertical)
 * 	- Color Space Converter
 * 	- VDMA for buffer management
-* 	- De-Interlacer
-* 	- Letter Box
+* 	- Letterbox
 * 	- AXIS Switch
 *
-* Stream mode configuration mode includes following sub-cores in HW
-* 	- Scalers (horizontal/vertical)
+* Streaming mode configurations include the following sub-cores in HW
+* 	- Scaler-only: Scalers (horizontal/vertical)
+* 	- Deinterlace-only: Deinterlacer
+* 	- Csc-only: Color Space Converter
+* 	- Vertical Chroma Resamp-only: One Vertical Chroma Resampler
+* 	- Horizontal Chroma Resamp-only: Horizontal Chroma Resampler
 *
 * The subsystem driver itself always includes the full software stack
 * irrespective of the configuration selected. Generic API's are provided to
 * interact with the subsystem and/or with the included sub-cores.
-* At run-time the subsystem will query the static configuration and configures
+* At run-time the subsystem will query the static configuration and configure
 * itself for supported use cases
 *
 * <b>Subsystem Driver Description</b>
 *
 * Subsystem driver is built upon layer 1&2 device drivers of included sub-cores
 * Layer 1 provides API's to peek/poke registers at HW level.
-* Layer 2 provides API's that abstract sub-core functionality, providing an easy to
-* use feature interface
+* Layer 2 provides API's that abstract sub-core functionality, providing an
+* easy to use feature interface
 *
 * <b>Pre-Requisite's</b>
 *
-*   - For memory based design (Full Fledged Topology) application must program
-*     the base address of the video buffers in memory. Refer Memory Requirement
-*     section below.
+*   - For memory based design (Full Fledged Topology with VDMA, and/or
+*     Deinterlace with MADi) the application must program the base address of
+*     the video buffers in memory. Refer to Memory Requirement section below.
 *   - For microblaze based designs it is recommended to include a timer
 *     peripheral in the design and application should register a delay handling
 *     routine with the subsystem using the provided API.
@@ -118,7 +127,7 @@
 * make use of provided API's to configure it at boot-up. Thereafter application
 * SW is responsible to monitor the system for external impetus and call the
 * subsystem API's to communicate the change and trigger the reconfiguration of
-* internal data processing pipe (refer API XVprocSs_ConfigureSubsystem())
+* internal data processing pipe (refer to API XVprocSs_ConfigureSubsystem())
 * AXI Stream configuration for input/output interface is derived from the
 * Xilinx video common driver and only the resolutions listed therein are
 * supported at this time
@@ -127,7 +136,7 @@
 *
 * For full configuration mode DDR memory is used to store video frame buffers
 * Subsystem uses 5 frame buffers for Progressive input and 3 field buffers for
-* interlaced input. Amount of memory required by the subsystem can be
+* interlaced input. The amount of memory required by the subsystem can be
 * calculated by below equation
 *
 *  - 5 * MAX_WIDTHp * MAX_HEIGHTp * NUM_VIDEO_COMPONENTS * BytesPerComp
@@ -177,7 +186,10 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   08/28/15  Initial Release
 * 2.00  rco   11/05/15  Update to adapt to sub-core layer 2 changes
-*       dmc   12/02/15  Added new topologies
+*       dmc   12/02/15  Added four new topologies. There are now six topologies
+*       dmc   12/17/15  Accommodate Full topology with no VDMA
+*                       Rename and modify H,VCresample constants and routines
+*                       Add macros to query for the new topologies
 * </pre>
 *
 ******************************************************************************/
@@ -235,8 +247,8 @@ typedef enum
   XVPROCSS_TOPOLOGY_FULL_FLEDGED,
   XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY,
   XVPROCSS_TOPOLOGY_CSC_ONLY,
-  XVPROCSS_TOPOLOGY_420TO422_ONLY,
-  XVPROCSS_TOPOLOGY_422TO444_ONLY,
+  XVPROCSS_TOPOLOGY_VCRESAMPLE_ONLY,
+  XVPROCSS_TOPOLOGY_HCRESAMPLE_ONLY,
   XVPROCSS_TOPOLOGY_NUM_SUPPORTED
 }XVPROCSS_CONFIG_TOPOLOGY;
 
@@ -292,7 +304,6 @@ typedef struct
   u8 StartCore[XVPROCSS_SUBCORE_MAX]; /**< Enable flag to start sub-core */
   u8 RtrNumCores;      /**< Number of sub-cores in routing map */
   u8 ScaleMode;        /**< Stored computed scaling mode - UP/DN/1:1 */
-  u8 MemEn;            /**< Flag to indicate if stream routes through memory */
   u8 ZoomEn;           /**< Flag to store Zoom feature state */
   u8 PipEn;            /**< Flag to store PIP feature state */
   u16 VidInWidth;      /**< Input H Active */
@@ -396,7 +407,19 @@ typedef struct
  *
  *****************************************************************************/
 #define XVprocSs_GetSubsystemTopology(XVprocSsPtr) \
-	                                        ((XVprocSsPtr)->Config.Topology)
+   ((XVprocSsPtr)->Config.Topology)
+
+/*****************************************************************************/
+/**
+ * This macro returns the subsystem Color Depth
+ *
+ * @param  XVprocSsPtr is a pointer to the Video Processing subsystem instance
+ *
+ * @return Color Depth
+ *
+ *****************************************************************************/
+#define XVprocSs_GetColorDepth(XVprocSsPtr) ((XVprocSsPtr)->Config.ColorDepth)
+
 /*****************************************************************************/
 /**
  * This macro checks if subsystem is in Maximum (Full_Fledged) configuration
@@ -407,11 +430,11 @@ typedef struct
  *
  *****************************************************************************/
 #define XVprocSs_IsConfigModeMax(XVprocSsPtr) \
-             ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_FULL_FLEDGED)
+   ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_FULL_FLEDGED)
 
 /*****************************************************************************/
 /**
- * This macro checks if subsystem configuration is in Stream Mode (Scaler Only)
+ * This macro checks if subsystem configuration is in Scaler Only Mode
  *
  * @param  XVprocSsPtr is pointer to the Video Processing subsystem instance
  *
@@ -419,8 +442,55 @@ typedef struct
  *
  *****************************************************************************/
 #define XVprocSs_IsConfigModeSscalerOnly(XVprocSsPtr)  \
-              ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_SCALER_ONLY)
+   ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_SCALER_ONLY)
 
+/*****************************************************************************/
+/**
+ * This macro checks if subsystem configuration is in Deinterlace Only Mode
+ *
+ * @param  XVprocSsPtr is pointer to the Video Processing subsystem instance
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XVprocSs_IsConfigModeDeinterlaceOnly(XVprocSsPtr)  \
+   ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY)
+
+/*****************************************************************************/
+/**
+ * This macro checks if subsystem configuration is in CSC Only Mode
+ *
+ * @param  XVprocSsPtr is pointer to the Video Processing subsystem instance
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XVprocSs_IsConfigModeCscOnly(XVprocSsPtr)  \
+   ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_CSC_ONLY)
+
+/*****************************************************************************/
+/**
+ * This macro checks if subsystem configuration is in V Chroma ResampleMode
+ *
+ * @param  XVprocSsPtr is pointer to the Video Processing subsystem instance
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XVprocSs_IsConfigModeVCResampleOnly(XVprocSsPtr)  \
+   ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_VCRESAMPLE_ONLY)
+
+/*****************************************************************************/
+/**
+ * This macro checks if subsystem configuration is in H Chroma Resample Mode
+ *
+ * @param  XVprocSsPtr is pointer to the Video Processing subsystem instance
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XVprocSs_IsConfigModeHCResampleOnly(XVprocSsPtr)  \
+   ((XVprocSsPtr)->Config.Topology == XVPROCSS_TOPOLOGY_HCRESAMPLE_ONLY)
 
 /*****************************************************************************/
 /**
@@ -567,8 +637,8 @@ void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
 XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr);
 void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
 	                               XVidC_ColorRange NewVal);
-int XVprocSs_SetPictureActiveWindow(XVprocSs *InstancePtr,
-	                                XVidC_VideoWindow *Win);
+int XVprocSs_SetPictureDemoWindow(XVprocSs *InstancePtr,
+	                              XVidC_VideoWindow *Win);
 void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
 		                            XLboxColorId ColorId);
 

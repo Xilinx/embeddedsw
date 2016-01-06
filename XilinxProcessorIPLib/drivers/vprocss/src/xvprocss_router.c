@@ -47,7 +47,9 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco  07/21/15   Initial Release
-
+* 2.00  dmc  12/17/15   Accommodate Full topology with no VDMA
+*                       Rename and modify H,VCresample constants and routines
+*                       Mods to conform to coding sytle
 * </pre>
 *
 ******************************************************************************/
@@ -221,10 +223,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   CtxtPtr->StrmCformat = StrmInPtr->ColorFormatId;
 
   /* Determine Scaling Mode */
-  CtxtPtr->MemEn = FALSE;
   CtxtPtr->ScaleMode = GetScalingMode(XVprocSsPtr);
-  if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED)
-  {
+  if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED) {
 	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode not supported\r\n");
     return(XST_FAILURE);
   }
@@ -233,14 +233,12 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   memset(pTable, 0, sizeof(CtxtPtr->RtngTable));
 
   /* Check if input is I/P */
-  if(StrmInPtr->IsInterlaced)
-  {
+  if(StrmInPtr->IsInterlaced) {
     pTable[index++] = XVPROCSS_SUBCORE_DEINT;
   }
 
   /* Check if input is 420 */
-  if(StrmInPtr->ColorFormatId == XVIDC_CSF_YCRCB_420)
-  {
+  if(StrmInPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
     //up-sample vertically to 422 as none of the IP supports 420
     pTable[index++] = XVPROCSS_SUBCORE_CR_V_IN;
     CtxtPtr->StrmCformat = XVIDC_CSF_YCRCB_422;
@@ -249,22 +247,25 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   switch(CtxtPtr->ScaleMode)
   {
     case XVPROCSS_SCALE_1_1:
-        pTable[index++] = XVPROCSS_SUBCORE_VDMA;
-        CtxtPtr->MemEn = TRUE;
+	if(XVprocSsPtr->VdmaPtr) {
+          pTable[index++] = XVPROCSS_SUBCORE_VDMA;
+	}
         break;
 
     case XVPROCSS_SCALE_UP:
-        pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
+	if(XVprocSsPtr->VdmaPtr) {
+          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
+	}
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
-        CtxtPtr->MemEn = TRUE;
         break;
 
     case XVPROCSS_SCALE_DN:
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
-        pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
-        CtxtPtr->MemEn = TRUE;
+	if(XVprocSsPtr->VdmaPtr) {
+          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
+	}
         break;
 
     default:
@@ -311,7 +312,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            default: //Unsupported color format
-		  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		      xdbg_printf(XDBG_DEBUG_GENERAL,
+				"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
@@ -338,7 +340,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            default: //Unsupported color format
-		      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		      xdbg_printf(XDBG_DEBUG_GENERAL,
+				"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
@@ -400,14 +403,16 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            default: //Unsupported color format
-		      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+		      xdbg_printf(XDBG_DEBUG_GENERAL,
+				"VPROCSS ERR:: Input Color Format Not Supported \r\n");
               status = XST_FAILURE;
               break;
          }
          break;
 
       default:
-	  xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Output Color Format Not Supported \r\n");
+	  xdbg_printf(XDBG_DEBUG_GENERAL,
+		"VPROCSS ERR:: Output Color Format Not Supported \r\n");
         status = XST_FAILURE;
         break;
   }
@@ -476,18 +481,17 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
   XVidC_VideoWindow lboxWin;
   u32 vsc_WidthIn, vsc_HeightIn, vsc_HeightOut;
   u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
+  XVidC_ColorDepth ColorDepth;
   u32 count;
   XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
   u8 *pTable = &XVprocSsPtr->CtxtData.RtngTable[0];
   u8 *StartCorePtr = &XVprocSsPtr->CtxtData.StartCore[0];
 
-
   vsc_WidthIn = vsc_HeightIn = vsc_HeightOut = 0;
   hsc_HeightIn = hsc_WidthIn = hsc_WidthOut = 0;
 
   /* Program Video Pipe Sub-Cores */
-  if(XVprocSsPtr->VidIn.IsInterlaced)
-  {
+  if (XVprocSsPtr->VidIn.IsInterlaced) {
     /* Input will de-interlaced first. All downstream IP's work
      * with progressive frame. Adjust active height to reflect the
      * progressive frame to downstream cores
@@ -496,10 +500,8 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
   }
 
   /* If Vdma is enabled, RD/WR Client needs to be programmed before Scaler */
-  if((XVprocSsPtr->VdmaPtr) && (CtxtPtr->MemEn))
-  {
-    switch(CtxtPtr->ScaleMode)
-    {
+  if (XVprocSsPtr->VdmaPtr) {
+    switch (CtxtPtr->ScaleMode) {
       case XVPROCSS_SCALE_1_1:
       case XVPROCSS_SCALE_UP:
           XVprocSs_VdmaSetWinToUpScaleMode(XVprocSsPtr, XVPROCSS_VDMA_UPDATE_ALL_CH);
@@ -515,23 +517,17 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
     StartCorePtr[XVPROCSS_SUBCORE_VDMA] = TRUE;
   }
 
-  for(count=0; count<CtxtPtr->RtrNumCores; ++count)
-  {
-    switch(pTable[count])
-    {
+  for (count=0; count<CtxtPtr->RtrNumCores; ++count) {
+    switch (pTable[count]) {
       case XVPROCSS_SUBCORE_SCALER_V:
-          if(XVprocSsPtr->VscalerPtr)
-          {
-            if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN)
-            {
+          if(XVprocSsPtr->VscalerPtr) {
+            if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN) {
               /* Downscale mode H Scaler is before V Scaler */
               vsc_WidthIn   = hsc_WidthOut;
               vsc_HeightIn  = hsc_HeightIn;
               vsc_HeightOut = ((XVprocSs_IsPipModeOn(XVprocSsPtr)) ? CtxtPtr->WrWindow.Height
                                                                    : XVprocSsPtr->VidOut.Timing.VActive);
-            }
-            else
-            {
+            } else {
               /* UpScale mode V Scaler is before H Scaler */
               vsc_WidthIn  = ((XVprocSs_IsZoomModeOn(XVprocSsPtr)) ? CtxtPtr->RdWindow.Width
                                                                    : CtxtPtr->VidInWidth);
@@ -539,9 +535,6 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                                                                    : CtxtPtr->VidInHeight);
               vsc_HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
             }
-
-            xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure VScaler for %dx%d to %dx%d\r\n", \
-                           (int)vsc_WidthIn, (int)vsc_HeightIn, (int)vsc_WidthIn, (int)vsc_HeightOut);
 
             XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
                             vsc_WidthIn,
@@ -552,26 +545,20 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
 
       case XVPROCSS_SUBCORE_SCALER_H:
-          if(XVprocSsPtr->HscalerPtr)
-          {
-            if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN)
-            {
+          if(XVprocSsPtr->HscalerPtr) {
+            if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_DN) {
               /* Downscale mode H Scaler is before V Scaler */
               hsc_WidthIn  = CtxtPtr->VidInWidth;
               hsc_HeightIn = CtxtPtr->VidInHeight;
-              hsc_WidthOut = ((XVprocSs_IsPipModeOn(XVprocSsPtr)) ? CtxtPtr->WrWindow.Width
-                                                                  : XVprocSsPtr->VidOut.Timing.HActive);
-            }
-            else
-            {
+              hsc_WidthOut = ((XVprocSs_IsPipModeOn(XVprocSsPtr)) ?
+			  CtxtPtr->WrWindow.Width :
+					  XVprocSsPtr->VidOut.Timing.HActive);
+            } else {
               /* Upscale mode V Scaler is before H Scaler */
               hsc_WidthIn  = vsc_WidthIn;
               hsc_HeightIn = vsc_HeightOut;
               hsc_WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
             }
-
-            xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure HScaler for %dx%d to %dx%d\r\n", \
-                               (int)hsc_WidthIn, (int)hsc_HeightIn, (int)hsc_WidthOut, (int)hsc_HeightIn);
 
             XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
                             hsc_HeightIn,
@@ -587,15 +574,12 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
 
       case XVPROCSS_SUBCORE_LBOX:
-          if(XVprocSsPtr->LboxPtr)
-          {
-            if(XVprocSs_IsPipModeOn(XVprocSsPtr))
-            {
+          if(XVprocSsPtr->LboxPtr) {
+            if(XVprocSs_IsPipModeOn(XVprocSsPtr)) {
               /* get the active window for Lbox */
               lboxWin = CtxtPtr->WrWindow;
-            }
-            else //Downscale - Read full image from VDMA
-            {
+            } else {
+			  //Downscale - Read full image from VDMA
               /* window is same as output resolution */
               lboxWin.StartX = 0;
               lboxWin.StartY = 0;
@@ -618,8 +602,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
 
       case XVPROCSS_SUBCORE_CR_H:
-          if(XVprocSsPtr->HcrsmplrPtr)
-          {
+          if(XVprocSsPtr->HcrsmplrPtr) {
             XV_HCrsmplSetActiveSize(XVprocSsPtr->HcrsmplrPtr,
                                     XVprocSsPtr->VidOut.Timing.HActive,
                                     XVprocSsPtr->VidOut.Timing.VActive);
@@ -632,8 +615,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
 
       case XVPROCSS_SUBCORE_CR_V_IN:
-          if(XVprocSsPtr->VcrsmplrInPtr)
-          {
+          if(XVprocSsPtr->VcrsmplrInPtr) {
             XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrInPtr,
 			                        CtxtPtr->VidInWidth,
 			                        CtxtPtr->VidInHeight);
@@ -646,8 +628,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
 
       case XVPROCSS_SUBCORE_CR_V_OUT:
-          if(XVprocSsPtr->VcrsmplrOutPtr)
-          {
+          if(XVprocSsPtr->VcrsmplrOutPtr) {
             XV_VCrsmplSetActiveSize(XVprocSsPtr->VcrsmplrOutPtr,
                                     XVprocSsPtr->VidOut.Timing.HActive,
                                     XVprocSsPtr->VidOut.Timing.VActive);
@@ -660,32 +641,35 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
 
       case XVPROCSS_SUBCORE_CSC:
-          if(XVprocSsPtr->CscPtr)
-          {
-            XV_CscSetColorspace(XVprocSsPtr->CscPtr,
-                                CtxtPtr->CscIn,
-                                CtxtPtr->CscOut,
-                                XVprocSsPtr->CscPtr->StandardIn,
-                                XVprocSsPtr->CscPtr->StandardOut,
-                                XVprocSsPtr->CscPtr->OutputRange);
+        if(XVprocSsPtr->CscPtr) {
 
-            XV_CscSetActiveSize(XVprocSsPtr->CscPtr,
-                                XVprocSsPtr->VidOut.Timing.HActive,
-                                XVprocSsPtr->VidOut.Timing.VActive);
+          // to set up a new resolution, start with default picture settings
+          XV_CscSetPowerOnDefaultState(XVprocSsPtr->CscPtr);
 
-            StartCorePtr[XVPROCSS_SUBCORE_CSC] = TRUE;
-          }
-          break;
+	      // set the proper color depth: get it from the vprocss config
+          ColorDepth = XVprocSs_GetColorDepth(XVprocSsPtr);
+          XV_CscSetColorDepth(XVprocSsPtr->CscPtr, ColorDepth);
+
+	      // all other picture settings are filled in by XV_CscSetColorspace
+          XV_CscSetColorspace(XVprocSsPtr->CscPtr,
+                              CtxtPtr->CscIn,
+                              CtxtPtr->CscOut,
+                              XVprocSsPtr->CscPtr->StandardIn,
+                              XVprocSsPtr->CscPtr->StandardOut,
+                              XVprocSsPtr->CscPtr->OutputRange);
+
+	      // set the Global Window size
+          XV_CscSetActiveSize(XVprocSsPtr->CscPtr,
+                              XVprocSsPtr->VidOut.Timing.HActive,
+                              XVprocSsPtr->VidOut.Timing.VActive);
+
+          StartCorePtr[XVPROCSS_SUBCORE_CSC] = TRUE;
+        }
+        break;
 
       case XVPROCSS_SUBCORE_DEINT:
           if(XVprocSsPtr->DeintPtr)
           {
-	        xdbg_printf(XDBG_DEBUG_GENERAL,"  -> Configure Deinterlacer for %dx%d to %dx%d\r\n", \
-		              (int)XVprocSsPtr->VidIn.Timing.HActive,
-		              (int)XVprocSsPtr->VidIn.Timing.VActive,
-		              (int)CtxtPtr->VidInWidth,
-		              (int)CtxtPtr->VidInHeight);
-
             XV_DeintSetFieldBuffers(XVprocSsPtr->DeintPtr,
 			                        CtxtPtr->DeintBufAddr,
 			                        XVprocSsPtr->VidIn.ColorFormatId);
@@ -693,10 +677,13 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
             XV_deinterlacer_Set_width(&XVprocSsPtr->DeintPtr->Deint,
 			                          CtxtPtr->VidInWidth);
 
+            // VidIn.Timing.VActive is the field height
             XV_deinterlacer_Set_height(&XVprocSsPtr->DeintPtr->Deint,
-			                           XVprocSsPtr->VidIn.Timing.VActive); //field height
+			                           XVprocSsPtr->VidIn.Timing.VActive);
 
-            XV_deinterlacer_Set_invert_field_id(&XVprocSsPtr->DeintPtr->Deint, 0); //TBD
+            // TBD
+            XV_deinterlacer_Set_invert_field_id(&XVprocSsPtr->DeintPtr->Deint,
+				                                0);
             StartCorePtr[XVPROCSS_SUBCORE_DEINT] = TRUE;
           }
           break;
