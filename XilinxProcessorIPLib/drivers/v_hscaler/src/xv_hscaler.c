@@ -7,7 +7,6 @@
 
 /***************************** Include Files *********************************/
 #include "xv_hscaler.h"
-#include "string.h"
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
@@ -19,10 +18,7 @@ int XV_hscaler_CfgInitialize(XV_hscaler *InstancePtr,
     Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
 
     /* Setup the instance */
-    (void)memset((void *)InstancePtr, 0, sizeof(XV_hscaler));
-    (void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
-                    sizeof(XV_hscaler_Config));
-
+    InstancePtr->Config = *ConfigPtr;
     InstancePtr->Config.BaseAddress = EffectiveAddr;
 
     /* Set the flag to indicate the driver is ready */

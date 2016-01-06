@@ -44,16 +44,17 @@ typedef uint32_t u32;
 * associated.
 */
 typedef struct {
-    u16 DeviceId;          /**< Unique ID  of device */
-    u32 BaseAddress;       /**< The base address of the core instance. */
-    u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
-    u16 NumVidComponents;  /**< Number of Video Components */
-    u16 MaxWidth;          /**< Maximum columns supported by core instance */
-    u16 MaxHeight;         /**< Maximum rows supported by core instance */
-    u16 MaxDataWidth;      /**< Maximum Data width of each channel */
-    u16 PhaseShift;        /**< Max num of phases (2^PhaseShift) */
-    u16 ScalerType;        /**< Scaling Algorithm Selected */
-    u16 NumTaps;           /**< Number of taps */
+    u16 DeviceId;         /**< Unique ID  of device */
+    u32 BaseAddress;      /**< The base address of the core instance. */
+    u16 PixPerClk;        /**< Samples Per Clock supported by core instance */
+    u16 NumVidComponents; /**< Number of Video Components */
+    u16 MaxWidth;         /**< Maximum columns supported by core instance */
+    u16 MaxHeight;        /**< Maximum rows supported by core instance */
+    u16 MaxDataWidth;     /**< Maximum Data width of each channel */
+    u16 PhaseShift;       /**< Max num of phases (2^PhaseShift) */
+    u16 ScalerType;       /**< Scaling Algorithm Selected */
+    u16 NumTaps;          /**< Number of taps */
+    u16 Is422Enabled;     /**< Color format YUV422 supported by instance */
 } XV_hscaler_Config;
 #endif
 

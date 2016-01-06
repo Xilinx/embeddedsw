@@ -27,6 +27,13 @@
 # Except as contained in this notice, the name of the Xilinx shall not be used
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
+#
+# MODIFICATION HISTORY:
+#  Ver      Who    Date       Changes
+# -------- ------ -------- ----------------------------------------------------
+#  1.0      rco    07/21/15 Initial version of vprocss hscaler subcore tcl
+#  2.0      dmc    12/17/15 Include new arg ENABLE_422
+#
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -42,7 +49,8 @@ proc generate {drv_handle} {
         "MAX_DATA_WIDTH" \
         "PHASE_SHIFT" \
         "SCALE_MODE" \
-        "TAPS"
+        "TAPS" \
+        "ENABLE_422"
 
     xdefine_config_file $drv_handle "xv_hscaler_g.c" "XV_hscaler" \
         "DEVICE_ID" \
@@ -54,7 +62,8 @@ proc generate {drv_handle} {
         "MAX_DATA_WIDTH" \
         "PHASE_SHIFT" \
         "SCALE_MODE" \
-        "TAPS"
+        "TAPS" \
+        "ENABLE_422"
 
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_hscaler" \
@@ -68,6 +77,7 @@ proc generate {drv_handle} {
         "MAX_DATA_WIDTH" \
         "PHASE_SHIFT" \
         "SCALE_MODE" \
-        "TAPS"
+        "TAPS" \
+        "ENABLE_422"
 }
 

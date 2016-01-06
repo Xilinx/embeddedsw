@@ -45,7 +45,7 @@
 * <b>H Scaler IP Features </b>
 *
 * This H-Scaler IP supports following features
-* 	- 3 Channel Scaler with RGB, YUV444 and YUV422 support
+* 	- 3 Channel Scaler with RGB, YUV444 and optional YUV422 support
 * 	- Scale horizontally to 4K line at 60Hz
 * 	- up to 16bits color depth
 *	- 1, 2 or 4 pixel per clock processing
@@ -93,7 +93,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
-*
+*       dmc   12/17/15   Add macro to query the Is422Enabled flag that was
+*                        added to the XV_hscaler_Config structure
 * </pre>
 *
 ******************************************************************************/
@@ -153,6 +154,18 @@ typedef struct
 
 /************************** Macros Definitions *******************************/
 
+/*****************************************************************************/
+/**
+ * This macro checks if Hscaler instance is enabled for 4:2:2 processing
+ *
+ * @param  InstancePtr is pointer to Hscaler core layer 2
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XV_HscalerIs422Enabled(InstancePtr) \
+   ((InstancePtr)->Hsc.Config.Is422Enabled)
+
 /************************** Function Prototypes ******************************/
 int XV_HScalerInitialize(XV_Hscaler_l2 *InstancePtr, u16 DeviceId);
 void XV_HScalerStart(XV_Hscaler_l2 *InstancePtr);
@@ -161,7 +174,7 @@ void XV_HScalerLoadExtCoeff(XV_Hscaler_l2 *InstancePtr,
                             u16 num_phases,
                             u16 num_taps,
                             const short *Coeff);
-void XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
+int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,

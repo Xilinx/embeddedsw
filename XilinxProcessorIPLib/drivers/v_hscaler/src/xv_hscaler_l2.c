@@ -49,6 +49,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+*       dmc   12/17/15   Updated the XV_HScalerDbgReportStatus routine
 *
 * </pre>
 *
@@ -556,10 +557,11 @@ static void XV_HScalerSetCoeff(XV_Hscaler_l2 *HscPtr)
 * @param  WidthOut is the output stream width
 * @param  cformat is the input stream color format
 *
-* @return None
+* @return XST_SUCCESS if the requested setup parameters are valid
+*         XST_FAILURE if YUV422 color format is requested but not allowed
 *
 ******************************************************************************/
-void XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
+int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
@@ -570,12 +572,16 @@ void XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
   /*
    * Assert validates the input arguments
    */
-  Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid((HeightIn>0) && (HeightIn<=InstancePtr->Hsc.Config.MaxHeight));
-  Xil_AssertVoid((WidthIn>0) && (WidthIn<=InstancePtr->Hsc.Config.MaxWidth));
-  Xil_AssertVoid((WidthOut>0) && (WidthOut<=InstancePtr->Hsc.Config.MaxWidth));
-  Xil_AssertVoid((InstancePtr->Hsc.Config.PixPerClk >= XVIDC_PPC_1) &&
-                 (InstancePtr->Hsc.Config.PixPerClk <= XVIDC_PPC_4));
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid((HeightIn>0) && (HeightIn<=InstancePtr->Hsc.Config.MaxHeight));
+  Xil_AssertNonvoid((WidthIn>0) && (WidthIn<=InstancePtr->Hsc.Config.MaxWidth));
+  Xil_AssertNonvoid((WidthOut>0) && (WidthOut<=InstancePtr->Hsc.Config.MaxWidth));
+  Xil_AssertNonvoid((InstancePtr->Hsc.Config.PixPerClk >= XVIDC_PPC_1) &&
+                    (InstancePtr->Hsc.Config.PixPerClk <= XVIDC_PPC_4));
+
+  if ((cformat==XVIDC_CSF_YCRCB_422) && !XV_HscalerIs422Enabled(InstancePtr)) {
+    return XST_FAILURE;
+  }
 
   PixelRate = (WidthIn * STEP_PRECISION)/WidthOut;
 
@@ -601,6 +607,8 @@ void XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
   XV_hscaler_Set_HwReg_WidthOut(&InstancePtr->Hsc,   WidthOut);
   XV_hscaler_Set_HwReg_ColorMode(&InstancePtr->Hsc,  cformat);
   XV_hscaler_Set_HwReg_PixelRate(&InstancePtr->Hsc,  PixelRate);
+
+  return XST_SUCCESS;
 }
 
 
@@ -618,7 +626,8 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
 {
   XV_hscaler *HscPtr = &InstancePtr->Hsc;
   u32 done, idle, ready, ctrl;
-  u32 widthin, widthout, heightin, pixrate, cformat;
+  u32 widthin, widthout, height, pixrate, cformat;
+  u16 allow422;
   u32 baseAddr, taps, phases;
   int val,i,j;
   const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
@@ -628,45 +637,47 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
    */
   Xil_AssertVoid(InstancePtr != NULL);
 
-  xil_printf("\r\n\r\n----->H SCALER IP STATUS<----\r\n");
   done  = XV_hscaler_IsDone(HscPtr);
   idle  = XV_hscaler_IsIdle(HscPtr);
   ready = XV_hscaler_IsReady(HscPtr);
   ctrl =  XV_hscaler_ReadReg(HscPtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
 
-  heightin = XV_hscaler_Get_HwReg_Height(HscPtr);
+  height   = XV_hscaler_Get_HwReg_Height(HscPtr);
   widthin  = XV_hscaler_Get_HwReg_WidthIn(HscPtr);
   widthout = XV_hscaler_Get_HwReg_WidthOut(HscPtr);
   cformat  = XV_hscaler_Get_HwReg_ColorMode(HscPtr);
   pixrate  = XV_hscaler_Get_HwReg_PixelRate(HscPtr);
+  allow422 = XV_HscalerIs422Enabled(InstancePtr);
 
   taps   = HscPtr->Config.NumTaps/2;
   phases = (1<<HscPtr->Config.PhaseShift);
+
+  xil_printf("\r\n\r\n----->H SCALER IP STATUS<----\r\n");
   xil_printf("IsDone:  %d\r\n", done);
   xil_printf("IsIdle:  %d\r\n", idle);
   xil_printf("IsReady: %d\r\n", ready);
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
-  if(HscPtr->Config.ScalerType <= XV_HSCALER_POLYPHASE)
-  {
-    xil_printf("Scaler Type:     %s\r\n",ScalerTypeStr[HscPtr->Config.ScalerType]);
-  }
-  else
-  {
+  if(HscPtr->Config.ScalerType <= XV_HSCALER_POLYPHASE) {
+    xil_printf("Scaler Type:     %s\r\n",
+	  ScalerTypeStr[HscPtr->Config.ScalerType]);
+  } else {
     xil_printf("Scaler Type:     Unknown\r\n");
   }
-  xil_printf("Input Height:    %d\r\n",heightin);
-  xil_printf("Input Width:     %d\r\n",widthin);
-  xil_printf("Output Width:    %d\r\n",widthout);
-  xil_printf("Color Format:    %d\r\n",cformat);
-  xil_printf("Pixel Rate:      %d\r\n",pixrate);
-  xil_printf("Num Phases:      %d\r\n",phases);
+  xil_printf("Input&Output Height: %d\r\n",height);
+  xil_printf("Input Width:         %d\r\n",widthin);
+  xil_printf("Output Width:        %d\r\n\r\n",widthout);
 
+  xil_printf("4:2:2 processing:    %s\r\n", allow422?"Enabled":"Disabled");
+  xil_printf("Color Format:        %s\r\n", XVidC_GetColorFormatStr(cformat));
+  xil_printf("Pixel Rate:          %d\r\n\r\n",pixrate);
+
+  xil_printf("Num Phases:          %d\r\n",phases);
   if(HscPtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
   {
     short lsb, msb;
 
-    xil_printf("Num Taps:        %d\r\n",taps*2);
+    xil_printf("Num Taps:            %d\r\n",taps*2);
     xil_printf("\r\nCoefficients:");
 
     baseAddr = XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(HscPtr);
