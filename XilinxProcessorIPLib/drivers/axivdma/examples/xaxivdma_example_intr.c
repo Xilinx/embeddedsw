@@ -82,7 +82,6 @@
 
 #ifndef __MICROBLAZE__
 #include "xpseudo_asm_gcc.h"
-#include "xreg_cortexa9.h"
 #endif
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
