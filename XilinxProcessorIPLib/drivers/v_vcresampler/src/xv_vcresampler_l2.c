@@ -55,6 +55,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include <string.h>
 #include "xv_vcresampler_l2.h"
 
 /************************** Constant Definitions *****************************/
@@ -71,6 +72,29 @@ const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX
 /************************** Function Prototypes ******************************/
 static void XV_vcresampler_SetCoefficients(XV_Vcresampler_l2 *pVCrsmplr,
 		                                   XV_VCRESAMPLER_CONVERSION convType);
+
+/*****************************************************************************/
+/**
+* This function initializes the core instance
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  DeviceId is instance id of the core
+*
+* @return XST_SUCCESS if device is found and initialized
+*         XST_DEVICE_NOT_FOUND if device is not found
+*
+******************************************************************************/
+int XV_VcrsmplInitialize(XV_Vcresampler_l2 *InstancePtr, u16 DeviceId)
+{
+  int Status;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Setup the instance */
+  memset(InstancePtr, 0, sizeof(XV_Vcresampler_l2));
+  Status = XV_vcresampler_Initialize(&InstancePtr->Vcr, DeviceId);
+
+  return(Status);
+}
 
 /*****************************************************************************/
 /**
