@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2003 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,8 +46,9 @@
 *
 * @note
 *
-* This example should run on a Virtex4 or a Virtex5 or Virtex6 or
-* a Spartan6 or a Kintex 7 device.
+* This example can be run on a 7 series device, Zynq device, Ultrascale and
+* ZynqMP Ultrascale FPGAs.
+*
 *
 * <pre>
 * MODIFICATION HISTORY:

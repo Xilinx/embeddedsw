@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2003 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap_srp.c
-* @addtogroup hwicap_v10_0
+* @addtogroup hwicap_v10_1
 * @{
 *
 * This file contains the functions of the XHwIcap driver used to access the
@@ -45,7 +45,7 @@
 *
 * @note
 *
-* Only Virtex4, Virtex5, Virtex6, Spartan6 and kintex 7 devices are supported.
+* Only 7 series, Zynq, Ultrascale and ZynqMP Ultrascale devices are supported.
 *
 *
 * <pre>

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,14 +38,15 @@
 *
 * @note
 *
-* This example should run on a Virtex4 or a Virtex5 or a Virtex6 or a
-* Spartan6 or a 7 series device or a Zynq device.
+* This example can be run on a 7 series device, Zynq device, Ultrascale and
+* ZynqMP Ultrascale FPGAs.
 *
 * In a Zynq device the ICAP needs to be selected using the
 * XDcfg_SelectIcapInterface API of the DevCfg driver (clear the PCAP_PR bit of
 * Control register in the Device Config Interface)  before it can be
 * accessed using the HwIcap.
-*
+* In case of ZynqMP clear the PCAP_PR bit of pcap_ctrl register in Module
+* Configuration Security Unit(CSU) using register write.
 *
 * <pre>
 * MODIFICATION HISTORY:
