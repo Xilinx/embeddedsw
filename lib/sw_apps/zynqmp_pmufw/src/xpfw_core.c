@@ -97,11 +97,9 @@ XStatus XPfw_CoreConfigure(void)
 		XPfw_Write32(IPI_PMU_0_ISR, MASK32_ALL_HIGH);
 		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_IPI0_MASK);
 		XPfw_InterruptStart();
-#ifdef ENABLE_PM /* ENABLE_PM */
-		/* Set the FW_IS_PRESENT bit to enable PMUFW discovery by ATF*/
+		/* Set the FW_IS_PRESENT bit to flag that PMUFW is up and ready */
 		XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL, PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 			PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
-#endif /* ENABLE_PM */
 		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
