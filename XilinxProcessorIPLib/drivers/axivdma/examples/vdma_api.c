@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,13 @@
  * The API's has tested with hardware that has tow VDMA and MM2S to S2MM are back
  * to back connected for each VDMA.
  *
- * ***************************************************************************/
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- -------------------------------------------------------
+ * 4.0   adk  11/26/15 First release
+ ****************************************************************************/
+
 #define DEBUG_MODE		0
 
 /******************** Include files **********************************/

@@ -37,7 +37,14 @@
  * This file comprises sample application to  usage of VDMA APi's in vdma_api.c.
  *  .
  *
- * ***************************************************************************/
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- -------------------------------------------------------
+ * 4.0   adk  11/26/15 First release
+ * 4.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
+ *		       removed the defines for S6/V6.
+ ****************************************************************************/
 
 /*** Include file ***/
 #include "xparameters.h"
@@ -49,8 +56,22 @@
 #include "xaxivdma_i.h"
 
 
+#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+#define MEMORY_BASE		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+#elif XPAR_MIG7SERIES_0_BASEADDR
+#define MEMORY_BASE	XPAR_MIG7SERIES_0_BASEADDR
+#elif XPAR_MIG_0_BASEADDR
+#define MEMORY_BASE	XPAR_MIG_0_BASEADDR
+#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#else
+#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
+			DEFAULT SET TO 0x01000000
+#define MEMORY_BASE		0x01000000
+#endif
+
 /*** Global Variables ***/
-unsigned int srcBuffer = (XPAR_MIG7SERIES_0_BASEADDR  + 0x1000000);
+unsigned int srcBuffer = (MEMORY_BASE  + 0x1000000);
 
 /* Instance of the Interrupt Controller */
 static XIntc Intc;

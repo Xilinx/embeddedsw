@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -106,18 +106,15 @@
 #define READ_INTR_ID		XPAR_FABRIC_AXIVDMA_0_MM2S_INTROUT_VEC_ID
 #endif
 
-#ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_V6DDR_0_S_AXI_BASEADDR
-#define DDR_HIGH_ADDR		XPAR_V6DDR_0_S_AXI_HIGHADDR
-#elif XPAR_S6DDR_0_S0_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_S6DDR_0_S0_AXI_BASEADDR
-#define DDR_HIGH_ADDR		XPAR_S6DDR_0_S0_AXI_HIGHADDR
-#elif XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_HIGH_ADDR		XPAR_AXI_7SDDR_0_S_AXI_HIGHADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_BASE_ADDR		XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_HIGH_ADDR	 	XPAR_MIG7SERIES_0_HIGHADDR
+#elif XPAR_MIG_0_BASEADDR
+#define DDR_BASE_ADDR		XPAR_MIG_0_BASEADDR
+#define DDR_HIGH_ADDR	 	XPAR_MIG_0_HIGHADDR
 #else
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
