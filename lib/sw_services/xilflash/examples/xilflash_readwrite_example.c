@@ -48,6 +48,8 @@
 *		operations. This example will not work with the AMD compliant
 *		Flash devices if the block is locked and the user doesn't
 *		perform an Unlock operation.
+*		Change the value of XFL_TO_ASYNCMODE to 1, inorder to operate
+*		the Micron Flash in async mode,if it was set to sync mode.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -63,6 +65,9 @@
 * 2.00a ktn  12/04/09 Updated to use the HAL processor APIs/macros
 * 3.00a sdm  03/03/11 Updated to pass BaseAddress and Flash Width to _Initialize
 *		      API, as required by the new version of the library
+* 4.2   nsk  01/07/16 Added Support to change Flash to Async Mode, if it was
+*                     set to sync mode.
+*                     Modified FLASH_BASE_ADDRESS to canonical name.
 *
 *</pre>
 ******************************************************************************/
@@ -71,6 +76,7 @@
 #include <xilflash.h>
 #include <stdio.h>
 #include <xil_types.h>
+#include "xil_io.h"
 /************************** Constant Definitions *****************************/
 
 /*
@@ -79,7 +85,7 @@
  * They are defined here such that a user can easily change all the needed
  * parameters in one place.
  */
-#define FLASH_BASE_ADDRESS	XPAR_EMC_0_MEM0_BASEADDR
+#define FLASH_BASE_ADDRESS	XPAR_EMC_0_S_AXI_MEM0_BASEADDR
 
 /*
  * The following constant defines the total byte width of the flash memory. The
@@ -103,6 +109,18 @@
 #define FLASH_TEST_SIZE		4048
 #define START_ADDRESS		0x060000
 #define BLOCK_OFFSET_ADDR	0x068000
+
+/*
+ * The following constant defines the commands and register offsets inorder
+ * to change the flash to Async Mode.
+ */
+#ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
+	#define XFL_TO_ASYNCMODE	0
+	#define ASYNC_ADDR		0x17BBE
+	#define SYNC_ADDR		0x07BBE
+	#define INTEL_CMD_CONFIG_REG_SETUP	0x60606060
+	#define INTEL_CMD_CONFIG_REG_CONFIRM	0x03030303
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -163,6 +181,23 @@ int FlashReadWriteExample(void)
 {
 	int Status;
 	u32 Index;
+
+	#ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
+		#if XFL_TO_ASYNCMODE
+		/*
+		 * Set Flash to Async mode.
+		 */
+		if (FLASH_MEM_WIDTH == 1) {
+			WRITE_FLASH_8(FLASH_BASE_ADDRESS + ASYNC_ADDR, 0x60);
+			WRITE_FLASH_8(FLASH_BASE_ADDRESS + ASYNC_ADDR, 0x03);
+		} else if (FLASH_MEM_WIDTH == 2) {
+			WRITE_FLASH_16(FLASH_BASE_ADDRESS + ASYNC_ADDR,
+					INTEL_CMD_CONFIG_REG_SETUP);
+			WRITE_FLASH_16(FLASH_BASE_ADDRESS + ASYNC_ADDR,
+					INTEL_CMD_CONFIG_REG_CONFIRM);
+		}
+		#endif
+	#endif
 
 	/*
 	 * Initialize the Flash Library.

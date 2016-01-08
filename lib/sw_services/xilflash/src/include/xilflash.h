@@ -208,6 +208,10 @@
 *		      in xilflash_amd.c and added new definitions
 *		      as per AMD Spec in xilflash_amd.h (CR 781697).
 * 4.1	nsk  08/06/15 Fixed CR 835008 Modified xilflash_intel.c.
+* 4.2   nsk  01/07/15 Add Support to change Flash from Sync to Async Mode.
+*                     Updated xilflash_readwrite_example.c file.
+*                     Modified FLASH_BASE_ADDRESS in xilflash_readwrite
+*                     _example.c to canonical name (CR 808007)
 *
 * </pre>
 *
