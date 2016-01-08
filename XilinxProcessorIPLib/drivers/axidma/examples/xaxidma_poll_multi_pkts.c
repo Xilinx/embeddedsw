@@ -76,6 +76,8 @@
  * 6.00a srt  03/27/12 Changed API calls to support MCDMA driver.
  * 7.00a srt  06/18/12 API calls are reverted back for backward compatibility.
  * 7.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
+ * 9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
+ *		       removed the defines for S6/V6.
  *
  * </pre>
  *
@@ -103,14 +105,14 @@ extern void xil_printf(const char *format, ...);
 #define DMA_BASE_ADDR		XPAR_AXIDMA_0_BASEADDR
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 
-#ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_V6DDR_0_S_AXI_BASEADDR
-#elif XPAR_S6DDR_0_S0_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_S6DDR_0_S0_AXI_BASEADDR
-#elif XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
-#define DDR_BASE_ADDR		XPAR_MIG7SERIES_0_BASEADDR
+#define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
+#elif XPAR_MIG_0_BASEADDR
+#define DDR_BASE_ADDR	XPAR_MIG_0_BASEADDR
+#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
 
 #ifndef DDR_BASE_ADDR
