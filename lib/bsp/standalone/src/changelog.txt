@@ -259,4 +259,6 @@
  * 5.4 pkp   23/11/15  Added attribute definitions for Xil_SetTlbAttributes API of Cortex-A9
  *		       in cortexa9/xil_mmu.h
  * 5.4 pkp   23/11/15  Added default undefined exception handler for Cortex-A9
+ * 5.4 pkp   08/01/16  Modified cortexa9/gcc/Makefile to update the extra compiler flag
+ *		       as per the toolchain update
  *****************************************************************************************/

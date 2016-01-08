@@ -47,11 +47,12 @@ ECC_FLAGS	+= -nostartfiles\
 		  -march=armv7-a \
 		  -mfloat-abi=soft \
 		  -mfpu=neon
-
 endif
 
-#The following flags are required for PEEP. We can remove them later
-ECC_FLAGS	+=
+ifeq (($(notdir $(CC))) , arm-none-eabi-gcc)
+ECC_FLAGS	+= -nostartfiles
+endif
+
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
