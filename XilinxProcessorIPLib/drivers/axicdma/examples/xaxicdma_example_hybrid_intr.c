@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,9 @@
  *		       Added V7 DDR Base Address to fix CR 649405.
  * 		       Modified Flushing and Invalidation of Caches to fix CRs
  *		       648103, 648701.
- * 2.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656). 
+ * 2.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
+ * 4.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
+ *		       removed the defines for S6/V6.
  * </pre>
  *
  ****************************************************************************/
@@ -113,17 +115,17 @@ extern void xil_printf(const char *format, ...);
 #endif
 #endif
 
-#ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
-#define MEMORY_BASE      XPAR_V6DDR_0_S_AXI_BASEADDR
-#elif XPAR_S6DDR_0_S0_AXI_BASEADDR
-#define MEMORY_BASE      XPAR_S6DDR_0_S0_AXI_BASEADDR
-#elif XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#define MEMORY_BASE	XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+#define MEMORY_BASE		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define MEMORY_BASE	XPAR_MIG7SERIES_0_BASEADDR
+#elif XPAR_MIG_0_BASEADDR
+#define MEMORY_BASE	XPAR_MIG_0_BASEADDR
+#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #else
-#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H,  \
-		DEFAULT SET TO 0x01000000
+#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
+			DEFAULT SET TO 0x01000000
 #define MEMORY_BASE		0x01000000
 #endif
 
