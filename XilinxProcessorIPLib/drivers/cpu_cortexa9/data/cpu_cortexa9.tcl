@@ -57,7 +57,13 @@ proc xdefine_cortexa9_params {drvhandle} {
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle ]]
     set procdrv [hsi::get_sw_processor]
+    set compiler [common::get_property CONFIG.compiler $procdrv]
     set archiver [common::get_property CONFIG.archiver $procdrv]
+    if {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
+	common::set_property -name CONFIG.extra_compiler_flags -value {-g} -objects $drvhandle
+    } else {
+	common::set_property -name CONFIG.extra_compiler_flags -value {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles} -objects $drvhandle
+    }
     if {[string first "iarchive" $archiver] < 0 } {
     } else {
     	 set libxil_a [file join .. .. lib libxil.a]
