@@ -40,16 +40,10 @@
 #include "pm_client.h"
 #include "xparameters.h"
 
-static const struct XPm_Ipi rpu_0_ipi = {
-	.mask = XPAR_XIPIPSU_0_BIT_MASK,
-	.base = XPAR_XIPIPSU_0_BASE_ADDRESS,
-	.buffer_base = IPI_BUFFER_RPU_0_BASE,
-};
-
-static const struct XPm_Master pm_rpu_0_master = {
+static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
 	.pwrdn_mask = RPU_RPU_0_PWRDWN_EN_MASK,
-	.ipi = &rpu_0_ipi,
+	.ipi = NULL,
 };
 
 #if 0
@@ -61,7 +55,7 @@ static const struct XPm_Master pm_rpu_1_master = {
 #endif
 
 /* Order in pm_master_all array must match cpu ids */
-static const struct XPm_Master *const pm_masters_all[] = {
+static struct XPm_Master *const pm_masters_all[] = {
 	&pm_rpu_0_master,
 #if 0
 	&pm_rpu_1_master,
@@ -74,7 +68,7 @@ static const struct XPm_Master *const pm_masters_all[] = {
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */
-const struct XPm_Master *pm_get_master(const u32 cpuid)
+struct XPm_Master *pm_get_master(const u32 cpuid)
 {
 	if (cpuid >=0 && PM_ARRAY_SIZE(pm_masters_all)) {
 		return pm_masters_all[cpuid];
@@ -88,7 +82,7 @@ const struct XPm_Master *pm_get_master(const u32 cpuid)
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */
-const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
+struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
 	u8 i;
 
@@ -115,7 +109,7 @@ static u32 pm_get_cpuid(const enum XPmNodeId node)
 }
 
 const enum XPmNodeId subsystem_node = NODE_RPU;
-const struct XPm_Master *primary_master = &pm_rpu_0_master;
+struct XPm_Master *primary_master = &pm_rpu_0_master;
 
 void XPm_ClientSuspend(const struct XPm_Master *const master)
 {

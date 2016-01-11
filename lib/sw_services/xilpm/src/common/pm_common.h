@@ -39,6 +39,7 @@
 #ifndef _PM_COMMON_H_
 #define _PM_COMMON_H_
 
+#include <xipipsu.h>
 #include "pm_ipi.h"
 #include "pm_ipi_buffer.h"
 #include "pm_defs.h"
@@ -50,24 +51,21 @@
 
 #define PAYLOAD_ARG_CNT		6U	/* 1 for API ID + 5 for API arguments */
 #define PAYLOAD_ARG_SIZE	4U	/* size in bytes */
+#define RESPONSE_ARG_CNT	4U	/* 1 for status + 3 for values */
+
+#define PM_IPI_TIMEOUT		(~0)
 
 #define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_MICROBLAZE_0_CH0_MASK
-
-struct XPm_Ipi {
-	const u32 mask;
-	const u32 base;
-	const u32 buffer_base;
-};
 
 struct XPm_Master {
 	const enum XPmNodeId node_id;
 	const u32 pwrdn_mask;
-	const struct XPm_Ipi *const ipi;
+	XIpiPsu *ipi;
 };
 
 const enum XPmNodeId pm_get_subsystem_node(void);
-const struct XPm_Master *pm_get_master(const u32 cpuid);
-const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
+struct XPm_Master *pm_get_master(const u32 cpuid);
+struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 
 #define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	0x00000001U
 #define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	0x00000002U
@@ -104,6 +102,6 @@ void XPm_ClientWakeup(const struct XPm_Master *const master);
 
 /* Do not modify below this line */
 extern const enum XPmNodeId subsystem_node;
-extern const struct XPm_Master *primary_master;
+extern struct XPm_Master *primary_master;
 
 #endif /* _PM_COMMON_H_ */

@@ -63,6 +63,27 @@
 	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, arg5)
 
 /**
+ * XPm_InitXilpm() - Initialize xilpm library
+ * @ipi_inst	Pointer to IPI driver instance
+ *
+ * @return	Returns status, either success or error+reason
+ */
+XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
+{
+	XStatus status = XST_SUCCESS;
+
+	if (NULL == IpiInst) {
+		pm_dbg("ERROR passing NULL pointer to %s\n", __func__);
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	primary_master->ipi = IpiInst;
+done:
+	return status;
+}
+
+/**
  * XPm_GetBootStatus() - checks for reason of boot
  *
  * Function returns information about the boot reason.
@@ -83,49 +104,35 @@ enum XPmBootStatus XPm_GetBootStatus()
 }
 
 /**
- * pm_ipi_wait() - wait for pmu to handle request
- * @master	master which is waiting for PMU to handle request
- */
-static XStatus pm_ipi_wait(const struct XPm_Master *const master)
-{
-	volatile u32 status = 1;
-
-	/* Wait until previous interrupt is handled by PMU */
-	while (status) {
-		status = pm_read(master->ipi->base + IPI_OBS_OFFSET)
-			& IPI_PMU_PM_INT_MASK;
-		/* TODO: 1) Use timer to add delay between read attempts */
-		/* TODO: 2) Return PM_RET_ERR_TIMEOUT if this times out */
-	}
-	return XST_SUCCESS;
-}
-
-/**
  * pm_ipi_send() - Sends IPI request to the PMU
  * @master	Pointer to the master who is initiating request
  * @payload	API id and call arguments to be written in IPI buffer
  *
  * @return	Returns status, either success or error+reason
  */
-static XStatus pm_ipi_send(const struct XPm_Master *const master,
+static XStatus pm_ipi_send(struct XPm_Master *const master,
 			   u32 payload[PAYLOAD_ARG_CNT])
 {
-	u32 i;
-	u32 offset = 0;
-	u32 buffer_base = master->ipi->buffer_base
-		+ IPI_BUFFER_TARGET_PMU_OFFSET
-		+ IPI_BUFFER_REQUEST_OFFSET;
+	XStatus status;
 
-	/* Wait until previous interrupt is handled by PMU */
-	pm_ipi_wait(master);
-	/* Write payload into IPI buffer */
-	for (i = 0; i < PAYLOAD_ARG_CNT; i++) {
-		pm_write(buffer_base + offset, payload[i]);
-		offset += PAYLOAD_ARG_SIZE;
+	status = XIpiPsu_PollForAck(master->ipi, IPI_PMU_PM_INT_MASK,
+				    PM_IPI_TIMEOUT);
+	if (status != XST_SUCCESS) {
+		pm_dbg("%s: ERROR: Timeout expired\n", __func__);
+		goto done;
 	}
-	/* Generate IPI to PMU */
-	pm_write(master->ipi->base + IPI_TRIG_OFFSET, IPI_PMU_PM_INT_MASK);
-	return XST_SUCCESS;
+
+	status = XIpiPsu_WriteMessage(master->ipi, IPI_PMU_PM_INT_MASK,
+				      payload, PAYLOAD_ARG_CNT,
+				      XIPIPSU_BUF_TYPE_MSG);
+	if (status != XST_SUCCESS) {
+		pm_dbg("xilpm: ERROR writing to IPI request buffer\n");
+		goto done;
+	}
+
+	status = XIpiPsu_TriggerIpi(master->ipi, IPI_PMU_PM_INT_MASK);
+done:
+	return status;
 }
 
 /**
@@ -137,19 +144,28 @@ static XStatus pm_ipi_send(const struct XPm_Master *const master,
  *
  * @return	Returns status, either success or error+reason
  */
-static XStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
+static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 				  u32 *value1, u32 *value2, u32 *value3)
 {
-	u32 buffer_base = master->ipi->buffer_base
-		+ IPI_BUFFER_TARGET_PMU_OFFSET
-		+ IPI_BUFFER_RESP_OFFSET;
-	volatile u32 status = 1;
+	u32 response[RESPONSE_ARG_CNT];
+	XStatus status;
 
 	/* Wait until current IPI interrupt is handled by PMU */
-	while (status) {
-		status = pm_read(master->ipi->base + IPI_OBS_OFFSET) & IPI_PMU_PM_INT_MASK;
-		/* TODO: 1) Use timer to add delay between read attempts */
-		/* TODO: 2) Return PM_RET_ERR_TIMEOUT if this times out */
+	status = XIpiPsu_PollForAck(master->ipi, IPI_PMU_PM_INT_MASK,
+				  PM_IPI_TIMEOUT);
+
+	if (status != XST_SUCCESS) {
+		pm_dbg("%s: ERROR: Timeout expired\n", __func__);
+		goto done;
+	}
+
+	status = XIpiPsu_ReadMessage(master->ipi, IPI_PMU_PM_INT_MASK,
+				     response, RESPONSE_ARG_CNT,
+				     XIPIPSU_BUF_TYPE_RESP);
+
+	if (status != XST_SUCCESS) {
+		pm_dbg("xilpm: ERROR reading from PMU's IPI response buffer\n");
+		goto done;
 	}
 
 	/*
@@ -160,13 +176,15 @@ static XStatus pm_ipi_buff_read32(const struct XPm_Master *const master,
 	 * buf-3: value3
 	 */
 	if (NULL != value1)
-		*value1 = pm_read(buffer_base + PAYLOAD_ARG_SIZE);
+		*value1 = response[1];
 	if (NULL != value2)
-		*value2 = pm_read(buffer_base + PAYLOAD_ARG_SIZE * 2);
+		*value2 = response[2];
 	if (NULL != value3)
-		*value3 = pm_read(buffer_base + PAYLOAD_ARG_SIZE * 2);
+		*value3 = response[3];
 
-	return pm_read(buffer_base);
+	status = response[0];
+done:
+	return status;
 }
 
 /**
@@ -188,7 +206,7 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
 
-	const struct XPm_Master *master = pm_get_master_by_node(nid);
+	struct XPm_Master *master = pm_get_master_by_node(nid);
 	if (NULL == master) {
 		/*
 		 * If a subsystem node ID (APU or RPU) was passed then
@@ -259,7 +277,7 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
 	u64 encodedAddress;
-	const struct XPm_Master *master = pm_get_master_by_node(target);
+	struct XPm_Master *master = pm_get_master_by_node(target);
 
 	XPm_ClientWakeup(master);
 
@@ -319,9 +337,15 @@ XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 	/* Send request to the PMU */
 	PACK_PAYLOAD2(payload, PM_ABORT_SUSPEND, reason, primary_master->node_id);
 	status = pm_ipi_send(primary_master, payload);
-	if (XST_SUCCESS == status)
+	if (XST_SUCCESS == status) {
 		/* Wait for PMU to finish handling request */
-		status = pm_ipi_wait(primary_master);
+		status = XIpiPsu_PollForAck(primary_master->ipi,
+					IPI_PMU_PM_INT_MASK, PM_IPI_TIMEOUT);
+		if (status != XST_SUCCESS) {
+			pm_dbg("%s: ERROR: Timeout expired\n", __func__);
+		}
+	}
+
 	/*
 	 * Do client specific abort suspend operations
 	 * (e.g. enable interrupts and clear powerdown request bit)

@@ -40,38 +40,32 @@
 #include "pm_client.h"
 #include "xparameters.h"
 
-static const struct XPm_Ipi apu_ipi = {
-	.mask = XPAR_PSU_IPI_0_BIT_MASK,
-	.base = XPAR_PSU_IPI_0_BASE_ADDRESS,
-	.buffer_base = IPI_BUFFER_APU_BASE,
-};
-
-static const struct XPm_Master pm_apu_0_master = {
+static struct XPm_Master pm_apu_0_master = {
 	.node_id = NODE_APU_0,
 	.pwrdn_mask = APU_0_PWRCTL_CPUPWRDWNREQ_MASK,
-	.ipi = &apu_ipi,
+	.ipi = NULL,
 };
 
-static const struct XPm_Master pm_apu_1_master = {
+static struct XPm_Master pm_apu_1_master = {
 	.node_id = NODE_APU_1,
 	.pwrdn_mask = APU_1_PWRCTL_CPUPWRDWNREQ_MASK,
-	.ipi = &apu_ipi,
+	.ipi = NULL,
 };
 
-static const struct XPm_Master pm_apu_2_master = {
+static struct XPm_Master pm_apu_2_master = {
 	.node_id = NODE_APU_2,
 	.pwrdn_mask = APU_2_PWRCTL_CPUPWRDWNREQ_MASK,
-	.ipi = &apu_ipi,
+	.ipi = NULL,
 };
 
-static const struct XPm_Master pm_apu_3_master = {
+static struct XPm_Master pm_apu_3_master = {
 	.node_id = NODE_APU_3,
 	.pwrdn_mask = APU_3_PWRCTL_CPUPWRDWNREQ_MASK,
-	.ipi = &apu_ipi,
+	.ipi = NULL,
 };
 
 /* Order in pm_master_all array must match cpu ids */
-static const struct XPm_Master *const pm_masters_all[] = {
+static struct XPm_Master *const pm_masters_all[] = {
 	&pm_apu_0_master,
 	&pm_apu_1_master,
 	&pm_apu_2_master,
@@ -84,7 +78,7 @@ static const struct XPm_Master *const pm_masters_all[] = {
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */
-const struct XPm_Master *pm_get_master(const u32 cpuid)
+struct XPm_Master *pm_get_master(const u32 cpuid)
 {
 	if (cpuid >=0 && PM_ARRAY_SIZE(pm_masters_all)) {
 		return pm_masters_all[cpuid];
@@ -99,7 +93,7 @@ const struct XPm_Master *pm_get_master(const u32 cpuid)
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */
-const struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
+struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
 	u8 i;
 
@@ -126,7 +120,7 @@ static u32 pm_get_cpuid(const enum XPmNodeId node)
 }
 
 const enum XPmNodeId subsystem_node = NODE_APU;
-const struct XPm_Master *primary_master = &pm_apu_0_master;
+struct XPm_Master *primary_master = &pm_apu_0_master;
 
 void XPm_ClientSuspend(const struct XPm_Master *const master)
 {

@@ -35,8 +35,11 @@
 
 #include <xil_types.h>
 #include <xstatus.h>
+#include <xipipsu.h>
 #include "pm_defs.h"
 #include "pm_common.h"
+
+XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 
 enum XPmBootStatus XPm_GetBootStatus();
 
