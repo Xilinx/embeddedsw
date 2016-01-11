@@ -51,6 +51,8 @@
 *						clock.CR# 816586.
 * 2.5 	sg	   07/09/15 Added SD 3.0 features
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
+* 2.7   sk     01/08/16 Added workaround for issue in auto tuning mode
+*                       of SDR50, SDR104 and HS200.
 *
 * </pre>
 *
@@ -1021,6 +1023,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	u16 BlkSize;
 	s32 LoopCnt;
 	u8 ReadBuff[128];
+	u16 CtrlReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1076,6 +1079,26 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	/*
+	 * As per controller erratum, program the "SDCLK Frequency
+	 * Select" of clock control register with a value, say
+	 * clock/2. Wait for the Internal clock stable and program
+	 * the desired frequency.
+	 */
+	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL2_OFFSET);
+	if ((CtrlReg & XSDPS_HC2_SAMP_CLK_SEL_MASK) != 0U) {
+		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed/2);
+		if (Status != XST_SUCCESS) {
+			goto RETURN_PATH ;
+		}
+		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
+		if (Status != XST_SUCCESS) {
+			goto RETURN_PATH ;
+		}
+
+	}
 
 	Status = XST_SUCCESS;
 

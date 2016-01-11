@@ -121,6 +121,8 @@
 * 2.6   sk     10/12/15 Added support for SD card v1.0 CR# 840601.
 * 2.7   sk     11/24/15 Considered the slot type befoe checking CD/WP pins.
 *       sk     12/10/15 Added support for MMC cards.
+*              01/08/16 Added workaround for issue in auto tuning mode
+*                       of SDR50, SDR104 and HS200.
 *
 * </pre>
 *
