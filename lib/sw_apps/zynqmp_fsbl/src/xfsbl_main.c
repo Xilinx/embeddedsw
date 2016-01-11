@@ -53,6 +53,7 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
+#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -452,6 +453,18 @@ void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
 	u32 RegValue;
 
 	XFsbl_Out32(CSU_CSU_MULTI_BOOT, MultiBootValue);
+
+	/**
+	 * Due to a bug in 1.0 Silicon, PS hangs after System Reset if RPLL is used.
+	 * Hence, just for 1.0 Silicon, bypass the RPLL clock before giving
+	 * System Reset.
+	 */
+	if (XGetPSVersion_Info() == XPS_VERSION_1)
+	{
+		RegValue = XFsbl_In32(CRL_APB_RPLL_CTRL) |
+				CRL_APB_RPLL_CTRL_BYPASS_MASK;
+		XFsbl_Out32(CRL_APB_RPLL_CTRL, RegValue);
+	}
 
 	/* make sure every thing completes */
 	dsb();
