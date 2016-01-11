@@ -53,7 +53,6 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
-#include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -304,6 +303,7 @@ int main(void )
 
 void XFsbl_PrintFsblBanner(void )
 {
+	u32 PlatInfo;
 	/**
 	 * Print the FSBL Banner
 	 */
@@ -315,13 +315,15 @@ void XFsbl_PrintFsblBanner(void )
 	/**
 	 * Print the platform
 	 */
-	if (XFSBL_PLATFORM == XFSBL_PLATFORM_QEMU)
+
+	PlatInfo = XGet_Zynq_UltraMp_Platform_info();
+	if (PlatInfo == XPLAT_ZYNQ_ULTRA_MPQEMU)
 	{
 		XFsbl_Printf(DEBUG_GENERAL, "Platform: QEMU, ");
-	} else  if (XFSBL_PLATFORM == XFSBL_PLATFORM_REMUS)
+	} else  if (PlatInfo == XPLAT_ZYNQ_ULTRA_MP)
 	{
 		XFsbl_Printf(DEBUG_GENERAL, "Platform: REMUS, ");
-	} else  if (XFSBL_PLATFORM == XFSBL_PLATFORM_SILICON)
+	} else  if (PlatInfo == XPLAT_ZYNQ_ULTRA_MP_SILICON)
 	{
 		XFsbl_Printf(DEBUG_GENERAL, "Platform: Silicon, ");
 	} else {

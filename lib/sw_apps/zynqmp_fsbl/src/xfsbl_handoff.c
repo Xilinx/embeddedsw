@@ -839,7 +839,7 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 		XFsbl_Out32(XFSBL_ERROR_STATUS_REGISTER_OFFSET,
 		    XFSBL_COMPLETED);
 
-		if (XFSBL_PLATFORM == 0X00002000U)
+		if (XGet_Zynq_UltraMp_Platform_info() == 0X2U)
 		{
 			/**
 			 * Flush the L1 data cache and L2 cache, Disable Data Cache

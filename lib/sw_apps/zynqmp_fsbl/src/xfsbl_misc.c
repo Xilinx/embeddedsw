@@ -553,7 +553,7 @@ u32 XFsbl_PowerUpIsland(u32 PwrIslandMask)
 	u32 Status = XFSBL_SUCCESS;
 
 	/* Skip power-up request for QEMU */
-	if (XFSBL_PLATFORM != XFSBL_PLATFORM_QEMU)
+	if (XGet_Zynq_UltraMp_Platform_info() != XPLAT_ZYNQ_ULTRA_MPQEMU)
 	{
 		/* There is a single island for both R5_0 and R5_1 */
 		if ((PwrIslandMask & PMU_GLOBAL_PWR_STATE_R5_1_MASK) ==

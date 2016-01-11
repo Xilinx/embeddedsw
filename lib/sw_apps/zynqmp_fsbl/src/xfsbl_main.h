@@ -61,6 +61,7 @@ extern "C" {
 #include "xfsbl_image_header.h"
 #include "xfsbl_misc_drivers.h"
 #include "xfsbl_hw.h"
+#include "xplatform_info.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/

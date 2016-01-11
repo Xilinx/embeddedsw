@@ -76,6 +76,7 @@
 u32 XFsbl_PcapInit(void) {
 	u32 RegVal;
 	u32 Status = XFSBL_SUCCESS;
+	u32 PlatInfo;
 
 	/* Take PCAP out of Reset */
 	RegVal = XFsbl_In32(CSU_PCAP_RESET);
@@ -106,8 +107,11 @@ u32 XFsbl_PcapInit(void) {
 	 *  Wait for PL_init completion
 	 *  Bypass this check in platforms not supporting PCAP interface
 	 */
-	if ((XFSBL_PLATFORM != XFSBL_PLATFORM_REMUS)
-			&& (XFSBL_PLATFORM != XFSBL_PLATFORM_QEMU)) {
+
+	PlatInfo = XGet_Zynq_UltraMp_Platform_info();
+
+	if ((PlatInfo != XPLAT_ZYNQ_ULTRA_MP)
+			&& (PlatInfo != XPLAT_ZYNQ_ULTRA_MPQEMU)) {
 		RegVal = 0U;
 		do {
 			RegVal = XFsbl_In32(CSU_PCAP_STATUS) &

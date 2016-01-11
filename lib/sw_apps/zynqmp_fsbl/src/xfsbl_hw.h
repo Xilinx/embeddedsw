@@ -666,16 +666,6 @@ extern "C" {
 
 #define XFsbl_Out64(Addr, Data)		Xil_Out64(Addr, Data)
 
-/**
- * Platform
- */
-#define XFSBL_PLATFORM		\
-		(Xil_In32(CSU_VERSION) & CSU_VERSION_PLATFORM_MASK )
-
-#define XFSBL_PLATFORM_SILICON	(0X00000000U)
-#define XFSBL_PLATFORM_REMUS	(0X00001000U)
-#define XFSBL_PLATFORM_QEMU	(0X00003000U)
-
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/

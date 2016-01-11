@@ -243,7 +243,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 
 	XFsbl_Printf(DEBUG_INFO,"Cluster ID 0x%0lx\n\r", ClusterId);
 
-	if (XFSBL_PLATFORM == XFSBL_PLATFORM_QEMU) {
+	if (XGet_Zynq_UltraMp_Platform_info() == XPLAT_ZYNQ_ULTRA_MPQEMU) {
 		/**
 		 * Remmaping for R5 in QEMU
 		 */
