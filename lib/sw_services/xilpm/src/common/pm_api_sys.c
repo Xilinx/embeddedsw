@@ -33,7 +33,6 @@
 #include "pm_client.h"
 #include "pm_common.h"
 #include "pm_api_sys.h"
-#include "pm_ipi_buffer.h"
 
 /**
  * Assigning of argument values into array elements.

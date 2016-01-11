@@ -40,8 +40,6 @@
 #define _PM_COMMON_H_
 
 #include <xipipsu.h>
-#include "pm_ipi.h"
-#include "pm_ipi_buffer.h"
 #include "pm_defs.h"
 #include "xparameters.h"
 
@@ -50,7 +48,6 @@
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
 #define PAYLOAD_ARG_CNT		6U	/* 1 for API ID + 5 for API arguments */
-#define PAYLOAD_ARG_SIZE	4U	/* size in bytes */
 #define RESPONSE_ARG_CNT	4U	/* 1 for status + 3 for values */
 
 #define PM_IPI_TIMEOUT		(~0)
