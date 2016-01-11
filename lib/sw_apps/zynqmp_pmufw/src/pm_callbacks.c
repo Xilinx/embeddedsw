@@ -39,6 +39,28 @@
 #include "pm_api.h"
 #include "ipi_buffer.h"
 
+#define IPI_REQUEST1(buf, arg0)				\
+	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET, arg0);
+
+#define IPI_REQUEST2(buf, arg0, arg1)				\
+	IPI_REQUEST1(buf, arg0);				\
+	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET + PAYLOAD_ELEM_SIZE, arg1);
+
+#define IPI_REQUEST3(buf, arg0, arg1, arg2)			\
+	IPI_REQUEST2(buf, arg0, arg1);				\
+	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET +		\
+		     2 * PAYLOAD_ELEM_SIZE, arg2);
+
+#define IPI_REQUEST4(buf, arg0, arg1, arg2, arg3)		\
+	IPI_REQUEST3(buf, arg0, arg1, arg2);			\
+	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET +		\
+		     3 * PAYLOAD_ELEM_SIZE, arg3);
+
+#define IPI_REQUEST5(buf, arg0, arg1, arg2, arg3, arg4)	\
+	IPI_REQUEST4(buf, arg0, arg1, arg2, arg3);		\
+	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET +		\
+		     4 * PAYLOAD_ELEM_SIZE, arg4);
+
 /**
  * PmAcknowledgeCb() - sends acknowledge via callback
  * @master      Master who is blocked and waiting for the acknowledge
@@ -52,8 +74,8 @@
 void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 		     const u32 status, const u32 oppoint)
 {
-	IPI_RESPONSE4(master->buffer, PM_ACKNOWLEDGE_CB, nodeId, status,
-		      oppoint);
+	IPI_REQUEST4(master->pmuBuffer, PM_ACKNOWLEDGE_CB, nodeId, status,
+		     oppoint);
 	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }
 
@@ -67,7 +89,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		const u32 event, const u32 oppoint)
 {
-	IPI_RESPONSE4(master->buffer, PM_NOTIFY_CB, nodeId, event, oppoint);
+	IPI_REQUEST4(master->pmuBuffer, PM_NOTIFY_CB, nodeId, event, oppoint);
 	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }
 
@@ -85,7 +107,7 @@ void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 	PmDbg("of %s (%lu, %lu, %lu, %lu)\n", PmStrNode(master->nid), reason,
 	      latency, state, timeout);
 
-	IPI_RESPONSE5(master->buffer, PM_INIT_SUSPEND_CB, reason, latency,
-		      state, timeout);
+	IPI_REQUEST5(master->pmuBuffer, PM_INIT_SUSPEND_CB, reason, latency,
+		     state, timeout);
 	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
 }
