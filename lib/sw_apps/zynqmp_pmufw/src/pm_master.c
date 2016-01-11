@@ -1181,7 +1181,7 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response)
 				mst->procs->node.nodeId, response,
 				mst->procs->node.currState);
 	} else if (REQUEST_ACK_BLOCKING == mst->suspendRequest.acknowledge) {
-		IPI_RESPONSE1(mst->buffer, response);
+		IPI_RESPONSE1(mst->pmuBuffer, response);
 	} else {
 		/* No acknowledge */
 	}
