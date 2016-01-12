@@ -41,6 +41,9 @@
 # 4.00  vns  09/10/15 Added DFT control bit programming for efusePS Zynq.
 #                     Bbram and eFuse programming fecility is provided
 #                     for Zynq MP Platform.
+# 5.00  vns  01/09/16 Added Ultrascale BBRAM programming functionality.
+#                     Modified Jtag_write_Ultrascale API according to
+#                     IEEE 1149.1 standard by adding TCK toggles.
 #
 ##############################################################################
 
@@ -51,6 +54,6 @@ BEGIN LIBRARY xilskey
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Key Library ";
-  OPTION VERSION = 4.0;
+  OPTION VERSION = 5.0;
   OPTION NAME = xilskey;
 END LIBRARY
