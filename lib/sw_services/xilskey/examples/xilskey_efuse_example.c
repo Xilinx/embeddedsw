@@ -894,6 +894,8 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 			(char *)XSK_EFUSEPL_AES_KEY,
 			&PlInstancePtr->AESKey[0],
 			XSK_EFUSEPL_AES_KEY_SIZE_IN_BITS);
+		PlInstancePtr->CrcToVerify =
+				XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY);
 	}
 
 	if (PlInstancePtr->ProgRSAKeyUltra == TRUE) {
