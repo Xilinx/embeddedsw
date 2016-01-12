@@ -53,6 +53,8 @@
 *                        Corrected error code names of Ultrascale efuse PL
 * 5.0   vns     07/01/16 Verificaion of programming bits is done by
 *                        performing all Margin reads.
+*                        Added conditions for programming control and
+*                        secure bits.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -2394,47 +2396,64 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 		}
 	}
 
-	/* Programming secure bits */
-	SecData[XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY] = InstancePtr->EncryptOnly;
-	SecData[XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA] =
-						InstancePtr->UseAESOnly;
-	SecData[XSK_EFUSEPL_SEC_RSA_AUTH_EN_ULTRA] =
-						InstancePtr->RSAEnable;
-	SecData[XSK_EFUSEPL_SEC_JTAG_CHAIN_DISABLE_ULTRA] =
-						InstancePtr->JtagDisable;
-	SecData[XSK_EFUSEPL_SEC_DISABLE_INTRNL_TEST_ACCESS_ULTRA] =
-				InstancePtr->IntTestAccessDisable;
-	SecData[XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA] =
-					InstancePtr->DecoderDisable;
-	if(XilSKey_EfusePl_ProgramSecRegister(SecData) != XST_SUCCESS) {
-		return (XSK_EFUSEPL_ERROR_PRGRMG_FUSE_SEC_ROW +
-							ErrorCode);
+	if ((InstancePtr->EncryptOnly == TRUE) ||
+		(InstancePtr->UseAESOnly == TRUE) ||
+		(InstancePtr->RSAEnable == TRUE) ||
+		(InstancePtr->JtagDisable == TRUE) ||
+		(InstancePtr->IntTestAccessDisable == TRUE) ||
+		(InstancePtr->DecoderDisable == TRUE)) {
+		/* Programming secure bits */
+		SecData[XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY] = InstancePtr->EncryptOnly;
+		SecData[XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA] =
+							InstancePtr->UseAESOnly;
+		SecData[XSK_EFUSEPL_SEC_RSA_AUTH_EN_ULTRA] =
+							InstancePtr->RSAEnable;
+		SecData[XSK_EFUSEPL_SEC_JTAG_CHAIN_DISABLE_ULTRA] =
+							InstancePtr->JtagDisable;
+		SecData[XSK_EFUSEPL_SEC_DISABLE_INTRNL_TEST_ACCESS_ULTRA] =
+					InstancePtr->IntTestAccessDisable;
+		SecData[XSK_EFUSEPL_SEC_DISABLE_DECRPTR_ULTRA] =
+						InstancePtr->DecoderDisable;
+		if(XilSKey_EfusePl_ProgramSecRegister(SecData) != XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_PRGRMG_FUSE_SEC_ROW +
+								ErrorCode);
+		}
 	}
 
-	/* Programming control bits */
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] =
-						InstancePtr->AESKeyRead;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_RD_ULTRA] =
-						InstancePtr->UserKeyRead;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_SEC_RD_ULTRA] =
-						InstancePtr->SecureRead;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA] =
-						InstancePtr->CtrlWrite;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_RD_ULTRA] =
-						InstancePtr->RSARead;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WR_ULTRA] =
-						InstancePtr->KeyWrite;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_WR_ULTRA] =
-						InstancePtr->UserKeyWrite;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_SEC_WR_ULTRA] =
-						InstancePtr->SecureWrite;
-	CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_WR_ULTRA] =
-						InstancePtr->RSAWrite;
+	if ((InstancePtr->AESKeyRead == TRUE) ||
+		(InstancePtr->UserKeyRead == TRUE) ||
+		(InstancePtr->SecureRead == TRUE) ||
+		(InstancePtr->CtrlWrite == TRUE) ||
+		(InstancePtr->RSARead == TRUE) ||
+		(InstancePtr->KeyWrite == TRUE) ||
+		(InstancePtr->UserKeyWrite == TRUE) ||
+		(InstancePtr->SecureWrite == TRUE) ||
+		(InstancePtr->RSAWrite == TRUE)) {
+		/* Programming control bits */
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] =
+							InstancePtr->AESKeyRead;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_RD_ULTRA] =
+							InstancePtr->UserKeyRead;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_SEC_RD_ULTRA] =
+							InstancePtr->SecureRead;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA] =
+							InstancePtr->CtrlWrite;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_RD_ULTRA] =
+							InstancePtr->RSARead;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_WR_ULTRA] =
+							InstancePtr->KeyWrite;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_WR_ULTRA] =
+							InstancePtr->UserKeyWrite;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_SEC_WR_ULTRA] =
+							InstancePtr->SecureWrite;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_WR_ULTRA] =
+							InstancePtr->RSAWrite;
 
-	if(XilSKey_EfusePl_ProgramControlRegister(CtrlData) !=
-							XST_SUCCESS) {
-		return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW +
-							ErrorCode);
+		if(XilSKey_EfusePl_ProgramControlRegister(CtrlData) !=
+								XST_SUCCESS) {
+			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW +
+								ErrorCode);
+		}
 	}
 
 	return XST_SUCCESS;
