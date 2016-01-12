@@ -140,6 +140,10 @@ extern "C" {
 #define XPAR_XUSBPS_1_INTR		XPS_USB3_1_ENDPT_INT_ID
 #define	XPAR_XRTCPSU_ALARM_INTR 	XPS_RTC_ALARM_INT_ID
 #define	XPAR_XRTCPSU_SECONDS_INTR	XPS_RTC_SEC_INT_ID
+#define XPAR_XAPMPS_0_INTR		XPS_APM0_INT_ID
+#define XPAR_XAPMPS_1_INTR		XPS_APM1_INT_ID
+#define XPAR_XAPMPS_2_INTR		XPS_APM2_INT_ID
+#define XPAR_XAPMPS_5_INTR		XPS_APM5_INT_ID
 
 /* Canonical definitions for SCU GIC */
 #define XPAR_SCUGIC_NUM_INSTANCES	1U
@@ -247,13 +251,10 @@ extern "C" {
 #define XPS_XMPU_FPD_INT_ID		(134U + 32U)
 #define XPS_FPD_CCI_INT_ID		(154U + 32U)
 #define XPS_FPD_SMMU_INT_ID		(155U + 32U)
-
-/* Private Peripheral Interrupts (PPI) */
-/*#define XPS_GLOBAL_TMR_INT_ID		27	 SCU Global Timer interrupt */
-/*#define XPS_FIQ_INT_ID			28	 FIQ from FPGA fabric */
-/*#define XPS_SCU_TMR_INT_ID		29	 SCU Private Timer interrupt */
-/*#define XPS_SCU_WDT_INT_ID		30	 SCU Private WDT interrupt */
-/*#define XPS_IRQ_INT_ID			31	 IRQ from FPGA fabric */
+#define XPS_APM0_INT_ID		(123U + 32U)
+#define XPS_APM1_INT_ID		(25U + 32U)
+#define XPS_APM2_INT_ID		(25U + 32U)
+#define XPS_APM5_INT_ID		(123U + 32U)
 
 /* REDEFINES for TEST APP */
 /* Definitions for UART */
@@ -348,7 +349,6 @@ extern "C" {
 #define XPAR_CPU_CORTEXA53_CORE_CLOCK_FREQ_HZ	XPAR_CPU_CORTEXA53_1_CPU_CLK_FREQ_HZ
 #endif
 
-#define XPAR_SCUTIMER_DEVICE_ID		0U
 #define XPAR_SCUWDT_DEVICE_ID		0U
 
 
