@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,10 @@
 *                        added TCK toggle after RTI state change where programming
 *                        will start and toggled TCK again at exit of RTI state to
 *                        stop programming. CR#885421.
+* 5.0   vns     01/07/16 Modified JtagWrite_Ultrascale API as per IEEE 1149.1
+*                        standard added TCK toggle after RTI state change where
+*                        programming will start and ends programming at
+*                        TCK toggle after DR_SELECT state. CR #924262
 *
 * </pre>
 *
@@ -2068,9 +2072,12 @@ void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 	jtag_navigate (g_port, JS_DREXIT1);
 	jtag_navigate (g_port, JS_DRUPDATE);
 
-	XilSKey_Efuse_StartTimer();
 	jtag_navigate (g_port, JS_IDLE);
-
+	/* Toggle Clk after RTI */
+	setPin (MIO_TCK, 0);
+	setPin (MIO_TCK, 1);
+	setPin (MIO_TCK, 0);
+	XilSKey_Efuse_StartTimer();
 	/* Here we will be providing 5micro seconds delay */
 	if (XilSKey_Efuse_GetTime() < TimerTicksfor500ns) {
 		while(1) {
@@ -2080,6 +2087,14 @@ void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 		}
 	}
 	jtag_navigate (g_port, JS_DRSELECT);
+	/*
+	 * After exit from RTI toggle Clk after entering DRSELECT state
+	 * so programming will be disabled
+	 */
+	setPin (MIO_TCK, 0);
+	setPin (MIO_TCK, 1);
+	setPin (MIO_TCK, 0);
+
 	jtag_navigate (g_port, JS_IRSELECT);
 	jtag_navigate (g_port, JS_RESET);
 
