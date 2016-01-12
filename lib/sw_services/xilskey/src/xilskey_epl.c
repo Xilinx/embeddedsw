@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,8 @@
 * 4.0   vns     10/01/15 provided conditional compilation to support
 *                        ZynqMp platform also.
 *                        Corrected error code names of Ultrascale efuse PL
+* 5.0   vns     07/01/16 Verificaion of programming bits is done by
+*                        performing all Margin reads.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -338,6 +340,8 @@ static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 
 static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData);
 
+static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
+								u8 Page);
 /**
  * 	JTAG Server Initialization routine
  */
@@ -1695,6 +1699,7 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 				u8 *BitData, u8 Redundant, u8 Page)
 {
 	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
+	u8 RowDataBits[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
 
 	/**
 	 * check if row_data is not NULL
@@ -1769,8 +1774,9 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 					Redundant, Page) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+	XilSKey_Efuse_ConvertBitsToBytes(RowData, RowDataBits, 32);
 
-	*BitData = RowData[Bit];
+	*BitData = RowDataBits[Bit];
 
 	return XST_SUCCESS;
 }
@@ -1920,6 +1926,19 @@ static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 				Bit, Redundant, Page) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
+			/*
+			 * If programming bit is other than AES key's
+			 * bit verify using all 3 margin reads
+			 */
+
+			if (! ((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+				(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA) &&
+				(Page == XSK_EFUSEPL_PAGE_0_ULTRA))) {
+				if (XilSkey_EfusePl_VerifyBit_Ultra(Row,
+					Bit, Redundant, Page) != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+			}
 		}
 	}
 
@@ -2024,6 +2043,12 @@ static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
 				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
+			if (XilSkey_EfusePl_VerifyBit_Ultra(
+					XSK_EFUSEPL_SEC_ROW_ULTRA,
+					Index, XSK_EFUSEPL_NORMAL_ULTRA,
+					XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
 			if (XilSKey_EfusePl_ProgramBit_Ultra(
 				XSK_EFUSEPL_SEC_ROW_ULTRA,
@@ -2031,6 +2056,13 @@ static inline u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
 				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
+			if (XilSkey_EfusePl_VerifyBit_Ultra(
+					XSK_EFUSEPL_SEC_ROW_ULTRA,
+					Index, XSK_EFUSEPL_REDUNDANT_ULTRA,
+					XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
 		}
 
 	}
@@ -2827,7 +2859,12 @@ static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData)
 				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
-
+			if (XilSkey_EfusePl_VerifyBit_Ultra(
+				XSK_EFUSEPL_CNTRL_ROW_ULTRA,
+				Index, XSK_EFUSEPL_NORMAL_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
 			if(XilSKey_EfusePl_ProgramBit_Ultra(
 				XSK_EFUSEPL_CNTRL_ROW_ULTRA,
@@ -2835,8 +2872,70 @@ static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData)
 				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
+			if (XilSkey_EfusePl_VerifyBit_Ultra(
+				XSK_EFUSEPL_CNTRL_ROW_ULTRA,
+				Index, XSK_EFUSEPL_REDUNDANT_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
 		}
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* Verifies PL eFUSE bit of Ultrascale.
+*
+* @param	Row specifies the row number to be verified.
+* @param	Bit specifies bit number to be verified.
+* @param	Redundant is the option to be selected either redundant row
+*			or normal row.
+* @param	Page is the page of Fuse array in which row has to be read
+*
+* @return
+*
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
+								u8 Page)
+{
+	u8 BitData = 0;
+
+	/* Normal read verification */
+	if (XilSKey_EfusePl_ReadBit_Ultra(Row, Bit, XSK_EFUSEPL_READ_NORMAL,
+					&BitData, Redundant, Page) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	if (BitData != 0x1) {
+		return XST_FAILURE;
+	}
+	BitData = 0;
+	/* Margin 1 read verification */
+	if (XilSKey_EfusePl_ReadBit_Ultra(Row, Bit, XSK_EFUSEPL_READ_MARGIN_1,
+			&BitData, Redundant, Page) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	if (BitData != 0x1) {
+		return XST_FAILURE;
+	}
+	BitData = 0;
+	/* Margin 2 read verification */
+	if (XilSKey_EfusePl_ReadBit_Ultra(Row, Bit, XSK_EFUSEPL_READ_MARGIN_2,
+			&BitData, Redundant, Page) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	if (BitData != 0x1) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
