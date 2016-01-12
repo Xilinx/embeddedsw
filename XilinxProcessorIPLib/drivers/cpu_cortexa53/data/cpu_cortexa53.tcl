@@ -55,6 +55,13 @@ proc xdefine_cortexa53_params {drvhandle} {
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle ]]
     set procdrv [get_sw_processor]
+    set compiler [common::get_property CONFIG.compiler $procdrv]
+    if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+	set new_flags "-DARMA53_32 $extra_flags"
+	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
+
+    }
     set archiver [common::get_property CONFIG.archiver $procdrv]
     if {[string first "iarchive" $archiver] < 0 } {
     } else {
