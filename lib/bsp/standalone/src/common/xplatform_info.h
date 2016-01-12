@@ -73,11 +73,11 @@ extern "C" {
 
 u32 XGetPlatform_Info();
 
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 u32 XGetPSVersion_Info();
 #endif
 
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 u32 XGet_Zynq_UltraMp_Platform_info();
 #endif
 /************************** Function Prototypes ******************************/

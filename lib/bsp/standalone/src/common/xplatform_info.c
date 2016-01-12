@@ -77,7 +77,7 @@
 u32 XGetPlatform_Info()
 {
 	u32 reg;
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
 	return XPLAT_MICROBLAZE;
@@ -99,7 +99,7 @@ u32 XGetPlatform_Info()
 * @note     None.
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 u32 XGet_Zynq_UltraMp_Platform_info()
 {
 	u32 reg;
@@ -120,7 +120,7 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 * @note     None.
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 u32 XGetPSVersion_Info()
 {
 	u32 reg;
