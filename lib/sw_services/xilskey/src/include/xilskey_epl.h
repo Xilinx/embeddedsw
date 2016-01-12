@@ -303,6 +303,9 @@ typedef struct {
 	u32 SystemInitDone;
 	/* Stores Fpga series of Efuse */
 	XSKEfusePl_Fpga FpgaFlag;
+	/* CRC of AES key to verify programmed AES key */
+        u32 CrcToVerify; /* Only for Ultrascale */
+
 
 }XilSKey_EPl;
 /************************** Function Prototypes *****************************/

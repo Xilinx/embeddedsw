@@ -2363,6 +2363,11 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
+		/* Verify AES key programmed */
+		if (XilSKey_EfusePl_VerifyAES_Ultrascale(
+				InstancePtr->CrcToVerify) != XST_SUCCESS) {
+			return XSK_EFUSEPL_ERROR_KEY_VALIDATION;
+		}
 	}
 	/* Programming USER key */
 	if (InstancePtr->ProgUserKeyUltra == TRUE) {
