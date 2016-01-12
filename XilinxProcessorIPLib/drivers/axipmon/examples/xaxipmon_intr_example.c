@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@
 *						new version of IP.
 * 5.00a bss	10/25/12 Modified call to XAxiPmon_SetSampleInterval as per
 *			 new driver API.
+* 6.4 mus    01/07/16 Added support for ZynqMP interrupt controller
 * </pre>
 *
 *****************************************************************************/
@@ -69,10 +70,14 @@
 #include "xaxipmon.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#include "xintc.h"
 #include "xil_exception.h"
 #include "stdio.h"
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 /************************** Constant Definitions ****************************/
 
 /*
@@ -80,10 +85,19 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC						XIntc
+#define INTC_HANDLER				XIntc_InterruptHandler
 #define AXIPMON_DEVICE_ID 			XPAR_AXIPMON_0_DEVICE_ID
 #define INTC_DEVICE_ID				XPAR_INTC_0_DEVICE_ID
 #define INTC_AXIPMON_INTERRUPT_ID		XPAR_INTC_0_AXIPMON_0_VEC_ID
-
+#else
+#define INTC						XScuGic
+#define INTC_HANDLER				XScuGic_InterruptHandler
+#define AXIPMON_DEVICE_ID			XPAR_AXIPMON_0_DEVICE_ID
+#define INTC_DEVICE_ID				XPAR_SCUGIC_0_DEVICE_ID
+#define INTC_AXIPMON_INTERRUPT_ID	XPAR_XAPMPS_0_INTR
+#endif
 
 /**************************** Type Definitions ******************************/
 
@@ -96,13 +110,13 @@ int AxiPmonInterruptExample(u16 AxiPmonDeviceId, u32 *Metrics);
 
 static void AxiPmonInterruptHandler(void *CallBackRef);
 
-static int AxiPmonSetupIntrSystem(XIntc* IntcInstancePtr,
+static int AxiPmonSetupIntrSystem(INTC* IntcInstancePtr,
 					XAxiPmon* InstancePtr, u16 IntrId);
 
 /************************** Variable Definitions ****************************/
 
 static XAxiPmon AxiPmonInst;	/* AXI Performance Monitor driver instance */
-XIntc Intc;	/* The Instance of the Interrupt Controller Driver */
+INTC Intc;	/* The Instance of the Interrupt Controller Driver */
 
 /*
  * Shared variables used to test the callbacks.
@@ -367,11 +381,11 @@ static void AxiPmonInterruptHandler(void *CallBackRef)
 * @note		None.
 *
 ******************************************************************************/
-static int AxiPmonSetupIntrSystem(XIntc* IntcInstancePtr, XAxiPmon* InstancePtr,
+static int AxiPmonSetupIntrSystem(INTC* IntcInstancePtr, XAxiPmon* InstancePtr,
 								u16 IntrId)
 {
 	int Status;
-
+#ifdef XPAR_INTC_0_DEVICE_ID
 	/*
 	 * Initialize the interrupt controller driver so that it's ready to
 	 * use.
@@ -407,7 +421,34 @@ static int AxiPmonSetupIntrSystem(XIntc* IntcInstancePtr, XAxiPmon* InstancePtr,
 	 * Enable the interrupt for the AXI Performance Monitor.
 	 */
 	XIntc_Enable(IntcInstancePtr, IntrId);
+#else
+	XScuGic_Config *IntcConfig;
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
+					IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
+	/*
+	 * Connect the handler that will be called when an interrupt
+	 * for the device occurs, the handler defined above performs the
+	 * specific interrupt processing for the device.
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
+		(XInterruptHandler) AxiPmonInterruptHandler, InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	XScuGic_Enable(IntcInstancePtr, IntrId);
+#endif
 	/*
 	 * Initialize the exception table.
 	 */
@@ -417,7 +458,7 @@ static int AxiPmonSetupIntrSystem(XIntc* IntcInstancePtr, XAxiPmon* InstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XIntc_InterruptHandler,
+				(Xil_ExceptionHandler) INTC_HANDLER,
 					IntcInstancePtr);
 	/*
 	 * Enable exceptions.
