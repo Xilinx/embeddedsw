@@ -76,7 +76,7 @@ proc xgen_opts_file {libhandle} {
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
 	puts $file_handle "\n/* Xilinx processor macro for Secure Library (Xilskey) */ "
-	if {$proc_type == "ps7_cortexa9"} {
+	if {$proc_type == "ps7_cortexa9" || $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5"} {
 		puts $file_handle "\n#define XPAR_XSK_ARM_PLATFORM 1"
 	}
 	if {$proc_type == "microblaze"} {
