@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,8 @@
 * ----- ---- 	-------- --------------------------------------------------------
 * 1.01a hk      09/18/13 First release
 * 4.0   vns     10/08/15 Added prototypes for ZynqMp BBRAM PS
+* 5.0   vns     01/09/16 Added functionality of Ultrascale BBRAM
+*                        programming.
 *
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
@@ -96,6 +98,24 @@ typedef struct {
 	 * Value on the MUX Selection line
 	 */
 	u32	JtagMuxSelLineDefVal;
+
+	/* TDI AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTDI;	/* Only for Ultrascale */
+	/* TDO AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTDO;	/* Only for Ultrascale */
+	/* TMS AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTMS;	/* Only for Ultrascale */
+	/* TCK AXI GPIO pin number for Ultrascale */
+	u32 JtagGpioTCK;	/* Only for Ultrascale */
+	/* AXI GPIO Channel number of all Inputs TDO */
+	u32 GpioInputCh;	/* Only for Ultrascale */
+	/* AXI GPIO Channel number for all Outputs TDI/TMS/TCK */
+	u32 GpioOutPutCh;	/* Only for Ultrascale */
+
+	/* Stores Fpga series of BBRAM */
+	XSKEfusePl_Fpga FpgaFlag;
+
+	u32 Crc; /* Crc of AES key and control word of Ultrascale BBRAM */
 
 }XilSKey_Bbram;
 /************************** Constant Definitions *****************************/
@@ -190,6 +210,9 @@ typedef struct {
  */
 #define IRDEINITLEN		10
 #define DRDEINITLEN		2
+
+/* Control word of Bbram Ultrascale */
+#define XSK_CTRL_WORD_BBRAM_ULTRA		0x0000557B/**< Control word of Bbram */
 
 /************************** Function Prototypes *****************************/
 /*

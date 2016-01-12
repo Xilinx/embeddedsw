@@ -59,6 +59,10 @@
 *                        standard added TCK toggle after RTI state change where
 *                        programming will start and ends programming at
 *                        TCK toggle after DR_SELECT state. CR #924262
+*                        Modified JtagServerInitBbram to support Ultrascale
+*                        BBRAM programming, added Bbram_Init_Ultra,
+*                        Bbram_ProgramKey_Ultra, Bbram_VerifyKey_Ultra
+*                        and Bbram_DeInit_Ultra APIs
 *
 * </pre>
 *
@@ -1403,7 +1407,7 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 {
     int retval=0, i=0, num_taps=0, status=0;
     unsigned long *tap_codes = NULL;
-
+#ifdef XSK_ARM_PLATFORM
     g_mio_jtag_tdi		=	InstancePtr->JtagMioTDI;
     g_mio_jtag_tdo		= 	InstancePtr->JtagMioTDO;
     g_mio_jtag_tck		= 	InstancePtr->JtagMioTCK;
@@ -1422,6 +1426,21 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 	return 1;
     }
 
+#else
+	GpioPinMasterJtagTDI = InstancePtr->JtagGpioTDI;
+	GpioPinMasterJtagTDO = InstancePtr->JtagGpioTDO;
+	GpioPinMasterJtagTMS = InstancePtr->JtagGpioTMS;
+	GpioPinMasterJtagTCK = InstancePtr->JtagGpioTCK;
+
+	GpioInPutCh = InstancePtr->GpioInputCh;
+	GpioOutPutCh = InstancePtr->GpioOutPutCh;
+
+	status = JtagValidateMioPins();
+	if (status != 0) {
+	  return 1;
+	}
+
+#endif
     JtagInitGpio();
 
     g_js = js_init_zynq();
@@ -1456,6 +1475,11 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 
     for (i = 0; i < num_taps; i++) {
 		if(tap_codes[i] == ZYNQ_DAP_ID){
+			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ZYNQ;
+			break;
+		}
+		if (tap_codes[i] == ULTRA_MB_DAP_ID) {
+			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
 			break;
 		}
     }
@@ -2391,5 +2415,301 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	}
 
 	return XST_FAILURE;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function implements the UltraScale's BBRAM algorithm initialization
+*
+* @param	BBRAM instance pointer
+*
+* @return
+*		- XST_FAILURE - In case of failure
+*		- XST_SUCCESS - In case of Success
+*
+* @note		None.
+*
+*****************************************************************************/
+int Bbram_Init_Ultra(XilSKey_Bbram *InstancePtr)
+{
+	u8 IRCaptureStatus = 0;
+	u8 WriteBuffer[4];
+	u64 Time = 0;
+	u32 TckCnt;
+
+	jtag_navigate (g_port, JS_RESET);
+	jtag_navigate (g_port, JS_IDLE);
+
+	/* Load ISC_NOOP */
+	WriteBuffer[0] = ISC_NOOP;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IDLE);
+
+#ifdef XSK_MICROBLAZE_PLATFORM
+	/* Wait 100 msec */
+	Time = XSK_EFUSEPL_CLCK_FREQ_ULTRA/10000;
+#endif
+
+	XilSKey_Efuse_StartTimer();
+
+	if (XilSKey_Efuse_GetTime() < Time) {
+		while(1) {
+			if(XilSKey_Efuse_IsTimerExpired(Time) == 1) {
+				break;
+			}
+		}
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function implements the Ultrascale's BBRAM program key
+*
+* @param	BBRAM instance pointer
+*
+* @return
+*		- XST_FAILURE - In case of failure
+*		- XST_SUCCESS - In case of Success
+*
+* @note		None.
+*
+*****************************************************************************/
+int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
+{
+	u32 KeyCnt;
+	u8 WriteBuffer[4];
+	u8 TckCnt;
+	u32 *WriteBuf32 = (u32 *)WriteBuffer;
+
+	/* Initial state - RTI */
+	jtag_navigate (g_port, JS_IDLE);
+
+	/* Load ISC_ENABLE */
+	WriteBuffer[0] = ISC_ENABLE;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IRPAUSE);
+
+	/* Shift 5 bits (0x15) */
+	WriteBuffer[0] = DR_EN;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_EN, WriteBuffer,
+			NULL, JS_IDLE);
+
+	/* Wait 12 TCK */
+	for(TckCnt = 0; TckCnt < 12; TckCnt++){
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	/* second ISC enable data shift */
+	WriteBuffer[0] = DR_EN;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_EN, WriteBuffer,
+				NULL, JS_IDLE);
+
+	/* Wait 12 TCK */
+	for(TckCnt = 0; TckCnt < 12; TckCnt++){
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	jtag_navigate (g_port, JS_IDLE);
+
+	/* Load ISC_PROGRAM_KEY */
+	WriteBuffer[0] = ISC_PROGRAM_KEY;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IRPAUSE);
+
+	/* Shift 0xFFFFFFFF */
+	WriteBuffer[0] = 0xFF;
+	WriteBuffer[1] = 0xFF;
+	WriteBuffer[2] = 0xFF;
+	WriteBuffer[3] = 0xFF;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
+			&WriteBuffer[0], NULL, JS_IDLE);
+
+	/* Wait 9 TCK */
+	for(TckCnt = 0; TckCnt < 9; TckCnt++){
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	/* Load ISC_PROGRAM */
+	WriteBuffer[0] = ISC_PROGRAM;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IRPAUSE);
+
+	/* Shift 0x0000557B Cotrol word */
+	*WriteBuf32 = XSK_CTRL_WORD_BBRAM_ULTRA;
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
+			&WriteBuffer[0], NULL, JS_IDLE);
+
+	/* Wait 1 TCK */
+	setPin (MIO_TCK, 1);
+	setPin (MIO_TCK, 0);
+
+	/* Program key - 32 bits at a time */
+	KeyCnt = 31;
+	while (KeyCnt < NUMCHARINKEY) {
+		/* Load ISC_PROGRAM */
+		WriteBuffer[0] = ISC_PROGRAM;
+		jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+				NULL, JS_IRPAUSE);
+
+		/* Copy key from Instance structure */
+		WriteBuffer[3] = InstancePtr->AESKey[KeyCnt--];
+		WriteBuffer[2] = InstancePtr->AESKey[KeyCnt--];
+		WriteBuffer[1] = InstancePtr->AESKey[KeyCnt--];
+		WriteBuffer[0] = InstancePtr->AESKey[KeyCnt--];
+
+		/* Shift 32 bit key */
+		jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
+				&WriteBuffer[0], NULL, JS_IDLE);
+
+		/* Wait 1 TCK */
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	/* Write CRC of BBRAM key */
+	WriteBuffer[0] = ISC_PROGRAM;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IRPAUSE);
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
+			(u8 *)&(InstancePtr->Crc), NULL, JS_IDLE);
+
+	/* Wait 1 TCK */
+	setPin (MIO_TCK, 1);
+	setPin (MIO_TCK, 0);
+
+	/* Reset to IDLE */
+	jtag_navigate (g_port, JS_IDLE);
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function does de-initialization of UltraScale.
+*
+* @param 	none
+*
+* @return	none
+*
+* @note		none
+*
+*****************************************************************************/
+void Bbram_DeInit_Ultra(void)
+{
+	u8 WriteBuffer[5];
+	u32 TckCnt;
+
+	jtag_navigate (g_port, JS_IDLE);
+
+	/* ISC_PROG_SECURITY */
+	WriteBuffer[0] = 0x12;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IDLE);
+	WriteBuffer[0] = 0x00;
+	WriteBuffer[1] = 0x00;
+	WriteBuffer[2] = 0x00;
+	WriteBuffer[3] = 0x00;
+
+	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM, WriteBuffer,
+						NULL, JS_IDLE);
+	for (TckCnt = 0; TckCnt < 8; TckCnt++) {
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	/* Load ISC_DISABLE */
+	WriteBuffer[0] = ISC_DISABLE;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IDLE);
+
+	/* Wait 12 TCK */
+	for(TckCnt = 0; TckCnt < 12; TckCnt++){
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+	jtag_navigate (g_port, JS_IDLE);
+
+	for(TckCnt = 0; TckCnt < 10; TckCnt++){
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	/* BYPASS */
+	WriteBuffer[0] = BYPASS;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+				NULL, JS_IDLE);
+
+	jtag_navigate (g_port, JS_RESET);
+	jtag_navigate (g_port, JS_IDLE);
+
+	/* De-initialization */
+	if (g_port != NULL){
+		js_close_port(g_port);
+	}
+
+	js_deinit_server(g_js);
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function verifies the programmed BBRAM by reading CRC of programmed
+* AES key and control word.
+*
+* @param 	none
+*
+* @return	none
+*
+* @note		BBRAM verification cannot be done separately,
+*		The program and verify will only work together in and in
+*		that order.
+*
+*****************************************************************************/
+int Bbram_VerifyKey_Ultra(u32 *Crc32)
+{
+	u32 KeyCnt;
+	u32 BufferCnt;
+	u32 KeyCnt_Char;
+	u32 ReadKey_Char;
+	u8 WriteBuffer[5];
+	u64 ReadBuffer;
+	u8 TckCnt;
+	unsigned long long DataReg = 0;
+	int Status = XST_SUCCESS;
+	u32 Num;
+
+	/* Initial state - RTI */
+	jtag_navigate (g_port, JS_IDLE);
+
+	/* Load ISC_READ */
+	WriteBuffer[0] = ISC_READ;
+	jtag_shift (g_port, ATOMIC_IR_SCAN, IRLENGTH, WriteBuffer,
+			NULL, JS_IDLE);
+
+	for (Num = 0; Num < 10; Num++) {
+		jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_VERIFY, NULL,
+				(u8 *)&ReadBuffer, JS_IDLE);
+		setPin (MIO_TCK, 1);
+		setPin (MIO_TCK, 0);
+	}
+
+	ReadBuffer = ReadBuffer >> 5;
+	if (*Crc32 != (u32)ReadBuffer) {
+		return XST_FAILURE;
+	}
+
+	return Status;
 
 }
