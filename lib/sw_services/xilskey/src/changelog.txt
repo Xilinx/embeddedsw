@@ -66,5 +66,18 @@
  *                     when reading from efuse memory to return both bits
  *                     of secure control feature for RSA enable, PPK hash
  *                     bits invalid bits. (CR #911063)
- *
+ * 5.0   vns  09/01/16 Modified JtagWrite_Ultrascale API as per IEEE 1149.1
+*                      standard added TCK toggle after RTI state change where
+*                      programming will start and ends programming at
+*                      TCK toggle after DR_SELECT state. CR #924262
+*                      Added Ultrascale BBRAM programming functionality.
+*                      Modified JtagServerInitBbram to support Ultrascale
+*                      BBRAM programming, added Bbram_Init_Ultra,
+*                      Bbram_ProgramKey_Ultra, Bbram_VerifyKey_Ultra
+*                      and Bbram_DeInit_Ultra APIs.
+*                      Verificaion of programming bits are verified by
+*                      performing all Margin reads.
+*                      Added conditions for programming control and
+*                      secure bits for Ultrascale efuse.
+*
  ********************************************************************************/
