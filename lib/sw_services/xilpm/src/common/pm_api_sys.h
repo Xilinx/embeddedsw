@@ -41,6 +41,8 @@
 
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 
+void XPm_SuspendFinalize();
+
 enum XPmBootStatus XPm_GetBootStatus();
 
 /* System-level API function declarations */

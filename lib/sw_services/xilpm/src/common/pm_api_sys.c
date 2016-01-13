@@ -103,6 +103,35 @@ enum XPmBootStatus XPm_GetBootStatus()
 }
 
 /**
+ * XPm_SuspendFinalize() - finilize suspend procedure
+ *
+ * Function waits for PMU to finish all previous API requests sent by the PU and
+ * performs client specific actions to finish suspend procedure
+ * (e.g. execution of wfi instruction on A53 and R5 processors).
+ * This function should not return if the suspend procedure is successful.
+ */
+void XPm_SuspendFinalize(void)
+{
+	XStatus status;
+
+	/**
+	 * Wait until previous IPI request is handled by the PMU
+	 * If PMU is busy, keep trying until PMU becomes responsive
+	 */
+	do {
+		status = XIpiPsu_PollForAck(primary_master->ipi,
+					    IPI_PMU_PM_INT_MASK,
+					    PM_IPI_TIMEOUT);
+		if (status != XST_SUCCESS) {
+			pm_dbg("ERROR timed out while waiting for PMU to"
+			       " finish processing previous PM-API call\n");
+		}
+	} while (XST_SUCCESS != status);
+
+	XPm_ClientSuspendFinalize();
+}
+
+/**
  * pm_ipi_send() - Sends IPI request to the PMU
  * @master	Pointer to the master who is initiating request
  * @payload	API id and call arguments to be written in IPI buffer

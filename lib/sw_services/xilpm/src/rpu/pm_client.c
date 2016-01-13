@@ -137,3 +137,14 @@ void XPm_ClientWakeup(const struct XPm_Master *const master)
 		pm_write(MASTER_PWRCTL, val);
 	}
 }
+
+/**
+ * XPm_ClientSuspendFinalize() - Finalize suspend procedure by executing
+ * 				 wfi instruction
+ */
+void XPm_ClientSuspendFinalize(void)
+{
+	pm_dbg("Going to WFI...\n");
+	__asm__("wfi");
+	pm_dbg("WFI exit...\n");
+}
