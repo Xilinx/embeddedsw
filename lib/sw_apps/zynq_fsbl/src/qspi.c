@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2016 Xilinx, Inc.  All rights reserved.
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -58,6 +58,10 @@
 * 7.00a kc  10/25/13 Fix for CR#739968 - FSBL should do the QSPI config
 *                    					 settings for Dual parallel
 *                    					 configuration in IO mode
+* 14.0 gan 01/13/16  Fix for CR#869081 - (2016.1)FSBL picks the qspi read
+*                                        command from LQSPI_CFG register
+*					 					 instead of hard coded read
+*					 					 command (0x6B).
 *
 * </pre>
 *
@@ -432,7 +436,12 @@ void FlashRead(u32 Address, u32 ByteCount)
 	 * Setup the write command with the specified address and data for the
 	 * FLASH
 	 */
-	WriteBuffer[COMMAND_OFFSET]   = QUAD_READ_CMD;
+	u32 LqspiCrReg;
+	u8  ReadCommand;
+
+	LqspiCrReg = XQspiPs_GetLqspiConfigReg(QspiInstancePtr);
+	ReadCommand = (u8) (LqspiCrReg & XQSPIPS_LQSPI_CR_INST_MASK);
+	WriteBuffer[COMMAND_OFFSET]   = ReadCommand;
 	WriteBuffer[ADDRESS_1_OFFSET] = (u8)((Address & 0xFF0000) >> 16);
 	WriteBuffer[ADDRESS_2_OFFSET] = (u8)((Address & 0xFF00) >> 8);
 	WriteBuffer[ADDRESS_3_OFFSET] = (u8)(Address & 0xFF);
