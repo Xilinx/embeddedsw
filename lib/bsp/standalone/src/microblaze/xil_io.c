@@ -44,6 +44,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.00a hbm  07/28/09 Initial release
 * 3.00a hbm  07/21/10 Added Xil_EndianSwap32/16, Xil_Htonl/s, Xil_Ntohl/s
+* 5.4   sk   01/14/16 Changed xil_io() and xil_out() functions to static inline
+*                     functions.
 *
 * </pre>
 *
@@ -71,115 +73,6 @@
 
 
 /***************** Macros (Inline Functions) and Functions Definitions *******/
-
-/*****************************************************************************/
-/**
-*
-* Perform an input operation for an 8-bit memory location by reading from the
-* specified address and returning the value read from that address.
-*
-* @param	Addr contains the address to perform the input operation at.
-*
-* @return	The value read from the specified input address.
-*
-* @note		None.
-*
-******************************************************************************/
-u8 Xil_In8(UINTPTR Addr) {
-	return *(volatile u8 *)Addr;
-}
-
-/*****************************************************************************/
-/**
-*
-* Perform an input operation for a 16-bit memory location by reading from the
-* specified address and returning the value read from that address.
-*
-* @param	Addr contains the address to perform the input operation at.
-*
-* @return	The value read from the specified input address.
-*
-* @note		None.
-*
-******************************************************************************/
-u16 Xil_In16(UINTPTR Addr) {
-	return *(volatile u16 *)Addr;
-}
-
-/*****************************************************************************/
-/**
-*
-* Performs an input operation for a 32-bit memory location by reading from the
-* specified address and returning the Value read from that address.
-*
-* @param	Addr contains the address to perform the input operation at.
-*
-* @return	The value read from the specified input address.
-*
-* @note		None.
-*
-******************************************************************************/
-u32 Xil_In32(UINTPTR Addr) {
-	return *(volatile u32 *)Addr;
-}
-
-
-/*****************************************************************************/
-/**
-*
-* Perform an output operation for an 8-bit memory location by writing the
-* specified value to the specified address.
-*
-* @param	Addr contains the address to perform the output operation at.
-* @param	value contains the value to be output at the specified address.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
-void Xil_Out8(UINTPTR Addr, u8 Value) {
-	volatile u8 *LocalAddr = (u8 *)Addr;
-	*LocalAddr = Value;
-}
-
-/*****************************************************************************/
-/**
-*
-* Perform an output operation for a 16-bit memory location by writing the
-* specified value to the specified address.
-*
-* @param	Addr contains the address to perform the output operation at.
-* @param	value contains the value to be output at the specified address.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
-void Xil_Out16(UINTPTR Addr, u16 Value) {
-	volatile u16 *LocalAddr = (u16 *)Addr;
-	*LocalAddr = Value;
-}
-
-/*****************************************************************************/
-/**
-*
-* Perform an output operation for a 32-bit memory location by writing the
-* specified value to the specified address.
-*
-* @param	addr contains the address to perform the output operation at.
-* @param	value contains the value to be output at the specified address.
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
-void Xil_Out32(UINTPTR Addr, u32 Value) {
-	volatile u32 *LocalAddr = (u32 *)Addr;
-	*LocalAddr = Value;
-}
 
 /*****************************************************************************/
 /**
