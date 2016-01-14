@@ -1,10 +1,11 @@
 Change Log for lwip
 =================================
-2015-11-24
+2016-01-14
 	* Created a new version lwip141_v1_4
 	* Made changes for lwip to work with A53 with caches enabled.
 	* Corrected last tx and rx bd updation for corner scenarios.
 	* Make Zynq BD space normal non-cacheable instead of strongly ordered.
+	* Correct condition to select SLCR offset for emacps clk cfg(CR#930997).
 2015-10-12
 	* Created a new version lwip141_v1_3.
 	* Made changes in xemacpsif_dma.c to add required barriers.

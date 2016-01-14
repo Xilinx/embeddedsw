@@ -717,7 +717,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 
 		*(volatile u32_t *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
 
-		if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
+		if (mac_baseaddr == ZYNQ_EMACPS_0_BASEADDR) {
 			slcrBaseAddress = SLCR_GEM0_CLK_CTRL_ADDR;
 		} else {
 			slcrBaseAddress = SLCR_GEM1_CLK_CTRL_ADDR;
