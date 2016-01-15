@@ -65,6 +65,7 @@ typedef s32 (*func_ptr)(int c);
 
 void xil_printf( const char8 *ctrl1, ...);
 void print( char *ptr);
+void outbyte(char c);
 
 #ifdef __cplusplus
 }
