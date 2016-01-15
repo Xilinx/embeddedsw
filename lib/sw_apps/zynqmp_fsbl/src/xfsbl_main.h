@@ -135,6 +135,18 @@ typedef struct {
 #define XFSBL_STAGE_ERR		(0x5U)
 #define XFSBL_STAGE_DEFAULT	(0x6U)
 
+/* A53 MMU definitions */
+
+#define BLOCK_SIZE_A53_64 0x200000U
+#define BLOCK_SIZE_A53_32 0x100000U
+
+#define NUM_BLOCKS_A53_64 0x400U
+#define NUM_BLOCKS_A53_32 0x800U
+
+#define ATTRIB_MEMORY_A53_64 0x705U
+#define ATTRIB_MEMORY_A53_32 0x15DE6U
+#define ATTRIB_RESERVED_A53  0x0U
+
 /************************** Function Prototypes ******************************/
 /**
  * Functions defined in xfsbl_main.c

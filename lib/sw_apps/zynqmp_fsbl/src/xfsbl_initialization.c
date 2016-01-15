@@ -58,6 +58,7 @@
 #include "psu_init.h"
 #include "xfsbl_qspi.h"
 #include "xfsbl_csu_dma.h"
+#include "xil_mmu.h"
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_R5_VECTOR_VALUE 	0xEAFEFFFEU
@@ -393,6 +394,9 @@ END:
 static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 {
 	u32 Status =  XFSBL_SUCCESS;
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
+	u32 BlockNum;
+#endif
 
 	/**
 	 * psu initialization
@@ -407,6 +411,24 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 		Status = XFSBL_PSU_INIT_FAILED + Status;
 		goto END;
 	}
+
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
+	/* For A53, mark DDR region as "Memory" as DDR initialization is done */
+
+#ifdef XFSBL_A53
+	/* For A53 64bit*/
+	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64; BlockNum++)
+	{
+		Xil_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_64, ATTRIB_MEMORY_A53_64);
+	}
+#else
+	/* For A53 32bit*/
+	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_32; BlockNum++)
+	{
+		Xil_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_32, ATTRIB_MEMORY_A53_32);
+	}
+#endif
+#endif
 
 	/**
 	 * DDR Check if present

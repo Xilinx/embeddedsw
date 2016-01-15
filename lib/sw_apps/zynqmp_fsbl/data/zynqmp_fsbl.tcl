@@ -137,12 +137,19 @@ proc swapp_generate {} {
 
     # based on the CPU (A53 64-bit, A53 32-bit or R5),
     # remove unnecesary linker script and retain just one: lscript.ld
+    # copy the corresponding translation table for A53 (64-bit and 32-bit)
     # set the compiler flags
+    set trans_tbl_a53_64 "xfsbl_translation_table_a53_64.S"
+    set trans_tbl_a53_32 "xfsbl_translation_table_a53_32.S"
+    set trans_tbl_a53 "xfsbl_translation_table.S"
     if { $proc_type == "psu_cortexr5" } {
         set ld_file_a53 "lscript_a53.ld"
         file delete -force $ld_file_a53
 
-        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=soft $def_flags"
+        file delete -force $trans_tbl_a53_64
+        file delete -force $trans_tbl_a53_32
+
+        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=soft -DARMR5 $def_flags"
     } else {
         set compiler [common::get_property CONFIG.compiler $proc_instance]
 
@@ -150,6 +157,9 @@ proc swapp_generate {} {
             # A53 32-bit : Use same linker script as that of R5
             set ld_file_a53 "lscript_a53.ld"
             file delete -force $ld_file_a53
+
+            file delete -force $trans_tbl_a53_64
+            file rename -force $trans_tbl_a53_32 $trans_tbl_a53
 
             set new_flags "-Wall -fmessage-length=0 -march=armv7-a $def_flags"
         } else {
@@ -160,6 +170,9 @@ proc swapp_generate {} {
             set ld_file_a53 "lscript_a53.ld"
             set ld_file_new "lscript.ld"
             file rename -force $ld_file_a53 $ld_file_new
+
+            file delete -force $trans_tbl_a53_32
+            file rename -force $trans_tbl_a53_64 $trans_tbl_a53
 
             set new_flags "-Wall -fmessage-length=0 -DXFSBL_A53 $def_flags"
         }
