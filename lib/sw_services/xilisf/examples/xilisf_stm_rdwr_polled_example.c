@@ -62,6 +62,8 @@
 *		     to XSpi_mIntrGlobalDisable with XSpi_IntrGlobalDisable.
 * 5.2   asa 05/12/15 Added support for Micron N25Q256A flash part which
 *                    supports 4 byte addressing.
+* 5.5   sk  01/14/16 Added support for Spansion flash in extended address
+*                    mode.
 * </pre>
 *
 ******************************************************************************/
@@ -198,10 +200,12 @@ int main()
 	Address = ISF_TEST_ADDRESS;
 
 	/*
-	 * Check is the flash part is micron in which case, switch to 4 byte
-	 * addressing mode.
+	 * Check if the flash part is micron or spansion in which case,
+	 * switch to 4 byte addressing mode if FlashSize is >128Mb.
 	 */
-	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
+			(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
+			(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
 		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -316,10 +320,12 @@ int main()
 	}
 
 	/*
-	 * For micron flash part supporting 4 byte ddressing mode, exit from
-	 * 4 Byte mode.
+	 * For micron or spansion flash part supporting 4 byte addressing mode,
+	 * exit from 4 Byte mode if FlashSize is >128Mb.
 	 */
-	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
+				(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
+				(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
 		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;

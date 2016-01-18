@@ -60,6 +60,8 @@
 * 5.0   sb   08/05/14 Registering to Xilisf Interrupt handler
 *		      instead of driver handler.
 * 5.2   asa  05/12/15 Added support for Micron N25Q256A flash.
+* 5.5   sk  01/14/16 Added support for Spansion flash in extended address
+*                    mode.
 *
 * </pre>
 *
@@ -243,10 +245,12 @@ int main()
 	}
 
 	/*
-	 * Check is the flash part is micron in which case, switch to 4 byte
-	 * addressing mode.
+	 * Check if the flash part is micron or spansion in which case,
+	 * switch to 4 byte addressing mode if FlashSize is >128Mb.
 	 */
-	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
+				(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
+				(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
 		TransferInProgress = TRUE;
 		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 		if(Status != XST_SUCCESS) {
@@ -384,7 +388,9 @@ int main()
 		}
 	}
 
-	if (Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+	if (((Isf.ManufacturerID == XISF_MANUFACTURER_ID_MICRON) ||
+				(Isf.ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)) &&
+				(((u8)Isf.DeviceCode) > XISF_SPANSION_ID_BYTE2_128)) {
 		TransferInProgress = TRUE;
 		Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
 		if(Status != XST_SUCCESS) {
