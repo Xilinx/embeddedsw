@@ -58,37 +58,29 @@
 #include "xil_printf.h"
 
 /************************** Constant Definitions ******************************/
+
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define IIC_INT_VEC_ID		XPAR_XIICPS_0_INTR
 
-/*
- * The slave address to send to and receive from.
- */
-#define IIC_SLAVE_ADDR		0x3FB
+#define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+
 #define IIC_SCLK_RATE		100000
-
-/*
- * This timeout interval is used in polling mode transfers.
- * Please increase the timeout limit on faster systems to avoid
- * unintended timeout failure.
- */
-#define POLL_TIME_OUT	2000000  /**< Time out count for polled transfer*/
+#define SLV_MON_LOOP_COUNT 0x000FFFFF	/**< Slave Monitor Loop Count*/
 
 /**************************** Type Definitions ********************************/
 
 /************************** Function Prototypes *******************************/
 
-int IicPsSlaveMonitorExample(u16 DeviceId);
+int IicPsSlaveMonitorExample();
 
-static int SetupInterruptSystem(XIicPs *IicPsPtr);
-
-void Handler(void *CallBackRef, u32 Event);
+static void Handler(void *CallBackRef, u32 Event);
+static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id);
+static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id);
+static int IicPsConfig(u16 DeviceId, u32 Int_Id);
+static int IicPsFindDevice(u16 Addr);
 
 /************************** Variable Definitions ******************************/
 
@@ -99,9 +91,15 @@ XScuGic InterruptController;	/* Instance of the Interrupt Controller */
  * The following counters are used to determine when the entire buffer has
  * been sent and received.
  */
-volatile int SlaveReady;
-volatile int TotalError;
+volatile u8 TransmitComplete;	/**< Flag to check completion of Transmission */
+volatile u8 ReceiveComplete;	/**< Flag to check completion of Reception */
+volatile u32 TotalErrorCount;	/**< Total Error Count Flag */
+volatile u32 SlaveResponse;		/**< Slave Response Flag */
 
+/**Searching for the required Slave Address and user can also add
+ * their own slave Address in the below array list**/
+u16 SlvAddr[] = {0x54,0x55,0x74,0};
+XIicPs IicInstance;		/* The instance of the IIC device. */
 /******************************************************************************/
 /**
 *
@@ -124,13 +122,66 @@ int main(void)
 	 * Run the Iic Slave Monitor example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
-	Status = IicPsSlaveMonitorExample(IIC_DEVICE_ID);
+	Status = IicPsSlaveMonitorExample();
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC Slave Monitor Example Test Failed\r\n");
 		return XST_FAILURE;
 	}
 
 	xil_printf("Successfully ran IIC Slave Monitor Example Test\r\n");
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function perform the initial configuration for the IICPS Device.
+*
+* @param	DeviceId instance and Interrupt ID mapped to the device.
+*
+* @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
+*
+* @note		None.
+*
+****************************************************************************/
+static int IicPsConfig(u16 DeviceId, u32 Int_Id)
+{
+	int Status;
+	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
+
+	/*
+	 * Initialize the IIC driver so that it is ready to use.
+	 */
+	ConfigPtr = XIicPs_LookupConfig(DeviceId);
+	if (ConfigPtr == NULL) {
+		return XST_FAILURE;
+	}
+
+	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
+					ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Setup the Interrupt System.
+	 */
+	Status = SetupInterruptSystem(&IicInstance, Int_Id);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Setup the handlers for the IIC that will be called from the
+	 * interrupt context when data has been sent and received, specify a
+	 * pointer to the IIC driver instance as the callback reference so
+	 * the handlers are able to access the instance data.
+	 */
+	XIicPs_SetStatusHandler(&IicInstance, (void *) &IicInstance, Handler);
+
+	/*
+	 * Set the IIC serial clock rate.
+	 */
+	XIicPs_SetSClk(&IicInstance, IIC_SCLK_RATE);
 	return XST_SUCCESS;
 }
 
@@ -147,76 +198,54 @@ int main(void)
 * @note 	None.
 *
 *******************************************************************************/
-int IicPsSlaveMonitorExample(u16 DeviceId)
+int IicPsSlaveMonitorExample()
 {
 	int Status;
-	int Timeout;
-	XIicPs_Config *Config;
+	int Index;
 
-	/*
-	 * Initialize the IIC driver so that it's ready to use
-	 * Look up the configuration in the config table,
-	 * then initialize it.
-	 */
-	Config = XIicPs_LookupConfig(DeviceId);
-	if (NULL == Config) {
-		return XST_FAILURE;
+	for(Index = 0;SlvAddr[Index] != 0;Index++) {
+		Status = IicPsFindDevice(SlvAddr[Index]);
+		if (Status == XST_SUCCESS) {
+			return XST_SUCCESS;
+		}
 	}
-
-	Status = XIicPs_CfgInitialize(&Iic, Config, Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Perform a self-test to ensure that the hardware was built correctly.
-	 */
-	Status = XIicPs_SelfTest(&Iic);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Connect the IIC to the interrupt subsystem such that interrupts can
-	 * occur.  This function is application specific.
-	 */
-	Status = SetupInterruptSystem(&Iic);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Setup the handlers for the IIC that will be called from the
-	 * interrupt context when slave response to the address transfer.
-	 */
-	XIicPs_SetStatusHandler(&Iic, (void *) &Iic, Handler);
-
-	/*
-	 * Set 10-bit address mode.
-	 */
-	XIicPs_SetOptions(&Iic, XIICPS_10_BIT_ADDR_OPTION);
-
-	/*
-	 * Set the IIC serial clock rate.
-	 */
-	Status = XIicPs_SetSClk(&Iic, IIC_SCLK_RATE);
-	if (Status != XST_SUCCESS) {
 	return XST_FAILURE;
-	}
+}
+/*****************************************************************************/
+/**
+*
+* This function checks the availability of a slave using slave monitor mode.
+*
+* @param	DeviceId is the Device ID of the IicPs Device and is the
+*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note 	None.
+*
+*******************************************************************************/
+static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
+{
+	u32 Index;
+	int Status;
+	XIicPs *IicPtr;
 
 	/*
-	 * Wait for the bus to be idle.
+	 * Initialize the IIC driver so that it is ready to use.
 	 */
-	while (XIicPs_BusIsBusy(&Iic)) {
-		/* NOP */
+	Status = IicPsConfig(DeviceId,Int_Id);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
-	XIicPs_EnableSlaveMonitor(&Iic, IIC_SLAVE_ADDR);
+	IicPtr = &IicInstance;
+	XIicPs_DisableAllInterrupts(IicPtr->Config.BaseAddress);
+	XIicPs_EnableSlaveMonitor(&IicInstance, Address);
 
-	TotalError= 0;
-	SlaveReady = FALSE;
+	TotalErrorCount = 0;
+	SlaveResponse = FALSE;
 
-	Timeout = POLL_TIME_OUT;
+	Index = 0;
 
 	/*
 	 * Wait for the Slave Monitor Interrupt, the interrupt processing
@@ -224,69 +253,66 @@ int IicPsSlaveMonitorExample(u16 DeviceId)
 	 * loop if the interrupts are not working correctly or the slave
 	 * never responds.
 	 */
-	while ((!SlaveReady) && (Timeout > 0)) {
-	Timeout --;
+	while ((!SlaveResponse) && (Index < SLV_MON_LOOP_COUNT)) {
+		Index++;
+
 		/*
 		 * Ignore any errors. The hardware generates NACK interrupts
 		 * if the slave is not present.
 		 */
-		if (0 != TotalError) {
+		if (0 != TotalErrorCount) {
+			xil_printf("Test error unexpected NACK\n");
 			return XST_FAILURE;
 		}
-
 	}
 
-	if (Timeout == 0) {
+	if (Index >= SLV_MON_LOOP_COUNT) {
 		return XST_FAILURE;
+
 	}
 
-	XIicPs_DisableSlaveMonitor(&Iic);
-
-	/*
-	 * Clear 10-bit address mode.
-	 */
-	XIicPs_ClearOptions(&Iic, XIICPS_10_BIT_ADDR_OPTION);
-
+	XIicPs_DisableSlaveMonitor(&IicInstance);
 	return XST_SUCCESS;
 }
+
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing to handle data events
-* from the IIC.  It is called from an interrupt context such that the amount
-* of processing performed should be minimized.
+* This function checks whether the slave in alive or not.
 *
-* This handler provides an example of how to handle data for the IIC and
-* is application specific.
+* @param	Addr : Address of the slave device
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @param	CallBackRef contains a callback reference from the driver,
-*		in this case it is the instance pointer for the IIC driver.
-* @param	Event contains the specific kind of event that has occurred.
-*
-* @return	None.
-*
-* @note		None.
+* @note 	None.
 *
 *******************************************************************************/
-void Handler(void *CallBackRef, u32 Event)
+static int IicPsFindDevice(u16 Addr)
 {
-	if (0 != (Event & XIICPS_EVENT_SLAVE_RDY)){
-		SlaveReady = TRUE;
-		return;
+	int Status;
+
+	Status = IicPsSlaveMonitor(Addr,0,XPAR_XIICPS_0_INTR);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
 	}
-	TotalError += 1;
-
-	return;
+	Status = IicPsSlaveMonitor(Addr,1,XPAR_XIICPS_1_INTR);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+	Status = IicPsSlaveMonitor(Addr,0,XPAR_XIICPS_1_INTR);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+	Status = IicPsSlaveMonitor(Addr,1,XPAR_XIICPS_0_INTR);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+	return XST_FAILURE;
 }
-
 /******************************************************************************/
 /**
 *
 * This function setups the interrupt system such that interrupts can occur
-* for the IIC.  This function is application specific since the actual
-* system may or may not have an interrupt controller.  The IIC could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* for the IIC.
 *
 * @param	IicPsPtr contains a pointer to the instance of the Iic
 *		which is going to be connected to the interrupt controller.
@@ -296,10 +322,10 @@ void Handler(void *CallBackRef, u32 Event)
 * @note		None.
 *
 *******************************************************************************/
-static int SetupInterruptSystem(XIicPs *IicPsPtr)
+static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 {
 	int Status;
-	XScuGic_Config *IntcConfig;
+	XScuGic_Config *IntcConfig; /* Instance of the interrupt controller */
 
 	Xil_ExceptionInit();
 
@@ -332,7 +358,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device.
 	 */
-	Status = XScuGic_Connect(&InterruptController, IIC_INT_VEC_ID,
+	Status = XScuGic_Connect(&InterruptController, Int_Id,
 			(Xil_InterruptHandler)XIicPs_MasterInterruptHandler,
 			(void *)IicPsPtr);
 	if (Status != XST_SUCCESS) {
@@ -342,7 +368,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	/*
 	 * Enable the interrupt for the Iic device.
 	 */
-	XScuGic_Enable(&InterruptController, IIC_INT_VEC_ID);
+	XScuGic_Enable(&InterruptController, Int_Id);
 
 
 	/*
@@ -351,4 +377,42 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	Xil_ExceptionEnable();
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the handler which performs processing to handle data events
+* from the IIC.  It is called from an interrupt context such that the amount
+* of processing performed should be minimized.
+*
+* This handler provides an example of how to handle data for the IIC and
+* is application specific.
+*
+* @param	CallBackRef contains a callback reference from the driver, in
+*		this case it is the instance pointer for the IIC driver.
+* @param	Event contains the specific kind of event that has occurred.
+* @param	EventData contains the number of bytes sent or received for sent
+*		and receive events.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void Handler(void *CallBackRef, u32 Event)
+{
+	/*
+	 * All of the data transfer has been finished.
+	 */
+
+	if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
+		TransmitComplete = TRUE;
+	} else if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)){
+		ReceiveComplete = TRUE;
+	} else if (0 != (Event & XIICPS_EVENT_SLAVE_RDY)) {
+		SlaveResponse = TRUE;
+	} else if (0 != (Event & XIICPS_EVENT_ERROR)){
+		TotalErrorCount++;
+	}
 }
