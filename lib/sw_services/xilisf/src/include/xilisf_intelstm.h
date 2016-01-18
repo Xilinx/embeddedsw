@@ -56,6 +56,8 @@
 * 3.02a srt	 04/26/13 Modified SECTOR and BLOCK Erase commands for
 *			  SST flash (CR 703816).
 * 5.2   asa  05/12/15 Added macros for 4 byte commands.
+* 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
+*                     and S25FL256S.
 * </pre>
 *
 ******************************************************************************/
@@ -131,6 +133,8 @@ extern "C" {
 #define XISF_SPANSION_DEV_S25FL064	0x0216	/**< Device ID for S25FL064 */
 #define XISF_SPANSION_DEV_S25FL128	0x2018	/**< Device ID for S25FL128
 						  *  and S25FL129 */
+#define XISF_SPANSION_DEV_S25FL256	0x0219	/**< Device ID for S25FL256 */
+#define XISF_SPANSION_DEV_S25FL512	0x0220	/**< Device ID for S25FL512 */
 
 /**
  * The following definitions specify the Device Id for the different
@@ -142,10 +146,12 @@ extern "C" {
  * Definitions for Intel, STM, Winbond and Spansion Serial Flash Device
  * geometry.
  */
+#define XISF_BYTES512_PER_PAGE		512	/**< 512 Bytes per Page */
 #define XISF_BYTES256_PER_PAGE		256	/**< 256 Bytes per Page */
 #define XISF_PAGES16_PER_SECTOR		16	/**< 16 Pages per Sector */
 #define XISF_PAGES128_PER_SECTOR	128	/**< 128 Pages per Sector */
 #define XISF_PAGES256_PER_SECTOR	256	/**< 256 Pages per Sector */
+#define XISF_PAGES512_PER_SECTOR	512	/**< 512 Pages per Sector */
 #define XISF_PAGES1024_PER_SECTOR	1024	/**< 1024 Pages per Sector */
 #define XISF_NUM_OF_SECTORS2		2	/**< 2 Sectors */
 #define XISF_NUM_OF_SECTORS4		4	/**< 4 Sectors */

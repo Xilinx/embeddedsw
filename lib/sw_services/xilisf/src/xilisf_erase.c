@@ -59,6 +59,7 @@
 * 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
 * 						  which supports 4 byte addressing.
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.5  sk   01/14/16 Used 4byte erase command in 4 byte addressing mode.
 * </pre>
 *
 ******************************************************************************/
@@ -361,7 +362,7 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	if (InstancePtr->FourByteAddrMode == TRUE) {
-		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
+		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_4BYTE_SECTOR_ERASE;
 		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT24);
 		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);

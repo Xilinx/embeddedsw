@@ -57,6 +57,7 @@
 * 5.2  asa       05/12/15 Added support for Micron (N25Q256A) flash part
 * 						  which supports 4 byte addressing.
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.5  sk   01/14/16 Used 4byte program command in 4 byte addressing mode.
 * </pre>
 *
 ******************************************************************************/
@@ -238,11 +239,19 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 		case XISF_WRITE:
 			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(WriteParamPtr != NULL);
-			Status = WriteData(InstancePtr,
-				XISF_CMD_PAGEPROG_WRITE,
-				WriteParamPtr->Address,
-				WriteParamPtr->WritePtr,
-				WriteParamPtr->NumBytes);
+			if (InstancePtr->FourByteAddrMode == TRUE) {
+				Status = WriteData(InstancePtr,
+					XISF_CMD_PAGEPROG_WRITE_4BYTE,
+					WriteParamPtr->Address,
+					WriteParamPtr->WritePtr,
+					WriteParamPtr->NumBytes);
+			} else {
+				Status = WriteData(InstancePtr,
+					XISF_CMD_PAGEPROG_WRITE,
+					WriteParamPtr->Address,
+					WriteParamPtr->WritePtr,
+					WriteParamPtr->NumBytes);
+			}
 			break;
 
 		case XISF_AUTO_PAGE_WRITE:

@@ -95,6 +95,8 @@
 * 5.3   sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * 5.4   nsk  09/14/15 Updated IntelStmDevices list to support Micron N25Q256A
 *                     (CR 881478).
+* 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
+*                     and S25FL256S.
 *
 * </pre>
 *
@@ -400,6 +402,14 @@ static const IntelStmDeviceGeometry IntelStmDevices[] = {
 
 	{XISF_MANUFACTURER_ID_SPANSION, XISF_SPANSION_DEV_S25FL128,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS256},
+
+	 {XISF_MANUFACTURER_ID_SPANSION, XISF_SPANSION_DEV_S25FL256,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS512},
+
+	 {XISF_MANUFACTURER_ID_SPANSION, XISF_SPANSION_DEV_S25FL512,
+	 XISF_BYTES512_PER_PAGE, XISF_PAGES512_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS256},
 
 	{XISF_MANUFACTURER_ID_SST, XISF_SST_DEV_SST25WF080,
@@ -1534,95 +1544,98 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 		return (int)(XST_SUCCESS);
 	}
 
-	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_ENTER_4BYTE_ADDR_MODE;
+	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+
+		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_ENTER_4BYTE_ADDR_MODE;
 
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	/*
-	 * Enable write before transfer
-	 */
-	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
-	if (Status != (int)XST_SUCCESS) {
-		return (int)XST_FAILURE;
-	}
+		/*
+		 * Enable write before transfer
+		 */
+		Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+		if (Status != (int)XST_SUCCESS) {
+			return (int)XST_FAILURE;
+		}
 
-	FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
-	FlashMsg[0].RxBfrPtr = NULL;
-	FlashMsg[0].ByteCount = 1;
-	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-	InstancePtr->SpiInstPtr->Msg = FlashMsg;
-
-	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
-	if (Status != (int)(XST_SUCCESS)) {
-		return (int)(XST_FAILURE);
-	}
-
-	if((InstancePtr->NumDie > (u8)1) &&
-		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
-		ReadStatusCmd = READ_FLAG_STATUS_CMD;
-		FSRFlag = 1;
-	} else {
-		ReadStatusCmd = READ_STATUS_CMD;
-		FSRFlag = 0;
-	}
-
-	while (1) {
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = 1;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
 		InstancePtr->SpiInstPtr->Msg = FlashMsg;
 
-		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
-			if(FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
+		if (Status != (int)(XST_SUCCESS)) {
+			return (int)(XST_FAILURE);
 		}
 
-		if(FSRFlag) {
-			if ((FlashStatus[1] & 0x80) != 0) {
-				break;
-			}
+		if((InstancePtr->NumDie > (u8)1) &&
+			(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
+			ReadStatusCmd = READ_FLAG_STATUS_CMD;
+			FSRFlag = 1;
 		} else {
-			if ((FlashStatus[1] & 0x01) == 0) {
-				break;
+			ReadStatusCmd = READ_STATUS_CMD;
+			FSRFlag = 0;
+		}
+
+		while (1) {
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+			if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+			}
+			InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+			Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+				if(FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				} else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+
+			if(FSRFlag) {
+				if ((FlashStatus[1] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[1] & 0x01) == 0) {
+					break;
+				}
 			}
 		}
-	}
 #else
 
-	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
-			NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+				NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
 #endif
 
-	Mode = XIsf_GetTransferMode(InstancePtr);
+		Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if(Mode == XISF_INTERRUPT_MODE){
-			InstancePtr->StatusHandler(InstancePtr,
-				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
-	}
+		if(Mode == XISF_INTERRUPT_MODE){
+				InstancePtr->StatusHandler(InstancePtr,
+					XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+		}
 
-	if (Status != (int)(XST_SUCCESS)) {
-		return (int)(XST_FAILURE);
+		if (Status != (int)(XST_SUCCESS)) {
+			return (int)(XST_FAILURE);
+		}
 	}
 
 	InstancePtr->FourByteAddrMode = TRUE;
@@ -1667,94 +1680,96 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 		return (int)(XST_SUCCESS);
 	}
 
-	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE;
+	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON) {
+		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_EXIT_4BYTE_ADDR_MODE;
 
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	/*
-	 * Enable write before transfer
-	 */
-	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
-	if (Status != (int)XST_SUCCESS) {
-		return (int)XST_FAILURE;
-	}
+		/*
+		 * Enable write before transfer
+		 */
+		Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+		if (Status != (int)XST_SUCCESS) {
+			return (int)XST_FAILURE;
+		}
 
-	FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
-	FlashMsg[0].RxBfrPtr = NULL;
-	FlashMsg[0].ByteCount = 1;
-	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-	InstancePtr->SpiInstPtr->Msg = FlashMsg;
-
-	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
-	if (Status != (int)(XST_SUCCESS)) {
-		return (int)(XST_FAILURE);
-	}
-
-	if((InstancePtr->NumDie > (u8)1) &&
-		(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
-		ReadStatusCmd = READ_FLAG_STATUS_CMD;
-		FSRFlag = 1;
-	} else {
-		ReadStatusCmd = READ_STATUS_CMD;
-		FSRFlag = 0;
-	}
-
-	while (1) {
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].ByteCount = 1;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
 		InstancePtr->SpiInstPtr->Msg = FlashMsg;
 
-		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-				XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
-			if(FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
+		if (Status != (int)(XST_SUCCESS)) {
+			return (int)(XST_FAILURE);
 		}
 
-		if(FSRFlag) {
-			if ((FlashStatus[1] & 0x80) != 0) {
-				break;
-			}
+		if((InstancePtr->NumDie > (u8)1) &&
+			(FlashMake == (u32)XISF_MANUFACTURER_ID_MICRON)) {
+			ReadStatusCmd = READ_FLAG_STATUS_CMD;
+			FSRFlag = 1;
 		} else {
-			if ((FlashStatus[1] & 0x01) == 0) {
-				break;
+			ReadStatusCmd = READ_STATUS_CMD;
+			FSRFlag = 0;
+		}
+
+		while (1) {
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+			if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+			}
+			InstancePtr->SpiInstPtr->Msg = FlashMsg;
+
+			Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if(InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_PARALLEL){
+				if(FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				} else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+
+			if(FSRFlag) {
+				if ((FlashStatus[1] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[1] & 0x01) == 0) {
+					break;
+				}
 			}
 		}
-	}
 #else
-	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
-			NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
+		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
+				NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
 #endif
 
-	Mode = XIsf_GetTransferMode(InstancePtr);
+		Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if(Mode == XISF_INTERRUPT_MODE){
-			InstancePtr->StatusHandler(InstancePtr,
-				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
-	}
+		if(Mode == XISF_INTERRUPT_MODE){
+				InstancePtr->StatusHandler(InstancePtr,
+					XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+		}
 
-	if (Status != (int)(XST_SUCCESS)) {
-		return (int)(XST_FAILURE);
+		if (Status != (int)(XST_SUCCESS)) {
+			return (int)(XST_FAILURE);
+		}
 	}
 	InstancePtr->FourByteAddrMode = FALSE;
 	return Status;

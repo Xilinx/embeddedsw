@@ -58,6 +58,7 @@
 * 5.3  sk        06/01/15 Used Half of Actual byte count for calculating
 *                         Real Byte count in parallel mode. CR# 859979.
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
+* 5.5  sk   01/14/16 Used 4byte Fast read command in 4 byte addressing mode.
 * </pre>
 *
 ******************************************************************************/
@@ -220,12 +221,21 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
-			Status = FastReadData(InstancePtr,
-					XISF_CMD_FAST_READ,
-					ReadParamPtr->Address,
-					ReadParamPtr->ReadPtr,
-					ReadParamPtr->NumBytes,
-					ReadParamPtr->NumDummyBytes);
+			if (InstancePtr->FourByteAddrMode == TRUE) {
+				Status = FastReadData(InstancePtr,
+							XISF_CMD_FAST_READ_4BYTE,
+							ReadParamPtr->Address,
+							ReadParamPtr->ReadPtr,
+							ReadParamPtr->NumBytes,
+							ReadParamPtr->NumDummyBytes);
+			} else {
+				Status = FastReadData(InstancePtr,
+						XISF_CMD_FAST_READ,
+						ReadParamPtr->Address,
+						ReadParamPtr->ReadPtr,
+						ReadParamPtr->NumBytes,
+						ReadParamPtr->NumDummyBytes);
+			}
 			break;
 
 		case XISF_PAGE_TO_BUF_TRANS:
