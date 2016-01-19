@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2006 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2006 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -44,19 +44,20 @@
 * connected to the reset of the processor. This example will not return
 * if the interrupts are not working.
 *
-* <pre>
-*
 * MODIFICATION HISTORY:
 *
+* <pre>
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00b hvm  05/10/06 First release
 * 1.00b sv   05/30/06 Updated to support interrupt examples in Test App
 * 1.11a hvm  03/30/09 Modified the example to avoid a race condition
 * 2.00a ktn  10/22/09 Updated the example to use the HAL APIs/macros.
-*		      Updated the example with support for MicroBlaze.
+*                     Updated the example with support for MicroBlaze.
 * 2.00a ssb  01/11/01 Updated the example to be used with the SCUGIC in
-*		      Zynq.
+*                     Zynq.
+* 3.00  sha  12/29/15 Update interrupt example with Window WDT feature.
+*                     Added debug messages.
 * </pre>
 *
 ******************************************************************************/
@@ -77,6 +78,9 @@
 
 /************************** Constant Definitions *****************************/
 
+/* Defines legacy or window WDT feature */
+#define WIN_WDT_EN		XPAR_WDTTB_0_ENABLE_WINDOW_WDT
+
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are only defined here such that a user can easily
@@ -84,52 +88,65 @@
  */
 #ifndef TESTAPP_GEN
 #define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
+#if (WIN_WDT_EN)
+#define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_VEC_ID
+#else
 #define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_WDT_INTERRUPT_VEC_ID
+#endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
-
 #endif
 
+#if (WIN_WDT_EN)
+#define WIN_WDT_SW_COUNT	0xF00000	/**< Number of clock cycles for
+						  *  second window */
+#define WIN_WDT_SBC_COUNT	16		/**< Selected byte count */
+#define WIN_WDT_BSS_COUNT	2		/**< Byte segment selected */
+#endif
 
 /**************************** Type Definitions *******************************/
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC			XIntc
+#define INTC_HANDLER		XIntc_InterruptHandler
 #else
-#define INTC		XScuGic
-#define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC			XScuGic
+#define INTC_HANDLER		XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+
 /************************** Function Prototypes ******************************/
 
+#if (WIN_WDT_EN)
+int WinWdtIntrExample(INTC *IntcInstancePtr,
+			XWdtTb *WdtTbInstancePtr,
+			u16 WdtTbDeviceId,
+			u16 WdtTbIntrId);
+#else
 int WdtTbIntrExample(INTC *IntcInstancePtr,
 			XWdtTb *WdtTbInstancePtr,
 			u16 WdtTbDeviceId,
 			u16 WdtTbIntrId);
+#endif
 
 static void WdtTbIntrHandler(void *CallBackRef);
-
 static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 				XWdtTb *WdtTbInstancePtr,
 				u16 WdtTbIntrId);
-
 static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr,
 				u16 WdtTbIntrId);
-
-
 
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
-XWdtTb WdtTbInstance;            /* Instance of Time Base WatchDog Timer */
-INTC IntcInstance;              /* Instance of the Interrupt Controller */
+XWdtTb WdtTbInstance;	/* Instance of Time Base WatchDog Timer */
+INTC IntcInstance;	/* Instance of the Interrupt Controller */
 #endif
 
 static volatile int WdtExpired;
@@ -140,7 +157,9 @@ static volatile int WdtExpired;
 *
 * @param	None.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful
+*		- XST_FAILURE, otherwise.
 *
 * @note		None.
 *
@@ -154,51 +173,64 @@ int main(void)
 	 * Call the WdtTb interrupt example, specify the parameters generated in
 	 * xparameters.h
 	 */
+#if (WIN_WDT_EN)
+	Status = WinWdtIntrExample(&IntcInstance,
+				&WdtTbInstance,
+				WDTTB_DEVICE_ID,
+				WDTTB_IRPT_INTR);
+#else
 	Status = WdtTbIntrExample(&IntcInstance,
 				&WdtTbInstance,
 				WDTTB_DEVICE_ID,
 				WDTTB_IRPT_INTR);
+#endif
 	if (Status != XST_SUCCESS) {
+		xil_printf("WDTTB interrupt example failed.\n\r");
 		return XST_FAILURE;
 	}
 
+	xil_printf("WDTTB interrupt example ran successfully.\n\r");
 	return XST_SUCCESS;
 }
 #endif
 
-
+#if (WIN_WDT_EN)
 /*****************************************************************************/
 /**
 *
-* This function tests the functioning of the TimeBase WatchDog Timer module
-* in the Interrupt mode (for the WDT interrupt).
+* This function tests the functioning of the Window Watchdog Timer in the
+* interrupt mode.
 *
-* After one expiration of the WDT timeout interval, an interrupt is generated
-* and the WDT state bit is set to one in the status register. If the state bit
-* is not cleared (by writing a 1 to the state bit) before the next expiration of
-* the timeout interval, a WDT reset is generated.
-* A WDT reset sets the WDT reset status bit in the status register so that
-* the application code can determine if the last system reset was a WDT reset.
+* This function waits for interrupt programmed point in second window. If the
+* interrupt has occurred, interrupt handler sets a flag and restarts the timer.
+* This function then clears the interrupt, flag and waits for second interrupt
+* to occur and continue waiting for second interrupt as mentioned above.
 *
-* This function assumes that the reset output of the WdtTb device is not
-* connected to the reset of the processor. The function allows the watchdog
-* timer to timeout such that a reset will occur if it is connected.
+* This function assumes that the reset output of the Window Watchdog Timer
+* is not connected to the reset of the processor. The function allows the
+* Window Watchdog Timer to timeout such that a reset will occur if it is
+* connected.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC driver.
+* @param	IntcInstancePtr is a pointer to the instance of the INTC
+*		driver.
 * @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
 * @param	WdtTbDeviceId is the Device ID of the WdtTb Device and is
 *		typically XPAR_<WDTTB_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	WdtTbIntrId is the Interrupt Id of the WatchDog and is typically
-*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
-*		value from xparameters.h.
+* @param	WdtTbIntrId is the Interrupt Id of the WatchDog and is
+*		typically XPAR_<INTC_instance>_<WDTTB_instance>_WDT_
+*		INTERRUPT_VEC_ID value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		This example will not return if the interrupts are not working.
+* @return
+*		- XST_SUCCESS if interrupt example run successfully.
+*		- XST_FAILURE, if reset has occurred.
+*
+* @note		None.
 *
 ******************************************************************************/
-int WdtTbIntrExample(INTC *IntcInstancePtr,
+int WinWdtIntrExample(INTC *IntcInstancePtr,
 			XWdtTb *WdtTbInstancePtr,
 			u16 WdtTbDeviceId,
 			u16 WdtTbIntrId)
@@ -213,7 +245,6 @@ int WdtTbIntrExample(INTC *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 * Perform a self-test to ensure that the hardware was built correctly
 	 */
@@ -223,8 +254,136 @@ int WdtTbIntrExample(INTC *IntcInstancePtr,
 	}
 
 	/*
-	 * Stop the timer to start the test for interrupt mode
+	 * Connect the WdtTb to the interrupt subsystem so that interrupts
+	 * can occur
 	 */
+	Status = WdtTbSetupIntrSystem(IntcInstancePtr,
+					WdtTbInstancePtr,
+					WdtTbIntrId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Set register space to writable */
+	XWdtTb_SetRegSpaceAccessMode(WdtTbInstancePtr, 1);
+
+	/* Configure first and second window */
+	XWdtTb_SetWindowCount(WdtTbInstancePtr, 0, WIN_WDT_SW_COUNT);
+
+	/* Set interrupt position */
+	XWdtTb_SetByteCount(WdtTbInstancePtr, WIN_WDT_SBC_COUNT);
+	XWdtTb_SetByteSegment(WdtTbInstancePtr, WIN_WDT_BSS_COUNT);
+
+	/* Disable Secondary Sequence Timer (SST) */
+	XWdtTb_DisableSst(WdtTbInstancePtr);
+
+	/* Disable Program Sequence Monitor (PSM) */
+	XWdtTb_DisablePsm(WdtTbInstancePtr);
+
+	/* Disable Fail Counter */
+	XWdtTb_DisableFailCounter(WdtTbInstancePtr);
+
+	/*
+	 * Start the watchdog timer as a normal application would
+	 */
+	XWdtTb_Start(WdtTbInstancePtr);
+	WdtExpired = FALSE;
+
+	/*
+	 * Wait for the first occurrence of interrupt programmed point.
+	 */
+	while (WdtExpired != TRUE);
+
+	/* Set register space to writable */
+	XWdtTb_SetRegSpaceAccessMode(WdtTbInstancePtr, 1);
+
+	/* Clear interrupt point */
+	XWdtTb_IntrClear(WdtTbInstancePtr);
+	WdtExpired = FALSE;
+
+	/* Wait for the second occurrence of interrupt programmed point */
+	while (WdtExpired != TRUE);
+
+	/* Clear interrupt point */
+	XWdtTb_IntrClear(WdtTbInstancePtr);
+	WdtExpired = FALSE;
+
+	/* Check for last event */
+	if (XWdtTb_GetLastEvent(WdtTbInstancePtr) != XWDTTB_NO_BAD_EVENT) {
+		/* Disable and disconnect the interrupt system */
+		WdtTbDisableIntrSystem(IntcInstancePtr, WdtTbIntrId);
+
+		/* Stop the timer */
+		XWdtTb_Stop(WdtTbInstancePtr);
+		return XST_FAILURE;
+	}
+
+	/* Disable and disconnect the interrupt system */
+	WdtTbDisableIntrSystem(IntcInstancePtr, WdtTbIntrId);
+
+	/* Stop the timer */
+	XWdtTb_Stop(WdtTbInstancePtr);
+
+	return XST_SUCCESS;
+}
+#else
+/*****************************************************************************/
+/**
+*
+* This function tests the functioning of the TimeBase WatchDog Timer module
+* in the Interrupt mode (for the WDT interrupt).
+*
+* After one expiration of the WDT timeout interval, an interrupt is generated
+* and the WDT state bit is set to one in the status register. If the state bit
+* is not cleared (by writing a 1 to the state bit) before the next expiration
+* of the timeout interval, a WDT reset is generated.
+* A WDT reset sets the WDT reset status bit in the status register so that
+* the application code can determine if the last system reset was a WDT reset.
+*
+* This function assumes that the reset output of the WdtTb device is not
+* connected to the reset of the processor. The function allows the watchdog
+* timer to timeout such that a reset will occur if it is connected.
+*
+* @param	IntcInstancePtr is a pointer to the instance of the INTC
+*		driver.
+* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
+* @param	WdtTbDeviceId is the Device ID of the WdtTb Device and is
+*		typically XPAR_<WDTTB_instance>_DEVICE_ID value from
+*		xparameters.h.
+* @param	WdtTbIntrId is the Interrupt Id of the WatchDog and is
+*		typically
+*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*		value from xparameters.h.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE, otherwise.
+*
+* @note		This example will not return if the interrupts are not working.
+*
+******************************************************************************/
+int WdtTbIntrExample(INTC *IntcInstancePtr,
+			XWdtTb *WdtTbInstancePtr,
+			u16 WdtTbDeviceId,
+			u16 WdtTbIntrId)
+{
+	int Status;
+
+	/* Initialize the WdtTb driver */
+	Status = XWdtTb_Initialize(WdtTbInstancePtr, WdtTbDeviceId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Perform a self-test to ensure that the hardware was built correctly
+	 */
+	Status = XWdtTb_SelfTest(WdtTbInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Stop the timer to start the test for interrupt mode */
 	XWdtTb_Stop(WdtTbInstancePtr);
 
 	/*
@@ -238,21 +397,15 @@ int WdtTbIntrExample(INTC *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Start the WdtTb device
-	 */
+	/* Start the WdtTb device */
 	WdtExpired = FALSE;
 	XWdtTb_Start(WdtTbInstancePtr);
 
-	/*
-	 * Wait for the firt expiration of the WDT
-	 */
+	/* Wait for the first expiration of the WDT */
 	while (WdtExpired != TRUE);
 	WdtExpired = FALSE;
 
-	/*
-	 * Wait for the second expiration of the WDT
-	 */
+	/* Wait for the second expiration of the WDT */
 	while (WdtExpired != TRUE);
 	WdtExpired = FALSE;
 
@@ -260,33 +413,26 @@ int WdtTbIntrExample(INTC *IntcInstancePtr,
 	 * Check whether the WatchDog Reset Status has been set.
 	 * If this is set means then the test has failed
 	 */
-	if (XWdtTb_ReadReg(WdtTbInstancePtr->RegBaseAddress,
+	if (XWdtTb_ReadReg(WdtTbInstancePtr->Config.BaseAddr,
 			XWT_TWCSR0_OFFSET) & XWT_CSR0_WRS_MASK) {
-		/*
-		 * Disable and disconnect the interrupt system
-		 */
+		/* Disable and disconnect the interrupt system */
 		WdtTbDisableIntrSystem(IntcInstancePtr, WdtTbIntrId);
 
-		/*
-		 * Stop the timer
-		 */
+		/* Stop the timer */
 		XWdtTb_Stop(WdtTbInstancePtr);
 
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Disable and disconnect the interrupt system
-	 */
+	/* Disable and disconnect the interrupt system */
 	WdtTbDisableIntrSystem(IntcInstancePtr, WdtTbIntrId);
 
-	/*
-	 * Stop the timer
-	 */
+	/* Stop the timer */
 	XWdtTb_Stop(WdtTbInstancePtr);
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -297,14 +443,17 @@ int WdtTbIntrExample(INTC *IntcInstancePtr,
 * directly connected to a processor without an interrupt controller. The
 * user should modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc driver.
+* @param	IntcInstancePtr is a pointer to the instance of the Intc
+*		driver.
 * @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
 * @param	WdtTbIntrId is the Interrupt Id of the WDT interrupt and is
 *		typically
 *		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
 *		value from xparameters.h.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE, otherwise.
 *
 * @note		None.
 *
@@ -333,8 +482,8 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * the specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, WdtTbIntrId,
-			   (XInterruptHandler)WdtTbIntrHandler,
-			   (void *)WdtTbInstancePtr);
+			(XInterruptHandler)WdtTbIntrHandler,
+			(void *)WdtTbInstancePtr);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -350,11 +499,8 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	}
 #endif /* TESTAPP_GEN */
 
-	/*
-	 * Enable the WDT interrupt of the WdtTb Device
-	 */
+	/* Enable the WDT interrupt of the WdtTb Device */
 	XIntc_Enable(IntcInstancePtr, WdtTbIntrId);
-
 #else
 
 #ifndef TESTAPP_GEN
@@ -384,35 +530,28 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * interrupt occurs for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, WdtTbIntrId,
-				 (Xil_ExceptionHandler)WdtTbIntrHandler,
-				 WdtTbInstancePtr);
+				(Xil_ExceptionHandler)WdtTbIntrHandler,
+				WdtTbInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
-	/*
-	 * Enable the interrupt for the Timer device.
-	 */
+	/* Enable the interrupt for the Timer device */
 	XScuGic_Enable(IntcInstancePtr, WdtTbIntrId);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
-
 #ifndef TESTAPP_GEN
-	/*
-	 * Initialize the  exception table
-	 */
+	/* Initialize the exception table */
 	Xil_ExceptionInit();
 
 	/*
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			 (Xil_ExceptionHandler)INTC_HANDLER,
-			 IntcInstancePtr);
+			(Xil_ExceptionHandler)INTC_HANDLER,
+			IntcInstancePtr);
 
-	/*
-	 * Enable non-critical exceptions
-	 */
+	/* Enable non-critical exceptions */
 	Xil_ExceptionEnable();
 
 #endif /* TESTAPP_GEN */
@@ -441,17 +580,12 @@ static void WdtTbIntrHandler(void *CallBackRef)
 {
 	XWdtTb *WdtTbInstancePtr = (XWdtTb *)CallBackRef;
 
-	/*
-	 * Set the flag indicating that the WDT has expired
-	 */
+	/* Set the flag indicating that the WDT has expired */
 	WdtExpired = TRUE;
 
-	/*
-	 * Restart the watchdog timer as a normal application would
-	 */
+	/* Restart the watchdog timer as a normal application would */
 	XWdtTb_RestartWdt(WdtTbInstancePtr);
 }
-
 
 /*****************************************************************************/
 /**
@@ -471,9 +605,7 @@ static void WdtTbIntrHandler(void *CallBackRef)
 static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr, u16 WdtTbIntrId)
 {
 
-	/*
-	 * Disconnect and disable the interrupt for the WdtTb
-	 */
+	/* Disconnect and disable the interrupt for the WdtTb */
 #ifdef XPAR_INTC_0_DEVICE_ID
 	XIntc_Disconnect(IntcInstancePtr, WdtTbIntrId);
 #else
@@ -482,6 +614,4 @@ static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr, u16 WdtTbIntrId)
 	XScuGic_Disconnect(IntcInstancePtr, WdtTbIntrId);
 
 #endif
-
 }
-
