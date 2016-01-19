@@ -46,6 +46,8 @@
  * 1.00a jz  10/10/10 First release
  * 1.03a nm  09/21/12 Fixed CR#678977. Added proper sequence for setup packet
  *                    handling.
+ * 2.2   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
+ *            (moving of dTD Head/Tail Pointers properly).
  * </pre>
  ******************************************************************************/
 
@@ -266,7 +268,7 @@ static void XUsbPs_IntrHandleTX(XUsbPs *InstancePtr, u32 EpCompl)
 		 * which ones are completed.
 		 */
 		Ep = &InstancePtr->DeviceConfig.Ep[Index].In;
-		while (Ep->dTDTail != Ep->dTDHead) {
+		do {
 
 			XUsbPs_dTDInvalidateCache(Ep->dTDTail);
 
@@ -289,7 +291,7 @@ static void XUsbPs_IntrHandleTX(XUsbPs *InstancePtr, u32 EpCompl)
 			}
 
 			Ep->dTDTail = XUsbPs_dTDGetNLP(Ep->dTDTail);
-		}
+		} while(Ep->dTDTail != Ep->dTDHead);
 	}
 }
 

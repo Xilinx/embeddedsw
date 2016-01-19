@@ -51,6 +51,9 @@
  * 2.00a kpc 04/03/14 Fixed CR#777763. Updated the macro names 
  * 2.1   kpc 04/28/14 Added XUsbPs_EpBufferSendWithZLT api and merged common
  *		      code to XUsbPs_EpQueueRequest.
+ * 2.2   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
+ *            (moving of dTD Head/Tail Pointers)and CR#873974(invalidate
+ *            Caches After Buffer Receive in Endpoint Buffer Handler...)
  * </pre>
  ******************************************************************************/
 
@@ -292,6 +295,12 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 	DescPtr = Ep->dTDHead;
 
 	do {
+
+		/* Tell the caller if we do not have any descriptors available. */
+		if (XUsbPs_dTDIsActive(Ep->dTDHead)) {
+			return XST_USB_NO_DESC_AVAILABLE;
+		}
+
 		Length = (BufferLen > XUSBPS_dTD_BUF_MAX_SIZE) ? XUSBPS_dTD_BUF_MAX_SIZE : BufferLen;
 		/* Attach the provided buffer to the current descriptor.*/
 		Status = XUsbPs_dTDAttachBuffer(Ep->dTDHead, BufferPtr, Length);
@@ -313,10 +322,6 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 		Ep->dTDHead = XUsbPs_dTDGetNLP(Ep->dTDHead);
 		/* Terminate the next descriptor and flush the cache.*/
 		XUsbPs_dTDInvalidateCache(Ep->dTDHead);
-		/* Tell the caller if we do not have any descriptors available. */
-		if (XUsbPs_dTDIsActive(Ep->dTDHead)) {
-			return XST_USB_NO_DESC_AVAILABLE;
-		}
 
 		if (ReqZero && BufferLen == 0) {
 			ReqZero = FALSE;
