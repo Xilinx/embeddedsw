@@ -9,11 +9,10 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-INCLUDEFILES=xwdttb_l.h xwdttb.h
-
+INCLUDEFILES=*.h
 LIBSOURCES=*.c
-OUTS = *.o 
 
+OUTS =*.o
 
 libs:
 	echo "Compiling wdttb"
@@ -21,8 +20,8 @@ libs:
 	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OUTS)
 	make clean
 
-include: 
-	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR} 
+include:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
 	rm -rf ${OUTS}

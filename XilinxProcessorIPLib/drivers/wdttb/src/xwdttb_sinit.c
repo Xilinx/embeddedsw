@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,53 +32,35 @@
 /*****************************************************************************/
 /**
 *
-* @file xwdttb_l.h
-* @addtogroup wdttb_v4_0
+* @file xwdttb_sinit.c
+* @addtogroup xwdttb_v4_0
 * @{
 *
-* This header file contains identifiers and basic driver functions (or
-* macros) that can be used to access the device.
+* This file contains static initialization method for Xilinx AXI Timebase
+* Window Watchdog Timer core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- ---------------------------------------------------------
-* 1.00b rpm  04/26/02 First release
-* 1.10b mta  03/23/07 Updated to new coding style
-* 2.00a ktn  22/10/09 The following macros defined in this file have been
-*		      removed -
-*		      XWdtTb_mEnableWdt, XWdtTb_mDisbleWdt, XWdtTb_mRestartWdt
-*		      XWdtTb_mGetTimebaseReg and XWdtTb_mHasReset.
-*		      Added the XWdtTb_ReadReg and XWdtTb_WriteReg
-*		      macros. User should XWdtTb_ReadReg/XWdtTb_WriteReg to
-*		      achieve the desired functionality of the macros that
-*		      were removed.
-* 4.0   sha  12/17/15 Added Window WDT feature with basic mode.
-*                     Removed extra include files.
-*                     Moved constant and macro definitions to xwdttb_hw.h file.
+* Ver  Who Date     Changes
+* ---- --- -------- -----------------------------------------------------------
+* 1.00 sha 12/17/15 First release.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XWDTTB_L_H		/* prevent circular inclusions */
-#define XWDTTB_L_H		/* by using protection macros */
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /***************************** Include Files *********************************/
 
-#include "xwdttb_hw.h"
+#include "xwdttb.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
 
-/**************************** Type Definitions *******************************/
-
-
 /***************** Macros (Inline Functions) Definitions *********************/
+
+
+/**************************** Type Definitions *******************************/
 
 
 /************************** Function Prototypes ******************************/
@@ -86,9 +68,45 @@ extern "C" {
 
 /************************** Variable Definitions *****************************/
 
-#ifdef __cplusplus
-}
-#endif
 
-#endif
+/************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+*
+* This function returns a reference to an XWdtTb_Config structure based on the
+* core id, <i>DeviceId</i>. The return value will refer to an entry in the
+* device configuration table defined in the xwdttb_g.c file.
+*
+* @param	DeviceId is the unique core ID of the XWdtTb core for
+*		the lookup operation.
+*
+* @return	XWdtTb_LookupConfig returns a reference to a config record
+*		in the configuration table (in xwdttb_g.c) corresponding
+*		to <i>DeviceId</i>, or NULL if no match is found.
+*
+* @note		None.
+*
+******************************************************************************/
+XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId)
+{
+	extern XWdtTb_Config XWdtTb_ConfigTable[XPAR_XWDTTB_NUM_INSTANCES];
+	XWdtTb_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = (u32)0x0; Index < (u32)(XPAR_XWDTTB_NUM_INSTANCES);
+								Index++) {
+
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if (XWdtTb_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XWdtTb_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XWdtTb_Config *)CfgPtr;
+}
 /** @} */

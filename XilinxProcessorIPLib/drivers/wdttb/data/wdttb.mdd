@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2005 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2005 - 2016 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 # OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
@@ -34,6 +34,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- --------------------------------------------------
 # 3.0     adk     10/12/13  Removed support for xps_timebase_wdt
+# 4.0     sha     12/17/15  Added Window WDT feature with basic mode.
 ###############################################################################
 
 ## @BEGIN_CHANGELOG EDK_M
@@ -54,7 +55,7 @@ BEGIN driver wdttb
   OPTION supported_peripherals = (axi_timebase_wdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-   OPTION VERSION = 3.1;
+  OPTION VERSION = 4.0;
   OPTION NAME = wdttb;
 
 END driver
