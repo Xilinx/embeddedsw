@@ -59,10 +59,41 @@ proc xdefine_cortexa9_params {drvhandle} {
     set procdrv [hsi::get_sw_processor]
     set compiler [common::get_property CONFIG.compiler $procdrv]
     set archiver [common::get_property CONFIG.archiver $procdrv]
-    if {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
-	common::set_property -name CONFIG.extra_compiler_flags -value {-g} -objects $drvhandle
+    set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+    if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+	set temp_flag $extra_flags
+	regsub -- {-mcpu=cortex-a9} $temp_flag {} temp_flag
+	regsub -- {-mfpu=vfpv3} $temp_flag {} temp_flag
+	regsub -- {-mfloat-abi=hard} $temp_flag {} temp_flag
+	regsub -- {-nostartfiles} $temp_flag {} temp_flag
+	regsub -all {  } $temp_flag {} temp_flag
+	set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles $temp_flag"
+	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+    } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+	set temp_flag $extra_flags
+	regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
+	regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
+	regsub -- {-mfloat-abi=hard } $temp_flag "" temp_flag
+	regsub -- {-nostartfiles} $temp_flag "" temp_flag
+	regsub -- "--debug" $temp_flag "" temp_flag
+	regsub -all {  } $temp_flag {} temp_flag
+	set extra_flags "--debug $temp_flag"
+	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+
+	set compiler_flags [common::get_property CONFIG.compiler_flags [hsi::get_sw_processor]]
+	regsub -- "-O2 -c" $compiler_flags "" compiler_flags
+	set compiler_flags "-Om $compiler_flags"
+	common::set_property -name {COMPILER_FLAGS} -value $compiler_flags -objects [hsi::get_sw_processor]
     } else {
-	common::set_property -name CONFIG.extra_compiler_flags -value {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles} -objects $drvhandle
+	set temp_flag $extra_flags
+        regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
+        regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
+        regsub -- {-mfloat-abi=hard } $temp_flag "" temp_flag
+        regsub -- {-nostartfiles} $temp_flag "" temp_flag
+        regsub -- "-g" $temp_flag "" temp_flag
+        regsub -all {  } $temp_flag {} temp_flag
+        set extra_flags "-g $temp_flag"
+	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
     }
     if {[string first "iarchive" $archiver] < 0 } {
     } else {
