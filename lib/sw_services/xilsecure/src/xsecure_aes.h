@@ -117,6 +117,9 @@
 #define XSECURE_CSU_AES_KEY_SRC_KUP	(0x0U) /**< KUP key source */
 #define XSECURE_CSU_AES_KEY_SRC_DEV	(0x1U) /**< Device Key source */
 
+#define XSECURE_CSU_AES_CHUNKING_DISABLED (0x0U)
+#define XSECURE_CSU_AES_CHUNKING_ENABLED (0x1U)
+
 #define XSECURE_CSU_AES_KEY_LOAD	(1U << 0)
 					/**< Load AES key from Source */
 
@@ -143,13 +146,15 @@
 					/**< image length mismatch */
 
 /* Error Codes and Statuses */
-#define XSECURE_CSU_AES_DECRYPTION_DONE	(0U)
+#define XSECURE_CSU_AES_DECRYPTION_DONE	(0L)
 					/**< AES Decryption successful */
-#define XSECURE_CSU_AES_GCM_TAG_MISMATCH	(1U)
+#define XSECURE_CSU_AES_GCM_TAG_MISMATCH	(1L)
 					/**< user provided GCM tag does
 						not match calculated tag */
-#define XSECURE_CSU_AES_IMAGE_LEN_MISMATCH	(2U)
+#define XSECURE_CSU_AES_IMAGE_LEN_MISMATCH	(2L)
 					/**< image length mismatch */
+#define XSECURE_CSU_AES_DEVICE_COPY_ERROR	(3L)
+					/**< device copy failed */
 
 #define XSECURE_SECURE_HDR_SIZE		(48U)
 					/**< Secure Header Size in Bytes*/
@@ -171,6 +176,17 @@ typedef struct {
 	u32* Iv; /**< Initialization Vector */
 	u32* Key; /**< AES Key */
 	u32  KeySel; /**< Key Source selection */
+	u8 IsChunkingEnabled; /**< Data Chunking enabled/disabled */
+	u8* ReadBuffer; /**< Data Buffer to be used in case of chunking */
+	u32 ChunkSize; /**< Size of one chunk in bytes */
+	u32 (*DeviceCopy) (u32 SrcAddress, u64 DestAddress, u32 Length);
+		/**< Function pointer for copying data chunk from device to buffer.
+		 * Arguments are:
+		 * SrcAddress: Address of data in device.
+		 * DestAddress: Address where data will be copied
+		 * Length: Length of data in bytes.
+		 * Return value should be 0 in case of success and 1 for failure.
+		 */
 } XSecure_Aes;
 
 /************************** Function Prototypes ******************************/
@@ -180,8 +196,15 @@ typedef struct {
 s32  XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 				u32 KeySel, u32* Iv,  u32* Key);
 
+/* Enable/Disable chunking */
+void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking);
+
+/* Configuring Data chunking settings */
+void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
+				u32 ChunkSize, u32(*DeviceCopy)(u32, u64, u32));
+
 /* Decryption */
-u32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
+s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				u32 Length);
 
 /* Encryption */
