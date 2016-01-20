@@ -77,7 +77,9 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-u32 XFsbl_BitstreamLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum, PTRSIZE LoadAddress);
+u32 XFsbl_BitstreamLoad(XFsblPs * FsblInstancePtr,
+				u32 PartitionNum, PTRSIZE LoadAddress);
+u32 XFsbl_ChunkedBSTxfer(XFsblPs *FsblInstancePtr, u32 PartitionNum);
 u32 XFsbl_PcapInit(void);
 u32 XFsbl_PLWaitForDone(void);
 u32 XFsbl_WriteToPcap(u32 WrSize, u8 *WrAddr);

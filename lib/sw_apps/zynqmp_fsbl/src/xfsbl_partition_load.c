@@ -98,6 +98,10 @@ PTRSIZE TcmSkipAddress=0U;
 #ifdef XFSBL_AES
 static XSecure_Aes SecureAes;
 #endif
+
+#ifndef XFSBL_PS_DDR
+extern u8 ReadBuffer[READ_BUFFER_SIZE];
+#endif
 /*****************************************************************************/
 /**
  * This function loads the partition
@@ -819,7 +823,13 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		if (LoadAddress == XFSBL_DUMMY_PL_ADDR)
 		{
 			LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
+
+#ifndef XFSBL_PS_DDR
+			/* In case of DDR less system, skip copying */
+			goto END;
+#endif
 		}
+
 #else
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_PL_NOT_ENABLED \r\n");
 		Status = XFSBL_ERROR_PL_NOT_ENABLED;
@@ -971,8 +981,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 Length=0U;
 #endif
 	PTRSIZE LoadAddress=0U;
-#if defined(XFSBL_BS)
+#if defined(XFSBL_BS) && defined(XFSBL_PS_DDR)
 	u32 BitstreamWordSize = 0;
+#endif
+#ifndef XFSBL_PS_DDR
+	u32 SrcAddress = 0U;
 #endif
 
 	/**
@@ -1065,6 +1078,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
 			(LoadAddress == XFSBL_DUMMY_PL_ADDR))
 	{
+		XFsbl_Printf(DEBUG_INFO,
+			"Destination Device is PL, changing LoadAddress\r\n");
 		LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
 	}
 #endif
@@ -1090,21 +1105,57 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 
 		/**
-		 * cache disbale can be removed
+		 * cache disable can be removed
 		 */
 		Xil_DCacheDisable();
 
-		/**
-		 * Do the authentication validation
-		 */
-		Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress, Length,
-			(LoadAddress + Length) - XFSBL_AUTH_CERT_MIN_SIZE,
-			HashLen);
+		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL)
+		{
+			/**
+			 * Do the authentication validation
+			 */
+			Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
+					Length, (LoadAddress + Length)
+						- XFSBL_AUTH_CERT_MIN_SIZE,
+					HashLen, PartitionNum);
+		}
+
+#ifndef XFSBL_PS_DDR
+		if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
+		{
+#ifdef XFSBL_BS
+			/**
+			 * In case of bitstream in DDR less system, pass the
+			 * partition source address from Flash device.
+			 */
+			SrcAddress = FsblInstancePtr->ImageOffsetAddress +
+					((PartitionHeader->DataWordOffset) *
+					XIH_PARTITION_WORD_LENGTH);
+
+			Status = XFsbl_Authentication(FsblInstancePtr, SrcAddress,
+					Length, (SrcAddress + Length)
+						- XFSBL_AUTH_CERT_MIN_SIZE,
+					HashLen, PartitionNum);
+#endif
+		}
+		else
+		{
+			/**
+			 * Authentication for non bitstream partition in DDR
+			 * less system
+			 */
+			Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
+					Length, (LoadAddress + Length)
+						- XFSBL_AUTH_CERT_MIN_SIZE,
+					HashLen, XIH_PH_ATTRB_DEST_DEVICE_PS);
+		}
+#endif
 
 		if (Status != XFSBL_SUCCESS)
-                {
-                        goto END;
-                }
+		{
+			goto END;
+		}
+
 #else
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_RSA_NOT_ENABLED \r\n");
 		Status = XFSBL_ERROR_RSA_NOT_ENABLED;
@@ -1130,19 +1181,23 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 		XFsbl_Printf(DEBUG_INFO, " Aes initialized \r\n");
 
-		UnencryptedLength = PartitionHeader->UnEncryptedDataWordLength * 4U;
+		UnencryptedLength =
+			PartitionHeader->UnEncryptedDataWordLength * 4U;
 
 
 		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) {
-			Status = XSecure_AesDecrypt(&SecureAes, (u8 *) LoadAddress,
-					(u8 *) LoadAddress, UnencryptedLength);
+			Status = XSecure_AesDecrypt(&SecureAes,
+					(u8 *) LoadAddress, (u8 *) LoadAddress,
+					UnencryptedLength);
 
 			if (Status != XFSBL_SUCCESS) {
 				Status = XFSBL_ERROR_DECRYPTION_FAIL;
-				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_DECRYPTION_FAIL\r\n");
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_DECRYPTION_FAIL\r\n");
 				goto END;
 			} else {
-				XFsbl_Printf(DEBUG_GENERAL, "Decryption Successful\r\n");
+				XFsbl_Printf(DEBUG_GENERAL,
+					"Decryption Successful\r\n");
 			}
 		}
 #else
@@ -1184,32 +1239,64 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			 * and the decrypted bitstream is sent directly to PCAP
 			 * by configuring SSS appropriately
 			 */
+#ifdef XFSBL_PS_DDR
+
 			Status = XSecure_AesDecrypt(&SecureAes,
 					(u8 *) XFSBL_DESTINATION_PCAP_ADDR,
 					(u8 *) LoadAddress, UnencryptedLength);
+#else
+			XFsbl_Printf(DEBUG_GENERAL,
+				"Bitstream will be decrypted and transferred"
+				" in chunks\r\n");
+			/* Enable chunking in Decryption */
+			XSecure_AesSetChunking(&SecureAes,
+					XSECURE_CSU_AES_CHUNKING_ENABLED);
+			XSecure_AesSetChunkConfig(&SecureAes, ReadBuffer,
+					READ_BUFFER_SIZE,
+					FsblInstancePtr->DeviceOps.DeviceCopy);
+
+			/**
+			 * In case of DDR less system, pass the partition source
+			 * address from Flash device.
+			 */
+			Status = XSecure_AesDecrypt(&SecureAes,
+					(u8 *) XFSBL_DESTINATION_PCAP_ADDR,
+					(u8 *)(PTRSIZE) SrcAddress,
+					UnencryptedLength);
+#endif
 
 			if (Status != XFSBL_SUCCESS) {
 				Status = XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL;
 				XFsbl_Printf(DEBUG_GENERAL,
-						"XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL\r\n");
+				"XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL\r\n");
 				/* Reset PL */
 				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
 				goto END;
 			} else {
 				XFsbl_Printf(DEBUG_GENERAL,
-						"Bitstream decryption Successful\r\n");
+					"Bitstream decryption Successful\r\n");
 			}
 #endif
 		}
 		else {
-
+#ifdef XFSBL_PS_DDR
 			/* Use CSU DMA to load Bit stream to PL */
-			BitstreamWordSize = PartitionHeader->UnEncryptedDataWordLength;
+			BitstreamWordSize =
+				PartitionHeader->UnEncryptedDataWordLength;
 
 			Status = XFsbl_WriteToPcap(BitstreamWordSize, (u8 *) LoadAddress);
 			if (Status != XFSBL_SUCCESS) {
 				goto END;
 			}
+#else
+			/* In case of DDR less system, do the chunked transfer */
+			Status = XFsbl_ChunkedBSTxfer(FsblInstancePtr,
+							PartitionNum);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+			}
+
+#endif
 		}
 
 		Status = XFsbl_PLWaitForDone();

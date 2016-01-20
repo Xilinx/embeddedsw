@@ -64,6 +64,9 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+#ifndef XFSBL_PS_DDR
+extern u8 ReadBuffer[READ_BUFFER_SIZE];
+#endif
 
 /*****************************************************************************/
 /** This function does the necessary initialization of PCAP interface
@@ -177,7 +180,7 @@ u32 XFsbl_WriteToPcap(u32 WrSize, u8 *WrAddr) {
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
-	XFsbl_Printf(DEBUG_GENERAL, "DMA transfer done \r\n");
+	XFsbl_Printf(DEBUG_INFO, "DMA transfer done \r\n");
 	Status = XFsbl_PcapWaitForDone();
 	if (Status != XFSBL_SUCCESS) {
 		goto END;
@@ -233,5 +236,90 @@ u32 XFsbl_PLWaitForDone(void) {
 	END:
 	return Status;
 }
+
+/*****************************************************************************/
+/** This is the function to download nonsebitstream to PL using chunking.
+ *
+ * @param	None
+ *
+ * @return	error status based on implemented functionality(SUCCESS by default)
+ *
+ *****************************************************************************/
+#ifndef XFSBL_PS_DDR
+u32 XFsbl_ChunkedBSTxfer(XFsblPs *FsblInstancePtr, u32 PartitionNum)
+{
+	u32 Status = XFSBL_SUCCESS;
+	XFsblPs_PartitionHeader *PartitionHeader;
+	u32 NumChunks = 0U;
+	u32 RemainingBytes = 0U;
+	u32 Index = 0U;
+	u32 BitStreamSizeWord = 0U;
+	u32 BitStreamSizeByte = 0U;
+	u32 ImageOffset = 0U;
+	u32 StartAddrByte = 0U;
+
+	XFsbl_Printf(DEBUG_GENERAL,
+		"Nonsecure Bitstream transfer in chunks to begin now\r\n");
+
+	/**
+	 * Assign the partition header to local variable
+	 */
+	PartitionHeader =
+		&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
+
+	BitStreamSizeWord = PartitionHeader->UnEncryptedDataWordLength;
+	ImageOffset = FsblInstancePtr->ImageOffsetAddress;
+
+	StartAddrByte = ImageOffset + 4*(PartitionHeader->DataWordOffset);
+
+	XFsbl_Printf(DEBUG_INFO,
+			"Nonsecure Bitstream to be copied from %0x \r\n",
+			StartAddrByte);
+
+	/* Converting size in words to bytes */
+	BitStreamSizeByte = BitStreamSizeWord*4;
+
+	NumChunks = BitStreamSizeByte / READ_BUFFER_SIZE;
+	RemainingBytes = BitStreamSizeByte % READ_BUFFER_SIZE;
+
+	for(Index = 0; Index < NumChunks; Index++)
+	{
+		Status = FsblInstancePtr->DeviceOps.DeviceCopy(StartAddrByte,
+				(PTRSIZE)ReadBuffer, READ_BUFFER_SIZE);
+
+		if (XFSBL_SUCCESS != Status)
+		{
+			XFsbl_Printf(DEBUG_GENERAL,
+				"Copy of chunk from flash to OCM failed \r\n");
+			goto END;
+		}
+
+		Status = XFsbl_WriteToPcap((READ_BUFFER_SIZE/4), &ReadBuffer[0]);
+		if (XFSBL_SUCCESS != Status)
+		{
+			goto END;
+		}
+
+		StartAddrByte += READ_BUFFER_SIZE;
+	}
+
+	if(RemainingBytes != 0U)
+	{
+		Status = FsblInstancePtr->DeviceOps.DeviceCopy(StartAddrByte,
+					(PTRSIZE)ReadBuffer, RemainingBytes);
+		if (XFSBL_SUCCESS != Status)
+		{
+			XFsbl_Printf(DEBUG_GENERAL,
+				"Copy of chunk from flash to OCM failed \r\n");
+			goto END;
+		}
+
+		Status = XFsbl_WriteToPcap((RemainingBytes/4), &ReadBuffer[0]);
+	}
+
+END:
+	return Status;
+}
+#endif
 
 #endif

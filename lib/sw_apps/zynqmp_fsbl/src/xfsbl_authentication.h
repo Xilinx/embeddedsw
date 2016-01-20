@@ -69,6 +69,10 @@ extern "C" {
 
 #define XFSBL_PPK_SIZE						(512U+512U+64U)
 #define XFSBL_SPK_SIZE						XFSBL_PPK_SIZE
+#define XFSBL_PPK_MOD_SIZE					(512U)
+#define XFSBL_PPK_MOD_EXT_SIZE				(512U)
+#define XFSBL_SPK_MOD_SIZE				XFSBL_PPK_MOD_SIZE
+#define XFSBL_SPK_MOD_EXT_SIZE				XFSBL_PPK_MOD_EXT_SIZE
 #define XFSBL_SPK_SIG_SIZE					(512U)
 #define XFSBL_BHDR_SIG_SIZE					(512U)
 #define XFSBL_FSBL_SIG_SIZE					(512U)
@@ -80,13 +84,13 @@ extern "C" {
 
 #define	XFSBL_AUTH_CERT_USER_DATA		(64U - XFSBL_AUTH_HEADER_SIZE)
 
-#define XFSBL_AUTH_CERT_MIN_SIZE		(XFSBL_AUTH_HEADER_SIZE 		\
-											+ XFSBL_AUTH_CERT_USER_DATA 	\
-											+ XFSBL_PPK_SIZE 			\
-											+ XFSBL_PPK_SIZE 			\
-											+ XFSBL_SPK_SIG_SIZE 		\
-											+ XFSBL_BHDR_SIG_SIZE 		\
-											+ XFSBL_FSBL_SIG_SIZE)
+#define XFSBL_AUTH_CERT_MIN_SIZE	(XFSBL_AUTH_HEADER_SIZE 	\
+					+ XFSBL_AUTH_CERT_USER_DATA 	\
+					+ XFSBL_PPK_SIZE 		\
+					+ XFSBL_SPK_SIZE 		\
+					+ XFSBL_SPK_SIG_SIZE 		\
+					+ XFSBL_BHDR_SIG_SIZE 		\
+					+ XFSBL_FSBL_SIG_SIZE)
 
 #define XFSBL_AUTH_CERT_MAX_SIZE	(XFSBL_AUTH_CERT_MIN_SIZE + 60)
 
@@ -103,7 +107,7 @@ extern "C" {
 #define XFSBL_CSU_RSA_CONTROL_EXP         (0x01U)
 #define XFSBL_CSU_RSA_CONTROL_EXP_PRE     (0x05U)
 #define XFSBL_CSU_RSA_CONTROL_MASK		 (XFSBL_CSU_RSA_CONTROL_4096 \
-											+ XFSBL_CSU_RSA_CONTROL_EXP_PRE)
+						+ XFSBL_CSU_RSA_CONTROL_EXP_PRE)
 
 #define XFSBL_CSU_RSA_RAM_EXPO			 (0)
 #define XFSBL_CSU_RSA_RAM_MOD			 (1)
@@ -124,10 +128,13 @@ extern "C" {
 
 #ifdef XFSBL_RSA
 u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
-						u32 PartitionLen, u64 AcOffset, u32 HashLen);
-u32 XFsbl_PartitionSignVer(u64 PartitionOffset, u32 PartitionLen,
-							    u64 AcOffset, u32 HashLen);
-u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
+				u32 PartitionLen, u64 AcOffset, u32 HashLen,
+				u32 PartitionNum);
+u32 XFsbl_PartitionSignVer(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
+				u32 PartitionLen, u64 AcOffset, u32 HashLen,
+				u32 PartitionNum);
+u32 XFsbl_SpkVer(XFsblPs * FsblInstancePtr, u64 AcOffset, u32 HashLen,
+			u32 PartitionNum);
 
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
 
