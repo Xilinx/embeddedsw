@@ -239,6 +239,8 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 		case XISF_WRITE:
 			WriteParamPtr = (XIsf_WriteParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(WriteParamPtr != NULL);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 			if (InstancePtr->FourByteAddrMode == TRUE) {
 				Status = WriteData(InstancePtr,
 					XISF_CMD_PAGEPROG_WRITE_4BYTE,
@@ -246,12 +248,16 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 					WriteParamPtr->WritePtr,
 					WriteParamPtr->NumBytes);
 			} else {
+#endif
 				Status = WriteData(InstancePtr,
 					XISF_CMD_PAGEPROG_WRITE,
 					WriteParamPtr->Address,
 					WriteParamPtr->WritePtr,
 					WriteParamPtr->NumBytes);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 			}
+#endif
 			break;
 
 		case XISF_AUTO_PAGE_WRITE:

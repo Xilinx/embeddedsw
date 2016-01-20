@@ -221,6 +221,8 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 			if (InstancePtr->FourByteAddrMode == TRUE) {
 				Status = FastReadData(InstancePtr,
 							XISF_CMD_FAST_READ_4BYTE,
@@ -229,13 +231,17 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 							ReadParamPtr->NumBytes,
 							ReadParamPtr->NumDummyBytes);
 			} else {
+#endif
 				Status = FastReadData(InstancePtr,
 						XISF_CMD_FAST_READ,
 						ReadParamPtr->Address,
 						ReadParamPtr->ReadPtr,
 						ReadParamPtr->NumBytes,
 						ReadParamPtr->NumDummyBytes);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 			}
+#endif
 			break;
 
 		case XISF_PAGE_TO_BUF_TRANS:
