@@ -94,9 +94,11 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 			/* ON -> RET */
 			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
 				   sram->retCtrlMask);
-			status = XST_SUCCESS;
+			status = sram->PwrDn();
 		} else if (PM_SRAM_STATE_OFF == nextState) {
 			/* ON -> OFF*/
+			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
+				   ~sram->retCtrlMask);
 			status = sram->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
@@ -105,11 +107,11 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_SRAM_STATE_RET:
 		if (PM_SRAM_STATE_ON == nextState) {
 			/* RET -> ON */
-			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
-				   ~sram->retCtrlMask);
-			status = XST_SUCCESS;
+			status = sram->PwrUp();
 		} else if (PM_SRAM_STATE_OFF == nextState) {
 			/* RET -> OFF */
+			XPfw_RMW32(sram->retCtrlAddr, sram->retCtrlMask,
+				   ~sram->retCtrlMask);
 			status = sram->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
