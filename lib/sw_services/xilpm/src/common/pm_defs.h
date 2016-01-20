@@ -152,6 +152,7 @@ enum XPmNodeId {
 	NODE_DPLL,
 	NODE_RPLL,
 	NODE_IOPLL,
+	NODE_DDR,
 };
 
 enum XPmRequestAck {
