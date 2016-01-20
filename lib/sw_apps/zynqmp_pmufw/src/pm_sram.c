@@ -177,8 +177,8 @@ PmSlaveSram pmSlaveL2_g = {
 	},
 	.PwrDn = XpbrPwrDnL2Bank0Handler,
 	.PwrUp = XpbrPwrUpL2Bank0Handler,
-	.retCtrlAddr = PMU_LOCAL_L2_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_L2_RET_CNTRL_BANK0_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_L2_BANK0_MASK,
 };
 
 static PmRequirement* const pmOcm0Reqs[] = {
@@ -206,8 +206,8 @@ PmSlaveSram pmSlaveOcm0_g = {
 	},
 	.PwrDn = XpbrPwrDnOcmBank0Handler,
 	.PwrUp = XpbrPwrUpOcmBank0Handler,
-	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK0_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK0_MASK,
 };
 
 static PmRequirement* const pmOcm1Reqs[] = {
@@ -235,8 +235,8 @@ PmSlaveSram pmSlaveOcm1_g = {
 	},
 	.PwrDn = XpbrPwrDnOcmBank1Handler,
 	.PwrUp = XpbrPwrUpOcmBank1Handler,
-	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK1_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK1_MASK,
 };
 
 static PmRequirement* const pmOcm2Reqs[] = {
@@ -264,8 +264,8 @@ PmSlaveSram pmSlaveOcm2_g = {
 	},
 	.PwrDn = XpbrPwrDnOcmBank2Handler,
 	.PwrUp = XpbrPwrUpOcmBank2Handler,
-	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK2_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK2_MASK,
 };
 
 static PmRequirement* const pmOcm3Reqs[] = {
@@ -293,8 +293,8 @@ PmSlaveSram pmSlaveOcm3_g = {
 	},
 	.PwrDn = XpbrPwrDnOcmBank3Handler,
 	.PwrUp = XpbrPwrUpOcmBank3Handler,
-	.retCtrlAddr = PMU_LOCAL_OCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_OCM_RET_CNTRL_BANK3_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK3_MASK,
 };
 
 static PmRequirement* const pmTcm0AReqs[] = {
@@ -321,8 +321,8 @@ PmSlaveSram pmSlaveTcm0A_g = {
 	},
 	.PwrDn = XpbrPwrDnTcm0AHandler,
 	.PwrUp = XpbrPwrUpTcm0AHandler,
-	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMA0_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0A_MASK,
 };
 
 static PmRequirement* const pmTcm0BReqs[] = {
@@ -349,8 +349,8 @@ PmSlaveSram pmSlaveTcm0B_g = {
 	},
 	.PwrDn = XpbrPwrDnTcm0BHandler,
 	.PwrUp = XpbrPwrUpTcm0BHandler,
-	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMB0_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0B_MASK,
 };
 
 static PmRequirement* const pmTcm1AReqs[] = {
@@ -377,8 +377,8 @@ PmSlaveSram pmSlaveTcm1A_g = {
 	},
 	.PwrDn = XpbrPwrDnTcm1AHandler,
 	.PwrUp = XpbrPwrUpTcm1AHandler,
-	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMA1_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1A_MASK,
 };
 
 static PmRequirement* const pmTcm1BReqs[] = {
@@ -405,6 +405,6 @@ PmSlaveSram pmSlaveTcm1B_g = {
 	},
 	.PwrDn = XpbrPwrDnTcm1BHandler,
 	.PwrUp = XpbrPwrUpTcm1BHandler,
-	.retCtrlAddr = PMU_LOCAL_TCM_RET_CNTRL,
-	.retCtrlMask = PMU_LOCAL_TCM_RET_CNTRL_TCMB1_MASK,
+	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1B_MASK,
 };
