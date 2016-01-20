@@ -471,15 +471,13 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 /**
  * XPm_ReleaseNode() - PM call to release a node
  * @node	Node id of the slave
- * @latency	Requested maximum wakeup latency
  *
  * @return	Returns status, either success or error+reason
  */
-XStatus XPm_ReleaseNode(const enum XPmNodeId node,
-			const u32 latency)
+XStatus XPm_ReleaseNode(const enum XPmNodeId node)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD2(payload, PM_RELEASE_NODE, node, latency);
+	PACK_PAYLOAD1(payload, PM_RELEASE_NODE, node);
 	return pm_ipi_send(primary_master, payload);
 }
 

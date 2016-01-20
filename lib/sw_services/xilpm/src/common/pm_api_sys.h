@@ -173,8 +173,7 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 			const u32 capabilities,
 			const u32 qos,
 			const enum XPmRequestAck ack);
-XStatus XPm_ReleaseNode(const enum XPmNodeId node,
-			const u32 latency);
+XStatus XPm_ReleaseNode(const enum XPmNodeId node);
 XStatus XPm_SetRequirement(const enum XPmNodeId node,
 			   const u32 capabilities,
 			   const u32 qos,
