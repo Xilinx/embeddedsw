@@ -446,10 +446,10 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 	[PM_MASTER_RPU_0_SLAVE_OCM3] = {
 		.slave = &pmSlaveOcm3_g.slv,
 		.requestor = &pmMasterRpu0_g,
-		.info = PM_MASTER_USING_SLAVE_MASK,
-		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	},
 	[PM_MASTER_RPU_0_SLAVE_TCM0A] = {
