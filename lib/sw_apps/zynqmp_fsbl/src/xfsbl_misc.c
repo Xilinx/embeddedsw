@@ -79,7 +79,7 @@ __inline void XFsbl_Printf(u32 DebugType,char *Format, ...)
 #endif
 /************************** Function Prototypes ******************************/
 static void XFsbl_UndefHandler (void);
-#ifndef XFSBL_A53
+#ifndef ARMA53_64
 static void XFsbl_SvcHandler (void);
 static void XFsbl_PreFetchAbortHandler (void);
 #endif
@@ -401,7 +401,7 @@ static void XFsbl_UndefHandler (void)
 	XFsbl_ErrorLockDown(XFSBL_ERROR_UNDEFINED_EXCEPTION);
 }
 
-#ifndef XFSBL_A53
+#ifndef ARMA53_64
 /****************************************************************************/
 /**
 *
@@ -507,7 +507,7 @@ void XFsbl_RegisterHandlers(void)
 	 * Initialize the vector table. Register the stub Handler for each
 	 * exception.
 	 */
-#ifdef XFSBL_A53
+#ifdef ARMA53_64
 	 Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
                 (Xil_ExceptionHandler)XFsbl_UndefHandler,(void *) 0);
         Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,

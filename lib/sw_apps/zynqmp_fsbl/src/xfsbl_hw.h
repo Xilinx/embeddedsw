@@ -620,7 +620,7 @@ extern "C" {
 #define XFSBL_OCM_START_ADDRESS			(0xFFFE2000U)
 #define XFSBL_OCM_END_ADDRESS			(0xFFFF0000U)
 
-#ifdef XFSBL_A53
+#ifdef ARMA53_64
 #define PTRSIZE		u64
 #else
 #define PTRSIZE		u32

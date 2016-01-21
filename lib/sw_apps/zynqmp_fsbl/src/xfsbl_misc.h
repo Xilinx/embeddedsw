@@ -82,7 +82,7 @@ u32 XFsbl_GetDrvNumSD(u32 DeviceFlags);
 u32 XFsbl_Htonl(u32 Value1);
 u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
 
-#ifndef XFSBL_A53
+#ifndef ARMA53_64
 void XFsbl_RegisterHandlers(void);
 #endif
 

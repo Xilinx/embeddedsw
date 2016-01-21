@@ -846,7 +846,7 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 			 */
 			Xil_DCacheDisable();
 			XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL. \n\r");
-#ifdef XFSBL_A53
+#ifdef ARMA53_64
 			XFsbl_Out32(0xFFFC0000U, 0x14000000U);
 #else
 			XFsbl_Out32(0xFFFC0000U, 0xEAFFFFFEU);

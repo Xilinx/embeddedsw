@@ -174,7 +174,7 @@ proc swapp_generate {} {
             file delete -force $trans_tbl_a53_32
             file rename -force $trans_tbl_a53_64 $trans_tbl_a53
 
-            set new_flags "-Wall -fmessage-length=0 -DXFSBL_A53 $def_flags"
+            set new_flags "-Wall -fmessage-length=0 -DARMA53_64 $def_flags"
         }
     }
     # Update compiler flags

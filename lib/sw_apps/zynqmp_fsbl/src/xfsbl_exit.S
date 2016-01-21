@@ -65,7 +65,7 @@
 
 XFsbl_Exit:
 
-#ifndef XFSBL_A53
+#ifndef ARMA53_64
 	mov	 lr, r0	/* move the destination address into link register */
 
 	mcr	 15,0,r0,cr7,cr5,0	/* Invalidate Instruction cache */
@@ -146,7 +146,7 @@ XFsbl_Loop:
 	b		.Ldone		/* Paranoia: we should never get here */
 
 XFsbl_StartApp:
-#ifdef XFSBL_A53
+#ifdef ARMA53_64
 	br 	x30        /* branch to */
 #else
 	bx	lr;

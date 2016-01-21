@@ -236,7 +236,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	 * Initialize the processor settings that are not done in
 	 * BSP startup code
 	 */
-#ifdef XFSBL_A53
+#ifdef ARMA53_64
 	ClusterId = mfcp(MPIDR_EL1);
 #else
 	ClusterId = mfcp(XREG_CP15_MULTI_PROC_AFFINITY);
@@ -415,7 +415,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 	/* For A53, mark DDR region as "Memory" as DDR initialization is done */
 
-#ifdef XFSBL_A53
+#ifdef ARMA53_64
 	/* For A53 64bit*/
 	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64; BlockNum++)
 	{
