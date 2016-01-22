@@ -84,21 +84,21 @@ typedef u32 (*const PmTranHandler)(void);
 
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(buf, arg0)				\
-	XPfw_Write32(buf + IPI_BUFFER_RESP_OFFSET, arg0);
+	XPfw_Write32((buf) + IPI_BUFFER_RESP_OFFSET, arg0);
 #define IPI_RESPONSE2(buf, arg0, arg1)				\
 	IPI_RESPONSE1(buf, arg0);				\
-	XPfw_Write32(buf + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE, arg1);
+	XPfw_Write32((buf) + IPI_BUFFER_RESP_OFFSET + PAYLOAD_ELEM_SIZE, arg1);
 #define IPI_RESPONSE3(buf, arg0, arg1, arg2)			\
 	IPI_RESPONSE2(buf, arg0, arg1);				\
-	XPfw_Write32(buf + IPI_BUFFER_RESP_OFFSET +		\
+	XPfw_Write32((buf) + IPI_BUFFER_RESP_OFFSET +		\
 		     2 * PAYLOAD_ELEM_SIZE, arg2);
 #define IPI_RESPONSE4(buf, arg0, arg1, arg2, arg3)		\
 	IPI_RESPONSE3(buf, arg0, arg1, arg2);			\
-	XPfw_Write32(buf + IPI_BUFFER_RESP_OFFSET +		\
+	XPfw_Write32((buf) + IPI_BUFFER_RESP_OFFSET +		\
 		     3 * PAYLOAD_ELEM_SIZE, arg3);
 #define IPI_RESPONSE5(buf, arg0, arg1, arg2, arg3, arg4)	\
 	IPI_RESPONSE4(buf, arg0, arg1, arg2, arg3);		\
-	XPfw_Write32(buf + IPI_BUFFER_RESP_OFFSET +		\
+	XPfw_Write32((buf) + IPI_BUFFER_RESP_OFFSET +		\
 		     4 * PAYLOAD_ELEM_SIZE, arg4);
 
 /* PMU internal capabilities used in definition of slaves' states */
