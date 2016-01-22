@@ -76,7 +76,6 @@ typedef u32 (*const PmTranHandler)(void);
 #endif
 
 #define ARRAY_SIZE(x)   (sizeof(x) / sizeof((x)[0]))
-#define BIT0(x) (x & 1U)
 
 /* Enable/disable macros for wake events in GPI1 register */
 #define ENABLE_WAKE(mask)   XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, mask, mask);
