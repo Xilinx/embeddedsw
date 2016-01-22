@@ -215,8 +215,8 @@ u32 PmNodeGetPowerConsumption(PmNode* const nodePtr, const PmStateId state)
 
 	power = PmNodeLookupConsumption(nodePtr, state);
 
-	if ((false == IS_POWER(nodePtr->typeId)) ||
-	    (true == IS_OFF(nodePtr))) {
+	if ((false == NODE_IS_POWER(nodePtr->typeId)) ||
+	    (true == NODE_IS_OFF(nodePtr))) {
 		goto done;
 	}
 
@@ -247,7 +247,7 @@ u32 PmNodeGetPowerConsumption(PmNode* const nodePtr, const PmStateId state)
 				power += childPwr;
 			}
 
-			if (true == IS_POWER(childNode->typeId)) {
+			if (true == NODE_IS_POWER(childNode->typeId)) {
 				/* Work our way down to the lowest child */
 				currParent = (PmPower*)childNode->derived;
 				childPos = 0U;
@@ -288,15 +288,15 @@ u32 PmNodeGetWakeLatency(PmNode* const nodePtr)
 	const PmSlave* slave;
 	const PmProc* proc;
 
-	if (true == IS_SLAVE(nodePtr->typeId)) {
+	if (true == NODE_IS_SLAVE(nodePtr->typeId)) {
 		slave = (PmSlave*)nodePtr->derived;
 		result = PmGetLatencyFromState(slave, nodePtr->currState);
-	} else if ((true == IS_PROC(nodePtr->typeId)) &&
-		   (true == IS_OFF(nodePtr))) {
+	} else if ((true == NODE_IS_PROC(nodePtr->typeId)) &&
+		   (true == NODE_IS_OFF(nodePtr))) {
 			proc = (PmProc*)nodePtr->derived;
 			result = proc->pwrUpLatency;
-	} else if ((true == IS_POWER(nodePtr->typeId)) &&
-		   (true == IS_OFF(nodePtr))) {
+	} else if ((true == NODE_IS_POWER(nodePtr->typeId)) &&
+		   (true == NODE_IS_OFF(nodePtr))) {
 		power = (PmPower*)nodePtr->derived;
 		result = power->pwrUpLatency;
 	}
@@ -305,7 +305,7 @@ u32 PmNodeGetWakeLatency(PmNode* const nodePtr)
 	 * In case when parent power islands/domains are turned off,
 	 * hierarchically account its powerUp latencies
 	 */
-	while ((NULL != parent) && (true == IS_OFF(&parent->node))) {
+	while ((NULL != parent) && (true == NODE_IS_OFF(&parent->node))) {
 		result += parent->pwrUpLatency;
 		parent = parent->node.parent;
 	}

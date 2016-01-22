@@ -222,7 +222,7 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 		}
 		if ((0U != (slave->slvFsm->states[state] & PM_CAP_POWER)) &&
 		    (NULL != slave->node.parent) &&
-		    (true == IS_OFF(&slave->node.parent->node))) {
+		    (true == NODE_IS_OFF(&slave->node.parent->node))) {
 			/* Next state requires powering up power parent */
 			status = PmTriggerPowerUp(slave->node.parent);
 			if (XST_SUCCESS != status) {
@@ -442,7 +442,7 @@ int PmUpdateSlave(PmSlave* const slave)
 		parent = slave->node.parent;
 		latencyMargin = minLat;
 
-		while ((NULL != parent) && (true == IS_OFF(&parent->node))) {
+		while ((NULL != parent) && (true == NODE_IS_OFF(&parent->node))) {
 			/* Calculate remaining latency budget */
 			latencyMargin -= wkupLat;
 			wkupLat = parent->pwrUpLatency;

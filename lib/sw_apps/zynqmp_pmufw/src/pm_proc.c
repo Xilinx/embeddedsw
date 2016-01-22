@@ -189,7 +189,7 @@ int PmProcSleep(PmNode* const nodePtr)
 	u32 worstCaseLatency = 0;
 	int status = XST_PM_INTERNAL;
 
-	if ((NULL == nodePtr) || (false == IS_PROC(nodePtr->typeId))) {
+	if ((NULL == nodePtr) || (false == NODE_IS_PROC(nodePtr->typeId))) {
 		goto done;
 	}
 

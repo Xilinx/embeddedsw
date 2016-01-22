@@ -341,9 +341,9 @@ static bool PmChildIsInLowestPowerState(const PmNode* const nodePtr)
 {
 	bool status = false;
 
-	if ((true == IS_PROC(nodePtr->typeId)) ||
-	    (true == IS_POWER(nodePtr->typeId))) {
-		if (true == IS_OFF(nodePtr)) {
+	if ((true == NODE_IS_PROC(nodePtr->typeId)) ||
+	    (true == NODE_IS_POWER(nodePtr->typeId))) {
+		if (true == NODE_IS_OFF(nodePtr)) {
 			status = true;
 		}
 	} else {
@@ -429,7 +429,7 @@ void PmOpportunisticSuspend(PmPower* const powerParent)
 		worstCaseLatency = power->pwrUpLatency + power->pwrDnLatency;
 
 		if ((false == PmHasAwakeChild(power)) &&
-		    (true == HAS_SLEEP(power->node.ops))) {
+		    (true == NODE_HAS_SLEEP(power->node.ops))) {
 			/* Note: latencyMarg field updated by PmHasAwakeChild */
 			if (worstCaseLatency < power->node.latencyMarg) {
 				/* Call sleep function of this power node */
@@ -476,7 +476,7 @@ static int PmPowerUpTopParent(PmPower* const powerChild)
 	 * level parent that's currently still off and turn it on.
 	 */
 	while ((NULL != powerParent->node.parent) &&
-	       (true == IS_OFF(&powerParent->node.parent->node))) {
+	       (true == NODE_IS_OFF(&powerParent->node.parent->node))) {
 		powerParent = powerChild->node.parent;
 	}
 
@@ -506,7 +506,7 @@ int PmTriggerPowerUp(PmPower* const power)
 	 * turned on (always top-down).
 	 * Use iterative approach for MISRA-C compliance
 	 */
-	while ((true == IS_OFF(&power->node)) && (XST_SUCCESS == status)) {
+	while ((true == NODE_IS_OFF(&power->node)) && (XST_SUCCESS == status)) {
 		status = PmPowerUpTopParent(power);
 	}
 
@@ -546,8 +546,8 @@ static PmPower* PmGetLowestParent(PmPower* const root)
 		prevParent = currParent;
 
 		for (i = 0U; i < currParent->childCnt; i++) {
-			if ((true != IS_POWER(currParent->children[i]->typeId)) ||
-				(false != IS_OFF(currParent->children[i]))) {
+			if ((true != NODE_IS_POWER(currParent->children[i]->typeId)) ||
+				(false != NODE_IS_OFF(currParent->children[i]))) {
 				continue;
 			}
 
@@ -575,7 +575,7 @@ static void PmForcePowerDownChildren(const PmPower* const parent)
 		child = parent->children[i];
 
 		if ((false != PmChildIsInLowestPowerState(child)) ||
-		    (true != HAS_SLEEP(child->ops))) {
+		    (true != NODE_HAS_SLEEP(child->ops))) {
 			continue;
 		}
 
@@ -623,7 +623,7 @@ int PmForceDownTree(PmPower* const root)
 	do {
 		lowestParent = PmGetLowestParent(root);
 		PmForcePowerDownChildren(lowestParent);
-		if (true == HAS_SLEEP(lowestParent->node.ops)) {
+		if (true == NODE_HAS_SLEEP(lowestParent->node.ops)) {
 			status = lowestParent->node.ops->sleep(&lowestParent->node);
 		}
 	} while ((lowestParent != root) && (XST_SUCCESS == status));

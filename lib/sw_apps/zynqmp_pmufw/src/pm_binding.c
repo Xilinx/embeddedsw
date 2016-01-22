@@ -178,7 +178,7 @@ int XPfw_PmWfiHandler(const u32 srcMask)
 
 	status = PmProcFsm(proc, PM_PROC_EVENT_SLEEP);
 	if ((XST_SUCCESS == status) && (true == proc->isPrimary) &&
-	    (true == IS_OFF(&proc->node))) {
+	    (true == NODE_IS_OFF(&proc->node))) {
 		/*
 		 * We've just powered down a primary processor, now use opportunistic
 		 * suspend to power down its parent(s)
