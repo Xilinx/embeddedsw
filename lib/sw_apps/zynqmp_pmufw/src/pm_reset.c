@@ -1883,7 +1883,7 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 	};
 
 done:
-	IPI_RESPONSE1(master->pmuBuffer, status);
+	IPI_RESPONSE1(master->buffer, status);
 }
 
 /**
@@ -1908,5 +1908,5 @@ void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 	resetStatus = resetPtr->ops->getStatus(resetPtr);
 
 done:
-	IPI_RESPONSE2(master->pmuBuffer, status, resetStatus);
+	IPI_RESPONSE2(master->buffer, status, resetStatus);
 }
