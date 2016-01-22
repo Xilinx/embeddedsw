@@ -255,8 +255,8 @@ static u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
 					+ (DestIndex * XIPIPSU_BUFFER_OFFSET_TARGET);
 		} else if (XIPIPSU_BUF_TYPE_RESP == BufferType) {
 			BufferAddr = XIPIPSU_MSG_RAM_BASE
-					+ (SrcIndex * XIPIPSU_BUFFER_OFFSET_GROUP)
-					+ (DestIndex * XIPIPSU_BUFFER_OFFSET_TARGET)
+					+ (DestIndex * XIPIPSU_BUFFER_OFFSET_GROUP)
+					+ (SrcIndex * XIPIPSU_BUFFER_OFFSET_TARGET)
 					+ (XIPIPSU_BUFFER_OFFSET_RESPONSE);
 		} else {
 			BufferAddr = 0U;
