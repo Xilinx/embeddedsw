@@ -378,15 +378,26 @@ proc xdefine_gic_params {drvhandle} {
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
-    # Fix me
-    # Avoid generating fabric interrupts for zynqmp till the issue is fixed
-    if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0)} {
-    } else {
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
     # Next define interrupt IDs for each connected peripheral
 
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
+    #Get proper gic instance for periphs in case of zynqmp
+    foreach periph $periphs {
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	   (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
+	   (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
+		lappend newperiphs $periph
+		set valid_periph 1
+	}
+    }
+
+    if {!$valid_periph } {
+	error "The scugic driver is not supported for the combination of selected IP and processor";
+	return;
+    }
+    set periphs $newperiphs
     set device_id 0
 
     foreach periph $periphs {
@@ -442,14 +453,24 @@ proc xdefine_gic_params {drvhandle} {
             set ip_name   $source_name($i)
             set port_name $source_port_name($i)
             set port_obj  [::hsi::get_ports $port_name]
-            set port_intr_id [::hsi::utils::get_interrupt_id $ip_name $port_name]
+            if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0)} {
+		set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
+		set port_intr_id [expr $port_intr_id + 32]
+	    } else {
+		set port_intr_id [::hsi::utils::get_interrupt_id $ip_name $port_name]
+            }
             if { [string compare -nocase $ip_name "system"] } {
                 set ip_obj      [::hsi::get_cells -hier $ip_name]
                 if {[llength $ip_obj]} {
                     set port_obj    [::hsi::get_pins -of_objects $ip_obj $port_name]
                 }
             } else {
-                set port_intr_id [::hsi::utils::get_interrupt_id "" $port_name]
+                if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0)} {
+			set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
+			set port_intr_id [expr $port_intr_id + 32]
+		} else {
+			set port_intr_id [::hsi::utils::get_interrupt_id "" $port_name]
+		}
             }
             if { [llength $port_intr_id] > 1 } {
                 set j 0
@@ -521,7 +542,6 @@ proc xdefine_gic_params {drvhandle} {
 
     puts $config_inc "\n/******************************************************************/\n"
     close $config_inc
-    }
 }
 
 ###################################################################
@@ -580,4 +600,127 @@ proc xget_port_type {port} {
     } else {
         return "local"
     }
+}
+###################################################################
+#
+# Get interrupt ID for zynqmpsoc
+#
+###################################################################
+proc get_psu_interrupt_id { ip_name port_name } {
+    set ret -1
+    set periph ""
+    set intr_pin ""
+    if { [llength $port_name] == 0 } {
+        return $ret
+    }
+
+    if { [llength $ip_name] != 0 } {
+        #This is the case where IP pin is interrupting
+        set periph [::hsi::get_cells -hier -filter "NAME==$ip_name"]
+        if { [llength $periph] == 0 } {
+            return $ret
+        }
+        set intr_pin [::hsi::get_pins -of_objects $periph -filter "NAME==$port_name"]
+        if { [llength $intr_pin] == 0 } {
+            return $ret
+        }
+        set pin_dir [common::get_property DIRECTION $intr_pin]
+        if { [string match -nocase $pin_dir "I"] } {
+          return $ret
+        }
+    } else {
+        #This is the case where External interrupt port is interrupting
+        set intr_pin [::hsi::get_ports $port_name]
+        if { [llength $intr_pin] == 0 } {
+            return $ret
+        }
+        set pin_dir [common::get_property DIRECTION $intr_pin]
+        if { [string match -nocase $pin_dir "O"] } {
+          return $ret
+        }
+    }
+
+    set intc_periph [::hsi::utils::get_connected_intr_cntrl $ip_name $port_name]
+    if { [llength $intc_periph]  ==  0 } {
+        return $ret
+    }
+
+    set intc_type [common::get_property IP_NAME $intc_periph]
+	#set proctype [get_property IP_NAME [get_cells -hier [get_sw_processor]]]
+	if {[llength $intc_type] > 1} {
+
+        foreach intr_cntr $intc_type {
+
+            if { [::hsi::utils::is_ip_interrupting_current_proc $intr_cntr] } {
+
+                set intc_type $intr_cntr
+            }
+
+        }
+
+    }
+
+    set irqid [common::get_property IRQID $intr_pin]
+
+    if { [llength $irqid] != 0 && [is_interrupt $intc_type] } {
+        set irqid [split $irqid ":"]
+        return $irqid
+    }
+
+    set intc_src_ports [::hsi::utils::get_interrupt_sources $intc_periph]
+
+    #Special Handling for cascading case of axi_intc Interrupt controller
+    set cascade_id 0
+    if { [string match -nocase "$intc_type" "axi_intc"] } {
+        set cascade_id [::hsi::__internal::get_intc_cascade_id_offset $intc_periph]
+    }
+
+    set i $cascade_id
+    set found 0
+    foreach intc_src_port $intc_src_ports {
+        if { [llength $intc_src_port] == 0 } {
+            incr i
+            continue
+        }
+        set intr_width [::hsi::utils::get_port_width $intc_src_port]
+        set intr_periph [::hsi::get_cells -of_objects $intc_src_port]
+        if { [llength $intr_periph] && [is_interrupt $intc_type] } {
+            if {[common::get_property IS_PL $intr_periph] == 0 } {
+                continue
+            }
+        }
+        if { [string compare -nocase "$port_name"  "$intc_src_port" ] == 0 } {
+            if { [string compare -nocase "$intr_periph" "$periph"] == 0 } {
+                set ret $i
+                set found 1
+                break
+            }
+        }
+        set i [expr $i + $intr_width]
+    }
+
+    if { $found == 1 && [is_interrupt $intc_type] } {
+	set intr_list [list 89 90 91 92 93 94 95 96 104 105 106 107 108 109 110 111]
+	return [lindex $intr_list $ret]
+    }
+
+    set port_width [get_port_width $intr_pin]
+    set id $ret
+    for {set i 1 } { $i < $port_width } { incr i } {
+       lappend ret [expr $id + 1]
+       incr $id
+    }
+    return $ret
+}
+
+proc is_interrupt { IP_NAME } {
+		if { [string match -nocase $IP_NAME "ps7_scugic"] } {
+						return true
+		} elseif { [string match -nocase $IP_NAME "psu_acpu_gic"] } {
+						return true
+		} elseif { [string match -nocase $IP_NAME "psu_rcpu_gic"] } {
+						return true
+		}
+		#puts "return $IP_NAME\n\r"
+		return false;
 }
