@@ -29,7 +29,7 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-#ifndef USE_AMP
+#ifndef UNDEFINE_FILE_OPS
 #include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {

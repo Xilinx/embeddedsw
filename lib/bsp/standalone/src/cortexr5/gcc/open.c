@@ -32,7 +32,7 @@
 
 /* Use toolchain function for openamp applications*/
 
-#ifndef USEAMP
+#ifndef UNDEFINE_FILE_OPS
 
 #include <errno.h>
 #include "xil_types.h"

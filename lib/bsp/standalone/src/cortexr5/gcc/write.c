@@ -32,7 +32,7 @@
 
 /* Use toolchain function for openamp applications*/
 
-#ifndef USEAMP
+#ifndef UNDEFINE_FILE_OPS
 
 /* write.c -- write bytes to an output device.
  */

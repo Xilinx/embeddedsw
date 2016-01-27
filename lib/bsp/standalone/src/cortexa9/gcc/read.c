@@ -32,7 +32,7 @@
 
 /* read.c -- read bytes from a input device.
  */
-#ifndef USE_AMP
+#ifndef UNDEFINE_FILE_OPS
 #include "xil_printf.h"
 #include "xparameters.h"
 

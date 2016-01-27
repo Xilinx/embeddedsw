@@ -31,7 +31,7 @@
 ******************************************************************************/
 /* Use toolchain function for openamp applications*/
 
-#ifndef USEAMP
+#ifndef UNDEFINE_FILE_OPS
 
 /* read.c -- read bytes from a input device.
  */

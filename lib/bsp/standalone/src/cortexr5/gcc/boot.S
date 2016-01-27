@@ -187,14 +187,14 @@ OKToRun:
 	mcr	p15,0,r1,c1,c0,0		/* Enable cache  */
 	isb					/* isb	flush prefetch buffer */
 
-/*
- * Currently OpenAMP is supported only with HIVEC
- * exception vectors are set to LOVEC if BSP is not built
- * for OpenAMP as the default state is HIVEC
- */
+/* Warning message to be removed after 2016.1 */
+/* USEAMP was introduced in 2015.4 with ZynqMP and caused confusion with USE_AMP */
+#ifdef USEAMP
+#warning "-DUSEAMP=1 is deprecated, use -DVEC_TABLE_IN_OCM instead to set vector table in OCM"
+#endif
 
-#if USEAMP != 1
-/*set exception vector to LOVEC */
+/* Set vector table in TCM/LOVEC */
+#ifndef VEC_TABLE_IN_OCM
 	mrc	p15, 0, r0, c1, c0, 0
 	mvn	r1, #0x2000
 	and	r0, r0, r1
