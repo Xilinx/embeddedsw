@@ -205,20 +205,6 @@ shareable_loop
 	bge	shareable_loop			; loop till 1G is covered
 #endif
 
-	; In case of AMP, map virtual address 0x20000000 to 0x00000000  and mark it as non-cacheable
-#if USE_AMP==1
-	ldr	r3, =0x1ff			; 512 entries to cover 512MB DDR
-	ldr	r0, =TblBase			; MMU Table address in memory
-	add	r0, r0, #0x800			; Address of entry in MMU table, for 0x20000000
-	ldr	r2, =0x0c02			; S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b0
-mmu_loop
-	str	r2, [r0]			; write the entry to MMU table
-	add	r0, r0, #0x4			; next entry in the table
-	add	r2, r2, #0x100000		; next section
-	subs	r3, r3, #1
-	bge	mmu_loop			; loop till 512MB is covered
-#endif
-
 	mrs	r0, cpsr			; get the current PSR
 	mvn	r1, #0x1f			; set up the irq stack pointer
 	and	r2, r1, r0
