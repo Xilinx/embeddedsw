@@ -323,7 +323,7 @@ void XPfw_InterruptInit(void)
 	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, 0U);
 	Xil_ExceptionDisable();
 	XPfw_Write32(PMU_IOMODULE_IRQ_ACK, 0xffffffffU);
-	InterruptRegsiter = 0U;
+	InterruptRegsiter = PMU_IOMODULE_IRQ_ENABLE_CSU_PMU_SEC_LOCK_MASK;
 }
 
 void XPfw_InterruptStart(void)
