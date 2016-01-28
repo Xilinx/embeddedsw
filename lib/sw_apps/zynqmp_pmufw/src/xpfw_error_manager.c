@@ -188,6 +188,10 @@ void XPfw_EmInit(void)
 		XPfw_EmDisable(ErrorId);
 	}
 
+	/* Clear the error status registers */
+	XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_1, MASK32_ALL_HIGH);
+	XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2, MASK32_ALL_HIGH);
+
 	/* Enable all error signals in HW */
 	XPfw_Write32(PMU_GLOBAL_ERROR_EN_1, MASK32_ALL_HIGH);
 	XPfw_Write32(PMU_GLOBAL_ERROR_EN_2, MASK32_ALL_HIGH);
