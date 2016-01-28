@@ -169,6 +169,8 @@ extern "C" {
 #define XFSBL_ERROR_R5_1_TCM_POWER_UP				(0x47U)
 #define XFSBL_ERROR_R5_L_TCM_POWER_UP				(0x48U)
 #define XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID			(0x49U)
+#define XFSBL_ERROR_I2C_INIT						(0x4AU)
+#define XFSBL_ERROR_I2C_WRITE						(0x4BU)
 
 #define XFSBL_FAILURE					(0x3FFU)
 

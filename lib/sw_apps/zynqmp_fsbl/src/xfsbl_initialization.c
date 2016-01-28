@@ -58,6 +58,7 @@
 #include "psu_init.h"
 #include "xfsbl_qspi.h"
 #include "xfsbl_csu_dma.h"
+#include "xfsbl_board.h"
 #include "xil_mmu.h"
 
 /************************** Constant Definitions *****************************/
@@ -139,6 +140,11 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	 */
 	XFsbl_PrintFsblBanner();
 
+	/* Do board specific initialization if any */
+	Status = XFsbl_BoardInit();
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
 	/**
 	 * Initialize the processor
 	 */

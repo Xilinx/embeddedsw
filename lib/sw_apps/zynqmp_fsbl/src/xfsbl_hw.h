@@ -247,6 +247,9 @@ extern "C" {
 #define CRL_APB_RPLL_CTRL    ( ( CRL_APB_BASEADDR ) + 0X00000030U )
 #define CRL_APB_RPLL_CTRL_BYPASS_MASK    0X00000008U
 
+/* Register: CRL_APB_BOOT_PIN_CTRL */
+#define CRL_APB_BOOT_PIN_CTRL    ( ( CRL_APB_BASEADDR ) + 0X00000250U)
+
 /* apu */
 
 /**
@@ -480,6 +483,21 @@ extern "C" {
 
 #define IPI_PMU_0_IER    ( ( IPI_BASEADDR ) + 0X00030018U )
 #define IPI_PMU_0_IER_PMU_0_MASK    0X00010000U
+
+/* serdes */
+/* SERDES Base Address */
+#define SERDES_BASEADDR      0XFD400000U
+
+#define SERDES_ICM_CFG0    ( ( SERDES_BASEADDR ) + 0X00010010U )
+#define SERDES_ICM_CFG1    ( ( SERDES_BASEADDR ) + 0X00010014U )
+
+/* gpio */
+/* GPIO Base Address */
+#define GPIO_BASEADDR      0XFF0A0000U
+
+#define GPIO_DATA_1    ( ( GPIO_BASEADDR ) + 0X00000044U )
+#define GPIO_DIRM_1    ( ( GPIO_BASEADDR ) + 0X00000244U )
+#define GPIO_OEN_1     ( ( GPIO_BASEADDR ) + 0X00000248U )
 
 /**************************** Type Definitions *******************************/
 
