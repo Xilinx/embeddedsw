@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2004 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2004 - 2015 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -164,6 +164,13 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                             _rval;                      \
                         })
 
+#define mfeare()        ({  u32 _rval; \
+                            __asm__ __volatile__ ( \
+                                "mfse\t%0,rear\n" : "=d"(_rval) \
+                            ); \
+                            _rval; \
+                          })
+
 #define mfesr()         ({  u32 _rval;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,resr\n" : "=d"(_rval) \
@@ -184,6 +191,13 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                             );                                              \
                             _rval;                                          \
                         })
+
+#define mfpvre(rn)      ({  u32 _rval; \
+                            __asm__ __volatile__ ( \
+                                "mfse\t%0,rpvr" stringify(rn) "\n" : "=d"(_rval) \
+                            ); \
+                            _rval; \
+                          })
 
 #define mfbtr()         ({  u32 _rval;         \
                             __asm__ __volatile__ (      \
@@ -318,6 +332,14 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                               _rval; \
                           })
 
+
+#define lwea(lladdr)	({  u32 _rval; \
+                              __asm__ __volatile__ ( \
+                             "lwea\t%0,%M1,%L1\n" : "=d"(_rval) : "d" (lladdr) \
+                              ); \
+                              _rval; \
+                          })
+
 #define lhur(address)	({  u32 _rval; \
                               __asm__ __volatile__ ( \
                              "lhur\t%0,%1,r0\n" : "=d"(_rval) : "d" (address) \
@@ -325,9 +347,23 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                               _rval; \
                           })
 
+#define lhuea(lladdr)	({  u32 _rval; \
+                              __asm__ __volatile__ ( \
+                             "lhuea\t%0,%M1,%L1\n" : "=d"(_rval) : "d" (lladdr) \
+                              ); \
+                              _rval; \
+                          })
+
 #define lbur(address)	({  u32 _rval; \
                               __asm__ __volatile__ ( \
                              "lbur\t%0,%1,r0\n" : "=d"(_rval) : "d" (address) \
+                              ); \
+                              _rval; \
+                          })
+
+#define lbuea(lladdr)	({  u32 _rval; \
+                              __asm__ __volatile__ ( \
+                             "lbuea\t%0,%M1,%L1\n" : "=d"(_rval) : "d" (lladdr) \
                               ); \
                               _rval; \
                           })
@@ -342,13 +378,28 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                                ); \
                            })
 
+#define swea(lladdr, data) ({  __asm__ __volatile__ ( \
+                                "swea\t%0,%M1,%L1\n" :: "d" (data), "d" (lladdr) \
+                               ); \
+                           })
+
 #define shr(address, data) ({  __asm__ __volatile__ ( \
                                 "shr\t%0,%1,r0\n" :: "d" (data), "d" (address) \
                                ); \
                            })
 
+#define shea(lladdr, data) ({  __asm__ __volatile__ ( \
+                                "shea\t%0,%M1,%L1\n" :: "d" (data), "d" (lladdr) \
+                               ); \
+                           })
+
 #define sbr(address, data) ({  __asm__ __volatile__ ( \
                                 "sbr\t%0,%1,r0\n" :: "d" (data), "d" (address) \
+                               ); \
+                           })
+
+#define sbea(lladdr, data) ({  __asm__ __volatile__ ( \
+                                "sbea\t%0,%M1,%L1\n" :: "d" (data), "d" (lladdr) \
                                ); \
                            })
 
