@@ -79,5 +79,6 @@
 *                      performing all Margin reads.
 *                      Added conditions for programming control and
 *                      secure bits for Ultrascale efuse.
+*        vns  27/01/16 Fixed array out of bounds error CR #931207
 *
  ********************************************************************************/

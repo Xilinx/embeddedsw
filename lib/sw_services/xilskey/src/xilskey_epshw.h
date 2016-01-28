@@ -60,6 +60,7 @@ extern "C" {
  * Rsa Key hash length in bytes
  */
 #define XSK_EFUSEPS_RSA_KEY_HASH_LEN_BITS		(256)
+#define XSK_EFUSEPS_RSA_HASH_LEN_ECC_CALC		(260)
 
 #define XSK_EFUSEPS_HAMMING_LOOPS				(10)
 #define XSK_EFUSEPS_HAMMING_LENGTH 				(31)

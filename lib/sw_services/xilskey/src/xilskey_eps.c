@@ -50,6 +50,7 @@
 *                        eFuse PS on Zynq. PR#862778
 *                        Added Conditional compilation to support Zynq Mp
 *                        also.
+* 5.00  vns     27/01/16 Fixed array out of bounds error CR #931207
 *
 *****************************************************************************/
 
@@ -624,7 +625,7 @@ XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
 static u32 XilSKey_EfusePs_WriteRsaKeyHash(u8 *RsaKeyHashBuf, u32 RefClk)
 {
 	int LoopIndex,BitIndex;
-	u8 DataBytes[XSK_EFUSEPS_RSA_KEY_HASH_LEN_BITS], Ecc[32];
+	u8 DataBytes[XSK_EFUSEPS_RSA_HASH_LEN_ECC_CALC] = {0}, Ecc[32];
 	u32 EfuseAddress, Status;
 
 
