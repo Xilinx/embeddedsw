@@ -73,19 +73,20 @@ s32 usleep(u32 useconds)
 {
 
 	XTime tEnd, tCur;
+	/* Enable the counter only if it is disable */
+	if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)) & XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) != XIOU_SCNTRS_CNT_CNTRL_REG_EN){
+		/*write frequency to System Time Stamp Generator Register*/
+		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),XIOU_SCNTRS_FREQ);
 
-	/*write 50MHz frequency to System Time Stamp Generator Register*/
-	Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),XIOU_SCNTRS_FREQ);
-
-	/*Enable the counter*/
-	Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+		/*Enable the counter*/
+		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+	}
 	XTime_GetTime(&tCur);
 	tEnd = tCur + (((XTime) useconds) * COUNTS_PER_USECOND);
 	do
 	{
 		XTime_GetTime(&tCur);
 	} while (tCur < tEnd);
-			/*Disable the counter*/
-	Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),(~(XIOU_SCNTRS_CNT_CNTRL_REG_EN)));
+
 	return 0;
 }
