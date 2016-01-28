@@ -84,7 +84,7 @@ enum xpbr_serv_ext_id {
         XPBR_SERV_EXT_PWRDN_REQS                  = 28U,
         XPBR_SERV_EXT_INVADDR                     = 29U,
         /*       RESERVED                           30U  */
-        XPBR_SERV_EXT_CSU_SECLOCK                 = 31U,
+        /*       RESERVED                           31U  */
         XPBR_SERV_EXT_ACPU0WAKE                   = 32U,
         XPBR_SERV_EXT_ACPU1WAKE                   = 33U,
         XPBR_SERV_EXT_ACPU2WAKE                   = 34U,
