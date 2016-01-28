@@ -59,7 +59,7 @@ proc generate {os_handle} {
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set procname [common::get_property NAME    $hw_proc_handle]
-
+    set boardname [common::get_property BOARD [hsi::current_hw_design]]
     set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
     set mb_exceptions false
 
@@ -122,6 +122,17 @@ proc generate {os_handle} {
             set file_handle [::hsi::utils::open_include_file "xparameters.h"]
             puts $file_handle "#include \"xparameters_ps.h\""
             puts $file_handle ""
+            # If board name is valid, define corresponding symbol in xparameters
+            if { [string length $boardname] != 0 } {
+                set fields [split $boardname ":"]
+                lassign $fields prefix board suffix
+                if { [string length $board] != 0 } {
+                    set def "#define XPS_BOARD_"
+                    append def [string toupper $board]
+                    puts $file_handle $def
+                    puts $file_handle ""
+                }
+            }
             close $file_handle
         }
         "psu_cortexr5"  {
@@ -143,6 +154,17 @@ proc generate {os_handle} {
 	    set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
+            # If board name is valid, define corresponding symbol in xparameters
+            if { [string length $boardname] != 0 } {
+                set fields [split $boardname ":"]
+                lassign $fields prefix board suffix
+                if { [string length $board] != 0 } {
+                    set def "#define XPS_BOARD_"
+                    append def [string toupper $board]
+                    puts $file_handle $def
+                    puts $file_handle ""
+                }
+            }
 	    close $file_handle
         }
        "ps7_cortexa9"  {
