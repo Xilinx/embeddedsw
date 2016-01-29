@@ -68,6 +68,7 @@
 * 4.2   nsk  01/07/16 Added Support to change Flash to Async Mode, if it was
 *                     set to sync mode.
 *                     Modified FLASH_BASE_ADDRESS to canonical name.
+* 4.2   nsk  01/27/16 Added check to unlock the Micron G18 Flash.
 *
 *</pre>
 ******************************************************************************/
@@ -223,7 +224,8 @@ int FlashReadWriteExample(void)
 	 * locked.
 	 */
 	if ((FlashInstance.CommandSet == XFL_CMDSET_INTEL_STANDARD) ||
-	    (FlashInstance.CommandSet == XFL_CMDSET_INTEL_EXTENDED)) {
+	    (FlashInstance.CommandSet == XFL_CMDSET_INTEL_EXTENDED) ||
+            (FlashInstance.CommandSet == XFL_CMDSET_INTEL_G18)) {
 		Status = XFlash_Unlock(&FlashInstance, BLOCK_OFFSET_ADDR, 0);
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
