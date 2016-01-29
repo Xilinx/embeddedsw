@@ -116,6 +116,15 @@ void XPfw_ResetPsOnly(void)
 	l_Status = XPfw_UtilPollForMask(PMU_GLOBAL_AIB_STATUS,
 			AIB_STATUS_MASK,XPFW_TO_AIB_PS_PL);
 
+	/*
+	 * Due to a bug in AIB, there is a possibilty of glitch on the AIB ACK
+	 * signal to PMU. So reconfirm the ACK.
+	 */
+	if(l_Status == XST_SUCCESS){
+		l_Status = XPfw_UtilPollForMask(PMU_GLOBAL_AIB_STATUS,
+			AIB_STATUS_MASK,XPFW_TO_AIB_PS_PL);
+	}
+
 	if(l_Status == XST_SUCCESS){
 		fw_printf("Done\r\n");
 	}
