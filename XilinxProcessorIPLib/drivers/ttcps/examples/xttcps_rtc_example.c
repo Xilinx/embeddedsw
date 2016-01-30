@@ -346,10 +346,6 @@ int SetupTimer(int DeviceID)
 	TimerSetup = &SettingsTable;
 
 	Timer = &TtcPsInst;
-	/*
-	 * Stop the timer first
-	 */
-	XTtcPs_Stop(Timer);
 
 	/*
 	 * Look up the configuration based on the device identifier

@@ -130,6 +130,11 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	if(IsStartResult == (u32)TRUE) {
 		Status = XST_DEVICE_IS_STARTED;
 	} else {
+
+		/*
+		 * stop the timer before configuring
+		 */
+		XTtcPs_Stop(InstancePtr);
 		/*
 		 * Reset the count control register to it's default value.
 		 */
