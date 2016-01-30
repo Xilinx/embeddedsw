@@ -644,8 +644,6 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 
 	if( ulTimeOut != 0UL )
 	{
-		configASSERT( xInsideISR == ( portBASE_TYPE ) 0 );
-
 		if( xInsideISR != pdFALSE ) {
 			if( pdTRUE == xQueueReceiveFromISR( *pxMailBox, &( *ppvBuffer ), &xHigherPriorityTaskWoken ) )
 			{

@@ -441,6 +441,8 @@ proc generate_lwip_opts {libhandle} {
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO $thread_prio"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
 			puts $lwipopts_fd "\#define TCPIP_THREAD_STACKSIZE 4096"
+			puts $lwipopts_fd "\#define LWIP_COMPAT_MUTEX 1"
+			puts $lwipopts_fd "\#define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 0"
 			puts $lwipopts_fd ""
 		}
 		if { [string compare -nocase "freertos823_xilinx" $os_name] == 0} {
@@ -453,6 +455,8 @@ proc generate_lwip_opts {libhandle} {
 			puts $lwipopts_fd "\#define TCPIP_MBOX_SIZE		200"
 			puts $lwipopts_fd "\#define DEFAULT_UDP_RECVMBOX_SIZE 	100"
 			puts $lwipopts_fd "\#define DEFAULT_RAW_RECVMBOX_SIZE	30"
+			puts $lwipopts_fd "\#define LWIP_COMPAT_MUTEX 0"
+			puts $lwipopts_fd "\#define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 1"
 			puts $lwipopts_fd ""
 		}
 	}
@@ -688,13 +692,7 @@ proc generate_lwip_opts {libhandle} {
 	} else {
 		puts $lwipopts_fd "\#define TCP_OVERSIZE TCP_MSS"
 	}
-	if {$proctype == "microblaze"} {
-		puts $lwipopts_fd "\#define LWIP_COMPAT_MUTEX 1"
-		puts $lwipopts_fd "\#define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 0"
-	} else {
-		puts $lwipopts_fd "\#define LWIP_COMPAT_MUTEX 0"
-		puts $lwipopts_fd "\#define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 1"
-	}
+
 	puts $lwipopts_fd ""
 
 	set jumbo_frames [common::get_property CONFIG.temac_use_jumbo_frames $libhandle]

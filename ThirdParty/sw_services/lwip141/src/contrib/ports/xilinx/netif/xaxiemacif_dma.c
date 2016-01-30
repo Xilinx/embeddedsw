@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,15 @@
 #include "lwipopts.h"
 
 #if !NO_SYS
+#ifdef OS_IS_XILKERNEL
 #include "xmk.h"
 #include "sys/intr.h"
+#endif
+#ifdef OS_IS_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "timers.h"
+#endif
 #include "lwip/sys.h"
 #endif
 
@@ -96,6 +103,10 @@ static void xaxiemac_errorfast_handler(void) __attribute__ ((fast_interrupt));
 /** Variables for Fast Interrupt handlers ***/
 struct xemac_s *xemac_fast;
 xaxiemacif_s *xaxiemacif_fast;
+#endif
+
+#ifdef OS_IS_FREERTOS
+unsigned int xInsideISR = 0;
 #endif
 
 static void bd_csum_enable(XAxiDma_Bd *bd)
@@ -248,7 +259,9 @@ static void axidma_send_handler(void *arg)
 	XAxiDma_BdRing *txringptr;
 	struct xtopology_t *xtopologyp;
 	XAxiEthernet *xaxiemac;
-
+#ifdef OS_IS_FREERTOS
+	xInsideISR++;
+#endif
 	xemac = (struct xemac_s *)(arg);
 	xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	txringptr = XAxiDma_GetTxRing(&xaxiemacif->axidma);
@@ -269,12 +282,18 @@ static void axidma_send_handler(void *arg)
 		xil_printf("%s: Error: axidma error interrupt is asserted\r\n",
 			__FUNCTION__);
 		XAxiDma_Reset(&xaxiemacif->axidma);
+#ifdef OS_IS_FREERTOS
+		xInsideISR--;
+#endif
 		return;
 	}
 	/* If Transmit done interrupt is asserted, process completed BD's */
 	if (irq_status & (XAXIDMA_IRQ_DELAY_MASK | XAXIDMA_IRQ_IOC_MASK)) {
 		process_sent_bds(txringptr);
 	}
+#ifdef OS_IS_FREERTOS
+	xInsideISR--;
+#endif
 }
 
 static void setup_rx_bds(XAxiDma_BdRing *rxring)
@@ -347,6 +366,10 @@ static void axidma_recv_handler(void *arg)
 	struct xtopology_t *xtopologyp;
 	XAxiEthernet *xaxiemac;
 
+#ifdef OS_IS_FREERTOS
+	xInsideISR++;
+#endif
+
 	xemac = (struct xemac_s *)(arg);
 	xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	rxring = XAxiDma_GetRxRing(&xaxiemacif->axidma);
@@ -379,6 +402,9 @@ static void axidma_recv_handler(void *arg)
 		}
 		XAxiDma_BdRingIntEnable(rxring, XAXIDMA_IRQ_ALL_MASK);
 		XAxiDma_Resume(&xaxiemacif->axidma);
+#ifdef OS_IS_FREERTOS
+		xInsideISR--;
+#endif
 		return;
 	}
 	/* If Reception done interrupt is asserted, call RX call back function
@@ -419,7 +445,7 @@ static void axidma_recv_handler(void *arg)
 #endif
 				pbuf_free(p);
 			}
-			rxbd = XAxiDma_BdRingNext(rxring, rxbd);
+			rxbd = (XAxiDma_Bd *)XAxiDma_BdRingNext(rxring, rxbd);
 		}
 		/* free up the BD's */
 		XAxiDma_BdRingFree(rxring, bd_processed, rxbdset);
@@ -431,6 +457,10 @@ static void axidma_recv_handler(void *arg)
 #endif
 	}
 	XAxiDma_BdRingIntEnable(rxring, XAXIDMA_IRQ_ALL_MASK);
+#ifdef OS_IS_FREERTOS
+	xInsideISR--;
+#endif
+
 }
 
 s32_t is_tx_space_available(xaxiemacif_s *emac)
@@ -457,7 +487,7 @@ s32_t process_sent_bds(XAxiDma_BdRing *txring)
 	for (i = 0, txbd = txbdset; i < n_bds; i++) {
 		struct pbuf *p = (struct pbuf *)XAxiDma_BdGetId(txbd);
 		pbuf_free(p);
-		txbd = XAxiDma_BdRingNext(txring, txbd);
+		txbd = (XAxiDma_Bd *)XAxiDma_BdRingNext(txring, txbd);
 	}
 	/* free the processed BD's */
 	return (XAxiDma_BdRingFree(txring, n_bds, txbdset));
@@ -510,7 +540,7 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 		pbuf_ref(q);
 
 		last_txbd = txbd;
-		txbd = XAxiDma_BdRingNext(txring, txbd);
+		txbd = (XAxiDma_Bd *)XAxiDma_BdRingNext(txring, txbd);
 	}
 
 	if (n_pbufs == 1) {
@@ -585,6 +615,9 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	xemac_fast = xemac;
 #endif
 #if NO_SYS
+	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
+#endif
+#ifdef OS_IS_FREERTOS
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 #endif
 
@@ -791,6 +824,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		XIntc_EnableIntr(xtopologyp->intc_baseaddr, cur_mask);
 	} while (0);
 #else
+#ifdef OS_IS_XILKERNEL
 	/* connect & enable axiethernet interrupts */
 	register_int_handler(xaxiemacif->axi_ethernet.Config.TemacIntr,
 			(XInterruptHandler)xaxiemac_error_handler,
@@ -807,6 +841,54 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 			(XInterruptHandler)axidma_recv_handler,
 			xemac);
 	enable_interrupt(xaxiemacif->axi_ethernet.Config.AxiDmaRxIntr);
+#else
+#if XPAR_INTC_0_HAS_FAST == 1
+
+	/* Register axiethernet interrupt with interrupt controller as Fast
+							Interrupts */
+	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.TemacIntr,
+			(XFastInterruptHandler)xaxiemac_errorfast_handler);
+
+	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.AxiDmaTxIntr,
+			(XFastInterruptHandler)axidma_sendfast_handler);
+
+	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.AxiDmaRxIntr,
+			(XFastInterruptHandler)axidma_recvfast_handler);
+#else
+	/* Register axiethernet interrupt with interrupt controller */
+	XIntc_RegisterHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.TemacIntr,
+			(XInterruptHandler)xaxiemac_error_handler,
+			&xaxiemacif->axi_ethernet);
+	/* connect & enable DMA interrupts */
+	XIntc_RegisterHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.AxiDmaTxIntr,
+			(XInterruptHandler)axidma_send_handler,
+				xemac);
+	XIntc_RegisterHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.AxiDmaRxIntr,
+			(XInterruptHandler)axidma_recv_handler,
+				xemac);
+#endif
+	/* Enable EMAC interrupts in the interrupt controller */
+	do {
+		/* read current interrupt enable mask */
+		unsigned int cur_mask = XIntc_In32(xtopologyp->intc_baseaddr +
+							XIN_IER_OFFSET);
+
+		/* form new mask enabling AXIDMA & axiethernet interrupts */
+		cur_mask = cur_mask
+			| (1 << xaxiemacif->axi_ethernet.Config.AxiDmaTxIntr)
+			| (1 << xaxiemacif->axi_ethernet.Config.AxiDmaRxIntr)
+			| (1 << xaxiemacif->axi_ethernet.Config.TemacIntr);
+
+		/* set new mask */
+		XIntc_EnableIntr(xtopologyp->intc_baseaddr, cur_mask);
+	} while (0);
+#endif
 #endif
 #endif
 	return 0;

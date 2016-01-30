@@ -33,6 +33,7 @@
 #include <stdlib.h>
 
 #include "netif/xpqueue.h"
+#include "xil_printf.h"
 
 #define NUM_QUEUES	2
 
