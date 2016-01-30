@@ -913,10 +913,14 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
     set intc_periph_type [common::get_property IP_NAME $intc_handle]
     set intc_name [common::get_property NAME $intc_handle]
     set proc_connected_periphs [::hsm::utils::get_proc_slave_periphs $processor]
-    if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1 } {
-	set proc_name [common::get_property NAME $processor]
-	error "ERROR: $intc_name to which axi_ethernet interrupt is connected is not addressable \
-		from processor $proc_name" "" "mdt_error"
+    if { [llength $intc_periph_type] < 2} {
+	if { [lsearch -exact $proc_connected_periphs $intc_handle] == -1} {
+		set proc_name [common::get_property NAME $processor]
+		error "ERROR: $intc_name to which axi_ethernet interrupt is connected is not addressable \
+			from processor $proc_name" "" "mdt_error"
+	}
+    } else {
+	set intc_periph_type [lindex $intc_periph_type 1]
     }
 
 	if { [llength $intc_handle] != 1 } {

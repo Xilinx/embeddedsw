@@ -468,6 +468,7 @@
 *		      Create the BSP if the interrupt pin on the FIFO is unconnected
 * 5.1  sk  11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                   Changed the prototype of XAxiEthernet_CfgInitialize API.
+* 5.1  adk 30/01/15  Fix compilation errors in case of zynqmp. CR#933825.
 * </pre>
 *
 ******************************************************************************/

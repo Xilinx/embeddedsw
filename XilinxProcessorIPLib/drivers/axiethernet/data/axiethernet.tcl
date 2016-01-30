@@ -533,6 +533,10 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
 		set pname_type [::hsi::utils::get_connected_intr_cntrl $target_periph $intr_sink]
                 if {$pname_type != "chipscope_ila"} {
 			set special [get_property IP_TYPE $pname_type]
+			#Handling for zynqmp
+                        if { [llength $special] > 1 } {
+                             set special [lindex $special 1]
+                        }
 			if {[string compare -nocase $special "INTERRUPT_CNTLR"] == 0} {
 				set found_intc $intr_sink
 			}
@@ -551,6 +555,9 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
 	    set intc_periph [get_cells -of_objects $found_intc]
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
+	    if { [llength $intc_periph_type] > 1 } {
+                set intc_periph_type [lindex $intc_periph_type 1]
+            }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
             continue
@@ -561,7 +568,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
         # iterate over the interrupt lines again and see if a particular signal
         # matches the original interrupt signal we were tracking.
         # If it does, put out the XPAR
-        if { $intc_periph_type != [format "ps7_scugic"] } {
+        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]} {
 		set rx_int_id [::hsi::utils::get_port_intr_id $target_periph $dmarx_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_DMARX_INTR" $canonical_tag]
                 puts $file_handle [format "#define $canonical_name %d" $rx_int_id]
@@ -577,7 +584,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
 
     # Now add to the config table in the proper order (RX first, then TX
 
-    if { $intc_periph_type == [format "ps7_scugic"] } {
+    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"]} {
 	set canonical_name [format "XPAR_%s_CONNECTED_DMARX_INTR" $canonical_tag]
 	puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_S2MM_INTROUT_INTR" $target_periph_name]
 	add_field_to_periph_config_struct $deviceid $canonical_name
@@ -640,6 +647,10 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
 
         set intc_periph_type [get_property IP_NAME $intc_periph]
         set intc_name [string toupper [get_property NAME $intc_periph]]
+	#Handling for ZYNQMP
+	if { [llength $intc_periph_type] > 1 } {
+		set intc_periph_type [lindex $intc_periph_type 1]
+	}
     } else {
          puts "Info: $periph_name interrupt signal $interrupt_signal_name not connected"
          # No interrupts were connected, so add dummy entry to the config structure
@@ -651,8 +662,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     # A bit of ugliness here. The only way to figure the ordinal is to
     # iterate over the interrupt lines again and see if a particular signal
     # matches the original interrupt signal we were tracking.
-
-    if { $intc_periph_type != [format "ps7_scugic"] } {
+    if { $intc_periph_type != [format "ps7_scugic"]  && $intc_periph_type != [format "psu_acpu_gic"]} {
 	 set ethernet_int_signal_name [get_pins -of_objects $periph INTERRUPT]
 	 set int_id [::hsi::utils::get_port_intr_id $periph $ethernet_int_signal_name]
 	 puts $file_handle "\#define $canonical_name $int_id"
