@@ -84,7 +84,7 @@ err_t accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err)
 
 	/* just use an integer number indicating the connection id as the
 	   callback argument */
-	tcp_arg(newpcb, (void*)connection);
+	tcp_arg(newpcb, (void*)(UINTPTR)connection);
 
 	/* increment for subsequent accepted connections */
 	connection++;
