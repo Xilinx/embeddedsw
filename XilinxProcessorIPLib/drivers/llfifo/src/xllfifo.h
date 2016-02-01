@@ -170,6 +170,9 @@
  * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
  *                     Changed the prototypes of XLlFifo_CfgInitialize,
  *                     XLlFifo_Initialize APIs.
+ * 5.1  adk   01/02/15 CR#885653 Fix Incorrect AXI4 Base address being
+ *                     Exported to the xparameters.h file.
+ *
  *
  * </pre>
  *
