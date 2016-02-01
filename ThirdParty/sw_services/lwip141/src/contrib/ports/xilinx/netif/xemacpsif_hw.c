@@ -62,7 +62,7 @@ XEmacPs_Config *xemacps_lookup_config(unsigned mac_base)
 
 void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 {
-	u32_t mac_address = (u32_t)(netif->state);
+	UINTPTR mac_address = (UINTPTR)(netif->state);
 	XEmacPs *xemacpsp;
 	XEmacPs_Config *mac_config;
 	s32_t status = XST_SUCCESS;
@@ -134,7 +134,7 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 
 void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif)
 {
-	u32_t mac_address = (u32_t)(netif->state);
+	UINTPTR mac_address = (UINTPTR)(netif->state);
 	XEmacPs *xemacpsp;
 	XEmacPs_Config *mac_config;
 	s32_t status = XST_SUCCESS;

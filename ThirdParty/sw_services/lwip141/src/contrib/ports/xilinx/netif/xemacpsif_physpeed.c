@@ -759,11 +759,11 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 #endif
 			}
 		}
-		SlcrTxClkCntrl = *(volatile u32_t *)(slcrBaseAddress);
+		SlcrTxClkCntrl = *(volatile u32_t *)(UINTPTR)(slcrBaseAddress);
 		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
 		SlcrTxClkCntrl |= (SlcrDiv1 << 20);
 		SlcrTxClkCntrl |= (SlcrDiv0 << 8);
-		*(volatile u32_t *)(slcrBaseAddress) = SlcrTxClkCntrl;
+		*(volatile u32_t *)(UINTPTR)(slcrBaseAddress) = SlcrTxClkCntrl;
 		*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
 	}
 	return;

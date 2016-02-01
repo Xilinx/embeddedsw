@@ -268,7 +268,7 @@ s32_t xemacpsif_input(struct netif *netif)
 
 static err_t low_level_init(struct netif *netif)
 {
-	u32_t mac_address = (u32_t)(netif->state);
+	UINTPTR mac_address = (UINTPTR)(netif->state);
 	struct xemac_s *xemac;
 	xemacpsif_s *xemacpsif;
 	u32 dmacrreg;
@@ -316,7 +316,7 @@ static err_t low_level_init(struct netif *netif)
 	sys_sem_new(&xemac->sem_rx_data_available, 0);
 #endif
 	/* obtain config of this emac */
-	mac_config = (XEmacPs_Config *)xemacps_lookup_config((unsigned)netif->state);
+	mac_config = (XEmacPs_Config *)xemacps_lookup_config((unsigned)(UINTPTR)netif->state);
 
 	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);

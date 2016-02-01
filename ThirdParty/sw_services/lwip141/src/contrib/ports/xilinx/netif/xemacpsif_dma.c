@@ -64,8 +64,8 @@
 #define BD_ALIGNMENT (XEMACPS_DMABD_MINIMUM_ALIGNMENT*2)
 
 /* A max of 4 different ethernet interfaces are supported */
-static s32_t tx_pbufs_storage[4*XLWIP_CONFIG_N_TX_DESC];
-static s32_t rx_pbufs_storage[4*XLWIP_CONFIG_N_RX_DESC];
+static UINTPTR tx_pbufs_storage[4*XLWIP_CONFIG_N_TX_DESC];
+static UINTPTR rx_pbufs_storage[4*XLWIP_CONFIG_N_RX_DESC];
 
 static s32_t emac_intr_num;
 
@@ -317,7 +317,7 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		else
 			XEmacPs_BdSetLength(txbd, q->len & 0x3FFF);
 
-		tx_pbufs_storage[index + bdindex] = (s32_t)q;
+		tx_pbufs_storage[index + bdindex] = (UINTPTR)q;
 
 		pbuf_ref(q);
 		last_txbd = txbd;
@@ -412,7 +412,7 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 		dsb();
 
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
-		rx_pbufs_storage[index + bdindex] = (s32_t)p;
+		rx_pbufs_storage[index + bdindex] = (UINTPTR)p;
 	}
 }
 
@@ -671,7 +671,7 @@ XStatus init_dma(struct xemac_s *xemac)
 		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
 
-		rx_pbufs_storage[index + bdindex] = (s32_t)p;
+		rx_pbufs_storage[index + bdindex] = (UINTPTR)p;
 	}
 	XEmacPs_SetQueuePtr(&(xemacpsif->emacps), xemacpsif->emacps.RxBdRing.BaseBdAddr, 0, XEMACPS_RECV);
 	if (gigeversion > 2) {

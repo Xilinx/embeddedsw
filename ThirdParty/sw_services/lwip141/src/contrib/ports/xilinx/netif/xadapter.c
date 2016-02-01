@@ -164,7 +164,7 @@ xemac_add(struct netif *netif,
 			case xemac_type_emacps:
 #ifdef XLWIP_CONFIG_INCLUDE_GEM
 				return netif_add(netif, ipaddr, netmask, gw,
-						(void*)mac_baseaddr,
+						(void*)(UINTPTR)mac_baseaddr,
 						xemacpsif_init,
 #if NO_SYS
 						ethernet_input
