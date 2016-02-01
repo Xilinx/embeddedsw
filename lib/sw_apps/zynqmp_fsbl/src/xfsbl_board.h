@@ -42,7 +42,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  ssc  01/20/16 Initial release
+* 1.0   ssc  01/20/16 Initial release
 *
 * </pre>
 *
@@ -59,10 +59,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
-#include "xiicps.h"
-#include "xparameters.h"
-
 #ifdef XPS_BOARD_ZCU102
+#include "xiicps.h"
 /************************** Constant Definitions *****************************/
 #define SERDES_ICM_CFG0_L0_ICM_CFG_MASK	0x00000007U
 #define SERDES_ICM_CFG0_L1_ICM_CFG_MASK	0x00000070U

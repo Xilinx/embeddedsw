@@ -50,7 +50,6 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#include "xfsbl_hw.h"
 #include "xfsbl_board.h"
 #ifdef XPS_BOARD_ZCU102
 /************************** Constant Definitions *****************************/
@@ -109,7 +108,8 @@ static s32 XFsbl_BoardConfig(void)
 	/* Configure I/O pins as Output */
 	WriteBuffer[0] = CMD_CFG_0_REG;
 	WriteBuffer[1] = DATA_OUTPUT;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr, WriteBuffer, 2, IOEXPANDER1_ADDR);
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		Status = XFSBL_ERROR_I2C_WRITE;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
@@ -157,7 +157,8 @@ static s32 XFsbl_BoardConfig(void)
 	}
 
 	/* Send the Data */
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr, WriteBuffer, 2, IOEXPANDER1_ADDR);
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, IOEXPANDER1_ADDR);
 	if (Status != XST_SUCCESS) {
 		Status = XFSBL_ERROR_I2C_WRITE;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
@@ -172,7 +173,8 @@ static s32 XFsbl_BoardConfig(void)
 
 	/* Set I2C Mux for channel-2 (MAXIM_PMBUS) */
 	WriteBuffer[0] = CMD_CH_2_REG;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr, WriteBuffer, 1, PCA9544A_ADDR);
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 1, PCA9544A_ADDR);
 	if (Status != XST_SUCCESS) {
 		Status = XFSBL_ERROR_I2C_WRITE;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
@@ -185,7 +187,8 @@ static s32 XFsbl_BoardConfig(void)
 	/* Enable Regulator (FMC ADJ) */
 	WriteBuffer[0] = CMD_ON_OFF_CFG;
 	WriteBuffer[1] = ON_OFF_CFG_VAL;
-	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr, WriteBuffer, 2, MAX15301_ADDR);
+	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
+			WriteBuffer, 2, MAX15301_ADDR);
 	if (Status != XST_SUCCESS) {
 		Status = XFSBL_ERROR_I2C_WRITE;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_I2C_WRITE\r\n");
