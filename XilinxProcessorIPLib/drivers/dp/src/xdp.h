@@ -1116,6 +1116,7 @@ void XDp_RxDtgDis(XDp *InstancePtr);
 void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
 u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount);
+u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 
 /* xdp.c: Audio functions. */
 void XDp_RxAudioEn(XDp *InstancePtr);

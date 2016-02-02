@@ -124,9 +124,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
 	/* Verify the rest of the values used. */
-	Xil_AssertVoid((LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_162GBPS) ||
-			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_270GBPS) ||
-			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_540GBPS));
+	Xil_AssertVoid(XDp_IsLinkRateValid(InstancePtr, LinkConfig->LinkRate));
 	Xil_AssertVoid(XDp_IsLaneCountValid(InstancePtr,
 				LinkConfig->LaneCount));
 	Xil_AssertVoid((MsaConfig->SynchronousClockMode == 0) ||

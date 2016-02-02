@@ -365,10 +365,8 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertNonvoid((LinkConfig->LinkRate ==
-			XDP_TX_LINK_BW_SET_162GBPS) ||
-			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_270GBPS) ||
-			(LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_540GBPS));
+	Xil_AssertNonvoid(XDp_IsLinkRateValid(InstancePtr,
+				LinkConfig->LinkRate));
 	Xil_AssertNonvoid(XDp_IsLaneCountValid(InstancePtr,
 				LinkConfig->LaneCount));
 
@@ -1105,9 +1103,7 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertNonvoid((LinkRate == XDP_TX_LINK_BW_SET_162GBPS) ||
-				(LinkRate == XDP_TX_LINK_BW_SET_270GBPS) ||
-				(LinkRate == XDP_TX_LINK_BW_SET_540GBPS));
+	Xil_AssertNonvoid(XDp_IsLinkRateValid(InstancePtr, LinkRate));
 
 	if (!XDp_TxIsConnected(InstancePtr)) {
 		return XST_DEVICE_NOT_FOUND;
@@ -1532,9 +1528,7 @@ void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid((LinkRate == XDP_RX_OVER_LINK_BW_SET_162GBPS) ||
-				(LinkRate == XDP_RX_OVER_LINK_BW_SET_270GBPS) ||
-				(LinkRate == XDP_RX_OVER_LINK_BW_SET_540GBPS));
+	Xil_AssertVoid(XDp_IsLinkRateValid(InstancePtr, LinkRate));
 
 	InstancePtr->RxInstance.LinkConfig.LinkRate = LinkRate;
 
@@ -1807,6 +1801,40 @@ void XDp_TxSetPeVsAdjustCallback(XDp *InstancePtr,
 
 	InstancePtr->TxInstance.PeVsAdjustCallback = CallbackFunc;
 	InstancePtr->TxInstance.PeVsAdjustCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function checks the validity of the link rate.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	LinkRate is the link rate to check if valid.
+ *
+ * @return
+ *		- 1 if specified link rate is valid.
+ *		- 0 otherwise, if the link rate specified isn't valid as per
+ *		  spec, or if it exceeds the capabilities of the TX core.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
+{
+	u8 Valid;
+
+	if ((LinkRate != XDP_TX_LINK_BW_SET_162GBPS) &&
+			(LinkRate != XDP_TX_LINK_BW_SET_270GBPS) &&
+			(LinkRate != XDP_TX_LINK_BW_SET_540GBPS)) {
+		Valid = 0;
+	}
+	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {
+		Valid = 0;
+	}
+	else {
+		Valid = 1;
+	}
+
+	return Valid;
 }
 
 /******************************************************************************/
