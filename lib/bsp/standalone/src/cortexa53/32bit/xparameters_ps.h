@@ -144,6 +144,7 @@ extern "C" {
 #define XPAR_XAPMPS_1_INTR		XPS_APM1_INT_ID
 #define XPAR_XAPMPS_2_INTR		XPS_APM2_INT_ID
 #define XPAR_XAPMPS_5_INTR		XPS_APM5_INT_ID
+#define XPAR_XSYSMONPSU_INTR		XPS_AMS_INT_ID
 
 /* Canonical definitions for SCU GIC */
 #define XPAR_SCUGIC_NUM_INSTANCES	1U
@@ -220,6 +221,7 @@ extern "C" {
 #define XPS_TTC3_2_INT_ID		(47U + 32U)
 #define XPS_SDIO0_INT_ID		(48U + 32U)
 #define XPS_SDIO1_INT_ID		(49U + 32U)
+#define XPS_AMS_INT_ID			(56U + 32U)
 #define XPS_GEM0_INT_ID			(57U + 32U)
 #define XPS_GEM0_WAKE_INT_ID		(58U + 32U)
 #define XPS_GEM1_INT_ID			(59U + 32U)

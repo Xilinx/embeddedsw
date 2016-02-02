@@ -261,4 +261,6 @@
  * 5.4 pkp   23/11/15  Added default undefined exception handler for Cortex-A9
  * 5.4 pkp   08/01/16  Modified cortexa9/gcc/Makefile to update the extra compiler flag
  *		       as per the toolchain update
+ * 5.4 kvn   30/01/16  Modified xparameters_ps.h file to add interrupt ID number for
+ *		       system monitor.
  *****************************************************************************************/
