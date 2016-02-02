@@ -34,7 +34,7 @@ OPTION psf_version = 2.1;
 BEGIN driver dprxss
 	OPTION supported_peripherals = (dp_rx_subsystem);
 	OPTION driver_state = ACTIVE;
-	OPTION depends = (video_common_v2_1);
+	OPTION depends = (video_common_v2_2);
 	OPTION copyfiles = all;
 	OPTION VERSION = 2.0;
 	OPTION NAME = dprxss;
