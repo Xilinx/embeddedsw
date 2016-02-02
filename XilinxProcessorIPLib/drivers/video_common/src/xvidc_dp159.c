@@ -46,6 +46,8 @@
 * 1.00 sha 07/13/15 Initial release.
 * 1.00 sha 08/11/15 Removed extra DP159 register programming as per new DP159
 *                   programming guide. Added bit error count function.
+* 2.2  als 02/01/16 Functions with pointer arguments that don't modify
+*                   contents now const.
 * </pre>
 *
 ******************************************************************************/
@@ -127,7 +129,7 @@ const XVidC_Dp159Data Dp159Values [] = {
 * @note                None.
 *
 ******************************************************************************/
-u32 XVidC_Dp159Initialize(XIic *InstancePtr)
+u32 XVidC_Dp159Initialize(const XIic *InstancePtr)
 {
        u32 Index;
 
@@ -162,8 +164,8 @@ u32 XVidC_Dp159Initialize(XIic *InstancePtr)
 * @note                None.
 *
 ******************************************************************************/
-u32 XVidC_Dp159Write(XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
-                       u8 WriteVal)
+u32 XVidC_Dp159Write(const XIic *InstancePtr, u8 IicSlaveAddr,
+		u8 Dp159RegOffset, u8 WriteVal)
 {
        u8 WriteBuf[2];
        u8 NumBytes;
@@ -205,7 +207,7 @@ u32 XVidC_Dp159Write(XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
 * @note                None.
 *
 ******************************************************************************/
-u32 XVidC_Dp159Read(XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
+u32 XVidC_Dp159Read(const XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
                        u8 *ReadVal)
 {
        u8 NumBytes;
@@ -246,7 +248,7 @@ u32 XVidC_Dp159Read(XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
 * @note                None.
 *
 ******************************************************************************/
-void XVidC_Dp159Config(XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
+void XVidC_Dp159Config(const XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
                        u8 LaneCount)
 {
        u8 LRate;
@@ -461,7 +463,7 @@ void XVidC_Dp159Config(XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
 * @note                Reset pin of DP159 is driven using the GPIO output of axi_iic.
 *
 ******************************************************************************/
-void XVidC_Dp159Reset(XIic *InstancePtr, u8 Reset)
+void XVidC_Dp159Reset(const XIic *InstancePtr, u8 Reset)
 {
        /* Verify arguments. */
        Xil_AssertVoid(InstancePtr != NULL);
@@ -488,7 +490,7 @@ void XVidC_Dp159Reset(XIic *InstancePtr, u8 Reset)
 * @note		None.
 *
 ******************************************************************************/
-void XVidC_Dp159BitErrCount(XIic *InstancePtr)
+void XVidC_Dp159BitErrCount(const XIic *InstancePtr)
 {
 	u8 Data;
 

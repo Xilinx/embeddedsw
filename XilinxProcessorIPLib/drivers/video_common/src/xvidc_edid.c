@@ -48,6 +48,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  11/09/14 Initial release.
+ * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
+ *                     contents now const.
  * </pre>
  *
 *******************************************************************************/
@@ -58,12 +60,12 @@
 
 /**************************** Function Prototypes *****************************/
 
-static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(u8 *EdidRaw,
-						XVidC_VideoTimingMode *VtMode);
-static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw,
-						XVidC_VideoTimingMode *VtMode);
-static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings(u8 *EdidRaw,
-						XVidC_VideoTimingMode *VtMode);
+static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode);
+static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode);
+static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode);
 static float XVidC_CalculatePower(float Base, u8 Power);
 static float XVidC_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
 
@@ -84,7 +86,7 @@ static float XVidC_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
  * @note	The ManName argument is modified with the manufacturer name.
  *
 *******************************************************************************/
-void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4])
+void XVidC_EdidGetManName(const u8 *EdidRaw, char ManName[4])
 {
 	ManName[0] = 0x40 + ((EdidRaw[XVIDC_EDID_VPI_ID_MAN_NAME0] &
 				XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR0_MASK) >>
@@ -114,7 +116,7 @@ void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4])
  * @note	None.
  *
 *******************************************************************************/
-XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw)
+XVidC_ColorDepth XVidC_EdidGetColorDepth(const u8 *EdidRaw)
 {
 	u8 Bpc;
 
@@ -167,7 +169,7 @@ XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcRedX(u8 *EdidRaw)
+float XVidC_EdidGetCcRedX(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_REDX_HIGH] <<
@@ -189,7 +191,7 @@ float XVidC_EdidGetCcRedX(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcRedY(u8 *EdidRaw)
+float XVidC_EdidGetCcRedY(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_REDY_HIGH] <<
@@ -212,7 +214,7 @@ float XVidC_EdidGetCcRedY(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcGreenX(u8 *EdidRaw)
+float XVidC_EdidGetCcGreenX(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_GREENX_HIGH] <<
@@ -235,7 +237,7 @@ float XVidC_EdidGetCcGreenX(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcGreenY(u8 *EdidRaw)
+float XVidC_EdidGetCcGreenY(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_GREENY_HIGH] <<
@@ -257,7 +259,7 @@ float XVidC_EdidGetCcGreenY(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcBlueX(u8 *EdidRaw)
+float XVidC_EdidGetCcBlueX(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_BLUEX_HIGH] <<
@@ -279,7 +281,7 @@ float XVidC_EdidGetCcBlueX(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcBlueY(u8 *EdidRaw)
+float XVidC_EdidGetCcBlueY(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_BLUEY_HIGH] <<
@@ -301,7 +303,7 @@ float XVidC_EdidGetCcBlueY(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcWhiteX(u8 *EdidRaw)
+float XVidC_EdidGetCcWhiteX(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_WHITEX_HIGH] <<
@@ -323,7 +325,7 @@ float XVidC_EdidGetCcWhiteX(u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcWhiteY(u8 *EdidRaw)
+float XVidC_EdidGetCcWhiteY(const u8 *EdidRaw)
 {
 	return XVidC_CalculateBinaryFraction(
 		(EdidRaw[XVIDC_EDID_CC_WHITEY_HIGH] <<
@@ -346,7 +348,7 @@ float XVidC_EdidGetCcWhiteY(u8 *EdidRaw)
  * @note	StdTimingsNum is an index 1-8.
  *
 *******************************************************************************/
-u16 XVidC_EdidGetStdTimingsV(u8 *EdidRaw, u8 StdTimingsNum)
+u16 XVidC_EdidGetStdTimingsV(const u8 *EdidRaw, u8 StdTimingsNum)
 {
 	u16 V;
 
@@ -396,7 +398,8 @@ u16 XVidC_EdidGetStdTimingsV(u8 *EdidRaw, u8 StdTimingsNum)
  * @note	None.
  *
 *******************************************************************************/
-u32 XVidC_EdidIsVideoTimingSupported(u8 *EdidRaw, XVidC_VideoTimingMode *VtMode)
+u32 XVidC_EdidIsVideoTimingSupported(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode)
 {
 	u32 Status;
 
@@ -437,8 +440,8 @@ u32 XVidC_EdidIsVideoTimingSupported(u8 *EdidRaw, XVidC_VideoTimingMode *VtMode)
  * @note	None.
  *
 *******************************************************************************/
-static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(u8 *EdidRaw,
-						XVidC_VideoTimingMode *VtMode)
+static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode)
 {
 	u8 *Ptm;
 
@@ -484,8 +487,8 @@ static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(u8 *EdidRaw,
  * @note	None.
  *
 *******************************************************************************/
-static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw,
-						XVidC_VideoTimingMode *VtMode)
+static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode)
 {
 	u32 Status = XST_FAILURE;
 
@@ -613,8 +616,8 @@ static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(u8 *EdidRaw,
  * @note	None.
  *
 *******************************************************************************/
-static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings(u8 *EdidRaw,
-			XVidC_VideoTimingMode *VtMode)
+static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode)
 {
 	u8 Index;
 

@@ -49,6 +49,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  11/09/14 Initial release.
+ * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
+ *                     contents now const.
  * </pre>
  *
 *******************************************************************************/
@@ -267,7 +269,7 @@
 	!memcmp(E, "\x00\xFF\xFF\xFF\xFF\xFF\xFF\x00", 8)
 
 /* Vendor and product identification: ID manufacturer name. */
-/* void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4]); */
+/* void XVidC_EdidGetManName(const u8 *EdidRaw, char ManName[4]); */
 
 /* Vendor and product identification: ID product code. */
 #define XVidC_EdidGetIdProdCode(E) \
@@ -314,7 +316,7 @@
 #define XVidC_EdidSuppAnalogSigSerrVsync(E) \
 	((E[XVIDC_EDID_BDISP_VID] & \
 	XVIDC_EDID_BDISP_VID_ANA_SERR_V_SYNC_MASK) != 0)
-/* XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw); */
+/* XVidC_ColorDepth XVidC_EdidGetColorDepth(const u8 *EdidRaw); */
 #define XVidC_EdidGetDigitalSigIfaceStd(E) \
 	(E[XVIDC_EDID_BDISP_VID] & XVIDC_EDID_BDISP_VID_DIG_VIS_MASK)
 
@@ -371,14 +373,14 @@
 	XVIDC_EDID_BDISP_FEATURE_CONTFREQ_MASK) != 0)
 
 /* Color characterisitics (display x,y chromaticity coordinates). */
-/* float XVidC_EdidGetCcRedX(u8 *EdidRaw); */
-/* float XVidC_EdidGetCcRedY(u8 *EdidRaw); */
-/* float XVidC_EdidGetCcGreenX(u8 *EdidRaw); */
-/* float XVidC_EdidGetCcGreenY(u8 *EdidRaw); */
-/* float XVidC_EdidGetCcBlueX(u8 *EdidRaw); */
-/* float XVidC_EdidGetCcBlueY(u8 *EdidRaw); */
-/* float XVidC_EdidGetCcWhiteX(u8 *EdidRaw); */
-/* float XVidC_EdidGetCcWhiteY(u8 *EdidRaw); */
+/* float XVidC_EdidGetCcRedX(const u8 *EdidRaw); */
+/* float XVidC_EdidGetCcRedY(const u8 *EdidRaw); */
+/* float XVidC_EdidGetCcGreenX(const u8 *EdidRaw); */
+/* float XVidC_EdidGetCcGreenY(const u8 *EdidRaw); */
+/* float XVidC_EdidGetCcBlueX(const u8 *EdidRaw); */
+/* float XVidC_EdidGetCcBlueY(const u8 *EdidRaw); */
+/* float XVidC_EdidGetCcWhiteX(const u8 *EdidRaw); */
+/* float XVidC_EdidGetCcWhiteY(const u8 *EdidRaw); */
 
 /* Established timings. */
 #define XVidC_EdidSuppEstTimings720x400_70(E) \
@@ -443,7 +445,7 @@
 #define XVidC_EdidGetStdTimingsFrr(E, N) \
 	((E[XVIDC_EDID_STD_TIMINGS_AR_FRR(N)] & \
 	XVIDC_EDID_STD_TIMINGS_FRR_MASK) + 60)
-/* u16 XVidC_EdidGetStdTimingsV(u8 *EdidRaw, u8 StdTimingsNum); */
+/* u16 XVidC_EdidGetStdTimingsV(const u8 *EdidRaw, u8 StdTimingsNum); */
 #define XVidC_EdidIsDtdPtmInterlaced(E) \
 	((E[XVIDC_EDID_PTM + XVIDC_EDID_DTD_PTM_SIGNAL] & \
 	XVIDC_EDID_DTD_PTM_SIGNAL_INTERLACED_MASK) >> \
@@ -458,27 +460,27 @@
 /**************************** Function Prototypes *****************************/
 
 /* Vendor and product identification: ID manufacturer name. */
-void XVidC_EdidGetManName(u8 *EdidRaw, char ManName[4]);
+void XVidC_EdidGetManName(const u8 *EdidRaw, char ManName[4]);
 
 /* Basic display parameters and features: Video input definition. */
-XVidC_ColorDepth XVidC_EdidGetColorDepth(u8 *EdidRaw);
+XVidC_ColorDepth XVidC_EdidGetColorDepth(const u8 *EdidRaw);
 
 /* Color characteristics (display x,y chromaticity coordinates). */
-float XVidC_EdidGetCcRedX(u8 *EdidRaw);
-float XVidC_EdidGetCcRedY(u8 *EdidRaw);
-float XVidC_EdidGetCcGreenX(u8 *EdidRaw);
-float XVidC_EdidGetCcGreenY(u8 *EdidRaw);
-float XVidC_EdidGetCcBlueX(u8 *EdidRaw);
-float XVidC_EdidGetCcBlueY(u8 *EdidRaw);
-float XVidC_EdidGetCcWhiteX(u8 *EdidRaw);
-float XVidC_EdidGetCcWhiteY(u8 *EdidRaw);
+float XVidC_EdidGetCcRedX(const u8 *EdidRaw);
+float XVidC_EdidGetCcRedY(const u8 *EdidRaw);
+float XVidC_EdidGetCcGreenX(const u8 *EdidRaw);
+float XVidC_EdidGetCcGreenY(const u8 *EdidRaw);
+float XVidC_EdidGetCcBlueX(const u8 *EdidRaw);
+float XVidC_EdidGetCcBlueY(const u8 *EdidRaw);
+float XVidC_EdidGetCcWhiteX(const u8 *EdidRaw);
+float XVidC_EdidGetCcWhiteY(const u8 *EdidRaw);
 
 /* Standard timings. */
-u16 XVidC_EdidGetStdTimingsV(u8 *EdidRaw, u8 StdTimingsNum);
+u16 XVidC_EdidGetStdTimingsV(const u8 *EdidRaw, u8 StdTimingsNum);
 
 /* Utility functions. */
-u32 XVidC_EdidIsVideoTimingSupported(u8 *EdidRaw,
-						XVidC_VideoTimingMode *VtMode);
+u32 XVidC_EdidIsVideoTimingSupported(const u8 *EdidRaw,
+		const XVidC_VideoTimingMode *VtMode);
 
 #endif /* XVIDC_EDID_H_ */
 /** @} */

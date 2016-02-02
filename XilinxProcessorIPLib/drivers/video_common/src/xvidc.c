@@ -48,6 +48,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   rc,  01/10/15 Initial release.
  *       als
+ * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
+ *                     contents now const.
  * </pre>
  *
 *******************************************************************************/
@@ -480,7 +482,7 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
  * @note	None.
  *
 *******************************************************************************/
-void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
+void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 {
 	if ((Stream->VmId < XVIDC_VM_NUM_SUPPORTED) ||
 		(Stream->VmId == XVIDC_VM_CUSTOM)) {
@@ -529,7 +531,7 @@ void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream)
  * @note	None.
  *
 *******************************************************************************/
-void XVidC_ReportTiming(XVidC_VideoTiming *Timing, u8 IsInterlaced)
+void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced)
 {
 	xil_printf("\r\n\tHSYNC Timing: hav=%04d, hfp=%02d, hsw=%02d(hsp=%d), "
 			"hbp=%03d, htot=%04d \n\r", Timing->HActive,

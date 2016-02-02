@@ -47,6 +47,8 @@
 * 1.00 sha 07/13/15 Initial release.
 * 1.00 sha 08/11/15 Modified XVIDC_DP159_CT_PWR -> XVIDC_DP159_CT_UNPLUG.
 *                   Added bit error count function.
+* 2.2  als 02/01/16 Functions with pointer arguments that don't modify
+*                   contents now const.
 * </pre>
 *
 ******************************************************************************/
@@ -124,15 +126,15 @@ typedef struct {
  * system does not have IIC instance(s) as video common library is common.
  */
 #ifdef XPAR_XIIC_NUM_INSTANCES
-u32 XVidC_Dp159Initialize(XIic *InstancePtr);
-u32 XVidC_Dp159Write(XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
-                       u8 WriteVal);
-u32 XVidC_Dp159Read(XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
-                       u8 *ReadVal);
-void XVidC_Dp159Config(XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
-                       u8 LaneCount);
-void XVidC_Dp159Reset(XIic *InstancePtr, u8 Reset);
-void XVidC_Dp159BitErrCount(XIic *InstancePtr);
+u32 XVidC_Dp159Initialize(const XIic *InstancePtr);
+u32 XVidC_Dp159Write(const XIic *InstancePtr, u8 IicSlaveAddr,
+		u8 Dp159RegOffset, u8 WriteVal);
+u32 XVidC_Dp159Read(const XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
+		u8 *ReadVal);
+void XVidC_Dp159Config(const XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
+		u8 LaneCount);
+void XVidC_Dp159Reset(const XIic *InstancePtr, u8 Reset);
+void XVidC_Dp159BitErrCount(const XIic *InstancePtr);
 #endif /* End of XPAR_XIIC_NUM_INSTANCES */
 
 /************************** Variable Declarations ****************************/

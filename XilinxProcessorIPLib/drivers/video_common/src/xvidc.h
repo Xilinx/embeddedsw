@@ -50,6 +50,8 @@
  * 1.0   rc,  01/10/15 Initial release.
  *       als
  * 2.0   als  08/14/15 Added new video timings.
+ * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
+ *                     contents now const.
  * </pre>
  *
 *******************************************************************************/
@@ -411,8 +413,8 @@ char* XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
 char* XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId);
 XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId);
 const XVidC_VideoTiming* XVidC_GetTimingInfo(XVidC_VideoMode VmId);
-void XVidC_ReportStreamInfo(XVidC_VideoStream *Stream);
-void XVidC_ReportTiming(XVidC_VideoTiming *Timing, u8 IsInterlaced);
+void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream);
+void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced);
 
 /*************************** Variable Declarations ****************************/
 
