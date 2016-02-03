@@ -143,6 +143,9 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	} else if(ReadBuffer[0] == WINBOND_ID) {
 		QspiFlashMake = WINBOND_ID;
 		XFsbl_Printf(DEBUG_INFO, "WINBOND ");
+	} else if(ReadBuffer[0] == MACRONIX_ID) {
+		QspiFlashMake = MACRONIX_ID;
+		XFsbl_Printf(DEBUG_INFO, "MACRONIX ");
 	} else {
 		Status = XFSBL_ERROR_UNSUPPORTED_QSPI;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_UNSUPPORTED_QSPI\r\n");
@@ -158,10 +161,12 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	} else if (ReadBuffer[2] == FLASH_SIZE_ID_256M) {
 		QspiFlashSize = FLASH_SIZE_256M;
 		XFsbl_Printf(DEBUG_INFO, "256M Bits\r\n");
-	} else if (ReadBuffer[2] == FLASH_SIZE_ID_512M) {
+	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_512M)
+			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_512M)) {
 		QspiFlashSize = FLASH_SIZE_512M;
 		XFsbl_Printf(DEBUG_INFO, "512M Bits\r\n");
-	} else if (ReadBuffer[2] == FLASH_SIZE_ID_1G) {
+	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_1G)
+			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_1G)) {
 		QspiFlashSize = FLASH_SIZE_1G;
 		XFsbl_Printf(DEBUG_INFO, "1G Bits\r\n");
 	}else {
@@ -378,8 +383,9 @@ static int SendBankSelect(u32 BankSel)
 
 	/*
 	 * bank select commands for Micron and Spansion are different
+	 * Macronix bank select is same as Micron
 	 */
-	if (QspiFlashMake == MICRON_ID)	{
+	if (QspiFlashMake == MICRON_ID || QspiFlashMake == MACRONIX_ID)	{
 		/*
 		 * For micron command WREN should be sent first
 		 * except for some specific feature set
@@ -444,7 +450,7 @@ static int SendBankSelect(u32 BankSel)
 	/*
 	 * For testing - Read bank to verify
 	 */
-	if (QspiFlashMake == MICRON_ID) {
+	if (QspiFlashMake == MICRON_ID || QspiFlashMake == MACRONIX_ID) {
 		/*
 		 * Extended address register read command
 		 */
