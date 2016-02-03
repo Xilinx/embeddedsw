@@ -89,11 +89,15 @@ extern "C" {
 #define MICRON_ID		0x20
 #define SPANSION_ID		0x01
 #define WINBOND_ID		0xEF
+#define MACRONIX_ID		0xC2
 
 #define FLASH_SIZE_ID_128M		0x18
 #define FLASH_SIZE_ID_256M		0x19
 #define FLASH_SIZE_ID_512M		0x20
 #define FLASH_SIZE_ID_1G		0x21
+/* Macronix size constants are different for 512M and 1G */
+#define MACRONIX_FLASH_SIZE_ID_512M		0x1A
+#define MACRONIX_FLASH_SIZE_ID_1G		0x1B
 
 /*
  * Size in bytes
