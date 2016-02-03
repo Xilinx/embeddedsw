@@ -87,7 +87,7 @@ proc generate {libhandle} {
 	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
 	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
 	if { [string match "freetos*" "${os}"] > 0 } {
-		puts $fd "set (CMAKE_SYSTEM_NAME \"freetos\" CACHE STRING \"\")"
+		puts $fd "set (CMAKE_SYSTEM_NAME \"FreeRTOS\" CACHE STRING \"\")"
 	} else {
 		puts $fd "set (CMAKE_SYSTEM_NAME \"Generic\" CACHE STRING \"\")"
 	}
@@ -126,7 +126,7 @@ proc post_generate {libhandle} {
 
 #-------
 # execs_generate: called after BSP's, libraries and drivers have been compiled
-#	This procedure builds the libxilopenamp.a library
+#	This procedure builds the libopen_amp.a library
 #-------
 proc execs_generate {libhandle} {
 
