@@ -56,6 +56,25 @@
 *                     xil_assert header files.
 *                     Moved XWdtTb_GetTbValue to xwdttb.h file.
 *                     Adherence to MISRA-C guidelines.
+* 4.0   sha  01/29/16 Added functions for Window WDT feature:
+*                     XWdtTb_AlwaysEnable, XWdtTb_ClearLastEvent,
+*                     XWdtTb_ClearResetPending, XWdtTb_IntrClear,
+*                     XWdtTb_SetByteCount, XWdtTb_GetByteCount,
+*                     XWdtTb_SetByteSegment, XWdtTb_GetByteSegment,
+*                     XWdtTb_EnableSst, XWdtTb_DisableSst, XWdtTb_EnablePsm,
+*                     XWdtTb_DisablePsm, XWdtTb_EnableFailCounter,
+*                     XWdtTb_DisableFailCounter, XWdtTb_EnableExtraProtection,
+*                     XWdtTb_DisableExtraProtection, XWdtTb_SetWindowCount,
+*                     XWdtTb_EnableWinWdt, XWdtTb_DisableWinWdt,
+*                     XWdtTb_CfgInitialize.
+*
+*                     Updated functions with Window WDT feature:
+*                     XWdtTb_Start, XWdtTb_Stop, XWdtTb_IsWdtExpired,
+*                     XWdtTb_RestartWdt.
+*
+*                     Modified lines with exceeding maximum 80 chars.
+*                     Changed multi line comments to single line comments
+*                     wherever required.
 * </pre>
 *
 ******************************************************************************/
@@ -80,6 +99,66 @@ static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
+/*****************************************************************************/
+/**
+*
+* This function initializes the AXI Timebase Watchdog Timer core. This function
+* must be called prior to using the core. Initialization of the core includes
+* setting up the instance data and ensuring the hardware is in a quiescent
+* state.
+*
+* @param	InstancePtr is a pointer to the XWdtTb instance to be
+*		worked on.
+* @param	CfgPtr points to the configuration structure associated with
+*		the AXI Timebase Watchdog Timer core.
+* @param	EffectiveAddr is the base address of the device. If address
+*		translation is being used, then this parameter must reflect the
+*		virtual base address. Otherwise, the physical address should be
+*		used.
+*
+* @return
+*		- XST_SUCCESS if initialization was successful.
+*		- XST_DEVICE_IS_STARTED if the device has already been started.
+*
+* @note		None.
+*
+******************************************************************************/
+s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, XWdtTb_Config *CfgPtr,
+				u32 EffectiveAddr)
+{
+	s32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CfgPtr != NULL);
+	Xil_AssertNonvoid(EffectiveAddr != (u32)0);
+
+	/*
+	 * If the device is started, disallow the initialize and return a
+	 * status indicating it is started. This allows the user to stop the
+	 * device and reinitialize, but prevents a user from inadvertently
+	 * initializing.
+	 */
+	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
+		Status = XST_DEVICE_IS_STARTED;
+		goto End;
+	}
+
+	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
+	InstancePtr->Config.BaseAddr = CfgPtr->BaseAddr;
+	InstancePtr->Config.EnableWinWdt = CfgPtr->EnableWinWdt;
+	InstancePtr->Config.MaxCountWidth = CfgPtr->MaxCountWidth;
+	InstancePtr->Config.SstCountWidth = CfgPtr->SstCountWidth;
+
+	InstancePtr->Config.BaseAddr = EffectiveAddr;
+
+	InstancePtr->IsStarted = (u32)0;
+	InstancePtr->EnableFailCounter = (u32)0;
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+	Status = XST_SUCCESS;
+End:
+	return Status;
+}
 
 /*****************************************************************************/
 /**

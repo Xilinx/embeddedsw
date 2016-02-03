@@ -129,6 +129,28 @@
 * 4.0   sha  12/17/15 Added Window WDT feature with basic mode.
 *                     Changed XWdtTb_GetTbValue to inline function.
 *                     Adherence to MISRA-C guidelines.
+* 4.0   sha  01/29/16 Added XWdtTb_Event enum type.
+*                     Updated XWdtTb_Config structure with Window WDT
+*                     parameters.
+*                     Updated XWdtTb core structure with config parameter and
+*                     removed RegBaseAddress parameter.
+*
+*                     Added following static inline functions:
+*                     XWdtTb_GetTbValue, XWdtTb_SetRegSpaceAccessMode,
+*                     XWdtTb_GetRegSpaceAccessMode, XWdtTb_GetLastEvent,
+*                     XWdtTb_GetFailCounter, XWdtTb_IsResetPending,
+*                     XWdtTb_GetIntrStatus, XWdtTb_IsWrongCfg.
+*
+*                     Added following functions:
+*                     XWdtTb_AlwaysEnable, XWdtTb_ClearLastEvent,
+*                     XWdtTb_ClearResetPending, XWdtTb_IntrClear,
+*                     XWdtTb_SetByteCount, XWdtTb_GetByteCount,
+*                     XWdtTb_SetByteSegment, XWdtTb_GetByteSegment,
+*                     XWdtTb_EnableSst, XWdtTb_DisableSst, XWdtTb_EnablePsm,
+*                     XWdtTb_DisablePsm, XWdtTb_EnableFailCounter,
+*                     XWdtTb_DisableFailCounter, XWdtTb_EnableExtraProtection,
+*                     XWdtTb_DisableExtraProtection, XWdtTb_SetWindowCount,
+*                     XWdtTb_CfgInitialize.
 * </pre>
 *
 ******************************************************************************/
@@ -416,6 +438,9 @@ static inline u32 XWdtTb_IsWrongCfg(XWdtTb *InstancePtr)
 /*
  * Required functions in xwdttb.c
  */
+ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, XWdtTb_Config *CfgPtr,
+				u32 EffectiveAddr);
+
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId);
 
 void XWdtTb_Start(XWdtTb *InstancePtr);

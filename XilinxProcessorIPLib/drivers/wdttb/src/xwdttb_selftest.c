@@ -52,6 +52,8 @@
 *                     Removed included xil_types, xil_io and xil_assert header
 *                     files.
 *                     Adherence to MISRA-C guidelines.
+* 4.0   sha  01/29/16 Added following macros for Window WDT feature:
+*                     XWT_FW_COUNT, XWT_SW_COUNT.
 * </pre>
 *
 ******************************************************************************/

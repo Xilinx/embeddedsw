@@ -49,6 +49,25 @@
 * Ver  Who Date     Changes
 * ---- --- -------- -----------------------------------------------------------
 * 1.00 sha 12/17/15 First release.
+* 4.0  sha 01/29/16 Updated version to 4.0 as it is newly added file in driver
+*                   version 4.0.
+*                   Added following macros for Window WDT:
+*                   XWT_MWR_OFFSET, XWT_ESR_OFFSET, XWT_FCR_OFFSET,
+*                   XWT_FWR_OFFSET, XWT_SWR_OFFSET, XWT_TSR0_OFFSET,
+*                   XWT_TSR1_OFFSET, XWT_STR_OFFSET.
+*
+*                   Added following masks and shifts macros for Window WDT:
+*                   XWT_MWR_AEN_MASK, XWT_MWR_MWC_MASK, XWT_ESR_LBE_MASK,
+*                   XWT_ESR_FCV_MASK, XWT_ESR_WRP_MASK, XWT_ESR_WINT_MASK,
+*                   XWT_ESR_WSW_MASK, XWT_ESR_WCFG_MASK, XWT_ESR_WEN_MASK,
+*                   XWT_FCR_SBC_MASK, XWT_FCR_BSS_MASK, XWT_FCR_SSTE_MASK,
+*                   XWT_FCR_PSME_MASK, XWT_FCR_FCE_MASK, XWT_FCR_WM_MASK,
+*                   XWT_FCR_WDP_MASK.
+*
+*                   XWT_ESR_LBE_SHIFT, XWT_ESR_FCV_SHIFT, XWT_ESR_WRP_SHIFT,
+*                   XWT_ESR_WINT_SHIFT, XWT_ESR_WSW_SHIFT, XWT_ESR_WCFG_SHIFT,
+*                   XWT_FCR_SBC_SHIFT, XWT_FCR_BSS_SHIFT, XWT_FCR_SSTE_SHIFT,
+*                   XWT_FCR_WM_SHIFT.
 * </pre>
 *
 ******************************************************************************/
