@@ -73,6 +73,11 @@
 
 .set vector_base,	_vector_table
 
+.set RPU_GLBL_CNTL,	0xFF9A0000
+.set RPU_ERR_INJ,	0xFF9A0020
+.set RST_LPD_DBG,	0xFF5E0240
+.set fault_log_enable,	0x101
+
 .section .boot,"axS"
 
 
@@ -100,6 +105,28 @@ OKToRun:
 	mov	r11,#0
 	mov	r12,#0
 
+/* enable fault log for lock step */
+	ldr	r0,=RPU_GLBL_CNTL
+	ldr	r1, [r0]
+	ands	r1, r1, #0x8
+/* branch to initialization if split mode*/
+	bne 	init
+/* reset the debug logic */
+	ldr	r0,=RST_LPD_DBG
+	ldr	r1, [r0]
+	orr	r1, r1, #(0x1 << 4)
+	orr	r1, r1, #(0x1 << 5)
+	str	r1, [r0]
+/* enable fault log */
+	ldr	r0,=RPU_ERR_INJ
+	ldr	r1,=fault_log_enable
+	ldr	r2, [r0]
+	orr	r2, r2, r1
+	str	r2, [r0]
+	nop
+	nop
+
+init:
 /* Disable MPU and caches */
         mrc     p15, 0, r0, c1, c0, 0       	/* Read CP15 Control Register*/
         bic     r0, r0, #0x05               	/* Disable MPU (M bit) and data cache (C bit) */
