@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,21 +33,20 @@
 /**
 * @file xwdttb_selftest_example.c
 *
-* This file contains a example for using the Watchdog Timer Timebase
+* This file contains a example for  using the Watchdog Timer Timebase
 * hardware and driver
 *
 * @note
 *
 * None
 *
+* <pre>
 * MODIFICATION HISTORY:
 *
-* <pre>
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   04/27/05 Initial release for TestApp integration.
 * 2.00a ktn  22/10/09 Updated the example to use the HAL APIs/macros.
-* 3.00  sha  12/29/15 Added debug messages.
 * </pre>
 *
 *****************************************************************************/
@@ -63,7 +62,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TIMEBASE_WDT_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
+#define TIMEBASE_WDT_DEVICE_ID  XPAR_WDTTB_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
@@ -77,8 +76,7 @@ int WdtTbSelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-/* The instance of the WatchDog Time Base */
-XWdtTb WatchdogTimebase;
+XWdtTb WatchdogTimebase; /* The instance of the WatchDog Time Base */
 
 /*****************************************************************************/
 /**
@@ -87,9 +85,7 @@ XWdtTb WatchdogTimebase;
 *
 * @param	None.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if unsuccessful.
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -105,11 +101,8 @@ int main(void)
 	 */
 	Status = WdtTbSelfTestExample(TIMEBASE_WDT_DEVICE_ID);
 	if (Status != XST_SUCCESS){
-		xil_printf("WDTTB self test example failed\n\r");
 		return XST_FAILURE;
 	}
-
-	xil_printf("WDTTB self test example ran successfully\n\r");
 
 	return XST_SUCCESS;
 }
@@ -125,7 +118,7 @@ int main(void)
 * This function assumes that the reset output of the watchdog timer
 * timebase device is not connected to the reset of the processor. The function
 * allows the watchdog timer to timeout such that a reset will occur if it is
-* connected. It the interrupt output is connected to an interrupt input, the
+* connected.  It the interrupt output is connected to an interrupt input, the
 * user must handle the interrupts appropriately.
 *
 * This function may require some time (seconds or even minutes) to execute
@@ -135,9 +128,7 @@ int main(void)
 * @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if unsuccessful.
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -166,3 +157,4 @@ int WdtTbSelfTestExample(u16 DeviceId)
 
 	return XST_SUCCESS;
 }
+

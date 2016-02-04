@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -31,11 +31,10 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file xwdttb_example.c
+* @file  xwdttb_example.c
 *
-* This file contains a design example using the Watchdog Timer Timebase
-* (XWdtTb) driver either with legacy or Window feature. The WDTTB core will be
-* generated either in legacy or window feature.
+* This file contains a design example using the Watchdog Timer Timebase driver
+* (XWdtTb) and hardware device.
 *
 * @note
 *
@@ -43,20 +42,16 @@
 *
 * MODIFICATION HISTORY:
 *
-* <pre>
+*<pre>
 * Ver   Who  Date     Changes
-* ----- ---- -------- ---------------------------------------------------------
+* ----- ---- -------- -----------------------------------------------
 * 1.00b jhl  02/13/02 First release
 * 1.00b sv   04/26/05 Minor changes to comply to Doxygen and coding guidelines
 * 2.00a ktn  12/02/09 Updated the example to use the HAL APIs/macros.
-*                     Updated this example to check for Watchdog timer reset
-*                     condition instead of timer expiry state to avoid a race
-*                     condition
-* 3.00  sha  12/29/15 Updated WatchdogTimebase.RegBaseAddress ->
-*                     WatchdogTimebase.Config.BaseAddr.
-*                     Updated with Window WDT feature.
+*		      Updated this example to check for Watchdog timer reset
+*		      condition instead of timer expiry state to avoid a race
+* 		      condition
 *</pre>
-*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -73,44 +68,6 @@
  */
 #define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
 
-/*
- * This constant is used to check whether WDT is configured either in legacy or
- * Window WDT.
- */
-#define WDTTB_EN_WIN_WDT	XPAR_WDTTB_0_ENABLE_WINDOW_WDT
-
-#if (WDTTB_EN_WIN_WDT)
-/*
- * These constants are user modifiable to enable or disable Secondary Sequence
- * Timer (SST), Program Sequence Monitor (PSM), Fail Counter (FC) and Window
- * WDT protection. They are all enabled by default.
- */
-#define WDTTB_EN_SST		0
-#define WDTTB_EN_PSM		0
-#define WDTTB_EN_FC		0
-#define WDTTB_EN_WDP		0
-
-/*
- * This constant is used as Task Status Register (TSR) value for additional
- * check when PSM is enabled.
- */
-#define WDTTB_TSR_VAL		'W'
-
-/*
- * These constants are user modifiable and provide values to configure Window
- * Watchdog Timer.
- * 1. First Window Count
- * 2. Second Window Count
- * 3. Selected Byte Count
- * 4. Byte Segment Selection
- */
-#define WDTTB_FW_COUNT		31		/**< Number of clock cycles for
-						  *  first window */
-#define WDTTB_SW_COUNT		1000000000	/**< Number of clock cycles for
-						  *  second window */
-#define WDTTB_BYTE_COUNT	154		/**< Selected byte count */
-#define WDTTB_BYTE_SEGMENT	2		/**< Byte segment selected */
-#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -132,9 +89,7 @@ XWdtTb WatchdogTimebase; /* Instance of WatchDog Timer Base */
 *
 * @param	None.
 *
-* @return
-*		- XST_SUCCESS if example ran successfully.
-*		- XST_FAILURE if unsuccessful.
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -144,15 +99,13 @@ int main(void)
 	int Status;
 
 	/*
-	 * Call the example, specify the device ID that is generated in
+	 * Call the example , specify the device ID that is generated in
 	 * xparameters.h.
 	 */
 	Status = WdtTbExample(WDTTB_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("WDTTB example failed\n\r");
 		return XST_FAILURE;
 	}
-	xil_printf("WDTTB example ran successfully\n\r");
 
 	return XST_SUCCESS;
 }
@@ -160,30 +113,24 @@ int main(void)
 /*****************************************************************************/
 /**
 * This function tests the functioning of the TimeBase WatchDog Timer module
-* either in legacy or window feature in the polled mode.
+* in the polled mode.
 *
-* In legacy, after one expiration of the WDT timeout interval, the WDT state
-* bit is set to one in the status register. If the state bit is not cleared
-* (by writing a 1 to the state bit) before the next expiration of the timeout
-* interval, a WDT reset is generated.
+* After one expiration of the WDT timeout interval, the WDT state bit is set to
+* one in the status register. If the state bit is not cleared (by writing a 1 to
+* the state bit) before the next expiration of the timeout interval, a WDT reset
+* is generated.
+*
 * This function checks for Watchdog timer reset condition in two timer expiry
 * state.
+*
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the watchdog timer to expire.
-*
-* In window, this function polls interrupt programmed point in second window,
-* checks the interrupt bit is set. If the bit is set clears the bit and restart
-* the watchdog timer. If bit is not cleared before overflowing the second
-* window, the watchdog timer resets.
 *
 * @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
-* @return
-*		- XST_SUCCESS, in legacy, if WRS bit is not set in next two
-*		subsequent timer expiry state. In window, there is no bad
-*		event.
-*		- XST_FAILURE, otherwise.
+* @return	XST_SUCCESS if WRS bit is not set in next two subsequent timer
+*		expiry state, otherwise XST_FAILURE.
 *
 * @note		None.
 *
@@ -199,7 +146,6 @@ int WdtTbExample(u16 DeviceId)
 	 */
 	Status = XWdtTb_Initialize(&WatchdogTimebase, DeviceId);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Example:Self test failed\n\r");
 		return XST_FAILURE;
 	}
 
@@ -211,51 +157,6 @@ int WdtTbExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-#if (WDTTB_EN_WIN_WDT)
-#if (WDTTB_EN_WDP)
-	/* Enable extra protection */
-	XWdtTb_EnableExtraProtection(&WatchdogTimebase);
-#else
-	/* Disable extra protection */
-	XWdtTb_DisableExtraProtection(&WatchdogTimebase);
-#endif /* End of WDP */
-
-	/* Configure first and second window */
-	XWdtTb_SetWindowCount(&WatchdogTimebase, WDTTB_FW_COUNT,
-		WDTTB_SW_COUNT);
-
-	/* Set interrupt position */
-	XWdtTb_SetByteCount(&WatchdogTimebase, WDTTB_BYTE_COUNT);
-	XWdtTb_SetByteSegment(&WatchdogTimebase, WDTTB_BYTE_SEGMENT);
-
-#if (WDTTB_EN_SST)
-	/* Enable Secondary Sequence Timer (SST) */
-	XWdtTb_EnableSst(&WatchdogTimebase);
-#else
-	/* Disable Secondary Sequence Timer (SST) */
-	XWdtTb_DisableSst(&WatchdogTimebase);
-#endif /* End of SST */
-
-#if (WDTTB_EN_PSM)
-	/* Enable Program Sequence Monitor (PSM) */
-	XWdtTb_EnablePsm(&WatchdogTimebase);
-
-	/* Write TSR0 with signature */
-	XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr, XWT_TSR0_OFFSET,
-		WDTTB_TSR_VAL);
-#else
-	/* Disable Program Sequence Monitor (PSM) */
-	XWdtTb_DisablePsm(&WatchdogTimebase);
-#endif /* End of PSM */
-
-#if (WDTTB_EN_FC)
-	/* Enable Fail Counter */
-	XWdtTb_EnableFailCounter(&WatchdogTimebase);
-#else
-	/* Disable Fail Counter */
-	XWdtTb_DisableFailCounter(&WatchdogTimebase);
-#endif /* End of FC */
-#endif /* End of enable WWDT */
 
 	/*
 	 * Start the watchdog timer, the timebase is automatically reset
@@ -263,93 +164,48 @@ int WdtTbExample(u16 DeviceId)
 	 */
 	XWdtTb_Start(&WatchdogTimebase);
 
+	/*
+	 * Verify Whether the WatchDog Reset Status has been set in the next two
+	 * expiry state.
+	 */
 	while (1) {
-#if (WDTTB_EN_WIN_WDT)
-		xil_printf(".");
 
-		/* Check for interrupt programmed point */
-		if (XWdtTb_GetIntrStatus(&WatchdogTimebase)) {
-			/* Set register space to writable */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
-
-			/* Clear interrupt point */
-			XWdtTb_IntrClear(&WatchdogTimebase);
-
-			/* Set register space to read-only */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 0);
-#if (WDTTB_EN_PSM)
-			/* Set register space to writable */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
-
-			/* Write TSR1 with signature */
-			XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr,
-				XWT_TSR1_OFFSET, WDTTB_TSR_VAL);
-
-			/* Set register space to read-only */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 0);
-#endif
-#else
-		/* If the watchdog timer expired, then restart it */
+		/*
+		 * If the watchdog timer expired, then restart it.
+		 */
 		if (XWdtTb_IsWdtExpired(&WatchdogTimebase)) {
-#endif
-#if (WDTTB_EN_WIN_WDT)
-			/* Set register space to writable */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
-#endif
+
 			/*
 			 * Restart the watchdog timer as a normal application
 			 * would
 			 */
 			XWdtTb_RestartWdt(&WatchdogTimebase);
 			Count++;
-			xil_printf("\n\rRestart kick %d\n\r", Count);
 		}
-#if (WDTTB_EN_WIN_WDT)
-		/* Check for last event */
-		if (XWdtTb_GetLastEvent(&WatchdogTimebase) !=
-				XWDTTB_NO_BAD_EVENT) {
 
-			/* Stop the watchdog timer */
-			XWdtTb_Stop(&WatchdogTimebase);
-			return XST_FAILURE;
-		}
-#else
 		/*
 		 * Check whether the WatchDog Reset Status has been set.
 		 * If this is set means then the test has failed
 		 */
-		if (XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
+		if (XWdtTb_ReadReg(WatchdogTimebase.RegBaseAddress,
 				XWT_TWCSR0_OFFSET) & XWT_CSR0_WRS_MASK) {
 
-			/* Stop the watchdog timer */
+			/*
+			 * Stop the watchdog timer
+			 */
 			XWdtTb_Stop(&WatchdogTimebase);
 			return XST_FAILURE;
 		}
-#endif
+
 		/*
-		 * Check whether the WatchDog timer expires two times in legacy
-		 * or restarts twice with window feature. If the timer expires
-		 * or restarts twice then the test is passed.
+		 * Check whether the WatchDog timer expires two times.
+		 * If the timer expires two times then the test is passed.
 		 */
 		if(Count == 2) {
 			break;
 		}
 	}
-#if (WDTTB_EN_WIN_WDT)
-#if (WDTTB_EN_SST)
-	/* Wait for SST counter start */
-	xil_printf("Waiting for SST to start .");
-	while (!XWdtTb_IsResetPending(&WatchdogTimebase)) {
-		xil_printf(".");
-	}
-
-	/* Clear reset pending */
-	XWdtTb_ClearResetPending(&WatchdogTimebase);
-	xil_printf("\n\rSST counter value is 0x%x\n\r",
-		XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
-			XWT_STR_OFFSET));
-#endif
-#endif
-
 	return XST_SUCCESS;
 }
+
+
