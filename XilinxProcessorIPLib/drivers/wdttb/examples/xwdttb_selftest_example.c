@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -47,6 +47,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   04/27/05 Initial release for TestApp integration.
 * 2.00a ktn  22/10/09 Updated the example to use the HAL APIs/macros.
+* 4.0   sha  02/04/16 Added debug messages.
+*                     Calling XWdtTb_LookupConfig and XWdtTb_CfgInitialize
+*                     functions instead of XWdtTb_Initialize for
+*                     initialization.
 * </pre>
 *
 *****************************************************************************/
@@ -85,7 +89,9 @@ XWdtTb WatchdogTimebase; /* The instance of the WatchDog Time Base */
 *
 * @param	None.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -101,8 +107,10 @@ int main(void)
 	 */
 	Status = WdtTbSelfTestExample(TIMEBASE_WDT_DEVICE_ID);
 	if (Status != XST_SUCCESS){
+		xil_printf("WDTTB self test example failed\n\r");
 		return XST_FAILURE;
 	}
+	xil_printf("WDTTB self test example ran successfully\n\r");
 
 	return XST_SUCCESS;
 }
@@ -128,7 +136,9 @@ int main(void)
 * @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -136,12 +146,23 @@ int main(void)
 int WdtTbSelfTestExample(u16 DeviceId)
 {
 	int Status;
+	XWdtTb_Config *Config;
+
+	/*
+	 * Initialize the WDTTB driver so that it's ready to use look up
+	 * configuration in the config table, then initialize it.
+	 */
+	Config = XWdtTb_LookupConfig(DeviceId);
+	if (NULL == Config) {
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Initialize the watchdog timer and timebase driver so that
-	 * it's ready to use
+	 * it is ready to use.
 	 */
-	Status = XWdtTb_Initialize(&WatchdogTimebase, DeviceId);
+	Status = XWdtTb_CfgInitialize(&WatchdogTimebase, Config,
+			Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

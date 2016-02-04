@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -52,13 +52,13 @@
 *		      removed - XWdtTb_mEnableWdt, XWdtTb_mDisbleWdt,
 *		      XWdtTb_mRestartWdt, XWdtTb_mGetTimebaseReg and
 *		      XWdtTb_mHasReset.
-*		      The example is udpated to use XWdtTb_ReadReg and
-*		      XWdtTb_WriteReg macros to acheive the functionality of the
+*		      The example is updated to use XWdtTb_ReadReg and
+*		      XWdtTb_WriteReg macros to achieve the functionality of the
 *		      macros that were removed.
 * 		      Updated this example to check for Watchdog timer reset
 *		      condition instead of timer expiry state to avoid a race
 * 		      condition
-*
+* 4.0   sha  02/04/16 Added debug messages.
 *</pre>
 ******************************************************************************/
 
@@ -97,7 +97,9 @@ int XWdtTb_LowLevelExample(u32 WdtTbBaseAddress);
 *
 * @param	None.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -112,9 +114,11 @@ int main(void)
 	 */
 	Status = XWdtTb_LowLevelExample(WDTTB_BASEADDR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("WDTTB low level example failed.\n\r");
 		return XST_FAILURE;
 	}
 
+	xil_printf("WDTTB low level example ran successfully.\n\r");
 	return XST_SUCCESS;
 }
 
@@ -134,8 +138,10 @@ int main(void)
 *
 * @param	WdtTbBaseAddress is the base address of the device.
 *
-* @return	XST_SUCCESS if WRS bit is not set in next two subsequent timer
-*		expiry state, otherwise XST_FAILURE.
+* @return
+*		- XST_SUCCESS if WRS bit is not set in next two subsequent
+*		timer expiry state.
+*		- XST_FAILURE, otherwise.
 *
 * @note		None.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -51,6 +51,12 @@
 *		      Updated this example to check for Watchdog timer reset
 *		      condition instead of timer expiry state to avoid a race
 * 		      condition
+* 4.0   sha  02/04/16 Added debug messages.
+*                     Updated WatchdogTimebase.RegBaseAddress ->
+*                     WatchdogTimebase.Config.BaseAddr.
+*                     Calling XWdtTb_LookupConfig and XWdtTb_CfgInitialize
+*                     functions instead of XWdtTb_Initialize for
+*                     initialization.
 *</pre>
 ******************************************************************************/
 
@@ -89,7 +95,9 @@ XWdtTb WatchdogTimebase; /* Instance of WatchDog Timer Base */
 *
 * @param	None.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return
+*		- XST_SUCCESS if example ran successfully.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
@@ -104,8 +112,10 @@ int main(void)
 	 */
 	Status = WdtTbExample(WDTTB_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("WDTTB example failed\n\r");
 		return XST_FAILURE;
 	}
+	xil_printf("WDTTB example ran successfully\n\r");
 
 	return XST_SUCCESS;
 }
@@ -129,8 +139,10 @@ int main(void)
 * @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
-* @return	XST_SUCCESS if WRS bit is not set in next two subsequent timer
-*		expiry state, otherwise XST_FAILURE.
+* @return
+*		- XST_SUCCESS if WRS bit is not set in next two subsequent
+*		timer expiry state.
+*		- XST_FAILURE otherwise.
 *
 * @note		None.
 *
@@ -139,12 +151,23 @@ int WdtTbExample(u16 DeviceId)
 {
 	int Status;
 	int Count = 0;
+	XWdtTb_Config *Config;
+
+	/*
+	 * Initialize the WDTTB driver so that it's ready to use look up
+	 * configuration in the config table, then initialize it.
+	 */
+	Config = XWdtTb_LookupConfig(DeviceId);
+	if (NULL == Config) {
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Initialize the watchdog timer and timebase driver so that
 	 * it is ready to use.
 	 */
-	Status = XWdtTb_Initialize(&WatchdogTimebase, DeviceId);
+	Status = XWdtTb_CfgInitialize(&WatchdogTimebase, Config,
+			Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -154,9 +177,9 @@ int WdtTbExample(u16 DeviceId)
 	 */
 	Status = XWdtTb_SelfTest(&WatchdogTimebase);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Example:Self test failed\n\r");
 		return XST_FAILURE;
 	}
-
 
 	/*
 	 * Start the watchdog timer, the timebase is automatically reset
@@ -169,6 +192,7 @@ int WdtTbExample(u16 DeviceId)
 	 * expiry state.
 	 */
 	while (1) {
+		xil_printf(".");
 
 		/*
 		 * If the watchdog timer expired, then restart it.
@@ -181,13 +205,14 @@ int WdtTbExample(u16 DeviceId)
 			 */
 			XWdtTb_RestartWdt(&WatchdogTimebase);
 			Count++;
+			xil_printf("\n\rRestart kick %d\n\r", Count);
 		}
 
 		/*
 		 * Check whether the WatchDog Reset Status has been set.
 		 * If this is set means then the test has failed
 		 */
-		if (XWdtTb_ReadReg(WatchdogTimebase.RegBaseAddress,
+		if (XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
 				XWT_TWCSR0_OFFSET) & XWT_CSR0_WRS_MASK) {
 
 			/*
