@@ -52,6 +52,9 @@
  * 2.0   als  08/14/15 Added new video timings.
  * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
  *                     contents now const.
+ *                     Added ability to insert a custom video timing table:
+ *                         XVidC_RegisterCustomTimingModes
+ *                         XVidC_UnregisterCustomTimingMode
  * </pre>
  *
 *******************************************************************************/
@@ -401,12 +404,15 @@ typedef void (*XVidC_DelayHandler)(void *TimerPtr, u32 Delay);
 
 /**************************** Function Prototypes *****************************/
 
+u32 XVidC_RegisterCustomTimingModes(XVidC_VideoTimingMode (*CustomTable)[],
+		u16 NumElems);
+void XVidC_UnregisterCustomTimingModes(void);
 u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
 u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
 XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId);
 u8 XVidC_IsInterlaced(XVidC_VideoMode VmId);
 XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
-					u8 IsInterlaced);
+		u8 IsInterlaced);
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);
 const char* XVidC_GetVideoModeStr(XVidC_VideoMode VmId);
 char* XVidC_GetFrameRateStr(XVidC_VideoMode VmId);

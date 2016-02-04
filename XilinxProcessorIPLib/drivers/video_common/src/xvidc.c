@@ -50,16 +50,88 @@
  *       als
  * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
  *                     contents now const.
+ *                     Added ability to insert a custom video timing table.
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
+#include "xil_assert.h"
 #include "xil_printf.h"
+#include "xstatus.h"
 #include "xvidc.h"
 
+/*************************** Variable Declarations ****************************/
+
+const XVidC_VideoTimingMode (*XVidC_CustomTimingModes)[] = NULL;
+int XVidC_NumCustomModes = 0;
+
+/**************************** Function Prototypes *****************************/
+
+static const XVidC_VideoTimingMode *XVidC_GetCustomVideoModeData(
+		XVidC_VideoMode VmId);
+
 /*************************** Function Definitions *****************************/
+
+/******************************************************************************/
+/**
+ * This function registers a user-defined custom video mode timing table with
+ * video_common. Functions which search the available video modes, or take VmId
+ * as an input, will operate on or check the custom video mode timing table in
+ * addition to the pre-defined video mode timing table (XVidC_VideoTimingModes).
+ *
+ * @param	CustomTable is a pointer to the user-defined custom vide mode
+ *		timing table to register.
+ * @param	NumElems is the number of video modes supported by CustomTable.
+ *
+ * @return
+ *		- XST_SUCCESS if the custom table was successfully registered.
+ *		- XST_FAILURE if an existing custom table is already present.
+ *
+ * @note	IDs in the custom table may not conflict with IDs reserved by
+ *		the XVidC_VideoMode enum.
+ *
+*******************************************************************************/
+u32 XVidC_RegisterCustomTimingModes(XVidC_VideoTimingMode (*CustomTable)[],
+		u16 NumElems)
+{
+	u16 Index;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(CustomTable != NULL);
+	for (Index = 0; Index < NumElems; Index++) {
+		Xil_AssertNonvoid((*CustomTable)[Index].VmId > XVIDC_VM_CUSTOM);
+		/* The IDs of each video mode in the custom table must not
+		 * conflict with IDs reserved by video_common. */
+	}
+
+	/* Fail if a custom table is currently already registered. */
+	if (XVidC_CustomTimingModes) {
+		return XST_FAILURE;
+	}
+
+	XVidC_CustomTimingModes = CustomTable;
+	XVidC_NumCustomModes    = NumElems;
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function unregisters the user-defined custom video mode timing table
+ * previously registered by XVidC_RegisterCustomTimingModes().
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XVidC_UnregisterCustomTimingModes(void)
+{
+	XVidC_CustomTimingModes = NULL;
+	XVidC_NumCustomModes    = 0;
+}
 
 /******************************************************************************/
 /**
@@ -95,7 +167,10 @@ u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 	u32 ClkHz;
 	const XVidC_VideoTimingMode *VmPtr;
 
-	VmPtr = &XVidC_VideoTimingModes[VmId];
+	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (!VmPtr) {
+		return 0;
+	}
 
 	if (XVidC_IsInterlaced(VmId)) {
 		/* For interlaced mode, use both frame 0 and frame 1 vertical
@@ -137,7 +212,10 @@ u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 *******************************************************************************/
 XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId)
 {
-	if (XVidC_VideoTimingModes[VmId].Timing.F1VTotal == 0) {
+	const XVidC_VideoTimingMode *VmPtr;
+
+	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (VmPtr->Timing.F1VTotal == 0) {
 		return (XVIDC_VF_PROGRESSIVE);
 	}
 
@@ -196,6 +274,20 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 	u32 Rate;
 	u32 ResFound = (FALSE);
 	XVidC_VideoMode Mode;
+	u16 Index;
+	const XVidC_VideoTimingMode *VmPtr;
+
+	/* First, attempt a linear search on the custom video timing table. */
+	for (Index = 0; Index < XVidC_NumCustomModes; Index++) {
+		VmPtr = &(*XVidC_CustomTimingModes)[Index];
+		HActive = VmPtr->Timing.HActive;
+		VActive = VmPtr->Timing.VActive;
+		Rate = VmPtr->FrameRate;
+		if ((Width == HActive) && (Height == VActive) &&
+				(FrameRate == Rate)) {
+			return VmPtr->VmId;
+		}
+	}
 
 	if (IsInterlaced) {
 		Low = (XVIDC_VM_INTL_START);
@@ -289,12 +381,11 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 *******************************************************************************/
 const XVidC_VideoTimingMode *XVidC_GetVideoModeData(XVidC_VideoMode VmId)
 {
-	if (VmId < (XVIDC_VM_NUM_SUPPORTED)) {
-		return (&XVidC_VideoTimingModes[VmId]);
+	if (VmId < XVIDC_VM_NUM_SUPPORTED) {
+		return &XVidC_VideoTimingModes[VmId];
 	}
-	else {
-		return (NULL);
-	}
+
+	return XVidC_GetCustomVideoModeData(VmId);
 }
 
 /******************************************************************************/
@@ -311,15 +402,18 @@ const XVidC_VideoTimingMode *XVidC_GetVideoModeData(XVidC_VideoMode VmId)
 *******************************************************************************/
 const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId)
 {
-	if (VmId < (XVIDC_VM_NUM_SUPPORTED)) {
-		return (XVidC_VideoTimingModes[VmId].Name);
-	}
-	else if (VmId == XVIDC_VM_CUSTOM) {
+	const XVidC_VideoTimingMode *VmPtr;
+
+	if (VmId == XVIDC_VM_CUSTOM) {
 		return ("Custom video mode");
 	}
-	else {
+
+	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (!VmPtr) {
 		return ("Video mode not supported");
 	}
+
+	return VmPtr->Name;
 }
 
 /******************************************************************************/
@@ -335,62 +429,64 @@ const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId)
 *******************************************************************************/
 char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 {
-	if (VmId < (XVIDC_VM_NUM_SUPPORTED)) {
-		switch (XVidC_VideoTimingModes[VmId].FrameRate) {
-			case (XVIDC_FR_24HZ):
-				return ("24Hz");
+	const XVidC_VideoTimingMode *VmPtr;
 
-			case (XVIDC_FR_25HZ):
-				return ("25Hz");
-
-			case (XVIDC_FR_30HZ):
-				return ("30Hz");
-
-			case (XVIDC_FR_50HZ):
-				return ("50Hz");
-
-			case (XVIDC_FR_56HZ):
-				return ("56Hz");
-
-			case (XVIDC_FR_60HZ):
-				return ("60Hz");
-
-			case (XVIDC_FR_65HZ):
-				return ("65Hz");
-
-			case (XVIDC_FR_67HZ):
-				return ("67Hz");
-
-			case (XVIDC_FR_70HZ):
-				return("70Hz");
-
-			case (XVIDC_FR_72HZ):
-				return ("72Hz");
-
-			case (XVIDC_FR_75HZ):
-				return ("75Hz");
-
-			case (XVIDC_FR_85HZ):
-				return ("85Hz");
-
-			case (XVIDC_FR_87HZ):
-				return ("87Hz");
-
-			case (XVIDC_FR_88HZ):
-				return ("88Hz");
-
-			case (XVIDC_FR_100HZ):
-				return("100Hz");
-
-			case (XVIDC_FR_120HZ):
-				return ("120Hz");
-
-			default:
-				return ("Frame rate not supported");
-		}
-	}
-	else {
+	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (!VmPtr) {
 		return ("Video mode not supported");
+	}
+
+	switch (VmPtr->FrameRate) {
+		case (XVIDC_FR_24HZ):
+			return ("24Hz");
+
+		case (XVIDC_FR_25HZ):
+			return ("25Hz");
+
+		case (XVIDC_FR_30HZ):
+			return ("30Hz");
+
+		case (XVIDC_FR_50HZ):
+			return ("50Hz");
+
+		case (XVIDC_FR_56HZ):
+			return ("56Hz");
+
+		case (XVIDC_FR_60HZ):
+			return ("60Hz");
+
+		case (XVIDC_FR_65HZ):
+			return ("65Hz");
+
+		case (XVIDC_FR_67HZ):
+			return ("67Hz");
+
+		case (XVIDC_FR_70HZ):
+			return("70Hz");
+
+		case (XVIDC_FR_72HZ):
+			return ("72Hz");
+
+		case (XVIDC_FR_75HZ):
+			return ("75Hz");
+
+		case (XVIDC_FR_85HZ):
+			return ("85Hz");
+
+		case (XVIDC_FR_87HZ):
+			return ("87Hz");
+
+		case (XVIDC_FR_88HZ):
+			return ("88Hz");
+
+		case (XVIDC_FR_100HZ):
+			return("100Hz");
+
+		case (XVIDC_FR_120HZ):
+			return ("120Hz");
+
+		default:
+			return ("Frame rate not supported");
 	}
 }
 
@@ -442,12 +538,14 @@ char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 *******************************************************************************/
 XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId)
 {
-	if (VmId < (XVIDC_VM_NUM_SUPPORTED)) {
-		return (XVidC_VideoTimingModes[VmId].FrameRate);
+	const XVidC_VideoTimingMode *VmPtr;
+
+	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (!VmPtr) {
+		return XVIDC_FR_NUM_SUPPORTED;
 	}
-	else {
-		return (XVIDC_FR_NUM_SUPPORTED);
-	}
+
+	return VmPtr->FrameRate;
 }
 
 /******************************************************************************/
@@ -463,12 +561,14 @@ XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId)
 *******************************************************************************/
 const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 {
-	if (VmId < (XVIDC_VM_NUM_SUPPORTED)) {
-		return (&XVidC_VideoTimingModes[VmId].Timing);
+	const XVidC_VideoTimingMode *VmPtr;
+
+	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (!VmPtr) {
+		return NULL;
 	}
-	else {
-		return (NULL);
-	}
+
+	return &VmPtr->Timing;
 }
 
 /******************************************************************************/
@@ -484,37 +584,38 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 *******************************************************************************/
 void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 {
-	if ((Stream->VmId < XVIDC_VM_NUM_SUPPORTED) ||
-		(Stream->VmId == XVIDC_VM_CUSTOM)) {
-		xil_printf("\tColor Format:     %s\r\n",
+	if (!XVidC_GetVideoModeData(Stream->VmId) &&
+			(Stream->VmId != XVIDC_VM_CUSTOM)) {
+		xil_printf("\tThe stream ID (%d) is not supported.\r\n",
+				Stream->VmId);
+		return;
+	}
+
+	xil_printf("\tColor Format:     %s\r\n",
 			XVidC_GetColorFormatStr(Stream->ColorFormatId));
-		xil_printf("\tColor Depth:      %d\r\n", Stream->ColorDepth);
-		xil_printf("\tPixels Per Clock: %d\r\n", Stream->PixPerClk);
-		xil_printf("\tMode:             %s\r\n",
+	xil_printf("\tColor Depth:      %d\r\n", Stream->ColorDepth);
+	xil_printf("\tPixels Per Clock: %d\r\n", Stream->PixPerClk);
+	xil_printf("\tMode:             %s\r\n",
 			Stream->IsInterlaced ? "Interlaced" : "Progressive");
 
-		if(Stream->VmId == XVIDC_VM_CUSTOM) {
-			xil_printf("\tFrame Rate:       %dHz\r\n",
-					Stream->FrameRate);
-			xil_printf("\tResolution:       %dx%d "
-					"[Custom Mode]\r\n",
-			Stream->Timing.HActive, Stream->Timing.VActive);
-		    xil_printf("\tPixel Clock:      %d\r\n",
-		    XVidC_GetPixelClockHzByHVFr(Stream->Timing.F0PVTotal,
-						Stream->Timing.F0PVTotal,
-						Stream->FrameRate));
-		} else {
-			xil_printf("\tFrame Rate:       %s\r\n",
-				XVidC_GetFrameRateStr(Stream->VmId));
-			xil_printf("\tResolution:       %s\r\n",
-				XVidC_GetVideoModeStr(Stream->VmId));
-		    xil_printf("\tPixel Clock:      %d\r\n",
-			    XVidC_GetPixelClockHzByVmId(Stream->VmId));
-		}
+	if (Stream->VmId == XVIDC_VM_CUSTOM) {
+		xil_printf("\tFrame Rate:       %dHz\r\n",
+				Stream->FrameRate);
+		xil_printf("\tResolution:       %dx%d [Custom Mode]\r\n",
+				Stream->Timing.HActive, Stream->Timing.VActive);
+		xil_printf("\tPixel Clock:      %d\r\n",
+				XVidC_GetPixelClockHzByHVFr(
+					Stream->Timing.F0PVTotal,
+					Stream->Timing.F0PVTotal,
+					Stream->FrameRate));
 	}
 	else {
-		xil_printf("Video Stream ID (%d) Not Supported\r\n",
-			Stream->VmId);
+		xil_printf("\tFrame Rate:       %s\r\n",
+				XVidC_GetFrameRateStr(Stream->VmId));
+		xil_printf("\tResolution:       %s\r\n",
+				XVidC_GetVideoModeStr(Stream->VmId));
+		xil_printf("\tPixel Clock:      %d\r\n",
+				XVidC_GetPixelClockHzByVmId(Stream->VmId));
 	}
 }
 
@@ -560,5 +661,33 @@ void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced)
 			Timing->F0PVSyncWidth, Timing->VSyncPolarity,
 			Timing->F0PVBackPorch, Timing->F0PVTotal);
 	}
+}
+
+/******************************************************************************/
+/**
+ * This function returns the pointer to video mode data at the provided index
+ * of the custom video mode table.
+ *
+ * @param	VmId specifies the resolution ID.
+ *
+ * @return	Pointer to XVidC_VideoTimingMode structure based on the given
+ *		video mode.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static const XVidC_VideoTimingMode *XVidC_GetCustomVideoModeData(
+		XVidC_VideoMode VmId)
+{
+	u16 Index;
+
+	for (Index = 0; Index < XVidC_NumCustomModes; Index++) {
+		if (VmId == (*XVidC_CustomTimingModes)[Index].VmId) {
+			return &(*XVidC_CustomTimingModes)[Index];
+		}
+	}
+
+	/* ID not found within the custom video mode table. */
+	return NULL;
 }
 /** @} */
