@@ -91,6 +91,7 @@ typedef struct {
 	u32 SecondaryBootDevice; /**< Secondary boot device in image header*/
 	XFsblPs_DeviceOps DeviceOps; /**< Device operations for bootmodes */
 	u32 HandoffCpuNo; /**< Number of CPU's FSBL will handoff to */
+	u32 ResetReason; /**< Reset reason */
 	XFsblPs_HandoffValues HandoffValues[10];
 		/**< Handoff address for different CPU's  */
 } XFsblPs;
@@ -146,6 +147,10 @@ typedef struct {
 #define ATTRIB_MEMORY_A53_64 0x705U
 #define ATTRIB_MEMORY_A53_32 0x15DE6U
 #define ATTRIB_RESERVED_A53  0x0U
+
+/* Reset Reason */
+
+#define PS_ONLY_RESET		0x1U
 
 /************************** Function Prototypes ******************************/
 /**

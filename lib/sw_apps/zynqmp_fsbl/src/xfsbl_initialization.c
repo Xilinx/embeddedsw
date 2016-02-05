@@ -110,6 +110,35 @@ void XFsbl_CfgInitialize (XFsblPs * FsblInstancePtr)
 	FsblInstancePtr->Version = 0x3U;
 	FsblInstancePtr->ErrorCode = XFSBL_SUCCESS;
 	FsblInstancePtr->HandoffCpuNo = 0U;
+	FsblInstancePtr->ResetReason = 0U;
+}
+
+/****************************************************************************/
+/**
+ * This function is used to get the Reset Reason
+ *
+ * @param  None
+ *
+ * @return Reset Reason
+ *
+ * @note
+ *
+ *****************************************************************************/
+static u32 XFsbl_GetResetReason (void)
+{
+	u32 Val;
+	u32 Ret = 0;
+
+	Val = XFsbl_In32(CRL_APB_RESET_REASON);
+
+	if (Val & CRL_APB_RESET_REASON_PSONLY_RESET_REQ_MASK) {
+		/* Clear the PS Only reset bit as it is sticky */
+		Val = CRL_APB_RESET_REASON_PSONLY_RESET_REQ_MASK;
+		XFsbl_Out32(CRL_APB_RESET_REASON, Val);
+		Ret = PS_ONLY_RESET;
+	}
+
+	return Ret;
 }
 
 /*****************************************************************************/
@@ -126,6 +155,7 @@ void XFsbl_CfgInitialize (XFsblPs * FsblInstancePtr)
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 {
 	u32 Status = XFSBL_SUCCESS;
+	u32 Reset_Reason;
 
 	/**
 	 * Configure the system as in PSU
@@ -159,6 +189,11 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	Status = XFsbl_ResetValidation(FsblInstancePtr);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
+	}
+
+	Reset_Reason = XFsbl_GetResetReason();
+	if (Reset_Reason == PS_ONLY_RESET) {
+		FsblInstancePtr->ResetReason = PS_ONLY_RESET;
 	}
 
 	XFsbl_Printf(DEBUG_INFO,"Processor Initialization Done \n\r");

@@ -819,6 +819,14 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
 #ifdef XFSBL_BS
+		/**
+		 * In case of PS Only Reset, skip copying
+		 * the PL bitstream
+		 */
+		if (FsblInstancePtr->ResetReason == PS_ONLY_RESET)
+		{
+			goto END;
+		}
 
 		if (LoadAddress == XFSBL_DUMMY_PL_ADDR)
 		{
@@ -1034,6 +1042,21 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
 
+#ifdef XFSBL_BS
+	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
+	{
+		/**
+		 * In case of PS Only Reset, skip configuring
+		 * the PL bitstream
+		 */
+		if (FsblInstancePtr->ResetReason == PS_ONLY_RESET)
+		{
+			XFsbl_Printf(DEBUG_INFO,
+			"PS Only Reset. Skipping PL configuration\r\n");
+			goto END;
+		}
+	}
+#endif
 
 	/**
          * Get the execution state
