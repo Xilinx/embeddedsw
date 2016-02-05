@@ -55,6 +55,7 @@
  *                     Added ability to insert a custom video timing table:
  *                         XVidC_RegisterCustomTimingModes
  *                         XVidC_UnregisterCustomTimingMode
+ *       yh            Added 3D support.
  * </pre>
  *
 *******************************************************************************/
@@ -331,6 +332,39 @@ typedef enum {
 	XVIDC_CR_UNKNOWN_RANGE
 } XVidC_ColorRange;
 
+/**
+ * 3D formats.
+ */
+typedef enum {
+	XVIDC_3D_FRAME_PACKING = 0,	/**< Frame packing.         */
+	XVIDC_3D_FIELD_ALTERNATIVE,	/**< Field alternative.     */
+	XVIDC_3D_LINE_ALTERNATIVE,	/**< Line alternative.      */
+	XVIDC_3D_SIDE_BY_SIDE_FULL,	/**< Side-by-side (full).   */
+	XVIDC_3D_TOP_AND_BOTTOM_HALF,	/**< Top-and-bottom (half). */
+	XVIDC_3D_SIDE_BY_SIDE_HALF,	/**< Side-by-side (half).   */
+	XVIDC_3D_UNKNOWN
+} XVidC_3DFormat;
+
+/**
+ * 3D Sub-sampling methods.
+ */
+typedef enum {
+	XVIDC_3D_SAMPLING_HORIZONTAL = 0, /**< Horizontal sub-sampling. */
+	XVIDC_3D_SAMPLING_QUINCUNX,	  /**< Quincunx matrix.         */
+	XVIDC_3D_SAMPLING_UNKNOWN
+} XVidC_3DSamplingMethod;
+
+/**
+ * 3D Sub-sampling positions.
+ */
+typedef enum {
+	XVIDC_3D_SAMPPOS_OLOR = 0,	/**< Odd/Left,  Odd/Right.  */
+	XVIDC_3D_SAMPPOS_OLER,		/**< Odd/Left,  Even/Right. */
+	XVIDC_3D_SAMPPOS_ELOR,		/**< Even/Left, Odd/Right.  */
+	XVIDC_3D_SAMPPOS_ELER,		/**< Even/Left, Even/Right. */
+	XVIDC_3D_SAMPPOS_UNKNOWN
+} XVidC_3DSamplingPosition;
+
 /****************************** Type Definitions ******************************/
 
 /**
@@ -356,6 +390,22 @@ typedef struct {
 } XVidC_VideoTiming;
 
 /**
+ * 3D Sampling info structure.
+ */
+typedef struct {
+	XVidC_3DSamplingMethod   Method;
+	XVidC_3DSamplingPosition Position;
+} XVidC_3DSamplingInfo;
+
+/**
+ * 3D info structure.
+ */
+typedef struct {
+	XVidC_3DFormat		Format;
+	XVidC_3DSamplingInfo	Sampling;
+} XVidC_3DInfo;
+
+/**
  * Video stream structure.
  */
 typedef struct {
@@ -364,6 +414,8 @@ typedef struct {
 	XVidC_PixelsPerClock	PixPerClk;
 	XVidC_FrameRate		FrameRate;
 	u8			IsInterlaced;
+	u8			Is3D;
+	XVidC_3DInfo		Info_3D;
 	XVidC_VideoMode		VmId;
 	XVidC_VideoTiming	Timing;
 } XVidC_VideoStream;
@@ -414,13 +466,36 @@ u8 XVidC_IsInterlaced(XVidC_VideoMode VmId);
 XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 		u8 IsInterlaced);
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);
-const char* XVidC_GetVideoModeStr(XVidC_VideoMode VmId);
-char* XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
-char* XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId);
+const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId);
+char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
+char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId);
 XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId);
 const XVidC_VideoTiming* XVidC_GetTimingInfo(XVidC_VideoMode VmId);
 void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream);
 void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced);
+char *XVidC_Get3DFormatStr(XVidC_3DFormat Format);
+u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
+			 XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
+			 XVidC_PixelsPerClock Ppc);
+u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
+			   XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
+			   XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3DPtr);
+
+/******************* Macros (Inline Functions) Definitions ********************/
+
+/*****************************************************************************/
+/**
+ * This macro check if video stream is 3D or 2D.
+ *
+ * @param	VidStreamPtr is a pointer to the XVidC_VideoStream structure.
+ *
+ * @return	3D(1)/2D(0)
+ *
+ * @note	C-style signature:
+ *		u8 XDp_IsStream3D(XVidC_VideoStream *VidStreamPtr)
+ *
+ *****************************************************************************/
+#define XVidC_IsStream3D(VidStreamPtr)       ((VidStreamPtr)->Is3D)
 
 /*************************** Variable Declarations ****************************/
 

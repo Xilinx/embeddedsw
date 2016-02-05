@@ -51,6 +51,7 @@
  * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
  *                     contents now const.
  *                     Added ability to insert a custom video timing table.
+ *       yh            Added 3D support.
  * </pre>
  *
 *******************************************************************************/
@@ -492,6 +493,44 @@ char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
+ * This function returns a string representation of the enumerated type,
+ * XVidC_3DFormat.
+ *
+ * @param	Format specifies the value to convert.
+ *
+ * @return	Pointer to the converted string.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+char *XVidC_Get3DFormatStr(XVidC_3DFormat Format)
+{
+	switch (Format) {
+		case XVIDC_3D_FRAME_PACKING:
+			return ("Frame Packing");
+
+		case XVIDC_3D_FIELD_ALTERNATIVE:
+			return ("Field Alternative");
+
+		case XVIDC_3D_LINE_ALTERNATIVE:
+			return ("Line Alternative");
+
+		case XVIDC_3D_SIDE_BY_SIDE_FULL:
+			return ("Side-by-Side(full)");
+
+		case XVIDC_3D_TOP_AND_BOTTOM_HALF:
+			return ("Top-and-Bottom(half)");
+
+		case XVIDC_3D_SIDE_BY_SIDE_HALF:
+			return ("Side-by-Side(half)");
+
+		default:
+			return ("Unknown");
+	}
+}
+
+/******************************************************************************/
+/**
  * This function returns the color format name for index specified.
  *
  * @param	ColorFormatId specifies the index of color format space.
@@ -573,6 +612,161 @@ const XVidC_VideoTiming *XVidC_GetTimingInfo(XVidC_VideoMode VmId)
 
 /******************************************************************************/
 /**
+ * This function sets the VideoStream structure for the specified video format.
+ *
+ * @param	VidStrmPtr is a pointer to the XVidC_VideoStream structure to be
+ *		set.
+ * @param	VmId specifies the resolution ID.
+ * @param	ColorFormat specifies the color format type.
+ * @param	Bpc specifies the color depth/bits per color component.
+ * @param	Ppc specifies the pixels per clock.
+ *
+ * @return
+ *		- XST_SUCCESS if the timing for the supplied ID was found.
+ *		- XST_FAILURE, otherwise.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
+			 XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
+			 XVidC_PixelsPerClock Ppc)
+{
+	const XVidC_VideoTiming *TimingPtr;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(VidStrmPtr != NULL);
+	Xil_AssertNonvoid((ColorFormat == XVIDC_CSF_RGB)       ||
+			  (ColorFormat == XVIDC_CSF_YCRCB_444) ||
+			  (ColorFormat == XVIDC_CSF_YCRCB_422) ||
+			  (ColorFormat == XVIDC_CSF_YCRCB_420) ||
+			  (ColorFormat == XVIDC_CSF_UNKNOWN));
+	Xil_AssertNonvoid((Bpc == XVIDC_BPC_6)  ||
+			  (Bpc == XVIDC_BPC_8)  ||
+			  (Bpc == XVIDC_BPC_10) ||
+			  (Bpc == XVIDC_BPC_12) ||
+			  (Bpc == XVIDC_BPC_14) ||
+			  (Bpc == XVIDC_BPC_16) ||
+			  (Bpc == XVIDC_BPC_UNKNOWN));
+	Xil_AssertNonvoid((Ppc == XVIDC_PPC_1) ||
+			  (Ppc == XVIDC_PPC_2) ||
+			  (Ppc == XVIDC_PPC_4));
+
+	/* Get the timing from the video timing table. */
+	TimingPtr = XVidC_GetTimingInfo(VmId);
+	if (!TimingPtr) {
+		return XST_FAILURE;
+	}
+	VidStrmPtr->VmId		= VmId;
+	VidStrmPtr->Timing		= *TimingPtr;
+	VidStrmPtr->FrameRate		= XVidC_GetFrameRate(VmId);
+	VidStrmPtr->IsInterlaced	= XVidC_IsInterlaced(VmId);
+	VidStrmPtr->ColorFormatId	= ColorFormat;
+	VidStrmPtr->ColorDepth		= Bpc;
+	VidStrmPtr->PixPerClk		= Ppc;
+
+	/* Set stream to 2D. */
+	VidStrmPtr->Is3D			= FALSE;
+	VidStrmPtr->Info_3D.Format		= XVIDC_3D_UNKNOWN;
+	VidStrmPtr->Info_3D.Sampling.Method	= XVIDC_3D_SAMPLING_UNKNOWN;
+	VidStrmPtr->Info_3D.Sampling.Position	= XVIDC_3D_SAMPPOS_UNKNOWN;
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function sets the VideoStream structure for the specified 3D video
+ * format.
+ *
+ * @param	VidStrmPtr is a pointer to the XVidC_VideoStream structure to be
+ *		set.
+ * @param	VmId specifies the resolution ID.
+ * @param	ColorFormat specifies the color format type.
+ * @param	Bpc specifies the color depth/bits per color component.
+ * @param	Ppc specifies the pixels per clock.
+ * @param	Info3DPtr is a pointer to a XVidC_3DInfo structure.
+ *
+ * @return
+ *		- XST_SUCCESS if the timing for the supplied ID was found.
+ *		- XST_FAILURE, otherwise.
+ *
+ * @return
+ *		- XST_SUCCESS
+ *		- XST_FAILURE
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
+			   XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
+			   XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3DPtr)
+{
+	u32 Status;
+	u16 Vblank0;
+	u16 Vblank1;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(Info3DPtr != NULL);
+
+	/* Initialize with info for 2D frame. */
+	Status = XVidC_SetVideoStream(VidStrmPtr, VmId, ColorFormat, Bpc, Ppc);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Set stream to 3D. */
+	VidStrmPtr->Is3D	= TRUE;
+	VidStrmPtr->Info_3D	= *Info3DPtr;
+
+	/* Only 3D format supported is frame packing. */
+	if (Info3DPtr->Format != XVIDC_3D_FRAME_PACKING) {
+		return XST_FAILURE;
+	}
+
+	/* Update the timing based on the 3D format. */
+
+	/* An interlaced format is converted to a progressive frame: */
+	/*	3D VActive = (2D VActive * 4) + (2D VBlank field0) +
+						(2D Vblank field1 * 2) */
+	if (VidStrmPtr->IsInterlaced) {
+		Vblank0 = VidStrmPtr->Timing.F0PVTotal -
+						VidStrmPtr->Timing.VActive;
+		Vblank1 = VidStrmPtr->Timing.F1VTotal -
+						VidStrmPtr->Timing.VActive;
+		VidStrmPtr->Timing.VActive = (VidStrmPtr->Timing.VActive * 4) +
+						Vblank0 + (Vblank1 * 2);
+
+		/* Set VTotal */
+		VidStrmPtr->Timing.F0PVTotal *= 2;
+		VidStrmPtr->Timing.F0PVTotal += VidStrmPtr->Timing.F1VTotal * 2;
+
+		/* Clear field 1 values. */
+		VidStrmPtr->Timing.F1VFrontPorch = 0;
+		VidStrmPtr->Timing.F1VSyncWidth  = 0;
+		VidStrmPtr->Timing.F1VBackPorch  = 0;
+		VidStrmPtr->Timing.F1VTotal      = 0;
+
+		/* Set format to progressive */
+		VidStrmPtr->IsInterlaced = FALSE;
+	}
+	/* Progressive */
+	else {
+		/* 3D Vactive = (2D VActive * 2) + (2D VBlank) */
+		Vblank0 = VidStrmPtr->Timing.F0PVTotal -
+						VidStrmPtr->Timing.VActive;
+		VidStrmPtr->Timing.VActive = (VidStrmPtr->Timing.VActive * 2) +
+						Vblank0;
+
+		/* Set VTotal. */
+		VidStrmPtr->Timing.F0PVTotal = VidStrmPtr->Timing.F0PVTotal * 2;
+	}
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
  * This function prints the stream information on STDIO/UART console.
  *
  * @param	Stream is a pointer to video stream.
@@ -597,6 +791,11 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 	xil_printf("\tPixels Per Clock: %d\r\n", Stream->PixPerClk);
 	xil_printf("\tMode:             %s\r\n",
 			Stream->IsInterlaced ? "Interlaced" : "Progressive");
+
+	if (Stream->Is3D) {
+		xil_printf("\t3D Format:        %s\r\n",
+		XVidC_Get3DFormatStr(Stream->Info_3D.Format));
+	}
 
 	if (Stream->VmId == XVIDC_VM_CUSTOM) {
 		xil_printf("\tFrame Rate:       %dHz\r\n",
