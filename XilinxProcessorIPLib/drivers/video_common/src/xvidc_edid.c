@@ -443,18 +443,16 @@ u32 XVidC_EdidIsVideoTimingSupported(const u8 *EdidRaw,
 static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming(const u8 *EdidRaw,
 		const XVidC_VideoTimingMode *VtMode)
 {
-	u8 *Ptm;
+	const u8 *Ptm;
 
 	Ptm = &EdidRaw[XVIDC_EDID_PTM];
 
-	u32 HActive =
-			(((Ptm[XVIDC_EDID_DTD_PTM_HRES_HBLANK_U4] &
+	u32 HActive = (((Ptm[XVIDC_EDID_DTD_PTM_HRES_HBLANK_U4] &
 			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
 			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
 			Ptm[XVIDC_EDID_DTD_PTM_HRES_LSB];
 
-	u32 VActive =
-			(((Ptm[XVIDC_EDID_DTD_PTM_VRES_VBLANK_U4] &
+	u32 VActive = (((Ptm[XVIDC_EDID_DTD_PTM_VRES_VBLANK_U4] &
 			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK) >>
 			XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT) << 8) |
 			Ptm[XVIDC_EDID_DTD_PTM_VRES_LSB];
