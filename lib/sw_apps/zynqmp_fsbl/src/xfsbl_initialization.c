@@ -303,7 +303,6 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		 * Update the Vector locations in R5 TCM
 		 */
 		while (Index<32U) {
-			XFsbl_Out32(Index, 0U);
 			XFsbl_Out32(Index, XFSBL_R5_VECTOR_VALUE);
 			Index += 4;
 		}
