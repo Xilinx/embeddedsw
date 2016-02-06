@@ -93,15 +93,6 @@ proc generate {os_handle} {
             }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
-            set pss_ref_clk_mhz [get_psu_config "PSU__PSS_REF_CLK__FREQMHZ"]
-
-            if { $pss_ref_clk_mhz !="" } {
-                set file_handle [::hsi::utils::open_include_file "xparameters.h"]
-                puts $file_handle ""
-                puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz*1e6]  "U"]
-                puts $file_handle ""
-                close $file_handle
-            }
         }
         "psu_cortexa53"  {
             set procdrv [hsi::get_sw_processor]
@@ -299,12 +290,6 @@ proc generate {os_handle} {
     }
 
     close $bspcfg_fh
-}
-# --------------------------------------
-# Tcl procedure get_psu_config
-# --------------------------------------
-proc get_psu_config {name} {
-    return [get_property [format %s%s "CONFIG." $name] [get_cells zynq_ultra_ps_e_0]]
 }
 
 # --------------------------------------
