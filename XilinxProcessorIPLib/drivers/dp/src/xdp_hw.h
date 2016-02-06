@@ -398,7 +398,8 @@
 				0x00000002	/**< The VC payload has been
 							updated in the sink. */
 /* 0x0F0: TX_LINE_RESET_DISABLE */
-#define XDP_TX_LINE_RESET_DISABLE_MASK	0x1	/**< Used to disable the end of
+#define XDP_TX_LINE_RESET_DISABLE_MASK(Stream) \
+	(1 << ((Stream) - XDP_TX_STREAM_ID1))	/**< Used to disable the end of
 							the line reset to the
 							internal video pipe. */
 /* 0x0F8: VERSION */

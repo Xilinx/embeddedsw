@@ -51,6 +51,7 @@
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  07/27/15 Scale TX fractional register by 1024 instead of 1000.
  * 3.0   als  10/07/15 Added MSA callback.
+ * 4.0   als  02/07/16 Enable/disable end of line reset for reduced blanking.
  * </pre>
  *
 *******************************************************************************/
@@ -62,6 +63,8 @@
 /**************************** Function Prototypes *****************************/
 
 static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel);
+static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
+		XDp_TxMainStreamAttributes *MsaConfig);
 
 /**************************** Function Definitions ****************************/
 
@@ -813,11 +816,7 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_USER_DATA_COUNT_PER_LANE +
 		StreamOffset[Stream - 1], MsaConfig->DataPerLane);
 
-	/* Disable the end of line reset to the internal video pipe in case of
-	 * 4K2K reduced blanking. */
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE,
-			(MsaConfig->Vtm.VmId == XVIDC_VM_4K2K_60_P_RB) ?
-			XDP_TX_LINE_RESET_DISABLE_MASK : 0);
+	XDp_TxSetLineReset(InstancePtr, Stream, MsaConfig);
 
 	/* Set the transfer unit values to the associated DisplayPort TX core
 	 * registers. */
@@ -963,5 +962,48 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn =
 			MsaConfig->TransferUnitSize *
 			(LinkConfig->LaneCount * LinkConfig->LinkRate / 2);
+}
+
+/******************************************************************************/
+/**
+ * Disable/enable the end of line reset to the internal video pipe in case of
+ * reduced blanking as required.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number to make the calculations for.
+ * @param	MsaConfig contains the video timing information.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
+		XDp_TxMainStreamAttributes *MsaConfig)
+{
+	u32 RegVal;
+	u16 HBlank;
+	u16 HReducedBlank;
+	XDp_Config *ConfigPtr = &InstancePtr->Config;
+
+	HBlank = MsaConfig->Vtm.Timing.HBackPorch +
+		 MsaConfig->Vtm.Timing.HFrontPorch +
+		 MsaConfig->Vtm.Timing.HSyncWidth;
+	/* Reduced blanking starts at ceil(0.2 * HTotal). */
+	HReducedBlank = 2 * MsaConfig->Vtm.Timing.HTotal;
+	if (HReducedBlank % 10) {
+		HReducedBlank += 10;
+	}
+	HReducedBlank /= 10;
+
+	/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
+	RegVal = XDp_ReadReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE);
+	if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160))) {
+		RegVal |= XDP_TX_LINE_RESET_DISABLE_MASK(Stream);
+	}
+	else {
+		RegVal &= ~XDP_TX_LINE_RESET_DISABLE_MASK(Stream);
+	}
+	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE, RegVal);
 }
 /** @} */
