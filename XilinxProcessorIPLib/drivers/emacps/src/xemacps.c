@@ -326,11 +326,16 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 			XEMACPS_NWCTRL_MDEN_MASK) &
 			(u32)(~XEMACPS_NWCTRL_LOOPEN_MASK));
 
+	Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+			XEMACPS_NWCFG_OFFSET);
+	Reg &= XEMACPS_NWCFG_MDCCLKDIV_MASK;
+
+	Reg = Reg | (u32)XEMACPS_NWCFG_100_MASK |
+			(u32)XEMACPS_NWCFG_FDEN_MASK |
+			(u32)XEMACPS_NWCFG_UCASTHASHEN_MASK;
+
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XEMACPS_NWCFG_OFFSET,
-					((u32)XEMACPS_NWCFG_100_MASK |
-					(u32)XEMACPS_NWCFG_FDEN_MASK |
-					(u32)XEMACPS_NWCFG_UCASTHASHEN_MASK));
+					XEMACPS_NWCFG_OFFSET, Reg);
 	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET,
 			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET) |
