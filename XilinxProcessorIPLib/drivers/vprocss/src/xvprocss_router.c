@@ -50,6 +50,8 @@
 * 2.00  dmc  12/17/15   Accommodate Full topology with no VDMA
 *                       Rename and modify H,VCresample constants and routines
 *                       Mods to conform to coding sytle
+*            01/11/16   Write to new Event Log: log status and error events
+*                       The Event Logging replaces all the printf statements
 * </pre>
 *
 ******************************************************************************/
@@ -137,17 +139,12 @@ static XVprocSs_ScaleMode GetScalingMode(XVprocSs *XVprocSsPtr)
                                 XVprocSsPtr->VidOut.Timing.VActive);
     if(status != XST_SUCCESS)
     {
-      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VDMA Write Channel Window Invalid \r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_WRWINBAD);
 	  return(XVPROCSS_SCALE_NOT_SUPPORTED);
     }
     else
     {
-      xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n PIP Mode ON: Scale %dx%d -> %dx%d window in output stream\r\n",
-		            StrmInPtr->Timing.HActive,
-		            StrmInPtr->Timing.VActive,
-		            XVprocSsPtr->CtxtData.WrWindow.Width,
-		            XVprocSsPtr->CtxtData.WrWindow.Height);
-
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_SCALEDN);
       return(XVPROCSS_SCALE_DN);
     }
   }
@@ -162,17 +159,12 @@ static XVprocSs_ScaleMode GetScalingMode(XVprocSs *XVprocSsPtr)
 	                            StrmInPtr->Timing.VActive);
     if(status != XST_SUCCESS)
     {
-      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: VDMA Read Channel Window Invalid \r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_RDWINBAD);
 	  return(XVPROCSS_SCALE_NOT_SUPPORTED);
     }
     else
     {
-      xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n Zoom Mode ON: Scale %dx%d window from Input Stream -> %dx%d\r\n",
-                    XVprocSsPtr->CtxtData.RdWindow.Width,
-                    XVprocSsPtr->CtxtData.RdWindow.Height,
-		            StrmOutPtr->Timing.HActive,
-		            StrmOutPtr->Timing.VActive);
-
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_SCALEUP);
       return (XVPROCSS_SCALE_UP);
     }
   }
@@ -182,15 +174,18 @@ static XVprocSs_ScaleMode GetScalingMode(XVprocSs *XVprocSsPtr)
      (StrmInPtr->Timing.VActive > StrmOutPtr->Timing.VActive))
   {
     mode = XVPROCSS_SCALE_DN;
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_SCALEDN);
   }
   else if((StrmInPtr->Timing.HActive < StrmOutPtr->Timing.HActive) ||
           (StrmInPtr->Timing.VActive < StrmOutPtr->Timing.VActive))
   {
     mode = XVPROCSS_SCALE_UP;
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_SCALEUP);
   }
   else
   {
     mode = XVPROCSS_SCALE_1_1;
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_SCALE11);
   }
   return(mode);
 }
@@ -215,8 +210,6 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   u8 *pTable              = &XVprocSsPtr->CtxtData.RtngTable[0];
   int status = XST_SUCCESS;
 
-  xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Build AXIS Routing Map for Subsystem Use-Case.... \r\n");
-
   /* Save input resolution */
   CtxtPtr->VidInWidth  = StrmInPtr->Timing.HActive;
   CtxtPtr->VidInHeight = StrmInPtr->Timing.VActive;
@@ -225,7 +218,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   /* Determine Scaling Mode */
   CtxtPtr->ScaleMode = GetScalingMode(XVprocSsPtr);
   if(CtxtPtr->ScaleMode == XVPROCSS_SCALE_NOT_SUPPORTED) {
-	xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode not supported\r\n");
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_SCALEBAD);
     return(XST_FAILURE);
   }
 
@@ -269,7 +262,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
         break;
 
     default:
-	    xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Scaling Mode cannot be determined.\r\n");
+        XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_SCALEBAD);
         return(XST_FAILURE);
         break;
   }
@@ -312,8 +305,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            default: //Unsupported color format
-		      xdbg_printf(XDBG_DEBUG_GENERAL,
-				"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+              XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_CFIN);
               status = XST_FAILURE;
               break;
          }
@@ -340,8 +332,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            default: //Unsupported color format
-		      xdbg_printf(XDBG_DEBUG_GENERAL,
-				"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+              XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_CFIN);
               status = XST_FAILURE;
               break;
          }
@@ -376,7 +367,7 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            default: //Unsupported color format
-		      xdbg_printf(XDBG_DEBUG_GENERAL,"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+              XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_CFIN);
               status = XST_FAILURE;
               break;
          }
@@ -403,16 +394,14 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
               break;
 
            default: //Unsupported color format
-		      xdbg_printf(XDBG_DEBUG_GENERAL,
-				"VPROCSS ERR:: Input Color Format Not Supported \r\n");
+              XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_CFIN);
               status = XST_FAILURE;
               break;
          }
          break;
 
       default:
-	  xdbg_printf(XDBG_DEBUG_GENERAL,
-		"VPROCSS ERR:: Output Color Format Not Supported \r\n");
+        XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_CFOUT);
         status = XST_FAILURE;
         break;
   }
@@ -422,6 +411,9 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
 
   /* save number of cores in processing path */
   CtxtPtr->RtrNumCores = index;
+
+  if(status == XST_SUCCESS)
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_TABLEOK);
 
   return(status);
 }
@@ -462,6 +454,8 @@ void XVprocSs_ProgRouterMux(XVprocSs *XVprocSsPtr)
 
   //Enable Router register update
   XAxisScr_RegUpdateEnable(XVprocSsPtr->RouterPtr);
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_ROUTEOK);
 }
 
 /*****************************************************************************/
@@ -689,8 +683,10 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
     }
   }
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_DFLOWOK);
 
   /* Start all IP Blocks in the processing chain */
   XVprocSs_Start(XVprocSsPtr);
+
 }
 /** @} */

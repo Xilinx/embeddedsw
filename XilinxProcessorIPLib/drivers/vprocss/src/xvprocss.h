@@ -190,6 +190,8 @@
 *       dmc   12/17/15  Accommodate Full topology with no VDMA
 *                       Rename and modify H,VCresample constants and routines
 *                       Add macros to query for the new topologies
+*       dmc   01/11/16  Add new data struct, enums, constants and prototypes
+*                       to support a new Event Logging system for xvprocss.
 * </pre>
 *
 ******************************************************************************/
@@ -207,6 +209,7 @@ extern "C" {
 #include "xaxis_switch.h"
 #include "xvidc.h"
 #include "xaxivdma.h"
+#include "xvprocss_log.h"
 
 /**
  *  Subsystem sub-core layer 2 header files
@@ -369,31 +372,34 @@ typedef struct
   XVprocSs_Config Config;	         /**< Hardware configuration */
   u32 IsReady;		                 /**< Device and the driver instance are
                                        initialized */
+
   XAxis_Switch *RouterPtr;           /**< handle to sub-core driver instance */
   XGpio *RstAxisPtr;                 /**< handle to sub-core driver instance */
   XGpio *RstAximmPtr;                /**< handle to sub-core driver instance */
-                                     /**< handle to sub-core driver instance */
+
   XV_Hcresampler_l2 *HcrsmplrPtr;    /**< handle to sub-core driver instance */
   XV_Vcresampler_l2 *VcrsmplrInPtr;  /**< handle to sub-core driver instance */
   XV_Vcresampler_l2 *VcrsmplrOutPtr; /**< handle to sub-core driver instance */
   XV_Vscaler_l2 *VscalerPtr;         /**< handle to sub-core driver instance */
   XV_Hscaler_l2 *HscalerPtr;         /**< handle to sub-core driver instance */
   XAxiVdma *VdmaPtr;                 /**< handle to sub-core driver instance */
-  XV_Lbox_l2 *LboxPtr;             /**< handle to sub-core driver instance */
+  XV_Lbox_l2 *LboxPtr;               /**< handle to sub-core driver instance */
   XV_Csc_l2 *CscPtr;                 /**< handle to sub-core driver instance */
   XV_Deint_l2 *DeintPtr;             /**< handle to sub-core driver instance */
 
   //I/O Streams
-  XVidC_VideoStream VidIn;      /**< Input  AXIS configuration */
-  XVidC_VideoStream VidOut;     /**< Output AXIS configuration */
+  XVidC_VideoStream VidIn;           /**< Input  AXIS configuration */
+  XVidC_VideoStream VidOut;          /**< Output AXIS configuration */
 
-  XVprocSs_ContextData CtxtData; /**< Internal Scratch pad memory for subsystem
-                                     instance */
-  u32 FrameBufBaseaddr;         /**< Base address for frame buffer storage */
+  XVprocSs_ContextData CtxtData;     /**< Internal Scratch pad memory for subsystem
+                                         instance */
+  u32 FrameBufBaseaddr;              /**< Base address for frame buffer storage */
 
-  XVidC_DelayHandler UsrDelayUs; /**< custom user function for delay/sleep */
-  void *UsrTmrPtr;                /**< handle to timer instance used by user
-                                     delay function */
+  XVidC_DelayHandler UsrDelayUs;     /**< custom user function for delay/sleep */
+  void *UsrTmrPtr;                   /**< handle to timer instance used by user
+                                         delay function */
+
+  XVprocSs_Log Log;                  /**< A log of events. */
 } XVprocSs;
 
 /************************** Macros Definitions *******************************/
@@ -587,17 +593,19 @@ typedef struct
 #define XVprocSs_SetStreamColorDepth(Stream, ColorDepth) \
                                             ((Stream)->ColorDepth = ColorDepth)
 
-/************************** Function Prototypes ******************************/
-void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr);
 
-XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId);
+/************************** Function Prototypes ******************************/
+/* Subsystem configuration and management functions */
 int XVprocSs_CfgInitialize(XVprocSs *InstancePtr,
                            XVprocSs_Config *CfgPtr,
                            u32 EffectiveAddr);
+int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr);
+XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId);
 
 void XVprocSs_Start(XVprocSs *InstancePtr);
 void XVprocSs_Stop(XVprocSs *InstancePtr);
 void XVprocSs_Reset(XVprocSs *InstancePtr);
+
 int XVprocSs_SetVidStreamIn(XVprocSs *InstancePtr,
                             const XVidC_VideoStream *StrmIn);
 int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
@@ -605,7 +613,13 @@ int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
 int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
                                  const XVidC_VideoMode VmId,
                                  XVidC_VideoTiming const *Timing);
-int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr);
+void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr);
+
+void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
+                                  XVidC_DelayHandler CallbackFunc,
+                                  void *CallbackRef);
+
+/* Zoom and PIP Control functions */
 void XVprocSs_SetZoomMode(XVprocSs *InstancePtr, u8 OnOff);
 void XVprocSs_SetPipMode(XVprocSs *InstancePtr, u8 OnOff);
 void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
@@ -660,9 +674,11 @@ void XVprocSs_ReportSubsystemCoreInfo(XVprocSs *InstancePtr);
 void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
 		                          u32 SubcoreId);
 
-void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
-                                  XVidC_DelayHandler CallbackFunc,
-                                  void *CallbackRef);
+/* Event Logging functions. */
+void XVprocSs_LogReset(XVprocSs *InstancePtr);
+void XVprocSs_LogWrite(XVprocSs *InstancePtr, XVprocSs_LogEvent Evt, u8 Data);
+u16  XVprocSs_LogRead(XVprocSs *InstancePtr);
+void XVprocSs_LogDisplay(XVprocSs *InstancePtr);
 
 #ifdef __cplusplus
 }

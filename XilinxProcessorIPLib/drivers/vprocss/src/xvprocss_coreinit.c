@@ -53,6 +53,7 @@
 * 1.00  rco  07/21/15   Initial Release
 * 1.10  rco  11/25/15   Replace bitwise OR with ADD operation when computing
 *                       subcore absolute address
+* 2.00  dmc  01/11/16   Write to new Event Log: log sub-core init errors
 * </pre>
 *
 ******************************************************************************/
@@ -127,11 +128,10 @@ int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->RstAxisPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXIS Reset core.... \r\n");
     pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAxis.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Reset AXIS device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIS, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -144,7 +144,7 @@ int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Reset AXIS core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIS, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -155,10 +155,12 @@ int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Reset AXIS core Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIS, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIS, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -180,11 +182,10 @@ int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->RstAximmPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXI-MM Reset core.... \r\n");
     pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAximm .DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Reset AXI-MM device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIM, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -197,7 +198,7 @@ int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Reset AXI-MM core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIM, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -208,10 +209,12 @@ int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Reset AXI-MM core Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIM, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIM, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -233,11 +236,10 @@ int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->RouterPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing AXIS Switch core.... \r\n");
     pConfig  = XAxisScr_LookupConfig(XVprocSsPtr->Config.Router.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: AXIS Switch device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_ROUTER, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -250,7 +252,7 @@ int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: AXIS Switch core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_ROUTER, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -261,10 +263,12 @@ int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: AXIS Switch Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_ROUTER, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_ROUTER, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -286,11 +290,10 @@ int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->CscPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing CSC core.... \r\n");
     pConfig  = XV_csc_LookupConfig(XVprocSsPtr->Config.Csc.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: CSC device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -303,7 +306,7 @@ int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: CSC core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -314,10 +317,12 @@ int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: CSC Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -340,11 +345,10 @@ int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->HscalerPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Horiz. Scaler core.... \r\n");
     pConfig  = XV_hscaler_LookupConfig(XVprocSsPtr->Config.Hscale.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Horiz. Scaler device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -357,7 +361,7 @@ int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Horiz. Scaler core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -368,10 +372,12 @@ int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Horiz. Scaler Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -393,11 +399,10 @@ int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VscalerPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Vert. Scaler core.... \r\n");
     pConfig  = XV_vscaler_LookupConfig(XVprocSsPtr->Config.Vscale.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Vert. Scaler device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VSCALER, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -410,7 +415,7 @@ int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Vert. Scaler core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VSCALER, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -421,10 +426,12 @@ int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Vert. Scaler Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VSCALER, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VSCALER, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -446,11 +453,10 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->HcrsmplrPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing H Chroma Resampler core.... \r\n");
     pConfig  = XV_hcresampler_LookupConfig(XVprocSsPtr->Config.HCrsmplr.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: H Chroma Resampler device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HCR, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -463,7 +469,7 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: H Chroma Resampler core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HCR, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -474,7 +480,7 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: H Chroma Resampler Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HCR, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
 
@@ -482,8 +488,11 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
     {
       /* Load default filter coefficients */
       XV_HCrsmplLoadDefaultCoeff(XVprocSsPtr->HcrsmplrPtr);
+	  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HCR, XVPROCSS_EDAT_LDCOEF);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HCR, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -505,11 +514,10 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VcrsmplrInPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Input V Chroma Resampler core.... \r\n");
     pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrIn.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Input V Chroma Resampler device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRI, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -522,7 +530,7 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Input V Chroma Resampler core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRI, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -533,7 +541,7 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Input V Chroma Resampler Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRI, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
 
@@ -541,8 +549,11 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
     {
       /* Load default filter coefficients */
       XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrInPtr);
+	  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRI, XVPROCSS_EDAT_LDCOEF);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRI, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -564,11 +575,10 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VcrsmplrOutPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Output V Chroma Resampler core.... \r\n");
     pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrOut.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Output V Chroma Resampler device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRO, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -581,7 +591,7 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Output V Chroma Resampler core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRO, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -592,7 +602,7 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Output V Chroma Resampler Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRO, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
 
@@ -600,8 +610,11 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
     {
       /* Load default filter coefficients */
       XV_VCrsmplLoadDefaultCoeff(XVprocSsPtr->VcrsmplrOutPtr);
+	  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRO, XVPROCSS_EDAT_LDCOEF);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRO, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -623,11 +636,10 @@ int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->LboxPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Letterbox core.... \r\n");
     pConfig  = XV_letterbox_LookupConfig(XVprocSsPtr->Config.Lbox.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Letterbox device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_LBOX, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -640,7 +652,7 @@ int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Letterbox core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_LBOX, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -651,10 +663,12 @@ int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Letterbox Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_LBOX, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_LBOX, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -676,11 +690,10 @@ int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VdmaPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing VDMA core.... \r\n");
     pConfig  = XAxiVdma_LookupConfig(XVprocSsPtr->Config.Vdma.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: VDMA device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_VDMA, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -693,7 +706,7 @@ int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: VDMA core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_VDMA, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -704,10 +717,12 @@ int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: VDMA Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_VDMA, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_VDMA, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 
@@ -729,11 +744,10 @@ int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->DeintPtr)
   {
 	/* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Deinterlacer core.... \r\n");
     pConfig  = XV_deinterlacer_LookupConfig(XVprocSsPtr->Config.Deint.DeviceId);
     if(pConfig == NULL)
     {
-      xil_printf("VPROCSS ERR:: Deinterlacer device not found\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_DEINT, XVPROCSS_EDAT_CFABSENT);
       return(XST_FAILURE);
     }
 
@@ -746,7 +760,7 @@ int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Deinterlacer core base address (0x%x) invalid %d\r\n", AbsAddr);
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_DEINT, XVPROCSS_EDAT_BADADDR);
       return(XST_FAILURE);
     }
 
@@ -757,10 +771,12 @@ int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr)
 
     if(status != XST_SUCCESS)
     {
-      xil_printf("VPROCSS ERR:: Deinterlacer Initialization failed\r\n");
+      XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_DEINT, XVPROCSS_EDAT_INITFAIL);
       return(XST_FAILURE);
     }
   }
+
+  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_DEINT, XVPROCSS_EDAT_INITOK);
   return(XST_SUCCESS);
 }
 /** @} */
