@@ -80,7 +80,7 @@ static const PmApiEntry pmApiTable[] = {
 			      ARG_UNDEF }
 	}, {
 		.apiId = PM_RELEASE_NODE,
-		.argTypes = { ARG_NODE, ARG_LATENCY, ARG_UNDEF, ARG_UNDEF,
+		.argTypes = { ARG_NODE, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
 			      ARG_UNDEF }
 	}, {
 		.apiId = PM_SET_REQUIREMENT,

@@ -332,8 +332,7 @@ done:
  * @note    Node to be released must have been requested before
  */
 static void PmReleaseNode(const PmMaster *master,
-			  const u32 node,
-			  const u32 latency)
+			  const u32 node)
 {
 	int status;
 	u32 usage;
@@ -371,7 +370,7 @@ static void PmReleaseNode(const PmMaster *master,
 	}
 
 done:
-	PmDbg("(%s, %lu)\n", PmStrNode(node), latency);
+	PmDbg("(%s)\n", PmStrNode(node));
 	IPI_RESPONSE1(master->buffer, status);
 }
 
@@ -830,7 +829,7 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 		PmRequestNode(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 	case PM_RELEASE_NODE:
-		PmReleaseNode(master, pload[1], pload[2]);
+		PmReleaseNode(master, pload[1]);
 		break;
 	case PM_SET_REQUIREMENT:
 		PmSetRequirement(master, pload[1], pload[2], pload[3], pload[4]);
