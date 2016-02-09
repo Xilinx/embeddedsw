@@ -26,7 +26,7 @@ proc vpss_example args {
 
 		#copy example source files tp app project
 		puts "Get Example Design Source Files"
-		sdk import_sources -name vpss_example_design -path ./src
+		sdk import_sources -name vpss_example_design -path ./src -linker-script
 
 		#build project
 		puts "Build Project"

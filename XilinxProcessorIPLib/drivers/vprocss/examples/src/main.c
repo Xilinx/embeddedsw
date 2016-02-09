@@ -4,7 +4,6 @@
 #include "xparameters.h"
 #include "system.h"
 #include "xvprocss_vdma.h"
-#include "microblaze_sleep.h"
 
 #define XVPROCSS_SW_VER "v2.00"
 #define VERBOSE_MODE 0
@@ -44,39 +43,83 @@ int main(void)
   xil_printf("  (c) 2015 by Xilinx Inc.\r\n");
   xil_printf("--------------------------------------------------------\r\n");
 
-  xil_printf("\r\nInitialize System Design...\r\n");
   status = XSys_Init(PeriphPtr, VpssPtr);
   if(status != XST_SUCCESS)
   {
 	 xil_printf("CRITICAL ERR:: System Init Failed. Cannot recover from this error. Check HW\n\r");
   }
 
-#if (VERBOSE_MODE == 1)
-  xil_printf("\r\nINFO> Setting up VPSS AXIS In/Out\r\n");
-#endif
-
+/* Based on the customized Video Processing Subsystem functionality
+ * an appropriate video input format is chosen. The test pattern generator
+ * is set up with the chosen input format, and the VPSS video input is
+ * configured to that input format.
+ */
   //Set Test Pattern Generator parameters
+  printf ("\r\nConfigure TPG.\r\n");
   switch (VpssPtr->Config.Topology) {
     case XVPROCSS_TOPOLOGY_SCALER_ONLY:
-      // In this mode only the picture size may change
+      // In Scaler-only mode only the picture size may change
+
+      // Choose video format based on the "422 Enabled" option
+      if (XV_HscalerIs422Enabled(VpssPtr->HscalerPtr)) {
       // Video In: 1920x1080_60_P 422  Video Out: 3840x2160_60_P 422
-      XPeriph_SetTpgParams(PeriphPtr,
-		                   1920,
-		                   1080,
-		                   XVIDC_CSF_YCRCB_422,
-		                   XTPG_BKGND_COLOR_BARS,
-		                   FALSE);
+        XPeriph_SetTpgParams(PeriphPtr,
+                             1920,
+                             1080,
+                             XVIDC_CSF_YCRCB_422,
+                             XTPG_BKGND_COLOR_BARS,
+                             FALSE);
+      } else {
+      // Video In: 1920x1080_60_P 444  Video Out: 3840x2160_60_P 444
+        XPeriph_SetTpgParams(PeriphPtr,
+                             1920,
+                             1080,
+                             XVIDC_CSF_YCRCB_444,
+                             XTPG_BKGND_COLOR_BARS,
+                             FALSE);
+      }
       break;
 
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
-      // This mode may deinterlace, change picture size and/or color format
+      // Full Fledged mode may deinterlace, change picture size and/or color format
+
+      // In the Full Fledged configuration, the presence of a sub-core
+      //   is indicated by a non-NULL pointer to the sub-core driver instance.
+
+      // If there is no Deinterlacer OR if 420 input is supported,
+      //   choose 1080 Progressive 420 input format
+      if ((VpssPtr->DeintPtr      == NULL) ||
+          (VpssPtr->VcrsmplrInPtr != NULL)) {
+      // Video In: 1920x1080_60_P 420  Video Out: 3840x2160_60_P RGB
+        XPeriph_SetTpgParams(PeriphPtr,
+                             1920,
+                             1080,
+                             XVIDC_CSF_YCRCB_420,
+                             XTPG_BKGND_COLOR_BARS,
+                             FALSE);
+
+      // If the Deinterlacer is present AND 422 input is supported,
+      //   choose 1080 Interlaced 422 input format
+      } else if (VpssPtr->HcrsmplrPtr != NULL) {
       // Video In: 1920x1080_60_I 422  Video Out: 3840x2160_60_P RGB
-      XPeriph_SetTpgParams(PeriphPtr,
-		                   1920,
-		                   540,
-						   XVIDC_CSF_YCRCB_422,
-		                   XTPG_BKGND_COLOR_BARS,
-		                   TRUE);
+        XPeriph_SetTpgParams(PeriphPtr,
+                             1920,
+                             540,
+                             XVIDC_CSF_YCRCB_422,
+                             XTPG_BKGND_COLOR_BARS,
+                             TRUE);
+
+      // If the Deinterlacer is present AND 422 input is not supported,
+      //   choose 1080 Interlaced 444 input format
+      } else {
+      // Video In: 1920x1080_60_I 444  Video Out: 3840x2160_60_P RGB
+        XPeriph_SetTpgParams(PeriphPtr,
+                             1920,
+                             540,
+                             XVIDC_CSF_YCRCB_444,
+                             XTPG_BKGND_COLOR_BARS,
+                             TRUE);
+      }
       break;
 
     case XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY:
@@ -91,7 +134,7 @@ int main(void)
       break;
 
     case XVPROCSS_TOPOLOGY_CSC_ONLY:
-      // In this mode only the color format may change
+      // In CSC-only mode only the color format may change
       // Video In: 1920x1080_60_P 444  Video Out: 1920x1080_60_P RGB
       XPeriph_SetTpgParams(PeriphPtr,
 		                   1920,
@@ -142,10 +185,17 @@ int main(void)
 		              PeriphInst.TpgConfig.ColorFmt,
 		              PeriphInst.TpgConfig.IsInterlaced);
 
+
+/* Based on the customized Video Processing Subsystem functionality
+ * an appropriate video output format is chosen.
+ * The VPSS video output is configured to that output format.
+ */
   //Set Video Output AXI Stream Out
   switch (VpssPtr->Config.Topology) {
     case XVPROCSS_TOPOLOGY_SCALER_ONLY:
-      // Video In: 1920x1080_60_P 422  Video Out: 3840x2160_60_P 422
+
+      // Video In: 1920x1080_60_P  Video Out: 3840x2160_60_P
+      // output color format == input color format
       XSys_SetStreamParam(VpssPtr,
 		                  XSYS_VPSS_STREAM_OUT,
 		                  3840,
@@ -155,7 +205,7 @@ int main(void)
       break;
 
     case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
-      // Video In: 1920x1080_60_I 422  Video Out: 3840x2160_60_P RGB
+      // Video Out: 3840x2160_60_P RGB
 	  XSys_SetStreamParam(VpssPtr,
 		                  XSYS_VPSS_STREAM_OUT,
 				          3840,
@@ -215,10 +265,20 @@ int main(void)
       break;
   }
 
-  //Configure video processing subsystem
+  // Reset VPSS IP block
+  // (done only for single-IP VPSS cases)
+  if (XVprocSs_IsConfigModeCscOnly(VpssPtr)          ||
+      XVprocSs_IsConfigModeDeinterlaceOnly (VpssPtr) ||
+      XVprocSs_IsConfigModeHCResampleOnly(VpssPtr)   ||
+      XVprocSs_IsConfigModeVCResampleOnly(VpssPtr)
+     ) {
+    XPeriph_ResetHlsIp(PeriphPtr);
+  }
+
+  //Configure the video processing subsystem
   status = XVprocSs_SetSubsystemConfig(VpssPtr);
 
-  //Query vpss configuration
+  //Query video processing subsystem configuration
   XVprocSs_ReportSubsystemConfig(VpssPtr);
 
   if(status == XST_SUCCESS)
@@ -230,10 +290,6 @@ int main(void)
 
     //Config TPG for AXIS In
     XPeriph_ConfigTpg(PeriphPtr);
-
-#if (VERBOSE_MODE == 1)
-    XPeriph_TpgDbgReportStatus(PeriphPtr);
-#endif
 
     /* vtc is running at 9Mhz essentially providing < 2fps frame rate
      * Need to wait for 3-4 frames (~2sec) for vidout to acquire lock
@@ -260,6 +316,10 @@ int main(void)
     xil_printf("\r\nERR:: VProcss Configuration Failed. \r\n");
 	xil_printf("\r\nTEST FAILED\r\n");
   }
+
+#if VERBOSE_MODE
+  XVprocSs_LogDisplay(VpssPtr);
+#endif
 
   while(1) {
 	 //NOP

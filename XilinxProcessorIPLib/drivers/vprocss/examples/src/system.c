@@ -59,9 +59,10 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 0.01  rc   07/07/14 First release
-
+* ----- ---- --------  -------------------------------------------------------
+* 0.01  rc   07/07/14  First release
+* 1.00  dmc  01/25/16  Initialize the VPSS Event Logging system in XSys_Init()
+*
 * </pre>
 *
 ******************************************************************************/
@@ -110,7 +111,6 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
   memset(pPeriph,  0, sizeof(XPeriph));
   memset(pVprocss, 0, sizeof(XVprocSs));
 
-  xil_printf("\r\n  ->Initialize System Peripherals.... \r\n");
   status = XPeriph_PowerOnInit(pPeriph);
   if(status != XST_SUCCESS)
   {
@@ -118,7 +118,6 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
 	 return(XST_FAILURE);
   }
 
-  xil_printf("\r\n  ->Initialize Video Processing Subsystem...\r\n");
   VprocSsConfigPtr = XVprocSs_LookupConfig(XPAR_V_PROC_SS_0_DEVICE_ID);
   if(VprocSsConfigPtr == NULL)
   {
@@ -136,6 +135,9 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
     default:
       break;
   }
+
+  /* Start capturing event log. */
+  XVprocSs_LogReset(pVprocss);
 
   status = XVprocSs_CfgInitialize(pVprocss,
 		                          VprocSsConfigPtr,
@@ -176,13 +178,14 @@ void XSys_SetStreamParam(XVprocSs *pVprocss,
 {
   XVidC_VideoMode resId;
   XVidC_VideoStream Stream;
+  XVidC_VideoTiming const *TimingPtr;
 
   resId = XVidC_GetVideoModeId(Width, Height, XVIDC_FR_60HZ, IsInterlaced);
+  TimingPtr = XVidC_GetTimingInfo(resId);
 
   //Setup Video Processing Subsystem
   Stream.VmId           = resId;
-  Stream.Timing.HActive = Width;
-  Stream.Timing.VActive = Height;
+  Stream.Timing         = *TimingPtr;
   Stream.ColorFormatId  = cfmt;
   Stream.ColorDepth     = pVprocss->Config.ColorDepth;
   Stream.PixPerClk      = pVprocss->Config.PixPerClock;

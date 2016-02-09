@@ -58,10 +58,11 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who    Date     Changes
+* Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 0.01  rc   07/07/14 First release
-* 1.00  dmc  12/02/15   Removed UART driver instance
+* 1.00  dmc  12/02/15 Removed UART driver instance
+*            01/25/16 Support new GPIO instance to reset HLS IP inside the VPSS
 *
 * </pre>
 *
@@ -78,6 +79,7 @@ extern "C" {
 #include "xv_tpg.h"
 #include "xgpio.h"
 #include "xvtc.h"
+#include "microblaze_sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -101,8 +103,16 @@ typedef struct
   XV_tpg    *TpgPtr;
   XVtc      *VtcPtr;
   XGpio     *VidLockMonitorPtr;
+  XGpio     *HlsIpResetPtr;
   XPeriph_TpgConfig TpgConfig;
 }XPeriph;
+
+/************************** Constant Definitions *******************************/
+#define GPIO_CHANNEL_1 1
+#define GPIO_CHANNEL_2 2
+
+#define HLS_IP_RESET 0
+#define HLS_IP_RUN   1
 
 /************************** Macros Definitions *******************************/
 
@@ -168,17 +178,33 @@ typedef struct
 
 /*****************************************************************************/
 /**
- * This macro read GPIO to check video lock status
+ * This macro reads GPIO to check video lock status
  *
  * @param  pPeriph is pointer to the peripheral Instance
  * @return T/F
  *
  *****************************************************************************/
 #define XPeriph_IsVideoLocked(pPeriph) \
-	                     (XGpio_DiscreteRead((pPeriph)->VidLockMonitorPtr, 1))
+	                     (XGpio_DiscreteRead((pPeriph)->VidLockMonitorPtr, \
+                          GPIO_CHANNEL_1))
+
+/*****************************************************************************/
+/**
+ * This macro writes to the HLS_IP_RESET GPIO bit to reset to IP block in VPSS
+ *
+ * @param  pPeriph is pointer to the peripheral Instance
+ * @param  data is HLS_IP_RESET to reset, or HLS_IP_RUN for normal operation
+ *
+ * @return none
+ *
+ *****************************************************************************/
+#define XPeriph_WriteGpioIpReset(pPeriph, data) \
+                        (XGpio_DiscreteWrite((pPeriph)->HlsIpResetPtr,  \
+                         GPIO_CHANNEL_1, data))
 
 /************************** Exported APIs ************************************/
 int XPeriph_PowerOnInit(XPeriph *InstancePtr);
+void XPeriph_ResetHlsIp(XPeriph *InstancePtr);
 void XPeriph_ReportDeviceInfo(XPeriph *InstancePtr);
 void XPeriph_ConfigTpg(XPeriph *InstancePtr);
 void XPeriph_ConfigVtc(XPeriph *InstancePtr,

@@ -62,14 +62,13 @@
 * ----- ---- -------- -------------------------------------------------------
 * 0.01  rc   07/07/14   First release
 * 1.00  dmc  12/02/15   Removed UART driver instance
-*
+*            01/25/16   Remove inclusion xdebug.h and use of xdbg_printf()
+*            01/25/16   Support a new GPIO instance to reset IP inside the VPSS
 * </pre>
 *
 ******************************************************************************/
 #include "xparameters.h"
-#include "xdebug.h"
 #include "periph.h"
-
 
 /************************** Constant Definitions *****************************/
 
@@ -80,6 +79,7 @@
 XV_tpg Tpg;
 XVtc Vtc;
 XGpio VidLocMonitor;
+XGpio HlsIpReset;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -121,9 +121,9 @@ void XPeriph_ReportDeviceInfo(XPeriph *InstancePtr)
   }
 
   numInstances = XPAR_XGPIO_NUM_INSTANCES;
-  if(numInstances > 1)
+  if(numInstances > 0)
   {
-     xil_printf("    : 1 Video Lock Monitor\r\n");
+     xil_printf("    : %d GPIO\r\n", numInstances);
   }
 }
 
@@ -140,7 +140,7 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
 {
   int status = XST_FAILURE;
   XVtc_Config *VtcConfigPtr;
-  XGpio_Config *VidLockMonCfgPtr;
+  XGpio_Config *GpioCfgPtr;
 
   Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -150,7 +150,6 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
   InstancePtr->VidLockMonitorPtr = &VidLocMonitor;
 
   //TPG
-  xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing TPG.... \r\n");
   status = XV_tpg_Initialize(InstancePtr->TpgPtr, XPAR_V_TPG_0_DEVICE_ID);
   if(status == XST_DEVICE_NOT_FOUND)
   {
@@ -159,7 +158,6 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
   }
 
   //VTC
-  xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing VTC.... \r\n");
   VtcConfigPtr = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
   if(VtcConfigPtr == NULL)
   {
@@ -176,24 +174,61 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
   }
 
 
-  //GPIO - Video Lock Monitor
-  xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing Video Lock Monitor.... \r\n");
-  VidLockMonCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
-  if(VidLockMonCfgPtr == NULL)
+  //Peripheral GPIOs
+  //  Video Lock Monitor
+  GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
+  if(GpioCfgPtr == NULL)
   {
-	xil_printf("ERR:: GPIO device not found\r\n");
+	xil_printf("ERR:: Video Lock Monitor GPIO device not found\r\n");
     return(XST_DEVICE_NOT_FOUND);
   }
   status = XGpio_CfgInitialize(InstancePtr->VidLockMonitorPtr,
-		                       VidLockMonCfgPtr,
-		                       VidLockMonCfgPtr->BaseAddress);
+		                       GpioCfgPtr,
+		                       GpioCfgPtr->BaseAddress);
   if(status != XST_SUCCESS)
   {
-	  xil_printf("ERR:: Video Lock Monitor Initialization failed %d\r\n", status);
+	  xil_printf("ERR:: Video Lock Monitor GPIO Initialization failed %d\r\n", status);
 	  return(XST_FAILURE);
   }
 
+// HLS IP Reset - done only in the single-IP VPSS cases
+#ifdef XPAR_HLS_IP_RESET_DEVICE_ID
+  GpioCfgPtr = XGpio_LookupConfig(XPAR_HLS_IP_RESET_DEVICE_ID);
+  if(GpioCfgPtr == NULL)
+  {
+	xil_printf("ERR:: HLS IP Reset GPIO device not found\r\n");
+    return(XST_DEVICE_NOT_FOUND);
+  }
+
+  InstancePtr->HlsIpResetPtr = &HlsIpReset;
+  status = XGpio_CfgInitialize(InstancePtr->HlsIpResetPtr,
+		                       GpioCfgPtr,
+		                       GpioCfgPtr->BaseAddress);
+  if(status != XST_SUCCESS)
+  {
+	  xil_printf("ERR:: HLS IP Reset GPIO Initialization failed %d\r\n", status);
+	  return(XST_FAILURE);
+  }
+#endif
+
   return(status);
+}
+
+/*****************************************************************************/
+/**
+ * This function resets the Hls IP block(s)
+ *
+ * @param  InstancePtr is a pointer to the peripheral instance
+ *
+ *****************************************************************************/
+void XPeriph_ResetHlsIp(XPeriph *InstancePtr)
+{
+#ifdef XPAR_HLS_IP_RESET_DEVICE_ID
+  XPeriph_WriteGpioIpReset(InstancePtr, HLS_IP_RESET); //reset IPs
+  MB_Sleep(100);                                       //hold reset line
+  XPeriph_WriteGpioIpReset(InstancePtr, HLS_IP_RUN);   //release reset
+  MB_Sleep(200);                                       //allow time for start
+#endif
 }
 
 /*****************************************************************************/
@@ -236,9 +271,6 @@ void XPeriph_SetTpgParams(XPeriph *InstancePtr,
 			              u16 Pattern,
 			              u16 IsInterlaced)
 {
-  xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nConfigure TPG to %d x %d\r\n",
-		                        (int)width, (int)height);
-
   XPeriph_SetTPGWidth(InstancePtr,  width);
   XPeriph_SetTPGHeight(InstancePtr, height);
   XPeriph_SetTPGColorFormat(InstancePtr, Cformat);
@@ -355,32 +387,20 @@ void XPeriph_ConfigVtc(XPeriph *InstancePtr,
   // The VTC has an offset issue.
   // This results into a wrong front porch and back porch value.
   // As a workaround the front porch and back porch need to be adjusted.
-  VideoTiming.V0FrontPorch = StreamPtr->Timing.F0PVFrontPorch;
-  VideoTiming.V0BackPorch  = StreamPtr->Timing.F0PVBackPorch;
-  VideoTiming.V0SyncWidth  = StreamPtr->Timing.F0PVSyncWidth;
-  VideoTiming.V1FrontPorch = StreamPtr->Timing.F1VFrontPorch;
-  VideoTiming.V1SyncWidth  = StreamPtr->Timing.F1VSyncWidth;
-  VideoTiming.V1BackPorch  = StreamPtr->Timing.F1VBackPorch;
-
+  VideoTiming.V0FrontPorch  = StreamPtr->Timing.F0PVFrontPorch;
+  VideoTiming.V0BackPorch   = StreamPtr->Timing.F0PVBackPorch;
+  VideoTiming.V0SyncWidth   = StreamPtr->Timing.F0PVSyncWidth;
+  VideoTiming.V1FrontPorch  = StreamPtr->Timing.F1VFrontPorch;
+  VideoTiming.V1SyncWidth   = StreamPtr->Timing.F1VSyncWidth;
+  VideoTiming.V1BackPorch   = StreamPtr->Timing.F1VBackPorch;
   VideoTiming.VSyncPolarity = StreamPtr->Timing.VSyncPolarity;
+  VideoTiming.Interlaced    = FALSE;
 
-  VideoTiming.Interlaced = FALSE;
-
-  /* YUV420 */
-  if(StreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
-	VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
-	VideoTiming.HFrontPorch  = VideoTiming.HFrontPorch/4;
-	VideoTiming.HBackPorch   = VideoTiming.HBackPorch/4;
-	VideoTiming.HSyncWidth   = VideoTiming.HSyncWidth/4;
-  }
-  /* Other color spaces */
-  else
-  {
-	VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/PixPerClk;
-	VideoTiming.HFrontPorch  = VideoTiming.HFrontPorch/PixPerClk;
-	VideoTiming.HBackPorch   = VideoTiming.HBackPorch/PixPerClk;
-	VideoTiming.HSyncWidth   = VideoTiming.HSyncWidth/PixPerClk;
-  }
+  // adjust Horizontal counts using PixPerClk
+  VideoTiming.HActiveVideo  = VideoTiming.HActiveVideo/PixPerClk;
+  VideoTiming.HFrontPorch   = VideoTiming.HFrontPorch/PixPerClk;
+  VideoTiming.HBackPorch    = VideoTiming.HBackPorch/PixPerClk;
+  VideoTiming.HSyncWidth    = VideoTiming.HSyncWidth/PixPerClk;
 
   XVtc_SetGeneratorTiming(InstancePtr->VtcPtr, &VideoTiming);
 
