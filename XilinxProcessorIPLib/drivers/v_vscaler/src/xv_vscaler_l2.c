@@ -98,7 +98,7 @@ int XV_VScalerInitialize(XV_Vscaler_l2 *InstancePtr, u16 DeviceId)
 
   /* Setup the instance */
   memset(InstancePtr, 0, sizeof(XV_Vscaler_l2));
-  Status = XV_hscaler_Initialize(&InstancePtr->Vsc, DeviceId);
+  Status = XV_vscaler_Initialize(&InstancePtr->Vsc, DeviceId);
 
   return(Status);
 }
