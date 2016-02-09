@@ -32,9 +32,8 @@
 
 /**
  * PMU PIT Clock Frequency and Tick Calculation
- * TODO: Replace with respective CLK_FREQ from xparameters.h
  */
-#define PMU_PIT_CLK_FREQ	4000000U
+#define PMU_PIT_CLK_FREQ	XPFW_CFG_PMU_CLK_FREQ
 #define TICK_MILLISECONDS	10U
 #define COUNT_PER_TICK ((PMU_PIT_CLK_FREQ / 1000U)* TICK_MILLISECONDS )
 
