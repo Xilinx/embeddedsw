@@ -48,7 +48,7 @@
 #include "pm_system.h"
 
 #define PM_REQUESTED_SUSPEND        0x1U
-#define TO_ACK_CB(ack, status) (REQUEST_ACK_CB_STANDARD == (ack))
+#define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
 /* Requirement of APU master */
 PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
@@ -1171,7 +1171,7 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response)
 		goto done;
 	}
 
-	if (REQUEST_ACK_CB_STANDARD == mst->suspendRequest.acknowledge) {
+	if (REQUEST_ACK_NON_BLOCKING == mst->suspendRequest.acknowledge) {
 		/* If shutdown is being processed drop the callback */
 		if (true == PmSystemShutdownProcessing()) {
 			goto done;

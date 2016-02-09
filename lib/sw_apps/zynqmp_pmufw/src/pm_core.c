@@ -68,7 +68,7 @@ static void PmProcessAckRequest(const u32 ack,
 	if (REQUEST_ACK_BLOCKING == ack) {
 		/* Return status immediately */
 		IPI_RESPONSE1(master->buffer, status);
-	} else if (REQUEST_ACK_CB_STANDARD == ack) {
+	} else if (REQUEST_ACK_NON_BLOCKING == ack) {
 		/* Return acknowledge through callback */
 		PmAcknowledgeCb(master, nodeId, status, oppoint);
 	} else {
