@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -150,52 +150,77 @@ void Init_MPU(void)
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/*
+	 * 1G of strongly ordered memory from 0x80000000 to 0xBFFFFFFF for PL.
+	 * 512 MB - LPD-PL interface
+	 * 256 MB - FPD-PL (HPM0) interface
+	 * 256 MB - FPD-PL (HPM1) interface
+	 */
 	Addr = 0x80000000;
 	RegSize = REGION_1G;
 	Attrib = STRONG_ORDERD_SHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/* 512M of device memory from 0xC0000000 to 0xDFFFFFFF for QSPI */
 	Addr = 0xC0000000U;
 	RegSize = REGION_512M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/* 256M of device memory from 0xE0000000 to 0xEFFFFFFF for PCIe Low */
 	Addr = 0xE0000000U;
 	RegSize = REGION_256M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/* 16M of device memory from 0xF8000000 to 0xF8FFFFFF for STM_CORESIGHT */
 	Addr = 0xF8000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/* 1M of device memory from 0xF9000000 to 0xF90FFFFF for RPU_A53_GIC */
 	Addr = 0xF9000000U;
 	RegSize = REGION_1M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/* 16M of device memory from 0xFD000000 to 0xFDFFFFFF for FPS slaves */
 	Addr = 0xFD000000U;
-	RegSize = REGION_32M;
+	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/* 16M of device memory from 0xFE000000 to 0xFEFFFFFF for Upper LPS slaves */
+	Addr = 0xFE000000U;
+	RegSize = REGION_16M;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	RegNum++;
+
+	/*
+	 * 16M of device memory from 0xFF000000 to 0xFFFFFFFF for Lower LPS slaves,
+	 * CSU, PMU, TCM, OCM
+	 */
 	Addr = 0xFF000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
+	/* 256K of OCM RAM from 0xFFFC0000 to 0xFFFFFFFF marked as normal memory */
 	Addr = 0xFFFC0000U;
 	RegSize = REGION_256K;
 	Attrib = NORM_NSHARED_WB_WA| PRIV_RW_USER_RW  ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+
+	/* A total of 10 MPU regions are allocated with another 6 being free for users */
 
 }
 
