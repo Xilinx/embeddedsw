@@ -118,7 +118,7 @@ static void cscUpdateIPReg(XV_Csc_l2 *CscPtr,
 * @return None
 *
 ******************************************************************************/
-__inline void cscFw_RegW(XV_Csc_l2 *CscPtr, u32 offset, s32 val)
+static __inline void cscFw_RegW(XV_Csc_l2 *CscPtr, u32 offset, s32 val)
 {
   CscPtr->regMap[offset] = val;
 }
@@ -134,7 +134,7 @@ __inline void cscFw_RegW(XV_Csc_l2 *CscPtr, u32 offset, s32 val)
 *
 *
 ******************************************************************************/
-__inline s32 cscFw_RegR(XV_Csc_l2 *CscPtr, u32 offset)
+static __inline s32 cscFw_RegR(XV_Csc_l2 *CscPtr, u32 offset)
 {
   return CscPtr->regMap[offset];
 }
