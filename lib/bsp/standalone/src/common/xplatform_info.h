@@ -62,6 +62,7 @@ extern "C" {
 #define XPLAT_MICROBLAZE 0x5
 
 #define XPS_VERSION_1 0x0
+#define XPS_VERSION_2 0x1
 
 #define XPLAT_INFO_MASK (0xF)
 #define XPS_VERSION_INFO_MASK (0xF)
