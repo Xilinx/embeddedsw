@@ -83,6 +83,7 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 u32 XFsbl_GetDrvNumSD(u32 DeviceFlags);
 u32 XFsbl_Htonl(u32 Value1);
 u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
+u32 XFsbl_IsolationRestore(u32 IsolationMask);
 void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib);
 #ifndef ARMA53_64
 void XFsbl_RegisterHandlers(void);

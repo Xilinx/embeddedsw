@@ -91,12 +91,20 @@ u32 XFsbl_PcapInit(void) {
 	XFsbl_Out32(CSU_PCAP_CTRL, RegVal);
 	XFsbl_Out32(CSU_PCAP_RDWR, 0x0);
 
-	Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
+	/**
+	 * For 1.0 and 2.0 Silicon, PL should already be powered up
+	 * (before MIO config). Hence, skip that step here.
+	 */
+	if (XGetPSVersion_Info() > XPS_VERSION_2) {
+		Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
 
-	if (Status != XFSBL_SUCCESS) {
-		Status = XFSBL_ERROR_PL_POWER_UP;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_UP\r\n");
+		if (Status != XFSBL_SUCCESS) {
+			Status = XFSBL_ERROR_PL_POWER_UP;
+			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_UP\r\n");
 			goto END;
+		}
+
+		XFsbl_IsolationRestore(PMU_GLOBAL_REQ_ISO_INT_EN_PL_NONPCAP_MASK);
 	}
 
 	/* Reset PL */

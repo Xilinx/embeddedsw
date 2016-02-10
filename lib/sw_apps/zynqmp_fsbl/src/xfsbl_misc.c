@@ -584,6 +584,43 @@ u32 XFsbl_PowerUpIsland(u32 PwrIslandMask)
 
 	return Status;
 }
+
+/**
+*
+* This function is used to request isolation restore, through PMU
+*
+* @param	Mask of the entries for which isolation is to be restored
+*
+* @return	XFSBL_SUCCESS (for now always returns this)
+*
+* @note		None.
+*
+****************************************************************************/
+u32 XFsbl_IsolationRestore(u32 IsolationMask)
+{
+
+	u32 RegVal;
+	u32 Status = XFSBL_SUCCESS;
+
+	/* Skip power-up request for QEMU */
+	if (XGet_Zynq_UltraMp_Platform_info() != XPLAT_ZYNQ_ULTRA_MPQEMU)
+	{
+
+		/* Isolation request enable */
+		XFsbl_Out32(PMU_GLOBAL_REQ_ISO_INT_EN, IsolationMask);
+
+		/* Trigger Isolation request */
+		XFsbl_Out32(PMU_GLOBAL_REQ_ISO_TRIG, IsolationMask);
+
+		/* Poll for Isolation complete */
+		do {
+			RegVal = XFsbl_In32(PMU_GLOBAL_REQ_ISO_STATUS) & IsolationMask;
+		} while (RegVal != 0x0U);
+	}
+
+	return Status;
+}
+
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 /*****************************************************************************
 *

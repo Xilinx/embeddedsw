@@ -440,6 +440,24 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 #endif
 
 	/**
+	 * MIO33 can be used to control power to PL through PMU.
+	 * For 1.0 and 2.0 Silicon, a workaround is needed to Powerup PL
+	 * before MIO33 is configured. Hence, before MIO configuration,
+	 * Powerup PL (but restore isolation).
+	 */
+	if (XGetPSVersion_Info() <= XPS_VERSION_2) {
+		Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
+
+		if (Status != XFSBL_SUCCESS) {
+			Status = XFSBL_ERROR_PL_POWER_UP;
+			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_UP\r\n");
+			goto END;
+		}
+
+		XFsbl_IsolationRestore(PMU_GLOBAL_REQ_ISO_INT_EN_PL_NONPCAP_MASK);
+	}
+
+	/**
 	 * psu initialization
 	 */
     Status = (u32)psu_init();
