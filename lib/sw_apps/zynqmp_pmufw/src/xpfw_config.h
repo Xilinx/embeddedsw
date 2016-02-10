@@ -45,8 +45,8 @@
 /* Let the MB sleep when it is Idle in Main Loop */
 #define SLEEP_WHEN_IDLE
 
-/* Directs the PMU FW to configure UART */
-#define CONFIG_UART
+/* Skip UART init. FSBL does that. */
+#define SKIP_UARTINIT
 
 /* Enable Power Management and Error Management Modules */
 #define ENABLE_PM
