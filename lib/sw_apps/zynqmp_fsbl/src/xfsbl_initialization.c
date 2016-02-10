@@ -60,6 +60,7 @@
 #include "xfsbl_csu_dma.h"
 #include "xfsbl_board.h"
 #include "xil_mmu.h"
+#include "xil_cache.h"
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_R5_VECTOR_VALUE 	0xEAFEFFFEU
@@ -459,14 +460,16 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	/* For A53 64bit*/
 	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64; BlockNum++)
 	{
-		Xil_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_64, ATTRIB_MEMORY_A53_64);
+		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_64, ATTRIB_MEMORY_A53_64);
 	}
+	Xil_DCacheFlush();
 #else
 	/* For A53 32bit*/
 	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_32; BlockNum++)
 	{
-		Xil_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_32, ATTRIB_MEMORY_A53_32);
+		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_32, ATTRIB_MEMORY_A53_32);
 	}
+	Xil_DCacheFlush();
 #endif
 #endif
 

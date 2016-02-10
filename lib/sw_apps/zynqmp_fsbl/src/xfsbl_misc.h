@@ -64,7 +64,9 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XFSBL_SD_DRV_NUM_0	0
 #define XFSBL_SD_DRV_NUM_1	1
-
+#define BLOCK_SIZE_2MB 0x200000U
+#define BLOCK_SIZE_1GB 0x40000000U
+#define ADDRESS_LIMIT_4GB 0x100000000UL
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -81,7 +83,7 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 u32 XFsbl_GetDrvNumSD(u32 DeviceFlags);
 u32 XFsbl_Htonl(u32 Value1);
 u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
-
+void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib);
 #ifndef ARMA53_64
 void XFsbl_RegisterHandlers(void);
 #endif

@@ -93,6 +93,14 @@ static void XFsbl_FiqHandler (void);
 extern void XFsbl_ErrorLockDown(u32 ErrorStatus);
 
 /************************** Variable Definitions *****************************/
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
+#ifdef ARMA53_64
+extern INTPTR MMUTableL1;
+extern INTPTR MMUTableL2;
+#else
+extern u32 MMUTable;
+#endif
+#endif
 
 /****************************************************************************/
 /**
@@ -576,3 +584,63 @@ u32 XFsbl_PowerUpIsland(u32 PwrIslandMask)
 
 	return Status;
 }
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
+/*****************************************************************************
+*
+* Set the memory attributes for a section, in the translation table.
+*
+* @param	addr is the address for which attributes are to be set.
+* @param	attrib specifies the attributes for that memory region.
+*
+* @return	None.
+*
+* @note		The MMU and D-cache need not be disabled before changing an
+*			translation table attribute.
+*
+******************************************************************************/
+void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
+{
+#ifdef ARMA53_64
+	INTPTR *ptr;
+	INTPTR section;
+	u64 block_size;
+	/* if region is less than 4GB MMUTable level 2 need to be modified */
+	if(Addr < ADDRESS_LIMIT_4GB){
+		/* block size is 2MB for addressed < 4GB*/
+		block_size = BLOCK_SIZE_2MB;
+		section = Addr / block_size;
+		ptr = &MMUTableL2 + section;
+	}
+	/* if region is greater than 4GB MMUTable level 1 need to be modified */
+	else{
+		/* block size is 1GB for addressed > 4GB */
+		block_size = BLOCK_SIZE_1GB;
+		section = Addr / block_size;
+		ptr = &MMUTableL1 + section;
+	}
+	*ptr = (Addr & (~(block_size-1))) | attrib;
+
+	mtcptlbi(ALLE3);
+
+	dsb(); /* ensure completion of the BP and TLB invalidation */
+    isb(); /* synchronize context on this processor */
+#else
+	u32 *ptr;
+	u32 section;
+
+	section = Addr / 0x100000U;
+	ptr = &MMUTable;
+	ptr += section;
+	if(ptr != NULL) {
+		*ptr = (Addr & 0xFFF00000U) | attrib;
+	}
+
+	mtcp(XREG_CP15_INVAL_UTLB_UNLOCKED, 0U);
+	/* Invalidate all branch predictors */
+	mtcp(XREG_CP15_INVAL_BRANCH_ARRAY, 0U);
+
+	dsb(); /* ensure completion of the BP and TLB invalidation */
+	isb(); /* synchronize context on this processor */
+#endif
+}
+#endif
