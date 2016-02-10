@@ -804,7 +804,7 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 				Stream->Timing.HActive, Stream->Timing.VActive);
 		xil_printf("\tPixel Clock:      %d\r\n",
 				XVidC_GetPixelClockHzByHVFr(
-					Stream->Timing.F0PVTotal,
+					Stream->Timing.HTotal,
 					Stream->Timing.F0PVTotal,
 					Stream->FrameRate));
 	}
