@@ -216,6 +216,10 @@ XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId)
 	const XVidC_VideoTimingMode *VmPtr;
 
 	VmPtr = XVidC_GetVideoModeData(VmId);
+	if (!VmPtr) {
+		return XVIDC_VF_UNKNOWN;
+	}
+
 	if (VmPtr->Timing.F1VTotal == 0) {
 		return (XVIDC_VF_PROGRESSIVE);
 	}

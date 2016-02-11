@@ -247,7 +247,8 @@ typedef enum {
  */
 typedef enum {
 	XVIDC_VF_PROGRESSIVE = 0,
-	XVIDC_VF_INTERLACED
+	XVIDC_VF_INTERLACED,
+	XVIDC_VF_UNKNOWN
 } XVidC_VideoFormat;
 
 /**
