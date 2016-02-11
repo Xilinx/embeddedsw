@@ -935,12 +935,15 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 		set topology(intc_baseaddr) [::hsm::utils::format_addr_string $topology(intc_baseaddr) "C_BASEADDR"]
 		set topology(scugic_baseaddr) "0x0"
 		set topology(scugic_emac_intr) "0x0"
-	} else {
+	} elseif { $intc_periph_type == [format "ps7_scugic"]} {
 		set topology(intc_baseaddr) "0x0"
 		set topology(scugic_baseaddr) "0xF8F00100"
 		set topology(scugic_emac_intr) "0x0"
+	} else {
+		set topology(intc_baseaddr) "0x0"
+		set topology(scugic_baseaddr) "0xF9020000"
+		set topology(scugic_emac_intr) "0x0"
 	}
-
 }
 
 proc update_ps_ethernet_topology {emac processor topologyvar} {

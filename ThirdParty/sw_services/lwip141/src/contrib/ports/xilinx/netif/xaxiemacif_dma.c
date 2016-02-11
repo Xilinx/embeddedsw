@@ -66,6 +66,10 @@
 #include "xtrace.h"
 #endif
 
+#if defined __aarch64__
+#include "xil_mmu.h"
+#endif
+
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
 #define AXIDMA_TX_INTR_PRIORITY_SET_IN_GIC	0xA0
 #define AXIDMA_RX_INTR_PRIORITY_SET_IN_GIC	0xA0
@@ -73,7 +77,7 @@
 #define TRIG_TYPE_RISING_EDGE_SENSITIVE		0x3
 
 
-#define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_DIST_BASEADDR
+#define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_0_DIST_BASEADDR
 
 #ifndef XCACHE_FLUSH_DCACHE_RANGE
 #define XCACHE_FLUSH_DCACHE_RANGE(data, length)	\
@@ -337,8 +341,12 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 		XAxiDma_BdSetLength(rxbd, p->len, rxring->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
 		XAxiDma_BdSetId(rxbd, p);
+#if defined(__aarch64__)
+		XCACHE_INVALIDATE_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
+#else
 		XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
 		XCACHE_FLUSH_DCACHE_RANGE(rxbd, sizeof *rxbd);
+#endif
 
 		/* Enqueue to HW */
 		status = XAxiDma_BdRingToHw(rxring, 1, rxbd);
@@ -423,10 +431,14 @@ static void axidma_recv_handler(void *arg)
 			pbuf_realloc(p, rx_bytes);
 
 #ifdef USE_JUMBO_FRAMES
+#ifndef __aarch64__
 			XCACHE_INVALIDATE_DCACHE_RANGE(p->payload,
 							XAE_MAX_JUMBO_FRAME_SIZE);
+#endif
 #else
+#ifndef __aarch64__
 			XCACHE_INVALIDATE_DCACHE_RANGE(p->payload, XAE_MAX_FRAME_SIZE);
+#endif
 #endif
 
 #if LWIP_PARTIAL_CSUM_OFFLOAD_RX==1
@@ -623,6 +635,14 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 
 	xaxiemacif->rx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_RX_DESC);
 	xaxiemacif->tx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_TX_DESC);
+
+	/* For A53 case Mark the BD Region as uncaheable */
+#if defined(__aarch64__)
+	Xil_SetTlbAttributes(xaxiemacif->tx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes(xaxiemacif->rx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
+#endif
+
+
 	LWIP_DEBUGF(NETIF_DEBUG, ("rx_bdspace: 0x%08x\r\n",
 												xaxiemacif->rx_bdspace));
 	LWIP_DEBUGF(NETIF_DEBUG, ("tx_bdspace: 0x%08x\r\n",
@@ -703,8 +723,12 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		XAxiDma_BdSetLength(rxbd, p->len, rxringptr->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
 		XAxiDma_BdSetId(rxbd, p);
+#if defined(__aarch64__)
+		XCACHE_INVALIDATE_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
+#else
 		XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
 		XCACHE_FLUSH_DCACHE_RANGE(rxbd, sizeof *rxbd);
+#endif
 
 		/* Enqueue to HW */
 		status = XAxiDma_BdRingToHw(rxringptr, 1, rxbd);

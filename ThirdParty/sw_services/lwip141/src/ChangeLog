@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2016-02-11
+	* Add Support for Axi Etherent on ZyqnMP.
 2016-01-14
 	* Created a new version lwip141_v1_4
 	* Made changes for lwip to work with A53 with caches enabled.
