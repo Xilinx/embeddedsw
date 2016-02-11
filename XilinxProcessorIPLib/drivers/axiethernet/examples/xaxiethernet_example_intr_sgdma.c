@@ -105,6 +105,9 @@
 #include "xuartns550_l.h"
 #endif
 
+#if defined __aarch64__
+#include "xil_mmu.h"
+#endif
 /*************************** Constant Definitions ****************************/
 
 /*
@@ -218,7 +221,6 @@
  */
 #define RXBD_SPACE_BYTES (XAxiDma_BdRingMemCalc(BD_ALIGNMENT, RXBD_CNT))
 #define TXBD_SPACE_BYTES (XAxiDma_BdRingMemCalc(BD_ALIGNMENT, TXBD_CNT))
-
 
 /*************************** Variable Definitions ****************************/
 
@@ -482,6 +484,10 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
+#if defined(__aarch64__)
+	Xil_SetTlbAttributes(TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes(RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+#endif
 	/*
 	 * Setup RxBD space.
 	 *
@@ -503,8 +509,8 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	/*
 	 * Create the RxBD ring
 	 */
-	Status = XAxiDma_BdRingCreate(RxRingPtr, (u32) &RxBdSpace,
-				     (u32) &RxBdSpace, BD_ALIGNMENT, RXBD_CNT);
+	Status = XAxiDma_BdRingCreate(RxRingPtr, (UINTPTR) &RxBdSpace,
+				     (UINTPTR) &RxBdSpace, BD_ALIGNMENT, RXBD_CNT);
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap("Error setting up RxBD space");
 		return XST_FAILURE;
@@ -527,8 +533,8 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	/*
 	 * Create the TxBD ring
 	 */
-	Status = XAxiDma_BdRingCreate(TxRingPtr, (u32) &TxBdSpace,
-				(u32) &TxBdSpace, BD_ALIGNMENT, TXBD_CNT);
+	Status = XAxiDma_BdRingCreate(TxRingPtr, (UINTPTR) &TxBdSpace,
+				(UINTPTR) &TxBdSpace, BD_ALIGNMENT, TXBD_CNT);
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap("Error setting up TxBD space");
 		return XST_FAILURE;
@@ -718,7 +724,7 @@ int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet
 	/*
 	 * Flush the TX frame before giving it to DMA TX channel to transmit.
 	 */
-	Xil_DCacheFlushRange((u32)&TxFrame, TxFrameLength);
+	Xil_DCacheFlushRange((UINTPTR)&TxFrame, TxFrameLength);
 
 	/*
 	 * Clear out receive packet memory area
@@ -729,7 +735,7 @@ int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet
 	 * Invalidate the RX frame before giving it to DMA RX channel to
 	 * receive data.
 	 */
-	Xil_DCacheInvalidateRange((u32)&RxFrame, TxFrameLength);
+	Xil_DCacheInvalidateRange((UINTPTR)&RxFrame, TxFrameLength);
 
 	/*
 	 * Make sure Tx and Rx are enabled
@@ -770,7 +776,7 @@ int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet
 	/*
 	 * Setup the BD.
 	 */
-	XAxiDma_BdSetBufAddr(Bd1Ptr, (u32)&RxFrame);
+	XAxiDma_BdSetBufAddr(Bd1Ptr, (UINTPTR)&RxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(Bd1Ptr, sizeof(RxFrame));
 #else
@@ -818,7 +824,7 @@ int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet
 	/*
 	 * Setup TxBD #1
 	 */
-	XAxiDma_BdSetBufAddr(Bd1Ptr, (u32)&TxFrame);
+	XAxiDma_BdSetBufAddr(Bd1Ptr, (UINTPTR)&TxFrame);
 
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(Bd1Ptr, 32);
@@ -832,8 +838,8 @@ int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet
 	/*
 	 * Setup TxBD #2
 	 */
-	Bd2Ptr = XAxiDma_BdRingNext(TxRingPtr, Bd1Ptr);
-	XAxiDma_BdSetBufAddr(Bd2Ptr, (u32) (&TxFrame) + 32);
+	Bd2Ptr = (XAxiDma_Bd *)XAxiDma_BdRingNext(TxRingPtr, Bd1Ptr);
+	XAxiDma_BdSetBufAddr(Bd2Ptr, (UINTPTR) (&TxFrame) + 32);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(Bd2Ptr, TxFrameLength - 32);
 #else
@@ -1004,7 +1010,7 @@ int AxiEthernetSgDmaIntrCoalescingExample(XAxiEthernet *AxiEthernetInstancePtr,
 	/*
 	 * Flush the TX frame before giving it to DMA TX channel to transmit.
 	 */
-	Xil_DCacheFlushRange((u32)&TxFrame, TxFrameLength);
+	Xil_DCacheFlushRange((UINTPTR)&TxFrame, TxFrameLength);
 
 	/*
 	 * Make sure Tx and Rx are enabled
@@ -1064,7 +1070,7 @@ int AxiEthernetSgDmaIntrCoalescingExample(XAxiEthernet *AxiEthernetInstancePtr,
 	BdCurPtr = BdPtr;
 
 	for (Index = 0; Index < Threshold; Index++) {
-		XAxiDma_BdSetBufAddr(BdCurPtr, (u32)&TxFrame);
+		XAxiDma_BdSetBufAddr(BdCurPtr, (UINTPTR)&TxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 		XAxiDma_BdSetLength(BdCurPtr, TxFrameLength);
 #else
@@ -1074,7 +1080,7 @@ int AxiEthernetSgDmaIntrCoalescingExample(XAxiEthernet *AxiEthernetInstancePtr,
 
 		XAxiDma_BdSetCtrl(BdCurPtr, XAXIDMA_BD_CTRL_TXSOF_MASK |
 				     XAXIDMA_BD_CTRL_TXEOF_MASK);
-		BdCurPtr = XAxiDma_BdRingNext(TxRingPtr, BdCurPtr);
+		BdCurPtr = (XAxiDma_Bd *) XAxiDma_BdRingNext(TxRingPtr, BdCurPtr);
 	}
 
 	/*
@@ -1193,7 +1199,7 @@ int AxiEthernetSgDmaPartialChecksumOffloadExample(XAxiEthernet
 	/*
 	 * Flush the TX frame before giving it to DMA TX channel to transmit.
 	 */
-	Xil_DCacheFlushRange((u32)&TxFrame, TxFrameLength);
+	Xil_DCacheFlushRange((UINTPTR)&TxFrame, TxFrameLength);
 
 	/*
 	 * Clear out receive packet memory area
@@ -1204,7 +1210,7 @@ int AxiEthernetSgDmaPartialChecksumOffloadExample(XAxiEthernet
 	 * Invalidate the RX frame before giving it to DMA RX channel to
 	 * receive data.
 	 */
-	Xil_DCacheInvalidateRange((u32)&RxFrame, TxFrameLength);
+	Xil_DCacheInvalidateRange((UINTPTR)&RxFrame, TxFrameLength);
 
 	/*
 	 * Interrupt coalescing parameters are set to their default settings
@@ -1258,7 +1264,7 @@ int AxiEthernetSgDmaPartialChecksumOffloadExample(XAxiEthernet
 	/*
 	 * Setup the BD.
 	 */
-	XAxiDma_BdSetBufAddr(BdPtr, (u32)&RxFrame);
+	XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR)&RxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame));
 #else
@@ -1294,7 +1300,7 @@ int AxiEthernetSgDmaPartialChecksumOffloadExample(XAxiEthernet
 	/*
 	 * Setup the TxBD
 	 */
-	XAxiDma_BdSetBufAddr(BdPtr, (u32)&TxFrame);
+	XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR)&TxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(BdPtr, TxFrameLength);
 #else
@@ -1640,13 +1646,13 @@ int AxiEthernetSgDmaFullChecksumOffloadExample(XAxiEthernet
 	/*
 	 * Flush the TX frame before giving it to DMA TX channel to transmit.
 	 */
-	Xil_DCacheFlushRange((u32)&TxFrame, TxFrameLength);
+	Xil_DCacheFlushRange((UINTPTR)&TxFrame, TxFrameLength);
 
 	/*
 	 * Invalidate the RX frame before giving it to DMA RX channel to
 	 * receive data.
 	 */
-	Xil_DCacheInvalidateRange((u32)&RxFrame, TxFrameLength);
+	Xil_DCacheInvalidateRange((UINTPTR)&RxFrame, TxFrameLength);
 
 	/*
 	 * Interrupt coalescing parameters are set to their default settings
@@ -1700,7 +1706,7 @@ int AxiEthernetSgDmaFullChecksumOffloadExample(XAxiEthernet
 	/*
 	 * Setup the BD.
 	 */
-	XAxiDma_BdSetBufAddr(BdPtr, (u32)&RxFrame);
+	XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR)&RxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame));
 #else
@@ -1736,7 +1742,7 @@ int AxiEthernetSgDmaFullChecksumOffloadExample(XAxiEthernet
 	/*
 	 * Setup the TxBD
 	 */
-	XAxiDma_BdSetBufAddr(BdPtr, (u32)&TxFrame);
+	XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR)&TxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(BdPtr, TxFrameLength);
 #else

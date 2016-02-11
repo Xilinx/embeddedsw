@@ -732,7 +732,7 @@ extern "C" {
 						 *   returning a failure case.
 						 */
 
-#define XAE_RST_DELAY_LOOPCNT_VAL	200	/**< Timeout in ticks used
+#define XAE_RST_DELAY_LOOPCNT_VAL	10000	/**< Timeout in ticks used
 						  *  while checking if the core
 						  *  had come out of reset. The
 						  *  exact tick time is defined
