@@ -139,14 +139,14 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 
 	(void)TransmitFifoFill(InstancePtr);
 
+	XIicPs_EnableInterrupts(BaseAddr,
+		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_COMP_MASK |
+		(u32)XIICPS_IXR_ARB_LOST_MASK);
 	/*
 	 * Do the address transfer to notify the slave.
 	 */
 	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
 
-	XIicPs_EnableInterrupts(BaseAddr,
-		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_COMP_MASK |
-		(u32)XIICPS_IXR_ARB_LOST_MASK);
 }
 
 /*****************************************************************************/
@@ -199,12 +199,6 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	 * Initialize for a master receiving role.
 	 */
 	(void)XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
-
-	/*
-	 * Do the address transfer to signal the slave.
-	 */
-	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
-
 	/*
 	 * Setup the transfer size register so the slave knows how much
 	 * to send to us.
@@ -223,6 +217,11 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_DATA_MASK |
 		(u32)XIICPS_IXR_RX_OVR_MASK | (u32)XIICPS_IXR_COMP_MASK |
 		(u32)XIICPS_IXR_ARB_LOST_MASK);
+	/*
+	 * Do the address transfer to signal the slave.
+	 */
+	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
+
 }
 
 /*****************************************************************************/
