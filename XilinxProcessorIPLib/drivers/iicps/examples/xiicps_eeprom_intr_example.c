@@ -755,6 +755,7 @@ static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
 	int Status;
 	XIicPs *IicPtr;
 
+	SlaveResponse = FALSE;
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
@@ -768,7 +769,6 @@ static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
 	XIicPs_EnableSlaveMonitor(&IicInstance, Address);
 
 	TotalErrorCount = 0;
-	SlaveResponse = FALSE;
 
 	Index = 0;
 
