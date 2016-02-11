@@ -383,9 +383,6 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_ISR_OFFSET,
 			   Reg);
 
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_PHYMNTNC_OFFSET, 0x0U);
-
 	XEmacPs_ClearHash(InstancePtr);
 
 	for (i = 1U; i < 5U; i++) {
