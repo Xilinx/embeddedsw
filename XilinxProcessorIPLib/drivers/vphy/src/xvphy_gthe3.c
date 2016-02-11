@@ -117,7 +117,8 @@ const u8 Gthe3CpllDivsN2[]	= {1, 2, 3, 4, 5, 0};
 const u8 Gthe3CpllDivsD[]	= {1, 2, 4, 8, 0};
 
 const u8 Gthe3QpllDivsM[]	= {4, 3, 2, 1, 0};
-const u8 Gthe3QpllDivsN1[]	= {16, 20, 32, 40, 64, 66, 80, 100, 160, 0};
+const u8 Gthe3QpllDivsN1[]	= {16, 20, 32, 40, 60, 64, 66, 75, 80, 84, 90,
+					96, 100, 112, 120, 125, 150, 160, 0};
 const u8 Gthe3QpllDivsN2[]	= {1, 0};
 const u8 Gthe3QpllDivsD[]	= {16, 8, 4, 2, 1, 0};
 
