@@ -156,7 +156,12 @@ static u32 XFsbl_GetResetReason (void)
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 {
 	u32 Status = XFSBL_SUCCESS;
-	u32 Reset_Reason;
+	u32 ResetReason;
+
+	ResetReason = XFsbl_GetResetReason();
+	if (ResetReason == PS_ONLY_RESET) {
+		FsblInstancePtr->ResetReason = PS_ONLY_RESET;
+	}
 
 	/**
 	 * Configure the system as in PSU
@@ -190,11 +195,6 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	Status = XFsbl_ResetValidation(FsblInstancePtr);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
-	}
-
-	Reset_Reason = XFsbl_GetResetReason();
-	if (Reset_Reason == PS_ONLY_RESET) {
-		FsblInstancePtr->ResetReason = PS_ONLY_RESET;
 	}
 
 	XFsbl_Printf(DEBUG_INFO,"Processor Initialization Done \n\r");
@@ -454,7 +454,10 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 			goto END;
 		}
 
+		/* For PS only reset, make sure FSBL exits with isolation removed */
+		if (FsblInstancePtr->ResetReason != PS_ONLY_RESET) {
 		XFsbl_IsolationRestore(PMU_GLOBAL_REQ_ISO_INT_EN_PL_NONPCAP_MASK);
+		}
 	}
 
 	/**
