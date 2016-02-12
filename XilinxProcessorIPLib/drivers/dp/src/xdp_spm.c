@@ -868,6 +868,57 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 
 /******************************************************************************/
 /**
+ * This function extracts the bits per color from MISC0 of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The bits per color for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
+{
+	u32 RegVal;
+	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
+					XDP_RX_STREAM3_MSA_START_OFFSET,
+					XDP_RX_STREAM4_MSA_START_OFFSET};
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	/* Extract color depth from MISC0. */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
+			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+
+	/* Determine number of bits per color component. */
+	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_BDC_MASK;
+	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_BDC_SHIFT;
+	switch (RegVal) {
+		case XDP_TX_MAIN_STREAMX_MISC0_BDC_6BPC:
+			return XVIDC_BPC_6;
+		case XDP_TX_MAIN_STREAMX_MISC0_BDC_8BPC:
+			return XVIDC_BPC_8;
+		case XDP_TX_MAIN_STREAMX_MISC0_BDC_10BPC:
+			return XVIDC_BPC_10;
+		case XDP_TX_MAIN_STREAMX_MISC0_BDC_12BPC:
+			return XVIDC_BPC_12;
+		case XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC:
+			return XVIDC_BPC_16;
+		default:
+			return XVIDC_BPC_UNKNOWN;
+	}
+}
+
+/******************************************************************************/
+/**
  * When the driver is in multi-stream transport (MST) mode, this function will
  * make the necessary calculations to describe a stream in MST mode. The key
  * values are the payload bandwidth number (PBN), the number of timeslots

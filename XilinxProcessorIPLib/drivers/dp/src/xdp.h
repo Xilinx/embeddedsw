@@ -351,6 +351,8 @@
  * 4.0   als  12/08/15 Added link rate and lane count validity check APIs:
  *                         XDp_IsLinkRateValid
  *                         XDp_IsLaneCountValid
+ *                     Added RX API to get color depth of a given stream.
+ *                         XDp_RxGetBpc
  * </pre>
  *
 *******************************************************************************/
@@ -1302,6 +1304,7 @@ void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
 void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
+XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
