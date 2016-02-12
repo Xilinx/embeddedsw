@@ -353,6 +353,8 @@
  *                         XDp_IsLaneCountValid
  *                     Added RX API to get color depth of a given stream.
  *                         XDp_RxGetBpc
+ *                     Added RX API to get color component format of a stream.
+ *                         XDp_RxGetColorComponent
  * </pre>
  *
 *******************************************************************************/
@@ -1305,6 +1307,7 @@ void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
+XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

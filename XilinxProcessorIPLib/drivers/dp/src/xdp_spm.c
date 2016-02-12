@@ -919,6 +919,53 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
+ * This function extracts the color component format from MISC0 of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The color component for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
+{
+	u32 RegVal;
+	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
+					XDP_RX_STREAM3_MSA_START_OFFSET,
+					XDP_RX_STREAM4_MSA_START_OFFSET};
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	/* Extract color component from MISC0. */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
+			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+
+	/* Determine the color component format for the stream. */
+	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;
+	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
+	switch (RegVal) {
+		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB:
+			return XVIDC_CSF_RGB;
+		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
+			return XVIDC_CSF_YCRCB_422;
+		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
+			return XVIDC_CSF_YCRCB_444;
+		default:
+			return XVIDC_CSF_UNKNOWN;
+	}
+}
+
+/******************************************************************************/
+/**
  * When the driver is in multi-stream transport (MST) mode, this function will
  * make the necessary calculations to describe a stream in MST mode. The key
  * values are the payload bandwidth number (PBN), the number of timeslots
