@@ -886,7 +886,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 			XIH_PH_ATTRB_DEST_CPU_R5_0) ||
 		(FsblInstancePtr->ProcessorID ==
 				XIH_PH_ATTRB_DEST_CPU_R5_L)) &&
-		((LoadAddress > XFSBL_R50_HIGH_TCM_START_ADDRESS) &&
+		((LoadAddress >= XFSBL_R50_HIGH_TCM_START_ADDRESS) &&
 		(LoadAddress <
 			XFSBL_R50_HIGH_TCM_START_ADDRESS + XFSBL_IVT_LENGTH)))
 	{
