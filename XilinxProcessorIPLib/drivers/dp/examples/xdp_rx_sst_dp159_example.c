@@ -71,6 +71,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial creation.
  * 2.0   als  07/07/15 Added DP159 programming.
+ * 4.0   als  02/07/16 Added end of line reset for reduced blanking.
  * </pre>
  *
 *******************************************************************************/
@@ -636,6 +637,8 @@ static void Dprx_DetectResolution(void *InstancePtr)
 	} while (((DpHres == 0) || (DpVres == 0)) && (GetResCount < 2000));
 
 	xil_printf("\n*** Detected resolution: %u x %u ***\n", DpHres, DpVres);
+
+	XDp_RxSetLineReset(InstancePtr, 1);
 }
 
 /******************************************************************************/

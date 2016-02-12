@@ -355,6 +355,8 @@
  *                         XDp_RxGetBpc
  *                     Added RX API to get color component format of a stream.
  *                         XDp_RxGetColorComponent
+ *                     Added RX API to set end of line reset as appropriate.
+ *                         XDp_RxSetLineReset
  * </pre>
  *
 *******************************************************************************/
@@ -1308,6 +1310,7 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
+void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

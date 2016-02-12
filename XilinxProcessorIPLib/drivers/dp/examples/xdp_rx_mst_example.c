@@ -52,6 +52,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 2.0   als  06/07/15 Initial creation.
+ * 4.0   als  02/07/16 Added end of line reset for reduced blanking.
  * </pre>
  *
 *******************************************************************************/
@@ -644,6 +645,8 @@ static void Dprx_DetectResolution(XDp *InstancePtr)
 	} while (((DpHres == 0) || (DpVres == 0)) && (GetResCount < 2000));
 
 	xil_printf("\n*** Detected resolution: %u x %u ***\n", DpHres, DpVres);
+
+	XDp_RxSetLineReset(InstancePtr, 1);
 }
 
 /******************************************************************************/

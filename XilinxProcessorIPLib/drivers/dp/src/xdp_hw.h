@@ -1225,7 +1225,8 @@
 					8	/**< Shift bits for AUX signal
 							width filter. */
 /* 0x008: RX_LINE_RESET_DISABLE */
-#define XDP_RX_LINE_RESET_DISABLE_MASK	0x1	/**< Used to disable the end of
+#define XDP_RX_LINE_RESET_DISABLE_MASK(Stream) \
+	(1 << ((Stream) - XDP_TX_STREAM_ID1))	/**< Used to disable the end of
 							the line reset to the
 							internal video pipe. */
 /* 0x010: USER_PIXEL_WIDTH */

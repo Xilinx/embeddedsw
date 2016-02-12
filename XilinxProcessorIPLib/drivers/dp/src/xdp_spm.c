@@ -966,6 +966,98 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
+ * Disable/enables the end of line reset to the internal video pipe in case of
+ * reduced blanking as required.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	None.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
+{
+	u32 BaseAddr;
+	u8  LaneCount;
+	u8  BitsPerPixel, BitsPerColor, ColorComponent;
+	u8  ColComp;
+	u32 RegVal;
+	u32 HBlank, HReducedBlank;
+	u32 HTotal, HActive, HStart, HSyncWidth, HBackPorch, HFrontPorch;
+	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
+					XDP_RX_STREAM3_MSA_START_OFFSET,
+					XDP_RX_STREAM4_MSA_START_OFFSET};
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	LaneCount = InstancePtr->RxInstance.LinkConfig.LaneCount;
+	BaseAddr  = InstancePtr->Config.BaseAddr;
+
+	BitsPerColor   = XDp_RxGetBpc(InstancePtr, Stream);
+	ColorComponent = XDp_RxGetColorComponent(InstancePtr, Stream);
+
+	/* Determine the number of bits per pixel for the specified color
+	 * component format. */
+	if (ColorComponent == XVIDC_CSF_YCRCB_422) {
+		/* YCbCr422 color component format. */
+		BitsPerPixel = BitsPerColor * 2;
+	}
+	else {
+		/* RGB or YCbCr 4:4:4 color component format. */
+		BitsPerPixel = BitsPerColor * 3;
+	}
+
+	HTotal      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HTOTAL +
+				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+	HActive     = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HRES +
+				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+	HStart      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSTART +
+				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+	HSyncWidth  = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSWIDTH +
+				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+	HBackPorch  = HStart - HSyncWidth;
+	HFrontPorch = HTotal - HSyncWidth - HActive - HBackPorch;
+	HBlank      = HBackPorch + HFrontPorch + HSyncWidth;
+
+	/* Reduced blanking starts at ceil(0.2 * HTotal). */
+	HReducedBlank = 2 * HTotal;
+	if (HReducedBlank % 10) {
+		HReducedBlank += 10;
+	}
+	HReducedBlank /= 10;
+
+	RegVal = XDp_ReadReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE);
+	/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
+	if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160)) &&
+	/* Check if there is no possibility of getting extra pixels by TX. */
+			(((BitsPerPixel * HActive / LaneCount) % 8) == 0)) {
+		RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+	}
+	else {
+		RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+	}
+	XDp_WriteReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE, RegVal);
+
+	/* Synchronize the display timing generator (DTG). */
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_DTG_ENABLE);
+	XDp_RxDtgDis(InstancePtr);
+	if (RegVal) {
+		/* Re-enable the DTG if it was previously enabled. */
+		XDp_RxDtgEn(InstancePtr);
+	}
+}
+
+/******************************************************************************/
+/**
  * When the driver is in multi-stream transport (MST) mode, this function will
  * make the necessary calculations to describe a stream in MST mode. The key
  * values are the payload bandwidth number (PBN), the number of timeslots
