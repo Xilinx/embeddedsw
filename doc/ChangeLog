@@ -1,3 +1,532 @@
+Change Log for 2016.1
+=================================
+Removed the following versions from the 2016.1 build:
+axicdma_v2_03_a, axidma_v7_02_a, axidma_v8_0, axiethernet_v3_02_a, axiethernet_v4_0,
+axiethernet_v4_1, axiethernet_v4_2, axiethernet_v4_3, axipcie_v2_03_a, axipcie_v2_04_a,
+axipmon_v4_00_a, axipmon_v5_00_a, axivdma_v4_05_a, axivdma_v4_06_a, bram_v3_02_a, bram_v3_03_a,
+canps_v1_01_a, canps_v1_02_a, canps_v2_0, ccm_v4_00_a, ccm_v5_0, cfa_v5_00_a, cfa_v6_0,
+cpu_cortexa9_v1_01_a, cpu_cortexa9_v2_0, cpu_v1_15_a, cresample_v2_00_a, cresample_v3_0,
+deinterlacer_v2_00_a, deinterlacer_v3_0, deinterlacer_v3_1, devcfg_v2_03_a, devcfg_v2_04_a,
+devcfg_v3_0, devcfg_v3_1, devcfg_v3_2, dmaps_v1_05_a, dmaps_v1_06_a, dmaps_v1_07_a, dmaps_v2_0,
+dptx_v1_0, dptx_v2_0, emaclite_v3_04_a, emacps_v1_04_a, emacps_v1_05_a, emacps_v1_06_a,
+emacps_v2_0, emacps_v2_1, emc_v3_01_a, enhance_v5_00_a, enhance_v6_0, gamma_v5_01_a, gpio_v3_01_a,
+gpiops_v1_01_a, gpiops_v1_02_a, gpiops_v2_0, gpiops_v2_1, hwicap_v8_01_a, ic_v3_00_a, iic_v2_07_a,
+iic_v2_08_a, iicps_v1_03_a, iicps_v1_04_a, iicps_v2_0, iicps_v2_1, iicps_v2_2, intc_v2_06_a,
+intc_v2_07_a, intc_v3_0, intc_v3_1, intc_v3_2, iomodule_v1_04_a, iomodule_v2_0, llfifo_v2_03_a,
+llfifo_v3_00_a, manr_v3_00_a, mbox_v3_04_a, mig_7series_v1_00_a, mutex_v3_02_a, nandps_v1_04_a,
+nandps_v2_0, nandps_v2_1, noise_v4_00_a, os_v3_00_a, osd_v2_00_a, osd_v3_0, qspips_v2_02_a,
+qspips_v2_03_a, qspips_v3_0, qspips_v3_1, rgb2ycrcb_v5_01_a, rgb2ycrcb_v6_0, scaler_v4_03_a,
+scaler_v5_00_a, scaler_v6_0, scugic_v1_04_a, scugic_v1_05_a, scugic_v1_06_a, scugic_v2_0,
+scutimer_v1_02_a, scuwdt_v1_02_a, sdps_v1_00_a, sdps_v2_0, sdps_v2_1, sdps_v2_2, spi_v3_05_a,
+spi_v3_06_a, spi_v3_07_a, spips_v1_05_a, spips_v1_06_a, stats_v4_00_a, sysmon_v5_03_a, sysmon_v6_0,
+tft_v4_00_a, tft_v4_01_a, tft_v5_0, tmrctr_v2_05_a, tpg_v1_00_a, tpg_v2_0, trafgen_v1_00_a,
+trafgen_v2_00_a, trafgen_v2_01_a, trafgen_v3_0, trafgen_v3_1, ttcps_v1_01_a, ttcps_v2_0,
+uartlite_v2_01_a, uartns550_v2_01_a, uartns550_v2_02_a, uartns550_v3_0, uartns550_v3_1,
+usb_v4_03_a, usb_v4_04_a, usbps_v1_04_a, usbps_v1_05_a, usbps_v1_06_a, usbps_v2_0, usbps_v2_1,
+vtc_v4_00_a, vtc_v5_00_a, vtc_v6_0, wdtps_v1_02_a, wdttb_v2_00_a, xadcps_v1_01_a, xadcps_v1_02_a,
+xadcps_v1_03_a, ycrcb2rgb_v5_01_a, standalone_v3_10_a, standalone_v3_11_a, standalone_v3_12_a,
+standalone_v4_0, standalone_v4_1, xilkernel_v5_01_a, xilkernel_v5_02_a, xilkernel_v6_0, xilkernel_v6_1,
+xilisf_v3_02_a, xilisf_v4_0, xilskey_v1_00_a, xilmfs_v1_00_a, lwip140_v1_05_a, lwip140_v1_06_a,
+lwip140_v2_0, lwip140_v2_1, lwip140_v2_2
+
+axicdma_v4_1:
+Updated examples with MIG DDR3 defines
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+
+axidma_v9_1:
+Updated examples with MIG DDR3 defines
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Minor changes in the driver and examples for removing warnings.
+
+axiethernet_v5_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XAxiEthernet_CfgInitialize API.
+Fix compilation errors in case of zynqmp to fix CR#933825.
+Updated the tcl to removed delete filename statement to fix CR# 784758.
+
+axipcie_v3_0:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XAxiPcie_CfgInitialize API.
+
+axipmon_v6_4:
+Added interrupt example support for ZynqMP.
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+
+axivdma_v6_1:
+Updated examples with MIG DDR3 defines.
+Fix example compilation issue on zynqmp.
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XAxiVdma_CfgInitialize API.
+
+bram_v4_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XBram_CfgInitialize API.
+Updated the tcl to removed delete filename statement to fix CR# 784758.
+
+can_v2_00_a:
+Removed from the build.
+Fixed the CR#911958 (RecvFrame not working with data length less than 8bytes and greater than 4 bytes).
+
+canfd_v1_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XCanFd_CfgInitialize API.
+
+canps_v3_1:
+Fixed CR#911958 to add support for Tx Watermark example.
+Data mismatch while sending data less than 8 bytes.
+Updated XCanPs_IntrHandler in xcanps_intr.c to handle error interrupts correctly for CR#925615
+Fixed missing error interrupts, during can compliance test.
+
+Changed file name ccm.h to xccm.h.
+Moved register offsets and bit definitions to xccm_hw.h file.
+Added enums.
+Added range macros.
+Added the structure type definitions XCcm_Config and XCcm.
+Removed the functional macros.
+Added the following macros:
+XCcm_Enable, XCcm_Disable,XCcm_RegUpdateEnable, XCcm_SyncReset, XCcm_Reset, XCcm_IntrGetPending,
+XCcm_IntrEnable, XCcm_IntrDisable, XCcm_StatusGetPending, XCcm_IntrClear, XCcm_Start, XCcm_Stop.
+Added the register offsets and bit masks for the registers.
+Added backward compatibility macros.
+Changed filename ccm to xccm.c.
+Implemented the following functions:
+XCcm_CfgInitialize, XCcm_Setup, XCcm_GetVersion, XCcm_EnableDbgByPass, XCcm_IsDbgByPassEnabled,
+XCcm_DisableDbgByPass, XCcm_EnableDbgTestPattern, XCcm_IsDbgTestPatternEnabled,
+XCcm_DisableDbgTestPattern, XCcm_GetDbgFrameCount, XCcm_GetDbgLineCount, XCcm_GetDbgPixelCount,
+XCcm_SetActiveSize, XCcm_GetActiveSize, XCcm_SetCoefMatrix, XCcm_GetCoefMatrix, XCcm_SetRgbOffset,
+XCcm_GetRgbOffset,XCcm_SetClip, XCcm_GetClip, XCcm_SetClamp XCcm_GetClamp XCcm_FloatToFixedConv,
+and XCcm_FixedToFloatConv.
+Implemented XCcm_SelfTest function.
+Implemented XCcm_LookupConfig function.
+Implemented the functions: XCcm_IntrHandler, XCcm_SetCallBack.
+
+cpu_cortexa9_v2_2:
+Modified cpu_cortexa9 driver mdd file to change compiler to arm-none-eabi-gcc (Linaro)
+and archiver to arm-none-eabi-ar (Linaro). Modified the extra_compiler_flags to
+"-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles". Linaro toolchain supports hard-float.
+Modified cpu_cortexa9 driver tcl to properly update for the extra compiler flag for different
+compilers (Linaro GCC, armcc, IARCC).
+
+cpu_cortexa53_v1_1:
+Modified the cpu_cortexa53 tcl to add the extra compiler flag ARMA53_32 for A53 32bit BSP
+Added timestamp clock frequency to xparamters.h by adding C_TIMESTAMP_CLK_FREQ to cpu driver tcl
+
+cpu_v2_4:
+Updated generate and post_generate procs, not to generate cpu macros, when microblaze is
+connected as one of the streaming slaves to itself. This is for CR#876604.
+
+csi_v1_0:
+Added the initial version of MIPI CSI2 RX Controller driver.
+
+devcfg_v3_4:
+Fix for CR#784758. Changes in driver tcl to delete filename statement.
+
+dphy_v1_0:
+Added the initial version of MIPI DPHY Controller driver.
+
+emaclite_v4_2:
+Used UINTPTR instead of u32 for Baseaddress to fix CR#867425.
+Changed the prototype of XEmacLite_CfgInitialize API.
+Fix compilation errors due to conflicting data types (CR#917930).
+
+emacps_v3_2:
+Change BD typedef and number of words
+
+gpio_v4_1:
+Updated to use cannonical xparameters in examples and clean up of the comments,
+removed support for DCR bridge and removed xgpio_intr_example for CR 900381.
+Used UINTPTR type for BaseAddress.
+
+hdcp22_cipher_v1_0:
+Added the initial version of Xilinx HDCP Cipher core driver.
+
+hdcp22_common_v1_0:
+Added the initial version of Xilinx HDCP Cipher common driver.
+
+hdcp22_mmult_v1_0:
+Added the initial version of the driver that can be used to access the Xilinx HDCP22
+Montogmery Multiplier(Mmult) core.
+
+hdcp22_rng_v1_0:
+Added the initial version of the driver that can be used to access the Xilinx HDCP22
+Random Number Generator(RNG) core.
+
+hdcp22_rx_v1_0:
+Added the initial version of the Xilinx HDCP 2.2 Receiver driver.
+
+hdcp22_tx_v1_0:
+Added the initial version of the Xilinx HDCP 2.2 Tx core driver.
+
+hwicap_v10_1:
+Updated driver, to read 7 Series FPGA frame data correctly.
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XHwIcap_CfgInitialize API.
+Removed xhwicap_clb_srinv.h, xhwicap_clb_ff.h, xhwicap_clb_lut.h files
+Removed xhwicap_lut.c and xhwicap_ff.c examples
+Removed defines XHI_FAR_MAJOR_FRAME_MASK, XHI_FAR_MINOR_FRAME_MASK,
+XHI_FAR_MAJOR_FRAME_SHIFT, XHI_FAR_MINOR_FRAME_SHIFT, XHI_C0R_1.
+Fix for CR#909615 to make the following changes:
+Updated XHI_FAR_COLUMN_ADDR_MASK to 0x3FF
+Updated XHI_FAR_BLOCK_SHIFT to 23
+Updated XHI_FAR_TOP_BOTTOM_SHIFT to 22
+Updated XHI_FAR_ROW_ADDR_SHIFT to 17
+Updated XHI_NUM_FRAME_BYTES to 404
+Updated XHI_NUM_FRAME_WORDS to 101
+Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
+
+iic_v3_2:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XIic_CfgInitialize API.
+
+iicps_v3_0:
+Updates example files xiicps_eeprom_intr_example.c, xiicps_eeprom_polled_example.c,
+xiicps_slave_monitor_example.c.
+
+intc_v3_5:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+
+iomodule_v2_3:
+Updated xdefine_canonical_xpars in iomodule.tcl to generate canonical definitions,
+whose canonical name is not the same as hardware instance name.
+
+llfifo_v5_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototypes of XLlFifo_CfgInitialize, XLlFifo_Initialize APIs.
+Fix Incorrect AXI4 Base address being exported to the xparameters.h file (CR#885653).
+
+mbox_v4_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototypes of XMbox_CfgInitialize API.
+The driver tcl is updated to remove delete filename statement to fix CR# 784758.
+
+mig_v1_0:
+Added initial version of MIG driver for UltraScale DDR3.
+This driver is created only to allow the SDK tools to create a memory test application
+and to populate xparameters.h with memory range constants.
+
+mipicsiss_v1_0:
+Added initial version of Xilinx MIPI CSI Rx Subsystem driver.
+
+mutex_v4_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XMutex_CfgInitialize API.
+
+qspipsu_v3_3:
+Modified the API prototypes according to MISRAC standards to remove compilation
+warnings for fixing CR# 868893.
+Made changes in xqspips_g128_flash_example.c to add support for Macronix 256Mb and 1Gb
+flash parts.
+
+qspipsu_v1_0:
+Added Support for Macronix 1Gb part.
+
+scugic_v3_2:
+Modified xscugic_hw.h file to correct the interrupt target processor mask value for
+cpu interface 2 i.e. XSCUGIC_SPI_CPU2_MASK
+Modified DistributorInit function for CPU while executing in AMP
+Modified tcl to support PL interrupts for ZynqMP Soc
+
+sdps_v2_7:
+Made changes to considered the slot type befoe checking CD/WP pins.
+Added support for MMC cards.
+Added workaround for issue in auto tuning mode of SDR50, SDR104 and HS200.
+
+spi_v4_2:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XSpi_CfgInitialize API.
+Updated the tcl to remove delete filename statement (CR# 784758).
+
+spips_v3_0:
+Made changes in XSpiPs_Abort and XSpiPs_ResetHw to read all RX_FIFO entries.
+
+srio_v1_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XSrio_CfgInitialize API.
+
+sysmon_v7_2:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XSysMon_CfgInitialize API.
+
+sysmonpsu_v1_0 :
+Added new system monitor driver.
+
+tmrctr_v4_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XTmrCtr_CfgInitialize API.
+
+trafgen_v4_1:
+Made changes in tcl to remove delete filename statement to fix CR# 784758.
+
+ttcps_v3_1:
+Made changes in tcl to remove delete filename statement to fix CR# 784758.
+Modified XTtcPs_CfgInitialize to add XTtcps_stop before configuring the TTC.
+Removed invokation of XTtcps_stop from examples (before TTC configuration).
+
+uartlite_v3_2:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XUartLite_CfgInitialize API.
+
+uartns550_v3_4:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XUartNs550_CfgInitialize API.
+
+uartps_v3_1:
+Modified code for latest RTL changes.
+Added platform variable in driver instance structure.
+
+usb_v5_1:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XUsb_CfgInitialize API.
+
+usbps_v2_2:
+Fix for CR#873974 (Zynq PS7 USB - Update Driver to Invalidate Caches After Buffer Receive
+in Endpoint Buffer Handler Code).
+Fix for CR#873972 (Zynq PS7 USB - Update Driver to Handle Moving of dTD Head/Tail Pointers).
+
+v_axi4s_remap_v1_0:
+Initial version of the driver (Generated by Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC).
+
+v_csc_v2_0:
+Updated tcl to include new args ENABLE_422 and ENABLE_WINDOW.
+Is422Enabled, IsDemoWindowEnabled added to XV_csc_Config structure.
+Made changes to integrate layer-1 with layer-2.
+Made changes so that IsDemoWindowEnabled prevents access to absent HW regs.
+Corrected typo in XV_CscSetColorspace setting K31 FW reg.
+Updated the XV_CscDbgReportStatus routine.
+Changes made so that macros query Is422Enabled, IsDemoWindowEnabled flags which were added to
+the XV_csc_Config structure.
+
+v_deinterlacer_v6_0:
+Made changes to integrate layer-1 with layer-2.
+
+v_hcresampler_v2_0:
+Made changes to integrate layer-1 with layer-2.
+
+v_hdmirx_v1_0:
+Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
+
+v_hdmitx_v1_0:
+Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
+
+v_hscaler_v2_0:
+Made changes to integrate layer-1 with layer-2.
+Updated the XV_HScalerDbgReportStatus routine.
+Added macro to query the Is422Enabled flag that was added to the XV_hscaler_Config structure.
+
+v_letterbox_v2_0:
+Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
+Made changes to integrate layer-1 with layer-2.
+
+v_mix_v1_0:
+Added initial version of Mix Layer-2 Driver (Generated by Vivado(TM) HLS).
+
+v_tpg_v7_0:
+Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
+
+v_vcresampler_v2_0:
+Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
+Made changes to integrate layer-1 with layer-2.
+
+v_vscaler_v2_0:
+Made changes to integrate layer-1 with layer-2.
+
+video_common_v2_1:
+Changes made so that functions with pointer arguments that don't modify contents are now const.
+Added ability to insert a custom video timing table: XVidC_RegisterCustomTimingModes and
+XVidC_UnregisterCustomTimingMode.
+Added 3D support.
+Fixed video timings for some resolutions.
+
+vphy_v1_1:
+Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
+Corrected PllParams.Cdr[1] values for DP and HDMI.
+
+vprocss_v2_0:
+Made changes in mdd file to update OPTION DEPENDS.
+Updated tcl to fix bug for designs with single instance of vcresampler core.
+Updateed to adapt to sub-core layer 2 changes.
+Added four new topologies. There are now six topologies.
+Added support for additional topologies.
+Accommodated Full topology with no VDMA
+Renamed and modified H,VCresample constants and routines
+Added macros to query for the new topologies
+Added new data struct, enums, constants and prototypes to support a new Event Logging system for xvprocss.
+Made changes to write to new Event Log: log sub-core init errors.
+Modifed CSC-only validate and setup routines
+Modified Scaler-only validate and setup routines
+Made changes to conform to coding style.
+
+wdttb_v4_0:
+Updated Window watchdog support.
+Updated XWdtTb_Config structure with Window WDT parameters.
+Updated XWdtTb core structure with config parameter and removed RegBaseAddress parameter.
+Added following static inline functions:
+XWdtTb_GetTbValue, XWdtTb_SetRegSpaceAccessMode,
+XWdtTb_GetRegSpaceAccessMode, XWdtTb_GetLastEvent,
+XWdtTb_GetFailCounter, XWdtTb_IsResetPending,
+XWdtTb_GetIntrStatus, XWdtTb_IsWrongCfg.
+Added following functions:
+XWdtTb_AlwaysEnable, XWdtTb_ClearLastEvent,
+XWdtTb_ClearResetPending, XWdtTb_IntrClear,
+XWdtTb_SetByteCount, XWdtTb_GetByteCount,
+XWdtTb_SetByteSegment, XWdtTb_GetByteSegment,
+XWdtTb_EnableSst, XWdtTb_DisableSst, XWdtTb_EnablePsm,
+XWdtTb_DisablePsm, XWdtTb_EnableFailCounter,
+XWdtTb_DisableFailCounter, XWdtTb_EnableExtraProtection,
+XWdtTb_DisableExtraProtection, XWdtTb_SetWindowCount, XWdtTb_CfgInitialize.
+Updated following functions with Window WDT feature:
+XWdtTb_Start, XWdtTb_Stop, XWdtTb_IsWdtExpired, XWdtTb_RestartWdt.
+Changed multi line comments to single line comments wherever required.
+Moved XWdtTb_LookupConfig definition to xwdttb_sinit.c.
+Changes made to adherence to coding and Doxygen guidelines.
+Removed included xil_io, xil_types, xparameters and xil_assert header files.
+Moved XWdtTb_GetTbValue to xwdttb.h file.
+Changes made to adhere to MISRA-C guidelines.
+Added new files xwdttb_hw.h and xwdttb_sinit.c.
+Added masks and shifts macros for Window WDT:
+Added macros for Window WDT feature.
+
+zdma_v1_0:
+Modified XZDma_SetMode API
+Corrected XZDma_SetChDataConfig API
+
+standalone_v5_4:
+Updated xplatform_info.h to add macros for support for A53 32 bit.
+Modified boot.s to disable ACTLR.DBWR bit to avoid potential R5 deadlock for errata 780125.
+Modified file xil_misc_psreset_api.c to improve the description for XOcm_Remap function to avoid
+confusion for Cortex-A9.
+Enabled I-Cache and D-Cache in boot code for a53 32 bit BSP in the initialization.
+Modified file xil_misc_psreset_api.c to correct the description for XOcm_Remap function to avoid confusion for
+Microblaze.
+Added #defines for mmu attributes which can be used with Xil_SetTlbAttributes API for cortex-a9.
+Added default undefined exception handler with debug print of the instruction causing undefined exception for
+Cortex-A9 BSP.
+Included #defines for silicon for checking the current executing platform using XGet_Zynq_UltraMp_Platform_info API
+for ZynqMP Soc. Updated xplatform_info.h and xplatform_info.c accordingly. Added a new API XGetPSVersion_Info to
+return information for PS Silicon version. Modified APIs for platform information to add support for
+Cortex-A53 32bit mode.
+Initialize global constructor for C++ applications for Cortex-A53 (32 and 64 bit) and Cortex-R5.
+Updadted the translation table according to proper address map for cortex-A53 (32 and 64 bit).
+MPU initialization is corrected based on proper address map for cortex-R5 (mpu.c).
+Modified boot.S file to set the reset vector register RVBAR equivalent to vector table base address for
+cortex-A53 (32 and 64 bit).
+Modified cortexa9 gcc Makefile to update the extra compiler flag as per the toolchain update.
+Corrected the sleep and usleep routines to avoid hardcoding the timer frequency, instead take it
+from xparameters.h to properly configure the timestamp clock frequency.
+Updated cortexa9 BSP to add macros: asm_cp15_inval_dc_line_mva_poc, asm_cp15_clean_inval_dc_line_mva_poc,
+asm_cp15_inval_ic_line_mva_pou, asm_cp15_inval_dc_line_sw, asm_cp15_clean_inval_dc_line_sw. These macros are
+used CACHE APIs to replace inline assembly code. This is done for better MISRA C compliance.
+Modified prototypes of xil_In32 and xil_Out32 for cortexa9 to remove warnings.
+Added axipmon interrupt id's in xparameter_ps.h for cortexa53 BSP.
+Added axipmon interrupt id's in xparameter_ps.h for cortexr5 BSP.
+Updated A53 64 bit BSP xil_io.c APIs Xil_Out8, Xil_Out16, Xil_Out32, Xil_Out64 to use volatiles.
+Updated A53 32 bit BSP xil_io.c APIs Xil_Out8, Xil_Out16, Xil_Out32 to use volatiles.
+Changes across various files in the BSP for MISRA C compliance.
+Added interrupt ID macros for system monitor in A53 and R5 BSPs (xparameters_ps.h).
+Removed macro XPAR_SCUTIMER_DEVICE_ID from Cortex-R5 xparameters_ps.h (as it is not relevant).
+Updated boot.S in Cortex-R5 to add support for R5 lock-step mode (enabling the comparator logic and
+enabling fault log.
+Renamed USEAMP to VEC_TABLE_IN_OCM in boot.S to avoid confusion with USE_AMP for Cortex-R5.
+Renamed USEAMP and USE_AMP to UNDEFINE_FILE_OPS around file operation open(),read(), write() etc for
+Cortex-A9 and Cortex-R5.
+Removed the upper 512MB remapping to 0 in boot.S for USE_AMP flag for Cortex-A9.
+Added support for 64 bit address extension for MicroBlaze BSP. Updated mb_interface.h to add macros for
+new assembly instructions. The macros added are: mfeare, mfpvre, lwea, lhuea, lbuea, swea, shea, sbea.
+Made changes in MicroBlaze BSP xil_io.c and xil_io.h to convert Xil_In8, Xil_In16, Xil_In32, Xil_Out8,
+Xil_Out16, Xil_Out32 into static inline functions. Made changes in xil_io.c and xil_io.h to change u32
+to UINTPTR.
+Made changes in MicroBlaze BSP to add implementation for xil_printf (added the file xil_printf.c). Earlier
+xil_printf was part of toolchain which is now removed from toolchain and made part of BSP.
+
+xilskey_v5_0:
+Modified JtagWrite_Ultrascale.
+Added verification for programming bits.
+Added checks for programming.
+AES key programmed is verified.
+Calculated CRC of provided AES key.
+Added Ultrascale BBRAM programming.
+Added example for Ultrascale BBRAM.
+Modified TCL for supporting all platforms.
+Fixed Array out of bounds error.
+
+xilffs_v3_2:
+Added support for LFN.
+Added support for use_lfn option.
+Added use_lfn option.
+Ignore CD/WP checks for Embedded slot.
+Corrected ST_WORD and ST_DWORD macros.
+
+xilflash_v4_2:
+Added support to change BPI Flash from sync to async in examples.
+Added support to unlock the MicronG18 flash in examples.
+Added canonical name to FLASH_BASEADDR in examples.
+
+xilisf_v5_3:
+Updated xilisf_stm_read_write_example.c to remove compilation error.
+
+xilisf_v5_4:
+Updated xilisf_stm_read_write_example.c to remove compilation error.
+
+xilisf_v5_5:
+Updated xilisf_stm_read_write_example.c to remove compilation error.
+Fix compilation errors and warnings.
+Added support for spansion in extended address mode.
+Added support for S25FL512S and S25FL256S.
+
+xilrsa_v1_2:
+Added support for Linaro tool chain in tcl.
+Updated the version number.
+Added binary for Linaro Tool chain.
+
+xilsecure_v1_1:
+Updated the silsecure library.
+
+freertos823_xilinx_v1_1:
+Modifies the makefiles, mld and tcl for freertos bsp to update them to latest standalone bsp 5.4.
+
+lwip141_1_4:
+Made changes for lwip to work on A53 with caches enabled.
+Corrected writing default values to last tx and rx BDs and then re-writing.
+Added support for TI phy with axi ethernet interface.
+Zynq BD space made normal non-cacheable.
+Corrected Zynq GEM clock config when GEM1 is selected.
+Added support for MicroBlaze FreeRTOS.
+Made changes to add support for Axi Etherent on ZyqnMP.
+Made changes in tcl to ensure that the parameter LWIP_COMPAT_MUTEX is defines as 1 for
+MicroBlaze FreeRTOS use case.
+Made changes to remove an incorrect assert in sys_arch.c (sys_arch_mbox_fetch) for FreeRTOS use case.
+Made other miscellaneous changes in adapter files for removing warnings.
+
+freertos_hello_world:
+Updated the freertos hello world application to add a timer. The timer
+times out after 10 seconds and kills the tasks and prints a success message.
+Updated the tcl to add checks for A53 32 bit. The application is not supported
+for A53 32 bit.
+
+lwip_echo_server:
+Made changes not to disable D-cache for A53.
+
+openamp_echo_test:
+Made changes not to call vTaskEndScheduler (FreeRTOS R5 based application). Removed the timer being
+created for this purpose.
+Removed the assert print which was caused because of calling endscheduler API for cortex-r5 freertos bsp
+
+openamp_matrix_multiply:
+Made changes not to call vTaskEndScheduler (FreeRTOS R5 based application). Removed the timer being
+created for this purpose.
+
+openamp_rpc_demo:
+Made changes not to call vTaskEndScheduler (FreeRTOS R5 based application). Removed the timer being
+created for this purpose.
+
+xilkernel_thread_demo:
+Updated xilkernel thread demo tcl (to check for IP_NAME not for instance name).
+
+freertos_lwip_echo_server:
+Added a new lwip echo server app to be used only with FreeRTOS BSP. The functionality of this app
+is exactly same as lwip_echo_server except the fact that it does not support 1000BaseX, sgmii modes and
+is exclusively for FreeRTOS.
+
 Change Log for 2015.4
 =================================
 can_v3_1:
