@@ -47,7 +47,7 @@
 * 1.0   vns     2/27/15  First release
 *       vns    16/10/15  Corrected Destination descriptor addresss calculation
 *                        in XZDma_CreateBDList API
-*       vns    05/11/15  Modified XZDma_SetMode to return XST_FAILURE on
+* 1.1   vns    05/11/15  Modified XZDma_SetMode to return XST_FAILURE on
 *                        selecting DMA mode other than normal mode in
 *                        scatter gather mode data transfer and corrected
 *                        XZDma_SetChDataConfig API to set over fetch and
