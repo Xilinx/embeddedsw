@@ -33,6 +33,11 @@
 #ifndef XPFW_PLATFORM_H_
 #define XPFW_PLATFORM_H_
 
+#include "xil_types.h"
+
+#define XPFW_PLATFORM_PS_V1    0x0U
+
 void XPfw_PlatformInit(void);
+u8 XPfw_PlatformGetPsVersion(void);
 
 #endif /* XPFW_PLATFORM_H_ */

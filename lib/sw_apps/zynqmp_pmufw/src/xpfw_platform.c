@@ -71,6 +71,17 @@
 #define R_UART_BDIV (UART_BASE + 0x34)
 #endif
 
+#define XPAR_CSU_BASEADDR   0xFFCA0000U
+#define XPAR_CSU_VER_OFFSET 0x00000044U
+#define CSU_VERSION_REG     (XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET)
+#define PS_VERSION_MASK     (0xFU)
+
+
+u8 XPfw_PlatformGetPsVersion(void)
+{
+	return (u8)(XPfw_Read32(CSU_VERSION_REG) & PS_VERSION_MASK);
+}
+
 void XPfw_PlatformInit(void)
 {
 

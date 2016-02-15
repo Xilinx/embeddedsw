@@ -33,6 +33,7 @@
 #include "xpfw_default.h"
 #include "xpfw_util.h"
 #include "xpfw_resets.h"
+#include "xpfw_platform.h"
 
 
 
@@ -62,31 +63,7 @@
 #define RPU_AIB_SLAVE_MASK	(LPD_SLCR_ISO_AIBAXI_ACK_RPUS0_MASK |\
 			LPD_SLCR_ISO_AIBAXI_ACK_RPUS1_MASK )
 
-/**
- * This PS only reset is to gracefully reset PS while PL remains active.
- * This reset can be triggered by hardware error signal(s) or
- * by software register write. This reset is a subset of
- * �System� reset (excluding PL reset). If this PS reset is triggered by
- * error signal, then error is transmitted to PL also.
- * The sequencing of this reset is described below:
-*- [ErrorLogic]Error interrupt is asserted whose action requires PS-only reset
- *- This request is sent to PMU as interrupt
- *- [PMU-FW] Set PMU Error (=>PS-only reset) to indicate to PL.
- *- [PMU-FW] Block FPD=>PL and LPD=>PL interfaces with the help of AIB (in PS).
- *- If AIB ack is not received, then PMU should timeout and continue.
- *- [PMU-FW] (Optional) Block PL=>FPD (and PL=>LPD if any) interfaces with the
- *  help of AIB (in PL wrapper).
- *-If AIB ack is not received, then PMU should timeout and continue.
- *@note It requires PMU to PL-AIB req/ack interface.
- *@note PMU to PL-AIB req signals should not be reset by this PS-only reset.
- *- [PMU-FW] Initiate PS-only reset by writing to PMU-local register
- *- [RstCtrl] Assert PS-only reset
- *- [RstCtrl] After some wait, de-assert reset which will result in
- *  PS-only re-boot
- *- [FSBL] Unblock PL => FPD (and PL=>LPD if any) AXI interfaces
- * @note: You may never return from this function, since PS resets
- *
- */
+
 void XPfw_ResetPsOnly(void)
 {
 	XStatus l_Status;
@@ -132,6 +109,24 @@ void XPfw_ResetPsOnly(void)
 	{
 		fw_printf("Time Out\r\n");
 	}
+
+	/**
+	 * Check if we are running Silicon version 1.0. If so,
+	 * bypass the RPLL before initiating the reset. This is
+	 * due to a bug in 1.0 Silicon wherein the PS hangs on a
+	 * reset if the RPLL is in use.
+	 */
+	if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
+		XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
+			     CRL_APB_RPLL_CTRL_BYPASS_MASK);
+	}
+
+	/* Block the propagation of the PROG signal to the PL */
+	XPfw_UtilRMW(PMU_GLOBAL_PS_CNTRL, PMU_GLOBAL_PS_CNTRL_PROG_ENABLE_MASK,
+		     ~PMU_GLOBAL_PS_CNTRL_PROG_ENABLE_MASK);
+
+	XPfw_UtilRMW(PMU_GLOBAL_PS_CNTRL, PMU_GLOBAL_PS_CNTRL_PROG_GATE_MASK,
+		     PMU_GLOBAL_PS_CNTRL_PROG_GATE_MASK);
 
 	/**
 	 *  Initiate PS-only reset by writing to PMU-local register
