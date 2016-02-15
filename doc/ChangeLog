@@ -189,6 +189,10 @@ iomodule_v2_3:
 Updated xdefine_canonical_xpars in iomodule.tcl to generate canonical definitions,
 whose canonical name is not the same as hardware instance name.
 
+ipipsu_v2_0:
+Created new major version.
+Fix response buffer address calculation.
+
 llfifo_v5_1:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
 Changed the prototypes of XLlFifo_CfgInitialize, XLlFifo_Initialize APIs.
@@ -220,6 +224,9 @@ flash parts.
 qspipsu_v1_0:
 Added Support for Macronix 1Gb part.
 
+rtcpsu_v1_2:
+Corrected calibration and fractional masks.
+
 scugic_v3_2:
 Modified xscugic_hw.h file to correct the interrupt target processor mask value for
 cpu interface 2 i.e. XSCUGIC_SPI_CPU2_MASK
@@ -249,6 +256,8 @@ Changed the prototype of XSysMon_CfgInitialize API.
 
 sysmonpsu_v1_0 :
 Added new system monitor driver.
+Correct the assert function call.
+Modified interrupt examples.
 
 tmrctr_v4_1:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
