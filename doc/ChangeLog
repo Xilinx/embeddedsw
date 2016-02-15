@@ -402,7 +402,8 @@ Added new files xwdttb_hw.h and xwdttb_sinit.c.
 Added masks and shifts macros for Window WDT:
 Added macros for Window WDT feature.
 
-zdma_v1_0:
+zdma_v1_1:
+Added new version 1.1
 Modified XZDma_SetMode API
 Corrected XZDma_SetChDataConfig API
 
