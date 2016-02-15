@@ -46,6 +46,8 @@
 * Ver   Who    Date	    Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   kvn    12/15/15 First release.
+*              02/15/16 Corrected Assert function call in
+*                       XSysMonPsu_GetMonitorStatus API.
 *
 * </pre>
 *
@@ -1730,8 +1732,8 @@ u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
 	u32 AMSMonStatusReg;
 
 	/* Assert the arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
 	 * Read the AMS monitor status. This gives tells about JTAG Locked / ADC
