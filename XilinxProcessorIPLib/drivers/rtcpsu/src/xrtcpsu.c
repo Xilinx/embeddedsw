@@ -50,6 +50,8 @@
 * 1.00  kvn    04/21/15 First release
 * 1.1   kvn    09/25/15 Modify control register to enable battery
 *                       switching when vcc_psaux is not available.
+* 1.2          02/15/16 Corrected Calibration mask and Fractional
+*                       mask in CalculateCalibration API.
 * </pre>
 *
 ******************************************************************************/
@@ -341,8 +343,8 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr,u32 TimeReal,
 		Cnew = CrystalOscFreq - (u32)1;
 		Fnew = 0U;
 	} else {
-		Cprev = Calibration & XRTC_CALIB_RD_FRACTN_DATA_MASK;
-		Fprev = Calibration & XRTC_CALIB_RD_MAX_TCK_MASK;
+		Cprev = Calibration & XRTC_CALIB_RD_MAX_TCK_MASK;
+		Fprev = Calibration & XRTC_CALIB_RD_FRACTN_DATA_MASK;
 
 		Xf = ((ReadTime - SetTime) * ((Cprev+1U) + ((Fprev+1U)/16U))) / (TimeReal - SetTime);
 		Cnew = (u32)(Xf) - (u32)1;
