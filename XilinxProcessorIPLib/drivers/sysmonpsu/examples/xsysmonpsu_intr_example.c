@@ -60,6 +60,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   kvn    12/15/15 First release
+*              02/15/16 Corrected order of Enabling / Disabling of
+*                       interrupts.
 *
 * </pre>
 *
@@ -377,17 +379,6 @@ static int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstP
 	IntrStatus = XSysMonPsu_IntrGetStatus(SysMonInstPtr);
 	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
-
-	/*
-	 * Enable Alarm 0 interrupt for on-chip temperature,
-	 * Alarm 1 interrupt for on-chip VCCINT and
-	 * Alarm 3 interrupt for on-chip VCCAUX.
-	 */
-	XSysMonPsu_IntrEnable(SysMonInstPtr,
-			XSYSMONPSU_IER_0_PS_ALM_0_MASK |
-			XSYSMONPSU_IER_0_PS_ALM_1_MASK |
-			XSYSMONPSU_IER_0_PS_ALM_3_MASK );
-
 	/*
 	 * Set up Alarm threshold registers for
 	 * 	- On-chip Temperature High/Low limit
@@ -458,6 +449,16 @@ static int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstP
 	XSysMonPsu_SetAlarmEnables(SysMonInstPtr, (XSM_CFR_ALM_TEMP_MASK |
 						XSM_CFR_ALM_SUPPLY1_MASK |
 						XSM_CFR_ALM_SUPPLY3_MASK), XSYSMON_PS);
+
+	/*
+	 * Enable Alarm 0 interrupt for on-chip temperature,
+	 * Alarm 1 interrupt for on-chip VCCINT and
+	 * Alarm 3 interrupt for on-chip VCCAUX.
+	 */
+	XSysMonPsu_IntrEnable(SysMonInstPtr,
+			XSYSMONPSU_IER_0_PS_ALM_0_MASK |
+			XSYSMONPSU_IER_0_PS_ALM_1_MASK |
+			XSYSMONPSU_IER_0_PS_ALM_3_MASK );
 
 	/* Wait until an Alarm 0 or Alarm 1 or Alarm 3 interrupt occurs. */
 	while (1) {
@@ -616,6 +617,17 @@ static void SysMonPsuInterruptHandler(void *CallBackRef)
 
 	/* Clear all bits in Interrupt Status Register. */
 	XSysMonPsu_IntrClear(SysMonPtr, IntrStatusValue);
+
+	/*
+	 * Disable Alarm 0 interrupt for on-chip temperature,
+	 * Alarm 1 interrupt for on-chip VCCINT and
+	 * Alarm 3 interrupt for on-chip VCCAUX.
+	 */
+	XSysMonPsu_IntrDisable(SysMonPtr,
+			XSYSMONPSU_IER_0_PS_ALM_0_MASK |
+			XSYSMONPSU_IER_0_PS_ALM_1_MASK |
+			XSYSMONPSU_IER_0_PS_ALM_3_MASK );
+
  }
 
 /****************************************************************************/

@@ -54,6 +54,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   kvn    12/15/15 First release
+*              02/15/16 Corrected order of Enabling / Disabling of
+*                       interrupts.
 *
 * </pre>
 *
@@ -257,6 +259,10 @@ int SysMonPsuSingleChannelIntrExample(XScuGic* XScuGicInstancePtr,
 	/* Read the ADC converted Data from the data registers for VCCINT. */
 	VccintData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_SUPPLY1, XSYSMON_PS);
 
+	/* Disable EOC interrupt and Alarm 1 interrupt for on-chip VCCINT. */
+	XSysMonPsu_IntrDisable(SysMonInstPtr,
+				((u64)XSYSMONPSU_IER_1_EOC_MASK << 32) |
+				XSYSMONPSU_IER_0_PS_ALM_1_MASK);
 
 	/*
 	 * Set up Alarm threshold registers for the VCCINT
@@ -272,6 +278,11 @@ int SysMonPsuSingleChannelIntrExample(XScuGic* XScuGicInstancePtr,
 	/* Enable Alarm 1 for VCCINT */
 	XSysMonPsu_SetAlarmEnables(SysMonInstPtr, XSYSMONPSU_CFR_REG1_ALRM_SUP1_MASK,
 			XSYSMON_PS);
+
+	/* Enable EOC interrupt and Alarm 1 interrupt for on-chip VCCINT. */
+	XSysMonPsu_IntrEnable(SysMonInstPtr,
+			((u64)XSYSMONPSU_IER_1_EOC_MASK << 32) |
+			XSYSMONPSU_IER_0_PS_ALM_1_MASK);
 
 	/* Wait until an Alarm 1 interrupt occurs. */
 	while (1) {
@@ -345,6 +356,12 @@ static void SysMonPsuInterruptHandler(void *CallBackRef)
 
 	/* Clear all bits in Interrupt Status Register. */
 	XSysMonPsu_IntrClear(SysMonPtr, IntrStatusValue);
+
+	/* Disable EOC interrupt and Alarm 1 interrupt for on-chip VCCINT. */
+	XSysMonPsu_IntrDisable(SysMonPtr,
+			((u64)XSYSMONPSU_IER_1_EOC_MASK << 32) |
+			XSYSMONPSU_IER_0_PS_ALM_1_MASK);
+
  }
 
 /****************************************************************************/
