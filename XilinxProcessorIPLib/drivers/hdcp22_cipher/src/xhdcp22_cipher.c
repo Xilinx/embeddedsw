@@ -35,16 +35,17 @@
 * @file xhdcp22_cipher.c
 * @addtogroup hdcp22_cipher_v1_0
 * @{
+* @details
 *
-* This file contains the main implementation of the driver associated with
-* the Xilinx HDCP Cipher core.
+* This file contains the main implementation of the Xilinx HDCP 2.2 Cipher
+* device driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  JO  10/01/15 Initial release.
+* 1.00  JO     10/01/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -237,3 +238,5 @@ void XHdcp22Cipher_SetRiv(XHdcp22_Cipher *InstancePtr, const u8 *RivPtr,  u16 Le
 		Offset+=4;
 	}
 }
+
+/** @} */

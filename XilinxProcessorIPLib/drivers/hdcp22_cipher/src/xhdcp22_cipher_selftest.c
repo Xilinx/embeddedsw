@@ -35,16 +35,17 @@
 * @file xhdcp22_cipher_selftest.c
 * @addtogroup hdcp22_cipher_v1_0
 * @{
+* @details
 *
-* This file contains the main implementation of the driver associated with
-* the Xilinx HDCP Cipher core.
+* This file contains self test function for the Xilinx HDCP 2.2 Cipher core.
+* The self test function reads the version register.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  JO  10/01/15 Initial release.
+* 1.00  JO     10/01/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -99,3 +100,5 @@ int XHdcp22Cipher_SelfTest(XHdcp22_Cipher *InstancePtr)
 
 	return Status;
 }
+
+/** @} */

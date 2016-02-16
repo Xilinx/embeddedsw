@@ -35,17 +35,44 @@
 * @file xhdcp22_cipher.h
 * @addtogroup hdcp22_cipher_v1_0
 * @{
+* @details
 *
-* This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the Xilinx HDCP22 cipher core.
+* This is the main header file of the Xilinx HDCP 2.2 Cipher device driver.
+* The Cipher implements the AES-128 standard for encrypting and decrypting
+* audiovisual content. The Cipher is required to be programmed with the
+* global constant Lc128, random number Riv, and session key Ks before encryption
+* is enabled. Internally, the cipher uses the Enhanced Encryption Signaling
+* Status (EESS) to determine when to encrypt and decrypt frames. It also
+* manages the data and frame counters to ensure the transmitter and receiver
+* Ciphers are synchronized.
+*
+* <b>Software Initialization and Configuration</b>
+*
+* The application needs to do the following steps to run the Cipher.
+* - Call XHdcp22Cipher_LookupConfig using the device ID to find the
+*   core configuration instance.
+* - Call XHdcp22Cipher_CfgInitialize to intitialize the device instance.
+* - Call XHdcp22Cipher_SetTxMode or XHdcp22Cipher_SetRxMode to setup
+*   the Cipher as either a transmitter or receiver.
+* - Call XHdcp22Cipher_Enable to enable the cipher.
+* - Call XHdcp22Cipher_SetLc128 to program the Lc128 constant.
+* - Call XHdcp22Cipher_SetRiv to program the random number Riv.
+* - Call XHdcp22Cipher_SetKs to program the session key Ks.
+* - If operating as a transmitter call XHdcp22Cipher_EnableTxEncryption
+*   to enable encryption or XHdcp22Cipher_DisableTxEncryption to
+*   disable encryption.
+*
+* <b>Interrupts</b>
+*
+* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  jo  10/01/15 Initial release.
-* 1.1   MG  10/28/15 Added Noise and blank macros
+* 1.00  JO     10/01/15 Initial release.
+* 1.01  MG     10/28/15 Added Noise and blank macros
 * </pre>
 *
 ******************************************************************************/
@@ -311,4 +338,5 @@ void XHdcp22Cipher_SetRiv(XHdcp22_Cipher *InstancePtr, const u8 *RivPtr,  u16 Le
 #endif
 
 #endif /* XHDCP2_CIPHER_H */
+
 /** @} */

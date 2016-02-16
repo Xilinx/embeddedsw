@@ -35,17 +35,18 @@
 * @file xhdcp22_cipher_hw.h
 * @addtogroup hdcp22_cipher_v1_0
 * @{
+* @details
 *
 * This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the Xilinx HDCP22 cipher core.
+* macros) that can be used to access the Xilinx HDCP 2.2 Cipher core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  jo  10/01/15 Initial release.
-* 1.10  MG  10/28/15 Added InputCtr register
+* 1.00  JO     10/01/15 Initial release.
+* 1.01  MG     10/28/15 Added InputCtr register
 * </pre>
 *
 ******************************************************************************/
@@ -227,4 +228,5 @@ extern "C" {
 #endif
 
 #endif /* XHDCP2_CIPHER_HW_H */
+
 /** @} */
