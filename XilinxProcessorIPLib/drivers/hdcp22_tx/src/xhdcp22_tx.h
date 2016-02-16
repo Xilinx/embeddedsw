@@ -33,21 +33,23 @@
 /**
 *
 * @file xhdcp22_tx.h
+* @addtogroup hdcp22_tx_v1_0
+* @{
+* @details
 *
-* This is the main header file for Xilinx HDCP22 TX core. HDCP22 TX core is
-* used for authentication using HDCP (High-bandwidth Digital Content Protection)
-* according the HDCP 2.2 specifications.
+* This is the main header file for Xilinx HDCP 2.2 Transmiter device driver.
+* The HDCP 2.2 Transmitter driver implements the authentication state machine.
 * It consists of:
 * - A state machine handling the states as specified in the HDCP revision 2.2
 *   specification.
-* - Functionality for checking if the HDCP22 RX sink does respond within
+* - Functionality for checking if the HDCP 2.2 Receiver sink does respond within
 *   specified times.
-* - Message handling from/to the HDCP22 RX sink.
+* - Message handling from/to the HDCP 2.2 receiver sink.
 * - Logging functionality including time stamps.
 
 * <b>Interrupts </b>
 *
-* HDCP22 TX uses a hardware timer interrupt. The interrupt controller that should
+* The driver uses a hardware timer interrupt. The interrupt controller that should
 * be used, must be passed with the #XHdcp22Tx_SetInterruptController function.
 *
 * Application developer needs to register interrupt handler with the processor,
@@ -110,32 +112,6 @@ extern "C" {
 * - 3 : 66%
 * - 4 : 75% etc. */
 #define XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE  4
-
-/* Test flags to trigger errors for unit tests. */
-
-/** Use a certificate test vector. */
-#define XHDCP22_TX_TEST_CERT_RX         0x00000001
-/** Use a H_Prime test vector.*/
-#define XHDCP22_TX_TEST_H1              0x00000002
-/** Use a L_Prime test vector.*/
-#define XHDCP22_TX_TEST_L1              0x00000004
-/** Use a pairing info Ekh(Km) test vector, use i.c.w #XHDCP22_TX_TEST_RCV_TIMEOUT*/
-#define XHDCP22_TX_TEST_EKH_KM          0x00000008
-/** Invalidate a value */
-#define XHDCP22_TX_TEST_INVALID_VALUE   0x00000010
-/** Timeout on a received message. */
-#define XHDCP22_TX_TEST_RCV_TIMEOUT     0x00000020
-/** AKE is forced using a stored Km scenarion. Pairing info is pre-loaded
-* with test vectors that forces Stored Km scenario.*/
-#define XHDCP22_TX_TEST_STORED_KM       0x00000100
-/** Disable timeout checking. this is mainly used to check the HDCP RX core in
-* loopback mode in case it cannot meet timing requirements (no offloading to
-* hardware) and reponsetimes need to be logged.*/
-#define XHDCP22_TX_TEST_NO_TIMEOUT      0x00000200
-/** Pairing info is cleared, to force a non-stored Km scenario */
-#define XHDCP22_TX_TEST_CLR_PAIRINGINFO 0x00000400
-/** DDC base address (0x74 >> 1) */
-#define XHDCP22_TX_DDC_BASE_ADDRESS     0x3A
 
 /**
 * Needed storage to transmit/receive messages to the HDCP2.2 receiver
@@ -214,19 +190,6 @@ typedef enum {
 } XHdcp22_Tx_LogEvt;
 
 /**
-* These constants are used to set the core into testing mode with #XHdcp22Tx_TestSetMode.
-*/
-typedef enum {
-	XHDCP22_TX_TESTMODE_DISABLED,       /**< Testmode is disabled. */
-	XHDCP22_TX_TESTMODE_SW_RX,          /**< Actual HDCP2.2 RX component is connected. */
-	XHDCP22_TX_TESTMODE_NO_RX,          /**< HDCP2.2 RX software component is not available and will be emulated. */
-	XHDCP22_TX_TESTMODE_UNIT,           /**< HDCP2.2 RX is emulated, #XHdcp22Tx_LogDisplay shows source code.*/
-	XHDCP22_TX_TESTMODE_USE_TESTKEYS,   /**< Use test keys as defined in Errata to HDCP on HDMI Specification
-	                                         Revision 2.2, February 09, 2015. */
-	XHDCP22_TX_TESTMODE_INVALID         /**< Last value the list, only used for checking. */
-} XHdcp22_Tx_TestMode;
-
-/**
  * These constants are used to define the used protocol.
  */
 typedef enum {
@@ -271,12 +234,12 @@ typedef struct
 	XHdcp22_Tx_Protocol Protocol;
 	/** Future expansion. */
 	XHdcp22_Tx_Mode Mode;
+	/** DeviceId of the internal used timer. */
+	u16 TimerDeviceId;
 	/** DeviceId of the used cipher. */
 	u16 CipherId;
 	/** Device Id of the random generator. */
 	u16 RngId;
-	/** DeviceId of the internal used timer. */
-	u16 TimerDeviceId;
 } XHdcp22_Tx_Config;
 
 /**
@@ -356,7 +319,7 @@ typedef struct {
 * This typedef contains the HDCP22 test parameters and settings.
 */
 typedef struct {
-  XHdcp22_Tx_TestMode TestMode; /**< Current used test mode. */
+  u32 TestMode;                 /**< Current used test mode. */
   u32 TestFlags;                /**< Current used test flags. */
   u8 CurrentDdcAddress;         /**< Current DDC address by the testing framework. */
 } XHdcp22_Tx_Test;
@@ -426,11 +389,13 @@ typedef struct
 	/** Logging. */
 	XHdcp22_Tx_Log Log;
 
-	/** Testing. */
-	XHdcp22_Tx_Test Test;
-
 	/** Message buffer for messages that are sent/received. */
 	u8 MessageBuffer[XHDCP22_TX_MAX_MESSAGE_SIZE];
+
+#ifdef _XHDCP22_TX_TEST_
+	/** Testing. */
+	XHdcp22_Tx_Test Test;
+#endif
 }XHdcp22_Tx;
 
 
@@ -470,10 +435,7 @@ void XHdcp22Tx_LogReset(XHdcp22_Tx *InstancePtr, u8 Verbose);
 void XHdcp22Tx_LogWr(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_LogEvt Evt, u16 Data);
 XHdcp22_Tx_LogItem* XHdcp22Tx_LogRd(XHdcp22_Tx *InstancePtr);
 void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr);
-void XHdcp22Tx_TestSetMode(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_TestMode Mode,
-                           u32 TestFlags);
-u8 XHdcp22Tx_TestCheckResults(XHdcp22_Tx *InstancePtr,
-                              XHdcp22_Tx_LogItem *Expected, u32 nExpected);
+u32  XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr);
 void XHdcp22Tx_SetMessagePollingValue(XHdcp22_Tx *InstancePtr, u32 PollingValue);
 
 /* Functions for loading authentication constants */
@@ -486,3 +448,5 @@ void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr);
 #endif
 
 #endif /* End of protection macro */
+
+/** @} */

@@ -33,6 +33,9 @@
 /**
 *
 * @file xhdcp22_tx_i.h
+* @addtogroup hdcp22_tx_v1_0
+* @{
+* @details
 *
 * This file contains data which is shared between files and internal to the
 * XIntc component. It is intended for internal use only.
@@ -42,7 +45,6 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* X.XX  XX     MM/DD/YY ...
 * 1.00  JO     06/24/15 Initial release.
 * </pre>
 *
@@ -59,7 +61,6 @@ extern "C" {
 #include "xhdcp22_tx.h"
 
 /************************** Constant Definitions *****************************/
-
 /** Max number of pairing info structures containing non-confidential keys
 * that can be stored for fast authentication with stored Km.
 */
@@ -154,7 +155,86 @@ extern "C" {
 #define XHDCP22_TX_KS_SIZE                      16    /**< 128 bits. */
 #define XHDCP22_TX_EDKEY_KS_SIZE                16    /**< 128 bits. */
 
+/* Test flags to trigger errors for unit tests. */
+
+/** Use a certificate test vector. */
+#define XHDCP22_TX_TEST_CERT_RX         0x00000001
+/** Use a H_Prime test vector.*/
+#define XHDCP22_TX_TEST_H1              0x00000002
+/** Use a L_Prime test vector.*/
+#define XHDCP22_TX_TEST_L1              0x00000004
+/** Use a pairing info Ekh(Km) test vector, use i.c.w #XHDCP22_TX_TEST_RCV_TIMEOUT*/
+#define XHDCP22_TX_TEST_EKH_KM          0x00000008
+/** Invalidate a value */
+#define XHDCP22_TX_TEST_INVALID_VALUE   0x00000010
+/** Timeout on a received message. */
+#define XHDCP22_TX_TEST_RCV_TIMEOUT     0x00000020
+/** AKE is forced using a stored Km scenarion. Pairing info is pre-loaded
+* with test vectors that forces Stored Km scenario.*/
+#define XHDCP22_TX_TEST_STORED_KM       0x00000100
+/** Disable timeout checking. this is mainly used to check the HDCP RX core in
+* loopback mode in case it cannot meet timing requirements (no offloading to
+* hardware) and reponsetimes need to be logged.*/
+#define XHDCP22_TX_TEST_NO_TIMEOUT      0x00000200
+/** Pairing info is cleared, to force a non-stored Km scenario */
+#define XHDCP22_TX_TEST_CLR_PAIRINGINFO 0x00000400
+/** DDC base address (0x74 >> 1) */
+#define XHDCP22_TX_DDC_BASE_ADDRESS     0x3A
+
 /**************************** Type Definitions *******************************/
+/**
+* These constants are used to set the core into testing mode with #XHdcp22Tx_TestSetMode.
+*/
+typedef enum {
+	XHDCP22_TX_TESTMODE_DISABLED,       /**< Testmode is disabled. */
+	XHDCP22_TX_TESTMODE_SW_RX,          /**< Actual HDCP2.2 RX component is connected. */
+	XHDCP22_TX_TESTMODE_NO_RX,          /**< HDCP2.2 RX software component is not available and will be emulated. */
+	XHDCP22_TX_TESTMODE_UNIT,           /**< HDCP2.2 RX is emulated, #XHdcp22Tx_LogDisplay shows source code.*/
+	XHDCP22_TX_TESTMODE_USE_TESTKEYS,   /**< Use test keys as defined in Errata to HDCP on HDMI Specification
+	                                         Revision 2.2, February 09, 2015. */
+	XHDCP22_TX_TESTMODE_INVALID         /**< Last value the list, only used for checking. */
+} XHdcp22_Tx_TestMode;
+
+/**
+* Value definitions for debugging.
+* These values are used as parameter for the #XHDCP22_TX_LOG_EVT_DBG
+* logging event.
+*/
+typedef enum
+{
+	XHDCP22_TX_LOG_DBG_STARTIMER,
+	XHDCP22_TX_LOG_DBG_MSGAVAILABLE,
+	XHDCP22_TX_LOG_DBG_TX_AKEINIT,
+	XHDCP22_TX_LOG_DBG_RX_CERT,
+	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE,
+	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_DONE,
+	XHDCP22_TX_LOG_DBG_ENCRYPT_KM,
+	XHDCP22_TX_LOG_DBG_ENCRYPT_KM_DONE,
+	XHDCP22_TX_LOG_DBG_TX_NOSTOREDKM,
+	XHDCP22_TX_LOG_DBG_TX_STOREDKM,
+	XHDCP22_TX_LOG_DBG_RX_H1,
+	XHDCP22_TX_LOG_DBG_RX_EKHKM,
+	XHDCP22_TX_LOG_DBG_COMPUTE_H,
+	XHDCP22_TX_LOG_DBG_COMPUTE_H_DONE,
+	XHDCP22_TX_LOG_DBG_TX_LCINIT,
+	XHDCP22_TX_LOG_DBG_RX_L1,
+	XHDCP22_TX_LOG_DBG_COMPUTE_L,
+	XHDCP22_TX_LOG_DBG_COMPUTE_L_DONE,
+	XHDCP22_TX_LOG_DBG_TX_EKS,
+	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS,
+	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS_DONE,
+	XHDCP22_TX_LOG_DBG_CHECK_REAUTH,
+	XHDCP22_TX_LOG_DBG_TIMEOUT,
+	XHDCP22_TX_LOG_DBG_TIMESTAMP,
+	XHDCP22_TX_LOG_DBG_AES128ENC,
+	XHDCP22_TX_LOG_DBG_AES128ENC_DONE,
+	XHDCP22_TX_LOG_DBG_SHA256HASH,
+	XHDCP22_TX_LOG_DBG_SHA256HASH_DONE,
+	XHDCP22_TX_LOG_DBG_OEAPENC,
+	XHDCP22_TX_LOG_DBG_OEAPENC_DONE,
+	XHDCP22_TX_LOG_DBG_RSAENC,
+	XHDCP22_TX_LOG_DBG_RSAENC_DONE
+} XHdcp22_Tx_LogDebugValue;
 
 /**
 * This typedef contains the the internal (non-confidential) used keys used for
@@ -310,52 +390,11 @@ typedef struct
 	XHdcp22_Tx_Message Message;
 } XHdcp22_Tx_DDCMessage;
 
-/**
-* Value definitions for debugging.
-* These values are used as parameter for the #XHDCP22_TX_LOG_EVT_DBG
-* logging event.
-*/
-typedef enum
-{
-	XHDCP22_TX_LOG_DBG_STARTIMER,
-	XHDCP22_TX_LOG_DBG_MSGAVAILABLE,
-	XHDCP22_TX_LOG_DBG_TX_AKEINIT,
-	XHDCP22_TX_LOG_DBG_RX_CERT,
-	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE,
-	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_DONE,
-	XHDCP22_TX_LOG_DBG_ENCRYPT_KM,
-	XHDCP22_TX_LOG_DBG_ENCRYPT_KM_DONE,
-	XHDCP22_TX_LOG_DBG_TX_NOSTOREDKM,
-	XHDCP22_TX_LOG_DBG_TX_STOREDKM,
-	XHDCP22_TX_LOG_DBG_RX_H1,
-	XHDCP22_TX_LOG_DBG_RX_EKHKM,
-	XHDCP22_TX_LOG_DBG_COMPUTE_H,
-	XHDCP22_TX_LOG_DBG_COMPUTE_H_DONE,
-	XHDCP22_TX_LOG_DBG_TX_LCINIT,
-	XHDCP22_TX_LOG_DBG_RX_L1,
-	XHDCP22_TX_LOG_DBG_COMPUTE_L,
-	XHDCP22_TX_LOG_DBG_COMPUTE_L_DONE,
-	XHDCP22_TX_LOG_DBG_TX_EKS,
-	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS,
-	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS_DONE,
-	XHDCP22_TX_LOG_DBG_CHECK_REAUTH,
-	XHDCP22_TX_LOG_DBG_TIMEOUT,
-	XHDCP22_TX_LOG_DBG_TIMESTAMP,
-	XHDCP22_TX_LOG_DBG_AES128ENC,
-	XHDCP22_TX_LOG_DBG_AES128ENC_DONE,
-	XHDCP22_TX_LOG_DBG_SHA256HASH,
-	XHDCP22_TX_LOG_DBG_SHA256HASH_DONE,
-	XHDCP22_TX_LOG_DBG_OEAPENC,
-	XHDCP22_TX_LOG_DBG_OEAPENC_DONE,
-	XHDCP22_TX_LOG_DBG_RSAENC,
-	XHDCP22_TX_LOG_DBG_RSAENC_DONE
-} XHdcp22_Tx_LogDebugValue;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
-/* Crypto functionality. */
+/* Crypto functions */
 void XHdcp22Tx_MemXor(u8 *Output, const u8 *InputA, const u8 *InputB,
                       unsigned int Size);
 int XHdcp22Tx_VerifyCertificate(const XHdcp22_Tx_CertRx *CertificatePtr,
@@ -373,28 +412,32 @@ void XHdcp22Tx_ComputeEdkeyKs(const u8* Rn, const u8* Km,
 int XHdcp22Tx_EncryptKm(const XHdcp22_Tx_CertRx* CertificatePtr,
                         const u8* KmPtr, u8 *MaskingSeedPtr,
                         u8* EncryptedKmPtr);
-
-/* Testing functionality. */
-void XHdcp22Tx_Dump(const char *string, const u8 *m, u32 mlen);
-u32 XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr);
-u8 XHdcp22Tx_TestSimulateTimeout(XHdcp22_Tx *InstancePtr);
-void XHdcp22Tx_LogWrNoInst(XHdcp22_Tx_LogEvt Evt, u16 Data);
-
-/* Functionality offloaded to hardware, but in testmode generated by software. */
-void XHdcp22Tx_GenerateRandom_Test(int NumOctets, u8* RandomNumberPtr);
-
-/* Basic encryption functions. */
 void XHdcp22Tx_GenerateRandom(XHdcp22_Tx *InstancePtr, int NumOctets,
                               u8* RandomNumberPtr);
 
-/* Functionality only used for self-testing. */
-void XHdcp22Tx_GenerateRtx_Test(XHdcp22_Tx *InstancePtr, u8* RtxPtr);
-void XHdcp22Tx_GenerateKm_Test(XHdcp22_Tx *InstancePtr, u8* KmPtr);
-void XHdcp22Tx_GenerateKmMaskingSeed_Test(XHdcp22_Tx *InstancePtr, u8* SeedPtr);
-void XHdcp22Tx_GenerateRn_Test(XHdcp22_Tx *InstancePtr, u8* RnPtr);
-void XHdcp22Tx_GenerateRiv_Test(XHdcp22_Tx *InstancePtr, u8* RivPtr);
-void XHdcp22Tx_GenerateKs_Test(XHdcp22_Tx *InstancePtr, u8* KsPtr);
-const u8* XHdcp22Tx_GetKPubDpc_Test(XHdcp22_Tx *InstancePtr);
+/* Functions for logging */
+void XHdcp22Tx_Dump(const char *string, const u8 *m, u32 mlen);
+void XHdcp22Tx_LogWrNoInst(XHdcp22_Tx_LogEvt Evt, u16 Data);
+
+#ifdef _XHDCP22_TX_TEST_
+/* External functions used for self-testing */
+void XHdcp22Tx_TestSetMode(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_TestMode Mode,
+                           u32 TestFlags);
+u8 XHdcp22Tx_TestCheckResults(XHdcp22_Tx *InstancePtr,
+                              XHdcp22_Tx_LogItem *Expected, u32 nExpected);
+
+/* Internal functions used for self-testing */
+u8   XHdcp22Tx_TestSimulateTimeout(XHdcp22_Tx *InstancePtr);
+void XHdcp22Tx_TestGenerateRtx(XHdcp22_Tx *InstancePtr, u8* RtxPtr);
+void XHdcp22Tx_TestGenerateKm(XHdcp22_Tx *InstancePtr, u8* KmPtr);
+void XHdcp22Tx_TestGenerateKmMaskingSeed(XHdcp22_Tx *InstancePtr, u8* SeedPtr);
+void XHdcp22Tx_TestGenerateRn(XHdcp22_Tx *InstancePtr, u8* RnPtr);
+void XHdcp22Tx_TestGenerateRiv(XHdcp22_Tx *InstancePtr, u8* RivPtr);
+void XHdcp22Tx_TestGenerateKs(XHdcp22_Tx *InstancePtr, u8* KsPtr);
+const u8* XHdcp22Tx_TestGetKPubDpc(XHdcp22_Tx *InstancePtr);
+void XHdcp22Tx_LogDisplayUnitTest(XHdcp22_Tx *InstancePtr);
+#endif
+
 
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
@@ -402,3 +445,5 @@ const u8* XHdcp22Tx_GetKPubDpc_Test(XHdcp22_Tx *InstancePtr);
 #endif
 
 #endif /* End of protection macro. */
+
+/** @} */

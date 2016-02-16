@@ -33,16 +33,19 @@
 /**
 *
 * @file xhdcp22_tx_crypt.c
+* @addtogroup hdcp22_tx_v1_0
+* @{
+* @details
 *
-* This is the file for Xilinx HDCP22 TX cryptographic functionality.
+* This is the file for Xilinx HDCP 2.2 transmitter cryptographic functionality.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------------
-* 1.00         10/06/15 Initial release.
-* 1.01         01/15/16 Replaced mallocs with fixed size arrays.
+* 1.00  JO     10/06/15 Initial release.
+* 1.01  MH     01/15/16 Replaced mallocs with fixed size arrays.
 * </pre>
 *
 ******************************************************************************/
@@ -175,8 +178,6 @@ static int XHdcp22Tx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	u8  seedMask[XHDCP22_TX_SHA256_HASH_SIZE];
 	u32 Status;
 
-	XHdcp22Tx_LogWrNoInst(XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_OEAPENC);
-
 	/* Step 2a: L is the empty string */
 	XHdcp22Cmn_Sha256Hash(NULL,0,lHash);
 
@@ -219,9 +220,6 @@ static int XHdcp22Tx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	memcpy(EncodedMessage+1+XHDCP22_TX_SHA256_HASH_SIZE, DB,
 			XHDCP22_TX_CERT_PUB_KEY_N_SIZE-XHDCP22_TX_SHA256_HASH_SIZE-1);
 
-	XHdcp22Tx_LogWrNoInst(XHDCP22_TX_LOG_EVT_DBG,
-	                      XHDCP22_TX_LOG_DBG_OEAPENC_DONE);
-
 	return XST_SUCCESS;
 }
 
@@ -261,8 +259,6 @@ static int XHdcp22Tx_RsaEncryptMsg(const u8 *KeyPubNPtr, int KeyPubNSize,
 		return XST_FAILURE;
 	}
 
-	XHdcp22Tx_LogWrNoInst(XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_RSAENC);
-
 	mpConvFromOctets(n, ModSize, KeyPubNPtr, KeyPubNSize);
 	mpConvFromOctets(e, ModSize, KeyPubEPtr, KeyPubESize);
 
@@ -270,30 +266,7 @@ static int XHdcp22Tx_RsaEncryptMsg(const u8 *KeyPubNPtr, int KeyPubNSize,
 	mpModExp(s, m, e, n, ModSize);
 	mpConvToOctets(s, ModSize, EncryptedMsgPtr, MsgSize);
 
-	XHdcp22Tx_LogWrNoInst(XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_RSAENC_DONE);
-
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function generates random octets. In test mode it uses the test mode generator.
-* Otherwise it uses offloading from hardware.
-*
-* @param  NumOctets is the number of octets in the random number.
-* @param  RandomNumberPtr is a pointer to the random number.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void XHdcp22Tx_GenerateRandom(XHdcp22_Tx *InstancePtr, int NumOctets,
-                              u8* RandomNumberPtr)
-{
-	/* Use hardware generator */
-	XHdcp22Rng_GetRandom(&InstancePtr->Rng, RandomNumberPtr, NumOctets, NumOctets);
 }
 
 /****************************************************************************/
@@ -355,6 +328,26 @@ static int XHdcp22Tx_RsaOaepEncrypt(const u8 *KeyPubNPtr, int KeyPubNSize,
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function generates random octets.
+* Otherwise it uses offloading from hardware.
+*
+* @param  NumOctets is the number of octets in the random number.
+* @param  RandomNumberPtr is a pointer to the random number.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_GenerateRandom(XHdcp22_Tx *InstancePtr, int NumOctets,
+                              u8* RandomNumberPtr)
+{
+	/* Use hardware generator */
+	XHdcp22Rng_GetRandom(&InstancePtr->Rng, RandomNumberPtr, NumOctets, NumOctets);
+}
 
 /*****************************************************************************/
 /**
@@ -633,3 +626,5 @@ void XHdcp22Tx_MemXor(u8 *Output, const u8 *InputA, const u8 *InputB,
 		Output[i] = InputA[i] ^ InputB[i];
 	}
 }
+
+/** @} */

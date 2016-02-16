@@ -41,14 +41,16 @@
 
 XHdcp22_Tx_Config XHdcp22_Tx_ConfigTable[] =
 {
-		{
-			0x0000,                                             /* DeviceId */
-			0x00000000,                                         /* BaseAddress  */
-			XHDCP22_TX_HDMI,                                    /* Protocol */
-			XHDCP22_TX_TRANSMITTER,                             /* Mode */
-			XPAR_XHDCP22_CIPHER_1_DEVICE_ID,                    /* Cipher Id */
-			XPAR_HDMI_TX_SS_HDCP22_TX_SS_AXI_TIMER_0_DEVICE_ID, /* TimerDeviceId */
-			XPAR_TMRCTR_1_CLOCK_FREQ_HZ,                        /* Timer clock frequency */
-			XPAR_XHDCP22_RNG_1_DEVICE_ID,                       /* Random generator Id */
-		}
+#if XPAR_XHDCP22_TX_NUM_INSTANCES
+	{
+		XPAR_V_HDMI_TX_SS_0_HDCP22_TX_SS_DEVICE_ID,
+		XPAR_V_HDMI_TX_SS_0_HDCP22_TX_SS_BASEADDR,
+		XPAR_V_HDMI_TX_SS_0_HDCP22_TX_SS_PROTOCOL,
+		XPAR_V_HDMI_TX_SS_0_HDCP22_TX_SS_MODE,
+		XPAR_V_HDMI_RX_SS_0_AXI_TIMER_DEVICE_ID,
+		XPAR_V_HDMI_RX_SS_0_HDCP22_RX_SS_HDCP22_CIPHER_DEVICE_ID,
+		XPAR_V_HDMI_RX_SS_0_HDCP22_RX_SS_HDCP22_RNG_DEVICE_ID
+
+	}
+#endif
 };

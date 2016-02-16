@@ -53,101 +53,126 @@ proc generate {drv_handle} {
 }
 
 proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
-  set args [::hsi::utils::get_exact_arg_list $args]
-  set hw_instance_name [::common::get_property HW_INSTANCE $drv_handle];
+	set args [::hsi::utils::get_exact_arg_list $args]
+	set hw_instance_name [::common::get_property HW_INSTANCE $drv_handle];
 
-  set filename [file join "src" $file_name]
-  set config_file [open $filename w]
+	set filename [file join "src" $file_name]
+	set config_file [open $filename w]
 
-  ::hsi::utils::write_c_header $config_file "Driver configuration"
+	::hsi::utils::write_c_header $config_file "Driver configuration"
 
-  # Generate list of relavent parent cells
-  set parent_cells [::hsi::get_cells -filter {IP_NAME==hdcp22_tx}]
+	puts $config_file "#include \"xparameters.h\""
+	puts $config_file "#include \"[string tolower $drv_string].h\""
+	puts $config_file "\n/*"
+	puts $config_file "* The configuration table for devices"
+	puts $config_file "*/\n"
+	puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+	puts $config_file "\{"
 
-  # Create a dict of relavent parents(key) and children(value)
-  foreach parent_cell $parent_cells {
-    puts "parent_cell: ${parent_cell}"
-    # Generate list of all relavent child cells
-    #set child_cells [::hsi::get_cells -hier -filter {HIER_NAME =~ "${parent_cell}"}]
-    set cells [::hsi::get_cells -hier]
+	set periphs_g [::hsi::utils::get_common_driver_ips $drv_handle]
 
-    set child_cells {}
-
-    foreach cell $cells {
-      if { [string match "${parent_cell}/*" [get_property HIER_NAME $cell]] && [string match "PERIPHERAL" [get_property IP_TYPE $cell]] } {
-        puts "child_cell: ${cell}"
-        lappend child_cells $cell
-      }
+	array set sub_core_inst {
+		hdcp22_cipher 1
+		hdcp22_rng 1
+		axi_timer 1
     }
 
-    dict set cell_dict $parent_cell $child_cells
+    foreach periph_g $periphs_g {
+		set mem_ranges [::hsi::get_mem_ranges $periph_g]
 
-    puts $cell_dict
-  }
+		::hsi::current_hw_instance $periph_g;
 
-  puts $config_file "#include \"xparameters.h\""
-  puts $config_file "#include \"[string tolower $drv_string].h\""
-  puts $config_file "\n/*"
-  puts $config_file "* The configuration table for devices"
-  puts $config_file "*/\n"
-  puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
-  puts $config_file "\{"
+		set child_cells_g [::hsi::get_cells -hier]
 
-  set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
-  set start_comma ""
+		foreach child_cell_g $child_cells_g {
+			set child_cell_vlnv [::common::get_property VLNV $child_cell_g]
+			set child_cell_name_g [common::get_property NAME $child_cell_g]
+			set vlnv_arr [split $child_cell_vlnv :]
 
-  # Loop through each hdcp22_tx subsystem
-  foreach periph $periphs {
-    puts $config_file [format "%s\t\{" $start_comma]
-    set comma ""
+			lassign $vlnv_arr ip_vendor ip_library ip_name ip_version
+			set ip_type_g [common::get_property IP_TYPE $child_cell_g]
 
-    # Loop through each parameter argument and update the config structure
-    foreach arg $args {
-      if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
-        puts -nonewline $config_file [format "%s\t\t%s,\n" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
-        continue
-      }
+			#puts "IP type $ip_type_g\n"
+			if { [string compare -nocase "BUS" $ip_type_g] != 0 } {
+				set interfaces [hsi::get_intf_pins -of_objects $child_cell_g]
+				set is_slave 0
 
-      # Check if this is a driver parameter or a peripheral parameter
-      set value [common::get_property CONFIG.$arg $drv_handle]
-      if {[llength $value] == 0} {
-        set local_value [common::get_property CONFIG.$arg $periph ]
-        # If a parameter isn't found locally (in the current
-        # peripheral), we will (for some obscure and ancient reason)
-        # look in peripherals connected via point to point links
-        if { [string compare -nocase $local_value ""] == 0} {
-            set p2p_name [::hsi::utils::get_p2p_name $periph $arg]
-            if { [string compare -nocase $p2p_name ""] == 0} {
-                puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
-            } else {
-                puts -nonewline $config_file [format "%s\t\t%s" $comma $p2p_name]
-            }
-        } else {
-            puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
-        }
-      } else {
-        puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_driver_param_name $drv_string $arg]]
-      }
-      set comma ",\n"
+				foreach interface $interfaces {
+					set intf_type [common::get_property TYPE $interface]
+					#puts "Interface type $intf_type\n"
+					if { [string compare -nocase "SLAVE" $intf_type] == 0 } {
+						set is_slave 1
+					}
+				}
+				if { $is_slave != 0 } {
+					# create dictionary for ip name and it's instance names "ip_name {inst1_name inst2_name}"
+					dict lappend ss_ip_list $ip_name $child_cell_name_g
+				}
+			}
+		}
+	}
+
+	set start_comma ""
+
+	# Loop through each hdcp22_tx subsystem
+	foreach periph $periphs_g {
+		puts $config_file [format "%s\t\{" $start_comma]
+		set comma ""
+
+		# Loop through each parameter argument and update the config structure
+		foreach arg $args {
+			if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+				puts -nonewline $config_file [format "%s\t\t%s,\n" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+				continue
+			}
+
+			# Check if this is a driver parameter or a peripheral parameter
+			set value [common::get_property CONFIG.$arg $drv_handle]
+			if {[llength $value] == 0} {
+				set local_value [common::get_property CONFIG.$arg $periph ]
+				# If a parameter isn't found locally (in the current
+				# peripheral), we will (for some obscure and ancient reason)
+				# look in peripherals connected via point to point links
+				if { [string compare -nocase $local_value ""] == 0} {
+					set p2p_name [::hsi::utils::get_p2p_name $periph $arg]
+					if { [string compare -nocase $p2p_name ""] == 0} {
+						puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+					} else {
+						puts -nonewline $config_file [format "%s\t\t%s" $comma $p2p_name]
+					}
+				} else {
+					puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+				}
+			} else {
+				puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_driver_param_name $drv_string $arg]]
+			}
+			set comma ",\n"
+		}
+
+		puts -nonewline $config_file ",\n"
+		::hsi::current_hw_instance  $periph
+		set child_cells [::hsi::get_cells -hier]
+		set comma ""
+		foreach sub_core [lsort [array names sub_core_inst]] {
+			if {[dict exists $ss_ip_list $sub_core]} {
+				#puts "****Sub-core found in dictionary****"
+				set ip_instances [dict get $ss_ip_list $sub_core]
+				set idx [lsearch $ip_instances ${periph}*]
+				set ip_inst_name [lindex $ip_instances $idx]
+				#puts "IP Inst. Name: $ip_inst_name"
+				set final_child_cell_instance_devid "XPAR_${ip_inst_name}_DEVICE_ID"
+				puts -nonewline $config_file [format "%s\t\t%s" $comma [string toupper $final_child_cell_instance_devid]]
+				set comma ",\n"
+			}
+		}
+		::hsi::current_hw_instance
+
+		puts $config_file "\n";
+		puts $config_file "\t\}"
+		set start_comma ",\n"
     }
 
-    puts -nonewline $config_file ",\n"
-
-    # Loop through subcores inside subsystem and update config structure
-    set comma ""
-    foreach cell [dict get $cell_dict $periph] {
-      set child_cell_deviceid "XPAR_${cell}_DEVICE_ID"
-      puts -nonewline $config_file [format "%s\t\t%s" $comma [string toupper ${child_cell_deviceid}]]
-      set comma ",\n"
-    }
-
-    ::hsi::current_hw_instance
-
-    puts -nonewline $config_file "\n\t\}"
-    set start_comma ",\n"
-  }
-
-  puts $config_file "\n\};"
-  puts $config_file "\n";
-  close $config_file
+    puts $config_file "\n\};"
+    puts $config_file "\n";
+    close $config_file
 }

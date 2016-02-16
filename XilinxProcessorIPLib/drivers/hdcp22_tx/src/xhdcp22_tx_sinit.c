@@ -33,8 +33,12 @@
 /**
 *
 * @file xhdcp22_tx_sinit.c
+* @addtogroup hdcp22_tx_v1_0
+* @{
+* @details
 *
-* This file contains static initialization method for Xilinx HDCP22 TX core.
+* This file contains static initialization method for Xilinx HDCP 2.2
+* Transmitter driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,7 +56,9 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-
+#ifndef XPAR_XHDCP22_TX_NUM_INSTANCES
+#define XPAR_XHDCP22_TX_NUM_INSTANCES  0
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -104,3 +110,5 @@ XHdcp22_Tx_Config *XHdcp22Tx_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+
+/** @} */

@@ -33,9 +33,12 @@
 /**
 *
 * @file xhdcp22_tx.c
+* @addtogroup hdcp22_tx_v1_0
+* @{
+* @details
 *
-* This is the main file for Xilinx HDCP22 TX core. Please see xhdcp22_tx.h for
-* more details of the driver.
+* This file contains the main implementation of the Xilinx HDCP 2.2 Transmitter
+* device driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -57,6 +60,10 @@
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/** Case replacement to copy a case Id to a string with a pre-lead */
+#define XHDCP22_TX_CASE_TO_STR_PRE(pre, arg) \
+case pre ## arg : strcpy(str, #arg); break;
 
 /**************************** Type Definitions *******************************/
 /**
@@ -227,7 +234,10 @@ static const u8 XHdcp22_Tx_KpubDcp[XHDCP22_TX_KPUB_DCP_LLC_N_SIZE + XHDCP22_TX_K
 static const u8 XHdcp22_Tx_TxCaps[] = { 0x02, 0x00, 0x00 };
 
 /**
-* TODO: Integrate with HW:
+* This array contains the pairing info keys that are used for authentication
+* with stored Km. It uses a mechanism that tries to find an empty entry for adding
+* a new one.
+*
 * - Optionally move to non-volatile secure storage to have persistent stored Km
 *   authentication even after power-up.
 * - It is not required by the protocol, but InvalidatePairingInfo()could be
@@ -236,9 +246,6 @@ static const u8 XHdcp22_Tx_TxCaps[] = { 0x02, 0x00, 0x00 };
 * - If no empty slots, and the array is full, the first entry is returned
 *   for pairing info storage.
 *
-* This array contains the pairing info keys that are used for authentication
-* with stored Km. It uses a mechanism that tries to find an empty entry for adding
-* a new one.
 */
 XHdcp22_Tx_PairingInfo XHdcp22_Tx_PairingInfoStore[XHDCP22_TX_MAX_STORED_PAIRINGINFO];
 
@@ -327,7 +334,7 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 	InstancePtr->Timer.ReasonId = XHDCP22_TX_TS_UNDEFINED;
 	InstancePtr->Timer.InitialTicks = 0;
 
-	/* TODO: Integrate with HW:
+	/*
 	* For the time being, we invalidate the storage here, but when
 	* secure storage is available, secure storage should be formatted on
 	* very first usage only, not on every initialization of this component.
@@ -832,10 +839,10 @@ u8 XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType								Callback Function Type
-* -------------------------					---------------------------
-* (XHDCP22_TX_HANDLER_DDC_WRITE)			DdcWrite
-* (XHDCP22_TX_HANDLER_DDC_READ)				DdcRead
+* HandlerType                       Callback Function Type
+* -------------------------         ---------------------------
+* (XHDCP22_TX_HANDLER_DDC_WRITE)    DdcWrite
+* (XHDCP22_TX_HANDLER_DDC_READ)     DdcRead
 * </pre>
 *
 * @param	InstancePtr is a pointer to the HDMI RX core instance.
@@ -1832,8 +1839,10 @@ static void XHdcp22Tx_GenerateRtx(XHdcp22_Tx *InstancePtr, u8* RtxPtr)
 	/* get a 64 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_RTX_SIZE, RtxPtr);
 
+#ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
-	XHdcp22Tx_GenerateRtx_Test(InstancePtr, RtxPtr);
+	XHdcp22Tx_TestGenerateRtx(InstancePtr, RtxPtr);
+#endif
 }
 
 /*****************************************************************************/
@@ -1855,8 +1864,10 @@ static void XHdcp22Tx_GenerateKm(XHdcp22_Tx *InstancePtr, u8* KmPtr)
 	/* get a 128 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_KM_SIZE, KmPtr);
 
+#ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
-	XHdcp22Tx_GenerateKm_Test(InstancePtr, KmPtr);
+	XHdcp22Tx_TestGenerateKm(InstancePtr, KmPtr);
+#endif
 }
 
 /*****************************************************************************/
@@ -1880,8 +1891,10 @@ static void XHdcp22Tx_GenerateKmMaskingSeed(XHdcp22_Tx *InstancePtr,
 	/* get a 128 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_KM_MSK_SEED_SIZE, SeedPtr);
 
+#ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
-	XHdcp22Tx_GenerateKmMaskingSeed_Test(InstancePtr, SeedPtr);
+	XHdcp22Tx_TestGenerateKmMaskingSeed(InstancePtr, SeedPtr);
+#endif
 }
 
 /*****************************************************************************/
@@ -1903,8 +1916,10 @@ static void XHdcp22Tx_GenerateRn(XHdcp22_Tx *InstancePtr, u8* RnPtr)
 	/* get a 128 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_RN_SIZE, RnPtr);
 
+#ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
-	XHdcp22Tx_GenerateRn_Test(InstancePtr, RnPtr);
+	XHdcp22Tx_TestGenerateRn(InstancePtr, RnPtr);
+#endif
 }
 
 /*****************************************************************************/
@@ -1925,8 +1940,10 @@ static void XHdcp22Tx_GenerateKs(XHdcp22_Tx *InstancePtr, u8* KsPtr)
 	/* get a 64 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_KS_SIZE, KsPtr);
 
+#ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
-	XHdcp22Tx_GenerateKs_Test(InstancePtr, KsPtr);
+	XHdcp22Tx_TestGenerateKs(InstancePtr, KsPtr);
+#endif
 }
 
 /*****************************************************************************/
@@ -1947,8 +1964,10 @@ static void XHdcp22Tx_GenerateRiv(XHdcp22_Tx *InstancePtr, u8* RivPtr)
 	/* get a 64 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_RIV_SIZE, RivPtr);
 
+#ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
-	XHdcp22Tx_GenerateRiv_Test(InstancePtr, RivPtr);
+	XHdcp22Tx_TestGenerateRiv(InstancePtr, RivPtr);
+#endif
 }
 
 /*****************************************************************************/
@@ -1966,10 +1985,13 @@ static void XHdcp22Tx_GenerateRiv(XHdcp22_Tx *InstancePtr, u8* RivPtr)
 ******************************************************************************/
 static const u8* XHdcp22Tx_GetKPubDpc(XHdcp22_Tx *InstancePtr)
 {
-	const u8* KPubDpcPtr;
+	const u8* KPubDpcPtr = NULL;
 
+#ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
-	KPubDpcPtr = XHdcp22Tx_GetKPubDpc_Test(InstancePtr);
+	KPubDpcPtr = XHdcp22Tx_TestGetKPubDpc(InstancePtr);
+#endif
+
 	if (KPubDpcPtr == NULL) {
 		KPubDpcPtr = XHdcp22_Tx_KpubDcp;
 	}
@@ -2121,15 +2143,18 @@ void XHdcp22Tx_SetMessagePollingValue(XHdcp22_Tx *InstancePtr, u32 PollingValue)
 ******************************************************************************/
 static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize)
 {
+#ifdef _XHDCP22_TX_TEST_
 	if (XHdcp22Tx_TestSimulateTimeout(InstancePtr) == TRUE) {
 		return XST_FAILURE;
 	}
+#endif
 
 /* Some receivers require to read status as soon as possible otherwise the
  * receiver may request for a re-authentication so we must poll! */
 
 	u32 TimerCount = 0; /* Timer is counting down */
 
+#ifdef _XHDCP22_TX_TEST_
 	/* If the timeout flag is disabled, we disable the timer and keep on polling */
 	if ((InstancePtr->Test.TestFlags & XHDCP22_TX_TEST_NO_TIMEOUT) == XHDCP22_TX_TEST_NO_TIMEOUT) {
 		if (InstancePtr->Timer.TmrCtr.IsStartedTmrCtr0) {
@@ -2146,6 +2171,7 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize)
 		}
 		return XST_SUCCESS;
 	}
+#endif
 
 	/* busy waiting...*/
 	if (InstancePtr->Timer.TimerExpired == (FALSE)) {
@@ -2596,3 +2622,333 @@ static void XHdcp22Tx_InvalidatePairingInfo(const u8* ReceiverId)
 	/* clear the found structure */
 	memset(InfoPtr, 0x00, sizeof(XHdcp22_Tx_PairingInfo));
 }
+
+/*****************************************************************************/
+/**
+*
+* This function clears the log pointers
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx core instance.
+* @param  Verbose allows to add debug logging.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_LogReset(XHdcp22_Tx *InstancePtr, u8 Verbose)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->Log.Tail = 0;
+	InstancePtr->Log.Verbose = Verbose;
+	/* Reset and start the logging timer. */
+	/* Note: This timer increments continuously and will wrap at 42 second (100 Mhz clock) */
+	if (InstancePtr->Timer.TmrCtr.IsReady == XIL_COMPONENT_IS_READY) {
+	   XTmrCtr_SetResetValue(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_1, 0);
+	   XTmrCtr_Start(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_1);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the time expired since a log reset was called
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return The expired logging time in useconds.
+*
+* @note   None.
+*
+******************************************************************************/
+u32 XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr)
+{
+	if (InstancePtr->Timer.TmrCtr.IsReady != XIL_COMPONENT_IS_READY)
+		return 0;
+
+	u32 PeriodUsec = (u32)InstancePtr->Timer.TmrCtr.Config.SysClockFreqHz * 1e-6;
+	return 	 ( XTmrCtr_GetValue(&InstancePtr->Timer.TmrCtr,
+			   XHDCP22_TX_TIMER_CNTR_1) / PeriodUsec);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function writes HDCP TX logs into buffer.
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx core instance.
+* @param  Evt specifies an action to be carried out. Please refer
+*         #XHdcp22_Tx_LogEvt enum in xhdcp22_tx.h.
+* @param  Data specifies the information that gets written into log
+*         buffer.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_LogWr(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_LogEvt Evt, u16 Data)
+{
+	int LogBufSize = 0;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Evt < (XHDCP22_TX_LOG_INVALID));
+
+	if (InstancePtr->Log.Verbose == FALSE && Evt == XHDCP22_TX_LOG_EVT_DBG) {
+		return;
+	}
+
+	/* Write data and event into log buffer */
+	InstancePtr->Log.LogItems[InstancePtr->Log.Head].Data = Data;
+	InstancePtr->Log.LogItems[InstancePtr->Log.Head].LogEvent = Evt;
+	InstancePtr->Log.LogItems[InstancePtr->Log.Head].TimeStamp =
+                            XHdcp22Tx_LogGetTimeUSecs(InstancePtr);
+
+	/* Update head pointer if reached to end of the buffer */
+	LogBufSize = sizeof(InstancePtr->Log.LogItems)/sizeof(XHdcp22_Tx_LogItem);
+	if (InstancePtr->Log.Head == (u16)(LogBufSize) - 1) {
+		/* Clear pointer */
+		InstancePtr->Log.Head = 0;
+	} else {
+		/* Increment pointer */
+		InstancePtr->Log.Head++;
+	}
+
+	/* Check tail pointer. When the two pointer are equal, then the buffer
+	 * is full.In this case then increment the tail pointer as well to
+	 * remove the oldest entry from the buffer.
+	 */
+	if (InstancePtr->Log.Tail == InstancePtr->Log.Head) {
+		if (InstancePtr->Log.Tail == (u16)(LogBufSize) - 1) {
+			InstancePtr->Log.Tail = 0;
+		} else {
+			InstancePtr->Log.Tail++;
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function provides the log information from the log buffer.
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return
+*         - Content of log buffer if log pointers are not equal.
+*         - Otherwise Zero.
+*
+* @note   None.
+*
+******************************************************************************/
+XHdcp22_Tx_LogItem* XHdcp22Tx_LogRd(XHdcp22_Tx *InstancePtr)
+{
+	XHdcp22_Tx_LogItem* LogPtr;
+	int LogBufSize = 0;
+	u16 Tail = 0;
+	u16 Head = 0;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Tail = InstancePtr->Log.Tail;
+	Head = InstancePtr->Log.Head;
+
+	/* Check if there is any data in the log and return a NONE defined log item */
+	LogBufSize = sizeof(InstancePtr->Log.LogItems)/sizeof(XHdcp22_Tx_LogItem);
+	if (Tail == Head) {
+		LogPtr = &InstancePtr->Log.LogItems[Tail];
+		LogPtr->Data = 0;
+		LogPtr->LogEvent = XHDCP22_TX_LOG_EVT_NONE;
+		LogPtr->TimeStamp = 0;
+		return LogPtr;
+	}
+
+	LogPtr = &InstancePtr->Log.LogItems[Tail];
+
+	/* Increment tail pointer */
+	if (Tail == (u16)(LogBufSize) - 1) {
+		InstancePtr->Log.Tail = 0;
+	}
+	else {
+		InstancePtr->Log.Tail++;
+	}
+	return LogPtr;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints the content of log buffer.
+*
+* @param  InstancePtr is a pointer to the HDCP22 TX core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
+{
+	XHdcp22_Tx_LogItem* LogPtr;
+	char str[255];
+	u64 TimeStampPrev = 0;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#ifdef _XHDCP22_TX_TEST_
+	if (InstancePtr->Test.TestMode == XHDCP22_TX_TESTMODE_UNIT) {
+		XHdcp22Tx_LogDisplayUnitTest(InstancePtr);
+		return;
+	}
+#endif
+
+	xil_printf("\r\n-------HDCP22 TX log start-------\r\n");
+	strcpy(str, "UNDEFINED");
+	do {
+		/* Read log data */
+		LogPtr = XHdcp22Tx_LogRd(InstancePtr);
+
+		/* Print timestamp */
+		if(LogPtr->LogEvent != XHDCP22_TX_LOG_EVT_NONE)
+		{
+			if(LogPtr->TimeStamp < TimeStampPrev) TimeStampPrev = 0;
+			xil_printf("[%8ld:", LogPtr->TimeStamp);
+			xil_printf("%8ld] ", (LogPtr->TimeStamp - TimeStampPrev));
+			TimeStampPrev = LogPtr->TimeStamp;
+		}
+
+		/* Print log event */
+		switch (LogPtr->LogEvent) {
+		case (XHDCP22_TX_LOG_EVT_NONE):
+			xil_printf("-------HDCP22 TX log end-------\r\n\r\n");
+			break;
+		case XHDCP22_TX_LOG_EVT_STATE:
+			switch(LogPtr->Data)
+			{
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, H0)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, H1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A0)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A1_1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A1_NSK0)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A1_NSK1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A1_SK0)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A2)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A2_1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A3)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A4)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A5)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A6)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A7)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A8)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A9)
+				default: break;
+			};
+			xil_printf("Current state [%s]\r\n", str);
+			break;
+		case XHDCP22_TX_LOG_EVT_POLL_RESULT:
+			switch(LogPtr->Data)
+			{
+			case XHDCP22_TX_INCOMPATIBLE_RX: strcpy(str, "INCOMPATIBLE RX"); break;
+			case XHDCP22_TX_AUTHENTICATION_BUSY: strcpy(str, "AUTHENTICATION BUSY"); break;
+			case XHDCP22_TX_AUTHENTICATED: strcpy(str, "AUTHENTICATED"); break;
+			case XHDCP22_TX_UNAUTHENTICATED: strcpy(str, "UN-AUTHENTICATED"); break;
+			case XHDCP22_TX_REAUTHENTICATE_REQUESTED: strcpy(str, "RE-AUTHENTICATION REQUESTED"); break;
+			default: break;
+			}
+			xil_printf("Poll result [%s]\r\n", str);
+			break;
+		case XHDCP22_TX_LOG_EVT_ENABLED:
+			if (LogPtr->Data == (FALSE)) {
+				strcpy(str, "DISABLED");
+			} else {
+				strcpy(str, "ENABLED");
+			}
+			xil_printf("State machine [%s]\r\n", str);
+			break;
+		case XHDCP22_TX_LOG_EVT_RESET:
+			xil_printf("Asserted [RESET]\r\n");
+			break;
+		case XHDCP22_TX_LOG_EVT_ENCR_ENABLED:
+			if (LogPtr->Data == (FALSE)) {
+				strcpy(str, "DISABLED");
+			} else {
+				strcpy(str, "ENABLED");
+			}
+			xil_printf("Encryption [%s]\r\n", str);
+			break;
+		case XHDCP22_TX_LOG_EVT_TEST_ERROR:
+			switch(LogPtr->Data)
+			{
+			case XHDCP22_TX_AKE_NO_STORED_KM:
+			      strcpy(str, "EkpubKm does not match the calculated value.");
+			      break;
+			case XHDCP22_TX_SKE_SEND_EKS:
+			      strcpy(str, "EdkeyKs does not match the calculated value.");
+			      break;
+			case XHDCP22_TX_MSG_UNDEFINED:
+			      strcpy(str, "Trying to write an unexpected message.");
+			      break;
+			default: break;
+			};
+			xil_printf("Error: Test error [%s]\r\n", str);
+			break;
+		case XHDCP22_TX_LOG_EVT_LCCHK_COUNT:
+			xil_printf("Locality check count [%d]\r\n", LogPtr->Data);
+			break;
+		case XHDCP22_TX_LOG_EVT_DBG:
+			switch(LogPtr->Data)
+			{
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, STARTIMER)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, MSGAVAILABLE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_AKEINIT)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RX_CERT)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, ENCRYPT_KM)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, ENCRYPT_KM_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_NOSTOREDKM)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_STOREDKM)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RX_H1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RX_EKHKM)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_H)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_H_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_LCINIT)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RX_L1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_L)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_L_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_EDKEYKS)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_EDKEYKS_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_EKS)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, CHECK_REAUTH)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TIMEOUT)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TIMESTAMP)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, AES128ENC)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, AES128ENC_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, SHA256HASH)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, SHA256HASH_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, OEAPENC)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, OEAPENC_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RSAENC)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RSAENC_DONE)
+				default: break;
+			};
+			xil_printf("Debug: Event [%s]\r\n", str);
+			break;
+		case XHDCP22_TX_LOG_EVT_USER:
+			xil_printf("User: %d\r\n", LogPtr->Data);
+			break;
+		default:
+			xil_printf("Error: Unknown log event\r\n");
+			break;
+		}
+	} while (LogPtr->LogEvent != XHDCP22_TX_LOG_EVT_NONE);
+}
+
+
+/** @} */
