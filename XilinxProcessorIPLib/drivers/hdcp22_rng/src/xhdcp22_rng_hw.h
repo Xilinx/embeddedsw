@@ -33,19 +33,19 @@
 /**
 *
 * @file xhdcp22_rng_hw.h
-* @addtogroup hdcp22_v1_0
+* @addtogroup hdcp22_rng_v1_0
 * @{
+* @details
 *
 * This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the Xilinx HDCP22 Random Number Generator
-* (RNG) core.
+* macros) that can be used to access the Xilinx HDCP 2.2 RNG core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  jo  10/01/15 Initial release.
+* 1.00  JO     10/01/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -157,7 +157,6 @@ extern "C" {
 ******************************************************************************/
 #define XHdcp22Rng_WriteReg(BaseAddress, RegOffset, Data) \
         XHdcp22Rng_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
-/*@}*/
 
 /*****************************************************************************/
 /**
@@ -201,4 +200,5 @@ extern "C" {
 #endif
 
 #endif /* XHDCP2_RNG_HW_H */
+
 /** @} */

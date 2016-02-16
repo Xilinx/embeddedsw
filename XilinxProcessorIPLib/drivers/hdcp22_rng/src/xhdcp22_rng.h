@@ -33,19 +33,33 @@
 /**
 *
 * @file xhdcp22_rng.h
-* @addtogroup hdcp22_v1_0
+* @addtogroup hdcp22_rng_v1_0
 * @{
+* @details
 *
-* This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the Xilinx HDCP22 Random Number Generator
-* (RNG) core.
+* This is the main header file of the Xilinx HDCP 2.2 RNG device driver.
+* The RNG is a random number generator, which is used to produce
+* random numbers during the authentication and key exchange.
+*
+* <b>Software Initialization and Configuration</b>
+*
+* The application needs to do the following steps to run the RNG.
+* - Call XHdcp22Rng_LookupConfig using the device ID to find the
+*   core configuration instance.
+* - Call XHdcp22Rng_CfgInitialize to intitialize the device instance.
+* - Call XHdcp22Rng_Enable to enable the device.
+* - Call XHdcp22Rng_GetRandom to get random words.
+*
+* <b>Interrupts</b>
+*
+* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  jo  10/01/15 Initial release.
+* 1.00  JO     10/01/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +95,7 @@ typedef struct {
 */
 typedef struct {
 	XHdcp22_Rng_Config Config; /**< Hardware Configuration */
-	u32 IsReady;                  /**< Core and the driver instance are initialized */
+	u32 IsReady;               /**< Core and the driver instance are initialized */
 } XHdcp22_Rng;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -142,7 +156,7 @@ typedef struct {
 /* Initialization function in xhdcp22_rng_sinit.c */
 XHdcp22_Rng_Config *XHdcp22Rng_LookupConfig(u16 DeviceId);
 
-/* Initialization and control functions in xhdcp22_cipher.c */
+/* Initialization and control functions in xhdcp22_rng.c */
 int XHdcp22Rng_CfgInitialize(XHdcp22_Rng *InstancePtr, XHdcp22_Rng_Config *CfgPtr, u32 EffectiveAddr);
 
 /* Return a random number */
@@ -155,4 +169,5 @@ void XHdcp22Rng_GetRandom(XHdcp22_Rng *InstancePtr, u8 *BufferPtr, u16 BufferLen
 #endif
 
 #endif /* XHDCP22_RNG_H */
+
 /** @} */

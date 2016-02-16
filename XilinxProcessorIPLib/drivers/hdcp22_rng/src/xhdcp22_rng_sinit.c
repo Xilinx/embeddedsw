@@ -35,16 +35,17 @@
 * @file xhdcp22_rng_sinit.c
 * @addtogroup hdcp22_rng_v1_0
 * @{
+* @details
 *
-* This file contains the main implementation of the driver associated with
-* the Xilinx HDCP Rng core.
+* This file contains the static initialization methods for the Xilinx HDCP
+* 2.2 RNG core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  JO  10/01/15 Initial release.
+* 1.00  JO     10/01/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -55,7 +56,9 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-
+#ifndef XPAR_XHDCP22_RNG_NUM_INSTANCES
+#define XPAR_XHDCP22_RNG_NUM_INSTANCES 0
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
@@ -106,3 +109,5 @@ XHdcp22_Rng_Config *XHdcp22Rng_LookupConfig(u16 DeviceId)
 
 	return (XHdcp22_Rng_Config *)CfgPtr;
 }
+
+/** @} */

@@ -33,18 +33,19 @@
 /**
 *
 * @file xhdcp22_rng.c
-* @addtogroup hdcp22_v1_0
+* @addtogroup hdcp22_rng_v1_0
 * @{
+* @details
 *
-* This file contains the main implementation of the driver associated with
-* the Xilinx HDCP Rng core.
+* This file contains the main implementation of the Xilinx HDCP 2.2 RNG
+* device driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  JO  10/01/15 Initial release.
+* 1.00  JO     10/01/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -55,10 +56,15 @@
 #include "string.h"
 
 /************************** Constant Definitions *****************************/
+
 /***************** Macros (Inline Functions) Definitions *********************/
+
 /**************************** Type Definitions *******************************/
+
 /************************** Function Prototypes ******************************/
+
 /************************** Variable Definitions *****************************/
+
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -124,9 +130,10 @@ int XHdcp22Rng_CfgInitialize(XHdcp22_Rng *InstancePtr,
 *         The length must be greater than or equal to RandomLength.
 * @param  RandomLength is the requested length of the random number in bytes.
 *         The length must be a multiple of 4
-* @return None
 *
-* @note   None
+* @return None.
+*
+* @note   None.
 *
 ******************************************************************************/
 void XHdcp22Rng_GetRandom(XHdcp22_Rng *InstancePtr, u8 *BufferPtr, u16 BufferLength, u16 RandomLength)
@@ -151,3 +158,5 @@ void XHdcp22Rng_GetRandom(XHdcp22_Rng *InstancePtr, u8 *BufferPtr, u16 BufferLen
 		Offset = (Offset+4) % 16;
 	}
 }
+
+/** @} */
