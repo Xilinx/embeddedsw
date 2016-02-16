@@ -39,7 +39,12 @@
 
 int UartPsPolledExample(u16 DeviceId);
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+int UartPsIntrExample(XIntc *IntcInstPtr, XUartPs *UartInstPtr,
+			u16 DeviceId, u16 UartIntrId);
+#else
 int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
 			u16 DeviceId, u16 UartIntrId);
+#endif
 
 #endif

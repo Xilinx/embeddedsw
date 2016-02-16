@@ -319,6 +319,8 @@ Changed the prototype of XUartNs550_CfgInitialize API.
 uartps_v3_1:
 Modified code for latest RTL changes.
 Added platform variable in driver instance structure.
+Modified uartps_tapp.tcl to support microblaze.
+Modified xuartps_intr_example to support intc interrupt controller.
 
 usb_v5_1:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.

@@ -56,6 +56,7 @@
 *			Removed the printf at the start of the main
 *			Put the device normal mode at the end of the example
 * 3.1	kvn		04/10/15 Added code to support Zynq Ultrascale+ MP.
+* 3.1   mus     01/14/16 Added support for intc interrupt controller
 *
 * </pre>
 ****************************************************************************/
@@ -65,10 +66,14 @@
 #include "xparameters.h"
 #include "xplatform_info.h"
 #include "xuartps.h"
-#include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 /************************** Constant Definitions **************************/
 
 /*
@@ -76,10 +81,17 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define UART_DEVICE_ID		XPAR_XUARTPS_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define UART_INT_IRQ_ID		XPAR_INTC_0_UARTPS_0_VEC_ID
+#else
+#define INTC		XScuGic
 #define UART_DEVICE_ID		XPAR_XUARTPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define UART_INT_IRQ_ID		XPAR_XUARTPS_1_INTR
-
+#endif
 /*
  * The following constant controls the length of the buffers to be sent
  * and received with the UART,
@@ -92,11 +104,11 @@
 
 /************************** Function Prototypes *****************************/
 
-int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
+int UartPsIntrExample(INTC *IntcInstPtr, XUartPs *UartInstPtr,
 			u16 DeviceId, u16 UartIntrId);
 
 
-static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
+static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XUartPs *UartInstancePtr,
 				u16 UartIntrId);
 
@@ -106,7 +118,7 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData);
 /************************** Variable Definitions ***************************/
 
 XUartPs UartPs	;		/* Instance of the UART Device */
-XScuGic InterruptController;	/* Instance of the Interrupt Controller */
+INTC InterruptController;	/* Instance of the Interrupt Controller */
 
 /*
  * The following buffers are used in this example to send and receive data
@@ -181,7 +193,7 @@ int main(void)
 * working it may never return.
 *
 **************************************************************************/
-int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
+int UartPsIntrExample(INTC *IntcInstPtr, XUartPs *UartInstPtr,
 			u16 DeviceId, u16 UartIntrId)
 {
 	int Status;
@@ -410,12 +422,63 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 * @note		None.
 *
 ****************************************************************************/
-static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
+static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XUartPs *UartInstancePtr,
 				u16 UartIntrId)
 {
 	int Status;
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#ifndef TESTAPP_GEN
+	/*
+	 * Initialize the interrupt controller driver so that it's ready to
+	 * use.
+	 */
+	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+	/*
+	 * Connect the handler that will be called when an interrupt
+	 * for the device occurs, the handler defined above performs the
+	 * specific interrupt processing for the device.
+	 */
+	Status = XIntc_Connect(IntcInstancePtr, UartIntrId,
+		(XInterruptHandler) XUartPs_InterruptHandler, UartInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+#ifndef TESTAPP_GEN
+	/*
+	 * Start the interrupt controller so interrupts are enabled for all
+	 * devices that cause interrupts.
+	 */
+	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+	/*
+	 * Enable the interrupt for uart
+	 */
+	XIntc_Enable(IntcInstancePtr, UartIntrId);
+
+	#ifndef TESTAPP_GEN
+	/*
+	 * Initialize the exception table.
+	 */
+	Xil_ExceptionInit();
+
+	/*
+	 * Register the interrupt controller handler with the exception table.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				(Xil_ExceptionHandler) XIntc_InterruptHandler,
+				IntcInstancePtr);
+	#endif
+#else
 #ifndef TESTAPP_GEN
 	XScuGic_Config *IntcConfig; /* Config for interrupt controller */
 
@@ -455,7 +518,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	/* Enable the interrupt for the device */
 	XScuGic_Enable(IntcInstancePtr, UartIntrId);
 
-
+#endif
 #ifndef TESTAPP_GEN
 	/* Enable interrupts */
 	 Xil_ExceptionEnable();
