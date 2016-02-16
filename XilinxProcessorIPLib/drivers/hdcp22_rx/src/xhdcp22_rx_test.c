@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_test.c
+* @addtogroup hdcp22_rx_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of the test framework used to
 * perform standalone receiver testing and software loopback testing
@@ -48,40 +51,43 @@
 *</pre>
 *
 *****************************************************************************/
+#ifdef _XHDCP22_RX_TEST_
 
 /***************************** Include Files ********************************/
 #include "string.h"
 #include "stdio.h"
 #include "xstatus.h"
 #include "xdebug.h"
-#include "xhdcp22_rx.h"
 #include "xtmrctr.h"
 #include "xhdcp22_rx.h"
 #include "xhdcp22_rx_i.h"
 
 /************************** Constant Definitions ****************************/
-#define XHDCP22_RX_TEST_DDC_BASE_ADDRESS	(0x74>>1)	/**< Device address for HDCP */
-#define XHDCP22_RX_TEST_MAX_ITERATIONS		100			/**< Maximum number of iterations before test timeout */
+/** Device address for HDCP */
+#define XHDCP22_RX_TEST_DDC_BASE_ADDRESS	(0x74>>1)
+/** Maximum number of iterations before test timeout */
+#define XHDCP22_RX_TEST_MAX_ITERATIONS		100
 
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
+#define XHdcp22Rx_Printf(type, ...) (((type) & TRUE) ? printf (__VA_ARGS__) : 0)
 
 /************************** Variable Definitions ****************************/
 
-/* This variable is the test transmitter capabilities TxCaps for R2 */
+/** This variable is the test transmitter capabilities TxCaps for R2 */
 static const u8 XHdcp22_Rx_Test_TxCaps[] =
 {
 		0x02, 0x00, 0x00
 };
 
-/* This variable is the test receiver capabilities RxCaps for R2 */
+/** This variable is the test receiver capabilities RxCaps for R2 */
 static const u8 XHdcp22_Rx_Test_RxCaps[] =
 {
 		0x02, 0x00, 0x00
 };
 
-/* This variable is the test certificate for R2 */
+/** This variable is the test certificate for R2 */
 static const u8 XHdcp22_Rx_Test_PublicCert[] =
 {
 		0x8b, 0xa4, 0x47, 0x42, 0xfb, 0xe4, 0x68, 0x63, 0x8a, 0xda, 0x97, 0x2d, 0xde, 0x9a, 0x8d,
@@ -121,61 +127,66 @@ static const u8 XHdcp22_Rx_Test_PublicCert[] =
 		0xd1, 0x43, 0x12, 0xf9, 0x4d, 0x3e, 0xf7, 0xd6, 0x05, 0x9c, 0x1c, 0xdd
 };
 
-/* This variable is the test private key for R2 */
+/** This variable is the test private key for R2 */
 static const u8 XHdcp22_Rx_Test_PrivateKey[] =
 {
 		/* P */
-		0xf5, 0xf6, 0xfa, 0x44, 0xa2, 0x16, 0x2f, 0xa7, 0x1f, 0x7f, 0x16, 0x05, 0x99, 0x26, 0xc4, 0x1b, 0x80, 0x7f, 0xfa, 0x52,
-		0x4e, 0x3e, 0xaa, 0x3d, 0x1e, 0xb0, 0xf1, 0x9a, 0xc6, 0x3d, 0x8f, 0x57, 0x2b, 0x9e, 0xcd, 0xe8, 0x03, 0xd6, 0xf3, 0x91,
-		0x75, 0xe2, 0x19, 0x44, 0x9e, 0x11, 0x58, 0x5f, 0xd6, 0x88, 0x7c, 0xc4, 0xc1, 0x5b, 0x45, 0x9b, 0x84, 0xcf, 0x72, 0x1d,
+		0xf5, 0xf6, 0xfa, 0x44, 0xa2, 0x16, 0x2f, 0xa7, 0x1f, 0x7f, 0x16, 0x05, 0x99, 0x26, 0xc4,
+        0x1b, 0x80, 0x7f, 0xfa, 0x52, 0x4e, 0x3e, 0xaa, 0x3d, 0x1e, 0xb0, 0xf1, 0x9a, 0xc6, 0x3d,
+		0x8f, 0x57, 0x2b, 0x9e, 0xcd, 0xe8, 0x03, 0xd6, 0xf3, 0x91, 0x75, 0xe2, 0x19, 0x44, 0x9e,
+		0x11, 0x58, 0x5f, 0xd6, 0x88, 0x7c, 0xc4, 0xc1, 0x5b, 0x45, 0x9b, 0x84, 0xcf, 0x72, 0x1d,
 		0x35, 0xbf, 0x24, 0xd5,
 		/* Q */
-		0xed, 0xba, 0x08, 0xbf, 0x42, 0x2c, 0x0e, 0xfa, 0x3a, 0xc4, 0xd2, 0xc7, 0x01, 0x51, 0x25, 0xae, 0xb0, 0xa1, 0xcc, 0xdb,
-		0x67, 0x9b, 0xaa, 0x50, 0xf0, 0x80, 0xac, 0x4b, 0x9f, 0x5c, 0xba, 0x1e, 0xf4, 0x7f, 0xa9, 0xb3, 0x21, 0x8b, 0x62, 0x2c,
-		0x36, 0xda, 0xcd, 0xa7, 0x4d, 0xa4, 0xd6, 0x44, 0xed, 0xb1, 0x34, 0xe7, 0x69, 0x10, 0x77, 0x5a, 0x6a, 0xff, 0xf5, 0x63,
+		0xed, 0xba, 0x08, 0xbf, 0x42, 0x2c, 0x0e, 0xfa, 0x3a, 0xc4, 0xd2, 0xc7, 0x01, 0x51, 0x25,
+        0xae, 0xb0, 0xa1, 0xcc, 0xdb, 0x67, 0x9b, 0xaa, 0x50, 0xf0, 0x80, 0xac, 0x4b, 0x9f, 0x5c,
+		0xba, 0x1e, 0xf4, 0x7f, 0xa9, 0xb3, 0x21, 0x8b, 0x62, 0x2c, 0x36, 0xda, 0xcd, 0xa7, 0x4d,
+		0xa4, 0xd6, 0x44, 0xed, 0xb1, 0x34, 0xe7, 0x69, 0x10, 0x77, 0x5a, 0x6a, 0xff, 0xf5, 0x63,
 		0x8a, 0x2c, 0x43, 0x09,
 		/* DP, d*mod(p-1)*/
-		0x61, 0x5a, 0xc4, 0x6c, 0x6e, 0x0b, 0x82, 0x09, 0x10, 0x3a, 0x69, 0x29, 0x06, 0x19, 0x85, 0xfd, 0xac, 0xba, 0xfb, 0x05,
-		0xa0, 0xda, 0xc4, 0xdf, 0x34, 0x4a, 0xad, 0x16, 0xa9, 0xe8, 0xab, 0xd7, 0xc0, 0xf8, 0x36, 0x5f, 0xe3, 0x45, 0x2d, 0x5b,
-		0x21, 0xe1, 0xc0, 0x46, 0x9c, 0x9a, 0x18, 0xf4, 0xb6, 0x21, 0x87, 0xe1, 0x08, 0xf7, 0x6b, 0x71, 0xc6, 0xfb, 0xa5, 0x1b,
+		0x61, 0x5a, 0xc4, 0x6c, 0x6e, 0x0b, 0x82, 0x09, 0x10, 0x3a, 0x69, 0x29, 0x06, 0x19, 0x85,
+		0xfd, 0xac, 0xba, 0xfb, 0x05, 0xa0, 0xda, 0xc4, 0xdf, 0x34, 0x4a, 0xad, 0x16, 0xa9, 0xe8,
+		0xab, 0xd7, 0xc0, 0xf8, 0x36, 0x5f, 0xe3, 0x45, 0x2d, 0x5b, 0x21, 0xe1, 0xc0, 0x46, 0x9c,
+		0x9a, 0x18, 0xf4, 0xb6, 0x21, 0x87, 0xe1, 0x08, 0xf7, 0x6b, 0x71, 0xc6, 0xfb, 0xa5, 0x1b,
 		0x52, 0xae, 0xb9, 0x91,
 		/* DQ, d*mod(q-1) */
-		0x5a, 0x83, 0x7f, 0xbb, 0x1a, 0xbd, 0xdd, 0xc2, 0x06, 0xc8, 0x54, 0x1c, 0xb3, 0x72, 0xab, 0x2f, 0x55, 0x4f, 0x75, 0xc9,
-		0x80, 0x2c, 0x73, 0xef, 0xb7, 0x72, 0xb6, 0xa7, 0x60, 0x79, 0x14, 0xe0, 0x9e, 0x65, 0x51, 0x3e, 0xc4, 0x21, 0xe6, 0xf2,
-		0x40, 0xbc, 0x94, 0x9b, 0x03, 0xe4, 0x24, 0x35, 0x40, 0x6f, 0x3d, 0x5e, 0x72, 0xd1, 0x73, 0x30, 0x39, 0x17, 0x55, 0xde,
+		0x5a, 0x83, 0x7f, 0xbb, 0x1a, 0xbd, 0xdd, 0xc2, 0x06, 0xc8, 0x54, 0x1c, 0xb3, 0x72, 0xab,
+		0x2f, 0x55, 0x4f, 0x75, 0xc9, 0x80, 0x2c, 0x73, 0xef, 0xb7, 0x72, 0xb6, 0xa7, 0x60, 0x79,
+		0x14, 0xe0, 0x9e, 0x65, 0x51, 0x3e, 0xc4, 0x21, 0xe6, 0xf2, 0x40, 0xbc, 0x94, 0x9b, 0x03,
+		0xe4, 0x24, 0x35, 0x40, 0x6f, 0x3d, 0x5e, 0x72, 0xd1, 0x73, 0x30, 0x39, 0x17, 0x55, 0xde,
 		0x5d, 0x88, 0xb6, 0xc9,
 		/* QINV, (q^-1)*mod(p) */
-		0xbc, 0x91, 0x2a, 0x93, 0x6a, 0x8d, 0x24, 0x3c, 0xd5, 0x7d, 0x12, 0x3b, 0xa3, 0x71, 0xc7, 0x3a, 0xf0, 0x64, 0x72, 0x50,
-		0x7e, 0x18, 0x71, 0xe1, 0xb4, 0x3b, 0x1e, 0xfc, 0x38, 0xca, 0xe6, 0x8c, 0x16, 0x51, 0x97, 0xd6, 0x3f, 0x04, 0xee, 0x23,
-		0x8b, 0x45, 0x0c, 0x4b, 0x98, 0x36, 0x18, 0x27, 0x29, 0x1b, 0x4d, 0x73, 0x7e, 0xe8, 0xb0, 0x1a, 0xc7, 0xfb, 0x5c, 0xea,
+		0xbc, 0x91, 0x2a, 0x93, 0x6a, 0x8d, 0x24, 0x3c, 0xd5, 0x7d, 0x12, 0x3b, 0xa3, 0x71, 0xc7,
+		0x3a, 0xf0, 0x64, 0x72, 0x50, 0x7e, 0x18, 0x71, 0xe1, 0xb4, 0x3b, 0x1e, 0xfc, 0x38, 0xca,
+		0xe6, 0x8c, 0x16, 0x51, 0x97, 0xd6, 0x3f, 0x04, 0xee, 0x23, 0x8b, 0x45, 0x0c, 0x4b, 0x98,
+		0x36, 0x18, 0x27, 0x29, 0x1b, 0x4d, 0x73, 0x7e, 0xe8, 0xb0, 0x1a, 0xc7, 0xfb, 0x5c, 0xea,
 		0x78, 0xd0, 0x6e, 0x97
 };
 
-/* This variable is the test global constant Lc128 for R2 */
+/** This variable is the test global constant Lc128 for R2 */
 static const u8 XHdcp22_Rx_Test_Lc128[] =
 {
 		0x93, 0xce, 0x5a, 0x56, 0xa0, 0xa1, 0xf4, 0xf7, 0x3c, 0x65, 0x8a, 0x1b, 0xd2, 0xae, 0xf0, 0xf7
 };
 
-/* This variable is the test transmitter random value Rtx for R2 */
+/** This variable is the test transmitter random value Rtx for R2 */
 static const u8 XHdcp22_Rx_Test_Rtx[] =
 {
 		0xf9, 0xf1, 0x30, 0xa8, 0x2d, 0x5b, 0xe5, 0xc3
 };
 
-/* This variable is the test receiver random value Rrx for R2 */
+/** This variable is the test receiver random value Rrx for R2 */
 const u8 XHdcp22_Rx_Test_Rrx[] =
 {
 		0xe1, 0x7a, 0xb0, 0xfd, 0x0f, 0x54, 0x40, 0x52
 };
 
-/* This variable is the test master key Km for R2 */
+/** This variable is the test master key Km for R2 */
 static const u8 XHdcp22_Rx_Test_Km[] =
 {
 		0xca, 0x9f, 0x83, 0x95, 0x70, 0xd0, 0xd0, 0xf9, 0xcf, 0xe4, 0xeb, 0x54, 0x7e, 0x09, 0xfa, 0x3b
 };
 
-/* This variable is the test encrypted master key EkpubKm for R2 */
+/** This variable is the test encrypted master key EkpubKm for R2 */
 static const u8 XHdcp22_Rx_Test_Ekm[] =
 {
 		0xa8, 0x55, 0xc2, 0xc4, 0xc6, 0xbe,
@@ -202,7 +213,7 @@ static const u8 XHdcp22_Rx_Test_Ekm[] =
 		0xe1, 0xb5
 };
 
-/* This variable is the test HPrime for R2 */
+/** This variable is the test HPrime for R2 */
 static const u8 XHdcp22_Rx_Test_HPrime[] =
 {
 		0x4f, 0xf1, 0xa2 ,0xa5 ,0x61 ,0x67,
@@ -213,7 +224,7 @@ static const u8 XHdcp22_Rx_Test_HPrime[] =
 		0xa5, 0xdc
 };
 
-/* This variable is the test Pairing Ekh(Km) for R2 */
+/** This variable is the test Pairing Ekh(Km) for R2 */
 static const u8 XHdcp22_Rx_Test_EKh[] =
 {
 		0xe6, 0x57, 0x8e, 0xbc, 0xc7, 0x68,
@@ -221,14 +232,14 @@ static const u8 XHdcp22_Rx_Test_EKh[] =
 		0xd6, 0xae, 0x38, 0xbe
 };
 
-/* This variable is the test locality check nonce Rn for R2 */
+/** This variable is the test locality check nonce Rn for R2 */
 static const u8 XHdcp22_Rx_Test_Rn[] =
 {
 		0xa0, 0xfe, 0x9b, 0xb8, 0x20, 0x60,
 		0x58, 0xca
 };
 
-/* This variable is the test locality check LPrime for R2 */
+/** This variable is the test locality check LPrime for R2 */
 static const u8 XHdcp22_Rx_Test_LPrime[] =
 {
 		0xf2, 0x0f, 0x13, 0x6e, 0x85, 0x53,
@@ -239,7 +250,7 @@ static const u8 XHdcp22_Rx_Test_LPrime[] =
 		0x51, 0xb0
 };
 
-/* This variable is the test encrypted session key Edkey(Ks) for R2 */
+/** This variable is the test encrypted session key Edkey(Ks) for R2 */
 static const u8 XHdcp22_Rx_Test_EKs[] =
 {
 		0xb6, 0x8b, 0x8a, 0xa4, 0xd2, 0xcb,
@@ -247,7 +258,7 @@ static const u8 XHdcp22_Rx_Test_EKs[] =
 		0xbb, 0xb7, 0x10, 0xa9
 };
 
-/* This variable is the test session key Ks for R2 */
+/** This variable is the test session key Ks for R2 */
 static const u8 XHdcp22_Rx_Test_Ks[] =
 {
 		0xf3, 0xdf, 0x1d, 0xd9, 0x57, 0x96,
@@ -255,14 +266,14 @@ static const u8 XHdcp22_Rx_Test_Ks[] =
 		0x21, 0xe1, 0x2d, 0xe1
 };
 
-/* This variable is the test session key Riv for R2 */
+/** This variable is the test session key Riv for R2 */
 static const u8 XHdcp22_Rx_Test_Riv[] =
 {
 		0x9a, 0x6d, 0x11, 0x00, 0xa9, 0xb7,
 		0x6f, 0x64
 };
 
-/* This variable is the unit test event vector for NoStoredKm scenario */
+/** This variable is the self test event vector for NoStoredKm scenario */
 static XHdcp22_Rx_TestState TestVector_NoStoredKm[] =
 {
 		XHDCP22_RX_TEST_STATE_UNAUTHENTICATED,
@@ -277,7 +288,7 @@ static XHdcp22_Rx_TestState TestVector_NoStoredKm[] =
 		XHDCP22_RX_TEST_STATE_WAIT_AUTHENTICATED
 };
 
-/* This variable is the unit test event vector for StoredKm scenario */
+/** This variable is the self test event vector for StoredKm scenario */
 static XHdcp22_Rx_TestState TestVector_StoredKm[] =
 {
 		XHDCP22_RX_TEST_STATE_UNAUTHENTICATED,
@@ -300,8 +311,9 @@ static XHdcp22_Rx_TestState TestVector_StoredKm[] =
 		XHDCP22_RX_TEST_STATE_WAIT_AUTHENTICATED
 };
 
-/* These variables are for storing test Montgomery multiplier constants */
+/** This variable is used for storing test Montgomery multiplier constants */
 static u8 XHdcp22_Rx_Test_NPrimeP[XHDCP22_RX_P_SIZE];
+/** This variable is used for storing test Montgomery multiplier constants */
 static u8 XHdcp22_Rx_Test_NPrimeQ[XHDCP22_RX_P_SIZE];
 
 /************************** Function Prototypes *****************************/
@@ -312,7 +324,6 @@ static int  XHdcp22Rx_TestExecute(XHdcp22_Rx *InstancePtr);
 /* Functions for loading test parameters */
 int			XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_TestLoadVector(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestFlags TestVectorFlag);
-static void XHdcp22Rx_TestLoadRxCaps(XHdcp22_Rx *InstancePtr, const u8 *RxCapsPtr);
 static void XHdcp22Rx_TestLoadRrx(XHdcp22_Rx *InstancePtr, const u8 *RrxPtr);
 
 /* Functions for emulating DDC interface */
@@ -344,6 +355,7 @@ static int  XHdcp22Rx_TestReceiveLCSendLPrime(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx *InstancePtr);
 
 /* Functions for reporting test results */
+static void XHdcp22Rx_PrintDump(u8 Enable, char *String, const u8 *Data, int Length);
 static int  XHdcp22Rx_TestCompare(XHdcp22_Rx *InstancePtr, char* String, const u8 *Expected, const u8 *Actual, u32 Size);
 static void XHdcp22Rx_TestPrintMessage(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Message *Message, XHdcp22_Rx_MessageIds MessageId);
 static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventId);
@@ -355,27 +367,27 @@ static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventI
 * The DDC handles are set to the stub functions which emulate the
 * DDC interface. The test flag can be set to either XHDCP22_RX_TESTMODE_NO_TX
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
-* @param	TestMode can be the following:
-* 			- XHDCP22_RX_TESTMODE_NO_TX
-* 			  Transmitter is emulated inside the driver and stimulation
-* 			  of the receiver is through a predefined test vector.
-* 			  This mode is useful for standalone unit testing.
-* 			- XHDCP22_RX_TESTMODE_SW_TX
-* 			  Transmitter is emulated outside of the driver and hooked
-* 			  into the receiver through the DDC stub interface. Stimulation
-* 			  of the receiver is the responsibility of the transmitter.
-* 			  This mode is useful for software loopback testing.
+* @param    InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param    TestMode can be the following:
+*           - XHDCP22_RX_TESTMODE_NO_TX:
+*             Transmitter is emulated inside the driver and stimulation
+*             of the receiver is through a predefined test vector.
+*             This mode is useful for standalone self testing.
+*           - XHDCP22_RX_TESTMODE_SW_TX:
+*             Transmitter is emulated outside of the driver and hooked
+*             into the receiver through the DDC stub interface. Stimulation
+*             of the receiver is the responsibility of the transmitter.
+*             This mode is useful for software loopback testing.
 * @param	TestFlag is only relavent when the TestMode is set to
-* 			XHDCP22_RX_TESTMODE_NO_TX, and defines the test vector
-* 			used to drive the receiver. The TestFlag can be the following:
-* 			- XHDCP22_RX_TEST_FLAG_NOSTOREDKM
-* 			  Performs authentication without stored Km.
-*			- XHDCP22_RX_TEST_FLAG_STOREDKM
-*			  Performs authentication without then with stored Km.
-* @return	XST_SUCCESS	or XST_FAILURE.
+*           XHDCP22_RX_TESTMODE_NO_TX, and defines the test vector
+*           used to drive the receiver. The TestFlag can be the following:
+*           - XHDCP22_RX_TEST_FLAG_NOSTOREDKM:
+*             Performs authentication without stored Km.
+*           - XHDCP22_RX_TEST_FLAG_STOREDKM:
+*             Performs authentication without then with stored Km.
+* @return   XST_SUCCESSorXST_FAILURE.
 *
-* @note		None.
+* @note     None.
 *****************************************************************************/
 int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode, XHdcp22_Rx_TestFlags TestFlag)
 {
@@ -406,16 +418,26 @@ int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 	InstancePtr->Test.Verbose = FALSE;
 
 	/* Set the callback functions */
-	Status = XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGADDR,  (XHdcp22_Rx_SetHandler)XHdcp22Rx_TestDdcSetAddressCallback,          InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGDATA,  (XHdcp22_Rx_SetHandler)XHdcp22Rx_TestDdcSetDataCallback,             InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETREGDATA,  (XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetDataCallback,             InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE, (XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetWriteBufferSizeCallback,  InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE, (XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetReadBufferSizeCallback,   InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY, (XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback,  InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY, (XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcIsReadBufferEmptyCallback,   InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARRBUF,   (XHdcp22_Rx_RunHandler)XHdcp22Rx_TestDdcClearReadBufferCallback,     InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARWBUF,   (XHdcp22_Rx_RunHandler)XHdcp22Rx_TestDdcClearWriteBufferCallback,    InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_AUTHENTICATED,   (XHdcp22_Rx_RunHandler)XHdcp22Rx_TestAuthenticatedCallback,          InstancePtr);
+	Status = XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGADDR,
+		(XHdcp22_Rx_SetHandler)XHdcp22Rx_TestDdcSetAddressCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGDATA,
+		(XHdcp22_Rx_SetHandler)XHdcp22Rx_TestDdcSetDataCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETREGDATA,
+		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetDataCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE,
+		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetWriteBufferSizeCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE,
+		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetReadBufferSizeCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY,
+		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY,
+		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcIsReadBufferEmptyCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARRBUF,
+		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestDdcClearReadBufferCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARWBUF,
+		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestDdcClearWriteBufferCallback, InstancePtr);
+	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_AUTHENTICATED,
+		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestAuthenticatedCallback, InstancePtr);
 	if(Status != XST_SUCCESS)
 	{
 		return Status;
@@ -486,13 +508,15 @@ int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr)
 	int Status;
 
 	/* Generate MMult constants */
-	Status = XHdcp22Rx_CalcMontNPrime(XHdcp22_Rx_Test_NPrimeP, XHdcp22_Rx_Test_PrivateKey+0, XHDCP22_RX_P_SIZE/4);
+	Status = XHdcp22Rx_CalcMontNPrime(XHdcp22_Rx_Test_NPrimeP,
+		XHdcp22_Rx_Test_PrivateKey+0, XHDCP22_RX_P_SIZE/4);
 	if(Status != XST_SUCCESS)
 	{
 	    xil_printf("ERROR: HDCP22-RX MMult NPrimeP Generation Failed\n\r");
 	    return Status;
 	}
-	Status |= XHdcp22Rx_CalcMontNPrime(XHdcp22_Rx_Test_NPrimeQ, XHdcp22_Rx_Test_PrivateKey+64, XHDCP22_RX_P_SIZE/4);
+	Status |= XHdcp22Rx_CalcMontNPrime(XHdcp22_Rx_Test_NPrimeQ,
+		XHdcp22_Rx_Test_PrivateKey+64, XHDCP22_RX_P_SIZE/4);
 	if(Status != XST_SUCCESS)
 	{
 	    xil_printf("ERROR: HDCP22-RX MMult NPrimeQ Generation Failed\n\r");
@@ -505,7 +529,6 @@ int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_LoadPublicCert(InstancePtr, XHdcp22_Rx_Test_PublicCert);
 	XHdcp22Rx_LoadPrivateKey(InstancePtr, XHdcp22_Rx_Test_PrivateKey);
 	XHdcp22Rx_LoadLc128(InstancePtr, XHdcp22_Rx_Test_Lc128);
-	XHdcp22Rx_TestLoadRxCaps(InstancePtr, XHdcp22_Rx_Test_RxCaps);
 	XHdcp22Rx_TestLoadRrx(InstancePtr, XHdcp22_Rx_Test_Rrx);
 
 	return XST_SUCCESS;
@@ -576,8 +599,10 @@ int XHdcp22Rx_TestRun(XHdcp22_Rx *InstancePtr)
 	}
 	else
 	{
-		XHdcp22Rx_TestEvent2String(String, InstancePtr->Test.NextStateVector[InstancePtr->Test.NextStateOffset]);
-		XHdcp22Rx_Printf(InstancePtr->Test.Verbose, "DEBUG: Executing TestVector[%0d]: %s\n\r", (int)InstancePtr->Test.NextStateOffset, String);
+		XHdcp22Rx_TestEvent2String(String,
+			InstancePtr->Test.NextStateVector[InstancePtr->Test.NextStateOffset]);
+		XHdcp22Rx_Printf(InstancePtr->Test.Verbose, "DEBUG: Executing TestVector[%0d]: %s\n\r",
+			(int)InstancePtr->Test.NextStateOffset, String);
 		Status = XHdcp22Rx_TestExecute(InstancePtr);
 
 		switch(Status)
@@ -661,7 +686,8 @@ int XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Siz
 	}
 
 	/* Check register access then do write */
-	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_WO) || (InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
+	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_WO) ||
+		(InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
 	{
 		switch(InstancePtr->Test.DdcRegisterAddress)
 		{
@@ -713,7 +739,8 @@ int XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size
 	}
 
 	/* Check register access then do read */
-	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RO) || (InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
+	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RO) ||
+		(InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
 	{
 		switch(InstancePtr->Test.DdcRegisterAddress)
 		{
@@ -745,6 +772,29 @@ int XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size
 	}
 
 	return XST_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function replaces Rrx with a test vector if the testmode is
+* #XHDCP22_RX_TESTMODE_NO_TX.
+*
+* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	RrxPtr is a pointer to Rrx.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Rx_TestGenerateRrx(XHdcp22_Rx *InstancePtr, u8* RrxPtr)
+{
+	/* In test mode copy the test vector */
+	if(InstancePtr->Test.TestMode == XHDCP22_RX_TESTMODE_NO_TX)
+	{
+		memcpy(RrxPtr, InstancePtr->Test.Rrx, XHDCP22_RX_RRX_SIZE);
+	}
 }
 
 /****************************************************************************/
@@ -813,11 +863,11 @@ static int XHdcp22Rx_TestLoadVector(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestFlag
 	switch(TestFlag)
 	{
 	case XHDCP22_RX_TEST_FLAG_NOSTOREDKM:
-		InstancePtr->Test.NextStateVector = TestVector_NoStoredKm;
+		InstancePtr->Test.NextStateVector = (int *)TestVector_NoStoredKm;
 		TestVectorSize = sizeof(TestVector_NoStoredKm)/sizeof(XHdcp22_Rx_TestState);
 		break;
 	case XHDCP22_RX_TEST_FLAG_STOREDKM:
-		InstancePtr->Test.NextStateVector = TestVector_StoredKm;
+		InstancePtr->Test.NextStateVector = (int *)TestVector_StoredKm;
 		TestVectorSize = sizeof(TestVector_StoredKm)/sizeof(XHdcp22_Rx_TestState);
 		break;
 	default:
@@ -829,25 +879,6 @@ static int XHdcp22Rx_TestLoadVector(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestFlag
 	InstancePtr->Test.NextStateOffset = 0;
 
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-* This function is used to load the RxCaps test vector.
-*
-* @param	RxCapsPtr is a pointer to the test vector.
-*
-* @return	None.
-*
-* @note		None.
-******************************************************************************/
-static void XHdcp22Rx_TestLoadRxCaps(XHdcp22_Rx *InstancePtr, const u8 *RxCapsPtr)
-{
-	/* Verify arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(RxCapsPtr != NULL);
-
-	memcpy(InstancePtr->Test.RxCaps, RxCapsPtr, XHDCP22_RX_RXCAPS_SIZE);
 }
 
 /*****************************************************************************/
@@ -959,7 +990,8 @@ static int XHdcp22Rx_TestCompare(XHdcp22_Rx *InstancePtr, char *String, const u8
 	{
 		if(Actual[Offset] != Expected[Offset])
 		{
-			xil_printf("ERROR: Checking [%s]: !!Mismatch!! for Byte[%0d], Expected=0x%0x, Actual=0x%0x\n\r", String, Offset, Expected[Offset], Actual[Offset]);
+			xil_printf("ERROR: Checking [%s]: !!Mismatch!! for Byte[%0d], Expected=0x%0x, Actual=0x%0x\n\r",
+				String, Offset, Expected[Offset], Actual[Offset]);
 			return XST_FAILURE;
 		}
 	}
@@ -967,6 +999,42 @@ static int XHdcp22Rx_TestCompare(XHdcp22_Rx *InstancePtr, char *String, const u8
 	XHdcp22Rx_Printf(InstancePtr->Test.Verbose, "DEBUG: Checking [%s]: !!Matched!!\n\r", String);
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function is used to print an octet string in big endian format.
+*
+* @param	Enable is an input flag to enable printing.
+* @param	String is a character array info message.
+* @param	Data is the octet string to be printed.
+* @param	Length is the number of bytes in Data
+*
+* @return	None.
+*
+* @note		None.
+******************************************************************************/
+static void XHdcp22Rx_PrintDump(u8 Enable, char *String, const u8 *Data, int Length)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(String != NULL);
+	Xil_AssertVoid(Data != NULL);
+	Xil_AssertVoid(Length >= 0);
+
+	int Offset;
+
+	if(Enable)
+	{
+		XHdcp22Rx_Printf(Enable, "%s::Byte[0:%0d]", String, Length-1);
+		for(Offset=0; Offset<Length; Offset++)
+		{
+			if((Offset%20) == 0)
+				XHdcp22Rx_Printf(Enable, "\n\r");
+
+			XHdcp22Rx_Printf(Enable, " %02x", Data[Offset]);
+		}
+		XHdcp22Rx_Printf(Enable, "\n\r");
+	}
 }
 
 /****************************************************************************/
@@ -1120,7 +1188,8 @@ static int XHdcp22Rx_TestSendAKEInit(XHdcp22_Rx *InstancePtr)
 
 	/* Write message */
 	MessageBuffer[0] = XHDCP22_RX_DDC_WRITE_REG;
-	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_AKEInit)+1, MessageBuffer, FALSE);
+	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_AKEInit)+1, MessageBuffer, FALSE);
 
 	/* Log message */
 	XHdcp22Rx_TestPrintMessage(InstancePtr, WriteMsgPtr, XHDCP22_RX_MSG_ID_AKEINIT);
@@ -1153,7 +1222,8 @@ static int XHdcp22Rx_TestSendAKENoStoredKm(XHdcp22_Rx *InstancePtr)
 
 	/* Write message */
 	MessageBuffer[0] = XHDCP22_RX_DDC_WRITE_REG;
-	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_AKENoStoredKm)+1, MessageBuffer, FALSE);
+	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_AKENoStoredKm)+1, MessageBuffer, FALSE);
 
 	/* Log message */
 	XHdcp22Rx_TestPrintMessage(InstancePtr, WriteMsgPtr, XHDCP22_RX_MSG_ID_AKENOSTOREDKM);
@@ -1192,7 +1262,8 @@ static int XHdcp22Rx_TestSendAKEStoredKm(XHdcp22_Rx *InstancePtr)
 
 	/* Write message */
 	MessageBuffer[0] = XHDCP22_RX_DDC_WRITE_REG;
-	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_AKEStoredKm)+1, MessageBuffer, FALSE);
+	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_AKEStoredKm)+1, MessageBuffer, FALSE);
 
 	/* Log message */
 	XHdcp22Rx_TestPrintMessage(InstancePtr, WriteMsgPtr, XHDCP22_RX_MSG_ID_AKESTOREDKM);
@@ -1225,7 +1296,8 @@ static int XHdcp22Rx_TestSendLCInit(XHdcp22_Rx *InstancePtr)
 
 	/* Write message */
 	MessageBuffer[0] = XHDCP22_RX_DDC_WRITE_REG;
-	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_LCInit)+1, MessageBuffer, FALSE);
+	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_LCInit)+1, MessageBuffer, FALSE);
 
 	/* Log message */
 	XHdcp22Rx_TestPrintMessage(InstancePtr, WriteMsgPtr, XHDCP22_RX_MSG_ID_LCINIT);
@@ -1259,7 +1331,8 @@ static int XHdcp22Rx_TestSendSKESendEks(XHdcp22_Rx *InstancePtr)
 
 	/* Write message */
 	MessageBuffer[0] = XHDCP22_RX_DDC_WRITE_REG;
-	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_SKESendEks)+1, MessageBuffer, FALSE);
+	Status = XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_SKESendEks)+1, MessageBuffer, FALSE);
 
 	/* Log message*/
 	XHdcp22Rx_TestPrintMessage(InstancePtr, WriteMsgPtr, XHDCP22_RX_MSG_ID_SKESENDEKS);
@@ -1296,15 +1369,20 @@ static int XHdcp22Rx_TestReceiveAKESendCert(XHdcp22_Rx *InstancePtr)
 		if(Status == sizeof(XHdcp22_Rx_AKESendCert))
 		{
 			MessageBuffer[0] = XHDCP22_RX_DDC_READ_REG;
-			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, 1, MessageBuffer, FALSE);
-			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_AKESendCert), (u8 *)ReadMsgPtr, FALSE);
+			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				1, MessageBuffer, FALSE);
+			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_AKESendCert), (u8 *)ReadMsgPtr, FALSE);
 
 			if(ReadMsgPtr->MsgId == XHDCP22_RX_MSG_ID_AKESENDCERT)
 			{
 				XHdcp22Rx_TestPrintMessage(InstancePtr, ReadMsgPtr, XHDCP22_RX_MSG_ID_AKESENDCERT);
-				Status = XHdcp22Rx_TestCompare(InstancePtr, "CertRx", XHdcp22_Rx_Test_PublicCert, ReadMsgPtr->AKESendCert.CertRx, sizeof(XHdcp22_Rx_Test_PublicCert));
-				Status = XHdcp22Rx_TestCompare(InstancePtr, "Rrx", XHdcp22_Rx_Test_Rrx, ReadMsgPtr->AKESendCert.Rrx, sizeof(XHdcp22_Rx_Test_Rrx));
-				Status = XHdcp22Rx_TestCompare(InstancePtr, "RxCaps", XHdcp22_Rx_Test_RxCaps, ReadMsgPtr->AKESendCert.RxCaps, sizeof(XHdcp22_Rx_Test_RxCaps));
+				Status = XHdcp22Rx_TestCompare(InstancePtr, "CertRx",XHdcp22_Rx_Test_PublicCert,
+							ReadMsgPtr->AKESendCert.CertRx, sizeof(XHdcp22_Rx_Test_PublicCert));
+				Status = XHdcp22Rx_TestCompare(InstancePtr, "Rrx", XHdcp22_Rx_Test_Rrx,
+							ReadMsgPtr->AKESendCert.Rrx, sizeof(XHdcp22_Rx_Test_Rrx));
+				Status = XHdcp22Rx_TestCompare(InstancePtr, "RxCaps", XHdcp22_Rx_Test_RxCaps,
+							ReadMsgPtr->AKESendCert.RxCaps, sizeof(XHdcp22_Rx_Test_RxCaps));
 
 				if(Status != XST_SUCCESS)
 				{
@@ -1368,13 +1446,16 @@ static int XHdcp22Rx_TestReceiveAKESendHPrime(XHdcp22_Rx *InstancePtr)
 		if(Status == sizeof(XHdcp22_Rx_AKESendHPrime))
 		{
 			MessageBuffer[0] = XHDCP22_RX_DDC_READ_REG;
-			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, 1, MessageBuffer, FALSE);
-			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_AKESendHPrime), (u8 *)ReadMsgPtr, FALSE);
+			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				1, MessageBuffer, FALSE);
+			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_AKESendHPrime), (u8 *)ReadMsgPtr, FALSE);
 
 			if(ReadMsgPtr->MsgId == XHDCP22_RX_MSG_ID_AKESENDHPRIME)
 			{
 				XHdcp22Rx_TestPrintMessage(InstancePtr, ReadMsgPtr, XHDCP22_RX_MSG_ID_AKESENDHPRIME);
-				Status = XHdcp22Rx_TestCompare(InstancePtr, "HPrime", XHdcp22_Rx_Test_HPrime, ReadMsgPtr->AKESendHPrime.HPrime, XHDCP22_RX_HPRIME_SIZE);
+				Status = XHdcp22Rx_TestCompare(InstancePtr, "HPrime", XHdcp22_Rx_Test_HPrime,
+							ReadMsgPtr->AKESendHPrime.HPrime, XHDCP22_RX_HPRIME_SIZE);
 
 				if(Status != XST_SUCCESS)
 				{
@@ -1438,13 +1519,16 @@ static int XHdcp22Rx_TestReceiveAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
 		if(Status == sizeof(XHdcp22_Rx_AKESendPairingInfo))
 		{
 			MessageBuffer[0] = XHDCP22_RX_DDC_READ_REG;
-			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, 1, MessageBuffer, FALSE);
-			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_AKESendPairingInfo), (u8 *)ReadMsgPtr, FALSE);
+			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				1, MessageBuffer, FALSE);
+			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_AKESendPairingInfo), (u8 *)ReadMsgPtr, FALSE);
 
 			if(ReadMsgPtr->MsgId == XHDCP22_RX_MSG_ID_AKESENDPAIRINGINFO)
 			{
 				XHdcp22Rx_TestPrintMessage(InstancePtr, ReadMsgPtr, XHDCP22_RX_MSG_ID_AKESENDPAIRINGINFO);
-				Status = XHdcp22Rx_TestCompare(InstancePtr, "EKh", XHdcp22_Rx_Test_EKh, ReadMsgPtr->AKESendPairingInfo.EKhKm, XHDCP22_RX_EKH_SIZE);
+				Status = XHdcp22Rx_TestCompare(InstancePtr, "EKh", XHdcp22_Rx_Test_EKh,
+					ReadMsgPtr->AKESendPairingInfo.EKhKm, XHDCP22_RX_EKH_SIZE);
 
 				if(Status != XST_SUCCESS)
 				{
@@ -1507,13 +1591,16 @@ static int XHdcp22Rx_TestReceiveLCSendLPrime(XHdcp22_Rx *InstancePtr)
 		if(Status == sizeof(XHdcp22_Rx_LCSendLPrime))
 		{
 			MessageBuffer[0] = XHDCP22_RX_DDC_READ_REG;
-			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, 1, MessageBuffer, FALSE);
-			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS, sizeof(XHdcp22_Rx_LCSendLPrime), (u8 *)ReadMsgPtr, FALSE);
+			XHdcp22Rx_TestDdcWriteReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				1, MessageBuffer, FALSE);
+			XHdcp22Rx_TestDdcReadReg(InstancePtr, XHDCP22_RX_TEST_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Rx_LCSendLPrime), (u8 *)ReadMsgPtr, FALSE);
 
 			if(ReadMsgPtr->MsgId == XHDCP22_RX_MSG_ID_LCSENDLPRIME)
 			{
 				XHdcp22Rx_TestPrintMessage(InstancePtr, ReadMsgPtr, XHDCP22_RX_MSG_ID_LCSENDLPRIME);
-				Status = XHdcp22Rx_TestCompare(InstancePtr, "LPrime", XHdcp22_Rx_Test_LPrime, ReadMsgPtr->LCSendLPrime.LPrime, XHDCP22_RX_LPRIME_SIZE);
+				Status = XHdcp22Rx_TestCompare(InstancePtr, "LPrime", XHdcp22_Rx_Test_LPrime,
+							ReadMsgPtr->LCSendLPrime.LPrime, XHDCP22_RX_LPRIME_SIZE);
 
 				if(Status != XST_SUCCESS)
 				{
@@ -1570,7 +1657,8 @@ static int XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx *InstancePtr)
 	Status = XHdcp22Rx_IsAuthenticated(InstancePtr);
 	if(Status)
 	{
-		Status = XHdcp22Rx_TestCompare(InstancePtr, "Ks", XHdcp22_Rx_Test_Ks, InstancePtr->Params.Ks, XHDCP22_RX_KS_SIZE);
+		Status = XHdcp22Rx_TestCompare(InstancePtr, "Ks", XHdcp22_Rx_Test_Ks,
+					InstancePtr->Params.Ks, XHDCP22_RX_KS_SIZE);
 
 		if(Status != XST_SUCCESS)
 		{
@@ -1654,7 +1742,8 @@ static int XHdcp22Rx_TestDdcSetDataCallback(XHdcp22_Rx *InstancePtr, u32 Data)
 	}
 
 	/* Check register access then do set */
-	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RO) || (InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
+	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RO) ||
+		(InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
 	{
 		switch(InstancePtr->Test.DdcRegisterMapAddress)
 		{
@@ -1701,7 +1790,8 @@ static u32  XHdcp22Rx_TestDdcGetDataCallback(XHdcp22_Rx *InstancePtr)
 	}
 
 	/* Check register access then do get */
-	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_WO) || (InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
+	if((InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_WO) ||
+		(InstancePtr->Test.DdcRegisterMap[Offset].Access == XHDCP22_RX_TEST_DDC_ACCESS_RW))
 	{
 		switch(InstancePtr->Test.DdcRegisterMapAddress)
 		{
@@ -1870,3 +1960,7 @@ static void XHdcp22Rx_TestAuthenticatedCallback(XHdcp22_Rx *InstancePtr)
 	/* Write a test value to the log */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_USER, 0xBEEF);
 }
+
+#endif // _XHDCP22_RX_TEST_
+
+/** @} */

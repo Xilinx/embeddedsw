@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_crypt.c
+* @addtogroup hdcp22_rx_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of the PKCS #1 Public Key Cryptography
 * Standard and other cryptographic functions used during HDCP 2.2 receiver
@@ -53,7 +56,7 @@
 #include "string.h"
 #include "xil_assert.h"
 #include "xstatus.h"
-#include "xhdcp22_rx.h"
+#include "xhdcp22_rx_i.h"
 #include "xhdcp22_common.h"
 
 /************************** Constant Definitions ****************************/
@@ -266,6 +269,26 @@ int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivR
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_RSA_DONE);
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function generates random octets.
+*
+* @param  NumOctets is the number of octets in the random number.
+* @param  RandomNumberPtr is a pointer to the random number.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Rx_GenerateRandom(XHdcp22_Rx *InstancePtr, int NumOctets,
+                              u8* RandomNumberPtr)
+{
+	/* Use hardware generator */
+	XHdcp22Rng_GetRandom(&InstancePtr->RngInst, RandomNumberPtr, NumOctets, NumOctets);
 }
 
 /****************************************************************************/
@@ -999,34 +1022,6 @@ static void XHdcp22Rx_Xor(u8 *Cout, const u8 *Ain, const u8 *Bin, u32 Len)
 
 /*****************************************************************************/
 /**
-* This function generates random octets.
-*
-* @param	NumOctets number of octets to generate.
-* @param	RandomNumberPtr is the pointer to a buffer that will be filled.
-*
-* @return	None.
-*
-* @note		None.
-******************************************************************************/
-void XHdcp22Rx_GenerateRandom(int NumOctets, u8* RandomNumberPtr)
-{
-	u32 Rnd16 = 0;
-	int i=0;
-	u8 RndL, RndH;
-
-	for (i=0; i<NumOctets; i+=2) {
-		Rnd16 = rand();
-		RndL = Rnd16 & 0xFF;
-		RndH = (Rnd16 >> 8)&0xFF;
-		RandomNumberPtr[i] = RndL;
-		if (i+1 < NumOctets) {
-			RandomNumberPtr[i+1] = RndH;
-		}
-	}
-}
-
-/*****************************************************************************/
-/**
 * This function computes the derived keys used during HDCP 2.2 authentication
 * and key exchange.
 *
@@ -1199,3 +1194,5 @@ void XHdcp22Rx_ComputeKs(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 *R
 	XHdcp22Rx_Xor(Ks+XHDCP22_RX_RRX_SIZE, Ks+XHDCP22_RX_RRX_SIZE, Rrx, XHDCP22_RX_RRX_SIZE);
 	XHdcp22Rx_Xor(Ks, Ks, Eks, XHDCP22_RX_KS_SIZE);
 }
+
+/** @} */

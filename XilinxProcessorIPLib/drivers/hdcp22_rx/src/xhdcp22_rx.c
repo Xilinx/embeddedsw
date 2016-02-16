@@ -32,10 +32,12 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx.c
+* @addtogroup hdcp22_rx_v1_0
+* @{
+* @details
 *
-* This is the main file for the Xilinx HDCP 2.2 Receiver. The file
-* implements the receiver authentication and key exchange state
-* machine.
+* This file contains the main implementation of the Xilinx HDCP 2.2 Receiver
+* device driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -57,6 +59,7 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xparameters.h"
+#include "xhdcp22_rx_i.h"
 #include "xhdcp22_rx.h"
 
 /************************** Constant Definitions ****************************/
@@ -75,9 +78,8 @@ static int  XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_InitializeTimer(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 *SubcoreAddressPtr);
 
-/* Functions for gettting authentication parameters */
-static int  XHdcp22Rx_GetRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr);
-static int  XHdcp22Rx_GetRxCaps(XHdcp22_Rx *InstancePtr, u8 *RxCapsPtr);
+/* Functions for generating authentication parameters */
+static int  XHdcp22Rx_GenerateRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr);
 
 /* Functions for performing various tasks during authentication */
 static u8   XHdcp22Rx_IsWriteMessageAvailable(XHdcp22_Rx *InstancePtr);
@@ -113,9 +115,9 @@ static int  XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr);
 
 /* Functions for stub callbacks */
-void XHdcp22_Rx_StubRunHandler(void *HandlerRef);
-void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data);
-u32  XHdcp22_Rx_StubGetHandler(void *HandlerRef);
+static void XHdcp22_Rx_StubRunHandler(void *HandlerRef);
+static void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data);
+static u32  XHdcp22_Rx_StubGetHandler(void *HandlerRef);
 
 /****************************************************************************/
 /**
@@ -368,18 +370,18 @@ int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType								Callback Function Type
-* -------------------------					---------------------------
-* (XHDCP22_RX_HANDLER_DDC_SETREGADDR)		DdcSetAddressCallback
-* (XHDCP22_RX_HANDLER_DDC_SETREGDATA)		DdcSetDataCallback
-* (XHDCP22_RX_HANDLER_DDC_GETREGDATA)		DdcGetDataCallback
-* (XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE)		DdcGetWriteBufferSizeCallback
-* (XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE)		DdcGetReadBufferSizeCallback
-* (XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY)		DdcIsWriteBufferEmptyCallback
-* (XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY)		DdcIsReadBufferEmptyCallback
-* (XHDCP22_RX_HANDLER_DDC_CLEARRBUF)		DdcClearReadBufferCallback
-* (XHDCP22_RX_HANDLER_DDC_CLEARWBUF)		DdcClearWriteBufferCallback
-* (XHDCP22_RX_HANDLER_AUTHENTICATED)		AuthenticatedCallback
+* HandlerType                               Callback Function Type
+* -------------------------                 ---------------------------
+* (XHDCP22_RX_HANDLER_DDC_SETREGADDR)       DdcSetAddressCallback
+* (XHDCP22_RX_HANDLER_DDC_SETREGDATA)       DdcSetDataCallback
+* (XHDCP22_RX_HANDLER_DDC_GETREGDATA)       DdcGetDataCallback
+* (XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE)      DdcGetWriteBufferSizeCallback
+* (XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE)      DdcGetReadBufferSizeCallback
+* (XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY)      DdcIsWriteBufferEmptyCallback
+* (XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY)      DdcIsReadBufferEmptyCallback
+* (XHDCP22_RX_HANDLER_DDC_CLEARRBUF)        DdcClearReadBufferCallback
+* (XHDCP22_RX_HANDLER_DDC_CLEARWBUF)        DdcClearWriteBufferCallback
+* (XHDCP22_RX_HANDLER_AUTHENTICATED)        AuthenticatedCallback
 * </pre>
 *
 * @param	InstancePtr is a pointer to the HDMI RX core instance.
@@ -751,26 +753,6 @@ void XHdcp22Rx_SetReadMessageComplete(XHdcp22_Rx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function is used to load the RxCaps value by copying the contents
-* of the input data array.
-*
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
-* @param	RxCapsPtr is a pointer to an array.
-*
-* @return	None.
-*
-* @note		None.
-******************************************************************************/
-void XHdcp22Rx_LoadRxCaps(XHdcp22_Rx *InstancePtr, const u8 *RxCapsPtr)
-{
-	/* Verify arguments */
-	Xil_AssertVoid(RxCapsPtr != NULL);
-
-	memcpy(InstancePtr->RxCaps, RxCapsPtr, XHDCP22_RX_RXCAPS_SIZE);
-}
-
-/*****************************************************************************/
-/**
 * This function is used to load the Lc128 value by copying the contents
 * of the array referenced by Lc128Ptr into the cipher.
 *
@@ -1040,55 +1022,18 @@ static int XHdcp22Rx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 
 *
 * @note		None.
 ******************************************************************************/
-static int XHdcp22Rx_GetRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr)
+static int XHdcp22Rx_GenerateRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(RrxPtr != NULL);
 
+	XHdcp22Rx_GenerateRandom(InstancePtr, XHDCP22_RX_RRX_SIZE, RrxPtr);
+
+#ifdef _XHDCP22_RX_TEST_
 	/* In test mode copy the test vector */
-	if(InstancePtr->Test.TestMode == XHDCP22_RX_TESTMODE_NO_TX)
-	{
-		memcpy(RrxPtr, InstancePtr->Test.Rrx, XHDCP22_RX_RRX_SIZE);
-	}
-	else
-	{
-		XHdcp22Rng_GetRandom(&InstancePtr->RngInst, RrxPtr, XHDCP22_RX_RRX_SIZE, XHDCP22_RX_RRX_SIZE);
-	}
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-* This function is used to get the receiver capabilities RXCAPS of 24bits
-* for AKEInit. When the test mode is set to XHDCP22_RX_TESTMODE_NO_TX
-* a preloaded test value is copied into the array with pointer RxCapsPtr.
-* Otherwise, the default value stored in the config structure is copied.
-*
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
-* @param	RxCapsPtr is a pointer to an array where the 24bit RXCAPS is
-* 			to be copied.
-*
-* @return	XST_SUCCESS or XST_FAILURE.
-*
-* @note		None.
-******************************************************************************/
-static int XHdcp22Rx_GetRxCaps(XHdcp22_Rx *InstancePtr, u8 *RxCapsPtr)
-{
-	/* Verify arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(RxCapsPtr != NULL);
-
-	/* In test mode copy the test vector */
-	if(InstancePtr->Test.TestMode == XHDCP22_RX_TESTMODE_NO_TX)
-	{
-		memcpy(RxCapsPtr, InstancePtr->Test.RxCaps, XHDCP22_RX_RXCAPS_SIZE);
-	}
-	else
-	{
-		memcpy(RxCapsPtr, InstancePtr->RxCaps, XHDCP22_RX_RXCAPS_SIZE);
-	}
+	XHdcp22Rx_TestGenerateRrx(InstancePtr, RrxPtr);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -1875,8 +1820,8 @@ static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr)
 
 	/* Generate AKE_Send_Cert message */
 	MsgPtr->AKESendCert.MsgId = XHDCP22_RX_MSG_ID_AKESENDCERT;
-	Status = XHdcp22Rx_GetRxCaps(InstancePtr, MsgPtr->AKESendCert.RxCaps);
-	Status |= XHdcp22Rx_GetRrx(InstancePtr, MsgPtr->AKESendCert.Rrx);
+	memcpy(MsgPtr->AKESendCert.RxCaps, InstancePtr->RxCaps, XHDCP22_RX_RXCAPS_SIZE);
+	Status = XHdcp22Rx_GenerateRrx(InstancePtr, MsgPtr->AKESendCert.Rrx);
 	memcpy(MsgPtr->AKESendCert.CertRx, InstancePtr->PublicCertPtr, XHDCP22_RX_CERT_SIZE);
 
 	/* Write message to read buffer */
@@ -2225,43 +2170,6 @@ static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function is used to print an octet string in big endian format.
-*
-* @param	Enable is an input flag to enable printing.
-* @param	String is a character array info message.
-* @param	Data is the octet string to be printed.
-* @param	Length is the number of bytes in Data
-*
-* @return	None.
-*
-* @note		The DEBUG symbol must be defined in order to print to
-*			the standard output.
-******************************************************************************/
-void XHdcp22Rx_PrintDump(u8 Enable, char *String, const u8 *Data, int Length)
-{
-	/* Verify arguments */
-	Xil_AssertVoid(String != NULL);
-	Xil_AssertVoid(Data != NULL);
-	Xil_AssertVoid(Length >= 0);
-
-	int Offset;
-
-	if(Enable)
-	{
-		XHdcp22Rx_Printf(Enable, "%s::Byte[0:%0d]", String, Length-1);
-		for(Offset=0; Offset<Length; Offset++)
-		{
-			if((Offset%20) == 0)
-				XHdcp22Rx_Printf(Enable, "\n\r");
-
-			XHdcp22Rx_Printf(Enable, " %02x", Data[Offset]);
-		}
-		XHdcp22Rx_Printf(Enable, "\n\r");
-	}
-}
-
-/*****************************************************************************/
-/**
 * This function clears the log pointers.
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
@@ -2377,8 +2285,9 @@ void XHdcp22Rx_LogWr(XHdcp22_Rx *InstancePtr, u16 Evt, u16 Data)
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return	- Content of log buffer if log pointers are not equal.
-*   		- Otherwise Zero.
+* @return
+*           - Content of log buffer if log pointers are not equal.
+*           - Otherwise Zero.
 *
 * @note		None.
 ******************************************************************************/
@@ -2613,7 +2522,7 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22_Rx_StubRunHandler(void *HandlerRef)
+static void XHdcp22_Rx_StubRunHandler(void *HandlerRef)
 {
 	Xil_AssertVoidAlways();
 }
@@ -2634,7 +2543,7 @@ void XHdcp22_Rx_StubRunHandler(void *HandlerRef)
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data)
+static void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data)
 {
 	Xil_AssertVoidAlways();
 }
@@ -2654,7 +2563,9 @@ void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data)
 *
 * @note		None.
 ******************************************************************************/
-u32 XHdcp22_Rx_StubGetHandler(void *HandlerRef)
+static u32 XHdcp22_Rx_StubGetHandler(void *HandlerRef)
 {
 	Xil_AssertNonvoidAlways();
 }
+
+/** @} */

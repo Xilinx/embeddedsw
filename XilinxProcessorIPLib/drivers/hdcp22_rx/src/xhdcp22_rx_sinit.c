@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_sinit.c
+* @addtogroup hdcp22_rx_v1_0
+* @{
+* @details
 *
 * This file contains static initialization method for Xilinx HDCP 2.2 Receiver.
 *
@@ -52,7 +55,9 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-
+#ifndef XPAR_XHDCP22_RX_NUM_INSTANCES
+#define XPAR_XHDCP22_RX_NUM_INSTANCES  0
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
@@ -99,3 +104,5 @@ XHdcp22_Rx_Config *XHdcp22Rx_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+
+/** @} */

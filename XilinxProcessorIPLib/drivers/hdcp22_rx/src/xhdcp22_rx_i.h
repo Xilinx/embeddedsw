@@ -32,6 +32,9 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_i.h
+* @addtogroup hdcp22_rx_v1_0
+* @{
+* @details
 *
 * This header file contains internal data types and functions declarations
 * for the Xilinx HDCP 2.2 Receiver.
@@ -54,49 +57,119 @@ extern "C" {
 #endif
 
 /***************************** Include Files ********************************/
+#include "xhdcp22_rx.h"
 #include "xhdcp22_mmult.h"
 
 /************************** Constant Definitions ****************************/
-#define XHDCP22_RX_HASH_SIZE		32	/**< Hash size */
-#define XHDCP22_RX_N_SIZE			128	/**< Modulus size */
-#define XHDCP22_RX_P_SIZE			64	/**< RSA private parameter size */
-#define XHDCP22_RX_KM_SIZE			16	/**< Km size */
-#define XHDCP22_RX_EKH_SIZE			16	/**< Ekh size */
-#define XHDCP22_RX_KD_SIZE			32	/**< Kd size */
-#define XHDCP22_RX_HPRIME_SIZE		32	/**< HPrime size */
-#define XHDCP22_RX_LPRIME_SIZE		32	/**< LPrime size */
-#define XHDCP22_RX_RN_SIZE			8	/**< Rn size */
-#define XHDCP22_RX_RIV_SIZE			8	/**< Riv size */
-#define XHDCP22_RX_KS_SIZE			16	/**< Ks size */
-#define XHDCP22_RX_AES_SIZE			16	/**< AES size */
-#define XHDCP22_RX_RTX_SIZE			8	/**< Rtx size */
-#define XHDCP22_RX_RRX_SIZE			8	/**< Rrx size */
-#define XHDCP22_RX_TXCAPS_SIZE		3	/**< TxCaps size */
-#define XHDCP22_RX_RXCAPS_SIZE		3	/**< RxCaps size*/
-#define XHDCP22_RX_CERT_SIZE		522	/**< DCP certificate size */
-#define XHDCP22_RX_PRIVATEKEY_SIZE	320	/**< RSA private key size (64*5) */
-#define XHDCP22_RX_LC128_SIZE		16	/**< Lc128 global constant size */
+/** Maximum message size */
+#define XHDCP22_RX_MAX_MESSAGE_SIZE			534
+/** Hash size */
+#define XHDCP22_RX_HASH_SIZE				32
+/** Modulus size */
+#define XHDCP22_RX_N_SIZE					128
+/** RSA private parameter size */
+#define XHDCP22_RX_P_SIZE					64
+/** Km size */
+#define XHDCP22_RX_KM_SIZE					16
+/** Ekh size */
+#define XHDCP22_RX_EKH_SIZE					16
+/** Kd size */
+#define XHDCP22_RX_KD_SIZE					32
+/** HPrime size */
+#define XHDCP22_RX_HPRIME_SIZE				32
+/** LPrime size */
+#define XHDCP22_RX_LPRIME_SIZE				32
+/** Rn size */
+#define XHDCP22_RX_RN_SIZE					8
+/** Riv size */
+#define XHDCP22_RX_RIV_SIZE					8
+/** Ks size */
+#define XHDCP22_RX_KS_SIZE					16
+/** AES size */
+#define XHDCP22_RX_AES_SIZE					16
+/** Rtx size */
+#define XHDCP22_RX_RTX_SIZE					8
+/** Rrx size */
+#define XHDCP22_RX_RRX_SIZE					8
+/** TxCaps size */
+#define XHDCP22_RX_TXCAPS_SIZE				3
+/** RxCaps size*/
+#define XHDCP22_RX_RXCAPS_SIZE				3
+/** DCP certificate size */
+#define XHDCP22_RX_CERT_SIZE				522
+/** RSA private key size (64*5) */
+#define XHDCP22_RX_PRIVATEKEY_SIZE			320
+/** Lc128 global constant size */
+#define XHDCP22_RX_LC128_SIZE				16
+/** Size of ddc register map for testing */
+#define XHDCP22_RX_TEST_DDC_REGMAP_SIZE		5
 
 /**************************** Type Definitions ******************************/
-
 /**
  * These constants are the message identification codes.
  */
 typedef enum
 {
-	XHDCP22_RX_MSG_ID_AKEINIT				= 2,  /**< AKE_Init message ID */
-	XHDCP22_RX_MSG_ID_AKESENDCERT			= 3,  /**< AKE_Send_Cert message ID */
-	XHDCP22_RX_MSG_ID_AKENOSTOREDKM			= 4,  /**< AKE_No_Stored_km message ID */
-	XHDCP22_RX_MSG_ID_AKESTOREDKM			= 5,  /**< AKE_Stored_km message ID */
-	XHDCP22_RX_MSG_ID_AKESENDHPRIME			= 7,  /**< AKE_Send_H_prime message ID */
-	XHDCP22_RX_MSG_ID_AKESENDPAIRINGINFO	= 8,  /**< AKE_Send_Pairing_Info message ID */
-	XHDCP22_RX_MSG_ID_LCINIT				= 9,  /**< LC_Init message ID */
-	XHDCP22_RX_MSG_ID_LCSENDLPRIME			= 10, /**< LC_Send_L_prime message ID */
-	XHDCP22_RX_MSG_ID_SKESENDEKS			= 11  /**< SKE_Send_Eks message ID */
+	/** AKE_Init message ID */
+	XHDCP22_RX_MSG_ID_AKEINIT				= 2,
+	/** AKE_Send_Cert message ID */
+	XHDCP22_RX_MSG_ID_AKESENDCERT			= 3,
+	/** AKE_No_Stored_km message ID */
+	XHDCP22_RX_MSG_ID_AKENOSTOREDKM			= 4,
+	/** AKE_Stored_km message ID */
+	XHDCP22_RX_MSG_ID_AKESTOREDKM			= 5,
+	/** AKE_Send_H_prime message ID */
+	XHDCP22_RX_MSG_ID_AKESENDHPRIME			= 7,
+	/** AKE_Send_Pairing_Info message ID */
+	XHDCP22_RX_MSG_ID_AKESENDPAIRINGINFO	= 8,
+	/** LC_Init message ID */
+	XHDCP22_RX_MSG_ID_LCINIT				= 9,
+	/** LC_Send_L_prime message ID */
+	XHDCP22_RX_MSG_ID_LCSENDLPRIME			= 10,
+	/** SKE_Send_Eks message ID */
+	XHDCP22_RX_MSG_ID_SKESENDEKS			= 11
 } XHdcp22_Rx_MessageIds;
 
 /**
- * These constants are the discrete event states for standalone unit testing.
+ * These constants are used for setting up the desired unit test for standalong testing.
+ */
+typedef enum {
+	/** No directed test */
+	XHDCP22_RX_TEST_FLAG_NONE,
+	/** Directed test flag for no stored Km */
+	XHDCP22_RX_TEST_FLAG_NOSTOREDKM,
+	/** Directed test flag for no storeed Km then stored Km */
+	XHDCP22_RX_TEST_FLAG_STOREDKM,
+	/** Last value the list, only used for checking */
+	XHDCP22_RX_TEST_FLAG_INVALID
+} XHdcp22_Rx_TestFlags;
+
+/**
+ * These constants are used to set the cores test mode.
+ */
+typedef enum {
+	/** Test mode disabled */
+	XHDCP22_RX_TESTMODE_DISABLED,
+	/** Test mode to emulate transmitter internally used for unit testing */
+	XHDCP22_RX_TESTMODE_NO_TX,
+	/** Test mode to emulate transmitter externally used for loopback testing */
+	XHDCP22_RX_TESTMODE_SW_TX,
+	/** Last value the list, only used for checking */
+	XHDCP22_RX_TESTMODE_INVALID
+} XHdcp22_Rx_TestMode;
+
+/**
+ * These constants define the test ddc access types for standalone self testing.
+ */
+typedef enum
+{
+	XHDCP22_RX_TEST_DDC_ACCESS_WO,	/**< Write-Only */
+	XHDCP22_RX_TEST_DDC_ACCESS_RO,	/**< Read-Only */
+	XHDCP22_RX_TEST_DDC_ACCESS_RW	/**< Read-Write */
+} XHdcp22_Rx_TestDdcAccess;
+
+/**
+ * These constants are the discrete event states for standalone self testing.
  */
 typedef enum
 {
@@ -112,27 +185,6 @@ typedef enum
 	XHDCP22_RX_TEST_STATE_SEND_SKESENDEKS		= 0xB30,
 	XHDCP22_RX_TEST_STATE_WAIT_AUTHENTICATED	= 0xB40
 } XHdcp22_Rx_TestState;
-
-/**
- * These constants define the test ddc access types for standalone unit testing.
- */
-typedef enum
-{
-	XHDCP22_RX_TEST_DDC_ACCESS_WO,	/**< Write-Only */
-	XHDCP22_RX_TEST_DDC_ACCESS_RO,	/**< Read-Only */
-	XHDCP22_RX_TEST_DDC_ACCESS_RW	/**< Read-Write */
-} XHdcp22_Rx_TestDdcAccess;
-
-/**
- * This typedef is the test DDC register definition.
- */
-typedef struct
-{
-	u8 Address;
-	u8 Name[20];
-	XHdcp22_Rx_TestDdcAccess Access;
-	u8 Value;
-} XHdcp22_Rx_TestDdcReg;
 
 /**
  * This typedef is the RSA private key quintuple definition.
@@ -270,18 +322,36 @@ typedef union
 } XHdcp22_Rx_Message;
 
 /***************** Macros (Inline Functions) Definitions ********************/
-#define XHdcp22Rx_Printf(type, ...) (((type) & TRUE) ? printf (__VA_ARGS__) : 0)
 
 /************************** Function Prototypes *****************************/
-void XHdcp22Rx_GenerateRandom(int NumOctets, u8* RandomNumberPtr);
+
+/* Crypto Functions */
+void XHdcp22Rx_GenerateRandom(XHdcp22_Rx *InstancePtr, int NumOctets, u8* RandomNumberPtr);
 int  XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Message, const u32 MessageLen, const u8 *MaskingSeed, u8 *EncryptedMessage);
 void XHdcp22Rx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps, const u8* Rtx, const u8 *TxCaps, const u8 *Km, u8 *Kd, u8 *HPrime);
 void XHdcp22Rx_ComputeEkh(const u8 *KprivRx, const u8 *Km, const u8 *M, u8 *Ekh);
 void XHdcp22Rx_ComputeLPrime(const u8 *Rn, const u8 *Kd, const u8 *Rrx, u8 *LPrime);
 void XHdcp22Rx_ComputeKs(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 *Rn, const u8 *Eks, u8 * Ks);
 
+#ifdef _XHDCP22_RX_TEST_
+/* External functions used for self-testing */
+int  XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode, XHdcp22_Rx_TestFlags TestVectorFlag);
+int  XHdcp22Rx_TestRun(XHdcp22_Rx *InstancePtr);
+u8   XHdcp22Rx_TestIsFinished(XHdcp22_Rx *InstancePtr);
+u8   XHdcp22Rx_TestIsPassed(XHdcp22_Rx *InstancePtr);
+int  XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr);
+void XHdcp22Rx_TestSetVerbose(XHdcp22_Rx *InstancePtr, u8 Verbose);
+
+/* Internal functions used for self-testing */
+int  XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop);
+int  XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop);
+void XHdcp22Rx_TestGenerateRrx(XHdcp22_Rx *InstancePtr, u8* RrxPtr);
+#endif
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XHDCP22_RX_I_H_ */
+
+/** @} */
