@@ -50,6 +50,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "string.h"
+#include "xhdcp22_common.h"
 
 /************************** Constant Definitions *****************************/
 #define SHA256_SIZE		256/8	/**< SHA256 Hash size */

@@ -68,6 +68,7 @@ extern "C" {
 void XHdcp22Cmn_Sha256Hash(const u8 *Data, u32 DataSize, u8 *HashedData);
 int  XHdcp22Cmn_HmacSha256Hash(const u8 *Data, int DataSize, const u8 *Key, int KeySize, u8  *HashedData);
 void XHdcp22Cmn_Aes128Encrypt(const u8 *Data, const u8 *Key, u8 *Output);
+void XHdcp22Cmn_Aes128Decrypt(const u8 *Data, const u8 *Key, u8 *Output);
 
 #ifdef __cplusplus
 }

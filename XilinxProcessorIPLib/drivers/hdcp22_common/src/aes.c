@@ -289,6 +289,30 @@ void XHdcp22Cmn_Aes128Encrypt(const u8 *Data, const u8 *Key, u8 *Output)
 	AesEncrypt(Data, Output, KeySchedule, 128);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function encrypts 128 bits data with a key of size 128 bits.
+*
+* @param	Input is the 16 byte ciphertext
+* @param	Key is the user supplied input key
+* @param	Output is the 16 byte plaintext
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdcp22Cmn_Aes128Decrypt(const u8 *Data, const u8 *Key, u8 *Output)
+{
+	u32 KeySchedule[60];
+
+	/* Setup the AES internal key */
+	AesKeySetup(Key, KeySchedule, 128);
+	/* Encrypt 128-bits*/
+	AesDecrypt(Data, Output, KeySchedule, 128);
+}
+
 /****************************************************************************/
 /**
 *
