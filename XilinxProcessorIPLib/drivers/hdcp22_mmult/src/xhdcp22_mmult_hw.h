@@ -35,6 +35,7 @@
 * @file xhdcp22_mmult_hw.h
 * @addtogroup hdcp22_mmult_v1_0
 * @{
+* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx HDCP22 Montgomery Multipler
@@ -110,3 +111,5 @@
 #define XHDCP22_MMULT_CTRL_ADDR_NPRIME_HIGH 0x17f
 #define XHDCP22_MMULT_CTRL_WIDTH_NPRIME     32
 #define XHDCP22_MMULT_CTRL_DEPTH_NPRIME     16
+
+/** @} */

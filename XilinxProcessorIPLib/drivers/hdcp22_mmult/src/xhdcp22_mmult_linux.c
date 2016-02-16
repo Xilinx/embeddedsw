@@ -35,6 +35,7 @@
 * @file xhdcp22_mmult_linux.c
 * @addtogroup hdcp22_mmult_v1_0
 * @{
+* @details
 *
 * This file contains the linux support for the driver associated with
 * the Xilinx HDCP22 Montgomery Multiplier (Mmult) core.
@@ -192,3 +193,5 @@ int XHdcp22_mmult_Release(XHdcp22_mmult *InstancePtr) {
 }
 
 #endif
+
+/** @} */

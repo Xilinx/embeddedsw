@@ -35,9 +35,10 @@
 * @file xhdcp22_mmult.c
 * @addtogroup hdcp22_mmult_v1_0
 * @{
+* @details
 *
 * This file contains the main implementation of the driver associated with
-* the Xilinx HDCP22 Montgomery Multiplier core.
+* the Xilinx HDCP 2.2 Montgomery Multiplier core.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -649,3 +650,5 @@ u32 XHdcp22_mmult_InterruptGetStatus(XHdcp22_mmult *InstancePtr) {
 
     return XHdcp22_mmult_ReadReg(InstancePtr->Config.BaseAddress, XHDCP22_MMULT_CTRL_ADDR_ISR);
 }
+
+/** @} */

@@ -35,6 +35,7 @@
 * @file xhdcp22_mmult_sinit.c
 * @addtogroup hdcp22_mmult_v1_0
 * @{
+* @details
 *
 * This file contains the static initialization file for the Xilinx
 * Montgomery Multiplier (Mmult) core.
@@ -44,7 +45,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.00  JO  10/01/15 Initial release.
+* 1.00  MH     10/01/15 Initial release.
 * </pre>
 *
 ******************************************************************************/
@@ -54,6 +55,10 @@
 #include "xstatus.h"
 #include "xparameters.h"
 #include "xhdcp22_mmult.h"
+
+#ifndef XPAR_XHDCP22_MMULT_NUM_INSTANCES
+#define XPAR_XHDCP22_MMULT_NUM_INSTANCES 0
+#endif
 
 extern XHdcp22_mmult_Config XHdcp22_mmult_ConfigTable[];
 
@@ -87,3 +92,5 @@ int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, u16 DeviceId) {
 }
 
 #endif
+
+/** @} */

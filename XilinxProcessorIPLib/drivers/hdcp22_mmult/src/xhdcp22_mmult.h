@@ -35,10 +35,10 @@
 * @file xhdcp22_mmult.h
 * @addtogroup hdcp22_mmult_v1_0
 * @{
+* @details
 *
-* This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the Xilinx HDCP22 Montogmery Multiplier
-* (Mmult) core.
+* This is the main header file for the Xilinx HDCP 2.2 Montgomery Multipler
+* device driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -191,3 +191,5 @@ u32 XHdcp22_mmult_InterruptGetStatus(XHdcp22_mmult *InstancePtr);
 #endif
 
 #endif
+
+/** @} */
