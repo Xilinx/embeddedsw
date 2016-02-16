@@ -123,6 +123,7 @@
 *       sk     12/10/15 Added support for MMC cards.
 *              01/08/16 Added workaround for issue in auto tuning mode
 *                       of SDR50, SDR104 and HS200.
+*       sk     02/16/16 Corrected the Tuning logic.
 *
 * </pre>
 *
@@ -145,6 +146,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #define XSDPS_CT_ERROR	0x2U	/**< Command timeout flag */
+#define MAX_TUNING_COUNT	40U		/**< Maximum Tuning count */
 
 /**************************** Type Definitions *******************************/
 /**

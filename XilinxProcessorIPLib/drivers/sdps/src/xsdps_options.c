@@ -53,6 +53,7 @@
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
 * 2.7   sk     01/08/16 Added workaround for issue in auto tuning mode
 *                       of SDR50, SDR104 and HS200.
+*       sk     02/16/16 Corrected the Tuning logic.
 *
 * </pre>
 *
@@ -1022,8 +1023,8 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	u16 BlkCnt;
 	u16 BlkSize;
 	s32 LoopCnt;
-	u8 ReadBuff[128];
 	u16 CtrlReg;
+	u8 TuningCount;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1038,47 +1039,39 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
 			BlkSize);
 
-	for (LoopCnt = 0; LoopCnt < (s32)BlkSize; LoopCnt++) {
-		ReadBuff[LoopCnt] = 0U;
-	}
-
-	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
-
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+			XSDPS_TM_DAT_DIR_SEL_MASK);
 
-	Xil_DCacheInvalidateRange((INTPTR)ReadBuff, BlkSize);
+	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL2_OFFSET);
+	CtrlReg |= XSDPS_HC2_EXEC_TNG_MASK;
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL2_OFFSET, CtrlReg);
 
-	if(InstancePtr->CardType == XSDPS_CARD_SD) {
-		Status = XSdPs_CmdTransfer(InstancePtr, CMD19, 0U, 1U);
-	} else {
-		Status = XSdPs_CmdTransfer(InstancePtr, CMD21, 0U, 1U);
-	}
+	for (TuningCount = 0U; TuningCount < MAX_TUNING_COUNT; TuningCount++) {
 
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
-	}
+		if (InstancePtr->CardType == XSDPS_CARD_SD) {
+			Status = XSdPs_CmdTransfer(InstancePtr, CMD19, 0U, 1U);
+		} else {
+			Status = XSdPs_CmdTransfer(InstancePtr, CMD21, 0U, 1U);
+		}
 
-	/*
-	 * Check for transfer complete
-	 * Polling for response for now
-	 */
-	do {
-		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_NORM_INTR_STS_OFFSET);
-		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
-			/* Write to clear error bits */
-			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_ERR_INTR_STS_OFFSET, XSDPS_ERROR_INTR_ALL_MASK);
+		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
-	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0U);
 
-	/* Write to clear bit */
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+		if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_EXEC_TNG_MASK) == 0U) {
+			break;
+		}
+	}
+
+	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_SAMP_CLK_SEL_MASK) == 0U) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
 
 	/*
 	 * As per controller erratum, program the "SDCLK Frequency

@@ -62,6 +62,7 @@
 * 2.6   sk     10/12/15 Added support for SD card v1.0 CR# 840601.
 * 2.7   sk     11/24/15 Considered the slot type befoe checking CD/WP pins.
 *       sk     12/10/15 Added support for MMC cards.
+*       sk     02/16/16 Corrected the Tuning logic.
 * </pre>
 *
 ******************************************************************************/
@@ -939,14 +940,19 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 	 */
 	CommandReg = CommandReg & 0x3FFFU;
 
-	/* Check for data inhibit in case of command using DAT lines */
-	PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_PRES_STATE_OFFSET);
+	/*
+	 * Check for data inhibit in case of command using DAT lines.
+	 * For Tuning Commands DAT lines check can be ignored.
+	 */
+	if ((Cmd != CMD21) && (Cmd != CMD19)) {
+		PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+				XSDPS_PRES_STATE_OFFSET);
 		if (((PresentStateReg & (XSDPS_PSR_INHIBIT_DAT_MASK |
-								XSDPS_PSR_INHIBIT_DAT_MASK)) != 0U) &&
-			((CommandReg & XSDPS_DAT_PRESENT_SEL_MASK) != 0U)) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+									XSDPS_PSR_INHIBIT_DAT_MASK)) != 0U) &&
+				((CommandReg & XSDPS_DAT_PRESENT_SEL_MASK) != 0U)) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CMD_OFFSET,
@@ -956,6 +962,14 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 	do {
 		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_NORM_INTR_STS_OFFSET);
+		if ((Cmd == CMD21) || (Cmd == CMD19)) {
+			if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_NORM_INTR_STS_OFFSET) & XSDPS_INTR_BRR_MASK) != 0U){
+				XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_BRR_MASK);
+				break;
+			}
+		}
 
 		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
 			Status = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
