@@ -151,6 +151,8 @@
 *                     XWdtTb_DisableFailCounter, XWdtTb_EnableExtraProtection,
 *                     XWdtTb_DisableExtraProtection, XWdtTb_SetWindowCount,
 *                     XWdtTb_CfgInitialize.
+* 4.0   sha  02/17/16 Removed 3.1 version and added CR# 867425 change in
+*                     4.0 version.
 * </pre>
 *
 ******************************************************************************/
