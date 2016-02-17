@@ -124,6 +124,12 @@ Fix for CR#784758. Changes in driver tcl to delete filename statement.
 dphy_v1_0:
 Added the initial version of MIPI DPHY Controller driver.
 
+dprxss_v3_0:
+Added support for multiple subsystems in a design.
+
+dptxss_v3_0:
+Added support for multiple subsystems in a design.
+
 emaclite_v4_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR#867425.
 Changed the prototype of XEmacLite_CfgInitialize API.
