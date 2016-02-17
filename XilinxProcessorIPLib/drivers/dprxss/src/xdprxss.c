@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v2_0
+* @addtogroup dprxss_v3_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -53,6 +53,7 @@
 *                   disconnect/unplug interrupt is detected.
 * 2.00 sha 11/06/15 Modified the order of execution in TP1 callback as DP159
 *                   config for TP1 and then link bandwidth callback.
+* 3.0  sha 02/05/16 Added support for multiple subsystems in a design.
 * </pre>
 *
 ******************************************************************************/
@@ -122,7 +123,7 @@ u8 GenDpcd[] = {
 };
 
 /* DisplayPort RX subcores instance */
-XDpRxSs_SubCores DpRxSsSubCores;
+XDpRxSs_SubCores DpRxSsSubCores[XPAR_XDPRXSS_NUM_INSTANCES];
 
 /************************** Function Definitions *****************************/
 
@@ -319,11 +320,11 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 					InstancePtr);
 
 		/* Enable the specified options for Timer Counter zero */
-		XTmrCtr_SetOptions (InstancePtr->TmrCtrPtr, 0,
+		XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
 			XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
 
 		/* Set the reset value to Timer Counter zero */
-		XTmrCtr_SetResetValue (InstancePtr->TmrCtrPtr, 0,
+		XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
 					XDPRXSS_TMRCTR_RST_VAL);
 	}
 
@@ -921,6 +922,7 @@ u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr)
 
 	return StreamMap;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -986,17 +988,16 @@ void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
 	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
 
 	/* Enable the specified options for Timer Counter zero */
-	XTmrCtr_SetOptions (InstancePtr->TmrCtrPtr, 0,
+	XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
 		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
 
 	/* Set the reset value to Timer Counter zero */
-	XTmrCtr_SetResetValue (InstancePtr->TmrCtrPtr, 0,
+	XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
 				XDPRXSS_TMRCTR_RST_VAL);
 
 	/* Start Timer Counter 0 in count down mode */
 	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
 }
-
 
 /*****************************************************************************/
 /**
@@ -1066,22 +1067,25 @@ static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
 static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 {
 	/* Assign instance of DisplayPort core */
-	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent)?
-					(&DpRxSsSubCores.DpInst): NULL);
+	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
+		(&DpRxSsSubCores[InstancePtr->Config.DeviceId].DpInst) : NULL);
+
 	/* Assign instance of IIC core */
-	InstancePtr->IicPtr = ((InstancePtr->Config.DpSubCore.IsPresent)?
-					(&DpRxSsSubCores.IicInst): NULL);
+	InstancePtr->IicPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
+		(&DpRxSsSubCores[
+			InstancePtr->Config.DeviceId].IicInst) : NULL);
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* Assign instance of HDCP core */
 	InstancePtr->Hdcp1xPtr =
-		((InstancePtr->Config.Hdcp1xSubCore.IsPresent)?
-				(&DpRxSsSubCores.Hdcp1xInst): NULL);
+		((InstancePtr->Config.Hdcp1xSubCore.IsPresent) ?
+	(&DpRxSsSubCores[InstancePtr->Config.DeviceId].Hdcp1xInst) : NULL);
 
 	/* Assign instance of Timer Counter core */
 	InstancePtr->TmrCtrPtr =
-		((InstancePtr->Config.TmrCtrSubCore.IsPresent)?
-					(&DpRxSsSubCores.TmrCtrInst): NULL);
+		((InstancePtr->Config.TmrCtrSubCore.IsPresent) ?
+	(&DpRxSsSubCores[InstancePtr->Config.DeviceId].TmrCtrInst) : NULL);
+	InstancePtr->Hdcp1xPtr->Hdcp1xRef = NULL;
 #endif
 }
 

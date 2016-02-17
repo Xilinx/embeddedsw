@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"),to deal
@@ -32,6 +32,8 @@
 # Ver  Who Date     Changes
 # ---- --- -------- -----------------------------------------------------------
 # 2.00 sha 10/05/15 Added Timer Counter support.
+# 3.0  sha 02/05/16 Added support to generate XPAR_* parameters for multiple
+#                   subsystems in a design.
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -120,7 +122,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 			set comma ",\n"
 		}
 
-		::hsi::current_hw_instance  $periph
+		::hsi::current_hw_instance $periph
 		set child_cells [::hsi::get_cells]
 		puts $config_file ",\n"
 
@@ -155,7 +157,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name]]
 
 					set params_str $sub_core_params($ip_name)
-					set params_arr [split  $params_str " " ]
+					set params_arr [split $params_str " " ]
 
 					foreach param $params_arr {
 						set final_child_cell_param_name XPAR_${child_cell_name}_$param
@@ -174,6 +176,8 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 		}
 
 		::hsi::current_hw_instance
+
+		set brace 0
 
 		puts -nonewline $config_file "\t\}"
 		set start_comma ",\n"
