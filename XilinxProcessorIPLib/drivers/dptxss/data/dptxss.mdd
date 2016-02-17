@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"),to deal
@@ -36,6 +36,6 @@ BEGIN driver dptxss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0);
 	OPTION copyfiles = all;
-	OPTION VERSION = 2.0;
+	OPTION VERSION = 3.0;
 	OPTION NAME = dptxss;
 END driver

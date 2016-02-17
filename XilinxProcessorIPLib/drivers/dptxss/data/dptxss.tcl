@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"),to deal
@@ -33,6 +33,8 @@
 # ---- --- -------- -----------------------------------------------------------
 # 2.00 sha 08/07/15 Added HDCP support to work with DP pass-through.
 # 2.00 sha 09/28/15 Added Timer Counter support to work with DP pass-through.
+# 3.0  sha 02/05/16 Added support to generate XPAR_* parameters for multiple
+#                   subsystems in a design.
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -48,7 +50,6 @@ proc generate {drv_handle} {
 proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set args [::hsi::utils::get_exact_arg_list $args]
 	set brace 0
-	set num_vtc 0
 	array set sub_core_params {}
 
 	set sub_core_params(displayport) "BASEADDR S_AXI_ACLK LANE_COUNT LINK_RATE MAX_BITS_PER_COLOR QUAD_PIXEL_ENABLE DUAL_PIXEL_ENABLE YCRCB_ENABLE YONLY_ENABLE GT_DATAWIDTH SECONDARY_SUPPORT AUDIO_CHANNELS MST_ENABLE NUMBER_OF_MST_STREAMS PROTOCOL_SELECTION FLOW_DIRECTION"
@@ -95,9 +96,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 				}
 				if { $is_slave != 0 } {
 					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_present_g]\t1\n"
-					if {$ip_name == "v_tc"} {
-						incr num_vtc
-					}
 				}
 			}
 		}
@@ -149,10 +147,14 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
 				if { $is_slave != 0 } {
 					if {$ip_name == "v_tc"} {
+						if {$brace == 1} {
+							puts $config_file "\t\t\t\},"
+						}
+
 						if { $brace == 0 } {
 							puts $config_file "\t\t\{"
+							incr brace
 						}
-						incr brace
 
 						puts $config_file "\t\t\t\{"
 						puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
@@ -168,17 +170,10 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 								puts $config_file ","
 								puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_param_name]]
 						}
-						if { $brace == $num_vtc} {
-							puts $config_file "\n\t\t\t\t\}"
-							puts $config_file "\t\t\t\}"
-							puts $config_file "\t\t\}"
-						} else {
-							puts $config_file "\n\t\t\t\t\}"
-							puts $config_file "\t\t\t\},"
-						}
+
+						puts $config_file "\n\t\t\t\t\}"
 					} else {
 						set comma ",\n"
-
 						puts $config_file "\t\t\{"
 						puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
 						puts $config_file ","
@@ -198,6 +193,12 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					}
 				}
 			}
+		}
+
+		if {$brace == 1} {
+			puts $config_file "\t\t\t\}"
+			puts $config_file "\t\t\}"
+			set brace 0
 		}
 
 		::hsi::current_hw_instance

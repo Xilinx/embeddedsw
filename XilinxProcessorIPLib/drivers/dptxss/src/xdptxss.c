@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v2_0
+* @addtogroup dptxss_v3_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
@@ -51,6 +51,7 @@
 * 2.00 sha 08/07/15 Added support for customized main stream attributes.
 *                   Added HDCP instance into global sub-cores structure.
 * 2.00 sha 09/28/15 Added HDCP and Timer Counter support.
+* 3.0  sha 02/05/16 Added support for multiple subsystems in a design.
 * </pre>
 *
 ******************************************************************************/
@@ -99,7 +100,7 @@ static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 
 /************************** Variable Definitions *****************************/
 
-XDpTxSs_SubCores DpTxSsSubCores;
+XDpTxSs_SubCores DpTxSsSubCores[XPAR_XDPTXSS_NUM_INSTANCES];
 
 /************************** Function Definitions *****************************/
 
@@ -1451,13 +1452,14 @@ void XDpTxSs_SetDebugLogMsg(XDpTxSs *InstancePtr, XDpTxSs_LogMsg LogFunc)
 ******************************************************************************/
 static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs)
 {
-	XTmrCtr *TmrCtrPtr = &DpTxSsSubCores.TmrCtrInst;
+	XTmrCtr *TmrCtrPtr = (XTmrCtr *)InstancePtr->Hdcp1xRef;
 	u8 TimerChannel;
 	u32 TimerOptions;
 	u32 NumTicks;
 
 	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(TmrCtrPtr != NULL);
 
 	/* Determine NumTicks */
 	NumTicks = DpTxSs_ConvertUsToTicks((TimeoutInMs * 1000),
@@ -1469,7 +1471,7 @@ static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs)
 
 	/* Configure the callback */
 	XTmrCtr_SetHandler(TmrCtrPtr, &DpTxSs_TimerCallback,
-				&DpTxSsSubCores.Hdcp1xInst);
+				(void *)InstancePtr);
 
 	/* Configure the timer options */
 	TimerOptions = XTmrCtr_GetOptions(TmrCtrPtr, TimerChannel);
@@ -1500,11 +1502,11 @@ static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs)
 ******************************************************************************/
 static int DpTxSs_HdcpStopTimer(const XHdcp1x *InstancePtr)
 {
-	XTmrCtr *TmrCtrPtr = &DpTxSsSubCores.TmrCtrInst;
+	XTmrCtr *TmrCtrPtr = (XTmrCtr *)InstancePtr->Hdcp1xRef;
 	u8 TimerChannel;
 
 	/* Verify argument. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(TmrCtrPtr != NULL);
 
 	/* Stop Timer Counter */
 	TimerChannel = 0;
@@ -1529,17 +1531,17 @@ static int DpTxSs_HdcpStopTimer(const XHdcp1x *InstancePtr)
 ******************************************************************************/
 static int DpTxSs_HdcpBusyDelay(const XHdcp1x *InstancePtr, u16 DelayInMs)
 {
-	XTmrCtr *TmrCtrPtr = &DpTxSsSubCores.TmrCtrInst;
+	XTmrCtr *TmrCtrPtr = (XTmrCtr *)InstancePtr->Hdcp1xRef;
 	u8 TimerChannel;
 	u32 TimerOptions;
 	u32 NumTicks;
 
 	/* Verify argument. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(TmrCtrPtr != NULL);
 
 	/* Determine number of timer ticks */
 	NumTicks = DpTxSs_ConvertUsToTicks((DelayInMs * 1000),
-					TmrCtrPtr->Config.SysClockFreqHz);
+				TmrCtrPtr->Config.SysClockFreqHz);
 
 	/* Stop it */
 	TimerChannel = 0;
@@ -1650,32 +1652,36 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr)
 
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	/* Assign instance of Dual Splitter core */
-	InstancePtr->DsPtr = ((InstancePtr->Config.DsSubCore.IsPresent)?
-					(&DpTxSsSubCores.DsInst): NULL);
+	InstancePtr->DsPtr = ((InstancePtr->Config.DsSubCore.IsPresent) ?
+		(&DpTxSsSubCores[InstancePtr->Config.DeviceId].DsInst) : NULL);
 #endif
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* Assign instance of HDCP core */
 	InstancePtr->Hdcp1xPtr =
-		((InstancePtr->Config.Hdcp1xSubCore.IsPresent)?
-					(&DpTxSsSubCores.Hdcp1xInst): NULL);
+		((InstancePtr->Config.Hdcp1xSubCore.IsPresent) ?
+	(&DpTxSsSubCores[InstancePtr->Config.DeviceId].Hdcp1xInst) : NULL);
 
 	/* Assign instance of Timer Counter core */
 	InstancePtr->TmrCtrPtr =
-		((InstancePtr->Config.TmrCtrSubCore.IsPresent)?
-					(&DpTxSsSubCores.TmrCtrInst): NULL);
+		((InstancePtr->Config.TmrCtrSubCore.IsPresent) ?
+	(&DpTxSsSubCores[InstancePtr->Config.DeviceId].TmrCtrInst) : NULL);
+
+	/* Set Timer Counter instance in HDCP that will be used in callbacks */
+	InstancePtr->Hdcp1xPtr->Hdcp1xRef = (void *)InstancePtr->TmrCtrPtr;
 #endif
 
 	/* Assign instance of DisplayPort core */
-	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent)?
-					(&DpTxSsSubCores.DpInst): NULL);
+	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
+		(&DpTxSsSubCores[InstancePtr->Config.DeviceId].DpInst) : NULL);
 
 	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
 
 		/* Assign instances of VTC core */
 		InstancePtr->VtcPtr[Index] =
-			((InstancePtr->Config.VtcSubCore[Index].IsPresent)?
-				(&DpTxSsSubCores.VtcInst[Index]): NULL);
+			((InstancePtr->Config.VtcSubCore[Index].IsPresent) ?
+			(&DpTxSsSubCores[
+			InstancePtr->Config.DeviceId].VtcInst[Index]) : NULL);
 	}
 }
 
