@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,12 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.1   gm   02/01/16 Added EAST, WEST, PLL0 and PLL1 definitions
+ *                     for GTPE2.
+ *                     Added more events to XVphy_LogEvent definitions
+ *                     Added TxBufferBypass in XVphy_Config structure
+ *                     Added XVphy_SetDefaultPpc and XVphy_SetPpc functions
+ *       als           Added XVphy_GetLineRateHz function.
  * </pre>
  *
 *******************************************************************************/
@@ -164,7 +170,16 @@ typedef enum {
 		XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK0,
 	XVPHY_PLL_REFCLKSEL_TYPE_GTSOUTHREFCLK1 =
 		XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK1,
-	XVPHY_PLL_REFCLKSEL_TYPE_GTGREFCLK = XVPHY_REF_CLK_SEL_XPLL_GTGREFCLK,
+	XVPHY_PLL_REFCLKSEL_TYPE_GTEASTREFCLK0 =
+		XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK0,
+	XVPHY_PLL_REFCLKSEL_TYPE_GTEASTREFCLK1 =
+		XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK1,
+	XVPHY_PLL_REFCLKSEL_TYPE_GTWESTREFCLK0 =
+		XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK0,
+	XVPHY_PLL_REFCLKSEL_TYPE_GTWESTREFCLK1 =
+		XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK1,
+	XVPHY_PLL_REFCLKSEL_TYPE_GTGREFCLK =
+		XVPHY_REF_CLK_SEL_XPLL_GTGREFCLK,
 } XVphy_PllRefClkSelType;
 
 /**
@@ -172,13 +187,17 @@ typedef enum {
  * RX/TX datapaths.
  */
 typedef enum {
-        XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK =
+	XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK =
+		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL0,
+	XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK =
+		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL1,
+	XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_CPLL,
-        XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK =
+	XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL,
-        XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK =
+	XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL0,
-        XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK =
+	XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL1,
 } XVphy_SysClkDataSelType;
 
@@ -187,14 +206,18 @@ typedef enum {
  * RX/TX output clocks.
  */
 typedef enum {
-        XVPHY_SYSCLKSELOUT_TYPE_CPLL_REFCLK =
+	XVPHY_SYSCLKSELOUT_TYPE_CPLL_REFCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CH,
-        XVPHY_SYSCLKSELOUT_TYPE_QPLL_REFCLK =
+	XVPHY_SYSCLKSELOUT_TYPE_QPLL_REFCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN,
-        XVPHY_SYSCLKSELOUT_TYPE_QPLL0_REFCLK =
+	XVPHY_SYSCLKSELOUT_TYPE_QPLL0_REFCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN0,
-        XVPHY_SYSCLKSELOUT_TYPE_QPLL1_REFCLK =
+	XVPHY_SYSCLKSELOUT_TYPE_QPLL1_REFCLK =
 		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN1,
+	XVPHY_SYSCLKSELOUT_TYPE_PLL0_REFCLK =
+		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CH,
+	XVPHY_SYSCLKSELOUT_TYPE_PLL1_REFCLK =
+		XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN,
 } XVphy_SysClkOutSelType;
 
 /**
@@ -215,7 +238,7 @@ typedef enum {
 	XVPHY_GT_STATE_LOCK,		/**< Lock state. */
 	XVPHY_GT_STATE_RESET,		/**< Reset state. */
 	XVPHY_GT_STATE_ALIGN,		/**< Align state. */
-	XVPHY_GT_STATE_READY		/**< Ready state. */
+	XVPHY_GT_STATE_READY,		/**< Ready state. */
 } XVphy_GtState;
 
 typedef enum {
@@ -256,6 +279,8 @@ typedef enum {
 	XVPHY_LOG_EVT_TX_TMR,		/**< Log event TX timer. */
 	XVPHY_LOG_EVT_RX_TMR,		/**< Log event RX timer. */
 	XVPHY_LOG_EVT_GT_RECONFIG,	/**< Log event GT reconfig. */
+	XVPHY_LOG_EVT_GT_TX_RECONFIG,	/**< Log event GT reconfig. */
+	XVPHY_LOG_EVT_GT_RX_RECONFIG,	/**< Log event GT reconfig. */
 	XVPHY_LOG_EVT_INIT,		/**< Log event init. */
 	XVPHY_LOG_EVT_TXPLL_RECONFIG,	/**< Log event TXPLL reconfig. */
 	XVPHY_LOG_EVT_RXPLL_RECONFIG,	/**< Log event RXPLL reconfig. */
@@ -264,7 +289,9 @@ typedef enum {
 	XVPHY_LOG_EVT_TX_RST_DONE,	/**< Log event TX reset done. */
 	XVPHY_LOG_EVT_RX_RST_DONE,	/**< Log event RX reset done. */
 	XVPHY_LOG_EVT_TX_FREQ,		/**< Log event TX frequency. */
-	XVPHY_LOG_EVT_RX_FREQ		/**< Log event RX frequency. */
+	XVPHY_LOG_EVT_RX_FREQ,		/**< Log event RX frequency. */
+	XVPHY_LOG_EVT_DRU_EN,		/**< Log event DRU enable/disable. */
+	XVPHY_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
 } XVphy_LogEvent;
 
 /******************************************************************************/
@@ -510,6 +537,8 @@ typedef struct {
 	XVphy_PllRefClkSelType DruRefClkSel; /**< DRU REFCLK selection. */
 	XVidC_PixelsPerClock Ppc;	/**< Number of input pixels per
 						 clock. */
+	u8 TxBufferBypass;		/**< TX Buffer Bypass is enabled in the
+						design. */
 } XVphy_Config;
 
 /* Forward declaration. */
@@ -681,6 +710,7 @@ XVphy_SysClkDataSelType XVphy_GetSysClkDataSel(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, XVphy_ChannelId ChId);
 XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, XVphy_ChannelId ChId);
+u64 XVphy_GetLineRateHz(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 
 /* xvphy.c: Reset functions. */
 u32 XVphy_WaitForPmaResetDone(XVphy *InstancePtr, u8 QuadId,
@@ -772,6 +802,8 @@ void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 		XVphy_HdmiHandlerType HandlerType,
 		void *CallbackFunc, void *CallbackRef);
+void XVphy_SetDefaultPpc(XVphy *InstancePtr, u8 QuadId);
+void XVphy_SetPpc(XVphy *InstancePtr, u8 QuadId, u8 Ppc);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
@@ -787,6 +819,10 @@ void XVphy_SetHdmiCallback(XVphy *InstancePtr,
         (XVPHY_PLL_TYPE_QPLL0 == \
 		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_TX, ChId)) || \
         (XVPHY_PLL_TYPE_QPLL1 == \
+		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_TX, ChId)) || \
+	(XVPHY_PLL_TYPE_PLL0 == \
+		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_TX, ChId)) || \
+	(XVPHY_PLL_TYPE_PLL1 == \
 		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_TX, ChId)))
 #define XVphy_IsRxUsingQpll(InstancePtr, QuadId, ChId) \
         ((XVPHY_PLL_TYPE_QPLL == \
@@ -794,6 +830,10 @@ void XVphy_SetHdmiCallback(XVphy *InstancePtr,
         (XVPHY_PLL_TYPE_QPLL0 == \
 		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId)) || \
         (XVPHY_PLL_TYPE_QPLL1 == \
+		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId)) || \
+	(XVPHY_PLL_TYPE_PLL0 == \
+		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId)) || \
+	(XVPHY_PLL_TYPE_PLL1 == \
 		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId)))
 #define XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId) \
         (XVPHY_PLL_TYPE_CPLL == \

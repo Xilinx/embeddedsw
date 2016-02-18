@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,11 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als, 10/19/15 Initial release.
  *       gm
+ * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
+ *                     Added more events to XVphy_LogEvent definitions.
+ *                     Added TxBufferBypass in XVphy_Config structure.
+ *                     Added XVphy_SetDefaultPpc and XVphy_SetPpc functions.
+ *       als           Added XVphy_GetLineRateHz function.
  * </pre>
  *
 *******************************************************************************/
@@ -121,18 +126,26 @@ void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
 	else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE2) {
 		InstancePtr->GtAdaptor = &Gthe2Config;
 	}
-	else {
+	else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+		InstancePtr->GtAdaptor = &Gtpe2Config;
+	}
+	else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
 		InstancePtr->GtAdaptor = &Gthe3Config;
 	}
+	else {
+		InstancePtr->GtAdaptor = &Gthe4Config;
+	}
 
-	const XVphy_SysClkDataSelType SysClkCfg[5][2] = {
+	const XVphy_SysClkDataSelType SysClkCfg[7][2] = {
 		{0, XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK},
 		{1, XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
 		{2, XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK},
 		{3, XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK},
+		{4, XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK},
+		{5, XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK},
 		{6, XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
 	};
-	for (Sel = 0; Sel < 5; Sel++) {
+	for (Sel = 0; Sel < 7; Sel++) {
 		if (InstancePtr->Config.TxSysPllClkSel == SysClkCfg[Sel][0]) {
 			InstancePtr->Config.TxSysPllClkSel = SysClkCfg[Sel][1];
 		}
@@ -144,6 +157,19 @@ void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
 	InstancePtr->Config.TxRefClkSel += XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0;
 	InstancePtr->Config.RxRefClkSel += XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0;
 	InstancePtr->Config.DruRefClkSel += XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0;
+
+	/* Correct RefClkSel offsets for GTPE2 EAST and WEST RefClks */
+	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+		if (InstancePtr->Config.TxRefClkSel > 6) {
+			InstancePtr->Config.TxRefClkSel -= 4;
+		}
+		if (InstancePtr->Config.RxRefClkSel > 6) {
+			InstancePtr->Config.RxRefClkSel -= 4;
+		}
+		if (InstancePtr->Config.DruRefClkSel > 6) {
+			InstancePtr->Config.DruRefClkSel -= 4;
+		}
+	}
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
@@ -157,8 +183,10 @@ void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
 * @param	ChId is the channel ID to operate on.
 * @param	QpllRefClkSel is the QPLL reference clock selection for the
 *		quad.
+*		- In GTP, this is used to hold PLL0 refclk selection.
 * @param	CpllRefClkSel is the CPLL reference clock selection for the
 *		quad.
+*		- In GTP, this is used to hold PLL1 refclk selection.
 * @param	TxPllSelect is the reference clock selection for the quad's
 *		TX PLL dividers.
 * @param	RxPllSelect is the reference clock selection for the quad's
@@ -178,10 +206,19 @@ u32 XVphy_PllInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	XVphy_SelQuad(InstancePtr, QuadId);
 
 	/* Set configuration in software. */
-	XVphy_CfgPllRefClkSel(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMNA,
-			QpllRefClkSel);
-	XVphy_CfgPllRefClkSel(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
-			CpllRefClkSel);
+	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CMNA, QpllRefClkSel);
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CHA, CpllRefClkSel);
+	}
+	/* GTP. */
+	else {
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CMN0,	QpllRefClkSel);
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CMN1, CpllRefClkSel);
+	}
 	XVphy_CfgSysClkDataSel(InstancePtr, QuadId, XVPHY_DIR_TX,
 			Pll2SysClkData(TxPllSelect));
 	XVphy_CfgSysClkDataSel(InstancePtr, QuadId, XVPHY_DIR_RX,
@@ -471,7 +508,9 @@ u32 XVphy_WriteCfgRefClkSelReg(XVphy *InstancePtr, u8 QuadId)
 	/* - CPLL. */
 	RegVal &= ~XVPHY_REF_CLK_SEL_CPLL_MASK;
 	RegVal |= (ChPtr->CpllRefClkSel << XVPHY_REF_CLK_SEL_CPLL_SHIFT);
-	if (GtType == XVPHY_GT_TYPE_GTHE3) {
+	if ((GtType == XVPHY_GT_TYPE_GTHE3) ||
+            (GtType == XVPHY_GT_TYPE_GTHE4) ||
+            (GtType == XVPHY_GT_TYPE_GTPE2)) {
 		/* - QPLL1. */
 		RegVal &= ~XVPHY_REF_CLK_SEL_QPLL1_MASK;
 		RegVal |= (InstancePtr->Quads[QuadId].Cmn1.PllRefClkSel <<
@@ -681,6 +720,7 @@ XVphy_PllType XVphy_GetPllType(XVphy *InstancePtr, u8 QuadId,
 	SysClkOutSel = XVphy_GetSysClkOutSel(InstancePtr, QuadId, Dir, ChId);
 
 	/* The sysclk data and output reference clocks should match. */
+
 	if ((SysClkDataSel == XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK) &&
 	(SysClkOutSel == XVPHY_SYSCLKSELOUT_TYPE_CPLL_REFCLK)) {
 		PllType = XVPHY_PLL_TYPE_CPLL;
@@ -700,7 +740,23 @@ XVphy_PllType XVphy_GetPllType(XVphy *InstancePtr, u8 QuadId,
 	else {
 		PllType = XVPHY_PLL_TYPE_UNKNOWN;
 	}
+	/* For GTHE2, GTHE3, GTHE4, and GTXE2. */
+	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		return PllType;
+	}
 
+	if ((SysClkDataSel == XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) &&
+	(SysClkOutSel == XVPHY_SYSCLKSELOUT_TYPE_PLL0_REFCLK)) {
+		PllType = XVPHY_PLL_TYPE_PLL0;
+	}
+	else if ((SysClkDataSel == XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK) &&
+	(SysClkOutSel == XVPHY_SYSCLKSELOUT_TYPE_PLL1_REFCLK)) {
+		PllType = XVPHY_PLL_TYPE_PLL1;
+	}
+	else {
+		PllType = XVPHY_PLL_TYPE_UNKNOWN;
+	}
+	/* For GTPE2. */
 	return PllType;
 }
 
@@ -859,6 +915,29 @@ XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
 	}
 
 	return Sel;
+}
+
+/*****************************************************************************/
+/**
+* This function will return the line rate in Hz for a given channel / quad.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to check.
+* @param	ChId is the channel ID for which to retrieve the line rate.
+*
+* @return	The line rate in Hz.
+*
+* @note		None.
+*
+******************************************************************************/
+u64 XVphy_GetLineRateHz(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((XVPHY_CHANNEL_ID_CH1 <= ChId) &&
+			(ChId <= XVPHY_CHANNEL_ID_CMN1));
+
+	return InstancePtr->Quads[QuadId].Plls[ChId -
+		XVPHY_CHANNEL_ID_CH1].LineRateHz;
 }
 
 /*****************************************************************************/
@@ -1457,6 +1536,9 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 		/* Disable MMC Locked Masking */
 		XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, Dir, FALSE);
 	}
+
+	XVphy_LogWrite(InstancePtr, (Dir == XVPHY_DIR_TX) ?
+		XVPHY_LOG_EVT_TXPLL_RECONFIG : XVPHY_LOG_EVT_RXPLL_RECONFIG, 1);
 }
 
 /*****************************************************************************/
@@ -1599,7 +1681,7 @@ void XVphy_SetBufgGtDiv(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div)
 void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Enable)
 {
-	XVphy_PllRefClkSelType *TypePtr;
+	XVphy_PllRefClkSelType *TypePtr, *DruTypePtr;
 	u32 RegVal;
 	u32 MaskVal = 0;
 
@@ -1611,12 +1693,17 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 	}
 	else {
 		TypePtr = &InstancePtr->Config.RxRefClkSel;
+		if (InstancePtr->Config.DruIsPresent) {
+			DruTypePtr = &InstancePtr->Config.DruRefClkSel;
+		}
 	}
 
-	if (*TypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0) {
+	if ((*TypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0) ||
+			(*DruTypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0)) {
 		MaskVal = XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK0_CEB_MASK;
 	}
-	else if (*TypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1) {
+	else if ((*TypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1) ||
+			(*DruTypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1)) {
 		MaskVal = XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK;
 	}
 
@@ -1894,7 +1981,8 @@ u32 XVphy_OutDivReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		ChId = XVPHY_CHANNEL_ID_CHA;
 	}
 
-	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_RECONFIG, 0);
+	XVphy_LogWrite(InstancePtr, (Dir == XVPHY_DIR_TX) ?
+		XVPHY_LOG_EVT_GT_TX_RECONFIG : XVPHY_LOG_EVT_GT_RX_RECONFIG, 0);
 
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
@@ -1934,8 +2022,6 @@ u32 XVphy_DirReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		return XST_SUCCESS;
 	}
 
-	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_RECONFIG, 0);
-
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		if (Dir == XVPHY_DIR_TX) {
@@ -1950,7 +2036,8 @@ u32 XVphy_DirReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		}
 	}
 
-	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_RECONFIG, 1);
+	XVphy_LogWrite(InstancePtr, (Dir == XVPHY_DIR_TX) ?
+		XVPHY_LOG_EVT_GT_TX_RECONFIG : XVPHY_LOG_EVT_GT_RX_RECONFIG, 1);
 
 	return Status;
 }
@@ -1991,6 +2078,19 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
+	if (XVPHY_ISCH(Id)) {
+		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_CPLL_RECONFIG, 1);
+	}
+	else if (XVPHY_ISCMN(ChId) &&
+			(InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2)) {
+		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_QPLL_RECONFIG, 1);
+	}
+	else if (XVPHY_ISCMN(ChId)) { /* GTPE2. */
+		XVphy_LogWrite(InstancePtr, (ChId == XVPHY_CHANNEL_ID_CMN0) ?
+			XVPHY_LOG_EVT_PLL0_RECONFIG :
+			XVPHY_LOG_EVT_PLL1_RECONFIG, 1);
+	}
+
 	return Status;
 }
 
@@ -2025,7 +2125,8 @@ void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 	}
 	else if (ChId == XVPHY_CHANNEL_ID_CMNA) {
 		*Id0 = XVPHY_CHANNEL_ID_CMN0;
-		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
+		if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
+		    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
 			*Id1 = XVPHY_CHANNEL_ID_CMN1;
 		}
 		else {
@@ -2170,7 +2271,11 @@ static inline XVphy_SysClkDataSelType Pll2SysClkData(XVphy_PllType PllSelect)
 			XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK :
 		(PllSelect == XVPHY_PLL_TYPE_QPLL0) ?
 			XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK :
-		XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK;
+		(PllSelect == XVPHY_PLL_TYPE_QPLL1) ?
+			XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK :
+		(PllSelect == XVPHY_PLL_TYPE_PLL0) ?
+			XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK :
+		XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK;
 }
 
 /*****************************************************************************/
@@ -2192,7 +2297,11 @@ static inline XVphy_SysClkOutSelType Pll2SysClkOut(XVphy_PllType PllSelect)
 			XVPHY_SYSCLKSELOUT_TYPE_QPLL_REFCLK :
 		(PllSelect == XVPHY_PLL_TYPE_QPLL0) ?
 			XVPHY_SYSCLKSELOUT_TYPE_QPLL0_REFCLK :
-		XVPHY_SYSCLKSELOUT_TYPE_QPLL1_REFCLK;
+		(PllSelect == XVPHY_PLL_TYPE_QPLL1) ?
+			XVPHY_SYSCLKSELOUT_TYPE_QPLL1_REFCLK :
+		(PllSelect == XVPHY_PLL_TYPE_PLL0) ?
+			XVPHY_SYSCLKSELOUT_TYPE_PLL0_REFCLK :
+		XVPHY_SYSCLKSELOUT_TYPE_PLL1_REFCLK;
 }
 
 /*****************************************************************************/
@@ -2344,7 +2453,8 @@ static u32 XVphy_PllCalculator(XVphy *InstancePtr, u8 QuadId,
 			continue;
 		}
 
-		if (XVPHY_ISCH(ChId)) {
+		if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) ||
+				(XVPHY_ISCH(ChId))) {
 			PllClkOutFreqHz *= 2;
 		}
 		/* Apply TX/RX divisor. */
@@ -2382,4 +2492,41 @@ calc_done:
 	}
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function will set the default in HDF.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_SetDefaultPpc(XVphy *InstancePtr, u8 QuadId)
+{
+	extern XVphy_Config XVphy_ConfigTable[XPAR_XVPHY_NUM_INSTANCES];
+
+	InstancePtr->Config.Ppc = XVphy_ConfigTable[QuadId].Ppc;
+}
+
+/*****************************************************************************/
+/**
+* This function will set PPC specified by user.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Ppc is the PPC to be set.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_SetPpc(XVphy *InstancePtr, u8 QuadId, u8 Ppc)
+{
+	InstancePtr->Config.Ppc = Ppc;
 }

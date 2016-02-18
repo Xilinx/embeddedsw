@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/19/15 Initial release.
+ * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 constants
  * </pre>
  *
 *******************************************************************************/
@@ -54,6 +55,18 @@
 #define XVPHY_HDMI_H_
 
 /************************** Constant Definitions ******************************/
+
+#define XVPHY_HDMI_GTHE4_DRU_LRATE		2500000000U
+#define XVPHY_HDMI_GTHE4_PLL_SCALE		1000
+#define XVPHY_HDMI_GTHE4_QPLL0_REFCLK_MIN	61250000LL
+#define XVPHY_HDMI_GTHE4_QPLL1_REFCLK_MIN	50000000LL
+#define XVPHY_HDMI_GTHE4_CPLL_REFCLK_MIN	100000000LL
+#define XVPHY_HDMI_GTHE4_TX_MMCM_SCALE		1
+#define XVPHY_HDMI_GTHE4_TX_MMCM_FVCO_MIN	600000000U
+#define XVPHY_HDMI_GTHE4_TX_MMCM_FVCO_MAX	1200000000U
+#define XVPHY_HDMI_GTHE4_RX_MMCM_SCALE		1
+#define XVPHY_HDMI_GTHE4_RX_MMCM_FVCO_MIN	600000000U
+#define XVPHY_HDMI_GTHE4_RX_MMCM_FVCO_MAX	1200000000U
 
 #define XVPHY_HDMI_GTHE3_DRU_LRATE		2500000000U
 #define XVPHY_HDMI_GTHE3_PLL_SCALE		1000
@@ -88,6 +101,17 @@
 #define XVPHY_HDMI_GTXE2_RX_MMCM_SCALE		1
 #define XVPHY_HDMI_GTXE2_RX_MMCM_FVCO_MIN	600000000U
 #define XVPHY_HDMI_GTXE2_RX_MMCM_FVCO_MAX	1200000000U
+
+#define XVPHY_HDMI_GTPE2_DRU_LRATE		2500000000U
+#define XVPHY_HDMI_GTPE2_PLL_SCALE		1000
+#define XVPHY_HDMI_GTPE2_QPLL_REFCLK_MIN	80000000LL
+#define XVPHY_HDMI_GTPE2_CPLL_REFCLK_MIN	80000000LL
+#define XVPHY_HDMI_GTPE2_TX_MMCM_SCALE		1
+#define XVPHY_HDMI_GTPE2_TX_MMCM_FVCO_MIN	800000000U
+#define XVPHY_HDMI_GTPE2_TX_MMCM_FVCO_MAX	1866000000U
+#define XVPHY_HDMI_GTPE2_RX_MMCM_SCALE		1
+#define XVPHY_HDMI_GTPE2_RX_MMCM_FVCO_MIN	600000000U
+#define XVPHY_HDMI_GTPE2_RX_MMCM_FVCO_MAX	1200000000U
 
 /**************************** Function Prototypes *****************************/
 

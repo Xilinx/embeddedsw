@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.1   gm   02/01/16 Added Gtpe2Config and Gtpe4Config variables.
  * </pre>
  *
 *******************************************************************************/
@@ -102,6 +103,8 @@ typedef struct XVphy_GtConfigS {
 
 const XVphy_GtConfig Gtxe2Config;
 const XVphy_GtConfig Gthe2Config;
+const XVphy_GtConfig Gtpe2Config;
 const XVphy_GtConfig Gthe3Config;
+const XVphy_GtConfig Gthe4Config;
 
 #endif /* XVPHY_GT_H_ */

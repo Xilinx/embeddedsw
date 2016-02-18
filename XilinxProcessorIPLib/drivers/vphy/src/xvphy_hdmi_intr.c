@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/19/15 Initial release.
+ * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
+ *                     Added XVphy_HdmiGtpPllLockHandler for GTPE2
  * </pre>
  *
 *******************************************************************************/
@@ -56,7 +58,7 @@
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_hdmi.h"
-# include "xvphy_gt.h"
+#include "xvphy_gt.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -193,34 +195,33 @@ void XVphy_HdmiIntrHandlerCallbackInit(XVphy *InstancePtr)
 ******************************************************************************/
 void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 {
-	XVphy_GtState *TxStatePtr;
-	XVphy_GtState *RxStatePtr;
 	XVphy_PllType TxPllType;
 	XVphy_PllType RxPllType;
 	u8 Id, Id0, Id1;
 	XVphy_ChannelId ChId;
 
-	TxStatePtr = &InstancePtr->Quads[0].Plls[0].TxState;
-	RxStatePtr = &InstancePtr->Quads[0].Plls[0].RxState;
-
 	/* Determine PLL type. */
 	TxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
-			XVPHY_CHANNEL_ID_CH1);
+		XVPHY_CHANNEL_ID_CH1);
 	RxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_RX,
-			XVPHY_CHANNEL_ID_CH1);
+		XVPHY_CHANNEL_ID_CH1);
 
 	/* RX is using QPLL. */
 	if ((RxPllType == XVPHY_PLL_TYPE_QPLL) ||
 			(RxPllType == XVPHY_PLL_TYPE_QPLL0) ||
-			(RxPllType == XVPHY_PLL_TYPE_QPLL1)) {
+			(RxPllType == XVPHY_PLL_TYPE_QPLL1) ||
+			(RxPllType == XVPHY_PLL_TYPE_PLL0)  ||
+			(RxPllType == XVPHY_PLL_TYPE_PLL1)) {
 
 		/* Determine which channel(s) to operate on. */
 		switch (RxPllType) {
 		case XVPHY_PLL_TYPE_QPLL:
 		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
 			ChId = XVPHY_CHANNEL_ID_CMN0;
 			break;
 		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
 			ChId = XVPHY_CHANNEL_ID_CMN1;
 			break;
 		default:
@@ -272,9 +273,11 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 		switch (TxPllType) {
 		case XVPHY_PLL_TYPE_QPLL:
 		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
 			ChId = XVPHY_CHANNEL_ID_CMN0;
 			break;
 		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
 			ChId = XVPHY_CHANNEL_ID_CMN1;
 			break;
 		default:
@@ -306,6 +309,136 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function is the handler for events triggered by GTP PLL0/1 lock done.
+*
+* @param	InstancePtr is a pointer to the VPHY instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_HdmiGtpPllLockHandler(XVphy *InstancePtr, u8 Pll)
+{
+	XVphy_PllType TxPllType;
+	XVphy_PllType RxPllType;
+	u8 Id, Id0, Id1;
+	XVphy_ChannelId ChId;
+
+	/* Determine PLL type. */
+	TxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
+			XVPHY_CHANNEL_ID_CH1);
+	RxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_RX,
+			XVPHY_CHANNEL_ID_CH1);
+
+	/* RX is using QPLL. */
+	if (((RxPllType == XVPHY_PLL_TYPE_PLL0) && (Pll == 0)) ||
+	    ((RxPllType == XVPHY_PLL_TYPE_PLL1) && (Pll == 1))) {
+
+		/* Determine which channel(s) to operate on. */
+		switch (RxPllType) {
+		case XVPHY_PLL_TYPE_QPLL:
+		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
+			ChId = XVPHY_CHANNEL_ID_CMN0;
+			break;
+		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
+			ChId = XVPHY_CHANNEL_ID_CMN1;
+			break;
+		default:
+			ChId = XVPHY_CHANNEL_ID_CHA;
+			break;
+		}
+
+		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
+			/* Log, lock */
+			XVphy_LogWrite(InstancePtr, (Pll == 0) ?
+				XVPHY_LOG_EVT_PLL0_LOCK :
+				XVPHY_LOG_EVT_PLL1_LOCK, 1);
+
+			/* GT RX reset. */
+			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+					XVPHY_DIR_RX, FALSE);
+
+			XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0,
+					&Id1);
+			for (Id = Id0; Id <= Id1; Id++) {
+				InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].
+					RxState = XVPHY_GT_STATE_RESET;
+			}
+
+			/* If the GT TX and RX are coupled, then update the GT
+			 * TX state as well. */
+			if (XVphy_IsBonded(InstancePtr, 0,
+						XVPHY_CHANNEL_ID_CH1)) {
+				/* GT TX reset. */
+				XVphy_ResetGtTxRx(InstancePtr, 0,
+					XVPHY_CHANNEL_ID_CHA,
+					XVPHY_DIR_TX, TRUE);
+
+				XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA,
+						&Id0, &Id1);
+				for (Id = Id0; Id <= Id1; Id++) {
+					InstancePtr->Quads[0].Plls[
+						XVPHY_CH2IDX(Id)].TxState =
+							XVPHY_GT_STATE_RESET;
+				}
+			}
+		}
+		else {
+			/* Log, Lost lock */
+			XVphy_LogWrite(InstancePtr, (Pll == 0) ?
+					XVPHY_LOG_EVT_PLL0_LOCK :
+					XVPHY_LOG_EVT_PLL1_LOCK, 0);
+		}
+	}
+	/* TX is using QPLL. */
+	else {
+		/* Determine which channel(s) to operate on. */
+		switch (TxPllType) {
+		case XVPHY_PLL_TYPE_QPLL:
+		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
+			ChId = XVPHY_CHANNEL_ID_CMN0;
+			break;
+		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
+			ChId = XVPHY_CHANNEL_ID_CMN1;
+			break;
+		default:
+			ChId = XVPHY_CHANNEL_ID_CHA;
+			break;
+		}
+
+		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
+			/* Log, lock */
+			XVphy_LogWrite(InstancePtr, (Pll == 0) ?
+					XVPHY_LOG_EVT_PLL0_LOCK :
+					XVPHY_LOG_EVT_PLL1_LOCK, 1);
+
+			/* GT TX reset. */
+			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+					XVPHY_DIR_TX, FALSE);
+
+			XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0,
+					&Id1);
+			for (Id = Id0; Id <= Id1; Id++) {
+				InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].
+					TxState = XVPHY_GT_STATE_RESET;
+			}
+		}
+		else {
+			/* Log, Lost lock */
+			XVphy_LogWrite(InstancePtr, (Pll == 0) ?
+					XVPHY_LOG_EVT_PLL0_LOCK :
+					XVPHY_LOG_EVT_PLL1_LOCK, 0);
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
 * This function is the handler for events triggered by CPLL lock done.
 *
 * @param	InstancePtr is a pointer to the VPHY instance.
@@ -317,15 +450,10 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 ******************************************************************************/
 void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 {
-	XVphy_GtState *TxStatePtr;
-	XVphy_GtState *RxStatePtr;
 	XVphy_PllType TxPllType;
 	XVphy_PllType RxPllType;
 	u8 Id, Id0, Id1;
 	XVphy_ChannelId ChId;
-
-	TxStatePtr = &InstancePtr->Quads[0].Plls[0].TxState;
-	RxStatePtr = &InstancePtr->Quads[0].Plls[0].RxState;
 
 	/* Determine PLL type. */
 	TxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
@@ -341,9 +469,11 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 		switch (RxPllType) {
 		case XVPHY_PLL_TYPE_QPLL:
 		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
 			ChId = XVPHY_CHANNEL_ID_CMN0;
 			break;
 		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
 			ChId = XVPHY_CHANNEL_ID_CMN1;
 			break;
 		default:
@@ -391,9 +521,11 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 		switch (TxPllType) {
 		case XVPHY_PLL_TYPE_QPLL:
 		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
 			ChId = XVPHY_CHANNEL_ID_CMN0;
 			break;
 		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
 			ChId = XVPHY_CHANNEL_ID_CMN1;
 			break;
 		default:
@@ -438,7 +570,8 @@ void XVphy_HdmiGtTxResetDoneLockHandler(XVphy *InstancePtr)
 
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TX_RST_DONE, 0);
 
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
+	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
+            (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
 		XVphy_TxAlignReset(InstancePtr, XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_TxAlignReset(InstancePtr, XVPHY_CHANNEL_ID_CHA, FALSE);
 	}
@@ -449,8 +582,19 @@ void XVphy_HdmiGtTxResetDoneLockHandler(XVphy *InstancePtr)
 
 	XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
-		InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].TxState =
-			XVPHY_GT_STATE_ALIGN;
+		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+			InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].TxState =
+				XVPHY_GT_STATE_READY;
+
+			/* TX ready callback. */
+			if (InstancePtr->HdmiTxReadyCallback) {
+				InstancePtr->HdmiTxReadyCallback(
+						InstancePtr->HdmiTxReadyRef);
+			}
+		} else {
+			InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].TxState =
+				XVPHY_GT_STATE_ALIGN;
+		}
 	}
 }
 
@@ -554,21 +698,24 @@ void XVphy_HdmiTxClkDetFreqChangeHandler(XVphy *InstancePtr)
 			XVPHY_CHANNEL_ID_CH1);
 
 	/* Assert GT TX reset. */
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2)) {
 		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX, TRUE);
 	}
 
 	/* If the TX frequency has changed, the PLL is always disabled. */
-	XVphy_PowerDownGtPll(InstancePtr, 0, (PllType == XVPHY_PLL_TYPE_CPLL) ?
-		XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, TRUE);
+	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		XVphy_PowerDownGtPll(InstancePtr, 0,
+			(PllType == XVPHY_PLL_TYPE_CPLL) ?
+			XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, TRUE);
+	}
 	XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,
 			TRUE);
 	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
 		XVphy_GtUserRdyEnable(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
-				XVPHY_DIR_TX, FALSE);
+		XVPHY_DIR_TX, FALSE);
 	}
-
 
 	/* Disable TX MMCM. */
 	XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
@@ -580,7 +727,8 @@ void XVphy_HdmiTxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	XVphy_TxAlignStart(InstancePtr, XVPHY_CHANNEL_ID_CHA, FALSE);
 
 	/* De-assert GT TX reset. */
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2)) {
 		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX, FALSE);
 	}
@@ -643,11 +791,14 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	InstancePtr->HdmiRxRefClkHz = RxRefClkHz;
 
 	/* If the RX frequency has changed, the PLL is always disabled. */
-	XVphy_PowerDownGtPll(InstancePtr, 0, (PllType == XVPHY_PLL_TYPE_CPLL) ?
-		XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, TRUE);
+	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		XVphy_PowerDownGtPll(InstancePtr, 0,
+			(PllType == XVPHY_PLL_TYPE_CPLL) ?
+			XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, TRUE);
+	}
 
-	XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
-			XVPHY_DIR_RX, TRUE);
+	XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+			TRUE);
 
 	/* When the GT TX and RX are coupled, then disable the QPLL. */
 	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
@@ -666,7 +817,8 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	}
 
 	/* Assert GT RX reset */
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2)) {
 		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_RX, FALSE);
 	}
@@ -717,9 +869,11 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	switch (PllType) {
 		case XVPHY_PLL_TYPE_QPLL:
 		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
 			ChId = XVPHY_CHANNEL_ID_CMN0;
 			break;
 		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
 			ChId = XVPHY_CHANNEL_ID_CMN1;
 			break;
 		default:
@@ -731,8 +885,11 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	XVphy_MmcmStart(InstancePtr, 0, XVPHY_DIR_TX);
 
 	/* Enable PLL. */
-	XVphy_PowerDownGtPll(InstancePtr, 0, (PllType == XVPHY_PLL_TYPE_CPLL) ?
-		XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, FALSE);
+	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		XVphy_PowerDownGtPll(InstancePtr, 0,
+			(PllType == XVPHY_PLL_TYPE_CPLL) ?
+			XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, FALSE);
+	}
 
 	if (PllType != XVPHY_PLL_TYPE_CPLL) {
 		/* Set QPLL Selection in PIO. */
@@ -742,7 +899,8 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	XVphy_ClkReconfig(InstancePtr, 0, ChId);
 	XVphy_OutDivReconfig(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_TX);
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
+	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
 		XVphy_SetBufgGtDiv(InstancePtr, XVPHY_DIR_TX,
 			(PllType == XVPHY_PLL_TYPE_CPLL) ?
 			InstancePtr->Quads[0].Plls[0].TxOutDiv :
@@ -755,7 +913,8 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 			XVPHY_DIR_TX, TRUE);
 
 	/* Assert GT TX reset. */
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2)) {
 		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 							XVPHY_DIR_TX, TRUE);
 	}
@@ -764,7 +923,8 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_TX, FALSE);
 
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
+	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
+	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
 		/* Clear GT alignment. */
 		XVphy_TxAlignStart(InstancePtr, ChId, FALSE);
 	}
@@ -803,9 +963,11 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	switch (PllType) {
 	case XVPHY_PLL_TYPE_QPLL:
 	case XVPHY_PLL_TYPE_QPLL0:
+	case XVPHY_PLL_TYPE_PLL0:
 		ChId = XVPHY_CHANNEL_ID_CMN0;
 		break;
 	case XVPHY_PLL_TYPE_QPLL1:
+	case XVPHY_PLL_TYPE_PLL1:
 		ChId = XVPHY_CHANNEL_ID_CMN1;
 		break;
 	default:
@@ -838,26 +1000,47 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	}
 
 	/* Enable PLL. */
-	XVphy_PowerDownGtPll(InstancePtr, 0, (PllType == XVPHY_PLL_TYPE_CPLL) ?
-		XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, FALSE);
+	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		XVphy_PowerDownGtPll(InstancePtr, 0,
+			(PllType == XVPHY_PLL_TYPE_CPLL) ?
+			XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA, FALSE);
+	}
 
 	/* Enable DRU to set the clock muxes. */
 	XVphy_DruEnable(InstancePtr, XVPHY_CHANNEL_ID_CHA,
 			InstancePtr->HdmiRxDruIsEnabled);
 
 	/* Update reference clock election. */
-	XVphy_CfgPllRefClkSel(InstancePtr, 0,
+	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		XVphy_CfgPllRefClkSel(InstancePtr, 0,
 			((PllType == XVPHY_PLL_TYPE_CPLL) ?
 				XVPHY_CHANNEL_ID_CHA : XVPHY_CHANNEL_ID_CMNA),
 			((InstancePtr->HdmiRxDruIsEnabled) ?
 				InstancePtr->Config.DruRefClkSel :
 				InstancePtr->Config.RxRefClkSel));
+	}
+	/* GTP */
+	else {
+		XVphy_CfgPllRefClkSel(InstancePtr, 0,
+			((PllType == XVPHY_PLL_TYPE_PLL0) ?
+				XVPHY_CHANNEL_ID_CMN0 : XVPHY_CHANNEL_ID_CMN1),
+			((InstancePtr->HdmiRxDruIsEnabled) ?
+				InstancePtr->Config.DruRefClkSel :
+				InstancePtr->Config.RxRefClkSel));
+	}
 
 	/* Update GT DRU mode. */
 	XVphy_HdmiGtDruModeEnable(InstancePtr, InstancePtr->HdmiRxDruIsEnabled);
 
 	/* Update RefClk selection. */
 	XVphy_WriteCfgRefClkSelReg(InstancePtr, 0);
+
+	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+				XVPHY_DIR_RX, TRUE);
+		/* Wait for reset sequence to release DRP port. */
+		XVphy_WaitUs(InstancePtr, 5000);
+	}
 
 	XVphy_ClkReconfig(InstancePtr, 0, ChId);
 	XVphy_OutDivReconfig(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
@@ -936,8 +1119,18 @@ void XVphy_HdmiGtHandler(XVphy *InstancePtr)
 	RxStatePtr = &InstancePtr->Quads[QuadId].Ch1.RxState;
 
 	if ((Event & XVPHY_INTR_QPLL0_LOCK_MASK) ||
-			 (Event & XVPHY_INTR_QPLL1_LOCK_MASK)){
-		XVphy_HdmiQpllLockHandler(InstancePtr);
+	    (Event & XVPHY_INTR_QPLL1_LOCK_MASK)) {
+		if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+			XVphy_HdmiQpllLockHandler(InstancePtr);
+		}
+		else { /* GTP. */
+			if (Event & XVPHY_INTR_QPLL0_LOCK_MASK) { /* PLL0. */
+				XVphy_HdmiGtpPllLockHandler(InstancePtr, 0);
+			}
+			if (Event & XVPHY_INTR_QPLL1_LOCK_MASK) { /* PLL1. */
+				XVphy_HdmiGtpPllLockHandler(InstancePtr, 1);
+			}
+		}
 	}
 	if (Event & XVPHY_INTR_CPLL_LOCK_MASK) {
 		XVphy_HdmiCpllLockHandler(InstancePtr);

@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.1   gm   02/01/16 Additional events for event log printout
  * </pre>
  *
 *******************************************************************************/
@@ -95,7 +96,7 @@ void XVphy_LogWrite(XVphy *InstancePtr, XVphy_LogEvent Evt, u8 Data)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Evt <= (XVPHY_LOG_EVT_RX_FREQ));
+	Xil_AssertVoid(Evt <= (XVPHY_LOG_EVT_DUMMY));
 	Xil_AssertVoid(Data < 0xFF);
 
 	/* Write data and event into log buffer */
@@ -188,10 +189,10 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 	xil_printf("\r\n\n\nVPHY log\r\n");
 	xil_printf("------\r\n");
 
-	do {
-		/* Read log data */
-		Log = XVphy_LogRead(InstancePtr);
+	/* Read log data */
+	Log = XVphy_LogRead(InstancePtr);
 
+	while (Log != 0) {
 		/* Event */
 		Evt = Log & 0xff;
 
@@ -240,7 +241,7 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 			break;
 		case (XVPHY_LOG_EVT_TX_ALIGN):
 			if (Data == 1) {
-				xil_printf("done\r\n");
+				xil_printf("TX alignment done\r\n");
 			}
 			else {
 				xil_printf("TX alignment start.\r\n.");
@@ -264,7 +265,7 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 			break;
 		case (XVPHY_LOG_EVT_CPLL_RECONFIG):
 			if (Data == 1) {
-				xil_printf("done\r\n");
+				xil_printf("CPLL reconfig done\r\n");
 			}
 			else {
 				xil_printf("CPLL reconfig start\r\n");
@@ -272,18 +273,50 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 			break;
 		case (XVPHY_LOG_EVT_GT_RECONFIG):
 			if (Data == 1) {
-				xil_printf("done\r\n");
+				xil_printf("GT reconfig done\r\n");
 			}
 			else {
 				xil_printf("GT reconfig start\r\n");
 			}
 			break;
+		case (XVPHY_LOG_EVT_GT_TX_RECONFIG):
+			if (Data == 1) {
+				xil_printf("GT TX reconfig done\r\n");
+			}
+			else {
+				xil_printf("GT TX reconfig start\r\n");
+			}
+			break;
+		case (XVPHY_LOG_EVT_GT_RX_RECONFIG):
+			if (Data == 1) {
+				xil_printf("GT RX reconfig done\r\n");
+			}
+			else {
+				xil_printf("GT RX reconfig start\r\n");
+			}
+			break;
 		case (XVPHY_LOG_EVT_QPLL_RECONFIG):
 			if (Data == 1) {
-				xil_printf("done\r\n");
+				xil_printf("QPLL reconfig done\r\n");
 			}
 			else {
 				xil_printf("QPLL reconfig start\r\n");
+			}
+			break;
+		case (XVPHY_LOG_EVT_PLL0_RECONFIG):
+			if (Data == 1) {
+				xil_printf("PLL0 reconfig done\r\n");
+			}
+			else {
+				xil_printf("PLL0 reconfig start\r\n");
+			}
+			break;
+		case (XVPHY_LOG_EVT_PLL1_RECONFIG):
+			if (Data == 1) {
+				xil_printf("PLL1 reconfig done\r\n");
+			}
+			else {
+				xil_printf("PLL1 reconfig start\r\n");
 			}
 			break;
 		case (XVPHY_LOG_EVT_INIT):
@@ -291,12 +324,12 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 				xil_printf("GT init done\r\n");
 			}
 			else {
-				xil_printf("GT Init start\r\n");
+				xil_printf("GT init start\r\n");
 			}
 			break;
 		case (XVPHY_LOG_EVT_TXPLL_RECONFIG):
 			if (Data == 1) {
-				xil_printf("done\r\n");
+				xil_printf("TX MMCM reconfig done\r\n");
 			}
 			else {
 				xil_printf("TX MMCM reconfig start\r\n");
@@ -304,7 +337,7 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 			break;
 		case (XVPHY_LOG_EVT_RXPLL_RECONFIG):
 			if (Data == 1) {
-				xil_printf("done\r\n");
+				xil_printf("RX MMCM reconfig done\r\n");
 			}
 			else {
 				xil_printf("RX MMCM reconfig start\r\n");
@@ -316,6 +349,22 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 			}
 			else {
 				xil_printf("QPLL lost lock\r\n");
+			}
+			break;
+		case (XVPHY_LOG_EVT_PLL0_LOCK):
+			if (Data == 1) {
+				xil_printf("PLL0 lock\r\n");
+			}
+			else {
+				xil_printf("PLL0 lost lock\r\n");
+			}
+			break;
+		case (XVPHY_LOG_EVT_PLL1_LOCK):
+			if (Data == 1) {
+				xil_printf("PLL1 lock\r\n");
+			}
+			else {
+				xil_printf("PLL1 lost lock\r\n");
 			}
 			break;
 		case (XVPHY_LOG_EVT_CPLL_LOCK):
@@ -354,9 +403,20 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 		case (XVPHY_LOG_EVT_RX_FREQ):
 			xil_printf("RX frequency event\r\n");
 			break;
+		case (XVPHY_LOG_EVT_DRU_EN):
+			if (Data == 1) {
+				xil_printf("DRU enable\r\n");
+			}
+			else {
+				xil_printf("DRU disable\r\n");
+			}
+			break;
 		default:
 			xil_printf("Unknown event\r\n");
 			break;
 		}
-	} while (Log != 0);
+
+		/* Read log data */
+		Log = XVphy_LogRead(InstancePtr);
+	}
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
  * </pre>
  *
 *******************************************************************************/
@@ -210,9 +211,15 @@
 #define XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK1 4
 #define XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK0 5
 #define XVPHY_REF_CLK_SEL_XPLL_GTSOUTHREFCLK1 6
+#define XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK0 3
+#define XVPHY_REF_CLK_SEL_XPLL_GTEASTREFCLK1 4
+#define XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK0 5
+#define XVPHY_REF_CLK_SEL_XPLL_GTWESTREFCLK1 6
 #define XVPHY_REF_CLK_SEL_XPLL_GTGREFCLK 7
 #define XVPHY_REF_CLK_SEL_SYSCLKSEL_MASK 0x0F000000
 #define XVPHY_REF_CLK_SEL_SYSCLKSEL_SHIFT 24
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL0 0
+#define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_PLL1 1
 #define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_CPLL 0
 #define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL 1
 #define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_DATA_QPLL0 3
@@ -222,21 +229,29 @@
 #define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN0 2
 #define XVPHY_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN1 3
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 0x03000000 : 0x02000000)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 0x03000000 : 0x02000000)
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 0x0C000000 : 0x08000000)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 0x0C000000 : 0x08000000)
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 0x30000000 : 0x01000000)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 0x30000000 : 0x01000000)
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 0xC0000000 : 0x04000000)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 0xC0000000 : 0x04000000)
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 24 : 25)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 24 : 25)
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 26 : 27)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 26 : 27)
 #define XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 28 : 24)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 28 : 24)
 #define XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT(G) \
-	(((G) == XVPHY_GT_TYPE_GTHE3) ? 30 : 26)
+	((((G) == XVPHY_GT_TYPE_GTHE3) || \
+		((G) == XVPHY_GT_TYPE_GTHE4)) ? 30 : 26)
 /* 0x014: PLL_RESET */
 #define XVPHY_PLL_RESET_CPLL_MASK	0x1
 #define XVPHY_PLL_RESET_QPLL0_MASK	0x2
