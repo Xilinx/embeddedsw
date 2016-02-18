@@ -36,6 +36,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
 # 2.0     adk    10/12/13 Updated as per the New Tcl API's
+# 3.1     mus    01/14/16 Added support for microblaze
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -111,6 +112,11 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
     set isintr [::hsm::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
+    if {$isintr == 1} {
+    set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname] INTERRUPT]
+    set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+    set proc [get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
+    }
 
     set testfunc_call ""
 
@@ -125,7 +131,13 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    }"
 	if {$isintr == 1} {
+            if {
+                $proc == "microblaze"
+            } then {
+                    set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
+            } else {
         set intr_id "XPAR_${ipname}_INTR"
+            }
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "
@@ -161,7 +173,13 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
 
 	if {$isintr ==1 } {
+            if {
+                $proc == "microblaze"
+            } then {
+                    set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
+            } else {
         set intr_id "XPAR_${ipname}_INTR"
+            }
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "

@@ -52,6 +52,7 @@
 * 1.00a xd/sv  01/12/10 First release
 * 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
 *						 SDK claims a 40kbps baud rate but it's not.
+* 3.1   mus    01/14/16 Added support for intc interrupt controller
 * </pre>
 *
 ******************************************************************************/
@@ -60,9 +61,14 @@
 
 #include "xparameters.h"
 #include "xcanps.h"
-#include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -71,10 +77,17 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define CAN_DEVICE_ID		XPAR_XCANPS_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define CAN_INTR_VEC_ID		XPAR_INTC_0_CANPS_0_VEC_ID
+#else
+#define INTC		XScuGic
 #define CAN_DEVICE_ID		XPAR_XCANPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define CAN_INTR_VEC_ID		XPAR_XCANPS_0_INTR
-
+#endif
 /* Maximum CAN frame length in word */
 #define XCANPS_MAX_FRAME_SIZE_IN_WORDS (XCANPS_MAX_FRAME_SIZE / sizeof(u32))
 
@@ -117,7 +130,7 @@
 
 /************************** Function Prototypes ******************************/
 
-int CanPsIntrExample(XScuGic *IntcInstPtr,
+int CanPsIntrExample(INTC *IntcInstPtr,
 			XCanPs *CanInstPtr,
 			u16 CanDeviceId,
 			u16 CanIntrId);
@@ -129,7 +142,7 @@ static void RecvHandler(void *CallBackRef);
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask);
 static void EventHandler(void *CallBackRef, u32 Mask);
 
-static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
+static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XCanPs *CanInstancePtr,
 				u16 CanIntrId);
 
@@ -137,7 +150,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 #ifndef TESTAPP_GEN
 static XCanPs CanInstance;    /* Instance of the Can driver */
-static XScuGic IntcInstance; /* Instance of the Interrupt Controller driver */
+static INTC IntcInstance; /* Instance of the Interrupt Controller driver */
 #endif
 
 /*
@@ -212,7 +225,7 @@ int main()
 *		an infinite loop and will never return to the caller.
 *
 ******************************************************************************/
-int CanPsIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
+int CanPsIntrExample(INTC *IntcInstPtr, XCanPs *CanInstPtr,
 			u16 CanDeviceId, u16 CanIntrId)
 {
 	int Status;
@@ -641,12 +654,56 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 * @note		None.
 *
 ****************************************************************************/
-static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
+static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XCanPs *CanInstancePtr,
 				u16 CanIntrId)
 {
 	int Status;
+#ifdef XPAR_INTC_0_DEVICE_ID
+#ifndef TESTAPP_GEN
+	/* Initialize the interrupt controller and connect the ISRs */
+	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
+	if (Status != XST_SUCCESS)
+	{
 
+		xil_printf("Failed init intc\r\n");
+		return XST_FAILURE;
+	}
+#endif
+	/*
+	 * Connect the driver interrupt handler
+	 */
+	Status = XIntc_Connect(IntcInstancePtr, CanIntrId,
+							(XInterruptHandler)XCanPs_IntrHandler, CanInstancePtr);
+	if (Status != XST_SUCCESS)
+	{
+
+		xil_printf("Failed connect intc\r\n");
+		return XST_FAILURE;
+	}
+#ifndef TESTAPP_GEN
+	/*
+	 * Start the interrupt controller such that interrupts are enabled for
+	 * all devices that cause interrupts.
+	 */
+	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS)
+	{
+		return XST_FAILURE;
+	}
+#endif
+
+	/*
+	 * Enable the interrupt for the CAN device.
+	 */
+	XIntc_Enable(IntcInstancePtr, CanIntrId);
+#ifndef TESTAPP_GEN
+	Xil_ExceptionInit();
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				(Xil_ExceptionHandler)XIntc_InterruptHandler,
+				(void *)IntcInstancePtr);
+#endif
+#else
 #ifndef TESTAPP_GEN
 	XScuGic_Config *IntcConfig; /* Instance of the interrupt controller */
 
@@ -693,7 +750,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * Enable the interrupt for the CAN device.
 	 */
 	XScuGic_Enable(IntcInstancePtr, CanIntrId);
-
+#endif
 #ifndef TESTAPP_GEN
 	/*
 	 * Enable interrupts in the Processor.

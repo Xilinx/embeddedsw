@@ -76,6 +76,8 @@ Fixed CR#911958 to add support for Tx Watermark example.
 Data mismatch while sending data less than 8 bytes.
 Updated XCanPs_IntrHandler in xcanps_intr.c to handle error interrupts correctly for CR#925615
 Fixed missing error interrupts, during can compliance test.
+Modified tapp tcl to support microblaze.
+Modified xcanps_intr_example to support intc interrupt controller.
 
 Changed file name ccm.h to xccm.h.
 Moved register offsets and bit definitions to xccm_hw.h file.
