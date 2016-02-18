@@ -83,6 +83,9 @@
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of RecvData, SendData,
 *                     DynRecvData, DynSendData APIs.
+* 3.2	sd   18/02/16 In Low level driver in repeated start condition
+*                     NACK for last byte is added. Changes are done in
+*                     XIic_Recv for CR# 862303
 * </pre>
 *
 ****************************************************************************/
@@ -199,6 +202,9 @@ unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 		 * must be disabled
 		 */
 		CntlReg &= ~XIIC_CR_DIR_IS_TX_MASK;
+		if (ByteCount == 1) {
+			CntlReg |= XIIC_CR_NO_ACK_MASK;
+		}
 		XIic_WriteReg(BaseAddress,  XIIC_CR_REG_OFFSET, CntlReg);
 		/* Already owns the Bus indicating that its a Repeated Start
 		 * call. 7 bit slave address, send the address for a read

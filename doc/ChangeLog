@@ -193,6 +193,9 @@ Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
 iic_v3_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
 Changed the prototype of XIic_CfgInitialize API.
+In Low level driver in repeated start condition NACK for last byte is added.
+Changes are done in XIic_Recv for CR# 862303
+
 
 iicps_v3_1:
 Updates example files xiicps_eeprom_intr_example.c, xiicps_eeprom_polled_example.c,

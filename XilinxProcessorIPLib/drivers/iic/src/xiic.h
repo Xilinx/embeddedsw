@@ -295,6 +295,9 @@
 *		      file xiic_slave.c.
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XIic_CfgInitialize API.
+* 3.2	sd   18/02/16 In Low level driver in repeated start condition
+*                     NACK for last byte is added. Changes are done in
+*                     XIic_Recv for CR# 862303
 * </pre>
 *
 ******************************************************************************/
