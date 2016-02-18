@@ -43,6 +43,11 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  06/08/15 Added MST functionality to RX.
+ * 4.0   als  02/16/16 XDp_TxAllocatePayloadStreams now allocates payloads by
+ *                     using an internally calculated starting timeslot for each
+ *                     stream rather than invoking XDp_TxGetFirstAvailableTs.
+ *                     XDp_TxAllocatePayloadVcIdTable now takes an additional
+ *                     argument (StartTs, the starting timeslot).
  * </pre>
  *
 *******************************************************************************/
@@ -172,7 +177,6 @@ static void XDp_TxAddSinkToList(XDp *InstancePtr,
 static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(
 			XDp_SidebandReply *SbReply,
 			XDp_SbMsgLinkAddressReplyDeviceInfo *FormatReply);
-static u32 XDp_TxGetFirstAvailableTs(XDp *InstancePtr, u8 *FirstTs);
 static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg);
@@ -1309,6 +1313,7 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 {
 	u32 Status;
 	u8 StreamIndex;
+	u8 StartTs = 1;
 	XDp_TxMstStream *MstStream;
 	XDp_TxMainStreamAttributes *MsaConfig;
 
@@ -1319,17 +1324,20 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
-	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
-		MsaConfig =
-			&InstancePtr->TxInstance.MsaConfig[StreamIndex];
-
-		if (XDp_TxMstStreamIsEnabled(InstancePtr, StreamIndex + 1)) {
-			Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr,
-				StreamIndex + 1, MsaConfig->TransferUnitSize);
-			if (Status != XST_SUCCESS) {
-				return Status;
-			}
+	for (StreamIndex = 0; StreamIndex < XDP_TX_STREAM_ID4; StreamIndex++) {
+		if (!XDp_TxMstStreamIsEnabled(InstancePtr,
+					StreamIndex + XDP_TX_STREAM_ID1)) {
+			continue;
 		}
+		MsaConfig = &InstancePtr->TxInstance.MsaConfig[StreamIndex];
+
+		Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr,
+			StreamIndex + XDP_TX_STREAM_ID1,
+			MsaConfig->TransferUnitSize, StartTs);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+		StartTs += MsaConfig->TransferUnitSize;
 	}
 
 	/* Generate an ACT event. */
@@ -1339,18 +1347,19 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 	}
 
 	/* Send ALLOCATE_PAYLOAD request. */
-	for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
+	for (StreamIndex = 0; StreamIndex < XDP_TX_STREAM_ID4; StreamIndex++) {
+		if (!XDp_TxMstStreamIsEnabled(InstancePtr,
+					StreamIndex + XDP_TX_STREAM_ID1)) {
+			continue;
+		}
 		MstStream =
 			&InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
 
-		if (XDp_TxMstStreamIsEnabled(InstancePtr, StreamIndex + 1)) {
-			Status = XDp_TxSendSbMsgAllocatePayload(InstancePtr,
-				MstStream->LinkCountTotal,
-				MstStream->RelativeAddress, StreamIndex + 1,
-				MstStream->MstPbn);
-			if (Status != XST_SUCCESS) {
-				return Status;
-			}
+		Status = XDp_TxSendSbMsgAllocatePayload(InstancePtr,
+			MstStream->LinkCountTotal, MstStream->RelativeAddress,
+			StreamIndex + XDP_TX_STREAM_ID1, MstStream->MstPbn);
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
 	}
 
@@ -1369,6 +1378,7 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
  *		payload ID tables.
  * @param	Ts is the number of timeslots to allocate in the payload ID
  *		tables.
+ * @param	StartTs is the starting time slot to allocate the VcId to.
  *
  * @return
  *		- XST_SUCCESS if the payload ID tables were successfully updated
@@ -1386,12 +1396,11 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts)
+u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts, u8 StartTs)
 {
 	u32 Status;
 	u8 AuxData[3];
 	u8 Index;
-	u8 StartTs = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1408,21 +1417,10 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts)
 		return Status;
 	}
 
-	if (VcId != 0) {
-		/* Find next available timeslot. */
-		Status = XDp_TxGetFirstAvailableTs(InstancePtr, &StartTs);
-		if (Status != XST_SUCCESS) {
-			/* The AUX read transaction failed. */
-			return Status;
-		}
-
-		/* Check that there are enough time slots available. */
-		if (((63 - StartTs + 1) < Ts) ||
-				(StartTs == 0)) {
-			/* Clearing the payload ID table is required to
-			 * re-allocate streams. */
-			return XST_BUFFER_TOO_SMALL;
-		}
+	/* Check that there are enough time slots available. */
+	if ((VcId != 0) && (((63 - StartTs + 1) < Ts) || (StartTs == 0))) {
+		/* Payload ID table needs to be cleared to. */
+		return XST_BUFFER_TOO_SMALL;
 	}
 
 	/* Allocate timeslots in TX. */
@@ -1498,7 +1496,7 @@ u32 XDp_TxClearPayloadVcIdTable(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
-	Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr, 0, 64);
+	Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr, 0, 64, 0);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -3392,53 +3390,6 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(XDp_SidebandReply
 			ReplyIndex++;
 		}
 	}
-}
-
-/******************************************************************************/
-/**
- * This function will read the payload ID table from the immediate downstream RX
- * device and determine what the first available time slot is in the table.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- *
- * @return
- *		- XST_SUCCESS if the immediate downstream RX device's payload ID
- *		  table was successfully read (regardless of whether there are
- *		  any available time slots or not).
- *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
- *		- XST_ERROR_COUNT_MAX if waiting for the the AUX read request to
- *		  read the RX device's payload ID table timed out.
- *		- XST_FAILURE if the AUX read transaction failed while trying to
- *		  read the RX device's payload ID table.
- *
- * @note	None.
- *
-*******************************************************************************/
-static u32 XDp_TxGetFirstAvailableTs(XDp *InstancePtr, u8 *FirstTs)
-{
-	u32 Status;
-	u8 Index;
-	u8 AuxData[64];
-
-	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_VC_PAYLOAD_ID_SLOT(1),
-								64, AuxData);
-	if (Status != XST_SUCCESS) {
-		/* The AUX read transaction failed. */
-		return Status;
-	}
-
-	for (Index = 0; Index < 64; Index++) {
-		/* A zero in the payload ID table indicates that the timeslot is
-		 * available. */
-		if (AuxData[Index] == 0) {
-			*FirstTs = (Index + 1);
-			return XST_SUCCESS;
-		}
-	}
-
-	/* No free time slots available. */
-	*FirstTs = 0;
-	return XST_SUCCESS;
 }
 
 /******************************************************************************/

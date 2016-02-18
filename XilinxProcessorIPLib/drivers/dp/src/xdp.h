@@ -351,6 +351,8 @@
  * 4.0   als  12/08/15 Added link rate and lane count validity check APIs:
  *                         XDp_IsLinkRateValid
  *                         XDp_IsLaneCountValid
+ *                     XDp_TxAllocatePayloadVcIdTable now takes an additional
+ *                     argument (StartTs, the starting timeslot).
  *                     Added RX API to get color depth of a given stream.
  *                         XDp_RxGetBpc
  *                     Added RX API to get color component format of a stream.
@@ -1250,7 +1252,8 @@ u32 XDp_TxRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 /* xdp_mst.c: Multi-stream transport (MST) functions related to MST stream
  * allocation. */
 u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr);
-u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts);
+u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts,
+		u8 StartTs);
 u32 XDp_TxClearPayloadVcIdTable(XDp *InstancePtr);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for issuing sideband
