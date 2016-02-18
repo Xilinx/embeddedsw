@@ -74,14 +74,12 @@
 static u32 ImageOffset = 0x04000000;
 static u32 HeaderSrcOffset = 0x030;
 static u32 HeaderFsblTotalLenOffset = 0x040;
-static u32 HeaderFsblLenOffset = 0x03C;
 
-#define XSECURE_PPK_SIZE						(512+512+64)
-#define XSECURE_SPK_SIZE						XSECURE_PPK_SIZE
+#define XSECURE_PPK_SIZE					(512+512+64)
+#define XSECURE_SPK_SIZE					XSECURE_PPK_SIZE
 #define XSECURE_SPK_SIG_SIZE					(512)
 #define XSECURE_BHDR_SIG_SIZE					(512)
-#define XSECURE_FSBL_SIG_SIZE					(512)
-#define XSECURE_RSA_KEY_LEN					    (4096)
+#define XSECURE_RSA_KEY_LEN					(4096)
 #define XSECURE_RSA_BIG_ENDIAN					(0x1)
 #define XSECURE_RSA_AC_ALIGN					(64)
 
@@ -175,7 +173,7 @@ u32 SecureRsaExample(void)
 	 * that linker script does not map the example elf to the same
 	 * location as this standalone example
 	 */
-	u32 FsblOffset = XSecure_In32((u32 *)(ImageOffset + HeaderSrcOffset));
+	u32 FsblOffset = XSecure_In32((UINTPTR)(ImageOffset + HeaderSrcOffset));
 
 	xil_printf(" Fsbl Offset in the image is  %0x ",FsblOffset);
 	xil_printf(" \r\n ");
@@ -185,11 +183,8 @@ u32 SecureRsaExample(void)
 	xil_printf(" Fsbl Location is %0x ",FsblLocation);
 	xil_printf(" \r\n ");
 
-	u32 TotalFsblLength = XSecure_In32((u32 *)(ImageOffset +
+	u32 TotalFsblLength = XSecure_In32((UINTPTR)(ImageOffset +
 					HeaderFsblTotalLenOffset));
-
-	u32 FsblLength = XSecure_In32((u32 *)(ImageOffset +
-					HeaderFsblLenOffset));
 
 	u32 AcLocation = FsblLocation + TotalFsblLength - XSECURE_AUTH_CERT_MIN_SIZE;
 
@@ -200,12 +195,12 @@ u32 SecureRsaExample(void)
 	u8 * SpkModular = (u8 *)XNULL;
 	u8 * SpkModularEx = (u8 *)XNULL;
 	u32 SpkExp = 0;
-	u8 * AcPtr = (u8 *)AcLocation;
+	u8 * AcPtr = (u8 *)(UINTPTR)AcLocation;
 	u32 ErrorCode = XST_SUCCESS;
 	u32	FsblTotalLen = TotalFsblLength - XSECURE_FSBL_SIG_SIZE;
 
 	xil_printf(" Fsbl Total Length(Total - BI Signature) %0x ",
-			                          (u32)FsblTotalLen);
+			(u32)FsblTotalLen);
 	xil_printf(" \r\n ");
 
 	/**
@@ -223,7 +218,7 @@ u32 SecureRsaExample(void)
 	* Set Boot Image Signature pointer
 	*/
 	AcPtr += (XSECURE_SPK_SIG_SIZE + XSECURE_BHDR_SIG_SIZE);
-	xil_printf(" Boot Image Signature Location is %0x ",(u32)AcPtr);
+	xil_printf(" Boot Image Signature Location is %0x ",(u32)(UINTPTR)AcPtr);
 	xil_printf(" \r\n ");
 
 	/*
@@ -253,7 +248,7 @@ u32 SecureRsaExample(void)
 	/**
 	* Calculate FSBL Hash
 	*/
-	XSecure_Sha3Update(&Secure_Sha3, (u8 *)FsblLocation,
+	XSecure_Sha3Update(&Secure_Sha3, (u8 *)(UINTPTR)FsblLocation,
 					FsblTotalLen);
 
 	XSecure_Sha3Finish(&Secure_Sha3, (u8 *)BIHash);

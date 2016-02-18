@@ -115,7 +115,7 @@ XCsuDma CsuDma;
 * @note		None
 *
 ******************************************************************************/
-s32 main(void)
+int main(void)
 {
 	int Status;
 
@@ -168,11 +168,11 @@ int SecureAesExample(void)
 	 * that linker script does not map the example elf to the same
 	 * location as this standalone example
 	 */
-	u32 FsblOffset = XSecure_In32((u32 *)(ImageOffset + HeaderSrcOffset));
+	u32 FsblOffset = XSecure_In32((UINTPTR)(ImageOffset + HeaderSrcOffset));
 
 	u32 FsblLocation = ImageOffset + FsblOffset;
 
-	u32 FsblLength = XSecure_In32((u32 *)(ImageOffset + HeaderFsblLenOffset));
+	u32 FsblLength = XSecure_In32((UINTPTR)(ImageOffset + HeaderFsblLenOffset));
 
 	/*
 	 * Initialize the Aes driver so that it's ready to use
@@ -180,8 +180,8 @@ int SecureAesExample(void)
 	XSecure_AesInitialize(&Secure_Aes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
 			                           (u32 *)csu_iv, (u32 *)csu_key);
 
-	Status = XSecure_AesDecrypt(&Secure_Aes, Dst, (u8 *)FsblLocation,
-						                     FsblLength);
+	Status = XSecure_AesDecrypt(&Secure_Aes, Dst, (u8 *)(UINTPTR)FsblLocation,
+						FsblLength);
 
 
 	if(Status != XST_SUCCESS)

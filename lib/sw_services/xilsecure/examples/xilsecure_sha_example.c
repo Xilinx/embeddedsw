@@ -80,7 +80,7 @@
 
 /************************** Function Prototypes ******************************/
 
-int SecureSha3Example(void);
+int SecureHelloWorldExample(void);
 
 /************************** Variable Definitions *****************************/
 
