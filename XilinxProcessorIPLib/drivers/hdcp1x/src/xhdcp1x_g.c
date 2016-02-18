@@ -5,7 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2015 Xilinx, Inc. All Rights Reserved.*
+* Copyright (C) 2010-2016 Xilinx, Inc. All Rights Reserved.*
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -37,8 +37,8 @@
 *
 *******************************************************************/
 
-#include "xhdcp1x.h"
 #include "xparameters.h"
+#include "xhdcp1x.h"
 
 /*
 * The configuration table for devices
@@ -46,14 +46,18 @@
 
 XHdcp1x_Config XHdcp1x_ConfigTable[] =
 {
-#if defined(XPAR_XHDCP_NUM_INSTANCES) && (XPAR_XHDCP_NUM_INSTANCES > 0)
 	{
-		XPAR_HDCP_SUBSYSTEM_HDCP_0_DEVICE_ID,
-		XPAR_HDCP_SUBSYSTEM_HDCP_0_BASEADDR,
-		XPAR_HDCP_SUBSYSTEM_HDCP_0_S_AXI_FREQUENCY,
-		XPAR_HDCP_SUBSYSTEM_HDCP_0_IS_RX,
-		XPAR_HDCP_SUBSYSTEM_HDCP_0_IS_HDMI
+		XPAR_DP_RX_HIER_DP_RX_SUBSYSTEM_0_DP_RX_HDCP_DEVICE_ID,
+		XPAR_DP_RX_HIER_DP_RX_SUBSYSTEM_0_DP_RX_HDCP_BASEADDR,
+		XPAR_DP_RX_HIER_DP_RX_SUBSYSTEM_0_DP_RX_HDCP_S_AXI_FREQUENCY,
+		XPAR_DP_RX_HIER_DP_RX_SUBSYSTEM_0_DP_RX_HDCP_IS_RX,
+		XPAR_DP_RX_HIER_DP_RX_SUBSYSTEM_0_DP_RX_HDCP_IS_HDMI
+	},
+	{
+		XPAR_DP_TX_HIER_DP_TX_SUBSYSTEM_0_DP_TX_HDCP_DEVICE_ID,
+		XPAR_DP_TX_HIER_DP_TX_SUBSYSTEM_0_DP_TX_HDCP_BASEADDR,
+		XPAR_DP_TX_HIER_DP_TX_SUBSYSTEM_0_DP_TX_HDCP_S_AXI_FREQUENCY,
+		XPAR_DP_TX_HIER_DP_TX_SUBSYSTEM_0_DP_TX_HDCP_IS_RX,
+		XPAR_DP_TX_HIER_DP_TX_SUBSYSTEM_0_DP_TX_HDCP_IS_HDMI
 	}
-#endif
 };
-/** @} */

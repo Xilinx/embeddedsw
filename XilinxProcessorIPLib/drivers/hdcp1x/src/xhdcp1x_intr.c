@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_cipher_intr.c
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This file contains interrupt related functions for Xilinx HDCP core.
@@ -45,6 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.0   yas    02/13/16 Added function XHdcp1x_SetCallBack.
 * </pre>
 *
 ******************************************************************************/
@@ -62,7 +63,60 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#if defined(XPAR_XDP_NUM_INSTANCES) && (XPAR_XDP_NUM_INSTANCES > 0)
+#define INCLUDE_RX
+#define INCLUDE_TX
+#endif
+
 /************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+*
+* This function sets the callback for High-Bandwidth Content Protection
+* (HDCP) Tx interface to write the Repeater values read from downstream
+* to upstream.
+*
+* @param	InstancePtr is a pointer to the HDCP core instance.
+* @param	HandlerType is the handler which describes the call back type.
+* @param	CallBackFunc is a pointer to the call back function.
+* @param	CallBackRef is a vod pointer to the call back reference.
+*
+* @return
+*		- XST_SUCCESS, if HDCP i/f enabled successfully.
+*		- XST_FAILURE, otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XHdcp1x_SetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
+		XHdcp1x_Callback CallBackFunc, void *CallBackRef)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	if (!InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_TxSetCallBack(InstancePtr, HandlerType,
+					CallBackFunc, CallBackRef);
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	if (InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_RxSetCallBack(InstancePtr, HandlerType,
+					CallBackFunc, CallBackRef);
+	}
+	else
+#endif
+	{
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
 
 /*****************************************************************************/
 /**

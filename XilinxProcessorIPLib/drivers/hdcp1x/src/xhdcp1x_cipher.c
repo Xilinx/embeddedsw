@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_cipher.c
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This file contains the main implementation of the driver associated with
@@ -143,7 +143,8 @@ int XHdcp1x_CipherIsLinkUp(const XHdcp1x *InstancePtr)
 	if (XHdcp1x_CipherIsEnabled(InstancePtr)) {
 		Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
 			XHDCP1X_CIPHER_REG_STATUS);
-		if ((Value & XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL) != 0) {
+		if ((Value &
+			XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL) != 0) {
 			IsUp = TRUE;
 		}
 	}
@@ -350,11 +351,14 @@ int XHdcp1x_CipherDoRequest(XHdcp1x *InstancePtr,
 	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
 		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
-	/* Set the appropriate request bit and ensure that Km is always used */
+	/* Set the appropriate request bit
+	 * and ensure that Km is always used
+	 */
 	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
 		XHDCP1X_CIPHER_REG_CIPHER_CONTROL);
 	Value &= ~XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST;
-	Value |= (XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK << Request);
+	Value |= (XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK
+								<< Request);
 	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
 		XHDCP1X_CIPHER_REG_CIPHER_CONTROL, Value);
 
@@ -517,7 +521,8 @@ u64 XHdcp1x_CipherGetEncryption(const XHdcp1x *InstancePtr)
 		XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L);
 
 	/* Check for special case of just XOR in progress */
-	if ((StreamMap == 0) && (XHdcp1x_CipherXorInProgress(InstancePtr))) {
+	if ((StreamMap == 0) &&
+			(XHdcp1x_CipherXorInProgress(InstancePtr))) {
 		StreamMap = 0x01ul;
 	}
 
@@ -992,8 +997,9 @@ int XHdcp1x_CipherSetB(XHdcp1x *InstancePtr, u32 X, u32 Y, u32 Z)
 *		- XST_SUCCESS if successful.
 *		- XST_NOT_ENABLED otherwise.
 *
-* @note		A NULL pointer can be passed in any of X, Y and Z.  If so, then
-*		this portion of the K register is not returned to the caller.
+* @note		A NULL pointer can be passed in any of X, Y and Z. If so,
+*		then this portion of the K register is not returned
+*		to the caller.
 *
 ******************************************************************************/
 int XHdcp1x_CipherGetK(const XHdcp1x *InstancePtr, u32 *X, u32 *Y, u32 *Z)
@@ -1242,3 +1248,4 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr)
 
 	return (Version);
 }
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x.c
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This contains the implementation of the HDCP state machine module
@@ -45,6 +45,10 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
 * 2.00  als    09/30/15 Added EffectiveAddr argument to XHdcp1x_CfgInitialize.
+* 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
+*                       Added functions:
+*                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
+*                       XHdcp1x_SetCallBack", XHdcp1x_ReadDownstream
 * </pre>
 *
 ******************************************************************************/
@@ -106,9 +110,9 @@ XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
 * @param	InstancePtr is the device whose adaptor is to be determined.
 * @param	CfgPtr is the configuration of the instance.
 * @param	PhyIfPtr is pointer to the underlying physical interface.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		space. If the address translation is not used, then the physical
-*		address is passed.
+* @param	EffectiveAddr is the device base address in the virtual
+*		memory space. If the address translation is not used,
+*		then the physical address is passed.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -128,7 +132,6 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
 	/* Initialize InstancePtr. */
-	memset(InstancePtr, 0, sizeof(XHdcp1x));
 	InstancePtr->Config = *CfgPtr;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
@@ -137,13 +140,13 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	RegVal = XHdcp1x_ReadReg(EffectiveAddr, XHDCP1X_CIPHER_REG_TYPE);
 	RegVal &= XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION;
 	InstancePtr->Config.IsRx = (RegVal ==
-			XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX) ? TRUE : FALSE;
+		XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX) ? TRUE : FALSE;
 
 	/* Update IsHDMI. */
 	RegVal = XHdcp1x_ReadReg(EffectiveAddr, XHDCP1X_CIPHER_REG_TYPE);
 	RegVal &= XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL;
 	InstancePtr->Config.IsHDMI = (RegVal ==
-			XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI) ? TRUE : FALSE;
+		XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI) ? TRUE : FALSE;
 
 	InstancePtr->Port.Adaptor = XHdcp1x_PortDetermineAdaptor(InstancePtr);
 
@@ -189,7 +192,7 @@ int XHdcp1x_Poll(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -215,6 +218,88 @@ int XHdcp1x_Poll(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function posts a DOWNSTREAMREADY event to an HDCP interface.
+*
+* @param 	InstancePtr is the interface to reset.
+*
+* @return
+*		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_DownstreamReady(XHdcp1x *InstancePtr)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		/* No downstreamready for TX */
+		Status = XST_FAILURE;
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_RxDownstreamReady(InstancePtr);
+	}
+	else
+#endif
+	{
+		Status = XST_FAILURE;
+	}
+
+	return (Status);
+}
+
+/*****************************************************************************/
+/**
+* This function copies the V'H0, V'H1, V'H2, V'H3, V'H4, KSVList and BInfo
+* values in the HDCP RX HDCP Instance for Repeater validation .
+*
+* @param	InstancePtr is the receiver instance.
+* @param	RepeaterInfoPtr is the Repeater information in the transmitter
+* 		instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
+		XHdcp1x_RepeaterExchange *RepeaterInfoPtr)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(RepeaterInfoPtr != NULL);
+
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_RxGetRepeaterInfo(InstancePtr,
+			RepeaterInfoPtr);
+	}
+	else
+#endif
+	{
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 * This function resets an HDCP interface.
 *
 * @param InstancePtr is the interface to reset.
@@ -230,7 +315,7 @@ int XHdcp1x_Reset(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -271,7 +356,7 @@ int XHdcp1x_Enable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -312,7 +397,7 @@ int XHdcp1x_Disable(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -437,7 +522,7 @@ int XHdcp1x_Authenticate(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -463,13 +548,55 @@ int XHdcp1x_Authenticate(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function initiates downstream read of READY bit and consequently the
+* second part of Repeater authentication.
+*
+* @param	InstancePtr is the interface to initiate authentication on.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_ReadDownstream(XHdcp1x *InstancePtr)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_TxReadDownstream(InstancePtr);
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		/* Does nothing for Rx state machine.*/
+	}
+	else
+#endif
+	{
+		Status = XST_FAILURE;
+	}
+
+	return (Status);
+}
+
+/*****************************************************************************/
+/**
 * This function queries an interface to determine if authentication is in
 * progress.
 *
 * @param	InstancePtr is the interface to query.
 *
-* @return	Truth value indicating authentication in progress (TRUE) or not
-*		(FALSE).
+* @return	Truth value indicating authentication in progress (TRUE)
+*		or not (FALSE).
 *
 * @note		None.
 *
@@ -478,7 +605,7 @@ int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr)
 {
 	int IsInProgress = FALSE;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -507,7 +634,7 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 {
 	int IsAuth = FALSE;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -536,7 +663,7 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 * This function retrieves the current encryption map of the video streams
 * traversing an hdcp interface.
 *
-* @param InstancePtr is the interface to query.
+* @param 	InstancePtr is the interface to query.
 *
 * @return	The current encryption map.
 *
@@ -547,7 +674,7 @@ u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr)
 {
 	u64 StreamMap = 0;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -598,8 +725,9 @@ int XHdcp1x_IsEncrypted(const XHdcp1x *InstancePtr)
 * @param	InstancePtr is the interface to configure.
 * @param	Map is the stream map to enable encryption on.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_FAILURE otherwise.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
 * @note		None.
 *
@@ -695,7 +823,7 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 {
 	XHdcp1x *HdcpPtr = InstancePtr;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertVoid(HdcpPtr != NULL);
 
 #if defined(INCLUDE_TX)
@@ -705,7 +833,6 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 	}
 #endif
 }
-
 
 /*****************************************************************************/
 /**
@@ -832,7 +959,7 @@ u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
 {
 	u32 Version = 0;
 
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Version = XHdcp1x_CipherGetVersion(InstancePtr);
@@ -854,7 +981,7 @@ u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
 ******************************************************************************/
 void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 {
-	/* Verify arguments. */
+	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 #if defined(INCLUDE_TX)

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_port_dp.h
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This file contains the definitions for the hdcp port registers/offsets for
@@ -45,6 +45,11 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
+*                       Added macro defintions for:
+*                       XHDCP1X_PORT_HDCP_RESET_KSV,
+*                       XHDCP1X_PORT_SIZE_HDCP_RESET_KSV and
+*                       XHDCP1X_PORT_HDCP_RESET_KSV_RST.
 * </pre>
 *
 ******************************************************************************/
@@ -82,8 +87,10 @@ extern "C" {
 #define XHDCP1X_PORT_OFFSET_BSTATUS	(0x29u)   /**< Bstatus Offset     */
 #define XHDCP1X_PORT_OFFSET_BINFO	(0x2Au)   /**< Binfo Offset       */
 #define XHDCP1X_PORT_OFFSET_KSVFIFO	(0x2Cu)   /**< KSV FIFO Offset    */
-#define XHDCP1X_PORT_OFFSET_AINFO 	(0x3Bu)   /**< Ainfo Offset       */
+#define XHDCP1X_PORT_OFFSET_AINFO	(0x3Bu)   /**< Ainfo Offset       */
 #define XHDCP1X_PORT_OFFSET_DBG		(0xC0u)   /**< Debug Space Offset */
+#define XHDCP1X_PORT_HDCP_RESET_KSV (0xD0u)   /**< KSV FIFO Read pointer
+						*  reset Offset*/
 
 /**
  * These constants specify the sizes for the various fields and/or
@@ -100,10 +107,12 @@ extern "C" {
 #define XHDCP1X_PORT_SIZE_VH4		(0x04u)   /**< V'.H4 Size         */
 #define XHDCP1X_PORT_SIZE_BCAPS		(0x01u)   /**< Bcaps Size         */
 #define XHDCP1X_PORT_SIZE_BSTATUS	(0x01u)   /**< Bstatus Size       */
-#define XHDCP1X_PORT_SIZE_BINFO 	(0x02u)   /**< Binfo Size         */
+#define XHDCP1X_PORT_SIZE_BINFO		(0x02u)   /**< Binfo Size         */
 #define XHDCP1X_PORT_SIZE_KSVFIFO	(0x0Fu)   /**< KSV FIFO Size      */
 #define XHDCP1X_PORT_SIZE_AINFO		(0x01u)   /**< Ainfo Offset       */
 #define XHDCP1X_PORT_SIZE_DBG		(0x40u)   /**< Debug Space Size   */
+#define XHDCP1X_PORT_SIZE_HDCP_RESET_KSV (0x40u)   /**< KSV FIFO pointer
+						     *  reset Size   */
 
 /**
  * These constants specify the bit definitions within the various fields
@@ -119,11 +128,13 @@ extern "C" {
 
 #define XHDCP1X_PORT_BIT_AINFO_REAUTH_ENABLE_IRQ	(1u << 0)
 
+#define XHDCP1X_PORT_HDCP_RESET_KSV_RST (1u << 0)
+
 /**
  * This constant defines the base address of the hdcp port within the DPCD
  * address space
  */
-#define XHDCP1X_PORT_DPCD_BASE		(0x68000u)   /**< Base Addr in DPCD */
+#define XHDCP1X_PORT_DPCD_BASE	(0x68000u)   /**< Base Addr in DPCD */
 
 /**************************** Type Definitions *******************************/
 

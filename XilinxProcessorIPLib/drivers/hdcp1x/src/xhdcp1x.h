@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x.h
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 * @details
 *
@@ -47,6 +47,19 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
 * 2.00  als    09/30/15 Added EffectiveAddr argument to XHdcp1x_CfgInitialize.
+* 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
+*                       Added constants:
+*                       XHDCP1X_RPTR_MAX_CASCADE and
+*                       XHDCP1X_RPTR_MAX_DEVS_COUNT.
+*                       Added enumeration type:
+*                       XHdcp1x_RepeaterStateMachineHandlerType.
+*                       Added typedef data type XHdcp1x_Ksv.
+*                       Added structure XHdcp1x_RepeaterExchange.
+*                       Updated core structure XHdcp1x_Tx, XHdcp1x_Rx and
+*                       XHdcp1x for Repeater support.
+*                       Added following functions:
+*                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
+*                       XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream.
 * </pre>
 *
 ******************************************************************************/
@@ -67,6 +80,14 @@ extern "C" {
 #include "xtmrctr.h"
 
 /************************** Constant Definitions *****************************/
+
+#define XHDCP1X_RPTR_MAX_CASCADE	4	/**< Maximum depth that the
+						  *  Repeater can support on
+						  *  the downstream
+						  *  interface */
+#define XHDCP1X_RPTR_MAX_DEVS_COUNT	32	/**< Maximum devices that can
+						  *  be cascaded to the
+						  *  Repeater */
 
 /**************************** Type Definitions *******************************/
 
@@ -89,15 +110,24 @@ typedef void (*XHdcp1x_Printf)(const char *fmt, ...);
 typedef void (*XHdcp1x_LogMsg)(const char *fmt, ...);
 
 /**
+ * This enumerates the call back for the HDCP Repeater Tx state machine
+ */
+typedef enum {
+	XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY = 1,
+	XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
+	XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
+} XHdcp1x_RepeaterStateMachineHandlerType;
+
+/**
 * This typedef contains configuration information for the HDCP core.
 */
 typedef struct {
 	u16 DeviceId;		/**< Device instance ID. */
 	u32 BaseAddress;	/**< The base address of the core  */
 	u32 SysFrequency;	/**< The main clock frequency of the core */
-	u16 IsRx;	        /**< Flag indicating the core direction */
-	u16 IsHDMI;	        /**< Flag indicating if the core is meant to
-					work with HDMI. */
+	u16 IsRx;		/**< Flag indicating the core direction */
+	u16 IsHDMI;		/**< Flag indicating if the core is meant to
+				  *  work with HDMI. */
 } XHdcp1x_Config;
 
 /**
@@ -133,13 +163,33 @@ typedef struct {
 struct XHdcp1x_PortPhyIfAdaptorS;
 
 /**
+ * This typedef defines a memory to store a Key Selection Vector (KSV)
+ */
+typedef u64 XHdcp1x_Ksv;
+
+/**
+ * This typedef contains an instance of the HDCP Repeater values to
+ * exchanged between HDCP Tx and HDCP Rx
+ */
+typedef struct {
+	u32 V[5];	/**< 20 bytes value of SHA 1 hash, V'H0, V'H1, V'H2 ,
+			  *  V'H3 ,V'H4 read from the downstream Repeater*/
+	XHdcp1x_Ksv KsvList[32];	/**< An array of 32 elements each
+					  *  of 64 bits to store the KSVs
+					  *  for the KSV FIFO*/
+	u8 Depth;	/**< Depth of the Repeater's downstream topology*/
+	u8 DeviceCount;		/**< Number of downstream devices attached
+				  *  to the Repeater*/
+} XHdcp1x_RepeaterExchange;
+
+/**
  * This typedef contains an instance of the HDCP port
  */
 typedef struct XHdcp1x_PortStruct {
-	const struct XHdcp1x_PortPhyIfAdaptorS *Adaptor; /**< Port adaptor */
-	void *PhyIfPtr;			/**< The port's physical interface */
+	const struct XHdcp1x_PortPhyIfAdaptorS *Adaptor;/**< Port adaptor */
+	void *PhyIfPtr;		/**< The port's physical interface */
 	XHdcp1x_Callback AuthCallback;	/**< (Re)Authentication callback */
-	void *AuthRef;			/**< (Re)Authentication reference */
+	void *AuthRef;		/**< (Re)Authentication reference */
 	u32 IsAuthCallbackSet;		/**< (Re)Authentication config flag */
 	XHdcp1x_PortStats Stats;	/**< Port statistics */
 } XHdcp1x_Port;
@@ -169,56 +219,99 @@ typedef struct {
  * This typedef contains the transmit HDCP interface
  */
 typedef struct {
-	u32 CurrentState;		/**< The interface's current state */
-	u32 PreviousState;		/**< The interface's previous state */
-	u64 StateHelper;		/**< The interface's state helper */
-	u16 Flags;			/**< The interface flags */
-	u16 PendingEvents;		/**< The bit map of pending events */
-	u64 EncryptionMap;		/**< The configured encryption map */
-	XHdcp1x_TxStats Stats;		/**< The interface's statistics */
+	u32 CurrentState;	/**< The interface's current state */
+	u32 PreviousState;	/**< The interface's previous state */
+	u64 StateHelper;	/**< The interface's state helper */
+	u16 Flags;		/**< The interface flags */
+	u16 PendingEvents;	/**< The bit map of pending events */
+	u64 EncryptionMap;	/**< The configured encryption map */
+	XHdcp1x_TxStats Stats;	/**< The interface's statistics */
+	XHdcp1x_Callback DownstreamReadyCallback;/**< (Repeater)Downstream
+						   *  Ready callback */
+	void *DownstreamReadyRef;	/**< (Repeater)Downstream Ready
+					  *  reference */
+	u32 IsDownStreamReadyCallbackSet;	/**< (Repeater)Check to
+						  *  determine if Downstream
+						  *  Ready callback is set
+						  *  flag*/
+	XHdcp1x_Callback RepeaterExchangeCallback;/**< (Repeater)Exchange
+						    *  Repeater Values
+						    *  callback */
+	void *RepeaterExchangeRef;	/**< (Repeater)Exchange Repeater
+					  *  Values reference */
+	u32 IsRepeaterExchangeCallbackSet;	/**< (Repeater)Check to
+						  *  determine if Exchange
+						  *  Repeater Values
+						  *  callback is set flag */
+	u16 DownstreamReady;/**< The downstream interface's status flag */
 } XHdcp1x_Tx;
 
 /**
  * This typedef contains the receive HDCP interface
  */
 typedef struct {
-	u32 CurrentState;		/**< The interface's current state */
-	u32 PreviousState;		/**< The interface's previous state */
-	u16 Flags;			/**< The interface flags */
-	u16 PendingEvents;		/**< The bit map of pending events */
-	XHdcp1x_RxStats Stats;		/**< The interface's statistics */
+	u32 CurrentState;	/**< The interface's current state */
+	u32 PreviousState;	/**< The interface's previous state */
+	u16 Flags;		/**< The interface flags */
+	u16 PendingEvents;	/**< The bit map of pending events */
+	XHdcp1x_RxStats Stats;	/**< The interface's statistics */
+	XHdcp1x_Callback RepeaterDownstreamAuthCallback;/**< (Repeater)Post
+							  *  authenticate to
+							  *  downstream,
+							  *  second part of
+							  *  authentication
+							  *  start callback */
+	void *RepeaterDownstreamAuthRef;/**< (Repeater)Post authenticate to
+					  *  downstream, second part of
+					  *  authentication start reference */
+	u32 IsRepeaterDownStreamAuthCallbackSet;/**< (Repeater)Is "Post
+						  *  authenticate to
+						  *  downstream to trigger
+						  *  second part of
+						  *  authentication" callback
+						  *  set flag*/
 } XHdcp1x_Rx;
 
 /**
  * This typedef contains an instance of an HDCP interface
  */
 typedef struct {
-	XHdcp1x_Config Config;		/**< The core config */
-	XHdcp1x_Cipher Cipher;		/**< The interface's cipher */
+	XHdcp1x_Config Config;	/**< The core config */
+	XHdcp1x_Cipher Cipher;	/**< The interface's cipher */
 	XHdcp1x_Port Port;	/**< The interface's port */
 	union {
-		XHdcp1x_Tx Tx;		/**< The transmit interface elements */
-		XHdcp1x_Rx Rx;		/**< The receive interface elements */
+		XHdcp1x_Tx Tx;	/**< The transmit interface elements */
+		XHdcp1x_Rx Rx;	/**< The receive interface elements */
 	};
-	u32 IsReady;			/**< The ready flag */
+	u32 IsReady;		/**< The ready flag */
+	u32 IsRepeater;		/**< The IsRepeater flag determines if the
+				  *  HDCP is part of a Repeater system
+				  *  or a standalone interface */
+	XHdcp1x_RepeaterExchange RepeaterValues;/**< The Repeater value to
+						  *  be exchanged between
+						  *  Tx and Rx */
+	void *Hdcp1xRef;		/**< A void reference pointer for
+					  *  association of a external core
+					  *  in our case a timer with the
+					  *  hdcp instance */
 } XHdcp1x;
 
 /**
- * This typedef defines the function interface that is to be used for checking
- * a specific KSV against the platforms revocation list
+ * This typedef defines the function interface that is to be used
+ * for checking a specific KSV against the platforms revocation list
  */
 typedef int (*XHdcp1x_KsvRevokeCheck)(const XHdcp1x *InstancePtr, u64 Ksv);
 
 /**
- * This typedef defines the function interface that is to be used for starting
- * a one shot timer on behalf of an HDCP interface within the underlying
- * platform
+ * This typedef defines the function interface that is to be used
+ * for starting a one shot timer on behalf of an HDCP interface within
+ * the underlying platform
  */
 typedef int (*XHdcp1x_TimerStart)(const XHdcp1x *InstancePtr, u16 TmoInMs);
 
 /**
- * This typedef defines the function interface that is to be used for stopping
- * a timer on behalf of an HDCP interface
+ * This typedef defines the function interface that is to be used
+ * for stopping a timer on behalf of an HDCP interface
  */
 typedef int (*XHdcp1x_TimerStop)(const XHdcp1x *InstancePtr);
 
@@ -241,6 +334,12 @@ int XHdcp1x_SelfTest(XHdcp1x *InstancePtr);
 
 int XHdcp1x_Poll(XHdcp1x *InstancePtr);
 
+int XHdcp1x_DownstreamReady(XHdcp1x *InstancePtr);
+int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
+		XHdcp1x_RepeaterExchange *RepeaterInfoPtr);
+u32 XHdcp1x_SetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
+		XHdcp1x_Callback CallBackFunc, void *CallBackRef);
+
 int XHdcp1x_Reset(XHdcp1x *InstancePtr);
 int XHdcp1x_Enable(XHdcp1x *InstancePtr);
 int XHdcp1x_Disable(XHdcp1x *InstancePtr);
@@ -249,6 +348,7 @@ int XHdcp1x_SetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
 int XHdcp1x_SetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
 
 int XHdcp1x_Authenticate(XHdcp1x *InstancePtr);
+int XHdcp1x_ReadDownstream(XHdcp1x *InstancePtr);
 int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr);
 int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr);
 

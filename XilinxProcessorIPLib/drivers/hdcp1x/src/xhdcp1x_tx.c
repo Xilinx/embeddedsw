@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_tx.c
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This contains the main implementation file for the Xilinx HDCP transmit
@@ -45,6 +45,13 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
+*                       Added enum XHDCP1X_EVENT_READDOWNSTREAM, of
+*                       XHdcp1x_EventType.
+*                       Added new functions:
+*                       XHdcp1x_TxReadDownstream, XHdcp1x_TxSetCallBack,
+*                       XHdcp1x_TxTriggerDownstreamAuth,
+*                       XHdcp1x_TxSetRepeaterInfo.
 * </pre>
 *
 *****************************************************************************/
@@ -80,6 +87,9 @@
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * This enumerates the Event Types for HDCP Transmitter state machine.
+ */
 typedef enum {
 	XHDCP1X_EVENT_NULL,
 	XHDCP1X_EVENT_AUTHENTICATE,
@@ -91,8 +101,12 @@ typedef enum {
 	XHDCP1X_EVENT_PHYUP,
 	XHDCP1X_EVENT_POLL,
 	XHDCP1X_EVENT_TIMEOUT,
+	XHDCP1X_EVENT_READDOWNSTREAM,
 } XHdcp1x_EventType;
 
+/**
+ * This enumerates the Event Types for HDCP Transmitter state machine.
+ */
 typedef enum {
 	XHDCP1X_STATE_DISABLED,
 	XHDCP1X_STATE_DETERMINERXCAPABLE,
@@ -142,6 +156,7 @@ static void XHdcp1x_TxTestForRepeater(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr);
 static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr);
+static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr);
 static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo);
 static void XHdcp1x_TxReadKsvList(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr);
@@ -175,6 +190,7 @@ static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State);
 static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event);
 static void XHdcp1x_TxProcessPending(XHdcp1x *InstancePtr);
 static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State);
+static const char *XHdcp1x_TxEventToString(XHdcp1x_EventType Event);
 
 /************************** Function Definitions *****************************/
 
@@ -386,6 +402,32 @@ int XHdcp1x_TxAuthenticate(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function initiates the transmitter to read READY bit from downstream and
+* complete second part of authentication.
+*
+* @param	InstancePtr is the transmitter instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_TxReadDownstream(XHdcp1x *InstancePtr)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Post the re-authentication request */
+	XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_READDOWNSTREAM);
+
+	return (Status);
+}
+
+/*****************************************************************************/
+/**
 * This function queries an interface to check if authentication is still in
 * progress.
 *
@@ -403,7 +445,7 @@ int XHdcp1x_TxIsInProgress(const XHdcp1x *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Which state? */
+	/* Case-wise process the kind of state called */
 	switch (InstancePtr->Tx.CurrentState) {
 		/* For the "steady" states */
 		case XHDCP1X_STATE_DISABLED:
@@ -440,7 +482,7 @@ int XHdcp1x_TxIsAuthenticated(const XHdcp1x *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Which state? */
+	/* Case-wise process the kind of state called */
 	switch (InstancePtr->Tx.CurrentState) {
 		/* For the authenticated and link integrity check states */
 		case XHDCP1X_STATE_AUTHENTICATED:
@@ -640,6 +682,73 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function installs an asynchronous callback function for the given
+* HandlerType:
+*
+* <pre>
+* HandlerType                               Callback Function Type
+* -----------------------------------       ----------------------------------
+* (XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY)      DownstreamReadyCallback
+* (XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE)     RepeaterExchangeCallback
+* </pre>
+*
+* @param	InstancePtr is a pointer to the HDCP port instance.
+* @param	HandlerType specifies the type of handler.
+* @param	CallbackFunc is the address of the callback function.
+* @param	CallbackRef is a user data item that will be passed to the
+*		callback function when it is invoked.
+*
+* @return
+*		- XST_SUCCESS if callback function installed successfully.
+*		- XST_INVALID_PARAM when HandlerType is invalid.
+*
+* @note		Invoking this function for a handler that already has been
+*		installed replaces it with the new handler.
+*
+******************************************************************************/
+int XHdcp1x_TxSetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
+			XHdcp1x_Callback CallbackFunc, void *CallbackRef)
+{
+	u32 Status = XST_SUCCESS;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(HandlerType >=
+	XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY);
+	Xil_AssertNonvoid(CallbackFunc != NULL);
+	Xil_AssertNonvoid(CallbackRef != NULL);
+
+	/* Check for handler type */
+	switch (HandlerType) {
+		/* Link Failure Callback */
+		case (XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY):
+			InstancePtr->Tx.DownstreamReadyCallback
+				= CallbackFunc;
+			InstancePtr->Tx.DownstreamReadyRef
+				= CallbackRef;
+			InstancePtr->Tx.IsDownStreamReadyCallbackSet
+				= (TRUE);
+			break;
+
+		case (XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE):
+			InstancePtr->Tx.RepeaterExchangeCallback
+				= CallbackFunc;
+			InstancePtr->Tx.RepeaterExchangeRef
+				= CallbackRef;
+			InstancePtr->Tx.IsRepeaterExchangeCallbackSet
+				= (TRUE);
+			break;
+
+		default:
+			Status = (XST_INVALID_PARAM);
+			break;
+	}
+
+	return (Status);
+}
+
+/*****************************************************************************/
+/**
 * This function logs a debug message on behalf of a handler state machine.
 *
 * @param	InstancePtr is the receiver instance.
@@ -761,6 +870,26 @@ static void XHdcp1x_TxReauthenticateCallback(void *Parameter)
 
 	/* Update statistics */
 	InstancePtr->Tx.Stats.ReauthRequested++;
+
+	/* Post the re-authentication request */
+	XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_AUTHENTICATE);
+}
+
+/*****************************************************************************/
+/**
+* This function acts as the downstream authentication trigger callback for a
+* Repeater state machine, to start the second part of authentication.
+*
+* @param	Parameter is the parameter specified during registration.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdcp1x_TxTriggerDownstreamAuth(void *Parameter)
+{
+	XHdcp1x *InstancePtr = Parameter;
 
 	/* Post the re-authentication request */
 	XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_AUTHENTICATE);
@@ -986,8 +1115,8 @@ static u64 XHdcp1x_TxGenerateAn(XHdcp1x *InstancePtr)
 	u64 An = 0;
 
 	/* Attempt to generate An */
-	if (XHdcp1x_CipherDoRequest(InstancePtr, XHDCP1X_CIPHER_REQUEST_RNG) ==
-			XST_SUCCESS) {
+	if (XHdcp1x_CipherDoRequest(InstancePtr,
+		XHDCP1X_CIPHER_REQUEST_RNG) == XST_SUCCESS) {
 		/* Wait until done */
 		while (!XHdcp1x_CipherIsRequestComplete(InstancePtr));
 
@@ -1072,7 +1201,8 @@ static void XHdcp1x_TxExchangeKsvs(XHdcp1x *InstancePtr,
 			XHdcp1x_TxDebugLog(InstancePtr, "Bksv invalid");
 		}
 		/* Check for revoked */
-		else if (XHdcp1x_PlatformIsKsvRevoked(InstancePtr, RemoteKsv)) {
+		else if (XHdcp1x_PlatformIsKsvRevoked(InstancePtr,
+				RemoteKsv)) {
 			XHdcp1x_TxDebugLog(InstancePtr, "Bksv is revoked");
 		}
 		/* Otherwise we're good to go */
@@ -1086,7 +1216,7 @@ static void XHdcp1x_TxExchangeKsvs(XHdcp1x *InstancePtr,
 			}
 			else {
 				InstancePtr->Tx.Flags &=
-							~XVPHY_FLAG_IS_REPEATER;
+						~XVPHY_FLAG_IS_REPEATER;
 			}
 
 			/* Generate theAn */
@@ -1110,7 +1240,8 @@ static void XHdcp1x_TxExchangeKsvs(XHdcp1x *InstancePtr,
 			/* Send AKsv to remote */
 			XHDCP1X_PORT_UINT_TO_BUF(Buf, LocalKsv,
 					XHDCP1X_PORT_SIZE_AKSV * 8);
-			XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AKSV,
+			XHdcp1x_PortWrite(InstancePtr,
+					XHDCP1X_PORT_OFFSET_AKSV,
 					Buf, XHDCP1X_PORT_SIZE_AKSV);
 
 			/* Update NextStatePtr */
@@ -1151,11 +1282,11 @@ static void XHdcp1x_TxStartComputations(XHdcp1x *InstancePtr,
 	Value = InstancePtr->Tx.StateHelper;
 
 	/* Load the cipher B registers with An */
-	X = (u32) (Value & 0x0FFFFFFFul);
+	X = (u32)(Value & 0x0FFFFFFFul);
 	Value >>= 28;
-	Y = (u32) (Value & 0x0FFFFFFFul);
+	Y = (u32)(Value & 0x0FFFFFFFul);
 	Value >>= 28;
-	Z = (u32) (Value & 0x000000FFul);
+	Z = (u32)(Value & 0x000000FFul);
 	if ((InstancePtr->Tx.Flags & XVPHY_FLAG_IS_REPEATER) != 0) {
 		Z |= (1ul << 8);
 	}
@@ -1221,7 +1352,7 @@ static void XHdcp1x_TxValidateRx(XHdcp1x *InstancePtr,
 			u16 LocalRo = 0;
 
 			/* Determine RemoteRo */
-			XHDCP1X_PORT_BUF_TO_UINT(RemoteRo, Buf, 2 * 8);
+			XHDCP1X_PORT_BUF_TO_UINT(RemoteRo, Buf, (2 * 8));
 
 			/* Determine theLLocalRoocalRo */
 			LocalRo = XHdcp1x_CipherGetRo(InstancePtr);
@@ -1348,9 +1479,9 @@ static void XHdcp1x_TxCheckLinkIntegrity(XHdcp1x *InstancePtr,
 * @return	None.
 *
 * @note		The implementation of this function enables encryption when a
-*		repeater is detected downstream. The standard is ambiguous as to
-*		the handling of this specific case by this behaviour is required
-*		in order to pass the Unigraf compliance test suite.
+*		repeater is detected downstream. The standard is ambiguous
+*		as to the handling of this specific case by this behaviour is
+*		required in order to pass the Unigraf compliance test suite.
 *
 ******************************************************************************/
 static void XHdcp1x_TxTestForRepeater(XHdcp1x *InstancePtr,
@@ -1365,8 +1496,8 @@ static void XHdcp1x_TxTestForRepeater(XHdcp1x *InstancePtr,
 
 		/* Clear AINFO */
 		memset(Buf, 0, XHDCP1X_PORT_SIZE_AINFO);
-		XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO, Buf,
-				XHDCP1X_PORT_SIZE_AINFO);
+		XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
+				Buf, XHDCP1X_PORT_SIZE_AINFO);
 
 		/* Update NextStatePtr */
 		*NextStatePtr = XHDCP1X_STATE_WAITFORREADY;
@@ -1465,7 +1596,10 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 {
 	SHA1Context Sha1Context;
 	u8 Buf[24];
+	u8 KsvList[24];
 	int NumToRead = 0;
+	int NumOfKsvsToRead = 0;
+	int KsvCount = 0;
 	int IsValid = FALSE;
 
 	/* Initialize Buf */
@@ -1478,22 +1612,68 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 	IsValid = TRUE;
 
 	/* Determine theNumToRead */
-	NumToRead = ((RepeaterInfo & 0x7Fu)*5);
+	NumToRead = (((RepeaterInfo & 0x7Fu) * 5));
+
+	NumOfKsvsToRead = (NumToRead / 5);
 
 	/* Read the ksv list */
 	do {
+		/* Read 15 bytes at a go */
 		int NumThisTime = XHDCP1X_PORT_SIZE_KSVFIFO;
+		int NumOfKsvsThisTime = 3;
 
 		/* Truncate if necessary */
 		if (NumThisTime > NumToRead) {
 			NumThisTime = NumToRead;
 		}
 
+		if (NumOfKsvsThisTime > NumOfKsvsToRead) {
+			NumOfKsvsThisTime = NumOfKsvsToRead;
+		}
+
 		/* Read the next chunk of the list */
 		if (XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_KSVFIFO,
 				Buf, NumThisTime) > 0) {
+
+			/* Duplicate the buffer */
+			u32 BufReadKsvCount=0;
+			while(BufReadKsvCount < NumThisTime) {
+				KsvList[BufReadKsvCount] = Buf[BufReadKsvCount];
+				BufReadKsvCount++;
+			}
+			while(BufReadKsvCount < 24) {
+				KsvList[BufReadKsvCount] = 0x0;
+				BufReadKsvCount++;
+			}
+
 			/* Update the calculation of V */
 			SHA1Input(&Sha1Context, Buf, NumThisTime);
+
+			/* Update this value in the RepeaterExchange
+			 * structure to be read later by RX
+			 */
+			u64 Value = 0;
+			u32 thisKsv = 0;
+			BufReadKsvCount=0;
+
+			while(thisKsv < NumOfKsvsThisTime) {
+				XHDCP1X_PORT_BUF_TO_UINT(Value ,
+					(KsvList +
+					(thisKsv * XHDCP1X_PORT_SIZE_BKSV)) ,
+					XHDCP1X_PORT_SIZE_BKSV * 8);
+				if (!(Value)) {
+					XHdcp1x_TxDebugLog(InstancePtr ,
+						"Error: Null KSV read "
+						"from downstream KSV List");
+					thisKsv++;
+					continue;
+				}
+			InstancePtr->RepeaterValues.KsvList[KsvCount++] =
+					(Value & 0xFFFFFFFFFFul);
+				Value = 0;
+				BufReadKsvCount++;
+				thisKsv++;
+			}
 		}
 		else {
 			/* Update the statistics */
@@ -1505,8 +1685,32 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 
 		/* Update for loop */
 		NumToRead -= NumThisTime;
+		NumOfKsvsToRead -= NumOfKsvsThisTime;
 	}
 	while ((NumToRead > 0) && (IsValid));
+
+	{
+		u8 Bksv[5];
+
+		/* Add the BKSV of the attached downstream repeater to
+		 * the KSV List */
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BKSV,
+				Bksv, 5);
+
+		u64 RemoteKsv = 0;
+
+		/* Determine theRemoteKsv */
+		XHDCP1X_PORT_BUF_TO_UINT(RemoteKsv, Bksv,
+				XHDCP1X_PORT_SIZE_BKSV * 8);
+
+		/* Check for invalid */
+		if (!XHdcp1x_TxIsKsvValid(RemoteKsv)) {
+			XHdcp1x_TxDebugLog(InstancePtr, "Bksv invalid");
+			return XST_FAILURE;
+		}
+
+		InstancePtr->RepeaterValues.KsvList[KsvCount] = RemoteKsv;
+	}
 
 	/* Check for success */
 	if (IsValid) {
@@ -1544,8 +1748,8 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 				CalcValue |= *Sha1Buf++;
 
 				/* Read the value from the far end */
-				if (XHdcp1x_PortRead(InstancePtr, Offset, Buf,
-						4) > 0) {
+				if (XHdcp1x_PortRead(InstancePtr, Offset,
+						Buf, 4) > 0) {
 					/* Determine ReadValue */
 					XHDCP1X_PORT_BUF_TO_UINT(ReadValue,
 							Buf, 32);
@@ -1576,6 +1780,110 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 	}
 
 	return (IsValid);
+}
+
+/*****************************************************************************/
+/**
+* This function sets the V'H0, V'H1, V'H2, V'H3, V'H4, KSVList and BInfo values
+* in the HDCP TX HDCP Instance for Repeater validation .
+*
+* @param	InstancePtr is the transmitter instance.
+* @param	RepeaterInfoPtr is the Repeater information in the transmitter
+* 		instance.
+*
+* @return
+*		-XST_SUCCESS if successful.
+* 		-XST_FAILURE if unsuccessful.
+*
+* @note		None.
+*
+******************************************************************************/
+static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
+{
+	u8 Bksv[8];
+	u32 KsvCount = 0;
+
+	/* Check for repeater */
+	if (XHdcp1x_PortIsRepeater(InstancePtr)) {
+		u32 Buf;
+		int totalKsvs;
+
+		/* Set the SHA1 Hash value */
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH0,
+				&Buf, XHDCP1X_PORT_SIZE_VH0);
+
+		/* V'H0 */
+		InstancePtr->RepeaterValues.V[0] = (Buf&0xFFFF);
+
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH1,
+					&Buf, XHDCP1X_PORT_SIZE_VH1);
+
+		/* V'H1 */
+		InstancePtr->RepeaterValues.V[1] = (Buf&0xFFFF);
+
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH2,
+					&Buf, XHDCP1X_PORT_SIZE_VH2);
+
+		/* V'H2 */
+		InstancePtr->RepeaterValues.V[2] = (Buf&0xFFFF);
+
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH3,
+					&Buf, XHDCP1X_PORT_SIZE_VH3);
+
+		/* V'H3 */
+		InstancePtr->RepeaterValues.V[3] = (Buf&0xFFFF);
+
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH4,
+					&Buf, XHDCP1X_PORT_SIZE_VH4);
+
+		/* V'H4 */
+		InstancePtr->RepeaterValues.V[4] = (Buf&0xFFFF);
+
+		/* Copy the Depth read from the downstream HDCP device */
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
+				&Buf, XHDCP1X_PORT_SIZE_BINFO);
+		/* BInfo : Device_Count[7:0], Max_device_exceeded[7],
+		 * Depth[10:8], Max_cascade_exceeded[11]
+		 */
+		InstancePtr->RepeaterValues.Depth = ((Buf & 0x0700)>>8);
+
+		/* Copy the device count read from
+		 * the downstream HDCP device */
+		InstancePtr->RepeaterValues.DeviceCount = (Buf & 0x007F);
+
+		/* Assemble the ksv list */
+		totalKsvs = InstancePtr->RepeaterValues.DeviceCount;
+	}/* end of (if (downstream is a Repeater)) */
+	else {
+		/* The downstream is not Repeater and we need to
+		* add the downstream BKSV to the KSV FIFO
+		*/
+
+		/* Write the Depth to the RepeaterValues */
+		InstancePtr->RepeaterValues.Depth = 0;
+
+		/* Write the Device Count to the RepeaterValues */
+		InstancePtr->RepeaterValues.DeviceCount = 0;
+
+		/* Add the BKSV of the attached downstream receiver
+		* to the KSV List */
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BKSV,
+				Bksv, 5);
+
+		u64 RemoteKsv = 0;
+
+		/* Determine theRemoteKsv */
+		XHDCP1X_PORT_BUF_TO_UINT(RemoteKsv, Bksv,
+				XHDCP1X_PORT_SIZE_BKSV * 8);
+
+		/* Check for invalid */
+		if (!XHdcp1x_TxIsKsvValid(RemoteKsv)) {
+			XHdcp1x_TxDebugLog(InstancePtr, "Bksv invalid");
+			return XST_FAILURE;
+		}
+
+		InstancePtr->RepeaterValues.KsvList[KsvCount++] = RemoteKsv;
+	}/* end of (else (downstream is a Repeater)) */
 }
 
 /*****************************************************************************/
@@ -1616,6 +1924,34 @@ static void XHdcp1x_TxReadKsvList(XHdcp1x *InstancePtr,
 		/* Log */
 		XHdcp1x_TxDebugLog(InstancePtr, "ksv list validated");
 
+		/* Set the Repeater information to be
+		* passes to HDCP RX setup */
+		XHdcp1x_TxSetRepeaterInfo(InstancePtr);
+
+		/* Set the downstream ready variable to 1, as Tx is now
+		* authenticated and call back the RX
+		*/
+		InstancePtr->Tx.DownstreamReady = 1;
+
+		if (InstancePtr->IsRepeater) {
+			/* Exchange/Pass Repeater values to the Rx side of
+			 * the Repeater */
+			if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet) {
+				if (InstancePtr->Tx.RepeaterExchangeCallback
+								!= NULL) {
+				InstancePtr->Tx.RepeaterExchangeCallback
+					(InstancePtr->Tx.RepeaterExchangeRef);
+				}
+				else {
+					XHdcp1x_TxDebugLog(InstancePtr,
+						"Warning: Repeater Values"
+						"not exchanged with"
+						"Upstream, CallBack not"
+						"Initialized !!!");
+				}
+			}
+		}
+
 		/* Update NextStatePtr */
 		*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
 	}
@@ -1644,7 +1980,7 @@ static void XHdcp1x_TxReadKsvList(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunDisabledState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For enable */
 		case XHDCP1X_EVENT_ENABLE:
@@ -1688,7 +2024,7 @@ static void XHdcp1x_TxRunDisabledState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunDetermineRxCapableState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For disable */
 		case XHDCP1X_EVENT_DISABLE:
@@ -1723,7 +2059,7 @@ static void XHdcp1x_TxRunDetermineRxCapableState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunExchangeKsvsState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For disable */
 		case XHDCP1X_EVENT_DISABLE:
@@ -1758,7 +2094,7 @@ static void XHdcp1x_TxRunExchangeKsvsState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunComputationsState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -1804,7 +2140,7 @@ static void XHdcp1x_TxRunComputationsState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunValidateRxState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -1850,7 +2186,7 @@ static void XHdcp1x_TxRunValidateRxState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunAuthenticatedState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -1896,7 +2232,7 @@ static void XHdcp1x_TxRunAuthenticatedState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunLinkIntegrityCheckState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -1915,7 +2251,8 @@ static void XHdcp1x_TxRunLinkIntegrityCheckState(XHdcp1x *InstancePtr,
 
 		/* For poll */
 		case XHDCP1X_EVENT_POLL:
-			XHdcp1x_TxCheckLinkIntegrity(InstancePtr, NextStatePtr);
+			XHdcp1x_TxCheckLinkIntegrity(InstancePtr,
+						NextStatePtr);
 			break;
 
 		/* Otherwise */
@@ -1942,7 +2279,7 @@ static void XHdcp1x_TxRunLinkIntegrityCheckState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunTestForRepeaterState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -1987,7 +2324,7 @@ static void XHdcp1x_TxRunTestForRepeaterState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunWaitForReadyState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -2006,8 +2343,17 @@ static void XHdcp1x_TxRunWaitForReadyState(XHdcp1x *InstancePtr,
 
 		/* For poll */
 		case XHDCP1X_EVENT_POLL:
+			/* Attempt to read the repeater info */
 			XHdcp1x_TxPollForWaitForReady(InstancePtr,
-					NextStatePtr);
+				NextStatePtr);
+			break;
+
+		/* For reading the READY bit in BStatus register of the
+		 * attached downstream device
+		 */
+		case XHDCP1X_EVENT_READDOWNSTREAM:
+			XHdcp1x_TxPollForWaitForReady(InstancePtr,
+				NextStatePtr);
 			break;
 
 		/* For timeout */
@@ -2044,7 +2390,7 @@ static void XHdcp1x_TxRunWaitForReadyState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunReadKsvListState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -2084,7 +2430,7 @@ static void XHdcp1x_TxRunReadKsvListState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunUnauthenticatedState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
@@ -2126,7 +2472,7 @@ static void XHdcp1x_TxRunUnauthenticatedState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunPhysicalLayerDownState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which event? */
+	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For disable */
 		case XHDCP1X_EVENT_DISABLE:
@@ -2165,7 +2511,7 @@ static void XHdcp1x_TxRunPhysicalLayerDownState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		XHdcp1x_StateType *NextStatePtr)
 {
-	/* Which state? */
+	/* Case-wise process the kind of state called */
 	switch (State) {
 		/* For the disabled state */
 		case XHDCP1X_STATE_DISABLED:
@@ -2188,7 +2534,8 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 
 		/* For the computations state */
 		case XHDCP1X_STATE_COMPUTATIONS:
-			XHdcp1x_TxStartComputations(InstancePtr, NextStatePtr);
+			XHdcp1x_TxStartComputations(InstancePtr,
+						NextStatePtr);
 			break;
 
 		/* For the validate rx state */
@@ -2212,6 +2559,13 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		/* For the authenticated state */
 		case XHDCP1X_STATE_AUTHENTICATED:
 			InstancePtr->Tx.StateHelper = 0;
+			if ( !(XHdcp1x_PortIsRepeater(InstancePtr)) ) {
+				XHdcp1x_TxSetRepeaterInfo(InstancePtr);
+			if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet) {
+				InstancePtr->Tx.RepeaterExchangeCallback(
+					InstancePtr->Tx.RepeaterExchangeRef);
+			}
+			}
 			XHdcp1x_TxEnableEncryptionState(InstancePtr);
 			if (InstancePtr->Tx.PreviousState !=
 					XHDCP1X_STATE_LINKINTEGRITYCHECK) {
@@ -2224,7 +2578,8 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 
 		/* For the link integrity check state */
 		case XHDCP1X_STATE_LINKINTEGRITYCHECK:
-			XHdcp1x_TxCheckLinkIntegrity(InstancePtr, NextStatePtr);
+			XHdcp1x_TxCheckLinkIntegrity(InstancePtr,
+						NextStatePtr);
 			break;
 
 		/* For the unauthenticated state */
@@ -2262,7 +2617,7 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 ******************************************************************************/
 static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State)
 {
-	/* Which state? */
+	/* Case-wise process the kind of state called */
 	switch (State) {
 		/* For the disabled state */
 		case XHDCP1X_STATE_DISABLED:
@@ -2317,78 +2672,78 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 {
 	XHdcp1x_StateType NextState = InstancePtr->Tx.CurrentState;
 
-	/* Which state? */
+	/* Case-wise process the kind of state called */
 	switch (InstancePtr->Tx.CurrentState) {
 		/* For the disabled state */
 		case XHDCP1X_STATE_DISABLED:
 			XHdcp1x_TxRunDisabledState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For determine rx capable state */
 		case XHDCP1X_STATE_DETERMINERXCAPABLE:
-			XHdcp1x_TxRunDetermineRxCapableState(InstancePtr, Event,
-								&NextState);
+			XHdcp1x_TxRunDetermineRxCapableState(InstancePtr,
+				Event, &NextState);
 			break;
 
 		/* For exchange ksvs state */
 		case XHDCP1X_STATE_EXCHANGEKSVS:
 			XHdcp1x_TxRunExchangeKsvsState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For the computations state */
 		case XHDCP1X_STATE_COMPUTATIONS:
 			XHdcp1x_TxRunComputationsState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For the validate rx state */
 		case XHDCP1X_STATE_VALIDATERX:
 			XHdcp1x_TxRunValidateRxState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For the authenticated state */
 		case XHDCP1X_STATE_AUTHENTICATED:
 			XHdcp1x_TxRunAuthenticatedState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For the link integrity check state */
 		case XHDCP1X_STATE_LINKINTEGRITYCHECK:
-			XHdcp1x_TxRunLinkIntegrityCheckState(InstancePtr, Event,
-								&NextState);
+			XHdcp1x_TxRunLinkIntegrityCheckState(InstancePtr,
+				Event, &NextState);
 			break;
 
 		/* For the test for repeater state */
 		case XHDCP1X_STATE_TESTFORREPEATER:
 			XHdcp1x_TxRunTestForRepeaterState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For the wait for ready state */
 		case XHDCP1X_STATE_WAITFORREADY:
 			XHdcp1x_TxRunWaitForReadyState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For the reads ksv list state */
 		case XHDCP1X_STATE_READKSVLIST:
 			XHdcp1x_TxRunReadKsvListState(InstancePtr, Event,
-								&NextState);
+				&NextState);
 			break;
 
 		/* For the unauthenticated state */
 		case XHDCP1X_STATE_UNAUTHENTICATED:
-			XHdcp1x_TxRunUnauthenticatedState(InstancePtr, Event,
-								&NextState);
+			XHdcp1x_TxRunUnauthenticatedState(InstancePtr,
+				Event, &NextState);
 			break;
 
 		/* For the physical layer down state */
 		case XHDCP1X_STATE_PHYDOWN:
-			XHdcp1x_TxRunPhysicalLayerDownState(InstancePtr, Event,
-								&NextState);
+			XHdcp1x_TxRunPhysicalLayerDownState(InstancePtr,
+				Event, &NextState);
 			break;
 
 		/* Otherwise */
@@ -2399,11 +2754,12 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 	/* Check for state change */
 	while (InstancePtr->Tx.CurrentState != NextState) {
 		/* Perform the state transition */
-		XHdcp1x_TxExitState(InstancePtr, InstancePtr->Tx.CurrentState);
+		XHdcp1x_TxExitState(InstancePtr,
+				InstancePtr->Tx.CurrentState);
 		InstancePtr->Tx.PreviousState = InstancePtr->Tx.CurrentState;
 		InstancePtr->Tx.CurrentState = NextState;
 		XHdcp1x_TxEnterState(InstancePtr, InstancePtr->Tx.CurrentState,
-								&NextState);
+				&NextState);
 	}
 }
 
@@ -2458,7 +2814,7 @@ static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State)
 {
 	const char *String = NULL;
 
-	/* Which state? */
+	/* Case-wise process the kind of state called */
 	switch (State) {
 		case XHDCP1X_STATE_DISABLED:
 			String = "disabled";
@@ -2509,7 +2865,76 @@ static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State)
 			break;
 
 		default:
-			String = "???";
+			String = "unknown?";
+			break;
+	}
+
+	return (String);
+}
+
+/*****************************************************************************/
+/**
+* This function converts from a state to a display string.
+*
+* @param	State is the state to convert.
+*
+* @return	The corresponding display string.
+*
+* @note		None.
+*
+******************************************************************************/
+static const char *XHdcp1x_TxEventToString(XHdcp1x_EventType Event)
+{
+	const char *String = NULL;
+
+	/* Case-wise process the kind of event called */
+	switch (Event) {
+		case 	XHDCP1X_EVENT_NULL:
+			String = "null";
+			break;
+
+		case 	XHDCP1X_EVENT_AUTHENTICATE:
+			String = "authenticate";
+			break;
+
+		case	XHDCP1X_EVENT_CHECK:
+			String = "check";
+			break;
+
+		case	XHDCP1X_EVENT_DISABLE:
+			String = "disable";
+			break;
+
+		case	XHDCP1X_EVENT_ENABLE:
+			String = "enable";
+			break;
+
+		case	XHDCP1X_EVENT_LINKDOWN:
+			String = "link-down";
+			break;
+
+		case	XHDCP1X_EVENT_PHYDOWN:
+			String = "phy-down";
+			break;
+
+		case	XHDCP1X_EVENT_PHYUP:
+			String = "phy-up";
+			break;
+
+		case	XHDCP1X_EVENT_POLL:
+			String = "poll";
+			break;
+
+		case	XHDCP1X_EVENT_TIMEOUT:
+			String = "timeout";
+			break;
+
+		case	XHDCP1X_EVENT_READDOWNSTREAM:
+			String = "read-downstream";
+			break;
+
+		default:
+			String = "unknown?";
 			break;
 	}
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_rx.h
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This file provides the interface of the HDCP RX state machine
@@ -44,6 +44,11 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
+*                       Added functions:
+*                       XHdcp1x_RxDownstreamReady, XHdcp1x_RxGetRepeaterInfo,
+*                       XHdcp1x_RxDownstreamReadyCallback,
+*                       XHdcp1x_RxSetCallBack.
 * </pre>
 *
 ******************************************************************************/
@@ -72,22 +77,22 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void XHdcp1x_RxInit(XHdcp1x *InstancePtr);
-
 int XHdcp1x_RxPoll(XHdcp1x *InstancePtr);
-
 int XHdcp1x_RxReset(XHdcp1x *InstancePtr);
 int XHdcp1x_RxEnable(XHdcp1x *InstancePtr);
 int XHdcp1x_RxDisable(XHdcp1x *InstancePtr);
-
 int XHdcp1x_RxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
 int XHdcp1x_RxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
-
+int XHdcp1x_RxDownstreamReady(XHdcp1x *InstancePtr);
 int XHdcp1x_RxAuthenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_RxIsAuthenticated(const XHdcp1x *InstancePtr);
-
 u64 XHdcp1x_RxGetEncryption(const XHdcp1x *InstancePtr);
-
 int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr);
+int XHdcp1x_RxGetRepeaterInfo(XHdcp1x *InstancePtr,
+		XHdcp1x_RepeaterExchange *RepeaterInfoPtr);
+void XHdcp1x_RxDownstreamReadyCallback(void *Parameter);
+u32 XHdcp1x_RxSetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
+        XHdcp1x_Callback CallbackFunc, void *CallbackRef);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_tx.h
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This file provides the interface of the HDCP TX state machine
@@ -44,6 +44,10 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
+*                       Added the following functions:
+*                       XHdcp1x_TxReadDownstream, XHdcp1x_TxSetCallBack,
+*                       XHdcp1x_TxTriggerDownstreamAuth.
 * </pre>
 *
 ******************************************************************************/
@@ -72,27 +76,24 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void XHdcp1x_TxInit(XHdcp1x *InstancePtr);
-
 int XHdcp1x_TxPoll(XHdcp1x *InstancePtr);
-
 int XHdcp1x_TxReset(XHdcp1x *InstancePtr);
 int XHdcp1x_TxEnable(XHdcp1x *InstancePtr);
 int XHdcp1x_TxDisable(XHdcp1x *InstancePtr);
-
 u64 XHdcp1x_TxGetEncryption(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
-
 int XHdcp1x_TxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
 int XHdcp1x_TxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
-
 int XHdcp1x_TxAuthenticate(XHdcp1x *InstancePtr);
+int XHdcp1x_TxReadDownstream(XHdcp1x *InstancePtr);
 int XHdcp1x_TxIsInProgress(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxIsAuthenticated(const XHdcp1x *InstancePtr);
-
 void XHdcp1x_TxHandleTimeout(XHdcp1x *InstancePtr);
-
 int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr);
+int XHdcp1x_TxSetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
+        XHdcp1x_Callback CallbackFunc, void *CallbackRef);
+void XHdcp1x_TxTriggerDownstreamAuth(void *Parameter);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_port_hdmi_rx.c
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This contains the implementation of the HDCP port driver for HDMI RX
@@ -45,6 +45,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortHdmiRxEnable to
+*                       support HDCP Repeater functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -112,12 +114,15 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 	memset(Buf, 0, 4);
 	Buf[1] |= (XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE >> 8);
 	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-									Buf, 2);
+			Buf, 2);
 
 	/* Initialize the Bcaps register */
 	memset(Buf, 0, 4);
 	Buf[0] |= XHDCP1X_PORT_BIT_BCAPS_HDMI;
 	Buf[0] |= XHDCP1X_PORT_BIT_BCAPS_FAST_REAUTH;
+	if(InstancePtr->IsRepeater) {
+		Buf[0] |= XHDCP1X_PORT_BIT_BCAPS_REPEATER;
+	}
 	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS, Buf, 1);
 
 	/* Initialize some debug registers */
@@ -125,7 +130,8 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 	Buf[1] = 0xAD;
 	Buf[2] = 0xBE;
 	Buf[3] = 0xEF;
-	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_DBG, Buf, 4);
+	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_DBG,
+			Buf, 4);
 
 	/* Bind for interrupt callback */
 	XV_HdmiRx_SetCallback(HdmiRx, XV_HDMIRX_HANDLER_HDCP,

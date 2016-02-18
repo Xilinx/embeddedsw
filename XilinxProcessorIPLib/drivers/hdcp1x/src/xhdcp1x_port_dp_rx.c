@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_port_dp_rx.c
-* @addtogroup hdcp1x_v2_0
+* @addtogroup hdcp1x_v3_0
 * @{
 *
 * This contains the implementation of the HDCP port driver for Xilinx DP
@@ -45,6 +45,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortDpRxEnable support
+*                       HDCP Repeater functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -56,6 +58,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x_port.h"
+#include "xhdcp1x_cipher.h"
 #include "xhdcp1x_port_dp.h"
 #include "xdp.h"
 #include "xdp_hw.h"
@@ -113,14 +116,27 @@ static int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
 	memset(Buf, 0, 4);
 
 	/* Initialize Bstatus register */
-	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS, Buf, 1);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+			Buf, 1);
 
 	/* Initialize Binfo register */
-	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO, Buf, 2);
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
+			Buf, 2);
 
 	/* Initialize Bcaps register */
 	Buf[0] |= XHDCP1X_PORT_BIT_BCAPS_HDCP_CAPABLE;
+
+	/* Checking for Repeater flag */
+	if (InstancePtr->IsRepeater) {
+		Buf[0] |= XHDCP1X_PORT_BIT_BCAPS_REPEATER;
+	}
+
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS, Buf, 1);
+
+	/* Update the Bz register to set the REPATER bit in the cipher*/
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_CIPHER_Bz,
+			HDCP1X_CIPHER_BIT_REPEATER_ENABLE);
 
 	/* Initialize some debug registers */
 	Buf[0] = 0xDE;
